@@ -1,0 +1,358 @@
+[NbConvertApp] Converting notebook research/benchmark_anchor_utility_20261002/benchmark_anchor_utility_20261002.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/__main__.py", line 5, in <module>
+    main()
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/jupyter_core/application.py", line 284, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/traitlets/config/application.py", line 1080, in launch_instance
+    app.start()
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 420, in start
+    self.convert_notebooks()
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 597, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 487, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 201, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 220, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 154, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 353, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 103, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 124, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from src.workflow.benchmark_anchor_utility import run_experiment
+summary = run_experiment(ROOT, CARD)
+print(json.dumps({k: summary[k] for k in ['recorder_id', 'selected', 'historical_qualification_pass', 'objective_achieved']}, ensure_ascii=False, indent=2))
+------------------
+
+----- stderr -----
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,695) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,696) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,696) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/data/qlib/published_futu_affine_20260925_v1')}
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,722) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,723) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,723) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/data/qlib/published_futu_affine_20260925_v1')}
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,802) WARNING - qlib.workflow - [expm.py:231] - No valid experiment found. Create a new experiment with name benchmark_anchor_utility_20261002.
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,804) INFO - qlib.workflow - [exp.py:258] - Experiment 739185096068764456 starts running ...
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,854) INFO - qlib.workflow - [recorder.py:345] - Recorder 57c3446d79b74e87b9ec7be9a1f7a859 starts running under Experiment 739185096068764456 ...
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,922) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,923) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+----- stderr -----
+[96663:MainThread](2026-10-02 23:54:59,923) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+----- stderr -----
+[96663:MainThread](2026-10-02 23:55:00,146) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+----- stderr -----
+[96663:MainThread](2026-10-02 23:55:00,146) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+----- stderr -----
+[96663:MainThread](2026-10-02 23:55:00,146) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+----- stderr -----
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+----- stdout -----
+Anchor utility constant year=2016 seed=71 epoch=105 J=4.0101578e-05 seconds=5.5
+----- stdout -----
+Anchor utility constant year=2016 seed=17 epoch=105 J=4.0101578e-05 seconds=5.5
+----- stdout -----
+Anchor utility constant year=2016 seed=41 epoch=105 J=4.0101578e-05 seconds=5.6
+----- stdout -----
+Anchor utility price year=2016 seed=17 epoch=82 J=0.0090579308 seconds=5.2
+----- stdout -----
+Anchor utility price year=2016 seed=71 epoch=71 J=0.0082249847 seconds=5.2
+----- stdout -----
+Anchor utility price year=2016 seed=41 epoch=73 J=0.0075646785 seconds=5.3
+----- stdout -----
+Anchor utility price_vol year=2016 seed=17 epoch=76 J=0.0097688997 seconds=5.2
+----- stdout -----
+Anchor utility price_vol year=2016 seed=41 epoch=70 J=0.0090511378 seconds=5.2
+----- stdout -----
+Anchor utility price_vol year=2016 seed=71 epoch=74 J=0.0097288808 seconds=5.3
+----- stdout -----
+Anchor utility constant year=2017 seed=17 epoch=116 J=1.4133343e-05 seconds=5.4
+----- stdout -----
+Anchor utility constant year=2017 seed=41 epoch=116 J=1.4133343e-05 seconds=5.4
+----- stdout -----
+Anchor utility constant year=2017 seed=71 epoch=116 J=1.4133343e-05 seconds=5.4
+----- stdout -----
+Anchor utility price year=2017 seed=17 epoch=120 J=0.016023826 seconds=5.4
+----- stdout -----
+Anchor utility price year=2017 seed=41 epoch=120 J=0.010483153 seconds=5.4
+----- stdout -----
+Anchor utility price year=2017 seed=71 epoch=120 J=0.012471086 seconds=5.4
+----- stdout -----
+Anchor utility price_vol year=2017 seed=17 epoch=120 J=0.020007126 seconds=5.3
+----- stdout -----
+Anchor utility price_vol year=2017 seed=41 epoch=120 J=0.013142949 seconds=5.4
+----- stdout -----
+Anchor utility price_vol year=2017 seed=71 epoch=120 J=0.015098089 seconds=5.3
+----- stdout -----
+Anchor utility constant year=2018 seed=17 epoch=118 J=1.0104639e-05 seconds=5.6
+----- stdout -----
+Anchor utility constant year=2018 seed=41 epoch=118 J=1.0104639e-05 seconds=5.5
+----- stdout -----
+Anchor utility constant year=2018 seed=71 epoch=118 J=1.0104639e-05 seconds=5.6
+----- stdout -----
+Anchor utility price year=2018 seed=17 epoch=120 J=0.015184475 seconds=5.6
+----- stdout -----
+Anchor utility price year=2018 seed=41 epoch=120 J=0.012690968 seconds=5.6
+----- stdout -----
+Anchor utility price year=2018 seed=71 epoch=120 J=0.01354873 seconds=5.6
+----- stdout -----
+Anchor utility price_vol year=2018 seed=17 epoch=120 J=0.017789595 seconds=5.6
+----- stdout -----
+Anchor utility price_vol year=2018 seed=41 epoch=120 J=0.016925133 seconds=5.6
+----- stdout -----
+Anchor utility price_vol year=2018 seed=71 epoch=120 J=0.016981764 seconds=5.6
+----- stdout -----
+Anchor utility constant year=2019 seed=17 epoch=116 J=7.6683319e-06 seconds=5.6
+----- stdout -----
+Anchor utility constant year=2019 seed=41 epoch=116 J=7.6683319e-06 seconds=5.8
+----- stdout -----
+Anchor utility constant year=2019 seed=71 epoch=116 J=7.6683319e-06 seconds=5.7
+----- stdout -----
+Anchor utility price year=2019 seed=17 epoch=120 J=0.01062424 seconds=5.8
+----- stdout -----
+Anchor utility price year=2019 seed=41 epoch=76 J=0.007278603 seconds=5.7
+----- stdout -----
+Anchor utility price year=2019 seed=71 epoch=120 J=0.008475102 seconds=5.8
+----- stdout -----
+Anchor utility price_vol year=2019 seed=17 epoch=120 J=0.013588995 seconds=5.8
+----- stdout -----
+Anchor utility price_vol year=2019 seed=41 epoch=82 J=0.0091891353 seconds=5.8
+----- stdout -----
+Anchor utility price_vol year=2019 seed=71 epoch=120 J=0.01112751 seconds=5.8
+----- stdout -----
+Anchor utility constant year=2020 seed=17 epoch=118 J=2.529153e-05 seconds=5.9
+----- stdout -----
+Anchor utility constant year=2020 seed=41 epoch=118 J=2.529153e-05 seconds=5.9
+----- stdout -----
+Anchor utility constant year=2020 seed=71 epoch=118 J=2.529153e-05 seconds=5.9
+----- stdout -----
+Anchor utility price year=2020 seed=17 epoch=120 J=0.01292084 seconds=6.0
+----- stdout -----
+Anchor utility price year=2020 seed=41 epoch=120 J=0.010558727 seconds=6.0
+----- stdout -----
+Anchor utility price year=2020 seed=71 epoch=120 J=0.012739386 seconds=6.0
+----- stdout -----
+Anchor utility price_vol year=2020 seed=17 epoch=120 J=0.016983317 seconds=5.9
+----- stdout -----
+Anchor utility price_vol year=2020 seed=41 epoch=120 J=0.015320003 seconds=5.9
+----- stdout -----
+Anchor utility price_vol year=2020 seed=71 epoch=120 J=0.017323257 seconds=5.9
+----- stdout -----
+Anchor utility constant year=2021 seed=17 epoch=119 J=1.6161493e-05 seconds=6.0
+----- stdout -----
+Anchor utility constant year=2021 seed=41 epoch=119 J=1.6161493e-05 seconds=6.0
+----- stdout -----
+Anchor utility constant year=2021 seed=71 epoch=119 J=1.6161493e-05 seconds=6.0
+----- stdout -----
+Anchor utility price year=2021 seed=17 epoch=120 J=0.012703402 seconds=6.2
+----- stdout -----
+Anchor utility price year=2021 seed=41 epoch=97 J=0.0091384208 seconds=6.2
+----- stdout -----
+Anchor utility price year=2021 seed=71 epoch=118 J=0.011645422 seconds=6.2
+----- stdout -----
+Anchor utility price_vol year=2021 seed=17 epoch=120 J=0.014885886 seconds=6.2
+----- stdout -----
+Anchor utility price_vol year=2021 seed=41 epoch=120 J=0.012079017 seconds=6.2
+----- stdout -----
+Anchor utility price_vol year=2021 seed=71 epoch=120 J=0.015846653 seconds=6.2
+----- stdout -----
+Anchor utility constant year=2022 seed=17 epoch=119 J=1.5581793e-05 seconds=6.1
+----- stdout -----
+Anchor utility constant year=2022 seed=41 epoch=119 J=1.5581793e-05 seconds=6.2
+----- stdout -----
+Anchor utility constant year=2022 seed=71 epoch=119 J=1.5581793e-05 seconds=6.1
+----- stdout -----
+Anchor utility price year=2022 seed=17 epoch=120 J=0.016562885 seconds=6.5
+----- stdout -----
+Anchor utility price year=2022 seed=41 epoch=108 J=0.0099248169 seconds=6.5
+----- stdout -----
+Anchor utility price year=2022 seed=71 epoch=120 J=0.014636542 seconds=6.5
+----- stdout -----
+Anchor utility price_vol year=2022 seed=17 epoch=120 J=0.019273137 seconds=6.5
+----- stdout -----
+Anchor utility price_vol year=2022 seed=41 epoch=120 J=0.012803401 seconds=6.6
+----- stdout -----
+Anchor utility price_vol year=2022 seed=71 epoch=120 J=0.016852461 seconds=6.5
+----- stdout -----
+Anchor utility development sealed: {'variant': 'price', 'historical_qualification_pass': False, 'passed_gates': 14, 'worst_annualized_lower_bound': -0.10578619308807638, 'worst_relative_wealth': 1.0894285944933522, 'positive_years_10bps': 6}
+----- stderr -----
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+----- stdout -----
+Anchor utility price year=2023 seed=71 epoch=110 J=0.0085095557 seconds=7.0
+----- stdout -----
+Anchor utility price year=2023 seed=17 epoch=105 J=0.0091941413 seconds=7.0
+----- stdout -----
+Anchor utility price year=2023 seed=41 epoch=114 J=0.0099550942 seconds=7.1
+----- stdout -----
+Anchor utility price year=2024 seed=17 epoch=107 J=0.0069988301 seconds=6.8
+----- stdout -----
+Anchor utility price year=2024 seed=41 epoch=116 J=0.0073996056 seconds=6.8
+----- stdout -----
+Anchor utility price year=2024 seed=71 epoch=120 J=0.0066243329 seconds=6.7
+----- stdout -----
+Anchor utility price year=2025 seed=17 epoch=120 J=0.0056765169 seconds=7.0
+----- stdout -----
+Anchor utility price year=2025 seed=41 epoch=120 J=0.0065938612 seconds=7.0
+----- stdout -----
+Anchor utility price year=2025 seed=71 epoch=120 J=0.0049593033 seconds=7.0
+----- stdout -----
+Anchor utility price year=2026 seed=17 epoch=116 J=0.0085351672 seconds=7.1
+----- stdout -----
+Anchor utility price year=2026 seed=41 epoch=120 J=0.0094411977 seconds=7.2
+----- stdout -----
+Anchor utility price year=2026 seed=71 epoch=120 J=0.0077509115 seconds=7.2
+----- stderr -----
+[96663:MainThread](2026-10-02 23:57:55,321) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[96663:MainThread](2026-10-02 23:57:55,322) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | waiting `async_log` Done
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mRecorderInitializationError[39m               Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 2[39m
+[32m      1[39m [38;5;28;01mfrom[39;00m src.workflow.benchmark_anchor_utility [38;5;28;01mimport[39;00m run_experiment
+[32m----> [39m[32m2[39m summary = run_experiment(ROOT, CARD)
+[32m      3[39m print(json.dumps({k: summary[k] [38;5;28;01mfor[39;00m k [38;5;28;01min[39;00m [[33m'recorder_id'[39m, [33m'selected'[39m, [33m'historical_qualification_pass'[39m, [33m'objective_achieved'[39m]}, ensure_ascii=[38;5;28;01mFalse[39;00m, indent=[32m2[39m))
+
+[36mFile [39m[32m~/dev/workspace-worktrees/benchmark-anchor-utility-20261002/src/workflow/benchmark_anchor_utility.py:310[39m, in [36mrun_experiment[39m[34m(root, card, workers)[39m
+[32m    307[39m             fresh_ref=benchmark_path(frame.loc[mask.to_numpy()],cost_bps=cost)
+[32m    308[39m             windows.append({[33m'[39m[33mvariant[39m[33m'[39m:name,[33m'[39m[33mcost_bps[39m[33m'[39m:cost,[33m'[39m[33mwindow[39m[33m'[39m:[33m'[39m[33m2026-08-03 onward[39m[33m'[39m,[33m'[39m[33mstart_position[39m[33m'[39m:[33m'[39m[33mCASH at first window trade[39m[33m'[39m,
+[32m    309[39m                 **paired_metrics(fresh,fresh_ref)})
+[32m--> [39m[32m310[39m native={c:[30;43mnative_allocation_reconciliation[39;49m[30;43m([39;49m[30;43mdevelopment[39;49m[30;43m.[39;49m[30;43mreset_index[39;49m[30;43m([39;49m[30;43mdrop[39;49m[30;43m=[39;49m[30;43;01mTrue[39;49;00m[30;43m)[39;49m[30;43m,[39;49m[30;43mpaths[39;49m[30;43m[[39;49m[30;43m([39;49m[30;43mchosen[39;49m[30;43m,[39;49m[30;43mc[39;49m[30;43m)[39;49m[30;43m][39;49m[30;43m,[39;49m
+[32m    311[39m [30;43m    [39;49m[30;43mprovider_uri[39;49m[30;43m=[39;49m[30;43mroot[39;49m[30;43m/[39;49m[30;43msource[39;49m[30;43m[[39;49m[30;43m'[39;49m[30;43mprovider_uri[39;49m[30;43m'[39;49m[30;43m][39;49m[30;43m,[39;49m[30;43mcost_bps[39;49m[30;43m=[39;49m[30;43mc[39;49m[30;43m,[39;49m[30;43mnative_reconciler[39;49m[30;43m=[39;49m[30;43mprecise_native[39;49m[30;43m)[39;49m [38;5;28;01mfor[39;00m c [38;5;129;01min[39;00m costs}
+[32m    312[39m [38;5;28;01mfor[39;00m cost [38;5;129;01min[39;00m costs:
+[32m    313[39m     replays.append(benchmarks[cost].assign(variant=[33m'[39m[33mSOXX_buy_hold[39m[33m'[39m,seed=[33m'[39m[33mbenchmark[39m[33m'[39m,segment=[33m'[39m[33mdevelopment[39m[33m'[39m))
+
+[36mFile [39m[32m~/dev/workspace-worktrees/benchmark-anchor-utility-20261002/src/analysis/integrated_allocation.py:354[39m, in [36mnative_allocation_reconciliation[39m[34m(frame, replay, provider_uri, cost_bps, account, native_reconciler)[39m
+[32m    352[39m schedule.loc[:, [[33mf[39m[33m"[39m[33mopen_[39m[38;5;132;01m{[39;00masset[38;5;132;01m}[39;00m[33m_weight[39m[33m"[39m [38;5;28;01mfor[39;00m asset [38;5;129;01min[39;00m ASSETS]] = weights
+[32m    353[39m reconcile = native_open_reconciliation [38;5;28;01mif[39;00m native_reconciler [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;28;01melse[39;00m native_reconciler
+[32m--> [39m[32m354[39m native = [30;43mreconcile[39;49m[30;43m([39;49m[30;43mmarket[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mschedule[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mprovider_uri[39;49m[30;43m=[39;49m[30;43mprovider_uri[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mcost_bps[39;49m[30;43m=[39;49m[30;43mcost_bps[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43maccount[39;49m[30;43m=[39;49m[30;43maccount[39;49m[30;43m)[39;49m
+[32m    355[39m close_net = native[[33m"[39m[33mreport[39m[33m"[39m][[33m"[39m[33mreturn[39m[33m"[39m] - native[[33m"[39m[33mreport[39m[33m"[39m][[33m"[39m[33mcost[39m[33m"[39m]
+[32m    356[39m open_net = native[[33m"[39m[33mreconciliation[39m[33m"[39m][[33m"[39m[33mnative_next_open_return[39m[33m"[39m]
+
+[36mFile [39m[32m~/dev/workspace-worktrees/benchmark-anchor-utility-20261002/src/analysis/convex_qlib.py:45[39m, in [36mnative_open_reconciliation[39m[34m(frame, replay, provider_uri, cost_bps, account)[39m
+[32m     43[39m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m provider.is_dir():
+[32m     44[39m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([33m"[39m[33mblocked: continuous Qlib provider unavailable[39m[33m"[39m)
+[32m---> [39m[32m45[39m [30;43mqlib[39;49m[30;43m.[39;49m[30;43minit[39;49m[30;43m([39;49m[30;43mprovider_uri[39;49m[30;43m=[39;49m[30;43mstr[39;49m[30;43m([39;49m[30;43mprovider[39;49m[30;43m)[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mregion[39;49m[30;43m=[39;49m[30;43m"[39;49m[30;43mus[39;49m[30;43m"[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mkernels[39;49m[30;43m=[39;49m[30;43m1[39;49m[30;43m)[39;49m
+[32m     46[39m symbols = ([33m"[39m[33mSOXL[39m[33m"[39m, [33m"[39m[33mSOXX[39m[33m"[39m)
+[32m     47[39m first, last, exit_day = schedule.trade_date.iloc[[32m0[39m], schedule.trade_date.iloc[-[32m1[39m], schedule.exit_date.iloc[-[32m1[39m]
+
+[36mFile [39m[32m~/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/qlib/__init__.py:71[39m, in [36minit[39m[34m(default_conf, **kwargs)[39m
+[32m     68[39m     [38;5;28;01melse[39;00m:
+[32m     69[39m         [38;5;28;01mraise[39;00m [38;5;167;01mNotImplementedError[39;00m([33mf[39m[33m"[39m[33mThis type of URI is not supported[39m[33m"[39m)
+[32m---> [39m[32m71[39m [30;43mC[39;49m[30;43m.[39;49m[30;43mregister[39;49m[30;43m([39;49m[30;43m)[39;49m
+[32m     73[39m [38;5;28;01mif[39;00m [33m"[39m[33mflask_server[39m[33m"[39m [38;5;129;01min[39;00m C:
+[32m     74[39m     logger.info([33mf[39m[33m"[39m[33mflask_server=[39m[38;5;132;01m{[39;00mC[[33m'[39m[33mflask_server[39m[33m'[39m][38;5;132;01m}[39;00m[33m, flask_port=[39m[38;5;132;01m{[39;00mC[[33m'[39m[33mflask_port[39m[33m'[39m][38;5;132;01m}[39;00m[33m"[39m)
+
+[36mFile [39m[32m~/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/qlib/config.py:494[39m, in [36mQlibConfig.register[39m[34m(self)[39m
+[32m    492[39m exp_manager = init_instance_by_config([38;5;28mself[39m[[33m"[39m[33mexp_manager[39m[33m"[39m])
+[32m    493[39m qr = QlibRecorder(exp_manager)
+[32m--> [39m[32m494[39m [30;43mR[39;49m[30;43m.[39;49m[30;43mregister[39;49m[30;43m([39;49m[30;43mqr[39;49m[30;43m)[39;49m
+[32m    495[39m [38;5;66;03m# clean up experiment when python program ends[39;00m
+[32m    496[39m experiment_exit_handler()
+
+[36mFile [39m[32m~/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/qlib/workflow/__init__.py:665[39m, in [36mRecorderWrapper.register[39m[34m(self, provider)[39m
+[32m    663[39m     expm = [38;5;28mgetattr[39m([38;5;28mself[39m._provider, [33m"[39m[33mexp_manager[39m[33m"[39m)
+[32m    664[39m     [38;5;28;01mif[39;00m expm.active_experiment [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m:
+[32m--> [39m[32m665[39m         [38;5;28;01mraise[39;00m RecorderInitializationError(
+[32m    666[39m             [33m"[39m[33mPlease don[39m[33m'[39m[33mt reinitialize Qlib if QlibRecorder is already activated. Otherwise, the experiment stored location will be modified.[39m[33m"[39m
+[32m    667[39m         )
+[32m    668[39m [38;5;28mself[39m._provider = provider
+
+[31mRecorderInitializationError[39m: Please don't reinitialize Qlib if QlibRecorder is already activated. Otherwise, the experiment stored location will be modified.
+

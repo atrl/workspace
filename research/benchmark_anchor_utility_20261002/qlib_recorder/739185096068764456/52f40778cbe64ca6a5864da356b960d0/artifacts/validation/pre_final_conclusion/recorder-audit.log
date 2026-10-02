@@ -1,0 +1,68 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[98688:MainThread](2026-10-03 00:11:52,276) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[98688:MainThread](2026-10-03 00:11:52,277) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[98688:MainThread](2026-10-03 00:11:52,277) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/data/qlib/published_futu_affine_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1964.55it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1791.67it/s]
+[98688:MainThread](2026-10-03 00:11:52,298) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[98688:MainThread](2026-10-03 00:11:52,299) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[98688:MainThread](2026-10-03 00:11:52,299) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/data/qlib/published_futu_affine_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 548.28it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 532.81it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3572.66it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3163.13it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4447.83it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3844.46it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4588.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4064.25it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2849.39it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2647.92it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 5343.06it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4718.00it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2792.48it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2603.54it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 442.90it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 434.24it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 120.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 120.39it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2824.45it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2579.52it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3609.56it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3264.05it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4718.00it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4116.10it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 128.02it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 127.45it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4169.29it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3744.91it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4951.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4387.35it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4951.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4387.35it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 5029.14it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4447.83it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3460.65it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3165.51it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 98.91it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 98.55it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3816.47it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3390.71it/s]
+[98688:MainThread](2026-10-03 00:11:52,731) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[98688:MainThread](2026-10-03 00:11:52,732) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[98688:MainThread](2026-10-03 00:11:52,732) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+{
+  "recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+  "scope": "Read-only source/date/scaler/saved-portfolio/gate/native audit; optimizer epochs audited separately by model agent; no market refitting or new policy search",
+  "failures": [],
+  "plan_sha256": "4efdeb6e391c9b4a1d75c4ae995920e125dd862245b583f43f1075db2f3b9214",
+  "source_asof": "2026-09-25",
+  "saved_path_count": 32,
+  "maximum_independent_portfolio_errors": {
+    "pretrade": 0.0,
+    "simplex": 2.220446049250313e-16,
+    "fee_L1": 4.2012834183813297e-19,
+    "turnover": 1.6653345369377348e-16,
+    "net_multiplier": 4.440892098500626e-16,
+    "ending": 2.220446049250313e-16,
+    "equity": 0.0,
+    "target_from_model": 5.551115123125783e-16
+  },
+  "native_maximum_return_errors": {
+    "10": 5.620143461726457e-08,
+    "25": 5.615703058126087e-08
+  },
+  "qualification": false,
+  "selected": {
+    "variant": "price",
+    "historical_qualification_pass": false,
+    "passed_gates": 14,
+    "worst_annualized_lower_bound": -0.10578619308807638,
+    "worst_relative_wealth": 1.0894285944933522,
+    "positive_years_10bps": 6
+  },
+  "notebook_final_markdown_pending": true,
+  "notebook_sha256": "59b5ea98e5dcda3cd65198c95e849228c527abf4f80c08ea05093ac9197c4d19",
+  "optimizer_audit": "separate report from regime_model pending"
+}

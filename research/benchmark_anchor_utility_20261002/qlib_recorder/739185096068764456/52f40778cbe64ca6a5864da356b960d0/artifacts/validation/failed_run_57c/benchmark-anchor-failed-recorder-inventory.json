@@ -1,0 +1,1576 @@
+{
+  "schema_version": 1,
+  "failed_recorder_id": "57c3446d79b74e87b9ec7be9a1f7a859",
+  "canonical_local_dir": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_utility_20261002/qlib_recorder/739185096068764456/57c3446d79b74e87b9ec7be9a1f7a859",
+  "authority": false,
+  "authoritative_successor": "52f40778cbe64ca6a5864da356b960d0",
+  "failure_scope": "Native Qlib initialization inside an active Recorder context; all model fitting/checkpoints completed before failure",
+  "retention": "Full failed run remains canonical local only. Final result contains identical economic checkpoint states and utilities; unique lifecycle source/log/metadata and this complete inventory will be archived with final authority.",
+  "file_count": 223,
+  "bytes": 120649145,
+  "byte_identical_to_successor_count": 134,
+  "semantic_checkpoint_identity_evidence": "validation/optimizer/benchmark-anchor-optimizer-audit.json",
+  "entries": [
+    {
+      "path": "meta.yaml",
+      "bytes": 446,
+      "sha256": "593d41d3dea6fb8c30b80d1353ee739778246b076e0d52ffca8549d1dc8aa3a2",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/code_diff.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "final_same_path_present": false,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/code_cached.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "final_same_path_present": false,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/code_status.txt",
+      "bytes": 580,
+      "sha256": "477e436badb5c9bd1fb2b4d6be37e216e201ff9008aa3d6180f3fbf8a4fc6937",
+      "final_same_path_present": false,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "tags/mlflow.source.name",
+      "bytes": 133,
+      "sha256": "5e08f41213b94bcfa8600c13628496d3d722f2f90aabe159f8e50f32fa682920",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "params/plan_sha256",
+      "bytes": 64,
+      "sha256": "ab5e51b2f818076cabce3596cff197803738422f01a02fe2a93e1be57474a175",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "params/campaign_status",
+      "bytes": 15,
+      "sha256": "220e679c2917883de0db0538214a6e730c176070e381632671814d71445a08d9",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "params/source_recorder_id",
+      "bytes": 32,
+      "sha256": "bc6c68dd265f48f70109e66cba746f2dc2636dbbd8f9fd692aa6c1e10d4049f7",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "params/cmd-sys.argv",
+      "bytes": 246,
+      "sha256": "ba4f71422a83024e1c3b2ef5808ab31f746502bd726c77a08b33570365b6392d",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/models/forecast_models.pkl",
+      "bytes": 15616,
+      "sha256": "ed08618afbe60a83d4873c031cefd8c687aabab60669733ad7033364aa899b34",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/models/development.pkl",
+      "bytes": 314372,
+      "sha256": "59f2dea3e9e9703a3676549ead3ec2ab16598a7e914c9f53de23df89a4dd323d",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/inputs/forecast_fit_audit.pkl",
+      "bytes": 3950,
+      "sha256": "86ae3bbf25a1d6e92ec0735c453d3a476030df2182f27eb9d2509e148f5f4e19",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/inputs/primary_frame.pkl",
+      "bytes": 1253808,
+      "sha256": "a9caf7a71b98ea4e1cb3ce661b3f89f94a67d436078031ba09e5350749ce9105",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/inputs/execution_prices.pkl",
+      "bytes": 101350,
+      "sha256": "f607a4d09990f8fdd3ea306627e6b7a50b867403f6572d042e1230966dbd1002",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/inputs/selection_plan.json",
+      "bytes": 12529,
+      "sha256": "4efdeb6e391c9b4a1d75c4ae995920e125dd862245b583f43f1075db2f3b9214",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/inputs/source_audit.pkl",
+      "bytes": 2432,
+      "sha256": "a0fde6348ec1e1e386e05c9908faae1284f547c396b7376859698f5353147d9a",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/inputs/development_fold_inputs.pkl",
+      "bytes": 13682596,
+      "sha256": "af640e3d5b7da732e14902a516141512daf137e359a93c67f48d48d761a9c325",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/inputs/forecasts.pkl",
+      "bytes": 1285599,
+      "sha256": "7d824043ea43a7b0284c004d8e29c44fb04f11e5c573fb5ca3746cfc4b848ef5",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/inputs/source_hashes.pkl",
+      "bytes": 1913,
+      "sha256": "cf655a109d5683c5c9de1f012532605f4397889a5d0425a0868055196dba52dd",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/inputs/selection_seal.json",
+      "bytes": 470,
+      "sha256": "07f64017fb952f9e7dd6f3d0ee242d8a6ace4a91f1bdc1ba86f9c8e194802d6e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2022/ensemble/training_audit.pkl",
+      "bytes": 931308,
+      "sha256": "989a065c4388e33cf0465103df4033df8d9a0e7668fbfc9b667088e964e59e8c",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2022/ensemble/model_bundle.pkl",
+      "bytes": 16457,
+      "sha256": "39e102550fb2f406e59c65bc0a703717044d8464f2f0e090023d30ae4ea65340",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2022/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "8d3eb7477a6cb05e12185b3c8e642f63b2d1abf286b76daad959d94f823d25d6",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2022/17/training_audit.pkl",
+      "bytes": 1327303,
+      "sha256": "b1f76e992d7eabee999c143ea091640b8f60e93c764d47b00c1ef48af8a51152",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2022/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "feb48b09ff16706cad523fe49db1e2421da9e86d5ad29f5876a26c270ca7db38",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2022/41/training_audit.pkl",
+      "bytes": 1327339,
+      "sha256": "596fb04cba441f5a0f1ac2c88090ecaa8c6cfdc860de67decbb929363646a73d",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2022/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "55fed50887a9c8db70c6dbc1ccf26bd3a4ac942baf2810a49cfba45970c9a6ce",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2022/71/training_audit.pkl",
+      "bytes": 1327294,
+      "sha256": "ea8b95a4b36ed1a39f581749ed09962c9ed931d7b6ae4c7d7eb650876af09604",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2017/ensemble/training_audit.pkl",
+      "bytes": 508221,
+      "sha256": "a023df744248e1fb5110ea5ecb2ec3ba69bac5d87192d182292582868b4c0bf8",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2017/ensemble/model_bundle.pkl",
+      "bytes": 16457,
+      "sha256": "16d18389b448fa6711965f7a1ac1f3e03cd0362a52903c4362624c5eb2bb2fcc",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2017/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "7270ad51f2409ec3538bafdd6943f8c4348b999eb964a421a127ecdae93820b2",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2017/17/training_audit.pkl",
+      "bytes": 857515,
+      "sha256": "31ec3a293b3da56f7d7493527ded01cf004a44ddc73910b2820624e708d7e211",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2017/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "c65645aa86382eb616a76284e0a2118cd1ec7f9ca40e2cca70fbd2baf12de000",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2017/41/training_audit.pkl",
+      "bytes": 857515,
+      "sha256": "e3c59b9814b78122b9f7badf4f60e59ecf7df7d720df2ece0ec48f780e2ae5d4",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2017/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "43a875f5fca0352f584eda8ab82fe227a7ab6d4cde9a46f6d2a82a84b3edf121",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2017/71/training_audit.pkl",
+      "bytes": 857509,
+      "sha256": "70beb8b829151fd2705375c634a9d4bbc7cde676af5fd9581327ecd4bacd13e2",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2019/ensemble/training_audit.pkl",
+      "bytes": 676893,
+      "sha256": "0f1a2d2c4b8473ac3b1d99c40a43e688f5bcdef2f8acddbbfff3fc06b5260c10",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2019/ensemble/model_bundle.pkl",
+      "bytes": 16457,
+      "sha256": "b26597f58d9bfe2236c3895192e3527b48a2d030bcc0965e77304a6fdba3dc3c",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2019/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "5fce45d95653757e57f021ee1e4955570ffa663daa5cd9c2353d4521183a7413",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2019/17/training_audit.pkl",
+      "bytes": 1044867,
+      "sha256": "74c5f18c90fb1e69f63af8e9dc3302de35d4f78627300cebcc77895167887496",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2019/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "c6e606480aa9e84ca4b685297a8c5fcbe76a5ead8606daf06956d94243721c5e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2019/41/training_audit.pkl",
+      "bytes": 1044867,
+      "sha256": "d6e6d8d4d08a8131dffe1349180f73726dcee78e29d112613491da9ce47ff948",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2019/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "b604829743715ff9553cda9ac1b1b33017aec7871b0cbb86bef38266f642b6bd",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2019/71/training_audit.pkl",
+      "bytes": 1044864,
+      "sha256": "0d98d6880cd3b4db4c773db5f971c30eb49105fb46dc0053c7651cfb78ea9a05",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2021/ensemble/training_audit.pkl",
+      "bytes": 846582,
+      "sha256": "343d6b058b6294f4c91791e8e86247dd471caaf5d7c9f96e4abd337c16d68b0a",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2021/ensemble/model_bundle.pkl",
+      "bytes": 16457,
+      "sha256": "ff500030dd967a79136bfcb7fcb4d266bf830764ca1a29bf22670facdafc6422",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2021/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "734ca98ed4067ce59d9ea8927e86e9a4fa1b11ab14c7e5d89e0b9ef2321adc91",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2021/17/training_audit.pkl",
+      "bytes": 1233239,
+      "sha256": "03a4ff75d9388bb87fddd37fb1d367e637949bc4ec2a21167cad4b3a452456fb",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2021/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "22299f8b071b5de0b157f40de19c9c0ba665373ca718bdf022773b526acf2e79",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2021/41/training_audit.pkl",
+      "bytes": 1233278,
+      "sha256": "ab5fcd8841540fb6bbc086e8392440de98750ac7a6be7c3e4bf86cbce6852d27",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2021/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "4dfacdd8288a9021bc97b0bb823801850de8ae2b9d9ac8de1e4f6433e4e6957c",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2021/71/training_audit.pkl",
+      "bytes": 1233233,
+      "sha256": "9e1b008555fceb0153fcedbc351658c0cddb180c16109eb00ccf9a9198548913",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2020/ensemble/training_audit.pkl",
+      "bytes": 761574,
+      "sha256": "38a1cc209c3f5293e7e9e1f88e79e6d7799616f2ffdc3b1b778be46e8438927c",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2020/ensemble/model_bundle.pkl",
+      "bytes": 16457,
+      "sha256": "d228abc0a6c0f7eb041fd149d87cc0b42c9a9df71a3f97933f1940c9f5b02d32",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2020/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "7797c6422bbe6c4f04728b03b01408db694b939718577c8a4db64f408400343c",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2020/17/training_audit.pkl",
+      "bytes": 1138898,
+      "sha256": "08e964d62b99db323277f2a1118294d2e20cba1da33443d30a59df1d87aa894d",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2020/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "bccb00df7dcf9e1a3a45e6cd67ee8b1b716338548eff5d70c1776e52462dfdfa",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2020/41/training_audit.pkl",
+      "bytes": 1138898,
+      "sha256": "35e5e4af8e0301afb9b1427947a56342e585f43f7b52a5ea3d445ec1d3addc98",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2020/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "4957ab397252380253d91d6be61f3806c2ae398c97ce60528d431e24fc05be61",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2020/71/training_audit.pkl",
+      "bytes": 1138883,
+      "sha256": "092568a514a784bdff369a5175e2714e9ffe2026c6e00b665ff90e90a8d75b4e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2018/ensemble/training_audit.pkl",
+      "bytes": 592557,
+      "sha256": "276c4f550c3164aa594d47deecf32328a788424b1f562a22db2df3f991b6ed31",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2018/ensemble/model_bundle.pkl",
+      "bytes": 16457,
+      "sha256": "a32abaa3c4dde4f24f7722dd470319aef53700b87fb4b60e6dedcad59b4e68fd",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2018/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "511076a46867bff94343716e893ffbd3178512932a07ad915a4bb588dc2b2391",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2018/17/training_audit.pkl",
+      "bytes": 951191,
+      "sha256": "87e6b789388df8580d68abf26c3f0aad4e35b5e3787f5dcfee0a8d665c03cbf2",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2018/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "d4cdeed5671beb45f094c623dcf2d48b62697184858fbb84e9a21ac4684a8fb3",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2018/41/training_audit.pkl",
+      "bytes": 951182,
+      "sha256": "04cb90fb0b65513681c06b2694c14d1316b6b5fdfa6aa85a8ec9bf4d456bda6e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2018/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "55a4d24aabfd9f38afde23a752d6af4d3f7ceb1da276ea94f6d0a93ca6faaa92",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2018/71/training_audit.pkl",
+      "bytes": 951176,
+      "sha256": "abd6d2270b471ee29bbc397fd0175b20af65d0161578d26b13db648c9486f78a",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2016/ensemble/training_audit.pkl",
+      "bytes": 423531,
+      "sha256": "1b9fd67e0ce7ffa39ba3f6ae28dbed2fcf28cf518af024b34cfb8847d1edc614",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2016/ensemble/model_bundle.pkl",
+      "bytes": 16457,
+      "sha256": "b5dbbbed9d7162932dbcae4265ad6a8523307bb75570677bb2a02d4066b2a4ae",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2016/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "234894df7271700ca34a5c5d2ad7dd03d6162d1fdf715780af6bf261f4ce7d4f",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2016/17/training_audit.pkl",
+      "bytes": 763505,
+      "sha256": "6ebc1d92f5da09de39edad3637b1635b1a933777457d7ebf65426bf1064e136f",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2016/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "4023eb66d11aa24f2fd73585a85417615b560a05e18b10eb56321e2560061efd",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2016/41/training_audit.pkl",
+      "bytes": 763502,
+      "sha256": "04221e3e5e2ec3377e4b29f4412d347e43dece9275fc5c6e5d56e3446dd06d62",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2016/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "9ed5d5eda35ab36858d7ac39e811f9d62ddac6bdff1d033f58a3bc0dca51b1b9",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price_vol/2016/71/training_audit.pkl",
+      "bytes": 763499,
+      "sha256": "92c8a6d36d446a45cb4b66cfaa78691082142b44919868040cf1be12a035c1de",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2022/ensemble/training_audit.pkl",
+      "bytes": 931308,
+      "sha256": "bb66685f63e6844d9fb97391d609272213ff34d08975a8887992e406b2b56426",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2022/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "69260054da45a7ccfc0260a73cad78a4dd44a240e1a35e725ef179dbdb71636e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2022/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "9d878204859883ef837ccad2a4c61b8288bfdfde3635c1e5afd61e5111950863",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2022/17/training_audit.pkl",
+      "bytes": 1327302,
+      "sha256": "9bbb30e24f19603d46258708551e95a9011faa4e46711d9ef6d056cc085c0a5e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2022/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "fd97a23b68c9e155a5c4a6aa8f82e57468c5c96bad41693e390ddde26bd5a856",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2022/41/training_audit.pkl",
+      "bytes": 1327356,
+      "sha256": "ada932075807262a11fdbd375dc4750db1171520d719e98dff045c33e3eb82a4",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2022/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "39d26b2052305785629106a7094499c5e45f10027f296740bea3dad5046cb6a5",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2022/71/training_audit.pkl",
+      "bytes": 1327296,
+      "sha256": "0415e878393c7872695d3686eb691ed6f25e2d6ec10e89c06f1f52e1972a73c8",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2025/ensemble/training_audit.pkl",
+      "bytes": 1184316,
+      "sha256": "33e1a0c50e3438916abd5c32b470076caf7b511d6df39d6ede5ed1c59b8253e7",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2025/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "b8b459e5359777c9d75515dc8a5146640818d2abd8ef3f2f28507a202a71c0f5",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2025/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "6bccf8cf384ba2e34bec13129b6b98aa9248bb831f51d89a8ed362c6020ac2d3",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2025/17/training_audit.pkl",
+      "bytes": 1608378,
+      "sha256": "bbe17a15942d7a30ed2eea12fbd0c1cad55867393d14116edc9b68e881f4c53b",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2025/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "6c9f5c49d6c95fac7d62b3f94ce5581f0b4c321f393955bf5fb3750f14d2c50b",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2025/41/training_audit.pkl",
+      "bytes": 1608363,
+      "sha256": "c5fcf33b78febc4f5d40b3626ef34367c450d23d9b59a1a39501829276b73ba7",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2025/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "2fc881b1a4509c498ba3f7db0cb592f8a4389b8631479ddc64d4ee25b4ac5dd2",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2025/71/training_audit.pkl",
+      "bytes": 1608375,
+      "sha256": "121f852bae254c21fb1250cda1f6ae3de076623d69c07890f90f35aec6e4a7e7",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2024/ensemble/training_audit.pkl",
+      "bytes": 1099644,
+      "sha256": "c808ef4f34716a39efae54c120a92bde41d69ccbb257a641e11794fcc2626b6e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2024/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "71bedb4f84a1bdf0ccfa400e1d2d95e3aad910bb161182df87484cbccfca3963",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2024/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "b6207642ad8c9f1ee18013789135d5618398a5b4cbb88900dda9458201953e17",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2024/17/training_audit.pkl",
+      "bytes": 1514338,
+      "sha256": "c1a0fb8c5c30b1f4f65c156bae97905699bfc9a3045bd2ced674f62baac59a70",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2024/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "7d08067ef81ab3eb56a5bf3ea14a6ebd54887e63dfa6e625883f7d4d121bce0e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2024/41/training_audit.pkl",
+      "bytes": 1514344,
+      "sha256": "fe9f17d4e032db34b2fb828c1dadc9b0735497e5345d5bc18f665b80a5c06d51",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2024/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "4a143a625bf02472ceb0eea4f0aa0ab5bdc247576897c775baf21d7933efa031",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2024/71/training_audit.pkl",
+      "bytes": 1514338,
+      "sha256": "63b3a4139a0cd33fd075334a66880ea67cad5cf984a966be0965932353431840",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2023/ensemble/training_audit.pkl",
+      "bytes": 1015644,
+      "sha256": "69f4c23850ee2b11fbee01b021eb2715d7e2cff97807a9bf014a40e336b4967f",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2023/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "8d1bbf866be6a26f6702cd06c4e036ecdeb5fe7dd8da31eff1677cdd11f8adbf",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2023/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "cda5492cfd900961e7b0d1b8e872da8b36859b53cc40da7e7447683d15251da6",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2023/17/training_audit.pkl",
+      "bytes": 1421011,
+      "sha256": "cec3073cc88cc2d201daa9f63513f768c28b74f69a9a53606342c2aee5a82964",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2023/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "6394fd24bbb7a29d75c0c68d69e46d3d24d5aa1c84cce04717bc110d068941fa",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2023/41/training_audit.pkl",
+      "bytes": 1421026,
+      "sha256": "b7de1c3cc750709a412b001aea20a2833365e932782272fb87a8b88ffbeef296",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2023/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "e3f5fa9137f1e398d8380903df02f51559f0e4e21066443ae3e6fdf90409ed2d",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2023/71/training_audit.pkl",
+      "bytes": 1421014,
+      "sha256": "0c2cccc8cfce329d821d474dc1aa172301225c4b5560017cb7f9be78711f6b21",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2017/ensemble/training_audit.pkl",
+      "bytes": 508221,
+      "sha256": "9e0f9dfaf36421f5d2a97875e6001508c2f50de134b7683e98d9d1ff85889a1f",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2017/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "c020a4b114065088568e1134a9c8a60533b4fedbc623a24f07655f5dfaa7fe50",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2017/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "3dc314112ff9aa38ab858881c72dd9e053f9d9b2db0de67008c7a4b0ab1ce9f6",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2017/17/training_audit.pkl",
+      "bytes": 857514,
+      "sha256": "cf5f82ed7fd8113663a0e36e76536202b9368139c9a6c802997df578c0aea042",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2017/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "58d62bceddd5a84a4a1de77fe0b65027d97040142927e993560b95d14aca6a2b",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2017/41/training_audit.pkl",
+      "bytes": 857520,
+      "sha256": "3dc13b605a3fbedc46cf54526011ff7f078f918beb6c7ff6522311e5ee0cf3f8",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2017/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "100d969bff2685988dbe385e7d441f6eb255de97d06a4f2f147f9550126f8faa",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2017/71/training_audit.pkl",
+      "bytes": 857517,
+      "sha256": "225f27becfcd953c08fd2a9c6878f87c057eb9309163889bab41665dec03a117",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2026/ensemble/training_audit.pkl",
+      "bytes": 1268316,
+      "sha256": "b5c68ef953348d054967d472ab357ab76dbf4a1f1e0682c876fd3dcfff4d13c6",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2026/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "d41a14901617e3194d8ce8f7eda87e45c5a053486745fd77c98a18c0f18bc292",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2026/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "9a4bf9348ac9426a4458f7c2170d82276fd36e9af37c199bc8b20889649351ea",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2026/17/training_audit.pkl",
+      "bytes": 1701669,
+      "sha256": "9b189348a6b969d73937c32e377e988fbb61c999d9555a34665b04c75ac29af0",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2026/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "373f7e111bc0268c64817242f717484426abf1c14889c9efcf1e269393e32fa7",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2026/41/training_audit.pkl",
+      "bytes": 1701672,
+      "sha256": "e4ae64965ea327627bc9cd11ac6b89afb9095a424a8fa4def99f7048d94fb3e2",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2026/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "95e6fdfc24487cff70bc8a75c88bd3a0770f4f4bc52ed3a21c96b0b62c104ae8",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2026/71/training_audit.pkl",
+      "bytes": 1701678,
+      "sha256": "3638e825f1e557054f913e295d0deeb3c88503dee4443dbe8ba25237665f51ee",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2019/ensemble/training_audit.pkl",
+      "bytes": 676893,
+      "sha256": "af645f699c48e68a303eb86da62a51a88b01a2d4c7ae97fc6a9e262eb2c8f85e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2019/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "aaadbe35c978afac5714983ebdbc54a4a644a65d34eb9fbc3c0cc330391511eb",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2019/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "9c1615b7f2bc2978659a452cc3b881018084c0b46d395ddcd6e420a74f92943f",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2019/17/training_audit.pkl",
+      "bytes": 1044869,
+      "sha256": "ab60d493c0e25363ff21d127b43bdefe27387c499f9fd03e8534b82b16de9cb4",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2019/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "70a381a70e1f45c792b301acdb30921a9acbf24c11e21d3ea60e891fb8c61e37",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2019/41/training_audit.pkl",
+      "bytes": 1044875,
+      "sha256": "804580ce8f74033f12542ca74aba6c0acb8f6bc801a518bc8dde9f81a23eb943",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2019/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "62fd15ae80442ccfd0c812b4a5f1b3e8d6ff2e96667c9361ee1a3d7a543f9505",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2019/71/training_audit.pkl",
+      "bytes": 1044875,
+      "sha256": "d8bd7ed07348a9f8d01cebb124d1115162f41626da7fbfb10056cc475fd6bcda",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2021/ensemble/training_audit.pkl",
+      "bytes": 846582,
+      "sha256": "aa6f6ea9aeb66c641af667c9321fdbdab8904fa2e6d2ad7167d32023f179afd1",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2021/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "c61e13acd58c790ac512c607f9ec819ae590ed982ae0599a5e42a0b0eb9ea95b",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2021/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "c022c81d10666010f53ada4b1618d36cb1a8799a9a322fce6f58cd3c6230f5b3",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2021/17/training_audit.pkl",
+      "bytes": 1233244,
+      "sha256": "d5d7b62c86bf9ae62a39971d198257a8f25d26989c109196b9af85c79cc4f8f1",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2021/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "8fe7b68e7b11a7935433f7d22fa600ba49574d31fc65f413f9b06c4b8a1eeab8",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2021/41/training_audit.pkl",
+      "bytes": 1233286,
+      "sha256": "dbed3b05f99ffe45706cf311a26088106a62dea1ba8f99e4d8eff56ec81bc431",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2021/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "11e74b4c1ad1c71d909258f40e4df2164185d26a405bc54486731dbda7f00d78",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2021/71/training_audit.pkl",
+      "bytes": 1233247,
+      "sha256": "278645f76904f4f6650be3160d472ab928bf410520edfe4302155fbde725e705",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2020/ensemble/training_audit.pkl",
+      "bytes": 761574,
+      "sha256": "5a7de02f848148517350fa88aeea40d3cc5fce8a7234be60c793f7aa722a6a47",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2020/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "6a3494e7558e7f14cf2196c412bb5544747497a35f6e3dd97b7ab1857c298fc4",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2020/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "4d02b3844ad72ecbd380ed37f286cf946f668cdf301e4fd7d621945b676f5fa3",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2020/17/training_audit.pkl",
+      "bytes": 1138903,
+      "sha256": "768a501d2b87afe1459a966f9304bbaa0f373dbfb028ee52e7172cb51f68f945",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2020/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "d323784e945d7cf73482a46f06bb7e9407255e2e238374333ab6eaba834a166f",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2020/41/training_audit.pkl",
+      "bytes": 1138900,
+      "sha256": "d9f15261c2d8e440a4cfcff3814188f7b41b4c3bcd2ab5fad65fc5cce12f93a1",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2020/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "1bb1e87dd60fcc5b0efc431789c6d95c0798f58c1c388ab2ee83e3e47bd2b4bf",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2020/71/training_audit.pkl",
+      "bytes": 1138894,
+      "sha256": "2c6d2d922b9a66a7f2e801da0e1be71d243e6a1b8fc6979e79de3b44b56d381f",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2018/ensemble/training_audit.pkl",
+      "bytes": 592557,
+      "sha256": "6cb4c9a7b6c07524091e46753bf691128c800d1072ec4f9b48382a339885a9ef",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2018/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "04560b9d18656254099b9a8298001c3e99f5daa9f2f214e15794acb2fbe24880",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2018/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "7dca6c1848c979f735cdc86211fdb0646ac6b0b78dac249bcca5cbbbe5a67ded",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2018/17/training_audit.pkl",
+      "bytes": 951190,
+      "sha256": "28071fa22d459f2a10a03a833729a59fa6c8e86f4630531ed02201340394c6d1",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2018/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "cc502b23654517080c2e1a9f67ac6820ffc84c7b5ef0bfa45a4ddc92b0426cea",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2018/41/training_audit.pkl",
+      "bytes": 951187,
+      "sha256": "b3152d26c98f8242ce519dc5f55ec3185272ec78770089346cf4150f6848ed03",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2018/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "3aea0b8ee7d852c7f15e57c9617ddc22f7f29ef429a9b76be53db12c2f1167d1",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2018/71/training_audit.pkl",
+      "bytes": 951181,
+      "sha256": "14fdacd3f869f1b2a63eb414633c1139b5d52fbbab78ea07f836cc92e84a1ce6",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2016/ensemble/training_audit.pkl",
+      "bytes": 423531,
+      "sha256": "b246c5d95e41711bf6c61deae90ddc896d8ff8fca89fcb10105501f499068024",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2016/ensemble/model_bundle.pkl",
+      "bytes": 16452,
+      "sha256": "cec28caa99408c49f428ef9348b4810565d759584a3673febbb1af0e295f2bdc",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2016/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "3486732428eb575c9d1f397e3554795c5dedf2d64b26fed3809b856553f8374e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2016/17/training_audit.pkl",
+      "bytes": 763510,
+      "sha256": "19f1833b94c1f58c613ff8ee7fe3ed24d31e2441d05af3f2347b2c69bcba5594",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2016/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "fb4cd436f837d9b20bd41044cad85b1d6e1c2017bf7d9e92603abfb9c379d416",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2016/41/training_audit.pkl",
+      "bytes": 763510,
+      "sha256": "2c916a84bdeddc8933aa3260eb314875a0f3cce77a140932be6e9bffb344725a",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2016/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "6c580aa3023537e46ac9c56fb130ee946504b02f4e54f38831525f539c910115",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/price/2016/71/training_audit.pkl",
+      "bytes": 763501,
+      "sha256": "64beef2163dd93cc3ad80e86e1cd941638cfcc4dd36e20c0735c82f4ac015a5d",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2022/ensemble/training_audit.pkl",
+      "bytes": 931308,
+      "sha256": "4b543fbf8774852445292621fb8eec8c12ce167fcfbc4202f683c05f37707196",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2022/ensemble/model_bundle.pkl",
+      "bytes": 16455,
+      "sha256": "3340c08414ee6a57a3025333d668d494ec72148572ff86890d11957eb10dbf55",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2022/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "2f2885da30fdc4c3af4da3e013b1bdc48e4a391f77d388856272beb3a881850e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2022/17/training_audit.pkl",
+      "bytes": 1327365,
+      "sha256": "814dec4e2f8b44b2d302d206f9909e972e9fb121a74293b6685a5ea1e7effc3f",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2022/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "ed5944da6cdf20addb50e19fa28e57f497e7270a2de2629f2032399330a2e20a",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2022/41/training_audit.pkl",
+      "bytes": 1327365,
+      "sha256": "fbc5d7ff897a1234ad49b903f76141161bcd9739711ed1f1839ddf82489f4fb9",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2022/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "e13a3fbd10f9392a5471e30edf6d3b60025256b0b694c43cf33efac38ab90dc9",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2022/71/training_audit.pkl",
+      "bytes": 1327365,
+      "sha256": "c71c72a861d88b4e83c332844e8e4645832d6e640c7e275ac8ac2ec4256b782e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2017/ensemble/training_audit.pkl",
+      "bytes": 508221,
+      "sha256": "f1095789754b9f41bab605d97e5859b15b5a6a0e6c84f89e214d6cc8b9d701e3",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2017/ensemble/model_bundle.pkl",
+      "bytes": 16455,
+      "sha256": "4bd0aed2adefc522bb759550e06547af2bf0492f14ed429ca11120b260bf51c3",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2017/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "40f646bbd33b351b49122520c5205e6ab0ac40ffc52059e0c50d1d68d72c4d9d",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2017/17/training_audit.pkl",
+      "bytes": 857751,
+      "sha256": "c4c3c5e85a1df4c1eec2a277d3fcc9f41a04a53784e57fe1782e2d8788e71071",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2017/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "91c904ecfc0698acba2c3c1e7ea0fd8ff8183b507e40a3d31634fe49b12da962",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2017/41/training_audit.pkl",
+      "bytes": 857751,
+      "sha256": "97a06502fcb381890b5afc7371a133d5e09f16118f2e7277cab4449b1b92cdb2",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2017/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "b09c3c66f76d849dda685756ffbbbfbf564d2bd0b5137b87872779cf4bf3d9f0",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2017/71/training_audit.pkl",
+      "bytes": 857751,
+      "sha256": "8bf7c2e1fc930895fcafad453ffe908982f9c7638f425e491cc23f7810635ca8",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2019/ensemble/training_audit.pkl",
+      "bytes": 676893,
+      "sha256": "45d68fa8e53c96823ac092c994d5c3c0b126913e1b12cc25313d4f3dfd34da30",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2019/ensemble/model_bundle.pkl",
+      "bytes": 16455,
+      "sha256": "04c68dd2af483ae5c49bf5fb0deef6db1dd523b9545fd1b163435a1a390d92f9",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2019/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "8f5c8158e4be596ec0e504c57a350a62c1c26340b70f333fea7509faf373b07d",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2019/17/training_audit.pkl",
+      "bytes": 1045019,
+      "sha256": "f5fa97582f2ec198a19b1f76ea136908028e1b456e1c4ccce373694fc4e0caad",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2019/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "daa5105d741d02bf6c3e92d64bc112788da7159d7b1ed23b24de0d9af3b230b0",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2019/41/training_audit.pkl",
+      "bytes": 1045019,
+      "sha256": "96aac6943bab8a964c5259b50e992e5693694d15f57c26086e59b7aebe6d1e47",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2019/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "8a8eb6d55fb2b53f252c2fc7e78785c3ee42bc81f902f856f1bf5a84280ece38",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2019/71/training_audit.pkl",
+      "bytes": 1045019,
+      "sha256": "b5dc52cbfafc1510d17b27315d5c31b7367cd424556e28c13105ee80a0c1788e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2021/ensemble/training_audit.pkl",
+      "bytes": 846582,
+      "sha256": "8b5cea49b5e65b47d1797640a12322ef154df6ef727cfdc07679ab500c3449d8",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2021/ensemble/model_bundle.pkl",
+      "bytes": 16455,
+      "sha256": "33a0dd4fda8a354c0c36f777abce76b146faddc829369fca79a8240ca12f444b",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2021/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "6c55bc1e2f8e8bafbe7be9a05e0cdd66203cb765769bf74a918358beba9be3fc",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2021/17/training_audit.pkl",
+      "bytes": 1233319,
+      "sha256": "bb1bf8d1970952951b61cbf34d75bd20766855eb7aa903edc89899ae88ad162e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2021/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "fd52d014fd75e80bfaec73eee39e1042f4ab4cb2368ac5a628229f79a4e57333",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2021/41/training_audit.pkl",
+      "bytes": 1233319,
+      "sha256": "fe98f5ae44f009705fd92d4c5e383310bfa5aea5239bab213e8db52aa8790ffe",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2021/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "9a08025a0eb4c640c3b6aac1b6900a57c71f97c360e06375e3c76adbc2eb29f3",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2021/71/training_audit.pkl",
+      "bytes": 1233319,
+      "sha256": "d03a64f3454f85262a57ae4852eec2d8a213bce262d1841a74f2f94a7594f45a",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2020/ensemble/training_audit.pkl",
+      "bytes": 761574,
+      "sha256": "9924a3e63696bff911dc4500651d2bf01e3b2a249d396e438d11ec0113773583",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2020/ensemble/model_bundle.pkl",
+      "bytes": 16455,
+      "sha256": "41dbdf399f53116e344cef186fcfb1e09fc0e8e0579a0f62494d82bf083b2f6e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2020/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "b401fe3ac7b24658fccd7644cb9d2f3f824acaa93692a91755d8c2d56d49feae",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2020/17/training_audit.pkl",
+      "bytes": 1138990,
+      "sha256": "c1e027f5d5f14042ec59886a98e96144c4d732ead2c967e653ebdbbcec2f1664",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2020/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "ce6970e7faaf1a1d2b142019a9bc66c8dba68065d694045b70e955f594a37583",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2020/41/training_audit.pkl",
+      "bytes": 1138990,
+      "sha256": "501665170def63565fff1220867f112b5883880bcdd45d7b52ea67eb0dcba6db",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2020/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "eb8bc24e1fca6211d789ac5b356f2c67d809f7df708ba1b34f21a1eba5c830d9",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2020/71/training_audit.pkl",
+      "bytes": 1138990,
+      "sha256": "3d7c9a60b109c8d3f73ac06ec60f39aea35b7ea9adcaadbc35274f0b84cb85f7",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2018/ensemble/training_audit.pkl",
+      "bytes": 592557,
+      "sha256": "b229c7089bb9317e046c4542dafca8bda459ef0aca7d0e76b33370c331f6f1c7",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2018/ensemble/model_bundle.pkl",
+      "bytes": 16455,
+      "sha256": "ee2050a99e05b3816e74ce42d803d84bdfec50f7e900376a6c6d56ffff92cf01",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2018/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "ceaa38a0efa01c4415215b464a2bf08d35733a76942c3f631e4bdcb1a3880e0c",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2018/17/training_audit.pkl",
+      "bytes": 951478,
+      "sha256": "41c6b5250563cdce065539c85c809ab1f000ce9deec1d0b33c8ad436a10efba6",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2018/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "7f6e7d2a63de20585d40dd98abcfb85c8f4f770ef2ace8dc1c12822fcc736eda",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2018/41/training_audit.pkl",
+      "bytes": 951478,
+      "sha256": "118bbd654ac1855b7ed53e1d032b84771646f8b07a07d54384db111ce0899d2f",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2018/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "05b459144b79efafc9966bf451dc3739b4c61ec5899a6779c2dd00fd675ef1d7",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2018/71/training_audit.pkl",
+      "bytes": 951478,
+      "sha256": "c9fc3551c7166beaf62a6b96dc754a24139a9658b82e144f888f6a282a9b1c51",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2016/ensemble/training_audit.pkl",
+      "bytes": 423531,
+      "sha256": "156dc5d3a3e0c4d582cd2768fea77f956a447ec5449ab90faa513db5415b45c2",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2016/ensemble/model_bundle.pkl",
+      "bytes": 16455,
+      "sha256": "2411766ca01fdb3dc190039ae5d6b9807bea3f0b816e50a23290f0a1789b3eed",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2016/17/model.pkl",
+      "bytes": 2446,
+      "sha256": "a6c238fec5d1ba6b96b96a443ca2a750b2d87ee7d0f55cebc87f81d13ff69f3c",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2016/17/training_audit.pkl",
+      "bytes": 763678,
+      "sha256": "7079680c6cf327406aa954954b1f3c1ba5ea2ce2d2d5f19112ed2fd5db384901",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2016/41/model.pkl",
+      "bytes": 2446,
+      "sha256": "7aa91995d5ca7479e4250e0cff4c61473cb1263a73c3376f3177f9ced854e1ce",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2016/41/training_audit.pkl",
+      "bytes": 763678,
+      "sha256": "c3cf638d143ad04e9c6c39fef987f4c4375741d90315fc9e5bde06d64f6ba01e",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2016/71/model.pkl",
+      "bytes": 2446,
+      "sha256": "861886373a26890eb2d7980a2ce03bb2793353f1fdf1e96e0698cb68c654e9bf",
+      "final_same_path_present": true,
+      "byte_identical_to_final": true
+    },
+    {
+      "path": "artifacts/fit_checkpoints/constant/2016/71/training_audit.pkl",
+      "bytes": 763678,
+      "sha256": "63a686938634a07e5a80af6147cdc9d9587bdb9226efd352081fff4c5942a934",
+      "final_same_path_present": true,
+      "byte_identical_to_final": false
+    }
+  ]
+}

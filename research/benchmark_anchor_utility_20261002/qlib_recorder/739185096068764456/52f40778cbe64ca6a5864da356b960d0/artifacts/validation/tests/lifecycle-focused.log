@@ -1,0 +1,32 @@
+................                                                         [100%]
+=============================== warnings summary ===============================
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19
+  /Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_DAY = pd.Timedelta("1day")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20
+  /Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_MIN = pd.Timedelta("1min")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21
+  /Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    EPS_T = pd.Timedelta("1s")  # use 1 second to exclude the right interval point
+
+tests/test_benchmark_anchor_workflow.py::test_annual_changes_keep_actual_holdings_and_each_cost_has_its_own_path
+tests/test_benchmark_anchor_workflow.py::test_annual_changes_keep_actual_holdings_and_each_cost_has_its_own_path
+tests/test_benchmark_anchor_workflow.py::test_annual_changes_keep_actual_holdings_and_each_cost_has_its_own_path
+tests/test_benchmark_anchor_workflow.py::test_annual_changes_keep_actual_holdings_and_each_cost_has_its_own_path
+tests/test_benchmark_anchor_workflow.py::test_annual_changes_keep_actual_holdings_and_each_cost_has_its_own_path
+  /Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/tests/test_benchmark_anchor_workflow.py:42: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    frame[name] = (dates + pd.offsets.BDay(offset)).tz_localize("America/New_York") + pd.Timedelta(hours=hours, minutes=minutes)
+
+tests/test_benchmark_anchor_workflow.py: 16 warnings
+  /Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/qlib/contrib/evaluate.py:85: RuntimeWarning: divide by zero encountered in scalar divide
+    information_ratio = mean / std * np.sqrt(N)
+
+tests/test_benchmark_anchor_workflow.py::test_diagnostic_preparation_cannot_start_before_development_selection_is_sealed
+  /Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/qlib_venv/lib/python3.12/site-packages/google/protobuf/internal/well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+16 passed, 25 warnings in 4.27s

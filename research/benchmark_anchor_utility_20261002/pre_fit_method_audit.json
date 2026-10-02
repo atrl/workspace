@@ -1,0 +1,181 @@
+{
+  "scope": "synthetic-only independent prototype; no market data, model fits or repo source edits",
+  "N": 130,
+  "theta_total": 0.5,
+  "centered_cost_utilities": [
+    0.008735841554378792,
+    0.0029025942141439076
+  ],
+  "J": 0.0029025942141439076,
+  "entry_fees_both_costs": [
+    0.0007487726882929264,
+    0.0018698316024788515
+  ],
+  "entry_in_first_scored_chunk": true,
+  "independent_numpy_forward_log_errors": [
+    4.447397311535539e-16,
+    6.609296443471635e-16
+  ],
+  "global_weight_max_errors": {
+    "63": 0.0,
+    "64": 0.0,
+    "126": 1.1102230246251565e-16,
+    "127": 0.0,
+    "130": 1.1102230246251565e-16,
+    "252": 0.0,
+    "253": 5.551115123125783e-17
+  },
+  "risk_group_examples": {
+    "63": [
+      [
+        0,
+        63
+      ]
+    ],
+    "64": [
+      [
+        0,
+        63
+      ],
+      [
+        1,
+        64
+      ]
+    ],
+    "126": [
+      [
+        0,
+        63
+      ],
+      [
+        63,
+        126
+      ]
+    ],
+    "127": [
+      [
+        0,
+        63
+      ],
+      [
+        63,
+        126
+      ],
+      [
+        64,
+        127
+      ]
+    ],
+    "130": [
+      [
+        0,
+        63
+      ],
+      [
+        63,
+        126
+      ],
+      [
+        67,
+        130
+      ]
+    ],
+    "252": [
+      [
+        0,
+        63
+      ],
+      [
+        63,
+        126
+      ],
+      [
+        126,
+        189
+      ],
+      [
+        189,
+        252
+      ]
+    ],
+    "253": [
+      [
+        0,
+        63
+      ],
+      [
+        63,
+        126
+      ],
+      [
+        126,
+        189
+      ],
+      [
+        189,
+        252
+      ],
+      [
+        190,
+        253
+      ]
+    ]
+  },
+  "chunk_reconstruction_max_log_error": 0.0,
+  "full_context_vs_full_BPTT_max_gradient_error": 4.0245584642661925e-16,
+  "context21_vs_full_BPTT_relative_L2_error": 2.9684742033613086e-15,
+  "context21_vs_full_BPTT_gradient_cosine": 1.0000000000000002,
+  "finite_difference_checks": [
+    {
+      "parameter_shape": [
+        3,
+        9
+      ],
+      "index": [
+        0,
+        0
+      ],
+      "autograd": 0.18519773218381788,
+      "central_difference": 0.18519773217241797,
+      "absolute_error": 1.1399908794729186e-11
+    },
+    {
+      "parameter_shape": [
+        8,
+        27
+      ],
+      "index": [
+        0,
+        0
+      ],
+      "autograd": 0.001633094941436338,
+      "central_difference": 0.0016330944797426222,
+      "absolute_error": 4.616937158107015e-10
+    },
+    {
+      "parameter_shape": [
+        8
+      ],
+      "index": [
+        0
+      ],
+      "autograd": 0.0003663440052644567,
+      "central_difference": 0.00036634397078405545,
+      "absolute_error": 3.448040122736376e-11
+    }
+  ],
+  "anchor_centered_J": 0.0,
+  "anchor_tie_cost_weights_equal": true,
+  "anchor_daily_cost_adjoint": 0.2423076923076923,
+  "expected_anchor_daily_cost_adjoint": 0.2423076923076923,
+  "elapsed_seconds": 0.5645832499722019,
+  "near_HOLD_synthetic_stress": {
+    "theta_mass": 0.99,
+    "hold_coefficient": 0.97,
+    "forward_chunk_error": 0.0,
+    "full_context_gradient_max_error": 9.85878045867139e-14,
+    "context21_gradient_relative_L2_error": 0.05311885492826912,
+    "context21_gradient_cosine": 0.9992288985749808,
+    "interpretation": "Exact forward accounting is preserved; bounded-context gradient is deliberately approximate at high inertia. This is not a market fit."
+  }
+}
