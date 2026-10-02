@@ -1,0 +1,126 @@
+{
+  "experiment": "constrained_net_excess_20261003",
+  "recorder_id": "8fdcc6b190814dd499a4cd2802e2aaa9",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/constrained_net_excess_20261003/qlib_recorder",
+  "parent_recorder_id": "300530137db54b6c807c39ebb9e8c331",
+  "diagnostic_only": true,
+  "selection_changed": false,
+  "source_artifact_count": 57,
+  "training_ensembles": 25,
+  "daily_rows": 125922,
+  "max_net_reconstruction_error": 4.440892098500626e-16,
+  "max_benchmark_reconstruction_error": 2.220446049250313e-16,
+  "max_decomposition_error": 6.201992180454932e-16,
+  "limits": [
+    "The same saved holdings support this exact accounting identity; removing fees is not a retrained zero-cost strategy or an upper bound on a smarter policy.",
+    "No model or portfolio path, threshold, horizon or selection was added. Historical qualification remains false."
+  ],
+  "aggregate": [
+    {
+      "scope": "development",
+      "variant": "constant",
+      "cost_bps": 10,
+      "sessions": 1762,
+      "gross_annualized_log_excess": 0.0,
+      "fee_annualized_log_excess": -6.2769029474675e-20,
+      "net_annualized_log_excess": -7e-15,
+      "net_relative_wealth": 0.999999999999952
+    },
+    {
+      "scope": "development",
+      "variant": "constant",
+      "cost_bps": 25,
+      "sessions": 1762,
+      "gross_annualized_log_excess": 0.0,
+      "fee_annualized_log_excess": -1.2404946536497e-19,
+      "net_annualized_log_excess": 0.0,
+      "net_relative_wealth": 1.0
+    },
+    {
+      "scope": "development",
+      "variant": "price",
+      "cost_bps": 10,
+      "sessions": 1762,
+      "gross_annualized_log_excess": 0.020748971338915,
+      "fee_annualized_log_excess": -0.007668274985368,
+      "net_annualized_log_excess": 0.01308069635354,
+      "net_relative_wealth": 1.095774105787277
+    },
+    {
+      "scope": "development",
+      "variant": "price",
+      "cost_bps": 25,
+      "sessions": 1762,
+      "gross_annualized_log_excess": 0.020748971338915,
+      "fee_annualized_log_excess": -0.019170504084827,
+      "net_annualized_log_excess": 0.001578467254087,
+      "net_relative_wealth": 1.011097872794959
+    },
+    {
+      "scope": "development",
+      "variant": "price_vol",
+      "cost_bps": 10,
+      "sessions": 1762,
+      "gross_annualized_log_excess": 0.025445222477147,
+      "fee_annualized_log_excess": -0.008329124819501,
+      "net_annualized_log_excess": 0.017116097657638,
+      "net_relative_wealth": 1.127132550320779
+    },
+    {
+      "scope": "development",
+      "variant": "price_vol",
+      "cost_bps": 25,
+      "sessions": 1762,
+      "gross_annualized_log_excess": 0.025445222477147,
+      "fee_annualized_log_excess": -0.020822682347321,
+      "net_annualized_log_excess": 0.004622540129825,
+      "net_relative_wealth": 1.032849093798698
+    },
+    {
+      "scope": "reused_diagnostic",
+      "variant": "price_vol_annual_refit",
+      "cost_bps": 10,
+      "sessions": 934,
+      "gross_annualized_log_excess": -0.019241373000336,
+      "fee_annualized_log_excess": -0.010961384682718,
+      "net_annualized_log_excess": -0.030202757683064,
+      "net_relative_wealth": 0.894096143104724
+    },
+    {
+      "scope": "reused_diagnostic",
+      "variant": "price_vol_annual_refit",
+      "cost_bps": 25,
+      "sessions": 934,
+      "gross_annualized_log_excess": -0.019241373000336,
+      "fee_annualized_log_excess": -0.027404602255901,
+      "net_annualized_log_excess": -0.046645975256237,
+      "net_relative_wealth": 0.841233280030378
+    },
+    {
+      "scope": "reused_diagnostic",
+      "variant": "price_vol_frozen2022_parameters",
+      "cost_bps": 10,
+      "sessions": 934,
+      "gross_annualized_log_excess": -0.025850633243699,
+      "fee_annualized_log_excess": -0.013105159895748,
+      "net_annualized_log_excess": -0.038955793139456,
+      "net_relative_wealth": 0.865555507489902
+    },
+    {
+      "scope": "reused_diagnostic",
+      "variant": "price_vol_frozen2022_parameters",
+      "cost_bps": 25,
+      "sessions": 934,
+      "gross_annualized_log_excess": -0.025850633243699,
+      "fee_annualized_log_excess": -0.032763745326482,
+      "net_annualized_log_excess": -0.058614378570181,
+      "net_relative_wealth": 0.804732499540688
+    }
+  ],
+  "sidecars": [
+    "constrained_fee_decomposition_annual.csv",
+    "constrained_fee_decomposition_training_next_year.csv",
+    "constrained_fee_decomposition_conclusion.md",
+    "constrained_policy_expressivity_review.md"
+  ]
+}

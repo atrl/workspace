@@ -1,0 +1,706 @@
+{
+  "experiment": "constrained_net_excess_20261003",
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "decision": "continue_research_no_historical_qualification",
+  "selected": {
+    "variant": "price_vol",
+    "historical_qualification_pass": false,
+    "passed_gates": 14,
+    "worst_annualized_lower_bound": -0.03381073041236614,
+    "worst_relative_wealth": 1.0328490937986983,
+    "positive_years_10bps": 4
+  },
+  "historical_qualification_pass": false,
+  "new_forward_qualified": false,
+  "source_sensitivity_completed": false,
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "as_of": "2026-09-25",
+    "model_signal_start": "2011-01-03",
+    "history_start": "2010-03-11",
+    "basis": "published_futu_affine_v1",
+    "secondary_bars": 16,
+    "limitations": "Published affine basis differs slightly from serverQFQ; Jan2012 secondary quote uncertainty remains. Rebuilt history is not fresh out-of-sample evidence."
+  },
+  "source_audit": {
+    "parent_experiment": "benchmark_anchor_utility_20261002",
+    "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+    "parent_artifact_manifest_sha256": "8aff34f5654d89ff406d0b2993500b5639529d8d31dec2d1e1702a1f973c27dd",
+    "qualified_source_recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "as_of": "2026-09-25",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "native_frame_sha256": "b7a59f39feed5aed6e61fec2b4239092c474e453c91d4d133c73f9dcc571a03f",
+    "raw_frame_sha256": "bf5586573a4c51feb348c8e1a661ccf0f334f3a7d83b9ce9558629bfd16cf02b",
+    "prices_frame_sha256": "25d1e2486924c3e21f0aa6e1a004c7a8b02cb8acc5c279713f18f5aae0fdba9a",
+    "forecasts_frame_sha256": "2767bbbd286dece22518147ee81dfca74d9c3b523468376b1614f92b498ef2a5",
+    "rows": 3956,
+    "calendar_sessions": 4162,
+    "forecast_model_count": 14,
+    "verified_development_folds": 21,
+    "verified_parent_artifacts": 8,
+    "details_sha256": "3530c83960c8603cccc48a4312f2439e5b66501629741d196c71b6d1af679704",
+    "forecast_refit_performed": false,
+    "allocation_models_loaded": false,
+    "data_refreshed": false,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object",
+      "qlib.data.D.calendar",
+      "qlib.data.D.instruments",
+      "qlib.data.D.features",
+      "qlib.data.dataset.DatasetH.prepare"
+    ]
+  },
+  "seed_scope": "Optimization-start stability only; constant masked inputs and fixed theta/bias make the three seed decision paths structurally identical. Seeds are never independent market observations.",
+  "source_sha256": {
+    "src/objective/benchmark_tail_constraints.py": "c94b59e8377945b7e84d1a7055fcbeb24286ebc97bc7b6eb987679bb2a9017fb",
+    "src/model/constrained_net_excess.py": "7a068cef362d24651c661289881662e6384e93396d1e7821ee38ebdbac74a08d",
+    "src/data/constrained_net_excess.py": "f140218167b67c42e56be08c269f04754970b2211e00ac415c277743bf631be9",
+    "src/workflow/constrained_net_excess.py": "3e28ed6fbfde26258b90d1c6d890ea8d659a4cc1da89153b4d92f637d491a948",
+    "src/workflow/anchor_checkpoint_feasibility.py": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+    "src/data/benchmark_anchor_utility.py": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+    "src/model/benchmark_anchor_utility.py": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+    "src/workflow/benchmark_anchor_utility.py": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+    "src/model/integrated_allocation.py": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+    "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+    "src/workflow/conditional_variance.py": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+    "src/data/integrated_allocation.py": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+    "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/workflow/stable_excess_integration.py": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+  },
+  "plan_sha256": "da17267d7d21ccb2589bc799efe33ed9149d8b4c7c0b5371aadd4b429227901d",
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "region": "us",
+  "market": "all",
+  "training_objective": "F=min_c63mean_net_log_excess; legacy_J_report_only",
+  "training_constraints": "same_benchmark_anchored_MaxDD_and_exact_CVaR5_at_both_costs",
+  "normalized_cost_state_scope": "Post-fee normalized targets are cost-blind; fee funding changes NAV/trade amounts, not necessarily normalized holdings.",
+  "recorder_id": "300530137db54b6c807c39ebb9e8c331",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/constrained_net_excess_20261003/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/constrained_net_excess_20261003/qlib_recorder/741902640886742623/300530137db54b6c807c39ebb9e8c331",
+  "recorder_relative_dir": "qlib_recorder/741902640886742623/300530137db54b6c807c39ebb9e8c331",
+  "selection_uses_diagnostic_signal_years": false,
+  "development_last_exit": "2023-01-04",
+  "native_qlib_audit": {
+    "10": {
+      "status": "passed",
+      "sessions": 1762,
+      "start": "2016-01-05",
+      "end": "2023-01-03",
+      "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/data/qlib/published_futu_affine_20260925_v1",
+      "cost_bps": 10.0,
+      "initial_cash": 100000.0,
+      "maximum_session_return_error": 5.1010703883136443e-08,
+      "tolerance": 1e-07,
+      "native_api": "qlib.backtest.backtest + SimulatorExecutor + Exchange + Account + Position",
+      "position_type": "src.backtest.qlib_continuous_position.QlibContinuousPosition",
+      "position_precision_fix": "Every positive fractional-sale residual remains owned; no relative isclose liquidation.",
+      "report_mark": "native same-day close; next-open reconciliation marks native positions through Qlib D.features",
+      "sealed_stage1_code_changed": false,
+      "qlib_api_reference": "https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.backtest.backtest",
+      "policy_scope": "continuous_three_asset_targets_without_legacy_allocation_caps",
+      "legacy_controller_executed": false,
+      "scope": "complete prescribed daily target/HOLD schedule; actual Qlib Exchange, Position, report and next-open accounting",
+      "risk_annualization_sessions": 252,
+      "native_close_anchored_max_drawdown_pct": -43.39354040548088,
+      "native_open_to_open_anchored_max_drawdown_pct": -45.83741091229561,
+      "risk_table_mark_convention": "risk_analysis uses native close marks; risk_analysis_open_to_open uses native positions marked at the following open",
+      "execution_limitation": "Observed historical opens and continuous adjusted shares; no claim of spread/impact/partial-fill evidence."
+    },
+    "25": {
+      "status": "passed",
+      "sessions": 1762,
+      "start": "2016-01-05",
+      "end": "2023-01-03",
+      "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/data/qlib/published_futu_affine_20260925_v1",
+      "cost_bps": 25.0,
+      "initial_cash": 100000.0,
+      "maximum_session_return_error": 5.0987577271399687e-08,
+      "tolerance": 1e-07,
+      "native_api": "qlib.backtest.backtest + SimulatorExecutor + Exchange + Account + Position",
+      "position_type": "src.backtest.qlib_continuous_position.QlibContinuousPosition",
+      "position_precision_fix": "Every positive fractional-sale residual remains owned; no relative isclose liquidation.",
+      "report_mark": "native same-day close; next-open reconciliation marks native positions through Qlib D.features",
+      "sealed_stage1_code_changed": false,
+      "qlib_api_reference": "https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.backtest.backtest",
+      "policy_scope": "continuous_three_asset_targets_without_legacy_allocation_caps",
+      "legacy_controller_executed": false,
+      "scope": "complete prescribed daily target/HOLD schedule; actual Qlib Exchange, Position, report and next-open accounting",
+      "risk_annualization_sessions": 252,
+      "native_close_anchored_max_drawdown_pct": -44.11505201714674,
+      "native_open_to_open_anchored_max_drawdown_pct": -46.52777270535941,
+      "risk_table_mark_convention": "risk_analysis uses native close marks; risk_analysis_open_to_open uses native positions marked at the following open",
+      "execution_limitation": "Observed historical opens and continuous adjusted shares; no claim of spread/impact/partial-fill evidence."
+    }
+  },
+  "independent_accounting_audit": [
+    {
+      "variant": "constant",
+      "seed": "ensemble",
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 2.2997995334214575e-16,
+        "ending": 2.2997995334214575e-16,
+        "return": 1.1102230246251565e-16,
+        "fee": 2.220446049250313e-19,
+        "turnover": 2.220446049250313e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "constant",
+      "seed": 17,
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 2.2997995334214575e-16,
+        "ending": 2.2997995334214575e-16,
+        "return": 1.1102230246251565e-16,
+        "fee": 2.220446049250313e-19,
+        "turnover": 2.220446049250313e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "constant",
+      "seed": 41,
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 2.2997995334214575e-16,
+        "ending": 2.2997995334214575e-16,
+        "return": 1.1102230246251565e-16,
+        "fee": 2.220446049250313e-19,
+        "turnover": 2.220446049250313e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "constant",
+      "seed": 71,
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 2.2997995334214575e-16,
+        "ending": 2.2997995334214575e-16,
+        "return": 1.1102230246251565e-16,
+        "fee": 2.220446049250313e-19,
+        "turnover": 2.220446049250313e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "constant",
+      "seed": "ensemble",
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 4.494138119938614e-19,
+        "ending": 4.494138119938614e-19,
+        "return": 0.0,
+        "fee": 4.336808689942018e-19,
+        "turnover": 0.0
+      },
+      "passed": true
+    },
+    {
+      "variant": "constant",
+      "seed": 17,
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 4.494138119938614e-19,
+        "ending": 4.494138119938614e-19,
+        "return": 0.0,
+        "fee": 4.336808689942018e-19,
+        "turnover": 0.0
+      },
+      "passed": true
+    },
+    {
+      "variant": "constant",
+      "seed": 41,
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 4.494138119938614e-19,
+        "ending": 4.494138119938614e-19,
+        "return": 0.0,
+        "fee": 4.336808689942018e-19,
+        "turnover": 0.0
+      },
+      "passed": true
+    },
+    {
+      "variant": "constant",
+      "seed": 71,
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 4.494138119938614e-19,
+        "ending": 4.494138119938614e-19,
+        "return": 0.0,
+        "fee": 4.336808689942018e-19,
+        "turnover": 0.0
+      },
+      "passed": true
+    },
+    {
+      "variant": "price",
+      "seed": "ensemble",
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 3.3306690738754696e-16,
+        "ending": 3.3306690738754696e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 4.1335207826009857e-19,
+        "turnover": 4.163336342344337e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price",
+      "seed": 17,
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 3.3306690738754696e-16,
+        "ending": 3.3306690738754696e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 3.9302328752599536e-19,
+        "turnover": 3.885780586188048e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price",
+      "seed": 41,
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 4.440892098500626e-16,
+        "ending": 4.440892098500626e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 3.9302328752599536e-19,
+        "turnover": 3.885780586188048e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price",
+      "seed": 71,
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 4.440892098500626e-16,
+        "ending": 4.440892098500626e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 4.811147140404426e-19,
+        "turnover": 4.85722573273506e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price",
+      "seed": "ensemble",
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 3.3306690738754696e-16,
+        "ending": 3.3306690738754696e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 1.043544591017298e-18,
+        "turnover": 4.163336342344337e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price",
+      "seed": 17,
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 3.608224830031759e-16,
+        "ending": 3.608224830031759e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 1.043544591017298e-18,
+        "turnover": 4.163336342344337e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price",
+      "seed": 41,
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 3.3306690738754696e-16,
+        "ending": 3.3306690738754696e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 1.3213713977167085e-18,
+        "turnover": 5.273559366969494e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price",
+      "seed": 71,
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 4.440892098500626e-16,
+        "ending": 4.440892098500626e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 1.0977546996415732e-18,
+        "turnover": 4.440892098500626e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol",
+      "seed": "ensemble",
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 3.3306690738754696e-16,
+        "ending": 3.3306690738754696e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 4.472333961502706e-19,
+        "turnover": 4.440892098500626e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol",
+      "seed": 17,
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 3.608224830031759e-16,
+        "ending": 3.608224830031759e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 3.8963515573697816e-19,
+        "turnover": 3.885780586188048e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol",
+      "seed": 41,
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 3.3306690738754696e-16,
+        "ending": 3.3306690738754696e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 4.87890977618477e-19,
+        "turnover": 4.85722573273506e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol",
+      "seed": 71,
+      "sessions": 1762,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 4.440892098500626e-16,
+        "ending": 4.440892098500626e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 5.014435047745458e-19,
+        "turnover": 4.996003610813204e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol",
+      "seed": "ensemble",
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 3.3306690738754696e-16,
+        "ending": 3.3306690738754696e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 1.0028870095490916e-18,
+        "turnover": 3.885780586188048e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol",
+      "seed": 17,
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 3.885780586188048e-16,
+        "ending": 3.885780586188048e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 9.75781955236954e-19,
+        "turnover": 3.885780586188048e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol",
+      "seed": 41,
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 3.3306690738754696e-16,
+        "ending": 3.3306690738754696e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 1.0299920638612292e-18,
+        "turnover": 4.163336342344337e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol",
+      "seed": 71,
+      "sessions": 1762,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 4.440892098500626e-16,
+        "ending": 4.440892098500626e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 1.111307226797642e-18,
+        "turnover": 4.440892098500626e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol_annual_refit",
+      "seed": "ensemble",
+      "sessions": 934,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 3.3306690738754696e-16,
+        "ending": 3.3306690738754696e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 4.1674021004911577e-19,
+        "turnover": 4.163336342344337e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol_annual_refit",
+      "seed": "ensemble",
+      "sessions": 934,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 4.440892098500626e-16,
+        "ending": 4.440892098500626e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 1.3145951341386741e-18,
+        "turnover": 5.273559366969494e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol_frozen2022_parameters",
+      "seed": "ensemble",
+      "sessions": 934,
+      "cost_bps": 10,
+      "maximum_absolute_errors": {
+        "pretrade": 3.3306690738754696e-16,
+        "ending": 3.3306690738754696e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 3.3203691532368573e-19,
+        "turnover": 3.3306690738754696e-16
+      },
+      "passed": true
+    },
+    {
+      "variant": "price_vol_frozen2022_parameters",
+      "seed": "ensemble",
+      "sessions": 934,
+      "cost_bps": 25,
+      "maximum_absolute_errors": {
+        "pretrade": 4.440892098500626e-16,
+        "ending": 4.440892098500626e-16,
+        "return": 4.440892098500626e-16,
+        "fee": 8.673617379884035e-19,
+        "turnover": 3.469446951953614e-16
+      },
+      "passed": true
+    }
+  ],
+  "production_change": false,
+  "real_broker_orders": false,
+  "sidecars": [
+    "model_selection.csv",
+    "backtest_benchmark_comparison.csv",
+    "annual_metrics.csv",
+    "development_gates.csv",
+    "bootstrap_analysis.csv",
+    "seed_metrics.csv",
+    "training_summary.csv",
+    "forecast_training_audit.csv",
+    "control_comparison.csv",
+    "beta_alpha_attribution.csv",
+    "window_metrics.csv",
+    "constrained_fee_decomposition_summary.json",
+    "constrained_fee_decomposition_annual.csv",
+    "constrained_fee_decomposition_training_next_year.csv",
+    "constrained_fee_decomposition_conclusion.md",
+    "constrained_policy_expressivity_review.md",
+    "post_fee_state_gradient_audit.md",
+    "optimizer_audit.json",
+    "verification.json",
+    "artifact_manifest.json"
+  ],
+  "training_audit_storage": "Complete epoch states/selected paths/optimizer state only in per-fit Recorder artifacts; aggregate analysis files are small indices with exact artifact pointers.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*.pkl",
+      "models/*.pkl",
+      "fit_checkpoints/*",
+      "analysis/portfolio_replays.pkl",
+      "analysis/training_diagnostics.pkl",
+      "analysis/ensemble_audits.pkl",
+      "portfolio_analysis/*.pkl",
+      "analysis/diagnostics/*",
+      "analysis/diagnostics/economic_review/*",
+      "analysis/diagnostics/post_fee_state_gradient/*",
+      "validation/**/*",
+      "notebooks/constrained_net_excess_20261003.ipynb",
+      "fee_child:inputs/saved_books.pkl",
+      "fee_child:analysis/daily_fee_decomposition.pkl"
+    ],
+    "retained_recorder_ids": [
+      "300530137db54b6c807c39ebb9e8c331",
+      "8fdcc6b190814dd499a4cd2802e2aaa9"
+    ]
+  },
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "https://qlib.readthedocs.io/en/latest/reference/api.html"
+  ],
+  "limitations": [
+    "Historical years have been reviewed; no fresh forward evidence or guaranteed future excess.",
+    "Global expert coefficient budget restricts state-dependent expressivity.",
+    "21-session state-gradient truncation and nonsmooth fee gradients are optimizer approximations; exact incumbent forward audits do not certify optimality.",
+    "Retained training models satisfy historical mean-excess and tail constraints; this does not guarantee future wealth/risk or optimizer convergence.",
+    "Source basis retains published-versus-server adjustment differences and16secondary observations.",
+    "Historical open prices and continuous adjusted shares are not evidence of actual spread, impact or partial fills.",
+    "Post-run synthetic audit found an incorrect no-trade normalized holding-state derivative in the frozen training graph; forward accounting and recorded results were not changed.",
+    "Saved 2023+ diagnostic holdings have negative gross relative performance before fees; fee reduction alone does not establish a future edge."
+  ],
+  "post_run_diagnostics": {
+    "fee_decomposition": {
+      "recorder_id": "8fdcc6b190814dd499a4cd2802e2aaa9",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/constrained_net_excess_20261003/qlib_recorder",
+      "parent_recorder_id": "300530137db54b6c807c39ebb9e8c331",
+      "status": "FINISHED",
+      "scope": "Saved ensemble and SOXX books only; no target inference, model fit, new candidate path or selection change.",
+      "summary": "constrained_fee_decomposition_summary.json",
+      "annual_table": "constrained_fee_decomposition_annual.csv",
+      "training_next_year_table": "constrained_fee_decomposition_training_next_year.csv",
+      "conclusion": "constrained_fee_decomposition_conclusion.md",
+      "recorder_artifacts": [
+        "inputs/source_identity.pkl",
+        "inputs/saved_books.pkl",
+        "analysis/daily_fee_decomposition.pkl",
+        "analysis/aggregate.pkl",
+        "analysis/annual.pkl",
+        "analysis/training_next_year.pkl",
+        "analysis/parity.pkl",
+        "analysis/summary.pkl",
+        "card/constrained_fee_decomposition.ipynb"
+      ],
+      "rows": 125922,
+      "training_ensembles": 25,
+      "max_net_reconstruction_error": 4.440892098500626e-16,
+      "max_decomposition_error": 6.201992180454932e-16
+    },
+    "expressivity_review": {
+      "note": "constrained_policy_expressivity_review.md",
+      "scope": "Structural proof and prior implementation inventory; no model or path evaluated."
+    },
+    "legacy_state_derivative_audit": {
+      "note": "post_fee_state_gradient_audit.md",
+      "status": "confirmed_synthetic_state_Jacobian_limitation",
+      "scope": "Forward NAV/fees/holdings remain correct. Prospective algebraic correction was not applied to Phase7. Scalar cost/NAV kink derivatives remain uncertified.",
+      "synthetic_scenarios": 51,
+      "maximum_legacy_state_jvp_error": 0.002481451153,
+      "phase7_implementation_or_results_changed": false,
+      "recorder_id": "300530137db54b6c807c39ebb9e8c331",
+      "recorder_artifacts": [
+        "analysis/diagnostics/post_fee_state_gradient/post_fee_state_gradient_audit.md",
+        "analysis/diagnostics/post_fee_state_gradient/post_fee_state_gradient_audit.py",
+        "analysis/diagnostics/post_fee_state_gradient/post_fee_state_gradient_audit.json",
+        "analysis/diagnostics/post_fee_state_gradient/post_fee_state_gradient_audit.log"
+      ]
+    },
+    "economic_review": {
+      "recorder_id": "300530137db54b6c807c39ebb9e8c331",
+      "scope": "Read-only interpretation of saved outcomes, no model fit or alternative target path.",
+      "recorder_artifacts": [
+        "analysis/diagnostics/economic_review/constrained_net_excess_economic_review.ipynb",
+        "analysis/diagnostics/economic_review/constrained_net_excess_economic_review.json",
+        "analysis/diagnostics/economic_review/constrained_net_excess_economic_review.md"
+      ]
+    }
+  },
+  "next_hypothesis": {
+    "status": "unrun_proposal_requires_preregistration",
+    "architecture": "Parent27to8sigmoid market encoder, four expert sparsemax score head, direct linear4x3 owned-holdings skip",
+    "parameter_count": 272,
+    "parent_parameter_count": 251,
+    "initialization": "Exact fresh-parent encoder/theta embedding, K zero; preserve initial target and owned paths.",
+    "derivative_correction_scope": "If adopted, separately declare and verify the forward-identical state-graph correction before new fits.",
+    "financial_gates_changed": false,
+    "no_success_claim": true
+  },
+  "optimizer_audit": "optimizer_audit.json",
+  "verification": "verification.json",
+  "artifact_manifest": "artifact_manifest.json",
+  "recorder_evidence": {
+    "main": {
+      "recorder_id": "300530137db54b6c807c39ebb9e8c331",
+      "role": "authoritative registered model-training/qualification result"
+    },
+    "fee_diagnostic": {
+      "recorder_id": "8fdcc6b190814dd499a4cd2802e2aaa9",
+      "role": "post-fit fixed-path fee decomposition only; not model-selection authority",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/constrained_net_excess_20261003/qlib_recorder/741902640886742623/8fdcc6b190814dd499a4cd2802e2aaa9",
+      "summary_artifact": "card/constrained_fee_decomposition_summary.json",
+      "notebook_artifact": "card/constrained_fee_decomposition.ipynb"
+    },
+    "optimizer": {
+      "full_report": "validation/optimizer/constrained-optimizer-audit.json",
+      "method": "validation/optimizer/audit_constrained_optimizer.py",
+      "log": "validation/optimizer/constrained-optimizer-audit.log",
+      "gradient_samples": "validation/optimizer/constrained-optimizer-gradient-samples.csv"
+    },
+    "verification": {
+      "full_report": "validation/final/final-verification.json",
+      "source_report": "validation/final/source-recorder-audit.json",
+      "source_method": "validation/final/source_recorder_audit.py",
+      "source_log": "validation/final/source-recorder-audit.log",
+      "focused_log": "validation/final/focused.log",
+      "full_log": "validation/final/full.log",
+      "required_log": "validation/final/required.log",
+      "execution_log": "validation/execution/constrained-net-excess-execution.log"
+    },
+    "canonical_uri_preserved": true,
+    "parent52f_retention": "Referenced immutable parent input/source artifacts, not duplicated by archival."
+  }
+}

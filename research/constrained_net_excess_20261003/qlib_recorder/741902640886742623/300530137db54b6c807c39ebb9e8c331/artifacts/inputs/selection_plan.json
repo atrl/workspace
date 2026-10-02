@@ -1,0 +1,261 @@
+{
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "as_of": "2026-09-25",
+    "model_signal_start": "2011-01-03",
+    "history_start": "2010-03-11",
+    "basis": "published_futu_affine_v1",
+    "secondary_bars": 16,
+    "limitations": "Published affine basis differs slightly from serverQFQ; Jan2012 secondary quote uncertainty remains. Rebuilt history is not fresh out-of-sample evidence."
+  },
+  "features": {
+    "primary": "Same25primary market features constructed from one qualified nativeQlibOHLCV store; no old mixed feature/label price channels.",
+    "volume_transform": "Strictly positive volume permits log(volume), replacing log1p(volume) in the two20session volume zscores to ensure invariance under future common split rescaling. Window/minperiod/std/epsilon unchanged. No outcome-based feature selection.",
+    "feature_time": "price/volume features through signal-day close; risk shape and open20 comparator through signal-day open; close20 uses the same adjustedclose as model inputs."
+  },
+  "architecture": {
+    "assets": [
+      "soxl",
+      "soxx",
+      "cash"
+    ],
+    "feature_count": 27,
+    "hidden_units": 8,
+    "basis": "b=[1,sigmoid(W z+a)]",
+    "theta_shape": [
+      3,
+      9
+    ],
+    "theta_constraint": "theta>=0, sum_all(theta)<=1",
+    "experts": [
+      "SOXL",
+      "CASH",
+      "actual_pretrade_HOLD"
+    ],
+    "alpha": "alpha_j=theta_j dot b",
+    "target": "(1-sum(alpha))*SOXX + alpha_L*SOXL + alpha_C*CASH + alpha_H*actual_pretrade_holdings",
+    "hidden_holdings_input": false,
+    "cost_input": false,
+    "exact_null": "theta=0 gives full SOXX at finite parameters",
+    "limitation": "Global coefficient budget restricts simultaneous large state-dependent departures toward different vertices; nominal capacity equal, effective masked capacity differs."
+  },
+  "inputs": {
+    "price_features": "Same 25 qualified Phase4 features, including log(volume) zscore",
+    "extra_features": [
+      "future_vol_prediction",
+      "forecast_available"
+    ],
+    "cash_forecast_used": false,
+    "scaling": "Prior eligible training price mean/std ddof0; constant columns scale1. Vol prediction scaler on available strictly prior OOF predictions only; unavailable is neutral standardized0; availability binary unscaled. Disabled channels exactly0 after scaling. No clipping.",
+    "forecast": "Reuse hash-verified parent annual Ridge(alpha10)/prior-onlyStandardScaler/common16SOXX features and its original joint1day/5day maturity/min252 contract; only cachedvol5prediction+availability enter, no new forecast fits or retuning.",
+    "available_invalid_vol": "An available nonfinite/nonpositive prior training prediction invalidates the entire price_vol annual fit: all seeds/ensemble anchored, every offendingdate retained, disqualified. During replay, invalid prediction first observed at that signal triggers same-date exact SOXX target from actual current holdings and disqualification; earlier decisions never replaced. Later valid rows resume fixed annual policy from actual carried holdings. Constant/price ignore unused forecast fields. Unavailable OOF warmup becomes standardized0 with availability0, not failure.",
+    "train_history": "All 2011+ rows with feature_available_at and one-day return_available_at strictly before fit-year Jan1 America/New_York; minimum252. Qlib DatasetH must return exact eligible count; invalid common features/returns abort, no dropped rows.",
+    "forecast_label_maturity": "OOF head retains conservative joint 1day/5day maturity; allocation training uses mature 1day returns, never future H5 labels."
+  },
+  "accounting": {
+    "cash_return": 0.0,
+    "start": "CASH",
+    "positions": "Long-only fully funded3assets, no borrowing",
+    "fees": "Exact proportional cost on actual risky purchases plus sales, funded before returns; ETF economics already in observed returns",
+    "daily": "Signalclose[t], tradeopen[t+1], outcomeopen[t+2]; next decision owns actual marked holdings",
+    "no_extra_rules": [
+      "cashfloor",
+      "SOXLcap",
+      "stop/wait/recovery timer",
+      "exante variance cap",
+      "EMA",
+      "fixed tradingband",
+      "selected static planning horizon"
+    ]
+  },
+  "failure_policy": {
+    "nonfinite_optimization": "Record fold/seed/epoch and reason; retain exact anchor for accounting, disqualify rather than silently change optimizer/start/epochs",
+    "replay": "Fail closed on invalid dates, features, physical returns, weights, funding, mismatch; no shortened history",
+    "forward": "All historical years reviewed; historical qualification is eligibility for newly frozen forward evidence, never objective achievement.",
+    "common_reference_risk": "Nonfinite/nonpositivebenchmark risknormalizerstopsfit; no riskbudgetfloor,historyshortening ordatarefill.",
+    "optimization": "Nonfiniteparameters/lambda/gradients/risks/NAV, failedprojection/funding/currentpathparity ->recordexactepochreason, retainnullaccounting anddisqualify. No cappedlambda, extraepochs, optimizerstarts orstepchanges afteroutcomes.",
+    "valid_null": "No feasibleF-improvingstate ->retainexactSOXX aslegitimate no-edgeoutcome; distinguishfromnumericalfallback."
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "https://qlib.readthedocs.io/en/latest/reference/api.html"
+  ],
+  "experiment": "constrained_net_excess_20261003",
+  "registered_at_utc": "2026-10-02T17:54:13.009820+00:00",
+  "registered_before_market_model_fits_or_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "Align training directly with fee-after relative wealth and existing benchmark tail constraints. Joint objective-and-constraint change, not an isolated causal attribution; no new architecture, data, features or evaluation-gate relaxation.",
+  "variants": [
+    {
+      "name": "constant",
+      "enabled_market_features": 0
+    },
+    {
+      "name": "price",
+      "enabled_market_features": 25
+    },
+    {
+      "name": "price_vol",
+      "enabled_market_features": 27
+    }
+  ],
+  "parent_input_source": {
+    "experiment": "benchmark_anchor_utility_20261002",
+    "recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_utility_20261002/qlib_recorder",
+    "artifact_manifest_sha256": "8aff34f5654d89ff406d0b2993500b5639529d8d31dec2d1e1702a1f973c27dd",
+    "input_contract": "Hash-verified frozen qualified primary/prices/OOF forecasts and forecast models. Reconstruct nativeDatasetH/scalers; development folds must exactly match parent. No data refresh or forecast retuning."
+  },
+  "motivation": {
+    "feasibility_recorder": "b957ece9cde04b17a89b7f4e792086ea",
+    "risk_feasible_original_J_nonnegative_conditional_checkpoints": 0,
+    "risk_feasible_both_cost_net_excess_positive_states": {
+      "price": 3,
+      "price_vol": 4
+    },
+    "positive_state_fit_years": [
+      2016
+    ],
+    "interpretation": "Cached trajectories cannot supply non-null conditional candidates across5/7fit years. No claim of whole-class impossibility; no cachedalternativeOOSpolicy was evaluated."
+  },
+  "training": {
+    "seed_ids": [
+      17,
+      41,
+      71
+    ],
+    "development_signal_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "diagnostic_signal_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "annual_initialization": "Fresh fixed-seed initialization in every fold, no prior fold warmstart",
+    "initial_hidden": "torch Linear standard Kaiming-uniform weight initialization under declared seed, then bias0; float64",
+    "initial_theta": 0.018518518518518517,
+    "initial_theta_total": 0.5,
+    "optimizer": "Projected Adam; no weight decay; after every proposal Euclidean projection onto nonnegative unit L1 ball",
+    "updates": 120,
+    "learning_rate": 0.003,
+    "gradient_clip": 5.0,
+    "cost_bps": [
+      10,
+      25
+    ],
+    "risk_group_length": 63,
+    "gradient_scored_chunk": 63,
+    "gradient_prior_context": 21,
+    "downside_coefficient": 0.0,
+    "rms_epsilon": 1e-12,
+    "objective": "At eachcost c, A_c=63*mean(log(g_policy_c)-log(g_SOXX_c)); maximize F=min(A_10,A_25). Samecost/reference dates and CASHstart, allfees. Exactcostties average the utility adjoints.",
+    "risk_groups": "Full63 groups starting0,63,...; if incomplete remainder exists, append one final full63 group ending at cutoff. Final risk overlap disclosed. Global mean counts each row exactly once.",
+    "cost_tie_subgradient": "Exact equal worst-cost utilities split gradient equally; no softmin temperature.",
+    "full_objective": "Entire eligible chronological history from actual CASH at EACH cost; all returns and entry/later fees; no warmup masking, annual restart inside training, free initial SOXX, or terminal liquidation.",
+    "gradient": "For currentlearner fullpaths, computeFworstcostadjoints andglobalDD/CVaRadjoints. Combinedmaximizationweights=Fweights-sum(lambda*dg/dlogNAV). Bothcostriskgradients contribute evenwhenitsFbranchinactive. Useexisting63scored+21context truecarried-stateTBPTT, accumulateallbeforeoneupdate; no perchunkriskre-estimation orcontextfeemask. An explicitproxy mayinvokeexisting gradientkernel withoutaltering originalF/legacyJ records.",
+    "incumbent": "Independent exactSOXX F=0 andall4riskgapsequal0. Evaluate interior epoch0 andeachof120updates; retainfirststrictlyhigher F ONLYifall4rawriskgates pass. NullwinsFties; deepcopies. Rankneverbytime-varyingLagrangian.",
+    "ensemble": "All3seed incumbents averaged onone actualownedbook; owncomplete2costF+4riskgateaudit. If F<0 oranyriskgatefails, useexactSOXX, keepall3seed evidence; no subsetselection.",
+    "minimum_rows": 252,
+    "device": "cpu_float64",
+    "torch_threads": 1,
+    "objective_name": "worst_cost_mean_net_log_excess_scaled63",
+    "legacy_quarter_RMS": "Original J withcoefficient1,63groups and1e-12RMS epsilon is reported only; never used for gradients, incumbent acceptance, dual updates orensemble veto.",
+    "unit_scaling": "63 is a fixed positive numerical scale inherited from the old mean term; not a holding period/search or realized63dayreturn. Store dailymeans andaggregate logexcess separately.",
+    "dual_learning_rate": 0.003,
+    "dual_initialization": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dual_update": "After projectedAdam primalproposal, recompute complete currentcandidate paths/constraints, then lambda_next=max(0,lambda_used+0.003*g_post), signednormalizedconstraints. No uppercap, no positive-part-only accumulation, no yearlywarmstart.",
+    "dual_step_scope": "Numerical optimization convention withnormalizedconstraints, pervariable. Similarcostconstraints can be partlyredundant; this doesnot weakenrawfeasibility but affectsfinite-stepconditioning. No convergence guarantee or post-resultstep tuning.",
+    "cost_state_invariance": "Cost-blind post-fee normalizedtargets imply h_next=target*(1+r)/sum(target*(1+r)); proportionalfunding cancels. Normalizedcost-pathholdings usuallyagree exceptfloatingroundoff; independentcostsettlement remains required forNAV,tradeamounts,Fandrisks. HOLDisnotclaimedtoinfercostthroughweights.",
+    "diagnostics": "Archiveevery121parameterstates,lambda_used,postg,lambda_next,F/A,oldJ,riskvalues/gaps/normalizers,feasibility,gradientnorms/primalstepnorm/incumbentepoch. Storechosenpaths; do notduplicatefull dailyadjointvectors foreachcheckpoint."
+  },
+  "constraints": {
+    "cost_bps": [
+      10,
+      25
+    ],
+    "risk_tolerance_percentage_points": 1e-10,
+    "raw_feasibility": "Atbothcosts anchoredMaxDD_policy>=MaxDD_SOXX-1e-10percentagepoints AND exactfractionalCVaR5_policy>=CVaR5_SOXX-1e-10percentagepoints.",
+    "positive_loss_definitions": "D=-anchoredMaxDD_fraction; C=-CVaR5_simple_return_fraction. Ccannegative, neverclamp.",
+    "reference": "SamepriortrainingCASH-start fee-fundedSOXX buyhold. Freeze B_D,c andB_C,c forannualfit; finitepositive required elsefailclosed, noepsilonfloor.",
+    "normalized_g": "g_D=(D_policy-B_D)/B_D; g_C=(C_policy-B_C)/B_C. Normalizersconditionoptimization only; rawriskfeasible setunchanged. Idealdualconstraintg<=0; existingraw1e-10pp allowance onlynumericaltolerance.",
+    "lagrangian": "Loss=-F +sum_over_bothcosts(lambda_D*g_D +lambda_C*g_C), lambda>=0.",
+    "drawdown_adjoint": "IncludeinitialNAV1/log0. Chooseearliestworsttrough andearliestprefixmaximumpeak onexactties; derivative dD/dlogg_t=-exp(logNAV_trough-logNAV_peak) forpeak<t<=trough,else0. IfD==0,choosezero subgradient.",
+    "cvar_adjoint": "m=.05N; lower-tail weights1/m strictlybelowboundaryreturn; distribute remainingfractional tailmass EQUALLYacrossALLexactlyequalboundaryreturns. Sumweights1 andvaluesmatchexistingfractionalCVaR. dC/dlogg_t=-tail_weight_t*exp(logg_t). Equalboundaryties avoidchronologicalbias atflatcash; no tolerance-basedtie grouping/smoothing.",
+    "gradient_limits": "Nonunique subgradientsatriskties andfee no-trade kinks;21contexttruncation approximatesstateeffects. Exactfullpathacceptance guarantees savedTRAININGfeasibility only, notglobaloptimum/KKT/forwardrisk."
+  },
+  "evaluation": {
+    "benchmark": "100percentSOXXfee-fundedbuyhold, identical signal/trade/exitdates andinitialcash",
+    "cost_bps": [
+      10,
+      25
+    ],
+    "family_size_adjustment": 20,
+    "bootstrap_resamples": 2000,
+    "bootstrap_seed": 20261002,
+    "mean_block_lengths": [
+      20,
+      60
+    ],
+    "economic_gates": [
+      "positive cumulative net log excess at both10/25bp",
+      "at least5/7positive signalyears",
+      "positive median annual excess",
+      "leave any one year out remainspositive",
+      "familyadjusted stationary bootstrap20/60lowerbounds positive",
+      "anchoredMaxDD andexacttailCVaR5 noworseSOXX",
+      "same>=2of3seedspositivebothcosts",
+      "zeroinvalidsource/optimization/numericalfallback qualification events"
+    ],
+    "control_increment": "Compareprice/price_volwithconstantcontrolatbothcosts; onlya fullyqualifiedconditionalincrement can supportaninformationclaim. Higherbetapointreturns ortrainingfeasibilityalonecannot.",
+    "attribution": "Annual/full beta and HAC20alpha, net turnover/fees/exposures, null selection/seed dispersion/training objective audits, regime and user Aug3 windows. Higher beta alone is not alpha.",
+    "forecast_skill": "Reuse fixed forecasting protocol; no outcome-based estimator tuning.",
+    "selection": "Seal2016–2022developmentgates/ranking beforepost2022portfolios. Sameoriginalrisk/annual/bootstrap/seed requirements, rawlogexcess>1e-8 numerical-null guard. No selectionbydiagnosticmode.",
+    "outer_modes": [
+      "annual_refit",
+      "frozen2022_parameters: freeze2023trained3seed allocation models/scalers/ensemble-null decision and2023volhead; historical2013-22OOFinputs retained in training, later forecasts use frozenhead; causal market features continue updating"
+    ],
+    "native": "Selected development ensemble bothcosts, actual Qlib continuousPosition/Exchange/Account reports;1e-7 reconciliation tolerance.",
+    "source_sensitivity": "Anyhistoricallyqualifyingpolicy requires a separate source-sensitivity check fordeclared secondary quotes/published-vs-server basis beforedeploymentclaims; no choosingthebetterdatasource.",
+    "forward": "Allhistoryhasbeenreviewed. Historicalpassqualifiesonlyforfrozen newforwardstudy; freshforwardevidence remainsrequiredforobjectivecompletion.",
+    "seed_gate": "At least the SAME2 of declared3 seeds have positive aggregate net log excess at BOTH costs; all3 evaluated. Seeds not independent market paths. Phase4 three deterministic repeats are not reused as seed evidence.",
+    "numerical_null": "A numerically indistinguishable exact benchmark or null-selected profile cannot count as positive-excess evidence; record actual raw differences and require aggregate excess greater than1e-8.",
+    "training_feasibility_integrity": "Everyretainedseed/ensemble fit must passbothcostmeanexcess>=0 andall4trainingriskgates; explicitnumerical/sourcefailuresdisqualify. Economicnullisnotfailureoralpha."
+  },
+  "artifact_policy": "slim_card_recorder_first",
+  "real_broker_orders": false,
+  "existing_sim_change": false,
+  "pre_fit_contracts": [
+    "ExactSOXX F0 andall4riskgapsequality; independentfee-fundedanchor",
+    "SamePhase5initialtensors/scaler/date/inputhashes",
+    "DD/CVARvalueparity andfinite-differenceadjointsawayfromties; declaredtiebehavior",
+    "BothcostriskgradientseveninactiveFbranch; signedpostprimaldualupdate",
+    "Fullcontextshortpathgradientparity; original21contextapproximationexplicit",
+    "PositiveF/negativelegacyJ feasiblecandidateeligible; oldJneverveto",
+    "IncumbentusesfixedF/rawgatesnotvaryingL; all3ensembleownbookfeasibility",
+    "Nonfinite/sourcefailuredisqualification; nofinancialgatechanges"
+  ],
+  "registration_clarifications": [
+    {
+      "prior_plan_sha256": "6f6e01526047543ea9bb25b35ffa7a022e2c34778172e79ec96995cf8f942626",
+      "before_market_fits": true,
+      "scope": "Remove inherited freshly-refit wording; parent forecasts are reused exactly, as already registered in parent_input_source."
+    }
+  ]
+}

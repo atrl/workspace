@@ -1,0 +1,107 @@
+{
+  "synthetic_only": true,
+  "market_data_used": false,
+  "fixture": {
+    "rows": 504,
+    "feature": "alternating+1/-1 incolumn0,other26zero",
+    "soxx_return": ".002+.008*x",
+    "soxl_return": "3*SOXX",
+    "witness_gate_weight": 2,
+    "witness_theta_L_mass": 0.5,
+    "witness_theta_C_mass": 0.5
+  },
+  "schedule_changed": false,
+  "known_class_witness": {
+    "F": 0.2554697794890323,
+    "A_by_cost": {
+      "10.0": 0.29182584933489497,
+      "25.0": 0.2554697794890323
+    },
+    "legacy_J": 0.2554697794890323,
+    "feasible": true,
+    "normalized_g": [
+      -0.25650076049192555,
+      -0.2565007604919211,
+      -0.15956520147597802,
+      -0.15956520147599332
+    ]
+  },
+  "fits": [
+    {
+      "seed": 17,
+      "elapsed_seconds": 4.36315150000155,
+      "failure": null,
+      "selected_epoch": 106,
+      "F": 0.015864294357836414,
+      "A_by_cost": {
+        "10.0": 0.019258181021681458,
+        "25.0": 0.015864294357836414
+      },
+      "legacy_J": 0.015864294357836414,
+      "training_feasibility_passed": true,
+      "null_selected": false,
+      "epochs": 121,
+      "feasible_trajectory_states": 64,
+      "feasible_positive_F_states": 3,
+      "maximum_trajectory_F": 0.09483675887372495,
+      "final_lambda": [
+        0.01176477570996166,
+        0.011764775709961707,
+        0.01225910608201167,
+        0.012259106082011754
+      ],
+      "metadata_pickle_bytes": 592436
+    },
+    {
+      "seed": 41,
+      "elapsed_seconds": 4.079035083996132,
+      "failure": null,
+      "selected_epoch": 104,
+      "F": 0.030138923510947706,
+      "A_by_cost": {
+        "10.0": 0.03568352424638943,
+        "25.0": 0.030138923510947706
+      },
+      "legacy_J": 0.030138923510947706,
+      "training_feasibility_passed": true,
+      "null_selected": false,
+      "epochs": 121,
+      "feasible_trajectory_states": 62,
+      "feasible_positive_F_states": 7,
+      "maximum_trajectory_F": 0.09743855152976266,
+      "final_lambda": [
+        0.009977275809901695,
+        0.009977275809901827,
+        0.013596263441100672,
+        0.012986094360914972
+      ],
+      "metadata_pickle_bytes": 592456
+    },
+    {
+      "seed": 71,
+      "elapsed_seconds": 4.086431125062518,
+      "failure": null,
+      "selected_epoch": 101,
+      "F": 0.005151259291313335,
+      "A_by_cost": {
+        "10.0": 0.008371620485836135,
+        "25.0": 0.005151259291313335
+      },
+      "legacy_J": 0.005151259291313335,
+      "training_feasibility_passed": true,
+      "null_selected": false,
+      "epochs": 121,
+      "feasible_trajectory_states": 60,
+      "feasible_positive_F_states": 2,
+      "maximum_trajectory_F": 0.09523033295327546,
+      "final_lambda": [
+        0.02149436825673996,
+        0.02149436825674023,
+        0.021932594504915456,
+        0.021931932669225957
+      ],
+      "metadata_pickle_bytes": 592425
+    }
+  ],
+  "all_seeds_find_feasible_positive_F": true
+}

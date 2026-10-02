@@ -1,0 +1,14 @@
+{
+  "plan_sha256": "da17267d7d21ccb2589bc799efe33ed9149d8b4c7c0b5371aadd4b429227901d",
+  "selected": {
+    "variant": "price_vol",
+    "historical_qualification_pass": false,
+    "passed_gates": 14,
+    "worst_annualized_lower_bound": -0.03381073041236614,
+    "worst_relative_wealth": 1.0328490937986983,
+    "positive_years_10bps": 4
+  },
+  "selection_uses_diagnostic_signal_years": false,
+  "development_last_exit": "2023-01-04",
+  "campaign_status": "active_research"
+}
