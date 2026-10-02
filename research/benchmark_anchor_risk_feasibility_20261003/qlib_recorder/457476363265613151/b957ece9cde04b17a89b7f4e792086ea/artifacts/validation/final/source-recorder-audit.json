@@ -1,0 +1,161 @@
+{
+  "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+  "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+  "scope": "Source/manifest/native-row/scaler/index/output-provenance audit only; no model fitting, policy inference, checkpoint feasibility recomputation or OOS comparison.",
+  "checks": {
+    "plan_bytes_match_seal_and_summary": true,
+    "new_sources_match_final_summary": true,
+    "parent_sources_unchanged": true,
+    "exact_registered_parent_and_hashes": true,
+    "new_Recorder_FINISHED": true,
+    "recorded_plan_bytes_match": true,
+    "recorded_source_hashes_match": true,
+    "all66_source_attestations_reverified": true,
+    "only_registered_development_source_objects": true,
+    "all21_frozen_maturity_rows_rebuilt": true,
+    "maturity_strictly_before_cutoff": true,
+    "index_contains_only_diagnostic_identifiers_and_hashes": true,
+    "all7623_index_identities_exact": true,
+    "index_hashes_match_immutable_parent_snapshots": true,
+    "trajectory_counts_exclude_null": true,
+    "null_records_separate_and_complete": true,
+    "joint_index_hashes_match": true,
+    "exact_per_cost_trajectory_inventory": true,
+    "run_summary_and_nulls_exact63identities": true,
+    "only_development_models_in_outputs": true,
+    "all63_immutable_chunks_written": true,
+    "run_summary_sidecar_rows": true,
+    "summary_counts_match_small_sidecar": true,
+    "no_fit_OOS_or_strategy_change_claim": true,
+    "notebook_executed_without_error": true,
+    "final_recorder_visible_in_notebook": true,
+    "final_markdown_equals_conclusion": true,
+    "no_unexecuted_placeholder": true,
+    "final_Recorder_in_conclusion": true,
+    "counts_equal_frozen_summary": true,
+    "constant_sign_and_margin_counts": true,
+    "conditioned_risk_feasible_all_negative_J": true,
+    "utility_exactness_claim_matches_audit": true,
+    "independent_sample_scope_correct": true,
+    "explicit_no_new_selected_model": true,
+    "formal_source_plan_and_parent_unchanged": true,
+    "test_counts_unchanged": true,
+    "goal_and_scope_unchanged": true
+  },
+  "failures": [],
+  "source_artifact_count": 66,
+  "folds": 21,
+  "runs": 63,
+  "trajectory_index_rows": 7623,
+  "trajectory_cost_rows": 15246,
+  "trajectory_joint_rows": 7623,
+  "null_cost_rows": 126,
+  "null_joint_rows": 63,
+  "utility_reproduction_rows": 7686,
+  "counts": [
+    {
+      "variant": "constant",
+      "risk_feasible": 594,
+      "risk_and_nonnegative_J": 381,
+      "risk_and_strict_positive_J": 339,
+      "risk_and_positive_J_margin": 336,
+      "trajectory_checkpoints": 2541
+    },
+    {
+      "variant": "price",
+      "risk_feasible": 36,
+      "risk_and_nonnegative_J": 0,
+      "risk_and_strict_positive_J": 0,
+      "risk_and_positive_J_margin": 0,
+      "trajectory_checkpoints": 2541
+    },
+    {
+      "variant": "price_vol",
+      "risk_feasible": 30,
+      "risk_and_nonnegative_J": 0,
+      "risk_and_strict_positive_J": 0,
+      "risk_and_positive_J_margin": 0,
+      "trajectory_checkpoints": 2541
+    }
+  ],
+  "plan_sha256": "7b4b5fe0bd767751163c878411c2720befada4fab23b36a002d064bfb7f24299",
+  "source_sha256": {
+    "src/analysis/anchor_checkpoint_feasibility.py": "fcfe7c2efbb12e4263060b2282378718327ae531e137b011859b892f27a95865",
+    "src/workflow/anchor_checkpoint_feasibility.py": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5"
+  },
+  "parent_source_sha256": {
+    "src/data/benchmark_anchor_utility.py": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+    "src/model/benchmark_anchor_utility.py": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+    "src/workflow/benchmark_anchor_utility.py": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+    "src/model/integrated_allocation.py": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+    "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+    "src/workflow/conditional_variance.py": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+    "src/data/integrated_allocation.py": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+    "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/workflow/stable_excess_integration.py": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+  },
+  "parent_artifact_manifest_sha256": "8aff34f5654d89ff406d0b2993500b5639529d8d31dec2d1e1702a1f973c27dd",
+  "source_asof": "2026-09-25",
+  "notebook_final_markdown_pending": false,
+  "notebook_sha256": "da1db520522899e1b551b26a17cb43dcdf5afeecd0f06386621ad402d7fc713b",
+  "metric_audit": {
+    "path": "/tmp/anchor-checkpoint-results-independent-audit.json",
+    "sha256": "537d1797834d851621e6b007f4c3f06868f208d8371160b3f211dd92c47fa4b8",
+    "failures": [],
+    "scope": "All inventory/gap/J/first-best/null-tie/summary arithmetic checked; independent daily risk/fee/own-state reconstruction limited to fixed159model/318training-cost-path sample. No new fits/OOS/selection."
+  },
+  "final_small_card_refresh": {
+    "scope": "Notebook/conclusion/sidecar metadata only; no tests, provider checks, source deserialization, fitting or checkpoint replay repeated",
+    "checks": {
+      "final_markdown_equals_conclusion": true,
+      "no_unexecuted_placeholder": true,
+      "final_Recorder_in_conclusion": true,
+      "counts_equal_frozen_summary": true,
+      "constant_sign_and_margin_counts": true,
+      "conditioned_risk_feasible_all_negative_J": true,
+      "utility_exactness_claim_matches_audit": true,
+      "independent_sample_scope_correct": true,
+      "explicit_no_new_selected_model": true,
+      "formal_source_plan_and_parent_unchanged": true,
+      "test_counts_unchanged": true,
+      "goal_and_scope_unchanged": true
+    },
+    "file_sha256": {
+      "benchmark_anchor_risk_feasibility_20261003.ipynb": "da1db520522899e1b551b26a17cb43dcdf5afeecd0f06386621ad402d7fc713b",
+      "conclusion.md": "b5f3db4bae97ec5d2b5afcb96db2092868d1e4313cd0547924bc79e07c81388d",
+      "selected_model.json": "d2db3d33d855e7d8c7502a241d19820271707ac87fdb9fa38b01abbac8a4529b",
+      "feasibility_counts.csv": "9a686944cb7e45dab2d98574669b4c2674218ed24b87c230bbaea20cd27ae419"
+    }
+  },
+  "supplemental_metric_artifacts": [
+    {
+      "path": "/tmp/anchor-checkpoint-results-independent-audit.json",
+      "sha256": "537d1797834d851621e6b007f4c3f06868f208d8371160b3f211dd92c47fa4b8"
+    },
+    {
+      "path": "/tmp/audit_anchor_checkpoint_results.py",
+      "sha256": "8bf8051a5a500c2ff80d6abe6faea36f7f8227470387ae0b45a16109844976a2"
+    },
+    {
+      "path": "/tmp/anchor-checkpoint-results-independent-samples.csv",
+      "sha256": "d282ced679ec56001d2096b04295ae5e2b0d2e24d04b32e1652eee949fe21dd7"
+    },
+    {
+      "path": "/tmp/anchor-checkpoint-results-independent-audit.log",
+      "sha256": "1b1ffc48c5f4215f3c844a276017bf9639829913e6fdc702830bf92b182ec9ba"
+    },
+    {
+      "path": "/tmp/anchor-checkpoint-utility-parity-summary.json",
+      "sha256": "5c17b610fafc19832559e640bf29165b2b0b389774ef10bc88dac42dcb87a455"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+....................................................                     [100%]
+=============================== warnings summary ===============================
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19
+  /Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_DAY = pd.Timedelta("1day")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20
+  /Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_MIN = pd.Timedelta("1min")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21
+  /Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    EPS_T = pd.Timedelta("1s")  # use 1 second to exclude the right interval point
+
+tests/test_anchor_checkpoint_feasibility.py::test_chronology_scope_and_native_dates_are_not_silently_trimmed
+  /Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/tests/test_anchor_checkpoint_feasibility.py:148: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    parts=fixture();parts[2].loc[0,'exit_date']+=pd.Timedelta(days=1)
+
+tests/test_anchor_checkpoint_feasibility.py::test_chronology_scope_and_native_dates_are_not_silently_trimmed
+  /Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/tests/test_anchor_checkpoint_feasibility.py:150: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    parts=fixture();parts[2]['exit_date']=parts[2].exit_date+pd.Timedelta(days=365)
+
+tests/test_anchor_checkpoint_feasibility_workflow.py::test_provider_calendar_metadata_is_byte_pinned_before_any_parent_objects_load[None]
+  /Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/qlib_venv/lib/python3.12/site-packages/google/protobuf/internal/well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+52 passed, 6 warnings in 3.90s

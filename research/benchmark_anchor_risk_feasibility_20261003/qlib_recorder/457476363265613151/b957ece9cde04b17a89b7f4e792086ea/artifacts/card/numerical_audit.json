@@ -1,0 +1,88 @@
+{
+  "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+  "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+  "failures": [],
+  "check_count": 72,
+  "maxima": {
+    "DD gap identity": 0,
+    "CVaR gap identity": 0,
+    "aggregate excess separate from utility": 0,
+    "signed component difference": 0,
+    "cost/J binding": 0,
+    "cost/storedJ binding": 0,
+    "worst aggregate cost utility": 0,
+    "stored worst utility": 0,
+    "signed J difference": 0,
+    "best raw J risk_feasible": 0,
+    "best diagnostic raw detail": 0,
+    "best raw J risk_and_nonnegative_J": 0,
+    "best raw J risk_and_strict_positive_J": 0,
+    "best raw J risk_and_positive_J_margin": 0,
+    "null-inclusive best J": 0,
+    "sample independent SOXX entry-hold": 1.1102230246251565e-16,
+    "sample independently anchored DD": 1.1723955140041653e-13,
+    "sample independently fractional CVaR": 0,
+    "sample benchmark DD": 8.526512829121202e-14,
+    "sample benchmark CVaR": 0,
+    "sample independently reconstructed utility": 0,
+    "sample true risky-L1 fees": 1.6653345369377348e-16,
+    "sample fee rate": 4.336808689942018e-19,
+    "sample actual own path": 0,
+    "sample worst-cost J": 0
+  },
+  "learner_models": 7623,
+  "nulls": 63,
+  "learner_cost_rows": 15246,
+  "null_cost_rows": 126,
+  "counts": [
+    {
+      "variant": "constant",
+      "risk_feasible": 594,
+      "risk_and_nonnegative_J": 381,
+      "risk_and_strict_positive_J": 339,
+      "risk_and_positive_J_margin": 336,
+      "trajectory_checkpoints": 2541
+    },
+    {
+      "variant": "price",
+      "risk_feasible": 36,
+      "risk_and_nonnegative_J": 0,
+      "risk_and_strict_positive_J": 0,
+      "risk_and_positive_J_margin": 0,
+      "trajectory_checkpoints": 2541
+    },
+    {
+      "variant": "price_vol",
+      "risk_feasible": 30,
+      "risk_and_nonnegative_J": 0,
+      "risk_and_strict_positive_J": 0,
+      "risk_and_positive_J_margin": 0,
+      "trajectory_checkpoints": 2541
+    }
+  ],
+  "fixed_sample_rule": "Per run exact null, highest rawJ learner and best risk-feasible learner; earliest ties; dedup only verification sample, not source inventory. Declared to root before authoritative results.",
+  "sampled_models": 159,
+  "sampled_cost_paths": 318,
+  "diagnostic_model_selection_performed": false,
+  "new_market_fits": false,
+  "out_of_sample_rows_used": false,
+  "scope_limit": "All aggregate gap/status/count arithmetic checked; independently reconstructed daily risk only for fixed sampled saved models, not all7623states. Parent kernel unchanged; risk/utility formulas independently evaluated with NumPy.",
+  "exact_utility_parity": {
+    "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+    "maximum_absolute_J_difference": 0.0,
+    "maximum_absolute_cost_utility_difference": 0.0,
+    "J_sign_disagreements": 0,
+    "component_sign_disagreements": 0,
+    "all_nulls_exact_J_zero": true,
+    "risk_feasible_raw_J_exactly_zero": 42,
+    "risk_feasible_positive_J_not_exceeding_margin": 3
+  },
+  "recorder_artifacts": {
+    "full_report": "validation/numerical/anchor-checkpoint-results-independent-audit.json",
+    "method": "validation/numerical/audit_anchor_checkpoint_results.py",
+    "fixed_samples": "validation/numerical/anchor-checkpoint-results-independent-samples.csv",
+    "execution_log": "validation/numerical/anchor-checkpoint-results-independent-audit.log",
+    "utility_parity": "validation/numerical/anchor-checkpoint-utility-parity-summary.json"
+  },
+  "full_report_sha256": "537d1797834d851621e6b007f4c3f06868f208d8371160b3f211dd92c47fa4b8"
+}

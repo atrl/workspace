@@ -1,0 +1,10 @@
+{
+  "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+  "maximum_absolute_J_difference": 0.0,
+  "maximum_absolute_cost_utility_difference": 0.0,
+  "J_sign_disagreements": 0,
+  "component_sign_disagreements": 0,
+  "all_nulls_exact_J_zero": true,
+  "risk_feasible_raw_J_exactly_zero": 42,
+  "risk_feasible_positive_J_not_exceeding_margin": 3
+}

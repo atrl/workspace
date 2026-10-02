@@ -1,0 +1,398 @@
+[
+  {
+    "artifact": "inputs/selection_plan.json",
+    "sha256": "4efdeb6e391c9b4a1d75c4ae995920e125dd862245b583f43f1075db2f3b9214",
+    "bytes": 12529,
+    "serialization": "json"
+  },
+  {
+    "artifact": "inputs/source_hashes.pkl",
+    "sha256": "719761bd347e8eaefa169b5c117302d6d480b2ba11731b2a3390ae7669d03142",
+    "bytes": 1913,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/inputs/source_hashes.pkl"
+  },
+  {
+    "artifact": "inputs/development_fold_inputs.pkl",
+    "sha256": "af640e3d5b7da732e14902a516141512daf137e359a93c67f48d48d761a9c325",
+    "bytes": 13682596,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/inputs/development_fold_inputs.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2016/17/training_audit.pkl",
+    "sha256": "b26e919f478d3ac57d01fdafe6d1b9e029f8135f20f4a86aec74f504668bed85",
+    "bytes": 763678,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2016/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2016/41/training_audit.pkl",
+    "sha256": "b1da66fe10cae48b6fd19dd9c4ca82e86ec926f3febf5f9643e0d7c9cadccbd0",
+    "bytes": 763678,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2016/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2016/71/training_audit.pkl",
+    "sha256": "d7011da2c9e3dd7457d8ed9586ffdeaefb86c90df6f04a27cb538fd7d4aa67ba",
+    "bytes": 763678,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2016/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2017/17/training_audit.pkl",
+    "sha256": "4a519efa5a8d6e4ea38e54e1dea91cc0947b1fa13909f9e5890922b6979af113",
+    "bytes": 857751,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2017/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2017/41/training_audit.pkl",
+    "sha256": "e542987977f5c46439aae2fc69fb3bd6fb534eb9a577c4e6fdfe5d485dc77e5f",
+    "bytes": 857751,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2017/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2017/71/training_audit.pkl",
+    "sha256": "185287a5a35c78d5a58fd8f38250feccd07bd81c586bef6833da420a97d3d9a9",
+    "bytes": 857751,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2017/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2018/17/training_audit.pkl",
+    "sha256": "7a73fa544d01ce8e90e160deb9e2786e74484b58f48ff563a22791e06b435d10",
+    "bytes": 951478,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2018/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2018/41/training_audit.pkl",
+    "sha256": "1c258b1a6d02db1ea869b2a679037f827f8af0d9aa998f73604e9ec77b963253",
+    "bytes": 951478,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2018/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2018/71/training_audit.pkl",
+    "sha256": "db2b01d43cc48909a2003260f3f754e222afa74fa395628e975ac4865179b734",
+    "bytes": 951478,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2018/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2019/17/training_audit.pkl",
+    "sha256": "761cee519b848280e36b9bec6a81e15c9ec78bbde4077b5da0a3d444731c11da",
+    "bytes": 1045019,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2019/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2019/41/training_audit.pkl",
+    "sha256": "1534665a47212bb467458e6f74095ab5a4c21215532c92754660f2f9eea616e3",
+    "bytes": 1045019,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2019/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2019/71/training_audit.pkl",
+    "sha256": "f9973255395aca51fd1971b46064714529673f19fed3f3c712f8753bb56f7475",
+    "bytes": 1045019,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2019/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2020/17/training_audit.pkl",
+    "sha256": "8dd258e503f7e70d98e794195fbfaa87746c631664a4d5c22016988ae2e591b2",
+    "bytes": 1138990,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2020/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2020/41/training_audit.pkl",
+    "sha256": "13348898815228345d6f7084f320bbccdf4015c613127745164504b8415bb831",
+    "bytes": 1138990,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2020/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2020/71/training_audit.pkl",
+    "sha256": "2093c845fa6d03e61084315f72c289fbe0ffd1e7baf7bf8b8a8f63196ae816c2",
+    "bytes": 1138990,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2020/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2021/17/training_audit.pkl",
+    "sha256": "e95ba8fdc3a19ce053c9effd2c8787ac4824f41fba25eb109010be403de0457f",
+    "bytes": 1233319,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2021/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2021/41/training_audit.pkl",
+    "sha256": "e46dd08ce362f5a8ad04606f29d05ec30195ea74db67349fea06ebf694e9475f",
+    "bytes": 1233319,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2021/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2021/71/training_audit.pkl",
+    "sha256": "d9023684560506d380f9fc3ccf44f2f605d2a34df872d0f91a6a0cefb1be672c",
+    "bytes": 1233319,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2021/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2022/17/training_audit.pkl",
+    "sha256": "25461b2708f2a6d242d16bc1720d25aaff8e3f183654880d4c21c4a10c031d12",
+    "bytes": 1327365,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2022/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2022/41/training_audit.pkl",
+    "sha256": "9cd4ccf11e1f5d9e73f57ed0b8962570c29c2fe485d86adc6abf1eeed9f1fa8e",
+    "bytes": 1327365,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2022/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/constant/2022/71/training_audit.pkl",
+    "sha256": "2b9b95b9096dec3b46b3bdae363ec690d96a1f775b8bbfc746f7f26239bc1aa2",
+    "bytes": 1327365,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/constant/2022/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2016/17/training_audit.pkl",
+    "sha256": "d2a3618cece0fd9ebac47193e7a254a04e482c44d15789253bddc4e5d1a44fdf",
+    "bytes": 763510,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2016/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2016/41/training_audit.pkl",
+    "sha256": "c6a5f6037841b3158b19185433b01043775585f31110395009d18f4245ef26e6",
+    "bytes": 763510,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2016/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2016/71/training_audit.pkl",
+    "sha256": "16ad86536f0b4648a55f7348beb9a2a5048bcbb48f23d1fbdeff5961d39db5eb",
+    "bytes": 763501,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2016/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2017/17/training_audit.pkl",
+    "sha256": "0fecb4e5eede0df1058a66cf6913135753a0e160a03cc11388103b510cef88f4",
+    "bytes": 857514,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2017/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2017/41/training_audit.pkl",
+    "sha256": "9cc623fd8917b73fb866b00e79402d97ebdf07e31660fa524340cb7945cdadb9",
+    "bytes": 857520,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2017/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2017/71/training_audit.pkl",
+    "sha256": "d30cb30c4dab9912f457c7f5515ef98213991eb86c8e1f9fc3765656802a62ef",
+    "bytes": 857517,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2017/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2018/17/training_audit.pkl",
+    "sha256": "d567fe018cb9868f7243c06d75c9c0a631ca72ceafe489f6d48ab1a250b70797",
+    "bytes": 951190,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2018/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2018/41/training_audit.pkl",
+    "sha256": "adb2fe40b958a093146898e90eae235158df056d1d65f6cbfed26950255b15c9",
+    "bytes": 951187,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2018/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2018/71/training_audit.pkl",
+    "sha256": "efb9d7addeee0a7219ce9f9b24b6a4bf737af533fceca3d3f42b65dbba2463ec",
+    "bytes": 951181,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2018/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2019/17/training_audit.pkl",
+    "sha256": "60ae31444933f648e14a32c8e06673d05b7cea12319352a141bdb6e44e8db449",
+    "bytes": 1044869,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2019/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2019/41/training_audit.pkl",
+    "sha256": "0f4e3443aaa449515ff8b1f8d29654dcf79255c3b9231dc0d3a4c1c3c57db6c9",
+    "bytes": 1044875,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2019/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2019/71/training_audit.pkl",
+    "sha256": "3b0cf8625bce15aa0511f13868b96fa2628eb06762703831395b8bfa1b1a93e1",
+    "bytes": 1044875,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2019/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2020/17/training_audit.pkl",
+    "sha256": "14250981cfe49645e176ff987403de359df723e6d971ef5c7f9c13b66075e603",
+    "bytes": 1138903,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2020/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2020/41/training_audit.pkl",
+    "sha256": "100fa77b1dea954df12cd98a4f7796679c475186c072bb6885633ccffc0b6469",
+    "bytes": 1138900,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2020/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2020/71/training_audit.pkl",
+    "sha256": "813385999e0b45849874ec4ad1320c86600c11d0e74951a3b231aaaa1d79d6d8",
+    "bytes": 1138894,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2020/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2021/17/training_audit.pkl",
+    "sha256": "ad05653fc4b0cc2237a1ea5509651dba2fece79a99f6aab33dfc1d1b8a11a1fe",
+    "bytes": 1233244,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2021/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2021/41/training_audit.pkl",
+    "sha256": "056b7a316a6bf13e877141122a8f2f55fd171ad19517c859d66929eafcd7a856",
+    "bytes": 1233286,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2021/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2021/71/training_audit.pkl",
+    "sha256": "fad0809c3a75d8a2b5a36810f4cd226fc5203d3f732717d03bd95fe8f3816456",
+    "bytes": 1233247,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2021/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2022/17/training_audit.pkl",
+    "sha256": "9129dcd132ab713d8c0d9f80881f0f3bce14062593fa622d86a46e469606c541",
+    "bytes": 1327302,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2022/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2022/41/training_audit.pkl",
+    "sha256": "7f59250eefca33bee96b406bef86748087db0d24b72775edcdb8b11c4366eb9f",
+    "bytes": 1327356,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2022/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price/2022/71/training_audit.pkl",
+    "sha256": "2072ec9b8943cdf8d4c8b6b049ed47b0a7ed4597ef287c36ba5d5c44e03a4d44",
+    "bytes": 1327296,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price/2022/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2016/17/training_audit.pkl",
+    "sha256": "f2c81af0d0c0f3eb89fa37d8bf6ca4749d00452513c286d71731b99321727a44",
+    "bytes": 763505,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2016/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2016/41/training_audit.pkl",
+    "sha256": "b515f684ebc326d2332af149cc6fef0918040b5b3fb84b43f72b11ebab6a7662",
+    "bytes": 763502,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2016/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2016/71/training_audit.pkl",
+    "sha256": "1e4460d527dc0ed85711b0bd19ebd7ada2efdcbdaae1a13928aff329a6d408ed",
+    "bytes": 763499,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2016/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2017/17/training_audit.pkl",
+    "sha256": "0745475f2327debe33d902d0f6fee31f3b8ecc7c721f3ff6858d7178bdc826e9",
+    "bytes": 857515,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2017/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2017/41/training_audit.pkl",
+    "sha256": "d2b3717582859ecadf41ad1f27c36aa1a0e24ba66e808ed98c03795667780637",
+    "bytes": 857515,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2017/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2017/71/training_audit.pkl",
+    "sha256": "8e2d5bcef4c7b1874a1f5c2c8fbc8aeb1ebc2a2635f518416845b05e5215652f",
+    "bytes": 857509,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2017/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2018/17/training_audit.pkl",
+    "sha256": "f83d567f951b003939ea7bf0df45d23a44fb773132136ce3466a4ab41e94c9ce",
+    "bytes": 951191,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2018/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2018/41/training_audit.pkl",
+    "sha256": "26a214a906dd07089a8f2f75069b2df636d3621e89b1539780f83db6e6b94e86",
+    "bytes": 951182,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2018/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2018/71/training_audit.pkl",
+    "sha256": "2003ca50cb8c8dddbf2e0d9be299450a6fb236179d317afe67d5bfd2a02de79c",
+    "bytes": 951176,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2018/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2019/17/training_audit.pkl",
+    "sha256": "f7d5af7f9f839981b98e4d40177aeef2fdc815cb9dff14c7e16ed25483812518",
+    "bytes": 1044867,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2019/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2019/41/training_audit.pkl",
+    "sha256": "d702e5dba2ff199f5d605e2338febe6f54eeb64204487fe5974d8ff2c622b4bb",
+    "bytes": 1044867,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2019/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2019/71/training_audit.pkl",
+    "sha256": "16cd5498c67a1af1d94f438a044ba5d70b88dfa13dd597fac054db043dba193d",
+    "bytes": 1044864,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2019/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2020/17/training_audit.pkl",
+    "sha256": "6854939fe6ab5f5f38cb5a1245e1d728b9c0b74f0fa94df165e5e21d619465b5",
+    "bytes": 1138898,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2020/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2020/41/training_audit.pkl",
+    "sha256": "9cb9523f43ebaada128944ecae0affd4ed1dec9219bfda217629c3cb8726c103",
+    "bytes": 1138898,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2020/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2020/71/training_audit.pkl",
+    "sha256": "77ce650f3a3d8d2629b8089e8a9c222b2d88340f67d7d6a9be4e77024b4acff0",
+    "bytes": 1138883,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2020/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2021/17/training_audit.pkl",
+    "sha256": "bb215025f0993011cb6b00238876eed600765e3be8b17ed898da764c7d8b70b3",
+    "bytes": 1233239,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2021/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2021/41/training_audit.pkl",
+    "sha256": "68307c3e11ba6be26714a5ad819356e2eca8f82c807c0291ec869c7510e71b81",
+    "bytes": 1233278,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2021/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2021/71/training_audit.pkl",
+    "sha256": "3f8ce65d7fe9976818f3e302c78e4d806d8eead0bdcc27c816778541524a482d",
+    "bytes": 1233233,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2021/71/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2022/17/training_audit.pkl",
+    "sha256": "8102c7fece2beb5b0dc477e8abbc9d77a1ee04351279f083c485660a457b43bb",
+    "bytes": 1327303,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2022/17/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2022/41/training_audit.pkl",
+    "sha256": "10151f61c0f9cbf093c51c0596b10fd21804a76239771e8c20434aa94ed8507f",
+    "bytes": 1327339,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2022/41/training_audit.pkl"
+  },
+  {
+    "artifact": "fit_checkpoints/price_vol/2022/71/training_audit.pkl",
+    "sha256": "19547225ec879b97052270eb4ed44105c7927d588e42a6ee0eb2d8eaaf2a3824",
+    "bytes": 1327294,
+    "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/fit_checkpoints/price_vol/2022/71/training_audit.pkl"
+  }
+]

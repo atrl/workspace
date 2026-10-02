@@ -1,0 +1,192 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[6194:MainThread](2026-10-03 01:21:06,454) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[6194:MainThread](2026-10-03 01:21:06,455) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[6194:MainThread](2026-10-03 01:21:06,455) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/data/qlib/published_futu_affine_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2695.57it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2364.32it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 414.05it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 404.82it/s]
+[6194:MainThread](2026-10-03 01:21:06,515) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,515) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,516) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,530) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,530) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,530) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,544) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,544) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,544) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,610) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,610) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,610) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,624) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,624) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,624) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,638) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,638) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,638) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,723) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,723) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,723) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,739) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,739) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,739) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,755) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,755) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,755) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,857) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,857) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,857) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,874) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,874) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,874) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:06,891) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:06,891) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:06,891) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:07,013) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:07,013) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:07,013) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:07,032) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:07,032) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:07,032) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:07,050) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:07,050) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:07,050) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:07,193) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:07,193) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:07,193) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:07,212) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:07,213) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:07,213) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:07,231) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:07,231) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:07,231) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:07,390) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:07,390) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:07,390) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:07,482) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:07,483) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:07,483) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+[6194:MainThread](2026-10-03 01:21:07,503) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[6194:MainThread](2026-10-03 01:21:07,503) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[6194:MainThread](2026-10-03 01:21:07,503) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2447.09it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2189.09it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3387.97it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2993.79it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3609.56it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3266.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3692.17it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3331.46it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3622.02it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3320.91it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3597.17it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3276.80it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3802.63it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3486.54it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3483.64it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3172.70it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3313.04it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3048.19it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3368.92it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3086.32it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3437.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3116.12it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3320.91it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3021.83it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3472.11it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3184.74it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3355.44it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3095.43it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3204.20it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2966.27it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3236.35it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2993.79it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3155.98it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2926.94it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3266.59it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3030.57it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3194.44it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2968.37it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3226.39it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2966.27it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3331.46it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3095.43it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4036.87it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3663.15it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3890.82it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3572.66it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4013.69it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3634.58it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3813.00it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3498.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4080.06it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3744.91it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3768.47it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3446.43it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3744.91it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3472.11it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3548.48it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3279.36it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3701.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3410.00it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3423.92it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3153.61it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3472.11it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3226.39it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3452.10it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3206.65it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3521.67it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3246.37it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3077.26it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2857.16it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3533.53it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3269.14it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3125.41it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2914.74it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3204.20it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2974.68it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3165.51it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2968.37it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3146.51it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2951.66it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3246.37it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2995.93it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3093.14it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2855.21it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3581.81it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3246.37it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4169.29it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3802.63it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4068.19it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3692.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3771.86it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3483.64it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3701.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3412.78it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3819.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3449.26it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2906.66it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2725.34it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3545.48it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3289.65it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3440.77it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3002.37it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3279.36it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3048.19it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3692.17it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3401.71it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3437.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3155.98it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3545.48it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3300.00it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2761.23it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2571.61it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3002.37it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2666.44it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2681.78it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2480.37it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2966.27it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2770.35it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3323.54it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3059.30it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3030.57it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2799.94it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3113.81it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2880.70it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2739.58it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2511.56it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1042.84it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1010.19it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2718.28it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2499.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3134.76it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2888.64it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2811.20it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2618.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1172.58it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1133.90it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2480.37it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2309.64it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4539.29it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4080.06it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 5053.38it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4505.16it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 5526.09it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4928.68it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3813.00it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3483.64it/s]
+{
+  "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+  "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+  "scope": "Source/manifest/native-row/scaler/index/output-provenance audit only; no model fitting, policy inference, checkpoint feasibility recomputation or OOS comparison.",
+  "failures": [],
+  "source_artifact_count": 66,
+  "folds": 21,
+  "runs": 63,
+  "trajectory_index_rows": 7623,
+  "trajectory_cost_rows": 15246,
+  "trajectory_joint_rows": 7623,
+  "null_cost_rows": 126,
+  "null_joint_rows": 63,
+  "utility_reproduction_rows": 7686,
+  "counts": [
+    {
+      "variant": "constant",
+      "risk_feasible": 594,
+      "risk_and_nonnegative_J": 381,
+      "risk_and_strict_positive_J": 339,
+      "risk_and_positive_J_margin": 336,
+      "trajectory_checkpoints": 2541
+    },
+    {
+      "variant": "price",
+      "risk_feasible": 36,
+      "risk_and_nonnegative_J": 0,
+      "risk_and_strict_positive_J": 0,
+      "risk_and_positive_J_margin": 0,
+      "trajectory_checkpoints": 2541
+    },
+    {
+      "variant": "price_vol",
+      "risk_feasible": 30,
+      "risk_and_nonnegative_J": 0,
+      "risk_and_strict_positive_J": 0,
+      "risk_and_positive_J_margin": 0,
+      "trajectory_checkpoints": 2541
+    }
+  ],
+  "plan_sha256": "7b4b5fe0bd767751163c878411c2720befada4fab23b36a002d064bfb7f24299",
+  "parent_artifact_manifest_sha256": "8aff34f5654d89ff406d0b2993500b5639529d8d31dec2d1e1702a1f973c27dd",
+  "source_asof": "2026-09-25",
+  "notebook_final_markdown_pending": true,
+  "notebook_sha256": "812c8e458afc23c774d0403dca33068dea0d9e8e67d6145f13aeb8f0e9ed51a5",
+  "metric_audit": "Separate model-agent report pending; first/best/count/risk/utility arithmetic is outside this source audit."
+}
