@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "source_first_recorder": "1331bd26ed6848e88c1c9f7de8dd5aad",
+  "verified_recorder": "b94059c2e0754b0ab102e4f62534eefb",
+  "development_comparison_exactly_equal": true,
+  "development_rows_compared": 14,
+  "diagnostic_correction": "frozen2022 now freezes both allocator and cash/vol heads; first recorder diagnostic label superseded",
+  "native_report_correction": "native risk table now uses252 sessions; initial-mark drawdown supplements native metric"
+}

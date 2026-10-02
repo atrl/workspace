@@ -1,0 +1,416 @@
+{
+  "experiment": "stable_excess_integration_20261002",
+  "source_as_of": "2026-09-25",
+  "source_revision": "d7ffaa2516158105f6afc5c6a2233b6edecdf53e",
+  "policy": "slim_card_recorder_first",
+  "model_training_purpose": "Three preregistered continuous-allocation variants and three seeds, annual matured-label training; failed qualification retained, no production activation.",
+  "recorders": {
+    "1331bd26ed6848e88c1c9f7de8dd5aad": "initial run; development result retained; frozen-system diagnostic and native252annualization corrected in finalrun",
+    "b94059c2e0754b0ab102e4f62534eefb": "authoritative verified run"
+  },
+  "execution_snapshot": "data/qlib/stable_excess_integration_20261002",
+  "artifacts": [
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/analysis/annual_metrics.pkl",
+      "bytes": 18724,
+      "sha256": "e15a73622c9112ed2a733c9e57ef3791bda9952c287ed8a2f3b13d8b16349452",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/analysis/bootstrap.pkl",
+      "bytes": 3356,
+      "sha256": "13afdb15f3f1d32e532511c31a04b43c931bc981e7ec65433d3b047622b9e672",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/analysis/comparison.pkl",
+      "bytes": 9520,
+      "sha256": "b647895a9fb150af2b785bb90e8be2e69dc7c9d3059f7dc6980441543e2ce4d2",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/analysis/gates.pkl",
+      "bytes": 1992,
+      "sha256": "d158fdff6c5a6efd40edff9f02c97efb10fb20a0eeec08fad49f67aea65ec77f",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/analysis/portfolio_replays.pkl",
+      "bytes": 7449709,
+      "sha256": "dc0d885576d9d85a7fc9f14452be1cb6537d09839ec21a62f915c8168245b7ae",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/analysis/seed_metrics.pkl",
+      "bytes": 6955,
+      "sha256": "32874512e3e2f7cb4a42620c98efce4b95283250d51487d31251fc759489fa77",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/analysis/training_diagnostics.pkl",
+      "bytes": 8115,
+      "sha256": "64ef4b6bc5f05eae9edb95759f3015098d738e8f60cf66fcdd7d13bef6183acd",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/inputs/auxiliary_frame.pkl",
+      "bytes": 7347244,
+      "sha256": "eaff395d0f942e51cbf031e2c774c08fc6969c66eea47e5d1bf3146e12247989",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/inputs/execution_prices.pkl",
+      "bytes": 101307,
+      "sha256": "99d5b90567afe17541249e3f1d670f148fe1af4165c6ff278ace11761a6fb334",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/inputs/fold_audits.pkl",
+      "bytes": 5110,
+      "sha256": "0f5a53ee0ff221c039ff8160389bf6a1c69178b139bef8c11687331b1326a8c8",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/inputs/forecast_frame.pkl",
+      "bytes": 1126799,
+      "sha256": "d1c9e11604d3de7c3bc41744cfed725cb815f7b6a1bf971d3481456e3d2d4695",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/inputs/primary_frame.pkl",
+      "bytes": 1126799,
+      "sha256": "42b9660b6f8d5aadeee2397436576e9469552e7ee7620bf11a7ecb91a620de65",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/inputs/selection_plan.json",
+      "bytes": 6559,
+      "sha256": "6d2836d363045da5629c6264edbbc0106d19f09fbc0c4890fd3b3ed07c7143c6",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/inputs/selection_seal.json",
+      "bytes": 474,
+      "sha256": "49868e90de825edbc6504f50cbd8500b484072843abd2c8767ad6b29ae7ab97b",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/inputs/source_audit.pkl",
+      "bytes": 3906,
+      "sha256": "0c6e6c2395a759a24f8d1905fb46499c95e6c5e825b13b1d4efd1d72adcc000b",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/models/development.pkl",
+      "bytes": 1356611,
+      "sha256": "4ec9821c1676aa4eaaabe7c175f91ada5184645d38a8fc5c51e4f686bd6992b2",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/models/forecast_models.pkl",
+      "bytes": 15616,
+      "sha256": "88d2ab4efc29d6c16d13949678006be0bd127918f270ae6ba4e4c5f12f979f53",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/models/selected_annual_refits.pkl",
+      "bytes": 260709,
+      "sha256": "b39b760c259ae44f24f4dd69ad6fedf511ed740a132a47cceeeb947ba040d570",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/artifacts/portfolio_analysis/native_reconciliation.pkl",
+      "bytes": 11929170,
+      "sha256": "d250f5faba62b908836d4c5ec097dae141db8b2c0de09b43e504464c7e9e19f3",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/meta.yaml",
+      "bytes": 447,
+      "sha256": "334c03045d69ff45a8a0f614490cb9ad8a8dbb91017f5d91cf6003ed8f70e39f",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/metrics/candidate_count",
+      "bytes": 20,
+      "sha256": "c581a8e541db2720da79decc97cf038314f843fac3dfe8809c43d664517e1396",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/metrics/historical_qualification_pass",
+      "bytes": 20,
+      "sha256": "620a8777b8ea6d7a98285eb6bf58919679e5e97dde091abc4ea6b3eb37511674",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/metrics/seeds_per_candidate",
+      "bytes": 20,
+      "sha256": "49408cacbf4de28226f75712cf542384ea628dc6de94257e6fc720a2e073483c",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/params/benchmark",
+      "bytes": 4,
+      "sha256": "0508f1d170b841a16fd03f6fc0dcf5038ea4915e96ca99254958e19540e05ebd",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/params/cmd-sys.argv",
+      "bytes": 247,
+      "sha256": "7631654ca61a5914deb0507a3660484068a3f603fdb199c32f84bc77dedcb962",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "bb674479582b266bfe5ba6fe3a4cb064c2043b9cb076bc5aefb3e786f5c88a37",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/params/selected_variant",
+      "bytes": 18,
+      "sha256": "4bd1197fb3703ac4d437652263c04e13ae8b5c11e70c8c86c8ab2d61ecc24ce5",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/params/selection_uses_outer_test",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/params/source_as_of",
+      "bytes": 10,
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/tags/mlflow.source.name",
+      "bytes": 134,
+      "sha256": "27ed4393913354cb5a500b65afae51864f497a7e22f3466a5aced1c9a84fafa2",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/1331bd26ed6848e88c1c9f7de8dd5aad/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/analysis/annual_metrics.pkl",
+      "bytes": 18724,
+      "sha256": "20226ec00e04441c30ac1e533688ebfa912a1902e090ff83b5bf2ced86a2b024",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/analysis/bootstrap.pkl",
+      "bytes": 3356,
+      "sha256": "13afdb15f3f1d32e532511c31a04b43c931bc981e7ec65433d3b047622b9e672",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/analysis/comparison.pkl",
+      "bytes": 9520,
+      "sha256": "c50702cf4d9fef43eb6d91a4c1b55645db4e77070c494472a1a3e47263b84d78",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/analysis/gates.pkl",
+      "bytes": 1992,
+      "sha256": "d158fdff6c5a6efd40edff9f02c97efb10fb20a0eeec08fad49f67aea65ec77f",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/analysis/portfolio_replays.pkl",
+      "bytes": 7449709,
+      "sha256": "d6724883d22cde0eef53e416d5f0f8e46721ebe3c41db789113040844e8dc370",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/analysis/seed_metrics.pkl",
+      "bytes": 6955,
+      "sha256": "32874512e3e2f7cb4a42620c98efce4b95283250d51487d31251fc759489fa77",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/analysis/training_diagnostics.pkl",
+      "bytes": 8115,
+      "sha256": "7d5e2eb67613bee228f79a3b9a6bd6fdd1de23c1d4ede3374aef56e979d723ce",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/inputs/auxiliary_frame.pkl",
+      "bytes": 7347289,
+      "sha256": "6ea1742a0681a5a1724cc349bd242d88742a4b65cc52cef5390d88eb536ec891",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/inputs/execution_prices.pkl",
+      "bytes": 101331,
+      "sha256": "15e27c8c989623f87218a570c1a610e7af226b5594f90b850c2da06f377dfbe4",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/inputs/fold_audits.pkl",
+      "bytes": 5110,
+      "sha256": "0f5a53ee0ff221c039ff8160389bf6a1c69178b139bef8c11687331b1326a8c8",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/inputs/forecast_frame.pkl",
+      "bytes": 1126799,
+      "sha256": "d1c9e11604d3de7c3bc41744cfed725cb815f7b6a1bf971d3481456e3d2d4695",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/inputs/primary_frame.pkl",
+      "bytes": 1126804,
+      "sha256": "7d05953133b0ab516d5554846056543a4fc19f7d6da946af86f61ec44fdc3166",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/inputs/selection_plan.json",
+      "bytes": 6559,
+      "sha256": "6d2836d363045da5629c6264edbbc0106d19f09fbc0c4890fd3b3ed07c7143c6",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/inputs/selection_seal.json",
+      "bytes": 554,
+      "sha256": "6142c4aa076d7c450b7fa52939d6decf4ce5ed28c8140a56f7d836d59346dbb5",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/inputs/source_audit.pkl",
+      "bytes": 3906,
+      "sha256": "0c6e6c2395a759a24f8d1905fb46499c95e6c5e825b13b1d4efd1d72adcc000b",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/models/development.pkl",
+      "bytes": 1361282,
+      "sha256": "29ca36eca1d996420f4263c5d2d4b14e316eaa4d736721cc429d32daf28826cd",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/models/forecast_models.pkl",
+      "bytes": 15616,
+      "sha256": "88d2ab4efc29d6c16d13949678006be0bd127918f270ae6ba4e4c5f12f979f53",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/models/selected_annual_refits.pkl",
+      "bytes": 261618,
+      "sha256": "ca39ce267c436a308f557fbd62f2eae788d7734a811982a34a3f7920e731f65f",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/artifacts/portfolio_analysis/native_reconciliation.pkl",
+      "bytes": 11961842,
+      "sha256": "f3743f45f0a6bd1765ea0f9189d82544dea81c8d0b3c7ed2ab4a981664e0b4b9",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/meta.yaml",
+      "bytes": 447,
+      "sha256": "ec63b4c44e1db8f7c5e66783a9f05cb9f6abffed0c7632cdb17210954721e598",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/metrics/candidate_count",
+      "bytes": 20,
+      "sha256": "0e2c13fa05d431f72e5f5f4613dd444af8b9554c972d5eca30f4e25663cfbddd",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/metrics/historical_qualification_pass",
+      "bytes": 20,
+      "sha256": "0c81afa64b8eb1b71bff0cf621be36dbe33c20c79a9f6b6a96254a066a4d5fd1",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/metrics/seeds_per_candidate",
+      "bytes": 20,
+      "sha256": "61d23e0fc6994be2d3531874443e5a655e5194e6f32c2d1da5ba446562277fa0",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/params/benchmark",
+      "bytes": 4,
+      "sha256": "0508f1d170b841a16fd03f6fc0dcf5038ea4915e96ca99254958e19540e05ebd",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/params/cmd-sys.argv",
+      "bytes": 247,
+      "sha256": "b871b3fcd83799e105546f7eda69efc1d6ec9c46f5bedc2c52bc02853574bf2e",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "bb674479582b266bfe5ba6fe3a4cb064c2043b9cb076bc5aefb3e786f5c88a37",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/params/selected_variant",
+      "bytes": 18,
+      "sha256": "4bd1197fb3703ac4d437652263c04e13ae8b5c11e70c8c86c8ab2d61ecc24ce5",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/params/selection_uses_outer_test",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/params/source_as_of",
+      "bytes": 10,
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/tags/mlflow.source.name",
+      "bytes": 134,
+      "sha256": "27ed4393913354cb5a500b65afae51864f497a7e22f3466a5aced1c9a84fafa2",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/b94059c2e0754b0ab102e4f62534eefb/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    },
+    {
+      "path": "qlib_recorder/861915197973611996/meta.yaml",
+      "bytes": 368,
+      "sha256": "387b9a5e6c896a6efc195ba50d17b1ceabc4915b07468e9a41c99b2c4e0c6f56",
+      "purpose": "QLib frozen inputs, all registered models/seeds, full paths and native reconciliation evidence"
+    }
+  ]
+}

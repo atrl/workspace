@@ -1,0 +1,7 @@
+cost_bps,aggregate_positive_net_log_excess,minimum_positive_signal_years,median_annual_log_excess_positive,leave_any_one_year_out_log_excess_positive,anchored_max_drawdown_not_worse_than_soxx,cvar5_not_worse_than_soxx,minimum_positive_seeds_at_both_costs,stationary_block_20_lower_bound_positive,stationary_block_60_lower_bound_positive,all_pass,positive_years,years,positive_seeds_at_this_cost,seeds_positive_at_both_costs,seed_evidence_complete,largest_positive_year_share,minimum_leave_one_year_out_log_excess,variant
+10.0,True,True,True,True,False,False,True,False,False,False,5,7,3,3,True,0.36478253971895647,0.37709631277588396,base
+25.0,True,False,True,False,False,False,True,False,False,False,4,7,3,3,True,0.4029204781520214,-0.13687934063278762,base
+10.0,True,True,True,True,False,False,True,False,False,False,5,7,3,3,True,0.4006648641812892,0.2794684595317972,pit_auxiliary
+25.0,True,False,True,False,False,False,True,False,False,False,4,7,3,3,True,0.4557386152084847,-0.22740886954835093,pit_auxiliary
+10.0,True,True,True,True,False,False,True,False,False,False,5,7,3,3,True,0.3587679671846592,0.3078241555415264,cash_vol_forecasts
+25.0,True,True,True,False,False,False,True,False,False,False,5,7,3,3,True,0.3807970366341043,-0.12977075694814566,cash_vol_forecasts
