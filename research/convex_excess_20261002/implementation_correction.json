@@ -1,0 +1,179 @@
+{
+  "execution_status": "aborted_after_development_seal",
+  "completion_claim": false,
+  "first_development_seal": {
+    "plan_sha256": "9d4cc905d44fa6b0b636748548a5043f07542f9eca0a08585cf0319fff32c8e7",
+    "selected": {
+      "variant": "ridge_h5",
+      "historical_qualification_pass": false,
+      "passed_gates": 10,
+      "worst_annualized_lower_bound": -0.15873610291675122,
+      "worst_relative_wealth": 0.655068069572997,
+      "positive_years_10bps": 3
+    },
+    "development_last_exit": "2023-01-04",
+    "selection_uses_diagnostic_signal_years": false,
+    "campaign_status": "active_research"
+  },
+  "reason": "Independent variance ratio1+1e-8 check rejected norm-ratio1+1e-8 feasible null during first annual-refit diagnostic25bp path. Solver will be tightened to common variance tolerance; economics, model family, data and gates unchanged.",
+  "source_sha256": {
+    "src/model/convex_allocation.py": "10ef5ddbe9ae1a4703402201d02da81fe296060f504a35ff2868504726d8fedf",
+    "src/workflow/convex_excess.py": "b30b6807259fd95c3950adccdc8fbb91e928f1ef600af23de08093fa07cffd7d",
+    "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+    "research/convex_excess_20261002/selection_plan.json": "9d4cc905d44fa6b0b636748548a5043f07542f9eca0a08585cf0319fff32c8e7"
+  },
+  "log_sha256": "499ce31496837225e4a9f33d14e3195e3088a6c85423b44011b5a3f2b8807333",
+  "log_temporary_path": "/tmp/soxl-convex-execution.log",
+  "scientific_parameters_changed": false,
+  "correction": {
+    "risk": "Null feasibility now uses variance-ratio excess rather than volatility-ratio excess; same stricter1e-8 variance tolerance as independent settlement audit.",
+    "objective": "Algebraically equivalent mu*x-cost*sum(t)-robust_penalty eliminates funding identity constant1; physical objective audit restores1.",
+    "synthetic_equivalence": "80 synthetic cases;79 jointly verified objectives differed at most4.42e-14; original one inaccurate/fallback vs centered zero. No market data used for numerical correction.",
+    "model_sha256": "4c01b452038d105dd3ab92558c14567128285388fbfc1798ea187f2aff5e172e",
+    "plan_unchanged": true
+  },
+  "first_complete_run": {
+    "recorder_id": "3fd837456d2f4095a4251c6c7ce0d3df",
+    "selected": {
+      "variant": "robust_ridge_h5",
+      "historical_qualification_pass": false,
+      "passed_gates": 8,
+      "worst_annualized_lower_bound": -0.06071886727551274,
+      "worst_relative_wealth": 0.940822198309591,
+      "positive_years_10bps": 3
+    },
+    "source_sha256": {
+      "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "src/model/convex_allocation.py": "4c01b452038d105dd3ab92558c14567128285388fbfc1798ea187f2aff5e172e",
+      "src/workflow/convex_excess.py": "1e30fbc0e327c18e3028f9a02fda0a207c750385810ffb62dfe767eeb793fed2",
+      "src/data/integrated_allocation.py": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+      "src/analysis/integrated_allocation.py": "534072ad69fb7c8f903afc6339f581d66d25e047102d05452b55490647985b56",
+      "src/workflow/benchmark_risk_excess.py": "26fcd325ca5cd20ed37eec9e8296b477eedc907e4c815af802d448236b5cdbcd",
+      "src/workflow/stable_excess_integration.py": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+      "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7"
+    },
+    "interpretation": "Accounting-valid explicitly fallback policy. Robust106/91 development sessions per firstrepeat unresolved optimization status; no complete convex-optimal-policy claim. All scientific qualification gates retained."
+  },
+  "numerical_certificate_correction": {
+    "requested_solver_tolerance": 1e-10,
+    "audit_tolerance_unchanged": 1e-08,
+    "public_api": "CVXPY get_problem_data + SolvingChain.solve_via_data + Problem.unpack_results",
+    "evidence": "Independent unscaled primal/dual residuals, cone membership, objective identities, dual gap and exact-funded objective against numerical dual bound. Raw Solved/AlmostSolved status alone cannot qualify. Finite-tolerance certificate, not exact arithmetic.",
+    "fixed_failed_decisions": 198,
+    "all_fixed_decisions_verified": true,
+    "maximum_exact_funded_wealth_gap": 2.45e-11,
+    "economic_parameters_changed": false,
+    "model_sha256": "298d4c9c8d7a79067232629b374e630f72ed360a674e55a7aaccbdf4aa20a811"
+  },
+  "certificate_full_run_attempt": {
+    "status": "aborted_at_native_reconciliation",
+    "development_seal": {
+      "plan_sha256": "9d4cc905d44fa6b0b636748548a5043f07542f9eca0a08585cf0319fff32c8e7",
+      "selected": {
+        "variant": "ridge_h5",
+        "historical_qualification_pass": false,
+        "passed_gates": 10,
+        "worst_annualized_lower_bound": -0.15873612113874475,
+        "worst_relative_wealth": 0.6550680430378667,
+        "positive_years_10bps": 3
+      },
+      "development_last_exit": "2023-01-04",
+      "selection_uses_diagnostic_signal_years": false,
+      "campaign_status": "active_research"
+    },
+    "log_sha256": "6e9200b6a065e71660410e9abdce8daba3a401a0d1db99156900065323d92b1e",
+    "tolerance_relaxed": false,
+    "action": "Independently reproduce native failure on exact saved predictions; preserve native execution gate."
+  },
+  "bounded_numeric_retry": {
+    "trigger": "Failed primal/dual numerical certificate only",
+    "maximum_cold_retries": 1,
+    "warm_start_retry": false,
+    "objective_forecasts_and_tolerances_unchanged": true,
+    "both_attempt_certificates_retained": true,
+    "full_development_verification": {
+      "10.0": {
+        "cost_bps": 10.0,
+        "decisions": 1762,
+        "all_optimality_verified": true,
+        "fallback_sessions": 0,
+        "cold_retries": 2,
+        "max_final_dual_residual": 7.603566665181916e-09,
+        "max_exact_funded_bound_gap": 1.9555024266537657e-11
+      },
+      "25.0": {
+        "cost_bps": 25.0,
+        "decisions": 1762,
+        "all_optimality_verified": true,
+        "fallback_sessions": 0,
+        "cold_retries": 2,
+        "max_final_dual_residual": 4.0790739674889664e-09,
+        "max_exact_funded_bound_gap": 8.12128142513302e-12
+      }
+    }
+  },
+  "native_position_precision": {
+    "failure": "DefaultQlibPosition np.isclose deletes a positive unsold fractional share remainder.",
+    "failing_trade_date": "2021-09-07",
+    "held_soxl_shares": 3150.124706141618,
+    "sold_soxl_shares": 3150.1231580676595,
+    "unsold_positive_remainder": 0.00154807395847,
+    "maximum_return_error": 1.6112421719061132e-07,
+    "native_tolerance_unchanged": 1e-07,
+    "repair": "Opt-in QlibContinuousPosition preserves every positive residual; negative subtraction roundoff checked in machine ulps; native Account/Exchange/report retained. Sealed live Stage1 helper unchanged.",
+    "portfolio_targets_and_costs_changed": false,
+    "verified_full_paths": {
+      "10.0": {
+        "status": "passed",
+        "sessions": 1762,
+        "start": "2016-01-05",
+        "end": "2023-01-03",
+        "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/convex-excess-20261002/data/qlib/stable_excess_integration_20261002",
+        "cost_bps": 10.0,
+        "initial_cash": 100000.0,
+        "maximum_session_return_error": 5.9505906979673284e-08,
+        "tolerance": 1e-07,
+        "native_api": "qlib.backtest.backtest + SimulatorExecutor + Exchange + Account + Position",
+        "position_type": "src.backtest.qlib_continuous_position.QlibContinuousPosition",
+        "position_precision_fix": "Every positive fractional-sale residual remains owned; no relative isclose liquidation.",
+        "report_mark": "native same-day close; next-open reconciliation marks native positions through Qlib D.features",
+        "sealed_stage1_code_changed": false,
+        "qlib_api_reference": "https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.backtest.backtest",
+        "policy_scope": "continuous_three_asset_targets_without_legacy_allocation_caps",
+        "legacy_controller_executed": false,
+        "scope": "complete prescribed daily target/HOLD schedule; actual Qlib Exchange, Position, report and next-open accounting",
+        "risk_annualization_sessions": 252,
+        "native_close_anchored_max_drawdown_pct": -41.888326365367824,
+        "native_open_to_open_anchored_max_drawdown_pct": -44.40864109414297,
+        "risk_table_mark_convention": "risk_analysis uses native close marks; risk_analysis_open_to_open uses native positions marked at the following open",
+        "execution_limitation": "Observed historical opens and continuous adjusted shares; no claim of spread/impact/partial-fill evidence."
+      },
+      "25.0": {
+        "status": "passed",
+        "sessions": 1762,
+        "start": "2016-01-05",
+        "end": "2023-01-03",
+        "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/convex-excess-20261002/data/qlib/stable_excess_integration_20261002",
+        "cost_bps": 25.0,
+        "initial_cash": 100000.0,
+        "maximum_session_return_error": 5.905104005776707e-08,
+        "tolerance": 1e-07,
+        "native_api": "qlib.backtest.backtest + SimulatorExecutor + Exchange + Account + Position",
+        "position_type": "src.backtest.qlib_continuous_position.QlibContinuousPosition",
+        "position_precision_fix": "Every positive fractional-sale residual remains owned; no relative isclose liquidation.",
+        "report_mark": "native same-day close; next-open reconciliation marks native positions through Qlib D.features",
+        "sealed_stage1_code_changed": false,
+        "qlib_api_reference": "https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.backtest.backtest",
+        "policy_scope": "continuous_three_asset_targets_without_legacy_allocation_caps",
+        "legacy_controller_executed": false,
+        "scope": "complete prescribed daily target/HOLD schedule; actual Qlib Exchange, Position, report and next-open accounting",
+        "risk_annualization_sessions": 252,
+        "native_close_anchored_max_drawdown_pct": -43.26771018815999,
+        "native_open_to_open_anchored_max_drawdown_pct": -45.61021478944665,
+        "risk_table_mark_convention": "risk_analysis uses native close marks; risk_analysis_open_to_open uses native positions marked at the following open",
+        "execution_limitation": "Observed historical opens and continuous adjusted shares; no claim of spread/impact/partial-fill evidence."
+      }
+    }
+  }
+}

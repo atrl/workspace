@@ -1,0 +1,106 @@
+{
+  "experiment": "convex_excess_20261002",
+  "registered_before_market_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "source_experiment": "stable_excess_integration_20261002",
+  "source_recorder_id": "b94059c2e0754b0ab102e4f62534eefb",
+  "source_as_of": "2026-09-25",
+  "hypothesis": "Phase2 neural optimizers failed to attain the feasible SOXX control. Test explicit benchmark-feasible global convex allocation with prior-only annual H5 mean estimates, actual transaction costs, and unchanged benchmark variance and economic qualification gates.",
+  "variants": [
+    {
+      "name": "prior_h5",
+      "mean": "prior",
+      "robust_radius": 0.0
+    },
+    {
+      "name": "ridge_h5",
+      "mean": "ridge",
+      "robust_radius": 0.0
+    },
+    {
+      "name": "robust_ridge_h5",
+      "mean": "ridge",
+      "robust_radius": 1.0
+    }
+  ],
+  "estimation": {
+    "horizon_sessions": 5,
+    "labels": "SOXL and SOXX Open[t+6]/Open[t+1]-1; availability at t+6 open",
+    "features": "25 original market features; excludes three old forecast slots",
+    "ridge_alpha": 10.0,
+    "minimum_training_rows": 252,
+    "annual_maturity": "All selected H5 outcome availability strictly before model-year Jan1 America/New_York; train-only scaling and covariance",
+    "uncertainty": "Joint response-major HAC5 Bartlett sandwich of centered ridge scores, unpenalized intercept, no small-sample multiplier. Conditional mean estimation covariance, not total-return covariance. One SEM radius is not a 95% confidence claim. Excludes ridge bias, regime drift and adaptive search uncertainty.",
+    "covariance": "Daily expanding sample covariance from complete observed SOXL/SOXX open returns ending no later than signal-day open; same Phase2 implementation",
+    "risk_budget": "Daily Sigma_SOXX_SOXX; no conditional volatility-budget change in this round"
+  },
+  "allocation": {
+    "variables": "x >=0 post-fee asset values per pretrade NAV; n=sum(x); t>=abs(xRisky-currentRisky); n+cost*t.sum=1",
+    "risk": "norm(L*xRisky)<=sqrt(Sigma22)*n, L.T@L=Sigma",
+    "objective": "maximize n + mu_H5*xRisky - robust_radius*norm(sqrt(Vmean_H5)*(xRisky-n*[0,1]))",
+    "reoptimization": "Daily with five-session forecast; no forced holding period. Planning objective charges current transition costs and assumes no further H5 trades, a rolling planning approximation assessed against actual daily costs.",
+    "nulls": [
+      "exact fee-funded pure SOXX",
+      "cash",
+      "HOLD only if currently risk-feasible"
+    ],
+    "solver": "CLARABEL; gap_abs/gap_rel/feas tolerance1e-10; numerical audit tolerance1e-8; independent actual accounting and risk/null-objective audit, no invented dual gap",
+    "failure": "Invalid forecasts (nonfinite or <=-1) abort the complete run; never clip/drop observations. A solver failure may use explicitly labeled feasible-null fallback for accounting, but any unverified optimality fails qualification. Only roundoff cleanup with full revalidation is permitted.",
+    "no_hard_trading_rules": true
+  },
+  "training": {
+    "development_signal_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "diagnostic_signal_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "repeat_ids": [
+      1,
+      2,
+      3
+    ],
+    "deterministic": "Three genuinely fresh annual fits and complete solves. No stochastic seed evidence. All predictions, targets, objective values and settled paths must match absolute tolerance1e-8 across all3. No fitting cache across repeats.",
+    "hyperparameter_search": false
+  },
+  "evaluation": {
+    "benchmark": "100percent SOXX fee-funded buyhold; identical dates, marks and funding",
+    "cost_bps": [
+      10,
+      25
+    ],
+    "family_size_adjustment": 10,
+    "bootstrap_resamples": 2000,
+    "bootstrap_seed": 20261002,
+    "economic_gates": [
+      "positive cumulative net log excess both costs",
+      "at least5of7positive signal-years",
+      "positive median annual excess",
+      "leave-any-year-out excess positive",
+      "paired stationary bootstrap20and60lower bounds positive",
+      "anchored MaxDD and exact-tail CVaR5 no worse SOXX"
+    ],
+    "reproducibility": "Require all3 repeated fits/paths identical within1e-8 plus positive excess each repeat at both costs; repeats are not independent evidence and never pooled for bootstrap.",
+    "selection": "Seal all development-only gates and ranking before post2022signal portfolios; choose highest worstcost/block bound among passers; diagnostic rank ifnonepass. No outer tuning.",
+    "history": "All historical dates previously inspected. Family10 correction covers only three explicit rounds and does not correct all prior adaptive research. Fresh forward evidence required for objective completion.",
+    "native_qlib": "Reconcile chosen development portfolio at both costs against native Qlib open-price execution",
+    "numerical_excess_guard": "Cumulative log excess must exceed1e-8 at both costs; effects within solver/reproduction tolerance are not measurable excess. This is an added numerical validity guard, not a return target."
+  },
+  "continuation": {
+    "if_no_qualification": "Diagnose distinct information/risk/turnover mechanism; preregister next test. A failed batch is not objective completion.",
+    "if_historical_qualification": "Freeze full strategy and collect new independent forward evidence before stable-forward claim."
+  },
+  "real_broker_orders": false,
+  "existing_sim_change": false,
+  "artifact_policy": "slim_card_recorder_first"
+}

@@ -1,0 +1,185 @@
+{
+  "schema_version": 2,
+  "parent_audit_recorder_id": "5ae1457415c54055bafe169a08d01080",
+  "evidence_role": "data_quality_only_not_a_model_or_promotion",
+  "status": "needs_data_qualification_before_new_basis_rebuild",
+  "source_recorder_id": "b94059c2e0754b0ab102e4f62534eefb",
+  "source_as_of": "2026-09-25",
+  "audit_experiment": "convex_excess_20261002",
+  "audit_recorder_id": "f77655b5e36e4771a7ead1343c287e37",
+  "audit_recorder_uri": "/Users/rziiiii/dev/workspace/research/convex_excess_20261002/qlib_recorder",
+  "audit_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/convex_excess_20261002/qlib_recorder/333485224999987774/f77655b5e36e4771a7ead1343c287e37",
+  "analysis_code_sha256": "226b272655b00f21cd3d23348d7ae523849eb1d53587eb16f65ab9be75a65511",
+  "immutable_artifact_sha256": {
+    "data_quality/frozen_inputs.pkl": "bc06d364c358358b14e7bce9084f85d01740af2a8bccf6fe1f5bd79fcdfd9b44",
+    "data_quality/price_basis_differences.pkl": "4b6da04ce3f9f45d66455759fea54cf91e69273fe1028bb193b9dfc85e36fe9c",
+    "data_quality/annual_basis_summary.pkl": "41d538c731b609837b8647e1aaca995aefef3f2a611d0d92a54e8e40bd23967d",
+    "data_quality/ohlc_violations.pkl": "a973be052a6424da221817c40a5001d97a6df59de09a200de9ad4a90bd6054eb",
+    "data_quality/numeric_summary.pkl": "ca3d7654b4569db665999bf3c6eaaf71933a2a8890c37de52f13b94debcba5b1",
+    "data_quality/primary_ohlc_violations.pkl": "8655a234d0e6485068fbaa19931467fb7fb5147b7b0d2436aa0164d30970624c",
+    "data_quality/uniform_adjustment_candidate_ohlcv.pkl": "962daa4d51b2f418f3ac8c71252c007ff0a55ad9b4e66cbfca375bbe75c8af00",
+    "data_quality/uniform_adjustment_open_differences.pkl": "e5a24a35b052d15a7040f160d88bf5a6ba42a6e9b5238c98373f21ce5d699568"
+  },
+  "observations": {
+    "instrument_session_rows": 8324,
+    "calendar_start": "2010-03-11",
+    "calendar_end": "2026-09-25",
+    "primary_fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close",
+      "$volume"
+    ],
+    "execution_fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close"
+    ],
+    "execution_has_volume": false,
+    "nonpositive_volume_rows": 0,
+    "native_open_close_max_errors_vs_source_recorder": {
+      "SOXL_open": 0.0,
+      "SOXL_close": 0.0,
+      "SOXX_open": 0.0,
+      "SOXX_close": 0.0
+    },
+    "feature_rows": 3956,
+    "source_feature_ret_reconstruction_max_error": 0.0,
+    "soxx_close_return_max_absolute_difference": 0.008045315742492676,
+    "soxx_close_return_difference_above_1e_minus7_rows": 2974,
+    "soxx_example": {
+      "instrument": "SOXX",
+      "primary_close": 31.3700008392334,
+      "execution_close": 27.914634704589844,
+      "primary_close_return": -0.006544947624206543,
+      "execution_close_return": 0.0015003681182861328,
+      "return_difference": -0.008045315742492676,
+      "close_ratio": 1.1237833499908447,
+      "date": "2014-12-24",
+      "prior_primary_close": 31.57666778564453,
+      "prior_execution_close": 27.87281608581543
+    },
+    "low_above_open_or_close_rows": 172,
+    "high_below_open_or_close_rows": 190,
+    "physical_violation_precision": "float64 comparisons of native float32 stored observations",
+    "relative_violation_counts": {
+      "0.0": 360,
+      "1e-07": 224,
+      "1e-06": 190,
+      "1e-05": 1,
+      "0.0001": 1,
+      "0.001": 1
+    },
+    "material_ohlc_bar": {
+      "instrument": "SOXL",
+      "datetime": "2023-06-05T00:00:00",
+      "$open": 21.314788818359375,
+      "$high": 21.0109920501709,
+      "$low": 20.246599197387695,
+      "$close": 20.550395965576172,
+      "low_violation": 0.0,
+      "high_violation": 0.014458944511666072,
+      "severity": 0.014458944511666072
+    },
+    "primary_same_day_bar": {
+      "$open": 21.75,
+      "$high": 21.75,
+      "$low": 20.65999984741211,
+      "$close": 20.969999313354492,
+      "$volume": 35747700.0
+    },
+    "primary_frame_sha256": "160c19426a3df368e875b47a1bd784815e0fed18182d6cfed3166e330e892ac8",
+    "execution_frame_sha256": "4a962a17c267031094d1673af4bad37decc87811a54fcc6d4b5c944eabb3b158",
+    "basis_analysis_sha256": "405a773258ec9510c29be99f61ffb18c04181a8f158d4ef49105c663f7ceff02",
+    "violation_analysis_sha256": "7e48f764a95dc20ec4828fc7be4683f6fe092b8896fe4018a0b573c9858cf062",
+    "primary_ohlc_audit": {
+      "low_above_open_or_close_rows": 0,
+      "high_below_open_or_close_rows": 0,
+      "maximum_relative_violation": 0.0,
+      "relative_violation_counts": {
+        "0.0": 0,
+        "1e-07": 0,
+        "1e-06": 0,
+        "1e-05": 0,
+        "0.0001": 0,
+        "0.001": 0
+      }
+    },
+    "uniform_adjustment_candidate": {
+      "status": "data-only candidate; not accepted or applied to execution",
+      "formula": "one positive execution_close/primary_close factor applied identically to PRIMARY O/H/L/C; primary volume unchanged",
+      "factor_min": 0.8430548778052351,
+      "factor_max": 1.0006549937277973,
+      "maximum_close_difference": 5.684341886080802e-14,
+      "volume_unchanged": true,
+      "open_comparison": [
+        {
+          "instrument": "SOXL",
+          "rows": 4162,
+          "maximum_absolute_price_difference": 0.24093352642916344,
+          "maximum_absolute_relative_difference": 0.02663912674976654,
+          "worst_date": "2017-10-30",
+          "above_relative_threshold_counts": {
+            "1e-07": 1034,
+            "1e-06": 894,
+            "1e-05": 248,
+            "0.0001": 84,
+            "0.001": 4
+          }
+        },
+        {
+          "instrument": "SOXX",
+          "rows": 4162,
+          "maximum_absolute_price_difference": 0.5656698781834635,
+          "maximum_absolute_relative_difference": 0.00931496245429353,
+          "worst_date": "2018-03-13",
+          "above_relative_threshold_counts": {
+            "1e-07": 1394,
+            "1e-06": 271,
+            "1e-05": 80,
+            "0.0001": 6,
+            "0.001": 3
+          }
+        }
+      ],
+      "candidate_frame_sha256": "50136ed311820047b2c0e474ff5256e547cfe7e7649f2d8d8d19c767e2d6306e",
+      "open_comparison_frame_sha256": "3563ce60bada04261aea7f0f2d624b86fd5fee05aca6034dd75c6ae33159b54a"
+    }
+  },
+  "readback_contract": "Subsequent execution loads immutable audit_recorder_id artifacts and verifies byte/content hashes; it never rereads mutable main primary/execution providers.",
+  "scope": {
+    "old_stores_changed": false,
+    "models_fitted": false,
+    "portfolio_replayed": false,
+    "old_portfolio_uses_execution_open_close": true,
+    "old_features_use_separate_primary_ohlcv": true,
+    "phase3_prior_h5_uses_execution_labels_and_opens_not_primary_features": true,
+    "old_portfolio_pnl_impact_of_feature_basis_rebuild": "not measured; do not infer causation",
+    "interpretation": "Internal recorder/native agreement is not a certificate of coherent adjustment or correct source prices."
+  },
+  "official_index_sources": [
+    {
+      "event": "SOXX predecessor changed S&P North American Technology-Semiconductors to PHLX effective2010-10-15",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312510241547/d497.htm"
+    },
+    {
+      "event": "SOXX changed PHLX to ICE effective2021-06-21; ICE renamed NYSE2023-11-03",
+      "url": "https://www.ishares.com/us/literature/prospectus/p-ishares-phlx-semiconductor-etf-3-31.pdf"
+    },
+    {
+      "event": "SOXL changed PHLX to ICE at2021-08-25 market open",
+      "url": "https://www.nyse.com/publicdocs/nyse/markets/nyse-arca/rule-interpretations/2021/NYSE%20Arca%20Equities%20RB-21-075.pdf"
+    }
+  ],
+  "notebook_registration": {
+    "status": "executed_and_archived",
+    "artifact": "data_quality/notebooks/soxl_data_basis_audit.ipynb",
+    "sha256": "6213a99f9a85d3747209357cc4e8dedd6a87621d076555719e7cdc1b1a92a05a",
+    "local_path": "/tmp/soxl_data_basis_audit.ipynb",
+    "reexecuted_from_immutable_audit_recorder": true,
+    "native_source_providers_read_on_reexecution": false,
+    "execution_error_count": 0
+  }
+}

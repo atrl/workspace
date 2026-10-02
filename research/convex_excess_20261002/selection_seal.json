@@ -1,0 +1,14 @@
+{
+  "plan_sha256": "9d4cc905d44fa6b0b636748548a5043f07542f9eca0a08585cf0319fff32c8e7",
+  "selected": {
+    "variant": "robust_ridge_h5",
+    "historical_qualification_pass": false,
+    "passed_gates": 10,
+    "worst_annualized_lower_bound": -0.06800690503604515,
+    "worst_relative_wealth": 0.8968674994575024,
+    "positive_years_10bps": 3
+  },
+  "development_last_exit": "2023-01-04",
+  "selection_uses_diagnostic_signal_years": false,
+  "campaign_status": "active_research"
+}

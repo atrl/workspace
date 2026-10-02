@@ -1,0 +1,17 @@
+{
+  "selected": {
+    "variant": "robust_ridge_h5",
+    "historical_qualification_pass": false,
+    "passed_gates": 10,
+    "worst_annualized_lower_bound": -0.06800690503604515,
+    "worst_relative_wealth": 0.8968674994575024,
+    "positive_years_10bps": 3
+  },
+  "variant_spec": {
+    "name": "robust_ridge_h5",
+    "mean": "ridge",
+    "robust_radius": 1.0
+  },
+  "research_only": true,
+  "new_forward_qualified": false
+}

@@ -1,0 +1,72 @@
+{
+  "10.0": {
+    "variant": "ridge_h5",
+    "replay_solver_verified": true,
+    "fallback_sessions": 0,
+    "native_audit": {
+      "status": "failed",
+      "sessions": 1762,
+      "start": "2016-01-05",
+      "end": "2023-01-03",
+      "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/convex-excess-20261002/data/qlib/stable_excess_integration_20261002",
+      "cost_bps": 10.0,
+      "initial_cash": 100000.0,
+      "maximum_session_return_error": 1.6112421719061132e-07,
+      "tolerance": 1e-07,
+      "native_api": "qlib.backtest.backtest + SimulatorExecutor + Exchange + Position",
+      "schedule_strategy": "DirectTargetWeightStrategy subclass with observed-open sizing and fee-affordable targets",
+      "report_mark": "native daily same-day close; next-open reconciliation uses native positions and Qlib D.features",
+      "scope": "complete prescribed daily target/HOLD schedule; actual Qlib Exchange, Position, report and next-open accounting",
+      "execution_limitation": "Observed historical opens and continuous adjusted shares; no claim of spread/impact/partial-fill evidence.",
+      "policy_scope": "continuous_three_asset_targets_without_legacy_allocation_caps",
+      "legacy_controller_executed": false,
+      "risk_annualization_sessions": 252,
+      "native_close_anchored_max_drawdown_pct": -41.888326656886754,
+      "native_open_to_open_anchored_max_drawdown_pct": -44.40864137301846,
+      "risk_table_mark_convention": "risk_analysis uses native close marks; risk_analysis_open_to_open uses native positions marked at the following open"
+    },
+    "worst": {
+      "trade_date": "2021-09-07 00:00:00",
+      "exit_date": "2021-09-08 00:00:00",
+      "native_next_open_nav": 429603.9958856632,
+      "native_next_open_return": -0.00033698307794116644,
+      "research_return": -0.00033682195372397583,
+      "return_error": -1.6112421719061132e-07
+    }
+  },
+  "25.0": {
+    "variant": "ridge_h5",
+    "replay_solver_verified": true,
+    "fallback_sessions": 0,
+    "native_audit": {
+      "status": "passed",
+      "sessions": 1762,
+      "start": "2016-01-05",
+      "end": "2023-01-03",
+      "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/convex-excess-20261002/data/qlib/stable_excess_integration_20261002",
+      "cost_bps": 25.0,
+      "initial_cash": 100000.0,
+      "maximum_session_return_error": 5.905104005776707e-08,
+      "tolerance": 1e-07,
+      "native_api": "qlib.backtest.backtest + SimulatorExecutor + Exchange + Position",
+      "schedule_strategy": "DirectTargetWeightStrategy subclass with observed-open sizing and fee-affordable targets",
+      "report_mark": "native daily same-day close; next-open reconciliation uses native positions and Qlib D.features",
+      "scope": "complete prescribed daily target/HOLD schedule; actual Qlib Exchange, Position, report and next-open accounting",
+      "execution_limitation": "Observed historical opens and continuous adjusted shares; no claim of spread/impact/partial-fill evidence.",
+      "policy_scope": "continuous_three_asset_targets_without_legacy_allocation_caps",
+      "legacy_controller_executed": false,
+      "risk_annualization_sessions": 252,
+      "native_close_anchored_max_drawdown_pct": -43.26771023820928,
+      "native_open_to_open_anchored_max_drawdown_pct": -45.61021483742951,
+      "risk_table_mark_convention": "risk_analysis uses native close marks; risk_analysis_open_to_open uses native positions marked at the following open"
+    },
+    "worst": {
+      "trade_date": "2020-07-09 00:00:00",
+      "exit_date": "2020-07-10 00:00:00",
+      "native_next_open_nav": 249037.53969607953,
+      "native_next_open_return": 0.011087000923630352,
+      "research_return": 0.01108705997467041,
+      "return_error": -5.905104005776707e-08
+    }
+  }
+}
