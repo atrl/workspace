@@ -1,0 +1,18 @@
+experiment: sparse_holdings_net_excess_20261003
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+region: us
+market: all
+recorder_uri: /Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder
+workflow_mode: synthetic_preflight_diagnostic_only
+market_fits: 0
+market_backtests: 0
+toy_chronology: ordinal
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - preflight/original_payload.pkl
+  - preflight/*.py
+  - preflight/*.json
+  - inputs/*.pkl
+  - analysis/*.pkl

@@ -1,0 +1,63 @@
+{
+  "scope": "Independent read-only source/metadata cross-review of new loader/workflow and published actual Qlib readback; full native reconstruction was not repeated. No market model fit, new financial path or writable research Recorder.",
+  "plan_sha256": "6b02b5948263606e4e75b57f1d3e51397d40fa3876c7f5943cfe77a32cac4ca2",
+  "source_sha256": {
+    "src/data/sparse_holdings_net_excess.py": "33b44201b8bc9ead01a95c8cd8abec6bad56f18246d58b3f8f4b76e0d8c696e6",
+    "src/workflow/sparse_holdings_net_excess.py": "15658ee8154fbe70477d98e506c03e4fe63306edc31015a04356f47f18a0823d",
+    "src/model/post_fee_settlement.py": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+    "tests/test_sparse_holdings_net_excess_data.py": "d41037ed4ec583fd0825c3801758065ac5d710449267084bc67c20f546f517cd",
+    "tests/test_sparse_holdings_net_excess_workflow.py": "829998fea74e25d067ad861d200128faf2a7b6fe882aa75796917508ad9d72f3",
+    "tests/test_post_fee_settlement.py": "91ca38c911a2d1f4c2aea11966560a22e771b84b643d7f6ede9f662373804d73",
+    "src/model/sparse_holdings_net_excess.py": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd"
+  },
+  "published_native_readback": {
+    "path": "/tmp/sparse_holdings_data_readback.json",
+    "sha256": "1a1694cf60606cf88097bf3317f70cb8925dbd2b11a1223408a5fa2738ae200d",
+    "rows": 3956,
+    "calendar": 4162,
+    "forecast_heads": 14,
+    "mapped_folds": 21,
+    "parent_artifacts": 8
+  },
+  "exact_old_scaler_matrix_bindings": 21,
+  "old_parent_sources_hash_verified": 18,
+  "holdings_in_Dataset": false,
+  "workflow_review": {
+    "initial_seal_precedes_writable_Recorder": true,
+    "dev_selection_seal_precedes_outer_fits": true,
+    "frozen2023_entire_bundle_and_vol_head": true,
+    "same_seed_2_of_3_and_family23_unchanged_gates": true,
+    "typed_invalid_source_and_numerical_flags": true,
+    "sole_H_maps_to_native_empty_TradeDecisionWO": true,
+    "annual_models_carry_current_owned_ending_state": true,
+    "each_cost_starts_independent_CASH_book": true,
+    "own_ensemble_current_holdings_passed_to_rollout": true,
+    "actual_Aug3_trade_filter_retains_July31_signal": true,
+    "native_R_resume_binds_own_ID_URI": true
+  },
+  "native_HOLD_test_review": "New actual Qlib fixture checks order generator called only entry and rotation, not HOLD, and preserves share counts; not a candidate result. Included in focused suite, execution still pending final source freeze.",
+  "model_review_pending": false,
+  "real_model_integration_pending": false,
+  "full_suites_pending_source_freeze": true,
+  "failures": [],
+  "independent_synthetic_model_reviews": {
+    "core-integration": {
+      "path": "/tmp/sparse-holdings-validation/core-integration.json",
+      "sha256": "7f1712d93619b5d2ac6c130c3469144f71f1320d683977e8ba90878d76f591b3",
+      "failures": []
+    },
+    "gradient-audit": {
+      "path": "/tmp/sparse-holdings-validation/gradient-audit.json",
+      "sha256": "ac2742894125a57f3f47587a2d81fff7d557359561f941f80042f431cbf07fb8",
+      "failures": []
+    }
+  },
+  "remaining": "Freeze the preflight-failure diagnostic workflow, then full/required regressions and evidence archival. Registered120-update known-information gate FAILED; no market model fits permitted.",
+  "math_data_contracts_passed": true,
+  "known_information_feasible_training_gate_passed": false,
+  "market_fits_permitted": false,
+  "known_information_failure_audit": {
+    "path": "/tmp/sparse-holdings-validation/known-information-independent-audit.json",
+    "sha256": "533da667b977ea20cb5ec1e8ff3fec7b3fd3c0c3cc82805a2a926a894877ece0"
+  }
+}

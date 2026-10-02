@@ -1,0 +1,183 @@
+{
+  "scope": "Synthetic mathematical and actual worker/retention/ensemble API checks only; no market data or market fitting, no outcomes-based parameter search, no source edits. Three 2-update fits are explicitly a small synthetic API fixture, not the registered120-update known-information gate.",
+  "source_sha256_before": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd",
+  "source_sha256_after": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd",
+  "gradient_cases": [
+    {
+      "rows": 63,
+      "vectorized_vs_explicit_context_gradient_error": 7.771561172376096e-16,
+      "K_gradient_norm": 0.05960201624538901,
+      "K_gradient_difference_if_state_wrongly_detached": 0.005265004643398005,
+      "forward_parity_max_error": 4.440892098500626e-16,
+      "scored_rows": 63,
+      "chunk_boundaries": [
+        [
+          0,
+          0,
+          63
+        ]
+      ],
+      "whole_risk_loss_autograd_error": 6.643990912991171e-16,
+      "whole_risk_loss_value": -0.011882357646792054,
+      "finite_difference_directions": [
+        {
+          "group": "K",
+          "autograd": 0.024888443215962574,
+          "finite_difference": 0.024888442798007282,
+          "absolute_error": 4.179552919036933e-10
+        },
+        {
+          "group": "head",
+          "autograd": -0.054650377355037444,
+          "finite_difference": -0.054650378262730004,
+          "absolute_error": 9.076925600037811e-10
+        },
+        {
+          "group": "encoder",
+          "autograd": -0.00012506773110778057,
+          "finite_difference": -0.00012506560717606696,
+          "absolute_error": 2.123931713610052e-09
+        }
+      ]
+    },
+    {
+      "rows": 137,
+      "vectorized_vs_explicit_context_gradient_error": 2.8622937353617317e-16,
+      "K_gradient_norm": 0.07686358992382263,
+      "K_gradient_difference_if_state_wrongly_detached": 0.01590136181055736,
+      "forward_parity_max_error": 3.3306690738754696e-16,
+      "scored_rows": 137,
+      "chunk_boundaries": [
+        [
+          0,
+          0,
+          63
+        ],
+        [
+          42,
+          63,
+          126
+        ],
+        [
+          105,
+          126,
+          137
+        ]
+      ]
+    }
+  ],
+  "worker_smoke": [
+    {
+      "seed": 17,
+      "epochs": 3,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "failure": null,
+      "initial_path_parity": {
+        "parent_initial_tensor_sha256": "334020e802f27842d452f032282014993d00eed9eea88692ff10ba51011bc7c7",
+        "costs": {
+          "10.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 2.220446049250313e-16,
+              "pretrade_weights": 3.3306690738754696e-16,
+              "ending_weights": 3.3306690738754696e-16,
+              "fees": 3.4728350837426314e-19,
+              "net_equity": 4.440892098500626e-16,
+              "F_component": 1.573394192710964e-15
+            },
+            "maximum_relative_nav_error": 1.4432899320127035e-15
+          },
+          "25.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 2.220446049250313e-16,
+              "pretrade_weights": 4.440892098500626e-16,
+              "ending_weights": 4.440892098500626e-16,
+              "fees": 9.723938234479368e-19,
+              "net_equity": 6.661338147750939e-16,
+              "F_component": 1.5681900222830336e-15
+            },
+            "maximum_relative_nav_error": 1.5543122344752192e-15
+          }
+        },
+        "worst_F_error": 1.5681900222830336e-15
+      }
+    },
+    {
+      "seed": 41,
+      "epochs": 3,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "failure": null,
+      "initial_path_parity": {
+        "parent_initial_tensor_sha256": "257d81ac871658b278d3a9ad740fcb0882c4b10edabff70016cd109fd40d0821",
+        "costs": {
+          "10.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 2.220446049250313e-16,
+              "pretrade_weights": 3.3306690738754696e-16,
+              "ending_weights": 3.3306690738754696e-16,
+              "fees": 4.582448244645765e-19,
+              "net_equity": 4.440892098500626e-16,
+              "F_component": 8.743006318923108e-16
+            },
+            "maximum_relative_nav_error": 1.5543122344752192e-15
+          },
+          "25.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 2.220446049250313e-16,
+              "pretrade_weights": 3.3306690738754696e-16,
+              "ending_weights": 3.3306690738754696e-16,
+              "fees": 1.145188544687814e-18,
+              "net_equity": 3.3306690738754696e-16,
+              "F_component": 9.610368056911511e-16
+            },
+            "maximum_relative_nav_error": 1.9984014443252818e-15
+          }
+        },
+        "worst_F_error": 9.610368056911511e-16
+      }
+    },
+    {
+      "seed": 71,
+      "epochs": 3,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "failure": null,
+      "initial_path_parity": {
+        "parent_initial_tensor_sha256": "9703523e4aebd1bd1b616c021819fa6e9c7b3e45dd88df6ec714d95a26b8f2e3",
+        "costs": {
+          "10.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 2.220446049250313e-16,
+              "pretrade_weights": 3.3306690738754696e-16,
+              "ending_weights": 3.3306690738754696e-16,
+              "fees": 3.4728350837426314e-19,
+              "net_equity": 6.661338147750939e-16,
+              "F_component": 1.2264494975156026e-15
+            },
+            "maximum_relative_nav_error": 1.6653345369377348e-15
+          },
+          "25.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 2.220446049250313e-16,
+              "pretrade_weights": 4.440892098500626e-16,
+              "ending_weights": 4.440892098500626e-16,
+              "fees": 1.111307226797642e-18,
+              "net_equity": 4.440892098500626e-16,
+              "F_component": 1.8214596497756474e-16
+            },
+            "maximum_relative_nav_error": 1.3322676295501878e-15
+          }
+        },
+        "worst_F_error": 1.8214596497756474e-16
+      }
+    }
+  ],
+  "ensemble_smoke": {
+    "failure": null,
+    "training_feasibility_passed": true,
+    "anchor_selected": true,
+    "component_count": 3
+  },
+  "failures": []
+}

@@ -1,0 +1,1111 @@
+{
+  "schema_version": "sparse_holdings_failed_optimizer_diagnosis_v1",
+  "scope": "Read only aggregation of retained synthetic states and latest paths; no third fit, new rollout, market data or policy selection.",
+  "market_fits_permitted": false,
+  "registered_training_gate_passed": false,
+  "fixture": {
+    "rows": 504,
+    "index_type": "synthetic ordinal 0..503, not dates",
+    "features": "x0 alternates +1/-1; other26 columns0",
+    "returns": "SOXX=.002+.008*x0; SOXL=3*SOXX"
+  },
+  "retention_provenance": {
+    "initial_failed_probe_source_sha256": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd",
+    "retention_reproduction_source_sha256": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d",
+    "source_change": "Only output diagnostic key reported_trade_count_gt_1e12 renamed reported_trade_count_gt_1e_minus12; no numerical expression changed.",
+    "initial_source_bytes_verified_by": "Exact inverse one-key change SHA equals hash recorded before initial probe in /tmp/sparse-holdings-runtime.json; this is not an unverified approximation.",
+    "initial_source_path": "/tmp/sparse-holdings-failed-source/initial_26ed/sparse_holdings_net_excess.py",
+    "retention_source_path": "/tmp/sparse-holdings-failed-source/retention_3c690/sparse_holdings_net_excess.py",
+    "initial_probe_summary_path": "/tmp/sparse-holdings-known-information-probe.json",
+    "initial_probe_summary_sha256": "4fa56ff711920e1f62c328c04e4a54b708824ee4fded7b2d990d05af1f6ee182",
+    "retention_full_payload_path": "/tmp/sparse-holdings-known-information-full.pkl",
+    "retention_full_payload_sha256": "3d589805851fc3c4a959fd00e53f9f5fd8409adef0d9c8da111c095b9c3f36d5",
+    "retention_run_financial_summary_matches_initial": true,
+    "full_retention_traces_are_not_labeled_as_initial_version": true,
+    "additional_historical_source_replay_performed": false
+  },
+  "initial_original_per_epoch_trajectories_retained": false,
+  "original_vs_retention_all_state_identity_claimed": false,
+  "registered_witness": {
+    "F": 0.25546977948902533,
+    "feasible": true
+  },
+  "independent_validation": {
+    "path": "/tmp/sparse-holdings-validation/known-information-independent-audit.json",
+    "sha256": "533da667b977ea20cb5ec1e8ff3fec7b3fd3c0c3cc82805a2a926a894877ece0",
+    "checkpoint_count": 363,
+    "checkpoint_cost_paths": 726,
+    "maximum_errors": {
+      "F": 1.3905543383430086e-14,
+      "raw_gap_pp": 4.4075854077618715e-14,
+      "normalized_g": 7.34412530789541e-14,
+      "dual_update": 0.0,
+      "risk_percent": 4.4075854077618715e-14,
+      "selected_saved_path": 0.0
+    },
+    "failures": []
+  },
+  "seeds": [
+    {
+      "seed": 17,
+      "numerical_failure": null,
+      "selected_epoch": "anchor",
+      "selected_F": 0.0,
+      "states": 121,
+      "positive_F_states": 52,
+      "feasible_states": 69,
+      "positive_F_feasible_states": 0,
+      "negative_F_feasible_states": 0,
+      "first_all_SOXX_singleton_epoch": 52,
+      "all_SOXX_singleton_persists_to_end": true,
+      "first_zero_gradient_update": 53,
+      "zero_gradient_update_count": 68,
+      "zero_gradient_persists_to_end": true,
+      "maximum_F_state": {
+        "epoch": 23,
+        "F": 0.12608888780438332,
+        "feasible": false,
+        "raw_gap_pp_in_cost10_D_C_cost25_D_C_order": [
+          0.6117261580793469,
+          0.6117261556969273,
+          0.619496988233899,
+          0.6194969822609184
+        ],
+        "lambda_next": [
+          0.04988730845605224,
+          0.04983636846944361,
+          0.050618333676729105,
+          0.05023367694280687
+        ],
+        "gradient_parameter_epoch": 22,
+        "encoder_gradient_norm": 0.03491624116988591,
+        "head_gradient_norm": 0.16739419966898555,
+        "K_gradient_norm": 0.07257117637010906,
+        "primal_step_norm": 0.012142773916641423
+      },
+      "final_state": {
+        "epoch": 120,
+        "F": 0.0,
+        "feasible": true,
+        "raw_gap_pp_in_cost10_D_C_cost25_D_C_order": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_next": [
+          0.09938373901833047,
+          0.0993102197628788,
+          0.10130581236914563,
+          0.10086103527763977
+        ],
+        "gradient_parameter_epoch": 119,
+        "encoder_gradient_norm": 0.0,
+        "head_gradient_norm": 0.0,
+        "K_gradient_norm": 0.0,
+        "primal_step_norm": 2.5924190353737412e-05
+      },
+      "dual_minimum": 0.0,
+      "dual_maximum": 0.10130581236914563,
+      "latest_path_details_by_cost": {
+        "10.0": {
+          "q_first_six": [
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "q_final_two": [
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "target_first_six": [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "target_final_two": [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "positive_signal_mean_q": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "negative_signal_mean_q": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "active_experts": [
+            1
+          ],
+          "sole_expert_diagnostics": {
+            "support_cardinality_fraction": {
+              "1": 1.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "sole_expert_fraction": {
+              "soxl": 0.0,
+              "soxx": 1.0,
+              "cash": 0.0,
+              "hold": 0.0
+            },
+            "support_change_count": 0,
+            "exact_hold_count": 0,
+            "exact_zero_order_count": 503,
+            "reported_trade_count_gt_1e_minus12": 1,
+            "maximum_absolute_logit": 1.2605987553496232
+          },
+          "maximum_SOXL_weight": 0.0,
+          "maximum_cash_weight": 0.0,
+          "final_pretrade_distance_to_SOXX_L1": 0.0,
+          "first20_net_log_excess": 0.0,
+          "remaining484_net_log_excess": 0.0,
+          "total_net_log_excess": 0.0
+        },
+        "25.0": {
+          "q_first_six": [
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "q_final_two": [
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "target_first_six": [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "target_final_two": [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "positive_signal_mean_q": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "negative_signal_mean_q": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "active_experts": [
+            1
+          ],
+          "sole_expert_diagnostics": {
+            "support_cardinality_fraction": {
+              "1": 1.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "sole_expert_fraction": {
+              "soxl": 0.0,
+              "soxx": 1.0,
+              "cash": 0.0,
+              "hold": 0.0
+            },
+            "support_change_count": 0,
+            "exact_hold_count": 0,
+            "exact_zero_order_count": 503,
+            "reported_trade_count_gt_1e_minus12": 1,
+            "maximum_absolute_logit": 1.2605987553496232
+          },
+          "maximum_SOXL_weight": 0.0,
+          "maximum_cash_weight": 0.0,
+          "final_pretrade_distance_to_SOXX_L1": 0.0,
+          "first20_net_log_excess": 0.0,
+          "remaining484_net_log_excess": 0.0,
+          "total_net_log_excess": 0.0
+        }
+      }
+    },
+    {
+      "seed": 41,
+      "numerical_failure": null,
+      "selected_epoch": "anchor",
+      "selected_F": 0.0,
+      "states": 121,
+      "positive_F_states": 53,
+      "feasible_states": 68,
+      "positive_F_feasible_states": 0,
+      "negative_F_feasible_states": 0,
+      "first_all_SOXX_singleton_epoch": 53,
+      "all_SOXX_singleton_persists_to_end": true,
+      "first_zero_gradient_update": 54,
+      "zero_gradient_update_count": 67,
+      "zero_gradient_persists_to_end": true,
+      "maximum_F_state": {
+        "epoch": 23,
+        "F": 0.1267247814799755,
+        "feasible": false,
+        "raw_gap_pp_in_cost10_D_C_cost25_D_C_order": [
+          0.6114302814784863,
+          0.6114302814784867,
+          0.6199849053577292,
+          0.6199849053577291
+        ],
+        "lambda_next": [
+          0.04980155800588076,
+          0.049764077950913796,
+          0.05059811908224379,
+          0.050221558698190324
+        ],
+        "gradient_parameter_epoch": 22,
+        "encoder_gradient_norm": 0.034639073880557425,
+        "head_gradient_norm": 0.16916927749646846,
+        "K_gradient_norm": 0.07340647513422383,
+        "primal_step_norm": 0.012223459260660504
+      },
+      "final_state": {
+        "epoch": 120,
+        "F": 0.0,
+        "feasible": true,
+        "raw_gap_pp_in_cost10_D_C_cost25_D_C_order": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_next": [
+          0.09961756082459614,
+          0.09954319724855847,
+          0.10181874578364222,
+          0.10134372665186686
+        ],
+        "gradient_parameter_epoch": 119,
+        "encoder_gradient_norm": 0.0,
+        "head_gradient_norm": 0.0,
+        "K_gradient_norm": 0.0,
+        "primal_step_norm": 2.547856771385143e-05
+      },
+      "dual_minimum": 0.0,
+      "dual_maximum": 0.10181874578364222,
+      "latest_path_details_by_cost": {
+        "10.0": {
+          "q_first_six": [
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "q_final_two": [
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "target_first_six": [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "target_final_two": [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "positive_signal_mean_q": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "negative_signal_mean_q": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "active_experts": [
+            1
+          ],
+          "sole_expert_diagnostics": {
+            "support_cardinality_fraction": {
+              "1": 1.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "sole_expert_fraction": {
+              "soxl": 0.0,
+              "soxx": 1.0,
+              "cash": 0.0,
+              "hold": 0.0
+            },
+            "support_change_count": 0,
+            "exact_hold_count": 0,
+            "exact_zero_order_count": 503,
+            "reported_trade_count_gt_1e_minus12": 1,
+            "maximum_absolute_logit": 1.2472764587908192
+          },
+          "maximum_SOXL_weight": 0.0,
+          "maximum_cash_weight": 0.0,
+          "final_pretrade_distance_to_SOXX_L1": 0.0,
+          "first20_net_log_excess": 0.0,
+          "remaining484_net_log_excess": 0.0,
+          "total_net_log_excess": 0.0
+        },
+        "25.0": {
+          "q_first_six": [
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "q_final_two": [
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "target_first_six": [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "target_final_two": [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "positive_signal_mean_q": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "negative_signal_mean_q": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "active_experts": [
+            1
+          ],
+          "sole_expert_diagnostics": {
+            "support_cardinality_fraction": {
+              "1": 1.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "sole_expert_fraction": {
+              "soxl": 0.0,
+              "soxx": 1.0,
+              "cash": 0.0,
+              "hold": 0.0
+            },
+            "support_change_count": 0,
+            "exact_hold_count": 0,
+            "exact_zero_order_count": 503,
+            "reported_trade_count_gt_1e_minus12": 1,
+            "maximum_absolute_logit": 1.2472764587908192
+          },
+          "maximum_SOXL_weight": 0.0,
+          "maximum_cash_weight": 0.0,
+          "final_pretrade_distance_to_SOXX_L1": 0.0,
+          "first20_net_log_excess": 0.0,
+          "remaining484_net_log_excess": 0.0,
+          "total_net_log_excess": 0.0
+        }
+      }
+    },
+    {
+      "seed": 71,
+      "numerical_failure": null,
+      "selected_epoch": "anchor",
+      "selected_F": 0.0,
+      "states": 121,
+      "positive_F_states": 45,
+      "feasible_states": 36,
+      "positive_F_feasible_states": 0,
+      "negative_F_feasible_states": 36,
+      "first_all_SOXX_singleton_epoch": null,
+      "all_SOXX_singleton_persists_to_end": false,
+      "first_zero_gradient_update": null,
+      "zero_gradient_update_count": 0,
+      "zero_gradient_persists_to_end": false,
+      "maximum_F_state": {
+        "epoch": 22,
+        "F": 0.11528163503889613,
+        "feasible": false,
+        "raw_gap_pp_in_cost10_D_C_cost25_D_C_order": [
+          0.5806233617815962,
+          0.5806233617815962,
+          0.5832078011615545,
+          0.5832078011615562
+        ],
+        "lambda_next": [
+          0.04617213995577284,
+          0.04616768405012095,
+          0.046847293821680125,
+          0.04633010234760789
+        ],
+        "gradient_parameter_epoch": 21,
+        "encoder_gradient_norm": 0.03792299196732828,
+        "head_gradient_norm": 0.15944767065228707,
+        "K_gradient_norm": 0.07926263713099217,
+        "primal_step_norm": 0.010402209023162183
+      },
+      "final_state": {
+        "epoch": 120,
+        "F": -0.0002988189833744712,
+        "feasible": true,
+        "raw_gap_pp_in_cost10_D_C_cost25_D_C_order": [
+          1.1015494072452725e-14,
+          1.1275702593849246e-14,
+          1.1015494072452725e-14,
+          1.1275702593849246e-14
+        ],
+        "lambda_next": [
+          0.08599158576480866,
+          0.08594132815292968,
+          0.08947135953755042,
+          0.08670249698538787
+        ],
+        "gradient_parameter_epoch": 119,
+        "encoder_gradient_norm": 7.673144028500456e-05,
+        "head_gradient_norm": 0.001405812075488889,
+        "K_gradient_norm": 0.0007866994288304207,
+        "primal_step_norm": 0.00020485776145239397
+      },
+      "dual_minimum": 0.0,
+      "dual_maximum": 0.08947135953755042,
+      "latest_path_details_by_cost": {
+        "10.0": {
+          "q_first_six": [
+            [
+              0.0,
+              0.7338946883403148,
+              0.0,
+              0.2661053116596852
+            ],
+            [
+              0.0,
+              0.6807686500362029,
+              0.0,
+              0.3192313499637971
+            ],
+            [
+              0.0,
+              0.6530666649635634,
+              0.0,
+              0.34693333503643664
+            ],
+            [
+              0.0,
+              0.660011445274904,
+              0.0,
+              0.33998855472509604
+            ],
+            [
+              0.0,
+              0.6464578104637293,
+              0.0,
+              0.3535421895362707
+            ],
+            [
+              0.0,
+              0.6577463346426777,
+              0.0,
+              0.34225366535732227
+            ]
+          ],
+          "q_final_two": [
+            [
+              0.0,
+              0.6455777281672748,
+              0.0,
+              0.35442227183272534
+            ],
+            [
+              0.0,
+              0.6574382583300207,
+              0.0,
+              0.3425617416699792
+            ]
+          ],
+          "target_first_six": [
+            [
+              0.0,
+              0.7338946883403148,
+              0.2661053116596852
+            ],
+            [
+              0.0,
+              0.9156697374439045,
+              0.08433026255609564
+            ],
+            [
+              0.0,
+              0.9705813944057526,
+              0.029418605594247298
+            ],
+            [
+              0.0,
+              0.9900941550896428,
+              0.009905844910357148
+            ],
+            [
+              0.0,
+              0.9964769369161818,
+              0.0035230630838181923
+            ],
+            [
+              0.0,
+              0.9988061155296784,
+              0.0011938844703216682
+            ]
+          ],
+          "target_final_two": [
+            [
+              0.0,
+              1.0,
+              1.2642003770942256e-231
+            ],
+            [
+              0.0,
+              0.9999999999999999,
+              4.2877889405667564e-232
+            ]
+          ],
+          "positive_signal_mean_q": [
+            0.0,
+            0.645961881509864,
+            0.0,
+            0.3540381184901337
+          ],
+          "negative_signal_mean_q": [
+            0.0,
+            0.6575424408144348,
+            0.0,
+            0.34245755918556453
+          ],
+          "active_experts": [
+            1,
+            3
+          ],
+          "sole_expert_diagnostics": {
+            "support_cardinality_fraction": {
+              "1": 0.0,
+              "2": 1.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "sole_expert_fraction": {
+              "soxl": 0.0,
+              "soxx": 0.0,
+              "cash": 0.0,
+              "hold": 0.0
+            },
+            "support_change_count": 0,
+            "exact_hold_count": 0,
+            "exact_zero_order_count": 234,
+            "reported_trade_count_gt_1e_minus12": 26,
+            "maximum_absolute_logit": 1.0825380522363182
+          },
+          "maximum_SOXL_weight": 0.0,
+          "maximum_cash_weight": 0.2661053116596852,
+          "final_pretrade_distance_to_SOXX_L1": 1.251683541677451e-231,
+          "first20_net_log_excess": -0.0023905518650785555,
+          "remaining484_net_log_excess": -1.9166890297147027e-12,
+          "total_net_log_excess": -0.0023905518669952446
+        },
+        "25.0": {
+          "q_first_six": [
+            [
+              0.0,
+              0.7338946883403148,
+              0.0,
+              0.2661053116596852
+            ],
+            [
+              0.0,
+              0.6807686500362029,
+              0.0,
+              0.3192313499637971
+            ],
+            [
+              0.0,
+              0.6530666649635634,
+              0.0,
+              0.34693333503643664
+            ],
+            [
+              0.0,
+              0.660011445274904,
+              0.0,
+              0.33998855472509604
+            ],
+            [
+              0.0,
+              0.6464578104637293,
+              0.0,
+              0.3535421895362707
+            ],
+            [
+              0.0,
+              0.6577463346426777,
+              0.0,
+              0.34225366535732227
+            ]
+          ],
+          "q_final_two": [
+            [
+              0.0,
+              0.6455777281672748,
+              0.0,
+              0.35442227183272534
+            ],
+            [
+              0.0,
+              0.6574382583300207,
+              0.0,
+              0.3425617416699792
+            ]
+          ],
+          "target_first_six": [
+            [
+              0.0,
+              0.7338946883403148,
+              0.2661053116596852
+            ],
+            [
+              0.0,
+              0.9156697374439045,
+              0.08433026255609564
+            ],
+            [
+              0.0,
+              0.9705813944057526,
+              0.029418605594247298
+            ],
+            [
+              0.0,
+              0.9900941550896428,
+              0.009905844910357148
+            ],
+            [
+              0.0,
+              0.9964769369161818,
+              0.0035230630838181923
+            ],
+            [
+              0.0,
+              0.9988061155296784,
+              0.0011938844703216682
+            ]
+          ],
+          "target_final_two": [
+            [
+              0.0,
+              1.0,
+              1.2642003770942256e-231
+            ],
+            [
+              0.0,
+              0.9999999999999999,
+              4.2877889405667564e-232
+            ]
+          ],
+          "positive_signal_mean_q": [
+            0.0,
+            0.645961881509864,
+            0.0,
+            0.3540381184901337
+          ],
+          "negative_signal_mean_q": [
+            0.0,
+            0.6575424408144348,
+            0.0,
+            0.34245755918556453
+          ],
+          "active_experts": [
+            1,
+            3
+          ],
+          "sole_expert_diagnostics": {
+            "support_cardinality_fraction": {
+              "1": 0.0,
+              "2": 1.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "sole_expert_fraction": {
+              "soxl": 0.0,
+              "soxx": 0.0,
+              "cash": 0.0,
+              "hold": 0.0
+            },
+            "support_change_count": 0,
+            "exact_hold_count": 0,
+            "exact_zero_order_count": 234,
+            "reported_trade_count_gt_1e_minus12": 26,
+            "maximum_absolute_logit": 1.0825380522363182
+          },
+          "maximum_SOXL_weight": 0.0,
+          "maximum_cash_weight": 0.2661053116596852,
+          "final_pretrade_distance_to_SOXX_L1": 1.251683541677451e-231,
+          "first20_net_log_excess": -0.0023879667124407336,
+          "remaining484_net_log_excess": -2.5937030301320364e-12,
+          "total_net_log_excess": -0.0023879667150344367
+        }
+      }
+    }
+  ],
+  "interpretation": [
+    "Every positive-F learned state fails at least one unchanged raw DD/CVaR gate; the retained exact benchmark is the correct rejection.",
+    "Seeds17/41 enter an all-SOXX singleton. The sparsemax score Jacobian is exactly zero there; later zero parameter gradients do not supply an escape direction. Adam momentum moves parameters without restoring active alternatives in this recorded budget.",
+    "Seed71 retains support {SOXX,HOLD} and nonzero parameter gradients. Starting in cash causes partial entry, then owned holdings approach SOXX. The two active experts become economically coincident: d target / d q_H along q_S+q_H=1 equals h-e_SOXX and vanishes as h approaches SOXX. Inactive SOXL/cash score derivatives are zero inside this support cell.",
+    "At maximumF, the independent reconstruction finds broadly similar SOXL exposure on positive and negative signals and no active cash expert. Positive gross edge and rising tail violations precede reversion toward the benchmark; this does not establish useful conditional allocation learning.",
+    "A representable fixed witness has positive feasibleF, while accounting/gradient probes and363-state reconstruction pass. This supports a finite-budget constrained-search failure with support saturation, not class infeasibility, absence of information or a new numerical error.",
+    "The strict-support Jacobian is an exact local derivative away from support boundaries. Smooth derivative validation does not establish optimizer convergence or every nonsmooth composition derivative."
+  ],
+  "prohibited_inference": [
+    "No deployment or market-fit qualification follows from this failed toy.",
+    "The original26ed run did not retain all trajectories; only summary agreement is asserted against retention3c690.",
+    "No conclusion about unseen market performance follows from a synthetic witness or optimizer repair proposal."
+  ],
+  "evidence": [
+    {
+      "path": "/tmp/sparse-holdings-known-information-full.pkl",
+      "sha256": "3d589805851fc3c4a959fd00e53f9f5fd8409adef0d9c8da111c095b9c3f36d5"
+    },
+    {
+      "path": "/tmp/sparse-holdings-known-information-probe.json",
+      "sha256": "4fa56ff711920e1f62c328c04e4a54b708824ee4fded7b2d990d05af1f6ee182"
+    },
+    {
+      "path": "/tmp/sparse-holdings-known-information-trajectories.csv",
+      "sha256": "ef4726403b14a39db27dbf22ce5e3e60b507ffc8b508f20ba32170252bddcfe4"
+    },
+    {
+      "path": "/tmp/sparse-holdings-failed-source/initial_26ed/sparse_holdings_net_excess.py",
+      "sha256": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd"
+    },
+    {
+      "path": "/tmp/sparse-holdings-failed-source/retention_3c690/sparse_holdings_net_excess.py",
+      "sha256": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d"
+    },
+    {
+      "path": "/tmp/diagnose_sparse_holdings_failed_probe.py",
+      "sha256": "159b5918f5076a5b9d824ccde43dd16455ec7b82382feb3ae6a0010747e5861e"
+    }
+  ]
+}

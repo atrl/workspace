@@ -1,0 +1,48 @@
+{
+  "synthetic_only": true,
+  "market_data_used": false,
+  "rows": 3000,
+  "seed": 17,
+  "updates": 120,
+  "elapsed_seconds": 23.989139167009853,
+  "seconds_per_update": 0.19990949305841543,
+  "model_source_sha256": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd",
+  "source_unchanged": true,
+  "failure": null,
+  "epochs": 121,
+  "optimizer_steps": 120,
+  "metadata_pickle_bytes": 1798019,
+  "epoch_records_pickle_bytes": 474159,
+  "selected_paths_pickle_bytes": 1261617,
+  "maximum_forward_parity_error": 7.771561172376096e-16,
+  "all_support_mismatches": 0,
+  "initial_path_parity": {
+    "parent_initial_tensor_sha256": "334020e802f27842d452f032282014993d00eed9eea88692ff10ba51011bc7c7",
+    "costs": {
+      "10.0": {
+        "maximum_absolute_errors": {
+          "target_weights": 2.220446049250313e-16,
+          "pretrade_weights": 5.551115123125783e-16,
+          "ending_weights": 5.551115123125783e-16,
+          "fees": 6.657678965418801e-19,
+          "net_equity": 6.661338147750939e-16,
+          "F_component": 1.6039415889207431e-15
+        },
+        "maximum_relative_nav_error": 7.527312106958561e-14
+      },
+      "25.0": {
+        "maximum_absolute_errors": {
+          "target_weights": 2.220446049250313e-16,
+          "pretrade_weights": 5.551115123125783e-16,
+          "ending_weights": 5.551115123125783e-16,
+          "fees": 1.2841019480375193e-18,
+          "net_equity": 6.661338147750939e-16,
+          "F_component": 1.1058862159352145e-15
+        },
+        "maximum_relative_nav_error": 5.46229728115577e-14
+      }
+    },
+    "worst_F_error": 1.1058862159352145e-15
+  },
+  "interpretation": "Execution/memory profile only; this artificial chronology is not economic evidence. No schedule, architecture or financial thresholds were tuned."
+}

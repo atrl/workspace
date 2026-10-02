@@ -1,0 +1,152 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+/tmp/implicit_settlement_gradient_audit.py:70: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+  'legacy_nav':abs(float(o['net_equity'])-float(old['net_equity'])),
+{
+  "scope": "Read-only pure synthetic audit of actual separately versioned kernel; no market data, fits, parameter selection, source edits, monkeypatch or changed historical results.",
+  "kernel_source": "src/model/post_fee_settlement.py",
+  "source_sha256_before": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+  "source_sha256_after": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+  "legacy_source_sha256_before": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+  "legacy_source_sha256_after": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+  "torch_version": "2.11.0",
+  "dtype": "float64",
+  "case_count": 49,
+  "random_forward_cases": 300,
+  "invalid_input_cases": 9,
+  "maximum_forward_error": 2.220446049250313e-16,
+  "maximum_random_forward_error": 6.661338147750939e-16,
+  "maximum_implicit_formula_error": 4.440892098500626e-16,
+  "maximum_smooth_fd_error": 1.2099365953588403e-10,
+  "maximum_state_identity_error": 4.440892098500626e-16,
+  "maximum_state_fd_error": 3.2638558522535277e-10,
+  "maximum_funding_gradient_error": 0.0,
+  "maximum_cash_debit_gradient_error": 2.220446049250313e-16,
+  "maximum_Clarke_convex_combination_error": 4.336808689942018e-19,
+  "failures": [],
+  "proof": "For zero-trade indices Z, hold other signs fixed and enumerate sigma_Z in{-1,+1}. D_sigma=1+c*sigma dot z; D_0=1+c*s_0 dot z. The probabilities mu_sigma=D_sigma/(2^|Z|*D_0) are positive and sum1, and their weighted gradients c/D_sigma*(sigma,-n*sigma) average to c/D_0*(s_0,-n*s_0). Adjacent ambient branches are reached by perturbing trades t, setting n=1-c*sum|t| and h=n*z-t. The implicit funding function is strictly increasing in n when c*||z_r||_1<1, hence locally unique and Lipschitz. This certifies the chosen ambient Clarke gradient of n, not every feasible one-sided derivative or the Clarke gradient of an arbitrary multi-step network composition.",
+  "constraint_scope": "At boundaries or after restriction to a fixed-held/policy curve, some adjacent ambient branches can be inaccessible. The partial-zero absent-L example has chosen dn0 but a negative feasible buy-L right derivative. No unique scalar derivative is claimed at kinks. No minimum-norm claim is made for partial-zero sign0.",
+  "numerical_scope": "Exact floating-point trade zero alone selects sign0. Roundoff-sized nonzero trades retain their actual signs; there is no near-zero tolerance override. First-order backward only; higher derivatives not certified.",
+  "definition_reference": "https://jmlr.org/papers/volume23/20-899/20-899.pdf (Definition5: generalized gradient as convex hull of limiting gradients)"
+}
+PARTIAL_ZERO_FEASIBLE_SIDE_COUNTEREXAMPLE {
+  "case": "partial_zero_absent_L_buy",
+  "cost_bps": 25.0,
+  "smooth": false,
+  "h": [
+    0.0,
+    0.6,
+    0.4
+  ],
+  "z": [
+    0.0,
+    0.4,
+    0.6
+  ],
+  "dh": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "dz": [
+    1.0,
+    0.0,
+    -1.0
+  ],
+  "actual_trade": [
+    0.0,
+    -0.20020020020020013
+  ],
+  "actual_signs": [
+    0.0,
+    -1.0
+  ],
+  "autograd_vector_n_fee_nav_state": [
+    0.0,
+    0.0,
+    0.02998498498498503,
+    1.0258964143426295,
+    -0.012023618672719505,
+    -1.01387279566991
+  ],
+  "analytic_selected_vector": [
+    0.0,
+    -0.0,
+    0.029984984984985013,
+    1.0258964143426295,
+    -0.012023618672719491,
+    -1.01387279566991
+  ],
+  "left_fd_vector": null,
+  "right_fd_vector": [
+    -0.002501250206954353,
+    0.0025012499991127965,
+    0.027473729624638565,
+    1.0258964143426277,
+    -0.012023618656265,
+    -1.0138727959962957
+  ],
+  "center_fd_vector": null,
+  "implicit_formula_error": 1.734723475976807e-17,
+  "state_identity_error": 1.3877787807814457e-17,
+  "state_fd_error": 3.2638558522535277e-10,
+  "smooth_fd_error": null,
+  "funding_identity_gradient_error": 0.0,
+  "cash_debit_gradient_error": 0.0,
+  "forward_errors": {
+    "bisection": 2.220446049250313e-16,
+    "legacy_nav": 0.0,
+    "legacy_fee": 0.0,
+    "legacy_state": 1.1102230246251565e-16,
+    "scalar_state": 0.0,
+    "scalar_nav": 0.0,
+    "scalar_fee": 0.0,
+    "funding": 0.0
+  },
+  "ambient_Clarke_convex_combination": {
+    "zero_legs": [
+      0
+    ],
+    "weights": [
+      0.5,
+      0.5
+    ],
+    "minimum_weight": 0.5,
+    "weight_sum_error": 0.0,
+    "gradient_mixture_error": 0.0,
+    "chosen_gradient_h_then_z": [
+      0.0,
+      -0.0025025025025025025,
+      -0.0,
+      0.0025012499987474967
+    ],
+    "branch_gradients": [
+      [
+        -0.0025025025025025025,
+        -0.0025025025025025025,
+        0.0025012499987474967,
+        0.0025012499987474967
+      ],
+      [
+        0.0025025025025025025,
+        -0.0025025025025025025,
+        -0.0025012499987474967,
+        0.0025012499987474967
+      ]
+    ],
+    "sign_patterns": [
+      [
+        -1.0,
+        -1.0
+      ],
+      [
+        1.0,
+        -1.0
+      ]
+    ],
+    "denominator": 0.999
+  }
+}

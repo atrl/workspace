@@ -1,0 +1,41 @@
+{
+  "source_audit": {
+    "parent_experiment": "benchmark_anchor_utility_20261002",
+    "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+    "parent_artifact_manifest_sha256": "8aff34f5654d89ff406d0b2993500b5639529d8d31dec2d1e1702a1f973c27dd",
+    "qualified_source_recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "as_of": "2026-09-25",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "native_frame_sha256": "b7a59f39feed5aed6e61fec2b4239092c474e453c91d4d133c73f9dcc571a03f",
+    "raw_frame_sha256": "bf5586573a4c51feb348c8e1a661ccf0f334f3a7d83b9ce9558629bfd16cf02b",
+    "prices_frame_sha256": "25d1e2486924c3e21f0aa6e1a004c7a8b02cb8acc5c279713f18f5aae0fdba9a",
+    "forecasts_frame_sha256": "2767bbbd286dece22518147ee81dfca74d9c3b523468376b1614f92b498ef2a5",
+    "rows": 3956,
+    "calendar_sessions": 4162,
+    "forecast_model_count": 14,
+    "verified_development_folds": 21,
+    "verified_parent_artifacts": 8,
+    "details_sha256": "de15be5fc7817b037f13f7204f59065069064cbf766a820a9787ffdb48517cc5",
+    "forecast_refit_performed": false,
+    "allocation_models_loaded": false,
+    "data_refreshed": false,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object",
+      "qlib.data.D.calendar",
+      "qlib.data.D.instruments",
+      "qlib.data.D.features",
+      "qlib.data.dataset.DatasetH.prepare"
+    ],
+    "parent_market_variant_mapping": {
+      "holdings_only": "constant",
+      "price_holdings": "price",
+      "price_vol_holdings": "price_vol"
+    },
+    "mapped_development_folds": 21,
+    "parent_scalers_modified": false,
+    "holdings_generated_by_owned_policy_only": true
+  },
+  "full_readback_sha256": "1a1694cf60606cf88097bf3317f70cb8925dbd2b11a1223408a5fa2738ae200d",
+  "scope": "Read-only native source/scaler/fold identity check; no allocation fitting or Recorder writes. Complete source_details will be recorded by the registered workflow."
+}

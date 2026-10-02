@@ -1,0 +1,34 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+{
+  "output": "/tmp/sparse-holdings-failed-optimization-diagnosis.json",
+  "sha256": "7e9b965a2d054b854c3da2302bb4534262fa38b924c62fbb15dd4224c174b6ea",
+  "seeds": [
+    {
+      "seed": 17,
+      "positive_F_states": 52,
+      "feasible_states": 69,
+      "positive_F_feasible_states": 0,
+      "first_all_SOXX_singleton_epoch": 52,
+      "first_zero_gradient_update": 53
+    },
+    {
+      "seed": 41,
+      "positive_F_states": 53,
+      "feasible_states": 68,
+      "positive_F_feasible_states": 0,
+      "first_all_SOXX_singleton_epoch": 53,
+      "first_zero_gradient_update": 54
+    },
+    {
+      "seed": 71,
+      "positive_F_states": 45,
+      "feasible_states": 36,
+      "positive_F_feasible_states": 0,
+      "first_all_SOXX_singleton_epoch": null,
+      "first_zero_gradient_update": null
+    }
+  ]
+}

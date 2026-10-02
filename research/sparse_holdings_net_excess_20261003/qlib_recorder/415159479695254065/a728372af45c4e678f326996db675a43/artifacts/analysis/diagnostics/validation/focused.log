@@ -1,0 +1,53 @@
+........................................................................ [ 93%]
+.....                                                                    [100%]
+=============================== warnings summary ===============================
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_DAY = pd.Timedelta("1day")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_MIN = pd.Timedelta("1min")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    EPS_T = pd.Timedelta("1s")  # use 1 second to exclude the right interval point
+
+tests/test_sparse_holdings_net_excess.py::test_sparsemax_exact_vertices_and_simplex[scores0-expected0]
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/tests/test_sparse_holdings_net_excess.py:36: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+    assert float(q.sum())==1 and bool((q>=0).all())
+
+tests/test_sparse_holdings_net_excess_data.py::test_mapping_is_explicit_and_never_mutates_registration_or_scalers
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/google/protobuf/internal/well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+tests/test_sparse_holdings_net_excess_data.py: 15 warnings
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/src/data/integrated_allocation.py:103: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return pd.Series(stamps + pd.Timedelta(hours=hour, minutes=minute), index=source.index)
+
+tests/test_sparse_holdings_net_excess_data.py::test_mapping_is_explicit_and_never_mutates_registration_or_scalers
+tests/test_sparse_holdings_net_excess_data.py::test_mapping_is_explicit_and_never_mutates_registration_or_scalers
+tests/test_sparse_holdings_net_excess_data.py::test_development_matrix_and_scaler_reconstruction_remains_exact
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/src/data/convex_allocation.py:29: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return pd.Series(values + pd.Timedelta(hours=9, minutes=30), index=days.index)
+
+tests/test_sparse_holdings_net_excess_data.py: 5 warnings
+tests/test_sparse_holdings_net_excess_workflow.py: 5 warnings
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/tests/test_benchmark_anchor_workflow.py:42: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    frame[name] = (dates + pd.offsets.BDay(offset)).tz_localize("America/New_York") + pd.Timedelta(hours=hours, minutes=minutes)
+
+tests/test_sparse_holdings_net_excess_workflow.py::test_native_hold_callback_creates_no_order_and_retains_owned_shares
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/utils/time.py:201: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return pd.Timedelta(f"{n}{freq}")
+
+tests/test_sparse_holdings_net_excess_workflow.py: 18 warnings
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/utils/time.py:369: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return date_time - pd.Timedelta(seconds=1)
+
+tests/test_sparse_holdings_net_excess_workflow.py::test_native_hold_callback_creates_no_order_and_retains_owned_shares
+  /Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/utils/index_data.py:492: RuntimeWarning: Mean of empty slice
+    return np.nanmean(self.data)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+77 passed, 53 warnings in 6.50s
