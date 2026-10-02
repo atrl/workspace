@@ -1,0 +1,30 @@
+{
+  "basis": "published_futu_affine_v1",
+  "as_of": "2026-09-25",
+  "market_fits_or_pnl_used": false,
+  "primary_rows": 8308,
+  "secondary_whole_bar_rows": 16,
+  "total_rows": 8324,
+  "primary_secondary_overlap_rows": 0,
+  "input_rows_discarded": 0,
+  "frame_sha256": "b81784abcf92543f1f7369b335e7bb22541a250cee51ab79ad33b62586d72f21",
+  "raw_frame_sha256": {
+    "Futu": "fec2d47e6407f96a14e755f585f06f59944dafb2bc7d073a15c473a9cb5f2200",
+    "Yahoo": "5e1d7ae157eb34dc1ac059efaf83d7d2ce8bc96b693b92655a36b4274bec0ded"
+  },
+  "rehab_frame_sha256": {
+    "SOXL": "148d306611eaef27b700e585e90788e59a5b29814a23e6da1e60143fd81bae94",
+    "SOXX": "ec1e92897806181e04da4c5d10639973a4a69a591bbc490fa0b8a0513bde899d"
+  },
+  "excluded_post_asof_event_dates": {
+    "SOXL": [],
+    "SOXX": []
+  },
+  "price_operator": "Chronological future events: A<-A*a; B<-B*a+b; price<-unadjusted_price*A+B",
+  "volume_operator": "Futu NONE volume / product(exact split_base/split_ert or join_base/join_ert); Yahoo split-adjusted volume unchanged",
+  "qualification_pass": null,
+  "scope": "transformation only; requires validate_price_basis and independently verified raw archive",
+  "quote_uncertainty": "secondary whole-bar quote source may differ from Futu; no prices, coefficients or source choices fitted to returns",
+  "sdk_qfq_equivalence_claimed": false,
+  "official_formula_reference": "https://openapi.futunn.com/futu-api-doc/quote/get-rehab.html"
+}

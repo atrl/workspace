@@ -1,0 +1,47 @@
+{
+  "rows": 8324,
+  "all_reference_dates_match": true,
+  "max_abs_values_vs_independent_candidate": {
+    "open": 0.0,
+    "high": 0.0,
+    "low": 0.0,
+    "close": 0.0,
+    "volume": 0.0
+  },
+  "all_values_match_1e_10_prices_1e_7_volume": true,
+  "qualification_pass": true,
+  "source_identity_errors": {},
+  "invalid_row_count": 0,
+  "primary_secondary_rows": [
+    8308,
+    16
+  ],
+  "row_hash_format_pass": true,
+  "rehab_page_time_binding": [
+    {
+      "instrument": "SOXL",
+      "pages": 5,
+      "before_after_equal": true,
+      "all_page_requests_bracketed": true
+    },
+    {
+      "instrument": "SOXX",
+      "pages": 5,
+      "before_after_equal": true,
+      "all_page_requests_bracketed": true
+    }
+  ],
+  "additive_events": {
+    "SOXL": [
+      {
+        "ex_div_date": "2010-09-22",
+        "forward_adj_factorA": 1.0,
+        "forward_adj_factorB": -0.00771
+      }
+    ],
+    "SOXX": []
+  },
+  "module_frame_sha256": "dc68ff0d85e8ff2043003a7599441b80e9eefd87441105a5c6b75c930932c847",
+  "no_store_build": true,
+  "comparison_scope": "all8324 candles against independently constructed outside-repo candidate, not same-function roundtrip"
+}

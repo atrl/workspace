@@ -1,0 +1,15 @@
+experiment: canonical_price_basis_20261002
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+region: us
+market: all
+as_of: '2026-09-25'
+source_plan: data_plan.json
+recorder_uri: /Users/rziiiii/dev/workspace/research/canonical_price_basis_20261002/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - sources/*
+  - inputs/*.pkl
+  - data/*.pkl
+  - analysis/*detail.pkl

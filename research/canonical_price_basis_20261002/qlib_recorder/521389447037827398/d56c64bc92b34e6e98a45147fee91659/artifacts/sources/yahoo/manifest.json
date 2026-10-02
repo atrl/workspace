@@ -1,0 +1,9 @@
+{
+  "url": "https://query2.finance.yahoo.com/v8/finance/chart/SOXL?period1=1268265600&period2=1383264000&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+  "requested_at_utc": "2026-10-02T12:39:08.919603+00:00",
+  "received_at_utc": "2026-10-02T12:39:09.819751+00:00",
+  "response_date": "Fri, 02 Oct 2026 12:39:09 GMT",
+  "status_code": 200,
+  "sha256": "f7755a228d8c347d291adc9efde9772dae0f5ee5c55dcb7ea4d0ab132abd19cf",
+  "purpose": "whole-bar evidence for16 Futu-missing sessions; no fallback accepted"
+}
