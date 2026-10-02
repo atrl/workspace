@@ -1,0 +1,5 @@
+variant,historical_qualification_pass,passed_gates,worst_annualized_lower_bound,worst_relative_wealth,positive_years_10bps
+expanding_variance_control,False,12,-0.075001288222862,0.8038691954700189,2
+observed_open20,False,12,-0.15526486669874776,0.6831640462608994,2
+learned_vol5,False,12,-0.1604541656887362,0.6181538143906461,1
+observed_close20,False,12,-0.1868125792154072,0.6274618868896427,2

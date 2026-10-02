@@ -1,0 +1,36 @@
+experiment: conditional_variance_20261002
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+region: us
+recorder_uri: /Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder
+model_selection: selection_plan.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*.pkl
+  - models/*.pkl
+  - policy/*.pkl
+  - analysis/portfolio_replays.pkl
+  - analysis/daily_solver_audits.pkl
+  - portfolio_analysis/*.pkl
+segments:
+  development_signal_years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  diagnostic_signal_years:
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  repeat_ids:
+  - 1
+  - 2
+  - 3
+  reproduction: 3genuinelyfreshOOFfits,annualcalibrationsandsolves; all3models/predictions/weights/objectives/settledpaths
+    match1e-8. No initializationseeds andnoextra statisticalsamples. No fitting cache
+    betweenrepeats.

@@ -1,0 +1,1187 @@
+{
+  "schema_version": 2,
+  "experiment": "conditional_variance_20261002",
+  "artifact_policy": "slim_card_recorder_first",
+  "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+  "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder",
+  "canonical_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122",
+  "retained_recorder_ids": [
+    "9a447c33dc934baeb1d4c3f2b9bf2122"
+  ],
+  "source_as_of": "2026-09-25",
+  "created_at_utc": "2026-10-02T15:28:54.802021+00:00",
+  "purpose": "Complete immutable evidence inventory for the authoritative Phase4 run and explicitly labelled diagnostics/validation. Aborted execution is preserved only as a log and source snapshot, never as a result recorder.",
+  "path_base": "card directory; each entry names an actually retained experiment/recorder file",
+  "self_reference_policy": "Manifest itself remains at the slim card root and is not copied into the recorder, avoiding a self-referential hash.",
+  "entry_count": 83,
+  "total_bytes": 82655068,
+  "entries": [
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/annual.pkl",
+      "bytes": 22959,
+      "sha256": "d6b373cc638ac773fe18c2362ca285107fb950eb7fc51d2930cb9713d8697b12",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/annual.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/attribution.pkl",
+      "bytes": 6176,
+      "sha256": "e764299abf7fef9a0c30b397efad21e125fd96c2fd533b869ac208837f0464d4",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/attribution.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/bootstrap.pkl",
+      "bytes": 3907,
+      "sha256": "a11db33bdc283d0efa7d5c37c758ce5b2ab9e9a6f9257b299f617fe9cdb41e7f",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/bootstrap.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/comparison.pkl",
+      "bytes": 5546,
+      "sha256": "38d05c32e8aa9275f5dac178f71aa3d3055610e3934d828537b6563142a96876",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/comparison.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/controls.pkl",
+      "bytes": 8477,
+      "sha256": "d9f8cb55b7922edbb1d8eabbf64b4fc4789a80ac3a2889903920fed1413ed3ed",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/controls.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/daily_solver_audits.pkl",
+      "bytes": 45389272,
+      "sha256": "61229deed5bf4cd7f89e932c6f4bdafab74f805c13a2e6e414543f735df02f60",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/daily_solver_audits.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/diagnostics/fee_horizon/conditional-variance-one-step-fee-diagnosis.csv",
+      "bytes": 17628,
+      "sha256": "04a23dad010e03d6e38070fe0ba14faef0b65894376c0170177fe9626f5eeb80",
+      "source": "/tmp/conditional-variance-one-step-fee-diagnosis.csv",
+      "purpose": "Saved-input one-step fee and gross-objective diagnosis; no new return paths or horizon selection",
+      "date_range": {
+        "signal_start": "2016-01-04",
+        "signal_end": "2023-01-03",
+        "decision_points": 58
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/diagnostics/fee_horizon/conditional-variance-one-step-fee-diagnosis.ipynb",
+      "bytes": 66890,
+      "sha256": "be5d893c4a75a4bddb25620f4ada30d9c18228bf1a0855ca37d25ae2f5bc580d",
+      "source": "/tmp/conditional-variance-one-step-fee-diagnosis.ipynb",
+      "purpose": "Saved-input one-step fee and gross-objective diagnosis; no new return paths or horizon selection",
+      "date_range": {
+        "signal_start": "2016-01-04",
+        "signal_end": "2023-01-03",
+        "decision_points": 58
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/diagnostics/fee_horizon/conditional-variance-one-step-fee-diagnosis.json",
+      "bytes": 322169,
+      "sha256": "ea7a5cdadf985f1e81266e6b3227684c05b47d41223fb4c8b057c2dc7de0eb27",
+      "source": "/tmp/conditional-variance-one-step-fee-diagnosis.json",
+      "purpose": "Saved-input one-step fee and gross-objective diagnosis; no new return paths or horizon selection",
+      "date_range": {
+        "signal_start": "2016-01-04",
+        "signal_end": "2023-01-03",
+        "decision_points": 58
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/diagnostics/fee_horizon/conditional_variance_one_step_audit.py",
+      "bytes": 6862,
+      "sha256": "ee66ca75f389301e6eba5c030d7f450f965dd8ace7d2d6279d8f21027600ddc8",
+      "source": "/tmp/conditional_variance_one_step_audit.py",
+      "purpose": "Original scratch method for the fixed one-step diagnostic; executed notebook additionally asserts frozen source hashes",
+      "date_range": {
+        "signal_start": "2016-01-04",
+        "signal_end": "2023-01-03"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/diagnostics/horizon_moments/soxl_horizon_moment_diagnostic.ipynb",
+      "bytes": 223812,
+      "sha256": "6cbc9e1a3b23bc1be05c62e73144c025509c1fbbe4713042b21a235b3d669381",
+      "source": "/tmp/soxl_horizon_moment_diagnostic.ipynb",
+      "purpose": "Strictly mature one-day versus five-day return moments and equal-risk diagnostic; no strategy replay",
+      "date_range": {
+        "cutoff_year_start": 2016,
+        "cutoff_year_end": 2023,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/diagnostics/horizon_moments/soxl_horizon_moment_diagnostic.json",
+      "bytes": 403154,
+      "sha256": "5ec498cc7ea677e91ab33c427a9b4274a626bf53738aefff0394a072af7d32c8",
+      "source": "/tmp/soxl_horizon_moment_diagnostic.json",
+      "purpose": "Strictly mature one-day versus five-day return moments and equal-risk diagnostic; no strategy replay",
+      "date_range": {
+        "cutoff_year_start": 2016,
+        "cutoff_year_end": 2023,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/forecast_annual.pkl",
+      "bytes": 2947,
+      "sha256": "32079a8fa071fc774a376b3df9afb6b26a3eb623e17f79b79cd236738eef3dfe",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/forecast_annual.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/forecast_bootstrap.pkl",
+      "bytes": 4050,
+      "sha256": "a807e660829d1c1b658ae3f43fee281fde89aaad83c61c2242f3fb6c70537ec6",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/forecast_bootstrap.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/forecast_losses.pkl",
+      "bytes": 113294,
+      "sha256": "cd978f35282576950cb4739b2ea44fb2756691e9219d839041c20919972c91e0",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/forecast_losses.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/forecast_metrics.pkl",
+      "bytes": 1142,
+      "sha256": "13469f49da10fc158691d1afe82282ed62e11d622dcc17b9c927835c65eff5e1",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/forecast_metrics.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/gates.pkl",
+      "bytes": 2400,
+      "sha256": "4668cbef7594d1fce3367a3f8f0737f42ab628e32958d806ff5c0f26d4e95cef",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/gates.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/portfolio_replays.pkl",
+      "bytes": 11697309,
+      "sha256": "f708a51c48c3bf6f5c0546578c733beef836de5ccc11a2ea77946ded2f55ffe6",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/portfolio_replays.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/profile_audits.pkl",
+      "bytes": 5530,
+      "sha256": "7fc5c07ce63c250d96efc2b4336b85b30d7dc1b38f16bc0d7edaa48db3d02fb6",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/profile_audits.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/repeated_metrics.pkl",
+      "bytes": 8621,
+      "sha256": "412f81419084cd90e6d0f626ce2854640a06092007632965b0639a1312c86b20",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/repeated_metrics.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/reproduction.pkl",
+      "bytes": 3700,
+      "sha256": "c3ff9f4fd65cb91df21f89c8b78083e23a26c7bbf3a50cb77885e5ea4fef51eb",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/analysis/reproduction.pkl"
+      },
+      "purpose": "Saved comparison, portfolio, solver, forecast or attribution evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/annual_metrics.csv",
+      "bytes": 48967,
+      "sha256": "d82dff16a84192f4a5f6733d2b18fd2bf8fad08160af580f0a9272201b35845c",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/annual_metrics.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/backtest_benchmark_comparison.csv",
+      "bytes": 8368,
+      "sha256": "519fb1645f7b6469dd65433c8d6a2fed17c1c5811ac4124c3c78322fe19bcddc",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/backtest_benchmark_comparison.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/beta_alpha_attribution.csv",
+      "bytes": 21419,
+      "sha256": "853f542959ec3d9a5a9fcad0d59664fcf456bb6fc8a01696d739032627bf5c6d",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/beta_alpha_attribution.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/bootstrap_analysis.csv",
+      "bytes": 8113,
+      "sha256": "75873d34cc7cedaf6d5c3d2ddfd8181d08b1162ec1163be43b800c952b2dc7eb",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/bootstrap_analysis.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/conclusion.md",
+      "bytes": 3075,
+      "sha256": "aff5babc2e15692fc94a89ca19daa88ce1f79c59c115d08a62a1af75232000b9",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/conclusion.md",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/control_comparison.csv",
+      "bytes": 15884,
+      "sha256": "bd7562f68f7b41cb7a35f64b0126defeb16d910f7d1560eb24de83c947acc9f2",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/control_comparison.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/development_gates.csv",
+      "bytes": 1866,
+      "sha256": "0bb3780b613a83ba31cc34074a35462e17eb45dd525589c468bf71f4a7ccda83",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/development_gates.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/fee_horizon_diagnosis.json",
+      "bytes": 8660,
+      "sha256": "634f5b1499c45b7b08508ac7db0dc8bbc24ae51eb21693659e344543b524701e",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/fee_horizon_diagnosis.json",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/forecast_annual_metrics.csv",
+      "bytes": 3945,
+      "sha256": "78e0c4ce457a9cabcd0abeffe33f101c498be20bee9f99800d89bf8a60de4c60",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/forecast_annual_metrics.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/forecast_loss_bootstrap.csv",
+      "bytes": 12004,
+      "sha256": "0cbe69f166edde64e58f40feb3ff88b8d97d9c761e153aa8ba9c211f18d18609",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/forecast_loss_bootstrap.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/forecast_metrics.csv",
+      "bytes": 528,
+      "sha256": "d8bd3094bed1810ff33563e1d0bd95077650e00cc6ab9400d7d415b15f58153b",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/forecast_metrics.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/forecast_training_audit.csv",
+      "bytes": 14075,
+      "sha256": "f32bc6cc5128a068fd58ec16e6425123693ea6df9cb0f2a435b931a43a615bc3",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/forecast_training_audit.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/implementation_correction.json",
+      "bytes": 1128,
+      "sha256": "ea8095b83465d0a2fc307cc79d193a106d6ccd7f21d6693cb2e7ff88474b9186",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/implementation_correction.json",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/independent_audit.json",
+      "bytes": 82679,
+      "sha256": "54b96cde5f66cf52b603e7a9f12c88db2c4e0a4cb90455e68500387545e74871",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/independent_audit.json",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/model_selection.csv",
+      "bytes": 396,
+      "sha256": "d5eb5f940add2069f672ecb952b79d4f95c047924ab7909432c1c85e2775bd78",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/model_selection.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/moment_diagnosis.json",
+      "bytes": 3562,
+      "sha256": "140ada134eb6849d4ba3de8ef0bfdef4aff5255c391cea995e9bef0cd58641b8",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/moment_diagnosis.json",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/repeated_metrics.csv",
+      "bytes": 15515,
+      "sha256": "822ffb403581b4faaa2efbb2a4e40bdaca02af77230f80ee6ae2d98992e7ee66",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/repeated_metrics.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/reproduction_audit.csv",
+      "bytes": 2154,
+      "sha256": "6ea38ee0af00828b0adf0ac79e9c89647bb470a0168393cef13e49c015878416",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/reproduction_audit.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/risk_solver_audit.csv",
+      "bytes": 6836,
+      "sha256": "0f68df50da853ae11d5158aa0737dda23dec5db213542beb690ab72e292efbc3",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/risk_solver_audit.csv",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/selected_model.json",
+      "bytes": 430,
+      "sha256": "9a9965c4075d12dbcd2b2ef94c2bb8e8271668eb4a226bac4dff22ca3402e2e5",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/selected_model.json",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/selection_plan.json",
+      "bytes": 10099,
+      "sha256": "0aa019ede34351b2831c19daf8bbea24f843e1d20102008c0f5d9f5d9af2bfbe",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/selection_plan.json",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/selection_seal.json",
+      "bytes": 489,
+      "sha256": "3d1b1df4476078fb3e5af04931f102bd3b0d0a6957f6cbc5414757a7365ffad1",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/selection_seal.json",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/summary.json",
+      "bytes": 15331,
+      "sha256": "90897df702d403ecf7d820f4e1fedfe7c2f132b10c69f9d39eb8d865ed13cc82",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/summary.json",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/verification.json",
+      "bytes": 60810,
+      "sha256": "64dd3a8d2b27002fffed29b3020c7f7508ba2d75a56b9ae7e00dce03c48d34c4",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/verification.json",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/card/workflow.yaml",
+      "bytes": 933,
+      "sha256": "ea10d43c805c9b138906c0f4968662d54f7c11bdfd243f55342bc8e6cd33aaea",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/workflow.yaml",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/annual_calibrations.pkl",
+      "bytes": 886114,
+      "sha256": "62913f48efca2da8006fc7a10f475c3d371b404f5aa346a06ccf3d27b348a38d",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/annual_calibrations.pkl"
+      },
+      "purpose": "Frozen Qlib data, calibration, plan or selection evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/execution_prices.pkl",
+      "bytes": 101346,
+      "sha256": "3334d54b8679d9ad790e0b22535a662812bda70c28011e696e792aa0dbd04b64",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/execution_prices.pkl"
+      },
+      "purpose": "Frozen Qlib data, calibration, plan or selection evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/forecast_frames.pkl",
+      "bytes": 3789075,
+      "sha256": "cfb770cf9202a2188e8723768019a650e55a5a9154e37164de4afa48c80ced87",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/forecast_frames.pkl"
+      },
+      "purpose": "Frozen Qlib data, calibration, plan or selection evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/primary_frame.pkl",
+      "bytes": 1253897,
+      "sha256": "22c2aa91641a82401af0b4f42e8cbaddde84b25784bc7f5dc3dfd882781b26b2",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/primary_frame.pkl"
+      },
+      "purpose": "Frozen Qlib data, calibration, plan or selection evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/raw_variances.pkl",
+      "bytes": 997621,
+      "sha256": "8bab510bfaabbc3837a7c7d84742033aaa93791a86bb989119d896b1ae4f1320",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/raw_variances.pkl"
+      },
+      "purpose": "Frozen Qlib data, calibration, plan or selection evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/selection_plan.json",
+      "bytes": 10099,
+      "sha256": "0aa019ede34351b2831c19daf8bbea24f843e1d20102008c0f5d9f5d9af2bfbe",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/selection_plan.json"
+      },
+      "purpose": "Frozen Qlib data, calibration, plan or selection evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/selection_seal.json",
+      "bytes": 489,
+      "sha256": "3d1b1df4476078fb3e5af04931f102bd3b0d0a6957f6cbc5414757a7365ffad1",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/selection_seal.json"
+      },
+      "purpose": "Frozen Qlib data, calibration, plan or selection evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/source_audit.pkl",
+      "bytes": 2428,
+      "sha256": "cc9b257d3c2b6fbd98295cb169e42dc9f6060c22dcc7df24ef74c5bba14954e6",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/inputs/source_audit.pkl"
+      },
+      "purpose": "Frozen Qlib data, calibration, plan or selection evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/models/annual_forecasters.pkl",
+      "bytes": 45342,
+      "sha256": "029360bf7400794aaaae3fd7990421650cc7ddd73e2fe1abce5f034cfb2f6adf",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/models/annual_forecasters.pkl"
+      },
+      "purpose": "Three independently fitted annual forecast model sets; repeated results are not independent statistical evidence",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/notebooks/conditional_variance_20261002.ipynb",
+      "bytes": 127432,
+      "sha256": "9a81e425c1442284e242f05ba54f25c9b5ada4e7fa729da4bcc0d19ae15864af",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/research/conditional_variance_20261002/conditional_variance_20261002.ipynb",
+      "purpose": "Executed authoritative notebook or small synchronized card snapshot",
+      "date_range": {
+        "source_as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/policy/development_inputs.pkl",
+      "bytes": 1710185,
+      "sha256": "6f8e3e89ae74b1513691855d42a986398882bcafcc0f3e2eda0838d55e252968",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/policy/development_inputs.pkl"
+      },
+      "purpose": "Frozen development/diagnostic policy inputs and forecasts",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/policy/diagnostic_forecasts.pkl",
+      "bytes": 1826732,
+      "sha256": "af2bc7fa7636127a223924611244ecb81cf2ebbdda388aac36cb9600578ce12a",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/policy/diagnostic_forecasts.pkl"
+      },
+      "purpose": "Frozen development/diagnostic policy inputs and forecasts",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/policy/diagnostic_inputs.pkl",
+      "bytes": 521513,
+      "sha256": "60e29ed1173fe6878a2ec85802b90ea186a4c197368732e081d90f237a69fb70",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/policy/diagnostic_inputs.pkl"
+      },
+      "purpose": "Frozen development/diagnostic policy inputs and forecasts",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/portfolio_analysis/native_reconciliation.pkl",
+      "bytes": 11971149,
+      "sha256": "90054fb0ffa6291ae4b6018f18b2f5d42fd2be9cb032fc72a9b6cec0d5819e07",
+      "source": {
+        "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+        "workflow": "src/workflow/conditional_variance.py",
+        "workflow_sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+        "canonical_artifact": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/portfolio_analysis/native_reconciliation.pkl"
+      },
+      "purpose": "Actual Qlib native report, positions, risk tables and reconciliation",
+      "date_range": {
+        "source_history_start": "2010-03-11",
+        "feature_start": "2011-01-03",
+        "as_of": "2026-09-25",
+        "development_signal_years": "2016-2022",
+        "reused_diagnostic_signal_years": "2023-2026"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/validation/final/audit.py",
+      "bytes": 9665,
+      "sha256": "dd0f2d9a27aa4e6cdbbc53115e3c08721ba9adc629628ae8e3c89b35c90b8876",
+      "source": "/tmp/conditional-variance-validation/audit.py",
+      "purpose": "Final independent validation report, method or exact test output; known baseline failures remain disclosed",
+      "date_range": {
+        "validation_date": "2026-10-02",
+        "research_data_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/validation/final/final-verification.json",
+      "bytes": 60810,
+      "sha256": "64dd3a8d2b27002fffed29b3020c7f7508ba2d75a56b9ae7e00dce03c48d34c4",
+      "source": "/tmp/conditional-variance-validation/final-verification.json",
+      "purpose": "Final independent validation report, method or exact test output; known baseline failures remain disclosed",
+      "date_range": {
+        "validation_date": "2026-10-02",
+        "research_data_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/validation/final/focused.log",
+      "bytes": 3693,
+      "sha256": "712f5736544145a678f8e0a84c66cfab752a01183b46d48deea378b823f8922d",
+      "source": "/tmp/conditional-variance-validation/focused.log",
+      "purpose": "Final independent validation report, method or exact test output; known baseline failures remain disclosed",
+      "date_range": {
+        "validation_date": "2026-10-02",
+        "research_data_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/validation/final/full.log",
+      "bytes": 374010,
+      "sha256": "303dbea068496bf25fc0fc289e0a56a8bd791d645aa880f97516b2b288d26924",
+      "source": "/tmp/conditional-variance-validation/full.log",
+      "purpose": "Final independent validation report, method or exact test output; known baseline failures remain disclosed",
+      "date_range": {
+        "validation_date": "2026-10-02",
+        "research_data_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/validation/final/required.log",
+      "bytes": 138276,
+      "sha256": "fa3e0f21fed20d62b215bd2576268bde321cec8cabfedf59ca4b4e4c903d072c",
+      "source": "/tmp/conditional-variance-validation/required.log",
+      "purpose": "Final independent validation report, method or exact test output; known baseline failures remain disclosed",
+      "date_range": {
+        "validation_date": "2026-10-02",
+        "research_data_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/validation/implementation_correction/conditional-variance-execution-verified.log",
+      "bytes": 519,
+      "sha256": "8ffbba34d740b500f052be36a8b308ebe765976276ce30c7805a148a5aaf77c9",
+      "source": "/tmp/conditional-variance-execution-verified.log",
+      "purpose": "Successful formal notebook execution log",
+      "date_range": {
+        "execution_date": "2026-10-02"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/validation/implementation_correction/conditional-variance-execution.log",
+      "bytes": 16430,
+      "sha256": "2046655f9a2a50725294482a4d1cb06d29b64f2bdacfcdf80ef05a6cb7242a1e",
+      "source": "/tmp/conditional-variance-execution.log",
+      "purpose": "Failed initial notebook execution log; preserved as failure evidence, not a result recorder",
+      "date_range": {
+        "execution_date": "2026-10-02"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/validation/implementation_correction/conditional-variance-initial-workflow.py",
+      "bytes": 35667,
+      "sha256": "e2d7a8d16e3f04043e7ae2b7ce0460f43aaef1d654a14d290cc456801cbab459",
+      "source": "/tmp/conditional-variance-initial-workflow.py",
+      "purpose": "Initial workflow snapshot before the analysis-only HAC dependency correction",
+      "date_range": {
+        "execution_date": "2026-10-02"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/validation/independent_solver_audit/conditional-variance-final-independent-audit.json",
+      "bytes": 82679,
+      "sha256": "54b96cde5f66cf52b603e7a9f12c88db2c4e0a4cb90455e68500387545e74871",
+      "source": "/tmp/conditional-variance-final-independent-audit.json",
+      "purpose": "Independent verification of all 36 profiles, 53496 decisions, repeats, fee funding, risk budgets and native positions",
+      "date_range": {
+        "development_signal_start": "2016-01-04",
+        "diagnostic_signal_end": "2026-09-23",
+        "data_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/artifacts/validation/independent_solver_audit/conditional-variance-final-independent-audit.log",
+      "bytes": 25414,
+      "sha256": "79e48fe80727af6f6601df5dca0294dfb65380da53cf9a083228e8691d26e76f",
+      "source": "/tmp/conditional-variance-final-independent-audit.log",
+      "purpose": "Independent verification of all 36 profiles, 53496 decisions, repeats, fee funding, risk budgets and native positions",
+      "date_range": {
+        "development_signal_start": "2016-01-04",
+        "diagnostic_signal_end": "2026-09-23",
+        "data_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/meta.yaml",
+      "bytes": 442,
+      "sha256": "a50abbcb8a86be2d28069dfaa1c4d4b42dda6ff5f5a7472899ec2f7bda1ae793",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/meta.yaml",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/metrics/fresh_repetitions",
+      "bytes": 20,
+      "sha256": "96796c33404b25e32e0614c0ff0b0dd5919c89b1898aef1b532cd120d2bfa30e",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/metrics/fresh_repetitions",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/metrics/historical_qualification_pass",
+      "bytes": 20,
+      "sha256": "1ae4245df85c78b666488d042b4be18ebff353d2ddf587e40eefd9273fdd54aa",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/metrics/historical_qualification_pass",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/metrics/registered_variants",
+      "bytes": 20,
+      "sha256": "0a176df2a6699a08ef92f613600474eb48aaa8f0d86713e8af65bba95de78d8f",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/metrics/registered_variants",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/params/campaign_status",
+      "bytes": 15,
+      "sha256": "220e679c2917883de0db0538214a6e730c176070e381632671814d71445a08d9",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/params/campaign_status",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/params/cmd-sys.argv",
+      "bytes": 242,
+      "sha256": "5a32179167fe901da483637beb839658646da70b21d1a11cb5e31ee3f924dc36",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/params/cmd-sys.argv",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "c3e1339f47f627ba1e6421d1e25427586cc80ab5f685e7f697dd57c9f96f4c62",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/params/plan_sha256",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/params/source_recorder_id",
+      "bytes": 32,
+      "sha256": "bc6c68dd265f48f70109e66cba746f2dc2636dbbd8f9fd692aa6c1e10d4049f7",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/params/source_recorder_id",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/tags/mlflow.runName",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/tags/mlflow.source.name",
+      "bytes": 129,
+      "sha256": "97c40d7fdad456c024ed620d79ca63d9f354172a0bfdec11147dbbd2e78a2cb2",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/tags/mlflow.source.name",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/tags/mlflow.source.type",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/9a447c33dc934baeb1d4c3f2b9bf2122/tags/mlflow.user",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/607243708770492389/meta.yaml",
+      "bytes": 358,
+      "sha256": "28e0850a41e59875093d06f072efd6cd044ab9c25490fe36d5b929c1ec54150c",
+      "source": "/Users/rziiiii/dev/workspace/research/conditional_variance_20261002/qlib_recorder/607243708770492389/meta.yaml",
+      "purpose": "Unmodified Qlib/MLflow experiment or run identity, status, parameter, metric or tag metadata; canonical artifact URI preserved",
+      "date_range": {
+        "run_date": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    }
+  ]
+}

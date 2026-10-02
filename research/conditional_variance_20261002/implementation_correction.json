@@ -1,0 +1,22 @@
+{
+  "failure": "First run stopped in descriptive HAC attribution because optional statsmodels is absent from repo qlib environment.",
+  "market_gate_change": false,
+  "plan_changed": false,
+  "development_seal": {
+    "plan_sha256": "0aa019ede34351b2831c19daf8bbea24f843e1d20102008c0f5d9f5d9af2bfbe",
+    "selected": {
+      "variant": "expanding_variance_control",
+      "historical_qualification_pass": false,
+      "passed_gates": 12,
+      "worst_annualized_lower_bound": -0.075001288222862,
+      "worst_relative_wealth": 0.8038691954700189,
+      "positive_years_10bps": 2
+    },
+    "development_last_exit": "2023-01-04",
+    "selection_uses_diagnostic_signal_years": false,
+    "campaign_status": "active_research"
+  },
+  "source_sha256_before_analysis_repair": "e2d7a8d16e3f04043e7ae2b7ce0460f43aaef1d654a14d290cc456801cbab459",
+  "log_sha256": "2046655f9a2a50725294482a4d1cb06d29b64f2bdacfcdf80ef05a6cb7242a1e",
+  "repair": "Use existing NumPy OLS/Bartlett HAC20 sandwich convention, with explicit N/(N-2) correction and normal95percent intervals. Attribution is descriptive and does not select or gate portfolios."
+}

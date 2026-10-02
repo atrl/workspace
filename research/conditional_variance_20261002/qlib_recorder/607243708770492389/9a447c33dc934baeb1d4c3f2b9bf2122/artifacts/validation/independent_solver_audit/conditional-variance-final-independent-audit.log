@@ -1,0 +1,547 @@
+[89202:MainThread](2026-10-02 22:41:45,500) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[89202:MainThread](2026-10-02 22:41:45,501) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[89202:MainThread](2026-10-02 22:41:45,501) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/data/qlib/published_futu_affine_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 71.62it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 71.19it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 103.64it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 103.08it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 850.25it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 823.70it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 209.38it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 207.91it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 261.44it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 259.20it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2898.62it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2681.78it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2681.78it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2505.56it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1829.18it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1742.54it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3226.39it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2974.68it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2890.63it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2704.26it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2507.06it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2327.58it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 615.45it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 605.76it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 537.59it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 529.92it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 291.05it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 288.78it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 664.08it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 648.07it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 362.33it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 358.33it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 628.55it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 618.36it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 499.74it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 493.33it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 316.48it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 312.49it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1972.86it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1855.07it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 103.87it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 103.24it/s]
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+{
+  "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+  "failures": [],
+  "profile_count": 36,
+  "counts": {
+    "decisions": 53496,
+    "SOXX_infeasible": 34800,
+    "binding": "53496"
+  },
+  "statuses": {
+    "Solved": 53496
+  },
+  "maxima": {
+    "fee_turnover_identity": 1.0842021724855044e-19,
+    "true_risky_L1_identity": 2.220446049250313e-16,
+    "funded_return_identity": 4.440892098500626e-16,
+    "objective_identity": 2.220446049250313e-16,
+    "target_sum": 2.220446049250313e-16,
+    "B_identity": 0,
+    "sigma22_identity": 0,
+    "budget_ratio_identity": 5.551115123125783e-16,
+    "certificate_primal_residual_abs": 2.871397564163658e-10,
+    "certificate_dual_residual_abs": 1.6783510085188746e-10,
+    "certificate_primal_cone_violation": 0,
+    "certificate_dual_cone_violation": 0,
+    "certificate_absolute_duality_gap": 3.697051735931933e-11,
+    "certificate_primal_objective_identity_error": 2.6020852139652106e-18,
+    "certificate_dual_objective_identity_error": 2.6020852139652106e-18,
+    "certificate_reported_primal_residual": 7.809676706818877e-11,
+    "certificate_reported_dual_residual": 9.996491470500291e-11,
+    "long_only_violation": 0,
+    "absolute_trade_violation": 0,
+    "solver_funding_residual": 1.035616037370346e-12,
+    "actual_funding_residual": 1.356956769171802e-10,
+    "artificial_fee_slack": 1.356957421904878e-10,
+    "risk_violation_before_roundoff_repair": 0,
+    "post_fee_reconstruction_difference": 1.007389727192276e-10,
+    "objective_reconstruction_difference": 1.3627698969287394e-10,
+    "exact_funded_wealth_to_numerical_dual_bound_gap": 6.709255373493761e-11
+  },
+  "source_hash_mismatches": [],
+  "repeated_independent_array_comparisons": 322,
+  "model_years": [
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "forecast_metrics": [
+    {
+      "variant": "expanding_variance_control",
+      "rows": 1762,
+      "mean_qlike": -6.782006845690015,
+      "mean_squared_loss": 5.859668263680704e-07,
+      "estimator_fallback_sessions": 0,
+      "scope": "prior-centered conditional second-moment proxy"
+    },
+    {
+      "variant": "observed_open20",
+      "rows": 1762,
+      "mean_qlike": -7.016790807745393,
+      "mean_squared_loss": 5.166378156799911e-07,
+      "estimator_fallback_sessions": 0,
+      "scope": "prior-centered conditional second-moment proxy"
+    },
+    {
+      "variant": "observed_close20",
+      "rows": 1762,
+      "mean_qlike": -7.031139259967731,
+      "mean_squared_loss": 6.11050095731591e-07,
+      "estimator_fallback_sessions": 0,
+      "scope": "prior-centered conditional second-moment proxy"
+    },
+    {
+      "variant": "learned_vol5",
+      "rows": 1762,
+      "mean_qlike": -7.102349368605938,
+      "mean_squared_loss": 4.795205001825019e-07,
+      "estimator_fallback_sessions": 0,
+      "scope": "prior-centered conditional second-moment proxy"
+    }
+  ],
+  "learned_forecast_loss_comparisons": [
+    {
+      "variant": "learned_vol5",
+      "reference": "expanding_variance_control",
+      "loss": "qlike",
+      "positive_favors_candidate": true,
+      "mean_difference": 0.3203425229159223,
+      "lower_bound": 0.08766606729141076,
+      "upper_bound": 0.714802586029584,
+      "mean_block": 20,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "expanding_variance_control",
+      "loss": "qlike",
+      "positive_favors_candidate": true,
+      "mean_difference": 0.3203425229159223,
+      "lower_bound": 0.041566298108655836,
+      "upper_bound": 0.7263282231612624,
+      "mean_block": 60,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "expanding_variance_control",
+      "loss": "mse",
+      "positive_favors_candidate": true,
+      "mean_difference": 1.0644632618556863e-07,
+      "lower_bound": 1.941557880113623e-08,
+      "upper_bound": 2.937466589070165e-07,
+      "mean_block": 20,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "expanding_variance_control",
+      "loss": "mse",
+      "positive_favors_candidate": true,
+      "mean_difference": 1.0644632618556863e-07,
+      "lower_bound": 1.1270325047445495e-08,
+      "upper_bound": 3.000877768252633e-07,
+      "mean_block": 60,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "observed_open20",
+      "loss": "qlike",
+      "positive_favors_candidate": true,
+      "mean_difference": 0.08555856086054565,
+      "lower_bound": 0.01239890386275618,
+      "upper_bound": 0.15562099439673385,
+      "mean_block": 20,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "observed_open20",
+      "loss": "qlike",
+      "positive_favors_candidate": true,
+      "mean_difference": 0.08555856086054565,
+      "lower_bound": 0.02595361663671188,
+      "upper_bound": 0.15086022398483862,
+      "mean_block": 60,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "observed_open20",
+      "loss": "mse",
+      "positive_favors_candidate": true,
+      "mean_difference": 3.711731549748925e-08,
+      "lower_bound": -1.8391280409877885e-09,
+      "upper_bound": 9.881272104383355e-08,
+      "mean_block": 20,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "observed_open20",
+      "loss": "mse",
+      "positive_favors_candidate": true,
+      "mean_difference": 3.711731549748925e-08,
+      "lower_bound": 2.2353686873993335e-09,
+      "upper_bound": 9.364507430591829e-08,
+      "mean_block": 60,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "observed_close20",
+      "loss": "qlike",
+      "positive_favors_candidate": true,
+      "mean_difference": 0.07121010863820591,
+      "lower_bound": -0.0110951594007618,
+      "upper_bound": 0.15773707682642452,
+      "mean_block": 20,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "observed_close20",
+      "loss": "qlike",
+      "positive_favors_candidate": true,
+      "mean_difference": 0.07121010863820591,
+      "lower_bound": -0.000288760045368324,
+      "upper_bound": 0.15211200122963106,
+      "mean_block": 60,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "observed_close20",
+      "loss": "mse",
+      "positive_favors_candidate": true,
+      "mean_difference": 1.3152959554908927e-07,
+      "lower_bound": -3.2304233267402097e-09,
+      "upper_bound": 4.8064696838706e-07,
+      "mean_block": 20,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    },
+    {
+      "variant": "learned_vol5",
+      "reference": "observed_close20",
+      "loss": "mse",
+      "positive_favors_candidate": true,
+      "mean_difference": 1.3152959554908927e-07,
+      "lower_bound": -8.889689829356374e-10,
+      "upper_bound": 4.890903838293863e-07,
+      "mean_block": 60,
+      "resamples": 2000,
+      "alpha": 0.0035714285714285718,
+      "scope": "descriptive paired stationary mean-loss difference, one path; not latent variance truth or new evidence"
+    }
+  ],
+  "all_year_attribution": [
+    {
+      "variant": "expanding_variance_control",
+      "cost_bps": 10,
+      "signal_year": "all",
+      "realized_beta": 0.9576271690666591,
+      "annualized_arithmetic_alpha": -0.02025692050630481,
+      "alpha95_lower": -0.04591122291572727,
+      "alpha95_upper": 0.00539738190311765,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "expanding_variance_control",
+      "cost_bps": 25,
+      "signal_year": "all",
+      "realized_beta": 0.9575185058750281,
+      "annualized_arithmetic_alpha": -0.023618707257185935,
+      "alpha95_lower": -0.04941018332462485,
+      "alpha95_upper": 0.0021727688102529787,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "observed_open20",
+      "cost_bps": 10,
+      "signal_year": "all",
+      "realized_beta": 0.7347399030617441,
+      "annualized_arithmetic_alpha": 0.0018802089096179862,
+      "alpha95_lower": -0.06307300048064005,
+      "alpha95_upper": 0.06683341829987603,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "observed_open20",
+      "cost_bps": 25,
+      "signal_year": "all",
+      "realized_beta": 0.7346595547770863,
+      "annualized_arithmetic_alpha": -0.004074767587057598,
+      "alpha95_lower": -0.06902398548164726,
+      "alpha95_upper": 0.060874450307532066,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "observed_close20",
+      "cost_bps": 10,
+      "signal_year": "all",
+      "realized_beta": 0.7308502586133566,
+      "annualized_arithmetic_alpha": -0.009131672677588965,
+      "alpha95_lower": -0.07807320203922852,
+      "alpha95_upper": 0.059809856684050595,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "observed_close20",
+      "cost_bps": 25,
+      "signal_year": "all",
+      "realized_beta": 0.7308186814955854,
+      "annualized_arithmetic_alpha": -0.015059343541860047,
+      "alpha95_lower": -0.0839316072773996,
+      "alpha95_upper": 0.0538129201936795,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "learned_vol5",
+      "cost_bps": 10,
+      "signal_year": "all",
+      "realized_beta": 0.7283550629211469,
+      "annualized_arithmetic_alpha": -0.008748934305796123,
+      "alpha95_lower": -0.06062426884739815,
+      "alpha95_upper": 0.043126400235805905,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "learned_vol5",
+      "cost_bps": 25,
+      "signal_year": "all",
+      "realized_beta": 0.7283444274607681,
+      "annualized_arithmetic_alpha": -0.018163970523859128,
+      "alpha95_lower": -0.0699242475970869,
+      "alpha95_upper": 0.033596306549368654,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    }
+  ],
+  "mechanics": [
+    {
+      "variant": "expanding_variance_control",
+      "cost_bps": 10,
+      "mean_weights": [
+        0.3274827178811606,
+        3.405125888356636e-06
+      ],
+      "cash_mean": 0.6725138769929511,
+      "mean_nominal_beta": 0.9824515587693703,
+      "turnover": 16.70263864069819,
+      "net_logwealth": 1.2539162704597597,
+      "fixed_target_gross_logwealth": 1.2706191080768965,
+      "actual_fee_log_drag": -0.01670283761710395,
+      "risk_binding_fraction": 1.0,
+      "predicted_variance_realized_proxy_corr": 0.19031410846138555,
+      "daily_predicted_variance_return_corr": -0.01647598536010319
+    },
+    {
+      "variant": "expanding_variance_control",
+      "cost_bps": 25,
+      "mean_weights": [
+        0.3274837784805203,
+        1.245863146321759e-07
+      ],
+      "cash_mean": 0.6725160969331649,
+      "mean_nominal_beta": 0.9824514600278756,
+      "turnover": 16.702880352738955,
+      "net_logwealth": 1.2288599619782539,
+      "fixed_target_gross_logwealth": 1.270618406201011,
+      "actual_fee_log_drag": -0.04175844422272269,
+      "risk_binding_fraction": 1.0,
+      "predicted_variance_realized_proxy_corr": 0.19031410846138555,
+      "daily_predicted_variance_return_corr": -0.01647598536010319
+    },
+    {
+      "variant": "observed_open20",
+      "cost_bps": 10,
+      "mean_weights": [
+        0.30089426430615335,
+        4.641435206167289e-06
+      ],
+      "cash_mean": 0.6991010942586405,
+      "mean_nominal_beta": 0.9026874343536663,
+      "turnover": 28.5285477592589,
+      "net_logwealth": 1.1089543969665558,
+      "fixed_target_gross_logwealth": 1.1374836531814307,
+      "actual_fee_log_drag": -0.028529256214844034,
+      "risk_binding_fraction": 1.0,
+      "predicted_variance_realized_proxy_corr": 0.33835666736422637,
+      "daily_predicted_variance_return_corr": 0.01726683043730614
+    },
+    {
+      "variant": "observed_open20",
+      "cost_bps": 25,
+      "mean_weights": [
+        0.3008957428216914,
+        6.649415418792807e-08
+      ],
+      "cash_mean": 0.6991041906841544,
+      "mean_nominal_beta": 0.9026872949592284,
+      "turnover": 28.527958963187913,
+      "net_logwealth": 1.0661584138298168,
+      "fixed_target_gross_logwealth": 1.1374827391678586,
+      "actual_fee_log_drag": -0.07132432533801694,
+      "risk_binding_fraction": 1.0,
+      "predicted_variance_realized_proxy_corr": 0.33835666736422637,
+      "daily_predicted_variance_return_corr": 0.01726683043730614
+    },
+    {
+      "variant": "observed_close20",
+      "cost_bps": 10,
+      "mean_weights": [
+        0.30655901562741494,
+        4.557628796084764e-06
+      ],
+      "cash_mean": 0.6934364267437889,
+      "mean_nominal_beta": 0.9196816045110409,
+      "turnover": 28.365904331376314,
+      "net_logwealth": 1.0236582247570851,
+      "fixed_target_gross_logwealth": 1.0520248108558117,
+      "actual_fee_log_drag": -0.02836658609869918,
+      "risk_binding_fraction": 1.0,
+      "predicted_variance_realized_proxy_corr": 0.3277194365341714,
+      "daily_predicted_variance_return_corr": 0.04215272395352325
+    },
+    {
+      "variant": "observed_close20",
+      "cost_bps": 25,
+      "mean_weights": [
+        0.30656044212656525,
+        1.4209633559080906e-07
+      ],
+      "cash_mean": 0.6934394157770993,
+      "mean_nominal_beta": 0.9196814684760314,
+      "turnover": 28.365306521553542,
+      "net_logwealth": 0.9811063293734053,
+      "fixed_target_gross_logwealth": 1.052023856838737,
+      "actual_fee_log_drag": -0.07091752746530613,
+      "risk_binding_fraction": 1.0,
+      "predicted_variance_realized_proxy_corr": 0.3277194365341714,
+      "daily_predicted_variance_return_corr": 0.04215272395352325
+    },
+    {
+      "variant": "learned_vol5",
+      "cost_bps": 10,
+      "mean_weights": [
+        0.30354366770405555,
+        5.2223726963960135e-06
+      ],
+      "cash_mean": 0.6964511099232481,
+      "mean_nominal_beta": 0.9106362254848631,
+      "turnover": 44.577625065525126,
+      "net_logwealth": 1.033030845422264,
+      "fixed_target_gross_logwealth": 1.0776095488596162,
+      "actual_fee_log_drag": -0.044578703437324056,
+      "risk_binding_fraction": 1.0,
+      "predicted_variance_realized_proxy_corr": 0.40621953757316404,
+      "daily_predicted_variance_return_corr": 0.05334325463211339
+    },
+    {
+      "variant": "learned_vol5",
+      "cost_bps": 25,
+      "mean_weights": [
+        0.30354533984454013,
+        4.714302629076435e-08
+      ],
+      "cash_mean": 0.6964546130124335,
+      "mean_nominal_beta": 0.9106360666766468,
+      "turnover": 44.57640357407203,
+      "net_logwealth": 0.9661607153258831,
+      "fixed_target_gross_logwealth": 1.0776084643952077,
+      "actual_fee_log_drag": -0.1114477490692974,
+      "risk_binding_fraction": 1.0,
+      "predicted_variance_realized_proxy_corr": 0.40621953757316404,
+      "daily_predicted_variance_return_corr": 0.05334325463211339
+    }
+  ]
+}

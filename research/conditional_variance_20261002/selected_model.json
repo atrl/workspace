@@ -1,0 +1,16 @@
+{
+  "selected": {
+    "variant": "expanding_variance_control",
+    "historical_qualification_pass": false,
+    "passed_gates": 12,
+    "worst_annualized_lower_bound": -0.075001288222862,
+    "worst_relative_wealth": 0.8038691954700189,
+    "positive_years_10bps": 2
+  },
+  "variant_spec": {
+    "name": "expanding_variance_control",
+    "variance_key": "expanding"
+  },
+  "research_only": true,
+  "new_forward_qualified": false
+}

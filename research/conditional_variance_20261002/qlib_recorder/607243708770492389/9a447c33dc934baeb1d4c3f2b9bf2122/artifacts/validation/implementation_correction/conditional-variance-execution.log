@@ -1,0 +1,209 @@
+[NbConvertApp] Converting notebook research/conditional_variance_20261002/conditional_variance_20261002.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/__main__.py", line 5, in <module>
+    main()
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/jupyter_core/application.py", line 284, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/traitlets/config/application.py", line 1080, in launch_instance
+    app.start()
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 420, in start
+    self.convert_notebooks()
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 597, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 487, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 201, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 220, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 154, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 353, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 103, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 124, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/qlib_venv/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from pathlib import Path
+import os,sys,json
+ROOT=Path.cwd().resolve()
+while not (ROOT/'src').is_dir():
+    if ROOT.parent==ROOT: raise RuntimeError('Run within workspace')
+    ROOT=ROOT.parent
+sys.path.insert(0,str(ROOT))
+os.environ['MLFLOW_ALLOW_FILE_STORE']='true'
+os.environ['MLFLOW_DISABLE_AGENT_HINT']='1'
+import qlib
+qlib.init(provider_uri=str(ROOT/'data/qlib/published_futu_affine_20260925_v1'),region='us',kernels=1)
+from src.workflow.conditional_variance import run_experiment
+summary=run_experiment(root=ROOT)
+summary
+------------------
+
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:01,572) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:01,939) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:01,939) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/data/qlib/published_futu_affine_20260925_v1')}
+----- stderr -----
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,186) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,186) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,187) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/data/qlib/published_futu_affine_20260925_v1')}
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,284) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,285) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,285) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/conditional-variance-20261002/data/qlib/published_futu_affine_20260925_v1')}
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,465) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,465) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,466) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,692) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,693) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:03,693) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+----- stdout -----
+Variance repeat=1 expanding_variance_control cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=1 expanding_variance_control cost=25 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=1 observed_open20 cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=1 observed_open20 cost=25 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=1 observed_close20 cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=1 observed_close20 cost=25 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=1 learned_vol5 cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=1 learned_vol5 cost=25 verified=True estimator_fallbacks=0
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:19,642) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:19,642) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:19,643) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:19,866) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:19,866) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:19,866) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+----- stdout -----
+Variance repeat=2 expanding_variance_control cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=2 expanding_variance_control cost=25 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=2 observed_open20 cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=2 observed_open20 cost=25 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=2 observed_close20 cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=2 observed_close20 cost=25 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=2 learned_vol5 cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=2 learned_vol5 cost=25 verified=True estimator_fallbacks=0
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:34,714) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:34,714) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:34,714) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:34,938) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:34,938) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+----- stderr -----
+[86670:MainThread](2026-10-02 22:19:34,938) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+----- stdout -----
+Variance repeat=3 expanding_variance_control cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=3 expanding_variance_control cost=25 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=3 observed_open20 cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=3 observed_open20 cost=25 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=3 observed_close20 cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=3 observed_close20 cost=25 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=3 learned_vol5 cost=10 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance repeat=3 learned_vol5 cost=25 verified=True estimator_fallbacks=0
+----- stdout -----
+Variance development sealed: {'variant': 'expanding_variance_control', 'historical_qualification_pass': False, 'passed_gates': 12, 'worst_annualized_lower_bound': -0.075001288222862, 'worst_relative_wealth': 0.8038691954700189, 'positive_years_10bps': 2}
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mModuleNotFoundError[39m                       Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 13[39m
+[32m      9[39m os.environ[[33m'MLFLOW_DISABLE_AGENT_HINT'[39m]=[33m'1'[39m
+[32m     10[39m [38;5;28;01mimport[39;00m qlib
+[32m     11[39m qlib.init(provider_uri=str(ROOT/[33m'data/qlib/published_futu_affine_20260925_v1'[39m),region=[33m'us'[39m,kernels=[32m1[39m)
+[32m     12[39m [38;5;28;01mfrom[39;00m src.workflow.conditional_variance [38;5;28;01mimport[39;00m run_experiment
+[32m---> [39m[32m13[39m summary=run_experiment(root=ROOT)
+[32m     14[39m summary
+
+[36mFile [39m[32m~/dev/workspace-worktrees/conditional-variance-20261002/src/workflow/conditional_variance.py:310[39m, in [36mrun_experiment[39m[34m(root)[39m
+[32m    307[39m [38;5;28;01mfor[39;00m reference [38;5;129;01min[39;00m variants:
+[32m    308[39m     [38;5;28;01mif[39;00m reference[[33m'[39m[33mname[39m[33m'[39m]!=name:control_rows.append({[33m'[39m[33mvariant[39m[33m'[39m:name,[33m'[39m[33mreference[39m[33m'[39m:reference[[33m'[39m[33mname[39m[33m'[39m],[33m'[39m[33mcost_bps[39m[33m'[39m:cost,
+[32m    309[39m         **paired_metrics(path,paths[([32m1[39m,reference[[33m'[39m[33mname[39m[33m'[39m],cost)])})
+[32m--> [39m[32m310[39m attribution.append({[33m'[39m[33mvariant[39m[33m'[39m:name,[33m'[39m[33mcost_bps[39m[33m'[39m:cost,[33m'[39m[33msignal_year[39m[33m'[39m:[33m'[39m[33mall[39m[33m'[39m,**[30;43mhac_attribution[39;49m[30;43m([39;49m[30;43mpath[39;49m[30;43m,[39;49m[30;43mbenchmarks[39;49m[30;43m[[39;49m[30;43mcost[39;49m[30;43m][39;49m[30;43m)[39;49m})
+[32m    311[39m [38;5;28;01mfor[39;00m year [38;5;129;01min[39;00m plan[[33m'[39m[33mtraining[39m[33m'[39m][[33m'[39m[33mdevelopment_signal_years[39m[33m'[39m]:
+[32m    312[39m     mask=path.signal_date.dt.year.eq(year)
+
+[36mFile [39m[32m~/dev/workspace-worktrees/conditional-variance-20261002/src/workflow/conditional_variance.py:170[39m, in [36mhac_attribution[39m[34m(path, benchmark)[39m
+[32m    169[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mhac_attribution[39m(path, benchmark):
+[32m--> [39m[32m170[39m     [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mstatsmodels[39;00m[34;01m.[39;00m[34;01mapi[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01msm[39;00m
+[32m    171[39m     [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m path[[[33m'[39m[33msignal_date[39m[33m'[39m,[33m'[39m[33mtrade_date[39m[33m'[39m,[33m'[39m[33mexit_date[39m[33m'[39m]].equals(benchmark[[[33m'[39m[33msignal_date[39m[33m'[39m,[33m'[39m[33mtrade_date[39m[33m'[39m,[33m'[39m[33mexit_date[39m[33m'[39m]]):
+[32m    172[39m         [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([33m'[39m[33mblocked: attribution dates differ[39m[33m'[39m)
+
+[31mModuleNotFoundError[39m: No module named 'statsmodels'
+
