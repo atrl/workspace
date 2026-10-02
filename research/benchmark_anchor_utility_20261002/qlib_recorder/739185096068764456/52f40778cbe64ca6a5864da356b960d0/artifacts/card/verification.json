@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+  "scope": "Final engineering, source/accounting, optimizer and artifact audit; distinct from failed financial qualification.",
+  "focused_summary": "61 passed, 101 warnings in 5.44s",
+  "full_suite": {
+    "summary": "139 failed, 971 passed, 760 warnings in 36.64s",
+    "passed": 971,
+    "failed": 139,
+    "warnings": 760
+  },
+  "required_suite": {
+    "summary": "61 failed, 8 passed, 42 warnings in 6.19s",
+    "passed": 8,
+    "failed": 61,
+    "warnings": 42
+  },
+  "baseline_scope": "Full/required failures are the recorded pre-existing sparse historical-card/data baseline; exact failed test identities and baseline deltas remain in the full report. No full-suite pass is claimed.",
+  "baseline_deltas": {
+    "full": {
+      "baseline_summary": "139 failed, 910 passed, 663 warnings in 32.43s",
+      "passed_delta": 61,
+      "failed_delta": 0,
+      "new_failure_ids": [],
+      "resolved_failure_ids": [],
+      "failure_ids_unchanged": true,
+      "passed_delta_from_pre_lifecycle": 2
+    },
+    "required": {
+      "baseline_summary": "61 failed, 8 passed, 42 warnings in 6.35s",
+      "passed_delta": 0,
+      "failed_delta": 0,
+      "new_failure_ids": [],
+      "resolved_failure_ids": [],
+      "failure_ids_unchanged": true,
+      "passed_delta_from_pre_lifecycle": 0
+    }
+  },
+  "formal_audit": {
+    "failures": [],
+    "passed_check_count": 642,
+    "annual_variant_folds": 25,
+    "saved_path_count": 32,
+    "native_maximum_return_errors": {
+      "10": 5.620143461726457e-08,
+      "25": 5.615703058126087e-08
+    },
+    "notebook_final_markdown_pending": false,
+    "notebook_sha256": "d1ae1f95da2171b3f7831697d5ec85230ec2bf0db8a233d240df172c1b4ad8ed"
+  },
+  "optimizer_audit": "optimizer_audit.json",
+  "no_market_training_in_audit": true,
+  "financial_qualification_pass": false,
+  "objective_achieved": false,
+  "source_hashes_unchanged_during_validation": true,
+  "plan_hash_unchanged_during_validation": true,
+  "recorder_artifacts": {
+    "full_report": "validation/final/final-verification.json",
+    "source_portfolio_report": "validation/final/recorder-audit.json",
+    "method": "validation/final/recorder_audit.py",
+    "audit_execution_log": "validation/final/recorder-audit.log",
+    "focused_log": "validation/tests/focused-corrected.log",
+    "full_log": "validation/tests/post-lifecycle-full.log",
+    "required_log": "validation/tests/post-lifecycle-required.log"
+  },
+  "full_report_sha256": "8761000bfb537f7a01955ca62038647e5dd2fdbada8a663eaeafc69328749199"
+}

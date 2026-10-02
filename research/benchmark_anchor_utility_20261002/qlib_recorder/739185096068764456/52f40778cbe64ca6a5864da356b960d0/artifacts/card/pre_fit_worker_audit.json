@@ -1,0 +1,19 @@
+{
+  "market_inputs": false,
+  "registered_market_fit_started": false,
+  "synthetic_rows": 252,
+  "seeds": [
+    17,
+    41,
+    71
+  ],
+  "updates": 1,
+  "all_workers_and_recorder_roundtrips_pass": true,
+  "recorder_id": "c4832ea540884fa9badddfdfb5c905b8",
+  "uri": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-anchor-synthetic-recorder-rs5ujj98",
+  "elapsed_seconds": [
+    0.6700325419660658,
+    0.6698432079283521,
+    0.669582000002265
+  ]
+}

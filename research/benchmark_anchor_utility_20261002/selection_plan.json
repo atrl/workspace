@@ -1,0 +1,206 @@
+{
+  "experiment": "benchmark_anchor_utility_20261002",
+  "registered_before_market_model_fits_or_portfolio_results": true,
+  "registered_at_utc": "2026-10-02T15:28:05.480412+00:00",
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "Test exact finite benchmark reachability plus continuous realized net-utility training as a bounded response to prior softmax-null and myopic H5-fee failures. Three information ablations do not isolate each architecture repair separately.",
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "as_of": "2026-09-25",
+    "model_signal_start": "2011-01-03",
+    "history_start": "2010-03-11",
+    "basis": "published_futu_affine_v1",
+    "secondary_bars": 16,
+    "limitations": "Published affine basis differs slightly from serverQFQ; Jan2012 secondary quote uncertainty remains. Rebuilt history is not fresh out-of-sample evidence."
+  },
+  "parent_evidence": {
+    "conditional_variance_recorder": "9a447c33dc934baeb1d4c3f2b9bf2122",
+    "prior_feasible_benchmark_failure_recorder": "bba55e94a1d04b4a9c68dca562766159",
+    "prior_realized_utility_recorder": "b94059c2e0754b0ab102e4f62534eefb",
+    "fee_diagnostic_scope": "58 fixed decisions, same saved inputs; static gross and fee-funded alternatives, no new policy path or horizon search",
+    "moment_diagnostic_scope": "All 48 prior-cutoff asset reward-per-risk comparisons favor SOXX; H5-to-daily mean replacement alone is not a supported preference reversal"
+  },
+  "features": {
+    "primary": "Same25primary market features constructed from one qualified nativeQlibOHLCV store; no old mixed feature/label price channels.",
+    "volume_transform": "Strictly positive volume permits log(volume), replacing log1p(volume) in the two20session volume zscores to ensure invariance under future common split rescaling. Window/minperiod/std/epsilon unchanged. No outcome-based feature selection.",
+    "feature_time": "price/volume features through signal-day close; risk shape and open20 comparator through signal-day open; close20 uses the same adjustedclose as model inputs."
+  },
+  "variants": [
+    {
+      "name": "constant",
+      "enabled_market_features": 0
+    },
+    {
+      "name": "price",
+      "enabled_market_features": 25
+    },
+    {
+      "name": "price_vol",
+      "enabled_market_features": 27
+    }
+  ],
+  "architecture": {
+    "assets": [
+      "soxl",
+      "soxx",
+      "cash"
+    ],
+    "feature_count": 27,
+    "hidden_units": 8,
+    "basis": "b=[1,sigmoid(W z+a)]",
+    "theta_shape": [
+      3,
+      9
+    ],
+    "theta_constraint": "theta>=0, sum_all(theta)<=1",
+    "experts": [
+      "SOXL",
+      "CASH",
+      "actual_pretrade_HOLD"
+    ],
+    "alpha": "alpha_j=theta_j dot b",
+    "target": "(1-sum(alpha))*SOXX + alpha_L*SOXL + alpha_C*CASH + alpha_H*actual_pretrade_holdings",
+    "hidden_holdings_input": false,
+    "cost_input": false,
+    "exact_null": "theta=0 gives full SOXX at finite parameters",
+    "limitation": "Global coefficient budget restricts simultaneous large state-dependent departures toward different vertices; nominal capacity equal, effective masked capacity differs."
+  },
+  "inputs": {
+    "price_features": "Same 25 qualified Phase4 features, including log(volume) zscore",
+    "extra_features": [
+      "future_vol_prediction",
+      "forecast_available"
+    ],
+    "cash_forecast_used": false,
+    "scaling": "Prior eligible training price mean/std ddof0; constant columns scale1. Vol prediction scaler on available strictly prior OOF predictions only; unavailable is neutral standardized0; availability binary unscaled. Disabled channels exactly0 after scaling. No clipping.",
+    "forecast": "Same annual Ridge(alpha10), train-only StandardScaler,16SOXXcommon features and existing conservative jointcash1d/vol5maturity; minimum252. Retain original two-output estimator but onlyvol5 enters allocation. Freshly refit on qualified basis; nohyperparametersearch.",
+    "available_invalid_vol": "An available nonfinite/nonpositive prior training prediction invalidates the entire price_vol annual fit: all seeds/ensemble anchored, every offendingdate retained, disqualified. During replay, invalid prediction first observed at that signal triggers same-date exact SOXX target from actual current holdings and disqualification; earlier decisions never replaced. Later valid rows resume fixed annual policy from actual carried holdings. Constant/price ignore unused forecast fields. Unavailable OOF warmup becomes standardized0 with availability0, not failure.",
+    "train_history": "All 2011+ rows with feature_available_at and one-day return_available_at strictly before fit-year Jan1 America/New_York; minimum252. Qlib DatasetH must return exact eligible count; invalid common features/returns abort, no dropped rows.",
+    "forecast_label_maturity": "OOF head retains conservative joint 1day/5day maturity; allocation training uses mature 1day returns, never future H5 labels."
+  },
+  "training": {
+    "seed_ids": [
+      17,
+      41,
+      71
+    ],
+    "development_signal_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "diagnostic_signal_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "annual_initialization": "Fresh fixed-seed initialization in every fold, no prior fold warmstart",
+    "initial_hidden": "torch Linear standard Kaiming-uniform weight initialization under declared seed, then bias0; float64",
+    "initial_theta": 0.018518518518518517,
+    "initial_theta_total": 0.5,
+    "optimizer": "Projected Adam; no weight decay; after every proposal Euclidean projection onto nonnegative unit L1 ball",
+    "updates": 120,
+    "learning_rate": 0.003,
+    "gradient_clip": 5.0,
+    "cost_bps": [
+      10,
+      25
+    ],
+    "risk_group_length": 63,
+    "gradient_scored_chunk": 63,
+    "gradient_prior_context": 21,
+    "downside_coefficient": 1.0,
+    "rms_epsilon": 1e-12,
+    "objective": "x_t,c=log(net_equity_policy_t,c)-log(net_equity_SOXX_t,c); U_c=63/N*sum_t(x_t,c)-sqrt(mean_b(max(-sum_in_group_b x_t,c,0)^2)+1e-12); J=min_c(U_c-U_anchor,c). Maximize J.",
+    "risk_groups": "Full63 groups starting0,63,...; if incomplete remainder exists, append one final full63 group ending at cutoff. Final risk overlap disclosed. Global mean counts each row exactly once.",
+    "cost_tie_subgradient": "Exact equal worst-cost utilities split gradient equally; no softmin temperature.",
+    "full_objective": "Entire eligible chronological history from actual CASH at EACH cost; all returns and entry/later fees; no warmup masking, annual restart inside training, free initial SOXX, or terminal liquidation.",
+    "gradient": "Current-parameter full chronological paths supply true carried holdings and global derivative weights on daily log equity; disjoint scored63 chunks each with up to21prior context start from detached true current-policy holdings; first chunk starts CASH. Batch chunks and accumulate all gradients before one update. Truncated state derivatives approximate long state effects; context fees remain in full objective.",
+    "incumbent": "Independent exactly audited theta0 anchor centered J0; evaluate fixed interior initialization and every proposed update with full exact chronological two-cost utility; keep only strictly better full training J, ties retain earlier/simple incumbent. Nonsmooth fee autograd is proposal direction only, not claimed exact right derivative at zero trade.",
+    "ensemble": "All3 saved seed models contribute equal targets on same ensemble-owned holdings. Each annual ensemble receives its own full-history two-cost anchor audit; if J<0 use exact anchor for that fold and retain audit. Never select seed subset. Individual seed paths remain separately evaluated.",
+    "minimum_rows": 252,
+    "device": "cpu_float64",
+    "torch_threads": 1
+  },
+  "evaluation": {
+    "benchmark": "100percentSOXXfee-fundedbuyhold, identical signal/trade/exitdates andinitialcash",
+    "cost_bps": [
+      10,
+      25
+    ],
+    "family_size_adjustment": 17,
+    "bootstrap_resamples": 2000,
+    "bootstrap_seed": 20261002,
+    "mean_block_lengths": [
+      20,
+      60
+    ],
+    "economic_gates": [
+      "positive cumulative net log excess at both10/25bp",
+      "at least5/7positive signalyears",
+      "positive median annual excess",
+      "leave any one year out remainspositive",
+      "familyadjusted stationary bootstrap20/60lowerbounds positive",
+      "anchoredMaxDD andexacttailCVaR5 noworseSOXX",
+      "same>=2of3seedspositivebothcosts",
+      "zeroinvalidsource/optimization/numericalfallback qualification events"
+    ],
+    "control_increment": "Conditioned-information claim additionally requires positive net path increment over constant ensemble at bothcosts. Positive points are descriptive, not fresh significance. Constant family can qualify if full same gates pass.",
+    "attribution": "Annual/full beta and HAC20alpha, net turnover/fees/exposures, null selection/seed dispersion/training objective audits, regime and user Aug3 windows. Higher beta alone is not alpha.",
+    "forecast_skill": "Reuse fixed forecasting protocol; no outcome-based estimator tuning.",
+    "selection": "Seal DEVELOPMENTgates/ranking before anypost2022signalportfolio. Rankpassers byworstcost/blocklowerbound; ifnonepass keepdiagnostic rankandcampaignactive. Noouterparameterchoice.",
+    "outer_modes": [
+      "annual_refit",
+      "frozen2022_parameters: freeze2023trained3seed allocation models/scalers/ensemble-null decision and2023volhead; historical2013-22OOFinputs retained in training, later forecasts use frozenhead; causal market features continue updating"
+    ],
+    "native": "Selected development ensemble bothcosts, actual Qlib continuousPosition/Exchange/Account reports;1e-7 reconciliation tolerance.",
+    "source_sensitivity": "Anyhistoricallyqualifyingpolicy requires a separate source-sensitivity check fordeclared secondary quotes/published-vs-server basis beforedeploymentclaims; no choosingthebetterdatasource.",
+    "forward": "Allhistoryhasbeenreviewed. Historicalpassqualifiesonlyforfrozen newforwardstudy; freshforwardevidence remainsrequiredforobjectivecompletion.",
+    "seed_gate": "At least the SAME2 of declared3 seeds have positive aggregate net log excess at BOTH costs; all3 evaluated. Seeds not independent market paths. Phase4 three deterministic repeats are not reused as seed evidence.",
+    "numerical_null": "A numerically indistinguishable exact benchmark or null-selected profile cannot count as positive-excess evidence; record actual raw differences and require aggregate excess greater than1e-8."
+  },
+  "accounting": {
+    "cash_return": 0.0,
+    "start": "CASH",
+    "positions": "Long-only fully funded3assets, no borrowing",
+    "fees": "Exact proportional cost on actual risky purchases plus sales, funded before returns; ETF economics already in observed returns",
+    "daily": "Signalclose[t], tradeopen[t+1], outcomeopen[t+2]; next decision owns actual marked holdings",
+    "no_extra_rules": [
+      "cashfloor",
+      "SOXLcap",
+      "stop/wait/recovery timer",
+      "exante variance cap",
+      "EMA",
+      "fixed tradingband",
+      "selected static planning horizon"
+    ]
+  },
+  "failure_policy": {
+    "nonfinite_optimization": "Record fold/seed/epoch and reason; retain exact anchor for accounting, disqualify rather than silently change optimizer/start/epochs",
+    "replay": "Fail closed on invalid dates, features, physical returns, weights, funding, mismatch; no shortened history",
+    "forward": "All historical years reviewed; historical qualification is eligibility for newly frozen forward evidence, never objective achievement."
+  },
+  "real_broker_orders": false,
+  "existing_sim_change": false,
+  "artifact_policy": "slim_card_recorder_first",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "https://qlib.readthedocs.io/en/latest/reference/api.html"
+  ],
+  "registration_clarifications": [
+    {
+      "prior_plan_sha256": "5046d065340745927fdda8f151ab2be77e25552602682858b092be307280b4fe",
+      "before_any_market_fits": true,
+      "scope": "Clarify causality of invalid-vol fallback: training-fold versus contemporaneous replay; no parameter or hypothesis change."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[97897:MainThread](2026-10-03 00:05:49,656) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[97897:MainThread](2026-10-03 00:05:49,657) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[97897:MainThread](2026-10-03 00:05:49,657) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/data/qlib/published_futu_affine_20260925_v1')}
+[97897:MainThread](2026-10-03 00:05:49,661) WARNING - qlib.workflow - [expm.py:231] - No valid experiment found. Create a new experiment with name benchmark_anchor_utility_20261002.
+[97897:MainThread](2026-10-03 00:05:49,662) INFO - qlib.workflow - [exp.py:258] - Experiment 388861334360721595 starts running ...
+[97897:MainThread](2026-10-03 00:05:49,715) INFO - qlib.workflow - [recorder.py:345] - Recorder 7866b215638b4d1ca2711bef637e6516 starts running under Experiment 388861334360721595 ...
+[97897:MainThread](2026-10-03 00:05:49,774) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | waiting `async_log` Done
+[97897:MainThread](2026-10-03 00:05:49,776) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[97897:MainThread](2026-10-03 00:05:49,776) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[97897:MainThread](2026-10-03 00:05:49,776) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/data/qlib/published_futu_affine_20260925_v1')}
+[97897:MainThread](2026-10-03 00:05:49,777) INFO - qlib.workflow - [exp.py:258] - Experiment 388861334360721595 starts running ...
+[97897:MainThread](2026-10-03 00:05:49,779) INFO - qlib.workflow - [recorder.py:345] - Recorder 7866b215638b4d1ca2711bef637e6516 starts running under Experiment 388861334360721595 ...
+[97897:MainThread](2026-10-03 00:05:49,838) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | waiting `async_log` Done
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2371.00it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2110.87it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3785.47it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3300.00it/s]
+[97897:MainThread](2026-10-03 00:05:49,849) INFO - qlib.workflow - [exp.py:258] - Experiment 388861334360721595 starts running ...
+[97897:MainThread](2026-10-03 00:05:49,851) INFO - qlib.workflow - [recorder.py:345] - Recorder 7866b215638b4d1ca2711bef637e6516 starts running under Experiment 388861334360721595 ...
+[97897:MainThread](2026-10-03 00:05:49,910) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | waiting `async_log` Done
+{'synthetic_only': True, 'native_reinit_outside_R_passed': True, 'same_id_uri_artifact_roundtrip': True, 'native_failure_same_id_status_failed': True, 'market_fits': False}

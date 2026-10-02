@@ -1,0 +1,27 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[96013:MainThread](2026-10-02 23:50:09,053) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[96013:MainThread](2026-10-02 23:50:09,054) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[96013:MainThread](2026-10-02 23:50:09,054) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/data/qlib/published_futu_affine_20260925_v1')}
+[96013:MainThread](2026-10-02 23:50:09,057) WARNING - qlib.workflow - [expm.py:231] - No valid experiment found. Create a new experiment with name synthetic_worker_contract.
+[96013:MainThread](2026-10-02 23:50:09,059) INFO - qlib.workflow - [exp.py:258] - Experiment 341441466955899742 starts running ...
+[96013:MainThread](2026-10-02 23:50:09,215) INFO - qlib.workflow - [recorder.py:345] - Recorder c4832ea540884fa9badddfdfb5c905b8 starts running under Experiment 341441466955899742 ...
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3398.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2896.62it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4766.25it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4132.32it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4951.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4332.96it/s]
+[96013:MainThread](2026-10-02 23:50:13,263) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | waiting `async_log` Done
+{"market_inputs": false, "registered_market_fit_started": false, "synthetic_rows": 252, "seeds": [17, 41, 71], "updates": 1, "all_workers_and_recorder_roundtrips_pass": true, "recorder_id": "c4832ea540884fa9badddfdfb5c905b8", "uri": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-anchor-synthetic-recorder-rs5ujj98", "elapsed_seconds": [0.6700325419660658, 0.6698432079283521, 0.669582000002265]}

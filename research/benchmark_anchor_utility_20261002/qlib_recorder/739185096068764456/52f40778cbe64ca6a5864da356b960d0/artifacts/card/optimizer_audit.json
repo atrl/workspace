@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+  "scope": "Read-only optimization and saved-training-path audit; no new fit, candidate path or parameter selection.",
+  "failure_count": 0,
+  "counts": {
+    "fits": 75,
+    "checkpoint_tensors": 9150,
+    "epoch_records": 9075,
+    "gradient_updates": 9000,
+    "audited_training_decisions": 446456,
+    "ensemble_anchor_selected": 0,
+    "ensemble_rejected": 0,
+    "null_seed_fits": 0
+  },
+  "maxima": {
+    "interior theta initialization": 0,
+    "zero hidden bias": 0,
+    "current_trajectory_numpy_torch_parity": 4.440892098500626e-16,
+    "selected utility best": 0,
+    "independent analytic anchor": 1.1102230246251565e-16,
+    "checkpoint_action_identity": 0,
+    "cash_origin": 0,
+    "carried_training_holdings": 0,
+    "net_weight_identity": 4.718447854656915e-16,
+    "cash_funding_identity": 1.1102230246251565e-16,
+    "true_risky_L1": 1.6653345369377348e-16,
+    "fee_identity": 4.336808689942018e-19,
+    "return_identity": 4.440892098500626e-16,
+    "cumulative_NAV": 0,
+    "selected utility independent": 3.469446951953614e-18,
+    "ensemble selected utility": 1.734723475976807e-17,
+    "raw ensemble utility": 1.734723475976807e-17,
+    "ensemble worst utility": 0,
+    "constant same effective theta": 0,
+    "constant same effective bias": 0,
+    "constant seed paths identical": 0
+  },
+  "lifecycle_reproduction": {
+    "initial_failed_recorder": "57c3446d79b74e87b9ec7be9a1f7a859",
+    "model_comparisons": 75,
+    "epoch_objective_comparisons": 9075,
+    "epoch_tensor_comparisons": 9075,
+    "ensemble_comparisons": 25,
+    "all_compared_economics_identical": true
+  },
+  "development_fit_summary": [
+    {
+      "variant": "constant",
+      "count": 21,
+      "minimum_J": 7.668331893769071e-06,
+      "maximum_J": 4.010157800543732e-05,
+      "mean_J": 1.8434672551838463e-05,
+      "minimum_theta_mass": 0.16924167972736417,
+      "maximum_theta_mass": 0.32339357727145135
+    },
+    {
+      "variant": "price",
+      "count": 21,
+      "minimum_J": 0.007278602971810601,
+      "maximum_J": 0.01656288515223244,
+      "mean_J": 0.011545629425566176,
+      "minimum_theta_mass": 0.9999999999999998,
+      "maximum_theta_mass": 1.0000000000000004
+    },
+    {
+      "variant": "price_vol",
+      "count": 21,
+      "minimum_J": 0.009051137785695261,
+      "maximum_J": 0.0200071260442721,
+      "mean_J": 0.014465064195170315,
+      "minimum_theta_mass": 0.9999999999999997,
+      "maximum_theta_mass": 1.0000000000000002
+    }
+  ],
+  "training_selected_epoch_ranges": [
+    {
+      "variant": "constant",
+      "min": 105,
+      "median": 118.0,
+      "max": 119
+    },
+    {
+      "variant": "price",
+      "min": 71,
+      "median": 120.0,
+      "max": 120
+    },
+    {
+      "variant": "price_vol",
+      "min": 70,
+      "median": 120.0,
+      "max": 120
+    }
+  ],
+  "conclusion": "All finite learners and all25ensembles improve full-history centered two-cost training utility. This resolves training-null dominance in this class; development gains still coincide with greater beta and worse tails, so no deployment qualification.",
+  "limitations": [
+    "No market refitting, new return path or candidate selection in this audit. Saved target actions, fee funding and utility are independently reconstructed on saved paths.",
+    "Every checkpoint recorded objective and strict incumbent ordering are checked; non-selected checkpoint full paths are not stored, so their objective scalars are not independently rerun.",
+    "Gradient-cache correctness is supported by frozen source control flow, parameter_epoch linkage and recorded per-update exact forward parity. No global optimum or full-horizon gradient claim.",
+    "Three constant-input seeds are structurally identical effective policies, not independent market evidence."
+  ],
+  "recorder_artifacts": {
+    "full_report": "validation/optimizer/benchmark-anchor-optimizer-audit.json",
+    "method": "validation/optimizer/audit_benchmark_anchor_optimizer.py",
+    "execution_log": "validation/optimizer/benchmark-anchor-optimizer-audit.log",
+    "checkpoint_identity": "validation/optimizer/lifecycle_identity/checkpoint_identity.csv",
+    "selected_model_identity": "validation/optimizer/lifecycle_identity/selected_model_identity.csv",
+    "ensemble_identity": "validation/optimizer/lifecycle_identity/ensemble_identity.csv"
+  },
+  "failed_run_retention": {
+    "recorder_id": "57c3446d79b74e87b9ec7be9a1f7a859",
+    "authority": false,
+    "checkpoint_tree": "canonical local only; economic identities match final exact tensors and utility values",
+    "inventory": "validation/failed_run_57c/benchmark-anchor-failed-recorder-inventory.json"
+  },
+  "full_report_sha256": "eb2f0806fdadd98498b418a09da32e728a3c3fcb360d2ddf1cd3fcaac063e494"
+}

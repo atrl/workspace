@@ -1,0 +1,428 @@
+{
+  "source_recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+  "qualified_native_hash": "b7a59f39feed5aed6e61fec2b4239092c474e453c91d4d133c73f9dcc571a03f",
+  "native_and_recorded_primary_exact": true,
+  "archived_forecast_repetition": 1,
+  "market_fits_performed": false,
+  "new_portfolio_replays": false,
+  "folds": [
+    {
+      "year": 2016,
+      "rows": 1256,
+      "last_signal_date": "2015-12-29",
+      "return_available_at_max": "2015-12-31T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            1256,
+            27
+          ],
+          "scaler_sha256": "e86ea4c5703f716f95832344ed2010781243b2a23ff9038598d1e895bea7e7c3"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            1256,
+            27
+          ],
+          "scaler_sha256": "3a7c0267781df8668c6f4125ce8ac4d53e772367df2f3af2a47efa798a67e39d"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            1256,
+            27
+          ],
+          "scaler_sha256": "e33380e8f25f677fafa91acc9661a536722dd96bef6d5c6b938875ba28835156"
+        }
+      }
+    },
+    {
+      "year": 2017,
+      "rows": 1508,
+      "last_signal_date": "2016-12-28",
+      "return_available_at_max": "2016-12-30T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            1508,
+            27
+          ],
+          "scaler_sha256": "5b977f2aac45ad3c7a4ffdb9fdc24f877622af9327d08d1398db034e7c368409"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            1508,
+            27
+          ],
+          "scaler_sha256": "10a99be89dd00f6a00d5d72ceef94638e598bdb4c68ccbb0654420eea88d1275"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            1508,
+            27
+          ],
+          "scaler_sha256": "80a811244f6bd6673745c169779dad8f0ad13ef5ebc650de96fadcf5f3aecc18"
+        }
+      }
+    },
+    {
+      "year": 2018,
+      "rows": 1759,
+      "last_signal_date": "2017-12-27",
+      "return_available_at_max": "2017-12-29T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            1759,
+            27
+          ],
+          "scaler_sha256": "b243974f9b817f673668c7a0b433bdb3b5981fe689a269d1d62d62d6bc8cfdec"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            1759,
+            27
+          ],
+          "scaler_sha256": "0b4032a3bff29681a5bb2adde0eaa0ae60e2049509c3ba80d539ec20e1c27596"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            1759,
+            27
+          ],
+          "scaler_sha256": "211d7529bb90163d5154f1acd2a2316ff07f33bdcdef0a8405860cc9bff7cb1f"
+        }
+      }
+    },
+    {
+      "year": 2019,
+      "rows": 2010,
+      "last_signal_date": "2018-12-27",
+      "return_available_at_max": "2018-12-31T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2010,
+            27
+          ],
+          "scaler_sha256": "f20c55c0395a5742a4b88a4c44ab76b870fd4b4b204d8e4f1e767fb0c345473e"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2010,
+            27
+          ],
+          "scaler_sha256": "780f264e0f5ff600a31be517d863c88789a02a5ebb32a0b8c77ba63301f1ba1a"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2010,
+            27
+          ],
+          "scaler_sha256": "2b575a15f2f1e913700b9f6fa3cf303fa4b484f7fa26671984af936cfec42e1f"
+        }
+      }
+    },
+    {
+      "year": 2020,
+      "rows": 2262,
+      "last_signal_date": "2019-12-27",
+      "return_available_at_max": "2019-12-31T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2262,
+            27
+          ],
+          "scaler_sha256": "3a7eb71c8fe784bc04ca75a3e752a33a4516641e00a8fbd476ecb462429e65e6"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2262,
+            27
+          ],
+          "scaler_sha256": "31dd5aba03192cf5eb4ff4f31cce0fe6142dc89087757a9aa558aa1c275ada61"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2262,
+            27
+          ],
+          "scaler_sha256": "418c84a4c8d33a5bf1f01c40c33dacdaa76a067f5260231b78a75741020ccb8f"
+        }
+      }
+    },
+    {
+      "year": 2021,
+      "rows": 2515,
+      "last_signal_date": "2020-12-29",
+      "return_available_at_max": "2020-12-31T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2515,
+            27
+          ],
+          "scaler_sha256": "372e27cfacc029556a2de54acdf22f1880f3d8146fef71935adf25f2d8e07666"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2515,
+            27
+          ],
+          "scaler_sha256": "cc2ee37e17a41d27240e1439c4ae3b67e80129649c7d993a1fb791ee5cc32363"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2515,
+            27
+          ],
+          "scaler_sha256": "6acdc1c92c324f5649630d6c3133b782b06dfccae441f16344c5756af0f592ae"
+        }
+      }
+    },
+    {
+      "year": 2022,
+      "rows": 2767,
+      "last_signal_date": "2021-12-29",
+      "return_available_at_max": "2021-12-31T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2767,
+            27
+          ],
+          "scaler_sha256": "f6ed511c68ddb1f1a3611f149318381b0619d9b27a629d833bcc59b1c79d9637"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2767,
+            27
+          ],
+          "scaler_sha256": "af613e23293db534c663dcfe29e721bedea8c896cc8f2dbafb5915f31f18c5bc"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            2767,
+            27
+          ],
+          "scaler_sha256": "6d01271005837dda25c9e6f6bf5cd37e15f36ab141ba2f4b0c27c3bfc84c65d4"
+        }
+      }
+    },
+    {
+      "year": 2023,
+      "rows": 3018,
+      "last_signal_date": "2022-12-28",
+      "return_available_at_max": "2022-12-30T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3018,
+            27
+          ],
+          "scaler_sha256": "74e3fabc444773a3768a2db00e064cd223184087f56b12d1a256cb977aa06dca"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3018,
+            27
+          ],
+          "scaler_sha256": "2762441910b3d1f33804f5d8498669b5e4a27ad950514971fba0f4edeb9f6650"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3018,
+            27
+          ],
+          "scaler_sha256": "ccfa0918c9599c872cd4eb6aee07d753d46fdc583aca6304790323cd403b9095"
+        }
+      }
+    },
+    {
+      "year": 2024,
+      "rows": 3268,
+      "last_signal_date": "2023-12-27",
+      "return_available_at_max": "2023-12-29T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3268,
+            27
+          ],
+          "scaler_sha256": "7fe4683f07119097518f11b3ef234bf3d795b1acea3c9d28daa56c6a51ca1d42"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3268,
+            27
+          ],
+          "scaler_sha256": "6b2f429fa8016cca0573e7c5769ac5f3106ae7a27bd8542853a95352fc9f3fb1"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3268,
+            27
+          ],
+          "scaler_sha256": "d8bc1802a8b7973c3fd70d545e23e38a6d2f298b3b6d118beb0b1bf263930ec4"
+        }
+      }
+    },
+    {
+      "year": 2025,
+      "rows": 3520,
+      "last_signal_date": "2024-12-27",
+      "return_available_at_max": "2024-12-31T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3520,
+            27
+          ],
+          "scaler_sha256": "363cda9301d72b1408e87b21add8c0381f5e20a14eb035fb3ace0cdebe4bd4e3"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3520,
+            27
+          ],
+          "scaler_sha256": "b63c698edbf3a9d27d0431a4aa2c9f5c04e447212cfe834a5180aa897580b7bb"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3520,
+            27
+          ],
+          "scaler_sha256": "821769265011833ab7e02bc2e0c76fe4721eec474df12ed69b015ca89809b027"
+        }
+      }
+    },
+    {
+      "year": 2026,
+      "rows": 3770,
+      "last_signal_date": "2025-12-29",
+      "return_available_at_max": "2025-12-31T14:30:00+00:00",
+      "variants": {
+        "constant": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3770,
+            27
+          ],
+          "scaler_sha256": "850c6c4b93db49a2156611faca67b5afc5d3b42b251aff5f13d639c24c78e552"
+        },
+        "price": {
+          "eligible": true,
+          "vol_fitted": false,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3770,
+            27
+          ],
+          "scaler_sha256": "747e261fd9e12d11e04c8b9c8106d6d2e956689eac0e52fe7e263b8c9adade67"
+        },
+        "price_vol": {
+          "eligible": true,
+          "vol_fitted": true,
+          "invalid_training_forecasts": 0,
+          "features_shape": [
+            3770,
+            27
+          ],
+          "scaler_sha256": "85faa00ad5e141a86b41a35ccbd4251408fe5ddf555955efeb217ab9b2ed5acf"
+        }
+      }
+    }
+  ]
+}

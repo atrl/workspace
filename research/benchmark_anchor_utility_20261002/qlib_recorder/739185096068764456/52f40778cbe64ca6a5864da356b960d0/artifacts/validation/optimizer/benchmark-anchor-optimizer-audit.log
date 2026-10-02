@@ -1,0 +1,325 @@
+[98615:MainThread](2026-10-03 00:11:13,092) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[98615:MainThread](2026-10-03 00:11:13,093) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[98615:MainThread](2026-10-03 00:11:13,093) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/benchmark-anchor-utility-20261002/data/qlib/published_futu_affine_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 72.11it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 71.67it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 119.70it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 118.82it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 112.13it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 111.35it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 185.15it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 183.41it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3086.32it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2637.93it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4341.93it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3744.91it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2189.09it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2008.77it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1114.91it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1074.09it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2258.65it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2058.05it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1107.55it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1067.25it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3647.22it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3266.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1038.45it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1003.18it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2666.44it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2457.12it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1122.67it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1089.43it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2278.27it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2155.35it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1184.83it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1149.12it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3423.92it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3104.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1039.48it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1012.38it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2906.66it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2716.52it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1175.20it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1141.62it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 605.33it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 591.75it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1119.68it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1091.41it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4080.06it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3715.06it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1046.22it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1021.51it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4202.71it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3816.47it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 988.99it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 962.44it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 763.29it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 746.18it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1109.60it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1078.78it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2505.56it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2347.12it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1034.35it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1010.19it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 283.44it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 280.82it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1016.06it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 988.99it/s] 
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2592.28it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2404.99it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1067.25it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1039.74it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 364.15it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 360.58it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1071.89it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1039.74it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2814.97it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2589.08it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1109.02it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1080.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 549.50it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 542.04it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1140.07it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1103.76it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4144.57it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3771.86it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 948.72it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 927.53it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4064.25it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3675.99it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 919.20it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 899.29it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4080.06it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3718.35it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 982.27it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 956.08it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4288.65it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3872.86it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1014.34it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 992.26it/s] 
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1972.86it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1861.65it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 988.99it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 967.10it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1584.55it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1526.31it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1076.29it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1050.41it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4691.62it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4253.86it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 994.85it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 972.48it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 598.08it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 589.25it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1021.51it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 996.27it/s] 
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2444.23it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2303.30it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1024.50it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 998.88it/s] 
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4116.10it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3533.53it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 902.58it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 881.90it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2839.75it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2618.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 980.21it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 949.58it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 284.90it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 282.96it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 961.56it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 940.85it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4369.07it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4002.20it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1007.04it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 983.19it/s] 
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4219.62it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3862.16it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 970.90it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 949.80it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4100.00it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3718.35it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 789.74it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 772.72it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4782.56it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4271.19it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 884.13it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 867.31it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 736.49it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 720.42it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 999.12it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 976.56it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 466.60it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 460.61it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 946.15it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 923.25it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4116.10it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3744.91it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 986.20it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 965.10it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1028.77it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1004.86it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 260.56it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 259.00it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 748.98it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 734.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 834.69it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 816.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 783.10it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 766.36it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 852.50it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 835.35it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2779.53it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2565.32it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 840.37it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 823.06it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 313.85it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 311.43it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 792.42it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 777.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2775.85it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2597.09it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 845.28it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 828.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 306.85it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 304.22it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 845.28it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 823.70it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3876.44it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3533.53it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 833.36it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 815.54it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4120.14it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3761.71it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 810.96it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 794.23it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 487.82it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 481.99it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 813.16it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 797.55it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2584.29it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2421.65it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 768.05it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 754.10it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4084.04it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3731.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 801.82it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 787.37it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 769.88it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 750.19it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 881.16it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 863.74it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 326.58it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 324.08it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 753.56it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 741.31it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4462.03it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4002.20it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 799.52it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 784.42it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2681.78it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2475.98it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 803.81it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 784.28it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 458.29it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 452.07it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 841.05it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 822.41it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4032.98it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3647.22it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 834.69it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 819.52it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 438.41it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 434.19it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 753.69it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 738.56it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 491.83it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 484.22it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 781.94it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 766.36it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 451.44it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 444.22it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 777.73it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 763.43it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2493.64it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2353.71it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 785.45it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 770.45it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 464.64it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 459.75it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 760.94it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 746.72it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3446.43it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3204.20it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 799.83it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 785.45it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 454.77it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 448.64it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 759.98it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 745.12it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 436.91it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 431.25it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 737.40it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 723.03it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 339.45it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 336.84it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 752.48it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 739.08it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2734.23it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2565.32it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 744.07it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 731.48it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 357.17it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 353.98it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 546.49it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 539.67it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4169.29it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3788.89it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 722.53it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 711.26it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 322.86it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 319.96it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 645.18it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 635.69it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4185.93it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3802.63it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 418.93it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 414.74it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 832.04it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 814.43it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 667.14it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 657.11it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 459.35it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 454.32it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 567.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 560.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2626.36it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2458.56it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 590.66it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 581.33it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 513.63it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 505.58it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 611.15it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 602.28it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 349.76it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 346.61it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 533.08it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 526.92it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 497.78it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 491.89it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 593.84it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 586.21it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 451.68it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 447.25it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 583.43it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 573.78it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 242.36it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 240.62it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1435.42it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1385.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1565.04it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1499.04it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 711.74it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 699.75it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1392.53it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1345.62it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 770.30it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 755.87it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1381.52it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1324.80it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 409.68it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 405.33it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1281.88it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1245.34it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 359.44it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 355.99it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1270.62it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1230.00it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 406.82it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 401.75it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 579.00it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 569.18it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1078.78it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1054.91it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 562.16it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 554.07it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 667.99it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 658.24it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 678.36it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 668.52it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 705.76it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 695.46it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 286.05it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 284.26it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1066.17it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1038.45it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 379.64it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 376.37it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 626.11it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 617.35it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 348.91it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 345.04it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 253.62it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 252.15it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 332.91it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 330.36it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4760.84it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4271.19it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 5377.31it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4609.13it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3708.49it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3390.71it/s]
+{
+  "recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+  "failure_count": 0,
+  "counts": {
+    "fits": 75,
+    "checkpoint_tensors": 9150,
+    "epoch_records": 9075,
+    "gradient_updates": 9000,
+    "audited_training_decisions": 446456,
+    "ensemble_anchor_selected": 0,
+    "ensemble_rejected": 0
+  },
+  "maxima": {
+    "interior theta initialization": 0,
+    "zero hidden bias": 0,
+    "current_trajectory_numpy_torch_parity": 4.440892098500626e-16,
+    "selected utility best": 0,
+    "independent analytic anchor": 1.1102230246251565e-16,
+    "checkpoint_action_identity": 0,
+    "cash_origin": 0,
+    "carried_training_holdings": 0,
+    "net_weight_identity": 4.718447854656915e-16,
+    "cash_funding_identity": 1.1102230246251565e-16,
+    "true_risky_L1": 1.6653345369377348e-16,
+    "fee_identity": 4.336808689942018e-19,
+    "return_identity": 4.440892098500626e-16,
+    "cumulative_NAV": 0,
+    "selected utility independent": 3.469446951953614e-18,
+    "ensemble selected utility": 1.734723475976807e-17,
+    "raw ensemble utility": 1.734723475976807e-17,
+    "ensemble worst utility": 0,
+    "constant same effective theta": 0,
+    "constant same effective bias": 0,
+    "constant seed paths identical": 0
+  }
+}
+  variant  year  seed  rows  selected_epoch        J                                         centered_by_cost  null_selected  trajectory_states_below_incumbent  theta_mass  max_hidden_gradient_norm  max_theta_gradient_norm
+ constant  2016    71  1256             105 0.000040   {10: 4.015113034769407e-05, 25: 4.010157800543732e-05}          False                                116    0.251341                  0.000904                 0.389992
+ constant  2016    17  1256             105 0.000040   {10: 4.015113034769407e-05, 25: 4.010157800543732e-05}          False                                116    0.251341                  0.000904                 0.389992
+ constant  2016    41  1256             105 0.000040   {10: 4.015113034769407e-05, 25: 4.010157800543732e-05}          False                                116    0.251341                  0.000904                 0.389992
+    price  2016    41  1256              73 0.007565     {10: 0.008926593071436782, 25: 0.007564678452849488}          False                                 78    1.000000                  0.015089                 0.409625
+    price  2016    17  1256              82 0.009058      {10: 0.01053766549984944, 25: 0.009057930762032805}          False                                 67    1.000000                  0.016760                 0.570883
+    price  2016    71  1256              71 0.008225      {10: 0.00967871141426006, 25: 0.008224984657076216}          False                                 76    1.000000                  0.013910                 0.414224
+price_vol  2016    17  1256              76 0.009769     {10: 0.011207779797480135, 25: 0.009768899667757009}          False                                 71    1.000000                  0.014991                 0.375285
+price_vol  2016    71  1256              74 0.009729     {10: 0.011266023288101681, 25: 0.009728880774005858}          False                                 74    1.000000                  0.013535                 0.409779
+price_vol  2016    41  1256              70 0.009051     {10: 0.010404897045560023, 25: 0.009051137785695261}          False                                 76    1.000000                  0.015020                 0.368356
+ constant  2017    17  1508             116 0.000014  {10: 1.607842992199947e-05, 25: 1.4133343280230391e-05}          False                                116    0.249532                  0.000655                 0.453621
+ constant  2017    71  1508             116 0.000014  {10: 1.607842992199947e-05, 25: 1.4133343280230391e-05}          False                                116    0.249532                  0.000655                 0.453621
+ constant  2017    41  1508             116 0.000014  {10: 1.607842992199947e-05, 25: 1.4133343280230391e-05}          False                                116    0.249532                  0.000655                 0.453621
+    price  2017    17  1508             120 0.016024     {10: 0.018565145593285384, 25: 0.016023825548101108}          False                                 22    1.000000                  0.014252                 0.346000
+    price  2017    71  1508             120 0.012471       {10: 0.014867448890321662, 25: 0.0124710858821909}          False                                 27    1.000000                  0.013434                 0.375140
+    price  2017    41  1508             120 0.010483      {10: 0.012247702176968724, 25: 0.01048315266321225}          False                                 47    1.000000                  0.014288                 0.399485
+price_vol  2017    17  1508             120 0.020007        {10: 0.02301688215385851, 25: 0.0200071260442721}          False                                 21    1.000000                  0.014332                 0.359941
+price_vol  2017    71  1508             120 0.015098      {10: 0.01763942835231701, 25: 0.015098088878074222}          False                                 19    1.000000                  0.013080                 0.375802
+price_vol  2017    41  1508             120 0.013143      {10: 0.015388677505573167, 25: 0.01314294900921268}          False                                 32    1.000000                  0.014226                 0.432810
+ constant  2018    17  1759             118 0.000010 {10: 1.2693787244450156e-05, 25: 1.0104638948859235e-05}          False                                120    0.221923                  0.000480                 0.467522
+ constant  2018    41  1759             118 0.000010 {10: 1.2693787244450156e-05, 25: 1.0104638948859235e-05}          False                                120    0.221923                  0.000480                 0.467522
+ constant  2018    71  1759             118 0.000010 {10: 1.2693787244450156e-05, 25: 1.0104638948859235e-05}          False                                120    0.221923                  0.000480                 0.467522
+    price  2018    17  1759             120 0.015184      {10: 0.01787012822035078, 25: 0.015184475274535028}          False                                 24    1.000000                  0.013903                 0.357932
+    price  2018    41  1759             120 0.012691      {10: 0.01496602141753381, 25: 0.012690968263591285}          False                                 22    1.000000                  0.013761                 0.294169
+    price  2018    71  1759             120 0.013549      {10: 0.01602922032084723, 25: 0.013548729895739037}          False                                 20    1.000000                  0.013075                 0.319481
+price_vol  2018    17  1759             120 0.017790       {10: 0.02086229721954229, 25: 0.01778959480896732}          False                                 22    1.000000                  0.014049                 0.369266
+price_vol  2018    41  1759             120 0.016925     {10: 0.019938567525848914, 25: 0.016925133330726014}          False                                 19    1.000000                  0.013765                 0.334475
+price_vol  2018    71  1759             120 0.016982     {10: 0.019645320794349722, 25: 0.016981763828126488}          False                                 17    1.000000                  0.012695                 0.314076
+ constant  2019    17  2010             116 0.000008   {10: 7.865273921469396e-06, 25: 7.668331893769071e-06}          False                                114    0.169242                  0.000737                 0.413104
+ constant  2019    41  2010             116 0.000008   {10: 7.865273921469396e-06, 25: 7.668331893769071e-06}          False                                114    0.169242                  0.000737                 0.413104
+ constant  2019    71  2010             116 0.000008   {10: 7.865273921469396e-06, 25: 7.668331893769071e-06}          False                                114    0.169242                  0.000737                 0.413104
+    price  2019    17  2010             120 0.010624     {10: 0.012477984409411185, 25: 0.010624240331951005}          False                                 57    1.000000                  0.014415                 0.363901
+    price  2019    41  2010              76 0.007279     {10: 0.008570720355089786, 25: 0.007278602971810601}          False                                 74    1.000000                  0.013876                 0.372559
+    price  2019    71  2010             120 0.008475     {10: 0.010154391352112139, 25: 0.008475102034637517}          False                                 66    1.000000                  0.013429                 0.375792
+price_vol  2019    17  2010             120 0.013589     {10: 0.015795798680156892, 25: 0.013588995296761048}          False                                 26    1.000000                  0.014482                 0.361231
+price_vol  2019    41  2010              82 0.009189     {10: 0.010727733253120476, 25: 0.009189135347005085}          False                                 73    1.000000                  0.013887                 0.374924
+price_vol  2019    71  2010             120 0.011128     {10: 0.013293517138834145, 25: 0.011127509965889902}          False                                 38    1.000000                  0.012943                 0.391087
+ constant  2020    17  2262             118 0.000025  {10: 2.531977190100549e-05, 25: 2.5291529764229276e-05}          False                                 94    0.323394                  0.000529                 0.439065
+ constant  2020    41  2262             118 0.000025  {10: 2.531977190100549e-05, 25: 2.5291529764229276e-05}          False                                 94    0.323394                  0.000529                 0.439065
+ constant  2020    71  2262             118 0.000025  {10: 2.531977190100549e-05, 25: 2.5291529764229276e-05}          False                                 94    0.323394                  0.000529                 0.439065
+    price  2020    17  2262             120 0.012921     {10: 0.015125473497878869, 25: 0.012920839509840612}          False                                 28    1.000000                  0.014091                 0.405028
+    price  2020    41  2262             120 0.010559     {10: 0.012413345718502037, 25: 0.010558726710162598}          False                                 48    1.000000                  0.013743                 0.442829
+    price  2020    71  2262             120 0.012739      {10: 0.015090673450182982, 25: 0.01273938584373174}          False                                 25    1.000000                  0.013653                 0.429507
+price_vol  2020    17  2262             120 0.016983       {10: 0.0197595927958787, 25: 0.016983317294403943}          False                                 25    1.000000                  0.014242                 0.411617
+price_vol  2020    41  2262             120 0.015320      {10: 0.018192339592152364, 25: 0.01532000310746735}          False                                 26    1.000000                  0.013731                 0.563627
+price_vol  2020    71  2262             120 0.017323     {10: 0.020529555488588917, 25: 0.017323256788930798}          False                                 20    1.000000                  0.013273                 0.392270
+ constant  2021    17  2515             119 0.000016  {10: 1.6182869544960665e-05, 25: 1.616149285509995e-05}          False                                 74    0.179214                  0.000977                 0.417884
+ constant  2021    41  2515             119 0.000016  {10: 1.6182869544960665e-05, 25: 1.616149285509995e-05}          False                                 74    0.179214                  0.000977                 0.417884
+ constant  2021    71  2515             119 0.000016  {10: 1.6182869544960665e-05, 25: 1.616149285509995e-05}          False                                 74    0.179214                  0.000977                 0.417884
+    price  2021    17  2515             120 0.012703      {10: 0.01558618816061646, 25: 0.012703402162993895}          False                                 19    1.000000                  0.014798                 0.436757
+    price  2021    41  2515              97 0.009138     {10: 0.011678921644623428, 25: 0.009138420776320646}          False                                 56    1.000000                  0.015565                 0.437914
+    price  2021    71  2515             118 0.011645     {10: 0.013975409133250705, 25: 0.011645422144157919}          False                                 22    1.000000                  0.016705                 0.355314
+price_vol  2021    17  2515             120 0.014886      {10: 0.01799224680655624, 25: 0.014885886380378646}          False                                 17    1.000000                  0.014846                 0.424825
+price_vol  2021    41  2515             120 0.012079     {10: 0.014887285199504037, 25: 0.012079017261604612}          False                                 29    1.000000                  0.015562                 0.419860
+price_vol  2021    71  2515             120 0.015847      {10: 0.019027050537743107, 25: 0.01584665338162546}          False                                 14    1.000000                  0.016317                 0.288984
+ constant  2022    17  2767             119 0.000016    {10: 1.5602118253674957e-05, 25: 1.5581793115244e-05}          False                                 76    0.193656                  0.000867                 0.491427
+ constant  2022    41  2767             119 0.000016    {10: 1.5602118253674957e-05, 25: 1.5581793115244e-05}          False                                 76    0.193656                  0.000867                 0.491427
+ constant  2022    71  2767             119 0.000016    {10: 1.5602118253674957e-05, 25: 1.5581793115244e-05}          False                                 76    0.193656                  0.000867                 0.491427
+    price  2022    17  2767             120 0.016563      {10: 0.020071629177793922, 25: 0.01656288515223244}          False                                 18    1.000000                  0.014492                 0.274028
+    price  2022    41  2767             108 0.009925     {10: 0.012540410437416433, 25: 0.009924816863729672}          False                                 48    1.000000                  0.015101                 0.355736
+    price  2022    71  2767             120 0.014637     {10: 0.017581407313688166, 25: 0.014636542035992938}          False                                 16    1.000000                  0.016455                 0.304570
+price_vol  2022    17  2767             120 0.019273     {10: 0.023134339221331984, 25: 0.019273137365363482}          False                                 17    1.000000                  0.014540                 0.304521
+price_vol  2022    41  2767             120 0.012803      {10: 0.01607300856979295, 25: 0.012803400936643339}          False                                 31    1.000000                  0.015010                 0.304830
+price_vol  2022    71  2767             120 0.016852      {10: 0.02023999922268919, 25: 0.016852460845666016}          False                                 14    1.000000                  0.015794                 0.335598
+    price  2023    41  3018             114 0.009955     {10: 0.013194523589912447, 25: 0.009955094212270355}          False                                 44    1.000000                  0.015572                 0.420118
+    price  2023    71  3018             110 0.008510     {10: 0.011390631995472753, 25: 0.008509555651353739}          False                                 44    1.000000                  0.016463                 0.379818
+    price  2023    17  3018             105 0.009194     {10: 0.012124073294477691, 25: 0.009194141317394844}          False                                 48    1.000000                  0.015072                 0.408596
+    price  2024    41  3268             116 0.007400     {10: 0.009922449278281403, 25: 0.007399605638038539}          False                                 44    1.000000                  0.015202                 0.446892
+    price  2024    17  3268             107 0.006999     {10: 0.009145830793328407, 25: 0.006998830091853296}          False                                 51    1.000000                  0.014915                 0.426633
+    price  2024    71  3268             120 0.006624     {10: 0.008876854142410446, 25: 0.006624332900390151}          False                                 38    1.000000                  0.016144                 0.384104
+    price  2025    17  3520             120 0.005677      {10: 0.007904777966405372, 25: 0.00567651693340415}          False                                 46    1.000000                  0.014646                 0.415548
+    price  2025    41  3520             120 0.006594      {10: 0.00958130506168514, 25: 0.006593861240714566}          False                                 41    1.000000                  0.015120                 0.437052
+    price  2025    71  3520             120 0.004959    {10: 0.0071327285661082485, 25: 0.004959303289100638}          False                                 45    0.971256                  0.016547                 0.390044
+    price  2026    17  3770             116 0.008535      {10: 0.011788798666513053, 25: 0.00853516715779423}          False                                 44    1.000000                  0.014218                 0.465563
+    price  2026    41  3770             120 0.009441     {10: 0.013320299159615804, 25: 0.009441197729709114}          False                                 40    1.000000                  0.014271                 0.495344
+    price  2026    71  3770             120 0.007751     {10: 0.010648050124998308, 25: 0.007750911508117349}          False                                 47    1.000000                  0.016814                 0.463518
+  variant  year        J  selected_J  rejected  anchor_selected                                     raw_centered_utility                                selected_centered_utility
+ constant  2016 0.000040    0.000040     False            False  {10: 4.0151130347688415e-05, 25: 4.010157800543732e-05}  {10: 4.0151130347688415e-05, 25: 4.010157800543732e-05}
+    price  2016 0.008382    0.008382     False            False     {10: 0.009747451271712795, 25: 0.008382459471833956}     {10: 0.009747451271712795, 25: 0.008382459471833956}
+price_vol  2016 0.009635    0.009635     False            False      {10: 0.01097932905165264, 25: 0.009635027173887752}      {10: 0.01097932905165264, 25: 0.009635027173887752}
+ constant  2017 0.000014    0.000014     False            False  {10: 1.607842992199476e-05, 25: 1.4133343280230391e-05}  {10: 1.607842992199476e-05, 25: 1.4133343280230391e-05}
+    price  2017 0.013157    0.013157     False            False     {10: 0.015517462080420015, 25: 0.013157322170868667}     {10: 0.015517462080420015, 25: 0.013157322170868667}
+price_vol  2017 0.016166    0.016166     False            False     {10: 0.018775620151590695, 25: 0.016165846376285632}     {10: 0.018775620151590695, 25: 0.016165846376285632}
+ constant  2018 0.000010    0.000010     False            False   {10: 1.269378724441372e-05, 25: 1.010463894885061e-05}   {10: 1.269378724441372e-05, 25: 1.010463894885061e-05}
+    price  2018 0.013898    0.013898     False            False      {10: 0.01638055518292439, 25: 0.013898496677398387}      {10: 0.01638055518292439, 25: 0.013898496677398387}
+price_vol  2018 0.017240    0.017240     False            False     {10: 0.020134982682096902, 25: 0.017239582036935718}     {10: 0.020134982682096902, 25: 0.017239582036935718}
+ constant  2019 0.000008    0.000008     False            False    {10: 7.86527392146586e-06, 25: 7.668331893769071e-06}    {10: 7.86527392146586e-06, 25: 7.668331893769071e-06}
+    price  2019 0.008209    0.008209     False            False      {10: 0.009925631358768606, 25: 0.00820928835952121}      {10: 0.009925631358768606, 25: 0.00820928835952121}
+price_vol  2019 0.010755    0.010755     False            False     {10: 0.012783754881249184, 25: 0.010754705566584054}     {10: 0.012783754881249184, 25: 0.010754705566584054}
+ constant  2020 0.000025    0.000025     False            False {10: 2.5319771901002348e-05, 25: 2.5291529764229276e-05} {10: 2.5319771901002348e-05, 25: 2.5291529764229276e-05}
+    price  2020 0.011882    0.011882     False            False     {10: 0.014093280957540734, 25: 0.011882069644180296}     {10: 0.014093280957540734, 25: 0.011882069644180296}
+price_vol  2020 0.016464    0.016464     False            False      {10: 0.01941112330996686, 25: 0.016464302104681132}      {10: 0.01941112330996686, 25: 0.016464302104681132}
+ constant  2021 0.000016    0.000016     False            False  {10: 1.6182869544957843e-05, 25: 1.616149285510273e-05}  {10: 1.6182869544957843e-05, 25: 1.616149285510273e-05}
+    price  2021 0.010680    0.010680     False            False     {10: 0.013187435438601748, 25: 0.010679930501611085}     {10: 0.013187435438601748, 25: 0.010679930501611085}
+price_vol  2021 0.014380    0.014380     False            False     {10: 0.017277479516572818, 25: 0.014380308030108127}     {10: 0.017277479516572818, 25: 0.014380308030108127}
+ constant  2022 0.000016    0.000016     False            False     {10: 1.560211825367239e-05, 25: 1.5581793115244e-05}     {10: 1.560211825367239e-05, 25: 1.5581793115244e-05}
+    price  2022 0.013222    0.013222     False            False      {10: 0.01625376705746863, 25: 0.013222326156162206}      {10: 0.01625376705746863, 25: 0.013222326156162206}
+price_vol  2022 0.016252    0.016252     False            False     {10: 0.019710063276653606, 25: 0.016252050291657157}     {10: 0.019710063276653606, 25: 0.016252050291657157}
+    price  2023 0.009303    0.009303     False            False     {10: 0.012281577564904708, 25: 0.009303048981900756}     {10: 0.012281577564904708, 25: 0.009303048981900756}
+    price  2024 0.007046    0.007046     False            False      {10: 0.00932799713487858, 25: 0.007045778639678095}      {10: 0.00932799713487858, 25: 0.007045778639678095}
+    price  2025 0.005846    0.005846     False            False     {10: 0.00827092400524592, 25: 0.0058462974405600445}     {10: 0.00827092400524592, 25: 0.0058462974405600445}
+    price  2026 0.008615    0.008615     False            False     {10: 0.011955716564529246, 25: 0.008615373499351263}     {10: 0.011955716564529246, 25: 0.008615373499351263}
