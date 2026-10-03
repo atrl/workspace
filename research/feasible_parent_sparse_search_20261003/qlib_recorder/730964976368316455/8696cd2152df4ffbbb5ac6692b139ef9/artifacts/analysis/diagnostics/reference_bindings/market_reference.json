@@ -1,0 +1,1478 @@
+{
+  "recorder_id": "8696cd2152df4ffbbb5ac6692b139ef9",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/feasible_parent_sparse_search_20261003/qlib_recorder",
+  "plan_sha256": "c7818045478368cd472b4f37c54a19ffcad014478e36d558f4af31af6e5f40b7",
+  "source_sha256": {
+    "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/analysis/stage1_regime_validation.py": "3184a3769127b144d57c083b59d87d5f9e2e9dea7711fc47fe067b6f2503b42f",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/backtest/strategy.py": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+    "src/core/__init__.py": "f0d1420b340bcd60ee7b719d42dd47a0ef84c6044eaf936182a6817e61adee46",
+    "src/core/contracts.py": "39e855b9afa67d126b9be9d1df2845895afb41bb947f4d9b147db96e2da0243c",
+    "src/data/benchmark_anchor_utility.py": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+    "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+    "src/data/constrained_net_excess.py": "f140218167b67c42e56be08c269f04754970b2211e00ac415c277743bf631be9",
+    "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+    "src/data/feasible_parent_sparse_search.py": "aeb4bbe0a9b81751d6b87ca8d8b6425546446541671fac62a706b265bb76f612",
+    "src/data/integrated_allocation.py": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/sparse_holdings_net_excess.py": "33b44201b8bc9ead01a95c8cd8abec6bad56f18246d58b3f8f4b76e0d8c696e6",
+    "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+    "src/model/benchmark_anchor_utility.py": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+    "src/model/constrained_net_excess.py": "7a068cef362d24651c661289881662e6384e93396d1e7821ee38ebdbac74a08d",
+    "src/model/feasible_parent_sparse_search.py": "47db72c75283ce2d6ad05f60234a731f2994c0900ad3f6346413e2bfa0b6d323",
+    "src/model/integrated_allocation.py": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+    "src/model/paired_sparse_paths.py": "0c11f683273d3c0341c175d35cfc62b18dee73dbce9b707b2400973569c22a1f",
+    "src/model/post_fee_settlement.py": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+    "src/model/sparse_holdings_net_excess.py": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d",
+    "src/objective/benchmark_tail_constraints.py": "c94b59e8377945b7e84d1a7055fcbeb24286ebc97bc7b6eb987679bb2a9017fb",
+    "src/workflow/anchor_checkpoint_feasibility.py": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+    "src/workflow/benchmark_anchor_utility.py": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+    "src/workflow/conditional_variance.py": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+    "src/workflow/constrained_net_excess.py": "3e28ed6fbfde26258b90d1c6d890ea8d659a4cc1da89153b4d92f637d491a948",
+    "src/workflow/feasible_parent_sparse_search.py": "e5a02491480aa62be606e8f2d6b0ab5972d3eb012cc93f2e6914561a8b585115",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/workflow/sparse_holdings_net_excess.py": "432c76f20f4b1d5c3c187ecdac43cd31356170114d1d28b606721f69718482fa",
+    "src/workflow/stable_excess_integration.py": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/workflow/trainable_regime_policy_nested_wf.py": "dfebcac08d1dc808c47998b7901c63aa2e2d1d73becefcfa09da072437223869"
+  },
+  "complete": true,
+  "stage": "complete",
+  "preflight_reference_sha256": "987a7d8c9be2490d5b59a6854501f04db0ca1f859364884f9522315b1fd29c20",
+  "artifacts": {
+    "analysis/annual.pkl": {
+      "artifact": "analysis/annual.pkl",
+      "sha256": "1cce53a71ee3da7fd43de82bf4a1e94d254964cbaddcc9e768439c3b0ada55e6",
+      "bytes": 18736
+    },
+    "analysis/attribution.pkl": {
+      "artifact": "analysis/attribution.pkl",
+      "sha256": "f01091d1d14ba81d8d0e715a92a3206f3768aaf09e7ee28ad9050e2b33c117b0",
+      "bytes": 4961
+    },
+    "analysis/bootstrap.pkl": {
+      "artifact": "analysis/bootstrap.pkl",
+      "sha256": "5e4c912dcf2475f74c259deb5f3459e8ae46dacfee8cb9b3126ab13b6f34362a",
+      "bytes": 3366
+    },
+    "analysis/comparison.pkl": {
+      "artifact": "analysis/comparison.pkl",
+      "sha256": "15c1aad8cdb4d78979a0638c8be5eecfc7b92c0ffe6969b1a6da77cef491f891",
+      "bytes": 4937
+    },
+    "analysis/controls.pkl": {
+      "artifact": "analysis/controls.pkl",
+      "sha256": "8a9df913d3805c82c71a589af90a6cfef694e9739211b39d97f86ea3bba20d50",
+      "bytes": 3149
+    },
+    "analysis/ensemble_audits.pkl": {
+      "artifact": "analysis/ensemble_audits.pkl",
+      "sha256": "867e8d029d8012831da0dd87101b7747cb67720fcd6df218300145b130931237",
+      "bytes": 88309
+    },
+    "analysis/execution_sparsity.pkl": {
+      "artifact": "analysis/execution_sparsity.pkl",
+      "sha256": "14d785f2e4cbee231bf264be241c20ee4c3e8492e2213a0c4a5fde2936ddccf7",
+      "bytes": 7066
+    },
+    "summary": {
+      "artifact": "analysis/final_summary.pkl",
+      "sha256": "3739de25317ce81adb6677bdb6e39a9843bf6f9fa3ea13fc6144eeed1762abdc",
+      "bytes": 40790
+    },
+    "analysis/gates.pkl": {
+      "artifact": "analysis/gates.pkl",
+      "sha256": "4db8f9f240de330aa8bd05d9ac1fe000ac0fa3da07e466bf93e67cbfb77326cf",
+      "bytes": 2131
+    },
+    "analysis/independent_path_audits.pkl": {
+      "artifact": "analysis/independent_path_audits.pkl",
+      "sha256": "85f5c04bd22ee9f49029a455af6c27bdd059bd96bde30ea755920e5cb5a9ddd9",
+      "bytes": 3583
+    },
+    "analysis/paired_parent_comparison.pkl": {
+      "artifact": "analysis/paired_parent_comparison.pkl",
+      "sha256": "3a351602c6ae80b5ec21105d29f6a9b431b7488233848c631a4760bb6281c602",
+      "bytes": 3759
+    },
+    "analysis/portfolio_replays.pkl": {
+      "artifact": "analysis/portfolio_replays.pkl",
+      "sha256": "822ad61d6f495172c062dd9cfeb06629cf9cf348232d2bb0ba57706a43262785",
+      "bytes": 13300200
+    },
+    "analysis/saved_path_fee_decomposition.pkl": {
+      "artifact": "analysis/saved_path_fee_decomposition.pkl",
+      "sha256": "a9133b40067b101e178a5f8e3b125b35f2dd4dd18502525a5cc2de04513976ec",
+      "bytes": 18117
+    },
+    "analysis/seed_metrics.pkl": {
+      "artifact": "analysis/seed_metrics.pkl",
+      "sha256": "4928bedc6df28d3c94eb93b5a937da9924cb864743b5c6296b60fcc3026b6ea6",
+      "bytes": 6965
+    },
+    "analysis/seed_path_equality.pkl": {
+      "artifact": "analysis/seed_path_equality.pkl",
+      "sha256": "5a0a9c5eefc10a3bd76a8880ca060662807ea0d5cd68d05a92ac51492bd74567",
+      "bytes": 1645
+    },
+    "analysis/training_diagnostics.pkl": {
+      "artifact": "analysis/training_diagnostics.pkl",
+      "sha256": "8c42a1ada8b24bc9690419107097983bd219fb8cce32c8119b1636954dd07c09",
+      "bytes": 126912
+    },
+    "analysis/window_metrics.pkl": {
+      "artifact": "analysis/window_metrics.pkl",
+      "sha256": "c12b894082af75b9dc7a67d3a91803beba16ad349fc9bdca6e92cf3abdff82e5",
+      "bytes": 4434
+    },
+    "inputs/development_fold_inputs.pkl": {
+      "artifact": "inputs/development_fold_inputs.pkl",
+      "sha256": "1b08cb88b83f4660ac4a958cc83d1eaa0f446d652ad027f1bb43b459256094e2",
+      "bytes": 20931576
+    },
+    "inputs/development_parent_bindings.pkl": {
+      "artifact": "inputs/development_parent_bindings.pkl",
+      "sha256": "b453fa6af222cd909832cad9823f1a722914ad45e22e400c8108473d767fd6ce",
+      "bytes": 119753
+    },
+    "inputs/development_parent_source_artifacts.pkl": {
+      "artifact": "inputs/development_parent_source_artifacts.pkl",
+      "sha256": "f88cc6f274d95cab0da685894e18130f0ded2460aa55268990b9f9873f8c66aa",
+      "bytes": 33711
+    },
+    "inputs/development_parent_source_audit.pkl": {
+      "artifact": "inputs/development_parent_source_audit.pkl",
+      "sha256": "48aeda43cb3ceef6e551ce47b2064f0ffedfee32cc47563f65fddd6121cb4975",
+      "bytes": 2746
+    },
+    "inputs/diagnostic_fold_inputs.pkl": {
+      "artifact": "inputs/diagnostic_fold_inputs.pkl",
+      "sha256": "a8d60c42651c964556ee8fcc65798f9a0f57081fc01a29f40d69905a22d24cc9",
+      "bytes": 6871198
+    },
+    "inputs/diagnostic_frames.pkl": {
+      "artifact": "inputs/diagnostic_frames.pkl",
+      "sha256": "0d9c209052affe9d159dedf13212d53b4462d046ffaf57096e32bdac5dc078e7",
+      "bytes": 602245
+    },
+    "inputs/execution_prices.pkl": {
+      "artifact": "inputs/execution_prices.pkl",
+      "sha256": "f607a4d09990f8fdd3ea306627e6b7a50b867403f6572d042e1230966dbd1002",
+      "bytes": 101350
+    },
+    "inputs/forecast_fit_audit.pkl": {
+      "artifact": "inputs/forecast_fit_audit.pkl",
+      "sha256": "ac97aab72fb9235edf647cb374349a5002be70d2912040393508522d768151d4",
+      "bytes": 3984
+    },
+    "inputs/forecasts.pkl": {
+      "artifact": "inputs/forecasts.pkl",
+      "sha256": "b01207a0868341d4020497175f856334a142a46a5aa7e478820d0495d95d3028",
+      "bytes": 1285610
+    },
+    "inputs/outer_parent_bindings.pkl": {
+      "artifact": "inputs/outer_parent_bindings.pkl",
+      "sha256": "6445cb619e8c8dea9bcc680306e546515447029190e7f41b8debb98c91b8410f",
+      "bytes": 12312
+    },
+    "inputs/outer_parent_source_artifacts.pkl": {
+      "artifact": "inputs/outer_parent_source_artifacts.pkl",
+      "sha256": "fdd2f66bb5cc1cd0a17f9c0edd574565c23ad366d4005026d7e01b8fe59437a1",
+      "bytes": 1159
+    },
+    "inputs/outer_parent_source_audit.pkl": {
+      "artifact": "inputs/outer_parent_source_audit.pkl",
+      "sha256": "43e9d628a7b1dba548ff4a41d89ca4ce5405334993430d4aa5239cb77ef9db16",
+      "bytes": 218
+    },
+    "inputs/parent_reproduction_summary.pkl": {
+      "artifact": "inputs/parent_reproduction_summary.pkl",
+      "sha256": "e02f1efa18fcf49e16dd5ce45b8edd9f7d20ddee1c34c250f9b9bde9a3190091",
+      "bytes": 1255
+    },
+    "inputs/primary_frame.pkl": {
+      "artifact": "inputs/primary_frame.pkl",
+      "sha256": "eaaae86ebaee6bc4339259c2746bac6bc99c2a9e05a1ebc074cb8831d3b0f958",
+      "bytes": 1253813
+    },
+    "inputs/source_audit.pkl": {
+      "artifact": "inputs/source_audit.pkl",
+      "sha256": "f8b2489f813fca3088e5524acdbf21a04ab92a350ad3a3d5e771a1e0213a7a92",
+      "bytes": 1410
+    },
+    "inputs/source_details.pkl": {
+      "artifact": "inputs/source_details.pkl",
+      "sha256": "7db969467482b49ce5141433cc40b96dc34ff3348790b25321a63294aae46cde",
+      "bytes": 15642
+    },
+    "inputs/source_hashes.pkl": {
+      "artifact": "inputs/source_hashes.pkl",
+      "sha256": "3956f8f0c4b7ff6266efc438833a3d096cdd2e96cb6bcfdfae595e70167ff9ee",
+      "bytes": 3833
+    },
+    "models/development.pkl": {
+      "artifact": "models/development.pkl",
+      "sha256": "6b6f8b56245da9ea4df5a0c560f0d36f0478311e17765677bbbd6117d3d5da7f",
+      "bytes": 589155
+    },
+    "models/forecast_models.pkl": {
+      "artifact": "models/forecast_models.pkl",
+      "sha256": "555962dcd0132308e80336ccc787d9b7279484b5b0c11bc9f0a9039cccbbc733",
+      "bytes": 15650
+    },
+    "models/selected_annual_refits.pkl": {
+      "artifact": "models/selected_annual_refits.pkl",
+      "sha256": "0fdd29ad6c020b384ab75b76bfdadf3b8083fd64c958c71206240ef39581c7c5",
+      "bytes": 114763
+    },
+    "parent_reproductions/holdings_only/2023/17/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/17/audit.pkl",
+      "sha256": "6f8fd1af33667cf0dd03f00c69495fa1c52520c9bce734950c082adff4243837",
+      "bytes": 1466869
+    },
+    "parent_reproductions/holdings_only/2023/17/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/17/latest_evaluation.pkl",
+      "sha256": "3bff64f696db3e1723cf84f7361260c48d34585a8572d036073ac7fbd2540475",
+      "bytes": 1309255
+    },
+    "parent_reproductions/holdings_only/2023/17/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/17/model.pkl",
+      "sha256": "8a153a0f600fe4f979851dcc06f880b499fa7be88f414335c18820432ff06ba3",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2023/17/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/17/provenance.pkl",
+      "sha256": "f7645c7f911e859caa82155bf5f4b024dfa51da3a33c586319d8306dae46afc2",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2023/41/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/41/audit.pkl",
+      "sha256": "d42fc398a0584baef867aefda970f72106d9c5c9f62191f74ebec870ba93a287",
+      "bytes": 1466869
+    },
+    "parent_reproductions/holdings_only/2023/41/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/41/latest_evaluation.pkl",
+      "sha256": "3bff64f696db3e1723cf84f7361260c48d34585a8572d036073ac7fbd2540475",
+      "bytes": 1309255
+    },
+    "parent_reproductions/holdings_only/2023/41/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/41/model.pkl",
+      "sha256": "39512ee9c58f27a74bfeead847e01c73aebaf0bbef977e1e44e00d9044e43f8f",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2023/41/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/41/provenance.pkl",
+      "sha256": "12a6939eba0a7768b1dcb25c6762a7831fcbdf0054e8576d7d4cfe8d762a2634",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2023/71/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/71/audit.pkl",
+      "sha256": "a7209703f873125a5b54eeb375e78cddfe85468fe6ae6e8916320a38a0006ece",
+      "bytes": 1466869
+    },
+    "parent_reproductions/holdings_only/2023/71/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/71/latest_evaluation.pkl",
+      "sha256": "3bff64f696db3e1723cf84f7361260c48d34585a8572d036073ac7fbd2540475",
+      "bytes": 1309255
+    },
+    "parent_reproductions/holdings_only/2023/71/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/71/model.pkl",
+      "sha256": "75a595451d90da0bb8c324f9de9e673b85f714fbeaa62908bf4b3c0ff6c61edb",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2023/71/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2023/71/provenance.pkl",
+      "sha256": "552cb3c60c4f8ebb5225c1157dbc3762fc4dc3f78b772cb15ab078bbe97cc10a",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2024/17/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/17/audit.pkl",
+      "sha256": "581ae75e0aa643cae06b0e852b3f41685cad1db3d05122cf841719f1dd7b8f27",
+      "bytes": 1554945
+    },
+    "parent_reproductions/holdings_only/2024/17/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/17/latest_evaluation.pkl",
+      "sha256": "4e5ae2347cab85f16ef0a6c16cc04a4d660ec30cf34c2c6396ebfba3af02ed87",
+      "bytes": 1417383
+    },
+    "parent_reproductions/holdings_only/2024/17/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/17/model.pkl",
+      "sha256": "8a153a0f600fe4f979851dcc06f880b499fa7be88f414335c18820432ff06ba3",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2024/17/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/17/provenance.pkl",
+      "sha256": "4d9bbb0867ef235e16bfdf91b32da1dc3b3db014ee3c95b7470a68858d0d84fa",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2024/41/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/41/audit.pkl",
+      "sha256": "2a14528979629639591a2cc805d6fc291665f519d8c123f4aeb57faa96d257c4",
+      "bytes": 1554945
+    },
+    "parent_reproductions/holdings_only/2024/41/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/41/latest_evaluation.pkl",
+      "sha256": "4e5ae2347cab85f16ef0a6c16cc04a4d660ec30cf34c2c6396ebfba3af02ed87",
+      "bytes": 1417383
+    },
+    "parent_reproductions/holdings_only/2024/41/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/41/model.pkl",
+      "sha256": "39512ee9c58f27a74bfeead847e01c73aebaf0bbef977e1e44e00d9044e43f8f",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2024/41/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/41/provenance.pkl",
+      "sha256": "428dc0afcecdc83ad58467cc98d9784ff9b72737691a3d93e64c0b3cf4f2b89e",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2024/71/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/71/audit.pkl",
+      "sha256": "f6a49fba3afdbab0e4bc379bdc598c38289640434daea487984d7fde5d5b6096",
+      "bytes": 1554945
+    },
+    "parent_reproductions/holdings_only/2024/71/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/71/latest_evaluation.pkl",
+      "sha256": "4e5ae2347cab85f16ef0a6c16cc04a4d660ec30cf34c2c6396ebfba3af02ed87",
+      "bytes": 1417383
+    },
+    "parent_reproductions/holdings_only/2024/71/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/71/model.pkl",
+      "sha256": "75a595451d90da0bb8c324f9de9e673b85f714fbeaa62908bf4b3c0ff6c61edb",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2024/71/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2024/71/provenance.pkl",
+      "sha256": "968281decbba828bba01c4c6e223863b1b8e86ca8f4649d857cc2bc0778e8263",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2025/17/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/17/audit.pkl",
+      "sha256": "3c05dfff5a3957f1273623ec186bfeaeabc3d617028f85eb4d1a93f0fd6b0e9f",
+      "bytes": 1643734
+    },
+    "parent_reproductions/holdings_only/2025/17/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/17/latest_evaluation.pkl",
+      "sha256": "ee40a32310970986ae6defc193327e9d11a6e6e7847de838106c0bc5d4173e96",
+      "bytes": 1526375
+    },
+    "parent_reproductions/holdings_only/2025/17/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/17/model.pkl",
+      "sha256": "8a153a0f600fe4f979851dcc06f880b499fa7be88f414335c18820432ff06ba3",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2025/17/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/17/provenance.pkl",
+      "sha256": "34e6bac7a9c5dfd170bd38856cf3b64cdeec663c19ea507e403e9493d6eff288",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2025/41/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/41/audit.pkl",
+      "sha256": "a1c0cfa876a1f1314a12bc58662fc7e20fbfa48fe9ddd64004fc3271e02768b7",
+      "bytes": 1643734
+    },
+    "parent_reproductions/holdings_only/2025/41/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/41/latest_evaluation.pkl",
+      "sha256": "ee40a32310970986ae6defc193327e9d11a6e6e7847de838106c0bc5d4173e96",
+      "bytes": 1526375
+    },
+    "parent_reproductions/holdings_only/2025/41/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/41/model.pkl",
+      "sha256": "39512ee9c58f27a74bfeead847e01c73aebaf0bbef977e1e44e00d9044e43f8f",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2025/41/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/41/provenance.pkl",
+      "sha256": "61cf24419ecec98a8c13a0e25ffb31f90b7bd9951450c5fd4fb7260549b4450e",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2025/71/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/71/audit.pkl",
+      "sha256": "3f9f4077a09192ff536cd9a4c9cab400348b8482e9f056adc11f801b8ff246a0",
+      "bytes": 1643734
+    },
+    "parent_reproductions/holdings_only/2025/71/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/71/latest_evaluation.pkl",
+      "sha256": "ee40a32310970986ae6defc193327e9d11a6e6e7847de838106c0bc5d4173e96",
+      "bytes": 1526375
+    },
+    "parent_reproductions/holdings_only/2025/71/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/71/model.pkl",
+      "sha256": "75a595451d90da0bb8c324f9de9e673b85f714fbeaa62908bf4b3c0ff6c61edb",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2025/71/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2025/71/provenance.pkl",
+      "sha256": "07a3eb792d86ea538280b3425a25b6c31c404fb9f0ed21b3e35f8c799ef4edd1",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2026/17/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/17/audit.pkl",
+      "sha256": "0422903911d0f9eb9f2744beeaf966be986e15f789cce2ae9322c3f8f60f6ce3",
+      "bytes": 1731810
+    },
+    "parent_reproductions/holdings_only/2026/17/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/17/latest_evaluation.pkl",
+      "sha256": "3678d68b83a3edcb58d12653fbfcc6c93f7a94fe1443a80cc4102ca1983c1c34",
+      "bytes": 1634503
+    },
+    "parent_reproductions/holdings_only/2026/17/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/17/model.pkl",
+      "sha256": "8a153a0f600fe4f979851dcc06f880b499fa7be88f414335c18820432ff06ba3",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2026/17/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/17/provenance.pkl",
+      "sha256": "270d89b987866b4c0ff9da58483d3de380e3e91f584531e6891f269dea500443",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2026/41/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/41/audit.pkl",
+      "sha256": "54a6bc13f3e181efe75e62fd7a2da52140b608c0252eb211baecac530b6593e8",
+      "bytes": 1731810
+    },
+    "parent_reproductions/holdings_only/2026/41/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/41/latest_evaluation.pkl",
+      "sha256": "3678d68b83a3edcb58d12653fbfcc6c93f7a94fe1443a80cc4102ca1983c1c34",
+      "bytes": 1634503
+    },
+    "parent_reproductions/holdings_only/2026/41/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/41/model.pkl",
+      "sha256": "39512ee9c58f27a74bfeead847e01c73aebaf0bbef977e1e44e00d9044e43f8f",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2026/41/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/41/provenance.pkl",
+      "sha256": "9db823ff575a18e303fc6a489f1658bcf8811750a4530e9d8714bd2258744e7e",
+      "bytes": 6585
+    },
+    "parent_reproductions/holdings_only/2026/71/audit.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/71/audit.pkl",
+      "sha256": "84442041cdfeeaa69f28f5d8782158a20af06f08036707b1ed497b1827d83a66",
+      "bytes": 1731810
+    },
+    "parent_reproductions/holdings_only/2026/71/latest_evaluation.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/71/latest_evaluation.pkl",
+      "sha256": "3678d68b83a3edcb58d12653fbfcc6c93f7a94fe1443a80cc4102ca1983c1c34",
+      "bytes": 1634503
+    },
+    "parent_reproductions/holdings_only/2026/71/model.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/71/model.pkl",
+      "sha256": "75a595451d90da0bb8c324f9de9e673b85f714fbeaa62908bf4b3c0ff6c61edb",
+      "bytes": 2446
+    },
+    "parent_reproductions/holdings_only/2026/71/provenance.pkl": {
+      "artifact": "parent_reproductions/holdings_only/2026/71/provenance.pkl",
+      "sha256": "f8a3f39cfd9e4f02d8f29707aecd86d5c7fe003fc9d5d64073fe8b635f9b0390",
+      "bytes": 6585
+    },
+    "portfolio_analysis/native_reconciliation.pkl": {
+      "artifact": "portfolio_analysis/native_reconciliation.pkl",
+      "sha256": "841b57027072d5563353a526ccc5c315caa9c2991c9af81b6e4f556af15b5a00",
+      "bytes": 6979820
+    },
+    "search_trials/holdings_only/2016/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2016/17/audit.pkl",
+      "sha256": "2e7370c824264390cabfa7acea65b1dcc607d1353b853f8571501bb280e2da2e",
+      "bytes": 2220183
+    },
+    "search_trials/holdings_only/2016/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2016/17/model.pkl",
+      "sha256": "ac3753ef509f4656ed19d53322e2596605b2001435e3be15ed15c90b586c684c",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2016/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2016/41/audit.pkl",
+      "sha256": "c9f499ecbca4d0b2cdec4c1c5c602ee6272ef4805b73e078a9196ebd0ef58bf8",
+      "bytes": 2220183
+    },
+    "search_trials/holdings_only/2016/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2016/41/model.pkl",
+      "sha256": "81ebc92b9904402adce2337d35764f566b82fbb1b76a69e6d8b719acd61c6ff2",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2016/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2016/71/audit.pkl",
+      "sha256": "2372687c2428a3cb96331d179a3188a94a7ccf4c4c3ba820bb07cb872b1c7b6d",
+      "bytes": 2220183
+    },
+    "search_trials/holdings_only/2016/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2016/71/model.pkl",
+      "sha256": "c6b330aafa2cecd38b2de9c75a0e0eeaa232393e98ef28f26f1d27cb9cd41580",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2016/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2016/ensemble/audit.pkl",
+      "sha256": "e2f906bb9df36890c8a23fd045e7ea3425f59929650d0a992166fe851d8df5f5",
+      "bytes": 1062851
+    },
+    "search_trials/holdings_only/2016/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2016/ensemble/bundle.pkl",
+      "sha256": "67c91e83c498c6d62c8aa574bf45dee9670926d0754f3324810131f2a2ffbb61",
+      "bytes": 30694
+    },
+    "search_trials/holdings_only/2017/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2017/17/audit.pkl",
+      "sha256": "b372526daef6d3aef119feaa7c64ce985652681f35fac6bb994e8ef59cc67d44",
+      "bytes": 2477272
+    },
+    "search_trials/holdings_only/2017/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2017/17/model.pkl",
+      "sha256": "17043e45df9cb7d2aa454f9a39de49d85ecbb0e0777513dd74963b48a7e6c8dd",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2017/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2017/41/audit.pkl",
+      "sha256": "71eb6ff6199091ccad7ba477029d02c7181905d36044ba8c73b193ff5c0a2704",
+      "bytes": 2477272
+    },
+    "search_trials/holdings_only/2017/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2017/41/model.pkl",
+      "sha256": "b247acf26a1ab354ab182c57e40dc03d34e184dff2c3e4cc06231b4917497100",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2017/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2017/71/audit.pkl",
+      "sha256": "fcdbf53d664375f74e3d565c89cac9c3b7d8f4b4f8cc13d37b4f864bc9e22daa",
+      "bytes": 2477272
+    },
+    "search_trials/holdings_only/2017/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2017/71/model.pkl",
+      "sha256": "b1f72471553352f347ca402ece61a2e5582b4ec92fddb168cf6a7a0d90876bf5",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2017/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2017/ensemble/audit.pkl",
+      "sha256": "4399f7b6b706b0fc2049f5bb1bafd491a18d1334a4cbfab2bbc20613355c7a62",
+      "bytes": 1274567
+    },
+    "search_trials/holdings_only/2017/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2017/ensemble/bundle.pkl",
+      "sha256": "a7d36fd1cf77daeaf95334f77b88f39b3d29fb28df0580e2c14d981db22e32d9",
+      "bytes": 30694
+    },
+    "search_trials/holdings_only/2018/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2018/17/audit.pkl",
+      "sha256": "919237d1431f022ff3917f67d401186ec0e047132a01d249772694777d62b5ba",
+      "bytes": 2294513
+    },
+    "search_trials/holdings_only/2018/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2018/17/model.pkl",
+      "sha256": "2b7ec02aeb77ec677a91b16d44b2c0857902276d6520efd90c61d28de3e61bf3",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2018/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2018/41/audit.pkl",
+      "sha256": "98929ee61c0e97d9eebbee9cfc07d131a54ec66db9131daa4a4cc3b76c0ea479",
+      "bytes": 2294513
+    },
+    "search_trials/holdings_only/2018/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2018/41/model.pkl",
+      "sha256": "f7f22cbdf6ca41ee8e627356c5ae673c360d76fefa9269b0c1ab4c34518b4e77",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2018/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2018/71/audit.pkl",
+      "sha256": "a3579ff4b910a41975f33675b753ed8cf2ba70e503ed1211f97e61e7f9021970",
+      "bytes": 2294513
+    },
+    "search_trials/holdings_only/2018/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2018/71/model.pkl",
+      "sha256": "b1f29c543c91a8fa381896ee2879f808b64b6e21b404ca14df42b404cc4f4c4a",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2018/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2018/ensemble/audit.pkl",
+      "sha256": "d6765f72af52b86dbef7ef0b0b07d973e877b67dc20bc92959308f3c2beed8ae",
+      "bytes": 1485425
+    },
+    "search_trials/holdings_only/2018/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2018/ensemble/bundle.pkl",
+      "sha256": "48b6d7c8dd828c90a78ea4f930392e44c6d9308dc98c7fcfec725d2b8ffe1337",
+      "bytes": 30694
+    },
+    "search_trials/holdings_only/2019/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2019/17/audit.pkl",
+      "sha256": "73834482cac3795cd9962eb92e87710dd11a02f16c95fee3646997a0fa4126ce",
+      "bytes": 2302662
+    },
+    "search_trials/holdings_only/2019/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2019/17/model.pkl",
+      "sha256": "bdef657eea70adb4522683a31a0b93bbd257f74a7502bd582fccbd646bae6b15",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2019/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2019/41/audit.pkl",
+      "sha256": "b6ad5444a2cab7f5f817eba6945db871f0b1578b0b352600c8d81661fe483b73",
+      "bytes": 2302662
+    },
+    "search_trials/holdings_only/2019/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2019/41/model.pkl",
+      "sha256": "dee8494abd11fdb655757adc98c29d2568b62cef0776a2508e6ae44c3998968e",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2019/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2019/71/audit.pkl",
+      "sha256": "7319cefee41f095a4691c1c93bace4bf6c92bfe76710e8f4ccc9f4b6ab8c8d01",
+      "bytes": 2302662
+    },
+    "search_trials/holdings_only/2019/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2019/71/model.pkl",
+      "sha256": "f8cfe49a45940d75c202e7a0576edc3eb087001be56034ee443e2681c4005b75",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2019/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2019/ensemble/audit.pkl",
+      "sha256": "9e2e76451a937c5f12f7616b5cf81440bfb00eca42c821193495417492dc6e1f",
+      "bytes": 1696274
+    },
+    "search_trials/holdings_only/2019/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2019/ensemble/bundle.pkl",
+      "sha256": "c798ad7002b46479c93d319f7afb10026e42eded04a8234178699476e0435cc4",
+      "bytes": 30694
+    },
+    "search_trials/holdings_only/2020/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2020/17/audit.pkl",
+      "sha256": "a773c50f8f5d3ba67ec343f7fa79ce5d46c7a7f9cf71dba7393285147dcd8132",
+      "bytes": 2825228
+    },
+    "search_trials/holdings_only/2020/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2020/17/model.pkl",
+      "sha256": "67cb5d4d752184420a741a7afcaad16dec0da15f39cb9279696daeb1c14415e5",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2020/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2020/41/audit.pkl",
+      "sha256": "7369f02aea3bb2bd8055bb9ef5d05ac809af77677ced169c04d236b2bb0f834b",
+      "bytes": 2825228
+    },
+    "search_trials/holdings_only/2020/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2020/41/model.pkl",
+      "sha256": "99efed5704ced0e9fb55479b9ed8e13f89a12f985fe369e3c4003440b313fb42",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2020/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2020/71/audit.pkl",
+      "sha256": "c3da247a58518413eb10133918eedef2bd73c3445f0b8b53435e89a13f2b7a9c",
+      "bytes": 2825228
+    },
+    "search_trials/holdings_only/2020/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2020/71/model.pkl",
+      "sha256": "da6d11f35064a8220b6ccf4c84f9c14cdee911305173c12eef15659cbfe62fae",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2020/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2020/ensemble/audit.pkl",
+      "sha256": "ec0b4f3869e6446e986d93e7562ae0cbe7f178ef2db7de43d3f106bf3669420c",
+      "bytes": 1907963
+    },
+    "search_trials/holdings_only/2020/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2020/ensemble/bundle.pkl",
+      "sha256": "56e36cabbb2e391974bddcc9b5092b48bc09ce68dd8dbc1d492b5fc8334e1085",
+      "bytes": 30694
+    },
+    "search_trials/holdings_only/2021/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2021/17/audit.pkl",
+      "sha256": "eb69fd77f6f5e65cce45cdddea3e06164af2af977fa2b238f222893290fb6165",
+      "bytes": 4263493
+    },
+    "search_trials/holdings_only/2021/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2021/17/model.pkl",
+      "sha256": "27c06b77f61a1c4ea5877e268e8a200f905cf3c52d06cfe5aabaf4739a025be6",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2021/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2021/41/audit.pkl",
+      "sha256": "1d0325b7ff4b57feed9cacac6f49af8a6334191cf371fb4bab766810f4f8a0e1",
+      "bytes": 4263493
+    },
+    "search_trials/holdings_only/2021/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2021/41/model.pkl",
+      "sha256": "58f0010c7c12045d0eb7d40e78812e753c5c8271def2619bf6705dd4d60c7ae1",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2021/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2021/71/audit.pkl",
+      "sha256": "d134b2ac87191cfd336874f965d108bd6d3c4f9b108387fc93bb104dc1d19a82",
+      "bytes": 4263493
+    },
+    "search_trials/holdings_only/2021/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2021/71/model.pkl",
+      "sha256": "7b9447081f72009770a03c3d2071df2512712195846feb6a910f25024d05f9ce",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2021/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2021/ensemble/audit.pkl",
+      "sha256": "7aa3ce930df92a789ab1bb3ebb3f2ddf46011eda574ea86a94d9816f1d3c93ef",
+      "bytes": 2120495
+    },
+    "search_trials/holdings_only/2021/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2021/ensemble/bundle.pkl",
+      "sha256": "795c8a281d5c4d4658432798ef03194539b3737a00e528908dc35ba37f3e77a1",
+      "bytes": 30706
+    },
+    "search_trials/holdings_only/2022/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2022/17/audit.pkl",
+      "sha256": "70967a044c02c045e9c6e240bf57b38f956ac8813ba8dfd656bda675af2bdf26",
+      "bytes": 3495721
+    },
+    "search_trials/holdings_only/2022/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2022/17/model.pkl",
+      "sha256": "5d30762914e8609e54306d2f54d72029e3c12aecd011c000ef5174afa6cb2724",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2022/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2022/41/audit.pkl",
+      "sha256": "3989aedba4aa9124b2865508e2c5a1283ac4add76942ad1ee1c14af4bccf8978",
+      "bytes": 3495721
+    },
+    "search_trials/holdings_only/2022/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2022/41/model.pkl",
+      "sha256": "10c86b29c5dfee39b26d7fdd4905575c3bbb9fe1c8eefe5f35bfed91be12b32e",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2022/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2022/71/audit.pkl",
+      "sha256": "7faf85485e1bfef9645fe8d5a2f4762d463991f75d3bd0d0bcbffb55b4e5f50c",
+      "bytes": 3495721
+    },
+    "search_trials/holdings_only/2022/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2022/71/model.pkl",
+      "sha256": "0f884810c9e17a86896802b873cac82711694732d49aae904d9531b90541b80a",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2022/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2022/ensemble/audit.pkl",
+      "sha256": "a2b9adfdddac4d1e826d56f259ace0d56ad17df7f21edb34a434c7f4bf089017",
+      "bytes": 2332247
+    },
+    "search_trials/holdings_only/2022/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2022/ensemble/bundle.pkl",
+      "sha256": "574f5017770c0b08bd26f4934bd735bab8130408019af7a3a0e347bf66957e39",
+      "bytes": 30706
+    },
+    "search_trials/holdings_only/2023/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2023/17/audit.pkl",
+      "sha256": "1844bd2a9d9ea43a0301133b6aea1e813153bcd0cee50624124c2927bbf4ad43",
+      "bytes": 5469920
+    },
+    "search_trials/holdings_only/2023/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2023/17/model.pkl",
+      "sha256": "ddfa6d2bc57ef1508287360cf6400a6f61fd7cb5eab0519161ca698c53718522",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2023/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2023/41/audit.pkl",
+      "sha256": "c99a79dad569637a47ffe35bb9565d1a7e49666ade870d9b6c92c7491e89b5dc",
+      "bytes": 5469920
+    },
+    "search_trials/holdings_only/2023/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2023/41/model.pkl",
+      "sha256": "c234b3ac02a1c938838d808418ca1b85377cdd42cac2dbb1b46dd56e3e36e9dd",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2023/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2023/71/audit.pkl",
+      "sha256": "e2495f26330ce9bc5bd38577d7564883a735fab5ea38b3f2445aedd5fe1c4b6f",
+      "bytes": 5469920
+    },
+    "search_trials/holdings_only/2023/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2023/71/model.pkl",
+      "sha256": "6414cdf250163858b9ab20cc6e60c585e4af93912b7eb9f9a7ee388c785b7369",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2023/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2023/ensemble/audit.pkl",
+      "sha256": "06cb368363c7f96aa186b10a05a21216dc65ed55399c998da6a4370a8fd362d6",
+      "bytes": 2543087
+    },
+    "search_trials/holdings_only/2023/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2023/ensemble/bundle.pkl",
+      "sha256": "98eee656d16168eb64e0f8cf1e554816f34be612a0f5687949709181c7c7c3c1",
+      "bytes": 30706
+    },
+    "search_trials/holdings_only/2024/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2024/17/audit.pkl",
+      "sha256": "32b6ae73b05b7dc152c7546799d6ed86e80d300a09c5b86143bf2a2081e0d0a7",
+      "bytes": 3575933
+    },
+    "search_trials/holdings_only/2024/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2024/17/model.pkl",
+      "sha256": "073857a97ba053d4807513d08fd09be265aa1aa5c34627f880ba296eb9166f2e",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2024/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2024/41/audit.pkl",
+      "sha256": "5bcc9bc9080b4d9d298f222650fd0fa6f65e9b797f306118ab47d5e26f919568",
+      "bytes": 3575933
+    },
+    "search_trials/holdings_only/2024/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2024/41/model.pkl",
+      "sha256": "631cf97f03b3a6dd79b0289c5e97c46c434fc104f596cccaf583f372195b453e",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2024/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2024/71/audit.pkl",
+      "sha256": "0dd5fe3a74c96a8c67bbca33f86858cde896929dc0dad145767dcd543715d22d",
+      "bytes": 3575933
+    },
+    "search_trials/holdings_only/2024/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2024/71/model.pkl",
+      "sha256": "d1903e4fc59f1f95fcd2503d8a0ca2bc61d1d5c1a76a29821c892fedcb8e5276",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2024/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2024/ensemble/audit.pkl",
+      "sha256": "1663697e5a5dba152a38287a64c0d9c54ffd64b42cfea9320614ae68b054932f",
+      "bytes": 2753087
+    },
+    "search_trials/holdings_only/2024/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2024/ensemble/bundle.pkl",
+      "sha256": "46039b0748a80b8fe393b5d845b6a8dcbce760eb31c68e9733f2bfac00067f97",
+      "bytes": 30706
+    },
+    "search_trials/holdings_only/2025/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2025/17/audit.pkl",
+      "sha256": "72cbf83ba00a97295872a85de6a1656be75afb6ab49145633170c7ab788b72f4",
+      "bytes": 4417022
+    },
+    "search_trials/holdings_only/2025/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2025/17/model.pkl",
+      "sha256": "95817ced61865a9a61d45f60cce6256b987cb2aacf2a4e8a41d29dd85fc4d19a",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2025/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2025/41/audit.pkl",
+      "sha256": "ab9b773b3f7bab11a71caa3b11f3720c51ae6bd8da612b7c9289d9a3147a6a28",
+      "bytes": 4417022
+    },
+    "search_trials/holdings_only/2025/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2025/41/model.pkl",
+      "sha256": "24dfa93347145cf978f52a2b1bdd43bb39f2b5bc51050d91d6c25247ff0b85a2",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2025/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2025/71/audit.pkl",
+      "sha256": "13e6a29a8e83bff600ac6cd7a84d97ec89f4178e6fceddf74676122973654937",
+      "bytes": 4417022
+    },
+    "search_trials/holdings_only/2025/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2025/71/model.pkl",
+      "sha256": "d8134250a2db8ace588ef0d284d987dbe0b42d746f9341dcc9e069658cf65a11",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2025/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2025/ensemble/audit.pkl",
+      "sha256": "71b0e880b1de214746922bbc4a8afa8c78571f5cfc037ff19c110165554a0788",
+      "bytes": 2964767
+    },
+    "search_trials/holdings_only/2025/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2025/ensemble/bundle.pkl",
+      "sha256": "3d7c4571318d775e2abc9b63dcceba4c81db97fb7af2b385c6537f579068fd0a",
+      "bytes": 30706
+    },
+    "search_trials/holdings_only/2026/17/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2026/17/audit.pkl",
+      "sha256": "f7346fe62d46039ed5f8015da6146673d3034d1d740ab2eb96a775a576bf89f1",
+      "bytes": 3998458
+    },
+    "search_trials/holdings_only/2026/17/model.pkl": {
+      "artifact": "search_trials/holdings_only/2026/17/model.pkl",
+      "sha256": "2476ff4ee8892545099f8a54ecc295c80b1b6040a01792dcaf840d5684eda3ca",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2026/41/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2026/41/audit.pkl",
+      "sha256": "2dbaadc36747c2cb3e6022b5778e2c6c49d608e2b92b094b8f849a56c03e02a0",
+      "bytes": 3998458
+    },
+    "search_trials/holdings_only/2026/41/model.pkl": {
+      "artifact": "search_trials/holdings_only/2026/41/model.pkl",
+      "sha256": "414a229cc759c6a6de3926e307a9a3fd012496a56288148957891bfadb57c17f",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2026/71/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2026/71/audit.pkl",
+      "sha256": "e1f272db8b37f20503b9e0176a84f5394559d690f6ffd99f27e047401b279536",
+      "bytes": 3998458
+    },
+    "search_trials/holdings_only/2026/71/model.pkl": {
+      "artifact": "search_trials/holdings_only/2026/71/model.pkl",
+      "sha256": "e57b3b4d0d5c2c3233ef7c574ac909e57dabefca9852d383eb73820d103eb33d",
+      "bytes": 2723
+    },
+    "search_trials/holdings_only/2026/ensemble/audit.pkl": {
+      "artifact": "search_trials/holdings_only/2026/ensemble/audit.pkl",
+      "sha256": "eaf750632425ca0074287b4fd10b4d8a3a6fce5b48d7c749a820e12f587d0e9c",
+      "bytes": 3174803
+    },
+    "search_trials/holdings_only/2026/ensemble/bundle.pkl": {
+      "artifact": "search_trials/holdings_only/2026/ensemble/bundle.pkl",
+      "sha256": "1bdacbade7ee88a6155c1697de14d4d723262b6592c4b99b3816d21aca41dcbb",
+      "bytes": 30706
+    },
+    "search_trials/price_holdings/2016/17/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2016/17/audit.pkl",
+      "sha256": "e220f1c7e93b8389ce70941fa4edcc9cbe38572731346e202ab52a5e34f8dcb9",
+      "bytes": 2061275
+    },
+    "search_trials/price_holdings/2016/17/model.pkl": {
+      "artifact": "search_trials/price_holdings/2016/17/model.pkl",
+      "sha256": "5ccd7123d0901338e51bd6a5d87a796f9b620be290304e6f5906fda08b11774a",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2016/41/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2016/41/audit.pkl",
+      "sha256": "fca8e09f56c66077c37b43fa8502c925df109ecfca67f87dc7942b7d145c62d6",
+      "bytes": 3756986
+    },
+    "search_trials/price_holdings/2016/41/model.pkl": {
+      "artifact": "search_trials/price_holdings/2016/41/model.pkl",
+      "sha256": "738d2d4e3906f8d7db0bb7c274f55558654733f02c6d0bb633cf64320840f413",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2016/71/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2016/71/audit.pkl",
+      "sha256": "5059e0fa4384b0e242b00638fac8c06188feeff38033c24e0e793b7251f56130",
+      "bytes": 3756923
+    },
+    "search_trials/price_holdings/2016/71/model.pkl": {
+      "artifact": "search_trials/price_holdings/2016/71/model.pkl",
+      "sha256": "fc21deda803f96d49cd11b848d69c391d2136aaec5101b82e4d3a0c1d940827e",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2016/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2016/ensemble/audit.pkl",
+      "sha256": "2218bc7d8dcc68f1ba3238be343cc248c25e69265c2933fbc4c88d0c37257b88",
+      "bytes": 1062863
+    },
+    "search_trials/price_holdings/2016/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_holdings/2016/ensemble/bundle.pkl",
+      "sha256": "5f4959e20328839cae0ffd175706207341c7f5f7bc6a0006af0381af215924a2",
+      "bytes": 30704
+    },
+    "search_trials/price_holdings/2017/17/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2017/17/audit.pkl",
+      "sha256": "d791958e2dfcfb4a5e5ce73c77eaa7781e1c920ac65744329b350c6f4efb38e6",
+      "bytes": 3976276
+    },
+    "search_trials/price_holdings/2017/17/model.pkl": {
+      "artifact": "search_trials/price_holdings/2017/17/model.pkl",
+      "sha256": "d7bde8753894235561c5218bc049e848d3fb148d20181b9784c274dfe8ae1cc8",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2017/41/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2017/41/audit.pkl",
+      "sha256": "82a37e43eebe2a51188d7528020f011e79dd937462f2abbeb882dbca2e7f143e",
+      "bytes": 3970205
+    },
+    "search_trials/price_holdings/2017/41/model.pkl": {
+      "artifact": "search_trials/price_holdings/2017/41/model.pkl",
+      "sha256": "26be32b83737bb0efba1336515d0dc4470297cf63fa85ba5e594222cd2e005a1",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2017/71/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2017/71/audit.pkl",
+      "sha256": "479b657b2a44d11fb4ca9c0a28d2025e341125aaaffce32a64490de6b370569e",
+      "bytes": 3976335
+    },
+    "search_trials/price_holdings/2017/71/model.pkl": {
+      "artifact": "search_trials/price_holdings/2017/71/model.pkl",
+      "sha256": "6b7037144d477608d65dad7c1f98240e0ae3bc1fe070e3ede3ba50d0b8764fb7",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2017/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2017/ensemble/audit.pkl",
+      "sha256": "d0ac9daa24df18d428c0ad0706e890b8394083000c13a96fee0c37b016331ece",
+      "bytes": 1274583
+    },
+    "search_trials/price_holdings/2017/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_holdings/2017/ensemble/bundle.pkl",
+      "sha256": "8bdbfc1c98ca656638dec962a4d29bfd1576b8479f2644db3cc442d8236edd9a",
+      "bytes": 30708
+    },
+    "search_trials/price_holdings/2018/17/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2018/17/audit.pkl",
+      "sha256": "f87bbfe0c9849ad50cd6c3f6db8d1bfad2cc4b1a13060040a189cc676ad71af5",
+      "bytes": 4187788
+    },
+    "search_trials/price_holdings/2018/17/model.pkl": {
+      "artifact": "search_trials/price_holdings/2018/17/model.pkl",
+      "sha256": "631bbca1d8a4b25f36e38ef00d7782e47e4c6ab2b9fc9311d8eedb4c2b22827d",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2018/41/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2018/41/audit.pkl",
+      "sha256": "45e0a49b0c504a6c0722cc7942df2f6c4b82aadd683c2b0497812ad03e8105e3",
+      "bytes": 4188265
+    },
+    "search_trials/price_holdings/2018/41/model.pkl": {
+      "artifact": "search_trials/price_holdings/2018/41/model.pkl",
+      "sha256": "fc5a8b2a87bdc05dd13c6519c1cee45ac7325ecb35e042b61db50054be6bd941",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2018/71/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2018/71/audit.pkl",
+      "sha256": "37ba773a2fc2277c0ac98f99ade5399682924655c563e388fb94ee0b3febd462",
+      "bytes": 4190593
+    },
+    "search_trials/price_holdings/2018/71/model.pkl": {
+      "artifact": "search_trials/price_holdings/2018/71/model.pkl",
+      "sha256": "5ad6a08305c0c63fa393c122bb9832a2a3306b79413257914e44659b8736789b",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2018/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2018/ensemble/audit.pkl",
+      "sha256": "429f54d240bc37c4760aac634b14532c4100de1b46662feee98048b4aa738ee7",
+      "bytes": 1485433
+    },
+    "search_trials/price_holdings/2018/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_holdings/2018/ensemble/bundle.pkl",
+      "sha256": "fcf55be65d5a505547357f2c42a0cbe85acb3ef96df17b5939a9ade8da1701b9",
+      "bytes": 30700
+    },
+    "search_trials/price_holdings/2019/17/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2019/17/audit.pkl",
+      "sha256": "734e38bee0a9fb0361c388768ae2619ec02392205ed8655f1d7e013b5d498cd8",
+      "bytes": 4406221
+    },
+    "search_trials/price_holdings/2019/17/model.pkl": {
+      "artifact": "search_trials/price_holdings/2019/17/model.pkl",
+      "sha256": "0f2e4b9e2f3f4439a1df6a78312a18001f056da0446b03a3df4be800fd855991",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2019/41/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2019/41/audit.pkl",
+      "sha256": "cabfdf589753351f726927022dcaa793b1f24bf71bcc1a1206ebe17a050cb968",
+      "bytes": 4406243
+    },
+    "search_trials/price_holdings/2019/41/model.pkl": {
+      "artifact": "search_trials/price_holdings/2019/41/model.pkl",
+      "sha256": "4665a3af7cf2fd7985c3bc47f5c2d250ba8356fdac456ce30d7999bf22f42cf2",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2019/71/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2019/71/audit.pkl",
+      "sha256": "eb1c693390a0a19afee1840362f5ea70f9facf73c04f78ef73b0a19385e773a7",
+      "bytes": 4406143
+    },
+    "search_trials/price_holdings/2019/71/model.pkl": {
+      "artifact": "search_trials/price_holdings/2019/71/model.pkl",
+      "sha256": "cbfdbd0e9c462918364faf7d28dd45a04401d5dea4e9db560b7eefbe428508cf",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2019/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2019/ensemble/audit.pkl",
+      "sha256": "ec6d84d523daa862e48365c4759f7ea1fb0843a89923cea2df0d0b6e8542c7fb",
+      "bytes": 1696290
+    },
+    "search_trials/price_holdings/2019/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_holdings/2019/ensemble/bundle.pkl",
+      "sha256": "a4c4356eee5df51036bef95fc493b5924c83dde24aab3a35f73383c1b961e8ba",
+      "bytes": 30708
+    },
+    "search_trials/price_holdings/2020/17/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2020/17/audit.pkl",
+      "sha256": "22986783f8c221fe65e098f191c79e27cde99c8132ff70ebd1c13d1c6795a730",
+      "bytes": 4618131
+    },
+    "search_trials/price_holdings/2020/17/model.pkl": {
+      "artifact": "search_trials/price_holdings/2020/17/model.pkl",
+      "sha256": "21c3108abaf12733e9fc4caed0628f19d5ac2588c32d8abfdf4c7b4737c1f2bc",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2020/41/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2020/41/audit.pkl",
+      "sha256": "d1763e241e260ae78aac5c53883f798cfd514e61257fe021d7742d0f66770f55",
+      "bytes": 4614353
+    },
+    "search_trials/price_holdings/2020/41/model.pkl": {
+      "artifact": "search_trials/price_holdings/2020/41/model.pkl",
+      "sha256": "9504e3ed88e69d1d0fd7d89f6eab265f2f893f35c18f88abbc919401bac5c793",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2020/71/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2020/71/audit.pkl",
+      "sha256": "3d91ae0323200d99a1801988fcd629761fbbb8eb8f7da04f2052689ab24c9575",
+      "bytes": 4621695
+    },
+    "search_trials/price_holdings/2020/71/model.pkl": {
+      "artifact": "search_trials/price_holdings/2020/71/model.pkl",
+      "sha256": "ffdd7ad71c187647c796e3aa5fdd1a9fd97d92546259c826702d430b33baf30e",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2020/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2020/ensemble/audit.pkl",
+      "sha256": "f920ebe99ff8808c497eed81a3622fb1b53280fb23a1746903d9dff7bfdebfae",
+      "bytes": 1907977
+    },
+    "search_trials/price_holdings/2020/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_holdings/2020/ensemble/bundle.pkl",
+      "sha256": "baf29d7fd2bca856872a7cf16a112d5f11874a6bb9c7e0c94cc6c9371f0e7d1b",
+      "bytes": 30706
+    },
+    "search_trials/price_holdings/2021/17/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2021/17/audit.pkl",
+      "sha256": "b127a318d661e3ddfe935b2cc6d671af05653937d95ee3f14884ae5413e04427",
+      "bytes": 4344006
+    },
+    "search_trials/price_holdings/2021/17/model.pkl": {
+      "artifact": "search_trials/price_holdings/2021/17/model.pkl",
+      "sha256": "4fd716996def567ce012ca6611e9322de7573a812aa65a688b33f502d139d6b5",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2021/41/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2021/41/audit.pkl",
+      "sha256": "a0c9562d6b084110e110f14480aa78d90c4afa734fbb0b876c80424d414e0ac1",
+      "bytes": 4838514
+    },
+    "search_trials/price_holdings/2021/41/model.pkl": {
+      "artifact": "search_trials/price_holdings/2021/41/model.pkl",
+      "sha256": "2eaa4e3883044468c39f5e336cb797d354418cf365349a174b877923e3167949",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2021/71/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2021/71/audit.pkl",
+      "sha256": "7a88ee93e1dc3c716cd547741a129167e9e820cebffda174a1b7bcc149d6b095",
+      "bytes": 4838692
+    },
+    "search_trials/price_holdings/2021/71/model.pkl": {
+      "artifact": "search_trials/price_holdings/2021/71/model.pkl",
+      "sha256": "778eb3d9d68dafcbae260476229b0fe8519eb074e96803f4baf897f9c90a43b9",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2021/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2021/ensemble/audit.pkl",
+      "sha256": "2827c6547d65bd95dfbba93d13421181f98d30e3297a6745589224349b65bc31",
+      "bytes": 2120495
+    },
+    "search_trials/price_holdings/2021/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_holdings/2021/ensemble/bundle.pkl",
+      "sha256": "0c37dd9dc4995c9481a289a6a66425418f7f5df1cc4a61f6a6aa7615bae5f5be",
+      "bytes": 30704
+    },
+    "search_trials/price_holdings/2022/17/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2022/17/audit.pkl",
+      "sha256": "03af80565a810b0afdc5d8221332be1a3c41b3c28a3840c6323d503a889e14f6",
+      "bytes": 5050642
+    },
+    "search_trials/price_holdings/2022/17/model.pkl": {
+      "artifact": "search_trials/price_holdings/2022/17/model.pkl",
+      "sha256": "b7f9bf6bed1677f032c7ada912b30e9153940a41759a359c2ba797579a614464",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2022/41/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2022/41/audit.pkl",
+      "sha256": "874e6c3d440833e4a1f2f46f27fd216efa4fbe86c991c041bb2bae8682322b4a",
+      "bytes": 5058377
+    },
+    "search_trials/price_holdings/2022/41/model.pkl": {
+      "artifact": "search_trials/price_holdings/2022/41/model.pkl",
+      "sha256": "21de20c204e156c145f243f99f7aa293ab24f7263abd153c2962299b1d65c1ce",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2022/71/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2022/71/audit.pkl",
+      "sha256": "6667add2b26391ab66bc0d212a3f8407aaa554fc2230ea24546e25ff90d471af",
+      "bytes": 5054061
+    },
+    "search_trials/price_holdings/2022/71/model.pkl": {
+      "artifact": "search_trials/price_holdings/2022/71/model.pkl",
+      "sha256": "5550fd960e2ad44f5a2328d6838e9664c9c1399f4ed6ff9736fcdc899ca96c9b",
+      "bytes": 2723
+    },
+    "search_trials/price_holdings/2022/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_holdings/2022/ensemble/audit.pkl",
+      "sha256": "a392d163e99f46f7c5db35c801adb18fbbcf53098029a2434a682eaa3cc7e01e",
+      "bytes": 2332251
+    },
+    "search_trials/price_holdings/2022/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_holdings/2022/ensemble/bundle.pkl",
+      "sha256": "3ac9ce3ceedcd92ca773998ce18364bf395ff624b76316ae2fc33b9e5d9e77d2",
+      "bytes": 30708
+    },
+    "search_trials/price_vol_holdings/2016/17/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2016/17/audit.pkl",
+      "sha256": "aa5f08c71e00d6edc7bf8727dc7cfd6b70200c1ed08b166fb36853c73cd63cfc",
+      "bytes": 3757553
+    },
+    "search_trials/price_vol_holdings/2016/17/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2016/17/model.pkl",
+      "sha256": "f9266c7849e3604f49fc776243739b88591de6d05e73d1fd6eeded8d8dc05121",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2016/41/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2016/41/audit.pkl",
+      "sha256": "2ec81bc3566efc6b5ad65de8d7418dbf25a6365f64f75805b26dcbbb4c944c0b",
+      "bytes": 3760970
+    },
+    "search_trials/price_vol_holdings/2016/41/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2016/41/model.pkl",
+      "sha256": "436f77fac6f7dd830b4ea99b282dc3bbb52f9b68d4f30990b87aab0450488fec",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2016/71/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2016/71/audit.pkl",
+      "sha256": "50b48240f3fdee83afd431dab0874fbaa2678e3847b35260d68712e52dd49a78",
+      "bytes": 3757114
+    },
+    "search_trials/price_vol_holdings/2016/71/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2016/71/model.pkl",
+      "sha256": "f666a0408fbd80f5d6afab498682f10eb7f6b841c9e7791eeae694d97c60c6c5",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2016/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2016/ensemble/audit.pkl",
+      "sha256": "1cbcaae0ad0706937127b404ee9f49d9226dc7b28608b415aba3f4140df2aa45",
+      "bytes": 1062867
+    },
+    "search_trials/price_vol_holdings/2016/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2016/ensemble/bundle.pkl",
+      "sha256": "d62a191f3d77cfff6008dfd7e0bddf0a2b167941f7627337b99c96bb6bda1eb2",
+      "bytes": 30717
+    },
+    "search_trials/price_vol_holdings/2017/17/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2017/17/audit.pkl",
+      "sha256": "6fd974e549f290e8d31fa84ff2523862fa3a79fd2da5355f8db3e5e9cb72f64d",
+      "bytes": 3973042
+    },
+    "search_trials/price_vol_holdings/2017/17/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2017/17/model.pkl",
+      "sha256": "4e5c4cb13d989ebd7aed54bfdec3333e0eb438ed929f53292368f8d494e02e78",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2017/41/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2017/41/audit.pkl",
+      "sha256": "737974f2950189cf7ba4964dd3f5212fdefb6f2fd939d2af7eed0a6e91d290c6",
+      "bytes": 3969462
+    },
+    "search_trials/price_vol_holdings/2017/41/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2017/41/model.pkl",
+      "sha256": "55c7b1eade41921e82be2c28ef7b33752a597d5e83b567921080144178b928b1",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2017/71/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2017/71/audit.pkl",
+      "sha256": "bf75d7607946704c25edc33f429b110c7efacd56783316dc8b90a3149aadf745",
+      "bytes": 3976669
+    },
+    "search_trials/price_vol_holdings/2017/71/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2017/71/model.pkl",
+      "sha256": "a75693fde59079a99ebc5148ece3305326919d12e3000a24612b80a3673295c4",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2017/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2017/ensemble/audit.pkl",
+      "sha256": "e896a068b7eef5ca2f4f3884f227ea6a15550c566a18d4978dea1b08db8bb56b",
+      "bytes": 1274587
+    },
+    "search_trials/price_vol_holdings/2017/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2017/ensemble/bundle.pkl",
+      "sha256": "a7140b4212b244cf436d69686638f967a022199082397eb616494f9d32d5c13d",
+      "bytes": 30721
+    },
+    "search_trials/price_vol_holdings/2018/17/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2018/17/audit.pkl",
+      "sha256": "ee0e3e9157c48ae9df866b3f89b59bcb4683b1f3c42a6b729b406dcd13045890",
+      "bytes": 4191292
+    },
+    "search_trials/price_vol_holdings/2018/17/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2018/17/model.pkl",
+      "sha256": "cdee1da4e85385b12269e9c69200edf88d6fd8fb6255a5da4d7b9b39e7ab393e",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2018/41/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2018/41/audit.pkl",
+      "sha256": "c59a6469f983676dbe4d84ce3e0575cc76ff0446f3ce65e982681fa7b9b359bb",
+      "bytes": 4191633
+    },
+    "search_trials/price_vol_holdings/2018/41/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2018/41/model.pkl",
+      "sha256": "867a2c02b9147639f263693445ea7fe66c9318c103215a953872c7c02f37fed4",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2018/71/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2018/71/audit.pkl",
+      "sha256": "ed81b35fe1cf87025b0e6ac8905190b65e718fe66226f4513ccae4f063477a59",
+      "bytes": 4188252
+    },
+    "search_trials/price_vol_holdings/2018/71/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2018/71/model.pkl",
+      "sha256": "346763e3dd52d7f82e9f57e4500979b943ae00e59edd2f5cff86cbb3869fbbd7",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2018/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2018/ensemble/audit.pkl",
+      "sha256": "3a25047f10806efe15a1e4376bc37f7f27bece45ee7e559baa66c3c441404ab2",
+      "bytes": 1485443
+    },
+    "search_trials/price_vol_holdings/2018/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2018/ensemble/bundle.pkl",
+      "sha256": "bfd33bcde8559f58b8e9b3c32f48e990a4fd8156c9b5f9e180f43a9bad34887d",
+      "bytes": 30719
+    },
+    "search_trials/price_vol_holdings/2019/17/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2019/17/audit.pkl",
+      "sha256": "d636b66f09bc345c31397b56a2eec32ffec140d7a6a608100cb06b16162d484d",
+      "bytes": 4406459
+    },
+    "search_trials/price_vol_holdings/2019/17/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2019/17/model.pkl",
+      "sha256": "a0c2a6420fc4e38140ee51bf6a4bb97ffde4bc1431224f89d7d04770d2c55656",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2019/41/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2019/41/audit.pkl",
+      "sha256": "2b7fb46b9a8b537d4c97b002feb75e639b329dcf66bc23f56cd369572ac9449b",
+      "bytes": 4404348
+    },
+    "search_trials/price_vol_holdings/2019/41/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2019/41/model.pkl",
+      "sha256": "9d68444d0260f7c923f14552d2b2a19c320c8ab66eafa880eda43e43f1e6348f",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2019/71/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2019/71/audit.pkl",
+      "sha256": "5573ec040a22daf151613ad507299177f3e909fb36e427d87d42fa6890fe492d",
+      "bytes": 4406343
+    },
+    "search_trials/price_vol_holdings/2019/71/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2019/71/model.pkl",
+      "sha256": "9c75bc089b1efd092f336f3184bea2c7fe57b95aedde71d99a6167a61a530a9c",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2019/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2019/ensemble/audit.pkl",
+      "sha256": "8b1e699d92b6959371d5998ca4c4aadc5b20d79ec2179d8b811a30afb2dbf52e",
+      "bytes": 1696292
+    },
+    "search_trials/price_vol_holdings/2019/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2019/ensemble/bundle.pkl",
+      "sha256": "004e9a872a7ab3f32287f63ce649cebb39e5ee3db9bc9d9c1d9bfef5e6759569",
+      "bytes": 30719
+    },
+    "search_trials/price_vol_holdings/2020/17/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2020/17/audit.pkl",
+      "sha256": "490371f854bccb457a79334958d894ebdf7c64cad63dc2ad772d236c99edf125",
+      "bytes": 4074885
+    },
+    "search_trials/price_vol_holdings/2020/17/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2020/17/model.pkl",
+      "sha256": "ce7d173e566c258d5e62a8a0b3b9604343138644abc1cbce0145e59160729006",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2020/41/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2020/41/audit.pkl",
+      "sha256": "3c70180392f8a5cc8514f887381fa2cc9cb2704f09ced0f2b1ca78f1693a743e",
+      "bytes": 4622051
+    },
+    "search_trials/price_vol_holdings/2020/41/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2020/41/model.pkl",
+      "sha256": "8444a43e59379f24e9516b21a98284e1dcb0f35ade0d84e0a6cbceb16dff4c5e",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2020/71/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2020/71/audit.pkl",
+      "sha256": "2b524089fee9b8e81137c0da9a1f4898c80e3510230629f7a5f5a5cec775e4a0",
+      "bytes": 4622176
+    },
+    "search_trials/price_vol_holdings/2020/71/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2020/71/model.pkl",
+      "sha256": "128289835a6705fdcf9f30a10135c43d56b68b034ab3412a5f36648327ea3f0d",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2020/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2020/ensemble/audit.pkl",
+      "sha256": "8313020b21faad9158cb2b772e4e2631b30c41588821e6436246c2ee3e5441cd",
+      "bytes": 1907979
+    },
+    "search_trials/price_vol_holdings/2020/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2020/ensemble/bundle.pkl",
+      "sha256": "0e61edb607d73b4c4979dbe288f88787469d1b65dd9f2cf7326b7b35905d3938",
+      "bytes": 30717
+    },
+    "search_trials/price_vol_holdings/2021/17/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2021/17/audit.pkl",
+      "sha256": "eb8ad03b67e590d24465919c4625ee83e1d6693b1537d233d1691eac99fd95e9",
+      "bytes": 4834745
+    },
+    "search_trials/price_vol_holdings/2021/17/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2021/17/model.pkl",
+      "sha256": "2a78d153f719d205a0b03ffeee6beb7e710d134a36fbe781b1f465cab3c384b2",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2021/41/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2021/41/audit.pkl",
+      "sha256": "6651022d8389c699fcd24cbcd86af1fc920b79bc11b8a2e77b4ddd337730b622",
+      "bytes": 4834946
+    },
+    "search_trials/price_vol_holdings/2021/41/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2021/41/model.pkl",
+      "sha256": "14d17b8594383e100146c2605f3c14904d96aab3c485caf8fe09f27413b0164e",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2021/71/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2021/71/audit.pkl",
+      "sha256": "44f031198419c5631510a84248c480824ac947a264b8d3560eeb4a9abbb17120",
+      "bytes": 3701723
+    },
+    "search_trials/price_vol_holdings/2021/71/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2021/71/model.pkl",
+      "sha256": "23c8b295aa3bf3267eec26b84f5eabf2d22db297d6383d18906c5e0ca76d299a",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2021/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2021/ensemble/audit.pkl",
+      "sha256": "b723de1727b5356b25de2c2a6e1c8f6bbe9a2fe607ded2151158ade4e2cc7a5b",
+      "bytes": 2120497
+    },
+    "search_trials/price_vol_holdings/2021/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2021/ensemble/bundle.pkl",
+      "sha256": "7824372a3b671c00c6c729241e8da8f0fbbec22a7e2f741278c78a9f8459f8ef",
+      "bytes": 30715
+    },
+    "search_trials/price_vol_holdings/2022/17/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2022/17/audit.pkl",
+      "sha256": "672a88bcdf4806e236a77744eea140040f6e0b22b1182897c53a86538e6ced0c",
+      "bytes": 3100659
+    },
+    "search_trials/price_vol_holdings/2022/17/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2022/17/model.pkl",
+      "sha256": "61a7720795cd2fd4e4068776dd39ddc7f5f484b54fc9b79aaed2385bee1c7e05",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2022/41/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2022/41/audit.pkl",
+      "sha256": "39e369afc56face2d4993a49eecad9ffd60a49e281b36d5c1f8769abead078b7",
+      "bytes": 5050948
+    },
+    "search_trials/price_vol_holdings/2022/41/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2022/41/model.pkl",
+      "sha256": "19466f6f5a003616a44cac33363ba4318e178683396fb9c09b525246d15b05ab",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2022/71/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2022/71/audit.pkl",
+      "sha256": "ddafc472d9cebb8661a5a39ca6a8a064d6c6926710990629b9e0ae42cc51d16b",
+      "bytes": 5053665
+    },
+    "search_trials/price_vol_holdings/2022/71/model.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2022/71/model.pkl",
+      "sha256": "c84a302f92fd3a19ebc50076e731e382838d42f8ea0387c58d4be81ba23d4fd7",
+      "bytes": 2723
+    },
+    "search_trials/price_vol_holdings/2022/ensemble/audit.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2022/ensemble/audit.pkl",
+      "sha256": "e093fc9d46cc09c9ead71b26547a3b0f63a37b06bef5152fd68f26ad6ac6ff30",
+      "bytes": 2332253
+    },
+    "search_trials/price_vol_holdings/2022/ensemble/bundle.pkl": {
+      "artifact": "search_trials/price_vol_holdings/2022/ensemble/bundle.pkl",
+      "sha256": "d4d30e05cafef2d559698d1b396537a9af7dd8176d4dcdc038ffe8fa92a2c689",
+      "bytes": 30719
+    }
+  }
+}

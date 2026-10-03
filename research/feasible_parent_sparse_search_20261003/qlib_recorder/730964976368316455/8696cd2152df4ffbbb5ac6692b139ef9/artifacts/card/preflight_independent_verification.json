@@ -1,0 +1,13 @@
+{
+  "combined_independent_audit_passed": true,
+  "initial_report_sha256": "78dabf9fd3cccf8ae2787982170cadbea7f9f625119388b16640aabd43e0debb",
+  "specific_resolution_sha256": "c8006058fb5942e2ea45fa4862dd7b489ee2c856a5b52648f79345edfc7f17ec",
+  "recorder_id": "a0cbd66785b44ccc8ab2080b36026195",
+  "unique_heads": 640,
+  "cost_books": 1280,
+  "decisions": 645120,
+  "source_faithful_selected_initial_support_verified": true,
+  "original_diagnostic_flags_retained": true,
+  "source_or_tolerances_changed": false,
+  "scope": "All financial/risk/budget/freeze checks passed; bounded source-faithful scalar audit resolves only trial0 support-count roundoff at5.551115123125783e-17. No additional model/search or changed gate."
+}

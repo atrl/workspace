@@ -1,0 +1,34 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+{
+  "scope": "Synthetic mathematical/forward/callback calls only; no scipy optimizer, model fit, registered504toy, market data or parent/OOS selection.",
+  "source_sha256": {
+    "src/model/feasible_parent_sparse_search.py": "47db72c75283ce2d6ad05f60234a731f2994c0900ad3f6346413e2bfa0b6d323",
+    "src/model/paired_sparse_paths.py": "0c11f683273d3c0341c175d35cfc62b18dee73dbce9b707b2400973569c22a1f",
+    "src/data/feasible_parent_sparse_search.py": "aeb4bbe0a9b81751d6b87ca8d8b6425546446541671fac62a706b265bb76f612"
+  },
+  "gauge_points": 411,
+  "max_gauge_target_error": 3.3306690738754696e-16,
+  "cost_book_errors": {
+    "1models_25.0": 0.0,
+    "1models_10.0": 0.0,
+    "3models_25.0": 0.0,
+    "3models_10.0": 0.0
+  },
+  "all_owned_states_targets_expert_weights_bitexact_to_separate_full_rollouts": true,
+  "cost_buffers_independent": true,
+  "budget_including_parent": 3,
+  "completed_unique_evaluations": 3,
+  "requested_callbacks": {
+    "objective": 4,
+    "constraints": 3,
+    "initial_parent": 1
+  },
+  "cache_hits": 4,
+  "raw_parent_revalidation_passed": true,
+  "solver_status_never_used_for_incumbent_review": true,
+  "inherited_parent_does_not_establish_incremental_optimizer_gain": true,
+  "failures": []
+}

@@ -1,0 +1,30 @@
+experiment: feasible_parent_sparse_search_20261003
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+region: us
+recorder_uri: /Users/rziiiii/dev/workspace/research/feasible_parent_sparse_search_20261003/qlib_recorder
+model_selection: selection_plan.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*.pkl
+  - models/*.pkl
+  - preflight/*
+  - search_trials/*
+  - parent_reproductions/*
+  - analysis/*.pkl
+  - portfolio_analysis/*.pkl
+segments:
+  development_signal_years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  diagnostic_signal_years:
+  - 2023
+  - 2024
+  - 2025
+  - 2026

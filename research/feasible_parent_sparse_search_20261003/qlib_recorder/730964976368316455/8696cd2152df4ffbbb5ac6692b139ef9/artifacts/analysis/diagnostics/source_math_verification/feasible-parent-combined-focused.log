@@ -1,0 +1,34 @@
+........................................................................ [ 74%]
+.........................                                                [100%]
+=============================== warnings summary ===============================
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19
+  /Users/rziiiii/dev/workspace-worktrees/feasible-parent-sparse-search-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_DAY = pd.Timedelta("1day")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20
+  /Users/rziiiii/dev/workspace-worktrees/feasible-parent-sparse-search-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_MIN = pd.Timedelta("1min")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21
+  /Users/rziiiii/dev/workspace-worktrees/feasible-parent-sparse-search-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    EPS_T = pd.Timedelta("1s")  # use 1 second to exclude the right interval point
+
+tests/test_feasible_parent_sparse_search_data.py::test_loads_original_retained_parent_and_mature_bindings_without_fitting
+  /Users/rziiiii/dev/workspace-worktrees/feasible-parent-sparse-search-20261003/qlib_venv/lib/python3.12/site-packages/google/protobuf/internal/well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+tests/test_feasible_parent_sparse_search_data.py: 220 warnings
+  /Users/rziiiii/dev/workspace-worktrees/feasible-parent-sparse-search-20261003/src/data/integrated_allocation.py:103: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return pd.Series(stamps + pd.Timedelta(hours=hour, minutes=minute), index=source.index)
+
+tests/test_feasible_parent_sparse_search_data.py: 44 warnings
+  /Users/rziiiii/dev/workspace-worktrees/feasible-parent-sparse-search-20261003/src/data/convex_allocation.py:29: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return pd.Series(values + pd.Timedelta(hours=9, minutes=30), index=days.index)
+
+tests/test_post_fee_settlement.py::test_hold_composition_has_zero_fee_gradient_and_correct_state_gradient[0.001]
+  /Users/rziiiii/dev/workspace-worktrees/feasible-parent-sparse-search-20261003/tests/test_post_fee_settlement.py:64: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+    assert float(result['turnover']) == 0 and float(result['fees']) == 0
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+97 passed, 269 warnings in 20.30s

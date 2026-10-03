@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "prior_original_plan_sha256": "0db1a5d0fcde0b6cfc3801e1ecd5ea718ecbe139fe2f34d50046227238cfd093",
+  "prior_clarified_plan_sha256": "713b85da7aac9517907676fc75d15bd468a08f4379d181be7aeedbcccb189dfe",
+  "current_plan_sha256": "c7818045478368cd472b4f37c54a19ffcad014478e36d558f4af31af6e5f40b7",
+  "changed_top_level_fields": [
+    "artifact_policy",
+    "pre_probe_clarifications",
+    "registered_before_market_model_fits_or_portfolio_results",
+    "synthetic_known_information"
+  ],
+  "same_costs_raw_risks_sources_seeds_fixture_solver_budget": true,
+  "registered_probe_started": false,
+  "scope": "Administrative registration flag, declared Recorder locations and explicit no-negative/no-fallback ensemble gate only; all prior UTF8 bytes verified."
+}
