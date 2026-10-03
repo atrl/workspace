@@ -1,0 +1,524 @@
+{
+  "experiment": "causal_cash_calibration_20261003",
+  "artifact_policy": "slim_card_recorder_first",
+  "recorder_id": "cade082cf1454cb19aa95d3cacc83b32",
+  "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/causal_cash_calibration_20261003/qlib_recorder",
+  "entries": [
+    {
+      "path": "bootstrap_summary.csv",
+      "bytes": 17816,
+      "sha256": "4bb908ee42924fcec0a853b0fe0b51eb27538b8752c07eb9575a25f6b81310c0",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "calibration_fits.csv",
+      "bytes": 3704,
+      "sha256": "c0d0b9fa47fd7e5985668577d6cb7db1a6047b66c2981ca67b1c951f71b66c1e",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "causal_cash_calibration_20261003.ipynb",
+      "bytes": 189173,
+      "sha256": "4f3aedf1a074df84b120cb16cf67cee6aba831c60d5321c7be19f445481829ac",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "conclusion.md",
+      "bytes": 2597,
+      "sha256": "5959b0cd693cdcdc108af3da5e9e0a20877a67dc18cf250955d3ae9fc2408e5d",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "event_metrics.csv",
+      "bytes": 14367,
+      "sha256": "956c03053b159ce7dd854910afe89b3e1fd75a7e45fabe0467ca2a720a496588",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "independent_review.json",
+      "bytes": 705,
+      "sha256": "6864ecd48b4c84dfc7bc44773bd85c293f2dc685a32b263e7c6e9e9fc61c3270",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "input_smoke.json",
+      "bytes": 8433,
+      "sha256": "e0784a0ef57b34404df4ef64bd57f58453f6e00973ad375d331d1a541a125ece",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "plan.json",
+      "bytes": 15895,
+      "sha256": "f7c0ab297fddb951071e2adb58b2f151f46470daf8ec2e354b6c9573490ddaa1",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "point_metrics.csv",
+      "bytes": 14592,
+      "sha256": "80bb031699ff1c978104a0994caf98e83f92cc5df5da0147dafae582b46bf2cf",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/analysis/bootstrap_draws.pkl",
+      "bytes": 1156921,
+      "sha256": "ed2ef554266780a3f50a941c1013ab6f72114d47e5e5d16a438d285dee347207",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/analysis/calibrated_predictions.pkl",
+      "bytes": 473432,
+      "sha256": "3024aa6abc337fb3fa2b3c24b2c3bb2bc446bbb2078704ef0a9cd0071dd5ff1b",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/analysis/summary.pkl",
+      "bytes": 7500,
+      "sha256": "aea4d198375610becec959e49476c54512acf1c36e972d9c5181350ead5c914c",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/analysis/tables.pkl",
+      "bytes": 32810,
+      "sha256": "6bfb79a28f4b7509e2f79eac9818d2515ab8b0f63b99f638f4dd63a55281532a",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/bootstrap_summary.csv",
+      "bytes": 17816,
+      "sha256": "4bb908ee42924fcec0a853b0fe0b51eb27538b8752c07eb9575a25f6b81310c0",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/calibration_fits.csv",
+      "bytes": 3704,
+      "sha256": "c0d0b9fa47fd7e5985668577d6cb7db1a6047b66c2981ca67b1c951f71b66c1e",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/causal_cash_calibration_20261003.ipynb",
+      "bytes": 189173,
+      "sha256": "4f3aedf1a074df84b120cb16cf67cee6aba831c60d5321c7be19f445481829ac",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/conclusion.md",
+      "bytes": 2597,
+      "sha256": "5959b0cd693cdcdc108af3da5e9e0a20877a67dc18cf250955d3ae9fc2408e5d",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/event_metrics.csv",
+      "bytes": 14367,
+      "sha256": "956c03053b159ce7dd854910afe89b3e1fd75a7e45fabe0467ca2a720a496588",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/independent_review.json",
+      "bytes": 705,
+      "sha256": "6864ecd48b4c84dfc7bc44773bd85c293f2dc685a32b263e7c6e9e9fc61c3270",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/input_smoke.json",
+      "bytes": 8433,
+      "sha256": "e0784a0ef57b34404df4ef64bd57f58453f6e00973ad375d331d1a541a125ece",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/plan.json",
+      "bytes": 15895,
+      "sha256": "f7c0ab297fddb951071e2adb58b2f151f46470daf8ec2e354b6c9573490ddaa1",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/point_metrics.csv",
+      "bytes": 14592,
+      "sha256": "80bb031699ff1c978104a0994caf98e83f92cc5df5da0147dafae582b46bf2cf",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/recorder_reference.json",
+      "bytes": 5397,
+      "sha256": "387b4d64bf725a18233b532b900fed615401130e02ad3652c68d0936f8751248",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/registration.json",
+      "bytes": 199,
+      "sha256": "db5edd80f36f07cefcaa82388af9bc0bf4dcbd4b2a7e62bb302fbb1e7f0d4bf8",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/screening_gates.csv",
+      "bytes": 2283,
+      "sha256": "8e5d992c3600e1c018285bd690b6f3bf0a4359a067b45ea89c9e267abd024670",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/summary.json",
+      "bytes": 9257,
+      "sha256": "bec534aeac9cf6096c839ed98429ea99ef4f61ae80fe6b554746e8f1a9df0982",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/verification.json",
+      "bytes": 694,
+      "sha256": "196a10ffed9a7ec4537ec30cf2c93d39112112e886a3900f96c9f4595f14b21a",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/card/workflow.yaml",
+      "bytes": 2382,
+      "sha256": "6927b53f96d6aac082104e383db66f563bd518cef42a6162a98f14ead46dc4b7",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/code_cached.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/code_diff.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/code_status.txt",
+      "bytes": 390,
+      "sha256": "2007a038a4241b41668b25e30bfb7d0ef311d3319760121fdeb2ce25a476bc3f",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/inputs/diagnostic_rows.pkl",
+      "bytes": 442210,
+      "sha256": "b9a402be30abcd47ebb793d4f4d584d25fd17d3464d0eedc9281fe4a8b6cd8a7",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/inputs/head_readback_audit.pkl",
+      "bytes": 5516,
+      "sha256": "58d5c34a3f2680338fd2e9d2d963f78105c9585c1bad4a53264320f8ee54651b",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/inputs/plan.json",
+      "bytes": 15895,
+      "sha256": "f7c0ab297fddb951071e2adb58b2f151f46470daf8ec2e354b6c9573490ddaa1",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/inputs/registration.json",
+      "bytes": 199,
+      "sha256": "db5edd80f36f07cefcaa82388af9bc0bf4dcbd4b2a7e62bb302fbb1e7f0d4bf8",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/inputs/source_audit.pkl",
+      "bytes": 2312,
+      "sha256": "01f568437d23ff956b597b57acc9bab1b2c7e67419035fc46a4114d8b71fa1fa",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/inputs/source_hashes.pkl",
+      "bytes": 2561,
+      "sha256": "82b8ecfc7a198deec81fa7ada11afe7cc0c21bc7bd268bba849c41591cca8951",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/models/calibrations.pkl",
+      "bytes": 179759,
+      "sha256": "3c0257d95103d8f4b1c92eba2e49565aefeb9fd7a65c8e074dce9483f04dbe3e",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/models/fit_audit.pkl",
+      "bytes": 4716,
+      "sha256": "37c5b1148d88d99a3e4df09b748d0e1b277c5522a1d4d479e8a1c745d8d88644",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/verification/causal-cash-review.log",
+      "bytes": 1857,
+      "sha256": "5b6fb8c13b05321d7460edfcfed3fe748ced1a0aa12d0653f4d245fe2cc691aa",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/verification/causal_cash_calibration.py",
+      "bytes": 23996,
+      "sha256": "1ced485a7f778b3e404d60283f0b1a9a3c2b85d6da70eebcb1a12dc8e65ab0af",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/verification/review_causal_cash.py",
+      "bytes": 2789,
+      "sha256": "13f41adf94933c082f515ad2b90533e659062bb9abaa00f133f0ca8189923561",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/artifacts/verification/test_causal_cash_calibration.py",
+      "bytes": 6672,
+      "sha256": "5defd603df2b18139e5ebb8ff83e648b258ffd6874f01ac381d0b635ca3b733e",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/meta.yaml",
+      "bytes": 445,
+      "sha256": "9b1e2608d5d993cacd542fb087c9b92a60ea6c7b75f8662997d8db04d9066ba6",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/metrics/failed_gates",
+      "bytes": 21,
+      "sha256": "ca1a439984c6a43b1cf8f23bd316294a4344d371308a12afadbc2b88e349d228",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/metrics/screening_passed",
+      "bytes": 20,
+      "sha256": "5427bc9848915dca1093b258c523606bec18d39d2262a89545e5376ea941910a",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/params/annual_fits",
+      "bytes": 2,
+      "sha256": "4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/params/bootstrap_resamples",
+      "bytes": 4,
+      "sha256": "81a83544cf93c245178cbc1620030f1123f435af867c79d87135983c52ab39d9",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/params/cmd-sys.argv",
+      "bytes": 245,
+      "sha256": "dacdc0570f4bfe913a50724d69d5c0d8c7185499dadc247d1b5c8b66f95d84bc",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/params/frozen_market_head_refits",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/params/model",
+      "bytes": 21,
+      "sha256": "404866f12b54697c7b92f2e5927bb2c079e316ed3f73675aa37cea281dae396c",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "037e68c72304c13b7d5fe1955466c3ffbfe4221d2c23f39a0ac85dc99640e3c8",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/params/portfolio_paths",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/tags/mlflow.source.name",
+      "bytes": 132,
+      "sha256": "bf0738cd5de8a068861e9a4c2cd6dcd5d79a56727eb91cb2773406b8b3ddb371",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/cade082cf1454cb19aa95d3cacc83b32/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "qlib_recorder/767628446158634394/meta.yaml",
+      "bytes": 364,
+      "sha256": "df2be1f6a692b9e44155286dca099cf10708e896995beba58a5c3c0a450a538a",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "recorder_reference.json",
+      "bytes": 5397,
+      "sha256": "387b4d64bf725a18233b532b900fed615401130e02ad3652c68d0936f8751248",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "registration.json",
+      "bytes": 199,
+      "sha256": "db5edd80f36f07cefcaa82388af9bc0bf4dcbd4b2a7e62bb302fbb1e7f0d4bf8",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "screening_gates.csv",
+      "bytes": 2283,
+      "sha256": "8e5d992c3600e1c018285bd690b6f3bf0a4359a067b45ea89c9e267abd024670",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 9257,
+      "sha256": "bec534aeac9cf6096c839ed98429ea99ef4f61ae80fe6b554746e8f1a9df0982",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 694,
+      "sha256": "196a10ffed9a7ec4537ec30cf2c93d39112112e886a3900f96c9f4595f14b21a",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    },
+    {
+      "path": "workflow.yaml",
+      "bytes": 2382,
+      "sha256": "6927b53f96d6aac082104e383db66f563bd518cef42a6162a98f14ead46dc4b7",
+      "source": "Single registered prior-only cash calibration; native Qlib and frozen parent forecast chain",
+      "date_range": "Calibration2016-2026; frozen source through2026-09-25",
+      "purpose": "Reproduce/audit failed bounded screen; no production strategy"
+    }
+  ],
+  "entry_count": 64,
+  "total_bytes": 2935873,
+  "original_scientific_artifacts_unchanged": true,
+  "parent_trees_copied": false
+}

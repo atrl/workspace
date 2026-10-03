@@ -1,0 +1,27 @@
+gate,observed,required,passed,comparator,window,mean_block,cost_bps
+annual_MSE,3.0,>=6 of 7,False,raw,,,
+pooled_MSE,8.807625516664775e-07,>0,True,raw,development_2016_2022,,
+pooled_MSE_lower95,-2.8979678195313885e-06,">0, all draws defined",False,raw,development_2016_2022,20.0,
+pooled_MSE_lower95,-2.5300401493060578e-06,">0, all draws defined",False,raw,development_2016_2022,60.0,
+pooled_MSE,3.869945100892362e-07,>0,True,raw,reused_2023_asof,,
+pooled_MSE_lower95,-6.551845533238234e-06,">0, all draws defined",False,raw,reused_2023_asof,20.0,
+pooled_MSE_lower95,-7.0458396964895295e-06,">0, all draws defined",False,raw,reused_2023_asof,60.0,
+annual_MSE,5.0,>=6 of 7,False,prior_mean,,,
+pooled_MSE,1.4522609215660038e-06,>0,True,prior_mean,development_2016_2022,,
+pooled_MSE_lower95,-9.212795720786098e-07,">0, all draws defined",False,prior_mean,development_2016_2022,20.0,
+pooled_MSE_lower95,-5.778589656139961e-07,">0, all draws defined",False,prior_mean,development_2016_2022,60.0,
+pooled_MSE,2.7341304127060142e-06,>0,True,prior_mean,reused_2023_asof,,
+pooled_MSE_lower95,-1.2058719347906894e-06,">0, all draws defined",False,prior_mean,reused_2023_asof,20.0,
+pooled_MSE_lower95,-1.4591090787646474e-06,">0, all draws defined",False,prior_mean,reused_2023_asof,60.0,
+event_mean_net_bp,-65.12965414513194,>0,False,,development_2016_2022,,10.0
+event_mean_net_bp_lower95,-215.2987727902672,">0, all draws defined",False,,development_2016_2022,20.0,10.0
+event_mean_net_bp_lower95,,">0, all draws defined",False,,development_2016_2022,60.0,10.0
+event_mean_net_bp,,>0,False,,development_2016_2022,,25.0
+event_mean_net_bp_lower95,,">0, all draws defined",False,,development_2016_2022,20.0,25.0
+event_mean_net_bp_lower95,,">0, all draws defined",False,,development_2016_2022,60.0,25.0
+event_mean_net_bp,59.43081533178812,>0,True,,reused_2023_asof,,10.0
+event_mean_net_bp_lower95,-36.19561368635351,">0, all draws defined",False,,reused_2023_asof,20.0,10.0
+event_mean_net_bp_lower95,-25.866206829234137,">0, all draws defined",False,,reused_2023_asof,60.0,10.0
+event_mean_net_bp,,>0,False,,reused_2023_asof,,25.0
+event_mean_net_bp_lower95,,">0, all draws defined",False,,reused_2023_asof,20.0,25.0
+event_mean_net_bp_lower95,,">0, all draws defined",False,,reused_2023_asof,60.0,25.0
