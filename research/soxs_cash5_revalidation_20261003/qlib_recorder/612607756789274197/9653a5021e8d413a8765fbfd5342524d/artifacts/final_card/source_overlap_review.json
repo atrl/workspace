@@ -1,0 +1,13 @@
+{
+  "scope": "Read-only vendor overlap and join boundary, no forecast/label calculation",
+  "overlap_rows": 3453,
+  "absolute_raw_quote_relative_difference_quantiles": {
+    "median": 0.0,
+    "p95": 1.8717874317175625e-08,
+    "max": 0.004038364462392918
+  },
+  "first_futu_date": "2013-01-02",
+  "first_futu_raw_close": 29.12,
+  "yahoo_implied_raw_close_same_date": 29.12,
+  "data_changed": false
+}

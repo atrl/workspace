@@ -1,0 +1,80 @@
+{
+  "scope": "New source-only snapshot/provider; parent SOXL/SOXX not copied",
+  "research_source_qualified": true,
+  "strict_PIT_qualified": false,
+  "production_qualified": false,
+  "external_artifacts": [
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/canonical_calendar.json",
+      "sha256": "182e8d6d1d4f15bb0bb7f878c760410fb6c8eeb69dc6011dfb9eb2ef3e7df460"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/composed_events.csv",
+      "sha256": "47668e689335f68f04b5e75f99c5b7466dfd8ff4f02ec273b752fe2e48e60940"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/early_action_evidence.json",
+      "sha256": "b27659af1c1893eec6ca2fc9567ab7221f4ec20d7c744b7271b08cde02e76b0e"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/futu_none_all.csv",
+      "sha256": "7134809ecab8d6352e1d563216a0b84d6245f6b00bb7fc736b566fa01ebde9a6"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/intake_manifest.json",
+      "sha256": "2436d7eb1869edeb1af447dd4f9d3abfaee8722576421680e0cf5d3b8e1f193c"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/qualified_close_lineage.csv",
+      "sha256": "dc582408ac8c72f41b9de0037a8fc4acfe0057d6bc36663e9faa73a08d4d6495"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/rehab_after.csv",
+      "sha256": "35bf5fdbf4c843da30c5bebfb0d90556279d399c146e7ae7a67d1091af6b5199"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/rehab_before.csv",
+      "sha256": "35bf5fdbf4c843da30c5bebfb0d90556279d399c146e7ae7a67d1091af6b5199"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/supplemental_events.json",
+      "sha256": "1d7411a207226bc188411bf349df37c6f852f6420b46b32dc53c7f5f6420cc05"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/yahoo_early_event_check.json",
+      "sha256": "6df6418ded0dd78f2a0f182eaaa84da8ae2979858db414c0727f293a4475c673"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/yahoo_quote_and_splits_raw.json",
+      "sha256": "dd9bea0d0dbd06c443ea9c8408cd23abacb5ec18f5959db20a46354ce19cd8e2"
+    },
+    {
+      "path": "data/snapshots/soxs_published_close_20260925_v1/source_manifest.json",
+      "sha256": "508aca7dc1be0f66ee21af0c6a98601a08c0abad47bcf6e69ed4b9e4f6ce5b16"
+    },
+    {
+      "path": "data/qlib/soxs_published_close_20260925_v1/calendars/day.txt",
+      "sha256": "d3381b900795126d9b67efdc85780345b7a85c298a1f6d02fbe86e50ee3f96eb"
+    },
+    {
+      "path": "data/qlib/soxs_published_close_20260925_v1/features/soxs/close.day.bin",
+      "sha256": "1a9c6b62cd54df425fb1e26901e82602debc305b478ae8df5d0c63dd723d64d9"
+    },
+    {
+      "path": "data/qlib/soxs_published_close_20260925_v1/instruments/all.txt",
+      "sha256": "29fb8bc7706d753452b51a7a24585900bd6ceb656e2e047a773d7bb0cd612251"
+    },
+    {
+      "path": "data/qlib/soxs_published_close_20260925_v1/qlib.yaml",
+      "sha256": "af6c1e490b227a2b973f5afb6c131a3a6b2bb66703e6cec0f4304a0be6b5c86e"
+    },
+    {
+      "path": "data/qlib/soxs_published_close_20260925_v1/qlib_store_manifest.json",
+      "sha256": "29374820d67a823b2ffd7c61b4e30b79c9e73cb492b7f2637a50d57539ac0dff"
+    },
+    {
+      "path": "data/qlib/soxs_published_close_20260925_v1/soxs_close_manifest.json",
+      "sha256": "88bd6026c381f143dc3049dfef4bd39fc165ba737b509feb068a04e3b0e43e63"
+    }
+  ]
+}

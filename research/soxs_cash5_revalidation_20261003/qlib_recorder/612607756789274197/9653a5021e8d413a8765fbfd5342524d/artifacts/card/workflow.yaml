@@ -1,0 +1,48 @@
+experiment: soxs_cash5_revalidation_20261003
+card_type: registered_reused_history_revalidation
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+supplemental_provider_uri: data/qlib/soxs_published_close_20260925_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/soxs_cash5_revalidation_20261003/qlib_recorder
+region: us
+market: all
+as_of: '2026-09-25'
+registration: plan.json
+execution_seal: run_authorization.json
+entrypoint: src.workflow.soxs_cash5_revalidation.run_revalidation
+segments:
+  training_start: '2011-01-03'
+  development: ['2016-01-01', '2022-12-31']
+  reused_history: ['2023-01-01', '2026-09-25']
+  user_trade_start: '2026-08-03'
+  user_h5_exit_end: '2026-09-25'
+model_selection:
+  performed: false
+  families: [base, base_plus_soxs]
+  fixed_model: StandardScaler + Ridge(alpha=10)
+  fit_count: 16
+  annual_cutoffs: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+  frozen_reused_history_fit_year: 2023
+  purge_rows: 20
+  label_maturity: open[t+6] strictly before Jan1 America/New_York
+uncertainty:
+  windows: [development, reused_2023_plus]
+  resamples: 2000
+  blocks: [20, 60]
+  seed: 20261003
+  same_indices_for_all_metrics: true
+  undefined_draws: official interval undefined and gate fails
+costs:
+  fee_bps_per_switch: [10, 25]
+  net_cash_advantage: target + log((1-c)/(1+c))
+  scope: isolated overlapping five-day events; not portfolio returns
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - inputs/features_labels.pkl
+    - models/fitted_models.pkl
+    - analysis/predictions.pkl
+    - analysis/labels.pkl
+    - analysis/bootstrap_draws.pkl
+    - analysis/equivalent_signal_analysis.pkl
+promotion: forbidden

@@ -1,0 +1,156 @@
+{
+  "experiment": "soxs_cash5_revalidation_20261003",
+  "registered_at_utc": "2026-10-03T11:33:08.425167+00:00",
+  "deadline_utc": "2026-10-03T12:24:02Z",
+  "registered_before_forecast_fits": true,
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxs_cash5_revalidation_20261003/qlib_recorder",
+  "hypothesis": "Old base_plus_soxs cash_advantage_5d may retain incremental predictive information under one explicitly reconstructed corporate-action price basis. Selected because of previously viewed positive result; all history reused, not a new confirmatory holdout.",
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "as_of": "2026-09-25",
+    "model_signal_start": "2011-01-03",
+    "history_start": "2010-03-11",
+    "basis": "published_futu_affine_v1",
+    "secondary_bars": 16,
+    "limitations": "Published affine basis differs slightly from serverQFQ; Jan2012 secondary quote uncertainty remains. Rebuilt history is not fresh out-of-sample evidence."
+  },
+  "supplemental_source": {
+    "provider_uri": "data/qlib/soxs_published_close_20260925_v1",
+    "instrument": "SOXS",
+    "fields": [
+      "close"
+    ],
+    "basis": "Chronological event affine close: A<-A*a, B<-B*a+b, adjusted_close=raw_close*A+B. Same economic cash/split adjustment convention as primary, separately declared augmented event sources; not claimed SDK QFQ.",
+    "primary": "Observed Futu NONE RTH close where available; rehab event coefficients fromFutu.",
+    "secondary": "Observed Yahoo split-only quoteclose only on predeclared missing Futu dates; never adjclose, fit quotes or fieldwise substitution. Undo exact split factors then apply affine events.",
+    "early_events": "Futu rehab omits2011-02-24 1:5 reverse split and2010-12-14/2011-03-22 cash distributions. Augment with independently corroborated published records: splitA5 B0, cashB=-0.71282 and-0.74531. Yahoo rounded cash reconstruction0.713/0.745 discrepancy explicitly retained. Supplemental sources Dividendhistory/Tiingo, issuer split press release. Do not call these Futu observations.",
+    "history_start": "2010-03-11",
+    "as_of": "2026-09-25",
+    "no_volume": "SOXS features use close only. Yahoo adjusted volumes can round tozero; no volume fabricated or consumed.",
+    "qualification": "Full canonical4162sessions, everyclose finitepositive, exactdates andsourceprovenance; allsplit events crosschecked; physical observedOHLC checked whereavailable; nativeQlibreadbackequal float32quantizedsnapshot; source/event/manifestbytes frozenbeforemodelruns. Missingunverifiableevent/fullhistory=>needsdata, no shortenedwindow.",
+    "limits": "709of4162 SOXSquotes expectedsecondary(before2013); muchgreater secondarydependence thanprimary16bars. Event andsourceuncertainty remains; research-only qualification, not production authority."
+  },
+  "features": {
+    "base": [
+      "soxx_trend20",
+      "soxx_trend60",
+      "soxx_vol20",
+      "soxx_drawdown60",
+      "relative_momentum20"
+    ],
+    "base_plus_soxs": [
+      "soxx_trend20",
+      "soxx_trend60",
+      "soxx_vol20",
+      "soxx_drawdown60",
+      "relative_momentum20",
+      "soxs_trend5",
+      "soxs_trend20",
+      "inverse_tracking_gap1",
+      "inverse_tracking_gap20",
+      "soxl_soxs_path20"
+    ],
+    "recipe": "Exactly frozen src/workflow/soxs_defensive_hurdle.py rolling mean/std(ddof1)/max/percentage returns/logpath definitions. No alternativefeature, lag or clippingsearch; record if original log1p clip(-.99) everbinds; binding invalidatesresearch eligibility instead of hiding corruptreturns."
+  },
+  "target": "cash_advantage_5d=-log(SOXX_open[t+6]/SOXX_open[t+1]); featureknownsignalclose[t], tradeopen[t+1], outcomeopen[t+6].",
+  "training": {
+    "start": "2011-01-03",
+    "cutoff_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "development_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "frozen_outer_year": 2023,
+    "purge_rows": 20,
+    "minimum_rows": 252,
+    "method": "StandardScaler + Ridge(alpha10); two fixedfeaturefamilies only.16fits total. NativeDatasetH.prepare; remove exactly last20prior signalcalendar rows before Jan1, and independently require featuretime andH5outcometime strictly beforeJan1NY. No interior invalidrows silently dropped.",
+    "outer_repair": "Single2023model frozen for2023..asof uses same20rowpurge+timestampmaturity. Old outer fit used late2022labels that matured2023; do not reproduce that leak or call revisedouter numericallyidentical.",
+    "baseline": "Savedtrainingmean H5cashlabel, pairedsameeligibletrainingdates."
+  },
+  "windows": {
+    "development": "2016-2022signalyears",
+    "reused": "2023-2026signalyears through matureH5exit atsourceasof",
+    "user_trade_start": "2026-08-03",
+    "user_exit_end": "2026-09-25",
+    "annual_points": true,
+    "note": "H5userobservations neednot equal priorH1count38; all windows disclosed asalreadyreviewed history."
+  },
+  "uncertainty": {
+    "resamples": 2000,
+    "blocks": [
+      20,
+      60
+    ],
+    "seed": 20261003,
+    "scope": "Only2pooledwindows; identical stationaryresampling rowindices forfull/base/priormean. Annual/userpointsonly.",
+    "metrics": [
+      "full_Spearman_IC",
+      "base_Spearman_IC",
+      "paired_full_minus_base_Spearman_IC",
+      "MSE_base_minus_full",
+      "MSE_prior_mean_minus_full",
+      "full_conditional_net_event_mean_bp10",
+      "full_conditional_net_event_mean_bp25"
+    ],
+    "percentiles": [
+      2.5,
+      5,
+      50,
+      95,
+      97.5
+    ],
+    "undefined": "Anyundefineddraw =>officialCIundefined andscreenfails; no zero-fill or silentlydrop."
+  },
+  "fees": {
+    "cost_bps": [
+      10,
+      25
+    ],
+    "net_log_label": "H5cashlabel+log((1-c)/(1+c))",
+    "event_mask": "prediction>log((1+c)/(1-c)); strictinequality",
+    "scope": "Isolated5daySOXX->CASH->SOXX event; sellfactor1-c,buyfundingfactor1/(1+c). Overlappingevents notcompounded orannualized; no portfolio backtest."
+  },
+  "gates": {
+    "legacy_replication_diagnostic": "Fullfeaturedev>=5/7positiveannualSpearmanIC and20block2000resamplep05>0; reportoldcriterionwithdifferentdrawbudget/seed, notexactoldbootstrapreproduction.",
+    "information": "Fullfeaturedev>=6/7positiveannualIC; fullpooledIC2.5%lowerbound>0 in bothwindows at bothblocks.",
+    "incremental": "Full-minus-baseIC2.5%lowerbound>0 and baseMSE-minus-fullMSE2.5%lowerbound>0 inbothwindows atbothblocks.",
+    "economic": "Fullfeatureisolatedneteventmean2.5%lowerbound>0 atbothcosts inbothwindowsatbothblocks; zeroevents/undefined fails.",
+    "decision": "All information/incremental/economic gates required for furtherconsideration; nofinancialqualification/promotion. Anyfailureends thisroute with no furthersearch."
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/features_labels.pkl",
+      "models/fitted_models.pkl",
+      "analysis/predictions.pkl",
+      "analysis/bootstrap_draws.pkl"
+    ]
+  },
+  "forbidden": [
+    "newfeatures",
+    "parametergrids",
+    "otherhorizons",
+    "strategybacktests",
+    "realorders",
+    "productionchanges",
+    "relaxingoldfinancialgates"
+  ],
+  "objective_achieved": false
+}

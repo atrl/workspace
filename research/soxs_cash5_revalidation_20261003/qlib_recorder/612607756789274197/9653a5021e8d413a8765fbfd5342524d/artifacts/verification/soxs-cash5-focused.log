@@ -1,0 +1,53 @@
+................                                                         [100%]
+=============================== warnings summary ===============================
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19
+  /Users/rziiiii/dev/workspace-worktrees/soxs-cash5-revalidation-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_DAY = pd.Timedelta("1day")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20
+  /Users/rziiiii/dev/workspace-worktrees/soxs-cash5-revalidation-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_MIN = pd.Timedelta("1min")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21
+  /Users/rziiiii/dev/workspace-worktrees/soxs-cash5-revalidation-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    EPS_T = pd.Timedelta("1s")  # use 1 second to exclude the right interval point
+
+tests/test_soxs_published_close.py::test_close_qualification_fail_closed[missing]
+  /Users/rziiiii/dev/workspace-worktrees/soxs-cash5-revalidation-20261003/qlib_venv/lib/python3.12/site-packages/pandas/core/internals/concat.py:510: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return dtype.type("NaT")
+
+tests/test_soxs_cash5_revalidation.py::test_features_are_causal_and_exact_frozen_recipe
+tests/test_soxs_cash5_revalidation.py::test_features_are_causal_and_exact_frozen_recipe
+tests/test_soxs_cash5_revalidation.py::test_h5_label_uses_unfiltered_calendar_and_sixth_future_open
+tests/test_soxs_cash5_revalidation.py::test_purge_and_maturity_apply_to_every_fit_including_frozen_2023
+tests/test_soxs_cash5_revalidation.py::test_invalid_interior_labels_and_source_prices_fail_closed
+tests/test_soxs_cash5_revalidation.py::test_native_dataset_prepare_preserves_features_and_labels
+tests/test_soxs_cash5_revalidation.py::test_cost_funding_equation_and_user_window_are_exact
+  /Users/rziiiii/dev/workspace-worktrees/soxs-cash5-revalidation-20261003/src/workflow/soxs_cash5_revalidation.py:98: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    frame["feature_available_at"] = pd.DatetimeIndex(frame.index).tz_localize("America/New_York") + pd.Timedelta(hours=16)
+
+tests/test_soxs_cash5_revalidation.py::test_features_are_causal_and_exact_frozen_recipe
+tests/test_soxs_cash5_revalidation.py::test_features_are_causal_and_exact_frozen_recipe
+tests/test_soxs_cash5_revalidation.py::test_h5_label_uses_unfiltered_calendar_and_sixth_future_open
+tests/test_soxs_cash5_revalidation.py::test_purge_and_maturity_apply_to_every_fit_including_frozen_2023
+tests/test_soxs_cash5_revalidation.py::test_invalid_interior_labels_and_source_prices_fail_closed
+tests/test_soxs_cash5_revalidation.py::test_native_dataset_prepare_preserves_features_and_labels
+tests/test_soxs_cash5_revalidation.py::test_cost_funding_equation_and_user_window_are_exact
+  /Users/rziiiii/dev/workspace-worktrees/soxs-cash5-revalidation-20261003/src/workflow/soxs_cash5_revalidation.py:99: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    frame["label_available_at"] = pd.DatetimeIndex(frame.label_mature_date).tz_localize("America/New_York") + pd.Timedelta(hours=9, minutes=30)
+
+tests/test_soxs_cash5_revalidation.py::test_paired_bootstrap_same_indices_and_mse_sign
+tests/test_soxs_cash5_revalidation.py::test_paired_bootstrap_same_indices_and_mse_sign
+tests/test_soxs_cash5_revalidation.py::test_undefined_bootstrap_interval_is_not_silently_dropped
+tests/test_soxs_cash5_revalidation.py::test_undefined_bootstrap_interval_is_not_silently_dropped
+tests/test_soxs_cash5_revalidation.py::test_cost_funding_equation_and_user_window_are_exact
+tests/test_soxs_cash5_revalidation.py::test_cost_funding_equation_and_user_window_are_exact
+  /Users/rziiiii/dev/workspace-worktrees/soxs-cash5-revalidation-20261003/tests/test_soxs_cash5_revalidation.py:30: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return pd.DataFrame({w.TARGET:y, "base":.015*np.sin(t/11), "base_plus_soxs":.03*np.sin(t/13), "prior_mean":np.zeros(n), "trade_date":dates+pd.Timedelta(days=1), "label_mature_date":dates+pd.Timedelta(days=8)},index=dates)
+
+tests/test_soxs_cash5_revalidation.py::test_gate_false_when_any_official_bound_undefined_and_requires_approval
+  /Users/rziiiii/dev/workspace-worktrees/soxs-cash5-revalidation-20261003/qlib_venv/lib/python3.12/site-packages/google/protobuf/internal/well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+16 passed, 25 warnings in 1.89s

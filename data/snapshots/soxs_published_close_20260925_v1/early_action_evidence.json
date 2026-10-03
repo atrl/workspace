@@ -1,0 +1,52 @@
+{
+  "events": [
+    {
+      "cash_per_original_share": 0.71282,
+      "date": "2010-12-14",
+      "independent_corroboration_urls": [
+        "https://app.tiingo.com/soxs/dividends",
+        "https://www.dividend.com/etfs/soxs-direxion-daily-semicondct-bear-3x-etf/"
+      ],
+      "source": {
+        "http_status": 200,
+        "raw_html_sha256": "9be6aeca0f62d7b1f15a5690c743c577e829628cb21a1e1d29d0e54f1d317415",
+        "retrieved_at_utc": "2026-10-03T11:32:01.559338+00:00",
+        "url": "https://dividendhistory.org/payout/SOXS/"
+      },
+      "split_price_factor": 1.0,
+      "yahoo_rounded_implied_cash": 0.713
+    },
+    {
+      "cash_per_original_share": 0,
+      "date": "2011-02-24",
+      "independent_corroboration_urls": [
+        "https://query2.finance.yahoo.com/v8/finance/chart/SOXS"
+      ],
+      "source": {
+        "http_status": 200,
+        "raw_html_sha256": "4c712511fb2e977e35dfff907489c57431069f72f520cf5e796676e77b8fff78",
+        "retrieved_at_utc": "2026-10-03T11:31:42.105529+00:00",
+        "url": "https://www.prnewswire.com/news-releases/direxion-shares-announces-reverse-share-split-of-six-etfs-115099319.html"
+      },
+      "split_price_factor": 5.0,
+      "yahoo_rounded_implied_cash": null
+    },
+    {
+      "cash_per_original_share": 0.74531,
+      "date": "2011-03-22",
+      "independent_corroboration_urls": [
+        "https://app.tiingo.com/soxs/dividends",
+        "https://www.dividend.com/etfs/soxs-direxion-daily-semicondct-bear-3x-etf/"
+      ],
+      "source": {
+        "http_status": 200,
+        "raw_html_sha256": "9be6aeca0f62d7b1f15a5690c743c577e829628cb21a1e1d29d0e54f1d317415",
+        "retrieved_at_utc": "2026-10-03T11:32:01.559338+00:00",
+        "url": "https://dividendhistory.org/payout/SOXS/"
+      },
+      "split_price_factor": 1.0,
+      "yahoo_rounded_implied_cash": 0.745
+    }
+  ],
+  "scope": "Corporate-action facts only; full authored source pages are not repository artifacts. Raw page SHA identifies retrieval; independent URLs corroborate amounts."
+}
