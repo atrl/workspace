@@ -1,0 +1,26 @@
+[49954:MainThread](2026-10-03 08:26:30,411) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[49954:MainThread](2026-10-03 08:26:30,412) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[49954:MainThread](2026-10-03 08:26:30,412) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/data/qlib/published_futu_affine_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3010.99it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2570.04it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2949.58it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2537.39it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4258.18it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3675.99it/s]
+/tmp/frozen_cash_spotcheck.py:52: FutureWarning: Mismatched null-like values nan and None found. In a future version, pandas equality-testing functions (e.g. assert_frame_equal) will consider these not-matching and raise.
+  pd.testing.assert_frame_equal(a,b,check_dtype=False,check_exact=False,rtol=1e-12,atol=1e-14)
+{
+  "status": "PASS",
+  "recorder_id": "ef3da36b5e6a4f4297c2bf76a6a19afd",
+  "scope": "ONE fixed development/block20/draw0 statistical spotcheck; three corresponding registered CSV summary rows matched Recorder. No new bootstrap statistics or portfolio paths.",
+  "rows": 1762,
+  "seed": 20261003,
+  "mean_block": 20,
+  "draw": 0,
+  "absolute_errors": {
+    "paired_MSE_improvement": 0.0,
+    "conditional_event_net_mean_bp_25": 0.0,
+    "masked_event_net_mean_bp_per_observation_25": 0.0
+  },
+  "csv_rows_matched": 3,
+  "artifact_hashes_verified": 3,
+  "source_plan_unchanged": true,
+  "financial_qualification_claim": false
+}

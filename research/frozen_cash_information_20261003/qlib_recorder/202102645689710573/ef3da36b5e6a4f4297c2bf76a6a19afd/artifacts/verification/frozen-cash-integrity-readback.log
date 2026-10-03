@@ -1,0 +1,37 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026/10/03 08:17:36 INFO mlflow.agent.hint: Load the `instrumenting-with-mlflow-tracing` skill at /Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/mlflow/assistant/skills/instrumenting-with-mlflow-tracing/SKILL.md before writing any tracing code; it ships with this MLflow install. Set MLFLOW_DISABLE_AGENT_HINT=1 to silence this.
+[48927:MainThread](2026-10-03 08:17:36,730) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[48927:MainThread](2026-10-03 08:17:36,730) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[48927:MainThread](2026-10-03 08:17:36,731) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/data/qlib/published_futu_affine_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2222.74it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1992.54it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3876.44it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3412.78it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1898.73it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1773.49it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4202.71it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3557.51it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2993.79it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2755.78it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3890.82it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3498.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 5178.15it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4588.95it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 403.88it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 395.43it/s]
+[48927:MainThread](2026-10-03 08:17:36,808) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[48927:MainThread](2026-10-03 08:17:36,809) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[48927:MainThread](2026-10-03 08:17:36,809) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/data/qlib/published_futu_affine_20260925_v1')}
+[48927:MainThread](2026-10-03 08:17:36,885) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[48927:MainThread](2026-10-03 08:17:36,886) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[48927:MainThread](2026-10-03 08:17:36,886) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+[48927:MainThread](2026-10-03 08:17:38,481) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+[48927:MainThread](2026-10-03 08:17:38,482) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+[48927:MainThread](2026-10-03 08:17:38,482) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Init data Done
+{
+  "last_mature_h1_signal": "2026-09-23",
+  "user_window_rows": 38,
+  "user_first_signal": "2026-07-31",
+  "user_first_trade": "2026-08-03",
+  "user_last_exit": "2026-09-25",
+  "source_sha256": "445a3b173b040a5976aa006f922c12819336b0a106847575bfe59b117b0194fe",
+  "predictive_metrics_computed": false,
+  "model_refits": 0
+}
+HEAD_COUNT 14 ROWS 3956
+PREDICTION_MAX_ERROR 0.0 BASELINE_MAX_ERROR 1.4094628242311558e-18

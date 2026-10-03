@@ -1,0 +1,48 @@
+experiment: frozen_cash_information_20261003
+qlib_init:
+  provider_uri: data/qlib/published_futu_affine_20260925_v1
+  region: us
+market: US.SOXL_US.SOXX
+as_of: '2026-09-25'
+recorder_uri: /Users/rziiiii/dev/workspace/research/frozen_cash_information_20261003/qlib_recorder
+segments:
+  development_signal_years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  reused_diagnostic_signal_years:
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  annual: All11 years separately, 2026 through last mature source outcome
+  pooled:
+  - development_2016_2022
+  - reused_2023_asof
+  user_window:
+    trade_start: '2026-08-03'
+    exit_end: '2026-09-25'
+    cutoff: last observed open, not close
+    status: already viewed descriptive window
+model_selection:
+  performed: false
+  reason: Frozen prior-only forecast information diagnostic; no allocator or strategy
+    selection
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/frozen_forecasts.pkl
+  - inputs/diagnostic_rows.pkl
+  - analysis/bootstrap_draws.pkl
+  - inputs/source_details.pkl
+  - models/frozen_forecast_models.pkl
+workflow:
+  module: src.workflow.frozen_cash_information
+  entrypoint: run
+  plan: diagnostic_plan.json
+  reference: recorder_reference.json

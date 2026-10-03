@@ -1,0 +1,38 @@
+{
+  "created_at_utc": "2026-10-03T00:24:48.707798+00:00",
+  "original_recorder_id": "5ca084dcc51e4a1abbe67ad1a8d1d555",
+  "original_status": "FAILED",
+  "failure": "Cached cash target used native float32 log1p; analysis prematurely cast returns to float64 before identity check.",
+  "failed_before_predictive_statistics": true,
+  "original_analysis_directory_absent": true,
+  "plan_sha256": "fd0c1b40e31727e0e310fc08edabe5f6d8fc63f83392e0872f49b60cd84bb38d",
+  "unchanged": [
+    "forecast_models",
+    "data",
+    "target_values",
+    "scientific_plan",
+    "windows",
+    "costs",
+    "tolerances",
+    "statistics"
+  ],
+  "repair": "Preserve original Series dtype for target-identity reconstruction; statistical arithmetic still uses float64. No relaxed tolerance or replaced labels.",
+  "original_artifact_sha256": {
+    "code_diff.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "code_cached.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "code_status.txt": "f586edc7b297aa9931b3a039163156dd4ab84a41b8f0404f73ae3c3700a46a9e",
+    "models/frozen_forecast_models.pkl": "555962dcd0132308e80336ccc787d9b7279484b5b0c11bc9f0a9039cccbbc733",
+    "inputs/implementation_seal.json": "f19063d9bcd8d5054e45dab10bbff46b319ee8dee821560b8d88f30e18e261ce",
+    "inputs/frozen_forecasts.pkl": "b01207a0868341d4020497175f856334a142a46a5aa7e478820d0495d95d3028",
+    "inputs/registration.json": "9198e1d282331dacb1b229cc6f05e40abc249beebfff98fda70996a0b2786f62",
+    "inputs/source_details.pkl": "0aa6f53ae367bc9f2a224c264f7a3defc65e4af37bde851aff284cb19d82f15c",
+    "inputs/source_audit.pkl": "f649e0bdc15a0d6f991ab53728f2ffb368cf6675db75ed4e8651c1ce6723e980",
+    "inputs/head_readback_audit.pkl": "58d5c34a3f2680338fd2e9d2d963f78105c9585c1bad4a53264320f8ee54651b",
+    "inputs/diagnostic_plan.json": "fd0c1b40e31727e0e310fc08edabe5f6d8fc63f83392e0872f49b60cd84bb38d",
+    "inputs/diagnostic_rows.pkl": "b9a402be30abcd47ebb793d4f4d584d25fd17d3464d0eedc9281fe4a8b6cd8a7",
+    "inputs/head_training_evidence.pkl": "34a9ae8f7aa6d200d11d560af4adc6dc5585b34ebacd89c417a19ceddb2f115d"
+  },
+  "original_reference_sha256": "f77b87b521a87b72a8a7983fd662cb4f1a0cf0a68bc2d86c331291ff09e53c1d",
+  "original_seal_sha256": "f19063d9bcd8d5054e45dab10bbff46b319ee8dee821560b8d88f30e18e261ce",
+  "recovery_policy": "Preserve failed reference/seal/source/log and create one fresh Recorder after changed-test and independent delta review; no automatic retry."
+}
