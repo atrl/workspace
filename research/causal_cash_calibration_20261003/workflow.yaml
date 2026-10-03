@@ -1,0 +1,77 @@
+experiment: causal_cash_calibration_20261003
+record_type: bounded_causal_cash_calibration_screen
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/causal_cash_calibration_20261003/qlib_recorder
+region: us
+market: all
+as_of: '2026-09-25'
+registered_plan: plan.json
+deadline_utc: '2026-10-03T02:04:34Z'
+segments:
+  development_signal_years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  reused_diagnostic_signal_years:
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  annual: All11 years separately, 2026 through last mature source outcome
+  pooled:
+  - development_2016_2022
+  - reused_2023_asof
+  user_window:
+    trade_start: '2026-08-03'
+    exit_end: '2026-09-25'
+    cutoff: last observed open, not close
+    status: already viewed descriptive window
+model_selection: one fixed affine recipe; no search
+fit:
+  years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  earliest_oof_signal: '2013-01-01'
+  maturity: forecast_available and feature_available_at,forecast_model_available_at,return_available_at
+    all strictly before model-year Jan1 America/New_York; source score_available and
+    finite cash labels/predictions required; no later rows or same-year outcomes
+  minimum_rows: 252
+  model: Unconstrained ordinary least squares y=a+b*p with intercept, two parameters,
+    numpy.linalg.lstsq; rank2 required, fail closed otherwise. No shrinkage/clipping/hyperparameters.
+  prediction: Apply thatyear fixeda,b to sameyear frozen originalannualhead outputs;
+    no rawforecasthead refits; allscored rows must retained.
+  baseline: Both original raw frozen prediction and original saved prior-mean prediction;
+    never a full-window fitted baseline.
+benchmark:
+- raw_frozen_forecast
+- saved_original_prior_mean
+cost_bps:
+- 10
+- 25
+portfolio_backtest: false
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/diagnostic_rows.pkl
+  - models/calibrations.pkl
+  - analysis/calibrated_predictions.pkl
+  - analysis/bootstrap_draws.pkl
+entrypoint: src.workflow.causal_cash_calibration.run
+qlib_docs:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/workflow.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "recorder": "cade082cf1454cb19aa95d3cacc83b32",
+  "scope": "One independent bounded review: all saved artifact hashes; centered-covariance OLS for2016/2026; annual MSE counts; dev10bp event arithmetic. No alternative model or path.",
+  "fits": [
+    {
+      "year": 2016,
+      "rows": 754,
+      "coefficient_error": 1.1102230246251565e-16
+    },
+    {
+      "year": 2026,
+      "rows": 3268,
+      "coefficient_error": 5.551115123125783e-17
+    }
+  ],
+  "annual_MSE_better_years": {
+    "raw": 3,
+    "prior_mean": 5
+  },
+  "dev10bp_event_count": 9,
+  "dev10bp_event_mean_net_bp": -65.12965414513148,
+  "decision": "abandon_cash_calibration_route",
+  "objective_achieved": false
+}

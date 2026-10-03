@@ -1,0 +1,329 @@
+{
+  "experiment": "causal_cash_calibration_20261003",
+  "registered_at_utc": "2026-10-03T01:07:00.922815+00:00",
+  "deadline_utc": "2026-10-03T02:04:34Z",
+  "registered_before_calibrated_predictions": true,
+  "hypothesis": "Correct exaggerated cash-return forecast magnitude using only prior out-of-fold evidence; one fixed affine recipe, not a searched allocation rule.",
+  "parent": {
+    "experiment": "frozen_cash_information_20261003",
+    "recorder_id": "ef3da36b5e6a4f4297c2bf76a6a19afd",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/frozen_cash_information_20261003/qlib_recorder",
+    "artifact_manifest_sha256": "403942967a7629830e08884100f61c56d46fac0bc11c85add3f252a59e7da9dc"
+  },
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "as_of": "2026-09-25",
+    "model_signal_start": "2011-01-03",
+    "history_start": "2010-03-11",
+    "basis": "published_futu_affine_v1",
+    "secondary_bars": 16,
+    "limitations": "Published affine basis differs slightly from serverQFQ; Jan2012 secondary quote uncertainty remains. Rebuilt history is not fresh out-of-sample evidence."
+  },
+  "source_plan": {
+    "schema_version": 1,
+    "experiment": "frozen_cash_information_20261003",
+    "registered_at_utc": "2026-10-03T00:04:49.627857+00:00",
+    "registered_before_new_cash_predictive_metrics": true,
+    "research_type": "frozen_forecast_information_diagnostic",
+    "objective_achieved": false,
+    "strategy_candidate_promotable": false,
+    "hypothesis": "The already frozen canonical annual cash-advantage head may contain information not evaluated separately in the allocation chain. Test its predictive information and one-period fee hurdle before designing another allocation optimizer. This is not a new feature source and no positive old-data finding is transferred.",
+    "source": {
+      "experiment": "canonical_price_basis_20261002",
+      "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+      "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+      "as_of": "2026-09-25",
+      "model_signal_start": "2011-01-03",
+      "history_start": "2010-03-11",
+      "basis": "published_futu_affine_v1",
+      "secondary_bars": 16,
+      "limitations": "Published affine basis differs slightly from serverQFQ; Jan2012 secondary quote uncertainty remains. Rebuilt history is not fresh out-of-sample evidence."
+    },
+    "parent_input_source": {
+      "experiment": "benchmark_anchor_utility_20261002",
+      "recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_utility_20261002/qlib_recorder",
+      "artifact_manifest_sha256": "8aff34f5654d89ff406d0b2993500b5639529d8d31dec2d1e1702a1f973c27dd",
+      "input_contract": "Hash-verified frozen qualified primary/prices/OOF forecasts and forecast models. Reconstruct nativeDatasetH/scalers; development folds must exactly match parent. No data refresh or forecast retuning."
+    },
+    "source_readback_contract": {
+      "loader": "src.data.constrained_net_excess.load_constrained_inputs",
+      "variants": [
+        {
+          "name": "constant",
+          "enabled_market_features": 0
+        },
+        {
+          "name": "price",
+          "enabled_market_features": 25
+        },
+        {
+          "name": "price_vol",
+          "enabled_market_features": 27
+        }
+      ],
+      "training": {
+        "development_signal_years": [
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "minimum_rows": 252
+      },
+      "scope": "Reconstruct native D calendar/instruments/OHLCV, exact primary frame and DatasetH, and hash-bound parent forecast artifacts. Legacy allocation folds checked only as input-integrity evidence; no allocator loaded or run."
+    },
+    "forecast": {
+      "years": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "model": "Frozen StandardScaler + multi-output Ridge(alpha=10), 16 COMMON_PRIMARY_FEATURES",
+      "training": "Unchanged joint feature/one-day/five-day label availability strictly before Jan1 America/New_York, minimum252, eligible source since2011-01-03. Check exact original eligible dates and saved audit; no fits.",
+      "prediction_audit": "Recompute saved pipeline.predict on the same canonical features and require allclose atol1e-14 rtol1e-12 against frozen predictions; record max absolute errors. Do not replace the cached predictions.",
+      "baseline": "Saved ridge.intercept_[0]; independently check against mean cash label on exact original eligible training rows, atol1e-14 rtol1e-12. Centered StandardScaler makes this a prior-only mean forecast.",
+      "target": "cash_advantage_1d=-log1p(SOXX_open[t+2]/SOXX_open[t+1]-1)",
+      "maturity": "Evaluate only finite H1 outcomes observable by source as_of; late immature H1 rows retained with explicit unavailable flags, never scored. H5 not required for evaluating already-fitted cash predictions."
+    },
+    "windows": {
+      "development_signal_years": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "reused_diagnostic_signal_years": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "annual": "All11 years separately, 2026 through last mature source outcome",
+      "pooled": [
+        "development_2016_2022",
+        "reused_2023_asof"
+      ],
+      "user_window": {
+        "trade_start": "2026-08-03",
+        "exit_end": "2026-09-25",
+        "cutoff": "last observed open, not close",
+        "status": "already viewed descriptive window"
+      }
+    },
+    "statistics": {
+      "point_metrics": [
+        "rows",
+        "mean_prediction",
+        "mean_prior_baseline",
+        "mean_target",
+        "prediction_bias",
+        "baseline_bias",
+        "MSE_prediction",
+        "MSE_prior_baseline",
+        "paired_MSE_improvement_baseline_minus_prediction",
+        "MAE_prediction",
+        "MAE_prior_baseline",
+        "time_series_Pearson_IC",
+        "time_series_Spearman_IC",
+        "within_signal_year_demeaned_Pearson_IC",
+        "within_signal_year_demeaned_Spearman_IC"
+      ],
+      "baseline_constant_IC": "Undefined within each year, not zero; report as null with reason. Pooled baseline IC may reflect between-year drift and must be labeled.",
+      "demeaning": "Demean predictions and target separately within each signal year of the evaluated window; analysis only, no inference-time transformation.",
+      "calibration": "Descriptive OLS target ~ intercept + frozen_prediction, HAC covariance maxlags20 with finite-sample correction, normal95percent intervals. Repeat baseline if fullrank, otherwise report rank deficiency. This is diagnostic regression, never a refitted forecasting model, new calibrated prediction, or selection recipe.",
+      "bins": "None; no searched bins, thresholds, horizons, model variants or multiple-comparison-adjusted confirmatory claim."
+    },
+    "event_diagnostic": {
+      "cost_bps": [
+        10,
+        25
+      ],
+      "event": "Isolated event begins fully invested in SOXX immediately before open[t+1]; sells fully to CASH then repurchases SOXX at open[t+2]. Compare with continuously held SOXX over that interval. Cashreturn0, proportional exact funding, no lending/borrow.",
+      "net_relative_log_label": "cash_advantage_1d + log((1-c)/(1+c))",
+      "prediction_threshold": "cash_advantage_prediction > log((1+c)/(1-c)); strict inequality",
+      "baseline_event": "Use the identical threshold against saved prior mean; paired point comparison only, not separately optimized.",
+      "metrics": [
+        "event_count",
+        "coverage",
+        "mean_event_gross_log_bp",
+        "mean_event_net_log_bp",
+        "positive_net_event_fraction",
+        "mean_masked_net_log_bp_per_observation"
+      ],
+      "limitations": "Events overlap in decision time; do not compound, annualize or report as realizable portfolio return. A one-day detour fee test does not establish whether a multi-day cash policy can work. No spreads/latency/slippage beyond declared10/25bp all-in proportional assumption."
+    },
+    "uncertainty": {
+      "method": "Stationary bootstrap of the full chronological observation rows, preserving target/prediction/baseline/event-mask pairs. Circular within each evaluated pooled window, fixed mean block length20 and60,2000 draws, seed20261003. Reinitialize RNG to same seed for each window/block; use same row indices for all statistics within that pair.",
+      "scope": "Only the two pooled windows; yearly and user window point metrics only.",
+      "statistics": [
+        "paired_MSE_improvement",
+        "Pearson_IC",
+        "Spearman_IC",
+        "within_signal_year_demeaned_Pearson_IC",
+        "within_signal_year_demeaned_Spearman_IC",
+        "conditional_event_net_mean_bp_at_both_costs",
+        "masked_event_net_mean_bp_per_observation_at_both_costs"
+      ],
+      "demeaned_bootstrap": "Center using original full-window within-year means before row resampling. This quantifies sampling variability of that fixed diagnostic series, not a refitted/year-stratified estimator.",
+      "intervals": "Percentiles2.5,50,97.5; retain raw draws in Recorder. Report total and undefined draw counts. If any conditional-event draw has zero events, official percentile fields null and record reason; optional finite-draw percentiles distinctly labeled conditional_on_nonempty. Never discard silently or replace undefined with zero.",
+      "interpretation": "Descriptive dependent-data intervals on reused historical windows, not a new untouched test or multiple-comparison corrected confirmation."
+    },
+    "source_limits": "Published affine basis differs slightly from serverQFQ; Jan2012 secondary quote uncertainty remains. Rebuilt history is not fresh out-of-sample evidence.",
+    "no_changes": [
+      "forecast_model_refit",
+      "feature_selection",
+      "new_allocator",
+      "new_portfolio_path",
+      "threshold_search",
+      "source_refresh",
+      "financial_gate_relaxation",
+      "production_or_paper_activation"
+    ],
+    "decision": "Diagnose whether useful information exists and whether the next registered experiment should test integration or repair prediction. No financial qualification can be passed by this card; all historical years reused and new forward evidence remains necessary.",
+    "artifact_policy": {
+      "policy": "slim_card_recorder_first",
+      "workflow_config": "workflow.yaml",
+      "recorder_only_artifacts": [
+        "inputs/frozen_forecasts.pkl",
+        "inputs/diagnostic_rows.pkl",
+        "analysis/bootstrap_draws.pkl",
+        "inputs/source_details.pkl",
+        "models/frozen_forecast_models.pkl"
+      ]
+    },
+    "qlib_docs": [
+      "https://qlib.readthedocs.io/en/latest/component/data.html",
+      "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+      "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+    ]
+  },
+  "fit": {
+    "years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "earliest_oof_signal": "2013-01-01",
+    "maturity": "forecast_available and feature_available_at,forecast_model_available_at,return_available_at all strictly before model-year Jan1 America/New_York; source score_available and finite cash labels/predictions required; no later rows or same-year outcomes",
+    "minimum_rows": 252,
+    "model": "Unconstrained ordinary least squares y=a+b*p with intercept, two parameters, numpy.linalg.lstsq; rank2 required, fail closed otherwise. No shrinkage/clipping/hyperparameters.",
+    "prediction": "Apply thatyear fixeda,b to sameyear frozen originalannualhead outputs; no rawforecasthead refits; allscored rows must retained.",
+    "baseline": "Both original raw frozen prediction and original saved prior-mean prediction; never a full-window fitted baseline."
+  },
+  "windows": {
+    "development_signal_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "reused_diagnostic_signal_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "annual": "All11 years separately, 2026 through last mature source outcome",
+    "pooled": [
+      "development_2016_2022",
+      "reused_2023_asof"
+    ],
+    "user_window": {
+      "trade_start": "2026-08-03",
+      "exit_end": "2026-09-25",
+      "cutoff": "last observed open, not close",
+      "status": "already viewed descriptive window"
+    }
+  },
+  "fees": {
+    "cost_bps": [
+      10,
+      25
+    ],
+    "event": "Isolated event begins fully invested in SOXX immediately before open[t+1]; sells fully to CASH then repurchases SOXX at open[t+2]. Compare with continuously held SOXX over that interval. Cashreturn0, proportional exact funding, no lending/borrow.",
+    "net_relative_log_label": "cash_advantage_1d + log((1-c)/(1+c))",
+    "prediction_threshold": "cash_advantage_prediction > log((1+c)/(1-c)); strict inequality",
+    "baseline_event": "Use the identical threshold against saved prior mean; paired point comparison only, not separately optimized.",
+    "metrics": [
+      "event_count",
+      "coverage",
+      "mean_event_gross_log_bp",
+      "mean_event_net_log_bp",
+      "positive_net_event_fraction",
+      "mean_masked_net_log_bp_per_observation"
+    ],
+    "limitations": "Events overlap in decision time; do not compound, annualize or report as realizable portfolio return. A one-day detour fee test does not establish whether a multi-day cash policy can work. No spreads/latency/slippage beyond declared10/25bp all-in proportional assumption."
+  },
+  "uncertainty": {
+    "blocks": [
+      20,
+      60
+    ],
+    "resamples": 2000,
+    "seed": 20261003,
+    "percentiles": [
+      2.5,
+      50,
+      97.5
+    ],
+    "method": "Reuse fixed stationary paired bootstrap; wholechronologicalrows andsameindices forcalibrated/raw/prior comparisons. Only2pooledwindows; no confirmation claim on reusedhistory."
+  },
+  "screening_gates": {
+    "annual_MSE": "Calibrated MSE strictly below each comparator in at least6 of7 developmentyears",
+    "pooled_MSE": "Calibrated MSE strictly below each comparator in bothpooledwindows, and paired improvementbootstrap2.5%lowerbound strictlypositive atbothblocks forbothcomparators",
+    "fee_events": "Calibrated isolatedneteventmean strictlypositive at10/25bp inbothpooledwindows; conditionalmean bootstrap2.5%lowerbound strictlypositive atbothblocks. Noevents or anyundefinedinterval fails.",
+    "interpretation": "New bounded information screen, not a financial qualification or weakening any previous strategy gate. Passing only permits further consideration, never deployment."
+  },
+  "stopping": "Any failed screen closes this calibration route; do nottry anotherrecipe, grid, portfolio or datarevision. Deadline is hardupperbound, notminimumwaitingtime; finish earlier if decisive. No stable-excess promotion without independentforwardevidence.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/diagnostic_rows.pkl",
+      "models/calibrations.pkl",
+      "analysis/calibrated_predictions.pkl",
+      "analysis/bootstrap_draws.pkl"
+    ]
+  },
+  "forbidden": [
+    "new_forecast_features",
+    "hyperparametersearch",
+    "new_allocation_search",
+    "new_portfolio_path",
+    "real_broker_execution",
+    "production_change",
+    "relabel_reused_history_fresh"
+  ],
+  "objective_achieved": false
+}
