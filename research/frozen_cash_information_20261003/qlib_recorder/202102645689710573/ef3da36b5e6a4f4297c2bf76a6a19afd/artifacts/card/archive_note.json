@@ -1,0 +1,7 @@
+{
+  "created_at_utc": "2026-10-03T00:29:00.570271+00:00",
+  "recorder_id": "ef3da36b5e6a4f4297c2bf76a6a19afd",
+  "archive_attempt_error": "MLflow rejected the artifact destination suffix /. while copying the preserved initial attempt.",
+  "effect": "Archive-only resumed Recorder temporarily marked FAILED by context exit. No predictive computation rerun or scientific object edited.",
+  "repair": "Normalize destination path and resume the exact Recorder to finish archival; compare all original scientific hashes before and after."
+}

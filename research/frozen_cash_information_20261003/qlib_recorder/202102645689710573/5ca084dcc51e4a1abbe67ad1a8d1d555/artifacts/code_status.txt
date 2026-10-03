@@ -1,0 +1,13 @@
+On branch research/frozen-cash-information-20261003
+You are in a sparse checkout with 42% of tracked files present.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	../../qlib_venv
+	./
+	../../src/analysis/frozen_cash_information.py
+	../../src/workflow/frozen_cash_information.py
+	../../tests/test_frozen_cash_information.py
+	../../tests/test_frozen_cash_information_workflow.py
+
+nothing added to commit but untracked files present (use "git add" to track)

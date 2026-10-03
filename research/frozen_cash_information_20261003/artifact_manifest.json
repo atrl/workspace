@@ -1,0 +1,843 @@
+{
+  "schema_version": 1,
+  "experiment": "frozen_cash_information_20261003",
+  "artifact_policy": "slim_card_recorder_first",
+  "created_at_utc": "2026-10-03T00:29:02.059767+00:00",
+  "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/frozen_cash_information_20261003/qlib_recorder",
+  "complete_recorder_id": "ef3da36b5e6a4f4297c2bf76a6a19afd",
+  "failed_pre_statistic_recorder_id": "5ca084dcc51e4a1abbe67ad1a8d1d555",
+  "bound_scientific_objects_unchanged": true,
+  "entries": [
+    {
+      "path": "archive_note.json",
+      "bytes": 536,
+      "sha256": "9fe5a6ef3bafc6779ae65bd2ed458a0326f70b33cc2d029a0a80345636b5693f",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "bootstrap_summary.csv",
+      "bytes": 9457,
+      "sha256": "5f6e3d5808cf5e011fa653f215c977f2f9e712c197e47d9840dd5b6353cb1bf1",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "calibration.csv",
+      "bytes": 7470,
+      "sha256": "06cb018e184ec4b21be1b651910a76ccb9e5c9919c4f966b1f1e71be2590ea37",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "conclusion.md",
+      "bytes": 3781,
+      "sha256": "548eff877e16392fcddc6bb1b811c16dfe4e1a8af43426a63c603ded3a1d2a5b",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "design.md",
+      "bytes": 1030,
+      "sha256": "9bc16d79a58ce024527312fcc6c38fa9b7f0b83f49720a13d509c7c44f739461",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "diagnostic_plan.json",
+      "bytes": 9646,
+      "sha256": "fd0c1b40e31727e0e310fc08edabe5f6d8fc63f83392e0872f49b60cd84bb38d",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "event_metrics.csv",
+      "bytes": 10098,
+      "sha256": "2d35c02398d222e8bfe18dbdba228d54035cd916fc63e5a986bfa6b1dafccf32",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "frozen_cash_information_20261003.ipynb",
+      "bytes": 115083,
+      "sha256": "a8887f8a7fb79f76647e433f287077dc9ea2bbe17506abfae783c146a9bcf39a",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "head_readback_audit.csv",
+      "bytes": 4787,
+      "sha256": "ad86b448d30b21856e0308443b237fff3fbfc5e9d70e6d2e883ef3053bcb9aa6",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "implementation_seal.json",
+      "bytes": 3938,
+      "sha256": "92b071570ead3b5031f9cfe8afc0e9b7ead904953c23341c0aa73b750de2985e",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "input_readback.json",
+      "bytes": 13931,
+      "sha256": "d26a5b6c650651642a931cffe7a94f77d4e9dd0f4fb8e38ba9aa7abf5419b22c",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "point_metrics.csv",
+      "bytes": 8675,
+      "sha256": "3859a4b16cac68f6ccf36aa1b70202902b13ddf8f925dd6ba9543bd83a2d72c1",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "prior_information_review.md",
+      "bytes": 11351,
+      "sha256": "9948e3c1d92aa9d6ec8a9a7ff9c7566e1427a2d98099386cd21caf097a00b9c5",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/code_cached.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/code_diff.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/code_status.txt",
+      "bytes": 491,
+      "sha256": "f586edc7b297aa9931b3a039163156dd4ab84a41b8f0404f73ae3c3700a46a9e",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/inputs/diagnostic_plan.json",
+      "bytes": 9646,
+      "sha256": "fd0c1b40e31727e0e310fc08edabe5f6d8fc63f83392e0872f49b60cd84bb38d",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/inputs/diagnostic_rows.pkl",
+      "bytes": 442210,
+      "sha256": "b9a402be30abcd47ebb793d4f4d584d25fd17d3464d0eedc9281fe4a8b6cd8a7",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/inputs/frozen_forecasts.pkl",
+      "bytes": 1285610,
+      "sha256": "b01207a0868341d4020497175f856334a142a46a5aa7e478820d0495d95d3028",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/inputs/head_readback_audit.pkl",
+      "bytes": 5516,
+      "sha256": "58d5c34a3f2680338fd2e9d2d963f78105c9585c1bad4a53264320f8ee54651b",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/inputs/head_training_evidence.pkl",
+      "bytes": 250223,
+      "sha256": "34a9ae8f7aa6d200d11d560af4adc6dc5585b34ebacd89c417a19ceddb2f115d",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/inputs/implementation_seal.json",
+      "bytes": 3485,
+      "sha256": "f19063d9bcd8d5054e45dab10bbff46b319ee8dee821560b8d88f30e18e261ce",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/inputs/registration.json",
+      "bytes": 373,
+      "sha256": "9198e1d282331dacb1b229cc6f05e40abc249beebfff98fda70996a0b2786f62",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/inputs/source_audit.pkl",
+      "bytes": 1734,
+      "sha256": "f649e0bdc15a0d6f991ab53728f2ffb368cf6675db75ed4e8651c1ce6723e980",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/inputs/source_details.pkl",
+      "bytes": 10171,
+      "sha256": "0aa6f53ae367bc9f2a224c264f7a3defc65e4af37bde851aff284cb19d82f15c",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/artifacts/models/frozen_forecast_models.pkl",
+      "bytes": 15650,
+      "sha256": "555962dcd0132308e80336ccc787d9b7279484b5b0c11bc9f0a9039cccbbc733",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/meta.yaml",
+      "bytes": 445,
+      "sha256": "391b68f483f4b4269e921a68df51ba758d6f4989b7ce8cf40b62af941652659c",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/params/cmd-sys.argv",
+      "bytes": 245,
+      "sha256": "c463d356bea0e42eeb597ba2e150566e59ae09775935b75665a06bb8cfe270ec",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/tags/mlflow.source.name",
+      "bytes": 132,
+      "sha256": "5fb4f11698894dc5cce1c520f481325e7f0bb11ff98d6c48c6c8f830fe94552e",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/5ca084dcc51e4a1abbe67ad1a8d1d555/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/analysis/bootstrap_draws.pkl",
+      "bytes": 578926,
+      "sha256": "720d62bfc6c21994fcc3a9eb7cee2e0fe23652589ddcccede634aa86bb377c40",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/analysis/diagnostic_audit.pkl",
+      "bytes": 463,
+      "sha256": "76e39ed1ec0c22013f8638706a26278810e2d7a17209a4974856e6e29d876694",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/analysis/summary.pkl",
+      "bytes": 7428,
+      "sha256": "8a411d0af5f77d40677397aa5283b2d5fd25be9aba9f4463071d43d4afe39b34",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/analysis/tables.pkl",
+      "bytes": 20774,
+      "sha256": "48f9bdc8fd54263cc132e81f1f451ad48ff3db73a6eee41bf2f56401c60bbe7b",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/archive_note.json",
+      "bytes": 536,
+      "sha256": "9fe5a6ef3bafc6779ae65bd2ed458a0326f70b33cc2d029a0a80345636b5693f",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/bootstrap_summary.csv",
+      "bytes": 9457,
+      "sha256": "5f6e3d5808cf5e011fa653f215c977f2f9e712c197e47d9840dd5b6353cb1bf1",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/calibration.csv",
+      "bytes": 7470,
+      "sha256": "06cb018e184ec4b21be1b651910a76ccb9e5c9919c4f966b1f1e71be2590ea37",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/conclusion.md",
+      "bytes": 3781,
+      "sha256": "548eff877e16392fcddc6bb1b811c16dfe4e1a8af43426a63c603ded3a1d2a5b",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/design.md",
+      "bytes": 1030,
+      "sha256": "9bc16d79a58ce024527312fcc6c38fa9b7f0b83f49720a13d509c7c44f739461",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/diagnostic_plan.json",
+      "bytes": 9646,
+      "sha256": "fd0c1b40e31727e0e310fc08edabe5f6d8fc63f83392e0872f49b60cd84bb38d",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/event_metrics.csv",
+      "bytes": 10098,
+      "sha256": "2d35c02398d222e8bfe18dbdba228d54035cd916fc63e5a986bfa6b1dafccf32",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/frozen_cash_information_20261003.ipynb",
+      "bytes": 115083,
+      "sha256": "a8887f8a7fb79f76647e433f287077dc9ea2bbe17506abfae783c146a9bcf39a",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/head_readback_audit.csv",
+      "bytes": 4787,
+      "sha256": "ad86b448d30b21856e0308443b237fff3fbfc5e9d70e6d2e883ef3053bcb9aa6",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/implementation_seal.json",
+      "bytes": 3938,
+      "sha256": "92b071570ead3b5031f9cfe8afc0e9b7ead904953c23341c0aa73b750de2985e",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/input_readback.json",
+      "bytes": 13931,
+      "sha256": "d26a5b6c650651642a931cffe7a94f77d4e9dd0f4fb8e38ba9aa7abf5419b22c",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/point_metrics.csv",
+      "bytes": 8675,
+      "sha256": "3859a4b16cac68f6ccf36aa1b70202902b13ddf8f925dd6ba9543bd83a2d72c1",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/prior_information_review.md",
+      "bytes": 11351,
+      "sha256": "9948e3c1d92aa9d6ec8a9a7ff9c7566e1427a2d98099386cd21caf097a00b9c5",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/recorder_reference.json",
+      "bytes": 5757,
+      "sha256": "28f43bed7d1677bc81af1b3d6862d753718e3a3a9948c1927dd827aa969f9948",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/recovery_receipt.json",
+      "bytes": 2494,
+      "sha256": "1fec5732c92524917b26185f117b2332e5bfdf0a2ed0bb47dc723ac94d38b32b",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/registration.json",
+      "bytes": 373,
+      "sha256": "9198e1d282331dacb1b229cc6f05e40abc249beebfff98fda70996a0b2786f62",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/summary.json",
+      "bytes": 8598,
+      "sha256": "5a42ac28215215bbb81d9eb49bec54304fa3f9d532732323b7a90749d10c6d78",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/verification.json",
+      "bytes": 628,
+      "sha256": "356387e8eaa675c66a13f7b4e578494d48b2e227bcef17cc0082c61f0997cb5a",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/card/workflow.yaml",
+      "bytes": 1287,
+      "sha256": "1711fd4c7c4f154cf7a5087f80d4cb50c41fac0bb85d03bebe3d3b12a61c45de",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/code_cached.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/code_diff.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/code_status.txt",
+      "bytes": 501,
+      "sha256": "e5dc6b1fd589dfb16c88a62e1d5805b10ea4d96e56b5eed26e924bd65483a385",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/inputs/diagnostic_plan.json",
+      "bytes": 9646,
+      "sha256": "fd0c1b40e31727e0e310fc08edabe5f6d8fc63f83392e0872f49b60cd84bb38d",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/inputs/diagnostic_rows.pkl",
+      "bytes": 442210,
+      "sha256": "b9a402be30abcd47ebb793d4f4d584d25fd17d3464d0eedc9281fe4a8b6cd8a7",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/inputs/frozen_forecasts.pkl",
+      "bytes": 1285610,
+      "sha256": "b01207a0868341d4020497175f856334a142a46a5aa7e478820d0495d95d3028",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/inputs/head_readback_audit.pkl",
+      "bytes": 5516,
+      "sha256": "58d5c34a3f2680338fd2e9d2d963f78105c9585c1bad4a53264320f8ee54651b",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/inputs/head_training_evidence.pkl",
+      "bytes": 250223,
+      "sha256": "34a9ae8f7aa6d200d11d560af4adc6dc5585b34ebacd89c417a19ceddb2f115d",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/inputs/implementation_seal.json",
+      "bytes": 3938,
+      "sha256": "92b071570ead3b5031f9cfe8afc0e9b7ead904953c23341c0aa73b750de2985e",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/inputs/registration.json",
+      "bytes": 373,
+      "sha256": "9198e1d282331dacb1b229cc6f05e40abc249beebfff98fda70996a0b2786f62",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/inputs/source_audit.pkl",
+      "bytes": 1734,
+      "sha256": "f649e0bdc15a0d6f991ab53728f2ffb368cf6675db75ed4e8651c1ce6723e980",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/inputs/source_details.pkl",
+      "bytes": 10171,
+      "sha256": "0aa6f53ae367bc9f2a224c264f7a3defc65e4af37bde851aff284cb19d82f15c",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/models/frozen_forecast_models.pkl",
+      "bytes": 15650,
+      "sha256": "555962dcd0132308e80336ccc787d9b7279484b5b0c11bc9f0a9039cccbbc733",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/recovery/initial_precision_guard/execution.log",
+      "bytes": 14833,
+      "sha256": "360aeb440496d4831caa0af2cb22e37466ffab359759c2357e6d24c576e7f1c1",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/recovery/initial_precision_guard/implementation_seal.json",
+      "bytes": 3485,
+      "sha256": "f19063d9bcd8d5054e45dab10bbff46b319ee8dee821560b8d88f30e18e261ce",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/recovery/initial_precision_guard/recorder_reference.json",
+      "bytes": 2999,
+      "sha256": "f77b87b521a87b72a8a7983fd662cb4f1a0cf0a68bc2d86c331291ff09e53c1d",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/recovery/initial_precision_guard/src/analysis/frozen_cash_information.py",
+      "bytes": 15237,
+      "sha256": "634577dafc59af2e9374ba80688a51ca42095f2a2f3dab5166f3a39839d66869",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/recovery/initial_precision_guard/src/workflow/frozen_cash_information.py",
+      "bytes": 24980,
+      "sha256": "445a3b173b040a5976aa006f922c12819336b0a106847575bfe59b117b0194fe",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/recovery/initial_precision_guard/tests/test_frozen_cash_information.py",
+      "bytes": 7951,
+      "sha256": "29db219c1d568a24e986cb637c762506a467481fa16b4883d23b8de048de73a4",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/recovery/initial_precision_guard/tests/test_frozen_cash_information_workflow.py",
+      "bytes": 10831,
+      "sha256": "8ff1dd574c5697913627a0d5c0dd1091f10b3f7bf0351519e0c55e1749991973",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/source/src/analysis/frozen_cash_information.py",
+      "bytes": 15565,
+      "sha256": "b83fe9439d747ca2c2763603640f635eeea6c48d3c4c388ace0e69bf54e6f60a",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/source/src/workflow/frozen_cash_information.py",
+      "bytes": 24980,
+      "sha256": "445a3b173b040a5976aa006f922c12819336b0a106847575bfe59b117b0194fe",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/source/tests/test_frozen_cash_information.py",
+      "bytes": 8751,
+      "sha256": "18de0148288e5967facbfcfa9917eeab5285ce46e67605782f040c94ee84c3e8",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/source/tests/test_frozen_cash_information_workflow.py",
+      "bytes": 10831,
+      "sha256": "8ff1dd574c5697913627a0d5c0dd1091f10b3f7bf0351519e0c55e1749991973",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen-cash-analysis-focused.log",
+      "bytes": 1500,
+      "sha256": "a497ff98ca13c6b77ecf988a1cd13a3296cc1bec8efd6ebc37b07e2c7f9ac849",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen-cash-dtype-inspection.json",
+      "bytes": 450,
+      "sha256": "89e7146c966a6f8d320825c3c474f63bcb205268f7e73cb46614626eb96c7faf",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen-cash-dtype-review.log",
+      "bytes": 1301,
+      "sha256": "14a6408ec389023f119c8cd040bf73b68c33789320bb1704d3fcab0072a9982c",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen-cash-execution-corrected.log",
+      "bytes": 531,
+      "sha256": "996d6839fa22ead4aa4406312cfaec031810466e0a4d700e5b6b2f30ddf868d4",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen-cash-final-spotcheck.json",
+      "bytes": 628,
+      "sha256": "356387e8eaa675c66a13f7b4e578494d48b2e227bcef17cc0082c61f0997cb5a",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen-cash-final-spotcheck.log",
+      "bytes": 2146,
+      "sha256": "cd8c8c7c6a9edae4ab66ff8c03a39919b8a2612e29a334c5fbc2b23611f835a7",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen-cash-information-focused-review.log",
+      "bytes": 4432,
+      "sha256": "aa08983e3d5183c2ba7f1aa952b4054d421e676174538794b194e7f414c49c77",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen-cash-integrity-readback.json",
+      "bytes": 13931,
+      "sha256": "d26a5b6c650651642a931cffe7a94f77d4e9dd0f4fb8e38ba9aa7abf5419b22c",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen-cash-integrity-readback.log",
+      "bytes": 4991,
+      "sha256": "0da3e0d2ad35da976bbebc7de9370b9ae542234d7b624216dfb123e1ca265d1e",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen-cash-workflow-focused.log",
+      "bytes": 3195,
+      "sha256": "965614e22af490adb0d75e29ac76d3078a82277ce4be061cbeac80ee7c1ae012",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/artifacts/verification/frozen_cash_spotcheck.py",
+      "bytes": 3609,
+      "sha256": "e7218903babcdb7947f7c6370cbd2677e87bf2d68e42c38171ffc67b0ad2f0de",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/meta.yaml",
+      "bytes": 445,
+      "sha256": "b926a9515bd09938478a37a5891668333e549777687e20d73fc180be15995ccd",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/params/cmd-sys.argv",
+      "bytes": 245,
+      "sha256": "f1c19b8c1be59516a045e280d2cce30db9db4b1788864474bb83e2709a92b805",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/tags/mlflow.source.name",
+      "bytes": 132,
+      "sha256": "5fb4f11698894dc5cce1c520f481325e7f0bb11ff98d6c48c6c8f830fe94552e",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/ef3da36b5e6a4f4297c2bf76a6a19afd/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "qlib_recorder/202102645689710573/meta.yaml",
+      "bytes": 364,
+      "sha256": "77d7163b33dd07f5caf99a35ce000d888cce8178df6df03c9eff993f1be5abb3",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Audit/reproduce fixed statistics; no new model or portfolio"
+    },
+    {
+      "path": "recorder_reference.json",
+      "bytes": 5757,
+      "sha256": "28f43bed7d1677bc81af1b3d6862d753718e3a3a9948c1927dd827aa969f9948",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "recovery_receipt.json",
+      "bytes": 2494,
+      "sha256": "1fec5732c92524917b26185f117b2332e5bfdf0a2ed0bb47dc723ac94d38b32b",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "registration.json",
+      "bytes": 373,
+      "sha256": "9198e1d282331dacb1b229cc6f05e40abc249beebfff98fda70996a0b2786f62",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 8598,
+      "sha256": "5a42ac28215215bbb81d9eb49bec54304fa3f9d532732323b7a90749d10c6d78",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 628,
+      "sha256": "356387e8eaa675c66a13f7b4e578494d48b2e227bcef17cc0082c61f0997cb5a",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    },
+    {
+      "path": "workflow.yaml",
+      "bytes": 1287,
+      "sha256": "1711fd4c7c4f154cf7a5087f80d4cb50c41fac0bb85d03bebe3d3b12a61c45de",
+      "source": "Registered frozen-head diagnostic; corrected complete Recorder or preserved pre-statistic failed attempt",
+      "date_range": "Frozen source2010-03-11..2026-09-25; diagnostics2016..2026-09-23 signal",
+      "purpose": "Slim notebook/card entry or small analysis summary"
+    }
+  ],
+  "entry_count": 103,
+  "total_bytes": 5275337,
+  "maximum_file_bytes": 1285610,
+  "parent_recorders_referenced_only": [
+    "bd754e6362b241f194351a1e7aebff6f",
+    "52f40778cbe64ca6a5864da356b960d0"
+  ]
+}

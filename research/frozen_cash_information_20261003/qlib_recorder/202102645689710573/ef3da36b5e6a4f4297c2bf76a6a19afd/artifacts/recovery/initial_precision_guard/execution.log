@@ -1,0 +1,152 @@
+[NbConvertApp] Converting notebook research/frozen_cash_information_20261003/frozen_cash_information_20261003.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/__main__.py", line 5, in <module>
+    main()
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/jupyter_core/application.py", line 284, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/traitlets/config/application.py", line 1080, in launch_instance
+    app.start()
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 420, in start
+    self.convert_notebooks()
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 597, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 487, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 201, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 220, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 154, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 353, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 103, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 124, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/qlib_venv/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from pathlib import Path
+import os
+import qlib
+from qlib.data import D
+from qlib.workflow import R
+
+ROOT = Path(os.environ.get("SOXL_RESEARCH_ROOT", "/Users/rziiiii/dev/workspace")).resolve()
+CARD = ROOT / "research/frozen_cash_information_20261003"
+qlib.init(provider_uri=str(ROOT / "data/qlib/published_futu_affine_20260925_v1"), region="us")
+assert len(D.calendar(freq="day")) == 4162
+from src.workflow.frozen_cash_information import run
+summary = run(ROOT, CARD)
+summary
+
+------------------
+
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:48,407) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:48,409) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:48,409) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/data/qlib/published_futu_affine_20260925_v1')}
+----- stderr -----
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:49,726) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:49,727) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:49,727) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/data/qlib/published_futu_affine_20260925_v1')}
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:49,816) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:49,817) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:49,817) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/frozen-cash-information-20261003/data/qlib/published_futu_affine_20260925_v1')}
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:49,896) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:49,896) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:49,896) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:51,484) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | Loading data Done
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:51,484) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | fit & process data Done
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:51,485) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | Init data Done
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:51,657) WARNING - qlib.workflow - [expm.py:231] - No valid experiment found. Create a new experiment with name frozen_cash_information_20261003.
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:51,658) INFO - qlib.workflow - [exp.py:258] - Experiment 202102645689710573 starts running ...
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:51,712) INFO - qlib.workflow - [recorder.py:345] - Recorder 5ca084dcc51e4a1abbe67ad1a8d1d555 starts running under Experiment 202102645689710573 ...
+----- stderr -----
+[49214:MainThread](2026-10-03 08:20:51,790) INFO - qlib.timer - [log.py:127] - Time cost: 0.000s | waiting `async_log` Done
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mValueError[39m                                Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 12[39m
+[32m      8[39m CARD = ROOT / [33m"research/frozen_cash_information_20261003"[39m
+[32m      9[39m qlib.init(provider_uri=str(ROOT / [33m"data/qlib/published_futu_affine_20260925_v1"[39m), region=[33m"us"[39m)
+[32m     10[39m [38;5;28;01massert[39;00m len(D.calendar(freq=[33m"day"[39m)) == [32m4162[39m
+[32m     11[39m [38;5;28;01mfrom[39;00m src.workflow.frozen_cash_information [38;5;28;01mimport[39;00m run
+[32m---> [39m[32m12[39m summary = run(ROOT, CARD)
+[32m     13[39m summary
+
+[36mFile [39m[32m~/dev/workspace-worktrees/frozen-cash-information-20261003/src/workflow/frozen_cash_information.py:345[39m, in [36mrun[39m[34m(root, card)[39m
+[32m    343[39m _write_json(reference_path, reference)
+[32m    344[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01msrc[39;00m[34;01m.[39;00m[34;01manalysis[39;00m[34;01m.[39;00m[34;01mfrozen_cash_information[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m analyze_information
+[32m--> [39m[32m345[39m results = [30;43manalyze_information[39;49m[30;43m([39;49m[30;43mbundle[39;49m[30;43m[[39;49m[30;43m"[39;49m[30;43mdiagnostic_rows[39;49m[30;43m"[39;49m[30;43m][39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mplan[39;49m[30;43m)[39;49m
+[32m    346[39m tables = {name + [33m"[39m[33m.csv[39m[33m"[39m: results[name] [38;5;28;01mfor[39;00m name [38;5;129;01min[39;00m
+[32m    347[39m           ([33m"[39m[33mpoint_metrics[39m[33m"[39m, [33m"[39m[33mcalibration[39m[33m"[39m, [33m"[39m[33mevent_metrics[39m[33m"[39m, [33m"[39m[33mbootstrap_summary[39m[33m"[39m)}
+[32m    348[39m _require([38;5;28misinstance[39m(tables, [38;5;28mdict[39m) [38;5;129;01mand[39;00m tables, [33m"[39m[33manalysis omitted small summary tables[39m[33m"[39m)
+
+[36mFile [39m[32m~/dev/workspace-worktrees/frozen-cash-information-20261003/src/analysis/frozen_cash_information.py:207[39m, in [36manalyze_information[39m[34m(rows, plan)[39m
+[32m    204[39m [38;5;28;01mif[39;00m (plan[[33m'[39m[33muncertainty[39m[33m'[39m][[33m'[39m[33mmethod[39m[33m'[39m].find([33m'[39m[33m2000[39m[33m'[39m)<[32m0[39m [38;5;129;01mor[39;00m [38;5;28mtuple[39m(plan[[33m'[39m[33mevent_diagnostic[39m[33m'[39m][[33m'[39m[33mcost_bps[39m[33m'[39m])!=([32m10[39m,[32m25[39m)
+[32m    205[39m         [38;5;129;01mor[39;00m plan[[33m'[39m[33mexperiment[39m[33m'[39m]!=[33m'[39m[33mfrozen_cash_information_20261003[39m[33m'[39m):
+[32m    206[39m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([33m'[39m[33mblocked: registered frozen-cash diagnostic plan required[39m[33m'[39m)
+[32m--> [39m[32m207[39m rows=[30;43m_checked_rows[39;49m[30;43m([39;49m[30;43mrows[39;49m[30;43m,[39;49m[30;43mplan[39;49m[30;43m)[39;49m;definitions=[]
+[32m    208[39m dev=plan[[33m'[39m[33mwindows[39m[33m'[39m][[33m'[39m[33mdevelopment_signal_years[39m[33m'[39m];outer=plan[[33m'[39m[33mwindows[39m[33m'[39m][[33m'[39m[33mreused_diagnostic_signal_years[39m[33m'[39m]
+[32m    209[39m [38;5;28;01mfor[39;00m year [38;5;129;01min[39;00m [*dev,*outer]:definitions.append(([33mf[39m[33m'[39m[33msignal_[39m[38;5;132;01m{[39;00myear[38;5;132;01m}[39;00m[33m'[39m,[33m'[39m[33mannual[39m[33m'[39m,year,rows.index.year==year))
+
+[36mFile [39m[32m~/dev/workspace-worktrees/frozen-cash-information-20261003/src/analysis/frozen_cash_information.py:194[39m, in [36m_checked_rows[39m[34m(rows, plan)[39m
+[32m    192[39m [38;5;28;01mfor[39;00m column [38;5;129;01min[39;00m ([33m'[39m[33mcash_advantage_prediction[39m[33m'[39m,[33m'[39m[33mprior_mean_prediction[39m[33m'[39m):_array(rows.loc[available,column])
+[32m    193[39m y=_array(rows.loc[known,[33m'[39m[33mcash_advantage_1d[39m[33m'[39m]);r=_array(rows.loc[known,[33m'[39m[33msoxx_return[39m[33m'[39m])
+[32m--> [39m[32m194[39m [38;5;28;01mif[39;00m (r<=-[32m1[39m).any() [38;5;129;01mor[39;00m [38;5;129;01mnot[39;00m np.allclose(y,-np.log1p(r),atol=[32m1e-14[39m,rtol=[32m1e-12[39m):[38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([33m'[39m[33mblocked: cash target/physical return differs[39m[33m'[39m)
+[32m    195[39m years=[38;5;28mset[39m(plan[[33m'[39m[33mwindows[39m[33m'[39m][[33m'[39m[33mdevelopment_signal_years[39m[33m'[39m])|[38;5;28mset[39m(plan[[33m'[39m[33mwindows[39m[33m'[39m][[33m'[39m[33mreused_diagnostic_signal_years[39m[33m'[39m])
+[32m    196[39m [38;5;28;01mif[39;00m (~rows.forecast_available & rows.index.year.isin(years)).any():[38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([33m'[39m[33mblocked: missing registered evaluation forecast head[39m[33m'[39m)
+
+[31mValueError[39m: blocked: cash target/physical return differs
+

@@ -1,0 +1,12 @@
+{
+  "recorder_id": "5ca084dcc51e4a1abbe67ad1a8d1d555",
+  "status": "FAILED",
+  "rows": 3954,
+  "return_dtype": "float32",
+  "label_dtype": "float32",
+  "native_log1p_dtype": "float32",
+  "native_max_abs_error": 0.0,
+  "promoted_float64_max_abs_error": 3.69393468591106e-09,
+  "original_source_sha256": "634577dafc59af2e9374ba80688a51ca42095f2a2f3dab5166f3a39839d66869",
+  "scope": "dtype/label-operation parity only; no predictive metric computed"
+}
