@@ -1,0 +1,701 @@
+{
+  "experiment": "soxs_cash5_revalidation_20261003",
+  "artifact_policy": "slim_card_recorder_first",
+  "recorder_id": "9653a5021e8d413a8765fbfd5342524d",
+  "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/soxs_cash5_revalidation_20261003/qlib_recorder",
+  "entries": [
+    {
+      "path": "Users/rziiiii/dev/workspace/research/soxs_cash5_revalidation_20261003/qlib_recorder/filelock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "bootstrap_summary.csv",
+      "bytes": 6270,
+      "sha256": "1ed9044bf40d9273e27845aa8cd0faf1560aacd519cf42672e2a42d2cebbf1ff",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "conclusion.md",
+      "bytes": 2747,
+      "sha256": "91da7a540ccb8c8885518ea44f585677ecb77e0704e73e86e4cf533c59f1557b",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "data_binding.json",
+      "bytes": 3485,
+      "sha256": "bb71f2bfb07019b10b2be7448469120e9f6a51a727c72865ebd9a77cdb7affa0",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "event_metrics.csv",
+      "bytes": 14092,
+      "sha256": "644865edb1ea495ad239e200ad0d0eea5c7cdcd5da621f830865bc7a3e2ae9ed",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "fit_audit.csv",
+      "bytes": 4214,
+      "sha256": "6e87ae9ffe40e9a7e3fec66aa1eec1ef8949cde30660e3bd33ff52324b426c6d",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "independent_review.json",
+      "bytes": 779,
+      "sha256": "9524388ab2e04434c2f9d2286ccad4c9d17c51b46c4a03c8f31432a50abeae82",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "input_smoke.json",
+      "bytes": 27298,
+      "sha256": "fe7c8302a487ff195c30224488ed93c966d82e6878f1255ee06196327822363d",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "plan.json",
+      "bytes": 7454,
+      "sha256": "f6cd507d539287d0fe0c65214288187c47e549fab2255fb2b5e0665269782d8b",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "point_metrics.csv",
+      "bytes": 3799,
+      "sha256": "4b105cbc8ddb3b805ff01a38c35ebd06448c80e1405374410b8cbf21a774f96e",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/analysis/bootstrap_draws.pkl",
+      "bytes": 514273,
+      "sha256": "4280571a4e15b01c9ec6593da8bdb6836a2d0e125c96e0e61ac0405a298b0521",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/analysis/equivalent_signal_analysis.pkl",
+      "bytes": 1930,
+      "sha256": "8a545026ee7d29f63323bf9c4ef6cd34db5dc5afc1afd796596be61954805851",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/analysis/labels.pkl",
+      "bytes": 117728,
+      "sha256": "8747e3618a9ca2bedd679a084451fdf4e77499be35908ba7ca99f4fc36909e9d",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/analysis/predictions.pkl",
+      "bytes": 168491,
+      "sha256": "259bbb3cf5070b8d3d6cb6ec56b9c4def2e54d10916ba3cd5988b81c1ec070e8",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/bootstrap_summary.csv",
+      "bytes": 6270,
+      "sha256": "1ed9044bf40d9273e27845aa8cd0faf1560aacd519cf42672e2a42d2cebbf1ff",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/conclusion.md",
+      "bytes": 2194,
+      "sha256": "8f15928b4c02eb292aa3a6e6e5d5ebff56d1a5471c8a3c04ed0d0b2c01f7cd80",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/event_metrics.csv",
+      "bytes": 14092,
+      "sha256": "644865edb1ea495ad239e200ad0d0eea5c7cdcd5da621f830865bc7a3e2ae9ed",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/fit_audit.csv",
+      "bytes": 4214,
+      "sha256": "6e87ae9ffe40e9a7e3fec66aa1eec1ef8949cde30660e3bd33ff52324b426c6d",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/plan.json",
+      "bytes": 7454,
+      "sha256": "f6cd507d539287d0fe0c65214288187c47e549fab2255fb2b5e0665269782d8b",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/point_metrics.csv",
+      "bytes": 3799,
+      "sha256": "4b105cbc8ddb3b805ff01a38c35ebd06448c80e1405374410b8cbf21a774f96e",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/run_authorization.json",
+      "bytes": 1155,
+      "sha256": "d5755f095c8802a2bbfebb60c55d65c36f3782113e8e08cb52eaba8c44f2ad5f",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/signal_analysis.csv",
+      "bytes": 4962,
+      "sha256": "c87b9495214ada5abab9feaffa4249c846cbf38f1c81d428ba88f497315e6a48",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/source_audit.json",
+      "bytes": 19458,
+      "sha256": "f08a515f96d64b4456bc54a31d8f6536f274dec2504f73299974daaea2c94dfb",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/summary.pkl",
+      "bytes": 17174,
+      "sha256": "d888c61bd4e7e979d6dd553c3e3423f0a32c65e27d8b5a69bde7590389513106",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/card/workflow.yaml",
+      "bytes": 1715,
+      "sha256": "08e0d7b2f12edac7b49e0969a5ce5373300326c4e4ea8748ca405582e9d9235e",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/bootstrap_summary.csv",
+      "bytes": 6270,
+      "sha256": "1ed9044bf40d9273e27845aa8cd0faf1560aacd519cf42672e2a42d2cebbf1ff",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/conclusion.md",
+      "bytes": 2747,
+      "sha256": "91da7a540ccb8c8885518ea44f585677ecb77e0704e73e86e4cf533c59f1557b",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/data_binding.json",
+      "bytes": 3485,
+      "sha256": "bb71f2bfb07019b10b2be7448469120e9f6a51a727c72865ebd9a77cdb7affa0",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/event_metrics.csv",
+      "bytes": 14092,
+      "sha256": "644865edb1ea495ad239e200ad0d0eea5c7cdcd5da621f830865bc7a3e2ae9ed",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/fit_audit.csv",
+      "bytes": 4214,
+      "sha256": "6e87ae9ffe40e9a7e3fec66aa1eec1ef8949cde30660e3bd33ff52324b426c6d",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/independent_review.json",
+      "bytes": 779,
+      "sha256": "9524388ab2e04434c2f9d2286ccad4c9d17c51b46c4a03c8f31432a50abeae82",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/input_smoke.json",
+      "bytes": 27298,
+      "sha256": "fe7c8302a487ff195c30224488ed93c966d82e6878f1255ee06196327822363d",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/plan.json",
+      "bytes": 7454,
+      "sha256": "f6cd507d539287d0fe0c65214288187c47e549fab2255fb2b5e0665269782d8b",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/point_metrics.csv",
+      "bytes": 3799,
+      "sha256": "4b105cbc8ddb3b805ff01a38c35ebd06448c80e1405374410b8cbf21a774f96e",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/recorder_reference.json",
+      "bytes": 2317,
+      "sha256": "8f46addb7cdcd293194ac6af4480ce571cfc87ca6181fbafdd1559285bb6fc9e",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/registration.json",
+      "bytes": 293,
+      "sha256": "e2175101c7cfc551246720b1b9f1d37c48ac0bc0cfb47e08fdca33e03f11a193",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/run_authorization.json",
+      "bytes": 1155,
+      "sha256": "d5755f095c8802a2bbfebb60c55d65c36f3782113e8e08cb52eaba8c44f2ad5f",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/signal_analysis.csv",
+      "bytes": 4962,
+      "sha256": "c87b9495214ada5abab9feaffa4249c846cbf38f1c81d428ba88f497315e6a48",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/source_audit.json",
+      "bytes": 19458,
+      "sha256": "f08a515f96d64b4456bc54a31d8f6536f274dec2504f73299974daaea2c94dfb",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/source_overlap_review.json",
+      "bytes": 401,
+      "sha256": "5cb97872d2cf0860ed4a3cbe942d1e812d130a3a9eb78d3c4c796bfd6f2f1b9a",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/soxs_cash5_revalidation_20261003.ipynb",
+      "bytes": 20605,
+      "sha256": "587c595cac36bca9067c25a8e0920a191a2e977c1b0a3ed07bd8f945a6928ea9",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/summary.json",
+      "bytes": 26716,
+      "sha256": "8cf5ecff35a11691fdc3f83a96a615c1ace7405147f641ba5753a8bb83e63f05",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/verification.json",
+      "bytes": 955,
+      "sha256": "cc30915d718218d18a716aa29b57bab48c2e24a70121a0e9223461270c28c327",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/final_card/workflow.yaml",
+      "bytes": 1715,
+      "sha256": "08e0d7b2f12edac7b49e0969a5ce5373300326c4e4ea8748ca405582e9d9235e",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/inputs/authorization.pkl",
+      "bytes": 1094,
+      "sha256": "a875e8044f25d565fa35d1f3f09eb2a288193449a5eb19fd56125201afcca91c",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/inputs/data_audit.pkl",
+      "bytes": 13516,
+      "sha256": "f9584e19bdb87fe09fa769c2ee1402051e7ff3dc630f08198caf768408112bdd",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/inputs/features_labels.pkl",
+      "bytes": 602141,
+      "sha256": "1052946c3f4bea1bcbcc3ba83a5eb50663f2e8279c0f4861e6a00859a17e1a17",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/inputs/plan.pkl",
+      "bytes": 6518,
+      "sha256": "c2b9082b1b22e3e832636711bd8455d2b1c9cca8c6c7979a4df165a4cb058994",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/models/fitted_models.pkl",
+      "bytes": 10403,
+      "sha256": "7f23eec1eb5c4201e6fb3d028719066f2d25fab72088fc505d7ad51866f07005",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/verification/review_soxs_cash5.py",
+      "bytes": 2842,
+      "sha256": "5e207e6b44b90e01fa6d8907705c0d09596925b359b5d9e3f84e3b288ebcb5b2",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/verification/soxs-cash5-execution.log",
+      "bytes": 530,
+      "sha256": "9081b4774249b3e482884b116de50d6b74de2b95aa42b0f0684eb9ffce295b91",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/verification/soxs-cash5-focused.log",
+      "bytes": 6068,
+      "sha256": "47a36733f3346013e19ac6b9161b646a140448f59c044beb7f8e3b08e54e7484",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/verification/soxs-cash5-independent-review.log",
+      "bytes": 2208,
+      "sha256": "353525acf23fdc440af7ea7e1e1bfcc468c0c8e5fad8e55eb02fa1408e991d31",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/verification/soxs_cash5_revalidation.py",
+      "bytes": 35867,
+      "sha256": "a8a35004e680061eeb632a3fa36fe4e4cc5d4e2de13d1f197ddd7ed27100cebd",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/verification/soxs_published_close.py",
+      "bytes": 15282,
+      "sha256": "25ea26128cc94a4f50c8e9d400840cd34afee0f6a66b90cdacc12ebb310f1d69",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/verification/test_soxs_cash5_revalidation.py",
+      "bytes": 7798,
+      "sha256": "d03d6cf45443839f5aa9d0aee2b5671a18cbee9471eb8e2c428c413b4b4bf3ab",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/artifacts/verification/test_soxs_published_close.py",
+      "bytes": 3015,
+      "sha256": "e8dfb1a93db083a7dc58f79ebe213290a5d86742b8693f2e06e4a849c563ab4a",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/meta.yaml",
+      "bytes": 452,
+      "sha256": "7b5ed763245983067b110d0b534e12c4d7b61376100b2b5f85cd7f046930d32e",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/metrics/all_research_gates_pass",
+      "bytes": 20,
+      "sha256": "94bad904720a48daaae9ed68a2cf5c51644a07734d74edca31d445759b6141ca",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/metrics/development_full_ic",
+      "bytes": 36,
+      "sha256": "16e3fe94dacacbbca880de9dcda906744e9bf11bdf174a159e3615a6aed9f8c4",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/metrics/fit_count",
+      "bytes": 21,
+      "sha256": "7e5d8e22960bc08307ea84fb3f2140abb43c4546fecff93db9f2dbcb2c97ec82",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/metrics/positive_development_years",
+      "bytes": 20,
+      "sha256": "93884cb6055ab3bcffb5398afd45b26412c4e10c3dd94eaf403098a267bb0b31",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/params/all_history_reused",
+      "bytes": 4,
+      "sha256": "3cbc87c7681f34db4617feaa2c8801931bc5e42d8d0f560e756dd4cd92885f18",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/params/cmd-sys.argv",
+      "bytes": 245,
+      "sha256": "12fd8634893b0efb58331b81bec37fdbbef126ebafd3eaa5f8975b8477491fd6",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/params/fit_budget",
+      "bytes": 2,
+      "sha256": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/params/implementation_sha256",
+      "bytes": 64,
+      "sha256": "0151ff2aa3ec8579220c344c72a2a9fbc785cdc734feb30cd218f8dd9a86db9f",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/params/native_input_sha256",
+      "bytes": 64,
+      "sha256": "dceabe473433f62e6416bf5e27bd7097db2f157bbde7b5ba74ca0b6c0dbee58a",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "e219686ba16d09bb8ebda5d13c0783accec04bc80813f527c8257fd7bcf8bc40",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/params/ridge_alpha",
+      "bytes": 2,
+      "sha256": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/params/source_as_of",
+      "bytes": 10,
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/params/target",
+      "bytes": 17,
+      "sha256": "70d5a2ed377768857d1e4167e31d40455cd78a232215ead08f9cad8c92ae894c",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/tags/mlflow.source.name",
+      "bytes": 132,
+      "sha256": "27af4256ea25e42d8b5d13f857de89ab2dbd2965dc9430a8baf54570b6c30e26",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/9653a5021e8d413a8765fbfd5342524d/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "qlib_recorder/612607756789274197/meta.yaml",
+      "bytes": 371,
+      "sha256": "fbccf5cb2c27b73171a5923126bafd2fa7d3631a4aa340af37cfd4bc94031662",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "recorder_reference.json",
+      "bytes": 2317,
+      "sha256": "8f46addb7cdcd293194ac6af4480ce571cfc87ca6181fbafdd1559285bb6fc9e",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "registration.json",
+      "bytes": 293,
+      "sha256": "e2175101c7cfc551246720b1b9f1d37c48ac0bc0cfb47e08fdca33e03f11a193",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "run_authorization.json",
+      "bytes": 1155,
+      "sha256": "d5755f095c8802a2bbfebb60c55d65c36f3782113e8e08cb52eaba8c44f2ad5f",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "signal_analysis.csv",
+      "bytes": 4962,
+      "sha256": "c87b9495214ada5abab9feaffa4249c846cbf38f1c81d428ba88f497315e6a48",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "source_audit.json",
+      "bytes": 19458,
+      "sha256": "f08a515f96d64b4456bc54a31d8f6536f274dec2504f73299974daaea2c94dfb",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "source_overlap_review.json",
+      "bytes": 401,
+      "sha256": "5cb97872d2cf0860ed4a3cbe942d1e812d130a3a9eb78d3c4c796bfd6f2f1b9a",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "soxs_cash5_revalidation_20261003.ipynb",
+      "bytes": 20605,
+      "sha256": "587c595cac36bca9067c25a8e0920a191a2e977c1b0a3ed07bd8f945a6928ea9",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 26716,
+      "sha256": "8cf5ecff35a11691fdc3f83a96a615c1ace7405147f641ba5753a8bb83e63f05",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 955,
+      "sha256": "cc30915d718218d18a716aa29b57bab48c2e24a70121a0e9223461270c28c327",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    },
+    {
+      "path": "workflow.yaml",
+      "bytes": 1715,
+      "sha256": "08e0d7b2f12edac7b49e0969a5ce5373300326c4e4ea8748ca405582e9d9235e",
+      "source": "Registered SOXS cash5 revalidation, sole immutableQlibRecorder",
+      "date_range": "2016-2026diagnostics;priceasof2026-09-25",
+      "purpose": "Reproduce/audit weakinformation andfaileddeployment-relevance screen"
+    }
+  ],
+  "entry_count": 86,
+  "total_bytes": 1891175,
+  "external_data_binding": "data_binding.json",
+  "original_scientific_artifacts_unchanged": true,
+  "parent_trees_copied": false
+}

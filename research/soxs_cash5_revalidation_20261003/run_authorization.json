@@ -1,0 +1,19 @@
+{
+  "approved": true,
+  "approved_at_utc": "2026-10-03T11:49:03.070740+00:00",
+  "plan_sha256": "f6cd507d539287d0fe0c65214288187c47e549fab2255fb2b5e0665269782d8b",
+  "implementation_sha256": "a8a35004e680061eeb632a3fa36fe4e4cc5d4e2de13d1f197ddd7ed27100cebd",
+  "workflow_sha256": "08e0d7b2f12edac7b49e0969a5ce5373300326c4e4ea8748ca405582e9d9235e",
+  "source_manifest_sha256": "88bd6026c381f143dc3049dfef4bd39fc165ba737b509feb068a04e3b0e43e63",
+  "data_implementation_sha256": "25ea26128cc94a4f50c8e9d400840cd34afee0f6a66b90cdacc12ebb310f1d69",
+  "native_input_sha256": "c72fdd0eb850faca443f4c7d802a2d28412a45fc379767d4f0cc3959b0159bec",
+  "focused_tests": {
+    "data": 7,
+    "workflow": 9
+  },
+  "test_sha256": {
+    "tests/test_soxs_published_close.py": "e8dfb1a93db083a7dc58f79ebe213290a5d86742b8693f2e06e4a849c563ab4a",
+    "tests/test_soxs_cash5_revalidation.py": "d03d6cf45443839f5aa9d0aee2b5671a18cbee9471eb8e2c428c413b4b4bf3ab"
+  },
+  "review": "Root independent code/source review: temporal purge, H5 maturity, exact fee funding, paired bootstrap, invalid-data failure, single-run Recorder; source-vintage and secondary-data limits retained."
+}

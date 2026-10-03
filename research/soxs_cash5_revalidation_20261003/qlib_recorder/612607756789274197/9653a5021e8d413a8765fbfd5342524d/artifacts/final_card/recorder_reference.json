@@ -1,0 +1,29 @@
+{
+  "complete": true,
+  "recorder_id": "9653a5021e8d413a8765fbfd5342524d",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxs_cash5_revalidation_20261003/qlib_recorder",
+  "plan_sha256": "f6cd507d539287d0fe0c65214288187c47e549fab2255fb2b5e0665269782d8b",
+  "started_at_utc": "2026-10-03T11:49:05.923709+00:00",
+  "artifact_sha256": {
+    "analysis/bootstrap_draws.pkl": "4280571a4e15b01c9ec6593da8bdb6836a2d0e125c96e0e61ac0405a298b0521",
+    "analysis/equivalent_signal_analysis.pkl": "8a545026ee7d29f63323bf9c4ef6cd34db5dc5afc1afd796596be61954805851",
+    "analysis/labels.pkl": "8747e3618a9ca2bedd679a084451fdf4e77499be35908ba7ca99f4fc36909e9d",
+    "analysis/predictions.pkl": "259bbb3cf5070b8d3d6cb6ec56b9c4def2e54d10916ba3cd5988b81c1ec070e8",
+    "card/bootstrap_summary.csv": "1ed9044bf40d9273e27845aa8cd0faf1560aacd519cf42672e2a42d2cebbf1ff",
+    "card/conclusion.md": "8f15928b4c02eb292aa3a6e6e5d5ebff56d1a5471c8a3c04ed0d0b2c01f7cd80",
+    "card/event_metrics.csv": "644865edb1ea495ad239e200ad0d0eea5c7cdcd5da621f830865bc7a3e2ae9ed",
+    "card/fit_audit.csv": "6e87ae9ffe40e9a7e3fec66aa1eec1ef8949cde30660e3bd33ff52324b426c6d",
+    "card/plan.json": "f6cd507d539287d0fe0c65214288187c47e549fab2255fb2b5e0665269782d8b",
+    "card/point_metrics.csv": "4b105cbc8ddb3b805ff01a38c35ebd06448c80e1405374410b8cbf21a774f96e",
+    "card/run_authorization.json": "d5755f095c8802a2bbfebb60c55d65c36f3782113e8e08cb52eaba8c44f2ad5f",
+    "card/signal_analysis.csv": "c87b9495214ada5abab9feaffa4249c846cbf38f1c81d428ba88f497315e6a48",
+    "card/source_audit.json": "f08a515f96d64b4456bc54a31d8f6536f274dec2504f73299974daaea2c94dfb",
+    "card/summary.pkl": "d888c61bd4e7e979d6dd553c3e3423f0a32c65e27d8b5a69bde7590389513106",
+    "card/workflow.yaml": "08e0d7b2f12edac7b49e0969a5ce5373300326c4e4ea8748ca405582e9d9235e",
+    "inputs/authorization.pkl": "a875e8044f25d565fa35d1f3f09eb2a288193449a5eb19fd56125201afcca91c",
+    "inputs/data_audit.pkl": "f9584e19bdb87fe09fa769c2ee1402051e7ff3dc630f08198caf768408112bdd",
+    "inputs/features_labels.pkl": "1052946c3f4bea1bcbcc3ba83a5eb50663f2e8279c0f4861e6a00859a17e1a17",
+    "inputs/plan.pkl": "c2b9082b1b22e3e832636711bd8455d2b1c9cca8c6c7979a4df165a4cb058994",
+    "models/fitted_models.pkl": "7f23eec1eb5c4201e6fb3d028719066f2d25fab72088fc505d7ad51866f07005"
+  }
+}

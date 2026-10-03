@@ -1,0 +1,42 @@
+[
+  {
+    "a": 1.0,
+    "b": -0.71282,
+    "corroboration_urls": [
+      "https://app.tiingo.com/soxs/dividends",
+      "https://www.dividend.com/etfs/soxs-direxion-daily-semicondct-bear-3x-etf/"
+    ],
+    "date": "2010-12-14",
+    "evidence_file": "early_action_evidence.json",
+    "original_cash_per_share": 0.71282,
+    "source_url": "https://dividendhistory.org/payout/SOXS/",
+    "split": 1.0,
+    "yahoo_rounded_implied_cash": 0.713
+  },
+  {
+    "a": 5.0,
+    "b": 0.0,
+    "corroboration_urls": [
+      "https://query2.finance.yahoo.com/v8/finance/chart/SOXS"
+    ],
+    "date": "2011-02-24",
+    "event": "1-for-5 reverse split",
+    "evidence_file": "early_action_evidence.json",
+    "source_url": "https://www.prnewswire.com/news-releases/direxion-shares-announces-reverse-share-split-of-six-etfs-115099319.html",
+    "split": 5.0
+  },
+  {
+    "a": 1.0,
+    "b": -0.74531,
+    "corroboration_urls": [
+      "https://app.tiingo.com/soxs/dividends",
+      "https://www.dividend.com/etfs/soxs-direxion-daily-semicondct-bear-3x-etf/"
+    ],
+    "date": "2011-03-22",
+    "evidence_file": "early_action_evidence.json",
+    "original_cash_per_share": 0.74531,
+    "source_url": "https://dividendhistory.org/payout/SOXS/",
+    "split": 1.0,
+    "yahoo_rounded_implied_cash": 0.745
+  }
+]
