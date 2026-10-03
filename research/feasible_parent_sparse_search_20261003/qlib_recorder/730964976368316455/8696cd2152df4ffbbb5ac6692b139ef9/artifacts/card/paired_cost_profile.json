@@ -1,0 +1,51 @@
+{
+  "synthetic_only": true,
+  "fits_performed": false,
+  "rows": 3000,
+  "independent_two_books_seconds": 0.14767895895056427,
+  "paired_state_seconds": 0.07373995799571276,
+  "speedup": 2.0026992551195963,
+  "all_field_maximum_error": 0.0,
+  "errors": {
+    "10.0": {
+      "target_weights": 0.0,
+      "pretrade_weights": 0.0,
+      "ending_weights": 0.0,
+      "open_net_weights": 0.0,
+      "execution_target_weights": 0.0,
+      "net_equity": 0.0,
+      "fees": 0.0,
+      "turnover": 0.0,
+      "open_net_equity": 0.0,
+      "logit_scale": 0.0,
+      "expert_weights": 0.0,
+      "exact_hold": 0.0,
+      "net_return": 0.0,
+      "equity": 0.0,
+      "exact_zero_order": 0.0
+    },
+    "25.0": {
+      "target_weights": 0.0,
+      "pretrade_weights": 0.0,
+      "ending_weights": 0.0,
+      "open_net_weights": 0.0,
+      "execution_target_weights": 0.0,
+      "net_equity": 0.0,
+      "fees": 0.0,
+      "turnover": 0.0,
+      "open_net_equity": 0.0,
+      "logit_scale": 0.0,
+      "expert_weights": 0.0,
+      "exact_hold": 0.0,
+      "net_return": 0.0,
+      "equity": 0.0,
+      "exact_zero_order": 0.0
+    }
+  },
+  "source_sha256": {
+    "src/model/paired_sparse_paths.py": "0c11f683273d3c0341c175d35cfc62b18dee73dbce9b707b2400973569c22a1f",
+    "src/model/sparse_holdings_net_excess.py": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d",
+    "src/model/post_fee_settlement.py": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1"
+  },
+  "financial_parameters_changed": false
+}

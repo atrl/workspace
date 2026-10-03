@@ -1,0 +1,1165 @@
+{
+  "scope": "Authorized read-only scalar comparison of seed17/41 trial0 atbothcosts only; two algebraicallyequivalent sparsemax arithmetic paths perstate/cost. No fit, optimizer, sourcechange, newcandidate, or full640-head rerun.",
+  "recorder_id": "a0cbd66785b44ccc8ab2080b36026195",
+  "reference_sha256": "987a7d8c9be2490d5b59a6854501f04db0ca1f859364884f9522315b1fd29c20",
+  "original_audit_sha256": "78dabf9fd3cccf8ae2787982170cadbea7f9f625119388b16640aabd43e0debb",
+  "original_eight_flags_preserved": true,
+  "source_model_sha256": "47db72c75283ce2d6ad05f60234a731f2994c0900ad3f6346413e2bfa0b6d323",
+  "original_policy_source_sha256": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d",
+  "method_sha256": "57cb6a2eeb83d68d70695127b5c7bb08cc4167687017fc1450ba7f99b4aceb7a",
+  "original_audit_method_sha256": "5b64533a18e69764c91c0e463a7ed4845a7c8e48add1fd14e20786ed2077519d",
+  "source_test": "1 + k*sorted_shifted_score > cumulative_sum",
+  "alternative_test": "sorted_shifted_score - (cumulative_sum - 1)/k > 0",
+  "explanation": "The tests are algebraically equivalent in exact arithmetic but not roundoff invariant at a zero coordinate. They can choose different support counts or thresholds at floating cancellation. The positive mass involved is quantified; no near-zero cutoff was introduced, and saved source arithmetic remains authoritative for exactsupport diagnostics.",
+  "state_cost_cases": 4,
+  "validation_arithmetic_paths": 8,
+  "cases": [
+    {
+      "seed": 17,
+      "trial": 0,
+      "cost_bps": 10.0,
+      "source_diagnostics_match_saved_exactly": true,
+      "source_diagnostics": {
+        "support_cardinality_fraction": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 1.0,
+          "4": 0.0
+        },
+        "exact_hold_count": 0,
+        "exact_zero_order_count": 0,
+        "reported_trade_count_gt_1e_minus12": 504
+      },
+      "alternative_diagnostics": {
+        "support_cardinality_fraction": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.5,
+          "4": 0.5
+        },
+        "exact_hold_count": 0,
+        "exact_zero_order_count": 0,
+        "reported_trade_count_gt_1e_minus12": 504
+      },
+      "different_support_same_score_rows": 252,
+      "positive_probabilities_whose_zero_status_changed_min": 5.551115123125783e-17,
+      "positive_probabilities_whose_zero_status_changed_max": 5.551115123125783e-17,
+      "maximum_q_difference_on_same_scores": 5.551115123125783e-17,
+      "source_A": 0.01925818102167457,
+      "alternative_A": 0.019258181021681486,
+      "stored_A": 0.019258181021674543,
+      "source_raw_gap_pp": [
+        -0.010918213621825303,
+        -0.010918213621824348
+      ],
+      "alternative_raw_gap_pp": [
+        -0.010918213621825303,
+        -0.010918213621824348
+      ],
+      "source_raw_feasible": true,
+      "alternative_raw_feasible": true,
+      "source_path_error_vs_saved": 0.0,
+      "source_relative_NAV_error": 0.0,
+      "first_three_arithmetic_examples": [
+        {
+          "ordinal": 0,
+          "scores": [
+            -0.23038026294806968,
+            0.0,
+            -0.07858289291457876,
+            -0.4363210519542161
+          ],
+          "q": [
+            0.20594078900614643,
+            0.4363210519542161,
+            0.35773815903963735,
+            0.0
+          ],
+          "other_q": [
+            0.20594078900614649,
+            0.43632105195421617,
+            0.3577381590396374,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4363210519542161,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.43632105195421617,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          }
+        },
+        {
+          "ordinal": 2,
+          "scores": [
+            -0.23038026294806968,
+            0.0,
+            -0.07858289291457876,
+            -0.4363210519542161
+          ],
+          "q": [
+            0.20594078900614643,
+            0.4363210519542161,
+            0.35773815903963735,
+            0.0
+          ],
+          "other_q": [
+            0.20594078900614649,
+            0.43632105195421617,
+            0.3577381590396374,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4363210519542161,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.43632105195421617,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          }
+        },
+        {
+          "ordinal": 4,
+          "scores": [
+            -0.23038026294806968,
+            0.0,
+            -0.07858289291457876,
+            -0.4363210519542161
+          ],
+          "q": [
+            0.20594078900614643,
+            0.4363210519542161,
+            0.35773815903963735,
+            0.0
+          ],
+          "other_q": [
+            0.20594078900614649,
+            0.43632105195421617,
+            0.3577381590396374,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4363210519542161,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.43632105195421617,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "trial": 0,
+      "cost_bps": 25.0,
+      "source_diagnostics_match_saved_exactly": true,
+      "source_diagnostics": {
+        "support_cardinality_fraction": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 1.0,
+          "4": 0.0
+        },
+        "exact_hold_count": 0,
+        "exact_zero_order_count": 0,
+        "reported_trade_count_gt_1e_minus12": 504
+      },
+      "alternative_diagnostics": {
+        "support_cardinality_fraction": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.5,
+          "4": 0.5
+        },
+        "exact_hold_count": 0,
+        "exact_zero_order_count": 0,
+        "reported_trade_count_gt_1e_minus12": 504
+      },
+      "different_support_same_score_rows": 252,
+      "positive_probabilities_whose_zero_status_changed_min": 5.551115123125783e-17,
+      "positive_probabilities_whose_zero_status_changed_max": 5.551115123125783e-17,
+      "maximum_q_difference_on_same_scores": 5.551115123125783e-17,
+      "source_A": 0.015864294357833056,
+      "alternative_A": 0.015864294357839967,
+      "stored_A": 0.015864294357833056,
+      "source_raw_gap_pp": [
+        -0.005328438560860214,
+        -0.005328438560858566
+      ],
+      "alternative_raw_gap_pp": [
+        -0.005328438560860214,
+        -0.005328438560858566
+      ],
+      "source_raw_feasible": true,
+      "alternative_raw_feasible": true,
+      "source_path_error_vs_saved": 0.0,
+      "source_relative_NAV_error": 0.0,
+      "first_three_arithmetic_examples": [
+        {
+          "ordinal": 0,
+          "scores": [
+            -0.23038026294806968,
+            0.0,
+            -0.07858289291457876,
+            -0.4363210519542161
+          ],
+          "q": [
+            0.20594078900614643,
+            0.4363210519542161,
+            0.35773815903963735,
+            0.0
+          ],
+          "other_q": [
+            0.20594078900614649,
+            0.43632105195421617,
+            0.3577381590396374,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4363210519542161,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.43632105195421617,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          }
+        },
+        {
+          "ordinal": 2,
+          "scores": [
+            -0.23038026294806968,
+            0.0,
+            -0.07858289291457876,
+            -0.4363210519542161
+          ],
+          "q": [
+            0.20594078900614643,
+            0.4363210519542161,
+            0.35773815903963735,
+            0.0
+          ],
+          "other_q": [
+            0.20594078900614649,
+            0.43632105195421617,
+            0.3577381590396374,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4363210519542161,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.43632105195421617,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          }
+        },
+        {
+          "ordinal": 4,
+          "scores": [
+            -0.23038026294806968,
+            0.0,
+            -0.07858289291457876,
+            -0.4363210519542161
+          ],
+          "q": [
+            0.20594078900614643,
+            0.4363210519542161,
+            0.35773815903963735,
+            0.0
+          ],
+          "other_q": [
+            0.20594078900614649,
+            0.43632105195421617,
+            0.3577381590396374,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4363210519542161,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.43632105195421617,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9214171070854212,
+              0.6178223670184394,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.46070855354271056,
+              0.20594078900614649,
+              0.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seed": 41,
+      "trial": 0,
+      "cost_bps": 10.0,
+      "source_diagnostics_match_saved_exactly": true,
+      "source_diagnostics": {
+        "support_cardinality_fraction": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 1.0,
+          "4": 0.0
+        },
+        "exact_hold_count": 0,
+        "exact_zero_order_count": 0,
+        "reported_trade_count_gt_1e_minus12": 504
+      },
+      "alternative_diagnostics": {
+        "support_cardinality_fraction": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.5,
+          "4": 0.5
+        },
+        "exact_hold_count": 0,
+        "exact_zero_order_count": 0,
+        "reported_trade_count_gt_1e_minus12": 504
+      },
+      "different_support_same_score_rows": 252,
+      "positive_probabilities_whose_zero_status_changed_min": 5.551115123125783e-17,
+      "positive_probabilities_whose_zero_status_changed_max": 5.551115123125783e-17,
+      "maximum_q_difference_on_same_scores": 5.551115123125783e-17,
+      "source_A": 0.03568352424637544,
+      "alternative_A": 0.03568352424638602,
+      "stored_A": 0.035683524246375414,
+      "source_raw_gap_pp": [
+        -0.025540504297621395,
+        -0.02554050429762738
+      ],
+      "alternative_raw_gap_pp": [
+        -0.025540504297664936,
+        -0.025540504297660773
+      ],
+      "source_raw_feasible": true,
+      "alternative_raw_feasible": true,
+      "source_path_error_vs_saved": 0.0,
+      "source_relative_NAV_error": 0.0,
+      "first_three_arithmetic_examples": [
+        {
+          "ordinal": 1,
+          "scores": [
+            -0.2509227661905742,
+            0.0,
+            -0.024242808256504378,
+            -0.4250551914823595
+          ],
+          "q": [
+            0.1741324252917853,
+            0.4250551914823595,
+            0.4008123832258551,
+            0.0
+          ],
+          "other_q": [
+            0.17413242529178535,
+            0.42505519148235954,
+            0.40081238322585516,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4250551914823595,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.42505519148235954,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          }
+        },
+        {
+          "ordinal": 3,
+          "scores": [
+            -0.2509227661905742,
+            0.0,
+            -0.024242808256504378,
+            -0.4250551914823595
+          ],
+          "q": [
+            0.1741324252917853,
+            0.4250551914823595,
+            0.4008123832258551,
+            0.0
+          ],
+          "other_q": [
+            0.17413242529178535,
+            0.42505519148235954,
+            0.40081238322585516,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4250551914823595,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.42505519148235954,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          }
+        },
+        {
+          "ordinal": 5,
+          "scores": [
+            -0.2509227661905742,
+            0.0,
+            -0.024242808256504378,
+            -0.4250551914823595
+          ],
+          "q": [
+            0.1741324252917853,
+            0.4250551914823595,
+            0.4008123832258551,
+            0.0
+          ],
+          "other_q": [
+            0.17413242529178535,
+            0.42505519148235954,
+            0.40081238322585516,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4250551914823595,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.42505519148235954,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "seed": 41,
+      "trial": 0,
+      "cost_bps": 25.0,
+      "source_diagnostics_match_saved_exactly": true,
+      "source_diagnostics": {
+        "support_cardinality_fraction": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 1.0,
+          "4": 0.0
+        },
+        "exact_hold_count": 0,
+        "exact_zero_order_count": 0,
+        "reported_trade_count_gt_1e_minus12": 504
+      },
+      "alternative_diagnostics": {
+        "support_cardinality_fraction": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.5,
+          "4": 0.5
+        },
+        "exact_hold_count": 0,
+        "exact_zero_order_count": 0,
+        "reported_trade_count_gt_1e_minus12": 504
+      },
+      "different_support_same_score_rows": 252,
+      "positive_probabilities_whose_zero_status_changed_min": 5.551115123125783e-17,
+      "positive_probabilities_whose_zero_status_changed_max": 5.551115123125783e-17,
+      "maximum_q_difference_on_same_scores": 5.551115123125783e-17,
+      "source_A": 0.030138923510940684,
+      "alternative_A": 0.03013892351095123,
+      "stored_A": 0.030138923510940684,
+      "source_raw_gap_pp": [
+        -0.016545006388667387,
+        -0.01654500638866834
+      ],
+      "alternative_raw_gap_pp": [
+        -0.01654500638870052,
+        -0.016545006388701735
+      ],
+      "source_raw_feasible": true,
+      "alternative_raw_feasible": true,
+      "source_path_error_vs_saved": 0.0,
+      "source_relative_NAV_error": 0.0,
+      "first_three_arithmetic_examples": [
+        {
+          "ordinal": 1,
+          "scores": [
+            -0.2509227661905742,
+            0.0,
+            -0.024242808256504378,
+            -0.4250551914823595
+          ],
+          "q": [
+            0.1741324252917853,
+            0.4250551914823595,
+            0.4008123832258551,
+            0.0
+          ],
+          "other_q": [
+            0.17413242529178535,
+            0.42505519148235954,
+            0.40081238322585516,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4250551914823595,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.42505519148235954,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          }
+        },
+        {
+          "ordinal": 3,
+          "scores": [
+            -0.2509227661905742,
+            0.0,
+            -0.024242808256504378,
+            -0.4250551914823595
+          ],
+          "q": [
+            0.1741324252917853,
+            0.4250551914823595,
+            0.4008123832258551,
+            0.0
+          ],
+          "other_q": [
+            0.17413242529178535,
+            0.42505519148235954,
+            0.40081238322585516,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4250551914823595,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.42505519148235954,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          }
+        },
+        {
+          "ordinal": 5,
+          "scores": [
+            -0.2509227661905742,
+            0.0,
+            -0.024242808256504378,
+            -0.4250551914823595
+          ],
+          "q": [
+            0.1741324252917853,
+            0.4250551914823595,
+            0.4008123832258551,
+            0.0
+          ],
+          "other_q": [
+            0.17413242529178535,
+            0.42505519148235954,
+            0.40081238322585516,
+            5.551115123125783e-17
+          ],
+          "support": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "other_support": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "maximum_q_difference": 5.551115123125783e-17,
+          "detail": {
+            "rho": 4,
+            "threshold": -0.4250551914823595,
+            "eligible": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          },
+          "other_detail": {
+            "rho": 3,
+            "threshold": -0.42505519148235954,
+            "eligible": [
+              true,
+              true,
+              true,
+              false
+            ],
+            "source_test_margin": [
+              1.0,
+              0.9757571917434956,
+              0.522397275875356,
+              1.1102230246251565e-16
+            ],
+            "alternative_test_margin": [
+              1.0,
+              0.48787859587174787,
+              0.17413242529178535,
+              0.0
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "maximum_errors": {
+    "q_difference_on_identical_scores": 5.551115123125783e-17,
+    "source_daily_saved_error": 0.0,
+    "source_relative_NAV_error": 0.0,
+    "alternative_F_error": 1.0602629885170245e-14,
+    "alternative_raw_gap_pp_error": 4.354155924701786e-14
+  },
+  "resolution_passed": true,
+  "failures": [],
+  "all_original_support_flags_explained": true,
+  "admission_gate_affected": false,
+  "original_preflight_independent_numeric_gate": true,
+  "combined_audit_closure": true,
+  "financial_qualification": false,
+  "limitations": "This closes only the independent arithmetic diagnostic discrepancy. The synthetic result is not an optimizeroptimality proof or evidence of market alpha; no originalrisk/financial/numerical tolerance changed."
+}

@@ -1,0 +1,13 @@
+segment,variant,cost_bps,reference_seed,seed,exact_path_equality,maximum_absolute_difference,interpretation
+development,holdings_only,10,17,41,True,0.0,"optimization-start symmetry/dispersion, not independent market samples"
+development,holdings_only,10,17,71,True,0.0,"optimization-start symmetry/dispersion, not independent market samples"
+development,holdings_only,25,17,41,True,0.0,"optimization-start symmetry/dispersion, not independent market samples"
+development,holdings_only,25,17,71,True,0.0,"optimization-start symmetry/dispersion, not independent market samples"
+development,price_holdings,10,17,41,False,1.0,"optimization-start symmetry/dispersion, not independent market samples"
+development,price_holdings,10,17,71,False,0.7106726436883314,"optimization-start symmetry/dispersion, not independent market samples"
+development,price_holdings,25,17,41,False,1.0,"optimization-start symmetry/dispersion, not independent market samples"
+development,price_holdings,25,17,71,False,0.7106726436883314,"optimization-start symmetry/dispersion, not independent market samples"
+development,price_vol_holdings,10,17,41,False,0.988617297867948,"optimization-start symmetry/dispersion, not independent market samples"
+development,price_vol_holdings,10,17,71,False,1.0,"optimization-start symmetry/dispersion, not independent market samples"
+development,price_vol_holdings,25,17,41,False,0.988617297867948,"optimization-start symmetry/dispersion, not independent market samples"
+development,price_vol_holdings,25,17,71,False,1.0,"optimization-start symmetry/dispersion, not independent market samples"

@@ -1,0 +1,39 @@
+# Additional attribution of already-saved startup observations. No new policy.
+with R.uri_context(reference['recorder_uri']):
+ rec=R.get_recorder(experiment_name=plan['experiment'],recorder_id=reference['recorder_id'])
+ folds=get('inputs/development_fold_inputs.pkl');folds.update(get('inputs/diagnostic_fold_inputs.pkl'))
+ startup_training=[]
+ for year in sorted(y for name,y in folds if name=='holdings_only'):
+  audit=get(f'search_trials/holdings_only/{year}/ensemble/audit.pkl')
+  dates=folds[('holdings_only',year)]['rows']
+  for cost in (10,25):
+   own=audit['training_paths'][cost];parent=audit['parent_training_paths'][cost]
+   excess=np.log(own['net_equity'])-np.log(parent['net_equity'])
+   different=np.flatnonzero(own['net_equity']!=parent['net_equity'])
+   target=np.asarray(own['target_weights'])
+   startup_training.append({'fit_year':year,'cost_bps':cost,'sessions':len(dates),
+    'first_training_signal':str(dates.signal_date.iloc[0].date()),'first_training_trade':str(dates.trade_date.iloc[0].date()),
+    'total_log_increment_vs_parent':float(excess.sum()),'first_observation_log_increment':float(excess[0]),
+    'remaining_saved_observations_log_increment':float(excess[1:].sum()),
+    'different_net_multiplier_rows':different.tolist(),'trade_rows':np.flatnonzero(own['turnover']>1e-12).tolist(),
+    'non_full_SOXX_target_rows':np.flatnonzero(np.any(target!=[0.,1.,0.],axis=1)).tolist(),
+    'scope':'Saved training book contribution versus its saved parent, no restarted path.'})
+ startup_rows=[]
+ for segment,variant in [('development','holdings_only'),('reused_diagnostic','holdings_only_annual_refit')]:
+  part=paths[(paths.segment==segment)&(paths.variant==variant)&(paths.cost_bps==25)&(paths.seed=='ensemble')].sort_values('signal_date').reset_index(drop=True)
+  benchmark=paths[(paths.segment==segment)&(paths.cost_bps==25)&(paths.seed=='benchmark')].sort_values('signal_date').reset_index(drop=True)
+  for i in range(min(12,len(part))):
+   row=part.iloc[i];base=benchmark.iloc[i]
+   startup_rows.append({'segment':segment,'row':i,'signal_date':str(row.signal_date.date()),'trade_date':str(row.trade_date.date()),
+    'soxl_weight':float(row.soxl_weight),'soxx_weight':float(row.soxx_weight),'cash_weight':float(row.cash_weight),
+    'strategy_return_pct':100*float(row.strategy_return),'benchmark_return_pct':100*float(base.strategy_return),
+    'log_excess':float(np.log1p(row.strategy_return)-np.log1p(base.strategy_return)),'fees':float(row.fees),
+    'turnover':float(row.turnover),'exact_hold_support':bool(row.exact_hold_support),'exact_zero_order':bool(row.exact_zero_order)})
+report['holding_only_saved_training_startup']=startup_training
+report['holding_only_saved_market_startup']=startup_rows
+Path('/tmp/phase9_economic_audit.json').write_text(json.dumps(report,indent=2,allow_nan=False,default=str))
+print('SAVED HOLDINGS-ONLY TRAINING STARTUP')
+for row in startup_training:
+ if row['cost_bps']==25:
+  print({k:v for k,v in row.items() if k not in ['non_full_SOXX_target_rows','scope']})
+print(pd.DataFrame(startup_rows).to_string(index=False))

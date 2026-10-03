@@ -1,0 +1,441 @@
+{
+  "recorder_id": "a0cbd66785b44ccc8ab2080b36026195",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/feasible_parent_sparse_search_20261003/qlib_recorder",
+  "plan_sha256": "c7818045478368cd472b4f37c54a19ffcad014478e36d558f4af31af6e5f40b7",
+  "source_sha256": {
+    "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/analysis/stage1_regime_validation.py": "3184a3769127b144d57c083b59d87d5f9e2e9dea7711fc47fe067b6f2503b42f",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/backtest/strategy.py": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+    "src/core/__init__.py": "f0d1420b340bcd60ee7b719d42dd47a0ef84c6044eaf936182a6817e61adee46",
+    "src/core/contracts.py": "39e855b9afa67d126b9be9d1df2845895afb41bb947f4d9b147db96e2da0243c",
+    "src/data/benchmark_anchor_utility.py": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+    "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+    "src/data/constrained_net_excess.py": "f140218167b67c42e56be08c269f04754970b2211e00ac415c277743bf631be9",
+    "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+    "src/data/feasible_parent_sparse_search.py": "aeb4bbe0a9b81751d6b87ca8d8b6425546446541671fac62a706b265bb76f612",
+    "src/data/integrated_allocation.py": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/sparse_holdings_net_excess.py": "33b44201b8bc9ead01a95c8cd8abec6bad56f18246d58b3f8f4b76e0d8c696e6",
+    "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+    "src/model/benchmark_anchor_utility.py": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+    "src/model/constrained_net_excess.py": "7a068cef362d24651c661289881662e6384e93396d1e7821ee38ebdbac74a08d",
+    "src/model/feasible_parent_sparse_search.py": "47db72c75283ce2d6ad05f60234a731f2994c0900ad3f6346413e2bfa0b6d323",
+    "src/model/integrated_allocation.py": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+    "src/model/paired_sparse_paths.py": "0c11f683273d3c0341c175d35cfc62b18dee73dbce9b707b2400973569c22a1f",
+    "src/model/post_fee_settlement.py": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+    "src/model/sparse_holdings_net_excess.py": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d",
+    "src/objective/benchmark_tail_constraints.py": "c94b59e8377945b7e84d1a7055fcbeb24286ebc97bc7b6eb987679bb2a9017fb",
+    "src/workflow/anchor_checkpoint_feasibility.py": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+    "src/workflow/benchmark_anchor_utility.py": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+    "src/workflow/conditional_variance.py": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+    "src/workflow/constrained_net_excess.py": "3e28ed6fbfde26258b90d1c6d890ea8d659a4cc1da89153b4d92f637d491a948",
+    "src/workflow/feasible_parent_sparse_search.py": "e5a02491480aa62be606e8f2d6b0ab5972d3eb012cc93f2e6914561a8b585115",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/workflow/sparse_holdings_net_excess.py": "432c76f20f4b1d5c3c187ecdac43cd31356170114d1d28b606721f69718482fa",
+    "src/workflow/stable_excess_integration.py": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/workflow/trainable_regime_policy_nested_wf.py": "dfebcac08d1dc808c47998b7901c63aa2e2d1d73becefcfa09da072437223869"
+  },
+  "complete": true,
+  "scope": "registered_synthetic_incremental_preflight",
+  "registration_clarification_sha256": "9cc445f6ea86541d796f9f781b5cc8be0977ff4dab2e2fd3b86a54827788fc4e",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/feasible_parent_sparse_search_20261003/qlib_recorder/730964976368316455/a0cbd66785b44ccc8ab2080b36026195",
+  "recorder_relative_dir": "qlib_recorder/730964976368316455/a0cbd66785b44ccc8ab2080b36026195",
+  "passed": true,
+  "artifacts": {
+    "inputs/implementation_seal.json": {
+      "artifact": "inputs/implementation_seal.json",
+      "sha256": "151c5d65e251f3f8bba20efb0e1a81d2ac2a8a9732b84184bff81c4f95bf0c40",
+      "bytes": 5597,
+      "deserialize": false
+    },
+    "inputs/native_source_audit.pkl": {
+      "artifact": "inputs/native_source_audit.pkl",
+      "sha256": "f8b2489f813fca3088e5524acdbf21a04ab92a350ad3a3d5e771a1e0213a7a92",
+      "bytes": 1410,
+      "deserialize": true
+    },
+    "inputs/native_source_details.pkl": {
+      "artifact": "inputs/native_source_details.pkl",
+      "sha256": "7db969467482b49ce5141433cc40b96dc34ff3348790b25321a63294aae46cde",
+      "bytes": 15642,
+      "deserialize": true
+    },
+    "inputs/observer_source_hashes.pkl": {
+      "artifact": "inputs/observer_source_hashes.pkl",
+      "sha256": "3956f8f0c4b7ff6266efc438833a3d096cdd2e96cb6bcfdfae595e70167ff9ee",
+      "bytes": 3833,
+      "deserialize": true
+    },
+    "inputs/parent_source_audit.pkl": {
+      "artifact": "inputs/parent_source_audit.pkl",
+      "sha256": "48aeda43cb3ceef6e551ce47b2064f0ffedfee32cc47563f65fddd6121cb4975",
+      "bytes": 2746,
+      "deserialize": true
+    },
+    "inputs/registration_clarification.json": {
+      "artifact": "inputs/registration_clarification.json",
+      "sha256": "9cc445f6ea86541d796f9f781b5cc8be0977ff4dab2e2fd3b86a54827788fc4e",
+      "bytes": 78724,
+      "deserialize": false
+    },
+    "inputs/selection_plan.json": {
+      "artifact": "inputs/selection_plan.json",
+      "sha256": "c7818045478368cd472b4f37c54a19ffcad014478e36d558f4af31af6e5f40b7",
+      "bytes": 37986,
+      "deserialize": false
+    },
+    "preflight/ensemble_audit.pkl": {
+      "artifact": "preflight/ensemble_audit.pkl",
+      "sha256": "2ee9bbae7ab3c9341cbbe2689acba205352a0e2c47b8fa61fe1bff0c63391527",
+      "bytes": 431112,
+      "deserialize": true
+    },
+    "gate": {
+      "artifact": "preflight/gate.pkl",
+      "sha256": "10546728b0434fe91cc5f86fb176a734f9c61278959c710294fce342a16316d3",
+      "bytes": 4942,
+      "deserialize": true
+    },
+    "preflight/inputs.pkl": {
+      "artifact": "preflight/inputs.pkl",
+      "sha256": "e6e71da2315c86d03925150bee956d8ffadb50aa98b49bfe02d03b5d65a330b1",
+      "bytes": 123579,
+      "deserialize": true
+    },
+    "preflight/parents/17/audit.pkl": {
+      "artifact": "preflight/parents/17/audit.pkl",
+      "sha256": "aa26a3185cf29a39382cafc760d061d34d06272bc13418483ae0711c633f6583",
+      "bytes": 580544,
+      "deserialize": true
+    },
+    "preflight/parents/17/latest_evaluation.pkl": {
+      "artifact": "preflight/parents/17/latest_evaluation.pkl",
+      "sha256": "5182c9a8b697197c42254e9b3d7f47c8036236b25f29a5b79ef3b488e435e6bb",
+      "bytes": 221791,
+      "deserialize": true
+    },
+    "preflight/parents/17/model.pkl": {
+      "artifact": "preflight/parents/17/model.pkl",
+      "sha256": "7fd163dfb87ce7171c78ffd230af7c32de0b000f0bd1c2d5e3f3c5828f44529e",
+      "bytes": 2446,
+      "deserialize": true
+    },
+    "preflight/parents/17/revalidation.pkl": {
+      "artifact": "preflight/parents/17/revalidation.pkl",
+      "sha256": "4b5d789f6c7bc64b659c379a80f6bbbf22ed12d6c093d5af73b76c70fd3e2a3d",
+      "bytes": 994,
+      "deserialize": true
+    },
+    "preflight/parents/41/audit.pkl": {
+      "artifact": "preflight/parents/41/audit.pkl",
+      "sha256": "b8f755ef63f68469d9e93772bb0651056d51c051fdb90f4ac8edd3fd57aad679",
+      "bytes": 580564,
+      "deserialize": true
+    },
+    "preflight/parents/41/latest_evaluation.pkl": {
+      "artifact": "preflight/parents/41/latest_evaluation.pkl",
+      "sha256": "c69f09efeb26ec0826e3ed5ee2b3eeb626fe5b8d54837b6249a8e847fe28c1b3",
+      "bytes": 221795,
+      "deserialize": true
+    },
+    "preflight/parents/41/model.pkl": {
+      "artifact": "preflight/parents/41/model.pkl",
+      "sha256": "75be2a7b65322e4027240388055d366bbc723963cfa90412a6072b4f60c378e3",
+      "bytes": 2446,
+      "deserialize": true
+    },
+    "preflight/parents/41/revalidation.pkl": {
+      "artifact": "preflight/parents/41/revalidation.pkl",
+      "sha256": "6df9d5be53638fcafd5e6e5153230acaf2de2b8f3365bc12157c7813d777a309",
+      "bytes": 994,
+      "deserialize": true
+    },
+    "preflight/parents/71/audit.pkl": {
+      "artifact": "preflight/parents/71/audit.pkl",
+      "sha256": "6bea1e455ab8af2c5edbfde24561239baa7613a18bf56d19c178736e0e36f2b8",
+      "bytes": 580533,
+      "deserialize": true
+    },
+    "preflight/parents/71/latest_evaluation.pkl": {
+      "artifact": "preflight/parents/71/latest_evaluation.pkl",
+      "sha256": "8d9ea842eb4322e0911ffb820d032a5afd3438ce3b8c3eaff61ff03de82a0152",
+      "bytes": 221791,
+      "deserialize": true
+    },
+    "preflight/parents/71/model.pkl": {
+      "artifact": "preflight/parents/71/model.pkl",
+      "sha256": "16686b63f38014bd87ad476d542fbde6b8ecba4d2fe136a3c7885656c1e21124",
+      "bytes": 2446,
+      "deserialize": true
+    },
+    "preflight/parents/71/revalidation.pkl": {
+      "artifact": "preflight/parents/71/revalidation.pkl",
+      "sha256": "244a456d6b3f22149ba43de0e592541d4703de1d6fde3faf6f9cb3617e1f354d",
+      "bytes": 994,
+      "deserialize": true
+    },
+    "preflight/search/17/audit.pkl": {
+      "artifact": "preflight/search/17/audit.pkl",
+      "sha256": "e85737c0f544d5fcf9ca2ab6ab6b16a853bdb72b4a01a67a5768a2e50cf190af",
+      "bytes": 738180,
+      "deserialize": true
+    },
+    "preflight/search/17/model.pkl": {
+      "artifact": "preflight/search/17/model.pkl",
+      "sha256": "1ace7d8664f0602c100b9e0e2db5530d6d994a1da8aa2adca1dc5090ff93b43f",
+      "bytes": 2723,
+      "deserialize": true
+    },
+    "preflight/search/41/audit.pkl": {
+      "artifact": "preflight/search/41/audit.pkl",
+      "sha256": "35d3a1a1cfb655dbc5a230d7fe68729e6ed334bbc7e6e6bd556aaafde7962d6b",
+      "bytes": 692393,
+      "deserialize": true
+    },
+    "preflight/search/41/model.pkl": {
+      "artifact": "preflight/search/41/model.pkl",
+      "sha256": "c85a6d6e87ec92b1d802b0a3a8205fc11267f9a5c25cb4089171681fb61a3a59",
+      "bytes": 2723,
+      "deserialize": true
+    },
+    "preflight/search/71/audit.pkl": {
+      "artifact": "preflight/search/71/audit.pkl",
+      "sha256": "e1c2926d0f311b0608145ad4ec83196c40da35ce72432b269475bebac7586589",
+      "bytes": 738302,
+      "deserialize": true
+    },
+    "preflight/search/71/model.pkl": {
+      "artifact": "preflight/search/71/model.pkl",
+      "sha256": "0711974464096d05dc57292563d86eb40f4a7a436e51e1e702274536fba6ff9f",
+      "bytes": 2723,
+      "deserialize": true
+    },
+    "seed_summary": {
+      "artifact": "preflight/seed_summary.pkl",
+      "sha256": "c7c2627feffab9692178cfa146aef7deaa8e3e0f0dd776c02899faad801a0f88",
+      "bytes": 1267,
+      "deserialize": true
+    },
+    "preflight/source_bytes/src/analysis/convex_qlib.py": {
+      "artifact": "preflight/source_bytes/src/analysis/convex_qlib.py",
+      "sha256": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "bytes": 7707,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/analysis/integrated_allocation.py": {
+      "artifact": "preflight/source_bytes/src/analysis/integrated_allocation.py",
+      "sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "bytes": 23523,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/analysis/stage1_regime_validation.py": {
+      "artifact": "preflight/source_bytes/src/analysis/stage1_regime_validation.py",
+      "sha256": "3184a3769127b144d57c083b59d87d5f9e2e9dea7711fc47fe067b6f2503b42f",
+      "bytes": 15100,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/backtest/position_accounting.py": {
+      "artifact": "preflight/source_bytes/src/backtest/position_accounting.py",
+      "sha256": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "bytes": 3494,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/backtest/qlib_continuous_position.py": {
+      "artifact": "preflight/source_bytes/src/backtest/qlib_continuous_position.py",
+      "sha256": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "bytes": 2543,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/backtest/strategy.py": {
+      "artifact": "preflight/source_bytes/src/backtest/strategy.py",
+      "sha256": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+      "bytes": 4618,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/core/__init__.py": {
+      "artifact": "preflight/source_bytes/src/core/__init__.py",
+      "sha256": "f0d1420b340bcd60ee7b719d42dd47a0ef84c6044eaf936182a6817e61adee46",
+      "bytes": 158,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/core/contracts.py": {
+      "artifact": "preflight/source_bytes/src/core/contracts.py",
+      "sha256": "39e855b9afa67d126b9be9d1df2845895afb41bb947f4d9b147db96e2da0243c",
+      "bytes": 4154,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/data/benchmark_anchor_utility.py": {
+      "artifact": "preflight/source_bytes/src/data/benchmark_anchor_utility.py",
+      "sha256": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+      "bytes": 15004,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/data/conditional_variance.py": {
+      "artifact": "preflight/source_bytes/src/data/conditional_variance.py",
+      "sha256": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+      "bytes": 20173,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/data/constrained_net_excess.py": {
+      "artifact": "preflight/source_bytes/src/data/constrained_net_excess.py",
+      "sha256": "f140218167b67c42e56be08c269f04754970b2211e00ac415c277743bf631be9",
+      "bytes": 17168,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/data/convex_allocation.py": {
+      "artifact": "preflight/source_bytes/src/data/convex_allocation.py",
+      "sha256": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "bytes": 15455,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/data/feasible_parent_sparse_search.py": {
+      "artifact": "preflight/source_bytes/src/data/feasible_parent_sparse_search.py",
+      "sha256": "aeb4bbe0a9b81751d6b87ca8d8b6425546446541671fac62a706b265bb76f612",
+      "bytes": 21698,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/data/integrated_allocation.py": {
+      "artifact": "preflight/source_bytes/src/data/integrated_allocation.py",
+      "sha256": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+      "bytes": 20753,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/data/price_basis.py": {
+      "artifact": "preflight/source_bytes/src/data/price_basis.py",
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "bytes": 20780,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/data/qlib_native.py": {
+      "artifact": "preflight/source_bytes/src/data/qlib_native.py",
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "bytes": 19985,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/data/sparse_holdings_net_excess.py": {
+      "artifact": "preflight/source_bytes/src/data/sparse_holdings_net_excess.py",
+      "sha256": "33b44201b8bc9ead01a95c8cd8abec6bad56f18246d58b3f8f4b76e0d8c696e6",
+      "bytes": 5761,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/factor/soxx_pit_tail_factors.py": {
+      "artifact": "preflight/source_bytes/src/factor/soxx_pit_tail_factors.py",
+      "sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "bytes": 17962,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/model/benchmark_anchor_utility.py": {
+      "artifact": "preflight/source_bytes/src/model/benchmark_anchor_utility.py",
+      "sha256": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+      "bytes": 28285,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/model/constrained_net_excess.py": {
+      "artifact": "preflight/source_bytes/src/model/constrained_net_excess.py",
+      "sha256": "7a068cef362d24651c661289881662e6384e93396d1e7821ee38ebdbac74a08d",
+      "bytes": 21923,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/model/feasible_parent_sparse_search.py": {
+      "artifact": "preflight/source_bytes/src/model/feasible_parent_sparse_search.py",
+      "sha256": "47db72c75283ce2d6ad05f60234a731f2994c0900ad3f6346413e2bfa0b6d323",
+      "bytes": 29806,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/model/integrated_allocation.py": {
+      "artifact": "preflight/source_bytes/src/model/integrated_allocation.py",
+      "sha256": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+      "bytes": 26844,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/model/paired_sparse_paths.py": {
+      "artifact": "preflight/source_bytes/src/model/paired_sparse_paths.py",
+      "sha256": "0c11f683273d3c0341c175d35cfc62b18dee73dbce9b707b2400973569c22a1f",
+      "bytes": 3520,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/model/post_fee_settlement.py": {
+      "artifact": "preflight/source_bytes/src/model/post_fee_settlement.py",
+      "sha256": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+      "bytes": 6469,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/model/sparse_holdings_net_excess.py": {
+      "artifact": "preflight/source_bytes/src/model/sparse_holdings_net_excess.py",
+      "sha256": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d",
+      "bytes": 34904,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/objective/benchmark_tail_constraints.py": {
+      "artifact": "preflight/source_bytes/src/objective/benchmark_tail_constraints.py",
+      "sha256": "c94b59e8377945b7e84d1a7055fcbeb24286ebc97bc7b6eb987679bb2a9017fb",
+      "bytes": 9879,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/workflow/anchor_checkpoint_feasibility.py": {
+      "artifact": "preflight/source_bytes/src/workflow/anchor_checkpoint_feasibility.py",
+      "sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+      "bytes": 23655,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/workflow/benchmark_anchor_utility.py": {
+      "artifact": "preflight/source_bytes/src/workflow/benchmark_anchor_utility.py",
+      "sha256": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+      "bytes": 29669,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/workflow/conditional_variance.py": {
+      "artifact": "preflight/source_bytes/src/workflow/conditional_variance.py",
+      "sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+      "bytes": 36918,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/workflow/constrained_net_excess.py": {
+      "artifact": "preflight/source_bytes/src/workflow/constrained_net_excess.py",
+      "sha256": "3e28ed6fbfde26258b90d1c6d890ea8d659a4cc1da89153b4d92f637d491a948",
+      "bytes": 29610,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/workflow/feasible_parent_sparse_search.py": {
+      "artifact": "preflight/source_bytes/src/workflow/feasible_parent_sparse_search.py",
+      "sha256": "e5a02491480aa62be606e8f2d6b0ab5972d3eb012cc93f2e6914561a8b585115",
+      "bytes": 64680,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/workflow/pit_constituent_auxiliary_training_allocation.py": {
+      "artifact": "preflight/source_bytes/src/workflow/pit_constituent_auxiliary_training_allocation.py",
+      "sha256": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+      "bytes": 102352,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/workflow/sparse_holdings_net_excess.py": {
+      "artifact": "preflight/source_bytes/src/workflow/sparse_holdings_net_excess.py",
+      "sha256": "432c76f20f4b1d5c3c187ecdac43cd31356170114d1d28b606721f69718482fa",
+      "bytes": 59311,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/workflow/stable_excess_integration.py": {
+      "artifact": "preflight/source_bytes/src/workflow/stable_excess_integration.py",
+      "sha256": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+      "bytes": 31769,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/workflow/stage1_economic_action.py": {
+      "artifact": "preflight/source_bytes/src/workflow/stage1_economic_action.py",
+      "sha256": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "bytes": 14463,
+      "deserialize": false
+    },
+    "preflight/source_bytes/src/workflow/trainable_regime_policy_nested_wf.py": {
+      "artifact": "preflight/source_bytes/src/workflow/trainable_regime_policy_nested_wf.py",
+      "sha256": "dfebcac08d1dc808c47998b7901c63aa2e2d1d73becefcfa09da072437223869",
+      "bytes": 126460,
+      "deserialize": false
+    }
+  }
+}
