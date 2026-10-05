@@ -1,0 +1,96 @@
+{
+  "external_artifacts": [
+    {
+      "path": "data/qlib/earnings_surprise_20261005_v1/calendars/day.txt",
+      "bytes": 43516,
+      "sha256": "f00a32be46fc27e00988b96e3beafb046bcdd743a1bd4a2aef1e6ce6752c0708",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/qlib/earnings_surprise_20261005_v1/features/soxx/earnings_surprise_amd.day.bin",
+      "bytes": 15828,
+      "sha256": "333cbf34f1bae89c9c300ea971b6d22c53c1614663b20088a377040e667b0aa9",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/qlib/earnings_surprise_20261005_v1/features/soxx/earnings_surprise_intc.day.bin",
+      "bytes": 15828,
+      "sha256": "7a656a166cced33f037bd027eaeab450756fb38e1b62d1301f92f62698d2535b",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/qlib/earnings_surprise_20261005_v1/features/soxx/earnings_surprise_nvda.day.bin",
+      "bytes": 15828,
+      "sha256": "710f7ecc7ab446e7066f5584dc0e00856b4fae3379b2f921968fd5145dbb9798",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/qlib/earnings_surprise_20261005_v1/instruments/all.txt",
+      "bytes": 27,
+      "sha256": "22757011f4ebc7bd973d370b8292a0be304457db7cacc324be6522a67fb0ec86",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/qlib/earnings_surprise_20261005_v1/qlib.yaml",
+      "bytes": 220,
+      "sha256": "c4f51cc9df4f71816b6b1c625f7f966895b8e1d1f633744d17ba8a86e92a81e9",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/qlib/earnings_surprise_20261005_v1/qlib_store_manifest.json",
+      "bytes": 4996,
+      "sha256": "1830f89e65a09610d77c2303fdca2c0eccc15a04b91663687144a66cf601a60d",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/snapshots/earnings_surprise_20261005_v1/alpha_amd_earnings.json",
+      "bytes": 25502,
+      "sha256": "c0c8bfb3aa2bff4a4276c097fecb5b1aa30cbbebdff80b3e4e0459e82d9e590a",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/snapshots/earnings_surprise_20261005_v1/alpha_intc_earnings.json",
+      "bytes": 25446,
+      "sha256": "688f589dc55c9d2d1f047acd68da9d08b26d18a652cf725bdc4cedf8af35dbb2",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/snapshots/earnings_surprise_20261005_v1/alpha_nvda_earnings.json",
+      "bytes": 23032,
+      "sha256": "3f349af12e930c2652bb16b5394b763a44184201d1194cbeb52dae6da48baa96",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/snapshots/earnings_surprise_20261005_v1/events_availability.csv",
+      "bytes": 95420,
+      "sha256": "c87be85c80cbc2d65e3c3b0be90076d8e5d84743faca7fd0f9ab05d4e8a7658f",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    },
+    {
+      "path": "data/snapshots/earnings_surprise_20261005_v1/snapshot_manifest.json",
+      "bytes": 3681,
+      "sha256": "d146a1302797ecb15212a4214270a310590ab9899a1b01e90605e6e5719b6374",
+      "purpose": "Three-company current-vendor historical EPS surprise diagnostic source; no archived consensus vintage or promotion qualification"
+    }
+  ],
+  "source_companies": [
+    "NVDA",
+    "AMD",
+    "INTC"
+  ],
+  "feature_sessions": 3956,
+  "feature_start": "2011-01-03",
+  "feature_end": "2026-09-25",
+  "evaluation_signal_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "raw_snapshot_as_of": "2026-10-05",
+  "source_deployment_gate": false,
+  "original_provider_modified": false
+}

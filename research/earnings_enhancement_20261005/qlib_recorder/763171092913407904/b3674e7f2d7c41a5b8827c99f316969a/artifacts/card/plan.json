@@ -1,0 +1,174 @@
+{
+  "experiment": "earnings_enhancement_20261005",
+  "registered_at_utc": "2026-10-05T06:10:03.077831+00:00",
+  "deadline_utc": "2026-10-05T07:05:04Z",
+  "registered_before_forecast_fits": true,
+  "registration_scope": "Data source availability only inspected before this plan; no earnings prediction fits or performance seen. Historical vendor snapshot is not an archived contemporaneous estimate vintage.",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/earnings_enhancement_20261005/qlib_recorder",
+  "hypothesis": "Three fixed semiconductor EPS surprise features may add information to the SOXX/SOXL/cash index-enhancement information layer beyond the established BASE5; no strategy or portfolio optimization in this diagnostic.",
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "as_of": "2026-09-25",
+    "model_signal_start": "2011-01-03",
+    "history_start": "2010-03-11",
+    "basis": "published_futu_affine_v1",
+    "secondary_bars": 16,
+    "limitations": "Published affine basis differs slightly from serverQFQ; Jan2012 secondary quote uncertainty remains. Rebuilt history is not fresh out-of-sample evidence."
+  },
+  "canonical_source_audit": {
+    "provider_manifest_sha256": "cbbdeeca2e1c7dc0bce0f9cdf3495f50d3219bddd992e1b893f8362a5e51bc65",
+    "parent_summary_sha256": "0e444d39dd4e09e5bdcac2d44dd77fa3db356ce735ecdfc80b8f937cf0bf362f",
+    "parent_recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "native_frame_sha256": "b7a59f39feed5aed6e61fec2b4239092c474e453c91d4d133c73f9dcc571a03f"
+  },
+  "earnings_source": {
+    "provider_uri": "data/qlib/earnings_surprise_20261005_v1",
+    "symbol": "SOXX",
+    "start": "2011-01-03",
+    "end": "2026-09-25",
+    "retrieval_as_of": "2026-10-05",
+    "fields": [
+      "earnings_surprise_nvda",
+      "earnings_surprise_amd",
+      "earnings_surprise_intc"
+    ],
+    "availability": "Vendor reportedDate; conservative complete following trading-session close availability; no same-report-day use. Previous known event carried as state, not future backfill.",
+    "limitation": "Vendor historical actual and estimated EPS may be retrospectively revised; no contemporaneous estimate-vintage archive. Fixed NVDA/AMD/INTC proxy is not a historical full semiconductor universe.",
+    "source_deployment_gate": false,
+    "split_rounding_limitation": "Old NVDA reported/estimated EPS can be about0.004-0.007 with three-decimal precision. Retrospective split adjustment and rounding may distort surprise; preserve registered values/formula/company set, do not repair numbers or substitute tickers."
+  },
+  "features": {
+    "base": [
+      "soxx_trend20",
+      "soxx_trend60",
+      "soxx_vol20",
+      "soxx_drawdown60",
+      "relative_momentum20"
+    ],
+    "base_plus_earnings": [
+      "soxx_trend20",
+      "soxx_trend60",
+      "soxx_vol20",
+      "soxx_drawdown60",
+      "relative_momentum20",
+      "earnings_surprise_nvda",
+      "earnings_surprise_amd",
+      "earnings_surprise_intc"
+    ],
+    "availability": "All market prices through signal close; decision convention 17:00 America/New_York. Earnings must satisfy source known-state timing."
+  },
+  "labels": {
+    "cash5": "-log(SOXX_open[t+6]/SOXX_open[t+1])",
+    "leverage5": "log(SOXL_open[t+6]/SOXL_open[t+1])-log(SOXX_open[t+6]/SOXX_open[t+1])",
+    "horizon_sessions": 5,
+    "built_before_join": "Use the complete canonical calendar; label available at open[t+6] 09:30 NewYork. Last six raw calendar rows remain explicitly unmatured, not silently filled."
+  },
+  "training": {
+    "start": "2011-01-03",
+    "cutoff_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "end": "2022-12-30",
+    "purge_rows": 20,
+    "minimum_rows": 252,
+    "model": "StandardScaler + Ridge(alpha=10), multioutput cash5 and leverage5",
+    "ridge_alpha": 10.0,
+    "fit_budget": 14,
+    "families": [
+      "base",
+      "base_plus_earnings"
+    ],
+    "availability": "Remove last 20 prior signal rows, require actual feature and H5 label timestamps strictly before January1NewYork. All registered feature rows complete; no interior row dropping.",
+    "no_refit_after_outcomes": true
+  },
+  "windows": {
+    "pooled": "development_2016_2022",
+    "annual_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "history_reused": true,
+    "fresh_holdout": false,
+    "post_2022_predictions": false,
+    "august_2026_evaluated": false,
+    "year_basis": "signal_year; retain final2022signals whose H5 result matures in early2023"
+  },
+  "uncertainty": {
+    "resamples": 2000,
+    "blocks": [
+      20,
+      60
+    ],
+    "seed": 20261005,
+    "percentiles": [
+      0.0125,
+      0.025,
+      0.5,
+      0.975,
+      0.9875
+    ],
+    "head_family_size": 2,
+    "scope": "Pooled only; identical chronological paired stationary indices shared by both heads, all families, prior and cost events. Annual point metrics.",
+    "undefined": "Every draw for a statistic must be finite, otherwise official interval undefined and its gate fails.",
+    "limitation": "Conditional descriptive bootstrap on reused data; head-family adjustment does not correct prior adaptive research, retrospective vendor revision, or persistent quarterly event dependence.",
+    "historical_research_family_scope": "Lower1.25percentile adjusts only the two fixed heads in this diagnostic; it does not control the full prior adaptive research history. All market history is reused, not a fresh holdout."
+  },
+  "fees": {
+    "cost_bps": [
+      10,
+      25
+    ],
+    "cash5_hurdle": "log((1+c)/(1-c))",
+    "leverage5_hurdle": "2*log((1+c)/(1-c))",
+    "net_log_event": "target - head-specific hurdle; mask forecast strictly greater than hurdle",
+    "cashflow_derivation": "Start already holding SOXX. SOXX->cash->SOXX multiplies relative gross by A=(1-c)/(1+c); SOXX->SOXL->SOXX multiplies relative SOXL/SOXX gross by A squared.",
+    "scope": "Isolated overlapping five-session events; not a portfolio, not compounded or annualized."
+  },
+  "gates": {
+    "minimum_positive_years": 5,
+    "head_pass": "For each fixed head fullIC>0, deltaIC>0, and MSEreduction>0 each in at least5of7years; pooled lower1.25percentile >0 for each at both blocks. Full forecast isolated net event mean lower1.25percentile >0 at10/25bp and bothblocks. Undefined/noevents fail.",
+    "overall_information_gate": "Both fixed heads must pass; neither head can be selected after seeing outcomes.",
+    "source_deployment_gate": false,
+    "promotion_decision": "not_promoted_regardless_of_information_result",
+    "failure_stop": "Any information failure stops this fixed recipe. No reverse sign, model/horizon/threshold search. Positive information can only justify separately sourced PIT validation, not deployment."
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/features_labels.pkl",
+      "inputs/earnings_features.pkl",
+      "models/fitted_models.pkl",
+      "analysis/predictions.pkl",
+      "analysis/labels.pkl",
+      "analysis/bootstrap_draws.pkl",
+      "analysis/bootstrap_indices_spec.pkl",
+      "analysis/equivalent_signal_analysis.pkl"
+    ],
+    "bootstrap_index_storage": "Save seed, block, shape, indices_sha256 and pinned sampler_source_sha256; regenerate exact indices for independent audit. This changes archive representation only, not sampling, models, metrics or gates; registered before any financial fit."
+  },
+  "forbidden": [
+    "post2022_signal_fitting_prediction_or_metrics; 2022_signal_H5_labels_may_mature_in_early2023",
+    "strategy_or_portfolio_backtest",
+    "neural_policy_retraining",
+    "horizon_or_parameter_search",
+    "forecast_sign_reversal",
+    "broker_orders",
+    "production_change",
+    "claim_historical_vendor_is_strict_PIT"
+  ],
+  "objective_achieved": false
+}

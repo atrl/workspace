@@ -1,0 +1,271 @@
+{
+  "data_audit": {
+    "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/data/qlib/published_futu_affine_20260925_v1",
+    "canonical_readback": {
+      "native_frame_sha256": "b7a59f39feed5aed6e61fec2b4239092c474e453c91d4d133c73f9dcc571a03f",
+      "native_rows": 8324,
+      "calendar_sessions": 4162,
+      "provider_manifest_sha256": "cbbdeeca2e1c7dc0bce0f9cdf3495f50d3219bddd992e1b893f8362a5e51bc65",
+      "provider_marker_canonical_sha256": "f1953da3c171072f29fc1c6e96d17155d4099ffcacad5d835718ee6d26477e3d",
+      "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/data/qlib/published_futu_affine_20260925_v1"
+    },
+    "earnings_readback": {
+      "as_of": "2026-10-05",
+      "audit_snapshot_hash": "94309897e4065e14",
+      "availability_rule": "first Qlib session strictly after reportedDate, after full close; trade next session open",
+      "calendar_end": "2026-09-25",
+      "calendar_start": "2011-01-03",
+      "diagnostic_only": true,
+      "event_audit": "data/snapshots/earnings_surprise_20261005_v1/events_availability.csv",
+      "event_audit_sha256": "c87be85c80cbc2d65e3c3b0be90076d8e5d84743faca7fd0f9ab05d4e8a7658f",
+      "event_counts": {
+        "AMD": 122,
+        "INTC": 122,
+        "NVDA": 110
+      },
+      "feature_file_count": 3,
+      "feature_formula": "(reportedEPS-estimatedEPS)/(abs(reportedEPS)+abs(estimatedEPS)); both zero -> 0",
+      "feature_sha256": {
+        "features/soxx/earnings_surprise_amd.day.bin": "333cbf34f1bae89c9c300ea971b6d22c53c1614663b20088a377040e667b0aa9",
+        "features/soxx/earnings_surprise_intc.day.bin": "7a656a166cced33f037bd027eaeab450756fb38e1b62d1301f92f62698d2535b",
+        "features/soxx/earnings_surprise_nvda.day.bin": "710f7ecc7ab446e7066f5584dc0e00856b4fae3379b2f921968fd5145dbb9798"
+      },
+      "fields": [
+        "$earnings_surprise_nvda",
+        "$earnings_surprise_amd",
+        "$earnings_surprise_intc"
+      ],
+      "freq": "day",
+      "hash": "a5c3381c96a086fa",
+      "historical_source_quality": {
+        "AMD": {
+          "actual_abs_below_001": 0,
+          "actual_or_estimate_missing": 0,
+          "both_equal": 8,
+          "estimate_abs_below_001": 2,
+          "reports_2011_2022": 48
+        },
+        "INTC": {
+          "actual_abs_below_001": 0,
+          "actual_or_estimate_missing": 0,
+          "both_equal": 2,
+          "estimate_abs_below_001": 0,
+          "reports_2011_2022": 48
+        },
+        "NVDA": {
+          "actual_abs_below_001": 21,
+          "actual_or_estimate_missing": 0,
+          "both_equal": 5,
+          "estimate_abs_below_001": 23,
+          "reports_2011_2022": 48
+        }
+      },
+      "hypothesis_scope": "Three fixed company signals, not a complete historical sector basket",
+      "instruments": [
+        "SOXX"
+      ],
+      "market": "all",
+      "max_datetime": "2026-09-25",
+      "missing_rule": "Missing actual or estimate invalidates state until next valid event; never forward-fill through missing reports",
+      "no_promotion": true,
+      "no_strict_pit": true,
+      "operation": "qlib_store_build",
+      "pit_limitation": "Current vendor historical snapshot lacks archived consensus vintages and historical correction timestamps; conservative release lag does not repair this limitation",
+      "provider_metadata_sha256": {
+        "calendars/day.txt": "f00a32be46fc27e00988b96e3beafb046bcdd743a1bd4a2aef1e6ce6752c0708",
+        "instruments/all.txt": "22757011f4ebc7bd973d370b8292a0be304457db7cacc324be6522a67fb0ec86"
+      },
+      "provider_uri": "data/qlib/earnings_surprise_20261005_v1",
+      "readback": {
+        "kernels": 1,
+        "missing_by_feature": {
+          "earnings_surprise_amd": 0,
+          "earnings_surprise_intc": 0,
+          "earnings_surprise_nvda": 0
+        },
+        "rows": 3956,
+        "status": "exact_float32_equal_with_nan"
+      },
+      "reference_calendar_sha256": "d3381b900795126d9b67efdc85780345b7a85c298a1f6d02fbe86e50ee3f96eb",
+      "reference_manifest_sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+      "reference_provider": "data/qlib/published_futu_affine_20260925_v1",
+      "region": "us",
+      "row_count": 3956,
+      "signal_source_symbols": [
+        "NVDA",
+        "AMD",
+        "INTC"
+      ],
+      "snapshot_dir": "data/snapshots/earnings_surprise_20261005_v1",
+      "snapshot_manifest_sha256": "d146a1302797ecb15212a4214270a310590ab9899a1b01e90605e6e5719b6374",
+      "source": "data/snapshots/earnings_surprise_20261005_v1/snapshot_manifest.json",
+      "source_api": [
+        "qlib.init",
+        "qlib.data.storage.file_storage.FileFeatureStorage",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "source_files_sha256": {
+        "data/snapshots/earnings_surprise_20261005_v1/alpha_amd_earnings.json": "c0c8bfb3aa2bff4a4276c097fecb5b1aa30cbbebdff80b3e4e0459e82d9e590a",
+        "data/snapshots/earnings_surprise_20261005_v1/alpha_intc_earnings.json": "688f589dc55c9d2d1f047acd68da9d08b26d18a652cf725bdc4cedf8af35dbb2",
+        "data/snapshots/earnings_surprise_20261005_v1/alpha_nvda_earnings.json": "3f349af12e930c2652bb16b5394b763a44184201d1194cbeb52dae6da48baa96",
+        "data/snapshots/earnings_surprise_20261005_v1/events_availability.csv": "c87be85c80cbc2d65e3c3b0be90076d8e5d84743faca7fd0f9ab05d4e8a7658f",
+        "data/snapshots/earnings_surprise_20261005_v1/snapshot_manifest.json": "d146a1302797ecb15212a4214270a310590ab9899a1b01e90605e6e5719b6374"
+      },
+      "source_limitations": [
+        "Current vendor historical snapshot, not archived original consensus or historical revision vintages.",
+        "Historical split adjustment and rounding of both reported and estimated EPS can distort normalized surprise; these are not original earnings-release values.",
+        "ReportTime is vendor metadata only and is not used: require one complete session strictly after reportedDate.",
+        "Three selected historical company signals, not a complete point-in-time semiconductor basket."
+      ],
+      "status": "ok"
+    },
+    "source_deployment_gate": false,
+    "earnings_vintage_is_archived_pit": false,
+    "source_limitation": "Vendor historical EPS/estimate snapshot may contain revisions; no contemporaneous estimate vintage archive.",
+    "as_of": "2026-09-25",
+    "paired_rows": 3020,
+    "feature_start": "2011-01-03",
+    "feature_end": "2022-12-30",
+    "native_input_sha256": "eefe0bbf1f8af7ea76788db9b5570f65ea87285f3c1a2688512d2a99dd3e35d2",
+    "earnings_features_sha256": "fb5327785af3b34688ab73ecbd729f6a9806976a2fc38048be4106b269947d8e",
+    "explicit_unmatured_full_calendar_dates": [
+      "2026-09-18",
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-25"
+    ],
+    "label_calendar_scope": "Entire canonical calendar before feature window join; 2022 last H5 can mature in early2023.",
+    "no_post2022_signal_predictions_or_evaluation": true,
+    "no_feature_row_dropping": true,
+    "maximum_study_label_available_at": "2023-01-10T09:30:00-05:00",
+    "price_vintage_is_archived_pit": false
+  },
+  "native_input_sha256": "eefe0bbf1f8af7ea76788db9b5570f65ea87285f3c1a2688512d2a99dd3e35d2",
+  "qlib_dataset": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "source": "native Qlib D readbacks",
+    "rows": 3020,
+    "feature_count": 8,
+    "targets": [
+      "cash5",
+      "leverage5"
+    ]
+  },
+  "fit_boundaries": [
+    {
+      "fit_year": 2016,
+      "train_rows": 1238,
+      "train_start": "2011-01-03T00:00:00",
+      "train_end": "2015-12-02T00:00:00",
+      "purged_signal_rows": 20,
+      "first_purged_signal_date": "2015-12-03T00:00:00",
+      "last_purged_signal_date": "2015-12-31T00:00:00",
+      "maturity_excluded_rows": 0,
+      "cutoff_at": "2016-01-01T00:00:00-05:00",
+      "maximum_label_available_at": "2015-12-10T09:30:00-05:00",
+      "maximum_feature_available_at": "2015-12-02T17:00:00-05:00",
+      "actual_maturity_guard": true,
+      "dataset_prepare_is_fit_source": true
+    },
+    {
+      "fit_year": 2017,
+      "train_rows": 1490,
+      "train_start": "2011-01-03T00:00:00",
+      "train_end": "2016-12-01T00:00:00",
+      "purged_signal_rows": 20,
+      "first_purged_signal_date": "2016-12-02T00:00:00",
+      "last_purged_signal_date": "2016-12-30T00:00:00",
+      "maturity_excluded_rows": 0,
+      "cutoff_at": "2017-01-01T00:00:00-05:00",
+      "maximum_label_available_at": "2016-12-09T09:30:00-05:00",
+      "maximum_feature_available_at": "2016-12-01T17:00:00-05:00",
+      "actual_maturity_guard": true,
+      "dataset_prepare_is_fit_source": true
+    },
+    {
+      "fit_year": 2018,
+      "train_rows": 1741,
+      "train_start": "2011-01-03T00:00:00",
+      "train_end": "2017-11-30T00:00:00",
+      "purged_signal_rows": 20,
+      "first_purged_signal_date": "2017-12-01T00:00:00",
+      "last_purged_signal_date": "2017-12-29T00:00:00",
+      "maturity_excluded_rows": 0,
+      "cutoff_at": "2018-01-01T00:00:00-05:00",
+      "maximum_label_available_at": "2017-12-08T09:30:00-05:00",
+      "maximum_feature_available_at": "2017-11-30T17:00:00-05:00",
+      "actual_maturity_guard": true,
+      "dataset_prepare_is_fit_source": true
+    },
+    {
+      "fit_year": 2019,
+      "train_rows": 1992,
+      "train_start": "2011-01-03T00:00:00",
+      "train_end": "2018-11-29T00:00:00",
+      "purged_signal_rows": 20,
+      "first_purged_signal_date": "2018-11-30T00:00:00",
+      "last_purged_signal_date": "2018-12-31T00:00:00",
+      "maturity_excluded_rows": 0,
+      "cutoff_at": "2019-01-01T00:00:00-05:00",
+      "maximum_label_available_at": "2018-12-10T09:30:00-05:00",
+      "maximum_feature_available_at": "2018-11-29T17:00:00-05:00",
+      "actual_maturity_guard": true,
+      "dataset_prepare_is_fit_source": true
+    },
+    {
+      "fit_year": 2020,
+      "train_rows": 2244,
+      "train_start": "2011-01-03T00:00:00",
+      "train_end": "2019-12-02T00:00:00",
+      "purged_signal_rows": 20,
+      "first_purged_signal_date": "2019-12-03T00:00:00",
+      "last_purged_signal_date": "2019-12-31T00:00:00",
+      "maturity_excluded_rows": 0,
+      "cutoff_at": "2020-01-01T00:00:00-05:00",
+      "maximum_label_available_at": "2019-12-10T09:30:00-05:00",
+      "maximum_feature_available_at": "2019-12-02T17:00:00-05:00",
+      "actual_maturity_guard": true,
+      "dataset_prepare_is_fit_source": true
+    },
+    {
+      "fit_year": 2021,
+      "train_rows": 2497,
+      "train_start": "2011-01-03T00:00:00",
+      "train_end": "2020-12-02T00:00:00",
+      "purged_signal_rows": 20,
+      "first_purged_signal_date": "2020-12-03T00:00:00",
+      "last_purged_signal_date": "2020-12-31T00:00:00",
+      "maturity_excluded_rows": 0,
+      "cutoff_at": "2021-01-01T00:00:00-05:00",
+      "maximum_label_available_at": "2020-12-10T09:30:00-05:00",
+      "maximum_feature_available_at": "2020-12-02T17:00:00-05:00",
+      "actual_maturity_guard": true,
+      "dataset_prepare_is_fit_source": true
+    },
+    {
+      "fit_year": 2022,
+      "train_rows": 2749,
+      "train_start": "2011-01-03T00:00:00",
+      "train_end": "2021-12-02T00:00:00",
+      "purged_signal_rows": 20,
+      "first_purged_signal_date": "2021-12-03T00:00:00",
+      "last_purged_signal_date": "2021-12-31T00:00:00",
+      "maturity_excluded_rows": 0,
+      "cutoff_at": "2022-01-01T00:00:00-05:00",
+      "maximum_label_available_at": "2021-12-10T09:30:00-05:00",
+      "maximum_feature_available_at": "2021-12-02T17:00:00-05:00",
+      "actual_maturity_guard": true,
+      "dataset_prepare_is_fit_source": true
+    }
+  ],
+  "fit_count": 0,
+  "financial_metrics_computed": false
+}

@@ -1,0 +1,31 @@
+{
+  "complete": true,
+  "recorder_id": "b3674e7f2d7c41a5b8827c99f316969a",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/earnings_enhancement_20261005/qlib_recorder",
+  "plan_sha256": "132540f40751be81b8d4fda523a0094963901ea03bc90c722d97292dd00031f6",
+  "started_at_utc": "2026-10-05T06:18:21.601421+00:00",
+  "artifact_sha256": {
+    "analysis/bootstrap_draws.pkl": "f6a1edfaaeaa22e90724cfc77bc62ef06c22dae8806c7b74466b4be69a538af8",
+    "analysis/bootstrap_indices_spec.pkl": "fa572d1772d6170a9c1db79fe5c2cd4a5f3fc5e9542f593342b98ae7a75a0297",
+    "analysis/equivalent_signal_analysis.pkl": "468c1f730cb03f7c5a03a00b78a7e62989242b268222fe9d6da24c19787e5965",
+    "analysis/labels.pkl": "2dd4620ac862c80563e40e1cfe431202fed843a6896b2022bd4e44052952bd94",
+    "analysis/predictions.pkl": "f97177e6fdd4f250fd2b3f6e0b464a853b163931d73427019d9adbb9566363f8",
+    "card/bootstrap_summary.csv": "09097d57ffc3ac04e4cc7c22bbee61c67cee41c1f8304f37e926370527733280",
+    "card/conclusion.md": "c7faf78d2854a9cc11d57df5ced1cbf213072978e243da7ac401e9d216f58c17",
+    "card/event_metrics.csv": "d074b4c40a886c524808bceae45ada753dcf3490842395c9d35bf9fa0e74f233",
+    "card/fit_audit.csv": "53d09be6438d00a452312e72da33ce917bb1f79911388aed1b19d3ca187cb6ac",
+    "card/plan.json": "132540f40751be81b8d4fda523a0094963901ea03bc90c722d97292dd00031f6",
+    "card/point_metrics.csv": "c00c753d553cfe21bae11781d6cd7ccf5c00bdc68b4131bf102f8cc29adf7619",
+    "card/run_authorization.json": "8a435d100a085de31b01aca98873899385285ded38e746e25bf69694b00f517c",
+    "card/signal_analysis.csv": "44c6d88775993d6801a8414403d2b7fbc226e13d807de6b414bb92c6dddb0b17",
+    "card/source_audit.json": "653a220ca0efa1162df225afb86bb04e6b749ebe7ac9acd4846e36315524bf72",
+    "card/summary.pkl": "50dbc1fb145fd90f77304817c8a4e5ce7a0ccc7759525dc236d21a50deb43bee",
+    "card/workflow.yaml": "7f21abc2694730b77345fbea9fbee1bc58373197711623a9dd1c3f476fde8b12",
+    "inputs/authorization.pkl": "846a5d3d5671e6a54297cab3c5c4248f077d9aa034303f6cebcfc7b8ad7a6075",
+    "inputs/data_audit.pkl": "bbf807d386600bf14effcd2f56aaf4502182251c7a4ee80fdd57704cf7f8a503",
+    "inputs/earnings_features.pkl": "96ecbed09830ad9c506363c543e370042189cad53d726b0b2ff4dd44dd8a89e6",
+    "inputs/features_labels.pkl": "d4e29a9d2940aa3bd0220b486f7784a2d30f8c772a7e096ea3acb3795257334f",
+    "inputs/plan.pkl": "c0db5bd7c3d5186a66946cb351813d3fd3ff16bdc1b5684366f7f3b4e450ad9f",
+    "models/fitted_models.pkl": "20538393302939ce118e79b925bca1fca7803b170a9e58d592d88a508e79708f"
+  }
+}

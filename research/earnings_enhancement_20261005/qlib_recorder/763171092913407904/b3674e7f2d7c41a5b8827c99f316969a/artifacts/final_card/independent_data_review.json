@@ -1,0 +1,36 @@
+{
+  "scope": "Independent raw JSON to latest strictly prior report per Qlib session; no model fits or financial metrics.",
+  "calendar_start": "2011-01-03",
+  "calendar_end": "2026-09-25",
+  "checks": [
+    {
+      "symbol": "NVDA",
+      "rows": 3956,
+      "all_cells_equal_independent_raw_reconstruction": true,
+      "max_absolute_error": 0.0,
+      "reports_used": 64,
+      "all_report_dates_strictly_before_signal": true,
+      "raw_sha256": "3f349af12e930c2652bb16b5394b763a44184201d1194cbeb52dae6da48baa96"
+    },
+    {
+      "symbol": "AMD",
+      "rows": 3956,
+      "all_cells_equal_independent_raw_reconstruction": true,
+      "max_absolute_error": 0.0,
+      "reports_used": 64,
+      "all_report_dates_strictly_before_signal": true,
+      "raw_sha256": "c0c8bfb3aa2bff4a4276c097fecb5b1aa30cbbebdff80b3e4e0459e82d9e590a"
+    },
+    {
+      "symbol": "INTC",
+      "rows": 3956,
+      "all_cells_equal_independent_raw_reconstruction": true,
+      "max_absolute_error": 0.0,
+      "reports_used": 64,
+      "all_report_dates_strictly_before_signal": true,
+      "raw_sha256": "688f589dc55c9d2d1f047acd68da9d08b26d18a652cf725bdc4cedf8af35dbb2"
+    }
+  ],
+  "strict_pit_claim": false,
+  "passed": true
+}
