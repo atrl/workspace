@@ -1,0 +1,22 @@
+{
+  "focused_tests_passed": 30,
+  "focused_breakdown": {
+    "engine": 14,
+    "workflow": 8,
+    "vix": 7,
+    "execution_boundary": 1
+  },
+  "test_evidence": "Agent executions and /tmp/legacy-soxl-repair-focused-tests.log; finalextra execution-boundary test reported1passed. No broad suite repeated.",
+  "independent_review": "independent_review.json",
+  "independent_passed": true,
+  "notebook_executed_code_cells": 3,
+  "notebook_conclusion_equal": true,
+  "notebook_sha256": "be9bd18b19842b06ca24bcca11648e85be4f0028b9571c082f55723926f2d6d1",
+  "original_bug_source_sha256": "4393972303343ccc78ac9067a8cc204244de3da8e36b0d1cddff2ddad75f3068",
+  "financial_attempt_count": 1,
+  "pre_recorder_environment_failure_retained": true,
+  "objective_achieved": false,
+  "legacy_compatibility_tests_passed": 3,
+  "legacy_compatibility_log_sha256": "ff08226613d6f2de9af6fb464924c35498dcec8118e352a77e5a1d38e635881e",
+  "total_focused_and_compatibility_passed": 33
+}

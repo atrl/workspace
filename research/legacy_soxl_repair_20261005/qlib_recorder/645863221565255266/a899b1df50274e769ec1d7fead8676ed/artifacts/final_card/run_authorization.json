@@ -1,0 +1,28 @@
+{
+  "authorized": true,
+  "authorized_at_utc": "2026-10-05T01:42:33.337359+00:00",
+  "plan_file_sha256": "d38676f9466f95d87a721f014a0498402c5d170ff3c4237846815dd36e806f76",
+  "source_sha256": {
+    "src/workflow/legacy_soxl_repair.py": "a6052378eb3cb2e1bac09e13e1b71926ecff3364343244132b6a73b11a10cd4c",
+    "src/backtest/legacy_soxl_replay.py": "84f3e6dcf99ec3b99b599af24101eed8b75a28379d07c629c3c9144383b0030d",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/data/legacy_vix_source.py": "e63e05aadc22f02b29f45d4f8189768da695bd6dc438ac5558809770510bcd61",
+    "src/data/legacy_execution_view.py": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/data/constrained_net_excess.py": "f140218167b67c42e56be08c269f04754970b2211e00ac415c277743bf631be9",
+    "soxl_backtest/config/backtest_config.py": "09028b26382832810a7c104055ddb4c3946930bd998f551e99963c52471ac547",
+    "soxl_backtest/indicators/indicator_calculator.py": "89096066adb2094c7d830ee3f67c98be19f6c9584700783329e81a331f713987",
+    "soxl_backtest/position/position_manager.py": "f4c2a4598c3609e045a76749c7cf975dd29b6e5e06cd513f70678ff59724a4e4",
+    "soxl_backtest/strategy/base_strategy.py": "4fe50add99de68680aa245b2a893920f12bb4835a08ee47389b43271493c6fcd",
+    "soxl_backtest/strategy/buy_strategy.py": "7020aa67b28a6e8552d4b1d4b84d744e54f267d17f0920ebb2f501d43c7788e9",
+    "soxl_backtest/strategy/sell_strategy.py": "ff8a834f8e2661cb6f9e93c55e5a90f9744bd662d848b3e795ccac39a753d09c",
+    "soxl_backtest/indicators/panic_calculators/base.py": "eb6ac56ff1d8fe70c5f0f84adcd91c69a36ed955efa150e9bdccb50020671748",
+    "soxl_backtest/indicators/panic_calculators/sigmoid.py": "ba766be416951e49f5d9a76298230117ddb198255f3390fad3d38e1c384d5528"
+  },
+  "vix_snapshot_manifest_sha256": "af685d0e8bfa556569a52b83d72e42c2785bfac1232455b1a5f5bb78825530fe",
+  "execution_manifest_sha256": "97a346885d766e91571cd4193a0b8d6519bd3f5399eeeae23923c1cab82df169",
+  "deadline_utc": "2026-10-05T02:19:11Z",
+  "focused_passed": 30,
+  "review": "Root reviewed rule/funding/timing+nativeQlib accounting+registeredgates; originalbugregressionfailedbeforefix. KnownPIT/idealexecution limits retained. No parameterselection."
+}

@@ -1,0 +1,679 @@
+{
+  "experiment": "legacy_soxl_repair_20261005",
+  "artifact_policy": "slim_card_recorder_first",
+  "recorder_id": "a899b1df50274e769ec1d7fead8676ed",
+  "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/legacy_soxl_repair_20261005/qlib_recorder",
+  "entries": [
+    {
+      "path": "annual_metrics.csv",
+      "bytes": 49782,
+      "sha256": "ede38f70e1ef2576ea465c5d3f5a853251899ddd6423de02a0aa1681fcc5a04e",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "attempt.json",
+      "bytes": 162,
+      "sha256": "6afed53dfcbd86aa76712a3a6e8d63080ad2a86f761ff7825cab2f0b1f4de6fb",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "backtest_benchmark_comparison.csv",
+      "bytes": 10955,
+      "sha256": "45f0da022fe52b2d47a9abf97267672ea2e8383376b5e2b23eefaae15350fb8e",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "bootstrap.csv",
+      "bytes": 2857,
+      "sha256": "73088aa03d430d8cb814aca05cc3d01739e064adc86a66f5519001cb1705fbca",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "conclusion.md",
+      "bytes": 3720,
+      "sha256": "681bb4d09fef170e29e831ab1bed404e4a9205d49c73340fd071173ee3036795",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "data_binding.json",
+      "bytes": 8260,
+      "sha256": "b8f40cb20ecdd851e099477e91b84a4968781e19ad81536c3e0042c270d53ef8",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "development_gates.csv",
+      "bytes": 484,
+      "sha256": "471db23970f640cc88c2b108593a3d318b37d9a4d8cbffdaf7f894e9b9554d27",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "independent_review.json",
+      "bytes": 694,
+      "sha256": "69a0ab936a45238f4ece1b774d38ba6668650708d42d333df72079c4f69b3de9",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "legacy_soxl_repair_20261005.ipynb",
+      "bytes": 528985,
+      "sha256": "be9bd18b19842b06ca24bcca11648e85be4f0028b9571c082f55723926f2d6d1",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "plan.json",
+      "bytes": 7723,
+      "sha256": "d38676f9466f95d87a721f014a0498402c5d170ff3c4237846815dd36e806f76",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "pre_recorder_failure.json",
+      "bytes": 632,
+      "sha256": "21e0998b8230846dd35ffdb320192ed88106a6f88044267be5e24a1698800fc7",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "preflight.json",
+      "bytes": 11422,
+      "sha256": "8cca2813bd6987e3688f782ad81afb7216562b2b0ad716a5bf6024f3376f9f17",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/analysis/bootstrap_draws.pkl",
+      "bytes": 128587,
+      "sha256": "b1b28d28ba7884e6b162f25e18b46d0d3f59467ef6560fdeb4a1da872b84b7a6",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/analysis/ledgers.pkl",
+      "bytes": 4782797,
+      "sha256": "3b3d168f25de447dc7ca0f8883d877306a41522a02d69a31404edbbd4ea88f2c",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/analysis/orders.pkl",
+      "bytes": 44452,
+      "sha256": "022c2da2331570a24a21c60ebc8ed6b33fcede059cda220c5d9525ecc14f58a7",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/analysis/reconciliation_audits.pkl",
+      "bytes": 1192,
+      "sha256": "fed855589958e3e5d907a8826c875b87d249ea3e08c7b2b898cb6c13ea26ba0d",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/analysis/tables.pkl",
+      "bytes": 37887,
+      "sha256": "5e22bd210df4c43ec2c73483cab9a5c8d429809087e6713ba4b447fa0f29b6c9",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/audit/artifact_manifest.pkl",
+      "bytes": 1468,
+      "sha256": "6fb013d3679576ce4b94cd48d7c9cd14313b53be3dbc06cca6cf75931263b01b",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/audit/identity.pkl",
+      "bytes": 79,
+      "sha256": "48a5358871436f07cf138d40e39822183d2b40b32f79c70290680bc6ce8bdf50",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/audit/input_hash.pkl",
+      "bytes": 79,
+      "sha256": "713f664179cda2b4e696864b9d21cf98e29593142582271a4847a7355893d0d8",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/audit/plan.pkl",
+      "bytes": 6925,
+      "sha256": "c89dd552f4c7045cf1ec799ff1d4a3ea3e33bc72040f7debaa6ab8a162f7eb0b",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/audit/progress.pkl",
+      "bytes": 62,
+      "sha256": "0c46b9d6ab9fe445b144844f2480b82a0cca97899feb6d8f1e49aa8c8e161d21",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/audit/source_audit.pkl",
+      "bytes": 6661,
+      "sha256": "314326789fceab26fedd54c8499f6e30d452ece8d80a2dc09b41bee6dba77070",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/audit/source_hashes.pkl",
+      "bytes": 1734,
+      "sha256": "3f4945e01194612facb6dc00879da443cd3c99265851f3b6bf4c571b565d9a1f",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/audit/summary.pkl",
+      "bytes": 14632,
+      "sha256": "26f5deadbe36eff22d6f927c5c03254c4e50afdf0ad32b0117af35196a089c4d",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/code_cached.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/code_diff.txt",
+      "bytes": 1024,
+      "sha256": "f41a8b69552c3c4592ce6a70c4d15ae1c5fd4d9cccb81e3f17dff3efdba38ddd",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/code_status.txt",
+      "bytes": 814,
+      "sha256": "db5cfd173c873b6d8decaa9c6b3ad266cbf9adf596d065ac4ef09ed845e61a33",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/annual_metrics.csv",
+      "bytes": 49782,
+      "sha256": "ede38f70e1ef2576ea465c5d3f5a853251899ddd6423de02a0aa1681fcc5a04e",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/attempt.json",
+      "bytes": 162,
+      "sha256": "6afed53dfcbd86aa76712a3a6e8d63080ad2a86f761ff7825cab2f0b1f4de6fb",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/backtest_benchmark_comparison.csv",
+      "bytes": 10955,
+      "sha256": "45f0da022fe52b2d47a9abf97267672ea2e8383376b5e2b23eefaae15350fb8e",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/bootstrap.csv",
+      "bytes": 2857,
+      "sha256": "73088aa03d430d8cb814aca05cc3d01739e064adc86a66f5519001cb1705fbca",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/conclusion.md",
+      "bytes": 3720,
+      "sha256": "681bb4d09fef170e29e831ab1bed404e4a9205d49c73340fd071173ee3036795",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/data_binding.json",
+      "bytes": 8260,
+      "sha256": "b8f40cb20ecdd851e099477e91b84a4968781e19ad81536c3e0042c270d53ef8",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/development_gates.csv",
+      "bytes": 484,
+      "sha256": "471db23970f640cc88c2b108593a3d318b37d9a4d8cbffdaf7f894e9b9554d27",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/independent_review.json",
+      "bytes": 694,
+      "sha256": "69a0ab936a45238f4ece1b774d38ba6668650708d42d333df72079c4f69b3de9",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/legacy_soxl_repair_20261005.ipynb",
+      "bytes": 528985,
+      "sha256": "be9bd18b19842b06ca24bcca11648e85be4f0028b9571c082f55723926f2d6d1",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/plan.json",
+      "bytes": 7723,
+      "sha256": "d38676f9466f95d87a721f014a0498402c5d170ff3c4237846815dd36e806f76",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/pre_recorder_failure.json",
+      "bytes": 632,
+      "sha256": "21e0998b8230846dd35ffdb320192ed88106a6f88044267be5e24a1698800fc7",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/preflight.json",
+      "bytes": 11422,
+      "sha256": "8cca2813bd6987e3688f782ad81afb7216562b2b0ad716a5bf6024f3376f9f17",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/registration.json",
+      "bytes": 620,
+      "sha256": "809686031fe6a0c1ea9cd2a203146add692b92676bdecea3f711ad3f1c3d21a9",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/risk_analysis.csv",
+      "bytes": 31460,
+      "sha256": "b1aee1821d6094fea9e8485d0c8d78119f67b342218f54b20bef5af84e1eac35",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/run_authorization.json",
+      "bytes": 2470,
+      "sha256": "cba2f77f7f5d0161eac22bb66610d787369b790e3a1ef6af17d738be7541dfba",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/summary.json",
+      "bytes": 21091,
+      "sha256": "ad1b18f8a2db372ca6360abc35c491fab301bfd9160e8cacec96fd542cf4022c",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/verification.json",
+      "bytes": 960,
+      "sha256": "377dabaa27c7b75f6d90a1e36800499916cd3a1d34e70dc426d8ff92bd7b35be",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/final_card/workflow.yaml",
+      "bytes": 1343,
+      "sha256": "fedfceb1c3516fbcb63add226949f859d5dd286bf72602a5a5afa227b559a458",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/inputs/market.pkl",
+      "bytes": 134191,
+      "sha256": "15514c8a90b4071facd88538adce59ff61c3cc19e80bf5a2085b75a3063e888d",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/portfolio_analysis/native_reports.pkl",
+      "bytes": 84973508,
+      "sha256": "1f3f441cc5582bd3faa79cb20dd1233bd6d2129e1eefb545cd4861c5fcbb4a24",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/source/soxl_backtest/strategy/buy_strategy.py",
+      "bytes": 15226,
+      "sha256": "7020aa67b28a6e8552d4b1d4b84d744e54f267d17f0920ebb2f501d43c7788e9",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/source/src/backtest/legacy_soxl_replay.py",
+      "bytes": 16898,
+      "sha256": "84f3e6dcf99ec3b99b599af24101eed8b75a28379d07c629c3c9144383b0030d",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/source/src/data/legacy_execution_view.py",
+      "bytes": 7925,
+      "sha256": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/source/src/data/legacy_vix_source.py",
+      "bytes": 11269,
+      "sha256": "e63e05aadc22f02b29f45d4f8189768da695bd6dc438ac5558809770510bcd61",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/source/src/workflow/legacy_soxl_repair.py",
+      "bytes": 33978,
+      "sha256": "a6052378eb3cb2e1bac09e13e1b71926ecff3364343244132b6a73b11a10cd4c",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/buy_strategy.py.original",
+      "bytes": 14958,
+      "sha256": "4393972303343ccc78ac9067a8cc204244de3da8e36b0d1cddff2ddad75f3068",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/legacy-plan-before-execution-calendar.json",
+      "bytes": 7325,
+      "sha256": "00f7f50bc9d5c70b10d65b8ad02ad83de7768741be2cc77733ac56586f9bc70c",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/legacy-soxl-compatibility.log",
+      "bytes": 807,
+      "sha256": "ff08226613d6f2de9af6fb464924c35498dcec8118e352a77e5a1d38e635881e",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/legacy-soxl-independent-review.log",
+      "bytes": 2391,
+      "sha256": "491219c2bafb6e5a78870553e52be1990103a1dd7aa7ed4d41f6762a5caa2b7c",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/legacy-soxl-repair-execution-corrected.log",
+      "bytes": 511,
+      "sha256": "52a955d296e7b8f3b92c714bd534223c4f5bc10b4bae429433304c9b5b0b5844",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/legacy-soxl-repair-execution.log",
+      "bytes": 37252,
+      "sha256": "341d26575146a52735c8bc4dc2ef46586b0e42e28365ce6390e7f29d33c23f0c",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/legacy-soxl-repair-focused-tests.log",
+      "bytes": 5013,
+      "sha256": "6fa409bc23bfc944d5d0460c72b5ad34e5dda925a4f37861cf2d9163ad9fbc81",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/review_legacy_soxl_repair.py",
+      "bytes": 3525,
+      "sha256": "8bca15609fd2a1dd572fef139681747e4d1a7b2aa82c78d20dae778c46fab851",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/test_legacy_execution_view.py",
+      "bytes": 1783,
+      "sha256": "f45dddabea03a80ae9a54d3464746c22b2b8b48a545b0aaaedf66b24283bbf46",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/test_legacy_soxl_repair_workflow.py",
+      "bytes": 6946,
+      "sha256": "37dfa14da7886111b16a25479ecef77cad5658cb2d1fd8a7f9022062b68b604c",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/test_legacy_soxl_replay.py",
+      "bytes": 9697,
+      "sha256": "5867cccc52ecfe0029ddfcb68fa9bee8f841d30bdf6546fc12d8d6122895bda3",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/artifacts/verification/test_legacy_vix_source.py",
+      "bytes": 3666,
+      "sha256": "49b4c5289fa9cd41eac0e5d5e099fb2b7820edb8a0719380b8a721e6106f828f",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/meta.yaml",
+      "bytes": 440,
+      "sha256": "c2f3694a6f10bf33e8627112351c367fb1a9ee5b93081751e8add7a8a973a5b6",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/metrics/historical_stable_excess_pass",
+      "bytes": 20,
+      "sha256": "363076c145ee292a8344b814650229177538ad7c6190d6f8df9ee9e1f077dcef",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/metrics/native_reconciliation_pass",
+      "bytes": 20,
+      "sha256": "79b102fcea1ae04f98e54adac9d5647ff896f3b1db23e7160425b584c3524e6e",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/params/cmd-sys.argv",
+      "bytes": 240,
+      "sha256": "775af3064c590c3605c47082884c9a0f09b175033c6232422b4a24292d2dc0f0",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/params/identity",
+      "bytes": 64,
+      "sha256": "aa7c06deffe881012db886c2c50c392434899d7c55acd6f4e9a0bc003db70f1f",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "352cdd0e527ebbafdf1af406132a4523bfa6fb1ebcec68059200980469cf3763",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/params/rule",
+      "bytes": 45,
+      "sha256": "75d154ee6ddfe1d2e417f0a71b9587a26a1ec2ffaac9162cda39f18500074e54",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/tags/mlflow.source.name",
+      "bytes": 127,
+      "sha256": "d58f8bd0a4100c33298a99635a784c73c8f81af55f064a39797655fb9c835a1c",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/a899b1df50274e769ec1d7fead8676ed/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "qlib_recorder/645863221565255266/meta.yaml",
+      "bytes": 354,
+      "sha256": "5cfd95c65edd97570674b773b7f04feaed86b0a896d4937a81813918620f5c04",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "registration.json",
+      "bytes": 620,
+      "sha256": "809686031fe6a0c1ea9cd2a203146add692b92676bdecea3f711ad3f1c3d21a9",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "risk_analysis.csv",
+      "bytes": 31460,
+      "sha256": "b1aee1821d6094fea9e8485d0c8d78119f67b342218f54b20bef5af84e1eac35",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "run_authorization.json",
+      "bytes": 2470,
+      "sha256": "cba2f77f7f5d0161eac22bb66610d787369b790e3a1ef6af17d738be7541dfba",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 21091,
+      "sha256": "ad1b18f8a2db372ca6360abc35c491fab301bfd9160e8cacec96fd542cf4022c",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 960,
+      "sha256": "377dabaa27c7b75f6d90a1e36800499916cd3a1d34e70dc426d8ff92bd7b35be",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    },
+    {
+      "path": "workflow.yaml",
+      "bytes": 1343,
+      "sha256": "fedfceb1c3516fbcb63add226949f859d5dd286bf72602a5a5afa227b559a458",
+      "source": "FixedlegacyQlibreplay orscopedverification",
+      "date_range": "2016-2026diagnostics;asof2026-09-25",
+      "purpose": "Auditandreproducefullregisteredreplay, including original/fixedfirstrow regression"
+    }
+  ],
+  "entry_count": 83,
+  "total_bytes": 91683906,
+  "maximum_file_bytes": 84973508,
+  "external_data_binding": "data_binding.json",
+  "original_scientific_objects_unchanged": true,
+  "large_native_reports_purpose": "FullQlibreport/positions/indicators andorderfill evidencefor30registeredpaths,Recorderonly,neededforfinancialaudit.",
+  "objective_achieved": false
+}

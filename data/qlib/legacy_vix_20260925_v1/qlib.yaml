@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/data/qlib/legacy_vix_20260925_v1
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

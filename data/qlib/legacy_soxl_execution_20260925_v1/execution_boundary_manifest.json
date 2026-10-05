@@ -1,0 +1,53 @@
+{
+  "as_of": "2026-09-25",
+  "boundary_calendar_source": {
+    "calendar_file_sha256": "347a846852856760fbdb4fb213f073c51fb262efa9cdd76d0127f132d7a94f45",
+    "first_returned_date": "2026-09-28",
+    "price_features_read_from_source": false,
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "read_start": "2026-09-26",
+    "source_api": "qlib.data.D.calendar(future=False)"
+  },
+  "boundary_date": "2026-09-28",
+  "calendar_end": "2026-09-25",
+  "calendar_start": "2010-03-11",
+  "copied_metadata_scope": "Canonical manifests and qlib.yaml are preserved byte-identically as parent provenance; this manifest identifies the execution view.",
+  "future_calendar_rows": 4163,
+  "future_calendar_sha256": "955363514c4d1c2e9a0a72579dd7661e18511dccc2f5514232913b17c62b6d33",
+  "native_frame_sha256": "b7a59f39feed5aed6e61fec2b4239092c474e453c91d4d133c73f9dcc571a03f",
+  "native_observations_equal": true,
+  "native_rows": 8324,
+  "observed_calendar_rows": 4162,
+  "parent_file_sha256": {
+    "calendars/day.txt": "d3381b900795126d9b67efdc85780345b7a85c298a1f6d02fbe86e50ee3f96eb",
+    "features/soxl/close.day.bin": "5c24c8ecaf3c7a16e10b54d6fa2797d58082fecf70406ff19ae42c156456a970",
+    "features/soxl/high.day.bin": "0ed44ae8679231f425fc117ad48eb001a885b9c5db0c25195b95fcc1d69aa63b",
+    "features/soxl/low.day.bin": "54a9436a3c1dd9137f105d6b841bb564ca1ebc6b98d8b3de6ff33a94e543ab54",
+    "features/soxl/open.day.bin": "f133c0ddceb6c94a9a3fc68e7d67da4b83a51496d83b3e76a071d02deab10195",
+    "features/soxl/volume.day.bin": "cfc3c13ce7d9dc8a7932e331554769ca5504e0f08a2bc3085a0722dfacc8c441",
+    "features/soxx/close.day.bin": "10795d93e629b42b6951cc972877b70e0e1e48ad471777a262d1a9fe85a0e647",
+    "features/soxx/high.day.bin": "0039b6a0543e44f2fc841f29823c427b11325e83554381fa3cf63af70e311135",
+    "features/soxx/low.day.bin": "411d2c3ec7b082f293d57237130e856218d39c9a67959530fc48316d767dff4f",
+    "features/soxx/open.day.bin": "4ec7e322c7df8837d1ca76678de33dddac6c1dd3c48585618c44bb933fbe9711",
+    "features/soxx/volume.day.bin": "22e4344473649f6d63d2a509469b6b9f9e27d9d5c13351014a34632f6ad903a3",
+    "instruments/all.txt": "cf10f6dc8dfcb4136e8bd305c48a87967441d326850c4237dd841234626de9df",
+    "price_basis_manifest.json": "cbbdeeca2e1c7dc0bce0f9cdf3495f50d3219bddd992e1b893f8362a5e51bc65",
+    "price_basis_status.json": "3066a4796155684d4ed8c17beb707de7c67bc78c5fdaa7a1f6edc5bd282ccd5c",
+    "qlib.yaml": "2fb4a57dfdeeb4b75b899fa7304d2b73f83c92470ee01fd9b4472c4f3b9ecfd4",
+    "qlib_store_manifest.json": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb"
+  },
+  "parent_provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.data.data.CalendarProvider.calendar",
+  "schema_version": "legacy_execution_boundary_v1",
+  "scope": "One Qlib right interval boundary only; no new observed date, price, return, or execution session.",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.D.calendar(future=False)",
+    "qlib.data.D.calendar(future=True)",
+    "qlib.data.D.instruments",
+    "qlib.data.D.list_instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "qualified"
+}

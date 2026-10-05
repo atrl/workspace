@@ -1,0 +1,48 @@
+............................                                             [100%]
+=============================== warnings summary ===============================
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19
+  /Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_DAY = pd.Timedelta("1day")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20
+  /Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_MIN = pd.Timedelta("1min")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21
+  /Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    EPS_T = pd.Timedelta("1s")  # use 1 second to exclude the right interval point
+
+qlib_venv/lib/python3.12/site-packages/google/protobuf/internal/well_known_types.py:91
+  /Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/qlib_venv/lib/python3.12/site-packages/google/protobuf/internal/well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+tests/test_legacy_soxl_repair_workflow.py::test_native_full_ledger_matches_integer_cash_fees_and_close_marks
+tests/test_legacy_soxl_repair_workflow.py::test_order_causality_and_native_clipping_fail_closed
+tests/test_legacy_soxl_repair_workflow.py::test_buyhold_initial_fee_and_no_rebalance
+  /Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/qlib_venv/lib/python3.12/site-packages/qlib/utils/time.py:201: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return pd.Timedelta(f"{n}{freq}")
+
+tests/test_legacy_soxl_repair_workflow.py: 54 warnings
+  /Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/qlib_venv/lib/python3.12/site-packages/qlib/utils/time.py:369: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return date_time - pd.Timedelta(seconds=1)
+
+tests/test_legacy_soxl_repair_workflow.py::test_native_full_ledger_matches_integer_cash_fees_and_close_marks
+tests/test_legacy_soxl_repair_workflow.py::test_order_causality_and_native_clipping_fail_closed
+tests/test_legacy_soxl_repair_workflow.py::test_buyhold_initial_fee_and_no_rebalance
+  /Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/qlib_venv/lib/python3.12/site-packages/qlib/utils/index_data.py:492: RuntimeWarning: Mean of empty slice
+    return np.nanmean(self.data)
+
+tests/test_legacy_vix_source.py::test_holiday_projection_does_not_fill_missing_session
+tests/test_legacy_vix_source.py::test_holiday_projection_does_not_fill_missing_session
+tests/test_legacy_vix_source.py::test_invalid_canonical_close_fails_closed[closes0]
+tests/test_legacy_vix_source.py::test_invalid_canonical_close_fails_closed[closes1]
+tests/test_legacy_vix_source.py::test_invalid_canonical_close_fails_closed[closes2]
+tests/test_legacy_vix_source.py::test_invalid_canonical_close_fails_closed[closes3]
+tests/test_legacy_vix_source.py::test_future_observations_and_duplicate_days_fail_closed
+tests/test_legacy_vix_source.py::test_future_observations_and_duplicate_days_fail_closed
+tests/test_legacy_vix_source.py::test_native_roundtrip_immutable_hash_and_overwrite_gate
+  /Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/tests/test_legacy_vix_source.py:13: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    stamps = (pd.DatetimeIndex(dates).tz_localize("America/Chicago") + pd.Timedelta(hours=16)).as_unit("s").asi8.tolist()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+28 passed, 73 warnings in 2.53s

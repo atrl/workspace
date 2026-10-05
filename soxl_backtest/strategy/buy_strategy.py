@@ -14,6 +14,11 @@ class BuyStrategy(BaseStrategy):
     def should_initial_build_position(self, current_data, df, current_idx):
         """判断是否应该进行首次建仓"""
         self.last_buy_conditions = []
+        # The first observation has no previous close.  iloc[-1] would read
+        # the end of the sample and make this decision depend on future data.
+        if current_idx < 1:
+            self.no_buy_reason = "insufficient prior close"
+            return False
         
         panic_score = self.get_panic_score(current_data)
         
