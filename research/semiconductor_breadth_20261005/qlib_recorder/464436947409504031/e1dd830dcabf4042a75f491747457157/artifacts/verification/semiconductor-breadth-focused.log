@@ -1,0 +1,50 @@
+............                                                             [100%]
+=============================== warnings summary ===============================
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19
+  /Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_DAY = pd.Timedelta("1day")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20
+  /Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_MIN = pd.Timedelta("1min")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21
+  /Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    EPS_T = pd.Timedelta("1s")  # use 1 second to exclude the right interval point
+
+tests/test_semiconductor_breadth_workflow.py::test_exact_base5_parity_and_full_calendar_h5_before_sector_window
+tests/test_semiconductor_breadth_workflow.py::test_exact_base5_parity_and_full_calendar_h5_before_sector_window
+tests/test_semiconductor_breadth_workflow.py::test_native_dataset_and_paired_annual_training_purge_maturity
+tests/test_semiconductor_breadth_workflow.py::test_missing_rows_fail_closed_and_fit_budget_is_exactly_six
+  /Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/src/workflow/semiconductor_breadth.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    frame["feature_available_at"] = frame.index.tz_localize("America/New_York") + pd.Timedelta(hours=17)
+
+tests/test_semiconductor_breadth_workflow.py::test_exact_base5_parity_and_full_calendar_h5_before_sector_window
+tests/test_semiconductor_breadth_workflow.py::test_exact_base5_parity_and_full_calendar_h5_before_sector_window
+tests/test_semiconductor_breadth_workflow.py::test_native_dataset_and_paired_annual_training_purge_maturity
+tests/test_semiconductor_breadth_workflow.py::test_missing_rows_fail_closed_and_fit_budget_is_exactly_six
+  /Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/src/workflow/semiconductor_breadth.py:74: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    frame["label_available_at"] = pd.DatetimeIndex(frame.label_mature_date).tz_localize("America/New_York") + pd.Timedelta(hours=9, minutes=30)
+
+tests/test_semiconductor_breadth_workflow.py::test_exact_base5_parity_and_full_calendar_h5_before_sector_window
+  /Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/src/workflow/soxs_cash5_revalidation.py:98: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    frame["feature_available_at"] = pd.DatetimeIndex(frame.index).tz_localize("America/New_York") + pd.Timedelta(hours=16)
+
+tests/test_semiconductor_breadth_workflow.py::test_exact_base5_parity_and_full_calendar_h5_before_sector_window
+  /Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/src/workflow/soxs_cash5_revalidation.py:99: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    frame["label_available_at"] = pd.DatetimeIndex(frame.label_mature_date).tz_localize("America/New_York") + pd.Timedelta(hours=9, minutes=30)
+
+tests/test_semiconductor_breadth_workflow.py::test_paired_bootstrap_preserves_identical_draws_and_undefined_bounds
+  /Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/tests/test_semiconductor_breadth_workflow.py:35: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    "trade_date": dates + pd.Timedelta(days=1),
+
+tests/test_semiconductor_breadth_workflow.py::test_paired_bootstrap_preserves_identical_draws_and_undefined_bounds
+  /Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/tests/test_semiconductor_breadth_workflow.py:36: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    "label_mature_date": dates + pd.Timedelta(days=8)}, index=dates)
+
+tests/test_semiconductor_breadth_workflow.py::test_no_financial_execution_without_root_go
+  /Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/qlib_venv/lib/python3.12/site-packages/google/protobuf/internal/well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+12 passed, 16 warnings in 4.02s

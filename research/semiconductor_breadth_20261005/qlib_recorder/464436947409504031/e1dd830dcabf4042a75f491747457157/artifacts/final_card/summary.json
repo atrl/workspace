@@ -1,0 +1,237 @@
+{
+  "experiment": "semiconductor_breadth_20261005",
+  "status": "finished",
+  "card_type": "registered_reused_history_incremental_information_diagnostic",
+  "primary_notebook": "semiconductor_breadth_20261005.ipynb",
+  "started_at_utc": "2026-10-05T04:20:19.790737+00:00",
+  "finished_at_utc": "2026-10-05T04:20:20.514802+00:00",
+  "plan_sha256": "43b34df50466abe922b6d09df99319991eb9aed207f27daac65055f3a7500eb8",
+  "implementation_sha256": "d9625ab2d0e8d66c7586cdeaa4c901b774055ef5ee08527e4e9f9435cdc10857",
+  "native_input_sha256": "e70d069441761d19778d1f637c8668e1219ad1048c4111790706a470bcf4138a",
+  "fit_count": 6,
+  "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/published_futu_affine_20260925_v1",
+  "as_of": "2026-09-25",
+  "region": "us",
+  "market": "all",
+  "data_audit": {
+    "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/published_futu_affine_20260925_v1",
+    "canonical_readback": {
+      "native_frame_sha256": "b7a59f39feed5aed6e61fec2b4239092c474e453c91d4d133c73f9dcc571a03f",
+      "native_rows": 8324,
+      "calendar_sessions": 4162,
+      "provider_manifest_sha256": "cbbdeeca2e1c7dc0bce0f9cdf3495f50d3219bddd992e1b893f8362a5e51bc65",
+      "provider_marker_canonical_sha256": "f1953da3c171072f29fc1c6e96d17155d4099ffcacad5d835718ee6d26477e3d",
+      "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/published_futu_affine_20260925_v1"
+    },
+    "sector_readback": {
+      "status": "qualified",
+      "qualified": true,
+      "source_hashes": {
+        "constituent_manifest": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+        "holdings_csv": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+        "native_constituent_close_and_types": "093ae6ea080bc5712fb4a4bb10251e3e345fa8d2d269bc8f5a0c330cd2cbc979",
+        "recovered_manifest": "dfe76e871fa93ae4a1680a42c911d1aa14f3c35366ddb76a2e058035bc758686",
+        "native_recovered_close": "35ef926fecd942099e128dc4068d8552dfa3881e5f8eeb80765fa42d9cf52bb5"
+      },
+      "feature_start": "2022-05-27",
+      "feature_end": "2026-07-02",
+      "feature_rows": 1027,
+      "feature_columns": [
+        "breadth_up_fraction",
+        "equal_minus_disclosed_weight_return",
+        "cross_section_return_std",
+        "mean_abs_correlation_60"
+      ],
+      "status_counts": {
+        "complete": 1027
+      },
+      "membership_policy": "full latest SEC equity snapshot published by preceding Qlib session",
+      "price_basis": "Yahoo split-only quote close plus qualified pre-2025 Futu NONE WOLF",
+      "actual_2x_or_synthetic_used": false,
+      "imputation": "none",
+      "correlation": "mean absolute off-diagonal Pearson correlation of exactly 60 current-member daily returns",
+      "weights": "full disclosed equity weights normalized to sum one; not current market capitalization",
+      "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/soxx_pit_leveraged_training_v1",
+      "supplemental_provider_uri": "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/semis_wolf_recovery_20241126_v1",
+      "provider_manifest_paths": [
+        "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json",
+        "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/semis_wolf_recovery_20241126_v1/qlib_store_manifest.json"
+      ],
+      "source_files": [
+        "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_history.csv",
+        "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_manifest.json"
+      ],
+      "qualification_reasons": [
+        "all disclosed equities present",
+        "61 consecutive positive finite close observations per current member",
+        "strict previous-session published membership",
+        "no 2x instruments or synthetic prices"
+      ]
+    },
+    "as_of": "2026-09-25",
+    "feature_start": "2022-05-27",
+    "feature_end": "2026-07-02",
+    "paired_rows": 1027,
+    "native_input_sha256": "e70d069441761d19778d1f637c8668e1219ad1048c4111790706a470bcf4138a",
+    "sector_eligibility_sha256": "7b2b1b5934f585da6e0e2f307f6a0c424b4dc353392195a340ca7695ede5232f",
+    "label_calendar_scope": "full canonical Qlib calendar through 2026-09-25, before sector-window join",
+    "membership_scope": "full previous-session-published SEC SOXX holdings basket; not official daily index membership",
+    "price_vintage_limitation": "retrospective adjustment vintage; not archived PIT adjusted prices",
+    "no_member_drop_or_fill": true,
+    "no_august_2026_coverage": true
+  },
+  "qlib_dataset": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "source": "native Qlib D readback",
+    "rows": 1027,
+    "feature_count": 9,
+    "training_start": "2022-05-27"
+  },
+  "recorder_id": "e1dd830dcabf4042a75f491747457157",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/semiconductor_breadth_20261005/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/semiconductor_breadth_20261005/qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157",
+  "recorder_artifact_uri": "file:///Users/rziiiii/dev/workspace/research/semiconductor_breadth_20261005/qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "analysis_api": "src.analysis.frozen_cash_information equivalent time-series analyzer persisted in native Qlib Recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/features_labels.pkl",
+      "inputs/eligibility.pkl",
+      "models/fitted_models.pkl",
+      "analysis/predictions.pkl",
+      "analysis/labels.pkl",
+      "analysis/bootstrap_draws.pkl",
+      "analysis/equivalent_signal_analysis.pkl"
+    ]
+  },
+  "sidecars": [
+    "plan.json",
+    "run_authorization.json",
+    "workflow.yaml",
+    "point_metrics.csv",
+    "event_metrics.csv",
+    "bootstrap_summary.csv",
+    "fit_audit.csv",
+    "signal_analysis.csv",
+    "source_audit.json",
+    "conclusion.md"
+  ],
+  "gates": {
+    "positive_delta_ic_years": 1,
+    "positive_mse_reduction_years": 0,
+    "joint_positive_increment_years": 0,
+    "positive_full_ic_years": 1,
+    "evaluated_years": 3,
+    "information_pass": false,
+    "incremental_pass": false,
+    "annual_stability_pass": false,
+    "economic_pass": false,
+    "all_incremental_information_gates_pass": false,
+    "decision": "end_route_no_further_search",
+    "promotion_decision": "not_promoted",
+    "fresh_holdout": false,
+    "economic_scope": "isolated_H5_event_screen_only",
+    "stable_excess_gate_evaluated": false
+  },
+  "promotion_decision": "not_promoted",
+  "selection_uses_reused_history": true,
+  "fresh_holdout": false,
+  "model_selection": {
+    "performed": false,
+    "families": [
+      "base",
+      "base_plus_breadth"
+    ],
+    "fixed_model": "StandardScaler + Ridge(alpha=10)"
+  },
+  "benchmark": {
+    "predictive": [
+      "base5",
+      "training_prior_mean"
+    ],
+    "event": "SOXX on identical open[t+1] through open[t+6]"
+  },
+  "key_point_metrics": [
+    {
+      "slice": "pooled_2024_2026_partial",
+      "rows": 627,
+      "signal_start": "2024-01-02T00:00:00",
+      "signal_end": "2026-07-02T00:00:00",
+      "trade_start": "2024-01-03T00:00:00",
+      "label_mature_end": "2026-07-13T00:00:00",
+      "base_ic": -0.012877795551498183,
+      "base_plus_breadth_ic": -0.11168555204246272,
+      "delta_ic_full_minus_base": -0.09880775649096454,
+      "base_mse": 0.002701695096486082,
+      "base_plus_breadth_mse": 0.0028140032410090424,
+      "delta_mse_full_minus_base": 0.0001123081445229602,
+      "mse_reduction_base_minus_full": -0.0001123081445229602,
+      "prior_mean_mse": 0.0025846404923946012,
+      "mse_reduction_prior_mean_minus_full": -0.00022936274861444115
+    },
+    {
+      "slice": "year_2024",
+      "rows": 252,
+      "signal_start": "2024-01-02T00:00:00",
+      "signal_end": "2024-12-31T00:00:00",
+      "trade_start": "2024-01-03T00:00:00",
+      "label_mature_end": "2025-01-10T00:00:00",
+      "base_ic": -0.04941273865576654,
+      "base_plus_breadth_ic": -0.1644264275478549,
+      "delta_ic_full_minus_base": -0.11501368889208835,
+      "base_mse": 0.002055903098335349,
+      "base_plus_breadth_mse": 0.002261446609134296,
+      "delta_mse_full_minus_base": 0.00020554351079894685,
+      "mse_reduction_base_minus_full": -0.00020554351079894685,
+      "prior_mean_mse": 0.0019889610429449974,
+      "mse_reduction_prior_mean_minus_full": -0.0002724855661892984
+    },
+    {
+      "slice": "year_2025",
+      "rows": 250,
+      "signal_start": "2025-01-02T00:00:00",
+      "signal_end": "2025-12-31T00:00:00",
+      "trade_start": "2025-01-03T00:00:00",
+      "label_mature_end": "2026-01-09T00:00:00",
+      "base_ic": -0.10865338645418327,
+      "base_plus_breadth_ic": -0.14179388470215523,
+      "delta_ic_full_minus_base": -0.03314049824797197,
+      "base_mse": 0.002716683165500891,
+      "base_plus_breadth_mse": 0.002790334149090522,
+      "delta_mse_full_minus_base": 7.365098358963094e-05,
+      "mse_reduction_base_minus_full": -7.365098358963094e-05,
+      "prior_mean_mse": 0.0024672747912313974,
+      "mse_reduction_prior_mean_minus_full": -0.0003230593578591244
+    },
+    {
+      "slice": "year_2026",
+      "rows": 125,
+      "signal_start": "2026-01-02T00:00:00",
+      "signal_end": "2026-07-02T00:00:00",
+      "trade_start": "2026-01-05T00:00:00",
+      "label_mature_end": "2026-07-13T00:00:00",
+      "base_ic": 0.2769032258064516,
+      "base_plus_breadth_ic": 0.2808233486943164,
+      "delta_ic_full_minus_base": 0.0039201228878648076,
+      "base_mse": 0.003973635626728342,
+      "base_plus_breadth_mse": 0.003975295594705573,
+      "delta_mse_full_minus_base": 1.6599679772315648e-06,
+      "mse_reduction_base_minus_full": -1.6599679772315648e-06,
+      "prior_mean_mse": 0.004020261664811411,
+      "mse_reduction_prior_mean_minus_full": 4.4966070105837384e-05
+    }
+  ],
+  "no_portfolio_backtest": true,
+  "stable_excess_gate_evaluated": false,
+  "price_vintage_is_archived_pit": false,
+  "august_2026_evaluated": false
+}

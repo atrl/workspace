@@ -1,0 +1,30 @@
+{
+  "complete": true,
+  "recorder_id": "e1dd830dcabf4042a75f491747457157",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/semiconductor_breadth_20261005/qlib_recorder",
+  "plan_sha256": "43b34df50466abe922b6d09df99319991eb9aed207f27daac65055f3a7500eb8",
+  "started_at_utc": "2026-10-05T04:20:19.790737+00:00",
+  "artifact_sha256": {
+    "analysis/bootstrap_draws.pkl": "2beb86cd894015096de5ca621e8dfd362cd81c315dc688a34a847bc9316c4566",
+    "analysis/equivalent_signal_analysis.pkl": "5a5208308afb03371690cd6466e1b50b221abf394e30370dc39e095e60c2488b",
+    "analysis/labels.pkl": "16bf0f6b65036f707d24ebd1f1892a9307866b2f71729a3b9ee96ff8843851f7",
+    "analysis/predictions.pkl": "09c1baefcd3ddf7be1028536c2cf3c6783f6bc865f246365e3a1bdcfc4e5d4b8",
+    "card/bootstrap_summary.csv": "2513843f8ed41f4ad25fd0ad58ccb81018f9861a938bd17ae05ec854318f71cf",
+    "card/conclusion.md": "4884d49ebbef17df1437cb8377de1262c7fb19210dc8bbcbe3f55b77528c0363",
+    "card/event_metrics.csv": "e24f512727ea5acc2189d7e2b9387f7d4842ca6896d08090a69b1e2c6f4c3718",
+    "card/fit_audit.csv": "9b9052ad4906e7530c1f62fe0146161daed60a7124d6b192a80c0bb8f143c07f",
+    "card/plan.json": "43b34df50466abe922b6d09df99319991eb9aed207f27daac65055f3a7500eb8",
+    "card/point_metrics.csv": "c610e25b43a082c04875e9ec01c9a1d064e84cb65ef2c20ee1a286a0eff2a7c7",
+    "card/run_authorization.json": "36ac104cd39fa90546b0b8c2bafdcb030d60e1c07f724c3e8cf5d506a216c504",
+    "card/signal_analysis.csv": "22737c91f6a4392e1dc45e538d41b322cd857acde514c119620d307ad74238cf",
+    "card/source_audit.json": "cae108ec966ca60ef41725ea0b4538233b3fbb677665058e67adbf5af13943df",
+    "card/summary.pkl": "cd6ef524f19b728d8be47468f18b10be8ec38811d10b1b878c258d121eea83e2",
+    "card/workflow.yaml": "6c6d06be9cd07bec03039651d80622e4ac39d33e4f08bbc528e8d9bff0c79219",
+    "inputs/authorization.pkl": "cae3c836771e85f3db1601e01f2b0802213148702074eef3bdde9947059add8d",
+    "inputs/data_audit.pkl": "21b755f79d559f79160f6e3f30bc097836db7baa75260ca3d3eeedcb0b68cc59",
+    "inputs/eligibility.pkl": "f1e211381f0400c1780b93c628dde1c271095826354b8f95b2f5cfa8a9fce78c",
+    "inputs/features_labels.pkl": "3538d6c7a5024f67b5e7d8f38bcb3da3c0bfba558e048fb7134f9ea939188697",
+    "inputs/plan.pkl": "eefa918ec944413f2d9b0b568e34bf81197be2003f698c7f165856bb4a64d655",
+    "models/fitted_models.pkl": "a4b34e861f9a5cac4337d1decee6c85352e55c8e5ce1f3140840a62d19c4e987"
+  }
+}

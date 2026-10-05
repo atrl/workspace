@@ -1,0 +1,221 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_pit_leveraged_training_v1",
+  "native_apis": [
+    "qlib.init",
+    "D.calendar",
+    "D.instruments",
+    "D.list_instruments",
+    "D.features"
+  ],
+  "calendar": {
+    "start": "2007-02-01",
+    "end": "2026-07-02",
+    "sessions": 4885
+  },
+  "provider_manifest_hash_label": "40ada92eabb7d2a4",
+  "source_sha256": {
+    "qlib_store_manifest.json": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+    "sec_nport_holdings_history.csv": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+    "sec_nport_holdings_manifest.json": "abf33aa625ae587fa99a61d6b75bf25e47e1deb57f70f360f0ba670d84643811",
+    "constituent_price_manifest.json": "779372b3066a743453cf519c574747c1588b03b6f8934455c409464484417624",
+    "constituent_price_coverage.csv": "c3a8d89eb175331d93f3928ffb06ea9e44f0e5e4c055fbc51bdd695073efbb0c",
+    "calendars/day.txt": "2a861bcf94a9abcfe78b9d2ed7248df20a3e147c53610751abcd7f183ff9bc56",
+    "instruments/all.txt": "6acaa738bf41dc350c84204f3e920c755e92c0801f304777e464c08072e96d67"
+  },
+  "qlib_instrument_count": 46,
+  "constituent_count": 40,
+  "actual_2x_excluded": [
+    "AMDL",
+    "INTW",
+    "MULL",
+    "MVLL",
+    "NVDL",
+    "USD"
+  ],
+  "sec_total_members_union": 47,
+  "sec_first_filing": "2019-11-25",
+  "first_lagged_pit_signal_session": "2019-11-26",
+  "future_snapshot_count_excluded": 1,
+  "future_snapshot_dates": [
+    "2026-07-13"
+  ],
+  "status_counts_since_2016": {
+    "missing_members": 1259,
+    "no_pit": 982,
+    "complete": 398
+  },
+  "complete_full_member_60return_spans": [
+    {
+      "start": "2024-11-27",
+      "end": "2026-07-02",
+      "sessions": 398
+    }
+  ],
+  "year_status_counts": {
+    "2016": {
+      "no_pit": 252
+    },
+    "2017": {
+      "no_pit": 251
+    },
+    "2018": {
+      "no_pit": 251
+    },
+    "2019": {
+      "no_pit": 228,
+      "missing_members": 24
+    },
+    "2020": {
+      "missing_members": 253
+    },
+    "2021": {
+      "missing_members": 252
+    },
+    "2022": {
+      "missing_members": 251
+    },
+    "2023": {
+      "missing_members": 250
+    },
+    "2024": {
+      "missing_members": 229,
+      "complete": 23
+    },
+    "2025": {
+      "complete": 250
+    },
+    "2026": {
+      "complete": 125
+    }
+  },
+  "missing_member_spans": [
+    {
+      "start": "2020-11-27",
+      "end": "2021-08-26",
+      "sessions": 188,
+      "missing": [
+        "BRKS",
+        "CCMP",
+        "CREE",
+        "IPHI",
+        "XLNX"
+      ]
+    },
+    {
+      "start": "2019-11-26",
+      "end": "2020-11-25",
+      "sessions": 253,
+      "missing": [
+        "CCMP",
+        "CREE",
+        "MXIM",
+        "XLNX"
+      ]
+    },
+    {
+      "start": "2021-08-27",
+      "end": "2021-11-24",
+      "sessions": 63,
+      "missing": [
+        "CREE",
+        "MXIM",
+        "XLNX"
+      ]
+    },
+    {
+      "start": "2021-11-26",
+      "end": "2022-02-25",
+      "sessions": 63,
+      "missing": [
+        "CREE",
+        "XLNX"
+      ]
+    },
+    {
+      "start": "2022-05-27",
+      "end": "2024-11-26",
+      "sessions": 629,
+      "missing": [
+        "WOLF"
+      ]
+    },
+    {
+      "start": "2022-02-28",
+      "end": "2022-05-26",
+      "sessions": 63,
+      "missing": [
+        "WOLF",
+        "XLNX"
+      ]
+    }
+  ],
+  "min_disclosed_weight_price_coverage": 0.9230659172638499,
+  "full_member_check_rule": "For signal t use SEC latest filing no later than previous Qlib session. Require every disclosed equity to be present and have positive finite close at all 61 Qlib sessions ending t (60 returns); no fills/no member omission.",
+  "raw_data_frame_shape": [
+    224710,
+    7
+  ],
+  "duplicate_native_rows": 0,
+  "finite_adj_close_missing_when_close_valid": 0,
+  "latest_state": {
+    "status": "complete",
+    "expected_members": 30,
+    "priced_members": 30,
+    "complete61_members": 30,
+    "missing": [],
+    "filing_date": "2026-05-28",
+    "report_date": "2026-03-31"
+  },
+  "notes": [
+    "D.features $close maps directly to Yahoo quote close (split-adjusted); $adj_close separately maps Yahoo adjclose (also dividend adjusted). No price transformation in this provider builder.",
+    "Full source member names define the basket; native pit_member already excludes failed price downloads.",
+    "Latest available filing is 2026-05-28 for report 2026-03-31.",
+    "Published weights are static most-recent disclosed holdings weights, not contemporaneous market-cap weights."
+  ],
+  "source_integrity_checks": {
+    "raw_price_sha256": {
+      "match_count": 30,
+      "missing": [
+        "ACLS",
+        "CRUS",
+        "LSCC",
+        "MKSI",
+        "OLED",
+        "ONTO",
+        "QRVO",
+        "SLAB",
+        "SMTC",
+        "SYNA",
+        "WOLF"
+      ],
+      "mismatch": []
+    },
+    "source_holdings_sha256_matches_manifest": true,
+    "raw_source_holdings_sha256_matches_sidecar": "raw_absent",
+    "qlib_to_raw_price_mapping": {
+      "symbols": 30,
+      "exact_float32_matches": 30,
+      "failed_symbols": []
+    },
+    "calendar_alignment_soxl": {
+      "matching_sessions": 2639,
+      "aux_only_dates": [],
+      "primary_only_dates": []
+    },
+    "calendar_alignment_published_futu_affine_20260925_v1": {
+      "matching_sessions": 2639,
+      "aux_only_dates": [],
+      "primary_only_dates": []
+    },
+    "calendar_alignment_legacy_soxl_execution_20260925_v1": {
+      "matching_sessions": 2639,
+      "aux_only_dates": [],
+      "primary_only_dates": []
+    },
+    "calendar_alignment_stable_excess_integration_20261002": {
+      "matching_sessions": 2639,
+      "aux_only_dates": [],
+      "primary_only_dates": []
+    }
+  }
+}

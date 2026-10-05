@@ -1,0 +1,45 @@
+{
+  "status": "qualified",
+  "qualified": true,
+  "source_hashes": {
+    "constituent_manifest": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+    "holdings_csv": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+    "native_constituent_close_and_types": "093ae6ea080bc5712fb4a4bb10251e3e345fa8d2d269bc8f5a0c330cd2cbc979",
+    "recovered_manifest": "dfe76e871fa93ae4a1680a42c911d1aa14f3c35366ddb76a2e058035bc758686",
+    "native_recovered_close": "35ef926fecd942099e128dc4068d8552dfa3881e5f8eeb80765fa42d9cf52bb5"
+  },
+  "feature_start": "2022-05-27",
+  "feature_end": "2026-07-02",
+  "feature_rows": 1027,
+  "feature_columns": [
+    "breadth_up_fraction",
+    "equal_minus_disclosed_weight_return",
+    "cross_section_return_std",
+    "mean_abs_correlation_60"
+  ],
+  "status_counts": {
+    "complete": 1027
+  },
+  "membership_policy": "full latest SEC equity snapshot published by preceding Qlib session",
+  "price_basis": "Yahoo split-only quote close plus qualified pre-2025 Futu NONE WOLF",
+  "actual_2x_or_synthetic_used": false,
+  "imputation": "none",
+  "correlation": "mean absolute off-diagonal Pearson correlation of exactly 60 current-member daily returns",
+  "weights": "full disclosed equity weights normalized to sum one; not current market capitalization",
+  "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/soxx_pit_leveraged_training_v1",
+  "supplemental_provider_uri": "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/semis_wolf_recovery_20241126_v1",
+  "provider_manifest_paths": [
+    "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json",
+    "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/semis_wolf_recovery_20241126_v1/qlib_store_manifest.json"
+  ],
+  "source_files": [
+    "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_history.csv",
+    "/Users/rziiiii/dev/workspace-worktrees/semis-breadth-20261005/data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_manifest.json"
+  ],
+  "qualification_reasons": [
+    "all disclosed equities present",
+    "61 consecutive positive finite close observations per current member",
+    "strict previous-session published membership",
+    "no 2x instruments or synthetic prices"
+  ]
+}
