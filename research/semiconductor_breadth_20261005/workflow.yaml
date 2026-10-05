@@ -1,0 +1,51 @@
+{
+  "experiment": "semiconductor_breadth_20261005",
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "sector_provider_uri": "data/qlib/soxx_pit_leveraged_training_v1",
+  "supplemental_provider_uri": "data/qlib/semis_wolf_recovery_20241126_v1",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/semiconductor_breadth_20261005/qlib_recorder",
+  "market": "all",
+  "region": "us",
+  "as_of": "2026-09-25",
+  "segments": {
+    "training_start": "2022-05-27",
+    "annual_test_years": [
+      2024,
+      2025,
+      2026
+    ],
+    "feature_end": "2026-07-02"
+  },
+  "model_selection": {
+    "performed": false,
+    "families": [
+      "base",
+      "base_plus_breadth"
+    ],
+    "model": "StandardScaler + Ridge(alpha=10)",
+    "fits": 6
+  },
+  "qlib_api": [
+    "qlib.init",
+    "D.calendar",
+    "D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "StaticDataLoader",
+    "R.start",
+    "R.get_recorder"
+  ],
+  "analysis": "equivalent single-asset time-series analyzer saved in Qlib Recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/sector_features.pkl",
+      "inputs/features_labels.pkl",
+      "models/fitted_models.pkl",
+      "analysis/predictions.pkl",
+      "analysis/bootstrap_draws.pkl"
+    ]
+  },
+  "scope": "registered incremental-information diagnostic on reused history; no portfolio or promotion"
+}

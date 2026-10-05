@@ -1,0 +1,194 @@
+[
+  {
+    "ticker": "US.WOLF",
+    "start": "2024-06-03",
+    "end": "2024-06-07",
+    "ret": 0,
+    "rows": 5,
+    "columns": [
+      "code",
+      "name",
+      "time_key",
+      "open",
+      "close",
+      "high",
+      "low",
+      "pe_ratio",
+      "turnover_rate",
+      "volume",
+      "turnover",
+      "change_rate",
+      "last_close"
+    ],
+    "date_min": "2024-06-03 00:00:00",
+    "date_max": "2024-06-07 00:00:00",
+    "has_more": false
+  },
+  {
+    "ticker": "US.XLNX",
+    "start": "2021-06-01",
+    "end": "2021-06-07",
+    "ret": -1,
+    "error": "\u672a\u77e5\u80a1\u7968 XLNX"
+  },
+  {
+    "ticker": "US.CREE",
+    "start": "2020-06-01",
+    "end": "2020-06-05",
+    "ret": -1,
+    "error": "\u672a\u77e5\u80a1\u7968 CREE"
+  },
+  {
+    "basicinfo_ret": 0,
+    "basicinfo": [
+      {
+        "code": "US.WOLF",
+        "name": "Wolfspeed",
+        "stock_id": 81187767000117,
+        "delisting": false
+      },
+      {
+        "code": "US.XLNX",
+        "name": "\u672a\u77e5\u80a1\u7968",
+        "stock_id": 0,
+        "delisting": true
+      },
+      {
+        "code": "US.CREE",
+        "name": "\u672a\u77e5\u80a1\u7968",
+        "stock_id": 0,
+        "delisting": true
+      }
+    ],
+    "columns": [
+      "code",
+      "name",
+      "lot_size",
+      "stock_type",
+      "stock_child_type",
+      "stock_owner",
+      "option_type",
+      "strike_time",
+      "strike_price",
+      "suspension",
+      "listing_date",
+      "stock_id",
+      "delisting",
+      "index_option_type",
+      "main_contract",
+      "last_trade_time",
+      "exchange_type"
+    ]
+  },
+  {
+    "ticker": "US.WOLF",
+    "start": "2019-09-03",
+    "end": "2019-09-09",
+    "ret": 0,
+    "rows": 5,
+    "date_min": "2019-09-03 00:00:00",
+    "date_max": "2019-09-09 00:00:00",
+    "has_more": false
+  },
+  {
+    "ticker": "US.MXIM",
+    "start": "2021-06-01",
+    "end": "2021-06-07",
+    "ret": -1,
+    "error": "\u672a\u77e5\u80a1\u7968 MXIM"
+  },
+  {
+    "ticker": "US.IPHI",
+    "start": "2021-01-04",
+    "end": "2021-01-08",
+    "ret": -1,
+    "error": "\u672a\u77e5\u80a1\u7968 IPHI"
+  },
+  {
+    "ticker": "US.CCMP",
+    "start": "2021-06-01",
+    "end": "2021-06-07",
+    "ret": -1,
+    "error": "\u672a\u77e5\u80a1\u7968 CCMP"
+  },
+  {
+    "ticker": "US.BRKS",
+    "start": "2021-06-01",
+    "end": "2021-06-07",
+    "ret": -1,
+    "error": "\u672a\u77e5\u80a1\u7968 BRKS"
+  },
+  {
+    "rehab_ret": 0,
+    "rows": 2,
+    "columns": [
+      "ex_div_date",
+      "split_base",
+      "split_ert",
+      "join_base",
+      "join_ert",
+      "split_ratio",
+      "per_cash_div",
+      "special_dividend",
+      "bonus_base",
+      "bonus_ert",
+      "per_share_div_ratio",
+      "transfer_base",
+      "transfer_ert",
+      "per_share_trans_ratio",
+      "allot_base",
+      "allot_ert",
+      "allotment_ratio",
+      "allotment_price",
+      "add_base",
+      "add_ert",
+      "stk_spo_ratio",
+      "stk_spo_price",
+      "spin_off_base",
+      "spin_off_ert",
+      "spin_off_ratio",
+      "forward_adj_factorA",
+      "forward_adj_factorB",
+      "backward_adj_factorA",
+      "backward_adj_factorB"
+    ],
+    "dates": [
+      "1999-08-02",
+      "2000-12-11"
+    ]
+  },
+  {
+    "basicinfo_ret": 0,
+    "basicinfo": [
+      {
+        "code": "US.WOLF",
+        "name": "Wolfspeed",
+        "stock_id": 81187767000117,
+        "listing_date": "1970-01-01",
+        "delisting": false,
+        "last_trade_time": "",
+        "exchange_type": "US_NYSE"
+      }
+    ]
+  },
+  {
+    "ticker": "US.WOLF",
+    "start": "2022-03-01",
+    "end": "2022-03-07",
+    "ret": 0,
+    "rows": 5,
+    "date_min": "2022-03-01 00:00:00",
+    "date_max": "2022-03-07 00:00:00",
+    "has_more": false
+  },
+  {
+    "ticker": "US.WOLF",
+    "start": "2024-11-20",
+    "end": "2024-11-26",
+    "ret": 0,
+    "rows": 5,
+    "date_min": "2024-11-20 00:00:00",
+    "date_max": "2024-11-26 00:00:00",
+    "has_more": false
+  }
+]

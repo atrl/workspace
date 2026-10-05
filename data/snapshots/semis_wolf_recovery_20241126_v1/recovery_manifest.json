@@ -1,0 +1,66 @@
+{
+  "instrument": "WOLF",
+  "source": "Futu OpenD request_history_kline",
+  "code": "US.WOLF",
+  "autype": "NONE",
+  "session": "RTH",
+  "extended_time": false,
+  "requested_start": "2019-06-03",
+  "requested_end": "2024-11-26",
+  "rows": 1383,
+  "start": "2019-06-03 00:00:00",
+  "end": "2024-11-26 00:00:00",
+  "duplicates": 0,
+  "sec_price_identity_anchors": [
+    {
+      "accession": "000175272424194376",
+      "ticker": "WOLF",
+      "report_date": "2024-06-30",
+      "price_date": "2024-06-28 00:00:00",
+      "cusip": "977852102",
+      "name": "Wolfspeed, Inc.",
+      "shares": 1887923.0,
+      "market_value_usd": 42969127.48,
+      "sec_implied_close": 22.759999999999998,
+      "futu_none_close": 22.76,
+      "abs_price_error": 3.552713678800501e-15,
+      "unit": "NS",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424194376/primary_doc.xml",
+      "isin": "US9778521024"
+    },
+    {
+      "accession": "000175272419177706",
+      "ticker": "CREE",
+      "report_date": "2019-09-30",
+      "price_date": "2019-09-30 00:00:00",
+      "cusip": "225447101",
+      "name": "Cree Inc",
+      "shares": 309415.0,
+      "market_value_usd": 15161335.0,
+      "sec_implied_close": 49.0,
+      "futu_none_close": 49.0,
+      "abs_price_error": 0.0,
+      "unit": "NS",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272419177706/primary_doc.xml",
+      "isin": "US2254471012"
+    }
+  ],
+  "hashes": {
+    "000175272424194376.xml": "98db46844c7aa7789542cf0ce314fe2966713dff047cd0c3b69c869a46b6f4c6",
+    "futu_stock_basicinfo.json": "02b47ff6dc3de626bef2fca13d65be68049887a1e31463577d4caeed7499ec88",
+    "futu_rehab.csv": "cf3c6ebc2c9edceff6471ebcb651757e2edbd978b494bc012eab0b0975f5f3b1",
+    "000175272419177706.xml": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+    "futu_wolf_none_raw.csv": "827a01a705f45698403e7a6ab758c8bc9efb7599c36bd898c347a97d2902b3d4"
+  },
+  "retrieved_at_utc": "2026-10-05T04:05:53Z",
+  "security_identity_sources": [
+    {
+      "description": "Cree renamed Wolfspeed effective October 4, 2021",
+      "url": "https://www.sec.gov/Archives/edgar/data/895419/000089541921000113/cree-20210916.htm"
+    },
+    {
+      "description": "Old shares cancelled and new shares issued September 29, 2025; outside recovered period",
+      "url": "https://www.sec.gov/Archives/edgar/data/895419/000119312525224251/d22768d8k.htm"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "focused_tests_passed": 12,
+  "focused_log_sha256": "e95adac161081972a4efaad877571c58e288653e0294faadc3dc0ba220b3bc74",
+  "independent_review": "independent_review.json",
+  "independent_review_passed": true,
+  "notebook_executed": true,
+  "notebook_conclusion_equal": true,
+  "forecast_fits": 6,
+  "financial_execution_attempts": 1,
+  "validation_environment_note": "First standalone independent multi-symbol readback hit macOS multiprocessing spawn; only owned audit process group was terminated. Repeated that read-only review with kernels=1. Formal notebook, sources, model fits and results unchanged.",
+  "registered_information_screen_passed": false,
+  "stable_excess_gate_evaluated": false,
+  "objective_achieved": false
+}

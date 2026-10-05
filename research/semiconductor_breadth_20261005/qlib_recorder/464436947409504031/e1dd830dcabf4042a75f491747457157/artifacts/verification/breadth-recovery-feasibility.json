@@ -1,0 +1,70 @@
+{
+  "status": "needs_data_source_recovery_not_qualified",
+  "bounded_probe_only": true,
+  "repo_edits": false,
+  "model_runs": 0,
+  "archive_filename_scan": "No filenames containing WOLF/CREE/XLNX/MXIM/IPHI/CCMP/BRKS under data/raw including ignored files",
+  "probe_artifact": "/tmp/breadth-recovery-probe.json",
+  "probe_sha256": "5d8573523c8d2e62497ff6d9dc15e10b3ce16948a9a82ba06130014b9558fb6e",
+  "candidate_recovery": {
+    "provider": "Futu OpenD 127.0.0.1:11111",
+    "code": "US.WOLF",
+    "autype": "NONE",
+    "successful_samples": [
+      "2019-09-03..2019-09-09",
+      "2022-03-01..2022-03-07",
+      "2024-06-03..2024-06-07",
+      "2024-11-20..2024-11-26"
+    ],
+    "sample_size_each": 5,
+    "full_history_downloaded": false,
+    "stock_id": 81187767000117,
+    "listing_date": "1970-01-01",
+    "security_identity_qualified": false,
+    "rehab_dates": [
+      "1999-08-02",
+      "2000-12-11"
+    ],
+    "qualification_gap": "No source CUSIP/ISIN or valid listing_date; rehab excludes 2025 cancellation/new-share event. Old 2019-24 sample bars are promising but must not be treated as qualified merged security history."
+  },
+  "unknown_futu_original_codes": [
+    "US.CREE",
+    "US.XLNX",
+    "US.MXIM",
+    "US.IPHI",
+    "US.CCMP",
+    "US.BRKS"
+  ],
+  "corporate_action_examples": [
+    {
+      "ticker": "XLNX",
+      "effective_date": "2022-02-14",
+      "action": "Shares converted into AMD shares; no longer listed",
+      "stale_disclosed_basket_end": "2022-05-26",
+      "affected_calendar_sessions": 72,
+      "source": "https://ir.amd.com/financial-information/sec-filings/content/0000002488-22-000031/xilinxacquisitionclosepres.htm"
+    },
+    {
+      "ticker": "MXIM",
+      "effective_date": "2021-08-26",
+      "action": "Shares converted into ADI shares",
+      "stale_disclosed_basket_start": "2021-08-27",
+      "stale_disclosed_basket_end": "2021-11-24",
+      "affected_calendar_sessions": 63,
+      "source": "https://www.sec.gov/Archives/edgar/data/6281/000119312521257596/d218368d8k.htm"
+    },
+    {
+      "ticker": "CREE/WOLF",
+      "effective_date": "2021-10-04",
+      "action": "Company and trading symbol rename, not bankruptcy/new-share continuity",
+      "source": "https://www.sec.gov/Archives/edgar/data/895419/000089541921000113/cree-20210916.htm"
+    },
+    {
+      "ticker": "WOLF",
+      "effective_date": "2025-09-29",
+      "action": "Old common stock cancelled; new common stock issued",
+      "source": "https://www.sec.gov/Archives/edgar/data/895419/000119312525224251/d22768d8k.htm"
+    }
+  ],
+  "assessment": "2019+ complete fixed-basket screen cannot be completed with one inexpensive fallback. Future data qualification of pre-2025 Futu WOLF may recover the WOLF-only missing span 2022-05-27..2024-11-26. This has not been verified. Earlier spans also require true delisted price archives plus PIT corporate-action/effective constituent metadata. Current 398 qualified sessions allow at most one 2026 annual test after 252 training sessions and 20-session purge, insufficient for at least two future test years. Data-unfit is not evidence that alpha failed."
+}

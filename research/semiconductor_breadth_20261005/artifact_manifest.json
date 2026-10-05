@@ -1,0 +1,694 @@
+{
+  "experiment": "semiconductor_breadth_20261005",
+  "artifact_policy": "slim_card_recorder_first",
+  "recorder_id": "e1dd830dcabf4042a75f491747457157",
+  "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/semiconductor_breadth_20261005/qlib_recorder",
+  "entries": [
+    {
+      "path": "Users/rziiiii/dev/workspace/research/semiconductor_breadth_20261005/qlib_recorder/filelock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "bootstrap_summary.csv",
+      "bytes": 4304,
+      "sha256": "2513843f8ed41f4ad25fd0ad58ccb81018f9861a938bd17ae05ec854318f71cf",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "conclusion.md",
+      "bytes": 1954,
+      "sha256": "4884d49ebbef17df1437cb8377de1262c7fb19210dc8bbcbe3f55b77528c0363",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "data_binding.json",
+      "bytes": 3515,
+      "sha256": "0c4f6f992bb7a856c43503b35d13af97c51edcd63ae9f8326ced088371f7b36a",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "event_metrics.csv",
+      "bytes": 4391,
+      "sha256": "e24f512727ea5acc2189d7e2b9387f7d4842ca6896d08090a69b1e2c6f4c3718",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "fit_audit.csv",
+      "bytes": 1543,
+      "sha256": "9b9052ad4906e7530c1f62fe0146161daed60a7124d6b192a80c0bb8f143c07f",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "independent_review.json",
+      "bytes": 726,
+      "sha256": "6ea97e2d35dab56b77f4dc33c93904dfb2bdb7836ec6723cd8185da9108e9cae",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "input_smoke.json",
+      "bytes": 6385,
+      "sha256": "41a89d4bfb8f7c6eb38e1be2a151dcd5dd679cff56e79b38af1bcca19b9096fb",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "plan.json",
+      "bytes": 7497,
+      "sha256": "43b34df50466abe922b6d09df99319991eb9aed207f27daac65055f3a7500eb8",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "point_metrics.csv",
+      "bytes": 1285,
+      "sha256": "c610e25b43a082c04875e9ec01c9a1d064e84cb65ef2c20ee1a286a0eff2a7c7",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/analysis/bootstrap_draws.pkl",
+      "bytes": 257271,
+      "sha256": "2beb86cd894015096de5ca621e8dfd362cd81c315dc688a34a847bc9316c4566",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/analysis/equivalent_signal_analysis.pkl",
+      "bytes": 1314,
+      "sha256": "5a5208308afb03371690cd6466e1b50b221abf394e30370dc39e095e60c2488b",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/analysis/labels.pkl",
+      "bytes": 29938,
+      "sha256": "16bf0f6b65036f707d24ebd1f1892a9307866b2f71729a3b9ee96ff8843851f7",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/analysis/predictions.pkl",
+      "bytes": 39104,
+      "sha256": "09c1baefcd3ddf7be1028536c2cf3c6783f6bc865f246365e3a1bdcfc4e5d4b8",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/bootstrap_summary.csv",
+      "bytes": 4304,
+      "sha256": "2513843f8ed41f4ad25fd0ad58ccb81018f9861a938bd17ae05ec854318f71cf",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/conclusion.md",
+      "bytes": 1954,
+      "sha256": "4884d49ebbef17df1437cb8377de1262c7fb19210dc8bbcbe3f55b77528c0363",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/event_metrics.csv",
+      "bytes": 4391,
+      "sha256": "e24f512727ea5acc2189d7e2b9387f7d4842ca6896d08090a69b1e2c6f4c3718",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/fit_audit.csv",
+      "bytes": 1543,
+      "sha256": "9b9052ad4906e7530c1f62fe0146161daed60a7124d6b192a80c0bb8f143c07f",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/plan.json",
+      "bytes": 7497,
+      "sha256": "43b34df50466abe922b6d09df99319991eb9aed207f27daac65055f3a7500eb8",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/point_metrics.csv",
+      "bytes": 1285,
+      "sha256": "c610e25b43a082c04875e9ec01c9a1d064e84cb65ef2c20ee1a286a0eff2a7c7",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/run_authorization.json",
+      "bytes": 22238,
+      "sha256": "36ac104cd39fa90546b0b8c2bafdcb030d60e1c07f724c3e8cf5d506a216c504",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/signal_analysis.csv",
+      "bytes": 1533,
+      "sha256": "22737c91f6a4392e1dc45e538d41b322cd857acde514c119620d307ad74238cf",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/source_audit.json",
+      "bytes": 3888,
+      "sha256": "cae108ec966ca60ef41725ea0b4538233b3fbb677665058e67adbf5af13943df",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/summary.pkl",
+      "bytes": 7472,
+      "sha256": "cd6ef524f19b728d8be47468f18b10be8ec38811d10b1b878c258d121eea83e2",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/card/workflow.yaml",
+      "bytes": 1454,
+      "sha256": "6c6d06be9cd07bec03039651d80622e4ac39d33e4f08bbc528e8d9bff0c79219",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/bootstrap_summary.csv",
+      "bytes": 4304,
+      "sha256": "2513843f8ed41f4ad25fd0ad58ccb81018f9861a938bd17ae05ec854318f71cf",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/conclusion.md",
+      "bytes": 1954,
+      "sha256": "4884d49ebbef17df1437cb8377de1262c7fb19210dc8bbcbe3f55b77528c0363",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/data_binding.json",
+      "bytes": 3515,
+      "sha256": "0c4f6f992bb7a856c43503b35d13af97c51edcd63ae9f8326ced088371f7b36a",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/event_metrics.csv",
+      "bytes": 4391,
+      "sha256": "e24f512727ea5acc2189d7e2b9387f7d4842ca6896d08090a69b1e2c6f4c3718",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/fit_audit.csv",
+      "bytes": 1543,
+      "sha256": "9b9052ad4906e7530c1f62fe0146161daed60a7124d6b192a80c0bb8f143c07f",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/independent_review.json",
+      "bytes": 726,
+      "sha256": "6ea97e2d35dab56b77f4dc33c93904dfb2bdb7836ec6723cd8185da9108e9cae",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/input_smoke.json",
+      "bytes": 6385,
+      "sha256": "41a89d4bfb8f7c6eb38e1be2a151dcd5dd679cff56e79b38af1bcca19b9096fb",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/plan.json",
+      "bytes": 7497,
+      "sha256": "43b34df50466abe922b6d09df99319991eb9aed207f27daac65055f3a7500eb8",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/point_metrics.csv",
+      "bytes": 1285,
+      "sha256": "c610e25b43a082c04875e9ec01c9a1d064e84cb65ef2c20ee1a286a0eff2a7c7",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/recorder_reference.json",
+      "bytes": 2413,
+      "sha256": "464f652ccd768ec3cffcca2694f94bfce0aa911c2cfbfbbb0bbb3fe0dd9aa62a",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/registration.json",
+      "bytes": 223,
+      "sha256": "078cf020b617cb1d246f9d4a393a4263e0407da2f25de24ec31e44d52116cf83",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/run_authorization.json",
+      "bytes": 22238,
+      "sha256": "36ac104cd39fa90546b0b8c2bafdcb030d60e1c07f724c3e8cf5d506a216c504",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/semiconductor_breadth_20261005.ipynb",
+      "bytes": 52028,
+      "sha256": "e71973a584f1f5be07ca2e521f801e11578ed17f2327e30ea17ac61e407f684e",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/signal_analysis.csv",
+      "bytes": 1533,
+      "sha256": "22737c91f6a4392e1dc45e538d41b322cd857acde514c119620d307ad74238cf",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/source_audit.json",
+      "bytes": 3888,
+      "sha256": "cae108ec966ca60ef41725ea0b4538233b3fbb677665058e67adbf5af13943df",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/summary.json",
+      "bytes": 10596,
+      "sha256": "893e78a6773a24faf26132ae742eaaa3b036d5831ea93b46cd3ec7f3324dd915",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/verification.json",
+      "bytes": 733,
+      "sha256": "16593812fabed7fd9b646dd6d6a0e8ef4fdd77fabb3f9fa9fa84d9296c511ffe",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/final_card/workflow.yaml",
+      "bytes": 1454,
+      "sha256": "6c6d06be9cd07bec03039651d80622e4ac39d33e4f08bbc528e8d9bff0c79219",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/inputs/authorization.pkl",
+      "bytes": 21323,
+      "sha256": "cae3c836771e85f3db1601e01f2b0802213148702074eef3bdde9947059add8d",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/inputs/data_audit.pkl",
+      "bytes": 3453,
+      "sha256": "21b755f79d559f79160f6e3f30bc097836db7baa75260ca3d3eeedcb0b68cc59",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/inputs/eligibility.pkl",
+      "bytes": 51621,
+      "sha256": "f1e211381f0400c1780b93c628dde1c271095826354b8f95b2f5cfa8a9fce78c",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/inputs/features_labels.pkl",
+      "bytes": 129414,
+      "sha256": "3538d6c7a5024f67b5e7d8f38bcb3da3c0bfba558e048fb7134f9ea939188697",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/inputs/plan.pkl",
+      "bytes": 6624,
+      "sha256": "eefa918ec944413f2d9b0b568e34bf81197be2003f698c7f165856bb4a64d655",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/models/fitted_models.pkl",
+      "bytes": 4278,
+      "sha256": "a4b34e861f9a5cac4337d1decee6c85352e55c8e5ce1f3140840a62d19c4e987",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/breadth-recovered-audit.json",
+      "bytes": 2433,
+      "sha256": "f69ed59538d0e51a09f5857cdac9d6e2be5b8628f05871a03474299e71ac2578",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/breadth-recovery-feasibility.json",
+      "bytes": 3128,
+      "sha256": "4a736a2e5b24ee3a3df3fcbd6628ee495c6efaf1f19c92c7658babf172f3daf2",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/breadth-recovery-probe.json",
+      "bytes": 3915,
+      "sha256": "5d8573523c8d2e62497ff6d9dc15e10b3ce16948a9a82ba06130014b9558fb6e",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/breadth-source-audit.json",
+      "bytes": 5654,
+      "sha256": "bf123c967d99cdc5f2ea925a3751c18833025bc62c882b68188957fab706217a",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/review_semiconductor_breadth.py",
+      "bytes": 3782,
+      "sha256": "1912cb396792aeb4779fd05bbfbcd832d41ded6fe6a6ae02eb1badf2715ad9a9",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/semiconductor-breadth-execution.log",
+      "bytes": 522,
+      "sha256": "157f0519212c69ee8917efa4a1f0e8da4ba561663533cc9fe061a440168ce47b",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/semiconductor-breadth-focused.log",
+      "bytes": 6062,
+      "sha256": "e95adac161081972a4efaad877571c58e288653e0294faadc3dc0ba220b3bc74",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/semiconductor-breadth-independent-review-single-kernel.log",
+      "bytes": 2657,
+      "sha256": "d581a0df2eb0a0f6156404235bb727c23c45f7321be00a559be9fae916140f05",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/semiconductor_breadth.py",
+      "bytes": 28814,
+      "sha256": "d9625ab2d0e8d66c7586cdeaa4c901b774055ef5ee08527e4e9f9435cdc10857",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/test_semiconductor_breadth.py",
+      "bytes": 4598,
+      "sha256": "a285d7106c72927f1471dea6df36416d2af3e7f5dea1576887b4a28fe829cc40",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/artifacts/verification/test_semiconductor_breadth_workflow.py",
+      "bytes": 7991,
+      "sha256": "c18f9f6bb1161786a298547940e3ef3402af0508cde14554e4ea329fd0d23442",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/meta.yaml",
+      "bytes": 450,
+      "sha256": "dd71ada4a063e6db4752637f5d677664123f00d6c454dc3b847d78f9ce838785",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/metrics/all_incremental_information_gates_pass",
+      "bytes": 20,
+      "sha256": "0ca0a9f23501922873ce3052f8d9a0d98afa4163a1f70d29a08b87bfeabc5589",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/metrics/fit_count",
+      "bytes": 20,
+      "sha256": "d5ad6a4cd600a70938df4dd067302820a432118d14a812cd757665baed616960",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/metrics/joint_positive_increment_years",
+      "bytes": 20,
+      "sha256": "0ca0a9f23501922873ce3052f8d9a0d98afa4163a1f70d29a08b87bfeabc5589",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/params/all_history_reused",
+      "bytes": 4,
+      "sha256": "3cbc87c7681f34db4617feaa2c8801931bc5e42d8d0f560e756dd4cd92885f18",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/params/cmd-sys.argv",
+      "bytes": 235,
+      "sha256": "fb90642a70b0754080c040be39938b2ecbd4cc77816614767699b1dfa4198426",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/params/fit_budget",
+      "bytes": 1,
+      "sha256": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/params/native_input_sha256",
+      "bytes": 64,
+      "sha256": "40c2c3246e8fef9ddaccb86fed6aae44d5cd749752bb58532eb768f9c01fdde4",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "82febdec4948034f2183c3e60bd56ea132e4fee810acdb099cfd9fb3c21255a5",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/params/ridge_alpha",
+      "bytes": 2,
+      "sha256": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/params/target",
+      "bytes": 17,
+      "sha256": "70d5a2ed377768857d1e4167e31d40455cd78a232215ead08f9cad8c92ae894c",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/tags/mlflow.source.name",
+      "bytes": 122,
+      "sha256": "390b8394059884788d31f87a55a721893510389f1c5f4f5fa5e7b19f911494e6",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/e1dd830dcabf4042a75f491747457157/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "qlib_recorder/464436947409504031/meta.yaml",
+      "bytes": 367,
+      "sha256": "b154dc4c2db4ae84fb47bea94a132d1f8206a604e69f13a01c98b08d98980448",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "recorder_reference.json",
+      "bytes": 2413,
+      "sha256": "464f652ccd768ec3cffcca2694f94bfce0aa911c2cfbfbbb0bbb3fe0dd9aa62a",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "registration.json",
+      "bytes": 223,
+      "sha256": "078cf020b617cb1d246f9d4a393a4263e0407da2f25de24ec31e44d52116cf83",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "run_authorization.json",
+      "bytes": 22238,
+      "sha256": "36ac104cd39fa90546b0b8c2bafdcb030d60e1c07f724c3e8cf5d506a216c504",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "semiconductor_breadth_20261005.ipynb",
+      "bytes": 52028,
+      "sha256": "e71973a584f1f5be07ca2e521f801e11578ed17f2327e30ea17ac61e407f684e",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "signal_analysis.csv",
+      "bytes": 1533,
+      "sha256": "22737c91f6a4392e1dc45e538d41b322cd857acde514c119620d307ad74238cf",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "source_audit.json",
+      "bytes": 3888,
+      "sha256": "cae108ec966ca60ef41725ea0b4538233b3fbb677665058e67adbf5af13943df",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 10596,
+      "sha256": "893e78a6773a24faf26132ae742eaaa3b036d5831ea93b46cd3ec7f3324dd915",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 733,
+      "sha256": "16593812fabed7fd9b646dd6d6a0e8ef4fdd77fabb3f9fa9fa84d9296c511ffe",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    },
+    {
+      "path": "workflow.yaml",
+      "bytes": 1454,
+      "sha256": "6c6d06be9cd07bec03039651d80622e4ac39d33e4f08bbc528e8d9bff0c79219",
+      "source": "Registered six-fit sector informationpilot, one nativeQlibRecorder",
+      "date_range": "Features2022-05-27..2026-07-02; evaluation2024..2026partial",
+      "purpose": "Reproduce data recovery, paired forecasts, failed information/fee screen; no portfolio or promotion"
+    }
+  ],
+  "entry_count": 85,
+  "total_bytes": 926283,
+  "external_data_binding": "data_binding.json",
+  "original_scientific_artifacts_unchanged": true,
+  "parent_trees_copied": false,
+  "objective_achieved": false
+}

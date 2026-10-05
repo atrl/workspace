@@ -1,0 +1,71 @@
+{
+  "as_of": "2024-11-26",
+  "audit_snapshot_hash": "75008565691c0aa0",
+  "calendar_end": "2024-11-26",
+  "calendar_start": "2019-06-03",
+  "close_bin_sha256": "2b0c83227201d80dc11084c0184f088a51637f355acc69b8a6ff437a7bee466f",
+  "feature_file_count": 1,
+  "fields": [
+    "$close"
+  ],
+  "freq": "day",
+  "hash": "261228070b324eaf",
+  "instruments": [
+    "WOLF"
+  ],
+  "market": "all",
+  "max_datetime": "2024-11-26",
+  "operation": "qlib_store_build",
+  "provider_uri": "data/qlib/semis_wolf_recovery_20241126_v1",
+  "region": "us",
+  "row_count": 1383,
+  "snapshot_dir": "data/snapshots/semis_wolf_recovery_20241126_v1",
+  "source": "data/snapshots/semis_wolf_recovery_20241126_v1/recovery_manifest.json",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "source_qualification": {
+    "end": "2024-11-26",
+    "identity_anchors": [
+      {
+        "accession": "000175272424194376",
+        "cusip": "977852102",
+        "futu_none_close": 22.76,
+        "name": "Wolfspeed, Inc.",
+        "price_date": "2024-06-28",
+        "report_date": "2024-06-30",
+        "sec_implied_close": 22.759999999999998
+      },
+      {
+        "accession": "000175272419177706",
+        "cusip": "225447101",
+        "futu_none_close": 49.0,
+        "name": "Cree Inc",
+        "price_date": "2019-09-30",
+        "report_date": "2019-09-30",
+        "sec_implied_close": 49.0
+      }
+    ],
+    "identity_limit": "Provider stock_id alone is not identity proof; archived SEC CUSIP valuation anchors establish old-share price scale.",
+    "new_2025_equity_joined": false,
+    "price_basis": "observed Futu NONE close; no rehabilitation event in bounded period; split-only equivalent",
+    "qlib_calendar_sessions": 1383,
+    "rows": 1383,
+    "security_epoch": "original CREE / pre-bankruptcy WOLF only",
+    "source_hashes": {
+      "000175272419177706.xml": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+      "000175272424194376.xml": "98db46844c7aa7789542cf0ce314fe2966713dff047cd0c3b69c869a46b6f4c6",
+      "futu_rehab.csv": "cf3c6ebc2c9edceff6471ebcb651757e2edbd978b494bc012eab0b0975f5f3b1",
+      "futu_stock_basicinfo.json": "02b47ff6dc3de626bef2fca13d65be68049887a1e31463577d4caeed7499ec88",
+      "futu_wolf_none_raw.csv": "827a01a705f45698403e7a6ab758c8bc9efb7599c36bd898c347a97d2902b3d4"
+    },
+    "source_manifest_sha256": "22570da7bd903c6635e4e9dcd97f8428f5962aabaface18acf99d1de8f388eec",
+    "start": "2019-06-03",
+    "status": "qualified"
+  },
+  "status": "ok"
+}

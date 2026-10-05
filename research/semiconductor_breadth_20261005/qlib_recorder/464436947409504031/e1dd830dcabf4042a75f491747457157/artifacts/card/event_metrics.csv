@@ -1,0 +1,25 @@
+slice,family,cost_bps,log_hurdle,event_count,coverage,mean_event_gross_log_bp,mean_event_net_log_bp,positive_net_event_fraction,mean_masked_net_log_bp_per_observation,conditional_mean_undefined_reason,event_scope
+pooled_2024_2026_partial,base,10.0,0.0020000006666670666,175,0.27910685805422647,-116.27951513219159,-136.27952179886225,0.34285714285714286,-38.03654914641291,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+pooled_2024_2026_partial,base,25.0,0.00500001041670573,123,0.19617224880382775,-123.63283065201173,-173.63293481906894,0.3008130081300813,-34.06196328986521,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+pooled_2024_2026_partial,base_plus_breadth,10.0,0.0020000006666670666,123,0.19617224880382775,-172.78255494720798,-192.78256161387858,0.2601626016260163,-37.81858864195706,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+pooled_2024_2026_partial,base_plus_breadth,25.0,0.00500001041670573,82,0.13078149920255183,-174.65059208650308,-224.6506962535603,0.23170731707317074,-29.380154852937714,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+pooled_2024_2026_partial,prior_mean,10.0,0.0020000006666670666,0,0.0,,,,0.0,no_events,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+pooled_2024_2026_partial,prior_mean,25.0,0.00500001041670573,0,0.0,,,,0.0,no_events,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2024,base,10.0,0.0020000006666670666,65,0.25793650793650796,-57.50620062574923,-77.50620729241989,0.36923076923076925,-19.99168045240989,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2024,base,25.0,0.00500001041670573,44,0.1746031746031746,30.638622164670696,-19.361482002386595,0.4090909090909091,-3.380576222638929,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2024,base_plus_breadth,10.0,0.0020000006666670666,37,0.14682539682539683,-178.9675433463197,-198.9675500129903,0.24324324324324326,-29.213489486034295,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2024,base_plus_breadth,25.0,0.00500001041670573,17,0.06746031746031746,-39.35616205340279,-89.35626622046007,0.35294117647058826,-6.028002086300879,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2024,prior_mean,10.0,0.0020000006666670666,0,0.0,,,,0.0,no_events,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2024,prior_mean,25.0,0.00500001041670573,0,0.0,,,,0.0,no_events,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2025,base,10.0,0.0020000006666670666,83,0.332,-177.05795607608127,-197.0579627427519,0.30120481927710846,-65.42324363059363,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2025,base,25.0,0.00500001041670573,63,0.252,-250.28070028398244,-300.2808044510398,0.19047619047619047,-75.67076272166202,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2025,base_plus_breadth,10.0,0.0020000006666670666,61,0.244,-245.3679496758297,-265.3679563425004,0.18032786885245902,-64.74978134757009,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2025,base_plus_breadth,25.0,0.00500001041670573,48,0.192,-254.8145194305107,-304.81462359756796,0.125,-58.52440773073305,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2025,prior_mean,10.0,0.0020000006666670666,0,0.0,,,,0.0,no_events,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2025,prior_mean,25.0,0.00500001041670573,0,0.0,,,,0.0,no_events,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2026,base,10.0,0.0020000006666670666,27,0.216,-70.93339826463273,-90.93340493130339,0.4074074074074074,-19.64161546516153,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2026,base,25.0,0.00500001041670573,16,0.128,-49.203339222003706,-99.203443389061,0.4375,-12.698040753799805,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2026,base_plus_breadth,10.0,0.0020000006666670666,25,0.2,13.479591021314263,-6.5204156453564055,0.48,-1.3040831290712844,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2026,base_plus_breadth,25.0,0.00500001041670573,17,0.136,-83.59981550122886,-133.5999196682861,0.4117647058823529,-18.16958907488691,,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2026,prior_mean,10.0,0.0020000006666670666,0,0.0,,,,0.0,no_events,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
+year_2026,prior_mean,25.0,0.00500001041670573,0,0.0,,,,0.0,no_events,isolated_SOXX_to_CASH_to_SOXX; not a portfolio return
