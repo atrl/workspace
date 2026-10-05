@@ -1,0 +1,30 @@
+{
+  "as_of": "2026-09-25",
+  "audit_snapshot_hash": "b46aadff64b27817",
+  "calendar_end": "2026-09-25",
+  "calendar_start": "2010-03-11",
+  "feature_file_count": 1,
+  "fields": [
+    "$close"
+  ],
+  "freq": "day",
+  "hash": "a9570c95956d9fe6",
+  "instruments": [
+    "VIX"
+  ],
+  "market": "all",
+  "max_datetime": "2026-09-25",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/data/qlib/legacy_vix_20260925_v1",
+  "region": "us",
+  "row_count": 4162,
+  "source": "Yahoo chart ^VIX raw quote.close; immutable source archive",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}
