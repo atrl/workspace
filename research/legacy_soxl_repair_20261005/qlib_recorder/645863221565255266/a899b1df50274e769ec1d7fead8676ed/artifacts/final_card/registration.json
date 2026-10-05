@@ -1,0 +1,9 @@
+{
+  "plan_sha256": "d38676f9466f95d87a721f014a0498402c5d170ff3c4237846815dd36e806f76",
+  "registered_at_utc": "2026-10-05T01:30:01.579780+00:00",
+  "before_financial_replay": true,
+  "old_buy_strategy_sha256": "4393972303343ccc78ac9067a8cc204244de3da8e36b0d1cddff2ddad75f3068",
+  "prior_plan_sha256": "00f7f50bc9d5c70b10d65b8ad02ad83de7768741be2cc77733ac56586f9bc70c",
+  "clarification_at_utc": "2026-10-05T01:40:24.613241+00:00",
+  "clarification": "Onlyexecution_provider_uri andexecution_calendar_boundary added aftersyntheticlastsessionIndexError, beforeanyfinancialreplay; allparameters/windows/gates unchanged."
+}

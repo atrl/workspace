@@ -1,0 +1,45 @@
+experiment: legacy_soxl_repair_20261005
+provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
+vix_provider_uri: data/qlib/legacy_vix_20260925_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/legacy_soxl_repair_20261005/qlib_recorder
+region: us
+market: all
+plan: plan.json
+run_authorization: run_authorization.json
+segments:
+  development:
+    book: continuous
+    start: '2016-01-04'
+    end: '2022-12-31'
+  reused_diagnostic:
+    book: continuous
+    start: '2023-01-01'
+    end: '2026-09-25'
+  recent_cash_start:
+    book: recent_cash_start
+    start: '2026-08-03'
+    end: '2026-09-25'
+books:
+  continuous:
+  - '2016-01-04'
+  - '2026-09-25'
+  recent_cash_start:
+  - '2026-08-03'
+  - '2026-09-25'
+model_selection:
+  performed: false
+  policy: unchanged legacy defaults; mechanical repairs only
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/market.pkl
+  - analysis/ledgers.pkl
+  - analysis/orders.pkl
+  - portfolio_analysis/native_reports.pkl
+  - analysis/bootstrap_draws.pkl
+entrypoint: src.workflow.legacy_soxl_repair.run_legacy_repair
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/strategy.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html
+canonical_provider_uri: data/qlib/published_futu_affine_20260925_v1

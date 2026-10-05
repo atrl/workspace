@@ -1,0 +1,11 @@
+[48894:MainThread](2026-10-05 09:52:09,296) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[48894:MainThread](2026-10-05 09:52:09,298) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[48894:MainThread](2026-10-05 09:52:09,298) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/legacy-soxl-repair-20261005/data/qlib/legacy_soxl_execution_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 40.66it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 40.50it/s]
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3634.58it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3066.01it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3323.54it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2959.99it/s]
+{'passed': True, 'scope': 'One bounded independent audit: all16frozenartifact hashes, fullcontinuous25bp cash/share/closeNAV reconstruction fromsavedorders, annualwin count,recentzero-trade path, syntheticoriginal-vs-fixedfirstrowcounterexample. No newmarketpolicyrun.', 'recorder_id': 'a899b1df50274e769ec1d7fead8676ed', 'book_rows': 2698, 'reconstructed_order_count': 74, 'max_cash_share_nav_error': np.float64(0.0), 'development_positive_years': 4, 'recent_cash_days': 39, 'original_firstrow_buy_with_future_last_prices50_200': [False, True], 'repaired_firstrow_buy': [False, False], 'historical_stable_excess_pass': False, 'objective_achieved': False}

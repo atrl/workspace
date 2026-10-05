@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "scope": "One bounded independent audit: all16frozenartifact hashes, fullcontinuous25bp cash/share/closeNAV reconstruction fromsavedorders, annualwin count,recentzero-trade path, syntheticoriginal-vs-fixedfirstrowcounterexample. No newmarketpolicyrun.",
+  "recorder_id": "a899b1df50274e769ec1d7fead8676ed",
+  "book_rows": 2698,
+  "reconstructed_order_count": 74,
+  "max_cash_share_nav_error": 0.0,
+  "development_positive_years": 4,
+  "recent_cash_days": 39,
+  "original_firstrow_buy_with_future_last_prices50_200": [
+    false,
+    true
+  ],
+  "repaired_firstrow_buy": [
+    false,
+    false
+  ],
+  "historical_stable_excess_pass": false,
+  "objective_achieved": false
+}

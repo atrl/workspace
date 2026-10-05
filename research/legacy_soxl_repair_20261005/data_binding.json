@@ -1,0 +1,163 @@
+{
+  "external_artifacts": [
+    {
+      "path": "data/qlib/legacy_vix_20260925_v1/calendars/day.txt",
+      "sha256": "d3381b900795126d9b67efdc85780345b7a85c298a1f6d02fbe86e50ee3f96eb",
+      "bytes": 45782,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_vix_20260925_v1/features/vix/close.day.bin",
+      "sha256": "78d5e13b4de40ca89be4032d07c307b22e4e9acb17912c2f966d8eda6aaa1bba",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_vix_20260925_v1/instruments/all.txt",
+      "sha256": "75b90335cba4c2cc394a556f6adf407a5a5d91695d58bb7d85ffd1100d488deb",
+      "bytes": 26,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_vix_20260925_v1/qlib.yaml",
+      "sha256": "d8cd3b23ca2afeb6236f74a9f542acf8ba8f70fbb1aff106470ca14f5560bbf9",
+      "bytes": 211,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_vix_20260925_v1/qlib_store_manifest.json",
+      "sha256": "840558adfd687e0fc60adc1760a62d8fb351a70febf0e679a51ad294ded26fa9",
+      "bytes": 799,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/snapshots/legacy_vix_20260925_v1/manifest.json",
+      "sha256": "af685d0e8bfa556569a52b83d72e42c2785bfac1232455b1a5f5bb78825530fe",
+      "bytes": 6465,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/snapshots/legacy_vix_20260925_v1/status.json",
+      "sha256": "3138b0082875be5f19bea97e21a86cb22d2d3d69bf367ab8b93410bb41135fbf",
+      "bytes": 117,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/snapshots/legacy_vix_20260925_v1/yahoo_vix_chart.json",
+      "sha256": "30b05f9249d00ce0068ca02c8905e4eb7508c3acacc6ed7a129b72805ce3c780",
+      "bytes": 363091,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/calendars/day.txt",
+      "sha256": "d3381b900795126d9b67efdc85780345b7a85c298a1f6d02fbe86e50ee3f96eb",
+      "bytes": 45782,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/calendars/day_future.txt",
+      "sha256": "955363514c4d1c2e9a0a72579dd7661e18511dccc2f5514232913b17c62b6d33",
+      "bytes": 45793,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/execution_boundary_manifest.json",
+      "sha256": "97a346885d766e91571cd4193a0b8d6519bd3f5399eeeae23923c1cab82df169",
+      "bytes": 3264,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/features/soxl/close.day.bin",
+      "sha256": "5c24c8ecaf3c7a16e10b54d6fa2797d58082fecf70406ff19ae42c156456a970",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/features/soxl/high.day.bin",
+      "sha256": "0ed44ae8679231f425fc117ad48eb001a885b9c5db0c25195b95fcc1d69aa63b",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/features/soxl/low.day.bin",
+      "sha256": "54a9436a3c1dd9137f105d6b841bb564ca1ebc6b98d8b3de6ff33a94e543ab54",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/features/soxl/open.day.bin",
+      "sha256": "f133c0ddceb6c94a9a3fc68e7d67da4b83a51496d83b3e76a071d02deab10195",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/features/soxl/volume.day.bin",
+      "sha256": "cfc3c13ce7d9dc8a7932e331554769ca5504e0f08a2bc3085a0722dfacc8c441",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/features/soxx/close.day.bin",
+      "sha256": "10795d93e629b42b6951cc972877b70e0e1e48ad471777a262d1a9fe85a0e647",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/features/soxx/high.day.bin",
+      "sha256": "0039b6a0543e44f2fc841f29823c427b11325e83554381fa3cf63af70e311135",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/features/soxx/low.day.bin",
+      "sha256": "411d2c3ec7b082f293d57237130e856218d39c9a67959530fc48316d767dff4f",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/features/soxx/open.day.bin",
+      "sha256": "4ec7e322c7df8837d1ca76678de33dddac6c1dd3c48585618c44bb933fbe9711",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/features/soxx/volume.day.bin",
+      "sha256": "22e4344473649f6d63d2a509469b6b9f9e27d9d5c13351014a34632f6ad903a3",
+      "bytes": 16652,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/instruments/all.txt",
+      "sha256": "cf10f6dc8dfcb4136e8bd305c48a87967441d326850c4237dd841234626de9df",
+      "bytes": 54,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/price_basis_manifest.json",
+      "sha256": "cbbdeeca2e1c7dc0bce0f9cdf3495f50d3219bddd992e1b893f8362a5e51bc65",
+      "bytes": 93379,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/price_basis_status.json",
+      "sha256": "3066a4796155684d4ed8c17beb707de7c67bc78c5fdaa7a1f6edc5bd282ccd5c",
+      "bytes": 107,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/qlib.yaml",
+      "sha256": "2fb4a57dfdeeb4b75b899fa7304d2b73f83c92470ee01fd9b4472c4f3b9ecfd4",
+      "bytes": 219,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    },
+    {
+      "path": "data/qlib/legacy_soxl_execution_20260925_v1/qlib_store_manifest.json",
+      "sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+      "bytes": 840,
+      "purpose": "ImmutableVIXsource or price-identicalQlibexecutioncalendarview; boundarywithoutfutureprices"
+    }
+  ],
+  "existing_canonical_source_modified": false,
+  "strict_PIT_source_claimed": false,
+  "execution_boundary_only": "2026-09-28 has no price or return"
+}
