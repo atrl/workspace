@@ -1,0 +1,37 @@
+{
+  "reviewed_at_utc": "2026-10-05T06:15:20.614524+00:00",
+  "review_scope": "Source semantics, calendar availability, two SOXX-relative labels, annual purged training, paired uncertainty and exact roundtrip costs; no performance viewed.",
+  "fixed_asset_universe": [
+    "SOXX",
+    "SOXL",
+    "CASH"
+  ],
+  "source_deployment_gate": false,
+  "reason": "Current historical consensus/EPS snapshot is not contemporaneous estimate-vintage evidence; conservative delay does not cure revisions or historical split-adjusted rounding.",
+  "label_boundary": "Evaluation defined by 2016-2022 signal years; late-2022 H5 outcomes may mature in January 2023; no post-2022 signals fitted or scored.",
+  "fee_proof": {
+    "A": "(1-c)/(1+c)",
+    "cash_relative_wealth": "A/G_SOXX",
+    "leverage_relative_wealth": "A*A*G_SOXL/G_SOXX",
+    "scope": "Already-held SOXX start, isolated roundtrip only; overlapping events are not compounded portfolio returns."
+  },
+  "accepted_limitations": [
+    "Three selected companies are not a full PIT sector universe.",
+    "Quarterly state persistence makes daily rows dependent.",
+    "Two-head local multiplicity adjustment does not account for the full prior research history.",
+    "No claim that zero-cost correlation proves stable net excess."
+  ],
+  "execution_preconditions": [
+    "Final focused tests pass.",
+    "Native Qlib smoke and all annual maturity boundaries pass.",
+    "Bind final implementation, all src modules and actual consumed data bytes.",
+    "Only one financial execution; no sign reversal, horizon selection or post-result refit."
+  ],
+  "performance_seen": false,
+  "financial_fits_performed_by_reviewer": 0,
+  "source_docs": [
+    "https://www.alphavantage.co/documentation/#earnings",
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

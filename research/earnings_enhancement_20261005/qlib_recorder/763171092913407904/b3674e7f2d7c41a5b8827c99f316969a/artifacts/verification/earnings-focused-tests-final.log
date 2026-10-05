@@ -1,0 +1,48 @@
+.................                                                        [100%]
+=============================== warnings summary ===============================
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19
+  /Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_DAY = pd.Timedelta("1day")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20
+  /Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_MIN = pd.Timedelta("1min")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21
+  /Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    EPS_T = pd.Timedelta("1s")  # use 1 second to exclude the right interval point
+
+tests/test_earnings_surprise_data.py: 28 warnings
+  /Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/tests/test_earnings_surprise_data.py:15: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    {"reportedDate": d, "fiscalDateEnding": str((pd.Timestamp(d) - pd.Timedelta(days=30)).date()),
+
+tests/test_earnings_surprise_data.py::test_native_provider_readback_and_tamper[feature]
+  /Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/qlib_venv/lib/python3.12/site-packages/google/protobuf/internal/well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+tests/test_earnings_enhancement_workflow.py::test_exact_base5_dual_open_labels_and_cross_year_maturity
+tests/test_earnings_enhancement_workflow.py::test_exact_base5_dual_open_labels_and_cross_year_maturity
+tests/test_earnings_enhancement_workflow.py::test_exact_base5_dual_open_labels_and_cross_year_maturity
+tests/test_earnings_enhancement_workflow.py::test_native_dataset_maturity_and_exact_fourteen_multioutput_fits
+tests/test_earnings_enhancement_workflow.py::test_missing_feature_fails_and_post2022_fit_is_forbidden
+  /Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/src/workflow/semiconductor_breadth.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    frame["feature_available_at"] = frame.index.tz_localize("America/New_York") + pd.Timedelta(hours=17)
+
+tests/test_earnings_enhancement_workflow.py::test_exact_base5_dual_open_labels_and_cross_year_maturity
+tests/test_earnings_enhancement_workflow.py::test_exact_base5_dual_open_labels_and_cross_year_maturity
+tests/test_earnings_enhancement_workflow.py::test_exact_base5_dual_open_labels_and_cross_year_maturity
+tests/test_earnings_enhancement_workflow.py::test_native_dataset_maturity_and_exact_fourteen_multioutput_fits
+tests/test_earnings_enhancement_workflow.py::test_missing_feature_fails_and_post2022_fit_is_forbidden
+  /Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/src/workflow/semiconductor_breadth.py:74: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    frame["label_available_at"] = pd.DatetimeIndex(frame.label_mature_date).tz_localize("America/New_York") + pd.Timedelta(hours=9, minutes=30)
+
+tests/test_earnings_enhancement_workflow.py::test_shared_stationary_indices_direct_draw_and_degenerate_fail_closed
+  /Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/tests/test_earnings_enhancement_workflow.py:34: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    result = pd.DataFrame({"trade_date": dates+pd.Timedelta(days=1),
+
+tests/test_earnings_enhancement_workflow.py::test_shared_stationary_indices_direct_draw_and_degenerate_fail_closed
+  /Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/tests/test_earnings_enhancement_workflow.py:35: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    "label_mature_date": dates+pd.Timedelta(days=8)}, index=dates)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+17 passed, 44 warnings in 2.01s

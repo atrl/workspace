@@ -1,0 +1,76 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[4852:MainThread](2026-10-05 14:20:44,598) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[4852:MainThread](2026-10-05 14:20:44,599) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[4852:MainThread](2026-10-05 14:20:44,599) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/data/qlib/published_futu_affine_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3134.76it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2597.09it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3300.00it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2841.67it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4181.76it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3685.68it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1715.46it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1626.33it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3731.59it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3289.65it/s]
+{
+  "passed": true,
+  "scope": "Read-only recorded-model/label/bootstrap/economic-arithmetic verification; no new model fit or portfolio path.",
+  "original_scientific_artifacts_verified": 22,
+  "source_files_verified": 248,
+  "model_count": 14,
+  "prediction_rows": 1762,
+  "cached_prediction_max_error": 0.0,
+  "all_dual_labels_native_readback_equal": true,
+  "all_scaler_means_prior_training_only": true,
+  "bootstrap_checks": [
+    {
+      "head": "cash5",
+      "block": 20,
+      "indices_hash_verified": true,
+      "first_delta_ic_direct_scipy": 0.03521932320041103,
+      "all_quantiles_verified": true
+    },
+    {
+      "head": "leverage5",
+      "block": 20,
+      "indices_hash_verified": true,
+      "first_delta_ic_direct_scipy": 0.0609356516201941,
+      "all_quantiles_verified": true
+    },
+    {
+      "head": "cash5",
+      "block": 60,
+      "indices_hash_verified": true,
+      "first_delta_ic_direct_scipy": 0.042536594262807835,
+      "all_quantiles_verified": true
+    },
+    {
+      "head": "leverage5",
+      "block": 60,
+      "indices_hash_verified": true,
+      "first_delta_ic_direct_scipy": 0.05935146204642515,
+      "all_quantiles_verified": true
+    }
+  ],
+  "roundtrip_accounting_checks": [
+    {
+      "head": "cash5",
+      "cost_bps": 10,
+      "absolute_error": 0.0
+    },
+    {
+      "head": "leverage5",
+      "cost_bps": 10,
+      "absolute_error": 2.220446049250313e-16
+    },
+    {
+      "head": "cash5",
+      "cost_bps": 25,
+      "absolute_error": 0.0
+    },
+    {
+      "head": "leverage5",
+      "cost_bps": 25,
+      "absolute_error": 2.220446049250313e-16
+    }
+  ],
+  "source_deployment_gate": false
+}

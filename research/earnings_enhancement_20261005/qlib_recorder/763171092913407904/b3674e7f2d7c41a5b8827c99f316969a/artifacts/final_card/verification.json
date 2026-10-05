@@ -1,0 +1,16 @@
+{
+  "focused_tests_passed": 17,
+  "focused_log_sha256": "9320ac9e823151c5dc7a79f82ea22537ea011cf58c79587ea3d0f49d0d322166",
+  "independent_data_review_passed": true,
+  "independent_science_review_passed": true,
+  "notebook_executed": true,
+  "notebook_conclusion_equal": true,
+  "financial_execution_attempts": 1,
+  "financial_fit_count": 14,
+  "no_new_model_fit_in_independent_review": true,
+  "source_deployment_gate": false,
+  "portfolio_backtest_run": false,
+  "stable_excess_gate_evaluated": false,
+  "objective_achieved": false,
+  "audit_helper_correction": "Initial independent scaler-mean audit used pandas float32 accumulation and differed at 7e-10. Corrected scratch audit to explicit float64 accumulation matching StandardScaler, without loosening 1e-14 tolerance. Final independent review passed; registered source, financial fits and predictions unchanged."
+}

@@ -1,0 +1,72 @@
+{
+  "experiment": "earnings_enhancement_20261005",
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "earnings_provider_uri": "data/qlib/earnings_surprise_20261005_v1",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/earnings_enhancement_20261005/qlib_recorder",
+  "market": "all",
+  "region": "us",
+  "as_of": "2026-09-25",
+  "segments": {
+    "start": "2011-01-03",
+    "cutoff_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "end": "2022-12-30",
+    "purge_rows": 20,
+    "minimum_rows": 252,
+    "model": "StandardScaler + Ridge(alpha=10), multioutput cash5 and leverage5",
+    "ridge_alpha": 10.0,
+    "fit_budget": 14,
+    "families": [
+      "base",
+      "base_plus_earnings"
+    ],
+    "availability": "Remove last 20 prior signal rows, require actual feature and H5 label timestamps strictly before January1NewYork. All registered feature rows complete; no interior row dropping.",
+    "no_refit_after_outcomes": true
+  },
+  "model_selection": {
+    "performed": false,
+    "families": [
+      "base",
+      "base_plus_earnings"
+    ],
+    "fit_budget": 14,
+    "targets": [
+      "cash5",
+      "leverage5"
+    ]
+  },
+  "qlib_api": [
+    "qlib.init",
+    "D.calendar",
+    "D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "StaticDataLoader",
+    "R.start",
+    "R.get_recorder"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/features_labels.pkl",
+      "inputs/earnings_features.pkl",
+      "models/fitted_models.pkl",
+      "analysis/predictions.pkl",
+      "analysis/labels.pkl",
+      "analysis/bootstrap_draws.pkl",
+      "analysis/bootstrap_indices_spec.pkl",
+      "analysis/equivalent_signal_analysis.pkl"
+    ],
+    "bootstrap_index_storage": "Save seed, block, shape, indices_sha256 and pinned sampler_source_sha256; regenerate exact indices for independent audit. This changes archive representation only, not sampling, models, metrics or gates; registered before any financial fit."
+  },
+  "source_deployment_gate": false,
+  "scope": "Vendor historical EPS surprise information diagnostic only; no portfolio or promotion."
+}

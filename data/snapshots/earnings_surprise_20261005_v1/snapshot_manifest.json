@@ -1,0 +1,88 @@
+{
+  "as_of": "2026-10-05",
+  "diagnostic_only": true,
+  "historical_source_quality": {
+    "AMD": {
+      "actual_abs_below_001": 0,
+      "actual_or_estimate_missing": 0,
+      "both_equal": 8,
+      "estimate_abs_below_001": 2,
+      "reports_2011_2022": 48
+    },
+    "INTC": {
+      "actual_abs_below_001": 0,
+      "actual_or_estimate_missing": 0,
+      "both_equal": 2,
+      "estimate_abs_below_001": 0,
+      "reports_2011_2022": 48
+    },
+    "NVDA": {
+      "actual_abs_below_001": 21,
+      "actual_or_estimate_missing": 0,
+      "both_equal": 5,
+      "estimate_abs_below_001": 23,
+      "reports_2011_2022": 48
+    }
+  },
+  "limitations": [
+    "Current vendor historical snapshot, not archived original consensus or historical revision vintages.",
+    "Historical split adjustment and rounding of both reported and estimated EPS can distort normalized surprise; these are not original earnings-release values.",
+    "ReportTime is vendor metadata only and is not used: require one complete session strictly after reportedDate.",
+    "Three selected historical company signals, not a complete point-in-time semiconductor basket."
+  ],
+  "no_promotion": true,
+  "no_strict_pit": true,
+  "permission_scope": "Existing authenticated read-only data entitlement; no purchase or trading.",
+  "schema_version": 1,
+  "snapshot_created_utc": "2026-10-05T06:12:18Z",
+  "source_docs": "https://www.alphavantage.co/documentation/#earnings",
+  "sources": {
+    "AMD": {
+      "bytes": 25502,
+      "credential_parameter_omitted": true,
+      "fetch_timestamp_precision": "Download completion approximated by original raw-file filesystem mtime; exact request-start was not logged for retry",
+      "fetched_at_utc": "2026-10-05T06:08:45.699297905+00:00",
+      "file": "alpha_amd_earnings.json",
+      "local_file_mtime_utc": "2026-10-05T06:08:45.699297905+00:00",
+      "provider_report_time_used_for_timing": false,
+      "reported_date_end": "2026-08-04",
+      "reported_date_start": "1996-04-09",
+      "rows": 122,
+      "sha256": "c0c8bfb3aa2bff4a4276c097fecb5b1aa30cbbebdff80b3e4e0459e82d9e590a",
+      "source_url": "https://www.alphavantage.co/query?function=EARNINGS&symbol=AMD"
+    },
+    "INTC": {
+      "bytes": 25446,
+      "credential_parameter_omitted": true,
+      "fetch_timestamp_precision": "Request-start timestamp recorded in probe JSON; download completion bounded by original raw-file mtime",
+      "fetched_at_utc": "2026-10-05T06:07:11Z",
+      "file": "alpha_intc_earnings.json",
+      "local_file_mtime_utc": "2026-10-05T06:07:12.236878395+00:00",
+      "provider_report_time_used_for_timing": false,
+      "reported_date_end": "2026-07-23",
+      "reported_date_start": "1996-04-15",
+      "rows": 122,
+      "sha256": "688f589dc55c9d2d1f047acd68da9d08b26d18a652cf725bdc4cedf8af35dbb2",
+      "source_url": "https://www.alphavantage.co/query?function=EARNINGS&symbol=INTC"
+    },
+    "NVDA": {
+      "bytes": 23032,
+      "credential_parameter_omitted": true,
+      "fetch_timestamp_precision": "Request-start timestamp recorded in probe JSON; download completion bounded by original raw-file mtime",
+      "fetched_at_utc": "2026-10-05T06:06:38Z",
+      "file": "alpha_nvda_earnings.json",
+      "local_file_mtime_utc": "2026-10-05T06:06:39.330307007+00:00",
+      "provider_report_time_used_for_timing": false,
+      "reported_date_end": "2026-08-26",
+      "reported_date_start": "1999-05-18",
+      "rows": 110,
+      "sha256": "3f349af12e930c2652bb16b5394b763a44184201d1194cbeb52dae6da48baa96",
+      "source_url": "https://www.alphavantage.co/query?function=EARNINGS&symbol=NVDA"
+    }
+  },
+  "symbols": [
+    "NVDA",
+    "AMD",
+    "INTC"
+  ]
+}

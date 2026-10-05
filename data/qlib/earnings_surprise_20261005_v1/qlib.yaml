@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace-worktrees/earnings-enhancement-20261005/data/qlib/earnings_surprise_20261005_v1
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

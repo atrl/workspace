@@ -1,0 +1,717 @@
+{
+  "experiment": "earnings_enhancement_20261005",
+  "artifact_policy": "slim_card_recorder_first",
+  "recorder_id": "b3674e7f2d7c41a5b8827c99f316969a",
+  "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/earnings_enhancement_20261005/qlib_recorder",
+  "entries": [
+    {
+      "path": "archive_note.json",
+      "bytes": 614,
+      "sha256": "c563f1a413dee7a6ce5b69525eb67c4cc84f71ff5a24f53cb69eaf3196240491",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "bootstrap_summary.csv",
+      "bytes": 8003,
+      "sha256": "09097d57ffc3ac04e4cc7c22bbee61c67cee41c1f8304f37e926370527733280",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "conclusion.md",
+      "bytes": 2801,
+      "sha256": "c7faf78d2854a9cc11d57df5ced1cbf213072978e243da7ac401e9d216f58c17",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "data_binding.json",
+      "bytes": 4639,
+      "sha256": "f182ae3c8f16f9a62df33e156dbfe02275158e1ba2066b3913c0f38076fdc076",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "earnings_enhancement_20261005.ipynb",
+      "bytes": 56282,
+      "sha256": "26ed23490d6efe6b7f457becc561ac92cd9970e1343bee3662346b7b56494c6a",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "event_metrics.csv",
+      "bytes": 17845,
+      "sha256": "d074b4c40a886c524808bceae45ada753dcf3490842395c9d35bf9fa0e74f233",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "fit_audit.csv",
+      "bytes": 3267,
+      "sha256": "53d09be6438d00a452312e72da33ce917bb1f79911388aed1b19d3ca187cb6ac",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "independent_data_review.json",
+      "bytes": 1214,
+      "sha256": "6d267a08675fd93620671c318cf4fea268310721250f9a11184a6b45b1e62c49",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "independent_science_review.json",
+      "bytes": 1655,
+      "sha256": "7a0261f36f395aca63dc9f4e37c855ea192cb8e06d19f97a3eb1f708ec3c7394",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "input_smoke.json",
+      "bytes": 11764,
+      "sha256": "2e8a77bf0d7c2104e3e4b2cf11aa3e94e7d34c54714a9795bed9e137b061997f",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "plan.json",
+      "bytes": 8058,
+      "sha256": "132540f40751be81b8d4fda523a0094963901ea03bc90c722d97292dd00031f6",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "point_metrics.csv",
+      "bytes": 4091,
+      "sha256": "c00c753d553cfe21bae11781d6cd7ccf5c00bdc68b4131bf102f8cc29adf7619",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "pre_fit_review.json",
+      "bytes": 1885,
+      "sha256": "36bea5ccc885f961016e5309b2e5edfe805cd06851fe0658ee3240903d952ef8",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/analysis/bootstrap_draws.pkl",
+      "bytes": 707786,
+      "sha256": "f6a1edfaaeaa22e90724cfc77bc62ef06c22dae8806c7b74466b4be69a538af8",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/analysis/bootstrap_indices_spec.pkl",
+      "bytes": 483,
+      "sha256": "fa572d1772d6170a9c1db79fe5c2cd4a5f3fc5e9542f593342b98ae7a75a0297",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/analysis/equivalent_signal_analysis.pkl",
+      "bytes": 2424,
+      "sha256": "468c1f730cb03f7c5a03a00b78a7e62989242b268222fe9d6da24c19787e5965",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/analysis/labels.pkl",
+      "bytes": 97831,
+      "sha256": "2dd4620ac862c80563e40e1cfe431202fed843a6896b2022bd4e44052952bd94",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/analysis/predictions.pkl",
+      "bytes": 156597,
+      "sha256": "f97177e6fdd4f250fd2b3f6e0b464a853b163931d73427019d9adbb9566363f8",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/bootstrap_summary.csv",
+      "bytes": 8003,
+      "sha256": "09097d57ffc3ac04e4cc7c22bbee61c67cee41c1f8304f37e926370527733280",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/conclusion.md",
+      "bytes": 2801,
+      "sha256": "c7faf78d2854a9cc11d57df5ced1cbf213072978e243da7ac401e9d216f58c17",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/event_metrics.csv",
+      "bytes": 17845,
+      "sha256": "d074b4c40a886c524808bceae45ada753dcf3490842395c9d35bf9fa0e74f233",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/fit_audit.csv",
+      "bytes": 3267,
+      "sha256": "53d09be6438d00a452312e72da33ce917bb1f79911388aed1b19d3ca187cb6ac",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/plan.json",
+      "bytes": 8058,
+      "sha256": "132540f40751be81b8d4fda523a0094963901ea03bc90c722d97292dd00031f6",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/point_metrics.csv",
+      "bytes": 4091,
+      "sha256": "c00c753d553cfe21bae11781d6cd7ccf5c00bdc68b4131bf102f8cc29adf7619",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/run_authorization.json",
+      "bytes": 29900,
+      "sha256": "8a435d100a085de31b01aca98873899385285ded38e746e25bf69694b00f517c",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/signal_analysis.csv",
+      "bytes": 6682,
+      "sha256": "44c6d88775993d6801a8414403d2b7fbc226e13d807de6b414bb92c6dddb0b17",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/source_audit.json",
+      "bytes": 6900,
+      "sha256": "653a220ca0efa1162df225afb86bb04e6b749ebe7ac9acd4846e36315524bf72",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/summary.pkl",
+      "bytes": 13358,
+      "sha256": "50dbc1fb145fd90f77304817c8a4e5ce7a0ccc7759525dc236d21a50deb43bee",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/card/workflow.yaml",
+      "bytes": 2245,
+      "sha256": "7f21abc2694730b77345fbea9fbee1bc58373197711623a9dd1c3f476fde8b12",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/archive_note.json",
+      "bytes": 614,
+      "sha256": "c563f1a413dee7a6ce5b69525eb67c4cc84f71ff5a24f53cb69eaf3196240491",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/bootstrap_summary.csv",
+      "bytes": 8003,
+      "sha256": "09097d57ffc3ac04e4cc7c22bbee61c67cee41c1f8304f37e926370527733280",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/conclusion.md",
+      "bytes": 2801,
+      "sha256": "c7faf78d2854a9cc11d57df5ced1cbf213072978e243da7ac401e9d216f58c17",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/data_binding.json",
+      "bytes": 4639,
+      "sha256": "f182ae3c8f16f9a62df33e156dbfe02275158e1ba2066b3913c0f38076fdc076",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/earnings_enhancement_20261005.ipynb",
+      "bytes": 56282,
+      "sha256": "26ed23490d6efe6b7f457becc561ac92cd9970e1343bee3662346b7b56494c6a",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/event_metrics.csv",
+      "bytes": 17845,
+      "sha256": "d074b4c40a886c524808bceae45ada753dcf3490842395c9d35bf9fa0e74f233",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/fit_audit.csv",
+      "bytes": 3267,
+      "sha256": "53d09be6438d00a452312e72da33ce917bb1f79911388aed1b19d3ca187cb6ac",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/independent_data_review.json",
+      "bytes": 1214,
+      "sha256": "6d267a08675fd93620671c318cf4fea268310721250f9a11184a6b45b1e62c49",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/independent_science_review.json",
+      "bytes": 1655,
+      "sha256": "7a0261f36f395aca63dc9f4e37c855ea192cb8e06d19f97a3eb1f708ec3c7394",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/input_smoke.json",
+      "bytes": 11764,
+      "sha256": "2e8a77bf0d7c2104e3e4b2cf11aa3e94e7d34c54714a9795bed9e137b061997f",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/plan.json",
+      "bytes": 8058,
+      "sha256": "132540f40751be81b8d4fda523a0094963901ea03bc90c722d97292dd00031f6",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/point_metrics.csv",
+      "bytes": 4091,
+      "sha256": "c00c753d553cfe21bae11781d6cd7ccf5c00bdc68b4131bf102f8cc29adf7619",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/pre_fit_review.json",
+      "bytes": 1885,
+      "sha256": "36bea5ccc885f961016e5309b2e5edfe805cd06851fe0658ee3240903d952ef8",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/recorder_reference.json",
+      "bytes": 2529,
+      "sha256": "172e1dcc8c158875153d958e9e51ac20c6e8103cbecdc8d590ccd85ca5fcc6b5",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/run_authorization.json",
+      "bytes": 29900,
+      "sha256": "8a435d100a085de31b01aca98873899385285ded38e746e25bf69694b00f517c",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/signal_analysis.csv",
+      "bytes": 6682,
+      "sha256": "44c6d88775993d6801a8414403d2b7fbc226e13d807de6b414bb92c6dddb0b17",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/source_audit.json",
+      "bytes": 6900,
+      "sha256": "653a220ca0efa1162df225afb86bb04e6b749ebe7ac9acd4846e36315524bf72",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/summary.json",
+      "bytes": 23418,
+      "sha256": "6e108cc0c9eb04a5a8f116b9f90e9486d0d7c4047ff0b4a0f84251d34fad304f",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/verification.json",
+      "bytes": 873,
+      "sha256": "db187d2db0d1d958a1aadcf989027b03132bab8d422a10dc4cdf4904eadfef06",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/final_card/workflow.yaml",
+      "bytes": 2245,
+      "sha256": "7f21abc2694730b77345fbea9fbee1bc58373197711623a9dd1c3f476fde8b12",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/inputs/authorization.pkl",
+      "bytes": 28358,
+      "sha256": "846a5d3d5671e6a54297cab3c5c4248f077d9aa034303f6cebcfc7b8ad7a6075",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/inputs/data_audit.pkl",
+      "bytes": 5730,
+      "sha256": "bbf807d386600bf14effcd2f56aaf4502182251c7a4ee80fdd57704cf7f8a503",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/inputs/earnings_features.pkl",
+      "bytes": 61400,
+      "sha256": "96ecbed09830ad9c506363c543e370042189cad53d726b0b2ff4dd44dd8a89e6",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/inputs/features_labels.pkl",
+      "bytes": 328162,
+      "sha256": "d4e29a9d2940aa3bd0220b486f7784a2d30f8c772a7e096ea3acb3795257334f",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/inputs/plan.pkl",
+      "bytes": 6962,
+      "sha256": "c0db5bd7c3d5186a66946cb351813d3fd3ff16bdc1b5684366f7f3b4e450ad9f",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/models/fitted_models.pkl",
+      "bytes": 9860,
+      "sha256": "20538393302939ce118e79b925bca1fca7803b170a9e58d592d88a508e79708f",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/verification/earnings-execution.log",
+      "bytes": 518,
+      "sha256": "a2e2d8199351a552fe12c7fd521f7792797779a9dd2bb7e134f1d33923b89a53",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/verification/earnings-focused-tests-final.log",
+      "bytes": 5638,
+      "sha256": "9320ac9e823151c5dc7a79f82ea22537ea011cf58c79587ea3d0f49d0d322166",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/verification/earnings-independent-data.log",
+      "bytes": 1716,
+      "sha256": "68422417db4669625e9f08e420ad826947c658f858fdc8ef3dfed7c72e59065e",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/verification/earnings-independent-science-final.log",
+      "bytes": 3881,
+      "sha256": "520096a66263d6f44d418bec3386973954d9e1baf41736b6b19ce6707f5a2557",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/verification/earnings_enhancement.py",
+      "bytes": 34048,
+      "sha256": "5c37ad2ba48cf25fa8ea92ca5ddc8948a51b98d944ab0010571a42e9f5d46aac",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/verification/earnings_surprise.py",
+      "bytes": 13868,
+      "sha256": "5923c6a63e14319e901b769e5b74a6d9b9a883161e8a83394de585b11087cd19",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/verification/review_earnings_data.py",
+      "bytes": 1970,
+      "sha256": "c0622a5e839e49f4397f62f0adaa1f8e87113c08c2d0814d0b32c8e85adfd631",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/verification/review_earnings_science.py",
+      "bytes": 5671,
+      "sha256": "edc13bc6fef8d2e79099cfce07d59cc2057290f0820dbdf07bbe75bd9c5de0ec",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/verification/test_earnings_enhancement_workflow.py",
+      "bytes": 9492,
+      "sha256": "f0e1cfed2eaf550b8d91937ec8f1c0fefb55d72139b3fd0b48992191594b3bc9",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/artifacts/verification/test_earnings_surprise_data.py",
+      "bytes": 6027,
+      "sha256": "508ab89b06cf6e9ddeb8b476a6f6f5435856be9c7bd94ac2de0b577faedeeab6",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/meta.yaml",
+      "bytes": 449,
+      "sha256": "a79a2d2fa83c27404e3e6d29a95dee57ca4cf813828b316ecfac0583be98fff0",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/metrics/both_heads_information_and_economic_pass",
+      "bytes": 20,
+      "sha256": "9c0996c284e459f34e7bcfb50aa9fe82de03b51fe08bd2e2fe5b71470b25878a",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/metrics/fit_count",
+      "bytes": 21,
+      "sha256": "1acff4eac0ae691b063ea33835ad21c06b4b4e4ea45c3254d580a0c16ec10fff",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/metrics/source_deployment_gate",
+      "bytes": 20,
+      "sha256": "bc6c8cf059a8e739a425772347475382ed8e80a74aad196b07769853ec5a0f8e",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/params/all_history_reused",
+      "bytes": 4,
+      "sha256": "3cbc87c7681f34db4617feaa2c8801931bc5e42d8d0f560e756dd4cd92885f18",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/params/cmd-sys.argv",
+      "bytes": 242,
+      "sha256": "2c7c6835c8b688f2cc47d3e777753be3e25e6e0200951f26e0587c44ca9ec039",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/params/fit_budget",
+      "bytes": 2,
+      "sha256": "8527a891e224136950ff32ca212b45bc93f69fbb801c3b1ebedac52775f99e61",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/params/native_input_sha256",
+      "bytes": 64,
+      "sha256": "2c6f8d2c1ed1366182ea979229416a4b5f4ff219c0b474a4ca25dd3607c220d1",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "b43ab53640ddde776f0e510ca5c3e209994399a37a330f014d7164c88d54745c",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/params/ridge_alpha",
+      "bytes": 2,
+      "sha256": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/params/source_deployment_gate",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/tags/mlflow.source.name",
+      "bytes": 129,
+      "sha256": "56fb93aae268c4a94f6b447f7b02311c2fecacf01063d160785292b00890a2f1",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/b3674e7f2d7c41a5b8827c99f316969a/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "qlib_recorder/763171092913407904/meta.yaml",
+      "bytes": 365,
+      "sha256": "8bb9ad24d6628f89fd5da6c5bcb72e3d336014d0cf55fa5fe2749d301bea2aa4",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "recorder_reference.json",
+      "bytes": 2529,
+      "sha256": "172e1dcc8c158875153d958e9e51ac20c6e8103cbecdc8d590ccd85ca5fcc6b5",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "run_authorization.json",
+      "bytes": 29900,
+      "sha256": "8a435d100a085de31b01aca98873899385285ded38e746e25bf69694b00f517c",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "signal_analysis.csv",
+      "bytes": 6682,
+      "sha256": "44c6d88775993d6801a8414403d2b7fbc226e13d807de6b414bb92c6dddb0b17",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "source_audit.json",
+      "bytes": 6900,
+      "sha256": "653a220ca0efa1162df225afb86bb04e6b749ebe7ac9acd4846e36315524bf72",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 23418,
+      "sha256": "6e108cc0c9eb04a5a8f116b9f90e9486d0d7c4047ff0b4a0f84251d34fad304f",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 873,
+      "sha256": "db187d2db0d1d958a1aadcf989027b03132bab8d422a10dc4cdf4904eadfef06",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    },
+    {
+      "path": "workflow.yaml",
+      "bytes": 2245,
+      "sha256": "7f21abc2694730b77345fbea9fbee1bc58373197711623a9dd1c3f476fde8b12",
+      "source": "One registered Qlib Recorder, fourteen frozen annual dual-output fits",
+      "date_range": "2016-2022 signal years; last H5 outcome 2023-01-10",
+      "purpose": "Audit failed earnings information/fee gates, source limitations and reproducible method; not portfolio or promotion evidence"
+    }
+  ],
+  "entry_count": 88,
+  "total_bytes": 1982319,
+  "external_data_binding": "data_binding.json",
+  "original_scientific_artifacts_unchanged": true,
+  "objective_achieved": false
+}
