@@ -1,0 +1,30 @@
+{
+  "focused_passed": 95,
+  "required_qlib_suite": {
+    "passed": 8,
+    "failed": 61,
+    "reason": "pre-existing missing historical cards"
+  },
+  "default_full_suite": {
+    "collection_errors": 15,
+    "reason": "pre-existing same-name archived test imports"
+  },
+  "independent_review": "independent_review.json",
+  "all_8_policy_paths_unchanged_through_native_repair": true,
+  "native_roundoff_affected_rows": 4,
+  "native_roundoff_maximum_component_change": 2.220446049250313e-16,
+  "old_native_tolerance_unchanged": 1e-07,
+  "notebook_code_cells": 8,
+  "full_suite_green": false,
+  "notebook_code_sha256": "036cff6ab92820e664deaa627271417d16df525e97b41bb2052ff7516b0f0691",
+  "raw_executed_notebook_sha256": "6082b1b477fcd5dff46df3f571d3204049799af5f1c0f65299dede5750485ba7",
+  "slim_executed_notebook_sha256": "40c7df3a6c27749cba9689505e58e94e226aece1d9548aa8aa8874e9fa5c045f",
+  "conclusion_matches_final_markdown": true,
+  "log_sha256": {
+    "purged-checkpoint-final-preflight.log": "e5e8f343d48d96629b5c7fd058e1649d80485c10cc57b2888bd7abfd94cad4cd",
+    "purged-full-pytest.log": "1ad74b2397fc8bbbfe43221ce173d1931e1e1d73ffd211d6857812e50b2f6751",
+    "purged-required-qlib-tests.log": "1cc96579a694264dcc18fd87f7b6254e8ded7157580118e2567761a018516bca",
+    "purged-checkpoint-execution.log": "7b8bf4a06c56193179ded49d370f5c0ce4d6f76502128156b9b6aca4e29224d8",
+    "purged-checkpoint-execution-final.log": "154dd3d482d94789e9e74265bade4710e36baf153807fae9d954bf545061c4c1"
+  }
+}

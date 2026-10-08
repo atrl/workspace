@@ -1,0 +1,635 @@
+{
+  "schema_version": 1,
+  "experiment": "purged_checkpoint_validation_20261008",
+  "recorder_id": "4b6cac2e05a648788e3c6732563a1f25",
+  "artifact_policy": "slim_card_recorder_first",
+  "source_recorder_id": "300530137db54b6c807c39ebb9e8c331",
+  "source_manifest_sha256": "740e8c40162a122de9cff12d8018430a9eb02fdde3201c871234ff24a126f4b9",
+  "source_date_range": {
+    "canonical_as_of": "2026-09-25",
+    "source_fit_years": [
+      2016,
+      2022
+    ],
+    "evaluation_signal_years": [
+      2018,
+      2022
+    ],
+    "shared_warmup_signal_years": [
+      2016,
+      2017
+    ]
+  },
+  "source_sha256": {
+    "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/data/benchmark_anchor_utility.py": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+    "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+    "src/data/constrained_net_excess.py": "f140218167b67c42e56be08c269f04754970b2211e00ac415c277743bf631be9",
+    "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+    "src/data/integrated_allocation.py": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+    "src/model/benchmark_anchor_utility.py": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+    "src/model/constrained_net_excess.py": "7a068cef362d24651c661289881662e6384e93396d1e7821ee38ebdbac74a08d",
+    "src/model/integrated_allocation.py": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+    "src/model/purged_checkpoint_selection.py": "e3d23d6f20166717ac9bc126216cf64b649c4c644bbea95b792bcb387f0096db",
+    "src/objective/benchmark_tail_constraints.py": "c94b59e8377945b7e84d1a7055fcbeb24286ebc97bc7b6eb987679bb2a9017fb",
+    "src/workflow/anchor_checkpoint_feasibility.py": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+    "src/workflow/benchmark_anchor_utility.py": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+    "src/workflow/conditional_variance.py": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+    "src/workflow/constrained_net_excess.py": "3e28ed6fbfde26258b90d1c6d890ea8d659a4cc1da89153b4d92f637d491a948",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/workflow/stable_excess_integration.py": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/analysis/continuous_target_adapter.py": "dbef719b44e72def009ad2463f252f09771149dfc758c2999ab492ec830edce0"
+  },
+  "plan_sha256": "efe9523ef7cecd631b078dad1d034d46eef447faca8397657a7a1d634436ebf1",
+  "binding_sha256": "2f24b5348145f7d1f7e090dd4c8396a1ccf15e0e40364a0e2bc2b9ff87b95400",
+  "files": [
+    {
+      "path": "research/purged_checkpoint_validation_20261008/annual_metrics.csv",
+      "bytes": 63285,
+      "sha256": "67bea600b4c487972e807c3b2e3e70e98ba7eef15fde31e526ce85a71a5475a7",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/backtest_benchmark_comparison.csv",
+      "bytes": 11051,
+      "sha256": "d19f3e157a6e30fa0be3dbcfebd68f83db210d8c7a28adfbec73ac407cf025e3",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/bootstrap_comparison.csv",
+      "bytes": 3877,
+      "sha256": "bac9d384794c63c415b9921118166d96b67e0b0171f3a6c0fa35c2b9fe99dd53",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/budget_feasibility_summary.csv",
+      "bytes": 139,
+      "sha256": "a04c4b5bbf65da46665f04a82ae8d8828e68ae3f468363466562dc30896d4cf1",
+      "purpose": "Small post-result training-feasibility count from the unchanged recorded checkpoint index; no new fit or replay"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/candidate_scores.csv",
+      "bytes": 3002,
+      "sha256": "061ec336e6fc6129c79c53727037c7f7eac0b66b2fe5be941f3db0ee2ad7d1a0",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/checkpoint_index.csv",
+      "bytes": 64045,
+      "sha256": "f8f9f1613d830c246bf90b869ac4022c2f7e4a8f6cd54e11f098dcd33ca8b10f",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/conclusion.md",
+      "bytes": 5462,
+      "sha256": "83fee473c34bb14cd393ffe6e198607d1d8b8ca79d4e0cf025188d36358c4e9d",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/independent_review.json",
+      "bytes": 17965,
+      "sha256": "043eab33642743a0f0bf63411a7271801037f1cba7606b661ae94c9abffc5617",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/overfit_audit.csv",
+      "bytes": 1837,
+      "sha256": "c27827bfc7612eeed3e76348ccece5cc5be80e7bf91de279ebf8f4f2f4f3205a",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/plan.json",
+      "bytes": 4993,
+      "sha256": "efe9523ef7cecd631b078dad1d034d46eef447faca8397657a7a1d634436ebf1",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/pre_native_failure.json",
+      "bytes": 3357,
+      "sha256": "605f176e8e9687f13c7573c7b0eba84eaa93916aa27a9029beda771546ca57b8",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/purged_checkpoint_validation_20261008.ipynb",
+      "bytes": 89367,
+      "sha256": "40c7df3a6c27749cba9689505e58e94e226aece1d9548aa8aa8874e9fa5c045f",
+      "purpose": "Executed slim review notebook with unchanged code/results and synchronized final Chinese conclusion"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/0/meta.yaml",
+      "bytes": 310,
+      "sha256": "8663ca5fa840a05d8d47363d9495690850f6779654e2f704e4c21a5e5e3ef3e3",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/analysis/benchmarks.pkl",
+      "bytes": 315581,
+      "sha256": "a873a9d7fb69000cbfd0e06b47ebf0e2a80df8b61c27df47ea093ab5a29cc3ec",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/analysis/independent_reconciliation.pkl",
+      "bytes": 938,
+      "sha256": "c9402e4722912c0d6861752a9015aea6117d62a0c408f3d7670903adc0b1a167",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/analysis/portfolio_replays.pkl",
+      "bytes": 2124237,
+      "sha256": "73cd3e8fa63a93d62de7cf7060696083c507f08d6fbd2068fecc74759bb136ee",
+      "purpose": "All original-cost own-state continuous evaluation paths2016-2022, primary2018-2022; recorder only"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/analysis/summary.pkl",
+      "bytes": 19247,
+      "sha256": "db9a3894b894fbb134a1364d3c17ae22e30063192685d6c96ef6705dd22b7829",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/analysis/tables.pkl",
+      "bytes": 77277,
+      "sha256": "7a348212abced9edacd6240f6337cfc037d97eed5d4c0a2196c7fffb1a0cdc66",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/annual_metrics.csv",
+      "bytes": 63285,
+      "sha256": "67bea600b4c487972e807c3b2e3e70e98ba7eef15fde31e526ce85a71a5475a7",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/backtest_benchmark_comparison.csv",
+      "bytes": 11051,
+      "sha256": "d19f3e157a6e30fa0be3dbcfebd68f83db210d8c7a28adfbec73ac407cf025e3",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/bootstrap_comparison.csv",
+      "bytes": 3877,
+      "sha256": "bac9d384794c63c415b9921118166d96b67e0b0171f3a6c0fa35c2b9fe99dd53",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/budget_feasibility_summary.csv",
+      "bytes": 139,
+      "sha256": "a04c4b5bbf65da46665f04a82ae8d8828e68ae3f468363466562dc30896d4cf1",
+      "purpose": "Small post-result training-feasibility count from the unchanged recorded checkpoint index; no new fit or replay"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/candidate_scores.csv",
+      "bytes": 3002,
+      "sha256": "061ec336e6fc6129c79c53727037c7f7eac0b66b2fe5be941f3db0ee2ad7d1a0",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/checkpoint_index.csv",
+      "bytes": 64045,
+      "sha256": "f8f9f1613d830c246bf90b869ac4022c2f7e4a8f6cd54e11f098dcd33ca8b10f",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/conclusion.md",
+      "bytes": 5462,
+      "sha256": "83fee473c34bb14cd393ffe6e198607d1d8b8ca79d4e0cf025188d36358c4e9d",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/independent_review.json",
+      "bytes": 17965,
+      "sha256": "043eab33642743a0f0bf63411a7271801037f1cba7606b661ae94c9abffc5617",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/overfit_audit.csv",
+      "bytes": 1837,
+      "sha256": "c27827bfc7612eeed3e76348ccece5cc5be80e7bf91de279ebf8f4f2f4f3205a",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/plan.json",
+      "bytes": 4993,
+      "sha256": "efe9523ef7cecd631b078dad1d034d46eef447faca8397657a7a1d634436ebf1",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/pre_native_failure.json",
+      "bytes": 3357,
+      "sha256": "605f176e8e9687f13c7573c7b0eba84eaa93916aa27a9029beda771546ca57b8",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/purged_checkpoint_validation_20261008.ipynb",
+      "bytes": 89367,
+      "sha256": "40c7df3a6c27749cba9689505e58e94e226aece1d9548aa8aa8874e9fa5c045f",
+      "purpose": "Executed slim review notebook with unchanged code/results and synchronized final Chinese conclusion"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/relocation.json",
+      "bytes": 2787,
+      "sha256": "f749cf0b7beb2f62b421140f2e217d8e559ff5afcd1cea5da4b53fdac3b074fa",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/run_binding.json",
+      "bytes": 4022,
+      "sha256": "2f24b5348145f7d1f7e090dd4c8396a1ccf15e0e40364a0e2bc2b9ff87b95400",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/selection_audit.csv",
+      "bytes": 5584,
+      "sha256": "99abcac6fece3d0bb22c8cbfdbbb1c6f2f929cb374c69fc61cf7aca9ead02e07",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/source_review.json",
+      "bytes": 6012,
+      "sha256": "c107e523497023df0cc0687c8718521a0aa5d1d23898a06d376ae566abab4200",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/summary.json",
+      "bytes": 24616,
+      "sha256": "445cca3fcbe2e011d29639cbd07aa92d622d010513500a3571e91209719ecb58",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/verification.json",
+      "bytes": 1492,
+      "sha256": "3083920e4ebd48a0aede6eedaa0800a171cf4bc8eb8874eccd8f0ca89b1e35df",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/workflow.yaml",
+      "bytes": 819,
+      "sha256": "b4900e35de1217cc0f921d8023a73d2d72d00bb6c970749d0c2a7b9f6fa4139d",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/inputs/plan.pkl",
+      "bytes": 3775,
+      "sha256": "6a99b645503fe5011903a07662867cefd7322ef94bacc6bb57a37c55c6199f90",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/inputs/source_audit.pkl",
+      "bytes": 1190,
+      "sha256": "90d476bfce9e77ad55d3a9c2086b531016ae44f111bdcefc091c281b201e7e3b",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/inputs/source_identity.pkl",
+      "bytes": 12319,
+      "sha256": "9934a609f90cfeef7017b0d478f03bdaf88b82f666f5f9b7ac83782dd85ab302",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/models/budget_bundles.pkl",
+      "bytes": 1092147,
+      "sha256": "ec6394dea2a7ba36f6ce6e023437d3c7c074bf274d29c3d6bea65984a2b8db19",
+      "purpose": "Exactly hash-reconstructed saved model checkpoints/scalers and causal annual model selection; recorder only"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/models/selected_annual.pkl",
+      "bytes": 223327,
+      "sha256": "520bff8031357271013f78da3c40d252d14b1c21cc1db426c7c390f77c107b7a",
+      "purpose": "Exactly hash-reconstructed saved model checkpoints/scalers and causal annual model selection; recorder only"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/portfolio_analysis/native_reconciliation.pkl",
+      "bytes": 42180677,
+      "sha256": "963d0d022bce573a42048e2054519bd47a72f312a933ad7564965ddeede04b48",
+      "purpose": "Eight full native Qlib reports, actual positions and next-open reconciliation evidence; recorder only"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/analysis/continuous_target_adapter.py",
+      "bytes": 3171,
+      "sha256": "dbef719b44e72def009ad2463f252f09771149dfc758c2999ab492ec830edce0",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/analysis/convex_qlib.py",
+      "bytes": 7707,
+      "sha256": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/analysis/integrated_allocation.py",
+      "bytes": 23523,
+      "sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/backtest/position_accounting.py",
+      "bytes": 3494,
+      "sha256": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/backtest/qlib_continuous_position.py",
+      "bytes": 2543,
+      "sha256": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/data/benchmark_anchor_utility.py",
+      "bytes": 15004,
+      "sha256": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/data/conditional_variance.py",
+      "bytes": 20173,
+      "sha256": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/data/constrained_net_excess.py",
+      "bytes": 17168,
+      "sha256": "f140218167b67c42e56be08c269f04754970b2211e00ac415c277743bf631be9",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/data/convex_allocation.py",
+      "bytes": 15455,
+      "sha256": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/data/integrated_allocation.py",
+      "bytes": 20753,
+      "sha256": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/data/price_basis.py",
+      "bytes": 20780,
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/data/qlib_native.py",
+      "bytes": 19985,
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/factor/soxx_pit_tail_factors.py",
+      "bytes": 17962,
+      "sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/model/benchmark_anchor_utility.py",
+      "bytes": 28285,
+      "sha256": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/model/constrained_net_excess.py",
+      "bytes": 21923,
+      "sha256": "7a068cef362d24651c661289881662e6384e93396d1e7821ee38ebdbac74a08d",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/model/integrated_allocation.py",
+      "bytes": 26844,
+      "sha256": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/model/purged_checkpoint_selection.py",
+      "bytes": 15478,
+      "sha256": "e3d23d6f20166717ac9bc126216cf64b649c4c644bbea95b792bcb387f0096db",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/objective/benchmark_tail_constraints.py",
+      "bytes": 9879,
+      "sha256": "c94b59e8377945b7e84d1a7055fcbeb24286ebc97bc7b6eb987679bb2a9017fb",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/workflow/anchor_checkpoint_feasibility.py",
+      "bytes": 23655,
+      "sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/workflow/benchmark_anchor_utility.py",
+      "bytes": 29669,
+      "sha256": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/workflow/conditional_variance.py",
+      "bytes": 36918,
+      "sha256": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/workflow/constrained_net_excess.py",
+      "bytes": 29610,
+      "sha256": "3e28ed6fbfde26258b90d1c6d890ea8d659a4cc1da89153b4d92f637d491a948",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/workflow/pit_constituent_auxiliary_training_allocation.py",
+      "bytes": 102352,
+      "sha256": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/workflow/stable_excess_integration.py",
+      "bytes": 31769,
+      "sha256": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/src/workflow/stage1_economic_action.py",
+      "bytes": 14463,
+      "sha256": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/tests/test_continuous_target_adapter.py.txt",
+      "bytes": 6300,
+      "sha256": "65eb09be65d36c1348a77af33f675aec737537aefb6da3d42ed4219810d4ecfc",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/source/tests/test_purged_checkpoint_selection.py.txt",
+      "bytes": 13556,
+      "sha256": "e052bd482f29cc93c37e049544b12849e701e304394600aeb94d771a294629a6",
+      "purpose": "Exact execution dependency or non-discoverable focused-test source"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/verification/executed_full.ipynb",
+      "bytes": 1370250,
+      "sha256": "6082b1b477fcd5dff46df3f571d3204049799af5f1c0f65299dede5750485ba7",
+      "purpose": "Unabridged successful execution with repeated native warnings and temporary progress UI metadata for audit"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/verification/initial_native_failure.txt",
+      "bytes": 11350,
+      "sha256": "c50421a57513588fe427209c8c26b0730cabf7e5138d98acbbbb5dcbb7647980",
+      "purpose": "Initial pre-Recorder failure and source-binding preservation; numeric adapter only, no selection change"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/verification/initial_notebook.ipynb",
+      "bytes": 22793,
+      "sha256": "5da93a1cdfd65913efd131cb974d31c3f07f1c4978cd4f1002347a6a1d71fcd8",
+      "purpose": "Initial pre-Recorder failure and source-binding preservation; numeric adapter only, no selection change"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/verification/initial_run_binding.json",
+      "bytes": 3446,
+      "sha256": "e74525275f915d6ac44de4a487b91e19f02b5ce7db010ced3c57977b24412759",
+      "purpose": "Initial pre-Recorder failure and source-binding preservation; numeric adapter only, no selection change"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/meta.yaml",
+      "bytes": 450,
+      "sha256": "6b1185a32c56088e906c434733a04891545bdb0cb0347c4dc62692a10ac82fb0",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/metrics/native_reconciled_paths",
+      "bytes": 20,
+      "sha256": "26f200fb4466ce8631ba57249d6d7d095370ea53ec4ac78484006c4af8d45329",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/metrics/null_selections",
+      "bytes": 20,
+      "sha256": "26f200fb4466ce8631ba57249d6d7d095370ea53ec4ac78484006c4af8d45329",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/params/cmd-sys.argv",
+      "bytes": 202,
+      "sha256": "54f84e0a1bb43d7a1fd8de3caef2b7a01cb034e453fb62bfd905577a7411e18f",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/params/new_fits",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "8001471927ee74451bc0788be2b7bf85544281714799449673227ac25dd64f7d",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/params/source_recorder_id",
+      "bytes": 32,
+      "sha256": "5be701bbb39eb17ab064fd455132ba298b6046693b32851abfeea29bf9e2f0ff",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/tags/mlflow.source.name",
+      "bytes": 89,
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/meta.yaml",
+      "bytes": 374,
+      "sha256": "e7da9f8afa077a05fd26a6c8f4b87b225362af4e1233dd10789567730df1bbaf",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/relocation.json",
+      "bytes": 2787,
+      "sha256": "f749cf0b7beb2f62b421140f2e217d8e559ff5afcd1cea5da4b53fdac3b074fa",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/run_binding.json",
+      "bytes": 4022,
+      "sha256": "2f24b5348145f7d1f7e090dd4c8396a1ccf15e0e40364a0e2bc2b9ff87b95400",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/selection_audit.csv",
+      "bytes": 5584,
+      "sha256": "99abcac6fece3d0bb22c8cbfdbbb1c6f2f929cb374c69fc61cf7aca9ead02e07",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/source_review.json",
+      "bytes": 6012,
+      "sha256": "c107e523497023df0cc0687c8718521a0aa5d1d23898a06d376ae566abab4200",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/summary.json",
+      "bytes": 24616,
+      "sha256": "445cca3fcbe2e011d29639cbd07aa92d622d010513500a3571e91209719ecb58",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/verification.json",
+      "bytes": 1492,
+      "sha256": "3083920e4ebd48a0aede6eedaa0800a171cf4bc8eb8874eccd8f0ca89b1e35df",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/workflow.yaml",
+      "bytes": 819,
+      "sha256": "b4900e35de1217cc0f921d8023a73d2d72d00bb6c970749d0c2a7b9f6fa4139d",
+      "purpose": "Small reproducibility identity, statistical table, review, run metadata or audit sidecar"
+    }
+  ],
+  "self_hash_exclusion": [
+    "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/verification_manifest.json",
+    "research/purged_checkpoint_validation_20261008/verification_manifest.json"
+  ],
+  "self_hash_exclusion_reason": "Manifest copies are byte-identical and cannot include own hash.",
+  "text_presentation_normalization": [
+    {
+      "path": "research/purged_checkpoint_validation_20261008/overfit_audit.csv",
+      "before_sha256": "c4416969da1130e3b7b3bac93e8d503e09ec1b4014e24ec9c888916388218497",
+      "normalization": "CRLF to LF, unchanged CSV cell values"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/card/overfit_audit.csv",
+      "before_sha256": "c4416969da1130e3b7b3bac93e8d503e09ec1b4014e24ec9c888916388218497",
+      "normalization": "CRLF to LF, unchanged CSV cell values"
+    },
+    {
+      "path": "research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/verification/initial_native_failure.txt",
+      "before_sha256": "7b8bf4a06c56193179ded49d370f5c0ce4d6f76502128156b9b6aca4e29224d8",
+      "original_trailing_newline_count": 2,
+      "normalization": "single terminal newline; all diagnostic content retained"
+    }
+  ]
+}

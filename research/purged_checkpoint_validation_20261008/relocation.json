@@ -1,0 +1,55 @@
+{
+  "scope": "new Recorder metadata only; all scientific objects unchanged",
+  "execution_root": "/Users/rziiiii/dev/workspace-overfit",
+  "destination_root": "/Users/rziiiii/dev/workspace",
+  "changes": [
+    {
+      "path": "qlib_recorder/0/meta.yaml",
+      "sha256_before": "0731f013aa695c46cec4f82ecd0085fa2f2b86f7b7b3125091271a9420ad507e",
+      "sha256_after": "8663ca5fa840a05d8d47363d9495690850f6779654e2f704e4c21a5e5e3ef3e3",
+      "fields": {
+        "artifact_location": {
+          "from": "/Users/rziiiii/dev/workspace-overfit/research/purged_checkpoint_validation_20261008/qlib_recorder/0",
+          "to": "/Users/rziiiii/dev/workspace/research/purged_checkpoint_validation_20261008/qlib_recorder/0"
+        }
+      }
+    },
+    {
+      "path": "qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/meta.yaml",
+      "sha256_before": "f535ad984f116125b5e180687cd7a77ec2766b1ca9a53a46bd676e89638e5698",
+      "sha256_after": "6b1185a32c56088e906c434733a04891545bdb0cb0347c4dc62692a10ac82fb0",
+      "fields": {
+        "artifact_uri": {
+          "from": "/Users/rziiiii/dev/workspace-overfit/research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts",
+          "to": "/Users/rziiiii/dev/workspace/research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts"
+        }
+      }
+    },
+    {
+      "path": "qlib_recorder/336206974761097994/meta.yaml",
+      "sha256_before": "d931b0d0a28d74a25c5d4355d384675aa721658918c53ef782cc1bc34a3874ac",
+      "sha256_after": "e7da9f8afa077a05fd26a6c8f4b87b225362af4e1233dd10789567730df1bbaf",
+      "fields": {
+        "artifact_location": {
+          "from": "/Users/rziiiii/dev/workspace-overfit/research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994",
+          "to": "/Users/rziiiii/dev/workspace/research/purged_checkpoint_validation_20261008/qlib_recorder/336206974761097994"
+        }
+      }
+    }
+  ],
+  "removed_generated_git_snapshots": [
+    {
+      "path": "qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/code_status.txt",
+      "sha256": "36a1ed76a270458d8ea349d3bb9b1fd2d5ae35e59d8cc46fe57cfd00d4a2b1b0"
+    },
+    {
+      "path": "qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/336206974761097994/4b6cac2e05a648788e3c6732563a1f25/artifacts/code_diff.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "postmerge_requirement": "Qlib API readback and artifact hash verification at primary checkout"
+}

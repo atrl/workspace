@@ -1,0 +1,123 @@
+[NbConvertApp] Converting notebook research/purged_checkpoint_validation_20261008/purged_checkpoint_validation_20261008.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/__main__.py", line 5, in <module>
+    main()
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/jupyter_core/application.py", line 284, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/traitlets/config/application.py", line 1080, in launch_instance
+    app.start()
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 420, in start
+    self.convert_notebooks()
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 597, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 487, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 201, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 220, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 154, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 353, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 103, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 124, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+native={}
+for key,path in paths.items():
+    native[key]=native_allocation_reconciliation(frame.reset_index(drop=True),path,
+        provider_uri=EVIDENCE_ROOT/plan["source"]["provider_uri"],cost_bps=key[2],native_reconciler=native_open_reconciliation)
+    assert native[key]["audit"]["status"]=="passed"
+print({str(k):v["audit"] for k,v in native.items()})
+------------------
+
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:44,296) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:44,297) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:44,298) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/data/qlib/published_futu_affine_20260925_v1')}
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:44,311) INFO - qlib.backtest caller - [__init__.py:93] - Create new exchange
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:44,318) WARNING - qlib.online operator - [exchange.py:226] - factor.day.bin file not exists or factor contains `nan`. Order using adjusted_price.
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:44,326) WARNING - qlib.data - [data.py:665] - load calendar error: freq=day, future=True; return current calendar!
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:44,326) WARNING - qlib.data - [data.py:668] - You can get future calendar by referring to the following document: https://github.com/microsoft/qlib/blob/main/scripts/data_collector/contrib/README.md
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:44,330) WARNING - qlib.BaseExecutor - [executor.py:121] - `common_infra` is not set for <qlib.backtest.executor.SimulatorExecutor object at 0x125a691c0>
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:45,434) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:45,435) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:45,435) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/data/qlib/published_futu_affine_20260925_v1')}
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:45,445) INFO - qlib.backtest caller - [__init__.py:93] - Create new exchange
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:45,449) WARNING - qlib.online operator - [exchange.py:226] - factor.day.bin file not exists or factor contains `nan`. Order using adjusted_price.
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:45,456) WARNING - qlib.data - [data.py:665] - load calendar error: freq=day, future=True; return current calendar!
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:45,456) WARNING - qlib.data - [data.py:668] - You can get future calendar by referring to the following document: https://github.com/microsoft/qlib/blob/main/scripts/data_collector/contrib/README.md
+----- stderr -----
+[7504:MainThread](2026-10-08 11:43:45,459) WARNING - qlib.BaseExecutor - [executor.py:121] - `common_infra` is not set for <qlib.backtest.executor.SimulatorExecutor object at 0x127605640>
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mValueError[39m                                Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[5][39m[32m, line 3[39m
+[32m      1[39m native={}
+[32m      2[39m [38;5;28;01mfor[39;00m key,path [38;5;28;01min[39;00m paths.items():
+[32m----> [39m[32m3[39m     native[key]=native_allocation_reconciliation(frame.reset_index(drop=True),path,
+[32m      4[39m         provider_uri=EVIDENCE_ROOT/plan[[33m"source"[39m][[33m"provider_uri"[39m],cost_bps=key[[32m2[39m],native_reconciler=native_open_reconciliation)
+[32m      5[39m     [38;5;28;01massert[39;00m native[key][[33m"audit"[39m][[33m"status"[39m]==[33m"passed"[39m
+[32m      6[39m print({str(k):v[[33m"audit"[39m] [38;5;28;01mfor[39;00m k,v [38;5;28;01min[39;00m native.items()})
+
+[36mFile [39m[32m~/dev/workspace-overfit/src/analysis/integrated_allocation.py:354[39m, in [36mnative_allocation_reconciliation[39m[34m(frame, replay, provider_uri, cost_bps, account, native_reconciler)[39m
+[32m    352[39m schedule.loc[:, [[33mf[39m[33m"[39m[33mopen_[39m[38;5;132;01m{[39;00masset[38;5;132;01m}[39;00m[33m_weight[39m[33m"[39m [38;5;28;01mfor[39;00m asset [38;5;129;01min[39;00m ASSETS]] = weights
+[32m    353[39m reconcile = native_open_reconciliation [38;5;28;01mif[39;00m native_reconciler [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;28;01melse[39;00m native_reconciler
+[32m--> [39m[32m354[39m native = [30;43mreconcile[39;49m[30;43m([39;49m[30;43mmarket[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mschedule[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mprovider_uri[39;49m[30;43m=[39;49m[30;43mprovider_uri[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mcost_bps[39;49m[30;43m=[39;49m[30;43mcost_bps[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43maccount[39;49m[30;43m=[39;49m[30;43maccount[39;49m[30;43m)[39;49m
+[32m    355[39m close_net = native[[33m"[39m[33mreport[39m[33m"[39m][[33m"[39m[33mreturn[39m[33m"[39m] - native[[33m"[39m[33mreport[39m[33m"[39m][[33m"[39m[33mcost[39m[33m"[39m]
+[32m    356[39m open_net = native[[33m"[39m[33mreconciliation[39m[33m"[39m][[33m"[39m[33mnative_next_open_return[39m[33m"[39m]
+
+[36mFile [39m[32m~/dev/workspace-overfit/src/analysis/convex_qlib.py:41[39m, in [36mnative_open_reconciliation[39m[34m(frame, replay, provider_uri, cost_bps, account)[39m
+[32m     39[39m targets = schedule.loc[:, columns].to_numpy(dtype=[38;5;28mfloat[39m)
+[32m     40[39m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m np.isfinite(targets).all() [38;5;129;01mor[39;00m (targets < [32m0[39m).any() [38;5;129;01mor[39;00m [38;5;129;01mnot[39;00m np.allclose(targets.sum(axis=[32m1[39m), [32m1[39m, rtol=[32m0[39m, atol=[32m1e-10[39m):
+[32m---> [39m[32m41[39m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([33m"[39m[33mblocked: invalid continuous Qlib net targets[39m[33m"[39m)
+[32m     42[39m provider = Path(provider_uri).resolve()
+[32m     43[39m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m provider.is_dir():
+
+[31mValueError[39m: blocked: invalid continuous Qlib net targets

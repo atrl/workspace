@@ -1,0 +1,93 @@
+{
+  "stage": "before new Recorder creation, native target validation",
+  "error": "blocked: invalid continuous Qlib net targets",
+  "original_binding_sha256": "e74525275f915d6ac44de4a487b91e19f02b5ce7db010ced3c57977b24412759",
+  "original_notebook_sha256": "5da93a1cdfd65913efd131cb974d31c3f07f1c4978cd4f1002347a6a1d71fcd8",
+  "failure_log_sha256": "7b8bf4a06c56193179ded49d370f5c0ce4d6f76502128156b9b6aca4e29224d8",
+  "cause": "Subtraction roundoff in sealed original fee settlement yields -5.71e-17 cash on mathematically exact SOXX targets; higher-level path validation permits roundoff but native adapter rejects all negatives.",
+  "selected_budgets": {
+    "price": {
+      "2018": 120,
+      "2019": 0,
+      "2020": 0,
+      "2021": 0,
+      "2022": 0
+    },
+    "price_vol": {
+      "2018": 120,
+      "2019": 0,
+      "2020": 0,
+      "2021": 0,
+      "2022": 0
+    }
+  },
+  "frozen_scored_paths": [
+    {
+      "variant": "price",
+      "method": "fixed120",
+      "cost_bps": 10.0,
+      "path_sha256": "9e1d456528abd07ef056a4f3afc1cba5b162c3afe7c6e87829cc090c6a226ccf",
+      "minimum_target": 0.026270938884464166,
+      "negative_components": 0
+    },
+    {
+      "variant": "price",
+      "method": "fixed120",
+      "cost_bps": 25.0,
+      "path_sha256": "27af71087c1bfff4cfca5546c065670eeb16d838d993f2a41842e4d90ba9ede1",
+      "minimum_target": 0.02627093888446417,
+      "negative_components": 0
+    },
+    {
+      "variant": "price",
+      "method": "validation_selected",
+      "cost_bps": 10.0,
+      "path_sha256": "c8c6c71d6ad2447d612448331f4c838569ccc3688f285a6bbb558d48dc39999d",
+      "minimum_target": -4.8972767470594746e-17,
+      "negative_components": 1
+    },
+    {
+      "variant": "price",
+      "method": "validation_selected",
+      "cost_bps": 25.0,
+      "path_sha256": "ab27fb942232547775d6d4c5a9bccc2df30b3c3970911dc94d7f81b6c8afd12c",
+      "minimum_target": -5.709025945288762e-17,
+      "negative_components": 2
+    },
+    {
+      "variant": "price_vol",
+      "method": "fixed120",
+      "cost_bps": 10.0,
+      "path_sha256": "5979a7568e561c3cd9208018c2d14969d37573b2c60afabf3a48a53407b889b0",
+      "minimum_target": 0.025181981225250807,
+      "negative_components": 0
+    },
+    {
+      "variant": "price_vol",
+      "method": "fixed120",
+      "cost_bps": 25.0,
+      "path_sha256": "5e7812e6598d24300e2687a3362997dd16af96f5faf7a86187da158da4d7aab7",
+      "minimum_target": 0.025181981225250807,
+      "negative_components": 0
+    },
+    {
+      "variant": "price_vol",
+      "method": "validation_selected",
+      "cost_bps": 10.0,
+      "path_sha256": "301e5d150031b761086f2e7b4be9ac2bbfac2a47570dce4ef04a20615316efe0",
+      "minimum_target": -5.3747650575744994e-17,
+      "negative_components": 1
+    },
+    {
+      "variant": "price_vol",
+      "method": "validation_selected",
+      "cost_bps": 25.0,
+      "path_sha256": "3a3848157146f58b28f3b776bbbc51883038c50d74a1a7fd6766a9653a67a5a9",
+      "minimum_target": 0.0,
+      "negative_components": 0
+    }
+  ],
+  "scope_of_fix": "Only native interface canonicalization within8float64eps; no model, selection, training, price, fee or scored path changes permitted.",
+  "plan_sha256": "efe9523ef7cecd631b078dad1d034d46eef447faca8397657a7a1d634436ebf1",
+  "selection_source_sha256": "e3d23d6f20166717ac9bc126216cf64b649c4c644bbea95b792bcb387f0096db"
+}

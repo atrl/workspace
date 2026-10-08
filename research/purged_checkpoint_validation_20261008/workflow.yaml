@@ -1,0 +1,21 @@
+experiment: purged_checkpoint_validation_20261008
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+region: us
+market: all
+as_of: '2026-09-25'
+source_experiment: constrained_net_excess_20261003
+source_recorder_id: 300530137db54b6c807c39ebb9e8c331
+recorder_uri: research/purged_checkpoint_validation_20261008/qlib_recorder
+plan: plan.json
+model_selection: purged_prior_two_year_budget_validation_with_explicit_benchmark_model
+fit_budget: 0
+primary_evaluation_signal_years: [2018, 2019, 2020, 2021, 2022]
+warmup_fixed120_signal_years: [2016, 2017]
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - models/budget_bundles.pkl
+    - models/selected_annual.pkl
+    - analysis/portfolio_replays.pkl
+    - portfolio_analysis/native_reconciliation.pkl

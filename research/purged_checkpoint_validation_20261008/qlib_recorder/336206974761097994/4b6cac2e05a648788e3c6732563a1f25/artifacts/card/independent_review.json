@@ -1,0 +1,471 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-08T04:01:18.451310+00:00",
+  "status": "passed_with_interpretation_limits",
+  "scope": "Independent read-only Qlib Recorder result review plus arithmetic checks of stored outcomes; no model fitting, new portfolio replay, or bootstrap resampling",
+  "identity": {
+    "experiment": "purged_checkpoint_validation_20261008",
+    "recorder_id": "4b6cac2e05a648788e3c6732563a1f25",
+    "experiment_id": "336206974761097994",
+    "recorder_status": "FINISHED",
+    "review_before_relocation": true,
+    "source_recorder_id": "300530137db54b6c807c39ebb9e8c331",
+    "source_manifest_sha256": "740e8c40162a122de9cff12d8018430a9eb02fdde3201c871234ff24a126f4b9",
+    "plan_sha256": "efe9523ef7cecd631b078dad1d034d46eef447faca8397657a7a1d634436ebf1",
+    "binding_sha256": "2f24b5348145f7d1f7e090dd4c8396a1ccf15e0e40364a0e2bc2b9ff87b95400",
+    "source_sha256": {
+      "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "src/data/benchmark_anchor_utility.py": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+      "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+      "src/data/constrained_net_excess.py": "f140218167b67c42e56be08c269f04754970b2211e00ac415c277743bf631be9",
+      "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "src/data/integrated_allocation.py": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+      "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "src/model/benchmark_anchor_utility.py": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+      "src/model/constrained_net_excess.py": "7a068cef362d24651c661289881662e6384e93396d1e7821ee38ebdbac74a08d",
+      "src/model/integrated_allocation.py": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+      "src/model/purged_checkpoint_selection.py": "e3d23d6f20166717ac9bc126216cf64b649c4c644bbea95b792bcb387f0096db",
+      "src/objective/benchmark_tail_constraints.py": "c94b59e8377945b7e84d1a7055fcbeb24286ebc97bc7b6eb987679bb2a9017fb",
+      "src/workflow/anchor_checkpoint_feasibility.py": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+      "src/workflow/benchmark_anchor_utility.py": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+      "src/workflow/conditional_variance.py": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+      "src/workflow/constrained_net_excess.py": "3e28ed6fbfde26258b90d1c6d890ea8d659a4cc1da89153b4d92f637d491a948",
+      "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+      "src/workflow/stable_excess_integration.py": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+      "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "src/analysis/continuous_target_adapter.py": "dbef719b44e72def009ad2463f252f09771149dfc758c2999ab492ec830edce0"
+    },
+    "reviewed_artifact_sha256": {
+      "analysis/tables.pkl": "ddffcafd0877f19551584cae0b6f755fbca3c4c4e9154e4b1e66278a4f6f6f01",
+      "analysis/portfolio_replays.pkl": "73cd3e8fa63a93d62de7cf7060696083c507f08d6fbd2068fecc74759bb136ee",
+      "analysis/benchmarks.pkl": "a873a9d7fb69000cbfd0e06b47ebf0e2a80df8b61c27df47ea093ab5a29cc3ec",
+      "analysis/independent_reconciliation.pkl": "c9402e4722912c0d6861752a9015aea6117d62a0c408f3d7670903adc0b1a167",
+      "portfolio_analysis/native_reconciliation.pkl": "963d0d022bce573a42048e2054519bd47a72f312a933ad7564965ddeede04b48",
+      "models/budget_bundles.pkl": "ec6394dea2a7ba36f6ce6e023437d3c7c074bf274d29c3d6bea65984a2b8db19",
+      "models/selected_annual.pkl": "520bff8031357271013f78da3c40d252d14b1c21cc1db426c7c390f77c107b7a",
+      "inputs/plan.pkl": "6a99b645503fe5011903a07662867cefd7322ef94bacc6bb57a37c55c6199f90"
+    }
+  },
+  "checks": {
+    "all_source_code_hashes_match_binding": true,
+    "recorder_plan_matches_registered_json": true,
+    "prior_only_maturity_and_score_argmax_verified": true,
+    "selections": 10,
+    "null_selections": 8,
+    "2018_budget": 120,
+    "2019_to_2022_budget": 0,
+    "exact_seed_model_reproductions": 42,
+    "exact_ensemble_and_scaler_reproductions": 14,
+    "baseline_fullpath_source_max_error": 0.0,
+    "shared_2016_2017_warmup_exact": true,
+    "first_2018_pretrade_holdings_identical": true,
+    "pre_native_failure_path_hashes_unchanged": 8,
+    "native_paths_passed": 8,
+    "independent_saved_accounting_audits_passed": 8,
+    "primary_metric_rows_independently_recomputed": 8,
+    "bootstrap_intervals_crossing_zero": 8,
+    "new_fits_in_review": 0,
+    "new_portfolio_replays_in_review": 0
+  },
+  "path_checks": [
+    {
+      "variant": "price",
+      "method": "fixed120",
+      "cost_bps": 10.0,
+      "path_sha256": "9e1d456528abd07ef056a4f3afc1cba5b162c3afe7c6e87829cc090c6a226ccf",
+      "native_max_error": 5.08653617004029e-08,
+      "native_tolerance": 1e-07,
+      "roundoff_affected_rows": 0,
+      "independent_accounting_passed": true
+    },
+    {
+      "variant": "price",
+      "method": "fixed120",
+      "cost_bps": 25.0,
+      "path_sha256": "27af71087c1bfff4cfca5546c065670eeb16d838d993f2a41842e4d90ba9ede1",
+      "native_max_error": 5.0842138499263e-08,
+      "native_tolerance": 1e-07,
+      "roundoff_affected_rows": 0,
+      "independent_accounting_passed": true
+    },
+    {
+      "variant": "price",
+      "method": "validation_selected",
+      "cost_bps": 10.0,
+      "path_sha256": "c8c6c71d6ad2447d612448331f4c838569ccc3688f285a6bbb558d48dc39999d",
+      "native_max_error": 5.9503293403651014e-08,
+      "native_tolerance": 1e-07,
+      "roundoff_affected_rows": 1,
+      "independent_accounting_passed": true
+    },
+    {
+      "variant": "price",
+      "method": "validation_selected",
+      "cost_bps": 25.0,
+      "path_sha256": "ab27fb942232547775d6d4c5a9bccc2df30b3c3970911dc94d7f81b6c8afd12c",
+      "native_max_error": 5.9503293403651014e-08,
+      "native_tolerance": 1e-07,
+      "roundoff_affected_rows": 2,
+      "independent_accounting_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "method": "fixed120",
+      "cost_bps": 10.0,
+      "path_sha256": "5979a7568e561c3cd9208018c2d14969d37573b2c60afabf3a48a53407b889b0",
+      "native_max_error": 5.1010703883136443e-08,
+      "native_tolerance": 1e-07,
+      "roundoff_affected_rows": 0,
+      "independent_accounting_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "method": "fixed120",
+      "cost_bps": 25.0,
+      "path_sha256": "5e7812e6598d24300e2687a3362997dd16af96f5faf7a86187da158da4d7aab7",
+      "native_max_error": 5.0987577271399687e-08,
+      "native_tolerance": 1e-07,
+      "roundoff_affected_rows": 0,
+      "independent_accounting_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "method": "validation_selected",
+      "cost_bps": 10.0,
+      "path_sha256": "301e5d150031b761086f2e7b4be9ac2bbfac2a47570dce4ef04a20615316efe0",
+      "native_max_error": 5.9503293403651014e-08,
+      "native_tolerance": 1e-07,
+      "roundoff_affected_rows": 1,
+      "independent_accounting_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "method": "validation_selected",
+      "cost_bps": 25.0,
+      "path_sha256": "3a3848157146f58b28f3b776bbbc51883038c50d74a1a7fd6766a9653a67a5a9",
+      "native_max_error": 5.9503293403651014e-08,
+      "native_tolerance": 1e-07,
+      "roundoff_affected_rows": 0,
+      "independent_accounting_passed": true
+    }
+  ],
+  "baseline_representation_notes": [
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "column": "execute_open_trade",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "column": "observed_forecast_fallback",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "column": "invalid_training_fallback",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "column": "numerical_failure",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "column": "ensemble_anchor_selected",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "column": "execute_open_trade",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "column": "observed_forecast_fallback",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "column": "invalid_training_fallback",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "column": "numerical_failure",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "column": "ensemble_anchor_selected",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "column": "execute_open_trade",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "column": "observed_forecast_fallback",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "column": "invalid_training_fallback",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "column": "numerical_failure",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "column": "ensemble_anchor_selected",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "column": "execute_open_trade",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "column": "observed_forecast_fallback",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "column": "invalid_training_fallback",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "column": "numerical_failure",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "column": "ensemble_anchor_selected",
+      "new": "bool",
+      "archived": "object",
+      "values_exact": true
+    }
+  ],
+  "primary_2018_2022_metrics": [
+    {
+      "variant": "price",
+      "method": "fixed120",
+      "cost_bps": 10.0,
+      "sessions": 1259,
+      "terminal_wealth": 2.1637221371222783,
+      "return_pct": 116.37221371222783,
+      "relative_wealth": 1.0205915338511766,
+      "max_drawdown_pct": -45.41880668568832,
+      "cvar5_pct": -4.591026719709808,
+      "turnover": 41.86180216350958,
+      "sum_session_fee_rates": 0.041861802163509584,
+      "max_recomputation_error": 1.2789769243681803e-13
+    },
+    {
+      "variant": "price",
+      "method": "fixed120",
+      "cost_bps": 25.0,
+      "sessions": 1259,
+      "terminal_wealth": 2.0320312246929766,
+      "return_pct": 103.20312246929765,
+      "relative_wealth": 0.9584751335960191,
+      "max_drawdown_pct": -46.10208018877322,
+      "cvar5_pct": -4.596455724481814,
+      "turnover": 41.85969594846527,
+      "sum_session_fee_rates": 0.10464923987116317,
+      "max_recomputation_error": 1.1368683772161603e-13
+    },
+    {
+      "variant": "price",
+      "method": "validation_selected",
+      "cost_bps": 10.0,
+      "sessions": 1259,
+      "terminal_wealth": 2.115535104194069,
+      "return_pct": 111.55351041940689,
+      "relative_wealth": 0.9978625165692504,
+      "max_drawdown_pct": -47.373291177718,
+      "cvar5_pct": -4.727078213783072,
+      "turnover": 4.982589679383974,
+      "sum_session_fee_rates": 0.0049825896793839735,
+      "max_recomputation_error": 4.973799150320701e-13
+    },
+    {
+      "variant": "price",
+      "method": "validation_selected",
+      "cost_bps": 25.0,
+      "sessions": 1259,
+      "terminal_wealth": 2.0997863306827846,
+      "return_pct": 109.97863306827847,
+      "relative_wealth": 0.9904340835748542,
+      "max_drawdown_pct": -47.373291177718045,
+      "cvar5_pct": -4.727657616751261,
+      "turnover": 4.981577624494587,
+      "sum_session_fee_rates": 0.012453944061236467,
+      "max_recomputation_error": 5.684341886080801e-13
+    },
+    {
+      "variant": "price_vol",
+      "method": "fixed120",
+      "cost_bps": 10.0,
+      "sessions": 1259,
+      "terminal_wealth": 2.220765279915793,
+      "return_pct": 122.07652799157928,
+      "relative_wealth": 1.0474978299972952,
+      "max_drawdown_pct": -45.83741457949708,
+      "cvar5_pct": -4.661353067867076,
+      "turnover": 45.10144211585711,
+      "sum_session_fee_rates": 0.04510144211585711,
+      "max_recomputation_error": 3.126388037344441e-13
+    },
+    {
+      "variant": "price_vol",
+      "method": "fixed120",
+      "cost_bps": 25.0,
+      "sessions": 1259,
+      "terminal_wealth": 2.0754933121920676,
+      "return_pct": 107.54933121920675,
+      "relative_wealth": 0.978975473165529,
+      "max_drawdown_pct": -46.527776322804016,
+      "cvar5_pct": -4.667181475828996,
+      "turnover": 45.0988251600102,
+      "sum_session_fee_rates": 0.11274706290002551,
+      "max_recomputation_error": 1.2789769243681803e-13
+    },
+    {
+      "variant": "price_vol",
+      "method": "validation_selected",
+      "cost_bps": 10.0,
+      "sessions": 1259,
+      "terminal_wealth": 2.125947187572866,
+      "return_pct": 112.59471875728661,
+      "relative_wealth": 1.0027737221089257,
+      "max_drawdown_pct": -47.37329117771799,
+      "cvar5_pct": -4.74855126589083,
+      "turnover": 5.542729950195481,
+      "sum_session_fee_rates": 0.00554272995019548,
+      "max_recomputation_error": 6.252776074688882e-13
+    },
+    {
+      "variant": "price_vol",
+      "method": "validation_selected",
+      "cost_bps": 25.0,
+      "sessions": 1259,
+      "terminal_wealth": 2.1083494809508614,
+      "return_pct": 110.83494809508613,
+      "relative_wealth": 0.9944731782981342,
+      "max_drawdown_pct": -47.37329117771797,
+      "cvar5_pct": -4.749179636426999,
+      "turnover": 5.541497324904649,
+      "sum_session_fee_rates": 0.013853743312261621,
+      "max_recomputation_error": 3.268496584496461e-13
+    }
+  ],
+  "bootstrap_direction_checks": [
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "selector_minus_fixed120_mean_daily_log_excess": -1.7888932053969966e-05,
+      "both_20_60_block_intervals_cross_zero": true
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "selector_minus_fixed120_mean_daily_log_excess": 2.6052181237429894e-05,
+      "both_20_60_block_intervals_cross_zero": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "selector_minus_fixed120_mean_daily_log_excess": -3.465799743459069e-05,
+      "both_20_60_block_intervals_cross_zero": true
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "selector_minus_fixed120_mean_daily_log_excess": 1.2475407961018635e-05,
+      "both_20_60_block_intervals_cross_zero": true
+    }
+  ],
+  "findings": [
+    "The25bp selector improves relative to fixed120 but its wealth remains below matching SOXX; both10bp selector paths are worse than fixed120.",
+    "All eight20/60-block paired improvement intervals cross zero. Bootstrap means match stored daily selector-minus-fixed outcomes; intervals were checked, not independently resampled.",
+    "Eightof10 selections choose benchmark null; this supports abstaining when prior validation does not support learned activity, not a claim that model alpha or overfitting is cured.",
+    "The design changes temporal budget selection and adds benchmark null jointly; their separate causal effects were not isolated.",
+    "All2016–2022 years are reused historical research; no new holdout, production change, or promotion evidence."
+  ],
+  "limitations": [
+    "This result review reuses immutable recorded paths and does not rerun their financial simulation; the recorded native and independent accounting audits were inspected.",
+    "Source price-basis uncertainty, prior research selection, and inherited optimizer derivative limitations remain.",
+    "Notebook conclusion should explicitly disclose10bp deterioration and all8intervals crossing zero alongside25bp point improvements."
+  ]
+}
