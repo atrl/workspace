@@ -1,4 +1,5 @@
 """Synthetic information/fee/statistical contracts; no market metrics."""
+import hashlib
 import json
 from pathlib import Path
 
@@ -91,7 +92,151 @@ def test_bootstrap_is_paired_repeatable_and_fixed_demeaned():
     expected=((b-y)**2-(p-y)**2)[idx].mean()
     assert first['statistics'].iloc[0].paired_MSE_improvement==expected
     dp=a.within_year_demean(p,years);dy=a.within_year_demean(y,years)
-    assert first['statistics'].iloc[0].within_signal_year_demeaned_Pearson_IC==a.correlation(dp[idx],dy[idx])[0]
+    # Batched row dot products may sum in a different order from scalar BLAS.
+    assert first['statistics'].iloc[0].within_signal_year_demeaned_Pearson_IC==pytest.approx(
+        a.correlation(dp[idx],dy[idx])[0],rel=2e-13,abs=2e-15)
+
+
+def _scalar_bootstrap_reference(y,p,b,years,indices):
+    """Independent pre-batching formulas, including compressed event means."""
+    def demean(v):
+        out=np.empty_like(v)
+        for year in np.unique(years):
+            mask=years==year;part=v[mask]
+            out[mask]=0. if np.ptp(part)==0 else part-part.mean()
+        return out
+
+    def corr(u,v,rank):
+        if np.ptp(u)==0 or np.ptp(v)==0:return np.nan
+        if rank:
+            u=pd.Series(u).rank(method='average').to_numpy()
+            v=pd.Series(v).rank(method='average').to_numpy()
+        u=u-u.mean();v=v-v.mean()
+        with np.errstate(divide='ignore',invalid='ignore',over='ignore',under='ignore'):
+            value=np.dot(u,v)/np.sqrt(np.dot(u,u)*np.dot(v,v))
+        return value if np.isfinite(value) else np.nan
+
+    dp,dy=demean(p),demean(y);out=[]
+    for idx in indices:
+        row=[((b-y)**2-(p-y)**2)[idx].mean()]
+        for u,v,rank in ((p,y,False),(p,y,True),(dp,dy,False),(dp,dy,True)):
+            row.append(corr(u[idx],v[idx],rank))
+        for cost in (10.,25.):
+            fraction=cost/10000.;hurdle=np.log1p(fraction)-np.log1p(-fraction)
+            mask=p[idx]>hurdle;net=y[idx]-hurdle
+            row.extend((10000*net[mask].mean() if mask.any() else np.nan,
+                        10000*np.where(mask,net,0.).mean()))
+        out.append(row)
+    return np.asarray(out)
+
+
+@pytest.mark.parametrize('case',[
+    'continuous','ties','constant_prediction','constant_target',
+    'constant_within_year','threshold_boundary','tiny_variance','underflow',
+])
+def test_batched_bootstrap_matches_scalar_all_statistics_and_intervals(case):
+    from src.objective.relative_wealth import stationary_block_bootstrap_indices
+    rng=np.random.default_rng(911);n=31
+    y=rng.normal(0,.01,n);p=rng.normal(.004,.006,n);b=rng.normal(-.001,.001,n)
+    years=np.r_[np.full(12,2016),np.full(n-12,2017)]
+    if case=='ties':
+        p=np.resize([-.005,.002,.006,.01],n);y=np.resize([.01,-.02,.01,.03,-.02],n)
+    elif case=='constant_prediction':p[:]=.003
+    elif case=='constant_target':y[:]=.01
+    elif case=='constant_within_year':p=np.where(years==2016,.003,.006)
+    elif case=='threshold_boundary':
+        edges=[np.log1p(c/10000.)-np.log1p(-c/10000.) for c in (10.,25.)]
+        p=np.resize([v for h in edges for v in (np.nextafter(h,-np.inf),h,np.nextafter(h,np.inf))],n)
+    elif case=='tiny_variance':
+        p=.002+np.arange(n)*np.spacing(.002);y=.004+rng.integers(-10,10,n)*np.spacing(.004)
+    elif case=='underflow':
+        p=rng.normal(size=n)*1e-100;y=rng.normal(size=n)*1e-100
+    # 131 draws exercise a complete default batch and a nonempty tail batch.
+    result=a.bootstrap_window(y,p,b,years,mean_block=3,resamples=131,seed=747)
+    indices=stationary_block_bootstrap_indices(observation_count=n,path_length=n,path_count=131,
+        expected_block_length=3,seed=747)
+    expected=_scalar_bootstrap_reference(y,p,b,years,indices)
+    assert result['indices_sha256']==hashlib.sha256(indices.tobytes()).hexdigest()
+    assert result['indices_shape']==[131,n] and result['indices_dtype']=='int32'
+    actual=result['statistics'].to_numpy()
+    np.testing.assert_array_equal(np.isnan(actual),np.isnan(expected))
+    tolerances=[2e-18]+[2e-15]*4+[2e-13]*4
+    for j,atol in enumerate(tolerances):
+        np.testing.assert_allclose(actual[:,j],expected[:,j],rtol=2e-13,atol=atol,equal_nan=True)
+    for j,row in enumerate(result['summary'].itertuples()):
+        defined=expected[np.isfinite(expected[:,j]),j]
+        assert row.defined_draws==len(defined) and row.undefined_draws==131-len(defined)
+        assert row.official_interval_defined==(len(defined)==131)
+        if len(defined):
+            quantiles=np.quantile(defined,[.025,.5,.975])
+            np.testing.assert_allclose([row.finite_only_lower_2_5,row.finite_only_median_50,
+                row.finite_only_upper_97_5],quantiles,rtol=2e-13,atol=tolerances[j])
+            if row.official_interval_defined:
+                np.testing.assert_allclose([row.lower_2_5,row.median_50,row.upper_97_5],
+                    quantiles,rtol=2e-13,atol=tolerances[j])
+        if not row.official_interval_defined:
+            assert pd.isna(row.lower_2_5) and pd.isna(row.median_50) and pd.isna(row.upper_97_5)
+
+
+def test_sampled_average_ranks_are_exact_for_ties_absent_values_and_constant_draws():
+    source=np.array([0.,0.,1.,2.])
+    indices=np.array([[0,0,3,1],[2,2,2,2],[1,3,1,3]])
+    unique,codes=np.unique(source,return_inverse=True)
+    actual=a._sampled_average_ranks(codes,len(unique),indices)
+    expected=np.array([[2.,2.,4.,2.],[2.5,2.5,2.5,2.5],[1.5,3.5,1.5,3.5]])
+    np.testing.assert_array_equal(actual,expected)
+
+
+def test_undefined_sampled_correlations_and_empty_events_null_official_intervals(monkeypatch):
+    indices=np.array([[0,0,0,0],[0,1,2,3],[1,2,3,1]],dtype=np.int32)
+    monkeypatch.setattr(a,'stationary_block_bootstrap_indices',lambda **kw:indices)
+    y=np.array([.01,-.02,.02,.03]);p=np.array([0.,.004,.006,.01]);b=np.zeros(4)
+    result=a.bootstrap_window(y,p,b,[2016]*4,mean_block=3,resamples=3)
+    expected=_scalar_bootstrap_reference(y,p,b,np.full(4,2016),indices)
+    np.testing.assert_allclose(result['statistics'],expected,atol=2e-13,rtol=2e-13,equal_nan=True)
+    summary=result['summary'].set_index('statistic')
+    for name in ['Pearson_IC','Spearman_IC','within_signal_year_demeaned_Pearson_IC',
+                 'within_signal_year_demeaned_Spearman_IC','conditional_event_net_mean_bp_10',
+                 'conditional_event_net_mean_bp_25']:
+        row=summary.loc[name]
+        assert row.defined_draws==2 and row.undefined_draws==1
+        assert not row.official_interval_defined and pd.isna(row.lower_2_5)
+    assert summary.loc['masked_event_net_mean_bp_per_observation_10','official_interval_defined']
+
+
+def test_bootstrap_batch_size_limits_temporaries_without_changing_draws(monkeypatch):
+    y=np.linspace(-.02,.02,17);p=np.sin(np.arange(17))*.01;b=np.zeros(17);years=[2016]*17
+    expected=a.bootstrap_window(y,p,b,years,mean_block=3,resamples=11)
+    shapes=[];original=a._row_correlations
+    def tracked(p,y,**kw):
+        shapes.append(p.shape)
+        return original(p,y,**kw)
+    monkeypatch.setattr(a,'_row_correlations',tracked)
+    monkeypatch.setattr(a,'_BOOTSTRAP_BATCH_DRAWS',4)
+    monkeypatch.setattr(a,'_BOOTSTRAP_BATCH_VALUES',17*3)
+    result=a.bootstrap_window(y,p,b,years,mean_block=3,resamples=11)
+    assert [shape[0] for shape in shapes]==[3]*12+[2]*4
+    assert all(rows*columns<=51 for rows,columns in shapes)
+    assert result['indices_sha256']==expected['indices_sha256']
+    pd.testing.assert_frame_equal(result['statistics'],expected['statistics'])
+    pd.testing.assert_frame_equal(result['summary'],expected['summary'])
+
+
+@pytest.mark.parametrize('field', ['target','prediction','baseline','years'])
+def test_bootstrap_rejects_invalid_axes_or_nonfinite_values(field):
+    arguments={'target':np.arange(3,dtype=float),'prediction':np.arange(3,dtype=float),
+        'baseline':np.zeros(3),'years':np.full(3,2016)}
+    arguments[field]=np.array([0.,np.nan,1.]) if field!='years' else [2016,2017]
+    with pytest.raises(ValueError,match='blocked:'):
+        a.bootstrap_window(**arguments,mean_block=3,resamples=2)
+
+
+def test_bootstrap_rejects_nonfinite_demeaned_values_before_rank_encoding():
+    largest=np.finfo(float).max
+    with np.errstate(over='ignore',invalid='ignore'):
+        with pytest.raises(ValueError,match='blocked: diagnostic vector must be finite'):
+            a.bootstrap_window([0.,.1],[largest,largest/2],[0.,0.],[2016,2016],
+                mean_block=3,resamples=2)
 
 
 def test_bootstrap_zero_event_draws_retained_and_masked_mean_defined():

@@ -1,0 +1,173 @@
+{
+  "passed": true,
+  "reviewed_at_utc": "2026-10-08T03:01:11.821157+00:00",
+  "scope": "Independent read-only Qlib Recorder review; no candidate rerun, model fit or parameter search.",
+  "recorder_id": "42a5f95d21c3413bac125fa5b4f1085a",
+  "recorder_status": "FINISHED",
+  "plan_sha256": "d3a741a7f47a5465be2d7cb1cd630ae59d288c858478a7f519a093cf11501396",
+  "binding_sha256": "474c0e8e92eda4eb4aa807e8ea99083f6e2261909c752b950437f872e2f1700d",
+  "source_hashes_verified": 9,
+  "notebook_code_hash_verified": true,
+  "registered_before_native_run": true,
+  "attempt_artifact_hashes_verified": 4,
+  "native_paths_verified": [
+    {
+      "book": "continuous",
+      "cost_bps": 10,
+      "variant": "raw_intended_weight_control",
+      "sessions": 2698,
+      "orders": 2678,
+      "coverage_complete": true,
+      "native_reconciled": true
+    },
+    {
+      "book": "continuous",
+      "cost_bps": 10,
+      "variant": "volatility_capped",
+      "sessions": 2698,
+      "orders": 2672,
+      "coverage_complete": true,
+      "native_reconciled": true
+    },
+    {
+      "book": "continuous",
+      "cost_bps": 25,
+      "variant": "raw_intended_weight_control",
+      "sessions": 2698,
+      "orders": 2679,
+      "coverage_complete": true,
+      "native_reconciled": true
+    },
+    {
+      "book": "continuous",
+      "cost_bps": 25,
+      "variant": "volatility_capped",
+      "sessions": 2698,
+      "orders": 2675,
+      "coverage_complete": true,
+      "native_reconciled": true
+    },
+    {
+      "book": "recent_cash_start",
+      "cost_bps": 10,
+      "variant": "raw_intended_weight_control",
+      "sessions": 39,
+      "orders": 0,
+      "coverage_complete": true,
+      "native_reconciled": true
+    },
+    {
+      "book": "recent_cash_start",
+      "cost_bps": 10,
+      "variant": "volatility_capped",
+      "sessions": 39,
+      "orders": 0,
+      "coverage_complete": true,
+      "native_reconciled": true
+    },
+    {
+      "book": "recent_cash_start",
+      "cost_bps": 25,
+      "variant": "raw_intended_weight_control",
+      "sessions": 39,
+      "orders": 0,
+      "coverage_complete": true,
+      "native_reconciled": true
+    },
+    {
+      "book": "recent_cash_start",
+      "cost_bps": 25,
+      "variant": "volatility_capped",
+      "sessions": 39,
+      "orders": 0,
+      "coverage_complete": true,
+      "native_reconciled": true
+    }
+  ],
+  "no_silent_session_drop": true,
+  "maximum_independent_ledger_errors": {
+    "account": 0.0,
+    "cash": 0.0,
+    "shares": 0.0,
+    "fee": 3.495870259939693e-12,
+    "net_return": 1.1102230246251565e-16
+  },
+  "independently_rederived_target_points": 12,
+  "independent_development_metrics": [
+    {
+      "cost_bps": 10,
+      "variant": "legacy_repaired",
+      "return_pct": 345.92577109388225,
+      "max_drawdown_pct": -69.99541346346221,
+      "cvar5_pct": -7.524847730320784,
+      "log_excess_vs_soxx": 0.04486208770093228
+    },
+    {
+      "cost_bps": 10,
+      "variant": "raw_intended_weight_control",
+      "return_pct": 339.8350011188556,
+      "max_drawdown_pct": -69.97427306654747,
+      "cvar5_pct": -7.590535512176359,
+      "log_excess_vs_soxx": 0.031109241183256378
+    },
+    {
+      "cost_bps": 10,
+      "variant": "volatility_capped",
+      "return_pct": 169.2426022327052,
+      "max_drawdown_pct": -47.00075523591739,
+      "cvar5_pct": -4.483444660067973,
+      "log_excess_vs_soxx": -0.45967757774258544
+    },
+    {
+      "cost_bps": 10,
+      "variant": "soxx_buy_hold",
+      "return_pct": 326.36271085744573,
+      "max_drawdown_pct": -45.75200634432912,
+      "cvar5_pct": -4.74286573900552,
+      "log_excess_vs_soxx": 0.0
+    },
+    {
+      "cost_bps": 25,
+      "variant": "legacy_repaired",
+      "return_pct": 342.4597194301681,
+      "max_drawdown_pct": -70.0667247310325,
+      "cvar5_pct": -7.529794974810771,
+      "log_excess_vs_soxx": 0.03863030360066157
+    },
+    {
+      "cost_bps": 25,
+      "variant": "raw_intended_weight_control",
+      "return_pct": 329.9914051645437,
+      "max_drawdown_pct": -70.13775035237177,
+      "cvar5_pct": -7.597283471626253,
+      "log_excess_vs_soxx": 0.01004609333087686
+    },
+    {
+      "cost_bps": 25,
+      "variant": "volatility_capped",
+      "return_pct": 163.4047634529718,
+      "max_drawdown_pct": -47.23263323496363,
+      "cvar5_pct": -4.48586305806677,
+      "log_excess_vs_soxx": -0.4800272535383118
+    },
+    {
+      "cost_bps": 25,
+      "variant": "soxx_buy_hold",
+      "return_pct": 325.6932971225125,
+      "max_drawdown_pct": -45.751346420005355,
+      "cvar5_pct": -4.742697020902518,
+      "log_excess_vs_soxx": 0.0
+    }
+  ],
+  "bootstrap_saved_draw_intervals_verified": 8,
+  "development_positive_excess_years_each_cost": 0,
+  "development_gate_decision_verified": true,
+  "development_all_gates_pass": false,
+  "interpretation": "Cap lowers risk against the matched raw-target control, but sacrifices return. It underperforms SOXX in all seven development years at both costs and still has worse development drawdown than SOXX. This is a failed stable-excess candidate, not strategy promotion. Startup cash inactivity remains unchanged.",
+  "limitations": [
+    "Review reruns arithmetic over saved native reports and target points, not eight native paths.",
+    "Bootstrap review verifies saved-draw quantiles and signs; it does not resample again.",
+    "Historical reuse and source-vintage limitations persist."
+  ],
+  "blockers": []
+}

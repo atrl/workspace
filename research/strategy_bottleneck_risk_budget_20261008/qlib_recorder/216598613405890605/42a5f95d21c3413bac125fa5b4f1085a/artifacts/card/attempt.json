@@ -1,0 +1,13 @@
+{
+  "status": "complete",
+  "binding_sha256": "474c0e8e92eda4eb4aa807e8ea99083f6e2261909c752b950437f872e2f1700d",
+  "recorder_id": "42a5f95d21c3413bac125fa5b4f1085a",
+  "experiment_id": "216598613405890605",
+  "replays": 8,
+  "artifact_sha256": {
+    "portfolio_analysis/native_reports.pkl": "cff0386133a62cb7a2263458cdb073348463238ea4b54c7c4cc5db475c6f41ff",
+    "analysis/reconciliation.pkl": "97263f8b4ad2ac5d6e1084bb1e7736d43f6fa490c1f9df35c4cc6cd9717e03f6",
+    "analysis/independent_ledgers.pkl": "45001eb4017d2f7d703468f9263b84eeb1925904ced334815b4f772542abfb72",
+    "inputs/target_weights.pkl": "0bdffb1a125de2a8af9207d1d821931529b0ae5442a06f6a5d82d64cbe0902d1"
+  }
+}

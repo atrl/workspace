@@ -20,6 +20,10 @@ POOLED = ('development_2016_2022', 'reused_2023_asof')
 REQUIRED = ('signal_date','trade_date','exit_date','model_year','cash_advantage_prediction',
             'prior_mean_prediction','cash_advantage_1d','soxx_return','forecast_available',
             'h1_outcome_available','score_available')
+# Bound statistic/rank temporaries independently of the registered draw count.
+# The sampler still runs once, preserving its RNG sequence and index identity.
+_BOOTSTRAP_BATCH_DRAWS = 128
+_BOOTSTRAP_BATCH_VALUES = 262144
 
 
 def _array(value):
@@ -145,26 +149,68 @@ def summarize_draws(values):
     return result
 
 
+def _row_correlations(prediction,target):
+    """Scalar correlation semantics over finite, paired bootstrap rows."""
+    constant=(np.ptp(prediction,axis=1)==0)|(np.ptp(target,axis=1)==0)
+    p=prediction-prediction.mean(axis=1,keepdims=True)
+    y=target-target.mean(axis=1,keepdims=True)
+    with np.errstate(divide='ignore',invalid='ignore',over='ignore',under='ignore'):
+        cross=np.matmul(p[:,None,:],y[:,:,None]).ravel()
+        square_p=np.matmul(p[:,None,:],p[:,:,None]).ravel()
+        square_y=np.matmul(y[:,None,:],y[:,:,None]).ravel()
+        denominator=np.sqrt(square_p*square_y)
+        values=cross/denominator
+    values[constant|~np.isfinite(values)]=np.nan
+    return values
+
+
+def _sampled_average_ranks(codes,unique_count,indices):
+    """Exact average tied ranks from each draw's sampled value frequencies.
+
+    Codes only encode the original values' ordering. Ranks are rebuilt from
+    each draw's multiplicities, including the duplicate rows from resampling.
+    """
+    sampled=codes[indices]
+    offsets=np.arange(len(indices))[:,None]*unique_count
+    frequencies=np.bincount((sampled+offsets).ravel(),
+        minlength=len(indices)*unique_count).reshape(len(indices),unique_count)
+    ranks=frequencies.cumsum(axis=1)-(frequencies-1)/2.
+    return np.take_along_axis(ranks,sampled,axis=1)
+
+
 def bootstrap_window(target,prediction,baseline,years,*,mean_block,resamples=2000,seed=20261003):
     y,p,b=_array(target),_array(prediction),_array(baseline);n=len(y)
     if n<2 or not(len(p)==len(b)==n):raise ValueError('blocked: bootstrap requires paired observations')
     indices=stationary_block_bootstrap_indices(observation_count=n,path_length=n,path_count=resamples,
         expected_block_length=mean_block,seed=seed)
-    dp,dy=within_year_demean(p,years),within_year_demean(y,years)
+    dp,dy=_array(within_year_demean(p,years)),_array(within_year_demean(y,years))
     improvement=np.square(b-y)-np.square(p-y)
     columns=['paired_MSE_improvement','Pearson_IC','Spearman_IC',
         'within_signal_year_demeaned_Pearson_IC','within_signal_year_demeaned_Spearman_IC']
     for c in COSTS:columns.extend([f'conditional_event_net_mean_bp_{int(c)}',f'masked_event_net_mean_bp_per_observation_{int(c)}'])
     values=np.full((resamples,len(columns)),np.nan)
-    for i,idx in enumerate(indices):
-        row=[float(improvement[idx].mean())]
-        for u,v,rank in [(p,y,False),(p,y,True),(dp,dy,False),(dp,dy,True)]:
-            value,_=correlation(u[idx],v[idx],rank=rank);row.append(np.nan if value is None else value)
-        for c in COSTS:
-            hurdle=cash_hurdle(c);mask=p[idx]>hurdle;net=y[idx]-hurdle
-            row.extend([float(10000*net[mask].mean()) if mask.any() else np.nan,
-                        float(10000*np.where(mask,net,0.).mean())])
-        values[i]=row
+    rank_sources=[]
+    for source in (p,y,dp,dy):
+        unique,codes=np.unique(source,return_inverse=True)
+        rank_sources.append((codes,len(unique)))
+    batch_size=max(1,min(_BOOTSTRAP_BATCH_DRAWS,_BOOTSTRAP_BATCH_VALUES//n))
+    for start in range(0,resamples,batch_size):
+        stop=min(start+batch_size,resamples);idx=indices[start:stop]
+        values[start:stop,0]=improvement[idx].mean(axis=1)
+        for column,(u,v) in zip((1,3),((p,y),(dp,dy))):
+            sampled_u,sampled_v=u[idx],v[idx]
+            values[start:stop,column]=_row_correlations(sampled_u,sampled_v)
+            ranked_u=_sampled_average_ranks(*rank_sources[column-1],idx)
+            ranked_v=_sampled_average_ranks(*rank_sources[column],idx)
+            values[start:stop,column+1]=_row_correlations(ranked_u,ranked_v)
+        for column,c in zip((5,7),COSTS):
+            hurdle=cash_hurdle(c);mask=p[idx]>hurdle
+            net=np.where(mask,y[idx]-hurdle,0.)
+            counts=mask.sum(axis=1);totals=net.sum(axis=1)
+            # Empty conditional means remain NaN; masked means remain zero.
+            np.divide(totals,counts,out=values[start:stop,column],where=counts>0)
+            values[start:stop,column]*=10000
+            values[start:stop,column+1]=10000*(totals/n)
     draws=pd.DataFrame(values,columns=columns);draws.index.name='draw'
     summaries=pd.DataFrame([{'statistic':name,**summarize_draws(draws[name])} for name in columns])
     return {'statistics':draws,'summary':summaries,

@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "experiment": "strategy_bottleneck_risk_budget_20261008",
+  "recorder_id": "42a5f95d21c3413bac125fa5b4f1085a",
+  "artifact_policy": "slim_card_recorder_first",
+  "source_recorders": {
+    "legacy_soxl_repair_20261005": {
+      "recorder_id": "a899b1df50274e769ec1d7fead8676ed",
+      "artifacts": {
+        "analysis/ledgers.pkl": "3b3d168f25de447dc7ca0f8883d877306a41522a02d69a31404edbbd4ea88f2c",
+        "portfolio_analysis/native_reports.pkl": "1f3f441cc5582bd3faa79cb20dd1233bd6d2129e1eefb545cd4861c5fcbb4a24"
+      }
+    },
+    "earnings_enhancement_20261005": {
+      "recorder_id": "b3674e7f2d7c41a5b8827c99f316969a",
+      "artifacts": {
+        "analysis/predictions.pkl": "f97177e6fdd4f250fd2b3f6e0b464a853b163931d73427019d9adbb9566363f8"
+      }
+    }
+  },
+  "date_range": {
+    "history_start": "2010-03-11",
+    "continuous_replay": [
+      "2016-01-04",
+      "2026-09-25"
+    ],
+    "recent_replay": [
+      "2026-08-03",
+      "2026-09-25"
+    ],
+    "earnings_signals": [
+      "2016-01-04",
+      "2022-12-30"
+    ]
+  },
+  "source_sha256": {
+    "src/backtest/legacy_risk_budget.py": "75190a5302faf57194c1d37288a3717dbcfd5f92e80a9c4bcf5b3afd44607ef5",
+    "src/analysis/strategy_bottlenecks.py": "200025c097d98cef6eb82815ec078096b08cb9d8fecbf3d6cc2b6d650525f773",
+    "src/analysis/frozen_cash_information.py": "8a81278b9af0cc31fa0e1ff16dc07bb84b2c50c8a2c2e177cc965d92c4b7e1f8",
+    "src/workflow/legacy_soxl_repair.py": "a6052378eb3cb2e1bac09e13e1b71926ecff3364343244132b6a73b11a10cd4c",
+    "src/backtest/legacy_soxl_replay.py": "84f3e6dcf99ec3b99b599af24101eed8b75a28379d07c629c3c9144383b0030d",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/data/legacy_execution_view.py": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e"
+  },
+  "notebook_code_sha256": "4870c174cf16118313a48927171c4df77a359f127d9dcf03f5819478c09de956",
+  "files": [
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/annual_metrics.csv",
+      "bytes": 28506,
+      "sha256": "3e4481f983639ac2b0ad44b7b9459f556f6c5f54781623f25b382bb674ff2c2e",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/attempt.json",
+      "bytes": 677,
+      "sha256": "9878414da75e10d43f2450402877a4ba1c2ce7a9f7d6ba7ac3b6aaa6d72dd456",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/backtest_benchmark_comparison.csv",
+      "bytes": 7122,
+      "sha256": "123d232035538e9d0da67f3d3d2323f5f8d48ea02f9896ed3789ede97c7b1720",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/bootstrap.csv",
+      "bytes": 2881,
+      "sha256": "35571b202caa91f1c6d810247038d6ad184b852b9e9f413dade31658f89703b0",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/conclusion.md",
+      "bytes": 4834,
+      "sha256": "62483ca615cdd222e2597e0325723d28e991e81ee0fb959f6887a9282621092b",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/development_gates.csv",
+      "bytes": 486,
+      "sha256": "4688b6034c8026ea42505286514cc27f102546a433efcf0c71eae6cb5ec354bf",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/forecast_event_calibration.csv",
+      "bytes": 17485,
+      "sha256": "72d051b0d47e470436400086b894be41ee19d4103280ccbf4d816fa3978fa8ae",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/forecast_mse_attribution.csv",
+      "bytes": 8039,
+      "sha256": "598ef8360cb14efab53847fcf569f7b5c2579c2d811e80f776c51ddcaea2f130",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/independent_review.json",
+      "bytes": 5427,
+      "sha256": "b948223a52d87884f5bd1eaeb202532ddfa4532cbceef52d03013c50d8fe4194",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/plan.json",
+      "bytes": 3903,
+      "sha256": "d3a741a7f47a5465be2d7cb1cd630ae59d288c858478a7f519a093cf11501396",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/0/meta.yaml",
+      "bytes": 313,
+      "sha256": "94f80121c34d8d70f2521a7be9c73963f8ab221f3ed51fa87b3ad6a5ecdd5377",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/analysis/bootstrap_draws.pkl",
+      "bytes": 128497,
+      "sha256": "6054898ab782ee72e52ea974ac5b925be1d509f5b6edcf389805f1a5baeea228",
+      "purpose": "All paired stationary-bootstrap draws for sole fixed candidate; recorder only"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/analysis/independent_ledgers.pkl",
+      "bytes": 2430728,
+      "sha256": "45001eb4017d2f7d703468f9263b84eeb1925904ced334815b4f772542abfb72",
+      "purpose": "Eight independent integer-share cash/cost ledgers for rowwise native reconciliation; recorder only"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/analysis/reconciliation.pkl",
+      "bytes": 1403,
+      "sha256": "97263f8b4ad2ac5d6e1084bb1e7736d43f6fa490c1f9df35c4cc6cd9717e03f6",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/analysis/summary.pkl",
+      "bytes": 6809,
+      "sha256": "17431cf5c7bedda21b47db8bd1843afadd5f7703e14a45ad0de432086af26117",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/analysis/tables.pkl",
+      "bytes": 33538,
+      "sha256": "6ffac84b3c86d0c9c423fd642660004f3b5c084055c7cb62078e720edbda107f",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/annual_metrics.csv",
+      "bytes": 28506,
+      "sha256": "3e4481f983639ac2b0ad44b7b9459f556f6c5f54781623f25b382bb674ff2c2e",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/attempt.json",
+      "bytes": 677,
+      "sha256": "9878414da75e10d43f2450402877a4ba1c2ce7a9f7d6ba7ac3b6aaa6d72dd456",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/backtest_benchmark_comparison.csv",
+      "bytes": 7122,
+      "sha256": "123d232035538e9d0da67f3d3d2323f5f8d48ea02f9896ed3789ede97c7b1720",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/bootstrap.csv",
+      "bytes": 2881,
+      "sha256": "35571b202caa91f1c6d810247038d6ad184b852b9e9f413dade31658f89703b0",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/conclusion.md",
+      "bytes": 4834,
+      "sha256": "62483ca615cdd222e2597e0325723d28e991e81ee0fb959f6887a9282621092b",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/development_gates.csv",
+      "bytes": 486,
+      "sha256": "4688b6034c8026ea42505286514cc27f102546a433efcf0c71eae6cb5ec354bf",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/forecast_event_calibration.csv",
+      "bytes": 17485,
+      "sha256": "72d051b0d47e470436400086b894be41ee19d4103280ccbf4d816fa3978fa8ae",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/forecast_mse_attribution.csv",
+      "bytes": 8039,
+      "sha256": "598ef8360cb14efab53847fcf569f7b5c2579c2d811e80f776c51ddcaea2f130",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/independent_review.json",
+      "bytes": 5427,
+      "sha256": "b948223a52d87884f5bd1eaeb202532ddfa4532cbceef52d03013c50d8fe4194",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/plan.json",
+      "bytes": 3903,
+      "sha256": "d3a741a7f47a5465be2d7cb1cd630ae59d288c858478a7f519a093cf11501396",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/relocation.json",
+      "bytes": 2817,
+      "sha256": "a936ba418c5ebb90b93174b0419fc58146a589f9e2ebcbe47c0a5299b97e286a",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/run_binding.json",
+      "bytes": 1749,
+      "sha256": "474c0e8e92eda4eb4aa807e8ea99083f6e2261909c752b950437f872e2f1700d",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/strategy_bottleneck_risk_budget_20261008.ipynb",
+      "bytes": 231687,
+      "sha256": "41a77c4ddf2fcd392b3d05f251708a22b7840bcc107c02085960ed50437dac95",
+      "purpose": "Executed source-readback, attribution and fixed eight-replay notebook with synchronized Chinese conclusion"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/summary.json",
+      "bytes": 7830,
+      "sha256": "f986f9f75200e6e42d1761e8ccb209eb0d18e48fceaa3638539aae3073154570",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/verification.json",
+      "bytes": 1354,
+      "sha256": "d738413d2cd0589ddb8118940502b351ee9dd3da8ec6067bca74e1d88d6fe77b",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/workflow.yaml",
+      "bytes": 719,
+      "sha256": "fa79e285b1fe4545d069a7af4239d0eff184457114df2943e2db773226b5e048",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/inputs/source_bindings.pkl",
+      "bytes": 484,
+      "sha256": "9e3652414af4428f58d7fc8fffb0520b2281d00ed5f94607d82f790b15804bc2",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/inputs/target_weights.pkl",
+      "bytes": 528329,
+      "sha256": "0bdffb1a125de2a8af9207d1d821931529b0ae5442a06f6a5d82d64cbe0902d1",
+      "purpose": "Same-cost shadow intents and causal 60-day risk targets; recorder only"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/portfolio_analysis/native_reports.pkl",
+      "bytes": 27948080,
+      "sha256": "cff0386133a62cb7a2263458cdb073348463238ea4b54c7c4cc5db475c6f41ff",
+      "purpose": "Eight primary Qlib native portfolio reports, positions and orders; full continuous and recent books; recorder only"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/src/analysis/frozen_cash_information.py",
+      "bytes": 17871,
+      "sha256": "8a81278b9af0cc31fa0e1ff16dc07bb84b2c50c8a2c2e177cc965d92c4b7e1f8",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/src/analysis/strategy_bottlenecks.py",
+      "bytes": 8716,
+      "sha256": "200025c097d98cef6eb82815ec078096b08cb9d8fecbf3d6cc2b6d650525f773",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/src/backtest/legacy_risk_budget.py",
+      "bytes": 10822,
+      "sha256": "75190a5302faf57194c1d37288a3717dbcfd5f92e80a9c4bcf5b3afd44607ef5",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/src/backtest/legacy_soxl_replay.py",
+      "bytes": 16898,
+      "sha256": "84f3e6dcf99ec3b99b599af24101eed8b75a28379d07c629c3c9144383b0030d",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/src/backtest/qlib_continuous_position.py",
+      "bytes": 2543,
+      "sha256": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/src/data/legacy_execution_view.py",
+      "bytes": 7925,
+      "sha256": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/src/data/price_basis.py",
+      "bytes": 20780,
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/src/data/qlib_native.py",
+      "bytes": 19985,
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/src/workflow/legacy_soxl_repair.py",
+      "bytes": 33978,
+      "sha256": "a6052378eb3cb2e1bac09e13e1b71926ecff3364343244132b6a73b11a10cd4c",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/tests/test_legacy_risk_budget.py.txt",
+      "bytes": 6485,
+      "sha256": "329b7d918c8ee458e2563cb52cc7c1f1432189262046b7218e72147e64a6253d",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/source/tests/test_strategy_bottlenecks.py.txt",
+      "bytes": 7204,
+      "sha256": "876410529c27a669d8e08a7d715f45421aa5936050f14147fd130e9ccdcd1372",
+      "purpose": "Exact implementation or non-discoverable synthetic/contract test source"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/meta.yaml",
+      "bytes": 453,
+      "sha256": "79ed5b122a71b733a9f19db2a2fdf30c7b8014c7f8c2a484cc35079dd1181227",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/metrics/historical_stable_excess_pass",
+      "bytes": 20,
+      "sha256": "ff4ab3747fe9d448ab33c0f86cb657d2d7b64f37f1824996d5a2efee3955f920",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/metrics/native_reconciliation_pass",
+      "bytes": 20,
+      "sha256": "7b84afeaa125a140bea779830a75cbf632cd8f7dcf794750c460c33cd19e7394",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/params/binding_sha256",
+      "bytes": 64,
+      "sha256": "6f729ebff2eaff84191dec74d9bb887700da2befccd068bcc5a87afef6b8900b",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/params/cmd-sys.argv",
+      "bytes": 202,
+      "sha256": "063a2945b67b8354932f730b431b7601f69653407dacd743f7b0a6f5b25e6c81",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "60c2ec9648647916bced548757acd77009045715c38b48eb6fbad5f6bcc32df7",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/params/source_recorder_id",
+      "bytes": 32,
+      "sha256": "8f3b344cf8358432a0f7bd9557aa3fb601b08c4de3365d78136fbdf8b48da3c6",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/params/volatility_window",
+      "bytes": 2,
+      "sha256": "39fa9ec190eee7b6f4dff1100d6343e10918d044c75eac8f9e9a2596173f80c9",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/tags/mlflow.source.name",
+      "bytes": 89,
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/meta.yaml",
+      "bytes": 380,
+      "sha256": "de22e0cb97e43b57bc31fa73c7a44ec8feff6c2ea8060f9342107334562ab2cf",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/relocation.json",
+      "bytes": 2817,
+      "sha256": "a936ba418c5ebb90b93174b0419fc58146a589f9e2ebcbe47c0a5299b97e286a",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/run_binding.json",
+      "bytes": 1749,
+      "sha256": "474c0e8e92eda4eb4aa807e8ea99083f6e2261909c752b950437f872e2f1700d",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/strategy_bottleneck_risk_budget_20261008.ipynb",
+      "bytes": 231687,
+      "sha256": "41a77c4ddf2fcd392b3d05f251708a22b7840bcc107c02085960ed50437dac95",
+      "purpose": "Executed source-readback, attribution and fixed eight-replay notebook with synchronized Chinese conclusion"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/summary.json",
+      "bytes": 7830,
+      "sha256": "f986f9f75200e6e42d1761e8ccb209eb0d18e48fceaa3638539aae3073154570",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/verification.json",
+      "bytes": 1354,
+      "sha256": "d738413d2cd0589ddb8118940502b351ee9dd3da8ec6067bca74e1d88d6fe77b",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    },
+    {
+      "path": "research/strategy_bottleneck_risk_budget_20261008/workflow.yaml",
+      "bytes": 719,
+      "sha256": "fa79e285b1fe4545d069a7af4239d0eff184457114df2943e2db773226b5e048",
+      "purpose": "Small audit entry, summary, native run metadata, workflow, review or statistical table"
+    }
+  ],
+  "self_hash_exclusion": [
+    "research/strategy_bottleneck_risk_budget_20261008/verification_manifest.json",
+    "research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/card/verification_manifest.json"
+  ],
+  "self_hash_exclusion_reason": "Manifest root and Recorder copy are byte identical; cannot self-hash"
+}

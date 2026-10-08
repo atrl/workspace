@@ -1,0 +1,29 @@
+experiment: frozen_analysis_performance_20261008
+record_type: frozen_analysis_engineering_verification
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+region: us
+market: all
+as_of: '2026-09-25'
+source_experiment: frozen_cash_information_20261003
+source_recorder_id: ef3da36b5e6a4f4297c2bf76a6a19afd
+recorder_uri: research/frozen_analysis_performance_20261008/qlib_recorder
+windows: [development_2016_2022, reused_2023_asof]
+bootstrap:
+  seed: 20261003
+  resamples: 2000
+  mean_blocks: [20, 60]
+verification:
+  atol: 1.0e-12
+  rtol: 1.0e-12
+  paired_timing_repetitions: 3
+  require_identical_indices_and_nan_masks: true
+  require_identical_interval_validity_and_signs: true
+model_selection: none_engineering_only
+promotion_decision: not_promoted_engineering_only
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - analysis/bootstrap_draws.pkl
+    - analysis/timing_samples.pkl
+    - analysis/tables.pkl

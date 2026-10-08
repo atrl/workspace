@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "experiment": "frozen_analysis_performance_20261008",
+  "recorder_id": "a200119a467d4cb197b5dded98a3c28a",
+  "artifact_policy": "slim_card_recorder_first",
+  "source_recorder_id": "ef3da36b5e6a4f4297c2bf76a6a19afd",
+  "source_date_range": {
+    "source_rows": 3956,
+    "development_signal_years": [
+      2016,
+      2022
+    ],
+    "reused_signal_dates": [
+      "2023-01-03",
+      "2026-09-23"
+    ],
+    "as_of": "2026-09-25"
+  },
+  "verification": {
+    "notebook_execution": "passed: all 5 code cells executed without error",
+    "focused_test_files": [
+      "tests/test_frozen_cash_information.py",
+      "tests/test_frozen_cash_information_workflow.py"
+    ],
+    "focused_tests_passed": 44,
+    "manifest": "verification_manifest.json",
+    "post_execution_packaging": "conclusion synchronized; final notebook/conclusion/tests archived; only new recorder metadata relocated",
+    "source_dependency_closure": "analysis module and unchanged bootstrap sampler archived; official installed libraries recorded in environment",
+    "archived_test_evidence": "Verbatim focused test sources are archived with .py.txt suffix to prevent Pytest collection; original file bytes and SHA-256 preserved."
+  },
+  "parity": {
+    "passed": true,
+    "statistic_cells": 72000,
+    "bootstrap_interval_rows": 36,
+    "atol": 1e-12,
+    "rtol": 1e-12,
+    "max_absolute_difference": 8.526512829121202e-14,
+    "indices_hashes_equal": true,
+    "nan_masks_equal": true,
+    "interval_status_and_signs_equal": true
+  },
+  "files": [
+    {
+      "path": "research/frozen_analysis_performance_20261008/conclusion.md",
+      "bytes": 1886,
+      "sha256": "2fa3b2e1ac9426e8b797f8eaced7ebb16d0cf21eb5a355277d82707fb4a0c58f",
+      "purpose": "Synchronized human-readable engineering conclusion and scientific limitations"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/frozen_analysis_performance_20261008.ipynb",
+      "bytes": 73175,
+      "sha256": "a5effe8bd12ff15a601064243b3c924657a20e3d48d8ddfe7b17b3ab98e6a9ac",
+      "purpose": "Executed notebook containing Qlib input readback, parity, profiling, timings and final Chinese conclusion"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/parity_summary.csv",
+      "bytes": 598,
+      "sha256": "69ae0decfa62974453a8b0af5e0f07c634cbd125de7f80ebfbf8187021fb77b1",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/profile_summary.csv",
+      "bytes": 594,
+      "sha256": "5200ba46c321bddfdb12bd6eeb766e13d80dcdbfd8b7ad1aac0844c30af5bcdd",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/0/meta.yaml",
+      "bytes": 309,
+      "sha256": "32e289251edd9405946c7821aceb87838cc9e1eef281c167a3ad3884fa932d2b",
+      "purpose": "Qlib/MLflow experiment/run metadata with canonical artifact locations"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/analysis/bootstrap_draws.pkl",
+      "bytes": 578926,
+      "sha256": "3504c6bfb4cd72d4bd3ba6757f54ca0b938de888b90e1803f02581476c352f1e",
+      "purpose": "Full optimized 4-window x 2000-draw x 9-statistic parity evidence; recorder only"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/analysis/summary.pkl",
+      "bytes": 3808,
+      "sha256": "e568113be2c0df7b121dcd86125078a9f40a9b9d9a78806f44d913c2d399f060",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/analysis/tables.pkl",
+      "bytes": 20758,
+      "sha256": "1b55fc5118ae3dafd22dcaf52d455e9923fbecdc7bd4eb9467a58aab1f1e30b2",
+      "purpose": "Point, calibration, event and bootstrap interval tables verified against original Recorder"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/analysis/timing_samples.pkl",
+      "bytes": 1763,
+      "sha256": "e3f2ffd70ef109ffa9b7a40263fff89fffbaa90421b2d1fecaf3bd0485993b3d",
+      "purpose": "All alternating baseline and optimized timings, 3 repetitions per workload; recorder only"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/card/conclusion.md",
+      "bytes": 1886,
+      "sha256": "2fa3b2e1ac9426e8b797f8eaced7ebb16d0cf21eb5a355277d82707fb4a0c58f",
+      "purpose": "Synchronized human-readable engineering conclusion and scientific limitations"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/card/frozen_analysis_performance_20261008.ipynb",
+      "bytes": 73175,
+      "sha256": "a5effe8bd12ff15a601064243b3c924657a20e3d48d8ddfe7b17b3ab98e6a9ac",
+      "purpose": "Executed notebook containing Qlib input readback, parity, profiling, timings and final Chinese conclusion"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/card/parity_summary.csv",
+      "bytes": 598,
+      "sha256": "69ae0decfa62974453a8b0af5e0f07c634cbd125de7f80ebfbf8187021fb77b1",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/card/profile_summary.csv",
+      "bytes": 594,
+      "sha256": "5200ba46c321bddfdb12bd6eeb766e13d80dcdbfd8b7ad1aac0844c30af5bcdd",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/card/relocation.json",
+      "bytes": 3076,
+      "sha256": "c6ccb9222e78d066c6bd42a1480e64e62453d3ab954a74935e9a320aadecac5f",
+      "purpose": "Auditable relocation mapping and removed transient file identities"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/card/summary.json",
+      "bytes": 4479,
+      "sha256": "d4be698bef9167f726c696b4568d89e75cab735536c8c0e89de687fbb1ecf8dc",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/card/timing_summary.csv",
+      "bytes": 534,
+      "sha256": "331e45b332265c8053a2cbcbbd56e17e3f8cafa0d80369c41935f205955aadb8",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/card/workflow.yaml",
+      "bytes": 979,
+      "sha256": "9ddf07ae913d5c27c8f2a9d0bb5f67b8e16c52d7990ff6d722e5bbc29fb8b054",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/baseline/frozen_cash_information.py",
+      "bytes": 15565,
+      "sha256": "b83fe9439d747ca2c2763603640f635eeea6c48d3c4c388ace0e69bf54e6f60a",
+      "purpose": "Exact executed analysis or sampler source, or focused numerical/workflow verification test source"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/optimized/frozen_cash_information.py",
+      "bytes": 17871,
+      "sha256": "8a81278b9af0cc31fa0e1ff16dc07bb84b2c50c8a2c2e177cc965d92c4b7e1f8",
+      "purpose": "Exact executed analysis or sampler source, or focused numerical/workflow verification test source"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/sampler/relative_wealth.py",
+      "bytes": 4256,
+      "sha256": "3d1c58c381687de928c06cfa9ce2715bcb2d6bc312de6e2a9a74f96ebe279549",
+      "purpose": "Exact executed analysis or sampler source, or focused numerical/workflow verification test source"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/tests/test_frozen_cash_information.py.txt",
+      "bytes": 16536,
+      "sha256": "bf58ed1d0d2fc196027fc6990fe06bfd7944d274f1324ff7c9bc8a05927ce298",
+      "purpose": "Exact executed analysis or sampler source, or focused numerical/workflow verification test source"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/tests/test_frozen_cash_information_workflow.py.txt",
+      "bytes": 10831,
+      "sha256": "8ff1dd574c5697913627a0d5c0dd1091f10b3f7bf0351519e0c55e1749991973",
+      "purpose": "Exact executed analysis or sampler source, or focused numerical/workflow verification test source"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/meta.yaml",
+      "bytes": 449,
+      "sha256": "1f0b3909c50281185112b8aef644e222d3af81543a99824bc363b49c8e9bb5a7",
+      "purpose": "Qlib/MLflow experiment/run metadata with canonical artifact locations"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/metrics/full_analysis_speedup",
+      "bytes": 34,
+      "sha256": "4a19666949f7000f513586d5b5ecb74a18bd17c829c93bb3055c9affe117b2bd",
+      "purpose": "Qlib/MLflow durable metric log"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/metrics/max_absolute_difference",
+      "bytes": 38,
+      "sha256": "abc9a31bbea1ce60cebc6ee8e3a9c32d01116ae01de820b52fcfd35dfcf3ddf0",
+      "purpose": "Qlib/MLflow durable metric log"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/metrics/parity_statistic_cells",
+      "bytes": 24,
+      "sha256": "978a5353ec11969b8ab175f4e8757e32b733a146d3a57511e4447190103f93f0",
+      "purpose": "Qlib/MLflow durable metric log"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/params/baseline_source_sha256",
+      "bytes": 64,
+      "sha256": "ebe85ee337ef765ec00164f9fd9143c39f01f21beca1fba637108c479fc678c3",
+      "purpose": "Qlib/MLflow durable source identity or execution parameter"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/params/cmd-sys.argv",
+      "bytes": 202,
+      "sha256": "f3b5e6fabee5e5c0cfb8e42ca6df3c0dad5583235904999ba97a12ed775a8cd4",
+      "purpose": "Qlib/MLflow durable source identity or execution parameter"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/params/implementation_sha256",
+      "bytes": 64,
+      "sha256": "bb5e4a01f0c9db6c64ddae6c9dd24c19fcc928cdc99b79e84ca2b0cce01a99ed",
+      "purpose": "Qlib/MLflow durable source identity or execution parameter"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/params/sampler_sha256",
+      "bytes": 64,
+      "sha256": "70addb4601218ed5237738a18d7aefbe404cc8beda996fd76afd39c9147d77a4",
+      "purpose": "Qlib/MLflow durable source identity or execution parameter"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/params/source_recorder_id",
+      "bytes": 32,
+      "sha256": "6b36a984ba94c3485101a76dc9a37efae46618f60bf5e44b79a1f83aff738ebd",
+      "purpose": "Qlib/MLflow durable source identity or execution parameter"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "purpose": "Qlib/MLflow durable run identity tag"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/tags/mlflow.source.name",
+      "bytes": 89,
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "purpose": "Qlib/MLflow durable run identity tag"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "purpose": "Qlib/MLflow durable run identity tag"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "purpose": "Qlib/MLflow durable run identity tag"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/meta.yaml",
+      "bytes": 372,
+      "sha256": "6883f67464fee9cf2cb9736685dea4312776d03821d3260b9ab659fd24985425",
+      "purpose": "Qlib/MLflow experiment/run metadata with canonical artifact locations"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/relocation.json",
+      "bytes": 3076,
+      "sha256": "c6ccb9222e78d066c6bd42a1480e64e62453d3ab954a74935e9a320aadecac5f",
+      "purpose": "Auditable relocation mapping and removed transient file identities"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/summary.json",
+      "bytes": 4479,
+      "sha256": "d4be698bef9167f726c696b4568d89e75cab735536c8c0e89de687fbb1ecf8dc",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/timing_summary.csv",
+      "bytes": 534,
+      "sha256": "331e45b332265c8053a2cbcbbd56e17e3f8cafa0d80369c41935f205955aadb8",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    },
+    {
+      "path": "research/frozen_analysis_performance_20261008/workflow.yaml",
+      "bytes": 979,
+      "sha256": "9ddf07ae913d5c27c8f2a9d0bb5f67b8e16c52d7990ff6d722e5bbc29fb8b054",
+      "purpose": "Small reviewable engineering card summary, workflow configuration or audit sidecar"
+    }
+  ],
+  "external_verified_inputs": {
+    "inputs/diagnostic_rows.pkl": {
+      "artifact": "inputs/diagnostic_rows.pkl",
+      "sha256": "b9a402be30abcd47ebb793d4f4d584d25fd17d3464d0eedc9281fe4a8b6cd8a7",
+      "bytes": 442210
+    },
+    "analysis/bootstrap_draws.pkl": {
+      "artifact": "analysis/bootstrap_draws.pkl",
+      "sha256": "720d62bfc6c21994fcc3a9eb7cee2e0fe23652589ddcccede634aa86bb377c40",
+      "bytes": 578926
+    },
+    "analysis/tables.pkl": {
+      "artifact": "analysis/tables.pkl",
+      "sha256": "48f9bdc8fd54263cc132e81f1f451ad48ff3db73a6eee41bf2f56401c60bbe7b",
+      "bytes": 20774
+    }
+  },
+  "workspace_code_inputs": [
+    {
+      "path": "src/analysis/frozen_cash_information.py",
+      "sha256": "8a81278b9af0cc31fa0e1ff16dc07bb84b2c50c8a2c2e177cc965d92c4b7e1f8"
+    },
+    {
+      "path": "src/objective/relative_wealth.py",
+      "sha256": "3d1c58c381687de928c06cfa9ce2715bcb2d6bc312de6e2a9a74f96ebe279549"
+    },
+    {
+      "path": "tests/test_frozen_cash_information.py",
+      "sha256": "bf58ed1d0d2fc196027fc6990fe06bfd7944d274f1324ff7c9bc8a05927ce298"
+    },
+    {
+      "path": "tests/test_frozen_cash_information_workflow.py",
+      "sha256": "8ff1dd574c5697913627a0d5c0dd1091f10b3f7bf0351519e0c55e1749991973"
+    }
+  ],
+  "self_hash_exclusion": [
+    "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/card/verification_manifest.json",
+    "research/frozen_analysis_performance_20261008/verification_manifest.json"
+  ],
+  "self_hash_exclusion_reason": "A manifest cannot include its own final hash; the root and Recorder copies are byte-identical",
+  "packaging_changes": [
+    {
+      "reason": "Prevent newly archived test evidence from becoming Pytest tests",
+      "renames": [
+        {
+          "from": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/tests/test_frozen_cash_information.py",
+          "to": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/tests/test_frozen_cash_information.py.txt",
+          "sha256_unchanged": "bf58ed1d0d2fc196027fc6990fe06bfd7944d274f1324ff7c9bc8a05927ce298"
+        },
+        {
+          "from": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/tests/test_frozen_cash_information_workflow.py",
+          "to": "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/tests/test_frozen_cash_information_workflow.py.txt",
+          "sha256_unchanged": "8ff1dd574c5697913627a0d5c0dd1091f10b3f7bf0351519e0c55e1749991973"
+        }
+      ],
+      "removed_generated_bytecode": [
+        "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/tests/__pycache__/test_frozen_cash_information.cpython-312-pytest-9.1.1.pyc",
+        "research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/source/tests/__pycache__/test_frozen_cash_information_workflow.cpython-312-pytest-9.1.1.pyc"
+      ],
+      "numerical_replay_performed": false
+    }
+  ]
+}

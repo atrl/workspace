@@ -1,0 +1,21 @@
+{
+  "created_at_utc": "2026-10-08T02:57:49.789339+00:00",
+  "plan_sha256": "d3a741a7f47a5465be2d7cb1cd630ae59d288c858478a7f519a093cf11501396",
+  "source_sha256": {
+    "src/backtest/legacy_risk_budget.py": "75190a5302faf57194c1d37288a3717dbcfd5f92e80a9c4bcf5b3afd44607ef5",
+    "src/analysis/strategy_bottlenecks.py": "200025c097d98cef6eb82815ec078096b08cb9d8fecbf3d6cc2b6d650525f773",
+    "src/analysis/frozen_cash_information.py": "8a81278b9af0cc31fa0e1ff16dc07bb84b2c50c8a2c2e177cc965d92c4b7e1f8",
+    "src/workflow/legacy_soxl_repair.py": "a6052378eb3cb2e1bac09e13e1b71926ecff3364343244132b6a73b11a10cd4c",
+    "src/backtest/legacy_soxl_replay.py": "84f3e6dcf99ec3b99b599af24101eed8b75a28379d07c629c3c9144383b0030d",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/data/legacy_execution_view.py": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e"
+  },
+  "notebook_code_sha256": "4870c174cf16118313a48927171c4df77a359f127d9dcf03f5819478c09de956",
+  "focused_tests_passed": 59,
+  "preflight_log_sha256": "19b77152a0921d720ae768cad643adbd730b68076b610d14a10a27f2c11bd638",
+  "independent_review": "Causality, proportional fees, native primary evidence, matched raw control and unchanged gates reviewed; independent ledger archive and completed-artifact integrity checks included.",
+  "before_candidate_replay": true,
+  "scope_authorized": "User requested continue strategy bottleneck analysis and optimization; fixed 8-replay diagnostic, no deployment."
+}

@@ -1,0 +1,112 @@
+{
+  "experiment": "frozen_analysis_performance_20261008",
+  "record_type": "frozen_analysis_engineering_verification",
+  "source_experiment": "frozen_cash_information_20261003",
+  "source_recorder_id": "ef3da36b5e6a4f4297c2bf76a6a19afd",
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "region": "us",
+  "market": "all",
+  "as_of": "2026-09-25",
+  "source_rows": 3956,
+  "source_artifact_bindings": {
+    "inputs/diagnostic_rows.pkl": {
+      "artifact": "inputs/diagnostic_rows.pkl",
+      "sha256": "b9a402be30abcd47ebb793d4f4d584d25fd17d3464d0eedc9281fe4a8b6cd8a7",
+      "bytes": 442210
+    },
+    "analysis/bootstrap_draws.pkl": {
+      "artifact": "analysis/bootstrap_draws.pkl",
+      "sha256": "720d62bfc6c21994fcc3a9eb7cee2e0fe23652589ddcccede634aa86bb377c40",
+      "bytes": 578926
+    },
+    "analysis/tables.pkl": {
+      "artifact": "analysis/tables.pkl",
+      "sha256": "48f9bdc8fd54263cc132e81f1f451ad48ff3db73a6eee41bf2f56401c60bbe7b",
+      "bytes": 20774
+    }
+  },
+  "baseline_source_sha256": "b83fe9439d747ca2c2763603640f635eeea6c48d3c4c388ace0e69bf54e6f60a",
+  "sampler_sha256": "3d1c58c381687de928c06cfa9ce2715bcb2d6bc312de6e2a9a74f96ebe279549",
+  "implementation_sha256": "8a81278b9af0cc31fa0e1ff16dc07bb84b2c50c8a2c2e177cc965d92c4b7e1f8",
+  "parity": {
+    "passed": true,
+    "statistic_cells": 72000,
+    "bootstrap_interval_rows": 36,
+    "atol": 1e-12,
+    "rtol": 1e-12,
+    "max_absolute_difference": 8.526512829121202e-14,
+    "indices_hashes_equal": true,
+    "nan_masks_equal": true,
+    "interval_status_and_signs_equal": true
+  },
+  "timing": {
+    "repetitions": 3,
+    "method": "alternating paired runs, median; excludes imports, input I/O, profiling",
+    "full_analysis_baseline_seconds": 3.460876625031233,
+    "full_analysis_optimized_seconds": 0.5930347499670461,
+    "full_analysis_speedup": 5.835874921703235
+  },
+  "environment": {
+    "python": "3.12.12",
+    "machine": "arm64",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "scipy": "1.18.1",
+    "qlib": "0.9.7"
+  },
+  "market_model_fits": 0,
+  "market_backtests": 0,
+  "production_change": false,
+  "promotion_decision": "not_promoted_engineering_only",
+  "stable_excess_achieved": false,
+  "workflow_config": "workflow.yaml",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/bootstrap_draws.pkl",
+      "analysis/timing_samples.pkl",
+      "analysis/tables.pkl"
+    ]
+  },
+  "sidecars": [
+    "timing_summary.csv",
+    "parity_summary.csv",
+    "profile_summary.csv",
+    "conclusion.md",
+    "verification_manifest.json",
+    "relocation.json"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "limitations": [
+    "Frozen reused history, no new alpha evidence",
+    "Timing is specific to this host and workload",
+    "Sampler pinned separately; old source manifest did not archive its full dependency closure",
+    "Historical execution seals and result cards remain unchanged"
+  ],
+  "recorder_id": "a200119a467d4cb197b5dded98a3c28a",
+  "experiment_id": "466430838156371904",
+  "recorder_uri": "research/frozen_analysis_performance_20261008/qlib_recorder",
+  "recorder_relative_dir": "466430838156371904/a200119a467d4cb197b5dded98a3c28a",
+  "verification": {
+    "notebook_execution": "passed: all 5 code cells executed without error",
+    "focused_test_files": [
+      "tests/test_frozen_cash_information.py",
+      "tests/test_frozen_cash_information_workflow.py"
+    ],
+    "focused_tests_passed": 44,
+    "manifest": "verification_manifest.json",
+    "post_execution_packaging": "conclusion synchronized; final notebook/conclusion/tests archived; only new recorder metadata relocated",
+    "source_dependency_closure": "analysis module and unchanged bootstrap sampler archived; official installed libraries recorded in environment",
+    "archived_test_evidence": "Verbatim focused test sources are archived with .py.txt suffix to prevent Pytest collection; original file bytes and SHA-256 preserved."
+  },
+  "artifact_relocation": {
+    "manifest": "relocation.json",
+    "destination": "primary checkout; card and summary references remain repository relative",
+    "readback_scope": "Qlib API readback before relocation; metadata targets verified after relocation"
+  }
+}

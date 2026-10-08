@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "scope": "new engineering Recorder metadata only; historical artifacts unchanged",
+  "execution_root": "/Users/rziiiii/dev/workspace-analysis-opt",
+  "canonical_destination_root": "/Users/rziiiii/dev/workspace",
+  "changes": [
+    {
+      "path": "qlib_recorder/0/meta.yaml",
+      "sha256_before": "4e627288bda92ee930c3b4a570f5ea46033f3507d11b43c13447d73c7b325b7e",
+      "sha256_after": "32e289251edd9405946c7821aceb87838cc9e1eef281c167a3ad3884fa932d2b",
+      "fields": {
+        "artifact_location": {
+          "from": "/Users/rziiiii/dev/workspace-analysis-opt/research/frozen_analysis_performance_20261008/qlib_recorder/0",
+          "to": "/Users/rziiiii/dev/workspace/research/frozen_analysis_performance_20261008/qlib_recorder/0"
+        }
+      }
+    },
+    {
+      "path": "qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/meta.yaml",
+      "sha256_before": "521175965eb907767d611be57a5341d40a5cef758fc518a0715625351c92948e",
+      "sha256_after": "1f0b3909c50281185112b8aef644e222d3af81543a99824bc363b49c8e9bb5a7",
+      "fields": {
+        "artifact_uri": {
+          "from": "/Users/rziiiii/dev/workspace-analysis-opt/research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts",
+          "to": "/Users/rziiiii/dev/workspace/research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts"
+        }
+      }
+    },
+    {
+      "path": "qlib_recorder/466430838156371904/meta.yaml",
+      "sha256_before": "92ebb766ccfe7f60502b057784baaf7c7395079b4bae8ae68fc78eee0eb2279c",
+      "sha256_after": "6883f67464fee9cf2cb9736685dea4312776d03821d3260b9ab659fd24985425",
+      "fields": {
+        "artifact_location": {
+          "from": "/Users/rziiiii/dev/workspace-analysis-opt/research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904",
+          "to": "/Users/rziiiii/dev/workspace/research/frozen_analysis_performance_20261008/qlib_recorder/466430838156371904"
+        }
+      }
+    }
+  ],
+  "validation": "all target artifact URIs preserve repository-relative suffix; artifact content unchanged by relocation",
+  "readback_scope": "Qlib API verified final artifacts before relocation; canonical destination available after checkout synchronization",
+  "removed_transient_generated_git_snapshots": [
+    {
+      "path": "qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/code_status.txt",
+      "bytes": 543,
+      "sha256": "6b5169e712ec35c93b73aeaf242e5e0f5a5b9c8216695a4ad63e62e4930da144"
+    },
+    {
+      "path": "qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/code_cached.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/466430838156371904/a200119a467d4cb197b5dded98a3c28a/artifacts/code_diff.txt",
+      "bytes": 14097,
+      "sha256": "0bf5a8d34b4f6f6163d7cc9d5b1618e2d5b9ac960d974f4aadb01a2508e1c9bc"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+experiment: strategy_bottleneck_risk_budget_20261008
+provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
+source_provider_uri: data/qlib/published_futu_affine_20260925_v1
+region: us
+market: all
+as_of: '2026-09-25'
+source_recorder_id: a899b1df50274e769ec1d7fead8676ed
+recorder_uri: research/strategy_bottleneck_risk_budget_20261008/qlib_recorder
+plan: plan.json
+model_selection: none_fixed_structural_ablation
+promotion_decision: not_promoted_reused_history
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - inputs/target_weights.pkl
+    - portfolio_analysis/native_reports.pkl
+    - analysis/bootstrap_draws.pkl
+    - analysis/reconciliation.pkl

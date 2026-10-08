@@ -1,0 +1,81 @@
+{
+  "experiment": "strategy_bottleneck_risk_budget_20261008",
+  "registered_at_utc": "2026-10-08T02:51:35.100867+00:00",
+  "registered_before_candidate_replay": true,
+  "hypothesis": "Inherited legacy exposure concentrates risk; a causal benchmark-relative volatility ceiling may reduce drawdown and CVaR. No presumption of excess return improvement.",
+  "source_experiment": "legacy_soxl_repair_20261005",
+  "source_recorder_id": "a899b1df50274e769ec1d7fead8676ed",
+  "source_provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+  "as_of": "2026-09-25",
+  "signal": "Same-cost frozen shadow legacy prior-close signal_exposure plus signed requested_shares * close / signal_account. Buy is positive; sell negative; no intent means zero increment. No actual candidate holdings feed back into shadow engine.",
+  "risk_cap": "min(1, trailing60 sample_std(SOXX close returns)/trailing60 sample_std(SOXL close returns)); min(raw intended weight, risk_cap). Full prior data only, next canonical open execution. Rolling risk is a proxy, not a pathwise tail guarantee.",
+  "volatility_window": 60,
+  "volatility_ddof": 1,
+  "strategy_candidates": [
+    "raw_intended_weight_control",
+    "volatility_capped"
+  ],
+  "design": "Only capped is candidate. Raw intended weight is matched execution control; original frozen legacy, static50SOXL and SOXX are references. No winner selection after results.",
+  "replay_budget": 8,
+  "model_fit_budget": 0,
+  "initial_cash": 100000,
+  "costs_bps": [
+    10,
+    25
+  ],
+  "books": {
+    "continuous": [
+      "2016-01-04",
+      "2026-09-25"
+    ],
+    "recent_cash_start": [
+      "2026-08-03",
+      "2026-09-25"
+    ]
+  },
+  "windows": {
+    "development": {
+      "book": "continuous",
+      "start": "2016-01-04",
+      "end": "2022-12-31"
+    },
+    "reused_diagnostic": {
+      "book": "continuous",
+      "start": "2023-01-01",
+      "end": "2026-09-25"
+    },
+    "recent_cash_start": {
+      "book": "recent_cash_start",
+      "start": "2026-08-03",
+      "end": "2026-09-25"
+    }
+  },
+  "execution": "Integer adjusted-price research shares, daily next-open target rebalance, exact proportional cost cash funding, native Qlib Exchange/Account/Position primary with independent ledger reconciliation; no borrowed cash, no terminal liquidation, cash zero yield.",
+  "gates": {
+    "development": "Both costs: positive net log excess vs SOXX; at least6/7positive years; median annual excess>0; MaxDD and CVaR5 no worse SOXX; both20/60block bootstrap95% lower>0.",
+    "risk_repair": "Report cap-minus-raw control and cap-minus-original drawdown, CVaR and return tradeoff; no weakened excess gate.",
+    "promotion": "No promotion regardless of diagnostic result: historical reuse and no fresh forward/PIT execution evidence."
+  },
+  "bootstrap": {
+    "resamples": 2000,
+    "blocks": [
+      20,
+      60
+    ],
+    "seed": 20261005,
+    "primary_candidate_only": true
+  },
+  "diagnostics": "Frozen earnings predictions MSE energy/error-alignment identity and fee event forecast-realization gaps; no new forecast/calibration or feature/threshold selection.",
+  "stopping": "One fixed eight-replay comparison. Preserve failures. No alternative window/cap/signal/fallback search after outcomes.",
+  "source_summary_sha256": {
+    "legacy_soxl_repair_20261005": "ad1b18f8a2db372ca6360abc35c491fab301bfd9160e8cacec96fd542cf4022c",
+    "earnings_enhancement_20261005": "6e108cc0c9eb04a5a8f116b9f90e9486d0d7c4047ff0b4a0f84251d34fad304f"
+  },
+  "limitations": [
+    "All price and financial history reused; not fresh holdout.",
+    "Retrospective corporate-action prices and assumed VIX availability retained.",
+    "Capping a shadow strategy is different from changing feedback in the original strategy.",
+    "No new data refresh, deployment, scheduler change or real orders."
+  ]
+}

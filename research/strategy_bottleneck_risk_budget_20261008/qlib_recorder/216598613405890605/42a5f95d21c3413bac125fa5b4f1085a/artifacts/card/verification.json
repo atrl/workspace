@@ -1,0 +1,21 @@
+{
+  "focused_tests_passed": 126,
+  "preflight_tests_passed": 59,
+  "independent_review": "independent_review.json",
+  "native_paths_verified": 8,
+  "notebook_execution": "all code cells executed without errors",
+  "full_pytest": "blocked: 15 pre-existing archived-test import-file mismatches, identical before/after",
+  "required_qlib_baseline": "8 passed,61 failed: missing historical notebook cards, reproduced before changes",
+  "full_suite_green": false,
+  "logs_sha256": {
+    "workspace-final-focused.log": "ff9403f1147d2f4f16a3de929a50bcabcbf83266a05dbc96e654b94f0551f34d",
+    "strategy-risk-preflight.log": "19b77152a0921d720ae768cad643adbd730b68076b610d14a10a27f2c11bd638",
+    "workspace-full-baseline.log": "64ac4a5dc7b6549753ba7cf1c83472ed307acb42cf21782c1d6a6bc2175614b4",
+    "workspace-full-optimized-final.log": "0bfde4fd0377844535d50003f4c2f2ab8fea6a91c71b564c212dfb6d4f92ab21",
+    "workspace-qlib-baseline.log": "54cf06a3089ab390c16156b477b4efb3ed4df18a46e502fbe842c53f1bdc4d48",
+    "strategy-risk-execution.log": "39f04ec697df888eb745e41d78d30e3d69c0f22b44a113ecc766db788d1e1916"
+  },
+  "independent_review_sha256": "b948223a52d87884f5bd1eaeb202532ddfa4532cbceef52d03013c50d8fe4194",
+  "notebook_code_sha256": "4870c174cf16118313a48927171c4df77a359f127d9dcf03f5819478c09de956",
+  "notebook_final_markdown_equals_conclusion": true
+}

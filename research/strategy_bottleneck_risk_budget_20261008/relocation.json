@@ -1,0 +1,55 @@
+{
+  "scope": "Only new strategy Recorder metadata; numerical artifacts unchanged",
+  "execution_root": "/Users/rziiiii/dev/workspace-analysis-opt",
+  "destination_root": "/Users/rziiiii/dev/workspace",
+  "changes": [
+    {
+      "path": "qlib_recorder/0/meta.yaml",
+      "sha256_before": "1d36ac42d664d5d7add6c63c2842c9412f080ab06dd9a4bcbbfe121c7cdfb6ab",
+      "sha256_after": "94f80121c34d8d70f2521a7be9c73963f8ab221f3ed51fa87b3ad6a5ecdd5377",
+      "fields": {
+        "artifact_location": {
+          "from": "/Users/rziiiii/dev/workspace-analysis-opt/research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/0",
+          "to": "/Users/rziiiii/dev/workspace/research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/0"
+        }
+      }
+    },
+    {
+      "path": "qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/meta.yaml",
+      "sha256_before": "a2f889835202a065e54dffae80d402fa088d890d6a1b19ba2fc83534bc1da8f0",
+      "sha256_after": "79ed5b122a71b733a9f19db2a2fdf30c7b8014c7f8c2a484cc35079dd1181227",
+      "fields": {
+        "artifact_uri": {
+          "from": "/Users/rziiiii/dev/workspace-analysis-opt/research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts",
+          "to": "/Users/rziiiii/dev/workspace/research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts"
+        }
+      }
+    },
+    {
+      "path": "qlib_recorder/216598613405890605/meta.yaml",
+      "sha256_before": "6f26bdc548b71e844ea3e3eefaa168f51d9e025866bbee18bc0e3e457f8ed2a7",
+      "sha256_after": "de22e0cb97e43b57bc31fa73c7a44ec8feff6c2ea8060f9342107334562ab2cf",
+      "fields": {
+        "artifact_location": {
+          "from": "/Users/rziiiii/dev/workspace-analysis-opt/research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605",
+          "to": "/Users/rziiiii/dev/workspace/research/strategy_bottleneck_risk_budget_20261008/qlib_recorder/216598613405890605"
+        }
+      }
+    }
+  ],
+  "removed_transient_git_snapshots": [
+    {
+      "path": "qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/code_status.txt",
+      "sha256": "288fafb3b337ece5ca1c0a1e6bbe7ef68aea2d3d2be6e9463b1143ba656584a1"
+    },
+    {
+      "path": "qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/216598613405890605/42a5f95d21c3413bac125fa5b4f1085a/artifacts/code_diff.txt",
+      "sha256": "0bf5a8d34b4f6f6163d7cc9d5b1618e2d5b9ac960d974f4aadb01a2508e1c9bc"
+    }
+  ],
+  "readback": "Qlib verified before relocation; main readback required after merge"
+}
