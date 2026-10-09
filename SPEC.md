@@ -196,10 +196,13 @@ regular session 的 SOXL 相对 SOXX 超额。
 Stage1 冻结常数 `action_beta=0.6` 是可优化结构，不是硬参数：
 `src/analysis/dynamic_beta_cap.py` 与 `src/workflow/dynamic_beta_cap.py` 在冻结上游原始
 目标上比较常数上限与随已实现波动缩放的上限，不改信号。
-`research/stage1_dynamic_beta_cap_20261010/` 记录：波动缩放上限（如 vol_w30_s6、
-vol_w60_s6）在 development 与 outer 两个窗口的 Sharpe 都高于常数基线，且回撤更小
-（−25% vs −32%），但**年度胜率只有 4–6/11**——改善主要来自回撤压缩（Sharpe 分母），
-不是每年都赢。因此该结构作为低风险变体保留，不宣称稳定年度超额。
+`research/stage1_dynamic_beta_cap_20261010/` 记录一个**必须引以为戒的陷阱**：若先用
+outer 筛选规则，会看到 vol_w30_s6/vol_w60_s6 “通过两个窗口”；但**严格只用
+development 选择**时，dev 最优的 vol_w30_s10 在 outer 上 Sharpe 反而低于冻结常数
+（1.11 vs 1.24）且回撤更大（−39% vs −30%）——说明之前的“改善”是**选择偏差**，
+不是真实样本外优势。结论：动态 beta 上限**未获得样本外改善**，不得据二窗口
+“同时通过”宣称优化；选择必须只用 development，outer 只能读一次。
+前视检查：development 每年 train_end < 信号年年初；outer 模型冻结在 2022-12-30。
 `research/stage1_cash_drag_overlay_20261010/` 证明：高现金来自策略自身原始目标而非硬
 上限（cap_binding_fraction=0）；放宽 action_beta 提高绝对收益但降低 Sharpe 并翻倍回撤；
 冻结常数在风险调整后最优。所有变体均跑输 SOXX buy&hold 收益。
