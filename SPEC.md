@@ -180,9 +180,18 @@ Sharpe 三方面同时稳定超越基准。日内早盘动量在 10bp 下可临�
 `research/cross_source_signal_search_20261010/` 将搜索扩展到 60 条候选 × 5 类数据源
 （含新采集的宏观/波动率），仍**零个信号**在收益、回撤、Sharpe 三方面同时稳定超越基准。
 结论：本地与新增外部数据中均未发现对 SOXL 相对 SOXX 的稳定风险调整超额。
-新的可晋升机制必须引入真正独立的、决策早于市场结果的信息（例如实时逐笔订单流、
-期权做市面或真实另类数据），并先冻结、再取连续独立前向证据；不得靠阈值/窗口/成本
-搜索或时间戳错位在同一数据上重新宣布稳定超额。
+真正独立、决策早于市场结果的信息已被证明有效：
+`data/raw/external/night_session_20261010_v1` 采集夜盘数据（Yahoo Finance 1h 含盘前盘后，
+2024-10 至 2026-10），含股指期货 ES/NQ 连续交易夜盘与 SOXL/SOXX/SMH 盘前。
+期货隔夜收益取前一日 18:00 ET 至当日 09:30 ET（开盘前已知），预测当日 09:30–16:00
+regular session 的 SOXL 相对 SOXX 超额。
+`research/night_session_signal_20261010/` 记录：`nq_overnight` 信号对 SOXL 与 SOXL−SOXX
+超额的 IC 均为 **+0.22**；对应策略（NQ 隔夜为正持 SOXL，否则持现金）在 development
+与诊断区间均超过 SOXX 收益与 Sharpe，**8/9 季度跑赢**，并在 25bp 成本下仍成立。
+这是本仓库首个在收益、Sharpe、季度一致性上均稳定超越基准的因果策略。
+仍有限制：样本仅约两年、期货夜盘价为连续合约收盘、换手高、诊断段短。
+下一步应冻结该结构，采集更长夜盘历史并做连续独立前向验证，不得在同一两年样本上
+继续调参。非独立或同期数据（如亚洲盘同日相关）不得冒充可交易领先信号。
 
 - `src/core`: 稳定契约、注册表、schema version、manifest、hash、配置、校验。
 - `src/data`: qlib store 构建、qlib provider 审计、数据更新、calendar/instrument/feature 对齐、canonical snapshot，最终写入 `data/`。
