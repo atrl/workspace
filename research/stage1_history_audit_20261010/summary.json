@@ -1,92 +1,119 @@
 {
   "experiment": "stage1_history_audit_20261010",
-  "schema_version": "stage1_history_audit_v1",
+  "schema_version": "stage1_history_audit_v2",
   "card_status": "diagnostic",
   "decision": "no_fresh_walk_forward_evidence",
   "promotion_eligible": false,
   "objective_achieved": false,
-  "lineage": [
+  "legacy_lineage": [
     {
       "card": "intraday_recovery_direct_allocation_v1",
       "card_root": "research",
+      "status": "missing_field",
       "decision": "promoted_research_candidate_intraday_recovery_direct_allocation",
-      "selection_uses_outer_test": false,
+      "selection_uses_outer_test": null,
       "outer_status": null,
-      "outer_is_fresh": true,
+      "outer_is_fresh": null,
       "recorder_id": "3a2f919b802c48f08198fc9a93ec0a8b",
+      "recorder_state": "absent",
       "recorder_present": false,
       "source_recorder_id": null
     },
     {
       "card": "intraday_on_policy_staged_validation_v1",
       "card_root": "research",
+      "status": "ok",
       "decision": "promoted_research_candidate_stage1_direct_allocation_stage2_gated",
       "selection_uses_outer_test": false,
       "outer_status": "reused_diagnostic_not_fresh_unseen_test",
       "outer_is_fresh": false,
       "recorder_id": "f6b09330175e41719886d58ee2d11bec",
+      "recorder_state": "absent",
       "recorder_present": false,
       "source_recorder_id": null
     },
     {
       "card": "stage1_open_action_value_v1",
       "card_root": "research",
+      "status": "missing_field",
       "decision": "blocked_pending_causal_revalidation",
-      "selection_uses_outer_test": false,
+      "selection_uses_outer_test": null,
       "outer_status": null,
-      "outer_is_fresh": true,
+      "outer_is_fresh": null,
       "recorder_id": "77f2ae6c0ea143c0a765366abae71aaf",
+      "recorder_state": "absent",
       "recorder_present": false,
       "source_recorder_id": null
     },
     {
       "card": "stage1_confidence_veto_recovery_v1",
       "card_root": "research",
+      "status": "missing_field",
       "decision": "validated_research_candidate_for_forward_shadow_not_production",
-      "selection_uses_outer_test": false,
+      "selection_uses_outer_test": null,
       "outer_status": null,
-      "outer_is_fresh": true,
+      "outer_is_fresh": null,
       "recorder_id": "b03eab80b52f47039489ac2119e385b4",
+      "recorder_state": "absent",
       "recorder_present": false,
       "source_recorder_id": null
     },
     {
       "card": "stage1_economic_action_20260929",
       "card_root": "research",
+      "status": "missing_field",
       "decision": "not_promoted_pending_new_forward_shadow",
-      "selection_uses_outer_test": false,
+      "selection_uses_outer_test": null,
       "outer_status": null,
-      "outer_is_fresh": true,
+      "outer_is_fresh": null,
       "recorder_id": "17f81fbf27ee46859816ec1ac52151f6",
+      "recorder_state": "present",
       "recorder_present": true,
       "source_recorder_id": null
     },
     {
       "card": "stage1_regime_deployment_20261001",
       "card_root": "research",
+      "status": "missing_field",
       "decision": "not_promoted_historical_gates_failed",
-      "selection_uses_outer_test": false,
+      "selection_uses_outer_test": null,
       "outer_status": null,
-      "outer_is_fresh": true,
+      "outer_is_fresh": null,
       "recorder_id": "49fdd8b009ba4487952e08b986c08376",
+      "recorder_state": "present",
       "recorder_present": true,
       "source_recorder_id": null
     },
     {
       "card": "stage1_futu_sim_v1",
       "card_root": "production",
+      "status": "missing_field",
       "decision": "paper_sim_blocked_failed_position_risk_gates",
       "selection_uses_outer_test": null,
       "outer_status": null,
-      "outer_is_fresh": true,
+      "outer_is_fresh": null,
       "recorder_id": "e9c97a327bdf46f5a6a57f2d58d75062",
+      "recorder_state": "absent",
       "recorder_present": false,
       "source_recorder_id": "f6b09330175e41719886d58ee2d11bec"
     }
   ],
-  "findings": {
+  "lineage_findings": {
     "cards": 7,
+    "ok_cards": 1,
+    "missing_card_cards": [],
+    "missing_field_cards": [
+      "intraday_recovery_direct_allocation_v1",
+      "stage1_open_action_value_v1",
+      "stage1_confidence_veto_recovery_v1",
+      "stage1_economic_action_20260929",
+      "stage1_regime_deployment_20261001",
+      "stage1_futu_sim_v1"
+    ],
+    "unknown_freshness_cards": [],
+    "empty_recorder_cards": [],
     "promoted_cards": 2,
+    "empty_promotion_set": false,
     "recorders_declared": 7,
     "recorders_present": 2,
     "recorders_missing": 5,
@@ -100,27 +127,226 @@
     "outer_not_fresh_cards": [
       "intraday_on_policy_staged_validation_v1"
     ],
-    "any_selection_used_outer": false,
-    "all_promotions_have_recorder": false
+    "outer_unknown_cards": [
+      "intraday_recovery_direct_allocation_v1",
+      "stage1_open_action_value_v1",
+      "stage1_confidence_veto_recovery_v1",
+      "stage1_economic_action_20260929",
+      "stage1_regime_deployment_20261001",
+      "stage1_futu_sim_v1"
+    ],
+    "any_selection_used_outer": true,
+    "all_promotions_have_recorder": false,
+    "all_cards_ok": false
+  },
+  "active_release": {
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "execution_environment": "SIMULATE",
+    "research_promotion_status": "not_promoted",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+    "allocation_card": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+    "action_card": "research/stage1_open_action_value_net_fees_20260928"
+  },
+  "active_release_development_risk": {
+    "status": "ok",
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+    "development_gates": {
+      "development_return_above_baseline": true,
+      "stress_25bps_return_above_baseline": true,
+      "max_drawdown_not_worse": false,
+      "worst_day_not_worse": true,
+      "cvar5_not_worse": false,
+      "worst_5d_not_worse": true,
+      "open_trade_days_reduced_8pct": true,
+      "turnover_not_increased": true,
+      "annual_wealth_floor_pass": true,
+      "baseline_fallback_identity": true,
+      "outer_not_used_for_selection": true
+    },
+    "failed_development_gates": [
+      "cvar5_not_worse",
+      "max_drawdown_not_worse"
+    ],
+    "development_gate_pass": false,
+    "paper_trial_authorization": true
+  },
+  "forward_plan": {
+    "registered_before_first_forward_observation": true,
+    "status": "pending",
+    "minimum_complete_paired_sessions": 60,
+    "minimum_sessions_per_regime": 15,
+    "minimum_regime_transitions": 3,
+    "paired": "candidate and incumbent controller, each from same initialcash and captured quotes at both10/25bp; separate own holdings and risk clock",
+    "quality": "No unresolved slot gaps, data-age, model/hash, accounting or timing failures; incomplete sessions excluded and explicitly reported, never retroactively traded.",
+    "performance": "At both10/25bp net terminal wealth at least paired baseline; maximum drawdown,CVaR5,worst daily loss no worse; turnover no higher. Historical failure gates remain binding for active replacement.",
+    "future_data": "Only events at or after release not_before; model/threshold changes start a new release and evidence window.",
+    "scope": "Minimum observation criteria, not statistical proof or automatic broker authorization. Fractional price-return books do not verify real fills, dividends or corporate actions."
+  },
+  "forward_plan_status": {
+    "declared_plan": true,
+    "verified": false,
+    "note": "read from the release manifest text; the seal is not verified here"
+  },
+  "forward_evidence": {
+    "status": "needs_data",
+    "qualification": "needs_data",
+    "eligible_sessions": null,
+    "raw_observed_dates": [
+      "2026-08-03",
+      "2026-08-04",
+      "2026-08-05",
+      "2026-08-06",
+      "2026-08-07",
+      "2026-09-28",
+      "2026-09-29",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09"
+    ],
+    "raw_observed_count": 14,
+    "settled_dates": [
+      "2026-08-03",
+      "2026-08-04",
+      "2026-08-05",
+      "2026-08-06",
+      "2026-08-07",
+      "2026-08-10",
+      "2026-08-11",
+      "2026-08-12",
+      "2026-08-13",
+      "2026-08-14",
+      "2026-08-17",
+      "2026-08-18",
+      "2026-08-19",
+      "2026-08-20",
+      "2026-08-21",
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-31",
+      "2026-09-01",
+      "2026-09-02",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-08",
+      "2026-09-09",
+      "2026-09-10",
+      "2026-09-11",
+      "2026-09-14",
+      "2026-09-15",
+      "2026-09-16",
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-25",
+      "2026-09-28",
+      "2026-09-29",
+      "2026-09-30",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08"
+    ],
+    "settled_count": 48,
+    "required_sessions": 60,
+    "required_per_regime": 15,
+    "required_transitions": 3,
+    "contamination": {
+      "source": "runtime/soxl/stage1_futu_sim/paper_cycle.json",
+      "effective_session_date": "2026-08-10",
+      "contaminated_slots": [
+        "2026-07-31:recovery",
+        "2026-08-03:recovery",
+        "2026-08-04:recovery",
+        "2026-08-05:recovery",
+        "2026-08-06:recovery"
+      ],
+      "windows": [
+        "2026-08-03..2026-08-07"
+      ],
+      "status": "declared"
+    },
+    "reasons": [
+      "a contaminated window is declared and must be excluded before any count",
+      "no matured identity-paired, hash-verified validation contract; raw and settled dates are not eligible forward sessions"
+    ]
   },
   "walk_forward_verdict": {
     "passed_fresh_walk_forward": false,
-    "forward_sessions": 13,
+    "qualification": "needs_data",
+    "eligible_forward_sessions": null,
+    "observed_forward_sessions": 14,
+    "settled_forward_sessions": 48,
     "required_forward_sessions": 60,
+    "evidence_status": "needs_data",
     "failed_reasons": [
-      "a promoted card has no committed recorder",
-      "only 13 managed forward sessions < required 60"
+      "one or more lineage cards are missing, incomplete or unknown",
+      "at least one card selected using the outer window (or freshness unknown)",
+      "a promoted card has no present, non-empty recorder",
+      "a contaminated window is declared and must be excluded before any count",
+      "no matured identity-paired, hash-verified validation contract; raw and settled dates are not eligible forward sessions",
+      "formal promotion requires the existing sealed validation contract, not this diagnostic"
     ]
   },
-  "forward_sessions": 13,
-  "required_forward_sessions": 60,
+  "independent_paper_books": {
+    "baseline_10bps": 6,
+    "baseline_25bps": 6,
+    "candidate_10bps": 6,
+    "candidate_25bps": 6
+  },
+  "contamination": {
+    "source": "runtime/soxl/stage1_futu_sim/paper_cycle.json",
+    "effective_session_date": "2026-08-10",
+    "contaminated_slots": [
+      "2026-07-31:recovery",
+      "2026-08-03:recovery",
+      "2026-08-04:recovery",
+      "2026-08-05:recovery",
+      "2026-08-06:recovery"
+    ],
+    "windows": [
+      "2026-08-03..2026-08-07"
+    ],
+    "status": "declared"
+  },
+  "evidence_lines": {
+    "active_sim_raw_observed_dates": 14,
+    "active_sim_settled_dates": 48,
+    "active_sim_eligible_forward": null,
+    "qualification": "needs_data",
+    "legacy_lineage_recorders_present": 2,
+    "independent_paper_books": {
+      "baseline_10bps": 6,
+      "baseline_25bps": 6,
+      "candidate_10bps": 6,
+      "candidate_25bps": 6
+    },
+    "note": "\u4e09\u6761\u7ebf\u5206\u522b\u62a5\u544a\uff0c\u4e0d\u76f8\u52a0\u3001\u4e0d\u6df7\u7528"
+  },
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
   },
   "limitations": [
-    "Reads card summaries and the runtime execution state only; it does not replay positions.",
-    "A reused diagnostic window that the project has already inspected is not fresh evidence."
+    "Diagnostic only: there is no success branch; qualification is always needs_data here.",
+    "Reads card summaries, the runtime execution state, paper-cycle repair metadata and the sealed release manifest; no replay.",
+    "Raw completed_slots and settled dates are reported, never counted as eligible paired forward sessions.",
+    "The active release's allocation/action identity is resolved and hash-verified via load_runtime_release, not by card path.",
+    "Formal promotion requires the existing sealed validation contract, not this diagnostic."
   ]
 }

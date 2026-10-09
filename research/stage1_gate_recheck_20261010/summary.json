@@ -1,10 +1,23 @@
 {
   "experiment": "stage1_gate_recheck_20261010",
-  "schema_version": "stage1_gate_recheck_v1",
-  "card_status": "diagnostic",
-  "decision": "committed_evidence_passes_all_gates",
+  "schema_version": "stage1_gate_recheck_v2",
+  "card_status": "legacy_diagnostic",
+  "decision": "legacy_diagnostic_no_recheck_verdict",
   "promotion_eligible": false,
+  "objective_achieved": false,
   "source_card": "intraday_on_policy_staged_validation_v1",
+  "production_reference": {
+    "source": "production/stage1_futu_sim_v1/summary.json",
+    "window_start": "2023-01-04",
+    "window_end": "2026-08-07",
+    "expected_rows": 900,
+    "cost_bps": 10.0,
+    "worst_rolling_5d_pct": -12.110754878147423,
+    "risk_gate_pass": false,
+    "source_recorder_id": "f6b09330175e41719886d58ee2d11bec",
+    "recorder_id": "e9c97a327bdf46f5a6a57f2d58d75062",
+    "source_experiment": "intraday_on_policy_staged_validation_v1"
+  },
   "floors": {
     "max_drawdown_pct": -30.0,
     "worst_day_pct": -12.0,
@@ -13,8 +26,12 @@
   },
   "recorders": [
     {
+      "experiment_id": "300782104043818423",
       "recorder_id": "454e94c9ed5f4c4aaebce0dfa824a38a",
       "artifact": "research/intraday_on_policy_staged_validation_v1/qlib_recorder/300782104043818423/454e94c9ed5f4c4aaebce0dfa824a38a/artifacts/intraday_on_policy_staged_validation_v1/strategy_returns.csv",
+      "artifact_sha256": "3966361016c860e767b42a3e770b578f7db53c16e9a3d6360926a5c1c9ad1b07",
+      "git_tracked": true,
+      "status": "ok",
       "start": "2023-01-03",
       "end": "2026-06-26",
       "sessions": 873,
@@ -27,11 +44,36 @@
       "gate_max_drawdown_pct": true,
       "gate_worst_day_pct": true,
       "gate_cvar5_pct": true,
-      "gate_worst_rolling_5d_pct": true
+      "gate_worst_rolling_5d_pct": true,
+      "identity_match": false,
+      "window_match": false,
+      "cost_status": "unknown",
+      "calendar_status": "unknown",
+      "comparability": "not_comparable",
+      "evidence_source": "qlib_download",
+      "qlib_read": {
+        "status": "readable",
+        "recorder_id": "454e94c9ed5f4c4aaebce0dfa824a38a",
+        "artifact_uri": "/Users/rziiiii/dev/workspace/research/intraday_on_policy_staged_validation_v1/qlib_recorder/300782104043818423/454e94c9ed5f4c4aaebce0dfa824a38a/artifacts",
+        "artifact_listing": [
+          "intraday_on_policy_staged_validation_v1"
+        ],
+        "downloaded_rows": 873,
+        "downloaded_sha256": "3966361016c860e767b42a3e770b578f7db53c16e9a3d6360926a5c1c9ad1b07",
+        "api": [
+          "qlib.workflow.R.get_recorder",
+          "Recorder.list_artifacts",
+          "Recorder.download_artifact"
+        ]
+      }
     },
     {
+      "experiment_id": "300782104043818423",
       "recorder_id": "76a6fe6a54cf4348bc0999b2316e8ea9",
       "artifact": "research/intraday_on_policy_staged_validation_v1/qlib_recorder/300782104043818423/76a6fe6a54cf4348bc0999b2316e8ea9/artifacts/intraday_on_policy_staged_validation_v1/strategy_returns.csv",
+      "artifact_sha256": "05f28e41304775b90d1d7605db926a9b1ff093e4fd66b056c892b4432b7f8ba1",
+      "git_tracked": true,
+      "status": "ok",
       "start": "2023-01-03",
       "end": "2026-06-26",
       "sessions": 873,
@@ -44,19 +86,45 @@
       "gate_max_drawdown_pct": true,
       "gate_worst_day_pct": true,
       "gate_cvar5_pct": true,
-      "gate_worst_rolling_5d_pct": true
+      "gate_worst_rolling_5d_pct": true,
+      "identity_match": false,
+      "window_match": false,
+      "cost_status": "unknown",
+      "calendar_status": "unknown",
+      "comparability": "not_comparable",
+      "evidence_source": "qlib_download",
+      "qlib_read": {
+        "status": "readable",
+        "recorder_id": "76a6fe6a54cf4348bc0999b2316e8ea9",
+        "artifact_uri": "/Users/rziiiii/dev/workspace/research/intraday_on_policy_staged_validation_v1/qlib_recorder/300782104043818423/76a6fe6a54cf4348bc0999b2316e8ea9/artifacts",
+        "artifact_listing": [
+          "intraday_on_policy_staged_validation_v1"
+        ],
+        "downloaded_rows": 873,
+        "downloaded_sha256": "05f28e41304775b90d1d7605db926a9b1ff093e4fd66b056c892b4432b7f8ba1",
+        "api": [
+          "qlib.workflow.R.get_recorder",
+          "Recorder.list_artifacts",
+          "Recorder.download_artifact"
+        ]
+      }
     }
   ],
-  "all_committed_pass": true,
-  "any_committed_fail": false,
+  "comparable_count": 0,
+  "production_gate_override": false,
+  "recheck_verdict": "none",
+  "qlib_primary_source": true,
+  "pandas_only_fallback": false,
+  "retraction": "This card makes no claim that the production risk failure is a provenance artifact. Legacy committed recorders are reported as diagnostics only; their Qlib readability and window/identity comparability are recorded, and only an exact same-window, same-identity, same-cost run could confirm or overturn the production result.",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
   },
   "limitations": [
-    "Recomputes the gate only from recorders already committed to the repository.",
-    "A pass here does not by itself promote the strategy; forward evidence is still required.",
-    "The production card's un-committed recorder cannot be audited by this recheck."
+    "Legacy diagnostic only; there is no pass/overturn branch and production_gate_override is false.",
+    "Qlib is the only primary source; an unreadable recorder is needs_data with no metrics or gate result.",
+    "Cost and complete-calendar alignment are unknown here, so comparability is never claimed.",
+    "Passing a risk gate here would not promote the strategy; eligible forward evidence is still required."
   ]
 }

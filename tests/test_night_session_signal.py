@@ -88,18 +88,30 @@ def test_new_night_session_dataset_present_and_documented():
         assert (data_dir / f"{name}.parquet").is_file()
 
 
-def test_workflow_is_qlib_native_and_reconciles(tmp_path):
-    """The card must build a qlib store, read D.features, and run qlib.backtest."""
+def test_known_defect_workflow_refuses_before_any_side_effect(tmp_path):
+    """The night-session workflow has known integrity defects and must refuse.
+
+    It may not run on a fresh directory, must not create a recorder or write a
+    card, and must never emit a promotion-eligible / objective-achieved result.
+    """
+    import pytest
     from src.workflow import night_session_signal as wf
 
-    summary = wf.run_night_session_signal(
-        root=ROOT, card_dir=tmp_path / "card",
-        recorder_uri=tmp_path / "card" / "qlib_recorder")
-    # Data path is the qlib provider, not raw parquet.
-    assert "night_session_20261010_v1" in summary["data_audit"]["provider_uri"]
-    assert "qlib.data.D.features" in summary["qlib_data_api"]
-    assert "qlib.backtest.backtest" in summary["qlib_data_api"]
-    # Native reconciliation must pass.
-    assert summary["qlib_native_status"] == "passed"
-    assert summary["native_audit"]["maximum_session_return_error"] <= 1e-6
-    assert summary["recorder_id"]
+    card = tmp_path / "card"
+    with pytest.raises(ValueError, match="blocked_known_integrity_defects"):
+        wf.run_night_session_signal(root=ROOT, card_dir=card,
+                                    recorder_uri=card / "qlib_recorder")
+    # No side effects: no card and no recorder written before the refusal.
+    assert not card.exists()
+
+
+def test_writer_bans_eligible_or_objective_true_on_fresh_dir(tmp_path):
+    """The legacy writer must refuse to record an eligible/objective-achieved card."""
+    import pytest
+    from src.workflow import night_session_signal as wf
+
+    positive = {"promotion_eligible": True, "objective_achieved": True,
+                "decision": "stable_overnight_excess_candidate"}
+    with pytest.raises(ValueError):
+        wf.write_card_files(positive, card_dir=tmp_path / "fresh")
+    assert not (tmp_path / "fresh" / "summary.json").exists()

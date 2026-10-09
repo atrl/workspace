@@ -118,8 +118,19 @@ def run_night_session_signal(*, root: Path | str | None = None, card_dir: Path |
                              recorder_uri: Path | str | None = None) -> dict[str, Any]:
     spec_root = resolve_root(root)
     spec = NightSpec(root=spec_root)
+    # The historical workflow is unconditionally blocked: it contains known
+    # integrity defects (look-ahead bar, return-convention mismatch, uncharged
+    # round trips, mislabeled benchmark, in-window threshold reselection) and has
+    # NOT been rebuilt with correct timing/cost/qlib semantics. This is a static
+    # refusal that any target path hits, so a fresh empty card_dir cannot bypass
+    # it by omitting an on-disk marker.
+    raise ValueError(
+        "blocked_known_integrity_defects: night_session_signal run is unconditionally disabled; "
+        "it is invalid_for_promotion and no success result may be produced")
+
     target_card = Path(card_dir) if card_dir is not None else spec.card_dir
     target_recorder = Path(recorder_uri) if recorder_uri is not None else (target_card / "qlib_recorder")
+    _guard_invalid_card(target_card)
     target_card.mkdir(parents=True, exist_ok=True)
 
     panel, data_audit = _load_panel(spec)
@@ -445,7 +456,39 @@ def _record(*, spec, recorder_uri, summary) -> dict[str, Any]:
             "qlib_docs_reference": QLIB_DOCS}
 
 
+def _guard_invalid_card(card_dir: Path) -> None:
+    """Refuse to overwrite a card already marked invalid_for_promotion.
+
+    The night-session card was corrected to ``invalid_for_promotion`` after a
+    look-ahead defect was found. Re-running the original workflow must never
+    silently restore a promotion-eligible result, so this guard fails closed.
+    """
+    existing = card_dir / "summary.json"
+    if not existing.is_file():
+        return
+    try:
+        prior = json.loads(existing.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return
+    marked = str(prior.get("decision", "")).startswith("invalid_for_promotion")
+    if marked or prior.get("invalid_for_promotion") is True:
+        raise ValueError(
+            "blocked: night-session card is marked invalid_for_promotion and must not be overwritten; "
+            "use a new card identity for any corrected research")
+
+
 def write_card_files(summary: dict, *, card_dir: Path) -> None:
+    # The legacy writer may never record a promotion-eligible or objective-achieved
+    # card: this workflow has known integrity defects and produces no success. The
+    # integrity correction uses its own sidecar and does not go through here.
+    if summary.get("promotion_eligible") is True or summary.get("objective_achieved") is True:
+        raise ValueError(
+            "blocked_known_integrity_defects: legacy night-session writer refuses to record "
+            "a promotion_eligible or objective_achieved card")
+    if str(summary.get("decision", "")).startswith("stable_"):
+        raise ValueError(
+            "blocked_known_integrity_defects: legacy writer refuses a stable_* decision")
+    _guard_invalid_card(card_dir)
     card_dir.mkdir(parents=True, exist_ok=True)
     (card_dir / "summary.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
     pd.DataFrame(summary["information_coefficients"]).to_csv(

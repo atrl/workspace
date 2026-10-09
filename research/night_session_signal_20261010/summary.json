@@ -2,7 +2,7 @@
   "experiment": "night_session_signal_20261010",
   "schema_version": "night_session_signal_v1",
   "card_status": "active_research",
-  "decision": "stable_overnight_excess_candidate",
+  "decision": "invalid_for_promotion_look_ahead",
   "native_audit": {
     "status": "passed",
     "sessions": 498,
@@ -144,8 +144,8 @@
   "quarterly_win_rate": 0.8888888888888888,
   "quarterly_win_count": 8,
   "quarterly_count": 9,
-  "promotion_eligible": true,
-  "objective_achieved": true,
+  "promotion_eligible": false,
+  "objective_achieved": false,
   "new_data_source": "data/raw/external/night_session_20261010_v1",
   "data_audit": {
     "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/night_session_20261010_v1",
@@ -860,5 +860,161 @@
   "qlib_docs_reference": [
     "https://qlib.readthedocs.io/en/latest/component/data.html",
     "https://qlib.readthedocs.io/en/latest/component/recorder.html"
-  ]
+  ],
+  "integrity": {
+    "status": "invalid_for_promotion",
+    "reason": "overnight signal consumed the 09:00-10:00 one-hour bar whose close is the 10:00 price, after the 09:30 cash open",
+    "known_defects": [
+      "look_ahead: 09:00 one-hour bar spans 09:00-10:00 but was selected by index.time < 09:30",
+      "return_convention_mismatch: headline open-to-close vs native open-to-next-open",
+      "turnover_undercharged: adjacent-day target difference, not intraday round trip",
+      "benchmark_mislabeled: 'SOXX buyhold' is an intraday session return",
+      "threshold_reselected_in_diagnostic: threshold chosen inside the evaluation window",
+      "recorder_incomplete: recorder stored only a summary yet claimed panels"
+    ],
+    "bar_span_audit": {
+      "status": "ok",
+      "all_five_fields_identical": true,
+      "required_days": [
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08"
+      ],
+      "required_bars_per_day": 12,
+      "snapshot": "research/night_session_signal_20261010/night_span_source_audit.json",
+      "snapshot_sha256": "4a5f55b37fc3a0298420c32008e6940d6e79c7347bd8da64e546ffe634a97ae1",
+      "bound_raw_parquet": "5caf8600ca1ad8428032ed8049bd64cca330faed22685d58c05ac1fa3b2b0dd6",
+      "verified_raw_parquet_sha256": "5caf8600ca1ad8428032ed8049bd64cca330faed22685d58c05ac1fa3b2b0dd6",
+      "days": [
+        {
+          "day": "2026-10-05",
+          "status": "ok",
+          "hourly": {
+            "open": 30995.5,
+            "high": 31229.5,
+            "low": 30988.5,
+            "close": 31155.25,
+            "volume": 70296.0
+          },
+          "reaggregated": {
+            "open": 30995.5,
+            "high": 31229.5,
+            "low": 30988.5,
+            "close": 31155.25,
+            "volume": 70296.0
+          },
+          "fields": {
+            "open": true,
+            "high": true,
+            "low": true,
+            "close": true,
+            "volume": true
+          },
+          "identical": true
+        },
+        {
+          "day": "2026-10-06",
+          "status": "ok",
+          "hourly": {
+            "open": 31491.25,
+            "high": 31567.0,
+            "low": 31457.75,
+            "close": 31548.0,
+            "volume": 79118.0
+          },
+          "reaggregated": {
+            "open": 31491.25,
+            "high": 31567.0,
+            "low": 31457.75,
+            "close": 31548.0,
+            "volume": 79118.0
+          },
+          "fields": {
+            "open": true,
+            "high": true,
+            "low": true,
+            "close": true,
+            "volume": true
+          },
+          "identical": true
+        },
+        {
+          "day": "2026-10-07",
+          "status": "ok",
+          "hourly": {
+            "open": 31259.25,
+            "high": 31275.5,
+            "low": 31143.0,
+            "close": 31238.0,
+            "volume": 90481.0
+          },
+          "reaggregated": {
+            "open": 31259.25,
+            "high": 31275.5,
+            "low": 31143.0,
+            "close": 31238.0,
+            "volume": 90481.0
+          },
+          "fields": {
+            "open": true,
+            "high": true,
+            "low": true,
+            "close": true,
+            "volume": true
+          },
+          "identical": true
+        },
+        {
+          "day": "2026-10-08",
+          "status": "ok",
+          "hourly": {
+            "open": 31199.25,
+            "high": 31275.5,
+            "low": 31156.25,
+            "close": 31191.75,
+            "volume": 77921.0
+          },
+          "reaggregated": {
+            "open": 31199.25,
+            "high": 31275.5,
+            "low": 31156.25,
+            "close": 31191.75,
+            "volume": 77921.0
+          },
+          "fields": {
+            "open": true,
+            "high": true,
+            "low": true,
+            "close": true,
+            "volume": true
+          },
+          "identical": true
+        }
+      ],
+      "scope": "forensic source-timestamp audit only; not research or strategy evidence"
+    },
+    "ic_unsafe_cutoff_09_30": {
+      "status": "ok",
+      "cutoff": "09:30",
+      "sessions": 498,
+      "ic_soxl": 0.22004568778753475,
+      "ic_excess": 0.22439527374705595
+    },
+    "ic_safe_cutoff_09_00": {
+      "status": "ok",
+      "cutoff": "09:00",
+      "sessions": 498,
+      "ic_soxl": -0.01191814227880693,
+      "ic_excess": -0.007243982756510589
+    },
+    "superseded_metrics_preserved": {
+      "original_decision": "stable_overnight_excess_candidate",
+      "original_promotion_eligible": true,
+      "note": "original metrics retained for audit only; they are invalid and not eligible for promotion"
+    },
+    "span_source_snapshot": "research/night_session_signal_20261010/night_span_source_audit.json",
+    "span_source_snapshot_sha256": "4a5f55b37fc3a0298420c32008e6940d6e79c7347bd8da64e546ffe634a97ae1"
+  },
+  "original_metrics_invalid": true
 }

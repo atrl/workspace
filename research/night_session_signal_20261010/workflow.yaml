@@ -1,7 +1,35 @@
 schema_version: night_session_signal_v1
 experiment: night_session_signal_20261010
+status: invalid_for_promotion
+promotion_eligible: false
+objective_achieved: false
+scope: forensic_only_historical_invalid_result
+
+# The original causality and artifact claims below are RETAINED as the original
+# INVALID declarations. They are NOT current and must not be used.
+original_invalid_declarations:
+  causality_statement: |
+    ORIGINAL, INVALID: "Overnight futures change uses the prior 18:00 ET to current
+    09:30 ET window; premarket uses 04:00-09:30 ET. Both end at the cash open."
+    This is false as implemented: the 09:00 one-hour bar covers 09:00-10:00, so the
+    "09:30" window consumed a 10:00 price. See integrity_correction.json.
+  artifact_claim: |
+    ORIGINAL, INVALID: claimed recorder_only_artifacts were saved as panels. The
+    recorder stored only a summary; the panels below were NOT persisted there.
+
 new_data_source: data/raw/external/night_session_20261010_v1
-recorder_uri: /Users/rziiiii/dev/workspace/research/night_session_signal_20261010/qlib_recorder
+
+# Actual existing files vs the original invalid claim, kept separate.
+actual_existing:
+  - card/integrity_correction.json
+  - card/night_span_source_audit.json
+  - card/conclusion.md
+  - card/summary.json
+missing_original_claims:
+  - data/session_panel.pkl
+  - analysis/information_coefficients.pkl
+  - analysis/window_results.pkl
+
 costs_bps:
 - 10.0
 - 25.0
@@ -10,17 +38,11 @@ thresholds:
 - 0.001
 - 0.002
 development_fraction: 0.6
-causality_statement: Overnight futures change uses the prior 18:00 ET to current 09:30
-  ET window; premarket uses 04:00-09:30 ET. Both end at the cash open. The traded
-  target is the same day's 09:30-16:00 regular session and the benchmark is SOXX over
-  that identical window.
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml
-  recorder_only_artifacts:
-  - data/session_panel.pkl
-  - analysis/information_coefficients.pkl
-  - analysis/window_results.pkl
+  status: invalid
+  note: original recorder_only_artifacts claim was inaccurate and is retained only under original_invalid_declarations
 qlib_docs_reference:
 - https://qlib.readthedocs.io/en/latest/component/data.html
 - https://qlib.readthedocs.io/en/latest/component/recorder.html

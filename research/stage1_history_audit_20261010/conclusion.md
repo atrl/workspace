@@ -1,13 +1,19 @@
-# Stage1 溯源与 walk-forward 完整性审查（中文结论）
-- 审查卡数：7；其中研究晋级卡 2 张。
-- recorder 声明 7 个，存在 2 个，**缺失 5 个**：['intraday_recovery_direct_allocation_v1', 'intraday_on_policy_staged_validation_v1', 'stage1_open_action_value_v1', 'stage1_confidence_veto_recovery_v1', 'stage1_futu_sim_v1']。
-- 被标记为非新鲜 outer 的卡：['intraday_on_policy_staged_validation_v1']。
-- 是否有卡用 outer 选参：False。
-- 受管理前向交易日：13（门槛 60）。
+# Stage1 溯源与有效前向证据审查（fail-closed，中文结论）
+- 现役 release：`stage1_hold_net_fees_20260928_paper_trial_v1`（allocation `f696f656b3d44e868588e09a5d97c905`，action `b472a458fc9042b4905094fddeaebd33`）；研究状态 `not_promoted`。
+- 现役 release 开发门：失败项 ['cvar5_not_worse', 'max_drawdown_not_worse']；gate_pass=False（来自已验签 load_runtime_release 的 action_summary）。
+- 旧 lineage：7 张卡中 ok 1 张；缺卡 0、缺字段 6、空 recorder 0；recorder 缺失 5 个。
+- 是否有卡用 outer 选参（未知按用了处理）：True。
+- 有效前向证据：raw observed dates 14 个，settled dates 48 个；eligible paired sessions = None（qualification=`needs_data`，门槛 60）。
+- 独立 paper books（单列 raw/settled，不相加）：{'baseline_10bps': 6, 'baseline_25bps': 6, 'candidate_10bps': 6, 'candidate_25bps': 6}。
+- 本审查只做诊断，无成功分支；正式晋升只接受既有完整封存验证合同。
+- 污染期：['2026-08-03..2026-08-07']。
 - **是否通过新鲜 walk-forward：False**。
 - 未通过原因：
-  - a promoted card has no committed recorder
-  - only 13 managed forward sessions < required 60
-- 溯源缺陷：上述卡的 recorder 不在仓库中，其结论无法独立复现；生产来源链中的卡片尤其受影响。
+  - one or more lineage cards are missing, incomplete or unknown
+  - at least one card selected using the outer window (or freshness unknown)
+  - a promoted card has no present, non-empty recorder
+  - a contaminated window is declared and must be excluded before any count
+  - no matured identity-paired, hash-verified validation contract; raw and settled dates are not eligible forward sessions
+  - formal promotion requires the existing sealed validation contract, not this diagnostic
 - 决定 `no_fresh_walk_forward_evidence`。
-- 结论：2023-2026 为被项目反复查看的 reused diagnostic，不能当作样本外证据；在取得 ≥60 个受管理前向交易日并补齐 recorder 之前，不得宣称通过 walk-forward。
+- 结论：之前引用的旧 summary recorder 不是现役模型；现役 release 的 action 开发期在 ['cvar5_not_worse', 'max_drawdown_not_worse'] 上劣于其自身基线；`completed_slots` 只是原始观测日，缺完整/时序/配对/身份校验，不得当作合格前向。撤回“只是 provenance 缺陷”的说法。

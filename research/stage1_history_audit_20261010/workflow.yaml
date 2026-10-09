@@ -1,6 +1,9 @@
-schema_version: stage1_history_audit_v1
+schema_version: stage1_history_audit_v2
 experiment: stage1_history_audit_20261010
-required_forward_sessions: 60
+forward_plan_gate:
+  minimum_complete_paired_sessions: 60
+  minimum_sessions_per_regime: 15
+  minimum_regime_transitions: 3
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml

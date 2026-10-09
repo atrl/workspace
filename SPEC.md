@@ -189,26 +189,41 @@ Stage1 生产线的验证完整性已被独立审计并写入仓库：
   其结论无法独立复现。
 - `2023-2026` 被标记为 `reused_diagnostic_not_fresh_unseen_test`，是项目反复查看过的
   窗口，**不能当作样本外证据**。
-- 受管理前向交易日仅 13（门槛 60），且曾发生前视 bug（`stage1_open_action_value_v1`
-  的 `blocked_pending_causal_revalidation`）。
-- 判定：**未通过新鲜 walk-forward**，决定 `no_fresh_walk_forward_evidence`。
-`research/stage1_gate_recheck_20261010/` 用已提交 recorder 重算四个风险门均为 PASS，
-说明当前 `paper_sim_blocked` 的根因是**证据治理与缺少前向验证**，不是可验证的策略失败。
+- `completed_slots` 原始观测日（约 14）不等于合格前向；settled 日（约 48）也不等于
+  合格配对前向。缺完整/时序/配对/身份/绩效校验时，资格为 `needs_data`。
+- 受管理前向交易日为 `needs_data`（不计原始日；门槛 60），且曾发生前视 bug
+  （`stage1_open_action_value_v1` 的 `blocked_pending_causal_revalidation`）。
+- 判定：**未通过新鲜 walk-forward**，决定 `no_fresh_walk_forward_evidence`；
+  本审查只做诊断，无成功分支。
+
+**更正（重要）**：此前“当前 `paper_sim_blocked` 只是证据治理/recorder provenance 缺陷、
+不是策略失败”的说法**不成立**，已撤回。现役 release 绑定 allocation `f696f656...` 与
+action `b472a458...`；其 action 开发期在 **MaxDD 与 CVaR5 两项上劣于其自身基线**
+（candidate MaxDD −30.083% vs baseline −29.931%；CVaR5 −3.539% vs −3.485%），
+`development_gate_pass=false`，仅因用户授权收据才允许 SIMULATE 试运行。
+`research/stage1_gate_recheck_20261010/` 的 legacy 诊断已改为：短窗/不同身份一律
+`not_comparable`，`production_gate_override=false`，不得用短窗 PASS 推翻长窗失败。
+
 规则：晋级卡必须留下已提交 recorder；不得用 reused diagnostic 充当样本外；
 在取得 ≥60 个受管理前向交易日并补齐 recorder 前，不得宣称通过 walk-forward。
 
-真正独立、决策早于市场结果的信息已被证明有效：
-`data/raw/external/night_session_20261010_v1` 采集夜盘数据（Yahoo Finance 1h 含盘前盘后，
-2024-10 至 2026-10），含股指期货 ES/NQ 连续交易夜盘与 SOXL/SOXX/SMH 盘前。
-期货隔夜收益取前一日 18:00 ET 至当日 09:30 ET（开盘前已知），预测当日 09:30–16:00
-regular session 的 SOXL 相对 SOXX 超额。
-`research/night_session_signal_20261010/` 记录：`nq_overnight` 信号对 SOXL 与 SOXL−SOXX
-超额的 IC 均为 **+0.22**；对应策略（NQ 隔夜为正持 SOXL，否则持现金）在 development
-与诊断区间均超过 SOXX 收益与 Sharpe，**8/9 季度跑赢**，并在 25bp 成本下仍成立。
-这是本仓库首个在收益、Sharpe、季度一致性上均稳定超越基准的因果策略。
-仍有限制：样本仅约两年、期货夜盘价为连续合约收盘、换手高、诊断段短。
-下一步应冻结该结构，采集更长夜盘历史并做连续独立前向验证，不得在同一两年样本上
-继续调参。非独立或同期数据（如亚洲盘同日相关）不得冒充可交易领先信号。
+夜盘信号卡已被独立审查判定 **invalid_for_promotion**，此前“首个因果有效策略”的结论**已撤回**：
+`data/raw/external/night_session_20261010_v1` 采集的夜盘数据（Yahoo Finance 1h 含盘前盘后，
+2024-10 至 2026-10）。**原策略对该数据的使用存在前视**：原实现把 `index.time < 09:30` 选入 NQ 的 `09:00` 一小时 bar，
+而该 bar 覆盖 `09:00–10:00`，其 close 是 **10:00 价格**（现金开盘之后）。
+源快照 `research/night_session_signal_20261010/night_span_source_audit.json`
+（sha256 `4a5f55b3...`，绑定原始 parquet `5caf8600...`）经离线重聚合证实：`09:00` 一小时 bar 与
+`09:00–10:00` 的 5m 聚合五个字段完全一致，4 天各 12 根。
+- 不安全 cutoff（09:30）：IC(SOXL)=**+0.2200**，IC(超额)=+0.2244
+- 安全 cutoff（09:00）：IC(SOXL)=**−0.0119**，IC(超额)=−0.0072
+
+原高 IC 依赖含开盘后信息的小时 bar。其余错误口径（headline open→close vs native open→次日 open、
+round-trip 成本未计足、基准“SOXX buyhold”实为日内、诊断内重选阈值、Recorder 只存 summary 却
+声称有 panels）**未修复，仅隔离时点**。两个 cutoff 的 IC 仅为**源时间戳敏感性取证**，
+不是可交易结果，也不是新的 Qlib 研究。新数据源（股指期货夜盘/盘前）仍可用于**细粒度、
+同口径、经 Qlib 再验证**的重建，但在完成该重建并取得连续前向证据前**不得晋升**，也不得
+据原 +0.22 宣称因果或可上线。`src/workflow/night_session_signal.py` 的 run 已无条件阻断，writer 拒绝写入成功资格。
+非独立或同期数据（如亚洲盘同日相关）不得冒充可交易领先信号。
 
 Stage1 冻结常数 `action_beta=0.6` 是可优化结构，不是硬参数：
 `src/analysis/dynamic_beta_cap.py` 与 `src/workflow/dynamic_beta_cap.py` 在冻结上游原始

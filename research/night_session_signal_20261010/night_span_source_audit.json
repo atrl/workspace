@@ -1,0 +1,612 @@
+{
+  "schema_version": "night_session_source_span_audit_v1",
+  "audit_kind": "source_timestamp_semantics_only_not_strategy_research",
+  "symbol": "NQ=F",
+  "timezone": "America/New_York",
+  "created_at_utc": "2026-10-09T13:27:57.123054+00:00",
+  "source_requests": {
+    "1h": {
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/NQ=F?range=5d&interval=1h&includePrePost=true",
+      "fetched_at_utc": "2026-10-09T13:27:56.963326+00:00",
+      "status_code": 200,
+      "response_sha256": "71a5c93bb7c1f9e697c3368525b812ab8f9e3c44bea8953b94c31eacea5e49a9"
+    },
+    "5m": {
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/NQ=F?range=5d&interval=5m&includePrePost=true",
+      "fetched_at_utc": "2026-10-09T13:27:57.067896+00:00",
+      "status_code": 200,
+      "response_sha256": "adbbf0472a4e9ef75945bee26f4f0432d801ef018d7839a13aa6682a0d7bdba6"
+    }
+  },
+  "local_raw_parquet": {
+    "path": "data/raw/external/night_session_20261010_v1/NQ_F.parquet",
+    "sha256": "5caf8600ca1ad8428032ed8049bd64cca330faed22685d58c05ac1fa3b2b0dd6"
+  },
+  "aggregation_rules": {
+    "open": "first",
+    "high": "max",
+    "low": "min",
+    "close": "last",
+    "volume": "sum"
+  },
+  "equality_tolerance": 0.0,
+  "required_days": [
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08"
+  ],
+  "days": [
+    {
+      "day": "2026-10-05",
+      "hour_label_et": "2026-10-05T09:00:00-04:00",
+      "aggregation_window_start_et": "2026-10-05T09:00:00-04:00",
+      "aggregation_window_end_exclusive_et": "2026-10-05T10:00:00-04:00",
+      "expected_five_minute_bars": 12,
+      "observed_five_minute_bars": 12,
+      "hourly_bar": {
+        "open": 30995.5,
+        "high": 31229.5,
+        "low": 30988.5,
+        "close": 31155.25,
+        "volume": 70296.0
+      },
+      "local_hourly_bar": {
+        "open": 30995.5,
+        "high": 31229.5,
+        "low": 30988.5,
+        "close": 31155.25,
+        "volume": 70296.0
+      },
+      "five_minute_bars": [
+        {
+          "timestamp_et": "2026-10-05T09:00:00-04:00",
+          "open": 30995.5,
+          "high": 31010.0,
+          "low": 30993.75,
+          "close": 30996.5,
+          "volume": 1020.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:05:00-04:00",
+          "open": 30996.5,
+          "high": 31007.5,
+          "low": 30988.5,
+          "close": 31004.0,
+          "volume": 1112.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:10:00-04:00",
+          "open": 31004.25,
+          "high": 31021.25,
+          "low": 31004.0,
+          "close": 31015.5,
+          "volume": 1169.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:15:00-04:00",
+          "open": 31016.5,
+          "high": 31023.25,
+          "low": 31012.25,
+          "close": 31019.25,
+          "volume": 730.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:20:00-04:00",
+          "open": 31018.25,
+          "high": 31026.0,
+          "low": 31004.25,
+          "close": 31012.0,
+          "volume": 1098.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:25:00-04:00",
+          "open": 31009.75,
+          "high": 31060.0,
+          "low": 31007.75,
+          "close": 31056.5,
+          "volume": 4350.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:30:00-04:00",
+          "open": 31055.0,
+          "high": 31160.0,
+          "low": 31044.25,
+          "close": 31156.0,
+          "volume": 18625.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:35:00-04:00",
+          "open": 31156.25,
+          "high": 31175.0,
+          "low": 31141.75,
+          "close": 31170.75,
+          "volume": 9674.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:40:00-04:00",
+          "open": 31171.0,
+          "high": 31211.5,
+          "low": 31165.0,
+          "close": 31204.5,
+          "volume": 9075.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:45:00-04:00",
+          "open": 31204.0,
+          "high": 31229.5,
+          "low": 31156.5,
+          "close": 31166.25,
+          "volume": 11214.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:50:00-04:00",
+          "open": 31167.25,
+          "high": 31192.25,
+          "low": 31151.25,
+          "close": 31170.25,
+          "volume": 7303.0
+        },
+        {
+          "timestamp_et": "2026-10-05T09:55:00-04:00",
+          "open": 31170.0,
+          "high": 31177.5,
+          "low": 31140.5,
+          "close": 31155.25,
+          "volume": 4926.0
+        }
+      ],
+      "aggregated_five_minute_bar": {
+        "open": 30995.5,
+        "high": 31229.5,
+        "low": 30988.5,
+        "close": 31155.25,
+        "volume": 70296.0
+      },
+      "api_hourly_equals_aggregation_by_field": {
+        "open": true,
+        "high": true,
+        "low": true,
+        "close": true,
+        "volume": true
+      },
+      "local_hourly_equals_aggregation_by_field": {
+        "open": true,
+        "high": true,
+        "low": true,
+        "close": true,
+        "volume": true
+      },
+      "includes_post_cash_open_bars": true
+    },
+    {
+      "day": "2026-10-06",
+      "hour_label_et": "2026-10-06T09:00:00-04:00",
+      "aggregation_window_start_et": "2026-10-06T09:00:00-04:00",
+      "aggregation_window_end_exclusive_et": "2026-10-06T10:00:00-04:00",
+      "expected_five_minute_bars": 12,
+      "observed_five_minute_bars": 12,
+      "hourly_bar": {
+        "open": 31491.25,
+        "high": 31567.0,
+        "low": 31457.75,
+        "close": 31548.0,
+        "volume": 79118.0
+      },
+      "local_hourly_bar": {
+        "open": 31491.25,
+        "high": 31567.0,
+        "low": 31457.75,
+        "close": 31548.0,
+        "volume": 79118.0
+      },
+      "five_minute_bars": [
+        {
+          "timestamp_et": "2026-10-06T09:00:00-04:00",
+          "open": 31491.25,
+          "high": 31510.75,
+          "low": 31486.0,
+          "close": 31507.75,
+          "volume": 1331.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:05:00-04:00",
+          "open": 31507.5,
+          "high": 31518.5,
+          "low": 31506.0,
+          "close": 31512.75,
+          "volume": 1055.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:10:00-04:00",
+          "open": 31513.0,
+          "high": 31521.0,
+          "low": 31502.25,
+          "close": 31505.5,
+          "volume": 1341.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:15:00-04:00",
+          "open": 31505.0,
+          "high": 31507.0,
+          "low": 31493.0,
+          "close": 31503.0,
+          "volume": 1514.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:20:00-04:00",
+          "open": 31502.5,
+          "high": 31512.0,
+          "low": 31488.25,
+          "close": 31508.0,
+          "volume": 2042.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:25:00-04:00",
+          "open": 31508.0,
+          "high": 31532.0,
+          "low": 31508.0,
+          "close": 31513.75,
+          "volume": 4463.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:30:00-04:00",
+          "open": 31513.25,
+          "high": 31567.0,
+          "low": 31476.0,
+          "close": 31487.0,
+          "volume": 23896.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:35:00-04:00",
+          "open": 31487.0,
+          "high": 31519.0,
+          "low": 31457.75,
+          "close": 31509.5,
+          "volume": 12963.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:40:00-04:00",
+          "open": 31509.0,
+          "high": 31520.0,
+          "low": 31485.25,
+          "close": 31517.0,
+          "volume": 8292.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:45:00-04:00",
+          "open": 31516.5,
+          "high": 31524.75,
+          "low": 31487.25,
+          "close": 31512.0,
+          "volume": 7847.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:50:00-04:00",
+          "open": 31511.75,
+          "high": 31523.25,
+          "low": 31501.0,
+          "close": 31521.75,
+          "volume": 5842.0
+        },
+        {
+          "timestamp_et": "2026-10-06T09:55:00-04:00",
+          "open": 31521.75,
+          "high": 31557.25,
+          "low": 31518.0,
+          "close": 31548.0,
+          "volume": 8532.0
+        }
+      ],
+      "aggregated_five_minute_bar": {
+        "open": 31491.25,
+        "high": 31567.0,
+        "low": 31457.75,
+        "close": 31548.0,
+        "volume": 79118.0
+      },
+      "api_hourly_equals_aggregation_by_field": {
+        "open": true,
+        "high": true,
+        "low": true,
+        "close": true,
+        "volume": true
+      },
+      "local_hourly_equals_aggregation_by_field": {
+        "open": true,
+        "high": true,
+        "low": true,
+        "close": true,
+        "volume": true
+      },
+      "includes_post_cash_open_bars": true
+    },
+    {
+      "day": "2026-10-07",
+      "hour_label_et": "2026-10-07T09:00:00-04:00",
+      "aggregation_window_start_et": "2026-10-07T09:00:00-04:00",
+      "aggregation_window_end_exclusive_et": "2026-10-07T10:00:00-04:00",
+      "expected_five_minute_bars": 12,
+      "observed_five_minute_bars": 12,
+      "hourly_bar": {
+        "open": 31259.25,
+        "high": 31275.5,
+        "low": 31143.0,
+        "close": 31238.0,
+        "volume": 90481.0
+      },
+      "local_hourly_bar": {
+        "open": 31259.25,
+        "high": 31275.5,
+        "low": 31143.0,
+        "close": 31238.0,
+        "volume": 90481.0
+      },
+      "five_minute_bars": [
+        {
+          "timestamp_et": "2026-10-07T09:00:00-04:00",
+          "open": 31259.25,
+          "high": 31273.75,
+          "low": 31248.0,
+          "close": 31251.75,
+          "volume": 1490.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:05:00-04:00",
+          "open": 31251.5,
+          "high": 31266.25,
+          "low": 31250.25,
+          "close": 31259.5,
+          "volume": 875.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:10:00-04:00",
+          "open": 31259.75,
+          "high": 31263.0,
+          "low": 31249.25,
+          "close": 31255.0,
+          "volume": 876.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:15:00-04:00",
+          "open": 31254.5,
+          "high": 31260.5,
+          "low": 31249.5,
+          "close": 31257.5,
+          "volume": 927.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:20:00-04:00",
+          "open": 31257.0,
+          "high": 31258.75,
+          "low": 31231.0,
+          "close": 31236.5,
+          "volume": 2278.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:25:00-04:00",
+          "open": 31236.5,
+          "high": 31245.0,
+          "low": 31227.25,
+          "close": 31234.0,
+          "volume": 3843.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:30:00-04:00",
+          "open": 31233.75,
+          "high": 31275.5,
+          "low": 31215.25,
+          "close": 31255.75,
+          "volume": 21634.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:35:00-04:00",
+          "open": 31255.5,
+          "high": 31259.25,
+          "low": 31150.0,
+          "close": 31180.0,
+          "volume": 17533.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:40:00-04:00",
+          "open": 31180.25,
+          "high": 31211.5,
+          "low": 31164.5,
+          "close": 31192.5,
+          "volume": 12646.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:45:00-04:00",
+          "open": 31193.25,
+          "high": 31207.25,
+          "low": 31143.0,
+          "close": 31177.5,
+          "volume": 11267.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:50:00-04:00",
+          "open": 31177.5,
+          "high": 31225.0,
+          "low": 31174.75,
+          "close": 31213.75,
+          "volume": 9447.0
+        },
+        {
+          "timestamp_et": "2026-10-07T09:55:00-04:00",
+          "open": 31213.75,
+          "high": 31247.75,
+          "low": 31204.5,
+          "close": 31238.0,
+          "volume": 7665.0
+        }
+      ],
+      "aggregated_five_minute_bar": {
+        "open": 31259.25,
+        "high": 31275.5,
+        "low": 31143.0,
+        "close": 31238.0,
+        "volume": 90481.0
+      },
+      "api_hourly_equals_aggregation_by_field": {
+        "open": true,
+        "high": true,
+        "low": true,
+        "close": true,
+        "volume": true
+      },
+      "local_hourly_equals_aggregation_by_field": {
+        "open": true,
+        "high": true,
+        "low": true,
+        "close": true,
+        "volume": true
+      },
+      "includes_post_cash_open_bars": true
+    },
+    {
+      "day": "2026-10-08",
+      "hour_label_et": "2026-10-08T09:00:00-04:00",
+      "aggregation_window_start_et": "2026-10-08T09:00:00-04:00",
+      "aggregation_window_end_exclusive_et": "2026-10-08T10:00:00-04:00",
+      "expected_five_minute_bars": 12,
+      "observed_five_minute_bars": 12,
+      "hourly_bar": {
+        "open": 31199.25,
+        "high": 31275.5,
+        "low": 31156.25,
+        "close": 31191.75,
+        "volume": 77921.0
+      },
+      "local_hourly_bar": {
+        "open": 31199.25,
+        "high": 31275.5,
+        "low": 31156.25,
+        "close": 31191.75,
+        "volume": 77921.0
+      },
+      "five_minute_bars": [
+        {
+          "timestamp_et": "2026-10-08T09:00:00-04:00",
+          "open": 31199.25,
+          "high": 31221.75,
+          "low": 31193.5,
+          "close": 31216.25,
+          "volume": 1917.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:05:00-04:00",
+          "open": 31216.25,
+          "high": 31231.5,
+          "low": 31212.75,
+          "close": 31226.5,
+          "volume": 2388.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:10:00-04:00",
+          "open": 31226.25,
+          "high": 31230.0,
+          "low": 31214.0,
+          "close": 31222.0,
+          "volume": 1471.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:15:00-04:00",
+          "open": 31222.75,
+          "high": 31236.0,
+          "low": 31218.5,
+          "close": 31235.5,
+          "volume": 1525.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:20:00-04:00",
+          "open": 31235.75,
+          "high": 31254.75,
+          "low": 31235.75,
+          "close": 31237.75,
+          "volume": 2899.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:25:00-04:00",
+          "open": 31238.25,
+          "high": 31242.5,
+          "low": 31226.5,
+          "close": 31233.5,
+          "volume": 2423.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:30:00-04:00",
+          "open": 31233.75,
+          "high": 31275.5,
+          "low": 31196.0,
+          "close": 31269.5,
+          "volume": 19515.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:35:00-04:00",
+          "open": 31268.5,
+          "high": 31270.0,
+          "low": 31220.0,
+          "close": 31233.25,
+          "volume": 10567.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:40:00-04:00",
+          "open": 31233.25,
+          "high": 31233.75,
+          "low": 31199.0,
+          "close": 31214.0,
+          "volume": 8643.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:45:00-04:00",
+          "open": 31214.5,
+          "high": 31242.0,
+          "low": 31204.25,
+          "close": 31230.5,
+          "volume": 7524.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:50:00-04:00",
+          "open": 31230.75,
+          "high": 31245.5,
+          "low": 31168.75,
+          "close": 31169.5,
+          "volume": 9065.0
+        },
+        {
+          "timestamp_et": "2026-10-08T09:55:00-04:00",
+          "open": 31169.5,
+          "high": 31218.5,
+          "low": 31156.25,
+          "close": 31191.75,
+          "volume": 9984.0
+        }
+      ],
+      "aggregated_five_minute_bar": {
+        "open": 31199.25,
+        "high": 31275.5,
+        "low": 31156.25,
+        "close": 31191.75,
+        "volume": 77921.0
+      },
+      "api_hourly_equals_aggregation_by_field": {
+        "open": true,
+        "high": true,
+        "low": true,
+        "close": true,
+        "volume": true
+      },
+      "local_hourly_equals_aggregation_by_field": {
+        "open": true,
+        "high": true,
+        "low": true,
+        "close": true,
+        "volume": true
+      },
+      "includes_post_cash_open_bars": true
+    }
+  ],
+  "all_required_days_complete": true,
+  "all_ohlcv_equal": true,
+  "interpretation": "For all four sampled days, the Yahoo hourly row labeled 09:00 ET exactly equals the OHLCV aggregation of 12 five-minute rows labeled 09:00 through 09:55 ET, including rows at and after the 09:30 cash open. Local hourly snapshot values exactly match. This is empirical source evidence, not a Yahoo textual timestamp specification or strategy performance validation."
+}
