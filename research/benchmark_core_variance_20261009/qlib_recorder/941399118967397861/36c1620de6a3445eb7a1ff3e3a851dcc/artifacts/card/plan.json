@@ -1,0 +1,133 @@
+{
+  "schema_version": "benchmark_core_variance_v1",
+  "experiment": "benchmark_core_variance_20261009",
+  "registered_at_utc": "2026-10-09T06:15:23.192232+00:00",
+  "registered_before_candidate_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "The terminal valuation test removed costly leveraged/cash state bias but showed little return-prediction information. Isolate asset representation under the same frozen conditional risk forecast: use SOXX as the core versus SOXL/cash, without a return-mean objective.",
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+    "summary": "research/canonical_price_basis_20261002/summary.json",
+    "as_of": "2026-09-25"
+  },
+  "risk_parent": {
+    "card": "research/conditional_variance_20261002",
+    "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+    "manifest": "artifact_manifest.json",
+    "manifest_sha256": "cf9d1a7f2cb5c32742942bb4ac5e2e02d2a608523a0426877d6091f1dd351800",
+    "repeat_id": 1,
+    "artifact_sha256": {
+      "inputs/raw_variances.pkl": "8bab510bfaabbc3837a7c7d84742033aaa93791a86bb989119d896b1ae4f1320",
+      "inputs/annual_calibrations.pkl": "62913f48efca2da8006fc7a10f475c3d371b404f5aa346a06ccf3d27b348a38d",
+      "inputs/primary_frame.pkl": "22c2aa91641a82401af0b4f42e8cbaddde84b25784bc7f5dc3dfd882781b26b2",
+      "inputs/forecast_frames.pkl": "cfb770cf9202a2188e8723768019a650e55a5a9154e37164de4afa48c80ced87",
+      "inputs/source_audit.pkl": "cc9b257d3c2b6fbd98295cb169e42dc9f6060c22dcc7df24ef74c5bba14954e6",
+      "policy/development_inputs.pkl": "6f8e3e89ae74b1513691855d42a986398882bcafcc0f3e2eda0838d55e252968"
+    }
+  },
+  "train_start": "2011-01-03",
+  "signal_start": "2016-01-04",
+  "development_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "model_fit_budget": 0,
+  "risk_calibration_fit_budget": 0,
+  "rebalance_sessions": 1,
+  "costs_bps": [
+    10.0,
+    25.0
+  ],
+  "initial_cash": 100000.0,
+  "cash_return": 0.0,
+  "benchmark": "SOXX",
+  "candidate_budget": 2,
+  "evidence_kind": "reused_history",
+  "variants": [
+    {
+      "name": "learned_lever_cash",
+      "variance_key": "learned",
+      "representation": "lever_cash",
+      "role": "same_risk_representation_control"
+    },
+    {
+      "name": "learned_core",
+      "variance_key": "learned",
+      "representation": "core",
+      "role": "registered_core_candidate"
+    },
+    {
+      "name": "close20_lever_cash",
+      "variance_key": "close20",
+      "representation": "lever_cash",
+      "role": "same_risk_representation_control"
+    },
+    {
+      "name": "close20_core",
+      "variance_key": "close20",
+      "representation": "core",
+      "role": "registered_core_candidate"
+    }
+  ],
+  "risk_inputs": {
+    "reuse": "Use frozen repeat1 raw_variances and each annual calibration for2016-2026; no refit or selection between repetitions. All variants use the same annual B and same expanding covariance shape.",
+    "formula": "Sigma_j,t=(c_j,y*m_j,t/Sigma_E,t[1,1])*Sigma_E,t; B_y and c_j,y are frozen in parent with all labels strictly mature before Jan1. B_y/mean_past(m_j) calibration means absolute B scale cancels; normalized risk timing remains.",
+    "sources": [
+      "learned annual Ridge10 positive vol5 forecast squared",
+      "close20 sample daily close return variance(ddof1) through signal close"
+    ],
+    "maturity": "Verify forecast model cutoff and calibration common dates/outcome availability precede decision; source SOXX16features and native calendar identities unchanged.",
+    "development_reproduction": "Reconstructed covariance/budget/provenance must equal parent development_inputs for both learned_vol5 and observed_close20. Diagnostic sources must be rebuilt from raw/calibration, never mislabeled old expanding diagnostic_inputs.",
+    "invalid": "Any unavailable/nonfinite/nonpositive marginal or parent estimator fallback blocks this registered experiment; no filling or shortened path.",
+    "out_of_support": "Retain all prior support flags; do not clip or change exposure after seeing outcomes."
+  },
+  "allocation": {
+    "asset_order": [
+      "SOXL",
+      "SOXX",
+      "cash"
+    ],
+    "lever_cash": "a=min(1,sqrt(B/Sigma_LL)); target=(a,0,1-a); if Sigma_LL==0 use a=1.",
+    "core": "If Sigma_XX>=B: target=(0,sqrt(B/Sigma_XX),1-sqrt(B/Sigma_XX)), including exact SOXX at equality. If Sigma_XX<B and Sigma_LL<=B: fullSOXL. Otherwise use largest a in[0,1] with (a,1-a) Sigma (a,1-a)^T<=B and cash0.",
+    "root": "Solve the full convex quadratic with cross-covariance, allowing nonmonotone/degenerate PSD cases; no assumption of exact3x beta. Only numerical PSD roundoff repair is permitted and audited.",
+    "risk": "Targets normalized to actual post-fee NAV; check daily wSigmaw<=B including cap-underuse. No leverage multiplier or fixed risk cap selected from this experiment.",
+    "funding": "Daily target with owned drifted shares; current proportional fees exactly funded. Same initial cash/no reset across years; all paths independently nativeQlib replayed.",
+    "changed_from_parent": "Pure risk allocation for both representations; no H5 mean objective. This is not a rerun of old convex paths. Core-vs-lever_cash isolates representation inside this new pure-risk policy.",
+    "terminal_valuation_used": false,
+    "return_mean_used": false,
+    "future_order_or_fee": false
+  },
+  "gates": {
+    "minimum_positive_years": 6,
+    "rolling_sessions": 252,
+    "minimum_rolling_win_rate": 0.6,
+    "bootstrap_resamples": 2000,
+    "family_size": 2
+  },
+  "numerical_log_excess_floor": 1e-08,
+  "gate_definition": "Unchanged complete2016-2022 netSOXX benchmark/year/rolling/MaxDD/CVaR/bootstrap tests at bothcosts, with cumulative1e-8positiveeffectresolution. Both core candidates registered before results; no best-year/cost/starting-date selection. Current family2 is not the full project search count.",
+  "incremental_interpretation": "Compare each core with its same-risk lever_cash control. Compare learned_core with close20_core at bothcosts before claiming learned forecast advantage; SOXX outperformance alone is insufficient for that claim.",
+  "label_precision": "Current unchanged qualifiednative float64 daily market returns for accounting. Frozen parent risk predictions/calibrations are reused unchanged; older label precision is disclosed, not silently refit.",
+  "stopping": "Exactly2registered core policies with2matched controls plusSOXX at2costs; no window/budget/threshold/cadence tuning after outcomes. Preserve all results and continue a separately registered mechanism if needed.",
+  "limitations": [
+    "No new forward data; no production promotion from this card.",
+    "Conditional risk matching does not guarantee realized drawdown or stable excess.",
+    "Daily targeting can incur material turnover. Cash yield0, continuousshares, historicalopen and16secondarybars retain prior limitations.",
+    "Nominal leveraged ETF exposure and realized regressionbeta are different; actualSOXL prices used, never3x syntheticreturns."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+    "https://www.nber.org/papers/w22208",
+    "https://www.lehigh.edu/~xuy219/research/COWY.pdf"
+  ]
+}

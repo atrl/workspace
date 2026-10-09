@@ -74,13 +74,18 @@ def _digest(value, name):
 
 
 def load_verified_recorder_objects(card_dir, *, expected_recorder_id, artifacts: list[str],
-                                   expected_artifact_sha256: dict[str, str] | None = None):
+                                   expected_artifact_sha256: dict[str, str] | None = None,
+                                   manifest_name: str = "verification_manifest.json",
+                                   expected_manifest_sha256: str | None = None):
     """Load exact named objects after all requested bytes pass identity checks.
 
     Metadata uses absolute path strings, never ``file://`` or relative tracking
     URIs. Manifest entries may be card-relative or repository-relative paths
     ending in the exact card/local-Recorder artifact path. If optional expected
     digests are supplied, their keys must match the complete requested inventory.
+    The older ``artifact_manifest.json`` contract is supported only by explicit
+    selection with a pinned manifest digest and the complete artifact-digest
+    inventory. There is no automatic fallback or migration of old cards.
     No source files or Recorder state are written, started, resumed or initialized.
     """
     card = Path(card_dir).resolve()
@@ -91,17 +96,30 @@ def load_verified_recorder_objects(card_dir, *, expected_recorder_id, artifacts:
              and all(isinstance(name, str) for name in artifacts) and len(set(artifacts)) == len(artifacts),
              "artifacts must be a nonempty unique list")
     requested = {name: _relative(name, "artifact") for name in artifacts}
+    _require(isinstance(manifest_name, str)
+             and manifest_name in ("verification_manifest.json", "artifact_manifest.json"),
+             "manifest_name must explicitly select verification_manifest.json or artifact_manifest.json")
+    legacy = manifest_name == "artifact_manifest.json"
+    if legacy:
+        _require(expected_manifest_sha256 is not None and expected_artifact_sha256 is not None,
+                 "legacy manifest reads require pinned manifest and complete artifact digests")
+    if expected_manifest_sha256 is not None:
+        _digest(expected_manifest_sha256, "expected manifest")
     if expected_artifact_sha256 is not None:
         _require(isinstance(expected_artifact_sha256, Mapping)
                  and set(expected_artifact_sha256) == set(requested), "expected digest inventory differs from requested artifacts")
         for name, digest in expected_artifact_sha256.items():
             _digest(digest, name)
-    summary_path, manifest_path = card / "summary.json", card / "verification_manifest.json"
-    _require(summary_path.is_file() and manifest_path.is_file(), "source summary or verification manifest is missing")
+    manifest_label = "legacy artifact manifest" if legacy else "verification manifest"
+    summary_path, manifest_path = card / "summary.json", card / manifest_name
+    _require(summary_path.is_file() and manifest_path.is_file(), f"source summary or {manifest_label} is missing")
     _require(not summary_path.is_symlink() and not manifest_path.is_symlink(), "symbolic-link source metadata is unsupported")
     summary_bytes, manifest_bytes = summary_path.read_bytes(), manifest_path.read_bytes()
+    manifest_digest = hashlib.sha256(manifest_bytes).hexdigest()
+    if expected_manifest_sha256 is not None:
+        _require(manifest_digest == expected_manifest_sha256, "manifest SHA-256 differs before source loading")
     summary = _json_object(summary_bytes, "summary")
-    manifest = _json_object(manifest_bytes, "verification manifest")
+    manifest = _json_object(manifest_bytes, manifest_label)
     _require(summary.get("recorder_id") == manifest.get("recorder_id") == expected_recorder_id,
              "summary/manifest/expected Recorder identities differ")
     experiment_name = summary.get("experiment")
@@ -116,7 +134,7 @@ def load_verified_recorder_objects(card_dir, *, expected_recorder_id, artifacts:
     _require(artifact_root.is_dir() and artifact_root.is_relative_to(local), "artifact directory escapes the local Recorder")
     entries = manifest.get("entries")
     _require(isinstance(entries, list) and all(isinstance(item, dict) and "path" in item for item in entries),
-             "verification manifest entries schema is invalid")
+             f"{manifest_label} entries schema is invalid")
     parsed_entries = [(item, _relative(item["path"], "manifest entry")) for item in entries]
     identities = {}
     for name, relative in requested.items():
@@ -172,20 +190,26 @@ def load_verified_recorder_objects(card_dir, *, expected_recorder_id, artifacts:
         # All requested digests were checked above; recheck immediately before
         # each public load as well, avoiding partial loading on an initial mismatch.
         for name, item in identities.items():
+            _require(summary_path.read_bytes() == summary_bytes and _sha(manifest_path) == manifest_digest,
+                     "source metadata changed before unpickling")
             _require(_sha(item["local_path"]) == item["sha256"], f"artifact changed before unpickling: {name}")
             objects[name] = recorder.load_object(name)
         for name, item in identities.items():
             _require(_sha(item["local_path"]) == item["sha256"], f"artifact changed during source read: {name}")
         _require(summary_path.read_bytes() == summary_bytes and manifest_path.read_bytes() == manifest_bytes,
-                 "summary or verification manifest changed during source read")
+                 f"summary or {manifest_label} changed during source read")
+        _require(_sha(manifest_path) == manifest_digest, "manifest SHA-256 changed during source read")
         _require(recorder.client.get_run(recorder.id).info.status == "FINISHED", "source Recorder status changed during read")
     _require(R.get_uri() == original_uri and R.exp_manager.active_experiment is active,
              "Qlib source read did not restore its original context")
     audit = {"recorder_id": expected_recorder_id, "experiment": experiment_name,
         "experiment_id": str(recorder.experiment_id), "recorder_uri": str(uri), "recorder_local_dir": str(local),
         "summary_sha256": hashlib.sha256(summary_bytes).hexdigest(),
-        "verification_manifest_sha256": hashlib.sha256(manifest_bytes).hexdigest(), "artifacts": identities,
+        "verification_manifest_sha256": manifest_digest, "artifacts": identities,
         "read_only": True, "local_filestore_only": True, "hashes_checked_before_unpickling": True,
         "metadata_and_artifact_hashes_rechecked": True,
         "source_api": ["qlib.workflow.R.get_recorder", "Recorder.load_object"]}
+    if legacy:
+        audit.pop("verification_manifest_sha256")
+        audit.update(manifest_name=manifest_name, manifest_sha256=manifest_digest)
     return objects, audit

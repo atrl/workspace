@@ -1,0 +1,29 @@
+schema_version: benchmark_core_variance_v1
+experiment: benchmark_core_variance_20261009
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+execution_provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
+recorder_uri: research/benchmark_core_variance_20261009/qlib_recorder
+market: all
+region: us
+as_of: '2026-09-25'
+benchmark: SOXX
+model_fit_budget: 0
+risk_calibration_fit_budget: 0
+model_selection: none_fixed_two_risk_sources
+risk_parent_recorder_id: 9a447c33dc934baeb1d4c3f2b9bf2122
+risk_parent_manifest: artifact_manifest.json
+repeat_id: 1
+segments:
+  development: ['2016-01-04', '2022-12-30']
+  reused_diagnostic: ['2023-01-03', '2026-09-23']
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - inputs/frame.pkl
+    - inputs/frozen_risk_inputs.pkl.gz
+    - analysis/paths.pkl
+    - analysis/risk_mapping_details.pkl.gz
+    - analysis/raw_gates.pkl
+    - analysis/gates.pkl
+    - portfolio_analysis/native_reports.pkl.gz

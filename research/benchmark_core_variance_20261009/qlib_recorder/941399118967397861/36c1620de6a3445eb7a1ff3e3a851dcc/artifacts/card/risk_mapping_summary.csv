@@ -1,0 +1,5 @@
+strategy,variance_key,representation,sessions,maximum_budget_used_fraction,budget_underused_sessions,maximum_covariance_roundoff_adjustment,out_of_support_sessions,estimator_fallback_sessions,all_risk_targets_certified,mean_objective_used,optimizer_solves
+learned_lever_cash,learned,lever_cash,2696,1.0,0,0.0,26,0,True,False,0
+learned_core,learned,core,2696,1.0,0,0.0,26,0,True,False,0
+close20_lever_cash,close20,lever_cash,2696,1.0,0,0.0,70,0,True,False,0
+close20_core,close20,core,2696,1.0,0,0.0,70,0,True,False,0

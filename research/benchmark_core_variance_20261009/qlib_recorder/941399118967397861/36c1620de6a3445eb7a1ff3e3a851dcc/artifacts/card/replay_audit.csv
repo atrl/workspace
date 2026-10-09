@@ -1,0 +1,9 @@
+strategy,sessions,cost_bps,rebalance_sessions,maximum_independent_accounting_error,own_positions,current_fees_only,terminal_liquidation,native_qlib_verified
+learned_lever_cash,2696,10.0,1,4.440892098500626e-16,True,True,False,False
+learned_core,2696,10.0,1,6.661338147750939e-16,True,True,False,False
+close20_lever_cash,2696,10.0,1,6.661338147750939e-16,True,True,False,False
+close20_core,2696,10.0,1,6.661338147750939e-16,True,True,False,False
+learned_lever_cash,2696,25.0,1,6.661338147750939e-16,True,True,False,False
+learned_core,2696,25.0,1,6.661338147750939e-16,True,True,False,False
+close20_lever_cash,2696,25.0,1,5.551115123125783e-16,True,True,False,False
+close20_core,2696,25.0,1,5.551115123125783e-16,True,True,False,False

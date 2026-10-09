@@ -118,6 +118,11 @@ qlib research/production card 必须使用瘦根目录、recorder-first 的产�
   不改变每日市场风险、不生成未来订单，也不把假设的未来费用扣入实际净值。
 - `src/core/recorder_sources.py` 通过卡片 manifest、显式对象哈希及 Qlib Recorder
   读取已经完成的父证据。读取不启动或恢复父 run，不把重新拟合冒充冻结预测复用。
+  旧 `artifact_manifest.json` 只允许通过显式文件名及固定 manifest、对象哈希读取，
+  不自动回退、迁移或改写已封存卡片。
+- `src/model/benchmark_core_risk.py` 将给定风险矩阵与预算映射成两种持仓表示，
+  不读取收益均值或未来结果。`src/backtest/target_schedule_replay.py` 独立管理
+  逐日目标的真实持仓与费用；目标的数学风险证书、实际结算及 Qlib 持仓风险分层验证。
 - `src/workflow/benchmark_evidence.py` 统一完整策略和费用清单及共同日历上的比较；
   `src/analysis/excess_resolution.py` 在保留原收益、估计值和置信区间的前提下，
   排除数值不可辨识的正超额，原始分类同时保留。
@@ -125,6 +130,12 @@ qlib research/production card 必须使用瘦根目录、recorder-first 的产�
 预测误差改善、配置目标修正、原生账本对账通过和稳定超额是不同结论。前两项可以
 改善系统，但不能替代最后一项的历史与独立前向证据。执行参数、有限候选预算、
 费用、数值分辨下限及失败结果保留在各自冻结卡片，不写入技能或生产默认值。
+
+单一标的的长历史不再通过双标的共同面截短：
+`src/data/soxx_extended_history.py` 分离显式只读采集与离线资格 notebook，以新的
+SOXX-only provider 保存真实较早历史，并核验与原 provider 的重叠值不变。更长
+SOXX 历史不能补造 SOXL 成立前的价格、特征或标签。价格、事件来源、真实分红
+现金流和历史时点认证是不同资格；复权值相同不能代替后两项。
 
 - `src/core`: 稳定契约、注册表、schema version、manifest、hash、配置、校验。
 - `src/data`: qlib store 构建、qlib provider 审计、数据更新、calendar/instrument/feature 对齐、canonical snapshot，最终写入 `data/`。

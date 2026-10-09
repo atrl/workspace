@@ -223,3 +223,90 @@ def test_real_local_qlib_roundtrip_does_not_write_source_or_reinitialize(tmp_pat
     assert tree(card) == before and R.get_uri() == original_uri
     assert R.exp_manager.active_experiment is None
     assert audit["recorder_uri"] == str(uri) and audit["read_only"] is True
+
+
+def legacy_options(source):
+    path = source["card"] / "artifact_manifest.json"
+    path.write_bytes((source["card"] / "verification_manifest.json").read_bytes())
+    return {"manifest_name": "artifact_manifest.json", "expected_manifest_sha256": sha(path),
+        "expected_artifact_sha256": {name: sha(source["local"] / "artifacts" / name) for name in source["names"]}}
+
+
+def test_default_audit_unchanged_by_explicit_default_manifest_or_optional_pin(source):
+    objects, audit = read(source)
+    explicit, explicit_audit = read(source, manifest_name="verification_manifest.json",
+        expected_manifest_sha256=sha(source["card"] / "verification_manifest.json"))
+    assert objects == explicit and audit == explicit_audit
+    assert "verification_manifest_sha256" in audit
+    assert "manifest_name" not in audit and "manifest_sha256" not in audit
+
+
+def test_explicit_legacy_manifest_is_pinned_and_not_relabelled_verification(source):
+    options = legacy_options(source)
+    before = tree(source["card"])
+    objects, audit = read(source, **options)
+    assert objects == source["objects"] and tree(source["card"]) == before
+    assert audit["manifest_name"] == "artifact_manifest.json"
+    assert audit["manifest_sha256"] == options["expected_manifest_sha256"]
+    assert "verification_manifest_sha256" not in audit
+    assert audit["read_only"] and source["state"]["uri"] == "/previous/read-only/default"
+
+
+def test_legacy_file_is_never_an_automatic_fallback(source):
+    options = legacy_options(source)
+    (source["card"] / "verification_manifest.json").unlink()
+    with pytest.raises(ValueError, match="verification manifest is missing"):
+        read(source)
+    assert not source["state"]["loaded"]
+    assert read(source, **options)[0] == source["objects"]
+
+
+@pytest.mark.parametrize("missing", ["expected_manifest_sha256", "expected_artifact_sha256", "partial_inventory"])
+def test_legacy_requires_both_pins_and_complete_requested_artifact_inventory(source, missing):
+    options = legacy_options(source)
+    if missing == "partial_inventory": options["expected_artifact_sha256"].pop(source["names"][-1])
+    else: options.pop(missing)
+    with pytest.raises(ValueError, match="legacy manifest reads require|inventory differs"):
+        read(source, **options)
+    assert not source["state"]["loaded"]
+
+
+@pytest.mark.parametrize("name", ["other.json", "../artifact_manifest.json", "sub/artifact_manifest.json", "/artifact_manifest.json", "", None])
+def test_only_two_explicit_manifest_filenames_are_supported(source, name):
+    with pytest.raises(ValueError, match="manifest_name must explicitly select"):
+        read(source, manifest_name=name)
+    assert not source["state"]["loaded"]
+
+
+@pytest.mark.parametrize("manifest_name", ["verification_manifest.json", "artifact_manifest.json"])
+def test_manifest_digest_is_checked_before_any_object_load(source, manifest_name):
+    options = legacy_options(source) if manifest_name == "artifact_manifest.json" else {"manifest_name": manifest_name}
+    options["expected_manifest_sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="manifest SHA-256 differs before"):
+        read(source, **options)
+    assert not source["state"]["loaded"]
+
+
+def test_legacy_manifest_mutation_during_identity_lookup_blocks_before_unpickle(source):
+    options = legacy_options(source)
+    def changed(experiment_id):
+        path = source["card"] / "artifact_manifest.json"
+        path.write_bytes(path.read_bytes() + b"\n")
+        return SimpleNamespace(name="sample")
+    source["recorder"].client.get_experiment = changed
+    with pytest.raises(ValueError, match="metadata changed before unpickling"):
+        read(source, **options)
+    assert not source["state"]["loaded"]
+
+
+def test_legacy_manifest_mutation_after_last_object_is_detected(source):
+    options = legacy_options(source)
+    def change_after_last(name):
+        if name == source["names"][-1]:
+            path = source["card"] / "artifact_manifest.json"
+            path.write_bytes(path.read_bytes() + b"\n")
+    source["state"]["load_hook"] = change_after_last
+    with pytest.raises(ValueError, match="legacy artifact manifest changed during source read"):
+        read(source, **options)
+    assert len(source["state"]["loaded"]) == len(source["names"])
+    assert source["state"]["uri"] == "/previous/read-only/default"

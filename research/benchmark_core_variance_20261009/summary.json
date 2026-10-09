@@ -1,0 +1,180 @@
+{
+  "experiment": "benchmark_core_variance_20261009",
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+  "as_of": "2026-09-25",
+  "market": "all",
+  "region": "us",
+  "benchmark": "SOXX",
+  "data_range": [
+    "2016-01-04",
+    "2026-09-25"
+  ],
+  "recorder_id": "36c1620de6a3445eb7a1ff3e3a851dcc",
+  "experiment_id": "941399118967397861",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/benchmark_core_variance_20261009/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/benchmark_core_variance_20261009/qlib_recorder/941399118967397861/36c1620de6a3445eb7a1ff3e3a851dcc",
+  "risk_parent_recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+  "risk_repeat_id": 1,
+  "model_fits": 0,
+  "risk_calibration_fits": 0,
+  "optimizer_solves": 0,
+  "model_selection": "none_fixed_two_risk_sources",
+  "plan_sha256": "19636030843f8845cc562cb72dc0bd977be928da52c401c485b04f42f8125df4",
+  "source_sha256": {
+    "src/workflow/benchmark_relative_research.py": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+    "src/model/online_expert_allocation.py": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+    "src/data/benchmark_relative_data.py": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+    "src/backtest/benchmark_relative_replay.py": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc",
+    "src/analysis/benchmark_relative_protocol.py": "e9f3d14f4c413dcb16df9483b9cbbeab94002a1beb8d5da2ac83fdbdb45835e5",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+    "src/data/legacy_execution_view.py": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+    "src/model/post_fee_settlement.py": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/backtest/strategy.py": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/workflow/oos_uncertainty_horizon.py": "b25e10d52968f5e849a2e67156290effdc8a66e66a3fcd71ebb947d751811831",
+    "src/data/oos_horizon_inputs.py": "0b247d44b0f23c7e6f974747411c4aae2171529759d6220c1d719ea491e1d68b",
+    "src/model/oos_mean_uncertainty.py": "ce8177c698b748cadcb173940e90875dc6a5bd751f00f4ff3392e89e2e6ecde7",
+    "src/backtest/horizon_matched_allocation.py": "4854faa634e7e5aac24fbe6146829dcc6de1fd3c5b3982ca5e49a88abd8414e3",
+    "src/core/recorder_artifacts.py": "144eb16c79aef62ecc9421cbb0972c803d31aee289686f0a81460d7e203071fb",
+    "src/analysis/expert_information_attribution.py": "99143f61419a6646b485f619f0c4002b8933d519a6b8c11ebd0bd716178d614a",
+    "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+    "src/model/convex_allocation.py": "28228f8db1a8d6acf42dcffebd5e7edbaef857146ee7cd3bc067970a702eb86c",
+    "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+    "src/workflow/benchmark_risk_excess.py": "26fcd325ca5cd20ed37eec9e8296b477eedc907e4c815af802d448236b5cdbcd",
+    "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+    "src/model/certified_convex_allocation.py": "ceb458bfd93cfa1c44a5efb08c05748253899a1c74410c1fd2b6279895c29d3f",
+    "src/workflow/benchmark_core_variance.py": "ed8209f944e1311b894250589c237714ade1c965366b53c9d0c0ce31f835df69",
+    "src/model/benchmark_core_risk.py": "940eab66426dd449f980f2772bc0320b6eb0bb454b0685a9dd79d5b220a2c12c",
+    "src/backtest/target_schedule_replay.py": "ddd2b7e39661b961e1451c42a4ed8659b14abdb2a4dbbf39dd4a87927948dd3f",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/analysis/excess_resolution.py": "7abec79074ad6778703698b91dce5a9170cb4b6c98acc89dd5e2fbc6e8e54cfb",
+    "src/workflow/benchmark_evidence.py": "f8903131c3cabc3d0bfe8a53dfc817436882b0e2d37d2f2a5935d5c484f44cbd"
+  },
+  "run_binding_sha256": "70e51875a6778964c050f6e5702e2f1fbbd3291e5a813eb84961c4996044da9b",
+  "native_paths": 10,
+  "native_all_pass": true,
+  "raw_historical_gates": {
+    "learned_core": false,
+    "close20_core": false
+  },
+  "historical_gates": {
+    "learned_core": false,
+    "close20_core": false
+  },
+  "excess_resolution": {
+    "learned_core": {
+      "log_excess_floor": 1e-08,
+      "units": "cumulative log excess per tested window",
+      "strict_positive_rule": "effect > floor",
+      "within_resolution_rule": "abs(effect) <= floor",
+      "bootstrap_rule": "sessions * retained daily_lower_bound > floor",
+      "returns_modified": false,
+      "point_estimates_modified": false,
+      "confidence_bounds_modified": false,
+      "new_bootstrap_draws": 0,
+      "risk_gates_modified": false,
+      "evidence_alignment": "Exact paired/annual/rolling recomputation; retained bootstrap sample sizes, observed means and units checked without regenerating bounds.",
+      "scope": "Exclude numerically indistinguishable floating-point excess; no return adjustment or new alpha claim."
+    },
+    "close20_core": {
+      "log_excess_floor": 1e-08,
+      "units": "cumulative log excess per tested window",
+      "strict_positive_rule": "effect > floor",
+      "within_resolution_rule": "abs(effect) <= floor",
+      "bootstrap_rule": "sessions * retained daily_lower_bound > floor",
+      "returns_modified": false,
+      "point_estimates_modified": false,
+      "confidence_bounds_modified": false,
+      "new_bootstrap_draws": 0,
+      "risk_gates_modified": false,
+      "evidence_alignment": "Exact paired/annual/rolling recomputation; retained bootstrap sample sizes, observed means and units checked without regenerating bounds.",
+      "scope": "Exclude numerically indistinguishable floating-point excess; no return adjustment or new alpha claim."
+    }
+  },
+  "promotion_eligible": false,
+  "evidence_kind": "reused_history",
+  "decision": "continue_research_no_forward_qualification",
+  "source_sensitivity_completed": false,
+  "historical_vintage_certified": false,
+  "independently_verified_total_return": false,
+  "risk_columns_scope": "portfolio_variance/risk_budget_used_fraction are exact target certificates; settled and native floating holdings are separately measured in risk_realization_audit.csv",
+  "sidecars": [
+    "backtest_benchmark_comparison.csv",
+    "annual_metrics.csv",
+    "ablation_comparison.csv",
+    "gates.csv",
+    "rolling_summary.csv",
+    "bootstrap_analysis.csv",
+    "raw_gates.csv",
+    "raw_rolling_summary.csv",
+    "raw_bootstrap_analysis.csv",
+    "resolved_annual_metrics.csv",
+    "risk_mapping_summary.csv",
+    "replay_audit.csv",
+    "risk_realization_audit.csv",
+    "calibration_identity.csv",
+    "development_input_reproduction.csv",
+    "variance_source_comparison.csv",
+    "native_audit.csv",
+    "plan.json",
+    "run_binding.json",
+    "conclusion.md"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/frame.pkl",
+      "inputs/frozen_risk_inputs.pkl.gz",
+      "analysis/paths.pkl",
+      "analysis/risk_mapping_details.pkl.gz",
+      "analysis/raw_gates.pkl",
+      "analysis/gates.pkl",
+      "portfolio_analysis/native_reports.pkl.gz"
+    ]
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ],
+  "limitations": [
+    "No new forward data; no production promotion from this card.",
+    "Conditional risk matching does not guarantee realized drawdown or stable excess.",
+    "Daily targeting can incur material turnover. Cash yield0, continuousshares, historicalopen and16secondarybars retain prior limitations.",
+    "Nominal leveraged ETF exposure and realized regressionbeta are different; actualSOXL prices used, never3x syntheticreturns."
+  ],
+  "compressed_artifacts": [
+    {
+      "artifact": "inputs/frozen_risk_inputs.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "325c731c0022d9f7f1ca797cb8679b193be1a54964a1251989e45aa708f7b176",
+      "uncompressed_sha256": "e1fcae5d9ce0041598c4853a635ff2ccb4ad98a37842e0565d119ebab624e5ef",
+      "bytes": 145664,
+      "uncompressed_bytes": 311475
+    },
+    {
+      "artifact": "analysis/risk_mapping_details.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "d67677353b0885523a76b0640f0d8e584782dc05c7c429840617150e7afcae2c",
+      "uncompressed_sha256": "5c17d22a41317477bb77e36f8d45c83db775a2e1a61a3a99c597a286e63ffd52",
+      "bytes": 818118,
+      "uncompressed_bytes": 3800909
+    },
+    {
+      "artifact": "portfolio_analysis/native_reports.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "6dea18908287e502833592a127d11cef81aba435b39898d188c25854cd8a2a3d",
+      "uncompressed_sha256": "0c795fce90cfaf8a32a8e154ce58a6809812e7605904adb63f2360a443e7cff9",
+      "bytes": 6159908,
+      "uncompressed_bytes": 65103970
+    }
+  ]
+}
