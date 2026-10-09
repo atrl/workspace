@@ -1,0 +1,92 @@
+{
+  "source": "Yahoo Finance chart API",
+  "retrieved_utc": "2026-10-10",
+  "range": "15y daily",
+  "causality_note": "Daily bars labeled by exchange-local trading date. Asian sessions close before the same-date US open.",
+  "series": {
+    "twii": {
+      "symbol": "^TWII",
+      "timezone": "Asia/Taipei",
+      "rows": 3666,
+      "start": "2011-10-11",
+      "end": "2026-10-08"
+    },
+    "tsmc_tw": {
+      "symbol": "2330.TW",
+      "timezone": "Asia/Taipei",
+      "rows": 3666,
+      "start": "2011-10-11",
+      "end": "2026-10-08"
+    },
+    "skhynix": {
+      "symbol": "000660.KS",
+      "timezone": "Asia/Seoul",
+      "rows": 3683,
+      "start": "2011-10-10",
+      "end": "2026-10-08"
+    },
+    "kospi": {
+      "symbol": "^KS11",
+      "timezone": "Asia/Seoul",
+      "rows": 3683,
+      "start": "2011-10-10",
+      "end": "2026-10-08"
+    },
+    "nikkei": {
+      "symbol": "^N225",
+      "timezone": "Asia/Tokyo",
+      "rows": 3689,
+      "start": "2011-10-11",
+      "end": "2026-10-09"
+    },
+    "tsm": {
+      "symbol": "TSM",
+      "timezone": "America/New_York",
+      "rows": 3771,
+      "start": "2011-10-10",
+      "end": "2026-10-08"
+    },
+    "smh": {
+      "symbol": "SMH",
+      "timezone": "America/New_York",
+      "rows": 3771,
+      "start": "2011-10-10",
+      "end": "2026-10-08"
+    },
+    "soxx": {
+      "symbol": "SOXX",
+      "timezone": "America/New_York",
+      "rows": 3771,
+      "start": "2011-10-10",
+      "end": "2026-10-08"
+    },
+    "soxl": {
+      "symbol": "SOXL",
+      "timezone": "America/New_York",
+      "rows": 3771,
+      "start": "2011-10-10",
+      "end": "2026-10-08"
+    },
+    "nvda": {
+      "symbol": "NVDA",
+      "timezone": "America/New_York",
+      "rows": 3771,
+      "start": "2011-10-10",
+      "end": "2026-10-08"
+    },
+    "amd": {
+      "symbol": "AMD",
+      "timezone": "America/New_York",
+      "rows": 3771,
+      "start": "2011-10-10",
+      "end": "2026-10-08"
+    },
+    "asml": {
+      "symbol": "ASML",
+      "timezone": "America/New_York",
+      "rows": 3771,
+      "start": "2011-10-10",
+      "end": "2026-10-08"
+    }
+  }
+}
