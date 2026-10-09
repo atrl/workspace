@@ -191,3 +191,95 @@ def test_workflow_end_to_end_records_and_writes_slim_card(tmp_path):
     for forbidden in ("predictions.csv", "signals.csv", "all_model_predictions.csv",
                       "portfolio_report.csv", "portfolio_report.csv"):
         assert not (card_dir / forbidden).exists()
+
+
+# ---------------------------------------------------------------------------
+# Intraday early-momentum card
+# ---------------------------------------------------------------------------
+
+from src.analysis import intraday_early_momentum as momentum
+from src.workflow import intraday_early_momentum as momentum_workflow
+
+
+def _intraday_day(date, open_price, decision_price, close_price):
+    day = pd.Timestamp(date).tz_localize("America/New_York")
+    index = pd.DatetimeIndex([
+        day + pd.Timedelta(hours=9, minutes=45),
+        day + pd.Timedelta(hours=10, minutes=30),
+        day + pd.Timedelta(hours=16),
+    ])
+    # 09:45 bar: open == session open, close == 10:00 close
+    # 10:30 bar: close == decision price
+    # 16:00 bar: close == session close
+    return pd.DataFrame({"open": [open_price, decision_price, close_price],
+                         "close": [decision_price, decision_price, close_price]}, index=index)
+
+
+def test_build_early_session_frame_uses_open_to_decision_and_decision_to_close():
+    days = pd.bdate_range("2021-01-04", periods=5)
+    soxl = pd.concat([_intraday_day(d, 100.0, 102.0, 105.0) for d in days])
+    soxx = pd.concat([_intraday_day(d, 100.0, 101.0, 103.0) for d in days])
+    frame = momentum.build_early_session_frame(soxl, soxx).frame
+    assert len(frame) == 5
+    assert frame["early_return"].iloc[0] == pytest.approx(0.02)
+    assert frame["rest_soxl"].iloc[0] == pytest.approx(105.0 / 102.0 - 1.0)
+    assert frame["rest_soxx"].iloc[0] == pytest.approx(103.0 / 101.0 - 1.0)
+
+
+def test_momentum_target_weights_thresholds_and_simplex():
+    policy = momentum.MomentumPolicy("p", long_threshold=0.02, short_threshold=0.03)
+    assert momentum.target_weights(0.05, policy).tolist() == [1.0, 0.0, 0.0]
+    assert momentum.target_weights(0.0, policy).tolist() == [0.0, 1.0, 0.0]
+    assert momentum.target_weights(-0.05, policy).tolist() == [0.0, 0.0, 1.0]
+    for value in (0.05, 0.0, -0.05):
+        weights = momentum.target_weights(value, policy)
+        assert weights.sum() == pytest.approx(1.0)
+        assert (weights >= 0).all()
+
+
+def test_momentum_simulation_charges_turnover_and_has_no_overnight():
+    days = pd.bdate_range("2021-01-04", periods=4)
+    rows = []
+    for i, d in enumerate(days):
+        rows.append({
+            "signal_date": d,
+            "early_return": 0.05 if i % 2 == 0 else -0.05,
+            "rest_soxl": 0.01, "rest_soxx": 0.002,
+        })
+    frame = pd.DataFrame(rows)
+    policy = momentum.MomentumPolicy("p", long_threshold=0.02, short_threshold=0.02)
+    replay = momentum.simulate_policy(frame, policy, cost_bps=10.0)
+    assert len(replay) == 4
+    # A full flip each session means turnover 2 each time after the first.
+    assert replay["turnover"].iloc[1] == pytest.approx(2.0)
+    # Strategy return must equal gross minus turnover fee.
+    row = replay.iloc[1]
+    assert row["strategy_return"] == pytest.approx(row["gross_return"] - 2.0 * 10.0 / 1e4)
+
+
+def test_momentum_benchmark_is_soxx_rest_of_day():
+    days = pd.bdate_range("2021-01-04", periods=3)
+    frame = pd.DataFrame({"signal_date": days, "early_return": 0.0,
+                          "rest_soxl": 0.02, "rest_soxx": 0.004})
+    bench = momentum.benchmark_replay(frame, cost_bps=10.0)
+    assert (bench["soxx_weight"] == 1.0).all()
+    assert bench["strategy_return"].iloc[0] == pytest.approx(0.004)
+
+
+def test_momentum_registered_family_is_bounded_and_includes_off_control():
+    candidates = momentum_workflow.registered_candidates()
+    names = {policy.name for policy in candidates}
+    assert "early_momentum_off" in names
+    assert len(candidates) <= 8
+    for policy in candidates:
+        policy.validate()
+
+
+def test_momentum_selection_never_picks_off_control():
+    results = {
+        "early_momentum_off": {"verdict": {"stable_excess": True, "positive_year_count": 9},
+                               "excess": {"sharpe_difference": 9.0, "max_drawdown_improvement_pct": 9.0}},
+        "early_momentum_l2": {"verdict": {"stable_excess": False, "positive_year_count": 2},
+                              "excess": {"sharpe_difference": 0.2, "max_drawdown_improvement_pct": 0.1}},
+    }
+    assert momentum_workflow.select_development_candidate(results) == "early_momentum_l2"
