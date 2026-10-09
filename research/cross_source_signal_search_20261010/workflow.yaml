@@ -6,6 +6,10 @@ sources:
 - data/qlib/soxl (SOXL/SOXX daily, 2010-2026-10-08)
 - data/qlib/soxx_constituents (30 semiconductor daily, 2010-2026-07-02)
 - data/qlib/soxl_intraday_t1 (SOXL 1-minute-derived daily features, 2019-2026)
+- data/raw/external/macro_vol_20261010_v1 (FRED+CBOE VIX term, credit, FX, rates,
+  SOX index)
+- data/raw/external/asia_semis_20261010_v1 (Asian semiconductor markets, dedicated
+  lead-lag card)
 segments:
   development:
   - '2014-01-02'

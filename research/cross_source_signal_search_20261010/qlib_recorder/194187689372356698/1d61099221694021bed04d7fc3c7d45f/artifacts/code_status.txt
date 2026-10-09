@@ -1,0 +1,28 @@
+On branch research/benchmark-core-variance-20261009
+You are in a sparse checkout with 50% of tracked files present.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_cached.txt
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_diff.txt
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_status.txt
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/summary_json
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/meta.yaml
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/metrics/candidate_count
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/metrics/stable_signal_count
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/as_of
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/candidate_count
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/cmd-sys.argv
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/costs_bps
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/schema_version
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/selected_signal
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.runName
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.source.name
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.source.type
+	deleted:    qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.user
+	deleted:    qlib_recorder/936440476413716079/meta.yaml
+	modified:   ../../src/workflow/cross_source_signal_search.py
+	modified:   ../../tests/test_stable_excess_frontier.py
+
+no changes added to commit (use "git add" and/or "git commit -a")

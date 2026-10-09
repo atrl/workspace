@@ -115,6 +115,18 @@ def _load_series(spec: SearchSpec) -> dict[str, pd.Series]:
     intraday.index = pd.to_datetime(intraday.index)
     intraday = intraday.rename(columns={v: k for k, v in intraday_fields.items()})
 
+    # Newly collected macro / volatility levels (FRED + CBOE), daily closes.
+    macro_path = spec.root / "data/raw/external/macro_vol_20261010_v1/daily_levels.csv"
+    macro = pd.read_csv(macro_path, index_col=0, parse_dates=True).sort_index()
+    macro_signal = pd.DataFrame({
+        "vix_level": macro["VIXCLS"],
+        "vix_term_slope": macro["CBOE_VIX9D"] / macro["CBOE_VIX3M"] - 1.0,
+        "credit_spread": macro["BAMLH0A0HYM2"],
+        "dollar_index": macro["DTWEXBGS"],
+        "ten_year_yield": macro["DGS10"],
+        "semiconductor_index": macro["NASDAQSOX"],
+    })
+
     # Align every series to the union calendar so a single boolean mask is valid.
     index = soxl_ret.index.union(cap_mkt.index).union(soxx_vol.index).union(intraday.index)
     aligned = pd.DataFrame({
@@ -130,6 +142,8 @@ def _load_series(spec: SearchSpec) -> dict[str, pd.Series]:
     }, index=index)
     for column in intraday.columns:
         aligned[f"intraday_{column}"] = intraday[column]
+    for column in macro_signal.columns:
+        aligned[f"macro_{column}"] = macro_signal[column]
     aligned = aligned.sort_index()
     return {column: aligned[column] for column in aligned.columns}
 
@@ -146,6 +160,13 @@ def registered_signals(series: dict[str, pd.Series]) -> list[SignalSpec]:
         ("intraday_early_momentum", series["intraday_first_hour_return"], "soxl_intraday_t1"),
         ("intraday_close_location", series["intraday_close_location"], "soxl_intraday_t1"),
         ("intraday_realized_vol", series["intraday_realized_vol_1m"], "soxl_intraday_t1"),
+        # Newly collected FRED/CBOE macro and volatility levels.
+        ("vix_level", series["macro_vix_level"], "macro_vol_20261010"),
+        ("vix_term_slope", series["macro_vix_term_slope"], "macro_vol_20261010"),
+        ("credit_spread", series["macro_credit_spread"], "macro_vol_20261010"),
+        ("dollar_index", series["macro_dollar_index"], "macro_vol_20261010"),
+        ("ten_year_yield", series["macro_ten_year_yield"], "macro_vol_20261010"),
+        ("semiconductor_index", series["macro_semiconductor_index"], "macro_vol_20261010"),
     ]
     signals = []
     for name, value, source in families:
@@ -228,6 +249,8 @@ def _build_summary(*, spec, series, candidates, window_results, selected_name) -
             "data/qlib/soxl (SOXL/SOXX daily, 2010-2026-10-08)",
             "data/qlib/soxx_constituents (30 semiconductor daily, 2010-2026-07-02)",
             "data/qlib/soxl_intraday_t1 (SOXL 1-minute-derived daily features, 2019-2026)",
+            "data/raw/external/macro_vol_20261010_v1 (FRED+CBOE VIX term, credit, FX, rates, SOX index)",
+            "data/raw/external/asia_semis_20261010_v1 (Asian semiconductor markets, dedicated lead-lag card)",
         ],
         "excluded_sources": [
             {"source": "data/raw/external futu capital flow intraday",

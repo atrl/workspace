@@ -1,0 +1,327 @@
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_cached.txt b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_cached.txt
+deleted file mode 100644
+index e69de29b..00000000
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_diff.txt b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_diff.txt
+deleted file mode 100644
+index cf3f1e0b..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_diff.txt
++++ /dev/null
+@@ -1,91 +0,0 @@
+-diff --git a/tests/test_stable_excess_frontier.py b/tests/test_stable_excess_frontier.py
+-index 605841fe..1beb75d6 100644
+---- a/tests/test_stable_excess_frontier.py
+-+++ b/tests/test_stable_excess_frontier.py
+-@@ -283,3 +283,86 @@ def test_momentum_selection_never_picks_off_control():
+-                               "excess": {"sharpe_difference": 0.2, "max_drawdown_improvement_pct": 0.1}},
+-     }
+-     assert momentum_workflow.select_development_candidate(results) == "early_momentum_l2"
+-+
+-+
+-+# ---------------------------------------------------------------------------
+-+# Cross-source signal search
+-+# ---------------------------------------------------------------------------
+-+
+-+from src.analysis import cross_source_signal_search as search_analysis
+-+from src.workflow import cross_source_signal_search as search_workflow
+-+
+-+
+-+def _signal_series(periods=800, seed=3, drift=0.0003):
+-+    rng = np.random.default_rng(seed)
+-+    dates = pd.bdate_range("2015-01-02", periods=periods)
+-+    ret = rng.normal(drift, 0.012, periods)
+-+    return pd.Series(ret, index=dates)
+-+
+-+
+-+def test_build_exposure_is_causal_expanding_quantile():
+-+    rng = np.random.default_rng(1)
+-+    signal = pd.Series(rng.normal(0, 1, 300), index=pd.bdate_range("2016-01-04", periods=300))
+-+    exposure = search_analysis.build_exposure(signal, direction=1, threshold=0.5)
+-+    # First 59 values cannot be classified (min_periods=60).
+-+    assert exposure.iloc[:59].isna().all()
+-+    assert exposure.iloc[60:].isin([0.0, 1.0]).all() or exposure.iloc[60:].isna().all()
+-+
+-+
+-+def test_evaluate_signal_applies_next_day_exposure_and_charges_turnover():
+-+    dates = pd.bdate_range("2016-01-04", periods=200)
+-+    signal = pd.Series(np.tile([1.0, -1.0], 100), index=dates)
+-+    risky = pd.Series(0.01, index=dates)
+-+    safe = pd.Series(0.0, index=dates)
+-+    replay = search_analysis.evaluate_signal(signal, risky, safe, direction=1, threshold=0.5, cost_bps=10.0)
+-+    assert replay is not None
+-+    assert set(replay) == {"strategy", "benchmark", "exposure", "turnover", "sessions"}
+-+    # First applied exposure is 0 (no history).
+-+    assert replay["exposure"].iloc[0] == 0.0
+-+    # Turnover is nonnegative and the strategy never exceeds the risky return.
+-+    assert (replay["turnover"] >= 0).all()
+-+    assert (replay["strategy"] <= risky.loc[replay["strategy"].index] + 1e-12).all()
+-+
+-+
+-+def test_evaluate_signal_returns_none_when_history_too_short():
+-+    dates = pd.bdate_range("2016-01-04", periods=30)
+-+    signal = pd.Series(np.arange(30.0), index=dates)
+-+    assert search_analysis.evaluate_signal(signal, signal * 0.0, signal * 0.0,
+-+                                           direction=1, threshold=0.5, cost_bps=10.0) is None
+-+
+-+
+-+def test_summarize_search_flags_stable_excess_only_when_all_dimensions_pass():
+-+    dates = pd.bdate_range("2016-01-04", periods=800)
+-+    rng = np.random.default_rng(5)
+-+    noise = pd.Series(rng.normal(0.0, 0.001, len(dates)), index=dates)
+-+    # A strategy that strictly dominates the benchmark in level with identical noise.
+-+    bench = 0.0005 + noise
+-+    good = bench + 0.0004
+-+    results = {
+-+        "dominates": {"strategy": good, "benchmark": bench,
+-+                      "exposure": pd.Series(1.0, index=dates), "turnover": pd.Series(0.0, index=dates),
+-+                      "sessions": len(dates)},
+-+        "loses": {"strategy": bench * 0.5, "benchmark": bench,
+-+                  "exposure": pd.Series(0.0, index=dates), "turnover": pd.Series(0.0, index=dates),
+-+                  "sessions": len(dates)},
+-+    }
+-+    table = search_analysis.summarize_search(results, minimum_positive_years=2)
+-+    row = table.set_index("signal").loc["dominates"]
+-+    assert bool(row["beats_return"]) is True
+-+    assert bool(row["beats_sharpe"]) is True
+-+    assert bool(row["stable_excess"]) is True
+-+    assert bool(table.set_index("signal").loc["loses", "stable_excess"]) is False
+-+
+-+
+-+def test_registered_signals_are_bounded_and_causal():
+-+    dates = pd.bdate_range("2015-01-02", periods=400)
+-+    rng = np.random.default_rng(2)
+-+    series = {name: pd.Series(rng.normal(0, 0.01, 400), index=dates)
+-+              for name in ("soxl_return", "soxx_return", "soxl_reversal", "soxx_reversal",
+-+                           "leader_capmkt_reversal", "leader_breadth_reversal",
+-+                           "leader_dispersion", "realized_vol", "trend")}
+-+    candidates = search_workflow.registered_signals(series)
+-+    assert 12 <= len(candidates) <= 40
+-+    for spec in candidates:
+-+        spec.validate()
+-+        assert spec.direction in (1, -1)
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_status.txt b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_status.txt
+deleted file mode 100644
+index 5033f7c9..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/code_status.txt
++++ /dev/null
+@@ -1,15 +0,0 @@
+-On branch research/benchmark-core-variance-20261009
+-You are in a sparse checkout with 50% of tracked files present.
+-
+-Changes not staged for commit:
+-  (use "git add <file>..." to update what will be committed)
+-  (use "git restore <file>..." to discard changes in working directory)
+-	modified:   ../../tests/test_stable_excess_frontier.py
+-
+-Untracked files:
+-  (use "git add <file>..." to include in what will be committed)
+-	./
+-	../../src/analysis/cross_source_signal_search.py
+-	../../src/workflow/cross_source_signal_search.py
+-
+-no changes added to commit (use "git add" and/or "git commit -a")
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/summary_json b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/summary_json
+deleted file mode 100644
+index ff940651..00000000
+Binary files a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts/summary_json and /dev/null differ
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/meta.yaml b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/meta.yaml
+deleted file mode 100644
+index f3243e05..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/meta.yaml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-artifact_uri: /Users/rziiiii/dev/workspace/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/artifacts
+-end_time: 1791535254813
+-entry_point_name: ''
+-experiment_id: '936440476413716079'
+-lifecycle_stage: active
+-run_id: f1436b48a6534b45ac407adb21ed6db1
+-run_name: search
+-source_name: ''
+-source_type: 4
+-source_version: ''
+-start_time: 1791535254734
+-status: 3
+-tags: []
+-user_id: rziiiii
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/metrics/candidate_count b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/metrics/candidate_count
+deleted file mode 100644
+index 5772f935..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/metrics/candidate_count
++++ /dev/null
+@@ -1 +0,0 @@
+-1791535254812 36.0 0
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/metrics/stable_signal_count b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/metrics/stable_signal_count
+deleted file mode 100644
+index 16690a62..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/metrics/stable_signal_count
++++ /dev/null
+@@ -1 +0,0 @@
+-1791535254811 0.0 0
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/as_of b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/as_of
+deleted file mode 100644
+index f0271688..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/as_of
++++ /dev/null
+@@ -1 +0,0 @@
+-2026-07-02
+\ No newline at end of file
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/candidate_count b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/candidate_count
+deleted file mode 100644
+index dce6588c..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/candidate_count
++++ /dev/null
+@@ -1 +0,0 @@
+-36
+\ No newline at end of file
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/cmd-sys.argv b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/cmd-sys.argv
+deleted file mode 100644
+index cdab9ba8..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/cmd-sys.argv
++++ /dev/null
+@@ -1 +0,0 @@
+-/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmpo06dox7n.json --HistoryManager.hist_file=:memory:
+\ No newline at end of file
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/costs_bps b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/costs_bps
+deleted file mode 100644
+index 4882e5d6..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/costs_bps
++++ /dev/null
+@@ -1 +0,0 @@
+-[10.0, 25.0]
+\ No newline at end of file
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/schema_version b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/schema_version
+deleted file mode 100644
+index 99ce3ee0..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/schema_version
++++ /dev/null
+@@ -1 +0,0 @@
+-cross_source_signal_search_v1
+\ No newline at end of file
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/selected_signal b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/selected_signal
+deleted file mode 100644
+index 4af18322..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/params/selected_signal
++++ /dev/null
+@@ -1 +0,0 @@
+-None
+\ No newline at end of file
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.runName b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.runName
+deleted file mode 100644
+index a9437ed7..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.runName
++++ /dev/null
+@@ -1 +0,0 @@
+-search
+\ No newline at end of file
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.source.name b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.source.name
+deleted file mode 100644
+index f2373abb..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.source.name
++++ /dev/null
+@@ -1 +0,0 @@
+-/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py
+\ No newline at end of file
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.source.type b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.source.type
+deleted file mode 100644
+index 56d71565..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.source.type
++++ /dev/null
+@@ -1 +0,0 @@
+-NOTEBOOK
+\ No newline at end of file
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.user b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.user
+deleted file mode 100644
+index 326eae5a..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/f1436b48a6534b45ac407adb21ed6db1/tags/mlflow.user
++++ /dev/null
+@@ -1 +0,0 @@
+-rziiiii
+\ No newline at end of file
+diff --git a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/meta.yaml b/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/meta.yaml
+deleted file mode 100644
+index 4bad85c2..00000000
+--- a/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079/meta.yaml
++++ /dev/null
+@@ -1,9 +0,0 @@
+-artifact_location: /Users/rziiiii/dev/workspace/research/cross_source_signal_search_20261010/qlib_recorder/936440476413716079
+-creation_time: 1791535254684
+-effective_trace_archival_retention: null
+-experiment_id: '936440476413716079'
+-last_update_time: 1791535254684
+-lifecycle_stage: active
+-name: cross_source_signal_search_20261010
+-trace_location: null
+-workspace: default
+diff --git a/src/workflow/cross_source_signal_search.py b/src/workflow/cross_source_signal_search.py
+index 38eeb72d..d5cd7bc6 100644
+--- a/src/workflow/cross_source_signal_search.py
++++ b/src/workflow/cross_source_signal_search.py
+@@ -115,6 +115,18 @@ def _load_series(spec: SearchSpec) -> dict[str, pd.Series]:
+     intraday.index = pd.to_datetime(intraday.index)
+     intraday = intraday.rename(columns={v: k for k, v in intraday_fields.items()})
+ 
++    # Newly collected macro / volatility levels (FRED + CBOE), daily closes.
++    macro_path = spec.root / "data/raw/external/macro_vol_20261010_v1/daily_levels.csv"
++    macro = pd.read_csv(macro_path, index_col=0, parse_dates=True).sort_index()
++    macro_signal = pd.DataFrame({
++        "vix_level": macro["VIXCLS"],
++        "vix_term_slope": macro["CBOE_VIX9D"] / macro["CBOE_VIX3M"] - 1.0,
++        "credit_spread": macro["BAMLH0A0HYM2"],
++        "dollar_index": macro["DTWEXBGS"],
++        "ten_year_yield": macro["DGS10"],
++        "semiconductor_index": macro["NASDAQSOX"],
++    })
++
+     # Align every series to the union calendar so a single boolean mask is valid.
+     index = soxl_ret.index.union(cap_mkt.index).union(soxx_vol.index).union(intraday.index)
+     aligned = pd.DataFrame({
+@@ -130,6 +142,8 @@ def _load_series(spec: SearchSpec) -> dict[str, pd.Series]:
+     }, index=index)
+     for column in intraday.columns:
+         aligned[f"intraday_{column}"] = intraday[column]
++    for column in macro_signal.columns:
++        aligned[f"macro_{column}"] = macro_signal[column]
+     aligned = aligned.sort_index()
+     return {column: aligned[column] for column in aligned.columns}
+ 
+@@ -146,6 +160,13 @@ def registered_signals(series: dict[str, pd.Series]) -> list[SignalSpec]:
+         ("intraday_early_momentum", series["intraday_first_hour_return"], "soxl_intraday_t1"),
+         ("intraday_close_location", series["intraday_close_location"], "soxl_intraday_t1"),
+         ("intraday_realized_vol", series["intraday_realized_vol_1m"], "soxl_intraday_t1"),
++        # Newly collected FRED/CBOE macro and volatility levels.
++        ("vix_level", series["macro_vix_level"], "macro_vol_20261010"),
++        ("vix_term_slope", series["macro_vix_term_slope"], "macro_vol_20261010"),
++        ("credit_spread", series["macro_credit_spread"], "macro_vol_20261010"),
++        ("dollar_index", series["macro_dollar_index"], "macro_vol_20261010"),
++        ("ten_year_yield", series["macro_ten_year_yield"], "macro_vol_20261010"),
++        ("semiconductor_index", series["macro_semiconductor_index"], "macro_vol_20261010"),
+     ]
+     signals = []
+     for name, value, source in families:
+@@ -228,6 +249,8 @@ def _build_summary(*, spec, series, candidates, window_results, selected_name) -
+             "data/qlib/soxl (SOXL/SOXX daily, 2010-2026-10-08)",
+             "data/qlib/soxx_constituents (30 semiconductor daily, 2010-2026-07-02)",
+             "data/qlib/soxl_intraday_t1 (SOXL 1-minute-derived daily features, 2019-2026)",
++            "data/raw/external/macro_vol_20261010_v1 (FRED+CBOE VIX term, credit, FX, rates, SOX index)",
++            "data/raw/external/asia_semis_20261010_v1 (Asian semiconductor markets, dedicated lead-lag card)",
+         ],
+         "excluded_sources": [
+             {"source": "data/raw/external futu capital flow intraday",
+diff --git a/tests/test_stable_excess_frontier.py b/tests/test_stable_excess_frontier.py
+index b4e82684..c17b831b 100644
+--- a/tests/test_stable_excess_frontier.py
++++ b/tests/test_stable_excess_frontier.py
+@@ -363,9 +363,11 @@ def test_registered_signals_are_bounded_and_causal():
+                            "leader_capmkt_reversal", "leader_breadth_reversal",
+                            "leader_dispersion", "realized_vol", "trend",
+                            "intraday_first_hour_return", "intraday_close_location",
+-                           "intraday_realized_vol_1m")}
++                           "intraday_realized_vol_1m", "macro_vix_level", "macro_vix_term_slope",
++                           "macro_credit_spread", "macro_dollar_index", "macro_ten_year_yield",
++                           "macro_semiconductor_index")}
+     candidates = search_workflow.registered_signals(series)
+-    assert 12 <= len(candidates) <= 60
++    assert 12 <= len(candidates) <= 80
+     for spec in candidates:
+         spec.validate()
+         assert spec.direction in (1, -1)

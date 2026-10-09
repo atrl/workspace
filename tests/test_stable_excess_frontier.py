@@ -363,9 +363,11 @@ def test_registered_signals_are_bounded_and_causal():
                            "leader_capmkt_reversal", "leader_breadth_reversal",
                            "leader_dispersion", "realized_vol", "trend",
                            "intraday_first_hour_return", "intraday_close_location",
-                           "intraday_realized_vol_1m")}
+                           "intraday_realized_vol_1m", "macro_vix_level", "macro_vix_term_slope",
+                           "macro_credit_spread", "macro_dollar_index", "macro_ten_year_yield",
+                           "macro_semiconductor_index")}
     candidates = search_workflow.registered_signals(series)
-    assert 12 <= len(candidates) <= 60
+    assert 12 <= len(candidates) <= 80
     for spec in candidates:
         spec.validate()
         assert spec.direction in (1, -1)
