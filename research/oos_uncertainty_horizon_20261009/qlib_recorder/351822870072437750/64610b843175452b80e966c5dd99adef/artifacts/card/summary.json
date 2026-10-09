@@ -1,0 +1,142 @@
+{
+  "experiment": "oos_uncertainty_horizon_20261009",
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+  "as_of": "2026-09-25",
+  "region": "us",
+  "market": "all",
+  "benchmark": "SOXX",
+  "data_range": [
+    "2016-01-04",
+    "2026-09-25"
+  ],
+  "recorder_id": "64610b843175452b80e966c5dd99adef",
+  "experiment_id": "351822870072437750",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/oos_uncertainty_horizon_20261009/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef",
+  "model_selection": "two_registered_candidates_no_post_result_selection",
+  "historical_gates": {
+    "hac_h5": false,
+    "oos_floor_h5": false
+  },
+  "promotion_eligible": false,
+  "decision": "continue_research_no_forward_qualification",
+  "evidence_kind": "reused_history",
+  "native_paths": 8,
+  "native_all_pass": true,
+  "plan_sha256": "03f9084c97f175a9a616bdddf7189ea0332eba22bffb84c39bdc3dc01d33f993",
+  "source_sha256": {
+    "src/workflow/benchmark_relative_research.py": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+    "src/model/online_expert_allocation.py": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+    "src/data/benchmark_relative_data.py": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+    "src/backtest/benchmark_relative_replay.py": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc",
+    "src/analysis/benchmark_relative_protocol.py": "e9f3d14f4c413dcb16df9483b9cbbeab94002a1beb8d5da2ac83fdbdb45835e5",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+    "src/data/legacy_execution_view.py": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+    "src/model/post_fee_settlement.py": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/backtest/strategy.py": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/workflow/oos_uncertainty_horizon.py": "b25e10d52968f5e849a2e67156290effdc8a66e66a3fcd71ebb947d751811831",
+    "src/data/oos_horizon_inputs.py": "0b247d44b0f23c7e6f974747411c4aae2171529759d6220c1d719ea491e1d68b",
+    "src/model/oos_mean_uncertainty.py": "ce8177c698b748cadcb173940e90875dc6a5bd751f00f4ff3392e89e2e6ecde7",
+    "src/backtest/horizon_matched_allocation.py": "4854faa634e7e5aac24fbe6146829dcc6de1fd3c5b3982ca5e49a88abd8414e3",
+    "src/core/recorder_artifacts.py": "144eb16c79aef62ecc9421cbb0972c803d31aee289686f0a81460d7e203071fb",
+    "src/analysis/expert_information_attribution.py": "99143f61419a6646b485f619f0c4002b8933d519a6b8c11ebd0bd716178d614a",
+    "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+    "src/model/convex_allocation.py": "28228f8db1a8d6acf42dcffebd5e7edbaef857146ee7cd3bc067970a702eb86c",
+    "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+    "src/workflow/benchmark_risk_excess.py": "26fcd325ca5cd20ed37eec9e8296b477eedc907e4c815af802d448236b5cdbcd",
+    "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+    "src/model/certified_convex_allocation.py": "ceb458bfd93cfa1c44a5efb08c05748253899a1c74410c1fd2b6279895c29d3f"
+  },
+  "run_binding_sha256": "de20e873b26dd881116abffc8f657840642f4daa0fdfd763646c0bacfa8d328e",
+  "sidecars": [
+    "backtest_benchmark_comparison.csv",
+    "annual_metrics.csv",
+    "ablation_comparison.csv",
+    "gates.csv",
+    "rolling_summary.csv",
+    "bootstrap_analysis.csv",
+    "solver_summary.csv",
+    "calibration_fits.csv",
+    "forecast_fits.csv",
+    "native_audit.csv",
+    "expert_structure.csv",
+    "expert_attribution.csv",
+    "expert_accounting.csv",
+    "plan.json",
+    "run_binding.json",
+    "diagnosis.md",
+    "conclusion.md",
+    "numerical_repair.json",
+    "selected_model.json",
+    "model_selection.csv",
+    "risk_analysis.csv"
+  ],
+  "numerical_repair_sha256": "d6215163c482fffbe31a950d68e4480c024132c58b2c3f8475f4e01446417be6",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/paths.pkl",
+      "forecast/predictions.pkl",
+      "models/annual_fits.pkl",
+      "models/oos_floors.pkl",
+      "portfolio_analysis/native_reports.pkl.gz",
+      "analysis/solver_details.pkl.gz"
+    ]
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "limitations": [
+    "All history reused; no new forward qualification.",
+    "Published affine basis has disclosed 16 secondary observations and is not independently audited total return.",
+    "Historical open fills and continuous shares are research assumptions.",
+    "H5 labels overlap; HAC does not correct all drift, shrinkage or selection bias.",
+    "Cadence changes allow intermediate risk drift; final realized risk gates unchanged."
+  ],
+  "compressed_artifacts": [
+    {
+      "artifact": "portfolio_analysis/native_reports.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "7cd38701395d1f5a3a3e85e4beecb6df477b72502ca098cdf9ffb588a851bbd8",
+      "uncompressed_sha256": "5a35cf247ecc2b8ca7279d221a3d7994e5e87affadf5bf7bf3e284de16b14fb5",
+      "bytes": 3217372,
+      "uncompressed_bytes": 42028561
+    },
+    {
+      "artifact": "analysis/solver_details.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "2ad0586bd69dcf078221cd5ed3b524253bc916002bfda882a715e624f0947127",
+      "uncompressed_sha256": "0983078be981d5eaa5aabd7cd765f7632071984e73d3f812ebb201704045f0ff",
+      "bytes": 2730254,
+      "uncompressed_bytes": 11387242
+    }
+  ],
+  "verification": {
+    "focused_passed": 207,
+    "independent_checks_passed": 79,
+    "required_suite": {
+      "passed": 8,
+      "failed": 61,
+      "reason": "existing missing historical cards in current sparse checkout"
+    },
+    "full_suite": {
+      "collection_errors": 15,
+      "reason": "existing archived test module basename conflicts"
+    },
+    "native_maximum_return_error": 5.5673e-12,
+    "notebook_executed": true
+  },
+  "finalization": "Scientific source, plan, forecasts, paths and original tables unchanged. Editorial Chinese interpretation appended; stderr compacted; raw executed notebook and original summary retained in Recorder. Numerical diagnostic reproductions identified separately from original failure stack.",
+  "next_hypothesis": "Matched BASE versus BASE+CBOE3, postlaunch official source with explicit previous-native-session availability; one fixed information family, no changed risk gate."
+}

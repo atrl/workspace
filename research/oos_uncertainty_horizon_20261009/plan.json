@@ -1,0 +1,114 @@
+{
+  "schema_version": "oos_uncertainty_horizon_v1",
+  "experiment": "oos_uncertainty_horizon_20261009",
+  "registered_at_utc": "2026-10-09T03:19:12.337999+00:00",
+  "registered_before_fits_and_replays": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "H5 repeated daily planning can incur unnecessary turnover; adding a strictly past out-of-sample mean-error ambiguity floor may reject uncalibrated active exposure. Separate cadence and uncertainty effects with matched controls.",
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+    "summary": "research/canonical_price_basis_20261002/summary.json",
+    "as_of": "2026-09-25"
+  },
+  "train_start": "2011-01-03",
+  "signal_start": "2016-01-04",
+  "fit_years": [
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "development_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "ridge_alpha": 10.0,
+  "minimum_training_rows": 252,
+  "hac_lags": 5,
+  "robust_radius": 1.0,
+  "forecast_horizon_sessions": 5,
+  "calibration": {
+    "cutoff": "January 1 America/New_York of current model year",
+    "minimum_rows": 252,
+    "hac_lags": 5,
+    "formula": "e=realized_H5-prior_year_fit_OOF_prediction; b=mean(e); floor=b*b.T+HAC_Bartlett5_covariance_of_mean(e); new ambiguity=original training parameter Vmean(x)+floor",
+    "bias_correct_mean": false,
+    "statistical_claim": "Conservative ambiguity scale for average OOS bias; not predictive RMSE, not guaranteed conditional coverage; excludes future regime shifts and project search uncertainty."
+  },
+  "variants": [
+    {
+      "name": "hac_daily",
+      "rebalance_sessions": 1,
+      "oos_floor": false,
+      "role": "matched_canonical_control"
+    },
+    {
+      "name": "hac_h5",
+      "rebalance_sessions": 5,
+      "oos_floor": false,
+      "role": "cadence_candidate"
+    },
+    {
+      "name": "oos_floor_h5",
+      "rebalance_sessions": 5,
+      "oos_floor": true,
+      "role": "uncertainty_candidate"
+    }
+  ],
+  "candidate_budget": 2,
+  "costs_bps": [
+    10.0,
+    25.0
+  ],
+  "initial_cash": 100000.0,
+  "benchmark": "SOXX",
+  "evidence_kind": "reused_history",
+  "execution": "signal-date16:15ET decisions; next canonical open execution, daily next-open marking. No rebalance in four intermediate sessions; actual holdings drift and costs remain account-specific. Variance feasibility at rebalance only, not a pathwise realized guarantee. No terminal liquidation, cash zero yield, continuous shares.",
+  "label_precision": "Recompute daily and H5 labels in float64 from identical Qlib-read canonical opens; retain parent causal feature recipe. Record both original source and transformed Dataset identity; do not rewrite old evidence.",
+  "gates": {
+    "minimum_positive_years": 6,
+    "rolling_sessions": 252,
+    "minimum_rolling_win_rate": 0.6,
+    "bootstrap_resamples": 2000,
+    "family_size": 2
+  },
+  "gate_definition": "Both cost scenarios: positive net log excess, >=6/7 positive complete signal years, median annual>0, removing any year leaves positive aggregate, MaxDD/CVaR5 no worse SOXX, rolling252 win rate>=60%, 20/60-block one-sided lower>0 (alpha=.05/2). Historical result cannot authorize production.",
+  "attribution_source": {
+    "card": "research/benchmark_relative_architecture_20261009",
+    "recorder_id": "64c03a9f9c824e058a2bb360eb6aba11"
+  },
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://www.cvxpy.org/tutorial/dpp/index.html",
+    "https://web.stanford.edu/~boyd/papers/pdf/cvx_portfolio.pdf",
+    "https://academic.oup.com/rfs/article-abstract/35/3/1222/6219970"
+  ],
+  "stopping": "This registered batch has exactly three policy variants plus SOXX at two costs. Keep all failures, no result-dependent parameter edits or model selection. If it fails, diagnose before registering the next distinct mechanism; the overall user goal remains active.",
+  "limitations": [
+    "All history reused; no new forward qualification.",
+    "Published affine basis has disclosed 16 secondary observations and is not independently audited total return.",
+    "Historical open fills and continuous shares are research assumptions.",
+    "H5 labels overlap; HAC does not correct all drift, shrinkage or selection bias.",
+    "Cadence changes allow intermediate risk drift; final realized risk gates unchanged."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "registered_at_utc": "2026-10-09T03:35:40.980590+00:00",
+  "failed_recorder_id": "a818c9959ac144618fcd59f85e003067",
+  "failed_signal": "2019-04-23",
+  "variant": "oos_floor_h5",
+  "cost_bps": 10.0,
+  "original_failure": "AlmostSolved with original-unit dual residual1.13e-8/2.66e-8 exceeding unchanged1e-8 certificate; primal/dualgap were much smaller.",
+  "financial_plan_sha256": "03f9084c97f175a9a616bdddf7189ea0332eba22bffb84c39bdc3dc01d33f993",
+  "financial_parameters_changed": false,
+  "numerical_certificate_tolerance": 1e-08,
+  "protocol": "On every solve, original warm then original cold; only if numerical certificate fails, cold with max20 linear refinement at1e-14 absolute/relative; only if still fails, cold same refinement with equilibration disabled. Accept first original-unit passing certificate, otherwise stop. No outcome-dependent selection.",
+  "scope": "A new subclass is used only by this new research adapter; sealed original convex solver unchanged. All attempts keep same objective, constraints, forecasts, holdings, cost and risk input.",
+  "comparison_requirement": "Retain initial failed Recorder and exact raw failure; compare unchanged prediction/fit artifacts across the numerical repair, plus native-accounting and original-unit certificates."
+}

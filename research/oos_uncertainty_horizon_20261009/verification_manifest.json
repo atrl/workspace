@@ -1,0 +1,1697 @@
+{
+  "schema_version": "oos_horizon_artifact_manifest_v1",
+  "recorder_id": "64610b843175452b80e966c5dd99adef",
+  "failed_recorder_id": "a818c9959ac144618fcd59f85e003067",
+  "as_of": "2026-09-25",
+  "campaign_status": "active_research",
+  "large_artifacts": "Annual ridge fits/calibration, exact input rows and compressed original Qlib report/positions retained to reproduce and audit the two candidates; no optional neural checkpoints.",
+  "verification": {
+    "focused_passed": 207,
+    "independent_checks_passed": 79,
+    "required_suite": {
+      "passed": 8,
+      "failed": 61,
+      "reason": "existing missing historical cards in current sparse checkout"
+    },
+    "full_suite": {
+      "collection_errors": 15,
+      "reason": "existing archived test module basename conflicts"
+    },
+    "native_maximum_return_error": 5.5673e-12,
+    "notebook_executed": true
+  },
+  "entries": [
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/ablation_comparison.csv",
+      "bytes": 5752,
+      "sha256": "3903abb27a2c198c2e6160ab5381bcd8c25ca320a3b983d65bcbdac26f6e1a88",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/annual_metrics.csv",
+      "bytes": 53512,
+      "sha256": "1112065131a600f81750e7b79c1903de83b909457d6abbfe63eb9071043dbebc",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/backtest_benchmark_comparison.csv",
+      "bytes": 10040,
+      "sha256": "f8c685ed81bd1dbc6253780fcaf77ddeac6d98ca2f721617fc9fb805e5d69607",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/bootstrap_analysis.csv",
+      "bytes": 3884,
+      "sha256": "be481f44459b85edf0b70d93d5caff2dac30e8f499e6de07cc5539cc48a5e0d2",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/calibration_fits.csv",
+      "bytes": 21729,
+      "sha256": "e24ef4740f554c62fff9e41e2e53c08586a1450d5f0dabc07ced96358e5ebef9",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/conclusion.md",
+      "bytes": 4051,
+      "sha256": "88c0b17598ecff287e432926ad18e89358f8b35f213d88046305610b68ec9ef5",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/diagnosis.md",
+      "bytes": 4442,
+      "sha256": "ffa5c321c8d197105c37777ec01d4006dc4ec69304ee52701a73666d53512c91",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/expert_accounting.csv",
+      "bytes": 1310,
+      "sha256": "54bb53145474da365c07ac3e61bebea49eacfef24bcee2870592b91f5fe5a695",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/expert_attribution.csv",
+      "bytes": 2731,
+      "sha256": "55ceec8d4b7d095e763aa372ccf495ad3e9c8f56ac0bb16dc67873cf1c06b551",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/expert_structure.csv",
+      "bytes": 1665,
+      "sha256": "543263b14cb29afca8d5dcee07b8303a46f56f1a1a1ae8fd6ce6208b5358284f",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/forecast_fits.csv",
+      "bytes": 18657,
+      "sha256": "21611deae40fdac325c346133fa4f340ead73c9b27aeb9ac0bd32cf931e2b5f1",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/gates.csv",
+      "bytes": 714,
+      "sha256": "45daf2f174d885ba2199ebed81348f220f15185b4eb4aed0f007b1b375617213",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/model_selection.csv",
+      "bytes": 134,
+      "sha256": "fad4cc10d38aa08dc29c772744d4b746ac93444d89cb924ab00ba6083dfa5383",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/native_audit.csv",
+      "bytes": 4714,
+      "sha256": "834e6fbde958cf30906e4c65dcc4e304e157d9adcfebece7def31d480885ecc9",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/numerical_repair.json",
+      "bytes": 1287,
+      "sha256": "d6215163c482fffbe31a950d68e4480c024132c58b2c3f8475f4e01446417be6",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/oos_uncertainty_horizon_20261009.ipynb",
+      "bytes": 228615,
+      "sha256": "aa06d4ef9995f12df8e781a3e6bc1f0b05af9a0a044f32d5f8257659b2c6ce68",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/plan.json",
+      "bytes": 4768,
+      "sha256": "03f9084c97f175a9a616bdddf7189ea0332eba22bffb84c39bdc3dc01d33f993",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/0/meta.yaml",
+      "bytes": 305,
+      "sha256": "0a6a6c74af43a67a24fcb49efc1723604a71607f4a6a37a178e9658345911d70",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/analysis/gates.pkl",
+      "bytes": 19625,
+      "sha256": "d4e8ec52dd4b99bdb00f8f7830f266c597d25b2cffd57c0f38f0aa02b29f8719",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/analysis/paths.pkl",
+      "bytes": 3859380,
+      "sha256": "143c60bec31992711d8e19cd11116d09481647cb29958093bef0901bdb181f9e",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/analysis/solver_details.pkl.gz",
+      "bytes": 2730254,
+      "sha256": "2ad0586bd69dcf078221cd5ed3b524253bc916002bfda882a715e624f0947127",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/ablation_comparison.csv",
+      "bytes": 5752,
+      "sha256": "3903abb27a2c198c2e6160ab5381bcd8c25ca320a3b983d65bcbdac26f6e1a88",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/annual_metrics.csv",
+      "bytes": 53512,
+      "sha256": "1112065131a600f81750e7b79c1903de83b909457d6abbfe63eb9071043dbebc",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/backtest_benchmark_comparison.csv",
+      "bytes": 10040,
+      "sha256": "f8c685ed81bd1dbc6253780fcaf77ddeac6d98ca2f721617fc9fb805e5d69607",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/bootstrap_analysis.csv",
+      "bytes": 3884,
+      "sha256": "be481f44459b85edf0b70d93d5caff2dac30e8f499e6de07cc5539cc48a5e0d2",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/calibration_fits.csv",
+      "bytes": 21729,
+      "sha256": "e24ef4740f554c62fff9e41e2e53c08586a1450d5f0dabc07ced96358e5ebef9",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/conclusion.md",
+      "bytes": 4051,
+      "sha256": "88c0b17598ecff287e432926ad18e89358f8b35f213d88046305610b68ec9ef5",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/diagnosis.md",
+      "bytes": 4442,
+      "sha256": "ffa5c321c8d197105c37777ec01d4006dc4ec69304ee52701a73666d53512c91",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/expert_accounting.csv",
+      "bytes": 1310,
+      "sha256": "54bb53145474da365c07ac3e61bebea49eacfef24bcee2870592b91f5fe5a695",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/expert_attribution.csv",
+      "bytes": 2731,
+      "sha256": "55ceec8d4b7d095e763aa372ccf495ad3e9c8f56ac0bb16dc67873cf1c06b551",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/expert_structure.csv",
+      "bytes": 1665,
+      "sha256": "543263b14cb29afca8d5dcee07b8303a46f56f1a1a1ae8fd6ce6208b5358284f",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/forecast_fits.csv",
+      "bytes": 18657,
+      "sha256": "21611deae40fdac325c346133fa4f340ead73c9b27aeb9ac0bd32cf931e2b5f1",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/gates.csv",
+      "bytes": 714,
+      "sha256": "45daf2f174d885ba2199ebed81348f220f15185b4eb4aed0f007b1b375617213",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/model_selection.csv",
+      "bytes": 134,
+      "sha256": "fad4cc10d38aa08dc29c772744d4b746ac93444d89cb924ab00ba6083dfa5383",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/native_audit.csv",
+      "bytes": 4714,
+      "sha256": "834e6fbde958cf30906e4c65dcc4e304e157d9adcfebece7def31d480885ecc9",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/numerical_repair.json",
+      "bytes": 1287,
+      "sha256": "d6215163c482fffbe31a950d68e4480c024132c58b2c3f8475f4e01446417be6",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/oos_uncertainty_horizon_20261009.ipynb",
+      "bytes": 228615,
+      "sha256": "aa06d4ef9995f12df8e781a3e6bc1f0b05af9a0a044f32d5f8257659b2c6ce68",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/plan.json",
+      "bytes": 4768,
+      "sha256": "03f9084c97f175a9a616bdddf7189ea0332eba22bffb84c39bdc3dc01d33f993",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/risk_analysis.csv",
+      "bytes": 1790,
+      "sha256": "16983ad118a0f67555f3812d51b8320f101fd125365a152b6d52fc472816ce6f",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/rolling_summary.csv",
+      "bytes": 720,
+      "sha256": "636a978106b5938572827a5ef9c8937e84e84a6c92465bb4b81a77ae225aeaad",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/run_binding.json",
+      "bytes": 11624,
+      "sha256": "de20e873b26dd881116abffc8f657840642f4daa0fdfd763646c0bacfa8d328e",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/selected_model.json",
+      "bytes": 203,
+      "sha256": "187b7853b716bf361f274499be90d2928284b6792e09961e0f23718c81369ff2",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/solver_summary.csv",
+      "bytes": 2102,
+      "sha256": "ce50a328e580100ac705686c2f124fda97accc23d28637c0035633b804e03376",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/summary.json",
+      "bytes": 7584,
+      "sha256": "f8948256160ceb282cb9af50665a07f56ad3e46ae5cfb43d0183034ded3154e7",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/card/workflow.yaml",
+      "bytes": 827,
+      "sha256": "5a5e41c309e53fbd971e217f380512ec959ff8912cbf7f30cf48f864cf27ae1e",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/execution/soxx-oos-execution-summary.json",
+      "bytes": 6543,
+      "sha256": "c542fdc13c448cd7e3fffcd7d65cdf1d6880d580ebe50ee3b1bb1a65bf076ee8",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/execution/soxx-oos-raw-executed.ipynb",
+      "bytes": 841008,
+      "sha256": "026d30ddd9f8de7cf1ad5dc8cc86d284883cdcc93f1ab58eb63fcdc0f7aeec43",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/forecast/predictions.pkl",
+      "bytes": 258357,
+      "sha256": "bca24d72a88621a5a45e19706f1fbc1ecbba0cfd767417346178f744d743cb1c",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/forecast/training_hac.pkl",
+      "bytes": 110693,
+      "sha256": "c4d1560e41897122165c7302af6b664589ba91b3f2deed4fd19ffc41cfbad262",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/inputs/binding.pkl",
+      "bytes": 9476,
+      "sha256": "535777fa5c395e5b9e65e75c59b32c082968abcbd5799e4184c80cf68429c344",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/inputs/dataset_frame.pkl",
+      "bytes": 1285577,
+      "sha256": "d829084c1be03299f164f7eddaedf82ac1b2c65dbd1384264f16da52682ffd34",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/inputs/numerical_repair.json",
+      "bytes": 1287,
+      "sha256": "d6215163c482fffbe31a950d68e4480c024132c58b2c3f8475f4e01446417be6",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/inputs/plan.pkl",
+      "bytes": 4087,
+      "sha256": "4244dac58c8a7273f5e836fac6e57a78aa548524d68d768bd72b6adb6284499c",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/models/annual_fits.pkl",
+      "bytes": 324280,
+      "sha256": "03f6979d6422c310be61107b61858176bdea444eea8d34495e9e07746163cabb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/models/oos_floors.pkl",
+      "bytes": 8460,
+      "sha256": "a25cff55883fb3a5953ad5f8c33e9c0b62ad3c4b708aef6157d401cb9fec1fae",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/portfolio_analysis/native_reports.pkl.gz",
+      "bytes": 3217372,
+      "sha256": "7cd38701395d1f5a3a3e85e4beecb6df477b72502ca098cdf9ffb588a851bbd8",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/analysis/benchmark_relative_protocol.py",
+      "bytes": 12999,
+      "sha256": "e9f3d14f4c413dcb16df9483b9cbbeab94002a1beb8d5da2ac83fdbdb45835e5",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/analysis/convex_qlib.py",
+      "bytes": 7707,
+      "sha256": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/analysis/expert_information_attribution.py",
+      "bytes": 12406,
+      "sha256": "99143f61419a6646b485f619f0c4002b8933d519a6b8c11ebd0bd716178d614a",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/analysis/integrated_allocation.py",
+      "bytes": 23523,
+      "sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/backtest/benchmark_relative_replay.py",
+      "bytes": 6757,
+      "sha256": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/backtest/horizon_matched_allocation.py",
+      "bytes": 7874,
+      "sha256": "4854faa634e7e5aac24fbe6146829dcc6de1fd3c5b3982ca5e49a88abd8414e3",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/backtest/position_accounting.py",
+      "bytes": 3494,
+      "sha256": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/backtest/qlib_continuous_position.py",
+      "bytes": 2543,
+      "sha256": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/backtest/strategy.py",
+      "bytes": 4618,
+      "sha256": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/core/recorder_artifacts.py",
+      "bytes": 1701,
+      "sha256": "144eb16c79aef62ecc9421cbb0972c803d31aee289686f0a81460d7e203071fb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/data/benchmark_relative_data.py",
+      "bytes": 3123,
+      "sha256": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/data/conditional_variance.py",
+      "bytes": 20173,
+      "sha256": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/data/convex_allocation.py",
+      "bytes": 15455,
+      "sha256": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/data/legacy_execution_view.py",
+      "bytes": 7925,
+      "sha256": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/data/oos_horizon_inputs.py",
+      "bytes": 5468,
+      "sha256": "0b247d44b0f23c7e6f974747411c4aae2171529759d6220c1d719ea491e1d68b",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/data/price_basis.py",
+      "bytes": 20780,
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/data/qlib_native.py",
+      "bytes": 19985,
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/factor/soxx_pit_tail_factors.py",
+      "bytes": 17962,
+      "sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/model/certified_convex_allocation.py",
+      "bytes": 2571,
+      "sha256": "ceb458bfd93cfa1c44a5efb08c05748253899a1c74410c1fd2b6279895c29d3f",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/model/convex_allocation.py",
+      "bytes": 29948,
+      "sha256": "28228f8db1a8d6acf42dcffebd5e7edbaef857146ee7cd3bc067970a702eb86c",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/model/online_expert_allocation.py",
+      "bytes": 9242,
+      "sha256": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/model/oos_mean_uncertainty.py",
+      "bytes": 7932,
+      "sha256": "ce8177c698b748cadcb173940e90875dc6a5bd751f00f4ff3392e89e2e6ecde7",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/model/post_fee_settlement.py",
+      "bytes": 6469,
+      "sha256": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/workflow/benchmark_relative_research.py",
+      "bytes": 15478,
+      "sha256": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/workflow/benchmark_risk_excess.py",
+      "bytes": 22622,
+      "sha256": "26fcd325ca5cd20ed37eec9e8296b477eedc907e4c815af802d448236b5cdbcd",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/workflow/oos_uncertainty_horizon.py",
+      "bytes": 22113,
+      "sha256": "b25e10d52968f5e849a2e67156290effdc8a66e66a3fcd71ebb947d751811831",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/source/src/workflow/stage1_economic_action.py",
+      "bytes": 14463,
+      "sha256": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/verification/environment.pkl",
+      "bytes": 141,
+      "sha256": "7a566199439b3c7d36775aadadcef51aa8cbfacd2c865469a84638ce70140ade",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/verification/numerical_refit_identity.pkl",
+      "bytes": 286,
+      "sha256": "a7aac8000581237bd886861e6edb63ac13bdba1b9842795e4e76129f58e87542",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/verification/soxx-oos-focused.log.gz",
+      "bytes": 1861,
+      "sha256": "54793704e7df1f8da26e27b20fcb312e40ad46da49089b9de4bed7d0c756143b",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/verification/soxx-oos-full.log.gz",
+      "bytes": 1742,
+      "sha256": "3813d92b5ca73a8d6c511610a8412eb6aeef91bb9b754949be82583d513a9a91",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/verification/soxx-oos-independent-audit.json.gz",
+      "bytes": 5794,
+      "sha256": "8feae9032d0fe1a752a0909ebf52b2690a1e4c74cae517ba07f8601d5d2a51dc",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/verification/soxx-oos-original-solver-failure.log.gz",
+      "bytes": 5640,
+      "sha256": "c9682cdc45ed8cb1cfccfad1fdb5f681687f417549319d36cc6573d78f812340",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/verification/soxx-oos-required.log.gz",
+      "bytes": 7946,
+      "sha256": "2c3cd2f7f50ea62681b63cf54c1378f7cbe647d54976d50aa82def7a69b3499c",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/artifacts/verification/soxx-oos-solver-failure-diagnostic.json.gz",
+      "bytes": 146686,
+      "sha256": "2ea718b303f193b757bb8906de0876859f875a93d4f93839e5f52e2987b48aeb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/meta.yaml",
+      "bytes": 445,
+      "sha256": "da62919211fb72ec915296b5c5e5455a8ef0bc93be4a7fa7fbe6afdd6e081918",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/params/candidate_budget",
+      "bytes": 1,
+      "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/params/cmd-sys.argv",
+      "bytes": 202,
+      "sha256": "ba9baea875f0b7618f5be3a95b0750959f55167b0d7da55b9a0eb13e7f242e0f",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/params/evidence_kind",
+      "bytes": 14,
+      "sha256": "65f130ea3e4720777896e52f29f804d337f476ea55561a265b1fe9df07253f79",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "3ba279082699b3854fd4f713e4bf953e58324036247918284e2166835e14d164",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/tags/mlflow.source.name",
+      "bytes": 89,
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/64610b843175452b80e966c5dd99adef/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/failure/soxx-oos-original-solver-failure.log.gz",
+      "bytes": 5640,
+      "sha256": "c9682cdc45ed8cb1cfccfad1fdb5f681687f417549319d36cc6573d78f812340",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/forecast/predictions.pkl",
+      "bytes": 258357,
+      "sha256": "bca24d72a88621a5a45e19706f1fbc1ecbba0cfd767417346178f744d743cb1c",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/forecast/training_hac.pkl",
+      "bytes": 110693,
+      "sha256": "c4d1560e41897122165c7302af6b664589ba91b3f2deed4fd19ffc41cfbad262",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/inputs/binding.pkl",
+      "bytes": 9273,
+      "sha256": "3eb9657d81e02fd40d34aa26811cdaa0b31e244980571667b6dd7df6db7ab059",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/inputs/dataset_frame.pkl",
+      "bytes": 1285577,
+      "sha256": "d829084c1be03299f164f7eddaedf82ac1b2c65dbd1384264f16da52682ffd34",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/inputs/plan.pkl",
+      "bytes": 4087,
+      "sha256": "4244dac58c8a7273f5e836fac6e57a78aa548524d68d768bd72b6adb6284499c",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/models/annual_fits.pkl",
+      "bytes": 324280,
+      "sha256": "03f6979d6422c310be61107b61858176bdea444eea8d34495e9e07746163cabb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/models/oos_floors.pkl",
+      "bytes": 8460,
+      "sha256": "a25cff55883fb3a5953ad5f8c33e9c0b62ad3c4b708aef6157d401cb9fec1fae",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/post_failure_reproduction/soxx-oos-solver-failure-diagnostic.json.gz",
+      "bytes": 146686,
+      "sha256": "2ea718b303f193b757bb8906de0876859f875a93d4f93839e5f52e2987b48aeb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/analysis/benchmark_relative_protocol.py",
+      "bytes": 12999,
+      "sha256": "e9f3d14f4c413dcb16df9483b9cbbeab94002a1beb8d5da2ac83fdbdb45835e5",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/analysis/convex_qlib.py",
+      "bytes": 7707,
+      "sha256": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/analysis/expert_information_attribution.py",
+      "bytes": 12406,
+      "sha256": "99143f61419a6646b485f619f0c4002b8933d519a6b8c11ebd0bd716178d614a",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/analysis/integrated_allocation.py",
+      "bytes": 23523,
+      "sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/backtest/benchmark_relative_replay.py",
+      "bytes": 6757,
+      "sha256": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/backtest/horizon_matched_allocation.py",
+      "bytes": 7790,
+      "sha256": "42a3efa0582b9d9efc04f5ec20814b2fe1c231a731aab264835391b462af3077",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/backtest/position_accounting.py",
+      "bytes": 3494,
+      "sha256": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/backtest/qlib_continuous_position.py",
+      "bytes": 2543,
+      "sha256": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/backtest/strategy.py",
+      "bytes": 4618,
+      "sha256": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/core/recorder_artifacts.py",
+      "bytes": 1701,
+      "sha256": "144eb16c79aef62ecc9421cbb0972c803d31aee289686f0a81460d7e203071fb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/data/benchmark_relative_data.py",
+      "bytes": 3123,
+      "sha256": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/data/conditional_variance.py",
+      "bytes": 20173,
+      "sha256": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/data/convex_allocation.py",
+      "bytes": 15455,
+      "sha256": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/data/legacy_execution_view.py",
+      "bytes": 7925,
+      "sha256": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/data/oos_horizon_inputs.py",
+      "bytes": 5468,
+      "sha256": "0b247d44b0f23c7e6f974747411c4aae2171529759d6220c1d719ea491e1d68b",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/data/price_basis.py",
+      "bytes": 20780,
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/data/qlib_native.py",
+      "bytes": 19985,
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/factor/soxx_pit_tail_factors.py",
+      "bytes": 17962,
+      "sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/model/convex_allocation.py",
+      "bytes": 29948,
+      "sha256": "28228f8db1a8d6acf42dcffebd5e7edbaef857146ee7cd3bc067970a702eb86c",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/model/online_expert_allocation.py",
+      "bytes": 9242,
+      "sha256": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/model/oos_mean_uncertainty.py",
+      "bytes": 7932,
+      "sha256": "ce8177c698b748cadcb173940e90875dc6a5bd751f00f4ff3392e89e2e6ecde7",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/model/post_fee_settlement.py",
+      "bytes": 6469,
+      "sha256": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/workflow/benchmark_relative_research.py",
+      "bytes": 15478,
+      "sha256": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/workflow/benchmark_risk_excess.py",
+      "bytes": 22622,
+      "sha256": "26fcd325ca5cd20ed37eec9e8296b477eedc907e4c815af802d448236b5cdbcd",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/workflow/oos_uncertainty_horizon.py",
+      "bytes": 19447,
+      "sha256": "9889968e35d9eb4dca1f927aadf44fb48eb9e00e4493996fce16fb9f72a6104a",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/artifacts/source/src/workflow/stage1_economic_action.py",
+      "bytes": 14463,
+      "sha256": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/meta.yaml",
+      "bytes": 445,
+      "sha256": "18f1538a6951c097789bcd12ec73f2f35792b0335526d6110452dbf5c8935017",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/params/candidate_budget",
+      "bytes": 1,
+      "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/params/cmd-sys.argv",
+      "bytes": 202,
+      "sha256": "c6f08b3fb8ed62ee0a10247de0b30c72a7f64ca8109e3b9f73465eccbbef02af",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/params/evidence_kind",
+      "bytes": 14,
+      "sha256": "65f130ea3e4720777896e52f29f804d337f476ea55561a265b1fe9df07253f79",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "3ba279082699b3854fd4f713e4bf953e58324036247918284e2166835e14d164",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/tags/mlflow.source.name",
+      "bytes": 89,
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/a818c9959ac144618fcd59f85e003067/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/qlib_recorder/351822870072437750/meta.yaml",
+      "bytes": 364,
+      "sha256": "1994eecd2bfa0354874a18fd664a91c5f3b90922e31f54a6d14fead3d4bb7ea8",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "recorder_evidence"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/risk_analysis.csv",
+      "bytes": 1790,
+      "sha256": "16983ad118a0f67555f3812d51b8320f101fd125365a152b6d52fc472816ce6f",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/rolling_summary.csv",
+      "bytes": 720,
+      "sha256": "636a978106b5938572827a5ef9c8937e84e84a6c92465bb4b81a77ae225aeaad",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/run_binding.json",
+      "bytes": 11624,
+      "sha256": "de20e873b26dd881116abffc8f657840642f4daa0fdfd763646c0bacfa8d328e",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/selected_model.json",
+      "bytes": 203,
+      "sha256": "187b7853b716bf361f274499be90d2928284b6792e09961e0f23718c81369ff2",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/solver_summary.csv",
+      "bytes": 2102,
+      "sha256": "ce50a328e580100ac705686c2f124fda97accc23d28637c0035633b804e03376",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/summary.json",
+      "bytes": 7584,
+      "sha256": "f8948256160ceb282cb9af50665a07f56ad3e46ae5cfb43d0183034ded3154e7",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    },
+    {
+      "path": "research/oos_uncertainty_horizon_20261009/workflow.yaml",
+      "bytes": 827,
+      "sha256": "5a5e41c309e53fbd971e217f380512ec959ff8912cbf7f30cf48f864cf27ae1e",
+      "source": "registered Qlib execution; failed numerical run and repaired run remain separate",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "slim_card_entry_or_summary"
+    }
+  ]
+}

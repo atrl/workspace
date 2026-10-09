@@ -1,0 +1,11 @@
+strategy,cost_bps,sessions,maximum_net_reconstruction_error,identity_tolerance,cash_yield,provenance_verified_by_this_function,evidence_scope
+soxx,10.0,2696,4.440892098500626e-16,1e-10,0.0,False,ex_post_descriptive_not_prediction_or_promotion_evidence
+leveraged,10.0,2696,4.180683577104105e-16,1e-10,0.0,False,ex_post_descriptive_not_prediction_or_promotion_evidence
+defensive,10.0,2696,4.163336342344337e-16,1e-10,0.0,False,ex_post_descriptive_not_prediction_or_promotion_evidence
+online_fixed_share,10.0,2696,4.2565777291780904e-16,1e-10,0.0,False,ex_post_descriptive_not_prediction_or_promotion_evidence
+fixed_mixture,10.0,2696,4.458239333260394e-16,1e-10,0.0,False,ex_post_descriptive_not_prediction_or_promotion_evidence
+soxx,25.0,2696,2.220446049250313e-16,1e-10,0.0,False,ex_post_descriptive_not_prediction_or_promotion_evidence
+leveraged,25.0,2696,3.95516952522712e-16,1e-10,0.0,False,ex_post_descriptive_not_prediction_or_promotion_evidence
+defensive,25.0,2696,4.0245584642661925e-16,1e-10,0.0,False,ex_post_descriptive_not_prediction_or_promotion_evidence
+online_fixed_share,25.0,2696,4.3021142204224816e-16,1e-10,0.0,False,ex_post_descriptive_not_prediction_or_promotion_evidence
+fixed_mixture,25.0,2696,4.952635523913784e-16,1e-10,0.0,False,ex_post_descriptive_not_prediction_or_promotion_evidence

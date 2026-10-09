@@ -1,0 +1,34 @@
+{
+  "provenance": {
+    "recorder_id": "a818c9959ac144618fcd59f85e003067",
+    "recorder_status": "FAILED",
+    "variant": "oos_floor_h5",
+    "signal_date": "2019-04-23",
+    "market_row_number": 830,
+    "solver_call_number": 167,
+    "sealed_solver_sha256": "28228f8db1a8d6acf42dcffebd5e7edbaef857146ee7cd3bc067970a702eb86c",
+    "scope": "Single fixed numerical input recovered without refitting; not a market-return fixture"
+  },
+  "settings": {
+    "cost_bps": 10.0,
+    "tolerance": 1e-8,
+    "solver_tolerance": 1e-10,
+    "max_iter": 200,
+    "forecast_horizon_sessions": 5
+  },
+  "held": [0.0, 1.0, 0.0],
+  "expected_returns_H": [-0.011673643275507135, -0.003692907546495177],
+  "covariance_daily": [
+    [0.0020367437363753346, 0.0006527114963439647],
+    [0.0006527114963439647, 0.00022224662653967572]
+  ],
+  "mean_error_covariance_H": [
+    [0.0002822274746322999, 0.00009414841280971941],
+    [0.00009414841280971941, 0.000031533942302249865]
+  ],
+  "robust_radius": 1.0,
+  "observed_original_cold_dual_residual": 2.6595325275380333e-8,
+  "observed_refined_dual_residual": 1.1198615368357423e-9,
+  "exact_feasible_null_target": [0.0, 1.0, 0.0],
+  "exact_feasible_null_objective": 0.9963070924535048
+}
