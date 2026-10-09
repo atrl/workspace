@@ -1,0 +1,13 @@
+# Stage1 溯源与 walk-forward 完整性审查（中文结论）
+- 审查卡数：7；其中研究晋级卡 2 张。
+- recorder 声明 7 个，存在 2 个，**缺失 5 个**：['intraday_recovery_direct_allocation_v1', 'intraday_on_policy_staged_validation_v1', 'stage1_open_action_value_v1', 'stage1_confidence_veto_recovery_v1', 'stage1_futu_sim_v1']。
+- 被标记为非新鲜 outer 的卡：['intraday_on_policy_staged_validation_v1']。
+- 是否有卡用 outer 选参：False。
+- 受管理前向交易日：13（门槛 60）。
+- **是否通过新鲜 walk-forward：False**。
+- 未通过原因：
+  - a promoted card has no committed recorder
+  - only 13 managed forward sessions < required 60
+- 溯源缺陷：上述卡的 recorder 不在仓库中，其结论无法独立复现；生产来源链中的卡片尤其受影响。
+- 决定 `no_fresh_walk_forward_evidence`。
+- 结论：2023-2026 为被项目反复查看的 reused diagnostic，不能当作样本外证据；在取得 ≥60 个受管理前向交易日并补齐 recorder 之前，不得宣称通过 walk-forward。

@@ -1,0 +1,31 @@
+{
+  "schema_version": "stage1_history_audit_v1",
+  "experiment": "stage1_history_audit_20261010",
+  "registered_at_utc": "2026-10-10T08:00:00+00:00",
+  "campaign_status": "diagnostic",
+  "objective_achieved": false,
+  "hypothesis": "The Stage1 production lineage may never have passed a fresh walk-forward: its declared outer window is a reused diagnostic that the project has repeatedly inspected, several promoted cards may lack committed recorders, and the managed forward history may be far below the 60-session requirement. Audit the lineage and state the verdict.",
+  "lineage": [
+    "intraday_recovery_direct_allocation_v1",
+    "intraday_on_policy_staged_validation_v1",
+    "stage1_open_action_value_v1",
+    "stage1_confidence_veto_recovery_v1",
+    "stage1_economic_action_20260929",
+    "stage1_regime_deployment_20261001",
+    "stage1_futu_sim_v1 (production)"
+  ],
+  "required_forward_sessions": 60,
+  "gates": {
+    "fresh_walk_forward": "no promotion may rely on the outer test; every promotion must have a committed recorder; and at least 60 managed forward sessions must exist"
+  },
+  "causality_rule": "Reads card summaries and the runtime execution state only; no replay, no recorder mutation.",
+  "stopping": "Audit exactly the declared lineage and the required forward threshold; report all findings including gaps.",
+  "limitations": [
+    "Does not replay positions; it audits declarations and provenance.",
+    "A reused diagnostic window is not fresh evidence even when selection never touched it."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

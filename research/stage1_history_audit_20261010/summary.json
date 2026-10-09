@@ -1,0 +1,126 @@
+{
+  "experiment": "stage1_history_audit_20261010",
+  "schema_version": "stage1_history_audit_v1",
+  "card_status": "diagnostic",
+  "decision": "no_fresh_walk_forward_evidence",
+  "promotion_eligible": false,
+  "objective_achieved": false,
+  "lineage": [
+    {
+      "card": "intraday_recovery_direct_allocation_v1",
+      "card_root": "research",
+      "decision": "promoted_research_candidate_intraday_recovery_direct_allocation",
+      "selection_uses_outer_test": false,
+      "outer_status": null,
+      "outer_is_fresh": true,
+      "recorder_id": "3a2f919b802c48f08198fc9a93ec0a8b",
+      "recorder_present": false,
+      "source_recorder_id": null
+    },
+    {
+      "card": "intraday_on_policy_staged_validation_v1",
+      "card_root": "research",
+      "decision": "promoted_research_candidate_stage1_direct_allocation_stage2_gated",
+      "selection_uses_outer_test": false,
+      "outer_status": "reused_diagnostic_not_fresh_unseen_test",
+      "outer_is_fresh": false,
+      "recorder_id": "f6b09330175e41719886d58ee2d11bec",
+      "recorder_present": false,
+      "source_recorder_id": null
+    },
+    {
+      "card": "stage1_open_action_value_v1",
+      "card_root": "research",
+      "decision": "blocked_pending_causal_revalidation",
+      "selection_uses_outer_test": false,
+      "outer_status": null,
+      "outer_is_fresh": true,
+      "recorder_id": "77f2ae6c0ea143c0a765366abae71aaf",
+      "recorder_present": false,
+      "source_recorder_id": null
+    },
+    {
+      "card": "stage1_confidence_veto_recovery_v1",
+      "card_root": "research",
+      "decision": "validated_research_candidate_for_forward_shadow_not_production",
+      "selection_uses_outer_test": false,
+      "outer_status": null,
+      "outer_is_fresh": true,
+      "recorder_id": "b03eab80b52f47039489ac2119e385b4",
+      "recorder_present": false,
+      "source_recorder_id": null
+    },
+    {
+      "card": "stage1_economic_action_20260929",
+      "card_root": "research",
+      "decision": "not_promoted_pending_new_forward_shadow",
+      "selection_uses_outer_test": false,
+      "outer_status": null,
+      "outer_is_fresh": true,
+      "recorder_id": "17f81fbf27ee46859816ec1ac52151f6",
+      "recorder_present": true,
+      "source_recorder_id": null
+    },
+    {
+      "card": "stage1_regime_deployment_20261001",
+      "card_root": "research",
+      "decision": "not_promoted_historical_gates_failed",
+      "selection_uses_outer_test": false,
+      "outer_status": null,
+      "outer_is_fresh": true,
+      "recorder_id": "49fdd8b009ba4487952e08b986c08376",
+      "recorder_present": true,
+      "source_recorder_id": null
+    },
+    {
+      "card": "stage1_futu_sim_v1",
+      "card_root": "production",
+      "decision": "paper_sim_blocked_failed_position_risk_gates",
+      "selection_uses_outer_test": null,
+      "outer_status": null,
+      "outer_is_fresh": true,
+      "recorder_id": "e9c97a327bdf46f5a6a57f2d58d75062",
+      "recorder_present": false,
+      "source_recorder_id": "f6b09330175e41719886d58ee2d11bec"
+    }
+  ],
+  "findings": {
+    "cards": 7,
+    "promoted_cards": 2,
+    "recorders_declared": 7,
+    "recorders_present": 2,
+    "recorders_missing": 5,
+    "missing_recorder_cards": [
+      "intraday_recovery_direct_allocation_v1",
+      "intraday_on_policy_staged_validation_v1",
+      "stage1_open_action_value_v1",
+      "stage1_confidence_veto_recovery_v1",
+      "stage1_futu_sim_v1"
+    ],
+    "outer_not_fresh_cards": [
+      "intraday_on_policy_staged_validation_v1"
+    ],
+    "any_selection_used_outer": false,
+    "all_promotions_have_recorder": false
+  },
+  "walk_forward_verdict": {
+    "passed_fresh_walk_forward": false,
+    "forward_sessions": 13,
+    "required_forward_sessions": 60,
+    "failed_reasons": [
+      "a promoted card has no committed recorder",
+      "only 13 managed forward sessions < required 60"
+    ]
+  },
+  "forward_sessions": 13,
+  "required_forward_sessions": 60,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Reads card summaries and the runtime execution state only; it does not replay positions.",
+    "A reused diagnostic window that the project has already inspected is not fresh evidence."
+  ]
+}

@@ -1,0 +1,10 @@
+schema_version: stage1_history_audit_v1
+experiment: stage1_history_audit_20261010
+required_forward_sessions: 60
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: []
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html
