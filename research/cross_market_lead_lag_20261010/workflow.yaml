@@ -1,0 +1,30 @@
+schema_version: cross_market_lead_lag_v1
+experiment: cross_market_lead_lag_20261010
+new_data_source: data/raw/external/asia_semis_20261010_v1
+target: soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/cross_market_lead_lag_20261010/qlib_recorder
+segments:
+  development:
+  - '2014-01-02'
+  - '2022-12-30'
+  reused_diagnostic:
+  - '2023-01-03'
+  - '2026-10-08'
+costs_bps:
+- 10.0
+- 25.0
+forecast_ic_floor: 0.03
+causality_statement: Asian sessions close before the same exchange-local-date US open.
+  Only the lagged alignment (signal at t-1 for the US session at t) is treated as
+  forecast evidence. Same-date correlation is reported but classified as contemporaneous,
+  not predictive.
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - data/returns.pkl
+  - analysis/information_coefficients.pkl
+  - analysis/window_results.pkl
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

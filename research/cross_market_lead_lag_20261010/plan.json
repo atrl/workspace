@@ -1,0 +1,39 @@
+{
+  "schema_version": "cross_market_lead_lag_v1",
+  "experiment": "cross_market_lead_lag_20261010",
+  "registered_at_utc": "2026-10-10T03:00:00+00:00",
+  "registered_before_candidate_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "New external data (Asian semiconductor equity markets) trade in sessions that close before the same exchange-local-date US open, so they are a candidate lead indicator for SOXL. Test whether that lead is a genuine forecast or only contemporaneous co-movement, and whether any strictly-lagged switch beats SOXX buy-and-hold on return, drawdown and Sharpe.",
+  "new_data_source": "data/raw/external/asia_semis_20261010_v1",
+  "data_retrieval": "Yahoo Finance chart API, 15y daily closes, retrieved 2026-10-10",
+  "target": "soxl",
+  "causality_rule": "Only the strictly-lagged alignment (signal at t-1 for the US session at t) counts as forecast evidence. Same-local-date correlation is classified as contemporaneous and is never treated as tradeable.",
+  "forecast_ic_floor": 0.03,
+  "segments": {
+    "development": ["2014-01-02", "2022-12-30"],
+    "reused_diagnostic": ["2023-01-03", "2026-10-08"]
+  },
+  "costs_bps": [10.0, 25.0],
+  "minimum_positive_years": 4,
+  "markets": {
+    "asia": ["twii", "tsmc_tw", "skhynix", "kospi", "nikkei"],
+    "us_reference": ["smh", "nvda", "tsm", "amd", "asml", "soxx"]
+  },
+  "gates": {
+    "forecast_textbook": "strictly-lagged |IC| above the floor with a tradeable sign",
+    "stable_excess": "beats SOXX return AND drawdown AND Sharpe on the window with a majority of positive years",
+    "promotion": "development stable excess confirmed on the reused diagnostic window and at higher cost"
+  },
+  "stopping": "Exactly the pre-registered market set at two costs across two windows; no market, threshold, window or cost tuning after outcomes. Preserve all results, including failures.",
+  "limitations": [
+    "Daily closes only; Asian intraday session timestamps are not retained.",
+    "A contemporaneous co-movement is not tradeable and is never counted as forecast power.",
+    "No return forecast, model fit or fitted parameter is used."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}
