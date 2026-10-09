@@ -1,0 +1,34 @@
+On branch research/benchmark-core-variance-20261009
+You are in a sparse checkout with 50% of tracked files present.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   conclusion.md
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/code_cached.txt
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/code_diff.txt
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/code_status.txt
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/summary_json
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/meta.yaml
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/baseline_sharpe
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/best_sharpe
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/improvement
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/best_overlay
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/cmd-sys.argv
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/costs_bps
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/schema_version
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.runName
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.source.name
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.source.type
+	deleted:    qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.user
+	deleted:    qlib_recorder/528322389147800182/meta.yaml
+	modified:   stage1_cash_drag_overlay_20261010.ipynb
+	modified:   summary.json
+	modified:   ../../src/analysis/cash_drag_overlay.py
+	modified:   ../../src/workflow/cash_drag_overlay.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	constraint_comparison.csv
+
+no changes added to commit (use "git add" and/or "git commit -a")

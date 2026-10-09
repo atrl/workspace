@@ -1,0 +1,700 @@
+diff --git a/research/stage1_cash_drag_overlay_20261010/conclusion.md b/research/stage1_cash_drag_overlay_20261010/conclusion.md
+index e181a1a5..ac906e46 100644
+--- a/research/stage1_cash_drag_overlay_20261010/conclusion.md
++++ b/research/stage1_cash_drag_overlay_20261010/conclusion.md
+@@ -5,6 +5,9 @@
+ - 平均权重：SOXL 0.165 / SOXX 0.329 / cash 0.506。
+ - 结论：If cap_binding_fraction is near zero, the cash is the policy's own raw target rather than a hard-cap artifact; the fix is an overlay, not a cap change.
+ - 叠加候选（把部分现金转入 SOXX，不改变 SOXL 权重）：recycle 比例 [0.0, 0.25, 0.5, 0.75, 1.0]。
+-- 最佳叠加 `recycle_0`；是否优于基线：False；决定 `cash_overlay_no_improvement`。
++- 最佳叠加 `recycle_0`；是否优于基线：False。
++- 结构约束变体（不改信号，只重新投影）：最优 `action_beta_1.0`；重投影口径下是否改善 Sharpe：True。
++- 关键澄清：真实生产目标本身好于任何重投影（真实模型输出含每日信息，重投影会丢失信息），所以本卡不能声称放宽约束改善了真实策略。
++- 决定 `cash_overlay_no_improvement`。
+ - 风险：样本短、非晋升证据；叠加只降低现金、增加 SOXX 暴露，不改变冻结策略参数；更宽价差会侵蚀收益。
+-- qlib Recorder：96a92d05788d49148a26e4dd943e9d16；provider_uri=/Users/rziiiii/dev/workspace/data/qlib/soxl。
++- qlib Recorder：1e736e34053b4e0d9230cdab415a9b3d；provider_uri=/Users/rziiiii/dev/workspace/data/qlib/soxl。
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/code_cached.txt b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/code_cached.txt
+deleted file mode 100644
+index e69de29b..00000000
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/code_diff.txt b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/code_diff.txt
+deleted file mode 100644
+index e69de29b..00000000
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/code_status.txt b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/code_status.txt
+deleted file mode 100644
+index 426fe113..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/code_status.txt
++++ /dev/null
+@@ -1,10 +0,0 @@
+-On branch research/benchmark-core-variance-20261009
+-You are in a sparse checkout with 50% of tracked files present.
+-
+-Untracked files:
+-  (use "git add <file>..." to include in what will be committed)
+-	./
+-	../../src/analysis/cash_drag_overlay.py
+-	../../src/workflow/cash_drag_overlay.py
+-
+-nothing added to commit but untracked files present (use "git add" to track)
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/summary_json b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/summary_json
+deleted file mode 100644
+index d991fbd6..00000000
+Binary files a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts/summary_json and /dev/null differ
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/meta.yaml b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/meta.yaml
+deleted file mode 100644
+index 1facea77..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/meta.yaml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-artifact_uri: /Users/rziiiii/dev/workspace/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/artifacts
+-end_time: 1791546631964
+-entry_point_name: ''
+-experiment_id: '528322389147800182'
+-lifecycle_stage: active
+-run_id: 96a92d05788d49148a26e4dd943e9d16
+-run_name: overlay
+-source_name: ''
+-source_type: 4
+-source_version: ''
+-start_time: 1791546631861
+-status: 3
+-tags: []
+-user_id: rziiiii
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/baseline_sharpe b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/baseline_sharpe
+deleted file mode 100644
+index 2641ff96..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/baseline_sharpe
++++ /dev/null
+@@ -1 +0,0 @@
+-1791546631962 0.8116122450963238 0
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/best_sharpe b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/best_sharpe
+deleted file mode 100644
+index 2641ff96..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/best_sharpe
++++ /dev/null
+@@ -1 +0,0 @@
+-1791546631962 0.8116122450963238 0
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/improvement b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/improvement
+deleted file mode 100644
+index 8b88e40e..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/metrics/improvement
++++ /dev/null
+@@ -1 +0,0 @@
+-1791546631963 0.0 0
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/best_overlay b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/best_overlay
+deleted file mode 100644
+index 63e69a9f..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/best_overlay
++++ /dev/null
+@@ -1 +0,0 @@
+-recycle_0
+\ No newline at end of file
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/cmd-sys.argv b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/cmd-sys.argv
+deleted file mode 100644
+index 8765879c..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/cmd-sys.argv
++++ /dev/null
+@@ -1 +0,0 @@
+-/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmpzpg0050c.json --HistoryManager.hist_file=:memory:
+\ No newline at end of file
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/costs_bps b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/costs_bps
+deleted file mode 100644
+index 4882e5d6..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/costs_bps
++++ /dev/null
+@@ -1 +0,0 @@
+-[10.0, 25.0]
+\ No newline at end of file
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/schema_version b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/schema_version
+deleted file mode 100644
+index acf1e2c1..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/params/schema_version
++++ /dev/null
+@@ -1 +0,0 @@
+-stage1_cash_drag_overlay_v1
+\ No newline at end of file
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.runName b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.runName
+deleted file mode 100644
+index 53792849..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.runName
++++ /dev/null
+@@ -1 +0,0 @@
+-overlay
+\ No newline at end of file
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.source.name b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.source.name
+deleted file mode 100644
+index f2373abb..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.source.name
++++ /dev/null
+@@ -1 +0,0 @@
+-/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py
+\ No newline at end of file
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.source.type b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.source.type
+deleted file mode 100644
+index 56d71565..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.source.type
++++ /dev/null
+@@ -1 +0,0 @@
+-NOTEBOOK
+\ No newline at end of file
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.user b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.user
+deleted file mode 100644
+index 326eae5a..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16/tags/mlflow.user
++++ /dev/null
+@@ -1 +0,0 @@
+-rziiiii
+\ No newline at end of file
+diff --git a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/meta.yaml b/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/meta.yaml
+deleted file mode 100644
+index 1527c6c1..00000000
+--- a/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/meta.yaml
++++ /dev/null
+@@ -1,9 +0,0 @@
+-artifact_location: /Users/rziiiii/dev/workspace/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182
+-creation_time: 1791546631776
+-effective_trace_archival_retention: null
+-experiment_id: '528322389147800182'
+-last_update_time: 1791546631776
+-lifecycle_stage: active
+-name: stage1_cash_drag_overlay_20261010
+-trace_location: null
+-workspace: default
+diff --git a/research/stage1_cash_drag_overlay_20261010/stage1_cash_drag_overlay_20261010.ipynb b/research/stage1_cash_drag_overlay_20261010/stage1_cash_drag_overlay_20261010.ipynb
+index 006db3b3..6884e9bc 100644
+--- a/research/stage1_cash_drag_overlay_20261010/stage1_cash_drag_overlay_20261010.ipynb
++++ b/research/stage1_cash_drag_overlay_20261010/stage1_cash_drag_overlay_20261010.ipynb
+@@ -17,10 +17,10 @@
+    "id": "5b908e75",
+    "metadata": {
+     "execution": {
+-     "iopub.execute_input": "2026-10-09T11:50:29.201510Z",
+-     "iopub.status.busy": "2026-10-09T11:50:29.201437Z",
+-     "iopub.status.idle": "2026-10-09T11:50:29.206178Z",
+-     "shell.execute_reply": "2026-10-09T11:50:29.205075Z"
++     "iopub.execute_input": "2026-10-09T11:51:48.198737Z",
++     "iopub.status.busy": "2026-10-09T11:51:48.198272Z",
++     "iopub.status.idle": "2026-10-09T11:51:48.208074Z",
++     "shell.execute_reply": "2026-10-09T11:51:48.207149Z"
+     }
+    },
+    "outputs": [
+@@ -53,10 +53,10 @@
+    "id": "22963bee",
+    "metadata": {
+     "execution": {
+-     "iopub.execute_input": "2026-10-09T11:50:29.207518Z",
+-     "iopub.status.busy": "2026-10-09T11:50:29.207428Z",
+-     "iopub.status.idle": "2026-10-09T11:50:31.970914Z",
+-     "shell.execute_reply": "2026-10-09T11:50:31.970477Z"
++     "iopub.execute_input": "2026-10-09T11:51:48.210524Z",
++     "iopub.status.busy": "2026-10-09T11:51:48.210334Z",
++     "iopub.status.idle": "2026-10-09T11:51:51.196073Z",
++     "shell.execute_reply": "2026-10-09T11:51:51.195592Z"
+     }
+    },
+    "outputs": [
+@@ -74,77 +74,77 @@
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "[53655:MainThread](2026-10-09 19:50:31,127) INFO - qlib.Initialization - [config.py:452] - default_conf: client.\n"
++      "[53843:MainThread](2026-10-09 19:51:49,880) INFO - qlib.Initialization - [config.py:452] - default_conf: client.\n"
+      ]
+     },
+     {
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "2026/10/09 19:50:31 INFO mlflow.agent.hint: Load the `instrumenting-with-mlflow-tracing` skill at /Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/mlflow/assistant/skills/instrumenting-with-mlflow-tracing/SKILL.md before writing any tracing code; it ships with this MLflow install. Set MLFLOW_DISABLE_AGENT_HINT=1 to silence this.\n"
++      "2026/10/09 19:51:50 INFO mlflow.agent.hint: Load the `instrumenting-with-mlflow-tracing` skill at /Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/mlflow/assistant/skills/instrumenting-with-mlflow-tracing/SKILL.md before writing any tracing code; it ships with this MLflow install. Set MLFLOW_DISABLE_AGENT_HINT=1 to silence this.\n"
+      ]
+     },
+     {
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "[53655:MainThread](2026-10-09 19:50:31,668) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.\n"
++      "[53843:MainThread](2026-10-09 19:51:50,351) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.\n"
+      ]
+     },
+     {
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "[53655:MainThread](2026-10-09 19:50:31,668) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/data/qlib/soxl')}\n"
++      "[53843:MainThread](2026-10-09 19:51:50,351) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/data/qlib/soxl')}\n"
+      ]
+     },
+     {
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "[53655:MainThread](2026-10-09 19:50:31,767) INFO - qlib.Initialization - [config.py:452] - default_conf: client.\n"
++      "[53843:MainThread](2026-10-09 19:51:51,015) INFO - qlib.Initialization - [config.py:452] - default_conf: client.\n"
+      ]
+     },
+     {
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "[53655:MainThread](2026-10-09 19:50:31,768) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.\n"
++      "[53843:MainThread](2026-10-09 19:51:51,016) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.\n"
+      ]
+     },
+     {
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "[53655:MainThread](2026-10-09 19:50:31,768) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/data/qlib/soxl')}\n"
++      "[53843:MainThread](2026-10-09 19:51:51,016) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/data/qlib/soxl')}\n"
+      ]
+     },
+     {
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "[53655:MainThread](2026-10-09 19:50:31,774) WARNING - qlib.workflow - [expm.py:231] - No valid experiment found. Create a new experiment with name stage1_cash_drag_overlay_20261010.\n"
++      "[53843:MainThread](2026-10-09 19:51:51,021) WARNING - qlib.workflow - [expm.py:231] - No valid experiment found. Create a new experiment with name stage1_cash_drag_overlay_20261010.\n"
+      ]
+     },
+     {
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "[53655:MainThread](2026-10-09 19:50:31,776) INFO - qlib.workflow - [exp.py:258] - Experiment 528322389147800182 starts running ...\n"
++      "[53843:MainThread](2026-10-09 19:51:51,023) INFO - qlib.workflow - [exp.py:258] - Experiment 530079323150794400 starts running ...\n"
+      ]
+     },
+     {
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "[53655:MainThread](2026-10-09 19:50:31,865) INFO - qlib.workflow - [recorder.py:345] - Recorder 96a92d05788d49148a26e4dd943e9d16 starts running under Experiment 528322389147800182 ...\n"
++      "[53843:MainThread](2026-10-09 19:51:51,093) INFO - qlib.workflow - [recorder.py:345] - Recorder 1e736e34053b4e0d9230cdab415a9b3d starts running under Experiment 530079323150794400 ...\n"
+      ]
+     },
+     {
+      "name": "stderr",
+      "output_type": "stream",
+      "text": [
+-      "[53655:MainThread](2026-10-09 19:50:31,963) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | waiting `async_log` Done\n"
++      "[53843:MainThread](2026-10-09 19:51:51,189) INFO - qlib.timer - [log.py:127] - Time cost: 0.002s | waiting `async_log` Done\n"
+      ]
+     },
+     {
+@@ -153,7 +153,7 @@
+      "text": [
+       "decision: cash_overlay_no_improvement | best: recycle_0 | improvement: False\n",
+       "diagnostic: {\"average_raw_beta\": 0.5377675253166092, \"average_beta_cap\": 0.5408710782578476, \"average_soxl_weight\": 0.16484730807076373, \"average_soxx_weight\": 0.32914950536322635, \"average_cash_weight\": 0.5060031865660098, \"sessions\": 12, \"cap_binding_fraction\": 0.0, \"interpretation\": \"If cap_binding_fraction is near zero, the cash is the policy's own raw target rather than a hard-cap artifact; the fix is an overlay, not a cap change.\"}\n",
+-      "recorder: 96a92d05788d49148a26e4dd943e9d16\n"
++      "recorder: 1e736e34053b4e0d9230cdab415a9b3d\n"
+      ]
+     }
+    ],
+@@ -173,10 +173,10 @@
+    "id": "c64874f5",
+    "metadata": {
+     "execution": {
+-     "iopub.execute_input": "2026-10-09T11:50:31.972343Z",
+-     "iopub.status.busy": "2026-10-09T11:50:31.972235Z",
+-     "iopub.status.idle": "2026-10-09T11:50:31.979898Z",
+-     "shell.execute_reply": "2026-10-09T11:50:31.979610Z"
++     "iopub.execute_input": "2026-10-09T11:51:51.197251Z",
++     "iopub.status.busy": "2026-10-09T11:51:51.197153Z",
++     "iopub.status.idle": "2026-10-09T11:51:51.205231Z",
++     "shell.execute_reply": "2026-10-09T11:51:51.204868Z"
+     }
+    },
+    "outputs": [
+@@ -400,10 +400,10 @@
+    "id": "66b05482",
+    "metadata": {
+     "execution": {
+-     "iopub.execute_input": "2026-10-09T11:50:31.981242Z",
+-     "iopub.status.busy": "2026-10-09T11:50:31.981154Z",
+-     "iopub.status.idle": "2026-10-09T11:50:31.983177Z",
+-     "shell.execute_reply": "2026-10-09T11:50:31.982901Z"
++     "iopub.execute_input": "2026-10-09T11:51:51.206133Z",
++     "iopub.status.busy": "2026-10-09T11:51:51.206069Z",
++     "iopub.status.idle": "2026-10-09T11:51:51.207663Z",
++     "shell.execute_reply": "2026-10-09T11:51:51.207411Z"
+     }
+    },
+    "outputs": [
+diff --git a/research/stage1_cash_drag_overlay_20261010/summary.json b/research/stage1_cash_drag_overlay_20261010/summary.json
+index c70102ee..e3eb95db 100644
+--- a/research/stage1_cash_drag_overlay_20261010/summary.json
++++ b/research/stage1_cash_drag_overlay_20261010/summary.json
+@@ -239,6 +239,230 @@
+   "baseline_selected_overlay": "recycle_0",
+   "best_overlay": "recycle_0",
+   "improvement": false,
++  "constraint_comparison": [
++    {
++      "variant": "observed_frozen",
++      "cost_bps": 10.0,
++      "action_beta": 0.6,
++      "maximum_soxl_weight": 0.3,
++      "minimum_cash_weight": 0.15,
++      "sessions": 12,
++      "strategy_return_pct": 0.5289189146634676,
++      "benchmark_return_pct": 0.48864391454122025,
++      "strategy_sharpe": 0.4816040895690494,
++      "benchmark_sharpe": 0.4386245005188987,
++      "strategy_max_drawdown_pct": -1.668781686059717,
++      "benchmark_max_drawdown_pct": -3.410050698537148,
++      "average_cash_weight": 0.5601819853154851,
++      "average_soxx_weight": 0.3981479226916962,
++      "total_turnover": 3.639199869505821,
++      "beats_return": true,
++      "beats_sharpe": true,
++      "beats_drawdown": true,
++      "benchmark": "SOXX_open_to_open",
++      "scope": "production_target_history_diagnostic_not_promotion_evidence"
++    },
++    {
++      "variant": "action_beta_1.0",
++      "cost_bps": 10.0,
++      "action_beta": 1.0,
++      "maximum_soxl_weight": 0.3,
++      "minimum_cash_weight": 0.15,
++      "sessions": 12,
++      "strategy_return_pct": 1.8290226776879637,
++      "benchmark_return_pct": 0.48864391454122025,
++      "strategy_sharpe": 0.940516759887364,
++      "benchmark_sharpe": 0.4386245005188987,
++      "strategy_max_drawdown_pct": -2.5587104579372077,
++      "benchmark_max_drawdown_pct": -3.410050698537148,
++      "average_cash_weight": 0.5060031865660098,
++      "average_soxx_weight": 0.3758130252669741,
++      "total_turnover": 4.264125430502419,
++      "beats_return": true,
++      "beats_sharpe": true,
++      "beats_drawdown": true,
++      "benchmark": "SOXX_open_to_open",
++      "scope": "production_target_history_diagnostic_not_promotion_evidence"
++    },
++    {
++      "variant": "max_soxl_0.50",
++      "cost_bps": 10.0,
++      "action_beta": 0.6,
++      "maximum_soxl_weight": 0.5,
++      "minimum_cash_weight": 0.15,
++      "sessions": 12,
++      "strategy_return_pct": 0.5289189146634676,
++      "benchmark_return_pct": 0.48864391454122025,
++      "strategy_sharpe": 0.4816040895690494,
++      "benchmark_sharpe": 0.4386245005188987,
++      "strategy_max_drawdown_pct": -1.668781686059717,
++      "benchmark_max_drawdown_pct": -3.410050698537148,
++      "average_cash_weight": 0.5601819853154851,
++      "average_soxx_weight": 0.3981479226916962,
++      "total_turnover": 3.639199869505821,
++      "beats_return": true,
++      "beats_sharpe": true,
++      "beats_drawdown": true,
++      "benchmark": "SOXX_open_to_open",
++      "scope": "production_target_history_diagnostic_not_promotion_evidence"
++    },
++    {
++      "variant": "cash_floor_0.0",
++      "cost_bps": 10.0,
++      "action_beta": 0.6,
++      "maximum_soxl_weight": 0.3,
++      "minimum_cash_weight": 0.0,
++      "sessions": 12,
++      "strategy_return_pct": 0.5289189146634676,
++      "benchmark_return_pct": 0.48864391454122025,
++      "strategy_sharpe": 0.4816040895690494,
++      "benchmark_sharpe": 0.4386245005188987,
++      "strategy_max_drawdown_pct": -1.668781686059717,
++      "benchmark_max_drawdown_pct": -3.410050698537148,
++      "average_cash_weight": 0.5601819853154851,
++      "average_soxx_weight": 0.3981479226916962,
++      "total_turnover": 3.639199869505821,
++      "beats_return": true,
++      "beats_sharpe": true,
++      "beats_drawdown": true,
++      "benchmark": "SOXX_open_to_open",
++      "scope": "production_target_history_diagnostic_not_promotion_evidence"
++    },
++    {
++      "variant": "relaxed_combined",
++      "cost_bps": 10.0,
++      "action_beta": 1.0,
++      "maximum_soxl_weight": 0.5,
++      "minimum_cash_weight": 0.0,
++      "sessions": 12,
++      "strategy_return_pct": 1.8290226776879637,
++      "benchmark_return_pct": 0.48864391454122025,
++      "strategy_sharpe": 0.940516759887364,
++      "benchmark_sharpe": 0.4386245005188987,
++      "strategy_max_drawdown_pct": -2.5587104579372077,
++      "benchmark_max_drawdown_pct": -3.410050698537148,
++      "average_cash_weight": 0.5060031865660098,
++      "average_soxx_weight": 0.3758130252669741,
++      "total_turnover": 4.264125430502419,
++      "beats_return": true,
++      "beats_sharpe": true,
++      "beats_drawdown": true,
++      "benchmark": "SOXX_open_to_open",
++      "scope": "production_target_history_diagnostic_not_promotion_evidence"
++    },
++    {
++      "variant": "observed_frozen",
++      "cost_bps": 25.0,
++      "action_beta": 0.6,
++      "maximum_soxl_weight": 0.3,
++      "minimum_cash_weight": 0.15,
++      "sessions": 12,
++      "strategy_return_pct": -0.02638962868892758,
++      "benchmark_return_pct": 0.48864391454122025,
++      "strategy_sharpe": 0.14141623284737176,
++      "benchmark_sharpe": 0.4386245005188987,
++      "strategy_max_drawdown_pct": -1.8567905821414432,
++      "benchmark_max_drawdown_pct": -3.410050698537148,
++      "average_cash_weight": 0.5601819853154851,
++      "average_soxx_weight": 0.3981479226916962,
++      "total_turnover": 3.639199869505821,
++      "beats_return": false,
++      "beats_sharpe": false,
++      "beats_drawdown": true,
++      "benchmark": "SOXX_open_to_open",
++      "scope": "production_target_history_diagnostic_not_promotion_evidence"
++    },
++    {
++      "variant": "action_beta_1.0",
++      "cost_bps": 25.0,
++      "action_beta": 1.0,
++      "maximum_soxl_weight": 0.3,
++      "minimum_cash_weight": 0.15,
++      "sessions": 12,
++      "strategy_return_pct": 1.1630038324814906,
++      "benchmark_return_pct": 0.48864391454122025,
++      "strategy_sharpe": 0.6890253363665355,
++      "benchmark_sharpe": 0.4386245005188987,
++      "strategy_max_drawdown_pct": -2.5721126286163076,
++      "benchmark_max_drawdown_pct": -3.410050698537148,
++      "average_cash_weight": 0.5060031865660098,
++      "average_soxx_weight": 0.3758130252669741,
++      "total_turnover": 4.264125430502419,
++      "beats_return": true,
++      "beats_sharpe": true,
++      "beats_drawdown": true,
++      "benchmark": "SOXX_open_to_open",
++      "scope": "production_target_history_diagnostic_not_promotion_evidence"
++    },
++    {
++      "variant": "max_soxl_0.50",
++      "cost_bps": 25.0,
++      "action_beta": 0.6,
++      "maximum_soxl_weight": 0.5,
++      "minimum_cash_weight": 0.15,
++      "sessions": 12,
++      "strategy_return_pct": -0.02638962868892758,
++      "benchmark_return_pct": 0.48864391454122025,
++      "strategy_sharpe": 0.14141623284737176,
++      "benchmark_sharpe": 0.4386245005188987,
++      "strategy_max_drawdown_pct": -1.8567905821414432,
++      "benchmark_max_drawdown_pct": -3.410050698537148,
++      "average_cash_weight": 0.5601819853154851,
++      "average_soxx_weight": 0.3981479226916962,
++      "total_turnover": 3.639199869505821,
++      "beats_return": false,
++      "beats_sharpe": false,
++      "beats_drawdown": true,
++      "benchmark": "SOXX_open_to_open",
++      "scope": "production_target_history_diagnostic_not_promotion_evidence"
++    },
++    {
++      "variant": "cash_floor_0.0",
++      "cost_bps": 25.0,
++      "action_beta": 0.6,
++      "maximum_soxl_weight": 0.3,
++      "minimum_cash_weight": 0.0,
++      "sessions": 12,
++      "strategy_return_pct": -0.02638962868892758,
++      "benchmark_return_pct": 0.48864391454122025,
++      "strategy_sharpe": 0.14141623284737176,
++      "benchmark_sharpe": 0.4386245005188987,
++      "strategy_max_drawdown_pct": -1.8567905821414432,
++      "benchmark_max_drawdown_pct": -3.410050698537148,
++      "average_cash_weight": 0.5601819853154851,
++      "average_soxx_weight": 0.3981479226916962,
++      "total_turnover": 3.639199869505821,
++      "beats_return": false,
++      "beats_sharpe": false,
++      "beats_drawdown": true,
++      "benchmark": "SOXX_open_to_open",
++      "scope": "production_target_history_diagnostic_not_promotion_evidence"
++    },
++    {
++      "variant": "relaxed_combined",
++      "cost_bps": 25.0,
++      "action_beta": 1.0,
++      "maximum_soxl_weight": 0.5,
++      "minimum_cash_weight": 0.0,
++      "sessions": 12,
++      "strategy_return_pct": 1.1630038324814906,
++      "benchmark_return_pct": 0.48864391454122025,
++      "strategy_sharpe": 0.6890253363665355,
++      "benchmark_sharpe": 0.4386245005188987,
++      "strategy_max_drawdown_pct": -2.5721126286163076,
++      "benchmark_max_drawdown_pct": -3.410050698537148,
++      "average_cash_weight": 0.5060031865660098,
++      "average_soxx_weight": 0.3758130252669741,
++      "total_turnover": 4.264125430502419,
++      "beats_return": true,
++      "beats_sharpe": true,
++      "beats_drawdown": true,
++      "benchmark": "SOXX_open_to_open",
++      "scope": "production_target_history_diagnostic_not_promotion_evidence"
++    }
++  ],
++  "best_constraint_variant": "action_beta_1.0",
++  "constraint_improvement": true,
+   "qlib_data_api": [
+     "qlib.data.D.features"
+   ],
+@@ -257,10 +481,10 @@
+     "The overlay raises SOXX exposure and therefore lowers cash; it cannot increase the SOXL weight.",
+     "The production policy's own frozen parameters are unchanged."
+   ],
+-  "recorder_id": "96a92d05788d49148a26e4dd943e9d16",
+-  "experiment_id": "528322389147800182",
++  "recorder_id": "1e736e34053b4e0d9230cdab415a9b3d",
++  "experiment_id": "530079323150794400",
+   "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_cash_drag_overlay_20261010/qlib_recorder",
+-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_cash_drag_overlay_20261010/qlib_recorder/528322389147800182/96a92d05788d49148a26e4dd943e9d16",
++  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_cash_drag_overlay_20261010/qlib_recorder/530079323150794400/1e736e34053b4e0d9230cdab415a9b3d",
+   "qlib_docs_reference": [
+     "https://qlib.readthedocs.io/en/latest/component/data.html",
+     "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+diff --git a/src/analysis/cash_drag_overlay.py b/src/analysis/cash_drag_overlay.py
+index 4bbf0ac9..be6f8ede 100644
+--- a/src/analysis/cash_drag_overlay.py
++++ b/src/analysis/cash_drag_overlay.py
+@@ -127,6 +127,31 @@ def performance(replay: pd.DataFrame, benchmark_return: pd.Series, benchmark_nam
+     }
+ 
+ 
++def constrain_variants(weights: pd.DataFrame, asset_returns: pd.DataFrame, *,
++                       action_beta: float, maximum_soxl_weight: float,
++                       minimum_cash_weight: float, cost_bps: float) -> pd.DataFrame:
++    """Re-project weights under a *changed* constraint set, then replay.
++
++    This isolates the effect of a single structural constraint without touching
++    the frozen policy signal. ``weights`` are the observed legal targets; the
++    re-projection rescales the raw risk budget implied by the targets' beta.
++    """
++    from src.workflow.intraday_recovery_direct_allocation import project_legal_weights
++
++    columns = [f"{asset}_weight" for asset in ASSETS]
++    target = weights.loc[:, columns].to_numpy(float)
++    rows = np.empty_like(target)
++    for i in range(len(target)):
++        soxl, soxx, _ = target[i]
++        raw_beta = 3.0 * soxl + soxx
++        effective_beta = min(raw_beta, float(action_beta))
++        rows[i] = project_legal_weights(soxl, soxx, effective_beta,
++                                        minimum_cash_weight=float(minimum_cash_weight),
++                                        maximum_soxl_weight=float(maximum_soxl_weight))
++    reprojected = pd.DataFrame(rows, index=weights.index, columns=columns)
++    return replay_weights(reprojected, asset_returns, cost_bps=cost_bps)
++
++
+ def diagnose_cash_source(*, raw_weights: pd.DataFrame, legal_weights: pd.DataFrame,
+                          overlay_cap: float = 0.0) -> pd.DataFrame:
+     """Compare the raw policy target with the legal (capped) target per session.
+diff --git a/src/workflow/cash_drag_overlay.py b/src/workflow/cash_drag_overlay.py
+index 23425dd3..e6ea789a 100644
+--- a/src/workflow/cash_drag_overlay.py
++++ b/src/workflow/cash_drag_overlay.py
+@@ -155,8 +155,8 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
+                                        & (targets["raw_beta"].notna())
+                                        & (targets["beta_cap"] < targets["raw_beta"] - 1e-9)).mean()) if targets["beta_cap"].notna().any() else None,
+         "interpretation": (
+-            "If cap_binding_fraction is near zero, the cash is the policy's own raw "
+-            "target rather than a hard-cap artifact; the fix is an overlay, not a cap change."
++            "cap_binding_fraction 接近 0 说明现金来自策略自身的原始目标，而不是硬上限的截断；"
++            "高现金是策略选择，不是 bug。"
+         ),
+     }
+ 
+@@ -175,6 +175,25 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
+             })
+     table = pd.DataFrame(results)
+ 
++    # Structural constraint variants (not parameter tuning): relax one frozen
++    # constraint at a time and re-project the observed policy targets.
++    from src.analysis.cash_drag_overlay import constrain_variants
++
++    constraint_results = []
++    variants = {
++        "observed_frozen": {"action_beta": 0.6, "maximum_soxl_weight": 0.30, "minimum_cash_weight": 0.15},
++        "action_beta_1.0": {"action_beta": 1.0, "maximum_soxl_weight": 0.30, "minimum_cash_weight": 0.15},
++        "max_soxl_0.50": {"action_beta": 0.6, "maximum_soxl_weight": 0.50, "minimum_cash_weight": 0.15},
++        "cash_floor_0.0": {"action_beta": 0.6, "maximum_soxl_weight": 0.30, "minimum_cash_weight": 0.0},
++        "relaxed_combined": {"action_beta": 1.0, "maximum_soxl_weight": 0.50, "minimum_cash_weight": 0.0},
++    }
++    for cost in spec.costs_bps:
++        for name, cfg in variants.items():
++            replay = constrain_variants(weights, returns, cost_bps=cost, **cfg)
++            stats = performance(replay, returns["soxx"], "SOXX_open_to_open")
++            constraint_results.append({"variant": name, "cost_bps": cost, **cfg, **stats})
++    constraint_table = pd.DataFrame(constraint_results)
++
+     # Select on the higher-cost scenario to be conservative; overlay 0 is the baseline.
+     high = table[table["cost_bps"] == max(spec.costs_bps)].sort_values(
+         ["beats_sharpe", "strategy_sharpe"], ascending=[False, False])
+@@ -184,6 +203,12 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
+                        and best["strategy_sharpe"] > baseline["strategy_sharpe"]
+                        and best["beats_sharpe"])
+ 
++    high_c = constraint_table[constraint_table["cost_bps"] == max(spec.costs_bps)]
++    frozen_row = high_c[high_c["variant"] == "observed_frozen"].iloc[0]
++    best_constraint = high_c.sort_values("strategy_sharpe", ascending=False).iloc[0]
++    constraint_improvement = bool(best_constraint["variant"] != "observed_frozen"
++                                  and best_constraint["strategy_sharpe"] > frozen_row["strategy_sharpe"])
++
+     summary = {
+         "experiment": spec.experiment,
+         "schema_version": SCHEMA_VERSION,
+@@ -201,6 +226,9 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
+         "baseline_selected_overlay": baseline["overlay"],
+         "best_overlay": best["overlay"],
+         "improvement": improvement,
++        "constraint_comparison": constraint_table.to_dict(orient="records"),
++        "best_constraint_variant": best_constraint["variant"],
++        "constraint_improvement": constraint_improvement,
+         "qlib_data_api": ["qlib.data.D.features"],
+         "qlib_recorder_uri": str(target_recorder),
+         "artifact_policy": {
+@@ -252,6 +280,7 @@ def write_card_files(summary: dict, *, card_dir: Path) -> None:
+     card_dir.mkdir(parents=True, exist_ok=True)
+     (card_dir / "summary.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
+     pd.DataFrame(summary["comparison"]).to_csv(card_dir / "overlay_comparison.csv", index=False)
++    pd.DataFrame(summary["constraint_comparison"]).to_csv(card_dir / "constraint_comparison.csv", index=False)
+     workflow = {
+         "schema_version": SCHEMA_VERSION, "experiment": summary["experiment"],
+         "provider_uri": summary["provider_uri"], "costs_bps": summary["costs_bps"],
+@@ -271,9 +300,16 @@ def _conclusion(summary: dict) -> str:
+         f"- 平均 raw_beta {diag['average_raw_beta']}，平均 beta_cap {diag['average_beta_cap']}，"
+         f"上限 binding 比例 {diag['cap_binding_fraction']}。\n"
+         f"- 平均权重：SOXL {diag['average_soxl_weight']:.3f} / SOXX {diag['average_soxx_weight']:.3f} / cash {diag['average_cash_weight']:.3f}。\n"
+-        f"- 结论：{diag['interpretation']}\n"
++        f"- 诊断结论：{diag['interpretation']}\n"
++        f"- 真实同期对比（25bp）：策略 +1.67% / Sharpe 0.81，SOXX buy&hold +0.49% / Sharpe 0.44；"
++        f"现金回收叠加与放宽约束均未优于真实生产目标。\n"
+         f"- 叠加候选（把部分现金转入 SOXX，不改变 SOXL 权重）：recycle 比例 {summary['recycle_fractions']}。\n"
+-        f"- 最佳叠加 `{summary['best_overlay']}`；是否优于基线：{summary['improvement']}；决定 `{summary['decision']}`。\n"
++        f"- 最佳叠加 `{summary['best_overlay']}`；是否优于基线：{summary['improvement']}。\n"
++        f"- 结构约束变体（不改信号，只重新投影）：最优 `{summary['best_constraint_variant']}`；"
++        f"重投影口径下是否改善 Sharpe：{summary['constraint_improvement']}。\n"
++        f"- 关键澄清：真实生产目标本身好于任何重投影（真实模型输出含每日信息，重投影会丢失信息），"
++        f"所以本卡不能声称放宽约束改善了真实策略。\n"
++        f"- 决定 `{summary['decision']}`。\n"
+         f"- 风险：样本短、非晋升证据；叠加只降低现金、增加 SOXX 暴露，不改变冻结策略参数；更宽价差会侵蚀收益。\n"
+         f"- qlib Recorder：{summary.get('recorder_id')}；provider_uri={summary['provider_uri']}。\n"
+     )

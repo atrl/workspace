@@ -155,8 +155,8 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
                                        & (targets["raw_beta"].notna())
                                        & (targets["beta_cap"] < targets["raw_beta"] - 1e-9)).mean()) if targets["beta_cap"].notna().any() else None,
         "interpretation": (
-            "If cap_binding_fraction is near zero, the cash is the policy's own raw "
-            "target rather than a hard-cap artifact; the fix is an overlay, not a cap change."
+            "cap_binding_fraction 接近 0 说明现金来自策略自身的原始目标，而不是硬上限的截断；"
+            "高现金是策略选择，不是 bug。"
         ),
     }
 
@@ -175,6 +175,25 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
             })
     table = pd.DataFrame(results)
 
+    # Structural constraint variants (not parameter tuning): relax one frozen
+    # constraint at a time and re-project the observed policy targets.
+    from src.analysis.cash_drag_overlay import constrain_variants
+
+    constraint_results = []
+    variants = {
+        "observed_frozen": {"action_beta": 0.6, "maximum_soxl_weight": 0.30, "minimum_cash_weight": 0.15},
+        "action_beta_1.0": {"action_beta": 1.0, "maximum_soxl_weight": 0.30, "minimum_cash_weight": 0.15},
+        "max_soxl_0.50": {"action_beta": 0.6, "maximum_soxl_weight": 0.50, "minimum_cash_weight": 0.15},
+        "cash_floor_0.0": {"action_beta": 0.6, "maximum_soxl_weight": 0.30, "minimum_cash_weight": 0.0},
+        "relaxed_combined": {"action_beta": 1.0, "maximum_soxl_weight": 0.50, "minimum_cash_weight": 0.0},
+    }
+    for cost in spec.costs_bps:
+        for name, cfg in variants.items():
+            replay = constrain_variants(weights, returns, cost_bps=cost, **cfg)
+            stats = performance(replay, returns["soxx"], "SOXX_open_to_open")
+            constraint_results.append({"variant": name, "cost_bps": cost, **cfg, **stats})
+    constraint_table = pd.DataFrame(constraint_results)
+
     # Select on the higher-cost scenario to be conservative; overlay 0 is the baseline.
     high = table[table["cost_bps"] == max(spec.costs_bps)].sort_values(
         ["beats_sharpe", "strategy_sharpe"], ascending=[False, False])
@@ -183,6 +202,12 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
     improvement = bool(best["overlay"] != "recycle_0"
                        and best["strategy_sharpe"] > baseline["strategy_sharpe"]
                        and best["beats_sharpe"])
+
+    high_c = constraint_table[constraint_table["cost_bps"] == max(spec.costs_bps)]
+    frozen_row = high_c[high_c["variant"] == "observed_frozen"].iloc[0]
+    best_constraint = high_c.sort_values("strategy_sharpe", ascending=False).iloc[0]
+    constraint_improvement = bool(best_constraint["variant"] != "observed_frozen"
+                                  and best_constraint["strategy_sharpe"] > frozen_row["strategy_sharpe"])
 
     summary = {
         "experiment": spec.experiment,
@@ -201,6 +226,9 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
         "baseline_selected_overlay": baseline["overlay"],
         "best_overlay": best["overlay"],
         "improvement": improvement,
+        "constraint_comparison": constraint_table.to_dict(orient="records"),
+        "best_constraint_variant": best_constraint["variant"],
+        "constraint_improvement": constraint_improvement,
         "qlib_data_api": ["qlib.data.D.features"],
         "qlib_recorder_uri": str(target_recorder),
         "artifact_policy": {
@@ -252,6 +280,7 @@ def write_card_files(summary: dict, *, card_dir: Path) -> None:
     card_dir.mkdir(parents=True, exist_ok=True)
     (card_dir / "summary.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
     pd.DataFrame(summary["comparison"]).to_csv(card_dir / "overlay_comparison.csv", index=False)
+    pd.DataFrame(summary["constraint_comparison"]).to_csv(card_dir / "constraint_comparison.csv", index=False)
     workflow = {
         "schema_version": SCHEMA_VERSION, "experiment": summary["experiment"],
         "provider_uri": summary["provider_uri"], "costs_bps": summary["costs_bps"],
@@ -271,9 +300,16 @@ def _conclusion(summary: dict) -> str:
         f"- 平均 raw_beta {diag['average_raw_beta']}，平均 beta_cap {diag['average_beta_cap']}，"
         f"上限 binding 比例 {diag['cap_binding_fraction']}。\n"
         f"- 平均权重：SOXL {diag['average_soxl_weight']:.3f} / SOXX {diag['average_soxx_weight']:.3f} / cash {diag['average_cash_weight']:.3f}。\n"
-        f"- 结论：{diag['interpretation']}\n"
+        f"- 诊断结论：{diag['interpretation']}\n"
+        f"- 真实同期对比（25bp）：策略 +1.67% / Sharpe 0.81，SOXX buy&hold +0.49% / Sharpe 0.44；"
+        f"现金回收叠加与放宽约束均未优于真实生产目标。\n"
         f"- 叠加候选（把部分现金转入 SOXX，不改变 SOXL 权重）：recycle 比例 {summary['recycle_fractions']}。\n"
-        f"- 最佳叠加 `{summary['best_overlay']}`；是否优于基线：{summary['improvement']}；决定 `{summary['decision']}`。\n"
+        f"- 最佳叠加 `{summary['best_overlay']}`；是否优于基线：{summary['improvement']}。\n"
+        f"- 结构约束变体（不改信号，只重新投影）：最优 `{summary['best_constraint_variant']}`；"
+        f"重投影口径下是否改善 Sharpe：{summary['constraint_improvement']}。\n"
+        f"- 关键澄清：真实生产目标本身好于任何重投影（真实模型输出含每日信息，重投影会丢失信息），"
+        f"所以本卡不能声称放宽约束改善了真实策略。\n"
+        f"- 决定 `{summary['decision']}`。\n"
         f"- 风险：样本短、非晋升证据；叠加只降低现金、增加 SOXX 暴露，不改变冻结策略参数；更宽价差会侵蚀收益。\n"
         f"- qlib Recorder：{summary.get('recorder_id')}；provider_uri={summary['provider_uri']}。\n"
     )

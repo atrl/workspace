@@ -127,6 +127,31 @@ def performance(replay: pd.DataFrame, benchmark_return: pd.Series, benchmark_nam
     }
 
 
+def constrain_variants(weights: pd.DataFrame, asset_returns: pd.DataFrame, *,
+                       action_beta: float, maximum_soxl_weight: float,
+                       minimum_cash_weight: float, cost_bps: float) -> pd.DataFrame:
+    """Re-project weights under a *changed* constraint set, then replay.
+
+    This isolates the effect of a single structural constraint without touching
+    the frozen policy signal. ``weights`` are the observed legal targets; the
+    re-projection rescales the raw risk budget implied by the targets' beta.
+    """
+    from src.workflow.intraday_recovery_direct_allocation import project_legal_weights
+
+    columns = [f"{asset}_weight" for asset in ASSETS]
+    target = weights.loc[:, columns].to_numpy(float)
+    rows = np.empty_like(target)
+    for i in range(len(target)):
+        soxl, soxx, _ = target[i]
+        raw_beta = 3.0 * soxl + soxx
+        effective_beta = min(raw_beta, float(action_beta))
+        rows[i] = project_legal_weights(soxl, soxx, effective_beta,
+                                        minimum_cash_weight=float(minimum_cash_weight),
+                                        maximum_soxl_weight=float(maximum_soxl_weight))
+    reprojected = pd.DataFrame(rows, index=weights.index, columns=columns)
+    return replay_weights(reprojected, asset_returns, cost_bps=cost_bps)
+
+
 def diagnose_cash_source(*, raw_weights: pd.DataFrame, legal_weights: pd.DataFrame,
                          overlay_cap: float = 0.0) -> pd.DataFrame:
     """Compare the raw policy target with the legal (capped) target per session.

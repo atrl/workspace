@@ -18,8 +18,10 @@ diagnostic:
   average_cash_weight: 0.5060031865660098
   sessions: 12
   cap_binding_fraction: 0.0
-  interpretation: If cap_binding_fraction is near zero, the cash is the policy's own
-    raw target rather than a hard-cap artifact; the fix is an overlay, not a cap change.
+  interpretation: "cap_binding_fraction \u63A5\u8FD1 0 \u8BF4\u660E\u73B0\u91D1\u6765\
+    \u81EA\u7B56\u7565\u81EA\u8EAB\u7684\u539F\u59CB\u76EE\u6807\uFF0C\u800C\u4E0D\
+    \u662F\u786C\u4E0A\u9650\u7684\u622A\u65AD\uFF1B\u9AD8\u73B0\u91D1\u662F\u7B56\
+    \u7565\u9009\u62E9\uFF0C\u4E0D\u662F bug\u3002"
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml
