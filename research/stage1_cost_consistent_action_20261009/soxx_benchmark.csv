@@ -1,0 +1,3 @@
+benchmark,segment,sessions,terminal_wealth,return_pct,max_drawdown_pct,cvar5_pct,worst_day_pct,worst_rolling_5d_pct,sharpe,total_turnover,open_trade_days,recovery_action_count
+SOXX_buy_hold_open_to_open,development_walk_forward,1756,4.207037968170238,320.7037968170238,-47.3740153175075,-4.416954856027252,-9.32503342628479,-17.254915792247527,0.828391978130654,0.0,0,0
+SOXX_buy_hold_open_to_open,outer_reused_diagnostic,934,4.982535500834321,398.2535500834321,-42.79037616341751,-5.2854900664471565,-9.65428352355957,-17.688148831523353,1.348061455277898,0.0,0,0

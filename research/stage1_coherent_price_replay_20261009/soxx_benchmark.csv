@@ -1,0 +1,3 @@
+benchmark,segment,sessions,gross_return_pct,gross_max_drawdown_pct,cost_model,net10_return_pct,net25_return_pct
+SOXX_buy_hold_open_to_open,development_walk_forward,1756,320.69777491172005,-47.3740803924973,buy at first open and sell at last exit open; no fee-free holding,319.8568000596715,318.5969153982547
+SOXX_buy_hold_open_to_open,outer_reused_diagnostic,934,398.26012861210324,-42.790272203778656,buy at first open and sell at last exit open; no fee-free holding,397.2641066150077,395.7719420948466

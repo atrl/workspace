@@ -1,0 +1,36 @@
+{
+  "schema_version": "intraday_uniform_vintage_v1",
+  "scope": "one observed QFQ vintage for source-consistent research; no PIT or live-fill claim; source providers unchanged",
+  "requested_start": "2018-12-31",
+  "requested_end": "2026-09-25",
+  "entries": [
+    {
+      "symbol": "SOXL",
+      "path": "SOXL_15m.parquet",
+      "rows": 50390,
+      "pages": 51,
+      "first": "2018-12-31 09:45:00",
+      "last": "2026-09-25 16:00:00",
+      "sha256": "672eef20eb9ee7a62565d945973fe174e6d8c718ea8c42e133f39a89ad805fce",
+      "fetched_at_utc": "2026-10-09T15:27:52.842912+00:00",
+      "source": "Futu OpenQuoteContext.request_history_kline",
+      "ktype": "K_15M",
+      "adjustment": "QFQ",
+      "extended_time": false
+    },
+    {
+      "symbol": "SOXX",
+      "path": "SOXX_15m.parquet",
+      "rows": 50390,
+      "pages": 51,
+      "first": "2018-12-31 09:45:00",
+      "last": "2026-09-25 16:00:00",
+      "sha256": "c152c223c0af902dd077f8b97d610132c3116f1da5a5e196f509cc070e06b89f",
+      "fetched_at_utc": "2026-10-09T15:29:05.525548+00:00",
+      "source": "Futu OpenQuoteContext.request_history_kline",
+      "ktype": "K_15M",
+      "adjustment": "QFQ",
+      "extended_time": false
+    }
+  ]
+}

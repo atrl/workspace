@@ -1,0 +1,43 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_intraday_20261009",
+  "market": "all",
+  "region": "us",
+  "freq": "15min",
+  "as_of": "2026-09-25",
+  "source": "/Users/rziiiii/dev/workspace/data/raw/external/stage1_intraday_uniform_vintage_20261009_v1/source_manifest.json",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume",
+    "$bar_count"
+  ],
+  "calendar_start": "2018-12-31 09:45:00",
+  "calendar_end": "2026-09-25 16:00:00",
+  "max_datetime": "2026-09-25 16:00:00",
+  "row_count": 100780,
+  "feature_file_count": 12,
+  "audit_snapshot_hash": "bbbe853593af9490",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "dcdd3aef5af7a893",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "source_manifest_sha256": "3e02f92c9b3ced14592cd07f220a29d3cb7d0e360b543d321a1b895816d8fb01",
+  "trading_calendar_sha256": "d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15",
+  "complete_session_validation": true,
+  "expected_sessions": 1945,
+  "single_source_vintage": true,
+  "adjustment": "QFQ",
+  "purpose": "common observed price vintage for source-stability diagnosis; not PIT or broker-share qualification"
+}

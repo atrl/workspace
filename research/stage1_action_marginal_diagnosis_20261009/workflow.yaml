@@ -1,0 +1,25 @@
+schema_version: stage1_action_marginal_diagnosis_v2
+experiment: stage1_action_marginal_diagnosis_20261009
+source_card: research/stage1_economic_action_20260929
+source_recorder_id: 17f81fbf27ee46859816ec1ac52151f6
+new_models: 0
+windows:
+  development:
+  - '2016-01-04'
+  - '2022-12-21'
+  outer_reused_diagnostic:
+  - '2023-01-03'
+  - '2026-09-23'
+  segments_reset_each: true
+  concatenation: none
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - calibration
+  - conditional_information
+  - contribution
+  - predictions
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

@@ -1,0 +1,48 @@
+{
+  "experiment": "stage1_native_price_consistency_20261009",
+  "decision": "coherent_price_views_built_not_strategy_validated",
+  "promotion_eligible": false,
+  "objective_achieved": false,
+  "plan_sha256": "042f783738c6595e61ac65373030585489957839869b81eb04760b640d80da43",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_coherent_daily_marks_20261009",
+  "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_execution_marks_20261009",
+  "region": "us",
+  "price_source_comparison": [
+    {
+      "instrument": "SOXL",
+      "sessions": 2698,
+      "maximum_relative_open_change": 0.013624906539916992,
+      "median_relative_open_change": 1.537799835205078e-05,
+      "over_one_bp_sessions": 4
+    },
+    {
+      "instrument": "SOXX",
+      "sessions": 2698,
+      "maximum_relative_open_change": 0.0006535649299621582,
+      "median_relative_open_change": 1.2814998626708984e-05,
+      "over_one_bp_sessions": 611
+    }
+  ],
+  "source_ohlcv_unchanged_in_execution_view": true,
+  "intraday_price_source_from": "2018-12-31",
+  "recorder_id": "15a8dfc65e024b0c823ecfef258feace",
+  "experiment_id": "693560670703422613",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_native_price_consistency_20261009/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_native_price_consistency_20261009/qlib_recorder/693560670703422613/15a8dfc65e024b0c823ecfef258feace",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "price_source_comparison.pkl",
+      "provider_manifests.pkl"
+    ]
+  },
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ],
+  "limitations": [
+    "Only source consistency is verified; no model/policy improvement is inferred.",
+    "Historical opening and first-hour-close marks do not establish executable 09:31/10:31 fills."
+  ]
+}

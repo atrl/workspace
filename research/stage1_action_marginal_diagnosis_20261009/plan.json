@@ -1,0 +1,128 @@
+{
+  "schema_version": "stage1_action_marginal_diagnosis_v1",
+  "experiment": "stage1_action_marginal_diagnosis_20261009",
+  "registered_at_utc": "2026-10-09T13:53:37+00:00",
+  "plan_status": "diagnostic_plan_frozen_before_this_execution",
+  "pre_registration_note": "The source historical results were already observed before this plan. This plan is frozen before THIS diagnostic execution only; it is not a fresh pre-registration of the source experiment.",
+  "card_status": "diagnostic",
+  "objective_achieved": false,
+  "promotion_eligible": false,
+  "question": "Does the active Stage1 open-action logistic model carry out-of-sample conditional information about its OWN execute_advantage label, and what is the real net contribution of the recorded active path over the true no-hold upstream and explicit SOXX references, measured separately per cost?",
+  "prior_claim_retracted": [
+    "A near-zero unconditional label mean does NOT imply E[y|X]=0 and does NOT prove the label is pure noise.",
+    "An IC confidence interval crossing zero means 'no evidence found', not 'no information exists'.",
+    "The base allocation strategy_returns.csv is 2686 sessions x 2 cost_bps (unique key signal_date+cost_bps); it must not be concatenated into one equity path.",
+    "The base allocation is NOT the confidence-veto / no-hold reference and must not be presented as the direct action baseline."
+  ],
+  "frozen_sources": {
+    "active_release": "production/stage1_futu_sim_v1/runtime_release.json",
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+    "primary_evidence_recorder": "17f81fbf27ee46859816ec1ac52151f6",
+    "primary_evidence_card": "research/stage1_economic_action_20260929",
+    "allocation_card": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+    "action_card": "research/stage1_open_action_value_net_fees_20260928",
+    "read_only": true,
+    "manifests": {
+      "production/stage1_futu_sim_v1/runtime_release.json": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+      "research/pit_constituent_auxiliary_training_allocation_retrained_20260928/frozen_bundle_manifest.json": "44c1a375ea575f1055ff46850a9c8dbc30d121d97919231efbf9084504628112",
+      "research/stage1_open_action_value_net_fees_20260928/summary.json": "f6549f17979c5e2d92f2bfd474e99a3c7c74c4df13c35f20dcb8dbf9551d7219"
+    },
+    "objects": {
+      "17f81fbf/analysis/portfolio_replays.pkl": "ac7281e80aa78d2cc69c9c97dadd51356ac883e85ee87d53ca46eaa976b4b306",
+      "17f81fbf/analysis/comparison.pkl": "c31ea2c023e27d489400cda8fb715543d732edf30714876b4fd8d7932b0f0356",
+      "17f81fbf/analysis/annual.pkl": "b8f7423783600612c6b696decb73c15abea604ce9a494242c94a84ff8be733cc",
+      "17f81fbf/inputs/prepared_inputs.pkl": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+      "17f81fbf/models/own_state_frozen_2022.pkl": "a55ef083512375911d770cc73505b7a335e1136f93fc8345376fbd3230d7a3f2",
+      "17f81fbf/models/own_state_expanding_2025.pkl": "30d51913deb5d630ae5438bce0bf00bfff1d863c5821d3749291f71db079663f",
+      "17f81fbf/models/rules_only_classifier.pkl": "058cb039920d197ddbebbb6b381e61a8108fbe7b0b2f7fee41877d3eac233afe",
+      "b472a458/frozen_open_action_value_model.pkl": "06156d31b23d61101b4fa288f9f1bd70d2bfcbb53e7171e5f1c4efdbd5315411",
+      "b472a458/frozen_recovery_model.pkl": "c1e0d8ddcf7e3d806e5cf44bf3828370e8ce2ae3fa377814512037cf1ad6da92"
+    },
+    "note": "byte hashes bound before the run; a mismatched snapshot/hash or source grain BLOCKS the run rather than continuing.",
+    "source_object_sha256": {
+      "analysis/portfolio_replays.pkl": "ac7281e80aa78d2cc69c9c97dadd51356ac883e85ee87d53ca46eaa976b4b306",
+      "analysis/comparison.pkl": "c31ea2c023e27d489400cda8fb715543d732edf30714876b4fd8d7932b0f0356",
+      "analysis/annual.pkl": "b8f7423783600612c6b696decb73c15abea604ce9a494242c94a84ff8be733cc",
+      "inputs/prepared_inputs.pkl": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa"
+    }
+  },
+  "new_models": 0,
+  "parameter_search": "none",
+  "candidate_budget": 0,
+  "windows": {
+    "development": [
+      "2016-01-04",
+      "2022-12-21"
+    ],
+    "outer_reused_diagnostic": [
+      "2023-01-03",
+      "2026-09-23"
+    ],
+    "segments_reset_each": true,
+    "concatenation": "none; development and outer are reported separately and never chained into one continuous account",
+    "note": "windows are the source full common span; no arbitrary truncation"
+  },
+  "model_identity": {
+    "active_open_action_logistic": {
+      "prediction": "each year predicted by THAT year's saved pipeline (fit only on prior data)",
+      "label": "execute_advantage from the SAME baseline-domain rows, strictly matured",
+      "maturity": "decision_at = signal_date+1; label_available_at = signal_date+2; terminal NaT dropped",
+      "role": "primary subject"
+    },
+    "note": "cross-account active-minus-no_hold returns are NOT the label and are withdrawn"
+  },
+  "costs_bps": [
+    10.0,
+    25.0
+  ],
+  "references": {
+    "active": "active_hold_baseline (the recorded open-action path)",
+    "no_hold_upstream": "no_hold_reference (always executes the legal baseline target; does NOT use the open hold/execute action layer; not shadow, not forced-hold)",
+    "rules_only": "rules_only",
+    "own_state_frozen": "own_state_net_value_frozen_2022",
+    "own_state_expanding": "own_state_net_value_expanding_2025",
+    "soxx_buy_hold": "SOXX over the strategy's own trade/exit sessions, settled via settle_target_session with fees",
+    "soxx_cash_fixed": "pre-declared 50/50 SOXX/cash rebalanced to target each session and fee-charged; no full-sample fitted matched beta"
+  },
+  "local_counterfactual": {
+    "method": "use the frozen 17f81fbf own-state paths directly; no refit and no reconstruction",
+    "scope": "frozen recorded evidence with the source card's own reset semantics",
+    "provenance": "baseline-state rows and candidate own-state rows are kept distinct; labels are never cross-assigned"
+  },
+  "cost_symmetry_check": "both 10bp and 25bp come from the same frozen source; a 10bp path is never repriced to impersonate 25bp",
+  "gates": {
+    "informational": "report rankIC/AUC/probability calibration of the ACTIVE model's execute_probability against its OWN execute_advantage, on the decidable subset, with block bootstrap CIs",
+    "contribution": "report net contribution of active vs no_hold per cost, plus true-account delta and the segments where MaxDD/CVaR worsened"
+  },
+  "stopping": "No model, no tuning, no threshold search. Report all results including a null result.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/decidable_frame.pkl",
+      "analysis/block_bootstrap.pkl",
+      "analysis/contributions.pkl"
+    ]
+  },
+  "limitations": [
+    "Diagnostic only; produces no strategy and grants no promotion.",
+    "Reused diagnostic window is not a clean holdout.",
+    "The own-state path is a one-session + next-reset proxy as recorded by its source card."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "contribution_rule": "per segment x cost, each variant reset from its own initialization; segments never multiplied",
+  "decidable_rule": {
+    "execute_threshold": 0.5,
+    "max_skippable_turnover": 0.05,
+    "mandatory_derisk_beta_delta": 0.0
+  },
+  "statistics": {
+    "block_sessions": 20,
+    "resamples": 2000,
+    "note": "rankIC/AUC/advantage CIs computed by moving a 20-session block over the full trading-day index with eligibility preserved; point estimates on the decidable subset"
+  }
+}

@@ -1,0 +1,210 @@
+schema_version: stage1_feasible_action_training_v1
+experiment: stage1_feasible_action_training_20261009
+plan_sha256: 78f053b70475cf43753d5c309edb88ebfb3516037301451e4875254b8da2411b
+source_recorder_id: 17f81fbf27ee46859816ec1ac52151f6
+providers:
+  intraday_provider:
+    uri: data/qlib/stage1_uniform_intraday_20261009
+    manifest_sha256: fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a
+    as_of: '2026-09-25'
+    freq: 15min
+    purpose: common observed price vintage for source-stability diagnosis; not PIT
+      or broker-share qualification
+    complete_session_validation: true
+    trading_calendar_sha256: d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15
+    source_manifest_sha256: 3e02f92c9b3ced14592cd07f220a29d3cb7d0e360b543d321a1b895816d8fb01
+    daily_source_manifest_sha256: null
+    intraday_price_source_from: null
+  execution_mark_provider:
+    uri: data/qlib/stage1_uniform_execution_marks_20261009
+    manifest_sha256: d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb
+    as_of: '2026-09-25'
+    freq: 15min
+    purpose: native accounting reconciliation of prescribed opening and first-hour-close
+      target schedules
+    complete_session_validation: null
+    trading_calendar_sha256: null
+    source_manifest_sha256: fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a
+    daily_source_manifest_sha256: null
+    intraday_price_source_from: null
+  coherent_provider:
+    uri: data/qlib/stage1_uniform_daily_marks_20261009
+    manifest_sha256: 48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f
+    as_of: '2026-09-25'
+    freq: day
+    purpose: coherent native daily-prefix/intraday-suffix mark and quantity continuation
+    complete_session_validation: null
+    trading_calendar_sha256: null
+    source_manifest_sha256: null
+    daily_source_manifest_sha256: 2c338680dcdef7ba5f84e809b043ed4c5df41bdbcdc64f9d9439b9ef404ae4da
+    intraday_price_source_from: '2018-12-31'
+variants:
+  control_all_state: all
+  candidate_feasible: feasible
+costs_bps:
+- 10.0
+- 25.0
+baseline_identities:
+  no_hold_reference: open HOLD layer disabled; always executes the legal upstream
+    target (models={})
+  active_hold_baseline: legacy rules-only open policy on legacy_models
+  cash_reference: explicit all-cash reference, NOT no_hold
+control_reproduction: true
+native_reconciliation_status: passed
+native_target_conventions:
+  control_all_state: post_fee_desired
+  candidate_feasible: post_fee_desired
+  active_hold_baseline: pre_fee_account
+  no_hold_reference: pre_fee_account
+  cash_reference: trivial_never_trades
+native_commission_per_1:
+  10: 0.001
+  25: 0.0025
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - benchmark_soxx_buy_hold_10
+  - benchmark_soxx_buy_hold_25
+  - diagnostics_candidate
+  - diagnostics_control
+  - model_candidate_feasible_2016
+  - model_candidate_feasible_2017
+  - model_candidate_feasible_2018
+  - model_candidate_feasible_2019
+  - model_candidate_feasible_2020
+  - model_candidate_feasible_2021
+  - model_candidate_feasible_2022
+  - model_candidate_feasible_2023
+  - model_candidate_feasible_2024
+  - model_candidate_feasible_2025
+  - model_candidate_feasible_2026
+  - model_control_all_state_2016
+  - model_control_all_state_2017
+  - model_control_all_state_2018
+  - model_control_all_state_2019
+  - model_control_all_state_2020
+  - model_control_all_state_2021
+  - model_control_all_state_2022
+  - model_control_all_state_2023
+  - model_control_all_state_2024
+  - model_control_all_state_2025
+  - model_control_all_state_2026
+  - native::active_hold_baseline::development_walk_forward::10::prefix_positions
+  - native::active_hold_baseline::development_walk_forward::10::prefix_reconciliation
+  - native::active_hold_baseline::development_walk_forward::10::prefix_report
+  - native::active_hold_baseline::development_walk_forward::10::suffix_events
+  - native::active_hold_baseline::development_walk_forward::10::suffix_positions
+  - native::active_hold_baseline::development_walk_forward::10::suffix_reconciliation
+  - native::active_hold_baseline::development_walk_forward::10::suffix_report
+  - native::active_hold_baseline::development_walk_forward::25::prefix_positions
+  - native::active_hold_baseline::development_walk_forward::25::prefix_reconciliation
+  - native::active_hold_baseline::development_walk_forward::25::prefix_report
+  - native::active_hold_baseline::development_walk_forward::25::suffix_events
+  - native::active_hold_baseline::development_walk_forward::25::suffix_positions
+  - native::active_hold_baseline::development_walk_forward::25::suffix_reconciliation
+  - native::active_hold_baseline::development_walk_forward::25::suffix_report
+  - native::active_hold_baseline::outer_reused_diagnostic::10::suffix_events
+  - native::active_hold_baseline::outer_reused_diagnostic::10::suffix_positions
+  - native::active_hold_baseline::outer_reused_diagnostic::10::suffix_reconciliation
+  - native::active_hold_baseline::outer_reused_diagnostic::10::suffix_report
+  - native::active_hold_baseline::outer_reused_diagnostic::25::suffix_events
+  - native::active_hold_baseline::outer_reused_diagnostic::25::suffix_positions
+  - native::active_hold_baseline::outer_reused_diagnostic::25::suffix_reconciliation
+  - native::active_hold_baseline::outer_reused_diagnostic::25::suffix_report
+  - native::candidate_feasible::development_walk_forward::10::prefix_positions
+  - native::candidate_feasible::development_walk_forward::10::prefix_reconciliation
+  - native::candidate_feasible::development_walk_forward::10::prefix_report
+  - native::candidate_feasible::development_walk_forward::10::suffix_events
+  - native::candidate_feasible::development_walk_forward::10::suffix_positions
+  - native::candidate_feasible::development_walk_forward::10::suffix_reconciliation
+  - native::candidate_feasible::development_walk_forward::10::suffix_report
+  - native::candidate_feasible::development_walk_forward::25::prefix_positions
+  - native::candidate_feasible::development_walk_forward::25::prefix_reconciliation
+  - native::candidate_feasible::development_walk_forward::25::prefix_report
+  - native::candidate_feasible::development_walk_forward::25::suffix_events
+  - native::candidate_feasible::development_walk_forward::25::suffix_positions
+  - native::candidate_feasible::development_walk_forward::25::suffix_reconciliation
+  - native::candidate_feasible::development_walk_forward::25::suffix_report
+  - native::candidate_feasible::outer_reused_diagnostic::10::suffix_events
+  - native::candidate_feasible::outer_reused_diagnostic::10::suffix_positions
+  - native::candidate_feasible::outer_reused_diagnostic::10::suffix_reconciliation
+  - native::candidate_feasible::outer_reused_diagnostic::10::suffix_report
+  - native::candidate_feasible::outer_reused_diagnostic::25::suffix_events
+  - native::candidate_feasible::outer_reused_diagnostic::25::suffix_positions
+  - native::candidate_feasible::outer_reused_diagnostic::25::suffix_reconciliation
+  - native::candidate_feasible::outer_reused_diagnostic::25::suffix_report
+  - native::cash_reference::development_walk_forward::10::prefix_positions
+  - native::cash_reference::development_walk_forward::10::prefix_reconciliation
+  - native::cash_reference::development_walk_forward::10::prefix_report
+  - native::cash_reference::development_walk_forward::10::suffix_events
+  - native::cash_reference::development_walk_forward::10::suffix_positions
+  - native::cash_reference::development_walk_forward::10::suffix_reconciliation
+  - native::cash_reference::development_walk_forward::10::suffix_report
+  - native::cash_reference::development_walk_forward::25::prefix_positions
+  - native::cash_reference::development_walk_forward::25::prefix_reconciliation
+  - native::cash_reference::development_walk_forward::25::prefix_report
+  - native::cash_reference::development_walk_forward::25::suffix_events
+  - native::cash_reference::development_walk_forward::25::suffix_positions
+  - native::cash_reference::development_walk_forward::25::suffix_reconciliation
+  - native::cash_reference::development_walk_forward::25::suffix_report
+  - native::cash_reference::outer_reused_diagnostic::10::suffix_events
+  - native::cash_reference::outer_reused_diagnostic::10::suffix_positions
+  - native::cash_reference::outer_reused_diagnostic::10::suffix_reconciliation
+  - native::cash_reference::outer_reused_diagnostic::10::suffix_report
+  - native::cash_reference::outer_reused_diagnostic::25::suffix_events
+  - native::cash_reference::outer_reused_diagnostic::25::suffix_positions
+  - native::cash_reference::outer_reused_diagnostic::25::suffix_reconciliation
+  - native::cash_reference::outer_reused_diagnostic::25::suffix_report
+  - native::control_all_state::development_walk_forward::10::prefix_positions
+  - native::control_all_state::development_walk_forward::10::prefix_reconciliation
+  - native::control_all_state::development_walk_forward::10::prefix_report
+  - native::control_all_state::development_walk_forward::10::suffix_events
+  - native::control_all_state::development_walk_forward::10::suffix_positions
+  - native::control_all_state::development_walk_forward::10::suffix_reconciliation
+  - native::control_all_state::development_walk_forward::10::suffix_report
+  - native::control_all_state::development_walk_forward::25::prefix_positions
+  - native::control_all_state::development_walk_forward::25::prefix_reconciliation
+  - native::control_all_state::development_walk_forward::25::prefix_report
+  - native::control_all_state::development_walk_forward::25::suffix_events
+  - native::control_all_state::development_walk_forward::25::suffix_positions
+  - native::control_all_state::development_walk_forward::25::suffix_reconciliation
+  - native::control_all_state::development_walk_forward::25::suffix_report
+  - native::control_all_state::outer_reused_diagnostic::10::suffix_events
+  - native::control_all_state::outer_reused_diagnostic::10::suffix_positions
+  - native::control_all_state::outer_reused_diagnostic::10::suffix_reconciliation
+  - native::control_all_state::outer_reused_diagnostic::10::suffix_report
+  - native::control_all_state::outer_reused_diagnostic::25::suffix_events
+  - native::control_all_state::outer_reused_diagnostic::25::suffix_positions
+  - native::control_all_state::outer_reused_diagnostic::25::suffix_reconciliation
+  - native::control_all_state::outer_reused_diagnostic::25::suffix_report
+  - native::no_hold_reference::development_walk_forward::10::prefix_positions
+  - native::no_hold_reference::development_walk_forward::10::prefix_reconciliation
+  - native::no_hold_reference::development_walk_forward::10::prefix_report
+  - native::no_hold_reference::development_walk_forward::10::suffix_events
+  - native::no_hold_reference::development_walk_forward::10::suffix_positions
+  - native::no_hold_reference::development_walk_forward::10::suffix_reconciliation
+  - native::no_hold_reference::development_walk_forward::10::suffix_report
+  - native::no_hold_reference::development_walk_forward::25::prefix_positions
+  - native::no_hold_reference::development_walk_forward::25::prefix_reconciliation
+  - native::no_hold_reference::development_walk_forward::25::prefix_report
+  - native::no_hold_reference::development_walk_forward::25::suffix_events
+  - native::no_hold_reference::development_walk_forward::25::suffix_positions
+  - native::no_hold_reference::development_walk_forward::25::suffix_reconciliation
+  - native::no_hold_reference::development_walk_forward::25::suffix_report
+  - native::no_hold_reference::outer_reused_diagnostic::10::suffix_events
+  - native::no_hold_reference::outer_reused_diagnostic::10::suffix_positions
+  - native::no_hold_reference::outer_reused_diagnostic::10::suffix_reconciliation
+  - native::no_hold_reference::outer_reused_diagnostic::10::suffix_report
+  - native::no_hold_reference::outer_reused_diagnostic::25::suffix_events
+  - native::no_hold_reference::outer_reused_diagnostic::25::suffix_positions
+  - native::no_hold_reference::outer_reused_diagnostic::25::suffix_reconciliation
+  - native::no_hold_reference::outer_reused_diagnostic::25::suffix_report
+  - predictions_candidate_feasible
+  - predictions_control_all_state
+  - replays
+  - training_rows_candidate
+  - training_rows_control
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

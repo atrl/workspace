@@ -1,0 +1,118 @@
+{
+  "schema_version": "stage1_feasible_action_training_v1",
+  "experiment": "stage1_feasible_action_training_20261009",
+  "registered_at_utc": "2026-10-09T15:47:02.344650+00:00",
+  "plan_status": "ready_pending_supervisor_verification",
+  "card_status": "active_research",
+  "objective_achieved": false,
+  "promotion_eligible": false,
+  "mechanism_hypothesis": "动作监督把‘必须执行修复、HOLD非法’的状态也作为 execute-vs-HOLD 训练标签，损失可能由不可选择的反事实主导。",
+  "domain_filter": {
+    "name": "feasible_action_states",
+    "rule": "routing_eligible = not hard_risk_violation (decision-time legality only)",
+    "inputs_read": [
+      "pretrade_soxl_weight",
+      "pretrade_soxx_weight",
+      "pretrade_cash_weight",
+      "hard_beta_cap"
+    ],
+    "never_reads": [
+      "execute_advantage_bps",
+      "execute_net_return",
+      "hold_net_return",
+      "任何未来收益"
+    ],
+    "routing": "net_value routing without the old classifier large-transition rule",
+    "not_allowed": "no risk cap, no threshold, no new parameter changes"
+  },
+  "empirical_check_existing_rows": {
+    "source": "analysis/training_results.pkl[2022].training_rows + replay (frozen hash-bound)",
+    "total_rows": 2690,
+    "feasible_rows": 2316,
+    "infeasible_rows": 374,
+    "feasible_share": 0.861,
+    "violation_counts": {
+      "maximum_soxl_weight": 170,
+      "hard_beta_cap": 205,
+      "long_only": 0,
+      "minimum_cash_weight": 0
+    },
+    "label_variance": {
+      "all": 13779.1,
+      "feasible": 15385.4,
+      "infeasible": 3853.4
+    },
+    "label_mean": {
+      "feasible": 1.82,
+      "infeasible": 0.23
+    },
+    "top_decile_abs_label_infeasible_share": 0.05,
+    "note": "empirical only; does not pre-judge harm. Infeasible rows have lower label variance."
+  },
+  "experiment_design": {
+    "one_mechanism_candidate": true,
+    "supervision_stress_kept": "original 25bp label cost unchanged",
+    "evaluation": "10bp own-path annual training; primary cost book owns its own label fee",
+    "freeze": 2022,
+    "post_freeze": "2023+ repeated diagnostic (reused history), not clean holdout",
+    "stress": "10/25bp reuse the corresponding annual frozen models",
+    "control": "all-state training on the same frozen coherent input",
+    "unchanged_hyperparams": {
+      "features": "ECONOMIC_FEATURES",
+      "ridge_alpha": 10.0,
+      "minimum_training_rows": 200,
+      "execute_rule": "predicted net value > 0",
+      "hard_repair": "hard_risk_violation -> execute target"
+    },
+    "warmup_fallback": "insufficient feasible rows -> original execute-target fallback; report annual feasible training counts"
+  },
+  "data": {
+    "main_input": [
+      "data/qlib/stage1_uniform_intraday_20261009",
+      "data/qlib/stage1_uniform_execution_marks_20261009",
+      "data/qlib/stage1_uniform_daily_marks_20261009"
+    ],
+    "vintage": "single current QFQ vintage; hash frozen before training",
+    "native": "full prefix/suffix native verification",
+    "source_vintage_note": "if source-vintage differences are not isolated, label as different-vintage diagnostic, not pure price effect"
+  },
+  "isolation_rules": [
+    "candidate and all-state control use the same frozen coherent input",
+    "filter effect must not be mixed with data or fee mechanism",
+    "source original saved annual models used only as external anchor; no refit passed off as frozen",
+    "DatasetH/scaler fit only past matured legal training rows; causal own-state rolling; no future results used for earlier fits",
+    "pure training filter=all must exactly reproduce the existing control"
+  ],
+  "recorder_must_save": [
+    "model",
+    "scaler",
+    "training-row legality flag",
+    "annual maturity",
+    "actual path",
+    "native reports",
+    "native positions",
+    "complete gate"
+  ],
+  "negative_tests": [
+    "illegal HOLD rows future-label perturbation does not change the feasible-fit",
+    "legal future-year label perturbation does not change past fit",
+    "insufficient-sample fallback reported",
+    "two-domain statistics do not filter by future results"
+  ],
+  "sealed_boundary": "new thin wrapper parameterizes domain; sealed E module (stage1_economic_training.py) unchanged",
+  "stopping_rule": "if this candidate fails, stop this mechanism; do not chase minrows/penalty/threshold. Historical pass only freezes for independent forward; no auto SIM switch.",
+  "reporting": "explicitly report active/no_hold/SOXX; do not claim stable excess unless above gross SOXX",
+  "costs_bps": [
+    10.0,
+    25.0
+  ],
+  "source": {
+    "card": "research/stage1_economic_action_20260929",
+    "recorder": "17f81fbf27ee46859816ec1ac52151f6",
+    "training_results_sha256": "a0ab9916a62cc2a00af89876b423d5cb419eec64fa7418abcefbc9b11d728e4b"
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

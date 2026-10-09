@@ -1,0 +1,77 @@
+On branch research/benchmark-core-variance-20261009
+You are in a sparse checkout with 50% of tracked files present.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../../data/datasets.yaml
+	modified:   ../../data/processed/intraday/soxl_soxx_1m.parquet
+	modified:   ../../data/qlib/soxl_intraday_15min/calendars/15min.txt
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxl/bar_count.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxl/bar_index.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxl/close.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxl/high.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxl/low.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxl/open.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxl/turnover.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxl/volume.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxx/bar_count.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxx/bar_index.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxx/close.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxx/high.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxx/low.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxx/open.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxx/turnover.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/features/soxx/volume.15min.bin
+	modified:   ../../data/qlib/soxl_intraday_15min/instruments/all.txt
+	modified:   ../../data/qlib/soxl_intraday_15min/qlib_store_manifest.json
+	modified:   ../../data/qlib/soxl_intraday_5min/calendars/5min.txt
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxl/bar_count.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxl/bar_index.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxl/close.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxl/high.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxl/low.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxl/open.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxl/turnover.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxl/volume.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxx/bar_count.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxx/bar_index.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxx/close.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxx/high.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxx/low.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxx/open.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxx/turnover.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/features/soxx/volume.5min.bin
+	modified:   ../../data/qlib/soxl_intraday_5min/instruments/all.txt
+	modified:   ../../data/qlib/soxl_intraday_5min/qlib_store_manifest.json
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	../../data/qlib/stage1_coherent_daily_marks_20261009/
+	../../data/qlib/stage1_execution_marks_20261009/
+	../../data/qlib/stage1_repaired_intraday_20261009/
+	../../data/qlib/stage1_uniform_daily_marks_20261009/
+	../../data/qlib/stage1_uniform_execution_marks_20261009/
+	../../data/qlib/stage1_uniform_intraday_20261009/
+	../stage1_action_marginal_diagnosis_20261009/
+	../stage1_coherent_price_replay_20261009/
+	../stage1_cost_consistent_action_20261009/
+	../stage1_native_price_consistency_20261009/
+	./
+	../../runtime/goal_brief_20261010.md
+	../../src/analysis/action_marginal_information.py
+	../../src/analysis/action_oos_information.py
+	../../src/analysis/native_intraday_schedule.py
+	../../src/data/native_execution_marks.py
+	../../src/workflow/action_marginal_diagnosis.py
+	../../src/workflow/coherent_price_replay_experiment.py
+	../../src/workflow/cost_matched_action_experiment.py
+	../../src/workflow/economic_cost_matched_training.py
+	../../src/workflow/native_price_consistency.py
+	../../tests/test_action_marginal_diagnosis.py
+	../../tests/test_coherent_price_replay_experiment.py
+	../../tests/test_cost_matched_action_experiment.py
+	../../tests/test_economic_cost_matched_training.py
+	../../tests/test_native_intraday_schedule.py
+
+no changes added to commit (use "git add" and/or "git commit -a")

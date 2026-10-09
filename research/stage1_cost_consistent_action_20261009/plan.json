@@ -1,0 +1,117 @@
+{
+  "schema_version": "stage1_cost_consistent_action_v1",
+  "experiment": "stage1_cost_consistent_action_20261009",
+  "registered_at_utc": "2026-10-09T14:16:41.676874+00:00",
+  "plan_status": "increment2_approved_to_run_increment1_pending_native_interface",
+  "card_status": "active_research",
+  "objective_achieved": false,
+  "promotion_eligible": false,
+  "hypothesis": "Two separable increments may improve the Stage1 action layer without touching the frozen base allocator: (1) a coherent single-provider price panel for 2019+ (real 15-minute open / 10:30 close / next open) so the label and replay share one price source; (2) an action training/selection book whose own state, features, label fees and next-reset fees match the cost book being evaluated. Neither increment is assumed to explain the original failure or to raise return.",
+  "increments": {
+    "increment_1_price_consistency": {
+      "description": "Rebuild the 2019+ replay and first-hour features from ONE existing 15-minute Qlib provider's real open / 10:30 close / next open, so the daily-open label and the first-hour state share a single price source.",
+      "scope": "price sourcing only; frozen model identities and the action route are unchanged",
+      "fail_closed": "missing 15-minute bars block; no scaling, no backfill, no interpolation of any price",
+      "pre_2019": "2016-2018 use the real daily provider with no recovery; a layered native proof is reported separately",
+      "evidence": "daily-open vs 15-minute-first-bar-open comparison already observed: SOXL 3 days > 1bp (2026-04-20 daily 94.68 vs 15m 95.97), SOXX 610 days > 1bp (median 0.136bp, max 6.76bp); recorded, not asserted as the cause of prior results"
+    },
+    "increment_2_cost_consistent_training": {
+      "description": "Train two independent action books whose own state, features, label fees and next-reset fees match the evaluated cost: a 10bp book with own-state + label10bp, and a 25bp book with own-state + label25bp.",
+      "scope": "one mechanism candidate, two pre-declared fee books; no threshold/feature/beta search",
+      "reused": [
+        "frozen base allocator (f696f656)",
+        "frozen recovery model",
+        "ECONOMIC_FEATURES",
+        "Ridge alpha=10, minrows=200",
+        "execute net-value>0 rule",
+        "all risk/repair rules"
+      ],
+      "outer": "2023+ each book uses the model frozen at 2022-end; outer is reused diagnostic only",
+      "label_cost": "declared explicitly per book and passed into the thin training/settlement wrapper; the sealed source module is not modified and no global label-cost is monkeypatched"
+    }
+  },
+  "separation_rule": "Increment 1 (price consistency) and Increment 2 (cost-consistent training) are reported as two separate comparisons. They are never merged into one winning candidate.",
+  "references": {
+    "frozen_parent": "17f81fbf27ee46859816ec1ac52151f6",
+    "variants": [
+      "active_hold_baseline",
+      "no_hold_reference",
+      "own_state_net_value_frozen_2022"
+    ],
+    "soxx_buy_hold": "SOXX same execution/cost, open-only native reconciled",
+    "soxx_cash_fixed": "pre-declared 50/50 SOXX/cash rebalanced to target and fee-charged; no full-sample fitted matched beta"
+  },
+  "candidate_budget": {
+    "mechanism_candidates": 1,
+    "fee_books": [
+      10.0,
+      25.0
+    ],
+    "parameter_search": "none",
+    "feature_search": "none"
+  },
+  "windows": {
+    "development": [
+      "2016-01-04",
+      "2022-12-21"
+    ],
+    "outer_reused_diagnostic": [
+      "2023-01-03",
+      "2026-09-23"
+    ],
+    "segments_reset_each": true,
+    "concatenation": "none"
+  },
+  "gates": {
+    "development_gate": "own true no_hold, active, original economic reference and SOXX, all at the candidate's own cost book",
+    "metrics": [
+      "return",
+      "annual",
+      "max_drawdown",
+      "cvar5",
+      "worst_day",
+      "worst_rolling_5d",
+      "turnover"
+    ],
+    "no_relaxation": true,
+    "promotion": "candidate is not_promoted even if it passes history, until independent forward evidence"
+  },
+  "native_verification": {
+    "open_only_references": "native_open_reconciliation",
+    "candidate_2019_plus_recovery": "required: a real 15-minute intraday native account reconciliation",
+    "pre_2019": "daily native reconciliation only (no intraday bars exist)",
+    "if_missing": "record blocked_native_reconciliation_missing; do not substitute risk_analysis or an open-only path under another name"
+  },
+  "prerequisites_from_supervisor": [
+    "reusable native intraday schedule interface (new file)",
+    "price-consistency verification interface (new file)",
+    "these do not modify the current diagnosis code"
+  ],
+  "parity_step": "Before the candidate, prove the new execution/label wrapper reproduces the original control book end to end (predictions and replay numbers) for execution10/label25; keep that parity result and preserve any candidate failure.",
+  "stopping": "Exactly one mechanism candidate with two pre-declared fee books against the frozen references; no tuning after outcomes; report all results including failures.",
+  "limitations": [
+    "This plan is not a promotion and does not claim the price discrepancy caused any prior result.",
+    "The one-session next-reset cost remains a proxy, not a long-horizon optimization.",
+    "Older intraday verification is limited to 2019+ where real bars exist."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "frozen_sources": {
+    "primary_evidence_card": "research/stage1_economic_action_20260929",
+    "primary_evidence_recorder": "17f81fbf27ee46859816ec1ac52151f6",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+    "object_sha256": {
+      "analysis/portfolio_replays.pkl": "ac7281e80aa78d2cc69c9c97dadd51356ac883e85ee87d53ca46eaa976b4b306",
+      "analysis/comparison.pkl": "c31ea2c023e27d489400cda8fb715543d732edf30714876b4fd8d7932b0f0356",
+      "analysis/annual.pkl": "b8f7423783600612c6b696decb73c15abea604ce9a494242c94a84ff8be733cc",
+      "inputs/prepared_inputs.pkl": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+      "models/own_state_frozen_2022.pkl": "a55ef083512375911d770cc73505b7a335e1136f93fc8345376fbd3230d7a3f2",
+      "models/own_state_expanding_2025.pkl": "30d51913deb5d630ae5438bce0bf00bfff1d863c5821d3749291f71db079663f",
+      "models/rules_only_classifier.pkl": "058cb039920d197ddbebbb6b381e61a8108fbe7b0b2f7fee41877d3eac233afe"
+    },
+    "read_only": true
+  }
+}

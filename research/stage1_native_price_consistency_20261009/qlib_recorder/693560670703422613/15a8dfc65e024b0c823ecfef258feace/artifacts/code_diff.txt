@@ -1,0 +1,246 @@
+diff --git a/data/datasets.yaml b/data/datasets.yaml
+index 5a169934..c68b63b2 100644
+--- a/data/datasets.yaml
++++ b/data/datasets.yaml
+@@ -164,14 +164,14 @@ external:
+ generated_at: '2026-10-09T02:01:43.777655+00:00'
+ intraday:
+   soxl_soxx_1m:
+-    end: '2026-10-08T16:00:00-04:00'
++    end: '2026-10-09T10:43:00-04:00'
+     exists: true
+     intervals:
+     - 1m
+     path: data/processed/intraday/soxl_soxx_1m.parquet
+     providers:
+     - futu
+-    rows: 1517282
++    rows: 1517428
+     start: '2018-12-31T09:31:00-05:00'
+     symbols:
+     - SOXL
+diff --git a/data/processed/intraday/soxl_soxx_1m.parquet b/data/processed/intraday/soxl_soxx_1m.parquet
+index 799693aa..81a84deb 100644
+Binary files a/data/processed/intraday/soxl_soxx_1m.parquet and b/data/processed/intraday/soxl_soxx_1m.parquet differ
+diff --git a/data/qlib/soxl_intraday_15min/calendars/15min.txt b/data/qlib/soxl_intraday_15min/calendars/15min.txt
+index 4fc7cf0e..7322b34b 100644
+--- a/data/qlib/soxl_intraday_15min/calendars/15min.txt
++++ b/data/qlib/soxl_intraday_15min/calendars/15min.txt
+@@ -50575,3 +50575,8 @@
+ 2026-10-08 15:30:00
+ 2026-10-08 15:45:00
+ 2026-10-08 16:00:00
++2026-10-09 09:45:00
++2026-10-09 10:00:00
++2026-10-09 10:15:00
++2026-10-09 10:30:00
++2026-10-09 10:45:00
+diff --git a/data/qlib/soxl_intraday_15min/features/soxl/bar_count.15min.bin b/data/qlib/soxl_intraday_15min/features/soxl/bar_count.15min.bin
+index 821448f9..c868ad7c 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxl/bar_count.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxl/bar_count.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxl/bar_index.15min.bin b/data/qlib/soxl_intraday_15min/features/soxl/bar_index.15min.bin
+index 22822b19..3560844e 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxl/bar_index.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxl/bar_index.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxl/close.15min.bin b/data/qlib/soxl_intraday_15min/features/soxl/close.15min.bin
+index 4dfe8416..c92ac2d9 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxl/close.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxl/close.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxl/high.15min.bin b/data/qlib/soxl_intraday_15min/features/soxl/high.15min.bin
+index f945dee7..476d4be0 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxl/high.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxl/high.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxl/low.15min.bin b/data/qlib/soxl_intraday_15min/features/soxl/low.15min.bin
+index 0142498a..d366f9e4 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxl/low.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxl/low.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxl/open.15min.bin b/data/qlib/soxl_intraday_15min/features/soxl/open.15min.bin
+index b763c48f..edb3d83d 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxl/open.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxl/open.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxl/turnover.15min.bin b/data/qlib/soxl_intraday_15min/features/soxl/turnover.15min.bin
+index 9e6b53b7..f682ea15 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxl/turnover.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxl/turnover.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxl/volume.15min.bin b/data/qlib/soxl_intraday_15min/features/soxl/volume.15min.bin
+index 9e72e76c..b822c1f1 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxl/volume.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxl/volume.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxx/bar_count.15min.bin b/data/qlib/soxl_intraday_15min/features/soxx/bar_count.15min.bin
+index 821448f9..c868ad7c 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxx/bar_count.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxx/bar_count.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxx/bar_index.15min.bin b/data/qlib/soxl_intraday_15min/features/soxx/bar_index.15min.bin
+index 22822b19..3560844e 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxx/bar_index.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxx/bar_index.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxx/close.15min.bin b/data/qlib/soxl_intraday_15min/features/soxx/close.15min.bin
+index 12a3db0a..4da59168 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxx/close.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxx/close.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxx/high.15min.bin b/data/qlib/soxl_intraday_15min/features/soxx/high.15min.bin
+index 9e4df42f..c8daf79d 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxx/high.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxx/high.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxx/low.15min.bin b/data/qlib/soxl_intraday_15min/features/soxx/low.15min.bin
+index 399e2b24..98d273a7 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxx/low.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxx/low.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxx/open.15min.bin b/data/qlib/soxl_intraday_15min/features/soxx/open.15min.bin
+index 493868c6..b6badfa6 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxx/open.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxx/open.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxx/turnover.15min.bin b/data/qlib/soxl_intraday_15min/features/soxx/turnover.15min.bin
+index 1e9384ff..553213ec 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxx/turnover.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxx/turnover.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/features/soxx/volume.15min.bin b/data/qlib/soxl_intraday_15min/features/soxx/volume.15min.bin
+index 05705c39..b9667a03 100644
+Binary files a/data/qlib/soxl_intraday_15min/features/soxx/volume.15min.bin and b/data/qlib/soxl_intraday_15min/features/soxx/volume.15min.bin differ
+diff --git a/data/qlib/soxl_intraday_15min/instruments/all.txt b/data/qlib/soxl_intraday_15min/instruments/all.txt
+index 76dc3f29..bbcc78a1 100644
+--- a/data/qlib/soxl_intraday_15min/instruments/all.txt
++++ b/data/qlib/soxl_intraday_15min/instruments/all.txt
+@@ -1,2 +1,2 @@
+-SOXL	2018-12-31 09:45:00	2026-10-08 16:00:00
+-SOXX	2018-12-31 09:45:00	2026-10-08 16:00:00
++SOXL	2018-12-31 09:45:00	2026-10-09 10:45:00
++SOXX	2018-12-31 09:45:00	2026-10-09 10:45:00
+diff --git a/data/qlib/soxl_intraday_15min/qlib_store_manifest.json b/data/qlib/soxl_intraday_15min/qlib_store_manifest.json
+index dcea4061..b3cab8f0 100644
+--- a/data/qlib/soxl_intraday_15min/qlib_store_manifest.json
++++ b/data/qlib/soxl_intraday_15min/qlib_store_manifest.json
+@@ -1,7 +1,7 @@
+ {
+-  "as_of": "2026-10-08",
+-  "audit_snapshot_hash": "ac088ebee61d37ca",
+-  "calendar_end": "2026-10-08 16:00:00",
++  "as_of": "2026-10-09",
++  "audit_snapshot_hash": "2988ec213c8ba5f8",
++  "calendar_end": "2026-10-09 10:45:00",
+   "calendar_start": "2018-12-31 09:45:00",
+   "feature_file_count": 16,
+   "fields": [
+@@ -15,17 +15,17 @@
+     "$bar_count"
+   ],
+   "freq": "15min",
+-  "hash": "2222816ab1ee5eba",
++  "hash": "0581a98f4bbcad8b",
+   "instruments": [
+     "SOXL",
+     "SOXX"
+   ],
+   "market": "all",
+-  "max_datetime": "2026-10-08 16:00:00",
++  "max_datetime": "2026-10-09 10:45:00",
+   "operation": "qlib_store_build",
+   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+   "region": "us",
+-  "row_count": 101154,
++  "row_count": 101164,
+   "source": "data/processed/intraday/soxl_soxx_1m.parquet",
+   "source_api": [
+     "qlib.init",
+diff --git a/data/qlib/soxl_intraday_5min/calendars/5min.txt b/data/qlib/soxl_intraday_5min/calendars/5min.txt
+index c2e38a62..e9728373 100644
+--- a/data/qlib/soxl_intraday_5min/calendars/5min.txt
++++ b/data/qlib/soxl_intraday_5min/calendars/5min.txt
+@@ -151727,3 +151727,18 @@
+ 2026-10-08 15:50:00
+ 2026-10-08 15:55:00
+ 2026-10-08 16:00:00
++2026-10-09 09:35:00
++2026-10-09 09:40:00
++2026-10-09 09:45:00
++2026-10-09 09:50:00
++2026-10-09 09:55:00
++2026-10-09 10:00:00
++2026-10-09 10:05:00
++2026-10-09 10:10:00
++2026-10-09 10:15:00
++2026-10-09 10:20:00
++2026-10-09 10:25:00
++2026-10-09 10:30:00
++2026-10-09 10:35:00
++2026-10-09 10:40:00
++2026-10-09 10:45:00
+diff --git a/data/qlib/soxl_intraday_5min/features/soxl/bar_count.5min.bin b/data/qlib/soxl_intraday_5min/features/soxl/bar_count.5min.bin
+index 02447acc..d749b2c8 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxl/bar_count.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxl/bar_count.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxl/bar_index.5min.bin b/data/qlib/soxl_intraday_5min/features/soxl/bar_index.5min.bin
+index f193f3bd..b10dbd8d 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxl/bar_index.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxl/bar_index.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxl/close.5min.bin b/data/qlib/soxl_intraday_5min/features/soxl/close.5min.bin
+index e62fa0dd..fad05a90 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxl/close.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxl/close.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxl/high.5min.bin b/data/qlib/soxl_intraday_5min/features/soxl/high.5min.bin
+index 462cd15e..b24b42fd 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxl/high.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxl/high.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxl/low.5min.bin b/data/qlib/soxl_intraday_5min/features/soxl/low.5min.bin
+index 1311c830..ec3e7236 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxl/low.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxl/low.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxl/open.5min.bin b/data/qlib/soxl_intraday_5min/features/soxl/open.5min.bin
+index 763ca4a4..4b56d62d 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxl/open.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxl/open.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxl/turnover.5min.bin b/data/qlib/soxl_intraday_5min/features/soxl/turnover.5min.bin
+index 47980375..392d1ac6 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxl/turnover.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxl/turnover.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxl/volume.5min.bin b/data/qlib/soxl_intraday_5min/features/soxl/volume.5min.bin
+index f59cf971..05884a9f 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxl/volume.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxl/volume.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxx/bar_count.5min.bin b/data/qlib/soxl_intraday_5min/features/soxx/bar_count.5min.bin
+index 02447acc..d749b2c8 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxx/bar_count.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxx/bar_count.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxx/bar_index.5min.bin b/data/qlib/soxl_intraday_5min/features/soxx/bar_index.5min.bin
+index f193f3bd..b10dbd8d 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxx/bar_index.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxx/bar_index.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxx/close.5min.bin b/data/qlib/soxl_intraday_5min/features/soxx/close.5min.bin
+index 5c8d1505..7a5399b9 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxx/close.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxx/close.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxx/high.5min.bin b/data/qlib/soxl_intraday_5min/features/soxx/high.5min.bin
+index fd5821ac..ee5f6fe7 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxx/high.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxx/high.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxx/low.5min.bin b/data/qlib/soxl_intraday_5min/features/soxx/low.5min.bin
+index 2f905f0b..4d6799b3 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxx/low.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxx/low.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxx/open.5min.bin b/data/qlib/soxl_intraday_5min/features/soxx/open.5min.bin
+index 8c85c322..dc3efb24 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxx/open.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxx/open.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxx/turnover.5min.bin b/data/qlib/soxl_intraday_5min/features/soxx/turnover.5min.bin
+index da440ae0..ed1a2a16 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxx/turnover.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxx/turnover.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/features/soxx/volume.5min.bin b/data/qlib/soxl_intraday_5min/features/soxx/volume.5min.bin
+index b8bce815..40c3e272 100644
+Binary files a/data/qlib/soxl_intraday_5min/features/soxx/volume.5min.bin and b/data/qlib/soxl_intraday_5min/features/soxx/volume.5min.bin differ
+diff --git a/data/qlib/soxl_intraday_5min/instruments/all.txt b/data/qlib/soxl_intraday_5min/instruments/all.txt
+index 435dde7f..3dde04a7 100644
+--- a/data/qlib/soxl_intraday_5min/instruments/all.txt
++++ b/data/qlib/soxl_intraday_5min/instruments/all.txt
+@@ -1,2 +1,2 @@
+-SOXL	2018-12-31 09:35:00	2026-10-08 16:00:00
+-SOXX	2018-12-31 09:35:00	2026-10-08 16:00:00
++SOXL	2018-12-31 09:35:00	2026-10-09 10:45:00
++SOXX	2018-12-31 09:35:00	2026-10-09 10:45:00
+diff --git a/data/qlib/soxl_intraday_5min/qlib_store_manifest.json b/data/qlib/soxl_intraday_5min/qlib_store_manifest.json
+index 0afa21a8..d2be61a5 100644
+--- a/data/qlib/soxl_intraday_5min/qlib_store_manifest.json
++++ b/data/qlib/soxl_intraday_5min/qlib_store_manifest.json
+@@ -1,7 +1,7 @@
+ {
+-  "as_of": "2026-10-08",
+-  "audit_snapshot_hash": "70bc0a9983de8777",
+-  "calendar_end": "2026-10-08 16:00:00",
++  "as_of": "2026-10-09",
++  "audit_snapshot_hash": "5fded0cedc0f8b62",
++  "calendar_end": "2026-10-09 10:45:00",
+   "calendar_start": "2018-12-31 09:35:00",
+   "feature_file_count": 16,
+   "fields": [
+@@ -15,17 +15,17 @@
+     "$bar_count"
+   ],
+   "freq": "5min",
+-  "hash": "a66ff8fe7635b31b",
++  "hash": "8465d3f7e6aba1ac",
+   "instruments": [
+     "SOXL",
+     "SOXX"
+   ],
+   "market": "all",
+-  "max_datetime": "2026-10-08 16:00:00",
++  "max_datetime": "2026-10-09 10:45:00",
+   "operation": "qlib_store_build",
+   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_5min",
+   "region": "us",
+-  "row_count": 303458,
++  "row_count": 303488,
+   "source": "data/processed/intraday/soxl_soxx_1m.parquet",
+   "source_api": [
+     "qlib.init",

@@ -1,0 +1,529 @@
+{
+  "experiment": "stage1_action_marginal_diagnosis_20261009",
+  "schema_version": "stage1_action_marginal_diagnosis_v2",
+  "card_status": "diagnostic",
+  "decision": "diagnostic_reported_no_strategy",
+  "config_source": "plan.json (hashes/id/windows read from the frozen plan)",
+  "promotion_eligible": false,
+  "objective_achieved": false,
+  "source_card": "research/stage1_economic_action_20260929",
+  "source_recorder_id": "17f81fbf27ee46859816ec1ac52151f6",
+  "source_api": [
+    "qlib.workflow.R.get_recorder",
+    "Recorder.load_object"
+  ],
+  "new_models": 0,
+  "plan_sha256": "5ad101dda557eb3737eb1471f1682593fb678e5d814ee947dd6080d19a1d31fb",
+  "look_ahead_check": "each year predicted by that year's saved pipeline; label matured strictly after decision",
+  "model_maturity": {
+    "status": "ok",
+    "label_rule": "max(exit_date_09:30_ET, next_target_trade_date_09:31_ET)",
+    "label_name": "execute_advantage_after_25bps_current_and_next_reset_cost",
+    "checks": [
+      {
+        "model_year": "2017",
+        "label_available_at_max": "2017-01-03 14:31:00+00:00",
+        "test_decision_at": "2017-01-04 14:31:00+00:00",
+        "maturity_ok": true,
+        "feature_identity_ok": true,
+        "identity_required": true
+      },
+      {
+        "model_year": "2018",
+        "label_available_at_max": "2018-01-02 14:31:00+00:00",
+        "test_decision_at": "2018-01-03 14:31:00+00:00",
+        "maturity_ok": true,
+        "feature_identity_ok": true,
+        "identity_required": true
+      },
+      {
+        "model_year": "2019",
+        "label_available_at_max": "2019-01-02 14:31:00+00:00",
+        "test_decision_at": "2019-01-03 14:31:00+00:00",
+        "maturity_ok": true,
+        "feature_identity_ok": true,
+        "identity_required": true
+      },
+      {
+        "model_year": "2020",
+        "label_available_at_max": "2020-01-02 14:31:00+00:00",
+        "test_decision_at": "2020-01-03 14:31:00+00:00",
+        "maturity_ok": true,
+        "feature_identity_ok": true,
+        "identity_required": true
+      },
+      {
+        "model_year": "2021",
+        "label_available_at_max": "2021-01-04 14:31:00+00:00",
+        "test_decision_at": "2021-01-05 14:31:00+00:00",
+        "maturity_ok": true,
+        "feature_identity_ok": true,
+        "identity_required": true
+      },
+      {
+        "model_year": "2022",
+        "label_available_at_max": "2022-01-03 14:31:00+00:00",
+        "test_decision_at": "2022-01-04 14:31:00+00:00",
+        "maturity_ok": true,
+        "feature_identity_ok": true,
+        "identity_required": true
+      },
+      {
+        "model_year": "outer_frozen_2023_2026",
+        "label_available_at_max": "2022-12-22 14:31:00+00:00",
+        "test_decision_at": "2023-01-04 14:31:00+00:00",
+        "maturity_ok": true,
+        "feature_identity_ok": true,
+        "identity_required": false
+      }
+    ],
+    "reason": null
+  },
+  "source_metadata_sha256": {
+    "dataset_audit.json": "5b49f9f9b2caa259a6026223a0e1ba2061c384dddabd9aa9625c2d6f7a7479ca",
+    "training_diagnostics.csv": "a6f70dca9b1d796e27f3f539917e98cf5a5147084ea05f1badcfd711e57cc496"
+  },
+  "decidable_rule": {
+    "execute_threshold": 0.5,
+    "max_skippable_turnover": 0.05,
+    "mandatory_derisk_beta_delta": 0.0
+  },
+  "statistics": {
+    "block_sessions": 20,
+    "resamples": 2000,
+    "note": "rankIC/AUC/advantage CIs computed by moving a 20-session block over the full trading-day index with eligibility preserved; point estimates on the decidable subset"
+  },
+  "windows": {
+    "development": [
+      "2016-01-04",
+      "2022-12-21"
+    ],
+    "outer_reused_diagnostic": [
+      "2023-01-03",
+      "2026-09-23"
+    ],
+    "segments_reset_each": true,
+    "concatenation": "none"
+  },
+  "conditional_information": {
+    "status": "ok",
+    "label_source": "active_model_own_execute_advantage",
+    "scope": "active_model_own_oos_label",
+    "decidable_rule": "not mandatory_derisk and not large_transition and finite probability",
+    "decidable_sessions": 410,
+    "full_oos_sessions": 1503,
+    "positive_advantage_rate": 0.5146341463414634,
+    "mean_advantage": -1.6395794863109965e-05,
+    "mean_predicted_probability": 0.51067716834179,
+    "rank_ic": 0.07291548142579743,
+    "auc": 0.5168258353378266,
+    "rank_ic_ci": {
+      "point": 0.07667711015145208,
+      "lower": -0.015055896264250022,
+      "upper": 0.1709019671908258,
+      "block": 20,
+      "resamples": 2000,
+      "null": 0.0,
+      "contains_zero": true
+    },
+    "auc_ci": {
+      "point": 0.518719304164358,
+      "lower": 0.46706691586969756,
+      "upper": 0.5750313932713053,
+      "block": 20,
+      "resamples": 2000,
+      "null": 0.5,
+      "contains_zero": true
+    },
+    "advantage_bps_ci": {
+      "mean": -0.16395794863109958,
+      "lower": -0.823797599995201,
+      "upper": 0.3252194800033435,
+      "block": 20,
+      "resamples": 2000,
+      "contains_zero": true,
+      "interpretation": "CI crossing zero means no evidence found, not proof of no information"
+    },
+    "quintile_mean_advantage_bps": [
+      -0.20397427059572731,
+      -0.4087274283430016,
+      -1.284283119368264,
+      0.30997670587318665,
+      0.7672183692783078
+    ],
+    "calibration": [
+      {
+        "bucket": 0,
+        "count": 82,
+        "mean_probability": 0.4184197734277553,
+        "mean_advantage": -2.0397427059572728e-05
+      },
+      {
+        "bucket": 1,
+        "count": 82,
+        "mean_probability": 0.4737803065542694,
+        "mean_advantage": -4.0872742834300145e-05
+      },
+      {
+        "bucket": 2,
+        "count": 82,
+        "mean_probability": 0.5081865453152168,
+        "mean_advantage": -0.00012842831193682637
+      },
+      {
+        "bucket": 3,
+        "count": 82,
+        "mean_probability": 0.543039490299189,
+        "mean_advantage": 3.0997670587318694e-05
+      },
+      {
+        "bucket": 4,
+        "count": 82,
+        "mean_probability": 0.6099597261125198,
+        "mean_advantage": 7.672183692783078e-05
+      }
+    ],
+    "interpretation": "AUC near 0.5 or rankIC/AUC/advantage CIs that contain their null means no conditional information was found for the classifier's own matured label; it does not prove that no information exists."
+  },
+  "contribution": [
+    {
+      "segment": "development",
+      "cost_bps": 10.0,
+      "variant": "active",
+      "sessions": 1756,
+      "gaps": 0,
+      "return_pct": 170.7449966106111,
+      "no_hold_return_pct": 115.03633877936088,
+      "net_contribution_pct": 55.708657831250235,
+      "max_drawdown_pct": -30.08323344084747,
+      "cvar5_pct": -3.5385365040722023,
+      "sharpe": 0.7623658882280352
+    },
+    {
+      "segment": "development",
+      "cost_bps": 10.0,
+      "variant": "no_hold",
+      "sessions": 1756,
+      "gaps": 0,
+      "return_pct": 115.03633877936088,
+      "no_hold_return_pct": 115.03633877936088,
+      "net_contribution_pct": 0.0,
+      "max_drawdown_pct": -29.93061609170722,
+      "cvar5_pct": -3.484579275677873,
+      "sharpe": 0.6234284910507961
+    },
+    {
+      "segment": "development",
+      "cost_bps": 10.0,
+      "variant": "rules_only",
+      "sessions": 1756,
+      "gaps": 0,
+      "return_pct": 171.4920715904501,
+      "no_hold_return_pct": 115.03633877936088,
+      "net_contribution_pct": 56.455732811089234,
+      "max_drawdown_pct": -29.674482599515617,
+      "cvar5_pct": -3.5236406621240697,
+      "sharpe": 0.7696718485364391
+    },
+    {
+      "segment": "development",
+      "cost_bps": 10.0,
+      "variant": "own_state_frozen",
+      "sessions": 1756,
+      "gaps": 0,
+      "return_pct": 200.48943181452174,
+      "no_hold_return_pct": 115.03633877936088,
+      "net_contribution_pct": 85.45309303516086,
+      "max_drawdown_pct": -29.027730201925593,
+      "cvar5_pct": -3.055820292963171,
+      "sharpe": 0.9312440968711184
+    },
+    {
+      "segment": "development",
+      "cost_bps": 10.0,
+      "variant": "own_state_expanding",
+      "sessions": 1756,
+      "gaps": 0,
+      "return_pct": 200.48943181452174,
+      "no_hold_return_pct": 115.03633877936088,
+      "net_contribution_pct": 85.45309303516086,
+      "max_drawdown_pct": -29.027730201925593,
+      "cvar5_pct": -3.055820292963171,
+      "sharpe": 0.9312440968711184
+    },
+    {
+      "segment": "development",
+      "cost_bps": 25.0,
+      "variant": "active",
+      "sessions": 1756,
+      "gaps": 0,
+      "return_pct": 96.76089319105346,
+      "no_hold_return_pct": 151.27048955317082,
+      "net_contribution_pct": -54.509596362117364,
+      "max_drawdown_pct": -30.077734114465315,
+      "cvar5_pct": -3.5852224567503415,
+      "sharpe": 0.5483679050345996
+    },
+    {
+      "segment": "development",
+      "cost_bps": 25.0,
+      "variant": "no_hold",
+      "sessions": 1756,
+      "gaps": 0,
+      "return_pct": 151.27048955317082,
+      "no_hold_return_pct": 151.27048955317082,
+      "net_contribution_pct": 0.0,
+      "max_drawdown_pct": -29.99982905359261,
+      "cvar5_pct": -3.6428671621214574,
+      "sharpe": 0.694428447179058
+    },
+    {
+      "segment": "development",
+      "cost_bps": 25.0,
+      "variant": "rules_only",
+      "sessions": 1756,
+      "gaps": 0,
+      "return_pct": 98.97507529868285,
+      "no_hold_return_pct": 151.27048955317082,
+      "net_contribution_pct": -52.295414254487966,
+      "max_drawdown_pct": -30.100051902425882,
+      "cvar5_pct": -3.563211383271112,
+      "sharpe": 0.5596857952722208
+    },
+    {
+      "segment": "development",
+      "cost_bps": 25.0,
+      "variant": "own_state_frozen",
+      "sessions": 1756,
+      "gaps": 0,
+      "return_pct": 160.85180938703894,
+      "no_hold_return_pct": 151.27048955317082,
+      "net_contribution_pct": 9.581319833868122,
+      "max_drawdown_pct": -30.17924191018322,
+      "cvar5_pct": -3.077740681188518,
+      "sharpe": 0.8340039406639479
+    },
+    {
+      "segment": "development",
+      "cost_bps": 25.0,
+      "variant": "own_state_expanding",
+      "sessions": 1756,
+      "gaps": 0,
+      "return_pct": 160.85180938703894,
+      "no_hold_return_pct": 151.27048955317082,
+      "net_contribution_pct": 9.581319833868122,
+      "max_drawdown_pct": -30.17924191018322,
+      "cvar5_pct": -3.077740681188518,
+      "sharpe": 0.8340039406639479
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "variant": "active",
+      "sessions": 934,
+      "gaps": 0,
+      "return_pct": 219.42601924106114,
+      "no_hold_return_pct": 220.36732021823565,
+      "net_contribution_pct": -0.9413009771745067,
+      "max_drawdown_pct": -26.92178113865684,
+      "cvar5_pct": -4.795462054609358,
+      "sharpe": 1.1343752827148066
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "variant": "no_hold",
+      "sessions": 934,
+      "gaps": 0,
+      "return_pct": 220.36732021823565,
+      "no_hold_return_pct": 220.36732021823565,
+      "net_contribution_pct": 0.0,
+      "max_drawdown_pct": -26.92178113865683,
+      "cvar5_pct": -4.811695547052422,
+      "sharpe": 1.1335613048932207
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "variant": "rules_only",
+      "sessions": 934,
+      "gaps": 0,
+      "return_pct": 220.81780275606883,
+      "no_hold_return_pct": 220.36732021823565,
+      "net_contribution_pct": 0.4504825378331816,
+      "max_drawdown_pct": -26.92018860621981,
+      "cvar5_pct": -4.797206958622833,
+      "sharpe": 1.1367475413460442
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "variant": "own_state_frozen",
+      "sessions": 934,
+      "gaps": 0,
+      "return_pct": 362.8371724296462,
+      "no_hold_return_pct": 220.36732021823565,
+      "net_contribution_pct": 142.46985221141057,
+      "max_drawdown_pct": -26.4822160947361,
+      "cvar5_pct": -4.766027538822301,
+      "sharpe": 1.4383871566977893
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "variant": "own_state_expanding",
+      "sessions": 934,
+      "gaps": 0,
+      "return_pct": 187.58904539907317,
+      "no_hold_return_pct": 220.36732021823565,
+      "net_contribution_pct": -32.778274819162476,
+      "max_drawdown_pct": -26.80370890946987,
+      "cvar5_pct": -4.609276633996879,
+      "sharpe": 1.096273961510341
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "variant": "active",
+      "sessions": 934,
+      "gaps": 0,
+      "return_pct": 75.1088616627811,
+      "no_hold_return_pct": 66.0869311767119,
+      "net_contribution_pct": 9.021930486069195,
+      "max_drawdown_pct": -32.38096862305224,
+      "cvar5_pct": -4.420564087843684,
+      "sharpe": 0.6855341206420063
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "variant": "no_hold",
+      "sessions": 934,
+      "gaps": 0,
+      "return_pct": 66.0869311767119,
+      "no_hold_return_pct": 66.0869311767119,
+      "net_contribution_pct": 0.0,
+      "max_drawdown_pct": -36.441786939566775,
+      "cvar5_pct": -4.403428727054232,
+      "sharpe": 0.6389050413550222
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "variant": "rules_only",
+      "sessions": 934,
+      "gaps": 0,
+      "return_pct": 74.79563282684694,
+      "no_hold_return_pct": 66.0869311767119,
+      "net_contribution_pct": 8.70870165013504,
+      "max_drawdown_pct": -32.88814876659314,
+      "cvar5_pct": -4.4251377572564135,
+      "sharpe": 0.6838283186872512
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "variant": "own_state_frozen",
+      "sessions": 934,
+      "gaps": 0,
+      "return_pct": 324.64942467279957,
+      "no_hold_return_pct": 66.0869311767119,
+      "net_contribution_pct": 258.56249349608765,
+      "max_drawdown_pct": -26.851259234461576,
+      "cvar5_pct": -4.693730440064401,
+      "sharpe": 1.38227543394308
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "variant": "own_state_expanding",
+      "sessions": 934,
+      "gaps": 0,
+      "return_pct": 260.9016476536266,
+      "no_hold_return_pct": 66.0869311767119,
+      "net_contribution_pct": 194.81471647691467,
+      "max_drawdown_pct": -27.19395411530835,
+      "cvar5_pct": -4.736674964770558,
+      "sharpe": 1.248180563993248
+    }
+  ],
+  "references": [
+    {
+      "reference": "soxx_buy_hold",
+      "cost_bps": 10.0,
+      "sessions": 1756,
+      "return_pct": 320.2835133037073,
+      "max_drawdown_pct": -47.37401531750772,
+      "cvar5_pct": -4.41773629587219,
+      "sharpe": 0.8278957570156108,
+      "native_status": "passed"
+    },
+    {
+      "reference": "soxx_cash_50_50",
+      "cost_bps": 10.0,
+      "sessions": 1756,
+      "return_pct": 121.0426648051263,
+      "max_drawdown_pct": -26.23854547479286,
+      "cvar5_pct": -2.2093177619501048,
+      "sharpe": 0.8220820740969033,
+      "native_status": "passed"
+    },
+    {
+      "reference": "soxx_buy_hold",
+      "cost_bps": 25.0,
+      "sessions": 1756,
+      "return_pct": 319.6546601665938,
+      "max_drawdown_pct": -47.374015317507755,
+      "cvar5_pct": -4.4193795252767885,
+      "sharpe": 0.8271511592576247,
+      "native_status": "passed"
+    },
+    {
+      "reference": "soxx_cash_50_50",
+      "cost_bps": 25.0,
+      "sessions": 1756,
+      "return_pct": 118.8346777546696,
+      "max_drawdown_pct": -26.355819321884432,
+      "cvar5_pct": -2.210814837426879,
+      "sharpe": 0.8126156250722757,
+      "native_status": "passed"
+    }
+  ],
+  "prior_claim_retracted": [
+    "Cross-account active-minus-no_hold returns are NOT the classifier label and were withdrawn.",
+    "The earlier AUC 0.321 / 2438-sample result was produced by that wrong proxy and is void.",
+    "A near-zero unconditional mean does not imply E[y|X]=0."
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "calibration",
+      "conditional_information",
+      "contribution",
+      "predictions"
+    ]
+  },
+  "limitations": [
+    "Diagnostic only; produces no strategy and grants no promotion.",
+    "Reused diagnostic window is not a clean holdout.",
+    "The 50/50 SOXX-cash reference is rebalanced to target each session and pays fees.",
+    "native_open_reconciliation supports open-only schedules and rejects recovery; it is not a full intraday ledger.",
+    "A complete intraday staged account needs a real 15-minute ledger; 2016-2018 predates that data, so any intraday verification is layered daily-or-2019+ only and must not fabricate earlier bars.",
+    "The parent economic recorder's own-state path is a one-session reset proxy as recorded by its source card."
+  ],
+  "recorder_id": "16b6769b3fc848a2b3004dbb126aaf2a",
+  "experiment_id": "980599116697540100",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_action_marginal_diagnosis_20261009/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_action_marginal_diagnosis_20261009/qlib_recorder/980599116697540100/16b6769b3fc848a2b3004dbb126aaf2a",
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "saved_objects": [
+    "calibration",
+    "conditional_information",
+    "contribution",
+    "predictions"
+  ]
+}

@@ -1,0 +1,33 @@
+schema_version: stage1_cost_consistent_action_v1
+experiment: stage1_cost_consistent_action_20261009
+increment: increment_2_cost_consistent_training
+plan_sha256: 4bc91c1a4ef72c760ffa5ac5be9939fe3fec830417536794a6ea7bb52f8285c7
+source_card: research/stage1_economic_action_20260929
+source_recorder_id: 17f81fbf27ee46859816ec1ac52151f6
+costs_bps:
+- 10.0
+- 25.0
+grouping_rule: results are grouped by segment x cost and are never merged into one
+  winning number
+gate_thresholds:
+  annual_wealth_floor: 0.985
+  open_trade_days_reduction: 0.92
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - annual_records
+  - candidate_comparison
+  - candidate_replays
+  - dataset_audit_10
+  - dataset_audit_25
+  - diagnostics_10
+  - diagnostics_25
+  - models_10
+  - models_25
+  - reference_comparison
+  - training_rows_10
+  - training_rows_25
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

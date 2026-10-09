@@ -1,0 +1,36 @@
+# Stage1 action 边际信息诊断（中文结论）
+- 主对象：**现役 action logistic 模型**；预测为该年**已保存 pipeline**（仅用更早数据拟合）的输出，标签为**同一基线域**的真实 `execute_advantage`，严格成熟。
+- 源证据（只读、对象 sha256 绑定，plan sha `5ad101dda557`）：recorder `17f81fbf27ee46859816ec1ac52151f6`；窗口 dev ['2016-01-04', '2022-12-21']，outer ['2023-01-03', '2026-09-23']（分段 reset，不拼接）。
+- 撤回：跨账户 active−no_hold 当标签的旧做法作废；旧 AUC 0.321 / 2438 样本结果无效。
+- 模型成熟度：逐年断言 label_available_at_max < test_decision_at（源 dataset_audit/training_diagnostics）。
+- native 边界：SOXX/cash 参照仅经 open-only 原生对账；无完整 intraday 原生账本（2016-18 无 15min）。
+- 真 OOS 条件信息（decidable n=410 / full 1503）：AUC 0.5168 CI [0.467,0.575] null=0.5；rank IC +0.0729 CI [-0.015,+0.171] null=0.0；标签均值 CI [-0.824,0.325] bp。
+- 显著性声明：仅报上述 CI；若 rankIC/AUC/均值 CI 均含各自 null，则不声称存在条件信息，也不声称反号可用。
+- 分段×成本净贡献（各自 reset，不跨段相乘）：
+  - development @ 10bp active：收益 170.7%，净贡献 +55.7pp，MaxDD -30.08%，gap 0。
+  - development @ 10bp no_hold：收益 115.0%，净贡献 +0.0pp，MaxDD -29.93%，gap 0。
+  - development @ 10bp rules_only：收益 171.5%，净贡献 +56.5pp，MaxDD -29.67%，gap 0。
+  - development @ 10bp own_state_frozen：收益 200.5%，净贡献 +85.5pp，MaxDD -29.03%，gap 0。
+  - development @ 10bp own_state_expanding：收益 200.5%，净贡献 +85.5pp，MaxDD -29.03%，gap 0。
+  - development @ 25bp active：收益 96.8%，净贡献 -54.5pp，MaxDD -30.08%，gap 0。
+  - development @ 25bp no_hold：收益 151.3%，净贡献 +0.0pp，MaxDD -30.00%，gap 0。
+  - development @ 25bp rules_only：收益 99.0%，净贡献 -52.3pp，MaxDD -30.10%，gap 0。
+  - development @ 25bp own_state_frozen：收益 160.9%，净贡献 +9.6pp，MaxDD -30.18%，gap 0。
+  - development @ 25bp own_state_expanding：收益 160.9%，净贡献 +9.6pp，MaxDD -30.18%，gap 0。
+  - outer_reused_diagnostic @ 10bp active：收益 219.4%，净贡献 -0.9pp，MaxDD -26.92%，gap 0。
+  - outer_reused_diagnostic @ 10bp no_hold：收益 220.4%，净贡献 +0.0pp，MaxDD -26.92%，gap 0。
+  - outer_reused_diagnostic @ 10bp rules_only：收益 220.8%，净贡献 +0.5pp，MaxDD -26.92%，gap 0。
+  - outer_reused_diagnostic @ 10bp own_state_frozen：收益 362.8%，净贡献 +142.5pp，MaxDD -26.48%，gap 0。
+  - outer_reused_diagnostic @ 10bp own_state_expanding：收益 187.6%，净贡献 -32.8pp，MaxDD -26.80%，gap 0。
+  - outer_reused_diagnostic @ 25bp active：收益 75.1%，净贡献 +9.0pp，MaxDD -32.38%，gap 0。
+  - outer_reused_diagnostic @ 25bp no_hold：收益 66.1%，净贡献 +0.0pp，MaxDD -36.44%，gap 0。
+  - outer_reused_diagnostic @ 25bp rules_only：收益 74.8%，净贡献 +8.7pp，MaxDD -32.89%，gap 0。
+  - outer_reused_diagnostic @ 25bp own_state_frozen：收益 324.6%，净贡献 +258.6pp，MaxDD -26.85%，gap 0。
+  - outer_reused_diagnostic @ 25bp own_state_expanding：收益 260.9%，净贡献 +194.8pp，MaxDD -27.19%，gap 0。
+- SOXX 参照（同成交、同成本、含费用）：
+  - soxx_buy_hold @ 10bp：收益 320.3%，MaxDD -47.37%
+  - soxx_cash_50_50 @ 10bp：收益 121.0%，MaxDD -26.24%
+  - soxx_buy_hold @ 25bp：收益 319.7%，MaxDD -47.37%
+  - soxx_cash_50_50 @ 25bp：收益 118.8%，MaxDD -26.36%
+- 下一步：只在 OOS 条件信息与分段归因给出证据后才选具体修正实验；本卡不导向叠加风险 cap。
+- 子 Recorder：16b6769b3fc848a2b3004dbb126aaf2a；父只读不改。

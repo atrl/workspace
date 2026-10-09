@@ -1,0 +1,10 @@
+{
+  "source_card": "research/stage1_economic_action_20260929",
+  "source_recorder_id": "17f81fbf27ee46859816ec1ac52151f6",
+  "object_sha256": {
+    "inputs/prepared_inputs.pkl": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+    "analysis/portfolio_replays.pkl": "ac7281e80aa78d2cc69c9c97dadd51356ac883e85ee87d53ca46eaa976b4b306",
+    "models/own_state_frozen_2022.pkl": "a55ef083512375911d770cc73505b7a335e1136f93fc8345376fbd3230d7a3f2"
+  },
+  "plan_sha256": "4bc91c1a4ef72c760ffa5ac5be9939fe3fec830417536794a6ea7bb52f8285c7"
+}

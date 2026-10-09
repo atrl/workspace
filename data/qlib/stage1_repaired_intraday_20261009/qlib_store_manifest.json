@@ -1,0 +1,77 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_repaired_intraday_20261009",
+  "market": "all",
+  "region": "us",
+  "freq": "15min",
+  "as_of": "2026-09-25",
+  "source": "source cache snapshot /Users/rziiiii/dev/workspace/data/processed/intraday/soxl_soxx_1m.parquet; observed repair receipt /Users/rziiiii/dev/workspace/data/raw/external/stage1_intraday_gap_repair_20261009_v1/source_manifest.json",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume",
+    "$bar_count"
+  ],
+  "calendar_start": "2018-12-31 09:45:00",
+  "calendar_end": "2026-09-25 16:00:00",
+  "max_datetime": "2026-09-25 16:00:00",
+  "row_count": 100780,
+  "feature_file_count": 12,
+  "audit_snapshot_hash": "802f9545498e985b",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "b6027fb3bdb74d21",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "input_cache_sha256_at_read": "e00ec2d32d87febbd32ba1bce87186d2b1ac291c40c663788b200d08cf45f07b",
+  "repair_manifest_sha256": "01522c39d480d977d9d5e8abc0a1509afb86d5a822f68bb539f04e7bc755a2ca",
+  "trading_calendar_sha256": "d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15",
+  "complete_session_validation": true,
+  "expected_sessions": 1945,
+  "observed_revisions": [
+    {
+      "symbol": "SOXL",
+      "date": "2026-07-27",
+      "previous_minute_rows": 61,
+      "observed_replacement_rows": 390,
+      "maximum_overlap_open_revision": 0.4879376830000126,
+      "scope": "observed historical source revision; not an interpolation or PIT guarantee"
+    },
+    {
+      "symbol": "SOXX",
+      "date": "2026-07-27",
+      "previous_minute_rows": 61,
+      "observed_replacement_rows": 390,
+      "maximum_overlap_open_revision": 0.5282862930000647,
+      "scope": "observed historical source revision; not an interpolation or PIT guarantee"
+    },
+    {
+      "symbol": "SOXL",
+      "date": "2026-07-29",
+      "previous_minute_rows": 0,
+      "observed_replacement_rows": 390,
+      "maximum_overlap_open_revision": null,
+      "scope": "observed historical source revision; not an interpolation or PIT guarantee"
+    },
+    {
+      "symbol": "SOXX",
+      "date": "2026-07-29",
+      "previous_minute_rows": 0,
+      "observed_replacement_rows": 390,
+      "maximum_overlap_open_revision": null,
+      "scope": "observed historical source revision; not an interpolation or PIT guarantee"
+    }
+  ],
+  "timestamp_convention": "Futu minute right edges 09:31 onward; verified against direct K_15M aggregate receipts",
+  "purpose": "isolated research price repair; source cache and live providers unchanged"
+}

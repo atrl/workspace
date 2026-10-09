@@ -1,0 +1,9 @@
+candidate,segment,cost_bps,reference,minimum_annual_wealth_ratio,return_above_baseline,max_drawdown_not_worse,worst_day_not_worse,cvar5_not_worse,worst_5d_not_worse,open_trade_days_reduced_8pct,turnover_not_increased,annual_wealth_floor_pass,all_pass
+cost_matched_book_10,development_walk_forward,10.0,no_hold_reference,0.8167547471386027,False,False,False,False,False,True,True,False,False
+cost_matched_book_10,development_walk_forward,10.0,active_hold_baseline,0.7617256363241172,False,False,False,True,False,True,True,False,False
+cost_matched_book_25,development_walk_forward,25.0,no_hold_reference,0.7438384872860578,True,False,False,True,True,True,True,False,False
+cost_matched_book_25,development_walk_forward,25.0,active_hold_baseline,0.7427330598000342,True,True,False,True,True,True,True,False,False
+cost_matched_book_10,outer_reused_diagnostic,10.0,no_hold_reference,0.7983061111302922,False,False,False,True,True,True,True,False,False
+cost_matched_book_10,outer_reused_diagnostic,10.0,active_hold_baseline,0.7989884504259848,False,False,False,True,True,True,True,False,False
+cost_matched_book_25,outer_reused_diagnostic,25.0,no_hold_reference,0.8516722814852582,True,True,True,False,True,True,True,False,False
+cost_matched_book_25,outer_reused_diagnostic,25.0,active_hold_baseline,0.8483265129673644,True,False,True,False,True,True,True,False,False

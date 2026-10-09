@@ -1,0 +1,36 @@
+{
+  "experiment": "stage1_native_price_consistency_20261009",
+  "created_at_utc": "2026-10-09T14:33:15.327889+00:00",
+  "scope": "price-source preparation and native-account interface; no strategy selection",
+  "candidate_models": 0,
+  "sources": {
+    "daily": {
+      "provider_uri": "data/qlib/soxl_soxx_soxs",
+      "manifest_sha256": "2c338680dcdef7ba5f84e809b043ed4c5df41bdbcdc64f9d9439b9ef404ae4da"
+    },
+    "intraday": {
+      "provider_uri": "data/qlib/soxl_intraday_15min",
+      "manifest_sha256": "619c19e042aaa6691e163c3b5270102dce8b45b442ec55c30ffeae2647c6c8d1"
+    }
+  },
+  "window": {
+    "start": "2016-01-01",
+    "end": "2026-09-25 16:00:00",
+    "as_of": "2026-09-25"
+  },
+  "outputs": {
+    "execution_provider": "data/qlib/stage1_execution_marks_20261009",
+    "daily_provider": "data/qlib/stage1_coherent_daily_marks_20261009"
+  },
+  "historical_price_convention": "first regular right-edge bar uses observed opening price; recovery uses observed first-hour close; no actual fill claim",
+  "stop_rule": "any missing calendar/required mark/source-hash mismatch blocks; no scaling or interpolation",
+  "observed_repair": {
+    "manifest": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/source_manifest.json",
+    "manifest_sha256": "01522c39d480d977d9d5e8abc0a1509afb86d5a822f68bb539f04e7bc755a2ca",
+    "cache_path": "data/processed/intraday/soxl_soxx_1m.parquet",
+    "provider_uri": "data/qlib/stage1_repaired_intraday_20261009",
+    "start": "2018-12-31"
+  },
+  "updated_at_utc": "2026-10-09T14:54:43.364259+00:00",
+  "prior_attempt": "blocked on missing 2026-07-29; 2026-07-27 was partial. Both are replaced by complete observed Futu receipts in a new provider, not in the live cache."
+}

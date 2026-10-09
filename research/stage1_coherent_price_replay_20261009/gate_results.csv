@@ -1,0 +1,5 @@
+candidate,segment,cost_bps,reference,return_above_control,max_drawdown_not_worse,worst_day_not_worse,cvar5_not_worse,worst_5d_not_worse,all_pass
+training_effect_candidate,development_walk_forward,10.0,price_effect_control,False,False,False,False,False,False
+training_effect_candidate,development_walk_forward,25.0,price_effect_control,True,True,True,False,True,False
+training_effect_candidate,outer_reused_diagnostic,10.0,price_effect_control,False,False,False,True,True,False
+training_effect_candidate,outer_reused_diagnostic,25.0,price_effect_control,False,False,True,True,True,False

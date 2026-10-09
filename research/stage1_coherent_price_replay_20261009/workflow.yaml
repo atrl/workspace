@@ -1,0 +1,34 @@
+schema_version: stage1_coherent_price_replay_v1
+experiment: stage1_coherent_price_replay_20261009
+increment: increment_1_price_consistency
+coherent_provider: data/qlib/stage1_coherent_daily_marks_20261009
+execution_mark_provider: data/qlib/stage1_execution_marks_20261009
+intraday_provider: data/qlib/stage1_repaired_intraday_20261009
+separation_rule: price effect and training effect are reported as separate comparisons,
+  never merged
+early_field_repair:
+  source: /Users/rziiiii/dev/workspace/data/qlib/stage1_repaired_intraday_20261009
+  repaired_sessions: 1944
+  repaired_from: '2018-12-31'
+  prior_vintage_prefix_sessions: 752
+  fields:
+  - early_ret
+  - early_range
+  - early_from_low
+  - early_volume
+  - early_bar_count
+  symbols:
+  - SOXL
+  - SOXX
+  note: all first-hour fields are rebuilt together from one repaired source in the
+    covered region; the unmatched prefix carries no recovery
+native_reconciliation_status: passed
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - native
+  - replays
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

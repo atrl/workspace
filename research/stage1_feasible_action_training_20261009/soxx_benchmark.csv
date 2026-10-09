@@ -1,0 +1,3 @@
+benchmark,segment,sessions,gross_return_pct,gross_max_drawdown_pct,cost_model,net10_return_pct,net25_return_pct
+SOXX_buy_hold_open_to_open,development_walk_forward,1756,320.4228501725085,-47.37407670823589,"fund SOXX from cash at the first open, hold to the end, no terminal sell",320.0028473251834,319.3744141371656
+SOXX_buy_hold_open_to_open,outer_reused_diagnostic,934,398.58595817289694,-42.79027524852847,"fund SOXX from cash at the first open, hold to the end, no terminal sell",398.0878703025944,397.34260166872514

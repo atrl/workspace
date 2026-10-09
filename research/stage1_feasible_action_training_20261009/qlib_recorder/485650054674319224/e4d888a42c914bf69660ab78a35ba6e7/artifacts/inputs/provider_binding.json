@@ -1,0 +1,47 @@
+{
+  "providers": {
+    "intraday_provider": {
+      "uri": "data/qlib/stage1_uniform_intraday_20261009",
+      "manifest_sha256": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+      "as_of": "2026-09-25",
+      "freq": "15min",
+      "purpose": "common observed price vintage for source-stability diagnosis; not PIT or broker-share qualification",
+      "complete_session_validation": true,
+      "trading_calendar_sha256": "d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15",
+      "source_manifest_sha256": "3e02f92c9b3ced14592cd07f220a29d3cb7d0e360b543d321a1b895816d8fb01",
+      "daily_source_manifest_sha256": null,
+      "intraday_price_source_from": null
+    },
+    "execution_mark_provider": {
+      "uri": "data/qlib/stage1_uniform_execution_marks_20261009",
+      "manifest_sha256": "d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb",
+      "as_of": "2026-09-25",
+      "freq": "15min",
+      "purpose": "native accounting reconciliation of prescribed opening and first-hour-close target schedules",
+      "complete_session_validation": null,
+      "trading_calendar_sha256": null,
+      "source_manifest_sha256": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+      "daily_source_manifest_sha256": null,
+      "intraday_price_source_from": null
+    },
+    "coherent_provider": {
+      "uri": "data/qlib/stage1_uniform_daily_marks_20261009",
+      "manifest_sha256": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f",
+      "as_of": "2026-09-25",
+      "freq": "day",
+      "purpose": "coherent native daily-prefix/intraday-suffix mark and quantity continuation",
+      "complete_session_validation": null,
+      "trading_calendar_sha256": null,
+      "source_manifest_sha256": null,
+      "daily_source_manifest_sha256": "2c338680dcdef7ba5f84e809b043ed4c5df41bdbcdc64f9d9439b9ef404ae4da",
+      "intraday_price_source_from": "2018-12-31"
+    }
+  },
+  "source_object_sha256": {
+    "inputs/prepared_inputs.pkl": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+    "analysis/portfolio_replays.pkl": "ac7281e80aa78d2cc69c9c97dadd51356ac883e85ee87d53ca46eaa976b4b306",
+    "analysis/training_results.pkl": "a0ab9916a62cc2a00af89876b423d5cb419eec64fa7418abcefbc9b11d728e4b",
+    "analysis/annual.pkl": "b8f7423783600612c6b696decb73c15abea604ce9a494242c94a84ff8be733cc"
+  },
+  "plan_sha256": "78f053b70475cf43753d5c309edb88ebfb3516037301451e4875254b8da2411b"
+}

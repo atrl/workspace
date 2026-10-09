@@ -1,0 +1,21 @@
+On branch research/benchmark-core-variance-20261009
+You are in a sparse checkout with 50% of tracked files present.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	../stage1_action_marginal_diagnosis_20261009/
+	./
+	../../runtime/goal_brief_20261010.md
+	../../src/analysis/action_marginal_information.py
+	../../src/analysis/action_oos_information.py
+	../../src/analysis/native_intraday_schedule.py
+	../../src/data/native_execution_marks.py
+	../../src/workflow/action_marginal_diagnosis.py
+	../../src/workflow/cost_matched_action_experiment.py
+	../../src/workflow/economic_cost_matched_training.py
+	../../tests/test_action_marginal_diagnosis.py
+	../../tests/test_cost_matched_action_experiment.py
+	../../tests/test_economic_cost_matched_training.py
+	../../tests/test_native_intraday_schedule.py
+
+nothing added to commit but untracked files present (use "git add" to track)

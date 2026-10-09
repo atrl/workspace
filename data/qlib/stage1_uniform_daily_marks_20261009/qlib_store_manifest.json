@@ -1,0 +1,42 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_daily_marks_20261009",
+  "market": "all",
+  "region": "us",
+  "freq": "day",
+  "as_of": "2026-09-25",
+  "source": "daily prefix /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs; observed intraday aggregates /Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_intraday_20261009",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume"
+  ],
+  "calendar_start": "2016-01-04",
+  "calendar_end": "2026-09-25",
+  "max_datetime": "2026-09-25",
+  "row_count": 5396,
+  "feature_file_count": 10,
+  "audit_snapshot_hash": "1a2206f99c50674d",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "1fecd9c0b7ad205e",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "daily_source_manifest_sha256": "2c338680dcdef7ba5f84e809b043ed4c5df41bdbcdc64f9d9439b9ef404ae4da",
+  "intraday_source_manifest_sha256": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+  "intraday_price_source_from": "2018-12-31",
+  "daily_prefix_rows": 1506,
+  "intraday_aggregate_rows": 3890,
+  "aggregation": "observed first open, max high, min low, last close, summed volume; no price scaling/interpolation",
+  "purpose": "coherent native daily-prefix/intraday-suffix mark and quantity continuation"
+}

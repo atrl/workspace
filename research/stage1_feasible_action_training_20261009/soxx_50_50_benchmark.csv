@@ -1,0 +1,5 @@
+benchmark,segment,cost_bps,net_return_pct,net_max_drawdown_pct
+SOXX_SOXL_50_50_daily_rebalanced,development_walk_forward,10.0,581.3801741527752,-77.05963260570451
+SOXX_SOXL_50_50_daily_rebalanced,development_walk_forward,25.0,555.2553959451652,-77.20643454429282
+SOXX_SOXL_50_50_daily_rebalanced,outer_reused_diagnostic,10.0,1017.1320266911314,-73.00023631174334
+SOXX_SOXL_50_50_daily_rebalanced,outer_reused_diagnostic,25.0,988.7339009155748,-73.12718234744477

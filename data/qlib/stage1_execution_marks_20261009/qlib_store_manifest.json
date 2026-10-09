@@ -1,0 +1,42 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_execution_marks_20261009",
+  "market": "all",
+  "region": "us",
+  "freq": "15min",
+  "as_of": "2026-09-25",
+  "source": "/Users/rziiiii/dev/workspace/data/qlib/stage1_repaired_intraday_20261009",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume",
+    "$execution_price"
+  ],
+  "calendar_start": "2018-12-31 09:45:00",
+  "calendar_end": "2026-09-25 16:00:00",
+  "max_datetime": "2026-09-25 16:00:00",
+  "row_count": 100780,
+  "feature_file_count": 12,
+  "audit_snapshot_hash": "78a46205fcb9b62c",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "a2e5ab0b819a5932",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "source_manifest_sha256": "581d6781e421c01c308533218724dc364e166af5d005734c273cd6417989c548",
+  "source_ohlcv_unchanged": true,
+  "execution_price_rule": "09:45 right-edge bar uses its 09:30 open; all other bars use observed close",
+  "price_clock": "right-edge 15-minute source labels; prices are observed historical marks",
+  "live_fill_validation": false,
+  "purpose": "native accounting reconciliation of prescribed opening and first-hour-close target schedules"
+}

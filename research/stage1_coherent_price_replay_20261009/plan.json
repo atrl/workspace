@@ -1,0 +1,60 @@
+{
+  "schema_version": "stage1_coherent_price_replay_v1",
+  "experiment": "stage1_coherent_price_replay_20261009",
+  "registered_at_utc": "2026-10-09T14:32:02.070312+00:00",
+  "plan_status": "increment1_ready_pending_source_provider_uri",
+  "card_status": "active_research",
+  "objective_achieved": false,
+  "promotion_eligible": false,
+  "increments": {
+    "increment_1_price_consistency": {
+      "price_effect": "keep frozen base forecast/selection and control action model, replay only on the new coherent price panel",
+      "training_effect": "keep the coherent panel fixed, train the cost-matched book on it",
+      "separation": "price effect and training effect are separate comparisons; never merged"
+    }
+  },
+  "coherent_provider": "data/qlib/stage1_coherent_daily_marks_20261009",
+  "execution_mark_provider": "data/qlib/stage1_execution_marks_20261009",
+  "source": {
+    "card": "research/stage1_economic_action_20260929",
+    "recorder": "17f81fbf27ee46859816ec1ac52151f6"
+  },
+  "native": {
+    "prefix": "native_open_reconciliation (2016 .. first intraday day)",
+    "suffix": "native_intraday_reconciliation (2018-12-31+ continuing prefix cash/quantities)",
+    "if_missing": "blocked_native_reconciliation_missing"
+  },
+  "windows": {
+    "development": [
+      "2016-01-04",
+      "2022-12-21"
+    ],
+    "outer_reused_diagnostic": [
+      "2023-01-03",
+      "2026-09-23"
+    ]
+  },
+  "costs_bps": [
+    10.0,
+    25.0
+  ],
+  "gates": {
+    "definition": "reuse the source card gates and thresholds",
+    "thresholds": {
+      "annual_wealth_floor": 0.985,
+      "open_trade_days_reduction": 0.92
+    }
+  },
+  "stopping": "fixed control + one pre-registered cost candidate; no search, no scaling of prices; report failures",
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "intraday_provider": "data/qlib/stage1_repaired_intraday_20261009",
+  "input_repair": {
+    "unified_source_fix": "rebuild ALL EARLY_FIELDS (early_ret/early_range/early_from_low/early_volume/early_bar_count for SOXL+SOXX) from the repaired intraday provider, plus daily returns from the coherent provider",
+    "not_allowed": "replacing only early_ret while leaving old range/high/volume as a mixed source",
+    "frozen": "base allocator + recovery model identity unchanged; original daily forecast signal frozen; no re-selection, no risk-default change",
+    "vintage": "7/27 old 61-row vs new history differs in OHLC and volume; repair is a new source vintage, not an append of missing segments"
+  }
+}

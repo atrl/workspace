@@ -1,0 +1,78 @@
+{
+  "schema_version": "stage1_intraday_gap_repair_v1",
+  "scope": "read-only SOXL/SOXX historical data repair; canonical cache and runtime unchanged",
+  "source_docs": "https://openapi.futunn.com/futu-api-doc/quote/request-history-kline.html",
+  "entries": [
+    {
+      "symbol": "SOXL",
+      "date": "2026-07-27",
+      "rows": 390,
+      "first": "2026-07-27 09:31:00",
+      "last": "2026-07-27 16:00:00",
+      "path": "SOXL_2026-07-27_1m.parquet",
+      "sha256": "ea10b4e65c544f116702dc8d45b0c33bdaa575b2d1a43087c8ada99f2536b4a7",
+      "fetched_at_utc": "2026-10-09T14:43:36.239441+00:00",
+      "source": "Futu OpenQuoteContext.request_history_kline",
+      "ktype": "K_1M",
+      "adjustment": "QFQ",
+      "extended_time": false
+    },
+    {
+      "symbol": "SOXX",
+      "date": "2026-07-27",
+      "rows": 390,
+      "first": "2026-07-27 09:31:00",
+      "last": "2026-07-27 16:00:00",
+      "path": "SOXX_2026-07-27_1m.parquet",
+      "sha256": "ac82b1617b9ba595e156b48f38fd1c52154599951dc12026fd8c83066b048904",
+      "fetched_at_utc": "2026-10-09T14:43:36.653738+00:00",
+      "source": "Futu OpenQuoteContext.request_history_kline",
+      "ktype": "K_1M",
+      "adjustment": "QFQ",
+      "extended_time": false
+    },
+    {
+      "symbol": "SOXL",
+      "date": "2026-07-29",
+      "rows": 390,
+      "first": "2026-07-29 09:31:00",
+      "last": "2026-07-29 16:00:00",
+      "path": "SOXL_2026-07-29_1m.parquet",
+      "sha256": "31411663d214a51afdbe6936fb6eafcbe010af94640ef5deb6ac67cd7ba4b0b9",
+      "fetched_at_utc": "2026-10-09T14:43:37.016232+00:00",
+      "source": "Futu OpenQuoteContext.request_history_kline",
+      "ktype": "K_1M",
+      "adjustment": "QFQ",
+      "extended_time": false
+    },
+    {
+      "symbol": "SOXX",
+      "date": "2026-07-29",
+      "rows": 390,
+      "first": "2026-07-29 09:31:00",
+      "last": "2026-07-29 16:00:00",
+      "path": "SOXX_2026-07-29_1m.parquet",
+      "sha256": "30d53580e43041f4a172ef6a6e485b00200f1ed7c0e264b42d256b051eb8b57a",
+      "fetched_at_utc": "2026-10-09T14:43:37.377546+00:00",
+      "source": "Futu OpenQuoteContext.request_history_kline",
+      "ktype": "K_1M",
+      "adjustment": "QFQ",
+      "extended_time": false
+    }
+  ],
+  "trading_calendar": {
+    "path": "trading_days.json",
+    "sha256": "d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15",
+    "source": "Futu request_trading_days"
+  },
+  "direct_15m_probes": [
+    {
+      "path": "SOXL_2026-07-29_15m.parquet",
+      "sha256": "0bbd86385d83093b77e2defb98cbecf5d353d1cdbec44c23b58084d7c8a6e25e"
+    },
+    {
+      "path": "SOXX_2026-07-29_15m.parquet",
+      "sha256": "c500c870054358bc24928cf76435e7a3b9befd258dd26cd51f24c71c931a6593"
+    }
+  ]
+}

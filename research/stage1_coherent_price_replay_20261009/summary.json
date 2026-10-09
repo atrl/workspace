@@ -1,0 +1,704 @@
+{
+  "experiment": "stage1_coherent_price_replay_20261009",
+  "schema_version": "stage1_coherent_price_replay_v1",
+  "card_status": "active_research",
+  "increment": "increment_1_price_consistency",
+  "decision": "coherent_price_replay_reported",
+  "promotion_eligible": false,
+  "objective_achieved": false,
+  "plan_sha256": "2e1026a0ff70387641e49b48bf21304fd0256cbc88b43d030f0b61d99225911f",
+  "source_card": "research/stage1_economic_action_20260929",
+  "source_recorder_id": "17f81fbf27ee46859816ec1ac52151f6",
+  "source_object_sha256": {
+    "inputs/prepared_inputs.pkl": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+    "analysis/portfolio_replays.pkl": "ac7281e80aa78d2cc69c9c97dadd51356ac883e85ee87d53ca46eaa976b4b306",
+    "analysis/training_results.pkl": "a0ab9916a62cc2a00af89876b423d5cb419eec64fa7418abcefbc9b11d728e4b",
+    "analysis/annual.pkl": "b8f7423783600612c6b696decb73c15abea604ce9a494242c94a84ff8be733cc"
+  },
+  "frozen_control": {
+    "object": "analysis/training_results.pkl",
+    "key": 2022,
+    "control_parity": {
+      "status": "passed",
+      "checks": [
+        {
+          "segment": "development_walk_forward",
+          "cost_bps": 10.0,
+          "sessions": 1756,
+          "returns_ok": true,
+          "ending_weights_ok": true
+        },
+        {
+          "segment": "development_walk_forward",
+          "cost_bps": 25.0,
+          "sessions": 1756,
+          "returns_ok": true,
+          "ending_weights_ok": true
+        },
+        {
+          "segment": "outer_reused_diagnostic",
+          "cost_bps": 10.0,
+          "sessions": 934,
+          "returns_ok": true,
+          "ending_weights_ok": true
+        },
+        {
+          "segment": "outer_reused_diagnostic",
+          "cost_bps": 25.0,
+          "sessions": 934,
+          "returns_ok": true,
+          "ending_weights_ok": true
+        }
+      ]
+    }
+  },
+  "coherent_provider": "data/qlib/stage1_coherent_daily_marks_20261009",
+  "execution_mark_provider": "data/qlib/stage1_execution_marks_20261009",
+  "intraday_provider": "data/qlib/stage1_repaired_intraday_20261009",
+  "separation_rule": "price effect and training effect are reported as separate comparisons, never merged",
+  "results": [
+    {
+      "family": "price_effect_control",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "sessions": 1756,
+      "terminal_wealth": 3.0048592005839576,
+      "return_pct": 200.48592005839575,
+      "max_drawdown_pct": -29.02781288755305,
+      "cvar5_pct": -3.0558206646721664,
+      "worst_day_pct": -7.46093454970489,
+      "worst_rolling_5d_pct": -10.820568411369136,
+      "sharpe": 0.9312356733914641,
+      "total_turnover": 46.64720985137309,
+      "open_trade_days": 638
+    },
+    {
+      "family": "training_effect_candidate",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "sessions": 1756,
+      "terminal_wealth": 2.1486021517384852,
+      "return_pct": 114.86021517384853,
+      "max_drawdown_pct": -30.865922817263947,
+      "cvar5_pct": -3.5132935902793703,
+      "worst_day_pct": -9.495301053549177,
+      "worst_rolling_5d_pct": -14.421763129188914,
+      "sharpe": 0.6306334338786026,
+      "total_turnover": 61.787378483815175,
+      "open_trade_days": 748
+    },
+    {
+      "family": "price_effect_control",
+      "segment": "development_walk_forward",
+      "cost_bps": 25.0,
+      "sessions": 1756,
+      "terminal_wealth": 2.608489185876609,
+      "return_pct": 160.84891858766088,
+      "max_drawdown_pct": -30.17925202685756,
+      "cvar5_pct": -3.077741929107496,
+      "worst_day_pct": -8.259294376254612,
+      "worst_rolling_5d_pct": -10.993478133792056,
+      "sharpe": 0.8339957001727892,
+      "total_turnover": 49.020783176885345,
+      "open_trade_days": 649
+    },
+    {
+      "family": "training_effect_candidate",
+      "segment": "development_walk_forward",
+      "cost_bps": 25.0,
+      "sessions": 1756,
+      "terminal_wealth": 2.676635197066999,
+      "return_pct": 167.66351970669987,
+      "max_drawdown_pct": -30.009429232352304,
+      "cvar5_pct": -3.1604952037876965,
+      "worst_day_pct": -7.527505407378177,
+      "worst_rolling_5d_pct": -10.993478133792056,
+      "sharpe": 0.8260965140459715,
+      "total_turnover": 50.457164009587665,
+      "open_trade_days": 628
+    },
+    {
+      "family": "price_effect_control",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "sessions": 934,
+      "terminal_wealth": 4.627926716882971,
+      "return_pct": 362.7926716882971,
+      "max_drawdown_pct": -26.497739246678897,
+      "cvar5_pct": -4.765121659293373,
+      "worst_day_pct": -8.684287792749457,
+      "worst_rolling_5d_pct": -14.55275016821349,
+      "sharpe": 1.4383599050340177,
+      "total_turnover": 44.80492490776602,
+      "open_trade_days": 559
+    },
+    {
+      "family": "training_effect_candidate",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "sessions": 934,
+      "terminal_wealth": 2.738710576381617,
+      "return_pct": 173.8710576381617,
+      "max_drawdown_pct": -31.27432487729055,
+      "cvar5_pct": -4.56303887150667,
+      "worst_day_pct": -9.625130043528806,
+      "worst_rolling_5d_pct": -12.084273602153795,
+      "sharpe": 1.057363092782729,
+      "total_turnover": 48.733117847459965,
+      "open_trade_days": 660
+    },
+    {
+      "family": "price_effect_control",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "sessions": 934,
+      "terminal_wealth": 4.2461247732714575,
+      "return_pct": 324.61247732714577,
+      "max_drawdown_pct": -26.86670890797216,
+      "cvar5_pct": -4.692810235663001,
+      "worst_day_pct": -8.738302530732977,
+      "worst_rolling_5d_pct": -14.633920892122132,
+      "sharpe": 1.382253681045415,
+      "total_turnover": 41.6891802027435,
+      "open_trade_days": 538
+    },
+    {
+      "family": "training_effect_candidate",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "sessions": 934,
+      "terminal_wealth": 2.4236499356143204,
+      "return_pct": 142.36499356143204,
+      "max_drawdown_pct": -28.00363740121715,
+      "cvar5_pct": -4.603948557985667,
+      "worst_day_pct": -8.678445048735872,
+      "worst_rolling_5d_pct": -14.633920892122132,
+      "sharpe": 0.9413879280403242,
+      "total_turnover": 46.63475592263042,
+      "open_trade_days": 543
+    }
+  ],
+  "native_reconciliation": {
+    "status": "passed",
+    "boundary": "2018-12-31",
+    "results": {
+      "control_price::development_walk_forward::10": {
+        "family": "control_price",
+        "segment": "development_walk_forward",
+        "cost_bps": 10.0,
+        "target_convention": "post_fee_desired",
+        "prefix": {
+          "status": "passed",
+          "sessions": 752,
+          "cost_bps": 10.0,
+          "maximum_session_return_error": 4.083400284571326e-13,
+          "maximum_ending_weight_error": 2.2618740214142008e-11,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_coherent_daily_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "day",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": false,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "suffix": {
+          "status": "passed",
+          "sessions": 1004,
+          "cost_bps": 10.0,
+          "maximum_session_return_error": 4.440892098500626e-16,
+          "maximum_ending_weight_error": 2.220446049250313e-16,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_execution_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "15min",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": true,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "prefix_inherited": true
+      },
+      "candidate_training::development_walk_forward::10": {
+        "family": "candidate_training",
+        "segment": "development_walk_forward",
+        "cost_bps": 10.0,
+        "target_convention": "post_fee_desired",
+        "prefix": {
+          "status": "passed",
+          "sessions": 752,
+          "cost_bps": 10.0,
+          "maximum_session_return_error": 4.083400284571326e-13,
+          "maximum_ending_weight_error": 2.2618740214142008e-11,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_coherent_daily_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "day",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": false,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "suffix": {
+          "status": "passed",
+          "sessions": 1004,
+          "cost_bps": 10.0,
+          "maximum_session_return_error": 1.4602640430183556e-08,
+          "maximum_ending_weight_error": 8.666040218763271e-09,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_execution_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "15min",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": true,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "prefix_inherited": true
+      },
+      "control_price::development_walk_forward::25": {
+        "family": "control_price",
+        "segment": "development_walk_forward",
+        "cost_bps": 25.0,
+        "target_convention": "post_fee_desired",
+        "prefix": {
+          "status": "passed",
+          "sessions": 752,
+          "cost_bps": 25.0,
+          "maximum_session_return_error": 3.5726976932437537e-13,
+          "maximum_ending_weight_error": 2.1584622977854906e-11,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_coherent_daily_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "day",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": false,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "suffix": {
+          "status": "passed",
+          "sessions": 1004,
+          "cost_bps": 25.0,
+          "maximum_session_return_error": 4.440892098500626e-16,
+          "maximum_ending_weight_error": 3.3306690738754696e-16,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_execution_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "15min",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": true,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "prefix_inherited": true
+      },
+      "candidate_training::development_walk_forward::25": {
+        "family": "candidate_training",
+        "segment": "development_walk_forward",
+        "cost_bps": 25.0,
+        "target_convention": "post_fee_desired",
+        "prefix": {
+          "status": "passed",
+          "sessions": 752,
+          "cost_bps": 25.0,
+          "maximum_session_return_error": 3.5726976932437537e-13,
+          "maximum_ending_weight_error": 2.1584622977854906e-11,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_coherent_daily_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "day",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": false,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "suffix": {
+          "status": "passed",
+          "sessions": 1004,
+          "cost_bps": 25.0,
+          "maximum_session_return_error": 4.440892098500626e-16,
+          "maximum_ending_weight_error": 6.661338147750939e-16,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_execution_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "15min",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": true,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "prefix_inherited": true
+      },
+      "control_price::outer_reused_diagnostic::10": {
+        "family": "control_price",
+        "segment": "outer_reused_diagnostic",
+        "cost_bps": 10.0,
+        "target_convention": "post_fee_desired",
+        "suffix": {
+          "status": "passed",
+          "sessions": 934,
+          "cost_bps": 10.0,
+          "maximum_session_return_error": 4.440892098500626e-16,
+          "maximum_ending_weight_error": 3.3306690738754696e-16,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_execution_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "15min",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": false,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "prefix_inherited": false
+      },
+      "candidate_training::outer_reused_diagnostic::10": {
+        "family": "candidate_training",
+        "segment": "outer_reused_diagnostic",
+        "cost_bps": 10.0,
+        "target_convention": "post_fee_desired",
+        "suffix": {
+          "status": "passed",
+          "sessions": 934,
+          "cost_bps": 10.0,
+          "maximum_session_return_error": 6.039613253960852e-13,
+          "maximum_ending_weight_error": 1.6281483106173056e-11,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_execution_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "15min",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": false,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "prefix_inherited": false
+      },
+      "control_price::outer_reused_diagnostic::25": {
+        "family": "control_price",
+        "segment": "outer_reused_diagnostic",
+        "cost_bps": 25.0,
+        "target_convention": "post_fee_desired",
+        "suffix": {
+          "status": "passed",
+          "sessions": 934,
+          "cost_bps": 25.0,
+          "maximum_session_return_error": 6.661338147750939e-16,
+          "maximum_ending_weight_error": 2.7755575615628914e-16,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_execution_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "15min",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": false,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "prefix_inherited": false
+      },
+      "candidate_training::outer_reused_diagnostic::25": {
+        "family": "candidate_training",
+        "segment": "outer_reused_diagnostic",
+        "cost_bps": 25.0,
+        "target_convention": "post_fee_desired",
+        "suffix": {
+          "status": "passed",
+          "sessions": 934,
+          "cost_bps": 25.0,
+          "maximum_session_return_error": 5.779821066198565e-13,
+          "maximum_ending_weight_error": 1.6208576147924703e-11,
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_execution_marks_20261009",
+          "tolerance": 1e-07,
+          "freq": "15min",
+          "target_convention": "post_fee_desired",
+          "initial_position_inherited": false,
+          "scope": "prescribed opening/first-hour-close schedule; native orders, fees, cash and quantities",
+          "native_api": [
+            "qlib.backtest.backtest",
+            "SimulatorExecutor",
+            "Exchange",
+            "Position"
+          ],
+          "controller_validation": false,
+          "live_fill_validation": false,
+          "native_report_benchmark": "zero-return cash; not the economic SOXX comparison",
+          "share_unit_convention": "fractional adjusted-price units; not broker integer-share or dividend-cash validation",
+          "execution_limitation": "opening and 10:30-close historical marks, not actual 09:31/10:31 fills"
+        },
+        "prefix_inherited": false
+      }
+    },
+    "note": "prefix day + suffix 15min with per-case target convention; cross-frequency cash/quantity handoff at boundary opens"
+  },
+  "price_effect_delta_vs_old_daily": [
+    {
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "coherent_return_pct": 200.48592005839575,
+      "old_daily_return_pct": 200.48943181452174,
+      "return_delta_pct": -0.003511756125988086,
+      "coherent_max_drawdown_pct": -29.02781288755305,
+      "old_daily_max_drawdown_pct": -29.027730201925593,
+      "max_drawdown_delta_pct": -8.26856274578347e-05,
+      "coherent_cvar5_pct": -3.0558206646721664,
+      "old_daily_cvar5_pct": -3.055820292963171,
+      "old_control_variant": "own_state_net_value_frozen_2022"
+    },
+    {
+      "segment": "development_walk_forward",
+      "cost_bps": 25.0,
+      "coherent_return_pct": 160.84891858766088,
+      "old_daily_return_pct": 160.85180938703894,
+      "return_delta_pct": -0.002890799378064912,
+      "coherent_max_drawdown_pct": -30.17925202685756,
+      "old_daily_max_drawdown_pct": -30.17924191018322,
+      "max_drawdown_delta_pct": -1.0116674342697252e-05,
+      "coherent_cvar5_pct": -3.077741929107496,
+      "old_daily_cvar5_pct": -3.077740681188518,
+      "old_control_variant": "own_state_net_value_frozen_2022"
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "coherent_return_pct": 362.7926716882971,
+      "old_daily_return_pct": 362.8371724296462,
+      "return_delta_pct": -0.044500741349111195,
+      "coherent_max_drawdown_pct": -26.497739246678897,
+      "old_daily_max_drawdown_pct": -26.4822160947361,
+      "max_drawdown_delta_pct": -0.015523151942797853,
+      "coherent_cvar5_pct": -4.765121659293373,
+      "old_daily_cvar5_pct": -4.766027538822301,
+      "old_control_variant": "own_state_net_value_frozen_2022"
+    },
+    {
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "coherent_return_pct": 324.61247732714577,
+      "old_daily_return_pct": 324.64942467279957,
+      "return_delta_pct": -0.03694734565380031,
+      "coherent_max_drawdown_pct": -26.86670890797216,
+      "old_daily_max_drawdown_pct": -26.851259234461576,
+      "max_drawdown_delta_pct": -0.01544967351058446,
+      "coherent_cvar5_pct": -4.692810235663001,
+      "old_daily_cvar5_pct": -4.693730440064401,
+      "old_control_variant": "own_state_net_value_frozen_2022"
+    }
+  ],
+  "soxx_benchmark": [
+    {
+      "benchmark": "SOXX_buy_hold_open_to_open",
+      "segment": "development_walk_forward",
+      "sessions": 1756,
+      "gross_return_pct": 320.69777491172005,
+      "gross_max_drawdown_pct": -47.3740803924973,
+      "cost_model": "buy at first open and sell at last exit open; no fee-free holding",
+      "net10_return_pct": 319.8568000596715,
+      "net25_return_pct": 318.5969153982547
+    },
+    {
+      "benchmark": "SOXX_buy_hold_open_to_open",
+      "segment": "outer_reused_diagnostic",
+      "sessions": 934,
+      "gross_return_pct": 398.26012861210324,
+      "gross_max_drawdown_pct": -42.790272203778656,
+      "cost_model": "buy at first open and sell at last exit open; no fee-free holding",
+      "net10_return_pct": 397.2641066150077,
+      "net25_return_pct": 395.7719420948466
+    }
+  ],
+  "gates": {
+    "rows": [
+      {
+        "candidate": "training_effect_candidate",
+        "segment": "development_walk_forward",
+        "cost_bps": 10.0,
+        "reference": "price_effect_control",
+        "return_above_control": false,
+        "max_drawdown_not_worse": false,
+        "worst_day_not_worse": false,
+        "cvar5_not_worse": false,
+        "worst_5d_not_worse": false,
+        "all_pass": false
+      },
+      {
+        "candidate": "training_effect_candidate",
+        "segment": "development_walk_forward",
+        "cost_bps": 25.0,
+        "reference": "price_effect_control",
+        "return_above_control": true,
+        "max_drawdown_not_worse": true,
+        "worst_day_not_worse": true,
+        "cvar5_not_worse": false,
+        "worst_5d_not_worse": true,
+        "all_pass": false
+      },
+      {
+        "candidate": "training_effect_candidate",
+        "segment": "outer_reused_diagnostic",
+        "cost_bps": 10.0,
+        "reference": "price_effect_control",
+        "return_above_control": false,
+        "max_drawdown_not_worse": false,
+        "worst_day_not_worse": false,
+        "cvar5_not_worse": true,
+        "worst_5d_not_worse": true,
+        "all_pass": false
+      },
+      {
+        "candidate": "training_effect_candidate",
+        "segment": "outer_reused_diagnostic",
+        "cost_bps": 25.0,
+        "reference": "price_effect_control",
+        "return_above_control": false,
+        "max_drawdown_not_worse": false,
+        "worst_day_not_worse": true,
+        "cvar5_not_worse": true,
+        "worst_5d_not_worse": true,
+        "all_pass": false
+      }
+    ],
+    "note": "candidate must beat the same-price frozen control before any promotion"
+  },
+  "early_field_repair": {
+    "source": "/Users/rziiiii/dev/workspace/data/qlib/stage1_repaired_intraday_20261009",
+    "repaired_sessions": 1944,
+    "repaired_from": "2018-12-31",
+    "prior_vintage_prefix_sessions": 752,
+    "fields": [
+      "early_ret",
+      "early_range",
+      "early_from_low",
+      "early_volume",
+      "early_bar_count"
+    ],
+    "symbols": [
+      "SOXL",
+      "SOXX"
+    ],
+    "note": "all first-hour fields are rebuilt together from one repaired source in the covered region; the unmatched prefix carries no recovery"
+  },
+  "limitations": [
+    "Historical mark convention only; not real 09:31/10:31 broker fills.",
+    "Diagnostic only; produces no promotion.",
+    "Reused history: outer is not a clean holdout."
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "native",
+      "replays"
+    ]
+  },
+  "recorder_id": "9775b262dfab496e947a433a18ab6c88",
+  "experiment_id": "108283454878980817",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_coherent_price_replay_20261009/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_coherent_price_replay_20261009/qlib_recorder/108283454878980817/9775b262dfab496e947a433a18ab6c88",
+  "saved_objects": [
+    "native",
+    "replays"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

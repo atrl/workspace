@@ -1,0 +1,10 @@
+experiment: stage1_uniform_price_consistency_20261009
+plan_sha256: 0809e9bf5b91cd0dbccf97aad0d78e7a4dfee3d3d96339f49925fb78a2d8102f
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_daily_marks_20261009
+intraday_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_execution_marks_20261009
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - price_source_comparison.pkl
+  - provider_manifests.pkl
