@@ -1,0 +1,29 @@
+{
+  "schema_version": "stage1_cash_drag_overlay_v1",
+  "experiment": "stage1_cash_drag_overlay_20261010",
+  "registered_at_utc": "2026-10-10T05:00:00+00:00",
+  "registered_before_candidate_portfolio_results": true,
+  "campaign_status": "diagnostic",
+  "objective_achieved": false,
+  "hypothesis": "The production Stage1 policy often holds a very large cash weight (recently ~77%). Determine whether that cash is (a) the policy's own raw target or (b) a hard-cap artifact, and whether a bounded overlay that recycles part of the idle cash into the unleveraged underlying (SOXX) improves risk-adjusted excess over SOXX on the real production history without giving up drawdown protection.",
+  "provider_uri": "data/qlib/soxl",
+  "source_runtime": "runtime/soxl/stage1_futu_sim/execution_state_v2.json",
+  "source": "confirmed Stage1 paper open slots (filled_confirmed)",
+  "costs_bps": [10.0, 25.0],
+  "recycle_fractions": [0.0, 0.25, 0.50, 0.75, 1.0],
+  "overlay_definition": "Move recycle_fraction of the cash weight into SOXX; the SOXL weight and total risk budget are unchanged.",
+  "causality_rule": "Targets come from confirmed past slots; returns are qlib open-to-open; no future information enters the overlay.",
+  "gates": {
+    "improvement": "best overlay must beat the unmodified policy on Sharpe at the higher cost, and beat SOXX Sharpe"
+  },
+  "stopping": "Exactly the pre-registered recycle family at two costs; no tuning after outcomes. Preserve all results, including failures.",
+  "limitations": [
+    "The real production history is only a handful of sessions; this is diagnostic, not promotion evidence.",
+    "The overlay can only reduce cash and raise SOXX exposure; it never raises the SOXL weight.",
+    "The frozen production policy parameters are unchanged."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

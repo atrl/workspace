@@ -1,0 +1,32 @@
+schema_version: stage1_cash_drag_overlay_v1
+experiment: stage1_cash_drag_overlay_20261010
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+costs_bps:
+- 10.0
+- 25.0
+recycle_fractions:
+- 0.0
+- 0.25
+- 0.5
+- 0.75
+- 1.0
+diagnostic:
+  average_raw_beta: 0.5377675253166092
+  average_beta_cap: 0.5408710782578476
+  average_soxl_weight: 0.16484730807076373
+  average_soxx_weight: 0.32914950536322635
+  average_cash_weight: 0.5060031865660098
+  sessions: 12
+  cap_binding_fraction: 0.0
+  interpretation: If cap_binding_fraction is near zero, the cash is the policy's own
+    raw target rather than a hard-cap artifact; the fix is an overlay, not a cap change.
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - data/targets.pkl
+  - data/returns.pkl
+  - analysis/comparison.pkl
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html
