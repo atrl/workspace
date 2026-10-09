@@ -193,6 +193,17 @@ regular session 的 SOXL 相对 SOXX 超额。
 下一步应冻结该结构，采集更长夜盘历史并做连续独立前向验证，不得在同一两年样本上
 继续调参。非独立或同期数据（如亚洲盘同日相关）不得冒充可交易领先信号。
 
+Stage1 冻结常数 `action_beta=0.6` 是可优化结构，不是硬参数：
+`src/analysis/dynamic_beta_cap.py` 与 `src/workflow/dynamic_beta_cap.py` 在冻结上游原始
+目标上比较常数上限与随已实现波动缩放的上限，不改信号。
+`research/stage1_dynamic_beta_cap_20261010/` 记录：波动缩放上限（如 vol_w30_s6、
+vol_w60_s6）在 development 与 outer 两个窗口的 Sharpe 都高于常数基线，且回撤更小
+（−25% vs −32%），但**年度胜率只有 4–6/11**——改善主要来自回撤压缩（Sharpe 分母），
+不是每年都赢。因此该结构作为低风险变体保留，不宣称稳定年度超额。
+`research/stage1_cash_drag_overlay_20261010/` 证明：高现金来自策略自身原始目标而非硬
+上限（cap_binding_fraction=0）；放宽 action_beta 提高绝对收益但降低 Sharpe 并翻倍回撤；
+冻结常数在风险调整后最优。所有变体均跑输 SOXX buy&hold 收益。
+
 - `src/core`: 稳定契约、注册表、schema version、manifest、hash、配置、校验。
 - `src/data`: qlib store 构建、qlib provider 审计、数据更新、calendar/instrument/feature 对齐、canonical snapshot，最终写入 `data/`。
 - `src/factor`: 基于 qlib Dataset 的单因子、多因子、IC、相关性、分层回测、因子组合诊断。
