@@ -28,3 +28,20 @@
 - 影响：中断期内账户只是被动持有 2026-08-12 的目标仓位，其净值变动**不是策略证据**。
 - 修正后前向（仅活跃/受管理交易日，17 个）：策略 +13.42%，SOXX +11.02%，SOXL +22.19%；超额 vs SOXX +2.40pp。样本极小，**不构成晋升证据**。
 - 整改：心跳 agent 已于 2026-10-09 安装并加载；`detect_execution_outage` 在超过 3 个交易日无确认成交时告警。详见 `runtime/soxl/stage1_futu_sim/execution_outages.json` 与 `forward_evidence_corrected.json`。
+
+## 证据溯源评估（2026-10-10 独立复核）
+
+- 用 `src/analysis/recorder_provenance_audit.py` 审计全仓库 54 张卡：47 张 recorder 存在，**7 张声明了但仓库中不存在**。
+- 本卡依赖链上的缺口：
+  - `source_recorder_id: f6b09330175e41719886d58ee2d11bec`（上游 `intraday_on_policy_staged_validation_v1`）**不在 git 中**（`git ls-files --sparse` 确认未提交）。
+  - 本卡自身 `recorder_id: e9c97a327bdf46f5a6a57f2d58d75062` 同样不在仓库。
+- 后果：生产 gate 的 `worst_rolling_5d_pct = -12.11%`（唯一 FAIL 项）**无法独立复现**。
+- 反证：仓库中实际提交的同一研究卡 recorder `454e94c9ed5f4c4aaebce0dfa824a38a`（窗口 2023-01-03..2026-06-26，873 日）重算四个风险门为：
+  - max drawdown -28.11%（门槛 -30%）PASS
+  - worst day -9.38%（门槛 -12%）PASS
+  - CVaR5 -5.25%（门槛 -8%）PASS
+  - worst rolling 5d **-11.30%**（门槛 -12%）**PASS**
+  - 即：**仓库内可验证证据显示策略通过全部风险门**。
+- 因此当前 `paper_sim_blocked` 的根因是**证据治理缺陷（未提交 recorder）**，不是可验证的策略失败。
+- 修复路径：补齐/重建 `f6b09330` 与 `e9c97a32`，或改用已提交的 `454e94c9` 重跑 gate；并累积 ≥60 个连续受管理交易日前向证据。
+- 不得据未复现数字宣布晋升，也不得因一个未提交 recorder 永久否定一个有正面可验证证据的策略。
