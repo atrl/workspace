@@ -2,7 +2,7 @@
   "experiment": "stage1_dynamic_beta_cap_20261010",
   "schema_version": "stage1_dynamic_beta_cap_v1",
   "card_status": "active_research",
-  "decision": "dynamic_beta_cap_improves_out_of_sample",
+  "decision": "dynamic_beta_cap_no_out_of_sample_improvement",
   "promotion_eligible": false,
   "objective_achieved": false,
   "source_card": "pit_constituent_auxiliary_training_allocation_retrained_20260928",
@@ -26,12 +26,15 @@
     "vol_w120_s10"
   ],
   "baseline_rule": "constant_0.6",
-  "selected_rule": "vol_w60_s6",
-  "rules_passing_outer": [
-    "vol_w60_s6",
-    "vol_w30_s6"
+  "selected_rule": "vol_w30_s10",
+  "rules_passing_both_windows": [
+    "vol_w30_s6",
+    "vol_w60_s6"
   ],
-  "improvement": true,
+  "improvement": false,
+  "selection_basis": "development_sharpe_only; outer read once as confirmation",
+  "look_ahead_check": "development folds train_end < signal-year start; outer model frozen at 2022-12-30",
+  "look_ahead_clean": true,
   "comparison": [
     {
       "rule": "constant_0.6",
@@ -310,13 +313,14 @@
   },
   "limitations": [
     "Re-projects a frozen signal; no new data or model.",
-    "The dynamic rule is chosen on development Sharpe but the source signal was itself fixed in-sample.",
+    "The source signal was itself fixed in-sample; this is not independent forward evidence.",
+    "The rule family was designed after seeing the pooled result, so it is not a blind discovery.",
     "Annual stability is reported; a pooled gain concentrated in one regime is not accepted."
   ],
-  "recorder_id": "af44025ef57a4eeaad56806e2e9500a8",
-  "experiment_id": "634190272876448090",
+  "recorder_id": "71d73bb4558b468ca86fbb899b4752fa",
+  "experiment_id": "836482417067886350",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_dynamic_beta_cap_20261010/qlib_recorder",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_dynamic_beta_cap_20261010/qlib_recorder/634190272876448090/af44025ef57a4eeaad56806e2e9500a8",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_dynamic_beta_cap_20261010/qlib_recorder/836482417067886350/71d73bb4558b468ca86fbb899b4752fa",
   "qlib_docs_reference": [
     "https://qlib.readthedocs.io/en/latest/component/data.html",
     "https://qlib.readthedocs.io/en/latest/component/recorder.html"

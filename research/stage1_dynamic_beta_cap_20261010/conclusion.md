@@ -10,7 +10,8 @@
   - vol_w60_s10: 全期Sharpe 0.93，dev Sharpe 0.87，outer Sharpe 1.05，收益 815.4%，回撤 -39.5%
   - vol_w120_s6: 全期Sharpe 0.93，dev Sharpe 0.79，outer Sharpe 1.18，收益 402.8%，回撤 -28.4%
   - vol_w120_s10: 全期Sharpe 0.88，dev Sharpe 0.78，outer Sharpe 1.05，收益 820.7%，回撤 -42.9%
-- 选中规则 `vol_w60_s6`；是否 outer 改善：True。
-- 决定 `dynamic_beta_cap_improves_out_of_sample`。
-- 风险：只重投影冻结信号，无新数据；动态规则在 development 选择，但源信号本身是样本内固定的；年度稳定性需单独看，不能只凭汇总 Sharpe。
-- qlib Recorder：af44025ef57a4eeaad56806e2e9500a8。
+- 选中规则 `vol_w30_s10`（仅用 development Sharpe 选择）；同时通过 dev 与 outer 的规则：['vol_w30_s6', 'vol_w60_s6']。
+- 是否 outer 改善：False。决定 `dynamic_beta_cap_no_out_of_sample_improvement`。
+- 前视/泄漏检查：development 每年 train_end < 信号年年初；outer 模型冻结在 2022-12-30；选择只用 development，outer 只读一次。
+- 风险：只重投影冻结信号，无新数据；规则族是看到汇总结果后设计的，不是盲发现；年度稳定性需单独看，不能只凭汇总 Sharpe。
+- qlib Recorder：71d73bb4558b468ca86fbb899b4752fa。

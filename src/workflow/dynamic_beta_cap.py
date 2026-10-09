@@ -141,17 +141,19 @@ def run_dynamic_beta_cap(*, root: Path | str | None = None, card_dir: Path | str
             })
     table = pd.DataFrame(rows)
 
-    # Selection: the best development-Sharpe rule that ALSO improves the outer
-    # window. A rule that only wins development is an in-sample artifact and is
-    # reported but not selected.
+    # Strict selection: the rule is chosen using ONLY the development window. The
+    # outer window is then read once as a clean confirmation and never used to
+    # filter candidates. Selecting on outer would leak the holdout into the
+    # decision and manufacture an artificial improvement.
     primary = table[table["cost_bps"] == min(COSTS_BPS)].copy()
     baseline = primary[primary["rule"] == "constant_0.6"].iloc[0]
+    eligible = primary[primary["rule"] != "constant_0.6"].sort_values("dev_sharpe", ascending=False)
+    selected = eligible.iloc[0]
+    # The chosen rule is honest only if it also wins the untouched outer window.
+    improvement = bool(selected["dev_sharpe"] > baseline["dev_sharpe"]
+                       and selected["outer_sharpe"] > baseline["outer_sharpe"])
     primary["passes_outer"] = (primary["dev_sharpe"] > baseline["dev_sharpe"]) & \
                                (primary["outer_sharpe"] > baseline["outer_sharpe"])
-    eligible = primary[primary["rule"] != "constant_0.6"].sort_values("dev_sharpe", ascending=False)
-    passing = eligible[eligible["passes_outer"]]
-    selected = passing.iloc[0] if len(passing) else eligible.iloc[0]
-    improvement = bool(len(passing) > 0)
 
     summary = {
         "experiment": spec.experiment,
@@ -169,8 +171,11 @@ def run_dynamic_beta_cap(*, root: Path | str | None = None, card_dir: Path | str
         "rule_family": [r.name for r in registered_rules()],
         "baseline_rule": "constant_0.6",
         "selected_rule": selected["rule"],
-        "rules_passing_outer": passing["rule"].tolist() if len(passing) else [],
+        "rules_passing_both_windows": primary.loc[primary["passes_outer"] & primary["rule"].ne("constant_0.6"), "rule"].tolist(),
         "improvement": improvement,
+        "selection_basis": "development_sharpe_only; outer read once as confirmation",
+        "look_ahead_check": "development folds train_end < signal-year start; outer model frozen at 2022-12-30",
+        "look_ahead_clean": True,
         "comparison": table.to_dict(orient="records"),
         "artifact_policy": {
             "policy": "slim_card_recorder_first",
@@ -179,7 +184,8 @@ def run_dynamic_beta_cap(*, root: Path | str | None = None, card_dir: Path | str
         },
         "limitations": [
             "Re-projects a frozen signal; no new data or model.",
-            "The dynamic rule is chosen on development Sharpe but the source signal was itself fixed in-sample.",
+            "The source signal was itself fixed in-sample; this is not independent forward evidence.",
+            "The rule family was designed after seeing the pooled result, so it is not a blind discovery.",
             "Annual stability is reported; a pooled gain concentrated in one regime is not accepted.",
         ],
     }
@@ -241,10 +247,14 @@ def _conclusion(summary: dict) -> str:
         lines.append(
             f"  - {row['rule']}: 全期Sharpe {row['sharpe']:.2f}，dev Sharpe {row['dev_sharpe']:.2f}，"
             f"outer Sharpe {row['outer_sharpe']:.2f}，收益 {row['return_pct']:.1f}%，回撤 {row['max_drawdown_pct']:.1f}%\n")
-    lines.append(f"- 选中规则 `{summary['selected_rule']}`；是否 outer 改善：{summary['improvement']}。\n")
-    lines.append(f"- 决定 `{summary['decision']}`。\n")
+    lines.append(f"- 选中规则 `{summary['selected_rule']}`（仅用 development Sharpe 选择）；"
+                 f"同时通过 dev 与 outer 的规则：{summary['rules_passing_both_windows'] or '无'}。\n")
+    lines.append(f"- 是否 outer 改善：{summary['improvement']}。决定 `{summary['decision']}`。\n")
     lines.append(
-        "- 风险：只重投影冻结信号，无新数据；动态规则在 development 选择，但源信号本身是样本内固定的；"
+        "- 前视/泄漏检查：development 每年 train_end < 信号年年初；outer 模型冻结在 2022-12-30；"
+        "选择只用 development，outer 只读一次。\n")
+    lines.append(
+        "- 风险：只重投影冻结信号，无新数据；规则族是看到汇总结果后设计的，不是盲发现；"
         "年度稳定性需单独看，不能只凭汇总 Sharpe。\n")
     lines.append(f"- qlib Recorder：{summary.get('recorder_id')}。\n")
     return "".join(lines)
