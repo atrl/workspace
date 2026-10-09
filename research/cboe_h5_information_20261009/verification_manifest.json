@@ -1,0 +1,1658 @@
+{
+  "schema_version": "cboe_information_artifact_manifest_v1",
+  "recorder_id": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+  "campaign_status": "active_research",
+  "as_of": "2026-09-25",
+  "external_store_as_of": "2026-10-08",
+  "verification": {
+    "focused_passed": 204,
+    "independent_checks_passed": 169,
+    "required_suite": {
+      "passed": 8,
+      "failed": 61,
+      "reason": "existing missing historical cards in sparse checkout"
+    },
+    "full_suite": {
+      "collection_errors": 15,
+      "reason": "existing archived test module basename conflicts"
+    },
+    "native_maximum_return_error": 3.2238e-12,
+    "notebook_executed": true
+  },
+  "large_artifact_rationale": "All22annual ridge parameters, paired forecasts, native reports/positions and exact inputs retained for audit; raw3official downloads kept intact beyond market cutoff.",
+  "entries": [
+    {
+      "path": "research/cboe_h5_information_20261009/ablation_comparison.csv",
+      "sha256": "8c42076992ce58b345157aaa0e427d7a8bc39455201121dd5e69f539739798ab",
+      "bytes": 3196,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/annual_metrics.csv",
+      "sha256": "dc172794570c111f39bbb7b2c4adadebb87e24d8408b5090865b7482834d0e51",
+      "bytes": 39274,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/backtest_benchmark_comparison.csv",
+      "sha256": "d5786614b6d907c4fa656f78542b350b06cc2200790c91579e124bba1f57d90c",
+      "bytes": 7524,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/bootstrap_analysis.csv",
+      "sha256": "76158d779d3b180e58da2e245273594f32169aaa393fbfa69be50607591adac8",
+      "bytes": 2113,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/cboe_h5_information_20261009.ipynb",
+      "sha256": "4537e83a7d8f4817ac43fc4db3356aff4a3f86edf8a8dd300e5c8d9c629da39a",
+      "bytes": 174105,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/conclusion.md",
+      "sha256": "e6c01cbd26296223c6b8f3df6cb53840269e165f54023d3bd2dcb7ff7eb2713d",
+      "bytes": 3649,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/diagnosis.md",
+      "sha256": "e765330860f2cc3884b71a19d6aa06432ccdd5bfb39dd09ae905f16aee2313f8",
+      "bytes": 5693,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/diagnostic_active_rebalance_event_diagnosis.csv",
+      "sha256": "42690a432690bf2d8c8d2e957177a8d18ff7c6b14280e79f54b0c38e8369deaf",
+      "bytes": 3469,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/diagnostic_annual_mse_increment.csv",
+      "sha256": "63c637aefdea70fc022bb7e8997c4d27266fbba0cfea4ca93f6f74a21bec09d9",
+      "bytes": 1283,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/diagnostic_annual_sse_contribution.csv",
+      "sha256": "980dd2580e9a143b09624111486c8c1e681a94cc4f55a533c0d741d298b09cb2",
+      "bytes": 930,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/diagnostic_pooled_forecast_diagnosis.csv",
+      "sha256": "fb175c4fa46b380a16394f48aa1d2363caab8ced5f20217e266c499c6f30d9d1",
+      "bytes": 2551,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/diagnostic_portfolio_exposure_fee_diagnosis.csv",
+      "sha256": "9134d1fb8a1ee5fa44262fe40720761487c2d4440caadf7d58abac59ea94ef30",
+      "bytes": 8796,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/diagnostic_provenance.json",
+      "sha256": "59ce8f0a5123deaf9282c7929b10b90a8a1c8f908e5ebc9d570a980b44324313",
+      "bytes": 566,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/diagnostic_train_following_year.csv",
+      "sha256": "0518c876861251c5c9a5c546c69b6e200be387c2b111f4e95ca6daf6e3888c7d",
+      "bytes": 21440,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/forecast_bootstrap.csv",
+      "sha256": "f87a15a1cf4914cdc6360c787c0db9e2fff796001edacec9623884f96d9812b8",
+      "bytes": 6250,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/forecast_fits.csv",
+      "sha256": "92a56d996135457a58954b412f4ccadd9d33b6b1e9f1cb102c714465511b977c",
+      "bytes": 50423,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/forecast_increments.csv",
+      "sha256": "1937340f1b65a3fcfcb59b8b3e8303f0e5ec73624b460c6d1129935f1677e19c",
+      "bytes": 12619,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/forecast_metrics.csv",
+      "sha256": "6cec89d1861552b2056d3cc5aa5cb0279e55119098b80c63e3a5a510599dac65",
+      "bytes": 24276,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/gates.csv",
+      "sha256": "56534fb95fc3e12bad6421c4ede91457ada553b1995d6362b2a925f98b15c42a",
+      "bytes": 559,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/model_selection.csv",
+      "sha256": "505221ee6317b95991ed2ac0641e53a52af0eb88c94953c1ffb15132d647278f",
+      "bytes": 90,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/native_audit.csv",
+      "sha256": "36e81c4eadfe8d45e14c2f9bfa266b1522a6efbaa759c504902528fc125c2f36",
+      "bytes": 3583,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/plan.json",
+      "sha256": "cbfb490fefbb504293cc7a9f9cf12cd6f6de745fd5517ffb7521d5e18284723c",
+      "bytes": 5959,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/0/meta.yaml",
+      "sha256": "1c44b324d846e6df73c0f32d519b1ae0e4903d95d9e9981275e358ac11c5bd8c",
+      "bytes": 301,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/analysis/forecast_statistics.pkl",
+      "sha256": "b0d6bf8b56b075e8413dcfa4749e31f02c0464db9038f5140fe7de8b8c1f6ebd",
+      "bytes": 16513,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/analysis/gates.pkl",
+      "sha256": "3f57a64684ecff2d99f2a37dc5e40293cd7f27f00aa3bf63d12fe4abcf400fc2",
+      "bytes": 11407,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/analysis/paths.pkl",
+      "sha256": "74125cba46f0ea17973851d1cf019edb3467be9c105ba69a4ded231c1b2fcccc",
+      "bytes": 2788500,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/analysis/solver_details.pkl.gz",
+      "sha256": "1b1f64acb20bddc0ab38b2b25d028b03a6bb616f87ebad10d16bc507d1066468",
+      "bytes": 774444,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/ablation_comparison.csv",
+      "sha256": "8c42076992ce58b345157aaa0e427d7a8bc39455201121dd5e69f539739798ab",
+      "bytes": 3196,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/annual_metrics.csv",
+      "sha256": "dc172794570c111f39bbb7b2c4adadebb87e24d8408b5090865b7482834d0e51",
+      "bytes": 39274,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/backtest_benchmark_comparison.csv",
+      "sha256": "d5786614b6d907c4fa656f78542b350b06cc2200790c91579e124bba1f57d90c",
+      "bytes": 7524,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/bootstrap_analysis.csv",
+      "sha256": "76158d779d3b180e58da2e245273594f32169aaa393fbfa69be50607591adac8",
+      "bytes": 2113,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/cboe_h5_information_20261009.ipynb",
+      "sha256": "4537e83a7d8f4817ac43fc4db3356aff4a3f86edf8a8dd300e5c8d9c629da39a",
+      "bytes": 174105,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/conclusion.md",
+      "sha256": "e6c01cbd26296223c6b8f3df6cb53840269e165f54023d3bd2dcb7ff7eb2713d",
+      "bytes": 3649,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/diagnosis.md",
+      "sha256": "e765330860f2cc3884b71a19d6aa06432ccdd5bfb39dd09ae905f16aee2313f8",
+      "bytes": 5693,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/diagnostic_active_rebalance_event_diagnosis.csv",
+      "sha256": "42690a432690bf2d8c8d2e957177a8d18ff7c6b14280e79f54b0c38e8369deaf",
+      "bytes": 3469,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/diagnostic_annual_mse_increment.csv",
+      "sha256": "63c637aefdea70fc022bb7e8997c4d27266fbba0cfea4ca93f6f74a21bec09d9",
+      "bytes": 1283,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/diagnostic_annual_sse_contribution.csv",
+      "sha256": "980dd2580e9a143b09624111486c8c1e681a94cc4f55a533c0d741d298b09cb2",
+      "bytes": 930,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/diagnostic_pooled_forecast_diagnosis.csv",
+      "sha256": "fb175c4fa46b380a16394f48aa1d2363caab8ced5f20217e266c499c6f30d9d1",
+      "bytes": 2551,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/diagnostic_portfolio_exposure_fee_diagnosis.csv",
+      "sha256": "9134d1fb8a1ee5fa44262fe40720761487c2d4440caadf7d58abac59ea94ef30",
+      "bytes": 8796,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/diagnostic_provenance.json",
+      "sha256": "59ce8f0a5123deaf9282c7929b10b90a8a1c8f908e5ebc9d570a980b44324313",
+      "bytes": 566,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/diagnostic_train_following_year.csv",
+      "sha256": "0518c876861251c5c9a5c546c69b6e200be387c2b111f4e95ca6daf6e3888c7d",
+      "bytes": 21440,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/forecast_bootstrap.csv",
+      "sha256": "f87a15a1cf4914cdc6360c787c0db9e2fff796001edacec9623884f96d9812b8",
+      "bytes": 6250,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/forecast_fits.csv",
+      "sha256": "92a56d996135457a58954b412f4ccadd9d33b6b1e9f1cb102c714465511b977c",
+      "bytes": 50423,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/forecast_increments.csv",
+      "sha256": "1937340f1b65a3fcfcb59b8b3e8303f0e5ec73624b460c6d1129935f1677e19c",
+      "bytes": 12619,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/forecast_metrics.csv",
+      "sha256": "6cec89d1861552b2056d3cc5aa5cb0279e55119098b80c63e3a5a510599dac65",
+      "bytes": 24276,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/gates.csv",
+      "sha256": "56534fb95fc3e12bad6421c4ede91457ada553b1995d6362b2a925f98b15c42a",
+      "bytes": 559,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/model_selection.csv",
+      "sha256": "505221ee6317b95991ed2ac0641e53a52af0eb88c94953c1ffb15132d647278f",
+      "bytes": 90,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/native_audit.csv",
+      "sha256": "36e81c4eadfe8d45e14c2f9bfa266b1522a6efbaa759c504902528fc125c2f36",
+      "bytes": 3583,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/plan.json",
+      "sha256": "cbfb490fefbb504293cc7a9f9cf12cd6f6de745fd5517ffb7521d5e18284723c",
+      "bytes": 5959,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/risk_analysis.csv",
+      "sha256": "b27dd2a97af48c570cb601f46e09f0735654f8b14f8821bc186cddfb9e1312a7",
+      "bytes": 1343,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/rolling_summary.csv",
+      "sha256": "e63fe3de7af1b21eb43e80342a4c9ea55c431e8cac895eadaac11897519c4604",
+      "bytes": 473,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/run_binding.json",
+      "sha256": "7ec8812c223deefaaa96e65e95c4e84bb27721ced67bcb6117eb42f991c97004",
+      "bytes": 14796,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/selected_model.json",
+      "sha256": "890c9cb46d7df8903f49401a724245e07aa0ce24a03247a6d1903533ef788eb7",
+      "bytes": 195,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/solver_summary.csv",
+      "sha256": "591fb51bb478089932ce2a07aae8a55cbd691f3a099192c040c11dc0f34b5d4d",
+      "bytes": 1526,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/source_contract.md",
+      "sha256": "8284e731770935152290f8c58662cccd805eb401a6d59ef9177fed3a9f64890c",
+      "bytes": 5360,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/source_intake.json",
+      "sha256": "b80ea815546c69d9735521a197e53fcb8e361683fe392d24e7943e6027cc330a",
+      "bytes": 6703,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/summary.json",
+      "sha256": "14c55a04d3a087c770f2391d0bcc84f3e05ee2d348a704be44bee03c87c276e4",
+      "bytes": 9518,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/card/workflow.yaml",
+      "sha256": "f038db64968927c96656955c551015d9e5f6c058d95cf4525597c06a05ef0a10",
+      "bytes": 957,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/execution/soxx-cboe-execution-summary.json",
+      "sha256": "327c51ca8bc79c0818747e59e2ab9df3f535c4f75efcf34e02c10ca4c5ddb3ce",
+      "bytes": 8254,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/execution/soxx-cboe-raw-executed.ipynb",
+      "sha256": "68dbca29cdcbd678cc36ee96510b9893b5833df78e94343ccfaf9bff4bea04f6",
+      "bytes": 598823,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/forecast/forecasts.pkl",
+      "sha256": "b54eb0b98793f11225ef217200efc7c3685a01fd8fb28a8294cc77488d38c0a4",
+      "bytes": 563584,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/forecast/matched_predictions.pkl",
+      "sha256": "d3e91bf5934559e3cf6101d297386b8eedac4408e24d2051d87d3fb8515f1c47",
+      "bytes": 282530,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/inputs/binding.pkl",
+      "sha256": "e7be010189a4df2e2493741df2b0d8c9de148fa4c9cddd19f731c8bbc96d5426",
+      "bytes": 11356,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/inputs/matched_frame.pkl",
+      "sha256": "04f9bc7556c3db460d61ba29cb4ff98ac0218263fa36fb31318ea9d1cf273a22",
+      "bytes": 1160525,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/inputs/plan.pkl",
+      "sha256": "d6137719704ef5a4d103e16f64a8a1ecdc352cf79a554cf7f60f6538b7ef29a2",
+      "bytes": 5289,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/models/annual_fits.pkl",
+      "sha256": "2db4c7de03f1fbcdc73dbb1a02b27e255cf5c5587e11d9d1bf8096610ef78c88",
+      "bytes": 577167,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/portfolio_analysis/native_reports.pkl.gz",
+      "sha256": "e1f4adfed21df1a0bf4c8ab763de4e1b4dc85c0fe215d55b934fc4eca28d31ed",
+      "bytes": 2161697,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/analysis/benchmark_relative_protocol.py",
+      "sha256": "e9f3d14f4c413dcb16df9483b9cbbeab94002a1beb8d5da2ac83fdbdb45835e5",
+      "bytes": 12999,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/analysis/convex_qlib.py",
+      "sha256": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "bytes": 7707,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/analysis/expert_information_attribution.py",
+      "sha256": "99143f61419a6646b485f619f0c4002b8933d519a6b8c11ebd0bd716178d614a",
+      "bytes": 12406,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/analysis/forecast_increment.py",
+      "sha256": "72383f8bb4d308b1327e7fac5d91b6525a7669c1a2ad6859f8c6c5f316bd0f12",
+      "bytes": 13145,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/analysis/integrated_allocation.py",
+      "sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "bytes": 23523,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/backtest/benchmark_relative_replay.py",
+      "sha256": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc",
+      "bytes": 6757,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/backtest/horizon_matched_allocation.py",
+      "sha256": "4854faa634e7e5aac24fbe6146829dcc6de1fd3c5b3982ca5e49a88abd8414e3",
+      "bytes": 7874,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/backtest/position_accounting.py",
+      "sha256": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "bytes": 3494,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/backtest/qlib_continuous_position.py",
+      "sha256": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "bytes": 2543,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/backtest/strategy.py",
+      "sha256": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+      "bytes": 4618,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/core/recorder_artifacts.py",
+      "sha256": "144eb16c79aef62ecc9421cbb0972c803d31aee289686f0a81460d7e203071fb",
+      "bytes": 1701,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/data/benchmark_relative_data.py",
+      "sha256": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+      "bytes": 3123,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/data/cboe_horizon_dataset.py",
+      "sha256": "c0c42348b856ab320ca0746008f18de8d2a0c4b03f14c43ee1032f880ec1077b",
+      "bytes": 6169,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/data/cboe_volatility_source.py",
+      "sha256": "e854af4d492d2e4b9ec635fbbddef731a14740a7cb8d9bc1f06bf6052038955f",
+      "bytes": 14809,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/data/conditional_variance.py",
+      "sha256": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+      "bytes": 20173,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/data/convex_allocation.py",
+      "sha256": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "bytes": 15455,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/data/legacy_execution_view.py",
+      "sha256": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+      "bytes": 7925,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/data/oos_horizon_inputs.py",
+      "sha256": "0b247d44b0f23c7e6f974747411c4aae2171529759d6220c1d719ea491e1d68b",
+      "bytes": 5468,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/data/price_basis.py",
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "bytes": 20780,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/data/qlib_native.py",
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "bytes": 19985,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/factor/soxx_pit_tail_factors.py",
+      "sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "bytes": 17962,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/model/certified_convex_allocation.py",
+      "sha256": "ceb458bfd93cfa1c44a5efb08c05748253899a1c74410c1fd2b6279895c29d3f",
+      "bytes": 2571,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/model/convex_allocation.py",
+      "sha256": "28228f8db1a8d6acf42dcffebd5e7edbaef857146ee7cd3bc067970a702eb86c",
+      "bytes": 29948,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/model/matched_horizon_ridge.py",
+      "sha256": "9a04a6928c983a87534553a791dafe2684c2b37a271a6bb2bfbb9e737919f10b",
+      "bytes": 16723,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/model/online_expert_allocation.py",
+      "sha256": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+      "bytes": 9242,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/model/oos_mean_uncertainty.py",
+      "sha256": "ce8177c698b748cadcb173940e90875dc6a5bd751f00f4ff3392e89e2e6ecde7",
+      "bytes": 7932,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/model/post_fee_settlement.py",
+      "sha256": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+      "bytes": 6469,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/workflow/benchmark_evidence.py",
+      "sha256": "f8903131c3cabc3d0bfe8a53dfc817436882b0e2d37d2f2a5935d5c484f44cbd",
+      "bytes": 4070,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/workflow/benchmark_relative_research.py",
+      "sha256": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+      "bytes": 15478,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/workflow/benchmark_risk_excess.py",
+      "sha256": "26fcd325ca5cd20ed37eec9e8296b477eedc907e4c815af802d448236b5cdbcd",
+      "bytes": 22622,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/workflow/cboe_h5_information.py",
+      "sha256": "675b8dd20c5da0bd7f1db287318322c95a4e44b35b1f04af1a78ca8b8a8d6b9c",
+      "bytes": 17549,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/workflow/oos_uncertainty_horizon.py",
+      "sha256": "b25e10d52968f5e849a2e67156290effdc8a66e66a3fcd71ebb947d751811831",
+      "bytes": 22113,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/source/src/workflow/stage1_economic_action.py",
+      "sha256": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "bytes": 14463,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/verification/environment.pkl",
+      "sha256": "7a566199439b3c7d36775aadadcef51aa8cbfacd2c865469a84638ce70140ade",
+      "bytes": 141,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/verification/soxx-cboe-focused.log.gz",
+      "sha256": "799ccbb3bfcefc5ed329ae553c5dc752824f84663506bb93142f7bc23440c011",
+      "bytes": 2798,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/verification/soxx-cboe-full.log.gz",
+      "sha256": "245b0ff040f58fa38c36d21e95afbd81025c30823c3a6e10639c77080319a8dd",
+      "bytes": 1742,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/verification/soxx-cboe-independent-audit.json.gz",
+      "sha256": "183cd1bdf71358eed19168448ccff3ae86a16b10f1a17d7d4307ab63b5239c51",
+      "bytes": 3914,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/artifacts/verification/soxx-cboe-required.log.gz",
+      "sha256": "d2e44127fccd91b4ada9b0d20f1fe6f1193e44d5cb59e9f138b9d918eae3b9fb",
+      "bytes": 7946,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/meta.yaml",
+      "sha256": "4a7b31b8a28e56e0d5ba836cb0b013b0099595f3866c72bc7d95fc4494de6bf9",
+      "bytes": 441,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/params/candidate_budget",
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "bytes": 1,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/params/cmd-sys.argv",
+      "sha256": "17413787f293cf2470e6cf2c9559072f110f80be365471f06c2ae7036ea299f2",
+      "bytes": 202,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/params/evidence_kind",
+      "sha256": "65f130ea3e4720777896e52f29f804d337f476ea55561a265b1fe9df07253f79",
+      "bytes": 14,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/params/plan_sha256",
+      "sha256": "07a27690f0f00005d62aaa3b1374beae1c933b46a4e903c01a4a8371287c9423",
+      "bytes": 64,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "bytes": 89,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/0d98dcb2d9e64360b8cf126c7aa3b32b/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/qlib_recorder/671466971837226903/meta.yaml",
+      "sha256": "d00b6b1c2b84255b6044fdba3aefa12b2789c1c3bb9ffc1b3236da5420eb2c9a",
+      "bytes": 356,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/risk_analysis.csv",
+      "sha256": "b27dd2a97af48c570cb601f46e09f0735654f8b14f8821bc186cddfb9e1312a7",
+      "bytes": 1343,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/rolling_summary.csv",
+      "sha256": "e63fe3de7af1b21eb43e80342a4c9ea55c431e8cac895eadaac11897519c4604",
+      "bytes": 473,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/run_binding.json",
+      "sha256": "7ec8812c223deefaaa96e65e95c4e84bb27721ced67bcb6117eb42f991c97004",
+      "bytes": 14796,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/selected_model.json",
+      "sha256": "890c9cb46d7df8903f49401a724245e07aa0ce24a03247a6d1903533ef788eb7",
+      "bytes": 195,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/solver_summary.csv",
+      "sha256": "591fb51bb478089932ce2a07aae8a55cbd691f3a099192c040c11dc0f34b5d4d",
+      "bytes": 1526,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/source_contract.md",
+      "sha256": "8284e731770935152290f8c58662cccd805eb401a6d59ef9177fed3a9f64890c",
+      "bytes": 5360,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/source_intake.json",
+      "sha256": "b80ea815546c69d9735521a197e53fcb8e361683fe392d24e7943e6027cc330a",
+      "bytes": 6703,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/summary.json",
+      "sha256": "14c55a04d3a087c770f2391d0bcc84f3e05ee2d348a704be44bee03c87c276e4",
+      "bytes": 9518,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "research/cboe_h5_information_20261009/workflow.yaml",
+      "sha256": "f038db64968927c96656955c551015d9e5f6c058d95cf4525597c06a05ef0a10",
+      "bytes": 957,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Qlib Recorder evidence or slim card entry/summary",
+      "range_scope": "evaluation window; training/input range recorded in per-artifact metadata"
+    },
+    {
+      "path": "data/qlib/cboe_volatility_official_20261008_v1/calendars/day.txt",
+      "sha256": "136b7d2333dcea34aa68241df6a914e2f38c185f4c937563b57638ab20cafe0a",
+      "bytes": 56353,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2006-03-06",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/qlib/cboe_volatility_official_20261008_v1/cboe_source_manifest.json",
+      "sha256": "cf96eb72c8a6cdb8a52d81ffc9f0037b7a8e16a93c80be8d0c872079d01836ed",
+      "bytes": 4907,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2006-03-06",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/qlib/cboe_volatility_official_20261008_v1/features/vix3m/close.day.bin",
+      "sha256": "33a4d991211243c0b0538d0a4550812f07bd3779266fc08a207b43a4b46b2239",
+      "bytes": 20496,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2009-09-18",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/qlib/cboe_volatility_official_20261008_v1/features/vix9d/close.day.bin",
+      "sha256": "cccc9ba6c41e627911161f4e1a3dc25fccee82b8837b7eaff3478facfbbd08bc",
+      "bytes": 20496,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2011-01-04",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/qlib/cboe_volatility_official_20261008_v1/features/vvix/close.day.bin",
+      "sha256": "b9437c3973409efada02b123c3588d5a857bd37252eeec21caafc7dd1f54712c",
+      "bytes": 20496,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2006-03-06",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/qlib/cboe_volatility_official_20261008_v1/instruments/all.txt",
+      "sha256": "10e4da1e36d57d802489674b958b5b5be32fa043c8274112cc38073fe1097bf4",
+      "bytes": 83,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2006-03-06",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/qlib/cboe_volatility_official_20261008_v1/qlib.yaml",
+      "sha256": "73f74f8329b473db1cbae6e0ad47ac65714c0d10ea89af9f68dfdaa6afe7d207",
+      "bytes": 187,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2006-03-06",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/qlib/cboe_volatility_official_20261008_v1/qlib_store_manifest.json",
+      "sha256": "4b09c7e34b5708e503e0ea61c02ef615d45f399e3b4e9ffa05419606653e7716",
+      "bytes": 816,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2006-03-06",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/snapshots/cboe_volatility_official_20261008_v1/VIX3M.csv",
+      "sha256": "6c1d98c0aef234feaa70f7cba6b6c810fb30184f478d2b60bd0a1fb3667d5e83",
+      "bytes": 218815,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2009-09-18",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/snapshots/cboe_volatility_official_20261008_v1/VIX9D.csv",
+      "sha256": "e6ff7521b4be50563067fce58c1998be7bd8ae66a739c4e6ca12151f6e2f643f",
+      "bytes": 201356,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2011-01-04",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/snapshots/cboe_volatility_official_20261008_v1/VVIX.csv",
+      "sha256": "ee4685e2bc1c35aee05c47fa4d4bf4d4a99fc4cf6fa4c04dde339064d776a782",
+      "bytes": 108982,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2006-03-06",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    },
+    {
+      "path": "data/snapshots/cboe_volatility_official_20261008_v1/manifest.json",
+      "sha256": "cf96eb72c8a6cdb8a52d81ffc9f0037b7a8e16a93c80be8d0c872079d01836ed",
+      "bytes": 4907,
+      "source": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+      "date_range": [
+        "2006-03-06",
+        "2026-10-08"
+      ],
+      "purpose": "complete official raw download or immutable native Qlib close provider",
+      "range_scope": "observed source range"
+    }
+  ],
+  "matched_training_start": "2014-02-04"
+}

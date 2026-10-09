@@ -1,0 +1,32 @@
+{
+  "as_of": "2026-10-08",
+  "audit_snapshot_hash": "60d480e42781cf2f",
+  "calendar_end": "2026-10-08",
+  "calendar_start": "2006-03-06",
+  "feature_file_count": 3,
+  "fields": [
+    "$close"
+  ],
+  "freq": "day",
+  "hash": "bc5f90b8875a76d1",
+  "instruments": [
+    "VIX3M",
+    "VIX9D",
+    "VVIX"
+  ],
+  "market": "all",
+  "max_datetime": "2026-10-08",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/cboe_volatility_official_20261008_v1",
+  "region": "us",
+  "row_count": 13375,
+  "source": "immutable complete official Cboe downloads; no market-cutoff truncation",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

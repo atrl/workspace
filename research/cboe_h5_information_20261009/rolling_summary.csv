@@ -1,0 +1,3 @@
+cost_bps,rolling_sessions,rolling_windows,positive_windows,positive_excess_rate,minimum_positive_excess_rate,minimum_log_excess,median_log_excess,maximum_log_excess,overlapping_windows,independent_observations,strategy
+10.0,252,1511,117,0.07743216412971542,0.6,-0.28618196093238557,-1.8909841140862804e-15,0.08104508404006103,True,False,base_cboe3
+25.0,252,1511,456,0.3017868960953011,0.6,-0.3042843287429027,-0.034941260287201716,0.07372773238633001,True,False,base_cboe3

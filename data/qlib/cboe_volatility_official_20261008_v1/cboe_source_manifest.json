@@ -1,0 +1,115 @@
+{
+  "schema_version": "cboe_volatility_full_source_v1",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/cboe_volatility_official_20261008_v1",
+  "snapshot_dir": "/Users/rziiiii/dev/workspace/data/snapshots/cboe_volatility_official_20261008_v1",
+  "store_as_of": "2026-10-08",
+  "sources": {
+    "VIX9D": {
+      "requested_url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX9D_History.csv",
+      "final_url": "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX9D_History.csv",
+      "retrieved_at_utc": "2026-10-09T03:25:59.481156+00:00",
+      "sha256": "e6ff7521b4be50563067fce58c1998be7bd8ae66a739c4e6ca12151f6e2f643f",
+      "bytes": 201356,
+      "rows": 3964,
+      "date_range": [
+        "2011-01-04",
+        "2026-10-08"
+      ],
+      "source_columns": [
+        "DATE",
+        "OPEN",
+        "HIGH",
+        "LOW",
+        "CLOSE"
+      ],
+      "snapshot_file": "VIX9D.csv",
+      "consumed_field": "CLOSE",
+      "launch_limitations": [
+        "Earlier backfilled rows and predecessor/index-launch identities are retained, not certified as contemporaneously published.",
+        "Research excludes source observations before 2014-02-03; this conservative boundary does not resolve historical methodology or vintage uncertainty."
+      ]
+    },
+    "VIX3M": {
+      "requested_url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX3M_History.csv",
+      "final_url": "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX3M_History.csv",
+      "retrieved_at_utc": "2026-10-09T03:25:59.741463+00:00",
+      "sha256": "6c1d98c0aef234feaa70f7cba6b6c810fb30184f478d2b60bd0a1fb3667d5e83",
+      "bytes": 218815,
+      "rows": 4290,
+      "date_range": [
+        "2009-09-18",
+        "2026-10-08"
+      ],
+      "source_columns": [
+        "DATE",
+        "OPEN",
+        "HIGH",
+        "LOW",
+        "CLOSE"
+      ],
+      "snapshot_file": "VIX3M.csv",
+      "consumed_field": "CLOSE",
+      "launch_limitations": [
+        "Earlier backfilled rows and predecessor/index-launch identities are retained, not certified as contemporaneously published.",
+        "Research excludes source observations before 2014-02-03; this conservative boundary does not resolve historical methodology or vintage uncertainty."
+      ]
+    },
+    "VVIX": {
+      "requested_url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VVIX_History.csv",
+      "final_url": "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VVIX_History.csv",
+      "retrieved_at_utc": "2026-10-09T03:25:57.823439+00:00",
+      "sha256": "ee4685e2bc1c35aee05c47fa4d4bf4d4a99fc4cf6fa4c04dde339064d776a782",
+      "bytes": 108982,
+      "rows": 5121,
+      "date_range": [
+        "2006-03-06",
+        "2026-10-08"
+      ],
+      "source_columns": [
+        "DATE",
+        "VVIX"
+      ],
+      "snapshot_file": "VVIX.csv",
+      "consumed_field": "VVIX",
+      "launch_limitations": [
+        "Earlier backfilled rows and predecessor/index-launch identities are retained, not certified as contemporaneously published.",
+        "Research excludes source observations before 2014-02-03; this conservative boundary does not resolve historical methodology or vintage uncertainty."
+      ]
+    }
+  },
+  "field_map": {
+    "close": "close"
+  },
+  "raw_rows": 13375,
+  "rows_dropped": 0,
+  "calendar_range": [
+    "2006-03-06",
+    "2026-10-08"
+  ],
+  "native_fields": [
+    "$close"
+  ],
+  "synthetic_ohlc": false,
+  "provider_files_sha256": {
+    "calendars/day.txt": "136b7d2333dcea34aa68241df6a914e2f38c185f4c937563b57638ab20cafe0a",
+    "instruments/all.txt": "10e4da1e36d57d802489674b958b5b5be32fa043c8274112cc38073fe1097bf4",
+    "qlib.yaml": "73f74f8329b473db1cbae6e0ad47ac65714c0d10ea89af9f68dfdaa6afe7d207",
+    "qlib_store_manifest.json": "4b09c7e34b5708e503e0ea61c02ef615d45f399e3b4e9ffa05419606653e7716",
+    "features/vix9d/close.day.bin": "cccc9ba6c41e627911161f4e1a3dc25fccee82b8837b7eaff3478facfbbd08bc",
+    "features/vix3m/close.day.bin": "33a4d991211243c0b0538d0a4550812f07bd3779266fc08a207b43a4b46b2239",
+    "features/vvix/close.day.bin": "b9437c3973409efada02b123c3588d5a857bd37252eeec21caafc7dd1f54712c"
+  },
+  "qlib_store_hash": "bc5f90b8875a76d1",
+  "historical_vintage_certified": false,
+  "limitations": [
+    "Historical source vintages and original publication timestamps are not independently certified.",
+    "Earlier backfilled rows and predecessor/index-launch identities are retained, not certified as contemporaneously published.",
+    "Research excludes source observations before 2014-02-03; this conservative boundary does not resolve historical methodology or vintage uncertainty.",
+    "Source-day 17:00 America/New_York availability is a conservative research assumption, not a verified historical release timestamp."
+  ],
+  "source_api": [
+    "qlib.init",
+    "qlib.data.D.calendar",
+    "qlib.data.D.features"
+  ]
+}

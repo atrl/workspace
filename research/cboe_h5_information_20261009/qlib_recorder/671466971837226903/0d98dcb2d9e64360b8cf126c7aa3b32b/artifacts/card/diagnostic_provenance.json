@@ -1,0 +1,16 @@
+{
+  "recorder_id": "0d98dcb2d9e64360b8cf126c7aa3b32b",
+  "loaded_artifacts": [
+    "inputs/matched_frame.pkl",
+    "models/annual_fits.pkl",
+    "forecast/matched_predictions.pkl",
+    "analysis/paths.pkl"
+  ],
+  "new_fits": 0,
+  "new_backtests": 0,
+  "evidence_kind": "reused_history_ex_post_diagnostic",
+  "gross_path_limitation": "Fixed realized positions, not a no-cost reoptimized strategy",
+  "calibration_applied": false,
+  "maximum_daily_net_reconstruction_error": 3.2238656189065296e-12,
+  "maximum_window_log_reconstruction_error": 1.865572279990957e-11
+}

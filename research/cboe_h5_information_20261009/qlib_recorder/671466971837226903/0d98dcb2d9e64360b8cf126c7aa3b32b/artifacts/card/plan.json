@@ -1,0 +1,125 @@
+{
+  "schema_version": "cboe_h5_information_v1",
+  "experiment": "cboe_h5_information_20261009",
+  "registered_at_utc": "2026-10-09T03:49:49.381977+00:00",
+  "registered_before_fits_and_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "Previously lagged published volatility term structure and volatility-of-volatility may add conditional H5 information beyond identical price/volume features; compare only matched training rows and a fixed allocator.",
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+    "summary": "research/canonical_price_basis_20261002/summary.json",
+    "as_of": "2026-09-25"
+  },
+  "external_source": {
+    "provider_uri": "data/qlib/cboe_volatility_official_20261008_v1",
+    "snapshot_dir": "data/snapshots/cboe_volatility_official_20261008_v1",
+    "store_as_of": "2026-10-08",
+    "market_as_of": "2026-09-25",
+    "source_start": "2014-02-03",
+    "symbols": [
+      "VIX9D",
+      "VIX3M",
+      "VVIX"
+    ],
+    "features": [
+      "lag1_log_vix3m",
+      "lag1_log_term",
+      "lag1_log_vvix"
+    ],
+    "formula": [
+      "log(VIX3M_prev_native_session/100)",
+      "log(VIX9D_prev_native_session/VIX3M_prev_native_session)",
+      "log(VVIX_prev_native_session/100)"
+    ],
+    "availability_assumption": "source session17:00ET; signal session16:15ET decision reads strictly prior native session only",
+    "historical_vintage_certified": false,
+    "whole_download_preserved": true,
+    "no_store_as_of_truncation": true,
+    "SKEW": "excluded before model fits because native session gaps; no filling"
+  },
+  "train_start": "2011-01-03",
+  "matched_training_start": "2014-02-04",
+  "signal_start": "2016-01-04",
+  "fit_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "development_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "forecast_horizon_sessions": 5,
+  "ridge_alpha": 10.0,
+  "minimum_training_rows": 252,
+  "hac_lags": 5,
+  "robust_radius": 1.0,
+  "rebalance_sessions": 5,
+  "mean_uncertainty": "same training residual coefficient HAC for both models; no previously fitted OOS floor from a different model/input window",
+  "variants": [
+    {
+      "name": "base",
+      "extra_features": false,
+      "role": "matched_control"
+    },
+    {
+      "name": "base_cboe3",
+      "extra_features": true,
+      "role": "registered_information_candidate"
+    }
+  ],
+  "candidate_budget": 1,
+  "model_selection": "none_no_parameter_or_feature_search",
+  "costs_bps": [
+    10.0,
+    25.0
+  ],
+  "initial_cash": 100000.0,
+  "benchmark": "SOXX",
+  "evidence_kind": "reused_history",
+  "gates": {
+    "minimum_positive_years": 6,
+    "rolling_sessions": 252,
+    "minimum_rolling_win_rate": 0.6,
+    "bootstrap_resamples": 2000,
+    "family_size": 1
+  },
+  "gate_definition": "Unchanged complete2016-2022 paired SOXX gates at BOTH costs: aggregate positive log excess, >=6/7positive years, positive annual median, positive after any leave-one-year-out, MaxDD andCVaR5 no worse, rolling252 win>=60%, both20/60block lower>0. Historical result cannot grant production.",
+  "prediction_diagnostics": "Bothasset H5 mean MSE/IC versus matched BASE and each same-year mature prior mean, yearwise results; recorded alongside allocator results, never used to select features, flip signs, alter parameters, or drop years.",
+  "execution": "Same exact funded cost-aware certified convex optimizer as previous H5 control, only every5native sessions; HOLD in between; common past-only covariance with same-SOXX budget at rebalance; all daily paths reconciled by native Qlib. No terminal liquidation, cash0yield.",
+  "label_precision": "Same float64 daily/H5 labels recomputed from identical canonical native opens; previous-signal16:15→nextopen→later9:31maturity.",
+  "candidate_attribution": "BASE_CBOE3 vs BASE uses identical training dates, labels, base feature values, standardizer fit boundaries, penalty, allocator, costs and calendar. CBOE family is a revalidation, not a newly discovered signal; old Taleb/dynamic workflows already used related fields.",
+  "stopping": "One fixed information family, two model variants, both costs, all years retained. Do not change features/windows or fees after outcome. A failed batch requires cause analysis and a separately registered next mechanism; user goal stays active.",
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX9D_History.csv",
+    "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX3M_History.csv",
+    "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VVIX_History.csv",
+    "https://cdn.cboe.com/api/global/us_indices/governance/Volatility_Index_Methodology_Selected_SPX_Target_Expected_Volatility_Term_Indices.pdf",
+    "https://cdn.cboe.com/api/global/us_indices/governance/Volatility_Index_Methodology_Selected_Broad_Based_Index_Equity_and_ETF_Volatility_Indices.pdf"
+  ],
+  "limitations": [
+    "All comparison history reused; no independent future qualification.",
+    "Latest official history is not archived contemporaneous vintages; previous-session lag is a conservative timing assumption, not complete PIT certification.",
+    "CBOE VIX9D/VIX3M early backfills and conflicting VVIX launch documents excluded with conservative2014-02-03source boundary.",
+    "Base/full matched training window is shorter than price-only prior studies; results cannot be read as pure comparison with2011-start models.",
+    "Cash0yield, continuous shares, historical opens and retrospectively adjusted canonical prices remain assumptions."
+  ]
+}
