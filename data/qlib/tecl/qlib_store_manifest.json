@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-09-25",
-  "audit_snapshot_hash": "42b0cf3821c636bb",
-  "calendar_end": "2026-09-25",
+  "as_of": "2026-10-08",
+  "audit_snapshot_hash": "31500abfb7e39ec9",
+  "calendar_end": "2026-10-08",
   "calendar_start": "2008-12-30",
   "feature_file_count": 12,
   "fields": [
@@ -13,17 +13,17 @@
     "$vix"
   ],
   "freq": "day",
-  "hash": "6d646834befc4d80",
+  "hash": "f0a42529b7dbbde1",
   "instruments": [
     "TECL",
     "XLK"
   ],
   "market": "all",
-  "max_datetime": "2026-09-25",
+  "max_datetime": "2026-10-08",
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tecl",
   "region": "us",
-  "row_count": 8924,
+  "row_count": 8942,
   "source": "/Users/rziiiii/dev/workspace/data/processed/panels/tecl_with_underlying_vix.csv",
   "source_api": [
     "qlib.init",

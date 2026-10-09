@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-09-25",
-  "audit_snapshot_hash": "5d846f125dc6edaa",
-  "calendar_end": "2026-09-25",
+  "as_of": "2026-10-08",
+  "audit_snapshot_hash": "d070069cc81af4bf",
+  "calendar_end": "2026-10-08",
   "calendar_start": "2010-03-11",
   "feature_file_count": 12,
   "fields": [
@@ -13,17 +13,17 @@
     "$vix"
   ],
   "freq": "day",
-  "hash": "401c072b3578b418",
+  "hash": "641ff957827529de",
   "instruments": [
     "SOXL",
     "SOXX"
   ],
   "market": "all",
-  "max_datetime": "2026-09-25",
+  "max_datetime": "2026-10-08",
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
   "region": "us",
-  "row_count": 8324,
+  "row_count": 8342,
   "source": "/Users/rziiiii/dev/workspace/data/processed/panels/soxl_soxx_vix_full.csv",
   "source_api": [
     "qlib.init",
