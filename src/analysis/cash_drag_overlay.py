@@ -152,6 +152,50 @@ def constrain_variants(weights: pd.DataFrame, asset_returns: pd.DataFrame, *,
     return replay_weights(reprojected, asset_returns, cost_bps=cost_bps)
 
 
+def long_history_constraint_sweep(raw_targets: pd.DataFrame, asset_returns: pd.DataFrame, *,
+                                  variants: dict[str, dict], cost_bps: float) -> pd.DataFrame:
+    """Re-project the frozen raw upstream target under changed constraints over long history.
+
+    ``raw_targets`` has columns ``soxl_weight``/``soxx_weight`` from the frozen
+    allocation model; ``asset_returns`` has ``soxl``/``soxx`` next-open returns.
+    No signal is changed: only the three frozen sizing constraints move.
+    """
+    from src.workflow.intraday_recovery_direct_allocation import project_legal_weights
+
+    rows = []
+    soxl_ret = asset_returns["soxl"].to_numpy(float)
+    soxx_ret = asset_returns["soxx"].to_numpy(float)
+    raw_sxl = raw_targets["soxl_weight"].to_numpy(float)
+    raw_sxx = raw_targets["soxx_weight"].to_numpy(float)
+    for name, cfg in variants.items():
+        rets = np.empty(len(raw_targets))
+        held = np.array([0.0, 0.0, 1.0])
+        for i in range(len(raw_targets)):
+            raw_beta = 3.0 * raw_sxl[i] + raw_sxx[i]
+            effective = min(raw_beta, float(cfg["action_beta"]))
+            w = project_legal_weights(raw_sxl[i], raw_sxx[i], effective,
+                                      minimum_cash_weight=float(cfg["minimum_cash_weight"]),
+                                      maximum_soxl_weight=float(cfg["maximum_soxl_weight"]))
+            ar = np.array([soxl_ret[i], soxx_ret[i], 0.0])
+            drifted = held * (1.0 + ar)
+            drifted = drifted / drifted.sum()
+            fee = float(np.abs(w - drifted).sum()) * float(cost_bps) / 1e4
+            rets[i] = float(w @ ar) - fee
+            held = w
+        growth = np.cumprod(1.0 + rets)
+        benchmark = np.cumprod(1.0 + soxx_ret)
+        std = rets.std(ddof=1)
+        rows.append({
+            "variant": name, "cost_bps": cost_bps, **cfg,
+            "strategy_return_pct": 100.0 * float(growth[-1] - 1.0),
+            "benchmark_return_pct": 100.0 * float(benchmark[-1] - 1.0),
+            "strategy_sharpe": float(rets.mean() / std * np.sqrt(ANNUALIZATION_SESSIONS)) if std > 0 else 0.0,
+            "strategy_max_drawdown_pct": 100.0 * float((growth / np.maximum.accumulate(growth) - 1.0).min()),
+            "beats_benchmark_return": bool(growth[-1] > benchmark[-1]),
+        })
+    return pd.DataFrame(rows)
+
+
 def diagnose_cash_source(*, raw_weights: pd.DataFrame, legal_weights: pd.DataFrame,
                          overlay_cap: float = 0.0) -> pd.DataFrame:
     """Compare the raw policy target with the legal (capped) target per session.

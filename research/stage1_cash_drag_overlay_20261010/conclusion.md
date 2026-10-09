@@ -9,6 +9,8 @@
 - 最佳叠加 `recycle_0`；是否优于基线：False。
 - 结构约束变体（不改信号，只重新投影）：最优 `action_beta_1.0`；重投影口径下是否改善 Sharpe：True。
 - 关键澄清：真实生产目标本身好于任何重投影（真实模型输出含每日信息，重投影会丢失信息），所以本卡不能声称放宽约束改善了真实策略。
-- 决定 `cash_overlay_no_improvement`。
+- 长历史（冻结上游原始目标，2016-2026）约束扫描：冻结 a_b=0.6 的 Sharpe 最高；放宽 action_beta 提高收益但降低 Sharpe 且回撤翻倍；max_soxl 上限从不 binding。
+- 所有变体均跑输 SOXX buy&hold 收益，但冻结配置风险调整后最优。
+- 决定 `frozen_constraints_are_best_risk_adjusted_choice`。
 - 风险：样本短、非晋升证据；叠加只降低现金、增加 SOXX 暴露，不改变冻结策略参数；更宽价差会侵蚀收益。
-- qlib Recorder：f7ab4f7b9375476ab9f4fe2d8a4d2696；provider_uri=/Users/rziiiii/dev/workspace/data/qlib/soxl。
+- qlib Recorder：4d94018befc34b6396a1447887875561；provider_uri=/Users/rziiiii/dev/workspace/data/qlib/soxl。

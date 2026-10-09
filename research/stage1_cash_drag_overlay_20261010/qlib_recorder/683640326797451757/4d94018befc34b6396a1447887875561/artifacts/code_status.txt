@@ -1,0 +1,27 @@
+On branch research/benchmark-core-variance-20261009
+You are in a sparse checkout with 50% of tracked files present.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/artifacts/code_cached.txt
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/artifacts/code_diff.txt
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/artifacts/code_status.txt
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/artifacts/summary_json
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/meta.yaml
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/metrics/baseline_sharpe
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/metrics/best_sharpe
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/metrics/improvement
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/params/best_overlay
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/params/cmd-sys.argv
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/params/costs_bps
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/params/schema_version
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/tags/mlflow.runName
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/tags/mlflow.source.name
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/tags/mlflow.source.type
+	deleted:    qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696/tags/mlflow.user
+	deleted:    qlib_recorder/510051247624533891/meta.yaml
+	modified:   ../../src/analysis/cash_drag_overlay.py
+	modified:   ../../src/workflow/cash_drag_overlay.py
+
+no changes added to commit (use "git add" and/or "git commit -a")

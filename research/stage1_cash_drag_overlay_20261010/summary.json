@@ -2,7 +2,7 @@
   "experiment": "stage1_cash_drag_overlay_20261010",
   "schema_version": "stage1_cash_drag_overlay_v1",
   "card_status": "diagnostic",
-  "decision": "cash_overlay_no_improvement",
+  "decision": "frozen_constraints_are_best_risk_adjusted_choice",
   "promotion_eligible": false,
   "objective_achieved": false,
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
@@ -463,6 +463,56 @@
   ],
   "best_constraint_variant": "action_beta_1.0",
   "constraint_improvement": true,
+  "long_history_sweep": [
+    {
+      "variant": "frozen_a_b0.6",
+      "cost_bps": 10.0,
+      "action_beta": 0.6,
+      "maximum_soxl_weight": 0.3,
+      "minimum_cash_weight": 0.15,
+      "strategy_return_pct": 450.712824786349,
+      "benchmark_return_pct": 1906.3591967669954,
+      "strategy_sharpe": 0.9283160776681215,
+      "strategy_max_drawdown_pct": -31.679400064659646,
+      "beats_benchmark_return": false
+    },
+    {
+      "variant": "action_beta_1.0",
+      "cost_bps": 10.0,
+      "action_beta": 1.0,
+      "maximum_soxl_weight": 0.3,
+      "minimum_cash_weight": 0.15,
+      "strategy_return_pct": 1042.469255735819,
+      "benchmark_return_pct": 1906.3591967669954,
+      "strategy_sharpe": 0.8954315309499785,
+      "strategy_max_drawdown_pct": -45.742415704809126,
+      "beats_benchmark_return": false
+    },
+    {
+      "variant": "action_beta_1.5",
+      "cost_bps": 10.0,
+      "action_beta": 1.5,
+      "maximum_soxl_weight": 0.3,
+      "minimum_cash_weight": 0.15,
+      "strategy_return_pct": 1715.354824319495,
+      "benchmark_return_pct": 1906.3591967669954,
+      "strategy_sharpe": 0.894187997693577,
+      "strategy_max_drawdown_pct": -52.060505928335786,
+      "beats_benchmark_return": false
+    },
+    {
+      "variant": "max_soxl_0.50",
+      "cost_bps": 10.0,
+      "action_beta": 0.6,
+      "maximum_soxl_weight": 0.5,
+      "minimum_cash_weight": 0.15,
+      "strategy_return_pct": 450.712824786349,
+      "benchmark_return_pct": 1906.3591967669954,
+      "strategy_sharpe": 0.9283160776681215,
+      "strategy_max_drawdown_pct": -31.679400064659646,
+      "beats_benchmark_return": false
+    }
+  ],
   "qlib_data_api": [
     "qlib.data.D.features"
   ],
@@ -481,10 +531,10 @@
     "The overlay raises SOXX exposure and therefore lowers cash; it cannot increase the SOXL weight.",
     "The production policy's own frozen parameters are unchanged."
   ],
-  "recorder_id": "f7ab4f7b9375476ab9f4fe2d8a4d2696",
-  "experiment_id": "510051247624533891",
+  "recorder_id": "4d94018befc34b6396a1447887875561",
+  "experiment_id": "683640326797451757",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_cash_drag_overlay_20261010/qlib_recorder",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_cash_drag_overlay_20261010/qlib_recorder/510051247624533891/f7ab4f7b9375476ab9f4fe2d8a4d2696",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_cash_drag_overlay_20261010/qlib_recorder/683640326797451757/4d94018befc34b6396a1447887875561",
   "qlib_docs_reference": [
     "https://qlib.readthedocs.io/en/latest/component/data.html",
     "https://qlib.readthedocs.io/en/latest/component/recorder.html"

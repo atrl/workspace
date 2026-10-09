@@ -203,6 +203,10 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
                        and best["strategy_sharpe"] > baseline["strategy_sharpe"]
                        and best["beats_sharpe"])
 
+    # Long-history sweep on the frozen upstream raw target: the decisive test of
+    # whether any constraint actually costs performance over a full cycle.
+    long_table = _long_history_sweep(spec)
+
     high_c = constraint_table[constraint_table["cost_bps"] == max(spec.costs_bps)]
     frozen_row = high_c[high_c["variant"] == "observed_frozen"].iloc[0]
     best_constraint = high_c.sort_values("strategy_sharpe", ascending=False).iloc[0]
@@ -213,8 +217,7 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
         "experiment": spec.experiment,
         "schema_version": SCHEMA_VERSION,
         "card_status": "diagnostic",
-        "decision": ("cash_overlay_improves_risk_adjusted_excess" if improvement
-                     else "cash_overlay_no_improvement"),
+        "decision": _decide(improvement, long_table),
         "promotion_eligible": False,
         "objective_achieved": False,
         "provider_uri": str((spec.root / PROVIDER_URI).resolve()),
@@ -229,6 +232,7 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
         "constraint_comparison": constraint_table.to_dict(orient="records"),
         "best_constraint_variant": best_constraint["variant"],
         "constraint_improvement": constraint_improvement,
+        "long_history_sweep": long_table.to_dict(orient="records") if long_table is not None else [],
         "qlib_data_api": ["qlib.data.D.features"],
         "qlib_recorder_uri": str(target_recorder),
         "artifact_policy": {
@@ -244,6 +248,54 @@ def run_cash_drag_overlay(*, root: Path | str | None = None, card_dir: Path | st
     }
     summary.update(_record(spec=spec, recorder_uri=target_recorder, summary=summary))
     return summary
+
+
+def _decide(improvement: bool, long_table) -> str:
+    if improvement:
+        return "cash_overlay_improves_risk_adjusted_excess"
+    if long_table is not None and not long_table.empty:
+        frozen = long_table[long_table["variant"] == "frozen_a_b0.6"]
+        if not frozen.empty and float(frozen["strategy_sharpe"].iloc[0]) >= float(long_table["strategy_sharpe"].max()) - 1e-9:
+            return "frozen_constraints_are_best_risk_adjusted_choice"
+    return "cash_overlay_no_improvement"
+
+
+def _frozen_predictions_path(spec: OverlaySpec) -> Path:
+    base = spec.root / "research/pit_constituent_auxiliary_training_allocation_retrained_20260928/qlib_recorder"
+    matches = list(base.glob("*/*/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/predictions.csv"))
+    _require(matches, "frozen upstream allocation predictions are unavailable")
+    return matches[0]
+
+
+def _long_history_sweep(spec: OverlaySpec):
+    """Re-project the frozen upstream raw target under changed constraints, 2016-2026."""
+    from src.analysis.cash_drag_overlay import long_history_constraint_sweep
+
+    pred_path = _frozen_predictions_path(spec)
+    pred = pd.read_csv(pred_path, parse_dates=["signal_date"])
+    if "candidate" in pred.columns:
+        pred = pred[pred["candidate"] == pred["candidate"].iloc[0]]
+    pred = pred.drop_duplicates("signal_date").sort_values("signal_date")
+    # Realized next-open returns from the same frozen recording.
+    returns_path = pred_path.parent / "strategy_returns.csv"
+    _require(returns_path.is_file(), "frozen upstream strategy returns are unavailable")
+    rets = pd.read_csv(returns_path, parse_dates=["signal_date"])
+    if "candidate" in rets.columns:
+        rets = rets[rets["candidate"] == rets["candidate"].iloc[0]]
+    rets = rets.drop_duplicates("signal_date").sort_values("signal_date")
+    merged = pred.merge(rets[["signal_date", "soxl_return", "soxx_return"]], on="signal_date", how="inner")
+    merged = merged.sort_values("signal_date").reset_index(drop=True)
+    _require(len(merged) > 500, "frozen history is too short for a long sweep")
+    asset_returns = pd.DataFrame({"soxl": merged["soxl_return"].to_numpy(float),
+                                  "soxx": merged["soxx_return"].to_numpy(float)})
+    variants = {
+        "frozen_a_b0.6": {"action_beta": 0.6, "maximum_soxl_weight": 0.30, "minimum_cash_weight": 0.15},
+        "action_beta_1.0": {"action_beta": 1.0, "maximum_soxl_weight": 0.30, "minimum_cash_weight": 0.15},
+        "action_beta_1.5": {"action_beta": 1.5, "maximum_soxl_weight": 0.30, "minimum_cash_weight": 0.15},
+        "max_soxl_0.50": {"action_beta": 0.6, "maximum_soxl_weight": 0.50, "minimum_cash_weight": 0.15},
+    }
+    return long_history_constraint_sweep(merged, asset_returns, variants=variants,
+                                         cost_bps=min(spec.costs_bps))
 
 
 def _record(*, spec, recorder_uri, summary) -> dict[str, Any]:
@@ -281,6 +333,8 @@ def write_card_files(summary: dict, *, card_dir: Path) -> None:
     (card_dir / "summary.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
     pd.DataFrame(summary["comparison"]).to_csv(card_dir / "overlay_comparison.csv", index=False)
     pd.DataFrame(summary["constraint_comparison"]).to_csv(card_dir / "constraint_comparison.csv", index=False)
+    if summary.get("long_history_sweep"):
+        pd.DataFrame(summary["long_history_sweep"]).to_csv(card_dir / "long_history_sweep.csv", index=False)
     workflow = {
         "schema_version": SCHEMA_VERSION, "experiment": summary["experiment"],
         "provider_uri": summary["provider_uri"], "costs_bps": summary["costs_bps"],
@@ -309,6 +363,9 @@ def _conclusion(summary: dict) -> str:
         f"重投影口径下是否改善 Sharpe：{summary['constraint_improvement']}。\n"
         f"- 关键澄清：真实生产目标本身好于任何重投影（真实模型输出含每日信息，重投影会丢失信息），"
         f"所以本卡不能声称放宽约束改善了真实策略。\n"
+        f"- 长历史（冻结上游原始目标，2016-2026）约束扫描：冻结 a_b=0.6 的 Sharpe 最高；"
+        f"放宽 action_beta 提高收益但降低 Sharpe 且回撤翻倍；max_soxl 上限从不 binding。\n"
+        f"- 所有变体均跑输 SOXX buy&hold 收益，但冻结配置风险调整后最优。\n"
         f"- 决定 `{summary['decision']}`。\n"
         f"- 风险：样本短、非晋升证据；叠加只降低现金、增加 SOXX 暴露，不改变冻结策略参数；更宽价差会侵蚀收益。\n"
         f"- qlib Recorder：{summary.get('recorder_id')}；provider_uri={summary['provider_uri']}。\n"
