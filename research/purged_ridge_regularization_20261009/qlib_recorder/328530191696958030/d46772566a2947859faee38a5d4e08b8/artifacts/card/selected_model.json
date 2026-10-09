@@ -1,0 +1,19 @@
+{
+  "selected_for_promotion": null,
+  "selection_protocol": "purged_previous_year_normalized_MSE",
+  "selected_by_year": {
+    "2016": "prior",
+    "2017": "ridge_1000",
+    "2018": "prior",
+    "2019": "ridge_1000",
+    "2020": "prior",
+    "2021": "ridge_1000",
+    "2022": "ridge_10",
+    "2023": "prior",
+    "2024": "prior",
+    "2025": "prior",
+    "2026": "ridge_1000"
+  },
+  "promotion_eligible": false,
+  "campaign_status": "active_research"
+}

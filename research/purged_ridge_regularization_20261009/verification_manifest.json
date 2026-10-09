@@ -1,0 +1,2584 @@
+{
+  "schema_version": "purged_ridge_artifact_manifest_v1",
+  "recorder_id": "d46772566a2947859faee38a5d4e08b8",
+  "as_of": "2026-09-25",
+  "campaign_status": "active_research",
+  "first_recorder_id": "448efe19737f433bb4fae407ed860f36",
+  "training_start": "2011-01-03",
+  "large_artifact_rationale": "All fixed inner candidates, exact outer fits/forecasts and native reports retained to audit causal selection; repeated run is a provenance verification, not independent evidence.",
+  "verification": {
+    "focused_passed": 158,
+    "independent_checks_passed": 153,
+    "financial_objects_exact_between_runs": true,
+    "first_recorder_id": "448efe19737f433bb4fae407ed860f36",
+    "required_suite": {
+      "passed": 8,
+      "failed": 61,
+      "reason": "existing missing historical cards in sparse checkout"
+    },
+    "full_suite": {
+      "collection_errors": 15,
+      "reason": "existing archived basename conflicts"
+    },
+    "native_maximum_return_error": 5.5673e-12,
+    "notebook_executed": true
+  },
+  "entries": [
+    {
+      "path": "research/purged_ridge_regularization_20261009/ablation_comparison.csv",
+      "sha256": "955eca16a37d02bc526dd74b3a4233b8a759bdf17052a556f43f8923189961ba",
+      "bytes": 3241,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/annual_metrics.csv",
+      "sha256": "c868d4b99ce3264d1291340ee79b3f31c0e7994f31c7f6b8e264980ca1b458b9",
+      "bytes": 39751,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/backtest_benchmark_comparison.csv",
+      "sha256": "56dcc00a0ce2043890eb3037dbcfb2402c67d4f7aa156976a8cfed8408b47cf3",
+      "bytes": 7623,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/bootstrap_analysis.csv",
+      "sha256": "a7f6cc8f838d0f40fe7823ee6d2e486d388c2e19f25a68edbfd5d7a0daddb1d6",
+      "bytes": 2140,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/conclusion.md",
+      "sha256": "bf91b5877c585e043a7211e9f2d577f1648f4f893343de7489c440b6b6ee7fdf",
+      "bytes": 4206,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/diagnosis.md",
+      "sha256": "513a050f93818ace24a9dbe2b89efbd3f731b5a50ca6a4b6d104c20a80a091f6",
+      "bytes": 6384,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/diagnostic_first_active_episode.csv",
+      "sha256": "33d570cde3ac79ca572486362b95710f7249f2aea13586ed410961c5f1921737",
+      "bytes": 325,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/diagnostic_initial_state.csv",
+      "sha256": "cfbe874d52c9fc02354f3f9527d076f89e45e847565ea959ce4e0cda9153e836",
+      "bytes": 1416,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/diagnostic_numeric_annual_excess.csv",
+      "sha256": "d7713d12f998248b9c9e5a3ac0c0e416c1d967d792be9923a865ee7441e648c4",
+      "bytes": 6051,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/diagnostic_numeric_gate_effect.csv",
+      "sha256": "0b17df611a1818d73c18dc9144531aa91b89b3ae2986e833d55b613dfae6ad94",
+      "bytes": 452,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/diagnostic_numerical_floor.md",
+      "sha256": "cef09f954cb3cd04d531c09208dee0c753f3038cebcee8ee1a07022b699ef7b8",
+      "bytes": 1419,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/diagnostic_portfolio_attribution.csv",
+      "sha256": "17070f28d21ef52a8901ef3fa6833ccf65a121df586624bd2031f5b6c70e9925",
+      "bytes": 12599,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/forecast_bootstrap.csv",
+      "sha256": "a221fc0efacdaaba57efe54f7c6418faa49932c93d42157bf75d4be9cc86ba7f",
+      "bytes": 6262,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/forecast_increments.csv",
+      "sha256": "c736bd3b8f69de93ffb9075a90f115cc669fdcfe06c3c82f8ba2930db112b512",
+      "bytes": 11022,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/forecast_metrics.csv",
+      "sha256": "baa931a0ba29454f0d498907c40d8948aaaed34b888e35ead3989aaeb61816d2",
+      "bytes": 23321,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/gates.csv",
+      "sha256": "2800d4ecd15819cf52b4f6b4f3b622d9211a4307d5a282ce6e1d843032c70200",
+      "bytes": 577,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/model_selection.csv",
+      "sha256": "4c41d8d4f733c91985976e33174d8cfd4101dac4645d209a8b6241de20273150",
+      "bytes": 223,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/native_audit.csv",
+      "sha256": "f1117c3468cdeca97a196bcacbf1637342b924163760572561b72edf09892cbf",
+      "bytes": 3616,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/parent_control_reproduction.csv",
+      "sha256": "bd51100bccc982b1a0b7ed10b5c131bd9daa43211258c4f8d205e4bf836dda8f",
+      "bytes": 312,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/plan.json",
+      "sha256": "3581725ab15b991f07956cbccd43ac068dfcb7385d83ae73c19d0da267fb3f0b",
+      "bytes": 5234,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/purged_ridge_regularization_20261009.ipynb",
+      "sha256": "6420c09520119e5b5bd2cfa0f92a3f9a67d5bb49154d18ee13381baf5ce28014",
+      "bytes": 224858,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/0/meta.yaml",
+      "sha256": "41b423c9f0440e6aeaf8eb6b46863680277091f1cb7cad1695f6568a8520fd07",
+      "bytes": 309,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/analysis/forecast_statistics.pkl",
+      "sha256": "96ef0c2aeca04d4c7dd8b71cc99756cc85fdf56ab524c9207be6767db1e7226c",
+      "bytes": 16513,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/analysis/gates.pkl",
+      "sha256": "9a611489d02fa6426afd4385c597a109cb0d046ff4604a4897b2f14faa181310",
+      "bytes": 11416,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/analysis/paths.pkl",
+      "sha256": "dbdb69380fcba4c5435e70564ce759cda86ae79bd2117761412fa64ee11c590d",
+      "bytes": 2786406,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/analysis/solver_details.pkl.gz",
+      "sha256": "d231fb196d785e9d4db2f884bf269980c772e4a6d2d2d176a2e7c2c8995adc15",
+      "bytes": 739519,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/ablation_comparison.csv",
+      "sha256": "955eca16a37d02bc526dd74b3a4233b8a759bdf17052a556f43f8923189961ba",
+      "bytes": 3241,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/annual_metrics.csv",
+      "sha256": "c868d4b99ce3264d1291340ee79b3f31c0e7994f31c7f6b8e264980ca1b458b9",
+      "bytes": 39751,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/backtest_benchmark_comparison.csv",
+      "sha256": "56dcc00a0ce2043890eb3037dbcfb2402c67d4f7aa156976a8cfed8408b47cf3",
+      "bytes": 7623,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/bootstrap_analysis.csv",
+      "sha256": "a7f6cc8f838d0f40fe7823ee6d2e486d388c2e19f25a68edbfd5d7a0daddb1d6",
+      "bytes": 2140,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/conclusion.md",
+      "sha256": "19bcd5d2bf26cbdc022a5e5cef6d998e5873ef345492cc1ef0a930ed95038a4e",
+      "bytes": 2289,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/forecast_bootstrap.csv",
+      "sha256": "a221fc0efacdaaba57efe54f7c6418faa49932c93d42157bf75d4be9cc86ba7f",
+      "bytes": 6262,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/forecast_increments.csv",
+      "sha256": "c736bd3b8f69de93ffb9075a90f115cc669fdcfe06c3c82f8ba2930db112b512",
+      "bytes": 11022,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/forecast_metrics.csv",
+      "sha256": "baa931a0ba29454f0d498907c40d8948aaaed34b888e35ead3989aaeb61816d2",
+      "bytes": 23321,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/gates.csv",
+      "sha256": "2800d4ecd15819cf52b4f6b4f3b622d9211a4307d5a282ce6e1d843032c70200",
+      "bytes": 577,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/native_audit.csv",
+      "sha256": "f1117c3468cdeca97a196bcacbf1637342b924163760572561b72edf09892cbf",
+      "bytes": 3616,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/parent_control_reproduction.csv",
+      "sha256": "bd51100bccc982b1a0b7ed10b5c131bd9daa43211258c4f8d205e4bf836dda8f",
+      "bytes": 312,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/plan.json",
+      "sha256": "3581725ab15b991f07956cbccd43ac068dfcb7385d83ae73c19d0da267fb3f0b",
+      "bytes": 5234,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/rolling_summary.csv",
+      "sha256": "a9b539f46cc7adc0d1bcb98856cae52a9b3849ae1fdd40ed3cacbed5f8fe957a",
+      "bytes": 489,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/run_binding.json",
+      "sha256": "bbfb38dc5e1035976d9440a5ceb6f1e9c3d14c3d38e47e7543d3a67edd4476c0",
+      "bytes": 11858,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/selection_audit.csv",
+      "sha256": "2f20c965fe3471cc0c4401a6d9514f1d50af440a4e7516cae4b37f01e945b51a",
+      "bytes": 42597,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/selection_scores.csv",
+      "sha256": "7b329efb758370728821f8179673dab42b477fd351f59fe5b647d79c921baac6",
+      "bytes": 8889,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/solver_summary.csv",
+      "sha256": "03deb4b6c1a6a35f4c948627983ab54584eaae606fd4f5e62a91be8a1fde5a65",
+      "bytes": 1561,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/summary.json",
+      "sha256": "33961a280beb75d85d9eeb09b5714445bc83aafbf83d7122e9043e9503bb59f9",
+      "bytes": 8118,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/card/workflow.yaml",
+      "sha256": "6d99f8427fef5fc2bf06454cf30ec7169064dea874ceb0d23d655108b3b0961b",
+      "bytes": 969,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/execution/before_reference_guard/purged_ridge_regularization_20261009.ipynb",
+      "sha256": "5424c6b4d58d63d9d35e189a9a9affd49f783163bce32f874a8305f1ccfe0f7f",
+      "bytes": 645907,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/execution/before_reference_guard/run_binding.json",
+      "sha256": "bbfb38dc5e1035976d9440a5ceb6f1e9c3d14c3d38e47e7543d3a67edd4476c0",
+      "bytes": 11858,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/execution/before_reference_guard/summary.json",
+      "sha256": "33961a280beb75d85d9eeb09b5714445bc83aafbf83d7122e9043e9503bb59f9",
+      "bytes": 8118,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/forecast/forecasts.pkl",
+      "sha256": "85240b7d5fbdfeef65c7a6821fc351c53a5b00f652ac7d325b315be5e792ce7c",
+      "bytes": 563519,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/forecast/matched_predictions.pkl",
+      "sha256": "e6c7e93baefb2a07b97f7d3f5ec34c29853ef694798f35fd82c75e7e90864e50",
+      "bytes": 282536,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/forecast/selection_audit.pkl",
+      "sha256": "0304a48abd5a586b6d4c61ee2eca1b0c43d0480477d96cb7deb7163cb8f9e8e1",
+      "bytes": 22544,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/forecast/selection_scores.pkl",
+      "sha256": "0e881c5703c95d58fc85c7142242ff7308ff1f56d1344619442089222f1e99a0",
+      "bytes": 7485,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/inputs/binding.pkl",
+      "sha256": "4a416c03fda76e310e7b05ba8b39df31de7b3222479b2caa677f07e1b3d8b37a",
+      "bytes": 9709,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/inputs/frame.pkl",
+      "sha256": "8e0bd681836de2d3b9abd509ded866554bc8d0f31586baf3a12cba472e0b949f",
+      "bytes": 1285529,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/inputs/plan.pkl",
+      "sha256": "0655e92e5cc5ce81f080cbba753237bd12f17b97d5b46594fece5450888aaaf2",
+      "bytes": 4723,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/models/annual_fits.pkl",
+      "sha256": "10960101f5c34419c48bca1f161ace463deb8c5af16493985f28d2181e0261c2",
+      "bytes": 509113,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/models/inner_fits.pkl",
+      "sha256": "3216bcc432e7897da33d098009fca44ec9df8668325eb23d92bf67ff1fe19e6d",
+      "bytes": 1016471,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/portfolio_analysis/native_reports.pkl.gz",
+      "sha256": "4d6db7a420048eb73cbc8ea2f0d0f83e4179cd5c95cf4ac6eb5dde8ff5259cb0",
+      "bytes": 2221771,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/analysis/benchmark_relative_protocol.py",
+      "sha256": "e9f3d14f4c413dcb16df9483b9cbbeab94002a1beb8d5da2ac83fdbdb45835e5",
+      "bytes": 12999,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/analysis/convex_qlib.py",
+      "sha256": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "bytes": 7707,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/analysis/expert_information_attribution.py",
+      "sha256": "99143f61419a6646b485f619f0c4002b8933d519a6b8c11ebd0bd716178d614a",
+      "bytes": 12406,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/analysis/forecast_increment.py",
+      "sha256": "72383f8bb4d308b1327e7fac5d91b6525a7669c1a2ad6859f8c6c5f316bd0f12",
+      "bytes": 13145,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/analysis/integrated_allocation.py",
+      "sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "bytes": 23523,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/backtest/benchmark_relative_replay.py",
+      "sha256": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc",
+      "bytes": 6757,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/backtest/horizon_matched_allocation.py",
+      "sha256": "4854faa634e7e5aac24fbe6146829dcc6de1fd3c5b3982ca5e49a88abd8414e3",
+      "bytes": 7874,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/backtest/position_accounting.py",
+      "sha256": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "bytes": 3494,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/backtest/qlib_continuous_position.py",
+      "sha256": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "bytes": 2543,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/backtest/strategy.py",
+      "sha256": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+      "bytes": 4618,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/core/recorder_artifacts.py",
+      "sha256": "144eb16c79aef62ecc9421cbb0972c803d31aee289686f0a81460d7e203071fb",
+      "bytes": 1701,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/data/benchmark_relative_data.py",
+      "sha256": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+      "bytes": 3123,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/data/conditional_variance.py",
+      "sha256": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+      "bytes": 20173,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/data/convex_allocation.py",
+      "sha256": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "bytes": 15455,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/data/legacy_execution_view.py",
+      "sha256": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+      "bytes": 7925,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/data/oos_horizon_inputs.py",
+      "sha256": "0b247d44b0f23c7e6f974747411c4aae2171529759d6220c1d719ea491e1d68b",
+      "bytes": 5468,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/data/price_basis.py",
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "bytes": 20780,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/data/qlib_native.py",
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "bytes": 19985,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/factor/soxx_pit_tail_factors.py",
+      "sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "bytes": 17962,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/model/annual_ridge_selection.py",
+      "sha256": "bad54aaac796dfe931a18a5dfef28966658a8dcdf9a463d3d838a7da7444d171",
+      "bytes": 16972,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/model/certified_convex_allocation.py",
+      "sha256": "ceb458bfd93cfa1c44a5efb08c05748253899a1c74410c1fd2b6279895c29d3f",
+      "bytes": 2571,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/model/convex_allocation.py",
+      "sha256": "28228f8db1a8d6acf42dcffebd5e7edbaef857146ee7cd3bc067970a702eb86c",
+      "bytes": 29948,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/model/online_expert_allocation.py",
+      "sha256": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+      "bytes": 9242,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/model/oos_mean_uncertainty.py",
+      "sha256": "ce8177c698b748cadcb173940e90875dc6a5bd751f00f4ff3392e89e2e6ecde7",
+      "bytes": 7932,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/model/post_fee_settlement.py",
+      "sha256": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+      "bytes": 6469,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/workflow/benchmark_evidence.py",
+      "sha256": "f8903131c3cabc3d0bfe8a53dfc817436882b0e2d37d2f2a5935d5c484f44cbd",
+      "bytes": 4070,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/workflow/benchmark_relative_research.py",
+      "sha256": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+      "bytes": 15478,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/workflow/benchmark_risk_excess.py",
+      "sha256": "26fcd325ca5cd20ed37eec9e8296b477eedc907e4c815af802d448236b5cdbcd",
+      "bytes": 22622,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/workflow/oos_uncertainty_horizon.py",
+      "sha256": "b25e10d52968f5e849a2e67156290effdc8a66e66a3fcd71ebb947d751811831",
+      "bytes": 22113,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/workflow/purged_ridge_regularization.py",
+      "sha256": "8b458d821db21ee6df5d542977dfcdbd2a16645c35c68f3b07c36d5440121a59",
+      "bytes": 20124,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/artifacts/source/src/workflow/stage1_economic_action.py",
+      "sha256": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "bytes": 14463,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/meta.yaml",
+      "sha256": "a47a9599dcd57aa69dd2e2a356c423398b715d34663c87b49ceefe0feb6e749b",
+      "bytes": 449,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/params/candidate_budget",
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "bytes": 1,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/params/cmd-sys.argv",
+      "sha256": "d908c438ebc758fcb68d66fb9ae3f46dbf786eec43663d1e9dbcf880af69a854",
+      "bytes": 202,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/params/evidence_kind",
+      "sha256": "65f130ea3e4720777896e52f29f804d337f476ea55561a265b1fe9df07253f79",
+      "bytes": 14,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/params/inner_candidates",
+      "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a",
+      "bytes": 1,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/params/plan_sha256",
+      "sha256": "38da94c2a7fbb8fedb51a6bc8c0aad951bac9b3f1b45912ed8f87992e2bf0979",
+      "bytes": 64,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "bytes": 89,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/448efe19737f433bb4fae407ed860f36/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/analysis/forecast_statistics.pkl",
+      "sha256": "96ef0c2aeca04d4c7dd8b71cc99756cc85fdf56ab524c9207be6767db1e7226c",
+      "bytes": 16513,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/analysis/gates.pkl",
+      "sha256": "9a611489d02fa6426afd4385c597a109cb0d046ff4604a4897b2f14faa181310",
+      "bytes": 11416,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/analysis/paths.pkl",
+      "sha256": "dbdb69380fcba4c5435e70564ce759cda86ae79bd2117761412fa64ee11c590d",
+      "bytes": 2786406,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/analysis/solver_details.pkl.gz",
+      "sha256": "21cd7eba088df7ba6a2d434ac6296270cd3bbea60e49279f38b9d888839de619",
+      "bytes": 739509,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/ablation_comparison.csv",
+      "sha256": "955eca16a37d02bc526dd74b3a4233b8a759bdf17052a556f43f8923189961ba",
+      "bytes": 3241,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/annual_metrics.csv",
+      "sha256": "c868d4b99ce3264d1291340ee79b3f31c0e7994f31c7f6b8e264980ca1b458b9",
+      "bytes": 39751,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/backtest_benchmark_comparison.csv",
+      "sha256": "56dcc00a0ce2043890eb3037dbcfb2402c67d4f7aa156976a8cfed8408b47cf3",
+      "bytes": 7623,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/bootstrap_analysis.csv",
+      "sha256": "a7f6cc8f838d0f40fe7823ee6d2e486d388c2e19f25a68edbfd5d7a0daddb1d6",
+      "bytes": 2140,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/conclusion.md",
+      "sha256": "bf91b5877c585e043a7211e9f2d577f1648f4f893343de7489c440b6b6ee7fdf",
+      "bytes": 4206,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/diagnosis.md",
+      "sha256": "513a050f93818ace24a9dbe2b89efbd3f731b5a50ca6a4b6d104c20a80a091f6",
+      "bytes": 6384,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/diagnostic_first_active_episode.csv",
+      "sha256": "33d570cde3ac79ca572486362b95710f7249f2aea13586ed410961c5f1921737",
+      "bytes": 325,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/diagnostic_initial_state.csv",
+      "sha256": "cfbe874d52c9fc02354f3f9527d076f89e45e847565ea959ce4e0cda9153e836",
+      "bytes": 1416,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/diagnostic_numeric_annual_excess.csv",
+      "sha256": "d7713d12f998248b9c9e5a3ac0c0e416c1d967d792be9923a865ee7441e648c4",
+      "bytes": 6051,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/diagnostic_numeric_gate_effect.csv",
+      "sha256": "0b17df611a1818d73c18dc9144531aa91b89b3ae2986e833d55b613dfae6ad94",
+      "bytes": 452,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/diagnostic_numerical_floor.md",
+      "sha256": "cef09f954cb3cd04d531c09208dee0c753f3038cebcee8ee1a07022b699ef7b8",
+      "bytes": 1419,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/diagnostic_portfolio_attribution.csv",
+      "sha256": "17070f28d21ef52a8901ef3fa6833ccf65a121df586624bd2031f5b6c70e9925",
+      "bytes": 12599,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/forecast_bootstrap.csv",
+      "sha256": "a221fc0efacdaaba57efe54f7c6418faa49932c93d42157bf75d4be9cc86ba7f",
+      "bytes": 6262,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/forecast_increments.csv",
+      "sha256": "c736bd3b8f69de93ffb9075a90f115cc669fdcfe06c3c82f8ba2930db112b512",
+      "bytes": 11022,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/forecast_metrics.csv",
+      "sha256": "baa931a0ba29454f0d498907c40d8948aaaed34b888e35ead3989aaeb61816d2",
+      "bytes": 23321,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/gates.csv",
+      "sha256": "2800d4ecd15819cf52b4f6b4f3b622d9211a4307d5a282ce6e1d843032c70200",
+      "bytes": 577,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/model_selection.csv",
+      "sha256": "4c41d8d4f733c91985976e33174d8cfd4101dac4645d209a8b6241de20273150",
+      "bytes": 223,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/native_audit.csv",
+      "sha256": "f1117c3468cdeca97a196bcacbf1637342b924163760572561b72edf09892cbf",
+      "bytes": 3616,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/parent_control_reproduction.csv",
+      "sha256": "bd51100bccc982b1a0b7ed10b5c131bd9daa43211258c4f8d205e4bf836dda8f",
+      "bytes": 312,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/plan.json",
+      "sha256": "3581725ab15b991f07956cbccd43ac068dfcb7385d83ae73c19d0da267fb3f0b",
+      "bytes": 5234,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/purged_ridge_regularization_20261009.ipynb",
+      "sha256": "6420c09520119e5b5bd2cfa0f92a3f9a67d5bb49154d18ee13381baf5ce28014",
+      "bytes": 224858,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/risk_analysis.csv",
+      "sha256": "ab630fa6d1e74a00e910693a92ef03694800ac48d3b74e8dbfe6c1031e943668",
+      "bytes": 1418,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/rolling_summary.csv",
+      "sha256": "a9b539f46cc7adc0d1bcb98856cae52a9b3849ae1fdd40ed3cacbed5f8fe957a",
+      "bytes": 489,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/run_binding.json",
+      "sha256": "8e63f792fdc120c9b27b87df1c041c4f2ccd3343027ed98efceb71f8d248791b",
+      "bytes": 11858,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/selected_model.json",
+      "sha256": "3b0a701e64790ff6a909df57de86b1acddc373c6124656efac06b240dc57c38f",
+      "bytes": 453,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/selection_audit.csv",
+      "sha256": "2f20c965fe3471cc0c4401a6d9514f1d50af440a4e7516cae4b37f01e945b51a",
+      "bytes": 42597,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/selection_scores.csv",
+      "sha256": "7b329efb758370728821f8179673dab42b477fd351f59fe5b647d79c921baac6",
+      "bytes": 8889,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/solver_summary.csv",
+      "sha256": "03deb4b6c1a6a35f4c948627983ab54584eaae606fd4f5e62a91be8a1fde5a65",
+      "bytes": 1561,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/summary.json",
+      "sha256": "0d9c9c19903a8127f02c499a314645cadc8880529b44f182e7718940792370ed",
+      "bytes": 9641,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/card/workflow.yaml",
+      "sha256": "6d99f8427fef5fc2bf06454cf30ec7169064dea874ceb0d23d655108b3b0961b",
+      "bytes": 969,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/execution/soxx-ridge-execution-summary.json",
+      "sha256": "c7e294d83a398326b18028a58df6a58d93ddcfc92b0d0ea9bb44f2b5a4b4338a",
+      "bytes": 8118,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/execution/soxx-ridge-raw-executed.ipynb",
+      "sha256": "931f9295fe7b03ffb62bdc44aa696d2edd4cc476e8b20ab6dce972d10ce55a4b",
+      "bytes": 645972,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/forecast/forecasts.pkl",
+      "sha256": "85240b7d5fbdfeef65c7a6821fc351c53a5b00f652ac7d325b315be5e792ce7c",
+      "bytes": 563519,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/forecast/matched_predictions.pkl",
+      "sha256": "e6c7e93baefb2a07b97f7d3f5ec34c29853ef694798f35fd82c75e7e90864e50",
+      "bytes": 282536,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/forecast/selection_audit.pkl",
+      "sha256": "0304a48abd5a586b6d4c61ee2eca1b0c43d0480477d96cb7deb7163cb8f9e8e1",
+      "bytes": 22544,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/forecast/selection_scores.pkl",
+      "sha256": "0e881c5703c95d58fc85c7142242ff7308ff1f56d1344619442089222f1e99a0",
+      "bytes": 7485,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/inputs/binding.pkl",
+      "sha256": "7c197dd4821ccd09331545942ad360a19b76328bfeb812a9c28b74a0d7b1dad0",
+      "bytes": 9709,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/inputs/frame.pkl",
+      "sha256": "8e0bd681836de2d3b9abd509ded866554bc8d0f31586baf3a12cba472e0b949f",
+      "bytes": 1285529,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/inputs/plan.pkl",
+      "sha256": "0655e92e5cc5ce81f080cbba753237bd12f17b97d5b46594fece5450888aaaf2",
+      "bytes": 4723,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/models/annual_fits.pkl",
+      "sha256": "10960101f5c34419c48bca1f161ace463deb8c5af16493985f28d2181e0261c2",
+      "bytes": 509113,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/models/inner_fits.pkl",
+      "sha256": "3216bcc432e7897da33d098009fca44ec9df8668325eb23d92bf67ff1fe19e6d",
+      "bytes": 1016471,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/portfolio_analysis/native_reports.pkl.gz",
+      "sha256": "4d6db7a420048eb73cbc8ea2f0d0f83e4179cd5c95cf4ac6eb5dde8ff5259cb0",
+      "bytes": 2221771,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/analysis/benchmark_relative_protocol.py",
+      "sha256": "e9f3d14f4c413dcb16df9483b9cbbeab94002a1beb8d5da2ac83fdbdb45835e5",
+      "bytes": 12999,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/analysis/convex_qlib.py",
+      "sha256": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "bytes": 7707,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/analysis/expert_information_attribution.py",
+      "sha256": "99143f61419a6646b485f619f0c4002b8933d519a6b8c11ebd0bd716178d614a",
+      "bytes": 12406,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/analysis/forecast_increment.py",
+      "sha256": "72383f8bb4d308b1327e7fac5d91b6525a7669c1a2ad6859f8c6c5f316bd0f12",
+      "bytes": 13145,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/analysis/integrated_allocation.py",
+      "sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "bytes": 23523,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/backtest/benchmark_relative_replay.py",
+      "sha256": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc",
+      "bytes": 6757,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/backtest/horizon_matched_allocation.py",
+      "sha256": "4854faa634e7e5aac24fbe6146829dcc6de1fd3c5b3982ca5e49a88abd8414e3",
+      "bytes": 7874,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/backtest/position_accounting.py",
+      "sha256": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "bytes": 3494,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/backtest/qlib_continuous_position.py",
+      "sha256": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "bytes": 2543,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/backtest/strategy.py",
+      "sha256": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+      "bytes": 4618,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/core/recorder_artifacts.py",
+      "sha256": "144eb16c79aef62ecc9421cbb0972c803d31aee289686f0a81460d7e203071fb",
+      "bytes": 1701,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/data/benchmark_relative_data.py",
+      "sha256": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+      "bytes": 3123,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/data/conditional_variance.py",
+      "sha256": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+      "bytes": 20173,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/data/convex_allocation.py",
+      "sha256": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "bytes": 15455,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/data/legacy_execution_view.py",
+      "sha256": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+      "bytes": 7925,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/data/oos_horizon_inputs.py",
+      "sha256": "0b247d44b0f23c7e6f974747411c4aae2171529759d6220c1d719ea491e1d68b",
+      "bytes": 5468,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/data/price_basis.py",
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "bytes": 20780,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/data/qlib_native.py",
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "bytes": 19985,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/factor/soxx_pit_tail_factors.py",
+      "sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "bytes": 17962,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/model/annual_ridge_selection.py",
+      "sha256": "bad54aaac796dfe931a18a5dfef28966658a8dcdf9a463d3d838a7da7444d171",
+      "bytes": 16972,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/model/certified_convex_allocation.py",
+      "sha256": "ceb458bfd93cfa1c44a5efb08c05748253899a1c74410c1fd2b6279895c29d3f",
+      "bytes": 2571,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/model/convex_allocation.py",
+      "sha256": "28228f8db1a8d6acf42dcffebd5e7edbaef857146ee7cd3bc067970a702eb86c",
+      "bytes": 29948,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/model/online_expert_allocation.py",
+      "sha256": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+      "bytes": 9242,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/model/oos_mean_uncertainty.py",
+      "sha256": "ce8177c698b748cadcb173940e90875dc6a5bd751f00f4ff3392e89e2e6ecde7",
+      "bytes": 7932,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/model/post_fee_settlement.py",
+      "sha256": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+      "bytes": 6469,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/workflow/benchmark_evidence.py",
+      "sha256": "f8903131c3cabc3d0bfe8a53dfc817436882b0e2d37d2f2a5935d5c484f44cbd",
+      "bytes": 4070,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/workflow/benchmark_relative_research.py",
+      "sha256": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+      "bytes": 15478,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/workflow/benchmark_risk_excess.py",
+      "sha256": "26fcd325ca5cd20ed37eec9e8296b477eedc907e4c815af802d448236b5cdbcd",
+      "bytes": 22622,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/workflow/oos_uncertainty_horizon.py",
+      "sha256": "b25e10d52968f5e849a2e67156290effdc8a66e66a3fcd71ebb947d751811831",
+      "bytes": 22113,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/workflow/purged_ridge_regularization.py",
+      "sha256": "d207bf973ebbfd2c733c9dc04482eba346f7ad2c5434fa218d27454c03f1a744",
+      "bytes": 21251,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/source/src/workflow/stage1_economic_action.py",
+      "sha256": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "bytes": 14463,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/environment.pkl",
+      "sha256": "7a566199439b3c7d36775aadadcef51aa8cbfacd2c865469a84638ce70140ade",
+      "bytes": 141,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-active_events.csv.gz",
+      "sha256": "8c7c5a06b221a560029681243be4d74b96442dace2b503aecb2e6d5ad582cca2",
+      "bytes": 1130,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-conditional_variance_budget_calibration.csv.gz",
+      "sha256": "a46412eecdca55219c67e8d17db6be9be0b7e7bc64e93e3eee267a18da27b271",
+      "bytes": 597,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-conditional_variance_exposure.csv.gz",
+      "sha256": "fb69e3ebea3ba20f0117aa66c6fe8ba823f309c19ccf892958d8146727a1f62a",
+      "bytes": 763,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-diagnosis.md.gz",
+      "sha256": "4c97646e229f035dee5f43809dd6342af09c7625fec725d076bedef96885bc03",
+      "bytes": 3831,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-first_active_episode.csv.gz",
+      "sha256": "ee95cdead279da6d07a5b9d5d2b68e7d0ec70a217f4057c9abdc9a3f65bc89b6",
+      "bytes": 205,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-initial_state.csv.gz",
+      "sha256": "59b116f36d07a60d85cd1d9dc625ba9616cad919bc39a8e17625f604adb8ea96",
+      "bytes": 661,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-numeric_annual_excess.csv.gz",
+      "sha256": "98bf346a725fec4f89cfd0de0a7a7f0a2fb141ac1da3641935fd770245df8f3f",
+      "bytes": 1557,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-numeric_gate_effect.csv.gz",
+      "sha256": "d62cf41ba08fd4b6ce7b3ff7e12f152d54d3fbc6c0606e96fc2ed6fc9d81b4fe",
+      "bytes": 275,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-numeric_rolling_excess.csv.gz",
+      "sha256": "e20ad7b854485e8e1abcc730d559268fb5d6691feeb8d999f85879e7eaaffb06",
+      "bytes": 447,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-numerical_floor.md.gz",
+      "sha256": "115d985a4567459697beab091614e4b36eed4bb87e7813c4196913ac4be6d755",
+      "bytes": 1026,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-portfolio_attribution.csv.gz",
+      "sha256": "7e09743c280653298e70cbbe39f34651c7d4a74b1854dd9421340e58ad84c001",
+      "bytes": 5183,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-provenance.json.gz",
+      "sha256": "f859becbd162a4ddfdebef514cce9f22a2f940703e30fa830f7a27efcfadecc1",
+      "bytes": 350,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-soxx-ridge-focused.log.gz",
+      "sha256": "cd1e2f2dc4c3c722b03a99d2b105e368dff26cda5e6bca3a18ec166812dfc5e7",
+      "bytes": 2014,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-soxx-ridge-full.log.gz",
+      "sha256": "dd68335f85cfda929a0e1588e7b253488c6f8ff023b61792578637d32ae536d8",
+      "bytes": 1742,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-soxx-ridge-independent-audit.json.gz",
+      "sha256": "b6cc4b692b93ab74086627df0d41b4eba7fcc68cddcba4b452b0960f6503cfcb",
+      "bytes": 6000,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/artifacts/verification/ridge-audit-soxx-ridge-required.log.gz",
+      "sha256": "c3a70062e8e1031d0d20f6cea0408e6189189cd0a9b3f63d22ecc9c757401e94",
+      "bytes": 7946,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/meta.yaml",
+      "sha256": "715cbd58e11468927c94862430d0c0785cfa6337291eb741ab39e383669fe319",
+      "bytes": 449,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/params/candidate_budget",
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "bytes": 1,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/params/cmd-sys.argv",
+      "sha256": "1890f31ddcc663a3217f4a0fa06e98a71d34cae456379c8a50a521cdea9c9d28",
+      "bytes": 202,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/params/evidence_kind",
+      "sha256": "65f130ea3e4720777896e52f29f804d337f476ea55561a265b1fe9df07253f79",
+      "bytes": 14,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/params/inner_candidates",
+      "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a",
+      "bytes": 1,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/params/plan_sha256",
+      "sha256": "38da94c2a7fbb8fedb51a6bc8c0aad951bac9b3f1b45912ed8f87992e2bf0979",
+      "bytes": 64,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "bytes": 89,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/d46772566a2947859faee38a5d4e08b8/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/qlib_recorder/328530191696958030/meta.yaml",
+      "sha256": "34a472f39aaecb8a95283913e299b65b87ec6f9ef7fbcc988059347911bc9c68",
+      "bytes": 372,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/risk_analysis.csv",
+      "sha256": "ab630fa6d1e74a00e910693a92ef03694800ac48d3b74e8dbfe6c1031e943668",
+      "bytes": 1418,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/rolling_summary.csv",
+      "sha256": "a9b539f46cc7adc0d1bcb98856cae52a9b3849ae1fdd40ed3cacbed5f8fe957a",
+      "bytes": 489,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/run_binding.json",
+      "sha256": "8e63f792fdc120c9b27b87df1c041c4f2ccd3343027ed98efceb71f8d248791b",
+      "bytes": 11858,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/selected_model.json",
+      "sha256": "3b0a701e64790ff6a909df57de86b1acddc373c6124656efac06b240dc57c38f",
+      "bytes": 453,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/selection_audit.csv",
+      "sha256": "2f20c965fe3471cc0c4401a6d9514f1d50af440a4e7516cae4b37f01e945b51a",
+      "bytes": 42597,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/selection_scores.csv",
+      "sha256": "7b329efb758370728821f8179673dab42b477fd351f59fe5b647d79c921baac6",
+      "bytes": 8889,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/solver_summary.csv",
+      "sha256": "03deb4b6c1a6a35f4c948627983ab54584eaae606fd4f5e62a91be8a1fde5a65",
+      "bytes": 1561,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/summary.json",
+      "sha256": "0d9c9c19903a8127f02c499a314645cadc8880529b44f182e7718940792370ed",
+      "bytes": 9641,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    },
+    {
+      "path": "research/purged_ridge_regularization_20261009/workflow.yaml",
+      "sha256": "6d99f8427fef5fc2bf06454cf30ec7169064dea874ceb0d23d655108b3b0961b",
+      "bytes": 969,
+      "source_recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "range_scope": "evaluation window; earlier training dates retained in fold audits",
+      "purpose": "Qlib model/forecast/native-report evidence or slim entry/summary; first and guard-verified runs preserved"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+variant,cost,start,last_before_benchmark,first_benchmark,days,relative_wealth_episode
+validation_selected,10.0,2016-01-04,2019-01-02,2019-01-03,755,0.9797104256189562
+fixed_ridge10,25.0,2016-01-04,2020-03-12,2020-03-13,1055,0.8054537629939547
+validation_selected,25.0,2016-01-04,2021-02-24,2021-02-25,1295,0.7415050521671145

@@ -1,0 +1,112 @@
+{
+  "schema_version": "purged_ridge_regularization_v1",
+  "experiment": "purged_ridge_regularization_20261009",
+  "registered_at_utc": "2026-10-09T04:23:27.677286+00:00",
+  "registered_before_new_fits_and_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "Training MSE improvements failed in later years; strictly prior-year validation may reject overfit fixed Ridge10 coefficients. Isolate forecast regularization selection without new features, horizon changes or portfolio-gate changes.",
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+    "summary": "research/canonical_price_basis_20261002/summary.json",
+    "as_of": "2026-09-25"
+  },
+  "train_start": "2011-01-03",
+  "signal_start": "2016-01-04",
+  "fit_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "development_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "feature_family": "same25causalprice/volume/relativefeatures; no CBOE inputs",
+  "forecast_horizon_sessions": 5,
+  "minimum_training_rows": 252,
+  "minimum_validation_rows": 126,
+  "hac_lags": 5,
+  "alphas": [
+    10.0,
+    100.0,
+    1000.0
+  ],
+  "explicit_prior_candidate": true,
+  "ridge_penalty_units": "SSE plus alpha times squared slopes, unpenalized intercept; alpha is not divided by n",
+  "selection_protocol": "For outer yearY, fit all inner candidates only on H5 labels/features strictly before Jan1(Y-1)ET. Score only signal yearY-1 rows whose labels matured strictly before Jan1(Y)ET. Scaler and perasset variance come only from inner training. Never use outer Y labels or portfolio returns.",
+  "selection_metric": "mean over SOXL/SOXX of validation MSE divided by inner-training label variance(ddof0)",
+  "tie_priority": [
+    "prior",
+    "ridge_1000",
+    "ridge_100",
+    "ridge_10"
+  ],
+  "tie_rule": "exact score ties only; no added economic threshold",
+  "refit": "After selecting candidate, refit it using all strictly mature data before Jan1(Y). Control alwaysRidge10 using identical outer rows. If selectedRidge10, reuse exact control fit.",
+  "prior_definition": "Forecast of training H5 mean with intercept-only BartlettHAC5 covariance; it is not the investment portfolio SOXX null. Its allocations/turnover/fees remain subject to the same actual solver and gate.",
+  "variants": [
+    {
+      "name": "fixed_ridge10",
+      "role": "matched_control"
+    },
+    {
+      "name": "validation_selected",
+      "role": "registered_selection_candidate"
+    }
+  ],
+  "candidate_budget": 1,
+  "inner_candidate_count": 4,
+  "robust_radius": 1.0,
+  "rebalance_sessions": 5,
+  "costs_bps": [
+    10.0,
+    25.0
+  ],
+  "initial_cash": 100000.0,
+  "benchmark": "SOXX",
+  "evidence_kind": "reused_history",
+  "gates": {
+    "minimum_positive_years": 6,
+    "rolling_sessions": 252,
+    "minimum_rolling_win_rate": 0.6,
+    "bootstrap_resamples": 2000,
+    "family_size": 1
+  },
+  "gate_definition": "Unchanged full2016-2022 paired SOXX gates at both costs: positive net log excess,>=6/7positive years,positive annualmedian,positive afterremovinganyyear,MaxDD/CVaR no worse,rolling252win>=60%,20/60block lower>0. One outer selected pipeline; prior project search and model-refit uncertainty not removed by conditionalbootstrap.",
+  "execution": "Prior-signal16:15ET decision,nextopenexecution,daily nextopen valuation,H5maturityexit09:31,solve every5native sessions andexactHOLDbetween. Same-SOXXestimatedriskbudget atrebalance only. Existing certified numerical protocol; no terminal liquidation,cash0yield,continuousshares.",
+  "label_precision": "Same float64 daily/H5 labels from identical canonical native opens, with oldcausal25feature recipe.",
+  "cause_sources": [
+    "research/cboe_h5_information_20261009/summary.json",
+    "research/oos_uncertainty_horizon_20261009/summary.json"
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://scikit-learn.org/stable/auto_examples/model_selection/plot_nested_cross_validation_iris.html",
+    "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html"
+  ],
+  "stopping": "One registered nested-selection mechanism with all four inner forecasts and all annual scores retained. No alpha/horizon/feature additions after results. Failure leads to separate cause diagnosis and preregistered next mechanism, not closure of user goal.",
+  "limitations": [
+    "All history reused, no independent forward qualification.",
+    "A prior forecast may still cause active allocations; choosing prior is not proof of alpha or automaticSOXX holdings.",
+    "One prior validation year is noisy and regimes can change; no promise of generalization.",
+    "H5labels overlap; strict maturity removes crosscutoff leakage but not all estimation dependence.",
+    "Historical openingprice,affineadjustment,16secondaryquotes,cash0yield andcontinuousshares remain assumptions."
+  ]
+}

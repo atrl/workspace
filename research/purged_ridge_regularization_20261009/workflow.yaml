@@ -1,0 +1,30 @@
+experiment: purged_ridge_regularization_20261009
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+execution_provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
+recorder_uri: research/purged_ridge_regularization_20261009/qlib_recorder
+as_of: '2026-09-25'
+region: us
+market: all
+segments:
+  train_start: '2011-01-03'
+  inner_validation: previous signal year with H5 labels strictly before outerJan1
+  development:
+  - '2016-01-04'
+  - '2022-12-30'
+  reused_diagnostic:
+  - '2023-01-03'
+  - '2026-09-23'
+plan: plan.json
+model_selection: 4fixedinnercandidates_by_purged_previousyear_normalizedforecastMSE
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/frame.pkl
+  - models/annual_fits.pkl
+  - models/inner_fits.pkl
+  - forecast/forecasts.pkl
+  - forecast/matched_predictions.pkl
+  - analysis/paths.pkl
+  - analysis/solver_details.pkl.gz
+  - portfolio_analysis/native_reports.pkl.gz
