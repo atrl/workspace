@@ -147,6 +147,15 @@ SOXL 的 Sharpe 不高于 SOXX；单纯的杠杆、波动目标或趋势门控�
 后续机制必须一次只登记一个增量、保留失败结果，并以独立前向证据决定晋升；
 不得把复用历史改名为留出期，不得用累积历史回看替代前向资格。
 
+日内机制同样必须自证：`src/analysis/intraday_early_momentum.py` 与
+`src/workflow/intraday_early_momentum.py` 只用 qlib 原生 15 分钟 provider，
+把开盘 09:30–10:30 的可观测路径映射到当日 10:30–收盘仓位，不依赖父模型。
+`research/intraday_early_momentum_20261010/` 记录：该族在 development、
+复用诊断与新的前向区间也未产生稳定超额，且 25bp 成本下更差。真正有证据的
+日内结论来自 `intraday_recovery_direct_allocation_v1` 的低频、状态条件动作，
+而不是每日高换手的早盘动量。任何后续日内机制必须报告换手、成本敏感性与
+逐年前向胜率，而不是只看累计财富。
+
 - `src/core`: 稳定契约、注册表、schema version、manifest、hash、配置、校验。
 - `src/data`: qlib store 构建、qlib provider 审计、数据更新、calendar/instrument/feature 对齐、canonical snapshot，最终写入 `data/`。
 - `src/factor`: 基于 qlib Dataset 的单因子、多因子、IC、相关性、分层回测、因子组合诊断。
