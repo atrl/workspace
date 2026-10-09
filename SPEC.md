@@ -156,6 +156,20 @@ SOXL 的 Sharpe 不高于 SOXX；单纯的杠杆、波动目标或趋势门控�
 而不是每日高换手的早盘动量。任何后续日内机制必须报告换手、成本敏感性与
 逐年前向胜率，而不是只看累计财富。
 
+跨数据源搜索已封闭：`src/analysis/cross_source_signal_search.py` 与
+`src/workflow/cross_source_signal_search.py` 用统一标准（收益+回撤+Sharpe 同时
+超越 SOXX 且多数年份为正）在本地全部可用数据源上搜索因果信号，包括
+`data/qlib/soxl`（SOXL/SOXX 日线）、`data/qlib/soxx_constituents`（30 只半导体
+日线）、`data/qlib/soxl_intraday_t1`（1 分钟派生日内特征）与
+`data/qlib/soxl_intraday_15min`（SOXL/SOXX 15 分钟）。
+`research/cross_source_signal_search_20261010/` 与
+`research/intraday_early_momentum_20261010/` 记录：没有任何信号在收益、回撤、
+Sharpe 三方面同时稳定超越基准。日内早盘动量在 10bp 下可临时通过，但其条件超额
+在相邻阈值上符号翻转，且 25bp 成本下失效，说明边缘极薄且不稳健。
+唯一有正面证据的机制仍是 `intraday_recovery_direct_allocation_v1` 的低频、
+状态条件动作。单只期货型 3 倍产品上的稳定超额需要新的、非本仓库现有数据源所能
+提供的独立信息；不得靠阈值/窗口/成本搜索重新宣布同一数据上的稳定超额。
+
 - `src/core`: 稳定契约、注册表、schema version、manifest、hash、配置、校验。
 - `src/data`: qlib store 构建、qlib provider 审计、数据更新、calendar/instrument/feature 对齐、canonical snapshot，最终写入 `data/`。
 - `src/factor`: 基于 qlib Dataset 的单因子、多因子、IC、相关性、分层回测、因子组合诊断。
