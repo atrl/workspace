@@ -167,8 +167,22 @@ SOXL 的 Sharpe 不高于 SOXX；单纯的杠杆、波动目标或趋势门控�
 Sharpe 三方面同时稳定超越基准。日内早盘动量在 10bp 下可临时通过，但其条件超额
 在相邻阈值上符号翻转，且 25bp 成本下失效，说明边缘极薄且不稳健。
 唯一有正面证据的机制仍是 `intraday_recovery_direct_allocation_v1` 的低频、
-状态条件动作。单只期货型 3 倍产品上的稳定超额需要新的、非本仓库现有数据源所能
-提供的独立信息；不得靠阈值/窗口/成本搜索重新宣布同一数据上的稳定超额。
+状态条件动作。
+
+新增外部数据源已采集并检验：
+`data/raw/external/asia_semis_20261010_v1`（Yahoo Finance，亚洲半导体市场
+台湾加权/台积电/韩国SK海力士/KOSPI/日经，2011-2026）与
+`data/raw/external/macro_vol_20261010_v1`（FRED+CBOE，SOX 指数/VIX/VIX 期限结构/
+信用价差/美元指数/美债收益率，最长至 1962）。
+`research/cross_market_lead_lag_20261010/` 记录：亚洲盘与同日美股 SOXL 有 0.15-0.21
+的同期相关，但**严格滞后 IC 几乎为零**（|-0.01~0.03|），所以它是同期共振而非可交易
+预测；任何同日对齐得到的巨额回测都是时间戳污染，不是领先信号。
+`research/cross_source_signal_search_20261010/` 将搜索扩展到 60 条候选 × 5 类数据源
+（含新采集的宏观/波动率），仍**零个信号**在收益、回撤、Sharpe 三方面同时稳定超越基准。
+结论：本地与新增外部数据中均未发现对 SOXL 相对 SOXX 的稳定风险调整超额。
+新的可晋升机制必须引入真正独立的、决策早于市场结果的信息（例如实时逐笔订单流、
+期权做市面或真实另类数据），并先冻结、再取连续独立前向证据；不得靠阈值/窗口/成本
+搜索或时间戳错位在同一数据上重新宣布稳定超额。
 
 - `src/core`: 稳定契约、注册表、schema version、manifest、hash、配置、校验。
 - `src/data`: qlib store 构建、qlib provider 审计、数据更新、calendar/instrument/feature 对齐、canonical snapshot，最终写入 `data/`。
