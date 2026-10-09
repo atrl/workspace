@@ -1,0 +1,20 @@
+{
+  "recorded_at_utc": "2026-10-09T06:57:20.209619+00:00",
+  "url": "https://www.sec.gov/Archives/edgar/data/1424958/000119312515242918/d932862dncsrs.htm",
+  "source_index": "https://www.sec.gov/Archives/edgar/data/1424958/000119312515242918/0001193125-15-242918-index.htm",
+  "attempts": [
+    {
+      "method": "locator.downloadMedia",
+      "result": "First call exceeded default30s tooltimeout; later call navigated to HTML butno downloaded filepath; no source byte archive claimed."
+    },
+    {
+      "method": "Normal browser Alt-click observed SEC document link andwaitdownload",
+      "result": "25s wait timeout; indexURL unchanged; expectedfilename not present inDownloads."
+    },
+    {
+      "method": "NativeChrome app state check forsave dialog",
+      "result": "cgWindowNotFound; no dialog manipulation or settings changes performed."
+    }
+  ],
+  "blocked_boundary": "Browsed original SECreport content andfirstparty filedmetadata accessible; original fullHTML byte archival remainsneedsdata. No auth, CAPTCHA, site-security bypass, external accounts, orbroker calls."
+}

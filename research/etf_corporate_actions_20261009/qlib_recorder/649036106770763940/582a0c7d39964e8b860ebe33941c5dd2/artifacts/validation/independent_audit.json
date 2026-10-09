@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "audit_completed_at_utc": "2026-10-09T07:24:14.815077+00:00",
+  "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+  "native_calendar_rows": 5021,
+  "cash_rows": 125,
+  "cash_rows_by_instrument": {
+    "SOXL": 32,
+    "SOXX": 93
+  },
+  "split_rows": 3,
+  "source_files_byte_exact": 50,
+  "all_decimal_cash_reconstructed_independently": true,
+  "zero_rows_retained": 14,
+  "outside_calendar_rows_retained": 18,
+  "source_difference_counts": {
+    "within_declared_display_precision": 70,
+    "exact_amount_match": 38,
+    "declared_source_difference": 2,
+    "declared_vendor_missing_event": 1
+  },
+  "2014_original_archive_sha1_matches_cdx": true,
+  "only2014_knownby_after_ex": true,
+  "unknown_announcement_at_all_null": true,
+  "unpaid_terminal_receivable_nonspendable": true,
+  "source_module_hashes_unchanged": true,
+  "parent_sources_and_provider_unchanged": true,
+  "executed_notebook_code_cells": 3,
+  "notebook_errors": 0,
+  "model_fits": 0,
+  "portfolio_replays": 0,
+  "new_broker_calls": 0,
+  "historical_vintage_or_investment_return_certified": false
+}

@@ -1,0 +1,46 @@
+experiment: etf_corporate_actions_20261009
+role: event_source_and_share_unit_qualification_only
+provider_uri: data/qlib/soxx_extended_published_affine_20260925_v1
+recorder_uri: research/etf_corporate_actions_20261009/qlib_recorder
+market: all
+region: us
+freq: day
+as_of: '2026-09-25'
+segments:
+  native_calendar:
+  - '2006-10-10'
+  - '2026-09-25'
+model_selection:
+  performed: false
+entrypoint: src.workflow.etf_corporate_actions.run_etf_corporate_actions_qualification
+plan: plan.json
+expected_plan_sha256: 2127d65862abb8c0b17178ba35a6694ead94af27d11099e4f0ddcc32806492eb
+network_in_notebook: false
+source_archive: data/raw/external/etf_corporate_actions_20261009_v1
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  root_files:
+  - plan.json
+  - etf_corporate_actions_20261009.ipynb
+  - workflow.yaml
+  - summary.json
+  - conclusion.md
+  - qualification.json
+  - source_differences_summary.json
+  - verification_manifest.json
+  recorder_only_artifacts:
+  - sources/*
+  - inputs/source_contract.pkl
+  - inputs/parent_bindings.pkl
+  - inputs/native_calendar.pkl
+  - data/source_rows.pkl
+  - data/cash_events.pkl
+  - data/split_events.pkl
+  - analysis/source_differences.pkl
+  - analysis/qualification.pkl
+  - validation/*
+promotion_eligible: false
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

@@ -1,0 +1,68 @@
+{
+  "source_download": {
+    "requested_url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=us-ishares&locale=en_US&portfolioId=239705&component=fundDownload&userType=individual",
+    "retrieved_at_utc": "2026-10-09T06:31:22.018606+00:00",
+    "status_code": 200,
+    "content_type": "application/vnd.ms-excel",
+    "bytes": 3344466,
+    "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af"
+  },
+  "extraction": "Original SpreadsheetML download has bare ampersands in hyperlink attributes; extracted worksheet/row/ss:Data values without modifying original bytes or numeric strings.",
+  "distribution_rows": 93,
+  "earliest_ex_date": "2002-06-17",
+  "latest_ex_date": "2026-09-15",
+  "positive_distribution_rows": 79,
+  "zero_distribution_rows": 14,
+  "missing_ex_record_pay": 0,
+  "duplicate_ex_dates": 0,
+  "ex_after_pay_count": 0,
+  "components_sum_max_abs_error": 1.000000000001e-06,
+  "pay_lag_days_min_max": [
+    3,
+    10
+  ],
+  "futu_rehab_rows": 79,
+  "futu_cash_events": 78,
+  "futu_date_fields": [
+    "ex_div_date"
+  ],
+  "positive_ex_dates_match_futu": false,
+  "unaligned_cash_amount_max_abs_difference": 1.201207,
+  "split_aligned_cash_amount_max_abs_difference": 5.000000000032756e-06,
+  "split_aligned_mismatches_gt1e5": 0,
+  "issuer_current_share_units_inference": "All78 matched Futu cash events align within5e-6 after subsequent effective3for1 split alignment; one additional issuer-positive event is absent in Futu. Current split-share units are an inference, not original payable-unit/vintage certification.",
+  "historical_sheet_rows": 8928,
+  "historical_nav_first": "2001-07-10",
+  "historical_nav_last": "2026-10-08",
+  "historical_invalid_dates": 0,
+  "historical_duplicate_dates": 0,
+  "historical_weekend_rows": 2365,
+  "historical_missing_nav": 0,
+  "historical_sheet_fields": [
+    "As Of",
+    "NAV per Share",
+    "Ex-Dividends",
+    "Shares Outstanding"
+  ],
+  "historical_NAV_is_not_market_OHLCV": true,
+  "future_announced_20261105_split_applied": false,
+  "existing_data_changed": false,
+  "new_broker_api_calls": 0,
+  "model_fits_or_backtests": 0,
+  "unmatched_positive_distributions": [
+    {
+      "Unnamed: 0": "2017-09-26",
+      "per_cash_div": "",
+      "Record Date": "2017-09-27",
+      "Payable Date": "2017-09-29",
+      "Total Distribution": 0.166176,
+      "Income": 0.166176,
+      "ST Cap Gains": 0,
+      "LT Cap Gains": 0,
+      "Return of Capital": 0.0,
+      "subsequent_effective_split_price_factor": 0.3333333333333333,
+      "futu_cash_in_current_split_share_units": "",
+      "difference_after_split_basis_alignment": ""
+    }
+  ]
+}

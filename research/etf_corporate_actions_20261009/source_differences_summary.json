@@ -1,0 +1,12 @@
+{
+  "positive_issuer_events": 111,
+  "status_counts": {
+    "within_declared_display_precision": 70,
+    "exact_amount_match": 38,
+    "declared_source_difference": 2,
+    "declared_vendor_missing_event": 1
+  },
+  "all_issuer_amounts_preserved": true,
+  "comparison_is_diagnostic_only": true,
+  "exact_decimal_differences_retained": true
+}

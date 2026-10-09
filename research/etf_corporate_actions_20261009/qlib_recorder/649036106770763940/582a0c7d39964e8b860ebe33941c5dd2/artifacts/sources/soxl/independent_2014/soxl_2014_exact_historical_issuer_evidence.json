@@ -1,0 +1,31 @@
+{
+  "status": "exact_historical_issuer_rate_observed_in_archived_primary_page",
+  "event": "2014-12-23",
+  "issuer": "Direxion Investments",
+  "ticker": "SOXL",
+  "cusip": "25459W458",
+  "section": "ETF Income Distributions",
+  "ex_date": "2014-12-23",
+  "record_date": "2014-12-26",
+  "pay_date": "2014-12-31",
+  "distribution_amount_usd": "7448.00",
+  "distribution_per_share_rate_usd": "0.00532",
+  "archived_page_title": "2014 Distribution Schedule",
+  "original_url": "http://www.direxioninvestments.com:80/press-release/distributions?",
+  "archive_capture_utc": "2014-12-24T23:42:56Z",
+  "archive_url": "https://web.archive.org/web/20141224234256id_/http://www.direxioninvestments.com:80/press-release/distributions?",
+  "archive_cdx_digest": "FTX3DBS7WZNA54LW64FWZCJ7BAIW3JRK",
+  "download_sha256": "8605972106dcde96b64fdf53acfcf6b8f111ae05b07c547c05f028a9e5214412",
+  "download_sha1_base32": "FTX3DBS7WZNA54LW64FWZCJ7BAIW3JRK",
+  "source_html": "issuer_distributions_20141224.html",
+  "download_receipt": "issuer_distributions_20141224_receipt.json",
+  "cdx_receipt": "direxioninvestments.com_cdx_receipt.json",
+  "boundary": [
+    "Archive snapshot is contemporaneous issuer content captured after the ex-date and before record and pay dates.",
+    "No page publication timestamp was found in HTML metadata or visible text; do not claim exact declaration timestamp or availability before the ex-date.",
+    "0.00532 appears directly under Distribution Per Share Rate; it is not reconstructed from the later split or from the financial statement.",
+    "The issuer page provides 7448.00 directly, agreeing with the independently supplied 2015 semiannual report total.",
+    "No market fit or strategy backtest was run, and no repository file was changed."
+  ],
+  "extracted_utc": "2026-10-09T07:04:24.918437+00:00"
+}

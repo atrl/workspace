@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "focused_tests": {
+    "passed": 97,
+    "warnings": 4,
+    "log": "validation/logs/focused.log.gz"
+  },
+  "independent_audit": {
+    "status": "passed",
+    "audit_completed_at_utc": "2026-10-09T07:24:14.815077+00:00",
+    "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+    "native_calendar_rows": 5021,
+    "cash_rows": 125,
+    "cash_rows_by_instrument": {
+      "SOXL": 32,
+      "SOXX": 93
+    },
+    "split_rows": 3,
+    "source_files_byte_exact": 50,
+    "all_decimal_cash_reconstructed_independently": true,
+    "zero_rows_retained": 14,
+    "outside_calendar_rows_retained": 18,
+    "source_difference_counts": {
+      "within_declared_display_precision": 70,
+      "exact_amount_match": 38,
+      "declared_source_difference": 2,
+      "declared_vendor_missing_event": 1
+    },
+    "2014_original_archive_sha1_matches_cdx": true,
+    "only2014_knownby_after_ex": true,
+    "unknown_announcement_at_all_null": true,
+    "unpaid_terminal_receivable_nonspendable": true,
+    "source_module_hashes_unchanged": true,
+    "parent_sources_and_provider_unchanged": true,
+    "executed_notebook_code_cells": 3,
+    "notebook_errors": 0,
+    "model_fits": 0,
+    "portfolio_replays": 0,
+    "new_broker_calls": 0,
+    "historical_vintage_or_investment_return_certified": false
+  },
+  "original_executed_notebook_sha256": "a84be74835aef54952157b874ae95efc26f505fa888d20bb29874e9e2a31ed43",
+  "qualification_notebook_execution_count": 1,
+  "notebook_stderr_outputs_removed_after_original_archive": 11,
+  "original_execution_artifacts": "execution/original_execution",
+  "no_recorder_resume_during_finalization": true,
+  "no_new_source_capture": true,
+  "financial_results_or_source_amounts_changed": false,
+  "implementation_sha256": {
+    "src/workflow/etf_corporate_actions.py": "6b8f8832511ac0c0a54ea0e0e6ea5717e0b0435898cb9bbfd3d30d1828e3c9f9",
+    "src/data/etf_corporate_actions.py": "5544f3f87969065f03880b3c95c231fbac831a28bb659f6043e5c6ac6f689e7e",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1"
+  }
+}

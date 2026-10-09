@@ -1,0 +1,31 @@
+{
+  "request_started_at_utc": "2026-10-09T06:37:08.957549+00:00",
+  "response_received_at_utc": "2026-10-09T06:37:22.822103+00:00",
+  "method": "GET",
+  "request_url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document",
+  "request_params": {
+    "appType": "PRODUCT_PAGE",
+    "appSubType": "ISHARES",
+    "targetSite": "us-ishares",
+    "locale": "en_US",
+    "portfolioId": "239705",
+    "component": "fundDownload",
+    "userType": "individual"
+  },
+  "final_url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=us-ishares&locale=en_US&portfolioId=239705&component=fundDownload&userType=individual",
+  "status_code": 200,
+  "headers": {
+    "content-disposition": "attachment; filename=iShares-Semiconductor-ETF_fund.xls",
+    "ETag": "W/\"9f322809\"",
+    "Cache-Control": "no-cache, no-store, max-age=0, must-revalidate",
+    "Content-Type": "application/vnd.ms-excel",
+    "Content-Length": "3344466",
+    "Date": "Fri, 09 Oct 2026 06:37:11 GMT"
+  },
+  "raw_body_file": "issuer_fund_download_receipt_complete.bin",
+  "body_bytes": 3344466,
+  "body_sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+  "matches_first_download_bytes": true,
+  "first_download_request_start_not_recorded": true,
+  "no_cookies_credentials_or_account_metadata_archived": true
+}

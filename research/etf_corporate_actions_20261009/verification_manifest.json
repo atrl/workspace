@@ -1,0 +1,860 @@
+{
+  "schema_version": "etf_event_verification_manifest_v1",
+  "experiment": "etf_corporate_actions_20261009",
+  "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+  "recorder_status": "FINISHED",
+  "plan_sha256": "2127d65862abb8c0b17178ba35a6694ead94af27d11099e4f0ddcc32806492eb",
+  "source_sha256": {
+    "src/workflow/etf_corporate_actions.py": "6b8f8832511ac0c0a54ea0e0e6ea5717e0b0435898cb9bbfd3d30d1828e3c9f9",
+    "src/data/etf_corporate_actions.py": "5544f3f87969065f03880b3c95c231fbac831a28bb659f6043e5c6ac6f689e7e",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1"
+  },
+  "cash_event_rows": 125,
+  "split_event_rows": 3,
+  "native_calendar_rows": 5021,
+  "source_archive_files": 50,
+  "focused_passed": 97,
+  "independent_audit_passed": true,
+  "entries": [
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/browser_download_attempts.json",
+      "sha256": "2e2569aac7ad37b1fa3c6224d9b1fd6b6f762fd3ac83b13a55679dbf9a9b982a",
+      "bytes": 1088
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/distributions.body",
+      "sha256": "36d110a0bdf288b50de599bd9f0bceee642a9503d3314d25e7df6136da098023",
+      "bytes": 5501
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/distributions.receipt.json",
+      "sha256": "f917af74a0c7acfc4072910b9b55bc91f0e14dc36239f947b70bf0ced9d9bf1b",
+      "bytes": 2494
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/futu_rehab_docs.body",
+      "sha256": "0917e9b3481f954ffbe59a46116604c8d226eeff267ec96c3df6155fbeb68609",
+      "bytes": 251407
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/futu_rehab_docs.receipt.json",
+      "sha256": "c0191034dbc4ad378ef9c0d6b82bfa294c92c95110de8b7e1dd0a1ae146a9d88",
+      "bytes": 1028
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/direxionfunds.com_cdx.response",
+      "sha256": "2e27cec669b38f6be24cb3be61cc58d7c452ac3edffcfcfe3ba9b0fc4c53ad91",
+      "bytes": 1449
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/direxionfunds.com_cdx_receipt.json",
+      "sha256": "a56ab20f362a556819ed12cdf89d28660b7a934d541b02ad0b1b5d13094f0a73",
+      "bytes": 756
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/direxioninvestments.com_cdx.response",
+      "sha256": "6f4e839e5fb9d6b11a6ab69e0a3511b387ce93803ab92c6088cd2f039e2547f7",
+      "bytes": 703
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/direxioninvestments.com_cdx_receipt.json",
+      "sha256": "310650b8c43a0feadba0856f5d875fe67274268cdd7049ce6de8d4d68959c115",
+      "bytes": 773
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/ici2014_guess.response",
+      "sha256": "2938e9f1284180959e33ab1718d0793a72ff6e4cdb8108c34dcd14e69446de5c",
+      "bytes": 17
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/ici2014_guess_receipt.json",
+      "sha256": "ab264a229d5a0ca305d35223f4e54e14b1a494895d733b7fd358be842f8bdbb6",
+      "bytes": 434
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/ici_receipt.json",
+      "sha256": "3860c7c70faae530a9ffa8b6097fd4c8bf93904dfe80333db133cd298e5daa98",
+      "bytes": 167
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/issuer_distributions_20141224.html",
+      "sha256": "8605972106dcde96b64fdf53acfcf6b8f111ae05b07c547c05f028a9e5214412",
+      "bytes": 65256
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/issuer_distributions_20141224_income_table.txt",
+      "sha256": "4d300d98024a87a89d621f9645adc2a9b360553fc46ed65764a674e78d36580f",
+      "bytes": 679
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/issuer_distributions_20141224_receipt.json",
+      "sha256": "cfb992e1d713dd0335da8c1700e4a1309496a55a88944e4e9a28519839c52fd1",
+      "bytes": 583
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/soxl_2014_exact_historical_issuer_evidence.json",
+      "sha256": "6057a093240fb5ca74c23e1becba3c0e0dc77bff29a02bd6b3dc281273d79d09",
+      "bytes": 1824
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/wayback_cdx.response",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/independent_2014/wayback_cdx_receipt.json",
+      "sha256": "41c9ef663e80ee96e340fa0df47dc6fb19f384ab278851a2f840bb7881eae332",
+      "bytes": 649
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/issuer_soxl_inventory.json",
+      "sha256": "dd85b85d62712af26197d67b97c335985649cb7f243ad6ed64ac9360466d3b05",
+      "bytes": 2064
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/issuer_soxl_table_observed.csv",
+      "sha256": "e5c2e720eb85244aac7ba9c626941d3f2d6b2c1feba27fd66b6e4b5462bb2033",
+      "bytes": 1664
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/product.body",
+      "sha256": "8c0ec0a43bf9644dbeb6e53d340b4dd3cc4bb6fe4bbf609f04359235562e2b05",
+      "bytes": 5606
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/product.receipt.json",
+      "sha256": "b64b1bfc2eb96a76adb828f55f19d5057a953489ff870d6214748137b12df22f",
+      "bytes": 2544
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/sec_20150430_complete_submission.body",
+      "sha256": "210334f16c87d3147f540fb5bef695398a965c56ae0b237a4a2dfd934b600e77",
+      "bytes": 4819
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/sec_20150430_complete_submission.receipt.json",
+      "sha256": "aa14efe1c35303183dfa25a2ea77dd74e618e4b6606e129b183b5b912cd23c0e",
+      "bytes": 988
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/sec_20150430_semiannual.body",
+      "sha256": "6e87b7ae31df65a70b549c61b7278ac856128688ea9c7a9ae7c73374657bbf6b",
+      "bytes": 4819
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/sec_20150430_semiannual.receipt.json",
+      "sha256": "49fd08d02e53449be11847b32818ea691df8c16b0a01c7fe3458641fc315ad6e",
+      "bytes": 965
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/sec_submissions.body",
+      "sha256": "954de56082bf57e06a37346c7e1f62f3b26413f5855ebfd30de44fa2a38e3023",
+      "bytes": 187707
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/sec_submissions.receipt.json",
+      "sha256": "fb24b850d8fdb41957b7cd0944e2ee3e4c32834d10477ffbd27517f0806e85cd",
+      "bytes": 407
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/sec_submissions_history.body",
+      "sha256": "aa2504cb4a85994dc3dd8fd3bf0142704338777be7ba4dd408a41ba6a83a4bd5",
+      "bytes": 344872
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/sec_submissions_history.receipt.json",
+      "sha256": "c601cb0f0610aa04f6c865bb5ef942f6fde40131ee3acfb3c55d54b1a80594d3",
+      "bytes": 1025
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/soxl_2014_contradiction.json",
+      "sha256": "6f080e69fba3c1481fa176d86b722f59414daf793b34eaaf5459b179fa0b64bd",
+      "bytes": 3631
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/soxl_2015_occ36615.body",
+      "sha256": "d7b6a3f416c558e8b4e09ccc63a6c2f5ba6b074e53dfcfaee3a5a7ad83f77169",
+      "bytes": 81126
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/soxl_2015_occ36615.receipt.json",
+      "sha256": "91413ec4a226f2612d6abae912a516a55f1ec67985b1c7ede887c2b3d1fb1ea5",
+      "bytes": 1097
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/soxl_2016_occ40328.body",
+      "sha256": "b4beeac8a05ff439e072056577a229c392debab2420f1ff7bdba7415d4a7e3f8",
+      "bytes": 23673
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/soxl_2016_occ40328.receipt.json",
+      "sha256": "4ebdc6972aa5d6fa9b3c654f4d867baeae9e2e3f06d1d79e562cb3e0c43c7504",
+      "bytes": 1103
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/soxx_2024_split_8937.body",
+      "sha256": "12d06890b99609c59df6d57ae53a5625a17aa1ffa792182f7362168fe6cf30f3",
+      "bytes": 83128
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/soxx_2024_split_8937.receipt.json",
+      "sha256": "68375cab6ae8535b90eb2f0885729b78e0245181dee40a6059e5a0735dc1fb6e",
+      "bytes": 1697
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/soxx_2024_split_press.body",
+      "sha256": "6a38e6eb785fa0661e9d54c631d3cdbcd3521ff2655b176851c9482d80ebd8eb",
+      "bytes": 151002
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/soxx_2024_split_press.receipt.json",
+      "sha256": "180a763d51fc5607b1ec074950f00ec3706b7fa2ad254c91866abb11e5db7b7e",
+      "bytes": 3993
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/split2015.body",
+      "sha256": "b44b2444302aa326af4ae6ba6fbf2fea49750f522e98803fc54f0d99c03613f2",
+      "bytes": 4819
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/split2015.receipt.json",
+      "sha256": "5d58f717e4f305035a64f19ac6cebd478d1509c89d8eff05adc92a98b9f63186",
+      "bytes": 947
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/split2021.body",
+      "sha256": "e3e43c94df06ab4ea28ef3ef0e5dc41b5e14e623a495274465bb4b2e9fdb94f8",
+      "bytes": 323219
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxl/split2021.receipt.json",
+      "sha256": "7407b50f214653b49cfa8e54f095b15e5b0ca2e414d5d8513b795716903519b1",
+      "bytes": 1239
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/complete_http_receipt.json",
+      "sha256": "c95977e07d88b29ac48f9322c5bf52e9616abe69b23f2547ef831b78865bb977",
+      "bytes": 1442
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/download_metadata.json",
+      "sha256": "e76b5643854b385eb01b104aaf095ad0970aba617f0aba65aae657542917f961",
+      "bytes": 487
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/issuer_distributions_extracted.csv",
+      "sha256": "ab2aaad7c4f5dece83418f7504f5c75f340888c8af87e6e9c3eb366906daca38",
+      "bytes": 5464
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/issuer_dividend_audit.json",
+      "sha256": "c1c45e13995f3900de51bea413b676d3ebabb8fe1448023ce7e28168a72a81e5",
+      "bytes": 2722
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/issuer_fund_download.bin",
+      "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+      "bytes": 3344466
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/issuer_fund_download_receipt_complete.bin",
+      "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+      "bytes": 3344466
+    },
+    {
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/issuer_futu_cash_basis_comparison.csv",
+      "sha256": "6024890e4588f8039ebfe4241d74bea44ec9f978393fe05cde932c03c12f32fe",
+      "bytes": 9712
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/conclusion.md",
+      "sha256": "978c3e891ce9a96cdf9a8c8bfbed68338421c42608ade5ace522312d4bd08a84",
+      "bytes": 1856
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/etf_corporate_actions_20261009.ipynb",
+      "sha256": "e6e042c3e0c171f83fa95152107f77dd48cf40a652e6558d325707f5bf605d6b",
+      "bytes": 75500
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/plan.json",
+      "sha256": "2127d65862abb8c0b17178ba35a6694ead94af27d11099e4f0ddcc32806492eb",
+      "bytes": 42554
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/0/meta.yaml",
+      "sha256": "b28dbd3531da8428a3efdb1133369d4afd2bed77353941d8695cd8ffe8a7492d",
+      "bytes": 303
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/analysis/qualification.pkl",
+      "sha256": "8a614a8d1c9895cc0a29dc7f91db3a8213012670c40a9c813a8fa0609aa18cfa",
+      "bytes": 1554
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/analysis/source_difference_audit.pkl",
+      "sha256": "7bd94e0bd0d1a62a5fbbcbb859bb8c698dcbc9002406682ddbaf51d47a43e73a",
+      "bytes": 292
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/analysis/source_differences.pkl",
+      "sha256": "62e020db35b21d103a7bd7b958f1f7e67ef62b2695d9cd6b86f2e27a49c2eb50",
+      "bytes": 6751
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/card/conclusion.md",
+      "sha256": "978c3e891ce9a96cdf9a8c8bfbed68338421c42608ade5ace522312d4bd08a84",
+      "bytes": 1856
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/card/etf_corporate_actions_20261009.ipynb",
+      "sha256": "e6e042c3e0c171f83fa95152107f77dd48cf40a652e6558d325707f5bf605d6b",
+      "bytes": 75500
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/card/plan.json",
+      "sha256": "2127d65862abb8c0b17178ba35a6694ead94af27d11099e4f0ddcc32806492eb",
+      "bytes": 42554
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/card/qualification.json",
+      "sha256": "ace78a655b1a0f3bd0d03d04d4cab4095180c7f77cb7fdc365620003d66c2db8",
+      "bytes": 2027
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/card/source_differences_summary.json",
+      "sha256": "f351eec66bb68f2aa8ede684179a196cffd566a10330731bae36783eaa697613",
+      "bytes": 340
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/card/summary.json",
+      "sha256": "7532d3fff2c79c34c81a042da88ec8acbded721dbdc288662314be855b4a2275",
+      "bytes": 7164
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/card/verification.json",
+      "sha256": "38a06d66589cca79cc287fc1b4baa68d4fc871273bd9004b50f95367f7b98967",
+      "bytes": 2095
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/card/workflow.yaml",
+      "sha256": "32f7601cf9d5072ef08678fadeccc146e9c0c75533507da7ef82566b9a62b8b4",
+      "bytes": 1430
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/data/cash_events.pkl",
+      "sha256": "4ad373f39401f5dc6f826e17806243a3331f19f569ab1d4bc617efc5954e5d5a",
+      "bytes": 26147
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/data/source_rows.pkl",
+      "sha256": "e6b76d5d9ece78065c27226b6d040375149fb92194379c07c7e4a79d077b95ab",
+      "bytes": 21433
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/data/split_events.pkl",
+      "sha256": "92f74ce2ceb29ddd0daac623a949d0076516de6f6c19b3c5e8071e086943a125",
+      "bytes": 1782
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/execution/original_execution/conclusion.md",
+      "sha256": "742d43f1b31794441c09d6b403603fa0c1445f4b5dc74a9b4458921aeac59b69",
+      "bytes": 789
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/execution/original_execution/etf_corporate_actions_20261009.ipynb",
+      "sha256": "a84be74835aef54952157b874ae95efc26f505fa888d20bb29874e9e2a31ed43",
+      "bytes": 64622
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/execution/original_execution/qualification.json",
+      "sha256": "ace78a655b1a0f3bd0d03d04d4cab4095180c7f77cb7fdc365620003d66c2db8",
+      "bytes": 2027
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/execution/original_execution/source_differences_summary.json",
+      "sha256": "f351eec66bb68f2aa8ede684179a196cffd566a10330731bae36783eaa697613",
+      "bytes": 340
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/execution/original_execution/summary.json",
+      "sha256": "23d266395fdb70a63967ac4ee5d827efe2fede708cd46eb2c86f61faf2ca08af",
+      "bytes": 6435
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/execution/original_execution/verification_manifest.json",
+      "sha256": "fca4a5ab2ca365e27baab2db13c2ff7ca83d45d54f40335bd4663a553306b892",
+      "bytes": 22329
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/inputs/native_calendar.pkl",
+      "sha256": "b9e2a8d384324a79a4314faa8f892b948c0bbb6db29b8ea4d147cbc7d71f8ed2",
+      "bytes": 40641
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/inputs/parent_bindings.pkl",
+      "sha256": "07908a86861f0b8dd0fd40d80b0dd3eca04611a8c336f06be440365bce6dc82e",
+      "bytes": 10463
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/inputs/source_contract.pkl",
+      "sha256": "90ee1af96af9374e096dd2f3c681ec5654c4943bad4dba829d3097a6d07c4532",
+      "bytes": 32185
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/source/src/core/recorder_sources.py",
+      "sha256": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+      "bytes": 13082
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/source/src/data/etf_corporate_actions.py",
+      "sha256": "5544f3f87969065f03880b3c95c231fbac831a28bb659f6043e5c6ac6f689e7e",
+      "bytes": 21737
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/source/src/workflow/etf_corporate_actions.py",
+      "sha256": "6b8f8832511ac0c0a54ea0e0e6ea5717e0b0435898cb9bbfd3d30d1828e3c9f9",
+      "bytes": 27418
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/browser_download_attempts.json",
+      "sha256": "2e2569aac7ad37b1fa3c6224d9b1fd6b6f762fd3ac83b13a55679dbf9a9b982a",
+      "bytes": 1088
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/distributions.body",
+      "sha256": "36d110a0bdf288b50de599bd9f0bceee642a9503d3314d25e7df6136da098023",
+      "bytes": 5501
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/distributions.receipt.json",
+      "sha256": "f917af74a0c7acfc4072910b9b55bc91f0e14dc36239f947b70bf0ced9d9bf1b",
+      "bytes": 2494
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/futu_rehab_docs.body",
+      "sha256": "0917e9b3481f954ffbe59a46116604c8d226eeff267ec96c3df6155fbeb68609",
+      "bytes": 251407
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/futu_rehab_docs.receipt.json",
+      "sha256": "c0191034dbc4ad378ef9c0d6b82bfa294c92c95110de8b7e1dd0a1ae146a9d88",
+      "bytes": 1028
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/direxionfunds.com_cdx.response",
+      "sha256": "2e27cec669b38f6be24cb3be61cc58d7c452ac3edffcfcfe3ba9b0fc4c53ad91",
+      "bytes": 1449
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/direxionfunds.com_cdx_receipt.json",
+      "sha256": "a56ab20f362a556819ed12cdf89d28660b7a934d541b02ad0b1b5d13094f0a73",
+      "bytes": 756
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/direxioninvestments.com_cdx.response",
+      "sha256": "6f4e839e5fb9d6b11a6ab69e0a3511b387ce93803ab92c6088cd2f039e2547f7",
+      "bytes": 703
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/direxioninvestments.com_cdx_receipt.json",
+      "sha256": "310650b8c43a0feadba0856f5d875fe67274268cdd7049ce6de8d4d68959c115",
+      "bytes": 773
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/ici2014_guess.response",
+      "sha256": "2938e9f1284180959e33ab1718d0793a72ff6e4cdb8108c34dcd14e69446de5c",
+      "bytes": 17
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/ici2014_guess_receipt.json",
+      "sha256": "ab264a229d5a0ca305d35223f4e54e14b1a494895d733b7fd358be842f8bdbb6",
+      "bytes": 434
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/ici_receipt.json",
+      "sha256": "3860c7c70faae530a9ffa8b6097fd4c8bf93904dfe80333db133cd298e5daa98",
+      "bytes": 167
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/issuer_distributions_20141224.html",
+      "sha256": "8605972106dcde96b64fdf53acfcf6b8f111ae05b07c547c05f028a9e5214412",
+      "bytes": 65256
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/issuer_distributions_20141224_income_table.txt",
+      "sha256": "4d300d98024a87a89d621f9645adc2a9b360553fc46ed65764a674e78d36580f",
+      "bytes": 679
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/issuer_distributions_20141224_receipt.json",
+      "sha256": "cfb992e1d713dd0335da8c1700e4a1309496a55a88944e4e9a28519839c52fd1",
+      "bytes": 583
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/soxl_2014_exact_historical_issuer_evidence.json",
+      "sha256": "6057a093240fb5ca74c23e1becba3c0e0dc77bff29a02bd6b3dc281273d79d09",
+      "bytes": 1824
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/wayback_cdx.response",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/independent_2014/wayback_cdx_receipt.json",
+      "sha256": "41c9ef663e80ee96e340fa0df47dc6fb19f384ab278851a2f840bb7881eae332",
+      "bytes": 649
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/issuer_soxl_inventory.json",
+      "sha256": "dd85b85d62712af26197d67b97c335985649cb7f243ad6ed64ac9360466d3b05",
+      "bytes": 2064
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/issuer_soxl_table_observed.csv",
+      "sha256": "e5c2e720eb85244aac7ba9c626941d3f2d6b2c1feba27fd66b6e4b5462bb2033",
+      "bytes": 1664
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/product.body",
+      "sha256": "8c0ec0a43bf9644dbeb6e53d340b4dd3cc4bb6fe4bbf609f04359235562e2b05",
+      "bytes": 5606
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/product.receipt.json",
+      "sha256": "b64b1bfc2eb96a76adb828f55f19d5057a953489ff870d6214748137b12df22f",
+      "bytes": 2544
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/sec_20150430_complete_submission.body",
+      "sha256": "210334f16c87d3147f540fb5bef695398a965c56ae0b237a4a2dfd934b600e77",
+      "bytes": 4819
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/sec_20150430_complete_submission.receipt.json",
+      "sha256": "aa14efe1c35303183dfa25a2ea77dd74e618e4b6606e129b183b5b912cd23c0e",
+      "bytes": 988
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/sec_20150430_semiannual.body",
+      "sha256": "6e87b7ae31df65a70b549c61b7278ac856128688ea9c7a9ae7c73374657bbf6b",
+      "bytes": 4819
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/sec_20150430_semiannual.receipt.json",
+      "sha256": "49fd08d02e53449be11847b32818ea691df8c16b0a01c7fe3458641fc315ad6e",
+      "bytes": 965
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/sec_submissions.body",
+      "sha256": "954de56082bf57e06a37346c7e1f62f3b26413f5855ebfd30de44fa2a38e3023",
+      "bytes": 187707
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/sec_submissions.receipt.json",
+      "sha256": "fb24b850d8fdb41957b7cd0944e2ee3e4c32834d10477ffbd27517f0806e85cd",
+      "bytes": 407
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/sec_submissions_history.body",
+      "sha256": "aa2504cb4a85994dc3dd8fd3bf0142704338777be7ba4dd408a41ba6a83a4bd5",
+      "bytes": 344872
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/sec_submissions_history.receipt.json",
+      "sha256": "c601cb0f0610aa04f6c865bb5ef942f6fde40131ee3acfb3c55d54b1a80594d3",
+      "bytes": 1025
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/soxl_2014_contradiction.json",
+      "sha256": "6f080e69fba3c1481fa176d86b722f59414daf793b34eaaf5459b179fa0b64bd",
+      "bytes": 3631
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/soxl_2015_occ36615.body",
+      "sha256": "d7b6a3f416c558e8b4e09ccc63a6c2f5ba6b074e53dfcfaee3a5a7ad83f77169",
+      "bytes": 81126
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/soxl_2015_occ36615.receipt.json",
+      "sha256": "91413ec4a226f2612d6abae912a516a55f1ec67985b1c7ede887c2b3d1fb1ea5",
+      "bytes": 1097
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/soxl_2016_occ40328.body",
+      "sha256": "b4beeac8a05ff439e072056577a229c392debab2420f1ff7bdba7415d4a7e3f8",
+      "bytes": 23673
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/soxl_2016_occ40328.receipt.json",
+      "sha256": "4ebdc6972aa5d6fa9b3c654f4d867baeae9e2e3f06d1d79e562cb3e0c43c7504",
+      "bytes": 1103
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/soxx_2024_split_8937.body",
+      "sha256": "12d06890b99609c59df6d57ae53a5625a17aa1ffa792182f7362168fe6cf30f3",
+      "bytes": 83128
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/soxx_2024_split_8937.receipt.json",
+      "sha256": "68375cab6ae8535b90eb2f0885729b78e0245181dee40a6059e5a0735dc1fb6e",
+      "bytes": 1697
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/soxx_2024_split_press.body",
+      "sha256": "6a38e6eb785fa0661e9d54c631d3cdbcd3521ff2655b176851c9482d80ebd8eb",
+      "bytes": 151002
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/soxx_2024_split_press.receipt.json",
+      "sha256": "180a763d51fc5607b1ec074950f00ec3706b7fa2ad254c91866abb11e5db7b7e",
+      "bytes": 3993
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/split2015.body",
+      "sha256": "b44b2444302aa326af4ae6ba6fbf2fea49750f522e98803fc54f0d99c03613f2",
+      "bytes": 4819
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/split2015.receipt.json",
+      "sha256": "5d58f717e4f305035a64f19ac6cebd478d1509c89d8eff05adc92a98b9f63186",
+      "bytes": 947
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/split2021.body",
+      "sha256": "e3e43c94df06ab4ea28ef3ef0e5dc41b5e14e623a495274465bb4b2e9fdb94f8",
+      "bytes": 323219
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxl/split2021.receipt.json",
+      "sha256": "7407b50f214653b49cfa8e54f095b15e5b0ca2e414d5d8513b795716903519b1",
+      "bytes": 1239
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxx/complete_http_receipt.json",
+      "sha256": "c95977e07d88b29ac48f9322c5bf52e9616abe69b23f2547ef831b78865bb977",
+      "bytes": 1442
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxx/download_metadata.json",
+      "sha256": "e76b5643854b385eb01b104aaf095ad0970aba617f0aba65aae657542917f961",
+      "bytes": 487
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxx/issuer_distributions_extracted.csv",
+      "sha256": "ab2aaad7c4f5dece83418f7504f5c75f340888c8af87e6e9c3eb366906daca38",
+      "bytes": 5464
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxx/issuer_dividend_audit.json",
+      "sha256": "c1c45e13995f3900de51bea413b676d3ebabb8fe1448023ce7e28168a72a81e5",
+      "bytes": 2722
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxx/issuer_fund_download.bin",
+      "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+      "bytes": 3344466
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxx/issuer_fund_download_receipt_complete.bin",
+      "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+      "bytes": 3344466
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/sources/soxx/issuer_futu_cash_basis_comparison.csv",
+      "sha256": "6024890e4588f8039ebfe4241d74bea44ec9f978393fe05cde932c03c12f32fe",
+      "bytes": 9712
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/artifact_hashes.pkl",
+      "sha256": "7c6b4a7c3eeac0d0197bb11c3651737cda862a0decff24f016a33621bfb0378e",
+      "bytes": 8445
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/helpers/finalize_card.py",
+      "sha256": "70cfe30b08a397ee5940cb0a7b5c0e58f8c49dfd6e3cf6e0f0b43cc40c311b62",
+      "bytes": 9114
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/helpers/independent_audit.py",
+      "sha256": "e9454cf58574f997b26d8866a22e3578fc0e8160388054a1bf33968ac60f71d6",
+      "bytes": 6767
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/helpers/independent_audit_first_failed.py",
+      "sha256": "18859c42d7f412ff9b58f46003336e71ce25c01d16125191c7d580dabcc1d371",
+      "bytes": 6755
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/independent_audit.json",
+      "sha256": "55ee494dc2d8540b7cc9caff2aeced07a00f0db68ebb37cad72f87e3f2abeab6",
+      "bytes": 1091
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/logs/focused.log.gz",
+      "sha256": "7989cf4aafec1caecbb96d2c249b119f2c04fdc0cf0371d8dc0223e64748cb28",
+      "bytes": 667
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/logs/independent_audit.log.gz",
+      "sha256": "cb69931e55e548cdb7ac5481fb56301f6c7831784c05994d65421bde293325dc",
+      "bytes": 1028
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/logs/independent_audit_first_failed.log.gz",
+      "sha256": "1460faf72b0bece90552b67cc81126a8d7ec8a971e8818a72836625e7c5b4d8f",
+      "bytes": 721
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/logs/notebook_execution.log.gz",
+      "sha256": "6c6b8526692e4d36e852de991cc725066859850bbf969315812443980d669053",
+      "bytes": 302
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/parent_readback.pkl",
+      "sha256": "9a37126743437cce3311c8e42cc67fc2b140434ca9c494d63ffd35e0bd441aa8",
+      "bytes": 6075
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/source_receipts.pkl",
+      "sha256": "5ef69443c37c91b42f630ec0574b9c959c82c7dcb4dd8bd55fc69e5a447293d6",
+      "bytes": 6217
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/test_sources/test_etf_corporate_actions.py.gz",
+      "sha256": "8b350141af25ff67c076de50b32affcae59f19d8e8cb856214d40d58915f6e4f",
+      "bytes": 3759
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/test_sources/test_etf_corporate_actions_workflow.py.gz",
+      "sha256": "62dc21382167a8437a5adda1272e052dce6137e0490187d8dc4f19aabbdbf0fc",
+      "bytes": 3968
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/meta.yaml",
+      "sha256": "d2697ab8ab8f44c83f89e55b023cadee23171867c448b4a3d13479905c052db1",
+      "bytes": 443
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/metrics/cash_event_rows",
+      "sha256": "e9bfbbb6e4c27ca58050cbdd381da9d28c18a128bb1a1377a338a56f6c816012",
+      "bytes": 22
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/metrics/native_calendar_rows",
+      "sha256": "ef3f8e88d698bed52c47f2b7a2aa06aba54741e925846ef54e411c42135044c4",
+      "bytes": 23
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/metrics/split_event_rows",
+      "sha256": "06611d721e021afad9be3afdbb69e49d35ac6144a89ae2ddc3b6c8cccdd40f13",
+      "bytes": 20
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/params/cmd-sys.argv",
+      "sha256": "9fa45fae20a13b09da798245f27b9d291de99a40e4bda37f9c1fe2ad0b25b94e",
+      "bytes": 202
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/params/historical_vintage_certified",
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "bytes": 5
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/params/market_as_of",
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "bytes": 10
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/params/plan_sha256",
+      "sha256": "0685d1fc2540878f4fd2418120637066cf398402918f4603cabb759fe9d623f5",
+      "bytes": 64
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/params/task_kind",
+      "sha256": "604d0972cc2c5d564c458d51979f68936f9c2f9bbaa6c4bc6af482f3f1ec8333",
+      "bytes": 46
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "bytes": 89
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/meta.yaml",
+      "sha256": "54088065e67c34c4df8e6a32aa9f2b6cc3676c6a5bbd184a57fa057637687802",
+      "bytes": 360
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qualification.json",
+      "sha256": "ace78a655b1a0f3bd0d03d04d4cab4095180c7f77cb7fdc365620003d66c2db8",
+      "bytes": 2027
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/source_differences_summary.json",
+      "sha256": "f351eec66bb68f2aa8ede684179a196cffd566a10330731bae36783eaa697613",
+      "bytes": 340
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/summary.json",
+      "sha256": "7532d3fff2c79c34c81a042da88ec8acbded721dbdc288662314be855b4a2275",
+      "bytes": 7164
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/verification.json",
+      "sha256": "38a06d66589cca79cc287fc1b4baa68d4fc871273bd9004b50f95367f7b98967",
+      "bytes": 2095
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/workflow.yaml",
+      "sha256": "32f7601cf9d5072ef08678fadeccc146e9c0c75533507da7ef82566b9a62b8b4",
+      "bytes": 1430
+    },
+    {
+      "path": "src/data/etf_corporate_actions.py",
+      "sha256": "5544f3f87969065f03880b3c95c231fbac831a28bb659f6043e5c6ac6f689e7e",
+      "bytes": 21737
+    },
+    {
+      "path": "src/workflow/etf_corporate_actions.py",
+      "sha256": "6b8f8832511ac0c0a54ea0e0e6ea5717e0b0435898cb9bbfd3d30d1828e3c9f9",
+      "bytes": 27418
+    },
+    {
+      "path": "tests/test_etf_corporate_actions.py",
+      "sha256": "477138424fe8a37c508a61b52f7ea5c9f2ee2b0d5ffe165174c9d9566b4ac524",
+      "bytes": 12524
+    },
+    {
+      "path": "tests/test_etf_corporate_actions_workflow.py",
+      "sha256": "65602a0a9b7913cbdf671e756cde76ba7adf20607973fdadc5650e0b59a83c94",
+      "bytes": 13147
+    }
+  ],
+  "entry_count": 166,
+  "self_reference_exclusions": [
+    "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/validation/verification_manifest.json",
+    "research/etf_corporate_actions_20261009/verification_manifest.json"
+  ],
+  "notebook_final_output_hash": "e6e042c3e0c171f83fa95152107f77dd48cf40a652e6558d325707f5bf605d6b",
+  "original_executed_notebook_sha256": "a84be74835aef54952157b874ae95efc26f505fa888d20bb29874e9e2a31ed43",
+  "all_recorded_artifact_hashes_read_back": true,
+  "source_capture_kinds_preserved": true,
+  "scope": "Eventsourcequalificationonly;notaccountledger,vintageorinvestmentreturncertification."
+}

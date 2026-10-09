@@ -1,0 +1,26 @@
+{
+  "requested_url": "https://openapi.futunn.com/futu-api-doc/en/quote/get-rehab.html",
+  "final_url": "https://openapi.futunn.com/futu-api-doc/en/quote/get-rehab.html",
+  "request_started_at_utc": "2026-10-09T06:43:43.172780+00:00",
+  "response_received_at_utc": "2026-10-09T06:43:43.531159+00:00",
+  "status_code": 200,
+  "body_file": "futu_rehab_docs.body",
+  "body_bytes": 251407,
+  "body_sha256": "0917e9b3481f954ffbe59a46116604c8d226eeff267ec96c3df6155fbeb68609",
+  "response_headers": {
+    "Etag": "W/\"3d60f-1a0ae912d28\"",
+    "Content-Type": "text/html; charset=UTF-8",
+    "Server": "fgw_web_conn/1.2.0",
+    "X-Powered-By": "Express",
+    "Vary": "Accept-Encoding",
+    "Last-Modified": "Thu, 17 Sep 2026 08:52:25 GMT",
+    "Content-Encoding": "gzip",
+    "Cache-Control": "public, max-age=0",
+    "Content-Length": "17966",
+    "Accept-Ranges": "bytes",
+    "Connection": "keep-alive",
+    "Date": "Fri, 09 Oct 2026 06:43:43 GMT",
+    "EO-LOG-UUID": "6862622907303979926",
+    "EO-Cache-Status": "RefreshHit"
+  }
+}

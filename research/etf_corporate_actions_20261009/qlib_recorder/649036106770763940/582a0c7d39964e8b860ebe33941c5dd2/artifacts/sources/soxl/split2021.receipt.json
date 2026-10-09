@@ -1,0 +1,27 @@
+{
+  "requested_url": "https://www.direxion.com/uploads/Direxion-Announces-Forward-and-Reverse-Splits-of-Five-ETFs.pdf",
+  "request_started_at_utc": "2026-10-09T06:40:10.191745+00:00",
+  "response_received_at_utc": "2026-10-09T06:40:12.887523+00:00",
+  "final_url": "https://www.direxion.com/uploads/Direxion-Announces-Forward-and-Reverse-Splits-of-Five-ETFs.pdf",
+  "status_code": 200,
+  "body_file": "split2021.body",
+  "body_bytes": 323219,
+  "body_sha256": "e3e43c94df06ab4ea28ef3ef0e5dc41b5e14e623a495274465bb4b2e9fdb94f8",
+  "response_headers": {
+    "Date": "Fri, 09 Oct 2026 06:40:11 GMT",
+    "Content-Type": "application/pdf",
+    "Content-Length": "323219",
+    "Connection": "keep-alive",
+    "x-amz-id-2": "dN/Nhsm4KGQTacdTEhJ/E2p0HmWv/lT/uI5OiDQ5imWnuJFti1xV+RORBl6OPz4R3G0uFyk7LvaX2XR8XwUCdiGGkmatwGT1",
+    "x-amz-request-id": "C6AQ17J6RWGFXTJ2",
+    "last-modified": "Mon, 25 Mar 2024 21:21:16 GMT",
+    "etag": "\"d183ec23d6a7c020a7078a867036d164\"",
+    "x-amz-server-side-encryption": "AES256",
+    "Accept-Ranges": "bytes",
+    "strict-transport-security": "max-age=15552000",
+    "cf-cache-status": "MISS",
+    "X-Content-Type-Options": "nosniff",
+    "Server": "cloudflare",
+    "CF-RAY": "a47b6475fd8bcf13-SJC"
+  }
+}

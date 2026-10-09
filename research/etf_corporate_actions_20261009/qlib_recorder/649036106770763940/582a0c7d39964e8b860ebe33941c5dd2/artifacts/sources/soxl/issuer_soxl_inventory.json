@@ -1,0 +1,46 @@
+{
+  "status": "readonly_inventory_not_qualified",
+  "browser_source": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs",
+  "browser_table_observation": "Normal Chrome browser; expanded Distributions; DOM rows read through documented CUA. CSV transcribed exactly from tool result, not original HTTP response. Header and responsive duplicate footer excluded.",
+  "browser_observation_completed_before_utc": "2026-10-09T06:41:55+00:00",
+  "written_at_utc": "2026-10-09T06:42:40.251462+00:00",
+  "rows": 32,
+  "first_ex_date": "2010-09-22",
+  "last_ex_date": "2026-09-22",
+  "unique_ex_dates": true,
+  "missing_ex_record_pay": 0,
+  "ex_before_or_equal_pay": true,
+  "matched_futu_dates": 32,
+  "futu_only_dates": [],
+  "issuer_only_dates": [],
+  "max_abs_raw_amount_difference": 0.0039900000000000005,
+  "share_basis_inference": "30/32 amounts match Futu original-date cash within1e-6; 2019-09-24 differs1e-5 (rounding); 2014-12-23 issuer .00532 vsFutu .00133 is exact4x discrepancy, needs independent contemporary confirmation. SOXL issuer2016 gain2.76442 matches contemporary OCC notice before15for1 split, thus global current-share scaling is inappropriate. SOXX workbook current-share basis differs.",
+  "parent_recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+  "parent_raw_artifact": "inputs/verified_raw_inputs.pkl",
+  "parent_raw_sha256": "3c1cce5d834e86bf863a0400180852cc10c768a422f988a5e7f33204d2ad025a",
+  "rows_payable_after_market_as_of_20260925": [
+    {
+      "ex_div_date": "2026-09-22",
+      "pay_date": "2026-09-29",
+      "total_cash": "0.0929"
+    }
+  ],
+  "new_broker_api_calls": 0,
+  "strategy_replays": 0,
+  "existing_data_changed": false,
+  "cash_amounts_exact_within_1e6_rows": 30,
+  "cash_amount_discrepancies": [
+    {
+      "ex_div_date": "2014-12-23",
+      "total_cash": 0.00532,
+      "per_cash_div": 0.00133,
+      "amount_difference": 0.00399
+    },
+    {
+      "ex_div_date": "2019-09-24",
+      "total_cash": 0.31275,
+      "per_cash_div": 0.31274,
+      "amount_difference": 9.99999999995449e-06
+    }
+  ]
+}

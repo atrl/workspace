@@ -1,0 +1,23 @@
+{
+  "requested_url": "https://data.sec.gov/submissions/CIK0001424958-submissions-002.json",
+  "final_url": "https://data.sec.gov/submissions/CIK0001424958-submissions-002.json",
+  "request_started_at_utc": "2026-10-09T06:45:09.675195+00:00",
+  "response_received_at_utc": "2026-10-09T06:45:11.512544+00:00",
+  "status_code": 200,
+  "body_file": "sec_submissions_history.body",
+  "body_sha256": "aa2504cb4a85994dc3dd8fd3bf0142704338777be7ba4dd408a41ba6a83a4bd5",
+  "body_bytes": 344872,
+  "response_headers": {
+    "x-amzn-RequestId": "e082ce7e-aa2e-460f-853c-085efc962bbf",
+    "Access-Control-Allow-Origin": "*",
+    "x-amz-apigw-id": "E9sKsFW9IAMERUg=",
+    "X-Amzn-Trace-Id": "Root=1-6ac88d77-426bfa79b59293a1de86d249",
+    "Content-Type": "application/json",
+    "Vary": "Accept-Encoding",
+    "Content-Encoding": "gzip",
+    "Date": "Fri, 09 Oct 2026 06:45:11 GMT",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive, Transfer-Encoding",
+    "Strict-Transport-Security": "max-age=31536000 ; preload"
+  }
+}

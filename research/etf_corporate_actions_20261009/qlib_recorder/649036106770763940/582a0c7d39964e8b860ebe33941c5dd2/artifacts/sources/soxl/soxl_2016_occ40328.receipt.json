@@ -1,0 +1,26 @@
+{
+  "requested_url": "https://www.miaxglobal.com/sites/default/files/alert-files/SOXL_CapGains_40328.pdf",
+  "final_url": "https://www.miaxglobal.com/sites/default/files/alert-files/SOXL_CapGains_40328.pdf",
+  "request_started_at_utc": "2026-10-09T06:43:43.172297+00:00",
+  "response_received_at_utc": "2026-10-09T06:43:44.900386+00:00",
+  "status_code": 200,
+  "body_file": "soxl_2016_occ40328.body",
+  "body_bytes": 23673,
+  "body_sha256": "b4beeac8a05ff439e072056577a229c392debab2420f1ff7bdba7415d4a7e3f8",
+  "response_headers": {
+    "Content-Type": "application/pdf",
+    "Content-Length": "23673",
+    "X-Content-Type-Options": "nosniff",
+    "Last-Modified": "Mon, 11 Feb 2019 23:10:15 GMT",
+    "Accept-Ranges": "bytes",
+    "X-Request-ID": "v-c5cdcc00-c3ac-11f1-837f-17969ceaeae5",
+    "X-AH-Environment": "prod",
+    "X-Age": "0",
+    "Expires": "Fri, 09 Oct 2026 06:43:44 GMT",
+    "Cache-Control": "max-age=0, no-cache, no-store",
+    "Pragma": "no-cache",
+    "Date": "Fri, 09 Oct 2026 06:43:44 GMT",
+    "Connection": "keep-alive",
+    "Strict-Transport-Security": "max-age=15768000"
+  }
+}

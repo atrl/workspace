@@ -1,0 +1,796 @@
+{
+  "schema_version": "etf_corporate_actions_qualification_plan_v1",
+  "experiment": "etf_corporate_actions_20261009",
+  "prepared_at_utc": "2026-10-09T07:04:43.407993+00:00",
+  "plan_state": "registered_after_root_review_before_qualification",
+  "task_kind": "event_source_and_share_unit_qualification_only",
+  "objective": "资格核对SOXX/SOXL发行人事件源、逐事件原始份额现金单位和ex/pay时点；为后续独立真实份额/应收账本提供Recorder事件证据。",
+  "market_as_of": "2026-09-25",
+  "source_retrieval_date_utc": "2026-10-09",
+  "price_provider_changed": false,
+  "new_price_provider_built": false,
+  "model_fits": 0,
+  "strategy_replays": 0,
+  "return_evaluations": 0,
+  "broker_api_calls": 0,
+  "promotion_eligible": false,
+  "scope_exclusions": [
+    "不拟合、预测、优化仓位或跑策略",
+    "不改任何旧价格、features、returns、provider、raw或完成card",
+    "不实现真正份额/应收/pay现金账本；另卡登记",
+    "不将当前历史获取称作当时数据vintage/PIT认证",
+    "不合成2001-2006价格或超出已存在原生日历的交易日",
+    "不将NAV历史页当可成交价格",
+    "不执行未来2026-11-05 SOXX拆股",
+    "不对已含基金内部费用的原始交易价格额外扣一次基金融资/管理费"
+  ],
+  "source_archive": {
+    "destination": "data/raw/external/etf_corporate_actions_20261009_v1",
+    "copy_only_after_root_plan_review": true,
+    "immutable_if_exists": "verify_identical_no_overwrite",
+    "network_in_notebook": false,
+    "preserve_original_bytes": true,
+    "preserve_failed_receipts": true,
+    "files": [
+      {
+        "staged_input": "/tmp/soxx-pit-dividend-inventory/issuer_fund_download.bin",
+        "archive_relative_path": "soxx/issuer_fund_download.bin",
+        "capture_kind": "http_response_body",
+        "purpose": "首次原始发行人SpreadsheetML XLS，全量保留；首请求开始时刻未记录",
+        "bytes": 3344466,
+        "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af"
+      },
+      {
+        "staged_input": "/tmp/soxx-pit-dividend-inventory/download_metadata.json",
+        "archive_relative_path": "soxx/download_metadata.json",
+        "capture_kind": "http_receipt_partial",
+        "purpose": "真实首次接收UTC、URL、状态、hash；不伪造缺失请求开始时刻",
+        "bytes": 487,
+        "sha256": "e76b5643854b385eb01b104aaf095ad0970aba617f0aba65aae657542917f961"
+      },
+      {
+        "staged_input": "/tmp/soxx-pit-dividend-inventory/issuer_fund_download_receipt_complete.bin",
+        "archive_relative_path": "soxx/issuer_fund_download_receipt_complete.bin",
+        "capture_kind": "http_response_body",
+        "purpose": "第二次相同原始发行人XLS，用完整receipt封存",
+        "bytes": 3344466,
+        "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af"
+      },
+      {
+        "staged_input": "/tmp/soxx-pit-dividend-inventory/complete_http_receipt.json",
+        "archive_relative_path": "soxx/complete_http_receipt.json",
+        "capture_kind": "http_receipt",
+        "purpose": "第二次请求/接收UTC、最终URL、安全响应头与sha",
+        "bytes": 1442,
+        "sha256": "c95977e07d88b29ac48f9322c5bf52e9616abe69b23f2547ef831b78865bb977"
+      },
+      {
+        "staged_input": "/tmp/soxx-pit-dividend-inventory/issuer_distributions_extracted.csv",
+        "archive_relative_path": "soxx/issuer_distributions_extracted.csv",
+        "capture_kind": "derived_extraction_reference",
+        "purpose": "已读93行仅用作重解析一致性参照；正式解析以原始XLS为源",
+        "bytes": 5464,
+        "sha256": "ab2aaad7c4f5dece83418f7504f5c75f340888c8af87e6e9c3eb366906daca38"
+      },
+      {
+        "staged_input": "/tmp/soxx-pit-dividend-inventory/issuer_dividend_audit.json",
+        "archive_relative_path": "soxx/issuer_dividend_audit.json",
+        "capture_kind": "prior_readonly_diagnostic",
+        "purpose": "保留现有库存发现，不代替新资格运行",
+        "bytes": 2722,
+        "sha256": "c1c45e13995f3900de51bea413b676d3ebabb8fe1448023ce7e28168a72a81e5"
+      },
+      {
+        "staged_input": "/tmp/soxx-pit-dividend-inventory/issuer_futu_cash_basis_comparison.csv",
+        "archive_relative_path": "soxx/issuer_futu_cash_basis_comparison.csv",
+        "capture_kind": "prior_readonly_diagnostic",
+        "purpose": "保留2017缺失及逐行份额口径差异",
+        "bytes": 9712,
+        "sha256": "6024890e4588f8039ebfe4241d74bea44ec9f978393fe05cde932c03c12f32fe"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/issuer_soxl_table_observed.csv",
+        "archive_relative_path": "soxl/issuer_soxl_table_observed.csv",
+        "capture_kind": "browser_dom_table_transcription",
+        "purpose": "官方页面正常浏览器展开所得32行；tool结果转存，不是原始HTTP或原始HTML",
+        "bytes": 1664,
+        "sha256": "e5c2e720eb85244aac7ba9c626941d3f2d6b2c1feba27fd66b6e4b5462bb2033"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/issuer_soxl_inventory.json",
+        "archive_relative_path": "soxl/issuer_soxl_inventory.json",
+        "capture_kind": "browser_observation_metadata",
+        "purpose": "保留观察UTC上界而非发明精确HTTP时刻、URL、方法与局限",
+        "bytes": 2064,
+        "sha256": "dd85b85d62712af26197d67b97c335985649cb7f243ad6ed64ac9360466d3b05"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/soxl_2014_contradiction.json",
+        "archive_relative_path": "soxl/soxl_2014_contradiction.json",
+        "capture_kind": "contemporaneous_financial_constraint_diagnostic",
+        "purpose": "当前issuer、封存Futu、当时报表DOM数字/脚注的冲突与推断边界",
+        "bytes": 3631,
+        "sha256": "6f080e69fba3c1481fa176d86b722f59414daf793b34eaaf5459b179fa0b64bd"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/split2021.body",
+        "archive_relative_path": "soxl/split2021.body",
+        "capture_kind": "http_response_body",
+        "purpose": "Direxion2021原始拆股PDF",
+        "bytes": 323219,
+        "sha256": "e3e43c94df06ab4ea28ef3ef0e5dc41b5e14e623a495274465bb4b2e9fdb94f8"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/split2021.receipt.json",
+        "archive_relative_path": "soxl/split2021.receipt.json",
+        "capture_kind": "http_receipt",
+        "purpose": "Direxion2021原始拆股PDF真实receipt",
+        "bytes": 1239,
+        "sha256": "7407b50f214653b49cfa8e54f095b15e5b0ca2e414d5d8513b795716903519b1"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/soxl_2015_occ36615.body",
+        "archive_relative_path": "soxl/soxl_2015_occ36615.body",
+        "capture_kind": "http_response_body",
+        "purpose": "2015OCC拆股通知，MIAX官方镜像",
+        "bytes": 81126,
+        "sha256": "d7b6a3f416c558e8b4e09ccc63a6c2f5ba6b074e53dfcfaee3a5a7ad83f77169"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/soxl_2015_occ36615.receipt.json",
+        "archive_relative_path": "soxl/soxl_2015_occ36615.receipt.json",
+        "capture_kind": "http_receipt",
+        "purpose": "2015OCC拆股通知，MIAX官方镜像真实receipt",
+        "bytes": 1097,
+        "sha256": "91413ec4a226f2612d6abae912a516a55f1ec67985b1c7ede887c2b3d1fb1ea5"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/soxl_2016_occ40328.body",
+        "archive_relative_path": "soxl/soxl_2016_occ40328.body",
+        "capture_kind": "http_response_body",
+        "purpose": "2016OCC资本分配通知，MIAX官方镜像",
+        "bytes": 23673,
+        "sha256": "b4beeac8a05ff439e072056577a229c392debab2420f1ff7bdba7415d4a7e3f8"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/soxl_2016_occ40328.receipt.json",
+        "archive_relative_path": "soxl/soxl_2016_occ40328.receipt.json",
+        "capture_kind": "http_receipt",
+        "purpose": "2016OCC资本分配通知，MIAX官方镜像真实receipt",
+        "bytes": 1103,
+        "sha256": "4ebdc6972aa5d6fa9b3c654f4d867baeae9e2e3f06d1d79e562cb3e0c43c7504"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/soxx_2024_split_8937.body",
+        "archive_relative_path": "soxl/soxx_2024_split_8937.body",
+        "capture_kind": "http_response_body",
+        "purpose": "iShares2024原始Form8937份额变化",
+        "bytes": 83128,
+        "sha256": "12d06890b99609c59df6d57ae53a5625a17aa1ffa792182f7362168fe6cf30f3"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/soxx_2024_split_8937.receipt.json",
+        "archive_relative_path": "soxl/soxx_2024_split_8937.receipt.json",
+        "capture_kind": "http_receipt",
+        "purpose": "iShares2024原始Form8937份额变化真实receipt",
+        "bytes": 1697,
+        "sha256": "68375cab6ae8535b90eb2f0885729b78e0245181dee40a6059e5a0735dc1fb6e"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/futu_rehab_docs.body",
+        "archive_relative_path": "soxl/futu_rehab_docs.body",
+        "capture_kind": "http_response_body",
+        "purpose": "Futu官方字段/复权行为边界",
+        "bytes": 251407,
+        "sha256": "0917e9b3481f954ffbe59a46116604c8d226eeff267ec96c3df6155fbeb68609"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/futu_rehab_docs.receipt.json",
+        "archive_relative_path": "soxl/futu_rehab_docs.receipt.json",
+        "capture_kind": "http_receipt",
+        "purpose": "Futu官方字段/复权行为边界真实receipt",
+        "bytes": 1028,
+        "sha256": "c0191034dbc4ad378ef9c0d6b82bfa294c92c95110de8b7e1dd0a1ae146a9d88"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_submissions.body",
+        "archive_relative_path": "soxl/sec_submissions.body",
+        "capture_kind": "http_response_body",
+        "purpose": "SEC原始issuer filing索引",
+        "bytes": 187707,
+        "sha256": "954de56082bf57e06a37346c7e1f62f3b26413f5855ebfd30de44fa2a38e3023"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_submissions.receipt.json",
+        "archive_relative_path": "soxl/sec_submissions.receipt.json",
+        "capture_kind": "http_receipt",
+        "purpose": "SEC原始issuer filing索引真实receipt",
+        "bytes": 407,
+        "sha256": "fb24b850d8fdb41957b7cd0944e2ee3e4c32834d10477ffbd27517f0806e85cd"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_submissions_history.body",
+        "archive_relative_path": "soxl/sec_submissions_history.body",
+        "capture_kind": "http_response_body",
+        "purpose": "SEC原始历史filing索引",
+        "bytes": 344872,
+        "sha256": "aa2504cb4a85994dc3dd8fd3bf0142704338777be7ba4dd408a41ba6a83a4bd5"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_submissions_history.receipt.json",
+        "archive_relative_path": "soxl/sec_submissions_history.receipt.json",
+        "capture_kind": "http_receipt",
+        "purpose": "SEC原始历史filing索引真实receipt",
+        "bytes": 1025,
+        "sha256": "c601cb0f0610aa04f6c865bb5ef942f6fde40131ee3acfb3c55d54b1a80594d3"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/product.body",
+        "archive_relative_path": "soxl/product.body",
+        "capture_kind": "failed_http_response_body",
+        "purpose": "保留已发生403/404失败，不作为成功内容来源",
+        "bytes": 5606,
+        "sha256": "8c0ec0a43bf9644dbeb6e53d340b4dd3cc4bb6fe4bbf609f04359235562e2b05"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/product.receipt.json",
+        "archive_relative_path": "soxl/product.receipt.json",
+        "capture_kind": "failed_http_receipt",
+        "purpose": "真实失败请求信息，不宣称下载成功",
+        "bytes": 2544,
+        "sha256": "b64b1bfc2eb96a76adb828f55f19d5057a953489ff870d6214748137b12df22f"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/distributions.body",
+        "archive_relative_path": "soxl/distributions.body",
+        "capture_kind": "failed_http_response_body",
+        "purpose": "保留已发生403/404失败，不作为成功内容来源",
+        "bytes": 5501,
+        "sha256": "36d110a0bdf288b50de599bd9f0bceee642a9503d3314d25e7df6136da098023"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/distributions.receipt.json",
+        "archive_relative_path": "soxl/distributions.receipt.json",
+        "capture_kind": "failed_http_receipt",
+        "purpose": "真实失败请求信息，不宣称下载成功",
+        "bytes": 2494,
+        "sha256": "f917af74a0c7acfc4072910b9b55bc91f0e14dc36239f947b70bf0ced9d9bf1b"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/split2015.body",
+        "archive_relative_path": "soxl/split2015.body",
+        "capture_kind": "failed_http_response_body",
+        "purpose": "保留已发生403/404失败，不作为成功内容来源",
+        "bytes": 4819,
+        "sha256": "b44b2444302aa326af4ae6ba6fbf2fea49750f522e98803fc54f0d99c03613f2"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/split2015.receipt.json",
+        "archive_relative_path": "soxl/split2015.receipt.json",
+        "capture_kind": "failed_http_receipt",
+        "purpose": "真实失败请求信息，不宣称下载成功",
+        "bytes": 947,
+        "sha256": "5d58f717e4f305035a64f19ac6cebd478d1509c89d8eff05adc92a98b9f63186"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_20150430_semiannual.body",
+        "archive_relative_path": "soxl/sec_20150430_semiannual.body",
+        "capture_kind": "failed_http_response_body",
+        "purpose": "保留已发生403/404失败，不作为成功内容来源",
+        "bytes": 4819,
+        "sha256": "6e87b7ae31df65a70b549c61b7278ac856128688ea9c7a9ae7c73374657bbf6b"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_20150430_semiannual.receipt.json",
+        "archive_relative_path": "soxl/sec_20150430_semiannual.receipt.json",
+        "capture_kind": "failed_http_receipt",
+        "purpose": "真实失败请求信息，不宣称下载成功",
+        "bytes": 965,
+        "sha256": "49fd08d02e53449be11847b32818ea691df8c16b0a01c7fe3458641fc315ad6e"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_20150430_complete_submission.body",
+        "archive_relative_path": "soxl/sec_20150430_complete_submission.body",
+        "capture_kind": "failed_http_response_body",
+        "purpose": "保留已发生403/404失败，不作为成功内容来源",
+        "bytes": 4819,
+        "sha256": "210334f16c87d3147f540fb5bef695398a965c56ae0b237a4a2dfd934b600e77"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_20150430_complete_submission.receipt.json",
+        "archive_relative_path": "soxl/sec_20150430_complete_submission.receipt.json",
+        "capture_kind": "failed_http_receipt",
+        "purpose": "真实失败请求信息，不宣称下载成功",
+        "bytes": 988,
+        "sha256": "aa14efe1c35303183dfa25a2ea77dd74e618e4b6606e129b183b5b912cd23c0e"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/soxx_2024_split_press.body",
+        "archive_relative_path": "soxl/soxx_2024_split_press.body",
+        "capture_kind": "failed_http_response_body",
+        "purpose": "保留已发生403/404失败，不作为成功内容来源",
+        "bytes": 151002,
+        "sha256": "6a38e6eb785fa0661e9d54c631d3cdbcd3521ff2655b176851c9482d80ebd8eb"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/soxx_2024_split_press.receipt.json",
+        "archive_relative_path": "soxl/soxx_2024_split_press.receipt.json",
+        "capture_kind": "failed_http_receipt",
+        "purpose": "真实失败请求信息，不宣称下载成功",
+        "bytes": 3993,
+        "sha256": "180a763d51fc5607b1ec074950f00ec3706b7fa2ad254c91866abb11e5db7b7e"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/browser_download_attempts.json",
+        "archive_relative_path": "soxl/browser_download_attempts.json",
+        "capture_kind": "failed_browser_download_audit",
+        "purpose": "保留SEC正文可读但原始字节下载未成功的边界",
+        "bytes": 1088,
+        "sha256": "2e2569aac7ad37b1fa3c6224d9b1fd6b6f762fd3ac83b13a55679dbf9a9b982a"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/direxionfunds.com_cdx.response",
+        "archive_relative_path": "soxl/independent_2014/direxionfunds.com_cdx.response",
+        "capture_kind": "archive_index_or_failed_search_response_body",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 1449,
+        "sha256": "2e27cec669b38f6be24cb3be61cc58d7c452ac3edffcfcfe3ba9b0fc4c53ad91"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/direxionfunds.com_cdx_receipt.json",
+        "archive_relative_path": "soxl/independent_2014/direxionfunds.com_cdx_receipt.json",
+        "capture_kind": "archived_issuer_or_search_http_receipt",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 756,
+        "sha256": "a56ab20f362a556819ed12cdf89d28660b7a934d541b02ad0b1b5d13094f0a73"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/direxioninvestments.com_cdx.response",
+        "archive_relative_path": "soxl/independent_2014/direxioninvestments.com_cdx.response",
+        "capture_kind": "archive_index_or_failed_search_response_body",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 703,
+        "sha256": "6f4e839e5fb9d6b11a6ab69e0a3511b387ce93803ab92c6088cd2f039e2547f7"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/direxioninvestments.com_cdx_receipt.json",
+        "archive_relative_path": "soxl/independent_2014/direxioninvestments.com_cdx_receipt.json",
+        "capture_kind": "archived_issuer_or_search_http_receipt",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 773,
+        "sha256": "310650b8c43a0feadba0856f5d875fe67274268cdd7049ce6de8d4d68959c115"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/ici2014_guess.response",
+        "archive_relative_path": "soxl/independent_2014/ici2014_guess.response",
+        "capture_kind": "archive_index_or_failed_search_response_body",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 17,
+        "sha256": "2938e9f1284180959e33ab1718d0793a72ff6e4cdb8108c34dcd14e69446de5c"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/ici2014_guess_receipt.json",
+        "archive_relative_path": "soxl/independent_2014/ici2014_guess_receipt.json",
+        "capture_kind": "archived_issuer_or_search_http_receipt",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 434,
+        "sha256": "ab264a229d5a0ca305d35223f4e54e14b1a494895d733b7fd358be842f8bdbb6"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/ici_receipt.json",
+        "archive_relative_path": "soxl/independent_2014/ici_receipt.json",
+        "capture_kind": "archived_issuer_or_search_http_receipt",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 167,
+        "sha256": "3860c7c70faae530a9ffa8b6097fd4c8bf93904dfe80333db133cd298e5daa98"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/issuer_distributions_20141224.html",
+        "archive_relative_path": "soxl/independent_2014/issuer_distributions_20141224.html",
+        "capture_kind": "archived_original_issuer_http_response_body",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 65256,
+        "sha256": "8605972106dcde96b64fdf53acfcf6b8f111ae05b07c547c05f028a9e5214412"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/issuer_distributions_20141224_income_table.txt",
+        "archive_relative_path": "soxl/independent_2014/issuer_distributions_20141224_income_table.txt",
+        "capture_kind": "derived_archived_issuer_extraction",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 679,
+        "sha256": "4d300d98024a87a89d621f9645adc2a9b360553fc46ed65764a674e78d36580f"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/issuer_distributions_20141224_receipt.json",
+        "archive_relative_path": "soxl/independent_2014/issuer_distributions_20141224_receipt.json",
+        "capture_kind": "archived_issuer_or_search_http_receipt",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 583,
+        "sha256": "cfb992e1d713dd0335da8c1700e4a1309496a55a88944e4e9a28519839c52fd1"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/soxl_2014_exact_historical_issuer_evidence.json",
+        "archive_relative_path": "soxl/independent_2014/soxl_2014_exact_historical_issuer_evidence.json",
+        "capture_kind": "derived_archived_issuer_extraction",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 1824,
+        "sha256": "6057a093240fb5ca74c23e1becba3c0e0dc77bff29a02bd6b3dc281273d79d09"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/wayback_cdx.response",
+        "archive_relative_path": "soxl/independent_2014/wayback_cdx.response",
+        "capture_kind": "archive_index_or_failed_search_response_body",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 3,
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/wayback_cdx_receipt.json",
+        "archive_relative_path": "soxl/independent_2014/wayback_cdx_receipt.json",
+        "capture_kind": "archived_issuer_or_search_http_receipt",
+        "purpose": "独立复核的2014当时issuer公告与真实CDX/HTTP/未成功探索记录；逐receipt判status，不把失败当内容",
+        "bytes": 649,
+        "sha256": "41c9ef663e80ee96e340fa0df47dc6fb19f384ab278851a2f840bb7881eae332"
+      }
+    ]
+  },
+  "sources": {
+    "SOXX": {
+      "product_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf",
+      "download_receipt": "soxx/complete_http_receipt.json",
+      "expected_distribution_rows": 93,
+      "expected_positive_rows": 79,
+      "expected_zero_rows": 14,
+      "expected_ex_date_min": "2002-06-17",
+      "expected_ex_date_max": "2026-09-15",
+      "all_rows_retained": true,
+      "parser": "SpreadsheetML Distributions worksheet; preserve source row and decimal strings. Bare ampersand in unrelated hyperlink makes strict XML invalid; narrowly parse worksheet/row/cell ss:Data and ss:Index without modifying raw bytes; reject ambiguous cell schema.",
+      "source_fields": [
+        "Record Date",
+        "Ex-Date",
+        "Payable Date",
+        "Total Distribution",
+        "Income",
+        "ST Cap Gains",
+        "LT Cap Gains",
+        "Return of Capital"
+      ],
+      "cash_basis": "current_2026_capture_share_units_after_effective2024split",
+      "restore_original_ex_date_share_amount": "Multiply each total/component by3 iff ex_date<2024-03-07; otherwise1. No future announced split applied.",
+      "basis_evidence_grade": "current_primary_issuer_plus_independent_effective_split_document_and78matched_vendor_events;not_historical_vintage",
+      "component_total_abs_tolerance_decimal": "0.000001"
+    },
+    "SOXL": {
+      "product_url": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs",
+      "source_file": "soxl/issuer_soxl_table_observed.csv",
+      "expected_distribution_rows": 32,
+      "expected_positive_rows": 32,
+      "expected_zero_rows": 0,
+      "expected_ex_date_min": "2010-09-22",
+      "expected_ex_date_max": "2026-09-22",
+      "all_rows_retained": true,
+      "source_fields": [
+        "Record Date",
+        "Ex Date",
+        "Pay Date",
+        "Income Dividend",
+        "Short-Term Capital Gain",
+        "Long-Term Capital Gain"
+      ],
+      "cash_basis": "issuer_event_date_original_share_units_per_row",
+      "global_split_rescaling": false,
+      "total_cash": "sum income+ST+LT; visible emdash means no amount for that component, retain rawtoken",
+      "basis_evidence_grade": "current_primary_issuer_DOM;2016contemporaneous_OCC;2014exact_archived_issuer_notice_with_CDX_digest",
+      "capture_limitation": "DOM table transcribed from documented tool result; rawHTML not saved. Exact DOM request-start time unknown; observation completed before2026-10-09T06:41:55Z, transcription written06:42:40.251462Z. Do not replace these by inventedHTTP receipt.",
+      "historical2014_source": {
+        "original_url": "http://www.direxioninvestments.com:80/press-release/distributions?",
+        "archive_url": "https://web.archive.org/web/20141224234256id_/http://www.direxioninvestments.com:80/press-release/distributions?",
+        "capture_utc": "2014-12-24T23:42:56Z",
+        "http_request_started_utc": "2026-10-09T07:03:28.513434+00:00",
+        "http_received_utc": "2026-10-09T07:03:32.207414+00:00",
+        "body_sha256": "8605972106dcde96b64fdf53acfcf6b8f111ae05b07c547c05f028a9e5214412",
+        "cdx_sha1_base32": "FTX3DBS7WZNA54LW64FWZCJ7BAIW3JRK",
+        "exact_amount_usd_decimal": "7448.00",
+        "exact_original_share_rate_decimal": "0.00532",
+        "qualification": "Archivedoriginalissuercontentrateanddatesverified; archivecaptureafterexdate so noexanteannouncementclaim."
+      },
+      "row_source_version_contract": "All32liveDOMrowsretained;2014rowaddarchivedissuerbasis_source_version andknownby2014-12-24T23:42:56Z. Otherrowsnotassignedthathistoricalknownby."
+    }
+  },
+  "split_events": [
+    {
+      "instrument": "SOXL",
+      "new_shares_per_old_share": 4,
+      "record_date": "2015-05-18",
+      "payable_after_close_date": "2015-05-19",
+      "effective_trading_date": "2015-05-20",
+      "evidence": "soxl/soxl_2015_occ36615.body",
+      "evidence_url": "https://www.miaxglobal.com/sites/default/files/alert-files/SOXL_Split_36615.pdf",
+      "secondary_primary_url": "https://www.sec.gov/Archives/edgar/data/1424958/000119312515138280/d911082d497.htm",
+      "note": "SEC prose additionalfour/400percent is inconsistent; use explicit4for1 ratio plus100to400 example and independentOCC."
+    },
+    {
+      "instrument": "SOXL",
+      "new_shares_per_old_share": 15,
+      "record_date": "2021-02-26",
+      "payable_after_close_date": "2021-03-01",
+      "effective_trading_date": "2021-03-02",
+      "evidence": "soxl/split2021.body",
+      "evidence_url": "https://www.direxion.com/uploads/Direxion-Announces-Forward-and-Reverse-Splits-of-Five-ETFs.pdf"
+    },
+    {
+      "instrument": "SOXX",
+      "new_shares_per_old_share": 3,
+      "record_date": "2024-03-04",
+      "payable_after_close_date": "2024-03-06",
+      "effective_trading_date": "2024-03-07",
+      "evidence": "soxl/soxx_2024_split_8937.body",
+      "evidence_url": "https://www.ishares.com/us/literature/tax-information/form-8937-ishares-semiconductor-etf-3-6-2024.pdf",
+      "effective_date_additional_primary_url": "https://www.ishares.com/us/literature/press-release/stock-split-press-release-2023.pdf",
+      "additional_url_raw_download_status": 404,
+      "note": "8937 independently anchors3for1/record/payable close; following-session03-07 independently observedofficialpressrelease webtext,rawpressPDF404 preserved. Fullsourcequalification mustretainthisdistinction.",
+      "effective_trading_date_derivation": "FirstnativeQlibsessionafterissuer8937declaredpayableafterclose2024-03-06; agreeswithofficialpresswebtext. Do notclaimfailedrawpressPDFwassaved."
+    }
+  ],
+  "calendar_reference": {
+    "provider_uri": "data/qlib/soxx_extended_published_affine_20260925_v1",
+    "region": "us",
+    "freq": "day",
+    "start": "2006-10-10",
+    "end": "2026-09-25",
+    "expected_rows": 5021,
+    "read_api": "qlib.init + qlib.data.D.calendar(freq=day,future=False)",
+    "scope": "independent retrospective native session reference only; not then-available information and notnewpriceinput",
+    "coverage_policy": "All ex/effective dates inside inclusive calendar range must be actualnative sessions; older dates retained withoutside_reference_range status, never dropped orfilled. Pay/record dates checked/report whereinrange; postasofpay retainsnot_yet_paid flag; nofakefuturecalendar."
+  },
+  "parent_references": {
+    "native_calendar": {
+      "card": "research/soxx_extended_history_20261009",
+      "summary_sha256": "56cc4044d31c83e8ad1ec443b6f65ecbff2875c938c3b341fd29b344fb18a4fe",
+      "verification_manifest_sha256": "f9614d5a8fb26e9e74ad474dc9025711d746b685a0f375895a4b19d23cf05026",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxx_extended_history_20261009/qlib_recorder",
+      "experiment_id": "203143475559555222",
+      "recorder_id": "3a89651f93ac4272b60b7ff6feec2f2a",
+      "require_status": "FINISHED",
+      "artifact_sha256": {
+        "data/native_readback.pkl": "bd759ec4fba64c85cf67fa97994a46fa46c8096452ab03bb5db9d7a2398046c0",
+        "inputs/parent_bindings.pkl": "47242da41a9d00f492266ecb37bd38872e98769f78d64361db4cbb44144a1bc9"
+      },
+      "calendar_file_sha256": "7f1fcf14a667d8d10ab8af4bc75002c5c786a79614f9cd4f7b451038350a8041",
+      "manifest_name": "verification_manifest.json"
+    },
+    "futu_comparison_only": {
+      "card": "research/canonical_price_basis_20261002",
+      "summary_sha256": "0e444d39dd4e09e5bdcac2d44dd77fa3db356ce735ecdfc80b8f937cf0bf362f",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/canonical_price_basis_20261002/qlib_recorder",
+      "experiment_id": "521389447037827398",
+      "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+      "require_status": "FINISHED",
+      "artifact_sha256": {
+        "inputs/verified_raw_inputs.pkl": "3c1cce5d834e86bf863a0400180852cc10c768a422f988a5e7f33204d2ad025a"
+      },
+      "legacy_manifest_contract": "artifact_manifest.json ratherthan newverification_manifest; explicitlegacyhashreferenceonly, no fabricatedmanifest",
+      "object_fields": "none.rehabilitation.SOXL andSOXX; onlydescribevendorcomparison, notautomaticledgerauthority",
+      "manifest_name": "artifact_manifest.json",
+      "manifest_sha256": "2c441344a211f1526f9156dae14dd9e6681597013f7e6e17754df36949ac0b86"
+    }
+  },
+  "declared_discrepancies": [
+    {
+      "instrument": "SOXX",
+      "ex_date": "2017-09-26",
+      "record_date": "2017-09-27",
+      "pay_date": "2017-09-29",
+      "issuer_current_share_amount_decimal": "0.166176",
+      "expected_original_share_amount_decimal": "0.498528",
+      "futu_cash_event_present": false,
+      "handling": "retainissuerpositiveevent; explicitFutuomission; nooldrehabmutation"
+    },
+    {
+      "instrument": "SOXL",
+      "ex_date": "2014-12-23",
+      "issuer_original_amount_decimal": "0.00532",
+      "futu_amount_decimal": "0.00133",
+      "handling": "Useissuer0.00532 asoriginalsharecash, independentlyconfirmedby2014-12-24archivedissuerannouncement before2015split; preservefrozenFutu0.00133 andpriorconstraintdiagnostic. Do notinferFutuinternalprocessing.",
+      "evidence": "soxl/independent_2014/issuer_distributions_20141224.html",
+      "residual_gap": "Exactpublication/declarationtimestampnotfound; archivecaptureonecalendar dayafterex,notexantePITcertification. FullSECHTMLrawbytesnotobtainedbutno longerrequiredtoinferexactrate.",
+      "evidence_integrity": "SHA256matchesreceipt andSHA1Base32matchesarchivedCDXdigest"
+    },
+    {
+      "instrument": "SOXL",
+      "ex_date": "2019-09-24",
+      "issuer_amount_decimal": "0.31275",
+      "futu_amount_decimal": "0.31274",
+      "handling": "Retainissuer5decimalamountanddifference; maxoneunitofissuerprecision; do notsilentlyforceequality."
+    }
+  ],
+  "time_contract": {
+    "dates_are": "USmarketlocalcalendar dates; notpreciseannouncementorarrivaltimestamps",
+    "dividend_entitlement_boundary": "Pre-ex eligibleholdings givefixedcashreceivable; eventtabledoesnotexecuteaccount",
+    "receivable_in_NAV": true,
+    "receivable_spendable_before_payment": false,
+    "pay_date_intraday_availability": "unknown; futureledgerconservativecashavailabilitynextnativeopenafterpaydateclose unless separate evidence proves earliercredit",
+    "terminal_unpaid_example": {
+      "instrument": "SOXL",
+      "ex_date": "2026-09-22",
+      "pay_date": "2026-09-29",
+      "amount_per_original_share_decimal": "0.09290",
+      "market_as_of": "2026-09-25",
+      "status": "receivable_not_spendable_cash"
+    },
+    "announcement_at": "unknownunlessdatedprimaryannouncementindividuallypresent; retrievaltimeisnothistoricalannouncementtime",
+    "tax_basis": "issuerpublishedgrosspre-tax; actualaccountwithholding/credits/feesnotqueriedandnotcertified",
+    "economic_ex_date_vs_evidence_time": "ex_date describes economicentitlementonly; keepseparatefromsource_evidence_known_by/archive_timestamp. announcement_at defaultsnullandmustnotbe filledwith ex_date,record_date,pay_date,retrieval_timeorarchivecapture."
+  },
+  "event_schema": {
+    "cash_fields": [
+      "event_id",
+      "instrument",
+      "event_type",
+      "source_row",
+      "source_capture_kind",
+      "source_hash",
+      "ex_date",
+      "record_date",
+      "pay_date",
+      "source_cash_basis",
+      "source_total_decimal",
+      "source_income_decimal",
+      "source_short_term_gain_decimal",
+      "source_long_term_gain_decimal",
+      "source_return_of_capital_decimal",
+      "original_share_multiplier_decimal",
+      "original_total_decimal",
+      "basis_evidence_grade",
+      "reference_calendar_status",
+      "payable_status_at_market_as_of",
+      "declared_discrepancy_id",
+      "source_version",
+      "basis_source_version",
+      "archive_timestamp_utc",
+      "archive_cdx_sha1_base32",
+      "source_evidence_known_by_utc",
+      "announcement_at"
+    ],
+    "split_fields": [
+      "event_id",
+      "instrument",
+      "event_type",
+      "record_date",
+      "payable_after_close_date",
+      "effective_trading_date",
+      "new_shares_per_old_share",
+      "source_hash",
+      "basis_evidence_grade",
+      "reference_calendar_status",
+      "source_version",
+      "archive_timestamp_utc",
+      "announcement_at"
+    ],
+    "no_unknown_fill": "Missing ex/pay/record or ambiguoustoken/source schema failsclosed; explicitissuerdashcomponent isnotmissing-eventfill; noforward/backfill."
+  },
+  "proposed_api": {
+    "data_module": "src/data/etf_corporate_actions.py",
+    "functions": [
+      "parse_ishares_distribution_workbook(raw_bytes) -> exactsource_rows",
+      "parse_direxion_distribution_table(table_csv_bytes) -> exactsource_rows",
+      "qualify_etf_corporate_actions(source_rows, split_events, *, native_calendar, market_as_of, source_contract) -> cash_events,split_events,source_differences,audit"
+    ],
+    "workflow_module": "src/workflow/etf_corporate_actions.py",
+    "runner": "run_etf_event_qualification(plan_path, *, output_card, source_root, evidence_root) -> summary",
+    "workflow_order": [
+      "completed-cardguard andactiveRecorderguard beforeqlib.init",
+      "verifyfrozenplan/rawsource/parenthashes",
+      "loadparentobjects throughQlibR.get_recorder read-only",
+      "qlib.init pinnedprovider;readnativeD.calendar",
+      "parseallsourceevents; qualifydates/units/discrepancies",
+      "newQlibR.start;saveallsource/event/calendar/auditobjects",
+      "archiveallobjects andtemporarysummary successfully; exitR contextFINISHED",
+      "atomicpublishroot summaryonlyafterarchive/context success"
+    ]
+  },
+  "qualification_gates": [
+    "Allfrozenrawbytes/receiptsmatchsha; nofailedHTTPbodyusedasvalidcontent",
+    "ReparseSOXXoriginalXLS exactly93rows andmatchfrozensourceextraction; retainzero/out-ofcalendarrows",
+    "SOXL32rows schema/count/date/amount finitevalidation; sourcekindstaysDOMtranscription",
+    "Exactuniqueeventidentity; finite nonnegativeamounts; ex<=pay; componentroundingcontract",
+    "Threefixedsplitratios andeffective dates reconciledwithprimarysources andnativecalendar",
+    "Allinrangeex/effective dates innativecalendar; retainedout-of-range audits",
+    "SOXX conversiononly3for1effective2024;SOXLno globalrescale",
+    "Declared2017/2014/2019discrepanciesretained; allothermaterialsourceconflictsfailclosed",
+    "20260922SOXLcash flaggedunpaidat0925",
+    "QlibRecorderFINISHED,allartifacthashreadback,rootnotebook/summary/conclusionconsistent",
+    "2014archivedissuerSOXL/CUSIP/date/total/rate exactextraction,archivedCDXdigest andreceiptSHAverified; noamountinferencefromreturns"
+  ],
+  "decision_semantics": {
+    "success": "usable_under_declared_source_contract",
+    "never_claim": [
+      "historical_vintage_certified",
+      "cash_received_in_realbroker_account",
+      "total_return_or_portfolio_certified",
+      "stable_SOXX_excess",
+      "strategy_promoted",
+      "2014_dividend_amount_demonstrably_known_before_ex_date"
+    ],
+    "failure": "needs_data_or_source_contract_review; retainfailedrunanddonotpublishcompletionmarker"
+  },
+  "focused_verification": [
+    "Synthetic parser malformedXMLhyperlink/sparsecellalignment/ambiguousschema rejection",
+    "ExactDecimalcashconversion andcomponentprecision",
+    "SOXLearlyissueramountnotgloballydividedby15or60",
+    "Futureannouncedsplitexcluded; unsupported futureeffectiveeventfailsasdeclared",
+    "Nativecalendarinteriordatemismatchfails;precalendarrowsretained",
+    "Unpaidcutoffexample andnonspendabletimecontract",
+    "Sourcekind/receiptbounds retained; no inventedUTC",
+    "Hashmismatch/completedcard/activeRecorder/failarchivepublicationguards",
+    "Offlineexecutenotebook usingfrozencaptures; noHTTP/Futu/notebooknetwork"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "root_files": [
+      "plan.json",
+      "etf_corporate_actions_20261009.ipynb",
+      "workflow.yaml",
+      "summary.json",
+      "conclusion.md",
+      "qualification.json",
+      "source_differences_summary.json",
+      "verification_manifest.json"
+    ],
+    "recorder_only_artifacts": [
+      "sources/*",
+      "inputs/source_contract.pkl",
+      "inputs/parent_bindings.pkl",
+      "inputs/native_calendar.pkl",
+      "data/source_rows.pkl",
+      "data/cash_events.pkl",
+      "data/split_events.pkl",
+      "analysis/source_differences.pkl",
+      "analysis/qualification.pkl",
+      "validation/*"
+    ]
+  },
+  "next_separate_task": "真正NONE原始份额+split+ex-date应收+pay-date现金自融资账本需独立计划；此卡仅提供事件源资格，不直接修当前features/returns。",
+  "source_versions": {
+    "soxx_ishares_workbook_20261009": {
+      "capture_kind": "http_response_body",
+      "body_sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+      "received_at_utc": "2026-10-09T06:37:22.822103+00:00",
+      "archive_timestamp_utc": null,
+      "announcement_at": null
+    },
+    "soxl_direxion_dom_table_20261009": {
+      "capture_kind": "browser_dom_table_transcription",
+      "body_sha256": "e5c2e720eb85244aac7ba9c626941d3f2d6b2c1feba27fd66b6e4b5462bb2033",
+      "observation_completed_no_later_than_utc": "2026-10-09T06:41:55+00:00",
+      "exact_received_at_utc": null,
+      "archive_timestamp_utc": null,
+      "announcement_at": null
+    },
+    "soxl_direxion_distribution_archive_20141224": {
+      "capture_kind": "archived_original_issuer_http_response_body",
+      "body_sha256": "8605972106dcde96b64fdf53acfcf6b8f111ae05b07c547c05f028a9e5214412",
+      "archive_timestamp_utc": "2014-12-24T23:42:56Z",
+      "archive_cdx_sha1_base32": "FTX3DBS7WZNA54LW64FWZCJ7BAIW3JRK",
+      "source_evidence_known_by_utc": "2014-12-24T23:42:56Z",
+      "announcement_at": null,
+      "economic_ex_date": "2014-12-23",
+      "basis_source_event": "SOXL/2014-12-23",
+      "known_by_does_not_prove_exante_availability": true
+    }
+  },
+  "root_reviewed_at_utc": "2026-10-09T07:10:01.693545+00:00",
+  "source_comparison_precision_contract": {
+    "method": "Record every exactDecimal difference; compare Futu display at5decimalplaces as a diagnostic only, never replace issuer amounts with rounded vendor amounts.",
+    "soxx_undeclared_difference_max_abs_decimal": "0.00001",
+    "rationale": "One Futu displayed five-decimal unit; above this requires source review, except declared2017missing event. This does not change the original issuer decimal amounts.",
+    "soxl_undeclared_difference_max_abs_decimal": "0.00001",
+    "declared_exceptions": [
+      "SOXX2017-09-26 missing",
+      "SOXL2014-12-23 historicalsharebasis conflict",
+      "SOXL2019-09-24 one displayed unit difference"
+    ],
+    "fit_to_portfolio_outcomes": false
+  }
+}

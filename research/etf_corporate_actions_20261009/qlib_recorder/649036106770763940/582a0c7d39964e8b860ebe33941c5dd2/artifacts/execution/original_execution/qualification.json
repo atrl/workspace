@@ -1,0 +1,68 @@
+{
+  "status": "usable_under_declared_source_contract",
+  "cash_event_rows": 125,
+  "split_event_rows": 3,
+  "all_original_source_rows_retained": true,
+  "by_instrument": {
+    "SOXX": {
+      "rows": 93,
+      "positive_rows": 79,
+      "zero_rows": 14,
+      "outside_reference_range": 18
+    },
+    "SOXL": {
+      "rows": 32,
+      "positive_rows": 32,
+      "zero_rows": 0,
+      "outside_reference_range": 0
+    }
+  },
+  "native_calendar_rows": 5021,
+  "native_calendar_start": "2006-10-10",
+  "native_calendar_end": "2026-09-25",
+  "market_as_of": "2026-09-25",
+  "unpaid_receivable_events": [
+    {
+      "event_id": "SOXL:cash:2026-09-22",
+      "pay_date": "2026-09-29",
+      "original_total_decimal": "0.09290"
+    }
+  ],
+  "announcement_timestamps_invented": false,
+  "historical_vintage_certified": false,
+  "account_ledger_run": false,
+  "model_fits": 0,
+  "strategy_replays": 0,
+  "investment_return_certified": false,
+  "extraction_reference": {
+    "rows": 93,
+    "ordered_rows_equal": true,
+    "date_equivalence": "calendar_date",
+    "amount_equivalence": "Decimal_exact",
+    "source_strings_preserved": true
+  },
+  "registered_event_examples": {
+    "terminal_unpaid_example_verified": true,
+    "historical_canonical_event_verified": true,
+    "all_declared_split_identities_verified": true
+  },
+  "historical_2014_source": {
+    "status": "exact_historical_issuer_rate_verified",
+    "sha256": "8605972106dcde96b64fdf53acfcf6b8f111ae05b07c547c05f028a9e5214412",
+    "cdx_sha1_base32": "FTX3DBS7WZNA54LW64FWZCJ7BAIW3JRK",
+    "archive_timestamp_utc": "2014-12-24T23:42:56Z",
+    "economic_ex_date": "2014-12-23",
+    "record_date": "2014-12-26",
+    "pay_date": "2014-12-31",
+    "original_share_rate_decimal": "0.00532",
+    "distribution_total_decimal": "7448.00",
+    "announcement_at": null,
+    "known_by_is_after_ex_date": true,
+    "ex_ante_availability_certified": false
+  },
+  "receipt_summary": {
+    "receipt_count": 21,
+    "failed_body_count": 6,
+    "failed_receipts_retained": true
+  }
+}

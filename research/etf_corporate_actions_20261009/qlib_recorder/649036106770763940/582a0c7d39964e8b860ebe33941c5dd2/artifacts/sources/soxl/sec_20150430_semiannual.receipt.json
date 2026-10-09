@@ -1,0 +1,23 @@
+{
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1424958/000119312515242918/d932862dncsrs.htm",
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1424958/000119312515242918/d932862dncsrs.htm",
+  "request_started_at_utc": "2026-10-09T06:45:10.839965+00:00",
+  "response_received_at_utc": "2026-10-09T06:45:13.579998+00:00",
+  "status_code": 403,
+  "body_file": "sec_20150430_semiannual.body",
+  "body_sha256": "6e87b7ae31df65a70b549c61b7278ac856128688ea9c7a9ae7c73374657bbf6b",
+  "body_bytes": 4819,
+  "response_headers": {
+    "Mime-Version": "1.0",
+    "Content-Length": "2164",
+    "Cache-control": "no-cache, no-store, must-revalidate",
+    "Pragma": "no-cache",
+    "Expires": "0",
+    "Content-Type": "text/html",
+    "Content-Encoding": "gzip",
+    "Date": "Fri, 09 Oct 2026 06:45:12 GMT",
+    "Connection": "keep-alive",
+    "Vary": "Accept-Encoding",
+    "Strict-Transport-Security": "max-age=31536000 ; includeSubDomains ; preload"
+  }
+}

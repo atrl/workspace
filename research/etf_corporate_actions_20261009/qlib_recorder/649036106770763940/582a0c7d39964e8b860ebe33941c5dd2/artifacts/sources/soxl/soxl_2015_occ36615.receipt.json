@@ -1,0 +1,26 @@
+{
+  "requested_url": "https://www.miaxglobal.com/sites/default/files/alert-files/SOXL_Split_36615.pdf",
+  "final_url": "https://www.miaxglobal.com/sites/default/files/alert-files/SOXL_Split_36615.pdf",
+  "request_started_at_utc": "2026-10-09T06:51:37.864028+00:00",
+  "response_received_at_utc": "2026-10-09T06:51:39.910705+00:00",
+  "status_code": 200,
+  "body_file": "soxl_2015_occ36615.body",
+  "body_sha256": "d7b6a3f416c558e8b4e09ccc63a6c2f5ba6b074e53dfcfaee3a5a7ad83f77169",
+  "body_bytes": 81126,
+  "response_headers": {
+    "Content-Type": "application/pdf",
+    "Content-Length": "81126",
+    "X-Content-Type-Options": "nosniff",
+    "Last-Modified": "Mon, 11 Feb 2019 23:10:15 GMT",
+    "Accept-Ranges": "bytes",
+    "X-Request-ID": "v-e06cfeae-c3ad-11f1-820d-ff27778e6cef",
+    "X-AH-Environment": "prod",
+    "X-Age": "0",
+    "Expires": "Fri, 09 Oct 2026 06:51:38 GMT",
+    "Cache-Control": "max-age=0, no-cache, no-store",
+    "Pragma": "no-cache",
+    "Date": "Fri, 09 Oct 2026 06:51:38 GMT",
+    "Connection": "keep-alive",
+    "Strict-Transport-Security": "max-age=15768000"
+  }
+}
