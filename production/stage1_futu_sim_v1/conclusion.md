@@ -19,3 +19,12 @@
 - 因子变化只用于交易点附近的标准化诊断，属于非因果归因，不是精确 SHAP。
 - qlib recorder：e9c97a327bdf46f5a6a57f2d58d75062
 - 不构成买卖建议。
+
+## 服务中断披露（2026-10-09 补记）
+
+- 该模拟周期在 **2026-08-13 至 2026-09-25** 之间**没有运行**：无成交、无调仓、无风控。
+- 证据：`execution_state_v2.json` 在 2026-08-06 与 2026-09-25 之间无 completed_slots；`launchd.stdout.log` 在 2026-08-07..2026-09-22 零条目；`paper_ledger_v2.json` 无 2026-08-13..2026-09-27 成交。
+- 根因：`com.soxl.stage1.futu.sim` 调度停摆，且**心跳 agent `com.soxl.stage1.futu.sim.heartbeat` 从未安装**，因此中断是静默的。
+- 影响：中断期内账户只是被动持有 2026-08-12 的目标仓位，其净值变动**不是策略证据**。
+- 修正后前向（仅活跃/受管理交易日，17 个）：策略 +13.42%，SOXX +11.02%，SOXL +22.19%；超额 vs SOXX +2.40pp。样本极小，**不构成晋升证据**。
+- 整改：心跳 agent 已于 2026-10-09 安装并加载；`detect_execution_outage` 在超过 3 个交易日无确认成交时告警。详见 `runtime/soxl/stage1_futu_sim/execution_outages.json` 与 `forward_evidence_corrected.json`。

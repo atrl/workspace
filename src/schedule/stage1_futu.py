@@ -606,10 +606,12 @@ def _run_stage1_futu_task(
                 "slot": "unknown",
                 "reason": "missing_latest_actionable_run",
             }
+        staleness = detect_execution_outage(runtime_dir=runtime_dir, now=now)
         result = {
             "status": "heartbeat",
             "slot": "daily_heartbeat",
             "latest_actionable_run": latest,
+            "staleness": staleness,
             "cycle_id": cycle.get("cycle_id") if cycle else None,
             "cycle_status": cycle.get("status") if cycle else "missing",
             "real_broker_order": False,
@@ -1052,6 +1054,69 @@ def _latest_open_record(state_path: Path, *, session_date: str) -> dict[str, Any
     return max(candidates, key=lambda value: str(value.get("recorded_at", "")))
 
 
+def detect_execution_outage(
+    *,
+    runtime_dir: Path,
+    now: datetime | None = None,
+    max_idle_sessions: int = 3,
+) -> dict[str, Any]:
+    """Report how long the simulated cycle has gone without a confirmed fill.
+
+    A service outage is silent in the ledger: the account keeps marking to
+    market while no rebalance runs, so the observed equity is not strategy
+    evidence. This helper turns that silent gap into an explicit, auditable
+    staleness record so the heartbeat can alert instead of reporting healthy.
+    """
+    observed = now or datetime.now().astimezone()
+    if observed.tzinfo is None:
+        observed = observed.replace(tzinfo=SHANGHAI_TZ)
+    try:
+        cycle = load_stage1_cycle(runtime_dir / CYCLE_MANIFEST)
+    except (RuntimeError, ValueError):
+        cycle = None
+    if cycle is None:
+        raw_cycle = _read_json(runtime_dir / CYCLE_MANIFEST)
+        cycle = raw_cycle if isinstance(raw_cycle, dict) else {}
+    ledger_path = runtime_dir / (cycle or {}).get("ledger_file", "paper_ledger_v2.json")
+    ledger = _read_json(ledger_path)
+    result: dict[str, Any] = {
+        "cycle_id": (cycle or {}).get("cycle_id"),
+        "ledger_file": ledger_path.name,
+        "max_idle_sessions": int(max_idle_sessions),
+        "status": "unknown",
+    }
+    if not isinstance(ledger, dict) or not ledger.get("fills"):
+        result.update(status="no_fills", reason="ledger_missing_or_empty")
+        return result
+    fills = sorted(ledger["fills"], key=lambda value: str(value.get("create_time", "")))
+    last_fill = fills[-1]
+    last_time = str(last_fill.get("create_time", ""))
+    try:
+        last_dt = pd.Timestamp(last_time)
+    except (TypeError, ValueError):
+        result.update(status="unknown", reason="unparseable_last_fill", last_fill_at=last_time)
+        return result
+    if last_dt.tzinfo is None:
+        last_dt = last_dt.tz_localize(SHANGHAI_TZ)
+    idle_days = float((observed - last_dt).total_seconds() / 86400.0)
+    # Business sessions idle, ignoring weekends, is a closer proxy for missed runs.
+    idle_business = int(pd.bdate_range(last_dt.date(), observed.date()).size) - 1
+    stale = idle_business > int(max_idle_sessions)
+    result.update({
+        "status": "stale" if stale else "fresh",
+        "last_fill_at": last_time,
+        "last_fill_symbol": last_fill.get("symbol"),
+        "idle_calendar_days": round(idle_days, 2),
+        "idle_business_days": idle_business,
+        "alert": stale,
+    })
+    if stale:
+        result["reason"] = (
+            f"no_confirmed_fill_for_{idle_business}_business_days"
+        )
+    return result
+
+
 def _write_latest(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, sort_keys=True, default=str) + "\n", encoding="utf-8")
@@ -1117,6 +1182,18 @@ def build_stage1_bark_message(
         if latest_at:
             lines.append(f"最近记录 {latest_at}")
         _append_stage1_bark_run_details(lines, latest)
+        staleness = result.get("staleness")
+        if isinstance(staleness, dict):
+            if staleness.get("alert"):
+                title = "⚠ SOXL 模拟盘调度中断"
+                lines.insert(0, "警报：超过阈值无确认成交")
+                lines.append(
+                    f"距上次成交 {staleness.get('idle_business_days')} 个交易日"
+                )
+                if staleness.get("last_fill_at"):
+                    lines.append(f"上次成交 {staleness['last_fill_at']}")
+            elif staleness.get("status") == "no_fills":
+                lines.append("警告：尚无确认成交记录")
     else:
         title = f"SOXL 模拟盘 {status}"
         lines = [f"任务 {slot} / {status}"]

@@ -1202,3 +1202,46 @@ def test_stage1_launchagents_limit_bark_to_daily_trade_sync():
         "10:05 Asia/Shanghai every calendar day with latest trade sync"
     )
     assert summary["execution"]["notifications"]["max_pushes_per_day"] == 1
+
+
+def test_execution_outage_detector_flags_a_silent_management_gap(tmp_path):
+    from src.schedule.stage1_futu import build_stage1_bark_message, detect_execution_outage
+
+    cycle = {"cycle_id": "c1", "status": "active", "ledger_file": "paper_ledger_v2.json"}
+    (tmp_path / "paper_cycle.json").write_text(json.dumps(cycle), encoding="utf-8")
+    ledger = {
+        "fills": [
+            {"create_time": "2026-08-11 09:31:46", "symbol": "SOXL"},
+            {"create_time": "2026-08-12 09:31:41", "symbol": "SOXX"},
+        ]
+    }
+    (tmp_path / "paper_ledger_v2.json").write_text(json.dumps(ledger), encoding="utf-8")
+    observed = datetime(2026, 9, 10, 21, 31, tzinfo=ZoneInfo("Asia/Shanghai"))
+
+    outage = detect_execution_outage(runtime_dir=tmp_path, now=observed)
+    assert outage["status"] == "stale"
+    assert outage["alert"] is True
+    assert outage["idle_business_days"] > 3
+    assert outage["last_fill_at"].startswith("2026-08-12")
+
+    message = build_stage1_bark_message(
+        {"status": "heartbeat", "slot": "daily_heartbeat",
+         "latest_actionable_run": {"status": "needs_data"}, "staleness": outage},
+        now=observed,
+    )
+    assert "中断" in message["title"]
+    assert "交易日" in message["body"]
+
+
+def test_execution_outage_detector_reports_fresh_when_recent(tmp_path):
+    from src.schedule.stage1_futu import detect_execution_outage
+
+    cycle = {"cycle_id": "c1", "status": "active", "ledger_file": "paper_ledger_v2.json"}
+    (tmp_path / "paper_cycle.json").write_text(json.dumps(cycle), encoding="utf-8")
+    (tmp_path / "paper_ledger_v2.json").write_text(
+        json.dumps({"fills": [{"create_time": "2026-10-08 09:31:35", "symbol": "SOXX"}]}),
+        encoding="utf-8")
+    outage = detect_execution_outage(
+        runtime_dir=tmp_path, now=datetime(2026, 10, 9, 21, 31, tzinfo=ZoneInfo("Asia/Shanghai")))
+    assert outage["status"] == "fresh"
+    assert outage["alert"] is False
