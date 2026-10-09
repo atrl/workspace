@@ -86,3 +86,21 @@ def test_new_night_session_dataset_present_and_documented():
         assert key in doc["series"]
     for name in ("SOXL", "SOXX", "ES_F", "NQ_F"):
         assert (data_dir / f"{name}.parquet").is_file()
+
+
+def test_workflow_is_qlib_native_and_reconciles():
+    """The card must build a qlib store, read D.features, and run qlib.backtest."""
+    import json
+    from src.workflow import night_session_signal as wf
+
+    summary = wf.run_night_session_signal(
+        root=ROOT, card_dir=ROOT / "runtime" / "test_night_card",
+        recorder_uri=ROOT / "runtime" / "test_night_card" / "qlib_recorder")
+    # Data path is the qlib provider, not raw parquet.
+    assert "night_session_20261010_v1" in summary["data_audit"]["provider_uri"]
+    assert "qlib.data.D.features" in summary["qlib_data_api"]
+    assert "qlib.backtest.backtest" in summary["qlib_data_api"]
+    # Native reconciliation must pass.
+    assert summary["qlib_native_status"] == "passed"
+    assert summary["native_audit"]["maximum_session_return_error"] <= 1e-6
+    assert summary["recorder_id"]

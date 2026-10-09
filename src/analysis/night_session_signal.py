@@ -33,6 +33,26 @@ def _require(condition, message):
         raise ValueError("blocked: " + message)
 
 
+def load_night_session_instruments(data_dir) -> dict[str, pd.DataFrame]:
+    """Load the raw night-session parquet files keyed by lowercase instrument."""
+    from pathlib import Path
+
+    base = Path(data_dir)
+    _require(base.is_dir(), f"night-session data directory is missing: {base}")
+    files = {"soxl": "SOXL", "soxx": "SOXX", "smh": "SMH", "es": "ES_F",
+             "nq": "NQ_F", "nvda": "NVDA", "amd": "AMD", "tsm": "TSM"}
+    instruments = {}
+    for key, name in files.items():
+        path = base / f"{name}.parquet"
+        if not path.is_file():
+            continue
+        frame = pd.read_parquet(path)
+        frame.index = pd.to_datetime(frame.index)
+        instruments[key] = frame
+    _require("soxl" in instruments and "soxx" in instruments, "SOXL/SOXX night-session data is required")
+    return instruments
+
+
 def _window(frame: pd.DataFrame, start: str, end: str) -> pd.DataFrame:
     start_time = pd.Timestamp(start).time()
     end_time = pd.Timestamp(end).time()

@@ -1,0 +1,36 @@
+{
+  "as_of": "2026-10-08",
+  "audit_snapshot_hash": "ef61935b13f3648a",
+  "calendar_end": "2026-10-08",
+  "calendar_start": "2024-10-09",
+  "feature_file_count": 12,
+  "fields": [
+    "$open",
+    "$close",
+    "$return",
+    "$premarket",
+    "$nq_overnight",
+    "$es_overnight"
+  ],
+  "freq": "day",
+  "hash": "83c38fc81f5779a0",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "market": "all",
+  "max_datetime": "2026-10-08",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/night_session_20261010_v1",
+  "region": "us",
+  "row_count": 998,
+  "source": "night_session_20261010_v1",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}
