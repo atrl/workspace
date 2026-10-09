@@ -471,12 +471,14 @@
       "as_of": "2026-09-25"
     },
     {
-      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/diagnostic_source/tests/test_allocation_attribution.py",
-      "bytes": 3331,
-      "sha256": "ca09f8704fd3fde014a42e1561675b2657b221d0f5f3133f783705d72663dbf8",
-      "purpose": "Qlib Recorder evidence/source/verification",
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/diagnostic_source/tests/test_allocation_attribution.py.gz",
+      "bytes": 1304,
+      "sha256": "044737604b412f2958717bd9c86033f953a6215a9e8d93125c087db424e90562",
+      "purpose": "Lossless diagnostic test snapshot; compressed to prevent recursive pytest discovery",
       "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
-      "as_of": "2026-09-25"
+      "as_of": "2026-09-25",
+      "encoding": "gzip(python source)",
+      "uncompressed_sha256": "ca09f8704fd3fde014a42e1561675b2657b221d0f5f3133f783705d72663dbf8"
     },
     {
       "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/execution/raw/benchmark_terminal_value_20261009.ipynb",
@@ -1112,5 +1114,6 @@
     }
   ],
   "entry_count": 136,
-  "total_bytes": 9242202
+  "total_bytes": 9240175,
+  "archive_correction": "Diagnostic test snapshot is losslessly gzip-packed to avoid being collected as a second live test module; no scientific source or result changed."
 }
