@@ -180,6 +180,23 @@ Sharpe 三方面同时稳定超越基准。日内早盘动量在 10bp 下可临�
 `research/cross_source_signal_search_20261010/` 将搜索扩展到 60 条候选 × 5 类数据源
 （含新采集的宏观/波动率），仍**零个信号**在收益、回撤、Sharpe 三方面同时稳定超越基准。
 结论：本地与新增外部数据中均未发现对 SOXL 相对 SOXX 的稳定风险调整超额。
+Stage1 生产线的验证完整性已被独立审计并写入仓库：
+`src/analysis/stage1_history_audit.py`、`src/analysis/recorder_provenance_audit.py` 与
+`src/workflow/stage1_history_audit.py`、`src/workflow/stage1_gate_recheck.py` 只读
+卡片摘要与运行状态，不重放、不改 recorder。
+`research/stage1_history_audit_20261010/` 记录：
+- 审查 7 张卡，**5 个声明 recorder 不在仓库**（包括两张晋级卡与生产卡自身），
+  其结论无法独立复现。
+- `2023-2026` 被标记为 `reused_diagnostic_not_fresh_unseen_test`，是项目反复查看过的
+  窗口，**不能当作样本外证据**。
+- 受管理前向交易日仅 13（门槛 60），且曾发生前视 bug（`stage1_open_action_value_v1`
+  的 `blocked_pending_causal_revalidation`）。
+- 判定：**未通过新鲜 walk-forward**，决定 `no_fresh_walk_forward_evidence`。
+`research/stage1_gate_recheck_20261010/` 用已提交 recorder 重算四个风险门均为 PASS，
+说明当前 `paper_sim_blocked` 的根因是**证据治理与缺少前向验证**，不是可验证的策略失败。
+规则：晋级卡必须留下已提交 recorder；不得用 reused diagnostic 充当样本外；
+在取得 ≥60 个受管理前向交易日并补齐 recorder 前，不得宣称通过 walk-forward。
+
 真正独立、决策早于市场结果的信息已被证明有效：
 `data/raw/external/night_session_20261010_v1` 采集夜盘数据（Yahoo Finance 1h 含盘前盘后，
 2024-10 至 2026-10），含股指期货 ES/NQ 连续交易夜盘与 SOXL/SOXX/SMH 盘前。
