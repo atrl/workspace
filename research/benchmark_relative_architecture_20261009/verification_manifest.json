@@ -1,0 +1,868 @@
+{
+  "schema_version": "benchmark_relative_artifact_manifest_v1",
+  "recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+  "as_of": "2026-09-25",
+  "large_artifact_rationale": "native_reports.pkl retains every original Qlib position/report for all ten complete paths; required to audit native versus independent cash/fee settlement. No trained model/checkpoint binaries.",
+  "verification": {
+    "focused_tests": 166,
+    "required_qlib_suite": {
+      "passed": 8,
+      "failed": 61,
+      "reason": "existing missing historical cards"
+    },
+    "full_suite": {
+      "collection_errors": 15,
+      "reason": "existing archived test module basename collisions"
+    },
+    "native_maximum_session_return_error": 6.661338147750939e-16,
+    "notebook_executed": true,
+    "environment": "MLFLOW_ALLOW_FILE_STORE=true for existing portable Qlib Recorder layout"
+  },
+  "entries": [
+    {
+      "path": "research/benchmark_relative_architecture_20261009/ablation_comparison.csv",
+      "sha256": "698ae89e7d7ac6b9025575dadb52cde9d522b24b0f7a03009ad37ff7e55b0da2",
+      "bytes": 3222,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/annual_metrics.csv",
+      "sha256": "99daca125b435ce3dff378d487939cda420f6ef79a1645f835c651c914b17ad6",
+      "bytes": 68048,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/architecture.md",
+      "sha256": "19f3c01fb6e27bd34f8bb55166690151b7b0731a6ddab1fa8d9933ba3314b135",
+      "bytes": 5983,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/backtest_benchmark_comparison.csv",
+      "sha256": "c7bd8e0fb5e7bc240ed52600f5ea98f87a67f1f45d3256bb599ad1dcb4efd39a",
+      "bytes": 12564,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/benchmark_relative_architecture_20261009.ipynb",
+      "sha256": "c8e27b16c061f973b40b17aced755143cee0b4e249edf4ecb4d547c7e3e21c5a",
+      "bytes": 152002,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/bootstrap_analysis.csv",
+      "sha256": "025895abd40fdbcb147f9293fb14cec36ecabb93f0398a388f35e7fcbd6e156f",
+      "bytes": 2047,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/conclusion.md",
+      "sha256": "812318cb1f47f9166e108b0e96e49b9a753611b188249bdbcbd17c4481884047",
+      "bytes": 3360,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/gates.csv",
+      "sha256": "e3020ab61efee215b0073127b6c7fba3beef56e5bafb810bea4c4702c9eae909",
+      "bytes": 527,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/model_selection.csv",
+      "sha256": "955ddbacd5cf51a9f43bc57d8bede8301ce1449a9298f1f6366bce550d31f70f",
+      "bytes": 208,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/native_audit.csv",
+      "sha256": "954f9a59f4809beaa843891ba48174eb69fbc50139c08e1d200d6ecd938025b9",
+      "bytes": 5871,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/plan.json",
+      "sha256": "04b7de9e9d60daed02bf57d8e1a4186ebee3eb71c5a96323a56cde17e93f118c",
+      "bytes": 3573,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/0/meta.yaml",
+      "sha256": "a540ec4b98d990edb877af9e11a05122e677f695f053b16403fe228e2cfc7e56",
+      "bytes": 313,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/analysis/feedback.pkl",
+      "sha256": "eb3174b851a96fc47dc0bb319cd592d8d960993653ef574e0f0ce9a2ee2e3e9b",
+      "bytes": 309955,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Continuous cost-specific paths, mature feedback and qualification evidence"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/analysis/gates.pkl",
+      "sha256": "b3b7e9921e48a4981dfc15bdbd3f6f38856b63ffba3096e7f7cff5461c81baeb",
+      "bytes": 11391,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Continuous cost-specific paths, mature feedback and qualification evidence"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/analysis/paths.pkl",
+      "sha256": "abca1512c341b55d71eac04777479f4c8b615387a28c6b70d1f6abaf296cfbc9",
+      "bytes": 3702762,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Continuous cost-specific paths, mature feedback and qualification evidence"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/ablation_comparison.csv",
+      "sha256": "698ae89e7d7ac6b9025575dadb52cde9d522b24b0f7a03009ad37ff7e55b0da2",
+      "bytes": 3222,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/annual_metrics.csv",
+      "sha256": "99daca125b435ce3dff378d487939cda420f6ef79a1645f835c651c914b17ad6",
+      "bytes": 68048,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/architecture.md",
+      "sha256": "19f3c01fb6e27bd34f8bb55166690151b7b0731a6ddab1fa8d9933ba3314b135",
+      "bytes": 5983,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/backtest_benchmark_comparison.csv",
+      "sha256": "c7bd8e0fb5e7bc240ed52600f5ea98f87a67f1f45d3256bb599ad1dcb4efd39a",
+      "bytes": 12564,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/benchmark_relative_architecture_20261009.ipynb",
+      "sha256": "c8e27b16c061f973b40b17aced755143cee0b4e249edf4ecb4d547c7e3e21c5a",
+      "bytes": 152002,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/bootstrap_analysis.csv",
+      "sha256": "025895abd40fdbcb147f9293fb14cec36ecabb93f0398a388f35e7fcbd6e156f",
+      "bytes": 2047,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/conclusion.md",
+      "sha256": "812318cb1f47f9166e108b0e96e49b9a753611b188249bdbcbd17c4481884047",
+      "bytes": 3360,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/gates.csv",
+      "sha256": "e3020ab61efee215b0073127b6c7fba3beef56e5bafb810bea4c4702c9eae909",
+      "bytes": 527,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/model_selection.csv",
+      "sha256": "955ddbacd5cf51a9f43bc57d8bede8301ce1449a9298f1f6366bce550d31f70f",
+      "bytes": 208,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/native_audit.csv",
+      "sha256": "954f9a59f4809beaa843891ba48174eb69fbc50139c08e1d200d6ecd938025b9",
+      "bytes": 5871,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/plan.json",
+      "sha256": "04b7de9e9d60daed02bf57d8e1a4186ebee3eb71c5a96323a56cde17e93f118c",
+      "bytes": 3573,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/research_sources.md",
+      "sha256": "b60bcad191b1ec2adab113d0f05b2a1509f9334cd562de3a6da8f8a40d627ca5",
+      "bytes": 4899,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/rolling_summary.csv",
+      "sha256": "ad7d5b2f4cfbca7330598e37d1232112318052169aeab217549cbeb606273337",
+      "bytes": 441,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/run_binding.json",
+      "sha256": "4e5542a97381dfa54282a644aa6a033c45e821eea6e72ad8f62b8fb8f6b848cf",
+      "bytes": 4548,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/selected_model.json",
+      "sha256": "7ece53a53e5ce00e6753d4db87b77cfa36f1931529e028d0da56ca3b76ebb04c",
+      "bytes": 255,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/summary.json",
+      "sha256": "7555e338396a3b96ae06b7a59af1dfd74720c4eec2da6bd8d475a6604182c032",
+      "bytes": 4828,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/card/workflow.yaml",
+      "sha256": "6d81fd2a3f54c33e738554ada3a7b307af53ff4e062c36a92e793a5573626625",
+      "bytes": 646,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/execution/soxx-architecture-execution-summary.json",
+      "sha256": "fcf69f8d5ec8d8a954818b797f6a2d609448c2d29355b07ad407182f802e6678",
+      "bytes": 4051,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Raw executed notebook and execution provenance before editorial output compaction"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/execution/soxx-architecture-notebook-first-environment-failure.log.gz",
+      "sha256": "8714a3409f98cf7320447bdfacb1d0fc43b3dd7cf36a95d0d6c1a74b3b2007b5",
+      "bytes": 5846,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Raw executed notebook and execution provenance before editorial output compaction; lossless gzip of original log, decompression verified"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/execution/soxx-architecture-raw-executed.ipynb",
+      "sha256": "bcb7e0078790cafc577e50b411fed076d1b05edf5c7cfd22e1e2997a57f49ee6",
+      "bytes": 978830,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Raw executed notebook and execution provenance before editorial output compaction"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/inputs/binding.pkl",
+      "sha256": "47e1eea9bee76bbcdb4011289087718429b296ef9b5a6aa611449e29d4378815",
+      "bytes": 4228,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/inputs/dataset_rows.pkl",
+      "sha256": "06920d16c9d72cc47089cbe7a18473ab340b9c43e8e64376324349735790a3ca",
+      "bytes": 195571,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/inputs/plan.pkl",
+      "sha256": "e8f1d45ebd6d34f13d723a787825a45229f3e475fd74dc04b3e0ae6d18dbf09a",
+      "bytes": 3174,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/portfolio_analysis/native_reports.pkl",
+      "sha256": "3f66ef7e95767b3973208dc2f4b4f5d5701e3b69181dd0d719e66b7fc5ae25a6",
+      "bytes": 54757514,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "All ten native Qlib reports, positions, risk outputs and independent reconciliation; primary executable audit evidence"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/analysis/benchmark_relative_protocol.py",
+      "sha256": "e9f3d14f4c413dcb16df9483b9cbbeab94002a1beb8d5da2ac83fdbdb45835e5",
+      "bytes": 12999,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Continuous cost-specific paths, mature feedback and qualification evidence"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/analysis/convex_qlib.py",
+      "sha256": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "bytes": 7707,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Continuous cost-specific paths, mature feedback and qualification evidence"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/analysis/integrated_allocation.py",
+      "sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "bytes": 23523,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Continuous cost-specific paths, mature feedback and qualification evidence"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/backtest/benchmark_relative_replay.py",
+      "sha256": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc",
+      "bytes": 6757,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/backtest/qlib_continuous_position.py",
+      "sha256": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "bytes": 2543,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/backtest/strategy.py",
+      "sha256": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+      "bytes": 4618,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/data/benchmark_relative_data.py",
+      "sha256": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+      "bytes": 3123,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/data/legacy_execution_view.py",
+      "sha256": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+      "bytes": 7925,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/data/price_basis.py",
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "bytes": 20780,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/data/qlib_native.py",
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "bytes": 19985,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/model/online_expert_allocation.py",
+      "sha256": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+      "bytes": 9242,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/model/post_fee_settlement.py",
+      "sha256": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+      "bytes": 6469,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/workflow/benchmark_relative_research.py",
+      "sha256": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+      "bytes": 15478,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/source/src/workflow/stage1_economic_action.py",
+      "sha256": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "bytes": 14463,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Exact source snapshot used by registered execution"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/verification/environment.pkl",
+      "sha256": "d1c3f7604f9bc1b965b99d4c7913bdb7d8ee629bcd94c2400015c8b88cbeee86",
+      "bytes": 139,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Environment and verification evidence including existing-suite failure boundaries"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/verification/soxx-architecture-focused.log.gz",
+      "sha256": "2b9fd3879c23ab218e066127fbb98c67ea344af3573a7bb68033ca6bbb00dd33",
+      "bytes": 1629,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Environment and verification evidence including existing-suite failure boundaries; lossless gzip of original log, decompression verified"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/verification/soxx-architecture-full.log.gz",
+      "sha256": "87c59f8c8941cc4e4bd8d8d044f3d02dde38ce20e16666205d10574cf26ed5b0",
+      "bytes": 1742,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Environment and verification evidence including existing-suite failure boundaries; lossless gzip of original log, decompression verified"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/artifacts/verification/soxx-architecture-required.log.gz",
+      "sha256": "f30594d9e516beddcce88a54f8b07518dca3dd6f74638d720a0b057b2c4f108e",
+      "bytes": 7945,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Environment and verification evidence including existing-suite failure boundaries; lossless gzip of original log, decompression verified"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/meta.yaml",
+      "sha256": "6118fcffa53705c22f23445fea32a3668c36711714d598e28066f5b54a774ec2",
+      "bytes": 453,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/metrics/historical_gate_pass",
+      "sha256": "cc66827c102f75911138c2cf2c5cd331c93b7c2c6bcc2c8e1267ebcba9bb2812",
+      "bytes": 20,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/metrics/native_paths",
+      "sha256": "d192832d1d240870b8ae26fe5b9fa93661bcf150512df00f1bf0a9731620ae9a",
+      "bytes": 21,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/params/candidate_budget",
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "bytes": 1,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/params/cmd-sys.argv",
+      "sha256": "3181c1be04b13d4423ccb8ecf74b0e057ba356abb058a3bbfe219aca2a21404a",
+      "bytes": 202,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/params/evidence_kind",
+      "sha256": "65f130ea3e4720777896e52f29f804d337f476ea55561a265b1fe9df07253f79",
+      "bytes": 14,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/params/plan_sha256",
+      "sha256": "5ab3291d24a5e5e10096bb852670a3f02ced04aa55d19649ed543eadd9effd64",
+      "bytes": 64,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "bytes": 89,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/meta.yaml",
+      "sha256": "f6941a93eef55ff8b40eb28668364be75e4421f02b944e9898e84364e837f4a6",
+      "bytes": 380,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Native Qlib Recorder metadata, inputs, parameters or synchronized slim-card snapshot"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/research_sources.md",
+      "sha256": "b60bcad191b1ec2adab113d0f05b2a1509f9334cd562de3a6da8f8a40d627ca5",
+      "bytes": 4899,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/rolling_summary.csv",
+      "sha256": "ad7d5b2f4cfbca7330598e37d1232112318052169aeab217549cbeb606273337",
+      "bytes": 441,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/run_binding.json",
+      "sha256": "4e5542a97381dfa54282a644aa6a033c45e821eea6e72ad8f62b8fb8f6b848cf",
+      "bytes": 4548,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/selected_model.json",
+      "sha256": "7ece53a53e5ce00e6753d4db87b77cfa36f1931529e028d0da56ca3b76ebb04c",
+      "bytes": 255,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/summary.json",
+      "sha256": "7555e338396a3b96ae06b7a59af1dfd74720c4eec2da6bd8d475a6604182c032",
+      "bytes": 4828,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    },
+    {
+      "path": "research/benchmark_relative_architecture_20261009/workflow.yaml",
+      "sha256": "6d81fd2a3f54c33e738554ada3a7b307af53ff4e062c36a92e793a5573626625",
+      "bytes": 646,
+      "source_recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+      "date_range": [
+        "2016-01-04",
+        "2026-09-25"
+      ],
+      "purpose": "Notebook entrypoint, frozen protocol, mechanism sources or small auditable result sidecar"
+    }
+  ],
+  "independent_review": {
+    "method": "Read-only Qlib Recorder objects; reconstruct saved native positions and expert posterior, without rerunning backtests",
+    "native_paths": 10,
+    "sessions_per_path": 2696,
+    "native_valuation_error": 0.0,
+    "maximum_native_research_return_error": 6.661338147750939e-16,
+    "maximum_posterior_error": 1.17e-15,
+    "maximum_target_error": 2.22e-16,
+    "final_consumed_feedback_per_cost": 2694,
+    "first_feedback_available_at": "2016-01-06T09:31:00-05:00",
+    "first_feedback_consumed_at": "2016-01-06T16:15:00-05:00",
+    "minimum_native_cash_usd": -2.91e-11,
+    "cash_note": "Floating-point cash residual only; not an economic borrowing position. No claim of bitwise nonnegative native cash.",
+    "sidecar_tables_matched": 7,
+    "decision": "not_promoted; both cost scenarios fail historical gates",
+    "development_last_exit": "2023-01-04",
+    "last_signal": "2026-09-23",
+    "last_trade": "2026-09-24",
+    "last_valuation": "2026-09-25"
+  }
+}

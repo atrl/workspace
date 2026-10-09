@@ -1,0 +1,79 @@
+{
+  "experiment": "benchmark_relative_architecture_20261009",
+  "record_type": "benchmark_relative_architecture_diagnostic",
+  "as_of": "2026-09-25",
+  "provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+  "region": "us",
+  "market": "all",
+  "data_range": [
+    "2016-01-04",
+    "2026-09-25"
+  ],
+  "benchmark": "SOXX",
+  "model_selection": "one_registered_candidate_no_search",
+  "evidence_kind": "reused_history",
+  "historical_gate_pass": false,
+  "promotion_eligible": false,
+  "decision": "not_promoted_reused_history",
+  "recorder_id": "64c03a9f9c824e058a2bb360eb6aba11",
+  "experiment_id": "446504150429476817",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/benchmark_relative_architecture_20261009/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/benchmark_relative_architecture_20261009/qlib_recorder/446504150429476817/64c03a9f9c824e058a2bb360eb6aba11",
+  "plan_sha256": "04b7de9e9d60daed02bf57d8e1a4186ebee3eb71c5a96323a56cde17e93f118c",
+  "run_binding_sha256": "4e5542a97381dfa54282a644aa6a033c45e821eea6e72ad8f62b8fb8f6b848cf",
+  "source_sha256": {
+    "src/workflow/benchmark_relative_research.py": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+    "src/model/online_expert_allocation.py": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+    "src/data/benchmark_relative_data.py": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+    "src/backtest/benchmark_relative_replay.py": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc",
+    "src/analysis/benchmark_relative_protocol.py": "e9f3d14f4c413dcb16df9483b9cbbeab94002a1beb8d5da2ac83fdbdb45835e5",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+    "src/data/legacy_execution_view.py": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+    "src/model/post_fee_settlement.py": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/backtest/strategy.py": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e"
+  },
+  "native_paths": 10,
+  "native_all_pass": true,
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ],
+  "sidecars": [
+    "backtest_benchmark_comparison.csv",
+    "annual_metrics.csv",
+    "ablation_comparison.csv",
+    "gates.csv",
+    "rolling_summary.csv",
+    "bootstrap_analysis.csv",
+    "native_audit.csv",
+    "plan.json",
+    "run_binding.json",
+    "architecture.md",
+    "research_sources.md",
+    "conclusion.md"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/dataset_rows.pkl",
+      "analysis/paths.pkl",
+      "analysis/feedback.pkl",
+      "portfolio_analysis/native_reports.pkl"
+    ]
+  },
+  "limitations": [
+    "All source history reused in prior research.",
+    "Snapshot is retrospectively adjusted price basis, not independently verified total-return series.",
+    "Cash zero yield; historical opening prices are not verified live broker fills.",
+    "SOXL/SOXX is an imperfect leveraged/underlying pair; no exact 3x long-horizon assumption.",
+    "Regret bounds do not imply positive alpha or future outperformance.",
+    "Rolling windows overlap and are not independent samples."
+  ]
+}

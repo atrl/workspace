@@ -81,6 +81,30 @@ qlib research/production card 必须使用瘦根目录、recorder-first 的产�
 
 ## 核心架构
 
+### SOXX 稳定超额研究入口
+
+新一轮基准相对研究使用 `research/benchmark_relative_architecture_20261009/`
+作为可执行参考，方法与外部机制依据分别保存在卡片的 `architecture.md`、
+`research_sources.md`；参数和候选预算以执行前冻结的 `plan.json` 为准。
+这是一张历史诊断卡，不构成生产策略或稳定超额已实现的声明。
+
+- `src/data/benchmark_relative_data.py` 通过 Qlib Data API 和 DatasetH 提供
+  独立的信号、成交、结算与反馈可用时点；不以缺失数据截短共同样本。
+- `src/model/online_expert_allocation.py` 只负责有明确可用时点的在线专家状态，
+  不读取研究目录、未来标签或评估汇总；所有配置由卡片传入。
+- `src/backtest/benchmark_relative_replay.py` 为各费用情景及主组合单独结算，
+  随后必须经原生 Qlib 回放对账；不得把专家收益加权当作主账户收益。
+- `src/analysis/benchmark_relative_protocol.py` 统一核验完整日历、同窗同成本的
+  SOXX 比较、年度与滚动超额、MaxDD/CVaR 及区块区间。历史门不签发前向资格，
+  调用者给出一个“forward”字符串也不能获得晋升。
+- `src/workflow/benchmark_relative_research.py` 显式接收源码根、只读证据根、
+  输出卡和 Recorder 路径，核验实际导入源码身份；不硬编码主 checkout。
+  原生回放在活跃 Recorder 外执行，恢复时必须核验原 ID，成功归档后才发布摘要。
+
+既有封存实验及生产入口保留原身份，不因新合同重新解释旧结果。后续机制一次只
+登记一个增量、一个有限对照集，保留失败和所有成本场景。新的可晋升方案必须先
+冻结，再取得连续、独立、决策早于市场结果的前向证据；不能把复用历史改名为留出期。
+
 - `src/core`: 稳定契约、注册表、schema version、manifest、hash、配置、校验。
 - `src/data`: qlib store 构建、qlib provider 审计、数据更新、calendar/instrument/feature 对齐、canonical snapshot，最终写入 `data/`。
 - `src/factor`: 基于 qlib Dataset 的单因子、多因子、IC、相关性、分层回测、因子组合诊断。

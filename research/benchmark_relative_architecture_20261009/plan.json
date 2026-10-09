@@ -1,0 +1,91 @@
+{
+  "experiment": "benchmark_relative_architecture_20261009",
+  "schema_version": "benchmark_relative_research_v1",
+  "registered_at_utc": "2026-10-09T02:48:15+00:00",
+  "registered_before_replay": true,
+  "hypothesis": "Strictly mature net expert feedback can improve a small SOXX-relative active sleeve versus its fixed mixture, without increasing benchmark drawdown or tail risk.",
+  "provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+  "as_of": "2026-09-25",
+  "signal_start": "2016-01-04",
+  "evidence_kind": "reused_history",
+  "benchmark": "SOXX",
+  "candidate": "online_fixed_share",
+  "expert_names": [
+    "soxx",
+    "leveraged",
+    "defensive"
+  ],
+  "expert_weights": [
+    [
+      0,
+      1,
+      0
+    ],
+    [
+      0.2,
+      0.8,
+      0
+    ],
+    [
+      0,
+      0.8,
+      0.2
+    ]
+  ],
+  "anchor_weights": [
+    0,
+    1,
+    0
+  ],
+  "prior": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "active_fraction": 0.5,
+  "eta": 1.0,
+  "share": 0.003968253968253968,
+  "rebalance_sessions": 5,
+  "costs_bps": [
+    10.0,
+    25.0
+  ],
+  "initial_cash": 100000.0,
+  "development_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "gates": {
+    "minimum_positive_years": 6,
+    "rolling_sessions": 252,
+    "minimum_rolling_win_rate": 0.6,
+    "bootstrap_resamples": 2000,
+    "family_size": 1
+  },
+  "candidate_budget": 1,
+  "control_names": [
+    "soxx",
+    "leveraged",
+    "defensive",
+    "fixed_mixture"
+  ],
+  "execution": "Prior-close decision at 16:15 America/New_York; following canonical open execution; next-open marking; no terminal liquidation; fractional adjusted-price shares; cash yield 0; each cost owns separate positions, fees, feedback and learner state.",
+  "feedback": "Expert own cost-after next-open return available at exit session 09:31 America/New_York, strictly before decision_at. Parent account has separate funded settlement; expert returns are not averaged into parent returns.",
+  "design": "One fixed online candidate vs identical-schedule fixed-prior mixture; three static experts are controls. No price forecast fitting, parameter selection, regime thresholds, seed selection or post-result candidate expansion.",
+  "stopping": "Keep all results. No promotion from reused history. Do not retune after outcome. A future independent experiment needs a new registered mechanism and identity.",
+  "forward_requirement": "A new frozen protocol plus timestamped append-only predictions/decisions recorded before executable observations, continuous independent later outcomes, and the same risk/cost/stability gates; this historical runner cannot grant production eligibility.",
+  "limitations": [
+    "All source history reused in prior research.",
+    "Snapshot is retrospectively adjusted price basis, not independently verified total-return series.",
+    "Cash zero yield; historical opening prices are not verified live broker fills.",
+    "SOXL/SOXX is an imperfect leveraged/underlying pair; no exact 3x long-horizon assumption.",
+    "Regret bounds do not imply positive alpha or future outperformance.",
+    "Rolling windows overlap and are not independent samples."
+  ],
+  "gate_definition": "At both costs: aggregate positive net log excess; >=6/7 positive full signal years; median annual log excess>0; positive aggregate after removing any one year; MaxDD and CVaR5 no worse than SOXX; >=60% positive overlapping 252-session windows; 20/60-block one-sided95% lower>0, family1, seed1729. No independent forward certification."
+}
