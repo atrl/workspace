@@ -1,0 +1,66 @@
+{
+  "schema_version": "soxl_stable_excess_frontier_v1",
+  "experiment": "soxl_stable_excess_frontier_20261010",
+  "registered_at_utc": "2026-10-10T00:00:00+00:00",
+  "registered_before_candidate_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "Daily benchmark-relative return forecasts carry no stable IC, so pure return prediction cannot produce stable excess over SOXX. Test whether a bounded family of causal, non-leveraged exposure rules that use only past-available realized volatility and trend state can beat SOXX buy-and-hold on return, drawdown and Sharpe together, and whether any such rule holds on the newly available forward sessions.",
+  "provider_uri": "data/qlib/soxl",
+  "market": "all",
+  "region": "us",
+  "as_of": "2026-10-08",
+  "benchmark": "SOXX",
+  "return_forecast_used": false,
+  "model_fit_budget": 0,
+  "parameter_search_budget": "one pre-registered bounded family; no tuning after outcomes",
+  "segments": {
+    "development": ["2016-01-04", "2022-12-30"],
+    "reused_diagnostic": ["2023-01-03", "2026-09-25"],
+    "forward": ["2026-09-26", "2026-10-08"]
+  },
+  "costs_bps": [10.0, 25.0],
+  "minimum_positive_years": 4,
+  "candidate_family": [
+    {"name": "soxx_buy_hold", "kind": "soxx_buy_hold", "role": "benchmark_reference"},
+    {"name": "vol_target_soxx_v15", "kind": "vol_target_soxx", "target_vol": 0.15, "role": "risk_reduction_control"},
+    {"name": "vol_target_soxx_v20", "kind": "vol_target_soxx", "target_vol": 0.20, "role": "risk_reduction_control"},
+    {"name": "vol_target_soxx_v25", "kind": "vol_target_soxx", "target_vol": 0.25, "role": "risk_reduction_control"},
+    {"name": "vol_target_soxx_v30", "kind": "vol_target_soxx", "target_vol": 0.30, "role": "risk_reduction_control"},
+    {"name": "trend_vol_switch_v20", "kind": "trend_vol_switch", "vol_cap": 0.20, "role": "registered_excess_candidate"},
+    {"name": "trend_vol_switch_v25", "kind": "trend_vol_switch", "vol_cap": 0.25, "role": "registered_excess_candidate"},
+    {"name": "trend_vol_switch_v30", "kind": "trend_vol_switch", "vol_cap": 0.30, "role": "registered_excess_candidate"},
+    {"name": "trend_vol_switch_v35", "kind": "trend_vol_switch", "vol_cap": 0.35, "role": "registered_excess_candidate"}
+  ],
+  "state_definition": {
+    "vol_window": 20,
+    "trend_window": 200,
+    "realized_vol": "SOXX simple-return sample standard deviation over trailing 20 sessions, annualized by sqrt(252)",
+    "trend": "SOXX close versus trailing 200-session moving average",
+    "causality": "all state at signal close t is applied to session t+1 realized return; no look-ahead"
+  },
+  "allocation": {
+    "assets": ["SOXL", "SOXX", "cash"],
+    "soxx_buy_hold": "target=(0,1,0)",
+    "vol_target_soxx": "target=(0, min(1,target_vol/realized_vol), rest cash)",
+    "trend_vol_switch": "above trend and low vol -> (1,0,0); above trend and high vol -> (0,1,0); below trend -> (0,0,1)",
+    "fees": "turnover * cost_bps charged on each rebalance; owned NAV, no reset"
+  },
+  "selection": "development-only deterministic ranking by stable-excess satisfaction, then positive years, Sharpe difference and drawdown improvement; benchmark is never selectable",
+  "gates": {
+    "stable_excess": "beats SOXX return AND drawdown AND Sharpe on the window, with at least minimum_positive_years annual wins",
+    "promotion": "development AND reused_diagnostic stable excess at both 10bps and 25bps"
+  },
+  "stopping": "Exactly the pre-registered family at two costs across three windows; no threshold, window or cost tuning after outcomes. Preserve all results, including failures.",
+  "limitations": [
+    "Forward window is only the newly available sessions and is statistically weak.",
+    "No return forecast is used; this card isolates risk and trend structure only.",
+    "SOXL realized leverage decay is not modeled beyond its actual traded prices.",
+    "Diagnostic and forward windows never influence selection.",
+    "A negative result here does not refute mechanisms that use intraday state."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

@@ -1,0 +1,33 @@
+schema_version: soxl_stable_excess_frontier_v1
+experiment: soxl_stable_excess_frontier_20261010
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+region: us
+market: all
+as_of: '2026-10-08'
+recorder_uri: /Users/rziiiii/dev/workspace/research/soxl_stable_excess_frontier_20261010/qlib_recorder
+segments:
+  development:
+  - '2016-01-04'
+  - '2022-12-30'
+  reused_diagnostic:
+  - '2023-01-03'
+  - '2026-09-25'
+  forward:
+  - '2026-09-26'
+  - '2026-10-08'
+costs_bps:
+- 10.0
+- 25.0
+selection: development_only_stable_excess_rank
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - data/prices.pkl
+  - data/state.pkl
+  - analysis/development_results.pkl
+  - analysis/window_results.pkl
+  - analysis/forward_replay.pkl
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html
