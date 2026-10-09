@@ -1,0 +1,16 @@
+# 动态 beta 上限研究（中文结论）
+- 问题：冻结策略把有效 beta 硬封在常数 action_beta=0.6；本卡测试用波动缩放的动态上限替代常数是否更好。
+- 数据：冻结上游原始目标历史 2686 日（2016-01-04 至 2026-09-17），development 截至 2022-12-31，其后为 outer。
+- 预登记规则族：['constant_0.6', 'vol_w30_s6', 'vol_w30_s10', 'vol_w60_s6', 'vol_w60_s10', 'vol_w120_s6', 'vol_w120_s10']。
+- 结果（10bp）：
+  - constant_0.6: 全期Sharpe 0.93，dev Sharpe 0.74，outer Sharpe 1.24，收益 450.7%，回撤 -31.7%
+  - vol_w30_s6: 全期Sharpe 1.04，dev Sharpe 0.88，outer Sharpe 1.33，收益 425.0%，回撤 -25.1%
+  - vol_w30_s10: 全期Sharpe 0.99，dev Sharpe 0.93，outer Sharpe 1.11，收益 892.9%，回撤 -38.7%
+  - vol_w60_s6: 全期Sharpe 1.01，dev Sharpe 0.88，outer Sharpe 1.25，收益 416.6%，回撤 -25.7%
+  - vol_w60_s10: 全期Sharpe 0.93，dev Sharpe 0.87，outer Sharpe 1.05，收益 815.4%，回撤 -39.5%
+  - vol_w120_s6: 全期Sharpe 0.93，dev Sharpe 0.79，outer Sharpe 1.18，收益 402.8%，回撤 -28.4%
+  - vol_w120_s10: 全期Sharpe 0.88，dev Sharpe 0.78，outer Sharpe 1.05，收益 820.7%，回撤 -42.9%
+- 选中规则 `vol_w60_s6`；是否 outer 改善：True。
+- 决定 `dynamic_beta_cap_improves_out_of_sample`。
+- 风险：只重投影冻结信号，无新数据；动态规则在 development 选择，但源信号本身是样本内固定的；年度稳定性需单独看，不能只凭汇总 Sharpe。
+- qlib Recorder：af44025ef57a4eeaad56806e2e9500a8。

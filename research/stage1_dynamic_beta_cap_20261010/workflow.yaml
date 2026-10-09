@@ -1,0 +1,27 @@
+schema_version: stage1_dynamic_beta_cap_v1
+experiment: stage1_dynamic_beta_cap_20261010
+source_card: pit_constituent_auxiliary_training_allocation_retrained_20260928
+window:
+- '2016-01-04'
+- '2026-09-17'
+development_end: '2022-12-31'
+costs_bps:
+- 10.0
+- 25.0
+rule_family:
+- constant_0.6
+- vol_w30_s6
+- vol_w30_s10
+- vol_w60_s6
+- vol_w60_s10
+- vol_w120_s6
+- vol_w120_s10
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - data/history.pkl
+  - analysis/replays.pkl
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

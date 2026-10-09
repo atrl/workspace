@@ -1,0 +1,33 @@
+{
+  "schema_version": "stage1_dynamic_beta_cap_v1",
+  "experiment": "stage1_dynamic_beta_cap_20261010",
+  "registered_at_utc": "2026-10-10T06:00:00+00:00",
+  "registered_before_candidate_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "The frozen Stage1 policy caps effective beta at a constant action_beta=0.6. A constant cap cannot be right in both calm and volatile regimes. Test a pre-registered family of volatility-scaled dynamic caps that use only past realized SOXX volatility, on the frozen upstream raw target, and require the improvement to hold on the out-of-sample window and not be concentrated in a single year.",
+  "source_card": "pit_constituent_auxiliary_training_allocation_retrained_20260928",
+  "signal_changed": false,
+  "costs_bps": [10.0, 25.0],
+  "development_end": "2022-12-31",
+  "rule_family": [
+    "constant_0.6 (frozen baseline)",
+    "vol_w30_s6, vol_w60_s6, vol_w120_s6",
+    "vol_w30_s10, vol_w60_s10, vol_w120_s10"
+  ],
+  "cap_rule": "cap_t = clip(scale * rolling_median_vol / realized_vol_t, 0.3, 1.5); realized vol is trailing, causal",
+  "causality_rule": "Only past realized volatility sets the cap; the raw upstream target is unchanged; returns are the frozen recording's realized open-to-open returns.",
+  "gates": {
+    "improvement": "selected rule must beat the constant baseline on development Sharpe AND on the outer Sharpe"
+  },
+  "stopping": "Exactly the pre-registered rule family at two costs; no tuning after outcomes. Preserve all results, including failures.",
+  "limitations": [
+    "Re-projects a frozen signal; no new data or model.",
+    "The source signal was itself fixed in-sample; this is not independent forward evidence.",
+    "Annual stability is reported so a pooled gain from one regime is visible."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}
