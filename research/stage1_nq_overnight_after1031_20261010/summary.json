@@ -1,0 +1,305 @@
+{
+  "experiment": "stage1_nq_overnight_after1031_20261010",
+  "schema_version": "stage1_nq_overnight_after1031_v1",
+  "card_status": "active_research",
+  "decision": "end_route_no_further_search",
+  "promotion_eligible": false,
+  "reason": "no long-only NQ>0->SOXL rule edge with a positive CI at the 25bp roundtrip stress",
+  "objective_achieved": false,
+  "plan_sha256": "df4d8c9d012a39aff420e80cdc4ced0ec17d44fdb33fbe7ce6b8f448dbfb8e91",
+  "plan_registered_at_utc": "2026-10-09T17:13:07.070135+00:00",
+  "source_freeze": {
+    "nq_raw": {
+      "path": "data/raw/external/night_session_20261010_v1/NQ_F.parquet",
+      "sha256": "5caf8600ca1ad8428032ed8049bd64cca330faed22685d58c05ac1fa3b2b0dd6"
+    },
+    "nq_raw_manifest": {
+      "path": "data/raw/external/night_session_20261010_v1/manifest.json",
+      "sha256": "9dfa361c654474c6cdfb63d03380d234e6a0557445317d167c7b2612d68ce43d"
+    },
+    "trading_days": {
+      "path": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/trading_days.json",
+      "sha256": "d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15"
+    },
+    "bar_span_source_audit": {
+      "path": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/source_manifest.json",
+      "sha256": "01522c39d480d977d9d5e8abc0a1509afb86d5a822f68bb539f04e7bc755a2ca"
+    },
+    "nq_provider": {
+      "path": "data/qlib/nq_futures_60min_20261010_v1",
+      "manifest_sha256": "2afd21533303e27810939a5100b0c81fda179d55cf642dcba8a489526099616f",
+      "freq": "60min",
+      "as_of": "2026-10-09",
+      "trading_calendar_sha256": null
+    },
+    "uniform_intraday": {
+      "path": "data/qlib/stage1_uniform_intraday_20261009",
+      "manifest_sha256": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+      "freq": "15min",
+      "as_of": "2026-09-25",
+      "trading_calendar_sha256": "d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15"
+    },
+    "uniform_execution": {
+      "path": "data/qlib/stage1_uniform_execution_marks_20261009",
+      "manifest_sha256": "d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb",
+      "freq": "15min",
+      "as_of": "2026-09-25",
+      "trading_calendar_sha256": null
+    },
+    "uniform_daily": {
+      "path": "data/qlib/stage1_uniform_daily_marks_20261009",
+      "manifest_sha256": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f",
+      "freq": "day",
+      "as_of": "2026-09-25",
+      "trading_calendar_sha256": null
+    }
+  },
+  "declared_decision_at": "10:31 ET",
+  "signal": "nq_overnight 18:00->10:00 (prior calendar day)",
+  "models_trained": 0,
+  "direction": 1.0,
+  "parameter_search": "none",
+  "official_days_in_range": 492,
+  "sessions": 469,
+  "dropped_needs_data": 23,
+  "morning_days_in_range": 5,
+  "valid_morning_days": 0,
+  "missing_nq_signal_days": 22,
+  "calendar_digest": "d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15",
+  "spread_ic_primary": {
+    "point": 0.038583095744099245,
+    "ci_low": -0.044920978235516176,
+    "ci_high": 0.11386506231920675,
+    "blocks": 473,
+    "status": "ok"
+  },
+  "individual_ic_descriptive": {
+    "soxl_session_close": {
+      "point": 0.04574683282209482,
+      "ci_low": -0.03950039698628821,
+      "ci_high": 0.12267526313756509,
+      "blocks": 473,
+      "status": "ok"
+    },
+    "soxx_session_close": {
+      "point": 0.05972184902003893,
+      "ci_low": -0.026556908417542092,
+      "ci_high": 0.13940873417231703,
+      "blocks": 473,
+      "status": "ok"
+    },
+    "soxl_close_1300": {
+      "point": 0.08308981163855729,
+      "ci_low": -0.01607550936053798,
+      "ci_high": 0.16767982775336884,
+      "blocks": 473,
+      "status": "ok"
+    },
+    "soxx_close_1300": {
+      "point": 0.0900111320879819,
+      "ci_low": -0.011340906129465046,
+      "ci_high": 0.17497090792560635,
+      "blocks": 473,
+      "status": "ok"
+    }
+  },
+  "economic_long_only": [
+    {
+      "book": "rule_NQpos_SOXL_else_SOXX",
+      "cost_bps": 10.0,
+      "mean_net_bps": 0.8464066645887407,
+      "ci_low_bps": -29.068948142572484,
+      "ci_high_bps": 32.65716159013917,
+      "ci_status": "ok",
+      "legs": "cash->target at 10:30, target->cash at session close"
+    },
+    {
+      "book": "rule_NQpos_SOXL_else_SOXX",
+      "cost_bps": 25.0,
+      "mean_net_bps": -29.1112709332012,
+      "ci_low_bps": -58.93701386971728,
+      "ci_high_bps": 2.604194423701701,
+      "ci_status": "ok",
+      "legs": "cash->target at 10:30, target->cash at session close"
+    },
+    {
+      "book": "soxl_only",
+      "cost_bps": 10.0,
+      "mean_net_bps": -12.092760332660061,
+      "ci_low_bps": -46.68313629318539,
+      "ci_high_bps": 27.839532071237823,
+      "ci_status": "ok",
+      "legs": "cash->target at 10:30, target->cash at session close"
+    },
+    {
+      "book": "soxl_only",
+      "cost_bps": 25.0,
+      "mean_net_bps": -42.01167847174759,
+      "ci_low_bps": -76.49843846929583,
+      "ci_high_bps": -2.1990038174812816,
+      "ci_status": "ok",
+      "legs": "cash->target at 10:30, target->cash at session close"
+    },
+    {
+      "book": "soxx_only",
+      "cost_bps": 10.0,
+      "mean_net_bps": -17.31137744134671,
+      "ci_low_bps": -29.10008618483417,
+      "ci_high_bps": -3.819704883707383,
+      "ci_status": "ok",
+      "legs": "cash->target at 10:30, target->cash at session close"
+    },
+    {
+      "book": "soxx_only",
+      "cost_bps": 25.0,
+      "mean_net_bps": -47.21466313868975,
+      "ci_low_bps": -58.9680586375306,
+      "ci_high_bps": -33.76340507801406,
+      "ci_status": "ok",
+      "legs": "cash->target at 10:30, target->cash at session close"
+    }
+  ],
+  "soxx_buyhold_account": {
+    "10": {
+      "return_pct": 147.7823416553354,
+      "sessions": 490,
+      "status": "ok",
+      "missing_marks": []
+    },
+    "25": {
+      "return_pct": 147.41159500946173,
+      "sessions": 490,
+      "status": "ok",
+      "missing_marks": []
+    }
+  },
+  "relative_rule_minus_soxx": [
+    {
+      "cost_bps": 10.0,
+      "mean_diff_bps": 18.157784105935452,
+      "ci_low_bps": -1.1447624345925442,
+      "ci_high_bps": 38.29164895078035,
+      "ci_status": "ok",
+      "note": "descriptive only; a positive relative CI does not mask absolute losses"
+    },
+    {
+      "cost_bps": 25.0,
+      "mean_diff_bps": 18.103392205488554,
+      "ci_low_bps": -1.1413332824441496,
+      "ci_high_bps": 38.176945771938286,
+      "ci_status": "ok",
+      "note": "descriptive only; a positive relative CI does not mask absolute losses"
+    }
+  ],
+  "three_account_wealth": [
+    {
+      "book": "rule_NQpos_SOXL_else_SOXX",
+      "cost_bps": 10.0,
+      "sessions": 469,
+      "cumulative_return_pct": -24.708258580026786,
+      "max_drawdown_pct": -56.89066444382813,
+      "worst_day_pct": -23.051250280055903,
+      "cvar5_pct": -7.838791836906629,
+      "mean_daily_bps": 0.8464066645887407
+    },
+    {
+      "book": "soxl_only",
+      "cost_bps": 10.0,
+      "sessions": 469,
+      "cumulative_return_pct": -66.35700649722129,
+      "max_drawdown_pct": -76.68702320423111,
+      "worst_day_pct": -23.051250280055903,
+      "cvar5_pct": -11.704565646289478,
+      "mean_daily_bps": -12.092760332660061
+    },
+    {
+      "book": "soxx_only",
+      "cost_bps": 10.0,
+      "sessions": 469,
+      "cumulative_return_pct": -58.22919329537256,
+      "max_drawdown_pct": -60.440530010984126,
+      "worst_day_pct": -8.53912531648916,
+      "cvar5_pct": -4.018341748842076,
+      "mean_daily_bps": -17.31137744134671
+    },
+    {
+      "book": "rule_NQpos_SOXL_else_SOXX",
+      "cost_bps": 25.0,
+      "sessions": 469,
+      "cumulative_return_pct": -81.56288264374959,
+      "max_drawdown_pct": -84.55621243223264,
+      "worst_day_pct": -23.281751353857715,
+      "cvar5_pct": -8.1148620462574,
+      "mean_daily_bps": -29.1112709332012
+    },
+    {
+      "book": "soxl_only",
+      "cost_bps": 25.0,
+      "sessions": 469,
+      "cumulative_return_pct": -91.76164865192298,
+      "max_drawdown_pct": -93.0057803984401,
+      "worst_day_pct": -23.281751353857715,
+      "cvar5_pct": -11.969055875232758,
+      "mean_daily_bps": -42.01167847174759
+    },
+    {
+      "book": "soxx_only",
+      "cost_bps": 25.0,
+      "sessions": 469,
+      "cumulative_return_pct": -89.77134476166904,
+      "max_drawdown_pct": -90.12350736672741,
+      "worst_day_pct": -8.81309766694488,
+      "cvar5_pct": -4.305856170748737,
+      "mean_daily_bps": -47.21466313868975
+    }
+  ],
+  "native_capability": {
+    "full_strategy_native": "needs_data",
+    "reason": "root helper covers opening/recovery slots; the 10:30 entry->session_close two-leg roundtrip is not directly adaptable",
+    "recorded": "real settle_target_session fee/cash/weight paths per day (normalized account)"
+  },
+  "execution_proxy": "entry mark is the predeclared historical 10:30 close; decision is 10:31 ET; NOT verified real 10:31 fills",
+  "direction_note": "the NQ sign is a directional description; economics are long-only, no short portfolio",
+  "futures_roll_note": "NQ=F is the Yahoo front continuous series; contract roll/adjustment is not independent evidence (listed, not corrected)",
+  "reporting_caveat": "point estimates + fixed 20-session full-calendar mask moving-block CI; ~2 years of seen data; no stable-excess claim",
+  "limitations": [
+    "Execution proxy is the predeclared 10:30 close, not an actual 10:31 fill.",
+    "CI uses fixed 20-session moving blocks over the full official calendar; invalid days are masked and filtered inside the statistic.",
+    "~2 years of seen data; NQ=F is a rolling front-continuous series (roll/adjustment is not independent evidence).",
+    "No parameter/cutoff/sign search permitted; a failure stops the route."
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "calendar",
+      "economic_long_only",
+      "individual_ic",
+      "panel_valid",
+      "rule_ledger_10",
+      "rule_ledger_25",
+      "soxx_buyhold_path_10",
+      "soxx_buyhold_path_25",
+      "spread_ic_primary"
+    ]
+  },
+  "recorder_id": "846542c84829474d9f8c409f670b3829",
+  "experiment_id": "972630437874833678",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_nq_overnight_after1031_20261010/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_nq_overnight_after1031_20261010/qlib_recorder/972630437874833678/846542c84829474d9f8c409f670b3829",
+  "saved_objects": [
+    "calendar",
+    "economic_long_only",
+    "individual_ic",
+    "panel_valid",
+    "rule_ledger_10",
+    "rule_ledger_25",
+    "soxx_buyhold_path_10",
+    "soxx_buyhold_path_25",
+    "spread_ic_primary"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

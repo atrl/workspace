@@ -1,0 +1,7 @@
+book,cost_bps,mean_net_bps,ci_low_bps,ci_high_bps,ci_status,legs
+rule_NQpos_SOXL_else_SOXX,10.0,0.8464066645887407,-29.068948142572484,32.65716159013917,ok,"cash->target at 10:30, target->cash at session close"
+rule_NQpos_SOXL_else_SOXX,25.0,-29.1112709332012,-58.93701386971728,2.604194423701701,ok,"cash->target at 10:30, target->cash at session close"
+soxl_only,10.0,-12.092760332660061,-46.68313629318539,27.839532071237823,ok,"cash->target at 10:30, target->cash at session close"
+soxl_only,25.0,-42.01167847174759,-76.49843846929583,-2.1990038174812816,ok,"cash->target at 10:30, target->cash at session close"
+soxx_only,10.0,-17.31137744134671,-29.10008618483417,-3.819704883707383,ok,"cash->target at 10:30, target->cash at session close"
+soxx_only,25.0,-47.21466313868975,-58.9680586375306,-33.76340507801406,ok,"cash->target at 10:30, target->cash at session close"

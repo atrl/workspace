@@ -1,0 +1,3 @@
+cost_bps,mean_diff_bps,ci_low_bps,ci_high_bps,ci_status,note
+10.0,18.157784105935452,-1.1447624345925442,38.29164895078035,ok,descriptive only; a positive relative CI does not mask absolute losses
+25.0,18.103392205488554,-1.1413332824441496,38.176945771938286,ok,descriptive only; a positive relative CI does not mask absolute losses

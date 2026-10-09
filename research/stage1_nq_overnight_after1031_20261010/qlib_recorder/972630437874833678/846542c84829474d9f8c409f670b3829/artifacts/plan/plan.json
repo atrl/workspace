@@ -1,0 +1,49 @@
+{
+  "schema_version": "stage1_nq_overnight_after1031_v1",
+  "experiment": "stage1_nq_overnight_after1031_20261010",
+  "registered_at_utc": "2026-10-09T17:13:07.070135+00:00",
+  "plan_status": "ready",
+  "card_status": "active_research",
+  "objective_achieved": false,
+  "promotion_eligible": false,
+  "mechanism": "NQ=F overnight 18:00 ET -> 10:00 ET change predicts equity returns after the 10:31 decision; this is a NEW decision time, the old 9:30 strategy is invalid",
+  "preregistered": {
+    "signal": "nq_overnight = PRIOR CALENDAR day 18:00 bar open -> current day 09:00 bar close (bar ends 10:00); Monday uses Sunday, missing window -> per-day needs_data",
+    "declared_decision_at": "10:31 ET (execution proxy = predeclared historical 10:30 close, NOT verified real fills)",
+    "direction": "fixed; NQ sign is descriptive only; economics long-only SOXL/SOXX/cash, no short portfolio",
+    "models_trained": 0,
+    "primary_label": "session_close chosen by official Futu receipt (WHOLE->16:00, MORNING->13:00)",
+    "auxiliary_label": "13:00 close (descriptive only, not selected among horizons)",
+    "next_open": "strictly-next trading day 09:45 open, exit_at > decision_at",
+    "economics": "cash->target at 10:30, target->cash at session close; exact fee_affordable_target+settle_target_session two-leg; both costs",
+    "uncertainty": "fixed 20-session moving blocks over the FULL official calendar; invalid days kept as a mask and filtered inside the statistic",
+    "primary_target": "SOXL-SOXX spread IC; individual ICs descriptive only",
+    "benchmark": "real SOXX continuous open->next-open buy-hold account (independent of 10:30 entry)"
+  },
+  "fail_closed": [
+    "missing prior-calendar-day 18:00 or 09:00 bar -> needs_data",
+    "missing 10:30/session-close/next-open stock bar -> needs_data",
+    "no backfill, no silent drop"
+  ],
+  "futures_roll": "NQ=F Yahoo front continuous; roll/adjustment listed separately, not independent evidence",
+  "no_reuse": "original night-session +0.22 result is void and not reused",
+  "stop_rule": "no fee-robust positive edge at 25bp -> end_route_no_further_search; no tuning on ~2 years of seen data",
+  "sources": {
+    "nq_raw": "data/raw/external/night_session_20261010_v1/NQ_F.parquet",
+    "raw_manifest": "data/raw/external/night_session_20261010_v1/manifest.json",
+    "uniform_intraday": "data/qlib/stage1_uniform_intraday_20261009",
+    "uniform_execution": "data/qlib/stage1_uniform_execution_marks_20261009",
+    "uniform_daily": "data/qlib/stage1_uniform_daily_marks_20261009"
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "sources_bound_before_analysis": {
+    "trading_days_receipt": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/trading_days.json",
+    "bar_span_source_audit": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/source_manifest.json",
+    "nq_raw": "data/raw/external/night_session_20261010_v1/NQ_F.parquet",
+    "nq_provider": "data/qlib/nq_futures_60min_20261010_v1",
+    "uniform_intraday": "data/qlib/stage1_uniform_intraday_20261009"
+  }
+}

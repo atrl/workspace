@@ -1,0 +1,49 @@
+{
+  "sources": {
+    "nq_raw": {
+      "path": "data/raw/external/night_session_20261010_v1/NQ_F.parquet",
+      "sha256": "5caf8600ca1ad8428032ed8049bd64cca330faed22685d58c05ac1fa3b2b0dd6"
+    },
+    "nq_raw_manifest": {
+      "path": "data/raw/external/night_session_20261010_v1/manifest.json",
+      "sha256": "9dfa361c654474c6cdfb63d03380d234e6a0557445317d167c7b2612d68ce43d"
+    },
+    "trading_days": {
+      "path": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/trading_days.json",
+      "sha256": "d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15"
+    },
+    "bar_span_source_audit": {
+      "path": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/source_manifest.json",
+      "sha256": "01522c39d480d977d9d5e8abc0a1509afb86d5a822f68bb539f04e7bc755a2ca"
+    },
+    "nq_provider": {
+      "path": "data/qlib/nq_futures_60min_20261010_v1",
+      "manifest_sha256": "2afd21533303e27810939a5100b0c81fda179d55cf642dcba8a489526099616f",
+      "freq": "60min",
+      "as_of": "2026-10-09",
+      "trading_calendar_sha256": null
+    },
+    "uniform_intraday": {
+      "path": "data/qlib/stage1_uniform_intraday_20261009",
+      "manifest_sha256": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+      "freq": "15min",
+      "as_of": "2026-09-25",
+      "trading_calendar_sha256": "d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15"
+    },
+    "uniform_execution": {
+      "path": "data/qlib/stage1_uniform_execution_marks_20261009",
+      "manifest_sha256": "d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb",
+      "freq": "15min",
+      "as_of": "2026-09-25",
+      "trading_calendar_sha256": null
+    },
+    "uniform_daily": {
+      "path": "data/qlib/stage1_uniform_daily_marks_20261009",
+      "manifest_sha256": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f",
+      "freq": "day",
+      "as_of": "2026-09-25",
+      "trading_calendar_sha256": null
+    }
+  },
+  "plan_sha256": "df4d8c9d012a39aff420e80cdc4ced0ec17d44fdb33fbe7ce6b8f448dbfb8e91"
+}
