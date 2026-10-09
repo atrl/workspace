@@ -1,0 +1,34 @@
+{
+  "schema_version": "night_session_signal_v1",
+  "experiment": "night_session_signal_20261010",
+  "registered_at_utc": "2026-10-10T04:00:00+00:00",
+  "registered_before_candidate_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "Earlier daily and intraday signals had zero forecast IC because they were contemporaneous with the US session. Overnight equity-index futures (ES/NQ) trade a near-continuous session and move before the 09:30 US cash open. Test whether the overnight futures change is a genuine forecast for the same day's SOXL regular-session excess over SOXX, and whether the resulting strategy is stable across quarters and survives realistic cost.",
+  "new_data_source": "data/raw/external/night_session_20261010_v1",
+  "data_retrieval": "Yahoo Finance chart API, 1h bars with includePrePost=true, 2024-10-09 to 2026-10-09",
+  "causality_rule": "Overnight futures change uses the prior 18:00 ET to current 09:30 ET window; premarket uses 04:00-09:30 ET. Both end at the cash open. The traded target is the same day's 09:30-16:00 regular session and the benchmark is SOXX over that identical window.",
+  "development_fraction": 0.6,
+  "costs_bps": [10.0, 25.0],
+  "thresholds": [0.0, 0.001, 0.002],
+  "signals": ["nq_overnight", "es_overnight", "soxl_premarket", "soxx_premarket", "smh_premarket"],
+  "defensive_variants": ["soxx", "cash"],
+  "gates": {
+    "development_eligible": "beats SOXX return AND Sharpe in development at the high cost",
+    "promotion": "development eligible AND diagnostic beats SOXX return AND Sharpe at the high cost",
+    "stability": "quarterly win rate reported at the high cost"
+  },
+  "stopping": "Exactly the pre-registered signal set, defensive variants and thresholds at two costs across development and diagnostic splits; no tuning after outcomes. Preserve all results, including failures.",
+  "limitations": [
+    "The natural sample is about two years; the diagnostic split is short.",
+    "Yahoo night-session history is limited to roughly two years at hourly granularity.",
+    "Overnight futures prices are continuous-session closes, not a guaranteed executable fill.",
+    "Turnover is high; wider spreads than 25bp would erode the edge.",
+    "Overnight price moves partly reflect the prior US close, which is public information."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}
