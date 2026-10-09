@@ -51,9 +51,9 @@ class MomentumSpec:
     region: str = "us"
     market: str = "all"
     as_of: str = "2026-10-07"
-    development: tuple[str, str] = ("2020-01-02", "2022-12-30")
-    reused_diagnostic: tuple[str, str] = ("2023-01-03", "2026-09-25")
-    forward: tuple[str, str] = ("2026-09-26", "2026-10-07")
+    development: tuple[str, str] = ("2020-01-02", "2023-12-29")
+    reused_diagnostic: tuple[str, str] = ("2024-01-02", "2026-06-30")
+    forward: tuple[str, str] = ("2026-07-01", "2026-10-07")
     costs_bps: tuple[float, ...] = (10.0, 25.0)
     minimum_positive_years: int = 2
 
@@ -78,15 +78,18 @@ def resolve_root(root: Path | str | None) -> Path:
 
 
 def registered_candidates() -> list[MomentumPolicy]:
-    """Bounded, pre-registered threshold family; no tuning after outcomes."""
+    """Bounded, pre-registered threshold family; no tuning after outcomes.
+
+    Two signal sources: the target's own early move (``soxl_early``) and the
+    underlying index proxy's early move (``soxx_early``). No return forecast.
+    """
     policies = [MomentumPolicy(name="early_momentum_off", long_threshold=1.0, short_threshold=1.0)]
-    for long_threshold in (0.01, 0.02, 0.03, 0.05):
-        policies.append(MomentumPolicy(name=f"early_momentum_l{int(long_threshold * 100)}",
-                                       long_threshold=long_threshold, short_threshold=1.0))
-    for long_threshold, short_threshold in ((0.02, 0.02), (0.03, 0.03)):
-        policies.append(MomentumPolicy(
-            name=f"early_momentum_l{int(long_threshold * 100)}_s{int(short_threshold * 100)}",
-            long_threshold=long_threshold, short_threshold=short_threshold))
+    for signal in ("soxl_early", "soxx_early"):
+        tag = signal.replace("_early", "")
+        for long_threshold in (0.005, 0.01, 0.02):
+            policies.append(MomentumPolicy(
+                name=f"{tag}_momentum_l{int(long_threshold * 1000)}",
+                long_threshold=long_threshold, short_threshold=1.0, signal=signal))
     return policies
 
 

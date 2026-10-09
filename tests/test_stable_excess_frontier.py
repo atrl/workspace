@@ -243,7 +243,8 @@ def test_momentum_simulation_charges_turnover_and_has_no_overnight():
     for i, d in enumerate(days):
         rows.append({
             "signal_date": d,
-            "early_return": 0.05 if i % 2 == 0 else -0.05,
+            "soxl_early": 0.05 if i % 2 == 0 else -0.05,
+            "soxx_early": 0.05 if i % 2 == 0 else -0.05,
             "rest_soxl": 0.01, "rest_soxx": 0.002,
         })
     frame = pd.DataFrame(rows)

@@ -1,0 +1,35 @@
+On branch research/benchmark-core-variance-20261009
+You are in a sparse checkout with 50% of tracked files present.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   plan.json
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_cached.txt
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_diff.txt
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_status.txt
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/selected_policy
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/summary_json
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/meta.yaml
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/forward_return_pct
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/forward_sharpe
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_max_drawdown_pct
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_return_pct
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_sharpe
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/as_of
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/candidate_count
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/cmd-sys.argv
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/costs_bps
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/provider_uri
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/schema_version
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/selected_policy
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.runName
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.source.name
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.source.type
+	deleted:    qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.user
+	deleted:    qlib_recorder/381826478494092836/meta.yaml
+	modified:   ../../src/analysis/intraday_early_momentum.py
+	modified:   ../../src/workflow/intraday_early_momentum.py
+	modified:   ../../tests/test_stable_excess_frontier.py
+
+no changes added to commit (use "git add" and/or "git commit -a")

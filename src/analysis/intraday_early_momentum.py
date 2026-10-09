@@ -41,9 +41,11 @@ class MomentumPolicy:
     name: str
     long_threshold: float
     short_threshold: float = 1.0
+    signal: str = "soxl_early"
 
     def validate(self):
         _require(isinstance(self.name, str) and self.name, "policy name is required")
+        _require(self.signal in ("soxl_early", "soxx_early"), "signal must be soxl_early or soxx_early")
         for value, label in ((self.long_threshold, "long_threshold"),
                              (self.short_threshold, "short_threshold")):
             _require(isinstance(value, Real) and not isinstance(value, bool)
@@ -99,7 +101,9 @@ def build_early_session_frame(soxl: pd.DataFrame, soxx: pd.DataFrame, *,
     frame = frame[frame.index.dayofweek < 5]
     frame.index.name = "signal_date"
     frame = frame.reset_index()
-    frame["early_return"] = frame["soxl_decision"] / frame["soxl_open"] - 1.0
+    frame["soxl_early"] = frame["soxl_decision"] / frame["soxl_open"] - 1.0
+    frame["soxx_early"] = frame["soxx_decision"] / frame["soxx_open"] - 1.0
+    frame["early_return"] = frame["soxl_early"]
     frame["rest_soxl"] = frame["soxl_close"] / frame["soxl_decision"] - 1.0
     frame["rest_soxx"] = frame["soxx_close"] / frame["soxx_decision"] - 1.0
     _require(len(frame) > 0, "no aligned early-session rows were built")
@@ -132,7 +136,8 @@ def simulate_policy(frame: pd.DataFrame, policy: MomentumPolicy, *, cost_bps: fl
     fee_rate = float(cost_bps) / 10_000.0
     records = []
     for row in ordered.itertuples(index=False):
-        target = target_weights(row.early_return, policy)
+        signal_value = getattr(row, policy.signal)
+        target = target_weights(signal_value, policy)
         turnover = float(np.abs(target - prior).sum())
         gross = target[0] * float(row.rest_soxl) + target[1] * float(row.rest_soxx)
         records.append({

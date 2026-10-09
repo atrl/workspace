@@ -1,0 +1,464 @@
+diff --git a/research/intraday_early_momentum_20261010/plan.json b/research/intraday_early_momentum_20261010/plan.json
+index 27c33171..079b3279 100644
+--- a/research/intraday_early_momentum_20261010/plan.json
++++ b/research/intraday_early_momentum_20261010/plan.json
+@@ -5,7 +5,7 @@
+   "registered_before_candidate_portfolio_results": true,
+   "campaign_status": "active_research",
+   "objective_achieved": false,
+-  "hypothesis": "The daily stable-excess frontier card found no edge from risk/trend state with zero return forecast. The one locally demonstrated signal is the intraday early-session path: an observable opening move that may continue into the same-session remainder. Test, self-contained and with no parent model, whether a bounded causal threshold family on the opening 09:30-to-10:30 return produces stable excess over SOXX buy-and-hold on the same 10:30-to-close window.",
++  "hypothesis": "The daily stable-excess frontier and cross-source search found no robust edge. The remaining observable signal is the intraday early-session path. Test, self-contained with no parent model, whether the target's own opening 09:30-to-10:30 move (soxl_early) or the underlying index proxy's opening move (soxx_early) supports a 10:30-to-close allocation that beats SOXX buy-and-hold on the same window across return, drawdown and Sharpe, and whether that edge survives realistic cost.",
+   "provider_uri": "data/qlib/soxl_intraday_15min",
+   "market": "all",
+   "region": "us",
+@@ -16,22 +16,22 @@
+   "overnight_position": false,
+   "return_forecast_used": false,
+   "model_fit_budget": 0,
+-  "parameter_search_budget": "one pre-registered bounded threshold family; no tuning after outcomes",
++  "parameter_search_budget": "one pre-registered bounded threshold family over two signal sources; no tuning after outcomes",
+   "segments": {
+-    "development": ["2020-01-02", "2022-12-30"],
+-    "reused_diagnostic": ["2023-01-03", "2026-09-25"],
+-    "forward": ["2026-09-26", "2026-10-07"]
++    "development": ["2020-01-02", "2023-12-29"],
++    "reused_diagnostic": ["2024-01-02", "2026-06-30"],
++    "forward": ["2026-07-01", "2026-10-07"]
+   },
+   "costs_bps": [10.0, 25.0],
+   "minimum_positive_years": 2,
+   "candidate_family": [
+-    {"name": "early_momentum_off", "long_threshold": 1.0, "short_threshold": 1.0, "role": "soxx_benchmark_control"},
+-    {"name": "early_momentum_l1", "long_threshold": 0.01, "short_threshold": 1.0, "role": "registered_candidate"},
+-    {"name": "early_momentum_l2", "long_threshold": 0.02, "short_threshold": 1.0, "role": "registered_candidate"},
+-    {"name": "early_momentum_l3", "long_threshold": 0.03, "short_threshold": 1.0, "role": "registered_candidate"},
+-    {"name": "early_momentum_l5", "long_threshold": 0.05, "short_threshold": 1.0, "role": "registered_candidate"},
+-    {"name": "early_momentum_l2_s2", "long_threshold": 0.02, "short_threshold": 0.02, "role": "registered_candidate_with_cash_branch"},
+-    {"name": "early_momentum_l3_s3", "long_threshold": 0.03, "short_threshold": 0.03, "role": "registered_candidate_with_cash_branch"}
++    {"name": "early_momentum_off", "signal": "soxl_early", "long_threshold": 1.0, "short_threshold": 1.0, "role": "soxx_benchmark_control"},
++    {"name": "soxl_momentum_l5", "signal": "soxl_early", "long_threshold": 0.005, "short_threshold": 1.0, "role": "registered_candidate"},
++    {"name": "soxl_momentum_l10", "signal": "soxl_early", "long_threshold": 0.01, "short_threshold": 1.0, "role": "registered_candidate"},
++    {"name": "soxl_momentum_l20", "signal": "soxl_early", "long_threshold": 0.02, "short_threshold": 1.0, "role": "registered_candidate"},
++    {"name": "soxx_momentum_l5", "signal": "soxx_early", "long_threshold": 0.005, "short_threshold": 1.0, "role": "registered_candidate"},
++    {"name": "soxx_momentum_l10", "signal": "soxx_early", "long_threshold": 0.01, "short_threshold": 1.0, "role": "registered_candidate"},
++    {"name": "soxx_momentum_l20", "signal": "soxx_early", "long_threshold": 0.02, "short_threshold": 1.0, "role": "registered_candidate"}
+   ],
+   "signal_definition": {
+     "observation": "session open (09:45 bar open) through 10:30 close",
+@@ -41,14 +41,14 @@
+   },
+   "allocation": {
+     "assets": ["SOXL", "SOXX", "cash"],
+-    "long": "early return >= long_threshold -> 100% SOXL for the rest of the session",
+-    "short": "early return <= -short_threshold -> 100% cash for the rest of the session",
++    "long": "signal >= long_threshold -> 100% SOXL for the rest of the session",
++    "short": "signal <= -short_threshold -> 100% cash for the rest of the session",
+     "neutral": "otherwise 100% SOXX for the rest of the session",
+     "fees": "turnover from the prior 10:30 target charged at cost_bps"
+   },
+   "selection": "development-only deterministic ranking by stable-excess satisfaction, then positive years, Sharpe difference and drawdown improvement; the off/benchmark control is never selectable",
+   "gates": {
+-    "stable_excess": "beats SOXX return AND drawdown AND Sharpe on the window, with at least minimum_positive_years annual wins",
++    "stable_excess": "beats SOXX return AND drawdown AND Sharpe on the window with at least minimum_positive_years positive years",
+     "promotion": "development AND reused_diagnostic stable excess at both 10bps and 25bps"
+   },
+   "stopping": "Exactly the pre-registered family at two costs across three windows; no threshold, window or cost tuning after outcomes. Preserve all results, including failures.",
+@@ -56,6 +56,7 @@
+     "The 10:30 decision price is assumed fillable; bid/ask, queue and latency are not modeled.",
+     "Only the 10:30-to-close window is traded; overnight and morning exposure are deliberately absent.",
+     "The forward window is only the newly available sessions and is statistically weak.",
++    "Turnover is high; the edge may not survive 25bp or wider spreads.",
+     "A negative result does not refute lower-turnover, state-conditioned intraday mechanisms."
+   ],
+   "source_references": [
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_cached.txt b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_cached.txt
+deleted file mode 100644
+index e69de29b..00000000
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_diff.txt b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_diff.txt
+deleted file mode 100644
+index 10a2598a..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_diff.txt
++++ /dev/null
+@@ -1,100 +0,0 @@
+-diff --git a/tests/test_stable_excess_frontier.py b/tests/test_stable_excess_frontier.py
+-index ea322c5a..605841fe 100644
+---- a/tests/test_stable_excess_frontier.py
+-+++ b/tests/test_stable_excess_frontier.py
+-@@ -191,3 +191,95 @@ def test_workflow_end_to_end_records_and_writes_slim_card(tmp_path):
+-     for forbidden in ("predictions.csv", "signals.csv", "all_model_predictions.csv",
+-                       "portfolio_report.csv", "portfolio_report.csv"):
+-         assert not (card_dir / forbidden).exists()
+-+
+-+
+-+# ---------------------------------------------------------------------------
+-+# Intraday early-momentum card
+-+# ---------------------------------------------------------------------------
+-+
+-+from src.analysis import intraday_early_momentum as momentum
+-+from src.workflow import intraday_early_momentum as momentum_workflow
+-+
+-+
+-+def _intraday_day(date, open_price, decision_price, close_price):
+-+    day = pd.Timestamp(date).tz_localize("America/New_York")
+-+    index = pd.DatetimeIndex([
+-+        day + pd.Timedelta(hours=9, minutes=45),
+-+        day + pd.Timedelta(hours=10, minutes=30),
+-+        day + pd.Timedelta(hours=16),
+-+    ])
+-+    # 09:45 bar: open == session open, close == 10:00 close
+-+    # 10:30 bar: close == decision price
+-+    # 16:00 bar: close == session close
+-+    return pd.DataFrame({"open": [open_price, decision_price, close_price],
+-+                         "close": [decision_price, decision_price, close_price]}, index=index)
+-+
+-+
+-+def test_build_early_session_frame_uses_open_to_decision_and_decision_to_close():
+-+    days = pd.bdate_range("2021-01-04", periods=5)
+-+    soxl = pd.concat([_intraday_day(d, 100.0, 102.0, 105.0) for d in days])
+-+    soxx = pd.concat([_intraday_day(d, 100.0, 101.0, 103.0) for d in days])
+-+    frame = momentum.build_early_session_frame(soxl, soxx).frame
+-+    assert len(frame) == 5
+-+    assert frame["early_return"].iloc[0] == pytest.approx(0.02)
+-+    assert frame["rest_soxl"].iloc[0] == pytest.approx(105.0 / 102.0 - 1.0)
+-+    assert frame["rest_soxx"].iloc[0] == pytest.approx(103.0 / 101.0 - 1.0)
+-+
+-+
+-+def test_momentum_target_weights_thresholds_and_simplex():
+-+    policy = momentum.MomentumPolicy("p", long_threshold=0.02, short_threshold=0.03)
+-+    assert momentum.target_weights(0.05, policy).tolist() == [1.0, 0.0, 0.0]
+-+    assert momentum.target_weights(0.0, policy).tolist() == [0.0, 1.0, 0.0]
+-+    assert momentum.target_weights(-0.05, policy).tolist() == [0.0, 0.0, 1.0]
+-+    for value in (0.05, 0.0, -0.05):
+-+        weights = momentum.target_weights(value, policy)
+-+        assert weights.sum() == pytest.approx(1.0)
+-+        assert (weights >= 0).all()
+-+
+-+
+-+def test_momentum_simulation_charges_turnover_and_has_no_overnight():
+-+    days = pd.bdate_range("2021-01-04", periods=4)
+-+    rows = []
+-+    for i, d in enumerate(days):
+-+        rows.append({
+-+            "signal_date": d,
+-+            "early_return": 0.05 if i % 2 == 0 else -0.05,
+-+            "rest_soxl": 0.01, "rest_soxx": 0.002,
+-+        })
+-+    frame = pd.DataFrame(rows)
+-+    policy = momentum.MomentumPolicy("p", long_threshold=0.02, short_threshold=0.02)
+-+    replay = momentum.simulate_policy(frame, policy, cost_bps=10.0)
+-+    assert len(replay) == 4
+-+    # A full flip each session means turnover 2 each time after the first.
+-+    assert replay["turnover"].iloc[1] == pytest.approx(2.0)
+-+    # Strategy return must equal gross minus turnover fee.
+-+    row = replay.iloc[1]
+-+    assert row["strategy_return"] == pytest.approx(row["gross_return"] - 2.0 * 10.0 / 1e4)
+-+
+-+
+-+def test_momentum_benchmark_is_soxx_rest_of_day():
+-+    days = pd.bdate_range("2021-01-04", periods=3)
+-+    frame = pd.DataFrame({"signal_date": days, "early_return": 0.0,
+-+                          "rest_soxl": 0.02, "rest_soxx": 0.004})
+-+    bench = momentum.benchmark_replay(frame, cost_bps=10.0)
+-+    assert (bench["soxx_weight"] == 1.0).all()
+-+    assert bench["strategy_return"].iloc[0] == pytest.approx(0.004)
+-+
+-+
+-+def test_momentum_registered_family_is_bounded_and_includes_off_control():
+-+    candidates = momentum_workflow.registered_candidates()
+-+    names = {policy.name for policy in candidates}
+-+    assert "early_momentum_off" in names
+-+    assert len(candidates) <= 8
+-+    for policy in candidates:
+-+        policy.validate()
+-+
+-+
+-+def test_momentum_selection_never_picks_off_control():
+-+    results = {
+-+        "early_momentum_off": {"verdict": {"stable_excess": True, "positive_year_count": 9},
+-+                               "excess": {"sharpe_difference": 9.0, "max_drawdown_improvement_pct": 9.0}},
+-+        "early_momentum_l2": {"verdict": {"stable_excess": False, "positive_year_count": 2},
+-+                              "excess": {"sharpe_difference": 0.2, "max_drawdown_improvement_pct": 0.1}},
+-+    }
+-+    assert momentum_workflow.select_development_candidate(results) == "early_momentum_l2"
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_status.txt b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_status.txt
+deleted file mode 100644
+index a560a548..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/code_status.txt
++++ /dev/null
+@@ -1,15 +0,0 @@
+-On branch research/benchmark-core-variance-20261009
+-You are in a sparse checkout with 49% of tracked files present.
+-
+-Changes not staged for commit:
+-  (use "git add <file>..." to update what will be committed)
+-  (use "git restore <file>..." to discard changes in working directory)
+-	modified:   ../../tests/test_stable_excess_frontier.py
+-
+-Untracked files:
+-  (use "git add <file>..." to include in what will be committed)
+-	./
+-	../../src/analysis/intraday_early_momentum.py
+-	../../src/workflow/intraday_early_momentum.py
+-
+-no changes added to commit (use "git add" and/or "git commit -a")
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/selected_policy b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/selected_policy
+deleted file mode 100644
+index 42dc8138..00000000
+Binary files a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/selected_policy and /dev/null differ
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/summary_json b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/summary_json
+deleted file mode 100644
+index 9b33a0e9..00000000
+Binary files a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts/summary_json and /dev/null differ
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/meta.yaml b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/meta.yaml
+deleted file mode 100644
+index f0a3cd02..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/meta.yaml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-artifact_uri: /Users/rziiiii/dev/workspace/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/artifacts
+-end_time: 1791533856722
+-entry_point_name: ''
+-experiment_id: '381826478494092836'
+-lifecycle_stage: active
+-run_id: 90422ab9e8504b8b864d0d67c957f448
+-run_name: momentum
+-source_name: ''
+-source_type: 4
+-source_version: ''
+-start_time: 1791533856643
+-status: 3
+-tags: []
+-user_id: rziiiii
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/forward_return_pct b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/forward_return_pct
+deleted file mode 100644
+index ac50d751..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/forward_return_pct
++++ /dev/null
+@@ -1 +0,0 @@
+-1791533856719 -1.3076267721613077 0
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/forward_sharpe b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/forward_sharpe
+deleted file mode 100644
+index 8287b7b7..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/forward_sharpe
++++ /dev/null
+@@ -1 +0,0 @@
+-1791533856720 -1.5699436472014947 0
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_max_drawdown_pct b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_max_drawdown_pct
+deleted file mode 100644
+index 0564e305..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_max_drawdown_pct
++++ /dev/null
+@@ -1 +0,0 @@
+-1791533856720 -61.367628645318696 0
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_return_pct b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_return_pct
+deleted file mode 100644
+index 6de97f59..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_return_pct
++++ /dev/null
+@@ -1 +0,0 @@
+-1791533856720 27.921557044930623 0
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_sharpe b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_sharpe
+deleted file mode 100644
+index 9977b843..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/metrics/outer_sharpe
++++ /dev/null
+@@ -1 +0,0 @@
+-1791533856720 0.3567323911676829 0
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/as_of b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/as_of
+deleted file mode 100644
+index 14d9e67e..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/as_of
++++ /dev/null
+@@ -1 +0,0 @@
+-2026-10-07
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/candidate_count b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/candidate_count
+deleted file mode 100644
+index c7930257..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/candidate_count
++++ /dev/null
+@@ -1 +0,0 @@
+-7
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/cmd-sys.argv b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/cmd-sys.argv
+deleted file mode 100644
+index 27bf3774..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/cmd-sys.argv
++++ /dev/null
+@@ -1 +0,0 @@
+-/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmpspz5q7cd.json --HistoryManager.hist_file=:memory:
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/costs_bps b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/costs_bps
+deleted file mode 100644
+index 4882e5d6..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/costs_bps
++++ /dev/null
+@@ -1 +0,0 @@
+-[10.0, 25.0]
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/provider_uri b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/provider_uri
+deleted file mode 100644
+index 5282012a..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/provider_uri
++++ /dev/null
+@@ -1 +0,0 @@
+-/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/schema_version b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/schema_version
+deleted file mode 100644
+index d48048a6..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/schema_version
++++ /dev/null
+@@ -1 +0,0 @@
+-intraday_early_momentum_v1
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/selected_policy b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/selected_policy
+deleted file mode 100644
+index d5d1d010..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/params/selected_policy
++++ /dev/null
+@@ -1 +0,0 @@
+-early_momentum_l2
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.runName b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.runName
+deleted file mode 100644
+index 71d67041..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.runName
++++ /dev/null
+@@ -1 +0,0 @@
+-momentum
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.source.name b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.source.name
+deleted file mode 100644
+index f2373abb..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.source.name
++++ /dev/null
+@@ -1 +0,0 @@
+-/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.source.type b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.source.type
+deleted file mode 100644
+index 56d71565..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.source.type
++++ /dev/null
+@@ -1 +0,0 @@
+-NOTEBOOK
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.user b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.user
+deleted file mode 100644
+index 326eae5a..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/90422ab9e8504b8b864d0d67c957f448/tags/mlflow.user
++++ /dev/null
+@@ -1 +0,0 @@
+-rziiiii
+\ No newline at end of file
+diff --git a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/meta.yaml b/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/meta.yaml
+deleted file mode 100644
+index 0c3e7959..00000000
+--- a/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836/meta.yaml
++++ /dev/null
+@@ -1,9 +0,0 @@
+-artifact_location: /Users/rziiiii/dev/workspace/research/intraday_early_momentum_20261010/qlib_recorder/381826478494092836
+-creation_time: 1791533856594
+-effective_trace_archival_retention: null
+-experiment_id: '381826478494092836'
+-last_update_time: 1791533856594
+-lifecycle_stage: active
+-name: intraday_early_momentum_20261010
+-trace_location: null
+-workspace: default
+diff --git a/src/analysis/intraday_early_momentum.py b/src/analysis/intraday_early_momentum.py
+index 9964624c..bbb86790 100644
+--- a/src/analysis/intraday_early_momentum.py
++++ b/src/analysis/intraday_early_momentum.py
+@@ -41,9 +41,11 @@ class MomentumPolicy:
+     name: str
+     long_threshold: float
+     short_threshold: float = 1.0
++    signal: str = "soxl_early"
+ 
+     def validate(self):
+         _require(isinstance(self.name, str) and self.name, "policy name is required")
++        _require(self.signal in ("soxl_early", "soxx_early"), "signal must be soxl_early or soxx_early")
+         for value, label in ((self.long_threshold, "long_threshold"),
+                              (self.short_threshold, "short_threshold")):
+             _require(isinstance(value, Real) and not isinstance(value, bool)
+@@ -99,7 +101,9 @@ def build_early_session_frame(soxl: pd.DataFrame, soxx: pd.DataFrame, *,
+     frame = frame[frame.index.dayofweek < 5]
+     frame.index.name = "signal_date"
+     frame = frame.reset_index()
+-    frame["early_return"] = frame["soxl_decision"] / frame["soxl_open"] - 1.0
++    frame["soxl_early"] = frame["soxl_decision"] / frame["soxl_open"] - 1.0
++    frame["soxx_early"] = frame["soxx_decision"] / frame["soxx_open"] - 1.0
++    frame["early_return"] = frame["soxl_early"]
+     frame["rest_soxl"] = frame["soxl_close"] / frame["soxl_decision"] - 1.0
+     frame["rest_soxx"] = frame["soxx_close"] / frame["soxx_decision"] - 1.0
+     _require(len(frame) > 0, "no aligned early-session rows were built")
+@@ -132,7 +136,8 @@ def simulate_policy(frame: pd.DataFrame, policy: MomentumPolicy, *, cost_bps: fl
+     fee_rate = float(cost_bps) / 10_000.0
+     records = []
+     for row in ordered.itertuples(index=False):
+-        target = target_weights(row.early_return, policy)
++        signal_value = getattr(row, policy.signal)
++        target = target_weights(signal_value, policy)
+         turnover = float(np.abs(target - prior).sum())
+         gross = target[0] * float(row.rest_soxl) + target[1] * float(row.rest_soxx)
+         records.append({
+diff --git a/src/workflow/intraday_early_momentum.py b/src/workflow/intraday_early_momentum.py
+index 2e4bd8b0..a9ca5b8c 100644
+--- a/src/workflow/intraday_early_momentum.py
++++ b/src/workflow/intraday_early_momentum.py
+@@ -51,9 +51,9 @@ class MomentumSpec:
+     region: str = "us"
+     market: str = "all"
+     as_of: str = "2026-10-07"
+-    development: tuple[str, str] = ("2020-01-02", "2022-12-30")
+-    reused_diagnostic: tuple[str, str] = ("2023-01-03", "2026-09-25")
+-    forward: tuple[str, str] = ("2026-09-26", "2026-10-07")
++    development: tuple[str, str] = ("2020-01-02", "2023-12-29")
++    reused_diagnostic: tuple[str, str] = ("2024-01-02", "2026-06-30")
++    forward: tuple[str, str] = ("2026-07-01", "2026-10-07")
+     costs_bps: tuple[float, ...] = (10.0, 25.0)
+     minimum_positive_years: int = 2
+ 
+@@ -78,15 +78,18 @@ def resolve_root(root: Path | str | None) -> Path:
+ 
+ 
+ def registered_candidates() -> list[MomentumPolicy]:
+-    """Bounded, pre-registered threshold family; no tuning after outcomes."""
++    """Bounded, pre-registered threshold family; no tuning after outcomes.
++
++    Two signal sources: the target's own early move (``soxl_early``) and the
++    underlying index proxy's early move (``soxx_early``). No return forecast.
++    """
+     policies = [MomentumPolicy(name="early_momentum_off", long_threshold=1.0, short_threshold=1.0)]
+-    for long_threshold in (0.01, 0.02, 0.03, 0.05):
+-        policies.append(MomentumPolicy(name=f"early_momentum_l{int(long_threshold * 100)}",
+-                                       long_threshold=long_threshold, short_threshold=1.0))
+-    for long_threshold, short_threshold in ((0.02, 0.02), (0.03, 0.03)):
+-        policies.append(MomentumPolicy(
+-            name=f"early_momentum_l{int(long_threshold * 100)}_s{int(short_threshold * 100)}",
+-            long_threshold=long_threshold, short_threshold=short_threshold))
++    for signal in ("soxl_early", "soxx_early"):
++        tag = signal.replace("_early", "")
++        for long_threshold in (0.005, 0.01, 0.02):
++            policies.append(MomentumPolicy(
++                name=f"{tag}_momentum_l{int(long_threshold * 1000)}",
++                long_threshold=long_threshold, short_threshold=1.0, signal=signal))
+     return policies
+ 
+ 
+diff --git a/tests/test_stable_excess_frontier.py b/tests/test_stable_excess_frontier.py
+index 3010aaa8..b4e82684 100644
+--- a/tests/test_stable_excess_frontier.py
++++ b/tests/test_stable_excess_frontier.py
+@@ -243,7 +243,8 @@ def test_momentum_simulation_charges_turnover_and_has_no_overnight():
+     for i, d in enumerate(days):
+         rows.append({
+             "signal_date": d,
+-            "early_return": 0.05 if i % 2 == 0 else -0.05,
++            "soxl_early": 0.05 if i % 2 == 0 else -0.05,
++            "soxx_early": 0.05 if i % 2 == 0 else -0.05,
+             "rest_soxl": 0.01, "rest_soxx": 0.002,
+         })
+     frame = pd.DataFrame(rows)

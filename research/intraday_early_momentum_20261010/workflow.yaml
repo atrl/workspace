@@ -8,12 +8,12 @@ recorder_uri: /Users/rziiiii/dev/workspace/research/intraday_early_momentum_2026
 segments:
   development:
   - '2020-01-02'
-  - '2022-12-30'
+  - '2023-12-29'
   reused_diagnostic:
-  - '2023-01-03'
-  - '2026-09-25'
+  - '2024-01-02'
+  - '2026-06-30'
   forward:
-  - '2026-09-26'
+  - '2026-07-01'
   - '2026-10-07'
 costs_bps:
 - 10.0

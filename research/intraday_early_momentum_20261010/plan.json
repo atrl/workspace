@@ -5,7 +5,7 @@
   "registered_before_candidate_portfolio_results": true,
   "campaign_status": "active_research",
   "objective_achieved": false,
-  "hypothesis": "The daily stable-excess frontier card found no edge from risk/trend state with zero return forecast. The one locally demonstrated signal is the intraday early-session path: an observable opening move that may continue into the same-session remainder. Test, self-contained and with no parent model, whether a bounded causal threshold family on the opening 09:30-to-10:30 return produces stable excess over SOXX buy-and-hold on the same 10:30-to-close window.",
+  "hypothesis": "The daily stable-excess frontier and cross-source search found no robust edge. The remaining observable signal is the intraday early-session path. Test, self-contained with no parent model, whether the target's own opening 09:30-to-10:30 move (soxl_early) or the underlying index proxy's opening move (soxx_early) supports a 10:30-to-close allocation that beats SOXX buy-and-hold on the same window across return, drawdown and Sharpe, and whether that edge survives realistic cost.",
   "provider_uri": "data/qlib/soxl_intraday_15min",
   "market": "all",
   "region": "us",
@@ -16,22 +16,22 @@
   "overnight_position": false,
   "return_forecast_used": false,
   "model_fit_budget": 0,
-  "parameter_search_budget": "one pre-registered bounded threshold family; no tuning after outcomes",
+  "parameter_search_budget": "one pre-registered bounded threshold family over two signal sources; no tuning after outcomes",
   "segments": {
-    "development": ["2020-01-02", "2022-12-30"],
-    "reused_diagnostic": ["2023-01-03", "2026-09-25"],
-    "forward": ["2026-09-26", "2026-10-07"]
+    "development": ["2020-01-02", "2023-12-29"],
+    "reused_diagnostic": ["2024-01-02", "2026-06-30"],
+    "forward": ["2026-07-01", "2026-10-07"]
   },
   "costs_bps": [10.0, 25.0],
   "minimum_positive_years": 2,
   "candidate_family": [
-    {"name": "early_momentum_off", "long_threshold": 1.0, "short_threshold": 1.0, "role": "soxx_benchmark_control"},
-    {"name": "early_momentum_l1", "long_threshold": 0.01, "short_threshold": 1.0, "role": "registered_candidate"},
-    {"name": "early_momentum_l2", "long_threshold": 0.02, "short_threshold": 1.0, "role": "registered_candidate"},
-    {"name": "early_momentum_l3", "long_threshold": 0.03, "short_threshold": 1.0, "role": "registered_candidate"},
-    {"name": "early_momentum_l5", "long_threshold": 0.05, "short_threshold": 1.0, "role": "registered_candidate"},
-    {"name": "early_momentum_l2_s2", "long_threshold": 0.02, "short_threshold": 0.02, "role": "registered_candidate_with_cash_branch"},
-    {"name": "early_momentum_l3_s3", "long_threshold": 0.03, "short_threshold": 0.03, "role": "registered_candidate_with_cash_branch"}
+    {"name": "early_momentum_off", "signal": "soxl_early", "long_threshold": 1.0, "short_threshold": 1.0, "role": "soxx_benchmark_control"},
+    {"name": "soxl_momentum_l5", "signal": "soxl_early", "long_threshold": 0.005, "short_threshold": 1.0, "role": "registered_candidate"},
+    {"name": "soxl_momentum_l10", "signal": "soxl_early", "long_threshold": 0.01, "short_threshold": 1.0, "role": "registered_candidate"},
+    {"name": "soxl_momentum_l20", "signal": "soxl_early", "long_threshold": 0.02, "short_threshold": 1.0, "role": "registered_candidate"},
+    {"name": "soxx_momentum_l5", "signal": "soxx_early", "long_threshold": 0.005, "short_threshold": 1.0, "role": "registered_candidate"},
+    {"name": "soxx_momentum_l10", "signal": "soxx_early", "long_threshold": 0.01, "short_threshold": 1.0, "role": "registered_candidate"},
+    {"name": "soxx_momentum_l20", "signal": "soxx_early", "long_threshold": 0.02, "short_threshold": 1.0, "role": "registered_candidate"}
   ],
   "signal_definition": {
     "observation": "session open (09:45 bar open) through 10:30 close",
@@ -41,14 +41,14 @@
   },
   "allocation": {
     "assets": ["SOXL", "SOXX", "cash"],
-    "long": "early return >= long_threshold -> 100% SOXL for the rest of the session",
-    "short": "early return <= -short_threshold -> 100% cash for the rest of the session",
+    "long": "signal >= long_threshold -> 100% SOXL for the rest of the session",
+    "short": "signal <= -short_threshold -> 100% cash for the rest of the session",
     "neutral": "otherwise 100% SOXX for the rest of the session",
     "fees": "turnover from the prior 10:30 target charged at cost_bps"
   },
   "selection": "development-only deterministic ranking by stable-excess satisfaction, then positive years, Sharpe difference and drawdown improvement; the off/benchmark control is never selectable",
   "gates": {
-    "stable_excess": "beats SOXX return AND drawdown AND Sharpe on the window, with at least minimum_positive_years annual wins",
+    "stable_excess": "beats SOXX return AND drawdown AND Sharpe on the window with at least minimum_positive_years positive years",
     "promotion": "development AND reused_diagnostic stable excess at both 10bps and 25bps"
   },
   "stopping": "Exactly the pre-registered family at two costs across three windows; no threshold, window or cost tuning after outcomes. Preserve all results, including failures.",
@@ -56,6 +56,7 @@
     "The 10:30 decision price is assumed fillable; bid/ask, queue and latency are not modeled.",
     "Only the 10:30-to-close window is traded; overnight and morning exposure are deliberately absent.",
     "The forward window is only the newly available sessions and is statistically weak.",
+    "Turnover is high; the edge may not survive 25bp or wider spreads.",
     "A negative result does not refute lower-turnover, state-conditioned intraday mechanisms."
   ],
   "source_references": [
