@@ -1,0 +1,1116 @@
+{
+  "schema_version": "qlib_card_verification_v1",
+  "experiment": "benchmark_terminal_value_20261009",
+  "recorder_id": "f79e065bfc4e4ec7996da5f1a5379e16",
+  "created_at_utc": "2026-10-09T06:22:05.031643+00:00",
+  "path_base": "repository_root",
+  "self_reference_policy": "This manifest excludes itself to avoid recursive digest; Git commit records it.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/frame.pkl",
+      "forecast/frozen_parent.pkl",
+      "analysis/paths.pkl",
+      "analysis/raw_gates.pkl",
+      "analysis/gates.pkl",
+      "analysis/solver_details.pkl.gz",
+      "analysis/terminal_valuation_details.pkl.gz",
+      "portfolio_analysis/native_reports.pkl.gz"
+    ]
+  },
+  "source_as_of": "2026-09-25",
+  "purpose": "Frozen forecast terminal-value comparison, failed stable-excess gate, original execution and posthoc attribution retained",
+  "entries": [
+    {
+      "path": "research/benchmark_terminal_value_20261009/ablation_comparison.csv",
+      "bytes": 3324,
+      "sha256": "385942517c917ea1c0715d997d16e544e6f7ff278c3c5148b3c7d566a5f763c4",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/annual_metrics.csv",
+      "bytes": 37676,
+      "sha256": "527622ca0c0f537dfc132aa52e3907830d286d853e0b9409a46ccdaaa2557bc6",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/backtest_benchmark_comparison.csv",
+      "bytes": 7396,
+      "sha256": "c70b4b939f4feecf0afddd0ef055cc752e00b2a37d3e8641799970478a53be6e",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/benchmark_terminal_value_20261009.ipynb",
+      "bytes": 225861,
+      "sha256": "d04081cf1df7c9292663fd804cd1cd7f128325d03ffb745d385b59972af41299",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/bootstrap_analysis.csv",
+      "bytes": 2101,
+      "sha256": "39ce52ea18d725463f1909f08bb452e5e1827b58d30dd2f57097b32464e6c855",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/conclusion.md",
+      "bytes": 3176,
+      "sha256": "ec9ebef189e639873327e9473eb5a87f779841e38c897c4e59c29c3a600c1b89",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/diagnosis.md",
+      "bytes": 2996,
+      "sha256": "33a0fcd1f3198846ef8534ede1e120cc841c7568ebf814fa7fc38c0265f6d590",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/diagnostic_active_episodes.csv",
+      "bytes": 1842,
+      "sha256": "d7204d9addcb696af670cbdd123fc958d55c5f05b40a4faee5a01f2a2acac778",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/diagnostic_allocation_attribution.csv",
+      "bytes": 33739,
+      "sha256": "2c57f9860f20338eb6dcfd4fc16f2b840504a4b0c5dcf55d0ab076a4a3ca1efd",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/diagnostic_event_cost_threshold.csv",
+      "bytes": 567,
+      "sha256": "7a49f9397c21f77fc0bd17d9e5e8be186d63382a04307b20d9a8868b97e11b93",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/diagnostic_initial_state.csv",
+      "bytes": 550,
+      "sha256": "2bde5821ab171dc22dff4c5667f2b4d22db07e3b79872f2a670bc6496c808381",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/diagnostic_terminal_active_decisions.csv",
+      "bytes": 465,
+      "sha256": "c56b728fc4a1bb91d75299b6d0c43a0fba71d44dc86b987e712720a6e1848639",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/gates.csv",
+      "bytes": 1253,
+      "sha256": "aaf9a31a7606c185474692ab8df4885d466d32f0d8bddf354b0815a6b254a792",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/mechanism.md",
+      "bytes": 4028,
+      "sha256": "ff065cbbc0838f97b33d681ca1004b629ff554b18576b24db817b1e5e43db95d",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/model_selection.csv",
+      "bytes": 173,
+      "sha256": "553e0bced95153c3173647405fe7f36b00f36284a5be2d465ad088b74154c74f",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/native_audit.csv",
+      "bytes": 3624,
+      "sha256": "31b5a00ce7381815c76f4cb640a99978cd5a3cdc63ee2c2e47db06b16c2f650a",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/parent_control_reproduction.csv",
+      "bytes": 107,
+      "sha256": "9e3c315fe497b987f77657af5a7add3005123a0ca7efdeebbefe21e661cc664e",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/plan.json",
+      "bytes": 5066,
+      "sha256": "65b5d947c2b1650539b29bff30d7c941f7fa04366771ccef243dd70098a34ad4",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/0/meta.yaml",
+      "bytes": 306,
+      "sha256": "1a2aaa668f2747ae6e86384b517ec787331c5d1e7b138d346c375609a1fe5a3d",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/analysis/gates.pkl",
+      "bytes": 14520,
+      "sha256": "31becc28537c383154ec7c1a2d7e74cc24ab083e3e59e716423c688c1acfe988",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/analysis/paths.pkl",
+      "bytes": 2788441,
+      "sha256": "3c3b284b274e8aa8aa06a5e04a26f1fac8f1e3866af386711001e12649d8bd12",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/analysis/raw_gates.pkl",
+      "bytes": 11415,
+      "sha256": "15bf80f4fddc1beaecd8f15dcad6c94653184f8f1abc1d3a42b3ab3aadcb3a39",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/analysis/solver_details.pkl.gz",
+      "bytes": 633071,
+      "sha256": "5f1f8181f0716465ffff3335198b54b4b9a02c3da2e2322b3499747df8b06463",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/analysis/terminal_valuation_details.pkl.gz",
+      "bytes": 204973,
+      "sha256": "83a8fbd938484a594adeeb53171ef5297f78317d62dd72c15dc312b11de5676c",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/ablation_comparison.csv",
+      "bytes": 3324,
+      "sha256": "385942517c917ea1c0715d997d16e544e6f7ff278c3c5148b3c7d566a5f763c4",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/annual_metrics.csv",
+      "bytes": 37676,
+      "sha256": "527622ca0c0f537dfc132aa52e3907830d286d853e0b9409a46ccdaaa2557bc6",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/backtest_benchmark_comparison.csv",
+      "bytes": 7396,
+      "sha256": "c70b4b939f4feecf0afddd0ef055cc752e00b2a37d3e8641799970478a53be6e",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/benchmark_terminal_value_20261009.ipynb",
+      "bytes": 225861,
+      "sha256": "d04081cf1df7c9292663fd804cd1cd7f128325d03ffb745d385b59972af41299",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/bootstrap_analysis.csv",
+      "bytes": 2101,
+      "sha256": "39ce52ea18d725463f1909f08bb452e5e1827b58d30dd2f57097b32464e6c855",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/conclusion.md",
+      "bytes": 3176,
+      "sha256": "ec9ebef189e639873327e9473eb5a87f779841e38c897c4e59c29c3a600c1b89",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/diagnosis.md",
+      "bytes": 2996,
+      "sha256": "33a0fcd1f3198846ef8534ede1e120cc841c7568ebf814fa7fc38c0265f6d590",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/diagnostic_active_episodes.csv",
+      "bytes": 1842,
+      "sha256": "d7204d9addcb696af670cbdd123fc958d55c5f05b40a4faee5a01f2a2acac778",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/diagnostic_allocation_attribution.csv",
+      "bytes": 33739,
+      "sha256": "2c57f9860f20338eb6dcfd4fc16f2b840504a4b0c5dcf55d0ab076a4a3ca1efd",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/diagnostic_event_cost_threshold.csv",
+      "bytes": 567,
+      "sha256": "7a49f9397c21f77fc0bd17d9e5e8be186d63382a04307b20d9a8868b97e11b93",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/diagnostic_initial_state.csv",
+      "bytes": 550,
+      "sha256": "2bde5821ab171dc22dff4c5667f2b4d22db07e3b79872f2a670bc6496c808381",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/diagnostic_terminal_active_decisions.csv",
+      "bytes": 465,
+      "sha256": "c56b728fc4a1bb91d75299b6d0c43a0fba71d44dc86b987e712720a6e1848639",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/gates.csv",
+      "bytes": 1253,
+      "sha256": "aaf9a31a7606c185474692ab8df4885d466d32f0d8bddf354b0815a6b254a792",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/mechanism.md",
+      "bytes": 4028,
+      "sha256": "ff065cbbc0838f97b33d681ca1004b629ff554b18576b24db817b1e5e43db95d",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/model_selection.csv",
+      "bytes": 173,
+      "sha256": "553e0bced95153c3173647405fe7f36b00f36284a5be2d465ad088b74154c74f",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/native_audit.csv",
+      "bytes": 3624,
+      "sha256": "31b5a00ce7381815c76f4cb640a99978cd5a3cdc63ee2c2e47db06b16c2f650a",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/parent_control_reproduction.csv",
+      "bytes": 107,
+      "sha256": "9e3c315fe497b987f77657af5a7add3005123a0ca7efdeebbefe21e661cc664e",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/plan.json",
+      "bytes": 5066,
+      "sha256": "65b5d947c2b1650539b29bff30d7c941f7fa04366771ccef243dd70098a34ad4",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/raw_bootstrap_analysis.csv",
+      "bytes": 1913,
+      "sha256": "95045d9525ba6a7334d69ceec997f318cbc872c7e19341ee797c01339a828707",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/raw_gates.csv",
+      "bytes": 574,
+      "sha256": "b472969abbe2ac5ffa3bda1417c6720d6256addf6a2819a5d697acb97dc8ab83",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/raw_rolling_summary.csv",
+      "bytes": 385,
+      "sha256": "8d9db5273e1348d31f89540ca13efdc8a0fa2e7007a5d19f1289afa54771c228",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/resolved_annual_metrics.csv",
+      "bytes": 8430,
+      "sha256": "4b513204d92ff6e2712ff4483e5b8f82d8adcdd918369165585ed1d1039690ad",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/resolved_metrics.csv",
+      "bytes": 1888,
+      "sha256": "4138bd0119437551fdeb84803d9d5eae900ea3b4097810b6451d9c6cc7f13afa",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/risk_analysis.csv",
+      "bytes": 1769,
+      "sha256": "1b530c52ab77c8a25830f687eef9de07abf7767d5c787554aa080fb681df181f",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/rolling_summary.csv",
+      "bytes": 497,
+      "sha256": "d0a4730ae08c7069d9e6a601477e02993efe2da82bb655371458982e77a173f9",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/run_binding.json",
+      "bytes": 15793,
+      "sha256": "14692d4fa4cfc2478024db1ccf67c73ea662a628c64ca66b4368b61ff2721ec4",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/selected_model.json",
+      "bytes": 411,
+      "sha256": "f4abe6fe2465aa1874f41de7870dd4b9ce4f2bfa3c1645e9bf35050efad3d398",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/solver_summary.csv",
+      "bytes": 1565,
+      "sha256": "2c0698a864c0acecdb21bc9220004ce0c607ce3a3a3896fcfec0a335f9b9c0b1",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/summary.json",
+      "bytes": 10941,
+      "sha256": "03744cdd2500cdb1eb9e2dd620e9459e7281f938d0cffa7a322594215636f8a6",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/valuation_audit.csv",
+      "bytes": 379,
+      "sha256": "a892525185c7541a1daa57c59400df18d1dba1eda16c743b99285a289119f1a8",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/card/workflow.yaml",
+      "bytes": 959,
+      "sha256": "1a1daf8c4b704b84a2b0285feee7fddc71b877056b08748530c1bc21be8f8920",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/diagnostic_source/src/analysis/allocation_attribution.py",
+      "bytes": 7086,
+      "sha256": "66c789dc9a0a8a012560e4b38e830ab61b9747f28e7b327f4db9d530912e5ebf",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/diagnostic_source/tests/test_allocation_attribution.py",
+      "bytes": 3331,
+      "sha256": "ca09f8704fd3fde014a42e1561675b2657b221d0f5f3133f783705d72663dbf8",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/execution/raw/benchmark_terminal_value_20261009.ipynb",
+      "bytes": 648301,
+      "sha256": "4415bd5e1d4dd8563cb8b393ca201f7f9ab58fcd4854294cc9b1f3c904e5d637",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/execution/raw/conclusion.md",
+      "bytes": 2110,
+      "sha256": "f9b803f6f4e5bcebe00dc449d266f1aec7b9fa487a138c9dd54fe6638e510e4f",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/execution/raw/summary.json",
+      "bytes": 8883,
+      "sha256": "cf077d70093a9623ba44ee555d0edd3004d2b647ef98255f566dd358b18acea1",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/forecast/frozen_parent.pkl",
+      "bytes": 282245,
+      "sha256": "725d5c1d35b1883b53a676cfba6ff961bd1867f3610fb2e7008de531d157bee0",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/inputs/binding.pkl",
+      "bytes": 12836,
+      "sha256": "704bbad827cf112c0900996bca059f1473d533cc881060a78d51c0bd797e1550",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/inputs/frame.pkl",
+      "bytes": 1285615,
+      "sha256": "05a1b317586d61a972a5e94681d453d2fb980ecdcdaf723882df16124a9bcd6a",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/inputs/plan.pkl",
+      "bytes": 4527,
+      "sha256": "6563a2af972cf96267662b86ac8ee18146248544c9669b0c48ae50e5cf1c849d",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/portfolio_analysis/native_reports.pkl.gz",
+      "bytes": 2149073,
+      "sha256": "8e3786e0aa0201e5a6621c2f82ad8c3875eec6875aae9563ffd4c7748927b20c",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/analysis/benchmark_relative_protocol.py",
+      "bytes": 12999,
+      "sha256": "e9f3d14f4c413dcb16df9483b9cbbeab94002a1beb8d5da2ac83fdbdb45835e5",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/analysis/convex_qlib.py",
+      "bytes": 7707,
+      "sha256": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/analysis/excess_resolution.py",
+      "bytes": 15960,
+      "sha256": "7abec79074ad6778703698b91dce5a9170cb4b6c98acc89dd5e2fbc6e8e54cfb",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/analysis/expert_information_attribution.py",
+      "bytes": 12406,
+      "sha256": "99143f61419a6646b485f619f0c4002b8933d519a6b8c11ebd0bd716178d614a",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/analysis/integrated_allocation.py",
+      "bytes": 23523,
+      "sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/backtest/benchmark_relative_replay.py",
+      "bytes": 6757,
+      "sha256": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/backtest/horizon_matched_allocation.py",
+      "bytes": 7874,
+      "sha256": "4854faa634e7e5aac24fbe6146829dcc6de1fd3c5b3982ca5e49a88abd8414e3",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/backtest/position_accounting.py",
+      "bytes": 3494,
+      "sha256": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/backtest/qlib_continuous_position.py",
+      "bytes": 2543,
+      "sha256": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/backtest/strategy.py",
+      "bytes": 4618,
+      "sha256": "ff9ac9840b99befa2fd2f50d4c2269ea51bdfefda45ba37a73532c4f3f0fece7",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/core/recorder_artifacts.py",
+      "bytes": 1701,
+      "sha256": "144eb16c79aef62ecc9421cbb0972c803d31aee289686f0a81460d7e203071fb",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/core/recorder_sources.py",
+      "bytes": 11402,
+      "sha256": "2be50cc060226bea04e61d2ffa2b5a1d85027d524a0e7f90d50510baf407b6a2",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/data/benchmark_relative_data.py",
+      "bytes": 3123,
+      "sha256": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/data/conditional_variance.py",
+      "bytes": 20173,
+      "sha256": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/data/convex_allocation.py",
+      "bytes": 15455,
+      "sha256": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/data/legacy_execution_view.py",
+      "bytes": 7925,
+      "sha256": "6bcb6f76c10697f9027ec66ecf1d6eb2b36f5f3f5619378fba88cc806a7527fb",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/data/oos_horizon_inputs.py",
+      "bytes": 5468,
+      "sha256": "0b247d44b0f23c7e6f974747411c4aae2171529759d6220c1d719ea491e1d68b",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/data/price_basis.py",
+      "bytes": 20780,
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/data/qlib_native.py",
+      "bytes": 19985,
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/factor/soxx_pit_tail_factors.py",
+      "bytes": 17962,
+      "sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/model/benchmark_terminal_value.py",
+      "bytes": 7291,
+      "sha256": "4e8c2cb9cd89b8e126d5e2380abfddc6d5e2497ebb5b4f0efa122804081dded4",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/model/certified_convex_allocation.py",
+      "bytes": 2571,
+      "sha256": "ceb458bfd93cfa1c44a5efb08c05748253899a1c74410c1fd2b6279895c29d3f",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/model/convex_allocation.py",
+      "bytes": 29948,
+      "sha256": "28228f8db1a8d6acf42dcffebd5e7edbaef857146ee7cd3bc067970a702eb86c",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/model/online_expert_allocation.py",
+      "bytes": 9242,
+      "sha256": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/model/oos_mean_uncertainty.py",
+      "bytes": 7932,
+      "sha256": "ce8177c698b748cadcb173940e90875dc6a5bd751f00f4ff3392e89e2e6ecde7",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/model/post_fee_settlement.py",
+      "bytes": 6469,
+      "sha256": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/workflow/benchmark_evidence.py",
+      "bytes": 4070,
+      "sha256": "f8903131c3cabc3d0bfe8a53dfc817436882b0e2d37d2f2a5935d5c484f44cbd",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/workflow/benchmark_relative_research.py",
+      "bytes": 15478,
+      "sha256": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/workflow/benchmark_risk_excess.py",
+      "bytes": 22622,
+      "sha256": "26fcd325ca5cd20ed37eec9e8296b477eedc907e4c815af802d448236b5cdbcd",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/workflow/benchmark_terminal_experiment.py",
+      "bytes": 25374,
+      "sha256": "ba7739a999bbeb62622a015ce49ed8d42454a31c6d5e2ff6c1ace8422d4f16f4",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/workflow/oos_uncertainty_horizon.py",
+      "bytes": 22113,
+      "sha256": "b25e10d52968f5e849a2e67156290effdc8a66e66a3fcd71ebb947d751811831",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/source/src/workflow/stage1_economic_action.py",
+      "bytes": 14463,
+      "sha256": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/00-soxx-terminal-focused.log.gz",
+      "bytes": 2278,
+      "sha256": "eb6ecb4313e4636c075a22d3cc9596adb710ff72c057fee5ab5eb3cdb5fc493e",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/01-soxx-terminal-required.log.gz",
+      "bytes": 7946,
+      "sha256": "d060613ae7ae939e73a398d90b2f6b985de7a14a43b73e1bd2d37927285f6176",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/02-soxx-terminal-full.log.gz",
+      "bytes": 1742,
+      "sha256": "f061e6ae5519730b66daca90c17a3d58a49b4ba6076a640a58c252cfbb2f8a8c",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/03-soxx-terminal-nbconvert.log.gz",
+      "bytes": 305,
+      "sha256": "46d6bd4f4d8c1772a476def01b8d42c7c0846085e1e80c80afa56ab7c23affc1",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/04-soxx-terminal-independent-audit.json.gz",
+      "bytes": 2940,
+      "sha256": "8c34845baad8da449d843f217d803d9855d99639849c2b156059e619ec9cffc9",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/05-soxx-terminal-independent-audit.py.gz",
+      "bytes": 5646,
+      "sha256": "8e1339af2e78f64fcb803ac53d6bd90d52209d8c9037edacc400491204619b02",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/06-soxx-terminal-gate-audit.py.gz",
+      "bytes": 1942,
+      "sha256": "bfcb5af59c0b3cadcd8564d35bf2cc37cdcf61c1ca015b1a10fd9ccd3bbec265",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/07-soxx-terminal-diagnosis.py.gz",
+      "bytes": 2431,
+      "sha256": "be813b4696684960bcc8ef4530a533497b71a9d8fd76938d452f035f64c8aa67",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/08-soxx-terminal-diagnosis.log.gz",
+      "bytes": 1204,
+      "sha256": "6aaaf1ca2abd8ee3a240119ea8723a0fd36afa22d8c7afde943868fddf8363d5",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/09-active_episodes.csv.gz",
+      "bytes": 652,
+      "sha256": "fed9e139ba9e82c13eab2b3e0da7f3cc9aa6f949fde4e16f917bb02f44d7f71a",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/10-allocation_attribution.csv.gz",
+      "bytes": 7457,
+      "sha256": "3c5d0628cc07308505bea919be84339c7a1ec763e59ad1d8f9737ee77e5a41a4",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/11-event_cost_threshold.csv.gz",
+      "bytes": 306,
+      "sha256": "e7522cb5a5a0d81b580835f99083eff0dcfd36666ac95d13a3cfda38ae46735d",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/12-initial_state.csv.gz",
+      "bytes": 312,
+      "sha256": "1532e04bf7973c46e2cd59c41ff3a8333cc14d3558893b4b9a10e7d1c8610609",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/13-provenance.json.gz",
+      "bytes": 480,
+      "sha256": "27edf2cb5e9363261edadae7771f603af07fe2281462217d0513963946f32d16",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/artifacts/verification/14-terminal_active_decisions.csv.gz",
+      "bytes": 291,
+      "sha256": "fdaac9eed2e173dab05d6503a96dca0ccb0ad28f1d15b41fb6a95eed1ccc8119",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/meta.yaml",
+      "bytes": 446,
+      "sha256": "83c15c3b6c744064f68df778c15b0bae01bd54eecf8e518f96d3bba0c4116beb",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/params/candidate_budget",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/params/cmd-sys.argv",
+      "bytes": 202,
+      "sha256": "f230fb92eaab3cdf0efd76085301a3eaaa638a4d4c39e3e5928be8623daa119c",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/params/evidence_kind",
+      "bytes": 14,
+      "sha256": "65f130ea3e4720777896e52f29f804d337f476ea55561a265b1fe9df07253f79",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/params/model_fit_budget",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "f3ad761a79971b6050f2bcbd00112aaea9340351b3dbb66868da2d8b0ae675c0",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/tags/mlflow.source.name",
+      "bytes": 89,
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/f79e065bfc4e4ec7996da5f1a5379e16/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/qlib_recorder/974741764376634683/meta.yaml",
+      "bytes": 366,
+      "sha256": "49f48d04e06366fc33410244f023f6d0a9a737f61dd5aa493c9001268bda58d8",
+      "purpose": "Qlib Recorder evidence/source/verification",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/raw_bootstrap_analysis.csv",
+      "bytes": 1913,
+      "sha256": "95045d9525ba6a7334d69ceec997f318cbc872c7e19341ee797c01339a828707",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/raw_gates.csv",
+      "bytes": 574,
+      "sha256": "b472969abbe2ac5ffa3bda1417c6720d6256addf6a2819a5d697acb97dc8ab83",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/raw_rolling_summary.csv",
+      "bytes": 385,
+      "sha256": "8d9db5273e1348d31f89540ca13efdc8a0fa2e7007a5d19f1289afa54771c228",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/resolved_annual_metrics.csv",
+      "bytes": 8430,
+      "sha256": "4b513204d92ff6e2712ff4483e5b8f82d8adcdd918369165585ed1d1039690ad",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/resolved_metrics.csv",
+      "bytes": 1888,
+      "sha256": "4138bd0119437551fdeb84803d9d5eae900ea3b4097810b6451d9c6cc7f13afa",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/risk_analysis.csv",
+      "bytes": 1769,
+      "sha256": "1b530c52ab77c8a25830f687eef9de07abf7767d5c787554aa080fb681df181f",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/rolling_summary.csv",
+      "bytes": 497,
+      "sha256": "d0a4730ae08c7069d9e6a601477e02993efe2da82bb655371458982e77a173f9",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/run_binding.json",
+      "bytes": 15793,
+      "sha256": "14692d4fa4cfc2478024db1ccf67c73ea662a628c64ca66b4368b61ff2721ec4",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/selected_model.json",
+      "bytes": 411,
+      "sha256": "f4abe6fe2465aa1874f41de7870dd4b9ce4f2bfa3c1645e9bf35050efad3d398",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/solver_summary.csv",
+      "bytes": 1565,
+      "sha256": "2c0698a864c0acecdb21bc9220004ce0c607ce3a3a3896fcfec0a335f9b9c0b1",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/summary.json",
+      "bytes": 10941,
+      "sha256": "03744cdd2500cdb1eb9e2dd620e9459e7281f938d0cffa7a322594215636f8a6",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/valuation_audit.csv",
+      "bytes": 379,
+      "sha256": "a892525185c7541a1daa57c59400df18d1dba1eda16c743b99285a289119f1a8",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    },
+    {
+      "path": "research/benchmark_terminal_value_20261009/workflow.yaml",
+      "bytes": 959,
+      "sha256": "1a1daf8c4b704b84a2b0285feee7fddc71b877056b08748530c1bc21be8f8920",
+      "purpose": "slim executable card and small audit sidecar",
+      "source": "registered terminal-value experiment or explicitly labeled read-only posthoc diagnostic",
+      "as_of": "2026-09-25"
+    }
+  ],
+  "entry_count": 136,
+  "total_bytes": 9242202
+}

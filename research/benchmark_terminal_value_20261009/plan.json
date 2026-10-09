@@ -1,0 +1,106 @@
+{
+  "schema_version": "benchmark_terminal_value_v1",
+  "experiment": "benchmark_terminal_value_20261009",
+  "registered_at_utc": "2026-10-09T05:16:32.485771+00:00",
+  "registered_before_candidate_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "Five-session planning saves initial entry fees with SOXL/cash but ignores later conversion to the benchmark; a benchmark-terminal conversion value may eliminate this state bias without changing forecasts.",
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+    "summary": "research/canonical_price_basis_20261002/summary.json",
+    "as_of": "2026-09-25"
+  },
+  "parent": {
+    "card": "research/purged_ridge_regularization_20261009",
+    "recorder_id": "d46772566a2947859faee38a5d4e08b8",
+    "forecast_variant": "validation_selected",
+    "artifact_sha256": {
+      "inputs/frame.pkl": "8e0bd681836de2d3b9abd509ded866554bc8d0f31586baf3a12cba472e0b949f",
+      "forecast/forecasts.pkl": "85240b7d5fbdfeef65c7a6821fc351c53a5b00f652ac7d325b315be5e792ce7c",
+      "analysis/paths.pkl": "dbdb69380fcba4c5435e70564ce759cda86ae79bd2117761412fa64ee11c590d",
+      "models/annual_fits.pkl": "10960101f5c34419c48bca1f161ace463deb8c5af16493985f28d2181e0261c2"
+    }
+  },
+  "train_start": "2011-01-03",
+  "signal_start": "2016-01-04",
+  "development_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "model_fit_budget": 0,
+  "forecast_horizon_sessions": 5,
+  "rebalance_sessions": 5,
+  "robust_radius": 1.0,
+  "costs_bps": [
+    10.0,
+    25.0
+  ],
+  "initial_cash": 100000.0,
+  "benchmark": "SOXX",
+  "variants": [
+    {
+      "name": "selected_original",
+      "role": "frozen_forecast_control"
+    },
+    {
+      "name": "benchmark_terminal",
+      "role": "registered_terminal_valuation_candidate"
+    }
+  ],
+  "candidate_budget": 1,
+  "evidence_kind": "reused_history",
+  "valuation": {
+    "formula": "After current fees, x=(SOXL,SOXX,cash). Expected terminal benchmark-converted dollar value = x1*(1+mu1)+(x2+(1-c)*x0*(1+mu0))/(1+c).",
+    "normalized_coefficients": "q=1/(1+c); mu_eff=((1-c)*(1+mu0)-1,(1+c)*(1+mu1)-1). Cov_eff=diag(1-c,1+c)*Vmean*diag(1-c,1+c). Same solver objective scaled back by q equals expected conversion value minus relative-mean ambiguity penalty.",
+    "mode": "receding-horizon terminal liquidation-to-benchmark valuation proxy",
+    "actual_terminal_trades": false,
+    "actual_fee_policy": "Only real current rebalance fees enter realized NAV; hypothetical horizon conversion costs are never deducted as realized fees.",
+    "financial_inputs_unchanged": [
+      "original yearly-selected H5 forecasts",
+      "forecast uncertainty before exact valuation transform",
+      "past-only daily risk covariance",
+      "same-SOXX rebalance risk budget",
+      "original initial cash",
+      "holding cadence",
+      "actual asset returns"
+    ],
+    "not_claimed": [
+      "no new return predictor",
+      "not exact multi-period optimality",
+      "not a hard terminal holding constraint",
+      "not guaranteed alpha"
+    ]
+  },
+  "gates": {
+    "minimum_positive_years": 6,
+    "rolling_sessions": 252,
+    "minimum_rolling_win_rate": 0.6,
+    "bootstrap_resamples": 2000,
+    "family_size": 1
+  },
+  "numerical_log_excess_floor": 1e-08,
+  "numerical_floor_scope": "Only positive-effect classification changes; all raw returns, point estimates and CI values retained. Cumulative aggregate, each annual, leave-one-year and rolling log excess must exceed1e-8; bootstrap usesN*daily_lower>1e-8. PureSOXX floating noise never qualifies as alpha.",
+  "gate_definition": "All existing complete2016-2022 SOXX net return/year/rolling/MaxDD/CVaR/bootstrap gates at bothcosts retained; numericalfloor only tightens zero comparison. Raw oldsign and qualified counts both reported. No production from reusedhistory.",
+  "label_precision": "Same unchanged parent float64 daily/H5 labels and causal25features from qualifiednativeopens.",
+  "source_references": [
+    "https://web.stanford.edu/~boyd/papers/pdf/cvx_portfolio.pdf",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "stopping": "Exactly1new terminal-valuation candidate vs1same-forecast control at two costs, no refits or alternate terminal assumptions after outcomes. Preserve all failures and continue separate diagnosis toward user goal.",
+  "limitations": [
+    "History reused; no forwardqualification.",
+    "Terminal conversion is a planning valuation, not an executed future order or a promisedterminalportfolio.",
+    "Mean uncertainty still excludes future regime shifts and model selection uncertainty.",
+    "Historical open,continuousshares,cash0yield,affinepricebasis and16secondaryobservations remain limitations."
+  ]
+}
