@@ -1,0 +1,53 @@
+{
+  "schema_version": "cross_source_signal_search_v1",
+  "experiment": "cross_source_signal_search_20261010",
+  "registered_at_utc": "2026-10-10T02:00:00+00:00",
+  "registered_before_candidate_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "Previous cards tested one signal family at a time. Run a single, consistent, causal search across every locally available SOXL data source and ask the one question that matters: does any past-only signal produce a STABLE excess over SOXX buy-and-hold defined as beating return AND drawdown AND Sharpe simultaneously with a majority of positive calendar years.",
+  "as_of": "2026-07-02",
+  "benchmark": "SOXX_buy_and_hold",
+  "return_forecast_used": false,
+  "model_fit_budget": 0,
+  "parameter_search_budget": "one pre-registered family; thresholds are expanding-window quantiles, not fitted",
+  "segments": {
+    "development": ["2014-01-02", "2022-12-30"],
+    "reused_diagnostic": ["2023-01-03", "2026-07-02"],
+    "forward": ["2026-07-03", "2026-10-08"]
+  },
+  "costs_bps": [10.0, 25.0],
+  "minimum_positive_years": 4,
+  "sources": [
+    "data/qlib/soxl (SOXL/SOXX daily, 2010-2026-10-08)",
+    "data/qlib/soxx_constituents (30 semiconductor daily, 2010-2026-07-02)",
+    "data/qlib/soxl_intraday_15min (SOXL/SOXX 15m, 2018-2026-10-08)",
+    "data/qlib/soxl_external_intraday_15min (NVDA/AMD/AVGO/TSM/ASML/SMH/QQQ, 2024-07-2026-07)",
+    "data/raw/external futu capital flow / distribution (SOXL/SOXX order-flow proxy)",
+    "data/raw/external/intraday_features_soxl_1m.csv (390-bar intraday features)"
+  ],
+  "signal_families": [
+    "soxl_reversal (own 1-day reversal)",
+    "soxx_reversal (underlying 1-day reversal)",
+    "leader_capmkt_reversal (cap-weighted constituent reversal)",
+    "leader_breadth_reversal (constituent advance/decline)",
+    "realized_vol (SOXX 20-day realized volatility)",
+    "trend (SOXX vs 200-day moving average)"
+  ],
+  "exposure_rule": "hold SOXL when the expanding-window signal quantile is satisfied, else SOXX; 10/25bp turnover cost",
+  "gates": {
+    "stable_excess": "beats SOXX return AND drawdown AND Sharpe on the window with at least minimum_positive_years positive calendar years",
+    "promotion": "development stable excess, confirmed on reused diagnostic and any forward window"
+  },
+  "stopping": "Exactly the pre-registered family at two costs across three windows; no signal, threshold, window or cost tuning after outcomes. Preserve all results, including failures.",
+  "limitations": [
+    "A broad search can overfit; a hit must survive an independent forward window.",
+    "Constituent history ends 2026-07-02, so leader signals do not cover the forward window.",
+    "No return forecast or fitted parameter is used.",
+    "SOXL realized leverage decay is only reflected in its traded prices."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

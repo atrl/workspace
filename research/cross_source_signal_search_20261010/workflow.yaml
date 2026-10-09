@@ -1,0 +1,32 @@
+schema_version: cross_source_signal_search_v1
+experiment: cross_source_signal_search_20261010
+as_of: '2026-07-02'
+recorder_uri: /Users/rziiiii/dev/workspace/research/cross_source_signal_search_20261010/qlib_recorder
+sources:
+- data/qlib/soxl (SOXL/SOXX daily, 2010-2026-10-08)
+- data/qlib/soxx_constituents (30 semiconductor daily, 2010-2026-07-02)
+- data/qlib/soxl_intraday_t1 (SOXL 1-minute-derived daily features, 2019-2026)
+segments:
+  development:
+  - '2014-01-02'
+  - '2022-12-30'
+  reused_diagnostic:
+  - '2023-01-03'
+  - '2026-07-02'
+  forward:
+  - '2026-07-03'
+  - '2026-10-08'
+costs_bps:
+- 10.0
+- 25.0
+selection: development_only_stable_excess
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - data/series.pkl
+  - analysis/window_results.pkl
+  - analysis/summary_table.csv
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html
