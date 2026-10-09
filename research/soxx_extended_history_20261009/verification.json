@@ -1,0 +1,170 @@
+{
+  "status": "passed",
+  "recorder_id": "3a89651f93ac4272b60b7ff6feec2f2a",
+  "focused": {
+    "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_soxx_extended_history.py -q",
+    "passed": 25,
+    "warnings": 10,
+    "log": "validation/logs/focused_final.log.gz"
+  },
+  "prior_focused_attempt": {
+    "passed": 24,
+    "failed": 1,
+    "reason": "Synthetic active-Recorder test initially omitted MLFLOW_ALLOW_FILE_STORE; test-local opt-in fixed, no data/market change.",
+    "log": "validation/logs/focused_publication_guard.log.gz"
+  },
+  "independent_audit": {
+    "status": "passed",
+    "new_recorder_id": "3a89651f93ac4272b60b7ff6feec2f2a",
+    "old_recorder_id": "0df539b390de47c894a007404ce5d7da",
+    "new_old_recorders_finished": true,
+    "plan_sha256": "435c0f4e4df42ca5ef4026d70aaf03fa5d8adb4e239fb2a87bacd8b55e493678",
+    "new_old_transformed_frame_exact": true,
+    "new_old_provider_file_hashes_exact": true,
+    "new_native_rows": 5021,
+    "new_early_rows": 859,
+    "native_field_count": 5,
+    "parent_overlap_rows": 4162,
+    "parent_raw_float64_exact": true,
+    "parent_published_float64_exact": true,
+    "parent_native_float32_bitwise_exact": true,
+    "source_to_native_float32_bitwise_exact": true,
+    "parent_provider_file_hashes_unchanged": true,
+    "parent_artifact_sha256_unchanged": true,
+    "capture_requests": 8,
+    "history_pages": 6,
+    "history_page_rows": [
+      1000,
+      1000,
+      1000,
+      1000,
+      1000,
+      21
+    ],
+    "rehab_before_after_rows": 79,
+    "rehab_before_after_exact": true,
+    "capture_clock_bracketing_pass": true,
+    "capture_first_requested_at": "2026-10-09T06:12:01.790634+00:00",
+    "capture_last_received_at": "2026-10-09T06:12:11.304343+00:00",
+    "capture_api_scope": "get_rehab before/after and request_history_kline US.SOXX NONE only",
+    "capture_manifest_sha256": "8909444d6d9c42229bdfc5854913b784ed722bfb07d565797a59dc0b0dff9119",
+    "notebook_executed_code_cells": 3,
+    "notebook_errors": 0,
+    "old_probe_four_files_preserved": true,
+    "current_source_hashes_match": true,
+    "source_sha256": {
+      "src/data/soxx_extended_history.py": "ca711e1291eb2486bdb1c76cbfd7c0b244c2ad0ebd82124dc51e59415236fb6c",
+      "src/data/published_price_basis.py": "1cf9295b90ee8063473174a408dd87afda791d38ec5f74c96a2df9ffedfada8d",
+      "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "src/core/recorder_sources.py": "2be50cc060226bea04e61d2ffa2b5a1d85027d524a0e7f90d50510baf407b6a2"
+    },
+    "new_fit_or_portfolio_replay": false,
+    "new_market_sample_from_publication_guard_reexecution": false,
+    "total_return_or_PIT_certified": false,
+    "promotion_eligible": false
+  },
+  "publication_contract": {
+    "completed_card_guard": true,
+    "active_recorder_checked_before_qlib_init": true,
+    "summary_archived_before_atomic_publication": true,
+    "archive_or_context_failure_leaves_no_completed_summary": true
+  },
+  "old_run_retained": {
+    "recorder_id": "0df539b390de47c894a007404ce5d7da",
+    "archived_originals": "execution/before_publication_guard",
+    "reexecution_is_not_new_market_sample": true
+  },
+  "raw_execution_artifacts": [
+    {
+      "artifact": "execution/raw_after_publication_guard/soxx_extended_history_20261009.ipynb",
+      "sha256": "d0c20a0056818bd3b5e39abab76735abcd1228570cd530e7c01a7d1fb362d02d",
+      "bytes": 80604
+    },
+    {
+      "artifact": "execution/raw_after_publication_guard/summary.json",
+      "sha256": "ddbd543536fba44602b0d7189a2daf373c1c09807ee1c9706cda7b9b2bcd36af",
+      "bytes": 2901
+    },
+    {
+      "artifact": "execution/raw_after_publication_guard/conclusion.md",
+      "sha256": "8a34af9133d205b7906c46320658bdb3d8136d3a532787ee69b2775f08d1f1c7",
+      "bytes": 452
+    }
+  ],
+  "notebook_postprocessing": {
+    "only_stderr_removal_and_final_static_Chinese_conclusion": true,
+    "removed_stderr_outputs": 19,
+    "execution_counts_preserved": [
+      1,
+      2,
+      3
+    ]
+  },
+  "source_sha256": {
+    "src/data/soxx_extended_history.py": "ca711e1291eb2486bdb1c76cbfd7c0b244c2ad0ebd82124dc51e59415236fb6c",
+    "src/data/published_price_basis.py": "1cf9295b90ee8063473174a408dd87afda791d38ec5f74c96a2df9ffedfada8d",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/core/recorder_sources.py": "2be50cc060226bea04e61d2ffa2b5a1d85027d524a0e7f90d50510baf407b6a2"
+  },
+  "test_sha256": {
+    "tests/test_soxx_extended_history.py": "c1adad5353b37e3290bbdd093377a20f8f2db464e32aece5c89a435dab15452b"
+  },
+  "validation_helper_sha256": {
+    "audit_qualification.py": "9866122d333cfe07da9fadf55014b6c0f32da5c2ee7dd110809e9334fa0ebe59"
+  },
+  "archived_logs": [
+    {
+      "artifact": "validation/logs/focused_final.log.gz",
+      "raw_sha256": "2dacc1a4ffe182fa81ed1b74c249ec04b753751f58ed12b5e9dca6c6b6cfb68e",
+      "gzip_sha256": "214b364de80ffb6622c4631fd863bb27c51edc50914df9d58851d21d43b99eb4",
+      "gzip_mtime": 0,
+      "raw_bytes": 3037,
+      "gzip_bytes": 757
+    },
+    {
+      "artifact": "validation/logs/focused_publication_guard.log.gz",
+      "raw_sha256": "95b749d8ce4c2557b3c78107f3f4e65cdd4d796ea11ba157fcf68be0c6d24487",
+      "gzip_sha256": "a89fdde5169c464ddb444394eaf20d0aa03024b6b899d71f7905aee53c0bcdee",
+      "gzip_mtime": 0,
+      "raw_bytes": 19124,
+      "gzip_bytes": 3160
+    },
+    {
+      "artifact": "validation/logs/notebook_reexecution.log.gz",
+      "raw_sha256": "f18d8a2ec7e757d40a25163919275431ecad7232c46909d0106f983d5f2aaf42",
+      "gzip_sha256": "7d116be6e8a8733bd7727ca1ef543d068b46dfdbbb5f681be472872897eaef54",
+      "gzip_mtime": 0,
+      "raw_bytes": 522,
+      "gzip_bytes": 303
+    },
+    {
+      "artifact": "validation/logs/audit_qualification.log.gz",
+      "raw_sha256": "3f3a9a553936290a6f3f4e67d9cfd43f94967ba2eb62d7dc53e326e2d668fc95",
+      "gzip_sha256": "2f6a7195bbc6942f872df35391f131b85688225d888b8b08ffdeb7009236205e",
+      "gzip_mtime": 0,
+      "raw_bytes": 5301,
+      "gzip_bytes": 1491
+    }
+  ],
+  "sdk_logs_outside_repo": [
+    {
+      "path_outside_repo": "/tmp/soxx-extended-history-futu/capture_output.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "content_archived": false,
+      "reason": "SDK logs remain outside repo; no login/account/opaque metadata copied into research artifacts"
+    },
+    {
+      "path_outside_repo": "/tmp/soxx-extended-history-futu/py_2026_10_09.log",
+      "sha256": "7f9d4bbd1f1497eb9592730b1b71ddd518317c6bcfbff1502008600406ce6a55",
+      "bytes": 3960,
+      "content_archived": false,
+      "reason": "SDK logs remain outside repo; no login/account/opaque metadata copied into research artifacts"
+    }
+  ],
+  "no_git_operations": true,
+  "no_new_capture_after_publication_guard": true,
+  "fit_or_portfolio_replay": false
+}

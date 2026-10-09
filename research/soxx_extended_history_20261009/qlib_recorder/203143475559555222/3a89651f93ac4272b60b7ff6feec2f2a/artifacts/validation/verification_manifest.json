@@ -1,0 +1,680 @@
+{
+  "schema_version": 1,
+  "experiment": "soxx_extended_history_20261009",
+  "recorder_id": "3a89651f93ac4272b60b7ff6feec2f2a",
+  "retained_recorder_ids": [
+    "0df539b390de47c894a007404ce5d7da",
+    "3a89651f93ac4272b60b7ff6feec2f2a"
+  ],
+  "as_of": "2026-09-25",
+  "qualification_status": "passed",
+  "rows": 5021,
+  "parent_native_unchanged_rows": 4162,
+  "plan_sha256": "435c0f4e4df42ca5ef4026d70aaf03fa5d8adb4e239fb2a87bacd8b55e493678",
+  "source_sha256": {
+    "src/data/soxx_extended_history.py": "ca711e1291eb2486bdb1c76cbfd7c0b244c2ad0ebd82124dc51e59415236fb6c",
+    "src/data/published_price_basis.py": "1cf9295b90ee8063473174a408dd87afda791d38ec5f74c96a2df9ffedfada8d",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/core/recorder_sources.py": "2be50cc060226bea04e61d2ffa2b5a1d85027d524a0e7f90d50510baf407b6a2"
+  },
+  "entries": [
+    {
+      "path": "research/soxx_extended_history_20261009/conclusion.md",
+      "sha256": "fcfdd768bd371622c42e08cef1472c9cdf9f3aead661c9dff3daf09b8dda8439",
+      "bytes": 1058,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/native_readback.json",
+      "sha256": "2dd78fcbb59331f2de6ea9358bc76463e32765ae043cf7f892bf026c86d7c75a",
+      "bytes": 1524,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/plan.json",
+      "sha256": "435c0f4e4df42ca5ef4026d70aaf03fa5d8adb4e239fb2a87bacd8b55e493678",
+      "bytes": 8991,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/0/meta.yaml",
+      "sha256": "53e207b639febaffa5d425f6634360f81835dba38241aacd7c9a37b2eec319de",
+      "bytes": 303,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/card/conclusion.md",
+      "sha256": "7aa30f1fc3c356ca12cb211a330e8ab0899e143bd03985c0ddceed8af725c69d",
+      "bytes": 452,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/card/native_readback.json",
+      "sha256": "e1f4d1e943dcb8b99fb21b86b32cfa08d6754f79b661f2da5e2e26c09855da4a",
+      "bytes": 1525,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/card/plan.json",
+      "sha256": "435c0f4e4df42ca5ef4026d70aaf03fa5d8adb4e239fb2a87bacd8b55e493678",
+      "bytes": 8991,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/card/qualification.json",
+      "sha256": "5a79bfcb82b1ee5e2da6d212be368c8f7421ca9c43c5ceed4b5925233174cb90",
+      "bytes": 2260,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/card/run_binding.json",
+      "sha256": "e22e4ff60acdebf817e31a497b3bb1b4ec9bbfd5e5db9b6d114601b792638a4a",
+      "bytes": 5217,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/card/summary.json",
+      "sha256": "601618094f1aebfee5f989f18af21eaaba9a768903454d4d9dffd3883a2b2144",
+      "bytes": 2864,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/card/workflow.yaml",
+      "sha256": "68d163048c349eb2e256944d0323cdc4b131c97089d138cffd7b4be108c299ea",
+      "bytes": 1133,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/data/native_readback.pkl",
+      "sha256": "d963b300f18fc540aa256da33c6c769effba6dca0cd57bc1c53485f0cd7a36be",
+      "bytes": 1368,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/data/qualification.pkl",
+      "sha256": "9ac4c5bdd8d09bf58a346d0d9a310d0a20504521cfe241307a5da1f394ea6d2d",
+      "bytes": 1878,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/data/transformed_frame.pkl",
+      "sha256": "4d8faa3f2ad4bb20a37abf6b092bbf71563ca22448f9aa55f2dbf54af93d7e5a",
+      "bytes": 1646697,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/execution/before_publication_guard/archive_receipt.json",
+      "sha256": "e5528054a373fa778a9134204b5ec2eb229f7b4f77b2632bdba9a4b5926e2f03",
+      "bytes": 1164,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/execution/before_publication_guard/conclusion.md",
+      "sha256": "7aa30f1fc3c356ca12cb211a330e8ab0899e143bd03985c0ddceed8af725c69d",
+      "bytes": 452,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/execution/before_publication_guard/native_readback.json",
+      "sha256": "e1f4d1e943dcb8b99fb21b86b32cfa08d6754f79b661f2da5e2e26c09855da4a",
+      "bytes": 1525,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/execution/before_publication_guard/qualification.json",
+      "sha256": "5a79bfcb82b1ee5e2da6d212be368c8f7421ca9c43c5ceed4b5925233174cb90",
+      "bytes": 2260,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/execution/before_publication_guard/run_binding.json",
+      "sha256": "e22e4ff60acdebf817e31a497b3bb1b4ec9bbfd5e5db9b6d114601b792638a4a",
+      "bytes": 5217,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/execution/before_publication_guard/soxx_extended_history_20261009.ipynb",
+      "sha256": "536e2b4ac2eb88172e08b897fb999e005e133cdbe280dd734981ea491f94ce68",
+      "bytes": 83197,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/execution/before_publication_guard/summary.json",
+      "sha256": "601618094f1aebfee5f989f18af21eaaba9a768903454d4d9dffd3883a2b2144",
+      "bytes": 2864,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/inputs/parent_bindings.pkl",
+      "sha256": "5404cb83897e5669090f573003a1e29c4ab15055299059a57535108cbe5a76e3",
+      "bytes": 4659,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/inputs/verified_capture.pkl",
+      "sha256": "84b6409e3334ca3717eda8f1fe04e3eae3587276a130d6aac5ea9fe514ca51a6",
+      "bytes": 558457,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/source/src/core/recorder_sources.py",
+      "sha256": "2be50cc060226bea04e61d2ffa2b5a1d85027d524a0e7f90d50510baf407b6a2",
+      "bytes": 11402,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/source/src/data/price_basis.py",
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "bytes": 20780,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/source/src/data/published_price_basis.py",
+      "sha256": "1cf9295b90ee8063473174a408dd87afda791d38ec5f74c96a2df9ffedfada8d",
+      "bytes": 12503,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/source/src/data/qlib_native.py",
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "bytes": 19985,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/artifacts/source/src/data/soxx_extended_history.py",
+      "sha256": "16ec7fecbae1b64112e254d9e20f0b8db3add22094bad1a558c6889cd9f6d569",
+      "bytes": 29526,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/meta.yaml",
+      "sha256": "2fa558801a4f3e9088235d9028b242256439b51b217a532b7dd3718b53ea68db",
+      "bytes": 443,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/metrics/added_early_rows",
+      "sha256": "052af8174522988f3de71174879da23634d1ae33a0e8ae926ccaaa9315a99935",
+      "bytes": 22,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/metrics/native_overlap_exact",
+      "sha256": "235796cecb5bd1d5a518bf33201b480f7a0fcb71838cad26c428e402df51043c",
+      "bytes": 20,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/metrics/rows",
+      "sha256": "f907470a1b89496f2359f68309f4198ea3b35b12490d35a161ed3cdbcc2b1c8b",
+      "bytes": 23,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/params/cmd-sys.argv",
+      "sha256": "68912f1c9b0fd87b6eb3797e21105825aeff808b21403288c050993ecf2ffff6",
+      "bytes": 202,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "bytes": 89,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/0df539b390de47c894a007404ce5d7da/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/card/conclusion.md",
+      "sha256": "fcfdd768bd371622c42e08cef1472c9cdf9f3aead661c9dff3daf09b8dda8439",
+      "bytes": 1058,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/card/native_readback.json",
+      "sha256": "2dd78fcbb59331f2de6ea9358bc76463e32765ae043cf7f892bf026c86d7c75a",
+      "bytes": 1524,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/card/plan.json",
+      "sha256": "435c0f4e4df42ca5ef4026d70aaf03fa5d8adb4e239fb2a87bacd8b55e493678",
+      "bytes": 8991,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/card/qualification.json",
+      "sha256": "5a79bfcb82b1ee5e2da6d212be368c8f7421ca9c43c5ceed4b5925233174cb90",
+      "bytes": 2260,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/card/run_binding.json",
+      "sha256": "0d49fa168dab709b99a9bcc9154124058f76a721d315a7c46be456cc4123af33",
+      "bytes": 5217,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/card/soxx_extended_history_20261009.ipynb",
+      "sha256": "e68f71e03ab67c1d82aae93d50b9d616f0f94fb44be00cd628b20b4041a2255f",
+      "bytes": 76310,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/card/summary.json",
+      "sha256": "56cc4044d31c83e8ad1ec443b6f65ecbff2875c938c3b341fd29b344fb18a4fe",
+      "bytes": 4196,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/card/verification.json",
+      "sha256": "570bb4d0e6056fbdb0a3cc1b68bfa889655fec11596639b9796582bb3de2fbb9",
+      "bytes": 7095,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/card/workflow.yaml",
+      "sha256": "68d163048c349eb2e256944d0323cdc4b131c97089d138cffd7b4be108c299ea",
+      "bytes": 1133,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/data/native_readback.pkl",
+      "sha256": "bd759ec4fba64c85cf67fa97994a46fa46c8096452ab03bb5db9d7a2398046c0",
+      "bytes": 1368,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/data/qualification.pkl",
+      "sha256": "9ac4c5bdd8d09bf58a346d0d9a310d0a20504521cfe241307a5da1f394ea6d2d",
+      "bytes": 1878,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/data/transformed_frame.pkl",
+      "sha256": "4d8faa3f2ad4bb20a37abf6b092bbf71563ca22448f9aa55f2dbf54af93d7e5a",
+      "bytes": 1646697,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/execution/raw_after_publication_guard/conclusion.md",
+      "sha256": "8a34af9133d205b7906c46320658bdb3d8136d3a532787ee69b2775f08d1f1c7",
+      "bytes": 452,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/execution/raw_after_publication_guard/soxx_extended_history_20261009.ipynb",
+      "sha256": "d0c20a0056818bd3b5e39abab76735abcd1228570cd530e7c01a7d1fb362d02d",
+      "bytes": 80604,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/execution/raw_after_publication_guard/summary.json",
+      "sha256": "ddbd543536fba44602b0d7189a2daf373c1c09807ee1c9706cda7b9b2bcd36af",
+      "bytes": 2901,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/inputs/parent_bindings.pkl",
+      "sha256": "47242da41a9d00f492266ecb37bd38872e98769f78d64361db4cbb44144a1bc9",
+      "bytes": 4659,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/inputs/verified_capture.pkl",
+      "sha256": "84b6409e3334ca3717eda8f1fe04e3eae3587276a130d6aac5ea9fe514ca51a6",
+      "bytes": 558457,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/source/src/core/recorder_sources.py",
+      "sha256": "2be50cc060226bea04e61d2ffa2b5a1d85027d524a0e7f90d50510baf407b6a2",
+      "bytes": 11402,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/source/src/data/price_basis.py",
+      "sha256": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "bytes": 20780,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/source/src/data/published_price_basis.py",
+      "sha256": "1cf9295b90ee8063473174a408dd87afda791d38ec5f74c96a2df9ffedfada8d",
+      "bytes": 12503,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/source/src/data/qlib_native.py",
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "bytes": 19985,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/source/src/data/soxx_extended_history.py",
+      "sha256": "ca711e1291eb2486bdb1c76cbfd7c0b244c2ad0ebd82124dc51e59415236fb6c",
+      "bytes": 31419,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/validation/audit_qualification.py",
+      "sha256": "9866122d333cfe07da9fadf55014b6c0f32da5c2ee7dd110809e9334fa0ebe59",
+      "bytes": 6894,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/validation/independent_audit.json",
+      "sha256": "516fc1ce65673408794d64376fabc9f3fa838722d5cabd73ac58d998c1dc764e",
+      "bytes": 2162,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/validation/logs/audit_qualification.log.gz",
+      "sha256": "2f6a7195bbc6942f872df35391f131b85688225d888b8b08ffdeb7009236205e",
+      "bytes": 1491,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/validation/logs/focused_final.log.gz",
+      "sha256": "214b364de80ffb6622c4631fd863bb27c51edc50914df9d58851d21d43b99eb4",
+      "bytes": 757,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/validation/logs/focused_publication_guard.log.gz",
+      "sha256": "a89fdde5169c464ddb444394eaf20d0aa03024b6b899d71f7905aee53c0bcdee",
+      "bytes": 3160,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/validation/logs/notebook_reexecution.log.gz",
+      "sha256": "7d116be6e8a8733bd7727ca1ef543d068b46dfdbbb5f681be472872897eaef54",
+      "bytes": 303,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/verification/root/soxx-extended-independent-audit.json.gz",
+      "sha256": "83fb4768ac71b09656c24ed7671ccc207424f8db6bae6ba9be22b6aa660bdded",
+      "bytes": 2751,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/verification/root/soxx-extended-independent-audit.py.gz",
+      "sha256": "02fbdf36ccdab6f1b26aecc4d6d3752f07c7913facb20926e397a61fdd5c789f",
+      "bytes": 4954,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/verification/root/soxx-extended-root-focused.log.gz",
+      "sha256": "1aab0f39748484c812ef2ce2a7b413b9ac63b8bdaeb509cc181bcd3764fa6e20",
+      "bytes": 757,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/verification/root/soxx-extended-root-full-after-archive-fix.log.gz",
+      "sha256": "59934f9566404b939bf47e5a7120e9251a2737e22be247b82c9ae5042d90dc80",
+      "bytes": 1741,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/verification/root/soxx-extended-root-full.log.gz",
+      "sha256": "3b25c01be04e14b46abbe6d026378d81bddb6c0deff02ef6cb311b8e0507e2d4",
+      "bytes": 1847,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/verification/root/soxx-extended-root-required.log.gz",
+      "sha256": "f7a43c0e5f5cadebba504c9bc340e9548446c4cffc4e53e59ba15ab6bcd2a770",
+      "bytes": 7946,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/meta.yaml",
+      "sha256": "66ced6e9883e02a2c679fd2c55379a32b428871989db0fc3f2598969e59cf079",
+      "bytes": 443,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/metrics/added_early_rows",
+      "sha256": "f0f904692dfd25a2a9603d63905a01dca257701cf97af001730d5df5bacd0239",
+      "bytes": 22,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/metrics/native_overlap_exact",
+      "sha256": "922b80459ae3333dd7067c925a700e6b0ceaaa8956c92ac7cdf859908e5bb8d8",
+      "bytes": 20,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/metrics/rows",
+      "sha256": "378d9aa527d3acdbd9fbb979ec21309bbfa4bafc49e5559607881c413037d411",
+      "bytes": 23,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/params/cmd-sys.argv",
+      "sha256": "38dea885119e4fc263a15c358949522946ff1a6ce33c1f7fe076995cdfb94887",
+      "bytes": 202,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "bytes": 89,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/meta.yaml",
+      "sha256": "ed8692bb16e12cdc65af66cdaae6a20883468525f7167aa65bcfca48a1c70e5f",
+      "bytes": 360,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/qualification.json",
+      "sha256": "5a79bfcb82b1ee5e2da6d212be368c8f7421ca9c43c5ceed4b5925233174cb90",
+      "bytes": 2260,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/run_binding.json",
+      "sha256": "0d49fa168dab709b99a9bcc9154124058f76a721d315a7c46be456cc4123af33",
+      "bytes": 5217,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/soxx_extended_history_20261009.ipynb",
+      "sha256": "e68f71e03ab67c1d82aae93d50b9d616f0f94fb44be00cd628b20b4041a2255f",
+      "bytes": 76310,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/summary.json",
+      "sha256": "56cc4044d31c83e8ad1ec443b6f65ecbff2875c938c3b341fd29b344fb18a4fe",
+      "bytes": 4196,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/verification.json",
+      "sha256": "570bb4d0e6056fbdb0a3cc1b68bfa889655fec11596639b9796582bb3de2fbb9",
+      "bytes": 7095,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "research/soxx_extended_history_20261009/workflow.yaml",
+      "sha256": "68d163048c349eb2e256944d0323cdc4b131c97089d138cffd7b4be108c299ea",
+      "bytes": 1133,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/raw/external/soxx_extended_history_20261009_capture_v1/SOXX_history_page_1.pkl",
+      "sha256": "2eb8144214e18b5573e69bde9c0a3dc651ba91198dbfa1d7f8a0d53a17dc68f1",
+      "bytes": 107106,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/raw/external/soxx_extended_history_20261009_capture_v1/SOXX_history_page_2.pkl",
+      "sha256": "c2c73e4cecc17b42343d8ff0a5ca2f0cdb6cd0e48685281a6a0da7a1526860c8",
+      "bytes": 107106,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/raw/external/soxx_extended_history_20261009_capture_v1/SOXX_history_page_3.pkl",
+      "sha256": "a9098199ebeaf7b0bb483d35d6a3f74ae5fc3a56db1d64d31cfb39f8e1679187",
+      "bytes": 107106,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/raw/external/soxx_extended_history_20261009_capture_v1/SOXX_history_page_4.pkl",
+      "sha256": "bb629299f6039b9bd9c2f66ad29cf207570ea0727e6d5eb4cd42c0a7d5aee987",
+      "bytes": 107106,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/raw/external/soxx_extended_history_20261009_capture_v1/SOXX_history_page_5.pkl",
+      "sha256": "b099adcbe91385fdc7348311d86678f713526f27c269f40e1dc8899b8a67e49d",
+      "bytes": 107106,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/raw/external/soxx_extended_history_20261009_capture_v1/SOXX_history_page_6.pkl",
+      "sha256": "94dc71c644b2d6a47fb779b53e09dcbc7d370bb50b4e33dc62e29cf2a60795b7",
+      "bytes": 3285,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/raw/external/soxx_extended_history_20261009_capture_v1/SOXX_rehab_after.pkl",
+      "sha256": "3e265eec7575432dbe4564ce2e4719a75259c84ece9d094b92f7946fc451af91",
+      "bytes": 19928,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/raw/external/soxx_extended_history_20261009_capture_v1/SOXX_rehab_before.pkl",
+      "sha256": "3e265eec7575432dbe4564ce2e4719a75259c84ece9d094b92f7946fc451af91",
+      "bytes": 19928,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/raw/external/soxx_extended_history_20261009_capture_v1/manifest.json",
+      "sha256": "8909444d6d9c42229bdfc5854913b784ed722bfb07d565797a59dc0b0dff9119",
+      "bytes": 6940,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/qlib/soxx_extended_published_affine_20260925_v1/calendars/day.txt",
+      "sha256": "7f1fcf14a667d8d10ab8af4bc75002c5c786a79614f9cd4f7b451038350a8041",
+      "bytes": 55231,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/qlib/soxx_extended_published_affine_20260925_v1/features/soxx/close.day.bin",
+      "sha256": "5e34872e85a65170228c5a5490d4c0d0286b3d156fbf2714cf5a1e32a50d15ba",
+      "bytes": 20088,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/qlib/soxx_extended_published_affine_20260925_v1/features/soxx/high.day.bin",
+      "sha256": "fde888106d67fef136fdfe30ea081cb1a91d3040ba87a92b154b9bb9fd25d41a",
+      "bytes": 20088,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/qlib/soxx_extended_published_affine_20260925_v1/features/soxx/low.day.bin",
+      "sha256": "9bc13df9ec52884734e0c524f4e80706006e79d13a2f77c873a739490c9e45c4",
+      "bytes": 20088,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/qlib/soxx_extended_published_affine_20260925_v1/features/soxx/open.day.bin",
+      "sha256": "182881f0b0887c00b7ed36ff3e673a85752336e83c02a1f27dcc0099b603ed20",
+      "bytes": 20088,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/qlib/soxx_extended_published_affine_20260925_v1/features/soxx/volume.day.bin",
+      "sha256": "d8b33aadb82ed0fb0b9141e92aafaa35b45d41f31e956684643d166afbe699fb",
+      "bytes": 20088,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/qlib/soxx_extended_published_affine_20260925_v1/instruments/all.txt",
+      "sha256": "baaf6319df4112e154696cef6eefa09a14e9c88f14e6e0c6c1ca3b0c29037274",
+      "bytes": 27,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/qlib/soxx_extended_published_affine_20260925_v1/qlib.yaml",
+      "sha256": "a1b1e3f6745a4e1036ba2cd74e3701a402a93d744569ef7d41f1df33ac53abf2",
+      "bytes": 193,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/qlib/soxx_extended_published_affine_20260925_v1/qlib_store_manifest.json",
+      "sha256": "529078b11917e95691e583968981281cb40c786fd30404fd1cabf90964f3d289",
+      "bytes": 825,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "data/qlib/soxx_extended_published_affine_20260925_v1/soxx_extension_qualification.json",
+      "sha256": "5a79bfcb82b1ee5e2da6d212be368c8f7421ca9c43c5ceed4b5925233174cb90",
+      "bytes": 2260,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "src/data/soxx_extended_history.py",
+      "sha256": "ca711e1291eb2486bdb1c76cbfd7c0b244c2ad0ebd82124dc51e59415236fb6c",
+      "bytes": 31419,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    },
+    {
+      "path": "tests/test_soxx_extended_history.py",
+      "sha256": "c1adad5353b37e3290bbdd093377a20f8f2db464e32aece5c89a435dab15452b",
+      "bytes": 14889,
+      "role": "source/qualification/native evidence and explicit read-only audit"
+    }
+  ],
+  "entry_count": 108,
+  "total_bytes": 5863028,
+  "self_reference_exclusions": [
+    "research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a/artifacts/validation/verification_manifest.json",
+    "research/soxx_extended_history_20261009/verification_manifest.json"
+  ],
+  "scope": "Only this data card, explicit new full capture, immutable single-SOXX provider and named code/tests. Original exploratory probe7files excluded. SDK logs stay outside repo.",
+  "promotion_eligible": false,
+  "independent_root_audit_sha256": "b5ccca3a826bfbae502121db170113d4f258e267e93d04792bce14fedf92e8fa"
+}

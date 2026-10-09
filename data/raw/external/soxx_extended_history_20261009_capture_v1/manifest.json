@@ -1,0 +1,197 @@
+{
+  "schema_version": "single_soxx_futu_capture_v1",
+  "status": "captured_unqualified",
+  "started_at_utc": "2026-10-09T06:12:01.646583+00:00",
+  "request_contract": {
+    "authorization_boundary": "Root must review this plan/API contract before the new OpenD capture; no implicit login/service mutation.",
+    "raw_dir": "data/raw/external/soxx_extended_history_20261009_capture_v1",
+    "host": "127.0.0.1",
+    "port": 11111,
+    "instrument": "SOXX",
+    "code": "US.SOXX",
+    "requested_start": "2006-10-10",
+    "requested_end": "2026-09-25",
+    "as_of": "2026-09-25",
+    "ktype": "K_DAY",
+    "autype": "NONE",
+    "fields": "KL_FIELD.ALL",
+    "session": "RTH",
+    "extended_time": false,
+    "max_count": 1000,
+    "max_pages": 10,
+    "expected_rows": 5021,
+    "expected_early_rows": 859,
+    "sequence": [
+      "get_rehab(US.SOXX) before",
+      "request_history_kline(US.SOXX,NONE) all pages under one date interval",
+      "get_rehab(US.SOXX) after"
+    ],
+    "sdk_reference_version": "10.2.6218",
+    "sdk_logs_dir": "/tmp/soxx-extended-history-futu",
+    "original_response_archives": "Full decoded quote/history/rehab SDK tuples; per-request timestamps, return status, page count and sha256. No account/global-state/login APIs.",
+    "pagination": "Pass the last returned opaque page key in memory; request metadata records only page_number and has_prior_page_key, never user/account/authentication keys.",
+    "failure": "Unavailable port/empty or incomplete history -> needs data; missing permission/login -> needs auth. Do not start/upgrade/login/subscribe, silently shift date boundary, change source or fill rows."
+  },
+  "read_only": true,
+  "raw_responses": [
+    {
+      "name": "SOXX_rehab_before",
+      "params": {
+        "code": "US.SOXX"
+      },
+      "requested_at_utc": "2026-10-09T06:12:01.790634+00:00",
+      "received_at_utc": "2026-10-09T06:12:02.337468+00:00",
+      "ret": 0,
+      "response_path": "SOXX_rehab_before.pkl",
+      "response_sha256": "3e265eec7575432dbe4564ce2e4719a75259c84ece9d094b92f7946fc451af91",
+      "rows": 79
+    },
+    {
+      "name": "SOXX_history_page_1",
+      "params": {
+        "code": "US.SOXX",
+        "requested_start": "2006-10-10",
+        "requested_end": "2026-09-25",
+        "ktype": "K_DAY",
+        "autype": "NONE",
+        "fields": "KL_FIELD.ALL",
+        "session": "RTH",
+        "extended_time": false,
+        "max_count": 1000,
+        "page_number": 1,
+        "has_prior_page_key": false
+      },
+      "requested_at_utc": "2026-10-09T06:12:02.339591+00:00",
+      "received_at_utc": "2026-10-09T06:12:03.755166+00:00",
+      "ret": 0,
+      "response_path": "SOXX_history_page_1.pkl",
+      "response_sha256": "2eb8144214e18b5573e69bde9c0a3dc651ba91198dbfa1d7f8a0d53a17dc68f1",
+      "rows": 1000
+    },
+    {
+      "name": "SOXX_history_page_2",
+      "params": {
+        "code": "US.SOXX",
+        "requested_start": "2006-10-10",
+        "requested_end": "2026-09-25",
+        "ktype": "K_DAY",
+        "autype": "NONE",
+        "fields": "KL_FIELD.ALL",
+        "session": "RTH",
+        "extended_time": false,
+        "max_count": 1000,
+        "page_number": 2,
+        "has_prior_page_key": true
+      },
+      "requested_at_utc": "2026-10-09T06:12:03.756916+00:00",
+      "received_at_utc": "2026-10-09T06:12:05.267786+00:00",
+      "ret": 0,
+      "response_path": "SOXX_history_page_2.pkl",
+      "response_sha256": "c2c73e4cecc17b42343d8ff0a5ca2f0cdb6cd0e48685281a6a0da7a1526860c8",
+      "rows": 1000
+    },
+    {
+      "name": "SOXX_history_page_3",
+      "params": {
+        "code": "US.SOXX",
+        "requested_start": "2006-10-10",
+        "requested_end": "2026-09-25",
+        "ktype": "K_DAY",
+        "autype": "NONE",
+        "fields": "KL_FIELD.ALL",
+        "session": "RTH",
+        "extended_time": false,
+        "max_count": 1000,
+        "page_number": 3,
+        "has_prior_page_key": true
+      },
+      "requested_at_utc": "2026-10-09T06:12:05.269037+00:00",
+      "received_at_utc": "2026-10-09T06:12:07.048992+00:00",
+      "ret": 0,
+      "response_path": "SOXX_history_page_3.pkl",
+      "response_sha256": "a9098199ebeaf7b0bb483d35d6a3f74ae5fc3a56db1d64d31cfb39f8e1679187",
+      "rows": 1000
+    },
+    {
+      "name": "SOXX_history_page_4",
+      "params": {
+        "code": "US.SOXX",
+        "requested_start": "2006-10-10",
+        "requested_end": "2026-09-25",
+        "ktype": "K_DAY",
+        "autype": "NONE",
+        "fields": "KL_FIELD.ALL",
+        "session": "RTH",
+        "extended_time": false,
+        "max_count": 1000,
+        "page_number": 4,
+        "has_prior_page_key": true
+      },
+      "requested_at_utc": "2026-10-09T06:12:07.050740+00:00",
+      "received_at_utc": "2026-10-09T06:12:08.588344+00:00",
+      "ret": 0,
+      "response_path": "SOXX_history_page_4.pkl",
+      "response_sha256": "bb629299f6039b9bd9c2f66ad29cf207570ea0727e6d5eb4cd42c0a7d5aee987",
+      "rows": 1000
+    },
+    {
+      "name": "SOXX_history_page_5",
+      "params": {
+        "code": "US.SOXX",
+        "requested_start": "2006-10-10",
+        "requested_end": "2026-09-25",
+        "ktype": "K_DAY",
+        "autype": "NONE",
+        "fields": "KL_FIELD.ALL",
+        "session": "RTH",
+        "extended_time": false,
+        "max_count": 1000,
+        "page_number": 5,
+        "has_prior_page_key": true
+      },
+      "requested_at_utc": "2026-10-09T06:12:08.590098+00:00",
+      "received_at_utc": "2026-10-09T06:12:10.294107+00:00",
+      "ret": 0,
+      "response_path": "SOXX_history_page_5.pkl",
+      "response_sha256": "b099adcbe91385fdc7348311d86678f713526f27c269f40e1dc8899b8a67e49d",
+      "rows": 1000
+    },
+    {
+      "name": "SOXX_history_page_6",
+      "params": {
+        "code": "US.SOXX",
+        "requested_start": "2006-10-10",
+        "requested_end": "2026-09-25",
+        "ktype": "K_DAY",
+        "autype": "NONE",
+        "fields": "KL_FIELD.ALL",
+        "session": "RTH",
+        "extended_time": false,
+        "max_count": 1000,
+        "page_number": 6,
+        "has_prior_page_key": true
+      },
+      "requested_at_utc": "2026-10-09T06:12:10.295499+00:00",
+      "received_at_utc": "2026-10-09T06:12:10.781401+00:00",
+      "ret": 0,
+      "response_path": "SOXX_history_page_6.pkl",
+      "response_sha256": "94dc71c644b2d6a47fb779b53e09dcbc7d370bb50b4e33dc62e29cf2a60795b7",
+      "rows": 21
+    },
+    {
+      "name": "SOXX_rehab_after",
+      "params": {
+        "code": "US.SOXX"
+      },
+      "requested_at_utc": "2026-10-09T06:12:10.782039+00:00",
+      "received_at_utc": "2026-10-09T06:12:11.304343+00:00",
+      "ret": 0,
+      "response_path": "SOXX_rehab_after.pkl",
+      "response_sha256": "3e265eec7575432dbe4564ce2e4719a75259c84ece9d094b92f7946fc451af91",
+      "rows": 79
+    }
+  ],
+  "sdk_logs_outside_repo": "/tmp/soxx-extended-history-futu",
+  "sdk_version": "10.2.6218",
+  "finished_at_utc": "2026-10-09T06:12:11.307800+00:00"
+}

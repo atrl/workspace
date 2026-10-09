@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxx_extended_published_affine_20260925_v1
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

@@ -1,0 +1,76 @@
+{
+  "plan_sha256": "435c0f4e4df42ca5ef4026d70aaf03fa5d8adb4e239fb2a87bacd8b55e493678",
+  "parent": {
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "artifacts": {
+      "inputs/verified_raw_inputs.pkl": {
+        "sha256": "3c1cce5d834e86bf863a0400180852cc10c768a422f988a5e7f33204d2ad025a",
+        "path": "/Users/rziiiii/dev/workspace/research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/inputs/verified_raw_inputs.pkl"
+      },
+      "inputs/source_manifest.pkl": {
+        "sha256": "f550047c546b77b4fda0200ca8235729773c0b9986fc6a4854843ec95ccd5736",
+        "path": "/Users/rziiiii/dev/workspace/research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/inputs/source_manifest.pkl"
+      },
+      "data/qualified_frame.pkl": {
+        "sha256": "a51d3684d9abfefd4cca5abb332b83d923237e83c9e6a16114924189a512bc7c",
+        "path": "/Users/rziiiii/dev/workspace/research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/data/qualified_frame.pkl"
+      },
+      "data/qualification.pkl": {
+        "sha256": "01874436ea4589256a27cf650301efb9e5693a7a503e4c90b26c8827784fd2c1",
+        "path": "/Users/rziiiii/dev/workspace/research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/data/qualification.pkl"
+      },
+      "data/transformation.pkl": {
+        "sha256": "fb2f7f69193db42a60667e50974b4bf77a1ced0adbffc092104cf15e8d74d961",
+        "path": "/Users/rziiiii/dev/workspace/research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/data/transformation.pkl"
+      },
+      "data/provider_manifest.pkl": {
+        "sha256": "647b3204ec8faf1ed448d8c901bd79c8b9730475599b8347277aa9916908b810",
+        "path": "/Users/rziiiii/dev/workspace/research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/data/provider_manifest.pkl"
+      }
+    },
+    "read_only": true,
+    "metadata_contract": "legacy artifact_manifest.json; incompatible with new verification_manifest loader; no synthetic migration",
+    "summary_sha256": "0e444d39dd4e09e5bdcac2d44dd77fa3db356ce735ecdfc80b8f937cf0bf362f",
+    "artifact_manifest_sha256": "2c441344a211f1526f9156dae14dd9e6681597013f7e6e17754df36949ac0b86",
+    "provider_file_sha256": {
+      "calendars/day.txt": "d3381b900795126d9b67efdc85780345b7a85c298a1f6d02fbe86e50ee3f96eb",
+      "features/soxl/close.day.bin": "5c24c8ecaf3c7a16e10b54d6fa2797d58082fecf70406ff19ae42c156456a970",
+      "features/soxl/high.day.bin": "0ed44ae8679231f425fc117ad48eb001a885b9c5db0c25195b95fcc1d69aa63b",
+      "features/soxl/low.day.bin": "54a9436a3c1dd9137f105d6b841bb564ca1ebc6b98d8b3de6ff33a94e543ab54",
+      "features/soxl/open.day.bin": "f133c0ddceb6c94a9a3fc68e7d67da4b83a51496d83b3e76a071d02deab10195",
+      "features/soxl/volume.day.bin": "cfc3c13ce7d9dc8a7932e331554769ca5504e0f08a2bc3085a0722dfacc8c441",
+      "features/soxx/close.day.bin": "10795d93e629b42b6951cc972877b70e0e1e48ad471777a262d1a9fe85a0e647",
+      "features/soxx/high.day.bin": "0039b6a0543e44f2fc841f29823c427b11325e83554381fa3cf63af70e311135",
+      "features/soxx/low.day.bin": "411d2c3ec7b082f293d57237130e856218d39c9a67959530fc48316d767dff4f",
+      "features/soxx/open.day.bin": "4ec7e322c7df8837d1ca76678de33dddac6c1dd3c48585618c44bb933fbe9711",
+      "features/soxx/volume.day.bin": "22e4344473649f6d63d2a509469b6b9f9e27d9d5c13351014a34632f6ad903a3",
+      "instruments/all.txt": "cf10f6dc8dfcb4136e8bd305c48a87967441d326850c4237dd841234626de9df",
+      "price_basis_manifest.json": "cbbdeeca2e1c7dc0bce0f9cdf3495f50d3219bddd992e1b893f8362a5e51bc65",
+      "price_basis_status.json": "3066a4796155684d4ed8c17beb707de7c67bc78c5fdaa7a1f6edc5bd282ccd5c",
+      "qlib.yaml": "2fb4a57dfdeeb4b75b899fa7304d2b73f83c92470ee01fd9b4472c4f3b9ecfd4",
+      "qlib_store_manifest.json": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb"
+    },
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object",
+      "qlib.data.D.features"
+    ]
+  },
+  "capture": {
+    "rows": 5021,
+    "pages": 6,
+    "raw_frame_sha256": "c9814e0f3ddace9f444684664100275f47771f445b7768d0efead36e64d5978f",
+    "rehab_frame_sha256": "ec1e92897806181e04da4c5d10639973a4a69a591bbc490fa0b8a0513bde899d",
+    "manifest_sha256": "8909444d6d9c42229bdfc5854913b784ed722bfb07d565797a59dc0b0dff9119",
+    "invalid_rows_dropped": 0,
+    "missing_rows_filled": 0,
+    "read_only_capture": true
+  },
+  "source_sha256": {
+    "src/data/soxx_extended_history.py": "16ec7fecbae1b64112e254d9e20f0b8db3add22094bad1a558c6889cd9f6d569",
+    "src/data/published_price_basis.py": "1cf9295b90ee8063473174a408dd87afda791d38ec5f74c96a2df9ffedfada8d",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/core/recorder_sources.py": "2be50cc060226bea04e61d2ffa2b5a1d85027d524a0e7f90d50510baf407b6a2"
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "schema_version": "soxx_extended_history_qualification_v1",
+  "experiment": "soxx_extended_history_20261009",
+  "registered_at_utc": "2026-10-09T06:04:45.314833+00:00",
+  "registered_before_new_capture": true,
+  "research_role": "single_SOXX_source_qualification_only_not_investment_experiment",
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "Observed SOXX-only history can be extended to2006-10-10 with the existing published affine operator while preserving all2010+canonical prices bit-for-bit. No SOXL synthesis, prediction or portfolio result is inferred.",
+  "parent": {
+    "summary": "research/canonical_price_basis_20261002/summary.json",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "experiment_id": "521389447037827398",
+    "recorder_uri": "research/canonical_price_basis_20261002/qlib_recorder",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "as_of": "2026-09-25",
+    "overlap_start": "2010-03-11",
+    "overlap_rows": 4162,
+    "artifact_sha256": {
+      "inputs/verified_raw_inputs.pkl": "3c1cce5d834e86bf863a0400180852cc10c768a422f988a5e7f33204d2ad025a",
+      "inputs/source_manifest.pkl": "f550047c546b77b4fda0200ca8235729773c0b9986fc6a4854843ec95ccd5736",
+      "data/qualified_frame.pkl": "a51d3684d9abfefd4cca5abb332b83d923237e83c9e6a16114924189a512bc7c",
+      "data/qualification.pkl": "01874436ea4589256a27cf650301efb9e5693a7a503e4c90b26c8827784fd2c1",
+      "data/transformation.pkl": "fb2f7f69193db42a60667e50974b4bf77a1ced0adbffc092104cf15e8d74d961",
+      "data/provider_manifest.pkl": "647b3204ec8faf1ed448d8c901bd79c8b9730475599b8347277aa9916908b810"
+    },
+    "exact_raw_key": "inputs/verified_raw_inputs.pkl -> none.frame -> code==US.SOXX",
+    "exact_rehab_key": "inputs/verified_raw_inputs.pkl -> none.rehabilitation.SOXX",
+    "exact_qualified_key": "data/qualified_frame.pkl -> instrument==SOXX"
+  },
+  "calendar": {
+    "provider_uri": "data/qlib/cboe_volatility_official_20261008_v1",
+    "store_as_of": "2026-10-08",
+    "market_as_of": "2026-09-25",
+    "source_api": "qlib.init + D.calendar(future=False)",
+    "calendar_file_sha256": "136b7d2333dcea34aa68241df6a914e2f38c185f4c937563b57638ab20cafe0a",
+    "store_manifest_sha256": "4b09c7e34b5708e503e0ea61c02ef615d45f399e3b4e9ffa05419606653e7716",
+    "selected_dates_sha256": "046e8f0b6c138ddd60822ce77faa290919195505d1858bf2086138703e71197c",
+    "selected_dates_hash_method": "sha256(newline-joined YYYY-MM-DD; no terminal newline)",
+    "interpretation": "Independent retrospective native session reference only; early backfilled VVIX values never become features or PIT evidence."
+  },
+  "capture": {
+    "authorization_boundary": "Root must review this plan/API contract before the new OpenD capture; no implicit login/service mutation.",
+    "raw_dir": "data/raw/external/soxx_extended_history_20261009_capture_v1",
+    "host": "127.0.0.1",
+    "port": 11111,
+    "instrument": "SOXX",
+    "code": "US.SOXX",
+    "requested_start": "2006-10-10",
+    "requested_end": "2026-09-25",
+    "as_of": "2026-09-25",
+    "ktype": "K_DAY",
+    "autype": "NONE",
+    "fields": "KL_FIELD.ALL",
+    "session": "RTH",
+    "extended_time": false,
+    "max_count": 1000,
+    "max_pages": 10,
+    "expected_rows": 5021,
+    "expected_early_rows": 859,
+    "sequence": [
+      "get_rehab(US.SOXX) before",
+      "request_history_kline(US.SOXX,NONE) all pages under one date interval",
+      "get_rehab(US.SOXX) after"
+    ],
+    "sdk_reference_version": "10.2.6218",
+    "sdk_logs_dir": "/tmp/soxx-extended-history-futu",
+    "original_response_archives": "Full decoded quote/history/rehab SDK tuples; per-request timestamps, return status, page count and sha256. No account/global-state/login APIs.",
+    "pagination": "Pass the last returned opaque page key in memory; request metadata records only page_number and has_prior_page_key, never user/account/authentication keys.",
+    "failure": "Unavailable port/empty or incomplete history -> needs data; missing permission/login -> needs auth. Do not start/upgrade/login/subscribe, silently shift date boundary, change source or fill rows."
+  },
+  "price_contract": {
+    "basis": "published_futu_affine_v1",
+    "source": "Futu unadjusted observed OHLCV plus published rehab events",
+    "instrument_universe": [
+      "SOXX"
+    ],
+    "fields": [
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume"
+    ],
+    "price_operator": "Only bar_date<event_date<=as_of; chronological A<-A*a; B<-B*a+b; adjusted_OHLC=NONE_OHLC*A+B",
+    "volume_operator": "NONE volume divided by product of exact split_base/split_ert or join_base/join_ert",
+    "coefficient_fitting": false,
+    "secondary_gap_fill": false,
+    "use_server_QFQ_as_canonical": false,
+    "reuse_transform": "src.data.published_price_basis.build_published_basis; only SOXX rows. Supply the unchanged parent SOXL rehab table solely because this transformation helper validates both rehab keys; never create/fetch SOXL bars.",
+    "single_asset_qualification": "New explicit SOXX-only audit; do not monkeypatch INSTRUMENTS or modify dual-asset validate_price_basis/build_qualified_price_store."
+  },
+  "gates": {
+    "raw_receipt_order": "rehab_before_received <= first_history_requested; each page received <= next requested; final_history_received <= rehab_after_requested",
+    "new_rehab_stability": "before/after full tables identical including dtype/order; no hidden deduplication",
+    "raw_physical": "unique chronological canonical dates; finite positive OHLCV; low<=open/close<=high; no as_of future market rows",
+    "full_calendar": "exact5021 dates equal the independent native reference;859early+4162overlap; no missing/extra/drop/fill",
+    "parent_raw_overlap": "all4162SOXX dates and float64OHLCV exactly equal parent NONE rows",
+    "parent_rehab": "all formula-used historical exdates/forwardA/B/exact split/join fields throughas_of equal parent; unused metadata differences only logged; postasof events excluded and disclosed",
+    "published_overlap": "new float64OHLCV for all4162parent sessions array_equal parent qualified SOXX values; source lineage metadata is allowed to differ honestly",
+    "native_readback": "qlib.init + D.calendar + D.list_instruments + D.features; universe exactlySOXX; five field files; stored float32 values array_equal transformed float32; post2010 native values array_equal parent provider SOXX",
+    "immutability": "hash parent provider and Recorder artifacts before/after; no old source/helper/provider writes; new destination must not exist before build"
+  },
+  "outputs": {
+    "provider_uri": "data/qlib/soxx_extended_published_affine_20260925_v1",
+    "recorder_uri": "research/soxx_extended_history_20261009/qlib_recorder",
+    "notebook": "research/soxx_extended_history_20261009/soxx_extended_history_20261009.ipynb",
+    "source_module": "src/data/soxx_extended_history.py",
+    "tests": "tests/test_soxx_extended_history.py"
+  },
+  "validation": {
+    "focused": "synthetic response/capture audit, missing/future/duplicate/nonphysical rows, rehab drift, parent hash/overlap drift, single-asset native roundtrip and exact preserved overlap; no market model or backtest",
+    "notebook": "execute source qualification Data API/Recorder/readback, Chinese conclusion and aligned summary",
+    "full_expected_rows": 5021,
+    "no_git_operations_by_subagent": true
+  },
+  "model_selection": {
+    "performed": false
+  },
+  "promotion_eligible": false,
+  "real_orders": false,
+  "production_change": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/parent_bindings.pkl",
+      "inputs/verified_capture.pkl",
+      "data/transformed_frame.pkl",
+      "data/qualification.pkl",
+      "data/native_readback.pkl"
+    ],
+    "raw_archives": "explicit capture manifest under data/raw/external; SDK logs/caches outside repo"
+  },
+  "limitations": [
+    "2001-07-10through2006-10-09SOXXhistory remains needs data; no claim of since-inception coverage.",
+    "No SOXL prices, labels or features are fabricated before its inception.",
+    "Published affine basis is retrospective and is not exact SDKQFQ, independently verified exchange ground truth, total-return/distribution accounting or historical-PIT certification.",
+    "Additional past crisis data are newly ingested but not new forward investment evidence.",
+    "No training, signal generation, forecast, backtest or stable-excess qualification is part of this data card."
+  ],
+  "official_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://openapi.futunn.com/futu-api-doc/en/quote/request-history-kline.html",
+    "https://openapi.futunn.com/futu-api-doc/quote/get-rehab.html",
+    "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf"
+  ]
+}

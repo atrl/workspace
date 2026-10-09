@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "rows": 5021,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume"
+  ],
+  "parent_native_overlap_rows": 4162,
+  "parent_native_overlap_bitwise_equal": true,
+  "expected_float32_bitwise_equal": true,
+  "immutable_provider_reused": true,
+  "source_api": [
+    "qlib.init",
+    "D.calendar",
+    "D.instruments",
+    "D.list_instruments",
+    "D.features"
+  ],
+  "provider_file_sha256": {
+    "calendars/day.txt": "7f1fcf14a667d8d10ab8af4bc75002c5c786a79614f9cd4f7b451038350a8041",
+    "features/soxx/close.day.bin": "5e34872e85a65170228c5a5490d4c0d0286b3d156fbf2714cf5a1e32a50d15ba",
+    "features/soxx/high.day.bin": "fde888106d67fef136fdfe30ea081cb1a91d3040ba87a92b154b9bb9fd25d41a",
+    "features/soxx/low.day.bin": "9bc13df9ec52884734e0c524f4e80706006e79d13a2f77c873a739490c9e45c4",
+    "features/soxx/open.day.bin": "182881f0b0887c00b7ed36ff3e673a85752336e83c02a1f27dcc0099b603ed20",
+    "features/soxx/volume.day.bin": "d8b33aadb82ed0fb0b9141e92aafaa35b45d41f31e956684643d166afbe699fb",
+    "instruments/all.txt": "baaf6319df4112e154696cef6eefa09a14e9c88f14e6e0c6c1ca3b0c29037274",
+    "qlib.yaml": "a1b1e3f6745a4e1036ba2cd74e3701a402a93d744569ef7d41f1df33ac53abf2",
+    "qlib_store_manifest.json": "529078b11917e95691e583968981281cb40c786fd30404fd1cabf90964f3d289",
+    "soxx_extension_qualification.json": "5a79bfcb82b1ee5e2da6d212be368c8f7421ca9c43c5ceed4b5925233174cb90"
+  },
+  "frame_sha256": "1fd9e9dcd55b9eb56628e14ec6a511f262db248a8d4b848c293c3791a6e9ac30"
+}

@@ -1,0 +1,34 @@
+experiment: soxx_extended_history_20261009
+role: data_qualification_only
+provider_uri: data/qlib/soxx_extended_published_affine_20260925_v1
+parent_provider_uri: data/qlib/published_futu_affine_20260925_v1
+calendar_provider_uri: data/qlib/cboe_volatility_official_20261008_v1
+recorder_uri: research/soxx_extended_history_20261009/qlib_recorder
+market: all
+region: us
+freq: day
+as_of: '2026-09-25'
+segments:
+  full:
+  - '2006-10-10'
+  - '2026-09-25'
+  preserved_parent:
+  - '2010-03-11'
+  - '2026-09-25'
+model_selection:
+  performed: false
+capture: Explicit separate capture_soxx_history; notebook never connects to OpenD
+qualification: Offline verify_soxx_capture -> build_published_basis -> new single-SOXX
+  audit -> native Qlib store/readback
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/parent_bindings.pkl
+  - inputs/verified_capture.pkl
+  - data/transformed_frame.pkl
+  - data/qualification.pkl
+  - data/native_readback.pkl
+  raw_archives: explicit capture manifest under data/raw/external; SDK logs/caches
+    outside repo
+promotion_eligible: false

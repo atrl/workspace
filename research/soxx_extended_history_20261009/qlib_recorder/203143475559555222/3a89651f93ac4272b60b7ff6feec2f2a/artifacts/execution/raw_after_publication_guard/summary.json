@@ -1,0 +1,60 @@
+{
+  "experiment": "soxx_extended_history_20261009",
+  "record_type": "SOXX_only_data_qualification",
+  "provider_uri": "data/qlib/soxx_extended_published_affine_20260925_v1",
+  "market": "all",
+  "region": "us",
+  "as_of": "2026-09-25",
+  "data_range": [
+    "2006-10-10",
+    "2026-09-25"
+  ],
+  "rows": 5021,
+  "new_early_rows": 859,
+  "qualification_pass": true,
+  "parent_overlap_rows": 4162,
+  "parent_native_overlap_bitwise_equal": true,
+  "immutable_provider_reused": true,
+  "recorder_id": "3a89651f93ac4272b60b7ff6feec2f2a",
+  "experiment_id": "203143475559555222",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxx_extended_history_20261009/qlib_recorder",
+  "plan_sha256": "435c0f4e4df42ca5ef4026d70aaf03fa5d8adb4e239fb2a87bacd8b55e493678",
+  "source_sha256": {
+    "src/data/soxx_extended_history.py": "ca711e1291eb2486bdb1c76cbfd7c0b244c2ad0ebd82124dc51e59415236fb6c",
+    "src/data/published_price_basis.py": "1cf9295b90ee8063473174a408dd87afda791d38ec5f74c96a2df9ffedfada8d",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/core/recorder_sources.py": "2be50cc060226bea04e61d2ffa2b5a1d85027d524a0e7f90d50510baf407b6a2"
+  },
+  "model_selection": {
+    "performed": false
+  },
+  "promotion_eligible": false,
+  "objective_achieved": false,
+  "campaign_status": "active_research",
+  "decision": "qualified_underlying_history_no_investment_or_forward_evidence",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/parent_bindings.pkl",
+      "inputs/verified_capture.pkl",
+      "data/transformed_frame.pkl",
+      "data/qualification.pkl",
+      "data/native_readback.pkl"
+    ],
+    "raw_archives": "explicit capture manifest under data/raw/external; SDK logs/caches outside repo"
+  },
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "limitations": [
+    "2001-07-10through2006-10-09SOXXhistory remains needs data; no claim of since-inception coverage.",
+    "No SOXL prices, labels or features are fabricated before its inception.",
+    "Published affine basis is retrospective and is not exact SDKQFQ, independently verified exchange ground truth, total-return/distribution accounting or historical-PIT certification.",
+    "Additional past crisis data are newly ingested but not new forward investment evidence.",
+    "No training, signal generation, forecast, backtest or stable-excess qualification is part of this data card."
+  ],
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxx_extended_history_20261009/qlib_recorder/203143475559555222/3a89651f93ac4272b60b7ff6feec2f2a"
+}

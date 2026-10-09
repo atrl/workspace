@@ -1,0 +1,52 @@
+{
+  "qualification_pass": true,
+  "instrument_universe": [
+    "SOXX"
+  ],
+  "as_of": "2026-09-25",
+  "rows": 5021,
+  "early_rows": 859,
+  "parent_overlap_rows": 4162,
+  "raw_overlap_exact": true,
+  "published_overlap_exact": true,
+  "formula_fields_match_parent": true,
+  "source_frame_sha256": "bc92463e6e1890d63bee820e0f092abd0423d8358df3f61ed45e20ff69ea16dd",
+  "new_rehab_frame_sha256": "ec1e92897806181e04da4c5d10639973a4a69a591bbc490fa0b8a0513bde899d",
+  "unused_parent_SOXL_rehab_for_transform_schema_only": true,
+  "secondary_rows": 0,
+  "new_before_after_rehab_exact": true,
+  "price_basis": "published_futu_affine_v1",
+  "total_return_certified": false,
+  "historical_PIT_certified": false,
+  "model_or_portfolio_evidence": false,
+  "transformation": {
+    "basis": "published_futu_affine_v1",
+    "as_of": "2026-09-25",
+    "market_fits_or_pnl_used": false,
+    "primary_rows": 5021,
+    "secondary_whole_bar_rows": 0,
+    "total_rows": 5021,
+    "primary_secondary_overlap_rows": 0,
+    "input_rows_discarded": 0,
+    "frame_sha256": "bc92463e6e1890d63bee820e0f092abd0423d8358df3f61ed45e20ff69ea16dd",
+    "raw_frame_sha256": {
+      "Futu": "c9814e0f3ddace9f444684664100275f47771f445b7768d0efead36e64d5978f",
+      "Yahoo": "42ffef53b318474bac9f715f1fd7940036616d42fe8c4f9f418dcfba26bb64ab"
+    },
+    "rehab_frame_sha256": {
+      "SOXX": "ec1e92897806181e04da4c5d10639973a4a69a591bbc490fa0b8a0513bde899d",
+      "SOXL": "148d306611eaef27b700e585e90788e59a5b29814a23e6da1e60143fd81bae94"
+    },
+    "excluded_post_asof_event_dates": {
+      "SOXL": [],
+      "SOXX": []
+    },
+    "price_operator": "Chronological future events: A<-A*a; B<-B*a+b; price<-unadjusted_price*A+B",
+    "volume_operator": "Futu NONE volume / product(exact split_base/split_ert or join_base/join_ert); Yahoo split-adjusted volume unchanged",
+    "qualification_pass": null,
+    "scope": "transformation only; requires validate_price_basis and independently verified raw archive",
+    "quote_uncertainty": "secondary whole-bar quote source may differ from Futu; no prices, coefficients or source choices fitted to returns",
+    "sdk_qfq_equivalence_claimed": false,
+    "official_formula_reference": "https://openapi.futunn.com/futu-api-doc/quote/get-rehab.html"
+  }
+}
