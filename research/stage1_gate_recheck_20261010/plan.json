@@ -1,0 +1,21 @@
+{
+  "schema_version": "stage1_gate_recheck_v1",
+  "experiment": "stage1_gate_recheck_20261010",
+  "registered_at_utc": "2026-10-10T07:00:00+00:00",
+  "campaign_status": "diagnostic",
+  "objective_achieved": false,
+  "hypothesis": "The Stage1 production card is blocked by a single risk-gate miss (worst_rolling_5d_pct=-12.11%). That value comes from a recorder id not present in the repository. Recompute the four declared risk gates from the recorder artifacts that ARE committed and determine whether the block reproduces on verifiable evidence.",
+  "source_card": "intraday_on_policy_staged_validation_v1",
+  "floors": {"max_drawdown_pct": -30.0, "worst_day_pct": -12.0, "cvar5_pct": -8.0, "worst_rolling_5d_pct": -12.0},
+  "causality_rule": "Pure recomputation of committed strategy-return artifacts; no model, no new data, no recorder mutation.",
+  "gates": {"all_committed_pass": "every committed recorder passes all four floors"},
+  "stopping": "Exactly the committed recorders; no selection, no tuning. Report all results including failures.",
+  "limitations": [
+    "Only committed recorders can be rechecked; an un-committed recorder cannot be audited.",
+    "A pass here does not promote the strategy; forward evidence is still required."
+  ],
+  "source_references": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

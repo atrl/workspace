@@ -1,0 +1,15 @@
+schema_version: stage1_gate_recheck_v1
+experiment: stage1_gate_recheck_20261010
+source_card: intraday_on_policy_staged_validation_v1
+floors:
+  max_drawdown_pct: -30.0
+  worst_day_pct: -12.0
+  cvar5_pct: -8.0
+  worst_rolling_5d_pct: -12.0
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: []
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

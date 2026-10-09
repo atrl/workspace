@@ -1,0 +1,62 @@
+{
+  "experiment": "stage1_gate_recheck_20261010",
+  "schema_version": "stage1_gate_recheck_v1",
+  "card_status": "diagnostic",
+  "decision": "committed_evidence_passes_all_gates",
+  "promotion_eligible": false,
+  "source_card": "intraday_on_policy_staged_validation_v1",
+  "floors": {
+    "max_drawdown_pct": -30.0,
+    "worst_day_pct": -12.0,
+    "cvar5_pct": -8.0,
+    "worst_rolling_5d_pct": -12.0
+  },
+  "recorders": [
+    {
+      "recorder_id": "454e94c9ed5f4c4aaebce0dfa824a38a",
+      "artifact": "research/intraday_on_policy_staged_validation_v1/qlib_recorder/300782104043818423/454e94c9ed5f4c4aaebce0dfa824a38a/artifacts/intraday_on_policy_staged_validation_v1/strategy_returns.csv",
+      "start": "2023-01-03",
+      "end": "2026-06-26",
+      "sessions": 873,
+      "return_pct": 629.6688733722731,
+      "max_drawdown_pct": -28.105120211615187,
+      "worst_day_pct": -9.38246208116504,
+      "cvar5_pct": -5.253780971823333,
+      "worst_rolling_5d_pct": -11.301751631371836,
+      "gate_pass": true,
+      "gate_max_drawdown_pct": true,
+      "gate_worst_day_pct": true,
+      "gate_cvar5_pct": true,
+      "gate_worst_rolling_5d_pct": true
+    },
+    {
+      "recorder_id": "76a6fe6a54cf4348bc0999b2316e8ea9",
+      "artifact": "research/intraday_on_policy_staged_validation_v1/qlib_recorder/300782104043818423/76a6fe6a54cf4348bc0999b2316e8ea9/artifacts/intraday_on_policy_staged_validation_v1/strategy_returns.csv",
+      "start": "2023-01-03",
+      "end": "2026-06-26",
+      "sessions": 873,
+      "return_pct": 639.0243498952244,
+      "max_drawdown_pct": -28.10512021161521,
+      "worst_day_pct": -9.38246208116504,
+      "cvar5_pct": -5.256974325267454,
+      "worst_rolling_5d_pct": -11.301751631371836,
+      "gate_pass": true,
+      "gate_max_drawdown_pct": true,
+      "gate_worst_day_pct": true,
+      "gate_cvar5_pct": true,
+      "gate_worst_rolling_5d_pct": true
+    }
+  ],
+  "all_committed_pass": true,
+  "any_committed_fail": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Recomputes the gate only from recorders already committed to the repository.",
+    "A pass here does not by itself promote the strategy; forward evidence is still required.",
+    "The production card's un-committed recorder cannot be audited by this recheck."
+  ]
+}
