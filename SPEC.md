@@ -137,6 +137,16 @@ SOXX-only provider 保存真实较早历史，并核验与原 provider 的重叠
 SOXX 历史不能补造 SOXL 成立前的价格、特征或标签。价格、事件来源、真实分红
 现金流和历史时点认证是不同资格；复权值相同不能代替后两项。
 
+稳定超额前沿已用因果、无收益预测的规则系统界定：
+`src/analysis/stable_excess_frontier.py` 与 `src/workflow/stable_excess_frontier.py`
+在 qlib 原生链路上评估一族预登记、只使用过去可得的已实现波动与趋势状态的
+SOXX/SOXL/现金暴露规则，要求收益、回撤、Sharpe 同时超过 SOXX buy-and-hold。
+`research/soxl_stable_excess_frontier_20261010/` 记录：该族在 development、
+复用诊断区间与新的前向区间均未产生稳定超额。收益预测信息在父证据中 IC 接近零；
+SOXL 的 Sharpe 不高于 SOXX；单纯的杠杆、波动目标或趋势门控都不能稳定超越基准。
+后续机制必须一次只登记一个增量、保留失败结果，并以独立前向证据决定晋升；
+不得把复用历史改名为留出期，不得用累积历史回看替代前向资格。
+
 - `src/core`: 稳定契约、注册表、schema version、manifest、hash、配置、校验。
 - `src/data`: qlib store 构建、qlib provider 审计、数据更新、calendar/instrument/feature 对齐、canonical snapshot，最终写入 `data/`。
 - `src/factor`: 基于 qlib Dataset 的单因子、多因子、IC、相关性、分层回测、因子组合诊断。
