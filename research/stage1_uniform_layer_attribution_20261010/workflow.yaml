@@ -1,0 +1,71 @@
+schema_version: stage1_uniform_layer_attribution_v1
+experiment: stage1_uniform_layer_attribution_20261010
+models_trained: 0
+layers:
+- raw_allocator_only
+- open_risk_projection_nohold_no_recovery
+- open_risk_projection_withhold_no_recovery
+- full_withhold_and_recovery
+- nohold_with_recovery_reference
+segments:
+- development_walk_forward
+- outer_reused_diagnostic
+costs_bps:
+- 10.0
+- 25.0
+raw_convention: post_fee_desired
+legacy_convention: pre_fee_account
+plan_sha256: c883792bfaa5526ff871f448e16356bf0037efb3aec40641411d2181ad953730
+raw_targets_sha256: 8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa
+full_parity_vs_e4_active_hold:
+  development_walk_forward::10: true
+  development_walk_forward::25: true
+  outer_reused_diagnostic::10: true
+  outer_reused_diagnostic::25: true
+native:
+  cases: 20
+  native_passed: 20
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - annual_metrics
+  - fee_ledger
+  - layer_metrics
+  - native::*
+  - replay::full_withhold_and_recovery::development_walk_forward::10
+  - replay::full_withhold_and_recovery::development_walk_forward::25
+  - replay::full_withhold_and_recovery::outer_reused_diagnostic::10
+  - replay::full_withhold_and_recovery::outer_reused_diagnostic::25
+  - replay::nohold_with_recovery_reference::development_walk_forward::10
+  - replay::nohold_with_recovery_reference::development_walk_forward::25
+  - replay::nohold_with_recovery_reference::outer_reused_diagnostic::10
+  - replay::nohold_with_recovery_reference::outer_reused_diagnostic::25
+  - replay::open_risk_projection_nohold_no_recovery::development_walk_forward::10
+  - replay::open_risk_projection_nohold_no_recovery::development_walk_forward::25
+  - replay::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::10
+  - replay::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::25
+  - replay::open_risk_projection_withhold_no_recovery::development_walk_forward::10
+  - replay::open_risk_projection_withhold_no_recovery::development_walk_forward::25
+  - replay::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::10
+  - replay::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::25
+  - replay::raw_allocator_only::development_walk_forward::10
+  - replay::raw_allocator_only::development_walk_forward::25
+  - replay::raw_allocator_only::outer_reused_diagnostic::10
+  - replay::raw_allocator_only::outer_reused_diagnostic::25
+  - risk_mechanism
+  - risk_report
+  - soxx_benchmark
+  slim_sidecars:
+  - summary.json
+  - workflow.yaml
+  - conclusion.md
+  - layer_metrics.csv
+  - soxx_benchmark.csv
+  - fee_ledger.csv
+  - risk_report.csv
+  - annual_metrics.csv
+  - risk_mechanism.csv
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

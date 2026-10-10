@@ -1,0 +1,22 @@
+{
+  "focused_tests": {
+    "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_uniform_layer_attribution.py tests/test_uniform_risk_mechanism.py -q",
+    "passed": 27,
+    "log": "/tmp/soxl-uniform-layer-root-validation.log"
+  },
+  "notebook_execution": {
+    "command": "PYTHONPATH=. qlib_venv/bin/python -m nbconvert --execute research/stage1_uniform_layer_attribution_20261010/stage1_uniform_layer_attribution_20261010.ipynb --to notebook --inplace",
+    "exit_code": 0,
+    "recorder_id": "6c6fac4f2d974545a4ca8ed8b149a17c"
+  },
+  "prior_baseline_in_this_supervision_run": {
+    "mandatory_qlib_suite_passed": 8,
+    "mandatory_qlib_suite_existing_failures": 61,
+    "full_suite_existing_collection_errors": 15,
+    "all_suite_green": false
+  },
+  "no_production_change": true,
+  "unrelated_modified_canonical_data_files_preserved": 603,
+  "source_model_and_outputs_hash_verified": true,
+  "promotion_eligible": false
+}

@@ -1,0 +1,813 @@
+{
+  "schema_version": "uniform_layer_attribution_evidence_v1",
+  "recorder_id": "6c6fac4f2d974545a4ca8ed8b149a17c",
+  "source_snapshot_as_of": "2026-09-25",
+  "signal_intervals": [
+    "2016-01-04/2022-12-21",
+    "2023-01-03/2026-09-23"
+  ],
+  "purpose": "Frozen five-layer diagnostic with 20 native cases and actual account cash/quantity handoff; no promotion",
+  "source_code_sha256": {
+    "src/workflow/uniform_layer_attribution.py": "84cc0e9ed1a3de840080f50bacb05adb0dd2efbcd72c89e7879e36612f0ae071",
+    "src/analysis/uniform_risk_mechanism.py": "1d1e710396eb4172b672ff23ca8be919b7cd52cf72bf41c296d5bbf443f82ece",
+    "tests/test_uniform_layer_attribution.py": "014c6d87f067d5847dc33d2728a7c41c35e1390459662f09ada3e5e5fc0f669e",
+    "tests/test_uniform_risk_mechanism.py": "af92903f3785288ceba7e9a0de01957303156835a8bad00da51766a4dfc2c02c"
+  },
+  "artifacts": [
+    {
+      "path": "annual_metrics.csv",
+      "bytes": 13982,
+      "sha256": "235630c2cd75cf697f77d914df22ba0d4899835ad503a20969bd6b6e0c822943"
+    },
+    {
+      "path": "conclusion.md",
+      "bytes": 4747,
+      "sha256": "85792a98bbf8cf5d6372e6edfd1117bb71fba8b3b7e524b4c90e63b2e5c03f0d"
+    },
+    {
+      "path": "fee_ledger.csv",
+      "bytes": 4865,
+      "sha256": "1a2429721ee9401aa325c5215da789653b150db01564445ee5bbcdbf142e2f27"
+    },
+    {
+      "path": "layer_metrics.csv",
+      "bytes": 4508,
+      "sha256": "8e4763dfb5933938b909b74405c4db300858ca21fb1097cb1262c398b4d9b42c"
+    },
+    {
+      "path": "preregister_plan.json",
+      "bytes": 7041,
+      "sha256": "c883792bfaa5526ff871f448e16356bf0037efb3aec40641411d2181ad953730"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/annual_metrics",
+      "bytes": 6887,
+      "sha256": "10fa8867aac69eedd6d32906fd6099015ed8c2a8481aade13a2d7470907a1132"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/fee_ledger",
+      "bytes": 2301,
+      "sha256": "b3cbefdfc252d196d1e7988e498606a39ed8fbdc1b963b0e9f9cc8e738880b20"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/layer_metrics",
+      "bytes": 2949,
+      "sha256": "1247c2fc2e7399a9f069f144728538e55059a1058af71b923eea6807fad7a6e3"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::10::prefix_positions",
+      "bytes": 166717,
+      "sha256": "4ad9cb1039f9d9362067737447d924829c3e118a2d718c37e1c668356e43eb2d"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::10::prefix_reconciliation",
+      "bytes": 55271,
+      "sha256": "606cfea328ebdce95c0943bb0716d60aa9544b9a1e1aabe4c8f08adb3a16ffa8"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::10::prefix_report",
+      "bytes": 61660,
+      "sha256": "5c7ec8fbfe0175035bbe04329477d01803696a016ff169a621bbc09622d04431"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::10::suffix_events",
+      "bytes": 21145,
+      "sha256": "02bef64d05edce13aa05e238712e8d6395e7cc39ac6a811889ffc1bdb8459880"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::10::suffix_positions",
+      "bytes": 4222807,
+      "sha256": "84f8a13f8097bb73037718612aadb1cb44fa0f54f5095ded53180091626ed0a5"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::10::suffix_reconciliation",
+      "bytes": 73424,
+      "sha256": "54281b1fa8b35d0d56c623208d49c81726ea23243814ad9f72c6dc2698f3c049"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::10::suffix_report",
+      "bytes": 2083190,
+      "sha256": "40be57cc4875febf455121e430a231d973b68b984873969e8daf5f3a42e0e885"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::25::prefix_positions",
+      "bytes": 165861,
+      "sha256": "52752d9cfcea9f838eb7487748ef4ca28df495928c1289f0aa9d8dc5cf3aa1c8"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::25::prefix_reconciliation",
+      "bytes": 55271,
+      "sha256": "f87e9470f30a17f50bca83a9640bb74d3e2756145a2cb652ad6c28069d293606"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::25::prefix_report",
+      "bytes": 61660,
+      "sha256": "0cf420061126c954553654752d972ecc34f4e3117361cf77cbe44705bd9ad457"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::25::suffix_events",
+      "bytes": 21561,
+      "sha256": "0ee72b48d318e1b0116a5a79c5d4001d6a9564d2d04223845f8a4c89544f530c"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::25::suffix_positions",
+      "bytes": 4329185,
+      "sha256": "1c16d2674b1885852e43b1080ce5ffe1f3ca93a56407580dae0dfaea09c4d059"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::25::suffix_reconciliation",
+      "bytes": 73424,
+      "sha256": "fd11d9e9f6325adc7f12c2b2da1e50794d06a70d8b00c9cfc9ea5a6358818ee2"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::development_walk_forward::25::suffix_report",
+      "bytes": 2083190,
+      "sha256": "165f108a0189ccf2e57875a859b167b01355d99211c8fa103d7feda6b68240de"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::outer_reused_diagnostic::10::suffix_events",
+      "bytes": 21968,
+      "sha256": "0e743db857b16ed154d15b4788609bbccc8d8166b2ec946732a85dac1fd37777"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::outer_reused_diagnostic::10::suffix_positions",
+      "bytes": 4416294,
+      "sha256": "352dca39ff4ecc52f801f826703d79542b6cf2c4f7a8860163ddd07874fcb28a"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::outer_reused_diagnostic::10::suffix_reconciliation",
+      "bytes": 68384,
+      "sha256": "e4b8a322e2c5695dc5d2ada106b3f0f6ba7aea79b73b5a005de82be40f9e0090"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::outer_reused_diagnostic::10::suffix_report",
+      "bytes": 1936630,
+      "sha256": "17807f768d14a27114a9cc434afe47c5e947c44ed2afb2cccebe76ca569c8d2c"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::outer_reused_diagnostic::25::suffix_events",
+      "bytes": 20720,
+      "sha256": "b372802c0d9b5dadd0ac87baab32303ffed7ef47196849a7aa7ce718260e958d"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::outer_reused_diagnostic::25::suffix_positions",
+      "bytes": 3997524,
+      "sha256": "a9455b75784f6096fdd8282aa1b134d13fe1f1ce037dc1125fcb3df85cd4f8b0"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::outer_reused_diagnostic::25::suffix_reconciliation",
+      "bytes": 68384,
+      "sha256": "b2d2a2f9a81dab5843ee1f01e9aac7d15bef7d45c4cd72ea0b7dfae903a15b13"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::full_withhold_and_recovery::outer_reused_diagnostic::25::suffix_report",
+      "bytes": 1936630,
+      "sha256": "e38eeee1ea1504371099bab0aa124060f03253bfffce9953fdadf0950c08910b"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::10::prefix_positions",
+      "bytes": 167885,
+      "sha256": "b2ceaae07c3dc494e2f1e7760112b2f3326cf2293a5cb0cfa8b5098f95fe769f"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::10::prefix_reconciliation",
+      "bytes": 55271,
+      "sha256": "21041e5bdb9008e898bace730147978c481a5f57a081ffbfe3e0b535fa618b7d"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::10::prefix_report",
+      "bytes": 61660,
+      "sha256": "7354e915f33c0ec0f639fcdb051447f4d71849deb303127267da908191eb8f8e"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::10::suffix_events",
+      "bytes": 27361,
+      "sha256": "d43bf2e127fde1f7ef32bf9d7e7c4d42dc5ee28c92f8d37b88eebe8b1264b151"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::10::suffix_positions",
+      "bytes": 4252180,
+      "sha256": "7b77be2584eb4687f4af23d491fdb6e81227612fb49084466e6f917861cb6eb3"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::10::suffix_reconciliation",
+      "bytes": 73424,
+      "sha256": "b0859944e82db918a82da755f61b845581d749fb62a64dfe0ca0450697252692"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::10::suffix_report",
+      "bytes": 2083190,
+      "sha256": "818b636f520e4c52a9273e1d70c237199d553dd5b35fb850995895bfb68a2ff6"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::25::prefix_positions",
+      "bytes": 166883,
+      "sha256": "1144851ac530704668f61457b95fa3ae216b7e699316006d0b4e6d930484a55a"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::25::prefix_reconciliation",
+      "bytes": 55271,
+      "sha256": "464ad61da4e1f3960d951320a04774db140a82aec11899924f0503b77dc69054"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::25::prefix_report",
+      "bytes": 61660,
+      "sha256": "dfe406925b572ace5b54b4f115ce320bd7859c7d9848151219054d1e38f5f62f"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::25::suffix_events",
+      "bytes": 27361,
+      "sha256": "0fd76bb16de1b1d5ed51aa633f7f77d11ddd5be5eae36fbb24732558e8557f52"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::25::suffix_positions",
+      "bytes": 4310387,
+      "sha256": "5bb817b7fbe20f8f6c16ff5aaae80c2cdb692531391a82e2f78fb06a46e565e1"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::25::suffix_reconciliation",
+      "bytes": 73424,
+      "sha256": "ceda84e0f177c9bf773db08abf1e5236603bf4629b9bc6a6d2a97193a00070b1"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::development_walk_forward::25::suffix_report",
+      "bytes": 2083190,
+      "sha256": "544b893bba3c1a42903279cc4bae41a6ec58048aff28b862141d5606bb63cd46"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::outer_reused_diagnostic::10::suffix_events",
+      "bytes": 25452,
+      "sha256": "538d4f9e06463e2abba1b1a5a033848d9a7a749f091dc48579a4b04d97add496"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::outer_reused_diagnostic::10::suffix_positions",
+      "bytes": 4421383,
+      "sha256": "cef08950799bc6945f6b2ecd1d09f2dfa93c17546682085795dc2021f8f1d345"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::outer_reused_diagnostic::10::suffix_reconciliation",
+      "bytes": 68384,
+      "sha256": "8299cf4f669f3b3f7c5ec6f1dd831152983165a12f415559e95b63b352fcf890"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::outer_reused_diagnostic::10::suffix_report",
+      "bytes": 1936630,
+      "sha256": "09d1b2e866d795e12a783b84746bfb17b2011f03ec23e47d8dce4611154287ff"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::outer_reused_diagnostic::25::suffix_events",
+      "bytes": 25452,
+      "sha256": "802a6d754d4df1325e9f29a6e64ee89c736c5b7cd74084eac8f61712259f790c"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::outer_reused_diagnostic::25::suffix_positions",
+      "bytes": 3972420,
+      "sha256": "6c0b7ab1f37e5a113b77ce6624300a063083faa36d823602fa65ddb8f8aae44b"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::outer_reused_diagnostic::25::suffix_reconciliation",
+      "bytes": 68384,
+      "sha256": "9154f325cae809c35bf84827267d644f887893e674de23b54140347fda29aa0c"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::nohold_with_recovery_reference::outer_reused_diagnostic::25::suffix_report",
+      "bytes": 1936630,
+      "sha256": "8fb620d7b6319ea41092937b985db5f581ee7b39c4f4a3e0f8b72dadd0088b60"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::10::prefix_positions",
+      "bytes": 167885,
+      "sha256": "b2ceaae07c3dc494e2f1e7760112b2f3326cf2293a5cb0cfa8b5098f95fe769f"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::10::prefix_reconciliation",
+      "bytes": 55271,
+      "sha256": "21041e5bdb9008e898bace730147978c481a5f57a081ffbfe3e0b535fa618b7d"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::10::prefix_report",
+      "bytes": 61660,
+      "sha256": "7354e915f33c0ec0f639fcdb051447f4d71849deb303127267da908191eb8f8e"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::10::suffix_events",
+      "bytes": 27274,
+      "sha256": "53d2c8de76925a975a9a75b65ddfd9548c8bb54e8673deb1f50e38ebaf999395"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::10::suffix_positions",
+      "bytes": 4306335,
+      "sha256": "8b9bce30ee5b714b3840710f95a0a13752a569f07c3fc4a1583821a20527596e"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::10::suffix_reconciliation",
+      "bytes": 73424,
+      "sha256": "f0be4b946fd3f6fa86d2617dfdae2ef20795ccf96571f02246d4f7a4d548062e"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::10::suffix_report",
+      "bytes": 2083190,
+      "sha256": "a7a869bbd518eb10eb05d95cc23c2219f38b8cd80e48395c9a92b0e3c0e1e69a"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::25::prefix_positions",
+      "bytes": 166883,
+      "sha256": "1144851ac530704668f61457b95fa3ae216b7e699316006d0b4e6d930484a55a"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::25::prefix_reconciliation",
+      "bytes": 55271,
+      "sha256": "464ad61da4e1f3960d951320a04774db140a82aec11899924f0503b77dc69054"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::25::prefix_report",
+      "bytes": 61660,
+      "sha256": "dfe406925b572ace5b54b4f115ce320bd7859c7d9848151219054d1e38f5f62f"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::25::suffix_events",
+      "bytes": 27274,
+      "sha256": "f551ade4acc58caadce79f506cd2605ddb330dbe6d6c269acd835775d7721e24"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::25::suffix_positions",
+      "bytes": 4298366,
+      "sha256": "aea30376b676444a685818198beae33032536b60c689ae83dc9c0d70129e596a"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::25::suffix_reconciliation",
+      "bytes": 73424,
+      "sha256": "b1be3064f00d6ffe601a47cf36b087568231f8fb19ff656581083a9a31eca9dc"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::development_walk_forward::25::suffix_report",
+      "bytes": 2083190,
+      "sha256": "3b714917fef9b835f8f18b2d4801bc08c6cfe6b7362cddede369e34849ef907d"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::10::suffix_events",
+      "bytes": 25452,
+      "sha256": "538d4f9e06463e2abba1b1a5a033848d9a7a749f091dc48579a4b04d97add496"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::10::suffix_positions",
+      "bytes": 4421383,
+      "sha256": "cef08950799bc6945f6b2ecd1d09f2dfa93c17546682085795dc2021f8f1d345"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::10::suffix_reconciliation",
+      "bytes": 68384,
+      "sha256": "8299cf4f669f3b3f7c5ec6f1dd831152983165a12f415559e95b63b352fcf890"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::10::suffix_report",
+      "bytes": 1936630,
+      "sha256": "09d1b2e866d795e12a783b84746bfb17b2011f03ec23e47d8dce4611154287ff"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::25::suffix_events",
+      "bytes": 25452,
+      "sha256": "802a6d754d4df1325e9f29a6e64ee89c736c5b7cd74084eac8f61712259f790c"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::25::suffix_positions",
+      "bytes": 3972420,
+      "sha256": "6c0b7ab1f37e5a113b77ce6624300a063083faa36d823602fa65ddb8f8aae44b"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::25::suffix_reconciliation",
+      "bytes": 68384,
+      "sha256": "9154f325cae809c35bf84827267d644f887893e674de23b54140347fda29aa0c"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::25::suffix_report",
+      "bytes": 1936630,
+      "sha256": "8fb620d7b6319ea41092937b985db5f581ee7b39c4f4a3e0f8b72dadd0088b60"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::10::prefix_positions",
+      "bytes": 166717,
+      "sha256": "4ad9cb1039f9d9362067737447d924829c3e118a2d718c37e1c668356e43eb2d"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::10::prefix_reconciliation",
+      "bytes": 55271,
+      "sha256": "606cfea328ebdce95c0943bb0716d60aa9544b9a1e1aabe4c8f08adb3a16ffa8"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::10::prefix_report",
+      "bytes": 61660,
+      "sha256": "5c7ec8fbfe0175035bbe04329477d01803696a016ff169a621bbc09622d04431"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::10::suffix_events",
+      "bytes": 21006,
+      "sha256": "90633671d6f32d0f213527c4991726578f18ef127554ee56bea21f57263c6cf7"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::10::suffix_positions",
+      "bytes": 4224325,
+      "sha256": "f4081ca35b49e8d6aba78bf97c90d05e4fc59cb6328c29e76bb72dc59c44d5bd"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::10::suffix_reconciliation",
+      "bytes": 73424,
+      "sha256": "3216ede43310ed9a6bf178c8472807bbeb27058834c983443e6e7587a28fd505"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::10::suffix_report",
+      "bytes": 2083190,
+      "sha256": "75b2ae23c58dea3e6978fd94bfd620a5435634796ccc3075e6f54beac98894d8"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::25::prefix_positions",
+      "bytes": 165861,
+      "sha256": "52752d9cfcea9f838eb7487748ef4ca28df495928c1289f0aa9d8dc5cf3aa1c8"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::25::prefix_reconciliation",
+      "bytes": 55271,
+      "sha256": "f87e9470f30a17f50bca83a9640bb74d3e2756145a2cb652ad6c28069d293606"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::25::prefix_report",
+      "bytes": 61660,
+      "sha256": "0cf420061126c954553654752d972ecc34f4e3117361cf77cbe44705bd9ad457"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::25::suffix_events",
+      "bytes": 21370,
+      "sha256": "ce53fc1e55eca02ab142210b599b6677e9fc742a3f90a411bf3837259dec37d5"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::25::suffix_positions",
+      "bytes": 4318738,
+      "sha256": "8914da227220197d4963c15e7721f9e4db41760ea059642daf01a3b8d70ba23d"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::25::suffix_reconciliation",
+      "bytes": 73424,
+      "sha256": "e78d2bf930ab85d0423689def2227041bd2827eb20ee6841aca7075e1c7b9637"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::development_walk_forward::25::suffix_report",
+      "bytes": 2083190,
+      "sha256": "5bbc4fc58594eb8d4b6ef07d402524365a6803e4f81407e23ac534ab09d31aff"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::10::suffix_events",
+      "bytes": 21968,
+      "sha256": "0e743db857b16ed154d15b4788609bbccc8d8166b2ec946732a85dac1fd37777"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::10::suffix_positions",
+      "bytes": 4416294,
+      "sha256": "352dca39ff4ecc52f801f826703d79542b6cf2c4f7a8860163ddd07874fcb28a"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::10::suffix_reconciliation",
+      "bytes": 68384,
+      "sha256": "e4b8a322e2c5695dc5d2ada106b3f0f6ba7aea79b73b5a005de82be40f9e0090"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::10::suffix_report",
+      "bytes": 1936630,
+      "sha256": "17807f768d14a27114a9cc434afe47c5e947c44ed2afb2cccebe76ca569c8d2c"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::25::suffix_events",
+      "bytes": 20720,
+      "sha256": "b372802c0d9b5dadd0ac87baab32303ffed7ef47196849a7aa7ce718260e958d"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::25::suffix_positions",
+      "bytes": 3997524,
+      "sha256": "a9455b75784f6096fdd8282aa1b134d13fe1f1ce037dc1125fcb3df85cd4f8b0"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::25::suffix_reconciliation",
+      "bytes": 68384,
+      "sha256": "b2d2a2f9a81dab5843ee1f01e9aac7d15bef7d45c4cd72ea0b7dfae903a15b13"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::25::suffix_report",
+      "bytes": 1936630,
+      "sha256": "e38eeee1ea1504371099bab0aa124060f03253bfffce9953fdadf0950c08910b"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::10::prefix_positions",
+      "bytes": 177783,
+      "sha256": "ab6cdf2688d042febbbb8cb50c0c8d1f407218b8cecf6ff1753001b85c52752a"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::10::prefix_reconciliation",
+      "bytes": 55271,
+      "sha256": "c5f2199541aebe82b4ba7b8280b4773b2ff543890c0f60e5ebfac7572118fc84"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::10::prefix_report",
+      "bytes": 61660,
+      "sha256": "4cb058e80834f121af03541cd02d77ddb48eb9c74473dc73ed7012daa92df383"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::10::suffix_events",
+      "bytes": 27274,
+      "sha256": "6f6079db2637be6e804afc74972d5b64f6a756baccd77a3847171fc04dfcf9a7"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::10::suffix_positions",
+      "bytes": 5116394,
+      "sha256": "871c1a0386f07ad95074e66e8be68645cd56ee2531b9c0eff30ed28ce61bab58"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::10::suffix_reconciliation",
+      "bytes": 73424,
+      "sha256": "de856c5d4f45f0819e050b02fe1a4a02637ef76d93108bac4e17103f23d985b2"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::10::suffix_report",
+      "bytes": 2083190,
+      "sha256": "04ed3dd75ddf6c3ce1e61644e93eef8f06d0a8e217b4f41e7d0a73fd91fede55"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::25::prefix_positions",
+      "bytes": 177783,
+      "sha256": "29c2bc743bb4ee3d3d3a13b2be53f624a3e5dcf812f95a280a2c4e6aa27a3d5a"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::25::prefix_reconciliation",
+      "bytes": 55271,
+      "sha256": "3974c1340bab351a8db6b1d099e20cafc085dea08465e4ed9ac05d66c50a586a"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::25::prefix_report",
+      "bytes": 61660,
+      "sha256": "a6363f7797b0fa812f44dfe2636846612a0ab899685ae0ea479191784e61b041"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::25::suffix_events",
+      "bytes": 27274,
+      "sha256": "664d6f95f1086372cc1a6c49eb16c4a5832abc57eeb702b899dc8d57ec25e318"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::25::suffix_positions",
+      "bytes": 5116394,
+      "sha256": "c82297e6bb5d4307235b554287a5068d7c2fc5838ff8d48b85bd197d539eadb7"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::25::suffix_reconciliation",
+      "bytes": 73424,
+      "sha256": "61334d74072e29bcab6b3080cfde26d7357dc70df09b07528491a03bf6df3b60"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::development_walk_forward::25::suffix_report",
+      "bytes": 2083190,
+      "sha256": "ebd98341b6dfa10d46e4ab8594a891ea9568c23bfd14c213b6c3c92d78711881"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::outer_reused_diagnostic::10::suffix_events",
+      "bytes": 25452,
+      "sha256": "254e0c3a4214278260d3f9a77b9b9c2cbffff06d93b1ad0cb8b35d9f48c0b3f0"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::outer_reused_diagnostic::10::suffix_positions",
+      "bytes": 4756156,
+      "sha256": "db4fb853ed454bfb2fe5d1c98c2c4bc12b24ba1ac08316fc99d34c2cc7432cf5"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::outer_reused_diagnostic::10::suffix_reconciliation",
+      "bytes": 68384,
+      "sha256": "35575d50755edbd3519769496ce379e614c3a8a31aaf3419a378ab3a7e56e507"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::outer_reused_diagnostic::10::suffix_report",
+      "bytes": 1936630,
+      "sha256": "bf031496aae4b618157ff0df211156c198327a73876bfeb2b4947b9370b053ff"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::outer_reused_diagnostic::25::suffix_events",
+      "bytes": 25452,
+      "sha256": "7e14774e2be21197b56ca268f7b1f4b00bfb43bda594b2e19b585b41e1747b18"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::outer_reused_diagnostic::25::suffix_positions",
+      "bytes": 4756156,
+      "sha256": "0b7851f05b6f72bdc33081053f43348b2b33c64e295bff2ea9287dcbe9f201e3"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::outer_reused_diagnostic::25::suffix_reconciliation",
+      "bytes": 68384,
+      "sha256": "d046f2ca4d13e00e90cc624c92bcdb70183ac23b5d957e58056353cc05a5945c"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/native::raw_allocator_only::outer_reused_diagnostic::25::suffix_report",
+      "bytes": 1936630,
+      "sha256": "3c51a99e8e696c712a138b2ffba0d8a625a9e501d36557bbc1009bed86498f8f"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/plan/preregister_plan.json",
+      "bytes": 7041,
+      "sha256": "c883792bfaa5526ff871f448e16356bf0037efb3aec40641411d2181ad953730"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::full_withhold_and_recovery::development_walk_forward::10",
+      "bytes": 495922,
+      "sha256": "2a43f99739d0661757f9ffa2d14a23fd8f6001d517310b89c64ef5188b47451b"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::full_withhold_and_recovery::development_walk_forward::25",
+      "bytes": 495922,
+      "sha256": "6db1643759d12204f857580bfcfb5ced68f8867dc314b83b26a9b02369a40d19"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::full_withhold_and_recovery::outer_reused_diagnostic::10",
+      "bytes": 264917,
+      "sha256": "4e15f6a36c8436b55204ae1502e3d9ff3ba72bab620f1a413de99ae0c712d1ed"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::full_withhold_and_recovery::outer_reused_diagnostic::25",
+      "bytes": 264917,
+      "sha256": "bad999900f44dd8c749e787f3bae825d184236f57ad6f8617daa7ca50c555611"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::nohold_with_recovery_reference::development_walk_forward::10",
+      "bytes": 495922,
+      "sha256": "f26f8fce4de67dffe6b1951816c62148c68a248dfe8fa8024fe2d3abf33726d5"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::nohold_with_recovery_reference::development_walk_forward::25",
+      "bytes": 495922,
+      "sha256": "540a71b1ae2be3d52100209ef29f2f4e39d2c6eb6e48064384faa8b3dca03c63"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::nohold_with_recovery_reference::outer_reused_diagnostic::10",
+      "bytes": 264917,
+      "sha256": "35804aba75799d913b9b453381b83051fe537221fbf64ee4360f2d804b3306be"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::nohold_with_recovery_reference::outer_reused_diagnostic::25",
+      "bytes": 264917,
+      "sha256": "51fae60de1dd86a615da739e2bed4b513099eb7789c2b40a15f66373765c277d"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::open_risk_projection_nohold_no_recovery::development_walk_forward::10",
+      "bytes": 495922,
+      "sha256": "865d39cdddaad69d6d94e7907c006d1a92820940d5ec1aa76c75d9649409c1c7"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::open_risk_projection_nohold_no_recovery::development_walk_forward::25",
+      "bytes": 495922,
+      "sha256": "3b5f2bbe1815625e190e47059a8da380b9e64056c9e07541e1c7f754321a56ee"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::10",
+      "bytes": 264917,
+      "sha256": "35804aba75799d913b9b453381b83051fe537221fbf64ee4360f2d804b3306be"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::25",
+      "bytes": 264917,
+      "sha256": "51fae60de1dd86a615da739e2bed4b513099eb7789c2b40a15f66373765c277d"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::open_risk_projection_withhold_no_recovery::development_walk_forward::10",
+      "bytes": 495922,
+      "sha256": "d25851aa8da612695d11cd616d68f06c4b0eaab0a48f55dbbb6ceabe7db5b06b"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::open_risk_projection_withhold_no_recovery::development_walk_forward::25",
+      "bytes": 495922,
+      "sha256": "bb80037752cc337558f59c53f708e229894487909c7703d2a37fe02c68137d81"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::10",
+      "bytes": 264917,
+      "sha256": "4e15f6a36c8436b55204ae1502e3d9ff3ba72bab620f1a413de99ae0c712d1ed"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::25",
+      "bytes": 264917,
+      "sha256": "bad999900f44dd8c749e787f3bae825d184236f57ad6f8617daa7ca50c555611"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::raw_allocator_only::development_walk_forward::10",
+      "bytes": 471349,
+      "sha256": "b510a0efd91f1a72bdcfcf9baf3f60929df205b1e74028116a8e517c957dc56e"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::raw_allocator_only::development_walk_forward::25",
+      "bytes": 471349,
+      "sha256": "a5362b8dceb4cd9fbac334f81338640d77a9cb79c4fe7341978ac739b5b43119"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::raw_allocator_only::outer_reused_diagnostic::10",
+      "bytes": 251850,
+      "sha256": "dcf447bc31d49ff170483e786f499d80bbeda90bf86643ac74577f51fd1367a6"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/replay::raw_allocator_only::outer_reused_diagnostic::25",
+      "bytes": 251850,
+      "sha256": "d2351714b2eb6bba0695d93de35b1a58d8349ee7939e13fa684886f6a5d78f79"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/risk_mechanism",
+      "bytes": 25078,
+      "sha256": "b318d09cf7d71417081d99b92d4e13b09d97eaa1bf6701c2a532110ce587d014"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/risk_report",
+      "bytes": 2752,
+      "sha256": "cc13a168f5cd491a6da8eff7466112104da503ac35428ead92ec2130c36128cd"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/artifacts/soxx_benchmark",
+      "bytes": 910,
+      "sha256": "04cf9285722998fbf13197653227732d5e257377c3e211cad8fb2faaadf38846"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/meta.yaml",
+      "bytes": 449,
+      "sha256": "2eb3a5c2f3b2b16004f0d7e49a397be0e1434347c7a1ed8bd4713354d5622bdf"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/params/cmd-sys.argv",
+      "bytes": 202,
+      "sha256": "98ace649005f5c55a9eac2349e89d7b0778234c98d6d372d66613b33e1833026"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/params/models_trained",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/params/schema_version",
+      "bytes": 35,
+      "sha256": "5d278afc476b12f5cd24191c27dcf713daf2791a8e7df3baa13702213e58457e"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/tags/mlflow.runName",
+      "bytes": 10,
+      "sha256": "a15602956d088de6b70a016d5e721a75c624b34ab3829286c86f966d331b5385"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/tags/mlflow.source.name",
+      "bytes": 89,
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/6c6fac4f2d974545a4ca8ed8b149a17c/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb"
+    },
+    {
+      "path": "qlib_recorder/978444292326671251/meta.yaml",
+      "bytes": 382,
+      "sha256": "4e79c1eb97ef8aab17968612490e29fafdc89105bbb42d7ba7821dea15601244"
+    },
+    {
+      "path": "risk_mechanism.csv",
+      "bytes": 63056,
+      "sha256": "4939454b7895845f52d7f8d5a51cf0150c681a76a9ace0902356e6fdcb4d5866"
+    },
+    {
+      "path": "risk_report.csv",
+      "bytes": 4236,
+      "sha256": "2f9f4df1c43d256231eaa5df1cee0c396dfff680c670d2091b01d473084c3d78"
+    },
+    {
+      "path": "selected_model.json",
+      "bytes": 547,
+      "sha256": "f75d3fd85ae71599ed6385a51792503e0a952c25e218d827f56e796fce902703"
+    },
+    {
+      "path": "soxx_benchmark.csv",
+      "bytes": 313,
+      "sha256": "d1385823d72fb54861ed6b2253a73e3b87ab28b1e61a7924e8523387bfa95526"
+    },
+    {
+      "path": "stage1_uniform_layer_attribution_20261010.ipynb",
+      "bytes": 670369,
+      "sha256": "f498ee44c1da3235cb8f0705ca0112c498561442a0a8f6066e0d84016abb45a0"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 219690,
+      "sha256": "90ae79b7e16a6f3ba68aa75f8b044b8a92e5578a86246f6947a7974c72aab20f"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 939,
+      "sha256": "ee5553afe110753c4999bda60014249e4264516a039951b7e145996e75e099dd"
+    },
+    {
+      "path": "workflow.yaml",
+      "bytes": 2880,
+      "sha256": "39ac1442f794af74115058bb931498db7b0b727d6cf9cf3d3aaa4cd152047395"
+    }
+  ]
+}

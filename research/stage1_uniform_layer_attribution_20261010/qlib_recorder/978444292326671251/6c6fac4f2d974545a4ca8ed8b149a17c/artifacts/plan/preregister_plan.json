@@ -1,0 +1,121 @@
+{
+  "schema_version": "stage1_uniform_layer_attribution_v1",
+  "experiment": "stage1_uniform_layer_attribution_20261010",
+  "registered_at_utc": "2026-10-10T04:56:36.520911+00:00",
+  "purpose": "read-only single-vintage layer attribution of frozen f696-derived targets and parent17 legacy action/recovery model objects; 0 fit",
+  "models_trained": 0,
+  "new_parameters": 0,
+  "sign_horizon_threshold_search": false,
+  "frozen_sources": {
+    "allocator_recorder": "f696f656b3d44e868588e09a5d97c905",
+    "allocator_raw_targets": {
+      "path": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928/qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/predictions.csv",
+      "sha256": "f532c84b5c3c05d181092044aa1bc6223e26e774d81a26f3bfa181828bdf342e"
+    },
+    "allocator_model": {
+      "path": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928/qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/models/pit_only_aux_005.pkl",
+      "sha256": "512b8d7621310caf023f7f09051d47bd8df89473378f32e56bcc5ce093f1211d"
+    },
+    "allocator_strategy_returns": {
+      "path": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928/qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/strategy_returns.csv",
+      "sha256": "0598a7edb6aa49df7d38d987b216512c52fa96e002f2604fcc32637d0af04d27"
+    },
+    "uniform_providers": {
+      "intraday": "stage1_uniform_intraday_20261009",
+      "execution": "stage1_uniform_execution_marks_20261009",
+      "coherent": "stage1_uniform_daily_marks_20261009"
+    },
+    "legacy_action_models_source": {
+      "path": "research/stage1_economic_action_20260929 recorder 17f81fbf inputs/prepared_inputs.pkl legacy_models key",
+      "sha256": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+      "note": "actual legacy/current-release action models used by the on-policy router; regime paper recorder 0506af901 is NOT used in this card"
+    },
+    "raw_target_complete_snapshot": {
+      "recorder": "17f81fbf27ee46859816ec1ac52151f6",
+      "object": "inputs/prepared_inputs.pkl[frame]",
+      "sha256": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+      "rows": 2690,
+      "original_prediction_overlap_rows": 2686,
+      "extension_dates": [
+        "2026-09-18",
+        "2026-09-21",
+        "2026-09-22",
+        "2026-09-23"
+      ],
+      "extension_train_end": "2022-12-30",
+      "no_new_inference": true
+    },
+    "full_parity_reference": {
+      "path": "research/stage1_feasible_action_training_20261009/qlib_recorder/485650054674319224/e4d888a42c914bf69660ab78a35ba6e7/artifacts/replays",
+      "sha256": "510ae5e9c95df55759be5a4ac62b53bf06b70bf6bf4c106eb9e58a6e1780b17d"
+    }
+  },
+  "layers": [
+    "raw_allocator_only",
+    "open_risk_projection_nohold_no_recovery",
+    "open_risk_projection_withhold_no_recovery",
+    "full_withhold_and_recovery",
+    "nohold_with_recovery_reference"
+  ],
+  "parity_requirement": "full_withhold_and_recovery must reproduce e4 uniform active_hold_baseline day-by-day (same models/price/fee convention legacy pre_fee_account) before any explanation",
+  "raw_provenance": "raw weights must come from the f696 predictions.csv output; unknown -> needs_data, never a cap-projected frame",
+  "state_independence": "each layer advances its own equity/peak/history/riskclock/cash/qty; phase must not copy full-account clocks",
+  "fee": {
+    "controller_replays_bps": [
+      10,
+      25
+    ],
+    "fixed_path_ledger_bps": [
+      0,
+      25
+    ],
+    "note": "fixed 10bp realized target/HOLD/recovery path re-settled 0/25 for direct fee effect; no controller rerun to claim pure fee"
+  },
+  "segments": {
+    "development": 1756,
+    "outer_reused_diagnostic": 934
+  },
+  "benchmark": "SOXX same window/source/cost; entry fee once, no fake terminal liquidation",
+  "primary_frame": [
+    "per-layer per-window per-cost return/DD/CVaR/worstday/worst5/turnover/cash/beta/SOXX relative wealth + annual differences"
+  ],
+  "reporting": [
+    "per-layer per-window per-cost return/DD/CVaR/worstday/worst5/turnover/cash/beta/SOXX relative wealth + annual differences"
+  ],
+  "caveats": [
+    "coverage 1756/934",
+    "raw_allocator_only may already fail vs SOXX -> locates forecast/allocator combination, not separable predictive info vs optimizer",
+    "no new alpha",
+    "ablation is an ordered pre-registered path comparison, not a unique additive causal contribution"
+  ],
+  "no_change": "no sealed card/source/calendar/WIP/production change; no parent run start/resume; no refit",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "amendment": {
+    "reason": "plan technical source-binding correction: removed the mis-bound regime paper recorder 0506af901/regime-model SHAs; bound the actual legacy action-model source (parent 17 prepared_inputs). Hypothesis/layers/segments/costs unchanged; no model swapped under a false same-identity claim.",
+    "prior_plan_sha256": "d2d7e823ed70501679483b3364fe5504547d183737073f9d28962ab59dc194f9"
+  },
+  "raw_allocator_funding_convention": "post_fee_desired (fee_affordable_target funding)",
+  "legacy_funding_convention": "pre_fee_account (original pre-fee targets)",
+  "provider_manifest_sha256": {
+    "coherent_provider": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f",
+    "intraday_provider": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+    "execution_mark_provider": "d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb"
+  },
+  "technical_amendments": [
+    {
+      "prior_plan_sha256": "50ddfa84b4ff41c4a9f504380bb3cb0e599dbfe56068e6a56ad9f40b59526734",
+      "reason": "Independent review found four missing raw CSV dates silently treated as HOLD. Bind complete already-frozen parent17 inference snapshot with exact overlap audit; correct execution-date benchmark alignment and complete previously promised reporting. No layer, fitted model, cost, window or promotion gate changed."
+    },
+    {
+      "prior_plan_sha256": "44bbe84f657ab253c0fcc1e41ecc98d6b6c2faf455d5d3dc6fdfb8fbf5b161ac",
+      "reason": "Cross-review: remove unverified assertion that parent17 legacy model objects are identical to release b472. Actual loaded objects and layer protocol unchanged; bind prepared snapshot identity explicitly."
+    }
+  ],
+  "diagnostic_reporting_addendum": {
+    "mechanism": "trace actual own-state caps/clocks and limiting conditions; descriptive grouped paired log wealth, not additive causal attribution",
+    "constraint_flags": "ordered local cap limiter flags can overlap; projection bounds evaluated after cap; not mutually exclusive causal contributions"
+  }
+}
