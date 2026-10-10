@@ -1,0 +1,104 @@
+{
+  "schema_version": "tsmc_yoy_acceleration_5session_information_v1",
+  "experiment": "tsmc_yoy_acceleration_5session_information_20261010",
+  "registered_at_utc": "2026-10-10T04:33:59.090187+00:00",
+  "registered_before_price_outcomes": true,
+  "models_trained": 0,
+  "strategy": false,
+  "orders": false,
+  "alpha": false,
+  "single_mechanism": "TSMC reported YoY acceleration (current yoy - previous consecutive yoy), fixed positive expected sign",
+  "horizon_sessions": 5,
+  "frozen_sources": {
+    "source_info_provider": {
+      "uri": "data/qlib/tsmc_monthly_revenue_20261010_v1",
+      "manifest_sha256": "329811ed6fa96ff989ce3cbbaa194cdc5c69f6936b8a77c15e0bef1724cb22c2",
+      "instrument": "TSMC_RELEASE",
+      "fields": [
+        "acceleration_pct_points",
+        "event_available"
+      ]
+    },
+    "parent_source_recorder": {
+      "id": "4d1dc18e75c7489d8251af1e737c1a0f",
+      "card": "research/tsmc_monthly_revenue_pit_qualification_20261010",
+      "objects": [
+        "events",
+        "all_source_versions",
+        "docs_manifest",
+        "calendar"
+      ],
+      "purpose": "events/cutoffs/version/pair clock; do not R.start/resume parent run"
+    },
+    "price_provider": {
+      "uri": "data/qlib/stage1_uniform_daily_marks_20261009",
+      "manifest_sha256": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f",
+      "fields": [
+        "$open"
+      ],
+      "assets": [
+        "SOXL",
+        "SOXX"
+      ],
+      "range": [
+        "2016-01-04",
+        "2026-09-25"
+      ]
+    }
+  },
+  "scope": {
+    "periods": 130,
+    "expected_usable_feature": 129,
+    "first_unknown": "2015-11 (no prior score / before price coverage)",
+    "windows": {
+      "development": [
+        "2016-01-04",
+        "2022-12-31"
+      ],
+      "outer": "2023-01-03..2026-09-25=reused_diagnostic"
+    }
+  },
+  "target": {
+    "definition": "SOXL 5-session compound return minus SOXX 5-session compound return from source-eligible US open t to the stock D.calendar session t+5 open",
+    "exit": "D.calendar position t+5 open (5 segments); label_available_at=exit 09:30 NY UTC",
+    "entry_proxy": "09:30 open historical mark (not real fills)",
+    "role": "label only, not profit"
+  },
+  "primary_stat": {
+    "name": "signed_time_series_spearman",
+    "definition": "Spearman(score, spread5d) over events in the window",
+    "expected_sign": "positive",
+    "not": "cross-sectional IC across the two assets"
+  },
+  "secondary": [
+    "SOXL label IC/Pearson",
+    "SOXX label IC/Pearson"
+  ],
+  "bootstrap": {
+    "blocks": 3,
+    "block_type": "consecutive publication periods",
+    "replicates": 2000,
+    "seed": 20261010,
+    "calendar": "full event calendar with masks; unknown retained then filtered inside the statistic"
+  },
+  "primary_gate": {
+    "scope": "development",
+    "min_valid_n": 40,
+    "primary_ic_gt": 0,
+    "ci95_lower_gt": 0
+  },
+  "stop_rule": "if gate fails -> end_fixed_monthly_information_route_no_parameter_search; no sign/horizon/threshold/year search",
+  "unknown_policy": "missing mark / unmatured / late factor / out-of-price-scope -> unknown, never 0-filled or dropped from the event calendar",
+  "caveats": [
+    "raw association only",
+    "not proven to beat price/volatility information",
+    "no economic alpha proven",
+    "not promotable",
+    "requires priced-vol control and 10/25bp economic/native + fresh forward before any promotion"
+  ],
+  "no_training": "no scaler/Ridge/SignalRecordModel fit",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

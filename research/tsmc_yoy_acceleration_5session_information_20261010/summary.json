@@ -1,0 +1,199 @@
+{
+  "experiment": "tsmc_yoy_acceleration_5session_information_20261010",
+  "schema_version": "tsmc_yoy_acceleration_5session_information_v1",
+  "card_status": "active_research",
+  "models_trained": 0,
+  "strategy": false,
+  "orders": false,
+  "alpha": false,
+  "decision": "end_fixed_monthly_information_route_no_parameter_search",
+  "promotion_eligible": false,
+  "plan_sha256": "11df7ed38ef350291dfaaafff4a39600c008957d31fd51f923155b767ff31985",
+  "single_mechanism": "TSMC reported YoY acceleration (current yoy - previous consecutive yoy), fixed positive expected sign",
+  "horizon_sessions": 5,
+  "primary_stat": {
+    "name": "signed_time_series_spearman",
+    "definition": "Spearman(score, spread5d) over events in the window",
+    "expected_sign": "positive",
+    "not": "cross-sectional IC across the two assets"
+  },
+  "windows": {
+    "development": [
+      "2016-01-04",
+      "2022-12-31"
+    ],
+    "outer_reused_diagnostic": [
+      "2023-01-03",
+      "2026-09-25"
+    ]
+  },
+  "frozen_sources": {
+    "source_manifest_sha256": "329811ed6fa96ff989ce3cbbaa194cdc5c69f6936b8a77c15e0bef1724cb22c2",
+    "price_manifest_sha256": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f",
+    "source_recorder": {
+      "recorder_id": "4d1dc18e75c7489d8251af1e737c1a0f",
+      "card": "research/tsmc_monthly_revenue_pit_qualification_20261010",
+      "events_object_sha256": "6a52c451ac1d7cf28e6340437bd17a1ccd8138ceeb57dba4a42276f0403b4b69"
+    },
+    "frozen_verified": {
+      "source_manifest_sha256": "329811ed6fa96ff989ce3cbbaa194cdc5c69f6936b8a77c15e0bef1724cb22c2",
+      "price_manifest_sha256": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f",
+      "parent_events_object_sha256": "6a52c451ac1d7cf28e6340437bd17a1ccd8138ceeb57dba4a42276f0403b4b69",
+      "checks": {
+        "source_manifest_matches_plan": true,
+        "price_manifest_matches_plan": true,
+        "source_manifest_matches_freeze": true,
+        "price_manifest_matches_freeze": true,
+        "parent_events_matches_freeze": true
+      },
+      "verified": true
+    }
+  },
+  "data_lineage": {
+    "source_provider_uri": "data/qlib/tsmc_monthly_revenue_20261010_v1",
+    "price_provider_uri": "data/qlib/stage1_uniform_daily_marks_20261009",
+    "source_as_of": "2026-10-10",
+    "source_manifest_sha256": "329811ed6fa96ff989ce3cbbaa194cdc5c69f6936b8a77c15e0bef1724cb22c2",
+    "price_manifest_sha256": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f",
+    "source_events_object_sha256": "6a52c451ac1d7cf28e6340437bd17a1ccd8138ceeb57dba4a42276f0403b4b69"
+  },
+  "per_window": {
+    "development": {
+      "events_in_window": 84,
+      "valid_n": 84,
+      "unknown": {},
+      "primary_ic": -0.09476945515335523,
+      "pearson": -0.12844335650972638,
+      "secondary_soxl_ic": -0.10028754842884441,
+      "secondary_soxx_ic": -0.10351740485981879,
+      "bootstrap": {
+        "point": -0.09476945515335523,
+        "ci_low": -0.3267771733589285,
+        "ci_high": 0.11720173354532991,
+        "valid_replicates": 2000,
+        "blocks": 82,
+        "block": 3,
+        "replicates": 2000,
+        "seed": 20261010,
+        "status": "ok"
+      },
+      "by_year": {
+        "2016": {
+          "n": 12,
+          "valid_n": 12,
+          "ic": 0.2377622377622378
+        },
+        "2017": {
+          "n": 12,
+          "valid_n": 12,
+          "ic": 0.3216783216783217
+        },
+        "2018": {
+          "n": 12,
+          "valid_n": 12,
+          "ic": 0.09090909090909093
+        },
+        "2019": {
+          "n": 12,
+          "valid_n": 12,
+          "ic": -0.5244755244755246
+        },
+        "2020": {
+          "n": 12,
+          "valid_n": 12,
+          "ic": -0.4125874125874127
+        },
+        "2021": {
+          "n": 12,
+          "valid_n": 12,
+          "ic": -0.3216783216783217
+        },
+        "2022": {
+          "n": 12,
+          "valid_n": 12,
+          "ic": 0.04895104895104895
+        }
+      }
+    },
+    "outer_reused_diagnostic": {
+      "events_in_window": 45,
+      "valid_n": 45,
+      "unknown": {},
+      "primary_ic": 0.08999571806636376,
+      "pearson": 0.061454102214748285,
+      "secondary_soxl_ic": 0.08887571279028161,
+      "secondary_soxx_ic": 0.09388279520100172,
+      "bootstrap": {
+        "point": 0.08999571806636376,
+        "ci_low": -0.18806876633289557,
+        "ci_high": 0.3870118414702069,
+        "valid_replicates": 2000,
+        "blocks": 43,
+        "block": 3,
+        "replicates": 2000,
+        "seed": 20261010,
+        "status": "ok"
+      },
+      "by_year": {
+        "2023": {
+          "n": 12,
+          "valid_n": 12,
+          "ic": 0.1258741258741259
+        },
+        "2024": {
+          "n": 12,
+          "valid_n": 12,
+          "ic": -0.16783216783216784
+        },
+        "2025": {
+          "n": 12,
+          "valid_n": 12,
+          "ic": 0.27272727272727276
+        },
+        "2026": {
+          "n": 9,
+          "valid_n": 9,
+          "ic": 0.016666666666666666
+        }
+      }
+    }
+  },
+  "primary_gate": {
+    "scope": "development",
+    "min_valid_n": 40,
+    "pass": false,
+    "valid_n": 84,
+    "primary_ic": -0.09476945515335523,
+    "ci95_lower": -0.3267771733589285
+  },
+  "caveats": [
+    "raw_association_only",
+    "not_proven_to_beat_price_or_volatility",
+    "no_economic_alpha",
+    "not_promotable",
+    "requires_priced_vol_control_and_10_25bp_and_fresh_forward",
+    "route_stopped_for_insufficient_evidence_not_proven_absence_of_information"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "observations",
+      "bootstrap_stats",
+      "source_snapshot"
+    ]
+  },
+  "recorder_id": "62851a0ab548440aa4961627c8b897b4",
+  "experiment_id": "938822120988822900",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/tsmc_yoy_acceleration_5session_information_20261010/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/tsmc_yoy_acceleration_5session_information_20261010/qlib_recorder/938822120988822900/62851a0ab548440aa4961627c8b897b4",
+  "saved_objects": [
+    "bootstrap_stats",
+    "observations",
+    "source_snapshot"
+  ]
+}

@@ -1,0 +1,44 @@
+schema_version: tsmc_yoy_acceleration_5session_information_v1
+experiment: tsmc_yoy_acceleration_5session_information_20261010
+models_trained: 0
+horizon_sessions: 5
+primary_stat:
+  name: signed_time_series_spearman
+  definition: Spearman(score, spread5d) over events in the window
+  expected_sign: positive
+  not: cross-sectional IC across the two assets
+windows:
+  development:
+  - '2016-01-04'
+  - '2022-12-31'
+  outer_reused_diagnostic:
+  - '2023-01-03'
+  - '2026-09-25'
+primary_gate:
+  scope: development
+  min_valid_n: 40
+  pass: false
+  valid_n: 84
+  primary_ic: -0.09476945515335523
+  ci95_lower: -0.3267771733589285
+frozen_sources:
+  source_manifest_sha256: 329811ed6fa96ff989ce3cbbaa194cdc5c69f6936b8a77c15e0bef1724cb22c2
+  price_manifest_sha256: 48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f
+  source_recorder:
+    recorder_id: 4d1dc18e75c7489d8251af1e737c1a0f
+    card: research/tsmc_monthly_revenue_pit_qualification_20261010
+    events_object_sha256: 6a52c451ac1d7cf28e6340437bd17a1ccd8138ceeb57dba4a42276f0403b4b69
+  frozen_verified:
+    source_manifest_sha256: 329811ed6fa96ff989ce3cbbaa194cdc5c69f6936b8a77c15e0bef1724cb22c2
+    price_manifest_sha256: 48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f
+    parent_events_object_sha256: 6a52c451ac1d7cf28e6340437bd17a1ccd8138ceeb57dba4a42276f0403b4b69
+    checks:
+      source_manifest_matches_plan: true
+      price_manifest_matches_plan: true
+      source_manifest_matches_freeze: true
+      price_manifest_matches_freeze: true
+      parent_events_matches_freeze: true
+    verified: true
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

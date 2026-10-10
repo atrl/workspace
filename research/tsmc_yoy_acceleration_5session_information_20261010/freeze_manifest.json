@@ -1,0 +1,12 @@
+{
+  "experiment": "tsmc_yoy_acceleration_5session_information_20261010",
+  "type": "technical_source_binding_amendment",
+  "note": "amendment binds the already-sealed source identities; it does NOT change the fixed hypothesis/horizon/sign",
+  "source_recorder_id": "4d1dc18e75c7489d8251af1e737c1a0f",
+  "source_card": "research/tsmc_monthly_revenue_pit_qualification_20261010",
+  "source_card_commit": "c55a5072",
+  "parent_events_object_sha256": "6a52c451ac1d7cf28e6340437bd17a1ccd8138ceeb57dba4a42276f0403b4b69",
+  "source_provider_manifest_sha256": "329811ed6fa96ff989ce3cbbaa194cdc5c69f6936b8a77c15e0bef1724cb22c2",
+  "price_provider_manifest_sha256": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f",
+  "score_join_tolerance": 1e-5
+}
