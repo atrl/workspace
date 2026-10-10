@@ -1,0 +1,2877 @@
+{
+  "experiment": "stage1_fixed_path_fee_drawdown_audit_20261010",
+  "schema_version": "stage1_fixed_path_fee_drawdown_audit_v2",
+  "status": "diagnostic",
+  "models_trained": 0,
+  "new_strategy": 0,
+  "orders": 0,
+  "promotion_eligible": false,
+  "scientific_promotion": false,
+  "step_b_authorized": false,
+  "plan_sha256": "955ade829af4f545ecccadc6597db9bc21d3fdbc758348783101985af4deba84",
+  "plan_full_sha256": "955ade829af4f545ecccadc6597db9bc21d3fdbc758348783101985af4deba84",
+  "emergency_threshold": 0.22,
+  "source_binding": {
+    "parent_card": "research/stage1_uniform_layer_attribution_20261010",
+    "parent_commit": "c0672b77",
+    "recorder_id": "6c6fac4f2d974545a4ca8ed8b149a17c",
+    "summary_sha256": "90ae79b7e16a6f3ba68aa75f8b044b8a92e5578a86246f6947a7974c72aab20f",
+    "artifact_manifest_sha256": "806e41ee64eadce742f00c1e2002867667142e58bfa25cb002ca9941e8061f35",
+    "frozen_replay_sha256": {
+      "development_walk_forward::10": "865d39cdddaad69d6d94e7907c006d1a92820940d5ec1aa76c75d9649409c1c7",
+      "development_walk_forward::25": "3b5f2bbe1815625e190e47059a8da380b9e64056c9e07541e1c7f754321a56ee",
+      "outer_reused_diagnostic::10": "35804aba75799d913b9b453381b83051fe537221fbf64ee4360f2d804b3306be",
+      "outer_reused_diagnostic::25": "51fae60de1dd86a615da739e2bed4b513099eb7789c2b40a15f66373765c277d"
+    },
+    "provider_manifest_sha256": {
+      "intraday_provider": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+      "execution_mark_provider": "d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb",
+      "coherent_provider": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f"
+    },
+    "source_qa_file": "source_qa.json",
+    "source_qa_sha256": "62321d2005376dced0d1474048213ea15651628c11545cb7d16b989eb1f99065",
+    "funding_convention": "pre_fee_account"
+  },
+  "source_native_qa": {
+    "status": "recorded",
+    "file": "source_qa.json",
+    "sha256": "62321d2005376dced0d1474048213ea15651628c11545cb7d16b989eb1f99065",
+    "recorder_id": "6c6fac4f2d974545a4ca8ed8b149a17c",
+    "checks_count": 20,
+    "all_passed": true,
+    "max_ending_weight_error": 7.258868006676522e-09,
+    "max_return_error": 9.175971316111031e-09,
+    "cash_weight_method": "1 - actual native SOXL weight - actual native SOXX weight; native_NAV already includes actual cash",
+    "not_relying_on_default_zero": true,
+    "checks": [
+      {
+        "case": "raw_allocator_only::development_walk_forward::10",
+        "sessions": 1756,
+        "maximum_ending_weight_error": 5.2051141175013527e-11,
+        "maximum_return_error": 6.660227924726314e-13,
+        "passed": true
+      },
+      {
+        "case": "raw_allocator_only::development_walk_forward::25",
+        "sessions": 1756,
+        "maximum_ending_weight_error": 5.204947584047659e-11,
+        "maximum_return_error": 6.353806369929771e-13,
+        "passed": true
+      },
+      {
+        "case": "raw_allocator_only::outer_reused_diagnostic::10",
+        "sessions": 934,
+        "maximum_ending_weight_error": 3.885780586188048e-16,
+        "maximum_return_error": 5.551115123125783e-16,
+        "passed": true
+      },
+      {
+        "case": "raw_allocator_only::outer_reused_diagnostic::25",
+        "sessions": 934,
+        "maximum_ending_weight_error": 3.885780586188048e-16,
+        "maximum_return_error": 5.551115123125783e-16,
+        "passed": true
+      },
+      {
+        "case": "open_risk_projection_nohold_no_recovery::development_walk_forward::10",
+        "sessions": 1756,
+        "maximum_ending_weight_error": 5.887246246061295e-11,
+        "maximum_return_error": 6.182165890322722e-12,
+        "passed": true
+      },
+      {
+        "case": "open_risk_projection_nohold_no_recovery::development_walk_forward::25",
+        "sessions": 1756,
+        "maximum_ending_weight_error": 6.519151884987195e-11,
+        "maximum_return_error": 6.052380818744041e-12,
+        "passed": true
+      },
+      {
+        "case": "open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::10",
+        "sessions": 934,
+        "maximum_ending_weight_error": 2.7755575615628914e-16,
+        "maximum_return_error": 5.551115123125783e-16,
+        "passed": true
+      },
+      {
+        "case": "open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::25",
+        "sessions": 934,
+        "maximum_ending_weight_error": 3.3306690738754696e-16,
+        "maximum_return_error": 5.551115123125783e-16,
+        "passed": true
+      },
+      {
+        "case": "open_risk_projection_withhold_no_recovery::development_walk_forward::10",
+        "sessions": 1756,
+        "maximum_ending_weight_error": 5.887246246061295e-11,
+        "maximum_return_error": 6.181832823415334e-12,
+        "passed": true
+      },
+      {
+        "case": "open_risk_projection_withhold_no_recovery::development_walk_forward::25",
+        "sessions": 1756,
+        "maximum_ending_weight_error": 6.519151884987195e-11,
+        "maximum_return_error": 6.052380818744041e-12,
+        "passed": true
+      },
+      {
+        "case": "open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::10",
+        "sessions": 934,
+        "maximum_ending_weight_error": 3.0531133177191805e-16,
+        "maximum_return_error": 6.661338147750939e-16,
+        "passed": true
+      },
+      {
+        "case": "open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::25",
+        "sessions": 934,
+        "maximum_ending_weight_error": 2.7755575615628914e-16,
+        "maximum_return_error": 4.440892098500626e-16,
+        "passed": true
+      },
+      {
+        "case": "full_withhold_and_recovery::development_walk_forward::10",
+        "sessions": 1756,
+        "maximum_ending_weight_error": 7.25480170382653e-09,
+        "maximum_return_error": 9.175936233063453e-09,
+        "passed": true
+      },
+      {
+        "case": "full_withhold_and_recovery::development_walk_forward::25",
+        "sessions": 1756,
+        "maximum_ending_weight_error": 7.258867951165371e-09,
+        "maximum_return_error": 9.169852654977717e-09,
+        "passed": true
+      },
+      {
+        "case": "full_withhold_and_recovery::outer_reused_diagnostic::10",
+        "sessions": 934,
+        "maximum_ending_weight_error": 3.0531133177191805e-16,
+        "maximum_return_error": 6.661338147750939e-16,
+        "passed": true
+      },
+      {
+        "case": "full_withhold_and_recovery::outer_reused_diagnostic::25",
+        "sessions": 934,
+        "maximum_ending_weight_error": 2.7755575615628914e-16,
+        "maximum_return_error": 4.440892098500626e-16,
+        "passed": true
+      },
+      {
+        "case": "nohold_with_recovery_reference::development_walk_forward::10",
+        "sessions": 1756,
+        "maximum_ending_weight_error": 7.254801648315379e-09,
+        "maximum_return_error": 9.175971316111031e-09,
+        "passed": true
+      },
+      {
+        "case": "nohold_with_recovery_reference::development_walk_forward::25",
+        "sessions": 1756,
+        "maximum_ending_weight_error": 7.258868006676522e-09,
+        "maximum_return_error": 9.169940584641267e-09,
+        "passed": true
+      },
+      {
+        "case": "nohold_with_recovery_reference::outer_reused_diagnostic::10",
+        "sessions": 934,
+        "maximum_ending_weight_error": 2.7755575615628914e-16,
+        "maximum_return_error": 5.551115123125783e-16,
+        "passed": true
+      },
+      {
+        "case": "nohold_with_recovery_reference::outer_reused_diagnostic::25",
+        "sessions": 934,
+        "maximum_ending_weight_error": 3.3306690738754696e-16,
+        "maximum_return_error": 5.551115123125783e-16,
+        "passed": true
+      }
+    ]
+  },
+  "native_coverage": {
+    "by_origin": {
+      "development_walk_forward::10::0": true,
+      "development_walk_forward::10::10": true,
+      "development_walk_forward::10::25": true,
+      "development_walk_forward::25::0": true,
+      "development_walk_forward::25::10": true,
+      "development_walk_forward::25::25": true,
+      "outer_reused_diagnostic::10::0": true,
+      "outer_reused_diagnostic::10::10": true,
+      "outer_reused_diagnostic::10::25": true,
+      "outer_reused_diagnostic::25::0": true,
+      "outer_reused_diagnostic::25::10": true,
+      "outer_reused_diagnostic::25::25": true
+    },
+    "passed_count": 12,
+    "case_count": 12,
+    "inherited_expected": 4,
+    "recomputed_expected": 8,
+    "inherited_passed": 4,
+    "recomputed_passed": 8
+  },
+  "fixed0_vs_source": {
+    "development_walk_forward::10": {
+      "actual_emergency_days": 484,
+      "fixed0_emergency_days": 324,
+      "fixed0_and_actual_days": 324,
+      "fixed0_share_of_actual": 0.6694214876033058,
+      "fixed0_only_days": 0,
+      "actual_only_days": 160,
+      "fixed0_and_actual_episodes": [
+        {
+          "start": "2018-11-20",
+          "end": "2018-11-20",
+          "days": 1
+        },
+        {
+          "start": "2018-11-23",
+          "end": "2018-11-23",
+          "days": 1
+        },
+        {
+          "start": "2018-12-06",
+          "end": "2019-03-19",
+          "days": 70
+        },
+        {
+          "start": "2019-03-21",
+          "end": "2019-03-21",
+          "days": 1
+        },
+        {
+          "start": "2019-03-25",
+          "end": "2019-03-29",
+          "days": 5
+        },
+        {
+          "start": "2019-04-26",
+          "end": "2019-04-26",
+          "days": 1
+        },
+        {
+          "start": "2019-05-06",
+          "end": "2019-06-28",
+          "days": 39
+        },
+        {
+          "start": "2019-07-02",
+          "end": "2019-07-18",
+          "days": 12
+        },
+        {
+          "start": "2019-08-02",
+          "end": "2019-08-29",
+          "days": 20
+        },
+        {
+          "start": "2019-09-03",
+          "end": "2019-09-04",
+          "days": 2
+        },
+        {
+          "start": "2019-10-23",
+          "end": "2019-10-23",
+          "days": 1
+        },
+        {
+          "start": "2020-03-09",
+          "end": "2020-04-06",
+          "days": 21
+        },
+        {
+          "start": "2020-04-08",
+          "end": "2020-04-08",
+          "days": 1
+        },
+        {
+          "start": "2020-04-13",
+          "end": "2020-04-13",
+          "days": 1
+        },
+        {
+          "start": "2020-05-14",
+          "end": "2020-05-15",
+          "days": 2
+        },
+        {
+          "start": "2022-03-15",
+          "end": "2022-03-16",
+          "days": 2
+        },
+        {
+          "start": "2022-04-25",
+          "end": "2022-04-25",
+          "days": 1
+        },
+        {
+          "start": "2022-04-27",
+          "end": "2022-04-28",
+          "days": 2
+        },
+        {
+          "start": "2022-05-02",
+          "end": "2022-05-02",
+          "days": 1
+        },
+        {
+          "start": "2022-05-10",
+          "end": "2022-05-13",
+          "days": 4
+        },
+        {
+          "start": "2022-05-19",
+          "end": "2022-05-26",
+          "days": 6
+        },
+        {
+          "start": "2022-06-02",
+          "end": "2022-06-02",
+          "days": 1
+        },
+        {
+          "start": "2022-06-07",
+          "end": "2022-07-29",
+          "days": 37
+        },
+        {
+          "start": "2022-08-02",
+          "end": "2022-08-02",
+          "days": 1
+        },
+        {
+          "start": "2022-08-09",
+          "end": "2022-08-09",
+          "days": 1
+        },
+        {
+          "start": "2022-08-17",
+          "end": "2022-12-22",
+          "days": 90
+        }
+      ]
+    },
+    "development_walk_forward::25": {
+      "actual_emergency_days": 469,
+      "fixed0_emergency_days": 150,
+      "fixed0_and_actual_days": 150,
+      "fixed0_share_of_actual": 0.31982942430703626,
+      "fixed0_only_days": 0,
+      "actual_only_days": 319,
+      "fixed0_and_actual_episodes": [
+        {
+          "start": "2018-10-23",
+          "end": "2018-11-01",
+          "days": 8
+        },
+        {
+          "start": "2018-11-05",
+          "end": "2018-11-06",
+          "days": 2
+        },
+        {
+          "start": "2018-11-08",
+          "end": "2018-11-30",
+          "days": 16
+        },
+        {
+          "start": "2018-12-06",
+          "end": "2019-01-24",
+          "days": 33
+        },
+        {
+          "start": "2019-01-28",
+          "end": "2019-01-28",
+          "days": 1
+        },
+        {
+          "start": "2019-05-09",
+          "end": "2019-06-28",
+          "days": 36
+        },
+        {
+          "start": "2019-07-03",
+          "end": "2019-07-12",
+          "days": 7
+        },
+        {
+          "start": "2019-08-02",
+          "end": "2019-08-16",
+          "days": 11
+        },
+        {
+          "start": "2019-08-26",
+          "end": "2019-08-28",
+          "days": 3
+        },
+        {
+          "start": "2020-03-12",
+          "end": "2020-03-30",
+          "days": 13
+        },
+        {
+          "start": "2020-04-01",
+          "end": "2020-04-03",
+          "days": 3
+        },
+        {
+          "start": "2022-09-30",
+          "end": "2022-10-03",
+          "days": 2
+        },
+        {
+          "start": "2022-10-10",
+          "end": "2022-10-26",
+          "days": 13
+        },
+        {
+          "start": "2022-10-28",
+          "end": "2022-10-28",
+          "days": 1
+        },
+        {
+          "start": "2022-11-03",
+          "end": "2022-11-03",
+          "days": 1
+        }
+      ]
+    },
+    "outer_reused_diagnostic::10": {
+      "actual_emergency_days": 47,
+      "fixed0_emergency_days": 46,
+      "fixed0_and_actual_days": 46,
+      "fixed0_share_of_actual": 0.9787234042553191,
+      "fixed0_only_days": 0,
+      "actual_only_days": 1,
+      "fixed0_and_actual_episodes": [
+        {
+          "start": "2025-04-07",
+          "end": "2025-04-07",
+          "days": 1
+        },
+        {
+          "start": "2025-04-09",
+          "end": "2025-04-09",
+          "days": 1
+        },
+        {
+          "start": "2025-04-21",
+          "end": "2025-04-22",
+          "days": 2
+        },
+        {
+          "start": "2026-07-28",
+          "end": "2026-09-24",
+          "days": 42
+        }
+      ]
+    },
+    "outer_reused_diagnostic::25": {
+      "actual_emergency_days": 446,
+      "fixed0_emergency_days": 304,
+      "fixed0_and_actual_days": 304,
+      "fixed0_share_of_actual": 0.6816143497757847,
+      "fixed0_only_days": 0,
+      "actual_only_days": 142,
+      "fixed0_and_actual_episodes": [
+        {
+          "start": "2024-08-02",
+          "end": "2025-07-29",
+          "days": 247
+        },
+        {
+          "start": "2025-07-31",
+          "end": "2025-08-12",
+          "days": 9
+        },
+        {
+          "start": "2025-08-20",
+          "end": "2025-08-22",
+          "days": 3
+        },
+        {
+          "start": "2025-09-02",
+          "end": "2025-09-04",
+          "days": 3
+        },
+        {
+          "start": "2026-07-28",
+          "end": "2026-09-24",
+          "days": 42
+        }
+      ]
+    }
+  },
+  "cases": {
+    "development_walk_forward::10::0": {
+      "window": "development_walk_forward",
+      "base_controller_cost_bps": 10.0,
+      "settlement_cost_bps": 0.0,
+      "origin_stage": "recomputed_settlement",
+      "parity": {
+        "status": "counterfactual"
+      },
+      "native": {
+        "origin": "recomputed_settlement",
+        "boundary": "2018-12-31",
+        "expected_prefix_sessions": 752,
+        "expected_suffix_sessions": 1004,
+        "all_stages_passed": true,
+        "present_all_stages": true,
+        "stages": {
+          "prefix": {
+            "expected": 752,
+            "present": true,
+            "status": "passed",
+            "sessions": 752
+          },
+          "suffix": {
+            "expected": 1004,
+            "present": true,
+            "status": "passed",
+            "sessions": 1004
+          }
+        },
+        "risk_status": "confirmed"
+      },
+      "true_max_drawdown": -0.2907940747210783,
+      "emergency_days": 324,
+      "emergency_share": 0.1845102505694761,
+      "emergency_longest_days": 90,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 484,
+        "hypothetical_emergency_days": 324,
+        "actual_and_hypothetical": 324,
+        "actual_and_hypothetical_share": 0.6694214876033058,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2018-11-20",
+            "end": "2018-11-20",
+            "days": 1
+          },
+          {
+            "start": "2018-11-23",
+            "end": "2018-11-23",
+            "days": 1
+          },
+          {
+            "start": "2018-12-06",
+            "end": "2019-03-19",
+            "days": 70
+          },
+          {
+            "start": "2019-03-21",
+            "end": "2019-03-21",
+            "days": 1
+          },
+          {
+            "start": "2019-03-25",
+            "end": "2019-03-29",
+            "days": 5
+          },
+          {
+            "start": "2019-04-26",
+            "end": "2019-04-26",
+            "days": 1
+          },
+          {
+            "start": "2019-05-06",
+            "end": "2019-06-28",
+            "days": 39
+          },
+          {
+            "start": "2019-07-02",
+            "end": "2019-07-18",
+            "days": 12
+          },
+          {
+            "start": "2019-08-02",
+            "end": "2019-08-29",
+            "days": 20
+          },
+          {
+            "start": "2019-09-03",
+            "end": "2019-09-04",
+            "days": 2
+          },
+          {
+            "start": "2019-10-23",
+            "end": "2019-10-23",
+            "days": 1
+          },
+          {
+            "start": "2020-03-09",
+            "end": "2020-04-06",
+            "days": 21
+          },
+          {
+            "start": "2020-04-08",
+            "end": "2020-04-08",
+            "days": 1
+          },
+          {
+            "start": "2020-04-13",
+            "end": "2020-04-13",
+            "days": 1
+          },
+          {
+            "start": "2020-05-14",
+            "end": "2020-05-15",
+            "days": 2
+          },
+          {
+            "start": "2022-03-15",
+            "end": "2022-03-16",
+            "days": 2
+          },
+          {
+            "start": "2022-04-25",
+            "end": "2022-04-25",
+            "days": 1
+          },
+          {
+            "start": "2022-04-27",
+            "end": "2022-04-28",
+            "days": 2
+          },
+          {
+            "start": "2022-05-02",
+            "end": "2022-05-02",
+            "days": 1
+          },
+          {
+            "start": "2022-05-10",
+            "end": "2022-05-13",
+            "days": 4
+          },
+          {
+            "start": "2022-05-19",
+            "end": "2022-05-26",
+            "days": 6
+          },
+          {
+            "start": "2022-06-02",
+            "end": "2022-06-02",
+            "days": 1
+          },
+          {
+            "start": "2022-06-07",
+            "end": "2022-07-29",
+            "days": 37
+          },
+          {
+            "start": "2022-08-02",
+            "end": "2022-08-02",
+            "days": 1
+          },
+          {
+            "start": "2022-08-09",
+            "end": "2022-08-09",
+            "days": 1
+          },
+          {
+            "start": "2022-08-17",
+            "end": "2022-12-22",
+            "days": 90
+          }
+        ],
+        "actual_dd_before_matches_source": false,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 484,
+        "fixed0_emergency_days": 324,
+        "fixed0_and_actual_days": 324,
+        "fixed0_share_of_actual": 0.6694214876033058,
+        "fixed0_only_days": 0,
+        "actual_only_days": 160,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2018-11-20",
+            "end": "2018-11-20",
+            "days": 1
+          },
+          {
+            "start": "2018-11-23",
+            "end": "2018-11-23",
+            "days": 1
+          },
+          {
+            "start": "2018-12-06",
+            "end": "2019-03-19",
+            "days": 70
+          },
+          {
+            "start": "2019-03-21",
+            "end": "2019-03-21",
+            "days": 1
+          },
+          {
+            "start": "2019-03-25",
+            "end": "2019-03-29",
+            "days": 5
+          },
+          {
+            "start": "2019-04-26",
+            "end": "2019-04-26",
+            "days": 1
+          },
+          {
+            "start": "2019-05-06",
+            "end": "2019-06-28",
+            "days": 39
+          },
+          {
+            "start": "2019-07-02",
+            "end": "2019-07-18",
+            "days": 12
+          },
+          {
+            "start": "2019-08-02",
+            "end": "2019-08-29",
+            "days": 20
+          },
+          {
+            "start": "2019-09-03",
+            "end": "2019-09-04",
+            "days": 2
+          },
+          {
+            "start": "2019-10-23",
+            "end": "2019-10-23",
+            "days": 1
+          },
+          {
+            "start": "2020-03-09",
+            "end": "2020-04-06",
+            "days": 21
+          },
+          {
+            "start": "2020-04-08",
+            "end": "2020-04-08",
+            "days": 1
+          },
+          {
+            "start": "2020-04-13",
+            "end": "2020-04-13",
+            "days": 1
+          },
+          {
+            "start": "2020-05-14",
+            "end": "2020-05-15",
+            "days": 2
+          },
+          {
+            "start": "2022-03-15",
+            "end": "2022-03-16",
+            "days": 2
+          },
+          {
+            "start": "2022-04-25",
+            "end": "2022-04-25",
+            "days": 1
+          },
+          {
+            "start": "2022-04-27",
+            "end": "2022-04-28",
+            "days": 2
+          },
+          {
+            "start": "2022-05-02",
+            "end": "2022-05-02",
+            "days": 1
+          },
+          {
+            "start": "2022-05-10",
+            "end": "2022-05-13",
+            "days": 4
+          },
+          {
+            "start": "2022-05-19",
+            "end": "2022-05-26",
+            "days": 6
+          },
+          {
+            "start": "2022-06-02",
+            "end": "2022-06-02",
+            "days": 1
+          },
+          {
+            "start": "2022-06-07",
+            "end": "2022-07-29",
+            "days": 37
+          },
+          {
+            "start": "2022-08-02",
+            "end": "2022-08-02",
+            "days": 1
+          },
+          {
+            "start": "2022-08-09",
+            "end": "2022-08-09",
+            "days": 1
+          },
+          {
+            "start": "2022-08-17",
+            "end": "2022-12-22",
+            "days": 90
+          }
+        ]
+      }
+    },
+    "development_walk_forward::10::10": {
+      "window": "development_walk_forward",
+      "base_controller_cost_bps": 10.0,
+      "settlement_cost_bps": 10.0,
+      "origin_stage": "source_inherited",
+      "parity": {
+        "status": "passed",
+        "signal_date": true,
+        "trade_date": true,
+        "exit_date": true,
+        "strategy_return": true,
+        "fees": true,
+        "ending_weights": true
+      },
+      "native": {
+        "origin": "source_inherited",
+        "parent_all_stages_passed": true,
+        "prefix": {
+          "status": "passed",
+          "passed": true,
+          "sessions": 752,
+          "sessions_expected": 752,
+          "stage_status_read": "passed",
+          "dates_exact": true,
+          "object_sha_ok": true,
+          "maximum_return_error": 6.182165890322722e-12,
+          "maximum_ending_weight_error": 5.887246246061295e-11,
+          "tolerance": 1e-07
+        },
+        "suffix": {
+          "status": "passed",
+          "passed": true,
+          "sessions": 1004,
+          "sessions_expected": 1004,
+          "stage_status_read": "passed",
+          "dates_exact": true,
+          "object_sha_ok": true,
+          "maximum_return_error": 6.661338147750939e-16,
+          "maximum_ending_weight_error": 4.718447854656915e-16,
+          "tolerance": 1e-07
+        },
+        "full_calendar_exact": true,
+        "total_sessions_expected": 1756,
+        "all_stages_passed": true
+      },
+      "true_max_drawdown": -0.2993061808301364,
+      "emergency_days": 484,
+      "emergency_share": 0.275626423690205,
+      "emergency_longest_days": 96,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 484,
+        "hypothetical_emergency_days": 484,
+        "actual_and_hypothetical": 484,
+        "actual_and_hypothetical_share": 1.0,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2018-10-25",
+            "end": "2018-11-01",
+            "days": 6
+          },
+          {
+            "start": "2018-11-12",
+            "end": "2018-11-30",
+            "days": 14
+          },
+          {
+            "start": "2018-12-06",
+            "end": "2019-04-16",
+            "days": 90
+          },
+          {
+            "start": "2019-04-26",
+            "end": "2019-09-11",
+            "days": 96
+          },
+          {
+            "start": "2019-09-13",
+            "end": "2019-10-16",
+            "days": 24
+          },
+          {
+            "start": "2019-10-18",
+            "end": "2019-11-01",
+            "days": 11
+          },
+          {
+            "start": "2019-11-20",
+            "end": "2019-12-12",
+            "days": 16
+          },
+          {
+            "start": "2020-02-28",
+            "end": "2020-02-28",
+            "days": 1
+          },
+          {
+            "start": "2020-03-06",
+            "end": "2020-05-11",
+            "days": 46
+          },
+          {
+            "start": "2020-05-13",
+            "end": "2020-06-02",
+            "days": 14
+          },
+          {
+            "start": "2022-03-15",
+            "end": "2022-03-17",
+            "days": 3
+          },
+          {
+            "start": "2022-04-18",
+            "end": "2022-04-18",
+            "days": 1
+          },
+          {
+            "start": "2022-04-22",
+            "end": "2022-05-03",
+            "days": 8
+          },
+          {
+            "start": "2022-05-06",
+            "end": "2022-05-16",
+            "days": 7
+          },
+          {
+            "start": "2022-05-19",
+            "end": "2022-05-27",
+            "days": 7
+          },
+          {
+            "start": "2022-06-02",
+            "end": "2022-08-12",
+            "days": 50
+          },
+          {
+            "start": "2022-08-17",
+            "end": "2022-12-22",
+            "days": 90
+          }
+        ],
+        "actual_dd_before_matches_source": true,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 484,
+        "fixed0_emergency_days": 324,
+        "fixed0_and_actual_days": 324,
+        "fixed0_share_of_actual": 0.6694214876033058,
+        "fixed0_only_days": 0,
+        "actual_only_days": 160,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2018-11-20",
+            "end": "2018-11-20",
+            "days": 1
+          },
+          {
+            "start": "2018-11-23",
+            "end": "2018-11-23",
+            "days": 1
+          },
+          {
+            "start": "2018-12-06",
+            "end": "2019-03-19",
+            "days": 70
+          },
+          {
+            "start": "2019-03-21",
+            "end": "2019-03-21",
+            "days": 1
+          },
+          {
+            "start": "2019-03-25",
+            "end": "2019-03-29",
+            "days": 5
+          },
+          {
+            "start": "2019-04-26",
+            "end": "2019-04-26",
+            "days": 1
+          },
+          {
+            "start": "2019-05-06",
+            "end": "2019-06-28",
+            "days": 39
+          },
+          {
+            "start": "2019-07-02",
+            "end": "2019-07-18",
+            "days": 12
+          },
+          {
+            "start": "2019-08-02",
+            "end": "2019-08-29",
+            "days": 20
+          },
+          {
+            "start": "2019-09-03",
+            "end": "2019-09-04",
+            "days": 2
+          },
+          {
+            "start": "2019-10-23",
+            "end": "2019-10-23",
+            "days": 1
+          },
+          {
+            "start": "2020-03-09",
+            "end": "2020-04-06",
+            "days": 21
+          },
+          {
+            "start": "2020-04-08",
+            "end": "2020-04-08",
+            "days": 1
+          },
+          {
+            "start": "2020-04-13",
+            "end": "2020-04-13",
+            "days": 1
+          },
+          {
+            "start": "2020-05-14",
+            "end": "2020-05-15",
+            "days": 2
+          },
+          {
+            "start": "2022-03-15",
+            "end": "2022-03-16",
+            "days": 2
+          },
+          {
+            "start": "2022-04-25",
+            "end": "2022-04-25",
+            "days": 1
+          },
+          {
+            "start": "2022-04-27",
+            "end": "2022-04-28",
+            "days": 2
+          },
+          {
+            "start": "2022-05-02",
+            "end": "2022-05-02",
+            "days": 1
+          },
+          {
+            "start": "2022-05-10",
+            "end": "2022-05-13",
+            "days": 4
+          },
+          {
+            "start": "2022-05-19",
+            "end": "2022-05-26",
+            "days": 6
+          },
+          {
+            "start": "2022-06-02",
+            "end": "2022-06-02",
+            "days": 1
+          },
+          {
+            "start": "2022-06-07",
+            "end": "2022-07-29",
+            "days": 37
+          },
+          {
+            "start": "2022-08-02",
+            "end": "2022-08-02",
+            "days": 1
+          },
+          {
+            "start": "2022-08-09",
+            "end": "2022-08-09",
+            "days": 1
+          },
+          {
+            "start": "2022-08-17",
+            "end": "2022-12-22",
+            "days": 90
+          }
+        ]
+      }
+    },
+    "development_walk_forward::10::25": {
+      "window": "development_walk_forward",
+      "base_controller_cost_bps": 10.0,
+      "settlement_cost_bps": 25.0,
+      "origin_stage": "recomputed_settlement",
+      "parity": {
+        "status": "counterfactual"
+      },
+      "native": {
+        "origin": "recomputed_settlement",
+        "boundary": "2018-12-31",
+        "expected_prefix_sessions": 752,
+        "expected_suffix_sessions": 1004,
+        "all_stages_passed": true,
+        "present_all_stages": true,
+        "stages": {
+          "prefix": {
+            "expected": 752,
+            "present": true,
+            "status": "passed",
+            "sessions": 752
+          },
+          "suffix": {
+            "expected": 1004,
+            "present": true,
+            "status": "passed",
+            "sessions": 1004
+          }
+        },
+        "risk_status": "confirmed"
+      },
+      "true_max_drawdown": -0.32423379890535575,
+      "emergency_days": 593,
+      "emergency_share": 0.3376993166287016,
+      "emergency_longest_days": 173,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 484,
+        "hypothetical_emergency_days": 593,
+        "actual_and_hypothetical": 484,
+        "actual_and_hypothetical_share": 1.0,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2018-10-25",
+            "end": "2018-11-01",
+            "days": 6
+          },
+          {
+            "start": "2018-11-12",
+            "end": "2018-11-30",
+            "days": 14
+          },
+          {
+            "start": "2018-12-06",
+            "end": "2019-04-16",
+            "days": 90
+          },
+          {
+            "start": "2019-04-26",
+            "end": "2019-09-11",
+            "days": 96
+          },
+          {
+            "start": "2019-09-13",
+            "end": "2019-10-16",
+            "days": 24
+          },
+          {
+            "start": "2019-10-18",
+            "end": "2019-11-01",
+            "days": 11
+          },
+          {
+            "start": "2019-11-20",
+            "end": "2019-12-12",
+            "days": 16
+          },
+          {
+            "start": "2020-02-28",
+            "end": "2020-02-28",
+            "days": 1
+          },
+          {
+            "start": "2020-03-06",
+            "end": "2020-05-11",
+            "days": 46
+          },
+          {
+            "start": "2020-05-13",
+            "end": "2020-06-02",
+            "days": 14
+          },
+          {
+            "start": "2022-03-15",
+            "end": "2022-03-17",
+            "days": 3
+          },
+          {
+            "start": "2022-04-18",
+            "end": "2022-04-18",
+            "days": 1
+          },
+          {
+            "start": "2022-04-22",
+            "end": "2022-05-03",
+            "days": 8
+          },
+          {
+            "start": "2022-05-06",
+            "end": "2022-05-16",
+            "days": 7
+          },
+          {
+            "start": "2022-05-19",
+            "end": "2022-05-27",
+            "days": 7
+          },
+          {
+            "start": "2022-06-02",
+            "end": "2022-08-12",
+            "days": 50
+          },
+          {
+            "start": "2022-08-17",
+            "end": "2022-12-22",
+            "days": 90
+          }
+        ],
+        "actual_dd_before_matches_source": false,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 484,
+        "fixed0_emergency_days": 324,
+        "fixed0_and_actual_days": 324,
+        "fixed0_share_of_actual": 0.6694214876033058,
+        "fixed0_only_days": 0,
+        "actual_only_days": 160,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2018-11-20",
+            "end": "2018-11-20",
+            "days": 1
+          },
+          {
+            "start": "2018-11-23",
+            "end": "2018-11-23",
+            "days": 1
+          },
+          {
+            "start": "2018-12-06",
+            "end": "2019-03-19",
+            "days": 70
+          },
+          {
+            "start": "2019-03-21",
+            "end": "2019-03-21",
+            "days": 1
+          },
+          {
+            "start": "2019-03-25",
+            "end": "2019-03-29",
+            "days": 5
+          },
+          {
+            "start": "2019-04-26",
+            "end": "2019-04-26",
+            "days": 1
+          },
+          {
+            "start": "2019-05-06",
+            "end": "2019-06-28",
+            "days": 39
+          },
+          {
+            "start": "2019-07-02",
+            "end": "2019-07-18",
+            "days": 12
+          },
+          {
+            "start": "2019-08-02",
+            "end": "2019-08-29",
+            "days": 20
+          },
+          {
+            "start": "2019-09-03",
+            "end": "2019-09-04",
+            "days": 2
+          },
+          {
+            "start": "2019-10-23",
+            "end": "2019-10-23",
+            "days": 1
+          },
+          {
+            "start": "2020-03-09",
+            "end": "2020-04-06",
+            "days": 21
+          },
+          {
+            "start": "2020-04-08",
+            "end": "2020-04-08",
+            "days": 1
+          },
+          {
+            "start": "2020-04-13",
+            "end": "2020-04-13",
+            "days": 1
+          },
+          {
+            "start": "2020-05-14",
+            "end": "2020-05-15",
+            "days": 2
+          },
+          {
+            "start": "2022-03-15",
+            "end": "2022-03-16",
+            "days": 2
+          },
+          {
+            "start": "2022-04-25",
+            "end": "2022-04-25",
+            "days": 1
+          },
+          {
+            "start": "2022-04-27",
+            "end": "2022-04-28",
+            "days": 2
+          },
+          {
+            "start": "2022-05-02",
+            "end": "2022-05-02",
+            "days": 1
+          },
+          {
+            "start": "2022-05-10",
+            "end": "2022-05-13",
+            "days": 4
+          },
+          {
+            "start": "2022-05-19",
+            "end": "2022-05-26",
+            "days": 6
+          },
+          {
+            "start": "2022-06-02",
+            "end": "2022-06-02",
+            "days": 1
+          },
+          {
+            "start": "2022-06-07",
+            "end": "2022-07-29",
+            "days": 37
+          },
+          {
+            "start": "2022-08-02",
+            "end": "2022-08-02",
+            "days": 1
+          },
+          {
+            "start": "2022-08-09",
+            "end": "2022-08-09",
+            "days": 1
+          },
+          {
+            "start": "2022-08-17",
+            "end": "2022-12-22",
+            "days": 90
+          }
+        ]
+      }
+    },
+    "development_walk_forward::25::0": {
+      "window": "development_walk_forward",
+      "base_controller_cost_bps": 25.0,
+      "settlement_cost_bps": 0.0,
+      "origin_stage": "recomputed_settlement",
+      "parity": {
+        "status": "counterfactual"
+      },
+      "native": {
+        "origin": "recomputed_settlement",
+        "boundary": "2018-12-31",
+        "expected_prefix_sessions": 752,
+        "expected_suffix_sessions": 1004,
+        "all_stages_passed": true,
+        "present_all_stages": true,
+        "stages": {
+          "prefix": {
+            "expected": 752,
+            "present": true,
+            "status": "passed",
+            "sessions": 752
+          },
+          "suffix": {
+            "expected": 1004,
+            "present": true,
+            "status": "passed",
+            "sessions": 1004
+          }
+        },
+        "risk_status": "confirmed"
+      },
+      "true_max_drawdown": -0.2564544300153567,
+      "emergency_days": 150,
+      "emergency_share": 0.08542141230068337,
+      "emergency_longest_days": 36,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 469,
+        "hypothetical_emergency_days": 150,
+        "actual_and_hypothetical": 150,
+        "actual_and_hypothetical_share": 0.31982942430703626,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2018-10-23",
+            "end": "2018-11-01",
+            "days": 8
+          },
+          {
+            "start": "2018-11-05",
+            "end": "2018-11-06",
+            "days": 2
+          },
+          {
+            "start": "2018-11-08",
+            "end": "2018-11-30",
+            "days": 16
+          },
+          {
+            "start": "2018-12-06",
+            "end": "2019-01-24",
+            "days": 33
+          },
+          {
+            "start": "2019-01-28",
+            "end": "2019-01-28",
+            "days": 1
+          },
+          {
+            "start": "2019-05-09",
+            "end": "2019-06-28",
+            "days": 36
+          },
+          {
+            "start": "2019-07-03",
+            "end": "2019-07-12",
+            "days": 7
+          },
+          {
+            "start": "2019-08-02",
+            "end": "2019-08-16",
+            "days": 11
+          },
+          {
+            "start": "2019-08-26",
+            "end": "2019-08-28",
+            "days": 3
+          },
+          {
+            "start": "2020-03-12",
+            "end": "2020-03-30",
+            "days": 13
+          },
+          {
+            "start": "2020-04-01",
+            "end": "2020-04-03",
+            "days": 3
+          },
+          {
+            "start": "2022-09-30",
+            "end": "2022-10-03",
+            "days": 2
+          },
+          {
+            "start": "2022-10-10",
+            "end": "2022-10-26",
+            "days": 13
+          },
+          {
+            "start": "2022-10-28",
+            "end": "2022-10-28",
+            "days": 1
+          },
+          {
+            "start": "2022-11-03",
+            "end": "2022-11-03",
+            "days": 1
+          }
+        ],
+        "actual_dd_before_matches_source": false,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 469,
+        "fixed0_emergency_days": 150,
+        "fixed0_and_actual_days": 150,
+        "fixed0_share_of_actual": 0.31982942430703626,
+        "fixed0_only_days": 0,
+        "actual_only_days": 319,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2018-10-23",
+            "end": "2018-11-01",
+            "days": 8
+          },
+          {
+            "start": "2018-11-05",
+            "end": "2018-11-06",
+            "days": 2
+          },
+          {
+            "start": "2018-11-08",
+            "end": "2018-11-30",
+            "days": 16
+          },
+          {
+            "start": "2018-12-06",
+            "end": "2019-01-24",
+            "days": 33
+          },
+          {
+            "start": "2019-01-28",
+            "end": "2019-01-28",
+            "days": 1
+          },
+          {
+            "start": "2019-05-09",
+            "end": "2019-06-28",
+            "days": 36
+          },
+          {
+            "start": "2019-07-03",
+            "end": "2019-07-12",
+            "days": 7
+          },
+          {
+            "start": "2019-08-02",
+            "end": "2019-08-16",
+            "days": 11
+          },
+          {
+            "start": "2019-08-26",
+            "end": "2019-08-28",
+            "days": 3
+          },
+          {
+            "start": "2020-03-12",
+            "end": "2020-03-30",
+            "days": 13
+          },
+          {
+            "start": "2020-04-01",
+            "end": "2020-04-03",
+            "days": 3
+          },
+          {
+            "start": "2022-09-30",
+            "end": "2022-10-03",
+            "days": 2
+          },
+          {
+            "start": "2022-10-10",
+            "end": "2022-10-26",
+            "days": 13
+          },
+          {
+            "start": "2022-10-28",
+            "end": "2022-10-28",
+            "days": 1
+          },
+          {
+            "start": "2022-11-03",
+            "end": "2022-11-03",
+            "days": 1
+          }
+        ]
+      }
+    },
+    "development_walk_forward::25::10": {
+      "window": "development_walk_forward",
+      "base_controller_cost_bps": 25.0,
+      "settlement_cost_bps": 10.0,
+      "origin_stage": "recomputed_settlement",
+      "parity": {
+        "status": "counterfactual"
+      },
+      "native": {
+        "origin": "recomputed_settlement",
+        "boundary": "2018-12-31",
+        "expected_prefix_sessions": 752,
+        "expected_suffix_sessions": 1004,
+        "all_stages_passed": true,
+        "present_all_stages": true,
+        "stages": {
+          "prefix": {
+            "expected": 752,
+            "present": true,
+            "status": "passed",
+            "sessions": 752
+          },
+          "suffix": {
+            "expected": 1004,
+            "present": true,
+            "status": "passed",
+            "sessions": 1004
+          }
+        },
+        "risk_status": "confirmed"
+      },
+      "true_max_drawdown": -0.27507380140660886,
+      "emergency_days": 253,
+      "emergency_share": 0.14407744874715261,
+      "emergency_longest_days": 74,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 469,
+        "hypothetical_emergency_days": 253,
+        "actual_and_hypothetical": 253,
+        "actual_and_hypothetical_share": 0.5394456289978679,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2018-10-08",
+            "end": "2018-10-16",
+            "days": 7
+          },
+          {
+            "start": "2018-10-18",
+            "end": "2019-02-05",
+            "days": 74
+          },
+          {
+            "start": "2019-02-08",
+            "end": "2019-02-08",
+            "days": 1
+          },
+          {
+            "start": "2019-03-25",
+            "end": "2019-04-01",
+            "days": 6
+          },
+          {
+            "start": "2019-04-26",
+            "end": "2019-07-24",
+            "days": 62
+          },
+          {
+            "start": "2019-07-29",
+            "end": "2019-09-06",
+            "days": 29
+          },
+          {
+            "start": "2019-09-10",
+            "end": "2019-09-10",
+            "days": 1
+          },
+          {
+            "start": "2019-09-23",
+            "end": "2019-09-23",
+            "days": 1
+          },
+          {
+            "start": "2019-09-25",
+            "end": "2019-09-25",
+            "days": 1
+          },
+          {
+            "start": "2019-09-30",
+            "end": "2019-09-30",
+            "days": 1
+          },
+          {
+            "start": "2019-10-02",
+            "end": "2019-10-03",
+            "days": 2
+          },
+          {
+            "start": "2019-10-08",
+            "end": "2019-10-10",
+            "days": 3
+          },
+          {
+            "start": "2020-03-09",
+            "end": "2020-04-06",
+            "days": 21
+          },
+          {
+            "start": "2020-04-08",
+            "end": "2020-04-08",
+            "days": 1
+          },
+          {
+            "start": "2020-04-13",
+            "end": "2020-04-13",
+            "days": 1
+          },
+          {
+            "start": "2022-03-15",
+            "end": "2022-03-15",
+            "days": 1
+          },
+          {
+            "start": "2022-09-16",
+            "end": "2022-09-19",
+            "days": 2
+          },
+          {
+            "start": "2022-09-22",
+            "end": "2022-11-10",
+            "days": 36
+          },
+          {
+            "start": "2022-12-20",
+            "end": "2022-12-22",
+            "days": 3
+          }
+        ],
+        "actual_dd_before_matches_source": false,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 469,
+        "fixed0_emergency_days": 150,
+        "fixed0_and_actual_days": 150,
+        "fixed0_share_of_actual": 0.31982942430703626,
+        "fixed0_only_days": 0,
+        "actual_only_days": 319,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2018-10-23",
+            "end": "2018-11-01",
+            "days": 8
+          },
+          {
+            "start": "2018-11-05",
+            "end": "2018-11-06",
+            "days": 2
+          },
+          {
+            "start": "2018-11-08",
+            "end": "2018-11-30",
+            "days": 16
+          },
+          {
+            "start": "2018-12-06",
+            "end": "2019-01-24",
+            "days": 33
+          },
+          {
+            "start": "2019-01-28",
+            "end": "2019-01-28",
+            "days": 1
+          },
+          {
+            "start": "2019-05-09",
+            "end": "2019-06-28",
+            "days": 36
+          },
+          {
+            "start": "2019-07-03",
+            "end": "2019-07-12",
+            "days": 7
+          },
+          {
+            "start": "2019-08-02",
+            "end": "2019-08-16",
+            "days": 11
+          },
+          {
+            "start": "2019-08-26",
+            "end": "2019-08-28",
+            "days": 3
+          },
+          {
+            "start": "2020-03-12",
+            "end": "2020-03-30",
+            "days": 13
+          },
+          {
+            "start": "2020-04-01",
+            "end": "2020-04-03",
+            "days": 3
+          },
+          {
+            "start": "2022-09-30",
+            "end": "2022-10-03",
+            "days": 2
+          },
+          {
+            "start": "2022-10-10",
+            "end": "2022-10-26",
+            "days": 13
+          },
+          {
+            "start": "2022-10-28",
+            "end": "2022-10-28",
+            "days": 1
+          },
+          {
+            "start": "2022-11-03",
+            "end": "2022-11-03",
+            "days": 1
+          }
+        ]
+      }
+    },
+    "development_walk_forward::25::25": {
+      "window": "development_walk_forward",
+      "base_controller_cost_bps": 25.0,
+      "settlement_cost_bps": 25.0,
+      "origin_stage": "source_inherited",
+      "parity": {
+        "status": "passed",
+        "signal_date": true,
+        "trade_date": true,
+        "exit_date": true,
+        "strategy_return": true,
+        "fees": true,
+        "ending_weights": true
+      },
+      "native": {
+        "origin": "source_inherited",
+        "parent_all_stages_passed": true,
+        "prefix": {
+          "status": "passed",
+          "passed": true,
+          "sessions": 752,
+          "sessions_expected": 752,
+          "stage_status_read": "passed",
+          "dates_exact": true,
+          "object_sha_ok": true,
+          "maximum_return_error": 6.052380818744041e-12,
+          "maximum_ending_weight_error": 6.519151884987195e-11,
+          "tolerance": 1e-07
+        },
+        "suffix": {
+          "status": "passed",
+          "passed": true,
+          "sessions": 1004,
+          "sessions_expected": 1004,
+          "stage_status_read": "passed",
+          "dates_exact": true,
+          "object_sha_ok": true,
+          "maximum_return_error": 5.551115123125783e-16,
+          "maximum_ending_weight_error": 3.0531133177191805e-16,
+          "tolerance": 1e-07
+        },
+        "full_calendar_exact": true,
+        "total_sessions_expected": 1756,
+        "all_stages_passed": true
+      },
+      "true_max_drawdown": -0.30214586773866714,
+      "emergency_days": 469,
+      "emergency_share": 0.26708428246013666,
+      "emergency_longest_days": 134,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 469,
+        "hypothetical_emergency_days": 469,
+        "actual_and_hypothetical": 469,
+        "actual_and_hypothetical_share": 1.0,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2018-09-12",
+            "end": "2018-09-20",
+            "days": 7
+          },
+          {
+            "start": "2018-09-24",
+            "end": "2019-03-15",
+            "days": 119
+          },
+          {
+            "start": "2019-03-21",
+            "end": "2019-03-21",
+            "days": 1
+          },
+          {
+            "start": "2019-03-25",
+            "end": "2019-04-23",
+            "days": 21
+          },
+          {
+            "start": "2019-04-26",
+            "end": "2019-11-04",
+            "days": 134
+          },
+          {
+            "start": "2019-11-08",
+            "end": "2019-11-14",
+            "days": 5
+          },
+          {
+            "start": "2019-11-18",
+            "end": "2019-12-12",
+            "days": 18
+          },
+          {
+            "start": "2020-02-27",
+            "end": "2020-02-28",
+            "days": 2
+          },
+          {
+            "start": "2020-03-06",
+            "end": "2020-05-20",
+            "days": 53
+          },
+          {
+            "start": "2020-05-22",
+            "end": "2020-06-18",
+            "days": 19
+          },
+          {
+            "start": "2020-06-22",
+            "end": "2020-07-02",
+            "days": 9
+          },
+          {
+            "start": "2022-03-14",
+            "end": "2022-03-15",
+            "days": 2
+          },
+          {
+            "start": "2022-07-05",
+            "end": "2022-07-06",
+            "days": 2
+          },
+          {
+            "start": "2022-07-13",
+            "end": "2022-07-15",
+            "days": 3
+          },
+          {
+            "start": "2022-09-06",
+            "end": "2022-09-08",
+            "days": 3
+          },
+          {
+            "start": "2022-09-13",
+            "end": "2022-11-14",
+            "days": 45
+          },
+          {
+            "start": "2022-11-16",
+            "end": "2022-12-22",
+            "days": 26
+          }
+        ],
+        "actual_dd_before_matches_source": true,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 469,
+        "fixed0_emergency_days": 150,
+        "fixed0_and_actual_days": 150,
+        "fixed0_share_of_actual": 0.31982942430703626,
+        "fixed0_only_days": 0,
+        "actual_only_days": 319,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2018-10-23",
+            "end": "2018-11-01",
+            "days": 8
+          },
+          {
+            "start": "2018-11-05",
+            "end": "2018-11-06",
+            "days": 2
+          },
+          {
+            "start": "2018-11-08",
+            "end": "2018-11-30",
+            "days": 16
+          },
+          {
+            "start": "2018-12-06",
+            "end": "2019-01-24",
+            "days": 33
+          },
+          {
+            "start": "2019-01-28",
+            "end": "2019-01-28",
+            "days": 1
+          },
+          {
+            "start": "2019-05-09",
+            "end": "2019-06-28",
+            "days": 36
+          },
+          {
+            "start": "2019-07-03",
+            "end": "2019-07-12",
+            "days": 7
+          },
+          {
+            "start": "2019-08-02",
+            "end": "2019-08-16",
+            "days": 11
+          },
+          {
+            "start": "2019-08-26",
+            "end": "2019-08-28",
+            "days": 3
+          },
+          {
+            "start": "2020-03-12",
+            "end": "2020-03-30",
+            "days": 13
+          },
+          {
+            "start": "2020-04-01",
+            "end": "2020-04-03",
+            "days": 3
+          },
+          {
+            "start": "2022-09-30",
+            "end": "2022-10-03",
+            "days": 2
+          },
+          {
+            "start": "2022-10-10",
+            "end": "2022-10-26",
+            "days": 13
+          },
+          {
+            "start": "2022-10-28",
+            "end": "2022-10-28",
+            "days": 1
+          },
+          {
+            "start": "2022-11-03",
+            "end": "2022-11-03",
+            "days": 1
+          }
+        ]
+      }
+    },
+    "outer_reused_diagnostic::10::0": {
+      "window": "outer_reused_diagnostic",
+      "base_controller_cost_bps": 10.0,
+      "settlement_cost_bps": 0.0,
+      "origin_stage": "recomputed_settlement",
+      "parity": {
+        "status": "counterfactual"
+      },
+      "native": {
+        "origin": "recomputed_settlement",
+        "boundary": "2018-12-31",
+        "expected_prefix_sessions": 0,
+        "expected_suffix_sessions": 934,
+        "all_stages_passed": true,
+        "present_all_stages": true,
+        "stages": {
+          "suffix": {
+            "expected": 934,
+            "present": true,
+            "status": "passed",
+            "sessions": 934
+          }
+        },
+        "risk_status": "confirmed"
+      },
+      "true_max_drawdown": -0.2665764747659397,
+      "emergency_days": 46,
+      "emergency_share": 0.04925053533190578,
+      "emergency_longest_days": 42,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 47,
+        "hypothetical_emergency_days": 46,
+        "actual_and_hypothetical": 46,
+        "actual_and_hypothetical_share": 0.9787234042553191,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2025-04-07",
+            "end": "2025-04-07",
+            "days": 1
+          },
+          {
+            "start": "2025-04-09",
+            "end": "2025-04-09",
+            "days": 1
+          },
+          {
+            "start": "2025-04-21",
+            "end": "2025-04-22",
+            "days": 2
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ],
+        "actual_dd_before_matches_source": false,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 47,
+        "fixed0_emergency_days": 46,
+        "fixed0_and_actual_days": 46,
+        "fixed0_share_of_actual": 0.9787234042553191,
+        "fixed0_only_days": 0,
+        "actual_only_days": 1,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2025-04-07",
+            "end": "2025-04-07",
+            "days": 1
+          },
+          {
+            "start": "2025-04-09",
+            "end": "2025-04-09",
+            "days": 1
+          },
+          {
+            "start": "2025-04-21",
+            "end": "2025-04-22",
+            "days": 2
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ]
+      }
+    },
+    "outer_reused_diagnostic::10::10": {
+      "window": "outer_reused_diagnostic",
+      "base_controller_cost_bps": 10.0,
+      "settlement_cost_bps": 10.0,
+      "origin_stage": "source_inherited",
+      "parity": {
+        "status": "passed",
+        "signal_date": true,
+        "trade_date": true,
+        "exit_date": true,
+        "strategy_return": true,
+        "fees": true,
+        "ending_weights": true
+      },
+      "native": {
+        "origin": "source_inherited",
+        "parent_all_stages_passed": true,
+        "prefix": {
+          "status": "not_required",
+          "passed": true,
+          "sessions": 0,
+          "sessions_expected": 0
+        },
+        "suffix": {
+          "status": "passed",
+          "passed": true,
+          "sessions": 934,
+          "sessions_expected": 934,
+          "stage_status_read": "passed",
+          "dates_exact": true,
+          "object_sha_ok": true,
+          "maximum_return_error": 5.551115123125783e-16,
+          "maximum_ending_weight_error": 2.7755575615628914e-16,
+          "tolerance": 1e-07
+        },
+        "full_calendar_exact": true,
+        "total_sessions_expected": 934,
+        "all_stages_passed": true
+      },
+      "true_max_drawdown": -0.269217844717036,
+      "emergency_days": 47,
+      "emergency_share": 0.05032119914346895,
+      "emergency_longest_days": 42,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 47,
+        "hypothetical_emergency_days": 47,
+        "actual_and_hypothetical": 47,
+        "actual_and_hypothetical_share": 1.0,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2025-04-04",
+            "end": "2025-04-07",
+            "days": 2
+          },
+          {
+            "start": "2025-04-09",
+            "end": "2025-04-09",
+            "days": 1
+          },
+          {
+            "start": "2025-04-21",
+            "end": "2025-04-22",
+            "days": 2
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ],
+        "actual_dd_before_matches_source": true,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 47,
+        "fixed0_emergency_days": 46,
+        "fixed0_and_actual_days": 46,
+        "fixed0_share_of_actual": 0.9787234042553191,
+        "fixed0_only_days": 0,
+        "actual_only_days": 1,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2025-04-07",
+            "end": "2025-04-07",
+            "days": 1
+          },
+          {
+            "start": "2025-04-09",
+            "end": "2025-04-09",
+            "days": 1
+          },
+          {
+            "start": "2025-04-21",
+            "end": "2025-04-22",
+            "days": 2
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ]
+      }
+    },
+    "outer_reused_diagnostic::10::25": {
+      "window": "outer_reused_diagnostic",
+      "base_controller_cost_bps": 10.0,
+      "settlement_cost_bps": 25.0,
+      "origin_stage": "recomputed_settlement",
+      "parity": {
+        "status": "counterfactual"
+      },
+      "native": {
+        "origin": "recomputed_settlement",
+        "boundary": "2018-12-31",
+        "expected_prefix_sessions": 0,
+        "expected_suffix_sessions": 934,
+        "all_stages_passed": true,
+        "present_all_stages": true,
+        "stages": {
+          "suffix": {
+            "expected": 934,
+            "present": true,
+            "status": "passed",
+            "sessions": 934
+          }
+        },
+        "risk_status": "confirmed"
+      },
+      "true_max_drawdown": -0.27316536379618395,
+      "emergency_days": 53,
+      "emergency_share": 0.056745182012847964,
+      "emergency_longest_days": 42,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 47,
+        "hypothetical_emergency_days": 53,
+        "actual_and_hypothetical": 47,
+        "actual_and_hypothetical_share": 1.0,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2025-04-04",
+            "end": "2025-04-07",
+            "days": 2
+          },
+          {
+            "start": "2025-04-09",
+            "end": "2025-04-09",
+            "days": 1
+          },
+          {
+            "start": "2025-04-21",
+            "end": "2025-04-22",
+            "days": 2
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ],
+        "actual_dd_before_matches_source": false,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 47,
+        "fixed0_emergency_days": 46,
+        "fixed0_and_actual_days": 46,
+        "fixed0_share_of_actual": 0.9787234042553191,
+        "fixed0_only_days": 0,
+        "actual_only_days": 1,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2025-04-07",
+            "end": "2025-04-07",
+            "days": 1
+          },
+          {
+            "start": "2025-04-09",
+            "end": "2025-04-09",
+            "days": 1
+          },
+          {
+            "start": "2025-04-21",
+            "end": "2025-04-22",
+            "days": 2
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ]
+      }
+    },
+    "outer_reused_diagnostic::25::0": {
+      "window": "outer_reused_diagnostic",
+      "base_controller_cost_bps": 25.0,
+      "settlement_cost_bps": 0.0,
+      "origin_stage": "recomputed_settlement",
+      "parity": {
+        "status": "counterfactual"
+      },
+      "native": {
+        "origin": "recomputed_settlement",
+        "boundary": "2018-12-31",
+        "expected_prefix_sessions": 0,
+        "expected_suffix_sessions": 934,
+        "all_stages_passed": true,
+        "present_all_stages": true,
+        "stages": {
+          "suffix": {
+            "expected": 934,
+            "present": true,
+            "status": "passed",
+            "sessions": 934
+          }
+        },
+        "risk_status": "confirmed"
+      },
+      "true_max_drawdown": -0.3211586634495903,
+      "emergency_days": 304,
+      "emergency_share": 0.32548179871520344,
+      "emergency_longest_days": 247,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 446,
+        "hypothetical_emergency_days": 304,
+        "actual_and_hypothetical": 304,
+        "actual_and_hypothetical_share": 0.6816143497757847,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2024-08-02",
+            "end": "2025-07-29",
+            "days": 247
+          },
+          {
+            "start": "2025-07-31",
+            "end": "2025-08-12",
+            "days": 9
+          },
+          {
+            "start": "2025-08-20",
+            "end": "2025-08-22",
+            "days": 3
+          },
+          {
+            "start": "2025-09-02",
+            "end": "2025-09-04",
+            "days": 3
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ],
+        "actual_dd_before_matches_source": false,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 446,
+        "fixed0_emergency_days": 304,
+        "fixed0_and_actual_days": 304,
+        "fixed0_share_of_actual": 0.6816143497757847,
+        "fixed0_only_days": 0,
+        "actual_only_days": 142,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2024-08-02",
+            "end": "2025-07-29",
+            "days": 247
+          },
+          {
+            "start": "2025-07-31",
+            "end": "2025-08-12",
+            "days": 9
+          },
+          {
+            "start": "2025-08-20",
+            "end": "2025-08-22",
+            "days": 3
+          },
+          {
+            "start": "2025-09-02",
+            "end": "2025-09-04",
+            "days": 3
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ]
+      }
+    },
+    "outer_reused_diagnostic::25::10": {
+      "window": "outer_reused_diagnostic",
+      "base_controller_cost_bps": 25.0,
+      "settlement_cost_bps": 10.0,
+      "origin_stage": "recomputed_settlement",
+      "parity": {
+        "status": "counterfactual"
+      },
+      "native": {
+        "origin": "recomputed_settlement",
+        "boundary": "2018-12-31",
+        "expected_prefix_sessions": 0,
+        "expected_suffix_sessions": 934,
+        "all_stages_passed": true,
+        "present_all_stages": true,
+        "stages": {
+          "suffix": {
+            "expected": 934,
+            "present": true,
+            "status": "passed",
+            "sessions": 934
+          }
+        },
+        "risk_status": "confirmed"
+      },
+      "true_max_drawdown": -0.3387959596053368,
+      "emergency_days": 333,
+      "emergency_share": 0.35653104925053536,
+      "emergency_longest_days": 285,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 446,
+        "hypothetical_emergency_days": 333,
+        "actual_and_hypothetical": 333,
+        "actual_and_hypothetical_share": 0.7466367713004485,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2024-08-02",
+            "end": "2025-09-22",
+            "days": 285
+          },
+          {
+            "start": "2025-09-25",
+            "end": "2025-09-25",
+            "days": 1
+          },
+          {
+            "start": "2025-09-30",
+            "end": "2025-09-30",
+            "days": 1
+          },
+          {
+            "start": "2025-11-21",
+            "end": "2025-11-24",
+            "days": 2
+          },
+          {
+            "start": "2026-03-09",
+            "end": "2026-03-09",
+            "days": 1
+          },
+          {
+            "start": "2026-03-31",
+            "end": "2026-03-31",
+            "days": 1
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ],
+        "actual_dd_before_matches_source": false,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 446,
+        "fixed0_emergency_days": 304,
+        "fixed0_and_actual_days": 304,
+        "fixed0_share_of_actual": 0.6816143497757847,
+        "fixed0_only_days": 0,
+        "actual_only_days": 142,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2024-08-02",
+            "end": "2025-07-29",
+            "days": 247
+          },
+          {
+            "start": "2025-07-31",
+            "end": "2025-08-12",
+            "days": 9
+          },
+          {
+            "start": "2025-08-20",
+            "end": "2025-08-22",
+            "days": 3
+          },
+          {
+            "start": "2025-09-02",
+            "end": "2025-09-04",
+            "days": 3
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ]
+      }
+    },
+    "outer_reused_diagnostic::25::25": {
+      "window": "outer_reused_diagnostic",
+      "base_controller_cost_bps": 25.0,
+      "settlement_cost_bps": 25.0,
+      "origin_stage": "source_inherited",
+      "parity": {
+        "status": "passed",
+        "signal_date": true,
+        "trade_date": true,
+        "exit_date": true,
+        "strategy_return": true,
+        "fees": true,
+        "ending_weights": true
+      },
+      "native": {
+        "origin": "source_inherited",
+        "parent_all_stages_passed": true,
+        "prefix": {
+          "status": "not_required",
+          "passed": true,
+          "sessions": 0,
+          "sessions_expected": 0
+        },
+        "suffix": {
+          "status": "passed",
+          "passed": true,
+          "sessions": 934,
+          "sessions_expected": 934,
+          "stage_status_read": "passed",
+          "dates_exact": true,
+          "object_sha_ok": true,
+          "maximum_return_error": 5.551115123125783e-16,
+          "maximum_ending_weight_error": 3.3306690738754696e-16,
+          "tolerance": 1e-07
+        },
+        "full_calendar_exact": true,
+        "total_sessions_expected": 934,
+        "all_stages_passed": true
+      },
+      "true_max_drawdown": -0.36441453109465993,
+      "emergency_days": 446,
+      "emergency_share": 0.47751605995717344,
+      "emergency_longest_days": 358,
+      "peak_capital_first_date": null,
+      "actual_vs_hypothetical": {
+        "actual_emergency_days": 446,
+        "hypothetical_emergency_days": 446,
+        "actual_and_hypothetical": 446,
+        "actual_and_hypothetical_share": 1.0,
+        "actual_and_hypothetical_episodes": [
+          {
+            "start": "2024-04-22",
+            "end": "2024-04-23",
+            "days": 2
+          },
+          {
+            "start": "2024-04-25",
+            "end": "2024-04-29",
+            "days": 3
+          },
+          {
+            "start": "2024-05-01",
+            "end": "2024-05-03",
+            "days": 3
+          },
+          {
+            "start": "2024-05-08",
+            "end": "2024-05-09",
+            "days": 2
+          },
+          {
+            "start": "2024-05-14",
+            "end": "2024-05-14",
+            "days": 1
+          },
+          {
+            "start": "2024-08-02",
+            "end": "2026-01-06",
+            "days": 358
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-09",
+            "days": 1
+          },
+          {
+            "start": "2026-02-05",
+            "end": "2026-02-10",
+            "days": 4
+          },
+          {
+            "start": "2026-02-17",
+            "end": "2026-02-17",
+            "days": 1
+          },
+          {
+            "start": "2026-02-27",
+            "end": "2026-04-09",
+            "days": 29
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ],
+        "actual_dd_before_matches_source": true,
+        "note": "actual mask is the frozen source emergency_active; hypothetical is per settlement cost"
+      },
+      "fixed0_vs_source": {
+        "actual_emergency_days": 446,
+        "fixed0_emergency_days": 304,
+        "fixed0_and_actual_days": 304,
+        "fixed0_share_of_actual": 0.6816143497757847,
+        "fixed0_only_days": 0,
+        "actual_only_days": 142,
+        "fixed0_and_actual_episodes": [
+          {
+            "start": "2024-08-02",
+            "end": "2025-07-29",
+            "days": 247
+          },
+          {
+            "start": "2025-07-31",
+            "end": "2025-08-12",
+            "days": 9
+          },
+          {
+            "start": "2025-08-20",
+            "end": "2025-08-22",
+            "days": 3
+          },
+          {
+            "start": "2025-09-02",
+            "end": "2025-09-04",
+            "days": 3
+          },
+          {
+            "start": "2026-07-28",
+            "end": "2026-09-24",
+            "days": 42
+          }
+        ]
+      }
+    }
+  },
+  "cases_count": 12,
+  "risk_case_coverage": {
+    "development_walk_forward::10::0": "confirmed",
+    "development_walk_forward::10::10": "confirmed",
+    "development_walk_forward::10::25": "confirmed",
+    "development_walk_forward::25::0": "confirmed",
+    "development_walk_forward::25::10": "confirmed",
+    "development_walk_forward::25::25": "confirmed",
+    "outer_reused_diagnostic::10::0": "confirmed",
+    "outer_reused_diagnostic::10::10": "confirmed",
+    "outer_reused_diagnostic::10::25": "confirmed",
+    "outer_reused_diagnostic::25::0": "confirmed",
+    "outer_reused_diagnostic::25::10": "confirmed",
+    "outer_reused_diagnostic::25::25": "confirmed"
+  },
+  "caveats": [
+    "actual mask is the frozen source emergency_active; hypothetical masks are per settlement cost",
+    "no unique market-vs-fee causal attribution",
+    "reused history; not fresh out-of-sample",
+    "10bp to 25bp is a 15bp step; fees are deducted once and the rest is state feedback",
+    "no alpha; no promotion; Step B fee-neutral guard not executed"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.contrib.evaluate.risk_analysis"
+  ],
+  "recorder_id": "c49a39511d51494290e5f399d9ffa4a2",
+  "experiment_id": "132453572733482129",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_fixed_path_fee_drawdown_audit_20261010/qlib_recorder",
+  "saved_objects": [
+    "case_summary",
+    "daily::development_walk_forward::10::0",
+    "daily::development_walk_forward::10::10",
+    "daily::development_walk_forward::10::25",
+    "daily::development_walk_forward::25::0",
+    "daily::development_walk_forward::25::10",
+    "daily::development_walk_forward::25::25",
+    "daily::outer_reused_diagnostic::10::0",
+    "daily::outer_reused_diagnostic::10::10",
+    "daily::outer_reused_diagnostic::10::25",
+    "daily::outer_reused_diagnostic::25::0",
+    "daily::outer_reused_diagnostic::25::10",
+    "daily::outer_reused_diagnostic::25::25",
+    "native::development_walk_forward::10::0::settle0_b10::development_walk_forward::0::prefix_positions",
+    "native::development_walk_forward::10::0::settle0_b10::development_walk_forward::0::prefix_reconciliation",
+    "native::development_walk_forward::10::0::settle0_b10::development_walk_forward::0::prefix_report",
+    "native::development_walk_forward::10::0::settle0_b10::development_walk_forward::0::suffix_events",
+    "native::development_walk_forward::10::0::settle0_b10::development_walk_forward::0::suffix_positions",
+    "native::development_walk_forward::10::0::settle0_b10::development_walk_forward::0::suffix_reconciliation",
+    "native::development_walk_forward::10::0::settle0_b10::development_walk_forward::0::suffix_report",
+    "native::development_walk_forward::10::25::settle25_b10::development_walk_forward::25::prefix_positions",
+    "native::development_walk_forward::10::25::settle25_b10::development_walk_forward::25::prefix_reconciliation",
+    "native::development_walk_forward::10::25::settle25_b10::development_walk_forward::25::prefix_report",
+    "native::development_walk_forward::10::25::settle25_b10::development_walk_forward::25::suffix_events",
+    "native::development_walk_forward::10::25::settle25_b10::development_walk_forward::25::suffix_positions",
+    "native::development_walk_forward::10::25::settle25_b10::development_walk_forward::25::suffix_reconciliation",
+    "native::development_walk_forward::10::25::settle25_b10::development_walk_forward::25::suffix_report",
+    "native::development_walk_forward::25::0::settle0_b25::development_walk_forward::0::prefix_positions",
+    "native::development_walk_forward::25::0::settle0_b25::development_walk_forward::0::prefix_reconciliation",
+    "native::development_walk_forward::25::0::settle0_b25::development_walk_forward::0::prefix_report",
+    "native::development_walk_forward::25::0::settle0_b25::development_walk_forward::0::suffix_events",
+    "native::development_walk_forward::25::0::settle0_b25::development_walk_forward::0::suffix_positions",
+    "native::development_walk_forward::25::0::settle0_b25::development_walk_forward::0::suffix_reconciliation",
+    "native::development_walk_forward::25::0::settle0_b25::development_walk_forward::0::suffix_report",
+    "native::development_walk_forward::25::10::settle10_b25::development_walk_forward::10::prefix_positions",
+    "native::development_walk_forward::25::10::settle10_b25::development_walk_forward::10::prefix_reconciliation",
+    "native::development_walk_forward::25::10::settle10_b25::development_walk_forward::10::prefix_report",
+    "native::development_walk_forward::25::10::settle10_b25::development_walk_forward::10::suffix_events",
+    "native::development_walk_forward::25::10::settle10_b25::development_walk_forward::10::suffix_positions",
+    "native::development_walk_forward::25::10::settle10_b25::development_walk_forward::10::suffix_reconciliation",
+    "native::development_walk_forward::25::10::settle10_b25::development_walk_forward::10::suffix_report",
+    "native::outer_reused_diagnostic::10::0::settle0_b10::outer_reused_diagnostic::0::suffix_events",
+    "native::outer_reused_diagnostic::10::0::settle0_b10::outer_reused_diagnostic::0::suffix_positions",
+    "native::outer_reused_diagnostic::10::0::settle0_b10::outer_reused_diagnostic::0::suffix_reconciliation",
+    "native::outer_reused_diagnostic::10::0::settle0_b10::outer_reused_diagnostic::0::suffix_report",
+    "native::outer_reused_diagnostic::10::25::settle25_b10::outer_reused_diagnostic::25::suffix_events",
+    "native::outer_reused_diagnostic::10::25::settle25_b10::outer_reused_diagnostic::25::suffix_positions",
+    "native::outer_reused_diagnostic::10::25::settle25_b10::outer_reused_diagnostic::25::suffix_reconciliation",
+    "native::outer_reused_diagnostic::10::25::settle25_b10::outer_reused_diagnostic::25::suffix_report",
+    "native::outer_reused_diagnostic::25::0::settle0_b25::outer_reused_diagnostic::0::suffix_events",
+    "native::outer_reused_diagnostic::25::0::settle0_b25::outer_reused_diagnostic::0::suffix_positions",
+    "native::outer_reused_diagnostic::25::0::settle0_b25::outer_reused_diagnostic::0::suffix_reconciliation",
+    "native::outer_reused_diagnostic::25::0::settle0_b25::outer_reused_diagnostic::0::suffix_report",
+    "native::outer_reused_diagnostic::25::10::settle10_b25::outer_reused_diagnostic::10::suffix_events",
+    "native::outer_reused_diagnostic::25::10::settle10_b25::outer_reused_diagnostic::10::suffix_positions",
+    "native::outer_reused_diagnostic::25::10::settle10_b25::outer_reused_diagnostic::10::suffix_reconciliation",
+    "native::outer_reused_diagnostic::25::10::settle10_b25::outer_reused_diagnostic::10::suffix_report",
+    "risk_analysis::development_walk_forward::10::0",
+    "risk_analysis::development_walk_forward::10::10",
+    "risk_analysis::development_walk_forward::10::25",
+    "risk_analysis::development_walk_forward::25::0",
+    "risk_analysis::development_walk_forward::25::10",
+    "risk_analysis::development_walk_forward::25::25",
+    "risk_analysis::outer_reused_diagnostic::10::0",
+    "risk_analysis::outer_reused_diagnostic::10::10",
+    "risk_analysis::outer_reused_diagnostic::10::25",
+    "risk_analysis::outer_reused_diagnostic::25::0",
+    "risk_analysis::outer_reused_diagnostic::25::10",
+    "risk_analysis::outer_reused_diagnostic::25::25",
+    "risk_analysis_summary"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "case_summary",
+      "daily::development_walk_forward::10::0",
+      "daily::development_walk_forward::10::10",
+      "daily::development_walk_forward::10::25",
+      "daily::development_walk_forward::25::0",
+      "daily::development_walk_forward::25::10",
+      "daily::development_walk_forward::25::25",
+      "daily::outer_reused_diagnostic::10::0",
+      "daily::outer_reused_diagnostic::10::10",
+      "daily::outer_reused_diagnostic::10::25",
+      "daily::outer_reused_diagnostic::25::0",
+      "daily::outer_reused_diagnostic::25::10",
+      "daily::outer_reused_diagnostic::25::25",
+      "risk_analysis::development_walk_forward::10::0",
+      "risk_analysis::development_walk_forward::10::10",
+      "risk_analysis::development_walk_forward::10::25",
+      "risk_analysis::development_walk_forward::25::0",
+      "risk_analysis::development_walk_forward::25::10",
+      "risk_analysis::development_walk_forward::25::25",
+      "risk_analysis::outer_reused_diagnostic::10::0",
+      "risk_analysis::outer_reused_diagnostic::10::10",
+      "risk_analysis::outer_reused_diagnostic::10::25",
+      "risk_analysis::outer_reused_diagnostic::25::0",
+      "risk_analysis::outer_reused_diagnostic::25::10",
+      "risk_analysis::outer_reused_diagnostic::25::25",
+      "risk_analysis_summary",
+      "native::*"
+    ],
+    "slim_sidecars": [
+      "summary.json",
+      "workflow.yaml",
+      "conclusion.md",
+      "fixed_path_cases.csv",
+      "risk_analysis_summary.csv"
+    ]
+  },
+  "region": "us",
+  "source_snapshot_as_of": "2026-09-25",
+  "as_of": "2026-09-25",
+  "price_vintage_as_of": {
+    "intraday_provider": "2026-09-25",
+    "execution_mark_provider": "2026-09-25",
+    "coherent_provider": "2026-09-25"
+  },
+  "provider_lineage": {
+    "intraday_provider": {
+      "uri": "data/qlib/stage1_uniform_intraday_20261009",
+      "manifest_sha256": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+      "as_of": "2026-09-25",
+      "freq": "15min",
+      "purpose": "common observed price vintage for source-stability diagnosis; not PIT or broker-share qualification",
+      "complete_session_validation": true,
+      "trading_calendar_sha256": "d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15",
+      "source_manifest_sha256": "3e02f92c9b3ced14592cd07f220a29d3cb7d0e360b543d321a1b895816d8fb01",
+      "daily_source_manifest_sha256": null,
+      "intraday_price_source_from": null
+    },
+    "execution_mark_provider": {
+      "uri": "data/qlib/stage1_uniform_execution_marks_20261009",
+      "manifest_sha256": "d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb",
+      "as_of": "2026-09-25",
+      "freq": "15min",
+      "purpose": "native accounting reconciliation of prescribed opening and first-hour-close target schedules",
+      "complete_session_validation": null,
+      "trading_calendar_sha256": null,
+      "source_manifest_sha256": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+      "daily_source_manifest_sha256": null,
+      "intraday_price_source_from": null
+    },
+    "coherent_provider": {
+      "uri": "data/qlib/stage1_uniform_daily_marks_20261009",
+      "manifest_sha256": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f",
+      "as_of": "2026-09-25",
+      "freq": "day",
+      "purpose": "coherent native daily-prefix/intraday-suffix mark and quantity continuation",
+      "complete_session_validation": null,
+      "trading_calendar_sha256": null,
+      "source_manifest_sha256": null,
+      "daily_source_manifest_sha256": "2c338680dcdef7ba5f84e809b043ed4c5df41bdbcdc64f9d9439b9ef404ae4da",
+      "intraday_price_source_from": "2018-12-31"
+    }
+  }
+}

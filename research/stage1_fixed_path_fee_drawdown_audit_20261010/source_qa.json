@@ -1,0 +1,147 @@
+{
+  "recorder_id": "6c6fac4f2d974545a4ca8ed8b149a17c",
+  "checks": [
+    {
+      "case": "raw_allocator_only::development_walk_forward::10",
+      "sessions": 1756,
+      "maximum_ending_weight_error": 5.2051141175013527e-11,
+      "maximum_return_error": 6.660227924726314e-13,
+      "passed": true
+    },
+    {
+      "case": "raw_allocator_only::development_walk_forward::25",
+      "sessions": 1756,
+      "maximum_ending_weight_error": 5.204947584047659e-11,
+      "maximum_return_error": 6.353806369929771e-13,
+      "passed": true
+    },
+    {
+      "case": "raw_allocator_only::outer_reused_diagnostic::10",
+      "sessions": 934,
+      "maximum_ending_weight_error": 3.885780586188048e-16,
+      "maximum_return_error": 5.551115123125783e-16,
+      "passed": true
+    },
+    {
+      "case": "raw_allocator_only::outer_reused_diagnostic::25",
+      "sessions": 934,
+      "maximum_ending_weight_error": 3.885780586188048e-16,
+      "maximum_return_error": 5.551115123125783e-16,
+      "passed": true
+    },
+    {
+      "case": "open_risk_projection_nohold_no_recovery::development_walk_forward::10",
+      "sessions": 1756,
+      "maximum_ending_weight_error": 5.887246246061295e-11,
+      "maximum_return_error": 6.182165890322722e-12,
+      "passed": true
+    },
+    {
+      "case": "open_risk_projection_nohold_no_recovery::development_walk_forward::25",
+      "sessions": 1756,
+      "maximum_ending_weight_error": 6.519151884987195e-11,
+      "maximum_return_error": 6.052380818744041e-12,
+      "passed": true
+    },
+    {
+      "case": "open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::10",
+      "sessions": 934,
+      "maximum_ending_weight_error": 2.7755575615628914e-16,
+      "maximum_return_error": 5.551115123125783e-16,
+      "passed": true
+    },
+    {
+      "case": "open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::25",
+      "sessions": 934,
+      "maximum_ending_weight_error": 3.3306690738754696e-16,
+      "maximum_return_error": 5.551115123125783e-16,
+      "passed": true
+    },
+    {
+      "case": "open_risk_projection_withhold_no_recovery::development_walk_forward::10",
+      "sessions": 1756,
+      "maximum_ending_weight_error": 5.887246246061295e-11,
+      "maximum_return_error": 6.181832823415334e-12,
+      "passed": true
+    },
+    {
+      "case": "open_risk_projection_withhold_no_recovery::development_walk_forward::25",
+      "sessions": 1756,
+      "maximum_ending_weight_error": 6.519151884987195e-11,
+      "maximum_return_error": 6.052380818744041e-12,
+      "passed": true
+    },
+    {
+      "case": "open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::10",
+      "sessions": 934,
+      "maximum_ending_weight_error": 3.0531133177191805e-16,
+      "maximum_return_error": 6.661338147750939e-16,
+      "passed": true
+    },
+    {
+      "case": "open_risk_projection_withhold_no_recovery::outer_reused_diagnostic::25",
+      "sessions": 934,
+      "maximum_ending_weight_error": 2.7755575615628914e-16,
+      "maximum_return_error": 4.440892098500626e-16,
+      "passed": true
+    },
+    {
+      "case": "full_withhold_and_recovery::development_walk_forward::10",
+      "sessions": 1756,
+      "maximum_ending_weight_error": 7.25480170382653e-09,
+      "maximum_return_error": 9.175936233063453e-09,
+      "passed": true
+    },
+    {
+      "case": "full_withhold_and_recovery::development_walk_forward::25",
+      "sessions": 1756,
+      "maximum_ending_weight_error": 7.258867951165371e-09,
+      "maximum_return_error": 9.169852654977717e-09,
+      "passed": true
+    },
+    {
+      "case": "full_withhold_and_recovery::outer_reused_diagnostic::10",
+      "sessions": 934,
+      "maximum_ending_weight_error": 3.0531133177191805e-16,
+      "maximum_return_error": 6.661338147750939e-16,
+      "passed": true
+    },
+    {
+      "case": "full_withhold_and_recovery::outer_reused_diagnostic::25",
+      "sessions": 934,
+      "maximum_ending_weight_error": 2.7755575615628914e-16,
+      "maximum_return_error": 4.440892098500626e-16,
+      "passed": true
+    },
+    {
+      "case": "nohold_with_recovery_reference::development_walk_forward::10",
+      "sessions": 1756,
+      "maximum_ending_weight_error": 7.254801648315379e-09,
+      "maximum_return_error": 9.175971316111031e-09,
+      "passed": true
+    },
+    {
+      "case": "nohold_with_recovery_reference::development_walk_forward::25",
+      "sessions": 1756,
+      "maximum_ending_weight_error": 7.258868006676522e-09,
+      "maximum_return_error": 9.169940584641267e-09,
+      "passed": true
+    },
+    {
+      "case": "nohold_with_recovery_reference::outer_reused_diagnostic::10",
+      "sessions": 934,
+      "maximum_ending_weight_error": 2.7755575615628914e-16,
+      "maximum_return_error": 5.551115123125783e-16,
+      "passed": true
+    },
+    {
+      "case": "nohold_with_recovery_reference::outer_reused_diagnostic::25",
+      "sessions": 934,
+      "maximum_ending_weight_error": 3.3306690738754696e-16,
+      "maximum_return_error": 5.551115123125783e-16,
+      "passed": true
+    }
+  ],
+  "cash_weight_method": "1 - actual native SOXL weight - actual native SOXX weight; native_NAV already includes actual cash",
+  "not_relying_on_default_zero_missing_schedule_weight_error": true
+}

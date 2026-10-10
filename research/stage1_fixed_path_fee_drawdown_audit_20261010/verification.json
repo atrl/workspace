@@ -1,0 +1,39 @@
+{
+  "focused_contracts": {
+    "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_fixed_path_fee_drawdown.py -k not_zero_fit_full_workflow -q",
+    "passed": 17,
+    "deselected": 1,
+    "root_log": "/tmp/soxl-fixed-path-fee-dd-root-contracts.log"
+  },
+  "integration_zero_fit": {
+    "command": "qlib_venv/bin/python -m pytest tests/test_fixed_path_fee_drawdown.py -k zero_fit_full_workflow -q",
+    "passed": 1,
+    "native_cases": 12,
+    "inherited_verified": 4,
+    "new_native": 8,
+    "environment": {
+      "FIXED_PATH_RUN_CARD": "1",
+      "MLFLOW_ALLOW_FILE_STORE": "true",
+      "PYTHONPATH": "."
+    }
+  },
+  "notebook": {
+    "executed": true,
+    "exit_code": 0,
+    "recorder_id": "c49a39511d51494290e5f399d9ffa4a2"
+  },
+  "root_recorder_readback": {
+    "cases": 12,
+    "risk_case_coverage": 12,
+    "native_status": "passed",
+    "actual_fixed0_intersections_verified": true,
+    "initial_peak_dates_verified": true,
+    "log": "/tmp/soxl-fixed-path-fee-dd-root-readback.log"
+  },
+  "metadata_writer_verified": true,
+  "prior_baseline_all_suite_green": false,
+  "prior_existing_mandatory_qlib_failures": 61,
+  "prior_existing_full_suite_collection_errors": 15,
+  "production_changed": false,
+  "unrelated_modified_data_files_preserved": 603
+}

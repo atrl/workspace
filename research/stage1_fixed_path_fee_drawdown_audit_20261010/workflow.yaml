@@ -1,0 +1,122 @@
+schema_version: stage1_fixed_path_fee_drawdown_audit_v2
+experiment: stage1_fixed_path_fee_drawdown_audit_20261010
+status: diagnostic
+models_trained: 0
+emergency_threshold: 0.22
+native_coverage:
+  by_origin:
+    development_walk_forward::10::0: true
+    development_walk_forward::10::10: true
+    development_walk_forward::10::25: true
+    development_walk_forward::25::0: true
+    development_walk_forward::25::10: true
+    development_walk_forward::25::25: true
+    outer_reused_diagnostic::10::0: true
+    outer_reused_diagnostic::10::10: true
+    outer_reused_diagnostic::10::25: true
+    outer_reused_diagnostic::25::0: true
+    outer_reused_diagnostic::25::10: true
+    outer_reused_diagnostic::25::25: true
+  passed_count: 12
+  case_count: 12
+  inherited_expected: 4
+  recomputed_expected: 8
+  inherited_passed: 4
+  recomputed_passed: 8
+source_binding:
+  parent_card: research/stage1_uniform_layer_attribution_20261010
+  parent_commit: c0672b77
+  recorder_id: 6c6fac4f2d974545a4ca8ed8b149a17c
+  summary_sha256: 90ae79b7e16a6f3ba68aa75f8b044b8a92e5578a86246f6947a7974c72aab20f
+  artifact_manifest_sha256: 806e41ee64eadce742f00c1e2002867667142e58bfa25cb002ca9941e8061f35
+  frozen_replay_sha256:
+    development_walk_forward::10: 865d39cdddaad69d6d94e7907c006d1a92820940d5ec1aa76c75d9649409c1c7
+    development_walk_forward::25: 3b5f2bbe1815625e190e47059a8da380b9e64056c9e07541e1c7f754321a56ee
+    outer_reused_diagnostic::10: 35804aba75799d913b9b453381b83051fe537221fbf64ee4360f2d804b3306be
+    outer_reused_diagnostic::25: 51fae60de1dd86a615da739e2bed4b513099eb7789c2b40a15f66373765c277d
+  provider_manifest_sha256:
+    intraday_provider: fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a
+    execution_mark_provider: d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb
+    coherent_provider: 48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f
+  source_qa_file: source_qa.json
+  source_qa_sha256: 62321d2005376dced0d1474048213ea15651628c11545cb7d16b989eb1f99065
+  funding_convention: pre_fee_account
+source_native_qa_status: recorded
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - case_summary
+  - daily::development_walk_forward::10::0
+  - daily::development_walk_forward::10::10
+  - daily::development_walk_forward::10::25
+  - daily::development_walk_forward::25::0
+  - daily::development_walk_forward::25::10
+  - daily::development_walk_forward::25::25
+  - daily::outer_reused_diagnostic::10::0
+  - daily::outer_reused_diagnostic::10::10
+  - daily::outer_reused_diagnostic::10::25
+  - daily::outer_reused_diagnostic::25::0
+  - daily::outer_reused_diagnostic::25::10
+  - daily::outer_reused_diagnostic::25::25
+  - risk_analysis::development_walk_forward::10::0
+  - risk_analysis::development_walk_forward::10::10
+  - risk_analysis::development_walk_forward::10::25
+  - risk_analysis::development_walk_forward::25::0
+  - risk_analysis::development_walk_forward::25::10
+  - risk_analysis::development_walk_forward::25::25
+  - risk_analysis::outer_reused_diagnostic::10::0
+  - risk_analysis::outer_reused_diagnostic::10::10
+  - risk_analysis::outer_reused_diagnostic::10::25
+  - risk_analysis::outer_reused_diagnostic::25::0
+  - risk_analysis::outer_reused_diagnostic::25::10
+  - risk_analysis::outer_reused_diagnostic::25::25
+  - risk_analysis_summary
+  - native::*
+  slim_sidecars:
+  - summary.json
+  - workflow.yaml
+  - conclusion.md
+  - fixed_path_cases.csv
+  - risk_analysis_summary.csv
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html
+- https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.contrib.evaluate.risk_analysis
+provider_lineage:
+  intraday_provider:
+    uri: data/qlib/stage1_uniform_intraday_20261009
+    manifest_sha256: fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a
+    as_of: '2026-09-25'
+    freq: 15min
+    purpose: common observed price vintage for source-stability diagnosis; not PIT
+      or broker-share qualification
+    complete_session_validation: true
+    trading_calendar_sha256: d7f5577b2730f9e94638eb08c59b88082f4331b244c6360bf9c73074b0bcbd15
+    source_manifest_sha256: 3e02f92c9b3ced14592cd07f220a29d3cb7d0e360b543d321a1b895816d8fb01
+    daily_source_manifest_sha256: null
+    intraday_price_source_from: null
+  execution_mark_provider:
+    uri: data/qlib/stage1_uniform_execution_marks_20261009
+    manifest_sha256: d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb
+    as_of: '2026-09-25'
+    freq: 15min
+    purpose: native accounting reconciliation of prescribed opening and first-hour-close
+      target schedules
+    complete_session_validation: null
+    trading_calendar_sha256: null
+    source_manifest_sha256: fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a
+    daily_source_manifest_sha256: null
+    intraday_price_source_from: null
+  coherent_provider:
+    uri: data/qlib/stage1_uniform_daily_marks_20261009
+    manifest_sha256: 48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f
+    as_of: '2026-09-25'
+    freq: day
+    purpose: coherent native daily-prefix/intraday-suffix mark and quantity continuation
+    complete_session_validation: null
+    trading_calendar_sha256: null
+    source_manifest_sha256: null
+    daily_source_manifest_sha256: 2c338680dcdef7ba5f84e809b043ed4c5df41bdbcdc64f9d9439b9ef404ae4da
+    intraday_price_source_from: '2018-12-31'
+source_snapshot_as_of: '2026-09-25'

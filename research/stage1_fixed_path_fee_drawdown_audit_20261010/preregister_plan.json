@@ -1,0 +1,141 @@
+{
+  "schema_version": "stage1_fixed_path_fee_drawdown_audit_v2",
+  "experiment": "stage1_fixed_path_fee_drawdown_audit_20261010",
+  "registered_at_utc": "2026-10-10T06:15:32.353779+00:00",
+  "status": "frozen_for_implementation",
+  "objective": "fixed-path fee vs drawdown audit: same actual target/flag path, does fee re-settlement make the 22% emergency DD condition true, and is market loss alone sufficient to trigger",
+  "fit": 0,
+  "new_strategy": 0,
+  "orders": 0,
+  "promotion_eligible": false,
+  "scientific_promotion": false,
+  "step_b_authorized": false,
+  "fee_neutral_guard": "NOT executed and NOT authorized",
+  "source_binding": {
+    "parent_card": "research/stage1_uniform_layer_attribution_20261010",
+    "parent_commit": "c0672b77",
+    "recorder_id": "6c6fac4f2d974545a4ca8ed8b149a17c",
+    "summary_sha256": "90ae79b7e16a6f3ba68aa75f8b044b8a92e5578a86246f6947a7974c72aab20f",
+    "artifact_manifest_sha256": "806e41ee64eadce742f00c1e2002867667142e58bfa25cb002ca9941e8061f35",
+    "frozen_replay_objects": {
+      "open_risk_projection_nohold_no_recovery::development_walk_forward::10": "865d39cdddaad69d6d94e7907c006d1a92820940d5ec1aa76c75d9649409c1c7",
+      "open_risk_projection_nohold_no_recovery::development_walk_forward::25": "3b5f2bbe1815625e190e47059a8da380b9e64056c9e07541e1c7f754321a56ee",
+      "open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::10": "35804aba75799d913b9b453381b83051fe537221fbf64ee4360f2d804b3306be",
+      "open_risk_projection_nohold_no_recovery::outer_reused_diagnostic::25": "51fae60de1dd86a615da739e2bed4b513099eb7789c2b40a15f66373765c277d"
+    },
+    "provider_manifest_sha256": {
+      "intraday_provider": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+      "execution_mark_provider": "d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb",
+      "coherent_provider": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f"
+    },
+    "source_qa_sha256": "62321d2005376dced0d1474048213ea15651628c11545cb7d16b989eb1f99065",
+    "source_qa_file": "source_qa.json"
+  },
+  "cases": {
+    "structure": "2 windows x 2 base_controller_costs (10,25) x settlement_cost {0,10,25} = 12 prescribed-path cases",
+    "controller_rerun": false,
+    "per_case": "from fresh cash, actual orders/fees/held weights, three ending weights"
+  },
+  "parity_requirement": "each base settlement (base10 and base25) must reproduce the frozen path day-by-day (strategy_return, fees, all three ending weights), not only terminal value, before it is used",
+  "statistics": [
+    "true global DD at 0/10/25 settlement (running peak retains initial 1.0)",
+    "drawdown_before series and running-peak date/amount",
+    "actual emergency days where the fixed-0 path still has DD>=22%: days/share/consecutive episode dates",
+    "no false additive DD causal decomposition; no unique market-vs-fee attribution",
+    "fee cash deducted once; cost-feedback path reported separately (not called pure fee)"
+  ],
+  "native": {
+    "base_inherited_cases": 4,
+    "base_check": "verify actual parent native evidence for ALL stages, session count, object SHA, and dailyReturns/weights agreement; not claimed as a new run",
+    "counterfactual_cases": 8,
+    "counterfactual_native": "real Qlib native: 4 prefix(day) + 8 suffix(15min) stages, actual cash/quantity handoff",
+    "labelling": "every case carries a source/origin stage label; do NOT say all 12 are new runs",
+    "risk_analysis": "main risk_analysis(mode=product) on native-confirmed rows; native missing -> needs_data, never PASS"
+  },
+  "windows": {
+    "development": [
+      "2016-01-04",
+      "2022-12-21"
+    ],
+    "outer_reused_diagnostic": [
+      "2023-01-03",
+      "2026-09-23"
+    ]
+  },
+  "reporting": [
+    "both windows and costs 0/10/25 with source fee binding",
+    "no date shrinking and no dropna"
+  ],
+  "deliverables": {
+    "modules": [
+      "src/analysis/*",
+      "src/workflow/*"
+    ],
+    "primary": "Recorder",
+    "root": [
+      "small side tables",
+      "workflow.yaml",
+      "summary.json",
+      "artifact_policy",
+      "Chinese conclusion"
+    ],
+    "notebook": "executable"
+  },
+  "constraints": [
+    "0 fit / 0 new strategy / 0 orders",
+    "no cap/wait/model change",
+    "no StepB fee-neutral guard",
+    "no parent/provider/canonical WIP/production change",
+    "no commit/push by assistant",
+    "scientific promotion always False"
+  ],
+  "stop_rule": "if ANY actual emergency day still has the fixed-0 path drawdown >= 0.22, that refutes the explanation that fees are the sole cause; report the full conditional days/share/episode. This does NOT logically assert that all fee-neutral designs are forever infeasible. Regardless of result, StepB is not authorized, no alpha and no promotion; the next mechanism must be separately pre-registered and independently verified.",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "funding_convention": {
+    "source_base_10": "pre_fee_account",
+    "source_base_25": "pre_fee_account",
+    "settlement": "same pre_fee_account convention; funding convention is explicit and NOT changed",
+    "note": "the frozen source path was recorded with pre_fee_account; re-settlement uses the identical convention"
+  },
+  "exact_dates": {
+    "development": {
+      "signal_trade_exit_rows": 1756,
+      "dedup": "forbidden (same-source duplicates must not be removed)"
+    },
+    "outer_reused_diagnostic": {
+      "signal_trade_exit_rows": 934,
+      "dedup": "forbidden"
+    },
+    "reference_interval": [
+      "2016-01-04/2022-12-21",
+      "2023-01-03/2026-09-23"
+    ]
+  },
+  "dd_definitions": {
+    "drawdown_before": "1 - (pre-execution equity) / (prior running peak that includes the initial 1.0)",
+    "running_peak": "includes initial 1.0; first peak capital date = None (do NOT fabricate a trading day)",
+    "true_max_drawdown": "computed on the whole net wealth path including the initial 1.0",
+    "emergency_threshold": "0.22 is the old controller emergency_drawdown ASSUMPTION, NOT a user-explicit risk budget"
+  },
+  "tests": [
+    "0-fit patch covers the full workflow run",
+    "different-fee changing the path is NOT mistaken for same-path",
+    "base parity is actually executed and tampering is blocked",
+    "drawdown_before / peak uses the initial 1.0 and first capital date is None",
+    "cross-window peak reset handling",
+    "missing-day / wrong-day fail-closed",
+    "small fixture tests"
+  ],
+  "recorder": {
+    "large_daily": "fee/nav/dd/peak/weights/episode entries saved in the Recorder",
+    "root": "only small aggregates (summary, workflow.yaml, artifact_policy, Chinese conclusion)"
+  },
+  "docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/stable/component/evaluate.html"
+  ]
+}

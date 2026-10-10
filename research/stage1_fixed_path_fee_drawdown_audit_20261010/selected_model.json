@@ -1,0 +1,15 @@
+{
+  "selection": "none_prescribed_target_path_audit_only",
+  "models_trained": 0,
+  "source_card": "research/stage1_uniform_layer_attribution_20261010",
+  "source_recorder_id": "6c6fac4f2d974545a4ca8ed8b149a17c",
+  "frozen_paths": [
+    "development_walk_forward::10",
+    "development_walk_forward::25",
+    "outer_reused_diagnostic::10",
+    "outer_reused_diagnostic::25"
+  ],
+  "controller_rerun": false,
+  "new_strategy": 0,
+  "promotion_eligible": false
+}
