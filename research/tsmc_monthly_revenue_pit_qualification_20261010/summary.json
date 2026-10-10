@@ -1,0 +1,401 @@
+{
+  "experiment": "tsmc_monthly_revenue_pit_qualification_20261010",
+  "schema_version": "tsmc_monthly_revenue_pit_v1",
+  "card_status": "active_research",
+  "models_trained": 0,
+  "returns_computed": false,
+  "ic_computed": false,
+  "alpha": false,
+  "predictive_not_tested": true,
+  "promotion_eligible": false,
+  "plan_sha256": "38a099ed94fd1d8caadd954ef62c53703d8549f292827952f9b4fafdcdd48403",
+  "source_dimensions": {
+    "coverage": {
+      "expected_periods": [
+        "2015-11",
+        "2015-12",
+        "2016-01",
+        "2016-02",
+        "2016-03",
+        "2016-04",
+        "2016-05",
+        "2016-06",
+        "2016-07",
+        "2016-08",
+        "2016-09",
+        "2016-10",
+        "2016-11",
+        "2016-12",
+        "2017-01",
+        "2017-02",
+        "2017-03",
+        "2017-04",
+        "2017-05",
+        "2017-06",
+        "2017-07",
+        "2017-08",
+        "2017-09",
+        "2017-10",
+        "2017-11",
+        "2017-12",
+        "2018-01",
+        "2018-02",
+        "2018-03",
+        "2018-04",
+        "2018-05",
+        "2018-06",
+        "2018-07",
+        "2018-08",
+        "2018-09",
+        "2018-10",
+        "2018-11",
+        "2018-12",
+        "2019-01",
+        "2019-02",
+        "2019-03",
+        "2019-04",
+        "2019-05",
+        "2019-06",
+        "2019-07",
+        "2019-08",
+        "2019-09",
+        "2019-10",
+        "2019-11",
+        "2019-12",
+        "2020-01",
+        "2020-02",
+        "2020-03",
+        "2020-04",
+        "2020-05",
+        "2020-06",
+        "2020-07",
+        "2020-08",
+        "2020-09",
+        "2020-10",
+        "2020-11",
+        "2020-12",
+        "2021-01",
+        "2021-02",
+        "2021-03",
+        "2021-04",
+        "2021-05",
+        "2021-06",
+        "2021-07",
+        "2021-08",
+        "2021-09",
+        "2021-10",
+        "2021-11",
+        "2021-12",
+        "2022-01",
+        "2022-02",
+        "2022-03",
+        "2022-04",
+        "2022-05",
+        "2022-06",
+        "2022-07",
+        "2022-08",
+        "2022-09",
+        "2022-10",
+        "2022-11",
+        "2022-12",
+        "2023-01",
+        "2023-02",
+        "2023-03",
+        "2023-04",
+        "2023-05",
+        "2023-06",
+        "2023-07",
+        "2023-08",
+        "2023-09",
+        "2023-10",
+        "2023-11",
+        "2023-12",
+        "2024-01",
+        "2024-02",
+        "2024-03",
+        "2024-04",
+        "2024-05",
+        "2024-06",
+        "2024-07",
+        "2024-08",
+        "2024-09",
+        "2024-10",
+        "2024-11",
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "expected": 130,
+      "present": 130,
+      "not_admitted_to_scope": [
+        "2015-10"
+      ],
+      "missing": [],
+      "numeric_gate_failures": [],
+      "complete": true
+    },
+    "scope_extra_not_admitted": [
+      "2015-10"
+    ],
+    "precision": {
+      "main_table": "reported_rounded_ntd_million",
+      "old_paragraph": "approx_ntd_billion"
+    },
+    "clock": {
+      "accepted_utc_exact": true,
+      "eligible_session": "first US session strictly after acceptance ET date",
+      "calendar_frozen": {
+        "uri": "data/qlib/soxl",
+        "n_sessions": 4172,
+        "first": "2010-03-11",
+        "last": "2026-10-09",
+        "sha256": "20c15a5d20d909fef813863a725b91d8247c24892bd29f9562d2340d16e1a844"
+      }
+    },
+    "model_gate": "not_applicable_zero_models",
+    "production_collector": "needs_data"
+  },
+  "checks": {
+    "source_asof_ok": true,
+    "coverage_complete": true,
+    "expected_present_130": true,
+    "numeric_gate_failures_empty": true,
+    "extra_not_admitted": [
+      "2015-10"
+    ],
+    "docs_manifest": {
+      "checked": 131,
+      "missing": [],
+      "sha_mismatches": [],
+      "ok": true
+    },
+    "parser_oracle": {
+      "expected": 12,
+      "passed": 12,
+      "all_pass": true,
+      "per_period": {
+        "2015-12": {
+          "pass": true,
+          "reported_yoy": -16.1,
+          "reported_mom": -8.0
+        },
+        "2016-01": {
+          "pass": true,
+          "reported_yoy": -18.7,
+          "reported_mom": 21.4
+        },
+        "2016-02": {
+          "pass": true,
+          "reported_yoy": -4.9,
+          "reported_mom": -16.0
+        },
+        "2019-12": {
+          "pass": true,
+          "reported_yoy": 15.0,
+          "reported_mom": -4.2
+        },
+        "2020-01": {
+          "pass": true,
+          "reported_yoy": 32.8,
+          "reported_mom": 0.4
+        },
+        "2020-02": {
+          "pass": true,
+          "reported_yoy": 53.4,
+          "reported_mom": -9.9
+        },
+        "2023-12": {
+          "pass": true,
+          "reported_yoy": -8.4,
+          "reported_mom": -14.4
+        },
+        "2024-01": {
+          "pass": true,
+          "reported_yoy": 7.9,
+          "reported_mom": 22.4
+        },
+        "2024-02": {
+          "pass": true,
+          "reported_yoy": 11.3,
+          "reported_mom": -15.8
+        },
+        "2024-12": {
+          "pass": true,
+          "reported_yoy": 57.8,
+          "reported_mom": 0.8
+        },
+        "2025-01": {
+          "pass": true,
+          "reported_yoy": 35.9,
+          "reported_mom": 5.4
+        },
+        "2025-02": {
+          "pass": true,
+          "reported_yoy": 43.1,
+          "reported_mom": -11.3
+        }
+      }
+    },
+    "readback_calendar_match": true,
+    "readback_fields": {
+      "reported_yoy_pct": {
+        "nan_pattern_match": true,
+        "max_abs_err": 3.051757815342171e-06,
+        "ok": true
+      },
+      "reported_mom_pct": {
+        "nan_pattern_match": true,
+        "max_abs_err": 1.5258789076710855e-06,
+        "ok": true
+      },
+      "revenue_ntd_million": {
+        "nan_pattern_match": true,
+        "max_abs_err": 0.0,
+        "ok": true
+      },
+      "revenue_precision_flag": {
+        "nan_pattern_match": true,
+        "max_abs_err": 0.0,
+        "ok": true
+      },
+      "acceleration_pct_points": {
+        "nan_pattern_match": true,
+        "max_abs_err": 1.5258789076710855e-06,
+        "ok": true
+      },
+      "event_available": {
+        "nan_pattern_match": true,
+        "max_abs_err": 0.0,
+        "ok": true
+      }
+    },
+    "events_available": 130,
+    "factor_clock_events": 2693
+  },
+  "qualified_source_events": 130,
+  "raw_metadata_scope_extra": [
+    "2015-10"
+  ],
+  "readback_vs_reference": "serialization_fidelity_not_independent_algorithm",
+  "causal_contracts": [
+    "parser_oracle_12",
+    "late_prior_availability",
+    "holiday_next_us_session",
+    "future_revision_rejected",
+    "all_versions_source_asof"
+  ],
+  "source_as_of_note": "source_as_of=2026-10-10 is treated as the first midnight UTC boundary; no fabricated date-end",
+  "data_lineage": {
+    "raw_dir": "data/raw/external/tsmc_monthly_revenue_20261010_v1",
+    "submissions_sha256": "bbd5e352ab8242e31212f1a50ceb004b50c46011854598fcbfcb97eadf0580da",
+    "docs_manifest_sha256": "1070967532e9ddd47f4847aaf6dc7cec5920966ee419976b4167faba0c99aa49",
+    "calendar_uri": "data/qlib/soxl",
+    "calendar_sha256": "20c15a5d20d909fef813863a725b91d8247c24892bd29f9562d2340d16e1a844"
+  },
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "events",
+      "all_source_versions",
+      "docs_manifest",
+      "qlib_feature_readback",
+      "reference_asof_state",
+      "calendar"
+    ],
+    "slim_sidecars": [
+      "summary.json",
+      "workflow.yaml",
+      "conclusion.md"
+    ]
+  },
+  "decision": "source_plane_qualified_information_only",
+  "source_gate": "pass",
+  "provider": {
+    "uri": "data/qlib/tsmc_monthly_revenue_20261010_v1",
+    "instrument": "TSMC_RELEASE",
+    "manifest": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tsmc_monthly_revenue_20261010_v1",
+      "market": "all",
+      "region": "us",
+      "freq": "day",
+      "as_of": "2026-10-10",
+      "source": "tsmc_monthly_revenue_20261010_v1",
+      "instruments": [
+        "TSMC_RELEASE"
+      ],
+      "fields": [
+        "$reported_yoy_pct",
+        "$reported_mom_pct",
+        "$revenue_ntd_million",
+        "$revenue_precision_flag",
+        "$acceleration_pct_points",
+        "$event_available"
+      ],
+      "calendar_start": "2015-12-11",
+      "calendar_end": "2026-09-25",
+      "max_datetime": "2026-09-25",
+      "row_count": 2712,
+      "feature_file_count": 6,
+      "audit_snapshot_hash": "0101ec31e2c2c319",
+      "operation": "qlib_store_build",
+      "status": "ok",
+      "hash": "c8090ef1c3da1da5",
+      "source_api": [
+        "qlib.init",
+        "qlib.data.storage.file_storage.FileFeatureStorage",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "instrument": "TSMC_RELEASE",
+      "information_instrument": true,
+      "not_trading_prices": true,
+      "factor": "reported_yoy_acceleration_pct_points",
+      "source_as_of": "2026-10-10",
+      "usable_price_cutoff": "2026-09-25",
+      "calendar_slice": [
+        "2015-12-11",
+        "2026-09-25"
+      ],
+      "revision_contract": "first_as_filed_only (original first values immutable; no latest-asof revision feature)",
+      "carry_policy": "daily asof state: latest known financial period with eligible_session<=day; factor only when prior period also known and eligible"
+    },
+    "readback_rows": 2712,
+    "events_available": 130
+  },
+  "recorder_id": "4d1dc18e75c7489d8251af1e737c1a0f",
+  "experiment_id": "397792364372528784",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/tsmc_monthly_revenue_pit_qualification_20261010/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/tsmc_monthly_revenue_pit_qualification_20261010/qlib_recorder/397792364372528784/4d1dc18e75c7489d8251af1e737c1a0f",
+  "saved_objects": [
+    "all_source_versions",
+    "calendar",
+    "docs_manifest",
+    "events",
+    "qlib_feature_readback",
+    "reference_asof_state"
+  ]
+}

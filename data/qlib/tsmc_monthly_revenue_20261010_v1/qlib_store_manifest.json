@@ -1,0 +1,47 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tsmc_monthly_revenue_20261010_v1",
+  "market": "all",
+  "region": "us",
+  "freq": "day",
+  "as_of": "2026-10-10",
+  "source": "tsmc_monthly_revenue_20261010_v1",
+  "instruments": [
+    "TSMC_RELEASE"
+  ],
+  "fields": [
+    "$reported_yoy_pct",
+    "$reported_mom_pct",
+    "$revenue_ntd_million",
+    "$revenue_precision_flag",
+    "$acceleration_pct_points",
+    "$event_available"
+  ],
+  "calendar_start": "2015-12-11",
+  "calendar_end": "2026-09-25",
+  "max_datetime": "2026-09-25",
+  "row_count": 2712,
+  "feature_file_count": 6,
+  "audit_snapshot_hash": "0101ec31e2c2c319",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "c8090ef1c3da1da5",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "instrument": "TSMC_RELEASE",
+  "information_instrument": true,
+  "not_trading_prices": true,
+  "factor": "reported_yoy_acceleration_pct_points",
+  "source_as_of": "2026-10-10",
+  "usable_price_cutoff": "2026-09-25",
+  "calendar_slice": [
+    "2015-12-11",
+    "2026-09-25"
+  ],
+  "revision_contract": "first_as_filed_only (original first values immutable; no latest-asof revision feature)",
+  "carry_policy": "daily asof state: latest known financial period with eligible_session<=day; factor only when prior period also known and eligible"
+}

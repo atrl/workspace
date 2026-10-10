@@ -1,0 +1,60 @@
+{
+  "schema_version": "tsmc_monthly_revenue_pit_v1",
+  "experiment": "tsmc_monthly_revenue_pit_qualification_20261010",
+  "registered_at_utc": "2026-10-10T03:34:28.508543+00:00",
+  "scope": "2015-11 .. 2026-08, 130 consecutive monthly periods",
+  "models_trained": 0,
+  "alpha": false,
+  "factor": {
+    "name": "reported_yoy_acceleration_pct_points",
+    "definition": "reported_yoy_pct(current period) - reported_yoy_pct(previous consecutive period)",
+    "unit": "percentage points",
+    "not_allowed": "no consensus/beat/surprise framing; single factor only; no search"
+  },
+  "source": {
+    "issuer": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD",
+    "cik": "0001046179",
+    "channel": "SEC EDGAR as-filed 6-K (data.sec.gov metadata + www.sec.gov archives)",
+    "prefer_reuse": "reuse the 12 verified scratch bodies; fetch the rest only as needed"
+  },
+  "availability_protocol": {
+    "acceptance_utc": "exact in sidecar",
+    "feature_available_session": "first US session open STRICTLY after acceptance UTC->America/New_York (no same-day open); qlib US calendar",
+    "note": "conservative SEC receipt availability, intentionally later than the company PR; not the news first-public instant"
+  },
+  "precision": {
+    "main_table": "reported_rounded_ntd_million (integer million, not error-free exact)",
+    "old_paragraph": "approx_ntd_billion + reported issuer percentages"
+  },
+  "qlib_store": {
+    "instrument": "TSMC_RELEASE",
+    "fields": [
+      "reported_yoy_pct",
+      "reported_mom_pct",
+      "revenue_ntd_million",
+      "revenue_precision_flag",
+      "acceleration_pct_points",
+      "event_available"
+    ],
+    "note": "information instrument, not trading prices; no OHLCV; no epoch float timestamps in price fields"
+  },
+  "failclosed": [
+    "every period complete or explicit needs_data",
+    "missing/unsupported -> needs_data, never 0-filled",
+    "events beyond source_as_of refused, not silently truncated"
+  ],
+  "source_as_of": "2026-10-10",
+  "usable_price_cutoff": "2026-09-25",
+  "dimensions": [
+    "source_gate",
+    "coverage",
+    "precision",
+    "clock",
+    "model_gate",
+    "production_collector"
+  ],
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}
