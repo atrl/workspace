@@ -1,0 +1,59 @@
+{
+  "schema_version": "stage1_multisession_label_audit_v1",
+  "experiment": "stage1_multisession_label_audit_20261010",
+  "registered_at_utc": "2026-10-10T02:20:50.579154+00:00",
+  "diagnostic_only": true,
+  "trains_models": false,
+  "promotes": false,
+  "purpose": "diagnose whether the one-session action label differs from a fixed 5-session counterfactual label; NO candidate training, NO promotion",
+  "corrections_recorded": {
+    "event_at_minute30": "09:30 ET, not 10:30",
+    "no_2022_for_dev": "continuation model frozen at label-start decision year; never switch to a future-year model",
+    "target_convention": "economic post_fee_desired; ledger is open->next-open with intraday recovery, not 10:30-close; do not copy legacy pre_fee_account",
+    "auc_ci": "AUC CI crossing 0.5 = no clear evidence, not proof of zero information"
+  },
+  "control_source": {
+    "card": "research/stage1_feasible_action_training_20261009",
+    "recorder_id": "e4d888a42c914bf69660ab78a35ba6e7",
+    "objects": [
+      "model_control_all_state_<year>",
+      "replays",
+      "training_rows_control",
+      "diagnostics_control"
+    ],
+    "no_refit": "models read back from saved Recorder only; train_causal_economic_models MUST NOT be called this round",
+    "parent_prepared": "research/stage1_economic_action_20260929 recorder 17f81fbf27ee46859816ec1ac52151f6 inputs/prepared_inputs.pkl sha 8baa4f74...",
+    "panel_rebuild": "parent prepared_inputs + C.rebuild_market_inputs(uniform providers)"
+  },
+  "label_definitions": {
+    "original_1day": "execute-vs-hold one session plus common next-target reset at LABEL_COST_BPS=25",
+    "new_5day": "each branch owns cash/qty/risk-clock/recovery; first day EXECUTE/HOLD; then 4 more self-advanced sessions with the label-start-year model; mark at t+5 exit open; NO common reset, NO liquidation; label=10000*(cum_exec-cum_hold)"
+  },
+  "cost": {
+    "label_bps": 25,
+    "observed_parent_bps": [
+      10,
+      25
+    ],
+    "note": "10bp training-row parity only; 25bp original label recomputed from its own state, no saved training-row control"
+  },
+  "bootstrap": "20-session moving blocks over consecutive official sessions; overlapping 5-session labels are NOT iid-bootstrapped",
+  "outputs": [
+    "eligible overall and per-year samples",
+    "original vs 5-day label sign disagreement/magnitude/correlation",
+    "branch risk/recovery disagreement",
+    "strict-causal yearly OOS information of the original model prediction vs the 5-day label",
+    "20-session block bootstrap uncertainty"
+  ],
+  "selection_rule": "no horizon/sign/threshold selection from results; exactly one 5-day choice; outer = reused_diagnostic",
+  "native": "needs_data this round unless actually executed; do not borrow other-path PASS",
+  "uniform_providers": [
+    "data/qlib/stage1_uniform_intraday_20261009",
+    "data/qlib/stage1_uniform_execution_marks_20261009",
+    "data/qlib/stage1_uniform_daily_marks_20261009"
+  ],
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

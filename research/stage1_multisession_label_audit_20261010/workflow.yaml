@@ -1,0 +1,139 @@
+schema_version: stage1_multisession_label_audit_v1
+experiment: stage1_multisession_label_audit_20261010
+plan_sha256: 9541eddd593fda45fd92fa33e65ed91f3e69561de384a0ec3f8b076e54ec1a3b
+diagnostic_only: true
+models_trained: 0
+control_recorder: e4d888a42c914bf69660ab78a35ba6e7
+horizon_sessions: 5
+parent_costs_bps:
+- 10
+- 25
+label_fee_bps: 25.0
+data_lineage:
+  stage1_uniform_intraday_20261009:
+    provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_intraday_20261009
+    region: us
+    as_of: '2026-09-25'
+    calendar_start: '2018-12-31 09:45:00'
+    calendar_end: '2026-09-25 16:00:00'
+    manifest_sha256: fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a
+  stage1_uniform_execution_marks_20261009:
+    provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_execution_marks_20261009
+    region: us
+    as_of: '2026-09-25'
+    calendar_start: '2018-12-31 09:45:00'
+    calendar_end: '2026-09-25 16:00:00'
+    manifest_sha256: d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb
+  stage1_uniform_daily_marks_20261009:
+    provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_daily_marks_20261009
+    region: us
+    as_of: '2026-09-25'
+    calendar_start: '2016-01-04'
+    calendar_end: '2026-09-25'
+    manifest_sha256: 48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f
+source_identity:
+  prepared_sha256: 8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa
+  control_object_sha256:
+    model_control_all_state_2016: 9c298d589a2158eb513cb52191144518a2acab2cb0c04f1df14fca0f712fa4a1
+    model_control_all_state_2017: 194aeaf843787def0f77e8bccb005fbed3fc3bf0b24fe5107072bb8c4581705b
+    model_control_all_state_2018: e1ef03327b6f54fd9cf4e7b4ea1a21d961e4dd1595850f5997441f8660b67038
+    model_control_all_state_2019: 78728ed47ff40a512e3d66ad8b187efbfed31d3c89518b6f7f5a5e0ab98152b5
+    model_control_all_state_2020: 77710354e5aa02a23d34c8f67d10bb9c06c1bc6b57640e17467f8d1dfc9f334a
+    model_control_all_state_2021: 96adcba2ac020c935e6c1dcb3aebbb4971fb08ccff9268064b63ceafe3c1e97d
+    model_control_all_state_2022: e194a5ff5d85676434c88248dd1367b9a051c72507f6f108932a1445754b0995
+    model_control_all_state_2023: 770acef63a0c0b6fd47425dd14c2f450fc67fb264e78c7c3b6741dbb34ff625e
+    model_control_all_state_2024: 770acef63a0c0b6fd47425dd14c2f450fc67fb264e78c7c3b6741dbb34ff625e
+    model_control_all_state_2025: 770acef63a0c0b6fd47425dd14c2f450fc67fb264e78c7c3b6741dbb34ff625e
+    model_control_all_state_2026: 770acef63a0c0b6fd47425dd14c2f450fc67fb264e78c7c3b6741dbb34ff625e
+    replays: 510ae5e9c95df55759be5a4ac62b53bf06b70bf6bf4c106eb9e58a6e1780b17d
+    training_rows_control: ce49a677e18c3c2b4c09600378fa58ecd649118020fb987d654f2d7aeb7d5cc9
+    diagnostics_control: 6dffebbe9b5f3887eb03fa3b08961573c1ea1c8bf915a0f64a949bdff536b1d4
+  provider_sha256:
+    stage1_uniform_intraday_20261009: fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a
+    stage1_uniform_execution_marks_20261009: d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb
+    stage1_uniform_daily_marks_20261009: 48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f
+  control_recorder: e4d888a42c914bf69660ab78a35ba6e7
+  carry_forward_from_year:
+    2024: 2023
+    2025: 2023
+    2026: 2023
+model_information_cutoffs:
+  2017: '2017-01-01T05:00:00+00:00'
+  2018: '2018-01-01T05:00:00+00:00'
+  2019: '2019-01-01T05:00:00+00:00'
+  2020: '2020-01-01T05:00:00+00:00'
+  2021: '2021-01-01T05:00:00+00:00'
+  2022: '2022-01-01T05:00:00+00:00'
+  2023: '2023-01-01T05:00:00+00:00'
+observed_parent_parity:
+  10:
+    development_walk_forward:
+      status: exact
+      rtol: 0
+      atol: 1.0e-12
+      sessions_equal: true
+      trade_dates_equal: true
+      return: true
+      end_soxl: true
+      end_soxx: true
+      end_cash: true
+    outer_reused_diagnostic:
+      status: exact
+      rtol: 0
+      atol: 1.0e-12
+      sessions_equal: true
+      trade_dates_equal: true
+      return: true
+      end_soxl: true
+      end_soxx: true
+      end_cash: true
+  25:
+    development_walk_forward:
+      status: exact
+      rtol: 0
+      atol: 1.0e-12
+      sessions_equal: true
+      trade_dates_equal: true
+      return: true
+      end_soxl: true
+      end_soxx: true
+      end_cash: true
+    outer_reused_diagnostic:
+      status: exact
+      rtol: 0
+      atol: 1.0e-12
+      sessions_equal: true
+      trade_dates_equal: true
+      return: true
+      end_soxl: true
+      end_soxx: true
+      end_cash: true
+training_label_parity:
+  n_rows: 2690
+  n_finite: 2688
+  values_exact: true
+  label_available_at_exact: true
+  label_status_match: true
+  boundary_unknown_rows:
+  - '2022-12-21'
+  - '2026-09-23'
+  canonical_unknown_identity:
+    complete: 2688
+    unknown_segment_boundary: 1
+    unknown_terminal: 1
+  scope: 10bp training book only; 25bp original label has no saved training-row control
+    and is recomputed from its own 25bp state
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - parents_10
+  - labels_10
+  - trajectories_10
+  - parents_25
+  - labels_25
+  - trajectories_25
+  - diagnostics_control
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

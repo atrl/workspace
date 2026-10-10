@@ -1,0 +1,446 @@
+{
+  "experiment": "stage1_multisession_label_audit_20261010",
+  "schema_version": "stage1_multisession_label_audit_v1",
+  "card_status": "active_research",
+  "diagnostic_only": true,
+  "models_trained": 0,
+  "promotion_eligible": false,
+  "objective_achieved": false,
+  "plan_sha256": "9541eddd593fda45fd92fa33e65ed91f3e69561de384a0ec3f8b076e54ec1a3b",
+  "data_lineage": {
+    "stage1_uniform_intraday_20261009": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_intraday_20261009",
+      "region": "us",
+      "as_of": "2026-09-25",
+      "calendar_start": "2018-12-31 09:45:00",
+      "calendar_end": "2026-09-25 16:00:00",
+      "manifest_sha256": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a"
+    },
+    "stage1_uniform_execution_marks_20261009": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_execution_marks_20261009",
+      "region": "us",
+      "as_of": "2026-09-25",
+      "calendar_start": "2018-12-31 09:45:00",
+      "calendar_end": "2026-09-25 16:00:00",
+      "manifest_sha256": "d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb"
+    },
+    "stage1_uniform_daily_marks_20261009": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_daily_marks_20261009",
+      "region": "us",
+      "as_of": "2026-09-25",
+      "calendar_start": "2016-01-04",
+      "calendar_end": "2026-09-25",
+      "manifest_sha256": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f"
+    }
+  },
+  "source_identity": {
+    "prepared_sha256": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+    "control_object_sha256": {
+      "model_control_all_state_2016": "9c298d589a2158eb513cb52191144518a2acab2cb0c04f1df14fca0f712fa4a1",
+      "model_control_all_state_2017": "194aeaf843787def0f77e8bccb005fbed3fc3bf0b24fe5107072bb8c4581705b",
+      "model_control_all_state_2018": "e1ef03327b6f54fd9cf4e7b4ea1a21d961e4dd1595850f5997441f8660b67038",
+      "model_control_all_state_2019": "78728ed47ff40a512e3d66ad8b187efbfed31d3c89518b6f7f5a5e0ab98152b5",
+      "model_control_all_state_2020": "77710354e5aa02a23d34c8f67d10bb9c06c1bc6b57640e17467f8d1dfc9f334a",
+      "model_control_all_state_2021": "96adcba2ac020c935e6c1dcb3aebbb4971fb08ccff9268064b63ceafe3c1e97d",
+      "model_control_all_state_2022": "e194a5ff5d85676434c88248dd1367b9a051c72507f6f108932a1445754b0995",
+      "model_control_all_state_2023": "770acef63a0c0b6fd47425dd14c2f450fc67fb264e78c7c3b6741dbb34ff625e",
+      "model_control_all_state_2024": "770acef63a0c0b6fd47425dd14c2f450fc67fb264e78c7c3b6741dbb34ff625e",
+      "model_control_all_state_2025": "770acef63a0c0b6fd47425dd14c2f450fc67fb264e78c7c3b6741dbb34ff625e",
+      "model_control_all_state_2026": "770acef63a0c0b6fd47425dd14c2f450fc67fb264e78c7c3b6741dbb34ff625e",
+      "replays": "510ae5e9c95df55759be5a4ac62b53bf06b70bf6bf4c106eb9e58a6e1780b17d",
+      "training_rows_control": "ce49a677e18c3c2b4c09600378fa58ecd649118020fb987d654f2d7aeb7d5cc9",
+      "diagnostics_control": "6dffebbe9b5f3887eb03fa3b08961573c1ea1c8bf915a0f64a949bdff536b1d4"
+    },
+    "provider_sha256": {
+      "stage1_uniform_intraday_20261009": "fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a",
+      "stage1_uniform_execution_marks_20261009": "d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb",
+      "stage1_uniform_daily_marks_20261009": "48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f"
+    },
+    "control_recorder": "e4d888a42c914bf69660ab78a35ba6e7",
+    "carry_forward_from_year": {
+      "2024": 2023,
+      "2025": 2023,
+      "2026": 2023
+    }
+  },
+  "model_information_cutoffs": {
+    "2017": "2017-01-01T05:00:00+00:00",
+    "2018": "2018-01-01T05:00:00+00:00",
+    "2019": "2019-01-01T05:00:00+00:00",
+    "2020": "2020-01-01T05:00:00+00:00",
+    "2021": "2021-01-01T05:00:00+00:00",
+    "2022": "2022-01-01T05:00:00+00:00",
+    "2023": "2023-01-01T05:00:00+00:00"
+  },
+  "parent_costs_bps": [
+    10,
+    25
+  ],
+  "label_fee_bps": 25.0,
+  "segment_window_status": {
+    "10": {
+      "available": 2646,
+      "unavailable_cross_year_upstream_identity": 36,
+      "unavailable_segment_or_gap": 4,
+      "unavailable_terminal_short": 4
+    },
+    "25": {
+      "available": 2646,
+      "unavailable_cross_year_upstream_identity": 36,
+      "unavailable_segment_or_gap": 4,
+      "unavailable_terminal_short": 4
+    }
+  },
+  "training_label_parity": {
+    "n_rows": 2690,
+    "n_finite": 2688,
+    "values_exact": true,
+    "label_available_at_exact": true,
+    "label_status_match": true,
+    "boundary_unknown_rows": [
+      "2022-12-21",
+      "2026-09-23"
+    ],
+    "canonical_unknown_identity": {
+      "complete": 2688,
+      "unknown_segment_boundary": 1,
+      "unknown_terminal": 1
+    },
+    "scope": "10bp training book only; 25bp original label has no saved training-row control and is recomputed from its own 25bp state"
+  },
+  "observed_parent_parity": {
+    "10": {
+      "development_walk_forward": {
+        "status": "exact",
+        "rtol": 0,
+        "atol": 1e-12,
+        "sessions_equal": true,
+        "trade_dates_equal": true,
+        "return": true,
+        "end_soxl": true,
+        "end_soxx": true,
+        "end_cash": true
+      },
+      "outer_reused_diagnostic": {
+        "status": "exact",
+        "rtol": 0,
+        "atol": 1e-12,
+        "sessions_equal": true,
+        "trade_dates_equal": true,
+        "return": true,
+        "end_soxl": true,
+        "end_soxx": true,
+        "end_cash": true
+      }
+    },
+    "25": {
+      "development_walk_forward": {
+        "status": "exact",
+        "rtol": 0,
+        "atol": 1e-12,
+        "sessions_equal": true,
+        "trade_dates_equal": true,
+        "return": true,
+        "end_soxl": true,
+        "end_soxx": true,
+        "end_cash": true
+      },
+      "outer_reused_diagnostic": {
+        "status": "exact",
+        "rtol": 0,
+        "atol": 1e-12,
+        "sessions_equal": true,
+        "trade_dates_equal": true,
+        "return": true,
+        "end_soxl": true,
+        "end_soxx": true,
+        "end_cash": true
+      }
+    }
+  },
+  "native": {
+    "status": "needs_data",
+    "reason": "no native cash/quantity reconciliation executed this diagnostic round"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "parents_10",
+      "labels_10",
+      "trajectories_10",
+      "parents_25",
+      "labels_25",
+      "trajectories_25",
+      "diagnostics_control"
+    ]
+  },
+  "segments": {
+    "10": {
+      "development_walk_forward": {
+        "eligible_available_sessions": 1529,
+        "eligible_available_by_year": {
+          "2016": 201,
+          "2017": 245,
+          "2018": 246,
+          "2019": 248,
+          "2020": 244,
+          "2021": 198,
+          "2022": 147
+        },
+        "label_comparison": {
+          "n_with_orig": 1529,
+          "sign_disagreement_rate": 0.24918247220405493,
+          "orig_mean_bps": 2.5412652609855217,
+          "label_5d_mean_bps": 5.770709469830374,
+          "orig_std_bps": 141.64282148165805,
+          "label_5d_std_bps": 266.5396646054262,
+          "pearson_corr": 0.5581592245863298,
+          "spearman_corr": 0.4561747695664339,
+          "risk_state_disagreement_rate": 0.025506867233485938,
+          "risk_clock_disagreement_rate": 0.025506867233485938,
+          "recovery_disagreement_rate": 0.004578155657292348
+        },
+        "oos_ic_overall": {
+          "point": 0.06594034820500863,
+          "ci_low": -0.02382479194515184,
+          "ci_high": 0.15102788176638682,
+          "blocks": 1737,
+          "status": "ok"
+        },
+        "oos_ic_by_year": {
+          "2016": {
+            "model_available": false,
+            "n_finite": 0,
+            "ic": null
+          },
+          "2017": {
+            "model_available": true,
+            "n_finite": 245,
+            "ic": 0.14692490350798457
+          },
+          "2018": {
+            "model_available": true,
+            "n_finite": 246,
+            "ic": 0.13054009991475604
+          },
+          "2019": {
+            "model_available": true,
+            "n_finite": 248,
+            "ic": 0.16854803306211655
+          },
+          "2020": {
+            "model_available": true,
+            "n_finite": 244,
+            "ic": 0.020598986406948936
+          },
+          "2021": {
+            "model_available": true,
+            "n_finite": 198,
+            "ic": 0.03519752276224995
+          },
+          "2022": {
+            "model_available": true,
+            "n_finite": 147,
+            "ic": -0.069373399118996
+          }
+        },
+        "oos_ic_model_available_from": 2017
+      },
+      "outer_reused_diagnostic": {
+        "eligible_available_sessions": 748,
+        "eligible_available_by_year": {
+          "2023": 209,
+          "2024": 226,
+          "2025": 219,
+          "2026": 94
+        },
+        "label_comparison": {
+          "n_with_orig": 748,
+          "sign_disagreement_rate": 0.18181818181818182,
+          "orig_mean_bps": 0.8775829321171839,
+          "label_5d_mean_bps": -9.601321723612365,
+          "orig_std_bps": 75.59735412163587,
+          "label_5d_std_bps": 166.62031384487238,
+          "pearson_corr": 0.5573231302917594,
+          "spearman_corr": 0.5760181010914566,
+          "risk_state_disagreement_rate": 0.013368983957219251,
+          "risk_clock_disagreement_rate": 0.013368983957219251,
+          "recovery_disagreement_rate": 0.0
+        },
+        "oos_ic_overall": {
+          "point": 0.06673944516132398,
+          "ci_low": -0.06507386301796853,
+          "ci_high": 0.19591268946114151,
+          "blocks": 915,
+          "status": "ok"
+        },
+        "oos_ic_by_year": {
+          "2023": {
+            "model_available": true,
+            "n_finite": 209,
+            "ic": 0.2190138808559861
+          },
+          "2024": {
+            "model_available": true,
+            "n_finite": 226,
+            "ic": -0.18292048393175056
+          },
+          "2025": {
+            "model_available": true,
+            "n_finite": 219,
+            "ic": 0.13499491585453635
+          },
+          "2026": {
+            "model_available": true,
+            "n_finite": 94,
+            "ic": 0.03935267131452516
+          }
+        },
+        "oos_ic_model_available_from": 2017
+      }
+    },
+    "25": {
+      "development_walk_forward": {
+        "eligible_available_sessions": 1513,
+        "eligible_available_by_year": {
+          "2016": 201,
+          "2017": 245,
+          "2018": 246,
+          "2019": 248,
+          "2020": 243,
+          "2021": 189,
+          "2022": 141
+        },
+        "label_comparison": {
+          "n_with_orig": 1513,
+          "sign_disagreement_rate": 0.2478519497686715,
+          "orig_mean_bps": 2.9164039708939495,
+          "label_5d_mean_bps": 5.473394772832911,
+          "orig_std_bps": 140.81685924198072,
+          "label_5d_std_bps": 264.27251998265933,
+          "pearson_corr": 0.5574963887201344,
+          "spearman_corr": 0.4580496772549183,
+          "risk_state_disagreement_rate": 0.026437541308658295,
+          "risk_clock_disagreement_rate": 0.026437541308658295,
+          "recovery_disagreement_rate": 0.004626569729015202
+        },
+        "oos_ic_overall": {
+          "point": 0.07290839931662547,
+          "ci_low": -0.01602686308928399,
+          "ci_high": 0.15834184459274145,
+          "blocks": 1737,
+          "status": "ok"
+        },
+        "oos_ic_by_year": {
+          "2016": {
+            "model_available": false,
+            "n_finite": 0,
+            "ic": null
+          },
+          "2017": {
+            "model_available": true,
+            "n_finite": 245,
+            "ic": 0.14686451949832313
+          },
+          "2018": {
+            "model_available": true,
+            "n_finite": 246,
+            "ic": 0.1304490118354046
+          },
+          "2019": {
+            "model_available": true,
+            "n_finite": 248,
+            "ic": 0.16845755753849928
+          },
+          "2020": {
+            "model_available": true,
+            "n_finite": 243,
+            "ic": 0.03153241305253227
+          },
+          "2021": {
+            "model_available": true,
+            "n_finite": 189,
+            "ic": -0.06796779181997548
+          },
+          "2022": {
+            "model_available": true,
+            "n_finite": 141,
+            "ic": -0.20789845455713002
+          }
+        },
+        "oos_ic_model_available_from": 2017
+      },
+      "outer_reused_diagnostic": {
+        "eligible_available_sessions": 736,
+        "eligible_available_by_year": {
+          "2023": 209,
+          "2024": 217,
+          "2025": 215,
+          "2026": 95
+        },
+        "label_comparison": {
+          "n_with_orig": 736,
+          "sign_disagreement_rate": 0.18885869565217392,
+          "orig_mean_bps": 2.7217683817736273,
+          "label_5d_mean_bps": -5.949680252144076,
+          "orig_std_bps": 74.06381655172187,
+          "label_5d_std_bps": 158.55487257510427,
+          "pearson_corr": 0.5453854162416106,
+          "spearman_corr": 0.5756907966419414,
+          "risk_state_disagreement_rate": 0.021739130434782608,
+          "risk_clock_disagreement_rate": 0.021739130434782608,
+          "recovery_disagreement_rate": 0.0
+        },
+        "oos_ic_overall": {
+          "point": 0.06408862760489718,
+          "ci_low": -0.06367681783251708,
+          "ci_high": 0.18942211407033593,
+          "blocks": 915,
+          "status": "ok"
+        },
+        "oos_ic_by_year": {
+          "2023": {
+            "model_available": true,
+            "n_finite": 209,
+            "ic": 0.19783505967716494
+          },
+          "2024": {
+            "model_available": true,
+            "n_finite": 217,
+            "ic": -0.19398878225454136
+          },
+          "2025": {
+            "model_available": true,
+            "n_finite": 215,
+            "ic": 0.15137530488541137
+          },
+          "2026": {
+            "model_available": true,
+            "n_finite": 95,
+            "ic": 0.05393337066069429
+          }
+        },
+        "oos_ic_model_available_from": 2017
+      }
+    }
+  },
+  "next_action": "read-only diagnostic complete; do NOT train a 5-session candidate without a separate pre-registration; outer is reused_diagnostic, never a fresh out-of-sample pass",
+  "recorder_id": "5adde25b815042a78396492ea71169d1",
+  "experiment_id": "498944341642889372",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_multisession_label_audit_20261010/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_multisession_label_audit_20261010/qlib_recorder/498944341642889372/5adde25b815042a78396492ea71169d1",
+  "saved_objects": [
+    "diagnostics_control",
+    "labels_10",
+    "labels_25",
+    "parents_10",
+    "parents_25",
+    "trajectories_10",
+    "trajectories_25"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}
