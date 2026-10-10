@@ -1,0 +1,3 @@
+candidate,reference,status,gate_scope,minimum_annual_wealth_ratio,development_return_above_baseline,stress_25bps_return_above_baseline,max_drawdown_not_worse,worst_day_not_worse,cvar5_not_worse,worst_5d_not_worse,open_trade_days_reduced_8pct,turnover_not_increased,annual_wealth_floor_pass,all_pass
+candidate_label_5d,no_hold_reference,ok,development_2017_2022,0.8081287422544845,True,True,True,False,False,True,True,True,False,False
+candidate_label_5d,active_hold_baseline,ok,development_2017_2022,0.8072509235387998,True,True,True,False,False,True,True,True,False,False

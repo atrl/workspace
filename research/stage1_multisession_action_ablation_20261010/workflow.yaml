@@ -1,0 +1,102 @@
+schema_version: stage1_multisession_action_ablation_v1
+experiment: stage1_multisession_action_ablation_20261010
+plan_sha256: d16ea7c6be4e0b83654ef1b3e31a3c5b361ce91c624b373ae0db548e03d6808f
+decision: not_promoted
+annual_fits:
+- 2017
+- 2018
+- 2019
+- 2020
+- 2021
+- 2022
+- 2023
+source_bindings:
+  diag_recorder: 5adde25b815042a78396492ea71169d1
+  labels_10_sha256: 6f1582fd490e466a461a5854b25c5ebd467116a551b871eba3b179429a360858
+  control_recorder: e4d888a42c914bf69660ab78a35ba6e7
+  prepared_sha256: 8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa
+  candidate_model_object: recorder-only candidate_model_<year>/candidate_scaler_<year>
+  source_target_identity: preserved as source_* columns; candidate 5-day alias is
+    separate
+off_policy_limitation: trained on the frozen parent trajectory, not the candidate's
+  own on-policy multi-day rollout
+data_lineage:
+  stage1_uniform_intraday_20261009:
+    provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_intraday_20261009
+    region: us
+    as_of: '2026-09-25'
+    calendar_start: '2018-12-31 09:45:00'
+    calendar_end: '2026-09-25 16:00:00'
+    manifest_sha256: fb6afd75ea128999b1b87bd178e9d54eb7e00f1bd1ee3fc03d657db39c91274a
+  stage1_uniform_execution_marks_20261009:
+    provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_execution_marks_20261009
+    region: us
+    as_of: '2026-09-25'
+    calendar_start: '2018-12-31 09:45:00'
+    calendar_end: '2026-09-25 16:00:00'
+    manifest_sha256: d565935ca518aecff338631ad993e8a9235ec1c9c39a44b62af75db4f84f27eb
+  stage1_uniform_daily_marks_20261009:
+    provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_uniform_daily_marks_20261009
+    region: us
+    as_of: '2026-09-25'
+    calendar_start: '2016-01-04'
+    calendar_end: '2026-09-25'
+    manifest_sha256: 48ec582f748d1c4f769aac2771569dd320ee4872813fc1f43e096717bde2081f
+qualification_scope: development_only; outer=candidate_diagnostic_not_qualification
+native_status: passed
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - candidate_model_2016
+  - candidate_model_2017
+  - candidate_model_2018
+  - candidate_model_2019
+  - candidate_model_2020
+  - candidate_model_2021
+  - candidate_model_2022
+  - candidate_model_2023
+  - candidate_model_2024
+  - candidate_model_2025
+  - candidate_model_2026
+  - candidate_scaler_2017
+  - candidate_scaler_2018
+  - candidate_scaler_2019
+  - candidate_scaler_2020
+  - candidate_scaler_2021
+  - candidate_scaler_2022
+  - candidate_scaler_2023
+  - candidate_scaler_2024
+  - candidate_scaler_2025
+  - candidate_scaler_2026
+  - fit_diagnostics
+  - native::candidate_label_5d::development_walk_forward::10::prefix_positions
+  - native::candidate_label_5d::development_walk_forward::10::prefix_reconciliation
+  - native::candidate_label_5d::development_walk_forward::10::prefix_report
+  - native::candidate_label_5d::development_walk_forward::10::suffix_events
+  - native::candidate_label_5d::development_walk_forward::10::suffix_positions
+  - native::candidate_label_5d::development_walk_forward::10::suffix_reconciliation
+  - native::candidate_label_5d::development_walk_forward::10::suffix_report
+  - native::candidate_label_5d::development_walk_forward::25::prefix_positions
+  - native::candidate_label_5d::development_walk_forward::25::prefix_reconciliation
+  - native::candidate_label_5d::development_walk_forward::25::prefix_report
+  - native::candidate_label_5d::development_walk_forward::25::suffix_events
+  - native::candidate_label_5d::development_walk_forward::25::suffix_positions
+  - native::candidate_label_5d::development_walk_forward::25::suffix_reconciliation
+  - native::candidate_label_5d::development_walk_forward::25::suffix_report
+  - native::candidate_label_5d::outer_diagnostic::10::suffix_events
+  - native::candidate_label_5d::outer_diagnostic::10::suffix_positions
+  - native::candidate_label_5d::outer_diagnostic::10::suffix_reconciliation
+  - native::candidate_label_5d::outer_diagnostic::10::suffix_report
+  - native::candidate_label_5d::outer_diagnostic::25::suffix_events
+  - native::candidate_label_5d::outer_diagnostic::25::suffix_positions
+  - native::candidate_label_5d::outer_diagnostic::25::suffix_reconciliation
+  - native::candidate_label_5d::outer_diagnostic::25::suffix_report
+  - oos_action_predictions
+  - replays
+  - risk_analysis
+  - training_predictions
+  - training_rows
+qlib_docs_reference:
+- https://qlib.readthedocs.io/en/latest/component/data.html
+- https://qlib.readthedocs.io/en/latest/component/recorder.html

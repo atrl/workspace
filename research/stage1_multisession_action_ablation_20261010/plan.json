@@ -1,0 +1,75 @@
+{
+  "schema_version": "stage1_multisession_action_ablation_v1",
+  "experiment": "stage1_multisession_action_ablation_20261010",
+  "registered_at_utc": "2026-10-10T02:40:39.324332+00:00",
+  "frozen_immutable": true,
+  "promotion_eligible": false,
+  "single_increment": "replace only the action objective with the fixed 5-session label; no threshold/cost/model/window search",
+  "budget": {
+    "candidates": 1,
+    "annual_fits": 7,
+    "fits_years": [
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "year_2016": "None fallback",
+    "2024_2026": "carry forward 2023"
+  },
+  "training": {
+    "training_state": "fixed_parent_state_label_ablation",
+    "features": "original ECONOMIC_FEATURES (25)",
+    "label": "fixed 5-session label_5d_bps from the frozen diagnostic card",
+    "join": "complete unique signal_date between e4 training_rows_control and diag labels_10",
+    "continuation": "original frozen net_value router (off-policy offset is an explicit limitation)",
+    "not_claiming": "the candidate's own on-policy multi-day label; training uses frozen parent state",
+    "label_fee_bps": 25,
+    "ridge_alpha": 10,
+    "minimum_training_rows": 200,
+    "action_rule": "predicted_net_advantage_bps > 0",
+    "router_risk_rules": "unchanged",
+    "maturity": "candidate label_available_at = 5th segment exit 09:30; strictly before NY Jan-1 and first same-year decision",
+    "unknown_policy": "unknown/cross-year rows are excluded from fits, never filled with 0; kept and counted"
+  },
+  "evaluation": {
+    "panel": "same frozen uniform panel",
+    "segments": "development 1756 + outer 934 with reset semantics",
+    "outer": "reused_diagnostic (already inspected; never a fresh OOS claim)",
+    "costs_bps": [
+      10,
+      25
+    ],
+    "independent_own_account_per_cost": true,
+    "baselines": [
+      "no_hold_reference",
+      "active_hold_baseline",
+      "control_all_state",
+      "cash_reference",
+      "SOXX buyhold"
+    ],
+    "gates": "original nine gates + SOXX same-cost returns/DD/Sharpe/annual win rate/relative wealth + 20-session paired block uncertainty (windows separate)",
+    "native": "real Qlib prefix(day)+suffix(15min), post_fee_desired, prefix cash/quantity handoff; candidate native failure => needs_data/blocked"
+  },
+  "source_bindings": {
+    "diagnostic_card": "research/stage1_multisession_label_audit_20261010",
+    "diagnostic_recorder": "5adde25b815042a78396492ea71169d1",
+    "labels_10_sha256": "6f1582fd490e466a461a5854b25c5ebd467116a551b871eba3b179429a360858",
+    "control_card": "research/stage1_feasible_action_training_20261009",
+    "control_recorder": "e4d888a42c914bf69660ab78a35ba6e7",
+    "prepared_inputs_sha256": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+    "uniform_providers": [
+      "stage1_uniform_intraday_20261009",
+      "stage1_uniform_execution_marks_20261009",
+      "stage1_uniform_daily_marks_20261009"
+    ]
+  },
+  "stop_rule": "if economic gates fail or CI unclear -> not_promoted and end_fixed_label_route_no_parameter_search; if seemingly passing still needs independent forward, no production switch",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}
