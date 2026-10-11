@@ -1,0 +1,165 @@
+{
+  "schema_version": "provider_content_hash_v1",
+  "pure_function": "src.data.provider_content_hash.provider_content_hash(store) -> (hash, inventory)",
+  "serialization": "sorted(path)[path.utf8 + 0x00 + sha256.ascii + 0x0a]",
+  "stores": {
+    "published_futu_affine_20260925_v1": {
+      "schema_version": "provider_content_hash_v1",
+      "serialization": "sorted(path)[path.utf8 + 0x00 + sha256.ascii + 0x0a]",
+      "separator_bytes": "0x00",
+      "terminator_bytes": "0x0a",
+      "encoding": "utf-8/ascii",
+      "scan_kinds": [
+        "calendars",
+        "instruments",
+        "features"
+      ],
+      "exclude_names": [
+        "qlib.yaml"
+      ],
+      "exclude_dirs": [
+        ".cache",
+        "__pycache__",
+        "cache"
+      ],
+      "root_manifest": "qlib_store_manifest.json",
+      "file_count": 13,
+      "content_sha256": "b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa",
+      "inventory": [
+        {
+          "path": "calendars/day.txt",
+          "sha256": "d3381b900795126d9b67efdc85780345b7a85c298a1f6d02fbe86e50ee3f96eb"
+        },
+        {
+          "path": "features/soxl/close.day.bin",
+          "sha256": "5c24c8ecaf3c7a16e10b54d6fa2797d58082fecf70406ff19ae42c156456a970"
+        },
+        {
+          "path": "features/soxl/high.day.bin",
+          "sha256": "0ed44ae8679231f425fc117ad48eb001a885b9c5db0c25195b95fcc1d69aa63b"
+        },
+        {
+          "path": "features/soxl/low.day.bin",
+          "sha256": "54a9436a3c1dd9137f105d6b841bb564ca1ebc6b98d8b3de6ff33a94e543ab54"
+        },
+        {
+          "path": "features/soxl/open.day.bin",
+          "sha256": "f133c0ddceb6c94a9a3fc68e7d67da4b83a51496d83b3e76a071d02deab10195"
+        },
+        {
+          "path": "features/soxl/volume.day.bin",
+          "sha256": "cfc3c13ce7d9dc8a7932e331554769ca5504e0f08a2bc3085a0722dfacc8c441"
+        },
+        {
+          "path": "features/soxx/close.day.bin",
+          "sha256": "10795d93e629b42b6951cc972877b70e0e1e48ad471777a262d1a9fe85a0e647"
+        },
+        {
+          "path": "features/soxx/high.day.bin",
+          "sha256": "0039b6a0543e44f2fc841f29823c427b11325e83554381fa3cf63af70e311135"
+        },
+        {
+          "path": "features/soxx/low.day.bin",
+          "sha256": "411d2c3ec7b082f293d57237130e856218d39c9a67959530fc48316d767dff4f"
+        },
+        {
+          "path": "features/soxx/open.day.bin",
+          "sha256": "4ec7e322c7df8837d1ca76678de33dddac6c1dd3c48585618c44bb933fbe9711"
+        },
+        {
+          "path": "features/soxx/volume.day.bin",
+          "sha256": "22e4344473649f6d63d2a509469b6b9f9e27d9d5c13351014a34632f6ad903a3"
+        },
+        {
+          "path": "instruments/all.txt",
+          "sha256": "cf10f6dc8dfcb4136e8bd305c48a87967441d326850c4237dd841234626de9df"
+        },
+        {
+          "path": "qlib_store_manifest.json",
+          "sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb"
+        }
+      ]
+    },
+    "legacy_soxl_execution_20260925_v1": {
+      "schema_version": "provider_content_hash_v1",
+      "serialization": "sorted(path)[path.utf8 + 0x00 + sha256.ascii + 0x0a]",
+      "separator_bytes": "0x00",
+      "terminator_bytes": "0x0a",
+      "encoding": "utf-8/ascii",
+      "scan_kinds": [
+        "calendars",
+        "instruments",
+        "features"
+      ],
+      "exclude_names": [
+        "qlib.yaml"
+      ],
+      "exclude_dirs": [
+        ".cache",
+        "__pycache__",
+        "cache"
+      ],
+      "root_manifest": "qlib_store_manifest.json",
+      "file_count": 14,
+      "content_sha256": "fe475a1c6cfc512bf47e95d9b28c75169ae2cbcf67deb766639da53b80732899",
+      "inventory": [
+        {
+          "path": "calendars/day.txt",
+          "sha256": "d3381b900795126d9b67efdc85780345b7a85c298a1f6d02fbe86e50ee3f96eb"
+        },
+        {
+          "path": "calendars/day_future.txt",
+          "sha256": "955363514c4d1c2e9a0a72579dd7661e18511dccc2f5514232913b17c62b6d33"
+        },
+        {
+          "path": "features/soxl/close.day.bin",
+          "sha256": "5c24c8ecaf3c7a16e10b54d6fa2797d58082fecf70406ff19ae42c156456a970"
+        },
+        {
+          "path": "features/soxl/high.day.bin",
+          "sha256": "0ed44ae8679231f425fc117ad48eb001a885b9c5db0c25195b95fcc1d69aa63b"
+        },
+        {
+          "path": "features/soxl/low.day.bin",
+          "sha256": "54a9436a3c1dd9137f105d6b841bb564ca1ebc6b98d8b3de6ff33a94e543ab54"
+        },
+        {
+          "path": "features/soxl/open.day.bin",
+          "sha256": "f133c0ddceb6c94a9a3fc68e7d67da4b83a51496d83b3e76a071d02deab10195"
+        },
+        {
+          "path": "features/soxl/volume.day.bin",
+          "sha256": "cfc3c13ce7d9dc8a7932e331554769ca5504e0f08a2bc3085a0722dfacc8c441"
+        },
+        {
+          "path": "features/soxx/close.day.bin",
+          "sha256": "10795d93e629b42b6951cc972877b70e0e1e48ad471777a262d1a9fe85a0e647"
+        },
+        {
+          "path": "features/soxx/high.day.bin",
+          "sha256": "0039b6a0543e44f2fc841f29823c427b11325e83554381fa3cf63af70e311135"
+        },
+        {
+          "path": "features/soxx/low.day.bin",
+          "sha256": "411d2c3ec7b082f293d57237130e856218d39c9a67959530fc48316d767dff4f"
+        },
+        {
+          "path": "features/soxx/open.day.bin",
+          "sha256": "4ec7e322c7df8837d1ca76678de33dddac6c1dd3c48585618c44bb933fbe9711"
+        },
+        {
+          "path": "features/soxx/volume.day.bin",
+          "sha256": "22e4344473649f6d63d2a509469b6b9f9e27d9d5c13351014a34632f6ad903a3"
+        },
+        {
+          "path": "instruments/all.txt",
+          "sha256": "cf10f6dc8dfcb4136e8bd305c48a87967441d326850c4237dd841234626de9df"
+        },
+        {
+          "path": "qlib_store_manifest.json",
+          "sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb"
+        }
+      ]
+    }
+  }
+}

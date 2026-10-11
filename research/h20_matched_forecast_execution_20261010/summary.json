@@ -1,0 +1,98 @@
+{
+  "schema_version": "h20_prefit_contract_v3",
+  "experiment": "h20_matched_forecast_execution_20261010",
+  "stage": "prefit_input_contract",
+  "status": "prefit_input_contract_pass_model_integration_pending",
+  "fit_performed": false,
+  "models_trained": 0,
+  "investment_outcomes": false,
+  "promotion_eligible": false,
+  "promotion_decision": "not_promoted",
+  "real_model_integration_pending": true,
+  "source": {
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+    "region": "us",
+    "as_of": "2026-09-25",
+    "data_range": [
+      "2016-01-04",
+      "2026-09-25"
+    ]
+  },
+  "provider_content_sha256_before": {
+    "price_features_provider": "b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa",
+    "execution_provider": "fe475a1c6cfc512bf47e95d9b28c75169ae2cbcf67deb766639da53b80732899"
+  },
+  "provider_content_sha256_after": {
+    "price_features_provider": "b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa",
+    "execution_provider": "fe475a1c6cfc512bf47e95d9b28c75169ae2cbcf67deb766639da53b80732899"
+  },
+  "provider_unchanged_by_readback": true,
+  "calendar_rows": 2698,
+  "native_open_feature_long_rows": 5396,
+  "wide_open_price_shape": [
+    2698,
+    2
+  ],
+  "horizons": {
+    "5": {
+      "rows": 2698,
+      "terminal_unknown": 6,
+      "mature_rows": 2692,
+      "last_mature_signal": "2026-09-17",
+      "label_provider": "data/qlib/legacy_soxl_execution_20260925_v1",
+      "mean_unit": "five_session_simple_return",
+      "availability_clock": "09:31 America/New_York"
+    },
+    "20": {
+      "rows": 2698,
+      "terminal_unknown": 21,
+      "mature_rows": 2677,
+      "last_mature_signal": "2026-08-26",
+      "label_provider": "data/qlib/legacy_soxl_execution_20260925_v1",
+      "mean_unit": "twenty_session_simple_return",
+      "availability_clock": "09:31 America/New_York"
+    }
+  },
+  "native_training_dataset": {
+    "class_name": "DatasetH",
+    "rows": 3956,
+    "features": 25,
+    "labels": [
+      "soxl_return_h20",
+      "soxx_return_h20"
+    ],
+    "first_signal": "2011-01-03",
+    "terminal_unknown": 21,
+    "wrong_horizon_blocked": true,
+    "calendar_bound": true,
+    "prepared_sha256": "df4285156f2a44063360eafd6124beb0639ac9688ef08ce9af84878972a50642"
+  },
+  "parent_h5_financial_target_impact": "unknown",
+  "parent_h5_fully_comparable": false,
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "prefit/labels_h5.pkl",
+      "prefit/labels_h20.pkl",
+      "prefit/training_dataset.pkl",
+      "prefit/horizon_metrics.pkl"
+    ]
+  },
+  "recorder_id": "5654796769704dee8d84d51186ee4960",
+  "experiment_id": "129083020028550798",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/h20_matched_forecast_execution_20261010/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/h20_matched_forecast_execution_20261010/qlib_recorder/129083020028550798/5654796769704dee8d84d51186ee4960",
+  "recorder_status": "FINISHED",
+  "source_sha256": {
+    "src/analysis/h20_prefit_contract.py": "2c0f2e6272b861c0b318df68cc6bdece61b109a8d34bea6bede6587c0b4e8485",
+    "src/data/generic_horizon.py": "08c146acbc2106713f683ff401f294a3f83be07bb2ced3164ca21d69b147fbc6",
+    "src/data/provider_content_hash.py": "7e830b7efbfea2b91798f129d4f4af1267bdb3ed984950df6829bde9fc09a18e"
+  }
+}

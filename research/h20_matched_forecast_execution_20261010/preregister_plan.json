@@ -1,0 +1,284 @@
+{
+  "schema_version": "h20_matched_forecast_execution_preregister_v1",
+  "experiment": "h20_matched_forecast_execution_20261010",
+  "registered_at_utc": "2026-10-10T07:48:52.293786+00:00",
+  "status": "draft_pre_registration_pending_supervisor_review",
+  "authorization": {
+    "training_authorized": false,
+    "replay_authorized": false,
+    "note": "pre-registration and notebook hypothesis entry only; no fit, no replay, no orders until supervisor review"
+  },
+  "objective": "test whether matching the prediction horizon AND the real holding horizon to 20 trading days (H20) produces a stable net-of-fee excess over SOXX with controlled drawdown, holding everything else identical to the H5 reference",
+  "single_mechanism": {
+    "hypothesis": "matched horizon 20 sessions (prediction = holding = 20) is one testable methodological increment over the registered H5 single point",
+    "new_information": false,
+    "is_alpha_search": false,
+    "only_new_candidate": "H20",
+    "reference": "H5 (existing, identified)",
+    "explicitly_not": [
+      "H63",
+      "other horizons",
+      "alpha grid reopening",
+      "feature/threshold/regime/year search"
+    ],
+    "confound": "relative to H5 this changes BOTH label information and execution frequency; no result may be attributed to fees alone"
+  },
+  "causal_timing_contract": {
+    "feature_available_at": "<= signal_t 16:15 America/New_York (strictly < prediction_at)",
+    "model_training_maturity": "label_h20_available_at(signal) < year_cutoff (mature labels only; outer years evaluation only)",
+    "prediction_at": "signal_t 16:15 America/New_York",
+    "label_h20_available_at": "open of the real D.calendar t+21 session at 09:31 America/New_York (NOT a natural-day +1)",
+    "allocation_decision_at": "after the next-open pretrade quote is captured (>= next session open 09:31 America/New_York); the solve/order consumes next-open pretrade quantities/weights, so it must NOT be labeled prior-day 16:15",
+    "sigma_estimation": "estimated from known previous close (information available at prediction_at)",
+    "sigma_constraint_evaluated_at": "the actual open target (allocation_decision_at pretrade state)",
+    "variance_constraint_time": "must equal allocation_decision_at (no 16:15 vs next-open mismatch)",
+    "historical_open_9_30": "explicit proxy only; future-open pretrade information must never be stamped as prior-day 16:15",
+    "paper_fill": "captured live quote at execution; no historical-open fill assumption"
+  },
+  "units": {
+    "mu20": "twenty_session_simple_return",
+    "Vmean20": "twenty_session_simple_return_squared",
+    "Sigma_daily": "one_session_simple_return_squared",
+    "note": "mu20 is a simple return, NOT squared; do not mix the three units"
+  },
+  "source_binding": {
+    "reference_parents": {
+      "purged_ridge_regularization_20261009": {
+        "recorder_id": "d46772566a2947859faee38a5d4e08b8",
+        "summary_sha256": "0d9c9c19903a8127f02c499a314645cadc8880529b44f182e7718940792370ed",
+        "conclusion_sha256": "bf91b5877c585e043a7211e9f2d577f1648f4f893343de7489c440b6b6ee7fdf",
+        "run_binding_sha256": "8e63f792fdc120c9b27b87df1c041c4f2ccd3343027ed98efceb71f8d248791b"
+      },
+      "benchmark_terminal_value_20261009": {
+        "recorder_id": "f79e065bfc4e4ec7996da5f1a5379e16",
+        "summary_sha256": "03744cdd2500cdb1eb9e2dd620e9459e7281f938d0cffa7a322594215636f8a6",
+        "run_binding_sha256": "14692d4fa4cfc2478024db1ccf67c73ea662a628c64ca66b4368b61ff2721ec4"
+      }
+    },
+    "price_features_provider": "data/qlib/published_futu_affine_20260925_v1",
+    "execution_provider": "data/qlib/legacy_soxl_execution_20260925_v1",
+    "provider_manifest_sha256": {
+      "published_futu_affine_20260925_v1": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+      "legacy_soxl_execution_20260925_v1": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb"
+    },
+    "provider_manifest_limitation": "the two manifest files are byte-identical templates; identity is bound by provider_content_sha256 instead",
+    "data_range": [
+      "2016-01-04",
+      "2026-09-25"
+    ],
+    "as_of": "2026-09-25",
+    "region": "us",
+    "no_source17": "the stage1_economic_action 17f81fbf prepared_inputs (uniform ~2690) is NOT used to generate training features; no pricing-vintage change is mixed in",
+    "parent_src_source_sha256": {
+      "src/workflow/benchmark_relative_research.py": "96ad0c43e628bf1189ebb5c1e84eb3094421247b6058bb2c18420f01c0d52b20",
+      "src/model/online_expert_allocation.py": "54e9e29045ad0dd66806744a02bc6d42bb1e21ab8b1a1c01e6d27d32794d99eb",
+      "src/data/benchmark_relative_data.py": "35c230d6af21bc7e0949fce9aca1b441589d592a9fd6492838a084250cfef99a",
+      "src/backtest/benchmark_relative_replay.py": "e67035416fe0a916267d44dc3ab551800508751887ff255ad9f43921cfb975fc"
+    },
+    "provider_content_sha256": {
+      "published_futu_affine_20260925_v1": "b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa",
+      "legacy_soxl_execution_20260925_v1": "fe475a1c6cfc512bf47e95d9b28c75169ae2cbcf67deb766639da53b80732899"
+    },
+    "provider_content_hash_scope": "Reproducible via src.data.provider_content_hash.provider_content_hash(store); exact serialization and per-file inventory in provider_content_hash_scope.json (sidecar). No provider was modified.",
+    "provider_manifest_file_sha256": {
+      "published_futu_affine_20260925_v1": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+      "legacy_soxl_execution_20260925_v1": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb"
+    },
+    "provider_readback_2016_2026": {
+      "published_futu_affine_20260925_v1": {
+        "calendar_rows": 2698,
+        "calendar_sha256": "bfb363f24b1b3b724e23f1dc461d103213fb5b7032e607a5447e5b3cb041947d",
+        "features_shape": [
+          5396,
+          1
+        ],
+        "features_sha256": "3410276c50b8ace300cef9777b727aa2ab74f6077c2fc36a88f1932398b28bc3"
+      },
+      "legacy_soxl_execution_20260925_v1": {
+        "calendar_rows": 2698,
+        "calendar_sha256": "bfb363f24b1b3b724e23f1dc461d103213fb5b7032e607a5447e5b3cb041947d",
+        "features_shape": [
+          5396,
+          1
+        ],
+        "features_sha256": "3410276c50b8ace300cef9777b727aa2ab74f6077c2fc36a88f1932398b28bc3"
+      }
+    },
+    "h5_r_object_sha256": {
+      "benchmark_terminal_value_20261009[f79e065bfc4e4ec7996da5f1a5379e16]::summary.json": "03744cdd2500cdb1eb9e2dd620e9459e7281f938d0cffa7a322594215636f8a6",
+      "benchmark_terminal_value_20261009[f79e065bfc4e4ec7996da5f1a5379e16]::inputs/frame.pkl": "05a1b317586d61a972a5e94681d453d2fb980ecdcdaf723882df16124a9bcd6a",
+      "benchmark_terminal_value_20261009[f79e065bfc4e4ec7996da5f1a5379e16]::analysis/paths.pkl": "3c3b284b274e8aa8aa06a5e04a26f1fac8f1e3866af386711001e12649d8bd12",
+      "purged_ridge_regularization_20261009[d46772566a2947859faee38a5d4e08b8]::forecast/forecasts.pkl": "85240b7d5fbdfeef65c7a6821fc351c53a5b00f652ac7d325b315be5e792ce7c",
+      "purged_ridge_regularization_20261009[d46772566a2947859faee38a5d4e08b8]::models/annual_fits.pkl": "10960101f5c34419c48bca1f161ace463deb8c5af16493985f28d2181e0261c2",
+      "purged_ridge_regularization_20261009[d46772566a2947859faee38a5d4e08b8]::forecast/matched_predictions.pkl": "e6c7e93baefb2a07b97f7d3f5ec34c29853ef694798f35fd82c75e7e90864e50",
+      "purged_ridge_regularization_20261009[d46772566a2947859faee38a5d4e08b8]::analysis/paths.pkl": "dbdb69380fcba4c5435e70564ce759cda86ae79bd2117761412fa64ee11c590d",
+      "purged_ridge_regularization_20261009[d46772566a2947859faee38a5d4e08b8]::inputs/frame.pkl": "8e0bd681836de2d3b9abd509ded866554bc8d0f31586baf3a12cba472e0b949f"
+    },
+    "provider_content_hash_serialization": "sorted(path)[path.utf8 + 0x00 + sha256.ascii + 0x0a]",
+    "provider_content_hash_sidecar": "provider_content_hash_scope.json",
+    "provider_content_hash_function": "src.data.provider_content_hash"
+  },
+  "features": {
+    "n": 25,
+    "list": [
+      "soxx_ret1",
+      "soxx_mom5",
+      "soxx_mom20",
+      "soxx_mom60",
+      "soxx_reversal1",
+      "soxx_vol10",
+      "soxx_vol20",
+      "soxx_downside_vol20",
+      "soxx_skew20",
+      "soxx_kurt60",
+      "soxx_drawdown20",
+      "soxx_drawdown60",
+      "soxx_gap1",
+      "soxx_intraday1",
+      "soxx_volume_z20",
+      "soxx_range_pct",
+      "soxl_gap1",
+      "soxl_intraday1",
+      "soxl_volume_z20",
+      "soxl_range_pct",
+      "relative_log_return_1d",
+      "relative_log_return_5d",
+      "relative_log_return_20d",
+      "relative_volatility_20",
+      "soxx_efficiency_20"
+    ],
+    "source_of_list": "src/data/integrated_allocation.py PRIMARY_FEATURES[:-3] (convex FEATURE_COLUMNS)",
+    "no_new_fields": true
+  },
+  "selection_protocol": {
+    "locked": true,
+    "candidates": [
+      "prior",
+      "ridge_10",
+      "ridge_100",
+      "ridge_1000"
+    ],
+    "rule": "same mature-year purged validation selection as purged_ridge_regularization_20261009; scaler fit inside inner train; selection by prior-year strictly-mature validation error; outer year evaluation only; no outer-year use in selection",
+    "no_frozen_alternative": "the earlier optional frozen-model fallback is removed",
+    "not_an_alpha_grid": "these 4 candidates are the registered protocol, not a new hyperparameter search"
+  },
+  "horizon": {
+    "H5_reference": 5,
+    "H20_candidate": 20,
+    "only_horizon": 20,
+    "budget": "one H20 candidate; H5 is the existing reference; no H63, no other horizons, no horizon tuning",
+    "h5_dataset_untouched": "convex default HORIZON_SESSIONS=5 and the H5 workflow stay as they are"
+  },
+  "h5_reference": {
+    "card": "benchmark_terminal_value_20261009",
+    "recorder_id": "f79e065bfc4e4ec7996da5f1a5379e16",
+    "variant": "benchmark_terminal",
+    "label": "benchmark_terminal_H5",
+    "forecast_and_annual_fits_source": {
+      "card": "purged_ridge_regularization_20261009",
+      "recorder_id": "d46772566a2947859faee38a5d4e08b8",
+      "forecast_variant": "validation_selected"
+    },
+    "objective_accounting": "same benchmark-terminal objective and daily-risk accounting as this H5 reference",
+    "h20_change_only": [
+      "20-session label",
+      "20-session planning",
+      "20-session hold"
+    ],
+    "soxx_null": true,
+    "selected_original_role": "background only; NOT a candidate",
+    "no_mixing": "must not simultaneously use the original terminal-value H5 and a benchmark-terminal H20 (that would confound the objective)",
+    "causal_audit_required": "audit the H5 reference pretrade dependency/clock; if causally invalid, mark invalid, do not relabel old results"
+  },
+  "windows": {
+    "development": [
+      "2016-01-04",
+      "2022-12-30"
+    ],
+    "reused_diagnostic": [
+      "2023-01-03",
+      "2026-09-25"
+    ],
+    "reused_history_is_not_forward": true
+  },
+  "maturity": {
+    "h5_parent_mature_rows": 2692,
+    "h5_parent_note": "2692 is the H5 parent sample count only",
+    "h20_mature_rows": null,
+    "h20_mature_rule": "must be computed from the real prices/calendar and the evaluation cutoff for H20, never copied from the H5 count"
+  },
+  "oof_and_terminal": {
+    "evaluation_cutoff": "2026-09-25 21:00 UTC",
+    "first_unmatured_signal_h5": "2026-09-18",
+    "terminal_unknown_labels_retained": true,
+    "dropna_or_date_deletion": false,
+    "maturity_rule": "label_h20_available_at < evaluation_cutoff"
+  },
+  "gates": {
+    "source_parent_plan": "research/benchmark_terminal_value_20261009/plan.json",
+    "copied_verbatim": {
+      "minimum_positive_years": 6,
+      "rolling_sessions": 252,
+      "minimum_rolling_win_rate": 0.6,
+      "bootstrap_resamples": 2000,
+      "family_size": 1
+    },
+    "numerical_log_excess_floor": 1e-08,
+    "numerical_floor_scope": "Only positive-effect classification changes; all raw returns, point estimates and CI values retained. Cumulative aggregate, each annual, leave-one-year and rolling log excess must exceed 1e-8; bootstrap uses N*daily_lower > 1e-8. Pure-SOXX floating noise never qualifies as alpha.",
+    "gate_definition": "All existing complete 2016-2022 SOXX net return/year/rolling/MaxDD/CVaR/bootstrap gates at both costs retained; numerical floor only tightens zero comparison. Raw old sign and qualified counts both reported. No production from reused history.",
+    "checked_numerically_at_both_costs": {
+      "costs_bps": [
+        10,
+        25
+      ],
+      "positive_net_log_excess": true,
+      "minimum_positive_years": ">= 6 of 7 development years",
+      "positive_annual_median": true,
+      "positive_after_removing_any_single_year": true,
+      "max_drawdown_not_worse_than_SOXX": true,
+      "cvar_not_worse_than_SOXX": true,
+      "rolling_252_win_rate": ">= 0.6",
+      "block_bootstrap_lower_gt_0": "blocks 20 and 60; bootstrap_resamples 2000; family_size 1; lower bound > 0",
+      "numerical_floor_applied_to": [
+        "cumulative aggregate",
+        "each annual",
+        "leave-one-year",
+        "rolling",
+        "bootstrap N*daily_lower"
+      ]
+    },
+    "benchmark_null": "net-of-fee > SOXX (not > cash)",
+    "no_relaxation_for_lower_turnover": true,
+    "result_must_be_computed": "the gate result is computed from the H20 run; it is not pre-set"
+  },
+  "fail_stop": {
+    "rule": "if dev or outer net-of-fee rel SOXX <= 1, or MaxDD/CVaR/annual gates fail, or historical gate False -> not_promoted / end_h20_route_no_further_search",
+    "no_retry": "no H change, no parameter re-search",
+    "promotion_requires": "new freeze + independent paper qualification (>= 60 sessions, original 10/25bp) after any historical pass; old paper is NOT transferred as forward evidence"
+  },
+  "cohort_forward": {
+    "new_freeze_required": true,
+    "do_not_transfer_old_paper": true
+  },
+  "core_capability": {
+    "approach": "make horizon a generic parameter with default 5 and add focused compatibility tests; do NOT copy the whole H5 constant into a parallel 20-framework",
+    "legacy_workflows": "existing dedicated H5 workflows keep taking 5 only and their sealed results stay untouched"
+  },
+  "constraints": [
+    "0 fit / 0 new strategy / 0 orders until authorization",
+    "do not modify sealed cards, data, or production",
+    "scientific promotion always False",
+    "assistant does not commit/push"
+  ],
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "technical_timestamp_correction": "Earlier draft carried a placeholder 00:00 timestamp. Replaced with the real current UTC draft time; this corrects a technical field only and does not claim the experiment was frozen earlier than now.",
+  "source_compatibility_audit_only": {
+    "issue": "the H5 legacy reference decides at signal-day 16:15 while next-open execution reads pretrade state; recorded as a source-compatibility audit item",
+    "action": "audit only; do not modify the sealed parent and do not relabel old results to make them pass",
+    "h20_contract": "H20 allocation quote captured after next open 09:31 NY; Sigma estimated from known previous close may be reused"
+  }
+}
