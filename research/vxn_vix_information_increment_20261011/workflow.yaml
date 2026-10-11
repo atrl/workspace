@@ -1,0 +1,16 @@
+experiment: vxn_vix_information_increment_20261011
+source:
+  provider_uri: data/qlib/alfred_tech_iv_initial_20261011_v1
+  region: us
+  as_of: '2026-09-25'
+recorder_uri: /Users/rziiiii/dev/workspace/research/vxn_vix_information_increment_20261011/qlib_recorder
+recorder_id: 138e32859c704a5a8878d3bb8e81334e
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - prefit/inputs.pkl
+  - prefit/qualification.pkl
+  - prefit/source_binding.pkl
+  - prefit/plan.pkl
+method: fixed H5 matched25/26 source-eligible DatasetH

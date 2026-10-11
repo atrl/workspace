@@ -4,7 +4,8 @@ import numpy as np
 import pandas as pd
 from src.data.integrated_allocation import frame_sha256
 from src.model.generic_horizon_estimator import (fit_horizon_estimator, fit_horizon_prior,
-    predict_horizon, validate_native_horizon_dataset, _strict_year, _strict_count)
+    predict_horizon, validate_native_horizon_dataset, _strict_year, _strict_count,
+    native_eligibility, training_identity)
 
 
 def _require(condition, message):
@@ -12,20 +13,16 @@ def _require(condition, message):
         raise ValueError('blocked: ' + message)
 
 
-def select_annual_horizon(dataset, frame, *, horizon_sessions=5, feature_columns,
+def qualify_annual_horizon_inputs(dataset, frame, *, horizon_sessions=5, feature_columns,
                           label_columns, availability_column, outer_year,
                           minimum_training_rows=252, minimum_validation_rows=126,
-                          hac_lags=5, train_start='2011-01-03'):
-    """Fit four mature inner candidates, select on prior-year error, then refit once.
-
-    The portfolio never enters model selection. The old H5 entry remains unchanged;
-    this returns the selected fit and all four inner fits without an extra portfolio
-    or an unused outer Ridge control.
-    """
+                          hac_lags=5, train_start='2011-01-03', eligibility_column=None):
+    """Validate full native chronology and explicit masks before any fit."""
     outer_year = _strict_year(outer_year)
     minimum_validation_rows = _strict_count(minimum_validation_rows, 'minimum_validation_rows')
     validate_native_horizon_dataset(dataset, horizon_sessions=horizon_sessions,
-        feature_columns=feature_columns, label_columns=label_columns, availability_column=availability_column)
+        feature_columns=feature_columns, label_columns=label_columns, availability_column=availability_column,
+        eligibility_column=eligibility_column)
     prepared = dataset.prepare('all', col_set=['feature', 'label', 'metadata'])
     _require(not prepared.empty and not prepared.columns.has_duplicates, 'ambiguous native source')
     dates = pd.DatetimeIndex(prepared.index.get_level_values('datetime'))
@@ -48,20 +45,29 @@ def select_annual_horizon(dataset, frame, *, horizon_sessions=5, feature_columns
                  name + ' must carry explicit timezone-aware availability')
     available = pd.to_datetime(flat[availability_column], utc=True)
     feature_at = pd.to_datetime(flat.feature_available_at, utc=True)
-    _require(feature_at.notna().all(), 'missing feature availability cannot be dropped')
+    eligible = native_eligibility(prepared, eligibility_column).to_numpy()
+    _require(feature_at.iloc[np.flatnonzero(eligible)].notna().all(), 'missing eligible feature availability cannot be dropped')
     inner_year = outer_year - 1
     inner_cut = pd.Timestamp(f'{inner_year}-01-01', tz='America/New_York')
     outer_cut = pd.Timestamp(f'{outer_year}-01-01', tz='America/New_York')
     start = dates >= pd.Timestamp(train_start)
-    inner_mask = (start & (feature_at < inner_cut) & (available < inner_cut)).to_numpy()
-    outer_mask = (start & (feature_at < outer_cut) & (available < outer_cut)).to_numpy()
+    inner_base = (start & (available < inner_cut)).to_numpy()
+    outer_base = (start & (available < outer_cut)).to_numpy()
+    inner_mask = inner_base & (feature_at < inner_cut).to_numpy() & eligible
+    outer_mask = outer_base & (feature_at < outer_cut).to_numpy() & eligible
     year_mask = dates.year == inner_year
-    prefix = ((feature_at < outer_cut) & (available < outer_cut)).to_numpy()[year_mask]
-    n = int(prefix.sum())
-    _require(n >= minimum_validation_rows and prefix[:n].all() and not prefix[n:].any(),
+    prefix = (available < outer_cut).to_numpy()[year_mask]
+    mature_n = int(prefix.sum())
+    _require(prefix[:mature_n].all() and not prefix[mature_n:].any(),
              'validation needs a complete mature prefix')
     validation_mask = year_mask.copy()
     validation_mask[year_mask] = prefix
+    validation_base = validation_mask.copy()
+    validation_mask &= eligible & (feature_at < outer_cut).to_numpy()
+    n = int(validation_mask.sum())
+    _require(n >= minimum_validation_rows, 'insufficient source-eligible mature validation rows')
+    _require(int(inner_mask.sum()) >= minimum_training_rows and int(outer_mask.sum()) >= minimum_training_rows,
+             'insufficient source-eligible mature training rows before any fit')
     for name, mask in (('inner', inner_mask), ('outer', outer_mask), ('validation', validation_mask)):
         part = prepared.loc[mask]
         x, y = part['feature'].to_numpy(float), part['label'].to_numpy(float)
@@ -70,9 +76,39 @@ def select_annual_horizon(dataset, frame, *, horizon_sessions=5, feature_columns
     train = prepared.loc[inner_mask]
     variance = train['label'].to_numpy(float).var(axis=0, ddof=0)
     _require(np.isfinite(variance).all() and (variance > 0).all(), 'inner label variance is degenerate')
+    audit=dict(outer_year=outer_year, inner_year=inner_year,
+        horizon_sessions=horizon_sessions, inner_training_rows=int(inner_mask.sum()),
+        validation_rows=n, validation_unmatured_suffix_rows=int(year_mask.sum())-mature_n,
+        validation_source_excluded_rows=int((validation_base & ~eligible).sum()),
+        inner_source_excluded_rows=int((inner_base & ~eligible).sum()),
+        outer_source_excluded_rows=int((outer_base & ~eligible).sum()),
+        eligibility_column=eligibility_column, inner_identity=training_identity(prepared.loc[inner_mask]),
+        outer_identity=training_identity(prepared.loc[outer_mask]),
+        validation_identity=training_identity(prepared.loc[validation_mask]),
+        outer_training_rows=int(outer_mask.sum()), validation_frame_sha256=frame_sha256(prepared.loc[validation_mask]),
+        inner_cutoff=inner_cut.isoformat(), outer_cutoff=outer_cut.isoformat(),
+        outer_outcomes_used_for_selection=False, invalid_rows_dropped=0)
+    return dict(prepared=prepared,dates=dates,inner_mask=inner_mask,outer_mask=outer_mask,
+                validation_mask=validation_mask,variance=variance,audit=audit)
+
+
+def select_annual_horizon(dataset, frame, *, horizon_sessions=5, feature_columns,
+                          label_columns, availability_column, outer_year,
+                          minimum_training_rows=252, minimum_validation_rows=126,
+                          hac_lags=5, train_start='2011-01-03', eligibility_column=None, fit_callback=None):
+    """Fit four prior-year candidates then refit the selected one, without portfolio selection."""
     common = dict(horizon_sessions=horizon_sessions, feature_columns=feature_columns,
                   label_columns=label_columns, availability_column=availability_column,
-                  minimum_training_rows=minimum_training_rows, hac_lags=hac_lags, train_start=train_start)
+                  minimum_training_rows=minimum_training_rows, hac_lags=hac_lags, train_start=train_start,
+                  eligibility_column=eligibility_column)
+    qualified=qualify_annual_horizon_inputs(dataset,frame,outer_year=outer_year,
+        minimum_validation_rows=minimum_validation_rows,**common)
+    prepared,dates=qualified['prepared'],qualified['dates']
+    inner_mask,outer_mask=qualified['inner_mask'],qualified['outer_mask']
+    validation_mask,variance=qualified['validation_mask'],qualified['variance']
+    inner_year=outer_year-1
+    train=prepared.loc[inner_mask]
+    n=int(validation_mask.sum())
     names = ('prior', 'ridge_10', 'ridge_100', 'ridge_1000')
     priority = ('prior', 'ridge_1000', 'ridge_100', 'ridge_10')
     inner_models, rows = {}, []
@@ -82,6 +118,8 @@ def select_annual_horizon(dataset, frame, *, horizon_sessions=5, feature_columns
     for name in names:
         model = (fit_horizon_prior(dataset, year=inner_year, **common) if name == 'prior'
                  else fit_horizon_estimator(dataset, year=inner_year, ridge_alpha=float(name.split('_')[1]), **common))
+        if fit_callback is not None:
+            fit_callback('inner',name,model)
         _require(model['audit']['training_frame_sha256'] == expected_hash, 'candidate training sources differ')
         predicted = predict_horizon(model, query, feature_columns=feature_columns,
                                     horizon_sessions=horizon_sessions)['ridge']
@@ -94,15 +132,12 @@ def select_annual_horizon(dataset, frame, *, horizon_sessions=5, feature_columns
     selected = min(rows, key=lambda r: (r['normalized_mse'], r['exact_tie_priority']))['candidate_name']
     fitted = (fit_horizon_prior(dataset, year=outer_year, **common) if selected == 'prior'
               else fit_horizon_estimator(dataset, year=outer_year, ridge_alpha=float(selected.split('_')[1]), **common))
+    if fit_callback is not None:
+        fit_callback('outer',selected,fitted)
     _require(fitted['audit']['training_frame_sha256'] == frame_sha256(prepared.loc[outer_mask]),
              'outer refit source differs')
     for row in rows:
         row['selected'] = row['candidate_name'] == selected
     return dict(selected_name=selected, selected_fit=fitted, inner_models=inner_models,
-        candidate_scores=pd.DataFrame(rows), audit=dict(outer_year=outer_year, inner_year=inner_year,
-            horizon_sessions=horizon_sessions, inner_training_rows=int(inner_mask.sum()),
-            validation_rows=n, validation_unmatured_suffix_rows=int(year_mask.sum()) - n,
-            outer_training_rows=int(outer_mask.sum()), validation_frame_sha256=frame_sha256(prepared.loc[validation_mask]),
-            inner_cutoff=inner_cut.isoformat(), outer_cutoff=outer_cut.isoformat(),
-            exact_tie_order=list(priority), selected_name=selected, model_fit_calls=5,
-            outer_outcomes_used_for_selection=False, invalid_rows_dropped=0))
+        candidate_scores=pd.DataFrame(rows), audit=dict(qualified['audit'],
+            exact_tie_order=list(priority),selected_name=selected,model_fit_calls=5))

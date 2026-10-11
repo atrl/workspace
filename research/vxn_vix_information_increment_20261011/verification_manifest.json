@@ -1,0 +1,25 @@
+{
+  "recorder_id": "138e32859c704a5a8878d3bb8e81334e",
+  "entries": [
+    {
+      "path": "qlib_recorder/483935849167078517/138e32859c704a5a8878d3bb8e81334e/artifacts/prefit/inputs.pkl",
+      "sha256": "a97ff0575662899f504de1d7d1ff887a11ea3104aae6741d588e882caa90d0b1",
+      "bytes": 3881517
+    },
+    {
+      "path": "qlib_recorder/483935849167078517/138e32859c704a5a8878d3bb8e81334e/artifacts/prefit/plan.pkl",
+      "sha256": "23def203d6086791eea39efa3aad0e4b9fdc599dfb3cce3aa8f6c21ff827be90",
+      "bytes": 13847
+    },
+    {
+      "path": "qlib_recorder/483935849167078517/138e32859c704a5a8878d3bb8e81334e/artifacts/prefit/qualification.pkl",
+      "sha256": "7369ad94fad02ebff4916c89ecefe2f3c1e487d098677611e429c375ad3269a4",
+      "bytes": 7230
+    },
+    {
+      "path": "qlib_recorder/483935849167078517/138e32859c704a5a8878d3bb8e81334e/artifacts/prefit/source_binding.pkl",
+      "sha256": "c70d83d358b6608c711e527ab1d54154725912b6633da20a7d80ccdf9dd4aad8",
+      "bytes": 3497
+    }
+  ]
+}

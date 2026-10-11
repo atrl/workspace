@@ -27,6 +27,23 @@ PARENT_HAC_LAGS = 5
 PARENT_TRAIN_START = "2011-01-03"
 
 
+def native_eligibility(prepared, eligibility_column=None):
+    """Explicit source mask; retain all native rows for chronology checks."""
+    if eligibility_column is None:
+        return pd.Series(True, index=prepared.index)
+    key = ('metadata', eligibility_column)
+    if key not in prepared or not prepared[key].isin([0, 1]).all():
+        raise ValueError('blocked: eligibility requires explicit 0/1 metadata on every row')
+    return prepared[key].astype(bool)
+
+
+def training_identity(train):
+    """Comparable between arms even when their feature schemas differ."""
+    import hashlib
+    return dict(training_index_sha256=hashlib.sha256('\n'.join(map(str, train.index)).encode()).hexdigest(),
+                training_label_sha256=frame_sha256(train['label']))
+
+
 def _strict_year(value, name="year") -> int:
     if isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer)):
         raise ValueError(f"blocked: {name} must be an integer calendar year")
@@ -70,7 +87,8 @@ def fit_horizon_estimator(dataset, *, horizon_sessions: int = 5, feature_columns
                           minimum_training_rows: int = 252, hac_lags: int = PARENT_HAC_LAGS,
                           train_start: str = PARENT_TRAIN_START,
                           mean_covariance_units: str | None = None,
-                          daily_risk_covariance_units: str | None = None) -> dict[str, Any]:
+                          daily_risk_covariance_units: str | None = None,
+                          eligibility_column: str | None = None) -> dict[str, Any]:
     """Fit the prior mean and joint Ridge only from native mature rows for this horizon."""
     from qlib.data.dataset import DatasetH
 
@@ -95,10 +113,11 @@ def fit_horizon_estimator(dataset, *, horizon_sessions: int = 5, feature_columns
         raise ValueError("blocked: feature or label schema differs")
     validate_native_horizon_dataset(dataset, horizon_sessions=horizon_sessions, feature_columns=feature_columns,
                                     label_columns=label_columns, availability_column=availability_column,
-                                    calendar=getattr(dataset, "calendar", None))
+                                    calendar=getattr(dataset, "calendar", None), eligibility_column=eligibility_column)
+    eligible = native_eligibility(prepared, eligibility_column)
     available = pd.to_datetime(prepared[("metadata", availability_column)], utc=True)
     feature_known = pd.to_datetime(prepared[("metadata", "feature_available_at")], utc=True)
-    if feature_known.isna().any():
+    if feature_known.loc[eligible].isna().any():
         raise ValueError("blocked: feature availability is missing on at least one row")
     signal_dates = pd.DatetimeIndex(prepared.index.get_level_values("datetime"))
     prediction = pd.Series(predictor_clock(signal_dates), index=prepared.index)
@@ -107,7 +126,7 @@ def fit_horizon_estimator(dataset, *, horizon_sessions: int = 5, feature_columns
     _mature_tail_check(available)
     mature = (available.notna() & available.lt(cutoff.tz_convert("UTC"))
               & feature_known.notna() & feature_known.lt(cutoff.tz_convert("UTC"))
-              & (signal_dates >= pd.Timestamp(train_start)))
+              & (signal_dates >= pd.Timestamp(train_start)) & eligible)
     train = prepared.loc[mature].copy()
     if len(train) < minimum_training_rows or hac_lags >= len(train):
         raise ValueError("blocked: insufficient strictly mature training rows")
@@ -139,6 +158,8 @@ def fit_horizon_estimator(dataset, *, horizon_sessions: int = 5, feature_columns
              "hac_lags": hac_lags, "hac": hac_audit,
              "maturity_rule": f"label ({availability_column}) and features strictly before January1 NewYork",
              "source_api": "qlib.data.dataset.DatasetH.prepare"}
+    audit.update(training_identity(train), eligibility_column=eligibility_column,
+                 source_ineligible_rows=int((~eligible).sum()))
     return {"model_year": year, "model_available_at": cutoff.isoformat(), "horizon_sessions": horizon_sessions,
             "feature_columns": feature_columns, "label_columns": label_columns,
             "mean_covariance_units": mean_unit, "daily_risk_covariance_units": daily_unit,
@@ -150,7 +171,8 @@ def fit_horizon_prior(dataset, *, horizon_sessions: int = 5, feature_columns, la
                       availability_column: str, year: int, minimum_training_rows: int = 252,
                       hac_lags: int = PARENT_HAC_LAGS, train_start: str = PARENT_TRAIN_START,
                       mean_covariance_units: str | None = None,
-                      daily_risk_covariance_units: str | None = None) -> dict[str, Any]:
+                      daily_risk_covariance_units: str | None = None,
+                      eligibility_column: str | None = None) -> dict[str, Any]:
     """Parent intercept-only historical-mean prior with its own HAC intercept uncertainty."""
     from qlib.data.dataset import DatasetH
 
@@ -163,20 +185,23 @@ def fit_horizon_prior(dataset, *, horizon_sessions: int = 5, feature_columns, la
         raise ValueError("blocked: the horizon-tagged DatasetH is required")
     validate_native_horizon_dataset(dataset, horizon_sessions=horizon_sessions, feature_columns=feature_columns,
                                     label_columns=label_columns, availability_column=availability_column,
-                                    calendar=getattr(dataset, "calendar", None))
+                                    calendar=getattr(dataset, "calendar", None), eligibility_column=eligibility_column)
     cutoff = pd.Timestamp(f"{year}-01-01", tz="America/New_York")
     prepared = dataset.prepare("all", col_set=["feature", "label", "metadata"])
+    eligible = native_eligibility(prepared, eligibility_column)
     available = pd.to_datetime(prepared[("metadata", availability_column)], utc=True)
     feature_known = pd.to_datetime(prepared[("metadata", "feature_available_at")], utc=True)
-    if feature_known.isna().any():
+    if feature_known.loc[eligible].isna().any():
         raise ValueError("blocked: feature availability is missing on at least one row")
     signal_dates = pd.DatetimeIndex(prepared.index.get_level_values("datetime"))
     mature = (available.notna() & available.lt(cutoff.tz_convert("UTC")) & feature_known.notna()
-              & feature_known.lt(cutoff.tz_convert("UTC")) & (signal_dates >= pd.Timestamp(train_start)))
+              & feature_known.lt(cutoff.tz_convert("UTC")) & (signal_dates >= pd.Timestamp(train_start)) & eligible)
     train = prepared.loc[mature]
     if len(train) < minimum_training_rows:
         raise ValueError("blocked: insufficient strictly mature prior rows")
     labels = train["label"].to_numpy(dtype="float64")
+    if not np.isfinite(labels).all() or (labels <= -1).any():
+        raise ValueError('blocked: incomplete mature prior labels')
     mean = labels.mean(axis=0)
     hac_fn, _ = _resolve_side("hac")
     hac, hac_audit = hac_fn(np.ones((len(labels), 1)), labels - mean,
@@ -195,7 +220,8 @@ def fit_horizon_prior(dataset, *, horizon_sessions: int = 5, feature_columns, la
             "audit": {"model_year": year, "model_available_at": cutoff.isoformat(), "horizon_sessions": horizon_sessions,
                       "model_kind": "historical_mean", "hac_lags": hac_lags, "hac": hac_audit,
                       "mean_covariance_units": mean_unit, "daily_risk_covariance_units": daily_unit,
-                      "training_frame_sha256": frame_sha256(train)}}
+                      "training_frame_sha256": frame_sha256(train), **training_identity(train),
+                      "eligibility_column": eligibility_column, "source_ineligible_rows": int((~eligible).sum())}}
 
 
 def predict_horizon(fit: dict, frame: pd.DataFrame, *, feature_columns, horizon_sessions: int = 5,
@@ -270,7 +296,7 @@ def _aware(values, name: str) -> pd.Series:
 
 
 def validate_native_horizon_dataset(dataset, *, horizon_sessions: int, feature_columns, label_columns,
-                                    availability_column: str, calendar=None) -> dict:
+                                    availability_column: str, calendar=None, eligibility_column=None) -> dict:
     """Uniform pre-fit chronology/identity check on the native horizon DatasetH."""
     from qlib.data.dataset import DatasetH
 
@@ -292,10 +318,11 @@ def validate_native_horizon_dataset(dataset, *, horizon_sessions: int, feature_c
     if not np.array_equal(positions, np.arange(positions[0], positions[-1] + 1)):
         raise ValueError("blocked: dataset rows must be contiguous on the bound native calendar")
     meta = prepared["metadata"]
+    eligible = native_eligibility(prepared, eligibility_column)
     if availability_column not in meta.columns or "feature_available_at" not in meta.columns:
         raise ValueError("blocked: availability metadata is missing")
     feature_at = _aware(meta["feature_available_at"], "feature_available_at")
-    if feature_at.isna().any():
+    if feature_at.loc[eligible].isna().any():
         raise ValueError("blocked: feature_available_at is missing on at least one row")
     prediction = pd.Series(predictor_clock(dates), index=prepared.index)
     if bool((feature_at > prediction).any()):
@@ -318,4 +345,5 @@ def validate_native_horizon_dataset(dataset, *, horizon_sessions: int, feature_c
                 raise ValueError(f"blocked: {column} must be the {label}")
     _mature_tail_check(label_at)
     return {"horizon_sessions": horizon_sessions, "calendar_rows": int(len(cal)), "rows": int(len(dates)),
-            "contiguous": True, "terminal_nat_aligned": True, "chronology_ok": True, "calendar_bound": True}
+            "contiguous": True, "terminal_nat_aligned": True, "chronology_ok": True, "calendar_bound": True,
+            "eligibility_column": eligibility_column, "source_ineligible_rows": int((~eligible).sum())}

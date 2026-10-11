@@ -1,0 +1,323 @@
+{
+  "schema_version": "vxn_vix_information_increment_preregister_v1",
+  "experiment": "vxn_vix_information_increment_20261011",
+  "registered_at_utc": "2026-10-11T08:13:01.899192+00:00",
+  "status": "preregistered_v3_native_prefit_review",
+  "authorization": {
+    "historical_fit_authorized": false,
+    "replay_authorized": false,
+    "note": "preregister + notebook hypothesis only; no fit, no replay, no orders until root reviews the information/unknown-sample contract and authorizes"
+  },
+  "objective": "Test whether the single new point-in-time information feature log(VXNCLS/VIXCLS) adds net-of-fee information about SOXL-vs-SOXX that the matched price-only control cannot, using the existing fixed H5 reference method",
+  "single_new_information": {
+    "feature": "log(VXNCLS/VIXCLS)",
+    "pairing": "same observation date, both legs from ALFRED Initial Release Only",
+    "source_state": "latest actually-released-as-of only; unknown remains unknown (no zero fill, no forward fill, no current revision)",
+    "not": [
+      "not another horizon (H20 closed)",
+      "not a model search",
+      "not a guard relaxation",
+      "not a threshold/spread/sign search"
+    ]
+  },
+  "source_binding": {
+    "provider_uri": "data/qlib/alfred_tech_iv_initial_20261011_v1",
+    "information_instrument": "TECH_IV_REL",
+    "fields": [
+      "$known",
+      "$log_vxn_vix",
+      "$vxn",
+      "$vix",
+      "$observation_calendar_index",
+      "$availability_calendar_index"
+    ],
+    "provider_content_sha256": "a9d4e99fc3dc25b6f4ed28d4afbc458d9639d763979ab4d68931223dde708669",
+    "store_manifest_sha256": "18527758574da85799b83ec39d3f2f05dc8788247415bdf4aae6611649f90225",
+    "source_code_identity": {
+      "src/data/alfred_initial_release.py": "4f27bd9be608dc67276334552782c6b3010902cfc146c83768279ca6a9c519b1"
+    },
+    "price_execution_providers": {
+      "published_futu_affine": {
+        "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+        "manifest_sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+        "content_sha256": "b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa"
+      },
+      "legacy_soxl_execution": {
+        "provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+        "manifest_sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+        "content_sha256": "fe475a1c6cfc512bf47e95d9b28c75169ae2cbcf67deb766639da53b80732899"
+      }
+    },
+    "reference_parents": {
+      "benchmark_terminal_value_20261009": {
+        "plan_sha256": "65b5d947c2b1650539b29bff30d7c941f7fa04366771ccef243dd70098a34ad4",
+        "summary_sha256": "03744cdd2500cdb1eb9e2dd620e9459e7281f938d0cffa7a322594215636f8a6"
+      },
+      "purged_ridge_regularization_20261009": {
+        "plan_sha256": "3581725ab15b991f07956cbccd43ac068dfcb7385d83ae73c19d0da267fb3f0b",
+        "summary_sha256": "0d9c9c19903a8127f02c499a314645cadc8880529b44f182e7718940792370ed"
+      }
+    },
+    "raw_zip_sha256": {
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VIXCLS/batch_00.zip": "78ed8e6da8a11b1603fc0afdff6bef0051f07accb406c4067f57ed79905d0ffa",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VIXCLS/batch_01.zip": "a89f49abbfa8c9d1c25489305cb8c169b9f5b5fbe312d458e9d6dea445a7c17e",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VIXCLS/batch_02.zip": "c95fd5589e62ffb638da820c1a523ba6571bc204636354893dd5007ad9002de6",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VIXCLS/batch_03.zip": "d6dd03295dcbde52a6ee367606b808b28ed99e9bdb6777dbb648d8a5e3113851",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VIXCLS/batch_04.zip": "5dece1054c5e7fb9c02b86b3ef5cff5c48a8619e74472f052dd5f867a6dce366",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VIXCLS/batch_05.zip": "faf48014ec0dc762d472a40d22faa27e8f69010f71709e22943d08ef270345f8",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VIXCLS/batch_06.zip": "44f55fc46dec6a89664b524310dc231b3934f8190008095181521cf4e57fd696",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VIXCLS/batch_07.zip": "f18be905188a110390f572a83d941ec61ed4918c11279d3a3fa3518acf90e0b3",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VIXCLS/batch_08.zip": "7ac992ff1d9ab9e520592fac281a9a8ef02ab1cdd2b12a2a37acc6ec643f7329",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VIXCLS/batch_09.zip": "118e953618270c5de07f5295f38bee2379616c49b8a614ace1e47b06b75cf063",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VXNCLS/batch_00.zip": "28ab091a61677ab8787fcc8277998f8878f76d41293191ddf277cc4be24250fd",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VXNCLS/batch_01.zip": "78d825cff75e7354cb9cf845415e2e4aff8075b38c69df04d14ae5f70c34e11d",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VXNCLS/batch_02.zip": "51061637d6dca8fe2bdbb0137685cf98c5aeabf962e8b0eb6bdacf8fee8fdc2b",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VXNCLS/batch_03.zip": "71b235e563d3a857b7a4a880df349feaf0e8ccd5919d6f664f5147ae22733cb5",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VXNCLS/batch_04.zip": "d9bd8851c685fda4bab2981e8fa461020b0b1cd8e48379977a989f9f79798632",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VXNCLS/batch_05.zip": "b1d6fa4d87996ee80fd9eff135a9e0b561d4a91631b99be8d9b55e06f5a22a16",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VXNCLS/batch_06.zip": "0de678ca2b4450c7a091939fba48e0def892600fd4b9313d18f8e908677079a4",
+      "data/raw/external/alfred_vxn_vix_initial_20261011_v1/VXNCLS/batch_07.zip": "5ef380b069a186765994c38d7b68d2e6da81873e9cd73732d944b726679a130b"
+    },
+    "source_qualification_latest_recorder": {
+      "recorder_id": "2ae4bc644d674f5bbc88cda0125ee1de",
+      "card": "research/vxn_vix_source_qualification_20261011",
+      "object_sha256": {
+        "source_state.pkl": "d169b88a499cecd0cfc0d95fcf903560c8361359e66aefea951d35d72840132e",
+        "source_audit.pkl": "71c3386947386607a41f55347e4db8305033e0388590a51e9171ebcc00b16065",
+        "paired_source_events.pkl": "6ee0b6139cf0358e23908504a841a62df42a7da238585a5a98f11ee99e51d4d0",
+        "source_readback.pkl": "22dcf42455239aabdc489dad2d2bb063dc07fa2b7996b4766e9126582c1e454e",
+        "raw_vxn.pkl": "31a90e7671644b646cd0a8134f23c623d3ced0c28739ae54c28d917e8b9cad6c",
+        "raw_vix.pkl": "ef0857b0aef317b6184eccf6ddf583bb68143a70565530d5ff71c74f97565c1a"
+      }
+    },
+    "calendar_start": "2011-01-03",
+    "calendar_end": "2026-09-25",
+    "rows_total": 3956,
+    "rows_known": 3126,
+    "rows_unknown": 830,
+    "float_precision": "store fields are float32 (readback documented, no speculative extra feature)",
+    "known_rows_value_missing": 0,
+    "initial_release_values_only": true,
+    "date_level_vintage_verified": true,
+    "intraday_publication_timestamp_verified": false,
+    "unknown_feature_not_zero_filled": true,
+    "quarantine": {
+      "premature_actual_market_rows": 1,
+      "rows": [
+        {
+          "period_start_date": "2018-10-08",
+          "realtime_start_date": "2018-10-05",
+          "reason": "real NYSE session value stamped released earlier; release field untrustworthy; quarantine signal, keep raw ZIP unchanged, do NOT rewrite first-release dates"
+        }
+      ],
+      "single_gap_retained": "the single quarantined premature observation is retained as an explicit unknown/exclusion with its reason and hash; it is NOT silently deleted or backfilled",
+      "non_trading_observation_rows": {
+        "VXNCLS": 118,
+        "VIXCLS": 119,
+        "valued_pseudo_close": {
+          "VXNCLS": 1,
+          "VIXCLS": 33
+        }
+      },
+      "release_stamped_on_non_session": {
+        "VXNCLS": 5,
+        "VIXCLS": 27
+      },
+      "unknown_signal_dates": [
+        "2018-10-09"
+      ]
+    },
+    "availability_contract": "available_at = 09:31 America/New_York of the first native session strictly after max(period_start_date, realtime_start_date); quarantined premature rows unavailable; unknown stays unknown",
+    "first_known_signal": "2014-04-22"
+  },
+  "reference_method": {
+    "label_horizon_sessions": 5,
+    "planning_horizon_sessions": 5,
+    "hold_sessions": 5,
+    "note": "existing fixed H5 method reused as the reference; H20 is closed and not reopened; no other horizon is attempted",
+    "objective": "same benchmark_terminal objective",
+    "quote_clock": "allocation quote after next open 09:31 America/New_York; prediction at prior signal 16:15",
+    "hac_lags": 5,
+    "robust_radius": 1.0,
+    "cost_bps": [
+      10.0,
+      25.0
+    ],
+    "risk_accounting": "same-SOXX; net-of-fee",
+    "parent_method_reference_only": true,
+    "matched_baseline_recomputed": true
+  },
+  "arms": {
+    "control": {
+      "features": 25,
+      "kind": "matched price-only control",
+      "constraint": "MUST use the same source-eligible training/validation samples AND the same source availability mask as the candidate; do NOT compare against the older 2011-start price-only control"
+    },
+    "candidate": {
+      "features": 26,
+      "kind": "price-only 25 + the single ratio log(VXNCLS/VIXCLS)",
+      "constraint": "same samples/mask as the control"
+    },
+    "forbidden_comparison": "candidate vs pre-existing 2011-start price control (extra 5 years of training would be attributed to information)"
+  },
+  "sample_contract": {
+    "eligibility": "train/validation include a row only if it is explicitly metadata-known source-eligible (source $known==1) AND its label is strictly mature",
+    "excluded_rows": "counts + reasons + hash are audited; the single quarantined gap is never silently removed",
+    "dataset_full_calendar": "the native calendar is retained with no row deletion",
+    "validation_prefix": "the label-maturity prefix is verified independently first, then the SAME source-eligible mask is applied",
+    "two_heads_rowset": "control(25) and candidate(26) use the exact same eligible row set; the rowset hash must be equal across both heads",
+    "feature_availability": "known row feature_available_at = max(price close 16:00, source 09:31 state-available); source-unknown column kept as NaN",
+    "unknown_rows": "the model must NOT predict unknown rows; no placeholder zero is treated as a prediction; the forecast table marks such rows NaN / model_not_used",
+    "hold_risk_trace": "a null policy/planning placeholder is allowed in the hold risk trace, but the forecast table must be NaN with a model-not-used note",
+    "fallback": "unknown source or insufficient labels trigger the pre-declared pure-SOXX fallback only at the pre-registered H5 rebalance decision; HOLD keeps the real position with zero fee; both arms use the identical mask/strategy; 2016 both arms are pure SOXX with no fake forecasts and no model",
+    "no_fabrication": "never zero-fill, never forward-fill with revisions, never shrink the window"
+  },
+  "schedule": {
+    "outer_years": [
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "first_eligible_outer": 2017,
+    "fallback_outer_years": [
+      2016
+    ],
+    "fallback_note": "2016 inner fit cutoff Jan1 2015 NewYork has fewer than252 strictly mature source-eligible rows; first observation2014-04-18 is not first available signal2014-04-22. Both arms pureSOXX at existing H5 decisions; no2016 model.",
+    "inner_candidates": [
+      "prior",
+      "ridge_10",
+      "ridge_100",
+      "ridge_1000"
+    ],
+    "inner_fits_per_year_per_head": 4,
+    "selected_outer_refit_per_year_per_head": 1,
+    "fit_budget": {
+      "heads": 2,
+      "years": 10,
+      "per_year_per_head": 5,
+      "total": 100,
+      "year_2016": 0,
+      "note": "inner must be data-driven, not default-filled; no cross-year borrowing or shrinkage of the minimum"
+    },
+    "windows": [
+      "development",
+      "reused_diagnostic"
+    ],
+    "development_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "reused_diagnostic_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "native_cases": {
+      "count": 12,
+      "structure": "2 windows x 2 cost_bps x {candidate, matched control, SOXX}"
+    }
+  },
+  "gates": {
+    "benchmark_null": "net-of-fee > SOXX",
+    "copied_from_parent": {
+      "minimum_positive_years": 6,
+      "rolling_sessions": 252,
+      "minimum_rolling_win_rate": 0.6,
+      "bootstrap_resamples": 2000,
+      "family_size": 1
+    },
+    "numerical_log_excess_floor": 1e-08,
+    "full_checks": [
+      "positive net log excess at both costs",
+      "max drawdown not worse than SOXX",
+      "CVaR not worse than SOXX",
+      "annual median positive",
+      "leave-one-year-out positive",
+      "rolling252 win>=0.6",
+      "bootstrap 20 and 60 block lower bound > 0",
+      "1e-8 resolution applied to aggregate/annual/leave-one-year/rolling/bootstrap"
+    ],
+    "new_independent_forward": {
+      "min_sessions": 60,
+      "note": "new independent forward >= 60 sessions"
+    },
+    "regime_coverage": {
+      "minimum_eligible_sessions_per_regime": 15,
+      "minimum_transitions": 3
+    },
+    "not_weakened": true,
+    "parent_identity": "the H5 parent is a METHOD reference only; this experiment computes a NEW matched baseline separately and does not claim to reproduce parent performance"
+  },
+  "diagnostics_separation": {
+    "signal_diagnostics": "reported against the matched control and the model's own prior separately",
+    "portfolio_net_excess": "reported separately from signal diagnostics",
+    "no_post_hoc": "no sign flip, no spread changes of 20, no threshold tuning based on results"
+  },
+  "stopping": "If the candidate fails the historical/diagnostic net-excess gates, record not_promoted and stop; no horizon/alpha/threshold search",
+  "claims": {
+    "promotion_eligible": false,
+    "scientific_promotion": false,
+    "not_a_horizon_only_causal_estimate": true,
+    "reused_history_not_new_oos": true
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "predictions",
+      "signals",
+      "all_model_predictions",
+      "portfolio_report",
+      "qlib_positions"
+    ],
+    "slim_sidecars": [
+      "summary.json",
+      "workflow.yaml",
+      "conclusion.md",
+      "selected_model.json",
+      "model_selection.csv",
+      "backtest_benchmark_comparison.csv",
+      "gates.csv",
+      "risk_analysis.csv"
+    ]
+  },
+  "new_information_feature": {
+    "field": "$log_vxn_vix (log(VXNCLS/VIXCLS))",
+    "usage": "candidate adds exactly this one known-source ratio to the 25 price features; no speculative extra features",
+    "float_precision_documented": true
+  },
+  "decision_rule": {
+    "deployment_gate": "historical/diagnostic net-excess gates",
+    "incremental_requirement": {
+      "response": "five-session simple return SOXL minus SOXX",
+      "windows": [
+        "development",
+        "reused_diagnostic"
+      ],
+      "eligible": "same model-used and mature rows in both arms;2016 fallback excluded only from forecast diagnostics, never portfolio path",
+      "mse_rule": "In EACH window candidate excess-response MSE / matched-control MSE < 1-1e-8 AND candidate excess-response MSE / candidate own training historical-mean prior MSE < 1-1e-8. Nonfinite or zero reference MSE blocks. No alternative IC pass.",
+      "ic_rule": "Spearman IC reported for SOXL, SOXX and excess response only; not an alternative acceptance gate or claim of significance",
+      "portfolio_rule": "In EACH window and EACH cost candidate net log excess over matched control >1e-8, in addition to all unchanged SOXX gates.",
+      "combination": "ALL conditions required; failure closes this single source route"
+    },
+    "no_post_hoc": "no sign flip, no spread-of-20 selection, no threshold tuning"
+  }
+}

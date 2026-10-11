@@ -1,0 +1,32 @@
+{
+  "experiment": "vxn_vix_information_increment_20261011",
+  "status": "prefit_qualified_not_promoted",
+  "promotion_decision": "not_promoted",
+  "promotion_eligible": false,
+  "fit_calls": 0,
+  "native_cases": 0,
+  "rows": 3956,
+  "known_rows": 3126,
+  "unknown_rows": 830,
+  "all_arm_identities_equal": true,
+  "recorder_id": "138e32859c704a5a8878d3bb8e81334e",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/vxn_vix_information_increment_20261011/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/vxn_vix_information_increment_20261011/qlib_recorder/483935849167078517/138e32859c704a5a8878d3bb8e81334e",
+  "recorder_status": "FINISHED",
+  "source": {
+    "provider_uri": "data/qlib/alfred_tech_iv_initial_20261011_v1",
+    "region": "us",
+    "as_of": "2026-09-25"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "prefit/inputs.pkl",
+      "prefit/qualification.pkl",
+      "prefit/source_binding.pkl",
+      "prefit/plan.pkl"
+    ]
+  },
+  "plan_sha256": "e9e905301021f917f112975c2e0f7dd6440960fde795967749eff17c30c8bce9"
+}
