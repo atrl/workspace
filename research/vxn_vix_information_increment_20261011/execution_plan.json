@@ -325,7 +325,7 @@
     "src/workflow/tsmc_monthly_revenue_qualification.py": "874f5c8a95c6160abff0944a8b021bbd69738166379eec5b88f0d10bac3c845d",
     "src/workflow/tsmc_yoy_acceleration_information.py": "fa09004920da377178de17b5c883e8d37caed9ce81b8b3b2d0453a6b24b6c083",
     "src/workflow/uniform_layer_attribution.py": "84cc0e9ed1a3de840080f50bacb05adb0dd2efbcd72c89e7879e36612f0ae071",
-    "src/workflow/vxn_vix_information_increment.py": "c1c7ea418676049711fd527f134cb7ad428a6187b04a93944e057f7ac29ea291"
+    "src/workflow/vxn_vix_information_increment.py": "4ea69525fd4adf7c9d22d6bb0fa5c9989628fd3684c4fccb853a2481987b18de"
   },
   "prefit": {
     "recorder_id": "138e32859c704a5a8878d3bb8e81334e",
@@ -334,5 +334,6 @@
       "prefit/qualification.pkl": "7369ad94fad02ebff4916c89ecefe2f3c1e487d098677611e429c375ad3269a4",
       "prefit/plan.pkl": "23def203d6086791eea39efa3aad0e4b9fdc599dfb3cce3aa8f6c21ff827be90"
     }
-  }
+  },
+  "transport_fix": "Before any fit: recreate native DatasetH from hash-verified Recorder frame, assert all feature/label/metadata values exactly equal frozen prepared frames. Default Qlib private cache was omitted. No source values or method changed; failed launch consumed0 fits/0 replays."
 }

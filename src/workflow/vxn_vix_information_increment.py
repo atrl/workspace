@@ -129,6 +129,20 @@ def fit_budget(plan):
     return 2*len(plan['schedule']['outer_years'])*5
 
 
+def restore_frozen_arm_datasets(bundle,as_of='2026-09-25'):
+    """DatasetH omits cached private data by default; restore from verified Recorder rows."""
+    result=dict(bundle)
+    meta=tuple(METADATA_COLUMNS)+('source_known','source_available_at','base_feature_available_at')
+    for arm in ('control','candidate'):
+        dataset=build_native_dataset(bundle['frame'],feature_columns=bundle[arm+'_features'],
+            label_columns=LABEL_COLUMNS,metadata_columns=meta,as_of=as_of)
+        attach_horizon_scope(dataset,5);dataset.calendar=bundle['calendar']
+        prepared=dataset.prepare('all',col_set=['feature','label','metadata'])
+        pd.testing.assert_frame_equal(prepared,bundle[arm+'_prepared'],check_exact=True)
+        result[arm]=dataset
+    return result
+
+
 def qualify_matched_annual_inputs(bundle, plan):
     """Both arms use identical dates/labels; this qualification performs zero fits."""
     from src.model.generic_annual_ridge_selection import qualify_annual_horizon_inputs
@@ -284,7 +298,7 @@ def run_information_increment(*,root,card,execution_plan_path):
     objects,_=load_verified_recorder_objects(card,expected_recorder_id=prefit['recorder_id'],
         artifacts=['prefit/inputs.pkl','prefit/qualification.pkl','prefit/plan.pkl'],
         expected_artifact_sha256=prefit['object_sha256'])
-    bundle=objects['prefit/inputs.pkl']
+    bundle=restore_frozen_arm_datasets(objects['prefit/inputs.pkl'])
     _require(objects['prefit/plan.pkl']==plan,'frozen prefit plan differs')
     _require(qualify_matched_annual_inputs(bundle,plan)==objects['prefit/qualification.pkl'],'prefit annual masks differ')
     frame=bundle['frame'];calendar=bundle['calendar'];sigma=bundle['covariance'];uri=str(card/'execution_recorder')

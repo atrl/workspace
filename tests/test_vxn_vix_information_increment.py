@@ -101,3 +101,9 @@ def test_matched_arm_datasets_prepare_without_fit():
     assert audit['fallback_audits'][2016]['rows_eligible']<252
     assert audit['annual_audits'][0]['inner_training_rows']>=252
     assert audit['annual_audits'][2]['validation_source_excluded_rows']==1
+    # Exercise the exact production boundary: default Qlib serialization drops caches.
+    import pickle
+    frozen=pickle.loads(pickle.dumps(out))
+    restored=V.restore_frozen_arm_datasets(frozen)
+    assert V.qualify_matched_annual_inputs(restored,plan)==audit
+    pd.testing.assert_frame_equal(restored['candidate'].prepare('all',col_set=['feature','label','metadata']),out['candidate_prepared'])
