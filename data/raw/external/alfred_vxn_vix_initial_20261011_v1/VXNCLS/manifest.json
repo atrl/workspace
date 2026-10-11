@@ -1,0 +1,88 @@
+{
+  "series_id": "VXNCLS",
+  "source_url": "https://alfred.stlouisfed.org/series/downloaddata?seid=VXNCLS",
+  "retrieved_at_utc": "2026-10-11T07:36:53.258290+00:00",
+  "observation_start": "2011-01-03",
+  "as_of": "2026-09-25",
+  "output_format": "Observations, Initial Release Only",
+  "file_type": 4,
+  "authentication": "official anonymous download form, no API key",
+  "vintage_count": 3110,
+  "batch_limit": 400,
+  "initial_release_dates_certified_by_file": true,
+  "intraday_publication_timestamp_certified": false,
+  "entries": [
+    {
+      "path": "VXNCLS/batch_00.zip",
+      "sha256": "28ab091a61677ab8787fcc8277998f8878f76d41293191ddf277cc4be24250fd",
+      "bytes": 4553,
+      "vintage_first": "2014-04-17",
+      "vintage_last": "2015-11-19",
+      "vintage_count": 400,
+      "csv_name": "obs.,_initial_release_only.csv"
+    },
+    {
+      "path": "VXNCLS/batch_01.zip",
+      "sha256": "78d825cff75e7354cb9cf845415e2e4aff8075b38c69df04d14ae5f70c34e11d",
+      "bytes": 4547,
+      "vintage_first": "2015-11-20",
+      "vintage_last": "2017-06-21",
+      "vintage_count": 400,
+      "csv_name": "obs.,_initial_release_only.csv"
+    },
+    {
+      "path": "VXNCLS/batch_02.zip",
+      "sha256": "51061637d6dca8fe2bdbb0137685cf98c5aeabf962e8b0eb6bdacf8fee8fdc2b",
+      "bytes": 4646,
+      "vintage_first": "2017-06-22",
+      "vintage_last": "2019-01-30",
+      "vintage_count": 400,
+      "csv_name": "obs.,_initial_release_only.csv"
+    },
+    {
+      "path": "VXNCLS/batch_03.zip",
+      "sha256": "71b235e563d3a857b7a4a880df349feaf0e8ccd5919d6f664f5147ae22733cb5",
+      "bytes": 4591,
+      "vintage_first": "2019-01-31",
+      "vintage_last": "2020-09-02",
+      "vintage_count": 400,
+      "csv_name": "obs.,_initial_release_only.csv"
+    },
+    {
+      "path": "VXNCLS/batch_04.zip",
+      "sha256": "d9bd8851c685fda4bab2981e8fa461020b0b1cd8e48379977a989f9f79798632",
+      "bytes": 4632,
+      "vintage_first": "2020-09-03",
+      "vintage_last": "2022-04-08",
+      "vintage_count": 400,
+      "csv_name": "obs.,_initial_release_only.csv"
+    },
+    {
+      "path": "VXNCLS/batch_05.zip",
+      "sha256": "b1d6fa4d87996ee80fd9eff135a9e0b561d4a91631b99be8d9b55e06f5a22a16",
+      "bytes": 4638,
+      "vintage_first": "2022-04-11",
+      "vintage_last": "2023-11-15",
+      "vintage_count": 400,
+      "csv_name": "obs.,_initial_release_only.csv"
+    },
+    {
+      "path": "VXNCLS/batch_06.zip",
+      "sha256": "0de678ca2b4450c7a091939fba48e0def892600fd4b9313d18f8e908677079a4",
+      "bytes": 4589,
+      "vintage_first": "2023-11-16",
+      "vintage_last": "2025-06-26",
+      "vintage_count": 400,
+      "csv_name": "obs.,_initial_release_only.csv"
+    },
+    {
+      "path": "VXNCLS/batch_07.zip",
+      "sha256": "5ef380b069a186765994c38d7b68d2e6da81873e9cd73732d944b726679a130b",
+      "bytes": 3726,
+      "vintage_first": "2025-06-27",
+      "vintage_last": "2026-09-22",
+      "vintage_count": 310,
+      "csv_name": "obs.,_initial_release_only.csv"
+    }
+  ]
+}

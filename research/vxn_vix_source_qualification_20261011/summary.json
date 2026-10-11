@@ -1,0 +1,50 @@
+{
+  "experiment": "vxn_vix_source_qualification_20261011",
+  "status": "source_qualified_with_quarantine_research_not_authorized",
+  "models_trained": 0,
+  "replays": 0,
+  "promotion_eligible": false,
+  "initial_release_payload_available": true,
+  "source_audit": {
+    "raw_vxn_rows": 3243,
+    "raw_vix_rows": 4072,
+    "calendar_rows": 3956,
+    "known_signal_rows": 3126,
+    "unknown_signal_rows": 830,
+    "premature_market_observations": 1,
+    "non_session_raw_observations": 119,
+    "unknown_latest_observations": 1,
+    "date_level_initial_release_verified": true,
+    "intraday_publication_timestamp_verified": false,
+    "availability_contract": "next native session09:31NY after max(observation_date,both release dates); premature rows quarantined",
+    "same_observation_date_pairing": true,
+    "unknown_feature_not_zero_filled": true,
+    "price_evaluation_dates_dropped": 0,
+    "source_range": [
+      "2011-01-03",
+      "2026-09-25"
+    ]
+  },
+  "recorder_id": "2ae4bc644d674f5bbc88cda0125ee1de",
+  "experiment_id": "686259316940943595",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/vxn_vix_source_qualification_20261011/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/vxn_vix_source_qualification_20261011/qlib_recorder/686259316940943595/2ae4bc644d674f5bbc88cda0125ee1de",
+  "recorder_status": "FINISHED",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/alfred_tech_iv_initial_20261011_v1",
+  "price_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/published_futu_affine_20260925_v1",
+  "price_provider_unchanged": true,
+  "as_of": "2026-09-25",
+  "region": "us",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "raw_vxn.pkl",
+      "raw_vix.pkl",
+      "paired_source_events.pkl",
+      "source_state.pkl",
+      "source_readback.pkl",
+      "source_audit.pkl"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "recorder_id": "2ae4bc644d674f5bbc88cda0125ee1de",
+  "entries": [
+    {
+      "path": "qlib_recorder/686259316940943595/2ae4bc644d674f5bbc88cda0125ee1de/artifacts/paired_source_events.pkl",
+      "sha256": "6ee0b6139cf0358e23908504a841a62df42a7da238585a5a98f11ee99e51d4d0",
+      "bytes": 250219
+    },
+    {
+      "path": "qlib_recorder/686259316940943595/2ae4bc644d674f5bbc88cda0125ee1de/artifacts/raw_vix.pkl",
+      "sha256": "ef0857b0aef317b6184eccf6ddf583bb68143a70565530d5ff71c74f97565c1a",
+      "bytes": 116004
+    },
+    {
+      "path": "qlib_recorder/686259316940943595/2ae4bc644d674f5bbc88cda0125ee1de/artifacts/raw_vxn.pkl",
+      "sha256": "31a90e7671644b646cd0a8134f23c623d3ced0c28739ae54c28d917e8b9cad6c",
+      "bytes": 92658
+    },
+    {
+      "path": "qlib_recorder/686259316940943595/2ae4bc644d674f5bbc88cda0125ee1de/artifacts/source_audit.pkl",
+      "sha256": "71c3386947386607a41f55347e4db8305033e0388590a51e9171ebcc00b16065",
+      "bytes": 576
+    },
+    {
+      "path": "qlib_recorder/686259316940943595/2ae4bc644d674f5bbc88cda0125ee1de/artifacts/source_readback.pkl",
+      "sha256": "22dcf42455239aabdc489dad2d2bb063dc07fa2b7996b4766e9126582c1e454e",
+      "bytes": 139845
+    },
+    {
+      "path": "qlib_recorder/686259316940943595/2ae4bc644d674f5bbc88cda0125ee1de/artifacts/source_state.pkl",
+      "sha256": "d169b88a499cecd0cfc0d95fcf903560c8361359e66aefea951d35d72840132e",
+      "bytes": 326079
+    }
+  ]
+}

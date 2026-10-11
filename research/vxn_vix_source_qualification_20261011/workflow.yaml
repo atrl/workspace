@@ -1,0 +1,9 @@
+stage: source_access_audit_only
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/published_futu_affine_20260925_v1
+recorder_id: 3fb5aac4bc9d4af3bba2f0ad032f7060
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - source_contract.pkl
+  - calendar_upper_bound.pkl

@@ -1,0 +1,42 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/alfred_tech_iv_initial_20261011_v1",
+  "market": "all",
+  "region": "us",
+  "freq": "day",
+  "as_of": "2026-09-25",
+  "source": "official_alfred_initial_release_20261011_v1",
+  "instruments": [
+    "TECH_IV_REL"
+  ],
+  "fields": [
+    "$known",
+    "$log_vxn_vix",
+    "$vxn",
+    "$vix",
+    "$observation_calendar_index",
+    "$availability_calendar_index"
+  ],
+  "calendar_start": "2011-01-03",
+  "calendar_end": "2026-09-25",
+  "max_datetime": "2026-09-25",
+  "row_count": 3956,
+  "feature_file_count": 6,
+  "audit_snapshot_hash": "690d7a705d1a7b7c",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "cffa6b3d87e6ffb9",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "information_instrument": true,
+  "not_trading_prices": true,
+  "initial_release_values_only": true,
+  "date_level_vintage_verified": true,
+  "intraday_publication_timestamp_verified": false,
+  "unknown_feature_not_zero_filled": true,
+  "availability_contract": "next actual session09:31NY after both release dates; premature observations quarantined"
+}

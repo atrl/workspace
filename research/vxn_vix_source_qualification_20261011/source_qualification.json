@@ -1,0 +1,69 @@
+{
+  "experiment": "vxn_vix_source_qualification_20261011",
+  "stage": "public_source_and_access_audit_only",
+  "status": "source_qualified_with_quarantine_research_not_authorized",
+  "models_trained": 0,
+  "replays": 0,
+  "promotion_eligible": false,
+  "research_training_authorized": false,
+  "candidate": "latest causally available log(VXNCLS/VIXCLS), exactly one proposed new information feature; no change/grid variants",
+  "facts": {
+    "vxn_underlying": "Nasdaq100, not a semiconductor-specific index",
+    "vxn_live_launch": "January2001",
+    "alfred_vxn_metadata_first_release": "2014-04-17",
+    "vxsmh_history_start": "2022-01-03",
+    "vxsmh_live_launch": "2025-11-03",
+    "vxsmh_2016_2022_eligible": false,
+    "fred_api_key_configured_in_current_environment": false,
+    "initial_release_payload_available": true,
+    "anonymous_official_zip_download_verified": true
+  },
+  "source_links": {
+    "vxn_fred": "https://fred.stlouisfed.org/series/VXNCLS",
+    "vxn_alfred": "https://alfred.stlouisfed.org/series?seid=VXNCLS",
+    "observations_api": "https://fred.stlouisfed.org/docs/api/fred/series_observations.html",
+    "initial_release_download_help": "https://alfred.stlouisfed.org/help/downloaddata",
+    "cboe_methodology": "https://cdn.cboe.com/api/global/us_indices/governance/Volatility_Index_Methodology_Selected_Broad_Based_Index_Equity_and_ETF_Volatility_Indices.pdf"
+  },
+  "requirements": {
+    "raw_columns": [
+      "observation_date",
+      "value",
+      "realtime_start_date"
+    ],
+    "values": "initial release only, API output_type4 or official matching ZIP; current revision CSV is not acceptable",
+    "vintage_range": "explicit original-release history through frozen data cutoff, not default todays vintage",
+    "availability": "date-only initial release becomes usable at09:31NY of the next actual Qlib session; no fabricated intraday publication timestamp",
+    "missing": "unknown remains unknown; do not forward-fill future/unpublished data or fabricate2011vintages",
+    "training": "Inner-year cutoff is outer-1 Jan1; source eligible/mature labels only, matched price-only control shares the identical eligible rowset; first2016 source upper bound177 rows cannot meet252.",
+    "source_fallback": "If mature inner train<252 or validation<126, explicitly retain SOXX; never shrink benchmark evaluation or fill unknown feature with zero",
+    "temporal_anomalies": "Premature release on market2018-10-08 quarantined; no asserted holiday cause; non-session raw rows and missing quotes retained but not promoted to valid signals."
+  },
+  "closed_routes": [
+    "H20 fixed price-only route: exactlySOXX, zeroexcess, stopped",
+    "broad CBOE VIX9D/VIX3M/VVIX information route: notpromoted, notreopened"
+  ],
+  "scope": "Source qualification does not establish predictive alpha. No source store/training/backtest before payload and timestamp qualification.",
+  "raw_snapshot": "data/raw/external/alfred_vxn_vix_initial_20261011_v1",
+  "source_store": "data/qlib/alfred_tech_iv_initial_20261011_v1",
+  "source_audit": {
+    "raw_vxn_rows": 3243,
+    "raw_vix_rows": 4072,
+    "calendar_rows": 3956,
+    "known_signal_rows": 3126,
+    "unknown_signal_rows": 830,
+    "premature_market_observations": 1,
+    "non_session_raw_observations": 119,
+    "unknown_latest_observations": 1,
+    "date_level_initial_release_verified": true,
+    "intraday_publication_timestamp_verified": false,
+    "availability_contract": "next native session09:31NY after max(observation_date,both release dates); premature rows quarantined",
+    "same_observation_date_pairing": true,
+    "unknown_feature_not_zero_filled": true,
+    "price_evaluation_dates_dropped": 0,
+    "source_range": [
+      "2011-01-03",
+      "2026-09-25"
+    ]
+  }
+}
