@@ -1,0 +1,99 @@
+{
+  "schema_version": "nvda_company_guidance_fact_capture_v1",
+  "accession": "0001045810-19-000004",
+  "cik": "0001045810",
+  "issuer": "NVDA",
+  "lane": "2016_2020",
+  "capture_at_utc": "2026-10-11T14:09:51.520717+00:00",
+  "source_qualified": false,
+  "source_deployment_gate": false,
+  "fit_calls": 0,
+  "replays": 0,
+  "metadata_source": "data/raw/external/sec_nvda_submissions_20261011_v1",
+  "filing_date": "2019-01-28",
+  "report_date_raw": "2019-01-28",
+  "api_accepted_at_raw": "2019-01-28T19:04:54.000Z",
+  "index_accepted_at_raw": null,
+  "index_accepted_timezone": null,
+  "timestamp_policy": "preserve both raw strings; no timezone correction or first-public-time inference",
+  "release_date": "2019-01-28",
+  "release_date_basis": "official release dateline/date and, when read, Item2.02 statement",
+  "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000004/0001045810-19-000004-index.html",
+  "primary_document_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000004/form8-kq4fy19update.htm",
+  "observed_exhibit_links": [
+    {
+      "exhibit_type": "EX-99.1",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000004/pressrelease.htm",
+      "body_read": true
+    }
+  ],
+  "event_role": "interim_guidance_update_preliminary_estimate",
+  "reported_fiscal_period": null,
+  "reported_period_end": null,
+  "actual_revenue": {
+    "value": null,
+    "currency": "USD",
+    "unit": "million",
+    "basis": "not_reported_in_this_event",
+    "precision": null
+  },
+  "guidance": {
+    "target_fiscal_period": "FY2019Q4",
+    "target_period_end": "2019-01-27",
+    "relation_to_reported_period": "same_just_ended_quarter_preliminary_update_not_next_quarter",
+    "type": "company_revenue_amount_plus_minus_percent",
+    "midpoint": 2200,
+    "lower": 2156.0,
+    "upper": 2244.0,
+    "currency": "USD",
+    "unit": "million",
+    "plus_minus_percent": 2.0,
+    "bounds_derivation": "published midpoint multiplied by (1 +/- published 2 percent)",
+    "scope": "company_total_revenue_as_published; no acquisition adjustment constructed"
+  },
+  "supersedes_accession": "0001045810-18-000148",
+  "previous_guidance": {
+    "target_fiscal_period": "FY2019Q4",
+    "midpoint": 2700,
+    "lower": 2646,
+    "upper": 2754,
+    "currency": "USD",
+    "unit": "million",
+    "plus_minus_percent": 2
+  },
+  "sources": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000004/pressrelease.htm",
+      "source_kind": "SEC_exhibit",
+      "retrieval_method": "web.run open/find official page",
+      "body_content_observed": true,
+      "raw_html_available": false,
+      "html_sha256": null,
+      "locator": "previous-versus-updated Q4 guidance table",
+      "evidence_excerpt": "$2.20 billion, plus or minus 2%",
+      "exhibit_type_observed": "EX-99.1"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000004/form8-kq4fy19update.htm",
+      "source_kind": "SEC_primary_8K",
+      "retrieval_method": "web.run open/find official page",
+      "body_content_observed": true,
+      "raw_html_available": false,
+      "html_sha256": null,
+      "locator": "Item2.02 and exhibit descriptions",
+      "evidence_excerpt": null
+    }
+  ],
+  "raw_html_available": false,
+  "html_sha256": null,
+  "normalized_fact_sha256": "543385a1e9ab3e2f9f82b5b74980bcd367ee680577b2f076cfbaca3c96f2a4d1",
+  "unknowns": [
+    "official_filing_index_not_readable_in_this_capture; index accepted timestamp remains null",
+    "no_final_actual_quarter_revenue_in_this_update; do_not_treat_updated_estimate_as_reported_actual_or_next_quarter_guidance"
+  ],
+  "notes": [],
+  "qualification_note": "official content fact capture only; first-disclosure chronology, full-event rules and source qualification remain for root review",
+  "candidate_definition_role": "audit_only_interim_update_not_quarterly_original_next_quarter_guidance",
+  "latest_current_guidance_claimed": false,
+  "first_public_disclosure_verified": false
+}

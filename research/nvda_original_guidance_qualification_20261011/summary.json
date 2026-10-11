@@ -1,0 +1,48 @@
+{
+  "experiment": "nvda_original_guidance_qualification_20261011",
+  "status": "conservative_date_bound_research_source_qualified",
+  "source_qualified_for_diagnostic_research": true,
+  "source_deployment_gate": false,
+  "promotion_decision": "not_promoted",
+  "promotion_eligible": false,
+  "fit_calls": 0,
+  "native_cases": 0,
+  "original_guide_events": 63,
+  "captured_filing_events": 66,
+  "calendar_rows": 3956,
+  "known_rows": 3924,
+  "unknown_rows": 32,
+  "provider_content_sha256": "40c37a958c02428eed9a378bfd7232b421956610462e07b37f7f5c610cb375a8",
+  "source": {
+    "provider_uri": "data/qlib/nvda_original_guidance_20261011_v1",
+    "instrument": "NVDA_GUIDE_INFO",
+    "region": "us",
+    "as_of": "2026-09-25",
+    "fact_manifest": "data/raw/external/nvda_guidance_facts_20261011_v1/manifest.json",
+    "fact_manifest_sha256": "df09d3cf8fea92702f6f33a616b7e7c1fa2812ec6977289ee2afdc141f61b82a"
+  },
+  "recorder_id": "723e63dda85a424c9a0a74e1374dc480",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_original_guidance_qualification_20261011/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_original_guidance_qualification_20261011/qlib_recorder/521968467197003608/723e63dda85a424c9a0a74e1374dc480",
+  "recorder_status": "FINISHED",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source/raw_facts.pkl",
+      "source/normalized_events.pkl",
+      "source/original_guidance_events.pkl",
+      "source/information_state.pkl",
+      "source/source_readback.pkl",
+      "source/source_manifest.pkl",
+      "source/metadata_provenance.pkl"
+    ]
+  },
+  "limitations": [
+    "Retrospective primary-source textual extracts; original HTML byte identities not verified",
+    "Intraday first-public timestamps not verified; conservative publication-day lag explicitly used",
+    "Publisher total-growth assumptions include/exclude acquisitions as stated; not a comparable-perimeter fundamental growth forecast",
+    "Original guide only; all interim update coverage is not claimed",
+    "63 quarterly information observations are not3956 independent information events; no alpha or significance conclusion"
+  ]
+}

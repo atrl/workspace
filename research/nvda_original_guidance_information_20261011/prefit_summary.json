@@ -1,0 +1,32 @@
+{
+  "experiment": "nvda_original_guidance_information_20261011",
+  "recorder_id": "c640ab17d6cf484594346378e7464631",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_original_guidance_information_20261011/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_original_guidance_information_20261011/qlib_recorder/116245836962488158/c640ab17d6cf484594346378e7464631",
+  "status": "prefit_qualified_not_promoted",
+  "promotion_decision": "not_promoted",
+  "promotion_eligible": false,
+  "fit_calls": 0,
+  "native_cases": 0,
+  "rows": 3956,
+  "known_rows": 3924,
+  "unknown_rows": 32,
+  "recorder_status": "FINISHED",
+  "source": {
+    "provider_uri": "data/qlib/nvda_original_guidance_20261011_v1",
+    "instrument": "NVDA_GUIDE_INFO",
+    "region": "us",
+    "as_of": "2026-09-25",
+    "fact_manifest": "data/raw/external/nvda_guidance_facts_20261011_v1/manifest.json",
+    "fact_manifest_sha256": "df09d3cf8fea92702f6f33a616b7e7c1fa2812ec6977289ee2afdc141f61b82a"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "prefit/inputs.pkl",
+      "prefit/qualification.pkl",
+      "prefit/source_provenance.pkl"
+    ]
+  }
+}

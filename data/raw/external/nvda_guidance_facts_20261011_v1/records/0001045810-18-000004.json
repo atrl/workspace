@@ -1,0 +1,94 @@
+{
+  "schema_version": "nvda_company_guidance_fact_capture_v1",
+  "accession": "0001045810-18-000004",
+  "cik": "0001045810",
+  "issuer": "NVDA",
+  "lane": "2016_2020",
+  "capture_at_utc": "2026-10-11T14:09:51.520366+00:00",
+  "source_qualified": false,
+  "source_deployment_gate": false,
+  "fit_calls": 0,
+  "replays": 0,
+  "metadata_source": "data/raw/external/sec_nvda_submissions_20261011_v1",
+  "filing_date": "2018-02-08",
+  "report_date_raw": "2018-02-08",
+  "api_accepted_at_raw": "2018-02-09T02:23:23.000Z",
+  "index_accepted_at_raw": "2018-02-08 16:23:23",
+  "index_accepted_timezone": null,
+  "timestamp_policy": "preserve both raw strings; no timezone correction or first-public-time inference",
+  "release_date": "2018-02-08",
+  "release_date_basis": "official release dateline/date and, when read, Item2.02 statement",
+  "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000004/0001045810-18-000004-index.html",
+  "primary_document_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000004/form8-kq4fy18.htm",
+  "observed_exhibit_links": [
+    {
+      "exhibit_type": "EX-99.1",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000004/q4fy18pr.htm",
+      "body_read": true
+    },
+    {
+      "exhibit_type": "EX-99.2",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000004/q4fy18cfocommentary.htm",
+      "body_read": false,
+      "discovery": "official filing index observed link"
+    }
+  ],
+  "event_role": "quarterly_earnings_release",
+  "reported_fiscal_period": "FY2018Q4",
+  "reported_period_end": "2018-01-28",
+  "actual_revenue": {
+    "value": 2911,
+    "currency": "USD",
+    "unit": "million",
+    "basis": "company_reported_revenue_in_earnings_release",
+    "precision": "nearest_USD_million_as_published"
+  },
+  "guidance": {
+    "target_fiscal_period": "FY2019Q1",
+    "target_period_end": null,
+    "relation_to_reported_period": "next_fiscal_quarter",
+    "type": "company_revenue_amount_plus_minus_percent",
+    "midpoint": 2900,
+    "lower": 2842.0,
+    "upper": 2958.0,
+    "currency": "USD",
+    "unit": "million",
+    "plus_minus_percent": 2.0,
+    "bounds_derivation": "published midpoint multiplied by (1 +/- published 2 percent)",
+    "scope": "company_total_revenue_as_published; no acquisition adjustment constructed"
+  },
+  "supersedes_accession": null,
+  "previous_guidance": null,
+  "sources": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000004/q4fy18pr.htm",
+      "source_kind": "SEC_exhibit",
+      "retrieval_method": "web.run open/find official page",
+      "body_content_observed": true,
+      "raw_html_available": false,
+      "html_sha256": null,
+      "locator": "quarterly revenue summary and next-quarter Outlook",
+      "evidence_excerpt": "Revenue is expected to be $2.90 billion, plus or minus two percent.",
+      "exhibit_type_observed": "EX-99.1"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000004/0001045810-18-000004-index.html",
+      "source_kind": "SEC_filing_index",
+      "retrieval_method": "web.run open official filing index",
+      "body_content_observed": true,
+      "raw_html_available": false,
+      "html_sha256": null,
+      "locator": "Accepted and Document Format Files",
+      "evidence_excerpt": null
+    }
+  ],
+  "raw_html_available": false,
+  "html_sha256": null,
+  "normalized_fact_sha256": "9ef7c09393d1e583db7a279dab3f9ddec5db4a6f2f4b4bb5b4b843f8ebd2c596",
+  "unknowns": [],
+  "notes": [],
+  "qualification_note": "official content fact capture only; first-disclosure chronology, full-event rules and source qualification remain for root review",
+  "candidate_definition_role": "quarterly_release_original_next_quarter_guidance",
+  "latest_current_guidance_claimed": false,
+  "first_public_disclosure_verified": false
+}

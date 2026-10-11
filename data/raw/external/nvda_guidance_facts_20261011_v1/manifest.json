@@ -1,0 +1,413 @@
+{
+  "schema_version": "dated_original_company_guidance_facts_v1",
+  "issuer": "NVDA",
+  "cik": "0001045810",
+  "as_of": "2026-09-25",
+  "purpose": "Dated original next-quarter management guidance, not latest forecast or consensus; corpus66 Item2.02 records, extra updates audit only",
+  "feature": "as_published_original_next_quarter_guidance_midpoint_growth_relative_to_reported_quarter",
+  "scope": "Management published inclusion/exclusion assumptions remain part of measurement; no consolidation/perimeter adjustment or updated actual reconstruction",
+  "availability_contract": "09:31NY of first actual native session strictly after max(release date, filing date, API-parsed NY date, observed index date); no instant timezone correction",
+  "original_html_bytes_claimed": false,
+  "first_public_intraday_timestamp_verified": false,
+  "all_guidance_updates_coverage_claimed": false,
+  "source_deployment_gate": false,
+  "fit_calls": 0,
+  "entries": [
+    {
+      "accession": "0001045810-11-000006",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-11-000006.json",
+      "sha256": "5e8c2cb37692339fe9574f17ec5709625f01e3690feac5e27dd481e351191f4a",
+      "bytes": 3793
+    },
+    {
+      "accession": "0001045810-11-000022",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-11-000022.json",
+      "sha256": "9fc207dd17b1b8f6bf6fc3f57f647f608d3ad5fe655e8a651bcaca3d09bf007e",
+      "bytes": 3932
+    },
+    {
+      "accession": "0001045810-11-000039",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-11-000039.json",
+      "sha256": "ec95f9f4e216e363a0ce6aa5ad378cd7f0efbb7dbdfcb84256b9a0d4c07f9373",
+      "bytes": 3796
+    },
+    {
+      "accession": "0001045810-11-000052",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-11-000052.json",
+      "sha256": "efe44bd35024ff76a61c90f3e7b5793c4a5f013310120badbc63be1d7893db9c",
+      "bytes": 4008
+    },
+    {
+      "accession": "0001045810-12-000008",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-12-000008.json",
+      "sha256": "6d32fb937e2cc588bcb480fe4a9e8b1df64e939ab8a41a70d42fad466502c780",
+      "bytes": 3922
+    },
+    {
+      "accession": "0001045810-12-000024",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-12-000024.json",
+      "sha256": "40bd5920fd8c5e1ae0ac75b83227630d5eeb0db27d7cfb225e97f60ef5f9e449",
+      "bytes": 4009
+    },
+    {
+      "accession": "0001045810-12-000032",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-12-000032.json",
+      "sha256": "2733970e2084f9fe3d5b0a54c2e946b13b2c143ee71d2079262b8b81dafe987f",
+      "bytes": 3912
+    },
+    {
+      "accession": "0001045810-12-000055",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-12-000055.json",
+      "sha256": "f7576edf9d835653c1daf855c8340d6e680f53443a5a917a85e5d02099bbe0f0",
+      "bytes": 3911
+    },
+    {
+      "accession": "0001045810-13-000003",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-13-000003.json",
+      "sha256": "fc0a9f95f1a6491c2543be785c9e468339ef5306694d0c79f50c0d32dbddab4e",
+      "bytes": 3948
+    },
+    {
+      "accession": "0001045810-13-000029",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-13-000029.json",
+      "sha256": "07924d7ece4d6c29df66a696c5be4b76cd69d4f215ca4a13c3dd6e788c6ecc03",
+      "bytes": 3934
+    },
+    {
+      "accession": "0001045810-13-000069",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-13-000069.json",
+      "sha256": "28cc61c307ba680509db259ddec9c6971c89829bb91d605550a727e4c6acf904",
+      "bytes": 3941
+    },
+    {
+      "accession": "0001045810-13-000104",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-13-000104.json",
+      "sha256": "cd1e92d2bb0347b2c8dcee571330da705e39b7aa7a4397d7cfa16b6fc3b4f9d6",
+      "bytes": 3941
+    },
+    {
+      "accession": "0001045810-14-000004",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-14-000004.json",
+      "sha256": "49caba423ab2f32df6db3fb5a85ada140490c212a28a90e388418169e481602c",
+      "bytes": 3946
+    },
+    {
+      "accession": "0001045810-14-000071",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-14-000071.json",
+      "sha256": "6678b6a3c2513dce4d7290acdff8a13e9a7d42d91e128ab0fcdee4d19578bbc3",
+      "bytes": 4709
+    },
+    {
+      "accession": "0001045810-14-000076",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-14-000076.json",
+      "sha256": "52d4a60dde4cc668f274f560c1223366164a89324de20d39b39f45d13d1e9009",
+      "bytes": 4268
+    },
+    {
+      "accession": "0001045810-14-000149",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-14-000149.json",
+      "sha256": "ef2cba516055612ca88b7243c8006b0a545855ab650c77d7588647a12242126e",
+      "bytes": 3933
+    },
+    {
+      "accession": "0001045810-14-000182",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-14-000182.json",
+      "sha256": "65cfda1ad1ea5995f4f64939eb514bc7e981928ead97bb4a22bd38089aa0d47d",
+      "bytes": 3942
+    },
+    {
+      "accession": "0001045810-15-000013",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-15-000013.json",
+      "sha256": "f3870a285d3a07b45198292a81b8724c566a911ae890bb215a9d9c7ea3b2f47b",
+      "bytes": 3948
+    },
+    {
+      "accession": "0001045810-15-000087",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-15-000087.json",
+      "sha256": "db0c4063a455195d8f45eafd3bd8d1ebdd32b83076f613ef79467655e8f16ffe",
+      "bytes": 4094
+    },
+    {
+      "accession": "0001045810-15-000131",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-15-000131.json",
+      "sha256": "6dda1c6c31d16e3c84328db4ca05025df0a82ae35afdaf9df81030a56fde5694",
+      "bytes": 3934
+    },
+    {
+      "accession": "0001045810-15-000165",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-15-000165.json",
+      "sha256": "e5e4f380be49bef9f5f11e97fdf4d245d4b4d23287d4360853471b19566300d5",
+      "bytes": 3932
+    },
+    {
+      "accession": "0001045810-16-000189",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-16-000189.json",
+      "sha256": "ad725ede694fb1050ff7e4bc6c61e808f0cbb5ca1f35a1c375256d4fb899d462",
+      "bytes": 3309
+    },
+    {
+      "accession": "0001045810-16-000243",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-16-000243.json",
+      "sha256": "f3c183aa302f0d6df8078a451b591796407f632496839df576c44703d860771a",
+      "bytes": 3309
+    },
+    {
+      "accession": "0001045810-16-000292",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-16-000292.json",
+      "sha256": "e2e57a18e262d67752c99300f9365755801abdcec3edfc8b62cec20d3a51a1be",
+      "bytes": 3666
+    },
+    {
+      "accession": "0001045810-16-000343",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-16-000343.json",
+      "sha256": "417ab4cef4191e3d939979162bdf790f4e1b0aa6a8b653c80e805ce135038c6c",
+      "bytes": 3665
+    },
+    {
+      "accession": "0001045810-17-000016",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-17-000016.json",
+      "sha256": "a9f0ffa7590cede7fe9686f065f1a74840871a073dda923ef9b8628fc0019388",
+      "bytes": 3887
+    },
+    {
+      "accession": "0001045810-17-000068",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-17-000068.json",
+      "sha256": "1ab63c61ec083220cc6bb01a0cacab3f66bbd0ac142c4c7109055a294b38ecf8",
+      "bytes": 3703
+    },
+    {
+      "accession": "0001045810-17-000117",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-17-000117.json",
+      "sha256": "f581f9391089389967757391245e897e803c439211d904e5de91ff1c6a2fed72",
+      "bytes": 3713
+    },
+    {
+      "accession": "0001045810-17-000164",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-17-000164.json",
+      "sha256": "697cc3f5d969baa95b39893eaf154cc0adf9df88e924324d580f4a8bcd77f4bf",
+      "bytes": 3887
+    },
+    {
+      "accession": "0001045810-18-000004",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-18-000004.json",
+      "sha256": "c081b9f57b3264cf99c006f7aced87c2257b3bcabd55008edcc8eb3281a7d41c",
+      "bytes": 3887
+    },
+    {
+      "accession": "0001045810-18-000052",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-18-000052.json",
+      "sha256": "e1089085daa742adbe03bde9f51bf71800cbf78c97732a91c6c1a5d8c9caf882",
+      "bytes": 3315
+    },
+    {
+      "accession": "0001045810-18-000113",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-18-000113.json",
+      "sha256": "7a7540984c1178ac3945625c8c3cb878c241b2c4cd75873f7c608e94a884d42c",
+      "bytes": 3887
+    },
+    {
+      "accession": "0001045810-18-000148",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-18-000148.json",
+      "sha256": "a936ff2c6198ffe1256604392a1e3e601e8c5e1f432c40dbc6153bc8cc936526",
+      "bytes": 3711
+    },
+    {
+      "accession": "0001045810-19-000004",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-19-000004.json",
+      "sha256": "687c3b5305d0ae235d1ad25ccb404b1c11ca6295c89e8246a509d451bd9db824",
+      "bytes": 4036
+    },
+    {
+      "accession": "0001045810-19-000007",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-19-000007.json",
+      "sha256": "8a8f9dd18e51c0aec2b2613aca45566899a56be28f284fcd211bf804c9163ef2",
+      "bytes": 3885
+    },
+    {
+      "accession": "0001045810-19-000077",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-19-000077.json",
+      "sha256": "c9634898c034c758e199ce4a64cf88eb4b363271df5de20594f9011e44da701a",
+      "bytes": 3885
+    },
+    {
+      "accession": "0001045810-19-000140",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-19-000140.json",
+      "sha256": "6583503d2e4e38a74d90fbb6249c1a168931294efaaffb5fed277c30668b6f10",
+      "bytes": 3885
+    },
+    {
+      "accession": "0001045810-19-000168",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-19-000168.json",
+      "sha256": "663fba5f5de239f8dc41f6bfd62a0e0b20a245eb7f3d028e7f57b5e8d7d67a55",
+      "bytes": 3910
+    },
+    {
+      "accession": "0001045810-20-000007",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-20-000007.json",
+      "sha256": "d79e267ca1e64bced721fae695b409f42fe90ba18dff4c42de75a4350d6fcc9f",
+      "bytes": 4033
+    },
+    {
+      "accession": "0001045810-20-000063",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-20-000063.json",
+      "sha256": "b4a23dc3932562bf189695c202eed817aedce5573504c07de485ae6f4217770a",
+      "bytes": 4083
+    },
+    {
+      "accession": "0001045810-20-000145",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-20-000145.json",
+      "sha256": "10c521532d5e5c95f4ea1dba104d25f7a1624b1c0efd317a5a02b08d2a54bf34",
+      "bytes": 3979
+    },
+    {
+      "accession": "0001045810-20-000187",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-20-000187.json",
+      "sha256": "2d80dfa768dbe1dd268c183a41b4ec91af8c72ab25238caefe535f4ddb4c5690",
+      "bytes": 3313
+    },
+    {
+      "accession": "0001045810-21-000007",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-21-000007.json",
+      "sha256": "fd73101420b4adfefe1f0c81e053c2096a8e12f6e165630962a0a151994405d3",
+      "bytes": 2619
+    },
+    {
+      "accession": "0001045810-21-000063",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-21-000063.json",
+      "sha256": "b785f0ad21021069eeba007e2218d43fe7dcd1a0d42aa84a4975637e2938be96",
+      "bytes": 2753
+    },
+    {
+      "accession": "0001045810-21-000128",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-21-000128.json",
+      "sha256": "90437752ce4b54400d0bd68aa8eb3b9e611f18d7f7bdcb748834190ad111cb6d",
+      "bytes": 2619
+    },
+    {
+      "accession": "0001045810-21-000160",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-21-000160.json",
+      "sha256": "fb009f5cdb398a32190bcb6e912eaa641e2af501c039119ac946c41d6fe8239c",
+      "bytes": 2619
+    },
+    {
+      "accession": "0001045810-22-000008",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-22-000008.json",
+      "sha256": "954cccbf19801a084546dc697af03e4741340aa978254348e96cbfb0606419f8",
+      "bytes": 2759
+    },
+    {
+      "accession": "0001045810-22-000073",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-22-000073.json",
+      "sha256": "ad1fc10133d27ba462800470ff136024603a2633d6d8988606a8df10c3b7595d",
+      "bytes": 2746
+    },
+    {
+      "accession": "0001045810-22-000133",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-22-000133.json",
+      "sha256": "b56979430e1bbd424bc1829feadc14a740c3497b4bc1b42f7429d142e2745499",
+      "bytes": 2752
+    },
+    {
+      "accession": "0001045810-22-000136",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-22-000136.json",
+      "sha256": "e68fd1064723a67df6f115c4cd25e91fac4fcbbce2e9ae1c6032313ccdff7836",
+      "bytes": 2612
+    },
+    {
+      "accession": "0001045810-22-000163",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-22-000163.json",
+      "sha256": "087381a187b9af42dccd9c482050a551406a87abf3dca2567c489fd3dd6d47bb",
+      "bytes": 2610
+    },
+    {
+      "accession": "0001045810-23-000014",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-23-000014.json",
+      "sha256": "22142e5f460d8d880424671de830ad8851f1e853143d3085234833073b739e84",
+      "bytes": 2612
+    },
+    {
+      "accession": "0001045810-23-000087",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-23-000087.json",
+      "sha256": "c07692bfae2019449e28d2518ca41088a3ac4e992b8abc5eb908ad6f00cdd6ab",
+      "bytes": 2615
+    },
+    {
+      "accession": "0001045810-23-000171",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-23-000171.json",
+      "sha256": "377c9cc0663c8a0dcc0c26e6cd1ed72347beabfa34825fada9550919ae970a44",
+      "bytes": 2616
+    },
+    {
+      "accession": "0001045810-23-000225",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-23-000225.json",
+      "sha256": "411d0e132e6daf45eecb812e0ac614aa7984a8480a0bca718d69e69883ab2bbd",
+      "bytes": 2750
+    },
+    {
+      "accession": "0001045810-24-000028",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-24-000028.json",
+      "sha256": "2370b8fd7023e2d964b088ff59372f7a2da8de3fc4e461ec9ec4c43bf85ee11b",
+      "bytes": 2615
+    },
+    {
+      "accession": "0001045810-24-000113",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-24-000113.json",
+      "sha256": "3a525e44c15485f7191fdd1c430ff11b8b3897f1184f5d01515cd219c8a58ff6",
+      "bytes": 2749
+    },
+    {
+      "accession": "0001045810-24-000262",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-24-000262.json",
+      "sha256": "2e817a53a5a25635aa1261ef714508b3e023f26ed52cae87d5ea2c1d3b5fab89",
+      "bytes": 2616
+    },
+    {
+      "accession": "0001045810-24-000315",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-24-000315.json",
+      "sha256": "37a607c334b5fc7c5eeaa74605e62adc3ed15efa69a1e05c0ffe927f2b778ea9",
+      "bytes": 2616
+    },
+    {
+      "accession": "0001045810-25-000021",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-25-000021.json",
+      "sha256": "87c81eee6642569a1fe83660c3764115f0e335f61d8d6818b35ba3dc14e5f26c",
+      "bytes": 2615
+    },
+    {
+      "accession": "0001045810-25-000115",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-25-000115.json",
+      "sha256": "97ee3397f015db8de9b2a196f34537b4cbfc4b6810c14d16e5b35c4a0165adec",
+      "bytes": 2614
+    },
+    {
+      "accession": "0001045810-25-000207",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-25-000207.json",
+      "sha256": "9e14a07b823e4fb49c9d01bdd9f8b0a8b329d4ea82f10f3aa65463910d4da55d",
+      "bytes": 2614
+    },
+    {
+      "accession": "0001045810-25-000228",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-25-000228.json",
+      "sha256": "de9fd08dc5a6e496b70c8ab22593f39c998159d5f760d6d369db9800c35eadbe",
+      "bytes": 2614
+    },
+    {
+      "accession": "0001045810-26-000019",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-26-000019.json",
+      "sha256": "8ebb6f4c6a299bd8b1a1b3ea03fcc78820f894c6c6cbdd82f4987adc30f12eae",
+      "bytes": 2614
+    },
+    {
+      "accession": "0001045810-26-000051",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-26-000051.json",
+      "sha256": "758bd7f8448880c4b8b148ab1de98df4ae0abf4d1547b434e38f82412f368ca1",
+      "bytes": 2614
+    },
+    {
+      "accession": "0001045810-26-000073",
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/records/0001045810-26-000073.json",
+      "sha256": "ea3f17fd576eff98f8f262a3da7808559cc9935601dd6332b7fe363a1dc145bd",
+      "bytes": 2619
+    }
+  ]
+}

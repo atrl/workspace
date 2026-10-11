@@ -1,0 +1,92 @@
+{
+  "experiment": "nvda_original_guidance_information_20261011",
+  "status": "preregistered_pending_native_prefit",
+  "as_of": "2026-09-25",
+  "information_field": "original_management_next_quarter_guidance_qoq",
+  "hypothesis": "Original next-quarter revenue growth stated by a semiconductor issuer contains information about five-session SOXL/SOXX returns beyond current price features. This is not consensus surprise or latest guidance.",
+  "information_definition": {
+    "dollar_range": "arithmetic original midpoint / reported quarterly revenue -1",
+    "sequential_percent": "original arithmetic percent-growth midpoint /100",
+    "original_only": "first numeric next-quarter guidance for each fiscal target, including delayed supplement; subsequent guide updates retained in audit and never overwrite original feature",
+    "scope": "as management published; disclosed acquisition exclusions/inclusions retained, no comparable-perimeter adjustment or future corporate actual reconstruction"
+  },
+  "source_card": "research/nvda_original_guidance_qualification_20261011",
+  "source_recorder_id": "723e63dda85a424c9a0a74e1374dc480",
+  "parent_plan": "research/purged_ridge_regularization_20261009/plan.json",
+  "horizon_sessions": 5,
+  "costs_bps": [
+    10.0,
+    25.0
+  ],
+  "robust_radius": 1.0,
+  "initial_cash": 100000.0,
+  "outer_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "development_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "diagnostic_years": [
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "fallback_years": [],
+  "fixed_fit_budget": 110,
+  "fixed_native_cases": 12,
+  "minimum_training_rows": 252,
+  "minimum_validation_rows": 126,
+  "hac_lags": 5,
+  "train_start": "2011-01-03",
+  "gates": {
+    "minimum_positive_years": 6,
+    "rolling_sessions": 252,
+    "minimum_rolling_win_rate": 0.6,
+    "bootstrap_resamples": 2000,
+    "family_size": 1
+  },
+  "log_excess_floor": 1e-08,
+  "acceptance": {
+    "SOXX_primary": "all unchanged development net excess/annual/leave-one-year/rolling252/bootstrap20&60/MaxDD/CVaR gates; reused diagnostic net excess+MaxDD/CVaR at both fees",
+    "matched_control_increment": "candidate net log excess vs control >1e-8 in EACH window at EACH fee",
+    "information_increment": "SOXL-minus-SOXX H5-response candidate MSE / matched-control MSE <1-1e-8 AND /candidate own original training prior MSE <1-1e-8 in EACH window; IC descriptive only",
+    "combination": "ALL required; no IC alternative, sign flip, horizon/alpha/threshold retries"
+  },
+  "scientific_scope": {
+    "history": "reused_history_not_new_oos",
+    "source": "primary-source dated textual extracts with conservative date bound; no originalHTML byte or intraday first-public certification",
+    "source_information_observations": 63,
+    "not_independent_daily_information_events": true,
+    "parent": "METHOD reference only; new matched price-only baseline, no claim to reproduce older performance",
+    "new_forward_requires": {
+      "minimum_sessions": 60,
+      "minimum_per_regime": 15,
+      "minimum_transitions": 3
+    },
+    "stop": "failure closes original_guidance route without further search",
+    "issuer_selection": "fixed NVDA chosen retrospectively; no PIT SOXX constituent-universe or all-issuer inference"
+  },
+  "source_deployment_gate": false,
+  "authorization": {
+    "fit": false,
+    "replay": false,
+    "orders": false
+  }
+}

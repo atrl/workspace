@@ -1,0 +1,21 @@
+experiment: nvda_original_guidance_qualification_20261011
+source:
+  provider_uri: data/qlib/nvda_original_guidance_20261011_v1
+  instrument: NVDA_GUIDE_INFO
+  region: us
+  as_of: '2026-09-25'
+  fact_manifest: data/raw/external/nvda_guidance_facts_20261011_v1/manifest.json
+  fact_manifest_sha256: df09d3cf8fea92702f6f33a616b7e7c1fa2812ec6977289ee2afdc141f61b82a
+recorder_uri: /Users/rziiiii/dev/workspace/research/nvda_original_guidance_qualification_20261011/qlib_recorder
+recorder_id: 723e63dda85a424c9a0a74e1374dc480
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - source/raw_facts.pkl
+  - source/normalized_events.pkl
+  - source/original_guidance_events.pkl
+  - source/information_state.pkl
+  - source/source_readback.pkl
+  - source/source_manifest.pkl
+  - source/metadata_provenance.pkl

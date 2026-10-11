@@ -1,0 +1,14 @@
+{
+  "experiment": "nvda_original_guidance_qualification_20261011",
+  "as_of": "2026-09-25",
+  "fact_manifest": "data/raw/external/nvda_guidance_facts_20261011_v1/manifest.json",
+  "information_provider": "data/qlib/nvda_original_guidance_20261011_v1",
+  "information_instrument": "NVDA_GUIDE_INFO",
+  "parent_plan": "research/purged_ridge_regularization_20261009/plan.json",
+  "quarter_start": "FY2012Q1",
+  "quarter_end": "FY2027Q3",
+  "price_provider": "data/qlib/published_futu_affine_20260925_v1",
+  "price_provider_content_sha256": "b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa",
+  "metadata_card": "research/nvda_revenue_guidance_source_intake_20261011",
+  "metadata_recorder": "917e5a134fc34422b62c63972d1cc75e"
+}
