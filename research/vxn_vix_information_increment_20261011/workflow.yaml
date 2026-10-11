@@ -1,16 +1,21 @@
 experiment: vxn_vix_information_increment_20261011
 source:
-  provider_uri: data/qlib/alfred_tech_iv_initial_20261011_v1
+  provider_uri: data/qlib/published_futu_affine_20260925_v1
+  execution_provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
+  information_provider_uri: data/qlib/alfred_tech_iv_initial_20261011_v1
   region: us
   as_of: '2026-09-25'
-recorder_uri: /Users/rziiiii/dev/workspace/research/vxn_vix_information_increment_20261011/qlib_recorder
-recorder_id: 138e32859c704a5a8878d3bb8e81334e
+recorder_uri: /Users/rziiiii/dev/workspace/research/vxn_vix_information_increment_20261011/execution_recorder
+recorder_id: 79303313446a4c8081f4b0b773c348d6
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml
   recorder_only_artifacts:
-  - prefit/inputs.pkl
-  - prefit/qualification.pkl
-  - prefit/source_binding.pkl
-  - prefit/plan.pkl
-method: fixed H5 matched25/26 source-eligible DatasetH
+  - inputs/inputs.pkl
+  - inputs/execution_plan.pkl
+  - aggregate/selections.pkl
+  - aggregate/case_results.pkl
+  - aggregate/tables.pkl
+  - aggregate/raw_evidence.pkl
+  - aggregate/resolved_evidence.pkl
+  - aggregate/final_summary.pkl

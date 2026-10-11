@@ -1,0 +1,3 @@
+cost_bps,rolling_sessions,rolling_windows,positive_windows,positive_excess_rate,minimum_positive_excess_rate,minimum_log_excess,median_log_excess,maximum_log_excess,overlapping_windows,independent_observations,within_resolution_windows,raw_positive_windows,raw_positive_excess_rate
+10.0,252,1511,2,0.0013236267372600927,0.6,-0.03101831007992444,1.6455478472898744e-16,0.006291442710688078,True,False,1254,868,0.5744540039708802
+25.0,252,1511,0,0.0,0.6,0.0,0.0,0.0,True,False,1511,0,0.0

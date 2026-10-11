@@ -1,0 +1,3 @@
+cost_bps,aggregate_positive_net_log_excess,minimum_positive_signal_years,median_annual_log_excess_positive,leave_any_one_year_out_log_excess_positive,anchored_max_drawdown_not_worse_than_soxx,cvar5_not_worse_than_soxx,minimum_rolling_positive_excess_rate,stationary_block_20_lower_bound_positive,stationary_block_60_lower_bound_positive,all_pass,positive_years,years,minimum_positive_years,strategy
+10.0,False,False,True,False,True,True,False,False,False,False,4,7,6,candidate
+25.0,False,False,False,False,True,True,False,False,False,False,0,7,6,candidate

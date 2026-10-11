@@ -1,32 +1,41 @@
 {
   "experiment": "vxn_vix_information_increment_20261011",
-  "status": "prefit_qualified_not_promoted",
+  "recorder_id": "79303313446a4c8081f4b0b773c348d6",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/vxn_vix_information_increment_20261011/execution_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/vxn_vix_information_increment_20261011/execution_recorder/451822175291100435/79303313446a4c8081f4b0b773c348d6",
+  "status": "complete_not_promoted",
   "promotion_decision": "not_promoted",
   "promotion_eligible": false,
-  "fit_calls": 0,
-  "native_cases": 0,
-  "rows": 3956,
-  "known_rows": 3126,
-  "unknown_rows": 830,
-  "all_arm_identities_equal": true,
-  "recorder_id": "138e32859c704a5a8878d3bb8e81334e",
-  "recorder_uri": "/Users/rziiiii/dev/workspace/research/vxn_vix_information_increment_20261011/qlib_recorder",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/vxn_vix_information_increment_20261011/qlib_recorder/483935849167078517/138e32859c704a5a8878d3bb8e81334e",
-  "recorder_status": "FINISHED",
+  "scientific_promotion": false,
+  "fit_calls": 100,
+  "native_cases": 12,
+  "historical_gate_pass": false,
+  "diagnostic_gate_pass": true,
+  "incremental_portfolio_pass": false,
+  "incremental_information_pass": false,
+  "route_decision": "end_vxn_vix_route_no_further_search",
   "source": {
-    "provider_uri": "data/qlib/alfred_tech_iv_initial_20261011_v1",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+    "information_provider_uri": "data/qlib/alfred_tech_iv_initial_20261011_v1",
     "region": "us",
     "as_of": "2026-09-25"
   },
+  "recorder_status": "FINISHED",
+  "plan_sha256": "e9e905301021f917f112975c2e0f7dd6440960fde795967749eff17c30c8bce9",
+  "execution_plan_sha256": "6078a5e8c614766c4cac195b872c68ad2ade9595ed11cde53aea3aa476956640",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": [
-      "prefit/inputs.pkl",
-      "prefit/qualification.pkl",
-      "prefit/source_binding.pkl",
-      "prefit/plan.pkl"
+      "inputs/inputs.pkl",
+      "inputs/execution_plan.pkl",
+      "aggregate/selections.pkl",
+      "aggregate/case_results.pkl",
+      "aggregate/tables.pkl",
+      "aggregate/raw_evidence.pkl",
+      "aggregate/resolved_evidence.pkl",
+      "aggregate/final_summary.pkl"
     ]
-  },
-  "plan_sha256": "e9e905301021f917f112975c2e0f7dd6440960fde795967749eff17c30c8bce9"
+  }
 }
