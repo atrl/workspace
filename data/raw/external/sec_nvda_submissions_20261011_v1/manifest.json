@@ -1,0 +1,28 @@
+{
+  "schema_version": "sec_submission_metadata_snapshot_v1",
+  "issuer": "NVDA",
+  "cik": "0001045810",
+  "retrieved_at_utc": "2026-10-11T08:59:23.166392+00:00",
+  "source": "SEC official submissions API",
+  "purpose": "complete historical filing metadata inventory for possible revenue-guidance intake; not financial feature values",
+  "metadata_catalog_contains_post_market_cutoff_entries": true,
+  "market_cutoff": "2026-09-25",
+  "feature_values_admitted": false,
+  "initial_release_body_identity_verified": false,
+  "entries": [
+    {
+      "path": "data/raw/external/sec_nvda_submissions_20261011_v1/CIK0001045810.json",
+      "url": "https://data.sec.gov/submissions/CIK0001045810.json",
+      "sha256": "a700c65f586670b6a56725f903900abc1b39a06110e7c30cf691d8ecb902e52d",
+      "bytes": 159776,
+      "http_status": 200
+    },
+    {
+      "path": "data/raw/external/sec_nvda_submissions_20261011_v1/CIK0001045810-submissions-001.json",
+      "url": "https://data.sec.gov/submissions/CIK0001045810-submissions-001.json",
+      "sha256": "f05081bf43403461e2fc74b796e8059cbb293ee20823b091d4032c2391867adb",
+      "bytes": 239106,
+      "http_status": 200
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "recorder_id": "917e5a134fc34422b62c63972d1cc75e",
+  "entries": [
+    {
+      "path": "qlib_recorder/427472663105353691/917e5a134fc34422b62c63972d1cc75e/artifacts/intake/all_filing_metadata.pkl",
+      "sha256": "a216170d2477a32ef433e76b76fb145494a79755b225ed0f30eb6378780b5c33",
+      "bytes": 493459
+    },
+    {
+      "path": "qlib_recorder/427472663105353691/917e5a134fc34422b62c63972d1cc75e/artifacts/intake/earnings_item_inventory.pkl",
+      "sha256": "51a38482bfa662afabe6283eb02ff8cd480252d8e2ea1651b9400f8d5fd5a03b",
+      "bytes": 16454
+    },
+    {
+      "path": "qlib_recorder/427472663105353691/917e5a134fc34422b62c63972d1cc75e/artifacts/intake/native_calendar.pkl",
+      "sha256": "8c9097cb3200747023169dd36b3f1c8e13fd9f1707a4ff2686a84dc2b49ebea1",
+      "bytes": 33782
+    },
+    {
+      "path": "qlib_recorder/427472663105353691/917e5a134fc34422b62c63972d1cc75e/artifacts/intake/official_index_extract.pkl",
+      "sha256": "e58134fdc9f84771668b0caeb44b547619ef15975fb73f714c0079f03c301ced",
+      "bytes": 4088
+    },
+    {
+      "path": "qlib_recorder/427472663105353691/917e5a134fc34422b62c63972d1cc75e/artifacts/intake/source_clock_audit.pkl",
+      "sha256": "b169db741b5f431aa4ea7901b1742e67061c61c4d269a58692137208315690a7",
+      "bytes": 1570
+    },
+    {
+      "path": "qlib_recorder/427472663105353691/917e5a134fc34422b62c63972d1cc75e/artifacts/intake/source_manifest.pkl",
+      "sha256": "d1a3ff833e1bac367bc1fd5d1e5e730c5deb5d6fd65be2b3c957b54150d4e837",
+      "bytes": 987
+    }
+  ]
+}

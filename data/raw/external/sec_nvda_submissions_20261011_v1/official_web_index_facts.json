@@ -1,0 +1,124 @@
+{
+  "schema_version": "official_web_filing_index_extract_v1",
+  "source": "SEC official filing indexes read through web tool",
+  "facts": [
+    {
+      "accessionNumber": "0001045810-11-000006",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000006/0001045810-11-000006-index.html",
+      "index_accepted_text": "2011-02-16 16:22:17",
+      "exhibit_type": "EX-99.1",
+      "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000006/earningrelease.htm",
+      "extracted_via": "web official SEC filing index",
+      "original_html_bytes_available": false,
+      "original_html_sha256": null,
+      "api_accepted_text": "2011-02-17T02:22:17.000Z",
+      "normalized_fact_sha256": "ac54a03a329eb5c546512c0708ae30ec19f3bf456449f46763d67ffb4aa75662",
+      "exact_extracted_text_snapshot_retained": false,
+      "extracted_text_sha256": null
+    },
+    {
+      "accessionNumber": "0001045810-11-000022",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000022/0001045810-11-000022-index.html",
+      "index_accepted_text": "2011-05-12 16:25:37",
+      "exhibit_type": "EX-99.1",
+      "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000022/earningsrelease.htm",
+      "extracted_via": "web official SEC filing index",
+      "original_html_bytes_available": false,
+      "original_html_sha256": null,
+      "api_accepted_text": "2011-05-13T00:25:37.000Z",
+      "normalized_fact_sha256": "cd17a9edaef2485db232167058fe80c660a693244b1ac4a12b6c1e16a65baa55",
+      "exact_extracted_text_snapshot_retained": false,
+      "extracted_text_sha256": null
+    },
+    {
+      "accessionNumber": "0001045810-11-000039",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000039/0001045810-11-000039-index.html",
+      "index_accepted_text": "2011-08-11 16:26:04",
+      "exhibit_type": "EX-99.1",
+      "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000039/earningsrelease.htm",
+      "extracted_via": "web official SEC filing index",
+      "original_html_bytes_available": false,
+      "original_html_sha256": null,
+      "api_accepted_text": "2011-08-12T00:26:04.000Z",
+      "normalized_fact_sha256": "9de9d0e5cfe14240b8db76e77565ce1a2fa5526ccd7b4772b6cd7f8343ddfe82",
+      "exact_extracted_text_snapshot_retained": false,
+      "extracted_text_sha256": null
+    },
+    {
+      "accessionNumber": "0001045810-11-000052",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000052/0001045810-11-000052-index.html",
+      "index_accepted_text": "2011-11-10 16:21:32",
+      "exhibit_type": "EX-99.1",
+      "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000052/earningsrelease.htm",
+      "extracted_via": "web official SEC filing index",
+      "original_html_bytes_available": false,
+      "original_html_sha256": null,
+      "api_accepted_text": "2011-11-11T02:21:32.000Z",
+      "normalized_fact_sha256": "fc583a1ab586c8e6408de25f0c7122db3e35a2d1d6e300236a609b16b085c028",
+      "exact_extracted_text_snapshot_retained": false,
+      "extracted_text_sha256": null
+    },
+    {
+      "accessionNumber": "0001045810-12-000008",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581012000008/0001045810-12-000008-index.html",
+      "index_accepted_text": "2012-02-15 16:40:20",
+      "exhibit_type": "EX-99.1",
+      "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581012000008/q412earningsrelease.htm",
+      "extracted_via": "web official SEC filing index",
+      "original_html_bytes_available": false,
+      "original_html_sha256": null,
+      "api_accepted_text": "2012-02-16T02:40:20.000Z",
+      "normalized_fact_sha256": "6c287bc10ef3190372ba48059183731c74452adccc8dd382bca59ba2a2e82195",
+      "exact_extracted_text_snapshot_retained": false,
+      "extracted_text_sha256": null
+    },
+    {
+      "accessionNumber": "0001045810-13-000104",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581013000104/0001045810-13-000104-index.html",
+      "index_accepted_text": "2013-11-07 16:26:02",
+      "exhibit_type": "EX-99.1",
+      "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581013000104/q314pr.htm",
+      "extracted_via": "web official SEC filing index",
+      "original_html_bytes_available": false,
+      "original_html_sha256": null,
+      "api_accepted_text": "2013-11-08T02:26:02.000Z",
+      "normalized_fact_sha256": "19bf6df3a9214a76250ec303a44c41de5208c2ea77f1064346698df1a7173280",
+      "exact_extracted_text_snapshot_retained": false,
+      "extracted_text_sha256": null
+    },
+    {
+      "accessionNumber": "0001045810-26-000073",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/0001045810-26-000073-index.html",
+      "index_accepted_text": "2026-08-26 16:21:19",
+      "exhibit_type": "EX-99.1",
+      "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm",
+      "extracted_via": "web official SEC filing index",
+      "original_html_bytes_available": false,
+      "original_html_sha256": null,
+      "api_accepted_text": "2026-08-27T00:21:19.000Z",
+      "normalized_fact_sha256": "17cdc69b85b12157b70451c3374446ca3f1195b5823c12a6a14b5bbf3c980b6a",
+      "exact_extracted_text_snapshot_retained": false,
+      "extracted_text_sha256": null
+    }
+  ],
+  "known_index_facts": 7,
+  "total_candidate_item202_filings": 66,
+  "full_coverage_qualified": false,
+  "financial_guidance_series_admitted": false,
+  "source_deployment_gate": false,
+  "original_html_bytes_available": false,
+  "original_html_sha256": null,
+  "failed_observed_index_reads": [
+    {
+      "accessionNumber": "0001045810-12-000024",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581012000024/0001045810-12-000024-index.html",
+      "result": "web tool URL not accessible; direct SEC archive-index HTTP403 independently observed"
+    },
+    {
+      "accessionNumber": "0001045810-12-000032",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581012000032/0001045810-12-000032-index.html",
+      "result": "web tool URL not accessible; direct SEC archive-index HTTP403 independently observed"
+    }
+  ],
+  "clock_semantics": "Keep original API Z strings and index local strings; timezone/offset conflict unresolved, no guessed correction. Potential availability only after max(disclosure date, filing date, API-parsed NY date), then next actual native session."
+}

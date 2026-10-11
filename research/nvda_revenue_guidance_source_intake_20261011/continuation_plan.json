@@ -1,0 +1,20 @@
+{
+  "status": "source_qualification_only_not_authorized_for_fits",
+  "information_candidate": "NVDA next-quarter revenue guidance relative to just-reported quarterly revenue",
+  "training_authorized": false,
+  "replay_authorized": false,
+  "orders_authorized": false,
+  "required_next_steps": [
+    "Read and classify all66 Item2.02 filings; distinguish quarterly first releases, updates, withdrawals and unrelated disclosures",
+    "Extract fiscal target, actual revenue, original guide bounds and units from official exhibit content; do not use vendor consensus or current restated values",
+    "Preserve official URLs, retrieval method, exact retained excerpt hash if available, normalized facts hash; original HTML hashes remain null if raw bytes not captured",
+    "Reconcile metadata clocks record-by-record or explicitly use conservative date-based availability; no same-day16:15 backfill",
+    "Keep full native price calendar and unknowns; do not fit until information availability and complete event-state semantics are independently reviewed",
+    "Only after source qualification, preregister one finite matched control experiment; preserve existing net-of-fee excess and risk gates"
+  ],
+  "prior_closed_routes": [
+    "H20",
+    "VXN/VIX information increment"
+  ],
+  "pi_state": "process_alive_provider_blocked_402_insufficient_balance"
+}

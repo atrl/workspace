@@ -1,0 +1,48 @@
+{
+  "experiment": "nvda_revenue_guidance_source_intake_20261011",
+  "status": "needs_data_guidance_body_and_full_event_qualification",
+  "source_deployment_gate": false,
+  "source_qualified": false,
+  "promotion_decision": "not_promoted",
+  "promotion_eligible": false,
+  "fit_calls": 0,
+  "native_cases": 0,
+  "filing_inventory_rows": 66,
+  "source_feature_values_known": 0,
+  "official_index_anchors": 7,
+  "clock_conflict_anchors": 7,
+  "api_timestamp_semantics_qualified": false,
+  "all_catalog_rows": 2488,
+  "excluded_post_cutoff_metadata_rows": 1,
+  "source": {
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "region": "us",
+    "as_of": "2026-09-25",
+    "raw_manifest": "data/raw/external/sec_nvda_submissions_20261011_v1/manifest.json"
+  },
+  "recorder_id": "917e5a134fc34422b62c63972d1cc75e",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_revenue_guidance_source_intake_20261011/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_revenue_guidance_source_intake_20261011/qlib_recorder/427472663105353691/917e5a134fc34422b62c63972d1cc75e",
+  "recorder_status": "FINISHED",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "intake/all_filing_metadata.pkl",
+      "intake/earnings_item_inventory.pkl",
+      "intake/source_manifest.pkl",
+      "intake/native_calendar.pkl",
+      "intake/official_index_extract.pkl",
+      "intake/source_clock_audit.pkl"
+    ]
+  },
+  "limitations": [
+    "SEC current API is metadata only; no revenue guidance values",
+    "Item2.02 filings are not automatically quarterly earnings or forward guidance; interim updates retained",
+    "Direct SEC original-index request returned403; web-tool official document extraction remains a possible separately labelled path",
+    "Current issuer HTML not proven byte-identical to as-filed exhibits",
+    "No final model hypothesis, budgets or financial gates registered",
+    "API declared UTC strings conflict with index local times; preserve both, no guessed correction",
+    "Official web index extracts7 of66; some exact filing indexes unavailable via web tool too"
+  ]
+}

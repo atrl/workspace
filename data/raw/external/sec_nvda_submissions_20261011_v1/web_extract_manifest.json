@@ -1,0 +1,15 @@
+{
+  "schema_version": "official_web_fact_extract_manifest_v1",
+  "purpose": "partial filing-index facts and clock-conflict audit; not financial guidance features",
+  "snapshot_path": "data/raw/external/sec_nvda_submissions_20261011_v1/official_web_index_facts.json",
+  "snapshot_sha256": "547dcb66a5e094e49915535e90f3eeb0f3b600b29c7def4a8c710ad95e1900b7",
+  "original_html_bytes_available": false,
+  "original_html_sha256": null,
+  "full_coverage_qualified": false,
+  "normalized_fact_sha256_excluded_fields": [
+    "normalized_fact_sha256",
+    "exact_extracted_text_snapshot_retained",
+    "extracted_text_sha256"
+  ],
+  "normalized_fact_sha256_encoding": "UTF8 json sort_keys=True separators=(comma,colon); hash captures index/API fact projection, not original HTML or full extracted text"
+}
