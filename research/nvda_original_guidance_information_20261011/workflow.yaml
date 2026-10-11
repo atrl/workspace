@@ -1,17 +1,33 @@
 experiment: nvda_original_guidance_information_20261011
 source:
-  provider_uri: data/qlib/nvda_original_guidance_20261011_v1
-  instrument: NVDA_GUIDE_INFO
+  providers:
+    price:
+      provider_uri: data/qlib/published_futu_affine_20260925_v1
+      content_sha256: b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa
+    execution:
+      provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
+      content_sha256: fe475a1c6cfc512bf47e95d9b28c75169ae2cbcf67deb766639da53b80732899
+    information:
+      provider_uri: data/qlib/nvda_original_guidance_20261011_v1
+      content_sha256: 40c37a958c02428eed9a378bfd7232b421956610462e07b37f7f5c610cb375a8
+  provider_uri: data/qlib/published_futu_affine_20260925_v1
+  execution_provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
+  information_provider_uri: data/qlib/nvda_original_guidance_20261011_v1
   region: us
   as_of: '2026-09-25'
-  fact_manifest: data/raw/external/nvda_guidance_facts_20261011_v1/manifest.json
-  fact_manifest_sha256: df09d3cf8fea92702f6f33a616b7e7c1fa2812ec6977289ee2afdc141f61b82a
-recorder_uri: /Users/rziiiii/dev/workspace/research/nvda_original_guidance_information_20261011/qlib_recorder
-recorder_id: c640ab17d6cf484594346378e7464631
+recorder_id: 6ec729a2e81348d697ee6478d7360f57
+recorder_uri: /Users/rziiiii/dev/workspace/research/nvda_original_guidance_information_20261011/execution_recorder
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml
   recorder_only_artifacts:
-  - prefit/inputs.pkl
-  - prefit/qualification.pkl
-  - prefit/source_provenance.pkl
+  - inputs/inputs.pkl
+  - inputs/execution_plan.pkl
+  - aggregate/selections.pkl
+  - aggregate/completed_fits.pkl
+  - aggregate/case_artifacts.pkl
+  - cases/*.pkl.gz
+  - aggregate/tables.pkl
+  - aggregate/raw_evidence.pkl
+  - aggregate/resolved_evidence.pkl
+  - aggregate/final_summary.pkl

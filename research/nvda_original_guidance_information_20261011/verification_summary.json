@@ -1,0 +1,17 @@
+{
+  "recorder_id": "6ec729a2e81348d697ee6478d7360f57",
+  "retained_fits": 110,
+  "native_cases": 12,
+  "root_readback_passed": true,
+  "independent_readback_passed": true,
+  "compressed_packed_and_unpacked_hashes_verified": true,
+  "all_native_actual_cash_quantity_audits_passed": true,
+  "all_three_weight_fee_turnover_checks_passed": true,
+  "all_arm_training_validation_label_identities_equal": true,
+  "native_returns_equal_reported_returns": true,
+  "cached_notebook_zero_new_fits_or_replays": true,
+  "source_information_events": 63,
+  "source_deployment_gate": false,
+  "promotion_decision": "not_promoted",
+  "all_cases_soxl_quantity_zero": true
+}

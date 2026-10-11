@@ -1,32 +1,173 @@
 {
   "experiment": "nvda_original_guidance_information_20261011",
-  "recorder_id": "c640ab17d6cf484594346378e7464631",
-  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_original_guidance_information_20261011/qlib_recorder",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_original_guidance_information_20261011/qlib_recorder/116245836962488158/c640ab17d6cf484594346378e7464631",
-  "status": "prefit_qualified_not_promoted",
+  "recorder_id": "6ec729a2e81348d697ee6478d7360f57",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_original_guidance_information_20261011/execution_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_original_guidance_information_20261011/execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57",
+  "status": "complete_not_promoted",
   "promotion_decision": "not_promoted",
   "promotion_eligible": false,
-  "fit_calls": 0,
-  "native_cases": 0,
-  "rows": 3956,
-  "known_rows": 3924,
-  "unknown_rows": 32,
-  "recorder_status": "FINISHED",
+  "fit_calls": 110,
+  "native_cases": 12,
+  "historical_gate_pass": false,
+  "diagnostic_gate_pass": false,
+  "incremental_portfolio_pass": false,
+  "incremental_information_pass": false,
+  "route_decision": "end_original_guidance_route_no_further_search",
   "source": {
-    "provider_uri": "data/qlib/nvda_original_guidance_20261011_v1",
-    "instrument": "NVDA_GUIDE_INFO",
+    "providers": {
+      "price": {
+        "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+        "content_sha256": "b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa"
+      },
+      "execution": {
+        "provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+        "content_sha256": "fe475a1c6cfc512bf47e95d9b28c75169ae2cbcf67deb766639da53b80732899"
+      },
+      "information": {
+        "provider_uri": "data/qlib/nvda_original_guidance_20261011_v1",
+        "content_sha256": "40c37a958c02428eed9a378bfd7232b421956610462e07b37f7f5c610cb375a8"
+      }
+    },
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+    "information_provider_uri": "data/qlib/nvda_original_guidance_20261011_v1",
     "region": "us",
-    "as_of": "2026-09-25",
-    "fact_manifest": "data/raw/external/nvda_guidance_facts_20261011_v1/manifest.json",
-    "fact_manifest_sha256": "df09d3cf8fea92702f6f33a616b7e7c1fa2812ec6977289ee2afdc141f61b82a"
+    "as_of": "2026-09-25"
   },
+  "source_deployment_gate": false,
+  "recorder_status": "FINISHED",
+  "execution_plan_sha256": "d130fcf35619791b5c48925d0c173aa9162937882e979a281b343f3518e03fe8",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": [
-      "prefit/inputs.pkl",
-      "prefit/qualification.pkl",
-      "prefit/source_provenance.pkl"
+      "inputs/inputs.pkl",
+      "inputs/execution_plan.pkl",
+      "aggregate/selections.pkl",
+      "aggregate/completed_fits.pkl",
+      "aggregate/case_artifacts.pkl",
+      "cases/*.pkl.gz",
+      "aggregate/tables.pkl",
+      "aggregate/raw_evidence.pkl",
+      "aggregate/resolved_evidence.pkl",
+      "aggregate/final_summary.pkl"
     ]
-  }
+  },
+  "compressed_case_artifacts": {
+    "development::control::10": {
+      "artifact": "cases/development__control__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "f252ebd62dfa27b54725b511a09f2833254112e8f63f8a084aff8bb7f762c7f0",
+      "uncompressed_sha256": "f973e88c4f7c77cbae8d9b39b9378415a03089c4afbbe3486871cf779fd84bc9",
+      "bytes": 688860,
+      "uncompressed_bytes": 5197584
+    },
+    "development::candidate::10": {
+      "artifact": "cases/development__candidate__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "6ad70ace7a7abbb1292dc32ff432a6b59517103ee7c0ebb604c382d5adc2513b",
+      "uncompressed_sha256": "4a681b3dc27ad7398b326376091fbff3d34613847e457e0dd799a83c6719524d",
+      "bytes": 677344,
+      "uncompressed_bytes": 5176975
+    },
+    "development::soxx::10": {
+      "artifact": "cases/development__soxx__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "042301f9ee0c1ff919603e113fcd716a209661f7ff168492cd20ea277e153857",
+      "uncompressed_sha256": "218cb92c37fdaa11c1f5b7e8809b397e1223e479f02eaf7d9f4c6ca95e659b64",
+      "bytes": 489429,
+      "uncompressed_bytes": 3713795
+    },
+    "development::control::25": {
+      "artifact": "cases/development__control__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "1125dcfbf8dc26ff2c93469f6fd089affa76ff7ef9fc062f1ac05cf84810da39",
+      "uncompressed_sha256": "43cd8b0885811f716763466ad9389679c9987370816ec19ea72ef4adeac4a0fb",
+      "bytes": 707294,
+      "uncompressed_bytes": 5081861
+    },
+    "development::candidate::25": {
+      "artifact": "cases/development__candidate__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "ed7dbd1eb16098b7bdc1a5b580c4d0c01e74d127f014de02d6f1dc00a48561ed",
+      "uncompressed_sha256": "96eb776c1b078f0f332705ef3d4791026e7fd51920ad44df5b359bca5d7fb32c",
+      "bytes": 707122,
+      "uncompressed_bytes": 5077509
+    },
+    "development::soxx::25": {
+      "artifact": "cases/development__soxx__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "8a9ee3e584ddd98c287d758548d828ef7f53805ebc8776a457896067c8268347",
+      "uncompressed_sha256": "09ed930d7bdf15652df6b9e2adc71d591d386252a17116b8720fbcabf67469f8",
+      "bytes": 475411,
+      "uncompressed_bytes": 3713795
+    },
+    "reused_diagnostic::control::10": {
+      "artifact": "cases/reused_diagnostic__control__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "b3d82b6284e3cab10b3b320998d9a6952aa16dbc6283145cafe83525251b07ed",
+      "uncompressed_sha256": "4f48c6667a98b79a0c8f3af2d7c07642d2c584199ad03f93682c4ccf7c8b3696",
+      "bytes": 335831,
+      "uncompressed_bytes": 2700822
+    },
+    "reused_diagnostic::candidate::10": {
+      "artifact": "cases/reused_diagnostic__candidate__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "c505faa23014781cfe6f8a4d038924723f094abfff124826c13ac00ffd32ff44",
+      "uncompressed_sha256": "52e6832eb754982c20dd0b9b6cec0f0094419e1a8c11fedb1ab26ed17ada2eb3",
+      "bytes": 332111,
+      "uncompressed_bytes": 2696409
+    },
+    "reused_diagnostic::soxx::10": {
+      "artifact": "cases/reused_diagnostic__soxx__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "8024051183869d43cbf05faedd6db17a215632866f86973bcffa27eca8391d58",
+      "uncompressed_sha256": "7574bbe69210267046ea70ea7bc7145ec43a83cba966ec79e658f23ac60fe232",
+      "bytes": 263127,
+      "uncompressed_bytes": 1973124
+    },
+    "reused_diagnostic::control::25": {
+      "artifact": "cases/reused_diagnostic__control__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "447e086b2896fc403c4838a0c22919e7d0876b83ea47743e04a83a70a926d03d",
+      "uncompressed_sha256": "6dd1a8385f5165ea07f5e4c3ea334d90b944ef33334af0a2148c696721316071",
+      "bytes": 402826,
+      "uncompressed_bytes": 2859973
+    },
+    "reused_diagnostic::candidate::25": {
+      "artifact": "cases/reused_diagnostic__candidate__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "dbaa3ad56da17708d6df249758d4367da243f51495c02dc6a3000e23e52d3071",
+      "uncompressed_sha256": "aa34de6f2d06320cb42fa045ba5df4780bba56e0e84ae7a1d1bfaab4cc041206",
+      "bytes": 401091,
+      "uncompressed_bytes": 2858657
+    },
+    "reused_diagnostic::soxx::25": {
+      "artifact": "cases/reused_diagnostic__soxx__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "f582c57c5d6921405a48289f97ffcbae9a122e6919342081cb0e23a4e80a3881",
+      "uncompressed_sha256": "89ba397fbbd2b1a57ad2834e8810e61369350d6c102012ae5555106b34e794e6",
+      "bytes": 254501,
+      "uncompressed_bytes": 1973124
+    }
+  },
+  "scientific_scope": {
+    "history": "reused_history_not_new_oos",
+    "source": "primary-source dated textual extracts with conservative date bound; no originalHTML byte or intraday first-public certification",
+    "source_information_observations": 63,
+    "not_independent_daily_information_events": true,
+    "parent": "METHOD reference only; new matched price-only baseline, no claim to reproduce older performance",
+    "new_forward_requires": {
+      "minimum_sessions": 60,
+      "minimum_per_regime": 15,
+      "minimum_transitions": 3
+    },
+    "stop": "failure closes original_guidance route without further search",
+    "issuer_selection": "fixed NVDA chosen retrospectively; no PIT SOXX constituent-universe or all-issuer inference"
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ]
 }

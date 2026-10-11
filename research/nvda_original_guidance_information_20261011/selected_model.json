@@ -1,5 +1,116 @@
 {
-  "model": null,
-  "status": "prefit_only",
+  "model": "native_nested_annual_prior_ridge",
+  "selections": [
+    {
+      "arm": "control",
+      "year": 2016,
+      "selected": "prior"
+    },
+    {
+      "arm": "control",
+      "year": 2017,
+      "selected": "ridge_1000"
+    },
+    {
+      "arm": "control",
+      "year": 2018,
+      "selected": "prior"
+    },
+    {
+      "arm": "control",
+      "year": 2019,
+      "selected": "ridge_1000"
+    },
+    {
+      "arm": "control",
+      "year": 2020,
+      "selected": "prior"
+    },
+    {
+      "arm": "control",
+      "year": 2021,
+      "selected": "ridge_1000"
+    },
+    {
+      "arm": "control",
+      "year": 2022,
+      "selected": "ridge_10"
+    },
+    {
+      "arm": "control",
+      "year": 2023,
+      "selected": "prior"
+    },
+    {
+      "arm": "control",
+      "year": 2024,
+      "selected": "prior"
+    },
+    {
+      "arm": "control",
+      "year": 2025,
+      "selected": "prior"
+    },
+    {
+      "arm": "control",
+      "year": 2026,
+      "selected": "ridge_1000"
+    },
+    {
+      "arm": "candidate",
+      "year": 2016,
+      "selected": "prior"
+    },
+    {
+      "arm": "candidate",
+      "year": 2017,
+      "selected": "ridge_1000"
+    },
+    {
+      "arm": "candidate",
+      "year": 2018,
+      "selected": "prior"
+    },
+    {
+      "arm": "candidate",
+      "year": 2019,
+      "selected": "ridge_1000"
+    },
+    {
+      "arm": "candidate",
+      "year": 2020,
+      "selected": "prior"
+    },
+    {
+      "arm": "candidate",
+      "year": 2021,
+      "selected": "ridge_1000"
+    },
+    {
+      "arm": "candidate",
+      "year": 2022,
+      "selected": "ridge_10"
+    },
+    {
+      "arm": "candidate",
+      "year": 2023,
+      "selected": "prior"
+    },
+    {
+      "arm": "candidate",
+      "year": 2024,
+      "selected": "prior"
+    },
+    {
+      "arm": "candidate",
+      "year": 2025,
+      "selected": "prior"
+    },
+    {
+      "arm": "candidate",
+      "year": 2026,
+      "selected": "ridge_1000"
+    }
+  ],
   "promotion_decision": "not_promoted"
 }

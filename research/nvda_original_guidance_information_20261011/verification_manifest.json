@@ -1,20 +1,120 @@
 {
-  "recorder_id": "c640ab17d6cf484594346378e7464631",
+  "recorder_id": "6ec729a2e81348d697ee6478d7360f57",
   "entries": [
     {
-      "path": "qlib_recorder/116245836962488158/c640ab17d6cf484594346378e7464631/artifacts/prefit/inputs.pkl",
-      "sha256": "610604df3eabcdb0cf64e9723277dbf746d81224dd4433b3c5e8309c549f0eb5",
-      "bytes": 3852628
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/aggregate/case_artifacts.pkl",
+      "sha256": "b6f3653f5dbff75bc41f72f3a09a9874aefe1f6af803a3951758ccc9a6f7db9f",
+      "bytes": 2911
     },
     {
-      "path": "qlib_recorder/116245836962488158/c640ab17d6cf484594346378e7464631/artifacts/prefit/qualification.pkl",
-      "sha256": "373cde8382ac0e084f2b9311caab815991c299d883464bc0a64d095322e0d8ca",
-      "bytes": 7340
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/aggregate/completed_fits.pkl",
+      "sha256": "e238e197fa8419840287a1ebd0b8affea0c7a71eed0fcb51077cccb633caafb9",
+      "bytes": 2658184
     },
     {
-      "path": "qlib_recorder/116245836962488158/c640ab17d6cf484594346378e7464631/artifacts/prefit/source_provenance.pkl",
-      "sha256": "d98b805b227d6cfb74b4caff6f606c3357634a1e415a6e1f22bdbe41a4e046fa",
-      "bytes": 1887
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/aggregate/final_summary.pkl",
+      "sha256": "627eae88b799af7c21e7b0cd81bb2acbc56ee74bc087b27187a2c8fe57f13d1c",
+      "bytes": 5614
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/aggregate/raw_evidence.pkl",
+      "sha256": "193d8b8f10337b08030ae85f98e923f94bdc38ccbc89a5a5ef0ea65ae5df6ac8",
+      "bytes": 11406
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/aggregate/resolved_evidence.pkl",
+      "sha256": "7242cfee0d32ada9e6c45fa5111d16e734a34e109b709a756a15c87272a06537",
+      "bytes": 14496
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/aggregate/selections.pkl",
+      "sha256": "78461ee6e4cf63f3ad338e09441dd623e6c97bde45b573538ce128395d613bb2",
+      "bytes": 2689654
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/aggregate/tables.pkl",
+      "sha256": "28aeb5260433f5f490b72752b2c8dbbff0287314a551946504f1d9b2c510fb38",
+      "bytes": 41484
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/development__candidate__10.pkl.gz",
+      "sha256": "6ad70ace7a7abbb1292dc32ff432a6b59517103ee7c0ebb604c382d5adc2513b",
+      "bytes": 677344
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/development__candidate__25.pkl.gz",
+      "sha256": "ed7dbd1eb16098b7bdc1a5b580c4d0c01e74d127f014de02d6f1dc00a48561ed",
+      "bytes": 707122
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/development__control__10.pkl.gz",
+      "sha256": "f252ebd62dfa27b54725b511a09f2833254112e8f63f8a084aff8bb7f762c7f0",
+      "bytes": 688860
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/development__control__25.pkl.gz",
+      "sha256": "1125dcfbf8dc26ff2c93469f6fd089affa76ff7ef9fc062f1ac05cf84810da39",
+      "bytes": 707294
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/development__soxx__10.pkl.gz",
+      "sha256": "042301f9ee0c1ff919603e113fcd716a209661f7ff168492cd20ea277e153857",
+      "bytes": 489429
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/development__soxx__25.pkl.gz",
+      "sha256": "8a9ee3e584ddd98c287d758548d828ef7f53805ebc8776a457896067c8268347",
+      "bytes": 475411
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/reused_diagnostic__candidate__10.pkl.gz",
+      "sha256": "c505faa23014781cfe6f8a4d038924723f094abfff124826c13ac00ffd32ff44",
+      "bytes": 332111
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/reused_diagnostic__candidate__25.pkl.gz",
+      "sha256": "dbaa3ad56da17708d6df249758d4367da243f51495c02dc6a3000e23e52d3071",
+      "bytes": 401091
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/reused_diagnostic__control__10.pkl.gz",
+      "sha256": "b3d82b6284e3cab10b3b320998d9a6952aa16dbc6283145cafe83525251b07ed",
+      "bytes": 335831
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/reused_diagnostic__control__25.pkl.gz",
+      "sha256": "447e086b2896fc403c4838a0c22919e7d0876b83ea47743e04a83a70a926d03d",
+      "bytes": 402826
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/reused_diagnostic__soxx__10.pkl.gz",
+      "sha256": "8024051183869d43cbf05faedd6db17a215632866f86973bcffa27eca8391d58",
+      "bytes": 263127
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/cases/reused_diagnostic__soxx__25.pkl.gz",
+      "sha256": "f582c57c5d6921405a48289f97ffcbae9a122e6919342081cb0e23a4e80a3881",
+      "bytes": 254501
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/inputs/execution_plan.pkl",
+      "sha256": "62286e9792b33b86e4443525c841ded83ac77f1db573343ee9219e347adbbbea",
+      "bytes": 48699
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/inputs/inputs.pkl",
+      "sha256": "9d2eea6f26e156ac6f801b4c180ea8e2b8ffbcfe0a9f72bda208e6c618a5d442",
+      "bytes": 3853443
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/verification/conclusion.pkl",
+      "sha256": "da037037c55d12423a77975b7e693ee30a73361204884d89c18221aa6f3411c4",
+      "bytes": 1675
+    },
+    {
+      "path": "execution_recorder/997153033184649364/6ec729a2e81348d697ee6478d7360f57/artifacts/verification/independent_readback.pkl",
+      "sha256": "e7b3875ce780c0b53dac0a4a9daa43684d39cb4eeb5fe44c1965a6e13afd0513",
+      "bytes": 564
     }
   ]
 }
