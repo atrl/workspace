@@ -1,7 +1,18 @@
 {
-  "selected_model": null,
-  "reason": "input qualification only; no fit",
-  "candidate_horizon": 20,
-  "reference_horizon": 5,
+  "model": "native_nested_annual_prior_ridge",
+  "horizon_sessions": 20,
+  "selected_by_year": {
+    "2016": "prior",
+    "2017": "ridge_1000",
+    "2018": "prior",
+    "2019": "prior",
+    "2020": "ridge_1000",
+    "2021": "ridge_1000",
+    "2022": "ridge_1000",
+    "2023": "prior",
+    "2024": "ridge_100",
+    "2025": "prior",
+    "2026": "ridge_100"
+  },
   "promotion_decision": "not_promoted"
 }

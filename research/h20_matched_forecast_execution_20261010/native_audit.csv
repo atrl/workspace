@@ -1,0 +1,9 @@
+case,status,sessions,actual_cash_quantity_checked,all_three_ending_weights_checked,native_fee_and_turnover_checked,tolerance,maximum_ending_weight_error,maximum_fee_fraction_error,maximum_turnover_error,maximum_normalized_nav_error,mark,real_broker_fills
+development::h20::10,passed,1762,True,True,True,1e-07,2.220446049250313e-16,1.3010426069826053e-18,2.220446049250313e-16,3.659739633037196e-15,actual native stock quantities and cash marked at next native open,False
+development::soxx::10,passed,1762,True,True,True,1e-07,2.220446049250313e-16,1.3010426069826053e-18,0.0,4.665293108156312e-14,actual native stock quantities and cash marked at next native open,False
+development::h20::25,passed,1762,True,True,True,1e-07,1.5210055437364645e-14,5.204170427930421e-17,2.0298079330366624e-14,3.093778231767651e-15,actual native stock quantities and cash marked at next native open,False
+development::soxx::25,passed,1762,True,True,True,1e-07,5.248725284229014e-17,5.204170427930421e-17,0.0,3.093778231767651e-15,actual native stock quantities and cash marked at next native open,False
+reused_diagnostic::h20::10,passed,934,True,True,True,1e-07,2.220446049250313e-16,1.3010426069826053e-18,2.220446049250313e-16,5.350963263514067e-15,actual native stock quantities and cash marked at next native open,False
+reused_diagnostic::soxx::10,passed,934,True,True,True,1e-07,2.220446049250313e-16,1.3010426069826053e-18,0.0,3.690583172095078e-14,actual native stock quantities and cash marked at next native open,False
+reused_diagnostic::h20::25,passed,934,True,True,True,1e-07,2.220446049250313e-15,5.204170427930421e-17,2.0931521178085804e-15,3.999064350323282e-15,actual native stock quantities and cash marked at next native open,False
+reused_diagnostic::soxx::25,passed,934,True,True,True,1e-07,4.449555816968687e-17,5.204170427930421e-17,0.0,1.9985671928001144e-15,actual native stock quantities and cash marked at next native open,False

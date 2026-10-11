@@ -1,0 +1,3 @@
+cost_bps,rolling_sessions,rolling_windows,positive_windows,positive_excess_rate,minimum_positive_excess_rate,minimum_log_excess,median_log_excess,maximum_log_excess,overlapping_windows,independent_observations,strategy
+10.0,252,1511,0,0.0,0.6,0.0,0.0,0.0,True,False,h20
+25.0,252,1511,0,0.0,0.6,0.0,0.0,0.0,True,False,h20

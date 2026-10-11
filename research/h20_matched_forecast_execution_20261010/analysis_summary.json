@@ -1,0 +1,9 @@
+{
+  "parent_recorder_id": "72455b5609ab4cc5b37808d7e10b2cb0",
+  "diagnostic_recorder_id": "3556aa4c0f424e4f9d05070869b2e839",
+  "diagnostic_experiment_id": "620007998418891224",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/h20_matched_forecast_execution_20261010/qlib_recorder",
+  "models_trained": 0,
+  "historical_alpha_proven": false,
+  "conclusion": "Both assets/windows have MSE above their own historical-mean prior; point IC is diagnostic, without a confidence claim."
+}

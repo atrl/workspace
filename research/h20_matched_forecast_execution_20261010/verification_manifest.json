@@ -1,25 +1,105 @@
 {
-  "recorder_id": "5654796769704dee8d84d51186ee4960",
+  "recorder_id": "72455b5609ab4cc5b37808d7e10b2cb0",
   "entries": [
     {
-      "path": "qlib_recorder/129083020028550798/5654796769704dee8d84d51186ee4960/artifacts/prefit/labels_h5.pkl",
-      "sha256": "ff934d2849c8f187cacef8215a11bf809f5b2a3fe9fce4ea8da1a571ea47eea2",
-      "bytes": 131217
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/aggregate/case_results.pkl",
+      "sha256": "a63b4463877d4142ed63d8b703e0a27d1286b25260ec0c627a6f26e1ac11e4dc",
+      "bytes": 26895210
     },
     {
-      "path": "qlib_recorder/129083020028550798/5654796769704dee8d84d51186ee4960/artifacts/prefit/labels_h20.pkl",
-      "sha256": "1f5b7327addf19fa2d5ad592b0261a27abeb9a854880837d78159e1c7446fce1",
-      "bytes": 131221
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/aggregate/final_summary.pkl",
+      "sha256": "7281946a545f7334acf0b4d0f945c7b7f757d9735ad3262f6f7c19cbbe3c52b2",
+      "bytes": 3573
     },
     {
-      "path": "qlib_recorder/129083020028550798/5654796769704dee8d84d51186ee4960/artifacts/prefit/training_dataset.pkl",
-      "sha256": "94b9ee529954450f13cf6e323cd2e4576bd14f7f9cbdc15aaaba4af3db4788ac",
-      "bytes": 980446
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/aggregate/raw_evidence.pkl",
+      "sha256": "beba416576b546d38a26ed7d56f71410165c98c1b9d1870b45f9cd655e4d7b2b",
+      "bytes": 11391
     },
     {
-      "path": "qlib_recorder/129083020028550798/5654796769704dee8d84d51186ee4960/artifacts/prefit/horizon_metrics.pkl",
-      "sha256": "184727bc0342775f8cb55b64d85341b88ffdbcd19e478ca2c7519664d9aa0441",
-      "bytes": 900
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/aggregate/resolved_evidence.pkl",
+      "sha256": "df803d1a8ca94eaf5abed24feed8738aba500a20d1e0db8358d561164dc789e8",
+      "bytes": 14496
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/aggregate/selections.pkl",
+      "sha256": "6df07abed6ccfaa61b9d59c2aab4c3657cc610d8ba2840279d894496cb950205",
+      "bytes": 1285753
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/aggregate/window_paths.pkl",
+      "sha256": "2c8ee843468da5d8c2038340899ed07b4ecbb08ae9a2b384e25d038accc3534d",
+      "bytes": 2833331
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/inputs/inputs.pkl",
+      "sha256": "4e26364bee4b211926efe08b1543d19e6623c58be566eb22ea13e7027e5bb8d5",
+      "bytes": 2614903
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/ablation_comparison.pkl",
+      "sha256": "0646ca0b55c59ad185fc20a0985a02fdaf10bfc639ae5e9cea51b87b40598fed",
+      "bytes": 3164
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/annual_metrics.pkl",
+      "sha256": "43c6077d91d7af036b4795f32f0c7454e8e0939d007d032462f8c19b2c1fecc5",
+      "bytes": 14220
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/backtest_benchmark_comparison.pkl",
+      "sha256": "777ae496bec6162f23d63b7372f239f5ed677fea9db8cf15848ab850f75a5a2e",
+      "bytes": 4198
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/bootstrap_analysis.pkl",
+      "sha256": "d1e7547dbc1498259cc1c6e31a54bf3c14a300930a0758bf0d711e44d6fda5a0",
+      "bytes": 2454
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/gates.pkl",
+      "sha256": "8ac4f2e1239907816057e621d0c17491f5d6e47eecff0d3df4ded8cfff1267e6",
+      "bytes": 2332
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/native_audit.pkl",
+      "sha256": "ed73ce96744be8f3e25df26af81168d6855535fe90a40fe553f1ac8f7a1e67a2",
+      "bytes": 1987
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/raw_bootstrap_analysis.pkl",
+      "sha256": "7f6e100b2db8a2a9744f6b76d415fb79311ee7a57b407d5017f14b73cf993691",
+      "bytes": 2224
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/raw_gates.pkl",
+      "sha256": "dff9eada9769e6ef5f030f25c9ee6c157adc5b4013cd7787730d6dbbdc2d5fe5",
+      "bytes": 1398
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/raw_rolling_summary.pkl",
+      "sha256": "6fd1cd67d306bde78680a1946bb4285c9cf91ac3aee749a8d3fa40bc0e23b0e2",
+      "bytes": 1342
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/resolved_annual_metrics.pkl",
+      "sha256": "c5a7874d4ad68bddcb3e622d8abefd5da2792b1ebb51a5208b645d180945869e",
+      "bytes": 6122
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/resolved_metrics.pkl",
+      "sha256": "376b0a9fcfd4aaf12fe1edfc6e58c273a53f26f1bce6719ea93757ccfea52090",
+      "bytes": 2722
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/risk_analysis.pkl",
+      "sha256": "0b138a7a4e25a4e028b29c587940a572a945af157e249edb0e21a07c0dfaeafe",
+      "bytes": 1573
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/72455b5609ab4cc5b37808d7e10b2cb0/artifacts/tables/rolling_summary.pkl",
+      "sha256": "6923c455423d27d46c2fc9f8d0866e6c8152567cac3c204050510fe81ed979ff",
+      "bytes": 1534
     }
   ]
 }

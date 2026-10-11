@@ -1,0 +1,8 @@
+{
+  "status": "blocked",
+  "stage": "development::h20::10",
+  "error": "ValueError('blocked: invalid continuous Qlib net targets')",
+  "recorder_id": "7d4cc124d1764453b30fdb82a9c73b1f",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/h20_matched_forecast_execution_20261010/qlib_recorder",
+  "fit_calls": 55
+}

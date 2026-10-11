@@ -1,20 +1,19 @@
 experiment: h20_matched_forecast_execution_20261010
-stage: prefit_input_contract
 source:
   provider_uri: data/qlib/published_futu_affine_20260925_v1
   execution_provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
   region: us
   as_of: '2026-09-25'
-  data_range:
-  - '2016-01-04'
-  - '2026-09-25'
-recorder_id: 5654796769704dee8d84d51186ee4960
+recorder_id: 72455b5609ab4cc5b37808d7e10b2cb0
 recorder_uri: /Users/rziiiii/dev/workspace/research/h20_matched_forecast_execution_20261010/qlib_recorder
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml
   recorder_only_artifacts:
-  - prefit/labels_h5.pkl
-  - prefit/labels_h20.pkl
-  - prefit/training_dataset.pkl
-  - prefit/horizon_metrics.pkl
+  - inputs/inputs.pkl
+  - aggregate/case_results.pkl
+  - aggregate/selections.pkl
+  - aggregate/window_paths.pkl
+  - aggregate/raw_evidence.pkl
+  - aggregate/resolved_evidence.pkl
+  - aggregate/final_summary.pkl

@@ -1,0 +1,25 @@
+{
+  "recorder_id": "5654796769704dee8d84d51186ee4960",
+  "entries": [
+    {
+      "path": "qlib_recorder/129083020028550798/5654796769704dee8d84d51186ee4960/artifacts/prefit/labels_h5.pkl",
+      "sha256": "ff934d2849c8f187cacef8215a11bf809f5b2a3fe9fce4ea8da1a571ea47eea2",
+      "bytes": 131217
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/5654796769704dee8d84d51186ee4960/artifacts/prefit/labels_h20.pkl",
+      "sha256": "1f5b7327addf19fa2d5ad592b0261a27abeb9a854880837d78159e1c7446fce1",
+      "bytes": 131221
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/5654796769704dee8d84d51186ee4960/artifacts/prefit/training_dataset.pkl",
+      "sha256": "94b9ee529954450f13cf6e323cd2e4576bd14f7f9cbdc15aaaba4af3db4788ac",
+      "bytes": 980446
+    },
+    {
+      "path": "qlib_recorder/129083020028550798/5654796769704dee8d84d51186ee4960/artifacts/prefit/horizon_metrics.pkl",
+      "sha256": "184727bc0342775f8cb55b64d85341b88ffdbcd19e478ca2c7519664d9aa0441",
+      "bytes": 900
+    }
+  ]
+}
