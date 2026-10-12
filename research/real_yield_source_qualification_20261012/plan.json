@@ -1,0 +1,68 @@
+{
+  "experiment": "real_yield_source_qualification_20261012",
+  "status": "source_qualification_only_no_prediction_experiment",
+  "as_of": "2026-09-25",
+  "hypothesis": "Date-level initial-release DFII10 data can provide one observable real-rate information feature before the existing price-model decision clock. Predictive and portfolio value are untested.",
+  "series_id": "DFII10",
+  "information_field": "real_yield_change",
+  "change_sessions": 20,
+  "feature_definition": "last publicly released real-yield state at decision minus that state20 prior native sessions; percentage points",
+  "primary_source": "https://alfred.stlouisfed.org/series?seid=DFII10",
+  "source_notes": "https://fred.stlouisfed.org/series/DFII10",
+  "publication_source": "https://www.federalreserve.gov/releases/h15/",
+  "mechanism_source": "https://www.federalreserve.gov/econres/feds/the-effect-of-the-federal-reserve-on-the-stock-market-magnitudes-channels-and-shocks.htm",
+  "mechanism_inference": "Rate/discount channels motivate testing, but neither the source nor the cited Fed review establishes that this feature predicts semiconductor excess returns.",
+  "raw_root": "data/raw/external/alfred_dfii10_initial_20261012_v1",
+  "raw_manifest_sha256": "e7280a062bbba79425c10598173490bde583a6973b04d5ea314dd3b1ec9bb319",
+  "raw_files_sha256": {
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/batch_00.zip": "5de56efdb2261480378c86ce20c25b085f1397dbe57c7783aaf19e09b160921b",
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/batch_01.zip": "56ae9ec59e7c0b0c105819f0d81bbbd81acf314a98b32749a83d0c6ea2bd4c3b",
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/batch_02.zip": "9954bd01d524521d52520b80231160ade8f695d2b7a7b0500c8628d4546a3f07",
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/batch_03.zip": "747bd36618610261f630112b9ec97218a3b9d8b18fee71260e2aff09db700a8c",
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/batch_04.zip": "4c670e989a72e8943cb4279b080a881e353732b68d722db2bef7aee499d4f35d",
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/batch_05.zip": "f04dd734be8333f4453e209698dc2284174ed4309e813039d0cf676c0a8cd7f0",
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/batch_06.zip": "e64a9d2f2bb6825e1447f26a842e0290bd37fa689da02129d5a45b38d2ee3591",
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/batch_07.zip": "2a5c1c7f3e8449b9222cd7a7e538189d92da3af6b8c4874b2164a6e76836977f",
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/batch_08.zip": "28c772a28bbf50d85c99c68d19cd9c47aefa528c21c333e06ec23b7fdc454b9d",
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/batch_09.zip": "e3c90e1c1bd60654a329a2109d6c9d12d145cc07955c68ccd7e6a060876acb51",
+    "data/raw/external/alfred_dfii10_initial_20261012_v1/DFII10/manifest.json": "e7280a062bbba79425c10598173490bde583a6973b04d5ea314dd3b1ec9bb319"
+  },
+  "price_provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "price_content_sha256": "b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa",
+  "information_provider_uri": "data/qlib/alfred_real_yield_initial_20261012_v1",
+  "information_instrument": "REAL_YIELD_INFO",
+  "source_code_sha256": {
+    "src/data/alfred_yield_information.py": "de0833ccb94190f8b12e1cfbc101bacd67d69ec9858134137d779e57d607007b",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/provider_content_hash.py": "7e830b7efbfea2b91798f129d4f4af1267bdb3ed984950df6829bde9fc09a18e",
+    "src/core/recorder_run.py": "95efe7e166e8a6686f38bd59e2f3dec0fd0efea7a229f2e93d46ed67ec0647c3"
+  },
+  "availability": "next native session09:31NY after max(observation_date,initial-release_date)",
+  "quarantine": "premature release or non-session observation; unknown latest source remains unknown",
+  "budgets": {
+    "models_trained": 0,
+    "strategy_replays": 0,
+    "orders": 0
+  },
+  "promotion_eligible": false,
+  "source_deployment_gate": false,
+  "next_experiment": {
+    "status": "prepared_requires_full_prefit_and_preregistration_before_fitting",
+    "single_increment": "real_yield_change20",
+    "control": "matched25pricefeatures",
+    "candidate": "same25plus1yieldchangefeature",
+    "horizon_sessions": 5,
+    "costs_bps": [
+      10.0,
+      25.0
+    ],
+    "candidate_count": 1,
+    "maximum_fit_calls": 110,
+    "native_cases": 12,
+    "selection": "strictly mature prior-year annual prior/Ridge selection",
+    "acceptance": "net excess, annual/rolling/block intervals, MaxDD/CVaR, matched-control incremental MSE and net portfolio increment all required",
+    "history_scope": "reused_diagnostic",
+    "forward_required_sessions": 60,
+    "stop": "no alternate rate tenor, lookback, sign, alpha, horizon or risk/fee search on failure"
+  }
+}
