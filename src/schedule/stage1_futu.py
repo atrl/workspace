@@ -79,6 +79,15 @@ def refresh_intraday_store(
     host: str = "127.0.0.1",
     port: int = 11111,
 ) -> dict[str, Any]:
+    if ((root / "data/nas_sources.json").exists()
+            or (root / "data/processed/intraday/soxl_soxx_none_1m.parquet").exists()):
+        from src.data.minute_refresh import refresh_published_core
+
+        result = refresh_published_core(root=root, session_date=session_date,
+            start_session_date=start_session_date, host=host, port=port)
+        _update_intraday_registry(root, read_intraday_cache(
+            root / "data/processed/intraday/soxl_soxx_1m.parquet"))
+        return result
     cache_path = root / "data" / "processed" / "intraday" / "soxl_soxx_1m.parquet"
     existing = read_intraday_cache(cache_path)
     starts = [session_date]
@@ -157,6 +166,16 @@ def _update_intraday_registry(root: Path, minute: pd.DataFrame) -> None:
         "providers": ["futu"],
         "symbols": ["SOXL", "SOXX"],
     }
+    if "adjustment_type" in minute and minute.adjustment_type.eq("PUBLISHED_FUTU_AFFINE").all():
+        registry["intraday"]["soxl_soxx_1m"].update(
+            raw_path="data/processed/intraday/soxl_soxx_none_1m.parquet",
+            adjustment="published_futu_affine_v1",
+        )
+    if (root / "data/nas_sources.json").exists():
+        registry["intraday"]["soxl_soxx_1m"].update(
+            authority="yanxuan_nas", source_index="sync.current/source_updates/us_semis_intraday",
+            local_cache_disposable=True,
+        )
     registry_path.write_text(
         yaml.safe_dump(registry, sort_keys=True, allow_unicode=True),
         encoding="utf-8",

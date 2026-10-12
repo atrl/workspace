@@ -1,0 +1,50 @@
+experiment: intraday_full_day_expansion_20261012
+provider_uri: data/qlib/soxl_intraday_1min
+recorder_uri: qlib_recorder (disposable materialization from NAS)
+region: us
+market: all
+as_of: '2026-10-09'
+model_selection:
+  first_hour: 0.0006535347644697615
+  full_day: 0.0006621414825630253
+  full_day_context: 0.0006660854637450829
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/source_manifest
+  - inputs/coverage
+  - inputs/context_coverage
+  - inputs/parent_predictions
+  - inputs/feature_snapshots
+  - inputs/eligibility
+  - models/fitted_models
+  - analysis/predictions
+  - analysis/native_book_index
+  - analysis/native_risk
+  - analysis/native/development_10_parent_allocator
+  - analysis/native/development_10_soxx_buy_hold
+  - analysis/native/development_10_first_hour
+  - analysis/native/development_10_full_day
+  - analysis/native/development_10_full_day_context
+  - analysis/native/development_25_parent_allocator
+  - analysis/native/development_25_soxx_buy_hold
+  - analysis/native/development_25_first_hour
+  - analysis/native/development_25_full_day
+  - analysis/native/development_25_full_day_context
+  - analysis/native/reused_diagnostic_10_parent_allocator
+  - analysis/native/reused_diagnostic_10_soxx_buy_hold
+  - analysis/native/reused_diagnostic_10_first_hour
+  - analysis/native/reused_diagnostic_10_full_day
+  - analysis/native/reused_diagnostic_10_full_day_context
+  - analysis/native/reused_diagnostic_25_parent_allocator
+  - analysis/native/reused_diagnostic_25_soxx_buy_hold
+  - analysis/native/reused_diagnostic_25_first_hour
+  - analysis/native/reused_diagnostic_25_full_day
+  - analysis/native/reused_diagnostic_25_full_day_context
+  recorder_storage: NAS content-addressed artifact
+  nas_binding: nas_binding.json
+  recorder_archive_sha256: f7b439a2adaf6fcd543332e2eae7e083d7bfcc4e2d66ae366170e8290c02d555
+  large_data_git_delivery: false
+data_authority: yanxuan_nas
+source_binding: nas_binding.json

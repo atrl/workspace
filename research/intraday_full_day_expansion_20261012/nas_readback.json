@@ -1,0 +1,14 @@
+{
+  "source_restored": {
+    "authority": "yanxuan_nas",
+    "source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+    "restored_objects": 0
+  },
+  "source_hash_checked_objects": 3,
+  "NAS_current_index_matches_pinned_source": true,
+  "recorder_id": "d7d38b2f4d9f4d289528aac9c38d92d2",
+  "recorder_archive_sha256": "f7b439a2adaf6fcd543332e2eae7e083d7bfcc4e2d66ae366170e8290c02d555",
+  "native_account_case_count": 20,
+  "native_object_loaded_from_restored_cache": true,
+  "native_object_hash_matches_frozen_verification_manifest": true
+}

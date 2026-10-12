@@ -194,3 +194,20 @@ def test_source_alpha_floor_blocks_conflicting_recovery(tmp_path):
     assert bool(unvetoed.iloc[1]["recovery_action"]) is True
     assert bool(vetoed.iloc[1]["recovery_action"]) is False
     assert bool(vetoed.iloc[1]["source_alpha_veto"]) is True
+def test_native_first_hour_rejects_incomplete_minute_aggregate(tmp_path):
+    import pandas as pd
+    from src.data import build_qlib_store_from_frame
+    from src.workflow.intraday_recovery_direct_allocation import IntradayRecoveryDirectAllocationSpec, _load_first_hour_features
+
+    rows=[]
+    for symbol in ["SOXL","SOXX"]:
+        for day in ["2026-07-27","2026-07-28"]:
+            for i,stamp in enumerate(pd.date_range(day+" 09:45",periods=4,freq="15min")):
+                rows.append(dict(instrument=symbol,datetime=stamp,open=100.,high=102.,low=99.,close=101.,volume=100.,
+                    bar_count=26.,is_complete=float(not(symbol=="SOXX" and day=="2026-07-27" and i==0))))
+    provider=tmp_path/"data/qlib/soxl_intraday_15min"
+    fields=["open","high","low","close","volume","bar_count","is_complete"]
+    build_qlib_store_from_frame(pd.DataFrame(rows),provider_uri=provider,freq="15min",as_of="2026-07-28",field_map={"$"+name:name for name in fields})
+    result=_load_first_hour_features(IntradayRecoveryDirectAllocationSpec(root=tmp_path),end="2026-07-28")
+    assert pd.isna(result.loc[pd.Timestamp("2026-07-27"),"early_ret_soxx"])
+    assert pd.notna(result.loc[pd.Timestamp("2026-07-28"),"early_ret_soxx"])

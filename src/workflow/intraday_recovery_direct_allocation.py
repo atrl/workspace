@@ -763,6 +763,11 @@ def _extend_frozen_source_outputs(
 def _load_first_hour_features(
     spec: IntradayRecoveryDirectAllocationSpec, *, end: pd.Timestamp
 ) -> pd.DataFrame:
+    manifest = json.loads((spec.intraday_provider_uri / "qlib_store_manifest.json").read_text())
+    fields = ["$open", "$high", "$low", "$close", "$volume", "$bar_count"]
+    certified_minutes = "$is_complete" in manifest.get("fields", [])
+    if certified_minutes:
+        fields.append("$is_complete")
     qframe = load_qlib_feature_frame(
         QlibProviderConfig(
             provider_uri=spec.intraday_provider_uri,
@@ -772,7 +777,7 @@ def _load_first_hour_features(
             kernels=1,
         ),
         instruments=["SOXL", "SOXX"],
-        fields=["$open", "$high", "$low", "$close", "$volume", "$bar_count"],
+        fields=fields,
         start="2018-12-31 09:45:00",
         end=f"{pd.Timestamp(end).date()} 16:00:00",
     ).reset_index()
@@ -782,6 +787,10 @@ def _load_first_hour_features(
     early = qframe.groupby(["instrument", "date"], group_keys=False).head(
         spec.intraday_bars_observed
     )
+    if certified_minutes:
+        ready = early.groupby(["instrument", "date"])["$is_complete"].agg(["count", "min"])
+        good = ready.index[(ready["count"] == spec.intraday_bars_observed) & ready["min"].eq(1)]
+        early = early.loc[pd.MultiIndex.from_frame(early[["instrument", "date"]]).isin(good)]
     grouped = early.groupby(["date", "instrument"]).agg(
         early_open=("$open", "first"),
         early_close=("$close", "last"),

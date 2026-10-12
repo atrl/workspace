@@ -70,6 +70,21 @@ def _schedule(sessions, marks, *, cost_bps, inherited=False, target_convention="
     return pd.DataFrame(rows)
 
 
+def test_full_day_native_book_keeps_unknown_sessions_and_exact_hold(observed_prices):
+    from src.backtest.full_day_minute_policy import run_full_day_native_book
+
+    source, _, _, sessions, _ = observed_prices
+    targets = sessions[["trade_date"]].assign(soxl_weight=.3, soxx_weight=.5, cash_weight=.2)
+    scores = pd.DataFrame({"entry_at": [pd.Timestamp("2020-01-02 09:45"), pd.Timestamp("2020-01-03 10:45")],
+                          "pred_soxl": [.04, 0.], "pred_soxx": [.01, 0.]})
+    result = run_full_day_native_book(provider_uri=source, parent_targets=targets, predictions=scores,
+        cost_bps=25., start="2020-01-02", end="2020-01-03", reference="model")
+    assert len(result["daily_net"]) == 2
+    assert result["report"].cost.sum() > 0
+    assert len(result["events"]) == 1
+    assert len(result["positions"]) == len(result["report"])
+
+
 @pytest.mark.parametrize("cost_bps", [10., 25.])
 @pytest.mark.parametrize("inherited", [False, True])
 @pytest.mark.parametrize("target_convention", ["post_fee_desired", "pre_fee_account"])

@@ -1,0 +1,31 @@
+{
+  "focused_checks": {
+    "intraday_data": 14,
+    "native_intraday_schedule": 17,
+    "intraday_recovery_direct_allocation": 8,
+    "stage1_futu_sim_scoped": 29,
+    "total_passed": 68,
+    "legacy_production_failed": 4
+  },
+  "native_accounting": {
+    "cases": 20,
+    "final_nav_matches_native_report_positions_and_compounded_net_return": true,
+    "maxdd_includes_initial_nav": true
+  },
+  "notebook_executed": true,
+  "source_missing_minutes": 0,
+  "source_malformed_rows": 1,
+  "scientific_gate": false,
+  "production_enabled": false,
+  "nas_delivery": {
+    "snapshot_hash_verified": true,
+    "snapshot_objects": 23,
+    "snapshot_bytes": 282807996,
+    "evidence_archive_hash_verified": true,
+    "registered_in_existing_nas_api": true,
+    "large_data_git_delivery": false,
+    "native_recorder_readback": "nas_readback.json",
+    "native_account_case_count": 20,
+    "current_index_reconstruction_contract_tested": true
+  }
+}

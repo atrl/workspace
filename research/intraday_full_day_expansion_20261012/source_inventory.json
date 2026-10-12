@@ -1,0 +1,788 @@
+{
+  "purpose": "durable source responses, canonical raw/research minute planes, native Qlib evidence for repaired full-day comparison",
+  "as_of": "2026-10-09",
+  "source_manifest_sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "objects": [
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.parquet",
+      "bytes": 7926465,
+      "sha256": "f6f7abee685b60e3c6fa0160121617416bb01156b38a3133abe1194a3e0155f7",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/AMD_none.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.parquet",
+      "bytes": 8416442,
+      "sha256": "a6021ed363e3a8f0e0cdbfbc8b8a9051ec7e1c1e3e1cc91cc0fe8c71e46c7107",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/NVDA_none.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.parquet",
+      "bytes": 7948652,
+      "sha256": "0162127c3ae0ca487a2b58627cb9bdeb2f9746c3b05be6c5f6b7ae1ded94319d",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/QQQ_none.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.parquet",
+      "bytes": 6954525,
+      "sha256": "ef9cd86b5328dfb3242986d18a9e2f732784777b868fe4f9db31a2c506942323",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/SMH_none.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.parquet",
+      "bytes": 34310680,
+      "sha256": "94b2ee6bf16f76d2e3e453f45a8db533869a2fe6303e90c47505a61647d0dc2a",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/SOXL_none.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.parquet",
+      "bytes": 27412470,
+      "sha256": "9133d01608d534d753015fa043d1fc538ccd12afbab8aaa1a01daa0f64448561",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/SOXX_none.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/AMD_rehab.parquet",
+      "bytes": 16590,
+      "sha256": "2bfc848417eb34cd8d49ec4506861f3160cc364dcf190d854393332143e211cb",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/AMD_rehab.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_rehab.parquet",
+      "bytes": 17666,
+      "sha256": "aa55fe6b0bfc11c8eaec6a8de57c0660b27ccfb2628b812362734560a1332f0b",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/NVDA_rehab.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_rehab.parquet",
+      "bytes": 19611,
+      "sha256": "80d78548d47ccf1578d9cc5390fa1c772d522ededab975b63b09073a80315fbc",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/QQQ_rehab.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SMH_rehab.parquet",
+      "bytes": 17134,
+      "sha256": "d4853b29cac5e71fb1b8602bd0a8a057faf985aa6e20c4d65ca6a64f4050e6a4",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/SMH_rehab.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_rehab.parquet",
+      "bytes": 17760,
+      "sha256": "0342f402196db7fe6c1e62556513fd6a2df613b02629706e3cabdea2bd817015",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/SOXL_rehab.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_rehab.parquet",
+      "bytes": 19186,
+      "sha256": "a46e06d4c37919c1442bd54228167adc86f09cdf1b73b46eaac237d6acd4cf7c",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/SOXX_rehab.parquet"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.json",
+      "bytes": 57174,
+      "sha256": "6c9fc156b6b684c76dd8c6dad742720a789733e36a9c074d3ce67885fb708051",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/SOXL_none.json"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+      "bytes": 173231,
+      "sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/source_manifest.json"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.json",
+      "bytes": 11977,
+      "sha256": "4711c6cf13806ed100a3c3ad5515e1a09596e6d6baf092e6727919e99aa45b14",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/AMD_none.json"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.json",
+      "bytes": 56907,
+      "sha256": "59b1b34f113d03e20f3e37ac6644cbd457a0957525aa6468b2b904a822f5113f",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/SOXX_none.json"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.json",
+      "bytes": 11977,
+      "sha256": "d6d6c01ce15a833a9120cf99aa6a9580fae9f06bb9b52e4b837b3d55646b970f",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/QQQ_none.json"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.json",
+      "bytes": 11977,
+      "sha256": "cd96ad44bf2e3b54d3fb90720ced6db697fe59a0a0c243e5c9059d342aa2d2ed",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/SMH_none.json"
+    },
+    {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.json",
+      "bytes": 11979,
+      "sha256": "140c85b21428959d4b036a155609baa3d2b76c4d81110f54f311397acff10bd3",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/raw/external/semis_minute_none_20261012_v1/NVDA_none.json"
+    },
+    {
+      "path": "data/processed/intraday/soxl_soxx_none_1m.parquet",
+      "bytes": 67840304,
+      "sha256": "fcc7af99318fe11400d8143142a2d81a220557de3ecb719587b499edccb629c9",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/processed/intraday/soxl_soxx_none_1m.parquet"
+    },
+    {
+      "path": "data/processed/intraday/semis_context_5m.parquet",
+      "bytes": 54551943,
+      "sha256": "2262abdae138b2213ec86d7972e6d450a0c0139e13b159ab5b9b7459504ad2a9",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/processed/intraday/semis_context_5m.parquet"
+    },
+    {
+      "path": "data/processed/intraday/soxl_soxx_1m.parquet",
+      "bytes": 67002763,
+      "sha256": "e78999932fb4c97c11eadf80d93a88fc9c3b1d5d049e201b9cce0c3416c49371",
+      "retained_storage": "NAS snapshot",
+      "nas_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/data/processed/intraday/soxl_soxx_1m.parquet"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/qlib.yaml",
+      "bytes": 169,
+      "sha256": "254f9e29bce02b4f3b93e1be0b7a725f80c8dda1b69cfddf2fb1eba29ae483e9",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/qlib_store_manifest.json",
+      "bytes": 2093,
+      "sha256": "8b2a859f35eee4b190d8a86d250c09e4068491a10e9928a74f7c3122cccd6869",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/calendars/1min.txt",
+      "bytes": 15601200,
+      "sha256": "01d00736617fea7392ce81a400339cc6b061396a5e7f2a94cd844c554362a08c",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/instruments/all.txt",
+      "bytes": 90,
+      "sha256": "c01836ac69f179ad7f51e4e774b7b5b8f8ebcbb29f7ae893fb3a5371c1bcc9cc",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxx/vwap.1min.bin",
+      "bytes": 3120244,
+      "sha256": "1e918ea602965955f712424222e06d6e4a90dd3822f4b143f44ee940404defea",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxx/low.1min.bin",
+      "bytes": 3120244,
+      "sha256": "d9adcfc305cda69bd7ac7861cbce6a9067da2db750859aa240dc1e6c59c087ae",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxx/turnover.1min.bin",
+      "bytes": 3120244,
+      "sha256": "6627850718a130c2b5ae9d85dd42a8f59c7490127bf9bc0ce45c70c1087d22f0",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxx/open.1min.bin",
+      "bytes": 3120244,
+      "sha256": "b095835885d72a6061038a8f17035b4cea8e7d5103a530f212b130716de7ffac",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxx/close.1min.bin",
+      "bytes": 3120244,
+      "sha256": "ed077b9e8ea30ac16d3830d448185f5a6fa9cc9eb1ca36bf0ca294fb19cb53e1",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxx/price_valid.1min.bin",
+      "bytes": 3120244,
+      "sha256": "ac6d88813afc59ce9aef5da3e4c1456de7dc9e6b7b4b806a19a1ab6ea53b38d2",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxx/volume.1min.bin",
+      "bytes": 3120244,
+      "sha256": "e487ab62963ecd703a000afdce53f6b9a6a2bf01092180335a1743b6353a5ef7",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxx/high.1min.bin",
+      "bytes": 3120244,
+      "sha256": "c5befa0eaa0287291ef4c92dbecbdd288961dca4ba995e31ebeba0d7774d03de",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxl/vwap.1min.bin",
+      "bytes": 3120244,
+      "sha256": "fa5f4b28bcf7c7a9d347105214bb9dc9c0fbf6bc371744415d0c10c652c49b42",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxl/low.1min.bin",
+      "bytes": 3120244,
+      "sha256": "c6465e0b080f44ac5521ce35f1597396a440f4a80c1911d3f9cb2ef6429ed3b3",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxl/turnover.1min.bin",
+      "bytes": 3120244,
+      "sha256": "f77f90237dbf07751442dff62eb4e9d2189371bf515c73ec6221c366232ed8ae",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxl/open.1min.bin",
+      "bytes": 3120244,
+      "sha256": "b2427e3d4a1553d30311ccaac96a515b3d504663a04c9d6ef6ffb13157571019",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxl/close.1min.bin",
+      "bytes": 3120244,
+      "sha256": "83f5eb94b5536f329da9124d3f404a40257094ee7424b219c1c6998bf9bc7e2b",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxl/price_valid.1min.bin",
+      "bytes": 3120244,
+      "sha256": "a60d3277dd03b79c86f96cac4ce7d3b8b491d0de240424603db01854dfec9ed1",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxl/volume.1min.bin",
+      "bytes": 3120244,
+      "sha256": "1af5929c68a58d9cbcbe94c86b00efeb80730a54d2158efc739fa43fac44eea2",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_1min/features/soxl/high.1min.bin",
+      "bytes": 3120244,
+      "sha256": "39aaeac93d8226a895aa4e6a990f56262974e2b4ad5f1a14fbbfaa3ad64afc15",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/qlib.yaml",
+      "bytes": 169,
+      "sha256": "574db6cd95847f981f723f19efefa3bfe78fc98882335557c417f7ce457270f0",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/qlib_store_manifest.json",
+      "bytes": 2167,
+      "sha256": "f628e9f167ec77e1d870fe303c799be1a9f0700560956dbf9b60a54182c27bda",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/calendars/5min.txt",
+      "bytes": 3120240,
+      "sha256": "b1a5d7c8c0ef6e147acd70cfe92c93f8603eadad319858a1b0f57853cddf912b",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/instruments/all.txt",
+      "bytes": 90,
+      "sha256": "47f8bebb915f587c99a6d05e97dd9d4e17b9b57df0f4663d5e861dd3addb2248",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/low.5min.bin",
+      "bytes": 624052,
+      "sha256": "fc891ee4e0dd3ccf76a9e4d857e58586a99e21a87a0b45614a4ca74cfc6bd0e7",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/bar_index.5min.bin",
+      "bytes": 624052,
+      "sha256": "4757fe7eca00f5189fdf5206f3e0e2b8ae5cbc6586c2ca04126f9388381b4401",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/observed_1m_count.5min.bin",
+      "bytes": 624052,
+      "sha256": "00cef9e8e9d96e1b82d6073242f5c9bcbaabcf432a8886cd393f9af928d7e50a",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/high.5min.bin",
+      "bytes": 624052,
+      "sha256": "51bc6549b5a8893566d662fed529394149d5b7f842d1f84ae415bf09f6999a5e",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/expected_1m_count.5min.bin",
+      "bytes": 624052,
+      "sha256": "00cef9e8e9d96e1b82d6073242f5c9bcbaabcf432a8886cd393f9af928d7e50a",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/volume.5min.bin",
+      "bytes": 624052,
+      "sha256": "8eb82f96ef35a2a4024676f5380f22de1b66fedd485483bbf1c2d6dfe38d7671",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/open.5min.bin",
+      "bytes": 624052,
+      "sha256": "78143e2284e09b6443c02275782dfbebb788bda225d0feb30869075acaa85f34",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/turnover.5min.bin",
+      "bytes": 624052,
+      "sha256": "0211800a8ca6f9784357ba1c414ba9781e5f8a291e826eb0e7f3e8ef0d7215fc",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/is_complete.5min.bin",
+      "bytes": 624052,
+      "sha256": "895d636d02f363faa6fa03615be1c85dc4ed5a598234138b6a8b613c8e168bc8",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/bar_count.5min.bin",
+      "bytes": 624052,
+      "sha256": "71679e46843866a9b9d14b67f9e9312e58ccb4efaa435f8fbe813c4d4f452d05",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxx/close.5min.bin",
+      "bytes": 624052,
+      "sha256": "0fcd6a40e974da954871727cdd33ce4a1b28ddc29db8f129c0f0499c4028f981",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/low.5min.bin",
+      "bytes": 624052,
+      "sha256": "b5b5dc759bc37620cefdea7be8e75f6ca0caec11add05c3524096e5c9cff548e",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/bar_index.5min.bin",
+      "bytes": 624052,
+      "sha256": "4757fe7eca00f5189fdf5206f3e0e2b8ae5cbc6586c2ca04126f9388381b4401",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/observed_1m_count.5min.bin",
+      "bytes": 624052,
+      "sha256": "00cef9e8e9d96e1b82d6073242f5c9bcbaabcf432a8886cd393f9af928d7e50a",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/high.5min.bin",
+      "bytes": 624052,
+      "sha256": "51354950f4fec26d875318c25b7c0eb6f5dd48ba26f466468c217898506da8e3",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/expected_1m_count.5min.bin",
+      "bytes": 624052,
+      "sha256": "00cef9e8e9d96e1b82d6073242f5c9bcbaabcf432a8886cd393f9af928d7e50a",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/volume.5min.bin",
+      "bytes": 624052,
+      "sha256": "66694eb1dfa89d0a1e3f907f97bbc2635ae39467a37d8307798235825e9f63bd",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/open.5min.bin",
+      "bytes": 624052,
+      "sha256": "97915a49be6fd35ab211c54af439d63ccd6b87570711e08851773530ca82d65d",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/turnover.5min.bin",
+      "bytes": 624052,
+      "sha256": "a99da810d31a8689247325aebdc170f0b01d9954caa2000d48f47d7fb3b5305f",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/is_complete.5min.bin",
+      "bytes": 624052,
+      "sha256": "114f29208dbb853a11d91a30b4458e70659e9ae56cc7a30c8462cc1940b52949",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/bar_count.5min.bin",
+      "bytes": 624052,
+      "sha256": "71679e46843866a9b9d14b67f9e9312e58ccb4efaa435f8fbe813c4d4f452d05",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_5min/features/soxl/close.5min.bin",
+      "bytes": 624052,
+      "sha256": "e380b9248fe9f922b83cc28d6aea060db3688ff3e745e9b18653ff2cc6dfb5d1",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/qlib.yaml",
+      "bytes": 170,
+      "sha256": "e25d89bb629de4aaa77961e7e18cf50d5a59705174f676aeb97c1956a481fd15",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/qlib_store_manifest.json",
+      "bytes": 2169,
+      "sha256": "bf6e5660c0ea0fab7722d1b3670faa3f39aa7e2ef0bd4c12b52d1cd2e824005e",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/calendars/15min.txt",
+      "bytes": 1040080,
+      "sha256": "9967dd2e79227f32bab84479be3599800015411d965af19e9b0d0407b9b91aed",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/instruments/all.txt",
+      "bytes": 90,
+      "sha256": "51574bed55ab5f81a0c9719cc316922c8b2a93f8a619b25d21542f15c959596c",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/bar_index.15min.bin",
+      "bytes": 208020,
+      "sha256": "99c2fbdcae5bbcfb1a7116dfa494f20346311c5f6cafb8b36025d523168e26db",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/observed_1m_count.15min.bin",
+      "bytes": 208020,
+      "sha256": "2d5615f34d8e36de13a8ee39869b5519a869dd2ebb1d3b31b46c376832858d40",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/volume.15min.bin",
+      "bytes": 208020,
+      "sha256": "6e187969f299b483dce757de4de338727bbbb49d4544947b6dd31439f4e77d00",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/high.15min.bin",
+      "bytes": 208020,
+      "sha256": "57bf311b5837a3dd07277ac6e934bfad70d37a97be7fb8b084edc3d6e0de7b9c",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/bar_count.15min.bin",
+      "bytes": 208020,
+      "sha256": "163d5edcb722916d4376821a4eb20cb1dd6f87fa7b469d9aa7d21caa7b6e4380",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/low.15min.bin",
+      "bytes": 208020,
+      "sha256": "21ff5eff042f0f72efc88b779d49f30867d23ba907999dd21e2a27856b695779",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/turnover.15min.bin",
+      "bytes": 208020,
+      "sha256": "65ba6761947c7f730dc7cefa996cc5c9232848f54b6d4b2a0516c5c3196073e7",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/open.15min.bin",
+      "bytes": 208020,
+      "sha256": "2929872797b1a904a97939a0ea81f62ccf6b9e9184cdc8d87c690c74bd6aa7e4",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/close.15min.bin",
+      "bytes": 208020,
+      "sha256": "5cdd48e31469e6696fee34382ed84e5bc6bf499c43e8efc7d47247a47f9469b6",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/is_complete.15min.bin",
+      "bytes": 208020,
+      "sha256": "1b2254ee72efd348dded32d5e5a676cbd9eb66a4bdce9cf91b934eebee4bfb06",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxx/expected_1m_count.15min.bin",
+      "bytes": 208020,
+      "sha256": "2d5615f34d8e36de13a8ee39869b5519a869dd2ebb1d3b31b46c376832858d40",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/bar_index.15min.bin",
+      "bytes": 208020,
+      "sha256": "99c2fbdcae5bbcfb1a7116dfa494f20346311c5f6cafb8b36025d523168e26db",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/observed_1m_count.15min.bin",
+      "bytes": 208020,
+      "sha256": "2d5615f34d8e36de13a8ee39869b5519a869dd2ebb1d3b31b46c376832858d40",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/volume.15min.bin",
+      "bytes": 208020,
+      "sha256": "e00b96e545a01d9845e9e1d62e3054cc755b95d78d029a9334c556ebcb7d55b5",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/high.15min.bin",
+      "bytes": 208020,
+      "sha256": "0aa4577f1c7920c96e0c5990bb6b211256126d24220418e88254f3f5e9e131e0",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/bar_count.15min.bin",
+      "bytes": 208020,
+      "sha256": "163d5edcb722916d4376821a4eb20cb1dd6f87fa7b469d9aa7d21caa7b6e4380",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/low.15min.bin",
+      "bytes": 208020,
+      "sha256": "b0477598c583ffbfcd08d221d977bf823fefe536c0b47eabec9d997d3b447cd6",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/turnover.15min.bin",
+      "bytes": 208020,
+      "sha256": "404fb7a744be014976cd5bcf27eb8cd37ec7f43706122b27438e2cd2e47c8688",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/open.15min.bin",
+      "bytes": 208020,
+      "sha256": "211c25f2e9c662fcb6a657da6990efee5006ba5a6e0978d093309d4005aee054",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/close.15min.bin",
+      "bytes": 208020,
+      "sha256": "7abd34dd43db2f64a2ba4479e3bd6e9d4e0857ded0124fa0a2b5c6796b7286cb",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/is_complete.15min.bin",
+      "bytes": 208020,
+      "sha256": "febb880bebe19064188b53e14a0af88701a9b0280c001029cf3d1517d2839809",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/soxl_intraday_15min/features/soxl/expected_1m_count.15min.bin",
+      "bytes": 208020,
+      "sha256": "2d5615f34d8e36de13a8ee39869b5519a869dd2ebb1d3b31b46c376832858d40",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/qlib.yaml",
+      "bytes": 169,
+      "sha256": "463748f83a772f6527f0cca1a703f99ba71aab58430cd1d67b4352f0f45dbb15",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/qlib_store_manifest.json",
+      "bytes": 2292,
+      "sha256": "26efb3337337b1c25f0960bdd1088fdb1d168f784dfa965ca9313a88ea2d1c7c",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/calendars/5min.txt",
+      "bytes": 3120240,
+      "sha256": "b1a5d7c8c0ef6e147acd70cfe92c93f8603eadad319858a1b0f57853cddf912b",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/instruments/all.txt",
+      "bytes": 177,
+      "sha256": "190bbddae656b67bf711e72711b187fe7dd161014a62c617cee6c71961f51384",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/smh/low.5min.bin",
+      "bytes": 624052,
+      "sha256": "9eff5bf55e54dc78b912d21a9f8b867266a5edbec16e515b52e1af30f583348c",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/smh/high.5min.bin",
+      "bytes": 624052,
+      "sha256": "8580a85b7c5179b9c96120300d65f2aa16f3a4f78d605047bd52e6c4a3b81485",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/smh/volume.5min.bin",
+      "bytes": 624052,
+      "sha256": "29f73c8729d76d280c0b5f0cee8efba40c1be3e6841bac77020fe6482d8ef73f",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/smh/price_valid.5min.bin",
+      "bytes": 624052,
+      "sha256": "114f29208dbb853a11d91a30b4458e70659e9ae56cc7a30c8462cc1940b52949",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/smh/open.5min.bin",
+      "bytes": 624052,
+      "sha256": "faf8a498fb471d01778021baff89009a28ce735811e50d55272a87606c3946b1",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/smh/turnover.5min.bin",
+      "bytes": 624052,
+      "sha256": "3930cf97bc5fd82271123584111f319eb3dfe2f9dc69be37ddaa8590ce5c00c7",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/smh/close.5min.bin",
+      "bytes": 624052,
+      "sha256": "0fda062ff638a9202f1cdc761fb9cc13487af13da22e13ed0cb5f78446ba584c",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/qqq/low.5min.bin",
+      "bytes": 624052,
+      "sha256": "12000219976876656f1496fac3313129126bc2e5d9901d711d8a97d2e48ff9a1",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/qqq/high.5min.bin",
+      "bytes": 624052,
+      "sha256": "7b14663d79930e75c6eba72f6e0dde6504a930a4527e9ecc3459d4b42d37bed0",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/qqq/volume.5min.bin",
+      "bytes": 624052,
+      "sha256": "bc866b8e813c8b7fcc19d328ada6f5e7558c9ee0db649545e7d616fa6c82ae91",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/qqq/price_valid.5min.bin",
+      "bytes": 624052,
+      "sha256": "114f29208dbb853a11d91a30b4458e70659e9ae56cc7a30c8462cc1940b52949",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/qqq/open.5min.bin",
+      "bytes": 624052,
+      "sha256": "35f784343e34f14a4387be38faf265032c9aab3e576b74b8208d21c43af686d6",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/qqq/turnover.5min.bin",
+      "bytes": 624052,
+      "sha256": "8d466a2b3d8fa5af2204c84b84f1fa1ee4b775e57f3c76b37568ae9f128a46af",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/qqq/close.5min.bin",
+      "bytes": 624052,
+      "sha256": "67df1a66d7b51224ecf93992c1bf9bf99a7a880c17f792b13fa9e852db7e75eb",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/amd/low.5min.bin",
+      "bytes": 624052,
+      "sha256": "18836a9ee63bd9221c2b454548e75562d94cddacf7a17290f8b256930296bdcb",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/amd/high.5min.bin",
+      "bytes": 624052,
+      "sha256": "2953061e5127d47b239d7126c9dfc022fa0f45a5ac11624098b1c7ddb889652c",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/amd/volume.5min.bin",
+      "bytes": 624052,
+      "sha256": "4a4299f9a98d6d40ecd7e4dfdb95802f848b585838aed4746a60f5e313a323c4",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/amd/price_valid.5min.bin",
+      "bytes": 624052,
+      "sha256": "114f29208dbb853a11d91a30b4458e70659e9ae56cc7a30c8462cc1940b52949",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/amd/open.5min.bin",
+      "bytes": 624052,
+      "sha256": "b7c48a34b3ec6575d887e920ecd6a1159dc564652e39eeefb475c582a3c8c5a3",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/amd/turnover.5min.bin",
+      "bytes": 624052,
+      "sha256": "2bf7cccb4a8afd5b74403f7ba55d31d5b104e8664e6177fd09aef5207491ac26",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/amd/close.5min.bin",
+      "bytes": 624052,
+      "sha256": "aaa7abe8b5f975b4da2e6736ec81531574df49508bfd5266e2db307ea31e734a",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/nvda/low.5min.bin",
+      "bytes": 624052,
+      "sha256": "263a7ca8166050d6ea2ccffddb2238e5d93e5447293c77af679219dcc50841af",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/nvda/high.5min.bin",
+      "bytes": 624052,
+      "sha256": "3486dbe4e4cd449d35fde606a772f7b0b06d9c1813ea6d2f933407a389705d00",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/nvda/volume.5min.bin",
+      "bytes": 624052,
+      "sha256": "efd022fbc1f0de278a569b76c840dcb0f7cd0d64e51773e028dc3735b609d9d8",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/nvda/price_valid.5min.bin",
+      "bytes": 624052,
+      "sha256": "114f29208dbb853a11d91a30b4458e70659e9ae56cc7a30c8462cc1940b52949",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/nvda/open.5min.bin",
+      "bytes": 624052,
+      "sha256": "16d854bf469ffbf5db949c08af7912773a37d04bd403847ff517a80fc844e4e5",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/nvda/turnover.5min.bin",
+      "bytes": 624052,
+      "sha256": "86960db085a7939acc0ce42ebab5ac9844afcf87afb4516a1b72ed3931539f96",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    },
+    {
+      "path": "data/qlib/semis_context_5min/features/nvda/close.5min.bin",
+      "bytes": 624052,
+      "sha256": "776619527285b29b632d6943b8a47bdfe7097495cab9b5cd48f714890648913b",
+      "retained_storage": "disposable Qlib store, rebuilt from pinned NAS source"
+    }
+  ],
+  "authority": "yanxuan_nas",
+  "nas_binding": "nas_binding.json",
+  "large_data_git_delivery": false
+}

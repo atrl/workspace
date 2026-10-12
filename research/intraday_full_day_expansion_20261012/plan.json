@@ -1,0 +1,107 @@
+{
+  "experiment": "intraday_full_day_expansion_20261012",
+  "schema_version": "full_day_minute_expansion_v1",
+  "source_start": "2018-10-12",
+  "as_of": "2026-10-09",
+  "source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "source_resolutions": {
+    "SOXL": "1min",
+    "SOXX": "1min",
+    "QQQ": "5min",
+    "SMH": "5min",
+    "NVDA": "5min",
+    "AMD": "5min"
+  },
+  "source_adjustment": "NONE",
+  "research_basis": "published_futu_affine_v1",
+  "decision_minutes_et": [
+    570,
+    630,
+    720,
+    840,
+    930
+  ],
+  "execution_delay_minutes": 15,
+  "execution_freq": "15min",
+  "candidate_families": [
+    "first_hour",
+    "full_day",
+    "full_day_context"
+  ],
+  "candidate_count": 3,
+  "model": "native_DatasetH_Ridge",
+  "ridge_alpha": 10.0,
+  "prediction_labels": "two native asset returns between delayed decision marks; last interval includes overnight",
+  "selection_window": [
+    "2022-01-03",
+    "2022-12-30"
+  ],
+  "reused_diagnostic_window": [
+    "2023-01-03",
+    "2026-09-18"
+  ],
+  "training_start": "2019-01-02",
+  "test_years": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "maximum_model_fits": 15,
+  "native_cost_books_bps": [
+    10,
+    25
+  ],
+  "native_references": [
+    "parent_allocator",
+    "soxx_buy_hold"
+  ],
+  "maximum_native_cases": 20,
+  "native_opportunity_set": [
+    "exact HOLD",
+    "frozen parent allocator target",
+    "same risky weight/cash with SOXL weight transferred to SOXX"
+  ],
+  "native_objective": "maximum predicted next-interval NAV gain minus actual-state funded trading fee; no threshold/weight search",
+  "parent_release": {
+    "version": 1,
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "execution_environment": "SIMULATE",
+    "research_promotion_status": "not_promoted",
+    "activated_at": "2026-09-28T17:07:53.610818+08:00",
+    "allocation": {
+      "card_path": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+      "manifest_sha256": "44c1a375ea575f1055ff46850a9c8dbc30d121d97919231efbf9084504628112",
+      "recorder_id": "f696f656b3d44e868588e09a5d97c905"
+    },
+    "action": {
+      "card_path": "research/stage1_open_action_value_net_fees_20260928",
+      "summary_sha256": "f6549f17979c5e2d92f2bfd474e99a3c7c74c4df13c35f20dcb8dbf9551d7219",
+      "recorder_id": "b472a458fc9042b4905094fddeaebd33"
+    },
+    "paper_trial_authorization": {
+      "receipt_path": "production/stage1_futu_sim_v1/paper_trial_authorization_20260928.json",
+      "receipt_sha256": "df6a9036e9685f15e130c5eaaea0fe8d71878b97c56043f8987b4715299fdcaf"
+    }
+  },
+  "parent_manifest": "frozen_bundle_manifest.json",
+  "parent_prediction_artifact": {
+    "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/predictions.csv",
+    "sha256": "f532c84b5c3c05d181092044aa1bc6223e26e774d81a26f3bfa181828bdf342e",
+    "size_bytes": 392263
+  },
+  "parent_recorded_predictions_end": "2026-09-17",
+  "parent_compatibility": "allocator target replay only, not a reproduction of active Stage1 controller/action state",
+  "selection": "development 2022 MSE only; all later history explicitly reused diagnostic; no production promotion or activation",
+  "gates": [
+    "source completeness and declared invalid-bar quarantine",
+    "maturity and cutoff checks",
+    "development MSE increment",
+    "matched parent and SOXX native net-fee excess",
+    "MaxDD/CVaR/annual stability",
+    "independent qualified paired forward sessions"
+  ],
+  "negative_route": "archive fixed result; no more parameters or feature searches",
+  "excluded_unqualified_feature": "turnover-derived VWAP; residual source-condition mismatches remain after basis correction"
+}

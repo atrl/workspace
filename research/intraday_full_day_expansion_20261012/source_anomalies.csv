@@ -1,0 +1,2 @@
+symbol,date,expected_minutes,due_minutes,observed_minutes,missing_minutes,duplicate_rows,invalid_rows,zero_volume_rows,vwap_checked_rows,vwap_outside_rows,first_missing_at,last_missing_at,status,training_eligible,repair_required
+SOXX,2020-03-16,390,390,390,0,0,1,14,376,7,,,needs_data,False,True

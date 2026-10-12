@@ -1,0 +1,11 @@
+{
+  "schema_version": "nas_source_consumer_v1",
+  "authority": "yanxuan_nas",
+  "source_name": "us_semis_intraday",
+  "state_key": "sync.current",
+  "snapshot_parent": "/volume1/docker/yanxuan/data/market/us_semis/snapshots",
+  "artifact_root": "/volume1/docker/yanxuan/registry/research-artifacts",
+  "release_env": "~/.config/yanxuan/release.env",
+  "registry_env": "~/.config/yanxuan/research-director.env",
+  "local_data_policy": "disposable hash-verified cache; no upstream fallback for a NAS read"
+}

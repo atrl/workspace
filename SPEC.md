@@ -156,6 +156,26 @@ SOXL 的 Sharpe 不高于 SOXX；单纯的杠杆、波动目标或趋势门控�
 而不是每日高换手的早盘动量。任何后续日内机制必须报告换手、成本敏感性与
 逐年前向胜率，而不是只看累计财富。
 
+分钟源修复与全天增量参考 `research/intraday_full_day_expansion_20261012/`：
+SOXL/SOXX 的 raw NONE 1 分钟与公开系数研究价量分别保存，QQQ/SMH/NVDA/AMD
+以真实 5 分钟历史提供同步上下文。聚合线携带底层观察数、预期数与完整标记；
+源 OHLC 错误保留并隔离，不插值。核心刷新从 raw NONE 补历史缺口并重新应用
+公开事件，避免混用成交额与复权价格。原始来源、观察时间和具体残余异常以该卡
+及 source manifest 为准；历史右边界与一分钟可用延迟不等于实盘接收认证。
+分钟数据的持久权威是 Yanxuan NAS：不可变快照位于 NAS `/data/market/us_semis/`，
+当前来源登记在既有 DuckDB/API `sync.current` 的 `us_semis_intraday` 条目。
+`data/nas_sources.json` 只保存消费者连接配置，卡片 `nas_binding.json` 固定来源与
+NAS Recorder 对象哈希。Git 交付代码、notebook、瘦卡和引用；原始行情、处理后
+Parquet 与大 Recorder 对象保留在 NAS。`data/` 中的分钟缓存和原生 Qlib store
+可从 NAS 校验恢复或重建；已有 Git 历史中的旧缓存暂留作兼容输入。
+核心刷新先解析 NAS 当前来源，再由本机 Futu OpenD 补采，校验并写回 NAS 后登记；
+NAS 读取失败明确 `needs_data`，不切回旧采集口径。四个上下文标的的历史快照
+单独保留 `context_as_of`，核心日期更新不冒充上下文同步更新。
+每日同步器替换 `sync.current` 后若来源条目消失，消费者只从 NAS 上的已校验
+不可变快照重建该索引；不从本地缓存或上游采集结果猜测当前来源。
+三组固定线性模型在 DatasetH 成熟标签与原生独立费用账户中未获得有效增量，
+保持 `not_promoted`；全天特征数量增加不能代替预测信息与净超额验证。
+
 跨数据源搜索已封闭：`src/analysis/cross_source_signal_search.py` 与
 `src/workflow/cross_source_signal_search.py` 用统一标准（收益+回撤+Sharpe 同时
 超越 SOXX 且多数年份为正）在本地全部可用数据源上搜索因果信号，包括

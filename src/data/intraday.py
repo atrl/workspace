@@ -424,7 +424,7 @@ def merge_intraday_bars(existing: pd.DataFrame, fetched: pd.DataFrame) -> pd.Dat
         return merged
     merged["timestamp"] = _as_new_york_timestamp(merged["timestamp"])
     merged["symbol"] = merged["symbol"].astype(str).str.upper()
-    merged = merged.sort_values(["symbol", "timestamp"]).drop_duplicates(["symbol", "timestamp"], keep="last")
+    merged = merged.drop_duplicates(["symbol", "timestamp"], keep="last").sort_values(["symbol", "timestamp"])
     return merged.reset_index(drop=True)
 
 
@@ -550,6 +550,10 @@ def resample_intraday_bars(
     }
     if "turnover" in frame.columns:
         aggregations["turnover"] = "sum"
+    frame["_observed_1m"] = 1
+    frame["_valid_1m"] = frame.get("price_valid", pd.Series(True, index=frame.index)).astype(int)
+    frame["_final_1m"] = frame.get("is_final", pd.Series(True, index=frame.index)).astype(int)
+    aggregations.update({"_observed_1m": "sum", "_valid_1m": "sum", "_final_1m": "sum"})
     for (symbol, session_date), bars in frame.sort_values("timestamp").groupby(["symbol", "date"], sort=True):
         resampled = (
             bars.set_index("timestamp")
@@ -568,6 +572,14 @@ def resample_intraday_bars(
         resampled["interval"] = freq
         resampled["bar_index"] = np.arange(len(resampled), dtype=int)
         resampled["bar_count"] = len(resampled)
+        expected = int(pd.Timedelta(freq).total_seconds() // 60)
+        resampled["observed_1m_count"] = resampled.pop("_observed_1m")
+        resampled["expected_1m_count"] = expected
+        resampled["is_complete"] = (
+            resampled.observed_1m_count.eq(expected)
+            & resampled.pop("_valid_1m").eq(expected)
+            & resampled.pop("_final_1m").eq(expected)
+        ).astype(int)
         rows.append(resampled)
     if not rows:
         return pd.DataFrame()
@@ -586,6 +598,9 @@ def resample_intraday_bars(
         "turnover",
         "bar_index",
         "bar_count",
+        "observed_1m_count",
+        "expected_1m_count",
+        "is_complete",
     ]
     return result[columns].sort_values(["instrument", "datetime"]).reset_index(drop=True)
 

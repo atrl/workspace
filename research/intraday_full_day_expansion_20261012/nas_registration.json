@@ -1,0 +1,22 @@
+{
+  "name": "us_semis_intraday",
+  "required": false,
+  "status": "warning",
+  "error_count": 1,
+  "observation": {
+    "quality_status": "partial",
+    "core_rows": 1560120,
+    "context_rows": 624048,
+    "missing_closed_minutes": 0,
+    "malformed_rows": 1,
+    "source_adjustment": "NONE",
+    "research_adjustment": "published_futu_affine_v1",
+    "context_as_of": "2026-10-09",
+    "evidence_sha256": "f7b439a2adaf6fcd543332e2eae7e083d7bfcc4e2d66ae366170e8290c02d555",
+    "data_owner": "yanxuan_nas",
+    "source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+    "as_of": "2026-10-09",
+    "binding_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3/nas_binding.json",
+    "binding_sha256": "bd1673bdfa8cd29b6921cef3d2781e9a5d86ca7753d067127f216127e80e345b"
+  }
+}

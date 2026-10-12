@@ -37,6 +37,14 @@ log/
 .rollback_backup_*/
 data/cache/
 data/raw/
+# NAS-owned minute caches and derived Qlib stores; historical tracked copies
+# remain compatibility inputs until their individual consumers are migrated.
+data/processed/intraday/semis_context_5m.parquet
+data/processed/intraday/soxl_soxx_none_1m.parquet
+data/qlib/soxl_intraday_1min/
+data/qlib/semis_context_5min/
+data/qlib/soxl_intraday_5min/
+data/qlib/soxl_intraday_15min/
 data/soxl_profile_*.pkl
 runtime/data/
 runtime/model/
