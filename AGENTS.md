@@ -31,6 +31,14 @@ These requirements are mandatory for all substantial work in this repository:
 
 ## Startup
 
+At the beginning of every new task, including follow-up tasks:
+
+1. Run `git status --short` and `git worktree list --porcelain`.
+2. Identify the integration target (default `main`) and any unfinished worktrees.
+   Summarize large existing WIP instead of repeatedly printing unchanged paths.
+3. Use the primary checkout by default and preserve unrelated WIP. Check whether
+   an existing worktree can be completed or reused before considering another.
+
 Before substantial work:
 
 1. Read `AGENTS.md`.
@@ -39,6 +47,27 @@ Before substantial work:
 4. Pick the relevant notebook surface:
    - `research/<experiment>/<experiment>.ipynb` for research work.
    - `production/<strategy>/<strategy>.ipynb` for promoted runnable strategies.
+
+## Worktree Use And Closure
+
+- Avoid worktrees by default. Read-only analysis, documentation, narrow fixes,
+  and evidence bookkeeping should use the primary checkout when unrelated WIP
+  can be preserved with exact file staging.
+- Create a worktree only when isolation is necessary for conflicting concurrent
+  work or incompatible changes. State that concrete reason briefly; do not
+  create one merely as a standard startup step.
+- At task startup, inspect leftover worktrees for dirty state, unique commits,
+  and ancestry to the integration target. Complete and merge useful in-scope
+  work; remove only clean worktrees whose changes are already merged.
+  Preserve dirty or unmerged work that belongs to another task and report it.
+- If this task uses a worktree, finish validation, commit, push, merge into the
+  integration target, synchronize the primary checkout, and remove the clean
+  merged worktree and its task branch before handoff. Do not leave delivery or
+  cleanup to a later task.
+- After cleanup, check `git worktree list --porcelain` once. Every subsequent
+  new task must check again rather than assume the previous state still holds.
+- Never reset, discard, force-remove, or stash unrelated WIP to simplify this
+  process. Do not rebuild repository-wide artifact indexes from a partial tree.
 
 ## Active Surfaces
 
@@ -153,6 +182,9 @@ manifest, or data snapshot.
   manifest, or registry row.
 - Before every commit, run `git status --short` and inspect the staged diff so
   unrelated generated files are not included.
+- Git-delivered MLflow file Recorders must retain their required directories.
+  Persist a real run metric (such as registered artifact count) when the metrics
+  directory would otherwise be empty; do not use an invalid metric placeholder.
 
 ## Skill Boundary
 
@@ -181,14 +213,49 @@ Move concrete paths, results, parameters, manifests, and project state into
 
 ## Verification
 
-Use the repo qlib environment for validation:
+Use the repo qlib environment and the smallest meaningful verification for the
+changed layer. Prefer existing tests; do not expand the test surface by default.
+
+- Add a test only for a new material contract or a concrete regression that
+  existing coverage cannot detect. Do not write tests for documentation,
+  routine artifact bookkeeping, low-impact reversible edits, or assertions
+  that merely mirror the implementation. Avoid one testcase per unchanged
+  field, duplicate fixtures, and repeated coverage of the same behavior.
+- Run the relevant focused checks once after the final code change. Repeat or
+  broaden them only for a subsequent code change, a new failure, or an unresolved
+  material concern. Commit, push, and merge alone do not justify another test run.
+- Run broad qlib suites or full pytest only for changes to shared contracts,
+  cross-layer behavior, or an explicit request. Record known baseline failures
+  once; do not keep rerunning or fixing unrelated archived/sparse-checkout tests
+  while delivering a scoped experiment.
+- Research still requires the relevant notebook execution, native Qlib evidence,
+  source/timing/cost checks, and scientific gates. These requirements are not
+  replaced by fewer software tests. Reuse verified unchanged Recorder evidence;
+  do not refit models or replay backtests just for prose, file copying, or Git
+  delivery. Use one targeted readback when delivery changes the evidence layout.
+- Documentation-only work normally needs diff review and `git diff --check`;
+  it does not need pytest, notebook execution, or a new worktree.
+
+Choose the applicable commands; these are not an every-task checklist:
 
 ```bash
+PYTHONPATH=. qlib_venv/bin/python -m pytest tests/<relevant_existing_test>.py -q
 PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_qlib_native_workflow.py tests/test_qlib_model_selection_validation.py tests/test_qlib_native_notebook_cards.py -q
 PYTHONPATH=. qlib_venv/bin/python -m pytest -q
 PYTHONPATH=. qlib_venv/bin/python -m nbconvert --execute research/<experiment>/<experiment>.ipynb --to notebook --inplace
 ```
 
-For new rebuild work, add focused verification that matches the changed layer.
-Every file-changing task should finish with focused verification, commit, and
-push unless network or permission failures prevent it.
+Every file-changing task should finish with the appropriate minimal verification,
+commit, and push unless network or permission failures prevent it.
+
+## Negative Research Results
+
+- Once a fixed experiment returns `not_promoted`, synchronize its conclusion
+  and retain the minimum auditable evidence, then complete only the necessary
+  delivery checks and stop that route.
+- Do not turn a negative result into more testcase writing, repeated full-suite
+  runs, extra audit inventories, or another parameter search. Additional research
+  must belong to an already authorized bounded campaign or a new user request.
+- Report the failed scientific gate and the next concrete information need.
+  A rejected experiment is a completed experiment, not an achieved stable-excess
+  objective; software validation must not become an open-ended substitute.
