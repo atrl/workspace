@@ -1,0 +1,202 @@
+{
+  "checked_at": "2026-10-12T02:47:36.094256+00:00",
+  "active_release": {
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "execution_environment": "SIMULATE",
+    "research_promotion_status": "not_promoted",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+    "allocation_card": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+    "action_card": "research/stage1_open_action_value_net_fees_20260928"
+  },
+  "active_development_risk": {
+    "status": "ok",
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+    "development_gates": {
+      "development_return_above_baseline": true,
+      "stress_25bps_return_above_baseline": true,
+      "max_drawdown_not_worse": false,
+      "worst_day_not_worse": true,
+      "cvar5_not_worse": false,
+      "worst_5d_not_worse": true,
+      "open_trade_days_reduced_8pct": true,
+      "turnover_not_increased": true,
+      "annual_wealth_floor_pass": true,
+      "baseline_fallback_identity": true,
+      "outer_not_used_for_selection": true
+    },
+    "failed_development_gates": [
+      "cvar5_not_worse",
+      "max_drawdown_not_worse"
+    ],
+    "development_gate_pass": false,
+    "paper_trial_authorization": true
+  },
+  "forward": {
+    "status": "needs_data",
+    "qualification": "needs_data",
+    "eligible_sessions": null,
+    "raw_observed_dates": [
+      "2026-08-03",
+      "2026-08-04",
+      "2026-08-05",
+      "2026-08-06",
+      "2026-08-07",
+      "2026-09-28",
+      "2026-09-29",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09"
+    ],
+    "raw_observed_count": 14,
+    "settled_dates": [
+      "2026-08-03",
+      "2026-08-04",
+      "2026-08-05",
+      "2026-08-06",
+      "2026-08-07",
+      "2026-08-10",
+      "2026-08-11",
+      "2026-08-12",
+      "2026-08-13",
+      "2026-08-14",
+      "2026-08-17",
+      "2026-08-18",
+      "2026-08-19",
+      "2026-08-20",
+      "2026-08-21",
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-31",
+      "2026-09-01",
+      "2026-09-02",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-08",
+      "2026-09-09",
+      "2026-09-10",
+      "2026-09-11",
+      "2026-09-14",
+      "2026-09-15",
+      "2026-09-16",
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-25",
+      "2026-09-28",
+      "2026-09-29",
+      "2026-09-30",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09"
+    ],
+    "settled_count": 49,
+    "required_sessions": 60,
+    "required_per_regime": 15,
+    "required_transitions": 3,
+    "contamination": {
+      "windows": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-09-25",
+          "scope": "pre_active_release_history_not_independent_forward"
+        }
+      ]
+    },
+    "reasons": [
+      "pre-release historical observations must be excluded before qualification",
+      "no matured identity-paired, hash-verified validation contract; raw and settled dates are not eligible forward sessions"
+    ]
+  },
+  "independent_paper_books": {
+    "baseline_10bps.json": {
+      "sha256": "b6c503ed4143eca6159e9d7778eb5af6e1442cd013ffdc55cd822dbd33d6ac40",
+      "events": 14,
+      "event_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09"
+      ],
+      "last_event_at": "2026-10-09T10:32:56.580124-04:00",
+      "pending_session": {
+        "session": "2026-10-09",
+        "signal_date": "2026-10-08"
+      }
+    },
+    "baseline_25bps.json": {
+      "sha256": "198c6646f263de0b76f04b8448845123b857194fa8504e5b22413e4fa62703c2",
+      "events": 14,
+      "event_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09"
+      ],
+      "last_event_at": "2026-10-09T10:32:56.580124-04:00",
+      "pending_session": {
+        "session": "2026-10-09",
+        "signal_date": "2026-10-08"
+      }
+    },
+    "candidate_10bps.json": {
+      "sha256": "6ffc0fe4ffdf3249aa67604d0f0f9a35d8b6eb0e061e9fa6ee61938b48dc4251",
+      "events": 14,
+      "event_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09"
+      ],
+      "last_event_at": "2026-10-09T10:32:56.580124-04:00",
+      "pending_session": {
+        "session": "2026-10-09",
+        "signal_date": "2026-10-08"
+      }
+    },
+    "candidate_25bps.json": {
+      "sha256": "69586ed0513eb242e01dc539732452be89ff0c1f5473106c8c3d7562df45eb91",
+      "events": 14,
+      "event_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09"
+      ],
+      "last_event_at": "2026-10-09T10:32:56.580124-04:00",
+      "pending_session": {
+        "session": "2026-10-09",
+        "signal_date": "2026-10-08"
+      }
+    }
+  },
+  "independent_paper_forward_qualification": "needs_data_not_certified_from_raw_events"
+}
