@@ -69,7 +69,11 @@ Before substantial work:
   new task must check again rather than assume the previous state still holds.
 - Include leftover task branches in startup and closure checks even when no
   extra worktree is registered. Delete completed branches already merged into
-  the integration target; preserve branches with unique unmerged changes.
+  the integration target; preserve active branches with unique unmerged changes.
+- When cleanup of obsolete branches is requested, retain their exact tips in
+  remote archive tags and verify those tags before deleting branch refs. Check
+  for active worktrees and open PRs first; do not merge obsolete implementations
+  into `main` merely to remove their branches.
 - Never reset, discard, force-remove, or stash unrelated WIP to simplify this
   process. Do not rebuild repository-wide artifact indexes from a partial tree.
 
