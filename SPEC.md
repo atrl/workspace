@@ -176,6 +176,17 @@ NAS 读取失败明确 `needs_data`，不切回旧采集口径。四个上下文
 三组固定线性模型在 DatasetH 成熟标签与原生独立费用账户中未获得有效增量，
 保持 `not_promoted`；全天特征数量增加不能代替预测信息与净超额验证。
 
+`research/minute_information_pit_allocator_20261012/` 将全天信息直接加入现役同结构
+的 PIT 辅助三资产 MLP：39 项原输入、可用性对照、12 项核心路径和 8 项同期上下文
+在完整 2011+ 日频历史上比较，缺分钟通道只在模型标准化后中性编码，不补造行情。
+`src/data/minute_allocation_features.py` 使用 raw NONE 同时段比率和真实半日市日历；
+`src/model/minute_pit_allocator.py` 保留原网络、损失与持仓约束，共享原初始化，新输入
+权重从零开始；`src/backtest/minute_allocator.py` 按实际持仓独立结算两种费用。
+固定三 seed、54 次正式拟合、42 个原生账户完成：核心路径改善重训基线的回撤，
+但 25bp 增量收益为负、区块置信区间跨零，同行上下文开发期落后，保持 `not_promoted`。
+相对旧单模型的提升也出现在无新增分钟数值的重训基线中，不能归因于分钟信息。
+诊断账户更新到 2026-10-09，最新未成熟信号保留用于预测；不改现役 release/动作层。
+
 跨数据源搜索已封闭：`src/analysis/cross_source_signal_search.py` 与
 `src/workflow/cross_source_signal_search.py` 用统一标准（收益+回撤+Sharpe 同时
 超越 SOXX 且多数年份为正）在本地全部可用数据源上搜索因果信号，包括

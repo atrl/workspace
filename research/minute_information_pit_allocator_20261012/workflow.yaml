@@ -1,0 +1,22 @@
+experiment: minute_information_pit_allocator_20261012
+as_of: '2026-10-09'
+plan: plan.json
+source_binding: nas_binding.json
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices
+recorder_uri: /Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder
+model_class: MinutePitAllocator wrapping the current PitAuxiliaryAllocationNet
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/
+  - models/
+  - analysis/development_predictions
+  - analysis/outer_predictions
+  - analysis/native/
+  - analysis/uncertainty
+  - analysis/feature_information
+  recorder_storage: NAS content-addressed archive
+  nas_binding: nas_binding.json
+  large_data_git_delivery: false
+  recorder_archive_sha256: ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1

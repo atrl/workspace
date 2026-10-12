@@ -1,0 +1,19 @@
+{
+  "notebook_executed": true,
+  "focused_tests_passed": 25,
+  "research_model_fits": 54,
+  "native_account_cases": 42,
+  "non_scoring_integration_fits_2epochs": 1,
+  "native_source_instruments": 6,
+  "full_daily_history_retained": true,
+  "canonical_minute_NA_retained": true,
+  "source_quote_data_not_fabricated": true,
+  "model_selection_uses_reused_outer": false,
+  "pressure_sessions_retained": true,
+  "all_original_release_files_untouched": true,
+  "broker_targets_emitted": false,
+  "promotion": false,
+  "legacy_failures_not_retested": 4,
+  "reporting_correction": "Uncertainty comparator names repaired; numeric values retained, no model/refit/backtest repeated",
+  "native_evidence_readback": "nas_readback.json"
+}

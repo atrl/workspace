@@ -1,0 +1,4 @@
+family,worst_cost_and_reference_mean_log_excess,positive_both_costs_and_references,risk_no_worse_than_matched_controls,family_adjusted_bounds_positive,uses_outer_diagnostic,selection_role
+core_path,8.568212026209467e-05,True,True,False,False,fixed development rank; risk/uncertainty gates cannot be overridden
+peer_context,-8.14143827578459e-05,False,True,False,False,fixed development rank; risk/uncertainty gates cannot be overridden
+core_peer,-0.00010979948660743944,False,True,False,False,fixed development rank; risk/uncertainty gates cannot be overridden
