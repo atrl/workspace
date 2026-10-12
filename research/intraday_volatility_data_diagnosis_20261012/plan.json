@@ -1,0 +1,95 @@
+{
+  "experiment": "intraday_volatility_data_diagnosis_20261012",
+  "schema_version": "intraday_volatility_diagnosis_v1",
+  "source": "data/processed/intraday/soxl_soxx_1m.parquet",
+  "source_sha256": "5495ca6c1c9ea5430de8cffc06d6933e407b60c2af6c1cce9e819beeed622abb",
+  "as_of": "2026-10-09",
+  "observed_at": "2026-10-12T06:15:00+00:00",
+  "symbols": [
+    "SOXL",
+    "SOXX"
+  ],
+  "timestamp_convention": "right_edge",
+  "timestamp_evidence": "repository observed Futu regular-session clocks 09:31..16:00; source documentation gives ET but does not certify delivery latency",
+  "schedule": "XNYS via exchange_calendars 4.13.2, checked against Qlib day calendar; NYSE official trading hours",
+  "segments": [
+    [
+      "09:30-10:00",
+      570,
+      600
+    ],
+    [
+      "10:00-10:30",
+      600,
+      630
+    ],
+    [
+      "10:30-12:00",
+      630,
+      720
+    ],
+    [
+      "12:00-14:00",
+      720,
+      840
+    ],
+    [
+      "14:00-15:30",
+      840,
+      930
+    ],
+    [
+      "15:30-16:00",
+      930,
+      960
+    ]
+  ],
+  "scope": "descriptive data/volatility diagnosis; no model fit or backtest",
+  "full_regular_paired_sessions_only": true,
+  "vwap_basis_tolerance_fraction": 0.001,
+  "repairs_admitted": false,
+  "repairs_snapshot": "Recorder inputs/repair_candidates",
+  "suggested_bounded_comparison": {
+    "execution_status": "proposal_not_executed",
+    "frozen_parent_release": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "candidate_budget": 3,
+    "models": [
+      "unchanged_parent",
+      "same_recovery_model_plus_closed_minute_risk",
+      "same_recovery_model_plus_closed_minute_risk_and_synchronized_market_context"
+    ],
+    "feature_groups": {
+      "closed_minute_risk": [
+        "first_hour_realized_variance",
+        "downside_semivariance_share",
+        "trend_efficiency"
+      ],
+      "market_context": [
+        "QQQ/SMH first-hour risk",
+        "NVDA/AMD contemporaneous minute breadth"
+      ]
+    },
+    "decision_clocks": {
+      "open_09:31": "prior completed session minute features only",
+      "recovery_10:31": "completed bars through 10:30, with received_at <= decision_at"
+    },
+    "labels": "matured own-state execute_vs_hold net advantage, independently generated for each cost book",
+    "costs_bps": [
+      10,
+      25
+    ],
+    "selection": "development only; all later reused history remains diagnostic; new frozen forward data decides promotion",
+    "controls": [
+      "same parent predictions and eligible sessions",
+      "same model/cost/risk contracts",
+      "matched lagged or blocked controls"
+    ],
+    "scientific_gates": [
+      "incremental prediction/calibration",
+      "net excess versus SOXX and parent",
+      "MaxDD/CVaR and annual/regime stability",
+      "new qualified paired forward sessions"
+    ]
+  },
+  "parent_release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279"
+}

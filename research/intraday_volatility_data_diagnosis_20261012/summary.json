@@ -1,0 +1,666 @@
+{
+  "experiment": "intraday_volatility_data_diagnosis_20261012",
+  "schema_version": "intraday_volatility_diagnosis_v1",
+  "card_status": "completed_descriptive_diagnosis",
+  "decision": "data_repairs_need_basis_validation_model_comparison_proposed",
+  "promotion_eligible": false,
+  "objective_achieved": false,
+  "model_fits": 0,
+  "backtests": 0,
+  "provider_uri": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-minute-diagnosis-wrdujkph/qlib_1min",
+  "provider_lifecycle": "temporary_rebuilt_from_hash_pinned_canonical_snapshot",
+  "provider_content_sha256": "07c10a657d6de71a279d2604a8ea505f67612a81190e9ee5a12b557d9e20f222",
+  "market": "all",
+  "region": "us",
+  "freq": "1min",
+  "as_of": "2026-10-09",
+  "source": "data/processed/intraday/soxl_soxx_1m.parquet",
+  "source_sha256": "5495ca6c1c9ea5430de8cffc06d6933e407b60c2af6c1cce9e819beeed622abb",
+  "source_rows": 1518062,
+  "calendar_comparison": {
+    "exchange_calendar_version": "4.13.2",
+    "exchange_sessions": 1955,
+    "qlib_daily_sessions": 1955,
+    "exchange_only_dates": [],
+    "qlib_only_dates": []
+  },
+  "coverage": [
+    {
+      "symbol": "SOXL",
+      "expected_sessions": 1955,
+      "complete_sessions": 1953,
+      "missing_minutes": 719,
+      "invalid_rows": 0,
+      "zero_volume_rows": 1908,
+      "vwap_checked_rows": 757123,
+      "vwap_outside_rows": 624018,
+      "vwap_outside_fraction": 0.8241963326962726
+    },
+    {
+      "symbol": "SOXX",
+      "expected_sessions": 1955,
+      "complete_sessions": 1952,
+      "missing_minutes": 719,
+      "invalid_rows": 1,
+      "zero_volume_rows": 3444,
+      "vwap_checked_rows": 755587,
+      "vwap_outside_rows": 674785,
+      "vwap_outside_fraction": 0.8930606270356689
+    }
+  ],
+  "paired_full_regular_sessions": 1937,
+  "half_sessions": 15,
+  "repair_plan": [
+    {
+      "symbol": "SOXX",
+      "start": "2020-03-16",
+      "end": "2020-03-16",
+      "missing_minutes": 0,
+      "invalid_rows": 1,
+      "admission": "pending_price_basis_and_overlap_validation"
+    },
+    {
+      "symbol": "SOXL",
+      "start": "2026-07-27",
+      "end": "2026-07-27",
+      "missing_minutes": 329,
+      "invalid_rows": 0,
+      "admission": "pending_price_basis_and_overlap_validation"
+    },
+    {
+      "symbol": "SOXX",
+      "start": "2026-07-27",
+      "end": "2026-07-27",
+      "missing_minutes": 329,
+      "invalid_rows": 0,
+      "admission": "pending_price_basis_and_overlap_validation"
+    },
+    {
+      "symbol": "SOXL",
+      "start": "2026-07-29",
+      "end": "2026-07-29",
+      "missing_minutes": 390,
+      "invalid_rows": 0,
+      "admission": "pending_price_basis_and_overlap_validation"
+    },
+    {
+      "symbol": "SOXX",
+      "start": "2026-07-29",
+      "end": "2026-07-29",
+      "missing_minutes": 390,
+      "invalid_rows": 0,
+      "admission": "pending_price_basis_and_overlap_validation"
+    }
+  ],
+  "repairs_admitted": false,
+  "probe_overlap": [
+    {
+      "symbol": "SOXL",
+      "date": "2026-07-27",
+      "rows": 390,
+      "overlapping_rows": 61,
+      "revised_close_rows": 61,
+      "revised_volume_rows": 61,
+      "max_absolute_close_revision_pct": 0.15262010049214014,
+      "admission": "quarantined_pending_price_basis_and_volume_reconciliation"
+    },
+    {
+      "symbol": "SOXL",
+      "date": "2026-07-29",
+      "rows": 390,
+      "overlapping_rows": 0,
+      "revised_close_rows": 0,
+      "revised_volume_rows": 0,
+      "max_absolute_close_revision_pct": null,
+      "admission": "quarantined_pending_price_basis_and_volume_reconciliation"
+    },
+    {
+      "symbol": "SOXX",
+      "date": "2026-07-27",
+      "rows": 390,
+      "overlapping_rows": 61,
+      "revised_close_rows": 61,
+      "revised_volume_rows": 61,
+      "max_absolute_close_revision_pct": 0.07677448479537219,
+      "admission": "quarantined_pending_price_basis_and_volume_reconciliation"
+    },
+    {
+      "symbol": "SOXX",
+      "date": "2026-07-29",
+      "rows": 390,
+      "overlapping_rows": 0,
+      "revised_close_rows": 0,
+      "revised_volume_rows": 0,
+      "max_absolute_close_revision_pct": null,
+      "admission": "quarantined_pending_price_basis_and_volume_reconciliation"
+    }
+  ],
+  "active_release": {
+    "version": 1,
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "execution_environment": "SIMULATE",
+    "research_promotion_status": "not_promoted",
+    "activated_at": "2026-09-28T17:07:53.610818+08:00",
+    "allocation": {
+      "card_path": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+      "manifest_sha256": "44c1a375ea575f1055ff46850a9c8dbc30d121d97919231efbf9084504628112",
+      "recorder_id": "f696f656b3d44e868588e09a5d97c905"
+    },
+    "action": {
+      "card_path": "research/stage1_open_action_value_net_fees_20260928",
+      "summary_sha256": "f6549f17979c5e2d92f2bfd474e99a3c7c74c4df13c35f20dcb8dbf9551d7219",
+      "recorder_id": "b472a458fc9042b4905094fddeaebd33"
+    },
+    "paper_trial_authorization": {
+      "receipt_path": "production/stage1_futu_sim_v1/paper_trial_authorization_20260928.json",
+      "receipt_sha256": "df6a9036e9685f15e130c5eaaea0fe8d71878b97c56043f8987b4715299fdcaf"
+    }
+  },
+  "action_development_gate_pass": false,
+  "active_action_information": {
+    "status": "ok",
+    "label_source": "active_model_own_execute_advantage",
+    "scope": "active_model_own_oos_label",
+    "decidable_rule": "not mandatory_derisk and not large_transition and finite probability",
+    "decidable_sessions": 410,
+    "full_oos_sessions": 1503,
+    "positive_advantage_rate": 0.5146341463414634,
+    "mean_advantage": -1.6395794863109965e-05,
+    "mean_predicted_probability": 0.51067716834179,
+    "rank_ic": 0.07291548142579743,
+    "auc": 0.5168258353378266,
+    "rank_ic_ci": {
+      "point": 0.07667711015145208,
+      "lower": -0.015055896264250022,
+      "upper": 0.1709019671908258,
+      "block": 20,
+      "resamples": 2000,
+      "null": 0.0,
+      "contains_zero": true
+    },
+    "auc_ci": {
+      "point": 0.518719304164358,
+      "lower": 0.46706691586969756,
+      "upper": 0.5750313932713053,
+      "block": 20,
+      "resamples": 2000,
+      "null": 0.5,
+      "contains_zero": true
+    },
+    "advantage_bps_ci": {
+      "mean": -0.16395794863109958,
+      "lower": -0.823797599995201,
+      "upper": 0.3252194800033435,
+      "block": 20,
+      "resamples": 2000,
+      "contains_zero": true,
+      "interpretation": "CI crossing zero means no evidence found, not proof of no information"
+    },
+    "quintile_mean_advantage_bps": [
+      -0.20397427059572731,
+      -0.4087274283430016,
+      -1.284283119368264,
+      0.30997670587318665,
+      0.7672183692783078
+    ],
+    "calibration": [
+      {
+        "bucket": 0,
+        "count": 82,
+        "mean_probability": 0.4184197734277553,
+        "mean_advantage": -2.0397427059572728e-05
+      },
+      {
+        "bucket": 1,
+        "count": 82,
+        "mean_probability": 0.4737803065542694,
+        "mean_advantage": -4.0872742834300145e-05
+      },
+      {
+        "bucket": 2,
+        "count": 82,
+        "mean_probability": 0.5081865453152168,
+        "mean_advantage": -0.00012842831193682637
+      },
+      {
+        "bucket": 3,
+        "count": 82,
+        "mean_probability": 0.543039490299189,
+        "mean_advantage": 3.0997670587318694e-05
+      },
+      {
+        "bucket": 4,
+        "count": 82,
+        "mean_probability": 0.6099597261125198,
+        "mean_advantage": 7.672183692783078e-05
+      }
+    ],
+    "interpretation": "AUC near 0.5 or rankIC/AUC/advantage CIs that contain their null means no conditional information was found for the classifier's own matured label; it does not prove that no information exists."
+  },
+  "profile": [
+    {
+      "instrument": "SOXL",
+      "segment": "09:30-10:00",
+      "sessions": 1937,
+      "minutes": 30,
+      "mean_variance_share": 0.2838307321071625,
+      "median_variance_share": 0.2782791554927826,
+      "mean_volume_share": 0.1930030882358551,
+      "median_vol_per_minute_bps": 39.29240036010742
+    },
+    {
+      "instrument": "SOXX",
+      "segment": "09:30-10:00",
+      "sessions": 1937,
+      "minutes": 30,
+      "mean_variance_share": 0.2856435477733612,
+      "median_variance_share": 0.279814749956131,
+      "mean_volume_share": 0.17254874110221863,
+      "median_vol_per_minute_bps": 13.14457893371582
+    },
+    {
+      "instrument": "SOXL",
+      "segment": "10:00-10:30",
+      "sessions": 1937,
+      "minutes": 30,
+      "mean_variance_share": 0.1381232738494873,
+      "median_variance_share": 0.13150723278522491,
+      "mean_volume_share": 0.1188693419098854,
+      "median_vol_per_minute_bps": 27.7144718170166
+    },
+    {
+      "instrument": "SOXX",
+      "segment": "10:00-10:30",
+      "sessions": 1937,
+      "minutes": 30,
+      "mean_variance_share": 0.13890984654426575,
+      "median_variance_share": 0.1315157413482666,
+      "mean_volume_share": 0.09778136014938354,
+      "median_vol_per_minute_bps": 9.128081321716309
+    },
+    {
+      "instrument": "SOXL",
+      "segment": "10:30-12:00",
+      "sessions": 1937,
+      "minutes": 90,
+      "mean_variance_share": 0.22219423949718475,
+      "median_variance_share": 0.21484306454658508,
+      "mean_volume_share": 0.22765851020812988,
+      "median_vol_per_minute_bps": 20.185253143310547
+    },
+    {
+      "instrument": "SOXX",
+      "segment": "10:30-12:00",
+      "sessions": 1937,
+      "minutes": 90,
+      "mean_variance_share": 0.22264614701271057,
+      "median_variance_share": 0.21607524156570435,
+      "mean_volume_share": 0.19673578441143036,
+      "median_vol_per_minute_bps": 6.735004901885986
+    },
+    {
+      "instrument": "SOXL",
+      "segment": "12:00-14:00",
+      "sessions": 1937,
+      "minutes": 120,
+      "mean_variance_share": 0.16584964096546173,
+      "median_variance_share": 0.154397651553154,
+      "mean_volume_share": 0.19537141919136047,
+      "median_vol_per_minute_bps": 15.056988716125488
+    },
+    {
+      "instrument": "SOXX",
+      "segment": "12:00-14:00",
+      "sessions": 1937,
+      "minutes": 120,
+      "mean_variance_share": 0.16425621509552002,
+      "median_variance_share": 0.15326757729053497,
+      "mean_volume_share": 0.18183237314224243,
+      "median_vol_per_minute_bps": 4.987859725952148
+    },
+    {
+      "instrument": "SOXL",
+      "segment": "14:00-15:30",
+      "sessions": 1937,
+      "minutes": 90,
+      "mean_variance_share": 0.129970520734787,
+      "median_variance_share": 0.10760723799467087,
+      "mean_volume_share": 0.1514955312013626,
+      "median_vol_per_minute_bps": 14.455816268920898
+    },
+    {
+      "instrument": "SOXX",
+      "segment": "14:00-15:30",
+      "sessions": 1937,
+      "minutes": 90,
+      "mean_variance_share": 0.1280999779701233,
+      "median_variance_share": 0.10629522800445557,
+      "mean_volume_share": 0.16722001135349274,
+      "median_vol_per_minute_bps": 4.813824653625488
+    },
+    {
+      "instrument": "SOXL",
+      "segment": "15:30-16:00",
+      "sessions": 1937,
+      "minutes": 30,
+      "mean_variance_share": 0.060031600296497345,
+      "median_variance_share": 0.051271237432956696,
+      "mean_volume_share": 0.11360210180282593,
+      "median_vol_per_minute_bps": 17.096696853637695
+    },
+    {
+      "instrument": "SOXX",
+      "segment": "15:30-16:00",
+      "sessions": 1937,
+      "minutes": 30,
+      "mean_variance_share": 0.06044427677989006,
+      "median_variance_share": 0.05152154341340065,
+      "mean_volume_share": 0.1838817298412323,
+      "median_vol_per_minute_bps": 5.714942455291748
+    }
+  ],
+  "annual": [
+    {
+      "instrument": "SOXL",
+      "year": 2018,
+      "sessions": 1,
+      "median_realized_vol_pct": 4.948646545410156,
+      "p90_realized_vol_pct": 4.948646545410156,
+      "median_range_pct": 5.577540397644043,
+      "median_rv1_to_rv5_ratio": 1.1566170454025269
+    },
+    {
+      "instrument": "SOXL",
+      "year": 2019,
+      "sessions": 249,
+      "median_realized_vol_pct": 3.153826951980591,
+      "p90_realized_vol_pct": 4.770450305938721,
+      "median_range_pct": 4.860079288482666,
+      "median_rv1_to_rv5_ratio": 1.0446412563323975
+    },
+    {
+      "instrument": "SOXL",
+      "year": 2020,
+      "sessions": 250,
+      "median_realized_vol_pct": 4.080828666687012,
+      "p90_realized_vol_pct": 8.007894611358642,
+      "median_range_pct": 6.375736236572266,
+      "median_rv1_to_rv5_ratio": 1.018602967262268
+    },
+    {
+      "instrument": "SOXL",
+      "year": 2021,
+      "sessions": 251,
+      "median_realized_vol_pct": 3.657496690750122,
+      "p90_realized_vol_pct": 5.638412952423096,
+      "median_range_pct": 6.013000011444092,
+      "median_rv1_to_rv5_ratio": 0.9462932348251343
+    },
+    {
+      "instrument": "SOXL",
+      "year": 2022,
+      "sessions": 250,
+      "median_realized_vol_pct": 5.813868522644043,
+      "p90_realized_vol_pct": 8.139960765838623,
+      "median_range_pct": 9.63572883605957,
+      "median_rv1_to_rv5_ratio": 0.9917620420455933
+    },
+    {
+      "instrument": "SOXL",
+      "year": 2023,
+      "sessions": 248,
+      "median_realized_vol_pct": 3.9291892051696777,
+      "p90_realized_vol_pct": 5.16806378364563,
+      "median_range_pct": 6.347579002380371,
+      "median_rv1_to_rv5_ratio": 1.0433828830718994
+    },
+    {
+      "instrument": "SOXL",
+      "year": 2024,
+      "sessions": 249,
+      "median_realized_vol_pct": 4.030543804168701,
+      "p90_realized_vol_pct": 6.276147365570068,
+      "median_range_pct": 6.414198875427246,
+      "median_rv1_to_rv5_ratio": 0.96709805727005
+    },
+    {
+      "instrument": "SOXL",
+      "year": 2025,
+      "sessions": 247,
+      "median_realized_vol_pct": 4.098951816558838,
+      "p90_realized_vol_pct": 6.974392318725586,
+      "median_range_pct": 6.214690208435059,
+      "median_rv1_to_rv5_ratio": 1.032631516456604
+    },
+    {
+      "instrument": "SOXL",
+      "year": 2026,
+      "sessions": 192,
+      "median_realized_vol_pct": 5.4579691886901855,
+      "p90_realized_vol_pct": 9.172679615020751,
+      "median_range_pct": 8.546656608581543,
+      "median_rv1_to_rv5_ratio": 1.0155510902404785
+    },
+    {
+      "instrument": "SOXX",
+      "year": 2018,
+      "sessions": 1,
+      "median_realized_vol_pct": 1.7013821601867676,
+      "p90_realized_vol_pct": 1.7013821601867676,
+      "median_range_pct": 1.8337249755859375,
+      "median_rv1_to_rv5_ratio": 1.1764649152755737
+    },
+    {
+      "instrument": "SOXX",
+      "year": 2019,
+      "sessions": 249,
+      "median_realized_vol_pct": 1.066083312034607,
+      "p90_realized_vol_pct": 1.5458691835403442,
+      "median_range_pct": 1.560354232788086,
+      "median_rv1_to_rv5_ratio": 1.028949499130249
+    },
+    {
+      "instrument": "SOXX",
+      "year": 2020,
+      "sessions": 250,
+      "median_realized_vol_pct": 1.354429841041565,
+      "p90_realized_vol_pct": 2.5513171911239625,
+      "median_range_pct": 2.0711004734039307,
+      "median_rv1_to_rv5_ratio": 1.0043874979019165
+    },
+    {
+      "instrument": "SOXX",
+      "year": 2021,
+      "sessions": 251,
+      "median_realized_vol_pct": 1.2111918926239014,
+      "p90_realized_vol_pct": 1.90662682056427,
+      "median_range_pct": 1.9541501998901367,
+      "median_rv1_to_rv5_ratio": 0.9538360834121704
+    },
+    {
+      "instrument": "SOXX",
+      "year": 2022,
+      "sessions": 250,
+      "median_realized_vol_pct": 1.95677649974823,
+      "p90_realized_vol_pct": 2.7510346174240112,
+      "median_range_pct": 3.0809104442596436,
+      "median_rv1_to_rv5_ratio": 1.0169223546981812
+    },
+    {
+      "instrument": "SOXX",
+      "year": 2023,
+      "sessions": 248,
+      "median_realized_vol_pct": 1.295941948890686,
+      "p90_realized_vol_pct": 1.7362090229988099,
+      "median_range_pct": 2.0236313343048096,
+      "median_rv1_to_rv5_ratio": 1.0409200191497803
+    },
+    {
+      "instrument": "SOXX",
+      "year": 2024,
+      "sessions": 249,
+      "median_realized_vol_pct": 1.365470051765442,
+      "p90_realized_vol_pct": 2.0543508529663086,
+      "median_range_pct": 2.1135449409484863,
+      "median_rv1_to_rv5_ratio": 0.9864459037780762
+    },
+    {
+      "instrument": "SOXX",
+      "year": 2025,
+      "sessions": 247,
+      "median_realized_vol_pct": 1.3598638772964478,
+      "p90_realized_vol_pct": 2.2591014385223387,
+      "median_range_pct": 2.0577073097229004,
+      "median_rv1_to_rv5_ratio": 1.0251775979995728
+    },
+    {
+      "instrument": "SOXX",
+      "year": 2026,
+      "sessions": 192,
+      "median_realized_vol_pct": 1.825105905532837,
+      "p90_realized_vol_pct": 3.0120441198349006,
+      "median_range_pct": 2.7911245822906494,
+      "median_rv1_to_rv5_ratio": 1.0183990001678467
+    }
+  ],
+  "windows": [
+    {
+      "window": "development_reused",
+      "instrument": "SOXL",
+      "sessions": 1000,
+      "start": "2019-01-02",
+      "end": "2022-12-30",
+      "median_realized_vol_pct": 4.14610481262207,
+      "p90_realized_vol_pct": 7.0634791374206545,
+      "median_range_pct": 6.658458709716797,
+      "median_rv1_to_rv5_ratio": 1.0042319297790527
+    },
+    {
+      "window": "development_reused",
+      "instrument": "SOXX",
+      "sessions": 1000,
+      "start": "2019-01-02",
+      "end": "2022-12-30",
+      "median_realized_vol_pct": 1.3760349750518799,
+      "p90_realized_vol_pct": 2.3276746749877932,
+      "median_range_pct": 2.1769583225250244,
+      "median_rv1_to_rv5_ratio": 1.0071280002593994
+    },
+    {
+      "window": "later_reused_diagnostic",
+      "instrument": "SOXL",
+      "sessions": 936,
+      "start": "2023-01-03",
+      "end": "2026-10-09",
+      "median_realized_vol_pct": 4.222024917602539,
+      "p90_realized_vol_pct": 6.865019083023071,
+      "median_range_pct": 6.581246852874756,
+      "median_rv1_to_rv5_ratio": 1.0140633583068848
+    },
+    {
+      "window": "later_reused_diagnostic",
+      "instrument": "SOXX",
+      "sessions": 936,
+      "start": "2023-01-03",
+      "end": "2026-10-09",
+      "median_realized_vol_pct": 1.4165226221084595,
+      "p90_realized_vol_pct": 2.2594876289367676,
+      "median_range_pct": 2.1724820137023926,
+      "median_rv1_to_rv5_ratio": 1.0120553970336914
+    },
+    {
+      "window": "last_20_complete",
+      "instrument": "SOXL",
+      "sessions": 20,
+      "start": "2026-09-14",
+      "end": "2026-10-09",
+      "median_realized_vol_pct": 3.829451084136963,
+      "p90_realized_vol_pct": 5.547488880157471,
+      "median_range_pct": 5.857521057128906,
+      "median_rv1_to_rv5_ratio": 1.0078781843185425
+    },
+    {
+      "window": "last_20_complete",
+      "instrument": "SOXX",
+      "sessions": 20,
+      "start": "2026-09-14",
+      "end": "2026-10-09",
+      "median_realized_vol_pct": 1.3274073600769043,
+      "p90_realized_vol_pct": 1.781093668937683,
+      "median_range_pct": 1.897108554840088,
+      "median_rv1_to_rv5_ratio": 0.9911475777626038
+    }
+  ],
+  "descriptive_information": [
+    {
+      "instrument": "SOXL",
+      "window": "development_reused",
+      "sessions": 1000,
+      "early_later_variance_rank_corr": 0.7991898311898313,
+      "early_later_return_rank_corr": 0.08664517228426957,
+      "interpretation": "descriptive only; no model fit, no causal alpha or promotion inference"
+    },
+    {
+      "instrument": "SOXL",
+      "window": "later_reused_diagnostic",
+      "sessions": 936,
+      "early_later_variance_rank_corr": 0.662930097295092,
+      "early_later_return_rank_corr": 0.04093277675315848,
+      "interpretation": "descriptive only; no model fit, no causal alpha or promotion inference"
+    },
+    {
+      "instrument": "SOXX",
+      "window": "development_reused",
+      "sessions": 1000,
+      "early_later_variance_rank_corr": 0.8005269085269086,
+      "early_later_return_rank_corr": 0.08575503407041997,
+      "interpretation": "descriptive only; no model fit, no causal alpha or promotion inference"
+    },
+    {
+      "instrument": "SOXX",
+      "window": "later_reused_diagnostic",
+      "sessions": 936,
+      "early_later_variance_rank_corr": 0.6769733144207374,
+      "early_later_return_rank_corr": 0.051576189250670215,
+      "interpretation": "descriptive only; no model fit, no causal alpha or promotion inference"
+    }
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/coverage",
+      "inputs/exchange_schedule",
+      "inputs/repair_candidates",
+      "inputs/probe_overlap",
+      "inputs/probe_metadata",
+      "inputs/store_manifest",
+      "inputs/plan",
+      "analysis/daily",
+      "analysis/segment_daily",
+      "analysis/residual",
+      "analysis/summary"
+    ]
+  },
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "limitations": [
+    "All historical windows are reused descriptive diagnostics, not fresh OOS or forward evidence.",
+    "No signal, fitted candidate, native portfolio backtest or production promotion was created.",
+    "Minute stamps are observed right edges; first-public/received_at and live finalization are not certified.",
+    "Turnover-derived VWAP basis is unqualified; repair snapshots are quarantined.",
+    "Source updates were existing uncommitted WIP; source hash is pinned and no upstream WIP is committed.",
+    "Shared collectors and active paper/SIM behavior were not changed."
+  ],
+  "recorder_id": "70ec0bf081df4ec9b6bc47dd2e621ba9",
+  "experiment_id": "352113610922857045",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/intraday_volatility_data_diagnosis_20261012/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_volatility_data_diagnosis_20261012/qlib_recorder/352113610922857045/70ec0bf081df4ec9b6bc47dd2e621ba9",
+  "parent_release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "context_sources": {
+    "research/stage1_open_action_value_net_fees_20260928/summary.json": "f6549f17979c5e2d92f2bfd474e99a3c7c74c4df13c35f20dcb8dbf9551d7219",
+    "research/stage1_action_marginal_diagnosis_20261009/summary.json": "e94e0e2213f52854f242b0adbab47206d6d84374e2cce662a526b851d25346f2"
+  }
+}

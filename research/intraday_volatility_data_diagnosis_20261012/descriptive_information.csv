@@ -1,0 +1,5 @@
+instrument,window,sessions,early_later_variance_rank_corr,early_later_return_rank_corr,interpretation
+SOXL,development_reused,1000,0.7991898311898313,0.08664517228426957,"descriptive only; no model fit, no causal alpha or promotion inference"
+SOXL,later_reused_diagnostic,936,0.662930097295092,0.04093277675315848,"descriptive only; no model fit, no causal alpha or promotion inference"
+SOXX,development_reused,1000,0.8005269085269086,0.08575503407041997,"descriptive only; no model fit, no causal alpha or promotion inference"
+SOXX,later_reused_diagnostic,936,0.6769733144207374,0.051576189250670215,"descriptive only; no model fit, no causal alpha or promotion inference"

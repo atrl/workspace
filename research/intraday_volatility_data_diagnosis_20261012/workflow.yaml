@@ -1,0 +1,25 @@
+experiment: intraday_volatility_data_diagnosis_20261012
+provider_uri: /var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-minute-diagnosis-wrdujkph/qlib_1min
+provider_rebuild_source: data/processed/intraday/soxl_soxx_1m.parquet
+source_sha256: 5495ca6c1c9ea5430de8cffc06d6933e407b60c2af6c1cce9e819beeed622abb
+region: us
+market: all
+freq: 1min
+as_of: '2026-10-09'
+recorder_uri: /Users/rziiiii/dev/workspace/research/intraday_volatility_data_diagnosis_20261012/qlib_recorder
+model_selection: none_descriptive_diagnosis
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/coverage
+  - inputs/exchange_schedule
+  - inputs/repair_candidates
+  - inputs/probe_overlap
+  - inputs/probe_metadata
+  - inputs/store_manifest
+  - inputs/plan
+  - analysis/daily
+  - analysis/segment_daily
+  - analysis/residual
+  - analysis/summary
