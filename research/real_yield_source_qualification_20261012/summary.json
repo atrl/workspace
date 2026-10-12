@@ -1,0 +1,82 @@
+{
+  "experiment": "real_yield_source_qualification_20261012",
+  "recorder_id": "e46d900f0f2f433a8947c960ab9cc620",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/real_yield_source_qualification_20261012/source_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/real_yield_source_qualification_20261012/source_recorder/418512171118207190/e46d900f0f2f433a8947c960ab9cc620",
+  "status": "source_and_matched_dataset_qualified_predictive_value_untested",
+  "recorder_status": "FINISHED",
+  "models_trained": 0,
+  "strategy_replays": 0,
+  "orders": 0,
+  "promotion_eligible": false,
+  "source_deployment_gate": false,
+  "as_of": "2026-09-25",
+  "region": "us",
+  "source": {
+    "provider_uri": "data/qlib/alfred_real_yield_initial_20261012_v1",
+    "price_provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "raw_root": "data/raw/external/alfred_dfii10_initial_20261012_v1"
+  },
+  "provider_content_sha256": "79c4c1ee6ead711d8f4011a8d6a9a3d73f84497933fc5cf3527f94111db2e9a5",
+  "source_audit": {
+    "raw_rows": 4104,
+    "calendar_rows": 3956,
+    "known_signal_rows": 3933,
+    "unknown_signal_rows": 23,
+    "premature_market_observations": 0,
+    "non_session_raw_observations": 149,
+    "negative_yield_observations": 954,
+    "change_sessions": 20,
+    "value_unit": "percentage_points",
+    "missing_values_filled": false,
+    "calendar_rows_dropped": 0,
+    "date_level_initial_release_verified": true,
+    "intraday_first_public_timestamp_verified": false,
+    "source_deployment_gate": false,
+    "availability_contract": "next native session09:31NY after max(observation,initial-release dates)",
+    "state_carry": "last publicly released observation only; unknown latest invalidates state"
+  },
+  "matched_dataset": {
+    "rows": 3956,
+    "known_rows": 3933,
+    "unknown_rows": 23,
+    "control_features": 25,
+    "candidate_features": 26,
+    "eligible_outer_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "inner_fit_performed": false,
+    "signal_calendar_rows": 3956,
+    "full_market_calendar_rows": 4162,
+    "full_market_calendar_retained": true
+  },
+  "plan_sha256": "541d6792f387ec8603be7ac51f3357c9e1bf24383c669c468ef413f32a23bcec",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/plan.pkl",
+      "inputs/raw.pkl",
+      "inputs/source_events.pkl",
+      "inputs/source_state.pkl",
+      "inputs/source_readback.pkl",
+      "inputs/source_audit.pkl",
+      "inputs/matched_inputs.pkl",
+      "inputs/eligibility.pkl"
+    ]
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

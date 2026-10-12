@@ -1,0 +1,187 @@
+{
+  "experiment": "real_yield_information_increment_20261012",
+  "recorder_id": "da1efb40cb784b6096a911fc03ff46ae",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/real_yield_information_increment_20261012/execution_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/real_yield_information_increment_20261012/execution_recorder/444201339917208455/da1efb40cb784b6096a911fc03ff46ae",
+  "status": "complete_not_promoted",
+  "promotion_decision": "not_promoted",
+  "promotion_eligible": false,
+  "fit_calls": 110,
+  "native_cases": 12,
+  "historical_gate_pass": false,
+  "diagnostic_gate_pass": true,
+  "incremental_portfolio_pass": false,
+  "incremental_information_pass": false,
+  "route_decision": "end_real_yield_change20_route_no_further_search",
+  "source": {
+    "providers": {
+      "price": {
+        "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+        "content_sha256": "b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa"
+      },
+      "execution": {
+        "provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+        "content_sha256": "fe475a1c6cfc512bf47e95d9b28c75169ae2cbcf67deb766639da53b80732899"
+      },
+      "information": {
+        "provider_uri": "data/qlib/alfred_real_yield_initial_20261012_v1",
+        "content_sha256": "79c4c1ee6ead711d8f4011a8d6a9a3d73f84497933fc5cf3527f94111db2e9a5"
+      }
+    },
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "execution_provider_uri": "data/qlib/legacy_soxl_execution_20260925_v1",
+    "information_provider_uri": "data/qlib/alfred_real_yield_initial_20261012_v1",
+    "region": "us",
+    "as_of": "2026-09-25"
+  },
+  "source_deployment_gate": false,
+  "recorder_status": "FINISHED",
+  "execution_plan_sha256": "107fa2e040b5e03fab54b0fee12a0086b15d084f92eddd63c3cc58c906865263",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/inputs.pkl",
+      "inputs/execution_plan.pkl",
+      "aggregate/selections.pkl",
+      "aggregate/completed_fits.pkl",
+      "aggregate/case_artifacts.pkl",
+      "cases/*.pkl.gz",
+      "aggregate/tables.pkl",
+      "aggregate/raw_evidence.pkl",
+      "aggregate/resolved_evidence.pkl",
+      "aggregate/final_summary.pkl",
+      "verification/independent_readback.pkl",
+      "verification/position_usage.pkl"
+    ]
+  },
+  "compressed_case_artifacts": {
+    "development::control::10": {
+      "artifact": "cases/development__control__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "7f4cabb628e3e9f7e1a44eda1bdd585ecba350b046e41e1d0f4b8b8e15a90b22",
+      "uncompressed_sha256": "5dea8b0b5200fbf3165499d995c754864c1aad2ecd2fda9a8f4ff7a8e7c86b7f",
+      "bytes": 681705,
+      "uncompressed_bytes": 5188930
+    },
+    "development::candidate::10": {
+      "artifact": "cases/development__candidate__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "44ad80bfe41e31f05a64b84f9ff8c62c79ea1d8616e541ffdb2eae5df5c1a48d",
+      "uncompressed_sha256": "05f4101b1e31fa779ff385859e80d35f6341480b6103397e2fa9b2fef2bc2551",
+      "bytes": 682199,
+      "uncompressed_bytes": 5189536
+    },
+    "development::soxx::10": {
+      "artifact": "cases/development__soxx__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "042301f9ee0c1ff919603e113fcd716a209661f7ff168492cd20ea277e153857",
+      "uncompressed_sha256": "218cb92c37fdaa11c1f5b7e8809b397e1223e479f02eaf7d9f4c6ca95e659b64",
+      "bytes": 489429,
+      "uncompressed_bytes": 3713795
+    },
+    "development::control::25": {
+      "artifact": "cases/development__control__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "9d821ad7ff7d090c3ea833bf32bf1e3cfd76dbcee046dc00d600c4049b5d03bb",
+      "uncompressed_sha256": "b32a213496fcf42d1095efd11b426ea857645c75b094bbccb59445409dd8138c",
+      "bytes": 698620,
+      "uncompressed_bytes": 5049255
+    },
+    "development::candidate::25": {
+      "artifact": "cases/development__candidate__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "1ad7c58444d9b76604d4d8b4019e3329e66de03d01d05fd9452874f919c123c9",
+      "uncompressed_sha256": "2720621fc48441da1836d66e21ef66c4c21928350d1da680597317922a497494",
+      "bytes": 707253,
+      "uncompressed_bytes": 5070504
+    },
+    "development::soxx::25": {
+      "artifact": "cases/development__soxx__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "8a9ee3e584ddd98c287d758548d828ef7f53805ebc8776a457896067c8268347",
+      "uncompressed_sha256": "09ed930d7bdf15652df6b9e2adc71d591d386252a17116b8720fbcabf67469f8",
+      "bytes": 475411,
+      "uncompressed_bytes": 3713795
+    },
+    "reused_diagnostic::control::10": {
+      "artifact": "cases/reused_diagnostic__control__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "ffcf420dcbe8256a52388a2f2993f629d2cb564d4ed36871f8bd0cd9b94be4d9",
+      "uncompressed_sha256": "a7bd5f62968dce3d88b78b7617ca0610c97f064bc04092a8d39141375baa78a2",
+      "bytes": 332370,
+      "uncompressed_bytes": 2696379
+    },
+    "reused_diagnostic::candidate::10": {
+      "artifact": "cases/reused_diagnostic__candidate__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "0cf5e3597102b878d7d42e4424a1ca37fa3703ece64f5165896b90a04146685c",
+      "uncompressed_sha256": "cbbf7ca5b993c730a9bd078a9d04957391741a353c63cdb8156a4f7d2fe5b405",
+      "bytes": 335253,
+      "uncompressed_bytes": 2699091
+    },
+    "reused_diagnostic::soxx::10": {
+      "artifact": "cases/reused_diagnostic__soxx__10.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "8024051183869d43cbf05faedd6db17a215632866f86973bcffa27eca8391d58",
+      "uncompressed_sha256": "7574bbe69210267046ea70ea7bc7145ec43a83cba966ec79e658f23ac60fe232",
+      "bytes": 263127,
+      "uncompressed_bytes": 1973124
+    },
+    "reused_diagnostic::control::25": {
+      "artifact": "cases/reused_diagnostic__control__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "1fd6f54081faf43337a84305c786218963c833d24c901b97650479e213cb776a",
+      "uncompressed_sha256": "f018c2265780407bdc64a79d23c3799f38e777449ff36902e8e82442f8866cff",
+      "bytes": 340781,
+      "uncompressed_bytes": 2691350
+    },
+    "reused_diagnostic::candidate::25": {
+      "artifact": "cases/reused_diagnostic__candidate__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "0f2d3f611e6a192b40518b08ce050cd93c7f665667ffb2a0e072c3ba3ce3de42",
+      "uncompressed_sha256": "215f943f4c0c6eb9d2fcb8f18ab034eb59a5bf453901a4dd7a447a0b3b82bc79",
+      "bytes": 345360,
+      "uncompressed_bytes": 2701635
+    },
+    "reused_diagnostic::soxx::25": {
+      "artifact": "cases/reused_diagnostic__soxx__25.pkl.gz",
+      "encoding": "gzip(pickle)",
+      "sha256": "f582c57c5d6921405a48289f97ffcbae9a122e6919342081cb0e23a4e80a3881",
+      "uncompressed_sha256": "89ba397fbbd2b1a57ad2834e8810e61369350d6c102012ae5555106b34e794e6",
+      "bytes": 254501,
+      "uncompressed_bytes": 1973124
+    }
+  },
+  "scientific_scope": {
+    "history": "reused_history_not_new_oos",
+    "source": "official ALFRED initial-release archive; date-level release bound and conservative next-native-session timing; intraday first-public timestamp not certified",
+    "feature": "one20-native-session difference of last-published DFII10 state, percentage points",
+    "parent": "METHOD only, newly matched price control; no reproduction of older returns",
+    "not_independent_daily_information_events": true,
+    "new_forward_requires": {
+      "minimum_sessions": 60,
+      "minimum_per_regime": 15,
+      "minimum_transitions": 3
+    },
+    "stop": "failure closes this fixed change20 route without alternate tenor, lookback, sign, alpha, horizon or risk/fee search"
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ],
+  "independent_verification": {
+    "recorder_id": "da1efb40cb784b6096a911fc03ff46ae",
+    "recorder_status": "FINISHED",
+    "native_case_readbacks": 12,
+    "native_all_passed": true,
+    "account_metrics_reproduced": 8,
+    "fit_hash_and_prior_readbacks": 110,
+    "paired_cohort_identity_passed": true,
+    "all_cases_native_soxl_quantity_zero": true,
+    "candidate_budget_not_extended": true,
+    "models_refitted_by_verifier": 0,
+    "orders_submitted": 0
+  }
+}

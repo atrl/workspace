@@ -1,0 +1,41 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/alfred_real_yield_initial_20261012_v1",
+  "market": "all",
+  "region": "us",
+  "freq": "day",
+  "as_of": "2026-09-25",
+  "source": "official_alfred_dfii10_initial_release_20261012_v1",
+  "instruments": [
+    "REAL_YIELD_INFO"
+  ],
+  "fields": [
+    "$known",
+    "$real_yield",
+    "$real_yield_change",
+    "$availability_calendar_index"
+  ],
+  "calendar_start": "2011-01-03",
+  "calendar_end": "2026-09-25",
+  "max_datetime": "2026-09-25",
+  "row_count": 3956,
+  "feature_file_count": 4,
+  "audit_snapshot_hash": "be16679096892a9d",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "5f4d0795bb54d9e0",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "information_instrument": true,
+  "not_trading_prices": true,
+  "initial_release_values_only": true,
+  "date_level_vintage_verified": true,
+  "intraday_publication_timestamp_verified": false,
+  "source_deployment_gate": false,
+  "value_unit": "percentage_points",
+  "negative_real_yields_valid": true
+}

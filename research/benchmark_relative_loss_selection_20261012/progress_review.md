@@ -11,3 +11,7 @@
 本轮有限优化：只改变选模型的评价口径，比较平均两腿归一化MSE与H5收益差MSE。内层模型完全复用，只有选择改变的年份允许一次外层成熟样本重拟合；费用、期限、风险与候选集合固定。若失败封存，不继续重搜同一路线。研究入口是本卡notebook，预测、模型、组合明细与原生报告归Recorder。
 
 父结论：../stage1_uniform_layer_attribution_20261010/conclusion.md、../h20_matched_forecast_execution_20261010/conclusion.md、../vxn_vix_information_increment_20261011/conclusion.md、../nvda_original_guidance_information_20261011/conclusion.md。进展来自本次文件与运行状态复核，旧聊天不作为持久状态。
+
+本轮已执行结果：超额损失选择11年均未改变模型，零新拟合且组合完全一致；新增ALFRED初次发布实际利率20-session差分完成110次拟合、12个新原生场景，但超额MSE开发/诊断期分别较匹配价格模型高0.0113%/0.2193%，净组合增量不稳，路线已封存。两轮全部实际SOXL数量为零，不能据此验证SOXL配置价值。新增结论见../real_yield_information_increment_20261012/conclusion.md。
+
+继续优化的优先级：目前证据指向信息与泛化不足。新增机制应先给出可证实的历史发布版本、与半导体相对回报的关系和有限对照；既有失败路线不再调参。独立前向的来源身份、成对完整会话和成熟时点认证仍须补齐；当前原始观察/结算计数不授予资格。

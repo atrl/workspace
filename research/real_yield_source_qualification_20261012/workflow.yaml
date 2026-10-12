@@ -1,0 +1,20 @@
+experiment: real_yield_source_qualification_20261012
+source:
+  provider_uri: data/qlib/alfred_real_yield_initial_20261012_v1
+  price_provider_uri: data/qlib/published_futu_affine_20260925_v1
+  raw_root: data/raw/external/alfred_dfii10_initial_20261012_v1
+recorder_id: e46d900f0f2f433a8947c960ab9cc620
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/plan.pkl
+  - inputs/raw.pkl
+  - inputs/source_events.pkl
+  - inputs/source_state.pkl
+  - inputs/source_readback.pkl
+  - inputs/source_audit.pkl
+  - inputs/matched_inputs.pkl
+  - inputs/eligibility.pkl
+region: us
+as_of: '2026-09-25'

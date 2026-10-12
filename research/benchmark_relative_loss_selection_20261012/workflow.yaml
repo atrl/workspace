@@ -1,0 +1,46 @@
+experiment: benchmark_relative_loss_selection_20261012
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+source:
+  price:
+    provider_uri: data/qlib/published_futu_affine_20260925_v1
+    content_sha256: b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa
+  execution:
+    provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
+    content_sha256: fe475a1c6cfc512bf47e95d9b28c75169ae2cbcf67deb766639da53b80732899
+  information:
+    provider_uri: data/qlib/nvda_original_guidance_20261011_v1
+    content_sha256: 40c37a958c02428eed9a378bfd7232b421956610462e07b37f7f5c610cb375a8
+recorder_id: 55316eb768444cb69c115fae68b391c5
+recorder_uri: /Users/rziiiii/dev/workspace/research/benchmark_relative_loss_selection_20261012/execution_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*.pkl
+  - aggregate/selector_decisions.pkl
+  - aggregate/new_fits.pkl
+  - aggregate/selections.pkl
+  - cases/*.pkl.gz
+  - aggregate/tables.pkl
+  - aggregate/raw_evidence.pkl
+  - aggregate/resolved_evidence.pkl
+  - aggregate/final_summary.pkl
+  - verification/independent_readback.pkl
+  - verification/position_usage.pkl
+selection_loss: relative_response_mse
+segments:
+  development:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  reused_diagnostic:
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+region: us
+as_of: '2026-09-25'

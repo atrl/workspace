@@ -1,0 +1,24 @@
+{
+  "focused_regression": {
+    "passed": 121,
+    "failed": 0
+  },
+  "notebook_executed": true,
+  "notebook_error_outputs": 0,
+  "legacy_required_suite": {
+    "default_env_passed": 7,
+    "default_env_failed": 62,
+    "configured_filestore_passed": 8,
+    "configured_filestore_failed": 61,
+    "scope": "pre-existing mostly sparse-excluded cards; file-store opt-in required by installed MLflow"
+  },
+  "full_pytest": {
+    "collection_errors": 15,
+    "scope": "pre-existing archived duplicate test module names"
+  },
+  "original_wip_files": 615,
+  "original_wip_changed": 0,
+  "scientific_promotion": false,
+  "recorder_id": "da1efb40cb784b6096a911fc03ff46ae",
+  "reference_only_tests_do_not_establish_alpha": true
+}

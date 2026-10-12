@@ -1,0 +1,50 @@
+{
+  "recorder_id": "e46d900f0f2f433a8947c960ab9cc620",
+  "entries": [
+    {
+      "path": "source_recorder/418512171118207190/e46d900f0f2f433a8947c960ab9cc620/artifacts/aggregate/final_summary.pkl",
+      "sha256": "dd89c273b6bec6694f187195b4b388fffbb69116f50e0423dbfa63dc8ce96d14",
+      "bytes": 2341
+    },
+    {
+      "path": "source_recorder/418512171118207190/e46d900f0f2f433a8947c960ab9cc620/artifacts/inputs/eligibility.pkl",
+      "sha256": "ec385294c437654d9cd366a76fb9623112b23f99960eecd589b8c86365ea84a6",
+      "bytes": 1367
+    },
+    {
+      "path": "source_recorder/418512171118207190/e46d900f0f2f433a8947c960ab9cc620/artifacts/inputs/matched_inputs.pkl",
+      "sha256": "887973534daf9393034c4c83ec724c2d974218b446b319ee5ff09009287b2a26",
+      "bytes": 3852676
+    },
+    {
+      "path": "source_recorder/418512171118207190/e46d900f0f2f433a8947c960ab9cc620/artifacts/inputs/plan.pkl",
+      "sha256": "ff86d5261c4b573574b556cd405bcbed4471116f9d8a91d8b49c41cbcdcc8d01",
+      "bytes": 4538
+    },
+    {
+      "path": "source_recorder/418512171118207190/e46d900f0f2f433a8947c960ab9cc620/artifacts/inputs/raw.pkl",
+      "sha256": "176ad262ff6c1a5f2df672fc368593fe2273b5b0dae6ec57af535d09dd684407",
+      "bytes": 116900
+    },
+    {
+      "path": "source_recorder/418512171118207190/e46d900f0f2f433a8947c960ab9cc620/artifacts/inputs/source_audit.pkl",
+      "sha256": "d4facf60e9e4961dc8e6d47f06793b86b3370a764ff59b1e8b613d6f6136ea35",
+      "bytes": 597
+    },
+    {
+      "path": "source_recorder/418512171118207190/e46d900f0f2f433a8947c960ab9cc620/artifacts/inputs/source_events.pkl",
+      "sha256": "dd5e85b616f35dd35d46ae9f09c9c3bf25a6013045fc309f15656b0afc16c661",
+      "bytes": 162509
+    },
+    {
+      "path": "source_recorder/418512171118207190/e46d900f0f2f433a8947c960ab9cc620/artifacts/inputs/source_readback.pkl",
+      "sha256": "29d872d4faaa745637895e2723fc792efd220776c50092f59edae013f9dc2bba",
+      "bytes": 108177
+    },
+    {
+      "path": "source_recorder/418512171118207190/e46d900f0f2f433a8947c960ab9cc620/artifacts/inputs/source_state.pkl",
+      "sha256": "811d84c61a52e49b53c121dd78bee0f4c2e5a04a7b9438547c3ef547e5f8282b",
+      "bytes": 294544
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "recorder_id": "55316eb768444cb69c115fae68b391c5",
+  "entries": [
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/aggregate/final_summary.pkl",
+      "sha256": "7f018cc577efb155752bbbb33091356e1ea0b44c7c4d3500e3c77e3c3ccf4d05",
+      "bytes": 8358
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/aggregate/new_fits.pkl",
+      "sha256": "926248e52d1fa532c317e37da24ed652ae64110f8219cb5e061668bd3091f048",
+      "bytes": 5
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/aggregate/raw_evidence.pkl",
+      "sha256": "976122b3b9953862af64312dbfeae233b3ccf186350198746b2f4e33d2868608",
+      "bytes": 11406
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/aggregate/resolved_evidence.pkl",
+      "sha256": "09c55fbe8f6c742709fa9b0916d32dad561a373338a6d9f4688b9ec22f13ec60",
+      "bytes": 14496
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/aggregate/selections.pkl",
+      "sha256": "a7530877e3bdc7f372a2d63ab46763db7d6b112d72d5b35119f42f4925a1ff82",
+      "bytes": 275312
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/aggregate/selector_decisions.pkl",
+      "sha256": "588028100248703c3df75d3e64c5f146b4dc581be569a240bdeb3f356cf6ce6a",
+      "bytes": 16585
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/aggregate/tables.pkl",
+      "sha256": "bea5b65e2f35a9dadd5fda20d45b0540b0189b080d96f128ef7ba0fd0bf157f3",
+      "bytes": 47291
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/development__candidate__10.pkl.gz",
+      "sha256": "2166634f9cc13619f3a5922f2a98949c464ffd267a92bd11c7456619fe3a9280",
+      "bytes": 688650
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/development__candidate__25.pkl.gz",
+      "sha256": "5169666e1dce83c6e3f301b7fcc1266464d961b66ac447ff28bd79f0b64ba97f",
+      "bytes": 707094
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/development__control__10.pkl.gz",
+      "sha256": "2166634f9cc13619f3a5922f2a98949c464ffd267a92bd11c7456619fe3a9280",
+      "bytes": 688650
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/development__control__25.pkl.gz",
+      "sha256": "5169666e1dce83c6e3f301b7fcc1266464d961b66ac447ff28bd79f0b64ba97f",
+      "bytes": 707094
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/development__soxx__10.pkl.gz",
+      "sha256": "495312a8d14818853e2d75cbc07f9dcfecf70a6a65ebffc7b1f5f037646b386d",
+      "bytes": 489188
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/development__soxx__25.pkl.gz",
+      "sha256": "f6b147760ca2d6512bfe788de4bb150b96075a5abebb35277d4f520cde58e6d5",
+      "bytes": 475155
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/reused_diagnostic__candidate__10.pkl.gz",
+      "sha256": "a845ffe7339da93bf3b20370aa2558881a2ed136c90ba689a20e798fc5f0cedc",
+      "bytes": 335880
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/reused_diagnostic__candidate__25.pkl.gz",
+      "sha256": "2272f2e5ffff14ff044565c27284042dcfb81043a44fb3c2297deeec7756a54c",
+      "bytes": 402898
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/reused_diagnostic__control__10.pkl.gz",
+      "sha256": "a845ffe7339da93bf3b20370aa2558881a2ed136c90ba689a20e798fc5f0cedc",
+      "bytes": 335880
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/reused_diagnostic__control__25.pkl.gz",
+      "sha256": "2272f2e5ffff14ff044565c27284042dcfb81043a44fb3c2297deeec7756a54c",
+      "bytes": 402898
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/reused_diagnostic__soxx__10.pkl.gz",
+      "sha256": "da1879ce3dae2680165d87b3cf7f8e5c478e09004237615c02d2c69f2fe88431",
+      "bytes": 263029
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/cases/reused_diagnostic__soxx__25.pkl.gz",
+      "sha256": "4a7422ff65ef9a438a8460e20352d5ff4d67fafa3c194dbf7d0bf0d5fd3f73d9",
+      "bytes": 254418
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/inputs/bundle.pkl",
+      "sha256": "006aa4fd84689dd2006a9cda9ef68867872eb5d3825049e8b45be347d62ac419",
+      "bytes": 3853310
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/inputs/parent_source_audit.pkl",
+      "sha256": "e4f5d892090c46dcec7ea4fb8da02c79cd989cfb3bcddc048b5c4313835b0376",
+      "bytes": 1821
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/inputs/plan.pkl",
+      "sha256": "41b50142f7c174971c5b5429f5403501bd4655ec526db233e583b63ff7fb7139",
+      "bytes": 41020
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/verification/independent_readback.pkl",
+      "sha256": "d87c205fb155a5fc5dfe68dbf25fda59d2c85e2a6e68e9e2268f6f63e8e319db",
+      "bytes": 363
+    },
+    {
+      "path": "execution_recorder/191605371033296334/55316eb768444cb69c115fae68b391c5/artifacts/verification/position_usage.pkl",
+      "sha256": "9799da1dec91927f399b5354a01ff20b391b57a8f9ccb82ede7441e726e125f2",
+      "bytes": 1894
+    }
+  ]
+}

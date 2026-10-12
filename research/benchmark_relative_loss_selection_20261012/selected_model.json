@@ -1,0 +1,94 @@
+{
+  "model": "native_prior_ridge_relative_loss_selection",
+  "selections": [
+    {
+      "year": 2016,
+      "parent_selected": "prior",
+      "relative_selected": "prior",
+      "changed": false,
+      "validation_rows": 246,
+      "selection_uses_outer_outcomes": false
+    },
+    {
+      "year": 2017,
+      "parent_selected": "ridge_1000",
+      "relative_selected": "ridge_1000",
+      "changed": false,
+      "validation_rows": 246,
+      "selection_uses_outer_outcomes": false
+    },
+    {
+      "year": 2018,
+      "parent_selected": "prior",
+      "relative_selected": "prior",
+      "changed": false,
+      "validation_rows": 245,
+      "selection_uses_outer_outcomes": false
+    },
+    {
+      "year": 2019,
+      "parent_selected": "ridge_1000",
+      "relative_selected": "ridge_1000",
+      "changed": false,
+      "validation_rows": 245,
+      "selection_uses_outer_outcomes": false
+    },
+    {
+      "year": 2020,
+      "parent_selected": "prior",
+      "relative_selected": "prior",
+      "changed": false,
+      "validation_rows": 246,
+      "selection_uses_outer_outcomes": false
+    },
+    {
+      "year": 2021,
+      "parent_selected": "ridge_1000",
+      "relative_selected": "ridge_1000",
+      "changed": false,
+      "validation_rows": 247,
+      "selection_uses_outer_outcomes": false
+    },
+    {
+      "year": 2022,
+      "parent_selected": "ridge_10",
+      "relative_selected": "ridge_10",
+      "changed": false,
+      "validation_rows": 246,
+      "selection_uses_outer_outcomes": false
+    },
+    {
+      "year": 2023,
+      "parent_selected": "prior",
+      "relative_selected": "prior",
+      "changed": false,
+      "validation_rows": 245,
+      "selection_uses_outer_outcomes": false
+    },
+    {
+      "year": 2024,
+      "parent_selected": "prior",
+      "relative_selected": "prior",
+      "changed": false,
+      "validation_rows": 244,
+      "selection_uses_outer_outcomes": false
+    },
+    {
+      "year": 2025,
+      "parent_selected": "prior",
+      "relative_selected": "prior",
+      "changed": false,
+      "validation_rows": 246,
+      "selection_uses_outer_outcomes": false
+    },
+    {
+      "year": 2026,
+      "parent_selected": "ridge_1000",
+      "relative_selected": "ridge_1000",
+      "changed": false,
+      "validation_rows": 244,
+      "selection_uses_outer_outcomes": false
+    }
+  ],
+  "promotion_decision": "not_promoted"
+}

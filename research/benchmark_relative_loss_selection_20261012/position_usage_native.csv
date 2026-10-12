@@ -1,0 +1,13 @@
+window,arm,cost_bps,sessions,native_soxl_positive_sessions,native_maximum_soxl_quantity,native_maximum_soxl_weight,native_mean_cash_weight
+development,control,10.0,1762,0,0.0,0.0,0.019863791146424368
+development,soxx,10.0,1762,0,0.0,0.0,-6.502679742392098e-17
+development,candidate,10.0,1762,0,0.0,0.0,0.019863791146424368
+development,control,25.0,1762,0,0.0,0.0,0.0028376844494892167
+development,soxx,25.0,1762,0,0.0,0.0,0.0
+development,candidate,25.0,1762,0,0.0,0.0,0.0028376844494892167
+reused_diagnostic,control,10.0,934,0,0.0,0.0,0.010706638115631608
+reused_diagnostic,soxx,10.0,934,0,0.0,0.0,-7.658440192563545e-17
+reused_diagnostic,candidate,10.0,934,0,0.0,0.0,0.010706638115631608
+reused_diagnostic,control,25.0,934,0,0.0,0.0,0.0
+reused_diagnostic,soxx,25.0,934,0,0.0,0.0,0.0
+reused_diagnostic,candidate,25.0,934,0,0.0,0.0,0.0

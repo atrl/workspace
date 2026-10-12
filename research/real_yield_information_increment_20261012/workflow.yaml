@@ -1,0 +1,37 @@
+experiment: real_yield_information_increment_20261012
+source:
+  providers:
+    price:
+      provider_uri: data/qlib/published_futu_affine_20260925_v1
+      content_sha256: b46e8edf02f46f15a75e07ded378e83bd13b6305fa98329754b23ea4cfec0efa
+    execution:
+      provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
+      content_sha256: fe475a1c6cfc512bf47e95d9b28c75169ae2cbcf67deb766639da53b80732899
+    information:
+      provider_uri: data/qlib/alfred_real_yield_initial_20261012_v1
+      content_sha256: 79c4c1ee6ead711d8f4011a8d6a9a3d73f84497933fc5cf3527f94111db2e9a5
+  provider_uri: data/qlib/published_futu_affine_20260925_v1
+  execution_provider_uri: data/qlib/legacy_soxl_execution_20260925_v1
+  information_provider_uri: data/qlib/alfred_real_yield_initial_20261012_v1
+  region: us
+  as_of: '2026-09-25'
+recorder_id: da1efb40cb784b6096a911fc03ff46ae
+recorder_uri: /Users/rziiiii/dev/workspace/research/real_yield_information_increment_20261012/execution_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/inputs.pkl
+  - inputs/execution_plan.pkl
+  - aggregate/selections.pkl
+  - aggregate/completed_fits.pkl
+  - aggregate/case_artifacts.pkl
+  - cases/*.pkl.gz
+  - aggregate/tables.pkl
+  - aggregate/raw_evidence.pkl
+  - aggregate/resolved_evidence.pkl
+  - aggregate/final_summary.pkl
+  - verification/independent_readback.pkl
+  - verification/position_usage.pkl
+region: us
+as_of: '2026-09-25'
