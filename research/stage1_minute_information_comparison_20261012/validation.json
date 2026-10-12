@@ -1,0 +1,16 @@
+{
+  "software_tests": {
+    "command": "MLFLOW_ALLOW_FILE_STORE=true PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_native_intraday_schedule.py tests/test_stage1_open_action_value.py::test_open_action_features_are_known_before_open_execution tests/test_stage1_open_action_value.py::test_open_route_is_independent_of_future_recovery_signal tests/test_stage1_open_action_value.py::test_on_policy_open_uses_own_drawdown_and_never_future_intraday_data -q",
+    "passed": 20,
+    "failed": 0
+  },
+  "notebook_executed": true,
+  "new_model_fits": 0,
+  "native_accounts_reconciled": 10,
+  "maximum_native_return_reconciliation_error": 1.6319168238965176e-11,
+  "own_native_NAV_drawdown_checked": true,
+  "scientific_decision": "not_promoted_full_stage1_comparison_diagnostic",
+  "objective_achieved": false,
+  "unrelated_legacy_production_checks_not_rerun": true,
+  "NAS_receipt_and_all_artifact_hashes_read_back": true
+}

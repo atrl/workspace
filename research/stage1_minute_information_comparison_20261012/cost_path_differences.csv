@@ -1,0 +1,5 @@
+family,costs_bps,different_risk_state_or_clock_days,first_risk_state_or_clock_divergence_trade_date,different_open_target_event_days,different_beta_cap_days,source_allocator_targets_identical_across_costs,risk_state_is_recomputed_per_cost_not_fixed_10bp_repricing
+frozen_current,10/25,515,2024-03-20,121,433,True,True
+base,10/25,544,2023-03-13,90,412,True,True
+availability_control,10/25,353,2023-08-11,59,202,True,True
+core_path,10/25,502,2023-08-11,101,234,True,True

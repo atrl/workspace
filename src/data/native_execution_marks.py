@@ -96,6 +96,65 @@ def _file_sha(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def build_published_minute_view(*, source_manifest: Path, source_sha256: str,
+                                provider_uri: Path, start: str, as_of: str) -> dict:
+    """Build a frozen 15min view from NAS NONE receipts and published events.
+
+    This is a historical accounting plane. Model features must retain their
+    separately qualified raw/PIT basis; the affine plane is not a live receipt
+    or dividend-cash certification.
+    """
+    import exchange_calendars as xc
+    from src.data.intraday import resample_intraday_bars
+    from src.data.minute_price_basis import normalize_none_history, published_intraday_basis
+
+    source_manifest = Path(source_manifest).resolve()
+    if _file_sha(source_manifest) != source_sha256:
+        raise ValueError("blocked: minute receipt differs from the frozen source")
+    receipt = json.loads(source_manifest.read_text())
+    if (receipt.get("complete") is not True or receipt.get("adjustment") != "NONE"
+            or receipt.get("as_of") != as_of or receipt.get("start", start) > start):
+        raise ValueError("blocked: incomplete or mismatched NONE source period")
+    parts, events = [], {}
+    for symbol in ("SOXL", "SOXX"):
+        entries = [e for e in receipt["entries"] if e["symbol"] == symbol]
+        rehab = [e for e in receipt["rehab"] if e["symbol"] == symbol]
+        if len(entries) != 1 or len(rehab) != 1 or entries[0].get("ktype") != "K_1M":
+            raise ValueError("blocked: exactly one actual minute/event receipt per asset required")
+        entry, event = entries[0], rehab[0]
+        paths = [source_manifest.parent / item["path"] for item in (entry, event)]
+        for path, item in zip(paths, (entry, event)):
+            if _file_sha(path) != item["sha256"]:
+                raise ValueError("blocked: minute/event receipt bytes changed")
+        block = normalize_none_history(pd.read_parquet(paths[0]), symbol=symbol,
+                                       interval="1m", fetched_at=entry["fetched_at"])
+        if block.date.gt(as_of).any():
+            raise ValueError("blocked: source observations exceed the frozen as_of")
+        block = block.loc[block.date.ge(start)].copy()
+        if not block.price_valid.all() or not block.is_final.all():
+            raise ValueError("needs_data: accounting period contains invalid/unclosed minute prices")
+        parts.append(block)
+        events[symbol] = pd.read_parquet(paths[1])
+    raw = pd.concat(parts, ignore_index=True)
+    schedule = xc.get_calendar("XNYS", start=start, end=as_of).schedule
+    calendar = {str(day.date()): "MORNING" if pd.Timestamp(row["close"]).tz_convert("America/New_York").hour == 13
+                else "WHOLE" for day, row in schedule.iterrows()}
+    validate_complete_minute_sessions(raw, calendar)
+    published, basis = published_intraday_basis(raw, events, as_of=as_of)
+    bars = resample_intraday_bars(published, freq="15min", symbols=["SOXL", "SOXX"])
+    if not bars.is_complete.eq(1).all():
+        raise ValueError("needs_data: native accounting aggregate is incomplete")
+    fields = ["open", "high", "low", "close", "volume", "bar_count", "is_complete"]
+    manifest = build_qlib_store_from_frame(bars, provider_uri=provider_uri, freq="15min", as_of=as_of,
+        field_map={key: key for key in fields}, source=f"NAS NONE minute source sha256={source_sha256}")
+    manifest.update(source_manifest_sha256=source_sha256, price_basis=basis,
+                    expected_sessions=len(calendar), complete_session_validation=True,
+                    aggregation="actual minute first open/max high/min low/last close/summed split-adjusted volume",
+                    model_features_recomputed=False, live_fill_validation=False)
+    (Path(provider_uri) / "qlib_store_manifest.json").write_text(json.dumps(manifest, indent=2, allow_nan=False))
+    return manifest
+
+
 def build_uniform_intraday_view(*, source_manifest: Path, trading_calendar: Path,
                                provider_uri: Path, start: str, as_of: str) -> dict:
     """Build one fully observed, common-vintage 15-minute source snapshot."""

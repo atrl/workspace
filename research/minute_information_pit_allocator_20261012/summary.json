@@ -511,5 +511,14 @@
     "native_accounting_cases": 42,
     "legacy_failures_not_retested": 4
   },
-  "delivery_metadata_outside_frozen_recorder": "Final software totals, archive pointer and numerical prose synchronized without refitting models or replaying accounts."
+  "delivery_metadata_outside_frozen_recorder": "Final software totals, archive pointer and numerical prose synchronized without refitting models or replaying accounts.",
+  "comparison_scope_correction": {
+    "layer": "allocator plus daily EMA/HOLD only",
+    "complete_stage1_controller_included": false,
+    "complete_strategy_comparison_card": "research/stage1_minute_information_comparison_20261012",
+    "complete_strategy_comparison_recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "complete_strategy_comparison_uses_reused_history": true,
+    "metrics_and_frozen_recorder_unchanged": true,
+    "correction_is_delivery_metadata_only": true
+  }
 }

@@ -1,0 +1,24 @@
+experiment: stage1_minute_information_comparison_20261012
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_minute_information_comparison_20261012/execution_marks
+region: us
+market: all
+freq: 15min
+as_of: '2026-10-09'
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_minute_information_comparison_20261012/qlib_recorder
+segments:
+  reused_outer_diagnostic:
+  - '2023-01-03'
+  - '2026-10-09'
+model_selection: reuse prior development selection; no selection in this audit
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/market
+  - inputs/raw_predictions
+  - inputs/source_targets
+  - inputs/native_marks
+  - controller/frozen_models
+  - analysis/native/*
+  - analysis/comparison
+  - analysis/annual
