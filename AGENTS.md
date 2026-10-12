@@ -34,7 +34,8 @@ These requirements are mandatory for all substantial work in this repository:
 At the beginning of every new task, including follow-up tasks:
 
 1. Run `git status --short` and `git worktree list --porcelain`.
-2. Identify the integration target (default `main`) and any unfinished worktrees.
+2. Identify the integration target (default `main`), unfinished worktrees, and
+   leftover local/remote task branches; inspect `git branch --all` as well.
    Summarize large existing WIP instead of repeatedly printing unchanged paths.
 3. Use the primary checkout by default and preserve unrelated WIP. Check whether
    an existing worktree can be completed or reused before considering another.
@@ -66,6 +67,9 @@ Before substantial work:
   cleanup to a later task.
 - After cleanup, check `git worktree list --porcelain` once. Every subsequent
   new task must check again rather than assume the previous state still holds.
+- Include leftover task branches in startup and closure checks even when no
+  extra worktree is registered. Delete completed branches already merged into
+  the integration target; preserve branches with unique unmerged changes.
 - Never reset, discard, force-remove, or stash unrelated WIP to simplify this
   process. Do not rebuild repository-wide artifact indexes from a partial tree.
 
