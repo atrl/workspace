@@ -1,0 +1,38 @@
+[
+  {
+    "recorder_id": "20c82e02d47142fe8fa5432837876088",
+    "nas_evidence": {
+      "sha256": "ee0a7ffa79863de3d4290d2060001e465f4c96568fcff6d6d192a1c620730f88",
+      "size_bytes": 10222664,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/ee/0a/ee0a7ffa79863de3d4290d2060001e465f4c96568fcff6d6d192a1c620730f88",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 21:16:42.663183+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ee/0a/ee0a7ffa79863de3d4290d2060001e465f4c96568fcff6d6d192a1c620730f88",
+      "recorder_id": "20c82e02d47142fe8fa5432837876088",
+      "experiment_id": "262488323563954155",
+      "archive_root": "qlib_recorder"
+    },
+    "parsed_events": 7,
+    "repair": "Case-insensitive company names, NTS time unknown code, and table/footer continuation across pages; original PDF values retained; AMD0802 HTTP404 unresolved"
+  },
+  {
+    "recorder_id": "3b92c5705cb147adaa85cd41f544f4d5",
+    "nas_evidence": {
+      "sha256": "ef7a7af2a45a947f351b7fd78b9f6e7fd3711881f7fe98d0ccf228a5e22a6f56",
+      "size_bytes": 10223383,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/ef/7a/ef7a7af2a45a947f351b7fd78b9f6e7fd3711881f7fe98d0ccf228a5e22a6f56",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 21:18:53.73695+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ef/7a/ef7a7af2a45a947f351b7fd78b9f6e7fd3711881f7fe98d0ccf228a5e22a6f56",
+      "recorder_id": "3b92c5705cb147adaa85cd41f544f4d5",
+      "experiment_id": "262488323563954155",
+      "archive_root": "qlib_recorder"
+    },
+    "parsed_events": 11,
+    "repair": "AMD20220802 day-ahead404 preserved; same provider Morning News Call supplies EPS only, unavailable revenue and SmartEstimate remain unknown"
+  }
+]

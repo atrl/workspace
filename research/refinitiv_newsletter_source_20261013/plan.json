@@ -1,0 +1,71 @@
+{
+  "experiment": "refinitiv_newsletter_source_20261013",
+  "events": [
+    {
+      "symbol": "INTC",
+      "report_date": "2022-01-26"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-02-01"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-02-16"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-04-28"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-05-03"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-05-25"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-07-28"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-08-02",
+      "newsletter_family": "morning_call"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-08-24"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-10-27"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-11-01"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-11-16"
+    }
+  ],
+  "maximum_documents": 12,
+  "workers": 3,
+  "raw_cache": "data/raw/external/refinitiv_newsletter_source_20261013",
+  "price_provider": "data/qlib/full_path_tiered_allocation_20261013",
+  "calendar_source_hashes": {
+    "data/snapshots/earnings_surprise_20261005_v1/alpha_nvda_earnings.json": "3f349af12e930c2652bb16b5394b763a44184201d1194cbeb52dae6da48baa96",
+    "data/snapshots/earnings_surprise_20261005_v1/alpha_amd_earnings.json": "c0c8bfb3aa2bff4a4276c097fecb5b1aa30cbbebdff80b3e4e0459e82d9e590a",
+    "data/snapshots/earnings_surprise_20261005_v1/alpha_intc_earnings.json": "688f589dc55c9d2d1f047acd68da9d08b26d18a652cf725bdc4cedf8af35dbb2"
+  },
+  "scope": "all12 calendar2022 NVDA/AMD/INTC report dates; feasibility only, no returns inspected",
+  "maximum_model_fits": 0,
+  "maximum_backtests": 0,
+  "allow_expired_public_certificate_probe": true,
+  "transport_scope": "only hardcoded credential-free public Refinitiv newsletter URL; first attempt validates certificate; record any expired-certificate fallback, never change global TLS",
+  "publication_contract": "filename denotes prospective event date, not publication timestamp; PDF metadata only consistency evidence; ordinary EPS consensus differs from SmartEstimate",
+  "goal_status": "active",
+  "fallback_contract": "Only unavailable AMD20220802 DayAhead uses same-date Morning News Call; EPS only, no revenue or SmartEstimate imputation; original404 retained"
+}

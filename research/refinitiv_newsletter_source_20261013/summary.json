@@ -1,0 +1,55 @@
+{
+  "experiment": "refinitiv_newsletter_source_20261013",
+  "decision": "source_feasible_needs_extended_coverage_and_publication_evidence",
+  "source_audit": {
+    "expected_events": 12,
+    "parsed_events": 12,
+    "failures": [],
+    "per_symbol": {
+      "AMD": 4,
+      "INTC": 4,
+      "NVDA": 4
+    },
+    "prior_day_document_clock_rows": 11,
+    "transport_certificate_verified_rows": 0,
+    "publication_clock_certified": false,
+    "point_in_time_consensus_certified": false,
+    "model_fits": 0,
+    "backtests": 0,
+    "revenue_estimate_available_rows": 11,
+    "smart_estimate_available_rows": 11,
+    "preannouncement_control_required": true
+  },
+  "recorder_id": "d710ad9ce5de4d19aa16b1a26f51f5ce",
+  "experiment_id": "262488323563954155",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/refinitiv_newsletter_source_20261013/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/refinitiv_newsletter_source_20261013/qlib_recorder/262488323563954155/d710ad9ce5de4d19aa16b1a26f51f5ce",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+  "objective_achieved": false,
+  "goal_remains_active": true,
+  "promotion_eligible": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "9f759f1ddd3fadb4d5bd540c2c1811143feb7de2e9dce5c14541b125a350cad5",
+    "size_bytes": 10842553,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/9f/75/9f759f1ddd3fadb4d5bd540c2c1811143feb7de2e9dce5c14541b125a350cad5",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-13 21:23:59.029007+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/9f/75/9f759f1ddd3fadb4d5bd540c2c1811143feb7de2e9dce5c14541b125a350cad5",
+    "recorder_id": "d710ad9ce5de4d19aa16b1a26f51f5ce",
+    "experiment_id": "262488323563954155",
+    "archive_root": "qlib_recorder"
+  }
+}
