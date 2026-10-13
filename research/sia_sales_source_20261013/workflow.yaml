@@ -1,0 +1,10 @@
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - sources/*
+  - analysis/inventory
+  - analysis/native_calendar
+  workflow_config: workflow.yaml
+experiment: sia_sales_source_20261013
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013
+recorder_uri: /Users/rziiiii/dev/workspace/research/sia_sales_source_20261013/qlib_recorder

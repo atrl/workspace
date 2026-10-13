@@ -1,0 +1,52 @@
+{
+  "experiment": "sia_sales_source_20261013",
+  "decision": "needs_original_publication_vintages",
+  "objective_achieved": false,
+  "goal_remains_active": true,
+  "audit": {
+    "candidate_articles": 107,
+    "parsed_articles": 107,
+    "failures": [],
+    "native_calendar_rows": 2008,
+    "published_start": "2017-03-14 19:00:00+00:00",
+    "published_end": "2026-10-05 12:00:17+00:00",
+    "modification_clock_unknown": 56,
+    "modified_after_publication": 51,
+    "modified_more_than_30_days_later": 14,
+    "maximum_modification_lag_days": 753.1989236111111,
+    "monthly_average_explicit": 102,
+    "original_historical_text_certified": false,
+    "source_promotion_eligible": false,
+    "model_fits": 0,
+    "backtests": 0
+  },
+  "recorder_id": "ead80d189ce147fa8872d28fa2caeef2",
+  "experiment_id": "108276200909998684",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/sia_sales_source_20261013/qlib_recorder",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/inventory",
+      "analysis/native_calendar"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "0f886aedf531cbb3cdd0d3209ccc69d23e451e394804bbedccb5f2ebca3837d6",
+    "size_bytes": 1988601,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/0f/88/0f886aedf531cbb3cdd0d3209ccc69d23e451e394804bbedccb5f2ebca3837d6",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-13 20:41:53.806248+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/0f/88/0f886aedf531cbb3cdd0d3209ccc69d23e451e394804bbedccb5f2ebca3837d6",
+    "recorder_id": "ead80d189ce147fa8872d28fa2caeef2",
+    "experiment_id": "108276200909998684",
+    "archive_root": "qlib_recorder"
+  }
+}

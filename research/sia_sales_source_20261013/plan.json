@@ -1,0 +1,16 @@
+{
+  "experiment": "sia_sales_source_20261013",
+  "start": "2017-01-01",
+  "as_of": "2026-10-09",
+  "maximum_index_pages": 18,
+  "maximum_articles": 160,
+  "workers": 3,
+  "maximum_model_fits": 0,
+  "maximum_backtests": 0,
+  "raw_cache": "data/raw/external/sia_sales_source_20261013",
+  "price_provider": "data/qlib/full_path_tiered_allocation_20261013",
+  "hypothesis": "Global sales broaden demand coverage beyond US capacity and TSMC; qualify release vintages before any forecasting",
+  "qualification_gate": "original published values and availability must be demonstrable; article publication metadata alone does not certify original text; do not backdate later modifications",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+  "goal_status": "active"
+}

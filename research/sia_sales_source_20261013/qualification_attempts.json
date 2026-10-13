@@ -1,0 +1,21 @@
+[
+  {
+    "recorder_id": "f56d50cae98b4f768b1748c442657719",
+    "nas_evidence": {
+      "sha256": "44007a25fcc0131ed1b8dfd953eaf7d8d83620ee57c049d84cd57a19f814278c",
+      "size_bytes": 1970828,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/44/00/44007a25fcc0131ed1b8dfd953eaf7d8d83620ee57c049d84cd57a19f814278c",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 20:40:34.227772+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/44/00/44007a25fcc0131ed1b8dfd953eaf7d8d83620ee57c049d84cd57a19f814278c",
+      "recorder_id": "f56d50cae98b4f768b1748c442657719",
+      "experiment_id": "108276200909998684",
+      "archive_root": "qlib_recorder"
+    },
+    "parsed_articles": 51,
+    "source_failures": 56,
+    "repair": "Preserve absent modification timestamps as unknown rather than reject the article; no invented timestamp or source qualification"
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "recorder_id": "ead80d189ce147fa8872d28fa2caeef2",
+  "entries": [
+    {
+      "path": "qlib_recorder/108276200909998684/ead80d189ce147fa8872d28fa2caeef2/artifacts/analysis/audit",
+      "sha256": "328b2328a5887f5063e5cd36eda3a7c7b19f41dac0b8f00fd766761fb65325ae",
+      "bytes": 453
+    },
+    {
+      "path": "qlib_recorder/108276200909998684/ead80d189ce147fa8872d28fa2caeef2/artifacts/analysis/inventory",
+      "sha256": "361b9055a04e1c06720ecf074818c4475a3e6517d8ad74cec30f39f96c24604b",
+      "bytes": 139894
+    },
+    {
+      "path": "qlib_recorder/108276200909998684/ead80d189ce147fa8872d28fa2caeef2/artifacts/analysis/native_calendar",
+      "sha256": "e397e65e8885d249607702f76a48f103f62c67c10ae7f069135d3e4f665b18c0",
+      "bytes": 16489
+    },
+    {
+      "path": "qlib_recorder/108276200909998684/ead80d189ce147fa8872d28fa2caeef2/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/108276200909998684/ead80d189ce147fa8872d28fa2caeef2/artifacts/code_diff.txt",
+      "sha256": "0ca6f85c3292fc252684b85d74a2b80056dac606926c940b5b6462a284e2d964",
+      "bytes": 402142
+    },
+    {
+      "path": "qlib_recorder/108276200909998684/ead80d189ce147fa8872d28fa2caeef2/artifacts/code_status.txt",
+      "sha256": "3e904b81c96fb4eded2b0b634eb869fca0bb5892339b2a2fba393433cdde5953",
+      "bytes": 62418
+    },
+    {
+      "path": "qlib_recorder/108276200909998684/ead80d189ce147fa8872d28fa2caeef2/artifacts/sources/acquisition_code",
+      "sha256": "fa1bcd319503c04121a3cc975566963243c3fbab11f05beca605c218b5f7b3b7",
+      "bytes": 5910
+    },
+    {
+      "path": "qlib_recorder/108276200909998684/ead80d189ce147fa8872d28fa2caeef2/artifacts/sources/manifest",
+      "sha256": "e778669afe01a43a8bcb907eb4502c6595ee339d6623ca794f8557e5a935a0d0",
+      "bytes": 154372
+    },
+    {
+      "path": "qlib_recorder/108276200909998684/ead80d189ce147fa8872d28fa2caeef2/artifacts/sources/raw_documents",
+      "sha256": "7c573735f208444d2f24c9bdcb1e88c0ba6f2c82e8ab5a57380dfbe5e58ed0a7",
+      "bytes": 7927783
+    }
+  ]
+}
