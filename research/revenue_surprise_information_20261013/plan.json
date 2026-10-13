@@ -1,0 +1,108 @@
+{
+  "experiment": "revenue_surprise_information_20261013",
+  "as_of": "2026-10-09",
+  "hypothesis": "Fresh comparable revenue surprises improve forecasts of cash-vs-SOXX and SOXL-vs-SOXX H5 relative log returns beyond prices and identical event controls",
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "base_features": [
+    "soxx_ret20",
+    "soxx_vol20",
+    "soxx_drawdown60",
+    "nvda_known",
+    "nvda_age",
+    "nvda_preliminary",
+    "amd_known",
+    "amd_age",
+    "amd_preliminary",
+    "intc_known",
+    "intc_age",
+    "intc_preliminary"
+  ],
+  "targets": [
+    "cash_relative_h5",
+    "leverage_relative_h5"
+  ],
+  "horizon_sessions": 5,
+  "ridge_alpha": 10.0,
+  "maximum_model_fits": 6,
+  "maximum_backtests": 0,
+  "folds": [
+    {
+      "name": "development_2021",
+      "cutoff": "2021-01-01",
+      "start": "2021-01-01",
+      "end": "2021-12-31"
+    },
+    {
+      "name": "development_2022",
+      "cutoff": "2022-01-01",
+      "start": "2022-01-01",
+      "end": "2022-12-31"
+    },
+    {
+      "name": "reused_outer",
+      "cutoff": "2023-01-01",
+      "start": "2023-01-03",
+      "end": "2026-10-09"
+    }
+  ],
+  "bootstrap_mean_block": 63,
+  "bootstrap_samples": 2000,
+  "bootstrap_alpha": 0.025,
+  "bootstrap_seed": 20261013,
+  "information_gate": "both development-fold normalized joint losses improve and pooled63-session stationary-bootstrap lower bound>0; historical selection bias unresolved; no net alpha claim",
+  "holding_role": "forecast information only; no alpha or trading-profit claim without later native portfolio comparison",
+  "selection": "Exactly6 Ridge10 fits, 3 chronological folds, H5 relative-return targets, 20-session activation, 63-session bootstrap; no parameter/horizon/sign search; reused outer diagnostic only",
+  "goal_status": "active",
+  "source_vintage_certified": false,
+  "availability": "next full native session09:31 after issuer report date; dated newsletter clock evidence is conditional, not first-public certificate",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/model.html",
+  "actual_source": {
+    "card": "research/issuer_actuals_qualification_20261013",
+    "recorder_id": "9a39dab3d38643fc8674e2d215046679",
+    "archive": "71e822915f14b23d629ae4d314f43e5f5c10b7ecccb9e9d3d584affa5a2d25f7",
+    "inventory_sha256": "cc1409159ad06b8ca9e235a3c4e34929c3fccf3a760dbe93a8cad085378cae09"
+  },
+  "history_calendar": "data/qlib/soxx_extended_published_affine_20260925_v1",
+  "information_provider": "data/qlib/revenue_surprise_information_20261013",
+  "event_controls": [
+    "nvda_known",
+    "nvda_age",
+    "nvda_preliminary",
+    "amd_known",
+    "amd_age",
+    "amd_preliminary",
+    "intc_known",
+    "intc_age",
+    "intc_preliminary"
+  ],
+  "revenue_features": [
+    "nvda_surprise",
+    "amd_surprise",
+    "intc_surprise"
+  ],
+  "active_sessions": 20,
+  "preliminary_reports": [
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-02-14",
+      "earlier_disclosure": "2019-01-28"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-08-24",
+      "earlier_disclosure": "2022-08-08"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-11-01",
+      "earlier_disclosure": "2022-10-06"
+    }
+  ],
+  "basis_contract": "Both issuer revenue midpoints must be finite, positive and exactly equal; ordinary revenue estimate positive; EPS excluded due unresolved normalization; no basis chosen by returns",
+  "unknown_contract": "Native store retains NaN. Model imputes mature-training mean only; identical known/age/preliminary controls in both families; no market dates excluded"
+}

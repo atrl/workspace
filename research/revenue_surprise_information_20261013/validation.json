@@ -1,0 +1,14 @@
+{
+  "recorder_id": "3b09e525435844e7ad82ccb43d084176",
+  "archive_sha256": "c2a14311508d7e09647501a5cce99b11b0ba2895dfbd25afb70ed625ff0f05b3",
+  "verified_objects": 22,
+  "notebook_executed": true,
+  "new_model_fits": 6,
+  "new_backtests": 0,
+  "focused_checks": [
+    "reused training maturity and development-year boundary checks",
+    "next-session event activation and window expiry",
+    "known preliminary disclosure exclusion",
+    "training-only imputation unaffected by immature future rows"
+  ]
+}
