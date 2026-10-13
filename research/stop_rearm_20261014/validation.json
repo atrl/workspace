@@ -1,0 +1,24 @@
+{
+  "recorder_id": "1bc047c9ac2141d08b7c51564d6413de",
+  "archive_sha256": "940e5c7158f34d8c79eb758ea96099538d210c803e25b1213450e468617ee211",
+  "verified_objects": 27,
+  "notebook_executed": true,
+  "focused_tests": "14 passed",
+  "prefix_checks": [
+    {
+      "slippage_bps": 0,
+      "identical_prefix_sessions": 176,
+      "first_candidate_state_change": "2023-09-18 00:00:00"
+    },
+    {
+      "slippage_bps": 2,
+      "identical_prefix_sessions": 175,
+      "first_candidate_state_change": "2023-09-15 00:00:00"
+    },
+    {
+      "slippage_bps": 5,
+      "identical_prefix_sessions": 175,
+      "first_candidate_state_change": "2023-09-15 00:00:00"
+    }
+  ]
+}

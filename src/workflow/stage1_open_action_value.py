@@ -605,10 +605,11 @@ def prepare_on_policy_open(
     recovery_spec: IntradayRecoveryDirectAllocationSpec,
     model: Any | None,
     action_spec: Stage1OpenActionValueSpec,
+    state_transition=None,
 ) -> dict[str, Any]:
     """Prepare one open decision from the strategy's own settled ledger state."""
     drawdown = max(0.0, 1.0 - equity / peak)
-    state, clock, q = _advance_state(risk_state, risk_clock, drawdown, recovery_spec)
+    state, clock, q = (state_transition or _advance_state)(risk_state, risk_clock, drawdown, recovery_spec)
     cap, raw_beta = _base_cap(
         row, q=q, drawdown=drawdown, history=history, spec=recovery_spec
     )

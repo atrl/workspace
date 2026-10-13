@@ -9,7 +9,7 @@ from src.workflow.stage1_open_action_value import prepare_on_policy_open, prepar
 
 
 def replay_full_path(frame, *, models, plan, slippage_bps, controller=None, recovery_spec=None,
-                     action_spec=None, selection=None, benchmark=False):
+                     action_spec=None, selection=None, benchmark=False, state_transition=None):
     q, cash, peak = np.zeros(2), float(plan["initial_cash"]), float(plan["initial_cash"])
     fees = TieredFees(plan["tariff"], slippage_bps=slippage_bps)
     records, orders, targets, history = [], [], [], []
@@ -34,7 +34,7 @@ def replay_full_path(frame, *, models, plan, slippage_bps, controller=None, reco
         elif controller is not None:
             opened = prepare_on_policy_open(row, pretrade_weights=pretrade, equity=known_nav, peak=peak,
                 risk_state=state, risk_clock=clock, history=history, recovery_spec=recovery_spec,
-                model=controller["frozen_open_action_value_model"], action_spec=action_spec)
+                model=controller["frozen_open_action_value_model"], action_spec=action_spec, state_transition=state_transition)
             state, clock = opened["risk_state"], opened["risk_clock"]
             desired = opened["desired_open_weights"] if opened["execute_open_target"] else None
         else:
