@@ -1,0 +1,77 @@
+{
+  "experiment": "semis_context_refresh_20261014",
+  "plan_sha256": "b4900a3902c76a4e344a15c6ba9e264088cb0362f102dfc6424c774d8de32024",
+  "decision": "core_and_context_source_dates_aligned_feature_pipeline_not_refit",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "before_source_id": "149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c",
+  "after_source_id": "2c70bd56ffc15ad4ba4eb243e0ca0b9409cd9d39f369c0d95ac02829de1fcf58",
+  "core_as_of": "2026-10-13",
+  "context_as_of": "2026-10-13",
+  "new_context_bars": 624,
+  "context_rows": 624672,
+  "source_counts": [
+    {
+      "symbol": "QQQ",
+      "old_rows": 156012,
+      "new_rows": 156,
+      "merged_rows": 156168
+    },
+    {
+      "symbol": "SMH",
+      "old_rows": 156012,
+      "new_rows": 156,
+      "merged_rows": 156168
+    },
+    {
+      "symbol": "NVDA",
+      "old_rows": 156012,
+      "new_rows": 156,
+      "merged_rows": 156168
+    },
+    {
+      "symbol": "AMD",
+      "old_rows": 156012,
+      "new_rows": 156,
+      "merged_rows": 156168
+    }
+  ],
+  "missing_context_bars": 0,
+  "context_invalid_rows": 0,
+  "old_context_raw_prefix_unchanged": true,
+  "core_source_unchanged": true,
+  "historical_first_receipt_certified": false,
+  "all_model_inputs_rebuilt": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/semis_context_refresh_20261014",
+  "region": "us",
+  "as_of": "2026-10-13",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "recorder_id": "32894297844647819ef514986cb37a5f",
+  "experiment_id": "144314293023232035",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/semis_context_refresh_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/semis_context_refresh_20261014/qlib_recorder/144314293023232035/32894297844647819ef514986cb37a5f",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/coverage",
+      "analysis/native_tail"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "4ee32995dd21152c2d95dd3ff8e7f9971fbdc3e8a18a12e8c95df8fc91105665",
+    "size_bytes": 103634,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/4e/e3/4ee32995dd21152c2d95dd3ff8e7f9971fbdc3e8a18a12e8c95df8fc91105665",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 06:17:13.475158+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/4e/e3/4ee32995dd21152c2d95dd3ff8e7f9971fbdc3e8a18a12e8c95df8fc91105665",
+    "recorder_id": "32894297844647819ef514986cb37a5f",
+    "experiment_id": "144314293023232035",
+    "archive_root": "qlib_recorder"
+  }
+}

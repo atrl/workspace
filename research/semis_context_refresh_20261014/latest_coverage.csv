@@ -1,0 +1,9 @@
+symbol,date,expected_bars,observed_bars,missing_bars,unexpected_bars,invalid_rows
+QQQ,2026-10-12,78,78,0,0,0
+SMH,2026-10-12,78,78,0,0,0
+NVDA,2026-10-12,78,78,0,0,0
+AMD,2026-10-12,78,78,0,0,0
+QQQ,2026-10-13,78,78,0,0,0
+SMH,2026-10-13,78,78,0,0,0
+NVDA,2026-10-13,78,78,0,0,0
+AMD,2026-10-13,78,78,0,0,0

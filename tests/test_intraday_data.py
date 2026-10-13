@@ -282,6 +282,7 @@ def test_canonical_none_refresh_backfills_old_date_and_tail(monkeypatch, tmp_pat
         from src.data import nas_market_data as nas
         (tmp_path / "data/nas_sources.json").write_text("{}")
         prior = {"source_id": "prior", "snapshot_root": "/nas/prior", "as_of": "2026-07-27",
+                 "metadata": {"context_raw_cache": "data/context.parquet", "context_invalid_rows": 2},
                  "objects": [{"local_path": "data/context.parquet", "snapshot_path": "context.parquet"}]}
         monkeypatch.setattr(nas, "load_current_nas_binding", lambda **kwargs: prior)
         monkeypatch.setattr(nas, "materialize_nas_snapshot", lambda *args, **kwargs: delivery.append("restore"))
@@ -289,11 +290,14 @@ def test_canonical_none_refresh_backfills_old_date_and_tail(monkeypatch, tmp_pat
             assert delivery == ["restore"]
             assert kwargs["inherited_objects"][0]["snapshot_root"] == "/nas/prior"
             assert kwargs["source_metadata"]["context_as_of"] == "2026-07-27"
+            assert kwargs["source_metadata"]["context_raw_cache"] == "data/context.parquet"
+            assert kwargs["source_metadata"]["quality_status"] == "partial"
             assert pd.read_parquet(path).groupby(["symbol", "date"]).size().eq(390).all()
             delivery.append("publish")
             return {**prior, "source_id": "updated"}
         def register_nas(binding, **kwargs):
             assert delivery == ["restore", "publish"] and binding["source_id"] == "updated"
+            assert kwargs["error_count"] == 2
             delivery.append("register")
             return {"name": "us_semis_intraday"}
         monkeypatch.setattr(nas, "publish_nas_snapshot", publish_nas)

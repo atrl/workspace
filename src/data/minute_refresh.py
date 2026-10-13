@@ -122,17 +122,20 @@ def refresh_published_core(*, root: Path, session_date: str, start_session_date:
         inherited = [{**entry, "snapshot_root": entry.get("snapshot_root", nas_binding["snapshot_root"])}
                      for entry in nas_binding["objects"] if entry["local_path"] not in files]
         context_as_of = nas_binding.get("metadata", {}).get("context_as_of", nas_binding["as_of"])
+        context_invalid = int(nas_binding.get("metadata", {}).get("context_invalid_rows", 0))
+        total_invalid = int(updated.invalid_rows.sum()) + context_invalid
         published_binding = publish_nas_snapshot(workspace_root=root, source_manifest=source_manifest,
             files=files, as_of=session_date, inherited_objects=inherited,
-            source_metadata={"context_as_of": context_as_of, "collector": "mac_futu_opend",
+            source_metadata={**{key: value for key, value in nas_binding.get("metadata", {}).items() if key.startswith("context_")},
+                "context_as_of": context_as_of, "collector": "mac_futu_opend",
                 "local_store_policy": "disposable Qlib cache",
-                "quality_status": "partial" if updated.invalid_rows.sum() else "ok",
+                "quality_status": "partial" if total_invalid else "ok",
                 "malformed_rows": int(updated.invalid_rows.sum()), "core_rows": int(len(raw))})
         result["nas_source"] = register_nas_source(published_binding, workspace_root=root,
-            error_count=int(updated.invalid_rows.sum()),
-            observation={"quality_status": "partial" if updated.invalid_rows.sum() else "ok",
+            error_count=total_invalid,
+            observation={"quality_status": "partial" if total_invalid else "ok",
                 "core_rows": int(len(raw)), "core_last_bar": str(raw.timestamp.max()),
-                "context_as_of": context_as_of, "missing_closed_minutes": int(updated.missing_minutes.sum()),
+                "context_as_of": context_as_of, "context_invalid_rows": context_invalid, "missing_closed_minutes": int(updated.missing_minutes.sum()),
                 "malformed_rows": int(updated.invalid_rows.sum()),
                 "research_adjustment": "published_futu_affine_v1", "source_adjustment": "NONE"})
     return result

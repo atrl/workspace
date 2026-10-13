@@ -1,0 +1,41 @@
+{
+  "experiment": "semis_context_refresh_20261014",
+  "as_of": "2026-10-13",
+  "tail_start": "2026-10-12",
+  "expected_before_source_id": "149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c",
+  "symbols": [
+    "QQQ",
+    "SMH",
+    "NVDA",
+    "AMD"
+  ],
+  "old_sources": {
+    "QQQ": {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.parquet",
+      "sha256": "0162127c3ae0ca487a2b58627cb9bdeb2f9746c3b05be6c5f6b7ae1ded94319d"
+    },
+    "SMH": {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.parquet",
+      "sha256": "ef9cd86b5328dfb3242986d18a9e2f732784777b868fe4f9db31a2c506942323"
+    },
+    "NVDA": {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.parquet",
+      "sha256": "a6021ed363e3a8f0e0cdbfbc8b8a9051ec7e1c1e3e1cc91cc0fe8c71e46c7107"
+    },
+    "AMD": {
+      "path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.parquet",
+      "sha256": "f6f7abee685b60e3c6fa0160121617416bb01156b38a3133abe1194a3e0155f7"
+    }
+  },
+  "old_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "old_manifest_sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "core_manifest": "data/raw/external/semis_minute_refresh/source_manifest.json",
+  "raw_output": "data/raw/external/semis_context_refresh_20261014",
+  "provider": "data/qlib/semis_context_refresh_20261014",
+  "host": "127.0.0.1",
+  "port": 11111,
+  "mechanism": "Extend existing SOXL research context only, K_5M NONE RTH, exact original prefix preserved, native grid audit before NAS publication; core source bytes unchanged",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279"
+}
