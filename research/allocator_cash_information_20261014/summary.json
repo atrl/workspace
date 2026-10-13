@@ -1,0 +1,44 @@
+{
+  "experiment": "allocator_cash_information_20261014",
+  "plan_sha256": "b28c04786aeac01c4b4a405065874f810a5223c8bbb8feb2a82e271240354baa",
+  "decision": "diagnostic_only_no_promotion",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "rows": 944,
+  "mature_h1": 944,
+  "mature_h5": 940,
+  "tail_h5_count": 177,
+  "recorder_id": "2d7bd1e5020d46dd801f384a3c97ef7f",
+  "experiment_id": "408822489499271253",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/allocator_cash_information_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/allocator_cash_information_20261014/qlib_recorder/408822489499271253/2d7bd1e5020d46dd801f384a3c97ef7f",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "limits": "unadjusted multiple descriptive tests; reused history; tail observations use close/exit marks, not tick extrema",
+  "tail_definition": "SOXX close or exit09:47 marks <=95% of entry09:47 price in next5 holding intervals; not peak-to-trough drawdown",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/daily"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "0d458acae46b991b8ce21a03f742a9dcba94a0bd4eed0f3bca41d2a40d8da9c5",
+    "size_bytes": 112561,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/0d/45/0d458acae46b991b8ce21a03f742a9dcba94a0bd4eed0f3bca41d2a40d8da9c5",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 03:31:48.968812+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/0d/45/0d458acae46b991b8ce21a03f742a9dcba94a0bd4eed0f3bca41d2a40d8da9c5",
+    "recorder_id": "2d7bd1e5020d46dd801f384a3c97ef7f",
+    "experiment_id": "408822489499271253",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "as_of": "2026-10-09",
+  "start": "2023-01-03",
+  "end": "2026-10-09",
+  "source": {
+    "card": "research/monthly_forecast_account_20261014",
+    "recorder_id": "e57350a820c24ac8b306d67955e4ae25",
+    "archive": "b3875393f9f5495be29efbe3f8782c92cdde4c4798ce97f796bcc870c34379d2",
+    "inventory_sha256": "aa9e441c0a6ff8b5a8a95d48918bcf5fb2543699f9e6e62d38742571ce4ca80b"
+  },
+  "action_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "experiment": "allocator_cash_information_20261014",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "horizons": [
+    1,
+    5
+  ],
+  "tail_threshold": -0.05,
+  "bootstrap_block": 63,
+  "bootstrap_resamples": 2000,
+  "bootstrap_seed": 20261014,
+  "mechanism": "Frozen f696 and base-ensemble cash/tail scores against SOXX future returns and observed H5 downside at matched09:47 clock; no threshold or candidate selection",
+  "limits": "unadjusted multiple descriptive tests; reused history; tail observations use close/exit marks, not tick extrema"
+}
