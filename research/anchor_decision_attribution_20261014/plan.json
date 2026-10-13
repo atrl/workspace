@@ -1,0 +1,25 @@
+{
+  "experiment": "anchor_decision_attribution_20261014",
+  "as_of": "2026-10-09",
+  "initial_cash": 100000,
+  "families": [
+    "current_anchor",
+    "monthly"
+  ],
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "source": {
+    "card": "research/monthly_forecast_account_20261014",
+    "recorder_id": "e57350a820c24ac8b306d67955e4ae25",
+    "archive": "b3875393f9f5495be29efbe3f8782c92cdde4c4798ce97f796bcc870c34379d2",
+    "inventory_sha256": "aa9e441c0a6ff8b5a8a95d48918bcf5fb2543699f9e6e62d38742571ce4ca80b"
+  },
+  "mechanism": "Exact accounting attribution of net relative log wealth; not causal policy counterfactual or candidate selection",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "minimum_cash_reference": 0.15,
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279"
+}

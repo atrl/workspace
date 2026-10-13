@@ -1,0 +1,41 @@
+{
+  "experiment": "anchor_decision_attribution_20261014",
+  "plan_sha256": "048799913967f984fb00ad0aad2402394f9fb7f795598785395392133b11c486",
+  "decision": "diagnostic_only_no_promotion",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "reused_native_accounts": 9,
+  "maximum_daily_return_reconciliation_error": 3.877106968808164e-16,
+  "recorder_id": "dcb1ffe0dd18492c82250abe7ed0b215",
+  "experiment_id": "752389954075650758",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/anchor_decision_attribution_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/anchor_decision_attribution_20261014/qlib_recorder/752389954075650758/dcb1ffe0dd18492c82250abe7ed0b215",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/daily/*"
+    ]
+  },
+  "interpretation": "Log-linked accounting components; not causal removable losses or feasible standalone returns. 15% reference cash is an attribution split, not a deployable counterfactual. Reused historical anchor is not paper fills.",
+  "nas_evidence": {
+    "sha256": "50b8098b1efe5f04cce2bb063743bba2c865f9dcd86da0d340230a5ca9d92ca0",
+    "size_bytes": 433383,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/50/b8/50b8098b1efe5f04cce2bb063743bba2c865f9dcd86da0d340230a5ca9d92ca0",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 02:58:51.176598+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/50/b8/50b8098b1efe5f04cce2bb063743bba2c865f9dcd86da0d340230a5ca9d92ca0",
+    "recorder_id": "dcb1ffe0dd18492c82250abe7ed0b215",
+    "experiment_id": "752389954075650758",
+    "archive_root": "qlib_recorder"
+  }
+}
