@@ -1,0 +1,1075 @@
+[
+  {
+    "source_index": 0,
+    "paragraph_sha256": "73ca4dc5ed81638c0ea41e688264da4fcd8b4c3166f3bbb5349512596338eef8",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "annual_or_actual_only",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 1,
+    "paragraph_sha256": "9581a5e2cb9bf4f7539554f5f3c406eafb5ff064ba6667f4b2f18c4cb3326144",
+    "guidance_billion": 1.55,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "quarter_guide_no_consensus",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 2,
+    "paragraph_sha256": "70f18f85aec06254a7f887ea23da576e2aae9a768ff2b2e6e6daa1323ebe5531",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "upbeat_not_explicit_vs_consensus",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 3,
+    "paragraph_sha256": "31f703941f7fb1182b7c27d657bece81659c32ca1e3bd0d5b4b95c5005ca444f",
+    "guidance_billion": 1.73,
+    "consensus_billion": 1.57,
+    "direction": 1,
+    "review_note": "current_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 4,
+    "paragraph_sha256": "1cb2404d284f7ce27c26a1e30f0c1098469ddac0ac8738411113e812548d2668",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "annual_or_actual_only",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 5,
+    "paragraph_sha256": "0f2e31dd1dcca9a17b636bfaead7ac2e602e7ffd88b462dec6f2884a733a0574",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "no_forward_comparison",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 6,
+    "paragraph_sha256": "28f24297c4cc48f6d1d994c75c7a2afce4fdf602f9e82667e1da7c01e9b11254",
+    "guidance_billion": 1.7,
+    "consensus_billion": 1.76,
+    "direction": -1,
+    "review_note": "third_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 7,
+    "paragraph_sha256": "68fc53cff2929066e2ad85f90eb9f1786f98299b1401f2d6b5b04fba3952c536",
+    "guidance_billion": 18.1,
+    "consensus_billion": 17.6,
+    "direction": 1,
+    "review_note": "current_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 8,
+    "paragraph_sha256": "a71b501d5c5958b4d6bc6fb52646bf96cca4891f239b4a89f4ca36c4c7efbde0",
+    "guidance_billion": 3.25,
+    "consensus_billion": null,
+    "direction": -1,
+    "review_note": "third_quarter_below_wall_street",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 9,
+    "paragraph_sha256": "ed82aa726a2106d41e074157e3dd4c703959298b3a0e93d50790d2562476a535",
+    "guidance_billion": 1.45,
+    "consensus_billion": 1.6,
+    "direction": -1,
+    "review_note": "fourth_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 10,
+    "paragraph_sha256": "942e7a617ff60f87e38967e3f2c8b7dfa403e807e7b553c964ca088688feec5d",
+    "guidance_billion": 19.0,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "quarter_guide_no_consensus",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 11,
+    "paragraph_sha256": "9fc3adc9f96e9864a03b060845be9a2925eb34bee455c2b527ba6efc077336e8",
+    "guidance_billion": 2.7,
+    "consensus_billion": 3.4,
+    "direction": -1,
+    "review_note": "current_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 12,
+    "paragraph_sha256": "fdecf13489ae0d388c6d4fc542a4d89dc250109e1e90fc71e440c265af74f010",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": -1,
+    "review_note": "current_quarter_revenue_below_estimates",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 13,
+    "paragraph_sha256": "78805930d566a25cf7db45fa8518f9afaeb5b9b7c24ce9d45886543bb2088dca",
+    "guidance_billion": 1.25,
+    "consensus_billion": 1.47,
+    "direction": -1,
+    "review_note": "current_quarter_pair_annual_outlook_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 14,
+    "paragraph_sha256": "a3c3dd5b0b3a7d495419b5bb985d2b3eeed6b5e8fe7efe22496ee1f710658dde",
+    "guidance_billion": 2.2,
+    "consensus_billion": 2.28,
+    "direction": -1,
+    "review_note": "first_quarter_pair_annual_outlook_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 15,
+    "paragraph_sha256": "ba8d5812bff610e6ccc82913acbd88cfeb339f082dc07078df19fa0ee9bf14b6",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "annual_or_actual_only",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 16,
+    "paragraph_sha256": "78a1a133d54c4bc34bc4de0a2095d61c5f2a196530b64ca1b28e506babe027ca",
+    "guidance_billion": 1.52,
+    "consensus_billion": null,
+    "direction": 0,
+    "review_note": "second_quarter_explicit_in_line",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 17,
+    "paragraph_sha256": "711ec5ea3f42b399c17d49895b67e83942e60f9c435a85d3774aa1d3c9de1b84",
+    "guidance_billion": 2.55,
+    "consensus_billion": 2.53,
+    "direction": 1,
+    "review_note": "second_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 18,
+    "paragraph_sha256": "c0a36c5dcff120e0b45462123d33716d09ffc24d9c5562317eb5bf1ad76dec66",
+    "guidance_billion": 18.0,
+    "consensus_billion": 17.72,
+    "direction": 1,
+    "review_note": "third_quarter_pair_annual_outlook_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 19,
+    "paragraph_sha256": "a65decfbaa2eef46e7cc6e9ad635b4c845f1bd2b99a8aa285fcd5b4dab8e4245",
+    "guidance_billion": 1.8,
+    "consensus_billion": 1.95,
+    "direction": -1,
+    "review_note": "third_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 20,
+    "paragraph_sha256": "8fa4888cf3a483b9c3d3bb4b17ffbd5d9e3268955634cbc6ce81aaad0017bcf8",
+    "guidance_billion": 2.9,
+    "consensus_billion": 2.97,
+    "direction": -1,
+    "review_note": "third_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 21,
+    "paragraph_sha256": "19e09034546d3b30d2bf872db2d3fbe68ef7d2fe0c4a463941d74f1ec7feff19",
+    "guidance_billion": 2.1,
+    "consensus_billion": 2.15,
+    "direction": -1,
+    "review_note": "fourth_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 22,
+    "paragraph_sha256": "9df7c384ef726c0ae59a6486196b4c68812a36cdfc254c99174351c24736f734",
+    "guidance_billion": 2.95,
+    "consensus_billion": 3.06,
+    "direction": -1,
+    "review_note": "fourth_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 23,
+    "paragraph_sha256": "ef495e57918e6319559b1ce10e88bc48aca27d8ee138569271e21d406b81828f",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "annual_or_actual_only",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 24,
+    "paragraph_sha256": "d6ba0ca80ad4018ad7d1c6064aaed7a96231508aa60e671bd56f4917427e75ac",
+    "guidance_billion": 1.8,
+    "consensus_billion": 1.86,
+    "direction": -1,
+    "review_note": "first_quarter_pair_annual_outlook_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 25,
+    "paragraph_sha256": "94655a7bf125e76814931b9b4fa2e252a38a77bdd7a1c6087330b38b2a230dff",
+    "guidance_billion": 3.0,
+    "consensus_billion": 2.86,
+    "direction": 1,
+    "review_note": "first_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 26,
+    "paragraph_sha256": "28ddd83c1e3f1b85a0c8349e8dab71be5ba9563a459100c74138c09a8fa2f0a2",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "forward_eps_only_not_revenue",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 27,
+    "paragraph_sha256": "916937320c7cd71e584cfc35c11bffe0a28bff8f43ce582c960fbf0ccd308299",
+    "guidance_billion": 1.85,
+    "consensus_billion": 1.92,
+    "direction": -1,
+    "review_note": "second_quarter_pair_annual_outlook_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 28,
+    "paragraph_sha256": "5a49e918c001be264f7834510bea9525152a615d7bf36ada04abcb9f56ae1690",
+    "guidance_billion": 3.65,
+    "consensus_billion": 3.29,
+    "direction": 1,
+    "review_note": "reported_pair_includes_mellanox_scope_caveat",
+    "guidance_range_billion": null,
+    "scope_caveat": true
+  },
+  {
+    "source_index": 29,
+    "paragraph_sha256": "e14f0209fe793a25192d78433d6eefb49076301de0c0fbd05f736d4e44baf85a",
+    "guidance_billion": 18.2,
+    "consensus_billion": 17.9,
+    "direction": 1,
+    "review_note": "third_quarter_revenue_above_eps_below",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 30,
+    "paragraph_sha256": "c64b126fd18d8e2bb600c62c2518000d7a086c7fd401b8263b65e9247e455f0a",
+    "guidance_billion": 2.55,
+    "consensus_billion": 2.32,
+    "direction": 1,
+    "review_note": "third_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 31,
+    "paragraph_sha256": "2a607414ccbe1416d64fb901b3df779e288c7fea0bf86f605dd6abf8f542b476",
+    "guidance_billion": 4.4,
+    "consensus_billion": 3.97,
+    "direction": 1,
+    "review_note": "third_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 32,
+    "paragraph_sha256": "de1732565ec29b3d4c2085e409412c36ebd457c7d55e6f7420b807cdabb996b2",
+    "guidance_billion": 17.4,
+    "consensus_billion": 17.36,
+    "direction": 1,
+    "review_note": "fourth_quarter_published_midpoint_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 33,
+    "paragraph_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "company_paragraph_absent",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 34,
+    "paragraph_sha256": "03a496b87d73f58efd39876682212436c160ee1fe8efe58853839d434f6eb2d8",
+    "guidance_billion": 4.8,
+    "consensus_billion": 4.42,
+    "direction": 1,
+    "review_note": "fourth_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 35,
+    "paragraph_sha256": "f732d6522ec7332b2e598c446e3871f5b4edce507a76795701a15dad198a8c19",
+    "guidance_billion": 17.5,
+    "consensus_billion": null,
+    "direction": 1,
+    "review_note": "first_quarter_adjusted_revenue_above",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 36,
+    "paragraph_sha256": "43a5d35ccb837819f1e1c385bac87eb70b5f8f83a99e077f2065b59bf1fac730",
+    "guidance_billion": 3.2,
+    "consensus_billion": 2.74,
+    "direction": 1,
+    "review_note": "first_quarter_pair_annual_outlook_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 37,
+    "paragraph_sha256": "0914a50124226219e08df86bf1431cce920355581f90574bcf74b801bb0a592c",
+    "guidance_billion": 5.3,
+    "consensus_billion": 4.51,
+    "direction": 1,
+    "review_note": "first_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 38,
+    "paragraph_sha256": "f22b42ddf1df6c3acf92f127c22c0a1a5a9d38215d48abeab62e8c4e7545e8b6",
+    "guidance_billion": 17.8,
+    "consensus_billion": 17.59,
+    "direction": 1,
+    "review_note": "second_quarter_adjusted_revenue_above_eps_below",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 39,
+    "paragraph_sha256": "eeea723b7ea2d2c2130f7202d006a2b9a9dedd64c4b30bedc56df47bb94c1d4a",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "annual_or_actual_only",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 40,
+    "paragraph_sha256": "46ff84ecec03378a73359bbeb46e457675c81fcf9ddf05a118d97761bee5293c",
+    "guidance_billion": 6.3,
+    "consensus_billion": 5.5,
+    "direction": 1,
+    "review_note": "second_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 41,
+    "paragraph_sha256": "5005878e8b4e3539493f5a0368a85f41e1d41cccc8d7c49083eed7a4a9065ae3",
+    "guidance_billion": 18.2,
+    "consensus_billion": 18.09,
+    "direction": 1,
+    "review_note": "third_quarter_adjusted_revenue_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 42,
+    "paragraph_sha256": "b77b0797140bb98877ce27325957c2341471a1ff5775e7c92370c3aba72f7ad6",
+    "guidance_billion": 4.1,
+    "consensus_billion": 3.82,
+    "direction": 1,
+    "review_note": "third_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 43,
+    "paragraph_sha256": "b586870776e917d5dafeb1692b7482d4c25959b1a9c36b77d488859564bd0e0b",
+    "guidance_billion": 6.8,
+    "consensus_billion": 6.53,
+    "direction": 1,
+    "review_note": "third_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 44,
+    "paragraph_sha256": "6a6aeb0f6d5f384c9f152c34db48a035c1ea3c66d5ef39f2e0865d4aca005018",
+    "guidance_billion": 18.3,
+    "consensus_billion": 18.25,
+    "direction": 1,
+    "review_note": "fourth_quarter_published_midpoint_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 45,
+    "paragraph_sha256": "53ec1bf52797742a80eac2eb4872d5c061cb5d1af669ddaf446ac5d6a2ed3be1",
+    "guidance_billion": 4.5,
+    "consensus_billion": 4.25,
+    "direction": 1,
+    "review_note": "fourth_quarter_pair_annual_outlook_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 46,
+    "paragraph_sha256": "00e3628a2ff9fdc6ece981348921a9627763ea80b8807bc931e6954e53d4dd8b",
+    "guidance_billion": 7.4,
+    "consensus_billion": 6.86,
+    "direction": 1,
+    "review_note": "fourth_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 47,
+    "paragraph_sha256": "9bf970f8cd9ff14aed493ab8d0e95c329b5975b56dca38f83ebeb9272a74d2a9",
+    "guidance_billion": 18.3,
+    "consensus_billion": 17.62,
+    "direction": 1,
+    "review_note": "first_quarter_revenue_above_eps_below",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 48,
+    "paragraph_sha256": "09cb64967d7ff7945357a4e125cb42a4c052cdb250deeb8e8cc55ae5169d2185",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "annual_or_actual_only",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 49,
+    "paragraph_sha256": "824f76b26d4587b9e3995f275923a757fa9db052efae3c0634de0a782be02e9b",
+    "guidance_billion": 8.1,
+    "consensus_billion": 7.29,
+    "direction": 1,
+    "review_note": "first_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 50,
+    "paragraph_sha256": "c82ef979eeb580e2b4bb2be5ee4264098829a1a9f2ed0281ca43010c9249d364",
+    "guidance_billion": 18.0,
+    "consensus_billion": 18.38,
+    "direction": -1,
+    "review_note": "second_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 51,
+    "paragraph_sha256": "e1642fc93209ce8f501079182aa16d7a7648ae64fcebc04ab4396989c4f4499c",
+    "guidance_billion": 6.5,
+    "consensus_billion": 6.38,
+    "direction": 1,
+    "review_note": "second_quarter_pair_annual_outlook_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 52,
+    "paragraph_sha256": "e40317ba5e6ef2ed6ed9f4eb5b4995d895240acde65e01de51402044192596f4",
+    "guidance_billion": 8.1,
+    "consensus_billion": 8.45,
+    "direction": -1,
+    "review_note": "second_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 53,
+    "paragraph_sha256": "3df58f2ab5e56a9c1e241c7a89243d827f370952f683625465f2a90f718884d0",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "current_quarter_results_unspecified_metric",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 54,
+    "paragraph_sha256": "9282e91ac75d5d31e1809cfe8afe98bdad2c5e78e8320240eaadc2aa0ea5db91",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": -1,
+    "review_note": "third_quarter_revenue_explicitly_below",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 55,
+    "paragraph_sha256": "0a9ef915dc3a52ff71172e9f43be856b4472bfaf278eeb63e051cf82fbdff05f",
+    "guidance_billion": 5.9,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "year_on_year_decline_not_consensus_comparison",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 56,
+    "paragraph_sha256": "be87042ac810da8c05f88f2b14f22ea0d629ddb15bfda1a3df8abd06f3020a42",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "cut_prior_outlook_not_market_comparison",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 57,
+    "paragraph_sha256": "50fa632b149331fc4c89f4e7a8fb992daf663d206418e17fda3f7bea9ebd6ec7",
+    "guidance_billion": 5.5,
+    "consensus_billion": 5.85,
+    "direction": -1,
+    "review_note": "fourth_quarter_pair_annual_outlook_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 58,
+    "paragraph_sha256": "fb6f20ee5d6e6eab033dfcd0ae03d339687e8d3f758e421c9392d197e48464f2",
+    "guidance_billion": 6.0,
+    "consensus_billion": 6.09,
+    "direction": -1,
+    "review_note": "current_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 59,
+    "paragraph_sha256": "eb89d07ac71729fe43d68a3282c6fd5758c7c09ef9fc2e68ab89292924c3d7db",
+    "guidance_billion": 11.0,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "range_midpoint_10.5_11.5_no_revenue_consensus",
+    "guidance_range_billion": [
+      10.5,
+      11.5
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 60,
+    "paragraph_sha256": "7da6422e2f6a1486fdef51d44238888a7e74f2b779b3d3a55cf946adc5aebec1",
+    "guidance_billion": 5.3,
+    "consensus_billion": 5.48,
+    "direction": -1,
+    "review_note": "current_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 61,
+    "paragraph_sha256": "b803f28745ca178adc9b3b394717f241bc29c3c596e6bec50d5a844e46b5af47",
+    "guidance_billion": 6.5,
+    "consensus_billion": 6.33,
+    "direction": 1,
+    "review_note": "first_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 62,
+    "paragraph_sha256": "297755704aaa627ed0750ba2922d2eb137ff770a51f3d20fd77df6f5c1472a94",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "forward_margin_only_not_revenue",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 63,
+    "paragraph_sha256": "065aa161ae0e9652ebc5930d243604a8a0cc55613a5ee39167aa5e9336589c78",
+    "guidance_billion": 5.3,
+    "consensus_billion": 5.48,
+    "direction": -1,
+    "review_note": "current_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 64,
+    "paragraph_sha256": "6c70388c9355842e72b29f2c345ce1c619cc1be9b7f4b3028b71a82d2b8f574b",
+    "guidance_billion": 11.0,
+    "consensus_billion": null,
+    "direction": 1,
+    "review_note": "second_quarter_more_than_50pct_above_no_denominator",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 65,
+    "paragraph_sha256": "91add61282eae30a63ce78f32975d717491e8de071bad67904124dd35906afbb",
+    "guidance_billion": 13.4,
+    "consensus_billion": 13.23,
+    "direction": 1,
+    "review_note": "adjusted_revenue_range_midpoint_12.9_13.9",
+    "guidance_range_billion": [
+      12.9,
+      13.9
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 66,
+    "paragraph_sha256": "b01b0aef1e13d35765575b06a70483e7f156abddd56d132bceeccbe435276c92",
+    "guidance_billion": 5.7,
+    "consensus_billion": 5.82,
+    "direction": -1,
+    "review_note": "current_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 67,
+    "paragraph_sha256": "d588a70173dced8f96e57cee119afb10c49f1d2c9b67d421f8107972dacb0ced",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": 1,
+    "review_note": "prospective_quarterly_revenue_above_requires_issuer_anchor",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 68,
+    "paragraph_sha256": "2410dadf8a1b7d0874ef85e46e67683e195569aed18c74e427bcddcea34dc38c",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": 1,
+    "review_note": "fourth_quarter_revenue_above",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 69,
+    "paragraph_sha256": "f4d9498f8c680c1fee0b6d60130f8f78c56060a172bb88fcfac7f192c256a9c1",
+    "guidance_billion": 6.1,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "quarterly_outlook_unspecified_revenue_benchmark",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 70,
+    "paragraph_sha256": "9b224eea0b165e2119f38c7ac7d9f313a69611ab8448b44b2f5618225a304062",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": 1,
+    "review_note": "fourth_quarter_overall_revenue_above_not_china_segment",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 71,
+    "paragraph_sha256": "69188f5a25a85e006b7cba4c34f4cc6657c2fc00b0bba545a8ff896a7fbdef02",
+    "guidance_billion": 12.7,
+    "consensus_billion": 14.5,
+    "direction": -1,
+    "review_note": "adjusted_revenue_range_midpoint_12.2_13.2",
+    "guidance_range_billion": [
+      12.2,
+      13.2
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 72,
+    "paragraph_sha256": "650a11a06f60121c5e18f5e451b92823ce66f0a8c554b239f54dc761fc1b0bd7",
+    "guidance_billion": 5.4,
+    "consensus_billion": 5.73,
+    "direction": -1,
+    "review_note": "first_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 73,
+    "paragraph_sha256": "7d383a8c2c0dea62be8deb5600d2497b2cd6c97854ffa5c56ba87ba704474ee1",
+    "guidance_billion": 24.0,
+    "consensus_billion": null,
+    "direction": 1,
+    "review_note": "first_quarter_growth_above_no_amount_denominator",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 74,
+    "paragraph_sha256": "489d4ac5768c743b03d246d264da2a28ca4f156412661d7008c57235fb68da47",
+    "guidance_billion": 13.0,
+    "consensus_billion": 13.57,
+    "direction": -1,
+    "review_note": "revenue_range_midpoint_12.5_13.5",
+    "guidance_range_billion": [
+      12.5,
+      13.5
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 75,
+    "paragraph_sha256": "a11c04210d880728193b0a6fe1f0ea801364c1e5468ea89ed0a8503198cedfc4",
+    "guidance_billion": 5.7,
+    "consensus_billion": null,
+    "direction": 0,
+    "review_note": "second_quarter_explicit_in_line",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 76,
+    "paragraph_sha256": "079475e6a8064617978596aa44631d68dd30c1608e33b6671be9fbbca9bc6029",
+    "guidance_billion": 28.0,
+    "consensus_billion": 26.66,
+    "direction": 1,
+    "review_note": "second_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 77,
+    "paragraph_sha256": "8c73be2aea205a2429a12768c2cff6f6c8467315daa68d0ae66d575831786544",
+    "guidance_billion": 6.7,
+    "consensus_billion": 6.61,
+    "direction": 1,
+    "review_note": "third_quarter_revenue_above_margin_below",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 78,
+    "paragraph_sha256": "e163e4650a2a673aeddad4aae2df028385e3ca239244b536ffdcec450b114923",
+    "guidance_billion": 13.0,
+    "consensus_billion": 14.35,
+    "direction": -1,
+    "review_note": "revenue_range_midpoint_12.5_13.5",
+    "guidance_range_billion": [
+      12.5,
+      13.5
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 79,
+    "paragraph_sha256": "cf1d79ac6c28930b36ed068ab17afccdf19d74e43627722f1199f36a72052f35",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "lofty_investor_expectations_not_explicit_consensus_direction",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 80,
+    "paragraph_sha256": "94ab1e06bd22de7a4c3c3bcdf41a7b7ef544c2abf5524d94494608ce26cf00bf",
+    "guidance_billion": 7.5,
+    "consensus_billion": 7.54,
+    "direction": -1,
+    "review_note": "fourth_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 81,
+    "paragraph_sha256": "24861067483bfd0f1a95d5c08a10c69ce881b5966f6f12f694c6b2592e66c52e",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": 1,
+    "review_note": "current_quarter_revenue_explicitly_above",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 82,
+    "paragraph_sha256": "003f14bdad272b1162aa43965d5c271a2040524e40e88d70e41865c2d788f12e",
+    "guidance_billion": 37.5,
+    "consensus_billion": 37.09,
+    "direction": 1,
+    "review_note": "fourth_quarter_consensus_above_despite_investor_disappointment",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 83,
+    "paragraph_sha256": "5f469d9dfcc406d5ebfa4648c4f30c4a08326b6a635bea0b9837fee161396646",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": -1,
+    "review_note": "current_quarter_revenue_explicitly_below",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 84,
+    "paragraph_sha256": "4e8bb3d7dcb051a12ab26922c1db777b65fac514a869cd11c8cfc1776b55dd26",
+    "guidance_billion": 7.1,
+    "consensus_billion": 6.99,
+    "direction": 1,
+    "review_note": "first_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 85,
+    "paragraph_sha256": "0661e77aed4e0e970f29f68fe8544ef2b9d06bfcda80c4916fc6210212408749",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": 1,
+    "review_note": "prospective_quarterly_revenue_above_first_quarter_margin_below",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 86,
+    "paragraph_sha256": "8130f1299129fe16ef064d59b85b1e9b509e12fdf58476b1e35ec272d60df410",
+    "guidance_billion": 11.8,
+    "consensus_billion": 12.82,
+    "direction": -1,
+    "review_note": "revenue_range_midpoint_11.2_12.4",
+    "guidance_range_billion": [
+      11.2,
+      12.4
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 87,
+    "paragraph_sha256": "681db0688e1bf1157dc178cf32380e716b87845e3a21bfc30e035b4e6c9333b3",
+    "guidance_billion": 7.4,
+    "consensus_billion": 7.25,
+    "direction": 1,
+    "review_note": "second_quarter_numeric_pair_annual_export_hit_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 88,
+    "paragraph_sha256": "602d7afbe31672facce4581a9c7e8a5811187de3a36e6b494af72d3045b35ef7",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": -1,
+    "review_note": "second_quarter_below_export_hit_not_total_guidance",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 89,
+    "paragraph_sha256": "89d1565a364e3da9f7ee70bb682582ea0908721ba2c85e7fb73625f0bea5ecf5",
+    "guidance_billion": 13.1,
+    "consensus_billion": 12.65,
+    "direction": 1,
+    "review_note": "revenue_range_midpoint_12.6_13.6_eps_below",
+    "guidance_range_billion": [
+      12.6,
+      13.6
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 90,
+    "paragraph_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "company_paragraph_absent",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 91,
+    "paragraph_sha256": "a28928c4525d94993e95934b210f29544e30cc46d36564c6387f63b4068c6269",
+    "guidance_billion": 54.0,
+    "consensus_billion": 53.14,
+    "direction": 1,
+    "review_note": "reported_pair_china_exclusion_scope_caveat",
+    "guidance_range_billion": null,
+    "scope_caveat": true
+  },
+  {
+    "source_index": 92,
+    "paragraph_sha256": "28cb87cc00e810ddcda980c6c6a973b7b8a458d64639ece7e609c7995460f50f",
+    "guidance_billion": 13.3,
+    "consensus_billion": 13.37,
+    "direction": -1,
+    "review_note": "revenue_range_midpoint_12.8_13.8",
+    "guidance_range_billion": [
+      12.8,
+      13.8
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 93,
+    "paragraph_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "company_paragraph_absent",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 94,
+    "paragraph_sha256": "a1a17fae834bec17e7e8c6f2dd8f14bd6703874232390056482abf273d2e5ea3",
+    "guidance_billion": 65.0,
+    "consensus_billion": 61.66,
+    "direction": 1,
+    "review_note": "fourth_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 95,
+    "paragraph_sha256": "fbd4306933116b67bc04c4ce6e74786b0b0464cbf5cdde7d065194f6f78ad68b",
+    "guidance_billion": 12.2,
+    "consensus_billion": 12.51,
+    "direction": -1,
+    "review_note": "revenue_range_midpoint_11.7_12.7",
+    "guidance_range_billion": [
+      11.7,
+      12.7
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 96,
+    "paragraph_sha256": "a2cbae78ba409a52fc57b4e3ffc5929f93dcf5437ba889099d393ab1024828e4",
+    "guidance_billion": 9.8,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "sequential_decline_not_consensus_past_quarter_estimate_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 97,
+    "paragraph_sha256": "ee524f91c35d80778d0e876012f7e5258502e602e5b5eb26b17cfed67b4f1da7",
+    "guidance_billion": 78.0,
+    "consensus_billion": 72.6,
+    "direction": 1,
+    "review_note": "reported_pair_china_exclusion_scope_caveat",
+    "guidance_range_billion": null,
+    "scope_caveat": true
+  },
+  {
+    "source_index": 98,
+    "paragraph_sha256": "798ed16abf32d36a30074d476a4bbae584678111bb3dd02186b44d49cd124159",
+    "guidance_billion": 14.3,
+    "consensus_billion": 13.07,
+    "direction": 1,
+    "review_note": "revenue_range_midpoint_13.8_14.8",
+    "guidance_range_billion": [
+      13.8,
+      14.8
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 99,
+    "paragraph_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "guidance_billion": null,
+    "consensus_billion": null,
+    "direction": null,
+    "review_note": "company_paragraph_absent",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 100,
+    "paragraph_sha256": "8ed9fad8152c40de3f77655518fa9c70f125ac786ecd3c56fc66d6ca99929ffd",
+    "guidance_billion": 91.0,
+    "consensus_billion": 86.84,
+    "direction": 1,
+    "review_note": "numeric_pair_requires_issuer_target_quarter_anchor",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 101,
+    "paragraph_sha256": "9c8fb02b90fe161cc4b6c5fec3b9c8948bcbadc90264232fc215e23e08f46367",
+    "guidance_billion": 16.3,
+    "consensus_billion": 15.1,
+    "direction": 1,
+    "review_note": "revenue_range_midpoint_15.8_16.8",
+    "guidance_range_billion": [
+      15.8,
+      16.8
+    ],
+    "scope_caveat": false
+  },
+  {
+    "source_index": 102,
+    "paragraph_sha256": "b5b65ff9b3e3fff8c764d14980642a2cae8e2a17fbce4ff004429230611c7c8f",
+    "guidance_billion": 13.0,
+    "consensus_billion": 12.52,
+    "direction": 1,
+    "review_note": "third_quarter_numeric_pair",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  },
+  {
+    "source_index": 103,
+    "paragraph_sha256": "691daf470ce4a42dafa1fc64fdd4ca2ad6d92082fee5ad12df2c11e1bca6aeb2",
+    "guidance_billion": 108.0,
+    "consensus_billion": 104.19,
+    "direction": 1,
+    "review_note": "third_quarter_pair_next_fiscal_year_growth_excluded",
+    "guidance_range_billion": null,
+    "scope_caveat": false
+  }
+]

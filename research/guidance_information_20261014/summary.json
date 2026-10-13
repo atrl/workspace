@@ -1,0 +1,171 @@
+{
+  "experiment": "guidance_information_20261014",
+  "plan_sha256": "a373d0b6bb7433571270392cc8805b26b43969954f6ab337eaf0de2dde7c605d",
+  "decision": "not_promoted_guidance_information_gate_failed",
+  "information_gate_pass": false,
+  "historical_vintage_certified": false,
+  "promotion_eligible": false,
+  "source_audit": {
+    "calendar_events": 105,
+    "status_counts": {
+      "numeric_pair": 63,
+      "unknown": 23,
+      "direction_only": 15,
+      "scope_caveat": 3,
+      "source_missing": 1
+    },
+    "quoted_numeric_pairs": 66,
+    "known_directions": 81,
+    "nvidia_issuer_anchors": 32,
+    "economic_scope_caveat_rows": 3,
+    "market_return_series_loaded": false,
+    "model_fits": 0,
+    "backtests": 0,
+    "normalized_economic_scope_certified": false,
+    "first_public_timestamp_certified": false
+  },
+  "event_eligibility": {
+    "numeric_pair": 63,
+    "unknown": 23,
+    "direction_only": 15,
+    "scope_caveat": 3,
+    "source_missing": 1
+  },
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/model.html",
+  "objective_achieved": false,
+  "goal_remains_active": true,
+  "new_model_fits": 6,
+  "backtests": 0,
+  "training_audit": [
+    {
+      "fold": "development_2021",
+      "family": "price_calendar",
+      "training_rows": 553,
+      "cutoff": "2021-01-01 00:00:00",
+      "latest_label_available_at": "2020-12-31 09:49:00",
+      "alpha": 10.0,
+      "feature_count": 64
+    },
+    {
+      "fold": "development_2021",
+      "family": "guidance",
+      "training_rows": 553,
+      "cutoff": "2021-01-01 00:00:00",
+      "latest_label_available_at": "2020-12-31 09:49:00",
+      "alpha": 10.0,
+      "feature_count": 70
+    },
+    {
+      "fold": "development_2022",
+      "family": "price_calendar",
+      "training_rows": 805,
+      "cutoff": "2022-01-01 00:00:00",
+      "latest_label_available_at": "2021-12-31 09:49:00",
+      "alpha": 10.0,
+      "feature_count": 64
+    },
+    {
+      "fold": "development_2022",
+      "family": "guidance",
+      "training_rows": 805,
+      "cutoff": "2022-01-01 00:00:00",
+      "latest_label_available_at": "2021-12-31 09:49:00",
+      "alpha": 10.0,
+      "feature_count": 70
+    },
+    {
+      "fold": "reused_outer",
+      "family": "price_calendar",
+      "training_rows": 1056,
+      "cutoff": "2023-01-01 00:00:00",
+      "latest_label_available_at": "2022-12-30 09:49:00",
+      "alpha": 10.0,
+      "feature_count": 64
+    },
+    {
+      "fold": "reused_outer",
+      "family": "guidance",
+      "training_rows": 1056,
+      "cutoff": "2023-01-01 00:00:00",
+      "latest_label_available_at": "2022-12-30 09:49:00",
+      "alpha": 10.0,
+      "feature_count": 70
+    }
+  ],
+  "information_increment": [
+    {
+      "fold": "development_2021",
+      "observations": 246,
+      "mean_joint_normalized_loss_improvement": -0.04527456490639633,
+      "lower_bound": -0.16516480311084483,
+      "upper_bound": 0.09343585984891943,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 63,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "development_2022",
+      "observations": 245,
+      "mean_joint_normalized_loss_improvement": -1.9277813092610807,
+      "lower_bound": -4.066098297735596,
+      "upper_bound": -0.2695942330200083,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 63,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "reused_outer",
+      "observations": 940,
+      "mean_joint_normalized_loss_improvement": -0.058609052014799115,
+      "lower_bound": -0.11286705433873191,
+      "upper_bound": -0.012210425077659038,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 63,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "pooled_development",
+      "observations": 491,
+      "mean_joint_normalized_loss_improvement": -0.9846109241057804,
+      "lower_bound": -2.4173054143700106,
+      "upper_bound": -0.0956854762728003,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 63,
+      "does_not_correct_all_previous_research_selection": true
+    }
+  ],
+  "unmatured_terminal_rows_retained": 4,
+  "historical_windows_reused": true,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/guidance_information_20261014",
+  "as_of": "2026-10-09",
+  "recorder_id": "8ee12f9f0c7149a19653bf982b6993fc",
+  "experiment_id": "930578326990999823",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/guidance_information_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/guidance_information_20261014/qlib_recorder/930578326990999823/8ee12f9f0c7149a19653bf982b6993fc",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "analysis/predictions",
+      "analysis/paired_losses"
+    ]
+  },
+  "no_net_alpha_claim": true,
+  "production_enabled": false,
+  "nas_evidence": {
+    "sha256": "3c6a4c65bcb9cef507d636825e531f473fb918f8334e1cc8e3ce87d3a8dde83a",
+    "size_bytes": 690362,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/3c/6a/3c6a4c65bcb9cef507d636825e531f473fb918f8334e1cc8e3ce87d3a8dde83a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 00:25:02.374961+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/3c/6a/3c6a4c65bcb9cef507d636825e531f473fb918f8334e1cc8e3ce87d3a8dde83a",
+    "recorder_id": "8ee12f9f0c7149a19653bf982b6993fc",
+    "experiment_id": "930578326990999823",
+    "archive_root": "qlib_recorder"
+  },
+  "training_audit_recorder_artifact": "analysis/summary"
+}

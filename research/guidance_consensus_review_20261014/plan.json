@@ -1,0 +1,20 @@
+{
+  "experiment": "guidance_consensus_review_20261014",
+  "source": {
+    "card": "research/guidance_newsletter_source_20261013",
+    "recorder_id": "a61195f0399647e4aeebc19ec26bd6ef",
+    "archive": "b7452c4ff5913a0bb4c5750a0789836671ee2a6800f8bae0549bbbb427cb5594",
+    "inventory_sha256": "794126796f09496e6c2cd9386b875f50ebce0dd54f09c5dd13d5325ac42b8b6f"
+  },
+  "reviewed_facts_sha256": "115b0435278edd2684bb5a860bf29bd48e8142842f3bbe5ffe6600598bf29113",
+  "issuer_fact_manifest": "data/raw/external/nvda_guidance_facts_20261011_v1/manifest.json",
+  "issuer_fact_manifest_sha256": "df09d3cf8fea92702f6f33a616b7e7c1fa2812ec6977289ee2afdc141f61b82a",
+  "provider": "data/qlib/soxx_extended_published_affine_20260925_v1",
+  "as_of": "2026-09-25",
+  "review_method": "assistant semantic review of all104 downloaded documents, including100 company blocks; no market return series loaded; news stock reaction not used for direction",
+  "direction_contract": "next-quarter company revenue only; quoted numeric midpoint comparison or explicit analyst-comparison direction; no annual/segment/EPS substitution; no inferred numeric denominator",
+  "scope_caveats": "preserve Mellanox inclusion and China exclusion notes; no like-for-like economic normalization claim",
+  "model_fits": 0,
+  "backtests": 0,
+  "goal_status": "active"
+}

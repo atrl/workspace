@@ -1,0 +1,56 @@
+{
+  "experiment": "guidance_consensus_review_20261014",
+  "decision": "quoted_guidance_comparisons_reviewed_conditional_research_only",
+  "source_audit": {
+    "calendar_events": 105,
+    "status_counts": {
+      "numeric_pair": 63,
+      "unknown": 23,
+      "direction_only": 15,
+      "scope_caveat": 3,
+      "source_missing": 1
+    },
+    "quoted_numeric_pairs": 66,
+    "known_directions": 81,
+    "nvidia_issuer_anchors": 32,
+    "economic_scope_caveat_rows": 3,
+    "market_return_series_loaded": false,
+    "model_fits": 0,
+    "backtests": 0,
+    "normalized_economic_scope_certified": false,
+    "first_public_timestamp_certified": false
+  },
+  "recorder_id": "48d641df4df34c9c877c579d44f48d00",
+  "experiment_id": "237833880675471636",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/guidance_consensus_review_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/guidance_consensus_review_20261014/qlib_recorder/237833880675471636/48d641df4df34c9c877c579d44f48d00",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_extended_published_affine_20260925_v1",
+  "region": "us",
+  "as_of": "2026-09-25",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+  "objective_achieved": false,
+  "goal_remains_active": true,
+  "promotion_eligible": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "sources/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "b120853d7f70eb0d53c05253a1d216ee3bc30c8a97190607189cc22c1e7ed10e",
+    "size_bytes": 133161,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/b1/20/b120853d7f70eb0d53c05253a1d216ee3bc30c8a97190607189cc22c1e7ed10e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 00:05:35.018738+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b1/20/b120853d7f70eb0d53c05253a1d216ee3bc30c8a97190607189cc22c1e7ed10e",
+    "recorder_id": "48d641df4df34c9c877c579d44f48d00",
+    "experiment_id": "237833880675471636",
+    "archive_root": "qlib_recorder"
+  }
+}
