@@ -1,0 +1,78 @@
+{
+  "experiment": "closed_minute_tail_repair_20261014",
+  "plan_sha256": "e3daf0cfe21a35a9e60cd9b43140d857c5a3c2baf86eeb2a8b047a2b66ce3714",
+  "decision": "closed_core_tail_repaired_context_not_extended",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "before_source_id": "c803e1a39598f509f4e485ae41a0057840529d00fd4cfdb85212f9729cfdf522",
+  "after_source_id": "149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c",
+  "core_as_of": "2026-10-13",
+  "context_as_of": "2026-10-09",
+  "raw_rows_before": 1561051,
+  "raw_rows_after": 1561680,
+  "new_minutes": 629,
+  "missing_before": 629,
+  "missing_after": 0,
+  "invalid_rows_after": 1,
+  "prefix_raw_prices_unchanged": true,
+  "overlap_tail_rows": 151,
+  "overlap_tail_rows_changed": 2,
+  "native_audits": [
+    {
+      "freq": "1min",
+      "rows_per_symbol": {
+        "SOXL": 390,
+        "SOXX": 390
+      },
+      "status": "passed"
+    },
+    {
+      "freq": "5min",
+      "rows_per_symbol": {
+        "SOXL": 78,
+        "SOXX": 78
+      },
+      "status": "passed"
+    },
+    {
+      "freq": "15min",
+      "rows_per_symbol": {
+        "SOXL": 26,
+        "SOXX": 26
+      },
+      "status": "passed"
+    }
+  ],
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_1min",
+  "region": "us",
+  "as_of": "2026-10-13",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "recorder_id": "08f52b84a6814420b244e330c66932cf",
+  "experiment_id": "621241193438371777",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/closed_minute_tail_repair_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/closed_minute_tail_repair_20261014/qlib_recorder/621241193438371777/08f52b84a6814420b244e330c66932cf",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/native/*",
+      "analysis/full_coverage",
+      "sources/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "c311787e0d90c9380588b12f729ceab857b32586b9b2544860f2c3809f72de91",
+    "size_bytes": 135341,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c3/11/c311787e0d90c9380588b12f729ceab857b32586b9b2544860f2c3809f72de91",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 05:24:13.374591+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c3/11/c311787e0d90c9380588b12f729ceab857b32586b9b2544860f2c3809f72de91",
+    "recorder_id": "08f52b84a6814420b244e330c66932cf",
+    "experiment_id": "621241193438371777",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "experiment": "closed_minute_tail_repair_20261014",
+  "session_date": "2026-10-13",
+  "expected_before_source_id": "c803e1a39598f509f4e485ae41a0057840529d00fd4cfdb85212f9729cfdf522",
+  "symbols": [
+    "SOXL",
+    "SOXX"
+  ],
+  "host": "127.0.0.1",
+  "port": 11111,
+  "mechanism": "Repair actually missing closed minutes using existing NAS-authoritative NONE refresh; do not rewrite frozen experiment sources or claim independent forward alpha",
+  "retain_legacy_invalid_rows": true,
+  "context_policy": "preserve inherited context_as_of; do not claim peers updated",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279"
+}

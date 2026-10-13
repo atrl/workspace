@@ -1,0 +1,7 @@
+symbol,date,expected_minutes,due_minutes,observed_minutes,missing_minutes,duplicate_rows,invalid_rows,zero_volume_rows,vwap_checked_rows,vwap_outside_rows,first_missing_at,last_missing_at,status,training_eligible,repair_required
+SOXL,2026-10-09,390,390,390,0,0,0,0,390,0,,,complete,True,False
+SOXX,2026-10-09,390,390,390,0,0,0,0,390,0,,,complete,True,False
+SOXL,2026-10-12,390,390,390,0,0,0,0,390,0,,,complete,True,False
+SOXX,2026-10-12,390,390,390,0,0,0,0,390,0,,,complete,True,False
+SOXL,2026-10-13,390,390,75,315,0,0,0,75,0,2026-10-13 10:46:00-04:00,2026-10-13 16:00:00-04:00,needs_data,False,True
+SOXX,2026-10-13,390,390,76,314,0,0,0,76,0,2026-10-13 10:47:00-04:00,2026-10-13 16:00:00-04:00,needs_data,False,True

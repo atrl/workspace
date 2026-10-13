@@ -1,0 +1,300 @@
+{
+  "manifests": {
+    "1min": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_1min",
+      "market": "all",
+      "region": "us",
+      "freq": "1min",
+      "as_of": "2026-10-13",
+      "source": "canonical NONE minute refresh; published Futu events",
+      "instruments": [
+        "SOXL",
+        "SOXX"
+      ],
+      "fields": [
+        "$open",
+        "$high",
+        "$low",
+        "$close",
+        "$volume",
+        "$turnover",
+        "$vwap",
+        "$price_valid"
+      ],
+      "calendar_start": "2018-10-12 09:31:00",
+      "calendar_end": "2026-10-13 16:00:00",
+      "max_datetime": "2026-10-13 16:00:00",
+      "row_count": 1561680,
+      "feature_file_count": 16,
+      "audit_snapshot_hash": "9b079b54575c654e",
+      "operation": "qlib_store_build",
+      "status": "ok",
+      "hash": "9c9db4668d81cd3a",
+      "source_api": [
+        "qlib.init",
+        "qlib.data.storage.file_storage.FileFeatureStorage",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "price_basis": {
+        "basis": "published_futu_affine_v1",
+        "as_of": "2026-10-13",
+        "rows": 1561680,
+        "raw_ohlcv_retained": true,
+        "invalid_source_rows": 1,
+        "positive_volume_rows": 1555688,
+        "vwap_outside_rows": 7393,
+        "event_receipts": {
+          "SOXL": {
+            "event_count": 34,
+            "nonzero_B_events": 1,
+            "event_payload_sha256": "56e25174122ed06eaa2c8291b659b7824b3ff28cabc98229142f0b7f37a4f5e1"
+          },
+          "SOXX": {
+            "event_count": 79,
+            "nonzero_B_events": 0,
+            "event_payload_sha256": "6b3fc384a6f92eba6ebdfe97991cbac5b7fbef09ccb16a108a85059833e0fa4f"
+          }
+        },
+        "price_operator": "NONE OHLC * chronological published A + B",
+        "volume_operator": "NONE shares / exact published split factor",
+        "turnover_operator": "(A * NONE turnover + B * NONE shares) / split factor",
+        "SDK_QFQ_equivalence_claimed": false,
+        "PIT_or_total_return_certified": false
+      },
+      "timestamp_convention": "right_edge",
+      "source_adjustment": "NONE",
+      "research_adjustment": "PUBLISHED_FUTU_AFFINE",
+      "malformed_source_rows_quarantined": true
+    },
+    "5min": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_5min",
+      "market": "all",
+      "region": "us",
+      "freq": "5min",
+      "as_of": "2026-10-13",
+      "source": "canonical NONE minute refresh; published Futu events",
+      "instruments": [
+        "SOXL",
+        "SOXX"
+      ],
+      "fields": [
+        "$open",
+        "$high",
+        "$low",
+        "$close",
+        "$volume",
+        "$turnover",
+        "$bar_index",
+        "$bar_count",
+        "$observed_1m_count",
+        "$expected_1m_count",
+        "$is_complete"
+      ],
+      "calendar_start": "2018-10-12 09:35:00",
+      "calendar_end": "2026-10-13 16:00:00",
+      "max_datetime": "2026-10-13 16:00:00",
+      "row_count": 312336,
+      "feature_file_count": 22,
+      "audit_snapshot_hash": "60e484aceb90e88d",
+      "operation": "qlib_store_build",
+      "status": "ok",
+      "hash": "4e138db8aae0337c",
+      "source_api": [
+        "qlib.init",
+        "qlib.data.storage.file_storage.FileFeatureStorage",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "price_basis": {
+        "basis": "published_futu_affine_v1",
+        "as_of": "2026-10-13",
+        "rows": 1561680,
+        "raw_ohlcv_retained": true,
+        "invalid_source_rows": 1,
+        "positive_volume_rows": 1555688,
+        "vwap_outside_rows": 7393,
+        "event_receipts": {
+          "SOXL": {
+            "event_count": 34,
+            "nonzero_B_events": 1,
+            "event_payload_sha256": "56e25174122ed06eaa2c8291b659b7824b3ff28cabc98229142f0b7f37a4f5e1"
+          },
+          "SOXX": {
+            "event_count": 79,
+            "nonzero_B_events": 0,
+            "event_payload_sha256": "6b3fc384a6f92eba6ebdfe97991cbac5b7fbef09ccb16a108a85059833e0fa4f"
+          }
+        },
+        "price_operator": "NONE OHLC * chronological published A + B",
+        "volume_operator": "NONE shares / exact published split factor",
+        "turnover_operator": "(A * NONE turnover + B * NONE shares) / split factor",
+        "SDK_QFQ_equivalence_claimed": false,
+        "PIT_or_total_return_certified": false
+      },
+      "timestamp_convention": "right_edge",
+      "source_adjustment": "NONE",
+      "research_adjustment": "PUBLISHED_FUTU_AFFINE",
+      "malformed_source_rows_quarantined": true
+    },
+    "15min": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+      "market": "all",
+      "region": "us",
+      "freq": "15min",
+      "as_of": "2026-10-13",
+      "source": "canonical NONE minute refresh; published Futu events",
+      "instruments": [
+        "SOXL",
+        "SOXX"
+      ],
+      "fields": [
+        "$open",
+        "$high",
+        "$low",
+        "$close",
+        "$volume",
+        "$turnover",
+        "$bar_index",
+        "$bar_count",
+        "$observed_1m_count",
+        "$expected_1m_count",
+        "$is_complete"
+      ],
+      "calendar_start": "2018-10-12 09:45:00",
+      "calendar_end": "2026-10-13 16:00:00",
+      "max_datetime": "2026-10-13 16:00:00",
+      "row_count": 104112,
+      "feature_file_count": 22,
+      "audit_snapshot_hash": "8858bba16dc86c93",
+      "operation": "qlib_store_build",
+      "status": "ok",
+      "hash": "c0b4901df8257889",
+      "source_api": [
+        "qlib.init",
+        "qlib.data.storage.file_storage.FileFeatureStorage",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "price_basis": {
+        "basis": "published_futu_affine_v1",
+        "as_of": "2026-10-13",
+        "rows": 1561680,
+        "raw_ohlcv_retained": true,
+        "invalid_source_rows": 1,
+        "positive_volume_rows": 1555688,
+        "vwap_outside_rows": 7393,
+        "event_receipts": {
+          "SOXL": {
+            "event_count": 34,
+            "nonzero_B_events": 1,
+            "event_payload_sha256": "56e25174122ed06eaa2c8291b659b7824b3ff28cabc98229142f0b7f37a4f5e1"
+          },
+          "SOXX": {
+            "event_count": 79,
+            "nonzero_B_events": 0,
+            "event_payload_sha256": "6b3fc384a6f92eba6ebdfe97991cbac5b7fbef09ccb16a108a85059833e0fa4f"
+          }
+        },
+        "price_operator": "NONE OHLC * chronological published A + B",
+        "volume_operator": "NONE shares / exact published split factor",
+        "turnover_operator": "(A * NONE turnover + B * NONE shares) / split factor",
+        "SDK_QFQ_equivalence_claimed": false,
+        "PIT_or_total_return_certified": false
+      },
+      "timestamp_convention": "right_edge",
+      "source_adjustment": "NONE",
+      "research_adjustment": "PUBLISHED_FUTU_AFFINE",
+      "malformed_source_rows_quarantined": true
+    }
+  },
+  "basis_audit": {
+    "basis": "published_futu_affine_v1",
+    "as_of": "2026-10-13",
+    "rows": 1561680,
+    "raw_ohlcv_retained": true,
+    "invalid_source_rows": 1,
+    "positive_volume_rows": 1555688,
+    "vwap_outside_rows": 7393,
+    "event_receipts": {
+      "SOXL": {
+        "event_count": 34,
+        "nonzero_B_events": 1,
+        "event_payload_sha256": "56e25174122ed06eaa2c8291b659b7824b3ff28cabc98229142f0b7f37a4f5e1"
+      },
+      "SOXX": {
+        "event_count": 79,
+        "nonzero_B_events": 0,
+        "event_payload_sha256": "6b3fc384a6f92eba6ebdfe97991cbac5b7fbef09ccb16a108a85059833e0fa4f"
+      }
+    },
+    "price_operator": "NONE OHLC * chronological published A + B",
+    "volume_operator": "NONE shares / exact published split factor",
+    "turnover_operator": "(A * NONE turnover + B * NONE shares) / split factor",
+    "SDK_QFQ_equivalence_claimed": false,
+    "PIT_or_total_return_certified": false
+  },
+  "cache_rows": 1561680,
+  "cache_end": "2026-10-13 16:00:00-04:00",
+  "session_date": "2026-10-13",
+  "fetch_start": "2026-10-13",
+  "repair_requests": [
+    {
+      "symbol": "SOXL",
+      "start": "2026-10-13",
+      "end": "2026-10-13",
+      "rows": 390
+    },
+    {
+      "symbol": "SOXX",
+      "start": "2026-10-13",
+      "end": "2026-10-13",
+      "rows": 390
+    }
+  ],
+  "prior_raw_sha256": "5e9d7d2901b4c988d9859829ecdee083c58c13b431e70db6a9592de9630162b4",
+  "remaining_source_anomalies": [
+    {
+      "symbol": "SOXX",
+      "date": "2020-03-16",
+      "expected_minutes": 390,
+      "due_minutes": 390,
+      "observed_minutes": 390,
+      "missing_minutes": 0,
+      "duplicate_rows": 0,
+      "invalid_rows": 1,
+      "zero_volume_rows": 14,
+      "vwap_checked_rows": 376,
+      "vwap_outside_rows": 7,
+      "first_missing_at": null,
+      "last_missing_at": null,
+      "status": "needs_data",
+      "training_eligible": false,
+      "repair_required": true
+    }
+  ],
+  "nas_source": {
+    "name": "us_semis_intraday",
+    "required": false,
+    "status": "warning",
+    "error_count": 1,
+    "observation": {
+      "quality_status": "partial",
+      "core_rows": 1561680,
+      "core_last_bar": "2026-10-13 16:00:00-04:00",
+      "context_as_of": "2026-10-09",
+      "missing_closed_minutes": 0,
+      "malformed_rows": 1,
+      "research_adjustment": "published_futu_affine_v1",
+      "source_adjustment": "NONE",
+      "data_owner": "yanxuan_nas",
+      "source_id": "149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c",
+      "as_of": "2026-10-13",
+      "binding_path": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c/nas_binding.json",
+      "binding_sha256": "f56c1691f2e4acca99a18ad815099ac08f5f76c91272fffabd8eef78f9cff45e"
+    }
+  }
+}
