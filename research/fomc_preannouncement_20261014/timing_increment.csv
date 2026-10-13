@@ -1,0 +1,7 @@
+window,slippage_bps,event_tilt_minus_reference_mean,placebo_tilt_minus_reference_mean,positive_year_fraction,observations,lower_bound,upper_bound,method,block_length,does_not_correct_all_previous_research_selection,mean_net_timing_log_advantage
+development,0,0.0036662892287385907,0.0027212061672600603,0.5,31,-0.004153420808174815,0.006631868372779621,paired stationary bootstrap of event-minus-placebo net log advantage,4,True,0.00094508306147853
+reused_outer,0,0.002257770891405626,-0.0002315003471238147,0.5,30,-0.002313175774499814,0.00730041796698607,paired stationary bootstrap of event-minus-placebo net log advantage,4,True,0.002489271238529441
+development,2,0.003676936126871465,0.002705566307864748,0.5,31,-0.004139940345686437,0.006681279752653353,paired stationary bootstrap of event-minus-placebo net log advantage,4,True,0.0009713698190067172
+reused_outer,2,0.002260599754154652,-0.00024288324182045014,0.5,30,-0.002313081380513589,0.007309565634273581,paired stationary bootstrap of event-minus-placebo net log advantage,4,True,0.0025034829959751023
+development,5,0.003658707369373715,0.002723988755333473,0.5,31,-0.004172977432382569,0.006637784991412206,paired stationary bootstrap of event-minus-placebo net log advantage,4,True,0.0009347186140402422
+reused_outer,5,0.002261001555734941,-0.0002307912137312782,0.5,30,-0.0023195339231749405,0.007298628640589096,paired stationary bootstrap of event-minus-placebo net log advantage,4,True,0.0024917927694662187

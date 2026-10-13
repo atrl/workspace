@@ -1,0 +1,97 @@
+{
+  "experiment": "fomc_preannouncement_20261014",
+  "as_of": "2026-10-09",
+  "start": "2019-01-01",
+  "development_end": "2022-12-31",
+  "schedule_source": {
+    "card": "research/fomc_schedule_source_20261014",
+    "recorder_id": "61b1a4712c46489fa4a576cbaa85e9c2",
+    "archive": "335272f6a2d90eb9205abbc8dc3728e6f1081b21c2808db0d2793b8cc1316ee1",
+    "inventory_sha256": "1f71e0fc0e89842bab04c0c2edaa2c4703a4e937b5d243f89af133270e304562"
+  },
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "snapshot_binding": "research/minute_information_pit_allocator_20261012/nas_binding.json",
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "entry_clock": "09:47",
+  "exit_clock": "13:59",
+  "placebo_shift_sessions": 5,
+  "weights": {
+    "reference": [
+      0,
+      0.85,
+      0.15
+    ],
+    "tilt": [
+      0.3,
+      0.55,
+      0.15
+    ]
+  },
+  "outside_event_target": [
+    0,
+    0,
+    1
+  ],
+  "maximum_new_native_cases": 15,
+  "new_fits": 0,
+  "gate": "development mean event tilt-reference advantage positive and paired event-minus-5session-placebo advantage95% lower bound positive at all costs; positive annual timing increments at least3/4 years; does not establish complete-strategy alpha",
+  "bootstrap_mean_block": 4,
+  "bootstrap_samples": 2000,
+  "bootstrap_alpha": 0.025,
+  "bootstrap_seed": 20261014,
+  "role": "isolated full-calendar event-component screen; terminal residual shares tracked; equal risky-weight control plus weekday/nearby-calendar timing control; not replacement of active strategy",
+  "if_failed": "close this fixed scheduled-event window; no entry/exit/weight/sign/calendar sweep",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279"
+}

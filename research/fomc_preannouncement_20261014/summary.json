@@ -1,0 +1,45 @@
+{
+  "experiment": "fomc_preannouncement_20261014",
+  "plan_sha256": "0481ce401470bd25901e838c41c7a5c747eed9c66fbde56c592a75b0c06f45a6",
+  "decision": "not_promoted_fixed_fomc_event_screen_failed",
+  "component_gate_pass": false,
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_native_cases": 15,
+  "scheduled_events": 61,
+  "all_official_statement_clocks_after_exit": true,
+  "full_strategy_integrated": false,
+  "independent_forward_qualified": false,
+  "risk_monitoring": "daily native and known/exit/close marks, not complete-minute peak-to-trough",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/fomc_preannouncement_20261014",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "0af67f085ad6402e947a035c01c51b5b",
+  "experiment_id": "499009058993512579",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/fomc_preannouncement_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/fomc_preannouncement_20261014/qlib_recorder/499009058993512579/0af67f085ad6402e947a035c01c51b5b",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/native/*",
+      "analysis/events/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "b429fa4fce8dc779c69c81a2aaf81191963e368caffd761a76a3e4747d279147",
+    "size_bytes": 18886325,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/b4/29/b429fa4fce8dc779c69c81a2aaf81191963e368caffd761a76a3e4747d279147",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 04:18:34.919082+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b4/29/b429fa4fce8dc779c69c81a2aaf81191963e368caffd761a76a3e4747d279147",
+    "recorder_id": "0af67f085ad6402e947a035c01c51b5b",
+    "experiment_id": "499009058993512579",
+    "archive_root": "qlib_recorder"
+  }
+}
