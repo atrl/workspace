@@ -1,0 +1,7 @@
+fold,family,training_rows,latest_label_available_at,cutoff
+development_2021,control,558,2020-12-31 16:01:00,2021-01-01 00:00:00
+development_2021,asia,558,2020-12-31 16:01:00,2021-01-01 00:00:00
+development_2022,control,810,2021-12-31 16:01:00,2022-01-01 00:00:00
+development_2022,asia,810,2021-12-31 16:01:00,2022-01-01 00:00:00
+reused_outer,control,1061,2022-12-30 16:01:00,2023-01-01 00:00:00
+reused_outer,asia,1061,2022-12-30 16:01:00,2023-01-01 00:00:00

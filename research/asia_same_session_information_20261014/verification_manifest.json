@@ -1,0 +1,135 @@
+{
+  "recorder_id": "70fcc8953904470892ccaf009e68b53c",
+  "entries": [
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/analysis/increments",
+      "sha256": "8ca51ff0fccd039e51526c7acf4b96d80c8545ef385cc50945f538b53e35dbea",
+      "bytes": 1347
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/analysis/losses",
+      "sha256": "98de0659a96a460221e0f4c8bbe08cd7fdcae72dccb5e0f2b1ad80988f30aa35",
+      "bytes": 11859
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/analysis/metrics",
+      "sha256": "e4a0048a74ccc5cb30b023e85c81c01921ad34c0f729e4cdc529e8f2e47c5214",
+      "bytes": 1412
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/analysis/predictions",
+      "sha256": "4bb7b5bc4fc657934c427282209401f08bf6e152e431597f38caa73bd56b0bea",
+      "bytes": 109513
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/analysis/summary",
+      "sha256": "db8ef5dd95148a33d3bf96b7f1280b5aaae682f6ac90169da21332352dc22e25",
+      "bytes": 1441
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/analysis/training",
+      "sha256": "f025bdf8c25b0050dd1c7166ed94970e0df32c8e07a61a78c2729663749f009e",
+      "bytes": 11541
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/code_diff.txt",
+      "sha256": "9a743ce310fbe55a420d7f9419b52054cf8660ae5eb6d2786c060105837751ec",
+      "bytes": 402921
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/code_status.txt",
+      "sha256": "fd2d23f615dd327708323c815375846d227ca340d8237824ad6198cfcd73fe07",
+      "bytes": 62540
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/inputs/alignment",
+      "sha256": "2fd66fd66715ecf4dd971ac4a888878c7e94d8ea33fc8e17fd6e20bdff48412d",
+      "bytes": 673340
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/inputs/grouped",
+      "sha256": "002e6f97167b4bedd95328923485619d019c4620617e481be689ec080e30df2c",
+      "bytes": 1263218
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/inputs/plan",
+      "sha256": "5aa50d6974266babcf817465aabb8719f67cc9b41bc7c451e646e419279efa38",
+      "bytes": 3859
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/inputs/price_audit",
+      "sha256": "b98143b0075551984e67bdf2d806459f700b5a5d63791313b40601daff21a7a0",
+      "bytes": 1277
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/inputs/provider_files",
+      "sha256": "72d7654608f14102aea551d4c806648b61a220e267fbdc928d5ec03083704589",
+      "bytes": 144465
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/inputs/provider_manifest",
+      "sha256": "37004ef8fd14f1134e3c33c806ddead9619df5e098bcc32b1b2d807582b9106e",
+      "bytes": 775
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/inputs/source_audit",
+      "sha256": "432161d08e6c94fac32b93d1dbd647bd77ff3333c0652288f4bb0043d93d66f1",
+      "bytes": 1257
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/models/development_2021_asia",
+      "sha256": "f343d44b4c277bb6499593de42d5bc29c572c319cb6896cf0b77749ee2136490",
+      "bytes": 10525
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/models/development_2021_control",
+      "sha256": "b169d96d528d544c0008c29ae7d5a4082994bd3a38c1a9e5af827bf2c1e8862b",
+      "bytes": 9969
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/models/development_2022_asia",
+      "sha256": "a71df829c052545a1861c298e880d2f123da344bb072f102170696f3f6b716b3",
+      "bytes": 10525
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/models/development_2022_control",
+      "sha256": "1f9d16c796817cfa0f940b73570e3e00542a7c6595c797ca7983eb5edf3d254d",
+      "bytes": 9969
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/models/reused_outer_asia",
+      "sha256": "4d7b4c0d3adb0bc38ce160436a38170faeabfa64cdcdf67758187243b8000cd3",
+      "bytes": 10525
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/models/reused_outer_control",
+      "sha256": "72b774bb068fb75bc18c719556662e257da9efb95c590f8cb1f85acc3a901ac3",
+      "bytes": 9969
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/sources/data",
+      "sha256": "9df24358e7187086a74a8b3273558ed948847ef063d06203fae636009f7bc554",
+      "bytes": 2924
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/sources/raw_csv",
+      "sha256": "a47ccd85954eb7262ef08d7d42388bf828348d7c1c087c66dc69b01c5cf891ca",
+      "bytes": 749698
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/sources/raw_manifest",
+      "sha256": "008a2772fcce95ba8e7e399490053482521fd7cb38bb562cb3f49f831e8702cf",
+      "bytes": 2141
+    },
+    {
+      "path": "qlib_recorder/752994775491725388/70fcc8953904470892ccaf009e68b53c/artifacts/sources/workflow",
+      "sha256": "52ffd271fe733dc3ba4f806c793cb51d2db482f16960efde73fd5e0c511a4926",
+      "bytes": 8728
+    }
+  ]
+}

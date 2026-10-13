@@ -1,21 +1,10 @@
-"""Cross-market lead-lag tests for SOXL, with explicit session-time causality.
+"""Legacy local-date close-to-close diagnostic with a restricted interpretation.
 
-Newly collected data: Asian semiconductor equity markets (Taiwan, Korea, Japan)
-trade in sessions that close before the same exchange-local date's US open. This
-module measures whether those sessions carry *forecast* information for the next
-US session, or only contemporaneous co-movement.
-
-The distinction is decisive:
-
-- A same-local-date correlation can reflect a shared global shock that arrives
-  while both markets are open, which is not tradeable without an exact,
-  latency-free clock.
-- Only a strict forecast relation (information known strictly before the US
-  session, correlated with that session's return) is tradeable.
-
-This module therefore always reports both the same-date and the strictly-lagged
-information coefficient, and never treats a same-date correlation as evidence of
-predictive power.
+Asian cash markets can close before the same-local-date US open. However, this
+module's US close-to-close target starts before that Asian close, so a same-date
+correlation cannot be earned over the entire target interval. The lag1 route is
+a conservative test for that target; it does not rule out same-date information
+for a later US open-to-close window. Frozen numerical behavior is unchanged.
 """
 from __future__ import annotations
 
@@ -49,8 +38,8 @@ def information_coefficient(predictor: pd.Series, target: pd.Series, *, lag: int
     """Pearson and Spearman IC between a lagged predictor and the target.
 
     ``lag=0`` aligns predictor at date t with target at date t (same local date).
-    ``lag=1`` uses predictor at t-1 for target at t, which is the strictly
-    forecast-safe alignment.
+    ``lag=1`` uses predictor at t-1 for target at t, which is the conservative
+    alignment used for this legacy close-to-close target.
     """
     _require(isinstance(lag, Integral) and lag >= 0, "lag must be a nonnegative integer")
     shifted = predictor.shift(lag)
