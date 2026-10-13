@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "tests": "2 passed",
+  "notebook_executed": true,
+  "target_scope_documents": 133,
+  "legacy_scope_excluded": 59,
+  "known_calendar_days": 2008,
+  "NAS": {
+    "status": "passed",
+    "archive_sha256": "53902fc004fa30eeda55b7d587a5a97e3e7399eb41802925651d14e37111d3a5",
+    "objects_verified": 12,
+    "original_documents_archived": 192
+  },
+  "alpha_proven": false
+}

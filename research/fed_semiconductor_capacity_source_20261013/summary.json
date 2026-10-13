@@ -1,0 +1,63 @@
+{
+  "experiment": "fed_semiconductor_capacity_source_20261013",
+  "plan_sha256": "e8d65a7f8ff61274b0390dc90fe3a04f55934165d4125491fc346c89befbd197",
+  "decision": "source_qualified_for_bounded_information_experiment",
+  "forecast_or_alpha_claim": false,
+  "objective_achieved": false,
+  "goal_remains_active": true,
+  "model_fits": 0,
+  "backtests": 0,
+  "as_of": "2026-10-09",
+  "source_audit": {
+    "raw_documents": 192,
+    "expected_documents": 192,
+    "target_scope_documents": 133,
+    "legacy_scope_documents_excluded": 59,
+    "first_target_scope_publication": "2015-08-14",
+    "source_complete": true,
+    "failures": [],
+    "native_calendar_rows": 2008,
+    "known_rows": 2008,
+    "unknown_rows": 0,
+    "earliest_publication": "2010-09-15",
+    "latest_publication": "2026-09-18",
+    "first_receipt_qualified": false,
+    "original_published_values_used": true,
+    "same_vintage_monthly_changes": true,
+    "latest_fred_revisions_used": false,
+    "historical_published_clock_verified": true,
+    "next_supported_session_guard": true,
+    "economic_scope": "US manufacturing NAICS3344; not global chip sales or direct ETF fair value"
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/fed_semiconductor_capacity_source_20261013",
+  "recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "experiment_id": "467824324167316112",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/fed_semiconductor_capacity_source_20261013/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/fed_semiconductor_capacity_source_20261013/qlib_recorder/467824324167316112/5fc5ec0a971848db94a9c0c4954b1f80",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/raw_supplements",
+      "sources/raw_index",
+      "analysis/information",
+      "analysis/events"
+    ]
+  },
+  "first_receipt_or_deployment_qualified": false,
+  "latest_revision_as_old_information_used": false,
+  "next_action": "freeze a distinct, parsimonious information-increment experiment after source gates; source qualification is not alpha",
+  "nas_evidence": {
+    "sha256": "53902fc004fa30eeda55b7d587a5a97e3e7399eb41802925651d14e37111d3a5",
+    "size_bytes": 3763653,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/53/90/53902fc004fa30eeda55b7d587a5a97e3e7399eb41802925651d14e37111d3a5",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-13 17:22:49.391496+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/53/90/53902fc004fa30eeda55b7d587a5a97e3e7399eb41802925651d14e37111d3a5",
+    "recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+    "experiment_id": "467824324167316112",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,21 @@
+[
+  {
+    "recorder_id": "d4c38f78cb8e4cd58d8be3ec81c47402",
+    "plan_sha256": "3d5b5acd41bef10d2439b8667f842cab40d5cde9170481198fd84b6dd569ddc5",
+    "decision": "needs_source_repair",
+    "nas_evidence": {
+      "sha256": "c244e697bd8322a67ae332e3848bf2a5a0cb19f25a8e6ee883f99cf5f2ca2a28",
+      "size_bytes": 3760252,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/c2/44/c244e697bd8322a67ae332e3848bf2a5a0cb19f25a8e6ee883f99cf5f2ca2a28",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 17:09:45.956631+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c2/44/c244e697bd8322a67ae332e3848bf2a5a0cb19f25a8e6ee883f99cf5f2ca2a28",
+      "recorder_id": "d4c38f78cb8e4cd58d8be3ec81c47402",
+      "experiment_id": "467824324167316112",
+      "archive_root": "qlib_recorder"
+    },
+    "reason": "preserve initial parsing failure and original payloads; source scope and ASA page markers repaired"
+  }
+]

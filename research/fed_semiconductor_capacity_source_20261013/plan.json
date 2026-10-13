@@ -1,0 +1,30 @@
+{
+  "experiment": "fed_semiconductor_capacity_source_20261013",
+  "as_of": "2026-10-09",
+  "source": "Federal Reserve original dated G17 supplement Table2 NAICS3344",
+  "series_reference": "CAPUTLG3344S",
+  "acquisition_budget_documents": 220,
+  "download_workers": 4,
+  "maximum_model_fits": 0,
+  "maximum_backtests": 0,
+  "information_features": [
+    "capacity_level",
+    "capacity_change_1m",
+    "capacity_gap_to_average"
+  ],
+  "availability": "next actual Qlib session09:31 after the original declared publication date; no same-day vintage availability inference",
+  "price_calendar": "data/qlib/full_path_tiered_allocation_20261013",
+  "canonical_raw_cache": "data/raw/external/fed_g17_capacity_20261013",
+  "information_provider": "data/qlib/fed_semiconductor_capacity_source_20261013",
+  "data_authority": "yanxuan_nas",
+  "raw_policy": "original response bytes archived in Qlib Recorder sources on NAS; Git holds metadata and notebook only",
+  "latest_revised_fred_used": false,
+  "forecast_or_alpha_claim": false,
+  "goal_status": "active",
+  "following_work": "only after source coverage, vintage, units and timing are qualified, freeze a separate information-increment experiment",
+  "source_start": "2010-09-01",
+  "acquisition_scope_note": "Complete release index has older documents beyond the intended pre-2011 coverage; source range explicitly bounded before any models or source qualification result.",
+  "qualification_revision": 2,
+  "legacy_scope_policy": "preserve 334412-9 raw documents but exclude from target 3344 information; no historical splice",
+  "parser_revision": "accept literal ASA page-control prefix 1 on table boundaries"
+}

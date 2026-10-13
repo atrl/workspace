@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "tests": "2 passed",
+  "new_model_fits": 6,
+  "backtests": 0,
+  "evaluation_maturity_readback": {
+    "development": "labels must mature before the next calendar year",
+    "outer": "labels must mature before as_of16:01",
+    "excluded_late_labels": {
+      "development_2021": 21,
+      "development_2022": 21,
+      "reused_outer": 0
+    },
+    "new_fits": 0,
+    "prediction_values_changed": false
+  },
+  "NAS": {
+    "status": "passed",
+    "archive_sha256": "d8efe0906622350894720afa325e57ecc2d712328832087e65d99daaabfe58f7",
+    "objects_verified": 23,
+    "new_fits": 0,
+    "new_backtests": 0
+  },
+  "goal_status": "active"
+}

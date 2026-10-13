@@ -1,0 +1,14 @@
+experiment: fed_semiconductor_capacity_source_20261013
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/fed_semiconductor_capacity_source_20261013
+recorder_uri: /Users/rziiiii/dev/workspace/research/fed_semiconductor_capacity_source_20261013/qlib_recorder
+as_of: '2026-10-09'
+region: us
+freq: day
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - sources/raw_supplements
+  - sources/raw_index
+  - analysis/information
+  - analysis/events

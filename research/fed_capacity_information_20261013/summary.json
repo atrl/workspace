@@ -1,0 +1,227 @@
+{
+  "experiment": "fed_capacity_information_20261013",
+  "plan_sha256": "03f9fd7825dbb4c23fd2c295ddb5136c5de0b7c4db9cbaecbbf33aee84f85db7",
+  "decision": "not_promoted_capacity_information_gate_failed",
+  "information_gate_pass": false,
+  "objective_achieved": false,
+  "goal_remains_active": true,
+  "new_model_fits": 6,
+  "backtests": 0,
+  "training_audit": [
+    {
+      "fold": "development_2021",
+      "family": "price_calendar",
+      "training_rows": 538,
+      "cutoff": "2021-01-01 00:00:00",
+      "latest_label_available_at": "2020-12-31 09:49:00",
+      "columns": [
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "capacity_known",
+        "release_age_days"
+      ],
+      "targets": [
+        "market_return_h20",
+        "log_downside_variance_h20"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    },
+    {
+      "fold": "development_2021",
+      "family": "capacity",
+      "training_rows": 538,
+      "cutoff": "2021-01-01 00:00:00",
+      "latest_label_available_at": "2020-12-31 09:49:00",
+      "columns": [
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "capacity_known",
+        "release_age_days",
+        "capacity_level",
+        "capacity_change_1m",
+        "capacity_gap_to_average"
+      ],
+      "targets": [
+        "market_return_h20",
+        "log_downside_variance_h20"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    },
+    {
+      "fold": "development_2022",
+      "family": "price_calendar",
+      "training_rows": 790,
+      "cutoff": "2022-01-01 00:00:00",
+      "latest_label_available_at": "2021-12-31 09:49:00",
+      "columns": [
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "capacity_known",
+        "release_age_days"
+      ],
+      "targets": [
+        "market_return_h20",
+        "log_downside_variance_h20"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    },
+    {
+      "fold": "development_2022",
+      "family": "capacity",
+      "training_rows": 790,
+      "cutoff": "2022-01-01 00:00:00",
+      "latest_label_available_at": "2021-12-31 09:49:00",
+      "columns": [
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "capacity_known",
+        "release_age_days",
+        "capacity_level",
+        "capacity_change_1m",
+        "capacity_gap_to_average"
+      ],
+      "targets": [
+        "market_return_h20",
+        "log_downside_variance_h20"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    },
+    {
+      "fold": "reused_outer",
+      "family": "price_calendar",
+      "training_rows": 1041,
+      "cutoff": "2023-01-01 00:00:00",
+      "latest_label_available_at": "2022-12-30 09:49:00",
+      "columns": [
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "capacity_known",
+        "release_age_days"
+      ],
+      "targets": [
+        "market_return_h20",
+        "log_downside_variance_h20"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    },
+    {
+      "fold": "reused_outer",
+      "family": "capacity",
+      "training_rows": 1041,
+      "cutoff": "2023-01-01 00:00:00",
+      "latest_label_available_at": "2022-12-30 09:49:00",
+      "columns": [
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "capacity_known",
+        "release_age_days",
+        "capacity_level",
+        "capacity_change_1m",
+        "capacity_gap_to_average"
+      ],
+      "targets": [
+        "market_return_h20",
+        "log_downside_variance_h20"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    }
+  ],
+  "information_increment": [
+    {
+      "fold": "development_2021",
+      "observations": 231,
+      "mean_joint_normalized_loss_improvement": -0.604182284407184,
+      "lower_bound": -1.0611681191025646,
+      "upper_bound": -0.16482455989183672,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 20,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "development_2022",
+      "observations": 230,
+      "mean_joint_normalized_loss_improvement": -0.05784201352585806,
+      "lower_bound": -0.15796690874852798,
+      "upper_bound": 0.03977927652726658,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 20,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "reused_outer",
+      "observations": 925,
+      "mean_joint_normalized_loss_improvement": -0.031205334641931273,
+      "lower_bound": -0.14746463712401772,
+      "upper_bound": 0.07704957908805819,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 20,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "pooled_development",
+      "observations": 461,
+      "mean_joint_normalized_loss_improvement": -0.33160470891324695,
+      "lower_bound": -0.6345883040687781,
+      "upper_bound": -0.08218719955593662,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 20,
+      "does_not_correct_all_previous_research_selection": true
+    }
+  ],
+  "unmatured_terminal_rows_retained": 19,
+  "historical_windows_reused": true,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/fed_semiconductor_capacity_source_20261013",
+  "as_of": "2026-10-09",
+  "recorder_id": "9f74485c4b0f4142a99fdcca4997ca4e",
+  "experiment_id": "132100490766016276",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/fed_capacity_information_20261013/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/fed_capacity_information_20261013/qlib_recorder/132100490766016276/9f74485c4b0f4142a99fdcca4997ca4e",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "analysis/predictions",
+      "analysis/paired_losses"
+    ]
+  },
+  "no_net_alpha_claim": true,
+  "production_enabled": false,
+  "nas_evidence": {
+    "sha256": "d8efe0906622350894720afa325e57ecc2d712328832087e65d99daaabfe58f7",
+    "size_bytes": 270404,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/d8/ef/d8efe0906622350894720afa325e57ecc2d712328832087e65d99daaabfe58f7",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-13 17:50:56.820143+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/d8/ef/d8efe0906622350894720afa325e57ecc2d712328832087e65d99daaabfe58f7",
+    "recorder_id": "9f74485c4b0f4142a99fdcca4997ca4e",
+    "experiment_id": "132100490766016276",
+    "archive_root": "qlib_recorder"
+  },
+  "evaluation_maturity_correction": {
+    "development": "labels must mature before the next calendar year",
+    "outer": "labels must mature before as_of16:01",
+    "excluded_late_labels": {
+      "development_2021": 21,
+      "development_2022": 21,
+      "reused_outer": 0
+    },
+    "new_fits": 0,
+    "prediction_values_changed": false
+  }
+}

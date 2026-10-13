@@ -1,0 +1,21 @@
+{
+  "raw_documents": 192,
+  "expected_documents": 192,
+  "target_scope_documents": 133,
+  "legacy_scope_documents_excluded": 59,
+  "first_target_scope_publication": "2015-08-14",
+  "source_complete": true,
+  "failures": [],
+  "native_calendar_rows": 2008,
+  "known_rows": 2008,
+  "unknown_rows": 0,
+  "earliest_publication": "2010-09-15",
+  "latest_publication": "2026-09-18",
+  "first_receipt_qualified": false,
+  "original_published_values_used": true,
+  "same_vintage_monthly_changes": true,
+  "latest_fred_revisions_used": false,
+  "historical_published_clock_verified": true,
+  "next_supported_session_guard": true,
+  "economic_scope": "US manufacturing NAICS3344; not global chip sales or direct ETF fair value"
+}
