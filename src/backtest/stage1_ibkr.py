@@ -73,7 +73,8 @@ def replay_tiered_stage1(frame, *, models, tariff, slippage_bps, recovery_spec,
 
 
 def native_tiered_stage1(frame, replayed, *, provider_uri: Path, tariff: dict,
-                         slippage_bps: float, initial_cash: float, tolerance=1e-7):
+                         slippage_bps: float, initial_cash: float, tolerance=1e-7,
+                         freq="15min", opening_offset=pd.Timedelta(hours=9, minutes=45)):
     import qlib
     from qlib.backtest import backtest
     from qlib.backtest.decision import Order, TradeDecisionWO
@@ -83,7 +84,7 @@ def native_tiered_stage1(frame, replayed, *, provider_uri: Path, tariff: dict,
     qlib.init(provider_uri=str(provider_uri), region="us", kernels=1)
     rows, orders = replayed["replay"], replayed["orders"]
     first, last = rows.trade_date.iloc[0], rows.trade_date.iloc[-1]
-    calendar = pd.DatetimeIndex(D.calendar(start_time=first, end_time=last + pd.Timedelta(hours=16), freq="15min"))
+    calendar = pd.DatetimeIndex(D.calendar(start_time=first, end_time=last + pd.Timedelta(hours=16), freq=freq))
     day_last = pd.Series(calendar, index=calendar.normalize()).groupby(level=0).last()
     scheduled = dict(tuple(orders.groupby("stamp", sort=False))) if len(orders) else {}
 
@@ -98,15 +99,15 @@ def native_tiered_stage1(frame, replayed, *, provider_uri: Path, tariff: dict,
                 Order.SELL if row.sell else Order.BUY, start, end) for row in entries.itertuples()]
             return TradeDecisionWO(submitted, self)
 
-    exchange = IBKRTieredExchange(tariff=tariff, slippage_bps=slippage_bps, freq="15min",
+    exchange = IBKRTieredExchange(tariff=tariff, slippage_bps=slippage_bps, freq=freq,
         start_time=first, end_time=last + pd.Timedelta(hours=16), codes=list(SYMBOLS),
         deal_price="execution_price", limit_threshold=None)
-    outputs, indicators = backtest(start_time=first + pd.Timedelta(hours=9, minutes=45),
+    outputs, indicators = backtest(start_time=first + opening_offset,
         end_time=last + pd.Timedelta(hours=16), strategy=PrescribedWholeShareOrders(),
         executor={"class": "SimulatorExecutor", "module_path": "qlib.backtest.executor",
-                  "kwargs": {"time_per_step": "15min", "generate_portfolio_metrics": True}},
+                  "kwargs": {"time_per_step": freq, "generate_portfolio_metrics": True}},
         account=initial_cash, benchmark=pd.Series(0., index=calendar), exchange_kwargs={"exchange": exchange})
-    report, positions = outputs["15min"]
+    report, positions = outputs[freq]
     checked, previous = [], float(initial_cash)
     for i, row in rows.iterrows():
         position = positions[pd.Timestamp(day_last.loc[row.trade_date])]

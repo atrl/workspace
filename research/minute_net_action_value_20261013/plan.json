@@ -1,0 +1,117 @@
+{
+  "experiment": "minute_net_action_value_20261013",
+  "schema_version": "minute_net_value_v1",
+  "source_release": "stage1_hold_net_fees_20260928_paper_trial_v1",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "as_of": "2026-10-09",
+  "start": "2023-01-03",
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "primary_slippage_bps": 2,
+  "policies": [
+    "current",
+    "state",
+    "minute",
+    "soxx"
+  ],
+  "maximum_native_cases": 12,
+  "maximum_model_fits": 6,
+  "fit_years": [
+    2024,
+    2025,
+    2026
+  ],
+  "ridge_alpha": 10,
+  "minimum_training_observations": 40,
+  "hac_calendar_days": 5,
+  "confidence_z": 1.645,
+  "partial_fraction": 0.5,
+  "rolling_sessions": 126,
+  "maximum_drawdown_pct": 30,
+  "bootstrap_resamples": 2000,
+  "bootstrap_alpha": 0.025,
+  "bootstrap_seed": 20261013,
+  "fee_source": {
+    "card": "research/ibkr_tiered_minute_diagnosis_20261013",
+    "recorder_id": "19b476e0dea34abead078565d8f739c6",
+    "archive": "a1a6d77ff8e3d1bead90f221c25f7e94bd4d9f047b2a41574c92f8cff214c6db",
+    "inventory_sha256": "fd844f63a1bb2138c17ef7e1c4f74f791b1d33ec4edda1804e5733f8550f2022"
+  },
+  "strategy_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "snapshot_binding": "research/minute_information_pit_allocator_20261012/nas_binding.json",
+  "raw_provider": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "raw_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+  "code_sources": [
+    "src/workflow/minute_action_value.py",
+    "src/model/minute_action_value.py",
+    "src/backtest/minute_action_value.py",
+    "src/data/minute_action_marks.py",
+    "src/backtest/stage1_ibkr.py",
+    "src/backtest/ibkr_tiered.py"
+  ],
+  "information_clock": "completed 09:31..10:30 bars; assumed receipt10:31; decision10:31; order delay60s; execute actual10:32 open",
+  "label": "paired next09:30 NAV after common reference next-open reset including both branch fees",
+  "label_available_at": "next09:31 historical availability assumption",
+  "cost_score_adjustment": "net2bp conditional prediction minus known-price entry-and-unwind incremental slip preview; realized costs charged separately",
+  "eligibility": "retain existing recovery drawdown>=.08, action beta<=.6, source alpha>=.25; fixed halfway move to existing legal target",
+  "historical_role": "all 2023..2026 reused diagnostic history; 2023 HOLD warmup, strictly prior matured labels for later annual fits",
+  "selection": "one fixed minute candidate against matched state-only control; no hyperparameter or risk threshold search",
+  "recovery_constraints": "retain source open controller and its existing recovery permission; no new maximum position risk",
+  "runtime_activation": false,
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

@@ -1,0 +1,7 @@
+year,family,reference_actions,training_actions,features,rank_ic,positive_advantage_auc,rmse,lcb_selected_reference_actions,lcb_selected_mean_advantage_bp,unconditional_mean_advantage_bp,role
+2024,state,74,47,17,-0.02676045908922621,0.48511904761904767,0.0037402709277048964,27,1.5272379052909795,2.7722070506870136,reused reference-state diagnostic; not own-policy realized returns or fresh holdout
+2024,minute,74,47,29,0.08801184746390225,0.5334821428571428,0.003947184510741005,29,3.92764744354178,2.7722070506870136,reused reference-state diagnostic; not own-policy realized returns or fresh holdout
+2025,state,52,121,17,-0.2807991120976692,0.4302848575712144,0.006499601863622916,3,-35.414220043481485,-0.5092913831895898,reused reference-state diagnostic; not own-policy realized returns or fresh holdout
+2025,minute,52,121,29,-0.0774353282677367,0.5472263868065967,0.006359936450768509,5,-49.252856759618425,-0.5092913831895898,reused reference-state diagnostic; not own-policy realized returns or fresh holdout
+2026,state,67,173,17,-0.14155160028733338,0.45190562613430124,0.004270938008939228,1,-38.554475851634606,3.3734194889774054,reused reference-state diagnostic; not own-policy realized returns or fresh holdout
+2026,minute,67,173,29,-0.12818261633011416,0.49274047186932846,0.004783963519717172,1,-41.10801645493863,3.3734194889774054,reused reference-state diagnostic; not own-policy realized returns or fresh holdout

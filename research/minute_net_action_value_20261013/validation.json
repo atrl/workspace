@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "focused_checks": {
+    "command": "MLFLOW_ALLOW_FILE_STORE=true PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_ibkr_tiered.py tests/test_minute_action_value.py -q",
+    "result": "6 passed",
+    "new_material_contract_tests": 3
+  },
+  "notebook_executed": true,
+  "notebook_readback_reused_finished_models_and_accounts": true,
+  "new_model_fits": 6,
+  "native_accounts": 12,
+  "native_current_control_parent_return_error": 0,
+  "final_feature_guard_readback_sessions": 944,
+  "NAS_verified_objects": 44,
+  "active_release_changed": false,
+  "scientific_decision": "not_promoted_minute_net_value_gates_failed",
+  "native_account_reconciliation_tolerance": 1e-07,
+  "all_native_accounts_reconciled_before_recording": true
+}

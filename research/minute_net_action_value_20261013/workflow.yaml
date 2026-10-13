@@ -1,0 +1,16 @@
+experiment: minute_net_action_value_20261013
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/minute_net_action_value_20261013
+recorder_uri: /Users/rziiiii/dev/workspace/research/minute_net_action_value_20261013/qlib_recorder
+region: us
+freq: 1min
+calendar_role: sparse_execution_events
+as_of: '2026-10-09'
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - models/*
+  - analysis/teacher
+  - analysis/native/*
+  - sources/*
