@@ -27,3 +27,5 @@ I/B/E/S EPS and revenue estimates, and StarMine Smart Estimates, provided by Ref
     value = refinitiv_newsletter.parse_newsletter(b"sample", "AMD", "2022-08-02", "morning_call")
     assert value["consensus_eps"] == 1.03
     assert value["smart_eps"] is None and value["consensus_revenue_million_usd"] is None
+    morning = morning.replace("Advanced Micro Devices Inc", "Intel Corp").replace("earnings of $1.03", "loss of 15 cents")
+    assert refinitiv_newsletter.parse_newsletter(b"sample", "INTC", "2023-04-27", "morning_call")["consensus_eps"] == -0.15

@@ -12,7 +12,12 @@ import pandas as pd
 from pypdf import PdfReader
 
 
-COMPANY_NAMES = {"NVDA": r"NVIDIA(?: Corp)?", "AMD": r"Advanced Micro Devices(?: Inc)?", "INTC": r"Intel(?: Corp)?"}
+COMPANY_NAMES = {"NVDA": r"NVIDIA(?: Corp(?:oration)?\.?)?", "AMD": r"Advanced Micro Devices(?:,? Inc\.?)?", "INTC": r"Intel(?: Corp(?:oration)?\.?)?"}
+PROVIDER_FOOTERS = (
+    "I/B/E/S EPS and revenue estimates, and StarMine Smart Estimates, provided by Refinitiv.",
+    "EPS and Revenue estimates are according to Thomson Reuters I/B/E/S. Smart Estimates are according to Thomson Reuters StarMine.",
+    "All analysts' estimates are according to LSEG IBES data.",
+)
 
 
 def parse_newsletter(raw, symbol, report_date, family="day_ahead"):
@@ -20,18 +25,20 @@ def parse_newsletter(raw, symbol, report_date, family="day_ahead"):
     pages = [page.extract_text() for page in reader.pages]
     whole = " ".join(pages)
     if family == "morning_call":
-        if "All analysts' estimates are according to I/B/E/S Refinitiv data" not in whole:
+        if not any(footer.rstrip(".") in whole for footer in ["All analysts' estimates are according to I/B/E/S Refinitiv data", *PROVIDER_FOOTERS]):
             raise ValueError("morning estimate provider unknown")
         candidates = []
         for number, text in enumerate(pages):
             if "COMPANIES REPORTING RESULTS" not in text:
                 continue
-            for match in re.findall(r"(" + COMPANY_NAMES[symbol] + r"): Expected (Q[1-4]) earnings of (\$[\d.]+|[\d.]+ cents) per share", text, re.I):
+            for match in re.findall(r"(" + COMPANY_NAMES[symbol] + r"): Expected (Q[1-4]) (earnings|loss) of (\$[\d.]+|[\d.]+ cents) per share", text, re.I):
                 candidates.append((number, match))
         if len(candidates) != 1:
             raise ValueError("expected one morning company EPS row")
-        number, (company, quarter, token) = candidates[0]
+        number, (company, quarter, role, token) = candidates[0]
         consensus = float(token[1:]) if token.startswith("$") else float(token.split()[0]) / 100
+        if role.lower() == "loss":
+            consensus = -abs(consensus)
         created, modified = reader.metadata.creation_date, reader.metadata.modification_date
         known = all(value is not None and value.tzinfo is not None for value in [created, modified])
         latest = max(pd.Timestamp(created), pd.Timestamp(modified)).tz_convert("America/New_York") if known else pd.NaT
@@ -44,7 +51,7 @@ def parse_newsletter(raw, symbol, report_date, family="day_ahead"):
             "not_final_preannouncement_consensus": True, "raw_split_basis_not_restated": True, "newsletter_family": family}
     if family != "day_ahead":
         raise ValueError("unsupported newsletter family")
-    if "KEY RESULTS" not in whole or "I/B/E/S EPS and revenue estimates" not in whole:
+    if "KEY RESULTS" not in whole or not any(footer in whole for footer in PROVIDER_FOOTERS):
         raise ValueError("I/B/E/S KEY RESULTS scope absent")
     candidates = []
     for number, text in enumerate(pages):

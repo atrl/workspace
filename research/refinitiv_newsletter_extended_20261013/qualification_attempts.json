@@ -1,0 +1,38 @@
+[
+  {
+    "recorder_id": "b39747b96e264701b1f228f13c53d5d6",
+    "nas_evidence": {
+      "sha256": "b8beb0d074ca941942c0201dfe82a2be928c62d601d86c6911c07d0b3999222c",
+      "size_bytes": 110110364,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/b8/be/b8beb0d074ca941942c0201dfe82a2be928c62d601d86c6911c07d0b3999222c",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 21:39:40.726568+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b8/be/b8beb0d074ca941942c0201dfe82a2be928c62d601d86c6911c07d0b3999222c",
+      "recorder_id": "b39747b96e264701b1f228f13c53d5d6",
+      "experiment_id": "931387376981231257",
+      "archive_root": "qlib_recorder"
+    },
+    "parsed_events": 58,
+    "repair": "Exact legacy ThomsonReuters and current LSEG I/B/E/S footer variants plus full legal names; use same-provider morning EPS only for two404 and two absent target rows; no imputation"
+  },
+  {
+    "recorder_id": "4434d768d6fb40cab234965cea34563b",
+    "nas_evidence": {
+      "sha256": "603c0cc61b924e7f50555294cfdccbb020781d2ab6e7ef8230e25e43ec4d94e6",
+      "size_bytes": 112049052,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/60/3c/603c0cc61b924e7f50555294cfdccbb020781d2ab6e7ef8230e25e43ec4d94e6",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 21:43:18.976025+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/60/3c/603c0cc61b924e7f50555294cfdccbb020781d2ab6e7ef8230e25e43ec4d94e6",
+      "recorder_id": "4434d768d6fb40cab234965cea34563b",
+      "experiment_id": "931387376981231257",
+      "archive_root": "qlib_recorder"
+    },
+    "parsed_events": 101,
+    "repair": "Recognize explicit expected-loss wording and LSEG morning footer punctuation; AMD20241029 DayAhead has no estimates table, use same-day same-provider morning snapshot"
+  }
+]

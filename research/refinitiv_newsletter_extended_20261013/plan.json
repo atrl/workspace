@@ -1,0 +1,731 @@
+{
+  "experiment": "refinitiv_newsletter_extended_20261013",
+  "events": [
+    {
+      "symbol": "INTC",
+      "report_date": "2018-01-25",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2017-12-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-01-30",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2017-12-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-02-08",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2018Q4",
+      "actual_revenue_million_usd": 2911.0,
+      "accession": "0001045810-18-000004"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-04-25",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2018-03-31"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2018-04-26",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2018-03-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-05-10",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2019Q1",
+      "actual_revenue_million_usd": 3207.0,
+      "accession": "0001045810-18-000052"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-07-25",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2018-06-30"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2018-07-26",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2018-06-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-08-16",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2019Q2",
+      "actual_revenue_million_usd": 3123.0,
+      "accession": "0001045810-18-000113"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-10-24",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2018-09-30"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2018-10-25",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2018-09-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-11-15",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2019Q3",
+      "actual_revenue_million_usd": 3181.0,
+      "accession": "0001045810-18-000148"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-01-24",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2018-12-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-01-29",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2018-12-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-02-14",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2019Q4",
+      "actual_revenue_million_usd": 2205.0,
+      "accession": "0001045810-19-000007"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-04-25",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2019-03-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-04-30",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2019-03-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-05-16",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2020Q1",
+      "actual_revenue_million_usd": 2220.0,
+      "accession": "0001045810-19-000077"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-07-25",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2019-06-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-07-30",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2019-06-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-08-15",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2020Q2",
+      "actual_revenue_million_usd": 2579.0,
+      "accession": "0001045810-19-000140"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-10-24",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2019-09-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-10-29",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2019-09-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-11-14",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2020Q3",
+      "actual_revenue_million_usd": 3014.0,
+      "accession": "0001045810-19-000168"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-01-23",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2019-12-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-01-28",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2019-12-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-02-13",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2020Q4",
+      "actual_revenue_million_usd": 3105.0,
+      "accession": "0001045810-20-000007"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-04-23",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2020-03-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-04-28",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2020-03-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-05-21",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2021Q1",
+      "actual_revenue_million_usd": 3080.0,
+      "accession": "0001045810-20-000063"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-07-23",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2020-06-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-07-28",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2020-06-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-08-19",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2021Q2",
+      "actual_revenue_million_usd": 3866.0,
+      "accession": "0001045810-20-000145"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-10-22",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2020-09-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-10-27",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2020-09-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-11-18",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2021Q3",
+      "actual_revenue_million_usd": 4726.0,
+      "accession": "0001045810-20-000187"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-01-21",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2020-12-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-01-26",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2020-12-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-02-24",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2021Q4",
+      "actual_revenue_million_usd": 5003.0,
+      "accession": "0001045810-21-000007"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-04-22",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2021-03-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-04-27",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2021-03-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-05-26",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2022Q1",
+      "actual_revenue_million_usd": 5661.0,
+      "accession": "0001045810-21-000063"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-07-22",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2021-06-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-07-27",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2021-06-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-08-18",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2022Q2",
+      "actual_revenue_million_usd": 6507.0,
+      "accession": "0001045810-21-000128"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-10-21",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2021-09-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-10-26",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2021-09-30",
+      "newsletter_family": "morning_call"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-11-17",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2022Q3",
+      "actual_revenue_million_usd": 7103.0,
+      "accession": "0001045810-21-000160"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-01-26",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2021-12-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-02-01",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2021-12-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-02-16",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2022Q4",
+      "actual_revenue_million_usd": 7643.0,
+      "accession": "0001045810-22-000008"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-04-28",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2022-03-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-05-03",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2022-03-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-05-25",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2023Q1",
+      "actual_revenue_million_usd": 8288.0,
+      "accession": "0001045810-22-000073"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-07-28",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2022-06-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-08-02",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2022-06-30",
+      "newsletter_family": "morning_call"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-08-24",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2023Q2",
+      "actual_revenue_million_usd": 6704.0,
+      "accession": "0001045810-22-000136"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-10-27",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2022-09-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-11-01",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2022-09-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-11-16",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2023Q3",
+      "actual_revenue_million_usd": 5931.0,
+      "accession": "0001045810-22-000163"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-01-26",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2022-12-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-01-31",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2022-12-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-02-22",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2023Q4",
+      "actual_revenue_million_usd": 6051.0,
+      "accession": "0001045810-23-000014"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-04-27",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2023-03-31",
+      "newsletter_family": "morning_call"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-05-02",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2023-03-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-05-24",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2024Q1",
+      "actual_revenue_million_usd": 7192.0,
+      "accession": "0001045810-23-000087"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-07-27",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2023-06-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-08-01",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2023-06-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-08-23",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2024Q2",
+      "actual_revenue_million_usd": 13507.0,
+      "accession": "0001045810-23-000171"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-10-26",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2023-09-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-10-31",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2023-09-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-11-21",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2024Q3",
+      "actual_revenue_million_usd": 18120.0,
+      "accession": "0001045810-23-000225"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-01-25",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2023-12-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-01-30",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2023-12-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-02-21",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2024Q4",
+      "actual_revenue_million_usd": 22103.0,
+      "accession": "0001045810-24-000028"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-04-25",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2024-03-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-04-30",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2024-03-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-05-22",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2025Q1",
+      "actual_revenue_million_usd": 26044.0,
+      "accession": "0001045810-24-000113"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-07-30",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2024-06-30"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-08-01",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2024-06-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-08-28",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2025Q2",
+      "actual_revenue_million_usd": 30040.0,
+      "accession": "0001045810-24-000262"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-10-29",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2024-09-30",
+      "newsletter_family": "morning_call"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-10-31",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2024-09-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-11-20",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2025Q3",
+      "actual_revenue_million_usd": 35082.0,
+      "accession": "0001045810-24-000315"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-01-30",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2024-12-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-02-04",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2024-12-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-02-26",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2025Q4",
+      "actual_revenue_million_usd": 39331.0,
+      "accession": "0001045810-25-000021"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-04-24",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2025-03-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-05-06",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2025-03-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-05-28",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2026Q1",
+      "actual_revenue_million_usd": 44062.0,
+      "accession": "0001045810-25-000115"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-07-24",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2025-06-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-08-05",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2025-06-30",
+      "newsletter_family": "morning_call"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-08-27",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2026Q2",
+      "actual_revenue_million_usd": 46743.0,
+      "accession": "0001045810-25-000207"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-10-23",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2025-09-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-11-04",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2025-09-30"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-11-19",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2026Q3",
+      "actual_revenue_million_usd": 57006.0,
+      "accession": "0001045810-25-000228"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2026-01-22",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2025-12-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2026-02-03",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2025-12-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2026-02-25",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2026Q4",
+      "actual_revenue_million_usd": 68127.0,
+      "accession": "0001045810-26-000019"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2026-04-23",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2026-03-31"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2026-05-05",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2026-03-31"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2026-05-20",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2027Q1",
+      "actual_revenue_million_usd": 81615.0,
+      "accession": "0001045810-26-000051"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2026-07-23",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2026-06-30"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2026-08-04",
+      "calendar_basis": "existing vendor reported-date snapshot; needs issuer-date corroboration",
+      "vendor_fiscal_end": "2026-06-30",
+      "newsletter_family": "morning_call"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2026-08-26",
+      "calendar_basis": "dated original issuer guidance fact release date",
+      "reported_quarter": "FY2027Q2",
+      "actual_revenue_million_usd": 96221.0,
+      "accession": "0001045810-26-000073"
+    }
+  ],
+  "maximum_documents": 110,
+  "workers": 3,
+  "raw_cache": "data/raw/external/refinitiv_newsletter_extended_20261013",
+  "price_provider": "data/qlib/soxx_extended_published_affine_20260925_v1",
+  "calendar_source_hashes": {
+    "data/snapshots/earnings_surprise_20261005_v1/alpha_nvda_earnings.json": "3f349af12e930c2652bb16b5394b763a44184201d1194cbeb52dae6da48baa96",
+    "data/snapshots/earnings_surprise_20261005_v1/alpha_amd_earnings.json": "c0c8bfb3aa2bff4a4276c097fecb5b1aa30cbbebdff80b3e4e0459e82d9e590a",
+    "data/snapshots/earnings_surprise_20261005_v1/alpha_intc_earnings.json": "688f589dc55c9d2d1f047acd68da9d08b26d18a652cf725bdc4cedf8af35dbb2"
+  },
+  "scope": "all105 report-calendar events2018 through2026-09-25; no return screening; NVDA issuer-date repair, AMD/INTC pending corroboration",
+  "maximum_model_fits": 0,
+  "maximum_backtests": 0,
+  "allow_expired_public_certificate_probe": true,
+  "transport_scope": "only hardcoded credential-free public Refinitiv newsletter URL; first attempt validates certificate; record any expired-certificate fallback, never change global TLS",
+  "publication_contract": "filename denotes prospective event date, not publication timestamp; PDF metadata only consistency evidence; ordinary EPS consensus differs from SmartEstimate",
+  "goal_status": "active",
+  "fallback_contract": "Morning Call only for known404 or absent target row in DayAhead; keep original failures in qualification_attempts; fields absent in morning remain unknown",
+  "nvda_fact_manifest": "data/raw/external/nvda_guidance_facts_20261011_v1/manifest.json",
+  "nvda_fact_manifest_sha256": "df09d3cf8fea92702f6f33a616b7e7c1fa2812ec6977289ee2afdc141f61b82a",
+  "calendar_corrections": []
+}

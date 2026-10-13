@@ -1,0 +1,60 @@
+{
+  "recorder_id": "bc6c2e2a31ac4d509b75e4e4ecccd992",
+  "entries": [
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/analysis/audit",
+      "sha256": "56a322bf7837e73898c74eff5b8bf9ab64ecac793ecd35898977b6474139cf0f",
+      "bytes": 450
+    },
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/analysis/calendar",
+      "sha256": "f193ff53c7763d62ac8398dab94ae72c5f38d59f245f636253741765e59e20dc",
+      "bytes": 40566
+    },
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/analysis/events",
+      "sha256": "33f18075f28ee496c2c98eb43911bdf714b5b36c4002993d3e7a6782e2980e1e",
+      "bytes": 50887
+    },
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/code_diff.txt",
+      "sha256": "23b7fd269fdc4674d6aa5047f0c8440444980dba9d3cbec58587436095d532f8",
+      "bytes": 406220
+    },
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/code_status.txt",
+      "sha256": "41b64bfb23b6a0368d58cbdff4ec27e85eee86d07e6b0e9d547b10895a18b847",
+      "bytes": 62487
+    },
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/sources/issuer_preliminary_html",
+      "sha256": "f9477afa2eb2c7292fb25cc950c73a6d0b271953e2c2a8cb5828a5ea3366d38a",
+      "bytes": 87933
+    },
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/sources/issuer_warning_audit",
+      "sha256": "fe2c9ffe2e91809b452f3ad0aec97753b83d57fda5ed16907b70dce0a9bab9ae",
+      "bytes": 500
+    },
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/sources/manifest",
+      "sha256": "8aafe1f073793eaf080d8046bfce53a34015caccedb8a848e357857ef9b9ecb7",
+      "bytes": 80293
+    },
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/sources/parser",
+      "sha256": "0da1e6919ea24a045106b930fbea8f5e356137aa0f158541730f5a04531e1cf9",
+      "bytes": 8713
+    },
+    {
+      "path": "qlib_recorder/931387376981231257/bc6c2e2a31ac4d509b75e4e4ecccd992/artifacts/sources/pdfs",
+      "sha256": "2c59b4e0e10923b8ac193b22ecf6595e1db78b0ba80b32185e95cf9302c98a6a",
+      "bytes": 121952672
+    }
+  ]
+}
