@@ -1,0 +1,23 @@
+{
+  "schema_version": "nas_research_source_v1",
+  "authority": "yanxuan_nas",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "source_id": "da6c7fd43ed999b204e935653ff9dc35a7ce02f26424d18ad558858c33cfbde1",
+  "raw_authority": "Official complete Cboe SKEW CSV, frozen on retrieval; history publication vintages unverified",
+  "evidence": {
+    "sha256": "6f32dcd18584bb85dc8a415c7f5216737e93a04637cd1bf5ee5234cdf1c38465",
+    "size_bytes": 743762,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/6f/32/6f32dcd18584bb85dc8a415c7f5216737e93a04637cd1bf5ee5234cdf1c38465",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 03:44:18.346803+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/6f/32/6f32dcd18584bb85dc8a415c7f5216737e93a04637cd1bf5ee5234cdf1c38465",
+    "recorder_id": "d2cbede4024c4bf583304545e5cbd33b",
+    "experiment_id": "766832790829256304",
+    "archive_root": "qlib_recorder"
+  }
+}

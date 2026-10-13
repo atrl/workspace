@@ -1,0 +1,9 @@
+fold,role,observations,mean_joint_normalized_loss_improvement,lower_bound,upper_bound,method,block_length,does_not_correct_all_previous_research_selection
+development_2021,risk,246,0.01170681912804662,-0.05208189434346919,0.07799250342854412,paired stationary bootstrap of normalized loss difference,63,True
+development_2021,returns,246,0.008949168595771731,-0.047219109362738924,0.06863320198152557,paired stationary bootstrap of normalized loss difference,63,True
+development_2022,risk,245,-0.023321143707920766,-0.038800088401154585,-0.00634918026663602,paired stationary bootstrap of normalized loss difference,63,True
+development_2022,returns,245,-0.0497188262139972,-0.09436604163313726,-0.0038795296054195162,paired stationary bootstrap of normalized loss difference,63,True
+reused_outer,risk,940,0.02729531277623666,-0.03219604103289832,0.0988770338012097,paired stationary bootstrap of normalized loss difference,63,True
+reused_outer,returns,940,-0.022427270549168925,-0.05367658975457811,0.012508831981722143,paired stationary bootstrap of normalized loss difference,63,True
+pooled_development,risk,491,-0.005771492266682523,-0.048295613096709954,0.04229883637313804,paired stationary bootstrap of normalized loss difference,63,True
+pooled_development,returns,491,-0.0203250854335427,-0.07140822765582411,0.0339392107844928,paired stationary bootstrap of normalized loss difference,63,True
