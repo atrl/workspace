@@ -1,0 +1,43 @@
+{
+  "experiment": "tiered_cash_layers_20261014",
+  "plan_sha256": "a86a8bd6c630fb549168231b8a8a92f237725151d2c1ed2bbf2d5154b5675ba0",
+  "decision": "diagnostic_only_no_promotion",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_native_cases": 0,
+  "reused_native_cases": 3,
+  "sessions_per_cost": 944,
+  "maximum_cash_identity_error": 0.0,
+  "recorder_id": "9c1f9f1cf7b845c8a49d643572203702",
+  "experiment_id": "522840418719482073",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/tiered_cash_layers_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/tiered_cash_layers_20261014/qlib_recorder/522840418719482073/9c1f9f1cf7b845c8a49d643572203702",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "units": "mean cash weight percentage points; binding columns are session counts",
+  "scope": "ordered actual-state accounting; raw_cash means already-smoothed source target; model_cash is frozen pre-EMA output; not causal attribution or counterfactual performance",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/daily"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "73834e2cd2296169126fda52ff50e76cc43d192d31d3e6d6735ba551edb408d7",
+    "size_bytes": 164122,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/73/83/73834e2cd2296169126fda52ff50e76cc43d192d31d3e6d6735ba551edb408d7",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 03:15:53.89822+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/73/83/73834e2cd2296169126fda52ff50e76cc43d192d31d3e6d6735ba551edb408d7",
+    "recorder_id": "9c1f9f1cf7b845c8a49d643572203702",
+    "experiment_id": "522840418719482073",
+    "archive_root": "qlib_recorder"
+  }
+}
