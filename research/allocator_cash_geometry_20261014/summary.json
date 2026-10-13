@@ -1,0 +1,54 @@
+{
+  "experiment": "allocator_cash_geometry_20261014",
+  "plan_sha256": "4f605aa02d73787eb9bc6a519ce5d39f0e9f14ae13d9254e7c66c34c01c809f4",
+  "decision": "diagnostic_only_no_promotion",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "sessions": 944,
+  "first_signal": "2023-01-03 00:00:00",
+  "last_signal": "2026-10-07 00:00:00",
+  "prediction_max_absolute_error": 5.7676443732113114e-08,
+  "standardized_zero_input_weights": [
+    0.30000001192092896,
+    0.4749508202075958,
+    0.22504912316799164
+  ],
+  "zero_logits_legal_weights": [
+    0.28333333134651184,
+    0.28333333134651184,
+    0.43333330750465393
+  ],
+  "recorder_id": "2b6c68ba4a00474d933e0b6170fd5434",
+  "experiment_id": "747604294599644737",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/allocator_cash_geometry_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/allocator_cash_geometry_20261014/qlib_recorder/747604294599644737/2b6c68ba4a00474d933e0b6170fd5434",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/model.html",
+  "scope": "projection identity not causal value, zero-input is not cash optimality or a tradable control",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/daily",
+      "analysis/logits"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "7d77a51c51fc5114d4f8a70e21cc82aa1a25633af0c533925dc614652f1a3864",
+    "size_bytes": 117947,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/7d/77/7d77a51c51fc5114d4f8a70e21cc82aa1a25633af0c533925dc614652f1a3864",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 03:20:22.950611+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/7d/77/7d77a51c51fc5114d4f8a70e21cc82aa1a25633af0c533925dc614652f1a3864",
+    "recorder_id": "2b6c68ba4a00474d933e0b6170fd5434",
+    "experiment_id": "747604294599644737",
+    "archive_root": "qlib_recorder"
+  }
+}
