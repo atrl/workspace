@@ -1,0 +1,23 @@
+{
+  "schema_version": "nas_research_source_v1",
+  "authority": "yanxuan_nas",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "source_id": "0f886aedf531cbb3cdd0d3209ccc69d23e451e394804bbedccb5f2ebca3837d6",
+  "raw_authority": "original downloaded bytes in NAS Recorder; historical page version not yet certified",
+  "evidence": {
+    "sha256": "c5b4417a691774731a44856c415b6b74f3478734409bd588026df38f31e181b4",
+    "size_bytes": 269272,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c5/b4/c5b4417a691774731a44856c415b6b74f3478734409bd588026df38f31e181b4",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-13 21:00:06.706951+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c5/b4/c5b4417a691774731a44856c415b6b74f3478734409bd588026df38f31e181b4",
+    "recorder_id": "22fcbb3ef6224edc803c49d6db424cde",
+    "experiment_id": "817261767923806163",
+    "archive_root": "qlib_recorder"
+  }
+}

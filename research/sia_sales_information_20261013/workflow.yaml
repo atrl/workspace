@@ -1,0 +1,12 @@
+experiment: sia_sales_information_20261013
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/sia_sales_pdf_20261013
+recorder_uri: /Users/rziiiii/dev/workspace/research/sia_sales_information_20261013/qlib_recorder
+as_of: '2026-10-09'
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - models/*
+  - analysis/predictions
+  - analysis/paired_losses
