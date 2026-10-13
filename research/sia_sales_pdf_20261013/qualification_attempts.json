@@ -1,0 +1,40 @@
+[
+  {
+    "recorder_id": "aabe382eae8c42cc9a118c60d9c47d86",
+    "nas_evidence": {
+      "sha256": "60fe596dc0deb2f4f713803b83002722807605b054ef3a8444c82e64dd6a242e",
+      "size_bytes": 23025427,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/60/fe/60fe596dc0deb2f4f713803b83002722807605b054ef3a8444c82e64dd6a242e",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 20:51:18.172619+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/60/fe/60fe596dc0deb2f4f713803b83002722807605b054ef3a8444c82e64dd6a242e",
+      "recorder_id": "aabe382eae8c42cc9a118c60d9c47d86",
+      "experiment_id": "978507697411283685",
+      "archive_root": "qlib_recorder"
+    },
+    "parsed": 47,
+    "failures": 58,
+    "repair": "Normalize heading whitespace; explicitly convert April2026 thousands of USD to billions using declared unit and precision-aware rounding reconciliation; no source value imputation"
+  },
+  {
+    "recorder_id": "c6b40a6a1e5149bd959b1ff306504c75",
+    "nas_evidence": {
+      "sha256": "4d643ca64d905dc01ebb90c842de76b3d1a432c8eb3143a3745900b879551a0a",
+      "size_bytes": 23054309,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/4d/64/4d643ca64d905dc01ebb90c842de76b3d1a432c8eb3143a3745900b879551a0a",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 20:52:40.986909+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/4d/64/4d643ca64d905dc01ebb90c842de76b3d1a432c8eb3143a3745900b879551a0a",
+      "recorder_id": "c6b40a6a1e5149bd959b1ff306504c75",
+      "experiment_id": "978507697411283685",
+      "archive_root": "qlib_recorder"
+    },
+    "parsed": 105,
+    "missing_month": "2020-03",
+    "repair": "Official May4 2020 article is categorized Uncategorized, absent from Market Data index; add exact official article URL to fill calendar gap before modeling"
+  }
+]

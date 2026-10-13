@@ -1,0 +1,32 @@
+{
+  "experiment": "sia_sales_pdf_20261013",
+  "as_of": "2026-10-09",
+  "maximum_documents": 110,
+  "workers": 3,
+  "model_fits": 0,
+  "backtests": 0,
+  "raw_cache": "data/raw/external/sia_sales_pdf_20261013",
+  "provider": "data/qlib/sia_sales_pdf_20261013",
+  "price_provider": "data/qlib/full_path_tiered_allocation_20261013",
+  "source": {
+    "card": "research/sia_sales_source_20261013",
+    "recorder_id": "ead80d189ce147fa8872d28fa2caeef2",
+    "archive": "0f886aedf531cbb3cdd0d3209ccc69d23e451e394804bbedccb5f2ebca3837d6",
+    "inventory_sha256": "fd3f58d7ad64ead283f512b5356b1fffdac6d18959bf3ec47f94a6d785acc194"
+  },
+  "fields": [
+    "sales_mom_pct",
+    "sales_yoy_pct",
+    "regional_yoy_dispersion"
+  ],
+  "availability_assumption": "next Qlib session09:31 after max(article publication, PDF creation, PDF modification); page modification not silently ignored: original attachment linkage remains unverified",
+  "source_role": "conditional historical information only, no certification from self-reported PDF metadata",
+  "dependencies": {
+    "pypdf": "6.20.1",
+    "pypdfium2": "5.14.0"
+  },
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "goal_status": "active",
+  "supplementary_article": "https://www.semiconductors.org/global-semiconductor-sales-decrease-3-6-percent-in-first-quarter-of-2020/",
+  "supplementary_reason": "2020-03 source missing from Market Data archive because article categorized Uncategorized"
+}
