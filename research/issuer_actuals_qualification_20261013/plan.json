@@ -1,0 +1,730 @@
+{
+  "experiment": "issuer_actuals_qualification_20261013",
+  "start": "2018-01-01",
+  "as_of": "2026-09-25",
+  "events": [
+    {
+      "symbol": "INTC",
+      "report_date": "2018-01-25",
+      "expected_year": 2017,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-01-30",
+      "expected_year": 2017,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-02-08",
+      "expected_year": 2018,
+      "expected_quarter": 4,
+      "frozen_original_revenue_million": 2911.0
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-04-25",
+      "expected_year": 2018,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2018-04-26",
+      "expected_year": 2018,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-05-10",
+      "expected_year": 2019,
+      "expected_quarter": 1,
+      "frozen_original_revenue_million": 3207.0
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-07-25",
+      "expected_year": 2018,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2018-07-26",
+      "expected_year": 2018,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-08-16",
+      "expected_year": 2019,
+      "expected_quarter": 2,
+      "frozen_original_revenue_million": 3123.0
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-10-24",
+      "expected_year": 2018,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2018-10-25",
+      "expected_year": 2018,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-11-15",
+      "expected_year": 2019,
+      "expected_quarter": 3,
+      "frozen_original_revenue_million": 3181.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-01-24",
+      "expected_year": 2018,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-01-29",
+      "expected_year": 2018,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-02-14",
+      "expected_year": 2019,
+      "expected_quarter": 4,
+      "frozen_original_revenue_million": 2205.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-04-25",
+      "expected_year": 2019,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-04-30",
+      "expected_year": 2019,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-05-16",
+      "expected_year": 2020,
+      "expected_quarter": 1,
+      "frozen_original_revenue_million": 2220.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-07-25",
+      "expected_year": 2019,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-07-30",
+      "expected_year": 2019,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-08-15",
+      "expected_year": 2020,
+      "expected_quarter": 2,
+      "frozen_original_revenue_million": 2579.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-10-24",
+      "expected_year": 2019,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-10-29",
+      "expected_year": 2019,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-11-14",
+      "expected_year": 2020,
+      "expected_quarter": 3,
+      "frozen_original_revenue_million": 3014.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-01-23",
+      "expected_year": 2019,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-01-28",
+      "expected_year": 2019,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-02-13",
+      "expected_year": 2020,
+      "expected_quarter": 4,
+      "frozen_original_revenue_million": 3105.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-04-23",
+      "expected_year": 2020,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-04-28",
+      "expected_year": 2020,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-05-21",
+      "expected_year": 2021,
+      "expected_quarter": 1,
+      "frozen_original_revenue_million": 3080.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-07-23",
+      "expected_year": 2020,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-07-28",
+      "expected_year": 2020,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-08-19",
+      "expected_year": 2021,
+      "expected_quarter": 2,
+      "frozen_original_revenue_million": 3866.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-10-22",
+      "expected_year": 2020,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-10-27",
+      "expected_year": 2020,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-11-18",
+      "expected_year": 2021,
+      "expected_quarter": 3,
+      "frozen_original_revenue_million": 4726.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-01-21",
+      "expected_year": 2020,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-01-26",
+      "expected_year": 2020,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-02-24",
+      "expected_year": 2021,
+      "expected_quarter": 4,
+      "frozen_original_revenue_million": 5003.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-04-22",
+      "expected_year": 2021,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-04-27",
+      "expected_year": 2021,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-05-26",
+      "expected_year": 2022,
+      "expected_quarter": 1,
+      "frozen_original_revenue_million": 5661.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-07-22",
+      "expected_year": 2021,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-07-27",
+      "expected_year": 2021,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-08-18",
+      "expected_year": 2022,
+      "expected_quarter": 2,
+      "frozen_original_revenue_million": 6507.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-10-21",
+      "expected_year": 2021,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-10-26",
+      "expected_year": 2021,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-11-17",
+      "expected_year": 2022,
+      "expected_quarter": 3,
+      "frozen_original_revenue_million": 7103.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-01-26",
+      "expected_year": 2021,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-02-01",
+      "expected_year": 2021,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-02-16",
+      "expected_year": 2022,
+      "expected_quarter": 4,
+      "frozen_original_revenue_million": 7643.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-04-28",
+      "expected_year": 2022,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-05-03",
+      "expected_year": 2022,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-05-25",
+      "expected_year": 2023,
+      "expected_quarter": 1,
+      "frozen_original_revenue_million": 8288.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-07-28",
+      "expected_year": 2022,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-08-02",
+      "expected_year": 2022,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-08-24",
+      "expected_year": 2023,
+      "expected_quarter": 2,
+      "frozen_original_revenue_million": 6704.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-10-27",
+      "expected_year": 2022,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-11-01",
+      "expected_year": 2022,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-11-16",
+      "expected_year": 2023,
+      "expected_quarter": 3,
+      "frozen_original_revenue_million": 5931.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-01-26",
+      "expected_year": 2022,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-01-31",
+      "expected_year": 2022,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-02-22",
+      "expected_year": 2023,
+      "expected_quarter": 4,
+      "frozen_original_revenue_million": 6051.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-04-27",
+      "expected_year": 2023,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-05-02",
+      "expected_year": 2023,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-05-24",
+      "expected_year": 2024,
+      "expected_quarter": 1,
+      "frozen_original_revenue_million": 7192.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-07-27",
+      "expected_year": 2023,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-08-01",
+      "expected_year": 2023,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-08-23",
+      "expected_year": 2024,
+      "expected_quarter": 2,
+      "frozen_original_revenue_million": 13507.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-10-26",
+      "expected_year": 2023,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-10-31",
+      "expected_year": 2023,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-11-21",
+      "expected_year": 2024,
+      "expected_quarter": 3,
+      "frozen_original_revenue_million": 18120.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-01-25",
+      "expected_year": 2023,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-01-30",
+      "expected_year": 2023,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-02-21",
+      "expected_year": 2024,
+      "expected_quarter": 4,
+      "frozen_original_revenue_million": 22103.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-04-25",
+      "expected_year": 2024,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-04-30",
+      "expected_year": 2024,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-05-22",
+      "expected_year": 2025,
+      "expected_quarter": 1,
+      "frozen_original_revenue_million": 26044.0
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-07-30",
+      "expected_year": 2024,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-08-01",
+      "expected_year": 2024,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-08-28",
+      "expected_year": 2025,
+      "expected_quarter": 2,
+      "frozen_original_revenue_million": 30040.0
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-10-29",
+      "expected_year": 2024,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-10-31",
+      "expected_year": 2024,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-11-20",
+      "expected_year": 2025,
+      "expected_quarter": 3,
+      "frozen_original_revenue_million": 35082.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-01-30",
+      "expected_year": 2024,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-02-04",
+      "expected_year": 2024,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-02-26",
+      "expected_year": 2025,
+      "expected_quarter": 4,
+      "frozen_original_revenue_million": 39331.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-04-24",
+      "expected_year": 2025,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-05-06",
+      "expected_year": 2025,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-05-28",
+      "expected_year": 2026,
+      "expected_quarter": 1,
+      "frozen_original_revenue_million": 44062.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-07-24",
+      "expected_year": 2025,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-08-05",
+      "expected_year": 2025,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-08-27",
+      "expected_year": 2026,
+      "expected_quarter": 2,
+      "frozen_original_revenue_million": 46743.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-10-23",
+      "expected_year": 2025,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-11-04",
+      "expected_year": 2025,
+      "expected_quarter": 3
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-11-19",
+      "expected_year": 2026,
+      "expected_quarter": 3,
+      "frozen_original_revenue_million": 57006.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2026-01-22",
+      "expected_year": 2025,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2026-02-03",
+      "expected_year": 2025,
+      "expected_quarter": 4
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2026-02-25",
+      "expected_year": 2026,
+      "expected_quarter": 4,
+      "frozen_original_revenue_million": 68127.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2026-04-23",
+      "expected_year": 2026,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2026-05-05",
+      "expected_year": 2026,
+      "expected_quarter": 1
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2026-05-20",
+      "expected_year": 2027,
+      "expected_quarter": 1,
+      "frozen_original_revenue_million": 81615.0
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2026-07-23",
+      "expected_year": 2026,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2026-08-04",
+      "expected_year": 2026,
+      "expected_quarter": 2
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2026-08-26",
+      "expected_year": 2027,
+      "expected_quarter": 2,
+      "frozen_original_revenue_million": 96221.0
+    }
+  ],
+  "index_years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "nvidia_index_pages": 10,
+  "maximum_documents": 150,
+  "workers": 3,
+  "raw_cache": "data/raw/external/issuer_actuals_qualification_20261013",
+  "price_provider": "data/qlib/soxx_extended_published_affine_20260925_v1",
+  "consensus_source": {
+    "card": "research/refinitiv_newsletter_extended_20261013",
+    "recorder_id": "bc6c2e2a31ac4d509b75e4e4ecccd992",
+    "archive": "f38b8ef1469ea36d0598690b3c2a60c24473da180ac72aaa10e510db3d57898d",
+    "inventory_sha256": "d5bedd517b0b75580d105ff083540c21286d296b04a48f2c5e9e7dce5ebd0887"
+  },
+  "additional_preliminary_sources": [
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-01-28",
+      "event_role": "preliminary",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-updates-financial-guidance-for-fourth-quarter-of-fiscal-year-2019-6747502"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-08-08",
+      "event_role": "preliminary",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-announces-preliminary-financial-resultsfor-second-quarter-fiscal-2023"
+    }
+  ],
+  "model_fits": 0,
+  "backtests": 0,
+  "selection": "all105 calendar events; first explicitly named quarterly actual summary per GAAP basis; never choose a basis by closeness to estimates or by returns",
+  "source_limit": "Current issuer pages are not certified original as-filed bytes; explicit preliminary release coverage does not establish all unscheduled-news coverage",
+  "goal_status": "active",
+  "additional_quarterly_sources": [
+    {
+      "symbol": "INTC",
+      "report_date": "2020-10-22",
+      "event_role": "quarterly",
+      "url": "https://www.intc.com/news-events/press-releases/detail/1424/intel-reports-third-quarter-2020-financial-results",
+      "discovery": "official issuer result missing from annual financial-category index; exact-date primary-source lookup"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-10-29",
+      "event_role": "quarterly",
+      "url": "https://ir.amd.com/financial-information/sec-filings/content/0000002488-24-000161/q32024991.htm",
+      "replace_current_web_page": true,
+      "discovery": "exact as-filed EX99.1 issuer mirror; current investor release has malformed empty GAAP table"
+    }
+  ]
+}

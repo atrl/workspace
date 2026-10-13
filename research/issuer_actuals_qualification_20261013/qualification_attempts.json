@@ -1,0 +1,59 @@
+[
+  {
+    "recorder_id": "536836656256454d809d3b3f3500ace1",
+    "nas_evidence": {
+      "sha256": "06a5617652d326fb32c075b0fb7998219a9f9f6dff9023ef9fc1af1c9cb6eae2",
+      "size_bytes": 3007198,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/06/a5/06a5617652d326fb32c075b0fb7998219a9f9f6dff9023ef9fc1af1c9cb6eae2",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 22:13:24.342033+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/06/a5/06a5617652d326fb32c075b0fb7998219a9f9f6dff9023ef9fc1af1c9cb6eae2",
+      "recorder_id": "536836656256454d809d3b3f3500ace1",
+      "experiment_id": "245246767188842635",
+      "archive_root": "qlib_recorder"
+    },
+    "parsed_releases": 71,
+    "failures": 34,
+    "repair": "Expand NVIDIA archive to10pages; explicit Intel20201022 issuer link; handle footnotes, currency-before-parenthesized losses, cell-unit suffixes, thead labels, abbreviated quarter labels, and vertical GAAP/non-GAAP sections; no values imputed"
+  },
+  {
+    "recorder_id": "ee1ea5d85eae4260ab817ee7f080d887",
+    "nas_evidence": {
+      "sha256": "35f7f8696e28d95bd138dc3d275aed46528b9820d7f6542d35389204722840ac",
+      "size_bytes": 3384575,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/35/f7/35f7f8696e28d95bd138dc3d275aed46528b9820d7f6542d35389204722840ac",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 22:25:01.725956+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/35/f7/35f7f8696e28d95bd138dc3d275aed46528b9820d7f6542d35389204722840ac",
+      "recorder_id": "ee1ea5d85eae4260ab817ee7f080d887",
+      "experiment_id": "245246767188842635",
+      "archive_root": "qlib_recorder"
+    },
+    "parsed_releases": 105,
+    "basis_rows": 192,
+    "repair": "Prioritize explicit table basis over preceding prose; keep partial revenue/EPS fields unknown independently; retain H20-excluded EPS variants; replace malformed AMD20241029 current page with exact issuer-hosted SEC exhibit"
+  },
+  {
+    "recorder_id": "33d30987a7594f248d0fb293a1a3a438",
+    "nas_evidence": {
+      "sha256": "89ab77de55fb3e740383d7bd2c867522c13796a631b62fa44ce96a87cd403b1d",
+      "size_bytes": 3412329,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/89/ab/89ab77de55fb3e740383d7bd2c867522c13796a631b62fa44ce96a87cd403b1d",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-13 22:36:10.525112+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/89/ab/89ab77de55fb3e740383d7bd2c867522c13796a631b62fa44ce96a87cd403b1d",
+      "recorder_id": "33d30987a7594f248d0fb293a1a3a438",
+      "experiment_id": "245246767188842635",
+      "archive_root": "qlib_recorder"
+    },
+    "parsed_releases": 105,
+    "basis_rows": 199,
+    "repair": "For headings split across adjacent formatting tags, prefer the immediate paragraph over a distant earlier basis heading; explicit table headers still take priority"
+  }
+]

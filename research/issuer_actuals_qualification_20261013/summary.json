@@ -1,0 +1,102 @@
+{
+  "experiment": "issuer_actuals_qualification_20261013",
+  "decision": "actuals_parsed_needs_expectation_basis_and_novelty_qualification",
+  "source_audit": {
+    "expected_quarterly_releases": 105,
+    "parsed_quarterly_releases": 105,
+    "basis_rows": 210,
+    "per_symbol_basis_rows": [
+      {
+        "symbol": "AMD",
+        "basis": "gaap",
+        "rows": 35
+      },
+      {
+        "symbol": "AMD",
+        "basis": "non_gaap",
+        "rows": 35
+      },
+      {
+        "symbol": "INTC",
+        "basis": "gaap",
+        "rows": 35
+      },
+      {
+        "symbol": "INTC",
+        "basis": "non_gaap",
+        "rows": 35
+      },
+      {
+        "symbol": "NVDA",
+        "basis": "gaap",
+        "rows": 35
+      },
+      {
+        "symbol": "NVDA",
+        "basis": "non_gaap",
+        "rows": 35
+      }
+    ],
+    "failures": [],
+    "preliminary_releases": [
+      {
+        "symbol": "AMD",
+        "report_date": "2022-10-06",
+        "url": "https://ir.amd.com/news-events/press-releases/detail/1093/amd-announces-preliminary-third-quarter-2022-financial-results"
+      },
+      {
+        "symbol": "NVDA",
+        "report_date": "2022-08-08",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-announces-preliminary-financial-resultsfor-second-quarter-fiscal-2023"
+      },
+      {
+        "symbol": "NVDA",
+        "report_date": "2019-01-28",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-updates-financial-guidance-for-fourth-quarter-of-fiscal-year-2019-6747502"
+      }
+    ],
+    "forecast_basis_match_certified": false,
+    "historical_original_bytes_certified": false,
+    "all_unscheduled_disclosures_complete": false,
+    "model_fits": 0,
+    "backtests": 0,
+    "missing_revenue_basis_rows": 14,
+    "missing_eps_basis_rows": 0,
+    "alternative_eps_basis_rows": 2,
+    "nvda_revenue_crosscheck_rows": 35,
+    "nvda_revenue_crosscheck_pass": true,
+    "issuer_calendar_matched_releases": 105
+  },
+  "recorder_id": "9a39dab3d38643fc8674e2d215046679",
+  "experiment_id": "245246767188842635",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/issuer_actuals_qualification_20261013/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/issuer_actuals_qualification_20261013/qlib_recorder/245246767188842635/9a39dab3d38643fc8674e2d215046679",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_extended_published_affine_20260925_v1",
+  "as_of": "2026-09-25",
+  "region": "us",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+  "objective_achieved": false,
+  "goal_remains_active": true,
+  "promotion_eligible": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "71e822915f14b23d629ae4d314f43e5f5c10b7ecccb9e9d3d584affa5a2d25f7",
+    "size_bytes": 3412468,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/71/e8/71e822915f14b23d629ae4d314f43e5f5c10b7ecccb9e9d3d584affa5a2d25f7",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-13 22:39:57.733862+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/71/e8/71e822915f14b23d629ae4d314f43e5f5c10b7ecccb9e9d3d584affa5a2d25f7",
+    "recorder_id": "9a39dab3d38643fc8674e2d215046679",
+    "experiment_id": "245246767188842635",
+    "archive_root": "qlib_recorder"
+  }
+}
