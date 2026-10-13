@@ -1,0 +1,46 @@
+[
+  {
+    "quarter": "Q4 2025",
+    "release_date": "2026-01-28",
+    "url": "https://www.asml.com/en/news/press-releases/2026/q4-2025-financial-results",
+    "reviewed_table_header": [
+      "Q3 2025",
+      "Q4 2025",
+      "FY 2024",
+      "FY 2025"
+    ],
+    "bookings_row_present": true,
+    "current_net_bookings_eur_million": 13158.0,
+    "current_net_sales_eur_million": 9718.0,
+    "scope": "complete current-quarter summary table reviewed through web provider",
+    "original_http_bytes_verified": false
+  },
+  {
+    "quarter": "Q1 2026",
+    "release_date": "2026-04-15",
+    "url": "https://www.asml.com/en/news/press-releases/2026/q1-2026-financial-results",
+    "reviewed_table_header": [
+      "Q4 2025",
+      "Q1 2026"
+    ],
+    "bookings_row_present": false,
+    "current_net_bookings_eur_million": null,
+    "current_net_sales_eur_million": 8767.0,
+    "scope": "complete current-quarter summary table reviewed through web provider; qualitative orders commentary not numeric bookings",
+    "original_http_bytes_verified": false
+  },
+  {
+    "quarter": "Q2 2026",
+    "release_date": "2026-07-15",
+    "url": "https://www.asml.com/en/news/press-releases/2026/q2-2026-financial-results",
+    "reviewed_table_header": [
+      "Q1 2026",
+      "Q2 2026"
+    ],
+    "bookings_row_present": false,
+    "current_net_bookings_eur_million": null,
+    "current_net_sales_eur_million": 9326.0,
+    "scope": "complete current-quarter summary table reviewed through web provider; qualitative orders commentary not numeric bookings",
+    "original_http_bytes_verified": false
+  }
+]

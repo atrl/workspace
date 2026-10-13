@@ -1,0 +1,10 @@
+experiment: asml_bookings_continuity_20261014
+recorder_uri: /Users/rziiiii/dev/workspace/research/asml_bookings_continuity_20261014/qlib_recorder
+source_type: manually reviewed official tables via web provider; original byte download
+  blocked
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - sources/*
+  - code/*

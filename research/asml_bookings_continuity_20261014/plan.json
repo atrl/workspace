@@ -1,0 +1,15 @@
+{
+  "experiment": "asml_bookings_continuity_20261014",
+  "as_of": "2026-10-14",
+  "urls": {
+    "q4_2025": "https://www.asml.com/en/news/press-releases/2026/q4-2025-financial-results",
+    "q1_2026": "https://www.asml.com/en/news/press-releases/2026/q1-2026-financial-results",
+    "q2_2026": "https://www.asml.com/en/news/press-releases/2026/q2-2026-financial-results"
+  },
+  "scope": "continuity check of numeric net bookings in official quarterly press-release tables only; absence not proof of all-channel nondisclosure",
+  "gate": "current quarterly net-bookings row must be present with quarter header before historical collection or model fits",
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "source_access": "Web tool rendered official HTML/PDF reviewed; direct HTML and linked PDF download HTTP403; no original bytes certification"
+}

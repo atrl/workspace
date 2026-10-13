@@ -1,0 +1,42 @@
+{
+  "experiment": "asml_bookings_continuity_20261014",
+  "plan_sha256": "0547f41dab056c2fa9e369a7c461d7da5fc93eebed5b500445645dca88f53150",
+  "decision": "needs_current_numeric_bookings_source_no_fits",
+  "current_table_continuity_pass": false,
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "scope": "continuity check of numeric net bookings in official quarterly press-release tables only; absence not proof of all-channel nondisclosure",
+  "source_access": "Web tool rendered official HTML/PDF reviewed; direct HTML and linked PDF download HTTP403; no original bytes certification",
+  "original_http_bytes_verified": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "provider_role": "reference environment only; no market data used",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "recorder_id": "b10955d4336c4f569527e723b5413f7a",
+  "experiment_id": "775758987740700503",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/asml_bookings_continuity_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/asml_bookings_continuity_20261014/qlib_recorder/775758987740700503/b10955d4336c4f569527e723b5413f7a",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "code/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "73eb6c345701d50547475d9e63dd0492d6934916ba4846ed52f9d759c02b9731",
+    "size_bytes": 53589,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/73/eb/73eb6c345701d50547475d9e63dd0492d6934916ba4846ed52f9d759c02b9731",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 03:53:44.159675+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/73/eb/73eb6c345701d50547475d9e63dd0492d6934916ba4846ed52f9d759c02b9731",
+    "recorder_id": "b10955d4336c4f569527e723b5413f7a",
+    "experiment_id": "775758987740700503",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "recorder_id": "b10955d4336c4f569527e723b5413f7a",
+  "entries": [
+    {
+      "path": "qlib_recorder/775758987740700503/b10955d4336c4f569527e723b5413f7a/artifacts/analysis/rows",
+      "sha256": "cddc2232f990ceaf8a2037d78e285bf6aa5d3a5ba6bf6c4c4bf34ec3a1c82729",
+      "bytes": 1001
+    },
+    {
+      "path": "qlib_recorder/775758987740700503/b10955d4336c4f569527e723b5413f7a/artifacts/analysis/summary",
+      "sha256": "73599096bd8e10704482b7205366ad3492eb6042e8c5a7f7f7b4241b0a3dd8a6",
+      "bytes": 1374
+    },
+    {
+      "path": "qlib_recorder/775758987740700503/b10955d4336c4f569527e723b5413f7a/artifacts/code/workflow",
+      "sha256": "898bba43d77feb699de34dc9b5a34cfe4668db9b4bef6a3d9b471a5fadbbc952",
+      "bytes": 4090
+    },
+    {
+      "path": "qlib_recorder/775758987740700503/b10955d4336c4f569527e723b5413f7a/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/775758987740700503/b10955d4336c4f569527e723b5413f7a/artifacts/code_diff.txt",
+      "sha256": "81126d698b77744647d8578d053e11104dabcd907d34b8af57bbcbc26cd91326",
+      "bytes": 402604
+    },
+    {
+      "path": "qlib_recorder/775758987740700503/b10955d4336c4f569527e723b5413f7a/artifacts/code_status.txt",
+      "sha256": "7f26bd68a032f3472a10f1424549fbdb3aedefa1f0ac162d72429a579ff17b44",
+      "bytes": 62429
+    },
+    {
+      "path": "qlib_recorder/775758987740700503/b10955d4336c4f569527e723b5413f7a/artifacts/sources/access",
+      "sha256": "4d72abd2717dd3b1878b20c9a347f51c1188f183b6400e89de9fb92eeb1246b8",
+      "bytes": 150
+    },
+    {
+      "path": "qlib_recorder/775758987740700503/b10955d4336c4f569527e723b5413f7a/artifacts/sources/review_sha256",
+      "sha256": "fc7fce298fb7ec4a8240f324f27238cb12e8e699146449a4c450517cbf2d0a87",
+      "bytes": 79
+    },
+    {
+      "path": "qlib_recorder/775758987740700503/b10955d4336c4f569527e723b5413f7a/artifacts/sources/reviewed_facts",
+      "sha256": "cddc2232f990ceaf8a2037d78e285bf6aa5d3a5ba6bf6c4c4bf34ec3a1c82729",
+      "bytes": 1001
+    }
+  ]
+}
