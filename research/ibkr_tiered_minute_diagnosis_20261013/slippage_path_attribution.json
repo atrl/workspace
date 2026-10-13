@@ -1,0 +1,79 @@
+{
+  "source_recorder_id": "19b476e0dea34abead078565d8f739c6",
+  "source_NAS_archive_sha256": "a1a6d77ff8e3d1bead90f221c25f7e94bd4d9f047b2a41574c92f8cff214c6db",
+  "source_manifest_sha256": "fd844f63a1bb2138c17ef7e1c4f74f791b1d33ec4edda1804e5733f8550f2022",
+  "source_artifact_identities": {
+    "analysis/native/tiered_0_core_path": {
+      "artifact": "analysis/native/tiered_0_core_path",
+      "artifact_id": "19b476e0dea34abead078565d8f739c6:analysis/native/tiered_0_core_path",
+      "sha256": "39cd9602263a58a4cc3354d9a0843d342c96b3e68cdd2462a2d07b8849ab04da",
+      "bytes": 45432931,
+      "manifest_entry": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_0_core_path"
+    },
+    "analysis/native/tiered_2_core_path": {
+      "artifact": "analysis/native/tiered_2_core_path",
+      "artifact_id": "19b476e0dea34abead078565d8f739c6:analysis/native/tiered_2_core_path",
+      "sha256": "fbce537868642e47938c8f97ae17625dddd8ee65680c82e385c31b05072e7a11",
+      "bytes": 45417946,
+      "manifest_entry": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_2_core_path"
+    },
+    "analysis/native/tiered_5_core_path": {
+      "artifact": "analysis/native/tiered_5_core_path",
+      "artifact_id": "19b476e0dea34abead078565d8f739c6:analysis/native/tiered_5_core_path",
+      "sha256": "f7145d29a57f7c6f6cc5d768e1c4fcfd30b8e4724068005dffe856bf7408dcdb",
+      "bytes": 45312831,
+      "manifest_entry": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_5_core_path"
+    },
+    "inputs/plan": {
+      "artifact": "inputs/plan",
+      "artifact_id": "19b476e0dea34abead078565d8f739c6:inputs/plan",
+      "sha256": "cebcb123cedc4dd077ab2bc10541bf4d84b3439494bed165d92f644c2fc77c88",
+      "bytes": 3220,
+      "manifest_entry": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/inputs/plan"
+    }
+  },
+  "method": "same prescribed whole-share order quantities and fees, subtract additional cash slippage; zero cash interest and fundability verified",
+  "role": "causal path diagnosis; fixed-order shadow is not an own-policy or promotable strategy",
+  "unchanged_predictions_and_market_prices": true,
+  "new_model_fits": 0,
+  "new_native_cases": 0,
+  "cash_interest": 0,
+  "results": [
+    {
+      "slippage_bps": 2,
+      "extra_cash_cost_fixed_zero_slip_orders_usd": 2689.8667115484236,
+      "fixed_order_return_pct": 326.2358180650712,
+      "actual_independent_return_pct": 270.53074610096934,
+      "total_terminal_NAV_gap_usd": 58394.93867565034,
+      "changed_path_and_its_fees_effect_usd": 55705.071964101924,
+      "path_share_of_total_gap": 0.953936646350653,
+      "fixed_order_minimum_cash_usd": 23616.007708633075,
+      "different_risk_state_or_clock_days": 24,
+      "different_cap_days": 15,
+      "emergency_drawdown_days": 53,
+      "first_cap_divergence_trade_date": "2025-04-22",
+      "zero_slip_drawdown_pct_at_divergence": 21.88239410902495,
+      "other_drawdown_pct_at_divergence": 22.122445777295585,
+      "zero_slip_beta_cap_at_divergence": 1.2741474878264065,
+      "other_beta_cap_at_divergence": 0.3
+    },
+    {
+      "slippage_bps": 5,
+      "extra_cash_cost_fixed_zero_slip_orders_usd": 6724.666778871059,
+      "fixed_order_return_pct": 322.20101799774864,
+      "actual_independent_return_pct": 105.16713319583206,
+      "total_terminal_NAV_gap_usd": 223758.5515807876,
+      "changed_path_and_its_fees_effect_usd": 217033.88480191657,
+      "path_share_of_total_gap": 0.9699467719496606,
+      "fixed_order_minimum_cash_usd": 23593.103464770542,
+      "different_risk_state_or_clock_days": 392,
+      "different_cap_days": 325,
+      "emergency_drawdown_days": 249,
+      "first_cap_divergence_trade_date": "2023-04-26",
+      "zero_slip_drawdown_pct_at_divergence": 11.981689132378893,
+      "other_drawdown_pct_at_divergence": 12.009075656548006,
+      "zero_slip_beta_cap_at_divergence": 1.2701519746695538,
+      "other_beta_cap_at_divergence": 0.2
+    }
+  ]
+}
