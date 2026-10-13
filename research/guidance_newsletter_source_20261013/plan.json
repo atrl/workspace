@@ -1,0 +1,648 @@
+{
+  "experiment": "guidance_newsletter_source_20261013",
+  "events": [
+    {
+      "symbol": "INTC",
+      "report_date": "2018-01-25",
+      "newsletter_date": "2018-01-26",
+      "target_fiscal_quarter": "FY2018Q1"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-01-30",
+      "newsletter_date": "2018-01-31",
+      "target_fiscal_quarter": "FY2018Q1"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-02-08",
+      "newsletter_date": "2018-02-09",
+      "target_fiscal_quarter": "FY2019Q1"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-04-25",
+      "newsletter_date": "2018-04-26",
+      "target_fiscal_quarter": "FY2018Q2"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2018-04-26",
+      "newsletter_date": "2018-04-27",
+      "target_fiscal_quarter": "FY2018Q2"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-05-10",
+      "newsletter_date": "2018-05-11",
+      "target_fiscal_quarter": "FY2019Q2"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-07-25",
+      "newsletter_date": "2018-07-26",
+      "target_fiscal_quarter": "FY2018Q3"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2018-07-26",
+      "newsletter_date": "2018-07-27",
+      "target_fiscal_quarter": "FY2018Q3"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-08-16",
+      "newsletter_date": "2018-08-17",
+      "target_fiscal_quarter": "FY2019Q3"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2018-10-24",
+      "newsletter_date": "2018-10-25",
+      "target_fiscal_quarter": "FY2018Q4"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2018-10-25",
+      "newsletter_date": "2018-10-26",
+      "target_fiscal_quarter": "FY2018Q4"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2018-11-15",
+      "newsletter_date": "2018-11-16",
+      "target_fiscal_quarter": "FY2019Q4"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-01-24",
+      "newsletter_date": "2019-01-25",
+      "target_fiscal_quarter": "FY2019Q1"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-01-29",
+      "newsletter_date": "2019-01-30",
+      "target_fiscal_quarter": "FY2019Q1"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-02-14",
+      "newsletter_date": "2019-02-15",
+      "target_fiscal_quarter": "FY2020Q1"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-04-25",
+      "newsletter_date": "2019-04-26",
+      "target_fiscal_quarter": "FY2019Q2"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-04-30",
+      "newsletter_date": "2019-05-01",
+      "target_fiscal_quarter": "FY2019Q2"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-05-16",
+      "newsletter_date": "2019-05-17",
+      "target_fiscal_quarter": "FY2020Q2"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-07-25",
+      "newsletter_date": "2019-07-26",
+      "target_fiscal_quarter": "FY2019Q3"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-07-30",
+      "newsletter_date": "2019-07-31",
+      "target_fiscal_quarter": "FY2019Q3"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-08-15",
+      "newsletter_date": "2019-08-16",
+      "target_fiscal_quarter": "FY2020Q3"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2019-10-24",
+      "newsletter_date": "2019-10-25",
+      "target_fiscal_quarter": "FY2019Q4"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2019-10-29",
+      "newsletter_date": "2019-10-30",
+      "target_fiscal_quarter": "FY2019Q4"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2019-11-14",
+      "newsletter_date": "2019-11-15",
+      "target_fiscal_quarter": "FY2020Q4"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-01-23",
+      "newsletter_date": "2020-01-24",
+      "target_fiscal_quarter": "FY2020Q1"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-01-28",
+      "newsletter_date": "2020-01-29",
+      "target_fiscal_quarter": "FY2020Q1"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-02-13",
+      "newsletter_date": "2020-02-14",
+      "target_fiscal_quarter": "FY2021Q1"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-04-23",
+      "newsletter_date": "2020-04-24",
+      "target_fiscal_quarter": "FY2020Q2"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-04-28",
+      "newsletter_date": "2020-04-29",
+      "target_fiscal_quarter": "FY2020Q2"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-05-21",
+      "newsletter_date": "2020-05-22",
+      "target_fiscal_quarter": "FY2021Q2"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-07-23",
+      "newsletter_date": "2020-07-24",
+      "target_fiscal_quarter": "FY2020Q3"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-07-28",
+      "newsletter_date": "2020-07-29",
+      "target_fiscal_quarter": "FY2020Q3"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-08-19",
+      "newsletter_date": "2020-08-20",
+      "target_fiscal_quarter": "FY2021Q3"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2020-10-22",
+      "newsletter_date": "2020-10-23",
+      "target_fiscal_quarter": "FY2020Q4"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2020-10-27",
+      "newsletter_date": "2020-10-28",
+      "target_fiscal_quarter": "FY2020Q4"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2020-11-18",
+      "newsletter_date": "2020-11-19",
+      "target_fiscal_quarter": "FY2021Q4"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-01-21",
+      "newsletter_date": "2021-01-22",
+      "target_fiscal_quarter": "FY2021Q1"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-01-26",
+      "newsletter_date": "2021-01-27",
+      "target_fiscal_quarter": "FY2021Q1"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-02-24",
+      "newsletter_date": "2021-02-25",
+      "target_fiscal_quarter": "FY2022Q1"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-04-22",
+      "newsletter_date": "2021-04-23",
+      "target_fiscal_quarter": "FY2021Q2"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-04-27",
+      "newsletter_date": "2021-04-28",
+      "target_fiscal_quarter": "FY2021Q2"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-05-26",
+      "newsletter_date": "2021-05-27",
+      "target_fiscal_quarter": "FY2022Q2"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-07-22",
+      "newsletter_date": "2021-07-23",
+      "target_fiscal_quarter": "FY2021Q3"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-07-27",
+      "newsletter_date": "2021-07-28",
+      "target_fiscal_quarter": "FY2021Q3"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-08-18",
+      "newsletter_date": "2021-08-19",
+      "target_fiscal_quarter": "FY2022Q3"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2021-10-21",
+      "newsletter_date": "2021-10-22",
+      "target_fiscal_quarter": "FY2021Q4"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2021-10-26",
+      "newsletter_date": "2021-10-27",
+      "target_fiscal_quarter": "FY2021Q4"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2021-11-17",
+      "newsletter_date": "2021-11-18",
+      "target_fiscal_quarter": "FY2022Q4"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-01-26",
+      "newsletter_date": "2022-01-27",
+      "target_fiscal_quarter": "FY2022Q1"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-02-01",
+      "newsletter_date": "2022-02-02",
+      "target_fiscal_quarter": "FY2022Q1"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-02-16",
+      "newsletter_date": "2022-02-17",
+      "target_fiscal_quarter": "FY2023Q1"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-04-28",
+      "newsletter_date": "2022-04-29",
+      "target_fiscal_quarter": "FY2022Q2"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-05-03",
+      "newsletter_date": "2022-05-04",
+      "target_fiscal_quarter": "FY2022Q2"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-05-25",
+      "newsletter_date": "2022-05-26",
+      "target_fiscal_quarter": "FY2023Q2"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-07-28",
+      "newsletter_date": "2022-07-29",
+      "target_fiscal_quarter": "FY2022Q3"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-08-02",
+      "newsletter_date": "2022-08-03",
+      "target_fiscal_quarter": "FY2022Q3"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-08-24",
+      "newsletter_date": "2022-08-25",
+      "target_fiscal_quarter": "FY2023Q3"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2022-10-27",
+      "newsletter_date": "2022-10-28",
+      "target_fiscal_quarter": "FY2022Q4"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2022-11-01",
+      "newsletter_date": "2022-11-02",
+      "target_fiscal_quarter": "FY2022Q4"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2022-11-16",
+      "newsletter_date": "2022-11-17",
+      "target_fiscal_quarter": "FY2023Q4"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-01-26",
+      "newsletter_date": "2023-01-27",
+      "target_fiscal_quarter": "FY2023Q1"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-01-31",
+      "newsletter_date": "2023-02-01",
+      "target_fiscal_quarter": "FY2023Q1"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-02-22",
+      "newsletter_date": "2023-02-23",
+      "target_fiscal_quarter": "FY2024Q1"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-04-27",
+      "newsletter_date": "2023-04-28",
+      "target_fiscal_quarter": "FY2023Q2"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-05-02",
+      "newsletter_date": "2023-05-03",
+      "target_fiscal_quarter": "FY2023Q2"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-05-24",
+      "newsletter_date": "2023-05-25",
+      "target_fiscal_quarter": "FY2024Q2"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-07-27",
+      "newsletter_date": "2023-07-28",
+      "target_fiscal_quarter": "FY2023Q3"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-08-01",
+      "newsletter_date": "2023-08-02",
+      "target_fiscal_quarter": "FY2023Q3"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-08-23",
+      "newsletter_date": "2023-08-24",
+      "target_fiscal_quarter": "FY2024Q3"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2023-10-26",
+      "newsletter_date": "2023-10-27",
+      "target_fiscal_quarter": "FY2023Q4"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2023-10-31",
+      "newsletter_date": "2023-11-01",
+      "target_fiscal_quarter": "FY2023Q4"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2023-11-21",
+      "newsletter_date": "2023-11-22",
+      "target_fiscal_quarter": "FY2024Q4"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-01-25",
+      "newsletter_date": "2024-01-26",
+      "target_fiscal_quarter": "FY2024Q1"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-01-30",
+      "newsletter_date": "2024-01-31",
+      "target_fiscal_quarter": "FY2024Q1"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-02-21",
+      "newsletter_date": "2024-02-22",
+      "target_fiscal_quarter": "FY2025Q1"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-04-25",
+      "newsletter_date": "2024-04-26",
+      "target_fiscal_quarter": "FY2024Q2"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-04-30",
+      "newsletter_date": "2024-05-01",
+      "target_fiscal_quarter": "FY2024Q2"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-05-22",
+      "newsletter_date": "2024-05-23",
+      "target_fiscal_quarter": "FY2025Q2"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-07-30",
+      "newsletter_date": "2024-07-31",
+      "target_fiscal_quarter": "FY2024Q3"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-08-01",
+      "newsletter_date": "2024-08-02",
+      "target_fiscal_quarter": "FY2024Q3"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-08-28",
+      "newsletter_date": "2024-08-29",
+      "target_fiscal_quarter": "FY2025Q3"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2024-10-29",
+      "newsletter_date": "2024-10-30",
+      "target_fiscal_quarter": "FY2024Q4"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2024-10-31",
+      "newsletter_date": "2024-11-01",
+      "target_fiscal_quarter": "FY2024Q4"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2024-11-20",
+      "newsletter_date": "2024-11-21",
+      "target_fiscal_quarter": "FY2025Q4"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-01-30",
+      "newsletter_date": "2025-01-31",
+      "target_fiscal_quarter": "FY2025Q1"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-02-04",
+      "newsletter_date": "2025-02-05",
+      "target_fiscal_quarter": "FY2025Q1"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-02-26",
+      "newsletter_date": "2025-02-27",
+      "target_fiscal_quarter": "FY2026Q1"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-04-24",
+      "newsletter_date": "2025-04-25",
+      "target_fiscal_quarter": "FY2025Q2"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-05-06",
+      "newsletter_date": "2025-05-07",
+      "target_fiscal_quarter": "FY2025Q2"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-05-28",
+      "newsletter_date": "2025-05-29",
+      "target_fiscal_quarter": "FY2026Q2"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-07-24",
+      "newsletter_date": "2025-07-25",
+      "target_fiscal_quarter": "FY2025Q3"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-08-05",
+      "newsletter_date": "2025-08-06",
+      "target_fiscal_quarter": "FY2025Q3"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-08-27",
+      "newsletter_date": "2025-08-28",
+      "target_fiscal_quarter": "FY2026Q3"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2025-10-23",
+      "newsletter_date": "2025-10-24",
+      "target_fiscal_quarter": "FY2025Q4"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2025-11-04",
+      "newsletter_date": "2025-11-05",
+      "target_fiscal_quarter": "FY2025Q4"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2025-11-19",
+      "newsletter_date": "2025-11-20",
+      "target_fiscal_quarter": "FY2026Q4"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2026-01-22",
+      "newsletter_date": "2026-01-23",
+      "target_fiscal_quarter": "FY2026Q1"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2026-02-03",
+      "newsletter_date": "2026-02-04",
+      "target_fiscal_quarter": "FY2026Q1"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2026-02-25",
+      "newsletter_date": "2026-02-26",
+      "target_fiscal_quarter": "FY2027Q1"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2026-04-23",
+      "newsletter_date": "2026-04-24",
+      "target_fiscal_quarter": "FY2026Q2"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2026-05-05",
+      "newsletter_date": "2026-05-06",
+      "target_fiscal_quarter": "FY2026Q2"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2026-05-20",
+      "newsletter_date": "2026-05-21",
+      "target_fiscal_quarter": "FY2027Q2"
+    },
+    {
+      "symbol": "INTC",
+      "report_date": "2026-07-23",
+      "newsletter_date": "2026-07-24",
+      "target_fiscal_quarter": "FY2026Q3"
+    },
+    {
+      "symbol": "AMD",
+      "report_date": "2026-08-04",
+      "newsletter_date": "2026-08-05",
+      "target_fiscal_quarter": "FY2026Q3"
+    },
+    {
+      "symbol": "NVDA",
+      "report_date": "2026-08-26",
+      "newsletter_date": "2026-08-27",
+      "target_fiscal_quarter": "FY2027Q3"
+    }
+  ],
+  "maximum_documents": 110,
+  "workers": 3,
+  "raw_cache": "data/raw/external/guidance_newsletter_source_20261013",
+  "price_provider": "data/qlib/soxx_extended_published_affine_20260925_v1",
+  "as_of": "2026-09-25",
+  "issuer_calendar_plan_sha256": "d7b1e8e4f1189e15856fe93f84109cbc68cddc15ea56090f47bb052f7e72e668",
+  "allow_expired_public_certificate_probe": true,
+  "scope": "first subsequent native-session Morning News Call for all105 issuer releases; no return screening; narrative candidate inventory only",
+  "qualification": "company block and prospective quarter/market expectation must be explicit; directional statements are not numeric consensus; unknown amounts are not inferred",
+  "publication_limitation": "PDF creation/modification clocks are consistency evidence, not first public receipt; expired-certificate public download limitations retained",
+  "model_fits": 0,
+  "backtests": 0,
+  "goal_status": "active"
+}

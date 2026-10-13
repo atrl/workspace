@@ -1,0 +1,50 @@
+{
+  "recorder_id": "a61195f0399647e4aeebc19ec26bd6ef",
+  "entries": [
+    {
+      "path": "qlib_recorder/252494576157229768/a61195f0399647e4aeebc19ec26bd6ef/artifacts/analysis/audit",
+      "sha256": "15dfe6cfab6e777318a355be6e9fb56658aa8532ce188cf6d0486c03a98baa82",
+      "bytes": 630
+    },
+    {
+      "path": "qlib_recorder/252494576157229768/a61195f0399647e4aeebc19ec26bd6ef/artifacts/analysis/calendar",
+      "sha256": "506ba97203b826b079832901650cad27150b2364ebd332c3dcb29f5b00ed1d80",
+      "bytes": 40654
+    },
+    {
+      "path": "qlib_recorder/252494576157229768/a61195f0399647e4aeebc19ec26bd6ef/artifacts/analysis/paragraphs",
+      "sha256": "408cee29ea23f97f7dd20bfa4d88186240bb8f464833269153a0642f9433f0df",
+      "bytes": 122615
+    },
+    {
+      "path": "qlib_recorder/252494576157229768/a61195f0399647e4aeebc19ec26bd6ef/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/252494576157229768/a61195f0399647e4aeebc19ec26bd6ef/artifacts/code_diff.txt",
+      "sha256": "81126d698b77744647d8578d053e11104dabcd907d34b8af57bbcbc26cd91326",
+      "bytes": 402604
+    },
+    {
+      "path": "qlib_recorder/252494576157229768/a61195f0399647e4aeebc19ec26bd6ef/artifacts/code_status.txt",
+      "sha256": "1faaddc08ce733def0904f7064b347a50a34ac851e1eb76255720175868b14c7",
+      "bytes": 62463
+    },
+    {
+      "path": "qlib_recorder/252494576157229768/a61195f0399647e4aeebc19ec26bd6ef/artifacts/sources/manifest",
+      "sha256": "a02d55669feeb3fe2240593c7b701178b1565cb53ebce7099f55cf63401c78fc",
+      "bytes": 129989
+    },
+    {
+      "path": "qlib_recorder/252494576157229768/a61195f0399647e4aeebc19ec26bd6ef/artifacts/sources/parser",
+      "sha256": "6d259de3ba2d86b20772c78f00b5b7d57dc100bc6da1e999ab1b781a8bd519bc",
+      "bytes": 4443
+    },
+    {
+      "path": "qlib_recorder/252494576157229768/a61195f0399647e4aeebc19ec26bd6ef/artifacts/sources/pdfs",
+      "sha256": "13fc4054e53d8b0dccf3e4e4be0c39ccd702884fdf0d42d496c6e381d19fc423",
+      "bytes": 72763893
+    }
+  ]
+}

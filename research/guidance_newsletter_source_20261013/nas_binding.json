@@ -1,0 +1,23 @@
+{
+  "schema_version": "nas_research_source_v1",
+  "authority": "yanxuan_nas",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "source_id": "a3bae712201af7b4330173b3757139b0990f07e3f632b325675b78fa6074e4fa",
+  "raw_authority": "first post-release public Refinitiv morning newsletter PDFs frozen in NAS Recorder",
+  "evidence": {
+    "sha256": "b7452c4ff5913a0bb4c5750a0789836671ee2a6800f8bae0549bbbb427cb5594",
+    "size_bytes": 63828598,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/b7/45/b7452c4ff5913a0bb4c5750a0789836671ee2a6800f8bae0549bbbb427cb5594",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-13 23:30:10.380365+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b7/45/b7452c4ff5913a0bb4c5750a0789836671ee2a6800f8bae0549bbbb427cb5594",
+    "recorder_id": "a61195f0399647e4aeebc19ec26bd6ef",
+    "experiment_id": "252494576157229768",
+    "archive_root": "qlib_recorder"
+  }
+}

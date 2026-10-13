@@ -1,0 +1,59 @@
+{
+  "experiment": "guidance_newsletter_source_20261013",
+  "decision": "needs_target_quarter_and_consensus_pair_review",
+  "source_audit": {
+    "expected_documents": 105,
+    "downloaded_and_read_documents": 104,
+    "failures": [
+      {
+        "symbol": "INTC",
+        "report_date": "2019-10-24",
+        "newsletter_date": "2019-10-25",
+        "target_fiscal_quarter": "FY2019Q4",
+        "url": "https://share.refinitiv.com/assets/newsletters/Morning_News_Call/MNCGeneric_US_10252019.pdf",
+        "path": "10252019.pdf",
+        "error": "curl: (22) The requested URL returned error: 404\n"
+      }
+    ],
+    "company_block_present": 100,
+    "guidance_quarter_estimate_keyword_candidates": 95,
+    "document_clock_before_decision": 104,
+    "numeric_consensus_pairs_qualified": 0,
+    "target_quarter_pairs_qualified": 0,
+    "historical_publication_certified": false,
+    "model_fits": 0,
+    "backtests": 0
+  },
+  "recorder_id": "a61195f0399647e4aeebc19ec26bd6ef",
+  "experiment_id": "252494576157229768",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/guidance_newsletter_source_20261013/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/guidance_newsletter_source_20261013/qlib_recorder/252494576157229768/a61195f0399647e4aeebc19ec26bd6ef",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_extended_published_affine_20260925_v1",
+  "as_of": "2026-09-25",
+  "region": "us",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+  "objective_achieved": false,
+  "goal_remains_active": true,
+  "promotion_eligible": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "b7452c4ff5913a0bb4c5750a0789836671ee2a6800f8bae0549bbbb427cb5594",
+    "size_bytes": 63828598,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/b7/45/b7452c4ff5913a0bb4c5750a0789836671ee2a6800f8bae0549bbbb427cb5594",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-13 23:30:10.380365+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b7/45/b7452c4ff5913a0bb4c5750a0789836671ee2a6800f8bae0549bbbb427cb5594",
+    "recorder_id": "a61195f0399647e4aeebc19ec26bd6ef",
+    "experiment_id": "252494576157229768",
+    "archive_root": "qlib_recorder"
+  }
+}

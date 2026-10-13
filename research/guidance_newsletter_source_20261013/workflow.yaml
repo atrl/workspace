@@ -1,0 +1,9 @@
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - sources/*
+  - analysis/*
+  workflow_config: workflow.yaml
+experiment: guidance_newsletter_source_20261013
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxx_extended_published_affine_20260925_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/guidance_newsletter_source_20261013/qlib_recorder
