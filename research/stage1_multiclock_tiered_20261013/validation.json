@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "focused_tests": "13 passed",
+  "new_model_fits": 0,
+  "native_accounts": 18,
+  "position_residual_repair_verified": true,
+  "tolerance_relaxed": false,
+  "NAS": {
+    "status": "passed",
+    "archive_sha256": "ded5127363ceb65f9bd0876d75782f924671236c8a8d77a4d55b419838fb79c1",
+    "objects_verified": 37,
+    "new_model_fits": 0,
+    "new_backtests": 0
+  },
+  "goal_status": "active",
+  "production_changed": false
+}

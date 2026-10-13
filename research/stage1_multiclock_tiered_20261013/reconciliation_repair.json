@@ -1,0 +1,18 @@
+{
+  "reason": "Default Qlib Position np.isclose liquidation discarded positive adjusted-share residuals without crediting cash",
+  "original_attempt_recorder": "29cb05a455b043eeb04e0ebede2de382",
+  "original_max_nav_relative_error": 2.759391231554106e-07,
+  "original_max_return_error": 4.294088526424211e-08,
+  "order_count_equal": true,
+  "per_order_fee_error": 0.0,
+  "repair": "reuse existing QlibContinuousPosition with exact positive-residual preservation; no market price or cost changes",
+  "tolerance_relaxed": false,
+  "new_model_fits": 0,
+  "focused_validation": "13 passed including actual residual-loss regression and existing Position contracts",
+  "retracted_initial_diagnosis": "float32 mark multiplication did not explain the discrepancy; the cast-only replay had identical error",
+  "corrected_full_current_account": {
+    "nav_relative_error": 4.436060869028982e-16,
+    "return_error": 5.219349258345218e-16,
+    "orders": 1116
+  }
+}

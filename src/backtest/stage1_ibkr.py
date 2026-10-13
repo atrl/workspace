@@ -74,7 +74,7 @@ def replay_tiered_stage1(frame, *, models, tariff, slippage_bps, recovery_spec,
 
 def native_tiered_stage1(frame, replayed, *, provider_uri: Path, tariff: dict,
                          slippage_bps: float, initial_cash: float, tolerance=1e-7,
-                         freq="15min", opening_offset=pd.Timedelta(hours=9, minutes=45)):
+                         freq="15min", opening_offset=pd.Timedelta(hours=9, minutes=45), position_type="Position"):
     import qlib
     from qlib.backtest import backtest
     from qlib.backtest.decision import Order, TradeDecisionWO
@@ -106,7 +106,7 @@ def native_tiered_stage1(frame, replayed, *, provider_uri: Path, tariff: dict,
         end_time=last + pd.Timedelta(hours=16), strategy=PrescribedWholeShareOrders(),
         executor={"class": "SimulatorExecutor", "module_path": "qlib.backtest.executor",
                   "kwargs": {"time_per_step": freq, "generate_portfolio_metrics": True}},
-        account=initial_cash, benchmark=pd.Series(0., index=calendar), exchange_kwargs={"exchange": exchange})
+        account=initial_cash, benchmark=pd.Series(0., index=calendar), pos_type=position_type, exchange_kwargs={"exchange": exchange})
     report, positions = outputs[freq]
     checked, previous = [], float(initial_cash)
     for i, row in rows.iterrows():

@@ -1,0 +1,12 @@
+experiment: stage1_multiclock_tiered_20261013
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_multiclock_tiered_20261013/execution
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_multiclock_tiered_20261013/qlib_recorder
+freq: 15min
+as_of: '2026-10-09'
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - analysis/native/*

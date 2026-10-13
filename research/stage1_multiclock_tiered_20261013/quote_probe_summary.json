@@ -1,0 +1,9 @@
+{
+  "read_only": true,
+  "order_context_created": false,
+  "observations": 2,
+  "regular_session_qualified": false,
+  "reason": "PRE_MARKET_BEGIN; regular last_price differs from pre_price/BBO; no RTH cost-calibration claim",
+  "source_docs": "https://openapi.futunn.com/futu-api-doc/en/quote/get-market-snapshot.html",
+  "raw_payloads": "Recorder sources/read_only_quote_probes"
+}

@@ -1,0 +1,13 @@
+experiment: cushion_target_tiered_20261013
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013
+recorder_uri: /Users/rziiiii/dev/workspace/research/cushion_target_tiered_20261013/qlib_recorder
+as_of: '2026-10-09'
+freq: 1min
+calendar_role: sparse observed event marks
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - analysis/native/*
