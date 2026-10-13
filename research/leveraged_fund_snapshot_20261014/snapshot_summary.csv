@@ -1,0 +1,3 @@
+symbol,reported_trade_date,shares_outstanding_exact,observed_at_utc,cache_available_at_ny,holdings_rows,swap_asset_rows,reported_market_value_sum,reported_holdings_percent_sum,market_value_sum_is_net_assets,intraday_net_creation_flow,historical_first_publication_certified,nav_as_of,reported_nav,nav_date_matches_holdings_date
+SOXL,2026-10-13,162000060,2026-10-13T20:48:18.490708+00:00,2026-10-13T16:49:00-04:00,43,9,69526649114.19,334.6033933151999,False,,False,2026-10-12,128.26,False
+SOXS,2026-10-13,65568272,2026-10-13T20:48:18.859172+00:00,2026-10-13T16:49:00-04:00,12,8,-4742301657.06,-194.12040692299996,False,,False,2026-10-12,37.26,False

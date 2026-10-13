@@ -1,0 +1,37 @@
+{
+  "experiment": "leveraged_fund_snapshot_20261014",
+  "as_of": "2026-10-14",
+  "research_market_as_of": "2026-10-09",
+  "raw_snapshot": "data/raw/external/leveraged_fund_snapshot_20261014",
+  "source_metadata": [
+    {
+      "symbol": "SOXL",
+      "url": "https://www.direxion.com/holdings/SOXL.csv",
+      "status": 200,
+      "bytes": 5942,
+      "observed_at_utc": "2026-10-13T20:48:18.490708+00:00",
+      "sha256": "39245ce30b6fed5e020879f29e6aa3511c5496782bf22605aa1421fef2d8333a",
+      "header": "Direxion Daily Semiconductor Bull 3X ETF"
+    },
+    {
+      "symbol": "SOXS",
+      "url": "https://www.direxion.com/holdings/SOXS.csv",
+      "status": 200,
+      "bytes": 1847,
+      "observed_at_utc": "2026-10-13T20:48:18.859172+00:00",
+      "sha256": "9cd148ffe45d30c396e13c3e6a6c318d5409d7ca7d49ae9cf5ce5ba84c115242",
+      "header": "Direxion Daily Semiconductor Bear 3X ETF"
+    }
+  ],
+  "public_product_url": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs",
+  "link_discovery": "normal Chrome public Daily Fund Holdings modal; DOM-visible CSV links; no authentication or access-control bypass",
+  "transport": "product HTTP403; Kimi extension unavailable; Chrome page and dynamic table succeeded; browser downloads timed out; direct observed CSV URLs returned200",
+  "publication_rule": "reported TradeDate is date-only, not publication time; earliest usable cache point is ceil of our successful raw receipt in NY time",
+  "legacy_scope": "existing SOXX issuer-share H5 route remains closed; this snapshot does not recreate SOXL/SOXS history",
+  "flow_gate": "need consecutive source-qualified daily share/net-asset observations, split mapping, benchmark identity and intraday flow availability; unknown flows never replaced with zero",
+  "paper": "https://www.federalreserve.gov/econres/feds/are-concerns-about-leveraged-etfs-overblown.htm",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "minute_source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "minute_source_manifest_sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+}
