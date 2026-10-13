@@ -1,0 +1,11 @@
+experiment: monthly_price_update_20261014
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/guidance_information_20261014
+recorder_uri: /Users/rziiiii/dev/workspace/research/monthly_price_update_20261014/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - models/*
+  - analysis/*
+  - sources/*

@@ -1,0 +1,105 @@
+{
+  "as_of": "2026-10-09",
+  "floor_fraction": 0.7,
+  "multiplier": 4.0,
+  "minimum_cash_weight": 0.15,
+  "maximum_soxl_weight": 0.3,
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "experiment": "monthly_forecast_account_20261014",
+  "forecast_source": {
+    "card": "research/monthly_price_update_20261014",
+    "recorder_id": "e3179972ae6b4d799accb8e786e754b5",
+    "archive": "c8c416f91857f73c909110a094c6946829e00b690a502b21dd4b509c7920f8d8",
+    "inventory_sha256": "31ec66f52191a99bc85c4709ca0bb7d0e5fafc08456a560c8d6b0af8ad065fff"
+  },
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "control_source": {
+    "card": "research/cushion_target_tiered_20261013",
+    "recorder_id": "20674512ebef42f282d4082eb8ed2771",
+    "archive": "25cacfe72ff08b875be6d6bbb69e5312c56877c8e27778cd921bfc29a0ec8950",
+    "inventory_sha256": "b066c4260ccaa4447bc25bf0b35164fa974f8b54f445371399ce879bdb934c92"
+  },
+  "decision_cost_multiplier": 2.0,
+  "primary_slippage_bps": 2,
+  "maximum_new_native_cases": 24,
+  "expected_reused_cases": 9,
+  "model_fits": 0,
+  "windows": [
+    {
+      "name": "continuous_2021",
+      "start": "2021-01-01",
+      "end": "2026-10-09"
+    },
+    {
+      "name": "cash_start_2023",
+      "start": "2023-01-03",
+      "end": "2026-10-09"
+    }
+  ],
+  "window_basis": "signal-date boundaries retained to match frozen native controls; no resets within each window",
+  "families": [
+    "frozen",
+    "monthly",
+    "cushion_target",
+    "soxx",
+    "matched_mean_beta"
+  ],
+  "forecast_schedule": "monthly models at each month cutoff; frozen controls use2021,2022,then2023 model; recompute inference only on native account dates, including eligible year-boundary days",
+  "allocation": "maximize linear weighted H5 relative log-return forecast minus2x estimated immediate known-price fees over legal vertices; HOLD is true no-order when feasible; same mapping for frozen and monthly",
+  "risk_assumptions": "reuse .70 own-peak cushion and4 multiplier, cash>=.15 and SOXL<=.30 target constraints; no threshold search or future drawdown guarantee",
+  "cost_selection": "conservative first-tier preview at known09:45 prices; actual execution settles real monthly tiers at09:47 with each slippage scenario",
+  "controls": "outer SOXX/cushion/current-anchor books reused only after exact date and tariff check; continuous controls newly executed; matched_mean_beta is ex-post diagnostic, not deployable",
+  "risk_monitoring": "daily native returns and known/session-close wealth marks; not full tick/minute maximum drawdown",
+  "gate": "monthly net excess against SOXX at all costs and both starts; DD<=30%, CVaR no worse than SOXX, >=70% positive126-session windows and years, positive block lower bound; beat frozen and matched controls; fresh forward still required",
+  "goal_status": "active"
+}

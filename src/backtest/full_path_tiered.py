@@ -38,8 +38,11 @@ def replay_full_path(frame, *, models, plan, slippage_bps, controller=None, reco
             state, clock = opened["risk_state"], opened["risk_clock"]
             desired = opened["desired_open_weights"] if opened["execute_open_target"] else None
         else:
-            desired = np.mean([model.target(row, q, cash, known, peak) for model in models], axis=0)
-            if (not np.isfinite(desired).all() or desired[0] > plan["maximum_soxl_weight"] + 1e-10
+            requests = [model.target(row, q, cash, known, peak) for model in models]
+            if not requests or (any(value is None for value in requests) and not all(value is None for value in requests)):
+                raise ValueError("blocked: empty or mixed HOLD/target policy ensemble")
+            desired = None if all(value is None for value in requests) else np.mean(requests, axis=0)
+            if desired is not None and (not np.isfinite(desired).all() or desired[0] > plan["maximum_soxl_weight"] + 1e-10
                     or desired[2] < plan["minimum_cash_weight"] - 1e-10):
                 raise ValueError("blocked: path policy target violates legal target constraints")
         targets.append({"signal_date": row.signal_date, "trade_date": row.trade_date, "decision_at": row.trade_date + pd.Timedelta(hours=9, minutes=46),

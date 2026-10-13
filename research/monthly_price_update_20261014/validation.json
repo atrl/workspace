@@ -1,0 +1,8 @@
+{
+  "recorder_id": "e3179972ae6b4d799accb8e786e754b5",
+  "archive_sha256": "c8c416f91857f73c909110a094c6946829e00b690a502b21dd4b509c7920f8d8",
+  "verified_objects": 85,
+  "notebook_executed": true,
+  "focused_tests_passed": 14,
+  "tests": "forecast HOLD/known-price decision, existing full-path, IBKR and continuous-position checks"
+}

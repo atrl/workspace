@@ -1,0 +1,102 @@
+{
+  "experiment": "monthly_price_update_20261014",
+  "plan_sha256": "b2673c54c5bbab24c307fa335767002f343608a0eadc6ad77890217d695fa169",
+  "decision": "calibration_pass_followup_account_not_promoted",
+  "calibration_gate_pass": true,
+  "new_model_fits": 67,
+  "reused_models": 3,
+  "scheduled_months": 70,
+  "backtests": 0,
+  "objective_achieved": false,
+  "goal_remains_active": true,
+  "production_enabled": false,
+  "information_increment": [
+    {
+      "fold": "development_2021",
+      "observations": 246,
+      "mean_joint_normalized_loss_improvement": 0.04026138379763605,
+      "lower_bound": -0.02952846071920848,
+      "upper_bound": 0.1181690107576666,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 63,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "development_2022",
+      "observations": 245,
+      "mean_joint_normalized_loss_improvement": 1.480583959663813,
+      "lower_bound": 0.40230178054626575,
+      "upper_bound": 2.5981296418819237,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 63,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "reused_outer",
+      "observations": 940,
+      "mean_joint_normalized_loss_improvement": -0.028885019344928792,
+      "lower_bound": -0.07731990700719157,
+      "upper_bound": 0.017779784055702175,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 63,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "pooled_development",
+      "observations": 491,
+      "mean_joint_normalized_loss_improvement": 0.7589559481300462,
+      "lower_bound": 0.06395118647216921,
+      "upper_bound": 1.5987615110120734,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 63,
+      "does_not_correct_all_previous_research_selection": true
+    }
+  ],
+  "historical_windows_reused": true,
+  "normalization": "same frozen fold scale for both methods",
+  "recorder_id": "e3179972ae6b4d799accb8e786e754b5",
+  "experiment_id": "716202743589509639",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/monthly_price_update_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/monthly_price_update_20261014/qlib_recorder/716202743589509639/e3179972ae6b4d799accb8e786e754b5",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/guidance_information_20261014",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/model.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "analysis/*",
+      "sources/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "c8c416f91857f73c909110a094c6946829e00b690a502b21dd4b509c7920f8d8",
+    "size_bytes": 921543,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c8/c4/c8c416f91857f73c909110a094c6946829e00b690a502b21dd4b509c7920f8d8",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 01:50:51.564061+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c8/c4/c8c416f91857f73c909110a094c6946829e00b690a502b21dd4b509c7920f8d8",
+    "recorder_id": "e3179972ae6b4d799accb8e786e754b5",
+    "experiment_id": "716202743589509639",
+    "archive_root": "qlib_recorder"
+  },
+  "economic_followup": {
+    "card": "research/monthly_forecast_account_20261014",
+    "recorder_id": "e57350a820c24ac8b306d67955e4ae25",
+    "decision": "not_promoted_monthly_account_gates_failed",
+    "gates": {
+      "net_excess_all_costs_starts": false,
+      "drawdown_30pct": true,
+      "cvar_no_worse_soxx": true,
+      "positive_rolling_70pct": false,
+      "positive_years_70pct": false,
+      "positive_bootstrap": false,
+      "matched_controls": false,
+      "qualified_forward": false
+    }
+  }
+}
