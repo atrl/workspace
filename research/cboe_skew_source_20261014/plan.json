@@ -1,0 +1,17 @@
+{
+  "experiment": "cboe_skew_source_20261014",
+  "intake_as_of": "2026-10-14",
+  "market_as_of": "2026-10-09",
+  "urls": {
+    "history": "https://cdn.cboe.com/api/global/us_indices/daily_prices/SKEW_History.csv",
+    "methodology": "https://cdn.cboe.com/resources/indices/documents/SKEWwhitepaperjan2011.pdf"
+  },
+  "reference_provider": "data/qlib/soxl",
+  "legacy_file": "data/raw/external/SKEW.csv",
+  "raw_snapshot": "data/raw/external/cboe_skew_20261014_v1",
+  "provider": "data/qlib/cboe_skew_source_20261014",
+  "audit_start": "2011-03-01",
+  "mechanism": "Source repair and missingness audit only; retain full official history and unknown native sessions; no fits, backtests, interpolation, or first-release certification",
+  "proposed_research_boundary": "2014-02-03, conservative inherited boundary only, not proof of launch or historical publication",
+  "proposed_availability": "two native-session lag if later research is authorized; not vintage certification"
+}

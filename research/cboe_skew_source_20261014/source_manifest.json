@@ -1,0 +1,18 @@
+{
+  "history": {
+    "url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/SKEW_History.csv",
+    "final_url": "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/SKEW_History.csv",
+    "retrieved_at_utc": "2026-10-13T19:38:16.987825+00:00",
+    "sha256": "802920cc4e2ca6f2250a3485cc89f4c0691ce172688aea73bcdc6d5883e7d75b",
+    "bytes": 203422,
+    "file": "history.csv"
+  },
+  "methodology": {
+    "url": "https://cdn.cboe.com/resources/indices/documents/SKEWwhitepaperjan2011.pdf",
+    "final_url": "https://cdn.cboe.com/resources/indices/documents/SKEWwhitepaperjan2011.pdf",
+    "retrieved_at_utc": "2026-10-13T19:38:18.494107+00:00",
+    "sha256": "a5ae9fac91f1209f744eb3c1db176367fe1cc4e05f15d8efdeee43fcb16c9b34",
+    "bytes": 561128,
+    "file": "methodology.pdf"
+  }
+}

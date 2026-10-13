@@ -67,3 +67,5 @@ soxl_qlib_strategy_v2.*
 # Secrets
 .env
 .env.*
+data/raw/external/cboe_skew_20261014_v1/
+data/qlib/cboe_skew_source_20261014/

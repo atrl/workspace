@@ -1,0 +1,75 @@
+{
+  "experiment": "cboe_skew_source_20261014",
+  "plan_sha256": "120ff102444e2ef7ada6d702424de76ab1b21ee333c45b9a0dbded2dff7aaab7",
+  "decision": "retrospective_source_updated_vintage_unverified",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "source_rows": 9246,
+  "source_first": "1990-01-02",
+  "source_last": "2026-10-12",
+  "legacy_last": "2026-07-02",
+  "additional_source_dates": 70,
+  "overlap_rows": 9176,
+  "maximum_overlap_absolute_difference": 7.000000010748408e-06,
+  "reference_missing_dates": [
+    "2017-09-14",
+    "2018-12-03",
+    "2019-07-05",
+    "2024-11-29"
+  ],
+  "observations_filled": 0,
+  "historical_vintage_certified": false,
+  "exact_first_publication_certified": false,
+  "prelaunch_backfill_as_feature": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/cboe_skew_source_20261014",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "market_as_of": "2026-10-09",
+  "source_manifest": {
+    "history": {
+      "url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/SKEW_History.csv",
+      "final_url": "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/SKEW_History.csv",
+      "retrieved_at_utc": "2026-10-13T19:38:16.987825+00:00",
+      "sha256": "802920cc4e2ca6f2250a3485cc89f4c0691ce172688aea73bcdc6d5883e7d75b",
+      "bytes": 203422,
+      "file": "history.csv"
+    },
+    "methodology": {
+      "url": "https://cdn.cboe.com/resources/indices/documents/SKEWwhitepaperjan2011.pdf",
+      "final_url": "https://cdn.cboe.com/resources/indices/documents/SKEWwhitepaperjan2011.pdf",
+      "retrieved_at_utc": "2026-10-13T19:38:18.494107+00:00",
+      "sha256": "a5ae9fac91f1209f744eb3c1db176367fe1cc4e05f15d8efdeee43fcb16c9b34",
+      "bytes": 561128,
+      "file": "methodology.pdf"
+    }
+  },
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "recorder_id": "80f9adea0f9347ec976f6cd389229a35",
+  "experiment_id": "561583224864912038",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/cboe_skew_source_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cboe_skew_source_20261014/qlib_recorder/561583224864912038/80f9adea0f9347ec976f6cd389229a35",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "inputs/*",
+      "code/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "da6c7fd43ed999b204e935653ff9dc35a7ce02f26424d18ad558858c33cfbde1",
+    "size_bytes": 835340,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/da/6c/da6c7fd43ed999b204e935653ff9dc35a7ce02f26424d18ad558858c33cfbde1",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 03:39:53.253236+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/da/6c/da6c7fd43ed999b204e935653ff9dc35a7ce02f26424d18ad558858c33cfbde1",
+    "recorder_id": "80f9adea0f9347ec976f6cd389229a35",
+    "experiment_id": "561583224864912038",
+    "archive_root": "qlib_recorder"
+  },
+  "overlap_differences_above_0_0001": 0
+}
