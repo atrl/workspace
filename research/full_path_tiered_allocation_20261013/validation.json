@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "tests": "6 passed: 3 existing fee contracts plus 3 material whole-path contracts",
+  "command": "MLFLOW_ALLOW_FILE_STORE=true PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_ibkr_tiered.py tests/test_full_path_tiered.py -q",
+  "model_fits": 27,
+  "native_cases": 66,
+  "native_reconciliation_tolerance": 1e-07,
+  "notebook_executed": true,
+  "NAS_readback": {
+    "status": "passed",
+    "archive_sha256": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "verified_objects": 112,
+    "new_fits": 0,
+    "new_backtests": 0
+  },
+  "decision": "not_promoted_full_path_gates_failed",
+  "goal_status": "active",
+  "promotion": false,
+  "original_runtime_unchanged": true
+}

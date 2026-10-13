@@ -1,0 +1,137 @@
+{
+  "experiment": "full_path_tiered_allocation_20261013",
+  "schema_version": "full_path_tiered_v1",
+  "goal": "stable net SOXX excess with drawdown control; experiment completion is not goal completion",
+  "mechanism": "joint chronological allocation using own holdings/drawdown and actual raw-share Tiered costs; no legacy waiting/ramp controller attached after training",
+  "as_of": "2026-10-09",
+  "source_start": "2018-10-12",
+  "source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "snapshot_binding": "research/minute_information_pit_allocator_20261012/nas_binding.json",
+  "allocator_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "action_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "fee_source": {
+    "card": "research/ibkr_tiered_minute_diagnosis_20261013",
+    "recorder_id": "19b476e0dea34abead078565d8f739c6",
+    "archive": "a1a6d77ff8e3d1bead90f221c25f7e94bd4d9f047b2a41574c92f8cff214c6db",
+    "inventory_sha256": "fd844f63a1bb2138c17ef7e1c4f74f791b1d33ec4edda1804e5733f8550f2022"
+  },
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "primary_slippage_bps": 2,
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "families": [
+    "no_market",
+    "daily",
+    "minute"
+  ],
+  "seeds": [
+    71,
+    172,
+    273
+  ],
+  "folds": [
+    {
+      "name": "development_2021",
+      "cutoff": "2021-01-01",
+      "start": "2021-01-01",
+      "end": "2021-12-31"
+    },
+    {
+      "name": "development_2022",
+      "cutoff": "2022-01-01",
+      "start": "2022-01-01",
+      "end": "2022-12-31"
+    },
+    {
+      "name": "reused_outer",
+      "cutoff": "2023-01-01",
+      "start": "2023-01-03",
+      "end": "2026-10-09"
+    }
+  ],
+  "maximum_model_fits": 27,
+  "maximum_native_cases": 66,
+  "hidden_units": 16,
+  "epochs": 120,
+  "learning_rate": 0.003,
+  "weight_decay": 0.01,
+  "block_length": 126,
+  "warmup_sessions": 63,
+  "gradient_clip": 5,
+  "relative_shortfall_coefficient": 1,
+  "drawdown_penalty_coefficient": 5,
+  "maximum_drawdown": 0.3,
+  "maximum_soxl_weight": 0.3,
+  "minimum_cash_weight": 0.15,
+  "information_clock": "previous completed-session market/minute data and 09:45 observed close; historical60s availability; decision09:46; execution09:47 observed next opening; fees/future prices never enter current policy input",
+  "label_available_clock": "next execution minute ends09:48 plus60s => next09:49; strictly before fit cutoff",
+  "fee_gradient": "exact integer-share forward costs and monthly counters; straight-through integer gradient and frozen sign/minimum regime derivative; native ledger validates all evaluation accounts",
+  "risk_role": "own marked NAV/peak feature and explicit full-block drawdown hinge; no future guarantee or CPPI cap; existing target position constraints retained",
+  "cost_role": "current 2026-10-13 tariff projection, assumed venue/slippage; no historical bill claim",
+  "checkpoint": "fixed final epoch; all three seeds kept; ensemble mean targets settled on its own account",
+  "selection": "no HPO, risk-threshold search, outer checkpoint selection or sign reversal",
+  "forward_qualified_sessions": 0,
+  "runtime_activation": false,
+  "following_route_if_failed": "qualify independently released monthly semiconductor industrial capacity utilization vintages before considering any fits; do not search new parameters in this fixed route",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/model.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}
