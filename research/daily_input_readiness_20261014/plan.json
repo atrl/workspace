@@ -1,0 +1,15 @@
+{
+  "experiment": "daily_input_readiness_20261014",
+  "as_of": "2026-10-13",
+  "source_id": "2c70bd56ffc15ad4ba4eb243e0ca0b9409cd9d39f369c0d95ac02829de1fcf58",
+  "parent_card": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+  "model_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "model_sha256": "512b8d7621310caf023f7f09051d47bd8df89473378f32e56bcc5ce093f1211d",
+  "provider_manifest_sha256": {
+    "soxl": "1729ecbe1120fa020407f550c63b6a9943f4cec74395aa655c5ec3400d9ac363",
+    "soxl_soxx_soxs": "01c3a55b98cc8185a07f86bfcfc9a4ebcdd8daaf688272c98fa07f0303a71e0f",
+    "dynamic_soxx_soxl_cash_allocation_wf_v1": "243d36895320aba9a32fe97fa69111bdbce2046ba7820bd18c7ca0e59e557593"
+  },
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "mechanism": "Verify complete current daily/common inputs and unchanged frozen model; diagnose decision-date mismatch; no refit/backtest."
+}

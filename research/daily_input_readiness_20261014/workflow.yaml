@@ -1,0 +1,11 @@
+experiment: daily_input_readiness_20261014
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/daily_input_readiness_20261014/qlib_recorder
+region: us
+as_of: '2026-10-13'
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/*

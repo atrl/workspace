@@ -1,0 +1,56 @@
+{
+  "experiment": "daily_input_readiness_20261014",
+  "as_of": "2026-10-13",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "region": "us",
+  "source_id": "2c70bd56ffc15ad4ba4eb243e0ca0b9409cd9d39f369c0d95ac02829de1fcf58",
+  "primary_feature_count": 39,
+  "common_feature_count": 16,
+  "latest_complete_signal": "2026-10-12",
+  "latest_supported_decision_date": "2026-10-13",
+  "requested_decision_date": "2026-10-14",
+  "primary_missing_at_latest": 0,
+  "paired_price_rows": 16,
+  "maximum_price_difference": 0.0,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "production_unchanged": true,
+  "objective_achieved": false,
+  "decision": "frozen_inference_verified_pending_daily_settlement_for_oct14",
+  "model_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "model_sha256": "512b8d7621310caf023f7f09051d47bd8df89473378f32e56bcc5ce093f1211d",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "recorder_id": "f649858ca76a49afad5d4921767455fa",
+  "experiment_id": "786242096848687591",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/daily_input_readiness_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "a78b235d1f0c2fd70ea5a14f10eaebbef7b2441306e26d7740107acde9e05b64",
+    "size_bytes": 65677,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a7/8b/a78b235d1f0c2fd70ea5a14f10eaebbef7b2441306e26d7740107acde9e05b64",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 06:27:26.918983+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a7/8b/a78b235d1f0c2fd70ea5a14f10eaebbef7b2441306e26d7740107acde9e05b64",
+    "recorder_id": "f649858ca76a49afad5d4921767455fa",
+    "experiment_id": "786242096848687591",
+    "archive_root": "qlib_recorder"
+  },
+  "daily_settlement_policy": {
+    "observed_at": "2026-10-13T22:26:43+00:00",
+    "maximum_settled_daily_date": "2026-10-12",
+    "configured_settlement_clock": "20:15 America/New_York",
+    "next_settlement_at": "2026-10-13T20:15:00-04:00",
+    "requested_decision_date": "2026-10-14",
+    "daily_source_on_schedule_at_observation": true,
+    "future_decision_ready": false
+  }
+}
