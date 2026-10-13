@@ -1,0 +1,5 @@
+fold,observations,mean_joint_normalized_loss_improvement,lower_bound,upper_bound,method,block_length,does_not_correct_all_previous_research_selection
+development_2021,246,0.004713769322146766,-0.0023143039132606904,0.011925697857387708,paired stationary bootstrap of normalized loss difference,20,True
+development_2022,245,-0.051907968199342305,-0.08832369828456464,-0.010484278639205324,paired stationary bootstrap of normalized loss difference,20,True
+reused_outer,940,-0.0006061456062800682,-0.0021913980047777717,0.0009387774908815338,paired stationary bootstrap of normalized loss difference,20,True
+pooled_development,491,-0.023539439828087087,-0.04910554629089533,-0.0009804687494556353,paired stationary bootstrap of normalized loss difference,20,True

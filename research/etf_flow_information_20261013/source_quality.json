@@ -1,0 +1,43 @@
+{
+  "raw_rows": 8928,
+  "source_start": "2001-07-10",
+  "source_end": "2026-10-08",
+  "missing_shares_rows": 2,
+  "native_calendar_rows": 2008,
+  "native_missing_shares": 1,
+  "share_count_basis": "issuer historical presentation; not certified original unadjusted shares",
+  "split_treatment": "no extra split adjustment; ratios invariant to a constant share scale; uniform historical restatement assumed",
+  "split_boundary_rows": [
+    {
+      "date": "2024-03-05",
+      "nav": "224.252618",
+      "ex_dividend": "nan",
+      "shares": "56550000.0"
+    },
+    {
+      "date": "2024-03-06",
+      "nav": "229.72566",
+      "ex_dividend": "nan",
+      "shares": "57150000.0"
+    },
+    {
+      "date": "2024-03-07",
+      "nav": "237.689648",
+      "ex_dividend": "nan",
+      "shares": "55950000.0"
+    },
+    {
+      "date": "2024-03-08",
+      "nav": "228.036129",
+      "ex_dividend": "nan",
+      "shares": "57750000.0"
+    }
+  ],
+  "source_sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+  "historical_publication_time_verified": false,
+  "historical_first_receipt_verified": false,
+  "future_revision_absence_verified": false,
+  "availability": "diagnostic assumption: two native sessions after observation at09:31; not proof of historical availability",
+  "soxl_share_history_used": false,
+  "no_alpha_or_promotion_claim": true
+}

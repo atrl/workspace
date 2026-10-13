@@ -1,0 +1,13 @@
+experiment: etf_flow_information_20261013
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/etf_flow_information_20261013
+recorder_uri: /Users/rziiiii/dev/workspace/research/etf_flow_information_20261013/qlib_recorder
+as_of: '2026-10-09'
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - sources/*
+  - inputs/*
+  - models/*
+  - analysis/predictions
+  - analysis/paired_losses

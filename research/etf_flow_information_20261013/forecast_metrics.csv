@@ -1,0 +1,13 @@
+fold,family,target,observations,rmse,rank_ic
+development_2021,price,market_return_h5,246,0.035865859197995745,0.024141968429516564
+development_2021,price,log_downside_variance_h5,246,3.976294946586601,-0.056725016516118554
+development_2021,price_plus_flow,market_return_h5,246,0.03565241541844185,0.06779895329317664
+development_2021,price_plus_flow,log_downside_variance_h5,246,3.9721956956280047,-0.02784174766474973
+development_2022,price,market_return_h5,245,0.05954809576256227,0.11340280214444835
+development_2022,price,log_downside_variance_h5,245,3.235433087680437,0.064111359800552
+development_2022,price_plus_flow,market_return_h5,245,0.060536415887212966,0.1965654554504729
+development_2022,price_plus_flow,log_downside_variance_h5,245,3.3448902517735095,0.1083890926019082
+reused_outer,price,market_return_h5,940,0.048722733450807,0.01671771634735724
+reused_outer,price,log_downside_variance_h5,940,4.32335154996526,0.16278645209122375
+reused_outer,price_plus_flow,market_return_h5,940,0.04874749535058775,0.014655006327723565
+reused_outer,price_plus_flow,log_downside_variance_h5,940,4.32344489066946,0.16731037033856228

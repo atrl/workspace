@@ -1,0 +1,253 @@
+{
+  "experiment": "etf_flow_information_20261013",
+  "plan_sha256": "62bb7cd5a00540786edab1e9700deff3137de8c70a0e1d93b7e2d6d3010839da",
+  "decision": "not_promoted_flow_information_gate_failed",
+  "conditional_information_gate_pass": false,
+  "promotion_eligible": false,
+  "objective_achieved": false,
+  "goal_remains_active": true,
+  "new_model_fits": 6,
+  "backtests": 0,
+  "training_audit": [
+    {
+      "fold": "development_2021",
+      "family": "price",
+      "training_rows": 547,
+      "cutoff": "2021-01-01 00:00:00",
+      "latest_label_available_at": "2020-12-31 09:49:00",
+      "columns": [
+        "soxx_ret5",
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60"
+      ],
+      "targets": [
+        "market_return_h5",
+        "log_downside_variance_h5"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    },
+    {
+      "fold": "development_2021",
+      "family": "price_plus_flow",
+      "training_rows": 547,
+      "cutoff": "2021-01-01 00:00:00",
+      "latest_label_available_at": "2020-12-31 09:49:00",
+      "columns": [
+        "soxx_ret5",
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "share_change_1d",
+        "share_change_5d",
+        "absolute_share_change_5d"
+      ],
+      "targets": [
+        "market_return_h5",
+        "log_downside_variance_h5"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    },
+    {
+      "fold": "development_2022",
+      "family": "price",
+      "training_rows": 799,
+      "cutoff": "2022-01-01 00:00:00",
+      "latest_label_available_at": "2021-12-31 09:49:00",
+      "columns": [
+        "soxx_ret5",
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60"
+      ],
+      "targets": [
+        "market_return_h5",
+        "log_downside_variance_h5"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    },
+    {
+      "fold": "development_2022",
+      "family": "price_plus_flow",
+      "training_rows": 799,
+      "cutoff": "2022-01-01 00:00:00",
+      "latest_label_available_at": "2021-12-31 09:49:00",
+      "columns": [
+        "soxx_ret5",
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "share_change_1d",
+        "share_change_5d",
+        "absolute_share_change_5d"
+      ],
+      "targets": [
+        "market_return_h5",
+        "log_downside_variance_h5"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    },
+    {
+      "fold": "reused_outer",
+      "family": "price",
+      "training_rows": 1050,
+      "cutoff": "2023-01-01 00:00:00",
+      "latest_label_available_at": "2022-12-30 09:49:00",
+      "columns": [
+        "soxx_ret5",
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60"
+      ],
+      "targets": [
+        "market_return_h5",
+        "log_downside_variance_h5"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    },
+    {
+      "fold": "reused_outer",
+      "family": "price_plus_flow",
+      "training_rows": 1050,
+      "cutoff": "2023-01-01 00:00:00",
+      "latest_label_available_at": "2022-12-30 09:49:00",
+      "columns": [
+        "soxx_ret5",
+        "soxx_ret20",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "share_change_1d",
+        "share_change_5d",
+        "absolute_share_change_5d"
+      ],
+      "targets": [
+        "market_return_h5",
+        "log_downside_variance_h5"
+      ],
+      "alpha": 10.0,
+      "daily_labels_overlap": true
+    }
+  ],
+  "information_increment": [
+    {
+      "fold": "development_2021",
+      "observations": 246,
+      "mean_joint_normalized_loss_improvement": 0.004713769322146766,
+      "lower_bound": -0.0023143039132606904,
+      "upper_bound": 0.011925697857387708,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 20,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "development_2022",
+      "observations": 245,
+      "mean_joint_normalized_loss_improvement": -0.051907968199342305,
+      "lower_bound": -0.08832369828456464,
+      "upper_bound": -0.010484278639205324,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 20,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "reused_outer",
+      "observations": 940,
+      "mean_joint_normalized_loss_improvement": -0.0006061456062800682,
+      "lower_bound": -0.0021913980047777717,
+      "upper_bound": 0.0009387774908815338,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 20,
+      "does_not_correct_all_previous_research_selection": true
+    },
+    {
+      "fold": "pooled_development",
+      "observations": 491,
+      "mean_joint_normalized_loss_improvement": -0.023539439828087087,
+      "lower_bound": -0.04910554629089533,
+      "upper_bound": -0.0009804687494556353,
+      "method": "paired stationary bootstrap of normalized loss difference",
+      "block_length": 20,
+      "does_not_correct_all_previous_research_selection": true
+    }
+  ],
+  "source_audit": {
+    "raw_rows": 8928,
+    "source_start": "2001-07-10",
+    "source_end": "2026-10-08",
+    "missing_shares_rows": 2,
+    "native_calendar_rows": 2008,
+    "native_missing_shares": 1,
+    "share_count_basis": "issuer historical presentation; not certified original unadjusted shares",
+    "split_treatment": "no extra split adjustment; ratios invariant to a constant share scale; uniform historical restatement assumed",
+    "split_boundary_rows": [
+      {
+        "date": "2024-03-05",
+        "nav": "224.252618",
+        "ex_dividend": "nan",
+        "shares": "56550000.0"
+      },
+      {
+        "date": "2024-03-06",
+        "nav": "229.72566",
+        "ex_dividend": "nan",
+        "shares": "57150000.0"
+      },
+      {
+        "date": "2024-03-07",
+        "nav": "237.689648",
+        "ex_dividend": "nan",
+        "shares": "55950000.0"
+      },
+      {
+        "date": "2024-03-08",
+        "nav": "228.036129",
+        "ex_dividend": "nan",
+        "shares": "57750000.0"
+      }
+    ],
+    "source_sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+    "historical_publication_time_verified": false,
+    "historical_first_receipt_verified": false,
+    "future_revision_absence_verified": false,
+    "availability": "diagnostic assumption: two native sessions after observation at09:31; not proof of historical availability",
+    "soxl_share_history_used": false,
+    "no_alpha_or_promotion_claim": true
+  },
+  "historical_windows_reused": true,
+  "common_source_unknown_rows_excluded": 6,
+  "terminal_unknown_labels": 4,
+  "recorder_id": "9b54237526bc4cfeb75a281991bb290b",
+  "experiment_id": "996154493776408717",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_flow_information_20261013/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_flow_information_20261013/qlib_recorder/996154493776408717/9b54237526bc4cfeb75a281991bb290b",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/etf_flow_information_20261013",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "inputs/*",
+      "models/*",
+      "analysis/predictions",
+      "analysis/paired_losses"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "99f096773c1ecf31e9d9ba706dedcdc0b32f6689a705bf9cff9d5166cd0eaf52",
+    "size_bytes": 530245,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/99/f0/99f096773c1ecf31e9d9ba706dedcdc0b32f6689a705bf9cff9d5166cd0eaf52",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-13 20:32:53.210877+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/99/f0/99f096773c1ecf31e9d9ba706dedcdc0b32f6689a705bf9cff9d5166cd0eaf52",
+    "recorder_id": "9b54237526bc4cfeb75a281991bb290b",
+    "experiment_id": "996154493776408717",
+    "archive_root": "qlib_recorder"
+  }
+}

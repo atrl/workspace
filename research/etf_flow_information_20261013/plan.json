@@ -1,0 +1,67 @@
+{
+  "experiment": "etf_flow_information_20261013",
+  "as_of": "2026-10-09",
+  "hypothesis": "Issuer net share creation/redemption proxies add short-horizon return or downside information beyond prices; conditional retrospective-vintage diagnostic only",
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "base_features": [
+    "soxx_ret5",
+    "soxx_ret20",
+    "soxx_vol20",
+    "soxx_drawdown60"
+  ],
+  "targets": [
+    "market_return_h5",
+    "log_downside_variance_h5"
+  ],
+  "horizon_sessions": 5,
+  "variance_numerical_floor": 1e-12,
+  "ridge_alpha": 10.0,
+  "maximum_model_fits": 6,
+  "maximum_backtests": 0,
+  "folds": [
+    {
+      "name": "development_2021",
+      "cutoff": "2021-01-01",
+      "start": "2021-01-01",
+      "end": "2021-12-31"
+    },
+    {
+      "name": "development_2022",
+      "cutoff": "2022-01-01",
+      "start": "2022-01-01",
+      "end": "2022-12-31"
+    },
+    {
+      "name": "reused_outer",
+      "cutoff": "2023-01-01",
+      "start": "2023-01-03",
+      "end": "2026-10-09"
+    }
+  ],
+  "bootstrap_mean_block": 20,
+  "bootstrap_samples": 2000,
+  "bootstrap_alpha": 0.025,
+  "bootstrap_seed": 20261013,
+  "information_gate": "both development joint loss differences positive and pooled 95% stationary-block lower bound positive; source qualification independently required; no direct promotion",
+  "selection": "Fixed three flow features, 5-day horizon and Ridge10; no search; all folds retained even if development fails",
+  "goal_status": "active",
+  "issuer_workbook": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/issuer_fund_download.bin",
+  "issuer_metadata": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/download_metadata.json",
+  "issuer_sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+  "price_provider": "data/qlib/full_path_tiered_allocation_20261013",
+  "information_provider": "data/qlib/etf_flow_information_20261013",
+  "assumed_lag_sessions": 2,
+  "flow_features": [
+    "share_change_1d",
+    "share_change_5d",
+    "absolute_share_change_5d"
+  ],
+  "source_vintage_certified": false,
+  "mechanism_source": "https://www.nber.org/papers/w20071",
+  "mechanism_limit": "ETF arbitrage transmits flows/volatility; paper does not establish profitable SOXX flow forecasting"
+}
