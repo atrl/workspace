@@ -1,0 +1,37 @@
+{
+  "experiment": "nas_minute_features_20261014",
+  "source_id": "2c70bd56ffc15ad4ba4eb243e0ca0b9409cd9d39f369c0d95ac02829de1fcf58",
+  "as_of": "2026-10-13",
+  "start": "2018-10-12",
+  "feature_groups": {
+    "core": [
+      "minute_soxx_log_rv5",
+      "minute_soxx_downside_share5",
+      "minute_soxx_late_rv_share",
+      "minute_soxx_trend_efficiency",
+      "minute_soxx_post_first_hour_return",
+      "minute_soxx_late_return30",
+      "minute_soxx_intraday_drawdown",
+      "minute_soxx_rebound_from_low",
+      "minute_soxx_late_volume_share",
+      "minute_soxx_rv1_rv5_ratio_log",
+      "minute_soxl_tracking_residual_rv5",
+      "minute_soxl_soxx_sign_agreement"
+    ],
+    "peer": [
+      "minute_smh_qqq_log_rv_gap",
+      "minute_smh_qqq_intraday_return_gap",
+      "minute_nvda_amd_mean_return",
+      "minute_nvda_amd_late_return_gap",
+      "minute_nvda_amd_return_dispersion",
+      "minute_peer_sign_agreement",
+      "minute_soxx_smh_return_correlation",
+      "minute_peer_downside_share"
+    ]
+  },
+  "provider": "data/qlib/nas_minute_features_20261014",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "mechanism": "Consume pinned NAS core and context in existing completed-session feature construction; preserve missing masks and next-session timing, no model search."
+}

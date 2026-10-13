@@ -1,0 +1,57 @@
+{
+  "experiment": "nas_minute_features_20261014",
+  "source_id": "2c70bd56ffc15ad4ba4eb243e0ca0b9409cd9d39f369c0d95ac02829de1fcf58",
+  "as_of": "2026-10-13",
+  "region": "us",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/nas_minute_features_20261014/features",
+  "start": "2018-10-12",
+  "feature_sessions": 2010,
+  "feature_count": 20,
+  "new_sessions": 2,
+  "source_rows": {
+    "AMD": 156168,
+    "NVDA": 156168,
+    "QQQ": 156168,
+    "SMH": 156168,
+    "SOXL": 780840,
+    "SOXX": 780840
+  },
+  "ready_core_sessions": 2009,
+  "ready_peer_sessions": 2009,
+  "latest_feature_session": "2026-10-13",
+  "latest_decision_at": "2026-10-14 09:29:00-04:00",
+  "historical_first_receipt_certified": false,
+  "all_model_inputs_rebuilt": false,
+  "production_unchanged": true,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "objective_achieved": false,
+  "decision": "minute_features_connected_daily_inputs_and_model_not_refit",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "140b7394874849a1b068241f8f120ff2",
+  "experiment_id": "372607760148753711",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nas_minute_features_20261014/qlib_recorder",
+  "plan_sha256": "ee40d69006bc172e99c804ef761d0b2cfa8214936c863db86d5e58350fca1fca",
+  "nas_evidence": {
+    "sha256": "1e7bc3c10970aec8c6efc5976e39e189b021e4c7f4703fdfc5cea1f21e33498f",
+    "size_bytes": 270130,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/1e/7b/1e7bc3c10970aec8c6efc5976e39e189b021e4c7f4703fdfc5cea1f21e33498f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 06:23:28.074285+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/1e/7b/1e7bc3c10970aec8c6efc5976e39e189b021e4c7f4703fdfc5cea1f21e33498f",
+    "recorder_id": "140b7394874849a1b068241f8f120ff2",
+    "experiment_id": "372607760148753711",
+    "archive_root": "qlib_recorder"
+  }
+}

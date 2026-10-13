@@ -1,0 +1,13 @@
+experiment: nas_minute_features_20261014
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/nas_minute_features_20261014/features
+recorder_uri: /Users/rziiiii/dev/workspace/research/nas_minute_features_20261014/qlib_recorder
+source_id: 2c70bd56ffc15ad4ba4eb243e0ca0b9409cd9d39f369c0d95ac02829de1fcf58
+region: us
+as_of: '2026-10-13'
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/*
+  - sources/*

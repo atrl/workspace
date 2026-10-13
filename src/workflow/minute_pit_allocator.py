@@ -13,7 +13,7 @@ import pandas as pd
 from src.data import QlibProviderConfig, build_qlib_store_from_frame, load_qlib_feature_frame
 from src.data.minute_allocation_features import completed_session_features, label_maturity
 from src.data.minute_intake import atomic_json
-from src.data.minute_price_basis import load_source_bundle
+from src.data.nas_minute_bundle import load_nas_minute_bundle
 from src.data.nas_market_data import archive_nas_recorder, materialize_nas_snapshot
 from src.workflow.direct_continuous_soxx_allocation import DirectContinuousAllocationSpec, _load_frame
 from src.workflow.pit_allocation_retrain import _training_auxiliary, validate_frozen_bundle
@@ -64,7 +64,7 @@ def prepare_minute_allocator_inputs(*, root: Path, card: Path, plan: dict) -> di
     manifest = root / binding["source_manifest_path"]
     if _hash(manifest) != plan["source_id"]:
         raise ValueError("blocked: raw source identity differs")
-    raw, _ = load_source_bundle(manifest)
+    raw, _ = load_nas_minute_bundle(binding, workspace_root=root)
     provider_root = root / "data/qlib" / plan["experiment"]
     fields = ["open", "high", "low", "close", "volume", "price_valid"]
     minute_audits = {}

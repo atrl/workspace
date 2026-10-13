@@ -1,0 +1,655 @@
+{
+  "schema_version": "nas_market_snapshot_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "2c70bd56ffc15ad4ba4eb243e0ca0b9409cd9d39f369c0d95ac02829de1fcf58",
+  "as_of": "2026-10-13",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/2c70bd56ffc15ad4ba4eb243e0ca0b9409cd9d39f369c0d95ac02829de1fcf58",
+  "source_manifest_path": "data/raw/external/semis_context_refresh_20261014/source_manifest.json",
+  "verified": true,
+  "metadata": {
+    "context_as_of": "2026-10-13",
+    "collector": "mac_futu_opend_core_plus_context",
+    "local_store_policy": "disposable Qlib cache",
+    "quality_status": "partial",
+    "malformed_rows": 1,
+    "core_rows": 1561680,
+    "context_raw_cache": "data/raw/external/semis_context_refresh_20261014/context_none_5m.parquet",
+    "context_rehab_paths": {
+      "QQQ": "data/raw/external/semis_context_refresh_20261014/tail/QQQ_rehab.parquet",
+      "SMH": "data/raw/external/semis_context_refresh_20261014/tail/SMH_rehab.parquet",
+      "NVDA": "data/raw/external/semis_context_refresh_20261014/tail/NVDA_rehab.parquet",
+      "AMD": "data/raw/external/semis_context_refresh_20261014/tail/AMD_rehab.parquet"
+    },
+    "context_provider_uri": "data/qlib/semis_context_refresh_20261014",
+    "context_manifest_path": "data/raw/external/semis_context_refresh_20261014/source_manifest.json",
+    "context_rows": 624672,
+    "context_invalid_rows": 0
+  },
+  "objects": [
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/full/QQQ_none.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/full/QQQ_none.parquet",
+      "kind": "source",
+      "sha256": "4546de4b12eb1466612120622cdba618e9e21e05a960ac31ef4664902f5dd3df",
+      "bytes": 6613319
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/full/SMH_none.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/full/SMH_none.parquet",
+      "kind": "source",
+      "sha256": "2cca3df64f3283e86824e54f7ccc071bbc75076b2eb5e6471deaabe4487e95a3",
+      "bytes": 5892083
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/full/NVDA_none.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/full/NVDA_none.parquet",
+      "kind": "source",
+      "sha256": "277e9365c07362bef836c44cb5a96686985da145ae1c22dba1ac042ce20f0eec",
+      "bytes": 7209264
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/full/AMD_none.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/full/AMD_none.parquet",
+      "kind": "source",
+      "sha256": "0dabf088bea1da752f5f0b4284eec3d4a510d98f5a59f9791bc195c255432c5f",
+      "bytes": 6830774
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/context_none_5m.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/context_none_5m.parquet",
+      "kind": "source",
+      "sha256": "794ee635cc537ebb9c229953e221e533cdcfe4c6479c2d97a9d81036ab92b1a0",
+      "bytes": 29359009
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/source_manifest.json",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/source_manifest.json",
+      "kind": "source",
+      "sha256": "5cc3eaa98ef6302aaaa4832818c376c839faa778c771489ca8cd9dc2817ea8a6",
+      "bytes": 5356
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/AMD_none.json",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/AMD_none.json",
+      "kind": "source",
+      "sha256": "9fcde6f79517f48e5602b62f2ea2f56823939d501b9d8576f79de6f5d52102b5",
+      "bytes": 876
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/NVDA_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/NVDA_rehab.parquet",
+      "kind": "source",
+      "sha256": "aa55fe6b0bfc11c8eaec6a8de57c0660b27ccfb2628b812362734560a1332f0b",
+      "bytes": 17666
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/SMH_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/SMH_rehab.parquet",
+      "kind": "source",
+      "sha256": "d4853b29cac5e71fb1b8602bd0a8a057faf985aa6e20c4d65ca6a64f4050e6a4",
+      "bytes": 17134
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/QQQ_none.json",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/QQQ_none.json",
+      "kind": "source",
+      "sha256": "8f52f57a1428e5f40a97107264cc0df6b018e76a4a4ef94946455122092b2b30",
+      "bytes": 876
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/NVDA_none.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/NVDA_none.parquet",
+      "kind": "source",
+      "sha256": "eadd9cb3ba7bfe98cb7f31409079f1f68072d3600966bd10e19ebcc823c22dce",
+      "bytes": 15675
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/AMD_none.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/AMD_none.parquet",
+      "kind": "source",
+      "sha256": "df9c64c642f3bb00362d8ae2c29f4e4c0541357b68d65c8c9fa6fdfbb47290ce",
+      "bytes": 16062
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/SMH_none.json",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/SMH_none.json",
+      "kind": "source",
+      "sha256": "ca37aba615033ef64d540048ef43fe2684113f8ea6854a7a86ca5b56ce676726",
+      "bytes": 876
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/AMD_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/AMD_rehab.parquet",
+      "kind": "source",
+      "sha256": "2bfc848417eb34cd8d49ec4506861f3160cc364dcf190d854393332143e211cb",
+      "bytes": 16590
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/QQQ_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/QQQ_rehab.parquet",
+      "kind": "source",
+      "sha256": "80d78548d47ccf1578d9cc5390fa1c772d522ededab975b63b09073a80315fbc",
+      "bytes": 19611
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/NVDA_none.json",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/NVDA_none.json",
+      "kind": "source",
+      "sha256": "f8a2e31e9c90cb49aba3943fc79803771075e3ebfc79d5671c367e63369445d1",
+      "bytes": 878
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/SMH_none.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/SMH_none.parquet",
+      "kind": "source",
+      "sha256": "695a707f226b3b2ba57d6e20d2bfd0e0cc5c94231370ec34ca87e9523392dff3",
+      "bytes": 15505
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/tail/QQQ_none.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/tail/QQQ_none.parquet",
+      "kind": "source",
+      "sha256": "2571dd165da0a30f949a61d275a8fbdbb5e97053e15ebfc729eb7dce03bd1324",
+      "bytes": 15449
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/qlib.yaml",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/qlib.yaml",
+      "kind": "derived",
+      "sha256": "f814548eb340e3da14cdc3af6cd3e0ef7022c7b06333eb9722862336acc9100e",
+      "bytes": 181
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/qlib_store_manifest.json",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/qlib_store_manifest.json",
+      "kind": "derived",
+      "sha256": "ce421e6ad1bf50e7638395e89ab5bdd905c54f13ee97519e2d651b4034ef35e2",
+      "bytes": 954
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/calendars/5min.txt",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/calendars/5min.txt",
+      "kind": "derived",
+      "sha256": "dda4756c349e1257820ace929de60278b42b8dcacb520bc00f61bcae084d1eec",
+      "bytes": 3123360
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/instruments/all.txt",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/instruments/all.txt",
+      "kind": "derived",
+      "sha256": "70a47b30385ad7aa6e2c6c1d00d19a1487ee15bcfdcd785f5147a53b91262084",
+      "bytes": 177
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/smh/low.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/smh/low.5min.bin",
+      "kind": "derived",
+      "sha256": "c468d61d534f50e115a9289fcb2e4422544fb24e241ec4dc84343ac67b2de673",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/smh/vwap.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/smh/vwap.5min.bin",
+      "kind": "derived",
+      "sha256": "ca2865c9c3b6953f87914fdd8af39fb37ceb5c0e0814244ca10460a4dadfe13a",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/smh/high.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/smh/high.5min.bin",
+      "kind": "derived",
+      "sha256": "71552b20027552eae736414f53d5433872ed3f6a68d8bdf13f8f98f3a9c0419a",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/smh/volume.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/smh/volume.5min.bin",
+      "kind": "derived",
+      "sha256": "f35301905da02b1ba70f8112332c777f8a21e013601a1806e5d3c1f1170e8964",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/smh/price_valid.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/smh/price_valid.5min.bin",
+      "kind": "derived",
+      "sha256": "9009176441c5c4796e8aed5b686b168b023ebdc3ab1f4b568b47932d61513d72",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/smh/open.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/smh/open.5min.bin",
+      "kind": "derived",
+      "sha256": "abf01016f3b95f25d2db939d04cbdfcd6e0e8ffb41fa0e9938be6822bd4ba311",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/smh/turnover.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/smh/turnover.5min.bin",
+      "kind": "derived",
+      "sha256": "41916792fb6f7339dd1c67352ae640dc33312f9934b1be19a127f6b3399e3563",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/smh/close.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/smh/close.5min.bin",
+      "kind": "derived",
+      "sha256": "a44747619b8113b088923c1abd4e6be47f87b4b3f5f1669006dc9e951c9fc129",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/qqq/low.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/qqq/low.5min.bin",
+      "kind": "derived",
+      "sha256": "6e0161870ca32405ccb496ca5e0e59a5db7ecfa5e0fc130ff09196b31412c7bb",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/qqq/vwap.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/qqq/vwap.5min.bin",
+      "kind": "derived",
+      "sha256": "108006ddaace21116956fa1b12aeae98cf5c7ec80d0eacf25b0735b41670e339",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/qqq/high.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/qqq/high.5min.bin",
+      "kind": "derived",
+      "sha256": "5d4251eece3d43dddce8489d3c609e19fdc5359f47af42920bfafee94cdd9c14",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/qqq/volume.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/qqq/volume.5min.bin",
+      "kind": "derived",
+      "sha256": "92c71845fbd1f4a55a865df00f7a091d3f0e5cb4186bae11160397915a06ad0d",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/qqq/price_valid.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/qqq/price_valid.5min.bin",
+      "kind": "derived",
+      "sha256": "9009176441c5c4796e8aed5b686b168b023ebdc3ab1f4b568b47932d61513d72",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/qqq/open.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/qqq/open.5min.bin",
+      "kind": "derived",
+      "sha256": "9492856d4009d01bef002f26c8d6ac397e7d1f874428c599ae671bc15c9e3fed",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/qqq/turnover.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/qqq/turnover.5min.bin",
+      "kind": "derived",
+      "sha256": "8353f7046644bb1779989a9693f22cc125f82c4baec53aeb54b524fb2bfc06fb",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/qqq/close.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/qqq/close.5min.bin",
+      "kind": "derived",
+      "sha256": "57a0266c29270a7575f870489d384d974759477877d8f6f343e2dc05ef09403e",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/amd/low.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/amd/low.5min.bin",
+      "kind": "derived",
+      "sha256": "35d5614a999057d52908788ca8dbe63e1326fb14b55213a2b2af8b6ffe54f14c",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/amd/vwap.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/amd/vwap.5min.bin",
+      "kind": "derived",
+      "sha256": "b6f074f3a04f77e8eb03caef93d79a8325adfd5682d54a140129f6cc24ac3743",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/amd/high.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/amd/high.5min.bin",
+      "kind": "derived",
+      "sha256": "29c648a245494a691deb828324166f3f48e85ce7deb93e2c2fc94b7b8c3aa87a",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/amd/volume.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/amd/volume.5min.bin",
+      "kind": "derived",
+      "sha256": "18f97a202acd19058d7b74ec3f59a850820501917a63bbaea5a367bb697dbe3c",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/amd/price_valid.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/amd/price_valid.5min.bin",
+      "kind": "derived",
+      "sha256": "9009176441c5c4796e8aed5b686b168b023ebdc3ab1f4b568b47932d61513d72",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/amd/open.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/amd/open.5min.bin",
+      "kind": "derived",
+      "sha256": "46b5547ea1df7ac4bdd06bd5c525ecd9f39d299d502029209595ce6495f3343d",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/amd/turnover.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/amd/turnover.5min.bin",
+      "kind": "derived",
+      "sha256": "6ded5d061ee29c93db70fa67c75b16eb08cd843e337ce247503e73ee7b2ead4e",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/amd/close.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/amd/close.5min.bin",
+      "kind": "derived",
+      "sha256": "56eb92856115121e6512e38caa2b61198e8bf18d6e8f951b7ea2236fff7d58d7",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/nvda/low.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/nvda/low.5min.bin",
+      "kind": "derived",
+      "sha256": "6ca78a6142d4aed9c389038fc3542bd36d1543b3ee5de542eaf1db0e029e6ff0",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/nvda/vwap.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/nvda/vwap.5min.bin",
+      "kind": "derived",
+      "sha256": "829c11da4430a51be0a199767f9ad4b263da30622ebcdb3f7cab41904305409c",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/nvda/high.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/nvda/high.5min.bin",
+      "kind": "derived",
+      "sha256": "ea6cf92982c9075ed01da9d70a897e829edb428dc5b335a1365b0f2e8733f148",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/nvda/volume.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/nvda/volume.5min.bin",
+      "kind": "derived",
+      "sha256": "c9d8a41cdec2b30b5b38456875b1d23d5bb43973e4a1cad5f32f99d3fa8823da",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/nvda/price_valid.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/nvda/price_valid.5min.bin",
+      "kind": "derived",
+      "sha256": "9009176441c5c4796e8aed5b686b168b023ebdc3ab1f4b568b47932d61513d72",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/nvda/open.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/nvda/open.5min.bin",
+      "kind": "derived",
+      "sha256": "3197718dde2bedc86ac9d5785b512465943267541ab5eb0120bc9acc813def75",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/nvda/turnover.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/nvda/turnover.5min.bin",
+      "kind": "derived",
+      "sha256": "281fe19cdc28f0d891211cd4b515ecfa8b77ce83ae73d8d2896e5a37cf742494",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/qlib/semis_context_refresh_20261014/features/nvda/close.5min.bin",
+      "snapshot_path": "data/qlib/semis_context_refresh_20261014/features/nvda/close.5min.bin",
+      "kind": "derived",
+      "sha256": "83b75b930bff4c15ab8d69e00f86f4c5a62887e28b12f86e8f9b5bf3785a0abd",
+      "bytes": 624676
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/SOXL_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/SOXL_rehab.parquet",
+      "kind": "source",
+      "sha256": "0342f402196db7fe6c1e62556513fd6a2df613b02629706e3cabdea2bd817015",
+      "bytes": 17760
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/SOXX_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/SOXX_rehab.parquet",
+      "kind": "source",
+      "sha256": "a46e06d4c37919c1442bd54228167adc86f09cdf1b73b46eaac237d6acd4cf7c",
+      "bytes": 19186
+    },
+    {
+      "local_path": "data/raw/external/semis_context_refresh_20261014/source_manifest.json",
+      "snapshot_path": "data/raw/external/semis_context_refresh_20261014/source_manifest.json",
+      "kind": "source",
+      "sha256": "2c70bd56ffc15ad4ba4eb243e0ca0b9409cd9d39f369c0d95ac02829de1fcf58",
+      "bytes": 1859
+    },
+    {
+      "local_path": "data/processed/intraday/soxl_soxx_none_1m.parquet",
+      "snapshot_path": "data/processed/intraday/soxl_soxx_none_1m.parquet",
+      "kind": "source",
+      "sha256": "1c088589fa87285d15fcb27ba3df8a4965ee064217bf1c46b4b0de20c5d8f33e",
+      "bytes": 64304572,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c"
+    },
+    {
+      "local_path": "data/processed/intraday/soxl_soxx_1m.parquet",
+      "snapshot_path": "data/processed/intraday/soxl_soxx_1m.parquet",
+      "kind": "derived",
+      "sha256": "556aa38a467d1a31be56e2f802ce84659961f6e65e6a3cb21ae49dfdaaf954e7",
+      "bytes": 67062826,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_refresh/SOXL_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_refresh/SOXL_rehab.parquet",
+      "kind": "source",
+      "sha256": "0342f402196db7fe6c1e62556513fd6a2df613b02629706e3cabdea2bd817015",
+      "bytes": 17760,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_refresh/SOXX_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_refresh/SOXX_rehab.parquet",
+      "kind": "source",
+      "sha256": "a46e06d4c37919c1442bd54228167adc86f09cdf1b73b46eaac237d6acd4cf7c",
+      "bytes": 19186,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_refresh/source_manifest.json",
+      "snapshot_path": "data/raw/external/semis_minute_refresh/source_manifest.json",
+      "kind": "source",
+      "sha256": "149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c",
+      "bytes": 947,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.json",
+      "kind": "source",
+      "sha256": "4711c6cf13806ed100a3c3ad5515e1a09596e6d6baf092e6727919e99aa45b14",
+      "bytes": 11977,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.parquet",
+      "kind": "source",
+      "sha256": "f6f7abee685b60e3c6fa0160121617416bb01156b38a3133abe1194a3e0155f7",
+      "bytes": 7926465,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_rehab.parquet",
+      "kind": "source",
+      "sha256": "2bfc848417eb34cd8d49ec4506861f3160cc364dcf190d854393332143e211cb",
+      "bytes": 16590,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.json",
+      "kind": "source",
+      "sha256": "140c85b21428959d4b036a155609baa3d2b76c4d81110f54f311397acff10bd3",
+      "bytes": 11979,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.parquet",
+      "kind": "source",
+      "sha256": "a6021ed363e3a8f0e0cdbfbc8b8a9051ec7e1c1e3e1cc91cc0fe8c71e46c7107",
+      "bytes": 8416442,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_rehab.parquet",
+      "kind": "source",
+      "sha256": "aa55fe6b0bfc11c8eaec6a8de57c0660b27ccfb2628b812362734560a1332f0b",
+      "bytes": 17666,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.json",
+      "kind": "source",
+      "sha256": "d6d6c01ce15a833a9120cf99aa6a9580fae9f06bb9b52e4b837b3d55646b970f",
+      "bytes": 11977,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.parquet",
+      "kind": "source",
+      "sha256": "0162127c3ae0ca487a2b58627cb9bdeb2f9746c3b05be6c5f6b7ae1ded94319d",
+      "bytes": 7948652,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_rehab.parquet",
+      "kind": "source",
+      "sha256": "80d78548d47ccf1578d9cc5390fa1c772d522ededab975b63b09073a80315fbc",
+      "bytes": 19611,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/README.md",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/README.md",
+      "kind": "source",
+      "sha256": "36c212669bd909100f2b68b756e3d817c20b77b192751cf101db4f3e92143f25",
+      "bytes": 583,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.json",
+      "kind": "source",
+      "sha256": "cd96ad44bf2e3b54d3fb90720ced6db697fe59a0a0c243e5c9059d342aa2d2ed",
+      "bytes": 11977,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.parquet",
+      "kind": "source",
+      "sha256": "ef9cd86b5328dfb3242986d18a9e2f732784777b868fe4f9db31a2c506942323",
+      "bytes": 6954525,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_rehab.parquet",
+      "kind": "source",
+      "sha256": "d4853b29cac5e71fb1b8602bd0a8a057faf985aa6e20c4d65ca6a64f4050e6a4",
+      "bytes": 17134,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.json",
+      "kind": "source",
+      "sha256": "6c9fc156b6b684c76dd8c6dad742720a789733e36a9c074d3ce67885fb708051",
+      "bytes": 57174,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.parquet",
+      "kind": "source",
+      "sha256": "94b2ee6bf16f76d2e3e453f45a8db533869a2fe6303e90c47505a61647d0dc2a",
+      "bytes": 34310680,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_rehab.parquet",
+      "kind": "source",
+      "sha256": "0342f402196db7fe6c1e62556513fd6a2df613b02629706e3cabdea2bd817015",
+      "bytes": 17760,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.json",
+      "kind": "source",
+      "sha256": "59b1b34f113d03e20f3e37ac6644cbd457a0957525aa6468b2b904a822f5113f",
+      "bytes": 56907,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.parquet",
+      "kind": "source",
+      "sha256": "9133d01608d534d753015fa043d1fc538ccd12afbab8aaa1a01daa0f64448561",
+      "bytes": 27412470,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_rehab.parquet",
+      "kind": "source",
+      "sha256": "a46e06d4c37919c1442bd54228167adc86f09cdf1b73b46eaac237d6acd4cf7c",
+      "bytes": 19186,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+      "kind": "source",
+      "sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+      "bytes": 173231,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    {
+      "local_path": "data/processed/intraday/semis_context_5m.parquet",
+      "snapshot_path": "data/processed/intraday/semis_context_5m.parquet",
+      "kind": "derived",
+      "sha256": "2262abdae138b2213ec86d7972e6d450a0c0139e13b159ab5b9b7459504ad2a9",
+      "bytes": 54551943,
+      "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    }
+  ],
+  "verified_at": "2026-10-13T22:08:07.570624+00:00",
+  "evidence": {
+    "sha256": "1e7bc3c10970aec8c6efc5976e39e189b021e4c7f4703fdfc5cea1f21e33498f",
+    "size_bytes": 270130,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/1e/7b/1e7bc3c10970aec8c6efc5976e39e189b021e4c7f4703fdfc5cea1f21e33498f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 06:23:28.074285+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/1e/7b/1e7bc3c10970aec8c6efc5976e39e189b021e4c7f4703fdfc5cea1f21e33498f",
+    "recorder_id": "140b7394874849a1b068241f8f120ff2",
+    "experiment_id": "372607760148753711",
+    "archive_root": "qlib_recorder"
+  }
+}
