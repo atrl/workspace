@@ -1,0 +1,16 @@
+{
+  "experiment": "nas_current_point_marks_20261014",
+  "source_id": "149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c",
+  "as_of": "2026-10-13",
+  "context_as_of": "2026-10-09",
+  "start": "2018-10-12",
+  "source_manifest": "data/raw/external/semis_minute_refresh/source_manifest.json",
+  "source_sha256": "149ef504c382386397944b1e7af203b3eace9d2c9e43e09d9164c9a3691b302c",
+  "reference_provider": "data/qlib/full_path_tiered_allocation_20261013",
+  "reference_as_of": "2026-10-09",
+  "provider": "data/qlib/nas_current_point_marks_20261014",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "scope": "schema adapter and observed mark qualification only; no rewriting frozen providers or model inputs",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279"
+}

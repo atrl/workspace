@@ -38,7 +38,7 @@ def prepare_full_path(*, root, card, plan):
         materialize_nas_snapshot(root / plan["snapshot_binding"], workspace_root=root, include_derived=False)
     provider = root / "data/qlib" / plan["experiment"]
     quotes, price_audit = build_full_path_prices(source_manifest=manifest, source_sha256=plan["source_id"],
-        provider_uri=provider, start=plan["source_start"], as_of=plan["as_of"])
+        provider_uri=provider, start=plan["source_start"], as_of=plan["as_of"], workspace_root=root)
     original_features = source["inputs/features"]
     base = list(source["models/core_path_outer_71"].base_features) + list(source["inputs/plan"]["availability_features"])
     extra = list(source["inputs/plan"]["feature_groups"]["core"])
