@@ -1,0 +1,195 @@
+{
+  "recorder_id": "19b476e0dea34abead078565d8f739c6",
+  "entries": [
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/annual",
+      "sha256": "0e0236cb1a022540f252aa27adb2899ff13db2bfb5838a3ac47e34d3dbf607a5",
+      "bytes": 21263
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/calibration",
+      "sha256": "e300a0663462d1aa92d8e4e31462175d9a47e5f134449a80834b1e578907e749",
+      "bytes": 2364
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/comparison",
+      "sha256": "966c4e9452f11faa966af1c2716e87c8d13dee0191662d84b85f14934cb7b481",
+      "bytes": 8366
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/direct_minute_head_audit",
+      "sha256": "a05e12caecbe55414b5fee30e34ffbfd610b43e91be1575d12d92792a2a55b0f",
+      "bytes": 533
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_0_availability_control",
+      "sha256": "f3a7efb689d140c167a9189f4c2533dcd7d05d5ba36357f19b24fa3580234831",
+      "bytes": 45286644
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_0_base",
+      "sha256": "5bccdbea22a7a1613c132d0b49dcf5460001ae76f515c7c41e0d501e35df64bd",
+      "bytes": 45313224
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_0_core_path",
+      "sha256": "39cd9602263a58a4cc3354d9a0843d342c96b3e68cdd2462a2d07b8849ab04da",
+      "bytes": 45432931
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_0_frozen_current",
+      "sha256": "66de82613b0ac633e391f42499d5b75cf5af60806cc8f5129de23a4926ed914b",
+      "bytes": 45349801
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_0_soxx",
+      "sha256": "6399e48ce77c2479a2bb7e0c6741ce385463fcec3eff27e37fa2b01bda8e97be",
+      "bytes": 42185964
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_2_availability_control",
+      "sha256": "2751cbca1d13a386303308bd74a0d558ccf18ebe1807b38ab936e3d8cbf140ab",
+      "bytes": 45280973
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_2_base",
+      "sha256": "f278b61a5258a130f8c4c60f14e86c1e70b1d2de513ef3fa4ea40cb8d6c1f54f",
+      "bytes": 45313380
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_2_base_weights_core_confidence",
+      "sha256": "f278b61a5258a130f8c4c60f14e86c1e70b1d2de513ef3fa4ea40cb8d6c1f54f",
+      "bytes": 45313380
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_2_core_path",
+      "sha256": "fbce537868642e47938c8f97ae17625dddd8ee65680c82e385c31b05072e7a11",
+      "bytes": 45417946
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_2_core_weights_base_confidence",
+      "sha256": "fbce537868642e47938c8f97ae17625dddd8ee65680c82e385c31b05072e7a11",
+      "bytes": 45417946
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_2_frozen_current",
+      "sha256": "8d5ea8977dc74c8792532ca97423ed6fdb2620b838671c55b7668d333d098f63",
+      "bytes": 45348854
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_2_soxx",
+      "sha256": "9ab0cdcfc5d6239da2ee325343b865c7802bbd0a20211327b4b0a625b1915f14",
+      "bytes": 42185964
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_5_availability_control",
+      "sha256": "5ca11db857c91b30d94bdf4f2afd9a5ac4bef10e2f7113890b3cf5285a3430db",
+      "bytes": 45293585
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_5_base",
+      "sha256": "775c069090d113445b627a0e7b84c12cfeb10710a8480783363c056f8faaf239",
+      "bytes": 45308168
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_5_core_path",
+      "sha256": "f7145d29a57f7c6f6cc5d768e1c4fcfd30b8e4724068005dffe856bf7408dcdb",
+      "bytes": 45312831
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_5_frozen_current",
+      "sha256": "0c2c5bd9f31e143152523776ea07674f53e89319e507cb68241b371c25052f67",
+      "bytes": 45343484
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/native/tiered_5_soxx",
+      "sha256": "01a3c2451c6c4edb918d12992c25a19c5c8a153460cbc0564b95072223f76b18",
+      "bytes": 42185964
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/next_experiment",
+      "sha256": "aa7a1a941399e002231943c1830cfcd7c665a3785f7c5dff25068fff84bb64ef",
+      "bytes": 2472
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/optimization_diagnosis",
+      "sha256": "069b3170426dd85288f0b8bdcc66cae259decc3bfa863d0d3d31182aecd880f0",
+      "bytes": 1203
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/analysis/summary",
+      "sha256": "7b63337ae9d41bb07a115ae3edba0a57fdfe124bbd90e0f31feef1c984e03919",
+      "bytes": 14720
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/code_diff.txt",
+      "sha256": "a57706122c018748e62130cda06dfe317730c06774d9f8edf00f2a097782cf3a",
+      "bytes": 402543
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/code_status.txt",
+      "sha256": "b17bbf067af3e3a45bd7f8f04ecf4ee1f580ffdb81be06bdf62bccd606f1e0fc",
+      "bytes": 62593
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/inputs/controller",
+      "sha256": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+      "bytes": 4827
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/inputs/market",
+      "sha256": "4793d72b39c9fa098cff807c9ff86f903294e765549aa264e6442dcb2b750a0e",
+      "bytes": 168545
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/inputs/plan",
+      "sha256": "cebcb123cedc4dd077ab2bc10541bf4d84b3439494bed165d92f644c2fc77c88",
+      "bytes": 3220
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/inputs/price_audit",
+      "sha256": "7271349864f55e78d1d6328b0973c9e3152928cfd4d3fe4ff2ec9d40882410a9",
+      "bytes": 1367
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/inputs/targets",
+      "sha256": "0a3dfbdd1511d09fc3f10a6a3e0b514fc204def14d56263a772e36b6901acd32",
+      "bytes": 191860
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/sources/code/ibkr_fee_marks",
+      "sha256": "de347b216b017a0efcfb038df298681e5e6045c817e3a5ef758fd0fef81b782c",
+      "bytes": 3150
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/sources/code/ibkr_minute_diagnosis",
+      "sha256": "f85be4f331e997b1daeb26c5f00963fb5e70d02127d7d150a313900c3ca40937",
+      "bytes": 19592
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/sources/code/ibkr_tiered",
+      "sha256": "b8d230ec57f54a4abaf7f9ae7658af2ee31fb07dc9521c77fafdb7ee31107cde",
+      "bytes": 8359
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/sources/code/stage1_ibkr",
+      "sha256": "2b4bba8b2013caacd995d1a3fa9586adb7f22014c782da162858ac9ebc5b799e",
+      "bytes": 9877
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/sources/ibkr_nasdaq",
+      "sha256": "bb0b9aa9ac59e5be4dfbe0eafc10f3843faa884e5d33d04dffee58011f3325b3",
+      "bytes": 204065
+    },
+    {
+      "path": "qlib_recorder/328688817108238220/19b476e0dea34abead078565d8f739c6/artifacts/sources/ibkr_stocks",
+      "sha256": "650d083d56d7579a058a57fe1848983ec624acce1788dc78976c599abeddad15",
+      "bytes": 609240
+    }
+  ]
+}

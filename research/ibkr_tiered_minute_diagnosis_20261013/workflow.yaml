@@ -1,0 +1,20 @@
+experiment: ibkr_tiered_minute_diagnosis_20261013
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/ibkr_tiered_minute_diagnosis_20261013
+recorder_uri: /Users/rziiiii/dev/workspace/research/ibkr_tiered_minute_diagnosis_20261013/qlib_recorder
+region: us
+freq: 15min
+as_of: '2026-10-09'
+segments:
+  reused_diagnostic:
+  - '2023-01-03'
+  - '2026-10-09'
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/market
+  - inputs/targets
+  - analysis/native/*
+  - sources/*
+  - analysis/comparison
+  - analysis/calibration

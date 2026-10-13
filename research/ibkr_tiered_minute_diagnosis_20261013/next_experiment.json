@@ -1,0 +1,45 @@
+{
+  "status": "prepared_not_run",
+  "hypothesis": "known minute state plus own holdings/risk clock predicts net execution advantage at the existing 10:31 action, beyond state-only inputs under IBKR Tiered costs",
+  "one_increment": "supervised intraday execution-value objective with actual per-order cost; existing risk/position constraints retained",
+  "source_release": "stage1_hold_net_fees_20260928_paper_trial_v1",
+  "source_allocator": "frozen current f696; not a new allocator selection",
+  "decision_clock": "10:31 ET after completed 09:31-10:30 raw-minute bars and saved same-day opening controller",
+  "execution_price_clock": "next observed 1min opening mark after declared receipt delay; do not execute using a price before decision availability",
+  "primary_label": "execute-minus-HOLD net NAV at 60min, plus paired next-reset costs; both branches start with identical holdings/risk/peak",
+  "label_available_at": "maximum of horizon exit receipt time and paired next-reset execution receipt time, strictly before fit cutoff",
+  "models": [
+    "fixed Ridge alpha 10 using state-only inputs",
+    "same Ridge alpha 10 using state plus predefined minute inputs"
+  ],
+  "controls": [
+    "current frozen recovery policy",
+    "intraday HOLD while preserving mandatory open derisk/repair"
+  ],
+  "feature_groups": [
+    "own equity drawdown, beta cap, risk clock, marked holdings and explicit previewed IBKR fees",
+    "completed first-hour downside variance, path efficiency, rebound, tracking residual and observed volume ratios"
+  ],
+  "fit_years": [
+    2024,
+    2025,
+    2026
+  ],
+  "training_expanding_start": "2023-01-03",
+  "maximum_model_fits": 6,
+  "maximum_native_cases": 12,
+  "native_cases_contract": "four policies x Tiered plus 0/2/5bp slippage, independent on-policy accounts",
+  "forbidden_selection": "no probability/risk threshold search on 2026 history; no choosing the favorable slippage assumption",
+  "historical_role": "all past windows already inspected; diagnostic only, not a clean holdout",
+  "promotion_requirements": [
+    "cost-after SOXX excess plus risk and annual/rolling stability",
+    "paired independent forward sessions with frozen identities and actual availability timestamps",
+    "observed bid/ask, venue and commission receipts for execution qualification"
+  ],
+  "new_forward_data_needed": [
+    "first-received timestamps for minute bars",
+    "actual bid/ask around intended orders",
+    "read-only IBKR fill/commission/venue receipts if available"
+  ],
+  "later_clock_expansion": "12:31/14:31 is a separate later increment only after the fixed existing-clock test passes"
+}

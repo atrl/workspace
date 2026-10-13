@@ -1,0 +1,105 @@
+{
+  "experiment": "ibkr_tiered_minute_diagnosis_20261013",
+  "schema_version": "ibkr_fee_alignment_v1",
+  "fee_quote_as_of": "2026-10-13",
+  "as_of": "2026-10-09",
+  "signal_start": "2023-01-03",
+  "label_cutoff": "2026-10-09T16:01:00-04:00",
+  "initial_cash": 100000,
+  "user_confirmed": "IBKR Pro Tiered, USD 100000",
+  "share_order_convention": "integer actual raw-price share changes, adjusted Qlib NAV units retained",
+  "new_model_fits": 0,
+  "maximum_native_cases": 17,
+  "families": [
+    "frozen_current",
+    "base",
+    "availability_control",
+    "core_path",
+    "soxx"
+  ],
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "primary_slippage_bps": 2,
+  "diagnostic_swaps": [
+    [
+      "core_weights_base_confidence",
+      "core_path",
+      "base"
+    ],
+    [
+      "base_weights_core_confidence",
+      "base",
+      "core_path"
+    ]
+  ],
+  "swaps_selection_role": "diagnosis only; no promotion or selection",
+  "strategy_card": "research/stage1_minute_information_comparison_20261012",
+  "strategy_archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+  "strategy_recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+  "allocator_card": "research/minute_information_pit_allocator_20261012",
+  "allocator_archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "allocator_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "adjusted_provider": "data/qlib/stage1_minute_information_comparison_20261012/execution_marks",
+  "raw_provider": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "adjusted_manifest_sha256": "5e5952ce81213f6819be603e5ceccf4b519b9c6f627ebc6736b81fbb8a8385f1",
+  "raw_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "source_html_cache": {
+    "ibkr_stocks": "/tmp/soxl-ibkr-minute-20261013/ibkr_stocks.html",
+    "ibkr_nasdaq": "/tmp/soxl-ibkr-minute-20261013/ibkr_nasdaq.html"
+  },
+  "source_html_sha256": {
+    "ibkr_stocks": "a9a937ea859ed4ba4cd9c259b0a4ebcdcf4996450e63e67855c76eb3f78f9952",
+    "ibkr_nasdaq": "a967c5650645879294af0cdb61fd4acd6993a7ad2f8bb78890f7778661ecbb07"
+  },
+  "official_fee_urls": [
+    "https://www.interactivebrokers.com/en/pricing/commissions-stocks.php",
+    "https://www.interactivebrokers.com/en/accounts/fees/INETstkfee.php?nhf=T"
+  ],
+  "historical_window_role": "reused diagnostic; no independent forward evidence",
+  "current_broker_fill_or_dividend_parity": false,
+  "runtime_or_model_activation": false
+}

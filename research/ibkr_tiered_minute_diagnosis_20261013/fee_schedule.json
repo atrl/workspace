@@ -1,0 +1,51 @@
+{
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "sources": [
+    "https://www.interactivebrokers.com/en/pricing/commissions-stocks.php",
+    "https://www.interactivebrokers.com/en/accounts/fees/INETstkfee.php?nhf=T"
+  ],
+  "as_of": "2026-10-13",
+  "raw_html_sha256": {
+    "ibkr_stocks": "a9a937ea859ed4ba4cd9c259b0a4ebcdcf4996450e63e67855c76eb3f78f9952",
+    "ibkr_nasdaq": "a967c5650645879294af0cdb61fd4acd6993a7ad2f8bb78890f7778661ecbb07"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "observations": 946,
+  "minute_numerical_channels": 12,
+  "maximum_tail_logit_change_when_minute_channels_neutralized": 0.0,
+  "maximum_alpha_logit_change_when_minute_channels_neutralized": 0.0,
+  "mean_absolute_allocation_logit_change": 0.28348731994628906,
+  "minute_features_directly_enter_risk_or_alpha_heads": false,
+  "explanation": "tail_encoder(common_features) supplies both heads; minute channels only enter allocation_head",
+  "minute_information_clock": "previous completed session, next daily open; not a live minute-frequency action model"
+}

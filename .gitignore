@@ -47,6 +47,7 @@ data/qlib/soxl_intraday_5min/
 data/qlib/soxl_intraday_15min/
 data/qlib/minute_information_pit_allocator_20261012/
 data/qlib/stage1_minute_information_comparison_20261012/
+data/qlib/ibkr_tiered_minute_diagnosis_20261013/
 data/soxl_profile_*.pkl
 runtime/data/
 runtime/model/

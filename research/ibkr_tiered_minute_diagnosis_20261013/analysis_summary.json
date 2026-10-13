@@ -1,0 +1,55 @@
+{
+  "commission_projection_range_bps": [
+    1.2155112512062847,
+    1.4416002611568117
+  ],
+  "core_2bps_commission_projection_bps": 1.2641642855686037,
+  "fee_source_role": "current quote projection, not historical broker statement",
+  "whole_order_convention_differs_from_legacy_continuous_targets": true,
+  "confidence_swaps": [
+    {
+      "diagnostic": "core_weights_base_confidence",
+      "matching_weight_source": "core_path",
+      "return_difference_pct_points": 0.0,
+      "mdd_difference_pct_points": 0.0,
+      "orders_identical": true,
+      "confidence_swap_affected_final_outcome": false
+    },
+    {
+      "diagnostic": "base_weights_core_confidence",
+      "matching_weight_source": "base",
+      "return_difference_pct_points": 0.0,
+      "mdd_difference_pct_points": 0.0,
+      "orders_identical": true,
+      "confidence_swap_affected_final_outcome": false
+    }
+  ],
+  "core_alpha_auc": [
+    {
+      "signal_year": 2023,
+      "auc": 0.5206728299948639,
+      "brier": 0.2485567182302475
+    },
+    {
+      "signal_year": 2024,
+      "auc": 0.41939812152578115,
+      "brier": 0.25186845660209656
+    },
+    {
+      "signal_year": 2025,
+      "auc": 0.6008522727272727,
+      "brier": 0.23691357672214508
+    },
+    {
+      "signal_year": 2026,
+      "auc": 0.41794871794871796,
+      "brier": 0.25392264127731323
+    }
+  ],
+  "current_allocation_loss_training_cost_bps": 10,
+  "current_allocation_loss_turnover_weight": 0.006,
+  "allocator_training_does_not_replay_full_stage1_controller": true,
+  "minute_risk_and_alpha_heads_direct_input_absent": true,
+  "all_native_recovery_actions": 0,
+  "optimization_conclusion": "minute features affect allocations, but cost/state interactions and inactive confidence actions prevent stable SOXX excess; next learn clock-aligned net action value from minute state"
+}

@@ -683,5 +683,13 @@
     "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
     "experiment_id": "948959188821794065",
     "archive_root": "qlib_recorder"
+  },
+  "IBKR_fee_followup": {
+    "card": "research/ibkr_tiered_minute_diagnosis_20261013",
+    "recorder_id": "19b476e0dea34abead078565d8f739c6",
+    "account": "user confirmed IBKR Pro Tiered, USD100000",
+    "cost_role": "current fee projection with integer raw-share order changes; 10/25bps remain legacy uniform cost-stress scenarios",
+    "original_metrics_models_recorder_unchanged": true,
+    "delivery_metadata_only": true
   }
 }

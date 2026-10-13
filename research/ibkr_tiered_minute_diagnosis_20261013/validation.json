@@ -1,0 +1,14 @@
+{
+  "new_contract_tests": 3,
+  "failed": 0,
+  "notebook_executed": true,
+  "native_accounts": 17,
+  "new_model_fits": 0,
+  "minimum_fee_cap_sell_fee_monthly_tiers_and_exact_HOLD_checked": true,
+  "raw_share_fee_and_adjusted_NAV_plane_native_regression_passed": true,
+  "maximum_native_return_error": 8.77100458929192e-09,
+  "NAS_objects_verified": 38,
+  "scientific_decision": "not_promoted_fee_alignment_and_structure_diagnosis",
+  "next_experiment_status": "prepared_not_run",
+  "unrelated_legacy_tests_not_rerun": true
+}

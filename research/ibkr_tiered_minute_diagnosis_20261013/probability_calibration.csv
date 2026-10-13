@@ -1,0 +1,25 @@
+family,signal_year,target,observations,auc,brier,event_frequency,mean_probability,role
+base,2023,tail_event_5d,250,0.19282774838330394,0.043244391679763794,0.028,0.14523570239543915,reused-history calibration diagnosis; no model selection
+base,2023,relative_alpha_5d,250,0.5217000513610682,0.2485625296831131,0.528,0.5181538462638855,reused-history calibration diagnosis; no model selection
+base,2024,tail_event_5d,252,0.6143176020408162,0.10048949718475342,0.1111111111111111,0.15724709630012512,reused-history calibration diagnosis; no model selection
+base,2024,relative_alpha_5d,252,0.41888697207846143,0.2519305944442749,0.5595238095238095,0.5227752923965454,reused-history calibration diagnosis; no model selection
+base,2025,tail_event_5d,250,0.6376146788990825,0.10945466160774231,0.128,0.1363866627216339,reused-history calibration diagnosis; no model selection
+base,2025,relative_alpha_5d,250,0.6024756493506493,0.23671270906925201,0.616,0.5426392555236816,reused-history calibration diagnosis; no model selection
+base,2026,tail_event_5d,188,0.5847368421052632,0.16007930040359497,0.20212765957446807,0.20609547197818756,reused-history calibration diagnosis; no model selection
+base,2026,relative_alpha_5d,188,0.4174825174825175,0.2540082335472107,0.5851063829787234,0.504124641418457,reused-history calibration diagnosis; no model selection
+availability_control,2023,tail_event_5d,250,0.194591416813639,0.043221406638622284,0.028,0.14520299434661865,reused-history calibration diagnosis; no model selection
+availability_control,2023,relative_alpha_5d,250,0.5197740112994351,0.24861474335193634,0.528,0.5182011723518372,reused-history calibration diagnosis; no model selection
+availability_control,2024,tail_event_5d,252,0.6132015306122449,0.10047827661037445,0.1111111111111111,0.1572551727294922,reused-history calibration diagnosis; no model selection
+availability_control,2024,relative_alpha_5d,252,0.41843971631205673,0.2518942654132843,0.5595238095238095,0.5228163599967957,reused-history calibration diagnosis; no model selection
+availability_control,2025,tail_event_5d,250,0.6390481651376148,0.10943198949098587,0.128,0.13644738495349884,reused-history calibration diagnosis; no model selection
+availability_control,2025,relative_alpha_5d,250,0.6022727272727272,0.23682425916194916,0.616,0.5423691272735596,reused-history calibration diagnosis; no model selection
+availability_control,2026,tail_event_5d,188,0.5854385964912281,0.16006629168987274,0.20212765957446807,0.20619262754917145,reused-history calibration diagnosis; no model selection
+availability_control,2026,relative_alpha_5d,188,0.4182983682983683,0.25396832823753357,0.5851063829787234,0.5040810108184814,reused-history calibration diagnosis; no model selection
+core_path,2023,tail_event_5d,250,0.19753086419753083,0.04321334511041641,0.028,0.14519153535366058,reused-history calibration diagnosis; no model selection
+core_path,2023,relative_alpha_5d,250,0.5206728299948639,0.2485567182302475,0.528,0.5185383558273315,reused-history calibration diagnosis; no model selection
+core_path,2024,tail_event_5d,252,0.6149553571428571,0.10046833753585815,0.1111111111111111,0.15722018480300903,reused-history calibration diagnosis; no model selection
+core_path,2024,relative_alpha_5d,252,0.41939812152578115,0.25186845660209656,0.5595238095238095,0.5228192210197449,reused-history calibration diagnosis; no model selection
+core_path,2025,tail_event_5d,250,0.6379013761467889,0.1094416156411171,0.128,0.1362747848033905,reused-history calibration diagnosis; no model selection
+core_path,2025,relative_alpha_5d,250,0.6008522727272727,0.23691357672214508,0.616,0.5422730445861816,reused-history calibration diagnosis; no model selection
+core_path,2026,tail_event_5d,188,0.5850877192982457,0.16010577976703644,0.20212765957446807,0.20614826679229736,reused-history calibration diagnosis; no model selection
+core_path,2026,relative_alpha_5d,188,0.41794871794871796,0.25392264127731323,0.5851063829787234,0.5042100548744202,reused-history calibration diagnosis; no model selection
