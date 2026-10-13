@@ -1,0 +1,11 @@
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/decompositions
+  - analysis/features
+  - sources/*
+  workflow_config: workflow.yaml
+experiment: baseline_bias_diagnosis_20261014
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/guidance_information_20261014
+recorder_uri: /Users/rziiiii/dev/workspace/research/baseline_bias_diagnosis_20261014/qlib_recorder

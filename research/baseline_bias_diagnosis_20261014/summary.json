@@ -1,0 +1,160 @@
+{
+  "experiment": "baseline_bias_diagnosis_20261014",
+  "decision": "diagnostic_complete_no_new_alpha",
+  "new_model_fits": 0,
+  "backtests": 0,
+  "goal_remains_active": true,
+  "objective_achieved": false,
+  "promotion_eligible": false,
+  "forecast_bias": [
+    {
+      "target": "cash_relative_h5",
+      "scored_rows": 246,
+      "training_rows": 553,
+      "prediction_mean": -0.012581102659248528,
+      "actual_mean": -0.006966843810765785,
+      "bias": -0.005614258848482743,
+      "training_target_mean": -0.007350333776367696,
+      "intercept": -0.007350333776367693,
+      "sum_feature_mean_contributions": -0.0052307688828808225,
+      "intercept_minus_actual_mean": -0.0003834899656019082,
+      "sum_absolute_mean_contributions": 0.10914972860880574,
+      "reconstruction_max_abs_error": 8.326672684688674e-17,
+      "forecast_outside_training_target_range_fraction": 0.0,
+      "fold": "development_2021"
+    },
+    {
+      "target": "leverage_relative_h5",
+      "scored_rows": 246,
+      "training_rows": 553,
+      "prediction_mean": 0.017303500963345972,
+      "actual_mean": 0.0076531855032264205,
+      "bias": 0.009650315460119551,
+      "training_target_mean": 0.004719123931519162,
+      "intercept": 0.0047191239315191496,
+      "sum_feature_mean_contributions": 0.012584377031826743,
+      "intercept_minus_actual_mean": -0.002934061571707271,
+      "sum_absolute_mean_contributions": 0.25473092692241267,
+      "reconstruction_max_abs_error": 1.942890293094024e-16,
+      "forecast_outside_training_target_range_fraction": 0.0,
+      "fold": "development_2021"
+    },
+    {
+      "target": "cash_relative_h5",
+      "scored_rows": 245,
+      "training_rows": 805,
+      "prediction_mean": -0.05106133143727689,
+      "actual_mean": 0.00891946224097091,
+      "bias": -0.059980793678247796,
+      "training_target_mean": -0.007461227737799367,
+      "intercept": -0.007461227737799357,
+      "sum_feature_mean_contributions": -0.043600103699477394,
+      "intercept_minus_actual_mean": -0.016380689978770267,
+      "sum_absolute_mean_contributions": 0.29463931791127534,
+      "reconstruction_max_abs_error": 1.249000902703301e-16,
+      "forecast_outside_training_target_range_fraction": 0.0,
+      "fold": "development_2022"
+    },
+    {
+      "target": "leverage_relative_h5",
+      "scored_rows": 245,
+      "training_rows": 805,
+      "prediction_mean": 0.09542834351784958,
+      "actual_mean": -0.030835007253046637,
+      "bias": 0.12626335077089623,
+      "training_target_mean": 0.006128157379760537,
+      "intercept": 0.006128157379760512,
+      "sum_feature_mean_contributions": 0.08930018613808945,
+      "intercept_minus_actual_mean": 0.03696316463280715,
+      "sum_absolute_mean_contributions": 0.6849821496573661,
+      "reconstruction_max_abs_error": 2.7755575615628914e-16,
+      "forecast_outside_training_target_range_fraction": 0.0,
+      "fold": "development_2022"
+    },
+    {
+      "target": "cash_relative_h5",
+      "scored_rows": 940,
+      "training_rows": 1056,
+      "prediction_mean": -0.00010663075122924972,
+      "actual_mean": -0.008517646556451276,
+      "bias": 0.008411015805222027,
+      "training_target_mean": -0.003524351964960831,
+      "intercept": -0.0035243519649608332,
+      "sum_feature_mean_contributions": 0.0034177212137315393,
+      "intercept_minus_actual_mean": 0.004993294591490442,
+      "sum_absolute_mean_contributions": 0.05404266959570227,
+      "reconstruction_max_abs_error": 6.938893903907228e-17,
+      "forecast_outside_training_target_range_fraction": 0.0,
+      "fold": "reused_outer"
+    },
+    {
+      "target": "leverage_relative_h5",
+      "scored_rows": 940,
+      "training_rows": 1056,
+      "prediction_mean": 0.0028388514932211092,
+      "actual_mean": 0.005916871301620126,
+      "bias": -0.003078019808399017,
+      "training_target_mean": -0.002699288170500945,
+      "intercept": -0.0026992881705009404,
+      "sum_feature_mean_contributions": 0.005538139663722045,
+      "intercept_minus_actual_mean": -0.008616159472121066,
+      "sum_absolute_mean_contributions": 0.11563427066962695,
+      "reconstruction_max_abs_error": 1.7694179454963432e-16,
+      "forecast_outside_training_target_range_fraction": 0.0,
+      "fold": "reused_outer"
+    }
+  ],
+  "correlation_pairs": [
+    {
+      "fold": "development_2021",
+      "feature_a": "dist_high_252",
+      "feature_b": "range_pos_252",
+      "training_correlation": 0.9688209689172295,
+      "scored_correlation": 0.9816446094194072
+    },
+    {
+      "fold": "development_2022",
+      "feature_a": "dist_high_252",
+      "feature_b": "range_pos_252",
+      "training_correlation": 0.9735496671789299,
+      "scored_correlation": 0.8970727797481848
+    },
+    {
+      "fold": "reused_outer",
+      "feature_a": "dist_high_252",
+      "feature_b": "range_pos_252",
+      "training_correlation": 0.9696645596304877,
+      "scored_correlation": 0.9782451597428825
+    }
+  ],
+  "recorder_id": "e89d3013869b4538afb0a0ccb037f26f",
+  "experiment_id": "582642546903758787",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/baseline_bias_diagnosis_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/baseline_bias_diagnosis_20261014/qlib_recorder/582642546903758787/e89d3013869b4538afb0a0ccb037f26f",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/guidance_information_20261014",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/decompositions",
+      "analysis/features",
+      "sources/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "f72192ada6f6a5285af9a50ced749b716ae64056860cec7031b0a7af407ec253",
+    "size_bytes": 1215269,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f7/21/f72192ada6f6a5285af9a50ced749b716ae64056860cec7031b0a7af407ec253",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 01:10:46.502621+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f7/21/f72192ada6f6a5285af9a50ced749b716ae64056860cec7031b0a7af407ec253",
+    "recorder_id": "e89d3013869b4538afb0a0ccb037f26f",
+    "experiment_id": "582642546903758787",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "experiment": "baseline_bias_diagnosis_20261014",
+  "source": {
+    "card": "research/guidance_information_20261014",
+    "recorder_id": "8ee12f9f0c7149a19653bf982b6993fc",
+    "archive": "3c6a4c65bcb9cef507d636825e531f473fb918f8334e1cc8e3ce87d3a8dde83a",
+    "inventory_sha256": "37bdd9d2a4cdff483c675a323c56a5b09019e15fe39949c778a4712bc6f07264"
+  },
+  "folds": [
+    "development_2021",
+    "development_2022",
+    "reused_outer"
+  ],
+  "family": "price_calendar",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/guidance_information_20261014",
+  "as_of": "2026-10-09",
+  "analysis": "exact standardized Ridge contribution decomposition; every feature and recorded prediction retained; train range/correlation diagnostics",
+  "maximum_fits": 0,
+  "maximum_backtests": 0,
+  "limitations": "specific research baseline, not production SIM causal diagnosis; correlated contributions not causal; no new strategy or feature selection",
+  "goal_status": "active"
+}
