@@ -1,0 +1,49 @@
+{
+  "experiment": "tiered_action_labels_20261014",
+  "plan_sha256": "96f6528c877a6e70a9c7ae81a3e2aa0538f3c1176ebd4c0b8e30d3a0b461f775",
+  "decision": "diagnostic_only_no_promotion",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_strategy_accounts": 0,
+  "reused_native_accounts": 3,
+  "reference_sessions_per_cost": 944,
+  "eligible_rows": 959,
+  "scored_rows": 957,
+  "unknown_eligible_rows": 2,
+  "recorder_id": "2d159d14db804a7a959a5b446ba8a869",
+  "experiment_id": "293170839094553539",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/tiered_action_labels_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/tiered_action_labels_20261014/qlib_recorder/293170839094553539/2d159d14db804a7a959a5b446ba8a869",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "limits": [
+    "reference own-state one-session reset proxy, not causal full policy value",
+    "flat25bp projection changes fees only on current states, not original training-label reproduction",
+    "frozen balanced-class logistic score is not calibrated probability",
+    "history reused; no independent forward or deployment qualification"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/labels"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "9c204081ae26c88c21f3b3cd530cc2150a8cd5e06f3a5a9d860b1b090ec82231",
+    "size_bytes": 114628,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/9c/20/9c204081ae26c88c21f3b3cd530cc2150a8cd5e06f3a5a9d860b1b090ec82231",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 03:09:36.743869+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/9c/20/9c204081ae26c88c21f3b3cd530cc2150a8cd5e06f3a5a9d860b1b090ec82231",
+    "recorder_id": "2d159d14db804a7a959a5b446ba8a869",
+    "experiment_id": "293170839094553539",
+    "archive_root": "qlib_recorder"
+  }
+}
