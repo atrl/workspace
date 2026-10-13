@@ -1,0 +1,26 @@
+{
+  "experiment": "fomc_schedule_source_20261014",
+  "as_of": "2026-10-14",
+  "market_as_of": "2026-10-09",
+  "research_start": "2019-01-01",
+  "earliest_minutes_meeting": "2018-09-01",
+  "calendar_urls": [
+    "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "https://www.federalreserve.gov/monetarypolicy/fomchistorical2018.htm",
+    "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+    "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm"
+  ],
+  "cancellation_url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20200315.pdf",
+  "reference_provider": "data/qlib/soxl",
+  "raw_snapshot": "data/raw/external/fomc_schedule_source_20261014",
+  "mechanism": "Prior publicly released minutes identify next scheduled meeting; retain date-level publication with conservative next-session availability; cancellation separately evidenced; no meeting outcomes in features",
+  "availability": "release calendar date23:59:59 America/New_York; requires before prior native session entry; original first receipt/revision not certified",
+  "cancellation": {
+    "scheduled_end": "2020-03-18",
+    "public_event_date": "2020-03-15",
+    "assumed_available_date": "2020-03-16",
+    "scope": "Chair press conference states March15 meeting substitutes scheduled Tuesday/Wednesday, not a Board discount-rate meeting"
+  },
+  "new_fits": 0,
+  "new_backtests": 0
+}

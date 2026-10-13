@@ -1,0 +1,10 @@
+experiment: fomc_schedule_source_20261014
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/fomc_schedule_source_20261014/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - sources/*
+  - code/*
+  - analysis/full_schedule
