@@ -1,0 +1,48 @@
+{
+  "experiment": "tangent_oof_information_20261015",
+  "oof_source": {
+    "card": "research/tangent_router_oof_20261015",
+    "recorder_id": "c14fa2a750bc409dbeb851778722f80f",
+    "archive": "c01347e34941627d09969dd86d0a948c2e1b0715f2582feb5d8fb4354cc7a6db",
+    "inventory_sha256": "aecb4c8bad8aa995d06d10b3326470fda30f13d890f07b82e0065ff78c8ca9a5"
+  },
+  "training_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "cutoff": "2023-01-01 00:00:00-05:00",
+  "tests": [
+    [
+      "soxl_weight",
+      "daily_relative"
+    ],
+    [
+      "cash_weight",
+      "daily_cash"
+    ],
+    [
+      "soxl_weight",
+      "execution_relative"
+    ],
+    [
+      "cash_weight",
+      "execution_cash"
+    ]
+  ],
+  "regime": "prior signal-day SOXX ret5 > 0 and ret20 > 0, four states",
+  "statistic": "Pearson correlation of within year x regime percentile ranks",
+  "bootstrap_mean_block": 63,
+  "bootstrap_resamples": 2000,
+  "seed": 20261015,
+  "two_sided_tail_probability": 0.00625,
+  "frozen_at_utc": "2026-10-14T17:29:20.466921+00:00",
+  "scope": "Training-period OOF score information diagnosis; 4 predeclared tests, no sign/horizon/feature selection. Conditional bootstrap excludes model refitting and historical research selection."
+}
