@@ -1,0 +1,9 @@
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/basis_comparison
+  - analysis/issuer_non_gaap
+  workflow_config: workflow.yaml
+experiment: nvda_consensus_basis_audit_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/nvda_eps_corpus_20261015_v1

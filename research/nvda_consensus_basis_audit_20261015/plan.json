@@ -1,0 +1,31 @@
+{
+  "experiment": "nvda_consensus_basis_audit_20261015",
+  "frozen_at_utc": "2026-10-14T20:51:17.674401+00:00",
+  "scope": "All35 NVDA dated newsletter prior-year EPS observations, matched by issuer release date to original and contemporaneous comparative GAAP/non-GAAP disclosures; no stock outcomes, no surprise score, no model selection.",
+  "cent_proximity": 0.005,
+  "comparison_role": "Descriptive numerical proximity only, not certification or selection of I/B/E/S accounting basis. Never choose nearest reported value as comparable actual.",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "references": [
+    "https://www.lseg.com/en/data-catalogue/company-data/ibes-estimates/actuals",
+    "https://lipperalpha.refinitiv.com/2023/03/earnings-insight-how-are-companies-actually-reporting-earnings/"
+  ],
+  "filings": {
+    "card": "research/nvda_sec_eps_series_20261015",
+    "recorder_id": "3afd34a46d474de298717d37f67460d1",
+    "archive": "71d9517a13b753329e1b4031e85ad937b01d04fc6aedb44a25a1c70dd6d5e5ce",
+    "inventory_sha256": "48df7750cb50c20facea94926b95ee3dc760447300c1b43c03a9fe8d66efdc81"
+  },
+  "consensus": {
+    "card": "research/refinitiv_newsletter_extended_20261013",
+    "recorder_id": "bc6c2e2a31ac4d509b75e4e4ecccd992",
+    "archive": "f38b8ef1469ea36d0598690b3c2a60c24473da180ac72aaa10e510db3d57898d",
+    "inventory_sha256": "d5bedd517b0b75580d105ff083540c21286d296b04a48f2c5e9e7dce5ebd0887"
+  },
+  "splits": {
+    "card": "research/nvda_eps_split_ledger_20261015",
+    "recorder_id": "6b6ba1e2719049229bba15d8a44caff9",
+    "archive": "97039b83667508c44b26bf7832f6013a11555bdaba747e3024abb517b2ca49ce",
+    "inventory_sha256": "d8e87edb5a39a3ec84a7711e73d4dc77641c6f43c568352d89eb89c30b8786a9"
+  }
+}

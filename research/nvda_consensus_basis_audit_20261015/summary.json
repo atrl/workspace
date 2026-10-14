@@ -1,0 +1,46 @@
+{
+  "experiment": "nvda_consensus_basis_audit_20261015",
+  "decision": "needs_vendor_comparable_actuals_and_vintage",
+  "compared_events": 35,
+  "numeric_proximity_counts": {
+    "original_gaap_on_current_split_basis_within_half_cent": 5,
+    "original_nongaap_on_current_split_basis_within_half_cent": 30,
+    "current_comparative_gaap_within_half_cent": 5,
+    "current_comparative_nongaap_within_half_cent": 28,
+    "neither_current_comparative": 4
+  },
+  "numeric_match_is_basis_certification": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "objective_achieved": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/nvda_eps_corpus_20261015_v1",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "recorder_id": "9e03a4f0db534d92bd06a0a29a3d1a1c",
+  "experiment_id": "820803168530708849",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_consensus_basis_audit_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_consensus_basis_audit_20261015/qlib_recorder/820803168530708849/9e03a4f0db534d92bd06a0a29a3d1a1c",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/basis_comparison",
+      "analysis/issuer_non_gaap"
+    ]
+  },
+  "scope": "All35 NVDA dated newsletter prior-year EPS observations, matched by issuer release date to original and contemporaneous comparative GAAP/non-GAAP disclosures; no stock outcomes, no surprise score, no model selection.",
+  "nas_evidence": {
+    "sha256": "5a3baa94e3073a915ebde94e5f55f31f0c454c4d91abdbec4a780bc813682c9b",
+    "size_bytes": 60520,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/5a/3b/5a3baa94e3073a915ebde94e5f55f31f0c454c4d91abdbec4a780bc813682c9b",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 04:54:46.02569+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/5a/3b/5a3baa94e3073a915ebde94e5f55f31f0c454c4d91abdbec4a780bc813682c9b",
+    "recorder_id": "9e03a4f0db534d92bd06a0a29a3d1a1c",
+    "experiment_id": "820803168530708849",
+    "archive_root": "qlib_recorder"
+  }
+}
