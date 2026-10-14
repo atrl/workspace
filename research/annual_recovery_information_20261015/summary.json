@@ -1,0 +1,40 @@
+{
+  "experiment": "annual_recovery_information_20261015",
+  "decision": "diagnostic_only_no_promotion",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "scored_actions": 265,
+  "positive_information_bounds": 0,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "03575776d41341308b395e8a81c14d54",
+  "experiment_id": "284258648265459823",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/annual_recovery_information_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/annual_recovery_information_20261015/qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily_labels",
+      "analysis/bootstrap_indices",
+      "analysis/bootstrap_statistics"
+    ]
+  },
+  "scope": "Fixed-model OOF probability diagnosis on paired no-recovery reference: Brier versus prior training prevalence, within-year AUC and net-advantage rank association. No threshold, calibration or policy changes.",
+  "objective_achieved": false,
+  "nas_evidence": {
+    "sha256": "f7c648cb9410e7e1e7f940a9471996381bbda70a4dff3a824dfa3f591e585ac3",
+    "size_bytes": 311799,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f7/c6/f7c648cb9410e7e1e7f940a9471996381bbda70a4dff3a824dfa3f591e585ac3",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 02:57:25.168324+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f7/c6/f7c648cb9410e7e1e7f940a9471996381bbda70a4dff3a824dfa3f591e585ac3",
+    "recorder_id": "03575776d41341308b395e8a81c14d54",
+    "experiment_id": "284258648265459823",
+    "archive_root": "qlib_recorder"
+  }
+}

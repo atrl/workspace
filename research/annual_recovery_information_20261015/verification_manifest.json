@@ -1,0 +1,45 @@
+{
+  "recorder_id": "03575776d41341308b395e8a81c14d54",
+  "entries": [
+    {
+      "path": "qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54/artifacts/analysis/bootstrap_indices",
+      "sha256": "3079b4e2f05de8ae34a187f21054377b52269558812943858432b41bd4a3a628"
+    },
+    {
+      "path": "qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54/artifacts/analysis/bootstrap_statistics",
+      "sha256": "583a1e7e899549b50fb26276db798af658c848b727f1ba0deae1cc651cf166bf"
+    },
+    {
+      "path": "qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54/artifacts/analysis/daily_labels",
+      "sha256": "a57d0949a30f0f4b8527d1ded3edd922b5823ee389b724a51259242eb5e0d13a"
+    },
+    {
+      "path": "qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54/artifacts/analysis/intervals",
+      "sha256": "ec91c65ea50c83d800bab7d68f3a9b2f725a136cdd515f7a6805e89541bf9dfd"
+    },
+    {
+      "path": "qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54/artifacts/analysis/metrics",
+      "sha256": "e955c85815ae3b322bd5483bf089debe5bba5d372fabd65cc9e023543c22830e"
+    },
+    {
+      "path": "qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54/artifacts/code_status.txt",
+      "sha256": "dfbb3c688bb7f7a8fed54a5e64f0fa62754ff95ddae201e731f1ac70079e2ad0"
+    },
+    {
+      "path": "qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54/artifacts/inputs/plan",
+      "sha256": "b3fd2fb214e4eda3de7ca1a7e67d30698cf01d586db3909c499e583adf9d20ae"
+    },
+    {
+      "path": "qlib_recorder/284258648265459823/03575776d41341308b395e8a81c14d54/artifacts/inputs/source_audits",
+      "sha256": "ef89db33cee273d2cd8a25c58b53ae6fffae5624fd87a8ee984bf2436b7c84cf"
+    }
+  ]
+}
