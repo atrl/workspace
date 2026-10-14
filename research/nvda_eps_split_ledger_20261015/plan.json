@@ -1,0 +1,38 @@
+{
+  "experiment": "nvda_eps_split_ledger_20261015",
+  "source": {
+    "card": "research/nvda_eps_corpus_20261015",
+    "recorder_id": "7970243eda4e4418aba2a4e907fbce70",
+    "archive": "b49b444cb7676d5c77b84643b19ca21c741818f6184c0f5367940140901d2300",
+    "inventory_sha256": "a4b34ca4cfc6f3f51de4c6d8a82621c6411668a2e2b2817a95004fbe4df24424"
+  },
+  "scope": "All available same-fiscal-quarter year-over-year bridges; no source value repair, interpolation, SUE or outcome selection",
+  "split_events": [
+    {
+      "event_id": "NVDA_2021_4for1",
+      "event_type": "stock_split",
+      "effective_date": "2021-07-19",
+      "known_by_date": "2021-08-18",
+      "known_in_report": "FY2022Q2",
+      "new_shares_per_old_share": 4,
+      "payload": "FY2022Q2.html",
+      "evidence_terms": [
+        "four-for-one split",
+        "July 19, 2021"
+      ]
+    },
+    {
+      "event_id": "NVDA_2024_10for1",
+      "event_type": "stock_split",
+      "effective_date": "2024-06-07",
+      "known_by_date": "2024-08-28",
+      "known_in_report": "FY2025Q2",
+      "new_shares_per_old_share": 10,
+      "payload": "FY2025Q2.html",
+      "evidence_terms": [
+        "ten-for-one forward stock split",
+        "June 7, 2024"
+      ]
+    }
+  ]
+}

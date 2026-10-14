@@ -50,13 +50,31 @@ def extract_q2_eps(html,*,fiscal_year):
 
 
 def split_bridge(previous,current,*,split_ratio):
-    quarters=[re.fullmatch(r'FY(\d{4})Q2',x['fiscal_quarter']) for x in [previous,current]]
-    if any(x is None for x in quarters) or int(quarters[1].group(1))!=int(quarters[0].group(1))+1:raise ValueError('adjacent fiscal-year same-quarter pair required')
+    quarters=[re.fullmatch(r'FY(\d{4})Q([1-4])',x['fiscal_quarter']) for x in [previous,current]]
+    if any(x is None for x in quarters) or int(quarters[1].group(1))!=int(quarters[0].group(1))+1 or quarters[0].group(2)!=quarters[1].group(2):raise ValueError('adjacent fiscal-year same-quarter pair required')
     if any(x.get('accounting_basis')!='GAAP' or x.get('share_basis')!='diluted' for x in [previous,current]):raise ValueError('consistent GAAP diluted EPS required')
     ratio=Decimal(str(split_ratio))
     if ratio<=0:raise ValueError('positive split ratio required')
     old=Decimal(previous['current_eps']);now=Decimal(current['current_eps']);comparison=Decimal(current['prior_year_comparative_eps'])
     def half_unit(value):return Decimal(10)**Decimal(value).as_tuple().exponent/2
     old_half=half_unit(previous['current_eps']);comparison_half=half_unit(current['prior_year_comparative_eps']);adjusted=old/ratio
-    overlap=max((old-old_half)/ratio,comparison-comparison_half)<=min((old+old_half)/ratio,comparison+comparison_half)
-    return {'previous_quarter':previous['fiscal_quarter'],'current_quarter':current['fiscal_quarter'],'split_ratio':str(ratio),'naive_eps_change':str(now-old),'prior_eps_on_current_split_basis':str(adjusted),'split_normalized_change':str(now-adjusted),'current_release_comparative_change':str(now-comparison),'comparative_rounding_intervals_overlap':bool(overlap),'scope':'input semantic diagnostic, not market surprise or SUE score'}
+    width=min((old+old_half)/ratio,comparison+comparison_half)-max((old-old_half)/ratio,comparison-comparison_half)
+    overlap=width>=0
+    return {'previous_quarter':previous['fiscal_quarter'],'current_quarter':current['fiscal_quarter'],'split_ratio':str(ratio),'naive_eps_change':str(now-old),'prior_eps_on_current_split_basis':str(adjusted),'split_normalized_change':str(now-adjusted),'current_release_comparative_change':str(now-comparison),'comparative_rounding_intervals_overlap':bool(overlap),'rounding_relation':'overlap' if width>0 else ('touching_only' if width==0 else 'disjoint'),'scope':'input semantic diagnostic, not market surprise or SUE score'}
+
+
+def split_ratio_between_reports(previous,current,events):
+    before=pd.Timestamp(previous['release_date']);now=pd.Timestamp(current['release_date'])
+    if before>=now:raise ValueError('report dates must increase')
+    if len({e['event_id'] for e in events})!=len(events):raise ValueError('duplicate split event')
+    result=Decimal('1')
+    for event in sorted(events,key=lambda e:e['effective_date']):
+        date=pd.Timestamp(event['effective_date']);known=pd.Timestamp(event['known_by_date'])
+        if event['event_type']!='stock_split':raise ValueError('EPS basis cannot use price-dividend adjustments')
+        if before==date or now==date:raise ValueError('same-day report/split basis needs explicit review')
+        if before<date<=now:
+            if known>now:raise ValueError('split evidence unavailable by current report')
+            factor=Decimal(str(event['new_shares_per_old_share']))
+            if not factor.is_finite() or factor<=0:raise ValueError('invalid split factor')
+            result*=factor
+    return result

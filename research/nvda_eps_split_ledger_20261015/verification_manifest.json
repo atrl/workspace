@@ -1,0 +1,53 @@
+{
+  "recorder_id": "6b6ba1e2719049229bba15d8a44caff9",
+  "entries": [
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/analysis/bridges",
+      "sha256": "5cd2322b20d85012da24292159782a7006ad57ddecd7af3955910efe79acf331"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/analysis/summary",
+      "sha256": "b908cce9f1fe1ddf2e0538d4e6ce2e6f57ab3358f25ba5fa18d5c5fbd9506f9d"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/code_diff.txt",
+      "sha256": "1e1eea3a18f638abe796281e0e0fe7cd28debfdeeaeca4916462a692f1dd97f8"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/code_status.txt",
+      "sha256": "ea059a7260203845b9b3294e484e8e9c99325b8ecbc7ed4269f9a13ede0acf0d"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/inputs/code",
+      "sha256": "28406b88ecbc9d92c746796b580d5852c9756f64b2029e1e7d6d2658bfd036d1"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/inputs/plan",
+      "sha256": "c50ba91a99227fb8b895c1ee920c984d2a9d7990321c3082dd14b5a5d8efebd9"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/inputs/restatement_pdf",
+      "sha256": "986de1e7ac9c3186a4431876d5a9d5140be8be675cc50f8a32ba527d3bc7c610"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/inputs/restatement_review",
+      "sha256": "961e9fa96536d6b4bb26d8c1f95bfe5f7f95058bef822414f9fc3dc4fb5d68c7"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/inputs/restatement_table_text",
+      "sha256": "688612fa2dc4a7cff706d52494263100489c81ef84e10f70aa121e9516d42506"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/inputs/source_audit",
+      "sha256": "8ef329cf62328142b9ee5745d276666c2153bc0e08131e525a72be47c689e120"
+    },
+    {
+      "path": "qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9/artifacts/inputs/split_ledger",
+      "sha256": "ec6b4b15b2b0cbdab7e50c110999c06e783373ff24d8a004ec3f1d33423c878d"
+    }
+  ]
+}

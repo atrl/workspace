@@ -1,0 +1,33 @@
+{
+  "source": {
+    "url": "https://s201.q4cdn.com/141608511/files/doc_financials/annual/2017/NVIDIA_2017AnnualReview_Proxy_10-K.pdf",
+    "status": 200,
+    "sha256": "0ce8b4e4d5c6c80a021f21a73eec5dbb1a859c71238aa3a2c201f533f32e3606",
+    "retrieved_at_utc": "2026-10-14T20:19:43.328159+00:00",
+    "pdf_page_1based": 175,
+    "printed_page": "93",
+    "section": "Note 18 Quarterly Summary (Unaudited)",
+    "visual_review": true,
+    "sec_crosscheck_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581017000027/nvda-2017x10k.htm",
+    "direct_sec_download_status": 403,
+    "first_vintage_bytes_verified": false,
+    "historical_known_at_certified": false
+  },
+  "adjustments": [
+    {
+      "quarter": "FY2017Q1",
+      "as_reported": "0.33",
+      "as_adjusted": "0.35",
+      "next_year_report": "FY2018Q1"
+    },
+    {
+      "quarter": "FY2017Q2",
+      "as_reported": "0.40",
+      "as_adjusted": "0.41",
+      "next_year_report": "FY2018Q2"
+    }
+  ],
+  "cause": "Adoption in FY2017 Q3 of stock-based compensation accounting standard; adjustments reflected from beginning of FY2017. Not a split or ordinary rounding repair.",
+  "first_disclosure_clock_verified": false,
+  "backfill_original_values_allowed": false
+}

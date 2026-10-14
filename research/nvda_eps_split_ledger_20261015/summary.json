@@ -1,0 +1,45 @@
+{
+  "experiment": "nvda_eps_split_ledger_20261015",
+  "decision": "needs_vintage_and_clock_qualification",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "source_reports": 49,
+  "available_year_over_year_bridges": 45,
+  "status_counts": {
+    "rounding_compatible": 43,
+    "needs_prior_original_report": 4,
+    "explained_accounting_adjustment": 2
+  },
+  "training_input_qualified": false,
+  "global_split_ledger_completeness_certified": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/nvda_eps_corpus_20261015_v1",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "recorder_id": "6b6ba1e2719049229bba15d8a44caff9",
+  "experiment_id": "703946305533023143",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_eps_split_ledger_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_eps_split_ledger_20261015/qlib_recorder/703946305533023143/6b6ba1e2719049229bba15d8a44caff9",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/bridges"
+    ]
+  },
+  "scope": "All available same-fiscal-quarter year-over-year bridges; no source value repair, interpolation, SUE or outcome selection",
+  "objective_achieved": false,
+  "nas_evidence": {
+    "sha256": "97039b83667508c44b26bf7832f6013a11555bdaba747e3024abb517b2ca49ce",
+    "size_bytes": 15276675,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/97/03/97039b83667508c44b26bf7832f6013a11555bdaba747e3024abb517b2ca49ce",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 04:20:41.32877+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/97/03/97039b83667508c44b26bf7832f6013a11555bdaba747e3024abb517b2ca49ce",
+    "recorder_id": "6b6ba1e2719049229bba15d8a44caff9",
+    "experiment_id": "703946305533023143",
+    "archive_root": "qlib_recorder"
+  }
+}

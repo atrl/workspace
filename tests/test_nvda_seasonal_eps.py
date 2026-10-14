@@ -25,3 +25,16 @@ def test_combined_gaap_nongaap_sections_keep_explicit_quarter_identity():
     html='<h1>NVIDIA Announces Financial Results for Third Quarter Fiscal 2021</h1><div class="article-date">November 18, 2020</div><p>GAAP earnings per diluted share were $2.12.</p><table><tr><td>GAAP Q 3 FY2 1 Q2 FY21 Q 3 FY20</td></tr><tr><td>Earnings per share $2.12 $0.99 $1.45</td></tr><tr><td>Non-GAAP Q3 FY21 Q2 FY21 Q3 FY20</td></tr><tr><td>Diluted earnings per share $2.91 $2.18 $1.78</td></tr></table>'
     result=extract_quarter_eps(html,fiscal_year=2021,quarter=3)
     assert result['current_eps']=='2.12' and result['prior_year_comparative_eps']=='1.45'
+
+
+def test_split_knowledge_is_as_of_and_restatement_is_not_silently_repaired():
+    from src.data.nvda_seasonal_eps import split_ratio_between_reports
+    old={'fiscal_quarter':'FY2021Q3','release_date':'2020-11-18','current_eps':'2.12','accounting_basis':'GAAP','share_basis':'diluted'}
+    new={'fiscal_quarter':'FY2022Q3','release_date':'2021-11-17','current_eps':'0.97','prior_year_comparative_eps':'0.53','accounting_basis':'GAAP','share_basis':'diluted'}
+    event={'event_id':'split2021','effective_date':'2021-07-19','known_by_date':'2021-08-18','event_type':'stock_split','new_shares_per_old_share':4}
+    ratio=split_ratio_between_reports(old,new,[event]);assert ratio==4
+    assert split_bridge(old,new,split_ratio=ratio)['rounding_relation']=='overlap'
+    changed={**new,'prior_year_comparative_eps':'0.60'}
+    assert split_bridge(old,changed,split_ratio=ratio)['rounding_relation']=='disjoint'
+    with pytest.raises(ValueError,match='unavailable'):split_ratio_between_reports(old,{**new,'release_date':'2021-08-01'},[event])
+    with pytest.raises(ValueError,match='duplicate'):split_ratio_between_reports(old,new,[event,event])
