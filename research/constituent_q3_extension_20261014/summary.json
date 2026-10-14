@@ -1,0 +1,50 @@
+{
+  "experiment": "constituent_q3_extension_20261014",
+  "decision": "Q3_reported_basket_prices_extended_no_model_change",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "outcome_correlations": 0,
+  "objective_achieved": false,
+  "symbols": 30,
+  "price_rows": 4440,
+  "q3_sessions": 64,
+  "full_basket_sessions": 64,
+  "new_filing_date": "2026-08-25",
+  "new_report_date": "2026-06-30",
+  "earliest_new_report_use": "2026-08-26",
+  "independent_anchor_count": 30,
+  "anchor_rows_above_one_bp": 0,
+  "maximum_anchor_relative_difference": 4.917398205257787e-08,
+  "historical_first_receipt_certified": false,
+  "actual_daily_index_membership_certified": false,
+  "existing_sources_overwritten": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/constituent_q3_extension_20261014",
+  "region": "us",
+  "as_of": "2026-09-30",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/prices",
+      "analysis/weights"
+    ]
+  },
+  "recorder_id": "50ec963e60254f5aa27aa3af6d4dfe36",
+  "experiment_id": "939491300230287862",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/constituent_q3_extension_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "ec1416cd95ee3ede9e2bd899fbfc7cbf3b28a1160f6e56cd03d73068696e060e",
+    "size_bytes": 210514,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ec/14/ec1416cd95ee3ede9e2bd899fbfc7cbf3b28a1160f6e56cd03d73068696e060e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 18:06:50.364376+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ec/14/ec1416cd95ee3ede9e2bd899fbfc7cbf3b28a1160f6e56cd03d73068696e060e",
+    "recorder_id": "50ec963e60254f5aa27aa3af6d4dfe36",
+    "experiment_id": "939491300230287862",
+    "archive_root": "qlib_recorder"
+  }
+}
