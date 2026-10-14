@@ -1,0 +1,56 @@
+{
+  "experiment": "execution_return_training_20261015",
+  "plan_sha256": "ca28f88e92578ff1921dd6205421331cc95a325ff92a6563bfc36e811d448b4e",
+  "decision": "not_promoted_execution_return_alignment_failed",
+  "gates": {
+    "net_soxx_excess_all_costs": false,
+    "drawdown_30pct": false,
+    "cvar_no_worse": true,
+    "beat_paired_control_all_costs": false,
+    "rolling_70pct": false,
+    "annual_70pct": false,
+    "bootstrap_positive": false,
+    "independent_development": false,
+    "qualified_forward": false,
+    "beat_original_all_costs": false,
+    "beat_bare_tangent_all_costs": false
+  },
+  "objective_achieved": false,
+  "new_fits": 6,
+  "new_native_cases": 6,
+  "reused_reference_models": 3,
+  "reused_native_cases": 12,
+  "recorder_id": "162df4726af342e891fe3db54b13845f",
+  "experiment_id": "358786494962556948",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/execution_return_training_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/execution_return_training_20261015/qlib_recorder/358786494962556948/162df4726af342e891fe3db54b13845f",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/model.html",
+  "scope": "Execution-return definition alignment combines price-source/adjustment-plane and clock differences, not pure 17-minute causal attribution. Original classification targets intentionally retain their contract. Same shortened training cohort for both arms and long-history frozen reference retained. Canonical execution marks are research proxies, not certified broker fills. Reused history, no independent promotion.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/predictions",
+      "analysis/native/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "58f67c77083215f9015782e810caa457c31ad054318631e303d741539b766882",
+    "size_bytes": 20022302,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/58/f6/58f67c77083215f9015782e810caa457c31ad054318631e303d741539b766882",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 00:42:39.832831+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/58/f6/58f67c77083215f9015782e810caa457c31ad054318631e303d741539b766882",
+    "recorder_id": "162df4726af342e891fe3db54b13845f",
+    "experiment_id": "358786494962556948",
+    "archive_root": "qlib_recorder"
+  }
+}
