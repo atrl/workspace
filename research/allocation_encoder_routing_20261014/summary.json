@@ -1,0 +1,55 @@
+{
+  "experiment": "allocation_encoder_routing_20261014",
+  "plan_sha256": "be8c64ba493858cc38df0a8eb68b0f732b2a053f3fbcab4572afc43c190bf09e",
+  "decision": "not_promoted_fixed_encoder_routing_failed",
+  "gates": {
+    "net_soxx_excess_all_costs": false,
+    "drawdown_30pct": true,
+    "cvar_no_worse": true,
+    "beat_paired_control_all_costs": false,
+    "rolling_70pct": false,
+    "annual_70pct": false,
+    "bootstrap_positive": false,
+    "independent_development": false,
+    "qualified_forward": false,
+    "beat_original_all_costs": false
+  },
+  "objective_achieved": false,
+  "new_fits": 3,
+  "new_native_cases": 3,
+  "reused_control_models": 3,
+  "reused_native_cases": 9,
+  "recorder_id": "92b2850803bd4cba9bd9cc1f7c3abefe",
+  "experiment_id": "767457079012974377",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/allocation_encoder_routing_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/allocation_encoder_routing_20261014/qlib_recorder/767457079012974377/92b2850803bd4cba9bd9cc1f7c3abefe",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/model.html",
+  "scope": "One gradient-routing intervention, original features restored, same seed/initial tensors/capacity/labels/loss coefficients/epochs/data/control layers. Reused historical matched experiment; local gradient diagnosis did not establish negative transfer. No independent development/forward qualification.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/predictions",
+      "analysis/native/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "cc9a4a20b9572d71a0ca288e64477e6fa12e86b17f900cd270686f0140f47f5e",
+    "size_bytes": 10920431,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/cc/9a/cc9a4a20b9572d71a0ca288e64477e6fa12e86b17f900cd270686f0140f47f5e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 22:07:48.245972+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/cc/9a/cc9a4a20b9572d71a0ca288e64477e6fa12e86b17f900cd270686f0140f47f5e",
+    "recorder_id": "92b2850803bd4cba9bd9cc1f7c3abefe",
+    "experiment_id": "767457079012974377",
+    "archive_root": "qlib_recorder"
+  }
+}
