@@ -1,0 +1,50 @@
+{
+  "experiment": "intraday_basket_observability_20261014",
+  "start": "2026-07-01",
+  "as_of": "2026-09-30",
+  "cutoffs": [
+    "09:45",
+    "10:30"
+  ],
+  "symbols": [
+    "ADI",
+    "ALAB",
+    "AMAT",
+    "AMD",
+    "ARM",
+    "ASML",
+    "ASX",
+    "AVGO",
+    "CRDO",
+    "ENTG",
+    "INTC",
+    "KLAC",
+    "LRCX",
+    "MCHP",
+    "MPWR",
+    "MRVL",
+    "MTSI",
+    "MU",
+    "NVDA",
+    "NVMI",
+    "NXPI",
+    "ON",
+    "QCOM",
+    "RMBS",
+    "STM",
+    "SWKS",
+    "TER",
+    "TSM",
+    "TXN",
+    "UMC"
+  ],
+  "stock_provider": "data/qlib/constituent_intraday_q3_20261014",
+  "core_provider": "data/qlib/nas_minute_features_20261014/core",
+  "provider_manifest_hashes": {
+    "data/qlib/constituent_intraday_q3_20261014": "3a42302e9ab5d34e36627cccc25204d4c2adbbe3d49c6661dfd8164362eef5d4",
+    "data/qlib/nas_minute_features_20261014/core": "a02a3481dd923fbe98bf2339f78a3102b391498b77d6c554bc58623d23ce4d84"
+  },
+  "holdings_card": "research/constituent_q3_extension_20261014",
+  "holdings_manifest_hash": "a49945cf47dbc14df219740c5259c38e3a09e91c701dedc4049f6d83b02c3831",
+  "mechanism": "Two already used decision information windows only; all member prefixes complete and last bars positive volume; compare contemporaneous descriptions without future outcomes or thresholds selected by PnL"
+}

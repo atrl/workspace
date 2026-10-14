@@ -1,0 +1,41 @@
+{
+  "recorder_id": "9c1b78cadc99451f8728cd5874db78e5",
+  "entries": [
+    {
+      "path": "qlib_recorder/693774340061605435/9c1b78cadc99451f8728cd5874db78e5/artifacts/analysis/snapshots",
+      "sha256": "04524041b9db0214cefb35be41d80056d718beebe1230bb6e4e6cf974468a6a7"
+    },
+    {
+      "path": "qlib_recorder/693774340061605435/9c1b78cadc99451f8728cd5874db78e5/artifacts/analysis/statistics",
+      "sha256": "ec8ee79fceb5e150cf4fa2c91d59771e87803a4d0ab87c7bd2b268c9281df5da"
+    },
+    {
+      "path": "qlib_recorder/693774340061605435/9c1b78cadc99451f8728cd5874db78e5/artifacts/analysis/summary",
+      "sha256": "5c3f6cdf4f9f42894d549a4b1998d4329966ddce29473da626c46400a0422a6d"
+    },
+    {
+      "path": "qlib_recorder/693774340061605435/9c1b78cadc99451f8728cd5874db78e5/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/693774340061605435/9c1b78cadc99451f8728cd5874db78e5/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/693774340061605435/9c1b78cadc99451f8728cd5874db78e5/artifacts/code_status.txt",
+      "sha256": "90a7c2aa89e146e0773dbcedc37d7e0e372f8d6474feef0cb9ce91f1ab673afb"
+    },
+    {
+      "path": "qlib_recorder/693774340061605435/9c1b78cadc99451f8728cd5874db78e5/artifacts/inputs/plan",
+      "sha256": "fdb72b0d3c450d06b64900cf3d2eb2535c7027bfb3c8331c93b74128c4718141"
+    },
+    {
+      "path": "qlib_recorder/693774340061605435/9c1b78cadc99451f8728cd5874db78e5/artifacts/inputs/weights",
+      "sha256": "60e36f9372923c4c567be366581542bcddb394370fce9268d675532b9f63fc9c"
+    },
+    {
+      "path": "qlib_recorder/693774340061605435/9c1b78cadc99451f8728cd5874db78e5/artifacts/sources/window_contract",
+      "sha256": "0b5d95640f24442970aa62b7c4bb20b1bbb2fe344295124db1d44f15369bd3f1"
+    }
+  ]
+}
