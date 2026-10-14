@@ -1,0 +1,28 @@
+{
+  "source": {
+    "card": "research/opening_state_training_20261015",
+    "recorder_id": "da50a331c9cf4feca1895440b8cfa172",
+    "archive": "3a1eae6ff2a12050cf52f4bf16410f36ae778ee40627db411fe96003172ac44b",
+    "inventory_sha256": "7b577a9e0c99f3feb57c57512820534066a1bee34f8732117b13080069200d1e"
+  },
+  "families": [
+    "candidate",
+    "control",
+    "bare_tangent"
+  ],
+  "pairs": [
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      2,
+      5
+    ]
+  ],
+  "scope": "descriptive paired account path attribution, no counterfactual causal claim or threshold search"
+}

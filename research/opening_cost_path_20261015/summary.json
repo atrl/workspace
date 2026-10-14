@@ -1,0 +1,37 @@
+{
+  "experiment": "opening_cost_path_20261015",
+  "decision": "diagnostic_only_no_promotion",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "reused_native_accounts": 9,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "e27a75f049f14b58b1a7d7c6f67c0c3b",
+  "experiment_id": "319641921906511104",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/opening_cost_path_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/opening_cost_path_20261015/qlib_recorder/319641921906511104/e27a75f049f14b58b1a7d7c6f67c0c3b",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/daily_paths",
+      "analysis/tables",
+      "inputs/source_audit"
+    ]
+  },
+  "scope": "State-day and cap-day log contributions overlap; descriptive partition, not causal attribution. No fixed-path counterfactual performed.",
+  "nas_evidence": {
+    "sha256": "2a574f8ed75ee3df3044ec731fccc1d8d6e8e61b7d0b9c7c3341d3f5d8256557",
+    "size_bytes": 341984,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/2a/57/2a574f8ed75ee3df3044ec731fccc1d8d6e8e61b7d0b9c7c3341d3f5d8256557",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 01:04:44.903158+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/2a/57/2a574f8ed75ee3df3044ec731fccc1d8d6e8e61b7d0b9c7c3341d3f5d8256557",
+    "recorder_id": "e27a75f049f14b58b1a7d7c6f67c0c3b",
+    "experiment_id": "319641921906511104",
+    "archive_root": "qlib_recorder"
+  }
+}
