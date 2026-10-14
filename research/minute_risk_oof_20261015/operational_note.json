@@ -1,0 +1,6 @@
+{
+  "initial_run": "failed before any fit",
+  "cause": "last full-source date 2026-10-09 has no next decision timestamp",
+  "repair": "mark minute input unavailable where decision is undefined; preserve strict timing assertion on actual decisions",
+  "experiment_plan_changed": false
+}

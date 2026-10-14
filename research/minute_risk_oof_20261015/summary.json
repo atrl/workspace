@@ -1,0 +1,43 @@
+{
+  "experiment": "minute_risk_oof_20261015",
+  "decision": "not_promoted_minute_risk_information_failed",
+  "new_fits": 9,
+  "new_backtests": 0,
+  "known_evaluation_rows": 755,
+  "all_comparator_lower_bounds_positive": false,
+  "all_year_comparator_improvements_positive": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "ac4de18eea57417d98cebf1584e1882f",
+  "experiment_id": "688439429338224085",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_risk_oof_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_risk_oof_20261015/qlib_recorder/688439429338224085/ac4de18eea57417d98cebf1584e1882f",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "analysis/forecasts",
+      "analysis/forecast_losses",
+      "analysis/bootstrap_indices",
+      "analysis/training"
+    ]
+  },
+  "objective_achieved": false,
+  "scope": "Risk forecast increment only; candidate unknown forecasts fall back to paired daily model, no trading or risk budget change",
+  "nas_evidence": {
+    "sha256": "ee940ac6d1bd5367aa829c5fd335fa854b925367aa6528d6a9d9569772df34ce",
+    "size_bytes": 454634,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ee/94/ee940ac6d1bd5367aa829c5fd335fa854b925367aa6528d6a9d9569772df34ce",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 01:35:26.203407+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ee/94/ee940ac6d1bd5367aa829c5fd335fa854b925367aa6528d6a9d9569772df34ce",
+    "recorder_id": "ac4de18eea57417d98cebf1584e1882f",
+    "experiment_id": "688439429338224085",
+    "archive_root": "qlib_recorder"
+  }
+}

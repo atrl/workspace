@@ -1,0 +1,42 @@
+{
+  "experiment": "minute_risk_oof_20261015",
+  "training_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "years": [
+    2020,
+    2021,
+    2022
+  ],
+  "windows": [
+    1,
+    5,
+    22
+  ],
+  "ridge_alpha": 10.0,
+  "log_floor": 1e-12,
+  "max_fits": 9,
+  "minimum_rows": 200,
+  "cutoff": "2023-01-01 00:00:00-05:00",
+  "bootstrap_resamples": 2000,
+  "bootstrap_mean_block": 63,
+  "bootstrap_seed": 20261015,
+  "lower_tail_probability": 0.016666666666666666,
+  "frozen_at_utc": "2026-10-14T17:34:37.494586+00:00",
+  "target": "squared SOXX 09:47-to-next09:47 log return, a conditional second-moment proxy",
+  "fit": "log target Ridge, train-only standardization and residual smearing; no parameter search",
+  "scope": "Risk forecast increment only; candidate unknown forecasts fall back to paired daily model, no trading or risk budget change",
+  "references": [
+    "https://search.usi.ch/en/publications/1448/a-simple-approximate-long-memory-model-of-realized-volatility",
+    "https://www.nber.org/papers/w22208"
+  ]
+}
