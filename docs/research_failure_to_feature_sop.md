@@ -103,3 +103,9 @@
 ### 缺失成员先查证券身份
 
 `research/constituent_identity_repair_20261014` 已通过AZTA查询取得更名前BRKS的229日真实候选行情，覆盖188个缺失成员日；两份原SEC持仓XML的市值/股数与候选收盘一致。保留独立来源，不覆盖旧历史。更名、收购换股和旧股注销必须分开：WOLF2025新旧证券同ticker不同CUSIP，AMD/ADI/MRVL等买方价格不能反填被收购股票历史。使用身份、日历、OHLC及独立价格锚点资格，不能以补入后回测变好作为数据正确性的判断。
+
+### 更正：已有补充来源与旧广度结果不能遗漏
+
+此前将WOLF视为尚待获取、将成分内部广度视为完全未研究，判断不完整。`research/semiconductor_breadth_20261005` 已使用10月5日恢复的旧WOLF数据，四特征固定实验失败并关闭。`research/constituent_source_reconciliation_20261014` 现通过显式来源注册衔接WOLF/CREE和BRKS，完整篮子日398→1027，2023Q4为63/63；不重开旧四特征路线。
+
+新数据缺口判断必须同时检查主provider、`data/constituent_price_supplements.json`、有清单的独立快照，以及已有研究结论。必要时用 `git ls-tree` 和限定目录的 `rg --files --no-ignore` 查被默认文件搜索遗漏的来源。该来源注册只列已核验补充项，不是全仓库索引。先区分“源不存在”和“消费者没引用”，再决定补采。

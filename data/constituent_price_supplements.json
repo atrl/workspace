@@ -1,0 +1,47 @@
+{
+  "schema_version": "constituent_supplement_registry_v1",
+  "role": "Price supplements for disclosed historical baskets; no actual index-membership or alpha certification",
+  "sources": [
+    {
+      "source_id": "existing_cree_wolf_original_epoch",
+      "provider_uri": "data/qlib/semis_wolf_recovery_20241126_v1",
+      "instrument": "WOLF",
+      "field": "$close",
+      "historical_aliases": [
+        "CREE",
+        "WOLF"
+      ],
+      "start": "2019-06-03",
+      "end": "2024-11-26",
+      "identity_scope": "Original CREE/WOLF equity only; excludes2025 new equity. Rename continuity applies to carried disclosed basket, not official daily index membership.",
+      "existing_research": "research/semiconductor_breadth_20261005",
+      "required_hashes": {
+        "data/snapshots/semis_wolf_recovery_20241126_v1/000175272424194376.xml": "98db46844c7aa7789542cf0ce314fe2966713dff047cd0c3b69c869a46b6f4c6",
+        "data/snapshots/semis_wolf_recovery_20241126_v1/futu_stock_basicinfo.json": "02b47ff6dc3de626bef2fca13d65be68049887a1e31463577d4caeed7499ec88",
+        "data/snapshots/semis_wolf_recovery_20241126_v1/futu_rehab.csv": "cf3c6ebc2c9edceff6471ebcb651757e2edbd978b494bc012eab0b0975f5f3b1",
+        "data/snapshots/semis_wolf_recovery_20241126_v1/000175272419177706.xml": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+        "data/snapshots/semis_wolf_recovery_20241126_v1/futu_wolf_none_raw.csv": "827a01a705f45698403e7a6ab758c8bc9efb7599c36bd898c347a97d2902b3d4",
+        "data/snapshots/semis_wolf_recovery_20241126_v1/recovery_manifest.json": "22570da7bd903c6635e4e9dcd97f8428f5962aabaface18acf99d1de8f388eec",
+        "data/qlib/semis_wolf_recovery_20241126_v1/qlib_store_manifest.json": "dfe76e871fa93ae4a1680a42c911d1aa14f3c35366ddb76a2e058035bc758686",
+        "data/qlib/semis_wolf_recovery_20241126_v1/features/wolf/close.day.bin": "2b0c83227201d80dc11084c0184f088a51637f355acc69b8a6ff437a7bee466f"
+      }
+    },
+    {
+      "source_id": "brks_pre_rename_alias",
+      "provider_uri": "data/qlib/constituent_identity_repair_20261014",
+      "instrument": "BRKS",
+      "field": "$adj_close",
+      "historical_aliases": [
+        "BRKS"
+      ],
+      "start": "2020-10-01",
+      "end": "2021-08-27",
+      "identity_scope": "AZTA query for historical BRKS, two SEC value/share anchors, candidate history; no complete-series vintage certification",
+      "existing_research": "research/constituent_identity_repair_20261014",
+      "required_hashes": {
+        "data/qlib/constituent_identity_repair_20261014/qlib_store_manifest.json": "50c6b11b3d091bce49147d32d6bbd120cfffa8df6dcd54524add015bd9270d7e",
+        "data/qlib/constituent_identity_repair_20261014/features/brks/adj_close.day.bin": "cdd317dc89f1511d4437dc4610d4533bf6e1f310c6b5758f89108e9bfc0cbef6"
+      }
+    }
+  ]
+}

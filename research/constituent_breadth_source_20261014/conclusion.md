@@ -17,3 +17,7 @@
 [年度覆盖](annual_coverage.csv) · [差区间覆盖](window_coverage.csv) · [缺失成员](missing_members.csv) · [报告版本修复](late_report_fix.json)
 
 Recorder `70487e2f47d0486ba4f15745a1389c2a`。
+
+
+## 来源范围更正（2026-10-14）
+本卡的缺价统计只针对主provider，不能代表整个工作区缺少旧WOLF历史。后续核查找到10月5日已恢复并经SEC锚点核对的独立WOLF/CREE快照，以及当时已关闭的semiconductor_breadth_20261005实验。补充读取后2023Q4为63/63完整披露篮子日。原统计不改，补充来源与纠正证据见[来源衔接卡](../constituent_source_reconciliation_20261014/conclusion.md)。不得再把旧WOLF获取或旧四特征广度路线称作尚未做过。

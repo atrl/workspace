@@ -1,0 +1,12 @@
+{
+  "experiment": "constituent_source_reconciliation_20261014",
+  "registry": "data/constituent_price_supplements.json",
+  "registry_sha256": "672ecee7409378f79dc18f5fa1230d2238ae681e966d2bb96c346da8ba3c9dc9",
+  "base_provider": "data/qlib/soxx_pit_leveraged_training_v1",
+  "as_of": "2026-07-02",
+  "closed_route": "research/semiconductor_breadth_20261005",
+  "closed_route_summary_sha256": "893e78a6773a24faf26132ae742eaaa3b036d5831ea93b46cd3ec7f3324dd915",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "mechanism": "Reconcile pre-existing supplemental sources and correct duplicate-research claim; count complete reported baskets without fitting or reopening closed breadth route"
+}
