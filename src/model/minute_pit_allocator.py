@@ -111,6 +111,12 @@ class MinutePitAllocator(Model):
     def allocation_objective(self, **kwargs):
         return _allocation_loss(**kwargs)
 
+    def prepare_epoch_observation(self, dataset):
+        pass
+
+    def observe_epoch(self, epoch):
+        pass
+
     def fit(self, dataset, *, auxiliary_dataset, **kwargs):
         source = _flat_index(dataset.prepare("train", col_set=["feature", "label", "common", "meta"]))
         maturity = pd.to_datetime(source[("meta", "label_available_at")])
@@ -146,6 +152,7 @@ class MinutePitAllocator(Model):
         cash = torch.tensor(labels.tail_cash_target_5d.to_numpy(np.float32))
         years = torch.tensor(train.index.year.to_numpy(), dtype=torch.int64)
         self.network = self._initialize()
+        self.prepare_epoch_observation(dataset)
         optimizer = torch.optim.AdamW(self.network.parameters(), lr=self.spec.learning_rate,
                                      weight_decay=self.spec.weight_decay)
         for epoch in range(self.spec.epochs):
@@ -177,6 +184,7 @@ class MinutePitAllocator(Model):
             loss.backward()
             nn.utils.clip_grad_norm_(self.network.parameters(), max_norm=2.)
             optimizer.step()
+            self.observe_epoch(epoch + 1)
         self.network.eval()
         self.audit = {"training_rows": len(train), "first_training_signal": str(train.index.min().date()),
             "last_training_signal": str(train.index.max().date()), "last_mature_label_at": str(maturity.loc[eligible].max()),

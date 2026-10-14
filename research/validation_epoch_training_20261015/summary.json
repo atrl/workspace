@@ -1,0 +1,51 @@
+{
+  "experiment": "validation_epoch_training_20261015",
+  "decision": "not_promoted_validation_epoch",
+  "gates": {
+    "beat_paired_control_all_costs": true,
+    "beat_strong_all_costs": false,
+    "net_soxx_excess_all_costs": false,
+    "drawdown_30pct": true,
+    "cvar_no_worse": true,
+    "rolling_70pct": false,
+    "annual_70pct": false,
+    "bootstrap_positive": false,
+    "independent_validation": false
+  },
+  "new_fits": 3,
+  "new_native_cases": 6,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "9ad3394405844b09b0e9b0cb0b3e213e",
+  "experiment_id": "332119372152162583",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/validation_epoch_training_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/validation_epoch_training_20261015/qlib_recorder/332119372152162583/9ad3394405844b09b0e9b0cb0b3e213e",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "sources/*",
+      "analysis/predictions",
+      "analysis/native/*"
+    ]
+  },
+  "scope": "Previously used validation 2020-2022 and reused diagnostic 2023-2026. Validation selection is tuning, not an independent proof. Fixed budget closes on failure.",
+  "objective_achieved": false,
+  "plan_sha256": "1423bcd02a53532d7a5c081baf2f1c6319648a24a7cef512ab86d84d2f90c7b4",
+  "nas_evidence": {
+    "sha256": "ef89445f54ddac64bd9e6819927210fdfa0bb7238cae7734a3d725960503de42",
+    "size_bytes": 14555755,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ef/89/ef89445f54ddac64bd9e6819927210fdfa0bb7238cae7734a3d725960503de42",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 04:12:57.156717+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ef/89/ef89445f54ddac64bd9e6819927210fdfa0bb7238cae7734a3d725960503de42",
+    "recorder_id": "9ad3394405844b09b0e9b0cb0b3e213e",
+    "experiment_id": "332119372152162583",
+    "archive_root": "qlib_recorder"
+  }
+}

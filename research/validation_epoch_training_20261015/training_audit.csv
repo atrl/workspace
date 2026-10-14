@@ -1,0 +1,4 @@
+seed,training_rows,first_training_signal,last_training_signal,last_mature_label_at,cutoff,auxiliary_rows,epochs,checkpoint_policy,loss_before_last_update,allocation_loss_before_last_update,observed_minute_training_rows,extra_scaler,feature_count,native_dataset_class,auxiliary_dataset_class
+71,2244,2011-01-03,2019-12-02,2019-12-10 09:31:00-05:00,2020-01-01 00:00:00-05:00,0,300,fixed_final_epoch,0.016222266480326653,-0.0011502213310450315,"{'minute_core_ready': 286, 'minute_peer_ready': 286}",{},39,DatasetH,DatasetH
+172,2244,2011-01-03,2019-12-02,2019-12-10 09:31:00-05:00,2020-01-01 00:00:00-05:00,0,300,fixed_final_epoch,0.0167238786816597,-0.0006134190480224788,"{'minute_core_ready': 286, 'minute_peer_ready': 286}",{},39,DatasetH,DatasetH
+273,2244,2011-01-03,2019-12-02,2019-12-10 09:31:00-05:00,2020-01-01 00:00:00-05:00,0,300,fixed_final_epoch,0.016243496909737587,-0.0009611939312890172,"{'minute_core_ready': 286, 'minute_peer_ready': 286}",{},39,DatasetH,DatasetH
