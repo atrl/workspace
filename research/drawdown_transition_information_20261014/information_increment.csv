@@ -1,0 +1,9 @@
+fold,metric,decline_sessions,observations,mean_joint_normalized_loss_improvement,lower_bound,upper_bound,method,block_length,does_not_correct_all_previous_research_selection
+development_2021,joint_all,42.0,246,0.0044605686675341545,-0.021466005872414328,0.030146177468515174,paired stationary bootstrap of normalized loss difference,63,True
+development_2021,cash_decline_contribution,42.0,246,0.008549055547869654,-0.007015153400158459,0.02638935701234214,paired stationary bootstrap of normalized loss difference,63,True
+development_2022,joint_all,109.0,245,0.031934488410508506,-0.17974193392555002,0.22097751962452092,paired stationary bootstrap of normalized loss difference,63,True
+development_2022,cash_decline_contribution,109.0,245,0.03734303236246264,-0.1420052761600456,0.21196259394684272,paired stationary bootstrap of normalized loss difference,63,True
+reused_outer,joint_all,204.0,940,-0.01168157777120341,-0.027630413539057718,0.006242442369561893,paired stationary bootstrap of normalized loss difference,63,True
+reused_outer,cash_decline_contribution,204.0,940,-0.020397576444075968,-0.036103143163920236,-0.002371161739883816,paired stationary bootstrap of normalized loss difference,63,True
+pooled_development,joint_all,,491,0.01816955102400811,-0.1046919457265272,0.14661307209518185,paired stationary bootstrap of normalized loss difference,63,True
+pooled_development,cash_decline_contribution,,491,0.022916722186515862,-0.08051775825318033,0.1308060811491226,paired stationary bootstrap of normalized loss difference,63,True

@@ -1,0 +1,23 @@
+{
+  "schema_version": "nas_research_source_v1",
+  "authority": "yanxuan_nas",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "source_id": "b3875393f9f5495be29efbe3f8782c92cdde4c4798ce97f796bcc870c34379d2",
+  "raw_authority": "Verified native Qlib account, orders and price marks from monthly_forecast_account_20261014",
+  "evidence": {
+    "sha256": "f38fb7b24a8b33e3aba9cb9ffe161a58738c721fbeaf0fd3aab9f43e0f5c2418",
+    "size_bytes": 652133,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f3/8f/f38fb7b24a8b33e3aba9cb9ffe161a58738c721fbeaf0fd3aab9f43e0f5c2418",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 14:22:06.036566+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f3/8f/f38fb7b24a8b33e3aba9cb9ffe161a58738c721fbeaf0fd3aab9f43e0f5c2418",
+    "recorder_id": "d1240e470d8842119f1ea5c1b478b878",
+    "experiment_id": "700866641604596852",
+    "archive_root": "qlib_recorder"
+  }
+}

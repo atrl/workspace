@@ -1,0 +1,39 @@
+{
+  "experiment": "regime_failure_sop_20261014",
+  "decision": "diagnostic_only_conditional_information_gate",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "regime_count": 4,
+  "account_sessions": 944,
+  "positive_lower_bound_cells": 0,
+  "recorder_id": "8220d22658b044e0b6586aba722618ee",
+  "experiment_id": "249494924082166682",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/regime_failure_sop_20261014/qlib_recorder",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "sources/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "9394055ee8ed85a4db2ef4f232832a0591d5f2f27ede937423127811e456b494",
+    "size_bytes": 247779,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/93/94/9394055ee8ed85a4db2ef4f232832a0591d5f2f27ede937423127811e456b494",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 14:19:22.472235+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/93/94/9394055ee8ed85a4db2ef4f232832a0591d5f2f27ede937423127811e456b494",
+    "recorder_id": "8220d22658b044e0b6586aba722618ee",
+    "experiment_id": "249494924082166682",
+    "archive_root": "qlib_recorder"
+  }
+}

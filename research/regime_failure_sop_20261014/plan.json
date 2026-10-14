@@ -1,0 +1,35 @@
+{
+  "experiment": "regime_failure_sop_20261014",
+  "as_of": "2026-10-09",
+  "sources": {
+    "anchor_decision_attribution_20261014": {
+      "card": "research/anchor_decision_attribution_20261014",
+      "recorder_id": "dcb1ffe0dd18492c82250abe7ed0b215",
+      "manifest_sha256": "db4ebe36af3bc34108023b80fdf98047acf0bdbe40016e15b85c5a3393b3cc61"
+    },
+    "allocator_cash_information_20261014": {
+      "card": "research/allocator_cash_information_20261014",
+      "recorder_id": "2d7bd1e5020d46dd801f384a3c97ef7f",
+      "manifest_sha256": "d276deda227cb982c97fabf18f0c8bfd65739daaafed9b1735db2541f088eae8"
+    },
+    "full_path_tiered_allocation_20261013": {
+      "card": "research/full_path_tiered_allocation_20261013",
+      "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+      "manifest_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+    }
+  },
+  "regime_definition": "prior signal-day SOXX return5/return20 signs; zero boundary fixed; all four regimes retained",
+  "costs": [
+    2,
+    5
+  ],
+  "quarters": "all calendar quarters by signal_date; worst quarters are descriptive not selection",
+  "bootstrap": {
+    "block_sessions": 63,
+    "repetitions": 1000,
+    "seed": 20261014
+  },
+  "new_fits": 0,
+  "new_backtests": 0,
+  "scope": "diagnose existing complete strategy and test whether cash ranking survives predeclared regime conditioning; no unseen-test claim"
+}

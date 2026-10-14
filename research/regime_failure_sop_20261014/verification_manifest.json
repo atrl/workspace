@@ -1,0 +1,45 @@
+{
+  "recorder_id": "8220d22658b044e0b6586aba722618ee",
+  "entries": [
+    {
+      "path": "qlib_recorder/249494924082166682/8220d22658b044e0b6586aba722618ee/artifacts/analysis/conditional_information",
+      "sha256": "25ecb67c097551516440943775e6331a13e995658e700f24705c1c446360ce2e"
+    },
+    {
+      "path": "qlib_recorder/249494924082166682/8220d22658b044e0b6586aba722618ee/artifacts/analysis/daily",
+      "sha256": "4bf147a783ee4a4b2d988f3581a887d31f659de7d0447ecf79f45f94edf8ed44"
+    },
+    {
+      "path": "qlib_recorder/249494924082166682/8220d22658b044e0b6586aba722618ee/artifacts/analysis/quarter",
+      "sha256": "0d834ce79a09f25a4e192bfb0febf5fdd5d5e17518b55a792b773ae93bd4d38f"
+    },
+    {
+      "path": "qlib_recorder/249494924082166682/8220d22658b044e0b6586aba722618ee/artifacts/analysis/regime",
+      "sha256": "6d2935f4f3da2f8a44fdd779229b64431c5f32622085d451216bdea8cf3d17fd"
+    },
+    {
+      "path": "qlib_recorder/249494924082166682/8220d22658b044e0b6586aba722618ee/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/249494924082166682/8220d22658b044e0b6586aba722618ee/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/249494924082166682/8220d22658b044e0b6586aba722618ee/artifacts/code_status.txt",
+      "sha256": "5713e12d804e78c4f79c1b93d587635248591f0d357a2cb710bb633204feb31b"
+    },
+    {
+      "path": "qlib_recorder/249494924082166682/8220d22658b044e0b6586aba722618ee/artifacts/inputs/plan",
+      "sha256": "8f86f893b690834508dede10af0d4cc612088f3296e15b7763013af5821048b3"
+    },
+    {
+      "path": "qlib_recorder/249494924082166682/8220d22658b044e0b6586aba722618ee/artifacts/inputs/regime_inputs",
+      "sha256": "38f194de99bb8732a3795d1485f23e5a7bfa43e6b302c7c080d7dc6d80430482"
+    },
+    {
+      "path": "qlib_recorder/249494924082166682/8220d22658b044e0b6586aba722618ee/artifacts/sources/analysis",
+      "sha256": "a61783fad6c3e3e12a5f45ce652d582b001af8b64ed27c5dae1305878f9941c2"
+    }
+  ]
+}
