@@ -1,0 +1,50 @@
+{
+  "experiment": "funding_spread_source_20261014",
+  "decision": "raw_funding_source_collected_needs_historical_availability_alignment",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "outcome_correlations": 0,
+  "objective_achieved": false,
+  "rows": 2130,
+  "first_effective_date": "2018-04-02",
+  "last_effective_date": "2026-10-09",
+  "reserve_rate_missing_rows": 0,
+  "percentile_unknown_rows": 2,
+  "revision_indicator_counts": {
+    "": 2130
+  },
+  "minimum_spread_bp": -21.000000000000007,
+  "maximum_spread_bp": 315.0,
+  "forecast_input_qualified": false,
+  "first_vintage_certified": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/funding_spread_source_20261014",
+  "region": "us",
+  "as_of": "2026-10-13",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "availability_notes": "SOFR describes previous business day transactions, normally published next business day08:00ET with possible same-day14:30 revisions. Never use effectiveDate as known date. Treasury and equity calendars differ.",
+  "economic_scope": "Observed repo-versus-administered-rate spread, not actual SOXL financing cost or a proven stock forecast",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/observations"
+    ]
+  },
+  "recorder_id": "86169eecce9a4e1eb1150dc77af64560",
+  "experiment_id": "482843407560515113",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/funding_spread_source_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "49f32ec2d488b0dc5af29e6d6ae5e5c7c91f9d4a41742bcab2eae9fbffd9cab6",
+    "size_bytes": 143917,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/49/f3/49f32ec2d488b0dc5af29e6d6ae5e5c7c91f9d4a41742bcab2eae9fbffd9cab6",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 18:38:43.675283+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/49/f3/49f32ec2d488b0dc5af29e6d6ae5e5c7c91f9d4a41742bcab2eae9fbffd9cab6",
+    "recorder_id": "86169eecce9a4e1eb1150dc77af64560",
+    "experiment_id": "482843407560515113",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "experiment": "funding_spread_source_20261014",
+  "start": "2018-04-02",
+  "as_of": "2026-10-13",
+  "raw_directory": "data/raw/external/funding_spread_source_20261014",
+  "provider": "data/qlib/funding_spread_source_20261014",
+  "mechanism": "Qualify new macro funding-spread observations independently of equity OHLC; no alpha or feature-use claim before timing/vintage gate",
+  "policy_transition": "IOER until2021-07-28; IORB from2021-07-29, explicit regime flag",
+  "primary_references": [
+    "https://www.newyorkfed.org/markets/reference-rates/additional-information-about-reference-rates",
+    "https://markets.newyorkfed.org/static/docs/markets-api.html",
+    "https://www.federalreserve.gov/newsevents/pressreleases/monetary20210728a1.htm",
+    "https://fred.stlouisfed.org/series/IORB",
+    "https://fred.stlouisfed.org/series/IOER"
+  ],
+  "hypothesis_status": "Funding pressure may matter to leverage/risk appetite; equity predictive effect untested and direction not fitted"
+}

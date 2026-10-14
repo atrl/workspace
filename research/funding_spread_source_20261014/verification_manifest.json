@@ -1,0 +1,49 @@
+{
+  "recorder_id": "86169eecce9a4e1eb1150dc77af64560",
+  "entries": [
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/analysis/observations",
+      "sha256": "d0bef3fb104da9ba1799a48b44af903193eb079cf933d21d033b7e70fa271867"
+    },
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/analysis/raw_sofr",
+      "sha256": "412096ef6e603839a33722d3a579b88cf151b1f391f3a28c94cf89d7803b2a61"
+    },
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/analysis/summary",
+      "sha256": "fa29cc0a59e76bf7a103022e71df29da2a308c9f8eb6eeb19eb6c2447cfa8a10"
+    },
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/code_status.txt",
+      "sha256": "85eb985fa6b2f9d518ff6831a473d49f4fb45fb6055e375fe8b40639c041db03"
+    },
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/inputs/plan",
+      "sha256": "7552f38c3a3c36af1bf5d1cf670c1edccc01bca362789f3cea03d3e7905ce58e"
+    },
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/inputs/provider_manifest",
+      "sha256": "26b9b24067b6b287a29580371e404fb6c478517ff5bff89db47e2143b55e349b"
+    },
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/inputs/receipts",
+      "sha256": "8eef1980098e394de79c091ba7ad777650366435f0b2768cdc2e64c187cebd8e"
+    },
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/inputs/reserve_csvs",
+      "sha256": "54e8e91ac4862dd532ed0b74168a267bf327511ce4333d8abbc97607cbe9e994"
+    },
+    {
+      "path": "qlib_recorder/482843407560515113/86169eecce9a4e1eb1150dc77af64560/artifacts/inputs/sofr_payload",
+      "sha256": "c2de25a91bab1fb1fcf7b10203b5b5fe4d8be36794680d2153126fe7e6fa1ae0"
+    }
+  ]
+}
