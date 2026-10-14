@@ -1,0 +1,13 @@
+{
+  "experiment": "ibkr_interest_archive_20261015",
+  "retrieval_manifest": "data/raw/external/ibkr_interest_archive_20261015_v1/retrieval_manifest.json",
+  "manifest_sha256": "4f6ac4512f3edc801930efc4fb35a85a6a05250a3cf782784aa808be41be65fa",
+  "prior_source": {
+    "card": "research/ibkr_credit_interest_source_20261015",
+    "recorder_id": "31bed05f1fa44233b915b19528ba1a66",
+    "archive": "a2c61f933f0bb682ac116c0374213ab556073086c896ea14adc676896ce2218c",
+    "inventory_sha256": "769c10bcd550a16796bbe3369b880181bb0b0e53e016bfdf6ee3bf7e4f832dfb"
+  },
+  "as_of": "2026-10-14",
+  "scope": "Archived official benchmark observations only, retain capture identity, conflicts and gaps; no interpolation or interest backtest."
+}

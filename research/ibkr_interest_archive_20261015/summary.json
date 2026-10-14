@@ -1,0 +1,46 @@
+{
+  "experiment": "ibkr_interest_archive_20261015",
+  "decision": "needs_data_partial_archive_history",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "archive_captures_checked": 18,
+  "new_unique_rate_dates": 157,
+  "combined_rate_dates": 339,
+  "first_observed_date": "2023-07-03",
+  "last_observed_date": "2026-10-13",
+  "historical_rate_coverage_complete": false,
+  "historical_full_credit_contract_verified": false,
+  "historical_nav_scaling_rule_supported_by_2022_notice": true,
+  "cash_interest_added_to_returns": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/ibkr_interest_archive_20261015_v1",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "recorder_id": "284ca0839aea43349bb6343830ae1786",
+  "experiment_id": "371004951810658200",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/ibkr_interest_archive_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/ibkr_interest_archive_20261015/qlib_recorder/371004951810658200/284ca0839aea43349bb6343830ae1786",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/quotes",
+      "analysis/observed_archive_rows"
+    ]
+  },
+  "objective_achieved": false,
+  "scope": "Archived official benchmark observations only, retain capture identity, conflicts and gaps; no interpolation or interest backtest.",
+  "nas_evidence": {
+    "sha256": "c61ed5c295d1d197ce669d7f4e380171c4f2f891e24e2d5766f44fe82cc5c999",
+    "size_bytes": 426490,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c6/1e/c61ed5c295d1d197ce669d7f4e380171c4f2f891e24e2d5766f44fe82cc5c999",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 01:49:39.045236+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c6/1e/c61ed5c295d1d197ce669d7f4e380171c4f2f891e24e2d5766f44fe82cc5c999",
+    "recorder_id": "284ca0839aea43349bb6343830ae1786",
+    "experiment_id": "371004951810658200",
+    "archive_root": "qlib_recorder"
+  }
+}
