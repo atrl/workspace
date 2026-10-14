@@ -108,6 +108,9 @@ class MinutePitAllocator(Model):
             weights[:, base + extra:].copy_(original.allocation_head[0].weight[:, base:])
         return extended
 
+    def allocation_objective(self, **kwargs):
+        return _allocation_loss(**kwargs)
+
     def fit(self, dataset, *, auxiliary_dataset, **kwargs):
         source = _flat_index(dataset.prepare("train", col_set=["feature", "label", "common", "meta"]))
         maturity = pd.to_datetime(source[("meta", "label_available_at")])
@@ -150,7 +153,7 @@ class MinutePitAllocator(Model):
             logits, tail_logits, alpha_logits = self.network(primary_x, common_x)
             weights = _project_legal_weights(logits, maximum_soxl_weight=self.spec.maximum_soxl_weight,
                                             minimum_cash_weight=self.spec.minimum_cash_weight)
-            allocation, turnover, annual, _ = _allocation_loss(weights=weights, returns=returns,
+            allocation, turnover, annual, _ = self.allocation_objective(weights=weights, returns=returns,
                 years=years, cash_target=cash, tail_event=tail, candidate=self.candidate,
                 drawdown_target_pct=-30., worst_5d_target_pct=self.spec.research_worst_5d_target_pct,
                 minimum_cash_weight=self.spec.minimum_cash_weight, cost_bps=self.spec.training_cost_bps,

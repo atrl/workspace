@@ -70,6 +70,10 @@ def run(*,root,card,plan):
         from src.model.tangent_allocator import TangentHeadAllocator
         model_class=TangentHeadAllocator
     elif head!='original':raise ValueError('unknown fixed allocation head')
+    if plan.get('annual_objective')=='negative_excess_rms':
+        if head!='original' or routing!='shared' or representation!='original':raise ValueError('shortfall experiment must isolate the objective')
+        from src.model.annual_shortfall_allocator import AnnualShortfallAllocator
+        model_class=AnnualShortfallAllocator
     candidate_dataset=_primary_dataset(candidate_inputs,train_end=str(original.train_end.date()),predict_bounds=source_plan['outer_window'])
     auxiliary=_auxiliary_dataset(training['inputs/auxiliary']['outer'],str(original.train_end.date()))
     tracking=card/'qlib_recorder';progress_path=card/'run_state.json'
