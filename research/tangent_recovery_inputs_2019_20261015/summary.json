@@ -1,0 +1,45 @@
+{
+  "experiment": "tangent_recovery_inputs_2019_20261015",
+  "decision": "recovery_training_inputs_ready_not_promoted",
+  "new_fits": 3,
+  "new_backtests": 0,
+  "oof_rows": 252,
+  "train_end": "2018-11-29",
+  "first_prediction_signal": "2018-12-31",
+  "last_prediction_signal": "2019-12-30",
+  "legacy_open_row_equivalence_passed": true,
+  "annual_recovery_controller_ready": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "70d1586e8b9b4c0a9f3c94ba2d641eae",
+  "experiment_id": "487624503459495904",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/tangent_recovery_inputs_2019_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/tangent_recovery_inputs_2019_20261015/qlib_recorder/487624503459495904/70d1586e8b9b4c0a9f3c94ba2d641eae",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "analysis/predictions",
+      "analysis/oof_predictions",
+      "analysis/training"
+    ]
+  },
+  "objective_achieved": false,
+  "scope": "2019 OOF allocator inputs reserved for pre-2020 recovery training. Existing 2020-2022 predictions unchanged. Audit legacy open training-row equivalence at actual 09:46 decisions; no new controller or portfolio claim.",
+  "nas_evidence": {
+    "sha256": "8f503b58f0d25e5de04c9dc69c2ab47621d084c30c957d3221e867cf0e0dbe49",
+    "size_bytes": 398448,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/8f/50/8f503b58f0d25e5de04c9dc69c2ab47621d084c30c957d3221e867cf0e0dbe49",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 02:30:22.266846+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/8f/50/8f503b58f0d25e5de04c9dc69c2ab47621d084c30c957d3221e867cf0e0dbe49",
+    "recorder_id": "70d1586e8b9b4c0a9f3c94ba2d641eae",
+    "experiment_id": "487624503459495904",
+    "archive_root": "qlib_recorder"
+  }
+}

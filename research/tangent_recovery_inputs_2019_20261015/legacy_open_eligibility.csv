@@ -1,0 +1,4 @@
+year,rows,old_cutoff,actual_first_decision,last_label_available_at,identical_training_row_set,imputer_scaler_match,actual_historical_model_publication_certified
+2020,1005,2020-01-03 14:31:00+00:00,2020-01-02 09:46:00-05:00,2020-01-02 14:31:00+00:00,True,True,False
+2021,1258,2021-01-05 14:31:00+00:00,2021-01-04 09:46:00-05:00,2021-01-04 14:31:00+00:00,True,True,False
+2022,1510,2022-01-04 14:31:00+00:00,2022-01-03 09:46:00-05:00,2022-01-03 14:31:00+00:00,True,True,False

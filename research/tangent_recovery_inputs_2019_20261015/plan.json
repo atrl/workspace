@@ -1,0 +1,28 @@
+{
+  "experiment": "tangent_recovery_inputs_2019_20261015",
+  "training_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "years": [
+    2019
+  ],
+  "base_seeds": [
+    71,
+    172,
+    273
+  ],
+  "maximum_new_fits": 3,
+  "epochs": 300,
+  "train_end_policy": "reuse original annual fold endpoints and maturity cutoff; no extension",
+  "seed_policy": "reuse original base_seed_plus_year",
+  "prediction_assignment": "actual trade_date.year, including preceding year final signal",
+  "outer_predictions_generated": false,
+  "frozen_at_utc": "2026-10-14T18:30:13.289784+00:00",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "scope": "2019 OOF allocator inputs reserved for pre-2020 recovery training. Existing 2020-2022 predictions unchanged. Audit legacy open training-row equivalence at actual 09:46 decisions; no new controller or portfolio claim.",
+  "legacy_card": "research/stage1_open_action_value_net_fees_20260928",
+  "legacy_manifest_sha256": "fa6024c9bf1698a2b2c4b5da83ce64f222e0bf579a2455b98f6b68447ec7c75a"
+}

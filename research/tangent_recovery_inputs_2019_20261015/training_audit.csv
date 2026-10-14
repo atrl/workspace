@@ -1,0 +1,4 @@
+year,base_seed,actual_seed,prediction_rows,training_rows,first_training_signal,last_training_signal,last_mature_label_at,cutoff,auxiliary_rows,epochs,checkpoint_policy,loss_before_last_update,allocation_loss_before_last_update,feature_count,native_dataset_class,auxiliary_dataset_class
+2019,71,2090,252,1992,2011-01-03,2018-11-29,2018-12-10 09:31:00-05:00,2019-01-01 00:00:00-05:00,0,300,fixed_final_epoch,0.016723889857530594,-0.00029635336250066757,39,DatasetH,DatasetH
+2019,172,2191,252,1992,2011-01-03,2018-11-29,2018-12-10 09:31:00-05:00,2019-01-01 00:00:00-05:00,0,300,fixed_final_epoch,0.016758132725954056,-0.000338201381964609,39,DatasetH,DatasetH
+2019,273,2292,252,1992,2011-01-03,2018-11-29,2018-12-10 09:31:00-05:00,2019-01-01 00:00:00-05:00,0,300,fixed_final_epoch,0.016833607107400894,-0.00031450390815734863,39,DatasetH,DatasetH
