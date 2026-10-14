@@ -1,0 +1,55 @@
+{
+  "experiment": "frozen_cash_input_explanation_20261014",
+  "decision": "frozen_model_input_diagnosis_no_feature_selection",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "parameter_searches": 0,
+  "objective_achieved": false,
+  "sessions": 944,
+  "anchor": "2023-11-03",
+  "anchor_raw_cash": 0.7510287223892681,
+  "prediction_max_absolute_error": 1.199640630167309e-07,
+  "integration_residual": {
+    "training_mean": 7.771561172376096e-15,
+    "five_sessions_earlier": 2.9620750296999176e-13
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "scope": "Frozen pre-projection cash log-odds attribution; correlated inputs and interpolation are not causal or tradable counterfactuals. All years/regimes retained, no future return screening.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/attributions",
+      "analysis/scaled_inputs",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "8f591f545f7d4f8189411abafb84b542",
+  "experiment_id": "417342588368781205",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/frozen_cash_input_explanation_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "eda73a2163f8e3d2503b0a144cebeaa0211ec06c1641ee57838cfa74556e872b",
+    "size_bytes": 1871165,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ed/a7/eda73a2163f8e3d2503b0a144cebeaa0211ec06c1641ee57838cfa74556e872b",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 16:31:04.230467+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ed/a7/eda73a2163f8e3d2503b0a144cebeaa0211ec06c1641ee57838cfa74556e872b",
+    "recorder_id": "8f591f545f7d4f8189411abafb84b542",
+    "experiment_id": "417342588368781205",
+    "archive_root": "qlib_recorder"
+  },
+  "research_contract": {
+    "original_branch_fields": 55,
+    "canonical_fields": 52,
+    "alias_pairs": 3,
+    "verified_rows": 3966,
+    "frozen_model_inputs_changed": false,
+    "production_release_unchanged": true
+  }
+}
