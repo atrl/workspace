@@ -1,0 +1,38 @@
+{
+  "experiment": "funding_availability_20261014",
+  "start": "2018-04-02",
+  "as_of": "2026-10-13",
+  "raw_directory": "data/raw/external/funding_initial_archives_20261014",
+  "provider": "data/qlib/funding_availability_20261014",
+  "raw_source": "data/raw/external/funding_spread_source_20261014/SOFR.json",
+  "raw_source_sha256": "37f91001582d19d6370b0b6e0187e2883411d794e07e8144767e3b9924d5c21f",
+  "calendar_provider": "data/qlib/soxl",
+  "calendar_manifest_sha256": "1c8f9b9277df6bb025868c97380ff78b87e140f754f85696a65cfdb66012a83b",
+  "archive_manifest_hashes": {
+    "SOFR": "82307dfd484bb31f03f39d716d99621dd474ec60637989350132f9a86c3e5f3b",
+    "IOER": "a5bf1083042ea661786561e375ec467a19c178370006cba3adc88869b0bcf383",
+    "IORB": "b4f3a09dbeea4729f4634ae2effb5519c390fc8fe6933c859e2b52b728d330d3"
+  },
+  "policy_events": [
+    {
+      "series": "IOER",
+      "observation_date": "2020-03-16",
+      "public_date": "2020-03-15",
+      "value": 0.1,
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20200315a1.htm",
+      "required_phrase": "0.10 percent, effective March 16, 2020"
+    },
+    {
+      "series": "IORB",
+      "observation_date": "2021-07-29",
+      "public_date": "2021-07-28",
+      "value": 0.15,
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20210728a1.htm",
+      "required_phrase": "0.15 percent, effective July 29, 2021"
+    }
+  ],
+  "availability": "end of maximum observation/archive/public day in NewYork; only subsequent native09:46 decisions",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "mechanism": "Version-qualified and calendar-aware data inputs only; do not choose lag by returns"
+}

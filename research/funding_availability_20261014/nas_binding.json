@@ -1,0 +1,22 @@
+{
+  "schema_version": "nas_research_source_v1",
+  "authority": "yanxuan_nas",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "raw_authority": "Official ALFRED archives and dated Federal Reserve implementation notes, archived in NAS Recorder",
+  "evidence": {
+    "sha256": "28ae0a012a72f806230adc225036c29f9ae70aec5d513c31523f8717c848bac3",
+    "size_bytes": 193459,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/28/ae/28ae0a012a72f806230adc225036c29f9ae70aec5d513c31523f8717c848bac3",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 18:56:08.615123+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/28/ae/28ae0a012a72f806230adc225036c29f9ae70aec5d513c31523f8717c848bac3",
+    "recorder_id": "a1c69bbbab724a33803c22aee98888d9",
+    "experiment_id": "132244740569693171",
+    "archive_root": "qlib_recorder"
+  }
+}
