@@ -50,5 +50,15 @@
     "recorder_id": "e1d83118ffe845b8b2da2c682028a3f0",
     "experiment_id": "732428797621188408",
     "archive_root": "qlib_recorder"
-  }
+  },
+  "evaluation_window": {
+    "first_signal": "2019-12-31",
+    "first_trade": "2020-01-02",
+    "last_trade": "2022-12-30",
+    "last_exit": "2023-01-03",
+    "sessions": 756,
+    "annual_attribution": "trade_date_year"
+  },
+  "source_data_as_of": "2026-10-09",
+  "plan_window_note": "start/end inherited from upstream source context; evaluation_first_trade/evaluation_last_trade define evaluation, verified against native account"
 }
