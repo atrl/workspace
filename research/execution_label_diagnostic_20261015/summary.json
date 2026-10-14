@@ -1,0 +1,36 @@
+{
+  "experiment": "execution_label_diagnostic_20261015",
+  "decision": "diagnostic_only_no_promotion",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "source_recorder": "162df4726af342e891fe3db54b13845f",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "b8e232c0c88d443d8cccaa9a3493741a",
+  "experiment_id": "811062825552747211",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/execution_label_diagnostic_20261015/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/differences",
+      "analysis/metrics",
+      "analysis/lags"
+    ]
+  },
+  "scope": "Training-only label comparison; no lag selection, no label correction, no new predictive feature. Corporate actions and same-source opening decomposition remain unverified.",
+  "nas_evidence": {
+    "sha256": "04560816a63a343ba8ba50928f0c6c2555c7e4106bf679f93f30c85e32c40a06",
+    "size_bytes": 102521,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/04/56/04560816a63a343ba8ba50928f0c6c2555c7e4106bf679f93f30c85e32c40a06",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 00:50:45.217608+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/04/56/04560816a63a343ba8ba50928f0c6c2555c7e4106bf679f93f30c85e32c40a06",
+    "recorder_id": "b8e232c0c88d443d8cccaa9a3493741a",
+    "experiment_id": "811062825552747211",
+    "archive_root": "qlib_recorder"
+  }
+}
