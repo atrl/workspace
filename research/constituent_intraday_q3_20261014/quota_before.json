@@ -1,0 +1,59 @@
+{
+  "observed_at": "2026-10-14T11:15:36.272441+00:00",
+  "sdk_version": "10.02.6218",
+  "used": 8,
+  "remaining": 92,
+  "symbols": [
+    "US.SOXL",
+    "US.SMH",
+    "US.NVDA",
+    "US.QQQ",
+    "US.AMD",
+    "US.SOXX",
+    "US.SOXS",
+    "US.WOLF"
+  ],
+  "detail": [
+    {
+      "code": "US.SOXL",
+      "name": "\u4e09\u500d\u505a\u591a\u534a\u5bfc\u4f53ETF-Direxion",
+      "request_time": "2026-10-14 10:08:33"
+    },
+    {
+      "code": "US.SMH",
+      "name": "\u534a\u5bfc\u4f53\u6307\u6570ETF-VanEck",
+      "request_time": "2026-10-14 06:07:48"
+    },
+    {
+      "code": "US.NVDA",
+      "name": "\u82f1\u4f1f\u8fbe",
+      "request_time": "2026-10-14 06:07:48"
+    },
+    {
+      "code": "US.QQQ",
+      "name": "\u7eb3\u6307100ETF-Invesco QQQ Trust",
+      "request_time": "2026-10-14 06:07:48"
+    },
+    {
+      "code": "US.AMD",
+      "name": "\u7f8e\u56fd\u8d85\u5fae\u516c\u53f8",
+      "request_time": "2026-10-14 06:07:50"
+    },
+    {
+      "code": "US.SOXX",
+      "name": "\u534a\u5bfc\u4f53ETF-iShares",
+      "request_time": "2026-10-14 10:08:34"
+    },
+    {
+      "code": "US.SOXS",
+      "name": "\u4e09\u500d\u505a\u7a7a\u534a\u5bfc\u4f53ETF-Direxion",
+      "request_time": "2026-10-03 19:28:57"
+    },
+    {
+      "code": "US.WOLF",
+      "name": "Wolfspeed",
+      "request_time": "2026-10-05 12:05:53"
+    }
+  ],
+  "read_only": true
+}

@@ -5,6 +5,8 @@ import base64
 import hashlib
 import json
 import os
+import math
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
@@ -31,6 +33,7 @@ def collect_futu_minute_history(
     checkpoint_dir: Path, adjustment: str, session: str,
     progress: Callable[[dict], None] | None = None,
     ktype: str = "K_1M",
+    request_pause_seconds: float = 0.,
 ) -> dict:
     """Persist pages before advancing the cursor; failed requests stay resumable.
 
@@ -42,6 +45,8 @@ def collect_futu_minute_history(
 
     if adjustment not in {"NONE", "QFQ"} or session != "RTH" or ktype not in {"K_1M", "K_5M"}:
         raise ValueError("blocked: explicit NONE/QFQ and RTH request required")
+    if not math.isfinite(request_pause_seconds) or request_pause_seconds < 0:
+        raise ValueError("invalid request pause")
     output_dir, checkpoint_dir = Path(output_dir), Path(checkpoint_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
@@ -81,6 +86,8 @@ def collect_futu_minute_history(
     request_start = generations[-1]["start"]
     while not state["finished"]:
         page_key = base64.b64decode(state["next_cursor"]) if state["next_cursor"] else None
+        if request_pause_seconds:
+            time.sleep(request_pause_seconds)
         ret, frame, next_key = context.request_history_kline(
             "US." + symbol.upper(), start=request_start, end=end, ktype=getattr(KLType, ktype),
             autype=getattr(AuType, adjustment), max_count=1000,
@@ -143,8 +150,9 @@ def collect_futu_bundle(
     *, requests: dict[str, str], start: str, end: str, output_dir: Path,
     checkpoint_dir: Path, host: str = "127.0.0.1", port: int = 11111,
     workers: int = 3, progress: Callable[[dict], None] | None = None,
+    request_pause_seconds: float = 0.,
 ) -> dict:
-    """Collect explicit per-symbol resolutions with one connection per worker."""
+    """Collect explicit resolutions; request pauses apply separately per worker."""
     import futu
     from futu import OpenQuoteContext, RET_OK, Session, SysConfig
 
@@ -167,14 +175,15 @@ def collect_futu_bundle(
     manifest = {"schema_version": "semis_minute_source_v1", "provider": "futu",
                 "sdk_version": futu.__version__, "start": start, "as_of": end,
                 "symbols": list(requests), "resolutions": requests, "adjustment": "NONE",
-                "session": "RTH", "read_only": True, "entries": [], "rehab": [], "complete": False}
+                "session": "RTH", "read_only": True, "request_pause_seconds": request_pause_seconds, "entries": [], "rehab": [], "complete": False}
 
     def collect(symbol, ktype):
         context = OpenQuoteContext(host=host, port=port)
         try:
             receipt = collect_futu_minute_history(context=context, symbol=symbol, start=start,
                 end=end, output_dir=output_dir, checkpoint_dir=checkpoint_dir,
-                adjustment="NONE", session=Session.RTH, ktype=ktype, progress=progress)
+                adjustment="NONE", session=Session.RTH, ktype=ktype, progress=progress,
+                request_pause_seconds=request_pause_seconds)
             ret, rehab = context.get_rehab("US." + symbol)
             if ret != RET_OK:
                 raise RuntimeError("needs_data: rehabilitation unavailable for " + symbol)

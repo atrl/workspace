@@ -1,0 +1,57 @@
+{
+  "experiment": "constituent_intraday_q3_20261014",
+  "decision": "constituent_five_minute_source_intake_no_alpha_claim",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "new_orders": 0,
+  "objective_achieved": false,
+  "symbols": 30,
+  "raw_bars": 149760,
+  "sessions": 64,
+  "complete_valid_basket_sessions": 64,
+  "missing_bars": 0,
+  "unexpected_bars": 0,
+  "invalid_rows": 0,
+  "source_adjustment": "NONE",
+  "session": "RTH",
+  "historical_first_receipt_certified": false,
+  "discovery_quarter_already_reused": true,
+  "universe_role": "Union of previously published Q3 baskets; per-decision membership remains date-gated, not all historical constituents",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/constituent_intraday_q3_20261014",
+  "region": "us",
+  "as_of": "2026-09-30",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/coverage",
+      "analysis/daily_price_comparison",
+      "analysis/native"
+    ]
+  },
+  "recorder_id": "f9a462ad9d4846fe8407bb556b48c844",
+  "experiment_id": "742098697934118480",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/constituent_intraday_q3_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "7e231da999a2933d749acf07cba4929aae490de79a6b75f89cab2a8b5e8167ab",
+    "size_bytes": 6055053,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/7e/23/7e231da999a2933d749acf07cba4929aae490de79a6b75f89cab2a8b5e8167ab",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 19:29:23.768238+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/7e/23/7e231da999a2933d749acf07cba4929aae490de79a6b75f89cab2a8b5e8167ab",
+    "recorder_id": "f9a462ad9d4846fe8407bb556b48c844",
+    "experiment_id": "742098697934118480",
+    "archive_root": "qlib_recorder"
+  },
+  "zero_volume_bars": 0,
+  "maximum_daily_close_difference": 0.0050134277343545,
+  "daily_close_differences_above_cent": 0,
+  "quota_after": {
+    "used": 36,
+    "remaining": 64
+  }
+}
