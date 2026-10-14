@@ -1,0 +1,41 @@
+{
+  "experiment": "open_clock_decomposition_20261015",
+  "decision": "diagnostic_only_no_promotion",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "source_recorder": "162df4726af342e891fe3db54b13845f",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/open_clock_decomposition_20261015",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "50cda5bf58a54072a7ccbc98f9ebb888",
+  "experiment_id": "249964458723028937",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/open_clock_decomposition_20261015/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "scope": "Exact log-return decomposition on original mature training dates; projection shares are algebraic covariance attribution, not causal alpha or independent source certification.",
+  "nas_evidence": {
+    "sha256": "820c07fc63c5073ab424bafd5a91fd3a258b8bb0ff7e53746c56bc091160f97f",
+    "size_bytes": 211630,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/82/0c/820c07fc63c5073ab424bafd5a91fd3a258b8bb0ff7e53746c56bc091160f97f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 00:53:56.41569+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/82/0c/820c07fc63c5073ab424bafd5a91fd3a258b8bb0ff7e53746c56bc091160f97f",
+    "recorder_id": "50cda5bf58a54072a7ccbc98f9ebb888",
+    "experiment_id": "249964458723028937",
+    "archive_root": "qlib_recorder"
+  },
+  "training_rows_per_asset": 1056,
+  "unknown_decomposition_rows": {
+    "SOXL": 0,
+    "SOXX": 2
+  },
+  "initial_execution": "failed_closed_on_known_invalid_SOXX_20200316_bar; zero fits; diagnostic revised to explicit unknown without price repair"
+}
