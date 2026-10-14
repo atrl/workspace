@@ -1,0 +1,44 @@
+{
+  "experiment": "frozen_objective_gradient_20261014",
+  "decision": "local_objective_gradient_diagnostic_no_optimizer_steps",
+  "new_fits": 0,
+  "optimizer_steps": 0,
+  "new_backtests": 0,
+  "objective_achieved": false,
+  "training_rows": 3014,
+  "auxiliary_rows": 20741,
+  "training_cutoff": "2022-12-30",
+  "model_weights_unchanged": true,
+  "original_training_trajectory_reconstructed": false,
+  "auxiliary_role": "Full qualifying population weighted expectation, not original random minibatch or original epoch replay",
+  "scope": "Local gradients under frozen research inputs; opposing gradients at a compromise solution do not prove negative transfer or a causal reason for high cash. AdamW moments, weight decay and optimization history are not reconstructed.",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/gradients",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "5d72f72fee6c44a082d1cf7ca6e65ad7",
+  "experiment_id": "800734242392431328",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/frozen_objective_gradient_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "6516dfe0e0ee12810fa191f6891ae16b04884ed07099d8585bc231d3b007c942",
+    "size_bytes": 95660,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/65/16/6516dfe0e0ee12810fa191f6891ae16b04884ed07099d8585bc231d3b007c942",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 17:09:29.114535+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/65/16/6516dfe0e0ee12810fa191f6891ae16b04884ed07099d8585bc231d3b007c942",
+    "recorder_id": "5d72f72fee6c44a082d1cf7ca6e65ad7",
+    "experiment_id": "800734242392431328",
+    "archive_root": "qlib_recorder"
+  }
+}

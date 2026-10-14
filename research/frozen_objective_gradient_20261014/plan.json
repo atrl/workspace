@@ -1,0 +1,27 @@
+{
+  "experiment": "frozen_objective_gradient_20261014",
+  "as_of": "2026-10-09",
+  "source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "prediction_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "source_signal_start": "2023-01-03",
+  "source_signal_end": "2026-10-08",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "mechanism": "At fixed saved weights measure weighted loss component gradients on shared encoder and head blocks; no optimizer, no outcome-based selection, no causal training claim",
+  "no_candidate_selection": true,
+  "start": "2023-01-03",
+  "end": "2026-10-08",
+  "anchor": "2023-11-03",
+  "cutoff": "2022-12-30"
+}
