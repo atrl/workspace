@@ -1,0 +1,44 @@
+{
+  "experiment": "annual_recovery_training_20261015",
+  "decision": "partial_annual_recovery_models_needs_data",
+  "new_fits": 2,
+  "new_native_cases": 1,
+  "reference_sessions": 1008,
+  "first_hour_qualified_sessions": 1007,
+  "reference_reused_after_data_repair": true,
+  "all_year_models_available": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "88764319a79b4d81b8f301ed528f978b",
+  "experiment_id": "309102646031382108",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/annual_recovery_training_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/annual_recovery_training_20261015/qlib_recorder/309102646031382108/88764319a79b4d81b8f301ed528f978b",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "analysis/native_reference",
+      "analysis/labels",
+      "analysis/targets"
+    ]
+  },
+  "scope": "Annual recovery models from prior matured local common-reset labels on continuous 2019-2022 OOF deterministic reference. Actual fixed action_beta and alpha gate, Tiered2bp; no threshold or C search. Not validated strategy returns.",
+  "objective_achieved": false,
+  "nas_evidence": {
+    "sha256": "723d2cdc54b5d508a7b29b4e574041e886d75b5ecc6f89851e5079034651e0ea",
+    "size_bytes": 1665728,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/72/3d/723d2cdc54b5d508a7b29b4e574041e886d75b5ecc6f89851e5079034651e0ea",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 02:41:10.279281+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/72/3d/723d2cdc54b5d508a7b29b4e574041e886d75b5ecc6f89851e5079034651e0ea",
+    "recorder_id": "88764319a79b4d81b8f301ed528f978b",
+    "experiment_id": "309102646031382108",
+    "archive_root": "qlib_recorder"
+  },
+  "feature_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/annual_recovery_first_hour_20261015"
+}

@@ -1,0 +1,7 @@
+{
+  "initial_new_fits": 0,
+  "reference_native_cases": 1,
+  "input_mismatch": "frozen full-path price frame carries early_* features only on outer dates; all 2019-2022 first-hour inputs absent",
+  "repair": "derive same defined fields from pinned canonical minute source through Qlib; preserve invalid first-hour days and reuse deterministic reference account",
+  "model_parameters_changed": false
+}
