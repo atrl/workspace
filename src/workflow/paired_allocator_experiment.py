@@ -64,6 +64,12 @@ def run(*,root,card,plan):
         from src.model.allocation_encoder_routing import AllocationEncoderAllocator
         model_class=AllocationEncoderAllocator
     else:raise ValueError('unknown fixed encoder routing')
+    head=plan.get('allocation_head','original')
+    if head=='tangent_linear':
+        if routing!='shared' or representation!='original':raise ValueError('tangent test must retain original shared inputs')
+        from src.model.tangent_allocator import TangentHeadAllocator
+        model_class=TangentHeadAllocator
+    elif head!='original':raise ValueError('unknown fixed allocation head')
     candidate_dataset=_primary_dataset(candidate_inputs,train_end=str(original.train_end.date()),predict_bounds=source_plan['outer_window'])
     auxiliary=_auxiliary_dataset(training['inputs/auxiliary']['outer'],str(original.train_end.date()))
     tracking=card/'qlib_recorder';progress_path=card/'run_state.json'
@@ -82,7 +88,12 @@ def run(*,root,card,plan):
             if control.extra_features or control.spec.turnover_loss_weight!=.006:raise ValueError('control is not intended base family')
             candidate=model_class(base_features=[replacement.get(c,c) for c in control.base_features],extra_features=[],feature_masks=control.feature_masks,spec=spec,seed=seed,cutoff=str(control.cutoff),train_end=str(control.train_end.date()),minimum_observations=control.minimum_observations)
             identity=_initial_hash(candidate)
-            if identity!=_initial_hash(control):raise ValueError('initialization differs')
+            if head=='tangent_linear':
+                from src.model.tangent_allocator import audit_tangent_initialization
+                initialization_audit=audit_tangent_initialization(control._initialize(),candidate._initialize())
+            else:
+                if identity!=_initial_hash(control):raise ValueError('initialization differs')
+                initialization_audit={'identical_initial_state':True}
             prediction=_prediction_dates(control.predict(dataset));saved=training['analysis/outer_predictions'][('base',seed)]
             np.testing.assert_allclose(prediction,saved,atol=1e-12,rtol=1e-12)
             if not prediction.index.equals(saved.index):raise ValueError('saved control dates differ')
@@ -101,7 +112,7 @@ def run(*,root,card,plan):
                 for feature in control.base_features:
                     if feature not in replacement and candidate.primary_scaler[kind][feature]!=values[feature]:raise ValueError('untouched primary scaler differs')
             predictions[('candidate',seed)]=_prediction_dates(candidate.predict(candidate_dataset))
-            training_rows.append({'seed':seed,'initialization_sha256':identity,'representation':representation,'encoder_routing':routing,'primary_dimensions':len(candidate.base_features),**candidate.audit})
+            training_rows.append({'seed':seed,'initialization_sha256':identity,'representation':representation,'encoder_routing':routing,'allocation_head':head,'initialization_audit':initialization_audit,'primary_dimensions':len(candidate.base_features),**candidate.audit})
             rec.log_metrics(completed_model_fits=len(progress['fitted']));print('fit',seed,flush=True)
         rec.save_objects(artifact_path='analysis',predictions=predictions,training=training_rows)
     frame=source['inputs/frame'];frame=frame.loc[frame.signal_date.between(plan['start'],plan['end'])].copy()
