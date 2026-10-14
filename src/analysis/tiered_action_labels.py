@@ -33,7 +33,9 @@ def reset_advantage(q,cash,*,row,next_row,target,reset_target,fees,entry_slot="o
     return (values[0]-values[1])/nav
 
 
-def own_path_labels(frame,book,*,controller,recovery_spec,action_spec,selection,plan,slippage_bps):
+def own_path_labels(frame,book,*,controller,recovery_spec,action_spec,selection,plan,slippage_bps,training_reference=False):
+    if training_reference and any(controller[k] is not None for k in ["frozen_open_action_value_model","frozen_recovery_model"]):
+        raise ValueError("training reference must not use fitted controllers")
     path=book['independent_replay'].reset_index(drop=True);frame=frame.reset_index(drop=True)
     if not frame.trade_date.equals(path.trade_date): raise ValueError('label dates differ')
     if path.recovery_action.any(): raise ValueError('label helper requires reference without recovery orders')
@@ -50,8 +52,9 @@ def own_path_labels(frame,book,*,controller,recovery_spec,action_spec,selection,
         if (state,clock,bool(opened['execute_open_target']))!=(int(expected.risk_state),int(expected.risk_clock),bool(expected.execute_open_target)):raise ValueError('frozen decision identity differs')
         recovered=prepare_on_policy_recovery(row,open_state=opened,recovery_spec=recovery_spec,model=controller['frozen_recovery_model'],selected_model=selection)
         if recovered['recovery_action']: raise ValueError('recovery requires a different branch contract')
-        eligible=not any(opened[k] for k in ['mandatory_derisk','large_transition','mandatory_position_repair']) and np.isfinite(opened['execute_probability'])
+        eligible=not any(opened[k] for k in ['mandatory_derisk','large_transition','mandatory_position_repair']) and (training_reference or np.isfinite(opened['execute_probability']))
         result={'trade_date':row.trade_date,'decision_at':row.trade_date+pd.Timedelta(hours=9,minutes=46),'label_available_at':pd.NaT,'slippage_bps':slippage_bps,'eligible':eligible,'execute':opened['execute_open_target'],'probability':opened['execute_probability'],'tiered_advantage':np.nan,'flat25_advantage':np.nan}
+        if training_reference:result.update(opened['features'])
         if eligible and i+1<len(frame):
             next_row=frame.iloc[i+1];reset=targets.iloc[i+1][['soxl_weight','soxx_weight','cash_weight']].to_numpy(float)
             kwargs=dict(row=row,next_row=next_row,target=opened['desired_open_weights'],reset_target=reset)

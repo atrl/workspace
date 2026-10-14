@@ -1,0 +1,10 @@
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/native_reference
+  - analysis/labels
+  - analysis/targets
+  workflow_config: workflow.yaml
+experiment: tangent_router_labels_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013

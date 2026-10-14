@@ -30,3 +30,10 @@ def test_both_branch_fees_and_common_reset_are_isolated():
     expected=-sum(fees.quote(shares=40,raw_price=50.,sell=sell,stamp=row.trade_date)['total'] for sell in [False,True])/10000
     np.testing.assert_allclose(actual,expected,atol=1e-15)
     assert fees.monthly_shares=={}
+
+
+def test_training_reference_rejects_fitted_controller_before_labeling():
+    import pytest
+    from src.analysis.tiered_action_labels import own_path_labels
+    with pytest.raises(ValueError,match="must not use fitted controllers"):
+        own_path_labels(None,None,controller={'frozen_open_action_value_model':object(),'frozen_recovery_model':None},recovery_spec=None,action_spec=None,selection=None,plan=None,slippage_bps=2,training_reference=True)
