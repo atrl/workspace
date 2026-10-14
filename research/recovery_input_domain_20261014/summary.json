@@ -1,0 +1,51 @@
+{
+  "experiment": "recovery_input_domain_20261014",
+  "decision": "recovery_input_distribution_diagnostic_no_threshold_change",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "new_orders": 0,
+  "parameter_searches": 0,
+  "objective_achieved": false,
+  "scaler_training_samples": 595,
+  "logistic_intercept": 0.0014258188861829585,
+  "threshold_log_odds": 1.5505974124111666,
+  "feature_missing_values": 0,
+  "range_sign_contract_verified": true,
+  "recovery_alpha_floor": 0.25,
+  "recovery_probability_threshold": 0.825,
+  "recovery_action_beta": 0.6,
+  "tail_used_as_direct_cash_probability": false,
+  "tail_alpha_enter_learned_open_and_recovery_features": true,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "scope": "Conditional inference on saved independent cost-path states; no changed actions, holdings or PnL. Not causal value of removing a gate, not fresh paper evidence.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "analysis/raw_inputs",
+      "analysis/logit_contributions",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "1f8a990078db4ec38b80411c8f712878",
+  "experiment_id": "451766200399188781",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/recovery_input_domain_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "21adf342852466f283991d1be7acab5c339b55f80fc8107a4ffcd5cdf9fe0b63",
+    "size_bytes": 294205,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/21/ad/21adf342852466f283991d1be7acab5c339b55f80fc8107a4ffcd5cdf9fe0b63",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 17:25:22.100078+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/21/ad/21adf342852466f283991d1be7acab5c339b55f80fc8107a4ffcd5cdf9fe0b63",
+    "recorder_id": "1f8a990078db4ec38b80411c8f712878",
+    "experiment_id": "451766200399188781",
+    "archive_root": "qlib_recorder"
+  }
+}
