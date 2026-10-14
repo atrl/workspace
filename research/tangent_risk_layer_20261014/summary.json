@@ -1,0 +1,49 @@
+{
+  "experiment": "tangent_risk_layer_20261014",
+  "decision": "fixed_risk_layer_diagnostic_no_promotion",
+  "gates": {
+    "net_soxx_excess_all_costs": true,
+    "drawdown_30pct": false,
+    "cvar_no_worse": false,
+    "rolling_70pct": false,
+    "annual_70pct": true,
+    "bootstrap_positive": false,
+    "independent_development": false,
+    "qualified_forward": false
+  },
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_native_cases": 3,
+  "reused_native_cases": 6,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "scope": "Diagnostic layer-package intervention, not a production risk-removal recommendation. Open router cap/state inputs also change and can be outside training distribution; no claim of isolating one threshold. Evaluate actual 30pct monitored drawdown gate unchanged. Reused history only.",
+  "recorder_id": "169645f3487a419ebe477bfae42f02b2",
+  "experiment_id": "335837529825541478",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/tangent_risk_layer_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/tangent_risk_layer_20261014/qlib_recorder/335837529825541478/169645f3487a419ebe477bfae42f02b2",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "0e42fb8893655d34821280c11114c1fd6ea9817affa1ff350c53ec829bfbdfe3",
+    "size_bytes": 7855396,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/0e/42/0e42fb8893655d34821280c11114c1fd6ea9817affa1ff350c53ec829bfbdfe3",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 23:26:35.502166+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/0e/42/0e42fb8893655d34821280c11114c1fd6ea9817affa1ff350c53ec829bfbdfe3",
+    "recorder_id": "169645f3487a419ebe477bfae42f02b2",
+    "experiment_id": "335837529825541478",
+    "archive_root": "qlib_recorder"
+  }
+}
