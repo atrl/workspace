@@ -1,0 +1,33 @@
+{
+  "experiment": "recovery_score_information_20261014",
+  "as_of": "2026-10-09",
+  "costs": [
+    2,
+    5
+  ],
+  "mean_block": 63,
+  "resamples": 1000,
+  "seed": 20261014,
+  "primary_metric": "spearman_net_advantage",
+  "metrics": [
+    "spearman_net_advantage",
+    "pearson_net_advantage",
+    "spearman_loss_severity",
+    "auc_positive_advantage"
+  ],
+  "candidate_beta": 0.6,
+  "sources": {
+    "labels": {
+      "card": "research/recovery_action_size_labels_20261014",
+      "recorder_id": "3883915d770e45b29310a72760cbc508",
+      "manifest_sha256": "d160d9b777ffb0d99cd441e290df19b7f8a9506cdd52a107ff3d31c8b5e416a7"
+    },
+    "scores": {
+      "card": "research/output_routing_diagnosis_20261014",
+      "recorder_id": "b46742c4e8de4b7f83ba8f1ddd6969b3",
+      "manifest_sha256": "33a150583e6df1e636ece6d14737e968b74e9fef233eef2158f42cef96675c1a"
+    }
+  },
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "mechanism": "Measure fixed score ordering for already computed net action amount; no score transformations, threshold search, model fit or feature selection"
+}

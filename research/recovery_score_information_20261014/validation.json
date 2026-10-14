@@ -1,0 +1,9 @@
+{
+  "notebook_executed": true,
+  "verified_objects": 8,
+  "source_join_and_maturity_assertions": "passed",
+  "bootstrap_valid_draws_per_metric": 1000,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "tests": "Notebook fixed-source join and maturity checks; no shared code changes"
+}
