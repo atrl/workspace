@@ -1,0 +1,36 @@
+{
+  "experiment": "frozen_open_cost_20261015",
+  "decision": "diagnostic_only_not_promotable",
+  "new_fits": 0,
+  "new_native_cases": 3,
+  "zero_bps_identity_passed": true,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "95cf281d75b34e3e8918a03d7d0fcc06",
+  "experiment_id": "805987201529227113",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/frozen_open_cost_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/frozen_open_cost_20261015/qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/native/*",
+      "inputs/*"
+    ]
+  },
+  "scope": "Frozen target weights and execute/HOLD calendar from the prespecified zero-bps account; holdings, whole-share rounding, cash and fee tiers re-settled. Diagnostic only; actual risk-state responses suppressed.",
+  "nas_evidence": {
+    "sha256": "5b5b3fa5d8bbe37317b9ce552c33a30df1a4f7dc7baed639f51b972b04f3f047",
+    "size_bytes": 2849904,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/5b/5b/5b5b3fa5d8bbe37317b9ce552c33a30df1a4f7dc7baed639f51b972b04f3f047",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 01:08:09.150428+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/5b/5b/5b5b3fa5d8bbe37317b9ce552c33a30df1a4f7dc7baed639f51b972b04f3f047",
+    "recorder_id": "95cf281d75b34e3e8918a03d7d0fcc06",
+    "experiment_id": "805987201529227113",
+    "archive_root": "qlib_recorder"
+  }
+}

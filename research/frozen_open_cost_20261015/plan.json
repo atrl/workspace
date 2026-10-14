@@ -1,0 +1,165 @@
+{
+  "experiment": "frozen_open_cost_20261015",
+  "anchor_family": "candidate",
+  "anchor_slippage_bps": 0,
+  "costs": [
+    0,
+    2,
+    5
+  ],
+  "maximum_new_native_cases": 3,
+  "source": {
+    "card": "research/opening_state_training_20261015",
+    "recorder_id": "da50a331c9cf4feca1895440b8cfa172",
+    "archive": "3a1eae6ff2a12050cf52f4bf16410f36ae778ee40627db411fe96003172ac44b",
+    "inventory_sha256": "7b577a9e0c99f3feb57c57512820534066a1bee34f8732117b13080069200d1e"
+  },
+  "market_source": {
+    "card": "research/monthly_forecast_account_20261014",
+    "recorder_id": "e57350a820c24ac8b306d67955e4ae25",
+    "archive": "b3875393f9f5495be29efbe3f8782c92cdde4c4798ce97f796bcc870c34379d2",
+    "inventory_sha256": "aa9e441c0a6ff8b5a8a95d48918bcf5fb2543699f9e6e62d38742571ce4ca80b"
+  },
+  "account_plan": {
+    "experiment": "opening_state_training_20261015",
+    "as_of": "2026-10-09",
+    "start": "2023-01-03",
+    "end": "2026-10-09",
+    "source": {
+      "card": "research/monthly_forecast_account_20261014",
+      "recorder_id": "e57350a820c24ac8b306d67955e4ae25",
+      "archive": "b3875393f9f5495be29efbe3f8782c92cdde4c4798ce97f796bcc870c34379d2",
+      "inventory_sha256": "aa9e441c0a6ff8b5a8a95d48918bcf5fb2543699f9e6e62d38742571ce4ca80b"
+    },
+    "price_source": {
+      "card": "research/full_path_tiered_allocation_20261013",
+      "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+      "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+      "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+    },
+    "action_source": {
+      "card": "research/stage1_minute_information_comparison_20261012",
+      "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+      "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+      "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+    },
+    "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "initial_cash": 100000,
+    "tariff": {
+      "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+      "tiers": [
+        {
+          "through_shares": 300000,
+          "per_share": 0.0035
+        },
+        {
+          "through_shares": 3000000,
+          "per_share": 0.002
+        },
+        {
+          "through_shares": 20000000,
+          "per_share": 0.0015
+        },
+        {
+          "through_shares": 100000000,
+          "per_share": 0.001
+        },
+        {
+          "through_shares": null,
+          "per_share": 0.0005
+        }
+      ],
+      "minimum_per_order": 0.35,
+      "maximum_order_fraction": 0.01,
+      "venue_per_share": 0.003,
+      "venue_subdollar_fraction": 0.003,
+      "clearing_per_share": 0.0002,
+      "clearing_maximum_fraction": 0.005,
+      "sec_sale_fraction": 2.06e-05,
+      "taf_per_sold_share": 0.0,
+      "taf_maximum_per_trade": 9.79,
+      "cat_per_share": 3e-06,
+      "commission_pass_through_fraction": 0.000735,
+      "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+      "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+      "fractional_share_fills": false,
+      "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+    },
+    "maximum_soxl_weight": 0.3,
+    "minimum_cash_weight": 0.15,
+    "maximum_drawdown": 0.3,
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "maximum_new_native_cases": 6,
+    "new_fits": 6,
+    "mechanism": "Within the same native-price-covered primary training cohort, replace only the two allocation H1 gross-return labels with canonical 09:47 entry-to-next-09:47 valuation returns. Keep original H5 classification/cash labels, loss, shared architecture, auxiliary samples, seeds, epochs, smoothing and controllers. Both arms are freshly trained small heads, no minute extra channels.",
+    "role": "Paired short-cohort training, original daily return labels versus canonical execution-return labels",
+    "gates": [
+      "net_soxx_excess_all_costs",
+      "drawdown_30pct",
+      "cvar_no_worse",
+      "rolling_70pct",
+      "annual_70pct",
+      "bootstrap_positive",
+      "beat_original_all_costs",
+      "independent_development",
+      "qualified_forward"
+    ],
+    "if_failed": "Close this fixed label-alignment experiment; no horizon, cohort start, seed, epoch, loss or controller tuning.",
+    "training_source": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+    },
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "maximum_model_fits": 6,
+    "frozen_at_utc": "2026-10-14T16:57:33.214979+00:00",
+    "paired_control_source": {
+      "card": "research/allocator_turnover_ablation_20261014",
+      "recorder_id": "9137bb22b8dc4d6d92688decb91db2e5",
+      "archive": "44d9e44d1719ea7178e83b532160dbe69499f7707c0300ffb1adab3e53c626e2",
+      "inventory_sha256": "bef728358d2c4da5e2886410970e7ac82d39b6815f4a2eefa067c6c8fda2ac06"
+    },
+    "input_representation": "original",
+    "encoder_routing": "shared",
+    "candidate_model_source": "src/model/tangent_allocator.py",
+    "failure_decision": "not_promoted_opening_state_increment_failed",
+    "scope": "Same execution-return labels and paired observed-opening state inputs at 09:46; no current fill or future close input. Unknown opening marks retained. Same final epoch and seeds, full independent cost accounts; reused history cannot qualify independent promotion.",
+    "allocation_head": "tangent_linear",
+    "frozen_source": {
+      "card": "research/tangent_allocation_head_20261014",
+      "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+      "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+      "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+    },
+    "cohort_train_start": "2018-10-12",
+    "opening_source": {
+      "card": "research/open_clock_decomposition_20261015",
+      "recorder_id": "50cda5bf58a54072a7ccbc98f9ebb888",
+      "archive": "820c07fc63c5073ab424bafd5a91fd3a258b8bb0ff7e53746c56bc091160f97f",
+      "inventory_sha256": "db5526cbea2ce634a5fca1a60fb5865281a63a89a474ab99f2f839eaefa12797"
+    },
+    "label_source": {
+      "card": "research/execution_return_training_20261015",
+      "recorder_id": "162df4726af342e891fe3db54b13845f",
+      "archive": "58f67c77083215f9015782e810caa457c31ad054318631e303d741539b766882",
+      "inventory_sha256": "98ea88f0c21e85c8446bb66831b76adb8ee90473309d2963d835053b680af68d"
+    },
+    "core_features": [
+      "opening_soxl_gap",
+      "opening_soxl_return15",
+      "opening_soxx_gap",
+      "opening_soxx_return15"
+    ],
+    "availability_feature": "opening_state_ready"
+  },
+  "scope": "Frozen target weights and execute/HOLD calendar from the prespecified zero-bps account; holdings, whole-share rounding, cash and fee tiers re-settled. Diagnostic only; actual risk-state responses suppressed."
+}

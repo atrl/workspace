@@ -1,0 +1,57 @@
+{
+  "recorder_id": "95cf281d75b34e3e8918a03d7d0fcc06",
+  "entries": [
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/analysis/comparison",
+      "sha256": "c8aca5e3b9c45454d8b74a47966ab0867c85d06c8c3d6af5871c9ba278c3ee62"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/analysis/native/0",
+      "sha256": "f75b8caae316d8debb22b7512cb9f0ea5cbc69f31f53a23a157118743ebbf443"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/analysis/native/2",
+      "sha256": "a9cba621849b52df16aee2c226e01809ee0c88748b18fc949b0b3bbdd38c6b38"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/analysis/native/5",
+      "sha256": "c577c27e625feb2657a4d8f4e4e8226240cdb2573de21bc542720f7650811dd6"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/code_status.txt",
+      "sha256": "8b07f06e282b01a284026c706f6971663bf114e4ea5b70879fa985dc045a1a8f"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/inputs/anchor_ledger",
+      "sha256": "acaef2029b7b7c06d8aed18f46ec863173104e7e566db064901af9170af523a2"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/inputs/anchor_targets",
+      "sha256": "af0547d011787f68b5eb5f0fcc2822edf795a24cd8df6ca9c7fcd7079baafe5b"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/inputs/market_audit",
+      "sha256": "b086a64fa85d98308a01907a3de3f942e9fb7d52dabc4bcb14132433bb0f7b81"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/inputs/plan",
+      "sha256": "a95a7984f6b8d552a393b9f3393d1bc557a817df75721f14327eb2d3cae39231"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/inputs/policy_code",
+      "sha256": "8399a09cb5a8995487894b31eca46a28e27752177b3ab6fa02c2dde7a64fa74b"
+    },
+    {
+      "path": "qlib_recorder/805987201529227113/95cf281d75b34e3e8918a03d7d0fcc06/artifacts/inputs/source_audit",
+      "sha256": "08a9e7269c97ae2102734c6f7558e5c676cff47d14a029cde201f29d3e10514f"
+    }
+  ]
+}
