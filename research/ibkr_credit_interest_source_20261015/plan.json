@@ -1,0 +1,9 @@
+{
+  "experiment": "ibkr_credit_interest_source_20261015",
+  "source_manifest": "data/raw/external/ibkr_credit_interest_20261015_v1/source_manifest.json",
+  "source_manifest_sha256": "639c25e229c2a80073e48d1e37f92af47d9192a06a027780033bee9e92df66dd",
+  "as_of": "2026-10-14",
+  "required_backtest_start": "2023-01-04",
+  "required_backtest_end": "2026-10-09",
+  "scope": "Official observed USD benchmark source intake only. No forward filling, proxy substitution, historical cash-interest backtest or forecast usage."
+}

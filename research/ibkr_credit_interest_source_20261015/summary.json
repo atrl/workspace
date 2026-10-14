@@ -1,0 +1,47 @@
+{
+  "experiment": "ibkr_credit_interest_source_20261015",
+  "decision": "needs_data_historical_benchmarks_and_settlement_ledger",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "requested_months": 47,
+  "header_only_months": 38,
+  "observed_usd_rows": 182,
+  "first_observed_date": "2026-02-02",
+  "last_observed_date": "2026-10-13",
+  "historical_backtest_coverage_complete": false,
+  "historical_credit_spread_contract_verified": false,
+  "settled_cash_ledger_implemented": false,
+  "cash_interest_added_to_existing_returns": false,
+  "forecast_input_qualified": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/ibkr_credit_interest_20261015_v1",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "recorder_id": "31bed05f1fa44233b915b19528ba1a66",
+  "experiment_id": "116564089819596749",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/ibkr_credit_interest_source_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/ibkr_credit_interest_source_20261015/qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/raw_payloads",
+      "inputs/source_manifest",
+      "analysis/quotes"
+    ]
+  },
+  "objective_achieved": false,
+  "scope": "Official observed USD benchmark source intake only. No forward filling, proxy substitution, historical cash-interest backtest or forecast usage.",
+  "nas_evidence": {
+    "sha256": "a2c61f933f0bb682ac116c0374213ab556073086c896ea14adc676896ce2218c",
+    "size_bytes": 229235,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a2/c6/a2c61f933f0bb682ac116c0374213ab556073086c896ea14adc676896ce2218c",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 01:42:27.691024+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a2/c6/a2c61f933f0bb682ac116c0374213ab556073086c896ea14adc676896ce2218c",
+    "recorder_id": "31bed05f1fa44233b915b19528ba1a66",
+    "experiment_id": "116564089819596749",
+    "archive_root": "qlib_recorder"
+  }
+}

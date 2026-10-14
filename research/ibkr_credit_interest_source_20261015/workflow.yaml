@@ -1,0 +1,9 @@
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - inputs/raw_payloads
+  - inputs/source_manifest
+  - analysis/quotes
+  workflow_config: workflow.yaml
+experiment: ibkr_credit_interest_source_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/ibkr_credit_interest_20261015_v1

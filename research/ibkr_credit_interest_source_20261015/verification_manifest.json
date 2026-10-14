@@ -1,0 +1,45 @@
+{
+  "recorder_id": "31bed05f1fa44233b915b19528ba1a66",
+  "entries": [
+    {
+      "path": "qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66/artifacts/analysis/coverage",
+      "sha256": "3e192653ac0caed412132662f4cd3d34ad87029201225987f154cd86b1ba3f89"
+    },
+    {
+      "path": "qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66/artifacts/analysis/provider_manifest",
+      "sha256": "2a75ba82e911dedd7fec1b0d6bc01105ae218207f0d2a5af33e44b41f57e735a"
+    },
+    {
+      "path": "qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66/artifacts/analysis/quotes",
+      "sha256": "7dceab4bb3f5781033deba49a1a5a219d910ff3098bf0f7397d340278c70146b"
+    },
+    {
+      "path": "qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66/artifacts/code_status.txt",
+      "sha256": "4fa1d894df6e934d4993dee5d513535d82092b8324287cae47c6a170353711fd"
+    },
+    {
+      "path": "qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66/artifacts/inputs/parser",
+      "sha256": "d8be28b8558f3a49cd0fb57af4c10f6d6c6116e6c154bbf0908635dbe582c76b"
+    },
+    {
+      "path": "qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66/artifacts/inputs/plan",
+      "sha256": "30eed09346fd61ad546720d8a3e385eb93de81f8963cee9316895071ab0fc451"
+    },
+    {
+      "path": "qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66/artifacts/inputs/raw_payloads",
+      "sha256": "2a18e939afaa47b6d30fddca3a3ff61585986fe4fa02325fdb3e0a62685b5b22"
+    },
+    {
+      "path": "qlib_recorder/116564089819596749/31bed05f1fa44233b915b19528ba1a66/artifacts/inputs/source_manifest",
+      "sha256": "d11f178249391525b8c8ee6844eafec11d6faddbbbb181435f8e420edd8361ad"
+    }
+  ]
+}
