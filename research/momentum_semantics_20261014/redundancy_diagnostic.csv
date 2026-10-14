@@ -1,0 +1,9 @@
+window,asset,representation,observations,mean_absolute_pair_correlation,maximum_absolute_pair_correlation
+training_history,soxl,overlapping_log_returns,3020,0.5036861754924178,0.7677195385097481
+training_history,soxl,disjoint_log_returns,3020,0.030556960743399218,0.05492763432407941
+training_history,soxx,overlapping_log_returns,3020,0.49684907780006726,0.7616657317630046
+training_history,soxx,disjoint_log_returns,3020,0.042645204111054644,0.09091233603263041
+reused_2023_2026,soxl,overlapping_log_returns,946,0.4856992118163165,0.7577412907019505
+reused_2023_2026,soxl,disjoint_log_returns,946,0.03496128868312686,0.08302596805678676
+reused_2023_2026,soxx,overlapping_log_returns,946,0.4847370732285393,0.7509886597454554
+reused_2023_2026,soxx,disjoint_log_returns,946,0.04013748009381259,0.10529260235366676

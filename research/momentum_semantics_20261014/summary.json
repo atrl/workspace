@@ -1,0 +1,45 @@
+{
+  "experiment": "momentum_semantics_20261014",
+  "decision": "lossless_research_representation_only_no_alpha_claim",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "parameter_searches": 0,
+  "outcome_correlations": 0,
+  "objective_achieved": false,
+  "rows": 3966,
+  "field_count": 52,
+  "maximum_reconstruction_error": 1.7763568394002505e-15,
+  "unmodified_other_fields": 42,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "no_new_predictive_information": true,
+  "frozen_model_inputs_changed": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/features",
+      "analysis/reconstructed",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "b850876d31864010ae0d53d817d3231a",
+  "experiment_id": "823728550354171713",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/momentum_semantics_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "5df5ba2064737007ac9ecb8e75ca926470e9cb2bd9d82da0e4d430258b3cac22",
+    "size_bytes": 1219599,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/5d/f5/5df5ba2064737007ac9ecb8e75ca926470e9cb2bd9d82da0e4d430258b3cac22",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 16:51:26.371642+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/5d/f5/5df5ba2064737007ac9ecb8e75ca926470e9cb2bd9d82da0e4d430258b3cac22",
+    "recorder_id": "b850876d31864010ae0d53d817d3231a",
+    "experiment_id": "823728550354171713",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,11 @@
+source,target,lag_start,lag_end,inverse
+primary:soxl_ret3,primary:soxl_log_return_lags_1_3,1,3,expm1(cumulative sum of asset segments)
+primary:soxl_ret5,primary:soxl_log_return_lags_4_5,4,5,expm1(cumulative sum of asset segments)
+primary:soxl_ret10,primary:soxl_log_return_lags_6_10,6,10,expm1(cumulative sum of asset segments)
+primary:soxl_ret20,primary:soxl_log_return_lags_11_20,11,20,expm1(cumulative sum of asset segments)
+primary:soxl_ret60,primary:soxl_log_return_lags_21_60,21,60,expm1(cumulative sum of asset segments)
+primary:soxx_ret3,primary:soxx_log_return_lags_1_3,1,3,expm1(cumulative sum of asset segments)
+primary:soxx_ret5,primary:soxx_log_return_lags_4_5,4,5,expm1(cumulative sum of asset segments)
+primary:soxx_ret10,primary:soxx_log_return_lags_6_10,6,10,expm1(cumulative sum of asset segments)
+primary:soxx_ret20,primary:soxx_log_return_lags_11_20,11,20,expm1(cumulative sum of asset segments)
+primary:soxx_ret60,primary:soxx_log_return_lags_21_60,21,60,expm1(cumulative sum of asset segments)
