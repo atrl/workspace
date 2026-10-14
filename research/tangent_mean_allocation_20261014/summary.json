@@ -1,0 +1,46 @@
+{
+  "experiment": "tangent_mean_allocation_20261014",
+  "decision": "posthoc_mean_control_diagnostic_only",
+  "objective_achieved": false,
+  "promotion_eligible": false,
+  "new_fits": 0,
+  "new_native_cases": 3,
+  "reused_native_cases": 9,
+  "mean_raw_weights": {
+    "soxl_weight": 0.25390624906324366,
+    "soxx_weight": 0.41418523487071995,
+    "cash_weight": 0.33190851606603633
+  },
+  "raw_mean_nominal_beta": 1.1759039820604509,
+  "dynamic_beats_posthoc_mean_all_costs": true,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "scope": "Ex-post descriptive control: mean uses evaluation-period predictions and is not available at evaluation start. Not deployable or promotion evidence. Matching mean raw targets does not exactly match realized exposure, volatility or drawdown. Changes to open-router inputs follow the weight intervention.",
+  "recorder_id": "efdaf2655e834409bd25d2593c6bdab8",
+  "experiment_id": "261756768249779037",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/tangent_mean_allocation_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/tangent_mean_allocation_20261014/qlib_recorder/261756768249779037/efdaf2655e834409bd25d2593c6bdab8",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "a6f5c31776298621790c8d5d13377b35ace088b4eb49e27388b6a88393dbf00a",
+    "size_bytes": 10617083,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a6/f5/a6f5c31776298621790c8d5d13377b35ace088b4eb49e27388b6a88393dbf00a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 00:24:42.352132+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a6/f5/a6f5c31776298621790c8d5d13377b35ace088b4eb49e27388b6a88393dbf00a",
+    "recorder_id": "efdaf2655e834409bd25d2593c6bdab8",
+    "experiment_id": "261756768249779037",
+    "archive_root": "qlib_recorder"
+  }
+}
