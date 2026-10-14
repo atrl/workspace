@@ -28,3 +28,14 @@ def opening_state_features(primary,execution,quotes):
     timing['latest_bar_end']=timing.decision_at-pd.Timedelta(minutes=1)
     timing['feature_available_at']=timing.decision_at
     return result,timing
+
+
+INTERACTIONS = ['opening_soxl_gap_x_return15', 'opening_soxx_gap_x_return15']
+
+def opening_interactions(features):
+    """Fixed quadratic terms; inherit the already validated opening clock/mask."""
+    result = features.copy()
+    for asset, name in zip(['soxl', 'soxx'], INTERACTIONS):
+        result[name] = (result['opening_'+asset+'_gap'] *
+                        result['opening_'+asset+'_return15']).where(result[FLAG].eq(1))
+    return result

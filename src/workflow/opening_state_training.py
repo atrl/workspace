@@ -8,7 +8,7 @@ from src.workflow.minute_action_value import _source
 from src.workflow.minute_pit_allocator import _primary_dataset, _auxiliary_dataset, _prediction_dates, _ensemble
 from src.model.minute_pit_allocator import MinutePitAllocator
 from src.model.tangent_allocator import TangentHeadAllocator, audit_zero_extended_heads
-from src.data.opening_state_features import opening_state_features, FEATURES, FLAG
+from src.data.opening_state_features import opening_state_features, opening_interactions, INTERACTIONS, FEATURES, FLAG
 from src.data.allocation_execution_labels import paired_execution_returns
 from src.data.allocation_feature_contract import disjoint_momentum_inputs, reconstruct_momentum
 from src.workflow.pit_constituent_auxiliary_training_allocation import _smooth_weights
@@ -54,6 +54,12 @@ def run(*,root,card,plan):
     cohort_spec=replace(original.spec,train_start=plan['cohort_train_start'])
     opening_features,opening_timing=opening_state_features(inputs['frame'],controller['inputs/frame'],opening['inputs/quotes'])
     if plan['core_features']!=FEATURES or plan['availability_feature']!=FLAG:raise ValueError('fixed feature group differs')
+    interaction_mode=plan.get('feature_mode')=='gap_return_interaction'
+    control_extras=FEATURES if interaction_mode else []
+    candidate_extras=FEATURES+INTERACTIONS if interaction_mode else FEATURES
+    if interaction_mode:
+        if plan['interaction_features']!=INTERACTIONS:raise ValueError('fixed interactions differ')
+        opening_features=opening_interactions(opening_features)
     augmented=inputs['features'].join(opening_features)
     timing=inputs['timing'].copy();timing['decision_at']=opening_timing.decision_at
     datasets={family:_primary_dataset({**inputs,'features':augmented,'timing':timing,'frame':new_frame,'spec':cohort_spec},train_end=str(original.train_end.date()),predict_bounds=source_plan['outer_window']) for family,f in [('control',old_frame),('candidate',new_frame)]}
@@ -77,8 +83,8 @@ def run(*,root,card,plan):
             original_control=training[f'models/base_outer_{seed}'];spec={**asdict(original_control.spec),'root':str(root)}
             base_prediction=_prediction_dates(original_control.predict(dataset));np.testing.assert_allclose(base_prediction,training['analysis/outer_predictions'][('base',seed)],atol=1e-12,rtol=1e-12)
             spec={**spec,'train_start':plan['cohort_train_start']}
-            models={family:TangentHeadAllocator(base_features=original_control.base_features+[FLAG],extra_features=extras,feature_masks={**original_control.feature_masks,**{f:FLAG for f in FEATURES}},spec=spec,seed=seed,cutoff=str(original_control.cutoff),train_end=str(original_control.train_end.date()),minimum_observations=original_control.minimum_observations) for family,extras in [('control',[]),('candidate',FEATURES)]}
-            initialization_audit=audit_zero_extended_heads(models['control']._initialize(),models['candidate']._initialize(),shared_primary_count=len(original_control.base_features)+1,extra_count=len(FEATURES))
+            models={family:TangentHeadAllocator(base_features=original_control.base_features+[FLAG],extra_features=extras,feature_masks={**original_control.feature_masks,**{f:FLAG for f in candidate_extras}},spec=spec,seed=seed,cutoff=str(original_control.cutoff),train_end=str(original_control.train_end.date()),minimum_observations=original_control.minimum_observations) for family,extras in [('control',control_extras),('candidate',candidate_extras)]}
+            initialization_audit=audit_zero_extended_heads(models['control']._initialize(),models['candidate']._initialize(),shared_primary_count=len(original_control.base_features)+1+len(control_extras),extra_count=len(candidate_extras)-len(control_extras))
             for family,model in models.items():
                 name=f'{family}_{seed}'
                 if name in progress['fitted']:model=rec.load_object('models/'+name);models[family]=model
