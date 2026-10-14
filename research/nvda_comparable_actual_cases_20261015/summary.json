@@ -1,0 +1,39 @@
+{
+  "experiment": "nvda_comparable_actual_cases_20261015",
+  "decision": "needs_contemporaneous_comparable_actual_and_consensus_population",
+  "checked_cases": 2,
+  "qualified_training_cases": 0,
+  "snapshot_values_overwritten": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "objective_achieved": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/nvda_eps_corpus_20261015_v1",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "recorder_id": "054bea474f2c426fb149e42a9c21f966",
+  "experiment_id": "276702225264800468",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_comparable_actual_cases_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_comparable_actual_cases_20261015/qlib_recorder/276702225264800468/054bea474f2c426fb149e42a9c21f966",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/cases"
+    ]
+  },
+  "scope": "Two source-basis discrepancy cases selected without price-based filtering. Preserve article and newsletter populations/versions separately; no EPS surprise calculation or model training.",
+  "nas_evidence": {
+    "sha256": "041ebc5d93cf77d0e24c7b865d195a5af95103cabb264e7d76ca9cbe7f570001",
+    "size_bytes": 477092,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/04/1e/041ebc5d93cf77d0e24c7b865d195a5af95103cabb264e7d76ca9cbe7f570001",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 04:59:31.863881+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/04/1e/041ebc5d93cf77d0e24c7b865d195a5af95103cabb264e7d76ca9cbe7f570001",
+    "recorder_id": "054bea474f2c426fb149e42a9c21f966",
+    "experiment_id": "276702225264800468",
+    "archive_root": "qlib_recorder"
+  }
+}

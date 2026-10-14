@@ -1,0 +1,62 @@
+{
+  "experiment": "nvda_comparable_actual_cases_20261015",
+  "frozen_at_utc": "2026-10-14T20:59:26.775859+00:00",
+  "source": {
+    "card": "research/nvda_consensus_basis_audit_20261015",
+    "recorder_id": "9e03a4f0db534d92bd06a0a29a3d1a1c",
+    "archive": "5a3baa94e3073a915ebde94e5f55f31f0c454c4d91abdbec4a780bc813682c9b",
+    "inventory_sha256": "95d43fa75ca1fd1cc16d73b2c205815f7f0f5fcf4459d7843fb23e26ea33aaff"
+  },
+  "raw_dir": "data/raw/external/nvda_comparable_actual_cases_20261015_v1",
+  "payloads": [
+    {
+      "file": "wire_evidence.txt",
+      "sha256": "3ce37cf5de20b916bb77948fdbe3fa78c9f8e84a6d72e35b4fff06479f5277ee"
+    },
+    {
+      "file": "morning_20250529.pdf",
+      "sha256": "35c58bea19bc90d0d0b7b4ef5c87ff9419c56dfc1180bf7b16f855144d75a0aa"
+    },
+    {
+      "file": "receipt.json",
+      "sha256": "27522f107106e5a306b297264a217a927234baf4950b1bac330b84e83000654d"
+    }
+  ],
+  "scope": "Two source-basis discrepancy cases selected without price-based filtering. Preserve article and newsletter populations/versions separately; no EPS surprise calculation or model training.",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "cases": [
+    {
+      "report_date": "2019-02-14",
+      "snapshot_consensus_eps": 0.75,
+      "wire_expected_eps": 0.75,
+      "wire_adjusted_actual_eps": 0.8,
+      "wire_ex_charge_actual_eps": null,
+      "article_explicit_actual_estimate_pair": true,
+      "eps_vendor_explicit_in_pair_sentence": false,
+      "expected_population": "analyst estimates; cohort not specified in EPS sentence",
+      "pair_basis_certified": false,
+      "source_url": "https://www.business-standard.com/amp/article/reuters/nvidia-beats-fourth-quarter-profit-estimates-shares-rise-119021500096_1.html",
+      "publisher_time": "2019-02-15 03:15 IST first published; 03:30 IST updated"
+    },
+    {
+      "report_date": "2025-05-28",
+      "snapshot_consensus_eps": 0.88,
+      "wire_expected_eps": 0.93,
+      "wire_adjusted_actual_eps": 0.81,
+      "wire_ex_charge_actual_eps": 0.96,
+      "article_explicit_actual_estimate_pair": false,
+      "eps_vendor_explicit_in_pair_sentence": true,
+      "expected_population": "17 analysts providing estimates after 2025-04-15 H20 restrictions disclosure",
+      "pair_basis_certified": false,
+      "source_url": "https://www.boursorama.com/bourse/actualites/nvidia-prevoit-un-chiffre-d-affaires-inferieur-aux-estimations-les-restrictions-imposees-par-les-etats-unis-coutant-8-milliards-de-dollars-de-ventes-5685568571124616d4baa8eb40560a69",
+      "publisher_time": "2025-05-28 23:13 displayed; timezone not normalized"
+    }
+  ],
+  "morning_pdf_review": {
+    "page": 2,
+    "visual_review": true,
+    "nvda_paragraph_contains_eps_pair": false,
+    "publication_clock_certified": false
+  }
+}
