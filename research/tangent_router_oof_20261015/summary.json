@@ -1,0 +1,44 @@
+{
+  "experiment": "tangent_router_oof_20261015",
+  "decision": "oof_inputs_ready_not_promoted",
+  "new_fits": 9,
+  "new_backtests": 0,
+  "oof_rows": 756,
+  "first_signal": "2019-12-31",
+  "last_signal": "2022-12-29",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "c14fa2a750bc409dbeb851778722f80f",
+  "experiment_id": "383411122349316499",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/tangent_router_oof_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/tangent_router_oof_20261015/qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "models/*",
+      "analysis/predictions",
+      "analysis/oof_predictions",
+      "analysis/training",
+      "inputs/*",
+      "sources/*"
+    ]
+  },
+  "objective_achieved": false,
+  "independent_strategy_validation": false,
+  "scope": "Train-only tangent allocator OOF inputs for later router research. Family chosen with historical knowledge; not independent strategy validation.",
+  "nas_evidence": {
+    "sha256": "c01347e34941627d09969dd86d0a948c2e1b0715f2582feb5d8fb4354cc7a6db",
+    "size_bytes": 170286,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c0/13/c01347e34941627d09969dd86d0a948c2e1b0715f2582feb5d8fb4354cc7a6db",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 01:15:32.889262+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c0/13/c01347e34941627d09969dd86d0a948c2e1b0715f2582feb5d8fb4354cc7a6db",
+    "recorder_id": "c14fa2a750bc409dbeb851778722f80f",
+    "experiment_id": "383411122349316499",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,12 @@
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - models/*
+  - analysis/predictions
+  - analysis/oof_predictions
+  - analysis/training
+  - inputs/*
+  - sources/*
+  workflow_config: workflow.yaml
+experiment: tangent_router_oof_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013

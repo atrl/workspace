@@ -1,0 +1,85 @@
+{
+  "recorder_id": "c14fa2a750bc409dbeb851778722f80f",
+  "entries": [
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/analysis/oof_predictions",
+      "sha256": "4b9d4929347f3d6e14b119e46f5c01358308b8e7c2f76dfdd539c12d36f788f8"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/analysis/predictions",
+      "sha256": "260911dc0f11791dfd8fcaaab680e8b6f7a1326ab40d12aa0a7523346134b4cc"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/analysis/summary",
+      "sha256": "52a37cde7fbd811240b5415eff97db92fd80e9dd58014d77c92f03f621bdaa8f"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/analysis/training",
+      "sha256": "750db0e7eb12d67bec912e17ebb6474f3ba6f36f8ba93ebc79c18d7f9fe06a9d"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/code_status.txt",
+      "sha256": "06d3c6f2fdb23a3296d2ec3de15bdf84fac858d38380afda0e41a101890e1b14"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/inputs/plan",
+      "sha256": "55cf50377cdbf27517b8d8fe6fc802f85606e80dd5568bcae7cbe93445dd31fa"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/inputs/source_audit",
+      "sha256": "8139645bc07db47a821468e713d19597efbc34800f03a2239667e54d3a97b17f"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/models/2020_172",
+      "sha256": "70683817c6589cdc667bafefbf6c956f9d41ec15fdf09386afca2c13df70349c"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/models/2020_273",
+      "sha256": "c07eed29398e657bf812049132d6621e6e2e92d598f812619911fd033bc59b9e"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/models/2020_71",
+      "sha256": "094782455e9583c8b009abadcddf5ca6df2a01e941af08fb1fb87aad53b3b277"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/models/2021_172",
+      "sha256": "9372a228853453e76be0eccf4e718524f6c21ec6c63887c0cebe1f2e63d3b134"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/models/2021_273",
+      "sha256": "8ae2474bbae8cc50f86204c7712e2d951e78d301b38a0d942872b02bbbf2e98b"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/models/2021_71",
+      "sha256": "9ccf49a956c2a5cfb2af23629bdcdb8df32652084d6f8e9c0ef01d33de2e3d2e"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/models/2022_172",
+      "sha256": "8f8a47e1c51b5265c2f2efb629be400608d18d7fb0ef0730ffc83f309434a056"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/models/2022_273",
+      "sha256": "f109a7d8d67fff80e2a6836ef6ca32551d0d9880009266a71ba66ed876ff6138"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/models/2022_71",
+      "sha256": "197cb991094e26634a575e40fecb9d6c15f565664cff0d8e5871d151d58d9215"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/sources/model",
+      "sha256": "7d1bae5c953982858f91afbe988eed378475f6ee4a125557808754651b7ff9f9"
+    },
+    {
+      "path": "qlib_recorder/383411122349316499/c14fa2a750bc409dbeb851778722f80f/artifacts/sources/parent_model",
+      "sha256": "781a8ee9f730b23eb6df3d05f537347bdc57dcfccf340bd5474f7d3b3bd662e3"
+    }
+  ]
+}
