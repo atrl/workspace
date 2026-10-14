@@ -1,0 +1,49 @@
+{
+  "experiment": "tangent_oof_account_20261015",
+  "decision": "diagnostic_reference_not_promoted",
+  "gates": {
+    "net_soxx_excess_all_costs": false,
+    "drawdown_30pct": false,
+    "cvar_no_worse": true,
+    "rolling_70pct": false,
+    "annual_70pct": false,
+    "bootstrap_positive": false,
+    "independent_validation": false
+  },
+  "new_fits": 0,
+  "new_native_cases": 5,
+  "reused_native_cases": 1,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "first_trade": "2020-01-02",
+  "last_exit": "2023-01-03",
+  "annual_attribution": "trade_date_year",
+  "recorder_id": "19fd51c4c6db4c77871f79f35615ae33",
+  "experiment_id": "413964456547980069",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/tangent_oof_account_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/tangent_oof_account_20261015/qlib_recorder/413964456547980069/19fd51c4c6db4c77871f79f35615ae33",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/native/*"
+    ]
+  },
+  "scope": "Complete all costs and matched SOXX for the existing OOF deterministic-risk reference, no learned open/recovery controls. Same earlier reference, no policy change. Not a substitute for the full promoted strategy or fresh independent validation.",
+  "objective_achieved": false,
+  "nas_evidence": {
+    "sha256": "9fbe9f25d43cd68668e131d6e49cffce436ba77ad79589aa661b541bfbf48601",
+    "size_bytes": 3586161,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/9f/be/9fbe9f25d43cd68668e131d6e49cffce436ba77ad79589aa661b541bfbf48601",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 02:16:10.768738+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/9f/be/9fbe9f25d43cd68668e131d6e49cffce436ba77ad79589aa661b541bfbf48601",
+    "recorder_id": "19fd51c4c6db4c77871f79f35615ae33",
+    "experiment_id": "413964456547980069",
+    "archive_root": "qlib_recorder"
+  }
+}

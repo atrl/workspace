@@ -1,0 +1,5 @@
+{
+  "initial_failure": "annual reporting passed trade dates as signal dates and was rejected by the noncausal-date guard",
+  "new_native_cases_already_completed": 5,
+  "correction": "group original immutable rows by trade year; reuse all saved native books; no refit or replay"
+}
