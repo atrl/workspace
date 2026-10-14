@@ -1,0 +1,55 @@
+{
+  "experiment": "delayed_seasonal_eps_training_20261015",
+  "decision": "not_promoted_delayed_seasonal_eps",
+  "gates": {
+    "beat_paired_control_all_costs": true,
+    "beat_strong_all_costs": false,
+    "net_soxx_excess_all_costs": false,
+    "drawdown_30pct": true,
+    "cvar_no_worse": true,
+    "rolling_70pct": false,
+    "annual_70pct": false,
+    "bootstrap_positive": false,
+    "independent_validation": false
+  },
+  "new_fits": 6,
+  "new_native_cases": 6,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "91cf3f0ec99e4caba9d270b7eb130400",
+  "experiment_id": "146842977876247934",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/delayed_seasonal_eps_training_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/delayed_seasonal_eps_training_20261015/qlib_recorder/146842977876247934/91cf3f0ec99e4caba9d270b7eb130400",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "sources/*",
+      "analysis/predictions",
+      "analysis/native/*"
+    ]
+  },
+  "scope": "Six fixed fits and six independent native cost accounts. Full original primary labels/auxiliary cohort, original final300 epochs and seeds, tangent head. Source timing assumption explicit, reused evaluation cannot certify independent excess.",
+  "objective_achieved": false,
+  "plan_sha256": "5c6e3d0b5caa1c266cfbc4b726bbec9b35115b21057cdac4e7a4bd369a5215c3",
+  "feature_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/delayed_seasonal_eps_20261015",
+  "conditional_source_timing": true,
+  "production_qualified": false,
+  "nas_evidence": {
+    "sha256": "f5baed9831346ed49ef9daa1a9b7bdba3b219712694046b877b7bd7a2391a287",
+    "size_bytes": 13513303,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f5/ba/f5baed9831346ed49ef9daa1a9b7bdba3b219712694046b877b7bd7a2391a287",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 04:38:37.109059+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f5/ba/f5baed9831346ed49ef9daa1a9b7bdba3b219712694046b877b7bd7a2391a287",
+    "recorder_id": "91cf3f0ec99e4caba9d270b7eb130400",
+    "experiment_id": "146842977876247934",
+    "archive_root": "qlib_recorder"
+  },
+  "plan_metadata_note": "\u51bb\u7ed3\u8ba1\u5212\u7ee7\u627f\u7684new_fits=3\u662f\u672a\u88ab\u6267\u884c\u5668\u4f7f\u7528\u7684\u65e7\u63cf\u8ff0\u5b57\u6bb5\uff1b\u6267\u884c\u524d\u5df2\u56fa\u5b9amaximum_model_fits=6\uff0cmechanism/scope\u660e\u786e\u4e24\u7ec4\u54043\u4e2aseed\uff0c\u5b9e\u96456\u6b21\u62df\u5408\u7b26\u5408\u8be5\u4e0a\u9650\u3002\u4fdd\u7559\u539f\u51bb\u7ed3\u8ba1\u5212\u53ca\u54c8\u5e0c\uff0c\u4e0d\u6309\u7ed3\u679c\u6539\u8ba1\u5212\uff1bsummary.new_fits=6\u4e3a\u5b9e\u9645\u5b8c\u6210\u6570\u3002"
+}
