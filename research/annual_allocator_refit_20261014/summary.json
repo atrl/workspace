@@ -1,0 +1,59 @@
+{
+  "experiment": "annual_allocator_refit_20261014",
+  "plan_sha256": "b48253c2895ffb2737e2acc393f9b26ecc830594aad10d2eb2f76c9887af8c2b",
+  "decision": "not_promoted_fixed_annual_refit_failed",
+  "gates": {
+    "net_soxx_excess_all_costs": false,
+    "drawdown_30pct": true,
+    "cvar_no_worse": true,
+    "annual_70pct": false,
+    "rolling_70pct": false,
+    "bootstrap_positive": false,
+    "independent_development": false,
+    "qualified_forward": false,
+    "beat_frozen_tangent_all_costs": false,
+    "beat_annual_original_all_costs": true,
+    "beat_frozen_original_all_costs": false,
+    "beat_current_anchor_all_costs": false
+  },
+  "objective_achieved": false,
+  "new_fits": 18,
+  "new_native_cases": 6,
+  "reused_models_2023": 6,
+  "reused_native_cases": 12,
+  "recorder_id": "326ee243e31b402bbd6540feb80765b6",
+  "experiment_id": "273694188911412494",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/annual_allocator_refit_20261014/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/annual_allocator_refit_20261014/qlib_recorder/273694188911412494/326ee243e31b402bbd6540feb80765b6",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "scope": "Paired architecture x annual-refresh diagnostic on reused 2023+ history. Primary labels mature strictly before each Jan1 cutoff; auxiliary raw observations truncated before building labels. Source version is frozen retrospective dataset, not a claim of historical first-vintage certification. Frozen action/recovery controllers retained. No independent OOS claim.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "a585f29d655d2d3edd669177e3b6129731a343fa4e820c9a55558408e2f2bfac",
+    "size_bytes": 69171970,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a5/85/a585f29d655d2d3edd669177e3b6129731a343fa4e820c9a55558408e2f2bfac",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 22:52:30.902531+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a5/85/a585f29d655d2d3edd669177e3b6129731a343fa4e820c9a55558408e2f2bfac",
+    "recorder_id": "326ee243e31b402bbd6540feb80765b6",
+    "experiment_id": "273694188911412494",
+    "archive_root": "qlib_recorder"
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/model.html"
+  ]
+}

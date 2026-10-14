@@ -1,0 +1,8 @@
+{
+  "error": "RecorderInitializationError during auxiliary provider preparation",
+  "completed_new_fits": 0,
+  "completed_new_native_cases": 0,
+  "original_workflow_sha256": "e0a4b075efaf99d4aec5b40f1254d42e6239af6d94f27798dce888e78d48c9ee",
+  "resolution": "Prepare auxiliary native datasets before Recorder activation; native backtests outside active Recorder context, retaining explicit Recorder objects for output logging",
+  "scientific_plan_unchanged": true
+}
