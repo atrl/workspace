@@ -1,0 +1,6 @@
+{
+  "recorder_id": "632cdf2b92414f4685cd4face37e9e4a",
+  "archive_sha256": "f73847eb3acc27b1648adf860a790c5fa0d7d4568a662dfbeaf0f31a9478193f",
+  "status": "invalid_superseded",
+  "reason": "entry_slot argument existed but entry settlement still used open prices; regression test failed; all initial numerical outputs excluded"
+}

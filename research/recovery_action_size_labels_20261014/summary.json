@@ -1,0 +1,41 @@
+{
+  "experiment": "recovery_action_size_labels_20261014",
+  "decision": "same_state_recovery_action_size_label_diagnostic",
+  "new_fits": 0,
+  "new_strategy_accounts": 0,
+  "new_orders": 0,
+  "objective_achieved": false,
+  "local_counterfactual_labels": 1404,
+  "initial_cash": 100000,
+  "fee_role": "Existing fixed IBKR Tiered projection, two independent 2/5bp reference states; monthly original-open share counters cloned per branch",
+  "scope": "Recovery10:32 to next-open09:47 common-reset local advantage. No full policy value, no original teacher-label reconstruction, no independent OOS claim. Next reset uses future reference target as an explicitly retrospective common endpoint, never a decision feature.",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/labels",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "3883915d770e45b29310a72760cbc508",
+  "experiment_id": "156844064778502476",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/recovery_action_size_labels_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "9cd6f64c284fe1559eba8503a6da2fe4338763d907808135b5bab22c361569c9",
+    "size_bytes": 79254,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/9c/d6/9cd6f64c284fe1559eba8503a6da2fe4338763d907808135b5bab22c361569c9",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 17:31:55.272943+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/9c/d6/9cd6f64c284fe1559eba8503a6da2fe4338763d907808135b5bab22c361569c9",
+    "recorder_id": "3883915d770e45b29310a72760cbc508",
+    "experiment_id": "156844064778502476",
+    "archive_root": "qlib_recorder"
+  }
+}

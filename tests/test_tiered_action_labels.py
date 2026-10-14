@@ -19,3 +19,14 @@ def test_both_branch_fees_and_common_reset_are_isolated():
     legacy=reset_advantage(np.zeros(2),10000.,fees=Flat25Projection(tariff,slippage_bps=0),**args)
     np.testing.assert_allclose(legacy,-.001,atol=1e-15)
     assert value>legacy
+    recovery=row.copy()
+    for symbol in ['soxl','soxx']:
+        recovery[symbol+'_recovery']=50.
+        recovery['raw_'+symbol+'_recovery']=50.
+        nxt[symbol+'_open']=50.
+        nxt['raw_'+symbol+'_open']=50.
+    recovery_args={**args,'row':recovery,'next_row':nxt}
+    actual=reset_advantage(np.zeros(2),10000.,fees=fees,entry_slot='recovery',**recovery_args)
+    expected=-sum(fees.quote(shares=40,raw_price=50.,sell=sell,stamp=row.trade_date)['total'] for sell in [False,True])/10000
+    np.testing.assert_allclose(actual,expected,atol=1e-15)
+    assert fees.monthly_shares=={}

@@ -17,14 +17,19 @@ class Flat25Projection(TieredFees):
         return quote
 
 
-def reset_advantage(q,cash,*,row,next_row,target,reset_target,fees):
+def reset_advantage(q,cash,*,row,next_row,target,reset_target,fees,entry_slot="open"):
+    if entry_slot not in {"open", "recovery"}:
+        raise ValueError("unsupported entry slot")
+    entry_prices = [f"{symbol}_{entry_slot}" for symbol in ("soxl", "soxx")]
+    entry_raw = [f"raw_{symbol}_{entry_slot}" for symbol in ("soxl", "soxx")]
+    entry_offset = pd.Timedelta(hours=9, minutes=47) if entry_slot == "open" else pd.Timedelta(hours=10, minutes=32)
     values=[]
     for desired in [target,None]:
         branch=deepcopy(fees)
-        opened=settle_tiered_event(q,cash,desired=desired,adjusted_prices=row[['soxl_open','soxx_open']],raw_prices=row[['raw_soxl_open','raw_soxx_open']],stamp=row.trade_date+pd.Timedelta(hours=9,minutes=47),fees=branch)
+        opened=settle_tiered_event(q,cash,desired=desired,adjusted_prices=row[entry_prices],raw_prices=row[entry_raw],stamp=row.trade_date+entry_offset,fees=branch)
         reset=settle_tiered_event(opened['quantities'],opened['cash'],desired=reset_target,adjusted_prices=next_row[['soxl_open','soxx_open']],raw_prices=next_row[['raw_soxl_open','raw_soxx_open']],stamp=next_row.trade_date+pd.Timedelta(hours=9,minutes=47),fees=branch)
         values.append(float(reset['quantities']@next_row[['soxl_open','soxx_open']].to_numpy(float)+reset['cash']))
-    nav=float(q@row[['soxl_open','soxx_open']].to_numpy(float)+cash)
+    nav=float(q@row[entry_prices].to_numpy(float)+cash)
     return (values[0]-values[1])/nav
 
 
