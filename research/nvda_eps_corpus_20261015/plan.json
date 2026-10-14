@@ -1,0 +1,7 @@
+{
+  "experiment": "nvda_eps_corpus_20261015",
+  "source_manifest": "data/raw/external/nvda_eps_corpus_20261015_v1/source_manifest.json",
+  "source_manifest_sha256": "dd336ddaf18601b4001d6673f2c756183abb8377244a650c41e06b9bf479b827",
+  "expected_quarters": 63,
+  "scope": "Complete requested-quarter coverage audit; current issuer copies, no missing-quarter imputation, no SUE or return evaluation"
+}

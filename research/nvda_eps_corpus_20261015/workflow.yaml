@@ -1,0 +1,10 @@
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - inputs/raw_html
+  - inputs/source_manifest
+  - analysis/events
+  - analysis/quotes
+  workflow_config: workflow.yaml
+experiment: nvda_eps_corpus_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/nvda_eps_corpus_20261015_v1

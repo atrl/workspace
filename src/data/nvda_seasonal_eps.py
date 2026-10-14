@@ -5,25 +5,48 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 
-def extract_q2_eps(html,*,fiscal_year):
+def extract_quarter_eps(html,*,fiscal_year,quarter):
+    words={1:'First',2:'Second',3:'Third',4:'Fourth'}
+    if quarter not in words:raise ValueError('invalid fiscal quarter')
     soup=BeautifulSoup(html,'html.parser');title=soup.find('h1')
-    if title is None or f'Second Quarter Fiscal {fiscal_year}' not in title.get_text(' ',strip=True):raise ValueError('unexpected release title')
+    expected=rf"{words[quarter]} Quarter (?:and )?Fiscal (?:Year )?{fiscal_year}\b"
+    if title is None or not re.search(expected,title.get_text(' ',strip=True),re.I):raise ValueError('unexpected release title')
     dates=soup.select('.article-date')
     if len(dates)!=1:raise ValueError('ambiguous publication date')
     released=pd.to_datetime(dates[0].get_text(' ',strip=True),format='%B %d, %Y')
-    tables=[t for t in soup.find_all('table') if t.get_text(' ',strip=True).startswith('GAAP ') and f'Q2 FY{str(fiscal_year)[-2:]}' in t.get_text(' ',strip=True)]
-    if len(tables)!=1:raise ValueError('ambiguous GAAP summary table')
+    marker=f'Q{quarter}FY{str(fiscal_year)[-2:]}';compact=lambda value:re.sub(r'\s+','',value)
+    tables=[t for t in soup.find_all('table') if t.get_text(' ',strip=True).startswith('GAAP ') and marker in compact(t.get_text(' ',strip=True))]
+    if len(tables)!=1:raise ValueError('ambiguous GAAP quarterly summary table')
     table=tables[0];text=table.get_text(' ',strip=True)
-    if f'Q2 FY{str(fiscal_year-1)[-2:]}' not in text:raise ValueError('missing comparable prior-year quarter')
-    rows=[tr.get_text(' ',strip=True) for tr in table.find_all('tr') if tr.get_text(' ',strip=True).lower().startswith('diluted earnings per share')]
+    if f'Q{quarter}FY{str(fiscal_year-1)[-2:]}' not in compact(text):raise ValueError('missing comparable prior-year quarter')
+    previous_quarter=quarter-1 if quarter>1 else 4
+    previous_year=fiscal_year if quarter>1 else fiscal_year-1
+    headers=[marker,f'Q{previous_quarter}FY{str(previous_year)[-2:]}',f'Q{quarter}FY{str(fiscal_year-1)[-2:]}']
+    positions=[compact(text).find(header) for header in headers]
+    if min(positions)<0 or positions!=sorted(set(positions)):raise ValueError('unexpected quarter column order')
+    rows=[]
+    for tr in table.find_all('tr'):
+        line=tr.get_text(' ',strip=True)
+        if line.lower().startswith('non-gaap'):break
+        if line.lower().startswith(('diluted earnings per share','earnings per share')):rows.append(line)
     if len(rows)!=1:raise ValueError('ambiguous diluted EPS row')
     values=re.findall(r'\$\s*(\(?\d+(?:\.\d+)?\)?)',rows[0])
     if len(values)!=3:raise ValueError('expected current, prior-quarter and prior-year EPS')
     values=[str(-Decimal(x[1:-1]) if x.startswith('(') else Decimal(x)) for x in values]
     body=soup.get_text(' ',strip=True)
-    headline=re.findall(r'(?<![-A-Za-z])GAAP earnings per diluted share (?:for the quarter were|was) \$(\d+(?:\.\d+)?)',body)
-    if len(headline)!=1 or Decimal(headline[0])!=Decimal(values[0]):raise ValueError('GAAP headline/table EPS mismatch')
-    return {'fiscal_quarter':f'FY{fiscal_year}Q2','release_date':str(released.date()),'current_eps':values[0],'prior_quarter_comparative_eps':values[1],'prior_year_comparative_eps':values[2],'accounting_basis':'GAAP','share_basis':'diluted','unit':'USD_per_share_as_displayed_in_this_release','precise_publication_clock_verified':False,'first_vintage_bytes_verified':False}
+    if quarter==4:
+        patterns=[r'For the quarter, GAAP earnings per diluted share (?:was|were) \$\s*(\d+(?:\.\d+)?)',r'(?<![-A-Za-z])GAAP earnings per diluted share for the quarter (?:was|were) \$\s*(\d+(?:\.\d+)?)']
+    else:patterns=[r'(?<![-A-Za-z])GAAP earnings per diluted share (?:for the quarter )?(?:was|were) \$\s*(\d+(?:\.\d+)?)']
+    headline=[x for pattern in patterns for x in re.findall(pattern,body,re.I)]
+    if rows[0].lower().startswith('earnings per share') and not headline:raise ValueError('generic EPS row needs explicit diluted headline')
+    if headline and any(Decimal(x)!=Decimal(values[0]) for x in headline):raise ValueError('GAAP headline/table EPS mismatch')
+    return {'fiscal_quarter':f'FY{fiscal_year}Q{quarter}','release_date':str(released.date()),'current_eps':values[0],'prior_quarter_comparative_eps':values[1],'prior_year_comparative_eps':values[2],'accounting_basis':'GAAP','share_basis':'diluted','unit':'USD_per_share_as_displayed_in_this_release','headline_crosschecked':bool(headline),'early_release_disclosure':all(term in body.lower() for term in ['preliminary draft','inadvertently','in advance of trading']),'precise_publication_clock_verified':False,'first_vintage_bytes_verified':False}
+
+
+def extract_q2_eps(html,*,fiscal_year):
+    result=extract_quarter_eps(html,fiscal_year=fiscal_year,quarter=2)
+    if not result['headline_crosschecked']:raise ValueError('missing Q2 headline crosscheck')
+    return result
 
 
 def split_bridge(previous,current,*,split_ratio):

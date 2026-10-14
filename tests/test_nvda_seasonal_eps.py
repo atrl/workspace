@@ -10,3 +10,18 @@ def test_gaap_table_and_split_rounding_do_not_create_false_negative_growth():
 
     with pytest.raises(ValueError,match='same-quarter'):
         split_bridge({'current_eps':'2.48','fiscal_quarter':'FY2023Q2','accounting_basis':'GAAP','share_basis':'diluted'},current,split_ratio=10)
+
+
+def test_fourth_quarter_excludes_annual_headline_and_annual_table():
+    from src.data.nvda_seasonal_eps import extract_quarter_eps
+    html='<h1>NVIDIA Announces Financial Results for Fourth Quarter and Fiscal Year 2025</h1><div class="article-date">February 26, 2025</div><p>For fiscal 2025, GAAP earnings per diluted share were $2.94.</p><p>For the quarter, GAAP earnings per diluted share were $0.89.</p><table><tr><td>GAAP Q4 FY25 Q3 FY25 Q4 FY24</td></tr><tr><td>Diluted earnings per share $0.89 $0.78 $0.49</td></tr></table><table><tr><td>GAAP FY25 FY24</td></tr><tr><td>Diluted earnings per share $2.94 $1.19</td></tr></table>'
+    result=extract_quarter_eps(html,fiscal_year=2025,quarter=4)
+    assert result['current_eps']=='0.89' and result['headline_crosschecked']
+    with pytest.raises(ValueError,match='column order'):extract_quarter_eps(html.replace('Q4 FY25 Q3 FY25 Q4 FY24','Q4 FY24 Q3 FY25 Q4 FY25'),fiscal_year=2025,quarter=4)
+
+
+def test_combined_gaap_nongaap_sections_keep_explicit_quarter_identity():
+    from src.data.nvda_seasonal_eps import extract_quarter_eps
+    html='<h1>NVIDIA Announces Financial Results for Third Quarter Fiscal 2021</h1><div class="article-date">November 18, 2020</div><p>GAAP earnings per diluted share were $2.12.</p><table><tr><td>GAAP Q 3 FY2 1 Q2 FY21 Q 3 FY20</td></tr><tr><td>Earnings per share $2.12 $0.99 $1.45</td></tr><tr><td>Non-GAAP Q3 FY21 Q2 FY21 Q3 FY20</td></tr><tr><td>Diluted earnings per share $2.91 $2.18 $1.78</td></tr></table>'
+    result=extract_quarter_eps(html,fiscal_year=2021,quarter=3)
+    assert result['current_eps']=='2.12' and result['prior_year_comparative_eps']=='1.45'
