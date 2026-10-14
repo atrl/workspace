@@ -15,3 +15,9 @@ def test_announced_policy_correction_and_publication_day_delay():
     events=funding_release_events(sofr,ioer.iloc[:0],iorb,official_observation_dates=sofr.observation_date,policy_events=[])
     state=align_funding_information(events,pd.to_datetime(['2026-10-12','2026-10-13','2026-10-14']))
     assert state.known.tolist()==[0.,0.,1.]
+
+
+def test_published_decimal_spreads_preserve_ties_without_forcing_integer_grid():
+    from src.data.funding_availability import reported_rate_spread_bp
+    assert reported_rate_spread_bp(.15,.12)==reported_rate_spread_bp(3.90,3.87)==3.
+    assert reported_rate_spread_bp(4.365,4.36)==.5

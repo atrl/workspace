@@ -1,0 +1,46 @@
+{
+  "experiment": "funding_information_20261014",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/funding_availability_20261014",
+  "sources": {
+    "funding": {
+      "card": "research/funding_availability_20261014",
+      "recorder_id": "a1c69bbbab724a33803c22aee98888d9",
+      "manifest_sha256": "267629f74a6753f4d14a2958088ce15c9739ce6f1b2fb415b9cae97b09699f53"
+    },
+    "prices": {
+      "card": "research/full_path_tiered_allocation_20261013",
+      "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+      "manifest_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+    },
+    "labels": {
+      "card": "research/guidance_information_20261014",
+      "recorder_id": "8ee12f9f0c7149a19653bf982b6993fc",
+      "manifest_sha256": "37bdd9d2a4cdff483c675a323c56a5b09019e15fe39949c778a4712bc6f07264"
+    }
+  },
+  "evaluation_windows": {
+    "earlier": [
+      2019,
+      2022
+    ],
+    "later_reused": [
+      2023,
+      2025
+    ]
+  },
+  "expected_sign": "positive funding spread predicts positive cash_relative_h5",
+  "horizon": 5,
+  "controls": [
+    "IOER/IORB regime",
+    "past SOXX5/20 return sign state",
+    "underlying rate observation on equity month-end"
+  ],
+  "primary_metric": "within-control percentile ranks, group-centered pooled association",
+  "mean_block": 63,
+  "resamples": 1000,
+  "seed": 20261014,
+  "gate": "positive95% lower bound in both windows, positive point estimate in at least70% of years",
+  "no_fits": true,
+  "no_threshold_or_clock_search": true,
+  "limits": "gross label, coarse controls only, reused history not fresh OOS"
+}

@@ -1,0 +1,6 @@
+{
+  "recorder_id": "1c4b036994bd402288cf6634d536a073",
+  "archive_sha256": "92938dc5646bad00641ce71914adb4c5676ec00048ede8625964e537e7d04751",
+  "status": "invalid_for_rank_inference",
+  "reason": "Binary floating subtraction spuriously split decimal quote ties; fixed quote semantics before accepting any statistical conclusion"
+}

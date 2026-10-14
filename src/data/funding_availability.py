@@ -1,11 +1,20 @@
 """Date-level archived rates aligned after publication-day end, never effective-date backfill."""
 import hashlib
+from decimal import Decimal
 import io
 import json
 from pathlib import Path
 import zipfile
 import numpy as np
 import pandas as pd
+
+
+
+def reported_rate_spread_bp(rate_percent, reserve_percent):
+    """Preserve ties in published decimal quotes, including fractional basis points."""
+    if not np.isfinite([rate_percent, reserve_percent]).all():
+        return np.nan
+    return float((Decimal(str(rate_percent))-Decimal(str(reserve_percent)))*Decimal(100))
 
 
 def read_archived_rates(directory):
@@ -49,7 +58,7 @@ def funding_release_events(sofr,ioer,iorb,*,official_observation_dates,policy_ev
         known=np.isfinite(value)
         day=max(d for d in [row.observation_date,row.release_date,release] if pd.notna(d))
         available=day.tz_localize('America/New_York')+pd.Timedelta(hours=23,minutes=59,seconds=59)
-        events.append({'observation_date':row.observation_date,'sofr_archive_date':row.release_date,'policy_public_date':release,'available_at':available,'sofr_percent':float(row.value),'reserve_rate_percent':value,'original_policy_initial_value':original,'policy_source':source,'reserve_rate_is_iorb':float(regime=='IORB'),'known':float(known),'spread_bp':100*(row.value-value) if known else np.nan})
+        events.append({'observation_date':row.observation_date,'sofr_archive_date':row.release_date,'policy_public_date':release,'available_at':available,'sofr_percent':float(row.value),'reserve_rate_percent':value,'original_policy_initial_value':original,'policy_source':source,'reserve_rate_is_iorb':float(regime=='IORB'),'known':float(known),'spread_bp':reported_rate_spread_bp(row.value,value) if known else np.nan})
     return pd.DataFrame(events).sort_values('observation_date')
 
 
