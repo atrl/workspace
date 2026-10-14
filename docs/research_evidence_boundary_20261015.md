@@ -56,3 +56,24 @@ annual_recovery_account_20261015和full_history_recovery_20261015的冻结计划
 新信息条件仍有具体可核查路径，不能直接宣称整个目标无路可走：refinitiv_newsletter_extended_20261013已经保留105条带日期EPS预期，每家公司35条，不是只有早期12条。nvda_consensus_basis_audit_20261015检查NVDA全部35条后，确认不能统一用公司GAAP或非GAAP替代I/B/E/S comparable actual；历史“去年EPS”还不能向早一年回填。下一依赖为同期供应商可比actual、口径/生效版本及公开时间证据，未获取前不生成surprise或重跑旧EPS方案。既有供应商回溯EPS、营收差、指引、季节性EPS及毛利率失败路线均保持关闭。
 
 稳定净超额及独立资格仍未达成，目标保持active。新的来源核查不是实现超额，旧历史的更多试验也不能自动增加独立性。
+
+## 2026-10-14 当前阻塞审计
+
+目标未完成；本次将执行状态转为blocked，目标文本和全部风险/超额标准不变。阻塞键为`qualified_expectation_actual_vintage_unavailable`：没有可核验的同期同口径可比actual、匹配预期样本/版本及历史可用时间，不能为下一项预期差训练生成合格标签。它不是“某次回测不好”的别名。
+
+同一缺口连续三轮：
+
+1. `nvda_consensus_basis_audit_20261015`（d129b95a）：35次NVDA快照无法统一匹配GAAP或公司非GAAP；需要供应商可比actual及版本。
+2. `nvda_comparable_actual_cases_20261015`（314dbc4b）：两例同期报道保留0.88/0.93不同预期样本与0.81/0.96不同actual；合格训练案例仍0，次日晨报未补足EPS配对。
+3. 本轮重新读取两卡状态、数据覆盖及可用工具，并访问官方替代入口。当前工具目录没有LSEG/FactSet/I/B/E/S历史数据连接器（仅相关关键词命中本周财经日历，不能替代历史预期）。LSEG官方Quickstart标注I/B/E/S样本“Free to air”、5次/分钟，但Samples链接转到Workspace OAuth登录；Documentation明确要求登录。当前路径不是已取得的匿名历史数据，历史覆盖亦未确认。用户此前已说明没有同类数据权限；未注册账号、申请试用、联系销售或索取密钥。
+
+核查链接：
+- https://developers.lseg.com/en/api-catalog/refinitiv-data-platform/rdp-data-exploration/quickstart
+- https://developers.lseg.com/en/api-catalog/refinitiv-data-platform/rdp-data-exploration/documentation
+- https://www.lseg.com/en/data-catalogue/company-data/ibes-estimates/actuals
+
+独立验证缺口同时仍存在：本轮读回本地分钟文件最新为2026-10-13 16:00 ET，早于近期候选冻结；未出现可用的新候选前向窗口。旧paper不同模型及10/25bp身份不能移植。近期预登记实验已完成，不能通过重复训练、换盈利列、选择更弱对照或回看同一历史来制造独立证据。已有619项数据工作区路径变化和其他任务临时文件保持原状；没有停止或推断任何外部采集/模拟盘进程。
+
+恢复条件是至少一种能带来实质新研究的信息条件：提供或接通包含可比实际值、预期样本/版本、公告及生效时间的历史数据；或取得能支持另一项明确新机制的合格信息与适当独立验证资料。授权数据服务并不保证覆盖，也不保证alpha，仍需先验证内容再冻结训练/完整成本回测。独立前向数据只能随实际市场过程取得，不能由旧历史重命名生成。
+
+这是当前已核验来源与已冻结研究路线的运行阻塞，不是对所有公开资料或所有策略不可行的数学证明。恢复后继续原目标，不将获得数据、软件通过或一段历史改善当作完成。
