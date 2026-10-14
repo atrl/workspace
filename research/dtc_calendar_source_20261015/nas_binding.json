@@ -1,0 +1,23 @@
+{
+  "schema_version": "nas_research_source_v1",
+  "authority": "yanxuan_nas",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "source_id": "943e9bbb70de5ea0e074fa9942a6f08a5661a8a3f105c46326a5e8a29c39cddf",
+  "raw_authority": "Archived official DTCC notice 23036-25; CDX payload digest matched",
+  "evidence": {
+    "sha256": "79b3f7663393960eb965c039f827b7594e175518dd14200ae22bfe541a157fae",
+    "size_bytes": 276769,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/79/b3/79b3f7663393960eb965c039f827b7594e175518dd14200ae22bfe541a157fae",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 02:08:13.681455+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/79/b3/79b3f7663393960eb965c039f827b7594e175518dd14200ae22bfe541a157fae",
+    "recorder_id": "f33eacd40e464a7dba9b329399ccd1eb",
+    "experiment_id": "706863825682812018",
+    "archive_root": "qlib_recorder"
+  }
+}

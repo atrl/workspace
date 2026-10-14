@@ -1,0 +1,44 @@
+{
+  "experiment": "dtc_calendar_source_20261015",
+  "decision": "needs_data_remaining_years_and_specific_service_notices",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "verified_pdf_notices": 1,
+  "notice_year": 2026,
+  "scheduled_holiday_rows": 12,
+  "complete_calendar_qualified": false,
+  "broker_value_dates_qualified": false,
+  "settlement_calendar_provider_built": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "provider_role": "existing Qlib context only; no new market or settlement calendar claimed",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "recorder_id": "f33eacd40e464a7dba9b329399ccd1eb",
+  "experiment_id": "706863825682812018",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/dtc_calendar_source_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/dtc_calendar_source_20261015/qlib_recorder/706863825682812018/f33eacd40e464a7dba9b329399ccd1eb",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/pdf",
+      "inputs/archive_indices",
+      "inputs/extracted_text"
+    ]
+  },
+  "scope": "One visually reviewed anticipated holiday notice; no complete settlement calendar or broker actual value-date qualification",
+  "objective_achieved": false,
+  "nas_evidence": {
+    "sha256": "79b3f7663393960eb965c039f827b7594e175518dd14200ae22bfe541a157fae",
+    "size_bytes": 276769,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/79/b3/79b3f7663393960eb965c039f827b7594e175518dd14200ae22bfe541a157fae",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 02:08:13.681455+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/79/b3/79b3f7663393960eb965c039f827b7594e175518dd14200ae22bfe541a157fae",
+    "recorder_id": "f33eacd40e464a7dba9b329399ccd1eb",
+    "experiment_id": "706863825682812018",
+    "archive_root": "qlib_recorder"
+  }
+}

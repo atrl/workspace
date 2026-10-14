@@ -1,0 +1,13 @@
+scheduled_date,holiday,notice_status,meaning,past_at_retrieval,actual_service_verified
+2026-01-01,New Year,Closed,closed,True,False
+2026-01-19,MLK,Closed,closed,True,False
+2026-02-16,Presidents,Closed,closed,True,False
+2026-04-03,Good Friday,Open1,limited_services_specific_notice_required,True,False
+2026-05-25,Memorial,Closed,closed,True,False
+2026-06-19,Juneteenth,Closed,closed,True,False
+2026-07-03,Independence observed,Open1,limited_services_specific_notice_required,True,False
+2026-09-07,Labor,Closed,closed,True,False
+2026-10-12,Columbus,Open2,open_without_settlement,True,False
+2026-11-11,Veterans,Open2,open_without_settlement,False,False
+2026-11-26,Thanksgiving,Closed,closed,False,False
+2026-12-25,Christmas,Closed,closed,False,False
