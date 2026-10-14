@@ -1,0 +1,27 @@
+{
+  "legacy_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+  "artifact_hashes": {
+    "open_action_value_models.pkl": "a006816c34a106e1006a18763ad5a6b1c1159e847f84dc65b40ffee1f1128e52",
+    "training_diagnostics.csv": "a6f70dca9b1d796e27f3f539917e98cf5a5147084ea05f1badcfd711e57cc496",
+    "dataset_audit.json": "5b49f9f9b2caa259a6026223a0e1ba2061c384dddabd9aa9625c2d6f7a7479ca",
+    "runtime_models.json": "a14bbe8a32154cdf2f07292465e84a59f34da7f064b40eeea4ea2694d59a5118"
+  },
+  "saved_annual_open_years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "saved_runtime_models": [
+    "frozen_open_action_value_model",
+    "frozen_recovery_model"
+  ],
+  "annual_recovery_artifact_present": false,
+  "source_scope": "this pinned frozen bundle only; not a repository-wide absence proof"
+}
