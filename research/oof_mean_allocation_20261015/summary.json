@@ -1,0 +1,50 @@
+{
+  "experiment": "oof_mean_allocation_20261015",
+  "decision": "not_promoted_fixed_oof_mean",
+  "gates": {
+    "net_soxx_excess_all_costs": false,
+    "beat_dynamic_all_costs": false,
+    "drawdown_30pct": false,
+    "rolling_70pct": false,
+    "annual_70pct": false,
+    "bootstrap_positive": false,
+    "independent_validation": false
+  },
+  "new_fits": 0,
+  "new_native_cases": 3,
+  "mean_weights": {
+    "soxl_weight": 0.27471629175717793,
+    "soxx_weight": 0.46688953316318493,
+    "cash_weight": 0.25839417507963713
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "2d54c076a8794738b18e502634ee1784",
+  "experiment_id": "615980381004914728",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/oof_mean_allocation_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/oof_mean_allocation_20261015/qlib_recorder/615980381004914728/2d54c076a8794738b18e502634ee1784",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/native/*"
+    ]
+  },
+  "objective_achieved": false,
+  "scope": "Pre-evaluation allocation baseline, not ex-post evaluation mean. Not exposure-matched and not passive; retained risk and classification information. Research family selected with historical knowledge.",
+  "nas_evidence": {
+    "sha256": "d610efe2ab5d7451e1074f4194e8ddb1c4678eb9fc581159d2acfd4c8804f39d",
+    "size_bytes": 7702198,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/d6/10/d610efe2ab5d7451e1074f4194e8ddb1c4678eb9fc581159d2acfd4c8804f39d",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 01:26:12.928676+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/d6/10/d610efe2ab5d7451e1074f4194e8ddb1c4678eb9fc581159d2acfd4c8804f39d",
+    "recorder_id": "2d54c076a8794738b18e502634ee1784",
+    "experiment_id": "615980381004914728",
+    "archive_root": "qlib_recorder"
+  }
+}
