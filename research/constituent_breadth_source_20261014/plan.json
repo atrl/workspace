@@ -1,0 +1,20 @@
+{
+  "experiment": "constituent_breadth_source_20261014",
+  "provider": "data/qlib/soxx_pit_leveraged_training_v1",
+  "source_hashes": {
+    "qlib_store_manifest.json": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+    "sec_nport_holdings_history.csv": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+    "sec_nport_holdings_manifest.json": "abf33aa625ae587fa99a61d6b75bf25e47e1deb57f70f360f0ba670d84643811",
+    "constituent_price_manifest.json": "779372b3066a743453cf519c574747c1588b03b6f8934455c409464484417624"
+  },
+  "mechanism": "Audit reported constituent basket coverage and fixed descriptive breadth; do not fit, backtest, correlate future outcomes or select periods",
+  "features": [
+    "weighted20session_new_low_share",
+    "weighted5session_positive_return_share",
+    "top5_fraction_of_negative_weighted_daily_return"
+  ],
+  "same_day_filings": "excluded; previous filing dates only",
+  "missing_members": "do not renormalize partial basket; all features unknown unless complete",
+  "parameters_fixed_from_sop": true,
+  "missing_member_bounds": "Binary breadth lower=known positive weight/total reported weight; upper=lower+missing weight/total. No price imputation or forward-return selection."
+}

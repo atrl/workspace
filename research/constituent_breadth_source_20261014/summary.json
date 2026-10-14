@@ -1,0 +1,67 @@
+{
+  "experiment": "constituent_breadth_source_20261014",
+  "decision": "reported_holdings_proxy_only_needs_membership_and_price_completion",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "outcome_correlations": 0,
+  "parameter_searches": 0,
+  "objective_achieved": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_pit_leveraged_training_v1",
+  "region": "us",
+  "as_of": "2026-07-02",
+  "source_first_filing": "2019-11-25",
+  "source_last_filing": "2026-07-13",
+  "filing_lag_days_min": 53,
+  "filing_lag_days_median": 57.0,
+  "filing_lag_days_max": 286,
+  "observed_sessions": 1657,
+  "complete_reported_basket_sessions": 398,
+  "missing_symbols": [
+    "WOLF",
+    "XLNX",
+    "CREE",
+    "CCMP",
+    "MXIM",
+    "BRKS",
+    "IPHI"
+  ],
+  "actual_contemporaneous_index_membership_certified": false,
+  "exact_publication_clock_certified": false,
+  "proxy_role": "Latest previously filed reported equity basket, fixed disclosed weights, not daily SOXX index weights",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/coverage",
+      "analysis/missing",
+      "analysis/candidate_features"
+    ]
+  },
+  "recorder_id": "70487e2f47d0486ba4f15745a1389c2a",
+  "experiment_id": "300630589047366654",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/constituent_breadth_source_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "dfe80da7a6a70f780dffdb856b581b924192b300826416e25bcf3841ecabc4d5",
+    "size_bytes": 180790,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/df/e8/dfe80da7a6a70f780dffdb856b581b924192b300826416e25bcf3841ecabc4d5",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 16:17:51.704079+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/df/e8/dfe80da7a6a70f780dffdb856b581b924192b300826416e25bcf3841ecabc4d5",
+    "recorder_id": "70487e2f47d0486ba4f15745a1389c2a",
+    "experiment_id": "300630589047366654",
+    "archive_root": "qlib_recorder"
+  },
+  "late_report_fix": {
+    "diagnostic_date": "2026-07-14",
+    "old_selected_report": "2025-09-30",
+    "corrected_report": "2026-03-31",
+    "corrected_filing": "2026-05-28",
+    "all_existing_coverage_choices_unchanged": true,
+    "old_provider_not_rebuilt": true,
+    "focused_tests": "7 passed"
+  }
+}

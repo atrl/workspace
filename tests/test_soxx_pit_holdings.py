@@ -275,3 +275,16 @@ def test_fetch_and_store_soxx_pit_prices_reports_membership_weight_coverage(
     coverage = pd.read_csv(paths.price_coverage_csv).set_index("symbol")
     assert coverage.loc["AMD", "status"] == "ok"
     assert coverage.loc["NVDA", "status"] == "error"
+
+
+def test_late_old_report_does_not_replace_newer_public_holdings():
+    from src.data.soxx_pit_holdings import SecNportFiling, parse_sec_soxx_nport_primary_xml, build_pit_soxx_weight_panel
+    current=parse_sec_soxx_nport_primary_xml(_primary_xml(report_date="2020-03-31"),
+        filing=SecNportFiling(accession="0000000000-20-000001",filing_date="2020-06-01",form="NPORT-P"))
+    late=parse_sec_soxx_nport_primary_xml(_primary_xml(report_date="2019-12-31"),
+        filing=SecNportFiling(accession="0000000000-20-000002",filing_date="2020-06-03",form="NPORT-P"))
+    panel=build_pit_soxx_weight_panel(pd.concat([current,late]),calendar=pd.date_range("2020-06-01","2020-06-05"))
+    assert pd.to_datetime(panel.report_date).eq(pd.Timestamp("2020-03-31")).all()
+    amended=current.copy();amended['filing_date']='2020-06-04';amended['accession']='0000000000-20-000003'
+    panel=build_pit_soxx_weight_panel(pd.concat([current,late,amended]),calendar=pd.date_range("2020-06-01","2020-06-05"))
+    assert panel.loc[panel.datetime.ge('2020-06-04'),'accession'].eq('0000000000-20-000003').all()

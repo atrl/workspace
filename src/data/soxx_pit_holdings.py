@@ -387,10 +387,12 @@ def build_pit_soxx_weight_panel(
     filing_dates = sorted(snapshots["available_date"].unique())
     for index, available_date in enumerate(filing_dates):
         version = snapshots.loc[
-            snapshots["available_date"].eq(available_date)
+            snapshots["available_date"].le(available_date)
         ]
-        # Multiple filings on one day are amendments or duplicate versions.
-        # The lexicographically latest accession is the public state at close.
+        # A late filing for an older report must not roll the current basket back.
+        # Within the latest disclosed report period, prefer the latest public version.
+        version = version.loc[version["report_date"].eq(version["report_date"].max())]
+        version = version.loc[version["available_date"].eq(version["available_date"].max())]
         accession = str(version["accession"].max())
         version = version.loc[version["accession"].eq(accession)].copy()
         next_available = (
