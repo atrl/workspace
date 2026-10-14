@@ -1,0 +1,8 @@
+field,asset,quantity,window,min_periods,ddof,scale,source
+primary:rv20,SOXL,annualized close-return std,20,20,1.0,sqrt252,daily
+primary:rv60,SOXL,annualized close-return std,60,30,1.0,sqrt252,daily
+primary:soxx_vol20,SOXX,daily close-return std,20,20,1.0,1,execution
+common:vol20,SOXX,daily close-return std,20,10,0.0,1,daily
+primary:soxx_drawdown60,SOXX,distance from rolling close maximum,60,60,,1,execution
+common:drawdown60,SOXX,distance from rolling close maximum,60,20,,1,daily
+primary:dist_high_252,SOXL,distance from rolling close maximum,252,100,,1,daily

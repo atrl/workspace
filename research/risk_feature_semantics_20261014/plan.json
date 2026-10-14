@@ -1,0 +1,34 @@
+{
+  "experiment": "risk_feature_semantics_20261014",
+  "as_of": "2026-10-09",
+  "source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "prediction_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "source_signal_start": "2023-01-03",
+  "source_signal_end": "2026-10-08",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "mechanism": "Audit asset, annualization, ddof and price source of frozen risk inputs; no fitted changes or predictive testing",
+  "no_candidate_selection": true,
+  "start": "2023-01-03",
+  "end": "2026-10-08",
+  "anchor": "2023-11-03",
+  "providers": {
+    "daily": "data/qlib/soxl",
+    "execution": "data/qlib/soxl_soxx_soxs"
+  },
+  "provider_manifest_sha256": {
+    "daily": "1c8f9b9277df6bb025868c97380ff78b87e140f754f85696a65cfdb66012a83b",
+    "execution": "8cd0a3781a509ea75b5ec22b330a00160443a0cc250cbe6e7d6907dccddd9fe5"
+  }
+}

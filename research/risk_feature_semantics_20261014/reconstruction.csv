@@ -1,0 +1,5 @@
+frozen_feature,reconstructed_from,observations,max_absolute_error,median_absolute_error,within_float_tolerance_rows
+primary_vol20,execution_vol20_sample,3966,1.9628868083015893e-08,4.126123411690719e-09,3966
+common_vol20_as_sample,daily_vol20_sample,3966,1.8029639467162517e-08,4.165328826646886e-09,3966
+primary_drawdown60,execution_drawdown60,3966,1.362175161556678e-08,5.459666052587409e-10,3966
+common_drawdown60,daily_drawdown60,3966,0.0,0.0,3966

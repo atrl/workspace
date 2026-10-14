@@ -1,0 +1,64 @@
+{
+  "experiment": "risk_feature_semantics_20261014",
+  "decision": "risk_units_distinguished_cross_price_plane_inconsistency_measured",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "parameter_searches": 0,
+  "outcome_correlations": 0,
+  "objective_achieved": false,
+  "rows": 3966,
+  "maximum_cross_plane_vol_difference": 0.0005234252084780379,
+  "maximum_cross_plane_drawdown_difference": 0.0080085640686679,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "current_price_reconstruction_is_historical_vintage_certification": false,
+  "production_changed": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "8a20541d39f74f34be16e7cc7f6e38c8",
+  "experiment_id": "958334050690878092",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/risk_feature_semantics_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "a035ac90ec2c18280b889cfb001ce50c9b3f4fca7d0ce97b13c4f289929962b5",
+    "size_bytes": 429598,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a0/35/a035ac90ec2c18280b889cfb001ce50c9b3f4fca7d0ce97b13c4f289929962b5",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 17:04:12.138836+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a0/35/a035ac90ec2c18280b889cfb001ce50c9b3f4fca7d0ce97b13c4f289929962b5",
+    "recorder_id": "8a20541d39f74f34be16e7cc7f6e38c8",
+    "experiment_id": "958334050690878092",
+    "archive_root": "qlib_recorder"
+  },
+  "symmetric_source_sensitivity": [
+    {
+      "case": "align_primary_to_daily",
+      "sessions": 945,
+      "mean_absolute_cash_change_pp": 0.012375965714454651,
+      "maximum_absolute_cash_change_pp": 0.35493969917297363,
+      "anchor_base_cash_pct": 75.10287475585938,
+      "anchor_case_cash_pct": 75.1355972290039,
+      "anchor_cash_change_pp": 0.03272294998168945
+    },
+    {
+      "case": "align_common_to_execution",
+      "sessions": 945,
+      "mean_absolute_cash_change_pp": 0.00437662098556757,
+      "maximum_absolute_cash_change_pp": 0.15733838081359863,
+      "anchor_base_cash_pct": 75.10287475585938,
+      "anchor_case_cash_pct": 75.12750244140625,
+      "anchor_cash_change_pp": 0.024628639221191406
+    }
+  ],
+  "sensitivity_role": "Frozen input interventions only; no refit, return evaluation, preferred source selection or executable target"
+}
