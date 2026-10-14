@@ -1,0 +1,37 @@
+{
+  "training_rows": 260,
+  "positive_rows": 88,
+  "last_label_available_at": "2022-12-28 09:49:00-05:00",
+  "cutoff": "2023-01-01 00:00:00-05:00",
+  "features": [
+    "portfolio_drawdown",
+    "current_beta_cap",
+    "raw_effective_beta",
+    "risk_state",
+    "raw_soxl_weight",
+    "raw_soxx_weight",
+    "raw_cash_weight",
+    "tail_probability",
+    "alpha_probability",
+    "portfolio_ret_1d",
+    "portfolio_ret_3d",
+    "portfolio_ret_5d",
+    "target_soxl_weight",
+    "target_soxx_weight",
+    "target_cash_weight",
+    "pretrade_soxl_weight",
+    "pretrade_soxx_weight",
+    "pretrade_cash_weight",
+    "soxl_weight_delta",
+    "soxx_weight_delta",
+    "effective_beta_delta",
+    "open_turnover"
+  ],
+  "C": 0.1,
+  "threshold": 0.5,
+  "iterations": [
+    14
+  ],
+  "development_rows_before_2022": 154,
+  "minimum_rows": 200
+}

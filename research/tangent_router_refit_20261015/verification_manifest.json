@@ -1,0 +1,85 @@
+{
+  "recorder_id": "ea7e2d9205c6401f82c35eaa63c4e91e",
+  "entries": [
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/annual",
+      "sha256": "61e83e4b22f411691338fbf063bed8fb4357f0471f4115bb5a4fe1ac47c8e1d0"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/comparison",
+      "sha256": "6866d723a63b26cce24c0b41272e3b5938dbfa27b5d22d998c68fbe7cd011f36"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/native/strong_refit_0",
+      "sha256": "a9932441e7e356508a8152f780ae503337f1aa8ee3f816f82afd8d76e7495318"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/native/strong_refit_2",
+      "sha256": "a885cb5cdce4a8f69a1a5a1fea81d91c2b88b6f2599d0ecad4dfa85caa64a67f"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/native/strong_refit_5",
+      "sha256": "030c61d39a33639fe154809759fad00b18bd17247544b58c543cd09469f83d6b"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/native/strong_router_0",
+      "sha256": "9e9652010f53f37cd454a7c4625220f0ce2db10651b5df23d2b179c142bd3c7f"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/native/strong_router_2",
+      "sha256": "8925e0607dcdf1752d262f9d11bdf950500b62399c1637881948eac9bc2815b8"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/native/strong_router_5",
+      "sha256": "23de7e26b939b60c71420e7cc947353e53b7032e6dee927d2ef8e40f66ce713f"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/prefix",
+      "sha256": "09a41fb6231445e0a7d756b5aca070fcbc5e09baae6543dc07ebb863f6f80b02"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/summary",
+      "sha256": "b6f1c8ec867bd24e44fc85b39402703d27ee1bebd8ab8ae4b0c9311b514e1d82"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/analysis/uncertainty",
+      "sha256": "1c2db2d775751df392be07a0ffe3fc7b2788c5768f6d762e917b9bc59c75644e"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/code_status.txt",
+      "sha256": "4a6801a0f18479ce0bda052aa380ba9be44069ec55e3f0f087f2a961c2d9812a"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/inputs/plan",
+      "sha256": "7d9840a8970b8051db16829c73a9aa69aa43405b4e48b7ffdcf3243598338128"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/inputs/source_audits",
+      "sha256": "7578d590742c6d3936d21655a7dbd4369e98b2d1359745a9319ede3209a4d584"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/inputs/training_audit",
+      "sha256": "dfee933aa70b47a77308d4227a9ae67c16efc12bb71d15edb9bf1d97098598c4"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/models/router",
+      "sha256": "b21484339a3fcc4f0ef3959fe3650c06d7e73becb830489cd00de5a3ecd45a03"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/sources/replay",
+      "sha256": "9368926fd95ec621e8f4e9dc3234a4c3d94625dd52a227f19ef873a29a81ecdc"
+    },
+    {
+      "path": "qlib_recorder/450954510780488132/ea7e2d9205c6401f82c35eaa63c4e91e/artifacts/sources/routing",
+      "sha256": "73ddb5629bc06da666b3971c0a17ac8fdc0ebf70d3760f1f804a20266c7d8ba2"
+    }
+  ]
+}
