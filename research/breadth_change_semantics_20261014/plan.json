@@ -1,0 +1,15 @@
+{
+  "experiment": "breadth_change_semantics_20261014",
+  "as_of": "2026-07-02",
+  "source_card": "research/constituent_source_reconciliation_20261014",
+  "source_recorder_id": "50ec34c660a545aeab8e33ff7964c079",
+  "source_manifest_sha256": "3bacc1cb99aede1fbb60a1d7f09c5113980061690f791ca84bcae6343beffd5b",
+  "holdings": "data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_history.csv",
+  "holdings_sha256": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+  "mechanism": "Exact total breadth change = price-indicator change at previous basket + basket-update effect at current indicators; no return labels or fitting",
+  "fixed_windows": [
+    5,
+    20
+  ],
+  "unknown_contract": "If either basket or required old-basket current prices are missing, decomposition stays unknown; no partial renormalization"
+}
