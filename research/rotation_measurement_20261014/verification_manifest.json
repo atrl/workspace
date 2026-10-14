@@ -1,0 +1,49 @@
+{
+  "recorder_id": "fd69ab9a4167431292f6ed1d08e82e90",
+  "entries": [
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/analysis/annual_summary",
+      "sha256": "4ca4359ce0ff660422e8652585b709b6428cb09ff9b0478265b28047b4b06481"
+    },
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/analysis/bounds",
+      "sha256": "d2f4e8cfc499fe5ea9a7ad4d03ab60206000fafe86c16df774fbe7d1c4c2686c"
+    },
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/analysis/precision_audit",
+      "sha256": "f9ca3c3e32fba49c9894034e29467407ccd6061e3c4429c591b51b1570689daa"
+    },
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/analysis/summary",
+      "sha256": "3611b03cd11d7dcb0bdcbaacfeada1b4c52f4618135ad3f7d196fd5c069e8763"
+    },
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/code_status.txt",
+      "sha256": "de1da000b37ad8f84c74753d67f5a30f3bdad72a8771f07e772a4c2d4ba4071c"
+    },
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/inputs/endpoints",
+      "sha256": "b3a9001f3483d8e6a1638be49aea0f2c235b197bfa5d2a211b5ff2462326fae1"
+    },
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/inputs/parent_inventory",
+      "sha256": "450f46a4557c8a5ba3e310190a4adb1fdc84a83652dc67aeb0476a1e7bedba84"
+    },
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/inputs/plan",
+      "sha256": "772f083a3bbc5961cdce5e05919f588e5f1fdf2e2b9c8489a94eed2a845737ce"
+    },
+    {
+      "path": "qlib_recorder/916792527538254556/fd69ab9a4167431292f6ed1d08e82e90/artifacts/sources/measurement_contract",
+      "sha256": "0f16ac6f0c7fc8446c1d4e1facf0944508399eb5d8a968f1174685fca9f3fa5f"
+    }
+  ]
+}

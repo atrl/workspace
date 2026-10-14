@@ -1,0 +1,48 @@
+{
+  "experiment": "rotation_measurement_20261014",
+  "decision": "measurement_bounds_only_no_information_qualification",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "future_outcome_tests": 0,
+  "objective_achieved": false,
+  "candidate_information_qualified": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/constituent_intraday_history_20261014",
+  "region": "us",
+  "as_of": "2025-12-31",
+  "parent_recorder_id": "5ba89655e5b14f5e857a906d9108e57f",
+  "precision_audit": {
+    "endpoint_fields_checked": 45930,
+    "outside_float32_rounding_cell": 0,
+    "source_fields_not_exact_mill": 2812,
+    "round_to_mill_allowed": false
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "fd69ab9a4167431292f6ed1d08e82e90",
+  "experiment_id": "916792527538254556",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/rotation_measurement_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "e3a90c0cf01fd435f1f5e473721025828bc20f3a80d6fc207e510b8e93827bd8",
+    "size_bytes": 217255,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/e3/a9/e3a90c0cf01fd435f1f5e473721025828bc20f3a80d6fc207e510b8e93827bd8",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 20:59:45.329787+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e3/a9/e3a90c0cf01fd435f1f5e473721025828bc20f3a80d6fc207e510b8e93827bd8",
+    "recorder_id": "fd69ab9a4167431292f6ed1d08e82e90",
+    "experiment_id": "916792527538254556",
+    "archive_root": "qlib_recorder"
+  }
+}

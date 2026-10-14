@@ -1,0 +1,17 @@
+{
+  "experiment": "rotation_measurement_20261014",
+  "frozen_at_utc": "2026-10-14T12:59:37.799548+00:00",
+  "parent_card": "research/constituent_intraday_history_20261014",
+  "parent_manifest_sha256": "c13faefabee1d057adbccf1dfc0a6dd9d1d3b4ae62393a456d2997a50d03e643",
+  "provider": "data/qlib/constituent_intraday_history_20261014",
+  "provider_manifest_sha256": "31f4ada4a183cbd4686762476ab0713ae48be52b92839f21451784ab9188ca56",
+  "start": "2024-01-01",
+  "as_of": "2025-12-31",
+  "opening_halfwidths_usd": [
+    0.0,
+    0.005
+  ],
+  "formula": "unchanged 2*min(strict_up_cross_weight,strict_down_cross_weight)",
+  "scope": "Measurement only; no future labels, fits, thresholds, return selection, new cutoffs or production changes. Half-cent opening stress motivated by parent cross-source discrepancy, not guaranteed bound on all vendor differences. Include native float32 rounding cells for all three endpoints; do not round quotes to mills. Independent member price boxes give conservative outer bounds, not tight or probabilistic intervals.",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279"
+}
