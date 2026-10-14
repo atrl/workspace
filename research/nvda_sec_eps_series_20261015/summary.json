@@ -1,0 +1,44 @@
+{
+  "experiment": "nvda_sec_eps_series_20261015",
+  "decision": "continuous_original_accession_text_checked_needs_clock_qualification",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "continuous_quarters": 48,
+  "first_quarter": "FY2015Q3",
+  "last_quarter": "FY2027Q2",
+  "first_release_date": "2014-11-06",
+  "last_release_date": "2026-08-26",
+  "all_three_eps_fields_match_issuer_corpus": true,
+  "original_html_bytes_retained": false,
+  "training_input_qualified": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/nvda_eps_corpus_20261015_v1",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "recorder_id": "3afd34a46d474de298717d37f67460d1",
+  "experiment_id": "318912714109076810",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_sec_eps_series_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_sec_eps_series_20261015/qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/verified_facts"
+    ]
+  },
+  "objective_achieved": false,
+  "scope": "Original-accession current text crosscheck for all 48 continuous issuer-report quarters, with two metadata schemas normalized. Preserve text representation and timing gaps; no SUE or outcomes.",
+  "nas_evidence": {
+    "sha256": "71d9517a13b753329e1b4031e85ad937b01d04fc6aedb44a25a1c70dd6d5e5ce",
+    "size_bytes": 214013,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/71/d9/71d9517a13b753329e1b4031e85ad937b01d04fc6aedb44a25a1c70dd6d5e5ce",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 04:33:22.309248+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/71/d9/71d9517a13b753329e1b4031e85ad937b01d04fc6aedb44a25a1c70dd6d5e5ce",
+    "recorder_id": "3afd34a46d474de298717d37f67460d1",
+    "experiment_id": "318912714109076810",
+    "archive_root": "qlib_recorder"
+  }
+}

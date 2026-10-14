@@ -1,0 +1,45 @@
+{
+  "recorder_id": "3afd34a46d474de298717d37f67460d1",
+  "entries": [
+    {
+      "path": "qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1/artifacts/analysis/summary",
+      "sha256": "9e4e684c4501dd49dbef764aa2bf8f4ccc3fe3cf46e78be1f98f7cdd4ad10547"
+    },
+    {
+      "path": "qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1/artifacts/analysis/verified_facts",
+      "sha256": "b094038d54fba48f7e6c4b422555cc335eb7fba93645311ee7b419446fa69a97"
+    },
+    {
+      "path": "qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1/artifacts/code_status.txt",
+      "sha256": "4b544ef411c8307408479270bf524de53dd780d4691eb204013d4f04e1e6edac"
+    },
+    {
+      "path": "qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1/artifacts/inputs/metadata_bytes",
+      "sha256": "8c7f20e939ce4ce7b933009dff3fd4f8dd64ff20cf639ada7866cba7f23e6dd1"
+    },
+    {
+      "path": "qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1/artifacts/inputs/parser",
+      "sha256": "dd8b4878a29d25e4fda51472541cc0817062fd0a09b41e0cabe4ac23cd2ea9a5"
+    },
+    {
+      "path": "qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1/artifacts/inputs/plan",
+      "sha256": "cfa3090b7912166cf897f5313845afe15b60971cb27a2f82676c987effea57b6"
+    },
+    {
+      "path": "qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1/artifacts/inputs/source_audit",
+      "sha256": "3f2fbd1ef994f6e5a4809b3ce103e34ced80f6f10525dc9e00fd2b3f0ced673e"
+    },
+    {
+      "path": "qlib_recorder/318912714109076810/3afd34a46d474de298717d37f67460d1/artifacts/inputs/web_text_bytes",
+      "sha256": "375fe74589cd3899fbe36efb5b5399db84bb389dbd180213c07f1802abb0aa0c"
+    }
+  ]
+}
