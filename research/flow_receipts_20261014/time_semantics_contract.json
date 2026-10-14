@@ -22,5 +22,20 @@
     "closed_minute_bar_certified": false,
     "forecast_input_qualified": false
   },
-  "scope": "No additional live flow requests, no result-based selection, no model or production changes; interpretation supplement only."
+  "scope": "No additional live flow requests, no result-based selection, no model or production changes; interpretation supplement only.",
+  "comparison_rules_frozen_at_utc": "2026-10-14T13:35:31.191763+00:00",
+  "snapshot_comparison_rules": {
+    "pairs": "open_a/open_b and recovery_a/recovery_b, each symbol separately; original receipt flags retained",
+    "fields": [
+      "in_flow",
+      "super_in_flow",
+      "big_in_flow",
+      "mid_in_flow",
+      "sml_in_flow"
+    ],
+    "bins": "Separate common item timestamps earlier than the planned request minute, within that minute, and later; report changes without labeling request-minute changes as revisions of a closed bar",
+    "unknown": "Missing snapshot or unmatched timestamps remain unknown/unmatched, never zero",
+    "pair_timing": "Report each symbol receipt and latest arrival of pair; do not call sequential requests an atomic simultaneous snapshot",
+    "scope": "No forecast or first-publication claim from two snapshots; no return-driven selection of fields or timing"
+  }
 }
