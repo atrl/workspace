@@ -1,0 +1,57 @@
+{
+  "recorder_id": "785721be80234b0ebc45b77a4ed703bc",
+  "entries": [
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/analysis/comparison",
+      "sha256": "5d461957ac864c34a8372e74b90c67d816cb16d6c9f4ae176b3a7055bce5080c"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/analysis/confusions",
+      "sha256": "814dde50fa9ba3021cd14c5b9c20bad3a4eca553b24e50bd55d1ccbc4244c338"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/analysis/contracts",
+      "sha256": "e7ae80a48f5da4a709fcf2e1c6e874300ce52e34f4b711552f7eedd65419815b"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/analysis/daily_labels",
+      "sha256": "1d5a4f2050d0c1d1dfbcf1052a5424f6a62fc948321082b0c40c4e4608d371bb"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/analysis/summary",
+      "sha256": "f2ae9e84f4e4264c4cf8ee4691d34973e5b0e033a4c103db03335ee5686e1310"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/code_status.txt",
+      "sha256": "ef3ac782270dfc4b1a39dd232f4f976a3679dd957e69a38ccc090d7e36fffb29"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/inputs/plan",
+      "sha256": "c2406ed5ca4b75d969a2b9faae539c2546af722ae05743915ff2feb099712fc6"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/inputs/source_audit",
+      "sha256": "f5f243ae5e2f8c6325554d693bf987719a38a6891d11b6249a08e2525d01fb59"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/sources/auxiliary_labels",
+      "sha256": "3e2cd150c064a8535e4a6897709293c553dd834e943d66d67f6f365e35180fce"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/sources/primary_labels",
+      "sha256": "11308f146676c4fe6146efcadd8cea44030fff4582fdb40c64417a78afe8ebb5"
+    },
+    {
+      "path": "qlib_recorder/575798975872411596/785721be80234b0ebc45b77a4ed703bc/artifacts/sources/tail_labels",
+      "sha256": "0a9ff9b8d04c9b51593c59fc573565d262b585435f7eb3f7bb0b7adf3adfe986"
+    }
+  ]
+}

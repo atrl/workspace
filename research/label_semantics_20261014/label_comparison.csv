@@ -1,0 +1,5 @@
+window,left_label,right_label,observations,left_positive_rate,right_positive_rate,disagreement_rate
+mature_training,primary_tail,cash_beats_soxx,3014,0.0676841406768414,0.42468480424684807,0.3603185136031851
+mature_training,primary_mixed_alpha_positive,soxl_beats_soxx,3014,0.5637027206370272,0.5564034505640345,0.011944260119442602
+reused_later,primary_tail,cash_beats_soxx,940,0.11170212765957446,0.4031914893617021,0.30851063829787234
+reused_later,primary_mixed_alpha_positive,soxl_beats_soxx,940,0.5712765957446808,0.5617021276595745,0.009574468085106383

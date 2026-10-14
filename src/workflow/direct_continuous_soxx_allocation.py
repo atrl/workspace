@@ -150,6 +150,10 @@ def run_direct_continuous_soxx_allocation_card(
 
 
 def _attach_direct_targets(frame: pd.DataFrame) -> pd.DataFrame:
+    """SOXX entry-relative H5 path-tail labels, not terminal cash superiority.
+
+    The -6% event uses sampled open-to-open paths, not peak-to-trough MaxDD.
+    """
     result = frame.copy()
     soxx = pd.to_numeric(
         result["soxx_forward_open_return"], errors="coerce"

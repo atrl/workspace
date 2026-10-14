@@ -306,6 +306,11 @@ def _feature_manifest_row(feature: str, family: str, pit: bool) -> dict[str, Any
 
 
 def _attach_relative_targets(frame: pd.DataFrame, market: pd.DataFrame) -> pd.DataFrame:
+    """Legacy reference-portfolio labels, not pure SOXL alpha or cash probability.
+
+    The alpha reference is daily-reset 27% SOXL / 63% SOXX / 10% cash.
+    Keep this frozen definition distinct from later 15%-minimum-cash policies.
+    """
     result = frame.copy()
     minimum_cash_return = (
         0.27 * market["soxl_forward_open_return"]

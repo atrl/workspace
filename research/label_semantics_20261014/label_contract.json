@@ -1,0 +1,37 @@
+[
+  {
+    "output": "primary_tail_probability",
+    "asset": "SOXX unlevered",
+    "clock": "five next-open-to-following-open daily returns",
+    "event": "minimum entry-relative cumulative return <= -6%",
+    "not_equivalent_to": "cash outperforms SOXX at terminal date; peak-to-trough drawdown"
+  },
+  {
+    "output": "primary_alpha_probability",
+    "asset": "27% SOXL + 63% SOXX + 10% cash",
+    "clock": "five daily open-to-open returns, fixed weights each interval",
+    "event": "mixed portfolio compounded log wealth > SOXX",
+    "not_equivalent_to": "SOXL outperforms SOXX; deployable current 15%-cash-floor portfolio"
+  },
+  {
+    "output": "auxiliary_tail_probability",
+    "asset": "synthetic daily-reset 2x single constituent",
+    "clock": "next five close-to-close returns",
+    "event": "entry-relative minimum <= -12% OR terminal <= -15%; 95bp annual fee assumption",
+    "not_equivalent_to": "actual SOXL/SOXX cash-timing probability"
+  },
+  {
+    "output": "auxiliary_upside_probability",
+    "asset": "synthetic daily-reset 2x single constituent versus same constituent 1x",
+    "clock": "next five close-to-close returns",
+    "event": "2x terminal return > 1x terminal return",
+    "not_equivalent_to": "primary mixed-portfolio alpha probability"
+  },
+  {
+    "output": "cash_weight",
+    "asset": "SOXL/SOXX/cash allocation",
+    "clock": "model output before smoothing/controllers",
+    "event": "portfolio weight learned from joint objective, not a probability target",
+    "not_equivalent_to": "probability that cash beats SOXX"
+  }
+]

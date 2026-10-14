@@ -1,0 +1,39 @@
+{
+  "experiment": "label_semantics_20261014",
+  "decision": "labels_have_distinct_economic_targets_no_automatic_relabeling",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "parameter_searches": 0,
+  "objective_achieved": false,
+  "primary_label_reconstruction_verified": true,
+  "label_disagreements_are_not_forecast_performance": true,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily_labels",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "785721be80234b0ebc45b77a4ed703bc",
+  "experiment_id": "575798975872411596",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/label_semantics_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "ba2f39feafe630beceb26d8b4208414259dcbac71f885d165892c021fa317344",
+    "size_bytes": 177111,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ba/2f/ba2f39feafe630beceb26d8b4208414259dcbac71f885d165892c021fa317344",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 17:14:36.281961+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ba/2f/ba2f39feafe630beceb26d8b4208414259dcbac71f885d165892c021fa317344",
+    "recorder_id": "785721be80234b0ebc45b77a4ed703bc",
+    "experiment_id": "575798975872411596",
+    "archive_root": "qlib_recorder"
+  }
+}
