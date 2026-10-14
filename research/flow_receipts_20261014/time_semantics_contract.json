@@ -1,0 +1,26 @@
+{
+  "frozen_at_utc": "2026-10-14T13:31:34.734913+00:00",
+  "purpose": "Separate physical receipt evidence from unresolved vendor header semantics without changing frozen capture rules",
+  "sdk_version": "10.02.6218",
+  "sdk_query_file_sha256": "33134212b03a3a42722c76b85ab97350c908816ab227f32a97d0355bca320fa9",
+  "capital_flow_query_sha256": "60cfeac65c68b2c3f0d3cf00679ee7a83d6b9fe42f910cfe48c2745b6b118b44",
+  "observed_sdk_mapping": [
+    "last_valid_time = rsp_pb.s2c.lastValidTime if rsp_pb.s2c.HasField(\"lastValidTime\") else \"N/A\"",
+    "data[\"capital_flow_item_time\"] = item.time",
+    "data[\"last_valid_time\"] = last_valid_time"
+  ],
+  "official_reference": "https://openapi.futunn.com/futu-api-doc/quote/get-capital-flow.html",
+  "official_header_description": "数据最后有效时间",
+  "interpretation": "No documented first-publication or expiry interpretation established. SDK passes raw time strings unchanged. Global clock probes do not explain the flow-header lead. Do not shift timestamps or reinterpret header to force qualification.",
+  "analysis_axes": {
+    "timely_received": "request starts on/after planned time; response starts no earlier than request and arrives strictly before decision deadline",
+    "source_session_current": "all item dates match frozen expected NY trading date",
+    "source_item_times_not_future": "all item times no later than response time under explicit NY timezone assumption",
+    "provider_header_not_future": "all last_valid_time values no later than response time under same assumption; report independently",
+    "original_qualified": "preserve original capture receipt boolean, never overwrite",
+    "historical_first_publication_certified": false,
+    "closed_minute_bar_certified": false,
+    "forecast_input_qualified": false
+  },
+  "scope": "No additional live flow requests, no result-based selection, no model or production changes; interpretation supplement only."
+}
