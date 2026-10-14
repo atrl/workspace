@@ -1,0 +1,35 @@
+{
+  "experiment": "q3_failure_mechanisms_20261014",
+  "start": "2026-07-01",
+  "end": "2026-09-30",
+  "costs": [
+    2,
+    5
+  ],
+  "price_provider": "/Users/rziiiii/dev/workspace/data/qlib/constituent_q3_extension_20261014",
+  "sources": {
+    "constituents": {
+      "card": "research/constituent_q3_extension_20261014",
+      "recorder_id": "50ec963e60254f5aa27aa3af6d4dfe36",
+      "manifest_sha256": "a49945cf47dbc14df219740c5259c38e3a09e91c701dedc4049f6d83b02c3831"
+    },
+    "cash": {
+      "card": "research/allocator_cash_information_20261014",
+      "recorder_id": "2d7bd1e5020d46dd801f384a3c97ef7f",
+      "manifest_sha256": "d276deda227cb982c97fabf18f0c8bfd65739daaafed9b1735db2541f088eae8"
+    },
+    "attribution": {
+      "card": "research/anchor_decision_attribution_20261014",
+      "recorder_id": "dcb1ffe0dd18492c82250abe7ed0b215",
+      "manifest_sha256": "db4ebe36af3bc34108023b80fdf98047acf0bdbe40016e15b85c5a3393b3cc61"
+    }
+  },
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "mechanism": "Describe all three months of predetermined weak quarter with prior-known reported-basket breadth/new-lows/downside concentration and frozen model/cost-account attribution; no fit or return-selected parameters",
+  "fixed_descriptors": {
+    "positive_returns": 5,
+    "new_low": 20,
+    "downside_top_names": 5,
+    "majority": "more than half of reported equity weight, descriptive only"
+  }
+}

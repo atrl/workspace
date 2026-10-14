@@ -1,0 +1,15 @@
+{
+  "status": "unvalidated_research_descriptors_not_trading_signals",
+  "motivated_by_reused_failure_analysis": true,
+  "new_fits": 0,
+  "original_closed_breadth_route_reopened": false,
+  "fields": {
+    "new_low_level20": "Reported equity-weight share at current20-session closing low; damage occurrence level, not probability",
+    "new_low_price_contraction5": "Negative sum of previous five available daily price-indicator components at prior-known baskets; positive means fewer new-low indicators; rolling-window effects remain, not proof of lower future risk",
+    "downside_top5_share": "Top5 negative current-day weighted stock-return contributions divided by all negative contributions; unknown if none",
+    "contraction_known": "No zero fill for initial five unavailable changes",
+    "concentration_known": "No zero fill for days without negative contribution"
+  },
+  "windows": "20/5/top5 inherited from earlier fixed descriptor definitions; no horizon search",
+  "availability": "after signal-day close for next-session research decision; historical first receipt not certified"
+}

@@ -1,0 +1,47 @@
+{
+  "experiment": "q3_failure_mechanisms_20261014",
+  "decision": "descriptive_Q3_failure_mechanisms_no_predictive_selection",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "outcome_correlations": 0,
+  "threshold_searches": 0,
+  "objective_achieved": false,
+  "sessions": 64,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/constituent_q3_extension_20261014",
+  "region": "us",
+  "as_of": "2026-09-30",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "scope": "Predetermined quarter, all months and both majority descriptions retained; stock descriptors known before following account decision; accounting attribution is not causal removable loss or predictive validation",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "analysis/descriptors"
+    ]
+  },
+  "recorder_id": "9d412c8519ff41eaa140ae72b28321c2",
+  "experiment_id": "760310301047867070",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/q3_failure_mechanisms_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "69597b8fbe883d5c6756fbff2540621e28abdde71efb8bf2493b9b1ad3547774",
+    "size_bytes": 69429,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/69/59/69597b8fbe883d5c6756fbff2540621e28abdde71efb8bf2493b9b1ad3547774",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 18:15:08.210014+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/69/59/69597b8fbe883d5c6756fbff2540621e28abdde71efb8bf2493b9b1ad3547774",
+    "recorder_id": "9d412c8519ff41eaa140ae72b28321c2",
+    "experiment_id": "760310301047867070",
+    "archive_root": "qlib_recorder"
+  },
+  "candidate_feature_contract": "candidate_feature_contract.json",
+  "candidate_feature_rows": 64,
+  "candidate_known_counts": {
+    "new_low_level20": 64,
+    "new_low_price_contraction5": 59,
+    "downside_top5_share": 61
+  }
+}
