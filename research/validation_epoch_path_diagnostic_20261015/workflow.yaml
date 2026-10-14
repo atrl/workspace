@@ -1,0 +1,9 @@
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/daily_paths
+  - analysis/local_scores
+  workflow_config: workflow.yaml
+experiment: validation_epoch_path_diagnostic_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013

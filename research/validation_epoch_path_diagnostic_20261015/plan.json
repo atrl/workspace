@@ -1,0 +1,37 @@
+{
+  "experiment": "validation_epoch_path_diagnostic_20261015",
+  "frozen_at_utc": "2026-10-14T20:15:24.328332+00:00",
+  "source": {
+    "card": "research/validation_epoch_training_20261015",
+    "recorder_id": "9ad3394405844b09b0e9b0cb0b3e213e",
+    "archive": "ef89445f54ddac64bd9e6819927210fdfa0bb7238cae7734a3d725960503de42",
+    "inventory_sha256": "cbab274e98efba37f038b540a66c5cd938bb29bee0bb5671f0cadaa09a104b08"
+  },
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "as_of": "2026-10-09",
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "seeds": [
+    71,
+    172,
+    273
+  ],
+  "new_fits": 0,
+  "new_native_cases": 0,
+  "bootstrap": {
+    "mean_block": 63,
+    "resamples": 2000,
+    "alpha": 0.025,
+    "seed": 20261015
+  },
+  "mechanism": "Separate raw allocation-score changes, smoothed target changes and observed policy-state divergence. Native log differences partitioned by jointly observed risk-state equality are descriptive, not causal intervention. Gross local score is sum(delta weight * execution return), not an executable portfolio or net alpha.",
+  "if_failed": "Do not tune epochs, thresholds, grouping or score horizons; retain parent rejection."
+}

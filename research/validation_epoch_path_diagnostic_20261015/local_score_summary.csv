@@ -1,0 +1,3 @@
+score,sessions,daily_mean_bp,daily_lower_bp,daily_upper_bp,lower_positive,is_net_strategy_return
+raw_gross_local_advantage,944,0.8358212842553286,0.37182332986126915,1.36531249966525,True,False
+smoothed_gross_local_advantage,944,0.49615137380831537,0.04169539601933332,1.0261495952373854,True,False

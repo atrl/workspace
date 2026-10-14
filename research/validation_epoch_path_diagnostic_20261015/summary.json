@@ -1,0 +1,38 @@
+{
+  "experiment": "validation_epoch_path_diagnostic_20261015",
+  "decision": "diagnostic_only_parent_remains_not_promoted",
+  "new_fits": 0,
+  "new_native_cases": 0,
+  "raw_local_advantage_lower_positive": true,
+  "objective_achieved": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "397c2162460244f2b9b72705ec092b77",
+  "experiment_id": "657719219744680326",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/validation_epoch_path_diagnostic_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/validation_epoch_path_diagnostic_20261015/qlib_recorder/657719219744680326/397c2162460244f2b9b72705ec092b77",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily_paths",
+      "analysis/local_scores"
+    ]
+  },
+  "scope": "Separate raw allocation-score changes, smoothed target changes and observed policy-state divergence. Native log differences partitioned by jointly observed risk-state equality are descriptive, not causal intervention. Gross local score is sum(delta weight * execution return), not an executable portfolio or net alpha.",
+  "nas_evidence": {
+    "sha256": "b0be3961a67e85ea70b3d464bb57d91c74b31da7921f5e255c620212cfe9a1ce",
+    "size_bytes": 108690,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/b0/be/b0be3961a67e85ea70b3d464bb57d91c74b31da7921f5e255c620212cfe9a1ce",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 04:16:24.704377+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b0/be/b0be3961a67e85ea70b3d464bb57d91c74b31da7921f5e255c620212cfe9a1ce",
+    "recorder_id": "397c2162460244f2b9b72705ec092b77",
+    "experiment_id": "657719219744680326",
+    "archive_root": "qlib_recorder"
+  }
+}
