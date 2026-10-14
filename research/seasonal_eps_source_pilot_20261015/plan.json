@@ -1,0 +1,7 @@
+{
+  "experiment": "seasonal_eps_source_pilot_20261015",
+  "source_manifest": "data/raw/external/nvda_seasonal_eps_pilot_20261015_v1/source_manifest.json",
+  "source_manifest_sha256": "c7bb03815ba3e76dfd4751ec57ed3cb1b2864cd0bb7ecf9055a6e0c8bff0a0aa",
+  "scope": "Four-report split and GAAP EPS definition pilot only; no SUE time series, no consensus, no return selection",
+  "reference": "https://www.nber.org/system/files/working_papers/w30860/revisions/w30860.rev1.pdf"
+}

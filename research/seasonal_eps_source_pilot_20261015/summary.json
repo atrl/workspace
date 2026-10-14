@@ -1,0 +1,43 @@
+{
+  "experiment": "seasonal_eps_source_pilot_20261015",
+  "decision": "needs_full_corpus_and_vintage_clock",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "source_reports": 4,
+  "split_pairs": 2,
+  "split_rounding_checks_passed": true,
+  "full_sue_series_built": false,
+  "training_input_qualified": false,
+  "consensus_used": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/nvda_seasonal_eps_pilot_20261015_v1",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "recorder_id": "94f5d44f9bac4d1b9e20bb56a7b00500",
+  "experiment_id": "500362857463213664",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/seasonal_eps_source_pilot_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/seasonal_eps_source_pilot_20261015/qlib_recorder/500362857463213664/94f5d44f9bac4d1b9e20bb56a7b00500",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/raw_html",
+      "inputs/source_manifest",
+      "analysis/quotes"
+    ]
+  },
+  "scope": "Four-report split and GAAP EPS definition pilot only; no SUE time series, no consensus, no return selection",
+  "objective_achieved": false,
+  "nas_evidence": {
+    "sha256": "ff3b8850d55dc0824d4ed6dcc9aee924517c6d2f37d3cf3aa60b7bc1e0c8d400",
+    "size_bytes": 177774,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ff/3b/ff3b8850d55dc0824d4ed6dcc9aee924517c6d2f37d3cf3aa60b7bc1e0c8d400",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 03:25:51.46842+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ff/3b/ff3b8850d55dc0824d4ed6dcc9aee924517c6d2f37d3cf3aa60b7bc1e0c8d400",
+    "recorder_id": "94f5d44f9bac4d1b9e20bb56a7b00500",
+    "experiment_id": "500362857463213664",
+    "archive_root": "qlib_recorder"
+  }
+}
