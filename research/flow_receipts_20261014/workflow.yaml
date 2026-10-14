@@ -1,0 +1,11 @@
+experiment: flow_receipts_20261014
+status: collecting
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/capital_flow_source_20261014
+recorder_uri: /Users/rziiiii/dev/workspace/research/flow_receipts_20261014/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/*
+  - sources/*

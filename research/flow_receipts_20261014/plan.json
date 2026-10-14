@@ -1,0 +1,47 @@
+{
+  "experiment": "flow_receipts_20261014",
+  "frozen_at_utc": "2026-10-14T13:24:19.084313+00:00",
+  "as_of": "2026-10-14",
+  "symbols": [
+    "SOXX",
+    "SOXL"
+  ],
+  "slots": [
+    {
+      "name": "baseline",
+      "session_date": "2026-10-14",
+      "request_at_utc": "2026-10-14T13:24:19.084313+00:00",
+      "deadline_utc": "2026-10-14T13:27:19.084313+00:00"
+    },
+    {
+      "name": "open_a",
+      "session_date": "2026-10-14",
+      "request_at_utc": "2026-10-14T13:45:10+00:00",
+      "deadline_utc": "2026-10-14T13:46:00+00:00"
+    },
+    {
+      "name": "open_b",
+      "session_date": "2026-10-14",
+      "request_at_utc": "2026-10-14T13:45:40+00:00",
+      "deadline_utc": "2026-10-14T13:46:00+00:00"
+    },
+    {
+      "name": "recovery_a",
+      "session_date": "2026-10-14",
+      "request_at_utc": "2026-10-14T14:30:10+00:00",
+      "deadline_utc": "2026-10-14T14:31:00+00:00"
+    },
+    {
+      "name": "recovery_b",
+      "session_date": "2026-10-14",
+      "request_at_utc": "2026-10-14T14:30:40+00:00",
+      "deadline_utc": "2026-10-14T14:31:00+00:00"
+    }
+  ],
+  "raw_directory": "data/raw/external/flow_receipts_20261014",
+  "provider": "data/qlib/flow_receipts_20261014",
+  "bootstrap_provider": "data/qlib/capital_flow_source_20261014",
+  "scope": "One-shot live receipt qualification. Baseline plus two reads per existing decision window. Preserve original responses. No historical backfill, fits, trading, scheduler activation or return tests. NY provider timezone remains an explicit assumption. Receipt-qualified does not certify closed minute bars, first publication, information value or production readiness.",
+  "late_rule": "No request at or after deadline; response at or after deadline rejected. Existing immutable receipt always reused, never replaced by later data. Old-session/future provider clocks rejected. No retries to obtain a favorable status.",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279"
+}

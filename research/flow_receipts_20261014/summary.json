@@ -1,0 +1,25 @@
+{
+  "experiment": "flow_receipts_20261014",
+  "decision": "collecting_fixed_live_receipts",
+  "status": "running",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "new_orders": 0,
+  "forecast_input_qualified": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/capital_flow_source_20261014",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "c27325104d5c4d2d800967c8855f387c",
+  "experiment_id": "112896808849988839",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/flow_receipts_20261014/qlib_recorder"
+}
