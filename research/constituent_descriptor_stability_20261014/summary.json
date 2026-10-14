@@ -1,0 +1,39 @@
+{
+  "experiment": "constituent_descriptor_stability_20261014",
+  "decision": "fixed_descriptor_source_stability_checked_no_prediction_claim",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "outcome_correlations": 0,
+  "parameter_searches": 0,
+  "objective_achieved": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/constituent_q3_extension_20261014",
+  "region": "us",
+  "as_of": "2026-09-30",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "interpretation": "Input-only cross-vintage and missingness audit. No independent forecast validation; historical windows already reused. Extra known early-quarter changes come from actual pre-quarter observations, not zero fill.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/features",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "625e46daece84f01a2228d658dcd1638",
+  "experiment_id": "207150313307594024",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/constituent_descriptor_stability_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "eb94d3369961beaf52c2681cd0fafebe88f9dee0f816da3568e81137e176db26",
+    "size_bytes": 102834,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/eb/94/eb94d3369961beaf52c2681cd0fafebe88f9dee0f816da3568e81137e176db26",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 18:20:52.065775+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/eb/94/eb94d3369961beaf52c2681cd0fafebe88f9dee0f816da3568e81137e176db26",
+    "recorder_id": "625e46daece84f01a2228d658dcd1638",
+    "experiment_id": "207150313307594024",
+    "archive_root": "qlib_recorder"
+  }
+}

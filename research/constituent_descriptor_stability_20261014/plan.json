@@ -1,0 +1,22 @@
+{
+  "experiment": "constituent_descriptor_stability_20261014",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/constituent_q3_extension_20261014",
+  "sources": {
+    "old": {
+      "card": "research/constituent_source_reconciliation_20261014",
+      "recorder_id": "50ec34c660a545aeab8e33ff7964c079",
+      "manifest_sha256": "3bacc1cb99aede1fbb60a1d7f09c5113980061690f791ca84bcae6343beffd5b"
+    },
+    "fresh": {
+      "card": "research/constituent_q3_extension_20261014",
+      "recorder_id": "50ec963e60254f5aa27aa3af6d4dfe36",
+      "manifest_sha256": "a49945cf47dbc14df219740c5259c38e3a09e91c701dedc4049f6d83b02c3831"
+    },
+    "quarter": {
+      "card": "research/q3_failure_mechanisms_20261014",
+      "recorder_id": "9d412c8519ff41eaa140ae72b28321c2",
+      "manifest_sha256": "2decd1a6169bcc7bbf53ab924f15a621058882372024b4fed1598b8048cbf6df"
+    }
+  },
+  "mechanism": "Keep fixed descriptors and publication clocks; compare overlapping observations from two snapshots and test missingness/warmup; no future outcome access or fitted transformation"
+}

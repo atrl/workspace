@@ -1,0 +1,45 @@
+{
+  "recorder_id": "625e46daece84f01a2228d658dcd1638",
+  "entries": [
+    {
+      "path": "qlib_recorder/207150313307594024/625e46daece84f01a2228d658dcd1638/artifacts/analysis/annual",
+      "sha256": "2e3b00354a3f701ca7156adc60d5bda2ec46e013f7effcf116c24ca80582e400"
+    },
+    {
+      "path": "qlib_recorder/207150313307594024/625e46daece84f01a2228d658dcd1638/artifacts/analysis/features",
+      "sha256": "62a744e3a1ea9e0ce4f7809a279315744504e57be6376fcb88cc24af12f5e1d7"
+    },
+    {
+      "path": "qlib_recorder/207150313307594024/625e46daece84f01a2228d658dcd1638/artifacts/analysis/overlap",
+      "sha256": "6d65d8c4c6412a4f582b106eeb17ac07a9acfea18a0e4c849599148db39f6686"
+    },
+    {
+      "path": "qlib_recorder/207150313307594024/625e46daece84f01a2228d658dcd1638/artifacts/analysis/quarter",
+      "sha256": "84ae00479e5dd0740ea541f1d4509a2e19296c81c023f45f555f439ca9084f00"
+    },
+    {
+      "path": "qlib_recorder/207150313307594024/625e46daece84f01a2228d658dcd1638/artifacts/analysis/summary",
+      "sha256": "9fb32f752f56bef7d99499f63d50704eafa7ab0d00ea1e8bef5427ae2737baac"
+    },
+    {
+      "path": "qlib_recorder/207150313307594024/625e46daece84f01a2228d658dcd1638/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/207150313307594024/625e46daece84f01a2228d658dcd1638/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/207150313307594024/625e46daece84f01a2228d658dcd1638/artifacts/code_status.txt",
+      "sha256": "c0ddb298545b5f1a0ea23ab049310f626e37d88151faf755d0a393782e6020ba"
+    },
+    {
+      "path": "qlib_recorder/207150313307594024/625e46daece84f01a2228d658dcd1638/artifacts/inputs/plan",
+      "sha256": "055f2f6acd2f9aa4ad9d5d97435e13f54ca497fe9d77df94b713330f558e8ee2"
+    },
+    {
+      "path": "qlib_recorder/207150313307594024/625e46daece84f01a2228d658dcd1638/artifacts/sources/builder",
+      "sha256": "e8ebb7c41dead38a7a40bcf5a998d90740fbc88e4fb931ecb89812d0911cbcad"
+    }
+  ]
+}

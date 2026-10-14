@@ -1,0 +1,4 @@
+feature,overlap_sessions,paired_known,old_known_new_unknown,old_unknown_new_known,maximum_absolute_difference,median_absolute_difference,differences_above_1e_minus5
+new_low_level20,86,67,19,0,1.1102230246251565e-16,0.0,0
+new_low_price_contraction5,86,62,24,0,5.551115123125783e-16,4.440892098500626e-16,0
+downside_top5_share,86,79,1,0,1.1626005602671796e-06,7.685943093083125e-08,0
