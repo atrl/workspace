@@ -1,0 +1,22 @@
+{
+  "schema_version": "nas_research_source_v1",
+  "authority": "yanxuan_nas",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "raw_authority": "Yahoo AZTA candidate payload archived in NAS Recorder; SEC identity reference reviewed",
+  "evidence": {
+    "sha256": "8f6d10306d2aa870d4b96855e9e215915704757606c205f5ef940ba0d77fe761",
+    "size_bytes": 76979,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/8f/6d/8f6d10306d2aa870d4b96855e9e215915704757606c205f5ef940ba0d77fe761",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 17:45:03.439333+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/8f/6d/8f6d10306d2aa870d4b96855e9e215915704757606c205f5ef940ba0d77fe761",
+    "recorder_id": "0a52125bcfb04f9b9217e287227ab607",
+    "experiment_id": "732697551414743235",
+    "archive_root": "qlib_recorder"
+  }
+}

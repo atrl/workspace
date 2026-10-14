@@ -1,0 +1,14 @@
+{
+  "experiment": "constituent_identity_repair_20261014",
+  "start": "2020-10-01",
+  "end": "2021-08-27",
+  "raw_directory": "data/raw/external/constituent_identity_repair_20261014",
+  "provider": "data/qlib/constituent_identity_repair_20261014",
+  "identity_reference": "https://www.sec.gov/Archives/edgar/data/933974/000155837021016418/brks-20211201x8k.htm",
+  "identity_fact": "Corporate name change effective2021-12-01; SEC filing states stockholder rights unaffected. AZTA candidate pre-rename historical quotes must not be confused with acquired/cancelled securities.",
+  "reference_review_method": "Official SEC text reviewed through web tool; not a claim of archived original document HTTP receipt",
+  "parent_recorder_id": "70487e2f47d0486ba4f15745a1389c2a",
+  "parent_manifest_sha256": "70ac6e2fd5c99916f807816b57801eb2bb72a8ebe0928224ec1a8003846e85a0",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "mechanism": "One identity-supported alias request for pre-rename BRKS, native calendar and OHLC validation, candidate only; no fitting or PnL selection"
+}

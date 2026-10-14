@@ -1,0 +1,3 @@
+report_date,cusip,reported_shares,reported_value_usd,implied_price_usd,native_candidate_close,absolute_difference,source_url
+2020-12-31,114340102,343062.0,23276756.7,67.85,67.8499984741211,1.5258789005656581e-06,https://www.sec.gov/Archives/edgar/data/1100663/000175272421040706/primary_doc.xml
+2021-03-31,114340102,398871.0,32567817.15,81.64999999999999,81.6500015258789,1.5258789147765128e-06,https://www.sec.gov/Archives/edgar/data/1100663/000175272421116396/primary_doc.xml

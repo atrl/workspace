@@ -1,0 +1,10 @@
+experiment: constituent_identity_repair_20261014
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/constituent_identity_repair_20261014
+recorder_uri: /Users/rziiiii/dev/workspace/research/constituent_identity_repair_20261014/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/prices
+  - analysis/covered_sessions
