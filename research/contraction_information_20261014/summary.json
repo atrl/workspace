@@ -1,0 +1,42 @@
+{
+  "experiment": "contraction_information_20261014",
+  "decision": "not_promoted_fixed_contraction_information_failed",
+  "primary_metric": "within_regime_rank_association",
+  "primary_gate_pass": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "parameter_searches": 0,
+  "objective_achieved": false,
+  "calendar_rows": 502,
+  "known_mature_rows": 485,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-07-02",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "scope": "Fixed expected-positive score and H5 target, no sign flip or horizon search. Excludes discovery quarters but evaluation history was previously used elsewhere. Coarse four-state rank control is not a full baseline-feature incremental test; target is gross, not net portfolio alpha.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/frame",
+      "analysis/bootstrap"
+    ]
+  },
+  "recorder_id": "e8e9a82d82d24527a26011c6ca68a988",
+  "experiment_id": "755402619441758120",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/contraction_information_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "0f458b6eb4b1ae65b79122eb3405e8a3077fe508188aeafb37cacd5d354e5d60",
+    "size_bytes": 89011,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/0f/45/0f458b6eb4b1ae65b79122eb3405e8a3077fe508188aeafb37cacd5d354e5d60",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 18:27:54.265292+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/0f/45/0f458b6eb4b1ae65b79122eb3405e8a3077fe508188aeafb37cacd5d354e5d60",
+    "recorder_id": "e8e9a82d82d24527a26011c6ca68a988",
+    "experiment_id": "755402619441758120",
+    "archive_root": "qlib_recorder"
+  }
+}
