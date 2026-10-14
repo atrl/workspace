@@ -1,5 +1,5 @@
 experiment: flow_receipts_20261014
-status: collecting
+status: interrupted_by_user_redirection
 provider_uri: /Users/rziiiii/dev/workspace/data/qlib/capital_flow_source_20261014
 recorder_uri: /Users/rziiiii/dev/workspace/research/flow_receipts_20261014/qlib_recorder
 artifact_policy:

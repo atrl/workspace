@@ -1,7 +1,7 @@
 {
   "experiment": "flow_receipts_20261014",
-  "decision": "collecting_fixed_live_receipts",
-  "status": "running",
+  "decision": "source_collection_stopped_for_training_backtest",
+  "status": "interrupted_by_user_redirection",
   "objective_achieved": false,
   "new_fits": 0,
   "new_backtests": 0,
@@ -21,5 +21,24 @@
   },
   "recorder_id": "c27325104d5c4d2d800967c8855f387c",
   "experiment_id": "112896808849988839",
-  "recorder_uri": "/Users/rziiiii/dev/workspace/research/flow_receipts_20261014/qlib_recorder"
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/flow_receipts_20261014/qlib_recorder",
+  "captured_requests": 6,
+  "cancelled_slots": [
+    "recovery_a",
+    "recovery_b"
+  ],
+  "scope": "Partial source evidence only. User requested training and backtesting instead of waiting on live data. Original capture interrupted; no future-window requests and no completed-source qualification.",
+  "nas_evidence": {
+    "sha256": "9564c49179b8fe0ab7eebd766dd711c507c46bbe24471f117b958e1d7888a6bf",
+    "size_bytes": 85715,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/95/64/9564c49179b8fe0ab7eebd766dd711c507c46bbe24471f117b958e1d7888a6bf",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 21:51:37.155357+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/95/64/9564c49179b8fe0ab7eebd766dd711c507c46bbe24471f117b958e1d7888a6bf",
+    "recorder_id": "c27325104d5c4d2d800967c8855f387c",
+    "experiment_id": "112896808849988839",
+    "archive_root": "qlib_recorder"
+  }
 }
