@@ -106,3 +106,6 @@ data/qlib/funding_availability_20261014/
 data/raw/external/constituent_intraday_q3_20261014/
 
 data/qlib/constituent_intraday_q3_20261014/
+# Rebuildable historical-basket minute cache; authoritative payloads are in NAS Recorder.
+data/raw/external/constituent_intraday_history_20261014/
+data/qlib/constituent_intraday_history_20261014/

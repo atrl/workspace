@@ -1,0 +1,15 @@
+{
+  "reason": "Futu history request timed out for MCHP; terminated nbconvert exit 1; no Recorder created and no scientific result produced",
+  "initial_workers": 2,
+  "initial_request_pause_seconds": 1.25,
+  "resumed_workers": 1,
+  "resumed_request_pause_seconds": 1.5,
+  "scope_unchanged": true,
+  "completed_receipts_reused": true,
+  "incomplete_pages_resume": "connection-scoped cursor replaced by explicit whole-date overlap with original page hashes retained",
+  "failure_log_sha256": "f63a83bc2507d1e4290700a5a048131917ed7e141c33fa4f89915e3f6549a8ae",
+  "observation_execution_corrections": [
+    "Unsupported temporary notebook cwd argument replaced with NotebookClient resources metadata path before data analysis; no result saved",
+    "Qlib explicit instrument read pads WOLF after its source end; same-vendor daily audit now indexes actual WOLF member dates, matching the already frozen membership scope; no source rows or active days removed"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "recorder_id": "5ba89655e5b14f5e857a906d9108e57f",
+  "source_object": "analysis/daily_return_comparison",
+  "known_pairs": 14831,
+  "median_absolute_difference_bp": 0.0,
+  "p99_absolute_difference_bp": 0.8183717727661133,
+  "max_absolute_difference_bp": 7.510185241699219,
+  "pairs_above_5bp": 8,
+  "next_information_need": "Opening-price precision sensitivity for strict zero-crossing descriptor, before outcome testing; no row filtering or alpha qualification"
+}

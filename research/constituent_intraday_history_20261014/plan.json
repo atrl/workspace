@@ -1,0 +1,140 @@
+{
+  "experiment": "constituent_intraday_history_20261014",
+  "start": "2024-01-01",
+  "as_of": "2025-12-31",
+  "symbols": [
+    "ACLS",
+    "ADI",
+    "ALAB",
+    "AMAT",
+    "AMD",
+    "ARM",
+    "ASML",
+    "ASX",
+    "AVGO",
+    "CRDO",
+    "ENTG",
+    "INTC",
+    "KLAC",
+    "LRCX",
+    "LSCC",
+    "MCHP",
+    "MKSI",
+    "MPWR",
+    "MRVL",
+    "MTSI",
+    "MU",
+    "NVDA",
+    "NVMI",
+    "NXPI",
+    "OLED",
+    "ON",
+    "ONTO",
+    "QCOM",
+    "QRVO",
+    "RMBS",
+    "STM",
+    "SWKS",
+    "TER",
+    "TSM",
+    "TXN",
+    "UMC",
+    "WOLF"
+  ],
+  "holdings_path": "data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_history.csv",
+  "holdings_sha256": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+  "availability_lag_days": 1,
+  "groups": [
+    {
+      "start": "2024-01-02",
+      "end": "2024-11-26",
+      "symbols": [
+        "ACLS",
+        "WOLF"
+      ],
+      "directory": "b00"
+    },
+    {
+      "start": "2024-01-02",
+      "end": "2025-11-26",
+      "symbols": [
+        "LSCC",
+        "MKSI",
+        "QRVO"
+      ],
+      "directory": "b01"
+    },
+    {
+      "start": "2024-01-02",
+      "end": "2025-12-31",
+      "symbols": [
+        "ADI",
+        "AMAT",
+        "ASML",
+        "ASX",
+        "AVGO",
+        "ENTG",
+        "INTC",
+        "KLAC",
+        "LRCX",
+        "MCHP",
+        "MPWR",
+        "MRVL",
+        "MU",
+        "NXPI",
+        "ON",
+        "QCOM",
+        "RMBS",
+        "STM",
+        "SWKS",
+        "TER",
+        "TSM",
+        "TXN",
+        "UMC"
+      ],
+      "directory": "b02"
+    },
+    {
+      "start": "2024-11-27",
+      "end": "2025-11-26",
+      "symbols": [
+        "OLED",
+        "ONTO"
+      ],
+      "directory": "b03"
+    },
+    {
+      "start": "2024-11-27",
+      "end": "2025-12-31",
+      "symbols": [
+        "ARM"
+      ],
+      "directory": "b04"
+    },
+    {
+      "start": "2025-11-28",
+      "end": "2025-12-31",
+      "symbols": [
+        "ALAB",
+        "CRDO",
+        "MTSI",
+        "NVMI"
+      ],
+      "directory": "b05"
+    }
+  ],
+  "reuse_symbols": [
+    "AMD",
+    "NVDA"
+  ],
+  "reuse_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "reuse_manifest_sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "raw_directory": "data/raw/external/constituent_intraday_history_20261014",
+  "provider": "data/qlib/constituent_intraday_history_20261014",
+  "workers": 1,
+  "request_pause_seconds": 1.5,
+  "checkpoint_dir": "/tmp/constituent-history-20261014/checkpoints",
+  "progress_path": "/tmp/constituent-history-20261014/progress.json",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "scope": "Source only. All prior-public basket members, no outcome inspection, fits, thresholds or backtests. Actual daily membership uses full weight panel, including RMBS gap. WOLF ends 2024-11-26 before old equity cancellation. Both years are reused historical diagnostics, not fresh OOS."
+}

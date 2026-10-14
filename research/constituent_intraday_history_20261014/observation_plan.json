@@ -1,0 +1,29 @@
+{
+  "cutoffs": [
+    "09:45",
+    "10:30"
+  ],
+  "core_provider": "data/qlib/nas_minute_features_20261014/core",
+  "daily_provider": "data/qlib/soxx_pit_leveraged_training_v1",
+  "comparison": "Same-session open-to-close ratio against daily source; missing daily comparisons retained, flags above 1bp descriptive only; no price-level splice or return-based row filtering",
+  "future_outcomes": false,
+  "native_manifest_hashes": {
+    "data/qlib/nas_minute_features_20261014/core": "a02a3481dd923fbe98bf2339f78a3102b391498b77d6c554bc58623d23ce4d84",
+    "data/qlib/soxx_pit_leveraged_training_v1": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d"
+  },
+  "wolf_daily_manifest": "data/snapshots/semis_wolf_recovery_20241126_v1/recovery_manifest.json",
+  "wolf_daily_manifest_sha256": "22570da7bd903c6635e4e9dcd97f8428f5962aabaface18acf99d1de8f388eec",
+  "candidate": {
+    "name": "two_way_sign_rotation",
+    "frozen_at_utc": "2026-10-14T12:43:59.647197+00:00",
+    "formula": "2 * min(sum(w_i where r0945_i < 0 and r1030_i > 0), sum(w_i where r0945_i > 0 and r1030_i < 0))",
+    "weights": "same prior-public basket normalized across all 30 members at both cutoffs",
+    "zero_returns": "strict crossing only; any endpoint exactly zero does not count as crossing and its basket weight is separately disclosed",
+    "mechanism": "Distinguishes simultaneous opposing member transitions from one-direction participation repair; subtracts the net direction component of gross strict crossing mass, not a statistical residual fit",
+    "scope": "One outcome-free descriptor only. High rotation means two-way sign replacement, not proven future downside. Low rotation can also mean persistent decline. No predictor sign, trading rule, selected horizon or alpha claim.",
+    "unknown": "both whole baskets and SOXX prefixes must be known; no imputation or partial normalization",
+    "prior_routes": "Distinct intraday member identity transition, not renaming the failed daily breadth level or five-day new-low contraction; must pass separate information gate before use",
+    "assumed_available_at": "10:31 America/New_York after both 09:45 and 10:30 prefixes close; research delay assumption, not receipt certification",
+    "required_future_controls": "ETF level and 09:45-to-10:30 movement, existing price/volatility/first-hour inputs and prior downward state; novelty cannot be established by simultaneous correlation alone"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "experiment": "constituent_intraday_history_20261014",
+  "decision": "historical_basket_source_only_no_alpha_claim",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "future_outcome_tests": 0,
+  "objective_achieved": false,
+  "symbols": 37,
+  "raw_bars": 1187592,
+  "sessions": 502,
+  "complete_valid_basket_sessions": 502,
+  "missing_active_bars": 0,
+  "invalid_active_rows": 0,
+  "historical_first_receipt_certified": false,
+  "reused_history_not_fresh_oos": true,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/constituent_intraday_history_20261014",
+  "region": "us",
+  "as_of": "2025-12-31",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "recorder_id": "5ba89655e5b14f5e857a906d9108e57f",
+  "experiment_id": "656838147667331314",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/constituent_intraday_history_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "0e1da08093cb3b33422a4efb7691f13cd9ceae1476899005633c9aaf62d50793",
+    "size_bytes": 57028551,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/0e/1d/0e1da08093cb3b33422a4efb7691f13cd9ceae1476899005633c9aaf62d50793",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 20:50:52.905474+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/0e/1d/0e1da08093cb3b33422a4efb7691f13cd9ceae1476899005633c9aaf62d50793",
+    "recorder_id": "5ba89655e5b14f5e857a906d9108e57f",
+    "experiment_id": "656838147667331314",
+    "archive_root": "qlib_recorder"
+  },
+  "candidate_descriptors": 1,
+  "candidate_information_qualified": false,
+  "wolf_daily_compared_sessions": 229,
+  "wolf_daily_max_close_difference": 1.8310546892053026e-06,
+  "known_snapshots": 1004,
+  "snapshots": 1004,
+  "daily_known_comparisons": 14831,
+  "daily_missing_comparisons": 229,
+  "daily_differences_above_1bp": 112
+}
