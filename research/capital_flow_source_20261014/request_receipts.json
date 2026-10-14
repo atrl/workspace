@@ -1,0 +1,130 @@
+[
+  {
+    "key": "SOXX_2024",
+    "symbol": "SOXX",
+    "request": {
+      "key": "2024",
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    "ret_code": 0,
+    "started_at_utc": "2026-10-14T13:13:44.282161+00:00",
+    "received_at_utc": "2026-10-14T13:13:45.309327+00:00",
+    "read_only": true,
+    "path": "SOXX_2024.parquet",
+    "sha256": "4f7ea827ba64d253092bbd24f30a8f07cde02e3f96e7ecb8b1521c4abd5ecab4",
+    "rows": 0
+  },
+  {
+    "key": "SOXX_2025",
+    "symbol": "SOXX",
+    "request": {
+      "key": "2025",
+      "start": "2025-01-01",
+      "end": "2025-12-31"
+    },
+    "ret_code": 0,
+    "started_at_utc": "2026-10-14T13:13:45.383117+00:00",
+    "received_at_utc": "2026-10-14T13:13:47.273567+00:00",
+    "read_only": true,
+    "path": "SOXX_2025.parquet",
+    "sha256": "7c5ac92d77c87bf539a268d3ce022e77e0df5289abb974335513b1acc8580430",
+    "rows": 55
+  },
+  {
+    "key": "SOXX_recent",
+    "symbol": "SOXX",
+    "request": {
+      "key": "recent",
+      "start": "2025-10-14",
+      "end": "2026-10-13"
+    },
+    "ret_code": 0,
+    "started_at_utc": "2026-10-14T13:13:47.281664+00:00",
+    "received_at_utc": "2026-10-14T13:13:50.118727+00:00",
+    "read_only": true,
+    "path": "SOXX_recent.parquet",
+    "sha256": "b1898ea52022b68c2af008acdc7f676414252703fb6f1a567d6dfc6c32bb04b9",
+    "rows": 251
+  },
+  {
+    "key": "SOXX_intraday",
+    "symbol": "SOXX",
+    "request": {
+      "key": "intraday",
+      "start": null,
+      "end": null
+    },
+    "ret_code": 0,
+    "started_at_utc": "2026-10-14T13:13:50.123396+00:00",
+    "received_at_utc": "2026-10-14T13:13:51.965149+00:00",
+    "read_only": true,
+    "path": "SOXX_intraday.parquet",
+    "sha256": "fbf1103fcc97cd9e0f1f92b17868325b9238e1766b9dbb49b221eb4528977ab7",
+    "rows": 391
+  },
+  {
+    "key": "SOXL_2024",
+    "symbol": "SOXL",
+    "request": {
+      "key": "2024",
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    "ret_code": 0,
+    "started_at_utc": "2026-10-14T13:13:51.969572+00:00",
+    "received_at_utc": "2026-10-14T13:13:52.977297+00:00",
+    "read_only": true,
+    "path": "SOXL_2024.parquet",
+    "sha256": "4f7ea827ba64d253092bbd24f30a8f07cde02e3f96e7ecb8b1521c4abd5ecab4",
+    "rows": 0
+  },
+  {
+    "key": "SOXL_2025",
+    "symbol": "SOXL",
+    "request": {
+      "key": "2025",
+      "start": "2025-01-01",
+      "end": "2025-12-31"
+    },
+    "ret_code": 0,
+    "started_at_utc": "2026-10-14T13:13:52.982100+00:00",
+    "received_at_utc": "2026-10-14T13:13:54.942777+00:00",
+    "read_only": true,
+    "path": "SOXL_2025.parquet",
+    "sha256": "82ac9cfed85a1ebe6f2c358715d446eae14ec69810626a98c44be1b07e343644",
+    "rows": 55
+  },
+  {
+    "key": "SOXL_recent",
+    "symbol": "SOXL",
+    "request": {
+      "key": "recent",
+      "start": "2025-10-14",
+      "end": "2026-10-13"
+    },
+    "ret_code": 0,
+    "started_at_utc": "2026-10-14T13:13:54.948245+00:00",
+    "received_at_utc": "2026-10-14T13:13:57.906700+00:00",
+    "read_only": true,
+    "path": "SOXL_recent.parquet",
+    "sha256": "60cf3dced551a6426236d7f5e67f8ae6e9289d7f1eda81008ce69782fa9c83d9",
+    "rows": 251
+  },
+  {
+    "key": "SOXL_intraday",
+    "symbol": "SOXL",
+    "request": {
+      "key": "intraday",
+      "start": null,
+      "end": null
+    },
+    "ret_code": 0,
+    "started_at_utc": "2026-10-14T13:13:57.911171+00:00",
+    "received_at_utc": "2026-10-14T13:13:59.744930+00:00",
+    "read_only": true,
+    "path": "SOXL_intraday.parquet",
+    "sha256": "d7f2c8dcec0e068776b30542abafa4482d728527b73ac7b57c0d0eda583b4078",
+    "rows": 391
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "experiment": "capital_flow_source_20261014",
+  "decision": "source_scope_and_vintage_audit_only",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "future_outcome_tests": 0,
+  "objective_achieved": false,
+  "forecast_input_qualified": false,
+  "historical_first_receipt_certified": false,
+  "request_count": 8,
+  "successful_requests": 8,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/capital_flow_source_20261014",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "scope": "Read-only source qualification. Vendor classified trading flow, not proven aggressor order flow or ETF primary creation/redemption. No returns, fits, feature search, orders or production activation. Separate requested periods from actual returned periods; capture failures and immutable receipts. Current intraday snapshot cannot backfill history or certify historical first receipt.",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "recorder_id": "c0e103ed01cf44a7887ec7e52dfeb6c1",
+  "experiment_id": "387273704426563540",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/capital_flow_source_20261014/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "a0f6e301e7e18cea23a075a29d42676daf271e5d03b0361fa9f45cf5b5758d88",
+    "size_bytes": 168717,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a0/f6/a0f6e301e7e18cea23a075a29d42676daf271e5d03b0361fa9f45cf5b5758d88",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 21:14:01.300228+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a0/f6/a0f6e301e7e18cea23a075a29d42676daf271e5d03b0361fa9f45cf5b5758d88",
+    "recorder_id": "c0e103ed01cf44a7887ec7e52dfeb6c1",
+    "experiment_id": "387273704426563540",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "experiment": "capital_flow_source_20261014",
+  "frozen_at_utc": "2026-10-14T13:13:41.211369+00:00",
+  "as_of": "2026-10-14",
+  "symbols": [
+    "SOXX",
+    "SOXL"
+  ],
+  "requests": [
+    {
+      "key": "2024",
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    {
+      "key": "2025",
+      "start": "2025-01-01",
+      "end": "2025-12-31"
+    },
+    {
+      "key": "recent",
+      "start": "2025-10-14",
+      "end": "2026-10-13"
+    }
+  ],
+  "legacy_hashes": {
+    "futu_capital_flow_day_US_SOXL.csv": "746e0e70c18abe333038ca9b1c413fc29929639efda9f919f730fbdb4796d638",
+    "futu_capital_flow_day_US_SOXX.csv": "e10335e65c62cc9e5c0d56a8a9aef9e59f93c811526be4bce757a3888ae6b611",
+    "futu_capital_flow_intraday_US_SOXX.csv": "ac352e05878278075555b98d3ead929da44524dafa11a15eebfacf35ca6cf997",
+    "futu_capital_flow_intraday_US_SOXL.csv": "fee7568823d901701b88a073a9c874e32bcd18029143da0ef8853574f8a283a8"
+  },
+  "raw_directory": "data/raw/external/capital_flow_source_20261014",
+  "provider": "data/qlib/capital_flow_source_20261014",
+  "scope": "Read-only source qualification. Vendor classified trading flow, not proven aggressor order flow or ETF primary creation/redemption. No returns, fits, feature search, orders or production activation. Separate requested periods from actual returned periods; capture failures and immutable receipts. Current intraday snapshot cannot backfill history or certify historical first receipt.",
+  "official_docs": "https://openapi.futunn.com/futu-api-doc/en/quote/get-capital-flow.html",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279"
+}

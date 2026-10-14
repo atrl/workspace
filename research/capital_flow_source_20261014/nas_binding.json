@@ -1,0 +1,22 @@
+{
+  "schema_version": "nas_research_source_v1",
+  "authority": "yanxuan_nas",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "raw_authority": "Original Futu classified capital-flow responses and legacy files, archived in NAS Recorder",
+  "evidence": {
+    "sha256": "a0f6e301e7e18cea23a075a29d42676daf271e5d03b0361fa9f45cf5b5758d88",
+    "size_bytes": 168717,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a0/f6/a0f6e301e7e18cea23a075a29d42676daf271e5d03b0361fa9f45cf5b5758d88",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-14 21:14:01.300228+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a0/f6/a0f6e301e7e18cea23a075a29d42676daf271e5d03b0361fa9f45cf5b5758d88",
+    "recorder_id": "c0e103ed01cf44a7887ec7e52dfeb6c1",
+    "experiment_id": "387273704426563540",
+    "archive_root": "qlib_recorder"
+  }
+}
