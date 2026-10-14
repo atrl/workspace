@@ -1,0 +1,49 @@
+{
+  "recorder_id": "63f3c48b0b63403ea6859ad5c5165b9c",
+  "entries": [
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/analysis/annual",
+      "sha256": "404e9ba8c9d07be43a58766a1916ba8e259922c9f10fedefd04f7dc51135896c"
+    },
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/analysis/bootstrap",
+      "sha256": "09e725447abae4760b0a07c4c1411c2c2bf9ae868a9b69d029d28ca249c805d9"
+    },
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/analysis/control_coverage",
+      "sha256": "9acc501458e3818548b92d55b985f30d9ff317b7f3085d245704f451ac4415bb"
+    },
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/analysis/frames",
+      "sha256": "74fbe0d5a4664231ad027ccb00ac49b4847b8f3e7117fd9bd84b0feeb78d7c72"
+    },
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/analysis/intervals",
+      "sha256": "3668a5b50c5561a87856cd0ffe6a53f87b324522fd59cbe31e13011b0a7d6429"
+    },
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/analysis/summary",
+      "sha256": "84d20559b43caf9674e5247ee608f78b4235965a224f0da6df35563a2ccc2691"
+    },
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/code_diff.txt",
+      "sha256": "c7c81f9ddf616dc3dc624861a29ac8d11f6fa0899a0e4be2f61071c8fabf5fa1"
+    },
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/code_status.txt",
+      "sha256": "8d7df0dd25620efb4134f43e44fb4f4994908aecbac0f0c4cde73b78d08a0889"
+    },
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/inputs/plan",
+      "sha256": "4bebfaa69f298a3052d6a7ffddcfa1a33977eca4c19463f7aa0c540b5ff83fc6"
+    },
+    {
+      "path": "qlib_recorder/496405600244211073/63f3c48b0b63403ea6859ad5c5165b9c/artifacts/inputs/source_entries",
+      "sha256": "cec8ddf6372ff54587e888a81a8f46c08cccc5cf2056cc0c580faba5bbcbfdc2"
+    }
+  ]
+}

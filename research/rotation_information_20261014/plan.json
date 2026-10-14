@@ -1,0 +1,48 @@
+{
+  "experiment": "rotation_information_20261014",
+  "frozen_at_utc": "2026-10-14T13:07:11.664041+00:00",
+  "start": "2024-01-01",
+  "as_of": "2025-12-31",
+  "costs": [
+    2,
+    5
+  ],
+  "feature": "two_way_sign_rotation",
+  "expected_sign": "negative",
+  "target": "existing small_advantage: same-state recovery beta ceiling 0.6 versus HOLD, 10:32 to next 09:47 common reset, net Tiered and each independent slippage path",
+  "feature_available_at": "10:31 NY research bar-close plus 60s assumption",
+  "maturity": "label_available_at after entry and before end of its entry calendar year; unqualified and immature days remain NaN on full calendar",
+  "controls": "four fixed states: sign of SOXX opening-to-10:30 return and sign of SOXX 09:45-to-10:30 return; ties are nonnegative. Percentile ranks within year x state, centered within group, then correlated. No fitted predictor. Coarse controls only; not complete legacy-feature increment.",
+  "primary_metric": "within_year_state_percentile_rank_association",
+  "mean_block": 63,
+  "resamples": 1000,
+  "seed": 20261014,
+  "pass_gate": "both costs pooled 95pct bootstrap upper < 0 and all four year-cost primary estimates < 0; undefined is not pass",
+  "failure_rule": "close fixed negative rotation/recovery-information interpretation; no sign flip, alternative horizon, threshold search, uncertainty-based filtering or substitution of measurement bounds for point feature",
+  "scope": "Reused historical necessary-condition diagnostic. Does not establish standalone alpha, full policy value or independent OOS. Even pass requires full existing-feature matched comparison, measurement uncertainty sensitivity of information, complete net accounts and independent forward gates.",
+  "sources": {
+    "features": {
+      "card": "research/constituent_intraday_history_20261014",
+      "recorder_id": "5ba89655e5b14f5e857a906d9108e57f",
+      "manifest_sha256": "c13faefabee1d057adbccf1dfc0a6dd9d1d3b4ae62393a456d2997a50d03e643"
+    },
+    "measurement": {
+      "card": "research/rotation_measurement_20261014",
+      "recorder_id": "fd69ab9a4167431292f6ed1d08e82e90",
+      "manifest_sha256": "694cd194465472300b0ce4ebfd5ca4db21e7e63cb34fb9099a15227fea9d25cd"
+    },
+    "labels": {
+      "card": "research/recovery_action_size_labels_20261014",
+      "recorder_id": "3883915d770e45b29310a72760cbc508",
+      "manifest_sha256": "d160d9b777ffb0d99cd441e290df19b7f8a9506cdd52a107ff3d31c8b5e416a7"
+    },
+    "eligibility": {
+      "card": "research/output_routing_diagnosis_20261014",
+      "recorder_id": "b46742c4e8de4b7f83ba8f1ddd6969b3",
+      "manifest_sha256": "33a150583e6df1e636ece6d14737e968b74e9fef233eef2158f42cef96675c1a"
+    }
+  },
+  "provider": "data/qlib/constituent_intraday_history_20261014",
+  "provider_manifest_sha256": "31f4ada4a183cbd4686762476ab0713ae48be52b92839f21451784ab9188ca56",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279"
+}
