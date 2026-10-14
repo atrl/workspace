@@ -1,0 +1,67 @@
+{
+  "experiment": "nvda_sec_eps_pilot_20261015",
+  "captured_at_utc": "2026-10-14T20:24:58.386574+00:00",
+  "raw_dir": "data/raw/external/nvda_sec_eps_pilot_20261015_v1",
+  "payloads": [
+    {
+      "file": "web_pilot1.txt",
+      "sha256": "9d3330730aa9e6b840cc7a43334c6ea4cf8472e68337fc8788c64ab4ec248817",
+      "representation": "exact_web_tool_text_response_not_original_html"
+    },
+    {
+      "file": "web_pilot2.txt",
+      "sha256": "313847c27312ce64da23d83ef45b6f1ad130ed9eb99421ad015868e6ba9d249e",
+      "representation": "exact_web_tool_text_response_not_original_html"
+    }
+  ],
+  "new_fits": 0,
+  "new_backtests": 0,
+  "cases": [
+    {
+      "quarter": "FY2017Q1",
+      "accession": "0001045810-16-000243",
+      "file": "web_pilot1.txt",
+      "eps": "0.33",
+      "prior_year_eps": "0.24",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581016000243/q117pr.htm",
+      "required_text": "Diluted earnings per share  | $0.33  | $0.35  | $0.24"
+    },
+    {
+      "quarter": "FY2018Q2",
+      "accession": "0001045810-17-000117",
+      "file": "web_pilot2.txt",
+      "eps": "0.92",
+      "prior_year_eps": "0.41",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581017000117/q2fy18pr.htm",
+      "required_text": "Diluted earnings per share  | $0.92  | $0.79  | $0.41"
+    }
+  ],
+  "source_failures": [
+    {
+      "route": "companyfacts",
+      "http_status": 403,
+      "bytes": 4819
+    },
+    {
+      "route": "submissions_refresh",
+      "http_status": 403,
+      "bytes": 4819
+    },
+    {
+      "route": "2016q2_financial_statement_zip",
+      "http_status": 403,
+      "bytes": 1925
+    },
+    {
+      "route": "FY2017Q2_and_FY2018Q1_index_web",
+      "status": "internal_error_no_body"
+    }
+  ],
+  "scope": "Two original accession EPS crosschecks with retained web text; not original HTML capture, not first-public clock certification, no full series or SUE.",
+  "corpus_source": {
+    "card": "research/nvda_eps_corpus_20261015",
+    "recorder_id": "7970243eda4e4418aba2a4e907fbce70",
+    "archive": "b49b444cb7676d5c77b84643b19ca21c741818f6184c0f5367940140901d2300",
+    "inventory_sha256": "a4b34ca4cfc6f3f51de4c6d8a82621c6411668a2e2b2817a95004fbe4df24424"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "experiment": "nvda_sec_eps_pilot_20261015",
+  "decision": "needs_continuous_original_filing_series_and_clock",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "verified_quarters": 2,
+  "training_input_qualified": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/nvda_eps_corpus_20261015_v1",
+  "region": "us",
+  "as_of": "2026-10-14",
+  "recorder_id": "90ba51666ae3463497d678aa95948528",
+  "experiment_id": "534239397605446323",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_sec_eps_pilot_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_sec_eps_pilot_20261015/qlib_recorder/534239397605446323/90ba51666ae3463497d678aa95948528",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/verified_facts"
+    ]
+  },
+  "objective_achieved": false,
+  "scope": "Two original accession EPS crosschecks with retained web text; not original HTML capture, not first-public clock certification, no full series or SUE.",
+  "nas_evidence": {
+    "sha256": "41d2434f4b05afc6240f207542dd1d24bb642935c81964451aed810d8fd12efb",
+    "size_bytes": 65317,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/41/d2/41d2434f4b05afc6240f207542dd1d24bb642935c81964451aed810d8fd12efb",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 04:25:03.587573+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/41/d2/41d2434f4b05afc6240f207542dd1d24bb642935c81964451aed810d8fd12efb",
+    "recorder_id": "90ba51666ae3463497d678aa95948528",
+    "experiment_id": "534239397605446323",
+    "archive_root": "qlib_recorder"
+  }
+}

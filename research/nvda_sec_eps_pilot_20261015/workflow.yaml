@@ -1,0 +1,8 @@
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/verified_facts
+  workflow_config: workflow.yaml
+experiment: nvda_sec_eps_pilot_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/nvda_eps_corpus_20261015_v1
