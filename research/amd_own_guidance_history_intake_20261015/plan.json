@@ -1,0 +1,122 @@
+{
+  "experiment": "amd_own_guidance_history_intake_20261015",
+  "frozen_at_utc": "2026-10-15T10:57:17.275765+00:00",
+  "stage": "Bounded AMD-only primary-source history intake and sourcequalification; noerrorfeature/outcomes/fits",
+  "issuer": "AMD",
+  "cik": "0000002488",
+  "universe": {
+    "regular_reported_quarter_start": "FY2010Q4",
+    "regular_reported_quarter_end": "FY2017Q3",
+    "regular_documents": 28,
+    "disclosure_date_start": "2011-01-01",
+    "disclosure_date_end": "2017-12-31",
+    "new_target_guide_start": "FY2011Q1",
+    "new_target_guide_end": "FY2017Q4",
+    "new_target_rows": 28,
+    "combined_target_start": "FY2011Q1",
+    "combined_target_end": "FY2026Q3",
+    "combined_target_rows": 63,
+    "as_of": "2026-09-25",
+    "rule": "Every28requestedoriginalquarterlyreport represented acquired/needs_data. Combined63targetrows retained; existing4scopeblocks/leading/trailing statuses preserved unless exactneworiginaldocument legitimately supplies missingleadingguide. Olderintake cannot silentlyrepair2022/2025scope withlaterdocuments."
+  },
+  "parent_source": {
+    "card": "research/amd_own_guidance_realization_source_20261015",
+    "recorder_id": "868e58319b964688bef06235f9e91fc2",
+    "archive": "fc80d23048d571cc23e1e4039f85882b5f945f9b5ca7399028ca365def704765",
+    "inventory_sha256": "8c0b5d71bbe34281d9a1c1cb0a6d8a5fccfd14601a8a941f3e0b877480d53cde",
+    "artifacts": [
+      "analysis/pairs",
+      "analysis/original_report_facts",
+      "analysis/timeline",
+      "inputs/amd_html",
+      "inputs/amd_manifest"
+    ]
+  },
+  "why_repair": "Existing36-rowcheck has17 comparablepre2023events, inadequate tocallfull2011history. Exactly28olderregularreports can supply27earlieractualtargets plus original2017Q4guide, withoutissuersearch. This repairs independentlyidentifiedcoverage, not AMDoutcome-ledselection. No trainingpermission follows sourcecompletion.",
+  "allowed_hosts": [
+    "ir.amd.com",
+    "www.amd.com",
+    "amd.com",
+    "www.sec.gov",
+    "data.sec.gov"
+  ],
+  "allowed_formats": [
+    "officialissuer HTML originalregularrelease ororiginalexhibit",
+    "SECfilingindex HTML+linkedoriginalEX99.1/EX99.2 release HTML",
+    "officialSECsubmissionsJSONmetadata forURL/accession/date discovery",
+    "officialissuerarchiveHTMLindex",
+    "officialweb-toolrenderedfulltextcapture onlywhencompletequarter/revenue/outlook/date/context obtained; not publisherHTMLhash"
+  ],
+  "index_sources": {
+    "financial": [
+      "https://ir.amd.com/news-events/press-releases?category=financial&year=2011",
+      "https://ir.amd.com/news-events/press-releases?category=financial&year=2012",
+      "https://ir.amd.com/news-events/press-releases?category=financial&year=2013",
+      "https://ir.amd.com/news-events/press-releases?category=financial&year=2014",
+      "https://ir.amd.com/news-events/press-releases?category=financial&year=2015",
+      "https://ir.amd.com/news-events/press-releases?category=financial&year=2016",
+      "https://ir.amd.com/news-events/press-releases?category=financial&year=2017"
+    ],
+    "optional_all_category_missing_quarters_only": [
+      "https://ir.amd.com/news-events/press-releases?year=2011",
+      "https://ir.amd.com/news-events/press-releases?year=2012",
+      "https://ir.amd.com/news-events/press-releases?year=2013",
+      "https://ir.amd.com/news-events/press-releases?year=2014",
+      "https://ir.amd.com/news-events/press-releases?year=2015",
+      "https://ir.amd.com/news-events/press-releases?year=2016",
+      "https://ir.amd.com/news-events/press-releases?year=2017"
+    ],
+    "limit": "Atmostonefinancialindexandoneunfilteredfirstpageperyear; no pagination/unboundedarchivecrawl. Oldtitles may sayReportsQuarterResults withoutwordFinancial; do notdiscard relevanttitles dueoldparserregex."
+  },
+  "existing_2011_probe": {
+    "path": "/tmp/amd_2011_index_feasibility.html",
+    "url": "https://ir.amd.com/news-events/press-releases?category=financial&year=2011",
+    "sha256": "4fe0e01c91372626458157a5153ca516b10b06aa0036e657c9d2f518ae6e64df",
+    "bytes": 33791,
+    "policy": "Reusehashverifiedcapture;0newHTTPforthisindex. Ifmissing/different, markcapturegap, no silentrefetch. Priorwebopenfailed andonedirectHTTP200 recordedinparentsourceplan. CaptureasexistinginputRecorder/NASthisrun."
+  },
+  "sec_discovery": "One https://data.sec.gov/submissions/CIK0000002488.json plusatmost3historicalsubmissionfiles explicitlylinkedthere. Only2011-2017Item2.02/relevant8-Koriginalearningsattachments; nocompanyfacts orrevisedXBRL values. Up to28exactfilingindexpages tolocateoriginalreleaseexhibits whenissuerarchive insufficient.",
+  "discovery_search": "Atmost28officialdomain searchqueries, onepermissingregularquarter, fixedquery AMD YYYY Qn quarterlyfinancialresults (or equivalentordinal) restrictedallowedhosts. Searchonlydiscovers officialURL; snippets/AI summaries neverevidence. No alternateissuer,priceperformancekeywords,consensus or financial-data aggregators.",
+  "retrieval_order": [
+    "Reuseexisting2011index; retrieveother6financialyearindexes. Originalquarterlytitles/date/headings determinefixed28universe; preserveexactpublishedtimestampswhenexposed.",
+    "Fetchoneoriginalregularrelease perexpectedquarter fromofficialindex. Ifnotfound, inspectcorrespondingyearunfilteredfirstpage once.",
+    "Forstillmissingquarter useofficialSECsubmissionmetadata and/oronefixedofficialdomainsearch. Fetchdiscoveredofficialfilingindex/linkedoriginalexhibit; do notguessaccessionor numericalvalues.",
+    "RetainknowninterveningAMDpreannouncement/guidanceupdate links discoveredduringtheseindexes/searches, max8documents, plusmax4same-eraexplicitcorporateperimeterbridge documents. Missingbridge staysblocked; no furtherchase."
+  ],
+  "budgets": {
+    "new_financial_indexes": 6,
+    "new_optional_all_category_indexes": 7,
+    "SEC_submission_JSON_max": 4,
+    "SEC_filing_indexes_max": 28,
+    "new_original_regular_report_documents_max": 28,
+    "new_update_preliminary_documents_max": 8,
+    "new_scope_bridge_documents_max": 4,
+    "new_distinct_URLs_max": 85,
+    "discovery_queries_max": 28,
+    "total_network_or_web_tool_operations_max": 140,
+    "operations_per_URL_max": 2,
+    "new_issuer_count": 1,
+    "new_fits": 0,
+    "new_error_features": 0,
+    "market_outcome_reads": 0,
+    "new_accounts": 0
+  },
+  "operation_counting": "EveryHTTPattempt, webopen/find/click andsearchquery counts1. Aredirectchain toallowedofficialhost isoneclientoperation butrecordresolvedURL. PerURLmaximum2 meansoneHTTP+onewebfulltext fallback ORoneHTTPretry, neverboth. Searchcountsseparatelywithintotal140. Existingcapture reads are0operations. Initialfailuredoesnotgrant morebudget.",
+  "failure_policy": "HTTP403/auth/unavailable remainsrecorded; no credential/proxy/UArotation/mirrors. SameofficialURL web-toolrenderedread allowedonlyasexplicitalternateformat,withinperURL2,total140. Stopattempt onbudgetexhaustion; preservemissingrows,notwholeGoalblocked. No sourcechoice basednumbers/returns. Duplicatedformats verifiedsamequarter/date; neveroverwrite earlierfailedreceipt.",
+  "facts": "For eachregularreport retainoriginalCURRENTquarterGAAPtotalrevenue/periodend/unit/USD/precision/tablelocator, originalNEXTquarterrevenueguidance type/range/midpoint/units/pctwording andoriginaldenominator. No annual/Q4annualconfusion, laterrestatedcomparative/companyfacts, inferredrevenue orconsensus. Guidepct conversion support recordedonly; source-onlystage doesnotcomputeerrorfeature.",
+  "scope": "Inspectfulloriginalguidance+targetreport foracquisitions/disposals/continuingoperations/accountingchanges and53weekquarter. Explicitoriginalsame-report bridge canbekeptseparatewithGAAP/nonGAAProle; noestimatedsubtraction orlaterquarterbackfill. Missingoriginalcompatibleperimeter blockscomparison. No blanketdeletion ofallacquisitionyears; forecastdemanddecline/cost/exportassumptions notautomaticrevenueexclusions.",
+  "updates": "Originalfirstregularguide retained;preliminaryactual andinterimguideupdates separate, neverreplaceoriginalregularactual. 2011-09-28preliminaryknownfromexistingindex mustberepresented capturedorneeds_data within8budget. Absenceofcapturedupdate isunknowncoverage, neverfreshsurpriseproof.",
+  "availability": "Preservepublisherrelease date/clock/timezone,filing/API/indexaccepted fields whenobserved withsourceprovenance. Datebound=maxobservednecessarydates, nextnativeQlibsession09:31NY; unknown/ambiguousdocumentdate=>needs_data. Separateguide/actual/pairtimestamps; futureguidenorealizationevent,blockedreportedtargetresetunknown. Exactlaterdecisiontimestampjoin required; no09:31same09:29backdate. Nofirstreceipt/currentHTMLhistoricalbyteidentityclaim.",
+  "capture_contract": "RawHTTPbytes+status/request/resolvedURL/headersavailable/UTCobservation+SHA; orrawwebtoolresponse+verbatimcompleteexcerpts/toolref/officialURL/crawlcachedateifexposed/UTC+SHAofCAPTURE notpublisherHTML. Recordformat perdocument, nosearchsnippets. Requestsreceipt ledger precedesattempt andcapturesbudgetcounts. RawpayloadsRecorderNAS;smallGitmanifest/status/evidence locators. No copiedrawHTMLlargefilesGit.",
+  "outputs": "ExecutableNotebook+Chineseconclusion,28requestedreportstatusrows,combined63targetsourcequalification,knownupdates/scopebridge/availability tables,operationledger,smallmanifest; rawbytes andallfact/captureobjectsRecorderNAS. Report actualpre2023comparableevents andremainingmissingperimeters. Source-onlyresult neverauthorizesfits.",
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "qualification_states": [
+    "comparable_original_regular_report_pair_under_delayed_assumption",
+    "blocked_scope_mismatch_or_missing_bridge",
+    "needs_data_original_guide",
+    "needs_data_role_clock_unit_or_pair",
+    "not_yet_reported_target"
+  ],
+  "production_qualified": false,
+  "promotion_authority": false
+}

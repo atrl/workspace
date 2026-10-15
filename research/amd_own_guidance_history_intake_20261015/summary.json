@@ -1,0 +1,69 @@
+{
+  "experiment": "amd_own_guidance_history_intake_20261015",
+  "plan_sha256": "5e419a90afbb7daa21e372f1f5ffd4b31cb2e97e78bc2456fda31781c7a45f07",
+  "decision": "bounded_AMD_history_qualified_with_explicit_gaps",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_error_features": 0,
+  "market_outcome_reads": 0,
+  "network_operations": 42,
+  "new_URLs": 40,
+  "operation_category_counts": {
+    "regular": 28,
+    "financial_index": 6,
+    "update": 4,
+    "all_index": 2,
+    "discovery_query": 2
+  },
+  "report_status_counts": {
+    "original_regular_report_extracted": 28
+  },
+  "guide_status_counts": {
+    "original_numeric_sequential_percent": 26,
+    "qualitative_original_no_numeric_midpoint": 2
+  },
+  "combined_target_rows": 63,
+  "combined_status_counts": {
+    "comparable_original_regular_report_pair_under_delayed_assumption": 55,
+    "blocked_scope_mismatch_or_missing_bridge": 5,
+    "needs_data_role_clock_unit_or_pair": 2,
+    "not_yet_reported_target": 1
+  },
+  "pre2023_comparable_events": 42,
+  "known_preannounced_combined_events": 5,
+  "all_updates_coverage_verified": false,
+  "first_public_timestamp_verified": false,
+  "historical_original_bytes_certified": false,
+  "next_action": "Independent source review then separate frozen AMDincrement design; sourcecompletion doesnotauthorizefits. No more retrievaltofill qualitative/scopemissing.",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/published_futu_affine_20260925_v1",
+  "region": "us",
+  "as_of": "2026-09-25",
+  "recorder_id": "0eb8433c64e54764ad5702c9b0bdab05",
+  "experiment_id": "648219203937959398",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/amd_own_guidance_history_intake_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/amd_own_guidance_history_intake_20261015/qlib_recorder/648219203937959398/0eb8433c64e54764ad5702c9b0bdab05",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/original_report_facts",
+      "analysis/scope_evidence"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "5cab64348faad1accc1b10d855793521feeead10391baead639641efad05ab10",
+    "size_bytes": 1051506,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/5c/ab/5cab64348faad1accc1b10d855793521feeead10391baead639641efad05ab10",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 19:06:03.708183+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/5c/ab/5cab64348faad1accc1b10d855793521feeead10391baead639641efad05ab10",
+    "recorder_id": "0eb8433c64e54764ad5702c9b0bdab05",
+    "experiment_id": "648219203937959398",
+    "archive_root": "qlib_recorder"
+  }
+}

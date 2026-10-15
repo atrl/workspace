@@ -1,0 +1,27 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_BOUNDED_AMD_HISTORY_SUBSET",
+  "plan_sha256": "5e419a90afbb7daa21e372f1f5ffd4b31cb2e97e78bc2456fda31781c7a45f07",
+  "recorder_id": "0eb8433c64e54764ad5702c9b0bdab05",
+  "verification_manifest_sha256": "c73e30395205d61f7eda897da6e1a5ef070523637c9bb7eebe5d2f75a7f82b1f",
+  "archive_sha256": "5cab64348faad1accc1b10d855793521feeead10391baead639641efad05ab10",
+  "source_hashes": {
+    "collector": "4c3bd4b8e44531ef48e68ef0bb3c2f4e2d55615e7713608507db6c4cae742ce6",
+    "workflow": "46356888ca4cea65af248c184bfad471ed47e9e4316a6d34819f4fc1f7f7475c"
+  },
+  "independent_checks": [
+    "All28regular reports acquired under42operations and payload hashes verified",
+    "26explicit signed percentage guides,2qualitative unknown without inventedmidpoint",
+    "All63targets retained:55comparable,5scopeblocked,2qualitativeunknown,1future",
+    "Parent4scopeblocks preserved; SeaMicro2012Q1 added asunknown",
+    "SeaMicroexit expense andATMP gain not added to revenue",
+    "42pre2023comparable quarterlyevents not independent daily observations"
+  ],
+  "limits": [
+    "Original reportedcompanytotal under delayedassumption, not independently normalized constantbusinessperimeter",
+    "Firstpublic disclosure/currentbytes historicalidentity/allupdates not certified",
+    "No automatic fit permission"
+  ],
+  "readback": "readback_verification.json",
+  "objective_achieved": false
+}

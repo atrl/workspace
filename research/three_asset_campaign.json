@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/amd_own_guidance_realization_source_20261015",
-  "current_phase": "AMD_existing_source_complete_bounded_history_intake_design",
-  "next_action": "Freeze independently reviewed intake for28missing AMD regular reports FY2010Q4–FY2017Q3, disclosures2011–2017; exact official index/search/release budgets and unknown retention. No marketoutcomes/fits until fullsource/domain reviewed; no otherissuer orscopegap chase.",
+  "current_experiment": "research/amd_own_guidance_history_intake_20261015",
+  "current_phase": "AMD_history_qualified_frozen_base_residual_design",
+  "next_action": "Freeze independently reviewed AMD-only linear logit residual on immutable NVDA27baa base: shared3AMDstate flags versus plusoneAMDnumeric,9vs12zero-initialized weights/no bias; sameoriginalallocationobjective andcoupledexecution. Preservebaseparameters/scalers/featuretiming; no auxiliary/classification gradient claims. No fit until exactplanreview.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -596,6 +596,52 @@
         "nas_verified_artifacts": 14,
         "all_hashes_match": true,
         "new_fetches": 0,
+        "new_fits": 0,
+        "new_accounts": 0
+      }
+    },
+    {
+      "card": "research/amd_own_guidance_history_intake_20261015",
+      "kind": "fixed_AMD_older_primary_source_intake",
+      "status": "completed_bounded_history_qualified_with_gaps",
+      "target_regular_reports": 28,
+      "target_report_range": "FY2010Q4–FY2017Q3",
+      "maximum_total_operations": 140,
+      "maximum_unique_urls": 85,
+      "maximum_official_queries": 28,
+      "maximum_new_fits": 0,
+      "maximum_new_accounts": 0,
+      "evaluation": "research/amd_own_guidance_history_intake_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_OFFICIAL_HISTORY_INTAKE",
+        "plan_sha256": "5e419a90afbb7daa21e372f1f5ffd4b31cb2e97e78bc2456fda31781c7a45f07",
+        "conditions": [
+          "FixedAMDonly28regularreports",
+          "OfficialAMD/SEC only; retries/redirects/failures count",
+          "Reused2011capture pinned, no pointlessrefetch",
+          "RawHTML versusrenderedtext identities distinguished",
+          "Keep parent4scopeblocks; no later-doc repair",
+          "No outcomes/errorfeatures/fits orautomatictraining"
+        ]
+      },
+      "recorder_id": "0eb8433c64e54764ad5702c9b0bdab05",
+      "qualification": {
+        "targets": 63,
+        "comparable": 55,
+        "scopeproof_blocked": 5,
+        "qualitative_unknown": 2,
+        "not_yet_reported": 1,
+        "pre2023_comparable_events": 42
+      },
+      "verification": {
+        "network_operations": 42,
+        "new_URLs": 40,
+        "new_regular_reports": 28,
+        "new_update_documents": 4,
+        "nas_verified_artifacts": 18,
+        "all_hashes_match": true,
+        "focused_tests_passed": 1,
         "new_fits": 0,
         "new_accounts": 0
       }
