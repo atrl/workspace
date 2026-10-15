@@ -1,0 +1,83 @@
+{
+  "experiment": "three_asset_failure_attribution_20261015",
+  "frozen_at_utc": "2026-10-15T06:14:53.581582+00:00",
+  "sources": {
+    "tangent": {
+      "card": "research/tangent_allocation_head_20261014",
+      "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+      "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+      "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+    },
+    "router": {
+      "card": "research/open_router_ablation_20261015",
+      "recorder_id": "98eab7aa28e349d4bfb5e125d5c2b4fe",
+      "archive": "d43879bb278e73902ae8533fe93776f08dbc5b51f8731f768b9fd5106e223145",
+      "inventory_sha256": "e3b80c1a1055fccb1ef446754198139de4c708f27ffe0c10c45f2d9b6aeef03b"
+    },
+    "risk": {
+      "card": "research/tangent_risk_layer_20261014",
+      "recorder_id": "169645f3487a419ebe477bfae42f02b2",
+      "archive": "0e42fb8893655d34821280c11114c1fd6ea9817affa1ff350c53ec829bfbdfe3",
+      "inventory_sha256": "9a55f25f70492fec0d55dc90da75c046fd3f9213f98a87a5986785c974ebe1b8"
+    }
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "initial_cash": 100000,
+  "cash_reference": 0.15,
+  "rolling_sessions": 126,
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "families": {
+    "original": [
+      "tangent",
+      "current_anchor"
+    ],
+    "matched_retrain": [
+      "tangent",
+      "control"
+    ],
+    "tangent": [
+      "tangent",
+      "candidate"
+    ],
+    "always_execute": [
+      "router",
+      "strong_always"
+    ],
+    "risk_bypass": [
+      "risk",
+      "bypass"
+    ]
+  },
+  "pairs": [
+    [
+      "tangent",
+      "matched_retrain"
+    ],
+    [
+      "always_execute",
+      "tangent"
+    ],
+    [
+      "risk_bypass",
+      "tangent"
+    ],
+    [
+      "always_execute",
+      "original"
+    ]
+  ],
+  "period_basis": "trade_date; cash-start2023 left-truncated and2026 right-truncated; no annual gate claim",
+  "interpretation": "Descriptive exact log-linked accounting, not removable causal losses. State endogenous; recovery is realized10:32, not preopen. Risk bypass changes router inputs and recovery eligibility.15% cash split is descriptive only. Reused history, no promotion authority.",
+  "market_stratum": "source prior-signal soxx_trend20 sign at zero; timing must precede decision; no tuned threshold",
+  "decision_at": "09:46 America/New_York",
+  "open_fill_at": "09:47 America/New_York",
+  "recovery_at": "10:32 America/New_York",
+  "price_authority": "verified frozen Recorder inputs/frame; live provider calendar only, record any calendar discrepancy",
+  "output_policy": "daily attribution and every contiguous126-session window Recorder-only; totals/year/quarter/state/pair/rolling summaries slim sidecars"
+}

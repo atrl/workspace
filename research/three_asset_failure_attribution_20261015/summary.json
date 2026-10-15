@@ -1,0 +1,71 @@
+{
+  "experiment": "three_asset_failure_attribution_20261015",
+  "plan_sha256": "3403f74384e08dc52c0e242c21ad62d00de2bda98c532a2d5ededc7b85157993",
+  "decision": "diagnostic_only_no_promotion",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "reused_native_accounts": 18,
+  "sessions": 944,
+  "first_trade": "2023-01-04",
+  "last_exit": "2026-10-09",
+  "maximum_daily_reconciliation_error": 4.644722106927901e-16,
+  "calendar_audit": {
+    "live_only_dates": [],
+    "frozen_only_dates": [],
+    "live_provider_is_price_authority": false,
+    "source_rows": 944
+  },
+  "recorder_id": "845902131e7c49e78d84e5a887881a8a",
+  "experiment_id": "834767067938491538",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/three_asset_failure_attribution_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/three_asset_failure_attribution_20261015/qlib_recorder/834767067938491538/845902131e7c49e78d84e5a887881a8a",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/daily/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "source_identities": {
+    "tangent": {
+      "card": "research/tangent_allocation_head_20261014",
+      "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+      "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+      "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+    },
+    "router": {
+      "card": "research/open_router_ablation_20261015",
+      "recorder_id": "98eab7aa28e349d4bfb5e125d5c2b4fe",
+      "archive": "d43879bb278e73902ae8533fe93776f08dbc5b51f8731f768b9fd5106e223145",
+      "inventory_sha256": "e3b80c1a1055fccb1ef446754198139de4c708f27ffe0c10c45f2d9b6aeef03b"
+    },
+    "risk": {
+      "card": "research/tangent_risk_layer_20261014",
+      "recorder_id": "169645f3487a419ebe477bfae42f02b2",
+      "archive": "0e42fb8893655d34821280c11114c1fd6ea9817affa1ff350c53ec829bfbdfe3",
+      "inventory_sha256": "9a55f25f70492fec0d55dc90da75c046fd3f9213f98a87a5986785c974ebe1b8"
+    }
+  },
+  "interpretation": "Descriptive exact log-linked accounting, not removable causal losses. State endogenous; recovery is realized10:32, not preopen. Risk bypass changes router inputs and recovery eligibility.15% cash split is descriptive only. Reused history, no promotion authority.",
+  "period_basis": "trade_date; cash-start2023 left-truncated and2026 right-truncated; no annual gate claim",
+  "nas_evidence": {
+    "sha256": "3476868e75cc37b92a96a55d54036eb43a5696127d9d41346c13c75f95077d96",
+    "size_bytes": 2176855,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/34/76/3476868e75cc37b92a96a55d54036eb43a5696127d9d41346c13c75f95077d96",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 14:17:37.867237+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/34/76/3476868e75cc37b92a96a55d54036eb43a5696127d9d41346c13c75f95077d96",
+    "recorder_id": "845902131e7c49e78d84e5a887881a8a",
+    "experiment_id": "834767067938491538",
+    "archive_root": "qlib_recorder"
+  }
+}

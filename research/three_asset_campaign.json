@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/three_asset_failure_attribution_20261015",
-  "current_phase": "diagnostic_execution",
-  "next_action": "Execute approved Recorder-backed attribution notebook, then independent result review and evidence-led next mechanism.",
+  "current_experiment": "research/beta_preserving_composition_20261015",
+  "current_phase": "bounded_implementation",
+  "next_action": "Implement and evaluate fixed nominal-beta composition with all consumed native price marks checked against frozen source.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -47,9 +47,9 @@
     {
       "card": "research/three_asset_failure_attribution_20261015",
       "kind": "diagnostic_no_new_fits_or_accounts",
-      "status": "executing",
-      "evaluation": null,
-      "next_mechanism": null,
+      "status": "completed_diagnostic_no_promotion",
+      "evaluation": "research/three_asset_failure_attribution_20261015/independent_evaluation.json",
+      "next_mechanism": "beta-preserving composition of risk-projected targets; not actual risk equivalence",
       "design_review": {
         "reviewer": "/root/evaluator",
         "verdict": "APPROVE_DESCRIPTIVE_EXECUTION",
@@ -62,6 +62,28 @@
           "endogenous state and recovery timing labels",
           "no promotion or independent evidence claim"
         ]
+      },
+      "recorder_id": "845902131e7c49e78d84e5a887881a8a",
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_decision_accounting.py tests/test_integrated_allocation_analysis.py -q",
+        "passed": 11,
+        "nas_cold_readback_artifacts": 46,
+        "all_hashes_match": true
+      }
+    },
+    {
+      "card": "research/beta_preserving_composition_20261015",
+      "kind": "bounded_composition_mechanism",
+      "parent": "research/three_asset_failure_attribution_20261015",
+      "status": "implementing",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 3,
+      "evaluation": null,
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVED_FOR_BOUNDED_IMPLEMENTATION",
+        "plan_sha256": "c95dc0d2b29b3972d95a7f901026ede7e6a12b462125f72f2b3995c856e4c33b",
+        "required_source_check": "all native consumed fill and valuation marks, not merely open/recovery; exact dates and native report timestamps"
       }
     }
   ],
