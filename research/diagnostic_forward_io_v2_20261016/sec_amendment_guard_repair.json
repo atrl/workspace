@@ -1,0 +1,12 @@
+{
+  "scope": "Original unknown-report/update boundary includes8-K/A,10-Q/A,10-K/A; normalize /A before original three-form filter. Unknown amendment remains update_pending.",
+  "transport_sha256": "0e1ef2a1f6bd502534c9ddfbf6295619c665aceaf49338abce9944fdb82d79e0",
+  "pure_local_check": "PASS six original/amendedforms; unknown amendment included; acknowledged/4Aexcluded",
+  "network_requests": 0,
+  "models": 0,
+  "native_reruns": 0,
+  "fullchain_reruns": 0,
+  "registration_schema_sha256": "72525007f62a4e8f3ebe802bfe5cb38f20fa5964fec05bb6c9be48f342b145c1",
+  "schema_note": "Only runtime invariant prose filename corrected to bootstrap_prefix_binding.json; original sources_v2 schema preserved.",
+  "all_original_artifact_hashes_unchanged": true
+}

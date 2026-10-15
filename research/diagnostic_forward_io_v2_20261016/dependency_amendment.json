@@ -1,0 +1,9 @@
+{
+  "plan_sha256": "a8eb75331f4a0071bfe00f1f207711f540ff8c3c41cd4806a2a62d5e07a4438b",
+  "owner_approved": true,
+  "scope": "Only inherited immutable execution prefix: actual original helper reads open/close; retain all4fields and exact hash, qualify finitepositive used2fields/fullgrid only. No repair of high/low. New Nasdaq/Yahoo OHLC strict; overlap all4fields rtol1e-6/atol1e-8 unchanged.",
+  "original_prefix_strict_envelope_violations": 385,
+  "helper": "src/workflow/soxs_defensive_hurdle.py",
+  "helper_sha256": "38e8e3d34b57e02aca360d5a5c8b181c28edd629ab27b58e64c02454d8513059",
+  "performance_observations": 0
+}

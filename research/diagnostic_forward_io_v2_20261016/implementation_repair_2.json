@@ -1,0 +1,23 @@
+{
+  "kind": "owner_approved_material_clock_and_initialization_repair",
+  "source_sha256": {
+    "src/data/diagnostic_forward_io_v2.py": "44748a136e8dd6f1d5ad8a974e271a186ee51b9047326253e987a4da865fb47e",
+    "src/schedule/diagnostic_forward_transport_v2.py": "4d792b4c23394f0da55a12c75e5acc1df12f8c785258c0babfc798cdd6fb5809",
+    "src/backtest/diagnostic_forward_native_v2.py": "28478ceee76071f7643385227d80df42e74a74bf70c360e1152523259c9924d1"
+  },
+  "changes": [
+    "Parent/controller/mapping manifest+Recorder+result byte identities verified",
+    "Registration pins explicit full feature/model/native dependencies",
+    "SDK/mapping preflight before source collection",
+    "HTTP fence only admits validated17-key Ledger sends; unregistered requests blocked",
+    "Initialization negative confirms qlib.init precedes source loading"
+  ],
+  "test": "Same focused testcase: reused hash-verified full-chain/native outputs; child-clock, initialization-failure and unregistered-HTTP negative cases.1 passed20warnings2.44s",
+  "test_handle": 81741,
+  "new_model_calls": 0,
+  "new_source_requests": 0,
+  "native_books_rerun": 0,
+  "original_fullchain_result_preserved": true,
+  "blocked_network_attempts": 0,
+  "all_original_artifact_hashes_unchanged": true
+}

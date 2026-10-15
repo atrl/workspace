@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/diagnostic_forward_bar_mapping_20261016",
-  "current_phase": "saved_history_end_label_mapping_verified_live_adapter_next",
-  "next_action": "Version the prospective input adapter explicitly for observed Futu interval-end labels using the accepted bar-mapping Recorder; retain raw time_key as end and derive start=end-1min, without changing original failed probe or repeating saved comparisons/model inference. Complete actual daily source-role mapping and finite live collector wiring under a new exact IO identity before full-session activation. This history mapping does not certify live prefix availability or vendor finality. No new data source, broad audit, training or historical strategy replay is authorized by this bookkeeping.",
+  "current_experiment": "research/diagnostic_forward_io_v2_20261016",
+  "current_phase": "complete_prospective_IO_v2_offline_implementation_verified_activation_registration_next",
+  "next_action": "Prepare and independently review the exact first-session IOv2 registration/activation, binding current3module/dependency/SDK/schema/code hashes, immutable execution prefix and event inbox, session Oct19 earliest,17HTTP/15Futu/9allocator/9recovery/12ledger limits. Do not launch or fetch before the registered time. Actual14daily source responses, fresh SEC/CA status,9model proposals, sealed intents/laterquotes and post-session native12 must qualify at runtime; offline synthetic evidence is not a forward interval. Reuse existing model/parity/bar/IO fixtures; no further broad audit or repeated old fits/replays.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1091,6 +1091,25 @@
       "pilot_launches": 0,
       "evaluation": "research/diagnostic_forward_bar_mapping_20261016/independent_evaluation.json",
       "readback_artifacts": 29
+    },
+    {
+      "card": "research/diagnostic_forward_io_v2_20261016",
+      "kind": "complete_prospective_IO_v2_offline_implementation",
+      "status": "offline_verified_not_live_qualified",
+      "plan_sha256": "a8eb75331f4a0071bfe00f1f207711f540ff8c3c41cd4806a2a62d5e07a4438b",
+      "recorder_id": "28d006871fbc409f8c20766cf5dc6e9e",
+      "offline_real_saved_SPY_rows": 3226,
+      "synthetic_native_books": 12,
+      "mock_model_calls": 9,
+      "actual_model_calls": 0,
+      "new_fits": 0,
+      "market_data_requests": 0,
+      "new_forward_days": 0,
+      "pilot_launched": false,
+      "readback_artifacts": 23,
+      "evaluation": "research/diagnostic_forward_io_v2_20261016/independent_evaluation.json",
+      "new_input_plane_not_historical_equivalence": true,
+      "remaining_gate": "Exact registered future pilot with actual source/clock/model/native evidence"
     }
   ],
   "governance_review": {

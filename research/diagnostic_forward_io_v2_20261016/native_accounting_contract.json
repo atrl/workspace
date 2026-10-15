@@ -1,0 +1,23 @@
+{
+  "role": "Post-event native accounting reconciliation only",
+  "module": "src/backtest/diagnostic_forward_native_v2.py",
+  "module_sha256": "28478ceee76071f7643385227d80df42e74a74bf70c360e1152523259c9924d1",
+  "qlib_extension_authority": "https://raw.githubusercontent.com/microsoft/qlib/main/qlib/backtest/exchange.py",
+  "interface": "Exchange quote_cls, checked against installed source; native RawCashPosition and IBKRTieredExchange retain independent state and fee calculation",
+  "event_axis": "Registered logical slots preserve session dates for corporate actions and tariff month, solely ordering; each event retains actual paired receipt and per-symbol price_times. Not real exchange timestamps or an annualization calendar.",
+  "precision": "D.features float32 readback is retained. The Qlib Quote receives original recorded float64 price values only, keyed by symbol and logical event; it does not receive expected holdings, NAV, cash, receivables or fees.",
+  "validation": [
+    "Exact full event grid; afterterminal guard excluded",
+    "Whole-share orders and no terminal trade",
+    "Own native pretrade CA eligibility, nonspendable receivables and fee state",
+    "Per-event quantities/C/R/NAV, order count/fees, and compounded native report",
+    "Unknown marks fail reconciliation, with prior real paper state retained"
+  ],
+  "limits": [
+    "Prescribed-order replay does not prove model/risk decisions",
+    "Snapshot-last-price paper settlement is not actual broker fill or executable BBO",
+    "Offline12 synthetic books do not count as strategy research accounts or forward days"
+  ],
+  "offline_native_books": 12,
+  "pilot_native_books_max": 12
+}

@@ -1,0 +1,19 @@
+experiment: diagnostic_forward_io_v2_20261016
+plan: plan.json
+module: src.schedule.diagnostic_forward_transport_v2
+entrypoint: run_pilot
+current_phase: offline_implementation_only
+network_authorized: false
+notebook_scope: persist_completed_offline_fixture_only
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - bootstrap/*
+  - offline_v2/*
+  - sources_v2/*
+  - analysis_v2/*
+  - implementation_repair_1/*
+  - implementation_repair_2/*
+  - sec_amendment_guard_repair/*
+native_accounting_contract: native_accounting_contract.json

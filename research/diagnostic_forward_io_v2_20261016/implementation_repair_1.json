@@ -1,0 +1,22 @@
+{
+  "kind": "owner_approved_material_clock_and_initialization_repair",
+  "source_sha256": {
+    "src/data/diagnostic_forward_io_v2.py": "cdfa7354046a661f03335f6bdb2767a03e38d647c129d1d62bf23833ab579899",
+    "src/schedule/diagnostic_forward_transport_v2.py": "fd0066d0ce0dd7b3d566441a577a465235164559b9bd42bb17572eb3462d278e",
+    "src/backtest/diagnostic_forward_native_v2.py": "28478ceee76071f7643385227d80df42e74a74bf70c360e1152523259c9924d1"
+  },
+  "changes": [
+    "Each LIVE_OPEN child clocks validated against its own HTTP receipt before pair aggregation",
+    "Registration pins all3 modules and frozen dependencies",
+    "qlib.init before local Recorder/model source load",
+    "Postlaunch setup failures produce terminal_status with zero/unknown counters"
+  ],
+  "test": "Same focused testcase: reused hash-verified full-chain/native outputs; new child-clock future negative cases and initialization-failure terminal case.1 passed20warnings2.56s",
+  "test_handle": 46679,
+  "new_model_calls": 0,
+  "new_source_requests": 0,
+  "native_books_rerun": 0,
+  "original_fullchain_result_preserved": true,
+  "blocked_network_attempts": 0,
+  "all_original_artifact_hashes_unchanged": true
+}

@@ -1,0 +1,12 @@
+{
+  "decision": "APPROVED_IMPLEMENTATION_ONLY",
+  "plan_sha256": "a8eb75331f4a0071bfe00f1f207711f540ff8c3c41cd4806a2a62d5e07a4438b",
+  "owner": "/root",
+  "reviewer": "/root/evaluator",
+  "at_utc": "2026-10-15T18:41:19.904450+00:00",
+  "network_authorized": false,
+  "model_calls_authorized": 0,
+  "fits_authorized": 0,
+  "pilot_authorized": false,
+  "scope": "Complete v2 source/feature/finite transport code and bounded offline fixtures; actual live qualification requires separate exact permit."
+}

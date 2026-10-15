@@ -1,0 +1,173 @@
+{
+  "registration_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Frozen prospective IO v2 registration",
+    "type": "object",
+    "required": [
+      "schema_version",
+      "plan_sha256",
+      "sealed_at",
+      "session",
+      "previous_session",
+      "terminal_session",
+      "not_before",
+      "expires_at",
+      "endpoint_config_sha256",
+      "code_sha256",
+      "event_binding_sha256",
+      "ledger_ids",
+      "budgets",
+      "old_days_credited",
+      "prefix_binding_sha256"
+    ],
+    "properties": {
+      "schema_version": {
+        "const": 1
+      },
+      "plan_sha256": {
+        "const": "a8eb75331f4a0071bfe00f1f207711f540ff8c3c41cd4806a2a62d5e07a4438b"
+      },
+      "sealed_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "session": {
+        "type": "string",
+        "pattern": "^2026-[0-9]{2}-[0-9]{2}$"
+      },
+      "previous_session": {
+        "type": "string",
+        "pattern": "^2026-[0-9]{2}-[0-9]{2}$"
+      },
+      "terminal_session": {
+        "type": "string",
+        "pattern": "^2026-[0-9]{2}-[0-9]{2}$"
+      },
+      "not_before": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "endpoint_config_sha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "code_sha256": {
+        "type": "object",
+        "minProperties": 1,
+        "additionalProperties": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "event_binding_sha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "ledger_ids": {
+        "type": "array",
+        "minItems": 12,
+        "maxItems": 12,
+        "uniqueItems": true,
+        "items": {
+          "type": "string"
+        }
+      },
+      "budgets": {
+        "const": {
+          "http": 17,
+          "futu_api": 15,
+          "allocator": 9,
+          "recovery": 9,
+          "ledgers": 12
+        }
+      },
+      "old_days_credited": {
+        "const": 0
+      },
+      "prefix_binding_sha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "additionalProperties": false
+  },
+  "permit_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Exact IO v2 pilot activation",
+    "type": "object",
+    "required": [
+      "phase",
+      "decision",
+      "plan_sha256",
+      "registration_sha256",
+      "registration_file",
+      "network_authorized",
+      "pilot_authorized",
+      "issued_at",
+      "not_before",
+      "expires_at",
+      "budgets"
+    ],
+    "properties": {
+      "phase": {
+        "const": "pilot"
+      },
+      "decision": {
+        "const": "APPROVED_EXACT_IO_V2_PILOT"
+      },
+      "plan_sha256": {
+        "const": "a8eb75331f4a0071bfe00f1f207711f540ff8c3c41cd4806a2a62d5e07a4438b"
+      },
+      "registration_sha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "registration_file": {
+        "const": "pilot_registration.json"
+      },
+      "network_authorized": {
+        "const": true
+      },
+      "pilot_authorized": {
+        "const": true
+      },
+      "issued_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "not_before": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "budgets": {
+        "const": {
+          "http": 17,
+          "futu_api": 15,
+          "allocator": 9,
+          "recovery": 9,
+          "ledgers": 12
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "runtime_invariants": [
+    "Validate actual file bytes against every code/endpoint/event hash before constructing any HTTP/Futu client; a nonempty hash string alone is insufficient.",
+    "Use XNYS calendar to verify session and exact preceding/following sessions. session>=2026-10-19; all executions end before2027 tariff expiry.",
+    "not_before=session08:00NY; expires_at=terminal_session09:48NY; seal and issue times precede not_before; permits match registration times/budgets.",
+    "Before network, actual UTC is inside permit window; per-slot actual request/receipt/seal deadlines still apply. No catchup because process starts late.",
+    "Ledger IDs exactly reference27baa/index_candidate/index_control/SOXX_buy_hold x 0/2/5, each starts own100000USD cash/zero rawshares/receivables and no inherited days.",
+    "Persistent call ledger records attempts before send/inference. On restart verify registration and source hashes, never repeat an attempted external call or completed slot. Failures retain prior committed books.",
+    "Guard actual send boundary against hidden Futu pagination/reconnect and HTTP redirects/retries;17HTTP unused capacity is not reallocated.",
+    "This file is a schema only, not a permit or a statement of live readiness.",
+    "prefix_binding_sha256 binds bootstrap_prefix_binding.json with the actual immutable Qlib-read prefix object hash; do not silently consume a mutable root provider at live time."
+  ]
+}

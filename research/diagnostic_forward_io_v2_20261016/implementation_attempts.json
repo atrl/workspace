@@ -1,0 +1,44 @@
+{
+  "actual_model_calls": 0,
+  "network_requests": 0,
+  "focused_case": "tests/test_diagnostic_forward_io_v2.py::test_saved_parser_synthetic_full_io_and_durable_budget",
+  "attempts": [
+    {
+      "handle": 4670,
+      "result": "collection SyntaxError in synthetic list comprehension; no fixture executed"
+    },
+    {
+      "handle": 13252,
+      "result": "strict OHLC rejected old canonical synthetic input; new source gate unchanged, fixture explicitly synthetic envelope"
+    },
+    {
+      "handle": 28310,
+      "result": "inherited execution prefix high/low envelope mismatch;385 rows retained, root authorized actual-open/close dependency amendment"
+    },
+    {
+      "handle": 80642,
+      "result": "original builder required relationship_audit metadata; actual descriptive correlation added"
+    },
+    {
+      "handle": 34997,
+      "result": "1 passed,121warnings,29.63s; before native event capture extension"
+    },
+    {
+      "handle": 64373,
+      "result": "full samecase12syntheticnative passed1/29.56s"
+    },
+    {
+      "handle": 46679,
+      "result": "affectedclock+initialization checks passed1/2.56s; reused originalfullchain"
+    },
+    {
+      "handle": 40068,
+      "result": "affectedHTTPguard passed1/2.55s; reused originalfullchain"
+    },
+    {
+      "handle": 81741,
+      "result": "finalaffectedchecks passed1/2.44s; reused originalfullchain"
+    }
+  ],
+  "next": "Independent final code/evidence review; no more tests/model/source calls"
+}

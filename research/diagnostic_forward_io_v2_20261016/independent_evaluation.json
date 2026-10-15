@@ -1,0 +1,27 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_OFFLINE_IO_V2_IMPLEMENTATION_ONLY",
+  "plan_sha256": "a8eb75331f4a0071bfe00f1f207711f540ff8c3c41cd4806a2a62d5e07a4438b",
+  "recorder_id": "28d006871fbc409f8c20766cf5dc6e9e",
+  "manifest_sha256": "475fbfd9884403dade6edef801db62f1f7be70f437924f20d2d50bf05994ac09",
+  "final_source_sha256": {
+    "src/data/diagnostic_forward_io_v2.py": "44748a136e8dd6f1d5ad8a974e271a186ee51b9047326253e987a4da865fb47e",
+    "src/schedule/diagnostic_forward_transport_v2.py": "0e1ef2a1f6bd502534c9ddfbf6295619c665aceaf49338abce9944fdb82d79e0",
+    "src/backtest/diagnostic_forward_native_v2.py": "28478ceee76071f7643385227d80df42e74a74bf70c360e1152523259c9924d1"
+  },
+  "verified_artifacts": 23,
+  "pre_SEC_patch_artifacts_preserved": 18,
+  "checks": [
+    "actual full finite run entrypoint wired; no placeholder readiness",
+    "each LIVE_OPEN child checked against its own receipt",
+    "native code in executed sources and registration pins",
+    "unknown SEC amendments normalized to original report families and block before model execution",
+    "saved sources exactly match current files; no original artifact overwritten",
+    "scope explicitly distinguishes real saved SPY parser, synthetic input/quotes, mock models and synthetic native books"
+  ],
+  "real_network_calls_in_review": 0,
+  "model_calls_in_review": 0,
+  "native_replays_in_review": 0,
+  "pilot_authorized": false,
+  "forward_days": 0
+}

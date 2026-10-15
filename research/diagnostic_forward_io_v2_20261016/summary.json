@@ -1,0 +1,162 @@
+{
+  "experiment": "diagnostic_forward_io_v2_20261016",
+  "plan_sha256": "a8eb75331f4a0071bfe00f1f207711f540ff8c3c41cd4806a2a62d5e07a4438b",
+  "decision": "offline_IO_v2_chain_verified_not_live_qualified",
+  "offline": {
+    "real_saved_Yahoo_SPY_rows": 3226,
+    "real_saved_parser_SHA": "4e84ea11d5b2e11eac9e33b534f842286b2ae8d0a7be2d0e49c16e01be54a595",
+    "synthetic_daily_requests": 14,
+    "mock_model_calls": 9,
+    "actual_model_calls": 0,
+    "feature_shape": [
+      1,
+      39
+    ],
+    "common_shape": [
+      1,
+      16
+    ],
+    "committed_slots": 9,
+    "books": 12,
+    "native12_passed": true,
+    "source_provider_manifest_sha256": {
+      "soxl": "bcbc189e08b23ecb2a234c9ecaef05336e4a07b3181795ed9d55e344b5616da8",
+      "tqqq": "0ce3e462a45e9c5e36f2184748678f927734fedf796e1bc9f71b173f6250bbf9",
+      "upro": "fafba4500c61855864b6db58cc85885bb80f0796334040399025b4c65ffa0f9e",
+      "spxl": "61bdeb0b2ce357f94fc1f9f8f7329c073df05f7ec7c728dcdabe0c5739f33538",
+      "tecl": "9e2d0a60a508cabbf5e874bf9a3abed4a9968292d6ccb6ea1510c0c4d7a9fdb6"
+    },
+    "forward_days": 0,
+    "live_ready": false,
+    "explicit_coverage": "One real saved Yahoo SPY parser; other instrument HTTP structure from saved Qlib synthetic responses with synthetic high/low envelopes, mockmodels and synthetic clock/bar/quote fullslot stream. No live transport or model equivalence claim."
+  },
+  "network_requests": 0,
+  "model_calls": 0,
+  "fits": 0,
+  "forward_days": 0,
+  "pilot_launched": false,
+  "native_validation_scope": "12 synthetic post-event accounting books only, not actual prospective observations",
+  "pending": [
+    "Exact session/code/endpoint/event/bootstrap permit",
+    "Actual receipted14daily+2liveopen+1SEC HTTP and15Futu session source gates",
+    "Real9model proposals and laterquotes",
+    "Actual full-session and native accounting qualification"
+  ],
+  "source_sha256": {
+    "src/data/diagnostic_forward_io_v2.py": "44748a136e8dd6f1d5ad8a974e271a186ee51b9047326253e987a4da865fb47e",
+    "src/schedule/diagnostic_forward_transport_v2.py": "0e1ef2a1f6bd502534c9ddfbf6295619c665aceaf49338abce9944fdb82d79e0",
+    "src/backtest/diagnostic_forward_native_v2.py": "28478ceee76071f7643385227d80df42e74a74bf70c360e1152523259c9924d1"
+  },
+  "recorder_id": "28d006871fbc409f8c20766cf5dc6e9e",
+  "experiment_id": "901107089493004449",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/diagnostic_forward_io_v2_20261016/qlib_recorder/901107089493004449/28d006871fbc409f8c20766cf5dc6e9e",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "bootstrap/*",
+      "offline_v2/*",
+      "sources_v2/*",
+      "analysis_v2/*",
+      "implementation_repair_1/*",
+      "implementation_repair_2/*",
+      "sec_amendment_guard_repair/*"
+    ]
+  },
+  "blocked_network_attempts": 0,
+  "original_source_sha256": {
+    "src/data/diagnostic_forward_io_v2.py": "6b5c38b35d7fc3faeae852fd3e99fb220519c48f437038e7dc8b2a6af932e59b",
+    "src/schedule/diagnostic_forward_transport_v2.py": "a6bb8222a82b421beba6764e903d206fa095a77d30a24ef63fcae0e61405b526",
+    "src/backtest/diagnostic_forward_native_v2.py": "28478ceee76071f7643385227d80df42e74a74bf70c360e1152523259c9924d1"
+  },
+  "implementation_repair_1": {
+    "kind": "owner_approved_material_clock_and_initialization_repair",
+    "source_sha256": {
+      "src/data/diagnostic_forward_io_v2.py": "cdfa7354046a661f03335f6bdb2767a03e38d647c129d1d62bf23833ab579899",
+      "src/schedule/diagnostic_forward_transport_v2.py": "fd0066d0ce0dd7b3d566441a577a465235164559b9bd42bb17572eb3462d278e",
+      "src/backtest/diagnostic_forward_native_v2.py": "28478ceee76071f7643385227d80df42e74a74bf70c360e1152523259c9924d1"
+    },
+    "changes": [
+      "Each LIVE_OPEN child clocks validated against its own HTTP receipt before pair aggregation",
+      "Registration pins all3 modules and frozen dependencies",
+      "qlib.init before local Recorder/model source load",
+      "Postlaunch setup failures produce terminal_status with zero/unknown counters"
+    ],
+    "test": "Same focused testcase: reused hash-verified full-chain/native outputs; new child-clock future negative cases and initialization-failure terminal case.1 passed20warnings2.56s",
+    "test_handle": 46679,
+    "new_model_calls": 0,
+    "new_source_requests": 0,
+    "native_books_rerun": 0,
+    "original_fullchain_result_preserved": true,
+    "blocked_network_attempts": 0,
+    "all_original_artifact_hashes_unchanged": true
+  },
+  "implementation_repair_2": {
+    "kind": "owner_approved_material_clock_and_initialization_repair",
+    "source_sha256": {
+      "src/data/diagnostic_forward_io_v2.py": "44748a136e8dd6f1d5ad8a974e271a186ee51b9047326253e987a4da865fb47e",
+      "src/schedule/diagnostic_forward_transport_v2.py": "4d792b4c23394f0da55a12c75e5acc1df12f8c785258c0babfc798cdd6fb5809",
+      "src/backtest/diagnostic_forward_native_v2.py": "28478ceee76071f7643385227d80df42e74a74bf70c360e1152523259c9924d1"
+    },
+    "changes": [
+      "Parent/controller/mapping manifest+Recorder+result byte identities verified",
+      "Registration pins explicit full feature/model/native dependencies",
+      "SDK/mapping preflight before source collection",
+      "HTTP fence only admits validated17-key Ledger sends; unregistered requests blocked",
+      "Initialization negative confirms qlib.init precedes source loading"
+    ],
+    "test": "Same focused testcase: reused hash-verified full-chain/native outputs; child-clock, initialization-failure and unregistered-HTTP negative cases.1 passed20warnings2.44s",
+    "test_handle": 81741,
+    "new_model_calls": 0,
+    "new_source_requests": 0,
+    "native_books_rerun": 0,
+    "original_fullchain_result_preserved": true,
+    "blocked_network_attempts": 0,
+    "all_original_artifact_hashes_unchanged": true
+  },
+  "sec_amendment_guard_repair": {
+    "scope": "Original unknown-report/update boundary includes8-K/A,10-Q/A,10-K/A; normalize /A before original three-form filter. Unknown amendment remains update_pending.",
+    "transport_sha256": "0e1ef2a1f6bd502534c9ddfbf6295619c665aceaf49338abce9944fdb82d79e0",
+    "pure_local_check": "PASS six original/amendedforms; unknown amendment included; acknowledged/4Aexcluded",
+    "network_requests": 0,
+    "models": 0,
+    "native_reruns": 0,
+    "fullchain_reruns": 0,
+    "registration_schema_sha256": "72525007f62a4e8f3ebe802bfe5cb38f20fa5964fec05bb6c9be48f342b145c1",
+    "schema_note": "Only runtime invariant prose filename corrected to bootstrap_prefix_binding.json; original sources_v2 schema preserved.",
+    "all_original_artifact_hashes_unchanged": true
+  },
+  "nas_evidence": {
+    "sha256": "3e89d2ab00dd532f753d3bd079e5a3f075ea902bb0dc79ad7cc3fb7285df8143",
+    "size_bytes": 2594357,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/3e/89/3e89d2ab00dd532f753d3bd079e5a3f075ea902bb0dc79ad7cc3fb7285df8143",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 03:22:01.385872+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/3e/89/3e89d2ab00dd532f753d3bd079e5a3f075ea902bb0dc79ad7cc3fb7285df8143",
+    "recorder_id": "28d006871fbc409f8c20766cf5dc6e9e",
+    "experiment_id": "901107089493004449",
+    "archive_root": "qlib_recorder"
+  },
+  "region": "us",
+  "as_of": "2026-10-09",
+  "provider_uri": null,
+  "fixture_session": "2026-10-12",
+  "actual_live_session": null,
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/diagnostic_forward_io_v2_20261016/qlib_recorder",
+  "objective_achieved": false,
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "native_accounting_contract": "native_accounting_contract.json",
+  "data_lineage": {
+    "bootstrap_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "bootstrap_snapshot_binding": "bootstrap_prefix_binding.json",
+    "isolated_fixture_provider_manifests_artifact": "offline_v2/fixture:bundle.provider_manifests",
+    "isolated_provider_status": "Temporary offline fixture stores, not a deployed/live provider; immutable source arrays and original provider manifests retained in Recorder for reconstruction.",
+    "bootstrap_calendar_start": "2010-03-11",
+    "bootstrap_calendar_end": "2026-10-14"
+  }
+}

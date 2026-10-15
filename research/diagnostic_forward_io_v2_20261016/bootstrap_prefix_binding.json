@@ -1,0 +1,16 @@
+{
+  "recorder_id": "28d006871fbc409f8c20766cf5dc6e9e",
+  "experiment_id": "901107089493004449",
+  "source": "existing Qlib D.features immutable local bootstrap; not fresh source receipt",
+  "captured_at": {
+    "utc": "2026-10-15T18:49:19.806771+00:00",
+    "monotonic_ns": 1703291828949583
+  },
+  "object_path": "research/diagnostic_forward_io_v2_20261016/qlib_recorder/901107089493004449/28d006871fbc409f8c20766cf5dc6e9e/artifacts/bootstrap/execution_prefix",
+  "object_sha256": "60300343eb9e62a4fc7441569acbe067d2e6f056b3f6f7f2e56ec3b482812343",
+  "array_digest": "03138f20243c57a4ab7e7fc865ea61329c7e785819b15d2ddb3855231933a782",
+  "source_provider_manifest_sha256": "164098b9c188fe25d6593b64eed5b182221219a941d737ce79a83a454b835091",
+  "calendar_start": "2010-03-11",
+  "calendar_end": "2026-10-14",
+  "rows": 12525
+}

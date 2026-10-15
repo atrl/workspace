@@ -1,0 +1,146 @@
+{
+  "experiment": "diagnostic_forward_io_v2_20261016",
+  "role": "New prospective diagnostic IO identity, not byte-equivalent historical policy or promotion; original historical failures unchanged.",
+  "parent_contract": {
+    "path": "research/diagnostic_forward_study_20261016/plan.json",
+    "sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+    "inherit": "Unchanged models/controller/rawbooks/fees/CA/fundamental rules, clocks/deadlines, slot atomicity, fixed assessments and budgets except explicit end-label/new price-plane replacements below."
+  },
+  "implementation_only_now": {
+    "network": 0,
+    "model_calls": 0,
+    "fits": 0,
+    "policy_replays": 0,
+    "allowed": "Existing saved-data fixtures and synthetic transport, original helper/code reads; no repeat9-model inference.",
+    "modules": [
+      "src/data/diagnostic_forward_io_v2.py",
+      "src/schedule/diagnostic_forward_transport_v2.py"
+    ],
+    "old_modules": "Old3 modules and probe/parent plans immutable; reuse pure state/rawsettlement/helpers only; new permit/registration/checkpoint plan identity."
+  },
+  "bindings": {
+    "models": {
+      "reference27baa": {
+        "card": "research/nvda_own_guidance_realization_training_20261015",
+        "recorder_id": "27baa03f0d3046d8b82408ecb6ca07e7",
+        "archive": "e5843be4a5dbd36c1f92c45755b63f1d1e8f8e7b4a6203112b539170e5d13471",
+        "inventory_sha256": "1dbc58bfe68e892867c42eb87cce506bb83acb3586671d3f252eb1f8d5171e38"
+      },
+      "index_candidate_and_control": {
+        "card": "research/generic_index_risk_transfer_20261015",
+        "recorder_id": "83a13ab47cdb4e28a5fe285821909a28",
+        "archive": "413da98cbf476534e5ca58b6b4a0188709655ef695b5cabf0778401f6e52b0bf",
+        "inventory_sha256": "572a19fa79c98e722c058d915f0b9159480b524269a5ff65260c3e813d87e408"
+      },
+      "model_artifacts": "27baa models/candidate_{71,172,273}; index models/{candidate,control}_{71,172,273}; frozenweights/scalers/specs,9allocatorobjects,0fits. Reuseoriginal39features+16common;27baaadditionaloriginal3flags+1NVDArealization only. Noissuerhypothesis/inputextension.",
+      "history_not_success": "27baa/genericcandidate/control historicalrolling/CI failures remainfailures; proper-score negative remainsclosed. Observefrozenrecipesonly."
+    },
+    "controller_file": "research/diagnostic_forward_study_20261016/frozen_controller_sources.json",
+    "controller_sha256": "41886d66114eb5408f59dce46c7f2b40200cb2c59246500c5c9be7e7040e4d74",
+    "raw_accounts": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054"
+    },
+    "end_mapping_card": "research/diagnostic_forward_bar_mapping_20261016",
+    "end_mapping_recorder": "0b98c0e31bc5468594d59e66214527df",
+    "end_mapping_manifest_sha256": "8d7a336f6252f8ea333beefba73a1db35f918df0c7b70dd36de815cf233f5fe1"
+  },
+  "daily_universe": [
+    "SOXL",
+    "SOXX",
+    "SOXS",
+    "TQQQ",
+    "UPRO",
+    "SPXL",
+    "TECL",
+    "SPY",
+    "QQQ",
+    "XLK",
+    "^VIX"
+  ],
+  "daily_request_contract": {
+    "count": 14,
+    "Nasdaq": {
+      "symbols": [
+        "SOXL",
+        "SOXX",
+        "SOXS"
+      ],
+      "count": 3,
+      "window": "120 calendar days through prior completed XNYS session",
+      "role": "Original execution-feature SOXL/SOXX/SOXS OHLC source only. Seven unused Nasdaq requests removed, unused allowance not reallocated."
+    },
+    "Yahoo": {
+      "host": "query2.finance.yahoo.com",
+      "count": 11,
+      "symbols": [
+        "SOXL",
+        "SOXX",
+        "SOXS",
+        "TQQQ",
+        "UPRO",
+        "SPXL",
+        "TECL",
+        "SPY",
+        "QQQ",
+        "XLK",
+        "^VIX"
+      ],
+      "window": "2010-03-11 through prior completed XNYS session",
+      "endpoint": "/v8/finance/chart/{symbol};interval=1d,includeAdjustedClose=true,events=div,splits",
+      "basis": "For10ETFs raw quote OHLC multiplied by same-row same-payload adjclose/close. Volume is Yahoo quote.volume verbatim, no dividend-adjustment ratio or price factor multiplication. VIX uses quote.close only, no adjustment required.",
+      "new_identity": "Main OHLCV/common16 and all5 leveraged/1x pair inputs use this full-history same-vendor plane. No claim old successful vendor equivalence or physical historical raw-share volume certification."
+    },
+    "transport": "Each request one attempt, timeout30s, redirects=False, no retries/host fallback. Request+receive UTC/monotonic <=1s drift, raw bytes/URL/params/status/hash retained. Must finish and persist by09:20; no current-day rows in feature bundle."
+  },
+  "price_volume_validation": {
+    "strict": "Exact XNYS calendar for required domain; unique sorted timestamps, exact array lengths, finite positive OHLC/adjclose/ratio, OHLC range, finite nonnegative vendor-share volume. No dropna/drop_duplicates/fill. USD/NY/symbol metadata required for ETFs; VIX index identity/NY required. Inception gaps outside declared instrument inception retained, never forward-filled; every actual builder lookback must be complete.",
+    "events": "Retain all payload split/dividend events with timestamp/amount/ratio, reject nonpositive/ambiguous or inconsistent split ratio representations. No inferred cash from adjustment ratio. Preserve snapshot revisions as new feature vintages, never rewrite earlier sealed features/state. New unhandled SOXL/SOXX actions block trading per inherited CA rule.",
+    "volume_code_evidence": "market_update._fetch_yahoo_chart_ohlcv copies quote.volume and _normalize_ohlcv_frame only casts numeric; it does NOT apply price/adjclose ratio to volume. V2 preserves that explicit transformation, while rejecting old helper silent drops/fallbacks.",
+    "execution_feature_plane": "Keep original primary execution block NasdaqOHLC \u00d7 Yahoo same-date adjclose/close. Use pinned historical canonical execution prefix plus exact120day refreshed overlap; compare all overlap adjusted OHLC at fixed rtol1e-6/atol1e-8. Any mismatch/new split or adjustment discontinuity blocks bundle; no inferred bridge/rebase/fill. Main/common/multi-pair Yahoo fullhistory has no heterogeneous splice.",
+    "volume_explicit": "Yahoo quote.volume is unmodified vendor-reported share-volume; historical split treatment is vendor-vintage dependent, not certified physical original shares. Entire common16/multi-pair volume history comes from same single per-symbol response with no old/new volume splice. Frozen volume_z20 formula including existing zero/std rules reused exactly; no invented fill."
+  },
+  "feature_path": {
+    "formula": "Original39 primary and16common feature formulas/order, frozen model scalers, original5ETF breadth pair weighting incl duplicateSPY retained. Build isolated role-specific providers then D.calendar/D.features and DatasetH for one session. No label/outcome data passed to predict.",
+    "constraints": "All required final39+16 values finite; exact native prior-date/09:29 decision cutoff. Reuse saved model fingerprints and original offline parity evidence, no repeated inference now. Source success alone insufficient: modelready bundle must name every source role/used rows/feature array hash.",
+    "NVDA": "Frozen reference maintenance only; original exact09:29 availability join with actual receipt. One SEC status request; new unknown filing/event or unavailable status blocks matched interval, never carry old value through known unknown. No newissuer hypothesis/source collection.",
+    "SOXS": "SOXS is only original39 upstream input, never traded; heldassets strictly SOXL/SOXX/CASH.",
+    "warmup": "Each original builder rolling/lag lookback must have complete same-role calendar history before producing final rows; preserve inherited formula zero/std treatment exactly. Finite finalfeature requirement is not permission to fill invalid history."
+  },
+  "live_open": {
+    "calls": 2,
+    "identity": "LIVE_OPENv2 same prospective Yahoo plane; only current/prior daily OPEN\u00d7samepayloadratio for EMA drift. Current partial close used only ratio denominator, never input39/common.",
+    "gate": "Require prior date exact previous XNYS; receipt before09:46; positive ratio/currentOPEN; bar timestamp<=receipt and regularMarketTime within120s/notfuture; current rawOPEN versus firstFutuRTHbarOPEN absUSD<=.01; preserve ratios as received. No afterclose rewrite or historicalequivalence claim."
+  },
+  "Futu": {
+    "budget": 15,
+    "endpoint": "Existing endpoint-only one context; get_global_state2/get_rehab4/history6/snapshotpair3. Guard processor-level peroperation/perphase, no implicit pagination/retries/subscriptions. Connection/handshake separately counted. Global sanitized beforelog/hash.",
+    "end_label": "Original time_key is declared interval_end; start=end\u22121min, no +1min. Known exact09:31..09:45; recovery09:31..10:30; close09:31..sessionclose. Reject missing/duplicate/extra offsession; forming/laterbars retained raw but never used before cutoff.",
+    "clocks": "History requests start cutoff+5s; known receipt<09:46, recovery<10:31:30, close<=close+120s. Used end<=fixedcutoff; receipt<seal. SDK/endpoint/query mode pinned to probe; bounded saved mapping not immutablefinality certificate."
+  },
+  "complete_transport": {
+    "daily": "08:00 receipt daily14 + SEC1; finish09:20. Qlib build/init OUTSIDE active Recorder; verified local model loading9 objects, DatasetH then atmost9 single-row forwardcalls; attemptedcall journal before inference and persist eachsuccess, no retries. Seal rawproposal before09:29.",
+    "open": "At09:45:05 Futu2known plus Yahoo2live-open; update EMA/currentopen drift, allowncostknownNAV/controller/commoncap/T then durable09:46 target seals before independent09:47 pairedquote.",
+    "recovery": "10:30:05 twohistory; derivefirsthour fields from validatedusedbars only; max9 frozenrecovery calls/votes, sealALL3 consensus before10:32 pairedquote.",
+    "close_terminal": "Two fullRTH bars atclose+5s; nextsessionrehab2/global1 and09:47pairedquote completesinterval, no terminaltrade. Exit nextday09:48.",
+    "state": "12 own q/C/R/fees/risk/EMA books, all-slot clone then durable allcommit; later failure neverrollback earlierfilledslot. Disablefuturetrades but consume remaining planned passive marks within fixedbudget. Durably bind source/proposal/state/intent before request; no reconnect/restart catchup.",
+    "permit": "Newv2 plan/code/registration/time/budgets/endpoint hashes required. earliest2026-10-19; phase_implementation now only. Separate root exactpilot permit before anynetwork/process, date mechanically first registeredXNYSday, never select byreturns."
+  },
+  "budget": {
+    "pilot_http": 17,
+    "daily": 14,
+    "live_open": 2,
+    "SEC_status": 1,
+    "Futu_API": 15,
+    "allocator": 9,
+    "recovery": 9,
+    "ledgers": 12,
+    "native_one_interval_validations": 12
+  },
+  "offline_validation": "Use existing saved payloads plus synthetic complete transport clock to exercise collecting->strictparse->featurebuild->mockmodelseal->laterquotes->journal->terminal. No actualmodelcalls/newHTTP. One focused end-to-end contract within existingtest surface, not broadsuite. Record which exact parser/feature branches have real saved fixtures vs synthetic; do not call synthetic a realbundle/pilot.",
+  "outputs": "Newnotebook, plan, implementation source hashes, boundedfixture report and Recorder arrays; explicit remaining exact field failures. Ready code is not launch/pilot/scientific success.",
+  "current_launch_authorized": false,
+  "budget_reduction": "Previous24 HTTP was maximum, not mandatory work; unused7 Nasdaq responses removed. Actual14daily+2liveopen+1SEC=17, no field validation weakened and unused7 allowance not reallocated."
+}

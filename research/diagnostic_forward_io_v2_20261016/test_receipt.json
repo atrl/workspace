@@ -1,0 +1,8 @@
+{
+  "command": "PYTHONPATH=. MLFLOW_DISABLE_TELEMETRY=true DO_NOT_TRACK=true MLFLOW_ALLOW_FILE_STORE=true qlib_venv/bin/python -m pytest tests/test_diagnostic_forward_io_v2.py -q --tb=short --disable-warnings",
+  "handle": 64373,
+  "result": "1 passed,495warnings,29.56s",
+  "actual_models": 0,
+  "network_requests": 0,
+  "after_test_metadata_only": "Context attempt receipt and terminal connection/handshake unknown counters added; real network constructor not exercised or qualified by offline fixture."
+}
