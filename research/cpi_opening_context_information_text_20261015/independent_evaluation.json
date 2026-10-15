@@ -1,0 +1,30 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_NEGATIVE",
+  "decision": "not_promoted_cpi_context_information_failed",
+  "plan_sha256": "7d2b686bdd74253707e85de07f45ea9b4cf0972a228f841155ff7f437dad002c",
+  "recorder_id": "6a3f6df19a09412e917504083df8d699",
+  "verification_manifest_sha256": "c0b9ff6ad35ea96d30531941c9cf80ffdf77ddff6fb3738224b929fedd9cd47a",
+  "archive_sha256": "55c28c875e0194187642f015f40c620adc8cf33d16fd06fccd4a28ac288221fc",
+  "source_hashes": {
+    "wrapper": "8e1baa17346695886671ec6747560c17dc9e1326753722bb9178e2e94e9f475a",
+    "fixed_fit_workflow": "93ed24ad05a4ff7c1472d372cd23d600db096226f5943a3d6fec6217a6e7735b"
+  },
+  "independent_checks": [
+    "6 Ridge10/SVD/intercept fits,46 vs47 columns",
+    "Shared train-only means/scales independently recomputed",
+    "251/504/756training,756evaluation755mature,lastunknown",
+    "48source47same-dayflags,2020-04-13flag0",
+    "Interaction formula and missing-event handling exact",
+    "Train CPI counts12/23/35,test11/12/12",
+    "Loss and all2000 full-calendar bootstrap means independently recomputed",
+    "Recorded execution source bytes match delivered code",
+    "Zero accounts,zero new retrieval"
+  ],
+  "paired_mean_loss_improvement": -8.686250778121579e-06,
+  "lower_bound": -2.0072006948284366e-05,
+  "upper_bound": -1.0979177627439147e-07,
+  "fixed_route_closed": true,
+  "objective_achieved": false,
+  "material_defects": []
+}

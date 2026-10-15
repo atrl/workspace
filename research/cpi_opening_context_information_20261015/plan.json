@@ -1,0 +1,179 @@
+{
+  "base_seeds": [
+    71,
+    172,
+    273
+  ],
+  "market_features": [
+    "soxl_ret3",
+    "soxl_ret5",
+    "soxl_ret10",
+    "soxl_ret20",
+    "soxl_ret60",
+    "soxx_ret3",
+    "soxx_ret5",
+    "soxx_ret10",
+    "soxx_ret20",
+    "soxx_ret60",
+    "relative_momentum20",
+    "soxx_trend20",
+    "soxx_trend60",
+    "trend_efficiency_20",
+    "levered_decay_20",
+    "soxx_lead_10",
+    "range_pos_252",
+    "cross_breadth_pos_20",
+    "cross_breadth_pos_60",
+    "semis_vs_cross_20",
+    "semis_vs_cross_60",
+    "tech_breadth_20",
+    "tech_breadth_60",
+    "soxx_vol20",
+    "soxx_drawdown60",
+    "dist_high_252",
+    "vix",
+    "vix_chg5",
+    "vix_z_60",
+    "rv20",
+    "rv60",
+    "rv20_expansion",
+    "tracking_error_5_z20",
+    "tracking_error_5_pctile60",
+    "panic_reversal_5",
+    "chop_breakdown_risk",
+    "high_chop_pressure",
+    "cross_vol_breadth_high",
+    "cross_dispersion_20"
+  ],
+  "input_window": {
+    "first_trade": "2019-01-02",
+    "last_trade": "2022-12-30",
+    "expected_rows": 1008
+  },
+  "forecast_cutoffs": {
+    "2020": "2020-01-01T00:00:00-05:00",
+    "2021": "2021-01-01T00:00:00-05:00",
+    "2022": "2022-01-01T00:00:00-05:00"
+  },
+  "expected_training_rows": {
+    "2020": 251,
+    "2021": 504,
+    "2022": 756
+  },
+  "expected_evaluation_rows": {
+    "2020": 253,
+    "2021": 252,
+    "2022": 251
+  },
+  "score_as_of": "2022-12-31T23:59:59-05:00",
+  "evaluation_as_of": "2022-12-31",
+  "expected_mature_scored_rows": 755,
+  "preprocessing": "For eachfold fit imputation means and populationstd(ddof0) ONLY on eligible trainingrows; fillNaNfeatures with trainingmeans; zero std->1. Failallmissing trainingcolumn/nonfinite labels/infinite features. Samecolumns sharedstats exactlymatch betweenarms; do not scale or impute labels. No evaluationrow dropped for featuremissingness.",
+  "bootstrap": {
+    "mean_block": 63,
+    "resamples": 2000,
+    "seed": 20261015,
+    "alpha": 0.05,
+    "tail": "one-sided lower5percent",
+    "primary_features": 1,
+    "all_nan_replicate": "keepNaN andreport invalidcount; no replacement draws"
+  },
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "same_row_contract": "Baseline/candidate use exactlysame training andevaluation rowmasks peryear; sourceprediction annualmodel-year must equalactualtrade-year. Verify eachseed own trainingcutoff andlastmaturelabel strictly before modelyear. Priorfold crossyear outcomes may be scored by2022end but cannot enter nextfoldtraining beforemature.",
+  "experiment": "cpi_opening_context_information_20261015",
+  "frozen_at_utc": "2026-10-15T08:32:07.370119+00:00",
+  "sources": {
+    "early_predictions": {
+      "card": "research/tangent_recovery_inputs_2019_20261015",
+      "recorder_id": "70d1586e8b9b4c0a9f3c94ba2d641eae",
+      "archive": "8f503b58f0d25e5de04c9dc69c2ab47621d084c30c957d3221e867cf0e0dbe49",
+      "inventory_sha256": "c6b7b8c2f58c4996cba199469855ed64a53139c44d27d9be06f44225838bbb4f"
+    },
+    "later_predictions": {
+      "card": "research/tangent_router_oof_20261015",
+      "recorder_id": "c14fa2a750bc409dbeb851778722f80f",
+      "archive": "c01347e34941627d09969dd86d0a948c2e1b0715f2582feb5d8fb4354cc7a6db",
+      "inventory_sha256": "aecb4c8bad8aa995d06d10b3326470fda30f13d890f07b82e0065ff78c8ca9a5"
+    },
+    "frame": {
+      "card": "research/full_history_recovery_20261015",
+      "recorder_id": "e1d83118ffe845b8b2da2c682028a3f0",
+      "archive": "dd018f6a7b3e3fe73ba383da506fb23a9c73931801c92cb49fa796a5919b571f",
+      "inventory_sha256": "412393afa574fa825f674b8680b20b1b46a9ee5f6d77fc7b81d3bc6fe2a556b9"
+    },
+    "opening": {
+      "card": "research/opening_state_training_20261015",
+      "recorder_id": "da50a331c9cf4feca1895440b8cfa172",
+      "archive": "3a1eae6ff2a12050cf52f4bf16410f36ae778ee40627db411fe96003172ac44b",
+      "inventory_sha256": "7b577a9e0c99f3feb57c57512820534066a1bee34f8732117b13080069200d1e"
+    }
+  },
+  "source_artifacts": {
+    "early_predictions": [
+      "analysis/predictions",
+      "analysis/training"
+    ],
+    "later_predictions": [
+      "analysis/predictions",
+      "analysis/training",
+      "models/2020_71"
+    ],
+    "frame": [
+      "inputs/full_reference_frame"
+    ],
+    "opening": [
+      "inputs/opening_features",
+      "inputs/opening_timing"
+    ]
+  },
+  "baseline_extra_features": [
+    "mean_raw_beta",
+    "mean_raw_cash",
+    "mean_alpha_probability",
+    "mean_tail_probability",
+    "cpi_released_before_decision",
+    "opening_soxx_return15",
+    "opening_state_ready"
+  ],
+  "candidate_extra_feature": "cpi_x_opening_soxx_return15",
+  "hypothesis": "CPI release context may change persistence of the first15minute SOXX response through the existing09:47-to-next09:47 holding horizon. One interaction, no CPI values, revisions, estimates or surprise.",
+  "intake": {
+    "authority": "US Bureau of Labor Statistics",
+    "index_url": "https://www.bls.gov/bls/news-release/cpi.htm",
+    "allowed_origin": "https://www.bls.gov",
+    "archive_pattern": "/news.release/archives/cpi_MMDDYYYY.htm",
+    "selection": "Enumerate unique official archive HTML links with filename release dates in2019-01-01..2022-12-31. Index observation year is not release year. Include Dec2018 report releasedJan2019; exclude Dec2022 report releasedJan2023. Require48 events,12per actual release year.",
+    "maximum_index_fetches": 1,
+    "maximum_release_fetches": 48,
+    "retry_policy": "No unbounded retry, mirrors, proxy/auth chase. Missing required source blocks only this branch before fits; never impute unknown release date as non-event.",
+    "header_validation": "All48 headers must parse embargo date and08:30 clock with EDT/EST/ET semantics; date must equal filename MMDDYYYY. Unique release date and observation month, correct January boundaries, actual native trading session and release before09:46 required. Preserve raw bytes,retrievalUTC,SHA,header excerpt. No CPI body values used.",
+    "release_timing": "America/New_York timezone, check explicit EDT/EST offsets. Flag1 only on actual release trade date with release_at<=decision_at. Historical header is not first-receipt or schedule-vintage proof.",
+    "gate": "All48 header/date/timezone/coverage validations pass BEFORE any fit. Failure means needs_data for this branch only, not global Goal termination.",
+    "storage": "Temporary raw index and48HTML outside repo, then durable NAS Recorder corpus; Git small48event manifest,hashes,audit,notebook,summaries only."
+  },
+  "opening_contract": "Use frozen opening_soxx_return15=log(known09:45close/open09:30) and original shared4field opening_state_ready. Preserve unknowns, no selective repair. Join signal_date to actual trade_date; assert latestbar09:45 and availability09:46<=decision09:46.",
+  "feature_formula": "CPIflag0 -> interaction0 even if plain opening return unknown. CPIflag1 with opening_state_ready0 -> interaction NaN, never fabricated event response0. Same availability/masks in both arms, train-only imputation. No other event families or interactions.",
+  "label": "SOXX gross simple return from source09:47 execution open to NEXT session09:47 execution open. Fixed horizon, never switch to same-day close or shorter reaction after results. No portfolio, weights, fees or controller in label.",
+  "timing": "Label maturity=max(source label_available_at,nextsession09:49 ET), strictly before each Jan1 train cutoff. Evaluation asof2022-12-31; final2022 interval exits2023 and stays unknown in full calendar. No2023 outcome scored. Mean OOF outputs use actual trade-year identities and all3 raw seeds before EMA.",
+  "estimator": {
+    "class": "sklearn.linear_model.Ridge",
+    "alpha": 10.0,
+    "fit_intercept": true,
+    "solver": "svd",
+    "arms": [
+      "baseline",
+      "plus_cpi_interaction"
+    ],
+    "maximum_fits": 6
+  },
+  "evaluation": "Baseline46 features=39market+4mean outputs+CPIflag+return15+availability; candidate47. Same train/evaluation masks. Paired loss=(y-base)^2-(y-candidate)^2. Require positive MSE improvement in EACH2020/21/22 fold plus pooled full-calendar lower5% bootstrap bound>0. All756 calendar rows retained,755 mature. Event/non-event descriptive losses and event counts reported but never used to select rules.",
+  "maximum_statistical_fits": 6,
+  "new_allocator_fits": 0,
+  "new_native_cases": 0,
+  "new_shadow_paths": 0,
+  "interpretation": "Only roughly12 events per year: daily counts are not independent event counts. Event context is not CPI surprise or fundamental value. Temporal OOF does not erase prior research selection. Single-feature alpha.05 is information gate only, not portfolio qualification.",
+  "related_closed_routes": "Unconditional opening_state and gap\u00d7return15 allocator routes failed; FOMC preannouncement was a different event/window. This fixed CPI-day conditional interaction was not tested there.",
+  "outputs": "Executed notebook,48event manifest/header audit,fold MSE/event counts,pooled CI,coefficients slim. Raw corpus,daily features/labels/predictions,calibrators/bootstrap indices Recorder/NAS only.",
+  "if_failed": "Close fixed CPI\u00d7SOXXreturn15 route; no other releases, sign reversal, horizon/feature/window/threshold/Ridge/seed search. Source failures block only this branch. Overall Goal may pursue distinct evidence-supported mechanisms.",
+  "promotion_authority": false
+}

@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "same_day_trading_events": 47,
+  "trading_events_by_release_year": {
+    "2019": 12,
+    "2020": 11,
+    "2021": 12,
+    "2022": 12
+  },
+  "nontrading_release_dates": [
+    "2020-04-10"
+  ],
+  "events": 48,
+  "distinct_urls": 49,
+  "operations": 49,
+  "index_operations": 1,
+  "maximum_release_operations": 1,
+  "actual_release_year_counts": {
+    "2019": 12,
+    "2020": 12,
+    "2021": 12,
+    "2022": 12
+  },
+  "capture_format": "official web-tool rendered text, NOT publisher HTML bytes",
+  "qualification": "Qualified only as official rendered-text date/time evidence for historical release-before-decision flag. Does not prove originalHTMLbytes,firstreceipt,site-publication latency,preannouncedschedule vintage ornumericCPIvalue vintage. Source-only result not information/portfolio gate."
+}

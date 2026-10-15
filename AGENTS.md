@@ -270,6 +270,10 @@ commit, and push unless network or permission failures prevent it.
   design and evidence. The executor cannot certify its own promotion. Evaluation
   rejects candidates, not the research objective, and must identify concrete
   failed gates or the minimum missing evidence rather than request broad audits.
+- After a review handoff, check the executor's actual agent/job status and
+  explicitly resume an idle/completed executor. A queued message, an accepted
+  plan, or a run-state file does not prove that work is running. Poll an existing
+  live handle rather than restarting work after an observation timeout.
 - Freeze experiment scope, sources, cost scenarios, selection rules and gates
   before execution. Development feedback may guide another experiment; any
   evaluation data used for that feedback is no longer independent validation.

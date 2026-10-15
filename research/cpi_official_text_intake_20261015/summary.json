@@ -1,0 +1,70 @@
+{
+  "experiment": "cpi_official_text_intake_20261015",
+  "plan_sha256": "f6e5b4b303bb504a22877db1df98ae6256013bc9d8fa7b0b13535201a4e2cdfc",
+  "decision": "official_rendered_text_calendar_qualified_for_separate_information_run",
+  "source_gate": {
+    "passed": true,
+    "same_day_trading_events": 47,
+    "trading_events_by_release_year": {
+      "2019": 12,
+      "2020": 11,
+      "2021": 12,
+      "2022": 12
+    },
+    "nontrading_release_dates": [
+      "2020-04-10"
+    ],
+    "events": 48,
+    "distinct_urls": 49,
+    "operations": 49,
+    "index_operations": 1,
+    "maximum_release_operations": 1,
+    "actual_release_year_counts": {
+      "2019": 12,
+      "2020": 12,
+      "2021": 12,
+      "2022": 12
+    },
+    "capture_format": "official web-tool rendered text, NOT publisher HTML bytes",
+    "qualification": "Qualified only as official rendered-text date/time evidence for historical release-before-decision flag. Does not prove originalHTMLbytes,firstreceipt,site-publication latency,preannouncedschedule vintage ornumericCPIvalue vintage. Source-only result not information/portfolio gate."
+  },
+  "objective_achieved": false,
+  "new_statistical_fits": 0,
+  "new_allocator_fits": 0,
+  "new_native_accounts": 0,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "recorder_id": "3b119c3350784dec83b90c18fbf1535a",
+  "experiment_id": "825608472299081132",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/cpi_official_text_intake_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cpi_official_text_intake_20261015/qlib_recorder/825608472299081132/3b119c3350784dec83b90c18fbf1535a",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/raw_tool_captures",
+      "sources/verbatim_excerpts"
+    ]
+  },
+  "old_attempt_preserved": {
+    "card": "research/cpi_opening_context_information_20261015",
+    "plan_sha256": "25fb29f5d9b8e3e89877af9a701dbb1af9e7f453f969f4e4436618cfd619ee31",
+    "recorder_id": "a669eaea24b9402eb58870f4c661a2e4",
+    "archive_sha256": "8e85b29c4e99475dde1af49f9f693276f153f1bc0e82c5dfd303f36edc1368b7",
+    "reason": "Single direct index request returnedHTTP403, zero release requests/fits; oldrun remains immutable."
+  },
+  "next_stage": "Only after independent source-only calendar-amendment approval and complete qualification, create NEW CPIinformation card/sourcebinding preserving original46/47feature formula,09:47→next09:47 label,6Ridge10 folds/maturity/gates. Explicit48source/47tradable (2020=11). No fits until that NEW plan receives separate review. Never overwriteold403run or originalcalendar rejection.",
+  "nas_evidence": {
+    "sha256": "37102013a8344bbc00924eb3bf63919b3fed475df4cb3af4102fa802fd367ab4",
+    "size_bytes": 242830,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/37/10/37102013a8344bbc00924eb3bf63919b3fed475df4cb3af4102fa802fd367ab4",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 17:24:48.849623+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/37/10/37102013a8344bbc00924eb3bf63919b3fed475df4cb3af4102fa802fd367ab4",
+    "recorder_id": "3b119c3350784dec83b90c18fbf1535a",
+    "experiment_id": "825608472299081132",
+    "archive_root": "qlib_recorder"
+  }
+}

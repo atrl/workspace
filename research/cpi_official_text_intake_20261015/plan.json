@@ -1,0 +1,100 @@
+{
+  "experiment": "cpi_official_text_intake_20261015",
+  "frozen_at_utc": "2026-10-15T09:01:26.528653+00:00",
+  "purpose": "Explicit retrieval-format amendment for the same BLS CPI date/time corpus only. Not a silent fallback or new economic hypothesis. No statistical/model fits or accounts in this source-only attempt.",
+  "old_attempt": {
+    "card": "research/cpi_opening_context_information_20261015",
+    "plan_sha256": "25fb29f5d9b8e3e89877af9a701dbb1af9e7f453f969f4e4436618cfd619ee31",
+    "recorder_id": "a669eaea24b9402eb58870f4c661a2e4",
+    "archive_sha256": "8e85b29c4e99475dde1af49f9f693276f153f1bc0e82c5dfd303f36edc1368b7",
+    "reason": "Single direct index request returnedHTTP403, zero release requests/fits; oldrun remains immutable."
+  },
+  "prior_feasibility_observations": [
+    {
+      "official_url": "https://www.bls.gov/bls/news-release/cpi.htm",
+      "observation": "Webtool exposed official archive index by observation month. No fullcorpus qualification.",
+      "observation_utc": "unknown; preceding feasibility turn only"
+    },
+    {
+      "official_url": "https://www.bls.gov/news.release/archives/cpi_09122019.htm",
+      "observation": "Complete sample embargo header indicated2019-09-12 08:30EDT, observationAugust2019; not a substitute fornewcaptured corpus.",
+      "observation_utc": "unknown; preceding feasibility turn only"
+    },
+    {
+      "official_url": "https://www.bls.gov/news.release/archives/cpi_09132022.htm",
+      "observation": "Complete sample embargo header indicated2022-09-13 08:30ET, observationAugust2022; not a substitute fornewcaptured corpus.",
+      "observation_utc": "unknown; preceding feasibility turn only"
+    }
+  ],
+  "retrieval_format": "Available web tool open/find/open outputs from same official BLS URLs. Captures are tool-rendered source responses, NOT publisher HTML bytes. No search snippets, summaries, inferred dates or inferred clocks qualify.",
+  "index_url": "https://www.bls.gov/bls/news-release/cpi.htm",
+  "allowed_origin": "https://www.bls.gov",
+  "archive_path_pattern": "/news.release/archives/cpi_MMDDYYYY.htm",
+  "selection": "Enumerate unique official archive HTML links with filename release dates in2019-01-01..2022-12-31. Index observation year is not release year. Include Dec2018 report releasedJan2019; exclude Dec2022 report releasedJan2023. Require48 events,12per actual release year.",
+  "budgets": {
+    "maximum_distinct_urls": 49,
+    "maximum_index_operations": 12,
+    "maximum_operations_per_release": 3,
+    "maximum_total_operations": 156,
+    "allowed_operations": [
+      "open",
+      "find",
+      "open_followup",
+      "click_official_index_link_as_open"
+    ],
+    "counts": "Every new tooloperation counts, including empty/error/insufficient extracts. Existing feasibility observations and403attempt recorded separately; they do not count asqualifiedcorpus."
+  },
+  "scope": "Actualrelease years2019\u20132022 exactly48events/12peryear, observationmonths2018-12..2022-11. SameindexandarchiveURLs only; noPDFalternatives,otherreleases,mirrors,auth/proxyconfiguration orpaiddata.",
+  "capture_schema": [
+    "capture_id",
+    "requested_official_url",
+    "resolved_url_as_exposed_or_unknown",
+    "operation",
+    "tool_reference_as_exposed",
+    "observation_utc",
+    "exposed_crawl_or_cache_date_or_unknown",
+    "unmodified_raw_tool_response",
+    "response_capture_sha256",
+    "hash_scope=serializedtoolresponse_notpublisherHTML"
+  ],
+  "capture_policy": "Save complete raw toolresponses plus verbatim relevant excerpts and indexcontext; UTC observationtime from actualtoolcall, cached/crawled date only ifexposed, otherwise explicitunknown. SHA256 is over exactlysaved responsecapture UTF8 bytes with declaredserialization. Never label capturehash publisher-source-byte hash.",
+  "validation": "All48 must retain complete verbatim embargoheader,date,08:30ET clock,observationmonth and official filename/indexcontext. Headerdate==filename, EDT/EST consistent withAmerica/New_York,48unique actualdates/months,12perreleaseyear and2018-12..2022-11 observations. Retain is_trading_session for EVERY release; require47 trading events and1 nontrading2020-04-10. Compare08:30<09:46 only onactualtradingevents. Never shift/forward-fill theGoodFriday release or create a synthetic market row. Missing headers/clocks still fail.",
+  "qualification": "Qualified only as official rendered-text date/time evidence for historical release-before-decision flag. Does not prove originalHTMLbytes,firstreceipt,site-publication latency,preannouncedschedule vintage ornumericCPIvalue vintage. Source-only result not information/portfolio gate.",
+  "failure_policy": "If completecorpus cannotbe obtained withinexactbudgets, preserve allsuccess/failurecaptures andstopthissourceattempt beforefits. Block onlythisbranch, notGoal. Do not broaden sources or reinterpret missingevents asnon-events.",
+  "storage": "Capture files temporaryoutsideGit then durableNASRecorder; smallGit eventmanifest,capturemetadata,sourceaudit,executednotebook,summary,conclusion. Bigrawtoolresponses/excerpts indexed inRecorder, no bulkyrawcorpusGit.",
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "new_statistical_fits": 0,
+  "new_allocator_fits": 0,
+  "new_native_accounts": 0,
+  "next_stage": "Only after independent source-only calendar-amendment approval and complete qualification, create NEW CPIinformation card/sourcebinding preserving original46/47feature formula,09:47\u2192next09:47 label,6Ridge10 folds/maturity/gates. Explicit48source/47tradable (2020=11). No fits until that NEW plan receives separate review. Never overwriteold403run or originalcalendar rejection.",
+  "promotion_authority": false,
+  "index_link_opening": "When web-rendered index exposes numberedHTMLlinks, click thatofficialindexlink as the first release-open operation within existing3-operation budget; verify resolvedURL is the declared officialarchive pattern before accepting content. NoPDF/external/mirror substitutions.",
+  "pre_retrieval_amendment": {
+    "previous_plan_sha256": "f8350524e0e2039bf7d09f91cfaeefed87864c32df536c90d28242341a920aeb",
+    "reason": "Equivalent official index-link click made explicit before anycorpus retrieval; no URL/event/operation-budget/gate changes",
+    "new_corpus_operations_before_amendment": 0
+  },
+  "calendar_amendment": {
+    "previous_plan_sha256": "ce60cc27c499da45a6f86651433debf0d103922a977b0288efdb4114fc00a0c6",
+    "recorded_at_utc": "2026-10-15T09:22:46.902415+00:00",
+    "reason": "Original assumption that every official CPI release is on XNYS session is false:2020-04-10 GoodFriday. Correct source mapping, not economic outcome-based selection.",
+    "preserved_rejection_recorder": "5ff7d49ca2d3445fb95b303a33e711e2",
+    "new_fits_before_amendment": 0,
+    "economic_outcomes_examined": false,
+    "additional_retrieval_operations": 0
+  },
+  "calendar_mapping": {
+    "official_source_events": 48,
+    "same_day_trading_events": 47,
+    "trading_events_by_release_year": {
+      "2019": 12,
+      "2020": 11,
+      "2021": 12,
+      "2022": 12
+    },
+    "nontrading_release_dates": [
+      "2020-04-10"
+    ],
+    "nontrading_treatment": "Preserve source row with is_trading_session=false; no same-day market interaction and no shift to nextsession. No release omitted fromsource corpus."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "plan_sha256": "7d2b686bdd74253707e85de07f45ea9b4cf0972a228f841155ff7f437dad002c",
+  "fit_attempts": [
+    "2020_baseline",
+    "2020_plus_cpi_interaction",
+    "2021_baseline",
+    "2021_plus_cpi_interaction",
+    "2022_baseline",
+    "2022_plus_cpi_interaction"
+  ],
+  "fitted": [
+    "2020_baseline",
+    "2020_plus_cpi_interaction",
+    "2021_baseline",
+    "2021_plus_cpi_interaction",
+    "2022_baseline",
+    "2022_plus_cpi_interaction"
+  ],
+  "recorder_id": "6a3f6df19a09412e917504083df8d699",
+  "experiment_id": "851466295922651897",
+  "source_saved": true
+}

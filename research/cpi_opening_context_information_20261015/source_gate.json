@@ -1,0 +1,9 @@
+{
+  "passed": false,
+  "parsed_events": 0,
+  "attempted_requests": 1,
+  "failure": {
+    "type": "ValueError",
+    "reason": "official source HTTP403: https://www.bls.gov/bls/news-release/cpi.htm"
+  }
+}

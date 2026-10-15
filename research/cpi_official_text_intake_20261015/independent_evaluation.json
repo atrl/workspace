@@ -1,0 +1,18 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_OFFICIAL_RENDERED_TEXT_CALENDAR_SOURCE_ONLY",
+  "plan_sha256": "f6e5b4b303bb504a22877db1df98ae6256013bc9d8fa7b0b13535201a4e2cdfc",
+  "recorder_id": "3b119c3350784dec83b90c18fbf1535a",
+  "nas_archive_sha256": "37102013a8344bbc00924eb3bf63919b3fed475df4cb3af4102fa802fd367ab4",
+  "verification_manifest_sha256": "93944afaeeb296cc55f63a0d9a225ca3d8998ef134963e91911180b18efb4618",
+  "checks": [
+    "Independent Qlib read:48 official events,47 trading events,49 tooloperations",
+    "Original rejected plan preserved unchanged",
+    "2020-04-10 GoodFriday header retained and is_trading_session=false; no shift",
+    "Original HTTP403 and calendar rejection retained",
+    "Capture hashes are not publisher HTML hashes",
+    "Zero fits/accounts in source-only run"
+  ],
+  "promotion_authority": false,
+  "readback": "readback_verification.json"
+}

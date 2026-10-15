@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/fullminute_frozen_position_risk_20261015",
-  "current_phase": "new_information_source_feasibility",
-  "next_action": "Check prior CPI/BLS release-context work and original publication clocks for a distinct conditional opening-response information mechanism; no bulk collection/fits until exact source and design review. SIA/WSTS sales acceleration is an already closed route and will not be reopened.",
+  "current_experiment": "research/cpi_opening_context_information_text_20261015",
+  "current_phase": "fixed_cpi_route_closed_next_mechanism_triage",
+  "next_action": "Triage whether composition objective versus executed controller mismatch supports a genuinely distinct contract from closed full_path_tiered training. No new fit until bounded plan and independent design review; do not rescue CPI interaction or relabel negative routes.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -294,6 +294,149 @@
         "new_fits": 0,
         "nas_verified_artifacts": 29
       }
+    },
+    {
+      "card": "research/cpi_opening_context_information_20261015",
+      "kind": "external_release_context_information",
+      "parent": "research/causal_cost_scenario_controller_20261015",
+      "status": "source_gate_blocked_before_any_fit",
+      "maximum_new_statistical_fits": 6,
+      "maximum_new_native_accounts": 0,
+      "source_gate_expected_releases": 48,
+      "evaluation": "research/cpi_opening_context_information_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_SOURCE_GATE_THEN_BOUNDED_INFORMATION_TEST",
+        "plan_sha256": "25fb29f5d9b8e3e89877af9a701dbb1af9e7f453f969f4e4436618cfd619ee31",
+        "conditions": [
+          "All48officialactualreleaseheaders beforeanyfit",
+          "Releasecontext not CPIvalues/surprise/schedulevintage/firstreceipt",
+          "Baseline includesCPIflag plainopeningreturn andsourceavailability",
+          "Fixednext09:47 horizon; strictmaturity andsame756calendar755labels",
+          "6Ridgefits46vs47columns; informationgateonly",
+          "Sourcefailureblocksbranch no substitutions or globalGoalcompletion"
+        ]
+      },
+      "recorder_id": "a669eaea24b9402eb58870f4c661a2e4",
+      "scientific_hypothesis_evaluated": false,
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_cpi_release_calendar.py -q",
+        "passed": 1,
+        "new_fits": 0,
+        "new_native_accounts": 0,
+        "request_attempts": 1,
+        "source_http_status": 403,
+        "execution_attempts": "research/cpi_opening_context_information_20261015/execution_attempts.json"
+      }
+    },
+    {
+      "card": "research/cpi_official_text_intake_20261015",
+      "kind": "source_only_retrieval_format_amendment",
+      "parent": "research/cpi_opening_context_information_20261015",
+      "status": "completed_source_qualified_no_promotion",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "maximum_unique_official_urls": 49,
+      "maximum_tool_operations": 156,
+      "evaluation": "research/cpi_official_text_intake_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_SOURCE_ONLY_FORMAT_AMENDMENT",
+        "plan_sha256": "ce60cc27c499da45a6f86651433debf0d103922a977b0288efdb4114fc00a0c6",
+        "prior_unexecuted_plan_sha256": "f8350524e0e2039bf7d09f91cfaeefed87864c32df536c90d28242341a920aeb",
+        "conditions": [
+          "Officialindexclick countsasreleaseopen within existingbudget",
+          "Capturedtooltext/cache hash NOTpublisherHTMLhash",
+          "Every48header/date/month/clock complete, no snippets/inference",
+          "No fits under source-only approval; newsourcebinding required"
+        ]
+      },
+      "actual_tool_operations": 49,
+      "parsed_headers": 48,
+      "original_calendar_rejection": {
+        "recorder_id": "5ff7d49ca2d3445fb95b303a33e711e2",
+        "archive_sha256": "c1098b7c5d766989f0364dfbc274cad574b4352a1fb01e8abeb7cd71d4014a9b",
+        "reason": "Valid 2020-04-10 GoodFriday release is not XNYS session; no model fit or event shift"
+      },
+      "recorder_id": "3b119c3350784dec83b90c18fbf1535a",
+      "source_gate": {
+        "passed": true,
+        "same_day_trading_events": 47,
+        "trading_events_by_release_year": {
+          "2019": 12,
+          "2020": 11,
+          "2021": 12,
+          "2022": 12
+        },
+        "nontrading_release_dates": [
+          "2020-04-10"
+        ],
+        "events": 48,
+        "distinct_urls": 49,
+        "operations": 49,
+        "index_operations": 1,
+        "maximum_release_operations": 1,
+        "actual_release_year_counts": {
+          "2019": 12,
+          "2020": 12,
+          "2021": 12,
+          "2022": 12
+        },
+        "capture_format": "official web-tool rendered text, NOT publisher HTML bytes",
+        "qualification": "Qualified only as official rendered-text date/time evidence for historical release-before-decision flag. Does not prove originalHTMLbytes,firstreceipt,site-publication latency,preannouncedschedule vintage ornumericCPIvalue vintage. Source-only result not information/portfolio gate."
+      },
+      "calendar_amendment_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_PRE_FIT_HOLIDAY_PRESERVING_CORRECTION",
+        "plan_sha256": "f6e5b4b303bb504a22877db1df98ae6256013bc9d8fa7b0b13535201a4e2cdfc",
+        "conditions": [
+          "All48events retained,47same-day trading events",
+          "No forwardfill, no synthetic market row, no outcome selection",
+          "Zero new retrieval orfits"
+        ]
+      },
+      "verification": {
+        "nas_verified_artifacts": 12,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_accounts": 0
+      }
+    },
+    {
+      "card": "research/cpi_opening_context_information_text_20261015",
+      "kind": "fixed_cpi_opening_interaction_information",
+      "parent": "research/cpi_official_text_intake_20261015",
+      "status": "completed_not_promoted_fixed_route_closed",
+      "maximum_new_statistical_fits": 6,
+      "maximum_new_native_accounts": 0,
+      "plan_sha256": "7d2b686bdd74253707e85de07f45ea9b4cf0972a228f841155ff7f437dad002c",
+      "source_event_count": 48,
+      "native_event_count": 47,
+      "evaluation": "research/cpi_opening_context_information_text_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_NEW_SOURCE_BOUND_FIXED_INFORMATION_TEST",
+        "plan_sha256": "7d2b686bdd74253707e85de07f45ea9b4cf0972a228f841155ff7f437dad002c",
+        "conditions": [
+          "Original statistical design unchanged",
+          "Source48/native47 same-day join, no Monday shift",
+          "Release timestamp before decision, same masks and strict maturity",
+          "6fits0newfetch0accounts, no parameter rescue"
+        ]
+      },
+      "recorder_id": "6a3f6df19a09412e917504083df8d699",
+      "information_gate_pass": false,
+      "failed_gates": [
+        "2020 and2021 fold MSE improvements negative",
+        "Pooled fullcalendar lower5percent block bound negative"
+      ],
+      "verification": {
+        "new_statistical_fits": 6,
+        "new_native_accounts": 0,
+        "new_retrieval_operations": 0,
+        "nas_verified_artifacts": 29,
+        "all_hashes_match": true
+      }
     }
   ],
   "governance_review": {
@@ -310,7 +453,7 @@
     "promotion_eligible": false,
     "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
   },
-  "cumulative_new_fits_in_this_campaign": 9,
+  "cumulative_new_fits_in_this_campaign": 15,
   "cumulative_new_native_accounts_in_this_campaign": 9,
   "rejected_directions": [
     {
@@ -328,6 +471,6 @@
   ],
   "cumulative_new_shadow_paths_in_this_campaign": 3,
   "cumulative_new_allocator_fits_in_this_campaign": 3,
-  "cumulative_new_statistical_fits_in_this_campaign": 6,
+  "cumulative_new_statistical_fits_in_this_campaign": 12,
   "cumulative_frozen_risk_valuations": 6
 }

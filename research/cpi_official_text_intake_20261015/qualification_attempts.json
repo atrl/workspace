@@ -1,0 +1,77 @@
+[
+  {
+    "plan_sha256": "ce60cc27c499da45a6f86651433debf0d103922a977b0288efdb4114fc00a0c6",
+    "recorder_id": "5ff7d49ca2d3445fb95b303a33e711e2",
+    "experiment_id": "848902380813194325",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/cpi_official_text_intake_20261015/qlib_recorder",
+    "source_gate": {
+      "passed": false,
+      "decision": "original_calendar_gate_rejected",
+      "headers_parsed": 48,
+      "tool_operations": 49,
+      "nontrading_release_dates": [
+        "2020-04-10"
+      ],
+      "reason": "Frozen original rule required all48 releases on XNYS sessions; official2020-04-10 is nontrading GoodFriday. No date moved or omitted.",
+      "new_fits": 0
+    },
+    "verification_manifest": {
+      "recorder_id": "5ff7d49ca2d3445fb95b303a33e711e2",
+      "entries": [
+        {
+          "path": "qlib_recorder/848902380813194325/5ff7d49ca2d3445fb95b303a33e711e2/artifacts/code_cached.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "qlib_recorder/848902380813194325/5ff7d49ca2d3445fb95b303a33e711e2/artifacts/code_diff.txt",
+          "sha256": "de80f9f4dffc7c810e46009e15c0f494c103d6ef60d7ddfa32f6d5c225393318",
+          "bytes": 416227
+        },
+        {
+          "path": "qlib_recorder/848902380813194325/5ff7d49ca2d3445fb95b303a33e711e2/artifacts/code_status.txt",
+          "sha256": "299c1de4bc29b91c7940ab28b9b8c8e05e625763fac8e0b341e4146cb23339b9",
+          "bytes": 60151
+        },
+        {
+          "path": "qlib_recorder/848902380813194325/5ff7d49ca2d3445fb95b303a33e711e2/artifacts/inputs/plan",
+          "sha256": "2f1fdfaedd0582317dee3960a93ac59d99695a536e796676a5d2f2ce6f227400",
+          "bytes": 5794
+        },
+        {
+          "path": "qlib_recorder/848902380813194325/5ff7d49ca2d3445fb95b303a33e711e2/artifacts/sources/execution_workflow",
+          "sha256": "43d4405d8c8b74fa191711c2f0253fab4aa95a847afa7eaced7bea616541e613",
+          "bytes": 9092
+        },
+        {
+          "path": "qlib_recorder/848902380813194325/5ff7d49ca2d3445fb95b303a33e711e2/artifacts/sources/header_events",
+          "sha256": "b64841299ede2cd8e54b3b6dafa258b30ee19db9aa61bced3084c95c619f544f",
+          "bytes": 15573
+        },
+        {
+          "path": "qlib_recorder/848902380813194325/5ff7d49ca2d3445fb95b303a33e711e2/artifacts/sources/raw_tool_captures",
+          "sha256": "6afafe0e6682b612299dcdcd4161bdfd8efeccf210326678f85af8911182837d",
+          "bytes": 1544358
+        },
+        {
+          "path": "qlib_recorder/848902380813194325/5ff7d49ca2d3445fb95b303a33e711e2/artifacts/sources/source_gate",
+          "sha256": "139ee5bf02a288952e58ca1217de5ca4917e87ce55d8a1f48ecb16d921fca990",
+          "bytes": 311
+        }
+      ]
+    },
+    "nas_evidence": {
+      "sha256": "c1098b7c5d766989f0364dfbc274cad574b4352a1fb01e8abeb7cd71d4014a9b",
+      "size_bytes": 289581,
+      "media_type": "application/gzip",
+      "storage_uri": "sha256/c1/09/c1098b7c5d766989f0364dfbc274cad574b4352a1fb01e8abeb7cd71d4014a9b",
+      "uploaded_by": "soxl-minute-research",
+      "created_at": "2026-10-15 17:17:47.995518+08",
+      "duplicate": false,
+      "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c1/09/c1098b7c5d766989f0364dfbc274cad574b4352a1fb01e8abeb7cd71d4014a9b",
+      "recorder_id": "5ff7d49ca2d3445fb95b303a33e711e2",
+      "experiment_id": "848902380813194325",
+      "archive_root": "qlib_recorder"
+    }
+  }
+]

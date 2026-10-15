@@ -1,0 +1,23 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_NEEDS_DATA_BRANCH_ONLY",
+  "recorder_id": "a669eaea24b9402eb58870f4c661a2e4",
+  "plan_sha256": "25fb29f5d9b8e3e89877af9a701dbb1af9e7f453f969f4e4436618cfd619ee31",
+  "verification_manifest_sha256": "f72b6245fb3b96b6b39f181cc02ddd5150c160bf8dc17d3340d4292b7c938c77",
+  "nas_archive_sha256": "8e85b29c4e99475dde1af49f9f693276f153f1bc0e82c5dfd303f36edc1368b7",
+  "scope": "Code/sourcefailure/runstate review; sourcegate beforefitting; currentartifact identities recorded by owner",
+  "checks": [
+    "Only1officialindexrequest returnedHTTP403",
+    "Rawresponse andreceipt retained",
+    "0releaseURLs/0parsed events",
+    "No fit attempts oraccounts",
+    "Scientific hypothesis unevaluated, not rejected",
+    "GlobalGoalnotblocked"
+  ],
+  "scientific_information_test_evaluated": false,
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "source_retrieval_path_blocked": true,
+  "global_goal_blocked": false,
+  "next_source_method": "Separate preregistered officialwebtool extracted/cached text intake; doesnotalter oldfailedrun or bypasssourcequalification"
+}
