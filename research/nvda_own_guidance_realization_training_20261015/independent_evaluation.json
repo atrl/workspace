@@ -1,0 +1,32 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_NEGATIVE_WITH_HISTORICAL_POINT_IMPROVEMENT",
+  "decision": "not_promoted_fixed_own_guidance_realization",
+  "plan_sha256": "52c4e88636b29ec0ab87e5e22d88b422f1d7c7ddaf1f885e997ff8984330ebce",
+  "recorder_id": "27baa03f0d3046d8b82408ecb6ca07e7",
+  "verification_manifest_sha256": "1dbc58bfe68e892867c42eb87cce506bb83acb3586671d3f252eb1f8d5171e38",
+  "archive_sha256": "e5843be4a5dbd36c1f92c45755b63f1d1e8f8e7b4a6203112b539170e5d13471",
+  "source_hashes": {
+    "workflow": "1030aac86c20ac6832b899c0d52bae959061e4da5870909eac856c2cf437896a",
+    "feature": "9a22ee2a8f13b89b2898bfbd3db1c2cc8926e80f203db29b1e457fd2495d2388"
+  },
+  "independent_checks": [
+    "6models each3014primary20741aux300epochs, sharedscalers and pairedinitialization",
+    "2859active numerictrainingrows from46comparablequarterlystates",
+    "Allsourcejoins before09:29; blocked reset and future guide excluded",
+    "6nativeaccounts944sessions, cost/quantity/cashreconciliation passed",
+    "Candidate beats matched and9097reference andSOXX atallcosts",
+    "All819rollingwindows retained;66.42/65.69/64.84percent below70",
+    "Confidence lowerbounds versusSOXX and9097 nonpositive atallcosts",
+    "Sourcecode andmanifest identities verified"
+  ],
+  "limits": [
+    "Sampled known/close drawdown only; no inherited fullminutequalification",
+    "Reused historical paths not independent forward",
+    "Source conditional delayed regular-report measurement, not firstpublicsurprise",
+    "Weakmatchedcontrol alone insufficient"
+  ],
+  "fixed_route_closed": true,
+  "objective_achieved": false,
+  "readback": "readback_verification.json"
+}

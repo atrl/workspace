@@ -1,0 +1,46 @@
+{
+  "plan_sha256": "52c4e88636b29ec0ab87e5e22d88b422f1d7c7ddaf1f885e997ff8984330ebce",
+  "fit_attempts": [
+    "matched_availability_control_71",
+    "candidate_71",
+    "matched_availability_control_172",
+    "candidate_172",
+    "matched_availability_control_273",
+    "candidate_273"
+  ],
+  "fitted": [
+    "matched_availability_control_71",
+    "candidate_71",
+    "matched_availability_control_172",
+    "candidate_172",
+    "matched_availability_control_273",
+    "candidate_273"
+  ],
+  "shadow_attempts": [
+    "matched_availability_control",
+    "candidate"
+  ],
+  "shadow_done": [
+    "matched_availability_control",
+    "candidate"
+  ],
+  "native_attempts": [
+    "matched_availability_control_0",
+    "matched_availability_control_2",
+    "matched_availability_control_5",
+    "candidate_0",
+    "candidate_2",
+    "candidate_5"
+  ],
+  "native": [
+    "matched_availability_control_0",
+    "matched_availability_control_2",
+    "matched_availability_control_5",
+    "candidate_0",
+    "candidate_2",
+    "candidate_5"
+  ],
+  "recorder_id": "27baa03f0d3046d8b82408ecb6ca07e7",
+  "experiment_id": "329326225332278183",
+  "source_saved": true
+}

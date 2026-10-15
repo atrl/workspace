@@ -117,3 +117,6 @@ research/flow_receipts_20261014/progress.json
 research/flow_receipts_20261014/runtime_process.json
 # Rebuildable full-minute risk provider; frozen source and valuation evidence live in NAS Recorder.
 data/qlib/fullminute_frozen_position_risk_20261015/
+
+# Rebuildable fixed own-guidance feature store; authority in Recorder.
+data/qlib/nvda_own_guidance_realization_training_20261015/
