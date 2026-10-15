@@ -1,0 +1,16 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_FIXED_PROBE_NEGATIVE_LABEL_GATE",
+  "recorder_id": "0e6f44724ed142f7bba9efa3e0705b3f",
+  "manifest_sha256": "98ba829e1fe45435abacd7824ad75a446456e48a84f6369bd97f0ef09365dd42",
+  "actual_calls": 4,
+  "successful_protocol_responses": 4,
+  "selected_session": "2026-10-14",
+  "observed_labels": "09:31..16:00, 390 rows per symbol",
+  "frozen_labels": "09:30..15:59",
+  "inference": "Observed grid consistent with end labels; grid alone does not certify interval semantics",
+  "source_gate_passed": false,
+  "pilot_authorized": false,
+  "new_forward_days": 0,
+  "next_minimum_evidence": "Pin existing same-Futu minute-to-direct-K15M receipt lineage and a separately declared end-label adapter; reuse saved payloads only for Qlib readback, no new fetch or overwrite of original failure."
+}

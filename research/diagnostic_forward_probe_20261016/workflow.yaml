@@ -1,0 +1,10 @@
+experiment: diagnostic_forward_probe_20261016
+module: src.data.diagnostic_forward_probe
+entrypoint: run
+phase: exact_code_root_probe_permit_required
+parent_plan: ../diagnostic_forward_study_20261016/plan.json
+manifest: probe_manifest.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: ["inputs/*", "sources/*", "receipts/*", "native_data/*", "analysis/*"]

@@ -13,7 +13,9 @@ from src.schedule.diagnostic_forward_study import persist_checkpoint,load_checkp
 
 def test_slot_atomic_durable_clock_state_contract(tmp_path,monkeypatch):
     root=Path(__file__).resolve().parents[1];card=root/'research/diagnostic_forward_study_20261016'
-    with pytest.raises(PermissionError):require_phase(card,'probe')
+    permission_card=tmp_path/'unpermitted_card';permission_card.mkdir()
+    (permission_card/'plan.json').write_bytes((card/'plan.json').read_bytes())
+    with pytest.raises(PermissionError):require_phase(permission_card,'probe')
     assert sanitize_global_state({'market_us':'AFTERNOON','user_id':'SECRET','token':'SECRET'})=={'market_us':'AFTERNOON'}
     tariff=json.loads((root/'research/frozen_policy_raw_cashbook_20261015/plan.json').read_text())['tariff'];state=ForwardPaperState(tariff)
     origin=pd.Timestamp('2026-10-19 09:00',tz='America/New_York')

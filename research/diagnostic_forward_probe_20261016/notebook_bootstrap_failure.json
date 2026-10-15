@@ -1,0 +1,8 @@
+{
+  "session_handle": 83865,
+  "terminal": "ModuleNotFoundError: src",
+  "stage": "before module import/run/permit/context",
+  "context_attempts": 0,
+  "futu_calls": 0,
+  "repair": "Find repository root and insert absolute sys.path before src import; permitted module/manifest unchanged"
+}

@@ -1,0 +1,15 @@
+{
+  "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+  "registration_kind": "four_call_prepilot_probe",
+  "old_days_credited": 0,
+  "sealed_at": null,
+  "status": "DRAFT_ROOT_MUST_SEAL_BEFORE_PERMIT",
+  "manifest_file": "research/diagnostic_forward_probe_20261016/probe_manifest.json",
+  "manifest_sha256": "c31d827215af272489c9cc846550a1e3d9025deaa6d5d542b42423eacd86f369",
+  "source_role_mapping_status": "PENDING_NOT_REQUIRED_FOR_ISOLATED_PROBE",
+  "budgets": {
+    "http": 0,
+    "futu_api": 4
+  },
+  "pilot_authorized": false
+}

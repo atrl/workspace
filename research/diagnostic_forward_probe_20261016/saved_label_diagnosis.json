@@ -1,0 +1,29 @@
+{
+  "recorder_id": "0e6f44724ed142f7bba9efa3e0705b3f",
+  "read_only_saved_objects": true,
+  "new_source_calls": 0,
+  "rows": [
+    {
+      "symbol": "US.SOXL",
+      "source_object_sha256": "2d41c3245c0daa4b34f07539c705b044972d0d4a280dd3a774381c3bbb382716",
+      "rows": 390,
+      "first_label": "2026-10-14 09:31:00-04:00",
+      "last_label": "2026-10-14 16:00:00-04:00",
+      "matches_frozen_start_grid": false,
+      "matches_calendar_end_grid": true,
+      "qualified_mapping": false,
+      "reason": "Observed exact end grid; frozen implementation assumes start. No transformation or new Qlib valuation executed."
+    },
+    {
+      "symbol": "US.SOXX",
+      "source_object_sha256": "0caeb86f5db5e7bc96fa60af2ff967a63ac0e44968611691c2b09e3ce27ffd39",
+      "rows": 390,
+      "first_label": "2026-10-14 09:31:00-04:00",
+      "last_label": "2026-10-14 16:00:00-04:00",
+      "matches_frozen_start_grid": false,
+      "matches_calendar_end_grid": true,
+      "qualified_mapping": false,
+      "reason": "Observed exact end grid; frozen implementation assumes start. No transformation or new Qlib valuation executed."
+    }
+  ]
+}

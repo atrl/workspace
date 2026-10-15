@@ -1,0 +1,158 @@
+{
+  "experiment": "diagnostic_forward_probe_20261016",
+  "parent_plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+  "application_calls": 4,
+  "source_gate_passed": false,
+  "bar_checks": [],
+  "snapshot_clocks": [
+    {
+      "symbol": "US.SOXL",
+      "quote_at": "2026-10-15T14:16:26-04:00",
+      "received_at": "2026-10-15T18:16:27.329266+00:00",
+      "lag_seconds": 1.329266,
+      "live_fill_freshness_qualified": false
+    },
+    {
+      "symbol": "US.SOXX",
+      "quote_at": "2026-10-15T14:16:21-04:00",
+      "received_at": "2026-10-15T18:16:27.329266+00:00",
+      "lag_seconds": 6.329266,
+      "live_fill_freshness_qualified": false
+    }
+  ],
+  "receipts": [
+    {
+      "operation": "global_state",
+      "attempt": 1,
+      "started": {
+        "utc": "2026-10-15T18:16:26.795658+00:00",
+        "monotonic_ns": 1701318823553750
+      },
+      "completed": true,
+      "received": {
+        "utc": "2026-10-15T18:16:26.800270+00:00",
+        "monotonic_ns": 1701318828132833
+      },
+      "ret_code": 0,
+      "outcome": "observed",
+      "payload_sha256": "34f2e63bb62d4e97c5e4f5506dcddc288b7570431b475f925aebb03aa1923b5c",
+      "payload_kind": "sanitized_global_allowlist"
+    },
+    {
+      "operation": "snapshot_pair",
+      "attempt": 1,
+      "started": {
+        "utc": "2026-10-15T18:16:26.801218+00:00",
+        "monotonic_ns": 1701318829077250
+      },
+      "completed": true,
+      "received": {
+        "utc": "2026-10-15T18:16:27.329266+00:00",
+        "monotonic_ns": 1701319357176208
+      },
+      "ret_code": 0,
+      "outcome": "observed",
+      "payload_sha256": "09354ea905d157feb3497aeeb2540cfe85121df31367e374ab464f1ae96fb860",
+      "payload_kind": "decoded_SDK_response_not_wire_bytes"
+    },
+    {
+      "operation": "history_US.SOXL",
+      "attempt": 1,
+      "started": {
+        "utc": "2026-10-15T18:16:27.342745+00:00",
+        "monotonic_ns": 1701319370643541
+      },
+      "completed": true,
+      "received": {
+        "utc": "2026-10-15T18:16:28.139046+00:00",
+        "monotonic_ns": 1701320166925125
+      },
+      "ret_code": 0,
+      "outcome": "failed",
+      "error_type": "ValueError",
+      "payload_sha256": "378224b1e6c65a4ea7ce7cb7176576938f58b67b0e7bbb61b3d1019b711d4294",
+      "payload_kind": "decoded_SDK_response_not_wire_bytes"
+    },
+    {
+      "operation": "history_US.SOXX",
+      "attempt": 1,
+      "started": {
+        "utc": "2026-10-15T18:16:28.150861+00:00",
+        "monotonic_ns": 1701320178723291
+      },
+      "completed": true,
+      "received": {
+        "utc": "2026-10-15T18:16:28.528006+00:00",
+        "monotonic_ns": 1701320555883500
+      },
+      "ret_code": 0,
+      "outcome": "failed",
+      "error_type": "ValueError",
+      "payload_sha256": "aa44959953993ab768a823617415e983a6f24095d31b972e3d7977ff1ebefab6",
+      "payload_kind": "decoded_SDK_response_not_wire_bytes"
+    }
+  ],
+  "qualified_forward_days": 0,
+  "live_fill_clock_qualified": false,
+  "pilot_ready": false,
+  "terminal_outcome": "completed_with_source_gaps",
+  "transport": {
+    "context_instances": 1,
+    "connection_attempts": 1,
+    "InitConnect_handshakes": 1,
+    "KeepAlive_messages": 0,
+    "protocol_data_queries_admitted": 4,
+    "protocol_queries_with_success_response": 4,
+    "blocked_queries_before_send": 0,
+    "query_count_semantics": "Admitted processor calls are registered before pack/send; success responses prove sent queries. Failed admitted calls may fail before wire send."
+  },
+  "application_budget": 4,
+  "blocked_nonpermitted_network_attempts": 0,
+  "new_fits": 0,
+  "model_inference_calls": 0,
+  "pilot_launches": 0,
+  "orders": 0,
+  "recorder_id": "0e6f44724ed142f7bba9efa3e0705b3f",
+  "experiment_id": "140040363268605940",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/diagnostic_forward_probe_20261016/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/diagnostic_forward_probe_20261016/qlib_recorder/140040363268605940/0e6f44724ed142f7bba9efa3e0705b3f",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "receipts/*",
+      "analysis/*"
+    ]
+  },
+  "Qlib_native_readback": {
+    "status": "not_run_no_valid_bars",
+    "symbols": []
+  },
+  "nas_evidence": {
+    "sha256": "6f8a9b1c8d3717742d2c9e471c5dc8fc0233f7f00183d953b827ccc82d0c77e0",
+    "size_bytes": 136006,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/6f/8a/6f8a9b1c8d3717742d2c9e471c5dc8fc0233f7f00183d953b827ccc82d0c77e0",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 02:20:08.588496+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/6f/8a/6f8a9b1c8d3717742d2c9e471c5dc8fc0233f7f00183d953b827ccc82d0c77e0",
+    "recorder_id": "0e6f44724ed142f7bba9efa3e0705b3f",
+    "experiment_id": "140040363268605940",
+    "archive_root": "qlib_recorder"
+  },
+  "region": "us",
+  "as_of": "2026-10-14",
+  "provider_uri": null,
+  "qlib_data_status": "Not built: fixed source label gate failed before ingestion",
+  "objective_achieved": false,
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/data.html"
+  ],
+  "source_docs": "https://openapi.futunn.com/futu-api-doc/en/quote/request-history-kline.html",
+  "source_docs_live_access": "timed out; installed SDK pinned, official indexed text consulted",
+  "next_step": "next_step_review.json"
+}

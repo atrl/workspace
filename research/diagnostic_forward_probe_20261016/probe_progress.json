@@ -1,0 +1,29 @@
+{
+  "phase": "probe",
+  "status": "finished",
+  "selected_completed_session": "2026-10-14",
+  "context_attempts": 1,
+  "application_attempts": [
+    "global_state",
+    "snapshot_pair",
+    "history_US.SOXL",
+    "history_US.SOXX"
+  ],
+  "terminal_outcome": "completed_with_source_gaps",
+  "recorder_id": "0e6f44724ed142f7bba9efa3e0705b3f",
+  "experiment_id": "140040363268605940",
+  "finished_at": {
+    "utc": "2026-10-15T18:16:28.539800+00:00",
+    "monotonic_ns": 1701320567676333
+  },
+  "transport": {
+    "context_instances": 1,
+    "connection_attempts": 1,
+    "InitConnect_handshakes": 1,
+    "KeepAlive_messages": 0,
+    "protocol_data_queries_admitted": 4,
+    "protocol_queries_with_success_response": 4,
+    "blocked_queries_before_send": 0,
+    "query_count_semantics": "Admitted processor calls are registered before pack/send; success responses prove sent queries. Failed admitted calls may fail before wire send."
+  }
+}

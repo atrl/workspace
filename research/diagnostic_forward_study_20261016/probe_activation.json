@@ -1,0 +1,36 @@
+{
+  "phase": "probe",
+  "decision": "APPROVED_EXACT_CODE_FOUR_CALL_PROBE",
+  "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+  "network_authorized": true,
+  "probe_authorized": true,
+  "pilot_authorized": false,
+  "owner": "/root",
+  "independent_evaluator": "/root/evaluator",
+  "code_sha256": {
+    "src/data/diagnostic_forward_probe.py": "eddc1823b3176bbf00a47baf04b5f973591d8ef9bc1ce6149ef880d30f5f135b",
+    "src/data/diagnostic_forward_inputs.py": "2f657d7b41b284e772e76986d3996322ec2bae5bf09ae73749d548f8f52f1318",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "research/diagnostic_forward_probe_20261016/probe_manifest.json": "c31d827215af272489c9cc846550a1e3d9025deaa6d5d542b42423eacd86f369",
+    "qlib_venv/lib/python3.12/site-packages/futu/quote/open_quote_context.py": "94994f1f503fb775438e899c77d7e69c96ad1ff53d57e1a3b9a27090de664ac0",
+    "qlib_venv/lib/python3.12/site-packages/futu/common/open_context_base.py": "00c4244420ec76ac5b6cf21e8f00d58bcd5921a92981331cbcde86862d60e778",
+    "qlib_venv/lib/python3.12/site-packages/futu/common/constant.py": "d7a2bb22fff35f339c004b682546014ef333ee219ba2951c1c75d67233be1be5",
+    "qlib_venv/lib/python3.12/site-packages/futu/common/ft_logger.py": "1e9d2ee0e66fdb1d62426e9f0f2b90f1e9b6f8bd341d1c884c49b41182d844b6"
+  },
+  "registration_file": "probe_registration.json",
+  "registration_sha256": "c46c56e1b4fd1488835ce4984e80753b0955f22a48f9afe2683a2f1db0fa89c4",
+  "not_before": "2026-10-15T18:15:23.608912+00:00",
+  "expires_at": "2026-10-15T18:35:22.608912+00:00",
+  "budgets": {
+    "http": 0,
+    "futu_api": 4
+  },
+  "expected_completed_session": "2026-10-14",
+  "context_instances_max": 1,
+  "retries": 0,
+  "pagination": 0,
+  "subscriptions": 0,
+  "orders": 0,
+  "forward_days_credit": 0
+}

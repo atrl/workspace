@@ -1,0 +1,61 @@
+{
+  "status": "bounded_next_step_not_executed",
+  "independent_review_basis": "/root/evaluator accepted original negative and specified existing direct K15M evidence as next minimum qualification",
+  "role": "Separate saved-payload bar-label mapping qualification; no overwrite or rescue of original start-grid probe",
+  "existing_lineage_manifest": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/source_manifest.json",
+  "existing_lineage_manifest_sha256": "01522c39d480d977d9d5e8abc0a1509afb86d5a822f68bb539f04e7bc755a2ca",
+  "existing_lineage_objects": [
+    {
+      "symbol": "SOXL",
+      "date": "2026-07-29",
+      "rows": 390,
+      "first": "2026-07-29 09:31:00",
+      "last": "2026-07-29 16:00:00",
+      "path": "SOXL_2026-07-29_1m.parquet",
+      "sha256": "31411663d214a51afdbe6936fb6eafcbe010af94640ef5deb6ac67cd7ba4b0b9",
+      "fetched_at_utc": "2026-10-09T14:43:37.016232+00:00",
+      "source": "Futu OpenQuoteContext.request_history_kline",
+      "ktype": "K_1M",
+      "adjustment": "QFQ",
+      "extended_time": false
+    },
+    {
+      "symbol": "SOXX",
+      "date": "2026-07-29",
+      "rows": 390,
+      "first": "2026-07-29 09:31:00",
+      "last": "2026-07-29 16:00:00",
+      "path": "SOXX_2026-07-29_1m.parquet",
+      "sha256": "30d53580e43041f4a172ef6a6e485b00200f1ed7c0e264b42d256b051eb8b57a",
+      "fetched_at_utc": "2026-10-09T14:43:37.377546+00:00",
+      "source": "Futu OpenQuoteContext.request_history_kline",
+      "ktype": "K_1M",
+      "adjustment": "QFQ",
+      "extended_time": false
+    },
+    {
+      "path": "SOXL_2026-07-29_15m.parquet",
+      "sha256": "0bbd86385d83093b77e2defb98cbecf5d353d1cdbec44c23b58084d7c8a6e25e"
+    },
+    {
+      "path": "SOXX_2026-07-29_15m.parquet",
+      "sha256": "c500c870054358bc24928cf76435e7a3b9befd258dd26cd51f24c71c931a6593"
+    }
+  ],
+  "limits": {
+    "existing_one_minute_files": 2,
+    "existing_direct_fifteen_minute_files": 2,
+    "new_probe_history_payloads": 2,
+    "new_market_requests": 0,
+    "model_calls": 0,
+    "fits": 0,
+    "strategy_backtests": 0
+  },
+  "mapping_to_evaluate": "time_key retained as declared interval end; interval start=end-1minute; no extra +1minute shift. Preserve original raw labels. Verify 15min OHLCV aggregation on the two fixed old July29 pairs and exact end-grid on the new October14 pair. Then separate isolated Qlib ingestion/readback.",
+  "evidence_limits": [
+    "Old direct comparison uses QFQ; new probe uses NONE. It can support label convention, not current raw-price equivalence.",
+    "Old receipts do not certify installed SDK version, future bar finality or live availability.",
+    "No pilot authority; daily role mapping and full-session transport still incomplete."
+  ],
+  "failure_rule": "If pinned comparison mismatches, report exact field/window; no search across days, vendors or offsets."
+}

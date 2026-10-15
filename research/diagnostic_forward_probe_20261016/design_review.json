@@ -1,0 +1,9 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "APPROVE_EXACT_CODE_FOUR_CALL_PROBE",
+  "probe_code_sha256": "eddc1823b3176bbf00a47baf04b5f973591d8ef9bc1ce6149ef880d30f5f135b",
+  "manifest_sha256": "c31d827215af272489c9cc846550a1e3d9025deaa6d5d542b42423eacd86f369",
+  "registration_sha256": "c46c56e1b4fd1488835ce4984e80753b0955f22a48f9afe2683a2f1db0fa89c4",
+  "expected_completed_session": "2026-10-14",
+  "no_pilot_authority": true
+}

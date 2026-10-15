@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/diagnostic_forward_study_20261016",
-  "current_phase": "diagnostic_forward_offline_foundation_verified_live_activation_pending",
-  "next_action": "Complete the finite live collector/transport wiring and explicitly qualify role-specific price and SOXX volume mapping under the fixed diagnostic plan. Review exact code, registration and four-call Futu probe permit before source probing; pilot requires its separate activation gates and not-before date. Reuse the verified nine-model offline outputs; do not repeat inference, fits, historical backtests or source inventories. No live process or independent forward days exist yet.",
+  "current_experiment": "research/diagnostic_forward_probe_20261016",
+  "current_phase": "four_call_probe_completed_start_label_assumption_rejected",
+  "next_action": "Using next_step_review.json, freeze a separate zero-fetch end-label qualification against the four exact existing July29 Futu minute/direct-K15M files plus two saved October14 payloads, then isolated Qlib readback. Keep the original probe source gate failed and original offline models unchanged. Do not repeat source calls or inference. Live daily role mapping, full-session transport and pilot activation remain separate outstanding gates.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1053,6 +1053,24 @@
       "evaluation": "research/diagnostic_forward_study_20261016/independent_evaluation.json",
       "readback_artifacts": 28,
       "promotion_eligible": false
+    },
+    {
+      "card": "research/diagnostic_forward_probe_20261016",
+      "kind": "four_call_read_only_pre_pilot_probe",
+      "status": "completed_negative_start_label_gate",
+      "recorder_id": "0e6f44724ed142f7bba9efa3e0705b3f",
+      "application_calls": 4,
+      "successful_protocol_responses": 4,
+      "selected_session": "2026-10-14",
+      "observed_rows_per_symbol": 390,
+      "observed_labels": "09:31..16:00",
+      "source_gate_passed": false,
+      "new_fits": 0,
+      "model_calls": 0,
+      "new_forward_days": 0,
+      "pilot_launches": 0,
+      "evaluation": "research/diagnostic_forward_probe_20261016/independent_evaluation.json",
+      "readback_artifacts": 25
     }
   ],
   "governance_review": {

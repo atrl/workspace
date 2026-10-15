@@ -1,0 +1,48 @@
+{
+  "parent_plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+  "phase": "implementation_complete_pending_exact_root_probe_permit",
+  "probe_code_sha256": "eddc1823b3176bbf00a47baf04b5f973591d8ef9bc1ce6149ef880d30f5f135b",
+  "endpoint_config_path": "runtime/soxl/stage1_regime_paper/config.json",
+  "endpoint_config_sha256": "b16b5490cf4eb808850b40c366dc39b82b744a9915bc19eee41d213914e2e327",
+  "sdk_identity": {
+    "distribution_version": "10.2.6218",
+    "files": {
+      "qlib_venv/lib/python3.12/site-packages/futu/quote/open_quote_context.py": "94994f1f503fb775438e899c77d7e69c96ad1ff53d57e1a3b9a27090de664ac0",
+      "qlib_venv/lib/python3.12/site-packages/futu/common/open_context_base.py": "00c4244420ec76ac5b6cf21e8f00d58bcd5921a92981331cbcde86862d60e778",
+      "qlib_venv/lib/python3.12/site-packages/futu/common/constant.py": "d7a2bb22fff35f339c004b682546014ef333ee219ba2951c1c75d67233be1be5",
+      "qlib_venv/lib/python3.12/site-packages/futu/common/ft_logger.py": "1e9d2ee0e66fdb1d62426e9f0f2b90f1e9b6f8bd341d1c884c49b41182d844b6"
+    },
+    "history_signature": "request_history_kline(code,start,end,ktype,autype,fields,max_count,page_req_key,extended_time,session)",
+    "history_arguments": {
+      "ktype": "KLType.K_1M",
+      "autype": "AuType.NONE",
+      "fields": [
+        "KL_FIELD.ALL"
+      ],
+      "max_count": 1000,
+      "page_req_key": null,
+      "extended_time": false,
+      "session": "Session.RTH"
+    },
+    "implicit_transport": "One InitConnect handshake, optional KeepAlive only. Initial subscription registry empty; automatic reconnect disabled before first connection attempt. No account or subscription queries.",
+    "docs": "Official pages direct-open timed out in this turn; previously read official documentation plus official cached search excerpts support API semantics. Installed SDK source hashes bind actual signature/behavior."
+  },
+  "budget": {
+    "context_instances": 1,
+    "application_calls": 4,
+    "history_protocol_queries_per_symbol": 1,
+    "http": 0,
+    "retry": 0,
+    "pagination": 0,
+    "subscriptions": 0
+  },
+  "session_selection": "Last XNYS session closed at least120seconds before execution; compute once before context, retain exact calendar.",
+  "protocol_guard": "SDK processor boundary rejects second page before delegate/send; retains first successful decoded history page even if public API discards it.",
+  "snapshot_clock": "Require both symbol update_time parsed NY and not future; no live-fill freshness qualification.",
+  "native_readback": "Valid exact-session bars only, raw labels retained, normalized end +1minute, isolated Qlib OHLCV store/readback; no fake store on invalid source.",
+  "remaining_activation_gaps": [
+    "daily role-source mapping",
+    "live transport and full-session pilot"
+  ],
+  "no_pilot_authorization": true
+}

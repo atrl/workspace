@@ -1,0 +1,7 @@
+{
+  "command": "PYTHONPATH=. MLFLOW_DISABLE_TELEMETRY=true DO_NOT_TRACK=true qlib_venv/bin/python -m pytest tests/test_diagnostic_forward_probe.py tests/test_diagnostic_forward_clock_state.py -q --tb=short --disable-warnings",
+  "result": "2 passed, 148 warnings in 2.17s",
+  "test_sha256": "be2e5a6bcc2fd69e9f06632c2cbfec06d59008b44fce9ff3482d3b972f6aebdc",
+  "network_calls": 0,
+  "regression": "Actual SDK public paging loop with fake processor: one sent page, second rejected before send, first page preserved. SDK normalized date endpoints bound exactly."
+}
