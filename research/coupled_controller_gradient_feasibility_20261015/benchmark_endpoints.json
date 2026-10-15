@@ -1,0 +1,22 @@
+{
+  "B": 0.004451157032774304,
+  "source": {
+    "card": "research/tangent_oof_account_20261015",
+    "recorder_id": "19fd51c4c6db4c77871f79f35615ae33",
+    "archive": "9fbe9f25d43cd68668e131d6e49cffce436ba77ad79589aa661b541bfbf48601",
+    "inventory_sha256": "3b6d24a59e0cf7d3fa25fd2c830f7ef913623f4a83fbd77c4661ec7786f863be"
+  },
+  "artifact": "analysis/native/soxx_2",
+  "endpoints": [
+    {
+      "trade_date": "2022-06-30",
+      "close_stamp": "2022-06-30 16:00:00",
+      "close_nav": 140218.349594562
+    },
+    {
+      "trade_date": "2022-12-29",
+      "close_stamp": "2022-12-29 16:00:00",
+      "close_nav": 140843.87460973597
+    }
+  ]
+}

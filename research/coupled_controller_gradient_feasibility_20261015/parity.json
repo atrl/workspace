@@ -1,0 +1,13 @@
+{
+  "smoothing_max_error": 1.1102230246251565e-16,
+  "target_max_error": 2.7755575615628914e-16,
+  "local_cap_max_error": 2.220446049250313e-16,
+  "common_cap_max_error": 2.220446049250313e-16,
+  "known_nav_relative_error": 0.0,
+  "objective_absolute_error": 0.0,
+  "enforced_q_error": 0.0,
+  "enforced_cash_error": 2.842170943040401e-14,
+  "enforced_monthly_counter_error": 0.0,
+  "ledger_parity_role": "q/cash/monthly/orderfees inherited via exact-forward correction, NOT independent accounting validation",
+  "passed": true
+}

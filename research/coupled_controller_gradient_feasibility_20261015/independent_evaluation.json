@@ -1,0 +1,32 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_MECHANICAL_NEGATIVE",
+  "decision": "fixed_surrogate_rejected_no_optimization",
+  "plan_sha256": "c73103cf2aabedf405dd35d0f95d56c58dae584fb37dddd1d9a591eb91969d10",
+  "recorder_id": "10e1a90b59214f51a382f8fb44219a26",
+  "verification_manifest_sha256": "2ec15d04b7da75da4fe927af473b731f3305908dae55f34ab14115a656e8dbdf",
+  "archive_sha256": "1253511359e4d02367ffa4a2bdb390c299b8cdbd2645a809ce1adf89d4c6659e",
+  "source_hashes": {
+    "workflow": "50592b0326b1ae7dbae20f6186f3fe20c53106d0444f3797931999be5a66608a",
+    "probe": "a24e7f1fcd36c22e15f237cd6977e8a3beb390c375e480467d213a19dbe2549e"
+  },
+  "independent_checks": [
+    "Loaded all3 frozenmodels: float32 and empty extra_features",
+    "POSTRUN original model.predict via Qlib DatasetH, original ensemble and smoothing matched saved baseline within1e-12; not represented as preflight",
+    "Executed theta baseline/reference explicitlyfloat32",
+    "Recomputed all9 J values from persisted close NAV, DD and fixed B",
+    "Recomputed all4 finite differences; all fail and both directions flip sign across scales",
+    "27 reference plus3 tensor paths; zero optimizer/fits/nativeaccounts",
+    "Saved execution source bytes match delivered code"
+  ],
+  "limits": [
+    "q/cash/monthly/orderfees are enforced or inherited exactforward, not independent second-accounting engine verification",
+    "No recovery executions: recovery gradient unqualified",
+    "100 unfunded pre-correction slots is not exact funding-branch count",
+    "No isolated causal attribution of derivative mismatch to a single discrete branch"
+  ],
+  "mechanical_gate_pass": false,
+  "fixed_surrogate_closed": true,
+  "objective_achieved": false,
+  "readback": "readback_verification.json"
+}

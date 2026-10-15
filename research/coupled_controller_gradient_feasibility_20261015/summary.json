@@ -1,0 +1,64 @@
+{
+  "experiment": "coupled_controller_gradient_feasibility_20261015",
+  "plan_sha256": "c73103cf2aabedf405dd35d0f95d56c58dae584fb37dddd1d9a591eb91969d10",
+  "decision": "fixed_surrogate_rejected_no_optimization",
+  "objective_achieved": false,
+  "mechanical_gate_pass": false,
+  "failure": "fixed surrogate finite-difference/scale/informative gate failed; no rescue",
+  "optimizer_steps": 0,
+  "economic_model_fits": 0,
+  "native_accounts": 0,
+  "attempted_reference_shadow_paths": 27,
+  "completed_reference_shadow_paths": 27,
+  "attempted_tensor_paths": 3,
+  "completed_tensor_paths": 3,
+  "parity": {
+    "smoothing_max_error": 1.1102230246251565e-16,
+    "target_max_error": 2.7755575615628914e-16,
+    "local_cap_max_error": 2.220446049250313e-16,
+    "common_cap_max_error": 2.220446049250313e-16,
+    "known_nav_relative_error": 0.0,
+    "objective_absolute_error": 0.0,
+    "enforced_q_error": 0.0,
+    "enforced_cash_error": 2.842170943040401e-14,
+    "enforced_monthly_counter_error": 0.0,
+    "ledger_parity_role": "q/cash/monthly/orderfees inherited via exact-forward correction, NOT independent accounting validation",
+    "passed": true
+  },
+  "branch_coverage": {
+    "recovery_executions": 0,
+    "surrogate_unfunded_precorrection_slots": 100,
+    "recovery_gradient_qualified": false,
+    "scope": "Only exercised baseline branches; detachedbranch exact-forward/STE-backward proposal"
+  },
+  "temporal_role": "Frozenfinal2022 tangent models/recoverycontroller applied to pre2023 prices solely IN-SAMPLE mechanical qualification. Do not claim models existed in2020/21 orpredictiveOOF. Anyfuturedevelopmentfold needs ownprefoldcontroller/modelandmatchedtrainingdomain; annualrecoverymodels exist but areNOT substituted here.",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "recorder_id": "10e1a90b59214f51a382f8fb44219a26",
+  "experiment_id": "664263564054059304",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/coupled_controller_gradient_feasibility_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/coupled_controller_gradient_feasibility_20261015/qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/reference/*",
+      "analysis/tensor_audit"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "1253511359e4d02367ffa4a2bdb390c299b8cdbd2645a809ce1adf89d4c6659e",
+    "size_bytes": 1672030,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/12/53/1253511359e4d02367ffa4a2bdb390c299b8cdbd2645a809ce1adf89d4c6659e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 18:02:32.32029+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/12/53/1253511359e4d02367ffa4a2bdb390c299b8cdbd2645a809ce1adf89d4c6659e",
+    "recorder_id": "10e1a90b59214f51a382f8fb44219a26",
+    "experiment_id": "664263564054059304",
+    "archive_root": "qlib_recorder"
+  }
+}

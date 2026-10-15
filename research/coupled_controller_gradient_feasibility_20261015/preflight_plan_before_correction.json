@@ -1,0 +1,124 @@
+{
+  "experiment": "coupled_controller_gradient_feasibility_20261015",
+  "frozen_at_utc": "2026-10-15T09:43:24.981552+00:00",
+  "purpose": "Mechanical forward/gradient qualification only. No optimization, learnedparameterupdate, modelselection, policyrecommendation or predictivealpha claim.",
+  "sources": {
+    "coupled_reference": {
+      "card": "research/causal_cost_scenario_controller_20261015",
+      "recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+      "archive": "1145b7788507c9f47fa5d7a3d9a8e3ecb706177e3870bef3e475f74bb5ddf5a3",
+      "inventory_sha256": "e741bc79560532a94344212d7831cbb673fb6e6d1c0807e2e39c18b18c477707"
+    },
+    "training_frame": {
+      "card": "research/full_history_recovery_20261015",
+      "recorder_id": "e1d83118ffe845b8b2da2c682028a3f0",
+      "archive": "dd018f6a7b3e3fe73ba383da506fb23a9c73931801c92cb49fa796a5919b571f",
+      "inventory_sha256": "412393afa574fa825f674b8680b20b1b46a9ee5f6d77fc7b81d3bc6fe2a556b9"
+    },
+    "tangent": {
+      "card": "research/tangent_allocation_head_20261014",
+      "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+      "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+      "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+    },
+    "training_features": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+    },
+    "controller": {
+      "card": "research/full_path_tiered_allocation_20261013",
+      "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+      "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+      "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+    },
+    "action": {
+      "card": "research/stage1_minute_information_comparison_20261012",
+      "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+      "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+      "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+    },
+    "benchmark": {
+      "card": "research/tangent_oof_account_20261015",
+      "recorder_id": "19fd51c4c6db4c77871f79f35615ae33",
+      "archive": "9fbe9f25d43cd68668e131d6e49cffce436ba77ad79589aa661b541bfbf48601",
+      "inventory_sha256": "3b6d24a59e0cf7d3fa25fd2c830f7ef913623f4a83fbd77c4661ec7786f863be"
+    }
+  },
+  "frozen_models": [
+    "models/candidate_71",
+    "models/candidate_172",
+    "models/candidate_273"
+  ],
+  "selection": "From verified training_frame inputs/full_reference_frame retain rows whose source label_available_at strictly precedes2023-01-01 America/New_York. TakeLAST189 chronologicalrows only,63warmup+126score; nooutcome-baseddates. Require fullknown/fill/close/nextopen and firsthour availability masks, neverinvent2011minutehistory.",
+  "temporal_role": "Frozenfinal2022 tangent models/recoverycontroller applied to pre2023 prices solely IN-SAMPLE mechanical qualification. Do not claim models existed in2020/21 orpredictiveOOF. Anyfuturedevelopmentfold needs ownprefoldcontroller/modelandmatchedtrainingdomain; annualrecoverymodels exist but areNOT substituted here.",
+  "whole_controller": "Exactlatestcausal_cost_scenario_controller policy: originalthresholds/stateclock/4dayhistory,0/2/5 ownledgers,minimumlocalcap,ALL3 recoveryagreement,source recoverymodel/selection,openmodelNone,T afterlegalprojection. Freezeexact parentcontroller/action/modelidentities andtariff; no alternative controller.",
+  "initialization": "All3ledgers100000cash,zeroq,peak100000,state0,clock0,emptyknownreturnhistory andmonthlyfee counters. Atfirstrawprediction EMA adjust=False usesthatprediction; acceptedpreviousweights cash1 asoriginal_smooth_weights,driftusingexistingmatureassetreturns. First63sessions warmbothsmootherandaccount; noyearreset.",
+  "perturbation": "Two scalarcoordinates added to eachfrozenmodel allocation logits before ORIGINAL rawlegalprojection: d1=(1,-1,0) SOXL-versusSOXX; d2=(0,-1,1) CASH-versusSOXX. Sameconstantoffset toall3models/all189sessions includingwarmup, ensemblethenoriginalEMA/acceptance. theta0 unmodifiedmodels. Nevermutateweights orselectdirection.",
+  "finite_differences": {
+    "directions": {
+      "d1": [
+        1,
+        -1,
+        0
+      ],
+      "d2": [
+        0,
+        -1,
+        1
+      ]
+    },
+    "epsilons": [
+      0.001,
+      0.0001
+    ],
+    "method": "central exactreference J(+eps*d)-J(-eps*d) dividedby2eps; all4direction/epsilon estimates mandatory, noadaptation"
+  },
+  "objective_probe": {
+    "primary_cost_bps": 2,
+    "score_sessions": 126,
+    "warmup_sessions": 63,
+    "relative_shortfall_coefficient": 1,
+    "drawdown_penalty_coefficient": 5,
+    "maximum_drawdown": 0.3,
+    "definition": "Existingfull_path objectiveform onONEblock: -relative +1*sqrt(relu(-relative)^2+1e-12)+5*relu(maxsampledDD-.30). relative=log(primaryNAVend/primaryNAVwarmend)-log(fixedSOXXreferenceNAVend/referenceNAVwarmend). Benchmarkconstant reusedsourcebook overexactdates; derivativeindependentofbenchmark. Objectiveonlymechanicalprobe,not a matched economictrainingintervention."
+  },
+  "surrogate_contract": "Exact-forward,continuous/STE-backward using frozenBASELINE branch decisions. Autogradmarketmarks constant; modelrawprojection/EMA arithmetic/drift,T andcontinuousNAV/highwater remain differentiable. Discrete acceptance/HOLD,trade signs,integerfloor,fee regimes,riskstate/clock/thresholdflags,recoveryvotes are detached baseline choices. Commoncap usesfixed localbranches with torch.amin equal-tie subgradient; no smooththresholds. Existingtiered_tensor_settle continuous/STE result suppliesbackward surrogate ONLY; exactsource settle_tiered_event q/cash/monthlycount values override forward by z_sur+(z_exact-z_sur).detach atEACHslot. This includes exactcash-funding while-loop/whole-sharecounts andmonthlytiers; do NOT call oldtensor forward exact whenTcash0. Surrogateignoresderivativeoffundingintegerreductions andbranchchanges; finite-differencegate explicitlytests whetherthisspecificapproximation isusable locally.",
+  "reference_contract": "EachperturbedPythonreference recomputesall ownstates/commoncaps/recoveryvotes/affordablewhole-sharefills usingexistingexactsettlement; no frozenfuturetargetpath. All eventdecisions precede sameeventfills. No producerfuturefillinput.",
+  "budget": {
+    "optimizer_steps": 0,
+    "economic_model_fits": 0,
+    "native_accounts": 0,
+    "joint_exact_reference_passes": 9,
+    "reference_shadow_paths": 27,
+    "tensor_baseline_joint_passes": 1,
+    "tensor_baseline_paths": 3,
+    "total_shadow_equivalent_paths": 30,
+    "additional_synthetic_tests_maximum": 1
+  },
+  "parity_gate": {
+    "discrete_states_clocks_votes_order_directions_raw_share_counts": "exact equality across189\u00d73",
+    "target_absolute_tolerance": 1e-10,
+    "q_cash_nav_relative_tolerance": 1e-07,
+    "per_order_fee_absolute_usd": 1e-07,
+    "objective_absolute_tolerance": 1e-08,
+    "coverage": "all3costs allsessions bothopen/recovery slots,peak/history/monthlyfees/Ttrace"
+  },
+  "gradient_gate": {
+    "agreement": "ForEACHdirection andBOTHfixed eps abs(autograd-FD)<=max(1e-5,0.10*abs(FD)); whenabs(FD)>1e-5 signs mustmatch. Samebound between twoFD estimates usingmaxabsoluteFD. Noaveragingaway failures.",
+    "informative": "Allgradients/FD finite and at leastonedirection abs(FD)>1e-5 atBOTH eps; allzero isnot qualification.",
+    "branch_diagnostics": "Record state/cap/vote/funding-regime changes atperturbations but neverexcludechangingbranches toforcepass."
+  },
+  "price_contract": "Qlibreadbackall frozenknown/open/recovery/close/exit/rawmarks; original fullminute source18f1...asof2026-10-09. No newdataorpricebasis.",
+  "if_failed": "Close THIS exactsurrogate whenparity,finite-differenceagreement,orinformativegatefails. Noepsilon/direction/window/threshold/penalty/STErescue oroptimizer. Overallgoalactive.",
+  "if_passed": "Mechanicalqualification only; independently reviewseparateboundedtrainingplan withsamecausalforward andmatchedminute-domainbaseline. Doesnotauthorizefits orpromotion.",
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "promotion_authority": false,
+  "benchmark_artifacts": [
+    "analysis/native/soxx_0",
+    "analysis/native/soxx_2",
+    "analysis/native/soxx_5"
+  ],
+  "benchmark_contract": "Use already saved SOXX native authority ratios on exact scored dates, no benchmarkrerun. Sourceholdings startedearlier thanmechanicalreset, so thisconstant isONLYobjectiveprobe normalizer,not matchedperformance comparison; no economic merit inferred."
+}

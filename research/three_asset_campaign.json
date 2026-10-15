@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/cpi_opening_context_information_text_20261015",
-  "current_phase": "fixed_cpi_route_closed_next_mechanism_triage",
-  "next_action": "Triage whether composition objective versus executed controller mismatch supports a genuinely distinct contract from closed full_path_tiered training. No new fit until bounded plan and independent design review; do not rescue CPI interaction or relabel negative routes.",
+  "current_experiment": "research/coupled_controller_gradient_feasibility_20261015",
+  "current_phase": "fixed_surrogate_closed_next_information_source_triage",
+  "next_action": "Review management revenue forecast error (actual versus OWN prior guidance for same fiscal quarter): deduplicate against closed original-guidance-level, next-quarter-guidance-vs-consensus and seasonal-EPS routes; inspect existing NVDA original release corpora for comparable paired facts and conservative timing before any collection or fitting. No gradient-free, epsilon or surrogate rescue.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -437,6 +437,51 @@
         "nas_verified_artifacts": 29,
         "all_hashes_match": true
       }
+    },
+    {
+      "card": "research/coupled_controller_gradient_feasibility_20261015",
+      "kind": "pre_fit_exact_controller_gradient_feasibility",
+      "status": "completed_fixed_surrogate_rejected",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "maximum_reference_shadow_paths": 27,
+      "maximum_tensor_baseline_paths": 3,
+      "initial_plan_sha256": "abf885a1dc27d62b3e9174ea75f34844653c01dad6237508d4c633a7146b9840",
+      "independent_design_findings": [
+        "Exact current coupledcontroller training not literally tested by prior full_path or compositionproxy routes",
+        "Benchmark enters nonlinear shortfall derivative; exact object needed",
+        "Warmup DD mask must be explicit and identical",
+        "Qualification limited to exercised branches"
+      ],
+      "evaluation": "research/coupled_controller_gradient_feasibility_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_ZERO_OPTIMIZATION_MECHANICAL_QUALIFICATION",
+        "plan_sha256": "c73103cf2aabedf405dd35d0f95d56c58dae584fb37dddd1d9a591eb91969d10",
+        "conditions": [
+          "Exact pinned SOXX close NAV endpoints retained inside nonlinear loss",
+          "DD all189 includingwarmup, relative row62 to188",
+          "Originalfloat32 inference, float64 ledger",
+          "Qualified only on exercised branches, not global gradient or economic merit",
+          "No optimizer/fits/nativeaccounts or adaptive directions/epsilons"
+        ]
+      },
+      "recorder_id": "10e1a90b59214f51a382f8fb44219a26",
+      "mechanical_gate_pass": false,
+      "verification": {
+        "completed_reference_shadow_paths": 27,
+        "completed_tensor_paths": 3,
+        "optimizer_steps": 0,
+        "new_model_fits": 0,
+        "new_native_accounts": 0,
+        "nas_verified_artifacts": 31,
+        "all_hashes_match": true,
+        "original_inference_fidelity": "independently verified postrun"
+      },
+      "failed_gates": [
+        "All4 autograd versus exact finite difference comparisons fail",
+        "Both fixed directions change finite-difference sign across fixed scales"
+      ]
     }
   ],
   "governance_review": {
@@ -467,10 +512,24 @@
       "reason": "Already106monthlyreports and6Ridge informationfits, developmentgatesfailed; sameMoM/YoYfields are not newmechanism",
       "evidence": "research/sia_sales_information_20261013/conclusion.md",
       "new_collection_or_fits": 0
+    },
+    {
+      "direction": "TSMC monthly reported revenue YoY acceleration",
+      "reason": "Already qualified130sourceevents and tested fixed5session positive association; development84observations IC-0.09477 and95percent interval crosseszero. Fixed route closed, no sign/horizon/threshold rescue. Source is not an untested new demand signal.",
+      "evidence": "research/tsmc_yoy_acceleration_5session_information_20261010/conclusion.md",
+      "source_evidence": "research/tsmc_monthly_revenue_pit_qualification_20261010/conclusion.md",
+      "new_collection_or_fits": 0
     }
   ],
   "cumulative_new_shadow_paths_in_this_campaign": 3,
   "cumulative_new_allocator_fits_in_this_campaign": 3,
   "cumulative_new_statistical_fits_in_this_campaign": 12,
-  "cumulative_frozen_risk_valuations": 6
+  "cumulative_frozen_risk_valuations": 6,
+  "mechanism_triage": {
+    "document": "docs/composition_execution_contract_triage.md",
+    "reviewer": "/root/evaluator",
+    "verdict": "source_comparison_accepted",
+    "finding": "Prior fullpath learned a replacement controller; prior compositiontraining changed proxyweights only. Exactcurrent coupledcontroller gradient contract remains mechanically unqualified."
+  },
+  "cumulative_mechanical_shadow_equivalent_paths": 30
 }

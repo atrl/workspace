@@ -1,0 +1,30 @@
+{
+  "plan_sha256": "c73103cf2aabedf405dd35d0f95d56c58dae584fb37dddd1d9a591eb91969d10",
+  "reference_attempts": [
+    "baseline",
+    "d1_minus_0.001",
+    "d1_plus_0.001",
+    "d1_minus_0.0001",
+    "d1_plus_0.0001",
+    "d2_minus_0.001",
+    "d2_plus_0.001",
+    "d2_minus_0.0001",
+    "d2_plus_0.0001"
+  ],
+  "reference_completed": [
+    "baseline",
+    "d1_minus_0.001",
+    "d1_plus_0.001",
+    "d1_minus_0.0001",
+    "d1_plus_0.0001",
+    "d2_minus_0.001",
+    "d2_plus_0.001",
+    "d2_minus_0.0001",
+    "d2_plus_0.0001"
+  ],
+  "tensor_attempted": true,
+  "tensor_completed": true,
+  "recorder_id": "10e1a90b59214f51a382f8fb44219a26",
+  "experiment_id": "664263564054059304",
+  "source_saved": true
+}

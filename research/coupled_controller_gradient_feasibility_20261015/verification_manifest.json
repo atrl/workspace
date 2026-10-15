@@ -1,0 +1,160 @@
+{
+  "recorder_id": "10e1a90b59214f51a382f8fb44219a26",
+  "entries": [
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/branch_coverage",
+      "sha256": "3f530a7573e416ba6ed3be9a07852e997b191189eadf7bb8c045dac68d5ee31d",
+      "bytes": 209
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/finite_differences",
+      "sha256": "f25d2b1bcb0eb8a5aaeed0c44053301f57ccd65ea4010b44dfcd73297d64d1cf",
+      "bytes": 1548
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/gradient",
+      "sha256": "a887e0543995b9e60b452c33039ac3f8e74609deaff8a9caa7685ca1e25881d7",
+      "bytes": 164
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/parity",
+      "sha256": "9ea2d83c0cee73a596601a7d928280193f268191586501fafcef8d7bdbd6dea3",
+      "bytes": 447
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/reference/baseline",
+      "sha256": "f19a7894388a351fe34dfc3a7d5aed5aeb0d921d7e6c5b887c089ed827800986",
+      "bytes": 372996
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/reference/d1_minus_0.0001",
+      "sha256": "b74c5a12e0b8419beb02436a15a454168d90a0a28da31c21f1d65161accc6bf0",
+      "bytes": 372996
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/reference/d1_minus_0.001",
+      "sha256": "47dfeff61b9a8be4497e8ea9b47974c4d0206379b078e8a195d4870e1daa0059",
+      "bytes": 372856
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/reference/d1_plus_0.0001",
+      "sha256": "018ca027d1ce539c9f8ff7d53c97f740fc291f3d1a07b3b89669da4704619591",
+      "bytes": 373136
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/reference/d1_plus_0.001",
+      "sha256": "d652ea110253dd8c4b07d773b0f1a67ef31c24735b56fd5d066ec73964d763cc",
+      "bytes": 372716
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/reference/d2_minus_0.0001",
+      "sha256": "e074a1e0dc8997f5612f6648f0f5b27221e3674dc6d6911d80cc2ae4987d7d99",
+      "bytes": 372996
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/reference/d2_minus_0.001",
+      "sha256": "291824574ee7fdcaa4844f70c0dd0899a229da03b2bb978ce3d8569f62833824",
+      "bytes": 372576
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/reference/d2_plus_0.0001",
+      "sha256": "e4785ab769ab571aaa5c94fec157a2d54c01204672d8e9752fb60b0609250ac9",
+      "bytes": 372996
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/reference/d2_plus_0.001",
+      "sha256": "fa93ffd0a84ed4438b3b2c5b66b492d5d13de458e292e64220a8753163e66c8d",
+      "bytes": 372856
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/summary",
+      "sha256": "b79bc2ad32706f898cad87a1bbc9d45ebf5291a3efe95a68dc524af88adb24b9",
+      "bytes": 2212
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/analysis/tensor_audit",
+      "sha256": "b3ec17d8ff4d8113286b0478b2781875df0f5974698e857d264f152e075accd4",
+      "bytes": 43231
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/code_diff.txt",
+      "sha256": "087b158ff8c628e5d80081c7117544f700c4e674f56f4b154a11b371efc208a1",
+      "bytes": 414702
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/code_status.txt",
+      "sha256": "aae766ac1909a9a32c2d65927a6e079f75f4021dfe8437a47209f53e99c549a2",
+      "bytes": 59990
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/inputs/B",
+      "sha256": "7ccef9523b3caea77f493aaa9115c953e7888bcece86914834fe7e8ab74a4258",
+      "bytes": 21
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/inputs/benchmark_endpoints",
+      "sha256": "4500a67e8a65314f55e3f4ba621ce27db62b6108d95eda8c67c67300bc5f62e5",
+      "bytes": 157
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/inputs/frame",
+      "sha256": "147efa7798460d0aba7adfc45752c1b3b929fc3296ee561f8fcbd9f8e1946882",
+      "bytes": 147081
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/inputs/mark_audit",
+      "sha256": "e268dcf4c8453d1ef74131e9444b2804f81e83b5c1da55cd190561f40cf6fbbf",
+      "bytes": 1326
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/inputs/original_smoothing_returns",
+      "sha256": "6f0880dc0e48e8962d312f0fecf22deac3698a54df92a57305da16fdc7749053",
+      "bytes": 3177
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/inputs/plan",
+      "sha256": "a754e55bbcb251dd6f4ec09a021554d3f7fc92aca44487ab88224ab850742023",
+      "bytes": 9993
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/inputs/source_audits",
+      "sha256": "dfed401b157204eb283aec7829c97992b7492e86265c6d4e9ea9d85476ec085b",
+      "bytes": 9167
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/sources/actual_fee",
+      "sha256": "b8d230ec57f54a4abaf7f9ae7658af2ee31fb07dc9521c77fafdb7ee31107cde",
+      "bytes": 8359
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/sources/execution_workflow",
+      "sha256": "18936b3576008238f24d33bdb2f1253992b581878e1f732edc2d7a369a6f970e",
+      "bytes": 13237
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/sources/probe",
+      "sha256": "9d6a597f4acd711d39fdbc2556650c53184fc4d77024e6e4c6ab9c3a7e12123f",
+      "bytes": 9791
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/sources/reference",
+      "sha256": "20b7f5306b9aea4ccb34744e9f80c89836db5f4d85f6d751e7f3b172983afde1",
+      "bytes": 8295
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/sources/smoothing",
+      "sha256": "fb56a35500a3b84434fa96764e1deb86dbb57de9cddca295819c6d301ab37be7",
+      "bytes": 102361
+    },
+    {
+      "path": "qlib_recorder/664263564054059304/10e1a90b59214f51a382f8fb44219a26/artifacts/sources/tensor_fee",
+      "sha256": "bd470b9a56b8490415bc95e97b35a50b7b17c943e5afd9e770b39b4d7dd544b7",
+      "bytes": 13684
+    }
+  ]
+}
