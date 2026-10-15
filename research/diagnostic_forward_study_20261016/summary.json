@@ -1,0 +1,98 @@
+{
+  "experiment": "diagnostic_forward_study_20261016",
+  "phase": "implementation_only",
+  "decision": "offline_contract_only_source_mapping_and_live_activation_pending",
+  "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+  "allocator_calls": 9,
+  "model_row_outputs": 45,
+  "model_parity_passed": true,
+  "source_dataset_readback_passed": true,
+  "formula_reconstruction_passed": true,
+  "formula_reconstruction": [
+    {
+      "surface": "primary39",
+      "passed": true,
+      "maximum_absolute_error": 5.9234180227463185e-08,
+      "method": "original frozen formula on existing local providers; not source selection/fetch"
+    },
+    {
+      "surface": "common16",
+      "passed": true,
+      "maximum_absolute_error": 0.0,
+      "method": "original frozen formula on existing local providers; not source selection/fetch"
+    }
+  ],
+  "source_role_mapping_passed": false,
+  "probe_calls": 0,
+  "pilot_launches": 0,
+  "new_fits": 0,
+  "new_forward_days": 0,
+  "old_days_credited": 0,
+  "real_orders": 0,
+  "pilot_ready": false,
+  "native_policy_backtests": 0,
+  "live_recovery_fill_qualified": false,
+  "implemented": [
+    "strict phase/receipt/bar/quote/volume validators",
+    "12-book clone/commit state and raw settlement",
+    "finite receipted-event runner",
+    "local-only nine-model batch/readback notebook"
+  ],
+  "not_implemented_or_unqualified": [
+    "approved live role-to-provider mapping",
+    "live collector transport wiring",
+    "observed bar mapping proof",
+    "probe/pilot phase permissions",
+    "live recovery order evidence"
+  ],
+  "recorder_id": "f294dd70e80e40b9acf977adc7c250d2",
+  "experiment_id": "224632569850367091",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/diagnostic_forward_study_20261016/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/diagnostic_forward_study_20261016/qlib_recorder/224632569850367091/f294dd70e80e40b9acf977adc7c250d2",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "offline_predictions/*",
+      "analysis/*"
+    ]
+  },
+  "blocked_network_attempts": 1,
+  "actual_market_data_requests": 0,
+  "actual_quote_probe_requests": 0,
+  "original_attempt_origin": "unknown",
+  "original_execution_summary": "offline_summary.json",
+  "reporting_clarification": "network_attempt_clarification.json",
+  "reporting_clarification_sha256": "bb89af78b6ac5cd072bef449e1d57947e6411b811f177d82ac9a5d8081e420ef",
+  "recorder_experiment_name": "diagnostic_forward_study_20261016_implementation",
+  "nas_evidence": {
+    "sha256": "48f9561f58e80e7c3090d6b0f180e60f86c62809c3e135a5d8e76a5382e6039c",
+    "size_bytes": 96883,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/48/f9/48f9561f58e80e7c3090d6b0f180e60f86c62809c3e135a5d8e76a5382e6039c",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 01:43:21.622886+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/48/f9/48f9561f58e80e7c3090d6b0f180e60f86c62809c3e135a5d8e76a5382e6039c",
+    "recorder_id": "f294dd70e80e40b9acf977adc7c250d2",
+    "experiment_id": "224632569850367091",
+    "archive_root": "qlib_recorder"
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "region": "us",
+  "as_of": "2026-10-07",
+  "fixture_dates": [
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07"
+  ],
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "data_lineage": "Exact role-specific source provider identities in source_role_identity.json; native Qlib D.features / DatasetH readback and original-formula reconstruction recorded in inputs/native_readback and inputs/formula_reconstruction. provider_uri is initial context, not a claim of a single upstream vendor."
+}

@@ -1,0 +1,56 @@
+{
+  "controller": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7",
+    "artifacts": {
+      "inputs/controller": {
+        "sha256": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+        "meaning": "inputs/controller"
+      },
+      "inputs/plan": {
+        "sha256": "2a2099904dd2507e837b40c51dd15228cfded78d55c1f6a49cd5646044c1e297",
+        "meaning": "inputs/plan"
+      }
+    }
+  },
+  "action_and_recovery_spec": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+    "artifacts": {
+      "inputs/plan": {
+        "sha256": "b3fddcc9f1ad9735ab4ef260bfec7792aca572adbde2ad6a78511d8c5d8fb103",
+        "meaning": "inputs/plan"
+      },
+      "controller/source_recovery_selection": {
+        "sha256": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+        "meaning": "controller/source_recovery_selection"
+      }
+    }
+  },
+  "raw_inheritance": {
+    "card": "research/frozen_policy_raw_cashbook_20261015",
+    "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+    "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+    "artifacts": {
+      "inputs/plan": {
+        "sha256": "ead4fa68daa779ea4da4708b762913e7d89e7c9d6f68523340e0252866eb712b",
+        "meaning": "inputs/plan"
+      },
+      "inputs/schedule": {
+        "sha256": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "meaning": "inputs/schedule"
+      },
+      "inputs/source_audits": {
+        "sha256": "143690ed78bb31df7b8844e7ffee8e0ccc53d53be4d4780686182eb21146fe52",
+        "meaning": "inputs/source_audits"
+      }
+    }
+  },
+  "runtime_binding": "Open model=None (always execute projectedtarget); use ONLY controller inputs/controller[frozen_recovery_model] for recovery. recovery_spec/action_spec from action inputs/plan; selection from controller/source_recovery_selection. Raw55b422 and INDEX83a13 bothloadedtheseSAMEsources; neveruseunrelatedannualrecoverymodel orproductionruntime model.",
+  "no_inference_performed": true
+}

@@ -1,0 +1,25 @@
+{
+  "role": "postrun_zero_model_zero_market_attribution_reproduction",
+  "original_attempt_had_no_stack": true,
+  "reproduction_records": [
+    {
+      "hook": "requests.Session.request",
+      "method": "get",
+      "host": "config.mlflow-telemetry.io",
+      "stack": [
+        "  File \"/Users/rziiiii/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/threading.py\", line 1032, in _bootstrap\n    self._bootstrap_inner()\n",
+        "  File \"/Users/rziiiii/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/threading.py\", line 1075, in _bootstrap_inner\n    self.run()\n",
+        "  File \"/Users/rziiiii/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/threading.py\", line 1012, in run\n    self._target(*self._args, **self._kwargs)\n",
+        "  File \"/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/mlflow/telemetry/client.py\", line 167, in _fetch\n    self._get_config()\n",
+        "  File \"/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/mlflow/telemetry/client.py\", line 191, in _get_config\n    response = requests.get(config_url, timeout=1)\n",
+        "  File \"/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/requests/api.py\", line 87, in get\n    return request(\"get\", url, params=params, **kwargs)\n",
+        "  File \"/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/requests/api.py\", line 71, in request\n    return session.request(method=method, url=url, **kwargs)\n",
+        "  File \"<stdin>\", line 8, in deny_http\n"
+      ]
+    }
+  ],
+  "actual_HTTP_or_socket_calls": 0,
+  "model_calls": 0,
+  "market_reads": 0,
+  "source_Recorders_modified": false
+}

@@ -1,0 +1,63 @@
+{
+  "experiment": "diagnostic_forward_study_20261016",
+  "phase": "implementation_only",
+  "decision": "offline_contract_only_source_mapping_and_live_activation_pending",
+  "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+  "allocator_calls": 9,
+  "model_row_outputs": 45,
+  "model_parity_passed": true,
+  "source_dataset_readback_passed": true,
+  "formula_reconstruction_passed": true,
+  "formula_reconstruction": [
+    {
+      "surface": "primary39",
+      "passed": true,
+      "maximum_absolute_error": 5.9234180227463185e-08,
+      "method": "original frozen formula on existing local providers; not source selection/fetch"
+    },
+    {
+      "surface": "common16",
+      "passed": true,
+      "maximum_absolute_error": 0.0,
+      "method": "original frozen formula on existing local providers; not source selection/fetch"
+    }
+  ],
+  "source_role_mapping_passed": false,
+  "network_calls": 1,
+  "probe_calls": 0,
+  "pilot_launches": 0,
+  "new_fits": 0,
+  "new_forward_days": 0,
+  "old_days_credited": 0,
+  "real_orders": 0,
+  "pilot_ready": false,
+  "native_policy_backtests": 0,
+  "live_recovery_fill_qualified": false,
+  "implemented": [
+    "strict phase/receipt/bar/quote/volume validators",
+    "12-book clone/commit state and raw settlement",
+    "finite receipted-event runner",
+    "local-only nine-model batch/readback notebook"
+  ],
+  "not_implemented_or_unqualified": [
+    "approved live role-to-provider mapping",
+    "live collector transport wiring",
+    "observed bar mapping proof",
+    "probe/pilot phase permissions",
+    "live recovery order evidence"
+  ],
+  "recorder_id": "f294dd70e80e40b9acf977adc7c250d2",
+  "experiment_id": "224632569850367091",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/diagnostic_forward_study_20261016/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/diagnostic_forward_study_20261016/qlib_recorder/224632569850367091/f294dd70e80e40b9acf977adc7c250d2",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "offline_predictions/*",
+      "analysis/*"
+    ]
+  }
+}

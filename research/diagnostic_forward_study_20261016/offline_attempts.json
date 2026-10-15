@@ -1,0 +1,33 @@
+{
+  "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+  "code_sha256": {
+    "src/data/diagnostic_forward_inputs.py": "2f657d7b41b284e772e76986d3996322ec2bae5bf09ae73749d548f8f52f1318",
+    "src/backtest/diagnostic_forward_state.py": "76bf29cc6c8ab9f71e84067aa25ed22a9845d4c85ae9a1a2b927fa4e00c16d13",
+    "src/schedule/diagnostic_forward_study.py": "3c44372c5a9126c3a626d8faf003c4135f7a0df6f48ac99fb3a0b3186fc426ab"
+  },
+  "calls_attempted": [
+    "reference27baa_71",
+    "reference27baa_172",
+    "reference27baa_273",
+    "index_candidate_71",
+    "index_candidate_172",
+    "index_candidate_273",
+    "index_control_71",
+    "index_control_172",
+    "index_control_273"
+  ],
+  "calls_saved": [
+    "reference27baa_71",
+    "reference27baa_172",
+    "reference27baa_273",
+    "index_candidate_71",
+    "index_candidate_172",
+    "index_candidate_273",
+    "index_control_71",
+    "index_control_172",
+    "index_control_273"
+  ],
+  "recorder_id": "f294dd70e80e40b9acf977adc7c250d2",
+  "experiment_id": "224632569850367091",
+  "sources_saved": true
+}

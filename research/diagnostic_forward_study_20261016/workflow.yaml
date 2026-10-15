@@ -1,0 +1,12 @@
+experiment: diagnostic_forward_study_20261016
+phase: implementation_only
+plan: plan.json
+module: src.schedule.diagnostic_forward_study
+entrypoint: run_offline
+network_authorized: false
+probe_authorized: false
+pilot_authorized: false
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: ["inputs/*", "sources/*", "offline_predictions/*", "analysis/*"]

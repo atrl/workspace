@@ -1,0 +1,219 @@
+{
+  "experiment": "diagnostic_forward_study_20261016",
+  "frozen_at_utc": "2026-10-15T16:35:01.769373+00:00",
+  "role": "Isolated prospective DIAGNOSTIC simulated-position study of unpromoted frozen policies; genuinelynewfutureobservations, no historicalroute rescue/promotion.",
+  "prior_facts": "All13priorreadiness staticcode hashes remainunchanged. Existingus_open_quotes09:31–09:36window/price+mintimestamp output cannotserve09:45/46/47sealedcontract. Existingeconomicshadow usesexternalSIMholdings; cannotinherititsstates/days. Verifiednewrawcashbook nowcoversC/R/exactsplits/feeaccounting; receiptandfeatureactivation stillmustbeimplemented.",
+  "models": {
+    "reference27baa": {
+      "card": "research/nvda_own_guidance_realization_training_20261015",
+      "recorder_id": "27baa03f0d3046d8b82408ecb6ca07e7",
+      "archive": "e5843be4a5dbd36c1f92c45755b63f1d1e8f8e7b4a6203112b539170e5d13471",
+      "inventory_sha256": "1dbc58bfe68e892867c42eb87cce506bb83acb3586671d3f252eb1f8d5171e38"
+    },
+    "index_candidate_and_control": {
+      "card": "research/generic_index_risk_transfer_20261015",
+      "recorder_id": "83a13ab47cdb4e28a5fe285821909a28",
+      "archive": "413da98cbf476534e5ca58b6b4a0188709655ef695b5cabf0778401f6e52b0bf",
+      "inventory_sha256": "572a19fa79c98e722c058d915f0b9159480b524269a5ff65260c3e813d87e408"
+    },
+    "model_artifacts": "27baa models/candidate_{71,172,273}; index models/{candidate,control}_{71,172,273}; frozenweights/scalers/specs,9allocatorobjects,0fits. Reuseoriginal39features+16common;27baaadditionaloriginal3flags+1NVDArealization only. Noissuerhypothesis/inputextension.",
+    "history_not_success": "27baa/genericcandidate/control historicalrolling/CI failures remainfailures; proper-score negative remainsclosed. Observefrozenrecipesonly."
+  },
+  "raw_account_source": {
+    "card": "research/frozen_policy_raw_cashbook_20261015",
+    "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+    "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054"
+  },
+  "fundamental_source": {
+    "card": "research/nvda_own_guidance_realization_source_20261015",
+    "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0",
+    "archive": "a77a7be5d5aa1ff7580fb297e19d873f38a04166c76fa12ba974327cf38ab414",
+    "inventory_sha256": "5439a610a2d429a7dfdbcc9becbb7e751dcd2c5ed771582785e36191f6d61ba7"
+  },
+  "unchanged_code_sha256": {
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "src/model/generic_index_risk_transfer.py": "bae1bf6696b35deabc57bc4e9c381360ebb380b9cc4b583515448caa9504ff4a",
+    "src/model/nominal_beta_composition.py": "718cef532ebb9b009da84abfb64abdf1d0eaf23c7ac453243109e85abfdae258",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/workflow/cash_floor_relative_feature_reintegration.py": "a08f72231b47838dc4165b61d7cedeeed1321256c16618dc518d9d0805669302",
+    "src/workflow/hierarchical_soxx_excess_walk_forward.py": "6084be204435d432a81d61b9d1f7f08f81a274e043c76cfadcec49a3501f1b18",
+    "src/data/soxs_defensive.py": "efbd5dcd1a86518044e82e46dce174e9dcf39eecbc449a41a69d35f6a37c13df",
+    "src/data/market_update.py": "ad243b1c1eeb27522d3babc455263967ad61f7b2d87a28758ddbe8adfd759599",
+    "src/data/nvda_own_guidance_realization.py": "9a22ee2a8f13b89b2898bfbd3db1c2cc8926e80f203db29b1e457fd2495d2388",
+    "src/schedule/us_open_quotes.py": "a8a71b371423356302ef2973a4c4386891fedaa66131785c69c578efc2beb684",
+    "src/workflow/stage1_regime_paper.py": "e3046205403677ab16439c44a5ed66501538f7098ee773f6a23fa5b6d528e1f4",
+    "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "src/data/multi_3x_etf_update.py": "a7dacb0fcd6af80d03283e755fefc91d69206f0c4e486e825a6cb825d62b6c47",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1"
+  },
+  "implementation_scope": {
+    "modules": "New src/data/diagnostic_forward_inputs.py, src/backtest/diagnostic_forward_state.py, src/schedule/diagnostic_forward_study.py plusresearchnotebook. Reusefrozenfeaturefunctions/rawsettlement/IncomeLedger/currentcontroller functions; no editslegacyproduction/scheduler/runtimeconfig/brokeradapters.",
+    "isolation": "runtime/research/diagnostic_forward_study_20261016/ only, separatelock/state/eventjournal/Qlibstore/Recorder. Readlegacyconfig ONLYexistingOpenDendpoint (nosecretsprinted); noOpenTradeContext/order/account APIs. Write simulatedtargets/paperfills only.",
+    "offline_contract": "Onefocusedclock/statefixture usesfixedsyntheticpayloads/votes (noadditionalneuralinference). Forrealmodelparity selectatmost5fixedlastCOMMONsavedfixture signal dates beforeanyreadbackvalues. Eachofthe9frozenmodels receivesONEbatchof<=5dates: TOTAL9allocatorpredict/forwardcalls and<=45model-rowoutputs, not9callsperdate. Samebatchbuildreproduces39+16sourceinputs (rtol1e-6/atol1e-8); no policyhistoryreplay,0forwarddays.",
+    "source_probe": "AfterindependentdesignANDrootphase_probepermit: exactlyoneOpenQuoteContext, get_global_state once,get_market_snapshot([US.SOXL,US.SOXX]) once, thenrequest_history_kline oncepersymbol formechanicallylatestcompletedXNYSsession (K_1M,AuType.NONE,max_count1000,extended_time=False/sessionRTH, no subscribe/get_cur_kline,no pagination/retries). Max4APIcalls, rawpayload+UTC/monotonicreceipts/per-symbolclocks/SDKversion captured.0forwarddays. VerifyhistoricalRTHslotmap gate below, no settings/auth/hostchanges.",
+    "probe_data_minimization": "Global-state response is NOT storedraw: retainonly returnstatus,market_us,qot_logined(optionalbool),server/OpenDversion andUTC/monotonicreceipt. Dropaccount/user/auth/session identifiers,tokens andanyunneededfields in-memory beforelogging/Recorder/hash. No accountqueries. Quote/historypayloads retained normally; errors sanitizedtocategory/retcode withoutidentifiers. DisableverboseSDKpayloadlogging."
+  },
+  "daily_feature_collector": {
+    "universe": [
+      "SOXL",
+      "SOXX",
+      "SOXS",
+      "TQQQ",
+      "UPRO",
+      "SPXL",
+      "TECL",
+      "SPY",
+      "QQQ",
+      "XLK",
+      "^VIX"
+    ],
+    "fixed_source": "ROLE-SPECIFICexistingcanonicalchains, notuniformNasdaq: soxl_soxx_soxs executionfeatureblock hasNasdaqOHLC+Yahooadjustment evidence; mainsoxl OHLCV/VIX andmulti-pair/normalizedblocks mayhavedifferentactualupstream. See pinnedsource_role_identity.json. ExistingNasdaq+Yahoopayloadbudgetunchanged; usingdifferentfieldsforprice/volume requires explicitrole-levelmappingreview, neverimpliedfallback. No newprovider/symbol permitted.",
+    "HTTP_budget_per_pilot": "UNCHANGEDMAX21:10NasdaqETF requests+10YahooETFpayloads+1YahooVIX. TheseareapprovedprovidercandidatesWITHINfixedexistingchains, notproofwhichfieldbelongs toeachcanonicalrole. ExistingYahoopayloads includequoteOHLCV andadjclose; mayretaintheseunderexplicitidentity, butcannotstartmodeltradinguntilrole/basis mappingreviewpasses. Noaddedrequest/source. Existinghistoryclonedintoisolatedstore, notproductionoverwrite.",
+    "source_capture": "CaptureeachrequestUTC/monotonicstart/end,resolvedURL,status/rawbytesSHA, exactusedrowsandfieldmapping; initializeisolatedQlibcalendar/instruments/stores. Prior-daycompleteOHLCV/currency/calendar/adjustmentcoverage required, no fill. Preserveeachsnapshot; newadjustmentversionsmayreexpresshistoryforNEWfeaturesbutneverrewriteanyoldsealedfeaturevector/decision/ledger.",
+    "builder": "UseunchangedDirectContinuousAllocationSpec→_load_frame andSOXXcommonbuilder formulas, sameoriginal39+16orders/scalers; originalnoextra-minute allocatorinputs. Derivecrossbreadth onexact5ETFpairuniverse includinghistoricalSPYduplication, noresearchcorrection. No newRSPinput. Sourceuniverse11includesSOXSupstreamdependency,notnewheldasset.",
+    "clock": "Collectorstarts08:00NYpilotday, usesONLYlastcompletedXNYSsession, mustfinishandpersistallpayloads/bundlebefore09:20. Immutablebundle+all9rawmodelproposals sealbefore09:29. No latepayloadbackdating; missinganyrequiredfeature abortsactivation.",
+    "basis_activation": "Bootstrapprovider/CSV/codepins andoriginalfeaturefixtureparity canbeimplementedoffline. Actualsuccessfulhistoricalupstreammayremainunknown. ThisdoesNOTblockwritingstrictvalidators butDOESblocklivebundle/modeltradinguntilrole-specificpriceandSOXXvolume mapping independentlyapproved fromexistingauthorizedpayloadevidence. No broadenedhistoricalsourcehunt orautomaticvendorreplacement.",
+    "source_role_identity": {
+      "file": "source_role_identity.json",
+      "sha256": "f6125f600c3012e9588021a810dfcad15b065a42683a4e235f3c62e3c19bfc83",
+      "pilot_activation_status": "PENDING_ROLE_SPECIFIC_PRICE_AND_SOXX_VOLUME_MAPPING"
+    },
+    "volume_contract": "SOXXdailyvolume isREQUIREDforcommon16volume_z20. Preserveactualsourcevolume beforeanyOHLC-onlynormalizer; comparedeclaredcanonicalvolumeunits/basis andoverlapvalues, notautomaticallyequateNasdaqrawvolume witholdYahoo/Futuvolume. Missing/unqualifiedSOXXvolume blocksactivation; noNaN/zero/fill acceptedascompletebundle. FirsthourSOXL/SOXXvolume remainsFutuminutebaractualfield. Donotaddextradatarequirements forunusedprimaryvolume coordinates.",
+    "forbidden_helpers": "Do NOT call fetch_incremental_history_with_fallback,_fetch_yfinance_compatible_ohlcv,_fetch_vix_with_fallback or adjustment helperdefaultfill/fallback. Existingnormalize_nasdaq_history dropsvolume/rows/duplicates; strictcollector mustpreservefullreceiptedfields andrejectgaps/conflicts BEFOREparsing, notsilentlydrop/fill. No sourcebasisqualification inventedfromCSVheaders.",
+    "request_constraints": "Oneattempt each,30stimeout,no redirects/retries. Nasdaq120calendar-dayoverlap throughPRIORcompletedXNYSsession ONLY. YahooETFadjustmenthistory2010-03-11 throughSAMEasof; YahooVIXsamecompleted-sessioncutoff. No current-sessiondailybar enters39/commonfeatures. Allrequestparams/endpoints/actualusedroles recordedbeforefirstcall; existing21HTTPmaximumunchanged, provider/fieldmappingstillpendingreview."
+  },
+  "LIVE_OPEN_v1": {
+    "reason": "Original_smooth_weights drift usesdailyOPEN→nextdailyOPEN returns, not09:47accountreturns. Rawpredictioncanseal09:29; EMA/HOLDcannotfinalizeuntilcurrent09:30openisreceived. Nasdaqcurrentdayhistoricalopenavailabilityisnotassumed.",
+    "explicit_new_prospective_adapter": "At09:45 requestYahooquery2dailychart SOXL/SOXX (2HTTPmax,totalcurrent+previoussessions,includeAdjustedClose). UseCURRENTsession vendorOPEN ×same-payloadadjustmentratio andprevioussessionOPEN ×same-payloadratio toobtainsame-plane dailyopenreturn. NOpartialcurrentCLOSE/volume enters39features orprediction; closeusedonlyasdenominatorofpublishedadjustmentratio. Allfamiliesusesamefrozenadapterversion. Thisliveopenproviderisexplicitnewoperationalcontract, notsilentFutu/Nasdaqequivalence orhistoricalperformancecontinuation.",
+    "qualification": "Currentdateopen/ratiofinitepositive andpayloadreceivedbefore09:46; corrobcurrentrawopenwithFutuRTH09:30barOPEN fixedabsoluteUSD0.01 tolerance. Atmost5existingprior-session Nasdaq/Yahoo/Futuopen anchors checkedoffline, no parameterselection; historicalagreementdoesNOTprovefutureofficialEODopenidentity. Missing/disagreement=>noqualifieddecision, no substitute09:47price.",
+    "EMA": "State startsEMA=None (firstproposaloriginalEWMinitialization), acceptedholdingsallcash. Span3/threshold.02 unchanged. Updatecurrentacceptedpretradeweights withreceiptedprevious→currentdailyopenreturn BEFOREcurrentEMA/HOLD; no futurefill/nextopen. SealEMAinput/outputhash separately from09:29rawproposal.",
+    "as_observed_consistency": "BothYahooresponsecurrentbarNYdate=session, rawtimestamp<=received_at, regularMarketTime within120s beforeactualreceipt andnotfuture; samepayloadhasfinitepositive quoteOPEN/quoteCLOSE/ADJCLOSE forcurrent andprevioussession. Ratio=receivedADJCLOSE/receivedquoteCLOSE perrow; no laterrefresh/afterclose value replacement. Rejectmetadata/currentrow inconsistency. Preservepayloads/ratios/endpointopens exactlyasobserved; thisdoesnotcertify Yahoo adjustmentmethod orfutureNasdaqofficialopen."
+  },
+  "intraday_clocks": {
+    "known": "At09:45 acquireSOXL/SOXXrawNONE1m bars viaexistingnormalization/right-edge mapping; originalknownanchor isselectedbarCLOSE, notinventednextbarOPEN. Allrequiredcompletedbarsreceivedbefore09:46; exactbarlabels/edge/window/end stamps saved.",
+    "open_decision": "At09:46 all3costknownNAV/stateupdates first, thencommonminimumcap+project/T target; seal eachfamilydecision withstate/model/feature/CA/tariff/sourcehash+UTC+monotonic clock BEFORE09:47. No trading API.",
+    "open_later_quote": "OnepairedFutumarketsnapshot request at09:47:00 orlater, receivedby09:47:15. BOTHper-symbolupdatetimes mustbe>=09:47:00 and<=actualreceipt; decisionsealedearlier. No reusedknownquote orpresealpayload. Nominalslot09:47 islabel, preserveactualquote-timeinterval; paperexecutionmark notactualbrokerfill/BBOguarantee. Whole rawshares+0/2/5bp slippage+fixedtieredfees.",
+    "recovery": "Completedfirsthourbars through10:30, receivedbefore10:31:30; allscenariofeatures/votes beforeANYrecoveryfill. SealALL3consensus targetbefore10:32; independentpairedsnapshot10:32:00..10:32:15 withsameorderingrule. No eligibleactionstillsealHOLD andretainlatermark.",
+    "close": "AfterofficialXNYSclose, fetchfullcurrentRTH1m SOXL/SOXXOHLC (2calls), receivedbyclose+120s, closemarks/highwater+R. Later fullminuteobservations areoutcomes only, neverbackfilldecisioninputs. Rawfullminutevaluation canreportobservedclose/eventDD andOHLCbounds; notquote-lasttradebrokerparity/overnightcertificate.",
+    "terminal": "Nextnative-session09:47 independentpairedsnapshot, applyknownCA BEFOREpretradeendpoint; completesfirstpilotinterval. No terminaltrade/forcedliquidation. Actualreceived/usedclocksrequired, noasof+60sfiction.",
+    "clock_integrity": "CapturewallUTC andmonotonic_ns atrequest/receive/seal/commit; rejectnonmonotonicorder orwall-vs-monotonicelapseddrift>1s. Globalclockabsoluteaccuracyrecordednotassumedcertified; no timestampfabrication.",
+    "intent_vs_settlement": "09:29 seal israwmodelproposal;09:46 seal isfinalTARGET-WEIGHT intent. Laterreceivedquote determineswhole-share paperquantity/fees underthatfixedintent. Thisisnotbrokerfill, executableBBO, or prelockedshareorder proof, andLIVE-OPENv1 isnot byte-equivalentcompletehistoricalpolicy.",
+    "bar_endpoint_contract": {
+      "official_docs": "https://openapi.futunn.com/futu-api-doc/en/quote/request-history-kline.html",
+      "endpoint": "OpenQuoteContext.request_history_kline, start=end=calendar-sessionYYYY-MM-DD,ktypeK_1M,autypeNONE,fieldsALL,max_count1000,extended_timeFalse/sessionRTH. PininstalledSDKsignature/sourcehash; rejectunsupportedRTH orpagination. No realtimeget_cur_kline/subscriptionhiddenAPIcalls.",
+      "label_gate": "Prepilotpast-completedRTHprobe MUSTreturnexactcalendar-duration/1min unique ordered rawNYlabels from09:30 throughclose−1min (390normalday,210halfday), positivefiniteOHLC/volume>=0. Bindrawtime_keyasintervalSTART, normalizedend=start+1min; sameSDK/endpoint/querymode throughoutpilot. Liveknownprefixmustraw09:30..09:44(15),recovery09:30..10:29(60), no missing/duplicates/offsession. Anydifferentlabelmappingfailsclosed, no automaticshift tofitcount.",
+      "finality_definition": "VendorAPI documentation givesUSNYtime_key butdoesNOTcertifyrevision-prooffinality. Studyuses AS-RECEIVED CLOSED-INTERVAL values: everyusedstart+1min<=actualreceipt andreceipt<decisionseal. Formingcurrentbar excluded. Prepilotprobe establishesempiricalRTHslotmapping, notimmutablepublisherfinality. Preserveallpayloadversions; latercorrections neverrewriteearlierdecision. Ifactualresponsecannotestablishthisdeclaredmapping/completion, noqualifiedorders.",
+      "sampling_times": "Knownhistorycalls begin09:45:05, mustfinishbefore09:46; recoveryhistorybegin10:30:05,mustfinishbefore10:31:30; fullclosehistorybeginexchangeclose+5s,mustfinishbyclose+120s. Eachonesymbolcallcountalreadyin15pilotbudget.",
+      "knowledge_cutoff": "Everyusedbarend<=fixedknowledgecutoff (09:45known,10:30recovery,exchangeclosevaluation) AND actualreceived_at<decisionseal fordecisioninputs. Receipt-timecompletion alone neverpermits laterbar. Sourceclosedinterval isasobserved, notpublisherimmutablefinality."
+    }
+  },
+  "books": {
+    "families": [
+      "reference27baa",
+      "index_candidate",
+      "index_control",
+      "SOXX_buy_hold"
+    ],
+    "costs_bps": [
+      0,
+      2,
+      5
+    ],
+    "new_ledgers": 12,
+    "initial": "Atregistration eachC100000USD,R0,rawq0,highwater100000,riskstate0/clock0,previousknownNone/historyempty/monthlyfeevolume0. NooldSIM/historicalpositions/cash/EMA/highwater/daycredit. Newpaperstudyidentity.",
+    "coupling": "WithinEACHmodelfamily only,3owncostledgers preserveownq/C/R/NAV/fees/history; commoncap=minlocal andALL3recovery consensus unchanged. NoNAVblending orcrossfamilycoupling. Samefrozencontroller/projection+T/thresholds, norefit.",
+    "accounting": "Reuseverifiedrawsettle+IncomeLedger: exactsplitratio,exdateRnonspendable,NAVqP+C+R; onlyCfundsbuys,feesonce,sellsfirst/whole-shares. USDgrosspretax/noDRIP fixedpaperassumption. Paytransferatnextnativeopenafterdeclaredpaydateclose, once/nonincome. Sourceamount/currencygrade/paydate/knownbeforeex traced; no cashfromA/B inference.",
+    "SOXX": "Buyonceatfirstsharedqualifiedopen thenholdrawshares; distributionsretainedcash,noDRIP. Sameinitialmoney/fees/quotes/CA andsamedates.",
+    "missing": "SLOT-ATOMIC: beforegiven-slotpaperfills, missingrequiredfeature/openbasis/quote/CA/clock cancelsALL12 newfillsforTHATslot only. Alreadysealed/executedearlier09:47paperfills areimmutable andNOTundone iflaterrecovery/closefails. Preserveq/C/R/fees/history; switchfuturetradingOFFforrestpilot, retainplannedpassivequotes/close/terminal withinbudget tovalueexistingpositions. Wholeaffectedintervalunqualified; no retroactiveHOLD replacement/catchupfills/gapcompression/reset. IfNAV/CAunknown, NAVNone andexplicitreason. Allregisteredcalendarpositions andrealizedearlierpaperactionsremainreported.",
+    "fee_expiry": "Pinrawsource2026Tieredtariff. ExistingTAF0 isOct–Dec2026holidayprojection ONLY. No execution on/after2027-01-01 withoutindependentlyversionedknownfeecontract approvedbeforeuse; appendversion,neverrewritepastfees. Pilotmustfinishbeforeexpiry."
+  },
+  "event_maintenance": {
+    "corporate": "Usepinnedexistingqualifiedcash/split sourceevents plusappend-onlyfutureeventinbox. PilotFutuget_rehabSOXL/SOXX (2calls firstday+2terminalday) detectsnewunhandledactions; missingexplicitamount/split/paydate orambiguoussame-timestampordering suspendsaffectedstudybeforetrade. Futuannouncementnotproofcurrency/paydate/actualbrokercredit. Noissuerwebsourcehuntinpilot; exactmissingevent becomesnextoperationaldependency.",
+    "NVDAreference": "Onlymaintainfrozenreferenceformula. PilotoneSECsubmissionsJSONrequesthttps://data.sec.gov/submissions/CIK0001045810.json,1HTTP/noauthretry, captureactualreceipt; comparelatestregular-report/updateacknowledgements fromsealedsourceinbox. Newunclassifiedearnings/reportnotice=>update_pending/referenceunavailable, neverfabricateoldknown carrythroughknownunknown. No newguidancehypothesis ornumericselection.",
+    "new_quarter": "Appendoriginalregularsamequarteractual/earlieroriginalguide qualification recordunderexistingrules, no restatedreplacement; actualreceived_at retained. Modelavailability=max(originalconservativeavailable_at,actual_received_at), earliesteligible09:29decision thereafter. Classifiedunknownscope resetsoriginalnumericmask/flags; futureguide-only target neveroverwriteslatestrealizedquarter. Awaitingclassification doesnotgainpaireddaycredit.",
+    "absence": "LatestqualifiedrealizationmaypersistONLYwithfreshacknowledgednoneweligibleeventstatus; feedfailure/unknownnewfiling ismissingfreshness notnoevent. Pilotdoesnotautomaticallyauthorizefetchingnewissuerdocuments."
+  },
+  "launch_and_budget": {
+    "not_before": "2026-10-19 08:00 America/New_York AND independentexactplanapproval, offlinecontractpass, sourceidentityregistrationsealedbeforefirstnewsourcecall. Ifthisdate missed usefirstsubsequentXNYSsession withregistrationsealedbefore08:00; datechoice ismechanicalnotreturn-based.",
+    "launch_scope": "OneisolatedresearchPythonprocess manuallystartedunder runtime/research/...; no cron/launchd/systemd/productionservice edits. FiniteonefullRTHsession+nextnative09:47terminalmarker, exitsnextday09:48. Noautomaticmulti-monthlaunch inthispilotapproval. Persistjournal/state/Recorder/NAS forreview.",
+    "pilot_HTTP_max": 24,
+    "HTTP_breakdown": "21prior-daydailycollector +2LIVE_OPEN +1SECstatus. Oneattempt each,noautofallback orcurrent-quarterdocfetch.",
+    "pilot_Futu_API_max": 15,
+    "Futu_breakdown": "Firstdayrehab2+globalstate1+knownhistory2+openpairSnapshot1+firsthourhistory2+recoverypairSnapshot1+closefullRTHhistory2=11; terminalrehab2+globalstate1+pairSnapshot1=4. Separateprepilotprobe4 givesMAX19total applicationAPIcalls. Transporthandshake notadditionaldataquery; nohiddenSDKsubscription/paging/retry.",
+    "model_budget": "Pilotatmost9allocatorforwardcalls(firstdayonepermodel) plusatmost9frozenrecoverylocalprobabilitycalls;0fits. OFFLINE total9additionalallocatorcalls:9models×ONEbatch<=5fixeddates,<=45rowoutputs. Syntheticclockfixturesusefixedmockoutputs/votes, noextra modelcalls.0creditedofflinedays.",
+    "native_validation": "Atmost12newone-intervalQlibnativevalidations ofrecordedpilotdecisions/ownnativeholdings+CA; notpolicyoptimization/replayofhistorical944days. Rawallmodel/pathversionssaved.",
+    "activation": "ProceedthroughreceiptedREALdailybundle,REALsealedmodeldecisionandlaterREALquote fullpilotifallgatespass; offlinefixture/probealoneNOTfinalgoal/readiness. Ifblockedreportexactobservedsource/field/clock andstopboundedattempt; no generictoypilot-success.",
+    "phase_permissions": {
+      "current": "DESIGN ONLY; current_launch_authorizedfalse meansno presentprocess/probeauthority.",
+      "implementation": "Finalindependentdesignreview+rootrecord permitsnewisolatedcode/offlinefixtures; no network implied.",
+      "probe": "Separate rootphase_probe activationrecord bindsplanSHA/codeSHA/registration/not_before/budget4APIbeforeanyprobe. No automaticprobeuponimport/test.",
+      "pilot": "Separate rootphase_pilot activationrecord bindsexactsession/start/stop/24HTTP/15Futu/12ledgeridentity afteroffline+probe gates. Registrationsealedbeforefirstrealcollectorrequest. Sourcecollectorandfullsessionprocessonlythen; runtimeactivationgatesmaystopbutneverexpandbudget.",
+      "continuation": "Separatefixedlong-runpermitbeforeanyextension; neverauto-installtimer orreuseproductionservice. Ownerreviewisinternalauthorizedscopecontrol, notautomaticnewhumanpermissionrequest."
+    }
+  },
+  "assessment": {
+    "fixed_times": "Afterpilotterminal: operationalreceipt/state/nativeparity review only. Separateunchanged-identitycontinuationplan requiredbeforelong-runprocess; preregisterday21operational,day63descriptive,day126primaryrolling/pairedCI andfirstcompletecalendar-yearannualreadout. No interimmodel/threshold changes orpromotions; missingfeecontractbefore2027stopsqualification.",
+    "day_credit": "Olddays0. Newpairedfullinterval onlyifall4families samecompleteclocks/sources/NAVvalid. Also reportperfamily andallregisteredcalendarcounts; unqualifiedpositionsnotdropped orrestartedtohideoutcomes.",
+    "scientific": "Samecostmatched+rawreference+SOXX netwealth/CVaR/DD30/rolling126>=70/completeannual>=70/63day2000seed20261014alpha.025CI contracts retained; firstpilotcannotpassstability. No publicpromotion oractualbrokerexecutionauthority.",
+    "branch_coverage": "Allcashstart likelyzeroDD/recoveryeligibility. Reportactualopen/recoveryvotes/actions/funding/CAbranches exercised; noexecutedrecovery meanslive recoveryfill NOTqualified (onlyclock/HOLDobserved andsyntheticcontracttested). No generaltradeabilitycertificatefromunexercisedbranches."
+  },
+  "outputs": "Notebook,smallregistration/sourcebudget/activation/statussummary; immutablefullpayloadreceipts,featurebundles/modelproposals/decisionseals/quotes/12states/native/fullminuteobjectsRecorderNAS. Codecapturedonceperstudyversion; clearoperationalrepairs no retroactivedecisions.",
+  "promotion_authority": false,
+  "current_launch_authorized": false,
+  "prelaunch_amendment": {
+    "prior_sha256": "b5854fd43552859bdf930b13ae688e1b6dd5b3d60ad5db956d8a9f44b29c7d76",
+    "reason": "Independentreview requires slot-atomicfailures, phasepermits, actualbarendpoint/edge/closed-interval contract andlivebranchcoverage; no processes/probes/sourcecalls haveoccurred."
+  },
+  "frozen_controller_binding": {
+    "file": "frozen_controller_sources.json",
+    "sha256": "41886d66114eb5408f59dce46c7f2b40200cb2c59246500c5c9be7e7040e4d74",
+    "controller": {
+      "card": "research/full_path_tiered_allocation_20261013",
+      "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+      "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+      "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7",
+      "artifacts": {
+        "inputs/controller": {
+          "sha256": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+          "meaning": "inputs/controller"
+        },
+        "inputs/plan": {
+          "sha256": "2a2099904dd2507e837b40c51dd15228cfded78d55c1f6a49cd5646044c1e297",
+          "meaning": "inputs/plan"
+        }
+      }
+    },
+    "action_and_recovery_spec": {
+      "card": "research/stage1_minute_information_comparison_20261012",
+      "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+      "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+      "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+      "artifacts": {
+        "inputs/plan": {
+          "sha256": "b3fddcc9f1ad9735ab4ef260bfec7792aca572adbde2ad6a78511d8c5d8fb103",
+          "meaning": "inputs/plan"
+        },
+        "controller/source_recovery_selection": {
+          "sha256": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+          "meaning": "controller/source_recovery_selection"
+        }
+      }
+    },
+    "open_model": null,
+    "recovery_object_key": "inputs/controller[frozen_recovery_model]",
+    "selection_key": "controller/source_recovery_selection",
+    "spec_keys": [
+      "inputs/plan[recovery_spec]",
+      "inputs/plan[action_spec]"
+    ]
+  },
+  "identity_amendment": {
+    "prior_plan_sha256": "2b7000bbd2acb87a84701d5a59d732baa672bead8941e92472013399925059be",
+    "prior_file": "plan_before_identity_amendment.json",
+    "scope": "Parentauthorizedtext/identityonly:9batchcalls clarification,exactcontroller/actionpins,actualrole/volume dependency andpendingactivationbasis.0inference/0network/0sourcechanges/0codeimplementation."
+  }
+}

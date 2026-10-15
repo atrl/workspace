@@ -1,0 +1,13 @@
+{
+  "focused_test_command": "PYTHONPATH=. MLFLOW_ALLOW_FILE_STORE=true MLFLOW_ENABLE_ARTIFACTS_PROGRESS_BAR=false qlib_venv/bin/python -m pytest tests/test_diagnostic_forward_clock_state.py -q",
+  "final_result": "1 passed, 28 warnings in 1.98s",
+  "earlier_result": "1 passed in1.89s before two additional material clock/continuous-EMA assertions requested by reviewers; repeated only after those changes",
+  "test_sha256": "6d60e74ab9c8a15b3f9fa80f425d0e960a88ece8ff6d936dc0387362201381ad",
+  "notebook_exit_code": 0,
+  "allocator_calls": 9,
+  "model_rows": 45,
+  "maximum_saved_prediction_difference": 8.940696449855069e-08,
+  "new_fits": 0,
+  "new_native_policy_backtests": 0,
+  "network_note": "See network_attempt_clarification.json; no new model calls for metadata/prose/delivery."
+}

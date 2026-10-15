@@ -1,0 +1,225 @@
+{
+  "soxl_soxx_soxs": {
+    "provider_uri": "data/qlib/soxl_soxx_soxs",
+    "manifest_sha256": "164098b9c188fe25d6593b64eed5b182221219a941d737ce79a83a454b835091",
+    "source_declared_by_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
+    "instruments": [
+      "SOXL",
+      "SOXS",
+      "SOXX"
+    ],
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close"
+    ]
+  },
+  "soxl": {
+    "provider_uri": "data/qlib/soxl",
+    "manifest_sha256": "bcbc189e08b23ecb2a234c9ecaef05336e4a07b3181795ed9d55e344b5616da8",
+    "source_declared_by_manifest": "/Users/rziiiii/dev/workspace/data/processed/panels/soxl_soxx_vix_full.csv",
+    "instruments": [
+      "SOXL",
+      "SOXX"
+    ],
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close",
+      "$volume",
+      "$vix"
+    ],
+    "source_csv_header": "date,soxl_open,soxl_high,soxl_low,soxl_close,soxl_volume,soxx_open,soxx_high,soxx_low,soxx_close,soxx_volume,vix",
+    "source_csv_sha256": "a80aa24f0d7b9015d30af5ad029c19c6dbdbc20a3442f902763939d76f942e87"
+  },
+  "dynamic_soxx_soxl_cash_allocation_wf_v1": {
+    "provider_uri": "data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+    "manifest_sha256": "707fc1c3e7e31251f2cd46e300f91b581c6b8e54a0d9e6daa1c58906664c1fc1",
+    "source_declared_by_manifest": "qlib_dynamic_soxx_soxl_cash_allocation_pair_panel",
+    "instruments": [
+      "SOXL",
+      "SPXL",
+      "TECL",
+      "TQQQ",
+      "UPRO"
+    ],
+    "fields": [
+      "$open",
+      "$close",
+      "$volume",
+      "$underlying_close",
+      "$vix",
+      "$etf_open_to_open_return",
+      "$underlying_open_to_open_return",
+      "$relative_alpha_5d_label",
+      "$underlying_positive_5d_label",
+      "$tail_risk_5d_label",
+      "$relative_excess_open_to_open_5d",
+      "$volume_z_20",
+      "$vix_z_60",
+      "$ret_5_z20",
+      "$ret_5_pctile20",
+      "$ret_5_z60",
+      "$ret_5_pctile60",
+      "$ret_20_z20",
+      "$ret_20_pctile20",
+      "$ret_20_z60",
+      "$ret_20_pctile60",
+      "$ret_60_z20",
+      "$ret_60_pctile20",
+      "$ret_60_z60",
+      "$ret_60_pctile60",
+      "$underlying_ret_20_z20",
+      "$underlying_ret_20_pctile20",
+      "$underlying_ret_20_z60",
+      "$underlying_ret_20_pctile60",
+      "$underlying_ret_60_z20",
+      "$underlying_ret_60_pctile20",
+      "$underlying_ret_60_z60",
+      "$underlying_ret_60_pctile60",
+      "$realized_vol_20_z20",
+      "$realized_vol_20_pctile20",
+      "$realized_vol_20_z60",
+      "$realized_vol_20_pctile60",
+      "$drawdown_60_z20",
+      "$drawdown_60_pctile20",
+      "$drawdown_60_z60",
+      "$drawdown_60_pctile60",
+      "$trend_efficiency_20_z20",
+      "$trend_efficiency_20_pctile20",
+      "$trend_efficiency_20_z60",
+      "$trend_efficiency_20_pctile60",
+      "$tracking_error_5_z20",
+      "$tracking_error_5_pctile20",
+      "$tracking_error_5_z60",
+      "$tracking_error_5_pctile60",
+      "$tracking_error_20_z20",
+      "$tracking_error_20_pctile20",
+      "$tracking_error_20_z60",
+      "$tracking_error_20_pctile60",
+      "$range_ratio_20_z20",
+      "$range_ratio_20_pctile20",
+      "$range_ratio_20_z60",
+      "$range_ratio_20_pctile60",
+      "$volume_z_20_z20",
+      "$volume_z_20_pctile20",
+      "$volume_z_20_z60",
+      "$volume_z_20_pctile60",
+      "$vix_z_60_z20",
+      "$vix_z_60_pctile20",
+      "$vix_z_60_z60",
+      "$vix_z_60_pctile60",
+      "$tracking_error_60_z20",
+      "$tracking_error_60_pctile20",
+      "$tracking_error_60_z60",
+      "$tracking_error_60_pctile60",
+      "$underlying_ret_5",
+      "$underlying_realized_vol_20",
+      "$underlying_drawdown_60",
+      "$relative_momentum_20",
+      "$relative_momentum_60",
+      "$volatility_ratio_20",
+      "$intraday_risk_state",
+      "$intraday_risk_score",
+      "$soxx_const_breadth_ret5_pos_lag1_z60",
+      "$soxx_const_breadth_ret5_pos_lag1_pctile252",
+      "$soxx_const_downside_ret5_lt_m5_lag1_z60",
+      "$soxx_const_downside_ret5_lt_m5_lag1_pctile252",
+      "$soxx_const_dispersion_ret5_lag1_z60",
+      "$soxx_const_dispersion_ret5_lag1_pctile252",
+      "$soxx_const_breadth_ret20_pos_lag1_z60",
+      "$soxx_const_breadth_ret20_pos_lag1_pctile252",
+      "$soxx_const_downside_ret20_lt_m5_lag1_z60",
+      "$soxx_const_downside_ret20_lt_m5_lag1_pctile252",
+      "$soxx_const_dispersion_ret20_lag1_z60",
+      "$soxx_const_dispersion_ret20_lag1_pctile252"
+    ]
+  },
+  "tqqq": {
+    "provider_uri": "data/qlib/tqqq",
+    "manifest_sha256": "0ce3e462a45e9c5e36f2184748678f927734fedf796e1bc9f71b173f6250bbf9",
+    "source_declared_by_manifest": "/Users/rziiiii/dev/workspace/data/processed/panels/tqqq_with_underlying_vix.csv",
+    "instruments": [
+      "QQQ",
+      "TQQQ"
+    ],
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close",
+      "$volume",
+      "$vix"
+    ],
+    "source_csv_header": "date,tqqq_open,tqqq_high,tqqq_low,tqqq_close,tqqq_volume,qqq_open,qqq_high,qqq_low,qqq_close,qqq_volume,vix",
+    "source_csv_sha256": "be2822a49b2ef06b8296755266b4e71b00b9d511c40f09649dc7b0c6567541cd"
+  },
+  "upro": {
+    "provider_uri": "data/qlib/upro",
+    "manifest_sha256": "fafba4500c61855864b6db58cc85885bb80f0796334040399025b4c65ffa0f9e",
+    "source_declared_by_manifest": "/Users/rziiiii/dev/workspace/data/processed/panels/upro_with_underlying_vix.csv",
+    "instruments": [
+      "SPY",
+      "UPRO"
+    ],
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close",
+      "$volume",
+      "$vix"
+    ],
+    "source_csv_header": "date,upro_open,upro_high,upro_low,upro_close,upro_volume,spy_open,spy_high,spy_low,spy_close,spy_volume,vix",
+    "source_csv_sha256": "a8bd2838d6d34ffb31c1c60cfcca91d91ca8b21f533691447efc308ba3257113"
+  },
+  "spxl": {
+    "provider_uri": "data/qlib/spxl",
+    "manifest_sha256": "61bdeb0b2ce357f94fc1f9f8f7329c073df05f7ec7c728dcdabe0c5739f33538",
+    "source_declared_by_manifest": "/Users/rziiiii/dev/workspace/data/processed/panels/spxl_with_underlying_vix.csv",
+    "instruments": [
+      "SPXL",
+      "SPY"
+    ],
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close",
+      "$volume",
+      "$vix"
+    ],
+    "source_csv_header": "date,spxl_open,spxl_high,spxl_low,spxl_close,spxl_volume,spy_open,spy_high,spy_low,spy_close,spy_volume,vix",
+    "source_csv_sha256": "f5ade8f7fab36eeb5c7f5fa81fb7facd05b4a131f5fa97ea9347d1c2d3095ce6"
+  },
+  "tecl": {
+    "provider_uri": "data/qlib/tecl",
+    "manifest_sha256": "9e2d0a60a508cabbf5e874bf9a3abed4a9968292d6ccb6ea1510c0c4d7a9fdb6",
+    "source_declared_by_manifest": "/Users/rziiiii/dev/workspace/data/processed/panels/tecl_with_underlying_vix.csv",
+    "instruments": [
+      "TECL",
+      "XLK"
+    ],
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close",
+      "$volume",
+      "$vix"
+    ],
+    "source_csv_header": "date,tecl_open,tecl_high,tecl_low,tecl_close,tecl_volume,xlk_open,xlk_high,xlk_low,xlk_close,xlk_volume,vix",
+    "source_csv_sha256": "fd41be699f2fefb185009adc748a0a714fe56288bedf914d62d511b7e1e4c500"
+  },
+  "interpretation": {
+    "soxl_soxx_soxs": "Execution/open-close-derived39featureblock: data/raw/soxs_defensive_v1/source_manifest explicitlyNasdaqOHLC+Yahooadjustment; originalCSVheaderdate/instrument/OHLC only,no dailyvolume.",
+    "soxl": "High-chop39block andSOXXcommon16 OHLCV/VIX. market_update canselectFutu/Yahoo/otherproviders; currentmanifest/panel alone doesNOTprovewhichupstream suppliedeveryhistoricalsegment/volume. Pendingfield-levelbasisbinding, doNOTpresumeNasdaq.",
+    "multi_pair": "tqqq/upro/spxl/tecl pairpanels producedby multi_3x_etf_update._fetch_yfinance_compatible_ohlcv plusVIXfallback; originalsuccessfulupstream notidentifiedbycurrentmanifest list. Preserveeachcanonicalrole/basis; noassumedallNasdaq.",
+    "dynamic_normalized": "Derivedpairproviderusedbyfixedreintegratedbuilder; pinactualmanifest/sourcechain, doNOTrebuildusingauniformnewvendor silently.",
+    "volume": "SELECTED39primary hasno dailyvolume_climax/volume_zcoordinate; common16 consumesSOXXvolume_z20. firsthourrecovery separatelyconsumesactualSOXL/SOXXminutevolume. DailySOXLvolume usedupstreamforunusedvolume_climax, neverclaimthisaloneentersthe39. Otherunconsumedvolume mayremainunknownmetadata; no zero fabricated.",
+    "payload_evidence": "No originalNasdaqHTTPpayload retainedinthisboundedread establishedvolumeavailability. Newcollector mayinspectrealvolume inALREADYauthorizedNasdaq/Yahoopayloads, but mustexplicitlyqualifywhichfield/basisextendscanonicalSOXXvolume; oldOHLC-onlyhelpercannotdiscarditandclaimOHLCV."
+  },
+  "status": "OUTSTANDING_PILOT_ACTIVATION: role-specificlivefieldmapping/notcertifiedupstream cannot be inferred from one execution provider. Implementation maybuild validators, notassumequalifiedmapping. No newfetch/source authorizedbythisreadback."
+}

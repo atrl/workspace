@@ -1,0 +1,19 @@
+{
+  "role": "post_execution_reporting_clarification_only",
+  "recorder_id": "f294dd70e80e40b9acf977adc7c250d2",
+  "original_summary_file": "offline_summary.json",
+  "original_summary_sha256": "b21db90714bc7f0bdb6178c69087b49f1fd84b85e030fb04133e2e98a3b9cdec",
+  "original_recorder_summary_artifact_sha256": "a1ee70984c3db19479b6727fac606c937ce634ecebc03011b7e73d385c5e8561",
+  "original_manifest_sha256": "7905afa5c27c1980543cdaf9941cf12feeec63642e1ca0cf449f27dd9d732caa",
+  "original_network_calls_field": 1,
+  "correct_interpretation": "The executed source assigned len(network_denied attempt-list) to network_calls. It counts rejected attempts, not successfully issued requests.",
+  "blocked_network_attempts": 1,
+  "actual_market_data_requests": 0,
+  "actual_quote_probe_requests": 0,
+  "actual_NAS_requests_by_research_executor": 0,
+  "original_attempt_origin": "unknown: original guard captured no stack/destination",
+  "guard_boundary": "requests.Session.request/socket.connect/connect_ex raised PermissionError before forwarding the attempted operation. This is not a claim of audited global process/network traffic outside that guard.",
+  "independent_reproduction": "blocked_attempt_attribution.json is a later ZERO-model/ZERO-market startup reproduction. It blocked a telemetry-config GET; it cannot establish the identity of the original attempt.",
+  "original_Recorder_sources_outputs_changed": false,
+  "additional_model_inference_calls": 0
+}

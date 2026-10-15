@@ -1,0 +1,10 @@
+model,batch_rows,maximum_prediction_error,model_unchanged
+reference27baa_71,5,2.9802321499516893e-08,True
+reference27baa_172,5,5.366091127001482e-08,True
+reference27baa_273,5,7.016616360155936e-08,True
+index_candidate_71,5,5.21540641784668e-08,True
+index_candidate_172,5,4.0928526900962936e-08,True
+index_candidate_273,5,8.301944698363428e-08,True
+index_control_71,5,8.940696449855068e-08,True
+index_control_172,5,8.367503018247291e-08,True
+index_control_273,5,5.960464477539063e-08,True

@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/equal_weight_market_context_information_20261015",
-  "current_phase": "equal_weight_context_closed_prospective_diagnostic_contract_next",
-  "next_action": "Prepare a bounded implementation-ready prospective DIAGNOSTIC observation contract using prior readiness and completed raw cash accounting. Freeze unpromoted model/source identities, actual input receipts then sealed decisions then later quote marks, fresh own cash/R/risk/EMA states, matched costs/references, missing-source rules, fixed evaluation dates and stopping. Reuse old readiness evidence rather than repeat inventories. No process/probe launch until exact design review; no real orders, production replacement, old SIM-day credit or historical-gate override. Do not rerun the already failed annual-refit rule as a new mechanism.",
+  "current_experiment": "research/diagnostic_forward_study_20261016",
+  "current_phase": "diagnostic_forward_offline_foundation_verified_live_activation_pending",
+  "next_action": "Complete the finite live collector/transport wiring and explicitly qualify role-specific price and SOXX volume mapping under the fixed diagnostic plan. Review exact code, registration and four-call Futu probe permit before source probing; pilot requires its separate activation gates and not-before date. Reuse the verified nine-model offline outputs; do not repeat inference, fits, historical backtests or source inventories. No live process or independent forward days exist yet.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1036,6 +1036,23 @@
         2.6957096423394664e-07
       ],
       "next_branch_review": "research/equal_weight_market_context_information_20261015/next_branch_review.json"
+    },
+    {
+      "card": "research/diagnostic_forward_study_20261016",
+      "kind": "prospective_diagnostic_offline_foundation",
+      "status": "offline_verified_live_mapping_and_transport_pending",
+      "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+      "recorder_id": "f294dd70e80e40b9acf977adc7c250d2",
+      "new_fits": 0,
+      "offline_allocator_calls": 9,
+      "offline_output_rows": 45,
+      "formula_reconstruction_passed": true,
+      "saved_prediction_parity_passed": true,
+      "new_forward_days": 0,
+      "pilot_launches": 0,
+      "evaluation": "research/diagnostic_forward_study_20261016/independent_evaluation.json",
+      "readback_artifacts": 28,
+      "promotion_eligible": false
     }
   ],
   "governance_review": {
@@ -1101,7 +1118,7 @@
   "cumulative_new_full_allocator_fits_in_this_campaign": 21,
   "prospective_observation_governance": {
     "reviewer": "/root/evaluator",
-    "verdict": "ALLOW_NARROW_READINESS_ASSESSMENT_ONLY",
+    "verdict": "APPROVE_IMPLEMENTATION_ONLY",
     "candidate_role": "diagnostic_observation_of_not_promoted_reference",
     "reference_card": "research/nvda_own_guidance_realization_training_20261015",
     "historical_failures_preserved": true,
@@ -1115,7 +1132,11 @@
       "No oldSIMdayreuse,nofuture-outcome tuning,no daily peek untilpass",
       "60days minimum not substitute for126/annual/statistical coverage",
       "Forwardpass doesnoterasehistoricalfailure orcompleteGoal"
-    ]
+    ],
+    "approval": "research/diagnostic_forward_study_20261016/implementation_approval.json",
+    "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+    "offline_evidence": "research/diagnostic_forward_study_20261016/offline_summary.json",
+    "live_ready": false
   },
   "raw_accounting_reference": {
     "card": "research/frozen_policy_raw_cashbook_20261015",

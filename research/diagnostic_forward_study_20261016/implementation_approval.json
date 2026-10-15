@@ -1,0 +1,22 @@
+{
+  "phase": "implementation",
+  "decision": "APPROVED_IMPLEMENTATION_ONLY",
+  "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+  "recorded_at_utc": "2026-10-15T17:08:37.555598+00:00",
+  "owner": "root",
+  "independent_evaluator": "/root/evaluator",
+  "review_decision": "APPROVE_IMPLEMENTATION_ONLY",
+  "scope": [
+    "new isolated source validators, prospective state and finite runner modules",
+    "offline synthetic clock/state regression",
+    "at most 9 frozen allocator calls: each model once with batch of at most 5 fixed common fixture dates",
+    "notebook and Qlib Recorder offline evidence"
+  ],
+  "network_authorized": false,
+  "probe_authorized": false,
+  "pilot_authorized": false,
+  "new_fits": 0,
+  "production_changes_authorized": false,
+  "pending_pilot_gate": "role-specific live price and SOXX volume mapping; separate probe/pilot permits required",
+  "scientific_objective_achieved": false
+}

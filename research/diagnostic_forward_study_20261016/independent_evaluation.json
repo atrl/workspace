@@ -1,0 +1,35 @@
+{
+  "reviewer": "/root/evaluator",
+  "reviewed_at_utc": "2026-10-15T17:42:56.977095+00:00",
+  "verdict": "ACCEPT_OFFLINE_FOUNDATION_DELIVERY_ONLY",
+  "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+  "code_sha256": {
+    "src/data/diagnostic_forward_inputs.py": "2f657d7b41b284e772e76986d3996322ec2bae5bf09ae73749d548f8f52f1318",
+    "src/backtest/diagnostic_forward_state.py": "76bf29cc6c8ab9f71e84067aa25ed22a9845d4c85ae9a1a2b927fa4e00c16d13",
+    "src/schedule/diagnostic_forward_study.py": "3c44372c5a9126c3a626d8faf003c4135f7a0df6f48ac99fb3a0b3186fc426ab"
+  },
+  "recorder_id": "f294dd70e80e40b9acf977adc7c250d2",
+  "manifest_sha256": "7905afa5c27c1980543cdaf9941cf12feeec63642e1ca0cf449f27dd9d732caa",
+  "checks": [
+    "Request start after known/recovery/close cutoff plus 5 seconds",
+    "Fixed registered XNYS session slots and next-session terminal",
+    "Two-date EMA equivalence and later fill cannot change sealed target",
+    "Slot-atomic clone settlement preserves previously committed opening",
+    "Durable intent/checkpoint and complete state hash",
+    "Nine saved prediction batches independently checked without inference",
+    "Original feature reconstruction parity separately reported"
+  ],
+  "allocator_calls_in_review": 0,
+  "maximum_prediction_error": 8.940696449855068e-08,
+  "primary39_maximum_error": 5.9234180227463185e-08,
+  "common16_maximum_error": 0.0,
+  "offline_only": true,
+  "live_transports_complete": false,
+  "pilot_ready": false,
+  "promotion_approved": false,
+  "objective_achieved": false,
+  "next_review": "Separate exact-code probe/pilot review after required transport and source qualifications; no repeated offline inference required",
+  "network_clarification_sha256": "bb89af78b6ac5cd072bef449e1d57947e6411b811f177d82ac9a5d8081e420ef",
+  "network_clarification_accepted": true,
+  "nas_cold_read_verified_artifacts": 28
+}
