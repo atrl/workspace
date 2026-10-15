@@ -1,0 +1,32 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_NEGATIVE",
+  "decision": "not_promoted_fixed_AMD_frozen_NVDA_residual",
+  "plan_sha256": "9e9ab6c1cd142a2e348476cd77664aae71f5207c941c2d2e724bdb1186a7b508",
+  "recorder_id": "d037b7d15b7f42c9ba89caf49728e250",
+  "verification_manifest_sha256": "b2c790d69a116df3d856bc2895c6c3df35da987e4f7f44a96b825a723335cdb9",
+  "archive_sha256": "735b80a461d37314f55237dabb0a16af60870fe678c8103d5e6c94061ae5f0e6",
+  "delivered_source_sha256": {
+    "feature": "2c7d8e00de5b7ae66322e4ce3406de616b7e7d44714290f5815f5d5b26d211ae",
+    "model": "d61989c7f5a5d06e8c2aa893d37ec8d2629a47231fbfd6c29f63cf22e39dfba4",
+    "workflow": "5bd30d0839ac52bdb9bbdd0f4dcd4b33b3d56cb59f74595d993e5def27b35a45"
+  },
+  "independent_checks": [
+    "All6base model fingerprints/tensors/scalers equal original27baa",
+    "Only9or12residual weights trainable; classifier predictions bitwise unchanged",
+    "Initial raw/EMA outputs reproduce frozenbase beforefit",
+    "3014primary rows,42comparablequarter states,2617numerictrainingrows",
+    "Strict09:29timejoins,blocked resets,futureguide excluded",
+    "6nativeaccounts each944sessions reconcile",
+    "Candidate belowmatched/frozenNVDA/SOXXallcosts",
+    "Annual/rolling/confidence gates fail, no further variants"
+  ],
+  "limits": [
+    "No new auxiliarygradient orbasefit",
+    "Known/close sampled risk only, no fullminutequalification",
+    "Reusedhistory not independentforward"
+  ],
+  "fixed_route_closed": true,
+  "objective_achieved": false,
+  "readback": "readback_verification.json"
+}

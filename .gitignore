@@ -123,3 +123,6 @@ data/qlib/nvda_own_guidance_realization_training_20261015/
 
 # Bounded AMD issuer source payloads are retained in NAS Recorder.
 data/raw/external/amd_own_guidance_history_intake_20261015/
+
+# Rebuildable AMD residual feature store; authority in Recorder.
+data/qlib/amd_frozen_nvda_residual_training_20261015/

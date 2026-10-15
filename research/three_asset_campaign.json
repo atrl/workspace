@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/amd_own_guidance_history_intake_20261015",
-  "current_phase": "AMD_history_qualified_frozen_base_residual_design",
-  "next_action": "Freeze independently reviewed AMD-only linear logit residual on immutable NVDA27baa base: shared3AMDstate flags versus plusoneAMDnumeric,9vs12zero-initialized weights/no bias; sameoriginalallocationobjective andcoupledexecution. Preservebaseparameters/scalers/featuretiming; no auxiliary/classification gradient claims. No fit until exactplanreview.",
+  "current_experiment": "research/amd_frozen_nvda_residual_training_20261015",
+  "current_phase": "fixed_AMD_closed_diagnostic_forward_readiness_assessment_next",
+  "next_action": "Assess existing prospective-observer infrastructure, immutable27baa identity, source/marketreceipt clocks and signal-before-execution feasibility for diagnostic observation of a not-promoted frozenreference. Assessment only: do not launch or changeproduction/scheduler/orders. Pre-register any future study separately withfixed evaluationtimes, newdaysonly andmatchedcontrols; historicalrolling/CI failures remain false.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -645,6 +645,47 @@
         "new_fits": 0,
         "new_accounts": 0
       }
+    },
+    {
+      "card": "research/amd_frozen_nvda_residual_training_20261015",
+      "kind": "fixed_AMD_increment_on_frozen_NVDA_base",
+      "status": "completed_fixed_AMD_residual_not_promoted",
+      "maximum_new_residual_fits": 6,
+      "maximum_new_base_model_fits": 0,
+      "maximum_new_shadow_paths": 6,
+      "maximum_new_native_accounts": 6,
+      "evaluation": "research/amd_frozen_nvda_residual_training_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_FROZEN_BASE_RESIDUAL",
+        "plan_sha256": "9e9ab6c1cd142a2e348476cd77664aae71f5207c941c2d2e724bdb1186a7b508",
+        "conditions": [
+          "Immutable27baa base tensors/scalers/featureorder and NVDAstate",
+          "ZeroAMDlinear9vs12weights,biasFalse; beforefitraw/EMA parity",
+          "OnlyresidualW optimized; no aux/classifier gradient claims",
+          "Same3014eligibleprimary,timejoin,train-onlyscaling and unknownrules",
+          "6residualfits/6paths/6native, all3seeds300epochs",
+          "HardfrozenNVDA/matched/SOXX andconfidence gates",
+          "No capacity/gain/epoch/epsilon orotherissuer sweep"
+        ]
+      },
+      "recorder_id": "d037b7d15b7f42c9ba89caf49728e250",
+      "verification": {
+        "new_residual_fits": 6,
+        "new_base_model_fits": 0,
+        "new_auxiliary_gradient_rows": 0,
+        "new_shadow_paths": 6,
+        "new_native_accounts": 6,
+        "focused_tests_passed": 2,
+        "nas_verified_artifacts": 81,
+        "all_hashes_match": true
+      },
+      "failed_gates": [
+        "Belowmatchedcontrol,frozenNVDA27baa andSOXXallcosts",
+        "Rolling126positive fractions0.5617/0.5592/0.5470 below0.70",
+        "Completeannual andbootstrap gates fail",
+        "No independentforward"
+      ]
     }
   ],
   "governance_review": {
@@ -661,8 +702,8 @@
     "promotion_eligible": false,
     "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
   },
-  "cumulative_new_fits_in_this_campaign": 21,
-  "cumulative_new_native_accounts_in_this_campaign": 15,
+  "cumulative_new_fits_in_this_campaign": 27,
+  "cumulative_new_native_accounts_in_this_campaign": 21,
   "rejected_directions": [
     {
       "direction": "Broad account-state-aware full-path training",
@@ -684,8 +725,8 @@
       "new_collection_or_fits": 0
     }
   ],
-  "cumulative_new_shadow_paths_in_this_campaign": 9,
-  "cumulative_new_allocator_fits_in_this_campaign": 9,
+  "cumulative_new_shadow_paths_in_this_campaign": 15,
+  "cumulative_new_allocator_fits_in_this_campaign": 15,
   "cumulative_new_statistical_fits_in_this_campaign": 12,
   "cumulative_frozen_risk_valuations": 6,
   "mechanism_triage": {
@@ -705,5 +746,25 @@
     "must_not_inherit_reference_risk_qualification": true,
     "promotion_eligible": false,
     "use": "Retain frozen as additional economic comparator, not deployed or silently promoted"
+  },
+  "cumulative_new_residual_fits_in_this_campaign": 6,
+  "cumulative_new_full_allocator_fits_in_this_campaign": 9,
+  "prospective_observation_governance": {
+    "reviewer": "/root/evaluator",
+    "verdict": "ALLOW_NARROW_READINESS_ASSESSMENT_ONLY",
+    "candidate_role": "diagnostic_observation_of_not_promoted_reference",
+    "reference_card": "research/nvda_own_guidance_realization_training_20261015",
+    "historical_failures_preserved": true,
+    "launch_authorized_by_this_review": false,
+    "production_change_authorized": false,
+    "requirements_before_future_study": [
+      "Exactmodel/scaler/inputformula/delay/controller/3costidentity",
+      "Initialcash/state/starttime andmatchedSOXX/9097 plus relevantmatchedcontrol identities",
+      "Actual source/marketreceipt andsignal-before-execution clocks",
+      "Missing/failedsession rules andfixed statisticaldates/stopping/multiplicity",
+      "No oldSIMdayreuse,nofuture-outcome tuning,no daily peek untilpass",
+      "60days minimum not substitute for126/annual/statistical coverage",
+      "Forwardpass doesnoterasehistoricalfailure orcompleteGoal"
+    ]
   }
 }

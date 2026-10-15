@@ -1,0 +1,71 @@
+{
+  "experiment": "amd_frozen_nvda_residual_training_20261015",
+  "plan_sha256": "9e9ab6c1cd142a2e348476cd77664aae71f5207c941c2d2e724bdb1186a7b508",
+  "decision": "not_promoted_fixed_AMD_frozen_NVDA_residual",
+  "objective_achieved": false,
+  "new_residual_fits": 6,
+  "base_model_fits": 0,
+  "new_auxiliary_gradient_rows": 0,
+  "new_shadow_policy_paths": 6,
+  "new_native_accounts": 6,
+  "gates": {
+    "beat_matched_control_all_costs": false,
+    "beat_frozen_NVDA27baa_all_costs": false,
+    "net_soxx_excess_all_costs": false,
+    "drawdown_30pct": true,
+    "cvar_no_worse": true,
+    "rolling_70pct": false,
+    "complete_annual_70pct": false,
+    "bootstrap_positive": false,
+    "independent_development": false,
+    "qualified_forward": false
+  },
+  "training_event_coverage": {
+    "eligible_training_rows": 3014,
+    "realized_quarter_states_in_eligible_rows": 47,
+    "comparable_quarter_states_in_eligible_rows": 42,
+    "comparable_daily_training_rows": 2617,
+    "known_preannounced_daily_rows": 284,
+    "first_training_decision": "2011-01-04 09:29:00-05:00",
+    "last_training_decision": "2022-12-22 09:29:00-05:00",
+    "quarterly_events_are_not_independent_daily_observations": true
+  },
+  "conditional_source_timing": true,
+  "risk_evidence": "known/close sampled only; fullminute not run after negative",
+  "first_public_timestamp_verified": false,
+  "all_updates_coverage_verified": false,
+  "recorder_id": "d037b7d15b7f42c9ba89caf49728e250",
+  "experiment_id": "386125488336306593",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/amd_frozen_nvda_residual_training_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/amd_frozen_nvda_residual_training_20261015/qlib_recorder/386125488336306593/d037b7d15b7f42c9ba89caf49728e250",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/predictions/*",
+      "analysis/targets",
+      "analysis/shadow/*",
+      "analysis/scenario/*",
+      "analysis/native/*",
+      "analysis/daily/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "735b80a461d37314f55237dabb0a16af60870fe678c8103d5e6c94061ae5f0e6",
+    "size_bytes": 9994214,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/73/5b/735b80a461d37314f55237dabb0a16af60870fe678c8103d5e6c94061ae5f0e6",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 19:19:43.878514+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/73/5b/735b80a461d37314f55237dabb0a16af60870fe678c8103d5e6c94061ae5f0e6",
+    "recorder_id": "d037b7d15b7f42c9ba89caf49728e250",
+    "experiment_id": "386125488336306593",
+    "archive_root": "qlib_recorder"
+  }
+}

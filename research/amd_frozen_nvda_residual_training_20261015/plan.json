@@ -1,0 +1,249 @@
+{
+  "as_of": "2026-10-09",
+  "start": "2023-01-03",
+  "end": "2026-10-09",
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "maximum_drawdown": 0.3,
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "action_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "maximum_soxl_weight": 0.3,
+  "minimum_cash_weight": 0.0,
+  "controller_projection_minimum_cash_weight": 0.15,
+  "controller_projection_maximum_soxl_weight": 0.3,
+  "training_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "tangent_source": {
+    "card": "research/tangent_allocation_head_20261014",
+    "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+    "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+    "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+  },
+  "experiment": "amd_frozen_nvda_residual_training_20261015",
+  "frozen_at_utc": "2026-10-15T11:12:54.264181+00:00",
+  "base_source": {
+    "card": "research/nvda_own_guidance_realization_training_20261015",
+    "recorder_id": "27baa03f0d3046d8b82408ecb6ca07e7",
+    "archive": "e5843be4a5dbd36c1f92c45755b63f1d1e8f8e7b4a6203112b539170e5d13471",
+    "inventory_sha256": "1dbc58bfe68e892867c42eb87cce506bb83acb3586671d3f252eb1f8d5171e38"
+  },
+  "amd_source": {
+    "card": "research/amd_own_guidance_history_intake_20261015",
+    "recorder_id": "0eb8433c64e54764ad5702c9b0bdab05",
+    "archive": "5cab64348faad1accc1b10d855793521feeead10391baead639641efad05ab10",
+    "inventory_sha256": "c73e30395205d61f7eda897da6e1a5ef070523637c9bb7eebe5d2f75a7f82b1f"
+  },
+  "older_coupled_source": {
+    "card": "research/causal_cost_scenario_controller_20261015",
+    "recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+    "archive": "1145b7788507c9f47fa5d7a3d9a8e3ecb706177e3870bef3e475f74bb5ddf5a3",
+    "inventory_sha256": "e741bc79560532a94344212d7831cbb673fb6e6d1c0807e2e39c18b18c477707"
+  },
+  "hypothesis": "Fixed preselected AMD own-original revenue realization may add CPU/client/console/embedded demand information beyond existing NVDA realization. Preserve the entire learned NVDA model and measure only AMD linear-logit increment. No issuer/capacity/sign/window/search; AMD already sourcequalified before outcome inspection.",
+  "source_scope": "AMD combined63targetrows55comparable/5scopeblocked/2qualitativeunknown/1future;42comparablequarterlyevents availablebefore2023, not independentdailyobservations. Originalcompanytotal underconservative delayed assumption, notconstantbusinessperimeter orfirstpublicsurprise. No further sourcefetch.",
+  "base_immutability": {
+    "models": [
+      "models/candidate_71",
+      "models/candidate_172",
+      "models/candidate_273"
+    ],
+    "artifacts": [
+      "inputs/features",
+      "inputs/frame",
+      "analysis/targets",
+      "analysis/predictions/candidate_71",
+      "analysis/predictions/candidate_172",
+      "analysis/predictions/candidate_273",
+      "analysis/native/candidate_0",
+      "analysis/native/candidate_2",
+      "analysis/native/candidate_5"
+    ],
+    "freeze": "ALL trained base network tensors including sharedencoder/classification/allocationhead; allbase primary/common/extra scalers; exact39base+3NVDAflags+1NVDAextra feature ordering, NVDAfeatureformula/value/mask from inputs/features; candidate/speccoefficients. Never callbase.fit or_initialize foradaptation. Base.eval, requires_gradFalse, detachedfloat32logits; nooptimizerbaseparams. Save tensor/scaler hashes before/after eachresidualfit andassertbitwiseunchanged; basegradsNone.",
+    "base_input_reconstruction": "Original39market/common/timing fields frompinned training_source, exactsavedNVDAinputs/features frombase_source; noNVDAfeature recomputation/renormalization. Bothresidualarms useidenticalbase outputs; recreateoriginalbase.predict andsourceensemble/_smooth_weights atatol1e-12/rtol0 againstsavedrawpred/targets beforeanyfits. Preservefloat32 inference; no .double network."
+  },
+  "residual_model": {
+    "equation": "z_new(seed,t)=detach(z_frozen_NVDA(seed,t))+W_seed @ x_AMD(t); applyoriginal_project_legal_weights once aftersum. tail_probability andalpha_probability remainexactfrozenbase outputs.",
+    "control": "3sharedAMDstatecoordinates ->3allocationlogits, nn.Linear(3,3,bias=False),9trainableweights",
+    "candidate": "same3sharedAMDstatecoordinates +1AMDnumericcoordinate ->3allocationlogits, nn.Linear(4,3,bias=False),12trainableweights",
+    "initialization": "Everyresidualweight exactly0; nohiddenlayer, learnedgain, additionalbias, transfercoefficient, interaction, headreplacement orseedchoice. Initialrawpredictions/logits/EMA targets mustequalrespectivefrozenNVDAmodel forbotharms. 3distinctparentmodelseeds71/172/273 define3pairedresidualfits; zeroresidual itselfhasnostochasticinitialization.",
+    "capacity": "Fixed9versus12parameter comparison tests3additionalallocationlogit coefficients foronenumericfeature. Noresidualcapacity sweep; stateflagscontrol itselfmaychangeallocation aftertraining, and centeredflags canhaveeffectduringunknownstates evenwithout explicitbias. Do not claimflags-onlymodel isfrozenreference."
+  },
+  "amd_feature": {
+    "numeric_name": "amd_own_original_revenue_realization",
+    "shared_flags_order": [
+      "amd_realization_report_seen",
+      "amd_realization_comparable",
+      "amd_realization_known_preannounced"
+    ],
+    "formula": "originalregularsamequarter actual_revenue_million / originalguide_midpoint_million -1. Forguide_unitUSD_million useguide_mid_million. Forpct_sequential_revenue_growth useguide_base_actual_million*(1+guide_mid/100), onlyqualifiedpercentage_conversion_supported. Preserveprintedprecisionmetadata; pointfeature usesprintedcenters anddoesnotclaimunroundedaccuracy. No revisedguide/annual/subsequentcomparative oracquisitionsubtraction.",
+    "event_state": "Onlyrealized rowswithactual_report_available_at produceevents; report_seen=1, comparable=measurement_known, known_preannounced=1 iffknown_preannounced_or_updated. Beforefirstrealizedevent allflags0. Latestrealizedstate helduntilnextactualevent. Everyblocked/qualitative realization resetscomparable0/numericNaN; knownfutureguideonly ignored. Noagecutoff/ffillacrossunknown/thresholdfeature.",
+    "alignment": "ExactUTC-aware backwardasof fromactual_report_available_at<=pinned inputs/timing.decision_at. Samecutoff trade_date09:29NY trainingandevaluation; source09:31cannotenterthatday09:29. Forqualifiedrows pair_available_at must<=decisiontoo. NaTdecision staysunknownandcannotenterexecutedtrade. This intentionallyuses09:29informationevenpolicyexecutes09:46/09:47.",
+    "shared_state_scaling": "Original_standardize_pair appliedonlyto3AMDflags onexact3014eligibletrainingrows: trainmedianimputation,mean,std(ddof1),zero/NaNstd=>1,clip[-8,8],float32. Samefitted3coordinate scaler botharms. Base39/NVDA/common scalers untouched. Centeringflags doesnotpromisezerocorrectiononunknownstate afterlearning.",
+    "numeric_scaling": "Candidateonly; sameMinutePitAllocator convention: comparable1 andfinitetrainingobservations, minimum252dailyrows toactivate; mean,std(ddof1),constantstd=>1,clip[-8,8]. Missing/notcomparable/inactive numeric tensor0. Train-onlydailyheldvaluestatistics, notquartercrosssection/returntuning. Persistactualeligiblequartercounts,knownrowcounts/scalers; sharedstatescaleridenticalbotharms.",
+    "feature_store": "NewAMD4fields throughsrc/dataQlibbuilder andD.features readback, manifest/sourceauditRecorder; binsignored. No marketlabel/horizonchanges."
+  },
+  "training": {
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "cutoff": "2023-01-01 00:00:00 America/New_York",
+    "first_training_signal": "2011-01-03",
+    "last_training_signal": "2022-12-21",
+    "last_label_maturity": "2022-12-30 09:31 America/New_York",
+    "mature_primary_rows": 3014,
+    "inherited_base_auxiliary_rows": 20741,
+    "labels": "UnchangedoriginalprimaryTARGETS/H5+one-dayreturns/tail_cash labels andstrictmaturity mask frompinnedDatasetH; complete3014 rows retainedevenAMDunknown. No2018-onlylabelreplacement or2023+training.",
+    "objective": "Original_allocation_loss ONLY withfrozenbase logits plusAMDresidual, originallegalprojection(mincash.15,maxSOXL.30). annualmeanrelative log coefficient−1, annualstd.5, holdingsawareturnover.006 andtrainingcost10bps; originalabsoluteDD/conditionalDD/rolling5/cash/tradeeventpenaltiesall0. NoTbeforeloss, noSTE/nativecontrollergradient, noextraresidualloss orpenalty.",
+    "auxiliary_and_classification": "Frozenbase inherited20741aux exposure; no newauxiliarylearning. Baseprimaryclassification logits andauxiliarylosses areconstants w.r.t.residualparameters. Omitconstantloss terms fromoptimizedscalar (sameallocationgradient); reportthisexplicitly, doNOTclaimfresh20741auxgradientorclassifierrefit. Existing .02/.05 coefficients remainbaseprovenanceonly; classifierpredictions mustremainbitwiseunchanged.",
+    "optimizer": {
+      "name": "torch.optim.AdamW",
+      "parameters": "residualWonly",
+      "learning_rate": 0.002,
+      "weight_decay": 0.08,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "amsgrad": false,
+      "epochs": 300,
+      "batch": "full3014chronologicalprimaryrows perstep",
+      "gradient_clip_max_norm": 2.0,
+      "checkpoint": "fixedfinalepoch300; noearlystop/restarts/selection"
+    },
+    "fit_audit": "Assertall6attempts ledgerbeforeoptimization; initialWzero/outputsbaseequal, exacttrainableresidualparamcount9or12, optimizerexcludesallbasetensors; basehash/scalers/auxandprimaryclassification unchangedaftereachfit. Saveeachresidualmodel/predictions/progress immediately. No silent retry after partialattempt."
+  },
+  "execution": {
+    "ensemble": "Equalweightall3seed adaptedrawpredictions; original_smooth_weights span3/rebalance.02/drift/cashinitialstate andsourcefulldates unchanged. FreezingEMA meansoperator/initialization, NOTreusingoldsmoothedpath whenpredictionschange.",
+    "policy": "Bothnewarms independentlyrun retained0/2/5ownledger coupledcontroller: minlocalcap, ALL3recoveryconsensus, originalthresholds/clocks/histories/monthlyfees, Tonce aftereachlegalprojected opening/recoveryrequest. Ownq/cash/NAV intact; noNAVmixing; two3scenario packages=6shadowpaths.",
+    "recovery": "Samepinnedfinal2022recoverymodel/selection andfeaturedefinitions on2023+ evaluation; no refit. Frozenbasealpha/tail unchanged, residualrawbeta canchangeeligibility/inputdistribution; retainownstate/caps/probabilities/counts.",
+    "marks": "Exactbase_source inputs/frame andallknown/open/recovery/close/exit adjusted/raw marks through existingverify_marks; signal/trade/exitdates andnative_report timestamps equality. $100000initialcash andsametariffcostprojection. SixnativeQlibContinuousPositionledger validations, noextraoldcontrolreplays."
+  },
+  "budget": {
+    "residual_fits": 6,
+    "base_model_fits": 0,
+    "auxiliary_updates": 0,
+    "shadow_policy_paths": 6,
+    "native_accounts": 6,
+    "new_source_fetches": 0,
+    "capacity_variants": 0
+  },
+  "comparators": {
+    "hard": [
+      "matched_AMD_state_residual",
+      "frozen_NVDA27baa",
+      "soxx"
+    ],
+    "descriptive": [
+      "older_coupled9097"
+    ]
+  },
+  "gates": {
+    "numerical_excess_tolerance": 1e-08,
+    "net_vs_soxx_all_costs": true,
+    "beat_matched_control_all_costs": true,
+    "drawdown_upper_limit": 0.3,
+    "cvar5_no_worse_than_soxx": true,
+    "contiguous126_positive_fraction": 0.7,
+    "complete_trade_year_positive_fraction": 0.7,
+    "complete_years": [
+      2024,
+      2025
+    ],
+    "partial_years_descriptive_only": [
+      2023,
+      2026
+    ],
+    "bootstrap_positive_all_costs_all_primary_comparators": true,
+    "beat_frozen_NVDA27baa_all_costs": true
+  },
+  "bootstrap": {
+    "mean_block": 63,
+    "resamples": 2000,
+    "seed": 20261014,
+    "alpha": 0.025,
+    "comparators": [
+      "soxx",
+      "matched_AMD_state_residual",
+      "frozen_NVDA27baa"
+    ]
+  },
+  "evaluation": "Same944source sessions,alltrade-years/quarters andcontiguous126-sessionwindows. Netrelativewealth>1+1e-8 all0/2/5, candidatebeatsmatchedandNVDA27baa allcosts; CVar5 no worseSOXX; sampleknown/closeDD<=30%; rollingpositivefraction>=.70. Completeannualexact2024/2025nonempty>=.70; partial2023/2026descriptive. Bootstrap63/2000/seed20261014/alpha.025 all3primarycomparators/allcosts lower>0. Reusedhistorynotindependentdevelopment. No statecompressedwindows/conditionaloutcomeselection.",
+  "risk_qualification": "Initial sampledknown/close DD gate. Only if all other coarse historical economic gates pass, prepare separate frozen-holdings fullminute valuation sourcequalification using retained method; no new fullminute run after negative. SampledDD is not complete riskqualification and cannot qualify promotion.",
+  "tests": "One focusedmaterial residualcontract: zeroWbaseequivalence, onlyWgrad/update andbaseimmutable; reuse timestamp/resetcontract plusonematerial mixedAMDunit/qualitative check onlyifneeded. No broadtests/controlreruns. Prefitchecksactualsource predictions/EMA/scalers/cohort not optional.",
+  "if_failed": "Close thisfixedAMDnumeric+linearlayer/scaling/delay/modelpackage; no gain/capacity/loss/seed/epoch/threshold/window/sign rescue. Minimumauditdelivery, overallGoalneeds newevidence. Anyallhistoricalpass onlyhistorical_candidate_requires_independent_forward (andfullminutequalificationstillpending), notpromotion.",
+  "independent_development": false,
+  "qualified_forward": false,
+  "promotion_authority": false,
+  "unchanged_code_sha256": {
+    "src/model/tangent_allocator.py": "743a9e23e4a994c5cc4fd791d131bf92f8737b5962095268ca04127292898637",
+    "src/model/minute_pit_allocator.py": "7b9cb0554b8f4c63ded07401d97dd14892d768dd4937b064c70162fd359801a9",
+    "src/data/nvda_own_guidance_realization.py": "9a22ee2a8f13b89b2898bfbd3db1c2cc8926e80f203db29b1e457fd2495d2388",
+    "src/workflow/nvda_own_guidance_realization_training.py": "1030aac86c20ac6832b899c0d52bae959061e4da5870909eac856c2cf437896a",
+    "src/backtest/causal_cost_scenario_controller.py": "00936fe39f52fc11e41ac59f05b095302ac7b9438e8e4fcb1d84241e5bbac77d",
+    "src/model/nominal_beta_composition.py": "718cef532ebb9b009da84abfb64abdf1d0eaf23c7ac453243109e85abfdae258",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+  }
+}
