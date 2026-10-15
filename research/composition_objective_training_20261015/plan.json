@@ -1,0 +1,167 @@
+{
+  "as_of": "2026-10-09",
+  "start": "2023-01-03",
+  "end": "2026-10-09",
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "maximum_drawdown": 0.3,
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "source": {
+    "card": "research/monthly_forecast_account_20261014",
+    "recorder_id": "e57350a820c24ac8b306d67955e4ae25",
+    "archive": "b3875393f9f5495be29efbe3f8782c92cdde4c4798ce97f796bcc870c34379d2",
+    "inventory_sha256": "aa9e441c0a6ff8b5a8a95d48918bcf5fb2543699f9e6e62d38742571ce4ca80b"
+  },
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "action_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "frozen_source": {
+    "card": "research/tangent_allocation_head_20261014",
+    "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+    "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+    "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+  },
+  "reference_source": {
+    "card": "research/open_router_ablation_20261015",
+    "recorder_id": "98eab7aa28e349d4bfb5e125d5c2b4fe",
+    "archive": "d43879bb278e73902ae8533fe93776f08dbc5b51f8731f768b9fd5106e223145",
+    "inventory_sha256": "e3b80c1a1055fccb1ef446754198139de4c708f27ffe0c10c45f2d9b6aeef03b"
+  },
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "maximum_soxl_weight": 0.3,
+  "minimum_cash_weight": 0.0,
+  "controller_projection_minimum_cash_weight": 0.15,
+  "controller_projection_maximum_soxl_weight": 0.3,
+  "bootstrap": {
+    "mean_block": 63,
+    "resamples": 2000,
+    "alpha": 0.025,
+    "seed": 20261014,
+    "comparators": [
+      "posthoc_composition",
+      "soxx"
+    ]
+  },
+  "experiment": "composition_objective_training_20261015",
+  "frozen_at_utc": "2026-10-15T06:48:43.703836+00:00",
+  "training_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "paired_control_source": {
+    "card": "research/beta_preserving_composition_20261015",
+    "recorder_id": "6680a54e6ac440bdbe96e438f5b9e197",
+    "archive": "7968dd7531e3373fc18f5d3f22b6160d87a50f5d698971a7a988091cf21a1e8e",
+    "inventory_sha256": "f12d8cd0368425c76065390347ac473b44c7007f6467ffe307e729fb3cb7fa53"
+  },
+  "diagnostic_source": {
+    "card": "research/composition_path_diagnosis_20261015",
+    "recorder_id": "d09427aacccd442b87a4f0ffcc096935",
+    "archive": "868aea2bd210a95286853e91cd80e064e77bba87f996f0677cdc597cd97c1357",
+    "inventory_sha256": "397a1b8c08c61ee90788646297ca39f8bf14c17c3417aaf5e275a79205840a41"
+  },
+  "maximum_model_fits": 3,
+  "maximum_new_native_cases": 3,
+  "seeds": [
+    71,
+    172,
+    273
+  ],
+  "epochs": 300,
+  "expected_primary_rows": 3014,
+  "expected_auxiliary_rows": 20741,
+  "mechanism": "Apply fixed composition T to all allocation-objective weight inputs during training; inherited inference continues returning original projected raw weights. Original smoothing and own-account risk projection remain; T applied once to each executed open/recovery target. Candidate subclass uses existing allocation_objective hook, no shared fit-loop edits.",
+  "transformation": "delta=torch.minimum(weightSOXL,weightCASH/2); T=(SOXL-delta,SOXX+3delta,CASH-2delta). No learned coefficient or smoothing of min. PyTorch2.11.0 equal-argument minimum splits gradient0.5/0.5; upstreamCASH/2 chain rule applies. Fixed deterministic subgradient, verified before training.",
+  "allocation_loss_terms": {
+    "annual_mean_relative_log": -1.0,
+    "annual_std": 0.5,
+    "turnover_weight": 0.006,
+    "training_cost_bps": 10,
+    "absolute_drawdown_penalty": 0.0,
+    "conditional_drawdown_penalty": 0.0,
+    "rolling_5d_penalty": 0.0,
+    "cash_target_penalty": 0.0,
+    "trade_event_penalty": 0.0,
+    "primary_classification_weight": 0.02,
+    "auxiliary_weight": 0.05
+  },
+  "cash_semantics": "Raw logits still project with minimumcash.15/maximumSOXL.30. _allocation_loss minimum_cash_weight stays.15 as inactive cash-target reference; cash_target_penalty exactly0 on verified frozen models. All allocation terms including calculated inactive penalties receiveT; do not introduce new penalties or coefficients.",
+  "optimization": {
+    "learning_rate": 0.002,
+    "weight_decay": 0.08,
+    "optimizer": "unchanged AdamW",
+    "gradient_clip_max_norm": 2.0,
+    "selection": "fixed finalepoch300; equal ensemble across all3seeds, no selection"
+  },
+  "classification": "Labels, coefficients, heads, auxiliary sampling and gradient routes unchanged; changed allocation gradients can change shared encoder and final classifier outputs. No claim of unchanged learned predictions.",
+  "proxy_limitations": "Training T before controller is a proxy, not exact end-to-end native execution. T/smoothing/riskprojection do not commute. Training10bp return/turnover proxy differs from independent actualTiered0/2/5bp native accounts. No differentiation through risk states, whole-share fees, clocks or native accounts.",
+  "initialization": "Candidate _initialize state tensors exactly equal corresponding frozen TangentHeadAllocator freshly initialized with same seed; preserve source feature order/scalers/maturity/auxiliary domain. Verify frozen control predictions and smoothed targets against existing Recorder; no control refit or account replay.",
+  "time_contract": "Same strict mature primary and auxiliary dataset cutoffs as frozen models; old2011\u20132022 training domain;2023+ repeatedly reused diagnostic history, not newholdout. Never train on failed2023/2026 windows.",
+  "comparators": [
+    "posthoc_composition",
+    "strong_always",
+    "tangent",
+    "original",
+    "soxx"
+  ],
+  "evaluation": "Exact same trade/exit dates and frozen marks; source verify_marks/native reconciliation. All costs ownledger. All trade-year/quarter periods; only2024/2025complete.126day rolling; numericalrelativewealth tolerance1e-8. Paired bootstrap candidatevs posthoc_composition andSOXX,63/2000/seed20261014/alpha.025.30%DD gate unchanged.",
+  "promotion_authority": false,
+  "independent_development": false,
+  "qualified_forward": false,
+  "if_failed": "Close fixed training-through-composition model; no loss coefficient, penalty, threshold,seed,epoch,window or map-amount rescue. Retain minimum evidence and continue overallgoal using a distinct evidence-supported mechanism."
+}

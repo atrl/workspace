@@ -1,0 +1,23 @@
+{
+  "model_class": "src.model.composition_objective_allocator.CompositionObjectiveAllocator",
+  "selection_policy": "preregistered_equal_weight_ensemble_fixed_final_epoch_no_winner_selection",
+  "seeds": [
+    71,
+    172,
+    273
+  ],
+  "epochs_per_seed": 300,
+  "weights": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "recorder_id": "6f10179415094652b7107bcc506d7d50",
+  "model_artifacts": [
+    "models/candidate_71",
+    "models/candidate_172",
+    "models/candidate_273"
+  ],
+  "deployment_approved": false,
+  "decision": "not_promoted_fixed_composition_objective"
+}

@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/composition_path_diagnosis_20261015",
-  "current_phase": "next_model_design_review",
-  "next_action": "Freeze and review3fit/3account training-through-composition model contrast, using frozen posthoc-composition candidate as paired control; do not tune observed risk threshold crossings.",
+  "current_experiment": "research/composition_objective_training_20261015",
+  "current_phase": "next_mechanism_formulation",
+  "next_action": "Investigate a causal account-state-aware allocation objective using existing training-period OOF evidence; first distinguish attainable model targets from own-ledger risk projection. Preregister a genuinely different bounded mechanism before further fits; no penalty/epoch/threshold rescue of the closed composition objective.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -117,11 +117,80 @@
       "evaluation": "research/composition_path_diagnosis_20261015/independent_evaluation.json",
       "recorder_id": "d09427aacccd442b87a4f0ffcc096935",
       "next_mechanism": "Train allocation utility through fixed composition, retain raw inference plus original controller; design pending."
+    },
+    {
+      "card": "research/composition_objective_training_20261015",
+      "kind": "bounded_allocation_objective_training",
+      "parent": "research/composition_path_diagnosis_20261015",
+      "status": "completed_not_promoted",
+      "maximum_new_model_fits": 3,
+      "maximum_new_native_accounts": 3,
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_TRAINING_DESIGN",
+        "plan_sha256": "727edb8b7d997176ffe2dd29df1803383e3f80c9ac9b68e6cf80a7fe6acc9590",
+        "conditions": [
+          "same initialization/data/scalers/label maturity",
+          "T changes allocation objective only; inference raw then controller thenTonce",
+          "allcost candidate must beat pairedposthoc and strongalways; ownDD30unchanged",
+          "3fits3accounts; no coefficient/seed/epoch/window rescue"
+        ]
+      },
+      "evaluation": "research/composition_objective_training_20261015/independent_evaluation.json",
+      "recorder_id": "6f10179415094652b7107bcc506d7d50",
+      "failed_gates": [
+        "beat_paired_all_costs",
+        "beat_strong_always_all_costs",
+        "net_soxx_excess_all_costs",
+        "drawdown_30pct",
+        "rolling_70pct",
+        "complete_annual_70pct",
+        "bootstrap_positive",
+        "independent_development",
+        "qualified_forward"
+      ],
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_tangent_allocator.py -q",
+        "passed": 2,
+        "new_fits": 3,
+        "new_native_accounts": 3,
+        "nas_verified_artifacts": 61,
+        "budget_execution": {
+          "fit_attempts": [
+            71,
+            172,
+            273
+          ],
+          "fitted": [
+            71,
+            172,
+            273
+          ],
+          "native_attempts": [
+            0,
+            2,
+            5
+          ],
+          "native": [
+            0,
+            2,
+            5
+          ]
+        }
+      }
     }
   ],
   "governance_review": {
     "reviewer": "/root/evaluator",
     "verdict": "no_material_issue",
     "strong_reference_requirement": "predeclare comparable risk-qualified references; bypass is diagnostic only"
-  }
+  },
+  "research_reference": {
+    "card": "research/beta_preserving_composition_20261015",
+    "role": "strong observed historical reference, not promoted;0bpDD and allcost stability/confidence fail",
+    "risk_valid_reference": "research/open_router_ablation_20261015:strong_always",
+    "promotion_eligible": false
+  },
+  "cumulative_new_fits_in_this_campaign": 3,
+  "cumulative_new_native_accounts_in_this_campaign": 6
 }

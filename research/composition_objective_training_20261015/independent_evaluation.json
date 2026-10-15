@@ -1,0 +1,36 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_NEGATIVE_EXPERIMENT",
+  "decision": "not_promoted_fixed_composition_objective",
+  "recorder_id": "6f10179415094652b7107bcc506d7d50",
+  "plan_sha256": "727edb8b7d997176ffe2dd29df1803383e3f80c9ac9b68e6cf80a7fe6acc9590",
+  "verification_manifest_sha256": "b85c90edd9db21f00b0ddb8b92cb2f31f9bf2fc258a4a8e4e7b29e0d17ee3db6",
+  "nas_archive_sha256": "163d33490f075ca55273b0271aa88d370bb7707d9e6977f508b8cb8f946fef6a",
+  "source_sha256": {
+    "src/workflow/composition_objective_training.py": "5613dc6d7c2e7f82c22c117d15fe0f36996badd884467cf3eebf38957ed85595",
+    "src/model/composition_objective_allocator.py": "1ae0a85781a50ce70269afe580f07ed13165fb564cc609e52ee6c05ef95a4ce7"
+  },
+  "checks": [
+    "3model initial states match parent initialization hashes",
+    "spec coefficients/scalers/mature domain match parent",
+    "control predictions exact and smoothed targets match",
+    "Eachmodel3014primary20741aux; fixed300epochs",
+    "3native accounts944 intervals reconcile;819rolling windows each",
+    "independently reevaluated gates equal summary",
+    "execution source text matches current source"
+  ],
+  "only_passing_scientific_gate": "cvar_no_worse",
+  "supplement_review": {
+    "verdict": "accepted_read_only_post_result_description",
+    "layer_stats_sha256": "be11faa3b2efbffc01637ae87ee8d225d7bd52f045140c9af41a0cfd2c418075",
+    "independently_recomputed_cash_pct": {
+      "candidate_T_smoothed": 2.3662436682,
+      "control_T_smoothed": 3.6307276245,
+      "candidate_actual_opening_2bp": 45.1691855194,
+      "posthoc_actual_opening_2bp": 22.5801836138
+    },
+    "interpretation": "Hypothetical target arithmetic vs actual own-state policy; not isolated causal contribution or no-controller backtest"
+  },
+  "no_parameter_rescue": true,
+  "promotion_eligible": false
+}

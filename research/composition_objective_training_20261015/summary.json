@@ -1,0 +1,55 @@
+{
+  "experiment": "composition_objective_training_20261015",
+  "plan_sha256": "727edb8b7d997176ffe2dd29df1803383e3f80c9ac9b68e6cf80a7fe6acc9590",
+  "decision": "not_promoted_fixed_composition_objective",
+  "objective_achieved": false,
+  "new_fits": 3,
+  "new_native_cases": 3,
+  "gates": {
+    "beat_paired_all_costs": false,
+    "beat_strong_always_all_costs": false,
+    "net_soxx_excess_all_costs": false,
+    "drawdown_30pct": false,
+    "cvar_no_worse": true,
+    "rolling_70pct": false,
+    "complete_annual_70pct": false,
+    "bootstrap_positive": false,
+    "independent_development": false,
+    "qualified_forward": false
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "6f10179415094652b7107bcc506d7d50",
+  "experiment_id": "517100394300994485",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/composition_objective_training_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/composition_objective_training_20261015/qlib_recorder/517100394300994485/6f10179415094652b7107bcc506d7d50",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/predictions",
+      "analysis/targets",
+      "analysis/native/*",
+      "analysis/daily/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "proxy_limitations": "Training T before controller is a proxy, not exact end-to-end native execution. T/smoothing/riskprojection do not commute. Training10bp return/turnover proxy differs from independent actualTiered0/2/5bp native accounts. No differentiation through risk states, whole-share fees, clocks or native accounts.",
+  "nas_evidence": {
+    "sha256": "163d33490f075ca55273b0271aa88d370bb7707d9e6977f508b8cb8f946fef6a",
+    "size_bytes": 5201614,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/16/3d/163d33490f075ca55273b0271aa88d370bb7707d9e6977f508b8cb8f946fef6a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 14:53:24.960224+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/16/3d/163d33490f075ca55273b0271aa88d370bb7707d9e6977f508b8cb8f946fef6a",
+    "recorder_id": "6f10179415094652b7107bcc506d7d50",
+    "experiment_id": "517100394300994485",
+    "archive_root": "qlib_recorder"
+  }
+}

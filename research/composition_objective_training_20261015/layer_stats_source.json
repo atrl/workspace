@@ -1,0 +1,66 @@
+{
+  "purpose": "Post-result descriptive pipeline readback; not an executable no-controller counterfactual or causal effect.",
+  "source": {
+    "card": "research/composition_objective_training_20261015",
+    "recorder_id": "6f10179415094652b7107bcc506d7d50",
+    "archive": "163d33490f075ca55273b0271aa88d370bb7707d9e6977f508b8cb8f946fef6a",
+    "inventory_sha256": "b85c90edd9db21f00b0ddb8b92cb2f31f9bf2fc258a4a8e4e7b29e0d17ee3db6"
+  },
+  "source_audit": {
+    "recorder_id": "6f10179415094652b7107bcc506d7d50",
+    "experiment": "composition_objective_training_20261015",
+    "experiment_id": "517100394300994485",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/composition_objective_training_20261015/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/composition_objective_training_20261015/qlib_recorder/517100394300994485/6f10179415094652b7107bcc506d7d50",
+    "summary_sha256": "3d90ec1ae88cdf7938cc8295986a3013b9ca7816c809c20dc32d438bd2c82504",
+    "verification_manifest_sha256": "b85c90edd9db21f00b0ddb8b92cb2f31f9bf2fc258a4a8e4e7b29e0d17ee3db6",
+    "artifacts": {
+      "analysis/predictions": {
+        "artifact": "analysis/predictions",
+        "artifact_id": "6f10179415094652b7107bcc506d7d50:analysis/predictions",
+        "sha256": "cb800e02cf5d53509ace9c5a622456d702feaa936101649d41440a1d302f9a85",
+        "bytes": 229659,
+        "manifest_entry": "qlib_recorder/517100394300994485/6f10179415094652b7107bcc506d7d50/artifacts/analysis/predictions",
+        "local_path": "/Users/rziiiii/dev/workspace/research/composition_objective_training_20261015/qlib_recorder/517100394300994485/6f10179415094652b7107bcc506d7d50/artifacts/analysis/predictions"
+      },
+      "analysis/targets": {
+        "artifact": "analysis/targets",
+        "artifact_id": "6f10179415094652b7107bcc506d7d50:analysis/targets",
+        "sha256": "769d66a91729b671987702fd1f32c4c23805eab2e3c7b9584ef7c24f52b27182",
+        "bytes": 69573,
+        "manifest_entry": "qlib_recorder/517100394300994485/6f10179415094652b7107bcc506d7d50/artifacts/analysis/targets",
+        "local_path": "/Users/rziiiii/dev/workspace/research/composition_objective_training_20261015/qlib_recorder/517100394300994485/6f10179415094652b7107bcc506d7d50/artifacts/analysis/targets"
+      },
+      "analysis/native/candidate_2": {
+        "artifact": "analysis/native/candidate_2",
+        "artifact_id": "6f10179415094652b7107bcc506d7d50:analysis/native/candidate_2",
+        "sha256": "b97c8bc535e42a0dbaf104298c86e4554802df7e86962931319bfa5e314ffb68",
+        "bytes": 8330042,
+        "manifest_entry": "qlib_recorder/517100394300994485/6f10179415094652b7107bcc506d7d50/artifacts/analysis/native/candidate_2",
+        "local_path": "/Users/rziiiii/dev/workspace/research/composition_objective_training_20261015/qlib_recorder/517100394300994485/6f10179415094652b7107bcc506d7d50/artifacts/analysis/native/candidate_2"
+      },
+      "analysis/accounting_attribution": {
+        "artifact": "analysis/accounting_attribution",
+        "artifact_id": "6f10179415094652b7107bcc506d7d50:analysis/accounting_attribution",
+        "sha256": "10df51952487c8e250d48b225407e9b638ba6cf380c18692895716ea901b1c02",
+        "bytes": 7686,
+        "manifest_entry": "qlib_recorder/517100394300994485/6f10179415094652b7107bcc506d7d50/artifacts/analysis/accounting_attribution",
+        "local_path": "/Users/rziiiii/dev/workspace/research/composition_objective_training_20261015/qlib_recorder/517100394300994485/6f10179415094652b7107bcc506d7d50/artifacts/analysis/accounting_attribution"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  },
+  "date_basis": "Same944 native signal dates for every seed/layer.",
+  "control_definition": "Frozen tangent model in raw/smoothed layers; same model with fixed posthoc composition for actual after-open cash.",
+  "missing_fields": "Actual after-open asset weights/beta not inferred from cash-only accounting summary; intentionally null.",
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "sidecar_sha256": "be11faa3b2efbffc01637ae87ee8d225d7bd52f045140c9af41a0cfd2c418075"
+}
