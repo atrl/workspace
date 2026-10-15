@@ -1,0 +1,9 @@
+experiment: soxl_20230321_cash_event_qualification_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013
+recorder_uri: /Users/rziiiii/dev/workspace/research/soxl_20230321_cash_event_qualification_20261015/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*

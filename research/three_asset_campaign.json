@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/affine_raw_accounting_bridge_20261015",
-  "current_phase": "unit_bridge_complete_fixed_cash_event_source_dependency",
-  "next_action": "Freeze a bounded existing-corpus lookup for SOXL2023-03-21 distribution: explicit amount/currency/ex-record-pay dates, sourceobserved clocks and receivable-versus-availablecash conventions. No inferredcashfromA/B or backfilled historicalreceipt. Distinguish declaredpaper accounting fromactualbroker parity. Anymissingprimary retrieval requiresseparateboundedplan; no observerlaunch/productionchange/strategyreplay.",
+  "current_experiment": "research/soxl_20230321_cash_event_qualification_20261015",
+  "current_phase": "fixed_cash_event_qualified_conditional_raw_share_paper_book_next",
+  "next_action": "Freeze a new raw-share unit cash-book identity with explicit USD gross-pretax research assumption, no DRIP, ex-date nonspendable receivable and next-native-open-after-pay-date transfer. Keep source currency qualification, historical PIT and actual broker parity false. Review a bounded split/cash/stable unit-book plan before execution; no strategy replay, observer launch or production change.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -753,6 +753,33 @@
       "cash_economic_bridge_qualified": false,
       "PIT_timing_qualified": false,
       "whole_strategy_bias_estimated": false
+    },
+    {
+      "card": "research/soxl_20230321_cash_event_qualification_20261015",
+      "kind": "fixed_existing_cash_event_source_qualification",
+      "status": "completed_conditional_paper_convention_currency_PIT_unqualified",
+      "recorder_id": "324f8b8d1b04425996b7292460304d0b",
+      "evaluation": "research/soxl_20230321_cash_event_qualification_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "plan_sha256": "82a3085dee6023be3a3035fac51e47855bbd35c5c6f56ff363ee41cee0e5cafa",
+        "verdict": "APPROVE_FIXED_ONE_EVENT"
+      },
+      "verification": {
+        "fixed_events": 1,
+        "nas_verified_artifacts": 15,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_replays": 0,
+        "new_accounts": 0,
+        "new_fetches": 0,
+        "observer_launches": 0
+      },
+      "amount_and_economic_dates_qualified_under_parent_contract": true,
+      "paper_convention_defined_conditionally": true,
+      "currency_qualified": false,
+      "historical_PIT_qualified": false,
+      "actual_broker_credit_verified": false
     }
   ],
   "governance_review": {

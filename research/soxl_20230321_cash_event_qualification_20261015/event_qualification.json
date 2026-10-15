@@ -1,0 +1,47 @@
+{
+  "event_id": "SOXL:cash:2023-03-21",
+  "instrument": "SOXL",
+  "ex_date": "2023-03-21",
+  "record_date": "2023-03-22",
+  "pay_date": "2023-03-28",
+  "income_per_original_share_decimal": "0.02501",
+  "short_term_original_token": "—",
+  "long_term_original_token": "—",
+  "gross_cash_per_original_share_decimal": "0.02501",
+  "original_share_multiplier_decimal": "1",
+  "original_share_basis_evidence_grade": "current_primary_issuer_DOM;2016contemporaneous_OCC;2014exact_archived_issuer_notice_with_CDX_digest",
+  "source_cash_basis": "issuer_event_date_original_share_units_per_row",
+  "currency": null,
+  "currency_status": "needs_data_no_explicit_currency_in_bounded_sources",
+  "vendor_per_cash_div_decimal": "0.02501",
+  "vendor_amount_correspondence": "exact_decimal_corroboration_not_currency_or_date_receipt_proof",
+  "source_capture_kind": "browser_dom_table_transcription",
+  "source_hash": "e5c2e720eb85244aac7ba9c626941d3f2d6b2c1feba27fd66b6e4b5462bb2033",
+  "source_version": "soxl_direxion_dom_table_20261009",
+  "DOM_observation_completed_no_later_than_utc": "2026-10-09T06:41:55+00:00",
+  "transcription_written_at_utc": "2026-10-09T06:42:40.251462+00:00",
+  "exact_DOM_request_started_at": null,
+  "exact_DOM_received_at": null,
+  "failed_HTTP_receipts": [
+    {
+      "url": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs",
+      "status": 403,
+      "request_started_at_utc": "2026-10-09T06:40:10.191391+00:00",
+      "response_received_at_utc": "2026-10-09T06:40:11.170149+00:00",
+      "role": "failed_HTTP_only_not_DOM_content_or_receipt_authority"
+    },
+    {
+      "url": "https://www.direxion.com/etf-distributions",
+      "status": 403,
+      "request_started_at_utc": "2026-10-09T06:40:10.191627+00:00",
+      "response_received_at_utc": "2026-10-09T06:40:11.282861+00:00",
+      "role": "failed_HTTP_only_not_DOM_content_or_receipt_authority"
+    }
+  ],
+  "announcement_at": null,
+  "source_evidence_known_by_utc": null,
+  "archive_timestamp_utc": null,
+  "historical_2023_received_before_decision_qualified": false,
+  "actual_broker_cash_receipt_verified": false,
+  "amount_and_economic_dates_qualified_under_parent_contract": true
+}

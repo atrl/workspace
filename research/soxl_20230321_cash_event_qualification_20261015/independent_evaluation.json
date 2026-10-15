@@ -1,0 +1,25 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_ONE_EVENT_CONDITIONAL_PAPER_CONVENTION",
+  "recorder_id": "324f8b8d1b04425996b7292460304d0b",
+  "plan_sha256": "82a3085dee6023be3a3035fac51e47855bbd35c5c6f56ff363ee41cee0e5cafa",
+  "verification_manifest_sha256": "3872f99335222e1c260a056c4f5f85a899ca9c3b876f5c9dc7f768e79ed1a662",
+  "workflow_sha256": "d3d5e1e19e56a68654a4774f7df01bb773b4dec7905a8f59495442f608999bae",
+  "archive_sha256": "d609546e3b3954c8600eaa6d65129d32f7f1a59303b27c06659703acbf71fb2e",
+  "checks": [
+    "Exact original-share amount and ex/record/pay dates match the fixed parent event",
+    "Parent explicitly declares next native open after pay-date close; 2023-03-29 09:30 NY verified",
+    "Currency remains unknown; no USD NAV, actual receipt or historical PIT claim",
+    "Inherited 2014/2016 corpus grade is not 2023 event timing evidence",
+    "Failed HTTP 403 receipts are not DOM content receipt authority"
+  ],
+  "readback": "readback_verification.json",
+  "objective_achieved": false,
+  "next_design_review": {
+    "verdict": "USD_gross_pretax_paper_assumption_acceptable_pending_exact_plan",
+    "currency_primary_source_verified": false,
+    "actual_broker_credit": false,
+    "historical_PIT": false,
+    "boundary": "New unit-book identity only; no sealed-model rewrite, strategy qualification or observer launch."
+  }
+}

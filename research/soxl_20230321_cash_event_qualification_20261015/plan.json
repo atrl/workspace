@@ -1,0 +1,83 @@
+{
+  "experiment": "soxl_20230321_cash_event_qualification_20261015",
+  "frozen_at_utc": "2026-10-15T12:24:56.453450+00:00",
+  "scope": "ExactlyonefixedSOXLcashdistribution source/conditionalpaperconvention qualification, no accountorpricecomparison",
+  "event_id": "SOXL:cash:2023-03-21",
+  "fixed_issuer_row_observed_beforefreeze": {
+    "ex_date": "2023-03-21",
+    "record_date": "2023-03-22",
+    "pay_date": "2023-03-28",
+    "income_decimal": "0.02501",
+    "short_term_token": "—",
+    "long_term_token": "—"
+  },
+  "corporate_source": {
+    "card": "research/etf_corporate_actions_20261009",
+    "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+    "inventory_sha256": "625ba522fbadc4377c87f56e4a241deca714cc556dbd7227b3f7e414d938a6f3",
+    "native_artifacts": [
+      "data/cash_events.pkl",
+      "inputs/source_contract.pkl",
+      "inputs/native_calendar.pkl"
+    ],
+    "raw_artifact_sha256": {
+      "sources/soxl/issuer_soxl_table_observed.csv": "e5c2e720eb85244aac7ba9c626941d3f2d6b2c1feba27fd66b6e4b5462bb2033",
+      "sources/soxl/issuer_soxl_inventory.json": "dd85b85d62712af26197d67b97c335985649cb7f243ad6ed64ac9360466d3b05",
+      "sources/soxl/product.receipt.json": "b64b1bfc2eb96a76adb828f55f19d5057a953489ff870d6214748137b12df22f",
+      "sources/soxl/distributions.receipt.json": "f917af74a0c7acfc4072910b9b55bc91f0e14dc36239f947b70bf0ced9d9bf1b"
+    },
+    "access": "VerifiedexistingnativeQlibRecorderobjects; rawCSV/JSONbytes readonlyfromsameverifiedlocalRecorderartifactroot afterexactregisteredhashchecks. No parentNASrestore/network orall50filereaudit."
+  },
+  "bridge_source": {
+    "card": "research/affine_raw_accounting_bridge_20261015",
+    "recorder_id": "b6cf662c0feb4d46badbdad4ccf18346",
+    "archive": "1c6646b9b6cbb091029e691afc75c3ab224b6cc34669b8d6f08d492632e29c7a",
+    "inventory_sha256": "b7b4ef23e5a6aa55d391d177dfbb4e37b5e9cae4ce6653fdd7c143650eda8d1d",
+    "artifacts": [
+      "analysis/cash_fields"
+    ]
+  },
+  "budget": {
+    "fixed_events": 1,
+    "native_parent_objects": 3,
+    "raw_parent_artifacts": 4,
+    "bridge_objects": 1,
+    "calendar_source": "existingnativecalendarobject only",
+    "Qlib_new_market_reads": 0,
+    "new_source_fetches": 0,
+    "new_fits": 0,
+    "new_replays": 0,
+    "new_native_accounts": 0,
+    "observer_launches": 0,
+    "production_changes": 0
+  },
+  "checks": [
+    "Selectexactevent_id/instrument/exdate fromexistingdata/cash_events.pkl; requireoneuniqueevent. CrosscheckonlymatchingoriginalDOMCSVrow, dates andDecimal income+ST+LT sum; emdashcomponentmeansnoamount underparentdeclaredcontract. No globalrescaling; preserveoriginalex-date-shareunits/sourceprecision andgrosspretax status.",
+    "CompareexplicitFutu per_cash_div frompreviousfixedbridge onlyasvendorcorroboration, not currency/announcement/paymentproof andnotDfromA/B. No newvaluation, strategyNAV orpolicy calculation.",
+    "Currency: seekexplicitcurrency inthese8boundobjects only; distinguishpublisherexplicit, parentdeclaredassumption, unknown. US ticker, USDfeevalidation, matchingnumberorother-eventUSDnotice cannotestablishthiseventcurrency. Ifnoexplicitfield, remainNone/needs_data; no furtherretrievalthisroute.",
+    "Sourceprovenance: preserve DOMtabletranscriptionidentity/bodyhash andobservationcompleted-no-later-than2026-10-09T06:41:55Z/written06:42:40.251462Z; exactDOMrequeststart/received_at unknown. Product/distributions HTTP403 receipts areFAILEDHTTPcaptures, nevercontentauthority orDOMreceipttime. No fabricated2023firstpublic/receivedtimestamp.",
+    "Dates: ex/record/payareeconomiccalendar dates. Preserveannouncement_at/archivefirstreceipt null unlessTHISfixedevent explicitlybound.2026observation cannotbackfill2023decisionavailability; old2014archivednotice cannottransferitsknownby to2023."
+  ],
+  "conditional_paper_convention": {
+    "status": "declared_hypothetical_convention_not_executed_or_actualbrokercredit",
+    "eligible_lot": "Fixed100originalrawshares heldacrossex-boundary; priornative-session eligibleholdings snapshot. No trades/order/account generated.",
+    "entitlement": "At2023-03-21nativeopen09:30NY recognizegrossreceivable100*qualifiedper-original-shareamount initsqualifiedcurrency, conditionalonlegitimateholdingsandcurrency. Thisdateconvention isnotproofthatamountwasreceivedbeforehistoricaldecision.",
+    "NAV": "ReceivablecountsineconomicNAV onlyoncurrencyandamountentitlementqualified; itisnotspendablecash. Currencyunknown preventsunconditionalUSDNAVorUSDcashcredit. No currentNAVcalculation.",
+    "available_cash": "Parentconservativeconvention: transferreceivable→paperavailablecash at09:30NY firstnative tradingday strictlyafterpay_dateclose. Derivefrompinnednativecalendar; expected2023-03-29. Scheduledpaymentpassing isnotactualaccountreceipt. No earlierintradaycashassumption.",
+    "no_double_count": "Usephysicalrawshareprice+onegrosscash/receivable event; neveraddsamecashagainontopofaffine-adjustedreturn. NoDRIP orwithholding assumption; hypotheticalgrosspretaxpaper only, actualtax/fees/cashreceiptuncertified.",
+    "currency_condition": "No currency is assumed inthisqualification. Convention canbeacceptedconditionally; laterexplicitUSDassumption orprimarycurrencyproof requiresseparatedeclaredcontract beforeUSDbookuse. Actualbrokerstatementnotrequiredforhypotheticalscheduledpaperconvention, onlyforactualbrokercreditclaim."
+  },
+  "gates": {
+    "amount_originalshare": "ExactDecimalmatchingrow andparentidentity",
+    "economic_dates": "Originalsourceex/record/pay datecrosscheck",
+    "currency": "explicitsourceproof orneeds_data; declaredpaperassumptionlabelseparate",
+    "paper_convention": "Conditionallydefined receivable/nonspendable→nextnativeopenafterpaydate, notactualreceipt",
+    "historical_PIT": "No backfill; current2026DOMcapturedoesnotpass2023received-beforedecision"
+  },
+  "outputs": "Notebook+Chineseconclusion; oneeventsourcequalification.json witheachfieldvalue/locator/evidencegrade/unknowns; conditionalpaperconvention.json withderiveddates andnoaccount-run flag; minimal8sourceobjecthashes/quotedfixedrow. RawreadbacksRecorderNAS, slimcard only. No broad125event/50fileaudit/testsuite.",
+  "if_gap": "Keepcurrency/firstreceipt/otherunknowns explicitlyneeds_data; no freshcurrencyretrieval inthisroute. Afterindependentreview chooseone minimalprimary-sourceproof step separately. Sourcecompletion doesnotauthorizeobserver,modeloraccount.",
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "historical_gate_override": false,
+  "promotion_authority": false
+}
