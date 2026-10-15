@@ -1,0 +1,10 @@
+experiment: diagnostic_forward_bar_mapping_20261016
+module: src.data.diagnostic_forward_bar_mapping
+plan: plan.json
+network: false
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: ["sources/*", "old_*/*", "new_*/*", "native/*", "analysis/*"]
+entrypoint: diagnostic_forward_bar_mapping_20261016.ipynb
+execution_note: Original module preserves the first attempt; notebook native_repair_1 cell is the recorded continuation outside active Recorder.

@@ -1,0 +1,83 @@
+{
+  "experiment": "diagnostic_forward_bar_mapping_20261016",
+  "scope": "Saved-payload declared end-label qualification only",
+  "parent_next_step_review_sha256": "abc29c76d2f5d4e4ba8d5a25db0e2ff3cb51a784458314c9d85d417172d5feb5",
+  "old_lineage_manifest": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/source_manifest.json",
+  "old_lineage_manifest_sha256": "01522c39d480d977d9d5e8abc0a1509afb86d5a822f68bb539f04e7bc755a2ca",
+  "old_files": [
+    {
+      "path": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/SOXL_2026-07-29_1m.parquet",
+      "sha256": "31411663d214a51afdbe6936fb6eafcbe010af94640ef5deb6ac67cd7ba4b0b9"
+    },
+    {
+      "path": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/SOXX_2026-07-29_1m.parquet",
+      "sha256": "30d53580e43041f4a172ef6a6e485b00200f1ed7c0e264b42d256b051eb8b57a"
+    },
+    {
+      "path": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/SOXL_2026-07-29_15m.parquet",
+      "sha256": "0bbd86385d83093b77e2defb98cbecf5d353d1cdbec44c23b58084d7c8a6e25e"
+    },
+    {
+      "path": "data/raw/external/stage1_intraday_gap_repair_20261009_v1/SOXX_2026-07-29_15m.parquet",
+      "sha256": "c500c870054358bc24928cf76435e7a3b9befd258dd26cd51f24c71c931a6593"
+    }
+  ],
+  "new_payload_objects": [
+    {
+      "path": "research/diagnostic_forward_probe_20261016/qlib_recorder/140040363268605940/0e6f44724ed142f7bba9efa3e0705b3f/artifacts/receipts/history_US.SOXL_completed",
+      "sha256": "2d41c3245c0daa4b34f07539c705b044972d0d4a280dd3a774381c3bbb382716"
+    },
+    {
+      "path": "research/diagnostic_forward_probe_20261016/qlib_recorder/140040363268605940/0e6f44724ed142f7bba9efa3e0705b3f/artifacts/receipts/history_US.SOXX_completed",
+      "sha256": "0caeb86f5db5e7bc96fa60af2ff967a63ac0e44968611691c2b09e3ce27ffd39"
+    }
+  ],
+  "source_recorder_id": "0e6f44724ed142f7bba9efa3e0705b3f",
+  "hypothesis": "Declared interval-end labels permit exact fixed 15-minute OHLCV aggregation on July29 pairs; observed October14 grids follow same declared end-label convention. This is bounded corroboration, not universal vendor interval/finality proof.",
+  "comparison": {
+    "date": "2026-07-29",
+    "symbols": [
+      "SOXL",
+      "SOXX"
+    ],
+    "minutes": 390,
+    "direct_windows": 26,
+    "columns": [
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume"
+    ],
+    "formula": "For each complete window (end-15min,end], first open/max high/min low/last close/sum volume; compare direct K15M with same end label. Require exact full 26 endpoint index first; never inner-join, fill or search offsets.",
+    "rtol": 0,
+    "atol": 1e-07,
+    "failure": "Report exact missing/mismatched field/window and stop qualification; no offset/date search."
+  },
+  "new_data": {
+    "date": "2026-10-14",
+    "expected_rows": 780,
+    "grid": "Each symbol exact native XNYS 09:31..16:00, 390 rows; label end=time_key, start=end-1minute; no +1minute shift.",
+    "price_basis": "New NONE; old K1M manifest states QFQ. Old direct K15M entries pin path/hash only: request autype/SDK/receipt are not certified. Comparison is same-day saved-value empirical OHLCV aggregation, not independently certified identical query planes, and never old/new price equivalence.",
+    "Qlib": "After fixed comparison passes, existing build_qlib_store_from_frame into data/qlib/diagnostic_forward_bar_mapping_20261016 then D.calendar exact390 and D.features OHLCV780; compare float32 original values exactly, report original-to-float32 quantization separately."
+  },
+  "budget": {
+    "network": 0,
+    "model_calls": 0,
+    "fits": 0,
+    "policy_replays": 0,
+    "old_parquets": 4,
+    "new_history_payloads": 2
+  },
+  "evidence_limits": [
+    "Old direct comparison uses QFQ; new probe uses NONE. It can support label convention, not current raw-price equivalence.",
+    "Old receipts do not certify installed SDK version, future bar finality or live availability.",
+    "No pilot authority; daily role mapping and full-session transport still incomplete.",
+    "Direct15m source metadata inspected from pinned manifest only; missing adjustment/SDK/receipt facts disclosed unknown.",
+    "No live prefix qualification or pilot approval; only declared completed-history end-label/Qlib mapping gate can pass."
+  ],
+  "artifacts": "New Recorder stores raw source arrays, aggregates, comparisons, normalized bars, Qlib readback, source hashes/code; slim notebook/summary/conclusion only.",
+  "source_code_sha256": {
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b"
+  }
+}

@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/diagnostic_forward_probe_20261016",
-  "current_phase": "four_call_probe_completed_start_label_assumption_rejected",
-  "next_action": "Using next_step_review.json, freeze a separate zero-fetch end-label qualification against the four exact existing July29 Futu minute/direct-K15M files plus two saved October14 payloads, then isolated Qlib readback. Keep the original probe source gate failed and original offline models unchanged. Do not repeat source calls or inference. Live daily role mapping, full-session transport and pilot activation remain separate outstanding gates.",
+  "current_experiment": "research/diagnostic_forward_bar_mapping_20261016",
+  "current_phase": "saved_history_end_label_mapping_verified_live_adapter_next",
+  "next_action": "Version the prospective input adapter explicitly for observed Futu interval-end labels using the accepted bar-mapping Recorder; retain raw time_key as end and derive start=end-1min, without changing original failed probe or repeating saved comparisons/model inference. Complete actual daily source-role mapping and finite live collector wiring under a new exact IO identity before full-session activation. This history mapping does not certify live prefix availability or vendor finality. No new data source, broad audit, training or historical strategy replay is authorized by this bookkeeping.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1071,6 +1071,26 @@
       "pilot_launches": 0,
       "evaluation": "research/diagnostic_forward_probe_20261016/independent_evaluation.json",
       "readback_artifacts": 25
+    },
+    {
+      "card": "research/diagnostic_forward_bar_mapping_20261016",
+      "kind": "zero_fetch_saved_history_bar_mapping",
+      "status": "completed_bounded_mapping_pass",
+      "plan_sha256": "00b8b8a366046e9765e2c0950cccc255af78b27e66a486d285d3b00c9339ffcf",
+      "recorder_id": "0b98c0e31bc5468594d59e66214527df",
+      "comparison_windows": 52,
+      "fields_per_window": 5,
+      "maximum_aggregation_error": 0.0,
+      "Qlib_rows": 780,
+      "Qlib_calendar_endpoints": 390,
+      "original_artifacts_preserved": 22,
+      "native_software_repair_count": 1,
+      "new_fits": 0,
+      "model_calls": 0,
+      "new_forward_days": 0,
+      "pilot_launches": 0,
+      "evaluation": "research/diagnostic_forward_bar_mapping_20261016/independent_evaluation.json",
+      "readback_artifacts": 29
     }
   ],
   "governance_review": {

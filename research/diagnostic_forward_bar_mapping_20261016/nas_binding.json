@@ -1,0 +1,23 @@
+{
+  "schema_version": "nas_research_source_v1",
+  "authority": "yanxuan_nas",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "source_id": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "raw_authority": "Frozen Qlib training snapshots and paired base model Recorders",
+  "evidence": {
+    "sha256": "2948565763a4b97aa46e289443f9b41e6657f78a0001da925ded13205e3f4a4c",
+    "size_bytes": 170537,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/29/48/2948565763a4b97aa46e289443f9b41e6657f78a0001da925ded13205e3f4a4c",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 02:32:57.990663+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/29/48/2948565763a4b97aa46e289443f9b41e6657f78a0001da925ded13205e3f4a4c",
+    "recorder_id": "0b98c0e31bc5468594d59e66214527df",
+    "experiment_id": "364729424211328971",
+    "archive_root": "qlib_recorder"
+  }
+}

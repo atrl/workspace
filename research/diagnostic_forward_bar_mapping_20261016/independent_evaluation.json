@@ -1,0 +1,20 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_BOUNDED_SAVED_HISTORY_END_LABEL_QLIB_MAPPING",
+  "recorder_id": "0b98c0e31bc5468594d59e66214527df",
+  "manifest_sha256": "8d7a336f6252f8ea333beefba73a1db35f918df0c7b70dd36de815cf233f5fe1",
+  "original_artifacts_unchanged": 22,
+  "new_repair_artifacts": 7,
+  "verified_total_artifacts": 29,
+  "readback_rows": 780,
+  "fields": 5,
+  "calendar_endpoints": 390,
+  "calendar_first": "2026-10-14 09:31:00",
+  "calendar_last": "2026-10-14 16:00:00",
+  "float32_exact_equality": true,
+  "extra_timestamp_shift": false,
+  "comparison_recomputed_in_review": false,
+  "pilot_authorized": false,
+  "qualified_forward_days": 0,
+  "original_software_failure_retained": true
+}

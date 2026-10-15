@@ -1,0 +1,12 @@
+{
+  "decision": "APPROVED_FIXED_OFFLINE_MAPPING_COMPARISON",
+  "plan_sha256": "00b8b8a366046e9765e2c0950cccc255af78b27e66a486d285d3b00c9339ffcf",
+  "owner": "/root",
+  "reviewer": "/root/evaluator",
+  "approved_at_utc": "2026-10-15T18:28:26.914519+00:00",
+  "network_calls_authorized": 0,
+  "model_calls_authorized": 0,
+  "new_fits_authorized": 0,
+  "pilot_authorized": false,
+  "interpretation_clarification": "evidence_limits[0] means old K1M manifest states QFQ; direct K15M adjustment unknown. It must not be interpreted as a certified QFQ query for direct K15M. This clarification does not change the frozen numeric comparison or inputs."
+}

@@ -1,0 +1,35 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/diagnostic_forward_bar_mapping_20261016",
+  "market": "all",
+  "region": "us",
+  "freq": "1min",
+  "as_of": "2026-10-14",
+  "source": "Saved Futu NONE original end labels; bounded mapping only, no live availability/finality qualification",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume"
+  ],
+  "calendar_start": "2026-10-14 09:31:00",
+  "calendar_end": "2026-10-14 16:00:00",
+  "max_datetime": "2026-10-14 16:00:00",
+  "row_count": 780,
+  "feature_file_count": 10,
+  "audit_snapshot_hash": "49eff83eb97dcf19",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "b1c84eeb1e3dcd34",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ]
+}

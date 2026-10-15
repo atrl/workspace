@@ -1,0 +1,14 @@
+{
+  "decision": "ROOT_APPROVED_ONE_SOFTWARE_CONTINUATION",
+  "reason": "Move Qlib builder/init outside active R.start; reuse only saved new_SYMBOL/original; no recomparison/refetch",
+  "original_failure": {
+    "type": "RecorderInitializationError",
+    "detail": "Please don't reinitialize Qlib if QlibRecorder is already activated. Otherwise, the experiment stored location will be modified."
+  },
+  "namespace": "native_repair_1",
+  "network_attempts": 0,
+  "new_model_calls": 0,
+  "new_policy_replays": 0,
+  "all_original_artifact_hashes_unchanged": true,
+  "original_artifact_count": 22
+}
