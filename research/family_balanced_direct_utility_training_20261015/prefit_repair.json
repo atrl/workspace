@@ -1,0 +1,12 @@
+{
+  "failure": "Qlib must already be initialized for source reads",
+  "stage": "before any source object loaded or fit attempt",
+  "fits_consumed": 0,
+  "paths_consumed": 0,
+  "repair": "Initialize existing Qlib raw provider before verified Recorder reads",
+  "old_workflow_sha256": "b67b0f8d41f64cdecbb1d081569c8e9f35fdba4f7a33fa3f652b405a4f9b82e2",
+  "new_workflow_sha256": "0c8d03e99b2867b68207880d50bcbf55125f0705fac3a5b44105363cde77ac6b",
+  "second_prefit_failure": "Calendar values identical but Qlib index name datetime vs calendar unnamed; normalized index names for equality assertion, no rows altered",
+  "final_workflow_sha256": "673b34ca1dfc842510195eddc10f4fc499f34dc49405c1b39305924d73d7f317",
+  "third_prefit_failure": "Reindex inherited signal_date index name; explicitly rename_axis datetime before Dataset static construction. No data or rows changed; no fits"
+}

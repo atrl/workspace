@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/raw_weaktrend_exposure_diagnostic_20261015",
-  "current_phase": "weaktrend_diagnosis_complete_generic_market_transfer_design_next",
-  "next_action": "Freeze one family-balanced pooled direct 3x/1x/cash allocation experiment against SOXL-only matched architecture/features/objective and frozen raw 27baa reference. Use existing SOXL/SOXX,TQQQ/QQQ,UPRO/SPY,SPXL/SPY,TECL/XLK data, treat UPRO/SPXL as one underlying family and shared-date observations as dependent. Pre2023 mature-label training and fixed budget/selection; no new individual-stock input or data collection. This is a new economic task relative to old 3x/cash classifiers, not more ticker samples alone.",
+  "current_experiment": "research/family_balanced_direct_utility_training_20261015",
+  "current_phase": "fixed_family_direct_utility_closed_generic_risk_transfer_triage_next",
+  "next_action": "Close fixed family-pooled direct utility package with no family-weight, seed or penalty rescue. Inspect bounded existing auxiliary-risk and relative-feature-reintegration precedents to test whether generic index information can support risk representation while preserving SOXL primary market features, rather than replacing the whole allocator with generic coordinates. Distinguish new task-specific transfer from old constituent auxiliary and pooled direct models before freezing any next experiment. No new individual-stock inputs or source collection.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -869,6 +869,44 @@
         "new_fetches": 0
       },
       "next_direction_review": "research/raw_weaktrend_exposure_diagnostic_20261015/market_reuse_review.json"
+    },
+    {
+      "card": "research/family_balanced_direct_utility_training_20261015",
+      "kind": "family_balanced_generic_direct_utility_comparison",
+      "status": "not_promoted_fixed_package_closed",
+      "recorder_id": "bc51d1c6a4644b1b8c9a1a455bd348c1",
+      "evaluation": "research/family_balanced_direct_utility_training_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_FAMILY_BALANCED_UTILITY_COMPARISON",
+        "plan_sha256": "766c18e6e706a3c8de716910cadf6189f7eb19cfb7c5c980f39658058a247b80"
+      },
+      "verification": {
+        "fits": 6,
+        "new_policy_paths": 6,
+        "new_native_accounts": 6,
+        "focused_tests_passed": 1,
+        "cold_read_artifacts": 71,
+        "all_hashes_match": true
+      },
+      "gates": {
+        "beat_matched_control_all_costs": true,
+        "beat_frozen_raw27baa_all_costs": false,
+        "net_soxx_excess_all_costs": false,
+        "sampled_drawdown_30pct": true,
+        "cvar_no_worse_soxx": true,
+        "rolling_70pct_soxx": false,
+        "complete_annual_70pct_soxx": false,
+        "bootstrap_positive_all_three": false,
+        "fullminute_risk_qualified": false,
+        "independent_development": false,
+        "qualified_forward": false
+      },
+      "historical_point_increment_not_statistically_established": true,
+      "two_bp_return_pct": 238.25941,
+      "two_bp_matched_control_return_pct": 199.138535,
+      "two_bp_rolling_positive_fraction": 0.379731,
+      "individual_stock_feature_extensions": false
     }
   ],
   "governance_review": {
@@ -885,8 +923,8 @@
     "promotion_eligible": false,
     "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
   },
-  "cumulative_new_fits_in_this_campaign": 27,
-  "cumulative_new_native_accounts_in_this_campaign": 30,
+  "cumulative_new_fits_in_this_campaign": 33,
+  "cumulative_new_native_accounts_in_this_campaign": 36,
   "rejected_directions": [
     {
       "direction": "Broad account-state-aware full-path training",
@@ -908,8 +946,8 @@
       "new_collection_or_fits": 0
     }
   ],
-  "cumulative_new_shadow_paths_in_this_campaign": 24,
-  "cumulative_new_allocator_fits_in_this_campaign": 15,
+  "cumulative_new_shadow_paths_in_this_campaign": 30,
+  "cumulative_new_allocator_fits_in_this_campaign": 21,
   "cumulative_new_statistical_fits_in_this_campaign": 12,
   "cumulative_frozen_risk_valuations": 6,
   "mechanism_triage": {
@@ -931,7 +969,7 @@
     "use": "Retain frozen as additional economic comparator, not deployed or silently promoted"
   },
   "cumulative_new_residual_fits_in_this_campaign": 6,
-  "cumulative_new_full_allocator_fits_in_this_campaign": 9,
+  "cumulative_new_full_allocator_fits_in_this_campaign": 15,
   "prospective_observation_governance": {
     "reviewer": "/root/evaluator",
     "verdict": "ALLOW_NARROW_READINESS_ASSESSMENT_ONLY",
@@ -966,5 +1004,6 @@
     "next_mechanism_domain": "ETF and portfolio-level exposure, leverage risk and cash protection versus missed participation, using existing market inputs",
     "preserve_stable_excess_objective": true,
     "generic_market_direction": "Prefer reusable index/market data and cross-market training; review prior mixed-index experiments before a distinct new mechanism"
-  }
+  },
+  "generic_training_precedent_correction": "research/family_balanced_direct_utility_training_20261015/precedent_correction.json"
 }

@@ -1,0 +1,16 @@
+experiment: family_balanced_direct_utility_training_20261015
+plan: plan.json
+module: src.workflow.family_balanced_direct_utility
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/frozen_policy_raw_cashbook_20261015
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - models/*
+  - predictions/*
+  - paths/*
+  - traces/*
+  - native/*
+  - analysis/rolling/*

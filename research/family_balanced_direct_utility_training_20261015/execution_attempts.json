@@ -1,0 +1,46 @@
+{
+  "plan_sha256": "766c18e6e706a3c8de716910cadf6189f7eb19cfb7c5c980f39658058a247b80",
+  "fit_attempts": [
+    "control_71",
+    "candidate_71",
+    "control_172",
+    "candidate_172",
+    "control_273",
+    "candidate_273"
+  ],
+  "fitted": [
+    "control_71",
+    "candidate_71",
+    "control_172",
+    "candidate_172",
+    "control_273",
+    "candidate_273"
+  ],
+  "path_attempts": [
+    "raw_control",
+    "raw_candidate"
+  ],
+  "paths_done": [
+    "raw_control",
+    "raw_candidate"
+  ],
+  "native_attempts": [
+    "raw_control_0",
+    "raw_control_2",
+    "raw_control_5",
+    "raw_candidate_0",
+    "raw_candidate_2",
+    "raw_candidate_5"
+  ],
+  "native_done": [
+    "raw_control_0",
+    "raw_control_2",
+    "raw_control_5",
+    "raw_candidate_0",
+    "raw_candidate_2",
+    "raw_candidate_5"
+  ],
+  "recorder_id": "bc51d1c6a4644b1b8c9a1a455bd348c1",
+  "experiment_id": "480822670856232167",
+  "sources_saved": true
+}

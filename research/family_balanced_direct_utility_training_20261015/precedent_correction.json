@@ -1,0 +1,9 @@
+{
+  "role": "precedent correction before fitting",
+  "earlier_review": "research/raw_weaktrend_exposure_diagnostic_20261015/market_reuse_review.json",
+  "additional_precedent": "research/auxiliary_3x_training_data_allocation_v1",
+  "recorder_id": "d0d1e39b74fc4203ac28a25386edff3a",
+  "finding": "Direct three-asset auxiliary pooling already existed, using target-weight MSE plus an average-cash penalty and selected auxiliary weights. It failed development return and risk gates.",
+  "corrected_novelty": "Not first direct pooled allocation. Current fixed comparison tests generic-family data versus SOXL-only under the same explicit utility, feature and architecture contract. No MSE arm means no isolated claim for utility superiority.",
+  "earlier_evidence_preserved": true
+}

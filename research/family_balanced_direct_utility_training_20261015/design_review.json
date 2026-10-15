@@ -1,0 +1,21 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "APPROVE_FIXED_FAMILY_BALANCED_UTILITY_COMPARISON",
+  "plan_sha256": "766c18e6e706a3c8de716910cadf6189f7eb19cfb7c5c980f39658058a247b80",
+  "superseded_hold": "Prior draft omitted hard CVaR gate; final version restores it and clarifies stability benchmark",
+  "scope": {
+    "fits": 6,
+    "policy_paths": 6,
+    "native_validations": 6,
+    "new_fetches": 0
+  },
+  "conditions": [
+    "Same architecture, features, objective, scaler and initialization in paired arms; vary only training families",
+    "Independent chronological turnover per pair; shared cutoff and mature labels",
+    "Four equal underlying families, SPY twins share one family weight",
+    "Written DAILY mean utility units; no implicit annualization factor",
+    "Annual and rolling gates against raw SOXX; wealth and confidence against all three comparators",
+    "CVaR5 must be no worse than same-cost raw SOXX",
+    "No claim direct pooling or annual utility is new; no isolated utility-gain claim"
+  ]
+}

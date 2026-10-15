@@ -1,0 +1,235 @@
+{
+  "experiment": "family_balanced_direct_utility_training_20261015",
+  "frozen_at_utc": "2026-10-15T14:09:28.243920+00:00",
+  "hypothesis": "Fixed family-balanced generic index training improves direct three-asset allocation beyond matched SOXL-only training; no issuer input extension. Held assets remain SOXL/SOXX/CASH.",
+  "dedup": "Pooling direct 3x/1x/cash is NOT new: auxiliary_3x_training_data_allocation_v1 pooled oracle-weight MSE failed. This comparison fixes utility, absolute+normalized features, architecture and scaler across arms and varies ONLY training families. Annual utility machinery is reused, not a claimed novel penalty. Old normalized LGB/XGB was 3x/cash classifier; homologous models separately trained. No isolated utility-improvement claim without matched MSE arm.",
+  "arms": {
+    "control": {
+      "SOXL": 1.0
+    },
+    "candidate": {
+      "SOXL": 0.25,
+      "TQQQ": 0.25,
+      "UPRO": 0.125,
+      "SPXL": 0.125,
+      "TECL": 0.25
+    }
+  },
+  "families": {
+    "SOXL": "SOXX",
+    "TQQQ": "QQQ",
+    "UPRO": "SPY",
+    "SPXL": "SPY",
+    "TECL": "XLK"
+  },
+  "providers": {
+    "SOXL": {
+      "uri": "data/qlib/soxl",
+      "manifest_sha256": "bcbc189e08b23ecb2a234c9ecaef05336e4a07b3181795ed9d55e344b5616da8"
+    },
+    "TQQQ": {
+      "uri": "data/qlib/tqqq",
+      "manifest_sha256": "0ce3e462a45e9c5e36f2184748678f927734fedf796e1bc9f71b173f6250bbf9"
+    },
+    "UPRO": {
+      "uri": "data/qlib/upro",
+      "manifest_sha256": "fafba4500c61855864b6db58cc85885bb80f0796334040399025b4c65ffa0f9e"
+    },
+    "SPXL": {
+      "uri": "data/qlib/spxl",
+      "manifest_sha256": "61bdeb0b2ce357f94fc1f9f8f7329c073df05f7ec7c728dcdabe0c5739f33538"
+    },
+    "TECL": {
+      "uri": "data/qlib/tecl",
+      "manifest_sha256": "9e2d0a60a508cabbf5e874bf9a3abed4a9968292d6ccb6ea1510c0c4d7a9fdb6"
+    }
+  },
+  "source_code_sha256": {
+    "src/workflow/multi_3x_etf_normalized_nested_wf.py": "eb1081dfce921e356b8a109215b1028846b63626b66b93789c17abae73b8f32b",
+    "src/workflow/auxiliary_3x_training_data_allocation.py": "35d7e47c69d3369ab1daa2b41017ef338070d6b3fa3ccb8a845d281430719687",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75"
+  },
+  "raw_source": {
+    "card": "research/frozen_policy_raw_cashbook_20261015",
+    "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+    "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054"
+  },
+  "market_context_source": {
+    "card": "research/causal_cost_scenario_controller_20261015",
+    "recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+    "archive": "1145b7788507c9f47fa5d7a3d9a8e3ecb706177e3870bef3e475f74bb5ddf5a3",
+    "inventory_sha256": "e741bc79560532a94344212d7831cbb673fb6e6d1c0807e2e39c18b18c477707"
+  },
+  "controller_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "action_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "features": {
+    "ordered_absolute": [
+      "ret_5",
+      "ret_20",
+      "ret_60",
+      "underlying_ret_20",
+      "underlying_ret_60",
+      "realized_vol_20",
+      "drawdown_60",
+      "trend_efficiency_20",
+      "tracking_error_5",
+      "tracking_error_20",
+      "range_ratio_20",
+      "volume_z_20",
+      "vix_z_60",
+      "tracking_error_60"
+    ],
+    "ordered_model": [
+      "ret_5",
+      "ret_20",
+      "ret_60",
+      "underlying_ret_20",
+      "underlying_ret_60",
+      "realized_vol_20",
+      "drawdown_60",
+      "trend_efficiency_20",
+      "tracking_error_5",
+      "tracking_error_20",
+      "range_ratio_20",
+      "volume_z_20",
+      "vix_z_60",
+      "tracking_error_60",
+      "ret_5_z20",
+      "ret_5_pctile20",
+      "ret_5_z60",
+      "ret_5_pctile60",
+      "ret_20_z20",
+      "ret_20_pctile20",
+      "ret_20_z60",
+      "ret_20_pctile60",
+      "ret_60_z20",
+      "ret_60_pctile20",
+      "ret_60_z60",
+      "ret_60_pctile60",
+      "underlying_ret_20_z20",
+      "underlying_ret_20_pctile20",
+      "underlying_ret_20_z60",
+      "underlying_ret_20_pctile60",
+      "underlying_ret_60_z20",
+      "underlying_ret_60_pctile20",
+      "underlying_ret_60_z60",
+      "underlying_ret_60_pctile60",
+      "realized_vol_20_z20",
+      "realized_vol_20_pctile20",
+      "realized_vol_20_z60",
+      "realized_vol_20_pctile60",
+      "drawdown_60_z20",
+      "drawdown_60_pctile20",
+      "drawdown_60_z60",
+      "drawdown_60_pctile60",
+      "trend_efficiency_20_z20",
+      "trend_efficiency_20_pctile20",
+      "trend_efficiency_20_z60",
+      "trend_efficiency_20_pctile60",
+      "tracking_error_5_z20",
+      "tracking_error_5_pctile20",
+      "tracking_error_5_z60",
+      "tracking_error_5_pctile60",
+      "tracking_error_20_z20",
+      "tracking_error_20_pctile20",
+      "tracking_error_20_z60",
+      "tracking_error_20_pctile60",
+      "range_ratio_20_z20",
+      "range_ratio_20_pctile20",
+      "range_ratio_20_z60",
+      "range_ratio_20_pctile60",
+      "volume_z_20_z20",
+      "volume_z_20_pctile20",
+      "volume_z_20_z60",
+      "volume_z_20_pctile60",
+      "vix_z_60_z20",
+      "vix_z_60_pctile20",
+      "vix_z_60_z60",
+      "vix_z_60_pctile60",
+      "tracking_error_60_z20",
+      "tracking_error_60_pctile20",
+      "tracking_error_60_z60",
+      "tracking_error_60_pctile60"
+    ],
+    "builder": "_attach_normalized_features(windows=(20,60), min_periods=None); no asset identity, constituent or individual issuer coordinates",
+    "normalization": "Rolling per instrument uses only completed bars. Both arms share median/mean/sample-std fitted ONLY mature SOXL training rows, zero std replaced1, missing median, clip standardized [-8,8], float32. Retaining14 absolute coordinates addresses normalized-only loss; no claim all original39 specialized features retained."
+  },
+  "domain": {
+    "history_start": "2010-03-11",
+    "train_signal_start": "2011-01-03",
+    "training_asof": "2023-01-01T00:00:00-05:00",
+    "last_raw_training_bar": "2022-12-30",
+    "label": "Own 3x and 1x next-open to following-open gross returns, cash0; labels constructed after truncating raw history at2022-12-30. H5 maturity conservatively signal+6 native sessions09:31 strictly before cutoff; same embargo in both arms. Counts derived, no row trimming to force3014.",
+    "decision": "Completed signal-day daily bars available for following native session09:29 feature decision; source data current-vintage proxy, not historical receipt proof.",
+    "calendar": "Qlib D.calendar/D.features, assert required paired sessions; no silent inner intersection. Same global date cutoff for all families, no ticker holdout claim. No same-date independence claim; SPY duplicates share family weight.",
+    "evaluation": "Only SOXL features through signal2026-10-08 for fixed944 raw trade intervals2023-01-04 through terminal2026-10-09 09:47; no evaluation outcomes for selection.",
+    "finite_guard": "Required raw price/return labels finite and positive prices; one-day returns > -1 before any loss clamp. Feature missingness train-only median imputed, resulting70inputs must finite; all-missing training feature aborts. No rows silently dropped to resolve mismatch."
+  },
+  "model": {
+    "architecture": "Linear(70,16), Tanh, Linear(16,2); same direct allocator architecture in both arms",
+    "weights": "L=.30*sigmoid(z0); C=.15+(1-L-.15)*sigmoid(z1); X=1-L-C; order L,X,C. Proposal floor only: subsequent T may reduce cash.",
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "initialization": "Identical initial state per paired seed, verify before fits",
+    "optimizer": "AdamW lr=.002 weight_decay=.08, full batch, grad clip norm2, float32 CPU",
+    "epochs": 300,
+    "checkpoint": "Final epoch only; no loss-best selection, search, earlystop or new auxiliary gradient"
+  },
+  "objective": {
+    "per_pair": "turnover=_holdings_aware_turnover chronological independent pair starting all cash; r=sum(w[:2]*own_returns)-.001*turnover; u_y=mean(log1p(clamp(r,min=-.95))-log1p(clamp(own_1x_return,min=-.95))) in each signal-year; L_pair=-mean(u_y)+.50*std(u_y,unbiased=False)+.006*mean(turnover).",
+    "pool": "Weighted sum of independently computed pair losses with arms weights; never concatenate holdings across tickers.",
+    "scope": "Benchmark subtraction in mean alone is constant-gradient; annual relative dispersion depends on benchmark. Training cost10bp is fixed differentiable proxy, not exact tiered execution. No risk/cash/shortfall/classification/MSE terms beyond stated objective."
+  },
+  "execution": {
+    "ensemble": "Arithmetic mean3 raw predictions then original _smooth_weights span3/rebalance.02/source-return drift/initial cash; same date index as frozen frame.",
+    "context": "Both arms reuse immutable pure-market9097 frame alpha/tail and market fields; replace only proposed weights. No manufactured classifier score, no NVDA new input. Same frozen recovery model/controller, min3cost cap, ALL3 consensus and T once after own risk projection at open/recovery.",
+    "books": "6 new raw policy paths (2 joint3cost packages),6 native independent validations. Reuse sealed raw27baa/SOXX3cost books;9097 descriptive. All same raw point_prices/schedule/provider, raw shares+C+R NAV, C-only buy funding, exact split/gross USD assumed dividends/noDRIP. Existing guard excluded from metrics.",
+    "costs_bps": [
+      0,
+      2,
+      5
+    ],
+    "initial_cash": "Inherit exact raw source inputs/plan initial_cash and tariff; assert same source/calendar/944 endpoints before comparison."
+  },
+  "gates": {
+    "references": [
+      "same-cost matched control",
+      "same-cost frozen raw27baa",
+      "same-cost rawSOXX"
+    ],
+    "requirements": "All costs relative wealth>1+1e-8 against ALL3; DD<=30%; CVaR5 no worse same-cost rawSOXX; Against rawSOXX (campaign stability contract): complete trade-year wins>=70% (2024/2025, exclude partial2023/2026); all819 contiguous126-session window wins>=70%; stationary bootstrap paired daily excess lower one-sided97.5% bound>0 vsALL3 (meanblock63,2000,seed20261014,alpha.025). Report CVaR, costs, all years/quarters and exposure. No vacuous annual pass.",
+    "promotion": false,
+    "scope": "Reused history, no qualified independent-forward evidence. If coarse gates fail close fixed package; no fullminute revaluation after negative."
+  },
+  "budget": {
+    "fits": 6,
+    "shadow_policy_paths": 6,
+    "native_validations": 6,
+    "new_fetches": 0,
+    "parameter_variants": 0,
+    "recovery_refits": 0,
+    "extra_models": 0
+  },
+  "evidence": "Notebook executes reusable src model/workflow, captures source hashes before first attempt. Recorder/NAS models/predictions/training cohorts/scalers/attempts/paths/native/rolling; slim card summaries/Chinese conclusion. Checkpoint each fit/package/native; no silent retries. One focused material grouped-loss/maturity contract test, no broad suite.",
+  "failure_rule": "Any scientific failure closes this fixed data/feature/utility package; no family reweighting, seed selection, penalty rescue or issuer extension.",
+  "preexecution_amendment": {
+    "prior_sha256": "febe15934bb452f1cff4560b5540c04c61282aec8ede921551260c425c1f1aa8",
+    "reason": "Explicit existing CVaR5 hard gate; CI label matches fixed alpha.025; annual/rolling rawSOXX while pairedwealth/CI ALL3 per campaign; finite raw labels and transformed features preflight. No fits/outcomes."
+  }
+}

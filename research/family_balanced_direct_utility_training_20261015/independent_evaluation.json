@@ -1,0 +1,44 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_NEGATIVE_FAMILY_DATA_COMPARISON",
+  "plan_sha256": "766c18e6e706a3c8de716910cadf6189f7eb19cfb7c5c980f39658058a247b80",
+  "recorder_id": "bc51d1c6a4644b1b8c9a1a455bd348c1",
+  "verification_manifest_sha256": "86bf3ab768020982d4a8210e2bcdd1ef61c500880fe16c9cf953ce3a2b583c60",
+  "archive_sha256": "f821d592d8004c3efb43326766f97a4d532de4040c631a5dbacede1de961be5f",
+  "source_sha256": {
+    "src/model/family_balanced_direct_utility.py": "cc88fdbac64979f1cd072364bfa50a600a8e3c8e86b059592a9a0e491703671c",
+    "src/workflow/family_balanced_direct_utility.py": "673b34ca1dfc842510195eddc10f4fc499f34dc49405c1b39305924d73d7f317",
+    "src/analysis/family_transfer_assessment.py": "322ba2fbbd277c9c878c914e3eb75f269dba8fbb6c59216033c7843c85c7c0d2"
+  },
+  "checks": [
+    "Each of five pairs has 3014 mature signals from 2011-01-03 through 2022-12-21; last maturity 2022-12-30 09:31",
+    "Labels constructed after truncating training raw bars at 2022-12-30",
+    "Shared median, mean and sample standard deviation recomputed from SOXL training rows only",
+    "Exact paired seed initialization, 70 features, final 300 epochs and fixed family weights",
+    "Independent chronological pair turnover and own underlying benchmark; daily utility units without annualization",
+    "Six native accounts reconcile fees, shares, cash, receivables and compounded report wealth",
+    "Pooled point-estimate improvement versus matched control is not statistically established; all reference confidence gates fail"
+  ],
+  "verification": {
+    "fits": 6,
+    "new_policy_paths": 6,
+    "new_native_accounts": 6,
+    "focused_tests_passed": 1,
+    "cold_read_artifacts": 71,
+    "all_hashes_match": true
+  },
+  "gates": {
+    "beat_matched_control_all_costs": true,
+    "beat_frozen_raw27baa_all_costs": false,
+    "net_soxx_excess_all_costs": false,
+    "sampled_drawdown_30pct": true,
+    "cvar_no_worse_soxx": true,
+    "rolling_70pct_soxx": false,
+    "complete_annual_70pct_soxx": false,
+    "bootstrap_positive_all_three": false,
+    "fullminute_risk_qualified": false,
+    "independent_development": false,
+    "qualified_forward": false
+  },
+  "objective_achieved": false
+}

@@ -1,0 +1,98 @@
+{
+  "experiment": "family_balanced_direct_utility_training_20261015",
+  "plan_sha256": "766c18e6e706a3c8de716910cadf6189f7eb19cfb7c5c980f39658058a247b80",
+  "decision": "not_promoted_fixed_family_data_comparison",
+  "objective_achieved": false,
+  "model_fits": 6,
+  "policy_paths": 6,
+  "native_validations": 6,
+  "new_fetches": 0,
+  "training_audit": {
+    "SOXL": {
+      "provider_manifest": "bcbc189e08b23ecb2a234c9ecaef05336e4a07b3181795ed9d55e344b5616da8",
+      "rows": 3014,
+      "first_signal": "2011-01-03 00:00:00",
+      "last_signal": "2022-12-21 00:00:00",
+      "last_mature_at": "2022-12-30 09:31:00",
+      "source_end_read": "2026-10-08"
+    },
+    "TQQQ": {
+      "provider_manifest": "0ce3e462a45e9c5e36f2184748678f927734fedf796e1bc9f71b173f6250bbf9",
+      "rows": 3014,
+      "first_signal": "2011-01-03 00:00:00",
+      "last_signal": "2022-12-21 00:00:00",
+      "last_mature_at": "2022-12-30 09:31:00",
+      "source_end_read": "2022-12-30"
+    },
+    "UPRO": {
+      "provider_manifest": "fafba4500c61855864b6db58cc85885bb80f0796334040399025b4c65ffa0f9e",
+      "rows": 3014,
+      "first_signal": "2011-01-03 00:00:00",
+      "last_signal": "2022-12-21 00:00:00",
+      "last_mature_at": "2022-12-30 09:31:00",
+      "source_end_read": "2022-12-30"
+    },
+    "SPXL": {
+      "provider_manifest": "61bdeb0b2ce357f94fc1f9f8f7329c073df05f7ec7c728dcdabe0c5739f33538",
+      "rows": 3014,
+      "first_signal": "2011-01-03 00:00:00",
+      "last_signal": "2022-12-21 00:00:00",
+      "last_mature_at": "2022-12-30 09:31:00",
+      "source_end_read": "2022-12-30"
+    },
+    "TECL": {
+      "provider_manifest": "9e2d0a60a508cabbf5e874bf9a3abed4a9968292d6ccb6ea1510c0c4d7a9fdb6",
+      "rows": 3014,
+      "first_signal": "2011-01-03 00:00:00",
+      "last_signal": "2022-12-21 00:00:00",
+      "last_mature_at": "2022-12-30 09:31:00",
+      "source_end_read": "2022-12-30"
+    }
+  },
+  "gates": {
+    "beat_matched_control_all_costs": true,
+    "beat_frozen_raw27baa_all_costs": false,
+    "net_soxx_excess_all_costs": false,
+    "sampled_drawdown_30pct": true,
+    "cvar_no_worse_soxx": true,
+    "rolling_70pct_soxx": false,
+    "complete_annual_70pct_soxx": false,
+    "bootstrap_positive_all_three": false,
+    "fullminute_risk_qualified": false,
+    "independent_development": false,
+    "qualified_forward": false
+  },
+  "historical_PIT_qualified": false,
+  "currency_contract": "USD gross paper assumption, noDRIP, same raw basis all arms",
+  "recorder_id": "bc51d1c6a4644b1b8c9a1a455bd348c1",
+  "experiment_id": "480822670856232167",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/family_balanced_direct_utility_training_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/family_balanced_direct_utility_training_20261015/qlib_recorder/480822670856232167/bc51d1c6a4644b1b8c9a1a455bd348c1",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "predictions/*",
+      "paths/*",
+      "traces/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "f821d592d8004c3efb43326766f97a4d532de4040c631a5dbacede1de961be5f",
+    "size_bytes": 13711965,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f8/21/f821d592d8004c3efb43326766f97a4d532de4040c631a5dbacede1de961be5f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 22:21:18.286517+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f8/21/f821d592d8004c3efb43326766f97a4d532de4040c631a5dbacede1de961be5f",
+    "recorder_id": "bc51d1c6a4644b1b8c9a1a455bd348c1",
+    "experiment_id": "480822670856232167",
+    "archive_root": "qlib_recorder"
+  }
+}
