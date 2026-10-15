@@ -1,0 +1,35 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_NEGATIVE_SAVED_FORECAST_SCORING",
+  "plan_sha256": "ae4ef830a9d8e9995c495c6a12db0dcb8cf46109d2fb502557c44f81324e29f8",
+  "recorder_id": "85d314b1f0ac470e856da416a2f156cd",
+  "verification_manifest_sha256": "3c38d0fec4aa7b4636364ead4c77bb4bc39481daf1e5e54355ac9a4b3e5c3464",
+  "workflow_sha256": "4d3e2fbec0d50014e2f029eb0165f2ca4e105a4d3d7bd5c5847a8fa9281f87f6",
+  "archive_sha256": "ac3bfdf8aa3e7dcb1bf7a7cb883e906801532e53bed3c15feaa3a9f3bd818996",
+  "checks": [
+    "Saved probabilities, original labels and maturity align on all944 positions",
+    "940 scored rows and105 events;4 unknown outcomes retained",
+    "Original binary event definition and parent2026-10-09 09:47 NY cutoff retained",
+    "Log loss and Brier plus all2000 full-calendar block replicates independently recomputed",
+    "Event contribution improves but non-event deterioration dominates; all4 signal-year score deltas negative",
+    "No causal attribution of exclusive portfolio failure, calibration rescue or renewed promotion"
+  ],
+  "primary_result": {
+    "paired_mean_loss_improvement": -0.09125544730360703,
+    "lower_bound": -0.1475460873114306,
+    "upper_bound": -0.04196168198506539,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 944,
+    "scored_rows": 940
+  },
+  "verification": {
+    "cold_read_artifacts": 20,
+    "all_hashes_match": true,
+    "new_fits": 0,
+    "new_inference": 0,
+    "new_accounts": 0,
+    "new_fetches": 0
+  },
+  "objective_achieved": false
+}

@@ -1,0 +1,55 @@
+{
+  "experiment": "generic_index_tail_scoring_20261015",
+  "plan_sha256": "ae4ef830a9d8e9995c495c6a12db0dcb8cf46109d2fb502557c44f81324e29f8",
+  "decision": "no_reliable_saved_tail_forecast_improvement",
+  "primary_logloss_ci": {
+    "paired_mean_loss_improvement": -0.09125544730360703,
+    "lower_bound": -0.1475460873114306,
+    "upper_bound": -0.04196168198506539,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 944,
+    "scored_rows": 940
+  },
+  "calendar_rows": 944,
+  "scored_rows": 940,
+  "unknown_rows": 4,
+  "event_count": 105,
+  "last_scored_signal": "2026-10-01 00:00:00",
+  "last_used_maturity": "2026-10-09 09:31:00-04:00",
+  "parent_asof": "2026-10-09 09:47:00-04:00",
+  "parent_portfolio_route_remains_closed": true,
+  "new_inference": 0,
+  "new_fits": 0,
+  "new_policy_accounts": 0,
+  "new_fetches": 0,
+  "objective_achieved": false,
+  "recorder_id": "85d314b1f0ac470e856da416a2f156cd",
+  "experiment_id": "832350012044339925",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/generic_index_tail_scoring_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/generic_index_tail_scoring_20261015/qlib_recorder/832350012044339925/85d314b1f0ac470e856da416a2f156cd",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/daily",
+      "analysis/bootstrap_indices",
+      "analysis/bootstrap_replicates"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "ac3bfdf8aa3e7dcb1bf7a7cb883e906801532e53bed3c15feaa3a9f3bd818996",
+    "size_bytes": 2487340,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ac/3b/ac3bfdf8aa3e7dcb1bf7a7cb883e906801532e53bed3c15feaa3a9f3bd818996",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 23:01:46.425784+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ac/3b/ac3bfdf8aa3e7dcb1bf7a7cb883e906801532e53bed3c15feaa3a9f3bd818996",
+    "recorder_id": "85d314b1f0ac470e856da416a2f156cd",
+    "experiment_id": "832350012044339925",
+    "archive_root": "qlib_recorder"
+  }
+}

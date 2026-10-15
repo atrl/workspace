@@ -1,0 +1,65 @@
+{
+  "experiment": "generic_index_tail_scoring_20261015",
+  "frozen_at_utc": "2026-10-15T14:58:51.495212+00:00",
+  "question": "Did the fixed generic INDEX auxiliary improve the exact primary SOXX tail probability forecast, despite failed portfolio stability? Saved-forecast proper-scoring diagnosis only; parentfixednegative remainsclosed.",
+  "forecast_source": {
+    "card": "research/generic_index_risk_transfer_20261015",
+    "recorder_id": "83a13ab47cdb4e28a5fe285821909a28",
+    "archive": "413da98cbf476534e5ca58b6b4a0188709655ef695b5cabf0778401f6e52b0bf",
+    "inventory_sha256": "572a19fa79c98e722c058d915f0b9159480b524269a5ff65260c3e813d87e408"
+  },
+  "forecast_artifacts": [
+    "analysis/targets",
+    "inputs/frame"
+  ],
+  "label_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "label_artifacts": [
+    "inputs/daily_frame",
+    "inputs/timing",
+    "inputs/plan"
+  ],
+  "fixed_domain": {
+    "positions": "Exactly all944 saved signal_date/trade_date/exit_date positions from frozenparentframe, no intersection or label-based compression. Both ensembles aligned exactly; probabilityseries taken from analysis/targets control/candidate tail_probability (arithmetic3seedmean retained unchanged by weightEMA).",
+    "as_of": "2026-10-09T09:47:00 America/New_York, fixedparent terminal; not currentdate or laterbackfill.",
+    "label": "Original saved daily_frame.tail_event_5d only: primarySOXX1x nextopen H5 ENTRY-relative minimum<=−.06. Use original label_available_at from timing; no raw09:47 return substitute/reconstruction/newsource.",
+    "mask": "Shared eligible mask originalbinaryfinite label AND nonmissing originalavailable_at<=fixedas_of. NY-naive timestamps explicitlylocalizeAmerica/New_York; awareconvertNY. Unknown/immaturefinal rows retained NaN in all944 positions. Unknown mustnotbe fabricated0. Finite labeloutside{0,1} aborts. Reportmask reasons/counts andlastscored signal/maturity.",
+    "scope": "Reusecurrentvintage parent researchlabels, not real-time receipt qualification. Originalsourceplanasof/end mustnot exceed declaredOctober9 corpus boundary for usedoutcomes; no afterasof label reuse."
+  },
+  "probability_contract": {
+    "required": "Bothseries finite and within[0,1] on ALL944; exactdates no missing/drop. Invalid probabilities abort before metrics.",
+    "logloss_clip": "Fixed numericalclip p to[1e-7,1-1e-7] forlogloss ONLY; reportperarm clippedcounts/maxadjustment. Not calibration or economicthreshold.",
+    "Brier": "Use originalunclipped probabilities for squared(p-y).",
+    "primary": "Perrow d=logloss_control−logloss_candidate; positive meanscandidatebetter. Overallmean andonepaireddependent bootstrap inference.",
+    "secondary": "Brier control−candidate descriptiveonly; no separate significancegate."
+  },
+  "bootstrap": {
+    "implementation": "src.analysis.seed_disagreement_information.full_calendar_bootstrap",
+    "mean_block": 63,
+    "resamples": 2000,
+    "seed": 20261014,
+    "alpha": 0.025,
+    "masking": "Run on944length pairedloss withNaNunknowns. Stationarycircular blocks preserve fullcalendarindex; nanmean withinreplicates, reportvalid/invalid counts. Nevercompress internalgaps orterminalunknownrows.",
+    "decision": "Primarylowerone-sided97.5% bound>0 supports conditional forecast improvement only, not portfolio qualification or renewedtraining. Otherwise no reliable forecast improvement. Reportboth.025/.975 endpoints; onepredeclaredprimarytest."
+  },
+  "outputs": "Overall andall signal-year/quarter scores, counts, eventbase-rate, meanprobabilities, originalevent/non-event meanloss and weightedcontributions (sumtooverall), botharms/pairedchanges. Partialfirst2023/last2026 flags, unknowncounts retained. No probabilitybins, thresholdcurve/calibration/refit or selectedlossperiods. Recorderfull944daily mask/probs/labels/losses plus2000indices/replicates, sourcecaptures; smalltables+notebookChineseconclusion.",
+  "source_code_sha256": {
+    "src/analysis/seed_disagreement_information.py": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "budget": {
+    "source_objects": 5,
+    "new_market_reads": 0,
+    "new_calendar_queries": 0,
+    "new_inference": 0,
+    "new_fits": 0,
+    "new_policy_or_native_accounts": 0,
+    "new_fetches": 0,
+    "threshold_calibration_variants": 0
+  },
+  "interpretation": "Proper risk forecast scoring separates probability quality from allocation/controller outcomes. Improvement cannot reopen failedfixedportfolio; worse/noisyforecast cannotestablish exclusivecauseofportfoliofailure. No NVDAcontext2x2/newissuerdirection. Nextmechanismrequiresseparatedesignreview.",
+  "promotion_authority": false
+}

@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/generic_index_risk_transfer_20261015",
-  "current_phase": "fixed_index_tail_transfer_closed_saved_forecast_scoring_next",
-  "next_action": "Freeze bounded scoring of saved generic-index-tail candidate/control probabilities against original mature SOXX1x entry-H5 tail labels. Primary paired log loss, secondary Brier, full calendar/periods/event and non-event contributions, fixed block uncertainty. No inference, fitting, calibration, threshold changes or source collection. This asks whether generic risk supervision improved forecasts; it does not reopen the closed portfolio package or restore issuer research.",
+  "current_experiment": "research/generic_index_tail_scoring_20261015",
+  "current_phase": "index_tail_scoring_complete_generic_market_context_triage_next",
+  "next_action": "Boundedly inspect existing relative/breadth/context precedents before proposing a generic market-context mechanism. Distinguish contemporaneously available broad-market context from pooled training labels; assess whether rolling market exposure and sector residual context adds information beyond existing39 features. No classifier calibration, auxiliary/head/weight rescue, new issuer research or data collection. Require an explicit deduplicated economic mechanism and frozen test before any new inference or fit.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -946,6 +946,36 @@
       "two_bp_rolling_positive_fraction": 0.582418,
       "point_increment_not_statistically_established": true,
       "next_question_review": "research/generic_index_risk_transfer_20261015/next_question_review.json"
+    },
+    {
+      "card": "research/generic_index_tail_scoring_20261015",
+      "kind": "saved_tail_forecast_proper_scoring",
+      "status": "completed_candidate_scoring_worse_parent_route_closed",
+      "recorder_id": "85d314b1f0ac470e856da416a2f156cd",
+      "evaluation": "research/generic_index_tail_scoring_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_SAVED_FORECAST_SCORING",
+        "plan_sha256": "ae4ef830a9d8e9995c495c6a12db0dcb8cf46109d2fb502557c44f81324e29f8"
+      },
+      "verification": {
+        "cold_read_artifacts": 20,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_inference": 0,
+        "new_accounts": 0,
+        "new_fetches": 0
+      },
+      "calendar_rows": 944,
+      "scored_rows": 940,
+      "event_count": 105,
+      "unknown_rows": 4,
+      "primary_logloss_improvement": -0.09125544730360703,
+      "primary_interval": [
+        -0.1475460873114306,
+        -0.04196168198506539
+      ],
+      "parent_portfolio_route_remains_closed": true
     }
   ],
   "governance_review": {
