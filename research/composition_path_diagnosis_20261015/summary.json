@@ -1,0 +1,61 @@
+{
+  "experiment": "composition_path_diagnosis_20261015",
+  "plan_sha256": "e7013e820bf85fea37969a6fe4372d8f031afed13b290594d48a797fdb5143a3",
+  "decision": "diagnostic_only_no_promotion",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "reused_native_accounts": 9,
+  "sessions": 944,
+  "source_identities": {
+    "candidate": {
+      "card": "research/beta_preserving_composition_20261015",
+      "recorder_id": "6680a54e6ac440bdbe96e438f5b9e197",
+      "archive": "7968dd7531e3373fc18f5d3f22b6160d87a50f5d698971a7a988091cf21a1e8e",
+      "inventory_sha256": "f12d8cd0368425c76065390347ac473b44c7007f6467ffe307e729fb3cb7fa53"
+    },
+    "reference": {
+      "card": "research/open_router_ablation_20261015",
+      "recorder_id": "98eab7aa28e349d4bfb5e125d5c2b4fe",
+      "archive": "d43879bb278e73902ae8533fe93776f08dbc5b51f8731f768b9fd5106e223145",
+      "inventory_sha256": "e3b80c1a1055fccb1ef446754198139de4c708f27ffe0c10c45f2d9b6aeef03b"
+    },
+    "benchmark": {
+      "card": "research/tangent_allocation_head_20261014",
+      "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+      "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+      "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+    }
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "recorder_id": "d09427aacccd442b87a4f0ffcc096935",
+  "experiment_id": "846215696720955076",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/composition_path_diagnosis_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/composition_path_diagnosis_20261015/qlib_recorder/846215696720955076/d09427aacccd442b87a4f0ffcc096935",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/daily/*"
+    ]
+  },
+  "interpretation": "Read-only scientific diagnosis, not causal counterfactual. Independently evolving cost accounts can diverge. No frozen-path replay, threshold/transfer/cost selection, or promotion. Only observed states available before decision used as predecision labels.",
+  "clock_labels": "Known price09:45; decision09:46; fill09:47; recovery10:32; close actual last source provider calendar mark; exit next09:47. MonitoredDD covers known and close marks only, not every intraminute extremum.",
+  "superseded_run": "0d07541a73b74408a905cd47db9d6e2c",
+  "nas_evidence": {
+    "sha256": "868aea2bd210a95286853e91cd80e064e77bba87f996f0677cdc597cd97c1357",
+    "size_bytes": 1452034,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/86/8a/868aea2bd210a95286853e91cd80e064e77bba87f996f0677cdc597cd97c1357",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 14:41:47.455517+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/86/8a/868aea2bd210a95286853e91cd80e064e77bba87f996f0677cdc597cd97c1357",
+    "recorder_id": "d09427aacccd442b87a4f0ffcc096935",
+    "experiment_id": "846215696720955076",
+    "archive_root": "qlib_recorder"
+  }
+}

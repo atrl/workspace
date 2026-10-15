@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/composition_path_diagnosis_20261015",
-  "current_phase": "diagnostic_execution",
-  "next_action": "Execute approved saved-account diagnostic; distinguish composition contribution, cost-dependent state feedback and all0bp drawdown breaches, then select next falsifiable mechanism.",
+  "current_phase": "next_model_design_review",
+  "next_action": "Freeze and review3fit/3account training-through-composition model contrast, using frozen posthoc-composition candidate as paired control; do not tune observed risk threshold crossings.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -105,7 +105,7 @@
       "card": "research/composition_path_diagnosis_20261015",
       "kind": "saved_account_failure_diagnostic",
       "parent": "research/beta_preserving_composition_20261015",
-      "status": "executing",
+      "status": "completed_diagnostic_no_promotion",
       "maximum_new_model_fits": 0,
       "maximum_new_native_accounts": 0,
       "design_review": {
@@ -113,7 +113,10 @@
         "verdict": "APPROVE_FROZEN_READ_ONLY_DIAGNOSIS",
         "plan_sha256": "e7013e820bf85fea37969a6fe4372d8f031afed13b290594d48a797fdb5143a3",
         "timing_condition": "Current session execution fees occur after known NAV; separate prior cumulative fees from same-day fees."
-      }
+      },
+      "evaluation": "research/composition_path_diagnosis_20261015/independent_evaluation.json",
+      "recorder_id": "d09427aacccd442b87a4f0ffcc096935",
+      "next_mechanism": "Train allocation utility through fixed composition, retain raw inference plus original controller; design pending."
     }
   ],
   "governance_review": {

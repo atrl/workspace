@@ -1,0 +1,69 @@
+{
+  "experiment": "composition_path_diagnosis_20261015",
+  "frozen_at_utc": "2026-10-15T06:35:05.074152+00:00",
+  "sources": {
+    "candidate": {
+      "card": "research/beta_preserving_composition_20261015",
+      "recorder_id": "6680a54e6ac440bdbe96e438f5b9e197",
+      "archive": "7968dd7531e3373fc18f5d3f22b6160d87a50f5d698971a7a988091cf21a1e8e",
+      "inventory_sha256": "f12d8cd0368425c76065390347ac473b44c7007f6467ffe307e729fb3cb7fa53"
+    },
+    "reference": {
+      "card": "research/open_router_ablation_20261015",
+      "recorder_id": "98eab7aa28e349d4bfb5e125d5c2b4fe",
+      "archive": "d43879bb278e73902ae8533fe93776f08dbc5b51f8731f768b9fd5106e223145",
+      "inventory_sha256": "e3b80c1a1055fccb1ef446754198139de4c708f27ffe0c10c45f2d9b6aeef03b"
+    },
+    "benchmark": {
+      "card": "research/tangent_allocation_head_20261014",
+      "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+      "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+      "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+    }
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "initial_cash": 100000,
+  "cash_reference": 0.15,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "questions": [
+    "Which exact known-price risk-state transition first differs between candidate0vs2 and0vs5, and how does it relate to all30pct breaches?",
+    "Across all years and quarters, do candidate-minus-strong wealth changes originate in cash/SOXL representation or direct fees, and which conditions remain negative?"
+  ],
+  "analysis": [
+    "Reuse decision_accounting identity for candidate and strong each cost vs matchingSOXX, all trade-year/quarter periods and fixed prior_trend20 sign strata; no new threshold or regressor.",
+    "For each0vs2/0vs5 locate first risk_state or risk_clock mismatch, plus first current_beta_cap mismatch >1e-10. Show exact same date values, known NAV/DD, caps, target nominalbeta, quantities, cash and fees. Distinguish tiny numerical cap difference from categorical state difference.",
+    "For every candidate path collect all source monitored_drawdown>0.30 dates without rounding and peak-to-trough episode containing maximum monitoredDD. Reconstruct known/close peak sequence from actual native quantities/cash and frozen marks, reconcile source monitoredDD within existing1e-7 native tolerance; do not substitute close-only DD.",
+    "All daily differences and all daily log accounting Recorder-only. Report full period summaries, first-divergence details, maximumDD episodes and complete breach list as slim sidecars. No splice of noncontiguous states into synthetic returns."
+  ],
+  "eligibility": "Read-only scientific diagnosis, not causal counterfactual. Independently evolving cost accounts can diverge. No frozen-path replay, threshold/transfer/cost selection, or promotion. Only observed states available before decision used as predecision labels.",
+  "next_decision": "After exact evidence select a genuinely distinct model mechanism or state explicit missing evidence; cannot reopen fixed transfer coefficients/risk-threshold route to rescue failure.",
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "calendar_authority": "Frozen source intervals; live Qlib calendar verification only, no live-price substitution.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/daily/*"
+    ]
+  },
+  "comparison_separation": "Same-cost candidate-minus-strong comparisons separate from cross-cost candidate0vs2 and0vs5; each account retains own original positions/state/fees.",
+  "divergence_tolerances": {
+    "fees_usd_absolute": 1e-08,
+    "nav_relative": 1e-08,
+    "nominal_beta_cap_absolute": 1e-10,
+    "risk_state_and_clock": "exact categorical equality",
+    "native_reconstruction_relative": 1e-07
+  },
+  "divergence_outputs": "First material fee difference, first material knownNAV difference, first discrete state/clock difference, first cap difference are separate records, never assume simultaneous.",
+  "drawdown_episodes": "All candidate costs evaluated, all0bp monitoredDD>0.30 observations retained; group by preceding known09:45/close high-water peak to first later recovery to that same peak (or terminal right-censor). Record peak timestamp, first30pct crossing, trough and recovery/censor endpoint. One unrecovered peak cycle is one episode even if breach threshold crosses repeatedly.",
+  "clock_labels": "Known price09:45; decision09:46; fill09:47; recovery10:32; close actual last source provider calendar mark; exit next09:47. MonitoredDD covers known and close marks only, not every intraminute extremum.",
+  "rolling_sessions": 126,
+  "rolling_output": "Reuse all contiguous126-session candidate/strong-vsSOXX windows or recompute from original native returns; no state compression. Full windows Recorder-only, min/median/max/fraction slim."
+}
