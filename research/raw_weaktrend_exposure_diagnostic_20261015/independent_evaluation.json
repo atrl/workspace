@@ -1,0 +1,20 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_COMPLETE_DESCRIPTIVE_EXPOSURE_DIAGNOSIS",
+  "plan_sha256": "7dffc8c8fde3650f034b13b70cc1f84e23eb49fd427fab0c76210fb1e357b33a",
+  "recorder_id": "ddd40ced5c194300bfa3eed6e62db3dc",
+  "verification_manifest_sha256": "a1a3e19dd9754b076ad02af2bee8f4378781dabdf6054c79959ed8df77efbb57",
+  "workflow_sha256": "1e71baf4abc254199ca51c1e88119f56107eda341efd1800009de76baf44d07d",
+  "archive_sha256": "17d25323b29f4394691d1066c3f39ed8be12a33168420d7621d936e6eac72618",
+  "checks": [
+    "Six own-state paths each retain all 944 intervals and 819 overlapping windows",
+    "Actual post-fill exposure and proposed/requested exposure independently verified",
+    "Own drawdown and common cap eligibility match saved probabilities and all-scenario consensus",
+    "2bp 211 eligible scores have maximum 0.724681 below fixed 0.825 threshold",
+    "Return-sign cells are ex-post descriptions, not low/high-beta trading signals",
+    "Losing windows have higher average beta than winning windows; no blanket exposure increase justified"
+  ],
+  "cold_read_artifacts": 26,
+  "all_hashes_match": true,
+  "objective_achieved": false
+}

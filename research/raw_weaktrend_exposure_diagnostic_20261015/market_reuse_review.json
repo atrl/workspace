@@ -1,0 +1,69 @@
+{
+  "role": "post_execution_owner_review_of_user_requested_generic_market_direction",
+  "changes_original_diagnostic_evidence": false,
+  "holdings": [
+    "SOXL",
+    "SOXX",
+    "CASH"
+  ],
+  "individual_stock_extensions": false,
+  "prior_cards": [
+    {
+      "card": "research/multi_3x_etf_normalized_lgb_xgb_nested_wf_v1",
+      "recorder_id": "3f73ff5d9e2447fabec5c9bbe3968eb3",
+      "method": "Pooled normalized LGB/XGB; ticker leave-one-asset-out",
+      "universe": [
+        "SOXL/SOXX",
+        "TQQQ/QQQ",
+        "UPRO/SPY",
+        "SPXL/SPY",
+        "TECL/XLK"
+      ],
+      "old_goal": "Beat SOXL 3x buyhold with 20 percent drawdown floor; differs from current SOXX benchmark and 30 percent risk budget",
+      "result": "No annual target pass; not promoted",
+      "evidence_access": "Tracked HEAD files via git show; primary checkout sparse cards not restored"
+    },
+    {
+      "card": "research/homologous_3x_1x_cash_generalization_v1",
+      "recorder_id": "f2f5e90be7c94c31bf61a014c866a97e",
+      "method": "Same generic features/architecture, separate SOXL and TQQQ training, not pooling",
+      "result": "Development dynamic/static wealth ratios SOXL0.9550,TQQQ0.8856; not validated"
+    },
+    {
+      "card": "research/dynamic_soxx_soxl_cash_allocation_wf_v1",
+      "recorder_id": "b9bc3e02854c4e808d7ef2fcae357308",
+      "method": "SOXL allocation classifiers with proxy-market generalization gate",
+      "result": "No annual target pass; generalization gate false"
+    }
+  ],
+  "design_implications": [
+    "Distinguish market inputs, pooled training and transfer validation",
+    "UPRO and SPXL share SPY underlying; ticker count is not independent market count",
+    "Same-date market observations are correlated; do not inflate independent sample count",
+    "Old pooled failure under different targets does not rule out every three-asset transfer mechanism",
+    "Next experiment must state a substantive mechanism/target difference, grouped market controls and pre2023 selection; no ticker or threshold sweep"
+  ],
+  "new_fits": 0,
+  "new_fetches": 0,
+  "existing_auxiliary_contract": {
+    "samples": 20741,
+    "source": "PIT SOXX constituent synthetic 2x crash/upside labels",
+    "role": "shared tail/alpha encoder; not index three-asset pooled allocation training"
+  },
+  "proposed_next_mechanism": {
+    "status": "design_required_no_fits_started",
+    "hypothesis": "Family-balanced pooled direct 3x/1x/cash allocation against each own 1x reference can learn reusable exposure behavior rather than 3x-versus-cash classification",
+    "families": [
+      "SOXX",
+      "QQQ",
+      "SPY",
+      "XLK"
+    ],
+    "SPY_duplicate_handling": "UPRO and SPXL share family weight; not independent markets",
+    "control": "SOXL-only same architecture, generic features, objective and training budget",
+    "strong_comparator": "Frozen current raw 27baa reference, no new individual-stock feature extension",
+    "timing": "Common chronological date cutoff and mature labels across all families; preserve temporal dependence",
+    "old_route_difference": "Old pooled classifier predicts 3x H5 direction/tail and trades 3x/cash; new proposal directly includes 1x sleeve and relative-1x allocation utility",
+    "scope": "Existing data only; no fitting until exact bounded plan and independent design review"
+  }
+}

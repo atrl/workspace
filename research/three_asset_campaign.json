@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/frozen_policy_raw_cashbook_20261015",
-  "current_phase": "full_raw_accounting_closed_weak_trend_recovery_model_mechanism_next",
-  "next_action": "Use already saved paired raw-policy traces to distinguish weak-trend exposure errors from recovery eligibility/classifier failures across all winning and losing intervals. Freeze one substantively new, deduplicated model mechanism with matched and strong controls before any fit. No further currency/source audits or accounting variants; keep 30 percent drawdown and annual/rolling/confidence gates. Current fixed raw policy remains not promoted.",
+  "current_experiment": "research/raw_weaktrend_exposure_diagnostic_20261015",
+  "current_phase": "weaktrend_diagnosis_complete_generic_market_transfer_design_next",
+  "next_action": "Freeze one family-balanced pooled direct 3x/1x/cash allocation experiment against SOXL-only matched architecture/features/objective and frozen raw 27baa reference. Use existing SOXL/SOXX,TQQQ/QQQ,UPRO/SPY,SPXL/SPY,TECL/XLK data, treat UPRO/SPXL as one underlying family and shared-date observations as dependent. Pre2023 mature-label training and fixed budget/selection; no new individual-stock input or data collection. This is a new economic task relative to old 3x/cash classifiers, not more ticker samples alone.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -845,6 +845,30 @@
       "benchmark": "raw SOXX buy once, cash dividends retained, no automatic reinvestment",
       "historical_PIT_qualified": false,
       "actual_broker_parity": false
+    },
+    {
+      "card": "research/raw_weaktrend_exposure_diagnostic_20261015",
+      "kind": "saved_raw_policy_exposure_diagnostic",
+      "status": "completed_descriptive_no_promotion",
+      "recorder_id": "ddd40ced5c194300bfa3eed6e62db3dc",
+      "evaluation": "research/raw_weaktrend_exposure_diagnostic_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_EXISTING_TRACE_DIAGNOSIS",
+        "plan_sha256": "7dffc8c8fde3650f034b13b70cc1f84e23eb49fd427fab0c76210fb1e357b33a"
+      },
+      "verification": {
+        "paths": 6,
+        "sessions_per_path": 944,
+        "windows_per_path": 819,
+        "nas_verified_artifacts": 26,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_inference": 0,
+        "new_policy_paths": 0,
+        "new_fetches": 0
+      },
+      "next_direction_review": "research/raw_weaktrend_exposure_diagnostic_20261015/market_reuse_review.json"
     }
   ],
   "governance_review": {
@@ -934,5 +958,13 @@
     "strong_frozen_model_recorder": "9097b0d6baae44b792ba7f7ec3e48d0b",
     "risk_scope": "sampled raw point NAV only; fullminute unqualified",
     "interpretation": "New accounting identity; does not overwrite sealed proxy evidence or add independent market observations"
+  },
+  "research_focus": {
+    "user_steering": "Focus on SOXL/SOXX/CASH portfolio decisions; stop letting individual-stock research dominate",
+    "new_individual_stock_fundamental_research": false,
+    "existing_NVDA_model_role": "frozen comparator only; no new NVDA interaction extension",
+    "next_mechanism_domain": "ETF and portfolio-level exposure, leverage risk and cash protection versus missed participation, using existing market inputs",
+    "preserve_stable_excess_objective": true,
+    "generic_market_direction": "Prefer reusable index/market data and cross-market training; review prior mixed-index experiments before a distinct new mechanism"
   }
 }

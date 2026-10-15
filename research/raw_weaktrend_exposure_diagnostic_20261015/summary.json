@@ -1,0 +1,56 @@
+{
+  "experiment": "raw_weaktrend_exposure_diagnostic_20261015",
+  "plan_sha256": "7dffc8c8fde3650f034b13b70cc1f84e23eb49fd427fab0c76210fb1e357b33a",
+  "decision": "descriptive_raw_exposure_diagnosis_no_policy_claim",
+  "objective_achieved": false,
+  "sessions_per_family_cost": 944,
+  "windows_per_family_cost": 819,
+  "costs": [
+    0,
+    2,
+    5
+  ],
+  "funnel_reconciled_all_six_own_paths": true,
+  "ALL3_recovery_consensus_reconciled": true,
+  "new_inference_calls": 0,
+  "new_fits": 0,
+  "new_replays": 0,
+  "new_data_or_price_queries": 0,
+  "recovery_parameters": {
+    "model_present": true,
+    "drawdown_floor": 0.08,
+    "action_beta": 0.6,
+    "minimum_source_alpha_probability": 0.25,
+    "probability_threshold": 0.825
+  },
+  "closed_recovery_score_route_not_reopened": true,
+  "next_action": "Use completeexposure/winloss findings tofreezeone genuinelydistinctmodelmechanism, notoldscorethreshold/refit rescue. No nextfit authorized bydiagnosis.",
+  "recorder_id": "ddd40ced5c194300bfa3eed6e62db3dc",
+  "experiment_id": "654021009190036919",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/raw_weaktrend_exposure_diagnostic_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/raw_weaktrend_exposure_diagnostic_20261015/qlib_recorder/654021009190036919/ddd40ced5c194300bfa3eed6e62db3dc",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/frozen_policy_raw_cashbook_20261015",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/daily/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "17d25323b29f4394691d1066c3f39ed8be12a33168420d7621d936e6eac72618",
+    "size_bytes": 1063197,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/17/d2/17d25323b29f4394691d1066c3f39ed8be12a33168420d7621d936e6eac72618",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 21:40:51.344827+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/17/d2/17d25323b29f4394691d1066c3f39ed8be12a33168420d7621d936e6eac72618",
+    "recorder_id": "ddd40ced5c194300bfa3eed6e62db3dc",
+    "experiment_id": "654021009190036919",
+    "archive_root": "qlib_recorder"
+  }
+}
