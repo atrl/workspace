@@ -1,0 +1,53 @@
+{
+  "experiment": "seed_disagreement_information_20261015",
+  "plan_sha256": "d1ca9add36db1fd90c06941261360d6c70f5d32725d5b8a73aa5ad4e217038ca",
+  "decision": "not_promoted_seed_disagreement_information_failed",
+  "information_gate_pass": false,
+  "objective_achieved": false,
+  "new_statistical_fits": 6,
+  "new_allocator_fits": 0,
+  "new_native_cases": 0,
+  "evaluation_as_of": "2022-12-31",
+  "bootstrap": {
+    "paired_mean_loss_improvement": -5.195316803781733e-06,
+    "lower_bound": -1.1106664141664234e-05,
+    "upper_bound": -8.204890019375621e-07,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 756,
+    "scored_rows": 755
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "region": "us",
+  "recorder_id": "8a96b8c477d44bd0a8d58be793ffcfb9",
+  "experiment_id": "492488990858759779",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/seed_disagreement_information_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/seed_disagreement_information_20261015/qlib_recorder/492488990858759779/8a96b8c477d44bd0a8d58be793ffcfb9",
+  "interpretation": "Disagreement is sameinput-derived nonlinear model feature, not newexternaldata or Bayesian/calibrateduncertainty. Weights are not return forecasts. Positiveincrement is conditionalinformation evidence under fixedproxy, not deploymentvalue or promotion. Historicalarchitecture selection remains reusedresearch even with temporalOOF.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/daily",
+      "analysis/bootstrap_indices",
+      "analysis/bootstrap_replicates",
+      "analysis/preprocessing"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "f5cf56d514f87d79e5e4120462b9cce5072bc9c779461daf8fd66a6c351ff99a",
+    "size_bytes": 421909,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f5/cf/f5cf56d514f87d79e5e4120462b9cce5072bc9c779461daf8fd66a6c351ff99a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 15:38:29.88599+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f5/cf/f5cf56d514f87d79e5e4120462b9cce5072bc9c779461daf8fd66a6c351ff99a",
+    "recorder_id": "8a96b8c477d44bd0a8d58be793ffcfb9",
+    "experiment_id": "492488990858759779",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/seed_disagreement_information_20261015",
-  "current_phase": "design_review",
-  "next_action": "Freeze and review a6fit0account conditional information test of3seed nominal-beta disagreement on existing2019-2022 annualOOF inputs; no newdata/posterior or deployment claim.",
+  "current_phase": "risk_source_feasibility",
+  "next_action": "Check existing immutable minute source and prior coverage for frozen-position fullminute risk valuation; current strongestreference only passed known/close sampledDD. No new strategy trades/refits or revival of failedseedfeature.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -236,10 +236,32 @@
       "card": "research/seed_disagreement_information_20261015",
       "kind": "bounded_derived_model_reliability_information",
       "parent": "research/causal_cost_scenario_controller_20261015",
-      "status": "design_review",
+      "status": "completed_information_gate_failed",
       "maximum_new_model_fits": 6,
       "maximum_new_native_accounts": 0,
-      "evaluation": null
+      "evaluation": "research/seed_disagreement_information_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_INFORMATION_TEST",
+        "plan_sha256": "d1ca9add36db1fd90c06941261360d6c70f5d32725d5b8a73aa5ad4e217038ca",
+        "conditions": [
+          "annualOOF perseed rawprediction identity",
+          "43sharedbaseline+1populationbetaSTD coordinate",
+          "train-onlysharedbase preprocessing andidenticalrows",
+          "strictJan1maturity; final2022unknown kept",
+          "6fits0accounts; eachfoldMSE and masked756positionblockCI",
+          "alpha.05 onlysinglefeatureinformationscreen; notportfolioalpha.025"
+        ]
+      },
+      "recorder_id": "8a96b8c477d44bd0a8d58be793ffcfb9",
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_seed_disagreement_information.py -q",
+        "passed": 1,
+        "new_statistical_fits": 6,
+        "new_native_accounts": 0,
+        "nas_verified_artifacts": 22,
+        "execution_attempts": "research/seed_disagreement_information_20261015/execution_attempts.json"
+      }
     }
   ],
   "governance_review": {
@@ -255,7 +277,7 @@
     "risk_valid_reference": "research/open_router_ablation_20261015:strong_always",
     "promotion_eligible": false
   },
-  "cumulative_new_fits_in_this_campaign": 3,
+  "cumulative_new_fits_in_this_campaign": 9,
   "cumulative_new_native_accounts_in_this_campaign": 9,
   "rejected_directions": [
     {
@@ -265,5 +287,7 @@
       "early_oof_evidence_available": "research/full_history_recovery_20261015,1061rows2018-10-15..2022-12-30; not composition on-policy trajectories"
     }
   ],
-  "cumulative_new_shadow_paths_in_this_campaign": 3
+  "cumulative_new_shadow_paths_in_this_campaign": 3,
+  "cumulative_new_allocator_fits_in_this_campaign": 3,
+  "cumulative_new_statistical_fits_in_this_campaign": 6
 }

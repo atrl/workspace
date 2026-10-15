@@ -1,0 +1,151 @@
+{
+  "experiment": "seed_disagreement_information_20261015",
+  "frozen_at_utc": "2026-10-15T07:33:00.344225+00:00",
+  "sources": {
+    "early_predictions": {
+      "card": "research/tangent_recovery_inputs_2019_20261015",
+      "recorder_id": "70d1586e8b9b4c0a9f3c94ba2d641eae",
+      "archive": "8f503b58f0d25e5de04c9dc69c2ab47621d084c30c957d3221e867cf0e0dbe49",
+      "inventory_sha256": "c6b7b8c2f58c4996cba199469855ed64a53139c44d27d9be06f44225838bbb4f"
+    },
+    "later_predictions": {
+      "card": "research/tangent_router_oof_20261015",
+      "recorder_id": "c14fa2a750bc409dbeb851778722f80f",
+      "archive": "c01347e34941627d09969dd86d0a948c2e1b0715f2582feb5d8fb4354cc7a6db",
+      "inventory_sha256": "aecb4c8bad8aa995d06d10b3326470fda30f13d890f07b82e0065ff78c8ca9a5"
+    },
+    "frame": {
+      "card": "research/full_history_recovery_20261015",
+      "recorder_id": "e1d83118ffe845b8b2da2c682028a3f0",
+      "archive": "dd018f6a7b3e3fe73ba383da506fb23a9c73931801c92cb49fa796a5919b571f",
+      "inventory_sha256": "412393afa574fa825f674b8680b20b1b46a9ee5f6d77fc7b81d3bc6fe2a556b9"
+    }
+  },
+  "source_artifacts": {
+    "early_predictions": [
+      "analysis/predictions",
+      "analysis/training"
+    ],
+    "later_predictions": [
+      "analysis/predictions",
+      "analysis/training",
+      "models/2020_71"
+    ],
+    "frame": [
+      "inputs/full_reference_frame"
+    ]
+  },
+  "base_seeds": [
+    71,
+    172,
+    273
+  ],
+  "market_features": [
+    "soxl_ret3",
+    "soxl_ret5",
+    "soxl_ret10",
+    "soxl_ret20",
+    "soxl_ret60",
+    "soxx_ret3",
+    "soxx_ret5",
+    "soxx_ret10",
+    "soxx_ret20",
+    "soxx_ret60",
+    "relative_momentum20",
+    "soxx_trend20",
+    "soxx_trend60",
+    "trend_efficiency_20",
+    "levered_decay_20",
+    "soxx_lead_10",
+    "range_pos_252",
+    "cross_breadth_pos_20",
+    "cross_breadth_pos_60",
+    "semis_vs_cross_20",
+    "semis_vs_cross_60",
+    "tech_breadth_20",
+    "tech_breadth_60",
+    "soxx_vol20",
+    "soxx_drawdown60",
+    "dist_high_252",
+    "vix",
+    "vix_chg5",
+    "vix_z_60",
+    "rv20",
+    "rv60",
+    "rv20_expansion",
+    "tracking_error_5_z20",
+    "tracking_error_5_pctile60",
+    "panic_reversal_5",
+    "chop_breakdown_risk",
+    "high_chop_pressure",
+    "cross_vol_breadth_high",
+    "cross_dispersion_20"
+  ],
+  "baseline_extra_features": [
+    "mean_raw_beta",
+    "mean_raw_cash",
+    "mean_alpha_probability",
+    "mean_tail_probability"
+  ],
+  "candidate_extra_feature": "raw_beta_seed_std_ddof0",
+  "raw_prediction_contract": "Use saved perseed _prediction_dates(model.predict(dataset)) before _ensemble/_smooth_weights; assert all3seed dates/columns/model-year coverage. 2018 perseed predictions were not persisted and are excluded; do not infer dispersion from ensemble.",
+  "input_window": {
+    "first_trade": "2019-01-02",
+    "last_trade": "2022-12-30",
+    "expected_rows": 1008
+  },
+  "forecast_cutoffs": {
+    "2020": "2020-01-01T00:00:00-05:00",
+    "2021": "2021-01-01T00:00:00-05:00",
+    "2022": "2022-01-01T00:00:00-05:00"
+  },
+  "expected_training_rows": {
+    "2020": 251,
+    "2021": 504,
+    "2022": 756
+  },
+  "expected_evaluation_rows": {
+    "2020": 253,
+    "2021": 252,
+    "2022": 251
+  },
+  "score_as_of": "2022-12-31T23:59:59-05:00",
+  "expected_mature_scored_rows": 755,
+  "feature_definition": "For each date beta_s=3*wSOXL_s+wSOXX_s. Disagreement=populationstd of3betas; baseline arithmeticmeanbeta/meanrawcash/meanaux probabilities plus39 original features. T preserves individual nominalbeta. No seed ranking, selection, EMA or rolling dispersion window.",
+  "label": "First arithmeticmean the3 RAW weights, then T(meanweights); one-session gross active score = transformed_wSOXL*(exitSOXL/openSOXL-1)+transformed_wSOXX*(exitSOXX/openSOXX-1)-(exitSOXX/openSOXX-1), cashreturn0. No fees, no controller, no smoothing, no holdingpath, not portfolio netreturn/forecasterror/calibratedprobability.",
+  "timing": "Marketfeatures source signal_date known by source feature_available_at, OOF models trained before prediction trade year. Targetavailability conservatively max(source label_available_at, exit_date09:49 America/New_York), strictly before each trainingcutoff. Evaluations only outcomes mature before score_as_of; finalunmatured row kept unknown,2023exitoutcome not scored. No2023+ outcomes used in fitting/selection/statistics.",
+  "estimator": {
+    "class": "sklearn.linear_model.Ridge",
+    "alpha": 10.0,
+    "fit_intercept": true,
+    "solver": "svd",
+    "arms": [
+      "baseline",
+      "plus_disagreement"
+    ],
+    "maximum_fits": 6
+  },
+  "preprocessing": "For eachfold fit imputation means and populationstd(ddof0) ONLY on eligible trainingrows; fillNaNfeatures with trainingmeans; zero std->1. Failallmissing trainingcolumn/nonfinite labels/infinite features. Samecolumns sharedstats exactlymatch betweenarms; do not scale or impute labels. No evaluationrow dropped for featuremissingness.",
+  "evaluation": "Pairedlossdifference=(y-baseline_prediction)^2-(y-candidate_prediction)^2. Require meanpositive inEACH trade-year2020/21/22 and pooled lowerblockbound>0. Preserve all756 evaluationcalendar positions, unknownfinaloutcomeNaN; eachbootstrap replicate samplesfullcalendar then meansfinite pairedlosses, never compress unknownrows before sampling.",
+  "bootstrap": {
+    "mean_block": 63,
+    "resamples": 2000,
+    "seed": 20261015,
+    "alpha": 0.05,
+    "tail": "one-sided lower5percent",
+    "primary_features": 1,
+    "all_nan_replicate": "keepNaN andreport invalidcount; no replacement draws"
+  },
+  "new_native_cases": 0,
+  "new_shadow_paths": 0,
+  "new_allocator_fits": 0,
+  "maximum_statistical_fits": 6,
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "outputs": "Notebook,perfold MSE/improvement/counts,pooledCI,featurecoefficients andtiming/sourceaudits slim. Perdayfeatures/predictions/labels/bootstrapindices/calibrators Recorderonly. No tradingthreshold or compositionmapping learned.",
+  "interpretation": "Disagreement is sameinput-derived nonlinear model feature, not newexternaldata or Bayesian/calibrateduncertainty. Weights are not return forecasts. Positiveincrement is conditionalinformation evidence under fixedproxy, not deploymentvalue or promotion. Historicalarchitecture selection remains reusedresearch even with temporalOOF.",
+  "related_closed_routes": "tangent_oof_information tested ensemblemeanweight conditionalrankinfo; oos_uncertainty_horizon used priorforecastresidualbias/HAC uncertainty forH5Ridge; selectors/expertmixes and wholepath seeddispersion didnot test this precise conditionalfeature.",
+  "if_failed": "Close fixednominalbeta3seeddisagreement information route. No signreversal,threshold,window,featurecombination,targethorizon,alpha or seedsearch. Overallgoal remainsactive.",
+  "promotion_authority": false,
+  "evaluation_as_of": "2022-12-31",
+  "same_row_contract": "Baseline/candidate use exactlysame training andevaluation rowmasks peryear; sourceprediction annualmodel-year must equalactualtrade-year. Verify eachseed own trainingcutoff andlastmaturelabel strictly before modelyear. Priorfold crossyear outcomes may be scored by2022end but cannot enter nextfoldtraining beforemature."
+}

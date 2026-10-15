@@ -1,0 +1,23 @@
+{
+  "model_family": "sklearn.linear_model.Ridge",
+  "selection_policy": "No strategy selection; fixed paired information screen",
+  "alpha": 10,
+  "fit_intercept": true,
+  "solver": "svd",
+  "fold_years": [
+    2020,
+    2021,
+    2022
+  ],
+  "model_artifacts": [
+    "models/2020_baseline",
+    "models/2020_plus_disagreement",
+    "models/2021_baseline",
+    "models/2021_plus_disagreement",
+    "models/2022_baseline",
+    "models/2022_plus_disagreement"
+  ],
+  "recorder_id": "8a96b8c477d44bd0a8d58be793ffcfb9",
+  "information_gate_pass": false,
+  "deployment_approved": false
+}

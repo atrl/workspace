@@ -1,0 +1,36 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_NEGATIVE_INFORMATION_TEST",
+  "decision": "not_promoted_seed_disagreement_information_failed",
+  "recorder_id": "8a96b8c477d44bd0a8d58be793ffcfb9",
+  "plan_sha256": "d1ca9add36db1fd90c06941261360d6c70f5d32725d5b8a73aa5ad4e217038ca",
+  "verification_manifest_sha256": "757b658b929273a13d91578d178566d10c6ec1324f8ffd62c6d9b1a66e1138c4",
+  "nas_archive_sha256": "f5cf56d514f87d79e5e4120462b9cce5072bc9c779461daf8fd66a6c351ff99a",
+  "source_sha256": {
+    "src/workflow/seed_disagreement_information.py": "60f3ec16b5d27b35b05aff043e47163ef4bc733113f67f33752e2fc907f00968",
+    "src/analysis/seed_disagreement_information.py": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "checks": [
+    "12annual-seed timing records checked",
+    "sharedtrain-only preprocessing independently recomputed",
+    "6Ridge alpha10 interceptTrue SVD models43vs44features",
+    "train251/504/756 strictmaturity",
+    "756calendar755scored; final2023exit outcomeunknown",
+    "2000bootstrap means recomputed from savedfullcalendar indices",
+    "daily pairedMSE and confidence bounds exact"
+  ],
+  "primary_result": {
+    "pooled_paired_loss_improvement": -5.195317e-06,
+    "lower_one_sided_95pct": -1.110666e-05,
+    "upper_95th_quantile": -8.20489e-07,
+    "each_fold_improves": false
+  },
+  "limits": [
+    "Derivedsame-inputfeature, not newdata or calibrated posterior",
+    "Proxygrossactive score, not portfolio/executablealpha",
+    "Historicalarchitectureselection remains"
+  ],
+  "new_statistical_fits": 6,
+  "new_native_accounts": 0,
+  "promotion_eligible": false
+}

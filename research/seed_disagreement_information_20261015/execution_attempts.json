@@ -1,0 +1,22 @@
+{
+  "plan_sha256": "d1ca9add36db1fd90c06941261360d6c70f5d32725d5b8a73aa5ad4e217038ca",
+  "attempts": [
+    "2020_baseline",
+    "2020_plus_disagreement",
+    "2021_baseline",
+    "2021_plus_disagreement",
+    "2022_baseline",
+    "2022_plus_disagreement"
+  ],
+  "fitted": [
+    "2020_baseline",
+    "2020_plus_disagreement",
+    "2021_baseline",
+    "2021_plus_disagreement",
+    "2022_baseline",
+    "2022_plus_disagreement"
+  ],
+  "recorder_id": "8a96b8c477d44bd0a8d58be793ffcfb9",
+  "experiment_id": "492488990858759779",
+  "source_saved": true
+}
