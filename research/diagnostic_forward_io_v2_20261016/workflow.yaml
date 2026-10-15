@@ -2,8 +2,7 @@ experiment: diagnostic_forward_io_v2_20261016
 plan: plan.json
 module: src.schedule.diagnostic_forward_transport_v2
 entrypoint: run_pilot
-current_phase: offline_implementation_only
-network_authorized: false
+current_phase: future_window_registered_stdlib_waiter
 notebook_scope: persist_completed_offline_fixture_only
 artifact_policy:
   policy: slim_card_recorder_first
@@ -17,3 +16,9 @@ artifact_policy:
   - implementation_repair_2/*
   - sec_amendment_guard_repair/*
 native_accounting_contract: native_accounting_contract.json
+network_authorized_now: false
+future_activation: pilot_activation.json
+registration: pilot_registration.json
+supervision_approval: supervision_approval.json
+supervisor_entrypoint_file: src/schedule/diagnostic_forward_waiter.py
+supervisor_execution_mode: python -I -S; stdlib waiting only before not_before

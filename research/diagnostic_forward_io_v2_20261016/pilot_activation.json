@@ -1,0 +1,19 @@
+{
+  "phase": "pilot",
+  "decision": "APPROVED_EXACT_IO_V2_PILOT",
+  "plan_sha256": "a8eb75331f4a0071bfe00f1f207711f540ff8c3c41cd4806a2a62d5e07a4438b",
+  "registration_sha256": "6d62b2aa7d57cac4237e52102d92c1b1312611d45c2ed3d4cd1f77d980b4799c",
+  "registration_file": "pilot_registration.json",
+  "network_authorized": true,
+  "pilot_authorized": true,
+  "issued_at": "2026-10-15T19:35:28.337091+00:00",
+  "not_before": "2026-10-19T08:00:00-04:00",
+  "expires_at": "2026-10-20T09:48:00-04:00",
+  "budgets": {
+    "http": 17,
+    "futu_api": 15,
+    "allocator": 9,
+    "recovery": 9,
+    "ledgers": 12
+  }
+}

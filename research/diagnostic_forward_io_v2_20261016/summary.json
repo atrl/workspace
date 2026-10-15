@@ -37,7 +37,7 @@
   "pilot_launched": false,
   "native_validation_scope": "12 synthetic post-event accounting books only, not actual prospective observations",
   "pending": [
-    "Exact session/code/endpoint/event/bootstrap permit",
+    "Future registered start window; actual runtime source and model gates remain unverified",
     "Actual receipted14daily+2liveopen+1SEC HTTP and15Futu session source gates",
     "Real9model proposals and laterquotes",
     "Actual full-session and native accounting qualification"
@@ -158,5 +158,9 @@
     "isolated_provider_status": "Temporary offline fixture stores, not a deployed/live provider; immutable source arrays and original provider manifests retained in Recorder for reconstruction.",
     "bootstrap_calendar_start": "2010-03-11",
     "bootstrap_calendar_end": "2026-10-14"
-  }
+  },
+  "activation_status": "future_window_permit_issued_supervisor_waiting",
+  "pilot_registration": "pilot_registration.json",
+  "pilot_activation": "pilot_activation.json",
+  "supervision_launch_receipt": "supervision_launch_receipt.json"
 }

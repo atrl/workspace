@@ -1,0 +1,23 @@
+{
+  "verified_at_utc": "2026-10-15T19:51:59.581401+00:00",
+  "supervisor_pid": 29707,
+  "tool_session_id": 88524,
+  "process_command_evidence": "29707 54118 Fri Oct 16 03:49:41 2026     Ss   /Users/rziiiii/dev/workspace/qlib_venv/bin/python -I -S /Users/rziiiii/dev/workspace/src/schedule/diagnostic_forward_waiter.py --root /Users/rziiiii/dev/workspace",
+  "live_handle_polled": true,
+  "phase_at_verification": "waiting",
+  "pilot_started": false,
+  "child_attempts": 0,
+  "network_socket_check": {
+    "command": "lsof -nP -a -p 29707 -i",
+    "exit_code": 1,
+    "matches": 0
+  },
+  "status_path": "runtime/research/diagnostic_forward_io_v2_20261016/supervisor_6d62b2aa7d57cac4/status.json",
+  "registration_sha256": "6d62b2aa7d57cac4237e52102d92c1b1312611d45c2ed3d4cd1f77d980b4799c",
+  "supervision_approval_sha256": "b79b4c6b8a4c71cde3beb4f21f8384cf0afb4e517192af2e5c0be28f233a778f",
+  "not_before": "2026-10-19T12:00:00+00:00",
+  "latest_child_start": "2026-10-19T12:01:00+00:00",
+  "expires_at": "2026-10-20T13:48:00+00:00",
+  "qualified_forward_days_at_verification": 0,
+  "scope": "Historical launch verification only; future turns must repoll this handle/PID rather than assume ongoing liveness or restart from this file."
+}

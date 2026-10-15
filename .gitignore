@@ -134,3 +134,6 @@ data/qlib/frozen_policy_raw_cashbook_20261015/
 /data/qlib/diagnostic_forward_probe_20261016/
 
 /data/qlib/diagnostic_forward_bar_mapping_20261016/
+
+# Isolated one-shot research process journals; archived separately in Recorder.
+/runtime/research/diagnostic_forward_io_v2_20261016/

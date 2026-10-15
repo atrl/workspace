@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/diagnostic_forward_io_v2_20261016",
-  "current_phase": "complete_prospective_IO_v2_offline_implementation_verified_activation_registration_next",
-  "next_action": "Prepare and independently review the exact first-session IOv2 registration/activation, binding current3module/dependency/SDK/schema/code hashes, immutable execution prefix and event inbox, session Oct19 earliest,17HTTP/15Futu/9allocator/9recovery/12ledger limits. Do not launch or fetch before the registered time. Actual14daily source responses, fresh SEC/CA status,9model proposals, sealed intents/laterquotes and post-session native12 must qualify at runtime; offline synthetic evidence is not a forward interval. Reuse existing model/parity/bar/IO fixtures; no further broad audit or repeated old fits/replays.",
+  "current_phase": "exact_future_pilot_registered_stdlib_supervisor_waiting",
+  "next_action": "Poll existing supervisor handle88524/PID29707 and actual command/status; do not restart from a stale file or merely because observation times out. At Oct19 12:00UTC supervisor revalidates bindings and may start the single registered pilot before12:01UTC; afterwindow miss/expiry no catchup. Preserve all actual source/model/native outcomes; only qualified real intervals count. VXN/VVIX and same-day Asian-index novelty checks found already-closed routes and must not restart parameter/window searches. Any separate research requires genuinely new information and preregistration without changing the frozen observer.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1212,5 +1212,20 @@
     "preserve_stable_excess_objective": true,
     "generic_market_direction": "Prefer reusable index/market data and cross-market training; review prior mixed-index experiments before a distinct new mechanism"
   },
-  "generic_training_precedent_correction": "research/family_balanced_direct_utility_training_20261015/precedent_correction.json"
+  "generic_training_precedent_correction": "research/family_balanced_direct_utility_training_20261015/precedent_correction.json",
+  "prospective_supervision": {
+    "registration": "research/diagnostic_forward_io_v2_20261016/pilot_registration.json",
+    "registration_sha256": "6d62b2aa7d57cac4237e52102d92c1b1312611d45c2ed3d4cd1f77d980b4799c",
+    "activation": "research/diagnostic_forward_io_v2_20261016/pilot_activation.json",
+    "supervision_approval": "research/diagnostic_forward_io_v2_20261016/supervision_approval.json",
+    "launch_verification": "research/diagnostic_forward_io_v2_20261016/supervision_launch_receipt.json",
+    "pid": 29707,
+    "tool_session_id": 88524,
+    "last_verified_phase": "waiting",
+    "pilot_started_at_last_verification": false,
+    "source_calls_at_last_verification": 0,
+    "qualified_forward_days": 0,
+    "do_not_assume_future_liveness": true
+  },
+  "post_registration_generic_novelty_triage": "research/diagnostic_forward_io_v2_20261016/post_registration_research_triage.json"
 }

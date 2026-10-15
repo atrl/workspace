@@ -1,0 +1,22 @@
+{
+  "decision": "APPROVED_ONE_SHOT_STDLIB_WAITER",
+  "owner": "/root",
+  "independent_review": "/root/evaluator accepted this narrow supervision amendment",
+  "amendment": "Permit starting only a stdlib waiting supervisor now. This is the sole exception to no process before not_before; pilot/data/model activation remains strictly future-only under the unchanged pilot permit.",
+  "registration_sha256": "6d62b2aa7d57cac4237e52102d92c1b1312611d45c2ed3d4cd1f77d980b4799c",
+  "files_sha256": {
+    "src/schedule/diagnostic_forward_waiter.py": "2e4ee4b8370ab1d96fbcfc6e03cc20a51ef2caebe72ffa8b3fd1708f2c3ee0df",
+    "research/diagnostic_forward_io_v2_20261016/pilot_registration.json": "6d62b2aa7d57cac4237e52102d92c1b1312611d45c2ed3d4cd1f77d980b4799c",
+    "research/diagnostic_forward_io_v2_20261016/pilot_activation.json": "43f7bfbf7dafbca74e49bd5f83df5efb98299a94e139c7acd22a6c5cc3abea0d",
+    "research/diagnostic_forward_io_v2_20261016/registration_schema.json": "72525007f62a4e8f3ebe802bfe5cb38f20fa5964fec05bb6c9be48f342b145c1"
+  },
+  "interpreter_sha256": "322572c8d73b308856d23a07f26afe9d65b9159f8174575e14fb23503a7f734e",
+  "latest_child_start": "2026-10-19T08:01:00-04:00",
+  "maximum_child_attempts": 1,
+  "auto_restart": false,
+  "legacy_services_changed": false,
+  "network_before_not_before": 0,
+  "model_loading_before_not_before": false,
+  "stop_at": "2026-10-20T09:48:00-04:00",
+  "host_availability_limit": "Sleep, shutdown, process termination or identity changes can cause a missed/unqualified session; no automatic reregistration or catchup."
+}

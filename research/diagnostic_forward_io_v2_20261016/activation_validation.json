@@ -1,0 +1,13 @@
+{
+  "validation_scope": "One read-only permit/hash/time-boundary check; simulated future argument is not actual clock advancement or execution",
+  "observed_at_utc": "2026-10-15T19:35:29.451682+00:00",
+  "current_clock_result": "rejected_before_not_before",
+  "simulated_window_start_result": "accepted_registration_only",
+  "simulated_after_expiry_result": "rejected",
+  "blocked_network_attempts": 0,
+  "actual_market_requests": 0,
+  "model_calls": 0,
+  "process_started": false,
+  "registration_sha256": "6d62b2aa7d57cac4237e52102d92c1b1312611d45c2ed3d4cd1f77d980b4799c",
+  "activation_sha256": "43f7bfbf7dafbca74e49bd5f83df5efb98299a94e139c7acd22a6c5cc3abea0d"
+}

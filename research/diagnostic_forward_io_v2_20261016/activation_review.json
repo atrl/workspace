@@ -1,0 +1,14 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "APPROVE_EXACT_REGISTRATION_FUTURE_WINDOW_DIAGNOSTIC_PERMIT",
+  "registration_sha256": "6d62b2aa7d57cac4237e52102d92c1b1312611d45c2ed3d4cd1f77d980b4799c",
+  "code_and_identity_files_verified": 46,
+  "session": "2026-10-19",
+  "previous_session": "2026-10-16",
+  "terminal_session": "2026-10-20",
+  "runtime_source_gates_waived": false,
+  "live_ready_certified": false,
+  "promotion_authorized": false,
+  "forward_days": 0,
+  "scope": "Issue exact future-window permit only; actual operation remains conditional on all source/receipt/CA/model/native gates."
+}

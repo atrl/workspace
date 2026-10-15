@@ -1,0 +1,14 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "APPROVE_CURRENT_STDLIB_WAIT_ONLY",
+  "waiter_sha256": "2e4ee4b8370ab1d96fbcfc6e03cc20a51ef2caebe72ffa8b3fd1708f2c3ee0df",
+  "approval_sha256": "b79b4c6b8a4c71cde3beb4f21f8384cf0afb4e517192af2e5c0be28f233a778f",
+  "bounds": [
+    "No early research/SDK/model imports",
+    "Exclusive claim and durable one-child attempt",
+    "Recheck exact registration/code/input identities at future start",
+    "Missed start or expiry stops, no automatic retry",
+    "No legacy scheduler or trading service change"
+  ],
+  "does_not_certify_actual_pilot": true
+}

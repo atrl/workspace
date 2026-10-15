@@ -1,0 +1,11 @@
+{
+  "test": "tests/test_diagnostic_forward_waiter.py",
+  "result": "1 passed in 0.03s",
+  "scope": "Mock child only: wait before window, one actual spawn attempt once due, duplicate invocation refused, missed start refuses child",
+  "real_pilot_processes_created_by_test": 0,
+  "network_requests": 0,
+  "model_calls": 0,
+  "waiter_sha256": "2e4ee4b8370ab1d96fbcfc6e03cc20a51ef2caebe72ffa8b3fd1708f2c3ee0df",
+  "test_sha256": "393d7f3631c0ba5c8080715651448a9efb699321e1d371b2edd0f97facdcac7c",
+  "supervision_approval_sha256": "b79b4c6b8a4c71cde3beb4f21f8384cf0afb4e517192af2e5c0be28f233a778f"
+}
