@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/raw_share_unit_cashbook_20261015",
-  "current_phase": "unit_cashbook_complete_full_frozen_policy_accounting_impact_next",
-  "next_action": "Freeze and execute one bounded full-path accounting-impact comparison of frozen 27baa decision rules and same-basis SOXX/strong controls under raw shares, explicit USD gross-pretax dividends, nonspendable receivables and scheduled cash. No retraining or further currency/source audit. Regenerate policy decisions on each own-cost raw NAV; do not reuse old decisions as a policy counterfactual. Report net wealth, drawdown/CVaR, annual/rolling stability and changed decisions. Then return to failure mechanisms in weak-trend/recovery intervals; descriptive state attribution is not causal proof.",
+  "current_experiment": "research/frozen_policy_raw_cashbook_20261015",
+  "current_phase": "full_raw_accounting_closed_weak_trend_recovery_model_mechanism_next",
+  "next_action": "Use already saved paired raw-policy traces to distinguish weak-trend exposure errors from recovery eligibility/classifier failures across all winning and losing intervals. Freeze one substantively new, deduplicated model mechanism with matched and strong controls before any fit. No further currency/source audits or accounting variants; keep 30 percent drawdown and annual/rolling/confidence gates. Current fixed raw policy remains not promoted.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -808,6 +808,43 @@
       "currency": "explicit_USD_gross_pretax_paper_assumption",
       "historical_PIT_qualified": false,
       "actual_broker_parity": false
+    },
+    {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "kind": "full_frozen_policy_raw_accounting_impact",
+      "status": "completed_not_promoted_rolling_and_confidence_failed",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "evaluation": "research/frozen_policy_raw_cashbook_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_NINE_PATH_RAW_ACCOUNTING_IMPACT",
+        "plan_sha256": "5a1c72285db384e01646c27f9bca491212dcf0095d5ec347fa49068fafddf68c"
+      },
+      "verification": {
+        "native_unique_cases": 9,
+        "native_attempts": 10,
+        "policy_paths": 9,
+        "new_fits": 0,
+        "focused_tests_passed": 1,
+        "cold_read_artifacts": 56,
+        "all_hashes_match": true
+      },
+      "gates": {
+        "net_soxx_excess_all_costs": true,
+        "beat_raw_strong_all_costs": true,
+        "sampled_drawdown_30pct": true,
+        "cvar_no_worse": true,
+        "rolling_70pct": false,
+        "complete_annual_70pct": true,
+        "bootstrap_positive": false,
+        "fullminute_risk_qualified": false,
+        "independent_development": false,
+        "qualified_forward": false
+      },
+      "currency": "explicit_USD_gross_pretax_paper_assumption",
+      "benchmark": "raw SOXX buy once, cash dividends retained, no automatic reinvestment",
+      "historical_PIT_qualified": false,
+      "actual_broker_parity": false
     }
   ],
   "governance_review": {
@@ -825,7 +862,7 @@
     "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
   },
   "cumulative_new_fits_in_this_campaign": 27,
-  "cumulative_new_native_accounts_in_this_campaign": 21,
+  "cumulative_new_native_accounts_in_this_campaign": 30,
   "rejected_directions": [
     {
       "direction": "Broad account-state-aware full-path training",
@@ -847,7 +884,7 @@
       "new_collection_or_fits": 0
     }
   ],
-  "cumulative_new_shadow_paths_in_this_campaign": 15,
+  "cumulative_new_shadow_paths_in_this_campaign": 24,
   "cumulative_new_allocator_fits_in_this_campaign": 15,
   "cumulative_new_statistical_fits_in_this_campaign": 12,
   "cumulative_frozen_risk_valuations": 6,
@@ -888,5 +925,14 @@
       "60days minimum not substitute for126/annual/statistical coverage",
       "Forwardpass doesnoterasehistoricalfailure orcompleteGoal"
     ]
+  },
+  "raw_accounting_reference": {
+    "card": "research/frozen_policy_raw_cashbook_20261015",
+    "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "status": "not_promoted",
+    "candidate_frozen_model_recorder": "27baa03f0d3046d8b82408ecb6ca07e7",
+    "strong_frozen_model_recorder": "9097b0d6baae44b792ba7f7ec3e48d0b",
+    "risk_scope": "sampled raw point NAV only; fullminute unqualified",
+    "interpretation": "New accounting identity; does not overwrite sealed proxy evidence or add independent market observations"
   }
 }

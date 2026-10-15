@@ -1,0 +1,42 @@
+{
+  "plan_sha256": "5a1c72285db384e01646c27f9bca491212dcf0095d5ec347fa49068fafddf68c",
+  "path_attempts": [
+    "raw_candidate27baa",
+    "raw_strong9097",
+    "raw_SOXX"
+  ],
+  "paths_done": [
+    "raw_candidate27baa",
+    "raw_strong9097",
+    "raw_SOXX"
+  ],
+  "native_attempts": [
+    "raw_candidate27baa_0",
+    "raw_candidate27baa_2",
+    "raw_candidate27baa_5",
+    "raw_strong9097_0",
+    "raw_strong9097_2",
+    "raw_strong9097_5",
+    "raw_SOXX_0",
+    "raw_SOXX_2",
+    "raw_SOXX_5"
+  ],
+  "native_done": [
+    "raw_candidate27baa_0",
+    "raw_candidate27baa_2",
+    "raw_candidate27baa_5",
+    "raw_strong9097_0",
+    "raw_strong9097_2",
+    "raw_strong9097_5",
+    "raw_SOXX_0",
+    "raw_SOXX_2",
+    "raw_SOXX_5"
+  ],
+  "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+  "experiment_id": "413118628718065841",
+  "sources_saved": true,
+  "repair_1_source_saved": true,
+  "native_repair_attempts": [
+    "raw_candidate27baa_0"
+  ]
+}

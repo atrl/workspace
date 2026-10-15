@@ -1,0 +1,191 @@
+{
+  "start": "2023-01-03",
+  "end": "2026-10-09",
+  "as_of": "2026-10-09",
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "maximum_drawdown": 0.3,
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "action_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "tangent_source": {
+    "card": "research/tangent_allocation_head_20261014",
+    "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+    "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+    "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+  },
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "experiment": "frozen_policy_raw_cashbook_20261015",
+  "frozen_at_utc": "2026-10-15T12:59:03.548543+00:00",
+  "role": "Full frozen-policy accounting-basis impact; no model fitting, no source hunting, no forward qualification",
+  "candidate_source": {
+    "card": "research/nvda_own_guidance_realization_training_20261015",
+    "recorder_id": "27baa03f0d3046d8b82408ecb6ca07e7",
+    "archive": "e5843be4a5dbd36c1f92c45755b63f1d1e8f8e7b4a6203112b539170e5d13471",
+    "inventory_sha256": "1dbc58bfe68e892867c42eb87cce506bb83acb3586671d3f252eb1f8d5171e38"
+  },
+  "strong_source": {
+    "card": "research/causal_cost_scenario_controller_20261015",
+    "recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+    "archive": "1145b7788507c9f47fa5d7a3d9a8e3ecb706177e3870bef3e475f74bb5ddf5a3",
+    "inventory_sha256": "e741bc79560532a94344212d7831cbb673fb6e6d1c0807e2e39c18b18c477707"
+  },
+  "corporate_source": {
+    "card": "research/etf_corporate_actions_20261009",
+    "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+    "archive": null,
+    "inventory_sha256": "625ba522fbadc4377c87f56e4a241deca714cc556dbd7227b3f7e414d938a6f3"
+  },
+  "unit_source": {
+    "card": "research/raw_share_unit_cashbook_20261015",
+    "recorder_id": "30c103a97bd3485897dd3de6c7f7d60b",
+    "archive": "296a60c78db743b18b48c98b62808260306ecf4c3ab83d07cc714f47d6f415c0",
+    "inventory_sha256": "1454baea7d7207d711f75d5fb4ab6f06deec8a37a75be6c47abf40d7f621513f"
+  },
+  "source_artifacts": {
+    "candidate": [
+      "inputs/frame",
+      "inputs/plan",
+      "analysis/targets",
+      "analysis/native/candidate_0",
+      "analysis/native/candidate_2",
+      "analysis/native/candidate_5"
+    ],
+    "strong": [
+      "inputs/frame",
+      "inputs/plan",
+      "analysis/native/candidate_0",
+      "analysis/native/candidate_2",
+      "analysis/native/candidate_5"
+    ],
+    "corporate": [
+      "data/cash_events.pkl",
+      "data/split_events.pkl",
+      "inputs/source_contract.pkl"
+    ],
+    "unit": [
+      "analysis/summary"
+    ]
+  },
+  "market_source": {
+    "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+    "manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223",
+    "read": "QlibD.features SOXL/SOXX $raw_execution_price and$execution_price onexisting sparsepointgrid2023-01-04 09:45 through2026-10-09 09:47; onefrozenquery, no fullminute/newsource. Compareallframeknown/open/recovery/close/exit anchors beforepaths.",
+    "new_provider": "data/qlib/frozen_policy_raw_cashbook_20261015",
+    "build": "UseexistingQlibbuilder with$execution_price=$raw_execution_price,rawOHLCpointmarks identical, no affinefactor. Nativecalendar sameexistinggrid inclterminalknown/open; nofake09:30quotes. Newbinsignored; manifest/sourcehashesRecorder."
+  },
+  "budget": {
+    "model_fits": 0,
+    "policy_paths": 9,
+    "coupled_packages": 2,
+    "candidate_paths": 3,
+    "strong_paths": 3,
+    "SOXX_paths": 3,
+    "native_Qlib_validations": 9,
+    "new_market_or_CA_fetches": 0,
+    "observer_launches": 0,
+    "production_changes": 0,
+    "parameter_variants": 0
+  },
+  "frozen_signal_contract": "Reuse27baa smoothedpre-controller allocationproposals fromanalysis/targets and9097 sourceframe proposals. Model/NVDAformula/features/scalers/EMAoperator+proposalpath unchanged. ThisisolatesACCOUNTING/executionimpact; do not rederivefeatures onrawsplitprices. RecomputeALL accountdependent riskstate/cap/opening/recovery decisions fromeachNEWownrawNAV/history. Neverreuseoldrequestedtargets/HOLD/orders/quantities/cash/riskpath.",
+  "raw_book": {
+    "currency": "ExplicitUSDgrosspretaxPAPERassumption, parentcurrency/PITproofremainsfalse",
+    "physical_shares": "Whole rawSOXL/SOXX shares; no adjustedquantityconversion. Exactsource split_events new_shares_per_old_share oneligibleholdings, noAapproximation/cash-in-lieu.",
+    "corporate_event_universe": "OnlyexistingSOXL/SOXX sourcecash/split eventswith ex/effective datewithinnewbookstart..terminal; originalshareamounts/sourcequalifications preserved. No claimcompletefirst-publichistory. No pre-startentitlements forinitialcash-onlybooks. Paymentsbeyondterminal stayreceivable; nocalendarorpricefetch.",
+    "cash_dividend": "Ex-native-open09:30 entitlement from pre-exheldrawshares atgrossoriginalrate; Decimalreceivable per sourceevent withstoredscheduledavailability. AvailablepaperC onlynextnativeopenstrictlyafterpaydateclose, derivedfromfullfrozenpointcalendar, notoldparentcalendarend. No automaticDRIP, withholding oractualbrokercredit. TransfersR→C internally preservewealth; no externaldeposit classification.",
+    "risk_NAV": "V=qSOXL*rawPSOXL+qSOXX*rawPSOXX+C+R. Known9:45/closepeak, drawdown, trailingknownNAVhistory useV. Controllerpretradeweights=[qL*PL/V,qX*PX/V,(C+R)/V]; R iscash-likeeconomicweight butNOTspendable. No changingthresholds/softeningrisk.",
+    "target_and_funding": "Originallegalprojection andTonce retained. Desiredrisky dollarpositions =requestedriskyweights*V(totalinclR); sellsfirst thenbuys whole rawshares fundedONLYbyC includingallTieredfees/slippage. IfRpreventsrequestedexposure, retainfunding shortfall; do notborrow, spendR orrenormalizetargetafterthefact. Fee/monthlysharecounters owncostledger, CAsharesnottrades.",
+    "native_prices": "Rawpointpricesonly forsettlement/valuation; do notadddividendcash toaffineadjustedreturns. Sourcecurrenttariff0/2/5costprojection unchanged."
+  },
+  "chronology": [
+    "Initializeeach9bookwith100000USD cash,zeroq/R/monthlyfees/riskstate/clock/knownhistory; no inheritedSIMpositions.",
+    "Beforeeachfirstdailyknown09:45valuation, processdue09:30split,diventitlement andstoredpaytransfers chronologically once; no09:30NAVwithoutquote. Atknown9:45 allscenario ownq/C/R/V snapshots andlocalcaps computed beforeanyfill.",
+    "Candidateandstrong eachhaveown3scenario coupledpackage: commonmincap,09:46commonlegalproposal→T;09:47eachownrawfill/Cfunding. ALL3recoveryvotes fromownsavedprefillopeningstate pluscommoncap beforeany10:32recoveryfill; allsource thresholds/classifiers unchanged.",
+    "Atclose updaterawVpeak; periodreturnendpoint isNEXTsession09:47 PRE-current-trade wealth, AFTERthatnextdaydueCA. Finalizepriorrowonlywhenchronologicalnextendpointarrives; nevervaluepre-splitq atpost-splitrawprice oromitnextdayR.",
+    "Terminal2026-10-09: processdueCA andvalue09:47; NO terminalnewpolicytrade. Nativevalidationextends toterminal09:47, unlikeoldpriorclosepositionshortcut."
+  ],
+  "SOXX_contract": "Three owncost rawSOXXbenchmark books: sameoriginalbenchmark buy-onceatfirst09:47 withmaximumaffordablewholeSOXXshares/fees, thereafter HOLDphysicalshares with exactsplits andcashdivR→C; noDRIP orfuturebuyreinvestment. Thismatchesfrozenbuy-oncepolicy withexplicitcash-distributionaccounting. Candidate/strongmaydeploytheiravailabledivcash onlythroughnormalfrozenallocationorders. AllnewcomparatorssameUSD/raw/CA/paymentbasis; no weakerproxybasisreference usedforpass.",
+  "native_contract": "Nine nativeQlibbacktest/SimulatorExecutor/Exchange/Position validations onrawprovider. PrescribeeachindependentlygeneratedRAWwhole-shareordersequence only. NarrowPositionextension hascalculate_value includeR andget_cash excludeR; nativeCAhandler independentlycomputesentitlement/splits/payment fromOWNnativeholdings+frozenevents, nevercopiesindependentq/C/R/NAVsnapshots. ProcessCA beforefirstdailyvaluation, normalizepre-splitcarryprice mechanically untilfreshsame-steprawmark; nounobserved09:30NAVreported. Rcreation affectsportfolioincome once, notexternaldeposit; paymenttransferhasnoincome. Captureownnative09:47PREtradeendpoints beforeorders, includingterminal; nativepositions/cash/R/fees reconcile allpoints/endpoints toindependentpath atrelative1e-7,perorderfeeabs1e-7. Anyfailurestopsreportqualification, no fake-native CSV.",
+  "comparison_and_metrics": {
+    "primary": [
+      "raw_candidate27baa",
+      "raw_strong9097",
+      "raw_SOXX"
+    ],
+    "same_basis": "All3families0/2/5 rawshares/C/R; candidatevsrawstrongandrawSOXX hardcomparisons. No newnumericalfeatureincrementclaim requiringanothermatchedmodel.",
+    "old_proxy": "Reuseold27baa/9097/SOXX originalnativebooks forDESCRIPTIVE accounting/policy-path deltas only; do notcallcross-basisdifferenceincrementalalpha. Reportdifferenceinfees/cash/R/holdings/riskcaps/firstdiscrete divergence andknown/closeDD, notexclusivecausalproof.",
+    "windows": "All944samepairedtrade/exitintervals, alltrade-years/quarters, allcontiguous126windows. Complete2024/25only;partial2023/26descriptive. Source-dependentpointDD includesknown/open/recovery/close actualrawmarks+terminal, nofullminuteclaim.",
+    "gates": "Netrelativewealth>1+1e-8 versusrawSOXX andrawstrong allcosts; sampledpointandendpointDD<=30%;CVaR5 no worse rawSOXX;rollingpositivefraction>=.70;completeannual>=.70;bootstraplower>0 allcosts/comparators. Fullminuteonlyseparateifallcoarseeconomicgatespass. Noautomaticpromotion despitepass."
+  },
+  "bootstrap": {
+    "mean_block": 63,
+    "resamples": 2000,
+    "seed": 20261014,
+    "alpha": 0.025,
+    "comparators": [
+      "raw_SOXX",
+      "raw_strong9097"
+    ]
+  },
+  "execution_control": "Recordattemptbeforeeachcoupledpackage/benchmark/nativevalidation; saveeachpath/bookimmediately;max9paths/9native, no silent retry. Originalsource/codecapturedonce. No training orparametersearch. Concreteimplementationdefects correctedwithsavedartifactswherepossible, notnewscientificvariants.",
+  "verification": "Onefocusedrawsettlement/Rfunding/nativeCAcontract extension: storedschedule/idempotency reused; tradableCexcludesR, nativeincomeonce/splitquantitycorrect. Existingunitcases alreadyaccepted, do notredo sourceaudits. Native9reconciliation isessential; no broadpytest/fullsuite.",
+  "outputs": "Executednotebook/fullrawmetrics+allwindows,proxycomparison diagnostic,corp-eventcashledger,ownrisk/target/fundingtraces and9nativeQlibreports/positions RecorderNAS; smallcardonly. Answer howmuchaccounting migration changesfrozenstrategy outcomes underdeclaredpaperassumptions; no broker/PIT/forwardcertificate.",
+  "if_negative": "Closefixedrawaccountingimpact assessment withfulldisclosedresults; no source/currencyhunt orriskthresholdrescue. Useexistingweaktrend/recoveryfailureevidence tofreeze nextspecificmodelmechanism, notmoreinfrastructure-onlyrounds.",
+  "promotion_authority": false,
+  "historical_PIT_qualified": false,
+  "independent_development": false,
+  "qualified_forward": false
+}

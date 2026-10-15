@@ -1,0 +1,45 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_RAW_ACCOUNTING_NEGATIVE",
+  "plan_sha256": "5a1c72285db384e01646c27f9bca491212dcf0095d5ec347fa49068fafddf68c",
+  "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+  "verification_manifest_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+  "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+  "source_sha256": {
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/workflow/frozen_policy_raw_cashbook.py": "c0a682e51fed01050b40a945e85b13fb0a8655820742fc54094beca2f9a049af",
+    "src/analysis/raw_cashbook_assessment.py": "d019c7950d22c9cf1576297432990268e4f1dd1da55bfac7af3ac07a755796bc"
+  },
+  "checks": [
+    "Nine native books independently reconcile own shares, spendable cash, receivables, corporate events and order fees",
+    "944 paired intervals and 3778 points per book; native pretrade endpoints independently reconstructed",
+    "Native report account equals Position value; compound return less cost matches account",
+    "Terminal 10:32 calendar guard excluded from trading, NAV and metrics; failed attempt and repair preserved",
+    "Candidate 2bp return changes by -0.203693 percentage points; SOXX benchmark changes by -7.165817 points; no new alpha claim",
+    "Rolling 70 percent and block confidence gates fail; sampled risk only"
+  ],
+  "verification": {
+    "native_unique_cases": 9,
+    "native_attempts": 10,
+    "policy_paths": 9,
+    "new_fits": 0,
+    "focused_tests_passed": 1,
+    "cold_read_artifacts": 56,
+    "all_hashes_match": true
+  },
+  "gates": {
+    "net_soxx_excess_all_costs": true,
+    "beat_raw_strong_all_costs": true,
+    "sampled_drawdown_30pct": true,
+    "cvar_no_worse": true,
+    "rolling_70pct": false,
+    "complete_annual_70pct": true,
+    "bootstrap_positive": false,
+    "fullminute_risk_qualified": false,
+    "independent_development": false,
+    "qualified_forward": false
+  },
+  "decision": "close_fixed_accounting_branch_return_to_weak_trend_recovery_mechanism",
+  "objective_achieved": false
+}

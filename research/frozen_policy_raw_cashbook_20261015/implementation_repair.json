@@ -1,0 +1,15 @@
+{
+  "reason": "Qlib terminal calendar needs following existing source bound",
+  "failed_native": "raw_candidate27baa_0",
+  "failure": "IndexError terminal calendar index3778",
+  "guard_at": "2026-10-09 10:32:00",
+  "valuation_terminal": "2026-10-09 09:47:00",
+  "guard_used_for_policy_or_NAV": false,
+  "policy_paths_rerun": 0,
+  "unique_native_budget": 9,
+  "native_attempt_budget_after_owner_amendment": 10,
+  "source_sha256": {
+    "src/workflow/frozen_policy_raw_cashbook.py": "c0a682e51fed01050b40a945e85b13fb0a8655820742fc54094beca2f9a049af",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75"
+  }
+}

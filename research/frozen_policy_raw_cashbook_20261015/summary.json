@@ -1,0 +1,60 @@
+{
+  "experiment": "frozen_policy_raw_cashbook_20261015",
+  "plan_sha256": "5a1c72285db384e01646c27f9bca491212dcf0095d5ec347fa49068fafddf68c",
+  "decision": "not_promoted_frozen_policy_raw_accounting_assessment",
+  "objective_achieved": false,
+  "new_model_fits": 0,
+  "policy_paths": 9,
+  "native_Qlib_validations": 9,
+  "native_backtest_attempts": 10,
+  "gates": {
+    "net_soxx_excess_all_costs": true,
+    "beat_raw_strong_all_costs": true,
+    "sampled_drawdown_30pct": true,
+    "cvar_no_worse": true,
+    "rolling_70pct": false,
+    "complete_annual_70pct": true,
+    "bootstrap_positive": false,
+    "fullminute_risk_qualified": false,
+    "independent_development": false,
+    "qualified_forward": false
+  },
+  "currency_assumption": "USD gross pretax paper, notsourceorbrokerproof",
+  "SOXX_contract": "Three owncost rawSOXXbenchmark books: sameoriginalbenchmark buy-onceatfirst09:47 withmaximumaffordablewholeSOXXshares/fees, thereafter HOLDphysicalshares with exactsplits andcashdivR→C; noDRIP orfuturebuyreinvestment. Thismatchesfrozenbuy-oncepolicy withexplicitcash-distributionaccounting. Candidate/strongmaydeploytheiravailabledivcash onlythroughnormalfrozenallocationorders. AllnewcomparatorssameUSD/raw/CA/paymentbasis; no weakerproxybasisreference usedforpass.",
+  "source_currency_certified": false,
+  "historical_PIT_qualified": false,
+  "new_fetches": 0,
+  "observer_launches": 0,
+  "production_changes": 0,
+  "corporate_actions_in_schedule": 55,
+  "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+  "experiment_id": "413118628718065841",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/frozen_policy_raw_cashbook_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/frozen_policy_raw_cashbook_20261015/qlib_recorder/413118628718065841/55b4223a73d44fee89c86608edf8f58c",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/frozen_policy_raw_cashbook_20261015",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "paths/*",
+      "traces/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+    "size_bytes": 9711819,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/cb/4d/cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 21:18:33.137323+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/cb/4d/cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+    "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "experiment_id": "413118628718065841",
+    "archive_root": "qlib_recorder"
+  }
+}

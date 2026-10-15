@@ -1,0 +1,19 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "APPROVE_FIXED_NINE_PATH_RAW_ACCOUNTING_IMPACT",
+  "plan_sha256": "5a1c72285db384e01646c27f9bca491212dcf0095d5ec347fa49068fafddf68c",
+  "scope": {
+    "policy_paths": 9,
+    "native_validations": 9,
+    "fits": 0
+  },
+  "conditions": [
+    "Own raw NAV including receivables drives account-dependent decisions",
+    "Only spendable cash funds buys; no borrowing against receivables",
+    "Process corporate actions before next-session pretrade endpoint valuation",
+    "Native corporate-action updates use native holdings, not shadow snapshots",
+    "Same-basis candidate, strong reference and SOXX comparisons",
+    "Ambiguous same-date split/dividend share units fail closed; no guessed conversion"
+  ],
+  "promotion_authority": false
+}

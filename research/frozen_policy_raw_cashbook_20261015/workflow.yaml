@@ -1,0 +1,13 @@
+experiment: frozen_policy_raw_cashbook_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/frozen_policy_raw_cashbook_20261015
+recorder_uri: /Users/rziiiii/dev/workspace/research/frozen_policy_raw_cashbook_20261015/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - paths/*
+  - traces/*
+  - native/*
+  - analysis/rolling/*
