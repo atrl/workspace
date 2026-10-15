@@ -1,0 +1,194 @@
+{
+  "experiment": "generic_index_risk_transfer_20261015",
+  "frozen_at_utc": "2026-10-15T14:34:05.238831+00:00",
+  "hypothesis": "Preserving39 original SOXL-market primary inputs, can actual generic INDEX risk supervision improve shared representation and three-asset decisions versus matched primary-only training? No issuer input extension, no replacement bygeneric70.",
+  "dedup": {
+    "cross_pair_auxiliary_training_v1": "Recorder6df600b4529d4688a3a674bca0a45d94 used actual SOXL/TQQQ weighted oracle allocation MSE plus turnover, not tail-only encoder supervision; failed gates.",
+    "cash_floor_relative_target_feature_reintegration_v1": "Recorder58d8f39c04a740ac85945d064b98a5de used SOXL-only cash-protection5d/futurevol Ridge/ExtraTrees with relative/breadth features; failed. Generic relative context features themselves are not new and already in39.",
+    "PIT_constituent_auxiliary": "Existing20741 constituent synthetic2x crash/upside rows supervised shared encoder. BOTH newarms omit these rows; no synthetic leverage/issuer training. Primary tail semantics are1x underlying entry-relative H5<=−6%, not3x or synthetic2x crash.",
+    "closed_family_direct": "bc51d1c6a4644b1b8c9a1a455bd348c1 replaced primary withgeneric70 and pooledDIRECTallocationutility. This fixes original39 primary architecture/objective and permits external indices only into tailencoder/head BCE. No rescue by familyweight/penalty/seed search."
+  },
+  "source_code_sha256": {
+    "src/model/tangent_allocator.py": "743a9e23e4a994c5cc4fd791d131bf92f8737b5962095268ca04127292898637",
+    "src/model/minute_pit_allocator.py": "7b9cb0554b8f4c63ded07401d97dd14892d768dd4937b064c70162fd359801a9",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/workflow/direct_continuous_soxx_allocation.py": "983f56aa7747144ff299b40ea653893633989c6e52d4f594a50792c82be65ebc",
+    "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/analysis/family_transfer_assessment.py": "322ba2fbbd277c9c878c914e3eb75f269dba8fbb6c59216033c7843c85c7c0d2"
+  },
+  "training_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "training_artifacts": [
+    "inputs/daily_frame",
+    "inputs/features",
+    "inputs/common",
+    "inputs/timing",
+    "inputs/plan",
+    "models/base_outer_71",
+    "models/base_outer_172",
+    "models/base_outer_273"
+  ],
+  "raw_source": {
+    "card": "research/frozen_policy_raw_cashbook_20261015",
+    "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+    "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054"
+  },
+  "controller_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "action_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "external_indices": {
+    "QQQ": {
+      "uri": "data/qlib/tqqq",
+      "manifest_sha256": "0ce3e462a45e9c5e36f2184748678f927734fedf796e1bc9f71b173f6250bbf9",
+      "underlying": "QQQ"
+    },
+    "SPY": {
+      "uri": "data/qlib/upro",
+      "manifest_sha256": "fafba4500c61855864b6db58cc85885bb80f0796334040399025b4c65ffa0f9e",
+      "underlying": "SPY"
+    },
+    "XLK": {
+      "uri": "data/qlib/tecl",
+      "manifest_sha256": "9e2d0a60a508cabbf5e874bf9a3abed4a9968292d6ccb6ea1510c0c4d7a9fdb6",
+      "underlying": "XLK"
+    }
+  },
+  "features": {
+    "primary_order": [
+      "soxl_ret3",
+      "soxl_ret5",
+      "soxl_ret10",
+      "soxl_ret20",
+      "soxl_ret60",
+      "soxx_ret3",
+      "soxx_ret5",
+      "soxx_ret10",
+      "soxx_ret20",
+      "soxx_ret60",
+      "relative_momentum20",
+      "soxx_trend20",
+      "soxx_trend60",
+      "trend_efficiency_20",
+      "levered_decay_20",
+      "soxx_lead_10",
+      "range_pos_252",
+      "cross_breadth_pos_20",
+      "cross_breadth_pos_60",
+      "semis_vs_cross_20",
+      "semis_vs_cross_60",
+      "tech_breadth_20",
+      "tech_breadth_60",
+      "soxx_vol20",
+      "soxx_drawdown60",
+      "dist_high_252",
+      "vix",
+      "vix_chg5",
+      "vix_z_60",
+      "rv20",
+      "rv60",
+      "rv20_expansion",
+      "tracking_error_5_z20",
+      "tracking_error_5_pctile60",
+      "panic_reversal_5",
+      "chop_breakdown_risk",
+      "high_chop_pressure",
+      "cross_vol_breadth_high",
+      "cross_dispersion_20"
+    ],
+    "common_order": [
+      "ret1",
+      "mom5",
+      "mom20",
+      "mom60",
+      "reversal1",
+      "vol10",
+      "vol20",
+      "downside_vol20",
+      "skew20",
+      "kurt60",
+      "drawdown20",
+      "drawdown60",
+      "gap1",
+      "intraday1",
+      "volume_z20",
+      "range_pct"
+    ],
+    "builder": "Same build_constituent_2x_tail_training_frame OHLCV feature formulas on actual1x index, adj_close=close exactly as original SOXXcommon builder. Its synthetic label outputs are DISCARDED. No ranks/ticker identity/issuer inputs.",
+    "scalers": "Both arms identical39primary training scaler and16common SOXXtraining scaler; externalQQQ/SPY/XLK transformed by SAME SOXXcommon scaler. No pooledrefit or perindexscaler. Allfinalinputsfinite; preserve originalmissing rules."
+  },
+  "cohort": {
+    "primary": "Pinned original3014 mature rows2011-01-03→2022-12-21, lastlabelavailable2022-12-30 09:31 NY, cutoff2023-01-01 NY. Exactoriginalprimary labels,39features/common/timing unchanged.",
+    "external": "Read onlyexisting Qlib D OHLCV2010-03-11→2022-12-30; truncate beforeforwardlabels. Expected3014 rows per index, derived by nativecalendar+same maturity notforced. Same training signals2011-01-03+, signal+6sessions09:31 <cutoff. No silentdrop; reportcounts/positivecounts.",
+    "tail_label": "For signal t, r_j=open[t+j+2]/open[t+j+1]-1 for j=0..4; y=1[min_{k=0..4}(product_{j=0..k}(1+r_j)-1)<=−.06]. EXACTsame1x entry-relative five-return meaning as primarySOXX; not peak-to-trough nor intraday extrema.",
+    "clocks": "Features fromsignalday completedOHLCV, nextnative session09:29 decision; label strictly maturebeforecutoff. Sourcecurrentvintage researchproxy, not receipt/PIT certification. Requiredpricespositivefinite/returns>-1; unknownmaturity excludedbydeclaredmask notfabricated0.",
+    "dependence": "QQQ/SPY/XLK equal3familymeans; SPYonce, noUPRO/SPXL duplicate; overlappingdates/labels not independent events."
+  },
+  "arms": {
+    "control": "Originalprimary allocation objective +.02*(primarytailBCE+primaryalphaBCE); no auxiliaryrows.",
+    "candidate": "Exactlycontrol +.05*(meanBCE_QQQ+meanBCE_SPY+meanBCE_XLK)/3. Fullmature external batch each epoch, no subsampling or weightingsearch.",
+    "gradient_contract": "ExternalBCE forward ONLYcommonencoder→tailhead. No directexternalallocation/alphahead loss, no auxiliaryportfolio return. Sharedencoder updates can indirectly change BOTHprimaryallocation andalpha outputs; those outputs are NOT frozen."
+  },
+  "model": {
+    "class": "Minimal TangentHeadAllocator subclass/fit-loop extension; same39primary+16common,8tailhidden,tangentlinearallocation head; no newchannels/heads.",
+    "initialization": "Botharms identical full initialstate/logits for each seed from original _initialize; scaler/cohort equal auditedBEFOREfits. No pretrainedNVDA weights/inputs used.",
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "epochs": 300,
+    "checkpoint": "Fixedfinalepoch; no modelselection",
+    "optimizer": "OriginalAdamW learningrate.002 weightdecay.08 gradclip2 float32CPU",
+    "objective": "Original pinned MinutePitAllocator allocation_objective/_allocation_loss exact original spec/candidate coefficients, cost10bp/turnover.006/primaryclassification.02. No change toannualscaling/otherpenalties; not priornewgeneric dailyobjective, notT-loss/STE. candidate.auxiliary_weight.05 onlytailBCE; control auxiliary0.",
+    "inherited_auxiliary_rows": 0
+  },
+  "execution": {
+    "prediction": "Eachnewmodelpredicts weights+tail/alphaprobabilities; arithmetic3seedmean; original _smooth_weights span3/rebalance.02/source-return drift/allcashinitialstate. Newlearnedtail/alpha passedto unchangedcontroller forbotharms, not frozen9097scores; this is intended model effect.",
+    "policy": "Samecoupled0/2/5 ownrawNAV+R ledgers, minimumcaps/ALL3recovery/T once, unchanged thresholds,rawshares/C-onlyfunding/exactsplits/USDgrosspaper/noDRIP. Rawpoints/schedule/providerreused, all944dates exact.",
+    "comparisons": "6newpaths/6native matched/candidate; reuse raw27baa and rawSOXX3cost each. Root analyze_transfer existingimplementation unchanged. Strongraw27baa isreferenceonly, noindividual-input adaptation.",
+    "initial_cash": 100000,
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ]
+  },
+  "gates": {
+    "references": [
+      "same-cost matched control",
+      "same-cost frozen raw27baa",
+      "same-cost rawSOXX"
+    ],
+    "requirements": "All costs relative wealth>1+1e-8 against ALL3; DD<=30%; CVaR5 no worse same-cost rawSOXX; Against rawSOXX (campaign stability contract): complete trade-year wins>=70% (2024/2025, exclude partial2023/2026); all819 contiguous126-session window wins>=70%; stationary bootstrap paired daily excess lower one-sided97.5% bound>0 vsALL3 (meanblock63,2000,seed20261014,alpha.025). Report CVaR, costs, all years/quarters and exposure. No vacuous annual pass.",
+    "promotion": false,
+    "scope": "Reused history, no qualified independent-forward evidence. If coarse gates fail close fixed package; no fullminute revaluation after negative."
+  },
+  "budget": {
+    "fits": 6,
+    "policy_paths": 6,
+    "native_validations": 6,
+    "new_fetches": 0,
+    "newsourceaudits": 0,
+    "model_variants": 0,
+    "threshold_or_familyweight_search": 0
+  },
+  "preflight": "Sourcehashes/nativecalendar/maturity/positiveprices, original39/16features andscalers equality, pairednetworkinitialstate/logits equality, auxonlyencoder/tail gradientroute. Onefocused material gradient/maturity test thennotebook; no broadsuite.",
+  "evidence": "Notebookfirst, RecorderNAS sourceonce beforeattempts, all6models/cohorts/scalers/predictions/targets/native/rolling checkpointed. Fixedattemptbudgetno silentretry. Slimcardconclusion includes allperiods andscientificfailures. No promotionauthority.",
+  "closure": "Ifnegative close fixed INDEX-tail-transfer package, no auxiliaryweight/threshold/head/seed rescue. No fullminutevaluation aftercoarsegatefailure. Anyfuturedirection requires distinct contract and independentreview."
+}

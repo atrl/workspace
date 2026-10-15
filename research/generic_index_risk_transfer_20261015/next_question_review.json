@@ -1,0 +1,9 @@
+{
+  "role": "post_execution_next_question_review",
+  "reviewer": "/root/evaluator",
+  "preference": "bounded saved-prediction proper-scoring diagnosis",
+  "question": "Does generic INDEX tail supervision improve the exact primary SOXX tail forecast, or mainly shift probabilities and portfolio behavior?",
+  "scope": "Saved control/candidate ensemble probabilities and original matured SOXX1xH5 labels; primary paired log loss, secondary Brier; all periods and event/non-event contributions; fixed63-day dependent blocks. No fitting, inference, calibration, threshold search, source collection or portfolio qualification.",
+  "deferred": "NVDA-context 2x2 training; old27baa is not a no-auxiliary cell and remains a frozen comparator",
+  "current_negative_route_remains_closed": true
+}

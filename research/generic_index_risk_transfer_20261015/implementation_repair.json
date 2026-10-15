@@ -1,0 +1,15 @@
+{
+  "reason": "First control_71 fit stopped at timezone comparison before optimizer creation/steps",
+  "original_failed_fit": "control_71",
+  "original_optimizer_steps": 0,
+  "original_model_sha256": "dd3411f07c35064783bf96ba916434e81ea0d6d3e1603d3079f6332d1d221a13",
+  "original_workflow_sha256": "bb43d060ace1ded2b453b6831ef179c50d68f9f3544c9b3401783e061a3f237a",
+  "repair": "Localize declared NY-naive external maturity to America/New_York; compare awarecutoff. Reuse saved external groups unchanged.",
+  "repaired_model_sha256": "bae1bf6696b35deabc57bc4e9c381360ebb380b9cc4b583515448caa9504ff4a",
+  "repaired_workflow_sha256": "7ef4c3ad69e2be424252c571068022481d75701e1871e5c270d0c05ec45126e5",
+  "maximum_trained_models": 6,
+  "maximum_fit_invocation_attempts": 7,
+  "setup_retry_limit": 1,
+  "parent_approval": "Explicit parent approved bounded preoptimization repair; no scientific change",
+  "retry_preflight": "Saved original primarycohort and completeinitialstatehash equality asserted; externalgroups loaded unchanged"
+}

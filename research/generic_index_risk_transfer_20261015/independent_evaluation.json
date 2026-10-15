@@ -1,0 +1,44 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_NEGATIVE_INDEX_TAIL_TRANSFER",
+  "plan_sha256": "79528e43569e199bf608469b8869b6287f294d5f40f6a30237f0053fa8c0e4b9",
+  "recorder_id": "83a13ab47cdb4e28a5fe285821909a28",
+  "verification_manifest_sha256": "572a19fa79c98e722c058d915f0b9159480b524269a5ff65260c3e813d87e408",
+  "archive_sha256": "413da98cbf476534e5ca58b6b4a0188709655ef695b5cabf0778401f6e52b0bf",
+  "source_sha256": {
+    "src/model/generic_index_risk_transfer.py": "bae1bf6696b35deabc57bc4e9c381360ebb380b9cc4b583515448caa9504ff4a",
+    "src/workflow/generic_index_risk_transfer.py": "7ef4c3ad69e2be424252c571068022481d75701e1871e5c270d0c05ec45126e5"
+  },
+  "checks": [
+    "Primary39 and common16 preserved; each primary/external cohort has3014 mature rows and paired300epochs",
+    "External QQQ/SPY/XLK positives96/68/102; exact1x entry-relativeH5 label and NY maturity aligned",
+    "Primary/common training-only scalers and paired initialization verified across6models",
+    "External tail BCE directly reaches encoder/tail only; original primary allocation/alpha/tail objectives unchanged",
+    "6 native944-interval accounts reconcile wealth/report compounding",
+    "Approved preoptimizer timezone setup repair retains original/repaired sources;6 trained models and7invocations",
+    "All9 confidence lower bounds fail; no stable transfer alpha claim"
+  ],
+  "verification": {
+    "trained_models": 6,
+    "fit_invocations": 7,
+    "new_policy_paths": 6,
+    "new_native_accounts": 6,
+    "focused_tests_passed": 1,
+    "cold_read_artifacts": 76,
+    "all_hashes_match": true
+  },
+  "gates": {
+    "beat_matched_control_all_costs": true,
+    "beat_frozen_raw27baa_all_costs": false,
+    "net_soxx_excess_all_costs": true,
+    "sampled_drawdown_30pct": true,
+    "cvar_no_worse_soxx": true,
+    "rolling_70pct_soxx": false,
+    "complete_annual_70pct_soxx": true,
+    "bootstrap_positive_all_three": false,
+    "fullminute_risk_qualified": false,
+    "independent_development": false,
+    "qualified_forward": false
+  },
+  "objective_achieved": false
+}

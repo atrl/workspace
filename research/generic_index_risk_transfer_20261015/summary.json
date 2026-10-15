@@ -1,0 +1,83 @@
+{
+  "experiment": "generic_index_risk_transfer_20261015",
+  "plan_sha256": "79528e43569e199bf608469b8869b6287f294d5f40f6a30237f0053fa8c0e4b9",
+  "decision": "not_promoted_fixed_index_tail_transfer",
+  "objective_achieved": false,
+  "model_fits": 6,
+  "fit_invocation_attempts": 7,
+  "policy_paths": 6,
+  "native_validations": 6,
+  "new_fetches": 0,
+  "training_audit": {
+    "QQQ": {
+      "rows": 3014,
+      "positives": 96,
+      "first_signal": "2011-01-03 00:00:00",
+      "last_signal": "2022-12-21 00:00:00",
+      "last_mature_at": "2022-12-30 09:31:00",
+      "manifest_sha256": "0ce3e462a45e9c5e36f2184748678f927734fedf796e1bc9f71b173f6250bbf9"
+    },
+    "SPY": {
+      "rows": 3014,
+      "positives": 68,
+      "first_signal": "2011-01-03 00:00:00",
+      "last_signal": "2022-12-21 00:00:00",
+      "last_mature_at": "2022-12-30 09:31:00",
+      "manifest_sha256": "fafba4500c61855864b6db58cc85885bb80f0796334040399025b4c65ffa0f9e"
+    },
+    "XLK": {
+      "rows": 3014,
+      "positives": 102,
+      "first_signal": "2011-01-03 00:00:00",
+      "last_signal": "2022-12-21 00:00:00",
+      "last_mature_at": "2022-12-30 09:31:00",
+      "manifest_sha256": "9e2d0a60a508cabbf5e874bf9a3abed4a9968292d6ccb6ea1510c0c4d7a9fdb6"
+    }
+  },
+  "gates": {
+    "beat_matched_control_all_costs": true,
+    "beat_frozen_raw27baa_all_costs": false,
+    "net_soxx_excess_all_costs": true,
+    "sampled_drawdown_30pct": true,
+    "cvar_no_worse_soxx": true,
+    "rolling_70pct_soxx": false,
+    "complete_annual_70pct_soxx": true,
+    "bootstrap_positive_all_three": false,
+    "fullminute_risk_qualified": false,
+    "independent_development": false,
+    "qualified_forward": false
+  },
+  "historical_PIT_qualified": false,
+  "currency_contract": "USD gross paper assumption, noDRIP, same raw basis all arms",
+  "recorder_id": "83a13ab47cdb4e28a5fe285821909a28",
+  "experiment_id": "970197301451337753",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/generic_index_risk_transfer_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/generic_index_risk_transfer_20261015/qlib_recorder/970197301451337753/83a13ab47cdb4e28a5fe285821909a28",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "predictions/*",
+      "paths/*",
+      "traces/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "413da98cbf476534e5ca58b6b4a0188709655ef695b5cabf0778401f6e52b0bf",
+    "size_bytes": 9705950,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/41/3d/413da98cbf476534e5ca58b6b4a0188709655ef695b5cabf0778401f6e52b0bf",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 22:41:13.323017+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/41/3d/413da98cbf476534e5ca58b6b4a0188709655ef695b5cabf0778401f6e52b0bf",
+    "recorder_id": "83a13ab47cdb4e28a5fe285821909a28",
+    "experiment_id": "970197301451337753",
+    "archive_root": "qlib_recorder"
+  }
+}

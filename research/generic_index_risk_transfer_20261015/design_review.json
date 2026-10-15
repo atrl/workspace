@@ -1,0 +1,19 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "APPROVE_FIXED_INDEX_TAIL_RISK_TRANSFER",
+  "plan_sha256": "79528e43569e199bf608469b8869b6287f294d5f40f6a30237f0053fa8c0e4b9",
+  "scope": {
+    "fits": 6,
+    "policy_paths": 6,
+    "native_validations": 6,
+    "new_fetches": 0
+  },
+  "conditions": [
+    "External 1x H5 entry-relative path minimum at or below -6 percent matches primary SOXX label exactly",
+    "39 primary inputs and 16 common inputs retain same semantics, training-only scalers and paired initialization",
+    "Neither arm uses constituent or synthetic leveraged auxiliary rows",
+    "Only candidate adds fixed equal-index tail BCE through shared encoder and tail head",
+    "Shared encoder may indirectly alter allocation and alpha outputs; not described as frozen",
+    "All existing return, matched/strong reference, CVaR, drawdown, stability and confidence gates retained"
+  ]
+}
