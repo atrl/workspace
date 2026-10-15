@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/sector_residual_context_information_20261015",
-  "current_phase": "fixed_context_information_closed_distinct_generic_participation_triage_next",
-  "next_action": "Freeze combined bounded RSP/SPY same-vendor source-gate and single-feature information test. RSP20-minus-SPY20 is a new broad-market equal/cap-weight price coordinate, not a beta-formula rescue; control original39 and same-sourceSPY momentum. Existing RSP coverage absent. At most4publicHTTP attempts for exactly2010-03-11..2022-12-30; preserve raw/actions/timestamps and Qlib readback, no filling/vendor or ETF substitution. No paid data/issuer research. Sourcegate failure stops branch; feature test only after exact independent design approval.",
+  "current_experiment": "research/equal_weight_market_context_information_20261015",
+  "current_phase": "equal_weight_context_closed_prospective_diagnostic_contract_next",
+  "next_action": "Prepare a bounded implementation-ready prospective DIAGNOSTIC observation contract using prior readiness and completed raw cash accounting. Freeze unpromoted model/source identities, actual input receipts then sealed decisions then later quote marks, fresh own cash/R/risk/EMA states, matched costs/references, missing-source rules, fixed evaluation dates and stopping. Reuse old readiness evidence rather than repeat inventories. No process/probe launch until exact design review; no real orders, production replacement, old SIM-day credit or historical-gate override. Do not rerun the already failed annual-refit rule as a new mechanism.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1007,6 +1007,35 @@
         5.571246356027737e-07
       ],
       "next_source_hypothesis": "research/sector_residual_context_information_20261015/next_source_hypothesis.json"
+    },
+    {
+      "card": "research/equal_weight_market_context_information_20261015",
+      "kind": "fixed_equal_weight_market_context_source_and_information_test",
+      "status": "source_passed_information_failed_fixed_route_closed",
+      "recorder_id": "eea365a8953e4e85ba3b98f4132926d2",
+      "evaluation": "research/equal_weight_market_context_information_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_SOURCE_GATE_THEN_INFORMATION_TEST",
+        "plan_sha256": "d459a7c53fe187c59e49300a025ee6adf3df04d23fb1ed886108aeb7fed02208"
+      },
+      "verification": {
+        "Ridge_fits": 14,
+        "HTTP_attempts": 2,
+        "new_policy_accounts": 0,
+        "focused_tests_passed": 1,
+        "cold_read_artifacts": 49,
+        "all_hashes_match": true
+      },
+      "source_gate_pass": true,
+      "information_gate_pass": false,
+      "positive_years": 2,
+      "pooled_MSE_improvement": -3.2557686964430186e-07,
+      "interval": [
+        -9.667440620901033e-07,
+        2.6957096423394664e-07
+      ],
+      "next_branch_review": "research/equal_weight_market_context_information_20261015/next_branch_review.json"
     }
   ],
   "governance_review": {
@@ -1023,7 +1052,7 @@
     "promotion_eligible": false,
     "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
   },
-  "cumulative_new_fits_in_this_campaign": 53,
+  "cumulative_new_fits_in_this_campaign": 67,
   "cumulative_new_native_accounts_in_this_campaign": 42,
   "rejected_directions": [
     {
@@ -1048,7 +1077,7 @@
   ],
   "cumulative_new_shadow_paths_in_this_campaign": 36,
   "cumulative_new_allocator_fits_in_this_campaign": 27,
-  "cumulative_new_statistical_fits_in_this_campaign": 26,
+  "cumulative_new_statistical_fits_in_this_campaign": 40,
   "cumulative_frozen_risk_valuations": 6,
   "mechanism_triage": {
     "document": "docs/composition_execution_contract_triage.md",

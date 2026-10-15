@@ -1,0 +1,78 @@
+{
+  "plan_sha256": "d459a7c53fe187c59e49300a025ee6adf3df04d23fb1ed886108aeb7fed02208",
+  "http_attempts": [
+    {
+      "key": "RSP_query2",
+      "symbol": "RSP",
+      "requested_url": "https://query2.finance.yahoo.com/v8/finance/chart/RSP",
+      "params": {
+        "period1": 1268265600,
+        "period2": 1672444800,
+        "interval": "1d",
+        "events": "div,splits,capitalGains",
+        "includeAdjustedClose": "true"
+      },
+      "request_started_at_utc": "2026-10-15T15:49:07.480879+00:00",
+      "completed": true,
+      "http_status": 200,
+      "resolved_url": "https://query2.finance.yahoo.com/v8/finance/chart/RSP?period1=1268265600&period2=1672444800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true",
+      "response_received_at_utc": "2026-10-15T15:49:09.271119+00:00",
+      "response_bytes": 349931,
+      "response_sha256": "f185c9a083d4c0ed1253968a38816a2de1240c48c8459317218251ece6dd8cec"
+    },
+    {
+      "key": "SPY_query2",
+      "symbol": "SPY",
+      "requested_url": "https://query2.finance.yahoo.com/v8/finance/chart/SPY",
+      "params": {
+        "period1": 1268265600,
+        "period2": 1672444800,
+        "interval": "1d",
+        "events": "div,splits,capitalGains",
+        "includeAdjustedClose": "true"
+      },
+      "request_started_at_utc": "2026-10-15T15:49:09.344287+00:00",
+      "completed": true,
+      "http_status": 200,
+      "resolved_url": "https://query2.finance.yahoo.com/v8/finance/chart/SPY?period1=1268265600&period2=1672444800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true",
+      "response_received_at_utc": "2026-10-15T15:49:10.899570+00:00",
+      "response_bytes": 360297,
+      "response_sha256": "67978fe4dbb972930dace4a1553193c25b0d616c2cc1910eea812c5249b74da1"
+    }
+  ],
+  "fit_attempts": [
+    "2016_baseline",
+    "2016_candidate",
+    "2017_baseline",
+    "2017_candidate",
+    "2018_baseline",
+    "2018_candidate",
+    "2019_baseline",
+    "2019_candidate",
+    "2020_baseline",
+    "2020_candidate",
+    "2021_baseline",
+    "2021_candidate",
+    "2022_baseline",
+    "2022_candidate"
+  ],
+  "fitted": [
+    "2016_baseline",
+    "2016_candidate",
+    "2017_baseline",
+    "2017_candidate",
+    "2018_baseline",
+    "2018_candidate",
+    "2019_baseline",
+    "2019_candidate",
+    "2020_baseline",
+    "2020_candidate",
+    "2021_baseline",
+    "2021_candidate",
+    "2022_baseline",
+    "2022_candidate"
+  ],
+  "recorder_id": "eea365a8953e4e85ba3b98f4132926d2",
+  "experiment_id": "256429888070587683",
+  "sources_saved": true
+}

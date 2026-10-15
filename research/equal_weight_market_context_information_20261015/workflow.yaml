@@ -1,0 +1,17 @@
+experiment: equal_weight_market_context_information_20261015
+plan: plan.json
+module: src.workflow.equal_weight_market_context_information
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - source_attempts/*
+  - qualified_source/*
+  - models/*
+  - folds/*
+  - analysis/daily
+  - analysis/scalers
+  - analysis/bootstrap_indices
+  - analysis/bootstrap_replicates

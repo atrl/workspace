@@ -1,0 +1,192 @@
+{
+  "schema_version": "nas_market_snapshot_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "as_of": "2026-10-09",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "snapshot_root": "/volume1/docker/yanxuan/data/market/us_semis/snapshots/18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "source_manifest_path": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "verified": true,
+  "objects": [
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.json",
+      "kind": "source",
+      "sha256": "4711c6cf13806ed100a3c3ad5515e1a09596e6d6baf092e6727919e99aa45b14",
+      "bytes": 11977
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_none.parquet",
+      "kind": "source",
+      "sha256": "f6f7abee685b60e3c6fa0160121617416bb01156b38a3133abe1194a3e0155f7",
+      "bytes": 7926465
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/AMD_rehab.parquet",
+      "kind": "source",
+      "sha256": "2bfc848417eb34cd8d49ec4506861f3160cc364dcf190d854393332143e211cb",
+      "bytes": 16590
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.json",
+      "kind": "source",
+      "sha256": "140c85b21428959d4b036a155609baa3d2b76c4d81110f54f311397acff10bd3",
+      "bytes": 11979
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_none.parquet",
+      "kind": "source",
+      "sha256": "a6021ed363e3a8f0e0cdbfbc8b8a9051ec7e1c1e3e1cc91cc0fe8c71e46c7107",
+      "bytes": 8416442
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/NVDA_rehab.parquet",
+      "kind": "source",
+      "sha256": "aa55fe6b0bfc11c8eaec6a8de57c0660b27ccfb2628b812362734560a1332f0b",
+      "bytes": 17666
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.json",
+      "kind": "source",
+      "sha256": "d6d6c01ce15a833a9120cf99aa6a9580fae9f06bb9b52e4b837b3d55646b970f",
+      "bytes": 11977
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_none.parquet",
+      "kind": "source",
+      "sha256": "0162127c3ae0ca487a2b58627cb9bdeb2f9746c3b05be6c5f6b7ae1ded94319d",
+      "bytes": 7948652
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/QQQ_rehab.parquet",
+      "kind": "source",
+      "sha256": "80d78548d47ccf1578d9cc5390fa1c772d522ededab975b63b09073a80315fbc",
+      "bytes": 19611
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/README.md",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/README.md",
+      "kind": "source",
+      "sha256": "36c212669bd909100f2b68b756e3d817c20b77b192751cf101db4f3e92143f25",
+      "bytes": 583
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.json",
+      "kind": "source",
+      "sha256": "cd96ad44bf2e3b54d3fb90720ced6db697fe59a0a0c243e5c9059d342aa2d2ed",
+      "bytes": 11977
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_none.parquet",
+      "kind": "source",
+      "sha256": "ef9cd86b5328dfb3242986d18a9e2f732784777b868fe4f9db31a2c506942323",
+      "bytes": 6954525
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SMH_rehab.parquet",
+      "kind": "source",
+      "sha256": "d4853b29cac5e71fb1b8602bd0a8a057faf985aa6e20c4d65ca6a64f4050e6a4",
+      "bytes": 17134
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.json",
+      "kind": "source",
+      "sha256": "6c9fc156b6b684c76dd8c6dad742720a789733e36a9c074d3ce67885fb708051",
+      "bytes": 57174
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.parquet",
+      "kind": "source",
+      "sha256": "94b2ee6bf16f76d2e3e453f45a8db533869a2fe6303e90c47505a61647d0dc2a",
+      "bytes": 34310680
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_rehab.parquet",
+      "kind": "source",
+      "sha256": "0342f402196db7fe6c1e62556513fd6a2df613b02629706e3cabdea2bd817015",
+      "bytes": 17760
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.json",
+      "kind": "source",
+      "sha256": "59b1b34f113d03e20f3e37ac6644cbd457a0957525aa6468b2b904a822f5113f",
+      "bytes": 56907
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.parquet",
+      "kind": "source",
+      "sha256": "9133d01608d534d753015fa043d1fc538ccd12afbab8aaa1a01daa0f64448561",
+      "bytes": 27412470
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_rehab.parquet",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_rehab.parquet",
+      "kind": "source",
+      "sha256": "a46e06d4c37919c1442bd54228167adc86f09cdf1b73b46eaac237d6acd4cf7c",
+      "bytes": 19186
+    },
+    {
+      "local_path": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+      "snapshot_path": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+      "kind": "source",
+      "sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+      "bytes": 173231
+    },
+    {
+      "local_path": "data/processed/intraday/semis_context_5m.parquet",
+      "snapshot_path": "data/processed/intraday/semis_context_5m.parquet",
+      "kind": "derived",
+      "sha256": "2262abdae138b2213ec86d7972e6d450a0c0139e13b159ab5b9b7459504ad2a9",
+      "bytes": 54551943
+    },
+    {
+      "local_path": "data/processed/intraday/soxl_soxx_1m.parquet",
+      "snapshot_path": "data/processed/intraday/soxl_soxx_1m.parquet",
+      "kind": "derived",
+      "sha256": "e78999932fb4c97c11eadf80d93a88fc9c3b1d5d049e201b9cce0c3416c49371",
+      "bytes": 67002763
+    },
+    {
+      "local_path": "data/processed/intraday/soxl_soxx_none_1m.parquet",
+      "snapshot_path": "data/processed/intraday/soxl_soxx_none_1m.parquet",
+      "kind": "derived",
+      "sha256": "fcc7af99318fe11400d8143142a2d81a220557de3ecb719587b499edccb629c9",
+      "bytes": 67840304
+    }
+  ],
+  "mutable_state_owner": "NAS DuckDB sync.current source_updates.us_semis_intraday",
+  "consumer_cache_policy": "local discarded/rebuilt; no upstream fallback",
+  "verified_at": "2026-10-12T08:48:23.273489+00:00",
+  "evidence": {
+    "sha256": "ad67928c881def0409d040a081dade5ef6090c4af61255dde0b10fa142ae0d34",
+    "size_bytes": 1617431,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ad/67/ad67928c881def0409d040a081dade5ef6090c4af61255dde0b10fa142ae0d34",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 23:49:13.083807+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ad/67/ad67928c881def0409d040a081dade5ef6090c4af61255dde0b10fa142ae0d34",
+    "recorder_id": "eea365a8953e4e85ba3b98f4132926d2",
+    "experiment_id": "256429888070587683",
+    "archive_root": "qlib_recorder"
+  }
+}

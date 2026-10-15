@@ -1,0 +1,35 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_NEGATIVE_EQUAL_WEIGHT_CONTEXT_TEST",
+  "plan_sha256": "d459a7c53fe187c59e49300a025ee6adf3df04d23fb1ed886108aeb7fed02208",
+  "recorder_id": "eea365a8953e4e85ba3b98f4132926d2",
+  "verification_manifest_sha256": "d2ea8c91e0587840591464b2dde5a6805505468945a8653ad38dbf819842c879",
+  "archive_sha256": "ad67928c881def0409d040a081dade5ef6090c4af61255dde0b10fa142ae0d34",
+  "checks": [
+    "Two HTTP200 source requests with no fallback;3226 matched native sessions per ETF, body hashes and metadata verified",
+    "Qlib vendor-adjusted/quote-price readback and fixed20 coordinate verified",
+    "14Ridge models/shared training-only scalers and strict maturity on1762/1756/6unknown positions verified",
+    "All2000 bootstrap replicates and interval independently recomputed",
+    "Only2019/2020 improve;2of7 fails fixed5of7 and lower confidence gate",
+    "Source gate passed; this is not an unfinished data-source failure",
+    "Ridge results depend on chosen basis despite equal linear span; no pure breadth or causal alpha claim"
+  ],
+  "primary_result": {
+    "paired_mean_loss_improvement": -3.2557686964430186e-07,
+    "lower_bound": -9.667440620901033e-07,
+    "upper_bound": 2.6957096423394664e-07,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 1762,
+    "scored_rows": 1756
+  },
+  "verification": {
+    "Ridge_fits": 14,
+    "HTTP_attempts": 2,
+    "new_policy_accounts": 0,
+    "focused_tests_passed": 1,
+    "cold_read_artifacts": 49,
+    "all_hashes_match": true
+  },
+  "objective_achieved": false
+}

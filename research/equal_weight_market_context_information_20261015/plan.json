@@ -1,0 +1,208 @@
+{
+  "experiment": "equal_weight_market_context_information_20261015",
+  "frozen_at_utc": "2026-10-15T15:42:23.751253+00:00",
+  "hypothesis": "Fixed20-session RSP minus SPY vendor-adjusted-close logmomentum adds conditional SOXX H1return prediction information beyond original39 plus same-sourceSPYmomentum. NewETFpricecoordinate, notclosedbeta/residualformula substitution.",
+  "dedup": "Boundedcurrent39/5ETFcontext/registry foundnoRSP or equal-vs-cap S&P500 series. Existingcrossbreadth usesSOXX/QQQ/SPY/SPY/XLK; oldSOXXconstituentconcentration andhardwareequalweight baskets aredifferent. This isnot proofallhistoricalfilessearched or existingfeaturescannotproxyRSP.",
+  "definition_sources": [
+    "https://www.spglobal.com/spdji/en/indices/equity/sp-500-equal-weight-index/",
+    "https://www.spglobal.com/spdji/en/education/article/sp-500-equal-weight-index-faq/"
+  ],
+  "interpretation": "Equal-weight versuscap-weight sameS&P500universe isparticipation/concentration proxy ALSOsize/value/sector/rebalancing/tracking/fees effects, notpurebreadth orcausalalpha. No performance-basedETFselection. Heldassets remainSOXL/SOXX/CASH; RSP isinputonly.",
+  "source_intake": {
+    "symbols": [
+      "RSP",
+      "SPY"
+    ],
+    "period": "2010-03-11 through2022-12-30 inclusive",
+    "hosts_in_order": [
+      "query2.finance.yahoo.com",
+      "query1.finance.yahoo.com"
+    ],
+    "path_template": "https://{host}/v8/finance/chart/{symbol}",
+    "params": {
+      "period1": 1268265600,
+      "period2": 1672444800,
+      "interval": "1d",
+      "events": "div,splits,capitalGains",
+      "includeAdjustedClose": "true"
+    },
+    "method": "GET",
+    "timeout_seconds": 30,
+    "headers": {
+      "User-Agent": "Mozilla/5.0 soxl-qlib-data-refresh"
+    },
+    "redirects": false,
+    "request_budget": "Atmost4HTTP attempts TOTAL: atmost2 per symbol, query2 thenquery1. Samevendoralternatehost ONLY ontransport/HTTPerror/nonJSONresponse; nosecondhost torepair validJSON semantic/coveragefailure. Stopbranch ifonesymbol exhausts orsourcegatefails. No automaticretry/backoff/redirect/auth/cookie/proxyconfiguration/vendor/symbol fallback.",
+    "attempt_capture": "Beforeeachrequestrecordsymbol/URL/params/requestUTC. Capturestatus/responseUTC/resolvedURL/rawresponsebytesSHA+body forsuccess/failure; transportexceptions preserveerrortext/no inventedpayload. Rawbodies/parsedrecords RecorderNAS, smallattemptmanifestGit. Requestedsymbol/data chosenbeforeanyresponse.",
+    "fixed_basis": "Preservevendorquote OHLCV and distinct indicators.adjclose.adjclose asreceived, plusmetadata/actions. quote.close calledvendorquoteclose, NOTcertified unadjustedphysical-shareprice (historicalsplitsemanticsnotupgraded). Featureusesvendor-adjustedclose forBOTHsymbols fromsameintake. Current-vintage adjustedpriceproxy, notactualtotalreturnaccount/historicalPIT orissuerdividendcertification. No mixnewRSPwitholdSPYstorebasis.",
+    "gate": "Onechartresult, exactrequestedmeta.symbol, currencyUSD, exchangeTimezoneName America/New_York, dataGranularity1d; nonemptyuniquetimestamp NYsessiondates strictlywithinrequestedrange. ALLexpectednativeQlibsessions andnoextras, sameRSP/SPYdates. Quotesopen/high/low/close andadjclosefinitepositive; volumefinite>=0; high>=max(open,close),low<=min(open,close). No interpolation/drop/backfill/stitch.",
+    "actions_gate": "Requestdiv/splits/capitalGains. Requireeventsmap andnonemptydividendsmap foreachdistributingETF; recordcountsdonotforcecounts. Presentdividend/capitalgainamountfinite>=0,splitnumerator/denominatorfinite>0; actiondate/epoch/key consistency andwithinrequestedsessionrange. Absentsplit/capitalgainkey meansnoeventsreported byvendor, NOTindependentcompletenessproof. Neverderivecashfromadjusted/quote ratio, neverbuildcashledger orclaimpaydates/firstreceipt.",
+    "source_failure": "needs_data_fixed_RSP_SPY_source_gate; saveconcretefailedreceipts+notebookconclusion,0fits. Do notfetchreplacementcorpus orproceedwithoneETF."
+  },
+  "Qlib_source_contract": {
+    "calendar_source": "Existingdata/qlib/soxl calendar2010-03-11→2022-12-30,manifest pinned below;1nativecalendarread.",
+    "calendar_manifest_sha256": "bcbc189e08b23ecb2a234c9ecaef05336e4a07b3181795ed9d55e344b5616da8",
+    "derived_provider": "data/qlib/equal_weight_market_context_information_20261015",
+    "provider": "Buildusingexistingbuild_qlib_store_from_frame fieldsquote_open/high/low/close,volume,vendor_adj_close plusstandardOHLCaliasfromquote. Aliasnotexecutionqualification. ReadRSP/SPY vendor_adj_close+quote_close backviaD.features andexactfloat32readbacktoleranceatol0rtol1e-7; storequantizationerrors. Missingcalendar/readbackblocksfit. RebuildablebinsignoredGit, manifest/sourceauditsRecorder+smallcard.",
+    "source_gate_before_labels": "Do notloadoriginaloutcomelabels orstartfituntilbothETFsourcegate+Qlibreadbackpass. Rawpayloadsourcefailuresremain sourceonly."
+  },
+  "label_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a"
+  },
+  "label_artifacts": [
+    "inputs/daily_frame",
+    "inputs/features",
+    "inputs/timing",
+    "inputs/plan"
+  ],
+  "label_contract": {
+    "target": "EXACT original daily_frame.soxx_forward_open_return: SOXX next-open→following-open gross H1 return; not09:47 label, nottail/relativebenchmark label. Clockdifference fromfinalintradaypolicy explicit; aninformationpass isnot portfolio value proof.",
+    "cohort": "Source signals2011-01-03…2022-12-30, finiteoriginalH1 andconservative ORIGINALH5 label_available_at frominputs/timing. Do notreplacewithshorterH1maturity. Expectedrowcountsderived, neverforce/droptofitcounts.",
+    "cutoffs": "Foldyear2016…2022 trainfrom2011 withsignaldate<Jan1 foldyear and originalH5availabilitySTRICTLY<Jan1 foldyear00:00NY. Sameeligibletrainmaskbotharms.",
+    "evaluation_asof": "2022-12-30 09:31 America/New_York: originalH5availability<=asof andfiniteH1 requiredforscoring; later/unknownlabels retainedNaN in full2016–2022 calendarevaluation. Do notuse2023 maturations.",
+    "timestamp_rule": "ExplicitlylocalizeNY-naive timestampsAmerica/New_York; convertawaretimestampsNY. Originalmaturitystrictlybeforetrainingcutoff. NoUTCguess/tzstrip.",
+    "shared_rows": "Botharms identicalallheldoutcalendarpositions/sharedmaturitymask. Existingprimarymissingvalues handledtrain-only; newRSP/SPYmomentum missingafterwarmup BLOCKSsourcegate, neverdropsspecificrow."
+  },
+  "features": {
+    "ordered_baseline": [
+      "soxl_ret3",
+      "soxl_ret5",
+      "soxl_ret10",
+      "soxl_ret20",
+      "soxl_ret60",
+      "soxx_ret3",
+      "soxx_ret5",
+      "soxx_ret10",
+      "soxx_ret20",
+      "soxx_ret60",
+      "relative_momentum20",
+      "soxx_trend20",
+      "soxx_trend60",
+      "trend_efficiency_20",
+      "levered_decay_20",
+      "soxx_lead_10",
+      "range_pos_252",
+      "cross_breadth_pos_20",
+      "cross_breadth_pos_60",
+      "semis_vs_cross_20",
+      "semis_vs_cross_60",
+      "tech_breadth_20",
+      "tech_breadth_60",
+      "soxx_vol20",
+      "soxx_drawdown60",
+      "dist_high_252",
+      "vix",
+      "vix_chg5",
+      "vix_z_60",
+      "rv20",
+      "rv60",
+      "rv20_expansion",
+      "tracking_error_5_z20",
+      "tracking_error_5_pctile60",
+      "panic_reversal_5",
+      "chop_breakdown_risk",
+      "high_chop_pressure",
+      "cross_vol_breadth_high",
+      "cross_dispersion_20",
+      "spy_vendor_logmom20"
+    ],
+    "ordered_candidate": [
+      "soxl_ret3",
+      "soxl_ret5",
+      "soxl_ret10",
+      "soxl_ret20",
+      "soxl_ret60",
+      "soxx_ret3",
+      "soxx_ret5",
+      "soxx_ret10",
+      "soxx_ret20",
+      "soxx_ret60",
+      "relative_momentum20",
+      "soxx_trend20",
+      "soxx_trend60",
+      "trend_efficiency_20",
+      "levered_decay_20",
+      "soxx_lead_10",
+      "range_pos_252",
+      "cross_breadth_pos_20",
+      "cross_breadth_pos_60",
+      "semis_vs_cross_20",
+      "semis_vs_cross_60",
+      "tech_breadth_20",
+      "tech_breadth_60",
+      "soxx_vol20",
+      "soxx_drawdown60",
+      "dist_high_252",
+      "vix",
+      "vix_chg5",
+      "vix_z_60",
+      "rv20",
+      "rv60",
+      "rv20_expansion",
+      "tracking_error_5_z20",
+      "tracking_error_5_pctile60",
+      "panic_reversal_5",
+      "chop_breakdown_risk",
+      "high_chop_pressure",
+      "cross_vol_breadth_high",
+      "cross_dispersion_20",
+      "spy_vendor_logmom20",
+      "rsp_minus_spy_vendor_logmom20"
+    ],
+    "count_baseline": 40,
+    "count_candidate": 41,
+    "formula": "spy_vendor_logmom20=log(P_SPY_t/P_SPY_t−20); candidate=log(P_RSP_t/P_RSP_t−20)−spy_vendor_logmom20, usingQlibreadback vendor_adj_close. Exactly20native sessions, fullwarmup required; no covariance/beta/sectorresidual/otherwindow.",
+    "availability": "Completed signaldaydailycloses, nextnativesession09:29 featuredecision. No same-day intraday labelinput. Currentretrievalreceipts notbackdated tohistoricaldecisions.",
+    "missing": "Afterdeclaredwarmup, requirebothpositivefiniteprices andall40/41transformedinputsfinite. ExistingoriginalfeatureNaNs usefixedtrain-onlyimputation; missingnewmomentum/sourcegaps abortsourcegate ratherthanfill. Botharms samecalendar/labels/masks.",
+    "representation": "GivenSPYmomentum baseline, addingRSP−SPY islinearly equivalenttoaddingRSPmomentum; claimedtestis incrementalRSPseries, NOTanewrelative-return algebra trick."
+  },
+  "model": {
+    "class": "sklearn.linear_model.Ridge",
+    "alpha": 10.0,
+    "fit_intercept": true,
+    "solver": "svd",
+    "folds": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "fits": 14,
+    "preprocess": "Perfoldmeanimputation+mean/std(ddof0) oneligibletrainingrows only,zerostd1,allmissingfeatureabort. Fixedfit_scaler/transform; full41scaler yields SAMEfirst40coordinatesbotharms. No testnormalization/clipping.",
+    "target_scaling": "None; same originalH1 decimalreturn forbotharms.",
+    "selection": "Fixedall14 fits, nohyperparameter/feature/sign/foldsearch. Coefficients descriptiveonly, no tradingthreshold.",
+    "Qlib_training_surface": "DatasetH/DataHandlerLP/StaticDataLoader on frozenfeature/label/meta matrix; folds use preparedtraining/evaluation rows. No new providerstore."
+  },
+  "primary_test": {
+    "daily": "(target−baseline_prediction)^2−(target−candidate_prediction)^2, positive=candidatebetter",
+    "gate": "Atleast5of7heldoutyears pairedMSEmean>0 AND pooledfullcalendarbootstraplower.025>0. Singlefixedcandidate. FailureclosesfixedRSP/SPY20coordinate; no parameter/symbol/benchmarkrescue.",
+    "bootstrap": {
+      "mean_block": 63,
+      "resamples": 2000,
+      "seed": 20261014,
+      "alpha": 0.025
+    },
+    "bootstrap_scope": "Reuse full_calendar_bootstrap stationarycircular indices over ALL2016–2022 calendarrows includingNaN immatureend; nanmean sampledblocks. Lower.025quantile isone-sided97.5%. Reportvalid/invalidreplicates andunknowncounts. Dependentdaily/overlappingmaturity notindependentfold evidence.",
+    "secondary": "Reportall7folds/quarters andcoefficients/missingcounts, no newformaltests ortradingmapping."
+  },
+  "source_code_sha256": {
+    "src/analysis/seed_disagreement_information.py": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4",
+    "src/data/market_update.py": "ad243b1c1eeb27522d3babc455263967ad61f7b2d87a28758ddbe8adfd759599"
+  },
+  "budget": {
+    "HTTP_attempts_max": 4,
+    "symbols": 2,
+    "Ridge_fits_if_source_pass": 14,
+    "new_policy_or_native_accounts": 0,
+    "alternative_symbols_vendors_windows": 0
+  },
+  "evidence": "Singlecombinednotebook sourcegate THEN fixedinformationtest. Captureexecutioncode/plan beforefirstHTTP, checkpointreceiptsimmediately before/aftereachattempt; no unloggedrequests. Sourcefitfailurespersist. DatasetH/DataHandlerLP/StaticDataLoader modelmatrix; record14attempts/models andperfoldoutputs. Alllargepayloads/features/predictions/models/indices RecorderNAS, slimcard. Onefocused material parser/date/basiscontract test ifneeded, no broadtests.",
+  "promotion_authority": false,
+  "closure": "Ifsourcefails,branchneeds_data0fits. Ifinformationgatefails,closefixedRSP20 coordinate; noETF/window/sign/regularizerrescue. Ifpasses,onlypermitsseparatepolicyplanreview, noautomaticportfolio. No individualstockresearch orpaiddata."
+}

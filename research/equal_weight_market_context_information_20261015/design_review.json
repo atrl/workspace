@@ -1,0 +1,21 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "APPROVE_BOUNDED_SOURCE_GATE_THEN_INFORMATION_TEST",
+  "plan_sha256": "d459a7c53fe187c59e49300a025ee6adf3df04d23fb1ed886108aeb7fed02208",
+  "scope": {
+    "symbols": [
+      "RSP",
+      "SPY"
+    ],
+    "max_HTTP_attempts": 4,
+    "Ridge_fits_only_after_source_pass": 14,
+    "new_portfolios": 0
+  },
+  "conditions": [
+    "Same-vendor paired data, native calendar, action metadata and Qlib readback gates precede outcome labels or fits",
+    "Semantic source failure stops branch; no alternative symbol/vendor or missing-row fill",
+    "Fixed40/41 inputs, shared training preprocessing and original maturity;5of7years plus block confidence gate",
+    "Participation proxy includes size, sector and rebalancing effects; no pure breadth or causal alpha claim",
+    "Linear-span equivalence of coordinate choices does not imply Ridge prediction equivalence because L2 penalty depends on basis"
+  ]
+}
