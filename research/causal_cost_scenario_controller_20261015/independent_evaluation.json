@@ -1,0 +1,36 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_VALID_NEGATIVE_EXPERIMENT",
+  "decision": "not_promoted_fixed_causal_cost_scenario_controller",
+  "recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+  "plan_sha256": "4e1eda15221fa741a9b4699271b34e1e1f82d663a9ab52e93e33a0b1f8733fff",
+  "verification_manifest_sha256": "e741bc79560532a94344212d7831cbb673fb6e6d1c0807e2e39c18b18c477707",
+  "nas_archive_sha256": "1145b7788507c9f47fa5d7a3d9a8e3ecb706177e3870bef3e475f74bb5ddf5a3",
+  "source_sha256": {
+    "src/backtest/causal_cost_scenario_controller.py": "00936fe39f52fc11e41ac59f05b095302ac7b9438e8e4fcb1d84241e5bbac77d",
+    "src/workflow/causal_cost_scenario_controller.py": "405f06bf60a3090a70f8d5f530ff6626946c8e4308b98198d0fa2ce7be818a11"
+  },
+  "checks": [
+    "3shadow and3native accounts944rows each reconciled",
+    "2832trace rows independently reconstructed ownknownNAV and priorfees; no NAV pooling",
+    "commoncap equals dailyminimum; commonweights equal across scenarios",
+    "recovery consensus equals allvotes; no approvals",
+    "2cap disagreement days;5bp binding944including942ties",
+    "source price marks exactly equal",
+    "independent gate recomputation equals summary"
+  ],
+  "limits": [
+    "Risk inputs/decisions intentionally coupled; not independent market samples",
+    "Only known/close sampledDD qualification, not all-minute maximum",
+    "Reused history; no independent development/forward qualification"
+  ],
+  "failed_gates": [
+    "beat_paired_all_costs",
+    "rolling_70pct",
+    "bootstrap_positive",
+    "independent_development",
+    "qualified_forward"
+  ],
+  "paired_result": "0bp improves;2bp return0.7057percentagepoints below matched;5bp equal",
+  "promotion_eligible": false
+}

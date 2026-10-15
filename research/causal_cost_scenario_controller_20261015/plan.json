@@ -1,0 +1,164 @@
+{
+  "as_of": "2026-10-09",
+  "start": "2023-01-03",
+  "end": "2026-10-09",
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "maximum_drawdown": 0.3,
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "source": {
+    "card": "research/monthly_forecast_account_20261014",
+    "recorder_id": "e57350a820c24ac8b306d67955e4ae25",
+    "archive": "b3875393f9f5495be29efbe3f8782c92cdde4c4798ce97f796bcc870c34379d2",
+    "inventory_sha256": "aa9e441c0a6ff8b5a8a95d48918bcf5fb2543699f9e6e62d38742571ce4ca80b"
+  },
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "action_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "frozen_source": {
+    "card": "research/tangent_allocation_head_20261014",
+    "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+    "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+    "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+  },
+  "reference_source": {
+    "card": "research/open_router_ablation_20261015",
+    "recorder_id": "98eab7aa28e349d4bfb5e125d5c2b4fe",
+    "archive": "d43879bb278e73902ae8533fe93776f08dbc5b51f8731f768b9fd5106e223145",
+    "inventory_sha256": "e3b80c1a1055fccb1ef446754198139de4c708f27ffe0c10c45f2d9b6aeef03b"
+  },
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "maximum_soxl_weight": 0.3,
+  "minimum_cash_weight": 0.0,
+  "controller_projection_minimum_cash_weight": 0.15,
+  "controller_projection_maximum_soxl_weight": 0.3,
+  "experiment": "causal_cost_scenario_controller_20261015",
+  "frozen_at_utc": "2026-10-15T07:12:21.777649+00:00",
+  "paired_control_source": {
+    "card": "research/beta_preserving_composition_20261015",
+    "recorder_id": "6680a54e6ac440bdbe96e438f5b9e197",
+    "archive": "7968dd7531e3373fc18f5d3f22b6160d87a50f5d698971a7a988091cf21a1e8e",
+    "inventory_sha256": "f12d8cd0368425c76065390347ac473b44c7007f6467ffe307e729fb3cb7fa53"
+  },
+  "diagnosis_source": {
+    "card": "research/composition_path_diagnosis_20261015",
+    "recorder_id": "d09427aacccd442b87a4f0ffcc096935",
+    "archive": "868aea2bd210a95286853e91cd80e064e77bba87f996f0677cdc597cd97c1357",
+    "inventory_sha256": "397a1b8c08c61ee90788646297ca39f8bf14c17c3417aaf5e275a79205840a41"
+  },
+  "maximum_model_fits": 0,
+  "maximum_shadow_policy_paths": 3,
+  "maximum_new_native_cases": 3,
+  "internal_cost_scenarios": [
+    0,
+    2,
+    5
+  ],
+  "mechanism": "Fixed minimum risk cap across three causal internal cost-scenario ledgers plus unanimous recovery approval. Frozen tangent raw predictions and original smoothing; common legal target then fixed nominal-beta composition. Own quantities,cash,NAV,peak,history,state,monthly fees remain distinct. No NAV blending.",
+  "package": "Minimum-cap opening plus ALL3 recovery consensus are one prespecified coupled-policy package, not isolated attribution to a single rule. Shared target decisions intentional; three fee/NAV paths are not independent decision-policy or market evidence.",
+  "open_chronology": [
+    "At09:45 snapshot every scenario own known-priceNAV, runningpeak, holdings and knownNAV-return history from previous common decisions.",
+    "Compute all original discrete state advances and local risk caps before any current-session execution. Original source thresholds, clocks, trailingwindow and recoveryparameters unchanged.",
+    "At09:46 use commoncap=min(localcaps), project frozen raw target with unchanged upstreamcash.15/SOXL.30, thenT once; allscenarios always execute this same request.",
+    "Only after common decision is fixed, at09:47 settle each scenario with own quantity/cash/Tiered monthlyfee state and observed execution/raw prices. No scenario sameevent fill influences another decision."
+  ],
+  "recovery_chronology": [
+    "Observe source firsthour features available10:31. Evaluate each original recovery eligibility/classifier on its own saved openingstate/history/DD/rawbeta but common actual openingcap. Allprobabilities computed before any recoveryfill.",
+    "Shared recovery iff every scenario approves original threshold. If unanimously approved, use identical sourcelegal recovery target andT once; require raw targetagreement across scenarios. Otherwise allHOLD.",
+    "At10:32 settle unanimously approved common recoverytarget independently in each ledger. No current recoverfill feeds other scenario decisions."
+  ],
+  "close_chronology": "At actual source closemark update each own highwater using actual own quantities/cash. Carry every ledger state across days/years; exit valuations next09:47. Sampled DD covers known/close marks, not allminute extremes.",
+  "transformation": "T(l,x,c)=(l-d,x+3d,c-2d),d=min(l,c/2); nominalbeta preserved only at target mapping. No claim of equal realized risk.",
+  "source_contract": "Verified sourceRecorder frame/targets/controller/tariff/calendars. Assert all known/open/recovery/close/exit adjusted and raw marks equal frozenQlib inputs, and native_report timestamps equal references. Do not use latest changedprovider values if mismatched; failbefore shadowpaths.",
+  "audit_outputs": [
+    "Perday perscenario ownknownNAV, priorcumulativefees, history4dayreturn, knownDD, state/clock andlocalcap; commoncap and common requested weights before/afterT.",
+    "Perday perscenario original recoveryeligibility, probability, approval, commonconsensus; explicit localcaps vs commoncap inputs.",
+    "Own fills, integer-share fees, quantities,cash,monthly counters,native reports; reconcile each shadow path with ownnativeQlib account. All3 common decisiontarget/date traces must match.",
+    "Allcost metrics, all trade-year/quarter fragments, complete2024/2025 only annualgate, all contiguous126windows; scenario-binding counts/capdisagreement days/recoveryconsensus counts."
+  ],
+  "comparators": [
+    "posthoc_composition",
+    "strong_always",
+    "tangent",
+    "original",
+    "soxx"
+  ],
+  "gates": {
+    "net_excess_tolerance": 1e-08,
+    "maximum_drawdown": 0.3,
+    "positive_126day_fraction": 0.7,
+    "complete_annual_positive_fraction": 0.7,
+    "cvar_no_worse": true,
+    "beat_posthoc_all_costs": true,
+    "beat_strong_always_all_costs": true
+  },
+  "bootstrap": {
+    "mean_block": 63,
+    "resamples": 2000,
+    "alpha": 0.025,
+    "seed": 20261014,
+    "comparators": [
+      "posthoc_composition",
+      "soxx"
+    ]
+  },
+  "tests": "One focused causal prefix test: perturb futurefills/close at firstdecision, current targetunchanged; recoveryfeatures fixedbeforefills. Single-scenario synthetic equivalence to existing always-execute+T replay if practicable. No full historical control replay or broadsuite.",
+  "related_closed_routes": "frozen_open_cost20261015 fixed an ex-post0bp target/HOLD path; ibkr_tiered_minute_diagnosis fixed pastorders. Neither recursively coupled current scenario riskcaps under shared pastdecisions. full_path_tiered27fit66case state-aware training remainsclosed.",
+  "independent_development": false,
+  "qualified_forward": false,
+  "promotion_authority": false,
+  "if_failed": "Close this exact fixed minimumcap+unanimousrecovery package. No max/median/quantile aggregator, scenario set/cost/threshold/window/transfer sweep; continue overallgoal only through a distinct evidence-supported mechanism."
+}

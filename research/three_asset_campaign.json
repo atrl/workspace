@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/composition_objective_training_20261015",
-  "current_phase": "next_mechanism_formulation",
-  "next_action": "Investigate a causal account-state-aware allocation objective using existing training-period OOF evidence; first distinguish attainable model targets from own-ledger risk projection. Preregister a genuinely different bounded mechanism before further fits; no penalty/epoch/threshold rescue of the closed composition objective.",
+  "current_experiment": "research/seed_disagreement_information_20261015",
+  "current_phase": "design_review",
+  "next_action": "Freeze and review a6fit0account conditional information test of3seed nominal-beta disagreement on existing2019-2022 annualOOF inputs; no newdata/posterior or deployment claim.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -178,6 +178,68 @@
           ]
         }
       }
+    },
+    {
+      "card": "research/causal_cost_scenario_controller_20261015",
+      "kind": "bounded_causal_cost_scenario_controller",
+      "parent": "research/composition_path_diagnosis_20261015",
+      "status": "completed_not_promoted",
+      "maximum_new_model_fits": 0,
+      "maximum_new_shadow_paths": 3,
+      "maximum_new_native_accounts": 3,
+      "evaluation": "research/causal_cost_scenario_controller_20261015/independent_evaluation.json",
+      "mechanism": "fixed minimumcap across predecision0/2/5 hypothetical own-state ledgers; unanimous recovery policy; coupled risk inputs with independently settled ledgers",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_COUPLED_POLICY_TEST",
+        "plan_sha256": "4e1eda15221fa741a9b4699271b34e1e1f82d663a9ab52e93e33a0b1f8733fff",
+        "conditions": [
+          "All scenarios snapshot before any same-clock fill",
+          "Fixedminimum caps andunanimous recovery package",
+          "Coupled signals but independent quantities/cash/NAV/monthlyfees",
+          "No scenario iterationorder effects; single-scenario/prefixsynthetic checks",
+          "0fits3shadowpaths3native validations; alloriginalgates retained"
+        ]
+      },
+      "recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+      "failed_gates": [
+        "beat_paired_all_costs",
+        "rolling_70pct",
+        "bootstrap_positive",
+        "independent_development",
+        "qualified_forward"
+      ],
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_causal_cost_scenario_controller.py -q",
+        "passed": 1,
+        "new_fits": 0,
+        "new_shadow_paths": 3,
+        "new_native_accounts": 3,
+        "nas_verified_artifacts": 58,
+        "budget_execution": {
+          "shadow_attempted": true,
+          "shadow_completed": true,
+          "native_attempts": [
+            0,
+            2,
+            5
+          ],
+          "native": [
+            0,
+            2,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "card": "research/seed_disagreement_information_20261015",
+      "kind": "bounded_derived_model_reliability_information",
+      "parent": "research/causal_cost_scenario_controller_20261015",
+      "status": "design_review",
+      "maximum_new_model_fits": 6,
+      "maximum_new_native_accounts": 0,
+      "evaluation": null
     }
   ],
   "governance_review": {
@@ -186,11 +248,22 @@
     "strong_reference_requirement": "predeclare comparable risk-qualified references; bypass is diagnostic only"
   },
   "research_reference": {
-    "card": "research/beta_preserving_composition_20261015",
-    "role": "strong observed historical reference, not promoted;0bpDD and allcost stability/confidence fail",
+    "card": "research/causal_cost_scenario_controller_20261015",
+    "role": "Observed historical reference passes netSOXX and sampledDD/CVaR at allcosts; pairedincrement/rolling/confidence still fail",
+    "risk_scope": "Known09:45 andclose samples only; no all-minute risk qualification",
+    "paired_composition_reference": "research/beta_preserving_composition_20261015",
     "risk_valid_reference": "research/open_router_ablation_20261015:strong_always",
     "promotion_eligible": false
   },
   "cumulative_new_fits_in_this_campaign": 3,
-  "cumulative_new_native_accounts_in_this_campaign": 6
+  "cumulative_new_native_accounts_in_this_campaign": 9,
+  "rejected_directions": [
+    {
+      "direction": "Broad account-state-aware full-path training",
+      "reason": "Already executed27fits66nativeaccounts and failed; do not relabel same mechanism",
+      "evidence": "research/full_path_tiered_allocation_20261013/conclusion.md",
+      "early_oof_evidence_available": "research/full_history_recovery_20261015,1061rows2018-10-15..2022-12-30; not composition on-policy trajectories"
+    }
+  ],
+  "cumulative_new_shadow_paths_in_this_campaign": 3
 }
