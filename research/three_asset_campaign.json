@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/soxl_20230321_cash_event_qualification_20261015",
-  "current_phase": "fixed_cash_event_qualified_conditional_raw_share_paper_book_next",
-  "next_action": "Freeze a new raw-share unit cash-book identity with explicit USD gross-pretax research assumption, no DRIP, ex-date nonspendable receivable and next-native-open-after-pay-date transfer. Keep source currency qualification, historical PIT and actual broker parity false. Review a bounded split/cash/stable unit-book plan before execution; no strategy replay, observer launch or production change.",
+  "current_experiment": "research/raw_share_unit_cashbook_20261015",
+  "current_phase": "unit_cashbook_complete_full_frozen_policy_accounting_impact_next",
+  "next_action": "Freeze and execute one bounded full-path accounting-impact comparison of frozen 27baa decision rules and same-basis SOXX/strong controls under raw shares, explicit USD gross-pretax dividends, nonspendable receivables and scheduled cash. No retraining or further currency/source audit. Regenerate policy decisions on each own-cost raw NAV; do not reuse old decisions as a policy counterfactual. Report net wealth, drawdown/CVaR, annual/rolling stability and changed decisions. Then return to failure mechanisms in weak-trend/recovery intervals; descriptive state attribution is not causal proof.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -780,6 +780,34 @@
       "currency_qualified": false,
       "historical_PIT_qualified": false,
       "actual_broker_credit_verified": false
+    },
+    {
+      "card": "research/raw_share_unit_cashbook_20261015",
+      "kind": "finite_raw_share_unit_cashbook",
+      "status": "completed_unit_accounting_not_strategy_qualification",
+      "recorder_id": "30c103a97bd3485897dd3de6c7f7d60b",
+      "evaluation": "research/raw_share_unit_cashbook_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "plan_sha256": "470922f2e293fe7ce6f0844f274bf7e57ee3f49fdd6d8aba82929e1ea99e127a",
+        "verdict": "APPROVE_FIXED_THREE_UNIT_BOOKS"
+      },
+      "verification": {
+        "unit_books": 3,
+        "unique_events": 11,
+        "saved_raw_marks": 8,
+        "focused_tests_passed": 1,
+        "nas_verified_artifacts": 24,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_policy_replays": 0,
+        "new_native_backtest_accounts": 0,
+        "new_fetches": 0,
+        "observer_launches": 0
+      },
+      "currency": "explicit_USD_gross_pretax_paper_assumption",
+      "historical_PIT_qualified": false,
+      "actual_broker_parity": false
     }
   ],
   "governance_review": {

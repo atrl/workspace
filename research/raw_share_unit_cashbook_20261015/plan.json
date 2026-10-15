@@ -1,0 +1,142 @@
+{
+  "experiment": "raw_share_unit_cashbook_20261015",
+  "frozen_at_utc": "2026-10-15T12:40:19.112497+00:00",
+  "role": "Three fixed executable raw-share unit cashbooks; notwhole-strategyreplay orforwardobserver",
+  "sources": {
+    "bridge": {
+      "card": "research/affine_raw_accounting_bridge_20261015",
+      "recorder_id": "b6cf662c0feb4d46badbdad4ccf18346",
+      "archive": "1c6646b9b6cbb091029e691afc75c3ab224b6cc34669b8d6f08d492632e29c7a",
+      "inventory_sha256": "b7b4ef23e5a6aa55d391d177dfbb4e37b5e9cae4ce6653fdd7c143650eda8d1d"
+    },
+    "cash_event": {
+      "card": "research/soxl_20230321_cash_event_qualification_20261015",
+      "recorder_id": "324f8b8d1b04425996b7292460304d0b",
+      "archive": "d609546e3b3954c8600eaa6d65129d32f7f1a59303b27c06659703acbf71fb2e",
+      "inventory_sha256": "3872f99335222e1c260a056c4f5f85a899ca9c3b876f5c9dc7f768e79ed1a662"
+    }
+  },
+  "source_artifacts": {
+    "bridge": [
+      "analysis/marks",
+      "analysis/cash_fields",
+      "inputs/plan"
+    ],
+    "cash_event": [
+      "analysis/event_qualification",
+      "analysis/paper_convention",
+      "analysis/summary"
+    ]
+  },
+  "new_currency_contract": {
+    "currency": "USD",
+    "status": "EXPLICIT_GROSS_PRETAX_PAPER_ASSUMPTION_NOT_SOURCE_CERTIFICATION",
+    "scope": "Bothrawpriceandcashbookmoney interpretedUSD forTHISunitexperiment; issuerfieldcurrency remainsunknown inparent. No claimingprimarycurrencyproof oractualbrokercredit.",
+    "precision": "Decimal originalgrossrate0.02501, retain2.50100 for100shares; no centrounding, taxwithholding, brokerfee orDRIP. This ispaperaccountingassumption, notactualstatementsettlement."
+  },
+  "cases": [
+    {
+      "id": "stable_operator_control",
+      "symbol": "SOXL",
+      "initial_raw_shares": 100,
+      "initial_spendable_cash_decimal": "0",
+      "marks": [
+        "2023-01-04 09:47:00",
+        "2023-01-05 09:47:00"
+      ],
+      "actions": []
+    },
+    {
+      "id": "split_declared_no_cash",
+      "symbol": "SOXX",
+      "initial_raw_shares": 100,
+      "initial_spendable_cash_decimal": "0",
+      "marks": [
+        "2024-03-06 09:47:00",
+        "2024-03-07 09:47:00",
+        "2024-03-08 09:47:00"
+      ],
+      "actions": [
+        {
+          "kind": "split",
+          "source_event_id": "SOXX:split:2024-03-07",
+          "effective_at": "2024-03-07 09:30:00 America/New_York",
+          "new_shares_per_old_share": "3",
+          "authority": "pinnedbridge explicit split_base1/split_ert3; neverpublishedroundedA0.33333"
+        }
+      ]
+    },
+    {
+      "id": "cash_dividend_multiplicative",
+      "symbol": "SOXL",
+      "initial_raw_shares": 100,
+      "initial_spendable_cash_decimal": "0",
+      "marks": [
+        "2023-03-20 09:47:00",
+        "2023-03-21 09:47:00",
+        "2023-03-22 09:47:00"
+      ],
+      "actions": [
+        {
+          "kind": "dividend_entitlement",
+          "source_event_id": "SOXL:cash:2023-03-21",
+          "effective_at": "2023-03-21 09:30:00 America/New_York",
+          "gross_rate_per_original_share_decimal": "0.02501",
+          "record_date": "2023-03-22",
+          "scheduled_pay_date": "2023-03-28",
+          "eligible_shares": "100rawshares heldfrominitialsnapshotthroughpre-exboundary"
+        },
+        {
+          "kind": "receivable_to_cash",
+          "source_event_id": "SOXL:cash:2023-03-21",
+          "effective_at": "2023-03-29 09:30:00 America/New_York",
+          "authority": "Acceptedparentconditionalnextnativeopenafterpay-dateclose, notactualcashreceipt"
+        }
+      ]
+    }
+  ],
+  "book_contract": {
+    "initialization": "Seed100physicalrawshares andcash0 atfirstexistingmark; no initialpurchaseorder orcashfundingtransaction modeled. Threeisolatedunitbooks, notnativebacktestaccounts.",
+    "state": "symbol,whole_raw_shares,spendable_cashUSD,receivables_by_source_event,recognized_gross_income,applied_split_ids,processed_event_ids_and_payloadhashes,last_event_at,latest_raw_mark/time. SeparateavailablecashfromNAVreceivables.",
+    "mark": "UseONLYsaved$raw_execution_price inbridgeanalysis/marks. NAV=rawshares*same-time_raw_price+spendable_cash+nonspendable_receivables. NoaffineA/B/adjustedprice, rebasing ordividenddoublecredit. Ifstateeventhasnofreshsame-timeprice,NAVmustbeNone ratherthancarrypre-split/pre-dayprice; positions/cash/Rstillreported. No paydatequote fetched/carriedascurrent.",
+    "split": "Apply exact3:1 physicalquantity transition100→300; cashandreceivablesunchanged. Fractional-share entitlement outsidecontract=>needs_data/error, neverfloor orinventcash-in-lieu. Invalidatepreviousmarkuntilfreshcurrentmark; do nottripleNAVwitholdpre-splitprice.",
+    "entitlement": "Atdeclaredex-open recognizegrossR=Neligible*D=2.50100; spendablecash remains0. Originalrecorddate retainedasmetadata, notentitlementclock substitute. Entitlementrequiresheldpre-exlot/sourceeventunique; no purchaseon/afterexcase.",
+    "payment": "Atdeclaredpaperavailabilitytime moveexactR→C once, Rcleared, rawsharesunchanged. Cashplusreceivable exactlyconserved bytransfer; scheduledtime notactualbrokerreceipt. Atpaymentno9:30priceinexisting8marks, soNAVunavailable, notfilledwithMar22price.",
+    "event_integrity": "Timezoneawaremonotonicnew events. ExactsameeventID+payload repeated isidempotent no-op evenafterlaterevents; sameIDdifferentpayload raises. AsecondnewIDforalreadysplit/entitled/paid sourceeconomic_event mustreject duplicateeconomiccredit. Nooverwritinghistory/correctionretrospectively.",
+    "invariants": "Shares/cash/R nonnegative; Decimal(C+R−cumulativeRecognizedIncome)=initialC fornoflow/tradeunitbook; split changesonlyshares andmarkvalidity; paymentpreservesC+R; no spendableR. FreshmarkNAV exactDecimal inputs, sourcefloatrepr preserved. No income,fees ororders besidesdeclareddividend."
+  },
+  "implementation": "Newreusablepureaccountingfunction src/backtest/raw_share_cashbook.py; wrapsno broker/controller, takesexplicit source-boundevents andreturnsnewstate+receipt. Researchworkflow consumesverifiedQlibRecorderinputs andwrites eachunitbookevent/state/finalcheck throughNEWnativeQlibRecorder. Leave actualbroker stage1ledger_income unchanged. Thisisaccountingcomponentqualification, nothandwritten replacementforstrategybacktest.",
+  "budget": {
+    "unit_books": 3,
+    "raw_price_marks_reused": 8,
+    "unique_processed_events": 11,
+    "initial_states": 3,
+    "duplicate_delivery_checks_max": 3,
+    "material_test_module_max": 1,
+    "new_Qlib_price_reads": 0,
+    "new_calendar_reads": 0,
+    "new_source_fetches": 0,
+    "new_model_fits": 0,
+    "new_strategy_policy_replays": 0,
+    "new_native_backtest_accounts": 0,
+    "orders": 0,
+    "observer_launches": 0,
+    "production_changes": 0
+  },
+  "expected_checks": [
+    "Stablebookexact100shares/C0/R0 atbothmarks.",
+    "Splitbookexact300rawsharesafterevent/C0/R0; noAcoefficientrounding leakage.",
+    "Dividendbook100rawshares, spendableC0/R2.50100 afterex andbothpostexmarks; at03-29transferC2.50100/R0, NAVNonewithoutnewquote.",
+    "Payment/entitlement/split duplicateeconomiccredit blocked; identicaleventdelivery no-op. ConflictingID raises withoutstate mutation.",
+    "EightmarkNAVs usephysicalrawleg+conditionalUSDgrossR/C once only; not proxyaccountmatching/performance comparison."
+  ],
+  "verification": "One focusedmaterial cashconservation/idempotency/markfreshness test module becauseexistingactualbrokercredit tests do notcoverthispaperreceivablecontract; thenexecuteone notebook. No broadtests/replays. Preserveeachuniqueeventreceipt andsourcehashes, comparebefore/afterstate invariants.",
+  "outputs": "Executednotebook+Chineseconclusion,3unitcasechecks and11eventledgerrows,explicitUSDassumption/unknownsourcecurrency flags; sourceobjects/code/state/receipts nativeQlibRecorderNAS. No CAGR/DD/strategyreturn/forwarddayclaims.",
+  "limitations": "Historicalreceipts notPIT; newUSDpaperassumption doesnotupgradeparentcurrency. Exactsplit/rawcashcontract differsfrompublishedaffineresearchplane andisnotappliedtosealed27baa. No actualbrokerparity/DRIP/tax certification.",
+  "next_action_if_passed": "Finishfiniteunitaccountingdelivery andimmediatelydraftseparatefullfrozen27baa rawbookassessment plan,0training. Thatfutureassessment mustrerunfixeddecisionRULES onownrawNAV includingnonspendableR, notreuseoldactions andcallpolicyresult; freezehowreceivable entersNAV/weights vsavailablecash and owncostledgers. Noautomaticwhole-strategyexecution inthisunitplan.",
+  "next_action_if_failed": "Fixonlyconcreteaccountingcontractdefect withfocusedrecheck; no modelthreshold/sourcefishing. Reportexactinvariantfailure.",
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "promotion_authority": false,
+  "historical_gate_override": false
+}

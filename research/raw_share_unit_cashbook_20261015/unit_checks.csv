@@ -1,0 +1,4 @@
+case,unique_events,final_raw_shares,final_spendable_cash,final_receivable,invariants_passed,currency_evidence,source_currency_certified,same_time_mark_NAV_count,duplicate_noop_passed
+stable_operator_control,2,100,0,0,True,explicit_USD_paper_assumption,False,2,True
+split_declared_no_cash,4,300,0,0,True,explicit_USD_paper_assumption,False,3,True
+cash_dividend_multiplicative,5,100,2.50100,0,True,explicit_USD_paper_assumption,False,3,True

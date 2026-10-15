@@ -1,0 +1,27 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_BOUNDED_RAW_SHARE_UNIT_CASHBOOK",
+  "plan_sha256": "470922f2e293fe7ce6f0844f274bf7e57ee3f49fdd6d8aba82929e1ea99e127a",
+  "recorder_id": "30c103a97bd3485897dd3de6c7f7d60b",
+  "verification_manifest_sha256": "1454baea7d7207d711f75d5fb4ab6f06deec8a37a75be6c47abf40d7f621513f",
+  "accounting_sha256": "4f7bd10974e45934900941b450468ecef9eae56a59cb4c338ddf02c956e6b8f0",
+  "workflow_sha256": "3d1cdad28779ce4e9d6fff6f94bea02d5030c6d46abd31930e06c682f8577711",
+  "archive_sha256": "296a60c78db743b18b48c98b62808260306ecf4c3ab83d07cc714f47d6f415c0",
+  "checks": [
+    "3 unit books, 11 unique events and 8 saved marks verified",
+    "Exact 100 to 300 split shares",
+    "2.50100 nonspendable receivable becomes cash only at frozen 2023-03-29 availability",
+    "Payment validates stored entitlement schedule; early payment rejected without state mutation",
+    "No fresh payment mark means NAV remains unavailable",
+    "Three duplicate deliveries are idempotent; Decimal cash plus receivable conservation verified"
+  ],
+  "verification": {
+    "focused_tests_passed": 1,
+    "cold_read_artifacts": 24,
+    "all_hashes_match": true
+  },
+  "source_currency_certified": false,
+  "historical_PIT_qualified": false,
+  "actual_broker_parity": false,
+  "objective_achieved": false
+}

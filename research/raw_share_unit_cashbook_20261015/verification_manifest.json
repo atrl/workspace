@@ -1,0 +1,125 @@
+{
+  "recorder_id": "30c103a97bd3485897dd3de6c7f7d60b",
+  "entries": [
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/analysis/checks",
+      "sha256": "2cca63b6680ce211f94a4d2eda8d15155dc20e07c430613a72f186415f4b25b2",
+      "bytes": 1270
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/analysis/duplicate_checks",
+      "sha256": "bbcb2c49c3d721581d2fbb573c860e657a82ede9ccc38993b692cfd4158a835c",
+      "bytes": 164
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/analysis/summary",
+      "sha256": "9a5e969e39f8af8f148e446c3dcf0d55f15b47b26cc816a1d873d10ec41451b6",
+      "bytes": 2504
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/analysis/trace",
+      "sha256": "61578d2997e711d85cdcbe99ae9fafc55d07667aa8e3530ef088b82a81b68c8e",
+      "bytes": 3379
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/code_diff.txt",
+      "sha256": "d70ec0da6b33f23e62ee6d3fdefa6fa27faf24f47cf9269b03d6def2a439c798",
+      "bytes": 410286
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/code_status.txt",
+      "sha256": "d03c4e2136b9f5887224f97f6db62fb66a00276d998acd52ec832d2492bed81c",
+      "bytes": 59885
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/inputs/cash_event",
+      "sha256": "176a5326e611d0a8b18baa6aee88961f6ae90b0f9d042351b52c663589e6fe2a",
+      "bytes": 1832
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/inputs/events",
+      "sha256": "e477e06b628c9a6a4c71eedb6789a40b61afad9f79f9355d4665823db27eacc8",
+      "bytes": 1834
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/inputs/marks",
+      "sha256": "017b4faa1b7aea11963d5107a11a3bc36f05cc0ece910effc13230a6bccbab17",
+      "bytes": 3787
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/inputs/paper_convention",
+      "sha256": "5787851faf3bf0679d440a96e2fcc77bcaba3f9183bf44a4323089b5aadaeba6",
+      "bytes": 1267
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/inputs/plan",
+      "sha256": "66fb6eb08b6bfff0d42b13278d83562a2b009ce3b8ec1cf39b3553bb89ff1d8b",
+      "bytes": 7628
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/inputs/source_audits",
+      "sha256": "2c9b3fa75d5c229d20d9cf2c8038dd73c57e5224438231e4867848d364827a26",
+      "bytes": 4085
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/sources/accounting",
+      "sha256": "c5f6f2385f9e3c124f7bb61cf3fee9dce4995bef49da9dff9fd6a71e4a1cd508",
+      "bytes": 5613
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/sources/execution_workflow",
+      "sha256": "850659253167637d217db3d8d7539662dd9358ac86308d95cf42a04a955461c6",
+      "bytes": 8111
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/unit_books/cash_dividend_multiplicative/events",
+      "sha256": "b1180788992699233b1d053aebf04ffad826070218c2fce46e15a93002eea1bb",
+      "bytes": 973
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/unit_books/cash_dividend_multiplicative/final_state",
+      "sha256": "a56059a3c4be0b8643000504812b15b95547d3e1187695430cf4150461b79e95",
+      "bytes": 1098
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/unit_books/cash_dividend_multiplicative/receipts",
+      "sha256": "6a0a7e56ba03242bd5895e23371486ca224209ca8bf69f0bf2838222a67bfd99",
+      "bytes": 1429
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/unit_books/split_declared_no_cash/events",
+      "sha256": "bf5daa1fe4689087d7602cac24b2a5d90fea042d9a3a0c02895eee994dc777b1",
+      "bytes": 624
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/unit_books/split_declared_no_cash/final_state",
+      "sha256": "a6fd847c4a6806526643f502f240fb5667203c82f18d5921e61e6d9e9087b96e",
+      "bytes": 933
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/unit_books/split_declared_no_cash/receipts",
+      "sha256": "9ad12c19ad3fced14656467a8f66ff99f38dbe9a8821a9403ce6b895d8f1240d",
+      "bytes": 1127
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/unit_books/stable_operator_control/events",
+      "sha256": "76504fef6bb19083cb40a69e5c1dd1b5d7c8ddc1640c026732973cfed5531ec1",
+      "bytes": 359
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/unit_books/stable_operator_control/final_state",
+      "sha256": "988e72c9dc8e263009235553acbf873c02f531f610eeffe44fb69da99fd80962",
+      "bytes": 702
+    },
+    {
+      "path": "qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b/artifacts/unit_books/stable_operator_control/receipts",
+      "sha256": "a35c04aa16f1ae4958726b3a576705f5801dabdeadc2c7eb52385bda7c3012b8",
+      "bytes": 734
+    }
+  ]
+}

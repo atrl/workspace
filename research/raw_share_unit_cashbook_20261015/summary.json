@@ -1,0 +1,94 @@
+{
+  "experiment": "raw_share_unit_cashbook_20261015",
+  "plan_sha256": "470922f2e293fe7ce6f0844f274bf7e57ee3f49fdd6d8aba82929e1ea99e127a",
+  "decision": "fixed_raw_unit_cashbook_contract_passed_not_strategy_or_forward_qualification",
+  "objective_achieved": false,
+  "unit_books": 3,
+  "unique_events": 11,
+  "saved_raw_marks_reused": 8,
+  "duplicate_noop_checks": 3,
+  "all_unit_invariants_passed": true,
+  "currency_contract": {
+    "currency": "USD",
+    "status": "EXPLICIT_GROSS_PRETAX_PAPER_ASSUMPTION_NOT_SOURCE_CERTIFICATION",
+    "scope": "Bothrawpriceandcashbookmoney interpretedUSD forTHISunitexperiment; issuerfieldcurrency remainsunknown inparent. No claimingprimarycurrencyproof oractualbrokercredit.",
+    "precision": "Decimal originalgrossrate0.02501, retain2.50100 for100shares; no centrounding, taxwithholding, brokerfee orDRIP. This ispaperaccountingassumption, notactualstatementsettlement."
+  },
+  "source_currency_certified": false,
+  "historical_PIT_qualified": false,
+  "new_price_reads": 0,
+  "new_calendar_reads": 0,
+  "new_fetches": 0,
+  "new_model_fits": 0,
+  "new_strategy_replays": 0,
+  "new_native_backtest_accounts": 0,
+  "orders": 0,
+  "observer_launches": 0,
+  "production_changes": 0,
+  "case_checks": [
+    {
+      "case": "stable_operator_control",
+      "unique_events": 2,
+      "final_raw_shares": "100",
+      "final_spendable_cash": "0",
+      "final_receivable": "0",
+      "invariants_passed": true,
+      "currency_evidence": "explicit_USD_paper_assumption",
+      "source_currency_certified": false,
+      "same_time_mark_NAV_count": 2,
+      "duplicate_noop_passed": true
+    },
+    {
+      "case": "split_declared_no_cash",
+      "unique_events": 4,
+      "final_raw_shares": "300",
+      "final_spendable_cash": "0",
+      "final_receivable": "0",
+      "invariants_passed": true,
+      "currency_evidence": "explicit_USD_paper_assumption",
+      "source_currency_certified": false,
+      "same_time_mark_NAV_count": 3,
+      "duplicate_noop_passed": true
+    },
+    {
+      "case": "cash_dividend_multiplicative",
+      "unique_events": 5,
+      "final_raw_shares": "100",
+      "final_spendable_cash": "2.50100",
+      "final_receivable": "0",
+      "invariants_passed": true,
+      "currency_evidence": "explicit_USD_paper_assumption",
+      "source_currency_certified": false,
+      "same_time_mark_NAV_count": 3,
+      "duplicate_noop_passed": true
+    }
+  ],
+  "next_action": "Finishfiniteunitaccountingdelivery andimmediatelydraftseparatefullfrozen27baa rawbookassessment plan,0training. Thatfutureassessment mustrerunfixeddecisionRULES onownrawNAV includingnonspendableR, notreuseoldactions andcallpolicyresult; freezehowreceivable entersNAV/weights vsavailablecash and owncostledgers. Noautomaticwhole-strategyexecution inthisunitplan.",
+  "recorder_id": "30c103a97bd3485897dd3de6c7f7d60b",
+  "experiment_id": "208212860639838712",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/raw_share_unit_cashbook_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/raw_share_unit_cashbook_20261015/qlib_recorder/208212860639838712/30c103a97bd3485897dd3de6c7f7d60b",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "unit_books/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "296a60c78db743b18b48c98b62808260306ecf4c3ab83d07cc714f47d6f415c0",
+    "size_bytes": 70529,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/29/6a/296a60c78db743b18b48c98b62808260306ecf4c3ab83d07cc714f47d6f415c0",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 20:46:28.969133+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/29/6a/296a60c78db743b18b48c98b62808260306ecf4c3ab83d07cc714f47d6f415c0",
+    "recorder_id": "30c103a97bd3485897dd3de6c7f7d60b",
+    "experiment_id": "208212860639838712",
+    "archive_root": "qlib_recorder"
+  }
+}
