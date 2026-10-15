@@ -1,0 +1,15 @@
+experiment: sector_residual_context_information_20261015
+plan: plan.json
+module: src.workflow.sector_residual_context_information
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - models/*
+  - folds/*
+  - analysis/daily
+  - analysis/scalers
+  - analysis/bootstrap_indices
+  - analysis/bootstrap_replicates

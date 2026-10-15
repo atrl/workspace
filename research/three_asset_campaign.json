@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/generic_index_tail_scoring_20261015",
-  "current_phase": "index_tail_scoring_complete_generic_market_context_triage_next",
-  "next_action": "Boundedly inspect existing relative/breadth/context precedents before proposing a generic market-context mechanism. Distinguish contemporaneously available broad-market context from pooled training labels; assess whether rolling market exposure and sector residual context adds information beyond existing39 features. No classifier calibration, auxiliary/head/weight rescue, new issuer research or data collection. Require an explicit deduplicated economic mechanism and frozen test before any new inference or fit.",
+  "current_experiment": "research/sector_residual_context_information_20261015",
+  "current_phase": "fixed_context_information_closed_distinct_generic_participation_triage_next",
+  "next_action": "Freeze combined bounded RSP/SPY same-vendor source-gate and single-feature information test. RSP20-minus-SPY20 is a new broad-market equal/cap-weight price coordinate, not a beta-formula rescue; control original39 and same-sourceSPY momentum. Existing RSP coverage absent. At most4publicHTTP attempts for exactly2010-03-11..2022-12-30; preserve raw/actions/timestamps and Qlib readback, no filling/vendor or ETF substitution. No paid data/issuer research. Sourcegate failure stops branch; feature test only after exact independent design approval.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -976,6 +976,37 @@
         -0.04196168198506539
       ],
       "parent_portfolio_route_remains_closed": true
+    },
+    {
+      "card": "research/sector_residual_context_information_20261015",
+      "kind": "fixed_paired_covariance_context_information",
+      "status": "not_promoted_fixed_formula_closed",
+      "recorder_id": "aada2e6cfdb5406e918a2ad3949da9c7",
+      "evaluation": "research/sector_residual_context_information_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_PREFIT_AMENDED_CONTEXT_TEST",
+        "plan_sha256": "a13b47d17e1a2a629bb3fd4a55654027e99d5a9fed1833e87c439c790c961d66",
+        "prefit_change": "Before source reads, labels or fits, require5of7positiveyears plus unchanged pooledCI; original2446draft preserved inplan"
+      },
+      "verification": {
+        "Ridge_fits": 14,
+        "new_policy_accounts": 0,
+        "new_fetches": 0,
+        "focused_tests_passed": 1,
+        "cold_read_artifacts": 42,
+        "all_hashes_match": true
+      },
+      "information_gate_pass": false,
+      "positive_years": 1,
+      "evaluation_calendar_rows": 1762,
+      "mature_scored_rows": 1756,
+      "pooled_MSE_improvement": -1.3286112556877183e-06,
+      "interval": [
+        -3.866224969704034e-06,
+        5.571246356027737e-07
+      ],
+      "next_source_hypothesis": "research/sector_residual_context_information_20261015/next_source_hypothesis.json"
     }
   ],
   "governance_review": {
@@ -992,7 +1023,7 @@
     "promotion_eligible": false,
     "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
   },
-  "cumulative_new_fits_in_this_campaign": 39,
+  "cumulative_new_fits_in_this_campaign": 53,
   "cumulative_new_native_accounts_in_this_campaign": 42,
   "rejected_directions": [
     {
@@ -1017,7 +1048,7 @@
   ],
   "cumulative_new_shadow_paths_in_this_campaign": 36,
   "cumulative_new_allocator_fits_in_this_campaign": 27,
-  "cumulative_new_statistical_fits_in_this_campaign": 12,
+  "cumulative_new_statistical_fits_in_this_campaign": 26,
   "cumulative_frozen_risk_valuations": 6,
   "mechanism_triage": {
     "document": "docs/composition_execution_contract_triage.md",

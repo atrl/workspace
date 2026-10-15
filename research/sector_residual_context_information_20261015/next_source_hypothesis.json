@@ -1,0 +1,16 @@
+{
+  "role": "post_execution_bounded_next_source_triage_not_current_experiment",
+  "current_formula_remains_closed": true,
+  "new_candidate_information": "Equal-weight versus cap-weight broad-market relative performance, fixed RSP/SPY",
+  "bounded_prior_check": "Not found in current39, selected prior context/breadth registry or availableQlib instrument inventory; not a claim every historical file was searched",
+  "primary_definition_sources": [
+    "https://www.spglobal.com/spdji/en/indices/equity/sp-500-equal-weight-index/",
+    "https://www.spglobal.com/spdji/en/education/article/sp-500-equal-weight-index-faq/"
+  ],
+  "interpretation": "Participation/concentration proxy also reflects size, sector weights and rebalancing; not pure breadth or causal alpha",
+  "fixed_candidate_hypothesis": "20-session log RSP/SPY relative momentum adds SOXX next-open H1 prediction information beyond original39 plus same-source SPY momentum",
+  "difference_from_closed_formula": "New RSP price coordinate; no SOXX beta, covariance, market-residual formula or benchmark substitution rescue",
+  "availability": "RSP not present in bounded existing-data inventory",
+  "proposed_intake": "RSP and SPY only,2010-03-11 through2022-12-30, one public daily vendor pathway, maximum4HTTP attempts. Retain raw payload/receipt/hash,raw and adjusted prices/actions; same-vendor basis for both, no fill or vendor/symbol fallback. No paid data.",
+  "limits": "Current-vintage price proxy; no historical PIT or actual total-return-account claim. No market download or fit performed during triage. Exact source-gate and information-test plan needs independent review before execution."
+}
