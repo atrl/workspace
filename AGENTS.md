@@ -258,6 +258,29 @@ commit, and push unless network or permission failures prevent it.
 
 ## Negative Research Results
 
+### Continuous Goals And Independent Evaluation
+
+- For an explicitly authorized continuous research Goal, closing a failed fixed
+  experiment closes that version, not the overall objective. Continue through
+  failure attribution, winning/losing interval comparison, and a new falsifiable
+  mechanism within the authorized campaign. Do not repeat a closed experiment
+  without a substantive new mechanism or evidence condition.
+- The research owner maintains the campaign state and next action; the research
+  executor implements experiments; an independent evaluator checks the frozen
+  design and evidence. The executor cannot certify its own promotion. Evaluation
+  rejects candidates, not the research objective, and must identify concrete
+  failed gates or the minimum missing evidence rather than request broad audits.
+- Freeze experiment scope, sources, cost scenarios, selection rules and gates
+  before execution. Development feedback may guide another experiment; any
+  evaluation data used for that feedback is no longer independent validation.
+  A separate reviewer or agent does not make reused market data independent.
+- A single data-source blocker does not block all research. Maintain explicit
+  branch dependencies; use the actual Goal lifecycle rules for overall status.
+  Never mark a Goal complete because a notebook, test suite, or delivery finished.
+- The active three-asset campaign contract is
+  `docs/three_asset_research_contract.md`; its current state is
+  `research/three_asset_campaign.json`. These do not rewrite sealed prior cards.
+
 - Once a fixed experiment returns `not_promoted`, synchronize its conclusion
   and retain the minimum auditable evidence, then complete only the necessary
   delivery checks and stop that route.

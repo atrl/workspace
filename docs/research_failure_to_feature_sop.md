@@ -1,5 +1,10 @@
 # SOXL/SOXX/CASH：从差区间到特征的研究 SOP
 
+当前持续研究授权及角色分离以[研究合同](three_asset_research_contract.md)和
+`research/three_asset_campaign.json`为准。本文后续按时间记录的“不拟合”、固定
+仓位约束和下一方向属于各历史阶段，不覆盖2026-10-15的新授权；已失败实验的
+事实与关闭结论仍保留，新实验须说明实质机制差异。
+
 目标是10万美元、IBKR Pro Tiered、独立0/2/5bp成本路径下的净SOXX超额，并满足既定30%回撤及稳定性约束。修数据、降低预测误差和某个区间改善均不能单独达成目标。最新实例见 `research/regime_failure_sop_20261014` 与 `research/drawdown_transition_information_20261014`。
 
 ## 1. 冻结比较对象

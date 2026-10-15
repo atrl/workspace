@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "campaign": "three_asset_stable_excess_20261015",
+  "contract": "docs/three_asset_research_contract.md",
+  "goal_thread_id": "01a13d5e-34fc-7900-a845-ca53afc39d45",
+  "objective_achieved": false,
+  "status": "active",
+  "assets": [
+    "SOXL",
+    "SOXX",
+    "CASH"
+  ],
+  "production_changes_authorized": false,
+  "current_experiment": "research/three_asset_failure_attribution_20261015",
+  "current_phase": "diagnostic_execution",
+  "next_action": "Execute approved Recorder-backed attribution notebook, then independent result review and evidence-led next mechanism.",
+  "roles": {
+    "owner": "/root",
+    "research_executor": "/root/research",
+    "independent_evaluator": "/root/evaluator",
+    "evaluator_mutates_candidate": false
+  },
+  "reference_cards": [
+    "research/tangent_allocation_head_20261014",
+    "research/open_router_ablation_20261015",
+    "research/tangent_risk_layer_20261014"
+  ],
+  "closed_route_authorities": [
+    "docs/research_failure_to_feature_sop.md",
+    "docs/research_evidence_boundary_20261015.md"
+  ],
+  "data_use": {
+    "2023_through_2026_prior_results": "reused_diagnostic_not_independent",
+    "historical_total_trials": null,
+    "complete_repository_inventory": false
+  },
+  "forward_candidate": null,
+  "branch_dependencies": [
+    {
+      "branch": "historical_consensus_eps_surprise",
+      "status": "needs_data",
+      "dependency": "Matching point-in-time comparable actual, expectation sample/version and publication evidence",
+      "blocks_current_attribution": false
+    }
+  ],
+  "experiments": [
+    {
+      "card": "research/three_asset_failure_attribution_20261015",
+      "kind": "diagnostic_no_new_fits_or_accounts",
+      "status": "executing",
+      "evaluation": null,
+      "next_mechanism": null,
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_DESCRIPTIVE_EXECUTION",
+        "plan_sha256": "3403f74384e08dc52c0e242c21ad62d00de2bda98c532a2d5ededc7b85157993",
+        "requirements": [
+          "exact source dates and frozen price basis equality",
+          "duplicate controls equal at all costs",
+          "no silent calendar intersection",
+          "full contiguous 126-session windows",
+          "endogenous state and recovery timing labels",
+          "no promotion or independent evidence claim"
+        ]
+      }
+    }
+  ],
+  "governance_review": {
+    "reviewer": "/root/evaluator",
+    "verdict": "no_material_issue",
+    "strong_reference_requirement": "predeclare comparable risk-qualified references; bypass is diagnostic only"
+  }
+}

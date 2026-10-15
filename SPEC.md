@@ -83,6 +83,14 @@ qlib research/production card 必须使用瘦根目录、recorder-first 的产�
 
 ### SOXX 稳定超额研究入口
 
+2026-10-15重新授权的持续三资产研究遵循
+`docs/three_asset_research_contract.md`，当前任务和评估状态由
+`research/three_asset_campaign.json`登记。研究执行与独立评估分离；固定路线
+失败不代表总目标完成或自动阻塞。SOXL/SOXX/CASH、只做多、无融资和30%回撤
+验收不变；旧SOXL上限30%及现金下限15%可作为预登记结构对照研究，不修改
+封存卡片或现役生产参数。近期0/2/5bp滑点及Tiered费用研究不套用旧10/25bp
+身份。独立前向最低观察日数不代替126日滚动与统计资格。
+
 新一轮基准相对研究使用 `research/benchmark_relative_architecture_20261009/`
 作为可执行参考，方法与外部机制依据分别保存在卡片的 `architecture.md`、
 `research_sources.md`；参数和候选预算以执行前冻结的 `plan.json` 为准。
