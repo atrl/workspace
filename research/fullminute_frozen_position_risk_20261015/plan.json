@@ -1,0 +1,96 @@
+{
+  "experiment": "fullminute_frozen_position_risk_20261015",
+  "frozen_at_utc": "2026-10-15T07:58:43.773454+00:00",
+  "sources": {
+    "candidate": {
+      "card": "research/causal_cost_scenario_controller_20261015",
+      "recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+      "archive": "1145b7788507c9f47fa5d7a3d9a8e3ecb706177e3870bef3e475f74bb5ddf5a3",
+      "inventory_sha256": "e741bc79560532a94344212d7831cbb673fb6e6d1c0807e2e39c18b18c477707"
+    },
+    "benchmark": {
+      "card": "research/tangent_allocation_head_20261014",
+      "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+      "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+      "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+    }
+  },
+  "source_artifacts": {
+    "candidate": [
+      "inputs/frame",
+      "analysis/summary",
+      "analysis/native/candidate_0",
+      "analysis/native/candidate_2",
+      "analysis/native/candidate_5"
+    ],
+    "benchmark": [
+      "analysis/native/soxx_0",
+      "analysis/native/soxx_2",
+      "analysis/native/soxx_5"
+    ]
+  },
+  "minute_source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+  "minute_source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "minute_source_objects": [
+    {
+      "symbol": "SOXL",
+      "path": "SOXL_none.parquet",
+      "sha256": "94b2ee6bf16f76d2e3e453f45a8db533869a2fe6303e90c47505a61647d0dc2a"
+    },
+    {
+      "symbol": "SOXX",
+      "path": "SOXX_none.parquet",
+      "sha256": "9133d01608d534d753015fa043d1fc538ccd12afbab8aaa1a01daa0f64448561"
+    },
+    {
+      "symbol": "SOXL",
+      "path": "SOXL_rehab.parquet",
+      "sha256": "0342f402196db7fe6c1e62556513fd6a2df613b02629706e3cabdea2bd817015"
+    },
+    {
+      "symbol": "SOXX",
+      "path": "SOXX_rehab.parquet",
+      "sha256": "a46e06d4c37919c1442bd54228167adc86f09cdf1b73b46eaac237d6acd4cf7c"
+    }
+  ],
+  "snapshot_binding": "research/minute_information_pit_allocator_20261012/nas_binding.json",
+  "as_of": "2026-10-09",
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "families": [
+    "candidate",
+    "soxx"
+  ],
+  "initial_cash": 100000,
+  "valuation_count": 6,
+  "new_model_fits": 0,
+  "new_policy_paths": 0,
+  "new_native_accounts": 0,
+  "valuation_start": "2023-01-04T09:47:00-05:00",
+  "valuation_end": "2026-10-09T09:47:00-04:00",
+  "coverage_contract": "For eachasset frozenNONE source2023-01-04..2026-10-09 has expected367110 RTHrightedge bars underXNYS includinghalf-days. Reverifyhash/calendar/duplicates/finiteOHLC/validity/finality; anyneededmissing/invalidbar meansriskqualification needs_data, no interpolation or deletion.",
+  "price_basis": "_source_frames verifiedrawfloat64 +published_intraday_basis(asof2026-10-09) usingpinnedrehab. PositiveaffineA/B sameasparents; preserveadjustedpositionunits, no rawsharebasis switch/dividendcash invention. DerivefullOHLCfloat32Qlibprovider fromsame adjustedrawvalues, verifyDreadback andallparentsparseknown/open/recovery/close/exit anchors exactly.",
+  "provider_uri": "data/qlib/fullminute_frozen_position_risk_20261015",
+  "provider_policy": "Newrebuildablederivedstore,neveroverwriteoldstore; no newlargeQlibbinsGit. Bigminuteobjects andseries Recorder/NAS. Sourceidentity/calendar/schema/hash metadata retained.",
+  "holdings_authority": "Readnative_positions at originaleventtimestamps, carryforwardnative q/cash betweenevents. Verify allchangesagainst frozenorder directions/adjustedamounts andnativefees; reconcileeachdaily authoritycash/quantity andoriginalexitNAV beforecomputingrisks. No neworderquantity/executionprice/cost/interest/liquidation.",
+  "reconciliation_tolerance": {
+    "native_relative": 1e-07,
+    "fees_absolute_usd": 1e-07,
+    "source_anchor_float32": "exact"
+  },
+  "timestamp_order": "Bars areRIGHTedge;09:47fill is open ofbarending09:48,10:32fill open ofbarending10:33. Atboundary valuepreviousbarclose onoldholdings, nextbaropen beforefill, thenfixednativepostfillposition/cash atsameopen; thenusepostfillholdings forbarOHLC/close. No weightedhigh/lowbar containsholdingchange insideinterval. Initialcash100k included. RTHnextdayopen capturesgapendpoint, notovernighttrajectory.",
+  "terminal_rule": "Originalwindow endsOct9 09:47sourceexitopen withoutliquidation. Include thatterminalopenmark, exclude high/low/close ofbarending09:48 andanylaterbars. Firstdaypre09:47risknotinwindow.",
+  "risk_methods": {
+    "parent": "Retainoriginaldaily/known09:45+closesampledDD/gatesunchanged inprior_gate_snapshot withmethodlabel.",
+    "observed": "Runninghighwaterdrawdown ofsamebar-endalignedsourceclose marks plus exactpre/postfill andRTHopen/terminalevents. Theseareobservedresearchmarks,notcertifiedsimultaneousbrokerprices.",
+    "upper_bound": "Forconstantpositionswithinbar:L=cash+sum(q*assetlow),U=cash+sum(q*assethigh),q>=0. Maxbounddrawdown=max(1-L_t/max(initialcash,allpreviousU,currentU,precedingexacteventNAV)). IncludefixedtradeeventNAV andtheirfee jumpschronologically. Weightedassetextrema neednotoccurtogether; withinbarhighbeforeloworderunknown, soenvelopeisconservativeboundonly,notrealizedOHLC orreturnseries.",
+    "diagnostic_only": "No modelranking,thresholdchange,parametersearch,tradegeneration,policyreplayorperformanceimprovement claim."
+  },
+  "risk_qualification": "For eachcost/family:observedmarkDD>.30 => observed_source_mark_breach; upperboundDD<=.30 => bounded_RTH_source_risk_within30_under_assumptions; observed<=.30<upperbound => unresolved_intraminute_ordering,notprovenbreach. Missingrequiredsource orfundingmismatch=>needs_data/blocked,neverpass. No absoluteallhours/livebroker/dividendparityqualification.",
+  "outputs": "Executednotebook,Chineseconclusion,risk_summary per6valuation,allworstepisodes/peaktrough timestamps,sourcecoverage/time/basis/fundinganchorsummaries,prior_gate_snapshot. AllminuteNAV/L/U/boundseries,fullpositions/orderjoins andlargequotes Recorderonly; no rootlargeCSV/providerbinsGit.",
+  "tests": "Onefocusedfixedfillboundary+terminalexclusion+OHLCbound test with asynchronousassetextrema. Relevantnativeposition reconciliation andQlibanchorreadback duringexecution; no broadsuite/newhistoricalaccounts.",
+  "promotion_authority": false
+}

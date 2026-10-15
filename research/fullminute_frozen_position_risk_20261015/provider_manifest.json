@@ -1,0 +1,65 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/fullminute_frozen_position_risk_20261015",
+  "market": "all",
+  "region": "us",
+  "freq": "1min",
+  "as_of": "2026-10-09",
+  "source": "Frozen NAS full-minute published-affine risk revaluation; 18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$raw_open",
+    "$raw_close"
+  ],
+  "calendar_start": "2023-01-04 09:31:00",
+  "calendar_end": "2026-10-09 16:00:00",
+  "max_datetime": "2026-10-09 16:00:00",
+  "row_count": 734220,
+  "feature_file_count": 12,
+  "audit_snapshot_hash": "9f46b4bd79f46557",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "cc0cb1b3c8454b7b",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "source_manifest_sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "price_basis": {
+    "basis": "published_futu_affine_v1",
+    "as_of": "2026-10-09",
+    "rows": 734220,
+    "raw_ohlcv_retained": true,
+    "invalid_source_rows": 0,
+    "positive_volume_rows": 734211,
+    "vwap_outside_rows": 530,
+    "event_receipts": {
+      "SOXL": {
+        "event_count": 34,
+        "nonzero_B_events": 1,
+        "event_payload_sha256": "56e25174122ed06eaa2c8291b659b7824b3ff28cabc98229142f0b7f37a4f5e1"
+      },
+      "SOXX": {
+        "event_count": 79,
+        "nonzero_B_events": 0,
+        "event_payload_sha256": "6b3fc384a6f92eba6ebdfe97991cbac5b7fbef09ccb16a108a85059833e0fa4f"
+      }
+    },
+    "price_operator": "NONE OHLC * chronological published A + B",
+    "volume_operator": "NONE shares / exact published split factor",
+    "turnover_operator": "(A * NONE turnover + B * NONE shares) / split factor",
+    "SDK_QFQ_equivalence_claimed": false,
+    "PIT_or_total_return_certified": false
+  },
+  "clock": "RIGHT-edge sourceOHLC; not sparse execution marks",
+  "large_bins_git_delivery": false
+}

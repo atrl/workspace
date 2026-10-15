@@ -115,3 +115,5 @@ data/raw/external/flow_receipts_20261014/
 data/qlib/flow_receipts_20261014/
 research/flow_receipts_20261014/progress.json
 research/flow_receipts_20261014/runtime_process.json
+# Rebuildable full-minute risk provider; frozen source and valuation evidence live in NAS Recorder.
+data/qlib/fullminute_frozen_position_risk_20261015/

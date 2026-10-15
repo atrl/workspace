@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/seed_disagreement_information_20261015",
-  "current_phase": "risk_source_feasibility",
-  "next_action": "Check existing immutable minute source and prior coverage for frozen-position fullminute risk valuation; current strongestreference only passed known/close sampledDD. No new strategy trades/refits or revival of failedseedfeature.",
+  "current_experiment": "research/fullminute_frozen_position_risk_20261015",
+  "current_phase": "new_information_source_feasibility",
+  "next_action": "Check prior CPI/BLS release-context work and original publication clocks for a distinct conditional opening-response information mechanism; no bulk collection/fits until exact source and design review. SIA/WSTS sales acceleration is an already closed route and will not be reopened.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -262,6 +262,38 @@
         "nas_verified_artifacts": 22,
         "execution_attempts": "research/seed_disagreement_information_20261015/execution_attempts.json"
       }
+    },
+    {
+      "card": "research/fullminute_frozen_position_risk_20261015",
+      "kind": "fullminute_frozen_holdings_risk_qualification",
+      "parent": "research/causal_cost_scenario_controller_20261015",
+      "status": "completed_bounded_RTH_risk_qualified_no_promotion",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "fixed_valuation_count": 6,
+      "evaluation": "research/fullminute_frozen_position_risk_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FROZEN_RTH_RISK_VALUATION",
+        "plan_sha256": "46f662ce8983809514bb8327254d0512edbf692cf6139dbfc66b1e80fd90588f",
+        "conditions": [
+          "pinned fullminute source and sameaffinequantitybasis",
+          "exactparentanchors andnativeq/cash/fee reconciliation",
+          "rightedgebar andpre/postfillevent chronology",
+          "terminalexitopen only, no laterextrema/liquidation",
+          "observed vs conservativebound qualified separately",
+          "RTHproxyonly, noovernight/broker/dividend upgrade"
+        ]
+      },
+      "recorder_id": "5732aecd6e6148bbbb8706249006f46b",
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_fullminute_frozen_position_risk.py -q",
+        "passed": 1,
+        "fixed_valuations": 6,
+        "new_native_accounts": 0,
+        "new_fits": 0,
+        "nas_verified_artifacts": 29
+      }
     }
   ],
   "governance_review": {
@@ -272,10 +304,11 @@
   "research_reference": {
     "card": "research/causal_cost_scenario_controller_20261015",
     "role": "Observed historical reference passes netSOXX and sampledDD/CVaR at allcosts; pairedincrement/rolling/confidence still fail",
-    "risk_scope": "Known09:45 andclose samples only; no all-minute risk qualification",
+    "risk_scope": "Fullminute/event marks and conservativeOHLC bounds within30 only in represented RTH affine-price domain; no overnight/broker/dividend qualification",
     "paired_composition_reference": "research/beta_preserving_composition_20261015",
     "risk_valid_reference": "research/open_router_ablation_20261015:strong_always",
-    "promotion_eligible": false
+    "promotion_eligible": false,
+    "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
   },
   "cumulative_new_fits_in_this_campaign": 9,
   "cumulative_new_native_accounts_in_this_campaign": 9,
@@ -285,9 +318,16 @@
       "reason": "Already executed27fits66nativeaccounts and failed; do not relabel same mechanism",
       "evidence": "research/full_path_tiered_allocation_20261013/conclusion.md",
       "early_oof_evidence_available": "research/full_history_recovery_20261015,1061rows2018-10-15..2022-12-30; not composition on-policy trajectories"
+    },
+    {
+      "direction": "SIA/WSTS monthly demandcycle sales acceleration",
+      "reason": "Already106monthlyreports and6Ridge informationfits, developmentgatesfailed; sameMoM/YoYfields are not newmechanism",
+      "evidence": "research/sia_sales_information_20261013/conclusion.md",
+      "new_collection_or_fits": 0
     }
   ],
   "cumulative_new_shadow_paths_in_this_campaign": 3,
   "cumulative_new_allocator_fits_in_this_campaign": 3,
-  "cumulative_new_statistical_fits_in_this_campaign": 6
+  "cumulative_new_statistical_fits_in_this_campaign": 6,
+  "cumulative_frozen_risk_valuations": 6
 }

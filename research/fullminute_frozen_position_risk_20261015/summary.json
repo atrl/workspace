@@ -1,0 +1,47 @@
+{
+  "experiment": "fullminute_frozen_position_risk_20261015",
+  "plan_sha256": "46f662ce8983809514bb8327254d0512edbf692cf6139dbfc66b1e80fd90588f",
+  "decision": "risk_revaluation_only_no_promotion",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_policy_paths": 0,
+  "new_native_accounts": 0,
+  "frozen_valuations": 6,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/fullminute_frozen_position_risk_20261015",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "recorder_id": "5732aecd6e6148bbbb8706249006f46b",
+  "experiment_id": "420819655337415138",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/fullminute_frozen_position_risk_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/fullminute_frozen_position_risk_20261015/qlib_recorder/420819655337415138/5732aecd6e6148bbbb8706249006f46b",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/minute/*",
+      "analysis/holdings/*"
+    ]
+  },
+  "risk_methods": {
+    "parent": "Retainoriginaldaily/known09:45+closesampledDD/gatesunchanged inprior_gate_snapshot withmethodlabel.",
+    "observed": "Runninghighwaterdrawdown ofsamebar-endalignedsourceclose marks plus exactpre/postfill andRTHopen/terminalevents. Theseareobservedresearchmarks,notcertifiedsimultaneousbrokerprices.",
+    "upper_bound": "Forconstantpositionswithinbar:L=cash+sum(q*assetlow),U=cash+sum(q*assethigh),q>=0. Maxbounddrawdown=max(1-L_t/max(initialcash,allpreviousU,currentU,precedingexacteventNAV)). IncludefixedtradeeventNAV andtheirfee jumpschronologically. Weightedassetextrema neednotoccurtogether; withinbarhighbeforeloworderunknown, soenvelopeisconservativeboundonly,notrealizedOHLC orreturnseries.",
+    "diagnostic_only": "No modelranking,thresholdchange,parametersearch,tradegeneration,policyreplayorperformanceimprovement claim."
+  },
+  "qualification_scope": "For eachcost/family:observedmarkDD>.30 => observed_source_mark_breach; upperboundDD<=.30 => bounded_RTH_source_risk_within30_under_assumptions; observed<=.30<upperbound => unresolved_intraminute_ordering,notprovenbreach. Missingrequiredsource orfundingmismatch=>needs_data/blocked,neverpass. No absoluteallhours/livebroker/dividendparityqualification.",
+  "nas_evidence": {
+    "sha256": "d3a842419f00d52864a8ad5317b543b3813d31a93af234c06d7f500128091af9",
+    "size_bytes": 103522029,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/d3/a8/d3a842419f00d52864a8ad5317b543b3813d31a93af234c06d7f500128091af9",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 16:08:26.647375+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/d3/a8/d3a842419f00d52864a8ad5317b543b3813d31a93af234c06d7f500128091af9",
+    "recorder_id": "5732aecd6e6148bbbb8706249006f46b",
+    "experiment_id": "420819655337415138",
+    "archive_root": "qlib_recorder"
+  }
+}

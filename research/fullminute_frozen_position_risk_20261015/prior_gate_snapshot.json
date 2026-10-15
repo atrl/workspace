@@ -1,0 +1,17 @@
+{
+  "method": "parent_daily/known09:45_and_close_sampled_drawdown",
+  "source_recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+  "original_gates": {
+    "beat_paired_all_costs": false,
+    "beat_strong_always_all_costs": true,
+    "net_soxx_excess_all_costs": true,
+    "drawdown_30pct": true,
+    "cvar_no_worse": true,
+    "rolling_70pct": false,
+    "complete_annual_70pct": true,
+    "bootstrap_positive": false,
+    "independent_development": false,
+    "qualified_forward": false
+  },
+  "unchanged_parent_decision": "not_promoted_fixed_causal_cost_scenario_controller"
+}

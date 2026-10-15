@@ -1,0 +1,11 @@
+experiment: fullminute_frozen_position_risk_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/fullminute_frozen_position_risk_20261015
+recorder_uri: /Users/rziiiii/dev/workspace/research/fullminute_frozen_position_risk_20261015/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - analysis/minute/*
+  - analysis/holdings/*

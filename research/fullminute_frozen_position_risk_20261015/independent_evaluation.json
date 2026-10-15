@@ -1,0 +1,42 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_BOUNDED_RTH_SOURCE_QUALIFICATION_ONLY",
+  "recorder_id": "5732aecd6e6148bbbb8706249006f46b",
+  "plan_sha256": "46f662ce8983809514bb8327254d0512edbf692cf6139dbfc66b1e80fd90588f",
+  "verification_manifest_sha256": "b7b71da9ce3a768fe50638a1ff4231f53ecece264bd7733913fd20fec2fd55d1",
+  "nas_archive_sha256": "d3a842419f00d52864a8ad5317b543b3813d31a93af234c06d7f500128091af9",
+  "source_sha256": {
+    "src/workflow/fullminute_frozen_position_risk.py": "cbdd2cce31228c6a89b456869eb7c3b1c7b9fba91cdcc72732cca1c29b93b352",
+    "src/analysis/fullminute_frozen_position_risk.py": "64396eb506d593c8043ff1a7bb1409838f5874175ad475d94acf941c5ff99c70"
+  },
+  "checks": [
+    "All6valuation NAV/L/U andrunningpeak/DD independently recomputed",
+    "366720contained intervals perbook",
+    "Nativefixedholdings boundary lookup and terminalOct9 09:47stop verified",
+    "5664dailyexitanchors maximumrelativeerror1.4551e-16",
+    "2557fixedfillanchors zeroerror",
+    "367110complete sourcebars perasset and18sourceanchorchecks exact",
+    "Priornegative promotiongates preserved"
+  ],
+  "candidate_risk_pct": {
+    "0": {
+      "observed": 26.9033029,
+      "conservative_upper": 26.9971948
+    },
+    "2": {
+      "observed": 26.9616167,
+      "conservative_upper": 27.0553576
+    },
+    "5": {
+      "observed": 27.0415102,
+      "conservative_upper": 27.1351085
+    }
+  },
+  "qualification_scope": "Only represented RTH research-affineprice domain under fixedholdings/fill assumptions; not overnight/allhours/broker/dividend parity",
+  "new_fits": 0,
+  "new_trades": 0,
+  "new_policy_replays": 0,
+  "new_native_accounts": 0,
+  "valuation_count": 6,
+  "promotion_eligible": false
+}
