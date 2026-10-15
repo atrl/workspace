@@ -1,0 +1,25 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_FINITE_BRIDGE_WITH_REPORTING_CORRECTION",
+  "plan_sha256": "1e03bf5f8b8f813a46e2cb26909c8d2d1cec4759693bcb2e7d160db935bf75c6",
+  "recorder_id": "b6cf662c0feb4d46badbdad4ccf18346",
+  "verification_manifest_sha256": "b7b4ef23e5a6aa55d391d177dfbb4e37b5e9cae4ce6653fdd7c143650eda8d1d",
+  "execution_workflow_sha256": "9f89405a32a65a3f88cf642cf6fb3a97fad7787ee1be36de13d3bdea0f88b28a",
+  "archive_sha256": "1c6646b9b6cbb091029e691afc75c3ab224b6cc34669b8d6f08d492632e29c7a",
+  "independent_checks": [
+    "8fixedQlibmarks andallobserved2023+ B0",
+    "Stable interval unit identity",
+    "SplitpublishedA0.33333 versus exact1/3 produces300.00300003 versus300shares",
+    "Cash-eventA0.99849 produces100.15122835 implied versus100physicalshares",
+    "Cashcurrency/entitlement/paydate andPIT remainunqualified",
+    "Postrun correctedtable changesonlysplitfailure label, keepsallnumericvalues/falsegate/tolerances",
+    "Correctioncell reads3pinnedsavedobjects only; no new price/calendar/replay",
+    "OriginalRecorder/source/manifest/NAS remainunchanged"
+  ],
+  "effective_report": "case_gates_corrected.csv",
+  "reporting_correction": "reporting_correction.json",
+  "correction_cell_sha256": "3cdfcc885dfad4123e55267dde631483e0367fb06096e5aac25592d098e3f668",
+  "no_whole_strategy_bias_claim": true,
+  "objective_achieved": false,
+  "readback": "readback_verification.json"
+}

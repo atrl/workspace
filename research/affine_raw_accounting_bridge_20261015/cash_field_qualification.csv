@@ -1,0 +1,3 @@
+case,symbol,event_date,split_base,split_ert,per_cash_div_original,published_event_A,published_event_B,conditional_lot_cash_in_source_units,cash_currency,announcement_at,record_date,pay_date,cash_available_at,cash_or_receivable_USD_credited,event_payload_received_at,event_receipt_role,qualified_economic_cash_bridge,cash_not_inferred_from_B
+split_declared_no_cash,SOXX,2024-03-07,1.0,3.0,,0.33333,0.0,,,,,,,,2026-10-12T07:25:16.487267+00:00,historicalretrieval_not_eventpublication,False,True
+cash_dividend_multiplicative,SOXL,2023-03-21,,,0.02501,0.99849,0.0,2.501,,,,,,,2026-10-12T07:25:15.995008+00:00,historicalretrieval_not_eventpublication,False,True

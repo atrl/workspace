@@ -1,0 +1,24 @@
+{
+  "role": "post_execution_reporting_only",
+  "original_recorder_id": "b6cf662c0feb4d46badbdad4ccf18346",
+  "original_archive_sha256": "1c6646b9b6cbb091029e691afc75c3ab224b6cc34669b8d6f08d492632e29c7a",
+  "source_artifact_hashes": {
+    "analysis/cases": "8b5bc31961783877e35d6aa127092fee3c6e123678f870d8062a364ea31b478c",
+    "analysis/cash_fields": "fb415c8962a3fea9facbfe807367d6bb9b60f8e8a7f8503530295e61fa704042",
+    "analysis/marks": "6986262a5f502a60598624ae853311f52b9a6f8efca141e5ad59fe7cfd763c28",
+    "analysis/summary": "7e20a06c66a66e25fab4e1b03641d2a4e466ebcbb53549b00acd2ebad4f73949",
+    "sources/execution_workflow": "2b4c602d6497381bd81b83e37d0ed22cb5290680bb6fba8f514fcef33bf1f5ee"
+  },
+  "cell_source_sha256": "3cdfcc885dfad4123e55267dde631483e0367fb06096e5aac25592d098e3f668",
+  "case": "split_declared_no_cash",
+  "field": "event_accounting",
+  "before": "needs_data_currency_entitlement_paydate_cash_ledger",
+  "after": "split_quantity_rounding_exceeds_frozen_tolerance",
+  "reason": "Published eventA0.33333 versus exact split1/3 causes fixedlot implied300.00300003 versus physical300; this exceeds frozen quantity tolerance. Not an unknown cash-ledger cause. Qlib float32 residual remains separately reported.",
+  "gate_booleans_changed": false,
+  "tolerances_changed": false,
+  "new_Qlib_price_reads": 0,
+  "new_unit_cases": 0,
+  "new_replays": 0,
+  "original_source_summary_objects_unchanged": true
+}

@@ -1,0 +1,146 @@
+{
+  "experiment": "nvda_diagnostic_forward_readiness_20261015",
+  "frozen_at_utc": "2026-10-15T11:36:37.092631+00:00",
+  "role": "diagnostic_observation_of_not_promoted_reference_READINESS_ASSESSMENT_ONLY",
+  "goal_context": "HistoricalNVDA27baa rolling70%andpairedCI gates remainfailed. Assessment cannotpromote/referenceforwardqualify or resetsearchhistory. Qualifiednewforwarddays=0; oldSIM/regime/economicshadow observations confer0days.",
+  "authority": [
+    "AGENTS.md",
+    "SPEC.md",
+    "docs/three_asset_research_contract.md",
+    "research/three_asset_campaign.json"
+  ],
+  "reference": {
+    "card": "research/nvda_own_guidance_realization_training_20261015",
+    "recorder_id": "27baa03f0d3046d8b82408ecb6ca07e7",
+    "archive": "e5843be4a5dbd36c1f92c45755b63f1d1e8f8e7b4a6203112b539170e5d13471",
+    "inventory_sha256": "1dbc58bfe68e892867c42eb87cce506bb83acb3586671d3f252eb1f8d5171e38"
+  },
+  "fundamental_source": {
+    "card": "research/nvda_own_guidance_realization_source_20261015",
+    "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0",
+    "archive": "a77a7be5d5aa1ff7580fb297e19d873f38a04166c76fa12ba974327cf38ab414",
+    "inventory_sha256": "5439a610a2d429a7dfdbcc9becbb7e751dcd2c5ed771582785e36191f6d61ba7"
+  },
+  "reference_artifacts": [
+    "inputs/plan",
+    "inputs/frame",
+    "inputs/features",
+    "inputs/feature_trace",
+    "inputs/events",
+    "inputs/initialization",
+    "models/candidate_71",
+    "models/candidate_172",
+    "models/candidate_273",
+    "analysis/targets",
+    "analysis/summary"
+  ],
+  "fundamental_artifacts": [
+    "analysis/pairs",
+    "analysis/summary"
+  ],
+  "bounded_sources": {
+    "static_code_sha256": {
+      "src/workflow/stage1_regime_paper.py": "e3046205403677ab16439c44a5ed66501538f7098ee773f6a23fa5b6d528e1f4",
+      "src/schedule/stage1_regime_paper.py": "23c0358a75059a099225cbb7e307c845d2e48563e115f39d7a668ee910e349a3",
+      "src/schedule/us_open_quotes.py": "a8a71b371423356302ef2973a4c4386891fedaa66131785c69c578efc2beb684",
+      "src/workflow/stage1_economic_shadow.py": "4f06284cc85eb0b4256da6380de1a821c368b13b9a1e8a02494690ac3942c181",
+      "src/workflow/stage1_futu_sim.py": "7c8f975997d35d831c2ba131c1821ba1531678017e66d0d854bd23ec93d21447",
+      "src/workflow/stage1_runtime_release.py": "bcd66afb761bdfb7c14adc650718ad70a25d76b19730944c098e397598f30342",
+      "src/backtest/causal_cost_scenario_controller.py": "00936fe39f52fc11e41ac59f05b095302ac7b9438e8e4fcb1d84241e5bbac77d",
+      "src/model/nominal_beta_composition.py": "718cef532ebb9b009da84abfb64abdf1d0eaf23c7ac453243109e85abfdae258",
+      "src/data/minute_price_basis.py": "d3abbb1b7a3ca6e1b7cdd78e55903c2b03dd4202cadd4caf61fac91ebe68dbf5",
+      "src/data/full_path_prices.py": "a048feafe47db675009e196c55376aaf4e2dc09e5aa40523094afe912cbfef8d",
+      "src/data/nvda_own_guidance_realization.py": "9a22ee2a8f13b89b2898bfbd3db1c2cc8926e80f203db29b1e457fd2495d2388",
+      "src/workflow/nvda_own_guidance_realization_source.py": "a266bcd12e0eda94f465bd8dbdd883785647804a5b6c21314eef2678d2b468f0",
+      "src/data/issuer_results_intake.py": "c2f15fb28a61dbe0dd654486433014f0167260a9af4e1b4a2f69a4d072f73156"
+    },
+    "static_release_sha256": {
+      "production/stage1_futu_sim_v1/runtime_release.json": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+      "production/stage1_regime_paper_20261001/release_manifest.json": "bd7210b4a907dd1da08cd26de21854be976a5cb0041f74e6d04b23972de83156",
+      "production/stage1_regime_paper_20261001/forward_plan.json": "92a1ea2532c291e7907ce6fcb67cac6b03769c7a82297376220559525ebf8b28",
+      "production/stage1_regime_paper_20261001/workflow.yaml": "767d9122215b7c401d0d712cca174947815c828152451dff1c099c6e26a40a1d",
+      "production/stage1_regime_paper_20261001/deployment_verification.json": "d64647d9f8aeeb3dafc6ae8c0ad441f15aeb7ed1f4a97ba884f496eb9f2bda33",
+      "production/stage1_regime_paper_20261001/summary.json": "bb2046f08156a820aa968049b15be1c346bdd18bd9875dd04e5180c75f11a603"
+    },
+    "mutable_runtime_files": [
+      "runtime/soxl/stage1_regime_paper/config.json",
+      "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/latest_status.json",
+      "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/candidate_10bps.json",
+      "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/candidate_25bps.json",
+      "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/baseline_10bps.json",
+      "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/baseline_25bps.json"
+    ],
+    "provider_manifests": [
+      "data/qlib/full_path_tiered_allocation_20261013/qlib_store_manifest.json",
+      "data/qlib/published_futu_affine_20260925_v1/qlib_store_manifest.json",
+      "data/qlib/soxl_intraday_15min/qlib_store_manifest.json"
+    ],
+    "optional_receipt": "AtmostoneoldQlibevent+receipt+state triplet, onlyifexactrecorderidentitylinkedbylatest_status/books selectedlatestexistingobserved_at deterministically. Readviaexisting Qlib verified read-only loader or explicit existing experiment get_recorder(create=False) andhashlocalbytes. No scanofallRecorderdirs, no inferenceoflivenessfromartifacttimestamp. Missinglink=>notverified."
+  },
+  "readback_limits": {
+    "reference_models": 3,
+    "reference_artifacts": 11,
+    "fundamental_artifacts": 2,
+    "static_code_files": 13,
+    "static_release_files": 6,
+    "mutable_runtime_files": 6,
+    "provider_manifests": 3,
+    "optional_old_event_triplets": 1,
+    "Qlib_calendar_calls_max": 2,
+    "market_feature_reads": 0,
+    "new_data_fetches": 0,
+    "new_fits": 0,
+    "new_policy_replays": 0,
+    "new_native_accounts": 0,
+    "launches": 0,
+    "scheduler_or_production_mutations": 0,
+    "orders": 0
+  },
+  "allowed_actions": "Read/hashonlylistedexistingfilesandverifiedRecorderobjects; qlib.init/D.calendar toverifyactualsessionclockcoverage. Saveassessmentcode/notebook/smallfindings/sourcehashes inNEWassessmentcard andNEWQlibRecorder/NAS. No calls to scheduler.run, quoteAPI/Futu, accountadapter, eventcommit, replay, fit orcollector. No process/network/hostprobe; noinstalledtimer changes.",
+  "questions": [
+    {
+      "id": "immutable_identity",
+      "check": "Identifyall3trainedmodels/scalers/NVDAinputfeaturecontract, source39+3flags+1numeric, originalEMAoperator/knownstate andretained0/2/5ownledger coupledmincap+ALL3+T code. Compareoldreleaseidentities andcostclock contracts; neverloadoldSIMstateascandidatepositions.",
+      "evidence": "Pinned27baa models/spec/inputplan andoldrelease/code hashes; staticcompatiblecomponents only."
+    },
+    {
+      "id": "point_in_time_inputs",
+      "check": "Separatebar/endtime,assumedavailability,actualpayloadreceived_at,normalization/storewrite/feature_usedrow timestamps. Areexistingrecords sufficient toprove inputsreceivedbefore09:29basefeaturecutoff,09:46openingdecision and10:31recoveryfeaturecutoff? Quoteupdatetimeorcurrentfilemtime isnotproof.",
+      "evidence": "Existingboundedreceipt/schema/code; absenceisneeds_data, not fabricatedtiming."
+    },
+    {
+      "id": "decision_before_execution",
+      "check": "Requiresealeddecision+hash beforelater09:47opening/10:32recoveryfill observation; all3scenario caps/votescomputedfromprefillownstates beforeanyfill. Existingpaperusesonecurrentquote fordecision/trade and09:31window, which cannotbeassertedexact27baaforwardparity.",
+      "evidence": "Oldeventreceipt/codechronology comparison only; no execution orsyntheticforwardday."
+    },
+    {
+      "id": "fundamental_refresh",
+      "check": "FutureNVDAregularreport extraction preservesoriginalpriorguide/targetactual/scope/precision andsource_received_at; eventavailable=maxconservativebound,actualintakereceipt beforeeligibledecision). Priorlateststate maypersistunderfrozenrule, but newknownblockedreport resetsunknown; latecapturedreport cannotbackdate decision. Canexistingcollector/qualification satisfy append-onlyreceipt/version requirements withoutmanualretroactivefile edits?",
+      "evidence": "Pinnedhistoricalsource andcurrentintakecode; sourcehistoricalclockfalse staysfalse. No newfundamentalfetch."
+    },
+    {
+      "id": "price_accounting_basis",
+      "check": "PublishedaffineA/Bresearchprices vsfuture rawshare/cash/corporateaction/dividend ledgers: priceplane/inverseconversion,exactsplit/dividend receipts/effective clocks, fees/rawshares andNAV reconciliations. Neverapplynewrehabtopastdecisions oraddcashdividendtototalreturnadjustment twice. ExistingPIT_or_total_return_certifiedFalse/live_receipt_fill_dividend_parityFalse cannotbeupgraded bypaperfunctionality.",
+      "evidence": "pricebasiscode+fixedprovidermanifests; identifyminimumproofgap, no CArepair ornewvaluation."
+    },
+    {
+      "id": "prospective_registration",
+      "check": "Futureseparatestudy mustfreeze newidentity/not_before,newinitialcash+ownpositions/monthlyfee/EMAstateinit,pairedreference+SOXX samecosts/quotes/clocks,missing-slotrules,no retroactivefills,receiptsealedallversions,predeclaredstatesandfixedevaluationtimes.60completepaired/15perstate/3transitions onlyminimum;126/annualrequireactualnewcoverage.",
+      "evidence": "Comparegovernancewitholdforward_plan; thisassessmentdoesnotregisterorlaunchastudy."
+    }
+  ],
+  "verdicts": [
+    "reusable_component_only",
+    "needs_implementation",
+    "needs_data_proof",
+    "incompatible_old_identity_or_clock",
+    "not_observed_in_bounded_readback"
+  ],
+  "decision_rule": "No ready/qualificationclaim unlesseverycriticalidentity/inputreceipt/decision-before-fill/fundamental/priceledger requirement hasactualmatchingproof. Likelyoutputisboundedgapmap, nothistoricalgatewaiver. Oldpaperstatusneednotbeinvestigatedbeyondlistedmetadata andcannotcountasnewcandidateevidence.",
+  "outputs": "Executedassessmentnotebook+Chineseconclusion; requirement_evidence.csv withcode/fileline/recordlocatorandwhatproven/missing; exacthashes/observationUTC; smallestnextjustifiedaction andwhetherdiagnosticpaper feasible underexplicitresearchpriceproxy. NewassessmentRecorder holdsrawboundedreadbacks. No performance charts, brokerclaims orproductionchanges.",
+  "next_action_boundary": "Afterresult independentlyreviewed, proposeonlyone smallestseparateimplementation/sourcequalification step ifjustified. Anyobserverlaunch/startnot_before/stateinit ordatafetchneedsseparatefrozenplan/authorization; assessment approvaldoesnotauthorizeit.",
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "historical_gate_override": false,
+  "promotion_authority": false
+}

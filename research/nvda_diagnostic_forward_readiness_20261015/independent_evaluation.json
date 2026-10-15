@@ -1,0 +1,22 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_NOT_READY_FOR_QUALIFIED_FORWARD",
+  "plan_sha256": "02583876910a238a0d42119fe1ae5b0cb41e7d86427dc8c9a41914e5b2da2aed",
+  "recorder_id": "a803f9b1884f4e93a9572614701ed978",
+  "verification_manifest_sha256": "e8b0d86d98f22ccbf24649fa9423ad163baeec3b61fbaf52d5ecedd5dbd28b9d",
+  "workflow_sha256": "379df8bfb383ab00086018d239d98fb413f2a1161c01a6ebc3e9acc3ee545344",
+  "archive_sha256": "d0749d25a8465cc7c83857e324c5e7418bdc7e5995f9ca8a144fd0447eb0150c",
+  "independent_checks": [
+    "Frozenmodel/scaler and bounded snapshot identities read",
+    "Old25bp linkedtriplet quote10:32:47 observation10:32:56 is not laterfill proof for27baa",
+    "Oldruntime/model/cost/clocks incompatible withnewreference; no daycredit",
+    "PIT/totalreturn/CA qualification flagsfalse",
+    "InternalQlibreconciliation not physicalshare/CAcash parity",
+    "No fetch,launch,fit,replay,orders orproductionchange"
+  ],
+  "post_execution_priority": "Finite existing-source accounting/timing bridge before observer implementation; original execution summary preserved",
+  "new_qualified_forward_days": 0,
+  "historical_gate_override": false,
+  "objective_achieved": false,
+  "readback": "readback_verification.json"
+}

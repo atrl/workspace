@@ -1,0 +1,198 @@
+[
+  {
+    "path": "src/workflow/stage1_regime_paper.py",
+    "status": "read_only_snapshot",
+    "sha256": "e3046205403677ab16439c44a5ed66501538f7098ee773f6a23fa5b6d528e1f4",
+    "bytes": 18469,
+    "observed_at_utc": "2026-10-15T11:45:18.729334+00:00"
+  },
+  {
+    "path": "src/schedule/stage1_regime_paper.py",
+    "status": "read_only_snapshot",
+    "sha256": "23c0358a75059a099225cbb7e307c845d2e48563e115f39d7a668ee910e349a3",
+    "bytes": 22694,
+    "observed_at_utc": "2026-10-15T11:45:18.729492+00:00"
+  },
+  {
+    "path": "src/schedule/us_open_quotes.py",
+    "status": "read_only_snapshot",
+    "sha256": "a8a71b371423356302ef2973a4c4386891fedaa66131785c69c578efc2beb684",
+    "bytes": 4026,
+    "observed_at_utc": "2026-10-15T11:45:18.729573+00:00"
+  },
+  {
+    "path": "src/workflow/stage1_economic_shadow.py",
+    "status": "read_only_snapshot",
+    "sha256": "4f06284cc85eb0b4256da6380de1a821c368b13b9a1e8a02494690ac3942c181",
+    "bytes": 22785,
+    "observed_at_utc": "2026-10-15T11:45:18.729827+00:00"
+  },
+  {
+    "path": "src/workflow/stage1_futu_sim.py",
+    "status": "read_only_snapshot",
+    "sha256": "7c8f975997d35d831c2ba131c1821ba1531678017e66d0d854bd23ec93d21447",
+    "bytes": 54734,
+    "observed_at_utc": "2026-10-15T11:45:18.730094+00:00"
+  },
+  {
+    "path": "src/workflow/stage1_runtime_release.py",
+    "status": "read_only_snapshot",
+    "sha256": "bcd66afb761bdfb7c14adc650718ad70a25d76b19730944c098e397598f30342",
+    "bytes": 17813,
+    "observed_at_utc": "2026-10-15T11:45:18.730235+00:00"
+  },
+  {
+    "path": "src/backtest/causal_cost_scenario_controller.py",
+    "status": "read_only_snapshot",
+    "sha256": "00936fe39f52fc11e41ac59f05b095302ac7b9438e8e4fcb1d84241e5bbac77d",
+    "bytes": 8277,
+    "observed_at_utc": "2026-10-15T11:45:18.730481+00:00"
+  },
+  {
+    "path": "src/model/nominal_beta_composition.py",
+    "status": "read_only_snapshot",
+    "sha256": "718cef532ebb9b009da84abfb64abdf1d0eaf23c7ac453243109e85abfdae258",
+    "bytes": 1438,
+    "observed_at_utc": "2026-10-15T11:45:18.730709+00:00"
+  },
+  {
+    "path": "src/data/minute_price_basis.py",
+    "status": "read_only_snapshot",
+    "sha256": "d3abbb1b7a3ca6e1b7cdd78e55903c2b03dd4202cadd4caf61fac91ebe68dbf5",
+    "bytes": 7284,
+    "observed_at_utc": "2026-10-15T11:45:18.730974+00:00"
+  },
+  {
+    "path": "src/data/full_path_prices.py",
+    "status": "read_only_snapshot",
+    "sha256": "a048feafe47db675009e196c55376aaf4e2dc09e5aa40523094afe912cbfef8d",
+    "bytes": 7519,
+    "observed_at_utc": "2026-10-15T11:45:18.731173+00:00"
+  },
+  {
+    "path": "src/data/nvda_own_guidance_realization.py",
+    "status": "read_only_snapshot",
+    "sha256": "9a22ee2a8f13b89b2898bfbd3db1c2cc8926e80f203db29b1e457fd2495d2388",
+    "bytes": 2604,
+    "observed_at_utc": "2026-10-15T11:45:18.731268+00:00"
+  },
+  {
+    "path": "src/workflow/nvda_own_guidance_realization_source.py",
+    "status": "read_only_snapshot",
+    "sha256": "a266bcd12e0eda94f465bd8dbdd883785647804a5b6c21314eef2678d2b468f0",
+    "bytes": 13919,
+    "observed_at_utc": "2026-10-15T11:45:18.731373+00:00"
+  },
+  {
+    "path": "src/data/issuer_results_intake.py",
+    "status": "read_only_snapshot",
+    "sha256": "c2f15fb28a61dbe0dd654486433014f0167260a9af4e1b4a2f69a4d072f73156",
+    "bytes": 7262,
+    "observed_at_utc": "2026-10-15T11:45:18.731584+00:00"
+  },
+  {
+    "path": "production/stage1_futu_sim_v1/runtime_release.json",
+    "status": "read_only_snapshot",
+    "sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "bytes": 940,
+    "observed_at_utc": "2026-10-15T11:45:18.731736+00:00"
+  },
+  {
+    "path": "production/stage1_regime_paper_20261001/release_manifest.json",
+    "status": "read_only_snapshot",
+    "sha256": "bd7210b4a907dd1da08cd26de21854be976a5cb0041f74e6d04b23972de83156",
+    "bytes": 6289,
+    "observed_at_utc": "2026-10-15T11:45:18.732021+00:00"
+  },
+  {
+    "path": "production/stage1_regime_paper_20261001/forward_plan.json",
+    "status": "read_only_snapshot",
+    "sha256": "92a1ea2532c291e7907ce6fcb67cac6b03769c7a82297376220559525ebf8b28",
+    "bytes": 1055,
+    "observed_at_utc": "2026-10-15T11:45:18.732291+00:00"
+  },
+  {
+    "path": "production/stage1_regime_paper_20261001/workflow.yaml",
+    "status": "read_only_snapshot",
+    "sha256": "767d9122215b7c401d0d712cca174947815c828152451dff1c099c6e26a40a1d",
+    "bytes": 681,
+    "observed_at_utc": "2026-10-15T11:45:18.732486+00:00"
+  },
+  {
+    "path": "production/stage1_regime_paper_20261001/deployment_verification.json",
+    "status": "read_only_snapshot",
+    "sha256": "d64647d9f8aeeb3dafc6ae8c0ad441f15aeb7ed1f4a97ba884f496eb9f2bda33",
+    "bytes": 4085,
+    "observed_at_utc": "2026-10-15T11:45:18.732606+00:00"
+  },
+  {
+    "path": "production/stage1_regime_paper_20261001/summary.json",
+    "status": "read_only_snapshot",
+    "sha256": "bb2046f08156a820aa968049b15be1c346bdd18bd9875dd04e5180c75f11a603",
+    "bytes": 1665,
+    "observed_at_utc": "2026-10-15T11:45:18.732750+00:00"
+  },
+  {
+    "path": "runtime/soxl/stage1_regime_paper/config.json",
+    "status": "read_only_snapshot",
+    "sha256": "b16b5490cf4eb808850b40c366dc39b82b744a9915bc19eee41d213914e2e327",
+    "bytes": 228,
+    "observed_at_utc": "2026-10-15T11:45:18.733269+00:00"
+  },
+  {
+    "path": "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/latest_status.json",
+    "status": "read_only_snapshot",
+    "sha256": "d1e4ba66c0101e0dba80f58726c688baa7d81bf29eceace53248ae1dd33f978f",
+    "bytes": 336,
+    "observed_at_utc": "2026-10-15T11:45:18.733494+00:00"
+  },
+  {
+    "path": "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/candidate_10bps.json",
+    "status": "read_only_snapshot",
+    "sha256": "6ffc0fe4ffdf3249aa67604d0f0f9a35d8b6eb0e061e9fa6ee61938b48dc4251",
+    "bytes": 53257,
+    "observed_at_utc": "2026-10-15T11:45:18.733765+00:00"
+  },
+  {
+    "path": "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/candidate_25bps.json",
+    "status": "read_only_snapshot",
+    "sha256": "69586ed0513eb242e01dc539732452be89ff0c1f5473106c8c3d7562df45eb91",
+    "bytes": 53249,
+    "observed_at_utc": "2026-10-15T11:45:18.734706+00:00"
+  },
+  {
+    "path": "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/baseline_10bps.json",
+    "status": "read_only_snapshot",
+    "sha256": "b6c503ed4143eca6159e9d7778eb5af6e1442cd013ffdc55cd822dbd33d6ac40",
+    "bytes": 32943,
+    "observed_at_utc": "2026-10-15T11:45:18.735135+00:00"
+  },
+  {
+    "path": "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/baseline_25bps.json",
+    "status": "read_only_snapshot",
+    "sha256": "198c6646f263de0b76f04b8448845123b857194fa8504e5b22413e4fa62703c2",
+    "bytes": 32903,
+    "observed_at_utc": "2026-10-15T11:45:18.735572+00:00"
+  },
+  {
+    "path": "data/qlib/full_path_tiered_allocation_20261013/qlib_store_manifest.json",
+    "status": "read_only_snapshot",
+    "sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223",
+    "bytes": 2247,
+    "observed_at_utc": "2026-10-15T11:45:18.735901+00:00"
+  },
+  {
+    "path": "data/qlib/published_futu_affine_20260925_v1/qlib_store_manifest.json",
+    "status": "read_only_snapshot",
+    "sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+    "bytes": 840,
+    "observed_at_utc": "2026-10-15T11:45:18.736178+00:00"
+  },
+  {
+    "path": "data/qlib/soxl_intraday_15min/qlib_store_manifest.json",
+    "status": "read_only_snapshot",
+    "sha256": "3ad773a1b25b148eb6be69c22d5ba361cc8193a4633e980738259ab126f608ce",
+    "bytes": 2081,
+    "observed_at_utc": "2026-10-15T11:45:18.736411+00:00"
+  }
+]

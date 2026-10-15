@@ -1,0 +1,90 @@
+{
+  "experiment": "affine_raw_accounting_bridge_20261015",
+  "plan_sha256": "1e03bf5f8b8f813a46e2cb26909c8d2d1cec4759693bcb2e7d160db935bf75c6",
+  "decision": "finite_unit_bridge_only_dividend_cash_and_PIT_need_data",
+  "objective_achieved": false,
+  "numeric_unit_cases": 3,
+  "Qlib_price_anchor_rows": 8,
+  "Qlib_features_calls": 8,
+  "Qlib_calendar_calls": 1,
+  "symbolic_nonzero_B_identity": "ForconstantA,B and formulaP_adj=A*P_raw+B: q_adj*P_adj_t -n*P_raw_t = n*B*(P_raw0-P_raw_t)/(A*P_raw0+B). SymbolicnonzeroB implication only; no empiricalnonzeroBprices availableinbounds.",
+  "nonzero_B_scope": {
+    "SOXL": [
+      "2010-09-22"
+    ],
+    "SOXX": []
+  },
+  "nonzero_B_empirical_case_available": false,
+  "case_gates": [
+    {
+      "case": "stable_operator_control",
+      "source_identity": "passed_pinned_source_and_anchors",
+      "unit_identity": "passed_algebra_and_provider_roundoff",
+      "event_accounting": "not_applicable_no_event",
+      "PIT_timing": "not_qualified_historical_receipt_only",
+      "implied_raw_share_identity_within_tolerance": true,
+      "final_implied_minus_physical_shares": 0.0,
+      "final_asset_leg_gap_excluding_unknown_cash": 0.0,
+      "whole_strategy_bias_estimated": false
+    },
+    {
+      "case": "split_declared_no_cash",
+      "source_identity": "passed_pinned_source_and_anchors",
+      "unit_identity": "passed_algebra_and_provider_roundoff",
+      "event_accounting": "needs_data_currency_entitlement_paydate_cash_ledger",
+      "PIT_timing": "not_qualified_historical_receipt_only",
+      "implied_raw_share_identity_within_tolerance": false,
+      "final_implied_minus_physical_shares": 0.003000030000123388,
+      "final_asset_leg_gap_excluding_unknown_cash": 0.7140071400208399,
+      "whole_strategy_bias_estimated": false
+    },
+    {
+      "case": "cash_dividend_multiplicative",
+      "source_identity": "passed_pinned_source_and_anchors",
+      "unit_identity": "passed_algebra_and_provider_roundoff",
+      "event_accounting": "needs_data_currency_entitlement_paydate_cash_ledger",
+      "PIT_timing": "not_qualified_historical_receipt_only",
+      "implied_raw_share_identity_within_tolerance": false,
+      "final_implied_minus_physical_shares": 0.15122835481577113,
+      "final_asset_leg_gap_excluding_unknown_cash": 2.5618084113441455,
+      "whole_strategy_bias_estimated": false
+    }
+  ],
+  "new_fits": 0,
+  "new_policy_replays": 0,
+  "new_native_accounts": 0,
+  "new_market_or_CA_fetches": 0,
+  "orders": 0,
+  "observer_launches": 0,
+  "strategy_NAV_or_risk_recomputations": 0,
+  "cash_USD_NAV_qualified": false,
+  "PIT_timing_qualified": false,
+  "whole_strategy_bias_estimated": false,
+  "next_action": "Qualify explicitissuer/vendorcashamountcurrency/entitlement/paydate andcausalreceipt ledger forfixedcashcase beforephysicalcashbridge; do not inferDfromA/B ormodify27baa. Futurebasisimplementationwouldrequireseparateidentity/plan.",
+  "recorder_id": "b6cf662c0feb4d46badbdad4ccf18346",
+  "experiment_id": "288398533385775379",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/affine_raw_accounting_bridge_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/affine_raw_accounting_bridge_20261015/qlib_recorder/288398533385775379/b6cf662c0feb4d46badbdad4ccf18346",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "1c6646b9b6cbb091029e691afc75c3ab224b6cc34669b8d6f08d492632e29c7a",
+    "size_bytes": 176632,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/1c/66/1c6646b9b6cbb091029e691afc75c3ab224b6cc34669b8d6f08d492632e29c7a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 20:01:06.941952+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/1c/66/1c6646b9b6cbb091029e691afc75c3ab224b6cc34669b8d6f08d492632e29c7a",
+    "recorder_id": "b6cf662c0feb4d46badbdad4ccf18346",
+    "experiment_id": "288398533385775379",
+    "archive_root": "qlib_recorder"
+  }
+}

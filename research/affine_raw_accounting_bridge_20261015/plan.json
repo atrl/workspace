@@ -1,0 +1,139 @@
+{
+  "experiment": "affine_raw_accounting_bridge_20261015",
+  "frozen_at_utc": "2026-10-15T11:56:22.998917+00:00",
+  "role": "Existing-source finite unit-accounting/timing bridge qualification BEFOREobserverbuild; notstrategyrevaluation",
+  "reference": {
+    "card": "research/nvda_own_guidance_realization_training_20261015",
+    "recorder_id": "27baa03f0d3046d8b82408ecb6ca07e7",
+    "archive": "e5843be4a5dbd36c1f92c45755b63f1d1e8f8e7b4a6203112b539170e5d13471",
+    "inventory_sha256": "1dbc58bfe68e892867c42eb87cce506bb83acb3586671d3f252eb1f8d5171e38"
+  },
+  "reference_artifacts": [
+    "inputs/frame",
+    "inputs/plan"
+  ],
+  "readiness": {
+    "card": "research/nvda_diagnostic_forward_readiness_20261015",
+    "recorder_id": "a803f9b1884f4e93a9572614701ed978",
+    "archive": "d0749d25a8465cc7c83857e324c5e7418bdc7e5995f9ca8a144fd0447eb0150c",
+    "inventory_sha256": "e8b0d86d98f22ccbf24649fa9423ad163baeec3b61fbaf52d5ecedd5dbd28b9d"
+  },
+  "readiness_artifacts": [
+    "inputs/old_linked_audit",
+    "analysis/summary"
+  ],
+  "raw_source_manifest": {
+    "path": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+    "sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+    "source_minute_start": "2018-10-12",
+    "as_of": "2026-10-09"
+  },
+  "rehab_sources": [
+    {
+      "symbol": "SOXL",
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SOXL_rehab.parquet",
+      "sha256": "0342f402196db7fe6c1e62556513fd6a2df613b02629706e3cabdea2bd817015"
+    },
+    {
+      "symbol": "SOXX",
+      "path": "data/raw/external/semis_minute_none_20261012_v1/SOXX_rehab.parquet",
+      "sha256": "a46e06d4c37919c1442bd54228167adc86f09cdf1b73b46eaac237d6acd4cf7c"
+    }
+  ],
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "provider_manifest_sha256": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223",
+  "immutable_code_sha256": {
+    "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "src/data/full_path_prices.py": "a048feafe47db675009e196c55376aaf4e2dc09e5aa40523094afe912cbfef8d",
+    "src/data/minute_price_basis.py": "d3abbb1b7a3ca6e1b7cdd78e55903c2b03dd4202cadd4caf61fac91ebe68dbf5",
+    "src/data/published_price_basis.py": "1cf9295b90ee8063473174a408dd87afda791d38ec5f74c96a2df9ffedfada8d"
+  },
+  "prevalue_metadata_only_observations": {
+    "SOXL_nonzero_B_event_dates": [
+      "2010-09-22"
+    ],
+    "SOXX_nonzero_B_event_dates": [],
+    "available_minute_domain_nonzero_B_events": 0,
+    "reference2023plus_domain_nonzero_B_events": 0,
+    "meaning": "SOXLall-corpusnonzeroBcount1 isoutside availableminutehistory, notcontradictionwithin-domainzero. A!=1 isNOTsplitclassifier; cashdividends mayencodeviaAwithB0. No prices/valuations readorcompared beforethisfreeze."
+  },
+  "deterministic_selection": "Use reference2023-01-04..2026-10-09 domain; selectearlieststablefirsttwo09:47sessionanchors forSOXL; firstexplicitexactsplitwithnoreportedcashcomponent acrossSOXL/SOXX ordered(eventdate,symbol); firstexplicitpositiveper_cash_div withnosplit acrossassets ordered(eventdate,symbol). Dates/typesonly,no returns/positions/profitselection. Casesfixedbelow; assertderivedselection agrees orfailcase,neverreplace.",
+  "cases": [
+    {
+      "id": "stable_operator_control",
+      "symbol": "SOXL",
+      "type": "no_CA_between_marks",
+      "anchors": [
+        "2023-01-04 09:47:00",
+        "2023-01-05 09:47:00"
+      ],
+      "requirement": "No interveningevent; globalasofA/B identical acrossbothmarks. Cashdividendcondition nottestedhere."
+    },
+    {
+      "id": "split_declared_no_cash",
+      "symbol": "SOXX",
+      "event_date": "2024-03-07",
+      "type": "explicit_split_base_ert_no_reported_cash_component",
+      "anchors": [
+        "2024-03-06 09:47:00",
+        "2024-03-07 09:47:00",
+        "2024-03-08 09:47:00"
+      ],
+      "requirement": "Useexplicitbase/ert exactpricefactor andreciprocal physicalsharefactor; B0, publishedAversusexactsplitroundingchecked. Missingcashcomponent isnotindependentproofnootherdistribution."
+    },
+    {
+      "id": "cash_dividend_multiplicative",
+      "symbol": "SOXL",
+      "event_date": "2023-03-21",
+      "type": "explicit_per_cash_div_no_split_B0",
+      "anchors": [
+        "2023-03-20 09:47:00",
+        "2023-03-21 09:47:00",
+        "2023-03-22 09:47:00"
+      ],
+      "requirement": "Physicalshares unchanged absentdeclaredsplit; inspectAchangeandimpliedrawexposure. DoNOTinferDfromB orassumeA!=1 issplit. Cashamount sourcefieldseparatefromunknowncurrency/paydate/receipt."
+    }
+  ],
+  "unit_lot": "Exactly100physicalshares atfirstcaseanchor; initialnotional100*rawP0. Thisisafixedalgebraiclotforunitcomparison,notexecutedorder/newstrategy/account. No fees, funding, targetgeneration,positionsimulation oraggregateNAV; source qconversion formula only. No variationofquantity/holdingwindow.",
+  "price_read_contract": "Exactly8caseanchorrows viaQlibD.features (oneassetspecifictimestamp queryperanchor,max8calls), fields$execution_price/$raw_execution_price. QlibD.calendar freq1min once fornativeprev/nextsessions. Assert anchors matchpinnedreference inputs/frame symbol_open/raw_symbol_open withfloatroundofftolerance. 09:47point isoriginal09:48RIGHTedgebarOPEN atbar_start09:47; availablehistreceipt isnotlivefilltime. No bars/quotes newlyfetched; noalteredproviderbins.",
+  "operator_contract": "Reuse `_events` chronologicalexactmetadata andglobalasof2026-10-09publishedA/B composition, no fittedcoefficients. CalculateA/B foronly8anchordates; P_adj_formula=A*P_raw+B. PreserveQlibfloat32P_adj separately andreportprovider-roundoffresidual. Globalasofuseslaterpublishedactions relativehistoricalcase; noPITclaim.",
+  "algebra": {
+    "quantity_mapping": "q_adjusted=n*P_raw0/P_adjusted0 (exactsourceibkr_tiered.py mapping), where n=100. Holdq_adjusted fixedwithinunitcase. q_physical(t)=n*product(explicit split_ert/split_base or join_ert/join_base crossed).",
+    "stable_general_identity": "ForconstantA,B and formulaP_adj=A*P_raw+B: q_adj*P_adj_t -n*P_raw_t = n*B*(P_raw0-P_raw_t)/(A*P_raw0+B). SymbolicnonzeroB implication only; no empiricalnonzeroBprices availableinbounds.",
+    "event_exposure_identity": "q_adj*P_adj_t=(q_adj*A_t)*P_raw_t+q_adj*B_t. Compareimpliedrawshares q_adj*A_t vsphysicaln*exactsplitfactor andtheaffineoffsetq_adj*B_t. WithcashdividendencodedAchange/B0, impliedriskyexposurecanchangeevenifphysicalsharesdonot; inspectwithoutlabelingitwhole-strategybias.",
+    "cash_separation": "Cashdistributionentitlement,receivable,availablecash andoptionalreinvestment aredistinct. Per_cash_div explicitvendoramount documentedper-sharecash; preserve originalamount/precision/currencyunknown. Do notderiveD=-B. Atmostrecordconditional100*D inSOURCE CASH UNITS, notUSDwealth. Withoutverifiedcurrency/entitlement/paydate doNOTaddtoUSDNAV, markavailablecash/paydateunknown, anddoNOTexecuteorassumereinvestment. Symbolicphysicalwealth=n_t*P_raw_t+C_paid+R_receivable maybedisplayedwithunknownterms. No doublecredit ofbothadjustmentandcashdividend."
+  },
+  "source_and_timing_checks": "Preserveeventex_div_date,per_cash_div,splitbase/ert,A/B andrawrehabfetched_at; missingannouncement/publication/record/paydate/currency/firstreceipt stayunknown. Marketbar timestamps andnormalize_none_history rightedge+60sassumption areseparate fromactual2026-10-12historicalreceipt. Oneexistingreadinessoldreceipt clocks reusedonlyasoldidentityexample; no livecausalrecord fabricated.",
+  "official_field_authority": {
+    "futu": "https://openapi.futunn.com/futu-api-doc/quote/get-rehab.html",
+    "documentation_observed_version": "v10.11",
+    "source_sdk": "10.02.6218",
+    "read_role": "Currentofficialfielddefinitions, nothistoricalpublication/amount/currencycertification. ex_div_date ex-right/dividenddate; per_cash_div per-sharecash; split_base/split_ert pricefactor; forwardprice=NONE*A+B. NoquoteAPIcalled.",
+    "qlib": "https://qlib.readthedocs.io/en/latest/component/data.html"
+  },
+  "gates": {
+    "source_identity": "Allpinnedhashes,exacteventselectionand8anchorsvalid; missinganythingcase=needs_data, nointerpolation/substitution.",
+    "unit_identity": "Report formulafloat64algebraresidual withatol1e-10 relative1e-10; Qlibprice/formulaandnative-framereadback useatol1e-5+rtol5e-6*scale toallowknownfloat32/roundedpublishedfactor differences; chosenbeforevalues. Recordbothroundoffandsemanticexposuregap separately.",
+    "event_accounting": "Split-only bridge mayqualify underdeclaredsourcefactor/precision. Dividend-economicbridge requires explicitqualifiedcurrency,entitlement,receivable/paymenttimes andcashledger; unknownblocksqualifiedcashbridge evenifnumericalpricelegsmatch.",
+    "PIT_timing": "Actualreceivedbeforedecision andsealeddecisionbeforeindependentfill proofrequired; historicalretrievaltimestamps/assumedavailability doNOTpass. Eachcase separategate; nooneoverallpassmask."
+  },
+  "budgets": {
+    "numeric_unit_cases": 3,
+    "symbolic_nonzeroB_identity": 1,
+    "price_anchor_rows": 8,
+    "Qlib_features_calls_max": 8,
+    "Qlib_calendar_calls_max": 1,
+    "new_fits": 0,
+    "new_policy_replays": 0,
+    "new_native_accounts": 0,
+    "new_market_or_CA_fetches": 0,
+    "orders": 0,
+    "observer_launches": 0,
+    "strategy_NAV_or_risk_recomputations": 0
+  },
+  "outputs": "Notebook+Chineseconclusion; case_selection/eventfieldqualification,8Qlibmarks/operator/sourcehashes,unitidentity/exposurecomparison,receivable/cashunknownflags,timingandfourgate matrix; allrawreadbacks/derivedcaseobjectsRecorderNAS. No strategyreturn/DD/fullhistoricalbiasestimate.",
+  "interpretation": "Afinitealgebraic/accountingcaseproofdoesnotinvalidateallhistoricalresults, quantifywhole-strategybias, certifybrokerparity orqualifyforward. Failedcash/PITproof identifiesexactnextdependency. Anybasisfix wouldbenewmodel/executionidentity; do notmodifysealed27baa orproduction.",
+  "promotion_authority": false,
+  "historical_gate_override": false,
+  "next_action_boundary": "Afterindependentresultreview chooseone minimal accountingcontract/sourceproof step beforeobserverbuild; no automaticnewdatafetch/replay orlaunch."
+}

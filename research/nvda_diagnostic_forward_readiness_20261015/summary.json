@@ -1,0 +1,193 @@
+{
+  "experiment": "nvda_diagnostic_forward_readiness_20261015",
+  "plan_sha256": "02583876910a238a0d42119fe1ae5b0cb41e7d86427dc8c9a41914e5b2da2aed",
+  "role": "diagnostic_observation_of_not_promoted_reference_READINESS_ASSESSMENT_ONLY",
+  "decision": "not_ready_for_qualified_forward_separate_diagnostic_adapter_contract_needed",
+  "objective_achieved": false,
+  "historical_rolling_gate": false,
+  "historical_bootstrap_gate": false,
+  "new_qualified_forward_days": 0,
+  "old_SIM_days_credited": 0,
+  "new_fits": 0,
+  "new_replays": 0,
+  "new_native_accounts": 0,
+  "new_data_fetches": 0,
+  "launches": 0,
+  "orders": 0,
+  "production_scheduler_changes": 0,
+  "readback_started_at_utc": "2026-10-15T11:45:18.729089+00:00",
+  "source_changed_during_readback": [],
+  "existing_calendar_coverage": [
+    {
+      "provider": "data/qlib/full_path_tiered_allocation_20261013",
+      "freq": "1min",
+      "rows": 8032,
+      "first": "2018-10-12 09:45:00",
+      "last": "2026-10-09 16:00:00",
+      "role": "existingcalendarcoverage_not_receiptclock"
+    },
+    {
+      "provider": "data/qlib/published_futu_affine_20260925_v1",
+      "freq": "day",
+      "rows": 4162,
+      "first": "2010-03-11 00:00:00",
+      "last": "2026-09-25 00:00:00",
+      "role": "existingcalendarcoverage_not_receiptclock"
+    }
+  ],
+  "model_identities": [
+    {
+      "seed": 71,
+      "trained_tensor_sha256": "f2d405dd4540001ef04a2ea5c2dfd709c1ad01faa88a74096872ae417f680db0",
+      "scalers_sha256": "556dc6a9a49638497f687cdda844efc92313a329875f258a611600f1eaf6860a",
+      "base_feature_count": 42,
+      "numeric_extra_features": [
+        "nvda_own_original_revenue_realization"
+      ],
+      "training_rows": 3014,
+      "cutoff": "2023-01-01 00:00:00-05:00",
+      "new_predict_or_fit_calls": 0
+    },
+    {
+      "seed": 172,
+      "trained_tensor_sha256": "2fef4b10b4a4c0cbb7e2d936a823e08efaf54b3cd1117265a0f45db5e0cb1dcf",
+      "scalers_sha256": "556dc6a9a49638497f687cdda844efc92313a329875f258a611600f1eaf6860a",
+      "base_feature_count": 42,
+      "numeric_extra_features": [
+        "nvda_own_original_revenue_realization"
+      ],
+      "training_rows": 3014,
+      "cutoff": "2023-01-01 00:00:00-05:00",
+      "new_predict_or_fit_calls": 0
+    },
+    {
+      "seed": 273,
+      "trained_tensor_sha256": "4a589886a1c3025a140d1a73decdf266dc543d6e7121d945ce41325f1249c326",
+      "scalers_sha256": "556dc6a9a49638497f687cdda844efc92313a329875f258a611600f1eaf6860a",
+      "base_feature_count": 42,
+      "numeric_extra_features": [
+        "nvda_own_original_revenue_realization"
+      ],
+      "training_rows": 3014,
+      "cutoff": "2023-01-01 00:00:00-05:00",
+      "new_predict_or_fit_calls": 0
+    }
+  ],
+  "old_runtime_book_summaries": [
+    {
+      "path": "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/candidate_10bps.json",
+      "candidate_identity": {
+        "cost_bps": 10.0,
+        "release_manifest_sha256": "bd7210b4a907dd1da08cd26de21854be976a5cb0041f74e6d04b23972de83156",
+        "role": "candidate"
+      },
+      "cost_bps": 10.0,
+      "last_event_at": "2026-10-09T10:32:56.580124-04:00",
+      "stored_event_count": 14,
+      "credited_new_reference_days": 0,
+      "liveness_inferred": false
+    },
+    {
+      "path": "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/candidate_25bps.json",
+      "candidate_identity": {
+        "cost_bps": 25.0,
+        "release_manifest_sha256": "bd7210b4a907dd1da08cd26de21854be976a5cb0041f74e6d04b23972de83156",
+        "role": "candidate"
+      },
+      "cost_bps": 25.0,
+      "last_event_at": "2026-10-09T10:32:56.580124-04:00",
+      "stored_event_count": 14,
+      "credited_new_reference_days": 0,
+      "liveness_inferred": false
+    },
+    {
+      "path": "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/baseline_10bps.json",
+      "candidate_identity": {
+        "cost_bps": 10.0,
+        "release_manifest_sha256": "bd7210b4a907dd1da08cd26de21854be976a5cb0041f74e6d04b23972de83156",
+        "role": "baseline"
+      },
+      "cost_bps": 10.0,
+      "last_event_at": "2026-10-09T10:32:56.580124-04:00",
+      "stored_event_count": 14,
+      "credited_new_reference_days": 0,
+      "liveness_inferred": false
+    },
+    {
+      "path": "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/baseline_25bps.json",
+      "candidate_identity": {
+        "cost_bps": 25.0,
+        "release_manifest_sha256": "bd7210b4a907dd1da08cd26de21854be976a5cb0041f74e6d04b23972de83156",
+        "role": "baseline"
+      },
+      "cost_bps": 25.0,
+      "last_event_at": "2026-10-09T10:32:56.580124-04:00",
+      "stored_event_count": 14,
+      "credited_new_reference_days": 0,
+      "liveness_inferred": false
+    }
+  ],
+  "old_linked_receipt": {
+    "status": "one_linked_existing_triplet_read",
+    "book": "runtime/soxl/stage1_regime_paper/stage1_regime_paper_20261001/books/candidate_25bps.json",
+    "event_id": "2026-10-09:recovery",
+    "recorder_id": "10429f04cae34796832b48b7b32fa4d6",
+    "artifact_sha256": {
+      "event.pkl": "868459b7f7543c6b145457362ad3084a15040bbdbb1001f6e3e6053336d83ba6",
+      "receipt.pkl": "6817857548ef8897592053445ff0fb5ab35ff73e937a5aa84100fb2b112bf9ed",
+      "state.pkl": "6a03eac3adb484101657504e13b15056aec9001a861bb96db32a00d29adfb07c"
+    },
+    "observed_at": "2026-10-09T10:32:56.580124-04:00",
+    "quote_as_of": "2026-10-09T10:32:47-04:00",
+    "feature_available_at": "2026-10-09T10:30:00-04:00",
+    "event_fields": [
+      "session",
+      "slot",
+      "observed_at",
+      "quote_as_of",
+      "prices",
+      "features",
+      "input_sha256",
+      "candidate_sha256",
+      "signal_date",
+      "previous_session",
+      "feature_available_at",
+      "source"
+    ],
+    "credited_new_reference_days": 0
+  },
+  "frozen_frame_first_trade": "2023-01-04 00:00:00",
+  "frozen_frame_last_exit": "2026-10-09 00:00:00",
+  "reference_feature_rows": 3966,
+  "latest_frozen_realization_quarter": "FY2027Q2",
+  "economic_forward_qualified": false,
+  "diagnostic_proxy_observer_currently_launched": false,
+  "smallest_next_action": "Freeze ONE isolated decision-receipt adapter contract for diagnostic research-price-proxy observation: immutable27baa inputs/state/0-2-5 ledger schema, received_at/used-row hashes, seal decision before separately observed laterfill, failmissing slots; offline existing/synthetic clock-contract qualification first. No schedulerlaunch orquote/datafetch untilseparatereview. Rawshare/dividend economicqualification remainsseparateharddependency.",
+  "recorder_id": "a803f9b1884f4e93a9572614701ed978",
+  "experiment_id": "323468392528683446",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_diagnostic_forward_readiness_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_diagnostic_forward_readiness_20261015/qlib_recorder/323468392528683446/a803f9b1884f4e93a9572614701ed978",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*"
+    ]
+  },
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "nas_evidence": {
+    "sha256": "d0749d25a8465cc7c83857e324c5e7418bdc7e5995f9ca8a144fd0447eb0150c",
+    "size_bytes": 166021,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/d0/74/d0749d25a8465cc7c83857e324c5e7418bdc7e5995f9ca8a144fd0447eb0150c",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 19:45:20.594989+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/d0/74/d0749d25a8465cc7c83857e324c5e7418bdc7e5995f9ca8a144fd0447eb0150c",
+    "recorder_id": "a803f9b1884f4e93a9572614701ed978",
+    "experiment_id": "323468392528683446",
+    "archive_root": "qlib_recorder"
+  }
+}

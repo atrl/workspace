@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/amd_frozen_nvda_residual_training_20261015",
-  "current_phase": "fixed_AMD_closed_diagnostic_forward_readiness_assessment_next",
-  "next_action": "Assess existing prospective-observer infrastructure, immutable27baa identity, source/marketreceipt clocks and signal-before-execution feasibility for diagnostic observation of a not-promoted frozenreference. Assessment only: do not launch or changeproduction/scheduler/orders. Pre-register any future study separately withfixed evaluationtimes, newdaysonly andmatchedcontrols; historicalrolling/CI failures remain false.",
+  "current_experiment": "research/affine_raw_accounting_bridge_20261015",
+  "current_phase": "unit_bridge_complete_fixed_cash_event_source_dependency",
+  "next_action": "Freeze a bounded existing-corpus lookup for SOXL2023-03-21 distribution: explicit amount/currency/ex-record-pay dates, sourceobserved clocks and receivable-versus-availablecash conventions. No inferredcashfromA/B or backfilled historicalreceipt. Distinguish declaredpaper accounting fromactualbroker parity. Anymissingprimary retrieval requiresseparateboundedplan; no observerlaunch/productionchange/strategyreplay.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -686,6 +686,73 @@
         "Completeannual andbootstrap gates fail",
         "No independentforward"
       ]
+    },
+    {
+      "card": "research/nvda_diagnostic_forward_readiness_20261015",
+      "kind": "bounded_readonly_diagnostic_forward_readiness",
+      "status": "completed_not_ready",
+      "recorder_id": "a803f9b1884f4e93a9572614701ed978",
+      "evaluation": "research/nvda_diagnostic_forward_readiness_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_READONLY_ASSESSMENT",
+        "plan_sha256": "02583876910a238a0d42119fe1ae5b0cb41e7d86427dc8c9a41914e5b2da2aed"
+      },
+      "verification": {
+        "nas_verified_artifacts": 12,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_replays": 0,
+        "new_accounts": 0,
+        "new_data_fetches": 0,
+        "launches": 0,
+        "orders": 0,
+        "production_changes": 0
+      },
+      "qualified_new_forward_days": 0,
+      "next_action_review": "research/nvda_diagnostic_forward_readiness_20261015/next_action_review.json"
+    },
+    {
+      "card": "research/affine_raw_accounting_bridge_20261015",
+      "kind": "finite_existing_source_unit_accounting_timing_bridge",
+      "status": "completed_finite_unit_bridge_cash_and_PIT_unqualified",
+      "numeric_unit_cases": 3,
+      "price_anchor_rows": 8,
+      "new_policy_replays": 0,
+      "new_native_accounts": 0,
+      "new_fits": 0,
+      "new_fetches": 0,
+      "evaluation": "research/affine_raw_accounting_bridge_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_THREE_CASE_BRIDGE",
+        "plan_sha256": "1e03bf5f8b8f813a46e2cb26909c8d2d1cec4759693bcb2e7d160db935bf75c6",
+        "conditions": [
+          "Dates/types chosen beforevalues, no substituteevents",
+          "ActualreferenceB0; nonzeroB onlysymbolic,outside2010event",
+          "Cashfieldnot inferredfromB; splitsuseexplicitratio",
+          "Providerroundoff separatefromeconomicexposure",
+          "Unknowncurrency/entitlement/paydate/receipt cannotpasscash/PIT",
+          "No strategyreturn/risk/biasestimation orobserverlaunch"
+        ]
+      },
+      "recorder_id": "b6cf662c0feb4d46badbdad4ccf18346",
+      "effective_report": "research/affine_raw_accounting_bridge_20261015/case_gates_corrected.csv",
+      "reporting_correction": "research/affine_raw_accounting_bridge_20261015/reporting_correction.json",
+      "verification": {
+        "numeric_unit_cases": 3,
+        "Qlib_anchor_rows": 8,
+        "nas_verified_artifacts": 19,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_replays": 0,
+        "new_accounts": 0,
+        "new_fetches": 0,
+        "observer_launches": 0
+      },
+      "cash_economic_bridge_qualified": false,
+      "PIT_timing_qualified": false,
+      "whole_strategy_bias_estimated": false
     }
   ],
   "governance_review": {
