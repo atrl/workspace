@@ -70,3 +70,27 @@ def test_qlib_full_path_maturity_is_strict_and_scaler_ignores_unmatured_rows():
     np.testing.assert_array_equal(fitted[0].mean,fitted[1].mean)
     for actual,expected in zip(fitted[0].network.parameters(),fitted[1].network.parameters()):
         torch.testing.assert_close(actual,expected,rtol=0,atol=0)
+
+
+def test_optional_composition_hook_identity_hold_and_both_execution_slots(monkeypatch):
+    import src.backtest.full_path_tiered as module
+    from src.model.nominal_beta_composition import AuditedComposition, cancel_leverage_cash
+    settings=plan()
+    dates=pd.date_range('2023-01-04',periods=2)
+    frame=pd.DataFrame({'signal_date':dates-pd.Timedelta(days=1),'trade_date':dates,'exit_date':dates+pd.Timedelta(days=1)})
+    for field in ['known_soxl','known_soxx','soxl_open','soxx_open','soxl_exit_open','soxx_exit_open','close_soxl','close_soxx','raw_soxl_open','raw_soxx_open','soxl_recovery','soxx_recovery','raw_soxl_recovery','raw_soxx_recovery']:frame[field]=100.
+    target=np.array([.2,.4,.4])
+    def opened(row,**kwargs):return dict(risk_state=0,risk_clock=0,desired_open_weights=target,execute_open_target=row.trade_date==dates[0],current_beta_cap=1.)
+    def recovered(row,**kwargs):return dict(recovery_action=row.trade_date==dates[0],target_weights=target)
+    monkeypatch.setattr(module,'prepare_on_policy_open',opened);monkeypatch.setattr(module,'prepare_on_policy_recovery',recovered)
+    kwargs=dict(models=None,plan=settings,slippage_bps=2,controller={'frozen_open_action_value_model':None,'frozen_recovery_model':None})
+    baseline=module.replay_full_path(frame,**kwargs)
+    identity=module.replay_full_path(frame,**kwargs,target_transform=lambda weights,**context:weights)
+    for key in ['replay','orders','targets']:pd.testing.assert_frame_equal(baseline[key],identity[key])
+    transform=AuditedComposition();changed=module.replay_full_path(frame,**kwargs,target_transform=transform)
+    assert [r['slot'] for r in transform.rows]==['open','recovery']
+    np.testing.assert_array_equal(target,[.2,.4,.4])
+    np.testing.assert_allclose(changed['targets'].iloc[0][['soxl_weight','soxx_weight','cash_weight']].to_numpy(float),[0.,1.,0.])
+    assert changed['replay'].ending_soxl_quantity.eq(0).all()
+    for value in [[0.,1.,0.],[.3,.6,.1],[0.,0.,1.]]:
+        result=cancel_leverage_cash(value);assert abs(3*result[0]+result[1]-(3*value[0]+value[1]))<1e-12

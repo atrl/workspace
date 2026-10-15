@@ -9,7 +9,8 @@ from src.workflow.stage1_open_action_value import prepare_on_policy_open, prepar
 
 
 def replay_full_path(frame, *, models, plan, slippage_bps, controller=None, recovery_spec=None,
-                     action_spec=None, selection=None, benchmark=False, state_transition=None, controller_by_date=None):
+                     action_spec=None, selection=None, benchmark=False, state_transition=None, controller_by_date=None,
+                     target_transform=None):
     if controller_by_date is not None and controller is not None:
         raise ValueError('provide static or dated controller, not both')
     q, cash, peak = np.zeros(2), float(plan["initial_cash"]), float(plan["initial_cash"])
@@ -50,6 +51,8 @@ def replay_full_path(frame, *, models, plan, slippage_bps, controller=None, reco
             if desired is not None and (not np.isfinite(desired).all() or desired[0] > plan["maximum_soxl_weight"] + 1e-10
                     or desired[2] < plan["minimum_cash_weight"] - 1e-10):
                 raise ValueError("blocked: path policy target violates legal target constraints")
+        if desired is not None and target_transform is not None:
+            desired = target_transform(np.asarray(desired, float).copy(), slot="open", trade_date=row.trade_date)
         targets.append({"signal_date": row.signal_date, "trade_date": row.trade_date, "decision_at": row.trade_date + pd.Timedelta(hours=9, minutes=46),
             "known_equity": known_nav, "known_drawdown": drawdown, "soxl_weight": desired[0] if desired is not None else pretrade[0],
             "soxx_weight": desired[1] if desired is not None else pretrade[1], "cash_weight": desired[2] if desired is not None else pretrade[2]})
@@ -62,7 +65,10 @@ def replay_full_path(frame, *, models, plan, slippage_bps, controller=None, reco
                 model=active_controller["frozen_recovery_model"], selected_model=selection)
             recovery = recovered["recovery_action"]
             if recovery:
-                traded = settle_tiered_event(q, cash, desired=recovered["target_weights"],
+                recovery_target = recovered["target_weights"]
+                if target_transform is not None:
+                    recovery_target = target_transform(np.asarray(recovery_target, float).copy(), slot="recovery", trade_date=row.trade_date)
+                traded = settle_tiered_event(q, cash, desired=recovery_target,
                     adjusted_prices=row[["soxl_recovery", "soxx_recovery"]], raw_prices=row[["raw_soxl_recovery", "raw_soxx_recovery"]],
                     stamp=row.trade_date + pd.Timedelta(hours=10, minutes=32), fees=fees)
                 q, cash = traded["quantities"], traded["cash"]

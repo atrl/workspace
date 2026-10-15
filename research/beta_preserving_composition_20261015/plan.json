@@ -1,0 +1,142 @@
+{
+  "as_of": "2026-10-09",
+  "start": "2023-01-03",
+  "end": "2026-10-09",
+  "initial_cash": 100000,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "maximum_drawdown": 0.3,
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "source": {
+    "card": "research/monthly_forecast_account_20261014",
+    "recorder_id": "e57350a820c24ac8b306d67955e4ae25",
+    "archive": "b3875393f9f5495be29efbe3f8782c92cdde4c4798ce97f796bcc870c34379d2",
+    "inventory_sha256": "aa9e441c0a6ff8b5a8a95d48918bcf5fb2543699f9e6e62d38742571ce4ca80b"
+  },
+  "price_source": {
+    "card": "research/full_path_tiered_allocation_20261013",
+    "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+    "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7"
+  },
+  "action_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+    "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+  },
+  "frozen_source": {
+    "card": "research/tangent_allocation_head_20261014",
+    "recorder_id": "3ab6bbbfa73d4abdba9f1fb8fa313f64",
+    "archive": "269e07599311b41c43c0254f947fe2603f1f81e1974e6e28ced43d89d4d8c79a",
+    "inventory_sha256": "a82e3b948ba1b0fad83532a3d4c35944c3bc41bb0794983ff0b258f60c6e1840"
+  },
+  "experiment": "beta_preserving_composition_20261015",
+  "frozen_at_utc": "2026-10-15T06:22:46.601959+00:00",
+  "mechanism": "Fixed funded composition cancellation after own-account controller projection. delta=min(SOXL,CASH/2); new=(SOXL-delta,SOXX+3delta,CASH-2delta). Preserve nominal3x*SOXL+SOXX only, not actual risk or covariance. No learned open router: frozen strong_always reference.",
+  "maximum_new_native_cases": 3,
+  "new_fits": 0,
+  "maximum_model_fits": 0,
+  "maximum_soxl_weight": 0.3,
+  "minimum_cash_weight": 0.0,
+  "controller_projection_minimum_cash_weight": 0.15,
+  "controller_projection_maximum_soxl_weight": 0.3,
+  "reference_source": {
+    "card": "research/open_router_ablation_20261015",
+    "recorder_id": "98eab7aa28e349d4bfb5e125d5c2b4fe",
+    "archive": "d43879bb278e73902ae8533fe93776f08dbc5b51f8731f768b9fd5106e223145",
+    "inventory_sha256": "e3b80c1a1055fccb1ef446754198139de4c708f27ffe0c10c45f2d9b6aeef03b"
+  },
+  "attribution_source": {
+    "card": "research/three_asset_failure_attribution_20261015",
+    "recorder_id": "845902131e7c49e78d84e5a887881a8a",
+    "archive": "3476868e75cc37b92a96a55d54036eb43a5696127d9d41346c13c75f95077d96",
+    "inventory_sha256": "f6e4afeb3b182bc12d098e3ac58f26f126218bb16e64ccf907497ae2b0f2fdda"
+  },
+  "related_negative_route": "research/benchmark_core_variance_20261009: covariance-budget no-mean lever_cash/core comparison failed; this is predictive-target own-ledger nominal-beta composition intervention, not independent new hypothesis evidence.",
+  "transform_slots": [
+    "open",
+    "recovery"
+  ],
+  "target_transform_contract": "Optional defaultNone hook after controller target computation and before fees/settlement; never called on HOLD; transform both opening and executed recovery target; input copy; output finite long-only funded simplex, no higher nominal beta or SOXL. Identity/default preserves existing behavior. Controller risk states/peak/history evolve from candidate own quantities/cash; never freeze old control target path.",
+  "preserved": "Frozen tangent allocation targets, source prices, original risk thresholds/state transitions/caps, recovery classifier/eligibility/threshold, smoothing and target acceptance; strong_always open modelNone. Transform only final asset representation; internal15% projection remains as source beta generator, final cash may be0.",
+  "comparators": [
+    "strong_always",
+    "tangent",
+    "original",
+    "soxx"
+  ],
+  "costs": "Each cost runs independent own-account ledger with identical source Tiered tariff; no subtract-cost approximation.",
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "verification": "Before replay verify provider execution/raw marks at all open/recovery slots against frozen frame; exact source date/context equality. Native Qlib full-account quantities/cash/fees reconciliation uses existing tolerance. Identity hook checked on focused synthetic open/recovery/HOLD test, no extra historical control rerun.",
+  "reporting": "All trade-year and quarter periods, partial2023/2026 flags; contiguous126day windows; beta/composition/fees and actual return volatility, CVaR and monitoredDD. Nominalbeta preservation does not mean equal realized beta or risk.",
+  "bootstrap": {
+    "mean_block": 63,
+    "resamples": 2000,
+    "alpha": 0.025,
+    "seed": 20261014,
+    "comparators": [
+      "strong_always",
+      "soxx"
+    ]
+  },
+  "gates": [
+    "beat_paired_all_costs",
+    "net_soxx_excess_all_costs",
+    "drawdown_30pct",
+    "cvar_no_worse",
+    "rolling_70pct",
+    "complete_annual_70pct",
+    "bootstrap_positive",
+    "independent_development",
+    "qualified_forward"
+  ],
+  "independent_development": false,
+  "qualified_forward": false,
+  "if_failed": "Close fixed full-transfer route, retain minimal evidence, no transfer coefficient/cap/floor/threshold/seed search; overall goal remains active.",
+  "promotion_authority": false,
+  "audit": "Log each pre/post requested target, nominal beta and simplex errors. Actual postfill/ending nominal beta recorded separately, drift/costs not claimed preserved. Retain recovery classifier, disclose changed-distribution risk and all eligible/trigger counts. No transformed target used before original controller decision."
+}

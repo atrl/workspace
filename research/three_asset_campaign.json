@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/beta_preserving_composition_20261015",
-  "current_phase": "bounded_implementation",
-  "next_action": "Implement and evaluate fixed nominal-beta composition with all consumed native price marks checked against frozen source.",
+  "current_experiment": "research/composition_path_diagnosis_20261015",
+  "current_phase": "diagnostic_execution",
+  "next_action": "Execute approved saved-account diagnostic; distinguish composition contribution, cost-dependent state feedback and all0bp drawdown breaches, then select next falsifiable mechanism.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -75,15 +75,44 @@
       "card": "research/beta_preserving_composition_20261015",
       "kind": "bounded_composition_mechanism",
       "parent": "research/three_asset_failure_attribution_20261015",
-      "status": "implementing",
+      "status": "completed_not_promoted",
       "maximum_new_model_fits": 0,
       "maximum_new_native_accounts": 3,
-      "evaluation": null,
+      "evaluation": "research/beta_preserving_composition_20261015/independent_evaluation.json",
       "design_review": {
         "reviewer": "/root/evaluator",
         "verdict": "APPROVED_FOR_BOUNDED_IMPLEMENTATION",
         "plan_sha256": "c95dc0d2b29b3972d95a7f901026ede7e6a12b462125f72f2b3995c856e4c33b",
         "required_source_check": "all native consumed fill and valuation marks, not merely open/recovery; exact dates and native report timestamps"
+      },
+      "recorder_id": "6680a54e6ac440bdbe96e438f5b9e197",
+      "failed_gates": [
+        "0bp monitored drawdown30.8604% exceeds30%",
+        "all126-session rolling positive excess rates below70%",
+        "all bootstrap lower bounds negative",
+        "independent_development absent",
+        "qualified_forward absent"
+      ],
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_full_path_tiered.py -q",
+        "passed": 4,
+        "new_fits": 0,
+        "new_native_accounts": 3,
+        "readback": "research/beta_preserving_composition_20261015/readback_verification.json"
+      }
+    },
+    {
+      "card": "research/composition_path_diagnosis_20261015",
+      "kind": "saved_account_failure_diagnostic",
+      "parent": "research/beta_preserving_composition_20261015",
+      "status": "executing",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FROZEN_READ_ONLY_DIAGNOSIS",
+        "plan_sha256": "e7013e820bf85fea37969a6fe4372d8f031afed13b290594d48a797fdb5143a3",
+        "timing_condition": "Current session execution fees occur after known NAV; separate prior cumulative fees from same-day fees."
       }
     }
   ],

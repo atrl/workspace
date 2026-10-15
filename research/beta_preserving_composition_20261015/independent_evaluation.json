@@ -1,0 +1,37 @@
+{
+  "reviewer": "/root/evaluator",
+  "role": "independent_read_only",
+  "verdict": "ACCEPT_VALID_NEGATIVE_EXPERIMENT",
+  "promotion_decision": "not_promoted",
+  "recorder_id": "6680a54e6ac440bdbe96e438f5b9e197",
+  "plan_sha256": "c95dc0d2b29b3972d95a7f901026ede7e6a12b462125f72f2b3995c856e4c33b",
+  "verification_manifest_sha256": "f12d8cd0368425c76065390347ac473b44c7007f6467ffe307e729fb3cb7fa53",
+  "nas_archive_sha256": "7968dd7531e3373fc18f5d3f22b6160d87a50f5d698971a7a988091cf21a1e8e",
+  "source_sha256": {
+    "original_execution_text": "e30add210d1660e3cb2da9fa032ff439ccd7fb42d1763408edf4ef0c7fc3bcca",
+    "src/workflow/beta_preserving_composition.py": "f19bb7afb13a9ee5848e6baa25a84939f13ef1d61936140ff1949ff241806893",
+    "src/backtest/full_path_tiered.py": "28fa550d277fde9562e2858880fa9219dda2daa698657e05de1243f51bddae70",
+    "src/model/nominal_beta_composition.py": "718cef532ebb9b009da84abfb64abdf1d0eaf23c7ac453243109e85abfdae258"
+  },
+  "checks": [
+    "3 native accounts passed",
+    "18 source mark equality groups",
+    "target simplex and nominal beta invariants",
+    "HOLD and default hook preserved",
+    "source revision affects gate reporting only",
+    "conclusion agrees with independently read Recorder results"
+  ],
+  "failed_gates": [
+    "0bp monitored drawdown30.8604% exceeds30%",
+    "all126-session rolling positive excess rates below70%",
+    "all bootstrap lower bounds negative",
+    "independent_development absent",
+    "qualified_forward absent"
+  ],
+  "provenance_review": {
+    "original_archive_verification": "owner cold-read and exact bytes proof; reviewer accepts attributed original_archive_readback.json",
+    "reviewer_independent_checks": "current native artifact hashes and execution/reporting source diff",
+    "final_cold_readback": "owner readback_verification.json"
+  },
+  "follow_up": "Close fixed full-transfer route; separately preregister saved-account failure attribution, no coefficient or risk threshold rescue."
+}

@@ -1,0 +1,12 @@
+{
+  "original_archive_sha256": "4b4f86b48fc94b9f675a0a2c9077dbcbeacccf5905557be47070ab862fcb2a87",
+  "original_archive_download_hash_verified": true,
+  "original_execution_source_text_sha256": "e30add210d1660e3cb2da9fa032ff439ccd7fb42d1763408edf4ef0c7fc3bcca",
+  "exact_original_archive_bytes_match_current": {
+    "analysis/native/candidate_0": "69c8d06fc11ddb9a7a51bdf18545bad7317047ec7d7f3f262a4b086d1fcb7f30",
+    "analysis/native/candidate_2": "87a23b9ed72579bd16a2c3875ad4a7722d36ba0654a3fbef459238781deb728e",
+    "analysis/native/candidate_5": "6f2898e8d46f976ea86e86bad926100988c3c685eb475204fccf3ce278257a59",
+    "sources/workflow": "3503a6aa836bd291773b9806c964fd2c5164ef4d8acddc0b84c89a3d5718476a"
+  },
+  "all_native_accounts_unchanged": true
+}
