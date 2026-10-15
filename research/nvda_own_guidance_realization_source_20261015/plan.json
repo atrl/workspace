@@ -1,0 +1,77 @@
+{
+  "experiment": "nvda_own_guidance_realization_source_20261015",
+  "frozen_at_utc": "2026-10-15T10:17:41.816395+00:00",
+  "definition": "Delayed original management revenue-forecast realization: pair OWN previously issued original next-quarter revenue guidance with revenue in the ORIGINAL REGULAR QUARTERLY REPORT for that SAME target fiscalquarter. Not firstpublicactual/freshnews, latestguide,consensussurprise,EPS orclosed guidance_qoq. Sourcequalification only; no errorfeature/statistics/priceoutcomes.",
+  "sources": {
+    "guidance_parent": {
+      "card": "research/nvda_original_guidance_qualification_20261011",
+      "recorder_id": "723e63dda85a424c9a0a74e1374dc480",
+      "inventory_sha256": "fb39e9f5b7105cd06231585b265c450f9bb5506d2eae4164e184c166371a5fae",
+      "access": "load_verified_recorder_objects nativeexisting Recorder; nofetch/restoreguess",
+      "artifacts": [
+        "source/raw_facts.pkl",
+        "source/source_manifest.pkl",
+        "source/normalized_events.pkl",
+        "source/original_guidance_events.pkl"
+      ]
+    },
+    "fact_manifest": {
+      "path": "data/raw/external/nvda_guidance_facts_20261011_v1/manifest.json",
+      "sha256": "df09d3cf8fea92702f6f33a616b7e7c1fa2812ec6977289ee2afdc141f61b82a",
+      "records": 66
+    },
+    "secondary_existing_sec_text": {
+      "card": "research/nvda_sec_eps_series_20261015",
+      "recorder_id": "3afd34a46d474de298717d37f67460d1",
+      "archive": "71d9517a13b753329e1b4031e85ad937b01d04fc6aedb44a25a1c70dd6d5e5ce",
+      "inventory_sha256": "48df7750cb50c20facea94926b95ee3dc760447300c1b43c03a9fe8d66efdc81",
+      "artifacts": [
+        "inputs/web_text_bytes",
+        "inputs/metadata_bytes"
+      ],
+      "maximum_quarter_documents": 48
+    }
+  },
+  "universe": {
+    "original_guidance_target_start": "FY2012Q1",
+    "original_guidance_target_end": "FY2027Q3",
+    "expected_target_rows": 63,
+    "as_of": "2026-09-25",
+    "expected_potential_realized_pairs": 62,
+    "expected_unrealized_target": "FY2027Q3",
+    "rule": "RetainALL63 targetquarter rows includingmissing/blocked/unrealized. Deriveactualcounts fromsources; unexpectedcoverage meansneeds_data,neverdrop rows toforcecount."
+  },
+  "original_guidance_rule": "Use earliest fullydisclosed validoriginal nextquarter guidance for eachtarget from sourcequalification, preserving originalrange/midpoint/units/currency/precision/date/scope andallfalsequalificationflags. Never overwrite withinterimrevisions orlatercomparison values.",
+  "actual_rule": "Use originalregular-report CURRENTquarter consolidatedGAAP totalrevenue field, notannual/Q4annualtotal/latercomparative/restatedXBRL/nonGAAPproxy. Keeporiginalprecision includingUSDthousand\u2192million trace. Guidancetarget fiscalquarter mustequalactualreportedquarter, originalguide disclosure mustprecederegularactual disclosure.",
+  "numeric_semantics": "KeepdirectUSDamountguide bounds andoriginalmidpoint derivation. Forpercentage-sequential guidesretainexplicitprevious-quarter denominator andpercentage endpoints; onlyflag whether amountconversion is supported byoriginalwording+samebase/scope. Do notcalculate surprise/error/ranks/normalization orprices inthissource-onlystage.",
+  "scope_rules": [
+    "Guide andtargetactual reportingperimeter mustmatch. Explicit exclusion versusconsolidatedactual needs exactexisting samequarter scopebridge; no estimatedacquisition subtraction/laterdocument backfill.",
+    "PreserveFY2012Q2 Icera direct_total_revenue_comparison_qualified=false asblocked unlessexistingoriginalsametargetactual bridge explicitlysupportscomparison; nofetch torepair.",
+    "Mellanox decisions mustciteexactexisting disclosures: targetquarter endversusApr27 acquisitionclose; originalguide exclusions/inclusions andregularactual coverage. Do notblanketexcludeallMellanoxperiods orassumecompatibility.",
+    "Forecastassumptions suchasCOVID/H20 anticipatedlostsales are notautomaticallyaccountingperimeterexclusions. Retainexactwording andclassifyassumptionversusmeasurement scope; neveraddbackassumedlosses toactual/guide."
+  ],
+  "disclosure_timeline": "Keepall66capturedfilingevents andlinkknowninterveningevents totargetquarter. Explicit2014-05-06/05-08 release/supplement roles,2019-01-28 guideupdate/preannouncement and2022-08-08 preliminaryrevenue remainseparatefromregularactual. Earlierpreliminary values neverreplace regularreportactual. Knownpreannounced cases markedknown_stale_or_partly_known; absenceofrecordedupdate doesNOTprove nootherupdates. all_updates_coverage_verified remainsfalse unlessexistingevidenceprovesit.",
+  "availability": "Reuse parentconservativedate-only binding: preserve rawrelease,filing,APIaccepted,indexaccepted strings andtheirunresolvedtimezone semantics. Take latestdocumentdate bound ofneededguide/regularactual records thennextnativecalendar session09:31. This isdelayedregular-report measurement, notfirstreceipt/intraday reaction. Missingclock/scope remainsneeds_data; noearlieravailability inferred.",
+  "qualification_states": [
+    "comparable_original_regular_report_pair_under_delayed_assumption",
+    "blocked_scope_mismatch_or_missing_bridge",
+    "needs_data_role_clock_unit_or_pair",
+    "not_yet_reported_target"
+  ],
+  "freshness_separate": "Paircomparability canpassforadelayedoriginalforecast-realization measure despiteknownpreannouncement; recordfreshness separately asknown_preannounced_or_updated/unknown_update_coverage, neverlabel surprise.",
+  "dedup": "Closedoriginal_guidance_information uses nextguide/currentreportedrevenue qoq; guidance_information uses nextguidevsanalystconsensus; seasonalEPS/grossmargin useownhistory accountinggrowth. Noneisthissamequarter priorownforecast realization; thisdifference alonedoesnotprovepredictivevalue.",
+  "budget": {
+    "new_fetches": 0,
+    "new_model_fits": 0,
+    "new_statistical_fits": 0,
+    "new_policy_paths": 0,
+    "new_native_accounts": 0,
+    "market_outcome_reads": 0,
+    "existing_fact_records_max": 66,
+    "existing_sec_text_documents_max": 48
+  },
+  "outputs": "Notebook+Chineseconclusion;63-rowpairqualification table,knownupdate/preannouncement table,scopebridges withsourceaccession/URL/excerptlocators,clockavailability/statussummary; originalfacts/text andnormalizationaudits Recorder/NAS. No errorfeature,returns,candidateperformance ortrainingapproval.",
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "if_incomplete": "Retainunknown/blockedrows andconcretemissing evidence; no sourcechase,fetch,estimatedbridge ormarketoutcome inspection. Any laterfeature/information experiment needsseparatedefinition/review andmatchedavailability controls.",
+  "promotion_authority": false
+}

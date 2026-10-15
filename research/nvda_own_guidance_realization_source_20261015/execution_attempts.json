@@ -1,0 +1,24 @@
+{
+  "scope": "source-only qualification",
+  "attempts": [
+    {
+      "session_id": 21575,
+      "result": "pre_recorder_metadata_schema_KeyError",
+      "fix": "nested original fact metadata URL/actual adapter; no source substitution"
+    },
+    {
+      "session_id": 51265,
+      "result": "pre_recorder_literal_assertion",
+      "fix": "exact existing Jan. abbreviation and contributed14percent phrase; no source change"
+    },
+    {
+      "session_id": 13214,
+      "result": "notebook_completed",
+      "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0"
+    }
+  ],
+  "new_fetches": 0,
+  "fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0
+}

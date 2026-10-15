@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/coupled_controller_gradient_feasibility_20261015",
-  "current_phase": "fixed_surrogate_closed_next_information_source_triage",
-  "next_action": "Review management revenue forecast error (actual versus OWN prior guidance for same fiscal quarter): deduplicate against closed original-guidance-level, next-quarter-guidance-vs-consensus and seasonal-EPS routes; inspect existing NVDA original release corpora for comparable paired facts and conservative timing before any collection or fitting. No gradient-free, epsilon or surrogate rescue.",
+  "current_experiment": "research/nvda_own_guidance_realization_source_20261015",
+  "current_phase": "source_qualified_full_history_paired_training_design",
+  "next_action": "Freeze and independently review one paired6fit/6native model experiment on original2011+ primary H5 training labels, same09:29 timestamp featurejoin and same coupledcontroller+T. Candidate only adds own-guidance realization number; preserve matched stateinputs and strongest9097 reference. No fit beforedesign approval.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -482,6 +482,46 @@
         "All4 autograd versus exact finite difference comparisons fail",
         "Both fixed directions change finite-difference sign across fixed scales"
       ]
+    },
+    {
+      "card": "research/nvda_own_guidance_realization_source_20261015",
+      "kind": "existing_corpus_management_forecast_realization_source",
+      "status": "completed_source_qualified_subset_no_promotion",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "maximum_new_fetches": 0,
+      "maximum_existing_fact_records": 66,
+      "maximum_existing_secondary_texts": 48,
+      "universe_target_quarters": 63,
+      "evaluation": "research/nvda_own_guidance_realization_source_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_EXISTING_CORPUS_SOURCE_QUALIFICATION",
+        "plan_sha256": "130fbe46bb32dbd7475bce70fe89d7c741316d47b35c0951a48a8f7d75ee7165",
+        "conditions": [
+          "Original regular-report actual versus own earlier original guidance, not fresh orconsensus surprise",
+          "Keepall63targets and originalqualificationflags",
+          "Explicit scopebridge for acquisition mismatches; no estimates",
+          "Keepknownpreannouncements, no allupdatescoverage claim",
+          "Conservative existingdatebound; no errorfeature ormarketoutcomes"
+        ]
+      },
+      "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0",
+      "qualification": {
+        "targets": 63,
+        "comparable": 61,
+        "blocked_scope": 1,
+        "not_yet_reported": 1,
+        "comparable_pre2023_events": 46,
+        "known_preannouncement_cases": 3
+      },
+      "verification": {
+        "nas_verified_artifacts": 16,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "new_fetches": 0
+      }
     }
   ],
   "governance_review": {

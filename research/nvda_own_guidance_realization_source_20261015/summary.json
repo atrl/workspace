@@ -1,0 +1,56 @@
+{
+  "experiment": "nvda_own_guidance_realization_source_20261015",
+  "plan_sha256": "130fbe46bb32dbd7475bce70fe89d7c741316d47b35c0951a48a8f7d75ee7165",
+  "decision": "source_qualified_subset_under_delayed_regular_report_assumption",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_fetches": 0,
+  "new_accounts": 0,
+  "market_outcome_reads": 0,
+  "error_features_computed": 0,
+  "targets": 63,
+  "captured_filing_events": 66,
+  "status_counts": {
+    "comparable_original_regular_report_pair_under_delayed_assumption": 61,
+    "blocked_scope_mismatch_or_missing_bridge": 1,
+    "not_yet_reported_target": 1
+  },
+  "freshness_counts": {
+    "unknown_update_coverage": 60,
+    "known_preannounced_or_updated": 3
+  },
+  "known_realization_events_pre2023": 47,
+  "comparable_realization_events_pre2023": 46,
+  "first_pair_available_at": "2011-05-13 09:31:00-04:00",
+  "last_pair_available_at": "2026-08-27 09:31:00-04:00",
+  "all_updates_coverage_verified": false,
+  "first_public_timestamp_verified": false,
+  "original_html_bytes_verified": false,
+  "next_action": "Separate independently reviewed information/model design; source qualification does not authorize fits.",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/published_futu_affine_20260925_v1",
+  "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0",
+  "experiment_id": "682244325663783373",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_own_guidance_realization_source_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_own_guidance_realization_source_20261015/qlib_recorder/682244325663783373/9fb35ff59c1b43b7ba3906a46d7002c0",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "a77a7be5d5aa1ff7580fb297e19d873f38a04166c76fa12ba974327cf38ab414",
+    "size_bytes": 290950,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a7/7a/a77a7be5d5aa1ff7580fb297e19d873f38a04166c76fa12ba974327cf38ab414",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 18:28:22.488764+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a7/7a/a77a7be5d5aa1ff7580fb297e19d873f38a04166c76fa12ba974327cf38ab414",
+    "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0",
+    "experiment_id": "682244325663783373",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,9 @@
+experiment: nvda_own_guidance_realization_source_20261015
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/published_futu_affine_20260925_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/nvda_own_guidance_realization_source_20261015/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*

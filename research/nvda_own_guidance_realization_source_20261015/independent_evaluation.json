@@ -1,0 +1,28 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_DELAYED_REGULAR_REPORT_COMPARABLE_SUBSET_ONLY",
+  "plan_sha256": "130fbe46bb32dbd7475bce70fe89d7c741316d47b35c0951a48a8f7d75ee7165",
+  "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0",
+  "workflow_sha256": "a266bcd12e0eda94f465bd8dbdd883785647804a5b6c21314eef2678d2b468f0",
+  "verification_manifest_sha256": "5439a610a2d429a7dfdbcc9becbb7e751dcd2c5ed771582785e36191f6d61ba7",
+  "archive_sha256": "a77a7be5d5aa1ff7580fb297e19d873f38a04166c76fa12ba974327cf38ab414",
+  "independent_checks": [
+    "63targets retained:61 comparable,1Icera blocked,1future",
+    "66facts and3 known preannouncements retained",
+    "Guide scope distinct from actual document next-guide scope",
+    "Mellanox pending/pre-close/including cases separately evidenced",
+    "Original base preserved for percentage guidance",
+    "Recomputed actual pair availability from maxsourcebounds thennextnative09:31",
+    "Future target has no realization availability"
+  ],
+  "limits": [
+    "Delayed original regular-report measurement, not first public actual or fresh surprise",
+    "Original HTML bytes and complete update coverage not certified",
+    "Source-only approval does not authorize fits"
+  ],
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_fetches": 0,
+  "objective_achieved": false,
+  "readback": "readback_verification.json"
+}
