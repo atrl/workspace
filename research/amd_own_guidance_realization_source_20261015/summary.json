@@ -1,0 +1,67 @@
+{
+  "experiment": "amd_own_guidance_realization_source_20261015",
+  "plan_sha256": "60401a091aa770c8459f663c66dc4f57996c8362a839b136063843e0742e9044",
+  "decision": "existing_AMD_subset_qualified_with_explicit_scope_gaps",
+  "objective_achieved": false,
+  "new_fetches": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_error_features": 0,
+  "market_outcome_reads": 0,
+  "target_rows": 36,
+  "regular_reports": 35,
+  "status_counts": {
+    "comparable_original_regular_report_pair_under_delayed_assumption": 30,
+    "blocked_scope_mismatch_or_missing_bridge": 4,
+    "needs_data_original_guide": 1,
+    "not_yet_reported_target": 1
+  },
+  "guide_status_counts": {
+    "original_next_quarter_amount": 35
+  },
+  "pre2023_comparable_events": 17,
+  "overall_intended_coverage": {
+    "target_start": "FY2011Q1",
+    "target_end": "FY2026Q3",
+    "target_rows": 63,
+    "current_subset_rows": 36,
+    "earlier_targets_outside_current_check": 27,
+    "additional_leading_subset_missing_guide": "FY2017Q4",
+    "dependency": "Full-history information support remainsunqualified. Afterexisting36rowqualification decide a separatelybounded olderhistoryrepair; do notautomaticallyfit19pre2023events merelybecauseavailable."
+  },
+  "all_updates_coverage_verified": false,
+  "first_public_timestamp_verified": false,
+  "historical_original_bytes_certified": false,
+  "next_action": "Independentreview; separatelydecide bounded2011-2017historyrepair, notautomaticmodel fitting. No scopegap fetch permitted inthisrun.",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/published_futu_affine_20260925_v1",
+  "region": "us",
+  "as_of": "2026-09-25",
+  "recorder_id": "868e58319b964688bef06235f9e91fc2",
+  "experiment_id": "904829957905885710",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/amd_own_guidance_realization_source_20261015/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/amd_own_guidance_realization_source_20261015/qlib_recorder/904829957905885710/868e58319b964688bef06235f9e91fc2",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/original_report_facts",
+      "analysis/scope_evidence"
+    ]
+  },
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "nas_evidence": {
+    "sha256": "fc80d23048d571cc23e1e4039f85882b5f945f9b5ca7399028ca365def704765",
+    "size_bytes": 1025867,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/fc/80/fc80d23048d571cc23e1e4039f85882b5f945f9b5ca7399028ca365def704765",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-15 18:52:57.553548+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/fc/80/fc80d23048d571cc23e1e4039f85882b5f945f9b5ca7399028ca365def704765",
+    "recorder_id": "868e58319b964688bef06235f9e91fc2",
+    "experiment_id": "904829957905885710",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "reviewer": "/root/evaluator",
+  "verdict": "ACCEPT_EXISTING_AMD_SUBSET_WITH_SCOPE_GAPS",
+  "plan_sha256": "60401a091aa770c8459f663c66dc4f57996c8362a839b136063843e0742e9044",
+  "recorder_id": "868e58319b964688bef06235f9e91fc2",
+  "workflow_sha256": "65a1be74412e2f658e0f0a432e9c1f004dcc59856d2d54e4a59f9d7d5975cfa0",
+  "verification_manifest_sha256": "8c0b5d71bbe34281d9a1c1cb0a6d8a5fccfd14601a8a941f3e0b877480d53cde",
+  "archive_sha256": "fc80d23048d571cc23e1e4039f85882b5f945f9b5ca7399028ca365def704765",
+  "independent_checks": [
+    "36targets:30comparable,4scopeproofblocked,1leadingguideunknown,1future",
+    "35originalquarterlyguides parsed",
+    "Original2022/2025 outlook andscope paragraphs independently read",
+    "NonGAAP exXilinx supplement not inferred as GAAP bridge",
+    "Fourtransition blocks mean insufficient proof, not proven economic mismatch",
+    "Continuing operations andMI308forecastassumptions distinguished",
+    "17pre2023 comparableevents do not qualify2011-2017 history"
+  ],
+  "limits": [
+    "Existing subset only; olderhistory intake separately required",
+    "Notfirstpublic/currentHTML historicalbyte certification",
+    "No errorfeature,marketoutcomes,fits oraccounts inrun"
+  ],
+  "readback": "readback_verification.json",
+  "objective_achieved": false
+}

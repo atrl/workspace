@@ -1,0 +1,303 @@
+{
+  "experiment": "amd_own_guidance_realization_source_20261015",
+  "frozen_at_utc": "2026-10-15T10:48:45.929844+00:00",
+  "stage": "Existing-corpus sourcequalification only; no bulkintake, no errorfeature/marketoutcome/model.",
+  "issuer_fixed": "AMD only, preselected before AMD outcome inspection; noissuer fallback/sweep",
+  "hypothesis_for_later_review": "AMD own-original revenue forecast realization may contribute CPU/client/server,console and embedded demand information beyond NVDA-heavy exposure. Same-quarter previously issued own forecast versus original regular-report actual differs from closed actual-vs-consensus and nextguide-vs-consensus. Business-mix complement is a hypothesis, not proved independence or predictive merit.",
+  "source": {
+    "card": "research/issuer_actuals_qualification_20261013",
+    "recorder_id": "9a39dab3d38643fc8674e2d215046679",
+    "archive": "71e822915f14b23d629ae4d314f43e5f5c10b7ecccb9e9d3d584affa5a2d25f7",
+    "inventory_sha256": "cc1409159ad06b8ca9e235a3c4e34929c3fccf3a760dbe93a8cad085378cae09",
+    "artifacts": [
+      "sources/html",
+      "sources/manifest",
+      "analysis/actuals",
+      "analysis/calendar"
+    ]
+  },
+  "universe": {
+    "target_start": "FY2017Q4",
+    "target_end": "FY2026Q3",
+    "expected_target_rows": 36,
+    "regular_reports": [
+      {
+        "symbol": "AMD",
+        "report_date": "2018-01-30",
+        "expected_year": 2017,
+        "expected_quarter": 4
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2018-04-25",
+        "expected_year": 2018,
+        "expected_quarter": 1
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2018-07-25",
+        "expected_year": 2018,
+        "expected_quarter": 2
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2018-10-24",
+        "expected_year": 2018,
+        "expected_quarter": 3
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2019-01-29",
+        "expected_year": 2018,
+        "expected_quarter": 4
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2019-04-30",
+        "expected_year": 2019,
+        "expected_quarter": 1
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2019-07-30",
+        "expected_year": 2019,
+        "expected_quarter": 2
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2019-10-29",
+        "expected_year": 2019,
+        "expected_quarter": 3
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2020-01-28",
+        "expected_year": 2019,
+        "expected_quarter": 4
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2020-04-28",
+        "expected_year": 2020,
+        "expected_quarter": 1
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2020-07-28",
+        "expected_year": 2020,
+        "expected_quarter": 2
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2020-10-27",
+        "expected_year": 2020,
+        "expected_quarter": 3
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2021-01-26",
+        "expected_year": 2020,
+        "expected_quarter": 4
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2021-04-27",
+        "expected_year": 2021,
+        "expected_quarter": 1
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2021-07-27",
+        "expected_year": 2021,
+        "expected_quarter": 2
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2021-10-26",
+        "expected_year": 2021,
+        "expected_quarter": 3
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2022-02-01",
+        "expected_year": 2021,
+        "expected_quarter": 4
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2022-05-03",
+        "expected_year": 2022,
+        "expected_quarter": 1
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2022-08-02",
+        "expected_year": 2022,
+        "expected_quarter": 2
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2022-11-01",
+        "expected_year": 2022,
+        "expected_quarter": 3
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2023-01-31",
+        "expected_year": 2022,
+        "expected_quarter": 4
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2023-05-02",
+        "expected_year": 2023,
+        "expected_quarter": 1
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2023-08-01",
+        "expected_year": 2023,
+        "expected_quarter": 2
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2023-10-31",
+        "expected_year": 2023,
+        "expected_quarter": 3
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2024-01-30",
+        "expected_year": 2023,
+        "expected_quarter": 4
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2024-04-30",
+        "expected_year": 2024,
+        "expected_quarter": 1
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2024-07-30",
+        "expected_year": 2024,
+        "expected_quarter": 2
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2024-10-29",
+        "expected_year": 2024,
+        "expected_quarter": 3
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2025-02-04",
+        "expected_year": 2024,
+        "expected_quarter": 4
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2025-05-06",
+        "expected_year": 2025,
+        "expected_quarter": 1
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2025-08-05",
+        "expected_year": 2025,
+        "expected_quarter": 2
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2025-11-04",
+        "expected_year": 2025,
+        "expected_quarter": 3
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2026-02-03",
+        "expected_year": 2025,
+        "expected_quarter": 4
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2026-05-05",
+        "expected_year": 2026,
+        "expected_quarter": 1
+      },
+      {
+        "symbol": "AMD",
+        "report_date": "2026-08-04",
+        "expected_year": 2026,
+        "expected_quarter": 2
+      }
+    ],
+    "regular_release_start": "2018-01-30",
+    "regular_release_end": "2026-08-04",
+    "as_of": "2026-09-25",
+    "expected_potential_pairs": 34,
+    "leading_target_without_prior_guide": "FY2017Q4",
+    "trailing_unrealized_target": "FY2026Q3",
+    "rule": "Retain all36 rows; derive actualstatuscounts, neverdrop or forcequalification. Existing35 originalregularreports potentiallysupply34 matchedpairs. Leadingtarget hasactualbutmissingFY2017Q3guide; trailinghasguidebutnoactual."
+  },
+  "domain_tradeoff": "Existingcorpus gives2018Q1–2026Q2 realizedpair domain, only19 potentialreportevents availablebefore2023 (2022Q4actualarrives2023), not NVDA46. First qualify existingcoverage/perimeters; 2011–2017 extension would require about28additionalregularreports and is NOT authorized here. Latertrainingdesign must explicitly address sparseevent support or separatelyfreeze boundedhistoryintake; do not silentlylabelunknownpre2018 asfullinformationhistory.",
+  "guide_rule": "Extract originalregularreport NEXTquarter revenue outlook, targetfiscalquarter identity, originalmidpoint/range/unit/currency/percentbounds andcurrentquarteroriginalbase. Earliest original report guide only; preserve laterupdate separately. Do not confuse annualoutlook with quarterly, annualactual withQ4actual, or latercomparison/restatement withcurrentquarter actual.",
+  "actual_rule": "Originalregularsame-target report currentquarter consolidatedGAAPtotalrevenue withexacttablelocator andpublishedprecision; reuseverified analysis/actuals AMD GAAP row and crosscheckoriginalHTML. Keep annual/segment/nonGAAP/preliminary numbers separate. Explicitoriginalsame-report scopedrevenuebridge may be recorded separately withquote/precision; never estimate bysubtractingacquisitionrevenue or later-quarterdisclosures, and neveroverwrite consolidatedactual.",
+  "scope_rules": [
+    "Xilinx/Pensando and anyexplicitotheracquisition/disposal/continuingoperations difference assessed pertarget using originalguide statements andoriginaltargetreport quarterend/closedate/inclusion. No blanketacquisition exclusion. Missingcompatible bridge remainsblocked.",
+    "AMD2022Q1 originalreport explicitlycontains exXilinx revenue; retainverbatim aspotential same-report bridge withprecision androle, notsilentlyreplace GAAPtotal. Qualification mustname exact chosencomparisonperimeter.",
+    "Forecast demand/exportrestrictions/lostsales/inventorycharge assumptions are notautomaticmeasurementperimeter exclusions; noaddbacks. Segmentrecasting doesnot itselfchange consolidatedtotal; preserveoriginalcurrentquarter table."
+  ],
+  "events": "Reuseall existingAMD manifestentries/indexes including2022-10-06 preliminaryQ3 andcapturedotherupdates. Keeporiginalguide,preliminaryactual,updatedguide andregularactual distinct. Knownpreannouncement marksstale/partlyknown; absenceinboundedcorpus doesnotcertify allupdates. No numericerror/surprise before separate informationplan.",
+  "availability": "Preserve sourcepublishedrelease date/time/zone and anysourceboundfiling/API/indexaccepted metadata separately. Conservative datebound=max(allobservednecessarydates); nextnativeQlibsession09:31NY. Requireunambiguousdocumentdate; missingdate meansneeds_data. No firstreceipt or currentHTML==historicalbytes claim. Guide_available_at versus actual_report_available_at/pair_available_at separate; guide-onlyfutureevent cannot replace latestrealized. Blocked realizedreport remains datedunknownstate. Latermodel exactdecisiontimestampjoin required (09:31 cannot enter same09:29).",
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "qualification_states": [
+    "comparable_original_regular_report_pair_under_delayed_assumption",
+    "blocked_scope_mismatch_or_missing_bridge",
+    "needs_data_original_guide",
+    "needs_data_role_clock_unit_or_pair",
+    "not_yet_reported_target"
+  ],
+  "budget": {
+    "new_fetches": 0,
+    "existing_AMD_regular_documents_max": 35,
+    "existing_AMD_preliminary_documents_max": 1,
+    "existing_AMD_index_documents_max": 10,
+    "new_error_features": 0,
+    "market_outcome_reads": 0,
+    "fits": 0,
+    "policy_paths": 0,
+    "native_accounts": 0
+  },
+  "prior_feasibility_observations": [
+    {
+      "operation": "web.open",
+      "url": "https://ir.amd.com/news-events/press-releases?category=financial&year=2011",
+      "result": "not accessible via tool",
+      "tool_ref": "turn73view0"
+    },
+    {
+      "operation": "one directrequestsGET sameofficialURL",
+      "http_status": 200,
+      "response_bytes": 33791,
+      "sha256": "4fe0e01c91372626458157a5153ca516b10b06aa0036e657c9d2f518ae6e64df",
+      "capture_role": "currentofficialindexHTML, nothistoricalbytes",
+      "observation_utc_recorded_after_operation": "2026-10-15T10:48:45.929844+00:00",
+      "findings": "Jan20Q4/annual,Apr21Q1,Jul21Q2 andSep28preliminary links; no Q3regular observed onfinancialcategoryindex. Thisprobe isNOT added toqualificationuniverse; no releasepage fetched."
+    }
+  ],
+  "outputs": "Notebook,36targetpairtable,35originalguidefactrows,documentmanifest/excerpts/precision/scopebridges,knownpreliminarytimeline,availability/statussummary; existingAMDHTML+receipts andalllargeoutputs RecorderNAS; rootssmall. No marketreturns orfeature-error arithmetic.",
+  "if_missing": "Retainneeds_data/blockedrows; nofollow-up fetch/auth/proxy/mirror/issuer fallback. Anyolderhistoryintake requires separatepreciseplan+independentapproval afterexistingcoverageknown.",
+  "production_qualified": false,
+  "promotion_authority": false,
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+  "overall_intended_coverage": {
+    "target_start": "FY2011Q1",
+    "target_end": "FY2026Q3",
+    "target_rows": 63,
+    "current_subset_rows": 36,
+    "earlier_targets_outside_current_check": 27,
+    "additional_leading_subset_missing_guide": "FY2017Q4",
+    "dependency": "Full-history information support remainsunqualified. Afterexisting36rowqualification decide a separatelybounded olderhistoryrepair; do notautomaticallyfit19pre2023events merelybecauseavailable."
+  }
+}

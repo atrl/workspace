@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/nvda_own_guidance_realization_training_20261015",
-  "current_phase": "improved_fixed_candidate_closed_next_information_triage",
-  "next_action": "Preserve improved but rejected fixedNVDA model as additional historical comparator; no formula/delay/controller tuning. Triage AMD as ONE fixed additional issuer for same-quarter own-guidance realization evidence beyondNVDA, before any AMD outcome reads; verify distinctness/existingcoverage/primary-source scope and freeze a bounded plan. No issuer sweep or automatic fallback toanothercompany. Keep9097 as separately fullminute-risk-qualified reference.",
+  "current_experiment": "research/amd_own_guidance_realization_source_20261015",
+  "current_phase": "AMD_existing_source_complete_bounded_history_intake_design",
+  "next_action": "Freeze independently reviewed intake for28missing AMD regular reports FY2010Q4–FY2017Q3, disclosures2011–2017; exact official index/search/release budgets and unknown retention. No marketoutcomes/fits until fullsource/domain reviewed; no otherissuer orscopegap chase.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -560,6 +560,45 @@
         "No independent development/forward qualification"
       ],
       "historical_point_improvement_all_costs": true
+    },
+    {
+      "card": "research/amd_own_guidance_realization_source_20261015",
+      "kind": "fixed_AMD_existing_corpus_own_guidance_source",
+      "status": "completed_existing_source_subset_qualified_with_gaps",
+      "maximum_new_fetches": 0,
+      "maximum_new_fits": 0,
+      "maximum_new_accounts": 0,
+      "current_target_rows": 36,
+      "overall_intended_target_rows": 63,
+      "evaluation": "research/amd_own_guidance_realization_source_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_EXISTING_CORPUS_QUALIFICATION",
+        "plan_sha256": "60401a091aa770c8459f663c66dc4f57996c8362a839b136063843e0742e9044",
+        "conditions": [
+          "Only35regular+1preliminary existingAMD documents",
+          "Explicit original same-report scopebridge with published precision, no estimatedsubtraction",
+          "Original guide andsamequarter actual roles distinct; updates retained",
+          "36currentrows plus27olderdependency not mistakenforfullhistory",
+          "No newfetch/outcome/errorfeature/fits orautomatic19eventtraining"
+        ]
+      },
+      "recorder_id": "868e58319b964688bef06235f9e91fc2",
+      "qualification": {
+        "current_targets": 36,
+        "comparable": 30,
+        "scopeproof_blocked": 4,
+        "missing_original_guide": 1,
+        "not_yet_reported": 1,
+        "pre2023_comparable_events": 17
+      },
+      "verification": {
+        "nas_verified_artifacts": 14,
+        "all_hashes_match": true,
+        "new_fetches": 0,
+        "new_fits": 0,
+        "new_accounts": 0
+      }
     }
   ],
   "governance_review": {
