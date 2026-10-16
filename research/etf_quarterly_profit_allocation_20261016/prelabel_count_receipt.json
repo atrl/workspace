@@ -1,0 +1,39 @@
+{
+  "plan_sha256": "8c6814ae9a5b112993bb7b9a53526b47fe5efbd5c8d6850753f70c284eddf537",
+  "folds": [
+    {
+      "execution_year": 2024,
+      "cutoff": "2023-12-29 16:15:00-05:00",
+      "mature_qualified_rows": 48,
+      "training_entry_years": 5,
+      "test_months": 12,
+      "fallback_months": 0
+    },
+    {
+      "execution_year": 2025,
+      "cutoff": "2024-12-31 16:15:00-05:00",
+      "mature_qualified_rows": 60,
+      "training_entry_years": 6,
+      "test_months": 12,
+      "fallback_months": 3
+    },
+    {
+      "execution_year": 2026,
+      "cutoff": "2025-12-31 16:15:00-05:00",
+      "mature_qualified_rows": 69,
+      "training_entry_years": 7,
+      "test_months": 7,
+      "fallback_months": 0
+    }
+  ],
+  "all_folds_eligible": true,
+  "monthly_reference_count": 31,
+  "daily_account_sessions": 647,
+  "raw_endpoint_rows": 91,
+  "labels_computed": false,
+  "fits": 0,
+  "accounts": 0,
+  "source_binding_sha256": "c87ac12b9ce3fdc748e7cdd237ffbb6d205ec6e39a487d42c64b8497c41ab912",
+  "raw_training_binding_sha256": "76ae782a8922b359e8269c41eafab1c31b576a85856d9cf94026cbeb7695c372",
+  "code_identity_sha256": "009a87b4bf01d63e08331ef0451081027106941e218f3ac462a821d1d2380ea5"
+}

@@ -1,0 +1,15 @@
+experiment: etf_quarterly_profit_allocation_20261016
+module: src.workflow.quarterly_profit_allocation
+plan: plan.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - models/*
+  - paths/*
+  - traces/*
+  - native/*
+  - analysis/monthly_targets
+  - analysis/rolling/*

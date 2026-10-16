@@ -1,0 +1,99 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T08:05:53.802871+00:00",
+  "decision": "not_promoted_fixed_quarterly_profit_direct_allocation",
+  "plan_sha256": "8c6814ae9a5b112993bb7b9a53526b47fe5efbd5c8d6850753f70c284eddf537",
+  "recorder_id": "7e061c68d0624f99ab78db89df866f3f",
+  "manifest_sha256": "cf7d34cb2c18ecd554b0e570ba55f8e4fee670d31dfe27a1a6cc2e5de4e0f76e",
+  "nas_archive_sha256": "82f10f1684d0b62cc3c9f741ff797eb02a7e2a3ddbf28cf593dfe30374f0f434",
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "six_fits_and_final300epoch_audits_retained": true,
+    "fresh_raw_and_native_accounts": 15,
+    "sessions_each": 647,
+    "valuation_points_each": 2590,
+    "all15_fresh_cash100000_noholdings_noreceivables_checked": true,
+    "all15_same_signal_trade_exit_calendar_checked": true,
+    "all15_Qlib_native_audits_passed_own_CA_and_nonspendable_receivables": true,
+    "max_native_relative_reconciliation_error": 0,
+    "all15_C_plus_R_plus_q_times_raw_prices_revalued": true,
+    "max_independent_dollar_NAV_error": 5.820766091346741e-11,
+    "all15_terminal_wealth_recomputed_from_returns_and_NAV": true,
+    "all15_rolling126_window_counts_and_positive_fractions_recomputed": true,
+    "rolling_windows_each": 522,
+    "source_unqualified_monthly_target_exact_control_fallbacks": 3,
+    "no_review_fits_or_new_accounts": true
+  },
+  "result_2bp": [
+    {
+      "family": "candidate",
+      "return_pct": 67.12723216606045,
+      "max_drawdown_pct": -29.270611007733677,
+      "sampled_point_max_drawdown_pct": -29.582445938908485,
+      "cvar5_pct": -4.077563907926303,
+      "mean_ending_soxl_weight": 0.0235041407312783,
+      "zero_SOXL_quantity_fraction": 0.7109737248840804
+    },
+    {
+      "family": "control",
+      "return_pct": 98.6851941009078,
+      "max_drawdown_pct": -27.61571657356347,
+      "sampled_point_max_drawdown_pct": -27.9321597119242,
+      "cvar5_pct": -4.0989417493746,
+      "mean_ending_soxl_weight": 0.0240922655663212,
+      "zero_SOXL_quantity_fraction": 0.7094281298299846
+    },
+    {
+      "family": "primary9097",
+      "return_pct": 257.85189522227716,
+      "max_drawdown_pct": -25.10300317217451,
+      "sampled_point_max_drawdown_pct": -26.863364819679457,
+      "cvar5_pct": -4.567561022613485,
+      "mean_ending_soxl_weight": 0.0797841443832405,
+      "zero_SOXL_quantity_fraction": 0.4250386398763524
+    },
+    {
+      "family": "additional27baa",
+      "return_pct": 268.0660321737071,
+      "max_drawdown_pct": -25.44023090146948,
+      "sampled_point_max_drawdown_pct": -27.193376314295037,
+      "cvar5_pct": -4.626694116326706,
+      "mean_ending_soxl_weight": 0.0855985541882088,
+      "zero_SOXL_quantity_fraction": 0.3585780525502318
+    },
+    {
+      "family": "SOXX",
+      "return_pct": 162.0438686839728,
+      "max_drawdown_pct": -42.66095508723994,
+      "sampled_point_max_drawdown_pct": -43.175390768865505,
+      "cvar5_pct": -5.429771491596886,
+      "mean_ending_soxl_weight": 0.0,
+      "zero_SOXL_quantity_fraction": 1.0
+    }
+  ],
+  "candidate_2bp_rolling_positive_fraction": 0.3103448275862069,
+  "gates": {
+    "net_soxx_excess_all_costs": false,
+    "beat_matched_control_all_costs": false,
+    "beat_predeclared9097_all_costs": false,
+    "sampled_drawdown_30pct": true,
+    "primary_sampled_risk_30pct": true,
+    "cvar_no_worse_soxx": true,
+    "complete_annual_70pct": false,
+    "rolling126_70pct": false,
+    "paired_block_lower_positive": false,
+    "fresh_fullminute_raw_risk_qualified": false,
+    "qualified_independent_forward": false
+  },
+  "scientific_rejection": [
+    "Candidate trailsSOXX,matchedcontrol andpredeclared9097 atallthreecosts.",
+    "Complete-year70percent and126dayrolling70percent gatesfail.",
+    "Pairedblockconfidence gatefails.",
+    "SampledDD/CVaRpasses do notoffset failedwealth/stability and do notcertifyfullminuteDD."
+  ],
+  "scope_of_closure": "Close thisfixeddirectutilitypackage withoutparameter/sign/window/thresholdrescue oradditionalfullminuteauditing ofthefailedcandidate.",
+  "reference_boundary": "9097 remains the predeclared same-window comparator, not a newpromotedstrategy. Its originalcausal-cost controller card remainsnot_promoted with paired,rolling andbootstrap failures; favorable2024reset pointestimates do notreplace that history. No optionalreference audit initiated.",
+  "forward_and_goal": "No independentforward qualification, productionchange orstableexcessachievement. Currentbounded source,forecast anddirectallocation tests completed; broaderobjective remainsunachieved.",
+  "promotion_authorized": false,
+  "objective_achieved": false
+}

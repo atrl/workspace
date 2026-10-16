@@ -1,0 +1,110 @@
+{
+  "experiment": "etf_quarterly_profit_information_20261016",
+  "frozen_at": "2026-10-16T06:40:12.015327+00:00",
+  "kind": "paired_monthly_quarterly_profit_information",
+  "hypothesis": "Fresh reported-quarter profit diffusion across the then-disclosed basket adds monthly return information beyond market state and the same reporting/coverage calendar. This is not annual valuation level, price breadth or a sign/window/regularization rescue.",
+  "valuation_source_card": "research/etf_quarterly_profit_diffusion_inputs_20261016",
+  "source_binding": "source_binding.json",
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "provider_hashes": {
+    "data/qlib/full_path_tiered_allocation_20261013/calendars/1min.txt": "dbf6fce328a8eaef226fc9e1ec640a9a118a8ff0cdd1dd2f77447d5f8940bdb3",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxl/close.1min.bin": "de3986bed25c288f2cdf749e0e938cfae189eed9042d8cd71402cfea2f5c80c2",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxl/execution_price.1min.bin": "de3986bed25c288f2cdf749e0e938cfae189eed9042d8cd71402cfea2f5c80c2",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxl/high.1min.bin": "de3986bed25c288f2cdf749e0e938cfae189eed9042d8cd71402cfea2f5c80c2",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxl/low.1min.bin": "de3986bed25c288f2cdf749e0e938cfae189eed9042d8cd71402cfea2f5c80c2",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxl/open.1min.bin": "de3986bed25c288f2cdf749e0e938cfae189eed9042d8cd71402cfea2f5c80c2",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxl/raw_execution_price.1min.bin": "2acb5b841657ce28805c958b64a44dd505092ac7ec54850f73ccd0145a2868ba",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxl/volume.1min.bin": "fe1670215a18fe3df235e5568b1a29a93f6f6fce9de9fbe59511e8674ab8448a",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxx/close.1min.bin": "c36052960c66c54523b9e5e382bdfe7d0708b654789b6b3ee423b53718ead615",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxx/execution_price.1min.bin": "c36052960c66c54523b9e5e382bdfe7d0708b654789b6b3ee423b53718ead615",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxx/high.1min.bin": "c36052960c66c54523b9e5e382bdfe7d0708b654789b6b3ee423b53718ead615",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxx/low.1min.bin": "c36052960c66c54523b9e5e382bdfe7d0708b654789b6b3ee423b53718ead615",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxx/open.1min.bin": "c36052960c66c54523b9e5e382bdfe7d0708b654789b6b3ee423b53718ead615",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxx/raw_execution_price.1min.bin": "7a3062342b585c048043c331e84dc2ac3e259834bcecd370d25f34dfbb523b58",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxx/volume.1min.bin": "11a910d1d8f43a11b1f3f8c9658ee6627029d0b5b6993d3ce03ff59ab34a1f3b",
+    "data/qlib/full_path_tiered_allocation_20261013/instruments/all.txt": "51574bed55ab5f81a0c9719cc316922c8b2a93f8a619b25d21542f15c959596c",
+    "data/qlib/full_path_tiered_allocation_20261013/qlib_store_manifest.json": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223"
+  },
+  "signal_start": "2019-01-01",
+  "signal_end": "2026-06-30",
+  "price_as_of": "2026-10-09",
+  "label_exit_month": "2026-08",
+  "first_execution_year_candidates": [
+    2023,
+    2024
+  ],
+  "first_year_selection": "earliest permitted year with at least24 sourcequalified complete-market mature monthlytrainrows, selected before computing labels; otherwise nofit",
+  "minimum_train_rows": 24,
+  "fit_cutoff": "previous December actual lastQlibsession16:15America/New_York; usedatthatcutoff fornextJanuary09:47execution",
+  "label_maturity": "exit09:47NY strictlybeforefitcutoff",
+  "targets": [
+    "published_adjusted_log_SOXX_next_month",
+    "published_adjusted_log_SOXL_minus_SOXX_next_month"
+  ],
+  "label_basis": "Qlib execution_price atactualnextsession09:47 tofollowingmonth09:47; publishedFutu adjustedprice proxy, not realizeddividendcashbook or historicalPIT certified",
+  "market_features": [
+    "soxx_logmom63",
+    "soxx_logvol63",
+    "soxx_drawdown126",
+    "relative_logvol21"
+  ],
+  "model": {
+    "class": "sklearn.linear_model.Ridge throughQlibModel/DatasetH",
+    "alpha": 10.0,
+    "fit_intercept": true,
+    "folds": "annualexpanding through2026",
+    "maximum_fits": 8,
+    "selection": "none",
+    "imputation": "trainmedian; allmissingcolumninactive standardized0 and retainedmissingflag; not financialzero",
+    "scaler": "trainingmean/std only; zero featurestd ->1; sharedtrain labelstd acrossarms",
+    "minimum_label_std": 1e-08,
+    "degenerate_label_policy": "failbeforefit",
+    "prediction_unqualified_EP": "candidate exactcontrolforecast on quarterlysourceunqualified months; no omitted testmonths",
+    "missing_market_data": "failbeforefits"
+  },
+  "paired_training": "Same sourceeligible, completebaseline and mature-label rows; identical commoncolumns/scales/targets. Sourceeligibility95percent remains; candidate exactlycontrol if sourceunqualified.",
+  "primary_score": "eachmonth mean of two squaredforecast errors normalized by thatfold sharedtraininglabelvariance; control minuscandidate; fixedequalheadweights",
+  "information_gates": {
+    "pooled_improvement_positive": true,
+    "complete_year_positive_fraction": 0.7,
+    "minimum_complete_years": 2,
+    "bootstrap": "monthly joint stationary blocks3,2000,seed20261016,one-sided98.75percent lowerboundpositive; two heads same monthly draws"
+  },
+  "budgets": {
+    "new_fits_max": 8,
+    "new_strategy_accounts": 0,
+    "new_market_requests": 0,
+    "model_variants": 0
+  },
+  "next_stage": "If information gate passes, freeze separate same-risk-layer portfolio accounts with0/2/5bp and original risk/stability/strong-reference requirements. Otherwise close fixed reported-quarter diffusion mean forecast package; no coefficient/sign/window or failed-annual rescue.",
+  "evidence_identity": "allhistoricalevaluation reuseddevelopment/diagnostic; independentforwardnotcreated",
+  "objective_achieved": false,
+  "baseline_features": [
+    "soxx_logmom63",
+    "soxx_logvol63",
+    "soxx_drawdown126",
+    "relative_logvol21",
+    "known_profit_age_mean_days",
+    "holdings_age_days",
+    "pair_coverage_weight",
+    "current_profit_coverage_weight"
+  ],
+  "profit_features": [
+    "profit_direction_diffusion",
+    "profit_bounded_growth",
+    "quarterly_loss_weight"
+  ],
+  "feature_definition": {
+    "profit_direction_diffusion": "profit_improve_weight minus profit_deteriorate_weight, no renormalization",
+    "loss_universe": "all fresh current known profits; current_profit_coverage_weight explicitly controlled in both arms",
+    "scope": "withinissuer samequarter sameconcept/currency/basis changes, no financialcurrency aggregation or currentconstituent backfill"
+  },
+  "bootstrap": {
+    "mean_block": 3,
+    "resamples": 2000,
+    "seed": 20261016,
+    "alpha": 0.0125,
+    "scope": "local adjustment for two investigated fundamental mechanisms; does not cover unknown earlier project selection"
+  },
+  "historical_use": "Annual model feedback and all historical outcomes are reused development; this is a new fixed source mechanism, not independent validation. Baseline/eligible cohort may differ; no rawMSE comparison across old and new cards."
+}

@@ -153,3 +153,6 @@ data/qlib/frozen_policy_raw_cashbook_20261015/
 /data/snapshots/etf_quarterly_profit_diffusion_inputs_20261016/
 /data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/
 /data/snapshots/etf_quarterly_profit_diffusion_asml_inputs_20261016/
+
+# Rebuildable direct-allocation execution marks; raw points, guard and manifest are in its NAS Recorder.
+/data/qlib/etf_quarterly_profit_allocation_20261016/

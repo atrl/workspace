@@ -1,0 +1,906 @@
+{
+  "plan_sha256": "8c6814ae9a5b112993bb7b9a53526b47fe5efbd5c8d6850753f70c284eddf537",
+  "purpose": "source/date/finitepresence preflight only; no ratios,returns,labels,models oraccounts computed",
+  "provider_uri": "data/qlib/full_path_tiered_allocation_20261013",
+  "source_api": [
+    "qlib.data.D.calendar",
+    "qlib.data.D.features",
+    "Recorder.load_object"
+  ],
+  "source_manifest_claim": "2018-10-12..2026-10-09 sparse raw observed marks; earlier prefix separatefrom2023+rawcashbook",
+  "provider_hashes": {
+    "data/qlib/full_path_tiered_allocation_20261013/qlib_store_manifest.json": "3a3d6f4e248d6016ea25a140587abb65fba0d8a346e45da402414095df772223",
+    "data/qlib/full_path_tiered_allocation_20261013/calendars/1min.txt": "dbf6fce328a8eaef226fc9e1ec640a9a118a8ff0cdd1dd2f77447d5f8940bdb3",
+    "data/qlib/full_path_tiered_allocation_20261013/instruments/all.txt": "51574bed55ab5f81a0c9719cc316922c8b2a93f8a619b25d21542f15c959596c",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxl/raw_execution_price.1min.bin": "2acb5b841657ce28805c958b64a44dd505092ac7ec54850f73ccd0145a2868ba",
+    "data/qlib/full_path_tiered_allocation_20261013/features/soxx/raw_execution_price.1min.bin": "7a3062342b585c048043c331e84dc2ac3e259834bcecd370d25f34dfbb523b58"
+  },
+  "monthly_schedule_rows": 90,
+  "endpoint_coverage": [
+    {
+      "symbol": "SOXL",
+      "required_endpoint_timestamps": 91,
+      "finite_positive_endpoints": 91,
+      "pre2023_endpoints": 47,
+      "pre2023_finite_positive": 47,
+      "first_required": "2019-02-01 09:47:00",
+      "last_required": "2026-08-03 09:47:00",
+      "missing_dates": []
+    },
+    {
+      "symbol": "SOXX",
+      "required_endpoint_timestamps": 91,
+      "finite_positive_endpoints": 91,
+      "pre2023_endpoints": 47,
+      "pre2023_finite_positive": 47,
+      "first_required": "2019-02-01 09:47:00",
+      "last_required": "2026-08-03 09:47:00",
+      "missing_dates": []
+    }
+  ],
+  "corporate_source": {
+    "card": "research/etf_corporate_actions_20261009",
+    "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+    "archive": null,
+    "inventory_sha256": "625ba522fbadc4377c87f56e4a241deca714cc556dbd7227b3f7e414d938a6f3"
+  },
+  "corporate_artifact_audit": {
+    "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+    "experiment": "etf_corporate_actions_20261009",
+    "experiment_id": "649036106770763940",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_corporate_actions_20261009/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2",
+    "summary_sha256": "7532d3fff2c79c34c81a042da88ec8acbded721dbdc288662314be855b4a2275",
+    "verification_manifest_sha256": "625ba522fbadc4377c87f56e4a241deca714cc556dbd7227b3f7e414d938a6f3",
+    "artifacts": {
+      "data/cash_events.pkl": {
+        "artifact": "data/cash_events.pkl",
+        "artifact_id": "582a0c7d39964e8b860ebe33941c5dd2:data/cash_events.pkl",
+        "sha256": "4ad373f39401f5dc6f826e17806243a3331f19f569ab1d4bc617efc5954e5d5a",
+        "bytes": 26147,
+        "manifest_entry": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/data/cash_events.pkl",
+        "local_path": "/Users/rziiiii/dev/workspace/research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/data/cash_events.pkl"
+      },
+      "data/split_events.pkl": {
+        "artifact": "data/split_events.pkl",
+        "artifact_id": "582a0c7d39964e8b860ebe33941c5dd2:data/split_events.pkl",
+        "sha256": "92f74ce2ceb29ddd0daac623a949d0076516de6f6c19b3c5e8071e086943a125",
+        "bytes": 1782,
+        "manifest_entry": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/data/split_events.pkl",
+        "local_path": "/Users/rziiiii/dev/workspace/research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/data/split_events.pkl"
+      },
+      "inputs/source_contract.pkl": {
+        "artifact": "inputs/source_contract.pkl",
+        "artifact_id": "582a0c7d39964e8b860ebe33941c5dd2:inputs/source_contract.pkl",
+        "sha256": "90ee1af96af9374e096dd2f3c681ec5654c4943bad4dba829d3097a6d07c4532",
+        "bytes": 32185,
+        "manifest_entry": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/inputs/source_contract.pkl",
+        "local_path": "/Users/rziiiii/dev/workspace/research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/inputs/source_contract.pkl"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  },
+  "cash_event_date_coverage": [
+    {
+      "symbol": "SOXL",
+      "cash_events": 32,
+      "first_ex_date": "2010-09-22",
+      "last_ex_date": "2026-09-22",
+      "cash_events_before2023": 20
+    },
+    {
+      "symbol": "SOXX",
+      "cash_events": 93,
+      "first_ex_date": "2002-06-17",
+      "last_ex_date": "2026-09-15",
+      "cash_events_before2023": 78
+    }
+  ],
+  "split_events": 3,
+  "source_contract": {
+    "schema_version": "etf_corporate_actions_qualification_plan_v1",
+    "experiment": "etf_corporate_actions_20261009",
+    "prepared_at_utc": "2026-10-09T07:04:43.407993+00:00",
+    "plan_state": "registered_after_root_review_before_qualification",
+    "task_kind": "event_source_and_share_unit_qualification_only",
+    "objective": "\u8d44\u683c\u6838\u5bf9SOXX/SOXL\u53d1\u884c\u4eba\u4e8b\u4ef6\u6e90\u3001\u9010\u4e8b\u4ef6\u539f\u59cb\u4efd\u989d\u73b0\u91d1\u5355\u4f4d\u548cex/pay\u65f6\u70b9\uff1b\u4e3a\u540e\u7eed\u72ec\u7acb\u771f\u5b9e\u4efd\u989d/\u5e94\u6536\u8d26\u672c\u63d0\u4f9bRecorder\u4e8b\u4ef6\u8bc1\u636e\u3002",
+    "market_as_of": "2026-09-25",
+    "source_retrieval_date_utc": "2026-10-09",
+    "price_provider_changed": false,
+    "new_price_provider_built": false,
+    "model_fits": 0,
+    "strategy_replays": 0,
+    "return_evaluations": 0,
+    "broker_api_calls": 0,
+    "promotion_eligible": false,
+    "scope_exclusions": [
+      "\u4e0d\u62df\u5408\u3001\u9884\u6d4b\u3001\u4f18\u5316\u4ed3\u4f4d\u6216\u8dd1\u7b56\u7565",
+      "\u4e0d\u6539\u4efb\u4f55\u65e7\u4ef7\u683c\u3001features\u3001returns\u3001provider\u3001raw\u6216\u5b8c\u6210card",
+      "\u4e0d\u5b9e\u73b0\u771f\u6b63\u4efd\u989d/\u5e94\u6536/pay\u73b0\u91d1\u8d26\u672c\uff1b\u53e6\u5361\u767b\u8bb0",
+      "\u4e0d\u5c06\u5f53\u524d\u5386\u53f2\u83b7\u53d6\u79f0\u4f5c\u5f53\u65f6\u6570\u636evintage/PIT\u8ba4\u8bc1",
+      "\u4e0d\u5408\u62102001-2006\u4ef7\u683c\u6216\u8d85\u51fa\u5df2\u5b58\u5728\u539f\u751f\u65e5\u5386\u7684\u4ea4\u6613\u65e5",
+      "\u4e0d\u5c06NAV\u5386\u53f2\u9875\u5f53\u53ef\u6210\u4ea4\u4ef7\u683c",
+      "\u4e0d\u6267\u884c\u672a\u67652026-11-05 SOXX\u62c6\u80a1",
+      "\u4e0d\u5bf9\u5df2\u542b\u57fa\u91d1\u5185\u90e8\u8d39\u7528\u7684\u539f\u59cb\u4ea4\u6613\u4ef7\u683c\u989d\u5916\u6263\u4e00\u6b21\u57fa\u91d1\u878d\u8d44/\u7ba1\u7406\u8d39"
+    ],
+    "source_archive": {
+      "destination": "data/raw/external/etf_corporate_actions_20261009_v1",
+      "copy_only_after_root_plan_review": true,
+      "immutable_if_exists": "verify_identical_no_overwrite",
+      "network_in_notebook": false,
+      "preserve_original_bytes": true,
+      "preserve_failed_receipts": true,
+      "files": [
+        {
+          "staged_input": "/tmp/soxx-pit-dividend-inventory/issuer_fund_download.bin",
+          "archive_relative_path": "soxx/issuer_fund_download.bin",
+          "capture_kind": "http_response_body",
+          "purpose": "\u9996\u6b21\u539f\u59cb\u53d1\u884c\u4ebaSpreadsheetML XLS\uff0c\u5168\u91cf\u4fdd\u7559\uff1b\u9996\u8bf7\u6c42\u5f00\u59cb\u65f6\u523b\u672a\u8bb0\u5f55",
+          "bytes": 3344466,
+          "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af"
+        },
+        {
+          "staged_input": "/tmp/soxx-pit-dividend-inventory/download_metadata.json",
+          "archive_relative_path": "soxx/download_metadata.json",
+          "capture_kind": "http_receipt_partial",
+          "purpose": "\u771f\u5b9e\u9996\u6b21\u63a5\u6536UTC\u3001URL\u3001\u72b6\u6001\u3001hash\uff1b\u4e0d\u4f2a\u9020\u7f3a\u5931\u8bf7\u6c42\u5f00\u59cb\u65f6\u523b",
+          "bytes": 487,
+          "sha256": "e76b5643854b385eb01b104aaf095ad0970aba617f0aba65aae657542917f961"
+        },
+        {
+          "staged_input": "/tmp/soxx-pit-dividend-inventory/issuer_fund_download_receipt_complete.bin",
+          "archive_relative_path": "soxx/issuer_fund_download_receipt_complete.bin",
+          "capture_kind": "http_response_body",
+          "purpose": "\u7b2c\u4e8c\u6b21\u76f8\u540c\u539f\u59cb\u53d1\u884c\u4ebaXLS\uff0c\u7528\u5b8c\u6574receipt\u5c01\u5b58",
+          "bytes": 3344466,
+          "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af"
+        },
+        {
+          "staged_input": "/tmp/soxx-pit-dividend-inventory/complete_http_receipt.json",
+          "archive_relative_path": "soxx/complete_http_receipt.json",
+          "capture_kind": "http_receipt",
+          "purpose": "\u7b2c\u4e8c\u6b21\u8bf7\u6c42/\u63a5\u6536UTC\u3001\u6700\u7ec8URL\u3001\u5b89\u5168\u54cd\u5e94\u5934\u4e0esha",
+          "bytes": 1442,
+          "sha256": "c95977e07d88b29ac48f9322c5bf52e9616abe69b23f2547ef831b78865bb977"
+        },
+        {
+          "staged_input": "/tmp/soxx-pit-dividend-inventory/issuer_distributions_extracted.csv",
+          "archive_relative_path": "soxx/issuer_distributions_extracted.csv",
+          "capture_kind": "derived_extraction_reference",
+          "purpose": "\u5df2\u8bfb93\u884c\u4ec5\u7528\u4f5c\u91cd\u89e3\u6790\u4e00\u81f4\u6027\u53c2\u7167\uff1b\u6b63\u5f0f\u89e3\u6790\u4ee5\u539f\u59cbXLS\u4e3a\u6e90",
+          "bytes": 5464,
+          "sha256": "ab2aaad7c4f5dece83418f7504f5c75f340888c8af87e6e9c3eb366906daca38"
+        },
+        {
+          "staged_input": "/tmp/soxx-pit-dividend-inventory/issuer_dividend_audit.json",
+          "archive_relative_path": "soxx/issuer_dividend_audit.json",
+          "capture_kind": "prior_readonly_diagnostic",
+          "purpose": "\u4fdd\u7559\u73b0\u6709\u5e93\u5b58\u53d1\u73b0\uff0c\u4e0d\u4ee3\u66ff\u65b0\u8d44\u683c\u8fd0\u884c",
+          "bytes": 2722,
+          "sha256": "c1c45e13995f3900de51bea413b676d3ebabb8fe1448023ce7e28168a72a81e5"
+        },
+        {
+          "staged_input": "/tmp/soxx-pit-dividend-inventory/issuer_futu_cash_basis_comparison.csv",
+          "archive_relative_path": "soxx/issuer_futu_cash_basis_comparison.csv",
+          "capture_kind": "prior_readonly_diagnostic",
+          "purpose": "\u4fdd\u75592017\u7f3a\u5931\u53ca\u9010\u884c\u4efd\u989d\u53e3\u5f84\u5dee\u5f02",
+          "bytes": 9712,
+          "sha256": "6024890e4588f8039ebfe4241d74bea44ec9f978393fe05cde932c03c12f32fe"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/issuer_soxl_table_observed.csv",
+          "archive_relative_path": "soxl/issuer_soxl_table_observed.csv",
+          "capture_kind": "browser_dom_table_transcription",
+          "purpose": "\u5b98\u65b9\u9875\u9762\u6b63\u5e38\u6d4f\u89c8\u5668\u5c55\u5f00\u6240\u5f9732\u884c\uff1btool\u7ed3\u679c\u8f6c\u5b58\uff0c\u4e0d\u662f\u539f\u59cbHTTP\u6216\u539f\u59cbHTML",
+          "bytes": 1664,
+          "sha256": "e5c2e720eb85244aac7ba9c626941d3f2d6b2c1feba27fd66b6e4b5462bb2033"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/issuer_soxl_inventory.json",
+          "archive_relative_path": "soxl/issuer_soxl_inventory.json",
+          "capture_kind": "browser_observation_metadata",
+          "purpose": "\u4fdd\u7559\u89c2\u5bdfUTC\u4e0a\u754c\u800c\u975e\u53d1\u660e\u7cbe\u786eHTTP\u65f6\u523b\u3001URL\u3001\u65b9\u6cd5\u4e0e\u5c40\u9650",
+          "bytes": 2064,
+          "sha256": "dd85b85d62712af26197d67b97c335985649cb7f243ad6ed64ac9360466d3b05"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/soxl_2014_contradiction.json",
+          "archive_relative_path": "soxl/soxl_2014_contradiction.json",
+          "capture_kind": "contemporaneous_financial_constraint_diagnostic",
+          "purpose": "\u5f53\u524dissuer\u3001\u5c01\u5b58Futu\u3001\u5f53\u65f6\u62a5\u8868DOM\u6570\u5b57/\u811a\u6ce8\u7684\u51b2\u7a81\u4e0e\u63a8\u65ad\u8fb9\u754c",
+          "bytes": 3631,
+          "sha256": "6f080e69fba3c1481fa176d86b722f59414daf793b34eaaf5459b179fa0b64bd"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/split2021.body",
+          "archive_relative_path": "soxl/split2021.body",
+          "capture_kind": "http_response_body",
+          "purpose": "Direxion2021\u539f\u59cb\u62c6\u80a1PDF",
+          "bytes": 323219,
+          "sha256": "e3e43c94df06ab4ea28ef3ef0e5dc41b5e14e623a495274465bb4b2e9fdb94f8"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/split2021.receipt.json",
+          "archive_relative_path": "soxl/split2021.receipt.json",
+          "capture_kind": "http_receipt",
+          "purpose": "Direxion2021\u539f\u59cb\u62c6\u80a1PDF\u771f\u5b9ereceipt",
+          "bytes": 1239,
+          "sha256": "7407b50f214653b49cfa8e54f095b15e5b0ca2e414d5d8513b795716903519b1"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/soxl_2015_occ36615.body",
+          "archive_relative_path": "soxl/soxl_2015_occ36615.body",
+          "capture_kind": "http_response_body",
+          "purpose": "2015OCC\u62c6\u80a1\u901a\u77e5\uff0cMIAX\u5b98\u65b9\u955c\u50cf",
+          "bytes": 81126,
+          "sha256": "d7b6a3f416c558e8b4e09ccc63a6c2f5ba6b074e53dfcfaee3a5a7ad83f77169"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/soxl_2015_occ36615.receipt.json",
+          "archive_relative_path": "soxl/soxl_2015_occ36615.receipt.json",
+          "capture_kind": "http_receipt",
+          "purpose": "2015OCC\u62c6\u80a1\u901a\u77e5\uff0cMIAX\u5b98\u65b9\u955c\u50cf\u771f\u5b9ereceipt",
+          "bytes": 1097,
+          "sha256": "91413ec4a226f2612d6abae912a516a55f1ec67985b1c7ede887c2b3d1fb1ea5"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/soxl_2016_occ40328.body",
+          "archive_relative_path": "soxl/soxl_2016_occ40328.body",
+          "capture_kind": "http_response_body",
+          "purpose": "2016OCC\u8d44\u672c\u5206\u914d\u901a\u77e5\uff0cMIAX\u5b98\u65b9\u955c\u50cf",
+          "bytes": 23673,
+          "sha256": "b4beeac8a05ff439e072056577a229c392debab2420f1ff7bdba7415d4a7e3f8"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/soxl_2016_occ40328.receipt.json",
+          "archive_relative_path": "soxl/soxl_2016_occ40328.receipt.json",
+          "capture_kind": "http_receipt",
+          "purpose": "2016OCC\u8d44\u672c\u5206\u914d\u901a\u77e5\uff0cMIAX\u5b98\u65b9\u955c\u50cf\u771f\u5b9ereceipt",
+          "bytes": 1103,
+          "sha256": "4ebdc6972aa5d6fa9b3c654f4d867baeae9e2e3f06d1d79e562cb3e0c43c7504"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/soxx_2024_split_8937.body",
+          "archive_relative_path": "soxl/soxx_2024_split_8937.body",
+          "capture_kind": "http_response_body",
+          "purpose": "iShares2024\u539f\u59cbForm8937\u4efd\u989d\u53d8\u5316",
+          "bytes": 83128,
+          "sha256": "12d06890b99609c59df6d57ae53a5625a17aa1ffa792182f7362168fe6cf30f3"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/soxx_2024_split_8937.receipt.json",
+          "archive_relative_path": "soxl/soxx_2024_split_8937.receipt.json",
+          "capture_kind": "http_receipt",
+          "purpose": "iShares2024\u539f\u59cbForm8937\u4efd\u989d\u53d8\u5316\u771f\u5b9ereceipt",
+          "bytes": 1697,
+          "sha256": "68375cab6ae8535b90eb2f0885729b78e0245181dee40a6059e5a0735dc1fb6e"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/futu_rehab_docs.body",
+          "archive_relative_path": "soxl/futu_rehab_docs.body",
+          "capture_kind": "http_response_body",
+          "purpose": "Futu\u5b98\u65b9\u5b57\u6bb5/\u590d\u6743\u884c\u4e3a\u8fb9\u754c",
+          "bytes": 251407,
+          "sha256": "0917e9b3481f954ffbe59a46116604c8d226eeff267ec96c3df6155fbeb68609"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/futu_rehab_docs.receipt.json",
+          "archive_relative_path": "soxl/futu_rehab_docs.receipt.json",
+          "capture_kind": "http_receipt",
+          "purpose": "Futu\u5b98\u65b9\u5b57\u6bb5/\u590d\u6743\u884c\u4e3a\u8fb9\u754c\u771f\u5b9ereceipt",
+          "bytes": 1028,
+          "sha256": "c0191034dbc4ad378ef9c0d6b82bfa294c92c95110de8b7e1dd0a1ae146a9d88"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_submissions.body",
+          "archive_relative_path": "soxl/sec_submissions.body",
+          "capture_kind": "http_response_body",
+          "purpose": "SEC\u539f\u59cbissuer filing\u7d22\u5f15",
+          "bytes": 187707,
+          "sha256": "954de56082bf57e06a37346c7e1f62f3b26413f5855ebfd30de44fa2a38e3023"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_submissions.receipt.json",
+          "archive_relative_path": "soxl/sec_submissions.receipt.json",
+          "capture_kind": "http_receipt",
+          "purpose": "SEC\u539f\u59cbissuer filing\u7d22\u5f15\u771f\u5b9ereceipt",
+          "bytes": 407,
+          "sha256": "fb24b850d8fdb41957b7cd0944e2ee3e4c32834d10477ffbd27517f0806e85cd"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_submissions_history.body",
+          "archive_relative_path": "soxl/sec_submissions_history.body",
+          "capture_kind": "http_response_body",
+          "purpose": "SEC\u539f\u59cb\u5386\u53f2filing\u7d22\u5f15",
+          "bytes": 344872,
+          "sha256": "aa2504cb4a85994dc3dd8fd3bf0142704338777be7ba4dd408a41ba6a83a4bd5"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_submissions_history.receipt.json",
+          "archive_relative_path": "soxl/sec_submissions_history.receipt.json",
+          "capture_kind": "http_receipt",
+          "purpose": "SEC\u539f\u59cb\u5386\u53f2filing\u7d22\u5f15\u771f\u5b9ereceipt",
+          "bytes": 1025,
+          "sha256": "c601cb0f0610aa04f6c865bb5ef942f6fde40131ee3acfb3c55d54b1a80594d3"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/product.body",
+          "archive_relative_path": "soxl/product.body",
+          "capture_kind": "failed_http_response_body",
+          "purpose": "\u4fdd\u7559\u5df2\u53d1\u751f403/404\u5931\u8d25\uff0c\u4e0d\u4f5c\u4e3a\u6210\u529f\u5185\u5bb9\u6765\u6e90",
+          "bytes": 5606,
+          "sha256": "8c0ec0a43bf9644dbeb6e53d340b4dd3cc4bb6fe4bbf609f04359235562e2b05"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/product.receipt.json",
+          "archive_relative_path": "soxl/product.receipt.json",
+          "capture_kind": "failed_http_receipt",
+          "purpose": "\u771f\u5b9e\u5931\u8d25\u8bf7\u6c42\u4fe1\u606f\uff0c\u4e0d\u5ba3\u79f0\u4e0b\u8f7d\u6210\u529f",
+          "bytes": 2544,
+          "sha256": "b64b1bfc2eb96a76adb828f55f19d5057a953489ff870d6214748137b12df22f"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/distributions.body",
+          "archive_relative_path": "soxl/distributions.body",
+          "capture_kind": "failed_http_response_body",
+          "purpose": "\u4fdd\u7559\u5df2\u53d1\u751f403/404\u5931\u8d25\uff0c\u4e0d\u4f5c\u4e3a\u6210\u529f\u5185\u5bb9\u6765\u6e90",
+          "bytes": 5501,
+          "sha256": "36d110a0bdf288b50de599bd9f0bceee642a9503d3314d25e7df6136da098023"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/distributions.receipt.json",
+          "archive_relative_path": "soxl/distributions.receipt.json",
+          "capture_kind": "failed_http_receipt",
+          "purpose": "\u771f\u5b9e\u5931\u8d25\u8bf7\u6c42\u4fe1\u606f\uff0c\u4e0d\u5ba3\u79f0\u4e0b\u8f7d\u6210\u529f",
+          "bytes": 2494,
+          "sha256": "f917af74a0c7acfc4072910b9b55bc91f0e14dc36239f947b70bf0ced9d9bf1b"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/split2015.body",
+          "archive_relative_path": "soxl/split2015.body",
+          "capture_kind": "failed_http_response_body",
+          "purpose": "\u4fdd\u7559\u5df2\u53d1\u751f403/404\u5931\u8d25\uff0c\u4e0d\u4f5c\u4e3a\u6210\u529f\u5185\u5bb9\u6765\u6e90",
+          "bytes": 4819,
+          "sha256": "b44b2444302aa326af4ae6ba6fbf2fea49750f522e98803fc54f0d99c03613f2"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/split2015.receipt.json",
+          "archive_relative_path": "soxl/split2015.receipt.json",
+          "capture_kind": "failed_http_receipt",
+          "purpose": "\u771f\u5b9e\u5931\u8d25\u8bf7\u6c42\u4fe1\u606f\uff0c\u4e0d\u5ba3\u79f0\u4e0b\u8f7d\u6210\u529f",
+          "bytes": 947,
+          "sha256": "5d58f717e4f305035a64f19ac6cebd478d1509c89d8eff05adc92a98b9f63186"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_20150430_semiannual.body",
+          "archive_relative_path": "soxl/sec_20150430_semiannual.body",
+          "capture_kind": "failed_http_response_body",
+          "purpose": "\u4fdd\u7559\u5df2\u53d1\u751f403/404\u5931\u8d25\uff0c\u4e0d\u4f5c\u4e3a\u6210\u529f\u5185\u5bb9\u6765\u6e90",
+          "bytes": 4819,
+          "sha256": "6e87b7ae31df65a70b549c61b7278ac856128688ea9c7a9ae7c73374657bbf6b"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_20150430_semiannual.receipt.json",
+          "archive_relative_path": "soxl/sec_20150430_semiannual.receipt.json",
+          "capture_kind": "failed_http_receipt",
+          "purpose": "\u771f\u5b9e\u5931\u8d25\u8bf7\u6c42\u4fe1\u606f\uff0c\u4e0d\u5ba3\u79f0\u4e0b\u8f7d\u6210\u529f",
+          "bytes": 965,
+          "sha256": "49fd08d02e53449be11847b32818ea691df8c16b0a01c7fe3458641fc315ad6e"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_20150430_complete_submission.body",
+          "archive_relative_path": "soxl/sec_20150430_complete_submission.body",
+          "capture_kind": "failed_http_response_body",
+          "purpose": "\u4fdd\u7559\u5df2\u53d1\u751f403/404\u5931\u8d25\uff0c\u4e0d\u4f5c\u4e3a\u6210\u529f\u5185\u5bb9\u6765\u6e90",
+          "bytes": 4819,
+          "sha256": "210334f16c87d3147f540fb5bef695398a965c56ae0b237a4a2dfd934b600e77"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/sec_20150430_complete_submission.receipt.json",
+          "archive_relative_path": "soxl/sec_20150430_complete_submission.receipt.json",
+          "capture_kind": "failed_http_receipt",
+          "purpose": "\u771f\u5b9e\u5931\u8d25\u8bf7\u6c42\u4fe1\u606f\uff0c\u4e0d\u5ba3\u79f0\u4e0b\u8f7d\u6210\u529f",
+          "bytes": 988,
+          "sha256": "aa14efe1c35303183dfa25a2ea77dd74e618e4b6606e129b183b5b912cd23c0e"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/soxx_2024_split_press.body",
+          "archive_relative_path": "soxl/soxx_2024_split_press.body",
+          "capture_kind": "failed_http_response_body",
+          "purpose": "\u4fdd\u7559\u5df2\u53d1\u751f403/404\u5931\u8d25\uff0c\u4e0d\u4f5c\u4e3a\u6210\u529f\u5185\u5bb9\u6765\u6e90",
+          "bytes": 151002,
+          "sha256": "6a38e6eb785fa0661e9d54c631d3cdbcd3521ff2655b176851c9482d80ebd8eb"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/soxx_2024_split_press.receipt.json",
+          "archive_relative_path": "soxl/soxx_2024_split_press.receipt.json",
+          "capture_kind": "failed_http_receipt",
+          "purpose": "\u771f\u5b9e\u5931\u8d25\u8bf7\u6c42\u4fe1\u606f\uff0c\u4e0d\u5ba3\u79f0\u4e0b\u8f7d\u6210\u529f",
+          "bytes": 3993,
+          "sha256": "180a763d51fc5607b1ec074950f00ec3706b7fa2ad254c91866abb11e5db7b7e"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/browser_download_attempts.json",
+          "archive_relative_path": "soxl/browser_download_attempts.json",
+          "capture_kind": "failed_browser_download_audit",
+          "purpose": "\u4fdd\u7559SEC\u6b63\u6587\u53ef\u8bfb\u4f46\u539f\u59cb\u5b57\u8282\u4e0b\u8f7d\u672a\u6210\u529f\u7684\u8fb9\u754c",
+          "bytes": 1088,
+          "sha256": "2e2569aac7ad37b1fa3c6224d9b1fd6b6f762fd3ac83b13a55679dbf9a9b982a"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/direxionfunds.com_cdx.response",
+          "archive_relative_path": "soxl/independent_2014/direxionfunds.com_cdx.response",
+          "capture_kind": "archive_index_or_failed_search_response_body",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 1449,
+          "sha256": "2e27cec669b38f6be24cb3be61cc58d7c452ac3edffcfcfe3ba9b0fc4c53ad91"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/direxionfunds.com_cdx_receipt.json",
+          "archive_relative_path": "soxl/independent_2014/direxionfunds.com_cdx_receipt.json",
+          "capture_kind": "archived_issuer_or_search_http_receipt",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 756,
+          "sha256": "a56ab20f362a556819ed12cdf89d28660b7a934d541b02ad0b1b5d13094f0a73"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/direxioninvestments.com_cdx.response",
+          "archive_relative_path": "soxl/independent_2014/direxioninvestments.com_cdx.response",
+          "capture_kind": "archive_index_or_failed_search_response_body",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 703,
+          "sha256": "6f4e839e5fb9d6b11a6ab69e0a3511b387ce93803ab92c6088cd2f039e2547f7"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/direxioninvestments.com_cdx_receipt.json",
+          "archive_relative_path": "soxl/independent_2014/direxioninvestments.com_cdx_receipt.json",
+          "capture_kind": "archived_issuer_or_search_http_receipt",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 773,
+          "sha256": "310650b8c43a0feadba0856f5d875fe67274268cdd7049ce6de8d4d68959c115"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/ici2014_guess.response",
+          "archive_relative_path": "soxl/independent_2014/ici2014_guess.response",
+          "capture_kind": "archive_index_or_failed_search_response_body",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 17,
+          "sha256": "2938e9f1284180959e33ab1718d0793a72ff6e4cdb8108c34dcd14e69446de5c"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/ici2014_guess_receipt.json",
+          "archive_relative_path": "soxl/independent_2014/ici2014_guess_receipt.json",
+          "capture_kind": "archived_issuer_or_search_http_receipt",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 434,
+          "sha256": "ab264a229d5a0ca305d35223f4e54e14b1a494895d733b7fd358be842f8bdbb6"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/ici_receipt.json",
+          "archive_relative_path": "soxl/independent_2014/ici_receipt.json",
+          "capture_kind": "archived_issuer_or_search_http_receipt",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 167,
+          "sha256": "3860c7c70faae530a9ffa8b6097fd4c8bf93904dfe80333db133cd298e5daa98"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/issuer_distributions_20141224.html",
+          "archive_relative_path": "soxl/independent_2014/issuer_distributions_20141224.html",
+          "capture_kind": "archived_original_issuer_http_response_body",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 65256,
+          "sha256": "8605972106dcde96b64fdf53acfcf6b8f111ae05b07c547c05f028a9e5214412"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/issuer_distributions_20141224_income_table.txt",
+          "archive_relative_path": "soxl/independent_2014/issuer_distributions_20141224_income_table.txt",
+          "capture_kind": "derived_archived_issuer_extraction",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 679,
+          "sha256": "4d300d98024a87a89d621f9645adc2a9b360553fc46ed65764a674e78d36580f"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/issuer_distributions_20141224_receipt.json",
+          "archive_relative_path": "soxl/independent_2014/issuer_distributions_20141224_receipt.json",
+          "capture_kind": "archived_issuer_or_search_http_receipt",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 583,
+          "sha256": "cfb992e1d713dd0335da8c1700e4a1309496a55a88944e4e9a28519839c52fd1"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/soxl_2014_exact_historical_issuer_evidence.json",
+          "archive_relative_path": "soxl/independent_2014/soxl_2014_exact_historical_issuer_evidence.json",
+          "capture_kind": "derived_archived_issuer_extraction",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 1824,
+          "sha256": "6057a093240fb5ca74c23e1becba3c0e0dc77bff29a02bd6b3dc281273d79d09"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/wayback_cdx.response",
+          "archive_relative_path": "soxl/independent_2014/wayback_cdx.response",
+          "capture_kind": "archive_index_or_failed_search_response_body",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 3,
+          "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        {
+          "staged_input": "/tmp/soxl-pit-distribution-inventory/independent_2014/wayback_cdx_receipt.json",
+          "archive_relative_path": "soxl/independent_2014/wayback_cdx_receipt.json",
+          "capture_kind": "archived_issuer_or_search_http_receipt",
+          "purpose": "\u72ec\u7acb\u590d\u6838\u76842014\u5f53\u65f6issuer\u516c\u544a\u4e0e\u771f\u5b9eCDX/HTTP/\u672a\u6210\u529f\u63a2\u7d22\u8bb0\u5f55\uff1b\u9010receipt\u5224status\uff0c\u4e0d\u628a\u5931\u8d25\u5f53\u5185\u5bb9",
+          "bytes": 649,
+          "sha256": "41c9ef663e80ee96e340fa0df47dc6fb19f384ab278851a2f840bb7881eae332"
+        }
+      ]
+    },
+    "sources": {
+      "SOXX": {
+        "product_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf",
+        "download_receipt": "soxx/complete_http_receipt.json",
+        "expected_distribution_rows": 93,
+        "expected_positive_rows": 79,
+        "expected_zero_rows": 14,
+        "expected_ex_date_min": "2002-06-17",
+        "expected_ex_date_max": "2026-09-15",
+        "all_rows_retained": true,
+        "parser": "SpreadsheetML Distributions worksheet; preserve source row and decimal strings. Bare ampersand in unrelated hyperlink makes strict XML invalid; narrowly parse worksheet/row/cell ss:Data and ss:Index without modifying raw bytes; reject ambiguous cell schema.",
+        "source_fields": [
+          "Record Date",
+          "Ex-Date",
+          "Payable Date",
+          "Total Distribution",
+          "Income",
+          "ST Cap Gains",
+          "LT Cap Gains",
+          "Return of Capital"
+        ],
+        "cash_basis": "current_2026_capture_share_units_after_effective2024split",
+        "restore_original_ex_date_share_amount": "Multiply each total/component by3 iff ex_date<2024-03-07; otherwise1. No future announced split applied.",
+        "basis_evidence_grade": "current_primary_issuer_plus_independent_effective_split_document_and78matched_vendor_events;not_historical_vintage",
+        "component_total_abs_tolerance_decimal": "0.000001"
+      },
+      "SOXL": {
+        "product_url": "https://www.direxion.com/product/daily-semiconductor-bull-bear-3x-etfs",
+        "source_file": "soxl/issuer_soxl_table_observed.csv",
+        "expected_distribution_rows": 32,
+        "expected_positive_rows": 32,
+        "expected_zero_rows": 0,
+        "expected_ex_date_min": "2010-09-22",
+        "expected_ex_date_max": "2026-09-22",
+        "all_rows_retained": true,
+        "source_fields": [
+          "Record Date",
+          "Ex Date",
+          "Pay Date",
+          "Income Dividend",
+          "Short-Term Capital Gain",
+          "Long-Term Capital Gain"
+        ],
+        "cash_basis": "issuer_event_date_original_share_units_per_row",
+        "global_split_rescaling": false,
+        "total_cash": "sum income+ST+LT; visible emdash means no amount for that component, retain rawtoken",
+        "basis_evidence_grade": "current_primary_issuer_DOM;2016contemporaneous_OCC;2014exact_archived_issuer_notice_with_CDX_digest",
+        "capture_limitation": "DOM table transcribed from documented tool result; rawHTML not saved. Exact DOM request-start time unknown; observation completed before2026-10-09T06:41:55Z, transcription written06:42:40.251462Z. Do not replace these by inventedHTTP receipt.",
+        "historical2014_source": {
+          "original_url": "http://www.direxioninvestments.com:80/press-release/distributions?",
+          "archive_url": "https://web.archive.org/web/20141224234256id_/http://www.direxioninvestments.com:80/press-release/distributions?",
+          "capture_utc": "2014-12-24T23:42:56Z",
+          "http_request_started_utc": "2026-10-09T07:03:28.513434+00:00",
+          "http_received_utc": "2026-10-09T07:03:32.207414+00:00",
+          "body_sha256": "8605972106dcde96b64fdf53acfcf6b8f111ae05b07c547c05f028a9e5214412",
+          "cdx_sha1_base32": "FTX3DBS7WZNA54LW64FWZCJ7BAIW3JRK",
+          "exact_amount_usd_decimal": "7448.00",
+          "exact_original_share_rate_decimal": "0.00532",
+          "qualification": "Archivedoriginalissuercontentrateanddatesverified; archivecaptureafterexdate so noexanteannouncementclaim."
+        },
+        "row_source_version_contract": "All32liveDOMrowsretained;2014rowaddarchivedissuerbasis_source_version andknownby2014-12-24T23:42:56Z. Otherrowsnotassignedthathistoricalknownby."
+      }
+    },
+    "split_events": [
+      {
+        "instrument": "SOXL",
+        "new_shares_per_old_share": 4,
+        "record_date": "2015-05-18",
+        "payable_after_close_date": "2015-05-19",
+        "effective_trading_date": "2015-05-20",
+        "evidence": "soxl/soxl_2015_occ36615.body",
+        "evidence_url": "https://www.miaxglobal.com/sites/default/files/alert-files/SOXL_Split_36615.pdf",
+        "secondary_primary_url": "https://www.sec.gov/Archives/edgar/data/1424958/000119312515138280/d911082d497.htm",
+        "note": "SEC prose additionalfour/400percent is inconsistent; use explicit4for1 ratio plus100to400 example and independentOCC."
+      },
+      {
+        "instrument": "SOXL",
+        "new_shares_per_old_share": 15,
+        "record_date": "2021-02-26",
+        "payable_after_close_date": "2021-03-01",
+        "effective_trading_date": "2021-03-02",
+        "evidence": "soxl/split2021.body",
+        "evidence_url": "https://www.direxion.com/uploads/Direxion-Announces-Forward-and-Reverse-Splits-of-Five-ETFs.pdf"
+      },
+      {
+        "instrument": "SOXX",
+        "new_shares_per_old_share": 3,
+        "record_date": "2024-03-04",
+        "payable_after_close_date": "2024-03-06",
+        "effective_trading_date": "2024-03-07",
+        "evidence": "soxl/soxx_2024_split_8937.body",
+        "evidence_url": "https://www.ishares.com/us/literature/tax-information/form-8937-ishares-semiconductor-etf-3-6-2024.pdf",
+        "effective_date_additional_primary_url": "https://www.ishares.com/us/literature/press-release/stock-split-press-release-2023.pdf",
+        "additional_url_raw_download_status": 404,
+        "note": "8937 independently anchors3for1/record/payable close; following-session03-07 independently observedofficialpressrelease webtext,rawpressPDF404 preserved. Fullsourcequalification mustretainthisdistinction.",
+        "effective_trading_date_derivation": "FirstnativeQlibsessionafterissuer8937declaredpayableafterclose2024-03-06; agreeswithofficialpresswebtext. Do notclaimfailedrawpressPDFwassaved."
+      }
+    ],
+    "calendar_reference": {
+      "provider_uri": "data/qlib/soxx_extended_published_affine_20260925_v1",
+      "region": "us",
+      "freq": "day",
+      "start": "2006-10-10",
+      "end": "2026-09-25",
+      "expected_rows": 5021,
+      "read_api": "qlib.init + qlib.data.D.calendar(freq=day,future=False)",
+      "scope": "independent retrospective native session reference only; not then-available information and notnewpriceinput",
+      "coverage_policy": "All ex/effective dates inside inclusive calendar range must be actualnative sessions; older dates retained withoutside_reference_range status, never dropped orfilled. Pay/record dates checked/report whereinrange; postasofpay retainsnot_yet_paid flag; nofakefuturecalendar."
+    },
+    "parent_references": {
+      "native_calendar": {
+        "card": "research/soxx_extended_history_20261009",
+        "summary_sha256": "56cc4044d31c83e8ad1ec443b6f65ecbff2875c938c3b341fd29b344fb18a4fe",
+        "verification_manifest_sha256": "f9614d5a8fb26e9e74ad474dc9025711d746b685a0f375895a4b19d23cf05026",
+        "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxx_extended_history_20261009/qlib_recorder",
+        "experiment_id": "203143475559555222",
+        "recorder_id": "3a89651f93ac4272b60b7ff6feec2f2a",
+        "require_status": "FINISHED",
+        "artifact_sha256": {
+          "data/native_readback.pkl": "bd759ec4fba64c85cf67fa97994a46fa46c8096452ab03bb5db9d7a2398046c0",
+          "inputs/parent_bindings.pkl": "47242da41a9d00f492266ecb37bd38872e98769f78d64361db4cbb44144a1bc9"
+        },
+        "calendar_file_sha256": "7f1fcf14a667d8d10ab8af4bc75002c5c786a79614f9cd4f7b451038350a8041",
+        "manifest_name": "verification_manifest.json"
+      },
+      "futu_comparison_only": {
+        "card": "research/canonical_price_basis_20261002",
+        "summary_sha256": "0e444d39dd4e09e5bdcac2d44dd77fa3db356ce735ecdfc80b8f937cf0bf362f",
+        "recorder_uri": "/Users/rziiiii/dev/workspace/research/canonical_price_basis_20261002/qlib_recorder",
+        "experiment_id": "521389447037827398",
+        "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+        "require_status": "FINISHED",
+        "artifact_sha256": {
+          "inputs/verified_raw_inputs.pkl": "3c1cce5d834e86bf863a0400180852cc10c768a422f988a5e7f33204d2ad025a"
+        },
+        "legacy_manifest_contract": "artifact_manifest.json ratherthan newverification_manifest; explicitlegacyhashreferenceonly, no fabricatedmanifest",
+        "object_fields": "none.rehabilitation.SOXL andSOXX; onlydescribevendorcomparison, notautomaticledgerauthority",
+        "manifest_name": "artifact_manifest.json",
+        "manifest_sha256": "2c441344a211f1526f9156dae14dd9e6681597013f7e6e17754df36949ac0b86"
+      }
+    },
+    "declared_discrepancies": [
+      {
+        "instrument": "SOXX",
+        "ex_date": "2017-09-26",
+        "record_date": "2017-09-27",
+        "pay_date": "2017-09-29",
+        "issuer_current_share_amount_decimal": "0.166176",
+        "expected_original_share_amount_decimal": "0.498528",
+        "futu_cash_event_present": false,
+        "handling": "retainissuerpositiveevent; explicitFutuomission; nooldrehabmutation"
+      },
+      {
+        "instrument": "SOXL",
+        "ex_date": "2014-12-23",
+        "issuer_original_amount_decimal": "0.00532",
+        "futu_amount_decimal": "0.00133",
+        "handling": "Useissuer0.00532 asoriginalsharecash, independentlyconfirmedby2014-12-24archivedissuerannouncement before2015split; preservefrozenFutu0.00133 andpriorconstraintdiagnostic. Do notinferFutuinternalprocessing.",
+        "evidence": "soxl/independent_2014/issuer_distributions_20141224.html",
+        "residual_gap": "Exactpublication/declarationtimestampnotfound; archivecaptureonecalendar dayafterex,notexantePITcertification. FullSECHTMLrawbytesnotobtainedbutno longerrequiredtoinferexactrate.",
+        "evidence_integrity": "SHA256matchesreceipt andSHA1Base32matchesarchivedCDXdigest"
+      },
+      {
+        "instrument": "SOXL",
+        "ex_date": "2019-09-24",
+        "issuer_amount_decimal": "0.31275",
+        "futu_amount_decimal": "0.31274",
+        "handling": "Retainissuer5decimalamountanddifference; maxoneunitofissuerprecision; do notsilentlyforceequality."
+      }
+    ],
+    "time_contract": {
+      "dates_are": "USmarketlocalcalendar dates; notpreciseannouncementorarrivaltimestamps",
+      "dividend_entitlement_boundary": "Pre-ex eligibleholdings givefixedcashreceivable; eventtabledoesnotexecuteaccount",
+      "receivable_in_NAV": true,
+      "receivable_spendable_before_payment": false,
+      "pay_date_intraday_availability": "unknown; futureledgerconservativecashavailabilitynextnativeopenafterpaydateclose unless separate evidence proves earliercredit",
+      "terminal_unpaid_example": {
+        "instrument": "SOXL",
+        "ex_date": "2026-09-22",
+        "pay_date": "2026-09-29",
+        "amount_per_original_share_decimal": "0.09290",
+        "market_as_of": "2026-09-25",
+        "status": "receivable_not_spendable_cash"
+      },
+      "announcement_at": "unknownunlessdatedprimaryannouncementindividuallypresent; retrievaltimeisnothistoricalannouncementtime",
+      "tax_basis": "issuerpublishedgrosspre-tax; actualaccountwithholding/credits/feesnotqueriedandnotcertified",
+      "economic_ex_date_vs_evidence_time": "ex_date describes economicentitlementonly; keepseparatefromsource_evidence_known_by/archive_timestamp. announcement_at defaultsnullandmustnotbe filledwith ex_date,record_date,pay_date,retrieval_timeorarchivecapture."
+    },
+    "event_schema": {
+      "cash_fields": [
+        "event_id",
+        "instrument",
+        "event_type",
+        "source_row",
+        "source_capture_kind",
+        "source_hash",
+        "ex_date",
+        "record_date",
+        "pay_date",
+        "source_cash_basis",
+        "source_total_decimal",
+        "source_income_decimal",
+        "source_short_term_gain_decimal",
+        "source_long_term_gain_decimal",
+        "source_return_of_capital_decimal",
+        "original_share_multiplier_decimal",
+        "original_total_decimal",
+        "basis_evidence_grade",
+        "reference_calendar_status",
+        "payable_status_at_market_as_of",
+        "declared_discrepancy_id",
+        "source_version",
+        "basis_source_version",
+        "archive_timestamp_utc",
+        "archive_cdx_sha1_base32",
+        "source_evidence_known_by_utc",
+        "announcement_at"
+      ],
+      "split_fields": [
+        "event_id",
+        "instrument",
+        "event_type",
+        "record_date",
+        "payable_after_close_date",
+        "effective_trading_date",
+        "new_shares_per_old_share",
+        "source_hash",
+        "basis_evidence_grade",
+        "reference_calendar_status",
+        "source_version",
+        "archive_timestamp_utc",
+        "announcement_at"
+      ],
+      "no_unknown_fill": "Missing ex/pay/record or ambiguoustoken/source schema failsclosed; explicitissuerdashcomponent isnotmissing-eventfill; noforward/backfill."
+    },
+    "proposed_api": {
+      "data_module": "src/data/etf_corporate_actions.py",
+      "functions": [
+        "parse_ishares_distribution_workbook(raw_bytes) -> exactsource_rows",
+        "parse_direxion_distribution_table(table_csv_bytes) -> exactsource_rows",
+        "qualify_etf_corporate_actions(source_rows, split_events, *, native_calendar, market_as_of, source_contract) -> cash_events,split_events,source_differences,audit"
+      ],
+      "workflow_module": "src/workflow/etf_corporate_actions.py",
+      "runner": "run_etf_event_qualification(plan_path, *, output_card, source_root, evidence_root) -> summary",
+      "workflow_order": [
+        "completed-cardguard andactiveRecorderguard beforeqlib.init",
+        "verifyfrozenplan/rawsource/parenthashes",
+        "loadparentobjects throughQlibR.get_recorder read-only",
+        "qlib.init pinnedprovider;readnativeD.calendar",
+        "parseallsourceevents; qualifydates/units/discrepancies",
+        "newQlibR.start;saveallsource/event/calendar/auditobjects",
+        "archiveallobjects andtemporarysummary successfully; exitR contextFINISHED",
+        "atomicpublishroot summaryonlyafterarchive/context success"
+      ]
+    },
+    "qualification_gates": [
+      "Allfrozenrawbytes/receiptsmatchsha; nofailedHTTPbodyusedasvalidcontent",
+      "ReparseSOXXoriginalXLS exactly93rows andmatchfrozensourceextraction; retainzero/out-ofcalendarrows",
+      "SOXL32rows schema/count/date/amount finitevalidation; sourcekindstaysDOMtranscription",
+      "Exactuniqueeventidentity; finite nonnegativeamounts; ex<=pay; componentroundingcontract",
+      "Threefixedsplitratios andeffective dates reconciledwithprimarysources andnativecalendar",
+      "Allinrangeex/effective dates innativecalendar; retainedout-of-range audits",
+      "SOXX conversiononly3for1effective2024;SOXLno globalrescale",
+      "Declared2017/2014/2019discrepanciesretained; allothermaterialsourceconflictsfailclosed",
+      "20260922SOXLcash flaggedunpaidat0925",
+      "QlibRecorderFINISHED,allartifacthashreadback,rootnotebook/summary/conclusionconsistent",
+      "2014archivedissuerSOXL/CUSIP/date/total/rate exactextraction,archivedCDXdigest andreceiptSHAverified; noamountinferencefromreturns"
+    ],
+    "decision_semantics": {
+      "success": "usable_under_declared_source_contract",
+      "never_claim": [
+        "historical_vintage_certified",
+        "cash_received_in_realbroker_account",
+        "total_return_or_portfolio_certified",
+        "stable_SOXX_excess",
+        "strategy_promoted",
+        "2014_dividend_amount_demonstrably_known_before_ex_date"
+      ],
+      "failure": "needs_data_or_source_contract_review; retainfailedrunanddonotpublishcompletionmarker"
+    },
+    "focused_verification": [
+      "Synthetic parser malformedXMLhyperlink/sparsecellalignment/ambiguousschema rejection",
+      "ExactDecimalcashconversion andcomponentprecision",
+      "SOXLearlyissueramountnotgloballydividedby15or60",
+      "Futureannouncedsplitexcluded; unsupported futureeffectiveeventfailsasdeclared",
+      "Nativecalendarinteriordatemismatchfails;precalendarrowsretained",
+      "Unpaidcutoffexample andnonspendabletimecontract",
+      "Sourcekind/receiptbounds retained; no inventedUTC",
+      "Hashmismatch/completedcard/activeRecorder/failarchivepublicationguards",
+      "Offlineexecutenotebook usingfrozencaptures; noHTTP/Futu/notebooknetwork"
+    ],
+    "artifact_policy": {
+      "policy": "slim_card_recorder_first",
+      "workflow_config": "workflow.yaml",
+      "root_files": [
+        "plan.json",
+        "etf_corporate_actions_20261009.ipynb",
+        "workflow.yaml",
+        "summary.json",
+        "conclusion.md",
+        "qualification.json",
+        "source_differences_summary.json",
+        "verification_manifest.json"
+      ],
+      "recorder_only_artifacts": [
+        "sources/*",
+        "inputs/source_contract.pkl",
+        "inputs/parent_bindings.pkl",
+        "inputs/native_calendar.pkl",
+        "data/source_rows.pkl",
+        "data/cash_events.pkl",
+        "data/split_events.pkl",
+        "analysis/source_differences.pkl",
+        "analysis/qualification.pkl",
+        "validation/*"
+      ]
+    },
+    "next_separate_task": "\u771f\u6b63NONE\u539f\u59cb\u4efd\u989d+split+ex-date\u5e94\u6536+pay-date\u73b0\u91d1\u81ea\u878d\u8d44\u8d26\u672c\u9700\u72ec\u7acb\u8ba1\u5212\uff1b\u6b64\u5361\u4ec5\u63d0\u4f9b\u4e8b\u4ef6\u6e90\u8d44\u683c\uff0c\u4e0d\u76f4\u63a5\u4fee\u5f53\u524dfeatures/returns\u3002",
+    "source_versions": {
+      "soxx_ishares_workbook_20261009": {
+        "capture_kind": "http_response_body",
+        "body_sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+        "received_at_utc": "2026-10-09T06:37:22.822103+00:00",
+        "archive_timestamp_utc": null,
+        "announcement_at": null
+      },
+      "soxl_direxion_dom_table_20261009": {
+        "capture_kind": "browser_dom_table_transcription",
+        "body_sha256": "e5c2e720eb85244aac7ba9c626941d3f2d6b2c1feba27fd66b6e4b5462bb2033",
+        "observation_completed_no_later_than_utc": "2026-10-09T06:41:55+00:00",
+        "exact_received_at_utc": null,
+        "archive_timestamp_utc": null,
+        "announcement_at": null
+      },
+      "soxl_direxion_distribution_archive_20141224": {
+        "capture_kind": "archived_original_issuer_http_response_body",
+        "body_sha256": "8605972106dcde96b64fdf53acfcf6b8f111ae05b07c547c05f028a9e5214412",
+        "archive_timestamp_utc": "2014-12-24T23:42:56Z",
+        "archive_cdx_sha1_base32": "FTX3DBS7WZNA54LW64FWZCJ7BAIW3JRK",
+        "source_evidence_known_by_utc": "2014-12-24T23:42:56Z",
+        "announcement_at": null,
+        "economic_ex_date": "2014-12-23",
+        "basis_source_event": "SOXL/2014-12-23",
+        "known_by_does_not_prove_exante_availability": true
+      }
+    },
+    "root_reviewed_at_utc": "2026-10-09T07:10:01.693545+00:00",
+    "source_comparison_precision_contract": {
+      "method": "Record every exactDecimal difference; compare Futu display at5decimalplaces as a diagnostic only, never replace issuer amounts with rounded vendor amounts.",
+      "soxx_undeclared_difference_max_abs_decimal": "0.00001",
+      "rationale": "One Futu displayed five-decimal unit; above this requires source review, except declared2017missing event. This does not change the original issuer decimal amounts.",
+      "soxl_undeclared_difference_max_abs_decimal": "0.00001",
+      "declared_exceptions": [
+        "SOXX2017-09-26 missing",
+        "SOXL2014-12-23 historicalsharebasis conflict",
+        "SOXL2019-09-24 one displayed unit difference"
+      ],
+      "fit_to_portfolio_outcomes": false
+    }
+  },
+  "labels_computed": false,
+  "fits": 0,
+  "accounts": 0
+}

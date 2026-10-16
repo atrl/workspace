@@ -1,0 +1,48 @@
+{
+  "scope": "Cosmetic only: transient widget views removed; identical stream lines retained once with counts below. Executed cells, metrics, warnings and Chinese conclusion retained; zero reruns.",
+  "original_bytes": 2203244,
+  "slim_bytes": 55142,
+  "removed_widget_views": 28,
+  "repeated_lines": [
+    {
+      "stream": "stderr",
+      "line": "Traceback (most recent call last):",
+      "count": 2
+    },
+    {
+      "stream": "stderr",
+      "line": "mlflow.exceptions.MlflowException: Changing param values is not allowed. Param with key='cmd-sys.argv' was already logged with value='-' for run ID='7e061c68d0624f99ab78db89df866f3f'. Attempted logging new value '/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmp7zo7al1a.json --HistoryManager.hist_file=:memory:'.",
+      "count": 2
+    },
+    {
+      "stream": "stderr",
+      "line": "",
+      "count": 7
+    },
+    {
+      "stream": "stderr",
+      "line": "---------------------------------------",
+      "count": 4
+    },
+    {
+      "stream": "stderr",
+      "line": "with mlflow.start_run():",
+      "count": 2
+    },
+    {
+      "stream": "stderr",
+      "line": "    with mlflow.start_run(nested=True):",
+      "count": 2
+    },
+    {
+      "stream": "stderr",
+      "line": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/qlib/utils/index_data.py:492: RuntimeWarning: Mean of empty slice",
+      "count": 9735
+    },
+    {
+      "stream": "stderr",
+      "line": "  return np.nanmean(self.data)",
+      "count": 9735
+    }
+  ]
+}

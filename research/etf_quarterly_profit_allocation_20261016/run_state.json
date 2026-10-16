@@ -1,0 +1,66 @@
+{
+  "fit_attempts": [
+    "control_2024",
+    "candidate_2024",
+    "control_2025",
+    "candidate_2025",
+    "control_2026",
+    "candidate_2026"
+  ],
+  "fits": [
+    "control_2024",
+    "candidate_2024",
+    "control_2025",
+    "candidate_2025",
+    "control_2026",
+    "candidate_2026"
+  ],
+  "package_attempts": [
+    "candidate",
+    "control",
+    "primary9097",
+    "additional27baa",
+    "SOXX"
+  ],
+  "packages": [
+    "candidate",
+    "control",
+    "primary9097",
+    "additional27baa",
+    "SOXX"
+  ],
+  "native_attempts": [
+    "candidate_0",
+    "candidate_2",
+    "candidate_5",
+    "control_0",
+    "control_2",
+    "control_5",
+    "primary9097_0",
+    "primary9097_2",
+    "primary9097_5",
+    "additional27baa_0",
+    "additional27baa_2",
+    "additional27baa_5",
+    "SOXX_0",
+    "SOXX_2",
+    "SOXX_5"
+  ],
+  "native": [
+    "candidate_0",
+    "candidate_2",
+    "candidate_5",
+    "control_0",
+    "control_2",
+    "control_5",
+    "primary9097_0",
+    "primary9097_2",
+    "primary9097_5",
+    "additional27baa_0",
+    "additional27baa_2",
+    "additional27baa_5",
+    "SOXX_0",
+    "SOXX_2",
+    "SOXX_5"
+  ]
+}

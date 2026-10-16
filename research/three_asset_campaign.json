@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/etf_quarterly_profit_allocation_20261016",
-  "current_phase": "quarterly_information_failed_separately_preregistered_direct_allocation_implementation",
-  "next_action": "Complete independently preregistered direct quarterly-profit utility experiment: frozen6fits/15freshbooks, same9097riskcontext, physicalrawlabels, source/count/codeapproval then0/2/5bp economic/risk/stability gates. Forecast package remainsclosed; no retuning and no implication stableexcess achieved.",
+  "current_phase": "bounded_ETF_source_forecast_and_direct_allocation_experiments_completed_negative",
+  "next_action": "Maintain closedannual/quarterforecast/directallocation versions. Next research must freeze a substantivelynew source/mechanism and genuinelyindependent evaluation condition; no sign/window/regularization rescue. SOXX/SOX branch needsdatedcompleteweights andannouncementclock. Do notpromote9097 basedonshorter2024window or expandoptionalrisk audit solelyafterfailedcandidate.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1267,6 +1267,18 @@
       "new_accounts": 0,
       "evaluation_months": 43,
       "independent_forward": false
+    },
+    {
+      "card": "research/etf_quarterly_profit_allocation_20261016",
+      "kind": "preregistered_direct_monthly_quarterly_profit_utility",
+      "status": "not_promoted_fixed_quarterly_profit_direct_allocation",
+      "recorder_id": "7e061c68d0624f99ab78db89df866f3f",
+      "new_fits": 6,
+      "new_native_accounts": 15,
+      "monthly_references": 31,
+      "daily_sessions": 647,
+      "historical_data_reused": true,
+      "evaluation": "research/etf_quarterly_profit_allocation_20261016/independent_evaluation.json"
     }
   ],
   "governance_review": {
@@ -1283,8 +1295,8 @@
     "promotion_eligible": false,
     "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
   },
-  "cumulative_new_fits_in_this_campaign": 81,
-  "cumulative_new_native_accounts_in_this_campaign": 42,
+  "cumulative_new_fits_in_this_campaign": 87,
+  "cumulative_new_native_accounts_in_this_campaign": 57,
   "rejected_directions": [
     {
       "direction": "Broad account-state-aware full-path training",
@@ -1307,7 +1319,7 @@
     }
   ],
   "cumulative_new_shadow_paths_in_this_campaign": 36,
-  "cumulative_new_allocator_fits_in_this_campaign": 27,
+  "cumulative_new_allocator_fits_in_this_campaign": 33,
   "cumulative_new_statistical_fits_in_this_campaign": 54,
   "cumulative_frozen_risk_valuations": 6,
   "mechanism_triage": {
@@ -1439,9 +1451,18 @@
     "direct_allocation_plan": "research/etf_quarterly_profit_allocation_20261016/plan.json",
     "direct_allocation_conditioned_on_favorable_information_MSE": false,
     "quarterly_analysis_registry": "research/etf_quarterly_profit_information_20261016/analysis_registry.json",
-    "new_quarterly_fits": 8,
-    "new_quarterly_accounts": 0,
-    "current_execution": "Quarterlyinformation8fitscompleted; directallocationimplementation active, no directfits/accounts yet",
-    "quarterly_information_status": "not_promoted_fixed_quarterly_profit_information"
+    "new_quarterly_fits": 14,
+    "new_quarterly_accounts": 15,
+    "current_execution": "All bounded ETF experiments and independent evaluations finished; no model/account/background job running. Objective unachieved, no promotion and no automatic continuation claimed.",
+    "quarterly_information_status": "not_promoted_fixed_quarterly_profit_information",
+    "direct_allocation_status": "not_promoted_fixed_quarterly_profit_direct_allocation",
+    "primary_reference_original_gate_failures": [
+      "beat_paired_all_costs",
+      "rolling_70pct",
+      "bootstrap_positive",
+      "independent_development",
+      "qualified_forward"
+    ],
+    "optional_primary_risk_audit_launched": false
   }
 }
