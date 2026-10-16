@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/diagnostic_forward_io_v2_20261016",
-  "current_phase": "exact_future_pilot_registered_stdlib_supervisor_waiting",
-  "next_action": "Poll existing supervisor handle88524/PID29707 and actual command/status; do not restart from a stale file or merely because observation times out. At Oct19 12:00UTC supervisor revalidates bindings and may start the single registered pilot before12:01UTC; afterwindow miss/expiry no catchup. Preserve all actual source/model/native outcomes; only qualified real intervals count. VXN/VVIX and same-day Asian-index novelty checks found already-closed routes and must not restart parameter/window searches. Any separate research requires genuinely new information and preregistration without changing the frozen observer.",
+  "current_phase": "historical_diagnosis_resumed_forward_observation_parallel",
+  "next_action": "Research executor and independent evaluator identify and review one bounded saved-Recorder historical attribution task for generic index transfer versus matched control. Separate predictive quality, raw allocation and controller/account contributions; reuse completed proper-scoring results. No new market data or forward-day prerequisite. Freeze scope before computation; no calibration, threshold or closed-route rescue. Preserve the separate registered forward observer unchanged.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1227,5 +1227,13 @@
     "qualified_forward_days": 0,
     "do_not_assume_future_liveness": true
   },
-  "post_registration_generic_novelty_triage": "research/diagnostic_forward_io_v2_20261016/post_registration_research_triage.json"
+  "post_registration_generic_novelty_triage": "research/diagnostic_forward_io_v2_20261016/post_registration_research_triage.json",
+  "goal_lifecycle_observation": {
+    "tool_status": "blocked",
+    "user_requested_resume": true,
+    "actual_research_resumed": true,
+    "automatic_continuation_verified": false,
+    "limitation": "Available Goal API has no resume operation; UI resume required to restore automatic continuation. Do not mark complete or create a replacement to bypass unfinished objective."
+  },
+  "resume_note": "docs/three_asset_progress_restart_20261016.md"
 }
