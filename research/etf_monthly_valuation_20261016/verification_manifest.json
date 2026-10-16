@@ -1,0 +1,55 @@
+{
+  "recorder_id": "74a79f6e67ea44e782bb49c970978a56",
+  "entries": [
+    {
+      "path": "qlib_recorder/674360532386719332/74a79f6e67ea44e782bb49c970978a56/artifacts/analysis/summary",
+      "sha256": "59a6bb53bd18453590cc59d160981436060e5aff63a7a260d12df72d08e35f55",
+      "bytes": 1310
+    },
+    {
+      "path": "qlib_recorder/674360532386719332/74a79f6e67ea44e782bb49c970978a56/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/674360532386719332/74a79f6e67ea44e782bb49c970978a56/artifacts/code_diff.txt",
+      "sha256": "0c08f1f6f17aab71bb8b7399d4834195fa48f7beed0a0f6612981b2813acc753",
+      "bytes": 417887
+    },
+    {
+      "path": "qlib_recorder/674360532386719332/74a79f6e67ea44e782bb49c970978a56/artifacts/code_status.txt",
+      "sha256": "523acaf787c6ef2dd7ed5d13ab75bc70783ebb015339ca6ae17dab9b2c1696af",
+      "bytes": 63796
+    },
+    {
+      "path": "qlib_recorder/674360532386719332/74a79f6e67ea44e782bb49c970978a56/artifacts/inputs/calendar",
+      "sha256": "364cd074c08f7bebdf7e2e9a63ebdedc7d36c54c4d7f93e2c0aba7dc9b340d01",
+      "bytes": 67038
+    },
+    {
+      "path": "qlib_recorder/674360532386719332/74a79f6e67ea44e782bb49c970978a56/artifacts/inputs/plan",
+      "sha256": "4ba5d3ae58611b912ea76eae68aa0b8d6c1f48dcd557c33dc69a99452f5a33ab",
+      "bytes": 910
+    },
+    {
+      "path": "qlib_recorder/674360532386719332/74a79f6e67ea44e782bb49c970978a56/artifacts/inputs/schedule",
+      "sha256": "5874bf358d0d2a8cbd6f1c5651f6ec2996efc892aa942a3cbf09dd4d870feede",
+      "bytes": 4271
+    },
+    {
+      "path": "qlib_recorder/674360532386719332/74a79f6e67ea44e782bb49c970978a56/artifacts/inputs/source_summary",
+      "sha256": "3f8a4dd9abf73831eaf7653a7f682f41d2209ae9911aac73e65f180e1838cfea",
+      "bytes": 2496
+    },
+    {
+      "path": "qlib_recorder/674360532386719332/74a79f6e67ea44e782bb49c970978a56/artifacts/inputs/source_summary_sha256",
+      "sha256": "980b847744151b56d2016823f76c691e305b7d331d72acba72a2eb9552f51d72",
+      "bytes": 79
+    },
+    {
+      "path": "qlib_recorder/674360532386719332/74a79f6e67ea44e782bb49c970978a56/artifacts/sources/alignment_module",
+      "sha256": "cc4684e11c65794f6ea172c0fb60198d408dddb288de6fa37c6b91ff4afc7134",
+      "bytes": 6076
+    }
+  ]
+}

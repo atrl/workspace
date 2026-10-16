@@ -1,0 +1,21 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:51:22.335559+00:00",
+  "decision": "approved_exact_filing_primary_document_transport_repair",
+  "plan_sha256": "602e5aa656ae53c5361f6ec75583c2ca320d894c25afe0929b1c51a9ce58aa9f",
+  "bounds": {
+    "additional_requests_max": 14,
+    "remaining_exact_accessions": 7,
+    "new_market_fetches": 0,
+    "new_fits": 0,
+    "new_accounts": 0
+  },
+  "conditions": [
+    "Keep prior10attempts and9successes unchanged; interrupted originalSGML attempt remains counted.",
+    "Discover primary10K filename from exact accession index; href must resolve to sameSEC CIK/accession directory.",
+    "One index and one primarydocument request per remaining accession, no unbounded retry.",
+    "Do not allow requests timeout to act as unlimited stream; enforce finite wallclock for each retrieval.",
+    "Partial/error document yields diagnostic source row, not accepted original fact."
+  ],
+  "promotion_authorized": false
+}

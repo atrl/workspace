@@ -1,0 +1,20 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:17:54.274488+00:00",
+  "plan_sha256": "6c0c30a1ecc34fc4421bd34e1f96ba431ddafb27c5115146bae48925f63b097f",
+  "decision": "approved_for_execution",
+  "scope": "Saved native holdings descriptive attribution only; zero fits, inference or new accounts",
+  "required_result_checks": [
+    "All twelve exact saved books, all 944 sessions and 819 contiguous 126-session windows per book; all 0/2/5bp costs.",
+    "Daily segment P&L plus actual original fees reconcile saved NAV; split and dividend timing unchanged.",
+    "Arithmetic mean-weight and covariance identity must not be labeled implementable or compounded counterfactual.",
+    "Annual/quarter complete flags use actual calendar coverage, not simply first/last period.",
+    "State summaries distinguish prior observable trend from endogenous account state; ex post winner labels only descriptive.",
+    "Inherited PIT, full-minute risk and independent/forward qualification remain false."
+  ],
+  "promotion_authorized": false,
+  "pre_execution_code_notes": [
+    "Correct unconditional first-period partial flag before publication.",
+    "Add state descriptive summaries without outcomes-based feature or window selection."
+  ]
+}

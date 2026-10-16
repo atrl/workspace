@@ -1,0 +1,26 @@
+{
+  "experiment": "etf_valuation_source_20261016",
+  "frozen_at": "2026-10-16T03:15:08.368296+00:00",
+  "scope": "source qualification only; no model fits or return selection",
+  "request_budget": 12,
+  "historical_probe_dates": [
+    "20191231",
+    "20211231",
+    "20241231"
+  ],
+  "sources": [
+    "issuer SOXX page and historical XLS/CSV",
+    "existing NAS-bound SEC NPORT holdings",
+    "existing SEC financial vintages",
+    "Nasdaq SOX methodology",
+    "SEC 2021 SOXX index-change notice"
+  ],
+  "cost_scenarios_bps": [
+    0,
+    2,
+    5
+  ],
+  "selection": "no market outcome observed; require dated publication vintage before monthly training",
+  "missing_rule": "do not infer publication from period end or replace historical membership with current",
+  "next_experiment": "freeze monthly matched baseline plus valuation only after qualified history exists"
+}

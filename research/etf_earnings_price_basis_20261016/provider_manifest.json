@@ -1,0 +1,40 @@
+{
+  "as_of": "2026-06-30",
+  "audit_snapshot_hash": "e22ea694b5f39686",
+  "calendar_end": "2026-06-30",
+  "calendar_start": "2019-09-30",
+  "feature_file_count": 20,
+  "fields": [
+    "$source_eps",
+    "$price_split_factor",
+    "$eps_split_factor",
+    "$split_adjusted_quote",
+    "$nominal_price",
+    "$decision_share_eps",
+    "$delayed_annual_ep",
+    "$loss_flag",
+    "$annual_age_days",
+    "$qualified_source_row"
+  ],
+  "freq": "day",
+  "hash": "63339e58f0516aa2",
+  "instruments": [
+    "INTC",
+    "NVDA"
+  ],
+  "market": "all",
+  "max_datetime": "2026-06-30",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/etf_earnings_price_basis_20261016",
+  "region": "us",
+  "row_count": 164,
+  "source": "etf_earnings_price_basis_20261016:frozen original accession and split sources",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

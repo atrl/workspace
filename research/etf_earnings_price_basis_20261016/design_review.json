@@ -1,0 +1,25 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:38:16.893344+00:00",
+  "decision": "approved_for_execution",
+  "plan_sha256": "ace4aade262d40ce9e8568fec75887e886dd3756b4128b6586521befc18a64f7",
+  "scope": "Two-name delayed annual EPS/nominal-price source pilot plus16fixed original SEC documents; not TTM or basket valuation.",
+  "bounds": {
+    "new_SEC_document_requests": 16,
+    "new_market_fetches": 0,
+    "new_fits": 0,
+    "new_accounts": 0
+  },
+  "required_checks": [
+    "Original accession dimension-free annualEPS and weighted diluted shares agree for exact annual period; preserve share basis text and unit/scale.",
+    "Original facts lacking authenticated share basis remain assumption-bound with qualified_source_row false.",
+    "Same-day filing dates excluded unless original exact accepted timestamp establishes earlier availability.",
+    "Use true nominal close and EPS on same share basis with effective-date split application; exclude future split double application.",
+    "Report annual-data age; annual EPS is never obtained by subtracting9month EPS and never labeled TTM.",
+    "Two2019nominal anchors validate only those prices, not all dates or the EPS basis.",
+    "Future-vintage invariance and negative INTC observations preserved.",
+    "Qlib store readback/calendars and Recorder hashes retained; source qualification is not historical performance or promotion."
+  ],
+  "promotion_authorized": false,
+  "next_gate": "Independent review of actual original filing/price-basis evidence before broader issuer or monthly basket qualification."
+}

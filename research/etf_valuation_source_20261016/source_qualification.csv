@@ -1,0 +1,6 @@
+source,status,qualified_months,detail
+issuer historical workbook probes,needs_historical_ratio_publication_vintages,0,"HTTP/body, date and ratio availability in download_audit.json; request date alone never qualifies"
+SEC NPORT local canonical history,candidate_delayed_disclosed_basket,0,840 holdings; 47 symbols; 28 filings; no exact acceptance clock; next-session conservative eligibility required
+existing NVDA earnings corpus,partial_basket_only,0,NVDA weight 6.7918 to 11.0275 percent; cannot represent other constituents; original accession split/clock qualifications remain
+SEC companyfacts representative probe,candidate_reconstruction_intake,0,"See fundamentals_inventory.csv; original fiscal-period, accession and share/split alignment remain before whole-basket EP"
+SOXX versus SOX methodology,context_only_needs_dated_weight_files,0,2021 index change and 2026 method separately retained; no announced historical weights or continuous index-version history qualified

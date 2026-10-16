@@ -1,0 +1,9 @@
+{
+  "captured_at_utc": "2026-10-16T03:56:07.414401+00:00",
+  "module": "src/data/earnings_price_basis.py",
+  "module_sha256": "80e53cf2521e98991ea36171adc47787263ffaf6c3915f22ff88073c9027e05c",
+  "first_attempt": "interrupted during10thsource request; no Recorder/derived E/P existed",
+  "source_acquisition_complete": "all16originalfilings200,10initialattempts incl1cancelled+7index+7primary=24HTTPrequests;14repairbudget fully consumed",
+  "manual_original_basis_reviews": 16,
+  "guard_setup_repair": "Use exact evaluator decision enum; previous final attempt stopped before calculation because generic enum differed."
+}

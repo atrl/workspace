@@ -1,0 +1,20 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:51:51.770556+00:00",
+  "decision": "approved_candidate_TTM_source_coverage_only",
+  "plan_sha256": "d72d339bda95202827d7cb071bd16949eaa974c9c77679ac1cd9bf9372a79faf",
+  "scope": "Source tag parsing extension for observed us-gaap ProfitLoss only; no outcome, price, HTTP or model change.",
+  "conditions": [
+    "Before computing bind exact repaired RecorderID/archive/manifest; parent plan alone is not source byte identity.",
+    "Annual/currentYTD/priorYTD must use identical issuer,taxonomy,tag,currency and frozen fiscal alignment.",
+    "Retain all component accession/start/end/filed/available identities; latesteligible components can mix accounting/restatement bases, so mark compatibility unresolved rather than certify.",
+    "Separate us-gaap NetIncomeLoss and IFRS ProfitLoss method identities; never treat names as automatically identical earnings attributable to common equity.",
+    "Directannual and constructedTTM methods, period age and negative income remain explicit.",
+    "Old filing amendments cannot rewind holdings report date; no unknown earnings zero fill or coverage renormalization.",
+    "Candidate amounts may be emitted even with original-document/accounting proof unresolved, but cannot become final qualified EP inputs.",
+    "us-gaap ProfitLoss is a separate consolidated numerator method, not certified attributable common income.",
+    "Never mix annual and YTD components across tags; preserve original narrower result as limited parsing scope."
+  ],
+  "historical_valuation_qualified": false,
+  "promotion_authorized": false
+}

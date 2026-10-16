@@ -1,0 +1,61 @@
+{
+  "experiment": "etf_pit_fundamentals_intake_20261016",
+  "decision": "raw_issuer_facts_acquired_needs_original_TTM_share_price_identity_validation",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "new_requests": 46,
+  "reused_files": 2,
+  "requested_ciks": 47,
+  "http200_files": 47,
+  "ciks_with_facts": 29,
+  "fact_rows": 19749,
+  "candidate_income_weight_min_pct": 0.0,
+  "candidate_income_weight_max_pct": 56.576618048214,
+  "candidate_disclosures_reaching95pct": 0,
+  "first_candidates": 10709,
+  "qualified_monthly_rows": 0,
+  "qualified_input_path": null,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_pit_leveraged_training_v1",
+  "region": "us",
+  "market": "historical SOXX constituent union",
+  "as_of": "2026-10-16",
+  "calendar_last": "2026-07-02 00:00:00",
+  "recorder_id": "19fc354e534c44ea95f5332258e54565",
+  "experiment_id": "903164236932412269",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_pit_fundamentals_intake_20261016/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_pit_fundamentals_intake_20261016/qlib_recorder/903164236932412269/19fc354e534c44ea95f5332258e54565",
+  "plan_sha256": "470fffa88ad3a62dca48b6fd189546dce4233e772db79f716be737de0096abcd",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/facts",
+      "analysis/first_candidates",
+      "sources/*"
+    ]
+  },
+  "limitations": [
+    "Current SEC mapping candidates need historic issuer/CUSIP audit; MRVL predecessor separate",
+    "Companyfacts is tagged accession data, not blanket original-document verification",
+    "Annual/quarter/YTD and currency/share units remain distinct; no TTM fabricated",
+    "Fiscal revisions, ADR share ratios, nominal price/splits and historical missing prices must be qualified before EP",
+    "Current provider ends2026-07-02; later filing signals cannot use nonexistent exchange calendar",
+    "Raw mapped weight coverage is not qualified valuation coverage; unknown losses remain missing"
+  ],
+  "next_action": "Validate original filing periods and TTM/denominator/corporate actions per historical issuer; preserve missing historic prices and resolve index versions; only then build canonical monthly snapshots and Qlib Dataset.",
+  "nas_evidence": {
+    "sha256": "d61636e1ae91cc3b0f81797b06b15cc1c33800421bcf075aa0ef3e4452d127a9",
+    "size_bytes": 7712122,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/d6/16/d61636e1ae91cc3b0f81797b06b15cc1c33800421bcf075aa0ef3e4452d127a9",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 11:31:53.021589+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/d6/16/d61636e1ae91cc3b0f81797b06b15cc1c33800421bcf075aa0ef3e4452d127a9",
+    "recorder_id": "19fc354e534c44ea95f5332258e54565",
+    "experiment_id": "903164236932412269",
+    "archive_root": "qlib_recorder"
+  }
+}

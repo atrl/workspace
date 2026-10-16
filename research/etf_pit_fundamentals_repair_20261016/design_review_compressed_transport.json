@@ -1,0 +1,14 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:39:02.811062+00:00",
+  "decision": "approved_compressed_transport_fallback_only",
+  "plan_sha256": "8543e1f36ae926f7d7be0439598341837ba469641d06c8141b3c2f4f63c7f63f",
+  "conditions": [
+    "Only finalized invalid repair payloads in exact18CIK universe; no retry while original request active or valid.",
+    "One additional compressed request per eligibleCIK, at most18 total; workers2 and180s request deadline.",
+    "Preserve all prior failed bodies and independent receipts; budget is additional and never erase earlier attempts.",
+    "Require successful complete decode, JSON schema and CIK equality; HTTP200 alone insufficient.",
+    "No new economic source selection or models."
+  ],
+  "promotion_authorized": false
+}

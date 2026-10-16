@@ -1,0 +1,16 @@
+{
+  "historical_mapping_sources": {
+    "BRKS": "https://www.sec.gov/Archives/edgar/data/933974/000155837019011541/0001558370-19-011541-index-headers.html",
+    "CCMP": "https://www.sec.gov/Archives/edgar/data/1102934/000110293420000005/R1.htm",
+    "IPHI": "https://www.sec.gov/Archives/edgar/data/1160958/000143774919010660/0001437749-19-010660-index-headers.html",
+    "MXIM": "https://www.sec.gov/Archives/edgar/data/743316/000074331620000042/R1.htm",
+    "XLNX": "https://www.sec.gov/Archives/edgar/data/743988/000093247119004332/0000932471-19-004332-index-headers.html",
+    "CREE": "https://www.sec.gov/Archives/edgar/data/895419/0000895419-19-000046-index.htm",
+    "WOLF": "https://www.sec.gov/Archives/edgar/data/895419/0000895419-19-000046-index.htm",
+    "MRVL_PRE_20210420": "https://www.sec.gov/Archives/edgar/data/1058057/000105805720000030/R1.htm"
+  },
+  "method": "historical document headers checked by research attribution worker; current SEC ticker mapping candidates separate",
+  "mrvl_successor": "https://www.sec.gov/Archives/edgar/data/1835632/000119312521122938/d136815d8k12b.htm",
+  "wolf_boundary": "Old issuer CIK895419 same ticker does not certify post-bankruptcy2025 securities; no new-equity price join",
+  "qualification": "CIK attribution not global security/ADR/share-price continuity certification"
+}

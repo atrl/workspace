@@ -1,0 +1,83 @@
+{
+  "frozen_at_utc": "2026-10-16T03:50:45.106618+00:00",
+  "original_plan_sha256": "ace4aade262d40ce9e8568fec75887e886dd3756b4128b6586521befc18a64f7",
+  "reason": "Complete submissions embed images/exhibits: savedINTC2019~60MB; INTC2020stream exceeded5minutes and was explicitly cancelled before payload/analysis. Preserve nine200responses. Request bounded original primary documents from accession-specific indexes.",
+  "prior_acquisition_sha256": "defbb59704da9b7aa615845cb8a5b32ecc9acaeee2f20bc93b0094b3db108b36",
+  "prior_requests": 10,
+  "successful_preserved": 9,
+  "remaining_documents": [
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-20-000011",
+      "start": "2018-12-30",
+      "end": "2019-12-28",
+      "filed": "2020-01-24",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086320000011/0000050863-20-000011.txt",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086320000011/0000050863-20-000011-index.html"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-21-000010",
+      "start": "2019-12-29",
+      "end": "2020-12-26",
+      "filed": "2021-01-22",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086321000010/0000050863-21-000010.txt",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086321000010/0000050863-21-000010-index.html"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-22-000007",
+      "start": "2020-12-27",
+      "end": "2021-12-25",
+      "filed": "2022-01-27",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086322000007/0000050863-22-000007.txt",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086322000007/0000050863-22-000007-index.html"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-23-000006",
+      "start": "2021-12-26",
+      "end": "2022-12-31",
+      "filed": "2023-01-27",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086323000006/0000050863-23-000006.txt",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086323000006/0000050863-23-000006-index.html"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-24-000010",
+      "start": "2023-01-01",
+      "end": "2023-12-30",
+      "filed": "2024-01-26",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086324000010/0000050863-24-000010.txt",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086324000010/0000050863-24-000010-index.html"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-25-000009",
+      "start": "2023-12-31",
+      "end": "2024-12-28",
+      "filed": "2025-01-31",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086325000009/0000050863-25-000009.txt",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086325000009/0000050863-25-000009-index.html"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-26-000011",
+      "start": "2024-12-29",
+      "end": "2025-12-27",
+      "filed": "2026-01-23",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/0000050863-26-000011.txt",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/0000050863-26-000011-index.html"
+    }
+  ],
+  "max_new_requests": 14,
+  "rule": "For each of seven remaining exactaccessions, fetch frozen SEC index once, parse tableType10-K primaryhref only within sameCIK/accession archive directory, fetch it once. Preserve index+documentbytes/status/hashes. No fallback/bulk retries or extra marketdata. On unavailable/unparseable original, keep corresponding rows diagnostic. Prior cancelledattempt retained.",
+  "first_run_status": "interrupted_during_source_acquisition_no_Recorder_or_valuation_results_created"
+}

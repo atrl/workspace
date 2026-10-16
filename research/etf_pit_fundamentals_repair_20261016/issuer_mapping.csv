@@ -1,0 +1,49 @@
+ticker,cik,identity_status,source,cusips,entity_name,fact_rows,first_candidates,status_label,valuation_qualified
+ACLS,1113232,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,054540208,AXCELIS TECHNOLOGIES INC,756,411,raw_facts_only_not_EP_qualified,False
+ADI,6281,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,032654105,ANALOG DEVICES INC,930,563,raw_facts_only_not_EP_qualified,False
+ALAB,1736297,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,04626A103,"Astera Labs, Inc.",146,90,raw_facts_only_not_EP_qualified,False
+AMAT,6951,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,038222105,APPLIED MATERIALS INC /DE,991,498,raw_facts_only_not_EP_qualified,False
+AMD,2488,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,007903107,ADVANCED MICRO DEVICES INC,944,541,raw_facts_only_not_EP_qualified,False
+ARM,1973239,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,042068205,ARM HOLDINGS PLC /UK,165,94,raw_facts_only_not_EP_qualified,False
+ASML,937966,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,000000000,ASML HOLDING NV,230,102,raw_facts_only_not_EP_qualified,False
+ASX,1122411,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,00215W100,"ASE Technology Holding Co., Ltd.",124,70,raw_facts_only_not_EP_qualified,False
+AVGO,1730168,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,11135F101,Broadcom Inc.,497,294,raw_facts_only_not_EP_qualified,False
+BRKS,933974,historic_mapping_documented,https://www.sec.gov/Archives/edgar/data/933974/000155837019011541/0001558370-19-011541-index-headers.html,114340102,"AZENTA, INC.",929,537,raw_facts_only_not_EP_qualified,False
+CCMP,1102934,historic_mapping_documented,https://www.sec.gov/Archives/edgar/data/1102934/000110293420000005/R1.htm,"12571T100,12709P103","CMC Materials, Inc.",709,369,raw_facts_only_not_EP_qualified,False
+CRDO,1807794,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,,Credo Technology Group Holding Ltd,288,154,raw_facts_only_not_EP_qualified,False
+CREE,895419,historic_mapping_documented,https://www.sec.gov/Archives/edgar/data/895419/0000895419-19-000046-index.htm,225447101,"WOLFSPEED, INC.",1165,627,raw_facts_only_not_EP_qualified,False
+CRUS,772406,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,172755100,"CIRRUS LOGIC, INC.",882,448,raw_facts_only_not_EP_qualified,False
+ENTG,1101302,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,29362U104,"Entegris, Inc.",953,516,raw_facts_only_not_EP_qualified,False
+INTC,50863,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,458140100,INTEL CORP,916,507,raw_facts_only_not_EP_qualified,False
+IPHI,1160958,historic_mapping_documented,https://www.sec.gov/Archives/edgar/data/1160958/000143774919010660/0001437749-19-010660-index-headers.html,45772F107,INPHI CORPORATION,642,349,raw_facts_only_not_EP_qualified,False
+KLAC,319201,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,482480100,KLA Corporation,970,518,raw_facts_only_not_EP_qualified,False
+LRCX,707549,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,"512807108,512807306",LAM RESEARCH CORPORATION,857,446,raw_facts_only_not_EP_qualified,False
+LSCC,855658,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,518415104,LATTICE SEMICONDUCTOR CORP,921,506,raw_facts_only_not_EP_qualified,False
+MCHP,827054,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,595017104,MICROCHIP TECHNOLOGY INCORPORATED,1158,616,raw_facts_only_not_EP_qualified,False
+MKSI,1049502,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,55306N104,MKS INC.,1142,569,raw_facts_only_not_EP_qualified,False
+MPWR,1280452,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,609839105,"Monolithic Power Systems, Inc.",935,522,raw_facts_only_not_EP_qualified,False
+MRVL,1835632,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,"000000000,573874104","MARVELL TECHNOLOGY, INC",331,148,raw_facts_only_not_EP_qualified,False
+MTSI,1493594,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,55405Y100,"MACOM Technology Solutions Holdings, Inc.",757,412,raw_facts_only_not_EP_qualified,False
+MU,723125,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,595112103,"Micron Technology, Inc.",1307,720,raw_facts_only_not_EP_qualified,False
+MXIM,743316,historic_mapping_documented,https://www.sec.gov/Archives/edgar/data/743316/000074331620000042/R1.htm,57772K101,"MAXIM INTEGRATED PRODUCTS, INC.",697,389,raw_facts_only_not_EP_qualified,False
+NVDA,1045810,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,67066G104,NVIDIA CORP,974,500,raw_facts_only_not_EP_qualified,False
+NVMI,1109345,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,,NOVA LTD.,209,92,raw_facts_only_not_EP_qualified,False
+NXPI,1413447,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,000000000,NXP Semiconductors N.V.,483,266,raw_facts_only_not_EP_qualified,False
+OLED,1005284,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,91347P105,UNIVERSAL DISPLAY CORPORATION,968,520,raw_facts_only_not_EP_qualified,False
+ON,1097864,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,682189105,ON SEMICONDUCTOR CORPORATION,1121,654,raw_facts_only_not_EP_qualified,False
+ONTO,704532,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,683344105,ONTO INNOVATION INC.,905,487,raw_facts_only_not_EP_qualified,False
+QCOM,804328,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,747525103,QUALCOMM INC/DE,1139,659,raw_facts_only_not_EP_qualified,False
+QRVO,1604778,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,74736K101,"Qorvo, Inc.",794,415,raw_facts_only_not_EP_qualified,False
+RMBS,917273,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,750917106,RAMBUS INC,856,484,raw_facts_only_not_EP_qualified,False
+SLAB,1038074,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,826919102,SILICON LABORATORIES INC.,728,394,raw_facts_only_not_EP_qualified,False
+SMTC,88941,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,816850101,Semtech Corporation,884,516,raw_facts_only_not_EP_qualified,False
+STM,932787,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,861012102,STMicroelectronics N.V.,244,120,raw_facts_only_not_EP_qualified,False
+SWKS,4127,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,83088M102,"SKYWORKS SOLUTIONS, INC.",1106,544,raw_facts_only_not_EP_qualified,False
+SYNA,817720,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,87157D109,SYNAPTICS Inc,1001,525,raw_facts_only_not_EP_qualified,False
+TER,97210,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,880770102,"TERADYNE, INC.",1069,570,raw_facts_only_not_EP_qualified,False
+TSM,1046179,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,874039100,Taiwan Semiconductor Manufacturing Company Limited,123,75,raw_facts_only_not_EP_qualified,False
+TXN,97476,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,882508104,TEXAS INSTRUMENTS INCORPORATED,777,463,raw_facts_only_not_EP_qualified,False
+UMC,1033767,current_ticker_candidate_requires_historic_identity_check,https://www.sec.gov/files/company_tickers.json,910873405,United Microelectronics Corporation,113,64,raw_facts_only_not_EP_qualified,False
+WOLF,895419,historic_mapping_documented,https://www.sec.gov/Archives/edgar/data/895419/0000895419-19-000046-index.htm,977852102,"WOLFSPEED, INC.",1165,627,raw_facts_only_not_EP_qualified,False
+XLNX,743988,historic_mapping_documented,https://www.sec.gov/Archives/edgar/data/743988/000093247119004332/0000932471-19-004332-index-headers.html,983919101,"XILINX, INC.",681,365,raw_facts_only_not_EP_qualified,False
+MRVL_PRE_20210420,1058057,historic_issuer_separate,https://www.sec.gov/Archives/edgar/data/1058057/000105805720000030/R1.htm,Bermuda predecessor,MARVELL TECHNOLOGY GROUP LTD,629,336,raw_facts_only_not_EP_qualified,False

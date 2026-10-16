@@ -1,0 +1,17 @@
+{
+  "focused_test_command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_monthly_valuation_dataset.py -q",
+  "passed": 2,
+  "test_source_sha256": "57bf048d78266cff0ecb7feb9afba89c0b63e1882d53fed74e0c336a207bcdd3",
+  "checks": [
+    "future or later old-period filing cannot rewrite historical state or rewind current economic date",
+    "negative earnings retained and unknown weight not zero-filled",
+    "low coverage, repeated economic snapshots and method changes do not fabricate rank qualification",
+    "naive publication clocks rejected"
+  ],
+  "notebook_executed": true,
+  "qlib_month_end_decisions": 199,
+  "valuation_rows_qualified": 0,
+  "independent_review": "independent_evaluation.json",
+  "model_fits": 0,
+  "accounts": 0
+}

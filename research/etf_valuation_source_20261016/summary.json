@@ -1,0 +1,74 @@
+{
+  "experiment": "etf_valuation_source_20261016",
+  "decision": "needs_qualified_historical_valuation_inputs",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_backtests": 0,
+  "qualified_monthly_rows": 0,
+  "qualified_input_path": null,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_pit_leveraged_training_v1",
+  "market": "SOXX",
+  "region": "us",
+  "as_of": "2026-10-16",
+  "qlib_calendar_rows": 1885,
+  "calendar_first": "2019-01-02 00:00:00",
+  "calendar_last": "2026-07-02 00:00:00",
+  "holdings_rows": 840,
+  "historic_symbols": 47,
+  "holdings_filings": 28,
+  "max_disclosure_lag_days": 286,
+  "fundamentals_inventory": [
+    {
+      "ticker": "NVDA",
+      "fact_rows": 871,
+      "accessions": 70,
+      "filed_start": "2009-08-20",
+      "filed_end": "2026-08-26",
+      "status": "candidate_accession_facts_need_original_filing_period_share_basis_validation",
+      "original_period_candidates": 320,
+      "first_filing_conflicts": 0
+    },
+    {
+      "ticker": "INTC",
+      "fact_rows": 712,
+      "accessions": 70,
+      "filed_start": "2009-08-03",
+      "filed_end": "2026-07-24",
+      "status": "candidate_accession_facts_need_original_filing_period_share_basis_validation",
+      "original_period_candidates": 325,
+      "first_filing_conflicts": 0
+    }
+  ],
+  "bounded_probe_requests": 12,
+  "recorder_id": "dfc655657b964f9e97b06d74505598aa",
+  "experiment_id": "810248735465749728",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_valuation_source_20261016/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_valuation_source_20261016/qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/companyfacts"
+    ]
+  },
+  "plan_sha256": "448fb4c2831b04e48559975e5afeb00897a2fcc27cb8b30b6834478d557109ad",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  ],
+  "next_action": "Extend accession-level historical earnings intake across 47 observed symbols; resolve ADR/splits and old-report amendments; keep current-ratio series and reconstructed EP separate. Source qualification is not scientific rejection or overall blocker.",
+  "nas_evidence": {
+    "sha256": "f06346386d9add494020c414f7e60cc11b1bc9bca9e4fc0a3d289a041ac54047",
+    "size_bytes": 2151530,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f0/63/f06346386d9add494020c414f7e60cc11b1bc9bca9e4fc0a3d289a041ac54047",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 11:24:35.435927+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f0/63/f06346386d9add494020c414f7e60cc11b1bc9bca9e4fc0a3d289a041ac54047",
+    "recorder_id": "dfc655657b964f9e97b06d74505598aa",
+    "experiment_id": "810248735465749728",
+    "archive_root": "qlib_recorder"
+  }
+}

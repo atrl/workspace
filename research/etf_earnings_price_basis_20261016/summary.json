@@ -1,0 +1,64 @@
+{
+  "experiment": "etf_earnings_price_basis_20261016",
+  "decision": "two_issuer_delayed_annual_EP_source_pilot_only",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_market_fetches": 0,
+  "original_SEC_requests": 24,
+  "cancelled_complete_submission_requests": 1,
+  "original_annual_documents": 16,
+  "matched_original_annual_documents": 16,
+  "monthly_rows": 164,
+  "qualified_source_rows": 164,
+  "loss_rows": 17,
+  "max_split_invariance_error": 6.938893903907228e-18,
+  "future_vintage_checks": 164,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/etf_earnings_price_basis_20261016",
+  "market": "NVDA_INTC_only",
+  "region": "us",
+  "as_of": "2026-06-30",
+  "plan_sha256": "ace4aade262d40ce9e8568fec75887e886dd3756b4128b6586521befc18a64f7",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "recorder_id": "e7b8e8ee8554466bad2b1a26e498f0a8",
+  "experiment_id": "124091304720506923",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_earnings_price_basis_20261016/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_earnings_price_basis_20261016/qlib_recorder/124091304720506923/e7b8e8ee8554466bad2b1a26e498f0a8",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/monthly_lineage",
+      "analysis/qlib_features",
+      "analysis/original_parsed",
+      "analysis/vintage_checks",
+      "sources/*"
+    ]
+  },
+  "limitations": [
+    "Delayed annual EPS, not TTM, not ETF aggregate, no model evidence",
+    "Only original document matched annual vintages qualify; companyfacts-only rows diagnostic",
+    "SEC filing day excluded conservatively; no first public earnings-release timestamp claim",
+    "EPS diluted weighted-average denominator is original annual reporting convention, not point-in-time shares outstanding",
+    "Historical price split correction is mechanical unit restoration, not future tradable information",
+    "2019 NPORT anchors verify price scale, not every daily market print",
+    "Full47basket, ADR/FX/acquired issuer qualification and independent forward remain unresolved"
+  ],
+  "nas_evidence": {
+    "sha256": "c179a550e5cbe46f64f9c53b18b69aaa7f2789640f9683f424fc6771f95cf75c",
+    "size_bytes": 45822001,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c1/79/c179a550e5cbe46f64f9c53b18b69aaa7f2789640f9683f424fc6771f95cf75c",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 11:56:27.104392+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c1/79/c179a550e5cbe46f64f9c53b18b69aaa7f2789640f9683f424fc6771f95cf75c",
+    "recorder_id": "e7b8e8ee8554466bad2b1a26e498f0a8",
+    "experiment_id": "124091304720506923",
+    "archive_root": "qlib_recorder"
+  }
+}

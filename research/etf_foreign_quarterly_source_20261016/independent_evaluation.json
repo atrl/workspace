@@ -1,0 +1,24 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:58:45.274499+00:00",
+  "decision": "accepted_bounded_transport_probe_no_financial_source_qualification",
+  "plan_sha256": "e15e3b8e4912f163e388dfffa2149af2a9c712443e164f4dd68f28200a39bb3d",
+  "recorder_id": "fcfce8a112db462cbc75f05140d3b771",
+  "manifest_sha256": "3a6650f0ae95d3d4a1fe65ada2276e23955b4e230a8e5d2b886c36fb06758088",
+  "verified": {
+    "native_qlib_readback_and_raw_body_hashes": true,
+    "requests": 6,
+    "http403": 4,
+    "curl_errors": 2,
+    "qualified_quarterly_rows": 0
+  },
+  "findings": [
+    "Allsix attempts failed to obtain original financial body; indexed source discovery remains distinct evidence.",
+    "HTTP403/curl92 failures establish transport limits for this probe, not absence of issuer quarterly reports.",
+    "No source amounts or continuous quarterly history are qualified from search excerpts or blocked bodies."
+  ],
+  "historical_valuation_qualified": false,
+  "promotion_authorized": false,
+  "next_information_need": "Use available authorized issuer/SEC6K original source paths in a subsequent bounded intake; retain exact release/period/currency/attribution/ADR lineage.",
+  "stop": "Approved sixURLprobe complete; no request expansion in this card."
+}

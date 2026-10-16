@@ -1,0 +1,15 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:33:05.401625+00:00",
+  "decision": "operationally_incomplete_intake_not_source_rejection",
+  "recorder_id": "19fc354e534c44ea95f5332258e54565",
+  "nas_archive_sha256": "d61636e1ae91cc3b0f81797b06b15cc1c33800421bcf075aa0ef3e4452d127a9",
+  "plan_sha256": "470fffa88ad3a62dca48b6fd189546dce4233e772db79f716be737de0096abcd",
+  "income_plan_sha256": "5e9e5d0923ce0e99f2f143a353441a6ca90a6db9e2e63cb49d317cfb199f6b68",
+  "historical_valuation_qualified": false,
+  "promotion_authorized": false,
+  "observed_issue": "47 HTTP200 responses include18 incomplete/truncated JSON bodies; only29 parseable issuer sets. HTTP200 count is not successful acquisition count.",
+  "interpretation": "Candidate income coverage from this attempt is incomplete operational evidence and cannot establish availability limits of public fundamentals.",
+  "minimum_repair": "Preserve original failed payloads and request counts, separately freeze at most18 retries for identical failed URLs with bounded deadline/concurrency, require complete JSON/CIK/hash verification.",
+  "scientific_limits": "Even fully repaired acquisition cannot by itself qualify original issuer facts, TTM, share/ADR/split/price identity or monthly EP."
+}

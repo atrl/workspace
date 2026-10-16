@@ -1,0 +1,134 @@
+{
+  "reviewed_at_utc": "2026-10-16T03:54:57.825192+00:00",
+  "reviewer": "research executor source inspection; requires separate final evaluator confirmation",
+  "entries": [
+    {
+      "accn": "0001045810-19-000023",
+      "source_sha256": "91bb1b656c34cd9111979c39302de9b9b9c4f1eefea11d41f0b41577423ade59",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Original annual diluted EPS and weighted diluted share table, resolved USD/share and share units with exact issuer CIK and annual context; no split between fiscal end and filing.",
+      "split_policy_reviewed": false,
+      "split_note": "No effective split within this fiscal annual period; inherited post-split units in original statement."
+    },
+    {
+      "accn": "0001045810-20-000010",
+      "source_sha256": "60b3c6f1c05ae2c3de6d949a7620d3ef842fe7834acbc819ccbf829d918c0163",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Original annual diluted EPS and weighted diluted share table, resolved USD/share and share units with exact issuer CIK and annual context; no split between fiscal end and filing.",
+      "split_policy_reviewed": false,
+      "split_note": "No effective split within this fiscal annual period; inherited post-split units in original statement."
+    },
+    {
+      "accn": "0001045810-21-000010",
+      "source_sha256": "455b93845e7aecb62ed6b3cb7343532f377f6d5d874392318761dd868f353563",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Original annual diluted EPS and weighted diluted share table, resolved USD/share and share units with exact issuer CIK and annual context; no split between fiscal end and filing.",
+      "split_policy_reviewed": false,
+      "split_note": "No effective split within this fiscal annual period; inherited post-split units in original statement."
+    },
+    {
+      "accn": "0001045810-22-000036",
+      "source_sha256": "9d8139b117261f67e67508736df5266bd4fa8989248b4368e13c543d38ad9d86",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Original annual diluted EPS and weighted diluted share table, resolved USD/share and share units with exact issuer CIK and annual context; no split between fiscal end and filing.",
+      "split_policy_reviewed": true,
+      "split_note": "Original10-K explicitly retrospectively adjusts all share/per-share amounts for four-for-one2021 or ten-for-one2024 split."
+    },
+    {
+      "accn": "0001045810-23-000017",
+      "source_sha256": "01ba5a02d27f251ab5e005382cfa561625aa5f178f004cc4d93d1f1937ada88c",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Original annual diluted EPS and weighted diluted share table, resolved USD/share and share units with exact issuer CIK and annual context; no split between fiscal end and filing.",
+      "split_policy_reviewed": false,
+      "split_note": "No effective split within this fiscal annual period; inherited post-split units in original statement."
+    },
+    {
+      "accn": "0001045810-24-000029",
+      "source_sha256": "06478eb42ae15c6e53409edb932410d877fed28ecdf6c47bb679101d4546665b",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Original annual diluted EPS and weighted diluted share table, resolved USD/share and share units with exact issuer CIK and annual context; no split between fiscal end and filing.",
+      "split_policy_reviewed": false,
+      "split_note": "No effective split within this fiscal annual period; inherited post-split units in original statement."
+    },
+    {
+      "accn": "0001045810-25-000023",
+      "source_sha256": "c46f21be4a2293234a5e8d9b0ede6056a89f127d9a4a7945448daa3692903826",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Original annual diluted EPS and weighted diluted share table, resolved USD/share and share units with exact issuer CIK and annual context; no split between fiscal end and filing.",
+      "split_policy_reviewed": true,
+      "split_note": "Original10-K explicitly retrospectively adjusts all share/per-share amounts for four-for-one2021 or ten-for-one2024 split."
+    },
+    {
+      "accn": "0001045810-26-000021",
+      "source_sha256": "c4b1420f24a0157f17c5af448e14b07b62cd5eb7bc22237da5f759faf75ae5a1",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Original annual diluted EPS and weighted diluted share table, resolved USD/share and share units with exact issuer CIK and annual context; no split between fiscal end and filing.",
+      "split_policy_reviewed": false,
+      "split_note": "No effective split within this fiscal annual period; inherited post-split units in original statement."
+    },
+    {
+      "accn": "0000050863-19-000007",
+      "source_sha256": "b5ff5127aee20595c6cfa93d64591dfe3e241cf5ef902ce704f3733bd54610b8",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Original annual diluted EPS and weighted diluted share table, resolved USD/share and share units with exact issuer CIK and annual context; no split between fiscal end and filing.",
+      "split_policy_reviewed": false,
+      "split_note": "No effective split within this fiscal annual period; inherited post-split units in original statement."
+    },
+    {
+      "accn": "0000050863-20-000011",
+      "source_sha256": "b72a6df840bf99a7b0e3f84cd45ba33da3ee2d89753a14f8c068a12792ffdba7",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Inspected original annual EPS note and dimension-free current annual USD/share EPS and weighted diluted shares, exact SEC CIK50863.2024loss EPS-4.38/4.280bn and2025lossEPS-0.06/4.530bn are reported, not inferred; policy includes anti-dilution.",
+      "split_policy_reviewed": false,
+      "split_note": "Saved INTC rehab has no split during annual periods or before original filing; original reporting share basis retained."
+    },
+    {
+      "accn": "0000050863-21-000010",
+      "source_sha256": "5bc668d387935247006a662311340412db4158933ca549b696e46cb7e9b77ce9",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Inspected original annual EPS note and dimension-free current annual USD/share EPS and weighted diluted shares, exact SEC CIK50863.2024loss EPS-4.38/4.280bn and2025lossEPS-0.06/4.530bn are reported, not inferred; policy includes anti-dilution.",
+      "split_policy_reviewed": false,
+      "split_note": "Saved INTC rehab has no split during annual periods or before original filing; original reporting share basis retained."
+    },
+    {
+      "accn": "0000050863-22-000007",
+      "source_sha256": "b90e53a6800d4f0378166cfc2551ecbcfa7e4c9956b669a65183c923e7e7754f",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Inspected original annual EPS note and dimension-free current annual USD/share EPS and weighted diluted shares, exact SEC CIK50863.2024loss EPS-4.38/4.280bn and2025lossEPS-0.06/4.530bn are reported, not inferred; policy includes anti-dilution.",
+      "split_policy_reviewed": false,
+      "split_note": "Saved INTC rehab has no split during annual periods or before original filing; original reporting share basis retained."
+    },
+    {
+      "accn": "0000050863-23-000006",
+      "source_sha256": "a7519e6f0ec37b98d273f63e991a4ab6c7f8f58ff1d41c70051fd0f709c4fa81",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Inspected original annual EPS note and dimension-free current annual USD/share EPS and weighted diluted shares, exact SEC CIK50863.2024loss EPS-4.38/4.280bn and2025lossEPS-0.06/4.530bn are reported, not inferred; policy includes anti-dilution.",
+      "split_policy_reviewed": false,
+      "split_note": "Saved INTC rehab has no split during annual periods or before original filing; original reporting share basis retained."
+    },
+    {
+      "accn": "0000050863-24-000010",
+      "source_sha256": "d454b4b00a4bebcdde9955760d9ef9784015e53d4e7cea2aec0eae27252a2c96",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Inspected original annual EPS note and dimension-free current annual USD/share EPS and weighted diluted shares, exact SEC CIK50863.2024loss EPS-4.38/4.280bn and2025lossEPS-0.06/4.530bn are reported, not inferred; policy includes anti-dilution.",
+      "split_policy_reviewed": false,
+      "split_note": "Saved INTC rehab has no split during annual periods or before original filing; original reporting share basis retained."
+    },
+    {
+      "accn": "0000050863-25-000009",
+      "source_sha256": "7c668700cf92a84f44686cdfc5732347846475d6eb1117404e667731dc1b7674",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Inspected original annual EPS note and dimension-free current annual USD/share EPS and weighted diluted shares, exact SEC CIK50863.2024loss EPS-4.38/4.280bn and2025lossEPS-0.06/4.530bn are reported, not inferred; policy includes anti-dilution.",
+      "split_policy_reviewed": false,
+      "split_note": "Saved INTC rehab has no split during annual periods or before original filing; original reporting share basis retained."
+    },
+    {
+      "accn": "0000050863-26-000011",
+      "source_sha256": "e04b6ec35dc7957b0467dbe192b56d6095cb5270944d105ecd366a92200af02a",
+      "reviewed_original_annual_basis": true,
+      "evidence": "Inspected original annual EPS note and dimension-free current annual USD/share EPS and weighted diluted shares, exact SEC CIK50863.2024loss EPS-4.38/4.280bn and2025lossEPS-0.06/4.530bn are reported, not inferred; policy includes anti-dilution.",
+      "split_policy_reviewed": false,
+      "split_note": "Saved INTC rehab has no split during annual periods or before original filing; original reporting share basis retained."
+    }
+  ]
+}

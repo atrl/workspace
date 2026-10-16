@@ -1,0 +1,51 @@
+{
+  "experiment": "etf_transfer_attribution_20261016",
+  "plan_sha256": "6c0c30a1ecc34fc4421bd34e1f96ba431ddafb27c5115146bae48925f63b097f",
+  "decision": "descriptive_diagnosis_only_parent_routes_remain_not_promoted",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_inference": 0,
+  "new_policy_accounts": 0,
+  "daily_books": 12,
+  "max_daily_return_closure_error": 5.030698080332741e-16,
+  "calendar_rows_per_book": 944,
+  "rolling_windows_per_book": 819,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/frozen_policy_raw_cashbook_20261015",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "qlib_docs": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+  "recorder_id": "1a3e5cd71d6e4887b87adc01fee7ebb9",
+  "experiment_id": "480520621315149975",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_transfer_attribution_20261016/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_transfer_attribution_20261016/qlib_recorder/480520621315149975/1a3e5cd71d6e4887b87adc01fee7ebb9",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "analysis/segments",
+      "analysis/rolling*",
+      "sources/*"
+    ]
+  },
+  "limitations": [
+    "Historical development diagnosis, not independent evidence",
+    "Mean exposure and covariance are additive arithmetic return contributions, not tradable counterfactual or compounded allocation alpha",
+    "Controller target differences include legal projection, smoothing and endogenous risk path; no controller-off account",
+    "Inherited raw cash corporate convention and sampled risk coverage remain unqualified for promotion"
+  ],
+  "nas_evidence": {
+    "sha256": "f85d46716ace35dab54d6c4ce89d9edc623c187507c3a328e55f9337b73933ab",
+    "size_bytes": 18845227,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f8/5d/f85d46716ace35dab54d6c4ce89d9edc623c187507c3a328e55f9337b73933ab",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 11:19:52.145499+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f8/5d/f85d46716ace35dab54d6c4ce89d9edc623c187507c3a328e55f9337b73933ab",
+    "recorder_id": "1a3e5cd71d6e4887b87adc01fee7ebb9",
+    "experiment_id": "480520621315149975",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "frozen_at": "2026-10-16T03:38:42.252306+00:00",
+  "scope": "compressed transport fallback for finalized failed same18CIK repair attempts only",
+  "parent_plan_sha256": "385f8c1407800835d948a79b9f00454bd033f3afb97ba56cb3e9aada7489ecec",
+  "eligible_universe": [
+    6951,
+    97476,
+    319201,
+    704532,
+    707549,
+    743316,
+    772406,
+    804328,
+    827054,
+    895419,
+    917273,
+    933974,
+    937966,
+    1097864,
+    1101302,
+    1160958,
+    1604778,
+    1835632
+  ],
+  "eligibility": "earlier repair request completed and curl/bodyJSON/CIK validation failed; never retry valid or in-flight",
+  "max_new_http_requests": 18,
+  "attempts_per_failed_cik": 1,
+  "transport": {
+    "accept_encoding": "curl --compressed; decodedJSON hashed",
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 180,
+    "workers": 2
+  },
+  "first_known_failure": {
+    "cik": 6951,
+    "curl_returncode": 18,
+    "bytes": 1769472,
+    "parse_valid": false,
+    "evidence": "completed62574 stdout receipt, original body /tmp/etf_pit_repair/0000006951.json"
+  },
+  "source_selection": "unchangedCIK endpoints; no economic or returnselection",
+  "archive_policy": "preserve original failedrepair and compressedbytes separately; record all requests independently"
+}

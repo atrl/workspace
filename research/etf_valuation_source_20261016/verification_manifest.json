@@ -1,0 +1,90 @@
+{
+  "recorder_id": "dfc655657b964f9e97b06d74505598aa",
+  "entries": [
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/analysis/companyfacts",
+      "sha256": "ee4b3f37746cc2b6f3315b3b5b5f9bea061eab217b8fa23a81cdb703a2dc445e",
+      "bytes": 219431
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/analysis/download_audit",
+      "sha256": "00f454b0e366d0c509e1f16a6eef9d5cef6528dbb3a78ff441ffb2978de271b0",
+      "bytes": 5941
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/analysis/fundamentals_inventory",
+      "sha256": "b4fb926c843efa5464140725509b2dc10a21920173a95810fd3599a0e3367982",
+      "bytes": 1119
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/analysis/holdings_coverage",
+      "sha256": "ae192f5d40c92d118e1f7813d8177430da3442f99ece049371437591cc5abe29",
+      "bytes": 3268
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/analysis/source_qualification",
+      "sha256": "548f48242c3e14b69aa43effd1c24077dc3aaf04009ae5d26268104a9ba77ff1",
+      "bytes": 1789
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/analysis/summary",
+      "sha256": "532b107cf7a51bb073fe693d6ecb0edad281634e0ced81fb011246b813845f8d",
+      "bytes": 1858
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/code_diff.txt",
+      "sha256": "f4a4daaa56512d209be79318fc7d26f2e2dbabee3d2678eb042f51614213232a",
+      "bytes": 412133
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/code_status.txt",
+      "sha256": "a450036c82401bcbc4b7a2751642c8575a225a623866d6dd3718bec2ede3c3e9",
+      "bytes": 60138
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/inputs/acquisition_manifest",
+      "sha256": "8c8394dda8a744eddc1a1307f03fab901f4f3b320305bc0321a1beebed709091",
+      "bytes": 3530
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/inputs/holdings",
+      "sha256": "712bf427020932099f8f9fe97be4ce297a1e73624e7f3da899a6e9aaf046a713",
+      "bytes": 38694
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/inputs/holdings_manifest",
+      "sha256": "12890bb2b4bf66bcf285e36f80aa872c4f42ccfae6a396d69a26cf7284c5d210",
+      "bytes": 5995
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/inputs/methodology_sources",
+      "sha256": "305921b93b12c66a2abfc8f47929ecf1b35a5cf81d3a1e40df50a3873459981c",
+      "bytes": 1798
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/inputs/nas_inventory",
+      "sha256": "8e2a8bd996c29b99c909664ee51eb5ee3b2358306a4269d5b69dd99075e6dd85",
+      "bytes": 15
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/inputs/plan",
+      "sha256": "3e228ef335638b4f8f4ed9e0227f709efadb5bcd9e0fcbaaa041410ca10a1020",
+      "bytes": 789
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/inputs/raw_payloads",
+      "sha256": "d22ebccb2bd540e5b1c58cf134b3a97c66d55a16b1806d3a251621e7fbd76d84",
+      "bytes": 26413794
+    },
+    {
+      "path": "qlib_recorder/810248735465749728/dfc655657b964f9e97b06d74505598aa/artifacts/sources/module",
+      "sha256": "907e304df445f2aab8b499a0b551f22a648d153367dd7b238ff75da6bad9638f",
+      "bytes": 12184
+    }
+  ]
+}

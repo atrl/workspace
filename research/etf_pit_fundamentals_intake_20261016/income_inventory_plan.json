@@ -1,0 +1,29 @@
+{
+  "frozen_at": "2026-10-16T03:29:50.660268+00:00",
+  "scope": "income-period coverage diagnostic only, no market outcomes",
+  "cutoff": "NPORT filing date, inventory not tradability; no exact acceptance claimed",
+  "selection": "same CIK/taxonomy/tag/unit; first filing per exact period/form with conflicts excluded; duplicate economic periods choose earliest filing; MRVL before2021-04-20 uses1058057",
+  "income_tags": [
+    "NetIncomeLoss",
+    "ProfitLoss"
+  ],
+  "units": [
+    "USD",
+    "TWD",
+    "EUR"
+  ],
+  "annual_duration_days": [
+    330,
+    380
+  ],
+  "quarter_duration_days": [
+    60,
+    110
+  ],
+  "four_quarter_contiguity": "next start minus previous end exactly1calendar day",
+  "max_income_period_age_days": 180,
+  "selection_order": "latest end, four quarters preferred on tie",
+  "negative_income": "retain negative sum, never fill missing with zero",
+  "qualification": "candidate only; not authenticated original attributable earnings; annual fallback separate from quarter TTM; qualifiedEPweight remains0",
+  "module_sha256": "077821ff5f654071b8f43737a4d38b1da131103d140d716151324537aa358527"
+}

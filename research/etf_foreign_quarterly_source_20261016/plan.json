@@ -1,0 +1,56 @@
+{
+  "experiment": "etf_foreign_quarterly_source_20261016",
+  "frozen_at": "2026-10-16T03:53:17.347472+00:00",
+  "scope": "bounded historical issuer-quarter source availability, not continuoushistory or EPqualification",
+  "max_new_http_requests": 6,
+  "sources": [
+    {
+      "id": "tsm_2020q1",
+      "issuer": "TSM",
+      "period": "2020Q1",
+      "url": "https://pr.tsmc.com/schinese/news/2030"
+    },
+    {
+      "id": "tsm_2025q1",
+      "issuer": "TSM",
+      "period": "2025Q1",
+      "url": "https://pr.cld.tsmc.com/english/news/3222"
+    },
+    {
+      "id": "umc_2022q1_index",
+      "issuer": "UMC",
+      "period": "2022Q1",
+      "url": "https://www.umc.com/en/Download/quarterly_results/QuarterlyResultsDetail/2022/2022Q1"
+    },
+    {
+      "id": "umc_2025q1_index",
+      "issuer": "UMC",
+      "period": "2025Q1",
+      "url": "https://www.umc.com/en/Download/quarterly_results/QuarterlyResultsDetail/2025/2025Q1"
+    },
+    {
+      "id": "umc_2022q1_release",
+      "issuer": "UMC",
+      "period": "2022Q1",
+      "url": "https://www.businesswire.com/news/home/20220427005451/en/UMC-Reports-First-Quarter-2022-Results"
+    },
+    {
+      "id": "umc_2025q1_release",
+      "issuer": "UMC",
+      "period": "2025Q1",
+      "url": "https://www.businesswire.com/news/home/20250423806399/en/UMC-Reports-First-Quarter-2025-Results"
+    }
+  ],
+  "transport": {
+    "compressed": true,
+    "total_timeout": 60,
+    "workers": 2,
+    "attempts": 1
+  },
+  "extraction": "historical issuerdate, quarter, netincome currency/attribution, EPS/sharebasis and actualdocumentlinks when present; unresolved fields remainmissing",
+  "availability": "document release date is candidate clock; no exacthistoricaltimestamp or immutablevintageclaim",
+  "qualification": "twohistoricalquarters perissuer cannot certify continuousTTM or historicalADR/FX; nofullbasket reconstruction from sample",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "stop_rule": "sixfixedURLs only; preserve failures and reportextractablevsunimplemented vs missing"
+}

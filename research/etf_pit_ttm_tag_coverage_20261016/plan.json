@@ -1,0 +1,38 @@
+{
+  "experiment": "etf_pit_ttm_tag_coverage_20261016",
+  "frozen_at": "2026-10-16T03:51:27.742501+00:00",
+  "source_card": "research/etf_pit_fundamentals_repair_20261016",
+  "source_plan_sha256": "385f8c1407800835d948a79b9f00454bd033f3afb97ba56cb3e9aada7489ecec",
+  "scope": "parser-only extension for observedus-gaap:ProfitLoss as distinct consolidated numerator; no outcomes or EPqualification",
+  "new_http_requests": 0,
+  "provider_uri": "data/qlib/soxx_pit_leveraged_training_v1",
+  "start": "2019-01-01",
+  "end": "2026-07-02",
+  "holdings_sha256": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+  "eligibility": "next Qlibtrading session after SECfiled date; conservative convention not exact publication; no laterdate backwardsrewrite",
+  "vintages": "latesteligible value perCIK/taxonomy/tag/currency/start/end; conflicting values on latestfileddate ineligible; preserve originalaccessions",
+  "tags": [
+    "us-gaap:NetIncomeLoss",
+    "us-gaap:ProfitLoss",
+    "ifrs-full:ProfitLoss"
+  ],
+  "annual_duration_days": [
+    330,
+    380
+  ],
+  "ytd_duration_days": [
+    45,
+    320
+  ],
+  "fiscal_alignment": "currentYTDstart == priorannualend+1calendar day; priorYTDstart==priorannualstart; YTDdurationdifference<=7days; YTDendyeargap350..380days",
+  "formula": "direct annual or priorannual+currentYTD\u2212matchingpriorYTD; monetaryincome only, never subtractEPS",
+  "selection": "latestperiodend then latestavailability; annual preferred exactendtie; tagtie orderus-gaapNetIncomeLoss,us-gaapProfitLoss,ifrsProfitLoss; methodids remain separate",
+  "max_income_age_days": 180,
+  "holdings_selection": "latesteligiblereportdate then latesteligiblefiling; oldreportamendment neverrewindsbasket",
+  "issuer_identity": "MRVL historical1058057 before2021-04-20 report; current1835632 after; CREE/WOLF old895419 only historicalbasket; otherCIKs remain documentedmappingcandidates",
+  "negative_income": "retain negative; unknownnotzero; no uncoveredweight normalization",
+  "qualification": "TTMsourcecoverage only; nofulloriginaldocumentcertification,sharebasis,ADR,FXorEPqualification",
+  "stop_rule": "one fixedconstruction; reportactualcoverage; no sensitivitygrid or gateweakening",
+  "parent": "etf_pit_ttm_coverage_20261016",
+  "change_reason": "AVGOobserved raw source uses us-gaapProfitLoss, excludedbyfirstallowlist; sourceparsing correction before any outcome testing"
+}

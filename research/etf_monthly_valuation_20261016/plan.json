@@ -1,0 +1,32 @@
+{
+  "experiment": "etf_monthly_valuation_20261016",
+  "frozen_at": "2026-10-16T03:22:06.286908+00:00",
+  "kind": "monthly_feature_contract_and_source_readiness_only",
+  "source_card": "research/etf_valuation_source_20261016",
+  "provider_uri": "data/qlib/soxl",
+  "as_of": "2026-10-15",
+  "signal_clock": "complete_month_last_session_16:15_America/New_York",
+  "execution_clock": "next_qlib_session_09:47_America/New_York",
+  "rank": {
+    "lookback_months": 60,
+    "minimum_snapshots": 36,
+    "maximum_age_days": 45,
+    "minimum_coverage": 0.95
+  },
+  "features": [
+    "earnings_yield_percentile",
+    "earnings_change",
+    "loss_weight"
+  ],
+  "diagnostic_only": [
+    "P/B"
+  ],
+  "budgets": {
+    "new_fits": 0,
+    "new_accounts": 0,
+    "new_http_requests": 0
+  },
+  "next_gate": "qualified historical valuation input then freeze exact monthly model/segments/budget before observing target returns",
+  "code_sha256": "9968339396b5c017b94e8c988ea2449c197895c5cd0108ea016a39c3d7817f0d",
+  "objective_achieved": false
+}

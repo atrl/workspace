@@ -1,0 +1,35 @@
+{
+  "soxx_2021": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312521126827/d82642d497.htm",
+    "notice_date": "2021-04-22",
+    "expected_change_date": "2021-06-21",
+    "expected_not_execution_confirmation": true,
+    "old_index": "PHLX Semiconductor Sector Index",
+    "new_index": "ICE Semiconductor Index",
+    "caps": "8 percent all, 4 percent outside first five, ADR aggregate 10 percent",
+    "rebalance_notice": "first Friday close of March/June/December; annual September first Friday",
+    "rebalance_effective": "third Friday close March/June/December",
+    "historical_weight_files_obtained": false
+  },
+  "soxx_current": {
+    "url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf",
+    "observed_label": "NYSE Semiconductor Index",
+    "ice_to_nyse_identity_transition": "not qualified; do not infer rename or methodology continuity"
+  },
+  "sox_current": {
+    "url": "https://indexes.nasdaq.com/docs/methodology_SOX.pdf",
+    "version": "copyright 2026 current retrieved 2026-10-16",
+    "caps": "12/10/8 percent for top three, 4 percent others",
+    "announcement": "sixth trading day before effective date after close",
+    "effective": "first trading day open after third Friday March/June/September/December",
+    "historical_version_boundary": "do not backapply current methodology",
+    "historic_announced_weights_obtained": false
+  },
+  "candidate_features": [
+    "disclosed basket concentration and weight divergence",
+    "announced weight change and passive flow pressure if dated weights and fund size obtained"
+  ],
+  "qualification": "methodology context only; no historical rebalance feature certified",
+  "comparison_basis": "SOXX total return must compare SOX total-return version, not price index; index source return type required",
+  "rights": "public documents accessible; no paid/licensed historical constituent data acquired; publication does not establish redistribution rights"
+}

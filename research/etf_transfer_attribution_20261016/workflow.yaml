@@ -1,0 +1,13 @@
+experiment: etf_transfer_attribution_20261016
+plan: plan.json
+module: src.analysis.etf_transfer_attribution
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/frozen_policy_raw_cashbook_20261015
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/daily
+  - analysis/segments
+  - analysis/rolling*
+  - sources/*

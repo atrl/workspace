@@ -1,0 +1,34 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:49:11.275707+00:00",
+  "decision": "accepted_candidate_monetary_TTM_inventory_only",
+  "plan_sha256": "a4996faf551991590cd7f081a6397d594d8a1570d49d28645f8b1ff2c384dc1b",
+  "recorder_id": "1a8e335b8ec94277b5f4e70af3228bc6",
+  "manifest_sha256": "5da402f8af51c2d19069ea7a0767f2b268e468f351576ca545b4ddff5fca154e",
+  "source_binding": {
+    "source_card": "research/etf_pit_fundamentals_repair_20261016",
+    "source_summary_sha256": "c3f262970bc64aa735ea8191c943a75ca56b4276394f783caa1cd51611d5585c",
+    "recorder_id": "1e947608d2f64491a754d576814e9165",
+    "experiment_id": "492553231561774143",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_pit_fundamentals_repair_20261016/qlib_recorder",
+    "nas_archive_sha256": "5aeff2e680628d614d23e85cb2a0877f64d48dbb362d89404949d94a2a117119",
+    "verification_manifest_sha256": "8ee3d7fc75f2f2e50d587e40c387a367dd7ec7983940e6049bea837b3b937054"
+  },
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "detail_rows": 3210,
+    "coverage_rows": 118,
+    "all_known_amounts_reconcile_components": true,
+    "all_component_available_dates_le_cutoff": true,
+    "negative_candidate_rows": 299,
+    "monthly_candidate95pct": 2
+  },
+  "findings": [
+    "Latest eligible monetary components improve candidate numerator availability without EPS subtraction.",
+    "Two monthly dates reach95percent candidate income weight, not95percent verified monthly valuation.",
+    "All components remain candidate accounting scope; source-income coverage does not certify historical basket freshness, common-equity attribution, currency/share/ADR/price basis or EP."
+  ],
+  "historical_valuation_qualified": false,
+  "promotion_authorized": false,
+  "next_information_need": "Resolve exact remaining issuer/accounting period gaps and original share/nominal-price basis, preserve separate monthly feature45day freshness36snapshot requirements."
+}

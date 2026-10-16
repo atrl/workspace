@@ -1,0 +1,31 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:46:11.606579+00:00",
+  "decision": "accepted_repaired_raw_inventory_not_valuation",
+  "plan_sha256": "385f8c1407800835d948a79b9f00454bd033f3afb97ba56cb3e9aada7489ecec",
+  "income_plan_sha256": "9989d421e186d494d539e06d0ca66b4bb5e088e3dddca31eaa958ac94e803f6c",
+  "recorder_id": "1e947608d2f64491a754d576814e9165",
+  "manifest_sha256": "8ee3d7fc75f2f2e50d587e40c387a367dd7ec7983940e6049bea837b3b937054",
+  "nas_archive_sha256": "5aeff2e680628d614d23e85cb2a0877f64d48dbb362d89404949d94a2a117119",
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "retained_acquisition_records": 50,
+    "retained_raw_payloads": 50,
+    "effective_issuer_inventory_rows": 47,
+    "holdings_disclosure_coverage_rows": 28,
+    "base_repair_requests": 18,
+    "compressed_fallback_requests": 3,
+    "reused_valid_parent_payloads": 29,
+    "fact_rows_reported": 35146
+  },
+  "findings": [
+    "Transport gaps repaired without changing issuer universe; three additional compressed payloads and original failed bytes remain retained.",
+    "Simple annual/four-quarter inventory finds candidate weighted income11.16to92.02percent across disclosures, not qualifiedEP and not a ceiling on properly constructed TTM availability.",
+    "Source original document, share/ADR/price and accounting compatibility are separate later qualification dimensions."
+  ],
+  "historical_valuation_qualified": false,
+  "qualified_monthly_rows": 0,
+  "promotion_authorized": false,
+  "next_information_need": "Frozen monetary annual+currentYTD-priorYTD construction may resolve extraction gaps; actual EPS/nominal-price pilot validates unit basis separately.",
+  "scope_limit": "Readback inspected acquisition/raw payload artifact hashes, reported inventory and coverage; it does not certify every issuer original filing or historical security mapping."
+}

@@ -1,0 +1,14 @@
+experiment: etf_earnings_price_basis_20261016
+plan: plan.json
+module: src.data.earnings_price_basis
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/etf_earnings_price_basis_20261016
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/monthly_lineage
+  - analysis/qlib_features
+  - analysis/original_parsed
+  - analysis/vintage_checks
+  - sources/*

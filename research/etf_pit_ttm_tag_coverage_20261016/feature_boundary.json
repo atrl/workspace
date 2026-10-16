@@ -1,0 +1,22 @@
+{
+  "numerator_identity_columns": [
+    "taxonomy",
+    "tag",
+    "unit"
+  ],
+  "formula_identity_column": "method_id",
+  "common_equity_attribution_certified": false,
+  "earnings_change_generated": false,
+  "earnings_change_policy": "require exact numerator identity and accounting-scope compatibility across comparisonperiods; otherwise unknown; NetIncomeLoss-to-ProfitLoss never silentbridge",
+  "etf_aggregation_method_defined": false,
+  "downstream_method_id_must_include": [
+    "numerator_scope",
+    "FX_basis",
+    "ADR_share_basis",
+    "weight_vintage_policy",
+    "loss_handling",
+    "missing_coverage_policy"
+  ],
+  "qualified_ep_rows": 0,
+  "model_fit_allowed": false
+}

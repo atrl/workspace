@@ -1,0 +1,27 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:25:59.448309+00:00",
+  "decision": "accepted_source_inventory_needs_data",
+  "historical_valuation_qualified": false,
+  "qualified_monthly_rows": 0,
+  "plan_sha256": "448fb4c2831b04e48559975e5afeb00897a2fcc27cb8b30b6834478d557109ad",
+  "recorder_id": "dfc655657b964f9e97b06d74505598aa",
+  "manifest_sha256": "a969307654c6a2560773689a304acde9e317b413a2ffd75ffb1ac23a8a08ee2d",
+  "nas_archive_sha256": "f06346386d9add494020c414f7e60cc11b1bc9bca9e4fc0a3d289a041ac54047",
+  "verified": [
+    "Qlib read-only hash-checked holdings, download audit and qualification matrix loaded.",
+    "840 disclosed holding rows and12 retained probe records; filing dates do not give exact historical availability clocks.",
+    "Requested historical issuer workbooks return current October2026 holdings or HTML, not requested historical valuation.",
+    "Official SEC2021 notice corroborates planned PHLX-to-ICE change and weighting/rebalance descriptions, not completed effective transition or complete historical versions."
+  ],
+  "failed_source_gates": [
+    "No authenticated historical PE/EP publication series or full-basket signed earnings/coverage series.",
+    "28 delayed holdings filings do not establish fresh monthly basket or announced index weights.",
+    "NVDA and INTC raw facts are partial inventory; accession/context/TTM/share/ADR/split alignment unresolved.",
+    "Current methodology cannot certify historical rebalance schedule or weights."
+  ],
+  "source_document": "https://www.sec.gov/Archives/edgar/data/1100663/000119312521126827/d82642d497.htm",
+  "next_information_need": "Bounded historical-issuer accession inventory, then independently reviewed basket reconstruction qualification.",
+  "objective_status": "This branch needs_data; overall research objective neither achieved nor declared blocked.",
+  "promotion_authorized": false
+}

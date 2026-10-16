@@ -1,0 +1,24 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:54:03.724767+00:00",
+  "decision": "approved_bounded_source_feasibility_only",
+  "plan_sha256": "e15e3b8e4912f163e388dfffa2149af2a9c712443e164f4dd68f28200a39bb3d",
+  "bounds": {
+    "fixed_URLs": 6,
+    "max_new_requests": 6,
+    "workers": 2,
+    "timeout_seconds": 60,
+    "attempts_per_URL": 1,
+    "new_fits": 0,
+    "new_backtests": 0
+  },
+  "required_checks": [
+    "Verify actual issuer,quarter,publication date and accounting currency/attribution against page content, not URL alone.",
+    "BusinessWire company-authored releases are primary issuer statements when author verified; failed endpoint is access limitation, not proof historical source absent.",
+    "Distinguish extracted values, accessible but unparsed information and genuinely missing fields.",
+    "EPS ordinaryshare and ADR-equivalent EPS remain distinct with explicit ratio/currency.",
+    "Twoquarters perissuer cannot certify continuousTTM, immutable original vintage or wholebasket feature coverage."
+  ],
+  "historical_valuation_qualified": false,
+  "promotion_authorized": false
+}

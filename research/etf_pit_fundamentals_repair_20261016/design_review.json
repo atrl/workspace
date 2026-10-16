@@ -1,0 +1,24 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:33:36.896921+00:00",
+  "decision": "approved_raw_source_intake_only",
+  "plan_sha256": "385f8c1407800835d948a79b9f00454bd033f3afb97ba56cb3e9aada7489ecec",
+  "scope": "Bounded transport repair, not new source or model selection",
+  "bounds": {
+    "new_requests": 18,
+    "attempts_per_cik": 1,
+    "workers": 2,
+    "total_timeout_seconds_per_request": 180,
+    "new_fits": 0,
+    "new_accounts": 0
+  },
+  "requirements": [
+    "Retain original failed payloads and original46request accounting.",
+    "Reuse29verified parent payloads and mapping; no new ticker fetch.",
+    "Log curl exit status separately from HTTP status; successful intake requires complete JSON schema and exact CIK.",
+    "Keep original income-coverage frozen economic rules; no rule changes in response to coverage.",
+    "Unresolved transport errors stay operational gaps, not evidence source absent."
+  ],
+  "historical_valuation_qualified": false,
+  "promotion_authorized": false
+}

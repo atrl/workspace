@@ -1,0 +1,25 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:27:07.786750+00:00",
+  "decision": "accepted_readiness_contract_source_needs_data",
+  "plan_sha256": "e11ae3d55b4974758595ef7654d914dc005f3c16a71894648dc6fa264dedad59",
+  "recorder_id": "74a79f6e67ea44e782bb49c970978a56",
+  "manifest_sha256": "bb243381ca286f272a121d92e1a5389904850d67afc5f1811fbb1b6f736b7bc5",
+  "verified": {
+    "hash_checked_qlib_readback": true,
+    "all_199_schedule_rows_equal_next_session_month_boundary": true,
+    "source_qualified_rows": 0,
+    "valuation_features_computed": false,
+    "return_labels_computed": false,
+    "new_fits": 0,
+    "new_accounts": 0
+  },
+  "historical_valuation_qualified": false,
+  "promotion_authorized": false,
+  "limitations": [
+    "199 calendar decision positions are not199 valuation observations.",
+    "Monthly baseline-versus-valuation allocation experiment has not run.",
+    "No performance conclusion possible until source qualification and frozen model/label/cost design."
+  ],
+  "next_information_need": "Complete signed basket earnings, shares/ADR/split/TTM and publication vintage qualification; continue bounded raw source intake."
+}

@@ -1,0 +1,21 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:24:42.517754+00:00",
+  "decision": "approved_raw_source_intake_only",
+  "plan_sha256": "470fffa88ad3a62dca48b6fd189546dce4233e772db79f716be737de0096abcd",
+  "bounds": {
+    "max_new_http_requests": 50,
+    "new_fits": 0,
+    "new_accounts": 0,
+    "promotion_authorized": false
+  },
+  "required_checks": [
+    "Retain historical issuer identity, CUSIP/CIK evidence and unresolved retired/reorganization/ADR gaps; never silently map historical ticker to current unrelated issuer.",
+    "Preserve taxonomy/tag/unit/form/fiscal context/start/end/duration with accession; earliest per period/unit alone is insufficient to compare different accounting concepts or quarterly versus cumulative values.",
+    "An accession in companyfacts identifies a filing; crosschecking one NVDA document does not authenticate every other issuer-original value.",
+    "Date-only filings use explicit conservative next-trading-session assumption, distinguish from authenticated publication timestamp.",
+    "Preserve signed losses and unknown weight; do not infer EP, earnings growth or feature eligibility from raw fact counts.",
+    "Actual TTM, shares/ADR/splits and prices must share a verified unit basis before later feature qualification."
+  ],
+  "next_gate": "Source inventory review then a separately frozen basket feature qualification design; no market outcomes or model fitting in this intake."
+}

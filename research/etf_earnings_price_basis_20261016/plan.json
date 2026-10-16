@@ -1,0 +1,188 @@
+{
+  "experiment": "etf_earnings_price_basis_20261016",
+  "frozen_at_utc": "2026-10-16T03:35:11.373782+00:00",
+  "question": "Can saved as-first-reported annual EPS and split-correct nominal quotes remove the mechanical share-basis gap for NVDA/INTC? Delayed annual E/P pilot ONLY, not current TTM, ETF valuation or return prediction.",
+  "facts_source": {
+    "card": "research/etf_pit_fundamentals_intake_20261016",
+    "recorder_id": "19fc354e534c44ea95f5332258e54565",
+    "archive": "d61636e1ae91cc3b0f81797b06b15cc1c33800421bcf075aa0ef3e4452d127a9",
+    "inventory_sha256": "8015b0f9ae7c6b61a7571bd0703c77cbb9b1ef990ccf0e83f4f8a46e37931778"
+  },
+  "raw_payload_names": {
+    "NVDA": "0001045810.json",
+    "INTC": "0000050863.json"
+  },
+  "source_files_sha256": {
+    "data/raw/external/semis_minute_none_20261012_v1/NVDA_rehab.parquet": "aa55fe6b0bfc11c8eaec6a8de57c0660b27ccfb2628b812362734560a1332f0b",
+    "data/raw/external/constituent_intraday_history_20261014/b02/INTC_rehab.parquet": "d7f7a1ffddb8ced3b683589d9d6d0cb922f2e474fb6d26e3ab6c25f42cd0f8fd",
+    "data/snapshots/semis_wolf_recovery_20241126_v1/000175272419177706.xml": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+    "data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+    "data/qlib/soxx_pit_leveraged_training_v1/calendars/day.txt": "2a861bcf94a9abcfe78b9d2ed7248df20a3e147c53610751abcd7f183ff9bc56",
+    "data/qlib/soxx_pit_leveraged_training_v1/features/nvda/close.day.bin": "eb6e918b05e732aca736ccb0aa45a90916e887d9a1b83ad2f6c50764a5f436cd",
+    "data/qlib/soxx_pit_leveraged_training_v1/features/intc/close.day.bin": "a4f22f1f335650d9ee4b48258c0c6d122225081f875125bce4427d79eddddc7c",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b"
+  },
+  "symbols": [
+    "NVDA",
+    "INTC"
+  ],
+  "signal_start": "2019-09-30",
+  "signal_end": "2026-06-30",
+  "price_snapshot_asof": "2026-07-02",
+  "selection": "All Qlib last-trading-days of completed months in range, both symbols. Annual EPS: us-gaap EarningsPerShareDiluted USD/shares,10-K only,330..380-day duration; for each exact period earliest filing date then unique original value (conflict fails); latest economic end known strictly before signal date. Same-day filed dates excluded because intraday acceptance unknown. Negative EPS preserved. Original period/accession/end/filed/diluted shares/income retained; no EPS subtraction or TTM.",
+  "price_basis": "Source close is split-adjusted, not dividend-adjusted adj_close. Reconstruct nominal price by dividing close by product(split_ratio for effective_date>price_date and<=snapshot_asof). Original EPS assumed share basis as of first filing date; convert to decision share basis multiplying split_ratio for effective_date>original_filed and<=signal_date. Store all factors. Source splits after snapshot excluded. Validate nominal values against2019-09-30 NPORT balance/value anchors for both symbols.",
+  "checks": "Anchor relative tolerance1e-6, finite positive prices, annual periods and dates strict, no fabricated zero earnings; simultaneous numerator/price rebase invariant<=1e-12, future-vintage truncation invariance each cutoff, actual INTC loss signals retained. Report vintage disagreements (later comparative restatements) separately without overwriting initial reporting. Qlib float32 readback tolerance1e-6.",
+  "scope_limits": "No quarterly EPS arithmetic, no TTM, no full47basket certification, no return labels/model fitting/accounts/cost scenario; no market outcomes read. Latest annual financial age explicit; no stale annual metrics mislabelled current estimates. Two-US-common-share pilot only, ADR and acquired issuers unresolved.",
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_market_fetches": 0,
+  "output_provider": "data/qlib/etf_earnings_price_basis_20261016",
+  "original_documents": [
+    {
+      "symbol": "NVDA",
+      "cik": "0001045810",
+      "accn": "0001045810-19-000023",
+      "start": "2018-01-29",
+      "end": "2019-01-27",
+      "filed": "2019-02-21",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/0001045810-19-000023.txt"
+    },
+    {
+      "symbol": "NVDA",
+      "cik": "0001045810",
+      "accn": "0001045810-20-000010",
+      "start": "2019-01-28",
+      "end": "2020-01-26",
+      "filed": "2020-02-20",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581020000010/0001045810-20-000010.txt"
+    },
+    {
+      "symbol": "NVDA",
+      "cik": "0001045810",
+      "accn": "0001045810-21-000010",
+      "start": "2020-01-27",
+      "end": "2021-01-31",
+      "filed": "2021-02-26",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581021000010/0001045810-21-000010.txt"
+    },
+    {
+      "symbol": "NVDA",
+      "cik": "0001045810",
+      "accn": "0001045810-22-000036",
+      "start": "2021-02-01",
+      "end": "2022-01-30",
+      "filed": "2022-03-18",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000036/0001045810-22-000036.txt"
+    },
+    {
+      "symbol": "NVDA",
+      "cik": "0001045810",
+      "accn": "0001045810-23-000017",
+      "start": "2022-01-31",
+      "end": "2023-01-29",
+      "filed": "2023-02-24",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000017/0001045810-23-000017.txt"
+    },
+    {
+      "symbol": "NVDA",
+      "cik": "0001045810",
+      "accn": "0001045810-24-000029",
+      "start": "2023-01-30",
+      "end": "2024-01-28",
+      "filed": "2024-02-21",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000029/0001045810-24-000029.txt"
+    },
+    {
+      "symbol": "NVDA",
+      "cik": "0001045810",
+      "accn": "0001045810-25-000023",
+      "start": "2024-01-29",
+      "end": "2025-01-26",
+      "filed": "2025-02-26",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/0001045810-25-000023.txt"
+    },
+    {
+      "symbol": "NVDA",
+      "cik": "0001045810",
+      "accn": "0001045810-26-000021",
+      "start": "2025-01-27",
+      "end": "2026-01-25",
+      "filed": "2026-02-25",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/0001045810-26-000021.txt"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-19-000007",
+      "start": "2017-12-31",
+      "end": "2018-12-29",
+      "filed": "2019-02-01",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086319000007/0000050863-19-000007.txt"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-20-000011",
+      "start": "2018-12-30",
+      "end": "2019-12-28",
+      "filed": "2020-01-24",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086320000011/0000050863-20-000011.txt"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-21-000010",
+      "start": "2019-12-29",
+      "end": "2020-12-26",
+      "filed": "2021-01-22",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086321000010/0000050863-21-000010.txt"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-22-000007",
+      "start": "2020-12-27",
+      "end": "2021-12-25",
+      "filed": "2022-01-27",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086322000007/0000050863-22-000007.txt"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-23-000006",
+      "start": "2021-12-26",
+      "end": "2022-12-31",
+      "filed": "2023-01-27",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086323000006/0000050863-23-000006.txt"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-24-000010",
+      "start": "2023-01-01",
+      "end": "2023-12-30",
+      "filed": "2024-01-26",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086324000010/0000050863-24-000010.txt"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-25-000009",
+      "start": "2023-12-31",
+      "end": "2024-12-28",
+      "filed": "2025-01-31",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086325000009/0000050863-25-000009.txt"
+    },
+    {
+      "symbol": "INTC",
+      "cik": "0000050863",
+      "accn": "0000050863-26-000011",
+      "start": "2024-12-29",
+      "end": "2025-12-27",
+      "filed": "2026-01-23",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/0000050863-26-000011.txt"
+    }
+  ],
+  "max_new_SEC_document_requests": 16,
+  "original_document_qualification": "Fetch exact16complete submissions only; extract original10-K document and inlineXBRL (or original XBRL instance within same submission). Compare annual dilutedEPS and weighted dilutedshares for exact dates/accession against companyfacts; unambiguous dimension-free originalvalues required. If unavailable or unparseable, rows using that annualEPS remain assumption-bound mechanical diagnostics with qualified_source_row=false; do not certify by arithmetic equality alone. Filedate basis assumption only qualifies after document text/inline context supports original basis; all limitations retained. No new market fetch, no model or returns."
+}

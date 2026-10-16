@@ -1,0 +1,9 @@
+experiment: etf_monthly_valuation_20261016
+plan: plan.json
+provider_uri: data/qlib/soxl
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*

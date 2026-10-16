@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "recorder_id": "e7b8e8ee8554466bad2b1a26e498f0a8",
+  "source_api": [
+    "qlib.workflow.R.get_recorder",
+    "Recorder.load_object"
+  ],
+  "recorder_and_local_module_identical": true,
+  "original_annual_documents": 16,
+  "monthly_rows": 164,
+  "negative_EP_rows": 17,
+  "qualified_source_rows": 164,
+  "qlib_features_exact_readback": true
+}

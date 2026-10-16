@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "recorder_id": "1a3e5cd71d6e4887b87adc01fee7ebb9",
+  "source_api": [
+    "qlib.workflow.R.get_recorder",
+    "Recorder.load_object"
+  ],
+  "all_loaded_hashes_verified": true,
+  "rolling_rows": 9828,
+  "paired_rolling_components": 39312
+}

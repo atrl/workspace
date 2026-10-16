@@ -1,0 +1,38 @@
+{
+  "reviewed_at": "2026-10-16T03:22:18.577289+00:00",
+  "reviewer": "independent evaluator",
+  "decision": "accepted_descriptive_attribution_not_promotion",
+  "plan_sha256": "6c0c30a1ecc34fc4421bd34e1f96ba431ddafb27c5115146bae48925f63b097f",
+  "recorder_id": "1a3e5cd71d6e4887b87adc01fee7ebb9",
+  "nas_archive_sha256": "f85d46716ace35dab54d6c4ce89d9edc623c187507c3a328e55f9337b73933ab",
+  "manifest_sha256": "360415f353297f1d981dcf570217307e02bf71567ebbf0c2467175bc65666410",
+  "code_sha256": "0561a6c4a6a468f7d4a6b859d547d63edd5f03de1236f0492ac2dc0e63f48f8f",
+  "verified": {
+    "read_only_qlib_api": "load_verified_recorder_objects via R.get_recorder and Recorder.load_object",
+    "metadata_and_artifact_hashes_rechecked": true,
+    "books": 12,
+    "sessions_per_book": 944,
+    "rolling126_windows_per_book": 819,
+    "paired_components_windows_per_asset_slot_cost": 819,
+    "parent_native_daily_returns_exact_equal": true,
+    "max_daily_pnl_closure_error": 5.030698080332741e-16,
+    "all_costs": [
+      0,
+      2,
+      5
+    ],
+    "2023_and_2026_partial": true,
+    "notebook_and_conclusion_consistent": true
+  },
+  "findings": [
+    "Improved final wealth does not establish calibrated tail prediction; retained scoring shows worse logloss/Brier.",
+    "Positive arithmetic covariance contribution does not establish tradable timing skill or a controller-off counterfactual.",
+    "Full interval and state descriptions support further hypothesis design only; historical data remain reused."
+  ],
+  "failed_or_missing_promotion_gates": [
+    "Parent rolling stability and bootstrap failures remain unchanged.",
+    "Historical PIT, full-minute risk and independent forward qualification remain absent."
+  ],
+  "next_information_need": "Qualify distinct ETF valuation and earnings vintages before a new frozen monthly mechanism; keep parent routes closed.",
+  "operational_note": "First direct read failed because installed MLflow file store needs MLFLOW_ALLOW_FILE_STORE=true; configured read-only retry passed, no source mutation."
+}

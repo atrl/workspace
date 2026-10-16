@@ -1,0 +1,23 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:15:31.338972+00:00",
+  "plan_sha256": "448fb4c2831b04e48559975e5afeb00897a2fcc27cb8b30b6834478d557109ad",
+  "decision": "approved_source_qualification_only",
+  "bounds": {
+    "model_fits": 0,
+    "backtest_accounts": 0,
+    "promotion_authorized": false
+  },
+  "required_checks": [
+    "Separate snapshot period end, publication date/time and retrieval time; filing date alone cannot support same-day decision availability.",
+    "For PE/EP record issuer aggregation, treatment of loss makers, denominator/coverage and whether historical values are revised.",
+    "SOXX historical holdings and SOX index constituents are distinct; preserve the 2021 benchmark change and exact benchmark identity.",
+    "Rebalance announcement time, effective time and actual holdings report availability must remain separate.",
+    "Report both useful observations and missing vintage history; no current-constituent or period-end backfill.",
+    "Do not infer qualified full history from three accessible probe dates; missing source gates affect this branch only."
+  ],
+  "limitations": [
+    "No investment/promotion conclusion from source discovery.",
+    "Sources may supply documentary or partial research evidence without furnishing a tradable monthly feature."
+  ]
+}

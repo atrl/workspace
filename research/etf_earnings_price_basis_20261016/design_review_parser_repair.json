@@ -1,0 +1,16 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:47:11.788205+00:00",
+  "decision": "approved_parser_repair_design",
+  "plan_sha256": "cb1fc94b0892ef8b93834fcdb29887c31369eba25c77e097c742cdcc771f8564",
+  "scope": "Parse cached fixed16documents with actual namespace/context/units and reviewable annual reporting-basis text.",
+  "conditions": [
+    "No new network requests.",
+    "Retain provisional old result identity explicitly superseded.",
+    "Bind final actual parser path/sourcehash before new Recorder qualification.",
+    "Document/source text matches must be independently inspected before claiming qualified rows."
+  ],
+  "promotion_authorized": false,
+  "staged_parser_read": true,
+  "staged_parser_sha256": "e8282ab9688277f307d8ab7df7a9e8f7f642d6d81bc7d6443345feda61c84d40"
+}

@@ -1,0 +1,23 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:24:03.048403+00:00",
+  "decision": "approved_for_source_readiness_only",
+  "plan_sha256": "e11ae3d55b4974758595ef7654d914dc005f3c16a71894648dc6fa264dedad59",
+  "code_sha256": "9968339396b5c017b94e8c988ea2449c197895c5cd0108ea016a39c3d7817f0d",
+  "scope": "Qlib complete-month decision calendar, source readiness, and time-alignment interface; no valuation feature calculation, labels, fit, inference, accounts or promotion.",
+  "pre_execution_guards": [
+    "Verify review decision and plan hash before computation.",
+    "Do not declare source_ready from positive row count and nonnull path alone; independently accepted qualified source and real hashed input are required."
+  ],
+  "approved_contract": [
+    "Monthly 16:15 New York last-session cutoff; next Qlib session09:47 execution.",
+    "Latest economic observation, then latest available release at cutoff; preserve historic decision vintages.",
+    "60-month history,36 distinct same-method prior observations,45-day maximum age and95percent known earnings coverage.",
+    "Negative earnings remain signed; unknown earnings weight explicitly retained."
+  ],
+  "limitations": [
+    "Synthetic interface tests do not qualify real source history.",
+    "Actual model,segments,costs,reference accounts and label maturity must be frozen in a separate reviewed experiment once source qualifies.",
+    "Zero source-ready rows is branch needs_data only."
+  ]
+}

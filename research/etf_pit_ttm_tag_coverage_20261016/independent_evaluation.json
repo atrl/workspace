@@ -1,0 +1,27 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:53:51.657495+00:00",
+  "decision": "accepted_extended_tag_candidate_inventory_only",
+  "plan_sha256": "d72d339bda95202827d7cb071bd16949eaa974c9c77679ac1cd9bf9372a79faf",
+  "recorder_id": "d677363e9fdc439f871e41dddb58b498",
+  "manifest_sha256": "d930b118b036c39e2d5c6dc64be8490523c24207dd92341822088af29fc03740",
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "all_known_monetary_amounts_reconcile_components": true,
+    "all_component_times_eligible": true,
+    "detail_rows": 3210,
+    "known_rows": 2867,
+    "monthly_candidate95pct": 23,
+    "disclosure_candidate95pct": 10,
+    "tag_methods": "{('ifrs-full', 'ProfitLoss'): 53, ('us-gaap', 'NetIncomeLoss'): 2629, ('us-gaap', 'ProfitLoss'): 185}"
+  },
+  "findings": [
+    "Observed us-gaap ProfitLoss is valid additional source inventory and remains a distinct consolidated-income concept.",
+    "23monthly dates and10disclosures reach95percent candidate-income coverage; this does not certify EP,35/36distinct history or source freshness.",
+    "No cross-tag arithmetic is performed; subsequent aggregate valuation must resolve consistent attributable-income scope."
+  ],
+  "historical_valuation_qualified": false,
+  "qualified_ep_monthly_rows": 0,
+  "promotion_authorized": false,
+  "next_information_need": "Bounded foreign issuer quarterly release feasibility and original annualEPS/nominal share basis evidence; no more return-based selection."
+}

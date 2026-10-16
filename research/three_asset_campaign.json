@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/diagnostic_forward_io_v2_20261016",
-  "current_phase": "historical_diagnosis_resumed_forward_observation_parallel",
-  "next_action": "Research executor and independent evaluator identify and review one bounded saved-Recorder historical attribution task for generic index transfer versus matched control. Separate predictive quality, raw allocation and controller/account contributions; reuse completed proper-scoring results. No new market data or forward-day prerequisite. Freeze scope before computation; no calibration, threshold or closed-route rescue. Preserve the separate registered forward observer unchanged.",
+  "current_experiment": "research/etf_pit_ttm_tag_coverage_20261016",
+  "current_phase": "source_construction_delivered_monthly_model_not_started",
+  "next_action": "Complete foreign quarterly original-document ingestion (same-quarter SEC6-K or accessible official transport), then whole-basket earnings attribution/share/ADR/FX/nominal-price implementation and qualified monthly snapshots. Current80public-basket months yield23candidate95pct income months, at most18prior60-month candidates versus36rank requirement; do not lower the gate to force a fit. Two-issuer original annualEP pilot qualifies only its164rows, notETF orTTM. Freeze monthly paired model and segments after inputs qualify. Original scientific target remains unmet; no overallblocked/complete inference.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -41,6 +41,33 @@
       "status": "needs_data",
       "dependency": "Matching point-in-time comparable actual, expectation sample/version and publication evidence",
       "blocks_current_attribution": false
+    },
+    {
+      "branch": "etf_monthly_valuation",
+      "status": "pending_input_ingestion_and_basis_implementation",
+      "dependency": "historical signed whole-basket earnings yields with qualified public vintages, share units and historical holdings",
+      "blocks_current_attribution": false,
+      "blocks_other_source_research": false,
+      "available_evidence": {
+        "issuer_CIKs_with_complete_payloads": 47,
+        "raw_facts": 35146,
+        "candidate_95pct_months": 23,
+        "maximum_prior60_candidate_months": 18,
+        "required_prior_snapshots": 36,
+        "qualified_ETF_EP_months": 0,
+        "qualified_two_issuer_annual_EP_rows": 164
+      },
+      "remaining_work": [
+        "Official foreign quarterly body ingestion; report existence confirmed, native transport failed",
+        "Implement and validate whole-basket numerator ownership, shares,ADR,FX,nominal-price and weight alignment",
+        "Obtain sufficient qualified history without weakening frozen eligibility"
+      ]
+    },
+    {
+      "branch": "soxx_sox_rebalance_information",
+      "status": "needs_dated_historical_weights",
+      "dependency": "dated historical index methodology/weights, announcement and effective times",
+      "blocks_monthly_valuation": false
     }
   ],
   "experiments": [
@@ -1110,6 +1137,99 @@
       "evaluation": "research/diagnostic_forward_io_v2_20261016/independent_evaluation.json",
       "new_input_plane_not_historical_equivalence": true,
       "remaining_gate": "Exact registered future pilot with actual source/clock/model/native evidence"
+    },
+    {
+      "card": "research/etf_transfer_attribution_20261016",
+      "kind": "saved_native_account_descriptive_attribution",
+      "status": "descriptive_diagnosis_only_parent_routes_remain_not_promoted",
+      "recorder_id": "1a3e5cd71d6e4887b87adc01fee7ebb9",
+      "evaluation": "research/etf_transfer_attribution_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_valuation_source_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "needs_qualified_historical_valuation_inputs",
+      "recorder_id": "dfc655657b964f9e97b06d74505598aa",
+      "evaluation": "research/etf_valuation_source_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_monthly_valuation_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "needs_data_monthly_valuation_only",
+      "recorder_id": "74a79f6e67ea44e782bb49c970978a56",
+      "evaluation": "research/etf_monthly_valuation_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_pit_fundamentals_intake_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "raw_issuer_facts_acquired_needs_original_TTM_share_price_identity_validation",
+      "recorder_id": "19fc354e534c44ea95f5332258e54565",
+      "evaluation": "research/etf_pit_fundamentals_intake_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0,
+      "raw_fact_rows": 19749
+    },
+    {
+      "card": "research/etf_pit_fundamentals_repair_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "raw_issuer_facts_acquired_needs_original_TTM_share_price_identity_validation",
+      "recorder_id": "1e947608d2f64491a754d576814e9165",
+      "evaluation": "research/etf_pit_fundamentals_repair_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0,
+      "raw_fact_rows": 35146
+    },
+    {
+      "card": "research/etf_pit_ttm_coverage_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "candidate_monetary_TTM_constructed_not_EP_qualified",
+      "recorder_id": "1a8e335b8ec94277b5f4e70af3228bc6",
+      "evaluation": "research/etf_pit_ttm_coverage_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_pit_ttm_tag_coverage_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "candidate_monetary_TTM_constructed_not_EP_qualified",
+      "recorder_id": "d677363e9fdc439f871e41dddb58b498",
+      "evaluation": "research/etf_pit_ttm_tag_coverage_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_foreign_quarterly_source_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "historical_quarter_reports_discoverable_native_transport_not_qualified",
+      "recorder_id": "fcfce8a112db462cbc75f05140d3b771",
+      "evaluation": "research/etf_foreign_quarterly_source_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_earnings_price_basis_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "two_issuer_delayed_annual_EP_source_pilot_only",
+      "recorder_id": "e7b8e8ee8554466bad2b1a26e498f0a8",
+      "evaluation": "research/etf_earnings_price_basis_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0,
+      "qualified_two_issuer_annual_EP_rows": 164
     }
   ],
   "governance_review": {
@@ -1208,9 +1328,13 @@
     "user_steering": "Focus on SOXL/SOXX/CASH portfolio decisions; stop letting individual-stock research dominate",
     "new_individual_stock_fundamental_research": false,
     "existing_NVDA_model_role": "frozen comparator only; no new NVDA interaction extension",
-    "next_mechanism_domain": "ETF and portfolio-level exposure, leverage risk and cash protection versus missed participation, using existing market inputs",
+    "next_mechanism_domain": "ETF valuation and earnings cycle for monthly SOXL/SOXX/CASH allocation with fixed short-term risk layer",
     "preserve_stable_excess_objective": true,
-    "generic_market_direction": "Prefer reusable index/market data and cross-market training; review prior mixed-index experiments before a distinct new mechanism"
+    "generic_market_direction": "Prefer reusable index/market data and cross-market training; review prior mixed-index experiments before a distinct new mechanism",
+    "valuation_priority": true,
+    "allocation_horizon": "monthly",
+    "secondary_source_branch": "SOXX/SOX historical weights and announced rebalance changes; source qualification only",
+    "constituent_fundamentals_role": "Basket aggregation only; no issuer-specific predictive branch"
   },
   "generic_training_precedent_correction": "research/family_balanced_direct_utility_training_20261015/precedent_correction.json",
   "prospective_supervision": {
@@ -1233,7 +1357,26 @@
     "user_requested_resume": true,
     "actual_research_resumed": true,
     "automatic_continuation_verified": false,
-    "limitation": "Available Goal API has no resume operation; UI resume required to restore automatic continuation. Do not mark complete or create a replacement to bypass unfinished objective."
+    "limitation": "Available Goal API has no resume operation; UI resume required to restore automatic continuation. Do not mark complete or create a replacement to bypass unfinished objective.",
+    "current_session_tool_status": "no_goal_in_current_thread",
+    "current_session_note": "get_goal returned null on2026-10-16; old goal_thread_id retained as historical reference, no newGoal created and no automatic continuation asserted."
   },
-  "resume_note": "docs/three_asset_progress_restart_20261016.md"
+  "resume_note": "docs/three_asset_progress_restart_20261016.md",
+  "restart_contract": "docs/etf_valuation_restart_20261016.md",
+  "execution_roles_current_session": {
+    "owner": "/root",
+    "attribution_and_identifier_support": "/root/attribution",
+    "source_executor": "/root/sources",
+    "independent_evaluator": "/root/evaluator"
+  },
+  "restart_delivery": {
+    "document": "docs/etf_valuation_restart_20261016.md",
+    "new_model_fits": 0,
+    "new_strategy_accounts": 0,
+    "monthly_strategy_experiment_completed": false,
+    "scientific_objective_achieved": false,
+    "automatic_continuation_asserted": false,
+    "production_changed": false,
+    "execution_state": "all_current_turn_jobs_finished_no_background_model_training"
+  }
 }

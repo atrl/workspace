@@ -1,0 +1,37 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:58:26.158809+00:00",
+  "decision": "accepted_two_issuer_delayed_annual_EP_source_pilot",
+  "plan_sha256": "ace4aade262d40ce9e8568fec75887e886dd3756b4128b6586521befc18a64f7",
+  "parser_repair_plan_sha256": "cb1fc94b0892ef8b93834fcdb29887c31369eba25c77e097c742cdcc771f8564",
+  "recorder_id": "e7b8e8ee8554466bad2b1a26e498f0a8",
+  "manifest_sha256": "e5a2f7c7eb8ff9e81538f682ca010d1ad9219c359f3f76ce1c5b1449ed73bc49",
+  "nas_archive_sha256": "c179a550e5cbe46f64f9c53b18b69aaa7f2789640f9683f424fc6771f95cf75c",
+  "code_sha256": "80e53cf2521e98991ea36171adc47787263ffaf6c3915f22ff88073c9027e05c",
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "original_annual_documents": 16,
+    "all_16_exact_period_CIK_resolved_USD_per_share_EPS_and_share_denominator_values_checked": true,
+    "all_16_original_statement_basis_excerpt_inspected": true,
+    "NVDA_2021_2024_retrospective_split_policy_original_text_checked": true,
+    "monthly_rows": 164,
+    "source_qualified_delayed_annual_EP_rows_only": 164,
+    "actual_negative_INTC_rows": 17,
+    "all_monthly_EP_recomputed_from_source_EPS_split_factors_and_nominal_prices": true,
+    "qlib_D_features_readback_equal_float32_tolerance": true,
+    "max_split_invariance_error": 6.938893903907228e-18,
+    "future_vintage_checks_reported": 164,
+    "new_fits": 0,
+    "new_accounts": 0
+  },
+  "findings": [
+    "Mechanical share-basis gap is resolved for this specific two-US-common-share delayed annualEPS pilot.",
+    "Original annual dilutedEPS is a weighted-average annual-share accounting metric; this is not point-in-time aggregate issuer earnings divided by current shares.",
+    "164monthly rows reuse only16annual reporting vintages; they are not164independent earnings observations.",
+    "Two2019NPORT price anchors corroborate nominal scale, not every historical daily price or receipt timing."
+  ],
+  "historical_ETF_valuation_qualified": false,
+  "promotion_authorized": false,
+  "next_information_need": "Broaderbasket consistent earnings/TTM scope, share/ADR/currency/price identity, fresh disclosedweights and sufficient distinct monthly snapshots before any model experiment.",
+  "scope_limit": "Source qualification only; no stableexcess, forward or deployment conclusion."
+}

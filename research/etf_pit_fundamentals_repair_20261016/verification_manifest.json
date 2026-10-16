@@ -1,0 +1,95 @@
+{
+  "recorder_id": "1e947608d2f64491a754d576814e9165",
+  "entries": [
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/analysis/coverage",
+      "sha256": "4c105f317c6db81d1edf598ce5549950f2b01df4207703b030fcde1747eab326",
+      "bytes": 2970
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/analysis/facts",
+      "sha256": "e8abefe2514e75bb1118ca7008d77cc697f0f8717fb920cfa3f01705a19f40d0",
+      "bytes": 4741618
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/analysis/first_candidates",
+      "sha256": "6fa25ebc5d08f6eaeb66077fa565d78500c3bcaf3eda1072bd1663b6a2ef2b98",
+      "bytes": 2760546
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/analysis/income_coverage",
+      "sha256": "1269f3e8ae449250c99dad49512da8bf369df7a22fc786a0df8e4b3f3f5942a4",
+      "bytes": 5857
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/analysis/inventory",
+      "sha256": "3f87caec2c3ce7d3ab95819eb686b213e072ead9c963e22188220c7994589e42",
+      "bytes": 25218
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/analysis/issuer_mapping",
+      "sha256": "eee4d1b7d0e5e4bd6ff0856b022e6243cd30df7f46963600b43a79bf7acd3eef",
+      "bytes": 5475
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/analysis/summary",
+      "sha256": "cff6535d55acec9c8ed6f614176f0718a8114a299fb6abf07067d2b0f8e82595",
+      "bytes": 2225
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/code_diff.txt",
+      "sha256": "fd62416a81e3f53f4afa394604f9f7f278a053fdd80bc8dbbb7e9efd8a6130b0",
+      "bytes": 419718
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/code_status.txt",
+      "sha256": "b484f07858ec1f1964b224a61dafa95e98af51d2885bf6dab2a2b217bf9b97f0",
+      "bytes": 64019
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/inputs/acquisition_manifest",
+      "sha256": "f3f5ef4f48bb08ddc362365fe6024734f3a44ac5bffede7512d4b767bcb7b848",
+      "bytes": 12457
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/inputs/company_tickers",
+      "sha256": "233e2fc2472de8b999bfb5d4b418b0e73f2cd69360418956486397577dc21a7e",
+      "bytes": 799364
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/inputs/holdings",
+      "sha256": "6f78d70bc5f3eef1b6fbb61967d552f599be97d411335549b9efc3edd4dfadd6",
+      "bytes": 39646
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/inputs/income_inventory_plan",
+      "sha256": "9428671fc68e5b14a38a1e04f0d8458cdc66822be6de98b42de852d177250557",
+      "bytes": 1119
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/inputs/plan",
+      "sha256": "a12e00f5f44ccd9b5896d9e5236e365fc47164c565e9cadd77b3d86cf93bb126",
+      "bytes": 1627
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/inputs/raw_payloads",
+      "sha256": "5215348ccc4b591e50344086fa25539fe934881977437f47fd97c9d48fa89172",
+      "bytes": 148067834
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/sources/acquisition",
+      "sha256": "9fc7278299493954877183f1a941ef6d5c3119fd011adffba2fe89b691fa3be9",
+      "bytes": 1822
+    },
+    {
+      "path": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/sources/module",
+      "sha256": "5d142601b61a9e2ca02432be71ef7fb063ef1f50da6f696224e34e088ea1394e",
+      "bytes": 15149
+    }
+  ]
+}

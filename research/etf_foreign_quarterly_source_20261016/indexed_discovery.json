@@ -1,0 +1,34 @@
+{
+  "evidence_type": "primary issuer authored search-index excerpts discovered before native probes",
+  "not_native_original_payload": true,
+  "qualified_for_training": false,
+  "entries": [
+    {
+      "issuer": "TSM",
+      "period": "2020Q1",
+      "release_date_in_index": "2020-04-16",
+      "net_income_TWD_billions": 116.99,
+      "url": "https://pr.tsmc.com/schinese/news/2030"
+    },
+    {
+      "issuer": "TSM",
+      "period": "2025Q1",
+      "release_date_in_index": "2025-04-17",
+      "net_income_TWD_billions": 361.56,
+      "url": "https://pr.cld.tsmc.com/english/news/3222"
+    },
+    {
+      "issuer": "UMC",
+      "period": "2022Q1",
+      "release_date_in_index": "2022-04-27",
+      "net_income_attributable_to_parent_TWD_billions": 19.81,
+      "url": "https://www.businesswire.com/news/home/20220427005451/en/UMC-Reports-First-Quarter-2022-Results"
+    },
+    {
+      "issuer": "UMC",
+      "period": "2025Q1",
+      "release_date_in_index": "2025-04-23",
+      "url": "https://www.businesswire.com/news/home/20250423806399/en/UMC-Reports-First-Quarter-2025-Results"
+    }
+  ]
+}

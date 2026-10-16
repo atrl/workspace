@@ -1,0 +1,58 @@
+{
+  "experiment": "etf_transfer_attribution_20261016",
+  "frozen_at_utc": "2026-10-16T03:15:37.516867+00:00",
+  "sources": {
+    "generic_index_risk_transfer_20261015": {
+      "card": "research/generic_index_risk_transfer_20261015",
+      "recorder_id": "83a13ab47cdb4e28a5fe285821909a28",
+      "archive": "413da98cbf476534e5ca58b6b4a0188709655ef695b5cabf0778401f6e52b0bf",
+      "inventory_sha256": "572a19fa79c98e722c058d915f0b9159480b524269a5ff65260c3e813d87e408"
+    },
+    "family_balanced_direct_utility_training_20261015": {
+      "card": "research/family_balanced_direct_utility_training_20261015",
+      "recorder_id": "bc51d1c6a4644b1b8c9a1a455bd348c1",
+      "archive": "f821d592d8004c3efb43326766f97a4d532de4040c631a5dbacede1de961be5f",
+      "inventory_sha256": "86bf3ab768020982d4a8210e2bcdd1ef61c500880fe16c9cf953ce3a2b583c60"
+    },
+    "generic_index_tail_scoring_20261015": {
+      "card": "research/generic_index_tail_scoring_20261015",
+      "recorder_id": "85d314b1f0ac470e856da416a2f156cd",
+      "archive": "ac3bfdf8aa3e7dcb1bf7a7cb883e906801532e53bed3c15feaa3a9f3bd818996",
+      "inventory_sha256": "3c38d0fec4aa7b4636364ead4c77bb4bc39481daf1e5e54355ac9a4b3e5c3464"
+    }
+  },
+  "slippage_bps": [
+    0,
+    2,
+    5
+  ],
+  "primary_slippage_bps": 2,
+  "new_fits": 0,
+  "new_inference": 0,
+  "new_accounts": 0,
+  "scope": "All saved944 sessions per parent, same control and candidate, no cross-parent performance ranking. Existing tail scoring reused. All annual, quarterly and every contiguous126session window; boundary periods explicitly partial. Development diagnosis only; parent routes remain closed.",
+  "method": "For every session use actual saved native posttrade holdings and raw marks over open09:47 to recovery10:32, recovery to saved close (half-days preserved), overnight close to next09:45, next09:45 to next09:47 pretrade. Adjust overnight raw return for split ratio and ex-date income; payment transfers receivables to cash without income. Sum actual segment dollar P&L divided by start-of-session NAV minus actual saved fees closes saved native daily return at 1e-9. For each asset/slot, sum(w*r)=N*mean(w)*mean(r)+N*population_cov(w,r); aggregate contribution arithmetic, never call it compounded counterfactual. Report candidate-minus-control component differences within each parent.",
+  "raw_controller": "Saved raw model target versus final opening target weight difference; actual holdings weights separately. No controller-off counterfactual, no causal attribution.",
+  "states": "Market state only saved prior signal soxx_trend20 positive/nonpositive; account state saved risk_state is endogenous and descriptive. Ex post window winners never feature input.",
+  "failure": "Missing native objects, identity mismatch, calendar mismatch, nonfinite returns, NAV/P&L closure failure abort; no backtest or model fallback.",
+  "promotion": "No promotion claim or fresh evidence; unchanged gates and existing parent reference comparisons.",
+  "exact_books": {
+    "generic_index_risk_transfer_20261015": [
+      "native/raw_control_0",
+      "native/raw_control_2",
+      "native/raw_control_5",
+      "native/raw_candidate_0",
+      "native/raw_candidate_2",
+      "native/raw_candidate_5"
+    ],
+    "family_balanced_direct_utility_training_20261015": [
+      "native/raw_control_0",
+      "native/raw_control_2",
+      "native/raw_control_5",
+      "native/raw_candidate_0",
+      "native/raw_candidate_2",
+      "native/raw_candidate_5"
+    ]
+  },
+  "cash_events_costs": "Only each parent saved inputs/schedule, inputs/raw_points, inputs/execution_plan and native book orders/receipts. Zero external refresh. Cash interest is zero under inherited parent convention; receivable payment only transfers assets. Preserve saved IBKR tariff and independently settled0/2/5bp accounts; reconstruct total actual saved order fee including slippage, no alternate costs. Corporate split/exdate timing inherited unchanged; historical_PIT_qualified=false, fullminute_risk_qualified=false, independent_development=false, qualified_forward=false."
+}

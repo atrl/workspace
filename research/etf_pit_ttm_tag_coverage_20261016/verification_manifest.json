@@ -1,0 +1,55 @@
+{
+  "recorder_id": "d677363e9fdc439f871e41dddb58b498",
+  "entries": [
+    {
+      "path": "qlib_recorder/695306668923737401/d677363e9fdc439f871e41dddb58b498/artifacts/analysis/coverage",
+      "sha256": "799ee76fb35e803657a6114c75a567e19c24c516871420146e47c52b45f53b6f",
+      "bytes": 12220
+    },
+    {
+      "path": "qlib_recorder/695306668923737401/d677363e9fdc439f871e41dddb58b498/artifacts/analysis/issuer_monthly_ttm",
+      "sha256": "e6d53c5423c0dd37be879080cd4762b9a2c3e5afafb1bd43b5203e120093605a",
+      "bytes": 1779231
+    },
+    {
+      "path": "qlib_recorder/695306668923737401/d677363e9fdc439f871e41dddb58b498/artifacts/analysis/summary",
+      "sha256": "f1b191c6f00a3fe17d88968749a0aa7ccc66ddbb4d1ebac6891d1a858b2dc893",
+      "bytes": 2424
+    },
+    {
+      "path": "qlib_recorder/695306668923737401/d677363e9fdc439f871e41dddb58b498/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/695306668923737401/d677363e9fdc439f871e41dddb58b498/artifacts/code_diff.txt",
+      "sha256": "69f3179b659ad89c1fab4e5b2247d6b15a5a948ba43328a3600b58469b7d2eaa",
+      "bytes": 420750
+    },
+    {
+      "path": "qlib_recorder/695306668923737401/d677363e9fdc439f871e41dddb58b498/artifacts/code_status.txt",
+      "sha256": "98dcbf00f575e1d3ca765111f239d6b10b601459d1ac189c9181a386ca2c0418",
+      "bytes": 64098
+    },
+    {
+      "path": "qlib_recorder/695306668923737401/d677363e9fdc439f871e41dddb58b498/artifacts/inputs/calendar",
+      "sha256": "6ae05f6d502bc310a95592efd8b2f7acd257e4ba1b348bb06fb14e712c05f6bd",
+      "bytes": 15566
+    },
+    {
+      "path": "qlib_recorder/695306668923737401/d677363e9fdc439f871e41dddb58b498/artifacts/inputs/plan",
+      "sha256": "e57c1903d7be699c6918442e785fc2b3425cdea1c66931c59c464e8731c3784b",
+      "bytes": 2271
+    },
+    {
+      "path": "qlib_recorder/695306668923737401/d677363e9fdc439f871e41dddb58b498/artifacts/inputs/source_binding",
+      "sha256": "5707febf61f8fade36f94fe082ebe0496c09ac050b84b2e6dbcda776f4da62a9",
+      "bytes": 547
+    },
+    {
+      "path": "qlib_recorder/695306668923737401/d677363e9fdc439f871e41dddb58b498/artifacts/sources/module",
+      "sha256": "d6b16a50fbcedd11b2961fa50b8fa9f5953f8acf5c2871ddcccc4583711aecb0",
+      "bytes": 13347
+    }
+  ]
+}

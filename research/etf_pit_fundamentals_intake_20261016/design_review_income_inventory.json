@@ -1,0 +1,15 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T03:30:09.307426+00:00",
+  "decision": "approved_candidate_income_coverage_only",
+  "plan_sha256": "6c6daab2da348881bfc31d56edbd6256414d2bcc57cdc5774caa9562fa4c4aab",
+  "scope": "No market outcomes, returns, source expansion or feature/model fitting. Candidate income availability by NPORT filing date only.",
+  "conditions": [
+    "Four nonoverlapping contiguous quarters, same issuer/accounting tag/currency; no YTD substitution.",
+    "Annual fallback distinctly labeled, not described as quarter-derived TTM.",
+    "First-filing and conflict filters do not authenticate original issuer documents or historical trade availability.",
+    "Negative sums retained, unknown and authentic EP-qualified weights remain separate.",
+    "Earliest source fact and MRVL predecessor identity must not be inferred to certify all historical issuer mapping."
+  ],
+  "historical_valuation_qualified": false
+}

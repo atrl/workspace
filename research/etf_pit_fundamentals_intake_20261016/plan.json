@@ -1,0 +1,30 @@
+{
+  "experiment": "etf_pit_fundamentals_intake_20261016",
+  "frozen_at": "2026-10-16T03:24:05.025112+00:00",
+  "scope": "original accession facts inventory for historical 47symbol NPORT union; no market outcomes, fits or backtests",
+  "parent": "etf_valuation_source_20261016",
+  "holdings_sha256": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+  "max_new_http_requests": 50,
+  "reuse": [
+    "NVDA companyfacts",
+    "INTC companyfacts"
+  ],
+  "sources": [
+    "SEC company_tickers.json",
+    "SEC companyfacts by mapped CIK",
+    "existing source-identified mappings"
+  ],
+  "fields": [
+    "NetIncomeLoss",
+    "ProfitLoss",
+    "EarningsPerShareDiluted",
+    "CommonStockSharesOutstanding",
+    "EntityCommonStockSharesOutstanding",
+    "StockholdersEquity"
+  ],
+  "original_vintage": "retain all accession facts, select earliest filing per economic period/unit, later comparative cannot overwrite; conflicting first filings ineligible",
+  "identity": "historical CUSIP/issuer mapping; unresolved retired/ADR/reorganized identities are gaps, never substitute current stock",
+  "availability": "exact SEC acceptance when authenticated, otherwise conservative next-session after filing date, timezone explicit",
+  "qualification": "raw intake only; E/P needs TTM and contemporaneous share/ADR/split/price basis; no zero filling missing loss weight",
+  "stop_rule": "at most50 new requests; no retry-driven unbounded discovery; unresolved security stays missing"
+}

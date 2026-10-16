@@ -1,0 +1,11 @@
+{
+  "frozen_at_utc": "2026-10-16T03:46:12.884859+00:00",
+  "parent_plan_sha256": "ace4aade262d40ce9e8568fec75887e886dd3756b4128b6586521befc18a64f7",
+  "replacement_parser_sha256": "e8282ab9688277f307d8ab7df7a9e8f7f642d6d81bc7d6443345feda61c84d40",
+  "reason": "Independent evaluator identified missing original unit namespace/context issuer checks; original numerical match cannot certify share basis. Any first-run result is provisional and superseded, never qualified by evaluator.",
+  "source_requests": "No new requests; parse only fixed16original payloads from existing acquisition ledger.",
+  "required": "Isolate each SGML TYPE10-K or EX-101.INS document, retain filename/type/document hash. Reset contexts/units per document. Require us-gaap namespace, SEC CIK exact context identifier/scheme, USD/shares EPS, shares denominator, dimension-free annualdates and matching original values. Preserve primary10K accounting/split text extracts with normalized offsets/hash. Year containing effective split requires share/per-share retrospective adjustment statement for actual observed split. No split between yearend andoriginalfiled. Loss EPS remains originalreported; no back-calculation.",
+  "qualification": "Only rows backed by both exact original source units/CIK and reviewable actual annual reporting-basis text qualify. Missing or ambiguous facts/text remain diagnostic; full47basket/TTM/investment qualification remains false.",
+  "replacement_parser_staging_path": "/tmp/ep_parser_replacement.py",
+  "target_module": "src/data/earnings_price_basis.py"
+}

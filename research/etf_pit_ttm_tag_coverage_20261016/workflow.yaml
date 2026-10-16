@@ -1,0 +1,9 @@
+experiment: etf_pit_ttm_tag_coverage_20261016
+plan: plan.json
+module: src.data.etf_valuation_ttm
+provider_uri: data/qlib/soxx_pit_leveraged_training_v1
+region: us
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: [inputs/*, analysis/issuer_monthly_ttm, sources/*]

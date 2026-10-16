@@ -83,6 +83,12 @@ qlib research/production card 必须使用瘦根目录、recorder-first 的产�
 
 ### SOXX 稳定超额研究入口
 
+2026-10-16用户批准ETF估值优先、月度中期配置与固定短期风控分离，执行边界见
+`docs/etf_valuation_restart_20261016.md`。先复用原生Recorder归因，再核查历史估值、
+成分财报与SOXX/SOX调仓来源。当前市盈率或成功下载不能认证历史时点；历史盈利
+重建用于ETF篮子，不恢复个股预测支线。月度输入资格与实际组合实验分别记录，
+来源未合格不能声称已经训练；单支线缺数据不升级为总目标完成或阻塞。
+
 2026-10-15重新授权的持续三资产研究遵循
 `docs/three_asset_research_contract.md`，当前任务和评估状态由
 `research/three_asset_campaign.json`登记。研究执行与独立评估分离；固定路线

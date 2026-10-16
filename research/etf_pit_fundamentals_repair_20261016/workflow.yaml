@@ -1,0 +1,10 @@
+experiment: etf_pit_fundamentals_repair_20261016
+plan: plan.json
+income_inventory_plan: income_inventory_plan.json
+module: src.data.etf_valuation_fundamentals
+provider_uri: data/qlib/soxx_pit_leveraged_training_v1
+region: us
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: [inputs/*, analysis/facts, analysis/first_candidates, sources/*]
