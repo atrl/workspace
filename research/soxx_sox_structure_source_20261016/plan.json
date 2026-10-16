@@ -1,0 +1,45 @@
+{
+  "experiment": "soxx_sox_structure_source_20261016",
+  "frozen_at": "2026-10-16T05:52:07.076960+00:00",
+  "scope": "secondary source qualification of actualhistoricalSOX/ICESEMI weights andrebalanceannouncementtimes, noreturns/features/models",
+  "target_rebalances": [
+    "2024-09-20",
+    "2025-09-19"
+  ],
+  "target_selection": "twofixedannualSeptemberrebalances beforeasof, nooutcomesexamined",
+  "source_authorities": [
+    "NasdaqGlobalIndexWatch/publicannouncements",
+    "ICEDataIndicesofficialnotices",
+    "iSharesofficialfunddocuments",
+    "SECissuerindexandholdingdisclosures"
+  ],
+  "max_public_source_actions": 20,
+  "discovery_queries_max": 4,
+  "document_requests_max": 16,
+  "accounting": "eachwebsearchquerycounts1, eachHTTPdocumentattemptcounts1, existingverifiedlocalorRecorderbytesreusedwithoutcount",
+  "transport": {
+    "compressed": true,
+    "total_timeout_seconds": 90,
+    "connect_timeout_seconds": 10,
+    "attempts_per_url": 1,
+    "max_workers": 2
+  },
+  "required_fields": [
+    "index_identity",
+    "method_version",
+    "security_id",
+    "weight",
+    "weight_asof",
+    "announced_at",
+    "effective_at",
+    "document_publication",
+    "retrieved_at",
+    "source_url",
+    "source_sha256"
+  ],
+  "identity": "2021SOXXPHLXtoICE change versus2023ICEtoNYSE rename distinguish; nochangeinnameimpliesunchangedmethodhistory",
+  "qualification": "bothweightasofandeconomicavailabilityrequired; ETFdisclosedholdingsnotannouncedindexweights; currentweightswithhistoricalqueryparameterrejectedifbodyasofmismatch",
+  "fallback": "no pricecorrelation,momentum,rollingresidualfeatureorcurrentconstituentbackfill; no purchases/authaccountcreation",
+  "prior_search": "boundedlocalresearchplan/conclusion(includingignoredfiles),src/docsfoundpriorETFsourceinventorybutnoexplicitSOXinformationcard; sectorresidualSPYandequalweightRSPclosedroutesareseparate; noexhaustivehistoryclaim",
+  "stop_rule": "at20actionsorverifiedhistoryaccessboundaryretainexactresponsesminimalgap; no repeatednetworkloops; thissecondarybranchdoesnotblockprimaryannualstudy"
+}

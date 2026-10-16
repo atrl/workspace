@@ -1,0 +1,10 @@
+experiment: etf_foreign_quarterly_intake_20261016
+plan: plan.json
+module: src.data.etf_foreign_quarterly_intake
+provider_uri: data/qlib/etf_foreign_quarterly_intake_20261016
+source_calendar_provider: data/qlib/soxl
+region: us
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: [inputs/*, analysis/events, analysis/raw_extracted_events, analysis/information_state, analysis/qlib_readback, sources/*]

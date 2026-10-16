@@ -1,0 +1,11 @@
+ticker,missing_reason,months,mean_missing_weight,max_missing_weight
+ACLS,annual_income_missing,12,0.0048163660156325,0.00632488886274
+BRKS,qualified_quote_missing,9,0.004726446634573334,0.00515397748491
+CCMP,qualified_quote_missing,21,0.005330847693361429,0.00675330567695
+CRUS,corporate_unit_history_missing,12,0.005738857901229167,0.00663800249012
+IPHI,qualified_quote_missing,9,0.007788589440336667,0.00813439695595
+MRVL,annual_income_missing,7,0.042606386664014284,0.047677095896740004
+MXIM,qualified_quote_missing,15,0.023523562551208667,0.02587421298837
+SMTC,annual_income_missing,12,0.004775068644778333,0.00532665292366
+SYNA,corporate_unit_history_missing,18,0.005899812176005,0.00839690279134
+XLNX,qualified_quote_missing,30,0.032871965942704,0.03616134128674

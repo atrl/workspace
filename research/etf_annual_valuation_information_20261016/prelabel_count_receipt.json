@@ -1,0 +1,19 @@
+{
+  "selected_first_execution_year": 2024,
+  "counts": [
+    {
+      "execution_year": 2023,
+      "cutoff": "2022-12-30 16:15:00-05:00",
+      "mature_source_qualified_train_rows": 14
+    },
+    {
+      "execution_year": 2024,
+      "cutoff": "2023-12-29 16:15:00-05:00",
+      "mature_source_qualified_train_rows": 26
+    }
+  ],
+  "selection_used_return_values": false,
+  "minimum_train_rows": 24,
+  "plan_sha256": "362a32460293fca4aff3bf2687df480c6ff9fc2fd84c1ebcf6bc62f75458f8dc",
+  "source_binding_sha256": "0bbc3cc61cefc0554f9e5dba527e3e737b2e8c3ba6e9c7d54b514c31b92c93e6"
+}

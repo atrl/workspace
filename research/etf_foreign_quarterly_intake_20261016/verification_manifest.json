@@ -1,0 +1,90 @@
+{
+  "recorder_id": "66f16a3c3d4a414e8b11a3584c3b5478",
+  "entries": [
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/analysis/coverage",
+      "sha256": "2d45209e540389979ef15c5db9fda6d46f8f5d4ee3b3f4e25fe9231b103df5a4",
+      "bytes": 4947
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/analysis/events",
+      "sha256": "497cf5457b4f487514d86586289c9a00569f3a3d4f8001bd0e741a8673326d9d",
+      "bytes": 202937
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/analysis/information_state",
+      "sha256": "489d7532e113d8a56c153bf2aed12c9d1524766311da907c3fab941192ccd524",
+      "bytes": 398879
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/analysis/parse_diagnostics",
+      "sha256": "ec0a6ccf9debf1c16781445c4b9106080d00478b0559469336db7c7b7b9711c8",
+      "bytes": 5
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/analysis/qlib_readback",
+      "sha256": "bc0e2f2dfbd6d41a314f11d7a6b6fbc1fe205ff6216982bfced8e0298f287457",
+      "bytes": 186790
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/analysis/raw_extracted_events",
+      "sha256": "ff4ce50dd0536b46b24b85c292597cd0b9f4d650c1e5135da357f9162ef2e48f",
+      "bytes": 59715
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/analysis/summary",
+      "sha256": "096bd3a44d544c2f6febf782a7462dc17d802b1dcd5d47d7d3cd3028409bb89c",
+      "bytes": 2206
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/code_diff.txt",
+      "sha256": "44d9f5ad11d9a0e325c785c065e19290b0ee77529e044951da3c890509aff5b2",
+      "bytes": 412134
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/code_status.txt",
+      "sha256": "e54733116550ad22c4e68be6b51a8097fd2eb613fea984aeb3dc8af1da584138",
+      "bytes": 63864
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/inputs/document_targets",
+      "sha256": "98be4107a03ccc3ca83504267e3549152989a26e7988fd5ef2022364b8102b0e",
+      "bytes": 45454
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/inputs/plan",
+      "sha256": "bc22b1808440b96bc5102f830903299417e3f106052c616cde7ddefc311b31e2",
+      "bytes": 2362
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/inputs/provider_manifest",
+      "sha256": "b27a5caf6ea3f8a8c4591dbda14687c5e140f505b95834470bc2653987bab3d0",
+      "bytes": 1289
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/inputs/raw_payloads",
+      "sha256": "d5072f6f1134aeb6d167a3de42cb7f2600b81ae76c8e22a523378b58dff31b7b",
+      "bytes": 473585088
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/inputs/receipts",
+      "sha256": "1e8ff264a4a7996d3b1246794bc95fc129b064214ea9b7c44c4e94fccc5bd206",
+      "bytes": 76911
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/inputs/source_calendar",
+      "sha256": "7a63bef56db38d381025092991450502560e46bf1c0ddfbb920c8062e7da7207",
+      "bytes": 18158
+    },
+    {
+      "path": "qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478/artifacts/sources/module",
+      "sha256": "a47b11416f41f315898d3b6d38e385a897938adaad1abcc0ecc55c02fd1c2c3b",
+      "bytes": 25998
+    }
+  ]
+}

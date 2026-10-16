@@ -1,0 +1,29 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T06:11:24.223914+00:00",
+  "decision": "accepted_secondary_bounded_source_findings_not_full_weights",
+  "plan_sha256": "eb7b0ce1f51eb08dbc39f3a833d648b4139f250b85682f690f498c07469709e9",
+  "recorder_id": "b8ad3f9003964dfda549a1c44123786a",
+  "manifest_sha256": "3deeea93b01512fffae3e08c6add32ef6bb75bc8f0e5e5d3d301555df814a3b7",
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "public_actions": 20,
+    "document_requests": 16,
+    "search_queries": 4,
+    "actual_membership_rows": 60,
+    "no_empty_membership_rows": true,
+    "membership_exports_have_no_weight_fields_or_body_asof": true
+  },
+  "findings": [
+    "Thetwo dated-query membershipresponses contain30names each, notfullannouncedhistoricalweights.",
+    "Roundedtop10postrebalance snapshot andlatefundholdings disclosure remain contextual and do not substitute fullindexweights or announcementtiming.",
+    "CurrentfixedURLdocument cannot inherit oldersearchcacheasof.",
+    "Accessprompt andmissingretrieval describe checkedentrances only, not proof nootherpublicarchive exists."
+  ],
+  "correction": "Original62membershiprowcount includedtwoemptyformattedfooterrows; correctedfromsamecachedbytes with0newrequests, priorRecorderretained.",
+  "qualified_full_rebalance_weight_sets": 0,
+  "qualified_announcement_timestamps": 0,
+  "promotion_authorized": false,
+  "primary_annual_branch_blocked": false,
+  "next_information_need": "Completeactualweights for twofrozenrebalance dates plusannouncement/effective/publication clocks fromauthorizedhistoricalsource; approved20actionprobe isclosed."
+}

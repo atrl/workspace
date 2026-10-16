@@ -1,0 +1,26 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T05:28:14.806422+00:00",
+  "decision": "approved_for_execution",
+  "plan_sha256": "470279d51480eed1bfd5d02e40a585dd156f0f73119b2a7ab5408e7aaa03fab2",
+  "scope": "Actual continuous historical issuer financial-event extraction forTSM/UMC; source-only, no price/outcome/model selection.",
+  "bounds": {
+    "max_counted_http_attempts": 300,
+    "workers": 3,
+    "max_attempts_per_url": 2,
+    "request_wallclock_limit_seconds": 180,
+    "new_fits": 0,
+    "new_accounts": 0
+  },
+  "required_checks": [
+    "CIK+quarter+document financial table identify each event; preserve exact sourceamount units and parent-attributable versus total-profit method.",
+    "Periodend is not availability; historical release orSEC acceptance evidence determines delayed eligibility with explicit timezone; never use current retrieval time as historical proof.",
+    "Quarter,YTD,annual andconvenienceUSDtranslation remain distinct. DeriveQ4onlyfromcompatible monetary annual and9monthvalues, never EPS subtraction.",
+    "Keep every relevant comparative/revised vintage; historical selection uses eligible version rather than overwriting past rows.",
+    "Q3 2026 unreleased byasof remains not_yet_reported, not failedsource; completecoverage counts only actually published eligible quarters.",
+    "Original-document acquisition/extraction is enough for a transparent researchproxy; productionreceipt/intradayPIT certification is separate and not an automatic blocker.",
+    "All unsuccessful attempts and source hashes retained; no duplicate requests for validcached/inflight payloads."
+  ],
+  "promotion_authorized": false,
+  "result_gate": "Review canonicaleventseries and explicit remaining implementation/source gaps, then allow reviewed downstream diagnostic basket construction."
+}

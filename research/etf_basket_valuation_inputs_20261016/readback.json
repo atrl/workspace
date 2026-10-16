@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "recorder_id": "fb447c1a23e34b25bf6db7e275ed757b",
+  "verified_source_api": [
+    "qlib.workflow.R.get_recorder",
+    "Recorder.load_object"
+  ],
+  "monthly_rows": 82,
+  "ep_qualified_months": 58,
+  "growth_qualified_months": 58,
+  "future_mutation_check_rows": 82,
+  "issuer_signed_aggregation_and_unrenormalized_coverage": "passed",
+  "qlib_features_exact": "passed",
+  "source_module_exact": "passed",
+  "SLAB_unit_response_identity": "passed"
+}

@@ -1,0 +1,23 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T05:53:27.895381+00:00",
+  "decision": "approved_secondary_bounded_source_qualification",
+  "plan_sha256": "eb7b0ce1f51eb08dbc39f3a833d648b4139f250b85682f690f498c07469709e9",
+  "scope": "Actual historicalindexweights and announcement/effective/publication timing for twofixedSeptemberrebalances, no marketoutcomes/features/model.",
+  "bounds": {
+    "public_source_actions_max": 20,
+    "search_queries_max": 4,
+    "document_attempts_max": 16,
+    "max_workers": 2,
+    "attempts_per_URL": 1
+  },
+  "required_checks": [
+    "Actualbody weightdate must match targethistorical rebalance; URLdateparameter alone insufficient.",
+    "NasdaqSOX versusSOXXtrackedICE/NYSE index identity and methodversion remain distinct; namechangealone doesnotprove methodologycontinuity.",
+    "Announcementtimestamp, effective timestamp, publicationdate and retrievaltime remain separate; dateonlyrecords cannot support preciseintradayleadclaims.",
+    "ETFholdings filings are not announcedindexweights; keep such evidence as contextualbasket only.",
+    "No licenses/purchases/newaccounts orcurrentconstituent backfill; retain specificaccesslimit and availableevidence when boundedprobe ends."
+  ],
+  "promotion_authorized": false,
+  "branch_role": "Secondarysource investigation doesnotblock primaryannualvaluation information experiment."
+}

@@ -1,0 +1,40 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/etf_basket_valuation_inputs_20261016",
+  "market": "all",
+  "region": "us",
+  "freq": "day",
+  "as_of": "2026-06-30",
+  "source": "etf_basket_valuation_inputs_20261016:signed original annual parent income and dated share estimate",
+  "instruments": [
+    "SOXX_DISCLOSED_BASKET"
+  ],
+  "fields": [
+    "$signed_annual_ep",
+    "$annual_earnings_change",
+    "$loss_weight",
+    "$coverage_weight",
+    "$growth_coverage_weight",
+    "$unknown_weight",
+    "$max_annual_age_days",
+    "$max_share_age_days",
+    "$max_fx_age_days",
+    "$source_qualified",
+    "$growth_source_qualified"
+  ],
+  "calendar_start": "2019-09-30",
+  "calendar_end": "2026-06-30",
+  "max_datetime": "2026-06-30",
+  "row_count": 82,
+  "feature_file_count": 11,
+  "audit_snapshot_hash": "54e0f1402c066fe8",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "8f7eb1f5614cf417",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ]
+}

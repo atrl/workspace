@@ -1,0 +1,8 @@
+{
+  "reason": "Some saved empty Futu split-ratio columns use object dtype; normalize existing numeric/event-missing values tofloat before inherited splitter, preserving events. Store bools explicitlyfloat forQlib.",
+  "source_data_change": false,
+  "model_or_threshold_change": false,
+  "first_attempt": "stopped during sourceunit calculation, beforeRecorder/marketoutcomes",
+  "canonical_alias_vintages": "DirectparentNI and individuallyprovenparentNI bridges share first-original-vintage identity; latercomparative tag alias cannot replace earlier eligibleoriginal.",
+  "non_inline_original_schema": "Empty original-inline extraction has explicitfields soapprovedaccessionfact+visibleoriginalstatement path can run forSLABFY2018. No datavalue/policychange; firstissuercompletionattemptstoppedbeforerecorder."
+}

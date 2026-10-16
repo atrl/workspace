@@ -1,0 +1,31 @@
+[
+  {
+    "execution_year": 2024,
+    "cutoff": "2023-12-29 16:15:00-05:00",
+    "training_months": 26,
+    "last_train_maturity": "2023-12-01 09:47:00-05:00",
+    "test_months": 12,
+    "control_fallback_months": 0,
+    "candidate_inactive_features": [
+      "annual_ep_rank"
+    ]
+  },
+  {
+    "execution_year": 2025,
+    "cutoff": "2024-12-31 16:15:00-05:00",
+    "training_months": 38,
+    "last_train_maturity": "2024-12-02 09:47:00-05:00",
+    "test_months": 12,
+    "control_fallback_months": 0,
+    "candidate_inactive_features": []
+  },
+  {
+    "execution_year": 2026,
+    "cutoff": "2025-12-31 16:15:00-05:00",
+    "training_months": 50,
+    "last_train_maturity": "2025-12-01 09:47:00-05:00",
+    "test_months": 7,
+    "control_fallback_months": 0,
+    "candidate_inactive_features": []
+  }
+]

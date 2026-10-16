@@ -1,0 +1,426 @@
+{
+  "reviewed_at_utc": "2026-10-16T05:41:12.601496+00:00",
+  "listing_units": {
+    "TSM": {
+      "ordinary_per_listed_unit": 5,
+      "verified": true,
+      "evidence": [
+        {
+          "accn": "0001193125-19-108390",
+          "filed": "2019-04-17",
+          "source_sha256": "8b90a05db9e9d8488d1b19f94224f34bd3dfe9b8809a8f16050f8c17ddf20753",
+          "normalized_start_offset": 454899,
+          "normalized_end_offset": 455162,
+          "excerpt": "the NYSE. The number of common shares represented by the ADSs was 5,340.8 million shares (one ADS represents five common shares). F - 55 Table of Contents b. Capital surplus December 31,2017 December 31,2018 NT$ (In Millions) NT$ (In Millions) Additional paid-in "
+        },
+        {
+          "accn": "0001628280-26-025362",
+          "filed": "2026-04-16",
+          "source_sha256": "8003e635887cbb8104826bd125ff956fc868a8cde521e8e07c7cb6f5c1ff5923",
+          "normalized_start_offset": 314333,
+          "normalized_end_offset": 314597,
+          "excerpt": "mpany was calculated by including both common shares and shares held in the form of ADSs (each ADS represents five (5) common shares) held by such individuals.(3)Represented shares held by the National Development Fund, Executive Yuan.(4)Ms. Lora Ho retired on Apr"
+        }
+      ]
+    },
+    "UMC": {
+      "ordinary_per_listed_unit": 5,
+      "verified": true,
+      "evidence": [
+        {
+          "accn": "0001193125-19-117861",
+          "filed": "2019-04-25",
+          "source_sha256": "3bf23e9739540bab0a3a634c8a4165e3dd9da3dd3bee034f96250472aac7a1fc",
+          "normalized_start_offset": 1366,
+          "normalized_end_offset": 1639,
+          "excerpt": "hich registered American Depositary Shares, as evidenced by American Depositary Receipts, each representing 5 Common Shares New York Stock Exchange Securities registered or to be registered pursuant to Section 12(g) of the Act. None (Title of Class) Securities for which th"
+        },
+        {
+          "accn": "0001193125-26-193757",
+          "filed": "2026-04-30",
+          "source_sha256": "47cdce857b4a503872c434aec5065f2b3e149282cfb60c0b734517e36a73bea1",
+          "normalized_start_offset": 100526,
+          "normalized_end_offset": 100802,
+          "excerpt": "s Trading Symbol(s) Name of each exchange on which registered American Depositary Shares, each representing five common shares UMC New York Stock ExchangeSecurities registered or to be registered pursuant to Section 12(g) of the Act. None (Title of Class) Securities for which"
+        }
+      ]
+    },
+    "ASX": {
+      "ordinary_per_listed_unit": 2,
+      "verified": true,
+      "evidence": [
+        {
+          "accn": "0000950103-19-005149",
+          "filed": "2019-04-26",
+          "source_sha256": "0a126de054fe8667dd1bf8bfc711387c1d5787512ecb4c985055b368e0daa71c",
+          "normalized_start_offset": 1375,
+          "normalized_end_offset": 1650,
+          "excerpt": " form of American Depositary Receipts evidencing American Depositary Shares (the \u201cADSs\u201d), each representing two common shares of ASE Technology Holding Co., Ltd. Securities registered or to be registered pursuant to Section 12(g) of the Act: None Securities for which there i"
+        },
+        {
+          "accn": "0001193125-26-135585",
+          "filed": "2026-04-01",
+          "source_sha256": "1fc15bc65dfdb98479bb3e18671e748ff029a60e8d376dc642771f9ba70712e7",
+          "normalized_start_offset": 150832,
+          "normalized_end_offset": 151107,
+          "excerpt": " form of American Depositary Receipts evidencing American Depositary Shares (the \u201cADSs\u201d), each representing two Common Shares of ASE Technology Holding Co., Ltd. Securities registered or to be registered pursuant to Section 12(g) of the Act: None Securities for which there i"
+        }
+      ]
+    },
+    "ARM": {
+      "ordinary_per_listed_unit": 1,
+      "verified": true,
+      "evidence": [
+        {
+          "accn": "0001973239-24-000012",
+          "filed": "2024-05-29",
+          "source_sha256": "0354e5e86b026a206d18362e75bac84e433199c53577f6772d92e84954299428",
+          "normalized_start_offset": 34347,
+          "normalized_end_offset": 34623,
+          "excerpt": "lassTrading symbol(s)Name of each exchange on which registeredAmerican Depositary Shares, each representing one Ordinary Share, nominal value \u00a30.001 per shareARMThe Nasdaq Stock Market LLCOrdinary shares, nominal value \u00a30.001 per share*The Nasdaq Stock Market LLC** Not for tr"
+        },
+        {
+          "accn": "0001973239-26-000097",
+          "filed": "2026-05-26",
+          "source_sha256": "b85873ae1a1907827e57476fa1c33d8bc350d8747279dcfdd67600b8eaf77a14",
+          "normalized_start_offset": 31292,
+          "normalized_end_offset": 31568,
+          "excerpt": "lassTrading symbol(s)Name of each exchange on which registeredAmerican Depositary Shares, each representing one Ordinary Share, nominal value \u00a30.001 per shareARMThe Nasdaq Stock Market LLCOrdinary shares, nominal value \u00a30.001 per share*The Nasdaq Stock Market LLC** Not for tr"
+        }
+      ]
+    },
+    "ASML": {
+      "ordinary_per_listed_unit": 1,
+      "verified": true,
+      "evidence": [
+        {
+          "accn": "0000937966-19-000007",
+          "filed": "2019-02-06",
+          "source_sha256": "7dbb38cc558f68db84e72ec6b4acb0fb6a3eff270f08f2f3d9214a995f5eea66",
+          "normalized_start_offset": 755,
+          "normalized_end_offset": 1021,
+          "excerpt": "to Section 12(b) of the Act: Title of each class Name of each exchange on which registeredOrdinary Shares The NASDAQ Stock Market LLC (nominal value EUR 0.09 per share)Securities registered or to be registered pursuant to Section 12(g) of the Act:None(Title of Class"
+        },
+        {
+          "accn": "0001628280-26-011378",
+          "filed": "2026-02-25",
+          "source_sha256": "7b55c169a5014798561f315bd7ef17b7f5fa01a7bd48cfe6d4c2c3c8be4c2900",
+          "normalized_start_offset": 36797,
+          "normalized_end_offset": 37067,
+          "excerpt": "b) of the Act:Title of each class Trading SymbolName of each exchange on which registered Ordinary SharesASML The Nasdaq Stock Market LLC (nominal value \u20ac0.09 per share)Securities registered or to be registered pursuant to Section 12(g) of the Act:NoneSecurities for whi"
+        }
+      ]
+    },
+    "STM": {
+      "ordinary_per_listed_unit": 1,
+      "verified": true,
+      "evidence": [
+        {
+          "accn": "0001193125-19-057507",
+          "filed": "2019-02-28",
+          "source_sha256": "7284ebfcb0d0075eebfdffd2c47f3ea48755b61632defa33adb12cc6f44fea9c",
+          "normalized_start_offset": 1326,
+          "normalized_end_offset": 1634,
+          "excerpt": "Section 12(b) of the Act: Title of Each Class: Name of Each Exchange on Which Registered: Common shares, nominal value \u20ac1.04 per share New York Stock Exchange Securities registered or to be registered pursuant to Section 12(g) of the Act: None Securities for which there is a reporting obligation pursuant to"
+        },
+        {
+          "accn": "0000932787-26-000009",
+          "filed": "2026-02-26",
+          "source_sha256": "8ba48876678e70325238807384d8acee7089629db19d0fc4418a9e08ba33d12d",
+          "normalized_start_offset": 54553,
+          "normalized_end_offset": 54863,
+          "excerpt": ") of the Act.Title of Each ClassTrading Symbol(s)Name of each exchange on which registeredCommon shares, nominal value \u20ac1.04 per shareSTMNew York Stock ExchangeSecurities registered or to be registered pursuant to Section 12(g) of the Act.None(Title of Class)Securities for which there is a reporting obligatio"
+        }
+      ]
+    }
+  },
+  "income_bridges": [
+    {
+      "ticker": "AVGO",
+      "cik": 1730168,
+      "accn": "0001730168-25-000121",
+      "filed": "2025-12-18",
+      "start": "2024-11-04",
+      "end": "2025-11-02",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 23126000000,
+      "source_sha256": "1deb4aed7bfd3fddfd4dec612cd42ef0928517bbcf3e2e285174aaf3323b93ec",
+      "evidence": " technical merits.Net income per share. Basic net income per share is computed by dividing net income by the weighted-average number of shares of common stock outstanding during the period. Diluted net income per share is computed by dividing net income by the weighted-average number of shares of common stock and potentially dilutive shares of common stock outstanding during the period. Potentially dilutive shares outstanding include the dilutive effect of unvested RSUs and ESPP rights (together referred to as \u201cequity ",
+      "rationale": "Original2025EPSnote uses netincome23126m as parentordinaryshare numerator; noNCI deduction. Same2024/2023comparatives5895m/14082m match directparentNI tag. Bridgeonlythisexactoriginalannualperiod; noquarterorotherdateextension."
+    },
+    {
+      "ticker": "AVGO",
+      "cik": 1730168,
+      "accn": "0001730168-19-000144",
+      "filed": "2019-12-20",
+      "start": "2018-11-05",
+      "end": "2019-11-03",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 2724000000.0,
+      "source_sha256": "34e3b1a85caa1036838f01b4c0f6179756ae894ea333ce1e5210637dedbfd3e5",
+      "normalized_start_offset": 329553,
+      "normalized_end_offset": 330101,
+      "evidence": "re income taxes 2,226 4,545 1,825Provision for (benefit from) income taxes (510) (8,084) 35Income from continuing operations 2,736 12,629 1,790Loss from discontinued operations, net of income taxes (12) (19) (6)Net income 2,724 12,610 1,784Dividends on preferred stock 29 \u2014 \u2014Net income attributable to noncontrolling interest \u2014 351 92Net income attributable to common stock $2,695 $12,259 $1,692 Basic income per share attributable to common stock: Income per share from continuing operations $6.80 $29.37 $4.19Loss per share from discontinued oper",
+      "preferred_dividends_usd": 29000000,
+      "rationale": "Only thisoriginalannualperiod: statement shows consolidatedNI, zero/nonexistentNCI attributable deduction, thenpreferreddividend deduction tocommonNI. ParentNI BEFOREpreferred retained underfixedprimarydefinition; do not equatecommonNI orotherperiodProfitLoss."
+    },
+    {
+      "ticker": "AVGO",
+      "cik": 1730168,
+      "accn": "0001730168-20-000226",
+      "filed": "2020-12-18",
+      "start": "2019-11-04",
+      "end": "2020-11-01",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 2960000000.0,
+      "source_sha256": "fa9b60ad2663e0fcf3c775a6c4c7cee0249886bb6f6fffa1edadc8112a57d96c",
+      "normalized_start_offset": 307776,
+      "normalized_end_offset": 308324,
+      "evidence": "ing operations before income taxes2,443 2,226 4,545 Benefit from income taxes(518)(510)(8,084)Income from continuing operations2,961 2,736 12,629 Loss from discontinued operations, net of income taxes(1)(12)(19)Net income2,960 2,724 12,610 Dividends on preferred stock(297)(29)\u2014 Net income attributable to noncontrolling interest\u2014 \u2014 (351)Net income attributable to common stock$2,663 $2,695 $12,259 Basic income per share attributable to common stock:Income per share from continuing operations$6.62 $6.80 $29.37 Loss per share from discontinued op",
+      "preferred_dividends_usd": 297000000,
+      "rationale": "Only thisoriginalannualperiod: statement shows consolidatedNI, zero/nonexistentNCI attributable deduction, thenpreferreddividend deduction tocommonNI. ParentNI BEFOREpreferred retained underfixedprimarydefinition; do not equatecommonNI orotherperiodProfitLoss."
+    },
+    {
+      "ticker": "AVGO",
+      "cik": 1730168,
+      "accn": "0001730168-21-000153",
+      "filed": "2021-12-17",
+      "start": "2020-11-02",
+      "end": "2021-10-31",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 6736000000.0,
+      "source_sha256": "cd867688d2996951fab31f111b467d101e33aa8d1cfb968e67beb46c4e2efc6c",
+      "normalized_start_offset": 275053,
+      "normalized_end_offset": 275601,
+      "evidence": "ations before income taxes6,765 2,443 2,226 Provision for (benefit from) income taxes29 (518)(510)Income from continuing operations6,736 2,961 2,736 Loss from discontinued operations, net of income taxes\u2014 (1)(12)Net income6,736 2,960 2,724 Dividends on preferred stock(299)(297)(29)Net income attributable to common stock$6,437 $2,663 $2,695 Basic income per share attributable to common stock:Income per share from continuing operations$15.70 $6.62 $6.80 Loss per share from discontinued operations\u2014 \u2014 (0.03)Net income per share$15.70 $6.62 $6.77 ",
+      "preferred_dividends_usd": 299000000,
+      "rationale": "Only thisoriginalannualperiod: statement shows consolidatedNI, zero/nonexistentNCI attributable deduction, thenpreferreddividend deduction tocommonNI. ParentNI BEFOREpreferred retained underfixedprimarydefinition; do not equatecommonNI orotherperiodProfitLoss."
+    },
+    {
+      "ticker": "AVGO",
+      "cik": 1730168,
+      "accn": "0001730168-22-000118",
+      "filed": "2022-12-16",
+      "start": "2021-11-01",
+      "end": "2022-10-30",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 11495000000.0,
+      "source_sha256": "5441b5783374d79d67e10324a8b4f68d6d394d8116e96705e0a5f51d480f783f",
+      "normalized_start_offset": 262362,
+      "normalized_end_offset": 262910,
+      "evidence": "ations before income taxes12,434 6,765 2,443 Provision for (benefit from) income taxes939 29 (518)Income from continuing operations11,495 6,736 2,961 Loss from discontinued operations, net of income taxes\u2014 \u2014 (1)Net income11,495 6,736 2,960 Dividends on preferred stock(272)(299)(297)Net income attributable to common stock$11,223 $6,437 $2,663 Net income per share attributable to common stock:Basic$27.44 $15.70 $6.62 Diluted$26.53 $15.00 $6.33 Weighted-average shares used in per share calculations: Basic409410402Diluted423429421The accompanying",
+      "preferred_dividends_usd": 272000000,
+      "rationale": "Only thisoriginalannualperiod: statement shows consolidatedNI, zero/nonexistentNCI attributable deduction, thenpreferreddividend deduction tocommonNI. ParentNI BEFOREpreferred retained underfixedprimarydefinition; do not equatecommonNI orotherperiodProfitLoss."
+    },
+    {
+      "ticker": "AVGO",
+      "cik": 1730168,
+      "accn": "0001730168-23-000096",
+      "filed": "2023-12-14",
+      "start": "2022-10-31",
+      "end": "2023-10-29",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 14082000000.0,
+      "source_sha256": "c2a8c8187202423aea2296f96b0a4e16fa67c5c4802a5751b09ce49c71247124",
+      "normalized_start_offset": 266428,
+      "normalized_end_offset": 266976,
+      "evidence": " 7,870 8,325 Operating income16,207 14,225 8,519 Interest expense(1,622)(1,737)(1,885)Other income (expense), net512 (54)131 Income before income taxes15,097 12,434 6,765 Provision for income taxes1,015 939 29 Net income14,082 11,495 6,736 Dividends on preferred stock\u2014 (272)(299)Net income attributable to common stock$14,082 $11,223 $6,437 Net income per share attributable to common stock:Basic$33.93 $27.44 $15.70 Diluted$32.98 $26.53 $15.00 Weighted-average shares used in per share calculations: Basic415409410Diluted427423429The accompanying",
+      "preferred_dividends_usd": 0,
+      "rationale": "Only thisoriginalannualperiod: statement shows consolidatedNI, zero/nonexistentNCI attributable deduction, thenpreferreddividend deduction tocommonNI. ParentNI BEFOREpreferred retained underfixedprimarydefinition; do not equatecommonNI orotherperiodProfitLoss."
+    },
+    {
+      "ticker": "SLAB",
+      "cik": 1038074,
+      "accn": "0001047469-19-000300",
+      "filed": "2019-01-30",
+      "start": "2017-12-31",
+      "end": "2018-12-29",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 83591000.0,
+      "source_sha256": "e275f8a03c5e70da4b7332cbf8d47e14f26021d81a5e59cd47313e16354de94c",
+      "normalized_start_offset": 109131,
+      "normalized_end_offset": 109737,
+      "evidence": "to those statements included in this Form 10-K. Fiscal Year 2018 (1) 2017 2016 2015 2014 (in thousands, except per share data) Consolidated Statements of Income Data Revenues $ 868,267 $ 768,867 $ 697,626 $ 644,826 $ 620,704 Operating income $ 85,208 $ 84,974 $ 66,277 $ 32,234 $ 51,421 Net income $ 83,591 $ 47,092 $ 61,494 $ 29,586 $ 38,021 Earnings per share: Basic $ 1.94 $ 1.11 $ 1.47 $ 0.70 $ 0.88 Diluted $ 1.90 $ 1.09 $ 1.45 $ 0.69 $ 0.87 Consolidated Balance Sheet Data Cash, cash equivalents and investments $ 619,581 $ 769,704 $ 300,263 $ 250,112 $ 342,614 Working capital 681,793 785,317 351,15",
+      "statement_displayed_value": 83591.0,
+      "statement_unit_multiplier": 1000,
+      "source_value_validation": "source-bound_companyfacts_plus_visible_original_statement",
+      "preferred_dividends_usd": 0,
+      "noncontrolling_interest_allocation_usd": 0,
+      "rationale": "Originalconsolidatedstatement reports netincome/loss directly followedbycommonEPS, noNCIorpreferredallocation; rawProfitLoss/common-only tag maps tothisexactparentincome. AllFY2018\u20132025checked. FY2021includesdiscontinuedoperationsdisposalgain2175273thousandUSD; preservefullreported2117399thousandUSD income withoutnormalization."
+    },
+    {
+      "ticker": "SLAB",
+      "cik": 1038074,
+      "accn": "0001104659-20-007928",
+      "filed": "2020-01-29",
+      "start": "2018-12-30",
+      "end": "2019-12-28",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 19265000.0,
+      "source_sha256": "7e96a2331eaf59fa1ce8ffd749cc8569680f9953bf571b44986131edbe34bd44",
+      "normalized_start_offset": 133554,
+      "normalized_end_offset": 134160,
+      "evidence": "d in this Form 10-K.\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bFiscal Year\u200b 2019 2018 (1) 2017 2016 2015\u200b\u200b(in thousands, except per share data)Consolidated Statements of Income Data \u200b \u200b \u200b \u200b \u200b Revenues\u200b$ 837,554\u200b$ 868,267\u200b$ 768,867\u200b$ 697,626\u200b$ 644,826Operating income\u200b$ 56,697\u200b$ 85,208\u200b$ 84,974\u200b$ 66,277\u200b$ 32,234Net income\u200b$ 19,265\u200b$ 83,591\u200b$ 47,092\u200b$ 61,494\u200b$ 29,586Earnings per share: \u200b\u200b \u200b \u200b \u200b Basic\u200b$ 0.44\u200b$ 1.94\u200b$ 1.11\u200b$ 1.47\u200b$ 0.70Diluted\u200b$ 0.43\u200b$ 1.90\u200b$ 1.09\u200b$ 1.45\u200b$ 0.69Consolidated Balance Sheet Data \u200b\u200b \u200b \u200b \u200b Cash, cash equivalents and investments\u200b$ 731,618\u200b$ 619,581\u200b$ 769,704\u200b$ 300,263\u200b$ 250,112Working capital\u200b 806,158",
+      "statement_displayed_value": 19265.0,
+      "statement_unit_multiplier": 1000,
+      "source_value_validation": "original_inline_XBRL",
+      "preferred_dividends_usd": 0,
+      "noncontrolling_interest_allocation_usd": 0,
+      "rationale": "Originalconsolidatedstatement reports netincome/loss directly followedbycommonEPS, noNCIorpreferredallocation; rawProfitLoss/common-only tag maps tothisexactparentincome. AllFY2018\u20132025checked. FY2021includesdiscontinuedoperationsdisposalgain2175273thousandUSD; preservefullreported2117399thousandUSD income withoutnormalization."
+    },
+    {
+      "ticker": "SLAB",
+      "cik": 1038074,
+      "accn": "0001104659-21-011613",
+      "filed": "2021-02-03",
+      "start": "2019-12-29",
+      "end": "2021-01-02",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 12531000.0,
+      "source_sha256": "9f03c3f7ab3d7825d7fdb3862077d53b844eefee8e859895d0d497f9718e9bb8",
+      "normalized_start_offset": 146014,
+      "normalized_end_offset": 146620,
+      "evidence": "d in this Form 10-K.\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bFiscal Year\u200b 2020 2019 2018 (1) 2017 2016\u200b\u200b(in thousands, except per share data)Consolidated Statements of Income Data \u200b \u200b \u200b \u200b \u200b Revenues\u200b$ 886,677\u200b$ 837,554\u200b$ 868,267\u200b$ 768,867\u200b$ 697,626Operating income\u200b$ 38,300\u200b$ 56,697\u200b$ 85,208\u200b$ 84,974\u200b$ 66,277Net income\u200b$ 12,531\u200b$ 19,265\u200b$ 83,591\u200b$ 47,092\u200b$ 61,494Earnings per share: \u200b\u200b \u200b\u200b \u200b \u200b Basic\u200b$ 0.29\u200b$ 0.44\u200b$ 1.94\u200b$ 1.11\u200b$ 1.47Diluted\u200b$ 0.28\u200b$ 0.43\u200b$ 1.90\u200b$ 1.09\u200b$ 1.45\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bConsolidated Balance Sheet Data \u200b\u200b \u200b\u200b \u200b \u200b Cash, cash equivalents and investments\u200b$ 730,023\u200b$ 731,618\u200b$ 619,581\u200b$ 769,704\u200b$ 300,263Workin",
+      "statement_displayed_value": 12531.0,
+      "statement_unit_multiplier": 1000,
+      "source_value_validation": "original_inline_XBRL",
+      "preferred_dividends_usd": 0,
+      "noncontrolling_interest_allocation_usd": 0,
+      "rationale": "Originalconsolidatedstatement reports netincome/loss directly followedbycommonEPS, noNCIorpreferredallocation; rawProfitLoss/common-only tag maps tothisexactparentincome. AllFY2018\u20132025checked. FY2021includesdiscontinuedoperationsdisposalgain2175273thousandUSD; preservefullreported2117399thousandUSD income withoutnormalization."
+    },
+    {
+      "ticker": "SLAB",
+      "cik": 1038074,
+      "accn": "0001104659-22-010931",
+      "filed": "2022-02-02",
+      "start": "2021-01-03",
+      "end": "2022-01-01",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 2117399000.0,
+      "source_sha256": "2c04f54b532fdd29a918f007ded52c3ef5f98614e818e0c7611f9d3c61c6df9a",
+      "normalized_start_offset": 214813,
+      "normalized_end_offset": 215422,
+      "evidence": "132,203)\u200b (96,011)Provision (benefit) for income taxes\u200b 13,427\u200b (14,602)\u200b 6,984Equity-method earnings\u200b\u200b 13,728\u200b\u200b 2,116\u200b\u200b 320Loss from continuing operations\u200b\u200b(57,874)\u200b\u200b (115,485)\u200b\u200b (102,675)Income from discontinued operations, net of income taxes\u200b\u200b2,175,273 \u200b\u200b 128,016\u200b\u200b 121,940\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bNet income\u200b$ 2,117,399\u200b$ 12,531\u200b$ 19,265\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bBasic earnings (loss) per share:\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bContinuing operations\u200b$(1.35)\u200b$(2.64)\u200b$ (2.37)Net income\u200b$49.44 \u200b$0.29 \u200b$ 0.44\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bDiluted earnings (loss) per share:\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bContinuing operations\u200b$(1.35)\u200b$(2.64)\u200b$ (2.37)Net income\u200b$47.78 \u200b$0.28 \u200b$ 0.43\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bWeighted-ave",
+      "statement_displayed_value": 2117399.0,
+      "statement_unit_multiplier": 1000,
+      "source_value_validation": "original_inline_XBRL",
+      "preferred_dividends_usd": 0,
+      "noncontrolling_interest_allocation_usd": 0,
+      "rationale": "Originalconsolidatedstatement reports netincome/loss directly followedbycommonEPS, noNCIorpreferredallocation; rawProfitLoss/common-only tag maps tothisexactparentincome. AllFY2018\u20132025checked. FY2021includesdiscontinuedoperationsdisposalgain2175273thousandUSD; preservefullreported2117399thousandUSD income withoutnormalization."
+    },
+    {
+      "ticker": "SLAB",
+      "cik": 1038074,
+      "accn": "0001104659-23-009254",
+      "filed": "2023-02-01",
+      "start": "2022-01-02",
+      "end": "2022-12-31",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": 91402000.0,
+      "source_sha256": "e6a311fc39bdd9f4957b9237f030ed4e6b8e88c58a9b8ba40ffa1c0a01cd8f47",
+      "normalized_start_offset": 209997,
+      "normalized_end_offset": 210603,
+      "evidence": "75)\u200b (132,203)Provision (benefit) for income taxes\u200b 38,450\u200b 13,427\u200b (14,602)Equity-method earnings\u200b\u200b 3,400\u200b\u200b 13,728\u200b\u200b 2,116Income (loss) from continuing operations \u200b\u200b 91,402\u200b\u200b(57,874)\u200b\u200b (115,485)Income from discontinued operations, net of income taxes\u200b\u200b \u2014\u200b\u200b2,175,273 \u200b\u200b 128,016\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bNet income\u200b$ 91,402\u200b$ 2,117,399\u200b$ 12,531\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bBasic earnings (loss) per share:\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bContinuing operations\u200b$ 2.61\u200b$(1.35)\u200b$(2.64)Net income\u200b$ 2.61\u200b$49.44 \u200b$0.29 \u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bDiluted earnings (loss) per share:\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bContinuing operations\u200b$ 2.54\u200b$(1.35)\u200b$(2.64)Net income\u200b$ 2.54\u200b$47.78 \u200b$0.28 \u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bWeighted-aver",
+      "statement_displayed_value": 91402.0,
+      "statement_unit_multiplier": 1000,
+      "source_value_validation": "original_inline_XBRL",
+      "preferred_dividends_usd": 0,
+      "noncontrolling_interest_allocation_usd": 0,
+      "rationale": "Originalconsolidatedstatement reports netincome/loss directly followedbycommonEPS, noNCIorpreferredallocation; rawProfitLoss/common-only tag maps tothisexactparentincome. AllFY2018\u20132025checked. FY2021includesdiscontinuedoperationsdisposalgain2175273thousandUSD; preservefullreported2117399thousandUSD income withoutnormalization."
+    },
+    {
+      "ticker": "SLAB",
+      "cik": 1038074,
+      "accn": "0001104659-24-025535",
+      "filed": "2024-02-20",
+      "start": "2023-01-01",
+      "end": "2023-12-30",
+      "unit": "USD",
+      "source_tag": "us-gaap:ProfitLoss",
+      "parent_income_value": -34516000.0,
+      "source_sha256": "b5dd6a117d8a74ce17fba254455178c2821bacad11713b772f45aa48f79b63e4",
+      "normalized_start_offset": 217948,
+      "normalized_end_offset": 218554,
+      "evidence": "26,452\u200b (58,175)Provision for income taxes\u200b 7,943\u200b 38,450\u200b 13,427Equity-method earnings (loss)\u200b\u200b (16,030)\u200b\u200b 3,400\u200b\u200b 13,728Income (loss) from continuing operations \u200b\u200b (34,516)\u200b\u200b 91,402\u200b\u200b(57,874)Income from discontinued operations, net of income taxes\u200b\u200b \u2014\u200b\u200b \u2014\u200b\u200b2,175,273 \u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bNet income (loss)\u200b$ (34,516)\u200b$ 91,402\u200b$ 2,117,399\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bBasic earnings (loss) per share:\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bContinuing operations\u200b$ (1.09)\u200b$ 2.61\u200b$ (1.35)Net income (loss)\u200b$ (1.09)\u200b$ 2.61\u200b$49.44 \u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bDiluted earnings (loss) per share:\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200bContinuing operations\u200b$ (1.09)\u200b$ 2.54\u200b$ (1.35)Net income (loss)\u200b$ (1.09)\u200b$ 2.54\u200b$47.78 ",
+      "statement_displayed_value": -34516.0,
+      "statement_unit_multiplier": 1000,
+      "source_value_validation": "original_inline_XBRL",
+      "preferred_dividends_usd": 0,
+      "noncontrolling_interest_allocation_usd": 0,
+      "rationale": "Originalconsolidatedstatement reports netincome/loss directly followedbycommonEPS, noNCIorpreferredallocation; rawProfitLoss/common-only tag maps tothisexactparentincome. AllFY2018\u20132025checked. FY2021includesdiscontinuedoperationsdisposalgain2175273thousandUSD; preservefullreported2117399thousandUSD income withoutnormalization."
+    },
+    {
+      "ticker": "SLAB",
+      "cik": 1038074,
+      "accn": "0001038074-25-000003",
+      "filed": "2025-02-04",
+      "start": "2023-12-31",
+      "end": "2024-12-28",
+      "unit": "USD",
+      "source_tag": "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic",
+      "parent_income_value": -191010000.0,
+      "source_sha256": "ce3e1707700c41e1c380885a738942556f704c58e344cdcb96a70035854d2369",
+      "normalized_start_offset": 206906,
+      "normalized_end_offset": 207513,
+      "evidence": ",490)(24,154)119,260 Other income (expense):Interest income and other, net11,987 19,165 13,915 Interest expense(1,310)(5,554)(6,723)Income (loss) before income taxes(154,813)(10,543)126,452 Provision for income taxes36,197 7,943 38,450 Equity-method earnings (loss)\u2014 (16,030)3,400 Net income (loss)$(191,010)$(34,516)$91,402 Earnings (loss) per share:Basic$(5.93)$(1.09)$2.61 Diluted$(5.93)$(1.09)$2.54 Weighted-average common shares outstanding:Basic32,19131,80435,086Diluted32,19131,80436,042The accompanying notes are an integral part of these Consolidated Financial Statements.F-5Table of ContentsSilico",
+      "statement_displayed_value": -191010.0,
+      "statement_unit_multiplier": 1000,
+      "source_value_validation": "original_inline_XBRL",
+      "preferred_dividends_usd": 0,
+      "noncontrolling_interest_allocation_usd": 0,
+      "rationale": "Originalconsolidatedstatement reports netincome/loss directly followedbycommonEPS, noNCIorpreferredallocation; rawProfitLoss/common-only tag maps tothisexactparentincome. AllFY2018\u20132025checked. FY2021includesdiscontinuedoperationsdisposalgain2175273thousandUSD; preservefullreported2117399thousandUSD income withoutnormalization."
+    },
+    {
+      "ticker": "SLAB",
+      "cik": 1038074,
+      "accn": "0001038074-26-000005",
+      "filed": "2026-02-10",
+      "start": "2024-12-29",
+      "end": "2026-01-03",
+      "unit": "USD",
+      "source_tag": "us-gaap:NetIncomeLoss",
+      "parent_income_value": -64907000.0,
+      "source_sha256": "6a430ad0e789c344d21e4ca7847e62638571e4e32773fa1de11c430c566bb454",
+      "normalized_start_offset": 226202,
+      "normalized_end_offset": 226808,
+      "evidence": "4 477,678 484,740 Operating loss(70,541)(165,490)(24,154)Other income (expense):Interest income and other, net13,604 11,987 19,165 Interest expense(975)(1,310)(5,554)Loss before income taxes(57,912)(154,813)(10,543)Provision for income taxes6,995 36,197 7,943 Equity-method loss\u2014 \u2014 (16,030)Net loss$(64,907)$(191,010)$(34,516)Loss per share:Basic$(1.98)$(5.93)$(1.09)Diluted$(1.98)$(5.93)$(1.09)Weighted-average common shares outstanding:Basic32,72132,19131,804Diluted32,72132,19131,804The accompanying notes are an integral part of these Consolidated Financial Statements.F-5Table of ContentsSilicon Labor",
+      "statement_displayed_value": -64907.0,
+      "statement_unit_multiplier": 1000,
+      "source_value_validation": "original_inline_XBRL",
+      "preferred_dividends_usd": 0,
+      "noncontrolling_interest_allocation_usd": 0,
+      "rationale": "Originalconsolidatedstatement reports netincome/loss directly followedbycommonEPS, noNCIorpreferredallocation; rawProfitLoss/common-only tag maps tothisexactparentincome. AllFY2018\u20132025checked. FY2021includesdiscontinuedoperationsdisposalgain2175273thousandUSD; preservefullreported2117399thousandUSD income withoutnormalization."
+    }
+  ],
+  "limitations": [
+    "Researchproxy assumes unchangedlistingratio betweenverifiedendpointfilings; notfullhistoricaldepositagreementcertification.",
+    "AllremainingUSlistedcommon-equity quotes are interpreted peronecommonshare; no weightedEPSshares used.",
+    "Profit numerator is parent-attributable, not alwaysafterpreferreddividends; not officialETFPE."
+  ],
+  "corporate_unit_sources": {
+    "SLAB": {
+      "verified": true,
+      "source_sha256": "04d73a1c0d4f830d19c78b4cd40504f613f79ef0c1ba0a489c49067cdaa2ac72",
+      "symbol": "SLAB",
+      "exchange": "NMS",
+      "requested_start": "2018-01-01",
+      "requested_end": "2026-07-02",
+      "monthly_timestamp_coverage": 103,
+      "split_events": 0,
+      "cash_dividend_events": 0,
+      "capital_gain_events": 0,
+      "convention": "Vendor reportsno splits/cashdistributions inqueriedrange; annualcommonsharestatements corroborateunitidentity. Noevent is a boundedresearchsourceassertion, notuniversalabsenceclaim. Quotepricearraysunused; cashnever enterssharefactor."
+    }
+  }
+}

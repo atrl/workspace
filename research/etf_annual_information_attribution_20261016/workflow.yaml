@@ -1,0 +1,11 @@
+experiment: etf_annual_information_attribution_20261016
+module: src.analysis.annual_information_attribution
+plan: plan.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - analysis/monthly_head_identity
+  - analysis/monthly_group_identity

@@ -1,0 +1,47 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T06:31:40.663098+00:00",
+  "decision": "accepted_saved_forecast_failure_attribution",
+  "plan_sha256": "0723e0378b324066a2f685731f3e7caabd68ce1300959f8114c6bac72f7a7c36",
+  "recorder_id": "b8944e07161645e9a2e2ffbd5780bf75",
+  "manifest_sha256": "73a8260fadfeb41fee8fee80366d496a87dad94bf51ca5f5db092150b3c9c2ab",
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "monthly_head_rows": 62,
+    "monthly_group_rows": 372,
+    "all_residual_delta_MSE_identities_checked": true,
+    "all_group_forecast_delta_and_MSE_allocations_close": true,
+    "saved_prediction_reconstruction_error_reported": 0.0,
+    "new_fits": 0,
+    "new_inference": 0,
+    "new_accounts": 0
+  },
+  "head_findings": [
+    {
+      "head": "soxx_log_return",
+      "paired_improvement": -0.20345889578857418,
+      "mean_forecast_delta": -0.22906453706014454,
+      "mean_control_residual": 0.2807623366083788
+    },
+    {
+      "head": "relative_soxl_log_return",
+      "paired_improvement": -0.1603079688959837,
+      "mean_forecast_delta": -0.20283439802354603,
+      "mean_control_residual": 0.1682207749035206
+    },
+    {
+      "head": "pooled_equal_heads",
+      "paired_improvement": -0.18188343234227894,
+      "mean_forecast_delta": -0.2159494675418453,
+      "mean_control_residual": 0.2244915557559497
+    }
+  ],
+  "interpretation": [
+    "Bothheads worsen, so overallfailure isnot merelyoffsettingonegoodhead withonebadhead.",
+    "Candidate meanforecast shiftsdown whilemeancontrolresidual ispositive; this adversealignment plusshiftvariance penalty explains lossarithmetically.",
+    "Groupcrosspenaltyallocation andrankactivation chronology are descriptive, notcausalablation andnotlicense todropafeature orretuneclosedannualversion."
+  ],
+  "parent_decision": "not_promoted unchanged",
+  "promotion_authorized": false,
+  "next_research_boundary": "A freshreportedquarterprofitdiffusion mechanism isseparate andmustretainitsown frozenfeature/source/modelcontract; allsharedhistory remains reuseddevelopment."
+}

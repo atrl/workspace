@@ -1,0 +1,27 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T05:41:56.035503+00:00",
+  "decision": "accepted_targeted_original_source_basis_for_researchproxy",
+  "basis_review_sha256": "a7a6acd1773056e4ed4f8a1085d358cc5f8975a6f48a187494d3066f601ca8a2",
+  "verified_listing_endpoint_documents": 12,
+  "ratios_ordinary_per_listed_unit": {
+    "TSM": 5,
+    "UMC": 5,
+    "ASX": 2,
+    "ARM": 1,
+    "ASML": 1,
+    "STM": 1
+  },
+  "verification": "Read original cacheddocument bytes, verified eachSHA256 and exact normalizedtext offsets; independently inspected actualAVGO netincome-per-share numerator table.",
+  "AVGO_bridge": {
+    "accession": "0001730168-25-000121",
+    "annual_period_end": "2025-11-02",
+    "parent_numerator_USD": 23126000000,
+    "scope": "Onlythisannualoriginalperiod, no generalProfitLoss orquarter equivalence."
+  },
+  "limitations": [
+    "Twoendpoint listingproofs plus savedcorporateactions support a declaredresearchassumption of intermediatelistingratio stability, not authenticatedhistoricdepositagreementcontinuity.",
+    "No validationofbasketfeature arithmetic ormodeldata yet."
+  ],
+  "promotion_authorized": false
+}

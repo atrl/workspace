@@ -1,0 +1,77 @@
+{
+  "experiment": "etf_foreign_quarterly_intake_20261016",
+  "decision": "continuous_parent_income_source_reconstructed_research_proxy",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_http_attempts": 243,
+  "valid_responses": 243,
+  "primary_html_documents": 238,
+  "raw_extracted_events": 231,
+  "event_vintages": 255,
+  "quarter_coverage": {
+    "TSM": {
+      "no_qualified_parent_statement_in_asof_filings": 1,
+      "parsed_parent_income": 34
+    },
+    "UMC": {
+      "no_qualified_parent_statement_in_asof_filings": 1,
+      "parsed_parent_income": 34
+    }
+  },
+  "annual_periods": {
+    "TSM": 9,
+    "UMC": 9
+  },
+  "eps_nonmissing": 219,
+  "weighted_average_shares_nonmissing": 98,
+  "negative_parent_income_events": 2,
+  "unresolved_period_headers": 0,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/etf_foreign_quarterly_intake_20261016",
+  "canonical_events_path": "/Users/rziiiii/dev/workspace/data/snapshots/etf_foreign_quarterly_intake_20261016/events.parquet",
+  "region": "us",
+  "market": "TSM_TAIWAN_IFRS/UMC_TAIWAN_IFRS information instruments",
+  "as_of": "2026-10-16",
+  "calendar_first": "2018-01-02 00:00:00",
+  "calendar_last": "2026-10-15 00:00:00",
+  "qlib_readback_rows": 4418,
+  "events_pending_calendar": 0,
+  "recorder_id": "66f16a3c3d4a414e8b11a3584c3b5478",
+  "experiment_id": "709187719918387477",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_foreign_quarterly_intake_20261016/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_foreign_quarterly_intake_20261016/qlib_recorder/709187719918387477/66f16a3c3d4a414e8b11a3584c3b5478",
+  "plan_sha256": "470279d51480eed1bfd5d02e40a585dd156f0f73119b2a7ab5408e7aaa03fab2",
+  "parser_identity": "11dfc5b22a8d75309c8a1abae2ce5570d97e9bbffda94bb729c1752a67a68eb6",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/events",
+      "analysis/raw_extracted_events",
+      "analysis/information_state",
+      "analysis/qlib_readback",
+      "sources/*"
+    ]
+  },
+  "boundaries": [
+    "Taiwan_IFRS parentNI distinct from IASB20F/companyfacts; no crossbasis TTM",
+    "Weighted-average EPS shares are not date-specific marketcap shares",
+    "NI in nativeTWD; no convenienceUSD or ADR conversion synthesized",
+    "Exact SEC acceptance or explicit delayed eligibility; no backdating comparative periods",
+    "Source evidence only; no ETFvaluation/model/alpha promotion certified"
+  ],
+  "nas_evidence": {
+    "sha256": "ffa9519839e6e5d9cef4ab29bb5e1adcf6e0b666eb6fb0b75c6b476eaa253107",
+    "size_bytes": 15115839,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ff/a9/ffa9519839e6e5d9cef4ab29bb5e1adcf6e0b666eb6fb0b75c6b476eaa253107",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 13:44:46.122201+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ff/a9/ffa9519839e6e5d9cef4ab29bb5e1adcf6e0b666eb6fb0b75c6b476eaa253107",
+    "recorder_id": "66f16a3c3d4a414e8b11a3584c3b5478",
+    "experiment_id": "709187719918387477",
+    "archive_root": "qlib_recorder"
+  }
+}

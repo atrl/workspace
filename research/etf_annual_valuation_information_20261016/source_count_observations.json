@@ -1,0 +1,22 @@
+[
+  {
+    "source_recorder_id": "6658a1c770b948b4b93cb60286f52c8e",
+    "source_summary_sha256": "67f9af3e2e6a7da0861d3f032ac03971f7749bc9af61be3c689c2c6b5dc90ec5",
+    "source_manifest_sha256": "d512e20c6cbf65d2f9c24f8aec5fd263ed3ab541b34a9ff52489a6f047fcda13",
+    "phase": "source_count_only_no_return_labels_read",
+    "minimum_training_months": 24,
+    "counts": [
+      {
+        "execution_year": 2023,
+        "source_qualified_mature_month_upper_bound": 8,
+        "market_completeness_checked": false
+      },
+      {
+        "execution_year": 2024,
+        "source_qualified_mature_month_upper_bound": 20,
+        "market_completeness_checked": false
+      }
+    ],
+    "next_action": "Finish bounded original accounting-scope/unit repairs on existing rawfacts before any model labels. Coverage95 and no-outcome rules unchanged."
+  }
+]

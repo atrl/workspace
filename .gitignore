@@ -140,3 +140,6 @@ data/qlib/frozen_policy_raw_cashbook_20261015/
 
 # Rebuildable two-issuer annual E/P store; canonical fields and manifest live in NAS Recorder.
 /data/qlib/etf_earnings_price_basis_20261016/
+
+# Rebuildable annual basket valuation fields; authority is the NAS Qlib Recorder.
+/data/qlib/etf_basket_valuation_inputs_20261016/

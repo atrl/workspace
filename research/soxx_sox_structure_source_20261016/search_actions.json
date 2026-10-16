@@ -1,0 +1,26 @@
+[
+  {
+    "query": "site.indexes.nasdaq.com \"SOX\" \"September\" \"2024\" weights",
+    "action_type": "public_web_search",
+    "count": 1,
+    "purpose": "official historical structural documents discovery; no return extraction"
+  },
+  {
+    "query": "site.ice.com \"Semiconductor\" \"September\" \"2025\" reconstitution",
+    "action_type": "public_web_search",
+    "count": 1,
+    "purpose": "official historical structural documents discovery; no return extraction"
+  },
+  {
+    "query": "site.nasdaq.com \"PHLX Semiconductor\" \"2025\" reconstitution",
+    "action_type": "public_web_search",
+    "count": 1,
+    "purpose": "official historical structural documents discovery; no return extraction"
+  },
+  {
+    "query": "site.ice.com \"ICESEMI\" \"2024\" weights",
+    "action_type": "public_web_search",
+    "count": 1,
+    "purpose": "official historical structural documents discovery; no return extraction"
+  }
+]

@@ -1,0 +1,9 @@
+experiment: soxx_sox_structure_source_20261016
+plan: plan.json
+module: src.data.soxx_sox_structure_source
+provider_uri: data/qlib/soxl
+region: us
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: [inputs/*, sources/*]

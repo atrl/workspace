@@ -1,0 +1,15 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T06:27:10.041589+00:00",
+  "decision": "approved_for_execution",
+  "plan_sha256": "0723e0378b324066a2f685731f3e7caabd68ce1300959f8114c6bac72f7a7c36",
+  "scope": "Savedforecast arithmetic attribution only;0fits/inference/accounts/fetch.",
+  "required_checks": [
+    "All31months/twoheads/threefolds retained; noselectedwinnerwindow orfeatureablation.",
+    "Residualdefinition e=y-control anddelta=candidate-control onsharedtrainstd; verify2ed-d2 andgroupallocation2e*dg-d*dg exactlyclose.",
+    "Linearintercept/marketrefit/newfeaturegroup reconstructionuses savedtransforms/coefficients only; nodelete/refit orcausalShapley claims.",
+    "Rankactivation chronologicaldescription only; betweenyearmodels/outcomes differ, so cannotattribute theirfailuretorankcausally.",
+    "Parentnegative fixedversion staysclosed; no newseed/alpha/window search."
+  ],
+  "promotion_authorized": false
+}

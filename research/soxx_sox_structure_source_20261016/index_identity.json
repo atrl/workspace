@@ -1,0 +1,56 @@
+{
+  "SOXX_2021": {
+    "notice_date": "2021-04-22",
+    "announced_expected_effective_date": "2021-06-21",
+    "effective_date_status": "expected_on_or_around_not_separately_operationally_confirmed_here",
+    "from": "PHLX Semiconductor Sector Index",
+    "to": "ICE Semiconductor Index",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312521126827/d82642d497.htm",
+    "evidence": "reused_prior_nativeRecorderbytes"
+  },
+  "ICE_2023_rename": {
+    "announcement_date": "2023-10-13",
+    "effective_date": "2023-11-03",
+    "from": "ICE Semiconductor Index",
+    "to": "NYSE Semiconductor Index",
+    "symbols_unchanged": [
+      "ICESEMI",
+      "ICESEMIT",
+      "ICESEMIN"
+    ],
+    "semantics": "namechange_not_evidence_all_method_versions_identical",
+    "source_url": "https://www.ice.com/publicdocs/ice/notifications/adhoc/110000725074/ICEBIO_ICESEMI_Index_Name_Changes_20231013.pdf"
+  },
+  "SOX_2024_method": {
+    "effective_date": "2024-04-22",
+    "publication_exact_day": null,
+    "cap_rule": "topthreecaps12,10,8percent;others4percent;capnotactualweight",
+    "ADR_full_marketcap_proposal": "notimplementedinthisconsultation",
+    "source_url": "https://indexes.nasdaqomx.com/docs/SOX%20Consultation%20Summary%20and%20Conclusion.pdf"
+  },
+  "return_identity_only": {
+    "SOX": "price_return",
+    "XSOX": "total_return",
+    "ICESEMI": "price_return",
+    "ICESEMIT": "total_return",
+    "return_series_acquired": false
+  },
+  "factsheet_vintage_trap": {
+    "url": "https://indexes.nasdaqomx.com/docs/FS_SOX.pdf",
+    "search_index_claimed_asof": "2025-09-30",
+    "actual_downloaded_body_asof": "2026-09-30",
+    "use": "actualbodydatecontrols;currentURLcannotservehistoricalvintage"
+  },
+  "target_rebalances": {
+    "2024-09-20": {
+      "announcement_at": null,
+      "actual_effective_at": null,
+      "weights_qualified": false
+    },
+    "2025-09-19": {
+      "announcement_at": null,
+      "actual_effective_at": null,
+      "weights_qualified": false
+    }
+  }
+}

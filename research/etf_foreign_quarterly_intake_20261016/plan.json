@@ -1,0 +1,53 @@
+{
+  "experiment": "etf_foreign_quarterly_intake_20261016",
+  "frozen_at": "2026-10-16T05:27:45.662966+00:00",
+  "scope": "actual continuous foreign issuer quarterly financial source reconstruction; no market outcomes, no fits or accounts",
+  "issuers": {
+    "TSM": 1046179,
+    "UMC": 1033767
+  },
+  "period_start": "2018-01-01",
+  "period_end": "2026-09-30",
+  "as_of": "2026-10-16",
+  "prior_annual_seed": "2017 annual if required for2018TTM; otherwise existing47companyfacts reuse",
+  "sources": [
+    "data.sec.gov/submissions currentandhistoricalJSON",
+    "SEC fulltext index for exactCIKs,6K/exhibits andfinancial-results keywords",
+    "SEC accession index JSON/HTML and primary HTML exhibits",
+    "official issuer IR financial statements/earnings releases linked from identifiedperiod pages ifSECroute lacks specificquarter"
+  ],
+  "source_selection": "CIKidentity+actualperiod+consolidated quarterlyfinancialresult content; neverselectby marketoutcome; preferSECexactaccessionexhibit; rejectgiantcompleteSGML",
+  "max_http_requests": 300,
+  "transport": {
+    "compressed": true,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 180,
+    "workers": 3,
+    "max_attempts_per_url": 2,
+    "all_attempts_count_toward_budget": true
+  },
+  "retention": "retain completedresponsebytes,hases,URL,status,exitcode,retrievedtime; successfulcachedresponses reused; knowninflightrequests neverrestarted",
+  "canonical_event_fields": [
+    "ticker",
+    "cik",
+    "period_start",
+    "period_end",
+    "period_kind",
+    "filed",
+    "available_at",
+    "accession",
+    "profit_concept",
+    "currency",
+    "value",
+    "eps",
+    "shares",
+    "source_sha256",
+    "source_url"
+  ],
+  "profit_scope": "prefernetincomeattributabletoparent; consolidated total distinctmethod; do notsilentlymix",
+  "currency": "nativeTWD retained; publishedUSDconveniencetranslation separatelytagged, notspotFX",
+  "timing": "SECacceptance timestamp whenavailable; otherwise nextQlibsession afterfilingdate as explicitdelayedeligibility; periodendneveravailability",
+  "accounting": "signedvalues; quarter andYTDseparate; annual-minus9month onlywithincompatiblecurrency/scope; noEPSsubtraction; preservecomparativevintages andnohistoricaloverwrite",
+  "qualification": "source-only canonicaleventseries andgapreasons; financialcoverage notstablealpha orproductionpromotion",
+  "stop_rule": "continueactualextractionthroughidentifiedavailablequarterlyreports; localfailuresdo notterminateglobalresearch; remainwithinreviewedsourcebudget, amendoperationalbudgetbeforeadditionalrequestsifneeded"
+}

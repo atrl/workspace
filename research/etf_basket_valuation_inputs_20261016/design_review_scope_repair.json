@@ -1,0 +1,21 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T05:48:04.465552+00:00",
+  "decision": "approved_bounded_parent_scope_repair",
+  "plan_sha256": "fcfe6b1e5eef53630611f1643a4e92cf7207d28eb66d86f9addd0a05ec4dbb56",
+  "scope": "ExactlyfivehistoricalAVGOannual originaldocuments to resolve parentprofit sourceconcept, beforeanytargetlabels.",
+  "bounds": {
+    "max_new_HTTP_requests": 10,
+    "new_fits": 0,
+    "new_accounts": 0,
+    "new_issuers": 0
+  },
+  "required_checks": [
+    "Originalincome statement demonstrates parent-attributable amount for exactperiod; consolidatedProfitLoss is not automatically parentincome.",
+    "Preserve preferreddividends separately; primaryfixedproxy is parentincome beforepreferred, not incomeavailablecommon orofficialPE.",
+    "Use exactoriginalsource availability; do not backfill aperiod usinglatercomparativeproof unlessexplicitresearchassumption remains disclosed and causalamount alreadyknown.",
+    "Recordoriginalparsednamespace/CIK/unit/dates andscopetext/amount evidence perbridge.",
+    "Keep prior19monthsourceRecorder archived; method/coverage/age unchanged; no sourcechoice byfuturemarketreturns."
+  ],
+  "promotion_authorized": false
+}

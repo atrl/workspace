@@ -1,0 +1,72 @@
+{
+  "experiment": "etf_annual_information_attribution_20261016",
+  "frozen_at_utc": "2026-10-16T06:20:24.279426+00:00",
+  "source": {
+    "card": "research/etf_annual_valuation_information_20261016",
+    "recorder_id": "50e5ce9c48b94216aa1e66649a509e87",
+    "archive": "f8198cd713cc72a418b47d832d9677f8f98f1ff75dbcd4aef737fdf7f69b9632",
+    "inventory_sha256": "fbae9f2fe39fe6a3b7948262fb1c5970a8dc8f69471956e1b941ba5470521a1e"
+  },
+  "source_artifacts": [
+    "analysis/monthly_scores",
+    "analysis/annual_scores",
+    "analysis/fit_audits",
+    "analysis/summary",
+    "inputs/labelled_frame",
+    "inputs/plan",
+    "models/control_2024",
+    "models/candidate_2024",
+    "models/control_2025",
+    "models/candidate_2025",
+    "models/control_2026",
+    "models/candidate_2026"
+  ],
+  "source_code_sha256": {
+    "src/model/monthly_valuation_information.py": "f66a8320b5ac4bc91ca9429f17338033899c7f99cc97c9e117d11ca330f2c55b",
+    "src/data/annual_valuation_information.py": "38846f25f6d3256db5df44542f7974d55612805c9cc66990458c9b3f9bb4e0ac"
+  },
+  "scope": "Exactly all31saved evaluationmonthlypositions Jan2024\u2013Jul2026entry,2heads,all3annualfolds andsixfrozenmodels. Nofit,predict,inference,newlabels,newaccounts,fetch,hyperparameterchanges orbootstrap reruns. Parentfixednegative remainsclosed.",
+  "heads": [
+    "soxx_log_return",
+    "relative_soxl_log_return"
+  ],
+  "head_weights": [
+    0.5,
+    0.5
+  ],
+  "identity": "For eachsavedrow/head e=(y\u2212control)/savedtrainingstd; d=(candidate\u2212control)/same std. saved normalized MSE improvement=2*e*d\u2212d\u00b2. Meanimprovement=2*mean(e)*mean(d)+2*population_cov(e,d)\u2212mean(d)\u00b2\u2212population_var(d). Means/covariance are accountingdescriptions, not causal ortradablecounterfactual.",
+  "groups": {
+    "intercept_shift": [],
+    "market_refit": [
+      "soxx_logmom63",
+      "soxx_logvol63",
+      "soxx_drawdown126",
+      "relative_logvol21"
+    ],
+    "annual_ep": [
+      "signed_annual_ep"
+    ],
+    "annual_growth": [
+      "annual_earnings_change",
+      "growth_missing"
+    ],
+    "loss_weight": [
+      "loss_weight"
+    ],
+    "optional_rank": [
+      "annual_ep_rank",
+      "rank_missing"
+    ]
+  },
+  "linear_arithmetic": "Reconstruct saved standardizedforecast algebra fromstored medians,means,scales,activeflags,Ridgecoef/intercept andlabelscales. No model.predict/transform call andno newobservations. Sumgroup normalizedpredictiondeltas exactly equals savedd. Allocate lossidentity bygroup as2*e*d_g\u2212d*d_g; crosspenalty allocation sums exactly, not removal/refit/Shapley/causal importance.",
+  "tables": "All31monthly/head rows, allheads andpooled, all2024/2025full years and2026partial7months; quarterdiagnosticallquarters optionalnotselected. Persistallmonthlyfeaturegroup components inRecorder; smallaggregateperiod/coeff/scaler/rankchronology tablesroot.",
+  "rank_chronology": "Describe rawrankavailability, trainnonmissingcount, frozenfeatureactive/coef andheldoutstandardizedvalues byyear.2024inactive coordinate and2025activation examined aschronology only; cannotattributebetweenyearlosschangescausallytorank because folds/labels/modelschange.",
+  "checks": "Savedcalendars exact31, same6modelidentities/labelscales andmarkettransforms; reconstructpredictions<=1e-10, perhead andpooled MSEidentity<=1e-10, groupdelta andgroupMSEsum<=1e-10. Failclosed onmismatch, noautofit. Allrows retainedincluding anycontrolfallback.",
+  "decision": "descriptive_failure_attribution_only; no promotion, no reopenedannualparametersearch, no scientificgoalcompletion",
+  "new_fits": 0,
+  "new_inference": 0,
+  "new_accounts": 0,
+  "new_fetches": 0,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "as_of": "2026-10-09"
+}

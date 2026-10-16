@@ -1,0 +1,67 @@
+{
+  "frozen_at_utc": "2026-10-16T05:47:42.451061+00:00",
+  "parent_plan_sha256": "246f1cc8be72a2f2b7980e1d94a339c471d5cb66ff3a4cf6a7e835df57447ebf",
+  "prior_recorder_id": "36f3043d4318451693d5fda6d6eaea7b",
+  "prior_NAS_archive": "8a874bd2f131401973420323c189e7cb5167443ef2b18448e0afd0e56044e551",
+  "reason": "Firstsourceconstruction showsAVGO8.2%averageweight missing55months becauseoriginalannualtagProfitLoss wasexcluded absentperiodspecificparentproof. No return or model dataread. Retrieve5originalannuals toverifyparentNI beforepreferreddividends, no blanketconsolidatedequivalence.",
+  "documents": [
+    {
+      "symbol": "AVGO",
+      "cik": 1730168,
+      "form": "10-K",
+      "accn": "0001730168-19-000144",
+      "filed": "2019-12-20",
+      "start": "2018-11-05",
+      "end": "2019-11-03",
+      "source_value": 2724000000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016819000144/0001730168-19-000144-index.html"
+    },
+    {
+      "symbol": "AVGO",
+      "cik": 1730168,
+      "form": "10-K",
+      "accn": "0001730168-20-000226",
+      "filed": "2020-12-18",
+      "start": "2019-11-04",
+      "end": "2020-11-01",
+      "source_value": 2960000000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016820000226/0001730168-20-000226-index.html"
+    },
+    {
+      "symbol": "AVGO",
+      "cik": 1730168,
+      "form": "10-K",
+      "accn": "0001730168-21-000153",
+      "filed": "2021-12-17",
+      "start": "2020-11-02",
+      "end": "2021-10-31",
+      "source_value": 6736000000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016821000153/0001730168-21-000153-index.html"
+    },
+    {
+      "symbol": "AVGO",
+      "cik": 1730168,
+      "form": "10-K",
+      "accn": "0001730168-22-000118",
+      "filed": "2022-12-16",
+      "start": "2021-11-01",
+      "end": "2022-10-30",
+      "source_value": 11495000000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016822000118/0001730168-22-000118-index.html"
+    },
+    {
+      "symbol": "AVGO",
+      "cik": 1730168,
+      "form": "10-K",
+      "accn": "0001730168-23-000096",
+      "filed": "2023-12-14",
+      "start": "2022-10-31",
+      "end": "2023-10-29",
+      "source_value": 14082000000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016823000096/0001730168-23-000096-index.html"
+    }
+  ],
+  "max_new_http_requests": 10,
+  "bounds": "Exactlyfivefrozenindexes+fiveprimaryHTML, cachepreserved, hard60sdeadline, no retries. Only bridges directly supportedbyeachoriginalannualstatement allowed.",
+  "method_unchanged": "signed_disclosed_basket_annual_EP_v1,95%coverage,550dayannualage,originalvintage,currency,parentNI andnegative signs unchanged. No otherissuer repair inthisboundedstep."
+}

@@ -1,0 +1,10 @@
+{
+  "error": "Fresh notebook process lacked qlib.init when prepare returned existing prepared_state; R.set_uri failed before labels/models.",
+  "stage": "before attach_labels, before fit_attempts creation",
+  "labels_computed": false,
+  "market_fit_attempts": 0,
+  "change": "Initialize the exact frozen Qlib provider explicitly in notebook entrypoint; experiment modules and prepared data unchanged.",
+  "initial_notebook_sha256": "ee5e5b82a0f2e9432047c3e6504ab30de48c6c3419e7891fc66348103ec1c715",
+  "repaired_notebook_sha256": "7f2a4b43e848baa14b7d611a1bb7b49a76cb6af5edaee406b1cc7efdccbc617e",
+  "execution_code_identity_unchanged": true
+}

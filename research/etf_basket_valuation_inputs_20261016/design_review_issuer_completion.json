@@ -1,0 +1,24 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T05:57:05.215900+00:00",
+  "decision": "approved_bounded_complete_issuer_source_repair",
+  "plan_sha256": "e7cd42d2c8d08b835359a0dd296d7b2d99f82a812cdfde86384c0811497e1157",
+  "scope": "FullSLABFY2018–2025originalannualincome identity andcorporate-share history, no marketperformance selection.",
+  "bounds": {
+    "new_HTTP_attempts_max": 17,
+    "annual_documents": 8,
+    "new_fits": 0,
+    "new_accounts": 0,
+    "new_price_series_usage": false
+  },
+  "required_checks": [
+    "Allfixedannualperiods inspected evenif onlysome affecttrainingcount; originalsourceamount/vintage/CIK/unit retained.",
+    "ConsolidatedProfitLoss orcommon-stockholder-income tags require exactperiod parent-income bridge, withpreferred/NCI separatelyidentified.",
+    "Preserve actualannualnonrecurring gains/losses; no postoutcome normalization or exclusion of largeprofits.",
+    "Vendorcorporate-event response must matchSLABidentity andrequestedrange; cashdividends/capitalgains do not enter splitfactor.",
+    "A no-split result is a boundedresearchsource assumption, not immutablehistoriccorporateaction certification.",
+    "Pricearrays ineventresponse remainunused; existingQlibquotebasis unchanged.",
+    "Keep52monthpriorRecorder; annualmethod/95coverage/550dayage andfirstyearcount rule unchanged."
+  ],
+  "promotion_authorized": false
+}

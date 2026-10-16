@@ -1,0 +1,16 @@
+{
+  "as_of": "2026-10-16",
+  "TSM_2026Q3": {
+    "status": "earnings_release_present_but_not_explicit_parent_attribution",
+    "accession": "0001046179-26-000726",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000726/a3q26e_withguidancexfinal.htm",
+    "release_date": "2026-10-15",
+    "source_concept": "issuer net income under TIFRS consolidated basis, not explicitly labelled parent in this release",
+    "action": "retain source bytes; require explicit parent statement or independently approved attribution assumption; do not report publication absence"
+  },
+  "UMC_2026Q3": {
+    "status": "no_Q3_parent_financial_report_in_asof_SEC_corpus",
+    "latest_inspected_metadata_filing": "2026-10-13",
+    "action": "retain gap asof; do not invent release timestamp or financial value"
+  }
+}

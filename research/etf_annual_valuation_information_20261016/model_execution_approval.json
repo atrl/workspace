@@ -1,0 +1,24 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T06:09:12.017204+00:00",
+  "decision": "approved_bounded_information_fits",
+  "plan_sha256": "362a32460293fca4aff3bf2687df480c6ff9fc2fd84c1ebcf6bc62f75458f8dc",
+  "source_binding_sha256": "0bbc3cc61cefc0554f9e5dba527e3e737b2e8c3ba6e9c7d54b514c31b92c93e6",
+  "count_receipt_sha256": "78654c7da9adeeaa4a78d3454579e726da6062ce23f869089617074a949132d5",
+  "code_identity_sha256": "81c971f8326971b5cde5377b2bc7d62066fe20d6681c61092abfc7a10c879d78",
+  "prepared_recorder_id": "50e5ce9c48b94216aa1e66649a509e87",
+  "source_recorder_id": "fb447c1a23e34b25bf6db7e275ed757b",
+  "verified_prelabel_counts": {
+    "2023": 14,
+    "2024": 26
+  },
+  "selected_first_execution_year": 2024,
+  "expected_fits": 6,
+  "maximum_fits": 8,
+  "evaluation_months": 31,
+  "first_entry": "2024-01-02 09:47:00-05:00",
+  "last_exit": "2026-08-03 09:47:00-04:00",
+  "no_labels_in_prepared_frame": true,
+  "scope": "Fixedpaired2headRidge, noHPsearch,0strategyaccounts; reportall2completeyears and2026partial.",
+  "promotion_authorized": false
+}

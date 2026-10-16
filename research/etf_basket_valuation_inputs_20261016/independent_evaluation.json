@@ -1,0 +1,33 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T06:07:04.869570+00:00",
+  "decision": "accepted_signed_disclosed_basket_annual_EP_research_inputs",
+  "plan_sha256": "246f1cc8be72a2f2b7980e1d94a339c471d5cb66ff3a4cf6a7e835df57447ebf",
+  "scope_repair_plan_sha256": "fcfe6b1e5eef53630611f1643a4e92cf7207d28eb66d86f9addd0a05ec4dbb56",
+  "recorder_id": "fb447c1a23e34b25bf6db7e275ed757b",
+  "manifest_sha256": "0ca1602d58145603b4b48b4fbd38614de893d4ffcddb4b0089e723a95c213174",
+  "nas_archive_sha256": "da985d3b8c53f8bbb684e26041c09d0109c732c950f67192f66ce535eace7f84",
+  "verified": {
+    "hash_checked_native_qlib_readback": true,
+    "all_monthly_signedEP_coverage_lossweight_sums": true,
+    "historicalincome_shares_holdings_fileddates_before_signal": true,
+    "D_features_float32_readback_equal": true,
+    "monthly_rows": 82,
+    "qualified_EP_months": 58,
+    "negative_qualified_issuer_rows": 196,
+    "original_listing_and_six_AVGO_annual_scope_bridges_independently_inspected": true,
+    "all_2255_qualified_issuer_mcap_FX_weightedEP_arithmetic": true,
+    "SLAB_eight_original_annual_proofs_and_bounded_event_response_independently_inspected": true
+  },
+  "accepted_for": "Paired diagnostic information research after frozenprelabel samplecount approval.",
+  "limitations": [
+    "Parentincome beforepreferred divided by laggedshares estimatedmarketcap is a researchproxy, not commonEPSyield orofficialETFPE.",
+    "Holdings/sharecounts staleestimates; ADSintermediatestability andcurrentvintage laggedFX explicitlyassumed.",
+    "Missingweights remainunknown/unrenormalized; all82months retained.",
+    "58qualifiedmonths starting2020-11 are researchinputs; exactmatureprelabel counts determine permittedfirstfit. No labels inspected during sourcecompletion."
+  ],
+  "production_PIT_certified": false,
+  "promotion_authorized": false,
+  "objective_achieved": false,
+  "issuer_completion_plan_sha256": "e7cd42d2c8d08b835359a0dd296d7b2d99f82a812cdfde86384c0811497e1157"
+}

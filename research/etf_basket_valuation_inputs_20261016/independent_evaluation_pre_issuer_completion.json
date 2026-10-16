@@ -1,0 +1,31 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T05:52:36.391112+00:00",
+  "decision": "accepted_signed_disclosed_basket_annual_EP_research_inputs",
+  "plan_sha256": "246f1cc8be72a2f2b7980e1d94a339c471d5cb66ff3a4cf6a7e835df57447ebf",
+  "scope_repair_plan_sha256": "fcfe6b1e5eef53630611f1643a4e92cf7207d28eb66d86f9addd0a05ec4dbb56",
+  "recorder_id": "6658a1c770b948b4b93cb60286f52c8e",
+  "manifest_sha256": "d512e20c6cbf65d2f9c24f8aec5fd263ed3ab541b34a9ff52489a6f047fcda13",
+  "nas_archive_sha256": "015de3e946f66a4598a763d9bf67b7c4a87a2a3f26d8f50187ccfa052c76d728",
+  "verified": {
+    "hash_checked_native_qlib_readback": true,
+    "all_2222_qualified_issuer_mcap_FX_weightedEP_arithmetic": true,
+    "all_monthly_signedEP_coverage_lossweight_sums": true,
+    "historicalincome_shares_holdings_fileddates_before_signal": true,
+    "D_features_float32_readback_equal": true,
+    "monthly_rows": 82,
+    "qualified_EP_months": 52,
+    "negative_qualified_issuer_rows": 196,
+    "original_listing_and_six_AVGO_annual_scope_bridges_independently_inspected": true
+  },
+  "accepted_for": "Paired diagnostic information research after frozenprelabel samplecount approval.",
+  "limitations": [
+    "Parentincome beforepreferred divided by laggedshares estimatedmarketcap is a researchproxy, not commonEPSyield orofficialETFPE.",
+    "Holdings/sharecounts staleestimates; ADSintermediatestability andcurrentvintage laggedFX explicitlyassumed.",
+    "Missingweights remainunknown/unrenormalized; all82months retained.",
+    "52qualifiedmonths starting2022-03 maynotmeet initial2023/24trainingcount rule; sourceacceptance doesnotautomatically authorizefits."
+  ],
+  "production_PIT_certified": false,
+  "promotion_authorized": false,
+  "objective_achieved": false
+}

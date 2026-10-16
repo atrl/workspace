@@ -1,0 +1,37 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T05:46:21.057681+00:00",
+  "decision": "accepted_continuous_foreign_parent_income_research_source",
+  "plan_sha256": "470279d51480eed1bfd5d02e40a585dd156f0f73119b2a7ab5408e7aaa03fab2",
+  "recorder_id": "66f16a3c3d4a414e8b11a3584c3b5478",
+  "manifest_sha256": "80a55d3c819b1e1aaaf4d26a588a341d175b50fc11bffb118e7d0f8c5439e377",
+  "nas_archive_sha256": "ffa9519839e6e5d9cef4ab29bb5e1adcf6e0b666eb6fb0b75c6b476eaa253107",
+  "verified": {
+    "hash_checked_native_qlib_readback": true,
+    "valid_attempt_receipts": 243,
+    "raw_extracted_events": 231,
+    "canonical_vintages": 255,
+    "quarters_per_issuer": 34,
+    "issuer_coverage": "TSM andUMC2018Q1through2026Q2",
+    "annual_periods_per_issuer": 9,
+    "derived_Q4_values_checked": 36,
+    "all_derived_monetary_differences_and_component_availability_checked": true,
+    "information_state_and_qlib_rows": 4418,
+    "source_row_period_amount_examples_inspected": true,
+    "SEC_acceptance_UTC_offsets_present_in_sample": true
+  },
+  "findings": [
+    "Actual source reconstruction resolves prior endpoint transport gaps; this is usable explicit research financial-event input.",
+    "TaiwanIFRS parentincome retains separatemethod from IASB20F; downstream must not silently mix.",
+    "Q4 inherits annual/ninemonthbasis assumptions through componentlineage; noEPSsubtraction performed.",
+    "Comparative/revised releases remain datedvintages; latestavailable information state preserves economicperiod ordering.",
+    "Weighted-averageEPSshares retained as auxiliary and cannot become marketcapitalization denominator."
+  ],
+  "accepted_for": "Scoped downstreamdiagnostic quarterlyfinancial research with recordedcurrency/basis/availability assumptions.",
+  "limitations": [
+    "Boardreportingframework basis is an explicitresearch assumption; derivedlineage inherits it.",
+    "Q32026 has no qualifying parentstatement in this frozenintake; do not infer underlying financialreport doesnotexist.",
+    "This card doesnotqualify ETFvaluation orstableexcess/promotion."
+  ],
+  "promotion_authorized": false
+}

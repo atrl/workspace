@@ -1,0 +1,67 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T06:14:32.192172+00:00",
+  "decision": "not_promoted_fixed_annual_valuation_information",
+  "plan_sha256": "362a32460293fca4aff3bf2687df480c6ff9fc2fd84c1ebcf6bc62f75458f8dc",
+  "recorder_id": "50e5ce9c48b94216aa1e66649a509e87",
+  "manifest_sha256": "fbae9f2fe39fe6a3b7948262fb1c5970a8dc8f69471956e1b941ba5470521a1e",
+  "nas_archive_sha256": "f8198cd713cc72a418b47d832d9677f8f98f1ff75dbcd4aef737fdf7f69b9632",
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "six_saved_models_and_traininglabel_scales_checked": true,
+    "strict_monthly_label_maturity_before_each_cutoff": true,
+    "training_months": [
+      26,
+      38,
+      50
+    ],
+    "complete_evaluation_months_retained": 31,
+    "all_paired_normalized_MSE_recomputed": true,
+    "all2000_saved_jointbootstrap_replicates_recomputed": true,
+    "zero_new_fits_in_review": true,
+    "zero_strategy_accounts": true
+  },
+  "result": {
+    "paired_MSE_improvement_control_minus_candidate": -0.18188343234227902,
+    "bootstrap_interval": [
+      -0.4648214117012018,
+      0.06972794889800268
+    ],
+    "complete_year_positive_fraction": 0.0,
+    "complete_years": 2,
+    "annual_improvements": [
+      {
+        "execution_year": 2024,
+        "months": 12,
+        "paired_improvement": -0.04800057992791081,
+        "complete_year": true
+      },
+      {
+        "execution_year": 2025,
+        "months": 12,
+        "paired_improvement": -0.20110011227745805,
+        "complete_year": true
+      },
+      {
+        "execution_year": 2026,
+        "months": 7,
+        "paired_improvement": -0.3784540137351747,
+        "complete_year": false
+      }
+    ]
+  },
+  "failed_gates": [
+    "PoolednormalizedMSEimprovement isnegative.",
+    "Fixedjointmonthlyblock interval lowerbound isnotpositive.",
+    "Bothcomplete2024and2025years shownegativeinformationincrement;0/2doesnotmeet70percent."
+  ],
+  "scientific_decision": "Close thisfixedannualvaluationinformation version. Noportfolioexperiment authorized fromitsfailedinformationgate; no claimannualvaluation canneverwork oroverallobjectiveblocked.",
+  "next_information_need": "Bounded savedforecast attribution may identify whether broadmarketreturn orrelativeleveragereturn head drivesfailure; anynextmechanism mustbe substantivelydifferent and frozen before outcome testing. Do nottunealpha/window/features torescue thisversion.",
+  "promotion_authorized": false,
+  "objective_achieved": false,
+  "limitations": [
+    "Historicalevaluation isreuseddevelopment, notfreshindependent data.",
+    "31monthlyobservations and2completeyears arelimited; sourcequalification doesnotimplypredictivevalue.",
+    "Labels arepublishedadjustedprice proxies, not netcashaccountreturns."
+  ]
+}

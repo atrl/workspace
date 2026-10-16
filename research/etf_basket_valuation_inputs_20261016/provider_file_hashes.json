@@ -1,0 +1,20 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/etf_basket_valuation_inputs_20261016",
+  "files": {
+    "calendars/day.txt": "3d6ae955cabb3dc2fbe24eb305236ea716bd9448065286960acfc75bc2fb4c5d",
+    "features/soxx_disclosed_basket/annual_earnings_change.day.bin": "996e745fb8054ac9645ef339aa1f2a7db65458f94b01766728d7ef4706f7f4a3",
+    "features/soxx_disclosed_basket/coverage_weight.day.bin": "3598e4eda84fd21e254a3449dc1f816c98480dfdb426b39463879dca84583d7c",
+    "features/soxx_disclosed_basket/growth_coverage_weight.day.bin": "19de4e8734a5213142ff3d72fef6dd68e6c9b8dec52004b9c2fc60e5bcb3e073",
+    "features/soxx_disclosed_basket/growth_source_qualified.day.bin": "f12fee1213d6a689935954b3f25f7202e03ddfc6f2fdaa51aa2a17d87408b48b",
+    "features/soxx_disclosed_basket/loss_weight.day.bin": "4a148d4cfcee58b6bc62eaab4c33ac1ab884dfe2f94e69f19d2a418776735b7c",
+    "features/soxx_disclosed_basket/max_annual_age_days.day.bin": "40daa23424492e698d5bd09802990bf3616fda7ab585aad754bb02efa3a4f39b",
+    "features/soxx_disclosed_basket/max_fx_age_days.day.bin": "5c3c93dd4789445b99a9f99ad9dc7c4307a49ce9bf8f107d4c27d217a7367cf5",
+    "features/soxx_disclosed_basket/max_share_age_days.day.bin": "21a4eb5594aafccb40be4b4624b9e41db17ef319fdf2cbea065d9148bc51df63",
+    "features/soxx_disclosed_basket/signed_annual_ep.day.bin": "29ce52346265a67938e30accf23edb26746285ef5fab0ff4dc0f32ae10099a91",
+    "features/soxx_disclosed_basket/source_qualified.day.bin": "f12fee1213d6a689935954b3f25f7202e03ddfc6f2fdaa51aa2a17d87408b48b",
+    "features/soxx_disclosed_basket/unknown_weight.day.bin": "342cccd6c192e99e6dceae2a7b801cd40de12d9d15c3b9a767a27eb7d731e1de",
+    "instruments/all.txt": "e6a206e00f5b5861f8ab3bf72ce6d260c4a0ed7bac67e6f504385e4c7ce9442c",
+    "qlib.yaml": "c74fabf62558df003b0d66a12fb0094e4a84e7473c215d8078530ce498ec8d99",
+    "qlib_store_manifest.json": "cce1795fff67885352d42068e6dfd91cf1a0146ba097e936a1ccf252036ea236"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "frozen_at_utc": "2026-10-16T05:56:35.405832+00:00",
+  "parent_plan_sha256": "246f1cc8be72a2f2b7980e1d94a339c471d5cb66ff3a4cf6a7e835df57447ebf",
+  "prior_recorder_id": "6658a1c770b948b4b93cb60286f52c8e",
+  "prior_NAS_archive": "015de3e946f66a4598a763d9bf67b7c4a87a2a3f26d8f50187ccfa052c76d728",
+  "scope": "CompleteSLABFY2018\u20132025 originalannualparentNI/source-share-unit qualification. Originalallmonths; no returnlabels or strategyresults read.",
+  "reason": "Actualremaining33SLABNIgaps ~0.62%weight; afterincomeproof absentcorporateeventhistory must alsoqualify. Fixedsourcecompletion, notlowering95gate/cherrypickingmonths.",
+  "documents": [
+    {
+      "symbol": "SLAB",
+      "cik": 1038074,
+      "form": "10-K",
+      "accn": "0001047469-19-000300",
+      "filed": "2019-01-30",
+      "start": "2017-12-31",
+      "end": "2018-12-29",
+      "source_tag": "us-gaap:ProfitLoss",
+      "source_value": 83591000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1038074/000104746919000300/0001047469-19-000300-index.html"
+    },
+    {
+      "symbol": "SLAB",
+      "cik": 1038074,
+      "form": "10-K",
+      "accn": "0001104659-20-007928",
+      "filed": "2020-01-29",
+      "start": "2018-12-30",
+      "end": "2019-12-28",
+      "source_tag": "us-gaap:ProfitLoss",
+      "source_value": 19265000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1038074/000110465920007928/0001104659-20-007928-index.html"
+    },
+    {
+      "symbol": "SLAB",
+      "cik": 1038074,
+      "form": "10-K",
+      "accn": "0001104659-21-011613",
+      "filed": "2021-02-03",
+      "start": "2019-12-29",
+      "end": "2021-01-02",
+      "source_tag": "us-gaap:ProfitLoss",
+      "source_value": 12531000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1038074/000110465921011613/0001104659-21-011613-index.html"
+    },
+    {
+      "symbol": "SLAB",
+      "cik": 1038074,
+      "form": "10-K",
+      "accn": "0001104659-22-010931",
+      "filed": "2022-02-02",
+      "start": "2021-01-03",
+      "end": "2022-01-01",
+      "source_tag": "us-gaap:ProfitLoss",
+      "source_value": 2117399000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1038074/000110465922010931/0001104659-22-010931-index.html"
+    },
+    {
+      "symbol": "SLAB",
+      "cik": 1038074,
+      "form": "10-K",
+      "accn": "0001104659-23-009254",
+      "filed": "2023-02-01",
+      "start": "2022-01-02",
+      "end": "2022-12-31",
+      "source_tag": "us-gaap:ProfitLoss",
+      "source_value": 91402000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1038074/000110465923009254/0001104659-23-009254-index.html"
+    },
+    {
+      "symbol": "SLAB",
+      "cik": 1038074,
+      "form": "10-K",
+      "accn": "0001104659-24-025535",
+      "filed": "2024-02-20",
+      "start": "2023-01-01",
+      "end": "2023-12-30",
+      "source_tag": "us-gaap:ProfitLoss",
+      "source_value": -34516000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1038074/000110465924025535/0001104659-24-025535-index.html"
+    },
+    {
+      "symbol": "SLAB",
+      "cik": 1038074,
+      "form": "10-K",
+      "accn": "0001038074-25-000003",
+      "filed": "2025-02-04",
+      "start": "2023-12-31",
+      "end": "2024-12-28",
+      "source_tag": "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic",
+      "source_value": -191010000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1038074/000103807425000003/0001038074-25-000003-index.html"
+    },
+    {
+      "symbol": "SLAB",
+      "cik": 1038074,
+      "form": "10-K",
+      "accn": "0001038074-26-000005",
+      "filed": "2026-02-10",
+      "start": "2024-12-29",
+      "end": "2026-01-03",
+      "source_tag": "us-gaap:NetIncomeLoss",
+      "source_value": -64907000.0,
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1038074/000103807426000005/0001038074-26-000005-index.html"
+    }
+  ],
+  "corporate_event_source": {
+    "symbol": "SLAB",
+    "url": "https://query2.finance.yahoo.com/v8/finance/chart/SLAB?period1=1514764800&period2=1783036800&interval=1mo&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true",
+    "start": "2018-01-01",
+    "end": "2026-07-02",
+    "name": "SLAB_corporate_events.json",
+    "parse": "Identitysymbol/exchange+completequeriedtimestampcoverage; splits ratio numerator/denominator only. Dividends/capitalGains retained separately, never inserted into sharefactor. Pricearrays not used as newprices orreturns, canonicalQlibquote source unchanged. No events means no splitreported onlywithinrequestedrange; supportedbyoriginalannualshare-class proofs, explicitresearchsourceassumption."
+  },
+  "max_new_http_requests": 17,
+  "qualification": "Peroriginalannualstatement prove parentNI vs consolidated/common-only tag; preferred/NCI amounts explicit, no blankettagalias. Historicalquote/shareunit supportedbyexactsplit history; cashdistributions do notaltershares.",
+  "unchanged": "signed_disclosed_basket_annual_EP_v1;95%coverage;550dayannual/share age;latency;unrenormalizedweights;allmonths;optionalgrowth/rank;parentNIbeforepreferreddefinition.",
+  "negative_results": "Ifsourceunavailable orscopeambiguous preserveunknown; no automaticretry, no differentissuer substitution tohittrainingcount."
+}

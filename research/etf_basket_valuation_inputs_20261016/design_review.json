@@ -1,0 +1,32 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T05:34:24.973990+00:00",
+  "decision": "approved_for_execution",
+  "plan_sha256": "246f1cc8be72a2f2b7980e1d94a339c471d5cb66ff3a4cf6a7e835df57447ebf",
+  "scope": "Primary signed disclosed-basket annual parent-income divided by estimated market capitalization; researchproxy, no return labels/models/accounts.",
+  "bounds": {
+    "max_new_HTTP_requests": 30,
+    "new_fits": 0,
+    "new_accounts": 0,
+    "read_returns": false
+  },
+  "accepted_design": [
+    "Annualprimary is fixed before outcomes; TTM does not enter modelcandidate selection.",
+    "550day income/share age reflects annualreport-cycle research assumption; actual source/instant ages retained.",
+    "True reportedoutstanding shares used rather than annualEPSweighted-average shares.",
+    "Latestpublic disclosedholdings and signed unknown-weight-preserving aggregate;95percentcoverage controlsproxyeligibility.",
+    "Growth andoptionalrank have separate availability, not globalEPeligibility gates."
+  ],
+  "material_checks": [
+    "Parent-attributable concept and reportingcurrency exact; a targetedAVGO bridge applies only periods/amounts it actually proves, not automatic allhistorical ProfitLoss equivalence.",
+    "Share originalinstant-to-filing split ambiguity stays explicit; no futurecomparative sharecounts overwrite historicalknown amounts.",
+    "ADSratio divides ordinaryshares to estimate listedunit marketcap; splitfactors and ratio application must not doublecount.",
+    "Earliest/latest issuerdocuments plus no savedratiochange is explicitly a historicalresearchassumption, not contemporaneousPIT proof.",
+    "Lagged FRED currentvintage FX is documentedresearchproxy; USDconvenience statement translations not used as spotFX.",
+    "Do not silently normalize missingconstituents or assign missingprofit zero.",
+    "Use one frozenmonthly method; missingcoverage rows and issuerreasons remain visible; no source/method choice by return performance.",
+    "Futurefact mutation, split/share-price invariance andQlibreadback need actualexecution evidence."
+  ],
+  "promotion_authorized": false,
+  "result_gate": "Approve actual sourcequalified proxy rows for diagnosticinformation experiment only after scoped evidence readback; productionPIT and stableexcess gates remain separate."
+}

@@ -1,0 +1,6 @@
+{
+  "reason": "Use explicit bracket access for head column; DataFrame.head is a method. Initial run stopped during aggregation before Recorder creation.",
+  "scope_or_statistical_design_changed": false,
+  "new_fits": 0,
+  "new_model_inference": 0
+}

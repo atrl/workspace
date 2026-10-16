@@ -1,0 +1,33 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T05:40:31.910983+00:00",
+  "decision": "approved_for_execution_after_source_count_binding",
+  "plan_sha256": "362a32460293fca4aff3bf2687df480c6ff9fc2fd84c1ebcf6bc62f75458f8dc",
+  "scope": "One fixedpaired monthlymultioutputRidge information experiment, not allocationorperformance certification.",
+  "bounds": {
+    "maximum_fits": 8,
+    "new_strategy_accounts": 0,
+    "new_market_requests": 0,
+    "hyperparameter_search": false
+  },
+  "required_pre_label_receipts": [
+    "Pin actual basketRecorder/manifest/provider and codehash before labelcalculation.",
+    "Select firstexecutionyear2023else2024 solely by >=24common eligiblematuretrainingrows using dates/sourcecoverage, nottargetvalues; preserve countreceipt and nofitifneither.",
+    "Verify marketcalendar has fixedJuly2026entry/Aug2026exit and everyplannedmonthlyrow; missingmarketdata fails rather than shortenedwindow."
+  ],
+  "accepted_design": [
+    "PreviousDecemberlastsession16:15cutoff available beforeJanuaryexecution; trainlabelmaturity strictlyearlier.",
+    "Samepairedtrainingrows,sharedmarkettransform/labelscales; fixedalpha10 and50/50headMSE.",
+    "Train-onlyimputation/scaling; allmissingoptionalcolumns inactive withmissingflags; nofinancialzero inference.",
+    "EPunqualifiedevaluation candidateequalscontrol; allmonths retained.",
+    "Jointmonthlystationarybootstrap mean3/2000/seed20261016/.025 andallcompleteyear70percentgate; noalternativewindow orheadselection."
+  ],
+  "result_review_checks": [
+    "QlibDatasetH/Model andRecorder actualfit/prediction lineage; actualfitswithinbudget.",
+    "No futurevaluation/sourcefacts or immaturemonthlylabels in training; optionalrank pastsame-method valuations only.",
+    "Allcomplete andpartialyears separatelyreported; covariance/overlappingheads nottreated asindependent observations.",
+    "MSEpass onlysupports a separatelyfrozenportfolioincrement; historicalreturns remain reuseddevelopment."
+  ],
+  "promotion_authorized": false,
+  "objective_achieved": false
+}

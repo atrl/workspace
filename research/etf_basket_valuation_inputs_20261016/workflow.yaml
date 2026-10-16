@@ -1,0 +1,15 @@
+experiment: etf_basket_valuation_inputs_20261016
+module: src.data.etf_basket_valuation
+plan: plan.json
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/etf_basket_valuation_inputs_20261016
+instrument: SOXX_DISCLOSED_BASKET
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - analysis/monthly_lineage
+  - analysis/issuer_lineage
+  - analysis/qlib_features
+  - analysis/original_tables
