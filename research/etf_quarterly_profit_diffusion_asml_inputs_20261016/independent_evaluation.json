@@ -1,0 +1,32 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T07:32:30.854362+00:00",
+  "decision": "accepted_quarterly_reported_profit_diffusion_research_inputs",
+  "plan_sha256": "01fbe28642729b154d9572ba2c9f210d8c369fd07d50d135e02c6c02d856b85e",
+  "recorder_id": "8dfa601e32db4c66b5f5b24fef91e4c7",
+  "manifest_sha256": "bfa7a7888d317b03bdfaf50dd2ca05eca91b3d6d9f0d86ca8a9d732208177018",
+  "nas_archive_sha256": "0c77249fcfb63068311665a78196c0a9b3357bba34a66880517245a9a1f9863a",
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "all2335_samequarter_pairs_bounded_growth_recomputed": true,
+    "allpairedperiod_end_and_duration_tolerances_checked": true,
+    "allpaired_current_prior_availability_beforecutoff": true,
+    "allcurrent_known_age_le180": true,
+    "all93month_weighted_features_and_separatecoverages_recomputed": true,
+    "unqualified4financialfeatures_NaN": true,
+    "D_features_readback_equal_float32tolerance": true,
+    "eligible_months": 79,
+    "all_months_retained": 93,
+    "source_code_latest_unknown_barriers_reviewed": true
+  },
+  "accepted_for": "Frozenpairedforecast experiment andseparatelypreplanned directdecision experiment aftertheir ownsource/count/codeapproval.",
+  "boundaries": [
+    "Dimensionless withinissuer/channel reportedprofit changes, not uniformparentNI oraggregatecurrency amount.",
+    "Loss usesallfreshcurrentknownprofitweights; modelbaselinecontrols bothcurrent andYoYpaircoverage.",
+    "Reporting/sourcecoverage remains endogenous, so predictiveincrement isnotclean causal effect.",
+    "ASMLcomplete34quarter sourcefills priorimplementationgap withoutlowering95or180gates.",
+    "Conflictingorunderivablelatestfinancialperiod remainsunknown, notolderquarter fallback; prior19eligibleRecorder preserved."
+  ],
+  "promotion_authorized": false,
+  "objective_achieved": false
+}

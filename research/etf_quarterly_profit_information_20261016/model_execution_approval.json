@@ -1,0 +1,28 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T07:33:46.243802+00:00",
+  "decision": "approved_bounded_information_fits",
+  "plan_sha256": "22c45cc49900d809ee62930ed7bcbb29b52c2e403f00cc0ae9f431390e5cdd65",
+  "source_binding_sha256": "c87ac12b9ce3fdc748e7cdd237ffbb6d205ec6e39a487d42c64b8497c41ab912",
+  "count_receipt_sha256": "6ead38cf7004a363ccc052d39d411399ffd922d50d5dd8dd824469b80decf49e",
+  "code_identity_sha256": "8ab6458a062eb63162b647b8f27d50f54619fa4a6f4522d22bf9f8bad7288459",
+  "prepared_recorder_id": "e5cddbe95c994b93ae60b8475ec9abc4",
+  "source_recorder_id": "8dfa601e32db4c66b5f5b24fef91e4c7",
+  "verified_prelabel_counts": {
+    "2023": 36,
+    "2024": 48
+  },
+  "selected_first_execution_year": 2023,
+  "expected_fits": 8,
+  "maximum_fits": 8,
+  "evaluation_months": 43,
+  "source_unqualified_evaluation_months": 3,
+  "first_entry": "2023-01-03 09:47:00-05:00",
+  "last_exit": "2026-08-03 09:47:00-04:00",
+  "all8baseline_evaluation_fields_finite": true,
+  "allqualified3profit_fields_finite": true,
+  "no_labels_in_prepared_frame": true,
+  "scope": "Fixedpaired2headRidge, noHPsearch,0strategyaccounts,alpha.0125localtwo-mechanismadjustment. All43months retained, unqualifiedcandidateequalscontrol.",
+  "independent_direct_decision_status": "Separatepre-resultfrozen directallocationdesign continues regardless thisMSEresult, subjecttoitsownimplementation/source/countapproval.",
+  "promotion_authorized": false
+}

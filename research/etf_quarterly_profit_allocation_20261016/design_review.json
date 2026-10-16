@@ -1,0 +1,34 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T07:19:16.412233+00:00",
+  "decision": "approved_design_only_pending_source_count_and_implementation",
+  "plan_sha256": "8c6814ae9a5b112993bb7b9a53526b47fe5efbd5c8d6850753f70c284eddf537",
+  "information_result_available_at_review": false,
+  "scope": "Distinct pre-result directmonthlydecision objective with reportedquarterprofit inputs; independentofquarterforecastMSE favorability. Implementation andsymbolic focusedchecks allowed; no labelcalculation/fits/inference/accounts yet.",
+  "planned_bounds": {
+    "new_fits": 6,
+    "candidate_variants": 1,
+    "raw_paths": 15,
+    "native_validations": 15,
+    "new_trading_assets": false
+  },
+  "accepted_design": [
+    "Fixedbeta1.45 sigmoid/legalweight mapping andpostcompositionT, sharedzero-featureweights beta1initialization.",
+    "Frozenmonthly-unitrelative-logutility plusbetween-observed-yearvariation/turnover penalties,final300epochs/noHPselection.",
+    "Trainingmonthlycost/driftandepisode-reset are explicitsurrogates; statefulshorttermrisk/receivablecashfunding/exactfees evaluatedinactualrawnativeaccounts.",
+    "Fixed2024Jan2to2026Aug3window,31monthlyreferences withdailyfrozenrisk/rebalance, noconditionalexecutionbasedMSE.",
+    "All15booksfresh100k/resetCA/controllerstate;9097predeclaredprimarymustearnfreshrawfullminute riskqualification,27baadiagnosticnotreplacement.",
+    "AllcostSOXX/control/primarywealth,DD30/CVaR/annual70/126rolling70 andalpha.025/3dailyblock gates unchanged; historicaldata remainreuseddevelopment."
+  ],
+  "critical_preexecution_conditions": [
+    "Finalquarterprofit sourceRecorder/provider/eligiblebooleans independentlyaccepted andallthreefolds>=24maturepairedrows in>=2trainingentryyears beforelabels.",
+    "Pin finalnewmodel/workflowcode andallinheritedimplementation/source identities.",
+    "Candidate/control10fieldriskcontext mustexactlymatch9097 onfullsignal/trade/exitdatekeys; regression mustdistinguish27baa probabilities tocatchleakage.",
+    "Keepphysicalrawprices/CA separatefromallocation/context; onlyadditional27baabook mayuseitsownriskprobabilities.",
+    "VerifypostTsimplex/beta/sharedinitialization/cash-dividenddrift+episodegapturnover withfocused meaningful regression.",
+    "Nativeall15bookphysicalshares/spendablecash/receivables/orders/fees reconciliation mandatory; no oldNAVrebasing.",
+    "No source/feature/objective changes basedonquarterinformationresults; executiondecision remains fixedonce sourceandimplementation gatespass."
+  ],
+  "promotion_authorized": false,
+  "objective_achieved": false
+}

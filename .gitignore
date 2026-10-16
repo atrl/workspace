@@ -143,3 +143,13 @@ data/qlib/frozen_policy_raw_cashbook_20261015/
 
 # Rebuildable annual basket valuation fields; authority is the NAS Qlib Recorder.
 /data/qlib/etf_basket_valuation_inputs_20261016/
+
+# Exact rebuildable profit-source caches; literal bytes and canonical states retained in the ASML integration NAS Recorder.
+/data/qlib/etf_foreign_quarterly_intake_20261016/
+/data/snapshots/etf_foreign_quarterly_intake_20261016/
+/data/qlib/asml_quarterly_profit_source_20261016/
+/data/snapshots/asml_quarterly_profit_source_20261016/
+/data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/
+/data/snapshots/etf_quarterly_profit_diffusion_inputs_20261016/
+/data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/
+/data/snapshots/etf_quarterly_profit_diffusion_asml_inputs_20261016/

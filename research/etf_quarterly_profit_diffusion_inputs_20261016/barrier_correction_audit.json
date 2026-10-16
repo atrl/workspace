@@ -1,0 +1,19 @@
+{
+  "initial_recorder_id": "0f449c3ec61f40bfa0dfe66ded3a30c0",
+  "corrected_recorder_id": "f393d9a5a7fe4da2b6ffdee750549e7b",
+  "initial_eligible_months": 19,
+  "corrected_eligible_months": 19,
+  "issuer_pair_validity_changed_rows": 13,
+  "issuer_current_profit_validity_changed_rows": 13,
+  "issuer_reason_changed_rows": 233,
+  "changed_months_by_field": {
+    "profit_improve_weight": 0,
+    "profit_deteriorate_weight": 0,
+    "profit_bounded_growth": 0,
+    "quarterly_loss_weight": 0,
+    "pair_coverage_weight": 12,
+    "current_profit_coverage_weight": 12
+  },
+  "new_unknown_barrier_reasons": "{('ASML', 'latest_reported_period_quarter_underivable'): 83, ('ASX', 'latest_reported_period_quarter_underivable'): 62, ('AVGO', 'latest_reported_period_quarter_underivable'): 3, ('NVMI', 'latest_reported_period_quarter_underivable'): 11, ('ONTO', 'latest_reported_period_quarter_underivable'): 3, ('STM', 'latest_reported_period_quarter_underivable'): 62, ('UMC', 'latest_reported_period_quarter_underivable'): 6, ('WOLF', 'latest_reported_period_quarter_underivable'): 3}",
+  "regression_tests": "4passed, including direct/foreign/YTDconflicts andunderivableannualnotfallback"
+}

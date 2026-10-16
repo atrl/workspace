@@ -1,0 +1,16 @@
+{
+  "recorder_id": "8dfa601e32db4c66b5f5b24fef91e4c7",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_quarterly_profit_diffusion_asml_inputs_20261016/qlib_recorder",
+  "nas_archive_sha256": "0c77249fcfb63068311665a78196c0a9b3357bba34a66880517245a9a1f9863a",
+  "artifact": "inputs/data_cache_files",
+  "file_manifest": "data_cache_manifest.json",
+  "literal_archived_files": 78,
+  "exact_cache_names": [
+    "etf_foreign_quarterly_intake_20261016",
+    "asml_quarterly_profit_source_20261016",
+    "etf_quarterly_profit_diffusion_inputs_20261016",
+    "etf_quarterly_profit_diffusion_asml_inputs_20261016"
+  ],
+  "restore": "Read bytes dictionary from nativeRecorder, verify each entry against data_cache_manifest.json, write only listed repository-relative paths. Current integration snapshot manifest is additionally retained as snapshot_manifest.json at card root. No financial recalculation is necessary.",
+  "upstream_recorders_mutated": false
+}

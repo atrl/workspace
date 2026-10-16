@@ -1,0 +1,17 @@
+{
+  "recorded_at": "2026-10-16T07:32:50.879347+00:00",
+  "original_plan_source": "research/etf_quarterly_profit_diffusion_inputs_20261016",
+  "bound_source": "research/etf_quarterly_profit_diffusion_asml_inputs_20261016",
+  "source_binding_sha256": "c87ac12b9ce3fdc748e7cdd237ffbb6d205ec6e39a487d42c64b8497c41ab912",
+  "change": "ASML primary quarterly USGAAP EUR channel completion before labels; preserved original source card",
+  "unchanged": [
+    "95percentcoverage",
+    "180dayfreshness",
+    "featuredefinitions",
+    "model",
+    "selection",
+    "cost/noaccountbudget"
+  ],
+  "labels_computed": false,
+  "model_fits": 0
+}

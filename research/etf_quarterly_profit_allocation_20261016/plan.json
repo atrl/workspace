@@ -1,0 +1,309 @@
+{
+  "experiment": "etf_quarterly_profit_allocation_20261016",
+  "design_frozen_at_utc": "2026-10-16T07:06:55.565962+00:00",
+  "state": "design_only_not_authorized_to_execute",
+  "information_result_available_at_design": false,
+  "scientific_identity": "Distinct decision-aligned quarterly-profit direct allocation. Existing family directutility is precedent, not a newly invented method. Does not trade failed annual Ridge or quarterly forecast outputs. Economic execution is NOT conditional on favorable forecast MSE.",
+  "mechanism": "New reported-quarter profit diffusion helps choose funded SOXL/SOXX/CASH exposure beyond identical market+reporting-timing context. Learning objective is directly monthly relative wealth utility; actual independent-cost raw-share accounts decide economic merit.",
+  "source_state": "Quarterly source currently being qualified separately. Bind exact eligible Recorder/provider hashes and pre-label mature row counts before execution; no source substitution based on information or portfolio results.",
+  "source_card": "research/etf_quarterly_profit_diffusion_inputs_20261016",
+  "sources": {
+    "raw_cashbook": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": [
+        "inputs/frame",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "inputs/plan",
+        "inputs/source_audits"
+      ]
+    },
+    "controller": {
+      "card": "research/full_path_tiered_allocation_20261013",
+      "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+      "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+      "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7",
+      "artifacts": [
+        "inputs/controller",
+        "inputs/plan"
+      ]
+    },
+    "action": {
+      "card": "research/stage1_minute_information_comparison_20261012",
+      "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+      "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+      "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+      "artifacts": [
+        "inputs/plan",
+        "controller/source_recovery_selection"
+      ]
+    },
+    "corporate": {
+      "card": "research/etf_corporate_actions_20261009",
+      "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+      "archive": null,
+      "inventory_sha256": "625ba522fbadc4377c87f56e4a241deca714cc556dbd7227b3f7e414d938a6f3"
+    },
+    "unit_qualification": {
+      "card": "research/raw_share_unit_cashbook_20261015",
+      "recorder_id": "30c103a97bd3485897dd3de6c7f7d60b",
+      "archive": "296a60c78db743b18b48c98b62808260306ecf4c3ab83d07cc714f47d6f415c0",
+      "inventory_sha256": "1454baea7d7207d711f75d5fb4ab6f06deec8a37a75be6c47abf40d7f621513f",
+      "artifacts": [
+        "analysis/summary"
+      ]
+    },
+    "precedent": {
+      "card": "research/family_balanced_direct_utility_training_20261015",
+      "recorder_id": "bc51d1c6a4644b1b8c9a1a455bd348c1",
+      "archive": "f821d592d8004c3efb43326766f97a4d532de4040c631a5dbacede1de961be5f",
+      "inventory_sha256": "86bf3ab768020982d4a8210e2bcdd1ef61c500880fe16c9cf953ce3a2b583c60",
+      "artifacts": [
+        "inputs/plan",
+        "sources/src__model__family_balanced_direct_utility.py"
+      ]
+    },
+    "additional_comparator_27baa": {
+      "card": "research/nvda_own_guidance_realization_training_20261015",
+      "recorder_id": "27baa03f0d3046d8b82408ecb6ca07e7",
+      "archive": "e5843be4a5dbd36c1f92c45755b63f1d1e8f8e7b4a6203112b539170e5d13471",
+      "inventory_sha256": "1dbc58bfe68e892867c42eb87cce506bb83acb3586671d3f252eb1f8d5171e38",
+      "artifacts": [
+        "analysis/targets",
+        "inputs/plan",
+        "inputs/frame"
+      ]
+    },
+    "primary_strong_reference_9097": {
+      "card": "research/causal_cost_scenario_controller_20261015",
+      "recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+      "archive": "1145b7788507c9f47fa5d7a3d9a8e3ecb706177e3870bef3e475f74bb5ddf5a3",
+      "inventory_sha256": "e741bc79560532a94344212d7831cbb673fb6e6d1c0807e2e39c18b18c477707",
+      "artifacts": [
+        "inputs/frame",
+        "inputs/plan"
+      ]
+    },
+    "prior_strong_RTH_risk": {
+      "card": "research/fullminute_frozen_position_risk_20261015",
+      "recorder_id": "5732aecd6e6148bbbb8706249006f46b",
+      "archive": "d3a842419f00d52864a8ad5317b543b3813d31a93af234c06d7f500128091af9",
+      "inventory_sha256": "b7b71da9ce3a768fe50638a1ff4231f53ecece264bd7733913fd20fec2fd55d1",
+      "artifacts": [
+        "analysis/risk_summary",
+        "analysis/summary"
+      ]
+    },
+    "pure_market_risk_context_9097": {
+      "card": "research/causal_cost_scenario_controller_20261015",
+      "recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+      "archive": "1145b7788507c9f47fa5d7a3d9a8e3ecb706177e3870bef3e475f74bb5ddf5a3",
+      "inventory_sha256": "e741bc79560532a94344212d7831cbb673fb6e6d1c0807e2e39c18b18c477707",
+      "artifacts": [
+        "inputs/frame",
+        "inputs/plan"
+      ]
+    }
+  },
+  "source_code_sha256": {
+    "src/model/family_balanced_direct_utility.py": "cc88fdbac64979f1cd072364bfa50a600a8e3c8e86b059592a9a0e491703671c",
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/model/nominal_beta_composition.py": "718cef532ebb9b009da84abfb64abdf1d0eaf23c7ac453243109e85abfdae258",
+    "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35"
+  },
+  "core_clocks": {
+    "signals": "Every completed Qlib monthend at16:15America/New_York",
+    "execution": "First next Qlib session09:47NY; raw quote represents next-minute09:48right-edge bar open when checking fullminute source",
+    "last_signal": "2026-06-30",
+    "common_account_start": "2024-01-02T09:47:00-05:00",
+    "common_terminal": "2026-08-03T09:47:00-04:00",
+    "monthly_references": 31,
+    "risk": "Preserve legacy daily09:45 known mark available09:46,09:47 rebalance,10:31 information then10:32 recovery,actualhalfday/sessionclose. Monthly reference is forward-filled daily; daily risk/rebalance may trade even without monthly target change. Not monthly-only fills.",
+    "year_fits": "2024/2025/2026 at preceding December actual lastsession16:15. Target maturity exit09:47 strictlybefore fit cutoff."
+  },
+  "features": {
+    "control": [
+      "soxx_logmom63",
+      "soxx_logvol63",
+      "soxx_drawdown126",
+      "relative_logvol21",
+      "known_profit_age_mean_days",
+      "holdings_age_days",
+      "pair_coverage_weight",
+      "current_profit_coverage_weight"
+    ],
+    "candidate_extra": [
+      "profit_direction_diffusion",
+      "profit_bounded_growth",
+      "quarterly_loss_weight"
+    ],
+    "same_market_nuisance_inputs": true,
+    "impute_scale": "Fit train-only median,mean,populationstd;std0\u21921;all-missing inactive0;clipstandardizedinputs[-8,8] as priorfamily utility. Same8commontransform statistics. No financialzero fill; candidatecoretarget equals matchedcontrol on unqualified evaluationmonths. Baselinemissing nuisance uses frozen trainmedian; marketabsence fails before fits."
+  },
+  "training_cohort": {
+    "signal_start": "2019-01-01",
+    "minimum_mature_qualified_rows_each_fold": 24,
+    "minimum_observed_training_entry_years": 2,
+    "selection": "Exactsame sourcequalified, complete-market, matured monthlyrows for botharms; annualexpanding with no validation hyperparameter selection. Require all3folds counts before labels/fits.",
+    "gaps": "Split selected trainingrows into maximal consecutiveentry-month episodes; each turnover surrogate episode startsallcash. Never stitch nonadjacent selectedmonths as consecutiveholding intervals. Include every eligible episode, no outcome-based window removal. Annualmeans pool all observedeligible months byentryyear, partialtrainingyears disclosed."
+  },
+  "model": {
+    "class": "New thin QlibModel LinearMonthlyBetaUtility, one affine logit (nohiddenlayer), fullbatch deterministic",
+    "parameters": "Control9(8weights+bias),candidate12(11weights+bias)",
+    "beta": "b=1.45*sigmoid(z). Rawlegal target: risky=min(b,.85);wL=max(0,(b\u2212risky)/2);wB=risky\u2212wL;wC=1\u2212risky. Hence rawwL<=.30,wC>=.15 and fundedlongonly.",
+    "composition": "Use same T as cancel_leverage_cash: d=min(wL,wC/2); T(w)=(wL\u2212d,wB+3d,wC\u22122d). Training uses T(w), not unexecuted simultaneousleveragedcash. Actualdaily package stillprojectsownriskcapthenT.",
+    "initialization": "Allcommonandnewfeatureweights exactly0; bias log(1/.45), hence b=1 and T(w)=(0,1,0). Candidateidenticalinitialoutputto control on anyinput; no seeds selected. CPUfloat32 deterministicfullbatch.",
+    "optimizer": "AdamW lr=.002 weight_decay=.08,300epochs,gradnormclip2; finalepochonly; no earlystop/checkpoint selection or alternative penalties.",
+    "new_fits": 6,
+    "candidate_variants": 1
+  },
+  "training_labels_and_objective": {
+    "returns": "At fixed monthly09:47 endpoints derive perETF one-unit physical split-adjusted capital growth plus ex-date cash entitlement held without reinvestment, from sameQlibrawquotes and qualifiedcash/split source. EndingNAV includes receivables; no futuremonthlysourcefeature. No published-adjusted price label fallback.",
+    "turnover": "Pure differentiable monthly surrogate: after priorw, risky values are w_i*capital_growth_i; cash/NAV remainder wC+sum(w_i*income_yield_i). Normalize by totalwealth; risky tradednotional is sum abs(newT(w)_risky\u2212driftedrisky). Episodeinitialstate allcash. This corrects dividend-to-cash drift; delayedspendability/integerfills/exactfees are evaluated only in nativeaccounts.",
+    "return_proxy": "r_m=sum(T(w_m)[:2]*monthlyETFtotalreturns_m)\u2212.001*turnover_m. Frozen10bp trainingcostproxy, not exactIBKRfees.",
+    "objective": "u_y=mean_over_eligible_months_in_entry_year(log1p(clamp(r_m,min=\u2212.95))\u2212log1p(rawSOXXtotalreturn_m)). L=\u2212mean_y(u_y)+.50*std_y(u_y,unbiased=False)+.006*mean_month(turnover). Units are monthly meanlog utility; NO12or\u221a12factor in optimization. Trainingclampcounts recorded; invalidassetreturn<=\u22121 fails.",
+    "controller_mismatch": "Fixed statefulshorttermrisk/recovery NOT differentiated or simulatedinside training. No risklabels inserted. Post-T monthlyutility is an explicit surrogate; daily riskcaps, repeateddaily rebalancing, integercashfunding,receivables andexactfees canoverturn it. Actualaccountgates mandatory regardless trainingloss or informationMSE."
+  },
+  "accounts": {
+    "families": [
+      "quarter_profit_candidate",
+      "matched_market_timing_control",
+      "frozen_primary_strong_9097",
+      "additional_27baa_comparator",
+      "raw_SOXX_buy_once"
+    ],
+    "costs_bps": [
+      0,
+      2,
+      5
+    ],
+    "initial_cash_each": 100000,
+    "new_raw_paths": 15,
+    "new_native_validations": 15,
+    "coupled_packages": 5,
+    "reset": "Allfamilies/allcosts fresh100k cash,noholdings/receivables,peak100k,riskstate0,riskclock0,historyempty,feeledgerempty atsamecommonstart. No slicing/rebasing oldrunningNAV.",
+    "strong": "Primary fixedmarket9097 rawtarget stream (RID9097b0d6baae44b792ba7f7ec3e48d0b) is predeclared. Its prioraffine-state fullRTH risk cardRID5732aecd6e6148bbbb8706249006f46b bounded0/2/5bp DDupper at26.9972/27.0554/27.1351percent underoldsourceassumptions; thatdoesNOTqualifynewraw2024reset. Fresh same100k/rawCA/RTHrisk qualification required. No retraining.27baa frozen dailyallocation is anadditional economiccomparator, not presumedriskqualified andnotrequiredqualified-stronggate. No postresultreplacementofprimary.",
+    "SOXX": "Buy maximumaffordablewholeSOXXshares once at commonstart, owncosts; thenholdphysicalshares/splits andcashreceivables,noDRIP.",
+    "policy_reuse": "Use replay_raw_package unchanged fordailyprojected/Ttargets, allcost commonminimumcap andallcostrecoveryconsensus. Carry newmonthlyrawtarget untilnextmonthlyentry. Candidate/control explicitly copy the10whitelisted riskcontextfields from9097 afterexactsignal/trade/exit equality; neverinherit27baa probabilities fromraw_cashbook frame. Physicalprices fromraw_points. Primary9097 ownfrozenweights/context;27baa ownfrozenweights/context. Candidateunqualifiedmonth usescontrolreferenceweights butitsownNAV/riskstate remainsindependent.",
+    "CA": "Rebuild make_schedule from pinned originalcash/split events for newcommonstart (not sliceoldpayevents whoseentitlements predate start). Exactrawshares+C+R NAV, onlyspendableC fundsbuys, receivablepaymentrule nextsessionafterpay, grossUSD/noDRIP inheritedresearchcontract. Terminalbeforeorders, unliquidatedNAV includesunpaidR.",
+    "tariff": {
+      "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+      "tiers": [
+        {
+          "through_shares": 300000,
+          "per_share": 0.0035
+        },
+        {
+          "through_shares": 3000000,
+          "per_share": 0.002
+        },
+        {
+          "through_shares": 20000000,
+          "per_share": 0.0015
+        },
+        {
+          "through_shares": 100000000,
+          "per_share": 0.001
+        },
+        {
+          "through_shares": null,
+          "per_share": 0.0005
+        }
+      ],
+      "minimum_per_order": 0.35,
+      "maximum_order_fraction": 0.01,
+      "venue_per_share": 0.003,
+      "venue_subdollar_fraction": 0.003,
+      "clearing_per_share": 0.0002,
+      "clearing_maximum_fraction": 0.005,
+      "sec_sale_fraction": 2.06e-05,
+      "taf_per_sold_share": 0.0,
+      "taf_maximum_per_trade": 9.79,
+      "cat_per_share": 3e-06,
+      "commission_pass_through_fraction": 0.000735,
+      "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+      "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+      "fractional_share_fills": false,
+      "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+    },
+    "native": "native_raw_validate independently replays prescribedphysicalorders withown RawCashPosition/IncomeLedger andexactfees; verifyeverypoint/nativeorder/terminalNAV. Parentrawprovider hasfollowingpointguard afterterminal;guardexcludedfrommetrics."
+  },
+  "gates": {
+    "all_costs": "Candidatewealth>samecostSOXX,matchedcontrol,andpredeclaredprimary9097 by1e-8; closingandsampledpointMaxDD<=30%; CVaR5 no worseSOXX; completecalendartrade-years2024/2025positiveexcessfraction>=.70; allcontiguous126trading-daywindowpositiveexcessfraction>=.70. Partial2026separate. Preserveallannual/quarter/windowtables. Qualifiedstronggate additionallyrequiresfreshraw/RTHprimary9097risk<=30; ifprimaryfailsrisk,thisfixedexperimentcannotclaimqualifiedstrongcomparison andcannotreplaceitwithweakerpeer.27baawealth/riskdifferencesdescriptive only.",
+    "bootstrap": "Jointdaily pairedlogexcess stationaryblocksmean63,2000,seed20261014,lowerone-sidedalpha=.025/3>0 versusSOXX/control/primary9097, all0/2/5. Samebootstrapdates acrossbooks; no confidenceuntilpassing.27baa not anadditionalpromotiontest.",
+    "multiplicity_ledger": [
+      "completed fixedannualforecastinformation",
+      "independent quarterlyprofitforecastinformation",
+      "thisindependent quarterlyprofitdirectallocation"
+    ],
+    "risk_fullminute": "If coarseeconomicgates fail, closefixedpackagewithout furtherfullminute tuning. Ifcoarsegates pass, revalueall15savedpositionson pinnedactualrawNone fullminuteOHLC; use stateevent q,C,R andcorporateactioneffectivebefore09:30, fills09:47/10:32. ObservedDD>30reject; conservativeOHLCenvelopeDD<=30qualifiesunderassumptions; unresolvedintraminuteordering remainsneedsriskdata, never green. Existing affine-only holding_events/value_path are not directlycompatible withrawCA ledger. Candidate and primary9097 both require newriskqualification; oldprefix/sampled proofs nevertransfer. Failureofprimaryrisk is explicitno_qualified_preregistered_strong_reference, not permissiontoselectanotherpeer.",
+    "forward": "No promotion from reusedhistory. Source/PITassumptions andindependentforwardqualificationremain separate; stableexcessgoalnotcomplete."
+  },
+  "fullminute_source": {
+    "minute_source_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+    "minute_source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+    "as_of": "2026-10-09"
+  },
+  "implementation_changes": [
+    "src/model/monthly_profit_utility.py: tinyQlibModel+sharedinitialization+fixedmonthlyutility/episodeturnover",
+    "src/workflow/quarterly_profit_allocation.py: source-countbinding beforelabels,fixed6fits, monthly-to-daily rawtargets,15raw/nativebooks,slimRecorder",
+    "one targeted rawCA fullminute valuation adapter only if coarsegatespass; no newgeneralplatform"
+  ],
+  "focused_validation": [
+    "source/clocks/cohort/pairedsharedinit before fits",
+    "hand-checkedpost-Tbeta/simplex and cash-dividend monthlydrift/regression (one materialcontracttest)",
+    "Explicit9097probability/firsthourcontext overwrite on exactdatekeys, reject27baa leakage evenwhenraw_cashbook frame probability columns differ",
+    "candidatefallback reference equalscontrol on unqualifiedmonths, no oldannualpredictions imported",
+    "all15freshcash/nativefee/order/CA reconciliations; no reuseoldNAV asfreshhistory",
+    "executeprimarynotebook; independentdesign/resultreview; exactGitstaging byroot"
+  ],
+  "execution_permission": "NO fits,inference,labelcalculation,accounts,orpriceoutcomecomputation authorized by thisdraft. Require independentdesignreview plus sourcebinding/count/implementationidentity approval. Quarterlyinformation result must not decide whether to run thisfixed economicexperiment.",
+  "pre_execution_reference_amendment": {
+    "prior_draft_sha256": "3377836803d5f58f450acbeb8a87003e9357ca939e5ab16d80e34751d9df6da8",
+    "frozen_at_utc": "2026-10-16T07:09:53.180613+00:00",
+    "reason": "Predeclare9097primary with actualpriorRTHqualification lineage,27baaadditionalonly; freshraw2024qualificationrequired. Initialdraft27baaqualified-reference assumption withdrawn beforeexecution.",
+    "quarter_information_summary_exists": false,
+    "price_outcomes_computed": false
+  },
+  "daily_risk_context_contract": {
+    "date_keys": [
+      "signal_date",
+      "trade_date",
+      "exit_date"
+    ],
+    "context_source": "sources.primary_strong_reference_9097 inputs/frame, RID9097b0d6baae44b792ba7f7ec3e48d0b",
+    "required_9097_columns": [
+      "alpha_probability",
+      "tail_probability",
+      "early_ret_soxl",
+      "early_ret_soxx",
+      "early_range_soxl",
+      "early_range_soxx",
+      "early_from_low_soxl",
+      "early_from_low_soxx",
+      "early_volume_soxl",
+      "early_volume_soxx"
+    ],
+    "construction": "Start with explicitdatekeys/physicalrawpointsource, assert fullarray dateequality with9097 before commonsubset. Copy exactly required9097contextcolumns, then newmonthlyweights. At minimum overwritealpha_probability andtail_probability explicitly from9097; raw_cashbook inputs/frame originates27baa andmustneverbeassumedpuremarket. Allcandidate/control contextcolumn values andsourcehashes mustmatch9097 exactly. Noother27baa/annualvaluation/quarterforecast fields admitted.",
+    "allocation_columns": [
+      "soxl_weight",
+      "soxx_weight",
+      "cash_weight"
+    ],
+    "family_sources": "Candidate/control use9097context; primary9097 keepsitsownweights+probabilities; additional27baa usesitsownfrozenweightsandownalpha/tail fromitsRecorder. No strong-model retraining or syntheticclassifierprobabilities. Rawexecutionprices/CA schedules identical acrossall15accounts.",
+    "evidence": "Persistfieldwhitelist,fullmatched-dateaudit,per-columnsourcehashes,sourceRecorder IDs andfinalframecolumns. Regressionfixture must make27baa probabilities differ toproveexplicitoverwrite."
+  },
+  "pre_execution_context_amendment": {
+    "prior_draft_sha256": "371636ceefcdbd0ad99f49944e85ddf6416c06c401daf7734843ef3cc0e030fe",
+    "frozen_at_utc": "2026-10-16T07:18:24.221429+00:00",
+    "reason": "Sourcecode inspection provedraw_cashbook frameorigins27baa; explicit9097 riskcontextwhitelist required. Profitmechanism labelled reported-quarter, notuniformparent, becausechannels preserveconsolidated-USGAAP/Taiwanparent identities.",
+    "quarter_information_summary_exists": false,
+    "outcomes_computed": false
+  }
+}

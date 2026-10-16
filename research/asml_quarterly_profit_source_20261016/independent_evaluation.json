@@ -1,0 +1,28 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T07:24:32.476246+00:00",
+  "decision": "accepted_ASML_continuous_quarter_research_source",
+  "plan_sha256": "6696f6a96f5c990552ffb5850f0c5a14f6c67fd444152e26dbdc89347dc89138",
+  "recorder_id": "04076f786d8541c385464059f79949e4",
+  "manifest_sha256": "f7d330b86330a6b53c9fde4f7d14794301e29222b80d550a1690bda88144a14d",
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "valid_requests": 38,
+    "original_statement_documents": 35,
+    "target_quarters": 34,
+    "canonical_vintages": 64,
+    "all_period_start_anchors_available_by_release": true,
+    "all_true_fiscal_quarter_durations_60_to110days": true,
+    "USGAAP_EUR_channel_preserved": true,
+    "source_precision_eur": 100000,
+    "qlib_rows": 2198
+  },
+  "accepted_for": "Scoped sameissuer/channel YoYquarterlyprofit research and frozenbasketdiffusion sourcecompletion.",
+  "limitations": [
+    "Reportedconsolidatednetincome isnot automatically IFRS orparent-attributable income.",
+    "Nominalcalendarquarter iscoverage label only; truefiscalperioddates retained.",
+    "Originalvalues roundedto0.1millionEUR; differences mayreflectreportedprecision.",
+    "No prices/FX/targets/models orsourcealphaqualification fromthiscard."
+  ],
+  "promotion_authorized": false
+}

@@ -1,0 +1,46 @@
+{
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/etf_foreign_quarterly_intake_20261016",
+  "market": "all",
+  "region": "us",
+  "freq": "day",
+  "as_of": "2026-10-16",
+  "source": "etf_foreign_quarterly_intake_20261016",
+  "instruments": [
+    "TSM_TAIWAN_IFRS",
+    "UMC_TAIWAN_IFRS"
+  ],
+  "fields": [
+    "$annual_parent_income_twd",
+    "$annual_period_day",
+    "$annual_age_days",
+    "$annual_known",
+    "$quarter_parent_income_twd",
+    "$quarter_period_day",
+    "$quarter_age_days",
+    "$quarter_known"
+  ],
+  "calendar_start": "2018-01-02",
+  "calendar_end": "2026-10-15",
+  "max_datetime": "2026-10-15",
+  "row_count": 4418,
+  "feature_file_count": 16,
+  "audit_snapshot_hash": "3de6c8989b745dfb",
+  "operation": "qlib_store_build",
+  "status": "ok",
+  "hash": "74d49567962e8c66",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "information_only": true,
+  "not_trading_prices": true,
+  "numerator": "Taiwan_IFRS_parent_attributable_income_TWD",
+  "source_calendar_provider": "data/qlib/soxl",
+  "calendar_last": "2026-10-15 00:00:00",
+  "availability": "next_Qlib_session_after_publication_local_date; canonical_actual_SEC_timestamp_retained",
+  "quantization": "Qlib float32; canonical Recorder events float64",
+  "source_plan_sha256": "470279d51480eed1bfd5d02e40a585dd156f0f73119b2a7ab5408e7aaa03fab2"
+}

@@ -1,0 +1,10 @@
+experiment: etf_quarterly_profit_diffusion_inputs_20261016
+plan: plan.json
+module: src.data.etf_quarterly_profit_diffusion
+provider_uri: data/qlib/etf_quarterly_profit_diffusion_inputs_20261016
+source_calendar: data/qlib/soxl
+region: us
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: [inputs/*, analysis/monthly_features, analysis/issuer_quarter_pairs, analysis/qlib_readback, sources/*]

@@ -1,0 +1,25 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T06:44:03.979778+00:00",
+  "decision": "approved_for_execution",
+  "plan_sha256": "6696f6a96f5c990552ffb5850f0c5a14f6c67fd444152e26dbdc89347dc89138",
+  "scope": "CompleteASML2018Q1–2026Q2quarterlyreportedprofit sourceevents; no price/outcomes/models.",
+  "bounds": {
+    "max_HTTP_attempts": 120,
+    "max_attempts_per_URL": 2,
+    "workers": 3,
+    "request_wallclock_seconds": 180,
+    "new_fits": 0,
+    "new_accounts": 0
+  },
+  "required_checks": [
+    "Alltargetquarters examined, notonlymonthsneededtopass24rowcount.",
+    "USGAAP EURreportednetincome hasexactconcept/methodidentity; noautomaticIFRS,parentincome orEPS equivalence.",
+    "Statementheaders mustresolvequartervsYTD andmillion/thousandEURscale; preserveprecision androunding.",
+    "Comparatives retain actual laterpublication; no periodend backdating or historicalreplacement.",
+    "MonetaryYTD differences only samecurrency/concept/accountingbasis andcompatiblefiscalstart; noEPS subtraction.",
+    "SECacceptance timezone retained andnextsession eligibility explicit; missingcalendar unassigned.",
+    "Sourceevents can qualifydeclaredresearchproxy withoutproductionPIT certification; final95coverage/180freshness quarterlydiffusion gates stayfixed."
+  ],
+  "promotion_authorized": false
+}

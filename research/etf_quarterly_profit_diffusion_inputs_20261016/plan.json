@@ -1,0 +1,102 @@
+{
+  "experiment": "etf_quarterly_profit_diffusion_inputs_20261016",
+  "frozen_at": "2026-10-16T06:22:25.944316+00:00",
+  "scope": "new source-only industry reported-quarter profit diffusion across PITdisclosedSOXXbasket; zero marketoutcomes/models/accounts",
+  "sources": {
+    "facts": {
+      "card": "research/etf_pit_fundamentals_repair_20261016",
+      "recorder_id": "1e947608d2f64491a754d576814e9165",
+      "experiment_id": "492553231561774143",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_pit_fundamentals_repair_20261016/qlib_recorder",
+      "summary_sha256": "c3f262970bc64aa735ea8191c943a75ca56b4276394f783caa1cd51611d5585c",
+      "verification_manifest_sha256": "8ee3d7fc75f2f2e50d587e40c387a367dd7ec7983940e6049bea837b3b937054",
+      "nas_archive_sha256": "5aeff2e680628d614d23e85cb2a0877f64d48dbb362d89404949d94a2a117119"
+    },
+    "foreign": {
+      "card": "research/etf_foreign_quarterly_intake_20261016",
+      "recorder_id": "66f16a3c3d4a414e8b11a3584c3b5478",
+      "experiment_id": "709187719918387477",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_foreign_quarterly_intake_20261016/qlib_recorder",
+      "summary_sha256": "6f9e0650ba40d19a9bcc4b33fc66103854470777ef50826eac9b564b2524ce77",
+      "verification_manifest_sha256": "80a55d3c819b1e1aaaf4d26a588a341d175b50fc11bffb118e7d0f8c5439e377",
+      "nas_archive_sha256": "ffa9519839e6e5d9cef4ab29bb5e1adcf6e0b666eb6fb0b75c6b476eaa253107"
+    }
+  },
+  "source_calendar": "data/qlib/soxl",
+  "start": "2019-01-01",
+  "as_of": "2026-10-16",
+  "month_selection": "all complete exchange months before finalcalendar month; monthend16:15America/New_York, retainmissingholdings and all sourcequalification rows",
+  "holdings_source": "factsRecorderinputs/holdings",
+  "holdings_policy": "eligibleonlynextQlibsessionafterfiling_date; selectlatesteligibleeconomicreportdate thenlatesteligiblefiling; no oldreportrewind; useweight_pct/100 unrenormalized",
+  "identity_policy": "sameexistingdisclosedbasketidentity: MRVLreportdatebefore2021-04-20 uses1058057, later1835632; no crossCIKYoY; CREE/WOLF895419historicalonly; recordallmappinglimitations",
+  "quarter_source": {
+    "TSM_UMC": "foreignRecorderanalysis/events, Taiwan_IFRS_attributable_to_parent_TWD; existingcanonicalfinancialquartervintages andsamebasisQ4",
+    "other_issuers": "factsRecorderanalysis/facts; monetaryus-gaapNetIncomeLoss,us-gaapProfitLoss,ifrs-fullProfitLoss separately; never mislabeledparent",
+    "currency_priority": {
+      "ASX": "TWD",
+      "ASML": "EUR",
+      "STM": "USD",
+      "ARM": "USD",
+      "NVMI": "USD",
+      "NXPI": "USD",
+      "default": "USD"
+    },
+    "availability": "companyfactsfiled date -> nextQlibsession09:30NY; exactforeignaccepted time retainedbut useexistingnextsessioneligibilityforcoherence; nofuturevintage",
+    "vintage": "latestknownfilingvalue perCIK/taxonomy/tag/currency/start/end; conflictinglatestdatevaluesmakeperiodunknown",
+    "direct_quarter_duration_days": [
+      60,
+      110
+    ],
+    "derived_quarter": "samefiscalstart/samechannel longerYTDorannual minusshorterYTD; exactnonoverlap resultingduration60..110days; requirelongerandshorterknown; neverEPSsubtraction",
+    "derived_total_duration_days": [
+      120,
+      380
+    ],
+    "preference": "latestcompletedquarterendfirst, fixedtagtieNetIncomeLoss thenusProfitLoss thenifrsProfitLoss; directquarterpreferred overderivedsameperiod; latestknownversions; do notfall backolderquartertoimprovecoverage",
+    "method_scope": "CIK+taxonomy/tag+profit_scope+currency+accounting_basis defineschannel; no channelbridges"
+  },
+  "comparison": {
+    "previous_same_quarter": "samechannel, endgap350..380days and durationdifference<=7days; nearestendgap365thennearestduration; ambiguousdifferentvaluesunknown",
+    "bounded_growth": "(q-q_prior_year)/(abs(q)+abs(q_prior_year)); exact0onlyifbothreported0; signedlossesretained",
+    "improve": "q>q_prior_year",
+    "deteriorate": "q<q_prior_year",
+    "loss": "latestcompletedquarterq<0"
+  },
+  "freshness": {
+    "max_current_quarter_age_days": 180,
+    "age_basis": "monthenddate minuslatestcompletedquartereconomicperiodend",
+    "stale_quarters": "retainedindiagnostics, excludedcoverage; neverreplacewitholderquarter"
+  },
+  "coverage": {
+    "pair_weight_min": 0.95,
+    "denominator": "totalfundweights notknownbasket renormalization",
+    "missing_current_or_prior": "unknown; recordweight separately; rawknowncontributions arelowerpartialtotalsnotmodel-readyzeroimputation"
+  },
+  "features": [
+    "profit_improve_weight",
+    "profit_deteriorate_weight",
+    "profit_bounded_growth",
+    "quarterly_loss_weight"
+  ],
+  "feature_gate": "all4NaNunlesspaircoverage>=.95; lossusesallfreshcurrentknownprofitweights, mayincludeissuersmissingYoY",
+  "diagnostics": [
+    "pair_coverage_weight",
+    "current_profit_coverage_weight",
+    "stale_profit_weight",
+    "known_profit_age_mean_days",
+    "max_profit_age_days",
+    "holdings_age_days",
+    "eligible"
+  ],
+  "source_only_contract": "noFX/ADR/sharesneeded forsameissuerunit comparison; noaggregatednetdollarincome; no price or labelreads",
+  "dedup": {
+    "semiconductor_breadth_20261005": "closedweightedprice/newlow/correlationmechanism, notreportedfinancialquarterprofit",
+    "constituent_breadth_source_20261014": "pricepositive5session/newlow20session diagnostic, notreportedprofit",
+    "tsmc_yoy_acceleration_5session_information_20261010": "closedsingleTSMmonthlysalesacceleration, notallissuerquarterprofit",
+    "etf_annual_valuation_information_20261016": "failedannualvaluationleveldesign staysclosed; newinputhasnoprices/shares/EPlevel orrank"
+  },
+  "new_http_requests": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "stop_rule": "one source construction andqualification; nooutcome-basedtuning orthresholdsearch; failedcoverage doesnotblockoverallgoal"
+}

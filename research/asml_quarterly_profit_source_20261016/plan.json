@@ -1,0 +1,53 @@
+{
+  "experiment": "asml_quarterly_profit_source_20261016",
+  "frozen_at": "2026-10-16T06:43:35.317303+00:00",
+  "scope": "completeASMLquarterlyreportednetincomeEUR2018Q1\u20132026Q2sourcecompletion, no prices/FX/shares/targets/models",
+  "cik": 937966,
+  "ticker": "ASML",
+  "period_start": "2018-01-01",
+  "period_end": "2026-06-30",
+  "as_of": "2026-10-16",
+  "source_authorities": [
+    "SECsubmissionsandarchivedsubmissionJSON",
+    "SECfulltextCIK-scoped6Kquarterlyfinancialresults",
+    "exactSECaccessionprimaryHTMLexhibits"
+  ],
+  "selection": "allidentifiedquarterlyearningsreleases/financialstatementsfortargetperiods; nofinancialgrowthorreturnselection; preferUSGAAPEURreportednetincome, IFRSandparentconceptseparate",
+  "max_http_requests": 120,
+  "transport": {
+    "compressed": true,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 180,
+    "max_workers": 3,
+    "max_attempts_per_url": 2,
+    "all_attempts_count": true
+  },
+  "no_complete_SGML": true,
+  "canonical_fields": [
+    "ticker",
+    "cik",
+    "period_start",
+    "period_end",
+    "period_kind",
+    "value",
+    "currency",
+    "profit_concept",
+    "accounting_basis",
+    "filed",
+    "accepted_at",
+    "available_at",
+    "eligible_session",
+    "accession",
+    "source_url",
+    "source_sha256",
+    "source_row",
+    "source_precision"
+  ],
+  "availability": "actualSECacceptancetimestampretained; nextQlibsession09:30NYconservativeeligibility for monthlysource; no periodend availability",
+  "quarter_accounting": "directactualquarterprofitpreferred; compatibleYTDmonetarydifferenceonlysamebasis/currency/concept, noEPSsubtraction; preservecomparativevintages withlaterpublication",
+  "scope_boundary": "no mixingUSGAAPwithIFRSorimplicitparentattribution; annualEPSnotquarterNI; no marketdataoroutcomereads",
+  "reuse": "existing47companyfactsandmetadata mayguideidentity, no refetchvalidcachedURL",
+  "new_fits": 0,
+  "new_accounts": 0,
+  "followup": "integrate as explicitnewASMLchannel into separatelyreviewed quarterlydiffusion source revision; 95coverage/180freshnessunchanged; no expansiontootherissuers inthisplan"
+}

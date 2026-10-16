@@ -1,0 +1,13 @@
+experiment: etf_quarterly_profit_information_20261016
+plan: plan.json
+module: src.workflow.quarterly_profit_information
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - sources/*
+  - models/*
+  - analysis/monthly_scores
+  - analysis/bootstrap_indices
+  - analysis/bootstrap_replicates

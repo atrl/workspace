@@ -1,0 +1,74 @@
+{
+  "experiment": "etf_quarterly_profit_diffusion_asml_inputs_20261016",
+  "explicit_additional_channels": [
+    "ASML_USGAAP_EUR"
+  ],
+  "data_cache_bundle_artifact": "inputs/data_cache_files",
+  "data_cache_file_count": 78,
+  "construction_version": 4,
+  "supersedes_recorder_id": null,
+  "correction": "latest_quarter_conflict_and_underivable_YTD_unknown_barriers_and_explicit_0930NY_clock",
+  "decision": "quarterly_profit_diffusion_constructed_source_qualification_reported",
+  "objective_achieved": false,
+  "new_http_requests": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_target_series": 0,
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "monthly_rows": 93,
+  "eligible_months": 79,
+  "first_month": "2019-01-31",
+  "last_month": "2026-09-30",
+  "first_eligible_month": "2019-11-29",
+  "last_eligible_month": "2026-08-31",
+  "issuer_month_rows": 2490,
+  "valid_issuer_pairs": 2335,
+  "pair_coverage_min": 0.0,
+  "pair_coverage_max": 0.9985873153754701,
+  "fields_not_written_because_all_null": [],
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016",
+  "canonical_monthly_path": "/Users/rziiiii/dev/workspace/data/snapshots/etf_quarterly_profit_diffusion_asml_inputs_20261016/monthly_features.parquet",
+  "region": "us",
+  "market": "SOXX_QUARTER_PROFIT_DIFFUSION information instrument",
+  "as_of": "2026-10-16",
+  "plan_sha256": "01fbe28642729b154d9572ba2c9f210d8c369fd07d50d135e02c6c02d856b85e",
+  "recorder_id": "8dfa601e32db4c66b5f5b24fef91e4c7",
+  "experiment_id": "217148083278995308",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_quarterly_profit_diffusion_asml_inputs_20261016/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_quarterly_profit_diffusion_asml_inputs_20261016/qlib_recorder/217148083278995308/8dfa601e32db4c66b5f5b24fef91e4c7",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/monthly_features",
+      "analysis/issuer_quarter_pairs",
+      "analysis/qlib_readback",
+      "sources/*"
+    ]
+  },
+  "boundaries": [
+    "Reported lagged basket, not current legal portfolio; MRVL transition flagged",
+    "Consolidated profit channels not relabeled parent NI; Taiwan parent channels separate",
+    "No currency conversion or net monetary aggregation; same-channel dimensionless YoY only",
+    "180day freshness and95pct paircoverage gates unchanged; missingmonths retained",
+    "Known current-profit coverage differs paired coverage; loss uses freshcurrentknown profits",
+    "Historical source vintages are development inputs, not new independent market evaluation"
+  ],
+  "nas_evidence": {
+    "sha256": "0c77249fcfb63068311665a78196c0a9b3357bba34a66880517245a9a1f9863a",
+    "size_bytes": 339327,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/0c/77/0c77249fcfb63068311665a78196c0a9b3357bba34a66880517245a9a1f9863a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 15:30:36.019095+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/0c/77/0c77249fcfb63068311665a78196c0a9b3357bba34a66880517245a9a1f9863a",
+    "recorder_id": "8dfa601e32db4c66b5f5b24fef91e4c7",
+    "experiment_id": "217148083278995308",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,0 +1,10 @@
+experiment: asml_quarterly_profit_source_20261016
+plan: plan.json
+module: src.data.asml_quarterly_profit
+provider_uri: data/qlib/asml_quarterly_profit_source_20261016
+source_calendar: data/qlib/soxl
+region: us
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: [inputs/*, analysis/events, analysis/raw_events, analysis/information_state, analysis/qlib_readback, sources/*]

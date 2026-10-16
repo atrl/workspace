@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/etf_pit_ttm_tag_coverage_20261016",
-  "current_phase": "source_construction_delivered_monthly_model_not_started",
-  "next_action": "Complete foreign quarterly original-document ingestion (same-quarter SEC6-K or accessible official transport), then whole-basket earnings attribution/share/ADR/FX/nominal-price implementation and qualified monthly snapshots. Current80public-basket months yield23candidate95pct income months, at most18prior60-month candidates versus36rank requirement; do not lower the gate to force a fit. Two-issuer original annualEP pilot qualifies only its164rows, notETF orTTM. Freeze monthly paired model and segments after inputs qualify. Original scientific target remains unmet; no overallblocked/complete inference.",
+  "current_experiment": "research/etf_quarterly_profit_allocation_20261016",
+  "current_phase": "quarterly_information_failed_separately_preregistered_direct_allocation_implementation",
+  "next_action": "Complete independently preregistered direct quarterly-profit utility experiment: frozen6fits/15freshbooks, same9097riskcontext, physicalrawlabels, source/count/codeapproval then0/2/5bp economic/risk/stability gates. Forecast package remainsclosed; no retuning and no implication stableexcess achieved.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1230,6 +1230,43 @@
       "new_native_accounts": 0,
       "qualified_ETF_monthly_rows": 0,
       "qualified_two_issuer_annual_EP_rows": 164
+    },
+    {
+      "card": "research/etf_foreign_quarterly_intake_20261016",
+      "kind": "continuous_foreign_parent_income_source",
+      "status": "continuous_parent_income_source_reconstructed_research_proxy",
+      "recorder_id": "66f16a3c3d4a414e8b11a3584c3b5478",
+      "evaluation": "research/etf_foreign_quarterly_intake_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "quarters_per_issuer": 34,
+      "canonical_event_vintages": 255
+    },
+    {
+      "card": "research/etf_annual_valuation_information_20261016",
+      "kind": "paired_monthly_annual_valuation_information",
+      "status": "completed_not_promoted_fixed_information_version",
+      "recorder_id": "50e5ce9c48b94216aa1e66649a509e87",
+      "evaluation": "research/etf_annual_valuation_information_20261016/independent_evaluation.json",
+      "new_fits": 6,
+      "new_native_accounts": 0,
+      "evaluation_months": 31,
+      "paired_normalized_MSE_improvement": -0.18188343234227902,
+      "gates": {
+        "pooled_improvement_positive": false,
+        "bootstrap_lower_positive": false,
+        "complete_year_70pct": false
+      }
+    },
+    {
+      "card": "research/etf_quarterly_profit_information_20261016",
+      "kind": "paired_monthly_quarterly_profit_information",
+      "status": "not_promoted_fixed_quarterly_profit_information",
+      "recorder_id": "e5cddbe95c994b93ae60b8475ec9abc4",
+      "new_fits": 8,
+      "new_accounts": 0,
+      "evaluation_months": 43,
+      "independent_forward": false
     }
   ],
   "governance_review": {
@@ -1246,7 +1283,7 @@
     "promotion_eligible": false,
     "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
   },
-  "cumulative_new_fits_in_this_campaign": 67,
+  "cumulative_new_fits_in_this_campaign": 81,
   "cumulative_new_native_accounts_in_this_campaign": 42,
   "rejected_directions": [
     {
@@ -1271,7 +1308,7 @@
   ],
   "cumulative_new_shadow_paths_in_this_campaign": 36,
   "cumulative_new_allocator_fits_in_this_campaign": 27,
-  "cumulative_new_statistical_fits_in_this_campaign": 40,
+  "cumulative_new_statistical_fits_in_this_campaign": 54,
   "cumulative_frozen_risk_valuations": 6,
   "mechanism_triage": {
     "document": "docs/composition_execution_contract_triage.md",
@@ -1378,5 +1415,33 @@
     "automatic_continuation_asserted": false,
     "production_changed": false,
     "execution_state": "all_current_turn_jobs_finished_no_background_model_training"
+  },
+  "continuation_20261016": {
+    "user_requested_continue": true,
+    "primary_method": "signed_disclosed_basket_annual_EP_v1 (annualparentincome/laggedreportedshares-basedmarketcap, researchproxy)",
+    "ttm_role": "separatefutureinformationcondition_not_best-performing_candidate_selection",
+    "rank_policy": "36/60rank optional; unknownrank doesnot invalidate qualifiedunrankedEP orlossweight; missinggrowth handledseparately",
+    "frozen_information_plan": "research/etf_annual_valuation_information_20261016/plan.json",
+    "source_count_observations": "research/etf_annual_valuation_information_20261016/source_count_observations.json",
+    "return_labels_read": true,
+    "market_fits": 6,
+    "active_roles": {
+      "direct_allocation_executor": "/root/attribution",
+      "quarterly_source_executor": "/root/sources",
+      "independent_evaluator": "/root/evaluator",
+      "information_executor_owner": "/root"
+    },
+    "annual_information_status": "not_promoted_fixed_annual_valuation_information",
+    "next_mechanism": "quarterly reported-profit diffusion and loss breadth across then-disclosed basket, not annualvaluation-level retuning",
+    "annual_delivery_commit": "9bbc01fd",
+    "annual_failure_attribution": "research/etf_annual_information_attribution_20261016",
+    "quarterly_information_plan": "research/etf_quarterly_profit_information_20261016/plan.json",
+    "direct_allocation_plan": "research/etf_quarterly_profit_allocation_20261016/plan.json",
+    "direct_allocation_conditioned_on_favorable_information_MSE": false,
+    "quarterly_analysis_registry": "research/etf_quarterly_profit_information_20261016/analysis_registry.json",
+    "new_quarterly_fits": 8,
+    "new_quarterly_accounts": 0,
+    "current_execution": "Quarterlyinformation8fitscompleted; directallocationimplementation active, no directfits/accounts yet",
+    "quarterly_information_status": "not_promoted_fixed_quarterly_profit_information"
   }
 }

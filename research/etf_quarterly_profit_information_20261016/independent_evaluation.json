@@ -1,0 +1,79 @@
+{
+  "reviewer": "independent evaluator",
+  "reviewed_at": "2026-10-16T07:34:48.159002+00:00",
+  "decision": "not_promoted_fixed_quarterly_profit_information",
+  "plan_sha256": "22c45cc49900d809ee62930ed7bcbb29b52c2e403f00cc0ae9f431390e5cdd65",
+  "recorder_id": "e5cddbe95c994b93ae60b8475ec9abc4",
+  "manifest_sha256": "f156bb84c928f994bdaef03a79b7e612ed65bf3e488f77a2a77de44e25f7696d",
+  "nas_archive_sha256": "ac0f857c3f62a02beda9b8bf1f291cbb607eb1cd30878a11c41c6e0bc4562f0d",
+  "verified": {
+    "native_qlib_hash_checked_readback": true,
+    "saved_models": 8,
+    "all_traininglabel_scales_and_strictmaturity_checked": true,
+    "all43monthly_paired_MSE_recomputed": true,
+    "source_unqualified_exactcontrolfallback_months": 3,
+    "all2000saved_jointbootstrap_replicates_recomputed_alpha0125": true,
+    "new_review_fits": 0,
+    "strategy_accounts": 0
+  },
+  "result": {
+    "paired_normalized_MSE_improvement": -0.03967302058861731,
+    "fixed_interval": [
+      -0.2149567910794804,
+      0.12814787433316202
+    ],
+    "complete_year_positive_fraction": 0.3333333333333333,
+    "annual_scores": [
+      {
+        "execution_year": 2023,
+        "months": 12,
+        "control_mse": 0.9282393465035824,
+        "candidate_mse": 0.769383196545347,
+        "paired_improvement": 0.15885614995823547,
+        "qualified_months": 12,
+        "complete_year": true
+      },
+      {
+        "execution_year": 2024,
+        "months": 12,
+        "control_mse": 0.43541632118593193,
+        "candidate_mse": 0.5077692789112896,
+        "paired_improvement": -0.07235295772535762,
+        "qualified_months": 12,
+        "complete_year": true
+      },
+      {
+        "execution_year": 2025,
+        "months": 12,
+        "control_mse": 1.0323426234691129,
+        "candidate_mse": 1.102534919160782,
+        "paired_improvement": -0.07019229569166922,
+        "qualified_months": 9,
+        "complete_year": true
+      },
+      {
+        "execution_year": 2026,
+        "months": 7,
+        "control_mse": 3.455060620714843,
+        "candidate_mse": 3.726727855544136,
+        "paired_improvement": -0.27166723482929256,
+        "qualified_months": 7,
+        "complete_year": false
+      }
+    ]
+  },
+  "failed_gates": [
+    "Pooledinformationincrementnegative.",
+    "Bootstraplowerboundnegative.",
+    "Onlyoneofthreecompleteyears improves;1/3 below70percent."
+  ],
+  "scope_of_rejection": "Close thisfixedquarterlyRidgeforecast package; no sign/window/alpha rescue or tradingfailed forecasts.",
+  "independent_direct_allocation": "Separatequarterlydirectdecision design wasfrozen beforethisresult and isnotMSEconditional. Itsimplementation/source/count/15rawbook/risk/gates stillrequired; thisnegativeMSEneitherauthorizesnorblocksit.",
+  "limitations": [
+    "Sharedhistory remainsreuseddevelopment; localalpha.0125doesnotcorrectunknownprojectsearch.",
+    "Do notcompareabsoluteMSE acrossannualandquarterlycards withdifferentbaselines/cohorts.",
+    "Predictionlossisnotproof ofeconomicutility, which requiresseparateaccounts."
+  ],
+  "promotion_authorized": false,
+  "objective_achieved": false
+}

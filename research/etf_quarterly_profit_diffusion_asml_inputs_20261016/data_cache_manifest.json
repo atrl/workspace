@@ -1,0 +1,396 @@
+{
+  "recorder_id": "8dfa601e32db4c66b5f5b24fef91e4c7",
+  "artifact": "inputs/data_cache_files",
+  "entries": [
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/calendars/day.txt",
+      "sha256": "e4c448a414414f9663f5a0678b062dbab9abf0ffc97b342f074b13c5de04852d",
+      "bytes": 24299
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/tsm_taiwan_ifrs/annual_age_days.day.bin",
+      "sha256": "85add682286190717d9057956565fa789ebdf3690b2df07d0a19e6f7a78d83fe",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/tsm_taiwan_ifrs/annual_known.day.bin",
+      "sha256": "164d7ec1c3e8c8eb88293e469fbd6c6a1dcb709d469c84a5607b091794ea830a",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/tsm_taiwan_ifrs/annual_parent_income_twd.day.bin",
+      "sha256": "e9c911675dcb5327b9e0aa459842ad54eab4853a638dabf29a5ea550a490efa0",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/tsm_taiwan_ifrs/annual_period_day.day.bin",
+      "sha256": "0cd13f8adbc9b278a11405f3281217b1f1ec13a321ece02af7c5a5c91e6f8731",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/tsm_taiwan_ifrs/quarter_age_days.day.bin",
+      "sha256": "b3cdb03546d582df47f4d0dcfcc87f57ec4207e3f4fd95e03206e1d4969d74a6",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/tsm_taiwan_ifrs/quarter_known.day.bin",
+      "sha256": "be84222c34673125ee50296e4ea39241147bdd1d1693baf4a026c3e501ecfa58",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/tsm_taiwan_ifrs/quarter_parent_income_twd.day.bin",
+      "sha256": "afc9399a68295bef865b9057d4d8077edbbfea863b86fe94e865372d1e04d685",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/tsm_taiwan_ifrs/quarter_period_day.day.bin",
+      "sha256": "59b1a87c75f678108694698ea4e2dbf3a0d27a36ac5a96d7d4e4895af41e2a0d",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/umc_taiwan_ifrs/annual_age_days.day.bin",
+      "sha256": "efbf43605ea3026d7c430c5d88dc6314626e0f8c610bcfcc2d461991269efb96",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/umc_taiwan_ifrs/annual_known.day.bin",
+      "sha256": "bb3ab1ae51cad6360aa72fec7d19892f98d7f02ef678eb4e15ecc54d86d00dd2",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/umc_taiwan_ifrs/annual_parent_income_twd.day.bin",
+      "sha256": "c1f204e55eacd5b557037402d10f05810dcc0a31ed4bcbae6f74b0170917abd1",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/umc_taiwan_ifrs/annual_period_day.day.bin",
+      "sha256": "9419db009739ec43aa7cad3e7a99a60e69337731dabb486efc4e45cc364ce823",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/umc_taiwan_ifrs/quarter_age_days.day.bin",
+      "sha256": "985dde2dd81e7638e9f0e6adf110b8357680c57eeda462259405b4410bb062ae",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/umc_taiwan_ifrs/quarter_known.day.bin",
+      "sha256": "aa53d8e03ca15437822755821f74768c5afcc3b2b6da0210c8ba87802a729c1c",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/umc_taiwan_ifrs/quarter_parent_income_twd.day.bin",
+      "sha256": "31af2d192120b0cfa85e6eaf1bc86d4b27b7693aa2c25d8c507fda6342038577",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/features/umc_taiwan_ifrs/quarter_period_day.day.bin",
+      "sha256": "f5c27d0c73ce91801d1b45b871d8f70edb777dc7eeb444d0cf9b2816e2b7703b",
+      "bytes": 8840
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/instruments/all.txt",
+      "sha256": "bdd31514df744581812b2dd69800dc52d511b1bf471ffe04d37486b4da599bdb",
+      "bytes": 76
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/qlib.yaml",
+      "sha256": "15d02fc92f04eea1b9bc0ceda2ee32473c0dcb05b939f13e07044aff77b27874",
+      "bytes": 188
+    },
+    {
+      "path": "data/qlib/etf_foreign_quarterly_intake_20261016/qlib_store_manifest.json",
+      "sha256": "3997745e024b84030204e8d8f935f1a62d421c60eb7a05ea3c40cce02a07024f",
+      "bytes": 1469
+    },
+    {
+      "path": "data/snapshots/etf_foreign_quarterly_intake_20261016/events.parquet",
+      "sha256": "a3314dc51b530b58a9e64d334e1889e37872504d9c17963fce7e1721ae010a09",
+      "bytes": 78103
+    },
+    {
+      "path": "data/snapshots/etf_foreign_quarterly_intake_20261016/manifest.json",
+      "sha256": "e9e88afa94ff28b5cec52f062d41685f64f46944b0016ce735556452f285113f",
+      "bytes": 437
+    },
+    {
+      "path": "data/qlib/asml_quarterly_profit_source_20261016/calendars/day.txt",
+      "sha256": "fd3f9d14239067a3861e672bd437c4be1e8cbf35f24cee3617c2592f0bec91e6",
+      "bytes": 24178
+    },
+    {
+      "path": "data/qlib/asml_quarterly_profit_source_20261016/features/asml_usgaap_quarter/known.day.bin",
+      "sha256": "5c7f413ee3810e17b22c96ba433e91eb9ca65eb31ac24b71dd97d60ad684af72",
+      "bytes": 8796
+    },
+    {
+      "path": "data/qlib/asml_quarterly_profit_source_20261016/features/asml_usgaap_quarter/quarter_age_days.day.bin",
+      "sha256": "26d615ddd21c23dc86a9351e79d0a83f88884f971b66b8828381f5593e67cd10",
+      "bytes": 8796
+    },
+    {
+      "path": "data/qlib/asml_quarterly_profit_source_20261016/features/asml_usgaap_quarter/quarter_end_day.day.bin",
+      "sha256": "246382d1f7e6e108eedb8610f661cbaa08467189784314bf484a701931f3a782",
+      "bytes": 8796
+    },
+    {
+      "path": "data/qlib/asml_quarterly_profit_source_20261016/features/asml_usgaap_quarter/quarter_start_day.day.bin",
+      "sha256": "100fa130a8f41a835631ac0a5a835c4bc4c30196cdcf1f73edc4649fc2b95040",
+      "bytes": 8796
+    },
+    {
+      "path": "data/qlib/asml_quarterly_profit_source_20261016/features/asml_usgaap_quarter/reported_quarter_net_income_eur.day.bin",
+      "sha256": "e75987051b00a30eb67e074f7aea8acf44240f4452ed04a79721a0eb825cb886",
+      "bytes": 8796
+    },
+    {
+      "path": "data/qlib/asml_quarterly_profit_source_20261016/instruments/all.txt",
+      "sha256": "801f485b68d1be3f557d99a668f830c6fd456b016cfe5e7dd4f6c80b82f189b4",
+      "bytes": 42
+    },
+    {
+      "path": "data/qlib/asml_quarterly_profit_source_20261016/qlib.yaml",
+      "sha256": "bfaa0711bdfc584101e5bad4c25d0e434173ac5b8db78425007f49d5b5a239f0",
+      "bytes": 188
+    },
+    {
+      "path": "data/qlib/asml_quarterly_profit_source_20261016/qlib_store_manifest.json",
+      "sha256": "4288f9443d0bda707ceae235ec19143a10d1e961bb196410d603875426dc5100",
+      "bytes": 1293
+    },
+    {
+      "path": "data/snapshots/asml_quarterly_profit_source_20261016/events.parquet",
+      "sha256": "99a1e216a5dd39dd4501ad29995b5f5ac70c71a07e971e501a34cf094f9c2b85",
+      "bytes": 40906
+    },
+    {
+      "path": "data/snapshots/asml_quarterly_profit_source_20261016/manifest.json",
+      "sha256": "97f991e5394b1b674d038e6eb4f8d084f7b34e6ccbf39fb63f9f1bdc7ac6f49b",
+      "bytes": 383
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/calendars/day.txt",
+      "sha256": "b849a9f31fc3b0c8de9bde308671a0cba671301feac04fe2ff0331f534061fa2",
+      "bytes": 1023
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/current_profit_coverage_weight.day.bin",
+      "sha256": "7c835d7d0dd21b29b2293e5020f7a4ad9b1486e54d89c180864f1196cd277482",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/eligible.day.bin",
+      "sha256": "7c51c90017a4e172fba59581b9988f6d5eac1f6e403fa82523541f2c661ce153",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/holdings_age_days.day.bin",
+      "sha256": "643830b982ba894b8fe0e6bab98447ce63425ac017444369acf214e6b5b3d5a0",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/known_profit_age_mean_days.day.bin",
+      "sha256": "8d2eb8b1357ab36a0f09c80e154725b88457de11ed0b0213a84262652d61359b",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/max_profit_age_days.day.bin",
+      "sha256": "aefb221e72bcb69ec50faed53219ae92975042beb87d49c70c71e12ab4d2e0e0",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/max_reported_quarter_age_days.day.bin",
+      "sha256": "9d43acb00248b5261d1d2077b3fb49bf2239f4cee9b444943a524e71dcc1ec37",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/pair_coverage_weight.day.bin",
+      "sha256": "7c835d7d0dd21b29b2293e5020f7a4ad9b1486e54d89c180864f1196cd277482",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/profit_bounded_growth.day.bin",
+      "sha256": "24f79d10f09bbb55e5f72eac9496d3730c2aeebee291fddf319cd26e9a3914df",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/profit_deteriorate_weight.day.bin",
+      "sha256": "1f993bd064c6fec7eeabc7c65f615076b4cbb8c14dfecdc731d612e51d6942ea",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/profit_improve_weight.day.bin",
+      "sha256": "bfa0861a07b397674b713a9971911e11126621f865330c494f7540f3b0a03f67",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/quarterly_loss_weight.day.bin",
+      "sha256": "ba5b15a5b722f7248a7619aa0da787ca8472fa52bf03b66c9a77b6a33cfdc61d",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/raw_known_bounded_growth.day.bin",
+      "sha256": "17cf7052f899a81edd81d0978eede95b9ddde185867132ccc084fbf1124c3efc",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/raw_known_deteriorate_weight.day.bin",
+      "sha256": "9e58bc7f85f63f8ca93827afb70a3328dd00dbc8c2b970e2fd50ee7f34bdd404",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/raw_known_improve_weight.day.bin",
+      "sha256": "91cc45cf7f13ad24d4a9fb9a0ec32852031cb2ab696e8b02a5870d29f7faae53",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/raw_known_loss_weight.day.bin",
+      "sha256": "72ebc0c0406d894c256d7184cca66f5d9456d10819c9d780b72ccc4772b86b77",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/reported_weight_sum.day.bin",
+      "sha256": "5dd5099f9474be3b4ebe08a71e8dc4ee08fcfa1eb87a6a68a3d5e63f0030c403",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/features/soxx_quarter_profit_diffusion/stale_profit_weight.day.bin",
+      "sha256": "03105e3bef6e9fe56c09ed79b19cdf511b8c25c1bcf5d983811d3b5d560a33cf",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/instruments/all.txt",
+      "sha256": "8f0c586898bc6ef2a3f67ea07af723ba96c8a1aba9a027a277538c6e46b54877",
+      "bytes": 52
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/qlib.yaml",
+      "sha256": "6678cf71f8b87259dfb8473b7d51ccec1d8c9b6a7091dd08650a7f164b8b690f",
+      "bytes": 197
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_inputs_20261016/qlib_store_manifest.json",
+      "sha256": "3368972ba488097093ba3227f1d32d3d19d68a13f17a112fdb973fcb8cbdbcc4",
+      "bytes": 2124
+    },
+    {
+      "path": "data/snapshots/etf_quarterly_profit_diffusion_inputs_20261016/manifest.json",
+      "sha256": "1f7e146f24ed0bcbb8fc843d5ccf26dfeef31e7b4dd50fff5cead1026a9409bd",
+      "bytes": 345
+    },
+    {
+      "path": "data/snapshots/etf_quarterly_profit_diffusion_inputs_20261016/monthly_features.parquet",
+      "sha256": "7f7cd5e9716695f2b1c4a93e1fa9a3fb4a35a922b2cea35c28342a76d69ad057",
+      "bytes": 24008
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/calendars/day.txt",
+      "sha256": "b849a9f31fc3b0c8de9bde308671a0cba671301feac04fe2ff0331f534061fa2",
+      "bytes": 1023
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/current_profit_coverage_weight.day.bin",
+      "sha256": "707fb4210343fc921410974520f7ffdeab41ad79317c61398ebe2b627bef589a",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/eligible.day.bin",
+      "sha256": "adc8cc8f37b5b068b466ca1e6aaf6078c61e44e5344603e1cefb24aed0e3e31a",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/holdings_age_days.day.bin",
+      "sha256": "643830b982ba894b8fe0e6bab98447ce63425ac017444369acf214e6b5b3d5a0",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/known_profit_age_mean_days.day.bin",
+      "sha256": "d9d24e72f3e28a41056e890080ea71e14c65a2c98d1540e4510df5526f8b26c7",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/max_profit_age_days.day.bin",
+      "sha256": "aefb221e72bcb69ec50faed53219ae92975042beb87d49c70c71e12ab4d2e0e0",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/max_reported_quarter_age_days.day.bin",
+      "sha256": "c25f1081ab7578711c6d58d9987a76520ef89b8c63e635ece4e8ca5b14b1344d",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/pair_coverage_weight.day.bin",
+      "sha256": "707fb4210343fc921410974520f7ffdeab41ad79317c61398ebe2b627bef589a",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/profit_bounded_growth.day.bin",
+      "sha256": "db9af33653dd1754514e669571987132419fd2ea2edcf4a58a280f2fb8119900",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/profit_deteriorate_weight.day.bin",
+      "sha256": "1a9bd7d36256924751d9b12d1d1949200a6354a297daeb0e80d40008b9f4dbfa",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/profit_improve_weight.day.bin",
+      "sha256": "60139bdf5ef82c75d87410fe6f22a2874c5837c051b718d04f00523534bca87e",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/quarterly_loss_weight.day.bin",
+      "sha256": "350fc13a796780d106981b5e620fea97d90a1cf770497c41cdb164586436fc65",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/raw_known_bounded_growth.day.bin",
+      "sha256": "855603ec09139a77ef53322795bd6388f0a616d885b0d118ba130d67a4f6825e",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/raw_known_deteriorate_weight.day.bin",
+      "sha256": "af4a25e21d915cf88b15bbc7e35f6f14ac608edabbba839f2bafd8e12fdb1e2b",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/raw_known_improve_weight.day.bin",
+      "sha256": "3cc759a77c61628cbe834e4fbcadf6474421620b89471673546f6561b8411267",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/raw_known_loss_weight.day.bin",
+      "sha256": "72ebc0c0406d894c256d7184cca66f5d9456d10819c9d780b72ccc4772b86b77",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/reported_weight_sum.day.bin",
+      "sha256": "5dd5099f9474be3b4ebe08a71e8dc4ee08fcfa1eb87a6a68a3d5e63f0030c403",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/features/soxx_quarter_profit_diffusion/stale_profit_weight.day.bin",
+      "sha256": "03105e3bef6e9fe56c09ed79b19cdf511b8c25c1bcf5d983811d3b5d560a33cf",
+      "bytes": 376
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/instruments/all.txt",
+      "sha256": "8f0c586898bc6ef2a3f67ea07af723ba96c8a1aba9a027a277538c6e46b54877",
+      "bytes": 52
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/qlib.yaml",
+      "sha256": "346e0b0379cf09970de7b11c76fb6ecc986e1df175870bccc5d611e4ba09ca31",
+      "bytes": 202
+    },
+    {
+      "path": "data/qlib/etf_quarterly_profit_diffusion_asml_inputs_20261016/qlib_store_manifest.json",
+      "sha256": "0cdb56bab1ac63e3c07bf67ff50a920bcb15f9386a1840645a82cd2817e0f8d5",
+      "bytes": 2134
+    },
+    {
+      "path": "data/snapshots/etf_quarterly_profit_diffusion_asml_inputs_20261016/monthly_features.parquet",
+      "sha256": "558f1302788e06437471a6f730432d9fed0aa1b04ab44bbe10f592399acf3c60",
+      "bytes": 25743
+    }
+  ]
+}

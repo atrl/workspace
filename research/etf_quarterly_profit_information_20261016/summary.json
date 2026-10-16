@@ -1,0 +1,66 @@
+{
+  "recorder_id": "e5cddbe95c994b93ae60b8475ec9abc4",
+  "experiment_id": "906844038818253694",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_quarterly_profit_information_20261016/qlib_recorder",
+  "plan_sha256": "22c45cc49900d809ee62930ed7bcbb29b52c2e403f00cc0ae9f431390e5cdd65",
+  "source_binding_sha256": "c87ac12b9ce3fdc748e7cdd237ffbb6d205ec6e39a487d42c64b8497c41ab912",
+  "code_identity_sha256": "8ab6458a062eb63162b647b8f27d50f54619fa4a6f4522d22bf9f8bad7288459",
+  "count_receipt_sha256": "6ead38cf7004a363ccc052d39d411399ffd922d50d5dd8dd824469b80decf49e",
+  "selected_first_execution_year": 2023,
+  "labels_computed": true,
+  "fits": 8,
+  "experiment": "etf_quarterly_profit_information_20261016",
+  "decision": "not_promoted_fixed_quarterly_profit_information",
+  "market_fits": 8,
+  "new_strategy_accounts": 0,
+  "evaluation_months": 43,
+  "qualified_evaluation_months": 40,
+  "first_entry": "2023-01-03 09:47:00-05:00",
+  "last_exit": "2026-08-03 09:47:00-04:00",
+  "gates": {
+    "pooled_improvement_positive": false,
+    "bootstrap_lower_positive": false,
+    "complete_year_70pct": false
+  },
+  "paired_normalized_MSE": {
+    "paired_mean_loss_improvement": -0.03967302058861731,
+    "lower_bound": -0.2149567910794804,
+    "upper_bound": 0.12814787433316202,
+    "valid_replicates": 2000,
+    "invalid_replicates": 0,
+    "calendar_rows": 43,
+    "scored_rows": 43
+  },
+  "objective_achieved": false,
+  "qualified_independent_forward": false,
+  "source_proxy": "reported-quarter same-channel profit diffusion; current and paired coverage/age controlled in both arms; adjusted-price labels, not cash-account returns",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/full_path_tiered_allocation_20261013",
+  "as_of": "2026-10-09",
+  "region": "us",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_quarterly_profit_information_20261016/qlib_recorder/906844038818253694/e5cddbe95c994b93ae60b8475ec9abc4",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/monthly_scores",
+      "analysis/bootstrap_indices",
+      "analysis/bootstrap_replicates"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "ac0f857c3f62a02beda9b8bf1f291cbb607eb1cd30878a11c41c6e0bc4562f0d",
+    "size_bytes": 517700,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ac/0f/ac0f857c3f62a02beda9b8bf1f291cbb607eb1cd30878a11c41c6e0bc4562f0d",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-16 15:34:04.878773+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ac/0f/ac0f857c3f62a02beda9b8bf1f291cbb607eb1cd30878a11c41c6e0bc4562f0d",
+    "recorder_id": "e5cddbe95c994b93ae60b8475ec9abc4",
+    "experiment_id": "906844038818253694",
+    "archive_root": "qlib_recorder"
+  }
+}

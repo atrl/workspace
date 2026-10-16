@@ -1,0 +1,29 @@
+{
+  "recorded_at": "2026-10-16T06:54:51.362958+00:00",
+  "stage": "before quarterly information feature-label interaction and before allocation design execution",
+  "investigations": [
+    {
+      "card": "research/etf_annual_valuation_information_20261016",
+      "role": "completedfixedannualforecastinformation",
+      "alpha": 0.025,
+      "decision": "not_promoted"
+    },
+    {
+      "card": "research/etf_quarterly_profit_information_20261016",
+      "role": "newquarterlyforecastinformation",
+      "alpha": 0.0125,
+      "decision": "not_executed"
+    },
+    {
+      "card": "research/etf_quarterly_profit_allocation_20261016",
+      "role": "separatedirectdecisionutilitycomparison_using_newquarterlyinputs",
+      "decision": "design_in_preparation",
+      "conditional_on_information_success": false
+    }
+  ],
+  "interpretation": "Three investigations, not three independent market samples. Quarterly alpha.0125 is a conservative nominal two-information-test threshold; it is not global multiplicity control for this adaptive campaign or unknown prior search. No reused-history result alone certifies stableexcess or promotion.",
+  "closed_parent": "Annualforecast package remainsclosed; no failedforecast traded, sign/window/regularization rescue or retroactivegatewaiver.",
+  "quarterly_feature_lists_authoritative": true,
+  "hidden_missing_flags_added": false,
+  "portfolio_gate": "Source-qualified inputs and separately approved decision-aligned design, not a claim that MSE must improve for every economic use; original netcost/risk/stability/strongreference gates retained."
+}
