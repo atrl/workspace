@@ -1,0 +1,13 @@
+candidate,fold,seed,mse_improvement_over_random
+masked_reconstruction,development_2021_2022,71,0.0003150439817747822
+masked_reconstruction,development_2021_2022,172,2.979563574584225e-05
+masked_reconstruction,development_2021_2022,273,0.0010145258792600073
+masked_reconstruction,reused_2023_2026,71,0.003660717955883472
+masked_reconstruction,reused_2023_2026,172,4.406477482923193e-06
+masked_reconstruction,reused_2023_2026,273,0.003836256495227652
+contrastive,development_2021_2022,71,3.4862879313141484e-05
+contrastive,development_2021_2022,172,-0.023896708556468246
+contrastive,development_2021_2022,273,0.00024950702673811817
+contrastive,reused_2023_2026,71,-0.0002150317663506436
+contrastive,reused_2023_2026,172,-0.006922115908410673
+contrastive,reused_2023_2026,273,0.0036349281159726056

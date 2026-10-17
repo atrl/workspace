@@ -1,0 +1,12 @@
+experiment: minute_self_supervised_20261017
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min
+recorder_uri: /Users/rziiiii/dev/workspace/research/minute_self_supervised_20261017/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/dataset
+  - models/*
+  - predictions/*
+  - analysis/ensemble
+  - analysis/intervals

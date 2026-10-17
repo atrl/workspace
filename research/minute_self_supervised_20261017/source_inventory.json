@@ -1,0 +1,59 @@
+{
+  "checked_date": "2026-10-17",
+  "evidence_scope": "Public papers and author implementations; no assertion of institutional live adoption or profitable deployment. Research mechanisms are not independent market evidence.",
+  "selection_reason": "Self-supervised objectives change representation learning before sparse noisy return supervision; reuse verified inputs while keeping prior Value-Weight fixed version closed.",
+  "methods": [
+    {
+      "method": "masked_reconstruction",
+      "mechanism_zh": "先遮住部分量价序列，再从其余片段恢复；用表征预测未来收益。",
+      "paper": "https://arxiv.org/abs/2010.02803",
+      "official_code": "https://github.com/gzerveas/mvts_transformer",
+      "decision": "selected_mechanism_adaptation",
+      "fit_to_workspace_zh": "训练期分钟路径可用；本次小型卷积编码器替代原Transformer，不称论文复现。"
+    },
+    {
+      "method": "contrastive_representation",
+      "mechanism_zh": "让同一序列的不同视图具有接近表征，学习能区分不同路径的结构。",
+      "paper": "https://arxiv.org/abs/2106.10466",
+      "official_code": "https://github.com/zhihanyue/ts2vec",
+      "decision": "selected_mechanism_adaptation",
+      "fit_to_workspace_zh": "训练期分钟路径可用；本次实验必须披露与TS2Vec时间戳层级对比的差异，不称TS2Vec复现。"
+    },
+    {
+      "method": "FactorVAE",
+      "mechanism_zh": "以概率潜在因子表示共同收益结构和噪声；训练后验与推断先验分开。",
+      "paper": "https://ojs.aaai.org/index.php/AAAI/article/view/20369",
+      "official_code": null,
+      "decision": "not_selected_this_round",
+      "fit_to_workspace_zh": "原方法针对股票横截面；需要合格横截面与严格阻断未来收益进入推断。两ETF不是等价任务。"
+    },
+    {
+      "method": "HIST_MASTER",
+      "mechanism_zh": "利用股票间共享概念或跨时间关联，并由市场信息指导特征选择。",
+      "paper": "https://arxiv.org/abs/2110.13716",
+      "official_code": "https://github.com/SJTU-DMTai/MASTER",
+      "decision": "not_selected_this_round",
+      "fit_to_workspace_zh": "需验证历史股票池及关系可用时点；当前分钟实验只有两ETF，不把相关资产扩充当独立样本。",
+      "additional_primary_sources": [
+        "https://github.com/Wentao-Xu/HIST",
+        "https://ojs.aaai.org/index.php/AAAI/article/download/27767/27575"
+      ]
+    },
+    {
+      "method": "DoubleAdapt",
+      "mechanism_zh": "通过数据适配与模型适配应对分布变化，逐步更新预测模型。",
+      "paper": "https://arxiv.org/abs/2306.09862",
+      "official_code": "https://github.com/SJTU-DMTai/DoubleAdapt",
+      "decision": "not_selected_this_round",
+      "fit_to_workspace_zh": "方法侧重概念漂移而非独立新因子；需另冻结在线成熟标签更新和配对重训对照。"
+    },
+    {
+      "method": "AlphaGen",
+      "mechanism_zh": "生成公式因子集合并联合优化组合互补性。",
+      "paper": "https://arxiv.org/abs/2306.12964",
+      "official_code": "https://github.com/ICT-FinD-Lab/alphagen",
+      "decision": "excluded_by_repository_scope",
+      "fit_to_workspace_zh": "其核心强化学习流程不符合当前SPEC；作为方法地图收录，本轮不实现RL。"
+    }
+  ]
+}

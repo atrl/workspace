@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": [
+    "changing all future evaluation features and labels leaves train membership/scaler/train tensors exactly unchanged",
+    "shared encoder seed initialization exact",
+    "padded inputs set1000 leave four-bin Conv representation exact"
+  ],
+  "source_dataset_sha256": "9cf9f83c6a741f1c7625a9e9dd922806f8dfdeb65e0e7b7f63a57b1d120e0adb",
+  "dataset_shape": [
+    2007,
+    3915
+  ],
+  "fold_audit": {
+    "training_rows": 552,
+    "test_rows": 503,
+    "last_training_signal": "2020-12-22 00:00:00",
+    "last_mature_label": "2020-12-31 09:31:00",
+    "cutoff_exclusive": "2021-01-01 00:00:00"
+  },
+  "official_fits_started": 0
+}

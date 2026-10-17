@@ -1,0 +1,15 @@
+{
+  "nas_archive_sha256": "7ab0ab4e4076107829b58ebacbc2ddb2b31151d713adfc26b06d0139dd3f0ef6",
+  "artifact_count": 56,
+  "all_artifact_hashes_equal": true,
+  "dataset_prepare_shape": [
+    2007,
+    3915
+  ],
+  "all_values_match_verified_parent_native_dataset": true,
+  "prediction_artifacts": 20,
+  "model_probe_artifacts": 20,
+  "workflow_file_sha256": "3bfc77b0dd6e9a434d137fe5f70a144b04e7359d1adddf7b7b1207242e27fdeb",
+  "recorded_workflow_text_sha256": "3bfc77b0dd6e9a434d137fe5f70a144b04e7359d1adddf7b7b1207242e27fdeb",
+  "no_refits_for_delivery": true
+}

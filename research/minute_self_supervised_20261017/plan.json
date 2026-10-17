@@ -1,0 +1,128 @@
+{
+  "experiment": "minute_self_supervised_20261017",
+  "schema_version": "minute_ssl_information_screen_v1",
+  "frozen_at_utc": "2026-10-17T04:20:33.866067+00:00",
+  "hypothesis": "Train-only self-supervised intraday structure learning reduces supervised sample inefficiency; a frozen representation plus fixed linear probe predicts H5 relative return better than untrained identical features and existing controls.",
+  "difference_from_closed_route": "No end-to-end supervised Value/Weight network. Learn representation without future labels, freeze encoder, then fit mature-label Ridge. Prior negative card remains closed.",
+  "sources": [
+    {
+      "url": "https://github.com/zhihanyue/ts2vec",
+      "paper": "TS2Vec AAAI2022",
+      "used": "Contrastive agreement between masked views; small instance-level contrastive objective only, no hierarchical timestamp loss. Not exact reproduction."
+    },
+    {
+      "url": "https://github.com/gzerveas/mvts_transformer",
+      "paper": "A Transformer-based Framework for Multivariate Time Series Representation Learning KDD2021",
+      "used": "Masked observation reconstruction pretraining; temporal Conv replaces Transformer, random whole-timestamp masks replace paper masking distribution. Not exact reproduction."
+    }
+  ],
+  "source": {
+    "card": "research/minute_value_weight_20261017",
+    "recorder_id": "0f1a94b799624d258aa1bf8acd18044d",
+    "nas_archive_sha256": "0d993eed1656b427b14802cc580e7607f17a24d2675887b72a773e0c69556a73",
+    "verification_manifest_sha256": "8f1d772997acb2cd700cb7d8319ce893b2bb0a10feda44cc4c33cd5f9063a8be",
+    "artifact_sha256": {
+      "inputs/dataset": "9cf9f83c6a741f1c7625a9e9dd922806f8dfdeb65e0e7b7f63a57b1d120e0adb",
+      "analysis/ensemble": "0b3421249c225522fd44dcf4cb6e68ad85bcf1bf89eabe0b0d486b748fdce3a6"
+    }
+  },
+  "source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "as_of": "2026-10-09",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "folds": [
+    {
+      "name": "development_2021_2022",
+      "train_end": "2020-12-31",
+      "predict_start": "2021-01-01",
+      "predict_end": "2022-12-31"
+    },
+    {
+      "name": "reused_2023_2026",
+      "train_end": "2022-12-31",
+      "predict_start": "2023-01-01",
+      "predict_end": "2026-10-09"
+    }
+  ],
+  "seeds": [
+    71,
+    172,
+    273
+  ],
+  "label": "(SOXL open[t+6]/open[t+1] - 1) - (SOXX open[t+6]/open[t+1] - 1), shifts on full native daily calendar before qualified-minute filtering",
+  "timing": "Signal after completed regular-session close+60sec; H5 label next-session open to sixth-session open, mature sixth-session open+60sec. Retain only labels mature strictly before fold cutoff; scale only train.",
+  "fold_cutoff": "00:00:00 America/New_York on day after train_end; sixth-session 09:31 ET label maturity strictly less than cutoff",
+  "input": "Existing native DatasetH exact2007x3915; full390/210 minute paths10 channels and12 handmade summaries. No raw fallback; source provenance and full data roundtrip previously verified.",
+  "train_domain": "Identical mature labeled rows for scaler, self-supervised training, random control and probes. Train only date<=train_end and H5 maturity09:31ET<next-day00:00ET; no evaluation features enter SSL, scaler or probe; no transductive training.",
+  "model": {
+    "channels": [
+      10,
+      16,
+      16,
+      8
+    ],
+    "kernels": [
+      5,
+      5,
+      3
+    ],
+    "dilations": [
+      1,
+      2,
+      4
+    ],
+    "activation": "ReLU",
+    "representation": "4 relative-time bins mean8channels each=32 coordinates; half days use actual length; frozen encoder for probe",
+    "padding": "Set padded input to zero before first conv and zero hidden padded slots after EVERY layer; zero-padding outside valid boundary; no full-array standardization on padded slots",
+    "epochs": 30,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "checkpoint": "fixed final epoch, no loss-based checkpoint selection",
+    "reconstruction_mask_probability": 0.3,
+    "contrastive_mask_probability": 0.15,
+    "contrastive_gaussian_noise_std": 0.05,
+    "contrastive_temperature": 0.2,
+    "reconstruction_loss": "MSE only masked valid timestamps across10 observed channels; linear1x1 decoder only during pretrain",
+    "contrastive_loss": "Symmetric within-batch InfoNCE of L2-normalized32d binned features for two independently masked/noised full-session views; same session positive; other sessions negative; no temporal hierarchy",
+    "ridge_alpha": 10.0,
+    "probe": "Train-only representation z-score, Ridge with intercept and alpha10 on raw H5 excess; no tuning; all encoder parameters frozen",
+    "seeds_policy": "Same base init each fold/seed across random/masked/contrastive; equal-weight seed prediction ensemble, no seed selection"
+  },
+  "candidates": [
+    "masked_reconstruction",
+    "contrastive"
+  ],
+  "controls": [
+    "random_frozen",
+    "handcrafted_ridge",
+    "parent_best_observed",
+    "training_mean",
+    "zero_excess"
+  ],
+  "parent_best_observed": {
+    "development_2021_2022": "handcrafted",
+    "reused_2023_2026": "learned",
+    "meaning": "Pre-frozen strongest previous observed ensemble by per-fold MSE; harder retrospective reference only, not independently selected trading strategy."
+  },
+  "maximum_pretraining_fits": 12,
+  "maximum_probe_fits": 20,
+  "maximum_total_fits": 32,
+  "probe_count": "6 each masked/contrastive/random; handmade Ridge2 deterministic folds; constants0 parent0",
+  "maximum_native_accounts": 0,
+  "information_gates": {
+    "each_candidate": "positive Spearman IC each fold; strictly lower MSE than ALL5 controls each fold; at least2/3 seeds beat same-seed random each fold; pooled paired bootstrap MSE improvement lower>0 versus ALL5 controls",
+    "no_selection": "Report both candidates/all failures. Each must pass independently; no fallback selection by reused evaluation."
+  },
+  "bootstrap": {
+    "mean_block": 63,
+    "resamples": 2000,
+    "seed": 20261014,
+    "alpha": 0.0025,
+    "multiplicity": "0.025/(2candidates*5comparators), one-sided lower quantile; does not correct unknown prior search",
+    "fold_gap_handling": "Sample each fold separately at original fold length; blocks follow successive eligible observed sessions, may span omitted invalid sessions, circular wrap within fold only; concatenate sampled folds for pooled mean. No cross-fold block."
+  },
+  "window_reporting": "126 consecutive eligible observed sessions, not necessarily consecutive exchange days; windows never cross fold seam; report annual and quarterly all including incomplete 2026.",
+  "history_status": "All historical observations reused research diagnostics, not independent evaluation despite evaluator role separation",
+  "promotion": "No portfolio/cost claim; screen pass requires separately frozen native IBKR0/2/5bp accounts and later independent forward qualification; screen failure closes fixed version without rescue",
+  "production_enabled": false
+}

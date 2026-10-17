@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/minute_value_weight_20261017",
-  "current_phase": "minute_value_weight_fixed_information_screen_completed_negative",
-  "next_action": "Close this fixed two-ETF temporal H5 Value-Weight screen; do not retune seeds/windows/epochs. Testing the article original cross-sectional mechanism would first require a dated historical semiconductor constituent universe and synchronized qualified constituent minute OHLCV with mature forward labels. That data/mechanism has not been qualified here. Preserve prior closed experiments; no production changes or objective-achievement claim.",
+  "current_experiment": "research/minute_self_supervised_20261017",
+  "current_phase": "minute_self_supervised_fixed_screens_completed_negative",
+  "next_action": "Close both fixed masked-reconstruction and instance-contrastive frozen-probe versions without hyperparameter rescue. Their pretraining did not beat fixed simple/parent controls, and no native account is warranted. The public method inventory records distinct cross-sectional latent/relationship models and causal adaptation as untested branches; qualify historical universe/relationships or freeze a new causal adaptation design before any new experiment. Preserve all prior versions and production release.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1315,6 +1315,60 @@
       ],
       "qualified_forward_days": 0,
       "nas_archive_sha256": "0d993eed1656b427b14802cc580e7607f17a24d2675887b72a773e0c69556a73"
+    },
+    {
+      "card": "research/minute_self_supervised_20261017",
+      "kind": "train_only_self_supervised_minute_representation_screen",
+      "status": "not_promoted_information_gate_failed",
+      "maximum_pretraining_fits": 12,
+      "maximum_probe_fits": 20,
+      "maximum_new_native_accounts": 0,
+      "historical_data_reused": true,
+      "production_changes_authorized": false,
+      "evaluation": "research/minute_self_supervised_20261017/independent_evaluation.json",
+      "design_review": "research/minute_self_supervised_20261017/design_review.json",
+      "plan_sha256": "5424af1632b320ed66835c3551e1b73cf78f9cae3c3eb9c480b9894966690511",
+      "recorder_id": "49eee23e6f9c412d816a64fbc55b6cd6",
+      "new_pretraining_fits": 12,
+      "new_probe_fits": 20,
+      "new_native_accounts": 0,
+      "passing_candidates": [],
+      "failed_gates": {
+        "masked_reconstruction": [
+          "development_2021_2022_mse_better_handcrafted_ridge",
+          "development_2021_2022_mse_better_parent_best_observed",
+          "development_2021_2022_mse_better_training_mean",
+          "development_2021_2022_mse_better_zero_excess",
+          "reused_2023_2026_mse_better_parent_best_observed",
+          "reused_2023_2026_mse_better_training_mean",
+          "reused_2023_2026_mse_better_zero_excess",
+          "paired_bootstrap_random_frozen",
+          "paired_bootstrap_handcrafted_ridge",
+          "paired_bootstrap_parent_best_observed",
+          "paired_bootstrap_training_mean",
+          "paired_bootstrap_zero_excess"
+        ],
+        "contrastive": [
+          "development_2021_2022_positive_ic",
+          "development_2021_2022_mse_better_random_frozen",
+          "development_2021_2022_mse_better_handcrafted_ridge",
+          "development_2021_2022_mse_better_parent_best_observed",
+          "development_2021_2022_mse_better_training_mean",
+          "development_2021_2022_mse_better_zero_excess",
+          "reused_2023_2026_mse_better_random_frozen",
+          "reused_2023_2026_mse_better_handcrafted_ridge",
+          "reused_2023_2026_mse_better_parent_best_observed",
+          "reused_2023_2026_mse_better_training_mean",
+          "reused_2023_2026_mse_better_zero_excess",
+          "reused_2023_2026_two_seeds_better_random",
+          "paired_bootstrap_random_frozen",
+          "paired_bootstrap_handcrafted_ridge",
+          "paired_bootstrap_parent_best_observed",
+          "paired_bootstrap_training_mean",
+          "paired_bootstrap_zero_excess"
+        ]
+      },
+      "nas_archive_sha256": "7ab0ab4e4076107829b58ebacbc2ddb2b31151d713adfc26b06d0139dd3f0ef6"
     }
   ],
   "governance_review": {

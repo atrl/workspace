@@ -1,0 +1,9 @@
+{
+  "approved": true,
+  "role": "independent_evaluator",
+  "agent": "/root/ssl_review",
+  "reviewed_at_utc": "2026-10-17T04:25:28.079536+00:00",
+  "plan_sha256": "5424af1632b320ed66835c3551e1b73cf78f9cae3c3eb9c480b9894966690511",
+  "workflow_sha256": "3bfc77b0dd6e9a434d137fe5f70a144b04e7359d1adddf7b7b1207242e27fdeb",
+  "scope": "Design and implementation approved before official fits, conditional preflight passed; native Dataset.prepare explicit grouped col_set corrected before fit, no design change."
+}

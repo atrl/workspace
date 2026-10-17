@@ -1,0 +1,12 @@
+{
+  "manual_contract_checks": "preflight_validation.json",
+  "source_and_nas_readback": "readback_verification.json",
+  "notebook_execution": "completed exit0",
+  "new_pretraining_fits": 12,
+  "new_probe_fits": 20,
+  "fit_failures": 0,
+  "pre_fit_fix": "DatasetH.prepare explicit grouped col_set preserves columns; corrected before any fit",
+  "no_parameter_changes_after_fit": true,
+  "no_new_accounts": true,
+  "minimal_validation": "same-source exact Dataset readback, future-evaluation perturbation invariance, padded-input invariance, shared encoder initialization, frozen budget and notebook execution; no unrelated broad tests"
+}
