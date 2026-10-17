@@ -1,0 +1,19 @@
+{
+  "existing_test": "tests/test_minute_pit_allocator.py::test_completed_minute_paths_respect_half_days_future_changes_and_invalid_source",
+  "result": "1 passed",
+  "manual_contract_checks": [
+    "uniform/learned identical Value network initialization",
+    "masked padding changed to1000 leaves outputs identical",
+    "native source readback all OHLCV matches",
+    "allData DatasetH pickle roundtrip exact",
+    "NAS final archive all artifacts hash checked"
+  ],
+  "training_completed_fits": 18,
+  "model_failures": 0,
+  "pre_fit_environment_failures": [
+    "notebook cwd sys.path fixed before any fit",
+    "MLFLOW_ALLOW_FILE_STORE=true required before any fit"
+  ],
+  "delivery_only_failure": "Qlib reinitialization inside active Recorder rejected; moved source rebuild before Recorder resume, no model fit",
+  "scientific_plan_unchanged": true
+}

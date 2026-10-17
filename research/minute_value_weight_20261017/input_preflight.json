@@ -1,0 +1,17 @@
+{
+  "raw_source_hashes": {
+    "data/raw/external/semis_minute_none_20261012_v1/SOXL_none.parquet": "94b2ee6bf16f76d2e3e453f45a8db533869a2fe6303e90c47505a61647d0dc2a",
+    "data/raw/external/semis_minute_none_20261012_v1/SOXX_none.parquet": "9133d01608d534d753015fa043d1fc538ccd12afbab8aaa1a01daa0f64448561",
+    "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+  },
+  "qlib_data_api": [
+    "qlib.data.D.features",
+    "qlib.data.D.calendar",
+    "DatasetH.prepare",
+    "DataHandlerLP.from_df"
+  ],
+  "qualified_sessions": 2007,
+  "first": "2018-10-12",
+  "last": "2026-10-09",
+  "half_days": 17
+}

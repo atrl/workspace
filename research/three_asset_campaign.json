@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/etf_quarterly_profit_allocation_20261016",
-  "current_phase": "bounded_ETF_source_forecast_and_direct_allocation_experiments_completed_negative",
-  "next_action": "Maintain closedannual/quarterforecast/directallocation versions. Next research must freeze a substantivelynew source/mechanism and genuinelyindependent evaluation condition; no sign/window/regularization rescue. SOXX/SOX branch needsdatedcompleteweights andannouncementclock. Do notpromote9097 basedonshorter2024window or expandoptionalrisk audit solelyafterfailedcandidate.",
+  "current_experiment": "research/minute_value_weight_20261017",
+  "current_phase": "minute_value_weight_fixed_information_screen_completed_negative",
+  "next_action": "Close this fixed two-ETF temporal H5 Value-Weight screen; do not retune seeds/windows/epochs. Testing the article original cross-sectional mechanism would first require a dated historical semiconductor constituent universe and synchronized qualified constituent minute OHLCV with mature forward labels. That data/mechanism has not been qualified here. Preserve prior closed experiments; no production changes or objective-achievement claim.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/research",
@@ -1279,6 +1279,42 @@
       "daily_sessions": 647,
       "historical_data_reused": true,
       "evaluation": "research/etf_quarterly_profit_allocation_20261016/independent_evaluation.json"
+    },
+    {
+      "card": "research/minute_value_weight_20261017",
+      "kind": "bounded_minute_value_weight_information_screen",
+      "status": "not_promoted_information_gate_failed",
+      "maximum_new_model_fits": 18,
+      "maximum_new_native_accounts": 0,
+      "historical_data_reused": true,
+      "production_changes_authorized": false,
+      "evaluation": "research/minute_value_weight_20261017/independent_evaluation.json",
+      "design_review": {
+        "role": "independent_evaluator",
+        "agent": "/root/reviewer",
+        "reviewed_at_utc": "2026-10-17T01:23:43.844208+00:00",
+        "plan_sha256": "202a0d38175ea113f553e4396f52c5c4c356e24b9ed6513e163e95f6db183dc0",
+        "decision": "approved_before_fit",
+        "conditions": "Source preflight success: 2007 qualified sessions,17 early closes; native minute all OHLCV float32 equals immutable source, daily marks equal verified parent Recorder; DatasetH readback exact.",
+        "checks": [
+          "label shifts before missing-session filtering",
+          "strict maturity cutoff",
+          "shared uniform/learned Value initialization",
+          "masked padded values invariant in both networks"
+        ],
+        "caveat": "Learned weighting adds GRU capacity; positive result is this mechanism package, not capacity-isolated proof."
+      },
+      "recorder_id": "0f1a94b799624d258aa1bf8acd18044d",
+      "new_fits": 18,
+      "new_native_accounts": 0,
+      "failed_gates": [
+        "development_2021_2022_mse_better_handcrafted",
+        "development_2021_2022_two_seeds_handcrafted",
+        "paired_bootstrap_handcrafted",
+        "paired_bootstrap_uniform"
+      ],
+      "qualified_forward_days": 0,
+      "nas_archive_sha256": "0d993eed1656b427b14802cc580e7607f17a24d2675887b72a773e0c69556a73"
     }
   ],
   "governance_review": {

@@ -1,0 +1,141 @@
+{
+  "experiment": "minute_value_weight_20261017",
+  "schema_version": "minute_value_weight_screen_v1",
+  "scope": "Bounded historical information screen only; no account/promotion claim. Positive screen requires separately frozen native full-cost accounting before candidate qualification.",
+  "hypothesis": "Learned intraday time weights preserve predictive structure lost by handcrafted summaries or uniform pooling.",
+  "parents": [
+    "minute_information_pit_allocator_20261012",
+    "small_head_minute_increment_20261014"
+  ],
+  "article": {
+    "path": "/Users/rziiiii/Downloads/\u534e\u6cf0\u91d1\u5de5 _ \u57fa\u4e8e\u65e5\u5185\u91cf\u4ef7\u7ed3\u6784\u7684\u795e\u7ecf\u7f51\u7edc\u56e0\u5b50\u6316\u6398\u6846\u67b6.html",
+    "sha256": "d25c37717049b557b002a67f0ec049c630ce3be9e02578ca99c58a5b79d85365",
+    "url": "https://mp.weixin.qq.com/s/9XVWA-Pcep2m-F8k0BI5HA",
+    "adaptation": "Value MLP plus Weight GRU and time-softmax pooling. Temporal H5 excess MSE replaces stock cross-sectional correlation; US full session replaces 240 China minutes. No turnover field, no transaction-count fabrication."
+  },
+  "as_of": "2026-10-09",
+  "source_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+  "source_start": "2018-10-12",
+  "nas_binding": "nas_binding.json",
+  "providers": {
+    "minute": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+    "daily": "data/qlib/minute_information_pit_allocator_20261012/daily_prices"
+  },
+  "provider_file_sha256": {
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/qlib.yaml": "1eb18f08c3f6cfe79524567b99079d41f0b5175eb1b2dcb0e80e312baaf32ff0",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/qlib_store_manifest.json": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/calendars/1min.txt": "01d00736617fea7392ce81a400339cc6b061396a5e7f2a94cd844c554362a08c",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/instruments/all.txt": "c01836ac69f179ad7f51e4e774b7b5b8f8ebcbb29f7ae893fb3a5371c1bcc9cc",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/low.1min.bin": "5b615cbbda58f71e99407b404e4fca6a6732ac511df229d7dbe554e71e456550",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/open.1min.bin": "8a6a7ad2418f42c53ef81b003356242effcbc9a165741baf2805796470c45c0b",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/close.1min.bin": "83069807a4fbfca7c545973055fb31a43cfd796d365c200bf4ebe0af42a83f88",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/price_valid.1min.bin": "ac6d88813afc59ce9aef5da3e4c1456de7dc9e6b7b4b806a19a1ab6ea53b38d2",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/volume.1min.bin": "61be185bd67152db79aee7549f6ac638ca4cf0f495e8240a2030107d9b371b58",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/high.1min.bin": "cafae875ffb979963fc76ca7e549619ef9b1cf909530b8df9917809175045bc4",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/low.1min.bin": "41e62bcef7ca022452db51580cc8ee5dc0486d22a3004aa4c55c73dedb5a1e91",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/open.1min.bin": "d98700b1af7c9fc1fabd2a35271c2b8026344ab74d1a3dfb77d4f03a6305657d",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/close.1min.bin": "3f8f9e85a6f6ce5a0ae632dd8dc368afefc31a3371340173cb403663b8e66755",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/price_valid.1min.bin": "a60d3277dd03b79c86f96cac4ce7d3b8b491d0de240424603db01854dfec9ed1",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/volume.1min.bin": "8ba5adfae5cb5bf5d4af54eadf3a88c3d7f2567b0a0e957fa9f9aae1536b4632",
+    "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/high.1min.bin": "8e4c593a9e6c2aedff0c58c14b33868b2e6062c16abc80ca66c7c2230dbfbb27",
+    "data/qlib/minute_information_pit_allocator_20261012/daily_prices/qlib.yaml": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2",
+    "data/qlib/minute_information_pit_allocator_20261012/daily_prices/qlib_store_manifest.json": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "data/qlib/minute_information_pit_allocator_20261012/daily_prices/calendars/day.txt": "7d45256ab69fbf3d156fa23823f5cc865225082debc559789ef87503a7248afb",
+    "data/qlib/minute_information_pit_allocator_20261012/daily_prices/instruments/all.txt": "c5a3c374d7ecd11a737f9fe139893e034104b55ff0c214374f7ac71a1dc79385",
+    "data/qlib/minute_information_pit_allocator_20261012/daily_prices/features/soxx/close.day.bin": "ee40293ef9a1cab290db994c80690a3b067a02748a78b5ca96a49333b81b3470",
+    "data/qlib/minute_information_pit_allocator_20261012/daily_prices/features/soxx/open.day.bin": "2e91a4e4f40c62b7ddeb200710c2c6f588b628a94f537cac10e90ac5f5d7d763",
+    "data/qlib/minute_information_pit_allocator_20261012/daily_prices/features/soxl/close.day.bin": "2940218928ca0b52a84fd0b4402942f8ac603b126725a440647731bf021086af",
+    "data/qlib/minute_information_pit_allocator_20261012/daily_prices/features/soxl/low.day.bin": "a2a59d782973b3b39a511f2ea9bb8a6f0097f77e75be564d107a52d9694ea130",
+    "data/qlib/minute_information_pit_allocator_20261012/daily_prices/features/soxl/high.day.bin": "199addeb94587a602cef88cf39c4458d08167f936fcf090c979b652510ca215a",
+    "data/qlib/minute_information_pit_allocator_20261012/daily_prices/features/soxl/open.day.bin": "ac9a98a72062a5e6191d490cd708884919c76df1dd96eee8694128cd5be442e3"
+  },
+  "core_features": [
+    "minute_soxx_log_rv5",
+    "minute_soxx_downside_share5",
+    "minute_soxx_late_rv_share",
+    "minute_soxx_trend_efficiency",
+    "minute_soxx_post_first_hour_return",
+    "minute_soxx_late_return30",
+    "minute_soxx_intraday_drawdown",
+    "minute_soxx_rebound_from_low",
+    "minute_soxx_late_volume_share",
+    "minute_soxx_rv1_rv5_ratio_log",
+    "minute_soxl_tracking_residual_rv5",
+    "minute_soxl_soxx_sign_agreement"
+  ],
+  "seeds": [
+    71,
+    172,
+    273
+  ],
+  "folds": [
+    {
+      "name": "development_2021_2022",
+      "train_end": "2020-12-31",
+      "predict_start": "2021-01-01",
+      "predict_end": "2022-12-31"
+    },
+    {
+      "name": "reused_2023_2026",
+      "train_end": "2022-12-31",
+      "predict_start": "2023-01-01",
+      "predict_end": "2026-10-09"
+    }
+  ],
+  "families": [
+    "handcrafted",
+    "uniform",
+    "learned"
+  ],
+  "model": {
+    "value_hidden": 8,
+    "gru_hidden": 8,
+    "heads": 4,
+    "epochs": 20,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "decorrelation_weight": 0.01,
+    "loss": "Mean per-head MSE on training-standardized H5 SOXL minus SOXX open-to-open return, plus temporal within-training-batch squared off-diagonal head correlations",
+    "checkpoint": "fixed final epoch",
+    "seed_policy": "base seed shared across families and folds; equal-weight seed and head ensemble, no seed selection",
+    "input": "SOXL/SOXX log OHLC relative own same-session first open plus log1p(volume / own full-session mean); 10 channels; training-only per-channel standardization",
+    "handcrafted": "12 frozen prior core summary features -> Linear(12,8), tanh, Linear(8,4), same loss, epochs and seeds"
+  },
+  "coverage": "Require all genuine XNYS expected minutes (390 or early-close 210), valid OHLC/volume both assets; drop incomplete sessions jointly across arms; no synthetic minute fills. Right-pad only to batch tensor and mask padded positions before pooling.",
+  "timing": "Signal after completed regular-session close+60sec; H5 label next-session open to sixth-session open, mature sixth-session open+60sec. Retain only labels mature strictly before fold cutoff; scale only train.",
+  "label": "(SOXL open[t+6]/open[t+1] - 1) - (SOXX open[t+6]/open[t+1] - 1), shifts on full native daily calendar before qualified-minute filtering",
+  "maximum_model_fits": 18,
+  "maximum_new_native_cases": 0,
+  "selection": "No tuning/selection, report all families, seeds, annual/quarterly/126-session windows. All historical windows reused research, no fresh test or forward qualification.",
+  "information_gates": {
+    "positive_ic_each_fold": true,
+    "lower_mse_than_both_controls_each_fold": true,
+    "paired_bootstrap_mse_improvement_lower_positive_each_control_pooled": true,
+    "at_least_two_seed_improvements_each_control_each_fold": true
+  },
+  "bootstrap": {
+    "mean_block": 63,
+    "resamples": 2000,
+    "alpha": 0.0125,
+    "seed": 20261014,
+    "note": "paired squared error improvement in label units; two control comparisons Bonferroni; does not cover unknown prior research searches",
+    "fold_gap_handling": "Sample each fold separately at original fold length; blocks follow successive eligible observed sessions, may span omitted invalid sessions, circular wrap within fold only; concatenate sampled folds for pooled mean. No cross-fold block."
+  },
+  "failure_policy": "If any screen gate fails: not_promoted_information_gate_failed, close fixed route without rescue parameter search.",
+  "production_enabled": false,
+  "research_history_attempt_count": "unknown; prior minute cards already negative; new representation not independent market evidence",
+  "cost_policy": "Deferred at information-screen stage, no economic performance claim. Native accounts later require contract IBKR tiered 0/2/5bp and all 30pct risk/stability gates; no replacement of old strategy.",
+  "frozen_at_utc": "2026-10-17T01:23:10.384880+00:00",
+  "fold_cutoff": "00:00:00 America/New_York on day after train_end; sixth-session 09:31 ET label maturity strictly less than cutoff",
+  "ic_definition": "Spearman correlation across dates of equal-head/equal-seed predictions and realized excess label, reported separately per fold",
+  "gate_rationale": "Strict >0 out-of-fit paired MSE reduction tests whether fixed weighted representation adds predictive information beyond both controls. No material-return threshold or portfolio claim; failure closes only this fixed model and H5 label.",
+  "window_reporting": "126 consecutive eligible observed sessions, not necessarily consecutive exchange days; windows never cross fold seam; report annual and quarterly all including incomplete 2026.",
+  "daily_label_parent": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "native_prices_path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/native_prices",
+    "sha256": "68d68e30ec64129b012a0b8afc3c5848db9056238d9b9ed7fc1a21cfe3bc9167",
+    "nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1"
+  }
+}

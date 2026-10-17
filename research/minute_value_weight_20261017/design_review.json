@@ -1,0 +1,15 @@
+{
+  "role": "independent_evaluator",
+  "agent": "/root/reviewer",
+  "reviewed_at_utc": "2026-10-17T01:23:43.844208+00:00",
+  "plan_sha256": "202a0d38175ea113f553e4396f52c5c4c356e24b9ed6513e163e95f6db183dc0",
+  "decision": "approved_before_fit",
+  "conditions": "Source preflight success: 2007 qualified sessions,17 early closes; native minute all OHLCV float32 equals immutable source, daily marks equal verified parent Recorder; DatasetH readback exact.",
+  "checks": [
+    "label shifts before missing-session filtering",
+    "strict maturity cutoff",
+    "shared uniform/learned Value initialization",
+    "masked padded values invariant in both networks"
+  ],
+  "caveat": "Learned weighting adds GRU capacity; positive result is this mechanism package, not capacity-isolated proof."
+}

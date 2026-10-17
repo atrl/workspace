@@ -1,0 +1,52 @@
+{
+  "experiment": "minute_value_weight_20261017",
+  "reviewer": "independent evaluator /root/reviewer",
+  "evaluated_at_utc": "2026-10-17T01:28:31.758145+00:00",
+  "plan_sha256": "202a0d38175ea113f553e4396f52c5c4c356e24b9ed6513e163e95f6db183dc0",
+  "recorder_id": "0f1a94b799624d258aa1bf8acd18044d",
+  "experiment_id": "144888956312247735",
+  "nas_archive_sha256": "0d993eed1656b427b14802cc580e7607f17a24d2675887b72a773e0c69556a73",
+  "executed_workflow_text_sha256": "1e4980b90d09b0070efba1437f6988b4c65d1ca8d876724b097ef36fa4cd4d01",
+  "executed_workflow_artifact_sha256": "a0548680bb28760cd6acae0afa3806f2d71fe0ed19ef7e88a7eb71229905af70",
+  "delivery_workflow_artifact_sha256": "f88918e85a892f35aeb48777aa888354db77b18b80336f53e11521ea30c0fd1e",
+  "design_decision": "approved_before_fit_for_bounded_information_screen",
+  "evaluation_decision": "accept_completed_negative_information_screen_not_promoted",
+  "promotion_approved": false,
+  "objective_achieved": false,
+  "model_fits": 18,
+  "native_accounts": 0,
+  "independent_checks": [
+    "Read frozen plan and implementation before fit; same-session input only predicts next-session-to-sixth-session excess with mature training labels",
+    "Inspected immutable raw/NAS identity and source code exact native-minute and parent native-daily equality checks; daily shifts precede minute eligibility filtering",
+    "Loaded all 18 prediction artifacts via Qlib Recorder; independently recomputed equal-seed ensemble MSE and Spearman per fold, matching sidecars; all 12987 prediction rows have consistent date labels",
+    "Confirmed Recorder frozen plan equals plan.json and executed workflow source identity",
+    "Read repaired DatasetH via Qlib Recorder and successfully prepared 2007 by 3915 data; executor NAS download verification covers 54 artifact hashes",
+    "Read code for paired stationary bootstrap: 63-observation blocks, 2000 resamples, seed20261014, alpha0.0125, independent fold sampling; checked recorded lower bounds",
+    "Reviewed training summaries: 552/1055 training rows, 503/940 evaluation rows, strict maturity before cutoff, all18 fits20epochs",
+    "Reviewed Chinese conclusion and scope: no portfolio/cost/drawdown or independent-forward claim"
+  ],
+  "failed_gates": [
+    "development_2021_2022_mse_better_handcrafted",
+    "development_2021_2022_two_seeds_handcrafted",
+    "paired_bootstrap_handcrafted",
+    "paired_bootstrap_uniform"
+  ],
+  "key_results": {
+    "development_learned_mse": 0.008957784601037402,
+    "development_handcrafted_mse": 0.008912308179690355,
+    "reused_learned_mse": 0.0100424733115867,
+    "reused_handcrafted_mse": 0.010132705462645171,
+    "reused_uniform_mse": 0.010045841424597428,
+    "pooled_mse_improvement_lower_handcrafted": -2.1467651395086677e-05,
+    "pooled_mse_improvement_lower_uniform": -4.022136969776638e-07
+  },
+  "limitations": [
+    "All history reused; independent reviewer does not create independent market evidence",
+    "GRU adds capacity; comparison is representation package, not capacity-matched pure weights attribution",
+    "Temporal H5 two-ETF adaptation does not reproduce original stock cross-sectional article",
+    "126 windows count eligible observed sessions, not necessarily consecutive exchange sessions",
+    "Post-run constant baseline is descriptive only and changes no gate",
+    "Dataset serialization repaired without refits; executed source preserved separately from delivery repair"
+  ],
+  "required_next_action": "Close this fixed model-label version; no rescue tuning or portfolio account justified by failed screen. New research needs a substantive new mechanism or independent evidence, not a renamed historical test."
+}

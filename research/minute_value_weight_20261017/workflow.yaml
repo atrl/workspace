@@ -1,0 +1,14 @@
+experiment: minute_value_weight_20261017
+providers:
+  minute: data/qlib/minute_information_pit_allocator_20261012/core_1min
+  daily: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+recorder_uri: /Users/rziiiii/dev/workspace/research/minute_value_weight_20261017/qlib_recorder
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/dataset
+  - models/*
+  - predictions/*
+  - analysis/ensemble
+  - analysis/intervals
