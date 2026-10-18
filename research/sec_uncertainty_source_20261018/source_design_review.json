@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "verdict": "APPROVE_SOURCE_DESIGN",
+  "reviewer": "independent_evaluator",
+  "reviewed_at_utc": "2026-10-18T13:24:52.311440+00:00",
+  "source_design_draft_sha256": "ed19655b064292f02f89f9cabddfe9762ca827403b7e4ab4eee60800ba00496a",
+  "notebook_sha256": "67d7d3dbdbb866b5499c343815bfd0307a9671a0c8a22839570a29d1164e83f1",
+  "conclusion_sha256": "e02455cb0e104bda86bf8f2d7586221a8938ece16f08242b92dec823eaf302c7",
+  "scope": "Source-only stage design. B0 implementation is admissible independently of A lexicon usage and B1 SEC transport configuration. Actual execution requires frozen plan/code identities, implementation review and a separate owner stage GO.",
+  "B0_implementation_only_admissible": true,
+  "execution_approved": false,
+  "fit_approved": false,
+  "account_approved": false,
+  "minimum_B0_implementation_conditions": [
+    "Whitelist only pinned inputs/holdings, inputs/holdings_manifest and analysis/issuer_mapping Recorder artifacts plus the specified NPORT native calendar and provider manifest. Do not deserialize numerical companyfacts, PG Dataset, labels, prices, predictions or accounts.",
+    "Normalize candidate CIKs to ten digits, deduplicate/group by CIK before deterministic ordering, preserve every security row and mapping/identity gap, and freeze the first two distinct candidate CIKs. Assert exactly two unique CIKs; fewer than two stops. No selected-issuer replacement after form, identity, transport or parsing failure. Root accepted this clarification for the frozen plan.",
+    "Bind the earliest basket only within the fixed admitted corpus: report2019-09-30, filed2019-11-25, accession0001752724-19-177706 and fixed fund/series/contract. Verify strict next native session2019-11-26; do not claim SEC all-history earliest or historical issuer qualification merely from candidate mapping.",
+    "Use at most one bounded D.calendar call2011-01-03 through2022-12-30 and zero D.features/HTTP. Save native Recorder selection and gap ledgers plus exact source/code identity; inspect no original text and compute no lexical feature."
+  ],
+  "stage_admissibility": {
+    "A": {
+      "design_admissible": true,
+      "execution_approved": false,
+      "remaining_gate": "One fixed mirror remains an identity lead, not canonical author-version or usage certification. Resolve purpose-specific terms and pre2023 component provenance; verify admitted raw bytes/Gitblob/schema before membership use. No assumed academic license, current2026 year-filter reconstruction, alternate version or corpus-based word choice. A unresolved does not block B0."
+    },
+    "B0": {
+      "design_admissible": true,
+      "implementation_admissible": true,
+      "execution_approved": false,
+      "HTTP": 0,
+      "dependency_on_A_or_SEC_UserAgent": false
+    },
+    "B1": {
+      "design_admissible": true,
+      "execution_approved": false,
+      "status": "needs_contact_config_and_sealed_B0_and_code_identity",
+      "HTTP_maximum": 10,
+      "breakdown": "2 current submissions + at most4 listed history JSON +4 selected SGML headers",
+      "remaining_gate": "Real declared contact/project identity and separate GO. Fixed two CIKs; original annual pair is first accepted on/after2019-11-26 and before2023cutoff plus immediately preceding distinct fiscal year. Require historical entity continuity and ordered coverage, not first-found selection. Missing/conflicting ranges, needing a third history file, foreign/non10-K or unresolved identity remain gaps."
+    },
+    "C": {
+      "design_admissible": true,
+      "execution_approved": false,
+      "HTTP_maximum": 4,
+      "remaining_gate": "Accepted B1 four original accession/header/version/timing identities, exact URL allowlist, real SEC identity and separately reviewed parser/GO. Preserve visible layout-table prose and structural financial table evidence; remove only evidenced hidden content, isolate the primary document, and fail ambiguous encoding/CSS/segmentation. No dictionary application or uncertainty counts."
+    }
+  },
+  "clock_and_version_boundary": "Use max(validated filing date, acceptance local date), then first09:29NY decision strictly after that date end;09:47 fill does not relax09:29 cutoff. Keep current fetch, acceptance, filing, PAC/date-as-of-change and amendment identities separate. Unresolved historical body version stays unknown. Both annual documents need not have been known at the basket anchor. This is conditional reconstruction, not first-receipt/PIT certification.",
+  "transport_boundary": "Every failure/timeout/redirect consumes the frozen request budget; no retries or automatic redirects.403/429/challenge stops that host without endpoint/IP/User-Agent substitution. B1 maximum10 and all A/B1/C future maximum16 are explicit; B0 consumes none.",
+  "metadata_identity_checks": {
+    "triage_campaign_and_known_basket_plan_hashes_match": true,
+    "both_source_manifest_RIDs_and_three_named_artifact_SHA_entries_match": true,
+    "native_calendar_sha256": "2a861bcf94a9abcfe78b9d2ed7248df20a3e147c53610751abcd7f183ff9bc56",
+    "native_provider_manifest_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+    "calendar_and_provider_manifest_hashes_match": true,
+    "skeleton_unexecuted": true
+  },
+  "reviewer_actions": {
+    "source_HTTP": 0,
+    "dictionary_or_filing_downloads": 0,
+    "metadata_objects_deserialized": 0,
+    "native_calendar_calls": 0,
+    "price_or_label_reads": 0,
+    "word_counts": 0,
+    "features": 0,
+    "fits": 0,
+    "accounts": 0,
+    "new_tests": 0
+  },
+  "remaining_material_design_blockers": [],
+  "qualification_limit": "At most a conditional two-issuer/four-document source pilot.2011–2018 basket gaps, unsupported identities/forms and unknown versions remain visible. No full corpus,3014-row feature coverage, alpha, economics, model fit or promotion qualification.",
+  "next_action": "Root may freeze a B0 plan binding this draft/review and explicit distinct-CIK clarification, then authorize B0 implementation and focused synthetic validation. B0 actual execution still awaits reviewed code identity and separate owner GO; other stages remain separately gated."
+}

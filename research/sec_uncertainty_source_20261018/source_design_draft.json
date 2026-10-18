@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "experiment": "sec_uncertainty_source_20261018",
+  "status": "source_design_only_pending_independent_review",
+  "frozen": false,
+  "authorization": {
+    "design_and_bounded_metadata_discovery": true,
+    "implementation": false,
+    "dictionary_download": false,
+    "filing_metadata_intake": false,
+    "filing_body_download": false,
+    "real_parsing": false,
+    "word_frequency": false,
+    "features": false,
+    "fits": false,
+    "accounts": false
+  },
+  "single_hypothesis": "Year-over-year change in uncertainty-token proportion in original annual10-K visible primary-document text, using one fixed pre2023 LM uncertainty lexicon, for a contemporaneously disclosed SOXX basket proxy. No new issuer prediction line.",
+  "hypothesis_boundary": {
+    "definition_unchanged": true,
+    "not_selected": [
+      "negative sentiment",
+      "demand/supply phrase mining",
+      "10-Q/8-K/20-F mixture",
+      "LLM/embedding",
+      "word/issuer/window/sign/weight search"
+    ],
+    "source_only": "A validates lexicon identity/use conditions; B validates basket/issuer/accession/timing metadata; C validates exactly four source-document parsing cases. No uncertainty counts or feature series in these phases."
+  },
+  "authority": {
+    "triage": {
+      "path": "research/external_mechanism_review_20261018/sec_text_information_triage.md",
+      "sha256": "1f8fde51488395369d576a7383c32bea73e35579cf270438d265b25d5989960c"
+    },
+    "campaign_contract": {
+      "path": "docs/three_asset_research_contract.md",
+      "sha256": "9e90f4e4466352341064a20a310e08547b445d0722c2ee950dfc8d6b5f35d3a9"
+    },
+    "original_model_contract": {
+      "path": "research/stage1_day_night_supervision_20261018/plan.json",
+      "sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888"
+    },
+    "original_model_contract_role": "Only original39/16,3014cohort/H1-H5/timing and economic evidence boundaries; do not inherit S/Z supervision or reopen that closed experiment."
+  },
+  "training_component_time_rule": {
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "allowed": "A lexicon demonstrated fixed before the2023cutoff is eligible for consideration in the single2011–2022training/2023+evaluation experiment; it need not precede each2011 training sample.",
+    "raw_document_rule": "Each raw original filing and its availability remain causal to its own historical decision. Later text corrections/amendments cannot be backfilled.",
+    "excluded": "Current2026 dictionary statistics/membership without a qualified earlier snapshot,2023+ corpus-derived IDF/vocabulary/labels,2026 pretrainedLLM knowledge, and currentdictionary year-filter reconstruction."
+  },
+  "metadata_discovery_receipt": {
+    "search_groups_used": 1,
+    "web_search_queries_used": 3,
+    "explicit_GitHub_metadata_queries_used": 3,
+    "metadata_query_total": 6,
+    "maximum_metadata_query_total": 6,
+    "maximum_groups": 2,
+    "group1_queries": [
+      "\"LoughranMcDonald_MasterDictionary_2018.csv\" github",
+      "\"LoughranMcDonald_MasterDictionary_2021.csv\" github",
+      "\"Loughran McDonald\" dictionary \"2022\" license"
+    ],
+    "group2_queries": [
+      "https://api.github.com/repos/rlew631/NLP_stock_analysis/commits?path=LoughranMcDonald_MasterDictionary_2018.csv&per_page=1",
+      "https://api.github.com/repos/rlew631/NLP_stock_analysis/git/trees/e3f8bbd0a0f29e6223743bf3363b670dd9144d57?recursive=1",
+      "https://api.github.com/repos/rlew631/NLP_stock_analysis"
+    ],
+    "actual_handles": [
+      "61872 exit0/chunk3c0a31",
+      "7336 exit0/chunkb321b8"
+    ],
+    "requests_were_metadata_only": true,
+    "dictionary_bytes_read": 0,
+    "filing_body_bytes_read": 0,
+    "transport_honesty": "GitHubAPI responses were parsed as metadata and shown in tool receipts; no raw-response byteSHA was recorded. Search-engine internal requests are unknown and not claimed zero. The file blob endpoint was not requested.",
+    "separate_owner_review": "Root separately revisited the author terms page during review and confirmed currentMarch2026/academic-free/commercial-contact wording; that owner browse is not claimed as partof the drafter6-query budget or a dictionary download."
+  },
+  "lexicon_candidate": {
+    "candidate_count": 1,
+    "maximum_candidates": 2,
+    "selection_rule": "One fixed mirror chosen by pre-cutoff metadata identity, not corpus counts or performance. No fallback mirror/version reserved.",
+    "repository": "https://github.com/rlew631/NLP_stock_analysis",
+    "commit": "c74b5019ff75979c5163839dca6537a96ba40777",
+    "commit_url": "https://github.com/rlew631/NLP_stock_analysis/commit/c74b5019ff75979c5163839dca6537a96ba40777",
+    "commit_author_date": "2020-11-10T07:58:58Z",
+    "commit_committer_date": "2020-11-10T07:58:58Z",
+    "tree_oid": "e3f8bbd0a0f29e6223743bf3363b670dd9144d57",
+    "tree_truncated": false,
+    "path": "LoughranMcDonald_MasterDictionary_2018.csv",
+    "git_blob_oid": "e349eaa4c5c10fb50a37dd2072da2a2ccbb9f60f",
+    "bytes_expected_from_tree": 6678744,
+    "future_byte_url": "https://raw.githubusercontent.com/rlew631/NLP_stock_analysis/c74b5019ff75979c5163839dca6537a96ba40777/LoughranMcDonald_MasterDictionary_2018.csv",
+    "raw_sha256": null,
+    "repository_created_at": "2020-11-07T18:43:18Z",
+    "repository_pushed_at": "2020-11-13T16:33:45Z",
+    "repository_updated_at": "2024-12-27T02:13:10Z",
+    "repository_license": null,
+    "identity_limit": "Immutable content address and current GitHub historical metadata are an inspectable pre-cutoff lead; file has not been acquired, and its2018 filename is not author certification or an independently timestamped first-publication proof. Do not claim an exact canonical author edition without evidence.",
+    "author_terms_url": "https://sraf.nd.edu/loughranmcdonald-master-dictionary/",
+    "author_terms_observed": "Author page states free academic-research use and separate commercial licensing. Public GitHub access and a repository code license cannot grant underlying dictionary rights.",
+    "usage_status": "unresolved_for_this_documented_research_purpose; not presumed paid, prohibited, or unrestricted",
+    "no_contact_purchase_auth": true,
+    "minimum_missing": "A raw-byte/Gitblob verification and a reviewable determination that the documented research/storage purpose is covered by existing terms. No author correspondence or purchase is authorized."
+  },
+  "reused_metadata_sources": {
+    "nport": {
+      "card": "research/etf_valuation_source_20261016",
+      "recorder_id": "dfc655657b964f9e97b06d74505598aa",
+      "archive": "f06346386d9add494020c414f7e60cc11b1bc9bca9e4fc0a3d289a041ac54047",
+      "inventory_sha256": "a969307654c6a2560773689a304acde9e317b413a2ffd75ffb1ac23a8a08ee2d",
+      "artifacts": {
+        "inputs/holdings": "712bf427020932099f8f9fe97be4ce297a1e73624e7f3da899a6e9aaf046a713",
+        "inputs/holdings_manifest": "12890bb2b4bf66bcf285e36f80aa872c4f42ccfae6a396d69a26cf7284c5d210"
+      },
+      "declared_raw_holdings_path": "data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_history.csv",
+      "declared_raw_holdings_sha256": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+      "fund_cik": "0001100663",
+      "series_id": "S000004354",
+      "contract_id": "C000012084",
+      "earliest_snapshot_expected": {
+        "report_date": "2019-09-30",
+        "filing_date": "2019-11-25",
+        "accession": "0001752724-19-177706"
+      },
+      "metadata_declared_scope": {
+        "filings": 28,
+        "holdings_rows": 840,
+        "historical_symbols": 47
+      },
+      "identity_scope": "Values are existing source metadata, not newly parsed holdings or retrospective current constituents; B must verify against pinned Recorder objects.",
+      "source_vintage_limit": "Earliest snapshot is earliest in this fixed admitted corpus, not proof of SEC all-history earliest. Canonicalcollector retained CSV+filing URL metadata, not each rawXML first-publication vintage; filing_date has date precision only.",
+      "canonical_manifest_sha256": "abf33aa625ae587fa99a61d6b75bf25e47e1deb57f70f360f0ba670d84643811"
+    },
+    "issuer_mapping": {
+      "card": "research/etf_pit_fundamentals_repair_20261016",
+      "recorder_id": "1e947608d2f64491a754d576814e9165",
+      "archive": "5aeff2e680628d614d23e85cb2a0877f64d48dbb362d89404949d94a2a117119",
+      "inventory_sha256": "8ee3d7fc75f2f2e50d587e40c387a367dd7ec7983940e6049bea837b3b937054",
+      "artifacts": {
+        "analysis/issuer_mapping": "eee4d1b7d0e5e4bd6ff0856b022e6243cd30df7f46963600b43a79bf7acd3eef"
+      },
+      "limit": "Most mappings are current_ticker_candidate_requires_historic_identity_check, not admitted historicalissuer proof. Preserve status. MRVL pre/post2021-04-20 CIK1058057/1835632 mustnot be silentlymerged. FundCIK1100663 isnot anissuerCIK."
+    },
+    "known_basket_contract": {
+      "path": "research/etf_basket_valuation_inputs_20261016/plan.json",
+      "sha256": "246f1cc8be72a2f2b7980e1d94a339c471d5cb66ff3a4cf6a7e835df57447ebf"
+    },
+    "allowlist_boundary": "Only named holdings/manifest/mapping metadata artifacts may be deserialized afterB GO. No companyfacts numerical objects, original model Dataset/labels, prices, account or prediction artifacts. Full holdings metadata may include later years, but pilot selection must first restrict by the frozenpre2023 knowledge rule; no claim that entire later metadata were never resident.",
+    "native_calendar_metadata": {
+      "provider_uri": "data/qlib/soxx_pit_leveraged_training_v1",
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/calendars/day.txt",
+      "sha256": "2a861bcf94a9abcfe78b9d2ed7248df20a3e147c53610751abcd7f183ff9bc56",
+      "provider_manifest_path": "data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json",
+      "provider_manifest_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+      "declared_calendar_extent": [
+        "2007-02-01",
+        "2026-07-02"
+      ],
+      "authority": "research/etf_basket_valuation_inputs_20261016/plan.json source_files_sha256",
+      "role": "Existing NPORT research nativecalendar metadata only; nofeatures/priceobjects. B0 will perform qlib.init+D.calendar under its separateGO."
+    }
+  },
+  "basket_contract": {
+    "meaning": "Latest then-publicly-disclosed SOXX NPORT basket proxy, not official real-time composition or current benchmark holdings.",
+    "knowledge_rule": "Inherit prior disclosed-basket rule: latest eligible report_date then latest eligible filing_date; date-only filings become usable no earlier than the next native decision after filing-date end in NewYork. Older-report amendment never overwrites a more recent eligible report. This is conditional publication-date reconstruction, not first receipt.",
+    "early_gap": "2011–2018 remain unknown; no present-day constituent backfill or deletion of any original3014model rows.",
+    "foreign_gap": "Non10-K issuers and unsupported historicCIK/reorganizations are explicit coverage gaps. Do not import20-F/6-K or renormalize knownweights to mimic wholebasket.",
+    "pilot_scope": "Two metadata-selected issuers only; pilot success doesnot certify full sector corpus, fullhistory or sufficient training support."
+  },
+  "phase_A": {
+    "name": "lexicon_identity_and_usage",
+    "requires": "Independent source-design review and separate owner A GO binding finalplan/code/requestallowlist; none currently granted.",
+    "planned_http_maximum": 2,
+    "requests": [
+      {
+        "id": "A_terms",
+        "url": "https://sraf.nd.edu/loughranmcdonald-master-dictionary/",
+        "kind": "author usage metadata only"
+      },
+      {
+        "id": "A_dictionary",
+        "url": "https://raw.githubusercontent.com/rlew631/NLP_stock_analysis/c74b5019ff75979c5163839dca6537a96ba40777/LoughranMcDonald_MasterDictionary_2018.csv",
+        "kind": "one immutable dictionary byte intake",
+        "condition": "Only if the approved A scope confirms source inspection/storage is permitted; no application to filings."
+      }
+    ],
+    "operations": [
+      "Preserve terms response/date/URL/status/SHA and document purpose-specific usage assessment; do not silently treat academic-only wording as unrestricted commercial permission.",
+      "If intake is admitted, verify expected6678744bytes and GitblobSHA1=sha1(ASCII(\"blob \"+decimal_length)+singleNULbyte0x00+raw), expected e349eaa4c5c10fb50a37dd2072da2a2ccbb9f60f; record newSHA256.",
+      "Audit encoding/schema and confirm version documentation uses positive Uncertainty flags for membership,0 for nonmembership and negative yearflags for removal. Freeze membership as Uncertainty>0 only if that convention is supported; otherwise stop, do not choose another rule. No selection ofwords using sourceC documents or labels.",
+      "Freeze the inspected source as a fixed mirroredversion, with its actual provenance limits. Do not use dictionary-wide frequency/IDF columns or claim the2018filename alone proves publication."
+    ],
+    "pass": "Content/declaredversion schema and permitted use are resolved and review accepts that the fixed component contains no2023+ learned content. No corpus/token-frequency application.",
+    "stop": "Hash/size/format mismatch, unresolved use terms or version semantics -> needs_dictionary_identity_or_usage. Do not select another version/URL, filter2026years, contact authors, authenticate or purchase.",
+    "outputs": [
+      "nativeRecorder raw dictionary if admitted",
+      "terms/provenance receipt",
+      "schema/membership-contract audit",
+      "small source_A result and independentreview"
+    ]
+  },
+  "phase_B": {
+    "name": "split_offline_metadata_and_gated_SEC_HTTP",
+    "planned_http_maximum": 10,
+    "selection": {
+      "basket_anchor": "Within the fixed admitted corpus only, bind report2019-09-30/filed2019-11-25/accession0001752724-19-177706, fundCIK0001100663/seriesS000004354/contractC000012084. Nativecalendar strictnextsession mustbe2019-11-26. Do not call it SEC all-history earliest or select a laterbettercovered snapshot.",
+      "issuers": "B0 reads only thisbasket security identifiers/name/ticker and the pinned issuer mapping. Normalize unambiguous candidateCIKs to10digits, sort by numericCIK then source securityidentifier, and freeze firsttwo candidates before anyB1 HTTP. Preserve all unresolvedidentity statuses and missing/multiplemapping gaps; these are provisionalCIK selections, not historicalidentity or10-K eligibility certification. Do not fill fromcurrentconstituent/unionnames, skip aselectedissuer or replace it if B1 finds foreign/non10-K/unresolvedhistory.",
+      "forms": "Original10-K only; inventory10-K/A and otherforms but never substitute or overwrite originaltext. If a selectedissuer lacks original10-K, report the prescribedpilotincomplete rather than select a thirdissuer.",
+      "annual_pairs": "B1 keeps the original rule: earliest original10-K accepted on/after the anchor knowledge date2019-11-26 and before2023cutoff, plus its immediately preceding original10-K for the preceding distinct fiscal-year period. Pairs are not represented as both known at the2019anchor: each has its own actual/conditionalavailability. Require adjacentoriginal annualperiods and unchangedissueridentity; transitional/duplicate/ambiguousperiods fail. No substituting a latest-known-at-anchor rule or anyword/performance selection.",
+      "no_values_yet": "IssuerCIKs, fouraccessions and fourbodyURLs remain null until authorizedB deterministicmetadata execution. This draft doesnot pretend they have been selected."
+    },
+    "B0": {
+      "scope": "Offline only: exactwhite-list holdings/manifest/issuer_mapping plus pinnednativecalendar. Freeze earliestcorpusbasket and2provisionalCIKs withallidentitygaps. Noaccessionselection fromoldfinancialvalues or text.",
+      "dependency": "Independent of lexicon A and SECnetworkconfiguration. B0implementation may followacceptedreview/ownerGO; its actualexecution stillrequiresits ownexplicitGO.",
+      "authorization_now": "designonly; noimplementation orexecutionperformedbythisdrafter",
+      "new_HTTP": 0,
+      "dictionary_or_body_reads": 0,
+      "price_label_prediction_reads": 0,
+      "word_counts_features_fits_accounts": 0,
+      "native_calendar": {
+        "qlib_init_region": "us",
+        "D_calendar_calls_maximum": 1,
+        "bounds": [
+          "2011-01-03",
+          "2022-12-30"
+        ],
+        "D_features_calls": 0,
+        "expected_anchor_mapping": "2019-11-25 filingdate ->2019-11-26 earliest09:29conditionaldecision",
+        "rule": "Use pinned NPORTprovider/calendarmetadata; no fullPGDataset or priceproviderfeatureloads."
+      },
+      "outputs": [
+        "nativeRecorder copies ofonlywhitelistedmetadata/calendar",
+        "anchor and2provisionalCIK selectionledger",
+        "allmapping/foreign/earlyhistorygaps",
+        "B0identity/summary/independentreview; noaccessionbodyURL claimedqualified"
+      ]
+    },
+    "B1": {
+      "scope": "Only afterB0selection issealed andreal SECcontact/projectUserAgentconfigured: issuerhistory+fourSGMLheaders only. Nofilingbodies.",
+      "requires": "SeparateB1 implementation/executionGO bindingB0manifest, fixedCIKs, code andHTTPallowlist. Currentconfiguration is needs_contact_config.",
+      "planned_http_maximum": 10,
+      "http_breakdown": {
+        "current_submissions_metadata": 2,
+        "additional_history_json_maximum_per_issuer": 2,
+        "additional_history_json_total": 4,
+        "selected_header_sgml": 4
+      },
+      "metadata_endpoints": [
+        "https://data.sec.gov/submissions/CIK{10digitCIK}.json",
+        "Only additional JSON filenames explicitly listed by that response, chosen by date-range coverage of the fixed anchor/adjacentannualpair; max2perissuer",
+        "https://www.sec.gov/Archives/edgar/data/{CIK}/{accession_no_dashes}/{accession}.hdr.sgml for exactly4selectedoriginals"
+      ],
+      "history_paging_rule": "For eachfixedCIK, inspect current recentmetadata and listedhistory ranges. Sort listedfiles by (filingFrom,filingTo,filename). If recentmetadata doesnot cover theanchor, request the singlelistedrange containing it; if no suchrange, failgap. Use atmostone adjacent listedrange next: preceding if thefirstsubsequent10-K is known but its priorannual ismissing; following if theanchor range has no subsequent10-K. Require explicit continuousdatecoverage fromanchor throughselectedsubsequent and backthroughpriorannual, and completeoriginal10-K ordering withinthatcoverage. A firstfound filing isnot earliest unlesscoverage provesit. Currentmetadata thatalreadycovers bothdates requires nohistoryHTTP. Missing/overlapping/conflictingranges or needingathirdhistoryfile fail; no pages rescued.",
+      "checks": [
+        "Verify CIK, legal/historicalentity, form, accession, periodofreport, primaryDocument, filingdate and acceptance raw/schema/timezone; currentticker alone cannot certifyidentity.",
+        "Bind completeheader bytes and DATE AS OF CHANGE, note PAC/amendments/corrections; unresolved historical textversion cannot be called originalfirstvintage.",
+        "Record metadata observation date distinct from historicalfiling/publicavailability; cross-check all4headers with submissionsmetadata before bodyintake.",
+        "Freeze fouroriginal fullsubmission URLs, expectedprimarydocument filenames, headerSHA and clockqualification in a Bmanifest for independentreview and separate C GO."
+      ],
+      "outputs": [
+        "nativeRecorder basket/mapping copies and metadata receipts",
+        "two fixedissuer/fouraccession selection ledger",
+        "four rawheader receipts and clock/version ledger",
+        "explicitcoverage/missing/gaprows",
+        "Bmanifest with exactlyfourallowedbodyURLs; no textcounts"
+      ],
+      "missing_identity": "Unprovenhistoricalissuer,foreign/non10-K orambiguousannualpair remainsgap; no replacingselectedCIK orswitchingannualrule. NoCbody GO beforefouroriginalaccessions/headers qualified."
+    }
+  },
+  "availability_contract": {
+    "source_fields": [
+      "CIK",
+      "accession",
+      "form",
+      "period_of_report",
+      "filed_date",
+      "raw_acceptance_datetime",
+      "acceptance_time_schema_and_timezone",
+      "date_as_of_change",
+      "amendment_link",
+      "historical_publication_evidence",
+      "actual_current_fetch_at",
+      "body_version_status"
+    ],
+    "official_boundary": "SEC states acceptance-to-website lag is often1–3min but notguaranteed, and nofirst-sec.gov-availabilitytimestamp is provided. Some ordinary forms accepted after17:30ET aredisseminated nextbusinessday. Currentrules cannot silently certify allhistoricalversions.",
+    "conditional_date_only_rule": "For this sourcepilot, if only historicaldate evidence isavailable, effective_public_date=max(officialfiled_date, acceptancecalendar_date interpretedunder its validatedheader timezone). Admit no earlier than the first original09:29NY decision strictly after that date23:59:59NY. This is a fixed conservative research proxy, not firstreceipt certification. Missing/conflicting date/time schema staysunknown; latefiling nextdayfiledate naturallydelays further. Do not use PACdate topretend revisedtext was original.",
+    "exact_time_rule": "Preserve authentic exactpublication/receipt evidence if present, but thepilot still uses the same conservative date rule for candidate availability; no performance-dependent switch to fastertimestamps.",
+    "version_rule": "Original10-K is immutable byaccession/bodySHA. 10-K/A separate; DATEASOFCHANGE or PAC evidence laterthanoriginal publicdate requires an auditable originalbodyversion, otherwise originalhistoricaltextqualification isunknown. No automaticOldloads search or amended-text fallback.",
+    "signal_execution_mapping": "Original signal indexT maps to its next native trade sessiond: information cutoff d09:29NY, execution d09:47NY (nextsession relative tosignalT), and H1 exits nextsession09:47. A document arriving between09:29 and09:47 cannot enter thatdecision; 09:47fill isnot a relaxedinformationcutoff. Sourcepilot doesnotloadH1/H5 arrays or evaluateaccounts.",
+    "historical_PIT_qualified": false,
+    "first_receipt_qualified": false
+  },
+  "phase_C": {
+    "name": "four_original_documents_parser_pilot",
+    "requires": "AcceptedB1 fouraccession/header/version/timing ledger, realSECUserAgent and separateownerC GO bindingexactlyfourURLs/finalparseridentity. C cannotstart fromB0 alone. Parservalidation needsno lexicon; overallreadiness stillrequiresA.",
+    "planned_http_maximum": 4,
+    "maximum_issuers": 2,
+    "maximum_original_filings": 4,
+    "url_template": "https://www.sec.gov/Archives/edgar/data/{CIK}/{accession_no_dashes}/{accession}.txt",
+    "url_allowlist": "Materialized fromB only, no guessed filenames, noalternativeHTML/exhibit endpoints on failure.",
+    "intake": "Preserve raw complete-submission bytes; verify itsheader matches B and exact TYPE10-K primarydocumentfilename. CompleteSGML contains otherdocuments, which remainopaque/archived but are never mixed into primarytext.",
+    "parsing_contract": {
+      "scope": "Visible text of the single original primary10-K body, including visible prose housed in layouttables. Do not selectMD&A/risksections or mixotherforms as a rescue.",
+      "primary_document": "Use SGML DOCUMENT boundaries/TYPE/FILENAME; require exactlyone matched primary10-K. Ignore SECtransmissionheader andotherDOCUMENT bodies for canonicaltext. Ambiguous/missing segmentation fails.",
+      "hidden_duplicate_rule": "Remove script/style payloads, ix:hidden and explicitly hidden DOMsubtrees (hidden attribute or validated inline/embeddedCSS display:none/visibility:hidden); unwrap visible inlineXBRL tags retaining displayedtext once. Do not deduplicate identical visible sentences or infer hiddenstatus from financialkeywords.",
+      "tables": "Never blanketdrop table nodes. Preserve visiblecelltext and record paragraph/tablecell/blockpaths separately. Preserve financialtable blocks with structuralflags as source evidence; no discretionarynumeric-table deletion or word-dependent classification. Canonicalvisibletext includes them, so typography changes must be visible in theaudit.",
+      "encoding": "Preserve rawencoding/declaredcharset. Decode under recordeddeclaredcharset or strictUTF8 whenvalid; unsupported/ambiguous decoding becomesneeds_parser, not silentreplacement ofletters.",
+      "audit": "Keep deterministic blockorder, rawbyte/DOMlocation whereavailable, textSHA and transformlog. Spotcheck first/middle/last visibleproseblocks and first/lasttableblocks in each of4documents bystructure, not uncertaintywords. Record source excerpts onlyinRecorder.",
+      "unknown_format": "UnresolvedCSSvisibility, duplicate inlineXBRL rendertext, primarydocumentboundary or mixedtablelayout -> explicitneeds_parser; no source fallback or changing samplepairs."
+    },
+    "allowed_measurements": [
+      "rawbytes/contenttype/sha/encoding",
+      "document/blockcounts and characterlengths for structuralaudit",
+      "header/date/schema agreement",
+      "visible/hidden/tablecell sentinel preservation on syntheticfixtures"
+    ],
+    "forbidden_measurements": [
+      "uncertaintywordhits or proportions",
+      "total corpus word-frequency vocabulary/IDF",
+      "year-over-year lexicaldelta",
+      "basketfeature",
+      "returns/labels/IC/AUC/MSE",
+      "model/portfolioresults"
+    ],
+    "outputs": [
+      "nativeRecorder fourraworiginals and metadata",
+      "canonical visibletext/structuralblockledger onlyinRecorder",
+      "fourcase source/parse/clock/gapreport",
+      "C independentreview; pilotonlynotcorpusqualification"
+    ]
+  },
+  "transport_and_budget": {
+    "A_max_http": 2,
+    "B_max_http": 10,
+    "C_max_http": 4,
+    "total_future_max_http": 16,
+    "dictionary_content_requests": 1,
+    "issuer_metadata_requests": 6,
+    "header_requests": 4,
+    "filing_body_requests": 4,
+    "author_terms_requests": 1,
+    "retries": 0,
+    "automatic_redirects": 0,
+    "authentication": false,
+    "purchases": false,
+    "contacts_or_messages_to_authors": false,
+    "rule": "Everyattempt,403/timeout/failure/redirect consumes budget; retainreceipt. Noalternativeendpoint, sameURLretry orhiddenbulkfallback. Exactsuccessfulhashcache maybereused withoutnetwork; sourcechanges require scopedreview. UsehonestdeclaredUserAgent consistentwith SECfairaccess; do not claim botidentity/licence notheld.",
+    "SEC_user_agent": {
+      "status": "needs_contact_config",
+      "current_audit_scope": "Currentprocess/workspace inspection found no real SEC user-agent configuration; old hardcoded placeholders are not valid. No claim about all private machineconfigurations.",
+      "B0": "Offlineonly; noSECidentity needed.",
+      "B1_and_C": "Require real declaredidentity/contact orcompliant projectidentifier beforeHTTP. Never fabricateemail, impersonateOpenAI/contact, or silentlyuseolddefault. Missingconfig keepsHTTPdisabled; no usercontact/purchase inthiscard."
+    },
+    "host_block_rule": "On429/accesschallenge/403 stopfurtherrequeststo thathost for theattempt, retainreceipts andunusedbudget. Do notchangeUA/IP/endpoint orretry toevade block. No automaticredirects."
+  },
+  "stage_independence": {
+    "A_and_B0": "A is unresolvedforuse and doesnotblock offlineB0. Each hasseparateimplementation/executionGO; nofurtheractivity follows merelyfromdraftcompletion.",
+    "B1": "B0metadata success doesnot authorizeHTTP. RealSECidentity/contactconfiguration andseparateB1GO required; totalB1budget10 remains.",
+    "C": "RequiresacceptedB1 andseparateC GO; noautomaticbodyintake. Lexicon isnotappliedinC.",
+    "overall": "A+B0+B1+C acceptance onlyqualifiesconditionalfour-document sourcepilot, neverfullcorpus/features/models."
+  },
+  "source_success_and_stops": {
+    "success": "Conditional sourcepilot materials are identifiable, usepermitted, causallydated and parsedwithout hidden/duplicate/exhibit/tableloss. Noalpha/economic/model eligibility claim.",
+    "missing": "Everyplannedissuer/accession remainsinledger evenifmissing. Do not replacefailedissuer/pair, buydata, extendepochs/searchwords, backfill currentmembers, or omitunknown3014rows.",
+    "scientific_limits": "Financial uncertainty language canreflect legalboilerplate, negation, reportlength or disclosure regulation; annual individualfirm association doesnotvalidate SOXL/SOXXH1orH5. No word-frequency computation or effectdirection chosen here."
+  },
+  "future_model_boundary": {
+    "not_authorized": true,
+    "unchanged": "Original39/16 inputs,3014cohort/H1allocation/H5maturity and complete economicacceptance contract remainauthorities; no modificationinthissourcecard.",
+    "future_comparison": "Any laterfixedtextincrement mustmatch availability/documentage/length/capacity and preserve allcost independentown-state accounts against SOXX/matchedB/original/strongreferences, risk/stability/CI and sufficientindependentforward. Sourcepilot success doesnotreduce these gates."
+  },
+  "qlib_artifact_contract": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml tobecreated onlyunderimplementationGO",
+    "notebook": "sec_uncertainty_source_20261018.ipynb",
+    "future_workflow": "src/workflow/sec_uncertainty_source.py (notimplemented/authorized)",
+    "recording": "Use nativeqlibR.start/Recorder per separatelyapprovedstage. Save whitelistedreusedmetadata and phaseartifacts withmanifest/actualrunid/NASidentity. Source-only doesnotrequire a fake priceprovider or D.featurescall. Document/timingmetadata may bewrapped in nativeDatasetH whenindexschemaisadmitted; preserve recursive dump_all before saving and verify coldreadback.",
+    "recorder_only_artifacts": [
+      "rawdictionary ifuseadmitted",
+      "sourceHTML/headers/completefilings",
+      "fullcanonicaltext/blockledgers",
+      "basket/issuer/accessionmetadata objects",
+      "nativeDatasetmetadata andfullchecktables"
+    ],
+    "root_files": "Only draft/notebook/conclusion now; later smallplan/workflow/summary/identity/approval/receipt/readback sidecars. No rawcorpus/wordlist committed atroot.",
+    "docs": [
+      "https://qlib.readthedocs.io/en/latest/component/data.html",
+      "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+    ]
+  },
+  "implementation_validation_later": "After implementationGO only: one concentratedsynthetic contract covering SGMLprimary-vs-exhibit, hiddenvisibleinlineXBRL duplication, narrativeinlayouttable preserved, visiblefinancialtableflagging, missingambiguousencoding failclosed, amended/PACclock handling and sourceafter09:29nonadmission. No newtest orrealparseinthisdrafttask.",
+  "pending_before_any_execution": [
+    "Independentdesignreview andownerB0implementationGO; then separateB0actualexecutionGO",
+    "A actualdictionarySHA/schema/useconditions remainunresolved, independently ofB0",
+    "B1 realSECUserAgent configuration andits ownGO; fixedhistorypaging/continuouscoverage/noissuerreplacement checks",
+    "B1 fouroriginalaccessions/headers beforeanyCbodyURLs qualified",
+    "C parserimplementation/syntheticreview andseparatefourbodyGO; nolexicalcounts"
+  ],
+  "current_execution_counts": {
+    "dictionary_downloads": 0,
+    "filing_metadata_intake_requests": 0,
+    "filing_body_downloads": 0,
+    "actual_parsed_filings": 0,
+    "word_frequency_calculations": 0,
+    "features": 0,
+    "price_label_prediction_objects_read": 0,
+    "fits": 0,
+    "accounts": 0
+  }
+}
