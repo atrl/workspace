@@ -1,9 +1,35 @@
 {
   "experiment": "stage1_finra_short_mix_allocation_20261018",
-  "stage": "execution_approved_not_started",
-  "new_fits": 0,
-  "new_native_accounts": 0,
+  "plan_sha256": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
+  "decision": "not_promoted_fixed_FINRA_short_mix_v1",
   "objective_achieved": false,
+  "gates": {
+    "net_relative_wealth_all_costs": false,
+    "sampled_drawdown_30pct": false,
+    "cvar_no_worse_soxx": true,
+    "minimum_complete_years": true,
+    "complete_annual_70pct": false,
+    "rolling126_70pct": false,
+    "paired_block_lower_positive": false,
+    "fresh_fullminute_risk_qualified": false,
+    "qualified_independent_forward": false
+  },
+  "coarse_economic_gates_pass": false,
+  "new_fits": 6,
+  "new_native_accounts": 6,
+  "reused_native_accounts": 15,
+  "total_comparison_accounts": 21,
+  "sessions_each": 944,
+  "recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
+  "experiment_id": "406826129487703844",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_finra_short_mix_allocation_20261018/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_finra_short_mix_allocation_20261018/qlib_recorder/406826129487703844/8e87af53d57a4022bcf19b5dbc690e33",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_finra_short_mix_allocation_20261018",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "history_status": "all_history_reused_not_independent",
+  "historical_FINRA_PIT_qualified": false,
+  "FINRA_vintage_status": "current bytes; unknown historical revisions",
   "production_changed": false,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
@@ -18,16 +44,39 @@
       "analysis/rolling/*"
     ]
   },
-  "plan_sha256": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
-  "no_fit_preflight": {
-    "status": "passed",
-    "primary_rows": 3014,
-    "auxiliary_rows": 20741,
-    "FINRA_ready_primary_training_rows": 1107,
-    "account_sessions": 944,
-    "reused_reference_accounts": 15,
-    "nonexecutable_feature_rows_retained": 1
+  "nas_evidence": {
+    "sha256": "67ceedd6b8545c593e02072c11482ce8c18f5a6e19afdf9ebd12ac0b07200f8e",
+    "size_bytes": 11303879,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/67/ce/67ceedd6b8545c593e02072c11482ce8c18f5a6e19afdf9ebd12ac0b07200f8e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 13:35:06.868+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/67/ce/67ceedd6b8545c593e02072c11482ce8c18f5a6e19afdf9ebd12ac0b07200f8e",
+    "recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
+    "experiment_id": "406826129487703844",
+    "archive_root": "qlib_recorder"
   },
-  "design_review": "design_review.json",
-  "execution_approval": "execution_approval.json"
+  "bounded_failure_attribution": {
+    "status": "completed",
+    "path": "failure_attribution.json",
+    "sha256": "ec4428e6596777414e6dcde13400dcd818c32cad1144544c7cf688627737bd33",
+    "new_fits": 0,
+    "new_replays": 0,
+    "new_source_HTTP": 0,
+    "all_period_comparisons": 180,
+    "candidate_versions_added": 0,
+    "old_recorder_archive_modified": false
+  },
+  "independent_evaluation": {
+    "file": "independent_evaluation.json",
+    "sha256": "9ed00daf829be6e63dfb783cb86f170fabe85e8410e4cf4471cc8f1064579b98",
+    "verdict": "ACCEPT_NOT_PROMOTED_FIXED_EXPERIMENT"
+  },
+  "delivery_readback": {
+    "file": "readback_verification.json",
+    "sha256": "70ff29d88196807b7306e9a9c0cd8a11c363a7ac954c3fd58f648556802aa65a",
+    "status": "passed",
+    "artifacts_verified": 102
+  }
 }

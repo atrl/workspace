@@ -1,0 +1,7 @@
+role,left_family,left_cost,right_family,right_cost,sessions,risk_state_different_days,risk_clock_different_days,beta_cap_different_days,open_execute_different_days,recovery_different_days,mean_absolute_actual_cash_weight_difference
+same_cost_B_vs_C,B_FINRAcontext,0,C_FINRA_short_mix,0,944,347,405,772,143,0,0.09631107702362758
+same_cost_B_vs_C,B_FINRAcontext,2,C_FINRA_short_mix,2,944,227,485,679,131,0,0.08394202519236377
+same_cost_B_vs_C,B_FINRAcontext,5,C_FINRA_short_mix,5,944,594,697,797,170,0,0.109584115638621
+C_across_costs,C_FINRA_short_mix,0,C_FINRA_short_mix,2,944,200,288,186,70,0,0.0333309730331204
+C_across_costs,C_FINRA_short_mix,0,C_FINRA_short_mix,5,944,524,651,473,130,0,0.09687983236820498
+C_across_costs,C_FINRA_short_mix,2,C_FINRA_short_mix,5,944,552,496,498,128,0,0.09102244821466665

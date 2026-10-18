@@ -13,7 +13,7 @@
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_finra_short_mix_allocation_20261018",
   "current_phase": "FINRA_source_intake_resumed_CDN_only",
-  "next_action": "Monitor live source session79014 and its original shared cache/journal. Only remaining canonical CDN daily files are authorized; www remains cache-only and retry budget exhausted. After source archive/readback, review raw/revision/first-vintage qualification separately before freezing a model plan.",
+  "next_action": "Freeze the distinct close-only ROD cash-funded temporary increment contract, source endpoints/event eligibility and matched control before any new outcomes or accounts. Research Goal remains active; no FINRA retuning.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1691,13 +1691,13 @@
     "completed_experiment_scope": "research/stage1_domain_heads_20261018",
     "current_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
-      "phase": "frozen_model_plan_preflight_passed_pending_independent_design_review",
+      "phase": "FINRA_fixed_version_closed_next_ROD_contract_design",
       "bulk_started": true,
-      "model_training_started": false,
-      "account_replay_started": false,
+      "model_training_started": true,
+      "account_replay_started": true,
       "executor": "/root/recent_evidence",
       "bulk_authorized": true,
-      "executor_session_id": 83378,
+      "executor_session_id": 81120,
       "observed_at": "2026-10-18T04:37:18.342833+00:00",
       "HTTP_attempts_observed": 2178,
       "HTTP_ledger": "/tmp/stage1-finra-short-mix-source-intake-20261018/http_state.json",
@@ -1720,7 +1720,7 @@
         "model_fits": 0,
         "accounts": 0
       },
-      "liveness_observation": "Source cache-finalize41517 and real no-fit model-preflight83378 both actually exited0. Executor explicitly resumed for integration; formal model execution not yet approved or started.",
+      "liveness_observation": "Original81120 actually exited0 per executor; root observed no remaining nbconvert process and completed6fit/6path/6native run_state. No retry. Results awaiting independent evaluation.",
       "deterministic_model_preparation": {
         "model_input_adapter": "src/model/finra_allocator.py",
         "source_feature_adapter": "src/data/finra_allocation_features.py",
@@ -1776,7 +1776,18 @@
         "unexecutable_prediction_tail_rows": 1,
         "fits": 0,
         "accounts": 0
-      }
+      },
+      "executor_pid": null,
+      "model_recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
+      "execution_approval": "research/stage1_finra_short_mix_allocation_20261018/execution_approval.json",
+      "implementation_commit": "b05dc45b",
+      "model_design_approved": true,
+      "observed_completed": {
+        "fits_done": 6,
+        "paths_done": 6,
+        "native_done": 6
+      },
+      "model_job_running": false
     }
   },
   "goal_contract_20261018": {
@@ -1797,14 +1808,16 @@
     "production_changes_authorized": false
   },
   "current_goal_execution_counts": {
-    "model_fits": 6,
-    "new_native_accounts": 9,
-    "reused_native_accounts": 9,
-    "completed_fixed_experiments": 1,
+    "model_fits": 12,
+    "new_native_accounts": 15,
+    "reused_native_accounts": 24,
+    "completed_fixed_experiments": 2,
     "historical_passing_candidates": 0,
-    "qualified_forward_days": 0
+    "qualified_forward_days": 0,
+    "reused_native_accounts_scope": "Cumulative comparison reuse events, not independent accounts or new market observations",
+    "unique_reused_reference_accounts": 15
   },
-  "next_experiment": "research/stage1_finra_short_mix_allocation_20261018",
+  "next_experiment": "research/stage1_close_rod_20261018",
   "external_discovery_20261018": {
     "user_explicitly_requested": true,
     "lead_policy": "Community/social discussion leads, then original paper/author code and official fields; no claims from screenshots or backtest marketing",
@@ -1914,5 +1927,34 @@
         "constituent_fundamentals_role": "Basket aggregation only; no issuer-specific predictive branch"
       }
     }
-  ]
+  ],
+  "latest_fixed_result": {
+    "card": "research/stage1_finra_short_mix_allocation_20261018",
+    "recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
+    "decision": "not_promoted_fixed_FINRA_short_mix_v1",
+    "independent_verdict": "ACCEPT_NOT_PROMOTED_FIXED_EXPERIMENT",
+    "failed_scientific_gates": [
+      "net_relative_wealth_all_costs",
+      "sampled_drawdown_30pct",
+      "complete_annual_70pct",
+      "rolling126_70pct",
+      "paired_block_lower_positive"
+    ],
+    "C_net_return_pct_by_cost": {
+      "0": 101.02988057447362,
+      "2": 83.29146106635254,
+      "5": 48.014954841051136
+    },
+    "C_rolling126_positive_fraction_by_cost": {
+      "0": 0.29181929181929184,
+      "2": 0.16971916971916973,
+      "5": 0.06105006105006105
+    },
+    "complete_year_wins_by_cost": "0/2 in2024and2025 for each0/2/5bp",
+    "paired_CI_pass_count": 0,
+    "paired_CI_count": 15,
+    "bounded_attribution": "research/stage1_finra_short_mix_allocation_20261018/failure_attribution.json",
+    "route_closed": true,
+    "no_rescue": "No q sign/window/smoothing/background-feature/weight/threshold rescue on reused history."
+  }
 }

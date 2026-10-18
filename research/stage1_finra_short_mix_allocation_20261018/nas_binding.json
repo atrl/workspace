@@ -1,0 +1,30 @@
+{
+  "schema_version": "nas_recorder_evidence_v1",
+  "binding_role": "Frozen FINRA allocation experiment Recorder only",
+  "authority": "yanxuan_nas",
+  "source_id": "stage1_finra_short_mix_allocation_20261018:8e87af53d57a4022bcf19b5dbc690e33",
+  "as_of": "2026-10-09",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "evidence": {
+    "sha256": "67ceedd6b8545c593e02072c11482ce8c18f5a6e19afdf9ebd12ac0b07200f8e",
+    "size_bytes": 11303879,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/67/ce/67ceedd6b8545c593e02072c11482ce8c18f5a6e19afdf9ebd12ac0b07200f8e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 13:35:06.868+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/67/ce/67ceedd6b8545c593e02072c11482ce8c18f5a6e19afdf9ebd12ac0b07200f8e",
+    "recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
+    "experiment_id": "406826129487703844",
+    "archive_root": "qlib_recorder"
+  },
+  "input_lineage_plan": "plan.json",
+  "input_lineage_plan_sha256": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
+  "verification_manifest": "verification_manifest.json",
+  "verification_manifest_sha256": "a855d092bc680cdc8c679e199896942d64eac5a3ef90994dccf5522b7a8a7948",
+  "consumer_cache_policy": "Restore with materialize_nas_evidence. Input source Recorders and their exact identities are in plan.json; this is not a market snapshot binding.",
+  "metadata_correction": "Removed inherited single-minute-snapshot fields from this multi-source experiment binding. Exact verified SSH transport, Recorder evidence identity and all archived bytes remain unchanged."
+}

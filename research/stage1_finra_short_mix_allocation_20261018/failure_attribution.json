@@ -1,0 +1,653 @@
+{
+  "status": "bounded_failure_attribution_completed",
+  "source_recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
+  "source_manifest_sha256": "a855d092bc680cdc8c679e199896942d64eac5a3ef90994dccf5522b7a8a7948",
+  "inputs": {
+    "analysis/ensembles": "805327a3d74e4470d50810bb9ac9e1e7541875daa43e54573194b6c899c44b3d",
+    "analysis/smoothed_targets": "4dd11ba54dd712dddb9d9ed34588d33153271fcabe493fb1167939ad6266dcfc",
+    "analysis/exposure_summary": "9a7a585215598f0f59a553555f1157a9bb382cce7f002c0956cb650a67bb268a",
+    "analysis/annual_metrics": "ba9af9cfd1e45a3da31c18fd47681eb5f2b5782aebac7b678ad376f237540b46",
+    "analysis/quarterly_metrics": "f86b9615b16fc1ef9cd15451134e2ae013483dacf2fb7e520553b4a22d795197",
+    "analysis/metrics": "69a3551ec6cd9120ca5c7430844e1faa24ee3d083ca7b56df0bca55278c380c3",
+    "analysis/uncertainty": "878e3604717aacc1e05f62910bb82c1fbfd06f4f65bb4c82e5bc10faf06c9c01",
+    "native/B_FINRAcontext_0": "20865e4cab0dbc55123d0680afc0412ab14683ecce563ec22f3e8e39af96d99f",
+    "native/B_FINRAcontext_2": "67a313875c71081316568098dedb078e17cc35d9533610d4c02ad52d18a081df",
+    "native/B_FINRAcontext_5": "6e0c4d73ae2f5be9ad1cede5813f13fd6a1e67e3b4039087763a3f8cb000bbf3",
+    "native/C_FINRA_short_mix_0": "2d559f0a7401d028c9b0bbc95720c6a0081fc8de84e907790dd5cc725dd70b9a",
+    "native/C_FINRA_short_mix_2": "c18599278a847e9c8caf1e84fa84bed9cf977b1bc3737b60b0e2d2da92518345",
+    "native/C_FINRA_short_mix_5": "fa633cc0355a1e8a23be953c8f9452cf2795ea1aa20e65970b53800e5b9282d7"
+  },
+  "new_fit": 0,
+  "new_replay": 0,
+  "new_source_HTTP": 0,
+  "all_period_comparisons": 180,
+  "period_summary": [
+    {
+      "kind": "quarter",
+      "slippage_bps": 0,
+      "comparator": "B_FINRAcontext",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 0,
+      "comparator": "B_FINRAcontext",
+      "complete_period": true,
+      "periods": 14,
+      "wins": 10,
+      "positive_fraction": 0.7142857142857143
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 0,
+      "comparator": "B_shared",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 1,
+      "positive_fraction": 0.5
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 0,
+      "comparator": "B_shared",
+      "complete_period": true,
+      "periods": 14,
+      "wins": 4,
+      "positive_fraction": 0.2857142857142857
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 1,
+      "positive_fraction": 0.5
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "complete_period": true,
+      "periods": 14,
+      "wins": 3,
+      "positive_fraction": 0.21428571428571427
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 2,
+      "comparator": "B_FINRAcontext",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 2,
+      "comparator": "B_FINRAcontext",
+      "complete_period": true,
+      "periods": 14,
+      "wins": 10,
+      "positive_fraction": 0.7142857142857143
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 2,
+      "comparator": "B_shared",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 1,
+      "positive_fraction": 0.5
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 2,
+      "comparator": "B_shared",
+      "complete_period": true,
+      "periods": 14,
+      "wins": 3,
+      "positive_fraction": 0.21428571428571427
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 1,
+      "positive_fraction": 0.5
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "complete_period": true,
+      "periods": 14,
+      "wins": 3,
+      "positive_fraction": 0.21428571428571427
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 5,
+      "comparator": "B_FINRAcontext",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 5,
+      "comparator": "B_FINRAcontext",
+      "complete_period": true,
+      "periods": 14,
+      "wins": 8,
+      "positive_fraction": 0.5714285714285714
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 5,
+      "comparator": "B_shared",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 1,
+      "positive_fraction": 0.5
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 5,
+      "comparator": "B_shared",
+      "complete_period": true,
+      "periods": 14,
+      "wins": 3,
+      "positive_fraction": 0.21428571428571427
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 1,
+      "positive_fraction": 0.5
+    },
+    {
+      "kind": "quarter",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "complete_period": true,
+      "periods": 14,
+      "wins": 2,
+      "positive_fraction": 0.14285714285714285
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 0,
+      "comparator": "B_FINRAcontext",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 2,
+      "positive_fraction": 1.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 0,
+      "comparator": "B_FINRAcontext",
+      "complete_period": true,
+      "periods": 2,
+      "wins": 2,
+      "positive_fraction": 1.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 0,
+      "comparator": "B_shared",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 0,
+      "comparator": "B_shared",
+      "complete_period": true,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "complete_period": true,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 2,
+      "comparator": "B_FINRAcontext",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 2,
+      "positive_fraction": 1.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 2,
+      "comparator": "B_FINRAcontext",
+      "complete_period": true,
+      "periods": 2,
+      "wins": 2,
+      "positive_fraction": 1.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 2,
+      "comparator": "B_shared",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 2,
+      "comparator": "B_shared",
+      "complete_period": true,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "complete_period": true,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 5,
+      "comparator": "B_FINRAcontext",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 1,
+      "positive_fraction": 0.5
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 5,
+      "comparator": "B_FINRAcontext",
+      "complete_period": true,
+      "periods": 2,
+      "wins": 1,
+      "positive_fraction": 0.5
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 5,
+      "comparator": "B_shared",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 5,
+      "comparator": "B_shared",
+      "complete_period": true,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "complete_period": false,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    },
+    {
+      "kind": "year",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "complete_period": true,
+      "periods": 2,
+      "wins": 0,
+      "positive_fraction": 0.0
+    }
+  ],
+  "full_window_relations": [
+    {
+      "slippage_bps": 0,
+      "C_vs_Bcontext_relative_wealth": 1.3858306629968007,
+      "Bcontext_vs_Bshared_relative_wealth": 0.38135504129836134,
+      "C_vs_Bshared_relative_wealth": 0.5284935097196805,
+      "C_vs_SOXX_relative_wealth": 0.4182999983118389
+    },
+    {
+      "slippage_bps": 2,
+      "C_vs_Bcontext_relative_wealth": 1.508630476445775,
+      "Bcontext_vs_Bshared_relative_wealth": 0.3281677223518207,
+      "C_vs_Bshared_relative_wealth": 0.49508382732575196,
+      "C_vs_SOXX_relative_wealth": 0.38140598450009516
+    },
+    {
+      "slippage_bps": 5,
+      "C_vs_Bcontext_relative_wealth": 1.0250005352721956,
+      "Bcontext_vs_Bshared_relative_wealth": 0.3947019458848752,
+      "C_vs_Bshared_relative_wealth": 0.4045697058049743,
+      "C_vs_SOXX_relative_wealth": 0.3080192798548403
+    }
+  ],
+  "proposal_transmission": [
+    {
+      "family": "B_FINRAcontext",
+      "slippage_bps": 0,
+      "sessions": 944,
+      "raw_mean_soxl_weight": 0.18601015106321545,
+      "raw_mean_cash_weight": 0.4682558864538768,
+      "raw_mean_nominal_beta": 0.9037644156725541,
+      "smoothed_mean_soxl_weight": 0.18638885449749207,
+      "smoothed_mean_cash_weight": 0.46814803326241217,
+      "smoothed_mean_nominal_beta": 0.904629675732572,
+      "controlled_or_hold_mean_soxl_weight": 0.08154177702033641,
+      "controlled_or_hold_mean_cash_weight": 0.6081377148990663,
+      "controlled_or_hold_mean_nominal_beta": 0.5549458391416064,
+      "actual_mean_soxl_weight": 0.08146743378950916,
+      "actual_mean_cash_weight": 0.6077554146535318,
+      "actual_mean_nominal_beta": 0.5551794529254865,
+      "nonzero_risk_state_days": 713,
+      "open_execute_days": 836,
+      "recovery_days": 0,
+      "mean_beta_cap": 0.5577577493109157
+    },
+    {
+      "family": "B_FINRAcontext",
+      "slippage_bps": 2,
+      "sessions": 944,
+      "raw_mean_soxl_weight": 0.18601015106321545,
+      "raw_mean_cash_weight": 0.4682558864538768,
+      "raw_mean_nominal_beta": 0.9037644156725541,
+      "smoothed_mean_soxl_weight": 0.18638885449749207,
+      "smoothed_mean_cash_weight": 0.46814803326241217,
+      "smoothed_mean_nominal_beta": 0.904629675732572,
+      "controlled_or_hold_mean_soxl_weight": 0.06805476914943889,
+      "controlled_or_hold_mean_cash_weight": 0.6298641690379717,
+      "controlled_or_hold_mean_nominal_beta": 0.506245369260906,
+      "actual_mean_soxl_weight": 0.06787988782801047,
+      "actual_mean_cash_weight": 0.6293623257381763,
+      "actual_mean_nominal_beta": 0.5063974499178446,
+      "nonzero_risk_state_days": 761,
+      "open_execute_days": 820,
+      "recovery_days": 0,
+      "mean_beta_cap": 0.5091976662599191
+    },
+    {
+      "family": "B_FINRAcontext",
+      "slippage_bps": 5,
+      "sessions": 944,
+      "raw_mean_soxl_weight": 0.18601015106321545,
+      "raw_mean_cash_weight": 0.4682558864538768,
+      "raw_mean_nominal_beta": 0.9037644156725541,
+      "smoothed_mean_soxl_weight": 0.18638885449749207,
+      "smoothed_mean_cash_weight": 0.46814803326241217,
+      "smoothed_mean_nominal_beta": 0.904629675732572,
+      "controlled_or_hold_mean_soxl_weight": 0.07199192713217158,
+      "controlled_or_hold_mean_cash_weight": 0.6230092616335371,
+      "controlled_or_hold_mean_nominal_beta": 0.5209745926308061,
+      "actual_mean_soxl_weight": 0.07190461585674585,
+      "actual_mean_cash_weight": 0.6224885269259228,
+      "actual_mean_nominal_beta": 0.5213207047875688,
+      "nonzero_risk_state_days": 737,
+      "open_execute_days": 817,
+      "recovery_days": 0,
+      "mean_beta_cap": 0.5238962332794278
+    },
+    {
+      "family": "C_FINRA_short_mix",
+      "slippage_bps": 0,
+      "sessions": 944,
+      "raw_mean_soxl_weight": 0.17461452085191345,
+      "raw_mean_cash_weight": 0.48411901804266955,
+      "raw_mean_nominal_beta": 0.8651100236611573,
+      "smoothed_mean_soxl_weight": 0.17499766057772584,
+      "smoothed_mean_cash_weight": 0.48380755726914226,
+      "smoothed_mean_nominal_beta": 0.8661877638863095,
+      "controlled_or_hold_mean_soxl_weight": 0.10727309856876455,
+      "controlled_or_hold_mean_cash_weight": 0.5650787712703378,
+      "controlled_or_hold_mean_nominal_beta": 0.6494674258671912,
+      "actual_mean_soxl_weight": 0.10732190524138524,
+      "actual_mean_cash_weight": 0.5647130438575465,
+      "actual_mean_nominal_beta": 0.6499307666252239,
+      "nonzero_risk_state_days": 545,
+      "open_execute_days": 843,
+      "recovery_days": 0,
+      "mean_beta_cap": 0.6532803909828486
+    },
+    {
+      "family": "C_FINRA_short_mix",
+      "slippage_bps": 2,
+      "sessions": 944,
+      "raw_mean_soxl_weight": 0.17461452085191345,
+      "raw_mean_cash_weight": 0.48411901804266955,
+      "raw_mean_nominal_beta": 0.8651100236611573,
+      "smoothed_mean_soxl_weight": 0.17499766057772584,
+      "smoothed_mean_cash_weight": 0.48380755726914226,
+      "smoothed_mean_nominal_beta": 0.8661877638863095,
+      "controlled_or_hold_mean_soxl_weight": 0.09187516167295785,
+      "controlled_or_hold_mean_cash_weight": 0.5875361162712021,
+      "controlled_or_hold_mean_nominal_beta": 0.5962142070747137,
+      "actual_mean_soxl_weight": 0.0918874637338325,
+      "actual_mean_cash_weight": 0.5870953928443283,
+      "actual_mean_nominal_beta": 0.5966795346233367,
+      "nonzero_risk_state_days": 641,
+      "open_execute_days": 829,
+      "recovery_days": 0,
+      "mean_beta_cap": 0.6006675934440142
+    },
+    {
+      "family": "C_FINRA_short_mix",
+      "slippage_bps": 5,
+      "sessions": 944,
+      "raw_mean_soxl_weight": 0.17461452085191345,
+      "raw_mean_cash_weight": 0.48411901804266955,
+      "raw_mean_nominal_beta": 0.8651100236611573,
+      "smoothed_mean_soxl_weight": 0.17499766057772584,
+      "smoothed_mean_cash_weight": 0.48380755726914226,
+      "smoothed_mean_nominal_beta": 0.8661877638863095,
+      "controlled_or_hold_mean_soxl_weight": 0.08597567922989068,
+      "controlled_or_hold_mean_cash_weight": 0.6032007815330607,
+      "controlled_or_hold_mean_nominal_beta": 0.5687505769267207,
+      "actual_mean_soxl_weight": 0.08585367126728624,
+      "actual_mean_cash_weight": 0.6029520600900534,
+      "actual_mean_nominal_beta": 0.5687552824445192,
+      "nonzero_risk_state_days": 641,
+      "open_execute_days": 817,
+      "recovery_days": 0,
+      "mean_beta_cap": 0.5724987750171129
+    }
+  ],
+  "state_path_comparisons": [
+    {
+      "role": "same_cost_B_vs_C",
+      "left_family": "B_FINRAcontext",
+      "left_cost": 0,
+      "right_family": "C_FINRA_short_mix",
+      "right_cost": 0,
+      "sessions": 944,
+      "risk_state_different_days": 347,
+      "risk_clock_different_days": 405,
+      "beta_cap_different_days": 772,
+      "open_execute_different_days": 143,
+      "recovery_different_days": 0,
+      "mean_absolute_actual_cash_weight_difference": 0.09631107702362758
+    },
+    {
+      "role": "same_cost_B_vs_C",
+      "left_family": "B_FINRAcontext",
+      "left_cost": 2,
+      "right_family": "C_FINRA_short_mix",
+      "right_cost": 2,
+      "sessions": 944,
+      "risk_state_different_days": 227,
+      "risk_clock_different_days": 485,
+      "beta_cap_different_days": 679,
+      "open_execute_different_days": 131,
+      "recovery_different_days": 0,
+      "mean_absolute_actual_cash_weight_difference": 0.08394202519236377
+    },
+    {
+      "role": "same_cost_B_vs_C",
+      "left_family": "B_FINRAcontext",
+      "left_cost": 5,
+      "right_family": "C_FINRA_short_mix",
+      "right_cost": 5,
+      "sessions": 944,
+      "risk_state_different_days": 594,
+      "risk_clock_different_days": 697,
+      "beta_cap_different_days": 797,
+      "open_execute_different_days": 170,
+      "recovery_different_days": 0,
+      "mean_absolute_actual_cash_weight_difference": 0.109584115638621
+    },
+    {
+      "role": "C_across_costs",
+      "left_family": "C_FINRA_short_mix",
+      "left_cost": 0,
+      "right_family": "C_FINRA_short_mix",
+      "right_cost": 2,
+      "sessions": 944,
+      "risk_state_different_days": 200,
+      "risk_clock_different_days": 288,
+      "beta_cap_different_days": 186,
+      "open_execute_different_days": 70,
+      "recovery_different_days": 0,
+      "mean_absolute_actual_cash_weight_difference": 0.0333309730331204
+    },
+    {
+      "role": "C_across_costs",
+      "left_family": "C_FINRA_short_mix",
+      "left_cost": 0,
+      "right_family": "C_FINRA_short_mix",
+      "right_cost": 5,
+      "sessions": 944,
+      "risk_state_different_days": 524,
+      "risk_clock_different_days": 651,
+      "beta_cap_different_days": 473,
+      "open_execute_different_days": 130,
+      "recovery_different_days": 0,
+      "mean_absolute_actual_cash_weight_difference": 0.09687983236820498
+    },
+    {
+      "role": "C_across_costs",
+      "left_family": "C_FINRA_short_mix",
+      "left_cost": 2,
+      "right_family": "C_FINRA_short_mix",
+      "right_cost": 5,
+      "sessions": 944,
+      "risk_state_different_days": 552,
+      "risk_clock_different_days": 496,
+      "beta_cap_different_days": 498,
+      "open_execute_different_days": 128,
+      "recovery_different_days": 0,
+      "mean_absolute_actual_cash_weight_difference": 0.09102244821466665
+    }
+  ],
+  "native_audits": [
+    {
+      "family": "B_FINRAcontext",
+      "cost": 0,
+      "status": "passed",
+      "points": 3778,
+      "max_absolute_relative_nav_error": 0.0
+    },
+    {
+      "family": "B_FINRAcontext",
+      "cost": 2,
+      "status": "passed",
+      "points": 3778,
+      "max_absolute_relative_nav_error": 0.0
+    },
+    {
+      "family": "B_FINRAcontext",
+      "cost": 5,
+      "status": "passed",
+      "points": 3778,
+      "max_absolute_relative_nav_error": 0.0
+    },
+    {
+      "family": "C_FINRA_short_mix",
+      "cost": 0,
+      "status": "passed",
+      "points": 3778,
+      "max_absolute_relative_nav_error": 0.0
+    },
+    {
+      "family": "C_FINRA_short_mix",
+      "cost": 2,
+      "status": "passed",
+      "points": 3778,
+      "max_absolute_relative_nav_error": 0.0
+    },
+    {
+      "family": "C_FINRA_short_mix",
+      "cost": 5,
+      "status": "passed",
+      "points": 3778,
+      "max_absolute_relative_nav_error": 0.0
+    }
+  ],
+  "paired_CI_positive_count": 0,
+  "paired_CI_total": 15,
+  "five_bps_close_and_sampled_DD_pct": {
+    "close_max_drawdown_pct": -30.434329732023137,
+    "sampled_point_max_drawdown_pct": -31.307940489563823
+  },
+  "supported": [
+    "q improves full-window wealth over matched nuisance background B at all three costs, but every required CI fails.",
+    "Background B itself greatly underperforms original B_shared; improvement over this weaker control does not establish stable excess.",
+    "Proposal and realized allocation differ and cost-specific states diverge; this is an endogenous path description, not isolated controller causality.",
+    "The fixed q_v1 fails total wealth, stability, confidence and 5bp drawdown gates. No sign/window/context/weight rescue is authorized."
+  ],
+  "limits": [
+    "All market history reused; conditional current-byte FINRA availability is not PIT or independent validation.",
+    "Original B_shared raw/smoothed proposals and daily risk states are not copied into this Recorder; only saved aggregate held/controlled exposure and complete period tables are compared here.",
+    "Means compare different decision/holding moments and cannot be summed into a precise causal cash-drag decomposition."
+  ],
+  "analysis_session_id": 96244,
+  "analysis_exit_code": 0,
+  "notebook_entry": "stage1_finra_short_mix_allocation_20261018.ipynb",
+  "analysis_cell_id": "1123745c",
+  "analysis_code_sha256": "e01858fa28495d494ed0547c63f388336d19f1da56d7edb9ea48f6be8e6f6012"
+}

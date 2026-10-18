@@ -1,0 +1,22 @@
+{
+  "recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
+  "archive_sha256": "67ceedd6b8545c593e02072c11482ce8c18f5a6e19afdf9ebd12ac0b07200f8e",
+  "status": "passed",
+  "cold_archive_restored_outside_repository": true,
+  "verified_artifact_count": 102,
+  "all_artifact_hashes_match": true,
+  "native_summary_and_gates_match": true,
+  "native_Dataset_direct_prepare": {
+    "mature_primary_rows": 3014,
+    "auxiliary_rows": 20741,
+    "source_rows": 4118,
+    "source_ready_rows": 4118
+  },
+  "new_saved_native_books_verified": 6,
+  "sessions_each": 944,
+  "readback_attempts": 1,
+  "new_model_fits": 0,
+  "new_account_replays": 0,
+  "new_source_HTTP": 0,
+  "original_archive_modified": false
+}

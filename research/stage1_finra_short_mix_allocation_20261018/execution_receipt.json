@@ -1,0 +1,23 @@
+{
+  "session_id": 81120,
+  "exit_code": 0,
+  "fits_attempted": 6,
+  "fits_completed": 6,
+  "native_attempted": 6,
+  "native_completed": 6,
+  "reused_native": 15,
+  "new_FINRA_HTTP": 0,
+  "source_HTTP_ledger_total_unchanged": 2178,
+  "recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
+  "nas_sha256": "67ceedd6b8545c593e02072c11482ce8c18f5a6e19afdf9ebd12ac0b07200f8e",
+  "notebook_bytes_before": 1172200,
+  "notebook_bytes_after": 17906,
+  "notebook_compaction": {
+    "widgets": 6,
+    "duplicate_runtime_warnings": 5675,
+    "routine_streams": 103
+  },
+  "scientific_execute_results_preserved": true,
+  "metrics_not_recomputed_for_text": true,
+  "independent_result_review": "pending"
+}

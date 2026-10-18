@@ -1,0 +1,55 @@
+{
+  "plan_sha256": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
+  "fit_attempts": [
+    "B_FINRAcontext_71",
+    "B_FINRAcontext_172",
+    "B_FINRAcontext_273",
+    "C_FINRA_short_mix_71",
+    "C_FINRA_short_mix_172",
+    "C_FINRA_short_mix_273"
+  ],
+  "fits_done": [
+    "B_FINRAcontext_71",
+    "B_FINRAcontext_172",
+    "B_FINRAcontext_273",
+    "C_FINRA_short_mix_71",
+    "C_FINRA_short_mix_172",
+    "C_FINRA_short_mix_273"
+  ],
+  "path_attempts": [
+    "B_FINRAcontext_0",
+    "B_FINRAcontext_2",
+    "B_FINRAcontext_5",
+    "C_FINRA_short_mix_0",
+    "C_FINRA_short_mix_2",
+    "C_FINRA_short_mix_5"
+  ],
+  "paths_done": [
+    "B_FINRAcontext_0",
+    "B_FINRAcontext_2",
+    "B_FINRAcontext_5",
+    "C_FINRA_short_mix_0",
+    "C_FINRA_short_mix_2",
+    "C_FINRA_short_mix_5"
+  ],
+  "native_attempts": [
+    "B_FINRAcontext_0",
+    "B_FINRAcontext_2",
+    "B_FINRAcontext_5",
+    "C_FINRA_short_mix_0",
+    "C_FINRA_short_mix_2",
+    "C_FINRA_short_mix_5"
+  ],
+  "native_done": [
+    "B_FINRAcontext_0",
+    "B_FINRAcontext_2",
+    "B_FINRAcontext_5",
+    "C_FINRA_short_mix_0",
+    "C_FINRA_short_mix_2",
+    "C_FINRA_short_mix_5"
+  ],
+  "recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
+  "experiment_id": "406826129487703844",
+  "sources_saved": true,
+  "completed": true
+}
