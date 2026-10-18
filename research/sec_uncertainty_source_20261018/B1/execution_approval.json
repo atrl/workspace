@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "owner": "/root",
+  "approved": true,
+  "phase": "B1",
+  "issued_at_utc": "2026-10-18T14:21:08.653263+00:00",
+  "plan_sha256": "3867e7dbe2bbe4e6af911d978a6ba1bfce3b0af712154f3924d9e2f71437da2d",
+  "implementation_identity_sha256": "4cbf888464cf78bb005b5067dd9fce49c852720e622463b66e6efd13b3cd6c9c",
+  "implementation_review_sha256": "9932fa031d1fc1bc3730389c37d220d5ede0d7dc9d7ea566771f4eb842b63d47",
+  "budget": {
+    "maximum_total_source_HTTP": 10,
+    "current_submissions": 2,
+    "history_JSON_total": 4,
+    "history_JSON_maximum_each_CIK": 2,
+    "selected_original_headers": 4,
+    "retries": 0,
+    "automatic_redirects": 0,
+    "filing_bodies": 0,
+    "maximum_requests_per_second": 1,
+    "source_D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "price_label_prediction_objects": 0,
+    "word_counts": 0,
+    "features": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "maximum_attempts": 1,
+  "fixed_CIKs": [
+    "0000002488",
+    "0000004127"
+  ],
+  "fixed_user_agent": "SOXL-Qlib-Research/1.0 (+https://github.com/atrl)",
+  "source_scope": "Exactly four B0 metadata objects and bounded submissions/history/selected SGML-header URLs. Preserve raw receipts, gaps and fixed four slots; no source fallback, retry, redirect, issuer or pair change.",
+  "operational_transport": "Existing NAS evidence archive upload allowed separately from source_HTTP budget; no purchase or authentication.",
+  "C_body_dictionary_features_models_accounts_authorized": false,
+  "independent_result_review_required": true
+}

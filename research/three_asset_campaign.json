@@ -12,7 +12,7 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/sec_uncertainty_source_20261018",
-  "current_phase": "B1_implementation_authorized",
+  "current_phase": "B1_metadata_header_execution_authorized",
   "next_action": "Freeze/implement bounded B1 metadata/header intake for AMD0000002488 and SWKS0000004127 with fixed truthful project User-Agent, max10 source HTTP/no retry/no body. Prove first post-anchor original annual plus previous annual and historical entity/timing. Lexicon A unresolved independently. Path-area backup may receive a separate causal OOF/09:47-label bridge design, not an automatic fit.",
   "roles": {
     "owner": "/root",
@@ -1742,18 +1742,18 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/sec_uncertainty_source_20261018",
-      "phase": "B1_implementation_authorized",
+      "phase": "B1_metadata_header_execution_authorized",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
       "reviewer": "/root/independent_evaluator",
       "source_design_draft": "research/sec_uncertainty_source_20261018/source_design_draft.json",
-      "executor_lifecycle": "B1 executor is actively implementing; official-doc support completed and independent reviewer accepted narrow pre-execution pagination/PAC/annual-end clarifications. No company HTTP or B1 source-object read has run.",
+      "executor_lifecycle": "B1 implementation and focused synthetic complete; independent code review approved. Owner explicitly resumes executor for one B1 notebook execution; no actual source handle yet.",
       "model_fit_authorized": false,
       "account_execution_authorized": false,
       "new_fits": 0,
       "new_accounts": 0,
-      "source_execution_authorized": false,
+      "source_execution_authorized": true,
       "observed_metadata": {
         "earliest_report_date": "2019-09-30",
         "earliest_filing_date": "2019-11-25",
@@ -1776,7 +1776,7 @@
       "implementation_authorization_sha256": "84a3a5facfec3b74a70a3a2d01c7191c7ae6b76b2aea757aa997123d0b258610",
       "implementation_authorized": true,
       "transport_identity_review": "research/sec_uncertainty_source_20261018/transport_identity_review.json",
-      "authorized_source_stage": null,
+      "authorized_source_stage": "B1_only",
       "implementation_identity_sha256": "2eb7879682ac72513b266bf72425b439f8bc955cf68872b8740071477075a763",
       "implementation_review_sha256": "b211699fa40377ca2fe7b2f097a42765230e2e17703ce26a9519c12c91849b7b",
       "execution_approval_sha256": "8195fa039e736ee196541a3ef92c55d55d783598e9b70e44109ee7f4c4376adc",
@@ -1820,7 +1820,16 @@
       },
       "B1_plan_sha256": "3867e7dbe2bbe4e6af911d978a6ba1bfce3b0af712154f3924d9e2f71437da2d",
       "B1_implementation_authorization_sha256": "c9de8dfe804aaabc528c9ebcfb3e5dbf6a017e3c4136b1ab3f7ea99f22a97502",
-      "B1_design_clarification_sha256": "1d06556587e0c5bc8fab7965a2d7e907c8cb3deb959448beb86e44f67c1338e5"
+      "B1_design_clarification_sha256": "1d06556587e0c5bc8fab7965a2d7e907c8cb3deb959448beb86e44f67c1338e5",
+      "B1_implementation_identity_sha256": "4cbf888464cf78bb005b5067dd9fce49c852720e622463b66e6efd13b3cd6c9c",
+      "B1_implementation_review_sha256": "9932fa031d1fc1bc3730389c37d220d5ede0d7dc9d7ea566771f4eb842b63d47",
+      "B1_execution_approval_sha256": "4bdfd8661382d4e3fe2bd7cfb456e8bfe507e9ff945b4f86684017a483836882",
+      "B1_synthetic": {
+        "session_id": 55590,
+        "exit_code": 0,
+        "passed": 1,
+        "real_source_HTTP": 0
+      }
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "verdict": "APPROVE_B1_IMPLEMENTATION",
+  "phase": "B1",
+  "reviewer": "independent_evaluator",
+  "reviewed_at_utc": "2026-10-18T14:19:59.975640+00:00",
+  "plan_sha256": "3867e7dbe2bbe4e6af911d978a6ba1bfce3b0af712154f3924d9e2f71437da2d",
+  "code_sha256": {
+    "src/data/sec_uncertainty_accessions.py": "f66a581dbe14870037d13f0560d60a548b9b3b8bc75ac9cd735feb0feb959847",
+    "src/workflow/sec_uncertainty_accession_source.py": "d01a5bb03526455ded719c7944c2023fb1c48f8cf436c7e546b93de05bfdc8b5",
+    "tests/test_sec_uncertainty_accessions.py": "e34a30c2dc55d9a6a6225c08f41319e65d2f9093eb0464c046cbfbdb04e28150",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "implementation_identity_sha256": "4cbf888464cf78bb005b5067dd9fce49c852720e622463b66e6efd13b3cd6c9c",
+  "implementation_contract_sha256": "11809d173727207f87ef94589483eac43e80e052a84e97821ca345d469a1a83f",
+  "synthetic_receipt_sha256": "4ab2540f6b8c77a68051df697bb1fa66ac5f8a8df191af577b024a1ddc2e6c60",
+  "B0_result_review_sha256": "247873e158acc05541223cff1bbe6ed43daa058fb95121dc3ceb7b6510c85307",
+  "transport_identity_review_sha256": "08e39f192775b1d95fbc7d33e4a377dd78d22bd5e6500f88a921d4d1c3a23e8c",
+  "scope": "Final static review of B1 metadata/header-only implementation under frozen v2; no actual source or SEC data request performed by reviewer.",
+  "material_findings": [],
+  "resolved_material_points": [
+    "Strict catalog-gap branch can only request the successor and then its direct predecessor; a further required successor returns gap. The extra calendar-year+1 screen was removed;350..380 inclusive remains the fixed report-end metadata check.",
+    "Valid winter acceptance parsing uses standard datetime conversion. Metadata version status is explicit and separate from unknown body first-vintage status.",
+    "Challenge detection covers both wire bytes and decoded gzip responses; evenHTTP200 challenge persists a host stop before any later request to that host.",
+    "Unexpected failure records actual exception/state, HTTP_state including reserved attempts, acquired raw bytes and receipts in the same Recorder with FAILED status; no replacement successful run or retry."
+  ],
+  "accepted_contracts": [
+    "Exactly four pinned B0 objects are read before writable R.start. Fixed AMD0000002488/SWKS0000004127 and anchor remain immutable; only archived calendar is used, with zero new D.calendar/D.features/price/label reads.",
+    "Fixed truthful User-Agent, exclusive attempt state and durable reservation precede each request. Maximum10 attempts=current2+history4(max2perCIK)+selectedheaders4, at least1second between launches; errors/timeouts/redirects consume attempts, redirects and retries are disabled.403/429/challenge stops the affected host without endpoint/IP/UA rotation.",
+    "Only listed own-CIK history JSON and exactly selected original header endpoints are reachable. Catalog ordering and returned range/count agreement must exclude intervening unread ranges; first-found metadata is not proof of earliest original. Header conflict closes the fixed slots without replacing an issuer, annual filing or page.",
+    "All four ledger slots and explicit gaps remain. Native Dataset datetime is the pilot basket-anchor grouping index only; actual conditional_available_at remains a distinct timezone-aware field and never uses09:47 as information cutoff.",
+    "Separate review/owner-GO identity guards, actual native Recorder save/load/prepare, final manifest and NAS evidence upload are present. Operational archive upload is not misreported as an external source request. No filing-body endpoint, dictionary application, word counts, features or model/account execution."
+  ],
+  "known_qualification_limits": [
+    "JSON ISO suffix is provisional until header cross-check. Literal header EST is admitted only when it agrees with NewYork standard time and the exact JSON instant; unsupported summer/DST/ambiguous clocks remain gaps. Conditional next-session09:29 is not first-publication or first-receipt proof.",
+    "Late DATE AS OF CHANGE/PAC records unresolved metadata provenance, not proof of body mutation. Body first-vintage remains unknown because no body is requested.",
+    "CIK/name/form consistency of these selected filers does not certify full historical NPORT share-class identity.350..380days is metadata consistency, not proof of complete fiscal periods. Four qualified headers only permit a separately reviewed C proposal; C execution, PIT, full corpus and alpha/model eligibility remain false."
+  ],
+  "verification": {
+    "code_hashes_matched": 6,
+    "notebook_and_workflow_identity_match": true,
+    "synthetic_session_id": 55590,
+    "synthetic_exit_code": 0,
+    "synthetic_passed": 1,
+    "synthetic_seconds": 1.61,
+    "synthetic_reused_without_rerun": true
+  },
+  "approved_execution_design_budget": {
+    "maximum_total_source_HTTP": 10,
+    "current_submissions": 2,
+    "history_JSON_total": 4,
+    "history_JSON_maximum_each_CIK": 2,
+    "selected_original_headers": 4,
+    "retries": 0,
+    "automatic_redirects": 0,
+    "filing_bodies": 0,
+    "maximum_requests_per_second": 1,
+    "source_D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "price_label_prediction_objects": 0,
+    "word_counts": 0,
+    "features": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "owner_execution_GO_required": true,
+  "actual_execution_approved_by_this_receipt": false,
+  "C_execution_approved": false,
+  "historical_PIT_qualified": false,
+  "model_eligibility": false,
+  "fit_approved": false,
+  "account_approved": false,
+  "reviewer_actions": {
+    "real_source_objects_read": 0,
+    "SEC_data_requests": 0,
+    "new_calendar_or_features_calls": 0,
+    "new_tests": 0,
+    "filing_bodies": 0,
+    "word_counts_features_fits_accounts": 0
+  },
+  "next_action": "Owner may sign B1/execution_approval.json binding this exact review, final implementation identity and unchanged plan budget, then run the single bounded metadata/header attempt. Actual B1 results require independent review before any C body intake."
+}

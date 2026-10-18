@@ -1,0 +1,38 @@
+experiment: sec_uncertainty_source_20261018_B1
+phase: B1_metadata_headers_only
+entrypoint: src.workflow.sec_uncertainty_accession_source.run_b1
+plan: ../B1_plan.json
+provider_uri: data/qlib/soxx_pit_leveraged_training_v1
+provider_role: initialized only; archived B0 calendar reused, no new calendar/features API
+region: us
+segments:
+  archived_calendar: [2011-01-03, 2022-12-30]
+  pilot_grouping_anchor: [2019-11-26, 2019-11-26]
+  annual_selection_cutoff_exclusive: 2023-01-01
+index_semantics: pilot grouping only; separate clock and conditional_available_at columns govern information availability
+recorder_uri: research/sec_uncertainty_source_20261018/B1/qlib_recorder
+qualification_authority: [summary.json, verification_manifest.json]
+model_selection: none_source_only
+execution_env:
+  SEC_UNCERTAINTY_B1_EXECUTE: '1'
+  MLFLOW_ALLOW_FILE_STORE: 'true'
+  PYTHONPATH: /Users/rziiiii/dev/workspace
+execution_budget:
+  B0_source_objects: 4
+  source_HTTP_max: 10
+  current_submissions: 2
+  history_max_per_CIK: 2
+  selected_headers: 4
+  retry: 0
+  redirect: 0
+  D_calendar: 0
+  D_features: 0
+  filing_bodies: 0
+  word_counts: 0
+  features: 0
+  fits: 0
+  accounts: 0
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: [inputs/B0_objects, source/raw_http, source/parsed_metadata, source/HTTP_state, analysis/metadata_dataset]

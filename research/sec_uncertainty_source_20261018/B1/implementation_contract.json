@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "implemented_scope": "B1 metadata and selected original headers only; no actual execution yet",
+  "plan_sha256": "3867e7dbe2bbe4e6af911d978a6ba1bfce3b0af712154f3924d9e2f71437da2d",
+  "entrypoint": "src.workflow.sec_uncertainty_accession_source.run_b1",
+  "notebook_env": {
+    "SEC_UNCERTAINTY_B1_EXECUTE": "1",
+    "MLFLOW_ALLOW_FILE_STORE": "true",
+    "PYTHONPATH": "/Users/rziiiii/dev/workspace"
+  },
+  "implementation_review_schema": {
+    "verdict": "APPROVE_B1_IMPLEMENTATION",
+    "plan_sha256": "exact",
+    "code_sha256": "exact implementation_identity code map"
+  },
+  "owner_GO_schema": {
+    "approved": true,
+    "phase": "B1",
+    "plan_sha256": "exact",
+    "implementation_identity_sha256": "exact",
+    "implementation_review_sha256": "exact",
+    "budget": {
+      "maximum_total_source_HTTP": 10,
+      "current_submissions": 2,
+      "history_JSON_total": 4,
+      "history_JSON_maximum_each_CIK": 2,
+      "selected_original_headers": 4,
+      "retries": 0,
+      "automatic_redirects": 0,
+      "filing_bodies": 0,
+      "maximum_requests_per_second": 1,
+      "source_D_calendar_calls": 0,
+      "D_features_calls": 0,
+      "price_label_prediction_objects": 0,
+      "word_counts": 0,
+      "features": 0,
+      "fits": 0,
+      "accounts": 0
+    }
+  },
+  "approval_files": {
+    "review": "implementation_review.json",
+    "owner_GO": "execution_approval.json"
+  },
+  "native_sequence": "Check frozen plan/code/review/owner GO -> qlib.init pinned provider -> load_verified_recorder_objects for exactly four B0 objects before writable R.start -> bounded metadata/header requests -> DatasetH(DataHandlerLP.from_df(meta)), config(dump_all=True,recursive=True), Recorder save/load/prepare(meta) -> finish, artifact manifest and standard NAS upload.",
+  "actual_experiment": "sec_uncertainty_source_20261018_B1",
+  "provider_uri": "data/qlib/soxx_pit_leveraged_training_v1",
+  "region": "us",
+  "recorder_uri": "research/sec_uncertainty_source_20261018/B1/qlib_recorder",
+  "source_whitelist": {
+    "card": "research/sec_uncertainty_source_20261018/B0",
+    "recorder_id": "029934c9e5b94b04933849c229d19c2a",
+    "experiment": "sec_uncertainty_source_20261018_B0",
+    "manifest_sha256": "5e84ff66e0ce11b5f321341198606496dac07cfd2ea0f24ce739f040af3ede5d",
+    "summary_sha256": "4e9bf567c4634007149ed273f12bba2cbe356724c625cd1f59bd414dd189264b",
+    "archive_sha256": "8b0630e30ca09527ab93d757846980f8bfd43e395c00f74df2334177aa5b384e",
+    "artifacts": {
+      "analysis/selection": "1d2b78cfa06cab1e615a82939c017a6c24026449ff63631b24c1a8e2bca517d8",
+      "analysis/anchor": "ef53945b8a832b09f70f300229b78cdb64a704a056fa43423c9dcd217ed9ae52",
+      "analysis/security_ledger": "d9a53e0a6f8c92ed35c7ab258306d28b884760339c47c7691238e9ae2f8aabd6",
+      "inputs/native_calendar": "7b31a91cb3667ce0d0a9dc4ddc7726bffbc7a07907a9c5a02bc8453f77e5ff22"
+    }
+  },
+  "calendar": "Only archived inputs/native_calendar, 2011-01-03..2022-12-30. No D.calendar or D.features calls. qlib.init does not authorize price access.",
+  "native_metadata_index_semantics": "Four rows use B0 anchor2019-11-26 as pilot grouping index only, not filing available_at. Later annuals never become known at that index. Qualification uses separate conditional_available_at and validated clock columns. Metadata is not a trading feature.",
+  "request_budget": {
+    "maximum_total_source_HTTP": 10,
+    "current_submissions": 2,
+    "history_JSON_total": 4,
+    "history_JSON_maximum_each_CIK": 2,
+    "selected_original_headers": 4,
+    "retries": 0,
+    "automatic_redirects": 0,
+    "filing_bodies": 0,
+    "maximum_requests_per_second": 1,
+    "source_D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "price_label_prediction_objects": 0,
+    "word_counts": 0,
+    "features": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "fixed_user_agent": "SOXL-Qlib-Research/1.0 (+https://github.com/atrl)",
+  "request_accounting": "One process/lock; exclusive attempt file; reserve and persist before each opener call. Count timeouts/errors and any3xx once. Maximum10, current2/history4(max2each)/selectedheader4. At least1sec between launches. No redirects/retries/cache refetch/endpoints/UA/IP rotation. NAS evidence upload is operational transport, outside explicit sourceHTTP count.",
+  "transport_stop": "403/429 or challenge on wire or successfully decoded gzip body stops that host under same lock; subsequent calls record no_request, not another HTTP. Preserve raw wire bytes/SHA and HTTP headers/status. HTTP200 is not source qualification.",
+  "response_bound": "Fixed16MiB metadata/header response limit; partial oversized raw retained with gap. Accept-Encoding identity requested; if gzip returned, decode and recheck challenge. No filing-body endpoint or text counting is implemented.",
+  "paging": "Use full declared ordered nonoverlapping catalog including recent. Unique containing range first, then at most one direct adjacent page according to missing annual direction. Strict anchor gap uses successor then only its direct predecessor; needing another successor is gap. Verify exact declared min/max filingDate/count. Unread range capable of intervening prevents qualification. Natural no-filing date gaps are not missing-record proof. No third history page.",
+  "annual_pair": "Original10-K only: earliest provisional accepted on/after2019-11-26 before2023 and immediate preceding distinct original annual. Preserve amendments separately, never substitute. Reject transitions/duplicate periods/coverage ambiguity.350..380day inclusive report-end difference is fixed metadata consistency only, not full financial period or historical shareclass proof; no calendar-year+1 condition. Header-disproved order/cutoff/form/period means gap, no reselection.",
+  "header_identity": "Exactly one FILER section; that filer CIK/name/form must agree with selected provisionalCIK/NPORTanchor name and submissions original accession/form/report/filedate. No arbitrary firstCIK/accessionprefix/currentticker/fuzzy-name inference. Narrow pilot filer consistency does not certify full historical NPORTCUSIP/shareclass ownership.",
+  "clock": "Keep raw JSON ISO offset and header14digit string. JSON offset is provisional only. Official header schema labels EST without DST guarantee; literal fixedEST is admitted only on dates agreeing with NewYork standard time and exact JSON instant. Summer/ambiguous/mismatch remains unknown, never try alternate offsets. Effective date=max(filed,validated acceptance civil day); first archived session strictly later,09:29NY. Not exact publication or firstreceipt.",
+  "version": "Separate metadata_version_status and body_first_vintage_status. LateDATEASOFCHANGE/explicitPAC is unresolved metadata provenance, not proof of body mutation. PDS says PAC does not change document text. Body firstvintage remains unknown because no bodies are read. No amended/Oldloads fallback.",
+  "failure": "Same actual Recorder retains exception/state, current HTTP_state with reserved attempts, all acquired raw responses and receipts, statusFAILED. Exclusive run_state blocks automaticretry. Failure does not create another successful Recorder. If source returns gaps normally, archive complete negative evidence as completed_pending_review.",
+  "qualification": "All four prescribed headers must qualify before producing four proposed bodyURLs; C still separately reviewed/authorized. Failure preserves four slots/selectedCIKs and does not change issuer/pair. No dictionary/wordcounts/bodyfeatures/PIT/model qualification.",
+  "official_documentation": [
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+    "https://www.sec.gov/files/about/webmaster-faq.htm",
+    "https://www.sec.gov/info/edgar/specifications/pds-dissemination-spec070114.pdf"
+  ],
+  "current_real_source_objects_read": 0,
+  "current_source_HTTP": 0,
+  "current_body_feature_fit_account_execution": false
+}

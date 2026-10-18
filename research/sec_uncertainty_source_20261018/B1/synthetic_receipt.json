@@ -1,0 +1,34 @@
+{
+  "scope": "one concentrated synthetic contract only",
+  "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_sec_uncertainty_accessions.py -q",
+  "session_id": 55590,
+  "start_chunk": "508f9a",
+  "final_chunk": "6191fd",
+  "exit_code": 0,
+  "result": "1 passed, 8 warnings in 1.61s",
+  "warnings": "Existing Qlib/NumPy timedelta deprecations; no failure.",
+  "attempts": 1,
+  "code_sha256": {
+    "src/data/sec_uncertainty_accessions.py": "f66a581dbe14870037d13f0560d60a548b9b3b8bc75ac9cd735feb0feb959847",
+    "src/workflow/sec_uncertainty_accession_source.py": "d01a5bb03526455ded719c7944c2023fb1c48f8cf436c7e546b93de05bfdc8b5",
+    "tests/test_sec_uncertainty_accessions.py": "e34a30c2dc55d9a6a6225c08f41319e65d2f9093eb0464c046cbfbdb04e28150",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "checks": [
+    "catalog-before-firstfound and exact declared range/count",
+    "strict-gap successor then predecessor; no further successor",
+    "original10K versus amendment and same-year52week metadata interval",
+    "positive winterEST JSON/header/date/CIK and negative conflict/PAC",
+    "10-request cap and perissuer cap; >=1sec launch spacing",
+    "403 and decodedgzip200challenge hoststop; no302follow",
+    "failure keeps same Recorder FAILED, rawbytes and reserved attempt"
+  ],
+  "real_source_object_reads": 0,
+  "source_HTTP": 0,
+  "real_D_calendar_calls": 0,
+  "D_features_calls": 0,
+  "filing_bodies": 0,
+  "features_fits_accounts": 0
+}

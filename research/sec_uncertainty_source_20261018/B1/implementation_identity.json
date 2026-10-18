@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "B1_implementation_frozen_pending_review_and_owner_execution_GO",
+  "plan_sha256": "3867e7dbe2bbe4e6af911d978a6ba1bfce3b0af712154f3924d9e2f71437da2d",
+  "code_sha256": {
+    "src/data/sec_uncertainty_accessions.py": "f66a581dbe14870037d13f0560d60a548b9b3b8bc75ac9cd735feb0feb959847",
+    "src/workflow/sec_uncertainty_accession_source.py": "d01a5bb03526455ded719c7944c2023fb1c48f8cf436c7e546b93de05bfdc8b5",
+    "tests/test_sec_uncertainty_accessions.py": "e34a30c2dc55d9a6a6225c08f41319e65d2f9093eb0464c046cbfbdb04e28150",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "notebook_sha256": "59c2cd2e04f9e94bded38a7d9a161e1cedef05314a94cb95cfa1b0c54aa165d0",
+  "workflow_sha256": "c656c9b6e5d86c31ba7f57230250df3e9d894951fcbe6d6367af3fdd32c57cc5",
+  "implementation_contract_sha256": "11809d173727207f87ef94589483eac43e80e052a84e97821ca345d469a1a83f",
+  "synthetic_receipt_sha256": "4ab2540f6b8c77a68051df697bb1fa66ac5f8a8df191af577b024a1ddc2e6c60",
+  "synthetic_session_id": 55590,
+  "synthetic_exit_code": 0,
+  "actual_source_objects_read": 0,
+  "source_HTTP": 0,
+  "new_calendar_or_features_calls": 0,
+  "filing_body_or_wordcount_fit_account_execution": false
+}

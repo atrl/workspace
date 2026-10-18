@@ -1,0 +1,27 @@
+{
+  "experiment": "sec_uncertainty_source_20261018_B1",
+  "phase": "B1",
+  "status": "implementation_ready_pending_review_and_execution_GO",
+  "source_execution_completed": false,
+  "source_objects_loaded": 0,
+  "source_HTTP_requests": 0,
+  "new_D_calendar_calls": 0,
+  "D_features_calls": 0,
+  "filing_body_requests": 0,
+  "word_counts": 0,
+  "features": 0,
+  "fits": 0,
+  "accounts": 0,
+  "historical_PIT_qualified": false,
+  "promotion_decision": "not_applicable_source_only",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source/raw_http",
+      "source/parsed_metadata",
+      "inputs/B0_objects",
+      "analysis/metadata_dataset"
+    ]
+  }
+}
