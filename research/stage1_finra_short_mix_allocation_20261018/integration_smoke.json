@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "scope": "synthetic native Qlib feature store roundtrip and restored case/order, original columns/index preserved; draft plan fails closed",
+  "source_rows": 0,
+  "financial_labels": 0,
+  "fits": 0,
+  "accounts": 0,
+  "checks": 2,
+  "feature_fields": [
+    "finra_both_ready",
+    "chicago_regime",
+    "fractional_regime",
+    "log1p_SOXL_CNMS_TotalVolume",
+    "log1p_SOXX_CNMS_TotalVolume",
+    "finra_short_mix"
+  ],
+  "source_qualification_guard": "synthetic conditional accepted with revision/snapshot false; rejected ineligible/wrong RID/model-execution conflation"
+}

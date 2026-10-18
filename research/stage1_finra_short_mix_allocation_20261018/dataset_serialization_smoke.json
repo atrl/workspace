@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "scope": "synthetic native Dataset cache serialization roundtrip; direct prepare without setup_data",
+  "datasets": [
+    {
+      "dataset": "source",
+      "rows": 2,
+      "pickle_bytes": 2053,
+      "prepare_after_roundtrip": "exact"
+    },
+    {
+      "dataset": "primary",
+      "rows": 1,
+      "pickle_bytes": 1855,
+      "prepare_after_roundtrip": "exact"
+    },
+    {
+      "dataset": "auxiliary",
+      "rows": 1,
+      "pickle_bytes": 1860,
+      "prepare_after_roundtrip": "exact"
+    }
+  ],
+  "original_source_archive_changed": false,
+  "new_FINRA_HTTP": 0,
+  "real_labels_loaded_or_computed": 0,
+  "fits": 0,
+  "accounts": 0
+}

@@ -1,0 +1,449 @@
+{
+  "experiment": "stage1_finra_short_mix_allocation_20261018",
+  "schema_version": 1,
+  "frozen_before_fits": true,
+  "scope": "One external FINRA CNMS relative short-mark composition input; source-only intake separate. Six fixed fits and all six new native accounts after independent review and owner GO.",
+  "hypothesis": "Conditional on matched availability, reporting-regime flags and off-exchange total volumes, cross-ETF short-mark composition may add executable return information to original Stage1 allocation.",
+  "novelty_boundary": "New external trade-mark composition; not short-interest, sentiment, net inventory, share creation flow, or operational-shorting replication. No domain-head or objective overlay.",
+  "sources": {
+    "training": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": [
+        "inputs/daily_frame",
+        "inputs/features",
+        "inputs/common",
+        "inputs/timing",
+        "inputs/auxiliary",
+        "inputs/plan",
+        "analysis/outer_predictions",
+        "models/base_outer_71",
+        "models/base_outer_172",
+        "models/base_outer_273"
+      ],
+      "artifact_sha256": {
+        "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+        "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+        "inputs/common": "a90e4be474fae56a4cb9d226aced8186a5b402ce04aa0cc97cbef3b8dfc5eb14",
+        "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+        "inputs/auxiliary": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+        "inputs/plan": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b",
+        "analysis/outer_predictions": "20774d619976cb2963d38aef606de924db0aa78b4e6c38da499a4120a53bee80",
+        "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+        "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+        "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+      }
+    },
+    "action": {
+      "card": "research/stage1_minute_information_comparison_20261012",
+      "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+      "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+      "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/market",
+        "inputs/raw_predictions",
+        "inputs/source_targets",
+        "controller/source_recovery_selection",
+        "controller/frozen_models"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "b3fddcc9f1ad9735ab4ef260bfec7792aca572adbde2ad6a78511d8c5d8fb103",
+        "inputs/market": "6b3a7ce53a2fe02b9eb4c7d0934ebae794ade047cb5a4f9209aef4770eeb8c24",
+        "inputs/raw_predictions": "63c3097b24bd6e2534b31c6d1ae691f1e0e959d0ae2afcc6940e5d427f6fffa9",
+        "inputs/source_targets": "5841299fcc37e8a01f09644072125d4d0aac5ecfaa5ba26fa26d5a41c78c7e42",
+        "controller/source_recovery_selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+        "controller/frozen_models": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1"
+      }
+    },
+    "controller": {
+      "card": "research/full_path_tiered_allocation_20261013",
+      "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+      "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+      "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7",
+      "artifacts": [
+        "inputs/controller",
+        "inputs/plan"
+      ],
+      "artifact_sha256": {
+        "inputs/controller": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+        "inputs/plan": "2a2099904dd2507e837b40c51dd15228cfded78d55c1f6a49cd5646044c1e297"
+      }
+    },
+    "raw": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": [
+        "inputs/frame",
+        "inputs/plan",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "inputs/repair_1_calendar_guard",
+        "inputs/repair_1_provider_manifest",
+        "native/raw_SOXX_0",
+        "native/raw_SOXX_2",
+        "native/raw_SOXX_5",
+        "native/raw_strong9097_0",
+        "native/raw_strong9097_2",
+        "native/raw_strong9097_5",
+        "native/raw_candidate27baa_0",
+        "native/raw_candidate27baa_2",
+        "native/raw_candidate27baa_5"
+      ],
+      "artifact_sha256": {
+        "inputs/frame": "cc705b51047c85a1fc58f05d22ba4f98797830861a4bab58b94aeb4b869c20bc",
+        "inputs/plan": "ead4fa68daa779ea4da4708b762913e7d89e7c9d6f68523340e0252866eb712b",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "inputs/repair_1_calendar_guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24",
+        "inputs/repair_1_provider_manifest": "fe4f64aaba30981903443de94f19b36496033de66aa752692caabdf5dd953c27",
+        "native/raw_SOXX_0": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+        "native/raw_SOXX_2": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d",
+        "native/raw_SOXX_5": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e",
+        "native/raw_strong9097_0": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93",
+        "native/raw_strong9097_2": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f",
+        "native/raw_strong9097_5": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05",
+        "native/raw_candidate27baa_0": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466",
+        "native/raw_candidate27baa_2": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31",
+        "native/raw_candidate27baa_5": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+      }
+    },
+    "current_shared": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "native/A_active_research_replay_0",
+        "native/A_active_research_replay_2",
+        "native/A_active_research_replay_5",
+        "native/B_shared_0",
+        "native/B_shared_2",
+        "native/B_shared_5"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "281855c14ed6c12888defd7b10db728f2f26a4e6cd07d2cab7a36d594f684ef5",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "native/A_active_research_replay_0": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+        "native/A_active_research_replay_2": "bf6d10ac75ee84ce4f5688188259c1061141aa3110a82a0587425630fbed0284",
+        "native/A_active_research_replay_5": "1b2065502bb43f5ddcbba96a17beddcbc142b85ffea6eb2586f69e576f50062b",
+        "native/B_shared_0": "f6ad692bdc8aea7998fb0588b789eb6d07fd97d6c413e8fe1492b6bd1086a164",
+        "native/B_shared_2": "3e52887404eb44d1ce135c64b6bcdc2f91f63264324ccf48ef0889b229cd42ae",
+        "native/B_shared_5": "ebebcc0e8e79ea33cdf316a24dc1dbec88e64597f91757a903f04095af0cf896"
+      }
+    },
+    "finra": {
+      "card": "research/stage1_finra_short_mix_20261018",
+      "recorder_id": "ca3433457b504654bca2011ad2c6ef65",
+      "archive": "8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d",
+      "inventory_sha256": "eed87fe6b168f53f8eb0ccb57c3991508522a536cc62b6d50f4740f48d2b5ae5",
+      "artifacts": [
+        "source/dataset",
+        "analysis/summary",
+        "source/panel_float64",
+        "source/parsed_exact"
+      ],
+      "artifact_sha256": {
+        "source/dataset": "c83c09172fd9bae8fb73bde8483bbbc9771a0d845d1a9b92016ce76d43bf5fd4",
+        "analysis/summary": "b89a35a6e64cde606c3ba1b54596ab7ce8d118f4947fe067ea9b8b4368849b17",
+        "source/panel_float64": "5d66c44f4d0c85d8f5253a81685def08ed3a1e0c4f79fcded783227481fc726b",
+        "source/parsed_exact": "dfbbc1757c45f11f4de3b03532b25aa7794bcf8201fa9fa64eab5bfcde80d2f8"
+      }
+    }
+  },
+  "active_release": {
+    "path": "production/stage1_futu_sim_v1/runtime_release.json",
+    "sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33"
+  },
+  "provider_init": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "provider_output": "data/qlib/stage1_finra_short_mix_allocation_20261018",
+  "training": {
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "train_end": "2022-12-30",
+    "expected_mature_primary_rows": 3014,
+    "expected_auxiliary_rows": 20741,
+    "primary_feature_count": 39,
+    "common_feature_count": 16,
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "epochs": 300,
+    "checkpoint": "fixed_final_epoch",
+    "all_hyperparameters": "Original saved spec/candidate/base order/primary-common scaler/label and sample contracts. Three added numeric scalers fit only mature ready training rows; no tuning.",
+    "input_features": "Original39 primary and16 common plus6 allocation-only FINRA coordinates; no FINRA in shared encoder/auxiliary samples.",
+    "excluded_2020": "This bounded experiment preregisters only the2023cutoff and6fits; no extra fold is authorized. This is a design/budget choice, not a claim that FINRA q cannot be researched at2020.",
+    "auxiliary_sampling": "Same seed*1000+epoch generator, row order, weights,2048batch and original0.05 coefficient",
+    "primary_losses": "Original main tail+alpha BCE0.02, original allocation loss10bp turnover proxy0.006; no label changes",
+    "paired_arms": {
+      "B_FINRAcontext": "FinraAllocator neutral q, all matched context and input slots",
+      "C_FINRA_short_mix": "FinraAllocator observed q; only information coordinate differs"
+    },
+    "initialization": "Use identical saved model spec and seed, original initialization followed by six zero-weight added columns. Exact original tensors and paired initial outputs must match; equal parameter count is not equal effective information or capacity.",
+    "ensemble": "All three seed predictions equal-weight, no seed or checkpoint selection",
+    "model_count": 6
+  },
+  "label_semantics": {
+    "primary_tail": "SOXX five next-open intervals entry-relative path min<=-6percent, not SOXL3x or peak-to-trough MaxDD",
+    "primary_alpha": "27percentSOXL+63percentSOXX+10percentcash fixed reference five-session relative growth vsSOXX",
+    "aux_tail": "Historical PIT constituent synthetic daily-reset2x, five close-close intervals,95bp annual fee, path min<=-12percent OR terminal<=-15percent",
+    "aux_alpha": "Synthetic2x five-session terminal return exceeds constituent1x",
+    "maturity": "Exact saved native primary available_at strictlybeforecutoff; auxiliary observations_end<=train_end. Preserve source labels, no current dirty provider data replacement."
+  },
+  "accounts": {
+    "families": [
+      "A_active_research_replay",
+      "B_shared",
+      "B_FINRAcontext",
+      "SOXX",
+      "strong9097",
+      "C_FINRA_short_mix",
+      "additional27baa"
+    ],
+    "initial_cash": 100000,
+    "expected_sessions": 944,
+    "first_signal": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "terminal": "2026-10-09T09:47:00-04:00",
+    "clock": "09:45 known,09:46 decision,09:47 fill,next09:47 exit;firsthour recovery fill10:32. Historical bar availability convention, not actual first receipt/execution qualification.",
+    "A_label": "Frozen active f696+b472 model chain replayed under same raw research execution contract; not actual deployed09:31/10:31 replay.",
+    "ABC_policy": "B_FINRAcontext/C_FINRA_short_mix keep original b472 open/recovery independently at each cost and own state; no T, common-cap or ALL3. A/current B reused exact prior raw research accounts. Other strong refs keep sealed original policy.",
+    "reference_policy": "SOXX buyonce raw shares; strong9097/additional27baa retain their frozen commoncap/ALL3/T policies. Different strategy controls disclosed, same price/corporate/fees/dates/initialcash. Do not inherit old fullminute risk qualification.",
+    "strict_reuse": "15 pinned native raw reference accounts; require exact schedule, quote grid, dates, tariff, cost, initialcash and controller identities. Fail closed for amendment if mismatch; no added replay budget.",
+    "raw_interfaces": [
+      "src.backtest.stage1_domain_heads_raw.replay_stage1_raw",
+      "src.backtest.raw_corporate_policy.IncomeLedger",
+      "src.backtest.raw_corporate_policy.settle_raw",
+      "src.backtest.native_raw_corporate.native_raw_validate"
+    ],
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "maximum_total_comparison_accounts": 21,
+    "maximum_new_native_accounts": 6,
+    "source_native_accounts_reused": 15,
+    "currency": "USD gross paper assumption and documented corporate entitlement/payment convention; not broker or historicalPIT certification"
+  },
+  "maximum_model_fits": 6,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "classification_reporting": {
+    "scope": "Primary out-of-fit tail/alphaBCE,Brier,AUC,scoremean/eventrate for every seed and ensemble; predictions and monthly/annual diagnostics inRecorder. Training losses also saved. No classification gate decides whether predeclared accounts run.",
+    "history": "All2023+ dates already reused; not independent market evidence. Existing prior2020-2022 zeroaux fit is not developmental proof for this intervention."
+  },
+  "gates": {
+    "required_comparators": [
+      "A_active_research_replay",
+      "B_shared",
+      "B_FINRAcontext",
+      "SOXX",
+      "strong9097"
+    ],
+    "additional_reference": "additional27baa always report, not a postresult replacement of primary strong9097",
+    "net_relative_wealth_all_costs": ">1+1e-8 versus each required comparator",
+    "sampled_maxdrawdown": "<=30percent at close and all available raw point marks; fullminute validation separate if economic gates pass",
+    "cvar5": "no worse thanSOXX at all costs",
+    "complete_annual_positive_fraction": 0.7,
+    "minimum_complete_years": 2,
+    "rolling126_positive_fraction": 0.7,
+    "paired_uncertainty": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "alpha": 0.0016666666666666668,
+      "seed": 20261014,
+      "lower_positive": true,
+      "comparisons": 5,
+      "costs": 3,
+      "prior_search_multiplicity": "unknown; this correction doesnotreset reusedhistory",
+      "statistic": "one-sided paired stationary-bootstrap mean daily log excess; lower quantile must be strictly positive",
+      "alpha_formula": "0.025/(1 candidate equal-seed ensemble *5 required comparators *3 costs)",
+      "expected_lower_tail_draws": 16.666666666666668,
+      "resolution_rationale": "Fixed10000 draws before fitting; approximately16.67 expected lower-tail draws, MonteCarlo limitation retained; no outcome-dependent rerun or seed change."
+    },
+    "qualified_independent_forward": false,
+    "fresh_fullminute_risk_qualified": false,
+    "stability_comparator": "SOXX annual/rolling70percent; all5 required comparators full-window wealth >1+1e-8 and pairedCI lower>0."
+  },
+  "analysis_scope": "All years/quarters including partial first and last periods, every126tradingday window; declare complete years by frozen calendar coverage. No selected losing periods or threshold repair.",
+  "failure_policy": "Ifnegative closeonlyqv1; do notflipq, addqwindows orrestoreclosedflows/headvariants.",
+  "execution_authorization": "Owner authorized frozen plan and one real no-fit preflight only. Formal fitting/accounts remain prohibited until independent model design_review and matching explicit owner execution_approval.",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/model.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+    "https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.utils.serial.Serializable.config"
+  ],
+  "status": "frozen_pending_model_design_review",
+  "feature_provider_output": "data/qlib/stage1_finra_short_mix_allocation_20261018_features",
+  "feature_delivery": {
+    "receiver": "Six extra primary allocation-head coordinates; original 39 primary inputs and 16 common inputs remain unchanged. No FINRA input to common encoder, auxiliary examples or classifier heads.",
+    "feature_order": [
+      "finra_both_ready",
+      "chicago_regime",
+      "fractional_regime",
+      "log1p_SOXL_CNMS_TotalVolume",
+      "log1p_SOXX_CNMS_TotalVolume",
+      "finra_short_mix"
+    ],
+    "binary": "Use exact 0/1 flags, no learned standardization. Readiness is 1 only when both source rows satisfy frozen parser invariants and positive TotalVolume.",
+    "regimes": "Source-date indicators: chicago >=2018-09-10, fractional >=2026-02-23. Both arms receive the same indicators. Fractional flag is identically zero before the 2023 training cutoff; its new weight cannot learn a fractional-regime response from training.",
+    "source_date": "For primary signal_date d use CNMS trade_date d only, never the next trade date. No forward fill across missing source dates.",
+    "conditional_availability": "Assume captured historical daily values were available at 18:00 America/New_York on source date d. Require this assumed timestamp strictly before the existing next-session 09:29 decision_at; trading account keeps frozen 09:45 known / 09:47 fill / 10:32 recovery clock.",
+    "honesty": "The current-byte assumption is conditional historical research only; unknown revisions and actual first receipt remain unqualified. No PIT, forward or promotion claim follows from assumed timestamps.",
+    "auxiliary": "Keep all 20741 original auxiliary rows and original COMMON_FEATURES, labels, weights, sampling and 0.05 coefficient. Do not attach SOXL/SOXX q to constituent rows.",
+    "full_calendar": "Keep all original primary rows, including pre2018 missing source. Canonical unknown numeric values remain NaN; transformed unknown numeric coordinates are zero, with explicit shared readiness flag.",
+    "scaling": "Fit means and sample standard deviations for two log volumes and q on finite ready mature primary train rows only. Use original saved minimum_observations and clip standardized values to [-8,8]. Freeze scalers; never use prediction-period values. B and C fit identical q scaler; B then overwrites only transformed q coordinate with zero.",
+    "paired_initialization": "Use identical saved model spec and seed, original initialization followed by six zero-weight added columns. Exact original tensors and paired initial outputs must match; equal parameter count is not equal effective information or capacity.",
+    "qlib": "Verified Recorder source/panel_float64 (only six original source fields) -> DataHandlerLP.from_df without processors -> DatasetH.prepare -> six formulas -> derived float32 Qlib store -> D.features -> primary DatasetH; preserve source dates, assumed availability, raw-decimal lineage and quantization. Sealed source/dataset is not self-contained and is never used as a loadable cache."
+  },
+  "training_frozen_detail": {
+    "train_end": "2022-12-30",
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "primary_eligibility": "Original label_available_at strictly before cutoff, source index <=train_end and all original TARGETS finite; expected3014. Source availability never filters primary train rows.",
+    "prediction_tail": "Retain original prediction rows with NaT decision_at as unexecutable pending clock; do not invent future sessions or include in944accounts.",
+    "bootstrap_precision": "Fixed10000 draws at alpha0.025/15 has about16.67 expected lower-tail draws; retain Monte Carlo precision limitation, do not rerun seeds until pass."
+  },
+  "source_qualification": {
+    "source_card": "research/stage1_finra_short_mix_20261018",
+    "source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+    "historical_PIT_qualified": false,
+    "forward_qualified": false,
+    "source_identity": "Exact source, panel, parsed Decimal and independent conditional-history review identities frozen; PIT and forward remain false",
+    "semantics_and_limits": "Operationalshortingpaper usesmoredata andliquidity-mismatchidentification; CNMSq isonlynewobservableproxy, notcausalquantity orpaperreplication.",
+    "source_summary_sha256": "8b94474407aaebe9f195bf36aa853fa3cfb09ab0f1bbd3b76d0bb635de300667",
+    "raw_source_bundle_sha256": "8c32af9bb359d82f4de437531c736cb21e3fd379d1cb9358bd9cfb23de8585a9",
+    "valid_daily_files": 2059,
+    "revision_metadata_unknown_days": 2059,
+    "original_vintage_complete": false,
+    "serialized_source_dataset_self_contained": false,
+    "dataset_reconstruction": "Explicit native reconstruction from separately verified panel_float64; original source archive unchanged. prepare works from preserved cache; no claim that StaticDataLoader.setup_data can reload."
+  },
+  "source_result_review": {
+    "path": "research/stage1_finra_short_mix_20261018/source_result_review.json",
+    "sha256": "5183f47a3263ea35f745a8e8507d24433d8a0b31637549b69072ff7aaef96df6"
+  },
+  "pending_freeze": [
+    "Independent model design review and final code/preflight execution approval before any fit/account."
+  ],
+  "external_references": [
+    {
+      "role": "official_collection_and_publication",
+      "title": "FINRA Daily Short Sale Volume Files",
+      "url": "https://www.finra.org/finra-data/browse-catalog/short-sale-volume-data/daily-short-sale-volume-files",
+      "used": "ConsolidatedNMS earliest2018-08-01; same-day publication no later18:00ET; original/Updated files separately listed; Chicago starts2018-09-10"
+    },
+    {
+      "role": "official_field_semantics",
+      "title": "FINRA Regulation SHO Daily Short Sale Volume File Layout",
+      "url": "https://www.finra.org/sites/default/files/2021-07/DailyShortSaleVolumeFileLayout.pdf",
+      "used": "ShortVolume includesShortExemptVolume; totalvolume is samefacilityscope, regularhours, publicdissemination; oldguide integer wording superseded by observed fractional regime"
+    },
+    {
+      "role": "official_interpretation_limits",
+      "title": "Understanding Short Sale Volume Data on FINRA website, Information Notice May10 2019",
+      "url": "https://www.finra.org/rules-guidance/notices/information-notice-051019",
+      "used": "Notshortinterest, notnetinventory, notexchange-consolidated; offsetting nondisseminated buying canbeabsent"
+    },
+    {
+      "role": "official_fractional_reporting",
+      "title": "FINRA Trade Reporting Notice January14 2026",
+      "url": "https://www.finra.org/sites/default/files/2026-01/Trade-Reporting-Notice-20260114.pdf",
+      "used": "NMS fractional reporting enhancement effective2026-02-23, up tosix decimals; preserve received decimals, donotfloor"
+    },
+    {
+      "role": "primary_mechanism_not_replication",
+      "title": "Operational Shorting and ETF Liquidity Provision",
+      "authors": [
+        "Richard B. Evans",
+        "Rabih Moussawi",
+        "Michael S. Pagano",
+        "John Sedunov"
+      ],
+      "version": "June2022 publicauthor manuscript; later2026JFE version",
+      "url": "https://www.sec.gov/comments/s7-08-22/s70822-20149120-316297.pdf",
+      "published_version_url": "https://www.sciencedirect.com/science/article/pii/S0304405X26000127",
+      "used": "Liquidity provision canproduce operationalshorting and short-termprice effects; authorsmeasure requires signedintraday imbalance andsharesoutstanding andmultimarketshortvolume; CNMS-only q is NOTtheir operationalshorting estimator; highliquiditymismatch findings neednottransfer toSOXX"
+    },
+    {
+      "role": "community_discovery_only",
+      "title": "What does short volume in FINRA RegSHO actually measure?",
+      "url": "https://quant.stackexchange.com/questions/60901/what-does-short-volume-in-finra-regsho-actually-measure",
+      "used": "Measurement discussion; officialFINRA definitions areauthority"
+    },
+    {
+      "role": "community_negative_boundary",
+      "title": "Estimating current short interest from daily short volume",
+      "url": "https://www.reddit.com/r/algotrading/comments/1vr1eak/estimating_current_short_interest_from_daily/",
+      "used": "Nowcasting shortinterest isnot returnforecasting or evidenceofSOXLalpha; do notcopy objective"
+    },
+    {
+      "role": "rejected_existing_source",
+      "title": "Existing SOXX issuerfund download workbook",
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/issuer_fund_download.bin",
+      "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+      "used": "Historical8928rows onlyAsOf/NAVperShare/ExDividends/SharesOutstanding. No contemporaneousmarketprice/premiumdiscount. Noexternalprice splice."
+    }
+  ],
+  "source_result_review_schema": {
+    "verdict": "ACCEPT_CONDITIONAL_HISTORY_MODEL_DESIGN",
+    "conditional_model_design_eligible": true,
+    "model_execution_approved": false,
+    "source_recorder_id": "match sources.finra.recorder_id",
+    "source_plan_sha256": "match source_qualification.source_plan_sha256",
+    "archive_sha256": "match sources.finra.archive",
+    "note": "Expected interface only, no source approval is asserted before independent review."
+  },
+  "artifact_serialization": "Before saving new primary, auxiliary and rebuilt source DatasetH, config(dump_all=True,recursive=True); pickle roundtrip must preserve DatasetH.prepare caches. No setup_data promise."
+}

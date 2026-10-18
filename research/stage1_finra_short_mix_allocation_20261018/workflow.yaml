@@ -1,0 +1,5 @@
+experiment: stage1_finra_short_mix_allocation_20261018
+entrypoint: src.workflow.finra_allocation.run
+phase: frozen_pending_model_design_review
+model_execution_authorized: false
+artifact_policy: slim_card_recorder_first

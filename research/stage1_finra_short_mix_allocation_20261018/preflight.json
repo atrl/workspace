@@ -1,0 +1,111 @@
+{
+  "plan_sha256": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
+  "primary_rows": 3014,
+  "auxiliary_rows": 20741,
+  "primary_last_mature": "2022-12-30 09:31:00-05:00",
+  "aux_first_signal": "2019-11-25 00:00:00",
+  "aux_last_signal": "2022-12-22 00:00:00",
+  "aux_observations_end_max": "2022-12-30 00:00:00",
+  "source_hashes_checked": true,
+  "source_api": [
+    "Recorder.load_object",
+    "DatasetH.prepare"
+  ],
+  "main_inputs": 39,
+  "additional_allocation_inputs": 6,
+  "common_inputs": 16,
+  "account_sessions": 944,
+  "early_fields_exact_source_equality": [
+    "early_ret_soxl",
+    "early_ret_soxx",
+    "early_range_soxl",
+    "early_range_soxx",
+    "early_from_low_soxl",
+    "early_from_low_soxx",
+    "early_volume_soxl",
+    "early_volume_soxx",
+    "early_bar_count_soxl",
+    "early_bar_count_soxx"
+  ],
+  "reused_reference_accounts": 15,
+  "active_bundle_and_classifier_hashes_verified": true,
+  "initialization": [
+    {
+      "seed": 71,
+      "original_tensors_identical": true,
+      "paired_initial_tensors_identical": true,
+      "paired_initial_outputs_identical": true,
+      "paired_initial_rng_state_identical": true,
+      "added_columns_zero": true,
+      "original_vs_extended_output_max_absolute_error": 2.9802322387695312e-08,
+      "original_parameters": 973,
+      "paired_parameters": 1069,
+      "paired_initial_sha256": "a8d1a87d387c8c8327f5bcd5ab940c6a497a902281290019b4ae3bc89774293a"
+    },
+    {
+      "seed": 172,
+      "original_tensors_identical": true,
+      "paired_initial_tensors_identical": true,
+      "paired_initial_outputs_identical": true,
+      "paired_initial_rng_state_identical": true,
+      "added_columns_zero": true,
+      "original_vs_extended_output_max_absolute_error": 1.4901161193847656e-08,
+      "original_parameters": 973,
+      "paired_parameters": 1069,
+      "paired_initial_sha256": "88dc7026545cd6c8c3aa841ee81f3121a8b8bc1270956ca86cf26d811c360298"
+    },
+    {
+      "seed": 273,
+      "original_tensors_identical": true,
+      "paired_initial_tensors_identical": true,
+      "paired_initial_outputs_identical": true,
+      "paired_initial_rng_state_identical": true,
+      "added_columns_zero": true,
+      "original_vs_extended_output_max_absolute_error": 2.9802322387695312e-08,
+      "original_parameters": 973,
+      "paired_parameters": 1069,
+      "paired_initial_sha256": "6ba4246f45f8f85cf937c6391ebfee1841148b05829ad67f56b5c408ca142861"
+    }
+  ],
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "dirty_runtime_providers_used_as_input": false,
+  "FINRA_ready_primary_training_rows": 1107,
+  "account_decision_clocks_all_executable": true,
+  "nonexecutable_feature_rows_retained": 1,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "source_dataset_access": "verified source/panel_float64 -> DataHandlerLP.from_df -> DatasetH.prepare; sealed source/dataset is not self-contained",
+  "feature_quantization": [
+    {
+      "field": "finra_both_ready",
+      "finite_rows": 3966,
+      "max_absolute_error": 0.0
+    },
+    {
+      "field": "chicago_regime",
+      "finite_rows": 3966,
+      "max_absolute_error": 0.0
+    },
+    {
+      "field": "fractional_regime",
+      "finite_rows": 3966,
+      "max_absolute_error": 0.0
+    },
+    {
+      "field": "log1p_SOXL_CNMS_TotalVolume",
+      "finite_rows": 2059,
+      "max_absolute_error": 9.526324760145144e-07
+    },
+    {
+      "field": "log1p_SOXX_CNMS_TotalVolume",
+      "finite_rows": 2059,
+      "max_absolute_error": 4.768180321690352e-07
+    },
+    {
+      "field": "finra_short_mix",
+      "finite_rows": 2059,
+      "max_absolute_error": 2.930005116308365e-08
+    }
+  ]
+}

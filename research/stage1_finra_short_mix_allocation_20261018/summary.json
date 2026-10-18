@@ -1,0 +1,33 @@
+{
+  "experiment": "stage1_finra_short_mix_allocation_20261018",
+  "stage": "execution_approved_not_started",
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "objective_achieved": false,
+  "production_changed": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "predictions/*",
+      "paths/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "plan_sha256": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
+  "no_fit_preflight": {
+    "status": "passed",
+    "primary_rows": 3014,
+    "auxiliary_rows": 20741,
+    "FINRA_ready_primary_training_rows": 1107,
+    "account_sessions": 944,
+    "reused_reference_accounts": 15,
+    "nonexecutable_feature_rows_retained": 1
+  },
+  "design_review": "design_review.json",
+  "execution_approval": "execution_approval.json"
+}
