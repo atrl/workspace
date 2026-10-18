@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/independent_evaluator",
+  "verdict": "APPROVE_IMPLEMENTATION_AND_SYNTHETIC_SCOPE",
+  "design_draft_sha256": "d65bb92c7e80829439da14e6c38b19b2ed84f2e5345fc3305ec46d22968084ff",
+  "accepted_source_review_sha256": "21f6123bc0e5c8678341e302889e38a2c29b9d5f8596e988d4268fa013c1dd3b",
+  "source_recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+  "source_archive_sha256": "cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+  "material_blocking_findings": [],
+  "design_conclusions": [
+    "The09:29 conditional planned-open receiver is causally feasible as a separately named definition. It uses d-prior core-session history and then-known NYSE ordinary plans, not confirmation that d actually opened. It remains conditional historical source evidence, not PIT or institutional-flow measurement.",
+    "Missing announcement, amendment, version and conflict gates precede the known-closed false branch. The tri-state OR, half-day treatment, immutable signal-to-decision mapping and retained tails are coherent.",
+    "Four allocation-head-only coordinates are matched between B/C: three identical knowledge masks and one neutral-versus-centered numeric coordinate. Original39/16 inputs, auxiliary samples, losses and scalers remain unchanged. New matched B fits are necessary because B also receives the new masks; original B remains a separate required reference.",
+    "Matched B already contains partial calendar information through the masks. C/B tests only the numeric increment beyond that information. The new within-mask-pattern training variation gate prevents a redundant coordinate from being described as identified new information.",
+    "The fixed six fits and six ensemble cost accounts plus fifteen sealed references yield twenty-one books. No per-seed accounts, parameter selection, reference fallback or classification-based account cancellation is allowed.",
+    "The five required comparators at three costs give fifteen predeclared paired intervals. Fixed10000 draws,meanblock63,seed20261014 andalpha0.025/15 are coherent with the carried contract; finite MonteCarlo resolution and unknown earlier search multiplicity remain limitations. Wealth, risk, full-year and126-session gates remain mandatory."
+  ],
+  "mandatory_before_actual_preflight_or_fit": [
+    "Materialize and hash exact training-only primary/auxiliary objects and original model metadata. Before all six final model artifacts are sealed, forbid deserializing objects containing2023+ evaluation labels/returns or prior outer predictions. Cropping after deserialization is not non-access.",
+    "Freeze source/feature/model/workflow identities and obtain the stage-specific owner GO before deriving real proxy values. Recompute masks from permitted primitives, never from current-date observed membership,09:46 opening assumptions or source qualification_status.",
+    "Use the focused synthetic contract to verify invariance to changing d/future realized sessions, no future-announcement backfill, amendment-before-closed precedence and known-true OR unknown behavior. Treat a non-null inconsistent clock or duplicate/identity mapping as an integrity failure, not ordinary missingness.",
+    "Under separately authorized no-fit preflight, verify exact original3014/20741 cohorts, feature order, label/scaler/sampling identities, paired initialization and zero added columns. Preserve every unavailable row and all946 predictions/944 account intervals/two tails.",
+    "Before any optimizer step require at least one identical three-mask combination with both known proxy values0 and1 in the original mature training cohort. Failure means nonidentifiable and stops this fixed definition; it does not authorize changing venue, window, masks, encoding or cohort.",
+    "Bind all fifteen reference artifact identities and retain each cost's own state/fees. Final code and preflight review plus explicit execution GO remain required for the six fits/accounts."
+  ],
+  "future_fixed_budget": {"B_fits": 3, "C_fits": 3, "new_ensemble_native_accounts": 6, "sealed_reference_books": 15, "total_books": 21, "required_CI_comparisons": 15},
+  "review_method": "Read the final draft and scoped amendments; verified its source-review/summary/manifest/artifact and reference-plan metadata bindings. Reused accepted source and earlier analysis contracts. No feature values, returns, labels, source code audit, tests, source rebuild or NAS reads were performed.",
+  "implementation_and_synthetic_work_approved": true,
+  "actual_source_feature_preflight_approved": false,
+  "actual_training_no_fit_preflight_approved": false,
+  "feature_generation_approved": false,
+  "fit_execution_approved": false,
+  "account_execution_approved": false,
+  "promotion_approved": false,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "next_action": "Implement this single frozen-intent definition and its focused synthetic contracts. Present concrete code/source bindings for stage-specific review before real source-feature or training preflight; do not treat this draft review as formal experiment execution approval."
+}

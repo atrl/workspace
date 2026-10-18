@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "owner": "/root",
+  "approved_at_utc": "2026-10-18T08:56:20.505659+00:00",
+  "design_draft_sha256": "d65bb92c7e80829439da14e6c38b19b2ed84f2e5345fc3305ec46d22968084ff",
+  "design_review_sha256": "a218325d8922ad650a1adad4a5139092a384644f572ab2073bbf1b4b408d2daf",
+  "approved": true,
+  "scope": "Implement the single preopen NYSE-calendar definition, four-slot matched model adapter and notebook/Recorder workflow. Reuse frozen modules and identities. Run the smallest focused synthetic contracts for new causal-mask and model-input behavior.",
+  "implementation_and_synthetic": true,
+  "actual_source_feature_generation": false,
+  "actual_training_no_fit_preflight": false,
+  "fits": false,
+  "accounts": false,
+  "new_source_HTTP": 0,
+  "requirements": [
+    "Materialize and hash exact training-only primary/auxiliary objects and original model metadata. Before all six final model artifacts are sealed, forbid deserializing objects containing2023+ evaluation labels/returns or prior outer predictions. Cropping after deserialization is not non-access.",
+    "Freeze source/feature/model/workflow identities and obtain the stage-specific owner GO before deriving real proxy values. Recompute masks from permitted primitives, never from current-date observed membership,09:46 opening assumptions or source qualification_status.",
+    "Use the focused synthetic contract to verify invariance to changing d/future realized sessions, no future-announcement backfill, amendment-before-closed precedence and known-true OR unknown behavior. Treat a non-null inconsistent clock or duplicate/identity mapping as an integrity failure, not ordinary missingness.",
+    "Under separately authorized no-fit preflight, verify exact original3014/20741 cohorts, feature order, label/scaler/sampling identities, paired initialization and zero added columns. Preserve every unavailable row and all946 predictions/944 account intervals/two tails.",
+    "Before any optimizer step require at least one identical three-mask combination with both known proxy values0 and1 in the original mature training cohort. Failure means nonidentifiable and stops this fixed definition; it does not authorize changing venue, window, masks, encoding or cohort.",
+    "Bind all fifteen reference artifact identities and retain each cost's own state/fees. Final code and preflight review plus explicit execution GO remain required for the six fits/accounts."
+  ],
+  "delivery": "Present final source artifact whitelist, exact plan/code identity and stage-specific preflight scope for independent review; no real primitive or training-object value loading before the matching GO."
+}

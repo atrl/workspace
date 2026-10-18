@@ -1,0 +1,411 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_preopen_tom_20261018",
+  "status": "design_draft_source_bound_pending_model_review",
+  "frozen": false,
+  "authorization": {
+    "draft_only": true,
+    "source_preflight_execution_approved": false,
+    "feature_generation_approved": false,
+    "fit_approved": false,
+    "account_execution_approved": false,
+    "owner_model_GO": false
+  },
+  "scope": "Single conditional09:29 exchange-calendar proxy, paired shared-head training and full fixed-cost accounts. This file is design only; no feature values, return labels, fits or accounts have been produced.",
+  "hypothesis": {
+    "name": "preopen_ordinary_tom_4d_proxy",
+    "external_window": [
+      -1,
+      1,
+      2,
+      3
+    ],
+    "no_day_zero": true,
+    "claim": "Conditional ordinary-calendar position may supply information not captured by the original feature set. It does not establish pension flow, a cash deadline, economic causality or expected outperformance.",
+    "distinction_from_source_card": "This receiving definition uses only pre-d core-session history and a known ordinary planned-open decision for d. It does NOT require current d to have opened, and does NOT import the old confirmed-open candidate definition.",
+    "receiver_calendar": "NYSE",
+    "receiver_choice_basis": "Fixed ex ante research-calendar convention; not a claim that NYSE is the listing/primary exchange of SOXX or SOXL. No comparison or selection across NYSE_ARCA/NASDAQ.",
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false,
+    "literature_triage": "research/external_mechanism_review_20261018/calendar_tom_proxy_triage.md",
+    "literature_triage_sha256": "bee429081feada52b8b9630f8dc3ab191e1e7018eb3399901b3411c6627d8cbe",
+    "primary_paper": "https://business.purdue.edu/faculty/mcconnell/publications/Equity-Returns-at-the-Turn-of-the-Month.pdf",
+    "counterevidence": "Retain the triage401k-flow counterevidence, contrasting historical samples and changing institutions. Fixed4day window is not an optimized SOXX window."
+  },
+  "calendar_source_binding": {
+    "card": "research/calendar_tom_source_20261018/repair_1",
+    "recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+    "experiment_id": "944021652676933250",
+    "archive_sha256": "cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+    "verification_manifest_sha256": "fbc4b6f4b4bd33436f13dc16d18e7c5744d08e08e5d2b4887790bfc30203779b",
+    "source_plan_sha256": "469e7c9d3165658be2135ea814a75fbbfa8ff1e4c57d43b1112034e8128bd0cc",
+    "root_cold_readback": {
+      "path": "research/calendar_tom_source_20261018/repair_1/readback_verification.json",
+      "sha256": "3738c9547e17a423985fb5a6b93ee134c5d0c02a21a9eebd6c388f50c4b28af8",
+      "reported_status": "passed"
+    },
+    "allowed_artifact_identities": {
+      "analysis/mapping": "e89584b83deee5a90c27616be3db6b12b59f7ea1abeb0886c6e0cf1b4f24ab25",
+      "source/actual_calendar": "024c0fb151832fc57ed6af16789b52de5cb5d74950595a39db5ca523854e584b",
+      "source/decision_metadata": "c0df437019597f2a7aa81b10f98d0dd10cadd0bb8dbe1defa50a4156d88e454b",
+      "source/document_status": "b5c11a03bac07e49cfd8ad0ea87aa502d4669f518fda5e6563e0e947f6728f7f",
+      "source/knowledge_ledger": "06b9748ed892f03904db50a066f8346aac9a16e6eaecce43332949810131921e",
+      "source/original_timing": "4808291a3ac57d3c649064dcc818bf6577ab53975b69b511a2c1d6a7670455cb",
+      "source/source_gaps": "7ffcc9f461102802b8d817c35d68bf6a8c08752efda99eb5e606a773427d5512"
+    },
+    "source_result_review_path": "research/calendar_tom_source_20261018/repair_1/source_result_review.json",
+    "source_result_review_sha256": "21f6123bc0e5c8678341e302889e38a2c29b9d5f8596e988d4268fa013c1dd3b",
+    "preopen_definition_review_path": null,
+    "preopen_definition_review_sha256": null,
+    "final_source_binding_status": "Repair_1 source identity and independent source-result acceptance are bound. The new receiving-mask/model design and implementation preflight remain pending. Source acceptance is not model permission.",
+    "coverage_warning": "Source2925/3966 conditional_snapshot count includes a different current-observed-open condition. It is NOT the proxy-known count and must not be copied as the new mask.",
+    "unchanged_source_limits": [
+      "2011-2013 ordinary-announcement gaps",
+      "2022 missing Juneteenth amendment block, including dates that appear closed in an old table",
+      "NYSE extraordinary-event source completeness unqualified",
+      "Current-byte historical release dates and prior core-session snapshot remain conditional, not verified first receipts"
+    ],
+    "source_summary_sha256": "a56bc992c8dd0c940f05104698e4e9a22cacaa8819e89d02fe5ca0d0df5b269f"
+  },
+  "reference_contract_binding": {
+    "path": "research/stage1_finra_short_mix_allocation_20261018/plan.json",
+    "sha256": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
+    "inherit_json_pointers": [
+      "/sources/training",
+      "/sources/action",
+      "/sources/controller",
+      "/sources/raw",
+      "/sources/current_shared",
+      "/active_release",
+      "/tariff",
+      "/label_semantics",
+      "/analysis_scope"
+    ],
+    "excluded_pointer": "/sources/finra and all FINRA feature/source semantics are NOT inherited. This is a paired-workflow reference, not reuse of the failed q feature.",
+    "materialization_gate": "Before final freeze, resolve these exact saved source/Recorder/artifact SHA identities into the executable plan. Mismatch stops; no unreviewed new source or reference replay."
+  },
+  "clock_and_row_mapping": {
+    "timezone": "America/New_York",
+    "as_of": "2026-10-09",
+    "primary_signal_index": "Keep original inputs/timing.index exactly; do not shift or relabel source rows.",
+    "decision": "d=date(original decision_at), exactly the saved next-session09:29 clock. Do not derive d by shifting a newly cropped calendar.",
+    "publication": "Only known ledger versions with knowledge_at<=original decision_at. Preserve the date-only next-midnight convention and source amendment/conflict rules. No substitution of09:46 information.",
+    "original_horizon": "Original H5 next-open labels and original maturity strictlybefore2023cutoff unchanged.",
+    "policy": "Reuse the same frozen calendar value at original account09:46 decision /09:47 fill. No intraday re-evaluation using observed open.",
+    "prediction_rows": 946,
+    "account_intervals": 944,
+    "prediction_tails": {
+      "2026-10-08": "Retain original decision_at2026-10-09 09:29; proxy may only be derived if otherwise source-eligible, but account_eligible=false because no subsequent funded interval.",
+      "2026-10-09": "Retain original NaT decision; all3 model knowledge masksfalse and canonical valueNaN. No invented next session."
+    },
+    "invalid_clock": "Original NaT decision or decision date beyond as_of yields all3 model masksfalse/canonical valueNaN with the row retained and no synthetic execution. An unexpected non-null timezone/clock differing from the frozen09:29 source, identity mismatch or duplicate mapping is an integrity failure: stop preflight rather than neutralize it as ordinary missing information."
+  },
+  "canonical_definition": {
+    "prior_prefix": "Read the pinned core SOXL/SOXX Qlib D.calendar snapshot as a conditional common-session record. For d, expose only civil dates s<d in d month. This is not an official NYSE open-session or receipt record. Complete month-start coverage and original prefix/data gaps must remain explicit.",
+    "ordinary_plan": "Select the already-known applicable NYSE full-year ordinary-plan version and same-venue admitted dated exceptions, under source priority/conflict rules. Weekend/halfday conventions come from the frozen source contract. No Nasdaq-to-NYSE inheritance.",
+    "eligibility_order": [
+      "Validate original decision clock and source identity.",
+      "Apply missing-announcement, known-amendment, conflict and version-gap rules BEFORE using any table open/closed cell. In particular2022 cannot become known from an obsolete closed entry.",
+      "Derive current_plan_known and planned state from admissible already-known NYSE plan, never from current observed calendar membership.",
+      "Derive prefix_available only from d-prior source prefix completeness. Derive monthend_horizon_known only from already-announced coverage through monthend and next planned open after it."
+    ],
+    "first3_branch": "If admissible plan says d closed: branch_known=true and branch_value=false. If plan says d open and the d-prior month prefix is complete: known value=(number of core observed sessions s<d in month+1 in {1,2,3}). Otherwise unknown. No current-d open confirmation is read.",
+    "expected_last_branch": "If admissible plan says d closed: branch_known=true and branch_value=false. If plan says d open and admissible monthend/next-open horizon is complete: known value=(there is no later planned-open date in d month). Otherwise unknown. Do not use realized future dates, calendar tail(as_of), or retrospectively learned surprise closures.",
+    "three_state_OR": {
+      "any_known_true": "proxy=1, proxy_known=1, even if the other branch is unknown",
+      "both_known_false": "proxy=0, proxy_known=1",
+      "otherwise": "proxy=NaN, proxy_known=0"
+    },
+    "canonical_columns": [
+      "signal_date",
+      "original_decision_at",
+      "decision_date",
+      "source_as_of",
+      "prefix_available",
+      "current_plan_known",
+      "current_planned_state",
+      "monthend_horizon_known",
+      "first3_branch_known",
+      "first3_branch_value_nullable",
+      "expected_last_branch_known",
+      "expected_last_branch_value_nullable",
+      "proxy_known",
+      "preopen_tom_proxy_nullable",
+      "missing_announcement_reason",
+      "amendment_gap_reason",
+      "conflict_reason",
+      "prefix_gap_reason",
+      "knowledge_version_ids",
+      "knowledge_max_at",
+      "historical_PIT_qualified",
+      "account_eligible"
+    ],
+    "forbidden_mask_dependencies": [
+      "current_date_in_observed_calendar",
+      "metadata.qualification_status",
+      "current_open_first_receipt",
+      "09:46 observed-open confirmation",
+      "realized sessions on or after d",
+      "returns/labels/predictions/risk state/account results"
+    ],
+    "source_qualification_flags": "Preserve vintage/extraordinary completeness and PITfalse as separate qualification flags. Conditional ordinary plan means a planned proxy, not a claim that all future closures were announced. Do not erase a localized source gap to raise coverage.",
+    "halfday": "A past core opened halfday counts once; a planned current/future halfday is a planned-open session. No volume/return-duration filtering.",
+    "coverage": "Never choose venue, starting year, window, masks or encoding after seeing coverage or returns. Missing branches remain nullable; rows are never dropped."
+  },
+  "feature_delivery": {
+    "receiver": "Original shared-primary/auxiliary model,4 added coordinates only into primary allocation head. Original39 main features and16 common remain in original order.",
+    "feature_order": [
+      "first3_branch_known",
+      "expected_last_branch_known",
+      "proxy_known",
+      "preopen_tom_centered"
+    ],
+    "raw_value": "Canonical proxy is nullable{0,1}; unknown must remainNaN with explicit reasons in source feature artifacts.",
+    "masks": "All3 known masks are identical in B and C. They are not source.qualification_status and not current-d-open observations.",
+    "B": "[first3_known,last_known,proxy_known,0]",
+    "C": "[first3_known,last_known,proxy_known,proxy-0.5 if proxy_known else0]",
+    "encoding_boundary": "The unknown-to-latent0 operation is model encoding only. It does not assert unknown calendar=false. Knownfalse=-0.5, knowntrue=+0.5, unknownlatent0; no ffill, interpolation, trainmean or learned extra scaler.",
+    "primary_input_count": 43,
+    "common_input_count": 16,
+    "calendar_numeric_coordinates": 1,
+    "matched_availability_coordinates": 3,
+    "dtype": "Model added coordinates float32; canonical nullable values and exact timezone-aware date metadata retained separately in native Recorder/Dataset, not timestamp float32 bins.",
+    "capacity_warning": "Equal B/C parameter count and initialization control architecture; three shared masks can learn era/availability effects. C-vs-B isolates the numeric proxy conditional on those masks; comparison to B_shared/A remains mandatory. In some mask combinations proxy_known itself implies a true branch. Matched B therefore already contains partial calendar information; C-vs-B tests only the numeric increment beyond these same masks."
+  },
+  "training": {
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "train_end": "2022-12-30",
+    "expected_mature_primary_rows": 3014,
+    "expected_auxiliary_rows": 20741,
+    "primary_feature_count": 39,
+    "common_feature_count": 16,
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "epochs": 300,
+    "checkpoint": "fixed_final_epoch",
+    "all_hyperparameters": "Inherit exact saved original model specification, candidate coefficients, feature order, 39-primary/16-common scalers, optimizer and all label/sample contracts; no source-related changes to the mature cohort.",
+    "input_features": "Original39 primary features plus4 allocation-head-only slots; original16 common unchanged. Calendar never enters auxiliary rows, common encoder inputs or classifier-head inputs directly.",
+    "auxiliary_sampling": "Exact20741 source rows/order/weights and original normalized weighting; torch.Generator().manual_seed(seed*1000+epoch), torch.randint with replacement, min(2048,20741) indices for each of300 epochs. Same draws for paired B/C; original auxiliary coefficient0.05.",
+    "primary_losses": "Original main tail+alpha BCE0.02, original allocation loss10bp turnover proxy0.006; no label changes",
+    "paired_arms": {
+      "B_preopen_tom_context": "Three new fits: original network, all3 availability masks, neutral calendar value0.",
+      "C_preopen_tom": "Three new fits: identical network/three masks, one centered observed calendar value."
+    },
+    "initialization": "Per original seed, instantiate original39/16 network then extend allocation-head input by4 zero-weight columns, copying every original tensor. B/C initial tensors, added-zero columns, paired initial outputs and RNG state must match. Original reference model tensor subset must remain identical; no random new-feature initialization.",
+    "ensemble": "All three seed predictions equal-weight, no seed or checkpoint selection",
+    "model_count": 6,
+    "optimizer": "Exact original AdamW settings; one original global gradient clipping at2.0 before its step. Ordinary combined backward, no PG or domain-head changes.",
+    "extra_scaling": "No fitted scaler for the4 new slots. Three masks are binary; C numeric value is known(raw_proxy-0.5), otherwise0, and B numeric value is always0. All original scalers remain bitwise matched.",
+    "fit_failures": "Retain every attempt/partial state. No seed omission, rescue fit, restarts with changed mathematics, extra cutoff, checkpoint or hyperparameter search."
+  },
+  "label_semantics": {
+    "primary_tail": "SOXX five next-open intervals entry-relative path min<=-6percent, not SOXL3x or peak-to-trough MaxDD",
+    "primary_alpha": "27percentSOXL+63percentSOXX+10percentcash fixed reference five-session relative growth vsSOXX",
+    "aux_tail": "Historical PIT constituent synthetic daily-reset2x, five close-close intervals,95bp annual fee, path min<=-12percent OR terminal<=-15percent",
+    "aux_alpha": "Synthetic2x five-session terminal return exceeds constituent1x",
+    "maturity": "Exact saved native primary available_at strictlybeforecutoff; auxiliary observations_end<=train_end. Preserve source labels, no current dirty provider data replacement."
+  },
+  "training_cohort": {
+    "train_end": "2022-12-30",
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "expected_primary_mature_rows": 3014,
+    "expected_primary_signal_end": "2022-12-21",
+    "expected_auxiliary_rows": 20741,
+    "eligibility": "Exact original source index<=train_end, original label_available_at strictlybefore cutoff and original TARGETS finite. Calendar readiness never enters cohort eligibility.",
+    "no_row_loss": "Left-align calendar metadata to original rows; preserve all unavailable years and all946 prediction rows. Do not inner-join, reduce to known rows, or downsample based on calendar values.",
+    "source_stage_boundary": "Source stage did not verify3014 mature/finite-label rows; the future model preflight must match exact original cohort/tensor/scaler hashes using training-only data, not claim source coverage already proved them."
+  },
+  "minimal_preflight_before_fit": {
+    "execution_authorized_now": false,
+    "source_only_first": [
+      "Freeze and independently review this receiving definition, all source bindings and codeidentity before any actual proxy derivation.",
+      "Read admitted ledger/timing/prior-calendar from the native source; recompute the new09:29 branch masks from allowed primitives. Never reuse the source qualification_status/current-day-open mask.",
+      "Retain all amendment/conflict/prefix missing reasons; publish coverage by signal year and decision year without changing any definition or cohort.",
+      "Check exact946/944/two-tail alignment and three-state OR; prove source knowledge_max_at<=09:29.",
+      "One focused synthetic contract must show removing/replacing d and future observed sessions cannot alter proxy or masks; future announcements do not backfill, closed-vs-missing precedence is preserved, and knowntrue OR unknown remains true."
+    ],
+    "training_only_next": [
+      "Use hash-verified training-only Recorder objects for original3014 primary and20741 auxiliary rows, with exact source/cohort/scaler/label identity proven before fitting. A full object containing2023+ labels must not be deserialized and then described as unread merely because it is immediately cropped. Resolve and pin admissible training-only objects in the executable plan; stop if this boundary cannot be met.",
+      "Verify original3014/20741 cohorts,39/16 feature order, original scalers, labels and sampling identities; added masks must match B/C.",
+      "Verify paired new network shapes, original tensor copy, zero added columns, same initial outputs and same auxiliary sampling; no real optimizer step in no-fit preflight.",
+      "Report train-known/value support. Before any optimizer step require at least one identical three-mask combination containing both known proxy=0 and known proxy=1 within the original mature primary training cohort. Otherwise the numeric proxy is a deterministic function of shared masks (or entirely missing/constant), so stop as nonidentifiable. Do not change venue/window/encoding/masks/cohort or sample minimum to rescue it. Coverage magnitude otherwise is descriptive."
+    ],
+    "fit_then_eval_order": "Only after explicit final-fit GO run all6 predetermined fits using admitted training-only objects and seal all6 model artifact identities. No object containing2023+ evaluation labels/returns or prior outer predictions may be deserialized before that barrier. Classification diagnostics do not select seeds/checkpoints or cancel predeclared B/C accounts. Resolve exact source objects and enforce this separation in implementation/no-fit review."
+  },
+  "accounts": {
+    "families": [
+      "A_active_research_replay",
+      "B_shared",
+      "B_preopen_tom_context",
+      "C_preopen_tom",
+      "SOXX",
+      "strong9097",
+      "additional27baa"
+    ],
+    "initial_cash": 100000,
+    "expected_sessions": 944,
+    "first_signal": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "terminal": "2026-10-09T09:47:00-04:00",
+    "clock": "09:45 known,09:46 decision,09:47 fill,next09:47 exit;firsthour recovery fill10:32. Historical bar availability convention, not actual first receipt/execution qualification.",
+    "A_label": "Frozen active f696+b472 model chain replayed under same raw research execution contract; not actual deployed09:31/10:31 replay.",
+    "ABC_policy": "New B/C use original b472 open/recovery on each own cost-specific cash, shares, NAV, peak, history and risk state; no COMMON/ALL3/T substitution. Reference policies remain sealed.",
+    "reference_policy": "SOXX buyonce raw shares; strong9097/additional27baa retain their frozen commoncap/ALL3/T policies. Different strategy controls disclosed, same price/corporate/fees/dates/initialcash. Do not inherit old fullminute risk qualification.",
+    "strict_reuse": "Reuse the same 15 exact original reference books identified by pinned FINRA plan sources.current_shared and sources.raw. Schedule, quote grid, corporate actions, tariffs, initial state and controller must match. No fallback replay if identity differs.",
+    "raw_interfaces": [
+      "src.backtest.stage1_domain_heads_raw.replay_stage1_raw",
+      "src.backtest.raw_corporate_policy.IncomeLedger",
+      "src.backtest.raw_corporate_policy.settle_raw",
+      "src.backtest.native_raw_corporate.native_raw_validate"
+    ],
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "maximum_total_comparison_accounts": 21,
+    "maximum_new_native_accounts": 6,
+    "source_native_accounts_reused": 15,
+    "currency": "USD gross paper assumption and documented corporate entitlement/payment convention; not broker or historicalPIT certification"
+  },
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "gates": {
+    "required_comparators": [
+      "A_active_research_replay",
+      "B_shared",
+      "B_preopen_tom_context",
+      "SOXX",
+      "strong9097"
+    ],
+    "additional_reference": "additional27baa always report, not a postresult replacement of primary strong9097",
+    "net_relative_wealth_all_costs": ">1+1e-8 versus each required comparator",
+    "sampled_maxdrawdown": "<=30percent at close and all available raw point marks; fullminute validation separate if economic gates pass",
+    "cvar5": "no worse thanSOXX at all costs",
+    "complete_annual_positive_fraction": 0.7,
+    "minimum_complete_years": 2,
+    "rolling126_positive_fraction": 0.7,
+    "paired_uncertainty": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "alpha": 0.0016666666666666668,
+      "seed": 20261014,
+      "lower_positive": true,
+      "comparisons": 5,
+      "costs": 3,
+      "prior_search_multiplicity": "unknown; this correction doesnotreset reusedhistory",
+      "statistic": "one-sided paired stationary-bootstrap mean daily log excess; lower quantile must be strictly positive",
+      "alpha_formula": "0.025/(1 candidate equal-seed ensemble *5 required comparators *3 costs)",
+      "expected_lower_tail_draws": 16.666666666666668,
+      "resolution_rationale": "Fixed10000 draws before fitting; approximately16.67 expected lower-tail draws, MonteCarlo limitation retained; no outcome-dependent rerun or seed change."
+    },
+    "qualified_independent_forward": false,
+    "fresh_fullminute_risk_qualified": false,
+    "stability_comparator": "SOXX annual/rolling70percent; all5 required comparators full-window wealth >1+1e-8 and pairedCI lower>0.",
+    "independent_forward_contract": {
+      "authority": "docs/three_asset_research_contract.md",
+      "authority_sha256": "9e90f4e4466352341064a20a310e08547b445d0722c2ee950dfc8d6b5f35d3a9",
+      "prerequisite": "Historical gates only produce a candidate; freeze full decision rule, model, sources, costs, state definitions, observation frequency and evaluation times before independent shadow/paper evidence.",
+      "minimum_observation_only": {
+        "complete_paired_days": 60,
+        "days_in_each_preregistered_market_state": 15,
+        "state_transitions": 3
+      },
+      "not_sufficient": "These minimum counts are not acceptance. Annual and126-session stability require enough genuinely new observations and the complete economic/risk/statistical gates. No reused oldpaper days, historical renaming, repeated daily tests until passing, or automatic promotion atday60.",
+      "current_status": "Unqualified; this draft grants no forward launch or production permission."
+    }
+  },
+  "budget": {
+    "maximum_fit_attempts": 6,
+    "B_fits": 3,
+    "C_fits": 3,
+    "maximum_new_native_accounts": 6,
+    "reference_native_accounts_reused": 15,
+    "total_comparison_accounts": 21,
+    "additional_models_windows_seeds": 0,
+    "new_source_HTTP": 0
+  },
+  "reporting": {
+    "classification": {
+      "scope": "Primary out-of-fit tail/alphaBCE,Brier,AUC,scoremean/eventrate for every seed and ensemble; predictions and monthly/annual diagnostics inRecorder. Training losses also saved. No classification gate decides whether predeclared accounts run.",
+      "history": "All2023+ dates already reused; not independent market evidence. Existing prior2020-2022 zeroaux fit is not developmental proof for this intervention."
+    },
+    "economic": "For each arm, report the single fixed equal-weight3seed ensemble account at each0/2/5bp cost:6newnativeaccounts total. Each seed has predictions/classification diagnostics only, no per-seed accounts. Report complete2024/2025 and partial2023/2026 separately, all prescribed126-session windows and pairedCI. Always compare SOXX,strong9097,A,oldB_shared andmatchedB. Lowercash or winning onlyB is not success.",
+    "failure_attribution": "If fixed result fails, one Recorder-only attribution may describe masks, raw proposals, actualbeta/cash, risk-state/cost path and losing/winning complete periods under separately scoped authorization. It does not authorize retuning.",
+    "promotion": "PITfalse and independent-forwardfalse persist. Historical economic passes would only permit separate fullminute/fresh-forward qualification, not production promotion."
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "phase": "Draft documentation only; no new Recorder/workflow execution claimed.",
+    "planned_workflow_config": "workflow.yaml (not created in this draft)",
+    "recorder_only_artifacts": [
+      "source/calendar_primitives_and_nullable_proxy",
+      "inputs/primary_dataset",
+      "inputs/auxiliary_dataset",
+      "inputs/prediction_dataset",
+      "training/*",
+      "models/*",
+      "prediction/*",
+      "native/*",
+      "analysis/*"
+    ],
+    "serialization": "Before saving any new DatasetH, config(dump_all=True,recursive=True); required direct prepare pickle roundtrip. Preserve exact metadata timestamps and native source lineage.",
+    "qlib_api_authority": [
+      "https://qlib.readthedocs.io/en/latest/component/data.html",
+      "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+    ],
+    "docs_status": "Official data/recorder APIs were already checked in this source implementation/review; no new web retrieval or API implementation in this draft."
+  },
+  "pending_before_freeze": [
+    "Independent receiving-definition/design review including mask semantics and source-gap precedence",
+    "Final materialized reference artifact identities, source/feature adapter and model codeidentity",
+    "Reviewed no-fit preflight scope/implementation and explicit owner source-feature/model/account permissions"
+  ],
+  "failure_policy": "A fixed negative result closes this version. No venue/window/sign/offset/normalization/mask/seed/epoch/loss/recovery-threshold rescue; source or implementation failures preserve receipts and require scoped review. The overallGoal remains separate.",
+  "design_review_conditions": {
+    "mask_identifiability": "A matched-mask group must contain both numeric values on the fixed mature train cohort before fitting; B already receives partial calendar information through masks.",
+    "evaluation_barrier": "Use pinned train-only objects; deserialization of full outer-return objects counts as access. All6 model identities must precede evaluation-object loading.",
+    "invalid_non_null_clock": "Source integrity failure, not a missing-value encoding opportunity."
+  }
+}
