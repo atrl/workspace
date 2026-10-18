@@ -1,19 +1,66 @@
 {
   "experiment": "stage1_domain_heads_20261018",
-  "decision": "implementation_pending_independent_design_review",
+  "plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+  "decision": "not_promoted_fixed_stage1_domain_heads",
   "objective_achieved": false,
-  "new_fits": 0,
-  "new_native_accounts": 0,
+  "gates": {
+    "net_relative_wealth_all_costs": false,
+    "sampled_drawdown_30pct": true,
+    "cvar_no_worse_soxx": true,
+    "minimum_complete_years": true,
+    "complete_annual_70pct": false,
+    "rolling126_70pct": false,
+    "paired_block_lower_positive": false,
+    "fresh_fullminute_risk_qualified": false,
+    "qualified_independent_forward": false
+  },
+  "coarse_economic_gates_pass": false,
+  "new_fits": 6,
+  "new_native_accounts": 9,
+  "reused_native_accounts": 9,
+  "total_comparison_accounts": 18,
+  "sessions_each": 944,
+  "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "experiment_id": "283510277269468590",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_domain_heads_20261018/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_domain_heads_20261018/qlib_recorder/283510277269468590/6e227278b7a64eafbcf34b965e16d2b9",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_domain_heads_20261018",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "history_status": "all_history_reused_not_independent",
+  "production_changed": false,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": [
       "inputs/*",
+      "sources/*",
       "models/*",
       "predictions/*",
       "paths/*",
       "native/*",
       "analysis/rolling/*"
     ]
-  }
+  },
+  "nas_evidence": {
+    "sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "size_bytes": 11859296,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f3/f8/f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 11:41:07.769658+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f3/f8/f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "experiment_id": "283510277269468590",
+    "archive_root": "qlib_recorder"
+  },
+  "post_run_evaluation": {
+    "independent_evaluation": "independent_evaluation.json",
+    "failure_attribution": "failure_attribution.json",
+    "decision_unchanged": true,
+    "goal_continues": true,
+    "cold_readback": "readback_verification.json"
+  },
+  "provider_rebuild": "src.workflow.stage1_domain_heads._provider from pinned Recorder raw_points/guard; local native store is a regenerable cache, no dirty source replacement."
 }

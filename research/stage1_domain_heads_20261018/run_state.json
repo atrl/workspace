@@ -1,0 +1,67 @@
+{
+  "plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+  "fit_attempts": [
+    "B_shared_71",
+    "B_shared_172",
+    "B_shared_273",
+    "C_domain_71",
+    "C_domain_172",
+    "C_domain_273"
+  ],
+  "fits_done": [
+    "B_shared_71",
+    "B_shared_172",
+    "B_shared_273",
+    "C_domain_71",
+    "C_domain_172",
+    "C_domain_273"
+  ],
+  "path_attempts": [
+    "A_active_research_replay_0",
+    "A_active_research_replay_2",
+    "A_active_research_replay_5",
+    "B_shared_0",
+    "B_shared_2",
+    "B_shared_5",
+    "C_domain_0",
+    "C_domain_2",
+    "C_domain_5"
+  ],
+  "paths_done": [
+    "A_active_research_replay_0",
+    "A_active_research_replay_2",
+    "A_active_research_replay_5",
+    "B_shared_0",
+    "B_shared_2",
+    "B_shared_5",
+    "C_domain_0",
+    "C_domain_2",
+    "C_domain_5"
+  ],
+  "native_attempts": [
+    "A_active_research_replay_0",
+    "A_active_research_replay_2",
+    "A_active_research_replay_5",
+    "B_shared_0",
+    "B_shared_2",
+    "B_shared_5",
+    "C_domain_0",
+    "C_domain_2",
+    "C_domain_5"
+  ],
+  "native_done": [
+    "A_active_research_replay_0",
+    "A_active_research_replay_2",
+    "A_active_research_replay_5",
+    "B_shared_0",
+    "B_shared_2",
+    "B_shared_5",
+    "C_domain_0",
+    "C_domain_2",
+    "C_domain_5"
+  ],
+  "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "experiment_id": "283510277269468590",
+  "sources_saved": true,
+  "completed": true
+}

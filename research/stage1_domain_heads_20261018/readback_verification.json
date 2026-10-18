@@ -1,0 +1,13 @@
+{
+  "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+  "status": "passed",
+  "cold_archive_restored_outside_repository": true,
+  "verified_artifact_count": 94,
+  "all_artifact_hashes_match": true,
+  "native_qlib_readback": "R.uri_context + R.get_recorder + analysis/summary; gates and completed counts equal final summary",
+  "readback_attempts": 2,
+  "first_attempt": "Archive and all artifact hashes passed; unsupported uri keyword in read-only get_recorder failed before object read. Corrected to official uri_context, no source change.",
+  "new_fits": 0,
+  "new_accounts": 0
+}

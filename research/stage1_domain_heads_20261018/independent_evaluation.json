@@ -1,0 +1,164 @@
+{
+  "role": "independent_evaluator",
+  "reviewer": "/root/independent_evaluator",
+  "experiment": "stage1_domain_heads_20261018",
+  "plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+  "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "verification_manifest_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+  "nas_archive_sha256_recorded": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+  "verdict": "ACCEPT_NOT_PROMOTED_FIXED_EXPERIMENT",
+  "decision": "not_promoted_fixed_stage1_domain_heads",
+  "material_evidence_issues": [],
+  "budget_verified": {
+    "new_model_fits": 6,
+    "new_native_accounts": 9,
+    "frozen_native_accounts_reused": 9,
+    "total_comparison_accounts": 18,
+    "sessions_per_account": 944,
+    "fit_path_native_attempts_unique_and_completed": true,
+    "unrecorded_retries_observed": false
+  },
+  "identity_checks": {
+    "plan_matches_design_and_execution_approval": true,
+    "execution_approval_precedes_recorded_run_start": true,
+    "recorded_run_start_utc": "2026-10-18T03:40:20.482000+00:00",
+    "run_status": "FINISHED",
+    "all14_implementation_hashes_match_live_and_recorded_source": true,
+    "preflight_and_design_review_hashes_match_execution_approval": true,
+    "source_Recorder_objects_verified_before_native_load": true,
+    "reference_raw_grid_schedule_tariff_cash_and_costs_match": true,
+    "active_release_sha256_unchanged": true,
+    "local_summary_and_six_small_result_tables_match_Recorder": true
+  },
+  "training_checks": {
+    "primary_rows_each": 3014,
+    "auxiliary_rows_each": 20741,
+    "primary_inputs": 39,
+    "common_inputs": 16,
+    "epochs_each": 300,
+    "checkpoint": "fixed_final_epoch",
+    "model_scalers_match_frozen_source": true,
+    "B_parity": [
+      {
+        "seed": 71,
+        "prediction_max_abs_diff": 0.0,
+        "network_tensor_max_abs_diff": 0.0
+      },
+      {
+        "seed": 172,
+        "prediction_max_abs_diff": 0.0,
+        "network_tensor_max_abs_diff": 0.0
+      },
+      {
+        "seed": 273,
+        "prediction_max_abs_diff": 0.0,
+        "network_tensor_max_abs_diff": 0.0
+      }
+    ],
+    "interpretation": "B exactly reproduces saved matched final300 base_outer models, not legacy f696 bestcheckpoint."
+  },
+  "economic_result": {
+    "candidate": "C_domain",
+    "cost_order_bps": [
+      0,
+      2,
+      5
+    ],
+    "net_return_pct": [
+      254.630350621,
+      187.4820831842,
+      183.4237506956
+    ],
+    "close_max_drawdown_pct": [
+      -27.9400484967,
+      -28.0154036645,
+      -28.0524370418
+    ],
+    "all_available_point_max_drawdown_pct": [
+      -27.9400484967,
+      -28.0154036645,
+      -28.0524370418
+    ],
+    "candidate_CVaR5_pct": [
+      -4.233966378370013,
+      -4.330374556960921,
+      -4.331684504738358
+    ],
+    "SOXX_CVaR5_pct": [
+      -4.90478329004924,
+      -4.9052404232292,
+      -4.905926307023082
+    ],
+    "candidate_native_max_relative_error": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "two_bp_relative_wealth": {
+      "A_active_research_replay": 0.7552390542,
+      "B_shared": 0.7765104234,
+      "SOXX": 0.5982132846,
+      "strong9097": 0.538084519,
+      "additional27baa": 0.4975239065
+    },
+    "complete_years": [
+      2024,
+      2025
+    ],
+    "incomplete_years": [
+      2023,
+      2026
+    ],
+    "complete_year_positive_excess_fraction": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rolling126_windows_each": 819,
+    "rolling126_positive_fraction": [
+      0.3516483516,
+      0.2527472527,
+      0.2490842491
+    ]
+  },
+  "uncertainty_check": {
+    "required_rows": 12,
+    "positive_lower_bounds": 0,
+    "minimum_daily_lower_bound": -0.0012609546202121341,
+    "maximum_daily_lower_bound": -7.989323386703822e-05,
+    "mean_block": 63,
+    "resamples": 10000,
+    "seed": 20261014,
+    "one_sided_alpha": 0.0020833333333333333,
+    "verification": "Retained bounds, exact paired raw-path means, parameter inventory, comparator/cost completeness and unchanged frozen implementation checked. No new draws."
+  },
+  "failed_scientific_gates": [
+    "net_relative_wealth_all_costs",
+    "complete_annual_70pct",
+    "rolling126_70pct",
+    "paired_block_lower_positive"
+  ],
+  "passed_available_gates": [
+    "sampled_drawdown_30pct",
+    "cvar_no_worse_soxx",
+    "minimum_complete_years"
+  ],
+  "unqualified_evidence": [
+    "fresh_fullminute_risk_qualified",
+    "qualified_independent_forward"
+  ],
+  "classification_interpretation": "Mixed primary diagnostics on940 matured reused observations: C alpha BCE/Brier improve slightly while AUC remains about0.497; C tail AUC improves while BCE/Brier worsen. No general negative-transfer explanation.",
+  "review_method": "Read-only native Recorder/source readback; exact budget and B parity; recomputed wealth, close/allpoint drawdown,5percent-tail CVaR, calendar-complete annual returns and all126-session windows. No fitting or account replay.",
+  "scope_limits": [
+    "Four event/close marks are not fullminute risk certification.",
+    "All history reused; seeds/overlapping windows are not independent.",
+    "A uses frozen active models under research raw clock, not live performance;9097/27baa keep distinct controls.",
+    "Intervention includes18extra parameters and changed global clipping/optimizer dynamics."
+  ],
+  "required_next_action": "Seal this fixed negative version with minimum evidence; continue authorized Goal using necessary attribution and a separately frozen distinct mechanism. No headcount/lossweight/seed/epoch/window/controller rescue.",
+  "additional_experiment_work_required_for_acceptance": false,
+  "production_change_authorized": false,
+  "promotion_authorized": false,
+  "objective_achieved": false,
+  "receipt_format_note": "Root transcribed evaluator findings with unchanged numerical results and condensed prose."
+}

@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_domain_heads_20261018",
-  "current_phase": "execution_authorized_awaiting_live_handle",
-  "next_action": "Start and observe the existing executor notebook handle; complete six paired fits and nine new native accounts without stopping on intermediate information scores, then independent result evaluation.",
+  "current_phase": "first_fixed_experiment_closed_next_external_source_design_running",
+  "next_action": "Qualify public FINRA CNMS short-mark mix history and freeze its source/paired Stage1 experiment design before bulk intake or fitting. Quant-community sources guide mechanism discovery; original papers/code/official data govern claims. Keep signature-area mechanism as untested backup. No domain-head rescue.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1389,7 +1389,7 @@
     {
       "card": "research/stage1_domain_heads_20261018",
       "kind": "stage1_primary_auxiliary_domain_specific_output_heads",
-      "status": "execution_authorized_awaiting_live_handle",
+      "status": "completed_not_promoted_fixed_version_closed",
       "maximum_new_fits": 6,
       "maximum_total_economic_accounts": 18,
       "fit_cutoff": "2023-01-01T00:00:00-05:00",
@@ -1409,11 +1409,30 @@
         "generic_index_tail_transfer",
         "sparse_joint_tail_terminal_classifier"
       ],
-      "counts_added_to_campaign_totals": false,
+      "counts_added_to_campaign_totals": true,
       "design_review": {
         "path": "research/stage1_domain_heads_20261018/design_review.json",
         "plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
         "verdict": "APPROVE_DESIGN"
+      },
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "evaluation": "research/stage1_domain_heads_20261018/independent_evaluation.json",
+      "failed_gates": [
+        "net_relative_wealth_all_costs",
+        "complete_annual_70pct",
+        "rolling126_70pct",
+        "paired_block_lower_positive",
+        "fresh_fullminute_risk_qualified",
+        "qualified_independent_forward"
+      ],
+      "actual_new_fits": 6,
+      "actual_new_native_accounts": 9,
+      "reused_native_accounts": 9,
+      "nas_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "readback": {
+        "path": "research/stage1_domain_heads_20261018/readback_verification.json",
+        "verified_artifacts": 94,
+        "all_hashes_match": true
       }
     }
   ],
@@ -1431,8 +1450,8 @@
     "promotion_eligible": false,
     "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
   },
-  "cumulative_new_fits_in_this_campaign": 87,
-  "cumulative_new_native_accounts_in_this_campaign": 57,
+  "cumulative_new_fits_in_this_campaign": 93,
+  "cumulative_new_native_accounts_in_this_campaign": 66,
   "rejected_directions": [
     {
       "direction": "Broad account-state-aware full-path training",
@@ -1455,7 +1474,7 @@
     }
   ],
   "cumulative_new_shadow_paths_in_this_campaign": 36,
-  "cumulative_new_allocator_fits_in_this_campaign": 33,
+  "cumulative_new_allocator_fits_in_this_campaign": 39,
   "cumulative_new_statistical_fits_in_this_campaign": 54,
   "cumulative_frozen_risk_valuations": 6,
   "mechanism_triage": {
@@ -1477,7 +1496,7 @@
     "use": "Retain frozen as additional economic comparator, not deployed or silently promoted"
   },
   "cumulative_new_residual_fits_in_this_campaign": 6,
-  "cumulative_new_full_allocator_fits_in_this_campaign": 21,
+  "cumulative_new_full_allocator_fits_in_this_campaign": 27,
   "prospective_observation_governance": {
     "reviewer": "/root/evaluator",
     "verdict": "APPROVE_IMPLEMENTATION_ONLY",
@@ -1621,12 +1640,12 @@
     }
   ],
   "execution_observation_20261018": {
-    "phase": "execution_authorized_awaiting_live_handle",
+    "phase": "first_fixed_experiment_closed_next_external_source_design_running",
     "model_executor": "/root/recent_evidence",
     "raw_adapter_executor": "/root/challenge_summary",
     "evaluator": "/root/independent_evaluator",
-    "model_training_started": false,
-    "native_accounts_started": false,
+    "model_training_started": true,
+    "native_accounts_started": true,
     "new_source_requests": 0,
     "observed_source_counts": {
       "mature_primary": 3014,
@@ -1634,13 +1653,24 @@
       "primary_features": 39,
       "common_features": 16
     },
-    "observation_scope": "Executor confirmed source preflight and model implementation; no claim of model training or automatic future liveness.",
+    "observation_scope": "Executor reported live nbconvert session66916; counters below observed from durable run_state, not a guarantee of future liveness.",
     "execution_approval": "research/stage1_domain_heads_20261018/execution_approval.json",
     "formal_budget": {
       "model_fits": 6,
       "new_native_accounts": 9,
       "reused_reference_accounts": 9
-    }
+    },
+    "executor_session_id": 66916,
+    "executor_agent": "/root/recent_evidence",
+    "implementation_commit": "690607bd",
+    "observed_completed": {
+      "fits_done": 6,
+      "paths_done": 9,
+      "native_done": 9
+    },
+    "executor_session_exit_code": 0,
+    "next_executor": "/root/recent_evidence",
+    "next_executor_task": "FINRA source qualification and bounded plan; no new model training yet"
   },
   "goal_contract_20261018": {
     "benchmark": "SOXX ETF",
@@ -1658,5 +1688,38 @@
     "blocked": "same total blocker at least3 consecutive Goal turns and no meaningful alternative progress; reset count after resumed blocked Goal",
     "complete": "all economic and sufficient independent-forward gates accepted by independent evaluator",
     "production_changes_authorized": false
+  },
+  "current_goal_execution_counts": {
+    "model_fits": 6,
+    "new_native_accounts": 9,
+    "reused_native_accounts": 9,
+    "completed_fixed_experiments": 1,
+    "historical_passing_candidates": 0,
+    "qualified_forward_days": 0
+  },
+  "next_experiment": "research/stage1_finra_short_mix_20261018",
+  "external_discovery_20261018": {
+    "user_explicitly_requested": true,
+    "lead_policy": "Community/social discussion leads, then original paper/author code and official fields; no claims from screenshots or backtest marketing",
+    "primary_candidate": {
+      "mechanism": "SOXL minus SOXX FINRA CNMS short-mark fraction, conditional on same venue total volumes/availability",
+      "community": "https://quant.stackexchange.com/questions/60901/what-does-short-volume-in-finra-regsho-actually-measure",
+      "primary_paper": "https://www.sec.gov/comments/s7-08-22/s70822-20149120-316297.pdf",
+      "source_samples_observed": 4,
+      "historical_full_coverage_verified": false,
+      "limitations": "Not short interest, net inventory, sentiment, or reproduction of operational-shorting measure requiring signed intraday imbalance and creation data"
+    },
+    "backup_candidate": {
+      "mechanism": "Fixed second-order antisymmetric synchronous ETF path area",
+      "community": "https://www.mql5.com/en/articles/23548",
+      "primary_paper": "https://arxiv.org/abs/2308.15135",
+      "author_code": "https://github.com/owenfutter/signature_trading",
+      "status": "untested_representation_not_new_information"
+    },
+    "excluded": {
+      "turn_of_month": "Historical settlement-calendar qualification missing; do not transplant T+3 window",
+      "issuer_NAV_basis": "Existing issuer workbook lacks contemporaneous market price; do not splice unrelated close to manufacture basis",
+      "generic_SMA_volatility_HOLD_retuning": "Closed prior routes or no substantive new mechanism"
+    }
   }
 }

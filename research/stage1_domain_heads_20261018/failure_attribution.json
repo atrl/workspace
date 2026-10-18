@@ -1,0 +1,67 @@
+{
+  "scope": "One read-only descriptive attribution, no new fit or replay",
+  "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "source_artifacts": [
+    "analysis/classification",
+    "analysis/smoothed_targets",
+    "native/B_shared_2",
+    "native/C_domain_2",
+    "native/C_domain_0"
+  ],
+  "classification": "calibration_improvement_without_discrimination_improvement_and_failed_economic_delivery",
+  "observations": {
+    "alpha_B_C_BCE": [
+      0.6878832772030964,
+      0.6834629667639878
+    ],
+    "alpha_B_C_Brier": [
+      0.2474030442741287,
+      0.2453204133925592
+    ],
+    "alpha_B_C_AUC": [
+      0.49689710781799445,
+      0.4967492410274894
+    ],
+    "alpha_B_C_mean_probability": [
+      0.5230990443774994,
+      0.5690974490756684
+    ],
+    "alpha_observed_event_rate": 0.5712765957446808,
+    "tail_B_C_Brier": [
+      0.09956704623505103,
+      0.10058992451481595
+    ],
+    "smoothed_proposal_B_C_mean_beta": [
+      1.06659,
+      1.07227
+    ],
+    "two_bp_actual_B_C_mean_beta": [
+      0.84914,
+      0.79381
+    ],
+    "two_bp_B_C_cash_pct": [
+      46.43083128241058,
+      48.6577642813214
+    ],
+    "two_bp_B_C_nonzero_risk_state_days": [
+      377,
+      545
+    ],
+    "two_bp_B_C_native_max_relative_error": [
+      0.0,
+      0.0
+    ],
+    "C_vs_B_positive_trade_years_including_partial": "1/4",
+    "C_vs_SOXX_positive_trade_years_including_partial": "0/4",
+    "C_vs_B_positive_quarters_including_partial": "7/16",
+    "C_vs_SOXX_positive_quarters_including_partial": "5/16",
+    "C_zero_vs_two_bp_different_risk_state_days": 99
+  },
+  "limitations": [
+    "Mean beta is3*SOXL+SOXX, not risk equivalence.",
+    "Internal state differences are endogenous, not a single-controller causal attribution.",
+    "First/last years and quarters are incomplete.",
+    "This attribution does not authorize retuning the fixed failed version."
+  ],
+  "next_information_need": "A source or substantively distinct mechanism that separates future relative payoff conditions rather than only fitting the unconditional class rate."
+}

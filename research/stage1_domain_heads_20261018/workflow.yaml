@@ -1,4 +1,6 @@
 experiment: stage1_domain_heads_20261018
 entrypoint: src.workflow.stage1_domain_heads.run
-phase: pending_independent_design_review
-provider_uri: data/qlib/stage1_domain_heads_20261018
+phase: completed
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_domain_heads_20261018
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_domain_heads_20261018/qlib_recorder
+artifact_policy: slim_card_recorder_first
