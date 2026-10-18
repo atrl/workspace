@@ -12,4 +12,6 @@
 
 同轮root单独授权的12份文档发现已由external代理完成一次：8个HTML200、4个SEC PDF403，0重试，原文cache仍在临时目录，等待inventory hash绑定。原12请求和inventory保持原样；root另授权external追加最多5个新原文URL/5次显式HTTP补固定缺年，0retry/redirect，禁止重抓旧403。累计上限17；后续source qualification仍只可复用成功cache，新HTTP为0。Nasdaq例外公告不自动认证NYSE/Arca同步闭市；原文缺口和venue缺口均保留unknown。
 
-补证入口：[source_document_extension_1.json](source_document_extension_1.json)（待external完成独立receipt）。web发现查询与显式原文HTTP分别记账；是否补齐全部knowledge覆盖尚未确定，不按找到的文档数量宣称合格。当前草案仍未frozen，来源native/特征/模型/账户执行未授权。
+补证入口：[source_document_extension_1.json](source_document_extension_1.json)（已完成独立receipt；SHA450bada2…29b1dc）。web发现查询与显式原文HTTP分别记账；是否补齐全部knowledge覆盖尚未确定，不按找到的文档数量宣称合格。当前草案仍未frozen，来源native/特征/模型/账户执行未授权。
+
+补证结果已绑定：exec39737 exit0，5个新URL中4份ICE年历原文成功、1份BusinessWire超时；累计17次显式HTTP、12份成功raw、4个SEC403和1个timeout，0retry/redirect。2014–2020及2023–2025相关普通年历覆盖得到补充，但不得据此宣称全历史资格；2011–2013、SEC原文、NYSE/Arca临时闭市及vintage仍有缺口。发现但未抓取的2021-12-27新年历不纳入raw corpus。所有来源native/ledger/feature/fit/account仍为0，后续只可在独评source-onlyplan+ownerGO后cache-only资格检查。

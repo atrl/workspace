@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "card": "calendar_tom_source_20261018",
+  "extension": "source_document_extension_1",
+  "status": "bounded_document_extension_completed_partial_source_coverage",
+  "base_inventory": {
+    "path": "research/calendar_tom_source_20261018/source_document_inventory.json",
+    "sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
+    "modified": false
+  },
+  "authorization": {
+    "scope": "Root separately authorized at most five new official or issuer-original calendar announcement URLs and five explicit raw-document HTTP attempts, without retry or redirect. This is source discovery/capture only and does not authorize native source-ledger execution.",
+    "source_native_execution_go": false,
+    "feature_marketdata_returns_fit_account_authorized": false,
+    "scope_reason": "Restore missing years within the already prescribed 2011-2026-10-09 interval. Completing 2024/2025 is not selecting evaluation years based on returns."
+  },
+  "request_accounting": {
+    "extension_explicit_http_limit": 5,
+    "extension_explicit_http_attempts": 5,
+    "extension_explicit_successful_raw_bodies": 4,
+    "extension_explicit_timeout": 1,
+    "extension_explicit_retries": 0,
+    "extension_explicit_redirects_followed": 0,
+    "prior_explicit_http_attempts": 12,
+    "cumulative_explicit_http_attempts": 17,
+    "cumulative_successful_raw_bodies": 12,
+    "cumulative_failed_attempts": 5,
+    "remaining_explicit_http_budget": 0,
+    "execution_handle": "39737",
+    "execution_exit_code": 0,
+    "raw_receipt": "/tmp/soxl_calendar_tom_sources_extension1_20261018/capture_receipt.json"
+  },
+  "discovery_accounting": {
+    "web_run_calls": 10,
+    "search_query_commands": 26,
+    "open_commands": 8,
+    "click_commands": 1,
+    "underlying_web_http_requests": null,
+    "underlying_web_http_retries_or_redirects": null,
+    "interpretation": "These are visible discovery-tool commands, distinct from the five explicit urllib GET attempts. The web provider's underlying requests, caching, retries and redirect behavior are not exposed; they are unknown, not zero. Discovery results and non-admitted candidates are not additional captured corpus documents."
+  },
+  "capture_contract": {
+    "client": "Python urllib with an HTTPRedirectHandler whose redirect_request returns None; each of five URLs attempted once with an honest research User-Agent.",
+    "successful_body_validation": "The four raw ICE HTML bodies were inspected locally for matching document headline, publication date, cash-equity venue paragraph and named-year tables; SHA and byte counts are read back from the saved files.",
+    "no_failed_source_retry": true,
+    "no_existing_success_cache_refetch": true,
+    "raw_storage": "Temporary discovery cache outside repository; not yet a native Qlib Recorder archive.",
+    "later_workflow": "Cache-only with zero new HTTP, subject to separate source/native GO. Verify byte hashes, reuse the prior eight plus these four successful bodies, preserve failed-document receipts, and retain unknown coverage. Never redownload to silently repair this closed request budget."
+  },
+  "publication_contract": {
+    "basis": "ICE release body dateline, not search-engine indexing date, HTTP timestamp or inference from URL.",
+    "precision": "day",
+    "true_first_publication_time_known": false,
+    "immutable_historical_vintage_proven": false,
+    "available_from_convention": "Following midnight America/New_York, a conservative date-precision convention, not observed first receipt.",
+    "filing_or_year_not_public_clock": "Document coverage years do not imply public availability at their start; reprinted schedules are not backdated to unspecified earlier announcements."
+  },
+  "documents": [
+    {
+      "id": "nyse_calendar_2012_2013_wire",
+      "issuer_candidate": "NYSE Euronext via BusinessWire",
+      "status": "not_qualified_original_body_unavailable",
+      "publication_date": null,
+      "publication_precision": "unknown_original_body",
+      "covered_years": [],
+      "candidate_covered_years": [
+        2012,
+        2013
+      ],
+      "applicable_venues": [],
+      "candidate_venues": [
+        "NYSE U.S. cash equities",
+        "NYSE Amex cash equities",
+        "NYSE Arca cash equities"
+      ],
+      "public_date_evidence": "The original page was not obtained. A MarketScreener syndication identifies Business Wire and carries a 2011-01-07 date, but that secondary display is not admitted as the original publication clock.",
+      "discovery_lineage": {
+        "secondary_entry": "https://hk.marketscreener.com/quote/stock/NYSE-EURONEXT-13866/news/NYSE-EURO-NYSE-Euronext-NYX-Announces-its-2012-and-2013-Holiday-Calendar-and-Early-Closings-for-13533281/",
+        "original_wire_id_basis": "The syndication's BusinessWire tracker URL carries sty=20110107005513r1; used only to derive the original wire entry candidate.",
+        "secondary_content_admitted": false
+      },
+      "scope_note": "One explicit original-host request timed out. No follow, retry, alternate slug or mirror fallback was made; 2012/2013 source coverage remains unknown.",
+      "url": "https://www.businesswire.com/news/home/20110107005513/en/",
+      "native_capture": {
+        "id": "nyse_calendar_2012_2013_wire",
+        "requested_url": "https://www.businesswire.com/news/home/20110107005513/en/",
+        "attempt_count": 1,
+        "retry_count": 0,
+        "redirects_followed": 0,
+        "retrieval_started_at_utc": "2026-10-18T07:58:52.094000+00:00",
+        "status": "not_captured",
+        "error": "TimeoutError: The read operation timed out",
+        "sha256": null,
+        "bytes": null,
+        "temporary_raw_path": null,
+        "retrieval_finished_at_utc": "2026-10-18T07:59:17.693287+00:00",
+        "http_status": null
+      },
+      "proposed_conservative_available_from": null
+    },
+    {
+      "id": "ice_calendar_2014_2015",
+      "issuer": "NYSE Euronext / ICE",
+      "status": "raw_body_verified",
+      "publication_date": "2013-12-20",
+      "public_date_evidence": "Current official body contains both Dec 20, 2013 dateline and dated opening paragraph.",
+      "covered_years": [
+        2014,
+        2015
+      ],
+      "applicable_venues": [
+        "NYSE U.S. cash equities",
+        "NYSE MKT cash equities",
+        "NYSE Arca cash equities"
+      ],
+      "supports": [
+        "Full ordinary-holiday tables for 2014 and 2015 and early-close footnotes.",
+        "Earlier knowledge of the 2015 schedule than the base corpus's 2014-12-08 reprint."
+      ],
+      "limits": [
+        "The document says 2014 was previously announced, without establishing that earlier announcement's date.",
+        "No 2011-2013 ordinary schedule coverage and no blanket certification of later extraordinary closures."
+      ],
+      "url": "https://ir.theice.com/press/news-details/2013/NYSE-Euronext-Announces-2015-Holiday-Calendar-and-Early-Closings/default.aspx",
+      "native_capture": {
+        "id": "ice_calendar_2014_2015",
+        "requested_url": "https://ir.theice.com/press/news-details/2013/NYSE-Euronext-Announces-2015-Holiday-Calendar-and-Early-Closings/default.aspx",
+        "attempt_count": 1,
+        "retry_count": 0,
+        "redirects_followed": 0,
+        "retrieval_started_at_utc": "2026-10-18T07:58:52.094140+00:00",
+        "http_status": 200,
+        "response_url": "https://ir.theice.com/press/news-details/2013/NYSE-Euronext-Announces-2015-Holiday-Calendar-and-Early-Closings/default.aspx",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 74356,
+        "sha256": "a546ec299f34b2e2829b3a31eb21112bf8bff59668bc0ec5db3715f0de651c6c",
+        "status": "captured_body_inspected_and_hash_readback_pass",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_extension1_20261018/ice_calendar_2014_2015.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:58:53.214006+00:00"
+      },
+      "proposed_conservative_available_from": "2013-12-21T00:00:00-05:00"
+    },
+    {
+      "id": "ice_calendar_2017",
+      "issuer": "ICE / NYSE Group",
+      "status": "raw_body_verified",
+      "publication_date": "2016-02-02",
+      "public_date_evidence": "Official release body dateline Feb 02, 2016.",
+      "covered_years": [
+        2017
+      ],
+      "partial_reprinted_years": [
+        2016
+      ],
+      "applicable_venues": [
+        "NYSE cash equities",
+        "NYSE MKT cash equities",
+        "NYSE Arca cash equities"
+      ],
+      "supports": [
+        "Full 2017 ordinary-holiday table, including NewYear observed Monday January2, and early closes."
+      ],
+      "limits": [
+        "The reprinted 2016 list begins with February15 and is not a complete 2016 annual table.",
+        "Future extraordinary closures still require their own announcement clock."
+      ],
+      "url": "https://ir.theice.com/press/news-details/2016/NYSE-Group-Announces-2017-Holiday-and-Early-Closings-Calendar/default.aspx",
+      "native_capture": {
+        "id": "ice_calendar_2017",
+        "requested_url": "https://ir.theice.com/press/news-details/2016/NYSE-Group-Announces-2017-Holiday-and-Early-Closings-Calendar/default.aspx",
+        "attempt_count": 1,
+        "retry_count": 0,
+        "redirects_followed": 0,
+        "retrieval_started_at_utc": "2026-10-18T07:58:52.094213+00:00",
+        "http_status": 200,
+        "response_url": "https://ir.theice.com/press/news-details/2016/NYSE-Group-Announces-2017-Holiday-and-Early-Closings-Calendar/default.aspx",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 71224,
+        "sha256": "ac92e0459d7cdfa3fcd55b7caec3ec00db9bd717e808a1c8923a4f2aa134e3c1",
+        "status": "captured_body_inspected_and_hash_readback_pass",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_extension1_20261018/ice_calendar_2017.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:58:53.313251+00:00"
+      },
+      "proposed_conservative_available_from": "2016-02-03T00:00:00-05:00"
+    },
+    {
+      "id": "ice_calendar_2018_2020",
+      "issuer": "ICE / NYSE Group",
+      "status": "raw_body_verified",
+      "publication_date": "2017-11-27",
+      "public_date_evidence": "Official release body dateline Nov 27, 2017.",
+      "covered_years": [
+        2018,
+        2019,
+        2020
+      ],
+      "applicable_venues": [
+        "NYSE cash equities",
+        "NYSE American cash equities",
+        "NYSE Arca equities"
+      ],
+      "supports": [
+        "Three named-year ordinary-holiday tables plus early-close footnotes.",
+        "2018/2019 are explicitly reprinted alongside the newly announced 2020 schedule."
+      ],
+      "limits": [
+        "Unspecified earlier announcements of 2018/2019 cannot be used as knowledge dates.",
+        "This predates the Bush mourning closure and does not resolve the separate NYSE/Arca extraordinary-closure source gap."
+      ],
+      "url": "https://ir.theice.com/press/news-details/2017/NYSE-Group-Announces-2018-2019-and-2020-Holiday-and-Early-Closings-Calendar/default.aspx",
+      "native_capture": {
+        "id": "ice_calendar_2018_2020",
+        "requested_url": "https://ir.theice.com/press/news-details/2017/NYSE-Group-Announces-2018-2019-and-2020-Holiday-and-Early-Closings-Calendar/default.aspx",
+        "attempt_count": 1,
+        "retry_count": 0,
+        "redirects_followed": 0,
+        "retrieval_started_at_utc": "2026-10-18T07:58:53.214115+00:00",
+        "http_status": 200,
+        "response_url": "https://ir.theice.com/press/news-details/2017/NYSE-Group-Announces-2018-2019-and-2020-Holiday-and-Early-Closings-Calendar/default.aspx",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 80852,
+        "sha256": "23264461e846e63febb5c5752e03164023216334d6c71490c81a161572c41e2d",
+        "status": "captured_body_inspected_and_hash_readback_pass",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_extension1_20261018/ice_calendar_2018_2020.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:58:54.460959+00:00"
+      },
+      "proposed_conservative_available_from": "2017-11-28T00:00:00-05:00"
+    },
+    {
+      "id": "ice_calendar_2023_2025",
+      "issuer": "ICE / NYSE Group",
+      "status": "raw_body_verified",
+      "publication_date": "2022-12-21",
+      "public_date_evidence": "Official release body dateline Dec 21, 2022.",
+      "covered_years": [
+        2023,
+        2024,
+        2025
+      ],
+      "applicable_venues": [
+        "NYSE cash equities",
+        "NYSE American equities",
+        "NYSE Arca equities",
+        "NYSE Chicago",
+        "NYSE National"
+      ],
+      "supports": [
+        "Full ordinary-holiday tables for the complete previously prescribed 2024/2025 evaluation years, alongside 2023.",
+        "Each table includes Juneteenth after its exchange adoption; early closes remain sessions."
+      ],
+      "limits": [
+        "This December2022 publication does not establish when the June2022 holiday was known.",
+        "It predates Carter's mourning closure and does not certify a NYSE/Arca January9,2025 exception.",
+        "Existing native SEC PDF capture failures and precise historical publication-time uncertainty remain unchanged."
+      ],
+      "url": "https://ir.theice.com/press/news-details/2022/NYSE-Group-Announces-2023-2024-and-2025-Holiday-and-Early-Closings-Calendar/default.aspx",
+      "native_capture": {
+        "id": "ice_calendar_2023_2025",
+        "requested_url": "https://ir.theice.com/press/news-details/2022/NYSE-Group-Announces-2023-2024-and-2025-Holiday-and-Early-Closings-Calendar/default.aspx",
+        "attempt_count": 1,
+        "retry_count": 0,
+        "redirects_followed": 0,
+        "retrieval_started_at_utc": "2026-10-18T07:58:53.313348+00:00",
+        "http_status": 200,
+        "response_url": "https://ir.theice.com/press/news-details/2022/NYSE-Group-Announces-2023-2024-and-2025-Holiday-and-Early-Closings-Calendar/default.aspx",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 73058,
+        "sha256": "eda26864925d91335c002fb553db28dd8d48851d0707e7d515ee06237e1c4d1c",
+        "status": "captured_body_inspected_and_hash_readback_pass",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_extension1_20261018/ice_calendar_2023_2025.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:58:55.348886+00:00"
+      },
+      "proposed_conservative_available_from": "2022-12-22T00:00:00-05:00"
+    }
+  ],
+  "source_coverage_change": {
+    "new_ordinary_annual_table_years": [
+      2014,
+      2017,
+      2018,
+      2019,
+      2020,
+      2024,
+      2025
+    ],
+    "reinforced_years": [
+      2015,
+      2023
+    ],
+    "remaining_early_ordinary_years_unknown": [
+      2011,
+      2012,
+      2013
+    ],
+    "full_2011_2026_source_qualification_claimed": false,
+    "coverage_is": "Document scope only, not per-row or per-month ledger qualification. No feature dates or ranks were produced."
+  },
+  "remaining_minimum_gaps": [
+    "An admissible original U.S. cash-equity schedule or properly dated applicable rule source for 2011-2013. European Euronext calendars and financial-media syndications do not fill this gap.",
+    "A native archived pre-June2022 source for that first Juneteenth exchange closure remains absent; the four original SEC PDF failures are not repaired by a later December2022 annual table.",
+    "NYSE/NYSE Arca extraordinary closure/reopening evidence remains separate from Nasdaq notices for Sandy, Bush and Carter. Annual schedules do not certify those subsequent exceptions.",
+    "Day-only publication convention, venue applicability, future planned horizon, original09:29 versus research09:46 compatibility and native raw archival still require the separately reviewed cache-only source workflow."
+  ],
+  "not_admitted_discovery_notes": [
+    "2011/2012/2014 Euronext press releases for European markets were excluded despite NYSE branding.",
+    "The BusinessWire-attributed MarketScreener item served only to trace the original wire ID; its dates and calendar table were not promoted to source evidence.",
+    "A 2021-12-27 ICE annual announcement for 2022-2024 was readable in web discovery and states June20,2022 plus the specific NewYear exception. It was not selected for explicit byte capture after allocating the five-request cap to the older-gap attempt and four complementary annual sources; no raw hash or native archival is claimed.",
+    "Current undated yearly PDFs and search-engine publication/crawl timestamps were not used as historical knowledge clocks."
+  ],
+  "not_admitted_discovery_source": {
+    "url": "https://ir.theice.com/press/news-details/2021/NYSE-Group-Announces-2022-2023-and-2024-Holiday-and-Early-Closings-Calendar/default.aspx",
+    "web_body_declared_publication_date": "2021-12-27",
+    "candidate_covered_years": [
+      2022,
+      2023,
+      2024
+    ],
+    "explicit_http_attempted": false,
+    "raw_sha256": null,
+    "admitted_to_captured_corpus": false
+  },
+  "verification": {
+    "json_valid": true,
+    "selected_url_count": 5,
+    "new_raw_sha_readback_pass": 4,
+    "base_inventory_unchanged": true,
+    "no_new_feature_or_timing_or_return_read": true,
+    "git_delivery_owner": "root"
+  }
+}

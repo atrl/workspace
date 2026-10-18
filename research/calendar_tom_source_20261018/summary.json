@@ -20,12 +20,14 @@
     ]
   },
   "canonical_source_documents_imported": 0,
-  "discovery_cache_successful_documents": 8,
-  "discovery_cache_failed_documents": 4,
-  "source_discovery_HTTP_requests_by_other_agent": 12,
+  "discovery_cache_successful_documents": 12,
+  "discovery_cache_failed_documents": 5,
+  "source_discovery_HTTP_requests_by_other_agent": 17,
   "remaining_source_HTTP_budget": 0,
   "source_discovery_cumulative_HTTP_ceiling": 17,
   "extension_1_maximum_new_HTTP_requests": 5,
-  "extension_1_actual_HTTP_requests": "pending_receipt",
-  "source_inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083"
+  "extension_1_actual_HTTP_requests": 5,
+  "source_inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
+  "extension_1_sha256": "450bada2a5fd10561b547a458b3b1715f7fd5e14e50c8213114b97369429b1dc",
+  "remaining_discovery_HTTP_budget": 0
 }

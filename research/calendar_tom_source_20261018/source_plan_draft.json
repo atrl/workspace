@@ -131,8 +131,8 @@
     "inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
     "extension_1": {
       "path": "source_document_extension_1.json",
-      "sha256": null,
-      "status": "separately_owner_authorized_discovery_pending_receipt",
+      "sha256": "450bada2a5fd10561b547a458b3b1715f7fd5e14e50c8213114b97369429b1dc",
+      "status": "discovery_complete_not_native_qualified",
       "owner": "/root/external_methods",
       "maximum_new_document_URLs": 5,
       "maximum_explicit_HTTP_attempts": 5,
@@ -144,8 +144,22 @@
       "no_retry_or_redirect": true,
       "old_403_refetch_forbidden": true,
       "capture_boundary": "Separate append-only receipt; original12-document inventory remainsbyte-identical. Web discovery queries/open calls andexplicit rawcapture HTTP must be recorded separately.",
-      "qualification_boundary": "Document discovery doesnotauthorize source/nativeledger, feature/model/account execution. Finalsource qualification remainscache-only afterindependent review andownerGO."
-    }
+      "qualification_boundary": "Document discovery doesnotauthorize source/nativeledger, feature/model/account execution. Finalsource qualification remainscache-only afterindependent review andownerGO.",
+      "actual_explicit_HTTP_attempts": 5,
+      "successful_raw_HTML": 4,
+      "failed_timeout": 1,
+      "exec_session": 39737,
+      "exit_code": 0,
+      "cache_location": "/tmp/soxl_calendar_tom_sources_extension1_20261018",
+      "failed_BusinessWire_role": "Issuer-distributed originalrelease URL explicitly approved inextensiondiscovery, buttimeout/rawhashnull means no statement admitted from it; no mirror orretransmission substitution."
+    },
+    "source_coverage_gaps_after_extension": [
+      "2011–2013 ordinaryNYSEcash-equity calendars not raw-qualified",
+      "4originalSECPDFs lackrawbytes (403)",
+      "NYSE/Arca temporaryclosure/reopening announcementtimes not established byNasdaqvenue-only notices",
+      "Truefirstvintage andintradaypublicationreceipt remainunverified"
+    ],
+    "unadmitted_2021_calendar": "ICE2021-12-27→2022–2024 was foundinwebdiscovery butnot oneof17explicitrawcaptures. No extraGET or silent qualification fromitswebtext; anyadditionalcapture needsanotherfiniteapproval."
   },
   "request_budget": {
     "status": "Draft cumulative ceiling: original12 captured attempts plus separatelyowner-authorized extension_1 atmost5; sourcequalification remainscache-only.",
@@ -165,11 +179,19 @@
     "price_HTTP_requests": 0,
     "paid_or_authenticated_requests": 0,
     "NAS": "Only future standard evidence upload under explicit source approval; no cold NAS restore or duplicate source download in this draft.",
-    "already_consumed_actual_HTTP_requests": 12,
+    "already_consumed_actual_HTTP_requests": 17,
     "source_intake_network_policy": "0 newHTTP during future sourcequalification. Reuse all successful exact-hash discoverycaches fromthe original inventory andextensionreceipt; retainold4SEC403andanyextensiongaps. No old403refetch, retries, implicit redirects orunknown-budget substitution.",
     "remaining_source_intake_HTTP_requests": 0,
     "extension_1_maximum_discovery_HTTP_requests": 5,
-    "extension_1_consumed_actual_HTTP_requests": "pending finalexternal receipt; none assumed here"
+    "extension_1_consumed_actual_HTTP_requests": 5,
+    "remaining_discovery_HTTP_requests": 0,
+    "cumulative_capture_counts": {
+      "successful_raw_documents": 12,
+      "SEC_HTTP403": 4,
+      "BusinessWire_timeout": 1,
+      "retries": 0,
+      "followed_redirects": 0
+    }
   },
   "schemas": {
     "document_receipt": [
@@ -307,7 +329,9 @@
     "historical_PIT_qualified": false,
     "independent_forward_qualified": false,
     "original_training_clock_compatibility": "unresolved",
-    "model_execution_approved": false
+    "model_execution_approved": false,
+    "source_discovery_complete_within_budget": true,
+    "source_native_execution_approved": false
   },
   "explicit_zero_budget": {
     "candidate_features_generated": 0,
@@ -348,10 +372,10 @@
     {
       "phase": "extension_1_discovery",
       "inventory": "source_document_extension_1.json",
-      "sha256": null,
+      "sha256": "450bada2a5fd10561b547a458b3b1715f7fd5e14e50c8213114b97369429b1dc",
       "authorized_maximum_new_URLs": 5,
       "authorized_maximum_explicit_HTTP_requests": 5,
-      "actual_explicit_HTTP_requests": "pending_receipt",
+      "actual_explicit_HTTP_requests": 5,
       "retry": 0,
       "redirect_follow": 0,
       "prior_draft_sha256": "4b7e02287bc7685778b4a8ee2e275ffc1d8a8fe2f1d3ada0d73d189c251f6e31",
@@ -361,7 +385,11 @@
         "sameunknown semantics",
         "samefuture source-only review+GO gate",
         "no marketreturn/feature/model/account work"
-      ]
+      ],
+      "successes": 4,
+      "timeout": 1,
+      "handle": 39737,
+      "exit_code": 0
     }
   ]
 }
