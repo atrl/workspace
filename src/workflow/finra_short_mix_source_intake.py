@@ -1,7 +1,8 @@
 """Budgeted official FINRA source intake. No financial labels or model fitting."""
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 import fcntl
 import hashlib
 import json
@@ -47,7 +48,8 @@ class BudgetedHTTP:
     """One atomic global attempt counter and launch clock, including redirects."""
 
     def __init__(self, work, *, maximum, retry_maximum, gap, headers, timeout=30,
-                 allowed_hosts=("www.finra.org", "finra.org", "cdn.finra.org"), local_test=False):
+                 allowed_hosts=("www.finra.org", "finra.org", "cdn.finra.org"), local_test=False,
+                 cache_only_hosts=(), follow_redirects=True, canonical_daily_only=False):
         self.work = Path(work)
         self.work.mkdir(parents=True, exist_ok=True)
         (self.work / "objects").mkdir(exist_ok=True)
@@ -55,11 +57,14 @@ class BudgetedHTTP:
         self.state = json.loads(self.path.read_text()) if self.path.exists() else {
             "attempts": [], "cache": {}, "failures": {}, "retried": [], "maximum": maximum}
         self.state.setdefault("failures", {})
+        self.state.setdefault("paused_hosts", {})
         if self.state["maximum"] != maximum:
             raise ValueError("HTTP budget changed on resume")
         self.maximum, self.retry_maximum = int(maximum), int(retry_maximum)
         self.gap, self.headers, self.timeout = float(gap), dict(headers), timeout
         self.allowed_hosts, self.local_test = set(allowed_hosts), local_test
+        self.cache_only_hosts = set(cache_only_hosts)
+        self.follow_redirects, self.canonical_daily_only = follow_redirects, canonical_daily_only
         self.lock, self.last_launch = threading.Lock(), 0.
         self.opener = build_opener(NoRedirect())
 
@@ -72,9 +77,37 @@ class BudgetedHTTP:
             raise ValueError("unapproved destination port")
         if re.search(r"/(?:login|signin|authorize)(?:/|$)", parsed.path, re.I):
             raise ValueError("source requires authentication; no login attempted")
+        if self.canonical_daily_only and (
+            (not self.local_test and parsed.hostname != "cdn.finra.org") or parsed.query
+            or not re.fullmatch(r"/equity/regsho/daily/CNMSshvol\d{8}\.txt", parsed.path)
+        ):
+            raise ValueError("repair permits only canonical direct daily URLs")
 
     def _save(self):
         atomic_json(self.state, self.path)
+
+    def _pause_host(self, url, reason, retry_after=None):
+        """Called under the global lock. Time expiry alone never resumes a host."""
+        not_before = None
+        if retry_after:
+            try:
+                not_before = (datetime.now(timezone.utc) + timedelta(seconds=int(retry_after))).isoformat()
+            except ValueError:
+                try:
+                    not_before = parsedate_to_datetime(retry_after).astimezone(timezone.utc).isoformat()
+                except (TypeError, ValueError, OverflowError):
+                    pass
+        self.state["paused_hosts"][urlsplit(url).hostname] = {
+            "reason": reason, "stopped_at": now(), "Retry-After": retry_after,
+            "not_before_utc": not_before, "explicit_new_owner_approval_required": True}
+
+    def _deferred(self, url, original_url):
+        host = urlsplit(url).hostname
+        if host in self.cache_only_hosts or host in self.state["paused_hosts"]:
+            return {"url": url, "original_url": original_url, "status": None,
+                    "state": "host_deferred", "no_http_request": True,
+                    "reason": "approved_cache_only_branch" if host in self.cache_only_hosts else "host_429_or_challenge_pause"}
+        return None
 
     def _body(self, receipt):
         path = self.work / receipt["object"]
@@ -107,6 +140,9 @@ class BudgetedHTTP:
         self._allowed(url)
         response, open_error = None, None
         with self.lock:
+            deferred = self._deferred(url, original_url)
+            if deferred is not None:
+                return deferred
             if len(self.state["attempts"]) >= self.maximum:
                 raise ValueError("global HTTP hard budget exhausted")
             remaining = self.last_launch + self.gap - time.monotonic()
@@ -129,6 +165,9 @@ class BudgetedHTTP:
                 response = error
             except (URLError, TimeoutError, OSError) as error:
                 open_error = error
+            if response is not None and response.code == 429:
+                self._pause_host(url, "HTTP429", response.headers.get("Retry-After"))
+                self._save()  # stop waiting threads before another launch
         try:
             if open_error is not None:
                 raise open_error
@@ -140,6 +179,7 @@ class BudgetedHTTP:
             result = {"state": "complete", "status": status, "received_at": now(), "bytes": len(body),
                 "sha256": digest, "object": str(target.relative_to(self.work)),
                 "headers": {name: response.headers.get(name) for name in ["Date", "Last-Modified", "Content-Type", "ETag", "Location", "Retry-After"]}}
+            result["challenge_detected"] = bool(re.search(br"<title>\s*(?:Just a moment|Attention Required)|cf-chl-|challenge-platform", body[:100000], re.I))
         except (URLError, TimeoutError, OSError) as error:
             result = {"state": "failed", "status": None, "received_at": now(),
                       "error": type(error).__name__ + ": " + str(error)}
@@ -148,6 +188,8 @@ class BudgetedHTTP:
                 response.close()
         with self.lock:
             self.state["attempts"][number].update(result)
+            if result.get("challenge_detected"):
+                self._pause_host(url, "challenge_response", result.get("headers", {}).get("Retry-After"))
             self._save()
             return dict(self.state["attempts"][number])
 
@@ -158,6 +200,9 @@ class BudgetedHTTP:
                 return self._body(cached), dict(cached)
             if original_url in self.state["failures"]:
                 return None, dict(self.state["failures"][original_url])
+            deferred = self._deferred(original_url, original_url)
+            if deferred is not None:
+                return None, deferred
             unresolved = [row for row in self.state["attempts"]
                           if row.get("original_url") == original_url and row["state"] == "started"]
             if unresolved:
@@ -168,8 +213,21 @@ class BudgetedHTTP:
                 raise ValueError("redirect loop or five-hop limit reached")
             visited.add(url)
             receipt = self._request(url, "retry" if retry else category if url == original_url else "redirect", original_url)
+            if receipt.get("no_http_request"):
+                return None, receipt
             status = receipt["status"]
+            if status == 429 or receipt.get("challenge_detected"):
+                with self.lock:
+                    self.state["failures"][original_url] = receipt
+                    self._save()
+                return None, receipt  # no one-second retry of rate limits/challenges
             if status in [301, 302, 303, 307, 308]:
+                if not self.follow_redirects:
+                    receipt["unresolved_redirect"] = True
+                    with self.lock:
+                        self.state["failures"][original_url] = receipt
+                        self._save()
+                    return None, receipt
                 destination = receipt["headers"].get("Location")
                 if not destination:
                     return None, receipt
@@ -184,7 +242,7 @@ class BudgetedHTTP:
                     self.state["cache"][url] = receipt
                     self._save()
                 return self._body(receipt), receipt
-            retriable = status is None or status == 429 or (isinstance(status, int) and 500 <= status <= 599)
+            retriable = status is None or (isinstance(status, int) and 500 <= status <= 599)
             with self.lock:
                 allowed_retry = (retriable and original_url not in self.state["retried"]
                                  and len(self.state["retried"]) < self.retry_maximum)
@@ -205,10 +263,11 @@ class BudgetedHTTP:
 def month_links(body, year, month):
     """Fail unknown when filters or the Consolidated NMS section are unverifiable."""
     soup = BeautifulSoup(body, "html.parser")
-    for name, value in [("custom_year[year]", year), ("custom_month[month]", month)]:
+    for name, label in [("custom_year[year]", str(year)),
+                        ("custom_month[month]", pd.Timestamp(year=year, month=month, day=1).month_name())]:
         select = soup.find("select", attrs={"name": name})
         selected = select.find("option", selected=True) if select else None
-        if selected is None or not str(selected.get("value", "")).isdigit() or int(selected["value"]) != value:
+        if selected is None or selected.get_text(" ", strip=True).casefold() != label.casefold():
             return {"valid": False, "reason": "requested_month_filter_not_verified", "links": []}
     heading = next((h for h in soup.find_all("h2") if h.get_text(" ", strip=True).casefold() == "finra consolidated nms"), None)
     if heading is None:
@@ -249,13 +308,24 @@ def process_lock(work):
 
 def _approval(root, card, plan_sha):
     review = json.loads((card / "design_review.json").read_text())
-    execution = json.loads((card / "source_execution_approval.json").read_text())
+    repair_path = card / "source_repair_1.json"
+    approval_name = "source_resume_approval_1.json" if repair_path.exists() else "source_execution_approval.json"
+    execution = json.loads((card / approval_name).read_text())
     if review.get("plan_sha256") != plan_sha or review.get("verdict") != "APPROVE_SOURCE_INTAKE_ONLY":
         raise ValueError("source-only design approval missing or changed")
     if execution.get("plan_sha256") != plan_sha or execution.get("approved") is not True:
         raise ValueError("explicit source execution approval missing")
     if execution.get("code_sha256") != code_identity(root):
         raise ValueError("source intake implementation changed after approval")
+    if repair_path.exists():
+        repair = json.loads(repair_path.read_text())
+        repair_review = json.loads((card / "source_repair_1_review.json").read_text())
+        if execution.get("repair_sha256") != sha(repair_path) or repair_review.get("repair_sha256") != sha(repair_path):
+            raise ValueError("source repair identities differ")
+        if repair_review.get("verdict") not in {"APPROVE_SOURCE_REPAIR_1", "APPROVE_SOURCE_REPAIR"}:
+            raise ValueError("source repair review not approved")
+        if sha(card / "source_execution_approval.json") != repair["original_execution_approval_sha256"]:
+            raise ValueError("original source authorization changed")
 
 
 def preflight(*, root, card):
@@ -292,7 +362,24 @@ def preflight(*, root, card):
         "raw_authority": "original bytes and decimal strings", "float32_role": "derived cache with measured quantization",
         "bulk_HTTP_started": False, "new_model_fits": 0, "return_labels_computed": 0, "new_accounts": 0,
         "code_sha256": code_identity(root)}
-    atomic_json(result, card / "source_preflight.json")
+    repair_path = card / "source_repair_1.json"
+    if repair_path.exists():
+        repair = json.loads(repair_path.read_text())
+        state = json.loads((Path(plan["artifacts"]["temporary_download_root"]) / "http_state.json").read_text())
+        prefix = state["attempts"][:repair["preserved_attempt_prefix_count"]]
+        fingerprint = hashlib.sha256(json.dumps(prefix, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        if fingerprint != repair["preserved_attempt_prefix_sha256"] or len(state["retried"]) != 16:
+            raise ValueError("repair request prefix/retry identity differs")
+        if sha(card / "source_form_mapping.json") != repair["month_mapping_sha256"]:
+            raise ValueError("frozen form label mapping changed")
+        daily_cached = {row["url"] for row in state["attempts"] if row["category"] == "daily" and row.get("status") == 200}
+        result.update(source_repair_sha256=sha(repair_path), HTTP_attempts_already_consumed=len(state["attempts"]),
+            remaining_HTTP_max=arithmetic - len(state["attempts"]), successful_daily_cache=len(daily_cached),
+            unique_daily_remaining=2059 - len(daily_cached), additional_retries=0,
+            www_branch="cache_only_no_new_requests", prior_attempt_prefix_unchanged=True)
+        atomic_json(result, card / "source_repair_preflight_1.json")
+    else:
+        atomic_json(result, card / "source_preflight.json")
     return result
 
 
@@ -327,9 +414,18 @@ def run(*, root, card):
 
 def _collect(root, card, plan, plan_sha, calendar, work):
     requests = plan["requests"]
+    repair_path = card / "source_repair_1.json"
+    repair = json.loads(repair_path.read_text()) if repair_path.exists() else None
     client = BudgetedHTTP(work, maximum=requests["maximum_total_HTTP_requests"],
         retry_maximum=requests["maximum_network_retries"], gap=requests["minimum_global_request_gap_seconds"],
-        headers=requests["headers"], timeout=requests["timeout_seconds"])
+        headers=requests["headers"], timeout=requests["timeout_seconds"],
+        cache_only_hosts=repair["metadata_hosts_cache_only"] if repair else (),
+        follow_redirects=not bool(repair), canonical_daily_only=bool(repair))
+    if repair:
+        prefix = client.state["attempts"][:repair["preserved_attempt_prefix_count"]]
+        fingerprint = hashlib.sha256(json.dumps(prefix, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        if fingerprint != repair["preserved_attempt_prefix_sha256"] or len(client.state["retried"]) != 16:
+            raise ValueError("preserved request prefix or exhausted retry budget changed")
     for probe in json.loads((card / "probe_receipts.json").read_text())["samples"]:
         client.import_probe(probe)
     months = list(pd.period_range(requests["month_first"], requests["month_last"], freq="M"))
@@ -337,7 +433,7 @@ def _collect(root, card, plan, plan_sha, calendar, work):
     for index_number, period in enumerate(months, 1):
         url = requests["month_index_url"] + "?" + urlencode({"custom_month[month]": period.month, "custom_year[year]": period.year})
         body, receipt = client.get(url, "month_index")
-        parsed = month_links(body, period.year, period.month) if body is not None else {"valid": False, "reason": "HTTP_failure", "links": []}
+        parsed = month_links(body, period.year, period.month) if body is not None else {"valid": False, "reason": "HTTP_failure_or_cache_only_dependency", "links": []}
         metadata[str(period)] = {**parsed, "receipt": receipt}
         if index_number % 10 == 0 or index_number == len(months):
             atomic_json({"plan_sha256": plan_sha, "stage": "collecting_month_metadata",
@@ -349,12 +445,15 @@ def _collect(root, card, plan, plan_sha, calendar, work):
         documents[url] = receipt
     updated = sorted({(row["trade_date"], row["url"]) for month in metadata.values() if month["valid"]
                       for row in month["links"] if row["updated"] and pd.Timestamp(row["trade_date"]).strftime("%Y-%m-%d") in calendar})
-    if len(updated) > requests["maximum_extra_updated_files"]:
+    if len(updated) > requests["maximum_extra_updated_files"] and not repair:
         atomic_json({"plan_sha256": plan_sha, "decision": "needs_source_amendment_updated_budget", "updated_links": len(updated),
                      "HTTP_attempts": len(client.state["attempts"]), "new_fits": 0}, card / "source_run_state.json")
         raise ValueError("explicit updated-file inventory exceeds frozen source budget")
     update_receipts = {}
     for day, url in updated:
+        if repair:
+            update_receipts[url] = {"trade_date": day, "not_requested": "repair1_canonical_daily_only", "schema": None}
+            continue
         body, receipt = client.get(url, "updated")
         try:
             updated_schema = parse_cnms_file(body, day) if body is not None else None
@@ -371,7 +470,7 @@ def _collect(root, card, plan, plan_sha, calendar, work):
         month = metadata[day[:7]]
         originals = {row["url"] for row in month["links"]
                      if row["trade_date"] == compact and not row["updated"]} if month["valid"] else set()
-        if len(originals) == 1:
+        if len(originals) == 1 and not repair:
             chosen = next(iter(originals))
             if compact in requests["retained_probe_dates"] and chosen != url:
                 raise ValueError("retained probe is not listed original; source budget/identity amendment required")
@@ -439,6 +538,8 @@ def _archive(root, card, plan, plan_sha, work, client, panel, parsed, receipts, 
         for path in sorted((work / "objects").iterdir()):
             archive.add(path, arcname="objects/" + path.name)
         archive.add(client.path, arcname="http_state.json")
+        if (work / "repair_1").exists():
+            archive.add(work / "repair_1", arcname="repair_1")
     valid_documents = sum(receipt.get("status") == 200 for receipt in documents.values())
     raw_daily_complete = not errors and len(parsed) == 2059
     revision_unknown = sum(row["revision_metadata"] == "unknown" for row in revisions)
@@ -451,6 +552,11 @@ def _archive(root, card, plan, plan_sha, work, client, panel, parsed, receipts, 
     with R.start(experiment_name=NAME, uri=str(tracking)):
         rec = R.get_recorder()
         rec.save_objects(artifact_path="inputs", plan=plan, calendar_binding=plan["calendar"], source_inventory=json.loads((card / "source_inventory.json").read_text()))
+        if (card / "source_repair_1.json").exists():
+            repair_names = ["source_repair_1", "source_form_mapping", "source_interruption_receipt",
+                            "source_repair_preflight_1", "source_repair_1_review", "source_resume_approval_1"]
+            rec.save_objects(artifact_path="inputs/repair_1", **{
+                name: json.loads((card / (name + ".json")).read_text()) for name in repair_names})
         rec.save_objects(artifact_path="source", parsed_exact=parsed, panel_float64=panel, dataset=dataset,
             daily_receipts=receipts, monthly_metadata=metadata, official_documents=documents,
             updated_files=updates, revision_inventory=revisions, failures=errors, HTTP_state=client.state,
@@ -458,7 +564,8 @@ def _archive(root, card, plan, plan_sha, work, client, panel, parsed, receipts, 
         rec.save_objects(local_path=str(bundle), artifact_path="source")
         rec.save_objects(artifact_path="sources", **{name.replace("/", "__"): (root / name).read_text() for name in CODE_FILES})
         summary = {"experiment": NAME, "stage": "source_intake_completed", "plan_sha256": plan_sha,
-            "decision": ("source_snapshot_ready_for_separate_model_design" if revision_complete else "raw_snapshot_ready_revision_metadata_partial") if source_ready else "needs_data_incomplete_source_snapshot",
+            "decision": (("source_snapshot_ready_for_separate_model_design" if revision_complete else "raw_snapshot_ready_revision_metadata_partial") if source_ready
+                         else "raw_daily_complete_metadata_deferred" if raw_daily_complete else "needs_data_incomplete_source_snapshot"),
             "source_snapshot_complete": bool(source_ready and revision_complete),
             "raw_daily_complete": raw_daily_complete, "revision_metadata_complete": revision_complete,
             "original_vintage_complete": False, "requested_daily_files": 2059, "valid_daily_files": 2059 - len(errors),
@@ -467,6 +574,8 @@ def _archive(root, card, plan, plan_sha, work, client, panel, parsed, receipts, 
             "revision_metadata_unknown_days": revision_unknown,
             "explicit_updated_urls": len(updates), "actual_HTTP_attempts": len(client.state["attempts"]),
             "HTTP_hard_limit": client.maximum, "new_model_fits": 0, "return_labels_computed": 0,
+            "paused_hosts": client.state["paused_hosts"],
+            "cache_only_hosts": sorted(client.cache_only_hosts),
             "new_accounts": 0, "historical_PIT_qualified": False, "independent_forward_qualified": False,
             "objective_achieved": False, "recorder_id": rec.id, "experiment_id": str(rec.experiment_id),
             "recorder_uri": str(tracking), "recorder_local_dir": str(tracking / str(rec.experiment_id) / rec.id),

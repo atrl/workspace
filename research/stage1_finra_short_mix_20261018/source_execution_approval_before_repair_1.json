@@ -1,0 +1,21 @@
+{
+  "approved": true,
+  "approved_by": "/root",
+  "approved_at": "2026-10-18T04:21:53.191970+00:00",
+  "scope": "Only approved official FINRA source intake and qualification; no labels/fits/accounts",
+  "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+  "code_sha256": {
+    "src/workflow/finra_short_mix_source_intake.py": "f41775a1557cd7e9df537ac6040e9108b5a7e5e31c599743020e171e7e80c26c",
+    "src/data/finra_short_mix_schema.py": "581717db684804d8a4a6dbd175f9eb7cc73b819033de5a2a12bafd7bd8358c53",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "design_review_sha256": "1e441d48e88a2caa03edb3ae0ccc77d1acaeb49ffe34f9e3e9df42e0bee106c3",
+  "preflight_sha256": "ffd3453c77835769df7ec3fa75d696964ed4f4a6526a51aa5d7ed19d605b631d",
+  "total_HTTP_hard_limit": 2242,
+  "maximum_remaining_HTTP_requests": 2238,
+  "new_model_fits_authorized": 0,
+  "new_accounts_authorized": 0,
+  "production_change_authorized": false
+}

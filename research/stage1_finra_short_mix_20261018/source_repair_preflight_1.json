@@ -1,0 +1,58 @@
+{
+  "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+  "calendar_rows": 2059,
+  "calendar_hash_verified": true,
+  "HTTP_hard_limit": 2242,
+  "retained_probe_requests": 4,
+  "remaining_HTTP_max": 2116,
+  "samples": [
+    {
+      "trade_date": "20180801",
+      "sha256": "7f207fe39c7c5c69cd6a92f15d8a6fd5990742279d26da6a9c27d165834dd79e",
+      "file_records": 7676,
+      "target_rows": 2,
+      "historical_original_vintage_certified": false
+    },
+    {
+      "trade_date": "20200316",
+      "sha256": "53c28a040247936c68a947ab6fa8a71298665806566882f50f0f75ca207af467",
+      "file_records": 8205,
+      "target_rows": 2,
+      "historical_original_vintage_certified": false
+    },
+    {
+      "trade_date": "20221230",
+      "sha256": "b41b8673b9b42db05759216baa66c4d509ec0919bc75de14c288f2e899e4504b",
+      "file_records": 10009,
+      "target_rows": 2,
+      "historical_original_vintage_certified": false
+    },
+    {
+      "trade_date": "20261009",
+      "sha256": "cf3d0bcc6c9e5de24c1d5c199e9e0b13c6600c829fd122dc4b09369e291b970b",
+      "file_records": 12278,
+      "target_rows": 2,
+      "historical_original_vintage_certified": false
+    }
+  ],
+  "raw_authority": "original bytes and decimal strings",
+  "float32_role": "derived cache with measured quantization",
+  "bulk_HTTP_started": false,
+  "new_model_fits": 0,
+  "return_labels_computed": 0,
+  "new_accounts": 0,
+  "code_sha256": {
+    "src/workflow/finra_short_mix_source_intake.py": "db798c3595cc96783f199880cdd185df878d940ccab02b813d28b0372cc937d5",
+    "src/data/finra_short_mix_schema.py": "581717db684804d8a4a6dbd175f9eb7cc73b819033de5a2a12bafd7bd8358c53",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "source_repair_sha256": "aba1bb658a0cb8c4dbc18dafcfe46057e6158068cbbcff3f4d80fef0236b21a9",
+  "HTTP_attempts_already_consumed": 126,
+  "successful_daily_cache": 7,
+  "unique_daily_remaining": 2052,
+  "additional_retries": 0,
+  "www_branch": "cache_only_no_new_requests",
+  "prior_attempt_prefix_unchanged": true
+}

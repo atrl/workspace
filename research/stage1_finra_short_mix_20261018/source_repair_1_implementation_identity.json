@@ -1,0 +1,15 @@
+{
+  "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+  "repair_sha256": "aba1bb658a0cb8c4dbc18dafcfe46057e6158068cbbcff3f4d80fef0236b21a9",
+  "code_sha256": {
+    "src/workflow/finra_short_mix_source_intake.py": "db798c3595cc96783f199880cdd185df878d940ccab02b813d28b0372cc937d5",
+    "src/data/finra_short_mix_schema.py": "581717db684804d8a4a6dbd175f9eb7cc73b819033de5a2a12bafd7bd8358c53",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "HTTP_attempts_preserved": 126,
+  "remaining_HTTP_max": 2116,
+  "new_HTTP_during_repair": 0,
+  "scope": "canonicaldirectCDNdailyonly;wwwcacheonly;3xxgapnotfollow;host429/challengehardstop"
+}

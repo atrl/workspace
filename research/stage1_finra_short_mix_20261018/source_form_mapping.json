@@ -1,0 +1,42 @@
+{
+  "source_attempt_id": 4,
+  "source_body_sha256": "b07a8942db95833a56cac0624309b6af6f65719f79d7c4ec93ce0220b8046901",
+  "source_object": "/tmp/stage1-finra-short-mix-source-intake-20261018/objects/b07a8942db95833a56cac0624309b6af6f65719f79d7c4ec93ce0220b8046901.bin",
+  "observed_current_received_at": "2026-10-18T04:22:22.306412+00:00",
+  "month_number_to_option_value": {
+    "1": "01",
+    "2": "02",
+    "3": "03",
+    "4": "04",
+    "5": "05",
+    "6": "06",
+    "7": "07",
+    "8": "08",
+    "9": "09",
+    "10": "10",
+    "11": "11",
+    "12": "12"
+  },
+  "year_label_to_option_value": {
+    "2026": "0",
+    "2025": "1",
+    "2024": "2",
+    "2023": "3",
+    "2022": "4",
+    "2021": "5",
+    "2020": "6",
+    "2019": "7",
+    "2018": "8",
+    "2017": "9",
+    "2016": "10",
+    "2015": "11",
+    "2014": "12",
+    "2013": "13",
+    "2012": "14",
+    "2011": "15",
+    "2010": "16",
+    "2009": "17"
+  },
+  "response_verification": "Compare selected option LABEL year and fullmonthname, never assume value==year; also require actualCNMS links belong torequestedmonth.",
+  "usage": "Prepared only. No correctedwwwrequests authorizedinrepair1; oldinvalid200 and429 remainunknownmetadata."
+}

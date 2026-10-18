@@ -1,0 +1,76 @@
+{
+  "role": "independent_evaluator",
+  "reviewer": "/root/independent_evaluator",
+  "experiment": "stage1_finra_short_mix_20261018",
+  "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+  "verdict": "APPROVE_SOURCE_INTAKE_ONLY",
+  "decision": "approved_before_bulk_history",
+  "scope": "Official FINRA CNMS raw collection, provenance, schema/coverage/revision qualification and source-only Qlib readback. No return labels, fitting, predictions, portfolio accounts or production changes.",
+  "approved_budget": {
+    "daily_unique_dates_including_retained_probes": 2059,
+    "retained_probe_files_reused": 4,
+    "remaining_daily_first_requests": 2055,
+    "month_index_first_requests": 99,
+    "official_document_first_requests": 4,
+    "maximum_explicit_updated_file_requests": 64,
+    "maximum_retry_requests": 16,
+    "maximum_total_intake_HTTP_requests": 2242,
+    "maximum_remaining_intake_HTTP_requests": 2238,
+    "new_model_fits": 0,
+    "return_label_calculations": 0,
+    "new_portfolio_accounts": 0
+  },
+  "checks_passed": [
+    "Plan and pinned source-summary/calendar-file/request-calendar hashes match.",
+    "Independent D.calendar exactly matches2059dates,2018-08-01..2026-10-09,99months.",
+    "Four raw probes match hashes/bytes; exact headers/date/unique symbols/trailer counts and all-row Decimal invariants passed.",
+    "2026probe contains six-decimal fractional shares.",
+    "Official FINRA confirms CNMS TRF/ADF scope, ShortVolume includes exempt, regular-hours disseminated trades, publication schedule and original/Updated distinction.",
+    "Current historical snapshots and publication assumptions remain separate from original vintage/actual receipt/independent forward.",
+    "Budget includes probes/indexes/docs/Updated/retries; model/account budget is zero."
+  ],
+  "binding_execution_conditions": [
+    {
+      "id": "month_index_identity_and_revision_coverage",
+      "requirement": "For all99 month responses verify selected/requested year-month and parse CNMS only. Retain dates/link contexts. Ignored filters, wrong month, missing pages or incomplete context remain revision-metadata gaps; no parsed Updated link is not proof of no revision. Raw and revision-index coverage are separate."
+    },
+    {
+      "id": "full_calendar_missingness",
+      "requirement": "Retain2059dates x2symbols coverage; missing/malformed file, missing ETF or nonpositive total is unknown with reason, never zero/drop/calendar shortening/outcome-filtering."
+    },
+    {
+      "id": "lossless_canonical_source_and_qlib_projection",
+      "requirement": "Raw bytes and normalized Decimal/string fields are lossless NAS/Recorder authority. Qlib float32 is a derived projection, checked against intended casts with measured quantization errors; do not claim all decimal digits survive. Preserve missingness/readiness."
+    },
+    {
+      "id": "global_atomic_HTTP_budget",
+      "requirement": "Durably reserve/count every outbound request across3workers, including retries/explicit redirects. Enforce0.25second global start gap. Disable uncounted automatic redirects/retries. Reuse successful hash-verified cache; eligible retry at most once per failedURL and16total."
+    },
+    {
+      "id": "bounded_updated_links_and_failure_record",
+      "requirement": "Only explicit officialCDN Updated links for requesteddates use64extra allocation. Preserve original/updated bytes and deterministic date+URL order and unresolvedlinks. Stop before sub/totalbudget exceeds; incomplete revision coverage remains needs_source_amendment/needs_data."
+    },
+    {
+      "id": "source_only_lifecycle",
+      "requirement": "Root explicit sourcego and frozen code required before bulk. Preserve timestamps, HTTP metadata, hashes and failure reasons in native Recorder/NAS. Source completion cannot launch model draft or certify predictive success."
+    }
+  ],
+  "conditional_research_source_allowed": true,
+  "conditional_source_boundary": "Without certified historical first publication/receipt, retain current historical snapshot under explicit later model-time availability assumption. Next-session delay does not certify original vintage; ambiguity survives downstream. Does not block unrelated research.",
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "model_design_approved": false,
+  "promotion_authorized": false,
+  "production_change_authorized": false,
+  "objective_achieved": false,
+  "result_review_required": true,
+  "review_scope_limit": "Source semantics/coverage/revision/publication/numeric precision/request control/evidence only; no alpha or q forecast validation.",
+  "official_sources_checked": [
+    "https://www.finra.org/finra-data/browse-catalog/short-sale-volume-data/daily-short-sale-volume-files",
+    "https://www.finra.org/sites/default/files/2021-07/DailyShortSaleVolumeFileLayout.pdf",
+    "https://www.finra.org/rules-guidance/notices/information-notice-051019",
+    "https://www.finra.org/sites/default/files/2026-01/Trade-Reporting-Notice-20260114.pdf",
+    "https://qlib.readthedocs.io/en/latest/component/data.html"
+  ],
+  "receipt_format_note": "Root transcribed evaluator findings; limits and numeric budgets unchanged, prose condensed."
+}

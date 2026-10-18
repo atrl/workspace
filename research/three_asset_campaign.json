@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_finra_short_mix_20261018",
-  "current_phase": "FINRA_source_intake_running",
-  "next_action": "Launch and monitor the approved bounded FINRA source intake on its original live handle. Count every request/redirect/retry, preserve revision/coverage gaps, archive exact source bytes on NAS, and review source qualification before a separately frozen model plan.",
+  "current_phase": "FINRA_source_intake_resumed_CDN_only",
+  "next_action": "Monitor live source session79014 and its original shared cache/journal. Only remaining canonical CDN daily files are authorized; www remains cache-only and retry budget exhausted. After source archive/readback, review raw/revision/first-vintage qualification separately before freezing a model plan.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1438,7 +1438,7 @@
     {
       "card": "research/stage1_finra_short_mix_20261018",
       "kind": "public_CNMS_short_mark_source_qualification",
-      "status": "FINRA_source_intake_running",
+      "status": "FINRA_source_intake_resumed_CDN_only",
       "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
       "maximum_HTTP_requests_including_four_retained_samples": 2242,
       "maximum_new_model_fits": 0,
@@ -1451,7 +1451,8 @@
       "history_first_vintage_certified": false,
       "main_goal_blocked": false,
       "evaluation": "research/stage1_finra_short_mix_20261018/design_review.json",
-      "source_execution_approval": "research/stage1_finra_short_mix_20261018/source_execution_approval.json"
+      "source_execution_approval": "research/stage1_finra_short_mix_20261018/source_execution_approval.json",
+      "operational_repair": "research/stage1_finra_short_mix_20261018/source_repair_1.json"
     }
   ],
   "governance_review": {
@@ -1690,16 +1691,27 @@
     "completed_experiment_scope": "research/stage1_domain_heads_20261018",
     "current_task": {
       "card": "research/stage1_finra_short_mix_20261018",
-      "phase": "FINRA_source_intake_running",
+      "phase": "FINRA_source_intake_resumed_CDN_only",
       "bulk_started": true,
       "model_training_started": false,
       "account_replay_started": false,
       "executor": "/root/recent_evidence",
       "bulk_authorized": true,
-      "executor_session_id": 90248,
-      "observed_at": "2026-10-18T04:22:48.759438+00:00",
-      "HTTP_attempts_observed": 21,
-      "HTTP_ledger": "/tmp/stage1-finra-short-mix-source-intake-20261018/http_state.json"
+      "executor_session_id": 79014,
+      "observed_at": "2026-10-18T04:37:18.342833+00:00",
+      "HTTP_attempts_observed": 165,
+      "HTTP_ledger": "/tmp/stage1-finra-short-mix-source-intake-20261018/http_state.json",
+      "executor_session_exit_code": null,
+      "collection_currently_running": true,
+      "successful_daily_cache_files": 7,
+      "repair_executor": "/root/recent_evidence",
+      "metadata_dependency": "Incorrect form parameters and www429 challenge; cache-only during raw-daily recovery",
+      "Goal_stopped": false,
+      "previous_executor_session_id": 90248,
+      "previous_executor_exit_code": 130,
+      "source_resume_approval": "research/stage1_finra_short_mix_20261018/source_resume_approval_1.json",
+      "new_www_HTTP": 0,
+      "additional_retries": 0
     }
   },
   "goal_contract_20261018": {

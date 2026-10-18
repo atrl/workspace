@@ -1,0 +1,36 @@
+{
+  "attempts_used": 126,
+  "hard_limit": 2242,
+  "remaining": 2116,
+  "by_status": {
+    "200": 16,
+    "429": 110
+  },
+  "by_category_status": {
+    "daily:200": 7,
+    "month_index:200": 6,
+    "month_index:429": 93,
+    "retry:429": 16,
+    "official_document:429": 1,
+    "official_document:200": 3
+  },
+  "retry_count": 16,
+  "last_429_received_at": "2026-10-18T04:24:23.168821+00:00",
+  "last_429_retry_after": null,
+  "incomplete_attempts": [],
+  "successful_daily_dates": [
+    "20180801",
+    "20180802",
+    "20180803",
+    "20180806",
+    "20200316",
+    "20221230",
+    "20261009"
+  ],
+  "old_http_state_sha256": "fb37c6c51871d2216a7ce89fdbcf3fab0a103a4b8cc06a04d61120ec23732690",
+  "root_cause": "frozenGETmonthvalueincorrectandyearusesoptionvalueoffset; publicformreturnederror; subsequentwww429challenge withnoRetryAfter",
+  "source_process_stopped": true,
+  "models": 0,
+  "labels": 0,
+  "accounts": 0
+}

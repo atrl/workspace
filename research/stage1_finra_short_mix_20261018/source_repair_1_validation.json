@@ -1,0 +1,19 @@
+{
+  "command": "pytest tests/test_finra_source_intake.py -q",
+  "passed": 3,
+  "checks": [
+    "redirect counted/global counter/cache",
+    "concurrent0.25secondlaunchgap",
+    "selected optionlabelverificationnotyearvalue",
+    "429/challengestophostwithoutretry",
+    "cacheonlybranchzeroHTTP",
+    "repair3xxnotfollowevenallowedcdn",
+    "canonicaldailyURLenforced"
+  ],
+  "source_parser_tests_repeated": false,
+  "new_FINRA_HTTP_requests": 0,
+  "labels": 0,
+  "fits": 0,
+  "accounts": 0,
+  "final_code_frozen": true
+}
