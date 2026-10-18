@@ -1,0 +1,135 @@
+{
+  "role": "independent_evaluator",
+  "reviewer": "/root/independent_evaluator",
+  "verdict": "ACCEPT_CONDITIONAL_HISTORY_MODEL_DESIGN",
+  "conditional_model_design_eligible": true,
+  "source_recorder_id": "ca3433457b504654bca2011ad2c6ef65",
+  "source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+  "archive_sha256": "8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d",
+  "verification_manifest_sha256": "eed87fe6b168f53f8eb0ccb57c3991508522a536cc62b6d50f4740f48d2b5ae5",
+  "source_bundle_sha256": "8c32af9bb359d82f4de437531c736cb21e3fd379d1cb9358bd9cfb23de8585a9",
+  "model_execution_approved": false,
+  "scope": "The retained current historical bytes and explicit native reconstruction are sufficient inputs for a separately frozen, reviewed conditional-history model design. This is not approval of that model design or execution, and does not change the original source qualification gates.",
+  "verified_source_results": {
+    "native_Recorder_status": "FINISHED",
+    "frozen_calendar_start": "2018-08-01",
+    "frozen_calendar_end": "2026-10-09",
+    "requested_dates": 2059,
+    "valid_daily_files": 2059,
+    "daily_parse_failures": 0,
+    "target_symbols": ["SOXL", "SOXX"],
+    "target_rows": 4118,
+    "ready_target_rows": 4118,
+    "all_year_asset_coverage_fractions": 1.0,
+    "parsed_body_hashes_and_byte_counts_match_daily_receipts": true,
+    "all_target_Decimal_invariants_and_positive_TotalVolume": true,
+    "daily_receipt_and_parsed_date_sets_equal_frozen_calendar": true,
+    "canonical_Decimal_strings_and_raw_bytes_retained": true,
+    "coverage_and_quantization_sidecars_match_Recorder": true
+  },
+  "budget_and_repairs": {
+    "scope": "Frozen source-intake request journal, not a claim about all earlier exploratory browsing.",
+    "HTTP_hard_limit": 2242,
+    "HTTP_attempts": 2178,
+    "daily_HTTP200": 2059,
+    "month_index_HTTP200": 6,
+    "month_index_HTTP429": 93,
+    "official_document_HTTP200": 3,
+    "official_document_HTTP429": 1,
+    "retry_HTTP429": 16,
+    "additional_FINRA_HTTP_during_cache_finalize": 0,
+    "preserved_2178_attempt_fingerprint": "4d688e84be278a062ed2330e64b355b7ede7a113d60f6d7b4cdfd841be4afae8",
+    "incomplete_started_attempts": 0,
+    "original_and_repair_1_and_repair_2_approval_receipts_match": true,
+    "old_HTTP_snapshots_workflow_and_failure_bytes_verified_inside_raw_bundle": true,
+    "new_return_labels": 0,
+    "new_model_fits": 0,
+    "new_portfolio_accounts": 0
+  },
+  "native_source_readback": {
+    "source_fields": [
+      "short_volume", "short_exempt_volume", "total_volume",
+      "short_ratio", "exempt_ratio", "source_ready"
+    ],
+    "serialized_dataset_artifact_sha256": "c83c09172fd9bae8fb73bde8483bbbc9771a0d845d1a9b92016ce76d43bf5fd4",
+    "serialized_dataset_self_contained": false,
+    "direct_prepare_error": "AttributeError: DataHandlerLP has no attribute _infer",
+    "explicit_setup_error": "AttributeError: StaticDataLoader has no attribute _data; the serialized loader also lacks _config",
+    "source_panel_artifact": "source/panel_float64",
+    "source_panel_sha256": "5d66c44f4d0c85d8f5253a81685def08ed3a1e0c4f79fcded783227481fc726b",
+    "parsed_exact_sha256": "dfbbc1757c45f11f4de3b03532b25aa7794bcf8201fa9fa64eab5bfcde80d2f8",
+    "accepted_reconstruction": "Verify Recorder panel hash, set the datetime/instrument index, preserve all six float64 source fields, group them as feature, construct DataHandlerLP.from_df without processors and DatasetH with the retained all segment, then call DatasetH.prepare(all, feature).",
+    "reconstructed_shape": [4118, 6],
+    "reconstructed_dtype": "float64",
+    "exact_index_field_and_value_equality": true,
+    "all_values_independently_match_Decimal_derived_parsed_source": true,
+    "new_self_contained_serialization_check": "On the in-memory reconstructed Dataset, config(dump_all=True, recursive=True) followed by pickle roundtrip and direct prepare passed exact equality. No old artifact was rewritten. Do not assume the serialized StaticDataLoader can be reinitialized with setup_data.",
+    "old_dataset_role": "Retained non-self-contained Dataset metadata; it is not advertised as a directly usable source Dataset.",
+    "float32_provider_role": "Derived cache with recorded quantization, not the lossless raw or Decimal authority."
+  },
+  "official_semantics_supplement": {
+    "review_file": "cached_global_semantics_review.json",
+    "review_file_sha256": "71dab16b1eb519f2617d1ca16cbf13cd102d66141c5da9483436db3a219f0578",
+    "raw_HTML_sha256": "b07a8942db95833a56cac0624309b6af6f65719f79d7c4ec93ce0220b8046901",
+    "normalized_global_text_sha256": "d94dd998523880cf0a8e5f87466eff23061dea800e6462c2e2a698294c145b70",
+    "raw_HTML_and_global_text_verified_inside_durable_source_bundle": true,
+    "supported": "The cached official page retains the global CNMS facility scope, regular-hours/public-dissemination description, stated same-day 18:00 ET publication deadline and possible later Updated files.",
+    "not_supported": "Valid historical month indexes, absence of revisions, original-vintage bytes or actual historical first publication/receipt timestamps.",
+    "unfiltered_URL_429_and_original_document_success_gate_unchanged": true
+  },
+  "NAS_readback_evidence": {
+    "performed_by": "research_owner",
+    "receipt": "source_readback_verification.json",
+    "receipt_sha256": "12774aad99f65906338c713873a2d5bfd525104936643fcaee3267ae546765e6",
+    "cold_restored_artifact_hashes_verified": 37,
+    "cold_native_summary_matches": true,
+    "cold_dataset_direct_prepare_failure_disclosed": true,
+    "evaluator_repeated_NAS_download": false,
+    "evaluator_verification": "Independently loaded local hash-verified Recorder source objects, reconstructed the native source Dataset and checked the durable inner raw bundle."
+  },
+  "unresolved_items": [
+    {
+      "item": "revision_index_coverage",
+      "status": "unknown",
+      "detail": "0 of 99 month indexes qualified and revision metadata remain unknown for all 2059 dates. Zero discovered Updated URLs is not evidence of zero revisions."
+    },
+    {
+      "item": "original_official_document_HTTP_gate",
+      "status": "3_of_4",
+      "detail": "The unfiltered daily-page request remains HTTP429. Its global explanatory text is separately supported by the retained official HTML supplement; the original gate is not changed to four successful URLs."
+    },
+    {
+      "item": "historical_vintage_and_availability",
+      "status": "unqualified",
+      "detail": "Current captured historical bytes do not establish the original vintage or actual historical receipt time. Assuming these values were available at 18:00 ET is an explicit research assumption, not a PIT certificate."
+    },
+    {
+      "item": "serialized_source_Dataset",
+      "status": "direct_object_unusable_explicit_native_reconstruction_verified",
+      "detail": "The model plan and loader must bind the verified panel artifact hash and disclosed DatasetH reconstruction. They must not silently call the old Dataset artifact directly or advertise a direct serialized readback as passed."
+    }
+  ],
+  "conditions_for_separate_model_design": [
+    "Pin this exact Recorder, archive, manifest, panel and parsed-source identity, and preserve the current-byte snapshot choice and unknown revision status in all downstream evidence.",
+    "Declare source trade date d at assumed 18:00 America/New_York availability and check it against the existing next-session decision clock. Retain missing/unexecutable rows; no first-vintage, live-receipt or forward claim follows.",
+    "Use the verified explicit native Dataset reconstruction for source fields. Preserve raw Decimal lineage and numerical projection evidence; revision status must not become a historically known predictor or outcome-conditioned filter.",
+    "Freeze and independently review a separate model plan, identities, budgets, controls and statistical gates, then obtain a separate owner execution GO. This source result does not launch the model draft."
+  ],
+  "original_source_status_preserved": {
+    "decision": "raw_daily_complete_metadata_deferred",
+    "raw_daily_complete": true,
+    "source_snapshot_complete": false,
+    "revision_metadata_complete": false,
+    "original_vintage_complete": false,
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false
+  },
+  "original_source_gates_changed": false,
+  "original_archive_modified": false,
+  "predictive_value_evaluated": false,
+  "model_design_itself_approved": false,
+  "promotion_authorized": false,
+  "production_change_authorized": false,
+  "objective_achieved": false,
+  "review_activity": "No new HTTP, no market-return labels, no training or portfolio replay. Only source fields, official cached semantics, native reconstruction, hashes, coverage and request/repair provenance were examined. This receipt is the sole file written by the evaluator in this result-review task."
+}

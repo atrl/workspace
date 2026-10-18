@@ -1,0 +1,34 @@
+{
+  "schema_version": "nas_recorder_evidence_v1",
+  "binding_role": "FINRA source Recorder only",
+  "authority": "yanxuan_nas",
+  "source_id": "finra-cnms-20180801-20261009-8c32af9bb359d82f4de437531c736cb21e3fd379d1cb9358bd9cfb23de8585a9",
+  "as_of": "2026-10-09",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "evidence": {
+    "sha256": "8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d",
+    "size_bytes": 233212760,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/8d/44/8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 13:18:46.451525+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/8d/44/8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d",
+    "recorder_id": "ca3433457b504654bca2011ad2c6ef65",
+    "experiment_id": "347340873760143893",
+    "archive_root": "qlib_recorder"
+  },
+  "source_plan": "plan.json",
+  "source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+  "verification_manifest": "verification_manifest.json",
+  "verification_manifest_sha256": "eed87fe6b168f53f8eb0ccb57c3991508522a536cc62b6d50f4740f48d2b5ae5",
+  "raw_source_bundle": {
+    "artifact": "source/raw_sources.tar.gz",
+    "sha256": "8c32af9bb359d82f4de437531c736cb21e3fd379d1cb9358bd9cfb23de8585a9"
+  },
+  "consumer_cache_policy": "Restore with materialize_nas_evidence. Rebuild native source data from verified Recorder fields. This binding is not a market snapshot and must not call materialize_nas_snapshot.",
+  "metadata_correction": "Retained the exact verified SSH transport and Recorder evidence identity; removed inherited semis-minute snapshot_root/objects/source_manifest_path because they are not FINRA source data. No original archive or source bytes changed."
+}

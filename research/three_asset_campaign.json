@@ -11,7 +11,7 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/stage1_finra_short_mix_20261018",
+  "current_experiment": "research/stage1_finra_short_mix_allocation_20261018",
   "current_phase": "FINRA_source_intake_resumed_CDN_only",
   "next_action": "Monitor live source session79014 and its original shared cache/journal. Only remaining canonical CDN daily files are authorized; www remains cache-only and retry budget exhausted. After source archive/readback, review raw/revision/first-vintage qualification separately before freezing a model plan.",
   "roles": {
@@ -1657,7 +1657,7 @@
     }
   ],
   "execution_observation_20261018": {
-    "phase": "first_fixed_experiment_closed_next_external_source_design_running",
+    "phase": "FINRA_model_design_review_after_source_completion",
     "model_executor": "/root/recent_evidence",
     "raw_adapter_executor": "/root/challenge_summary",
     "evaluator": "/root/independent_evaluator",
@@ -1690,18 +1690,18 @@
     "next_executor_task": "FINRA source-only design review and bounded intake implementation; bulk not yet started",
     "completed_experiment_scope": "research/stage1_domain_heads_20261018",
     "current_task": {
-      "card": "research/stage1_finra_short_mix_20261018",
-      "phase": "FINRA_cache_finalize_running",
+      "card": "research/stage1_finra_short_mix_allocation_20261018",
+      "phase": "frozen_model_plan_preflight_passed_pending_independent_design_review",
       "bulk_started": true,
       "model_training_started": false,
       "account_replay_started": false,
       "executor": "/root/recent_evidence",
       "bulk_authorized": true,
-      "executor_session_id": 41517,
+      "executor_session_id": 83378,
       "observed_at": "2026-10-18T04:37:18.342833+00:00",
       "HTTP_attempts_observed": 2178,
       "HTTP_ledger": "/tmp/stage1-finra-short-mix-source-intake-20261018/http_state.json",
-      "executor_session_exit_code": null,
+      "executor_session_exit_code": 0,
       "collection_currently_running": false,
       "successful_daily_cache_files": 2059,
       "repair_executor": "/root/recent_evidence",
@@ -1713,14 +1713,14 @@
       "new_www_HTTP": 0,
       "additional_retries": 0,
       "latest_source_checkpoint": {
+        "stage": "completed",
         "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
-        "stage": "source_intake_failed_cache_preserved",
-        "error": "CNMSSchemaError: trade date must be exactly YYYYMMDD",
-        "HTTP_attempts": 2178,
+        "actual_HTTP_attempts": 2178,
+        "recorder_id": "ca3433457b504654bca2011ad2c6ef65",
         "model_fits": 0,
         "accounts": 0
       },
-      "liveness_observation": "Executor launched and owns new cache-only finalize session41517 after original79014 terminalexit1; no source HTTP allowed. Root independently checked new nbconvert process.",
+      "liveness_observation": "Source cache-finalize41517 and real no-fit model-preflight83378 both actually exited0. Executor explicitly resumed for integration; formal model execution not yet approved or started.",
       "deterministic_model_preparation": {
         "model_input_adapter": "src/model/finra_allocator.py",
         "source_feature_adapter": "src/data/finra_allocation_features.py",
@@ -1730,7 +1730,7 @@
         "formal_model_design_approved": false,
         "new_model_fits": 0,
         "new_accounts": 0,
-        "pending": "Completed source identity and qualification, separate frozen model plan, implementation preflight, independent design review and owner execution approval",
+        "pending": "Independent final model design review, then root execution GO for6fits/6newnativeaccounts.",
         "independent_implementation_review": {
           "reviewer": "/root/independent_evaluator",
           "verdict": "NO_MATERIAL_CONTRACT_ISSUE_FOUND",
@@ -1744,10 +1744,39 @@
         }
       },
       "source_http_complete": true,
-      "source_archive_complete": false,
+      "source_archive_complete": true,
       "repair_2_reason": "Caller passed ISO date keys to strict YYYYMMDD source-frame interface; failed before any Recorder. Fix conversion and finalize cached bytes only.",
       "repair_2_new_HTTP_authorized": 0,
-      "cache_finalization_running": true
+      "cache_finalization_running": false,
+      "source_recorder_id": "ca3433457b504654bca2011ad2c6ef65",
+      "source_archive_sha256": "8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d",
+      "source_native_readback": "37 NAS artifact hashes passed; original serialized dataset lacks cache. Verified canonical panel rebuilt through native DataHandlerLP/DatasetH.prepare:4118x6float64 exact. Original archive unchanged.",
+      "source_metadata_limits": {
+        "valid_month_indexes": 0,
+        "requested_month_indexes": 99,
+        "valid_official_documents": 3,
+        "requested_official_documents": 4,
+        "revision_unknown_days": 2059,
+        "historical_PIT_qualified": false,
+        "independent_forward_qualified": false
+      },
+      "source_card": "research/stage1_finra_short_mix_20261018",
+      "last_source_executor_session_id": 41517,
+      "last_source_executor_exit_code": 0,
+      "source_result_review": "research/stage1_finra_short_mix_20261018/source_result_review.json",
+      "conditional_model_design_eligible": true,
+      "model_preflight_completed": true,
+      "model_plan_sha256": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
+      "model_preflight": {
+        "primary_rows": 3014,
+        "auxiliary_rows": 20741,
+        "FINRA_ready_mature_primary_rows": 1107,
+        "executable_account_sessions": 944,
+        "reused_native_accounts": 15,
+        "unexecutable_prediction_tail_rows": 1,
+        "fits": 0,
+        "accounts": 0
+      }
     }
   },
   "goal_contract_20261018": {
@@ -1775,7 +1804,7 @@
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0
   },
-  "next_experiment": "research/stage1_finra_short_mix_20261018",
+  "next_experiment": "research/stage1_finra_short_mix_allocation_20261018",
   "external_discovery_20261018": {
     "user_explicitly_requested": true,
     "lead_policy": "Community/social discussion leads, then original paper/author code and official fields; no claims from screenshots or backtest marketing",
@@ -1783,10 +1812,11 @@
       "mechanism": "SOXL minus SOXX FINRA CNMS short-mark fraction, conditional on same venue total volumes/availability",
       "community": "https://quant.stackexchange.com/questions/60901/what-does-short-volume-in-finra-regsho-actually-measure",
       "primary_paper": "https://www.sec.gov/comments/s7-08-22/s70822-20149120-316297.pdf",
-      "source_samples_observed": 4,
-      "historical_full_coverage_verified": false,
+      "source_samples_observed": 2059,
+      "historical_full_coverage_verified": true,
       "limitations": "Not short interest, net inventory, sentiment, or reproduction of operational-shorting measure requiring signed intraday imbalance and creation data",
-      "source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770"
+      "source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+      "coverage_qualification": "All2059 current-byte daily source files and4118readyrows qualified; original-vintage/revision metadata and independent forward remain unqualified."
     },
     "backup_candidate": {
       "mechanism": "Fixed second-order antisymmetric synchronous ETF path area",

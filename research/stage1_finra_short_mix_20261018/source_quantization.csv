@@ -1,0 +1,7 @@
+field,finite_rows,max_absolute_error,max_relative_error,authority
+short_volume,4118,3.0,5.932846701470723e-08,"rawbytes and decimal strings, not float32 cache"
+short_exempt_volume,4118,0.12185300001874566,4.9042381470972324e-08,"rawbytes and decimal strings, not float32 cache"
+total_volume,4118,15.0,5.955746303551167e-08,"rawbytes and decimal strings, not float32 cache"
+short_ratio,4118,2.9798711609352324e-08,5.854859523240114e-08,"rawbytes and decimal strings, not float32 cache"
+exempt_ratio,4118,1.2859129705500294e-08,5.9138983501960674e-08,"rawbytes and decimal strings, not float32 cache"
+source_ready,4118,0.0,0.0,"rawbytes and decimal strings, not float32 cache"

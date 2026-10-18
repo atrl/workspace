@@ -1,0 +1,21 @@
+{
+  "session_id": 41517,
+  "exit_code": 0,
+  "phase": "cache_finalize_complete",
+  "actual_FINRA_HTTP_attempts": 2178,
+  "additional_FINRA_HTTP_during_finalize": 0,
+  "preserved_attempt_prefix_sha256": "4d688e84be278a062ed2330e64b355b7ede7a113d60f6d7b4cdfd841be4afae8",
+  "valid_daily_files": 2059,
+  "ready_symbol_date_rows": 4118,
+  "local_registered_artifacts": 37,
+  "source_bundle_sha256": "8c32af9bb359d82f4de437531c736cb21e3fd379d1cb9358bd9cfb23de8585a9",
+  "recorder_id": "ca3433457b504654bca2011ad2c6ef65",
+  "nas_archive_sha256": "8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d",
+  "source_summary_sha256": "8b94474407aaebe9f195bf36aa853fa3cfb09ab0f1bbd3b76d0bb635de300667",
+  "manifest_sha256": "eed87fe6b168f53f8eb0ccb57c3991508522a536cc62b6d50f4740f48d2b5ae5",
+  "return_labels": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "qualification": "raw_daily_complete; 2059 revision statuses unknown; historical PIT and forward false",
+  "independent_result_review": "pending; executor cannot self-certify promotion"
+}

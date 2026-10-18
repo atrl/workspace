@@ -1,7 +1,11 @@
-# FINRA场外卖空标记构成：来源资格准备
+# FINRA来源资格结果
 
-当前只冻结来源采集。原生Qlib日历包含2018-08-01至2026-10-09共2059个日期；采集硬预算2242个HTTP请求，包含99个月索引、4份官方文档、至多64个明确Updated文件和16次网络失败重试。4日原始TXT已保存临时来源对象与SHA、真实当前接收时刻；这不是历史首次vintage认证。
+固定2059个Qlib日期，合法文件2059个，月索引验证0/99；实际HTTP请求2178/2242。修订元数据未知2059日，不能解释为没有修订。
 
-ShortVolume已含ShortExemptVolume，不能再相加。CNMS仅是场外公开报告交易构成，不是short interest、净库存或情绪。发行人SOXX旧workbook没有同期市价，已放弃从其NAV拼造折溢价。
+原始字节和精确decimal字符串为NAS来源权威；Qlibfloat32仅为派生缓存，量化误差已单列。ShortVolume包含ShortExemptVolume，不等于shortinterest、净库存、情绪或作者operationalshorting指标。
 
-0拟合、0标签计算、0账户，不晋升，生产未改。下一步是独立评估本source-only计划后的一次有预算历史采集；6-fit Stage1 q增量模型仍是单独未批准草案。来源完成不等于稳定超额目标达到。
+历史真实首次接收与最初vintage未认证。官方18:00发布上界只能支持另行声明的滞后研究假设，不能授予PIT或前向资格。
+
+决定：raw_daily_complete_metadata_deferred。0标签、0拟合、0账户，生产未改，稳定超额目标未完成。下一阶段必须另行冻结并评审model_plan，不自动启动训练。Recorder：`ca3433457b504654bca2011ad2c6ef65`。
+
+归档读回补充：NAS冷恢复的37个产物大小/哈希全部匹配，原生summary资格与计数一致。原source/dataset按Qlib默认序列化未保存handler缓存，不能直接prepare，setup也缺失StaticDataLoader数据；这项限制明确保留。完整source/panel_float64已独立保存并核验hash；从该规范派生面板通过DataHandlerLP.from_df→DatasetH→prepare显式重建，4118行×6列float64、索引和数值全部一致。重建不读取收益标签、不填补来源、不更改原37产物/NAS归档，也不授予历史PIT或前向资格。后续模型必须绑定面板hash并使用此原生重建入口。详见source_readback_verification.json。

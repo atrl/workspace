@@ -1,0 +1,41 @@
+{
+  "recorder_id": "ca3433457b504654bca2011ad2c6ef65",
+  "archive_sha256": "8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d",
+  "status": "passed_with_explicit_native_dataset_reconstruction",
+  "cold_archive_restored_outside_repository": true,
+  "verified_artifact_count": 37,
+  "all_artifact_hashes_match": true,
+  "cold_native_summary_readback": "passed; all source qualification and count fields matched",
+  "serialized_source_dataset_self_contained": false,
+  "direct_serialized_Dataset_prepare": "AttributeError: DataHandlerLP has no attribute _infer; source panel bytes were independently retained",
+  "native_reconstruction": "Verified Recorder source/panel_float64 -> DataHandlerLP.from_df with feature group/no processors -> DatasetH -> prepare(all, feature). Exact frame/index/dtype equality; this is explicitly a reconstruction, not direct use of the old Dataset artifact.",
+  "source_rows": 4118,
+  "ready_rows": 4118,
+  "HTTP_attempts": 2178,
+  "targeted_artifact_sha256": {
+    "source/panel_float64": "5d66c44f4d0c85d8f5253a81685def08ed3a1e0c4f79fcded783227481fc726b",
+    "source/HTTP_state": "b3d7956454da7ca85e7901868bed82a2cc08a939c0293e45198b723fdab87f8d",
+    "analysis/summary": "b89a35a6e64cde606c3ba1b54596ab7ce8d118f4947fe067ea9b8b4368849b17"
+  },
+  "readback_attempts": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "cold_NAS_restore": true,
+      "all37hashes": "passed",
+      "native_summary": "passed",
+      "serialized_Dataset_prepare": "failed: missing _infer"
+    },
+    {
+      "attempt": 2,
+      "cold_NAS_restore": false,
+      "basis": "Reuse prior verified immutable archive; verify exact local panel/summary/HTTP artifact hashes, then reconstruct native DatasetH. No second NAS download or source rerun.",
+      "native_reconstructed_prepare": "passed4118x6float64"
+    }
+  ],
+  "original_archive_modified": false,
+  "new_source_HTTP": 0,
+  "new_labels": 0,
+  "new_fits": 0,
+  "new_accounts": 0
+}

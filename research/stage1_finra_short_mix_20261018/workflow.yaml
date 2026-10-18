@@ -1,5 +1,9 @@
 experiment: stage1_finra_short_mix_20261018
-phase: source_intake_pending_review
+entrypoint: src.workflow.finra_short_mix_source_intake.run
+phase: source_intake_completed
+decision: raw_daily_complete_metadata_deferred
 source_plan: plan.json
 model_plan: experiment_design_draft.json
 model_execution_authorized: false
+recorder_id: ca3433457b504654bca2011ad2c6ef65
+artifact_policy: slim_card_recorder_first
