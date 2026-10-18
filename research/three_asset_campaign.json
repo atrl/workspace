@@ -2239,6 +2239,18 @@
         "new_fits": 0,
         "new_accounts": 0
       }
+    },
+    "bounded_review_after_projection": {
+      "path": "research/external_mechanism_review_20261018/new_mechanisms_review.md",
+      "sha256": "84cae8ad568ed065edcbdc167f18cf19048307f1414ee9bd23a82d1f4964cfe9",
+      "search_groups": 6,
+      "queries": 20,
+      "Rule201_carryover": "needs_data_and_post_announcement_evidence_low_priority",
+      "SPO_plus": "not_ready_to_freeze_no_equivalent_account_oracle",
+      "new_fits": 0,
+      "new_accounts": 0,
+      "approved_new_candidates": 0,
+      "next_action": "Continue current calendar source/receiving-task qualification. Neither external lead is an executable replacement for the stable-SOXX-excess goal."
     }
   },
   "research_focus_history": [
