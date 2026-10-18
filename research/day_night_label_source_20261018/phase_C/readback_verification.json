@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "recorder_id": "3243fe48d391405bb450612e506286b2",
+  "archive_sha256": "e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
+  "summary_sha256": "afc7d24c41b76dc1646c5daf4b5c35a85c659751bf5a46239b744fbb69229287",
+  "verification_manifest_sha256": "2e3064838ec0f2fe301361795fc6e5ace105d0aa43a5ece5653cc936cbb73c3f",
+  "verified_artifacts": 14,
+  "native_label_dataset_shape": [
+    3014,
+    19
+  ],
+  "fixed_S_Z_rows": 3014,
+  "original_target_digest_unchanged": true,
+  "native_CS_RAW_original_targets_exact": true,
+  "resident_frames": [
+    {
+      "path": "dataset.handler._data",
+      "shape": [
+        3014,
+        19
+      ],
+      "first_signal": "2011-01-03",
+      "last_signal": "2022-12-21"
+    },
+    {
+      "path": "dataset.handler._infer",
+      "shape": [
+        3014,
+        19
+      ],
+      "first_signal": "2011-01-03",
+      "last_signal": "2022-12-21"
+    },
+    {
+      "path": "dataset.handler._learn",
+      "shape": [
+        3014,
+        19
+      ],
+      "first_signal": "2011-01-03",
+      "last_signal": "2022-12-21"
+    }
+  ],
+  "algebra_checks": 9042,
+  "all_recorded_bounds_passed": true,
+  "all_label_and_check_values_finite": true,
+  "component_relations_and_recorded_relative_residuals_match": true,
+  "maximum_recorded_absolute_residual": 5.551115123125783e-17,
+  "NAS_download_count": 1,
+  "new_D_features_calls": 0,
+  "new_label_source_constructions": 0,
+  "evaluation_values_decoded": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-day-night-C-coldread-1joge_7k",
+  "method": "One NAS cold restore, all artifact hashes and native Dataset readback. Verify original columns/digest and fixed saved component/check relations. No source price query, label rederivation, predictive score or refit.",
+  "exec_session": 17292,
+  "exit_code": 0
+}

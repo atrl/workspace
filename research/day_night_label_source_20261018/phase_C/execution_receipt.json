@@ -1,0 +1,47 @@
+{
+  "phase": "C",
+  "execution": "single_approved_notebook_run",
+  "exec_session_id": 57963,
+  "exit_code": 0,
+  "nbconvert_pid": 32853,
+  "kernel_pid": 32855,
+  "fresh_worker_pid": 32865,
+  "phase_worker_parent_pid": 32855,
+  "timeout_seconds": 7200,
+  "automatic_retry": false,
+  "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+  "implementation_identity_sha256": "e6b53cfb6da3807368c7a7086538fc3942e673f3f8fe391633f6eb16d1e795ae",
+  "owner_approval_sha256": "041d4443d41f4ea37e67c70aaf91eb15ed012bfb597d64257cbf4bc28fd5b9df",
+  "recorder_id": "3243fe48d391405bb450612e506286b2",
+  "manifest_sha256": "2e3064838ec0f2fe301361795fc6e5ace105d0aa43a5ece5653cc936cbb73c3f",
+  "phase_summary_sha256": "afc7d24c41b76dc1646c5daf4b5c35a85c659751bf5a46239b744fbb69229287",
+  "archive_sha256": "e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
+  "artifact_count": 14,
+  "operation_counts": {
+    "opaque_price_blob_materializations": 0,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "PG_training_reference_loads": 0,
+    "bounded_B_reference_loads": 1,
+    "S_Z_rows": 3014
+  },
+  "source_snapshot_as_of": "2026-07-24",
+  "training_observation_end": "2022-12-30",
+  "new_source_HTTP": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_market_price_query": 0,
+  "evaluation_domain_loaded": false,
+  "executor_NAS_cold_downloads": 0,
+  "prior_sealed_phase_hashes": {
+    "A": {
+      "summary.json": "d2899b6c536fa56f772a7aa2e108155bc66879074fe402468d34a01f843a7064",
+      "verification_manifest.json": "8a6840be08f9c2880b104c1f3d602025225256857f8e6d8842c9c68ec344709b"
+    },
+    "B": {
+      "summary.json": "7de95c665b3f687fc0740cfe33334b66576cad92dc6f478f08ee7199e6f9f6f7",
+      "verification_manifest.json": "1ef80e340d7377694feb4c54b78425dc4db9af20cc8b8a2bb2be5d0b69c3916b"
+    }
+  },
+  "wording_sync": "Notebook first/final markdown and small card conclusions/entry summary only; no rerun, no A/B/C sealed Recorder/manifest/phase summary change."
+}

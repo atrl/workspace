@@ -1,0 +1,79 @@
+{
+  "experiment": "day_night_label_source_20261018_phase_C",
+  "phase": "C",
+  "status": "completed_pending_independent_review",
+  "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+  "recorder_id": "3243fe48d391405bb450612e506286b2",
+  "experiment_id": "369017999923524946",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/day_night_label_source_20261018/phase_C/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/day_night_label_source_20261018/phase_C/qlib_recorder/369017999923524946/3243fe48d391405bb450612e506286b2",
+  "region": "us",
+  "as_of": "2026-07-24",
+  "source_snapshot_as_of": "2026-07-24",
+  "training_observation_end": "2022-12-30",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/day_night_label_source_20261018/selected_ea7f22bb9becb8a8f911a5073d80d519ea3f450b",
+  "original_cohort_rows": 3014,
+  "fixed_label_rows": 3014,
+  "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
+  "original_targets_unchanged": true,
+  "algebra_identities_checked": 9042,
+  "algebra_all_passed": true,
+  "max_absolute_residual": 5.551115123125783e-17,
+  "all_bounds_finite": true,
+  "native_dataset_direct_prepare_roundtrip": "passed",
+  "binary64_environment": {
+    "dtype": "IEEE754_binary64",
+    "rounding": "nearest_even",
+    "gradual_underflow": true,
+    "FTZ_DAZ": false,
+    "reassociation_FMA": false,
+    "u": 1.1102230246251565e-16,
+    "eta": 5e-324
+  },
+  "decision": "conditional_training_label_source_qualified_not_economic_success",
+  "label_plane": "distribution_adjusted_research_price_plane",
+  "S_Z_predictive_usefulness_assessed": false,
+  "operation_counts": {
+    "opaque_price_blob_materializations": 0,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "PG_training_reference_loads": 0,
+    "bounded_B_reference_loads": 1,
+    "S_Z_rows": 3014
+  },
+  "new_source_HTTP": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "promotion": "not_assessed_source_only",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "../workflow.yaml",
+    "recorder_only_artifacts": [
+      "opaque_selected_members",
+      "native_training_prices",
+      "original_train_index_clocks_and_targets",
+      "H1_cross_vintage_paired",
+      "cached_common_log_plane",
+      "fixed_H5_components_S_Z"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
+    "size_bytes": 827406,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/e5/3a/e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 19:16:23.456525+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e5/3a/e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
+    "recorder_id": "3243fe48d391405bb450612e506286b2",
+    "experiment_id": "369017999923524946",
+    "archive_root": "qlib_recorder"
+  }
+}
