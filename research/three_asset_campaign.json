@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/sec_uncertainty_source_20261018",
-  "current_phase": "B0_implementation_authorized",
-  "next_action": "Freeze the bounded SEC source design after independent review, then implement and execute B0 using exactly the sealed holdings/manifest/mapping and native calendar. A lexicon use/identity and B1 real contact configuration remain separate dependencies. No corpus counts/features/models/accounts authorized.",
+  "current_phase": "B0_accepted_provisional_sample_prepare_B1",
+  "next_action": "Freeze/implement bounded B1 metadata/header intake for AMD0000002488 and SWKS0000004127 with fixed truthful project User-Agent, max10 source HTTP/no retry/no body. Prove first post-anchor original annual plus previous annual and historical entity/timing. Lexicon A unresolved independently. Path-area backup may receive a separate causal OOF/09:47-label bridge design, not an automatic fit.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -97,14 +97,14 @@
     },
     {
       "branch": "sec_uncertainty_offline_basket",
-      "status": "design_review",
-      "dependency": "Three sealed metadata objects and one pinned native calendar are available for bounded B0 implementation.",
+      "status": "accepted_provisional_sample_only",
+      "dependency": "B0 actual Recorder/readback/independent review complete; AMD/SWKS frozen, 30 security records preserved. Historical identity/original10K/PIT qualification remains unknown.",
       "blocks_other_source_research": false
     },
     {
       "branch": "sec_uncertainty_SEC_network",
-      "status": "needs_contact_config",
-      "dependency": "No real SEC User-Agent configured; placeholder contacts cannot be reused. Await supplied configuration independently of B0.",
+      "status": "needs_B1_implementation_and_execution_GO",
+      "dependency": "B0 sample sealed; truthful public project identity available. Actual server acceptance and four original annual accession/header qualifications remain untested.",
       "blocks_other_source_research": false
     }
   ],
@@ -1660,8 +1660,9 @@
     "note": "The intervening game troubleshooting task did not change research evidence. Overall research has an actionable offline metadata branch; do not mark blocked for one missing source configuration.",
     "latest_continuation_previous_turn_classification": "progress",
     "latest_continuation_evidence": [
-      "Prior research turn located one immutable pre2023 lexicon metadata lead and created a source-only draft",
-      "Current independent metadata inspection verified three source artifact identities, earliest disclosed basket and calendar-only authority; no real SEC contact configuration found"
+      "SEC source design frozen and independently accepted; B0 implemented and focused synthetic passed",
+      "B0 actual24234 completed,18objects archived; native two-row metadata readback57821 and independent sample review accepted",
+      "Path-area readiness identified specific post09:47 label/causal OOF gaps; no fit or alpha claim"
     ],
     "same_total_blocker_consecutive_turns": 0,
     "objective_achieved": false
@@ -1741,13 +1742,13 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/sec_uncertainty_source_20261018",
-      "phase": "B0_implementation_authorized",
+      "phase": "B0_accepted_provisional_sample_prepare_B1",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
       "reviewer": "/root/independent_evaluator",
       "source_design_draft": "research/sec_uncertainty_source_20261018/source_design_draft.json",
-      "executor_lifecycle": "recent_evidence completed metadata discovery; owner now explicitly resumes B0 implementation. No source execution job is running.",
+      "executor_lifecycle": "Executor24234 and root coldread57821 are terminal exit0; independent B0 result accepted; executor completed notebook/receipt synchronization. No source data job currently running. Explicit followup required for B1 implementation.",
       "model_fit_authorized": false,
       "account_execution_authorized": false,
       "new_fits": 0,
@@ -1765,15 +1766,58 @@
       },
       "independent_dependencies": {
         "A": "needs_purpose_compatible_lexicon_use_and_byte_identity",
-        "B0": "offline_metadata_design_implementation_review",
-        "B1": "needs_real_SEC_User_Agent_config_and_accepted_B0",
+        "B0": "accepted_provisional_sample_only",
+        "B1": "sealed_two_CIKs_and_truthful_project_identity_available; needs_frozen_B1_code_review_and_execution_GO",
         "C": "needs_accepted_B1_fixed_four_original_accessions"
       },
-      "observed_at": "2026-10-18T13:23:13.780096+00:00",
+      "observed_at": "2026-10-18T13:45:03.576140+00:00",
       "plan_sha256": "b51c7b1f204c305fc062d476845e2e44b03f258fc309725e7bf9cd09e1476c50",
       "source_design_review_sha256": "c823cc5700cd7ce66a8a8ad56f741cb2f03f7438ba019ec29a1f02dcbd47de0c",
       "implementation_authorization_sha256": "84a3a5facfec3b74a70a3a2d01c7191c7ae6b76b2aea757aa997123d0b258610",
-      "implementation_authorized": true
+      "implementation_authorized": true,
+      "transport_identity_review": "research/sec_uncertainty_source_20261018/transport_identity_review.json",
+      "authorized_source_stage": null,
+      "implementation_identity_sha256": "2eb7879682ac72513b266bf72425b439f8bc955cf68872b8740071477075a763",
+      "implementation_review_sha256": "b211699fa40377ca2fe7b2f097a42765230e2e17703ce26a9519c12c91849b7b",
+      "execution_approval_sha256": "8195fa039e736ee196541a3ef92c55d55d783598e9b70e44109ee7f4c4376adc",
+      "synthetic": {
+        "exec_session": 85793,
+        "exit_code": 0,
+        "passed": 1,
+        "actual_source_reads": 0
+      },
+      "B0": {
+        "exec_session": 24234,
+        "exit_code": 0,
+        "nbconvert_pid": 59277,
+        "kernel_pid": 59281,
+        "recorder_id": "029934c9e5b94b04933849c229d19c2a",
+        "experiment_id": "873402594771051925",
+        "archive_sha256": "8b0630e30ca09527ab93d757846980f8bfd43e395c00f74df2334177aa5b384e",
+        "archive_size_bytes": 144943,
+        "manifest_sha256": "5e84ff66e0ce11b5f321341198606496dac07cfd2ea0f24ce739f040af3ede5d",
+        "summary_sha256": "4e9bf567c4634007149ed273f12bba2cbe356724c625cd1f59bd414dd189264b",
+        "artifact_count": 18,
+        "selected_provisional_ciks": [
+          "0000002488",
+          "0000004127"
+        ],
+        "anchor_security_rows": 30,
+        "source_metadata_objects": 3,
+        "D_calendar_calls": 1,
+        "D_features_calls": 0,
+        "external_source_HTTP": 0,
+        "operational_NAS_uploads": 1,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "result_review_sha256": "247873e158acc05541223cff1bbe6ed43daa058fb95121dc3ceb7b6510c85307",
+        "readback_sha256": "29ed1229b23b02a9237ae34778ec7fee27f101507672db9f1e814f27c93a15b5",
+        "coldread_exec_session": 57821,
+        "coldread_exit_code": 0,
+        "coldread_artifact_hashes": 18,
+        "historical_identity_qualified": false,
+        "source_pilot_ready": false
+      }
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -2559,7 +2603,7 @@
       "community": "https://www.mql5.com/en/articles/23548",
       "primary_paper": "https://arxiv.org/abs/2308.15135",
       "author_code": "https://github.com/owenfutter/signature_trading",
-      "status": "mathematically_nonredundant_but_measurement_and_economic_qualification_missing_do_not_train",
+      "status": "conditional_price_path_statistic_admissible_needs_fixed_post0947_label_and_causal_OOF_bridge_not_fit_ready",
       "ideal_null": "For simple-return paths y=a*x, antisymmetric area is exactly0; subtracting3*x changes no area. A log-coordinate functional y=f(x) has endpoint-only continuous area plus discretization effects.",
       "actual_measurement_boundary": "Nonzero observed area may reflect asynchronous prices, bidask, ETF premium/tracking, or historical benchmark changes; not evidence of future executable advantage.",
       "fixed_possible_future_design": "Only existing09:30-09:45 closed prefix; one simple-return antisymmetric scalar; shared endpoint/quadratic/realizedvariance/covariance controls; no order/window search.",
@@ -2567,7 +2611,20 @@
       "issuer_sources": [
         "https://www.ishares.com/us/products/239705/ishares-semiconductor-etf",
         "https://www.direxion.com/uploads/SOXL-SOXS-Fact-Sheet.pdf"
-      ]
+      ],
+      "readiness_note": "research/external_mechanism_review_20261018/signature_path_readiness.md",
+      "readiness_sha256": "01f05acbe9883f890abfe1a1ca7101d303c9572b0aa3a477c08e26338e9af944",
+      "measurement_clarification": "Same minute grid is not simultaneous last trades. Asynchronous prints/bidask limit mechanism interpretation but do not alone invalidate a causal closed-prefix input; no claim of arbitrage or alpha.",
+      "receiving_layer": "09:45 closed prefix,09:46 action decision,09:47 fill; must not enter09:29 allocation",
+      "prefix_mask_rule": "Only prefix evidence; never whole-session minute_core_ready that uses future afternoon completeness",
+      "label_gap": "Old open action labels09:31/next09:30 and25bp proxy, or10:31 recovery labels, do not qualify the new09:47 action task",
+      "OOF_gap": "Existing tangent teacher260mature/154pre2022 below old200development minimum is not original Stage1 teacher; fixed causal OOF construction may need a separate bounded fit budget. Do not backcast2022-trained models into early training decisions.",
+      "current_readiness_execution_counts": {
+        "price_label_reads": 0,
+        "area_computations": 0,
+        "fits": 0,
+        "accounts": 0
+      }
     },
     "excluded": {
       "turn_of_month": "Historical settlement-calendar qualification missing; do not transplant T+3 window",

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "B0_implementation_frozen_pending_review_and_owner_execution_GO",
+  "plan_sha256": "b51c7b1f204c305fc062d476845e2e44b03f258fc309725e7bf9cd09e1476c50",
+  "code_sha256": {
+    "src/data/sec_uncertainty_metadata.py": "c0944a5ab2d29e4645e386383d1ae7bf84339ee95e06191b35329b55dc92e94a",
+    "src/workflow/sec_uncertainty_source.py": "33cc438dc67647d6e297e45d40ab100676baec1eeaeeb4741f4e52afcb34bbf3",
+    "tests/test_sec_uncertainty_metadata.py": "e81de4167a70762f62fc4cb98daff6c98fe5c766053af98c328cc5887e9e2675",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "notebook_sha256": "d3f232a7674290ffe7c2045f9b3fdbbd6938cd64f5f54296ab6a1057cef897c4",
+  "workflow_sha256": "24fa4d1a731ccbd4f08bf73bbb47383a4f480cc7be203e87d4523961850727a9",
+  "implementation_contract_sha256": "33d3f711f524be2167d0bb621cb7f611bc47417d3ed7d96433186231afc496ab",
+  "synthetic_receipt_sha256": "2987046240810efc5046524c099b4ac16fa16619b982d54ccb65f9638b9be023",
+  "synthetic_session_id": 85793,
+  "synthetic_exit_code": 0,
+  "actual_source_object_reads": 0,
+  "actual_D_calendar_calls": 0,
+  "HTTP": 0,
+  "A_B1_C_implemented": false
+}

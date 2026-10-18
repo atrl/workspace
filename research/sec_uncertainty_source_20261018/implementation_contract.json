@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "implemented_scope": "B0 offline metadata only",
+  "plan_sha256": "b51c7b1f204c305fc062d476845e2e44b03f258fc309725e7bf9cd09e1476c50",
+  "entrypoint": "src.workflow.sec_uncertainty_source.run_b0",
+  "notebook_env": {
+    "SEC_UNCERTAINTY_B0_EXECUTE": "1",
+    "MLFLOW_ALLOW_FILE_STORE": "true",
+    "PYTHONPATH": "/Users/rziiiii/dev/workspace"
+  },
+  "approval_files": {
+    "implementation_review": "B0_implementation_review.json",
+    "execution_GO": "B0_execution_approval.json"
+  },
+  "implementation_review_schema": {
+    "verdict": "APPROVE_B0_IMPLEMENTATION",
+    "plan_sha256": "exact",
+    "code_sha256": "exact implementation_identity code map"
+  },
+  "owner_GO_schema": {
+    "approved": true,
+    "phase": "B0",
+    "plan_sha256": "exact",
+    "implementation_identity_sha256": "exact",
+    "implementation_review_sha256": "exact",
+    "scope": {
+      "source_metadata_objects": 3,
+      "D_calendar_calls": 1,
+      "D_features_calls": 0,
+      "source_HTTP": 0,
+      "dictionary_or_body_reads": 0,
+      "word_counts": 0,
+      "features": 0,
+      "fits": 0,
+      "accounts": 0
+    }
+  },
+  "native_sequence": "Verify two calendar metadata hashes -> qlib.init -> two verified source-reader calls for exactly3 named objects before writable R.start -> one bounded D.calendar -> pure fixedanchor selection -> R.start(NAME_B0)/save_objects/direct metadata Dataset prepare -> endrun/manifest/NAS upload.",
+  "source_vintage_honesty": "Entire admitted holdings/mapping metadata objects become resident, including later rows and disclosed NPORT weights/marketvalues; only the frozenanchor identifiers and current candidate-mapping metadata enter selection. No weight/marketvalue, price/label/prediction, dictionary or text is used.",
+  "selection": "Require expected fund/series/contract, rawholdings declaredhash, filing/holdings key agreement and original anchor. Next native session2019-11-26 at09:29NY. Restrict to exact anchor before mapping. Normalize unique positiveCIK to10digits, preserve multiple/security rows, group byCIK, sort distinctCIKs, freeze first2. Historical/CUSIP/form gaps remain unknown and cannot replace selected provisionalissuer. Missing/multiple/fundCIK gets gap; fewerthan2 distinct cannot pass.",
+  "qualification": "B0 two provisionalCIKs only; no historicalidentity/original10K/accession/bodyURL/PIT/model qualification. B1 needs separateGO and honestdeclaredidentity binding, actualSEC acceptance unknown. No personalemail hardrequirement is invented. A/B1/C not implemented.",
+  "recorder_authority": "Actual experiment sec_uncertainty_source_20261018_B0 in B0/qlib_recorder. Rootentry keeps actualexperiment and adds card_experiment; immutable sourceauthority is B0/summary.json + B0/verification_manifest.json, not rootalias.",
+  "native_dataset": "Selection-only meta group, datetime/instrumentCIK index, timezone-aware09:29 value. DataHandlerLP.from_df->DatasetH.config(dump_all=True,recursive=True); explicit meta group directprepare. No float32 timestamp encoding, no setup_data or features provider calls.",
+  "zero_candidate_behavior": "Preserve source/gap evidence, partial/empty selection cannot pass. Empty selection creates no fake Dataset; no alternatebasket/issuer or automaticretry.",
+  "failure_and_reuse": "Existing B0/run_state consumes the singleattempt and blocks automaticrerun. LocalsourceRecorders are reused with exacthash; no NAS hydration/download. Standard finalNAS evidence upload only after separateexecutionGO.",
+  "budget_note": "D.calendar budget is one explicitresearchAPIcall over2011-01-03..2022-12-30; provider may read calendarfilemetadata internally. D.features is absent from implementation. NoHTTP client exists forA/B1/C.",
+  "current_real_source_execution": false
+}

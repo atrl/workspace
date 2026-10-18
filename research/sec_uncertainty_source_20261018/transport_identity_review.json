@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "review_type": "narrow_transport_identity_clarification_no_source_request",
+  "reviewer": "/root/independent_evaluator",
+  "owner": "/root",
+  "observed_at_utc": "2026-10-18T13:33:11.552017+00:00",
+  "official_sources": [
+    "https://www.sec.gov/search-filings/edgar-search-assistance/accessing-edgar-data",
+    "https://www.sec.gov/about/privacy-information"
+  ],
+  "required": "Declare User-Agent and comply with fair access/rate rules",
+  "email_status": "Company name plus admin email is a sample header; these reviewed official pages do not explicitly require a personal email. Absence of personal email alone is not an established blocker.",
+  "proposed_frozen_identity": "SOXL-Qlib-Research/1.0 (+https://github.com/atrl)",
+  "identity_evidence": {
+    "git_origin_owner": "atrl",
+    "repository_visibility": "PRIVATE",
+    "public_owner_profile_verified": "https://github.com/atrl",
+    "gh_repo_metadata_session": 33460,
+    "gh_repo_metadata_exit_code": 0,
+    "private_repo_URL_will_not_be_used": true,
+    "personal_email_not_inspected_or_transmitted": true
+  },
+  "limits": [
+    "Public owner URL identifies the project operator; no claim of email contact, SEC approval or guaranteed acceptance",
+    "B1 still needs sealed B0 sample and separate frozen implementation/execution scope",
+    "403/429/challenge stops host; no endpoint/IP/User-Agent substitution or retry"
+  ],
+  "SEC_data_requests": 0,
+  "configuration_changed": false,
+  "pending_user_question": "Contact configuration question was informational. No answer was received or inferred; independently available truthful project identity permits design to advance.",
+  "plan_change": "No scientific selection/timing/budget change; clarifies existing real contact/project identity alternative."
+}

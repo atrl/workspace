@@ -1,0 +1,27 @@
+experiment: sec_uncertainty_source_20261018_B0
+card_experiment: sec_uncertainty_source_20261018
+phase: B0_offline_only
+entrypoint: src.workflow.sec_uncertainty_source.run_b0
+plan: plan.json
+provider_uri: data/qlib/soxx_pit_leveraged_training_v1
+provider_role: calendar metadata only; no D.features
+region: us
+segments:
+  calendar: [2011-01-03, 2022-12-30]
+  anchor: [2019-11-26, 2019-11-26]
+recorder_uri: research/sec_uncertainty_source_20261018/B0/qlib_recorder
+qualification_authority: [B0/summary.json, B0/verification_manifest.json]
+model_selection: none_source_only
+execution_budget:
+  source_metadata_objects: 3
+  D_calendar_calls: 1
+  D_features_calls: 0
+  source_HTTP: 0
+  word_counts: 0
+  features: 0
+  fits: 0
+  accounts: 0
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: [inputs/holdings, inputs/holdings_manifest, inputs/issuer_mapping, inputs/native_calendar, analysis/security_ledger, analysis/candidate_ledger, metadata/selection_dataset]

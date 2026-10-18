@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "scope": "One NAS recovery and artifact/native metadata readback; no source reselection, calendar query, feature or model execution",
+  "observed_at_utc": "2026-10-18T13:42:08.041456+00:00",
+  "recorder_id": "029934c9e5b94b04933849c229d19c2a",
+  "archive_sha256": "8b0630e30ca09527ab93d757846980f8bfd43e395c00f74df2334177aa5b384e",
+  "archive_size_bytes": 144943,
+  "manifest_sha256": "5e84ff66e0ce11b5f321341198606496dac07cfd2ea0f24ce739f040af3ede5d",
+  "summary_sha256": "4e9bf567c4634007149ed273f12bba2cbe356724c625cd1f59bd414dd189264b",
+  "all_artifact_hashes_verified": 18,
+  "loaded_result_artifacts": [
+    "analysis/selection",
+    "analysis/anchor",
+    "inputs/source_audits",
+    "metadata/selection_dataset",
+    "analysis/summary"
+  ],
+  "selection_dataset_shape": [
+    2,
+    13
+  ],
+  "selected_provisional_ciks": [
+    "0000002488",
+    "0000004127"
+  ],
+  "native_direct_prepare_matches_saved_selection": true,
+  "source_identity_whitelist_matches": true,
+  "historical_identity_qualified": false,
+  "model_eligibility": false,
+  "new_source_requests": 0,
+  "new_calendar_queries": 0,
+  "new_word_counts_features_fits_accounts": 0,
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-sec-B0-coldread-zynzv_vf",
+  "original_artifact_bytes_changed": false,
+  "exec_session": 57821,
+  "exit_code": 0
+}

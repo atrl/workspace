@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "owner": "/root",
+  "approved": true,
+  "phase": "B0",
+  "created_at_utc": "2026-10-18T13:39:25.127136+00:00",
+  "plan_sha256": "b51c7b1f204c305fc062d476845e2e44b03f258fc309725e7bf9cd09e1476c50",
+  "implementation_identity_sha256": "2eb7879682ac72513b266bf72425b439f8bc955cf68872b8740071477075a763",
+  "implementation_review_sha256": "b211699fa40377ca2fe7b2f097a42765230e2e17703ce26a9519c12c91849b7b",
+  "scope": {
+    "source_metadata_objects": 3,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "source_HTTP": 0,
+    "dictionary_or_body_reads": 0,
+    "word_counts": 0,
+    "features": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "max_attempts": 1,
+  "source_reads": "exact three sealed metadata objects plus one bounded native calendar; no market features or return labels",
+  "operational_transport": "Existing NAS evidence upload is allowed and separate from zero external-source HTTP intake. No source download or alternate data path.",
+  "other_phases_authorized": false,
+  "fits_accounts_authorized": false,
+  "result_review_required": true
+}

@@ -1,0 +1,16 @@
+{
+  "scope": "One synthetic-only B0 material-contract test",
+  "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_sec_uncertainty_metadata.py -q",
+  "exec_session_id": 85793,
+  "exit_code": 0,
+  "passed": 1,
+  "seconds": 1.39,
+  "warnings": 7,
+  "selector_sha256": "c0944a5ab2d29e4645e386383d1ae7bf84339ee95e06191b35329b55dc92e94a",
+  "test_sha256": "e81de4167a70762f62fc4cb98daff6c98fe5c766053af98c328cc5887e9e2675",
+  "actual_source_object_reads": 0,
+  "actual_native_calendar_calls": 0,
+  "HTTP": 0,
+  "word_counts_features_fits_accounts": 0,
+  "post_test_metadata_change": "Only workflow rootentry keeps realNAME_B0 plus card_experiment/qualification_authority and as_of meaning clarified; pureselection/test unchanged, no repeatedtest."
+}

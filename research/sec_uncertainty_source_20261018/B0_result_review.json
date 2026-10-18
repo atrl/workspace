@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT_B0_PROVISIONAL_SAMPLE",
+  "phase": "B0",
+  "reviewer": "independent_evaluator",
+  "reviewed_at_utc": "2026-10-18T13:43:20.020547+00:00",
+  "plan_sha256": "b51c7b1f204c305fc062d476845e2e44b03f258fc309725e7bf9cd09e1476c50",
+  "implementation_identity_sha256": "2eb7879682ac72513b266bf72425b439f8bc955cf68872b8740071477075a763",
+  "implementation_review_sha256": "b211699fa40377ca2fe7b2f097a42765230e2e17703ce26a9519c12c91849b7b",
+  "execution_approval_sha256": "8195fa039e736ee196541a3ef92c55d55d783598e9b70e44109ee7f4c4376adc",
+  "recorder_id": "029934c9e5b94b04933849c229d19c2a",
+  "experiment_id": "873402594771051925",
+  "experiment": "sec_uncertainty_source_20261018_B0",
+  "summary_sha256": "4e9bf567c4634007149ed273f12bba2cbe356724c625cd1f59bd414dd189264b",
+  "manifest_sha256": "5e84ff66e0ce11b5f321341198606496dac07cfd2ea0f24ce739f040af3ede5d",
+  "archive_sha256": "8b0630e30ca09527ab93d757846980f8bfd43e395c00f74df2334177aa5b384e",
+  "run_state_sha256": "2a1d9617421ae8abe15f23e924e97b0080b0e6e64379095d4d956ca7ac18398e",
+  "owner_cold_readback_sha256": "29ed1229b23b02a9237ae34778ec7fee27f101507672db9f1e814f27c93a15b5",
+  "scope": "Accept only the actual offline B0 provisional sample and metadata evidence; no upstream selector rerun, new source/calendar query, word counting, price/label access or B1 execution.",
+  "material_findings": [],
+  "verified_result": {
+    "execution_session_id": 24234,
+    "execution_exit_code": 0,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "artifact_count": 18,
+    "hash_verified_local_result_artifacts_loaded": 11,
+    "anchor_report_date": "2019-09-30",
+    "anchor_filing_date": "2019-11-25",
+    "anchor_accession": "0001752724-19-177706",
+    "conditional_decision_at": "2019-11-26T09:29:00-05:00",
+    "anchor_scope": "Earliest only within the frozen admitted corpus; next-session mapping checked against the saved bounded native calendar.",
+    "selected_provisional_issuers": [
+      {
+        "ticker": "AMD",
+        "CIK": "0000002488"
+      },
+      {
+        "ticker": "SWKS",
+        "CIK": "0000004127"
+      }
+    ],
+    "two_distinct_lowest_numeric_CIKs_match_saved_candidate_ledger": true,
+    "anchor_security_rows": 30,
+    "candidate_CIKs": 30,
+    "mapping_gap_rows_preserved": 30,
+    "unmapped_or_ambiguous_CIK_rows": 0,
+    "all_security_rows_and_unknown_historical_identity_retained": true,
+    "filing_accessions_selected": 0,
+    "body_URLs_qualified": false,
+    "native_selection_Dataset_shape": [
+      2,
+      13
+    ],
+    "native_direct_prepare_passed": true,
+    "timezone_aware_decision_preserved": true,
+    "saved_calendar_rows": 3020,
+    "calendar_query_bounds": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "operation_counts": {
+      "source_metadata_objects": 3,
+      "D_calendar_calls": 1,
+      "D_features_calls": 0,
+      "source_HTTP": 0,
+      "dictionary_or_body_reads": 0,
+      "word_counts": 0,
+      "features": 0,
+      "fits": 0,
+      "accounts": 0
+    },
+    "source_audits_match_exact_three_artifact_whitelist": true,
+    "saved_plan_approval_identity_and_native_summary_match": true,
+    "NAS_archive_upload_is_separate_from_zero_external_source_HTTP": true,
+    "owner_unique_cold_restore": "18 artifact hashes and native2x13 metadata readback passed; receipt reused without another NAS recovery."
+  },
+  "B0_qualified": true,
+  "B1_design_eligible": true,
+  "B1_execution_approved": false,
+  "historical_identity_qualified": false,
+  "original_10K_eligibility_qualified": false,
+  "historical_PIT_qualified": false,
+  "first_receipt_qualified": false,
+  "source_pilot_ready": false,
+  "model_eligibility": false,
+  "fit_approved": false,
+  "account_approved": false,
+  "remaining_boundaries": [
+    "Zero unmapped/ambiguous CIK candidates is not historical issuer or original10-K qualification. Both selected issuers and all30 security rows retain historical/form gaps; no replacement by a third issuer after later failure.",
+    "Whole reused holdings/mapping objects include later metadata and unused disclosed weights/market values. Only the fixed anchor identifiers selected the sample; as_of2022-12-30 is the calendar-query horizon, not a source vintage claim.",
+    "A lexicon identity/use remains a separate branch. B1 needs its own frozen code, truthful declared identity and owner GO before up to10 metadata/header requests; C requires accepted four-original selection and a separate GO. No counts, features, full-corpus or model authority follows from B0."
+  ],
+  "reviewer_actions": {
+    "selector_reruns": 0,
+    "new_tests": 0,
+    "upstream_source_objects_reloaded": 0,
+    "new_D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "external_source_HTTP": 0,
+    "NAS_downloads": 0,
+    "price_label_reads": 0,
+    "word_counts_features_fits_accounts": 0
+  },
+  "next_action": "Freeze B1 implementation/allowlist against these two immutable provisional CIKs; preserve all identity/form/version gaps and existing10-request budget. Actual B1 requests await independent implementation review and separate owner execution GO."
+}

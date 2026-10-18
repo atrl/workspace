@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "verdict": "APPROVE_B0_IMPLEMENTATION",
+  "phase": "B0",
+  "reviewer": "independent_evaluator",
+  "reviewed_at_utc": "2026-10-18T13:38:57.630908+00:00",
+  "plan_sha256": "b51c7b1f204c305fc062d476845e2e44b03f258fc309725e7bf9cd09e1476c50",
+  "code_sha256": {
+    "src/data/sec_uncertainty_metadata.py": "c0944a5ab2d29e4645e386383d1ae7bf84339ee95e06191b35329b55dc92e94a",
+    "src/workflow/sec_uncertainty_source.py": "33cc438dc67647d6e297e45d40ab100676baec1eeaeeb4741f4e52afcb34bbf3",
+    "tests/test_sec_uncertainty_metadata.py": "e81de4167a70762f62fc4cb98daff6c98fe5c766053af98c328cc5887e9e2675",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "implementation_identity_sha256": "2eb7879682ac72513b266bf72425b439f8bc955cf68872b8740071477075a763",
+  "implementation_contract_sha256": "33d3f711f524be2167d0bb621cb7f611bc47417d3ed7d96433186231afc496ab",
+  "synthetic_receipt_sha256": "2987046240810efc5046524c099b4ac16fa16619b982d54ccb65f9638b9be023",
+  "source_design_review_sha256": "c823cc5700cd7ce66a8a8ad56f741cb2f03f7438ba019ec29a1f02dcbd47de0c",
+  "transport_identity_review_sha256": "08e39f192775b1d95fbc7d33e4a377dd78d22bd5e6500f88a921d4d1c3a23e8c",
+  "scope": "Static review of B0-only selector/workflow and existing single synthetic receipt; no real metadata object, native calendar, text, price or label read by reviewer.",
+  "material_findings": [],
+  "accepted_contracts": [
+    "Exactly three pinned metadata artifacts from two finished Recorder sources; calendar and provider-manifest bytes verified before and after one bounded D.calendar read. Verified source reads precede writable R.start; no D.features or source HTTP implementation.",
+    "Fixed fund/series/contract and corpus anchor are checked before selecting securities. The next native session must be2019-11-26. Later baskets and older-report amendments cannot replace the frozen anchor.",
+    "Normalize CIKs, retain all anchor security rows/gaps, group by distinct CIK, sort deterministically and freeze the first two. Unknown historical identity/CUSIP/form eligibility stays unknown. Partial or empty selection cannot pass and never triggers another issuer/basket or retry.",
+    "Native selection-only metadata Dataset preserves CIK index and timezone-aware09:29 timestamps with recursive dump_all/direct prepare. No timestamp-to-float32 conversion, setup_data, price Dataset, labels, lexical counts or features.",
+    "Actual NAME_B0 Recorder identity remains in root entry; child B0 summary/manifest are the qualification authority. as_of explicitly denotes calendar eligibility horizon, not historical source vintage. Whole metadata-object residence including later rows/unused disclosed weights is disclosed.",
+    "Once-only run_state, independent review/owner GO identity guards, native Recorder artifacts/manifest and final NAS upload are present. No A/B1/C implementation or automatic next-stage authorization."
+  ],
+  "verification": {
+    "final_code_hashes_checked": 6,
+    "synthetic_session_id": 85793,
+    "synthetic_exit_code": 0,
+    "synthetic_passed": 1,
+    "synthetic_seconds": 1.39,
+    "synthetic_reused_without_rerun": true,
+    "post_test_changes_reviewed": "Only root experiment authority/as_of metadata clarification; selector and test hashes unchanged."
+  },
+  "approved_execution_design_scope": {
+    "source_metadata_objects": 3,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "source_HTTP": 0,
+    "dictionary_or_body_reads": 0,
+    "word_counts": 0,
+    "features": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "owner_execution_GO_required": true,
+  "actual_execution_approved_by_this_receipt": false,
+  "historical_issuer_identity_qualified": false,
+  "original_10K_qualified": false,
+  "historical_PIT_qualified": false,
+  "source_pilot_ready": false,
+  "model_eligibility": false,
+  "reviewer_actions": {
+    "actual_source_objects_deserialized": 0,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "source_HTTP": 0,
+    "new_tests": 0,
+    "word_counts_features_fits_accounts": 0
+  },
+  "next_action": "Root may sign the separate B0_execution_approval.json against this exact review and identity and execute the single offline B0 attempt. Actual B0 results need independent acceptance before any separately approved B1 work."
+}
