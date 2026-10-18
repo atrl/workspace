@@ -1,0 +1,36 @@
+{
+  "scope": "one bounded Recorder-only failure attribution; no selection or rescue",
+  "recorder_id": "fce9a058996142c6bef71196aba31db9",
+  "archive_sha256": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+  "parts": [
+    "All900 existing training_trace rows: conflict, first/last projection, full/shared parity, clipping, actual AdamW delta directional diagnostics; compare fixedC vssealedB weights including seed172 exactness.",
+    "Allfive B/C ensemble output fixed differences plus complete existing classification; preserve savedC smoothedtargets andread originalB savedtarget only.",
+    "All3cost nativeC vssealedA/B refs: actualcash/beta/riskstate/clock/openexecute/recovery firstandtotaldifferences; allannual/quarterly C-B/C-A/C-SOXX complete/partial wins."
+  ],
+  "budget": {
+    "fits": 0,
+    "new_forward": 0,
+    "autograd": 0,
+    "replay": 0,
+    "CI_resampling": 0,
+    "source_requests": 0,
+    "NAS_cold_reads": 0
+  },
+  "prohibited": [
+    "reconstruct originalB optimizer",
+    "derive unsaved B trajectories",
+    "threshold/window/seed/anchor selection",
+    "claim localdirection guarantees finite-step loss or returns"
+  ],
+  "artifact_policy": "smallsidecars andexecutednotebookcell; sealedRecorder/NAS unchanged",
+  "notebook_execution": "one attribution-only notebook, merge executedcell into main without rerunning model chain",
+  "additional_existing_B_target": {
+    "card": "research/stage1_domain_heads_20261018",
+    "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+    "artifact": "analysis/smoothed_targets",
+    "sha256": "873e83727939e85018757b8d40ad40d9e01ca9fc4cdd2903a6c0df87888ec04c"
+  },
+  "manifest_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+  "analysis_code_sha256": "8c57d306ff03f86b2072c98a5934c4849a6062dd07886cdb80cd6b34ab210eee"
+}

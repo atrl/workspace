@@ -1,0 +1,4 @@
+seed,epochs,projection_steps,first_projection_epoch,last_projection_epoch,full_parity_all_pass,shared_parity_all_pass,full_parity_max_error,shared_parity_max_error,global_clip_active_steps,minimum_actual_clip_coefficient,maximum_actual_preclip_norm,maximum_original_combined_norm_on_C_path,private_original_combined_unchanged_all
+71,300,13,271.0,299.0,True,True,0.0,0.0,0,1.0,0.037025924772024155,0.03702592496839198,True
+172,300,0,,,True,True,0.0,0.0,0,1.0,0.03478781506419182,0.034787814772854114,True
+273,300,17,235.0,299.0,True,True,0.0,0.0,0,1.0,0.03233965486288071,0.03233965350736936,True

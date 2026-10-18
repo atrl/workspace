@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/independent_evaluator",
+  "verdict": "ELIGIBLE_FOR_SOURCE_ONLY_QUALIFICATION",
+  "triage_sha256": "bee429081feada52b8b9630f8dc3ab191e1e7018eb3399901b3411c6627d8cbe",
+  "candidate": "exchange_tom_4d_proxy",
+  "source_only_qualification_eligible": true,
+  "historical_source_qualified": false,
+  "novelty": "A single externally fixed public-calendar seasonality hypothesis is substantively distinct from the closed gradient, FINRA and late-ROD interventions and from the unresolved institutional cash-deadline hypothesis. The bounded repository triage found no equivalent executed four-day input; this is not a claim of exhaustive historical novelty. Prior SOFR month-end grouping remains a control, not evidence that this exact mechanism has been tested.",
+  "literature_boundary": "McConnell/Xu defines four trading days {-1,+1,+2,+3}, with no Day0, and retains that definition for consistency with earlier work. This supports fixing one window before project outcomes, not claiming modern preregistration, known fund flows, current ETF efficacy or causal identification. The 401(k) counterevidence and Maberly/Waggoner's contrary sample result remain material limitations.",
+  "minimum_source_gates": [
+    "Freeze the intended date range, decision timestamp and exchange-session basis before qualification. Keep every requested date and unresolved coverage gap; no outcome-dependent truncation.",
+    "First-three membership must use only the confirmed opening-session prefix from that month's start through the decision cutoff. Count half-days once. A current day's eventual opening cannot be assumed before it has been confirmed; incomplete prefixes remain unknown. Qualified Qlib actual-session dates support past counting, not ex ante knowledge of future sessions.",
+    "Expected-last membership must be derived from exchange rules or calendars already public at the decision cutoff, including their effective dates and announced exceptions. Coverage must extend beyond month-end to the next scheduled opening. Record source URL/version/hash, public-time evidence, effective period and retrieval time separately. A current revised page or today's calendar library alone does not certify earlier knowledge.",
+    "Apply temporary closure announcements only after their public timestamp. Do not backfill later closures into earlier expectations. Preserve expected-versus-final-calendar discrepancies; do not force four realized trading days. An as_of endpoint, final price-file row or hindsight monthly tail is not a month-end source.",
+    "Keep separate first-three and expected-last availability evidence. Unknown is not zero; a known-true branch may establish the OR outcome while the unresolved branch remains explicitly unqualified. Do not drop unknown dates or silently forward-fill calendar assumptions."
+  ],
+  "institutional_flow_boundary": "Actual pension flows, institution-specific payment deadlines and DTC/bank cash cutoffs remain unobserved and unqualified. They are not prerequisites to source-qualifying this transparent calendar proxy, and calendar qualification does not resolve the parked cash-deadline hypothesis.",
+  "later_experiment_boundary": "Before any feature/model execution, separately freeze which decision-date calendar state reaches each tradable position. A09:47-to-next09:47 experiment is a distinct implementation of the proxy, not replication of the paper's daily close-to-close returns. Do not change offsets, holding periods, direction, calendar families or settlement-regime windows after results. Retain matched availability controls and all existing economic/risk/forward gates.",
+  "next_minimum_action": "Build only a bounded exchange-calendar knowledge ledger and coverage/exception report for the intended years, using public rules and dated announcements. Resolve or explicitly mark publication-time and coverage gaps. Do not generate the TOM feature, inspect market returns, construct labels or run a model/account in this stage.",
+  "primary_references": [
+    {"url": "https://business.purdue.edu/faculty/mcconnell/publications/Equity-Returns-at-the-Turn-of-the-Month.pdf", "use": "Printed pp50-51: fixed four-day definition; pp49-50 also acknowledge unresolved explanation and contrary Maberly/Waggoner findings."},
+    {"url": "https://www.aeaweb.org/conference/2022/preliminary/paper/iQikdBKZ", "use": "Author manuscript p6: month-end401(k) payment exposure does not support the proposed explanation."},
+    {"url": "https://ir.theice.com/press/news-details/2025/NYSE-Group-Announces-2026-2027-and-2028-Holiday-and-Early-Closings-Calendar/default.aspx", "use": "Dated2025-12-23 publication demonstrates advance public schedules, not coverage of earlier decision dates."},
+    {"url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2022-55", "use": "Dated2022-06-03 notice establishes the announced2022 Juneteenth closure; it does not justify back-applying the rule."}
+  ],
+  "review_scope": "Literature, current triage and existing conclusions only; no project market returns, feature generation, labels, fits or accounts.",
+  "feature_generation_approved": false,
+  "model_execution_approved": false,
+  "account_execution_approved": false,
+  "promotion_approved": false,
+  "goal_achieved": false
+}

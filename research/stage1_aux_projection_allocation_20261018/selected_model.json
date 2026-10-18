@@ -1,0 +1,18 @@
+{
+  "family": "C_aux_projection",
+  "seeds": [
+    71,
+    172,
+    273
+  ],
+  "checkpoint": "fixed_final_epoch300",
+  "ensemble": "equal_all_three",
+  "selection_performed": false,
+  "decision": "not_promoted_fixed_aux_projection",
+  "promotion_approved": false,
+  "model_artifact_sha256": {
+    "C_aux_projection_71": "3b62ff55701ec3e92dffb9e0bdc53e37f464f0064cefda9e0b3842990046ee79",
+    "C_aux_projection_172": "de145c39ff90dcb8a5d9eb7fb3dbc7ff16421570fe73821fa4216fe075c4aa36",
+    "C_aux_projection_273": "438a31c598d4a6deb47b601adaf0b45ff3404d09692ec54317cf38413a45c8da"
+  }
+}

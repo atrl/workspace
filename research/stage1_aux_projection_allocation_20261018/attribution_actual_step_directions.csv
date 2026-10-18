@@ -1,0 +1,13 @@
+seed,objective,coordinates,epochs,negative_linear_estimate_count,positive_linear_estimate_count,exact_zero_count,minimum,maximum,mean,median,meaning
+71,P,full,300,300,0,0,-0.00011302554621307352,-7.720901550192586e-06,-4.153253855005916e-05,-4.764582570087737e-05,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+71,P,shared,300,300,0,0,-6.740286296415555e-05,-3.879580849981853e-06,-3.7251880473631585e-05,-4.4378228998023995e-05,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+71,allocation,full,300,300,0,0,-5.2433008423356296e-05,-1.66300723620211e-06,-4.221451632570283e-06,-3.549060000305302e-06,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+71,allocation,shared,300,72,228,0,-9.73845405120602e-07,4.817906608571351e-07,5.9206443857291515e-08,7.378958320707758e-08,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+172,P,full,300,300,0,0,-7.942957010147573e-05,-1.4723669418193494e-05,-3.81007665443864e-05,-3.8643605854986625e-05,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+172,P,shared,300,300,0,0,-5.101629577537476e-05,-1.0523203444872422e-05,-3.4166919334119456e-05,-3.422502948493277e-05,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+172,allocation,full,300,300,0,0,-3.608704993530778e-05,-1.560329808258706e-06,-3.866242591986307e-06,-3.482779424311061e-06,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+172,allocation,shared,300,68,232,0,-2.9652994910642413e-07,3.356161215920279e-07,6.760461828064189e-08,6.267952629101867e-08,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+273,P,full,300,300,0,0,-9.650691511625789e-05,-7.729435191108505e-06,-3.4527944685989675e-05,-3.568785362272597e-05,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+273,P,shared,300,300,0,0,-5.450105125032839e-05,-4.40137499280234e-06,-3.0357304274650896e-05,-3.12853804902687e-05,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+273,allocation,full,300,300,0,0,-5.0420921627023947e-05,-1.8522421210957556e-06,-4.093076214958569e-06,-2.995101445814091e-06,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"
+273,allocation,shared,300,70,230,0,-3.3737766047392335e-07,4.3204656459868795e-07,7.756419638021198e-08,6.734307858567908e-08,"negative is a first-order loss-decrease estimate only, not finite-step or return guarantee"

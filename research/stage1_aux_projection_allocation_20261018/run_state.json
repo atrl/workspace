@@ -1,0 +1,52 @@
+{
+  "plan_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+  "fit_attempts": [
+    "C_aux_projection_71",
+    "C_aux_projection_172",
+    "C_aux_projection_273"
+  ],
+  "fits_done": [
+    "C_aux_projection_71",
+    "C_aux_projection_172",
+    "C_aux_projection_273"
+  ],
+  "path_attempts": [
+    "C_aux_projection_0",
+    "C_aux_projection_2",
+    "C_aux_projection_5"
+  ],
+  "paths_done": [
+    "C_aux_projection_0",
+    "C_aux_projection_2",
+    "C_aux_projection_5"
+  ],
+  "native_attempts": [
+    "C_aux_projection_0",
+    "C_aux_projection_2",
+    "C_aux_projection_5"
+  ],
+  "native_done": [
+    "C_aux_projection_0",
+    "C_aux_projection_2",
+    "C_aux_projection_5"
+  ],
+  "fixed_model_sha256": {
+    "C_aux_projection_71": "3b62ff55701ec3e92dffb9e0bdc53e37f464f0064cefda9e0b3842990046ee79",
+    "C_aux_projection_172": "de145c39ff90dcb8a5d9eb7fb3dbc7ff16421570fe73821fa4216fe075c4aa36",
+    "C_aux_projection_273": "438a31c598d4a6deb47b601adaf0b45ff3404d09692ec54317cf38413a45c8da"
+  },
+  "B_fit_attempts": 0,
+  "recorder_id": "fce9a058996142c6bef71196aba31db9",
+  "experiment_id": "320515720462995186",
+  "phase": "completed",
+  "training_inputs_saved": true,
+  "all_models_fixed": true,
+  "evaluation_unlocked": true,
+  "evaluation_done": true,
+  "analysis_attempted": true,
+  "analysis_done": true,
+  "completed": true,
+  "new_fits": 3,
+  "new_native_accounts": 3,
+  "reused_native_accounts": 15
+}

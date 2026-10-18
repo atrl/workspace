@@ -1,0 +1,126 @@
+{
+  "status": "passed_after_readback_expectation_correction",
+  "recorder_id": "fce9a058996142c6bef71196aba31db9",
+  "archive_sha256": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+  "artifact_count": 92,
+  "all_archive_artifact_hashes_passed_in_initial_readback": true,
+  "native_summary_matches_root_in_initial_readback": true,
+  "dataset_readback": {
+    "inputs/training_dataset": {
+      "direct_prepare": "passed",
+      "shape": [
+        3014,
+        85
+      ],
+      "segment": "train"
+    },
+    "inputs/auxiliary_dataset": {
+      "direct_prepare": "passed",
+      "shape": [
+        20741,
+        20
+      ],
+      "segment": "train"
+    },
+    "evaluation/dataset": {
+      "direct_prepare": "passed",
+      "shape": [
+        946,
+        85
+      ],
+      "segment": "predict"
+    }
+  },
+  "three_model_barrier_hashes_match": true,
+  "models": [
+    {
+      "seed": 71,
+      "optimizer_steps": 300,
+      "projected_steps": 13,
+      "model_hash_match": true,
+      "prediction_rows": 946,
+      "B_prediction_rows": 946
+    },
+    {
+      "seed": 172,
+      "optimizer_steps": 300,
+      "projected_steps": 0,
+      "model_hash_match": true,
+      "prediction_rows": 946,
+      "B_prediction_rows": 946
+    },
+    {
+      "seed": 273,
+      "optimizer_steps": 300,
+      "projected_steps": 17,
+      "model_hash_match": true,
+      "prediction_rows": 946,
+      "B_prediction_rows": 946
+    }
+  ],
+  "new_native_accounts_verified": 3,
+  "native_audits": [
+    {
+      "cost_bps": 0,
+      "status": "passed",
+      "sessions": 944,
+      "points": 3778,
+      "orders": 1298,
+      "max_relative_error": 0.0,
+      "native_CA_from_own_positions": true,
+      "receivable_in_NAV_not_spendable": true,
+      "currency_assumption": "USD gross pretax paper",
+      "historical_PIT_qualified": false
+    },
+    {
+      "cost_bps": 2,
+      "status": "passed",
+      "sessions": 944,
+      "points": 3778,
+      "orders": 1285,
+      "max_relative_error": 0.0,
+      "native_CA_from_own_positions": true,
+      "receivable_in_NAV_not_spendable": true,
+      "currency_assumption": "USD gross pretax paper",
+      "historical_PIT_qualified": false
+    },
+    {
+      "cost_bps": 5,
+      "status": "passed",
+      "sessions": 944,
+      "points": 3778,
+      "orders": 1258,
+      "max_relative_error": 0.0,
+      "native_CA_from_own_positions": true,
+      "receivable_in_NAV_not_spendable": true,
+      "currency_assumption": "USD gross pretax paper",
+      "historical_PIT_qualified": false
+    }
+  ],
+  "sealed_reference_accounts": 15,
+  "prediction_dates_outside_fixed_account_signals": [
+    "2026-10-08",
+    "2026-10-09"
+  ],
+  "extra_predictions_entered_accounts": false,
+  "NAS_downloads": 1,
+  "initial_readback_exec": {
+    "session": 48461,
+    "exit_code": 1,
+    "failure": "Owner check incorrectly expected945 evaluation rows; actual frozen B/C and native Dataset all946. No experiment artifact/code changed."
+  },
+  "cached_diagnostic_exec": {
+    "session": 6558,
+    "exit_code": 0
+  },
+  "repair_scope": "Correct owner readback row-count expectation using frozen B indices, and finish remaining checks on the same cold restore; no new NAS acquisition or experiment execution.",
+  "new_fits": 0,
+  "new_forward_or_gradient_probes": 0,
+  "new_replays": 0,
+  "new_bootstrap_resamples": 0,
+  "restore_directory": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/aux-projection-allocation-cold-c2628sz7",
+  "cached_completion_exec": {
+    "session": 20047,
+    "exit_code": 0
+  }
+}

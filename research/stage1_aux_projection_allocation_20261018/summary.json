@@ -1,11 +1,42 @@
 {
   "experiment": "stage1_aux_projection_allocation_20261018",
-  "stage": "no_fit_preflight_passed_pending_design_review",
   "plan_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
-  "new_fits": 0,
-  "new_accounts": 0,
-  "new_gradient_probes": 0,
+  "decision": "not_promoted_fixed_aux_projection",
   "objective_achieved": false,
+  "promotion_approved": false,
+  "gates": {
+    "net_relative_wealth_all_costs": false,
+    "sampled_drawdown_30pct": true,
+    "cvar_no_worse_soxx": true,
+    "minimum_complete_years": true,
+    "complete_annual_70pct": false,
+    "rolling126_70pct": false,
+    "paired_block_lower_positive": false,
+    "fresh_fullminute_risk_qualified": false,
+    "qualified_independent_forward": false
+  },
+  "coarse_economic_gates_pass": false,
+  "new_fits": 3,
+  "B_new_fits": 0,
+  "new_native_accounts": 3,
+  "reused_native_accounts": 15,
+  "total_comparison_accounts": 18,
+  "sessions_each": 944,
+  "native_points_each": 3778,
+  "fixed_model_sha256": {
+    "C_aux_projection_71": "3b62ff55701ec3e92dffb9e0bdc53e37f464f0064cefda9e0b3842990046ee79",
+    "C_aux_projection_172": "de145c39ff90dcb8a5d9eb7fb3dbc7ff16421570fe73821fa4216fe075c4aa36",
+    "C_aux_projection_273": "438a31c598d4a6deb47b601adaf0b45ff3404d09692ec54317cf38413a45c8da"
+  },
+  "recorder_id": "fce9a058996142c6bef71196aba31db9",
+  "experiment_id": "320515720462995186",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_allocation_20261018/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_allocation_20261018/qlib_recorder/320515720462995186/fce9a058996142c6bef71196aba31db9",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_aux_projection_allocation_20261018",
+  "as_of": "2026-10-09",
+  "history_status": "reused_history_not_independent_validation",
+  "production_changed": false,
+  "source_http_requests": 0,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
@@ -22,10 +53,46 @@
       "analysis/rolling/*"
     ]
   },
-  "new_model_fits": 0,
-  "primary_training_rows": 3014,
-  "auxiliary_training_rows": 20741,
-  "training_tensor_identity": "exact",
-  "no_fit_preflight_exec_session": 99800,
-  "constructor_metadata_exec_session": 72746
+  "nas_evidence": {
+    "sha256": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+    "size_bytes": 50810436,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/05/8c/058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 15:27:13.561062+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/05/8c/058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+    "recorder_id": "fce9a058996142c6bef71196aba31db9",
+    "experiment_id": "320515720462995186",
+    "archive_root": "qlib_recorder"
+  },
+  "failure_attribution": {
+    "path": "failure_attribution.json",
+    "scope": "failure_attribution_scope.json",
+    "conclusion": "failure_attribution.md",
+    "exec_session": 73107,
+    "new_fit_forward_autograd_replay_CI_NAS_reads": 0
+  },
+  "independent_evaluation_at_execution": "pending",
+  "independent_result_review": {
+    "path": "independent_evaluation.json",
+    "sha256": "f15a9d40c01314c8df4a8dea787cff71d78630851bcf9295c102ab0d10315f71",
+    "verdict": "ACCEPT_NEGATIVE_RESULT_CLOSE_FIXED_VERSION",
+    "fixed_version_closed": true
+  },
+  "delivery_readback": {
+    "path": "readback_verification.json",
+    "sha256": "99206359b124b16d14f6c43badb284ffdb647d3f54b00f57b39b587da85692d8",
+    "status": "passed_after_readback_expectation_correction",
+    "NAS_downloads": 1,
+    "verified_artifacts": 92,
+    "datasets_directly_preparable": true,
+    "evaluation_prediction_rows": 946,
+    "account_sessions": 944,
+    "extra_signal_dates_not_entering_accounts": [
+      "2026-10-08",
+      "2026-10-09"
+    ]
+  },
+  "next_action": "Close fixed asymmetric projection version without anchor/weight/threshold/seed rescue; continue separate external calendar-proxy source/mechanism qualification."
 }

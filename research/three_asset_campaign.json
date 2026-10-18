@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/stage1_aux_projection_allocation_20261018",
-  "current_phase": "aux_projection_approved_pending_actual_execution",
-  "next_action": "After exact approved implementation delivery, explicitly resume executor for3Cfits and3Cnative/15refs; poll its actual handle, retain all results, and independently evaluate. No B refit or parameter rescue.",
+  "current_experiment": "research/external_mechanism_review_20261018",
+  "current_phase": "calendar_TOM_source_contract_and_document_discovery",
+  "next_action": "Finish bounded primary-paper and timing qualification of one fixed public exchange-calendar TOM proxy. If qualified, freeze a separate mechanism and source-only/native input design before any feature or model run; otherwise report the precise missing condition and continue other substantively new authorized research.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -31,7 +31,8 @@
     "docs/research_evidence_boundary_20261015.md",
     "research/stage1_domain_heads_20261018/independent_evaluation.json",
     "research/stage1_finra_short_mix_allocation_20261018/independent_evaluation.json",
-    "research/stage1_close_rod_20261018/independent_evaluation.json"
+    "research/stage1_close_rod_20261018/independent_evaluation.json",
+    "research/stage1_aux_projection_allocation_20261018/independent_evaluation.json"
   ],
   "data_use": {
     "2023_through_2026_prior_results": "reused_diagnostic_not_independent",
@@ -1499,12 +1500,16 @@
     {
       "card": "research/stage1_aux_projection_allocation_20261018",
       "kind": "asymmetric_auxiliary_gradient_training",
-      "status": "implementation_no_fits_authorized",
+      "status": "completed_not_promoted_fixed_version_closed",
       "maximum_new_C_fits_proposed": 3,
       "maximum_new_C_native_accounts_proposed": 3,
       "reused_native_references_proposed": 15,
-      "actual_new_fits": 0,
-      "actual_new_native_accounts": 0
+      "actual_new_fits": 3,
+      "actual_new_native_accounts": 3,
+      "reused_native_accounts": 15,
+      "evaluation": "research/stage1_aux_projection_allocation_20261018/independent_evaluation.json",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "nas_archive_sha256": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5"
     }
   ],
   "governance_review": {
@@ -1710,46 +1715,24 @@
   ],
   "execution_observation_20261018": {
     "current_task": {
-      "card": "research/stage1_aux_projection_allocation_20261018",
-      "phase": "aux_projection_approved_pending_actual_execution",
-      "executor": "/root/recent_evidence",
-      "model_adapter_executor": "/root/external_methods",
-      "independent_evaluator": "/root/independent_evaluator",
-      "implementation_authorization": "research/stage1_aux_projection_allocation_20261018/implementation_authorization.json",
-      "formal_design_approved": true,
-      "fit_execution_authorized": true,
-      "account_execution_authorized": true,
-      "observed_new_fits": 0,
-      "observed_new_accounts": 0,
-      "draft_budget": {
-        "new_C_fits": 3,
-        "new_C_native_accounts": 3,
-        "reused_native_references": 15,
-        "total_comparison_accounts": 18,
-        "required_paired_CIs": 12
-      },
-      "executor_lifecycle": "Independent final design accepted and owner GO issued. Executor still completed; owner will explicitly resume after this exact implementation is committed/pushed. No training job claimed yet.",
-      "model_implementation_review": "research/stage1_aux_projection_allocation_20261018/model_implementation_review.json",
-      "model_implementation_review_sha256": "c3ea7d4c64836d0a3dc7a2b7e5e358a74c6c322c96fd65f7eecad59c5073a0e6",
-      "model_implementation_review_accepted": true,
-      "model_synthetic_test_passed": 1,
-      "stored_vector_compatibility_count": 24,
-      "new_market_gradient_probes": 0,
-      "no_fit_preflight_session_id": 99800,
-      "no_fit_preflight_exit_code": 0,
-      "no_fit_preflight_observation": "3014/20741 native train-only, all11 tensors and recomputed scalers match,3seed initialization/RNG match;0eval deserialization/forward/gradient/fit/accounts. Formal run implementation still being completed.",
-      "formal_plan_draft_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
-      "formal_plan_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
-      "implementation_identity_sha256": "613c2bdac1126e8aa74e391c3164f8a741aef8a6c1ed468ead859713f3944c2d",
-      "preflight_sha256": "d116937728c5c75d9c6a12e9b69ce56a105932f641878eecf170c2003d820e85",
-      "constructor_preflight_sha256": "c442e0317f8a7334f8e77b02cd7e7179075f6f91fc1528fc2edbe6b3535b13d6",
-      "constructor_preflight_session_id": 72746,
-      "constructor_preflight_exit_code": 0,
-      "workflow_implementation_complete": true,
-      "design_review": "research/stage1_aux_projection_allocation_20261018/design_review.json",
-      "design_review_sha256": "5bdcf1c7fe59ac4234818ca3df16b4f276ff4aaea9cef4b121e778856e12d40e",
-      "execution_approval": "research/stage1_aux_projection_allocation_20261018/execution_approval.json",
-      "execution_approval_sha256": "9229477f8fad9207f6348c003a6cc761df668a26f991e5834a0b2ff873459e81"
+      "card": "research/external_mechanism_review_20261018",
+      "phase": "calendar_TOM_source_contract_and_document_discovery",
+      "executor": "/root/external_methods",
+      "owner": "/root",
+      "new_model_fits": 0,
+      "new_accounts": 0,
+      "new_feature_values": 0,
+      "strategy_execution_authorized": false,
+      "scope": "Only determine whether an externally fixed exchange-calendar TOM proxy can be qualified separately from the unresolved actual institutional cash-deadline hypothesis. No SOXX window search, source bulk intake or training.",
+      "executor_lifecycle": "Both completed agents explicitly resumed: recent drafts the source-only contract/notebook skeleton; external_methods discovers at most12 official rule/exception documents. No feature/fit/account execution authorized.",
+      "source_plan_executor": "/root/recent_evidence",
+      "source_document_executor": "/root/external_methods",
+      "planned_source_card": "research/calendar_tom_source_20261018",
+      "source_only_eligibility_review": "research/external_mechanism_review_20261018/calendar_tom_proxy_review.json",
+      "source_only_eligibility_review_sha256": "c16753f4e6e4e98dfb4070ed4e0f00d72eb9f579938d6af1cbc3f334879940bd",
+      "source_draft_and_bounded_official_document_discovery_authorized": true,
+      "maximum_discovery_documents": 12,
+      "feature_generation_authorized": false
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -1951,6 +1934,60 @@
       "failure_attribution_completed": true,
       "failure_attribution_session_id": 10854,
       "failure_attribution_exit_code": 0
+    },
+    "completed_aux_projection_task": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "phase": "aux_projection_fixed_version_closed_after_independent_review",
+      "executor": "/root/recent_evidence",
+      "model_adapter_executor": "/root/external_methods",
+      "independent_evaluator": "/root/independent_evaluator",
+      "implementation_authorization": "research/stage1_aux_projection_allocation_20261018/implementation_authorization.json",
+      "formal_design_approved": true,
+      "fit_execution_authorized": true,
+      "account_execution_authorized": true,
+      "observed_new_fits": 3,
+      "observed_new_accounts": 3,
+      "draft_budget": {
+        "new_C_fits": 3,
+        "new_C_native_accounts": 3,
+        "reused_native_references": 15,
+        "total_comparison_accounts": 18,
+        "required_paired_CIs": 12
+      },
+      "executor_lifecycle": "Completed executor explicitly resumed after reviewed code/owner GO delivery; actual nbconvert1842 reported running. Poll that existing handle only.",
+      "model_implementation_review": "research/stage1_aux_projection_allocation_20261018/model_implementation_review.json",
+      "model_implementation_review_sha256": "c3ea7d4c64836d0a3dc7a2b7e5e358a74c6c322c96fd65f7eecad59c5073a0e6",
+      "model_implementation_review_accepted": true,
+      "model_synthetic_test_passed": 1,
+      "stored_vector_compatibility_count": 24,
+      "new_market_gradient_probes": 0,
+      "no_fit_preflight_session_id": 99800,
+      "no_fit_preflight_exit_code": 0,
+      "no_fit_preflight_observation": "3014/20741 native train-only, all11 tensors and recomputed scalers match,3seed initialization/RNG match;0eval deserialization/forward/gradient/fit/accounts. Formal run implementation still being completed.",
+      "formal_plan_draft_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+      "formal_plan_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+      "implementation_identity_sha256": "613c2bdac1126e8aa74e391c3164f8a741aef8a6c1ed468ead859713f3944c2d",
+      "preflight_sha256": "d116937728c5c75d9c6a12e9b69ce56a105932f641878eecf170c2003d820e85",
+      "constructor_preflight_sha256": "c442e0317f8a7334f8e77b02cd7e7179075f6f91fc1528fc2edbe6b3535b13d6",
+      "constructor_preflight_session_id": 72746,
+      "constructor_preflight_exit_code": 0,
+      "workflow_implementation_complete": true,
+      "design_review": "research/stage1_aux_projection_allocation_20261018/design_review.json",
+      "design_review_sha256": "5bdcf1c7fe59ac4234818ca3df16b4f276ff4aaea9cef4b121e778856e12d40e",
+      "execution_approval": "research/stage1_aux_projection_allocation_20261018/execution_approval.json",
+      "execution_approval_sha256": "9229477f8fad9207f6348c003a6cc761df668a26f991e5834a0b2ff873459e81",
+      "executor_session_id": 1842,
+      "executor_session_exit_code": 0,
+      "executor_job_running": false,
+      "implementation_commit": "6c7eacc8",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive_sha256": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "independent_evaluation": "research/stage1_aux_projection_allocation_20261018/independent_evaluation.json",
+      "independent_evaluation_sha256": "f15a9d40c01314c8df4a8dea787cff71d78630851bcf9295c102ab0d10315f71",
+      "failure_attribution_completed": true,
+      "failure_attribution_session_id": 73107,
+      "failure_attribution_exit_code": 0,
+      "readback_verification": "research/stage1_aux_projection_allocation_20261018/readback_verification.json"
     }
   },
   "goal_contract_20261018": {
@@ -1971,17 +2008,17 @@
     "production_changes_authorized": false
   },
   "current_goal_execution_counts": {
-    "model_fits": 12,
-    "new_native_accounts": 21,
-    "reused_native_accounts": 36,
-    "completed_fixed_experiments": 3,
+    "model_fits": 15,
+    "new_native_accounts": 24,
+    "reused_native_accounts": 51,
+    "completed_fixed_experiments": 4,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
     "reused_native_accounts_scope": "Cumulative comparison reuse events, not independent accounts or new market observations",
     "unique_reused_reference_accounts": 15,
     "independent_result_reviews_pending": 0
   },
-  "next_experiment": "research/stage1_aux_projection_allocation_20261018",
+  "next_experiment": null,
   "external_discovery_20261018": {
     "user_explicitly_requested": true,
     "lead_policy": "Community/social discussion leads, then original paper/author code and official fields; no claims from screenshots or backtest marketing",
@@ -2079,7 +2116,7 @@
       },
       "asymmetric_auxiliary_gradient_projection": {
         "card": "research/stage1_aux_projection_20261018",
-        "status": "mechanical_result_accepted_separate_training_draft_pending_review",
+        "status": "fixed_training_projection_version_closed_not_promoted",
         "community": "https://www.reddit.com/r/MachineLearning/comments/1fbvuhs",
         "primary": "https://arxiv.org/abs/2001.06782",
         "primary_anchored_reference": "https://david.grangier.info/papers/2021/ldery-aux-taks-iclr21.pdf",
@@ -2102,7 +2139,12 @@
         "mechanical_result_review_sha256": "27bb926e292da5a67dd0e2a5798e427a28873183289d0344007ba6568f1d5a74",
         "implementation_authorized": true,
         "implementation_scope": "Deterministic model/gradient adapter, one focused synthetic contract, and existing24 recorded-vector compatibility check only; no new gradient probe, fit or account.",
-        "implementation_executor": "/root/external_methods"
+        "implementation_executor": "/root/external_methods",
+        "training_card": "research/stage1_aux_projection_allocation_20261018",
+        "training_result": "not_promoted_fixed_aux_projection",
+        "actual_new_fits": 3,
+        "actual_new_native_accounts": 3,
+        "next_action": "No anchor/weight/threshold/epoch rescue; distinct external mechanism qualification only."
       },
       "month_end_settlement": {
         "status": "needs_source_absolute_cash_deadline",
@@ -2139,6 +2181,17 @@
         "new_fits": 0,
         "new_accounts": 0,
         "next_action": "Retain source-only negative qualification. Reconsider only with auditable publication vintages and a distinct post-release liquid-ETF mechanism; no bulk intake or trading experiment authorized."
+      },
+      "public_calendar_TOM_proxy": {
+        "status": "source_only_qualification_eligible_not_model_approved",
+        "triage": "research/external_mechanism_review_20261018/calendar_tom_proxy_triage.md",
+        "review": "research/external_mechanism_review_20261018/calendar_tom_proxy_review.json",
+        "fixed_external_window": "four days {-1,+1,+2,+3}; noDay0",
+        "claim": "Public exchange-calendar proxy, not observed institutional cash deadline, pensions flow or exact close-close strategy replication",
+        "time_boundary": "Prior actual opening prefix plus known expected-last schedule; no asof truncation or surprise-closure hindsight. Original source09:29 and account09:46 clocks remain distinct until separately reviewed model mapping.",
+        "new_feature_values": 0,
+        "new_fits": 0,
+        "new_accounts": 0
       }
     }
   },
@@ -2160,25 +2213,30 @@
     }
   ],
   "latest_fixed_result": {
-    "card": "research/stage1_close_rod_20261018",
-    "decision": "not_promoted_fixed_close_ROD_v1",
+    "card": "research/stage1_aux_projection_allocation_20261018",
+    "decision": "not_promoted_fixed_aux_projection",
     "independent_verdict": "ACCEPT_NEGATIVE_RESULT_CLOSE_FIXED_VERSION",
-    "review": "research/stage1_close_rod_20261018/independent_evaluation.json",
+    "review": "research/stage1_aux_projection_allocation_20261018/independent_evaluation.json",
     "C_return_pct_0_2_5bp": [
-      183.4789412214339,
-      138.85607929085734,
-      29.056788630115914
+      299.58670536557526,
+      270.53536200318587,
+      267.972676840328
     ],
+    "complete_annual_SOXX_positive_fraction_each_cost": 0.5,
+    "positive_CI_lower_bounds": "1/12; only5bp againstA",
+    "actual_projected_training_steps": [
+      13,
+      0,
+      17
+    ],
+    "new_fits": 3,
+    "new_native_accounts": 3,
+    "reused_native_accounts": 15,
+    "attribution": "Learning intervention was rare and late, rawcash MAE.000692,2bp realized beta/cash nearly unchanged andrisk states identical toB. No postresult anchor/weight rescue.",
     "C_rolling126_positive_fraction": [
-      0.3247863247863248,
-      0.18803418803418803,
-      0.1916971916971917
-    ],
-    "complete_annual_SOXX_wins_each_cost": "0/2",
-    "positive_CI_lower_bounds": "0/12",
-    "new_fits": 0,
-    "new_native_accounts": 6,
-    "passive_reference_valuations": 12,
-    "next_action": "Close version; no sign/window/cap/exit/threshold rescue. Proceed to distinct auxiliary projection training design."
+      0.39194139194139194,
+      0.3504273504273504,
+      0.34554334554334554
+    ]
   }
 }

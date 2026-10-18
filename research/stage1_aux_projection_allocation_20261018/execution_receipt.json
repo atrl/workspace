@@ -1,0 +1,33 @@
+{
+  "exec_session": 1842,
+  "nbconvert_pid": 90928,
+  "kernel_pid": 90929,
+  "exit_code": 0,
+  "plan_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+  "recorder_id": "fce9a058996142c6bef71196aba31db9",
+  "archive_sha256": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+  "new_C_fits": 3,
+  "new_B_fits": 0,
+  "new_policy_paths": 3,
+  "new_native_accounts": 3,
+  "reused_native_accounts": 15,
+  "comparison_accounts": 18,
+  "required_CI": 12,
+  "new_source_HTTP": 0,
+  "additional_market_gradient_probes": 0,
+  "all_three_C_models_fixed_before_evaluation": true,
+  "fixed_model_sha256": {
+    "C_aux_projection_71": "3b62ff55701ec3e92dffb9e0bdc53e37f464f0064cefda9e0b3842990046ee79",
+    "C_aux_projection_172": "de145c39ff90dcb8a5d9eb7fb3dbc7ff16421570fe73821fa4216fe075c4aa36",
+    "C_aux_projection_273": "438a31c598d4a6deb47b601adaf0b45ff3404d09692ec54317cf38413a45c8da"
+  },
+  "notebook_final_conclusion_updated_without_reexecution": true,
+  "routine_stream_characters_removed": 454617,
+  "executor_cold_NAS_readback": false,
+  "independent_evaluation_at_execution": "pending",
+  "final_independent_result_review": {
+    "path": "independent_evaluation.json",
+    "sha256": "f15a9d40c01314c8df4a8dea787cff71d78630851bcf9295c102ab0d10315f71",
+    "verdict": "ACCEPT_NEGATIVE_RESULT_CLOSE_FIXED_VERSION"
+  }
+}
