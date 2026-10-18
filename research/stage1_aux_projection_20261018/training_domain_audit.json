@@ -1,0 +1,34 @@
+{
+  "primary_rows": 3014,
+  "auxiliary_rows": 20741,
+  "first_primary_signal": "2011-01-03 00:00:00",
+  "last_primary_signal": "2022-12-21 00:00:00",
+  "last_primary_maturity": "2022-12-30 09:31:00-05:00",
+  "last_auxiliary_signal": "2022-12-22 00:00:00",
+  "auxiliary_observations_end": "2022-12-30",
+  "auxiliary_maturity_basis": "Inherited pinned outer training fold and original eligible mask; no new label construction.",
+  "dataset_segments": [
+    "train"
+  ],
+  "evaluation_rows_in_dataset": 0,
+  "source_use": "Full source byte hashes, immediate date clipping, then maturity/eligible filtering before label inspection or Dataset construction.",
+  "forbidden_artifact_outer_predictions_loaded": false,
+  "source_api": [
+    "Recorder.load_object",
+    "DataHandlerLP.from_df",
+    "DatasetH.prepare"
+  ],
+  "tensor_sha256": {
+    "primary": "07c2477be4276dac6ff26bf40e1f9c2c8805d4824b7ff193db245c2dfd2286e6",
+    "common": "7e539dc141c55467c1f3e690fac81fd3a499c5eb5e4fcd3ee4028a8938d1295e",
+    "auxiliary": "f75e617f792fc1bba62e1d1a5bc3a3ac33c68869afd39f52b92b2e2dc1a46a6a",
+    "returns": "e4a7fa6ee49ba6275bfbb4cefea3a8c59e940026ed68b43315bd987b1ba49346",
+    "tail": "61000716f335b6e66e85bd06b7517d52aa2598111206373681484ee6b581d0d0",
+    "alpha": "9d1caa5fc19579409c7168a8d8bb07779158738a2c9ff92d402dab80a459a8d1",
+    "cash": "50f129e9dc8a134a0337e4bb0f27e43ab14cb68b4778c2149eeb7ff80accc775",
+    "years": "314289f59dc9c8d565dd6202ffd370763b2ae730b0545b412abf18d3effc12b0",
+    "aux_tail": "5ceb4ff3902d10d845077049b98b26d832fb6b23cffa0162ceb090fe03dac046",
+    "aux_alpha": "e5a60754326935aa0e2ab1a5649f2b9524aa0d4f58a57e554588e664b80a62ed",
+    "aux_weight": "50b409494ab5ca970bf141f704f630bf63a79a18d20e13528457a5309b128258"
+  }
+}

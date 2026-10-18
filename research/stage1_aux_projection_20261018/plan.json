@@ -1,0 +1,282 @@
+{
+  "experiment": "stage1_aux_projection_20261018",
+  "scope": "approved mechanical preflight only",
+  "review_sha256": "2f407bfa6b0075b45dd03c6edf5aa78fea7bcb4d63b9a1ca39c7ffc71ece1332",
+  "draft_sha256": "42928b9d3cebf84063d9860bed0d8b474df567a5dc74042e940d3063361e0872",
+  "source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "artifacts": [
+      "inputs/daily_frame",
+      "inputs/features",
+      "inputs/common",
+      "inputs/timing",
+      "inputs/auxiliary",
+      "models/base_outer_71",
+      "models/base_outer_172",
+      "models/base_outer_273"
+    ],
+    "artifact_sha256": {
+      "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+      "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+      "inputs/common": "a90e4be474fae56a4cb9d226aced8186a5b402ce04aa0cc97cbef3b8dfc5eb14",
+      "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+      "inputs/auxiliary": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+      "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+      "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+      "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+    }
+  },
+  "probes": [
+    {
+      "probe_id": "s71_original_initialization_draw0",
+      "seed": 71,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 0,
+      "auxiliary_rng_seed": 71000
+    },
+    {
+      "probe_id": "s71_original_initialization_draw99",
+      "seed": 71,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 99,
+      "auxiliary_rng_seed": 71099
+    },
+    {
+      "probe_id": "s71_original_initialization_draw199",
+      "seed": 71,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 199,
+      "auxiliary_rng_seed": 71199
+    },
+    {
+      "probe_id": "s71_original_initialization_draw299",
+      "seed": 71,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 299,
+      "auxiliary_rng_seed": 71299
+    },
+    {
+      "probe_id": "s71_saved_base_outer_final_draw0",
+      "seed": 71,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 0,
+      "auxiliary_rng_seed": 71000
+    },
+    {
+      "probe_id": "s71_saved_base_outer_final_draw99",
+      "seed": 71,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 99,
+      "auxiliary_rng_seed": 71099
+    },
+    {
+      "probe_id": "s71_saved_base_outer_final_draw199",
+      "seed": 71,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 199,
+      "auxiliary_rng_seed": 71199
+    },
+    {
+      "probe_id": "s71_saved_base_outer_final_draw299",
+      "seed": 71,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 299,
+      "auxiliary_rng_seed": 71299
+    },
+    {
+      "probe_id": "s172_original_initialization_draw0",
+      "seed": 172,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 0,
+      "auxiliary_rng_seed": 172000
+    },
+    {
+      "probe_id": "s172_original_initialization_draw99",
+      "seed": 172,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 99,
+      "auxiliary_rng_seed": 172099
+    },
+    {
+      "probe_id": "s172_original_initialization_draw199",
+      "seed": 172,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 199,
+      "auxiliary_rng_seed": 172199
+    },
+    {
+      "probe_id": "s172_original_initialization_draw299",
+      "seed": 172,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 299,
+      "auxiliary_rng_seed": 172299
+    },
+    {
+      "probe_id": "s172_saved_base_outer_final_draw0",
+      "seed": 172,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 0,
+      "auxiliary_rng_seed": 172000
+    },
+    {
+      "probe_id": "s172_saved_base_outer_final_draw99",
+      "seed": 172,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 99,
+      "auxiliary_rng_seed": 172099
+    },
+    {
+      "probe_id": "s172_saved_base_outer_final_draw199",
+      "seed": 172,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 199,
+      "auxiliary_rng_seed": 172199
+    },
+    {
+      "probe_id": "s172_saved_base_outer_final_draw299",
+      "seed": 172,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 299,
+      "auxiliary_rng_seed": 172299
+    },
+    {
+      "probe_id": "s273_original_initialization_draw0",
+      "seed": 273,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 0,
+      "auxiliary_rng_seed": 273000
+    },
+    {
+      "probe_id": "s273_original_initialization_draw99",
+      "seed": 273,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 99,
+      "auxiliary_rng_seed": 273099
+    },
+    {
+      "probe_id": "s273_original_initialization_draw199",
+      "seed": 273,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 199,
+      "auxiliary_rng_seed": 273199
+    },
+    {
+      "probe_id": "s273_original_initialization_draw299",
+      "seed": 273,
+      "anchor": "original_initialization",
+      "auxiliary_epoch_index": 299,
+      "auxiliary_rng_seed": 273299
+    },
+    {
+      "probe_id": "s273_saved_base_outer_final_draw0",
+      "seed": 273,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 0,
+      "auxiliary_rng_seed": 273000
+    },
+    {
+      "probe_id": "s273_saved_base_outer_final_draw99",
+      "seed": 273,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 99,
+      "auxiliary_rng_seed": 273099
+    },
+    {
+      "probe_id": "s273_saved_base_outer_final_draw199",
+      "seed": 273,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 199,
+      "auxiliary_rng_seed": 273199
+    },
+    {
+      "probe_id": "s273_saved_base_outer_final_draw299",
+      "seed": 273,
+      "anchor": "saved_base_outer_final",
+      "auxiliary_epoch_index": 299,
+      "auxiliary_rng_seed": 273299
+    }
+  ],
+  "shared": [
+    "tail_encoder.0.weight",
+    "tail_encoder.0.bias",
+    "tail_head.weight",
+    "tail_head.bias",
+    "alpha_head.weight",
+    "alpha_head.bias"
+  ],
+  "private": [
+    "allocation_head.0.weight",
+    "allocation_head.0.bias",
+    "allocation_head.2.weight",
+    "allocation_head.2.bias"
+  ],
+  "primary_rows": 3014,
+  "auxiliary_rows": 20741,
+  "cutoff": "2023-01-01T00:00:00-05:00",
+  "train_end": "2022-12-30",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "region": "us",
+  "as_of": "2022-12-30",
+  "provider_role": "Qlib initialization only; no market feature/calendar reads. Inputs are pinned Recorder training slices.",
+  "code_sha256": {
+    "src/workflow/aux_projection_preflight.py": "d56464ba1dfa9d98f308dad39812b24c5dcf140a2056a66f79b111c9e3417868",
+    "src/model/minute_pit_allocator.py": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/workflow/minute_pit_allocator.py": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "tests/test_aux_projection_preflight.py": "0c500a5b7fb992ad405a8efd7bb179496f3ea4afa0c084634c7d4dd1a57c5520"
+  },
+  "software": {
+    "python": "3.12.12 (main, Feb  4 2026, 01:57:59) [Clang 21.1.4 ]",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "torch": "2.11.0",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "qlib": "0.9.7",
+    "device": "cpu",
+    "original_gradient_dtype": "torch.float32",
+    "torch_threads": 1,
+    "torch_interop_threads": 10,
+    "default_dtype": "torch.float32",
+    "torch_config": "PyTorch built with:\n  - GCC 4.2\n  - C++ Version: 201703\n  - clang 15.0.0\n  - OpenMP 201811\n  - LAPACK is enabled (usually provided by MKL)\n  - NNPACK is enabled\n  - CPU capability usage: DEFAULT\n  - Build settings: BLAS_INFO=accelerate, BUILD_TYPE=Release, COMMIT_SHA=70d99e998b4955e0049d13a98d77ae1b14db1f45, CXX_COMPILER=/usr/bin/c++, CXX_FLAGS= -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_PYTORCH_QNNPACK -DAT_BUILD_ARM_VEC256_WITH_SLEEF -DUSE_XNNPACK -DUSE_PYTORCH_METAL_EXPORT -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DUSE_COREML_DELEGATE -O2 -fPIC -DC10_NODEPRECATED -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=braced-scalar-init -Werror=range-loop-construct -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wvla-extension -Wsuggest-override -Wnewline-eof -Winconsistent-missing-override -Winconsistent-missing-destructor-override -Wno-pass-failed -Wno-error=old-style-cast -Wconstant-conversion -Qunused-arguments -faligned-new -fno-math-errno -fno-trapping-math -Werror=format -DUSE_MPS -Wno-missing-braces, LAPACK_INFO=accelerate, TORCH_VERSION=2.11.0, USE_CUDA=OFF, USE_CUDNN=OFF, USE_CUSPARSELT=OFF, USE_EIGEN_FOR_BLAS=ON, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=OFF, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, USE_XCCL=OFF, USE_XPU=OFF, \n"
+  },
+  "execution_limits": {
+    "optimizer_steps": 0,
+    "fits": 0,
+    "accounts": 0,
+    "new_market_http": 0,
+    "evaluation_label_use": 0,
+    "model_selection": 0
+  },
+  "numeric_contract": {
+    "status": "proposed_engineering_bound_requires_independent_review_before_execution",
+    "interpretation": "A fixed dtype-scaled numerical screen, not a rigorous bound on all upstream autograd/GEMM accumulation errors, an economic gate, or a claim of mathematical equality.",
+    "definitions": "eps = finfo(original_gradient_dtype).eps; r = 32 * eps; all audit norms/dots accumulated in float64; u64 = finfo(float64).eps / 2; gamma(k) = k*u64/(1-k*u64).",
+    "split_backward_tolerance": "tau_sum = r * (||grad(P)_all||_2 + ||grad(A)_all||_2). Require ||grad(P+A)_all - (grad(P)_all + grad(A)_all)||_2 <= tau_sum. If the scale is zero, require exact equality.",
+    "private_projection_check": "Pre-clip private gradient copied from the split control must be bitwise unchanged; post-global-clip private magnitudes need not match because the common clip coefficient may change.",
+    "dot_uncertainty_screen": "tau_dot = (gamma(2*154) + 2*r + r*r) * ||gP||_2 * ||gA||_2.",
+    "projection_change_screen": "tau_projection = r * (||gP||_2 + ||gA||_2).",
+    "materially_resolvable_projection": "All mechanical checks pass, dot(gP,gA) < -tau_dot, and ||gA_projected-gA||_2 > tau_projection after casting back to the original dtype.",
+    "numerically_indistinguishable": "Projection is exactly unchanged, or its change is <= tau_projection, or the negative dot does not exceed tau_dot. This means unresolved under this prespecified screen, not proof that the real-valued gradients coincide.",
+    "direction_check": "Before and after the positive global clipping factor, report dot(grad(P), assembled_gradient) and dot(grad(L_allocation), assembled_gradient), for both control and candidate; include shared-only and full-parameter results. Apply the same dot-error formula using the corresponding vector dimension when interpreting a sign.",
+    "no_threshold_injection": "These bounds classify audit resolution only. The projection rule itself remains strict dot < 0; no angle threshold is inserted into the method.",
+    "failure_rule": "If split backward exceeds its fixed allowance, dtype/backend is unsupported, or the reviewer finds the bound unjustified, status is needs_numerical_review. Do not widen tolerances, reclassify the case as harmless rounding, or proceed to fitting.",
+    "record": [
+      "dtype and backend",
+      "eps and all realized tolerances",
+      "raw and normalized residuals",
+      "both dot products and norms",
+      "projection displacement before/after cast",
+      "control/candidate global clip coefficients",
+      "nonfinite or zero-norm flags"
+    ],
+    "assembly_dtype_contract": "Compute grad(P)+grad(A) in the original gradient dtype, using the same assembly order as the proposed candidate. Cast assembled vectors to float64 only for audit residuals/norms/dots. No float64 control sum that hides original-dtype assembly effects.",
+    "split_shared_backward_tolerance": "Additionally require ||grad(P+A)_shared - (grad(P)_shared+grad(A)_shared)||_2 <= r*(||grad(P)_shared||_2+||grad(A)_shared||_2), with sum assembled in original dtype before float64 audit. Zero shared scale requires exact equality. All24probes must pass BOTH full973 and shared154 parity; any failure is needs_numerical_review without tolerance/sample expansion.",
+    "dot_bound_limit": "gamma(308) concerns only float64 dot-product rounding. The2r+r^2 term is a perturbation budget assuming each vector has relative perturbation at most r; neither full nor shared split parity proves this as an upstream autograd error bound."
+  },
+  "frozen_at_utc": "2026-10-18T06:39:28.136378+00:00"
+}

@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_aux_projection_20261018",
+  "status": "draft_unexecuted_requires_independent_review",
+  "role": "Backup mechanical qualification only; ROD remains the active research line.",
+  "execution_authorized_by_this_file": false,
+  "observed_new_execution": {
+    "gradient_probes": 0,
+    "return_label_reads": 0,
+    "optimizer_steps": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "scope": "One primary-anchored projection of the auxiliary gradient. No source acquisition, model training, checkpoint selection, account replay or change to sealed cards/release.",
+  "source": {
+    "identity_reference": "research/stage1_domain_heads_20261018/plan.json#/sources/training",
+    "training_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "training_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "saved_final_models": [
+      "models/base_outer_71",
+      "models/base_outer_172",
+      "models/base_outer_273"
+    ],
+    "requirement": "Resolve the exact saved original shared-head models, tensors, feature order, scaler, candidate/spec and source hashes through the source manifest and Qlib Recorder. Do not substitute domain-head models or current dirty providers.",
+    "code_references": [
+      "src/model/minute_pit_allocator.py",
+      "src/workflow/pit_constituent_auxiliary_training_allocation.py"
+    ],
+    "source_drift": "Missing identity, hash mismatch or incompatible original structure stops preflight for review; no reconstruction by refitting."
+  },
+  "fixed_probe_grid": {
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "anchors": [
+      {
+        "name": "original_initialization",
+        "definition": "Construct the original nonlinear shared-head network with the original seed and saved spec; no optimizer step."
+      },
+      {
+        "name": "saved_base_outer_final",
+        "definition": "Load the corresponding saved base_outer model final tensors; do not replay its training."
+      }
+    ],
+    "auxiliary_epoch_indices_zero_based": [
+      0,
+      99,
+      199,
+      299
+    ],
+    "expected_probe_count": 24,
+    "enumeration": "Cartesian product seeds x anchors x epoch indices, in the listed order; retain every probe.",
+    "interpretation": "Epoch indices select only the original auxiliary RNG stream at each fixed anchor. They are not intermediate training checkpoints and do not reconstruct a training trajectory.",
+    "no_adaptive_expansion": "No additional seeds, anchors, draws, epochs or ordering changes in response to results."
+  },
+  "training_domain": {
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "train_end": "2022-12-30",
+    "expected_primary_rows": 3014,
+    "expected_auxiliary_rows": 20741,
+    "primary": "All original primary rows whose saved label_available_at is strictly before cutoff, with the original maturity and finite-label rules.",
+    "auxiliary": "Original PIT auxiliary rows, order and training_weight; observations_end <= train_end; no relabeling or backfill.",
+    "sampling": "torch.Generator().manual_seed(seed * 1000 + epoch_index); torch.randint with replacement; min(2048, auxiliary_rows) indices.",
+    "weights": "Original auxiliary training_weight normalized by its full eligible training-domain mean; preserve original per-row weighted mean reduction.",
+    "evaluation_data": "No evaluation/forward labels or returns are read. Mature training labels are read only if this unexecuted preflight is separately approved."
+  },
+  "task_grouping": {
+    "P": "L_allocation + 0.02 * (BCE_primary_tail + BCE_primary_alpha)",
+    "A": "0.05 * weighted_mean(BCE_auxiliary_tail_per_row + BCE_auxiliary_alpha_per_row)",
+    "allocation": "Exact original allocation objective, including the original 10 bp training cost proxy and 0.006 turnover coefficient; do not split or reweight its components.",
+    "shared_parameters": [
+      "tail_encoder.0.weight",
+      "tail_encoder.0.bias",
+      "tail_head.weight",
+      "tail_head.bias",
+      "alpha_head.weight",
+      "alpha_head.bias"
+    ],
+    "expected_shared_parameter_count": 154,
+    "private_parameters": [
+      "allocation_head.0.weight",
+      "allocation_head.0.bias",
+      "allocation_head.2.weight",
+      "allocation_head.2.bias"
+    ],
+    "expected_private_parameter_count": 819,
+    "expected_total_parameter_count": 973,
+    "flattening": "Use the explicit parameter lists above and original tensor order. Missing shared gradients fail; zero auxiliary gradients on private parameters are represented explicitly."
+  },
+  "single_intervention": {
+    "gradient_definitions": "gP = grad(P, shared); gA = grad(A, shared), including the fixed original coefficients.",
+    "rule": "If ||gP||_2^2 == 0, keep gA. Otherwise gA_projected = gA - min(0, dot(gP,gA)) / ||gP||_2^2 * gP.",
+    "protected_gradient": "gP is never projected or rescaled by this intervention.",
+    "private_gradient": "Keep the original primary/private gradient without projection.",
+    "assembly": "Shared = gP + gA_projected; private = original primary/private gradient.",
+    "projection_arithmetic": "Keep original forward/autograd dtype. Use float64 only for the small dot products, norm squared and projection arithmetic; cast the modified auxiliary vector back to the original gradient dtype. If no conflict or zero primary norm, return the original auxiliary tensor unchanged.",
+    "ordering": "Exactly one auxiliary-to-primary projection; no symmetric PCGrad, task shuffling, iterative projection or new RNG consumption.",
+    "unchanged_optimizer_contract": "Assemble all 973 gradients, apply the original single global clip_grad_norm_(max_norm=2.0), then the original AdamW with all saved hyperparameters unchanged in any separately designed future experiment.",
+    "preflight_optimizer_execution": "No optimizer step is executed in this preflight. Clip coefficients and clipped gradient vectors may be computed read-only after approval."
+  },
+  "matched_control": {
+    "definition": "Original combined loss backward, P + A, on identical tensors, auxiliary indices, row weights and initialization/final anchor.",
+    "split_control": "Compute grad(P) + grad(A) separately and compare to original combined backward before any projection.",
+    "invariants": [
+      "Original parameter count and values",
+      "Initial primary and auxiliary forward outputs",
+      "Feature order and scaler",
+      "Mature rows and source identities",
+      "Auxiliary RNG stream",
+      "Loss coefficients",
+      "Original clip and optimizer contract"
+    ],
+    "not_controls": "The failed detach and domain-head candidates are historical context, not replacements for the original matched control."
+  },
+  "numerical_screen_proposal": {
+    "status": "proposed_engineering_bound_requires_independent_review_before_execution",
+    "interpretation": "A fixed dtype-scaled numerical screen, not a rigorous bound on all upstream autograd/GEMM accumulation errors, an economic gate, or a claim of mathematical equality.",
+    "definitions": "eps = finfo(original_gradient_dtype).eps; r = 32 * eps; all audit norms/dots accumulated in float64; u64 = finfo(float64).eps / 2; gamma(k) = k*u64/(1-k*u64).",
+    "split_backward_tolerance": "tau_sum = r * (||grad(P)_all||_2 + ||grad(A)_all||_2). Require ||grad(P+A)_all - (grad(P)_all + grad(A)_all)||_2 <= tau_sum. If the scale is zero, require exact equality.",
+    "private_projection_check": "Pre-clip private gradient copied from the split control must be bitwise unchanged; post-global-clip private magnitudes need not match because the common clip coefficient may change.",
+    "dot_uncertainty_screen": "tau_dot = (gamma(2*154) + 2*r + r*r) * ||gP||_2 * ||gA||_2.",
+    "projection_change_screen": "tau_projection = r * (||gP||_2 + ||gA||_2).",
+    "materially_resolvable_projection": "All mechanical checks pass, dot(gP,gA) < -tau_dot, and ||gA_projected-gA||_2 > tau_projection after casting back to the original dtype.",
+    "numerically_indistinguishable": "Projection is exactly unchanged, or its change is <= tau_projection, or the negative dot does not exceed tau_dot. This means unresolved under this prespecified screen, not proof that the real-valued gradients coincide.",
+    "direction_check": "Before and after the positive global clipping factor, report dot(grad(P), assembled_gradient) and dot(grad(L_allocation), assembled_gradient), for both control and candidate; include shared-only and full-parameter results. Apply the same dot-error formula using the corresponding vector dimension when interpreting a sign.",
+    "no_threshold_injection": "These bounds classify audit resolution only. The projection rule itself remains strict dot < 0; no angle threshold is inserted into the method.",
+    "failure_rule": "If split backward exceeds its fixed allowance, dtype/backend is unsupported, or the reviewer finds the bound unjustified, status is needs_numerical_review. Do not widen tolerances, reclassify the case as harmless rounding, or proceed to fitting.",
+    "record": [
+      "dtype and backend",
+      "eps and all realized tolerances",
+      "raw and normalized residuals",
+      "both dot products and norms",
+      "projection displacement before/after cast",
+      "control/candidate global clip coefficients",
+      "nonfinite or zero-norm flags"
+    ]
+  },
+  "mechanical_decision": {
+    "required_evidence": [
+      "All 24 source/shape/count/finite checks and split-backward equivalence checks",
+      "Private parameters unprojected; primary gradient unchanged by projection",
+      "All conflict and projection-displacement measurements, including identities",
+      "Composite P and allocation-only directional quantities, without claiming that protection of P protects allocation alone"
+    ],
+    "all_identity_or_unresolved": "Do not start fits. Close this fixed preflight as no_resolvable_intervention_at_prespecified_anchors; do not change draws, anchors, coefficients or tolerance to rescue it.",
+    "any_resolvable_change": "Mechanism is identifiable only at these frozen probes. It may be considered for a separate frozen training-and-complete-account design; this file does not authorize that design or execution.",
+    "invalid_or_missing": "Stop at the concrete source/numerical failure and request review; no automatic substitute or optimizer reconstruction."
+  },
+  "limits": {
+    "raw_first_order": "For a nonzero gP, the exact Euclidean un-clipped composite direction satisfies dot(gP, gP+gA_projected) >= ||gP||^2. Positive global clipping preserves its sign but can dilute its magnitude.",
+    "not_allocation_guarantee": "P includes the original primary BCE terms; protection of this composite does not guarantee improvement in allocation loss alone, classification generalization or net SOXX excess.",
+    "adamw": "Raw Euclidean direction protection does not imply protection after AdamW momentum, coordinatewise preconditioning and decoupled weight decay.",
+    "optimizer_state_policy": "Do not create, zero-fill, infer or reconstruct unsaved AdamW states. No actual update protection is measured or certified; real_step_protection remains unknown.",
+    "trajectory": "Initialization/final anchors and four auxiliary draws do not describe the intervening training trajectory, conflict frequency during fitting, curvature or out-of-sample usefulness.",
+    "no_optimization_claim": "No return expectation, promotion claim, controller change or production release change."
+  },
+  "existing_evidence": {
+    "frozen_gradient_card": "research/frozen_objective_gradient_20261014",
+    "reported_encoder_cosines": {
+      "allocation_vs_primary_classification": 0.023542776703834534,
+      "allocation_vs_auxiliary_classification": 0.01701548881828785,
+      "primary_vs_auxiliary_classification": 0.012390903197228909
+    },
+    "interpretation": "Existing all-auxiliary gradients at one frozen checkpoint were near-orthogonal and positive; they did not establish negative transfer. They are not original 2048-row sampled gradients or a reconstructed optimizer trajectory.",
+    "closed_routes": [
+      "research/allocation_encoder_routing_20261014",
+      "research/stage1_domain_heads_20261018"
+    ],
+    "novelty": "Conditional removal of only the conflicting auxiliary component; not permanent detach, cloned output heads, loss-weight search or full-path STE."
+  },
+  "references": {
+    "community": "https://www.reddit.com/r/MachineLearning/comments/1fbvuhs/",
+    "community_boundary": "General multi-loss discussion only. No verified SOXL/SOXX or quantitative-trading PCGrad efficacy evidence was found.",
+    "pcgrad_paper": "https://arxiv.org/abs/2001.06782",
+    "pcgrad_author_code": "https://github.com/tianheyu927/PCGrad",
+    "primary_anchored_decomposition_paper": "https://david.grangier.info/papers/2021/ldery-aux-taks-iclr21.pdf",
+    "primary_anchored_decomposition_author_code": "https://github.com/ldery/ATTITTUD",
+    "adaptation": "One-dimensional primary-gradient subspace, preserve orthogonal and aligned auxiliary components and discard the conflicting component. This is a restricted asymmetric adaptation, not a full reproduction of symmetric PCGrad or tuned ATTITTUD.",
+    "qlib": "https://qlib.readthedocs.io/en/latest/"
+  }
+}

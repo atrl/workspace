@@ -1,0 +1,32 @@
+{
+  "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+  "archive_sha256": "767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+  "status": "passed_archive_and_exact_native_reconstruction",
+  "artifact_count": 96,
+  "probe_rows": 24,
+  "resolvable_probes": 1,
+  "direct_dataset_serialization": {
+    "dataset": {
+      "direct_prepare": "unavailable",
+      "error_type": "AttributeError",
+      "error": "'DataHandlerLP' object has no attribute '_infer'"
+    },
+    "auxiliary_dataset": {
+      "direct_prepare": "unavailable",
+      "error_type": "AttributeError",
+      "error": "'DataHandlerLP' object has no attribute '_infer'"
+    }
+  },
+  "reconstructed_primary_rows": 3014,
+  "reconstructed_auxiliary_rows": 20741,
+  "all_recorded_tensor_hashes_match": true,
+  "reconstructed_tensors_exact": true,
+  "native_summary_matches_root": true,
+  "new_probes": 0,
+  "optimizer_steps": 0,
+  "fits": 0,
+  "accounts": 0,
+  "new_market_HTTP": 0,
+  "attempts": 1,
+  "restore_directory": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/aux-projection-cold-zjbih7ow"
+}

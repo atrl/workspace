@@ -1,0 +1,32 @@
+{
+  "status": "completed_mechanical_results_pending_independent_evaluation",
+  "exec_sessions": {
+    "initial_failed_before_source_load": 14183,
+    "approved_environment_continuation_completed": 37837
+  },
+  "plan_sha256": "67b4e25d7ed3c1087c63f8417a05e52b0160f967c944e0b2157142acf9126ba9",
+  "review_sha256": "2f407bfa6b0075b45dd03c6edf5aa78fea7bcb4d63b9a1ca39c7ffc71ece1332",
+  "execution_identity_sha256": "de5ab5e597cc09ec9ba111a947fd8d2ca9c4691df7675d07752df4a0d7fe2a06",
+  "frozen_source_code_unchanged": true,
+  "synthetic_contract_test": {
+    "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_aux_projection_preflight.py -q",
+    "passed": 1
+  },
+  "native_recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+  "nas_archive_sha256": "767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+  "completed_probes": 24,
+  "resolvable": 1,
+  "identity": 23,
+  "failed": 0,
+  "optimizer_steps": 0,
+  "fits": 0,
+  "accounts": 0,
+  "parameter_values_changed": false,
+  "evaluation_label_use": 0,
+  "new_market_http": 0,
+  "readback_receipt": "readback_verification.json",
+  "archived_dataset_direct_prepare": "unavailable; exact native source reconstruction independently checked",
+  "nas_binding_cleanup": "Removed inherited unrelated parent minute-snapshot fields; retained actual SSH/current evidence and frozen training-source plan reference",
+  "scientific_goal_achieved": false,
+  "next_action": "Independent result evaluation only; no automatic training."
+}

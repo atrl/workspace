@@ -1,0 +1,7 @@
+experiment: stage1_aux_projection_20261018
+entrypoint: src.workflow.aux_projection_preflight.run
+phase: completed_mechanical_only
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_aux_projection_20261018/qlib_recorder
+artifact_policy: slim_card_recorder_first
+archive_dataset_direct_prepare: unavailable_requires_pinned_source_reconstruction

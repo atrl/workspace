@@ -1,0 +1,83 @@
+{
+  "experiment": "stage1_aux_projection_20261018",
+  "decision": "resolvable_intervention_requires_separate_training_design",
+  "plan_sha256": "67b4e25d7ed3c1087c63f8417a05e52b0160f967c944e0b2157142acf9126ba9",
+  "probe_count": 24,
+  "resolvable_probes": 1,
+  "failed_probes": 0,
+  "classification_counts": {
+    "identity": 23,
+    "resolvable": 1
+  },
+  "primary_rows": 3014,
+  "auxiliary_rows": 20741,
+  "new_fits": 0,
+  "optimizer_steps": 0,
+  "new_accounts": 0,
+  "evaluation_label_use": 0,
+  "new_market_http": 0,
+  "all_parameters_unchanged": true,
+  "real_step_protection": "unknown_not_measured_no_saved_optimizer_state_reconstruction",
+  "formal_training_authorized": false,
+  "production_changed": false,
+  "objective_achieved": false,
+  "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+  "experiment_id": "721632525185874524",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_20261018/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_20261018/qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "region": "us",
+  "as_of": "2022-12-30",
+  "data_lineage": "Pinned original Recorder objects immediately restricted to mature 2011-2022 training domain, then Qlib DatasetH/DataHandlerLP.",
+  "qlib_docs_reference": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "probes/*"
+    ]
+  },
+  "limitations": [
+    "24 frozen-anchor draws are not a training trajectory",
+    "dtype screens do not bound true upstream differentiation error",
+    "Composite P protection is not allocation-only or AdamW-step protection",
+    "No economic/forward/promotion evidence"
+  ],
+  "nas_evidence": {
+    "sha256": "767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+    "size_bytes": 2121088,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/76/7d/767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 14:40:44.123356+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/76/7d/767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+    "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+    "experiment_id": "721632525185874524",
+    "archive_root": "qlib_recorder"
+  },
+  "delivery_readback": {
+    "receipt": "readback_verification.json",
+    "sha256": "5fc56512df2d969d8d258348cd2754c38ebe0c2c6f06e5edd5c303f9ba1844d7",
+    "status": "passed_archive_and_exact_native_reconstruction",
+    "artifacts_verified": 96,
+    "archived_dataset_direct_prepare": "unavailable_DataHandlerLP_infer_not_serialized",
+    "native_runtime_datasets": "used_successfully_during_approved_probes",
+    "reconstruction": "Owner reconstructed train-only native DatasetH from pinned source using frozen code; 3014 primary and20741 auxiliary rows; every tensor equals archived tensor elementwise and by SHA",
+    "new_probes": 0,
+    "optimizer_steps": 0,
+    "fits": 0,
+    "accounts": 0,
+    "sealed_recorder_unchanged": true,
+    "summary_boundary": "This card summary adds delivery/readback metadata to the sealed analysis/summary; original scientific result and archive are unchanged."
+  },
+  "independent_result_review": {
+    "path": "mechanical_result_review.json",
+    "sha256": "27bb926e292da5a67dd0e2a5798e427a28873183289d0344007ba6568f1d5a74",
+    "verdict": "ACCEPT_MECHANICAL_RESULT_ONLY",
+    "scope": "Mechanical result only; no training/account/promotion authorization"
+  }
+}

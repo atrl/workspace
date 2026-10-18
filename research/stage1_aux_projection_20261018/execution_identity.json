@@ -1,0 +1,41 @@
+{
+  "plan_sha256": "67b4e25d7ed3c1087c63f8417a05e52b0160f967c944e0b2157142acf9126ba9",
+  "review_sha256": "2f407bfa6b0075b45dd03c6edf5aa78fea7bcb4d63b9a1ca39c7ffc71ece1332",
+  "draft_sha256": "42928b9d3cebf84063d9860bed0d8b474df567a5dc74042e940d3063361e0872",
+  "code_sha256": {
+    "src/workflow/aux_projection_preflight.py": "d56464ba1dfa9d98f308dad39812b24c5dcf140a2056a66f79b111c9e3417868",
+    "src/model/minute_pit_allocator.py": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/workflow/minute_pit_allocator.py": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "tests/test_aux_projection_preflight.py": "0c500a5b7fb992ad405a8efd7bb179496f3ea4afa0c084634c7d4dd1a57c5520"
+  },
+  "source_artifact_sha256": {
+    "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "inputs/common": "a90e4be474fae56a4cb9d226aced8186a5b402ce04aa0cc97cbef3b8dfc5eb14",
+    "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "inputs/auxiliary": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+    "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+    "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+  },
+  "probe_count": 24,
+  "software": {
+    "python": "3.12.12 (main, Feb  4 2026, 01:57:59) [Clang 21.1.4 ]",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "torch": "2.11.0",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "qlib": "0.9.7",
+    "device": "cpu",
+    "original_gradient_dtype": "torch.float32",
+    "torch_threads": 1,
+    "torch_interop_threads": 10,
+    "default_dtype": "torch.float32",
+    "torch_config": "PyTorch built with:\n  - GCC 4.2\n  - C++ Version: 201703\n  - clang 15.0.0\n  - OpenMP 201811\n  - LAPACK is enabled (usually provided by MKL)\n  - NNPACK is enabled\n  - CPU capability usage: DEFAULT\n  - Build settings: BLAS_INFO=accelerate, BUILD_TYPE=Release, COMMIT_SHA=70d99e998b4955e0049d13a98d77ae1b14db1f45, CXX_COMPILER=/usr/bin/c++, CXX_FLAGS= -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_PYTORCH_QNNPACK -DAT_BUILD_ARM_VEC256_WITH_SLEEF -DUSE_XNNPACK -DUSE_PYTORCH_METAL_EXPORT -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DUSE_COREML_DELEGATE -O2 -fPIC -DC10_NODEPRECATED -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=braced-scalar-init -Werror=range-loop-construct -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wvla-extension -Wsuggest-override -Wnewline-eof -Winconsistent-missing-override -Winconsistent-missing-destructor-override -Wno-pass-failed -Wno-error=old-style-cast -Wconstant-conversion -Qunused-arguments -faligned-new -fno-math-errno -fno-trapping-math -Werror=format -DUSE_MPS -Wno-missing-braces, LAPACK_INFO=accelerate, TORCH_VERSION=2.11.0, USE_CUDA=OFF, USE_CUDNN=OFF, USE_CUSPARSELT=OFF, USE_EIGEN_FOR_BLAS=ON, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=OFF, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, USE_XCCL=OFF, USE_XPU=OFF, \n"
+  },
+  "frozen_before_source_object_loading_and_probes": true,
+  "owner_authorization": "Explicit mechanical-only execution handoff in this task; no fit/account authorization."
+}

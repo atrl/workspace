@@ -1,0 +1,399 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_aux_projection_allocation_20261018",
+  "status": "draft_unexecuted_pending_mechanical_result_review_and_design_review",
+  "role": "Single bounded backup training design; ROD remains the active priority.",
+  "authorizes_implementation": false,
+  "authorizes_fits": false,
+  "authorizes_accounts": false,
+  "authorizes_production_change": false,
+  "observed_execution": {
+    "new_label_reads": 0,
+    "new_gradient_probes": 0,
+    "fits": 0,
+    "optimizer_steps": 0,
+    "accounts": 0
+  },
+  "hypothesis": "Conditional removal of the auxiliary shared gradient component opposing the original composite primary gradient may change representation learning in a way that improves complete net-of-fee allocation accounts. No negative transfer or return improvement is presumed.",
+  "receiving_layer": "Training update of the original shared-head nonlinear Stage1 allocation model only; deployment allocation/EMA/risk/open execution/recovery logic is unchanged.",
+  "single_increment": "Keep primary gradient unchanged; project only the conflicting component of the existing auxiliary gradient on the same154 shared parameters.",
+  "novelty_boundary": "Not permanent classifier detach, domain-specific heads, additional model capacity, loss-weight search, direct full-path/STE optimization or new market information.",
+  "dependencies": {
+    "mechanical_card": "research/stage1_aux_projection_20261018",
+    "mechanical_plan_sha256": "67b4e25d7ed3c1087c63f8417a05e52b0160f967c944e0b2157142acf9126ba9",
+    "mechanical_review_sha256": "2f407bfa6b0075b45dd03c6edf5aa78fea7bcb4d63b9a1ca39c7ffc71ece1332",
+    "mechanical_recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+    "mechanical_archive_sha256": "767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+    "mechanical_result_reference": {
+      "probe_count": 24,
+      "resolvable": 1,
+      "identity": 23,
+      "failures": 0,
+      "parameters_changed": false,
+      "real_adamw_step_protection": "unknown"
+    },
+    "mechanical_result_review_required": true,
+    "mechanical_result_review_receipt": null,
+    "dependency_failure": "If independent review rejects the mechanical evidence, this draft cannot advance. Rejection cannot be bypassed by the existence of this file.",
+    "formal_design_review_and_explicit_owner_go_required": true,
+    "frozen_final_plan_and_implementation_identity_required_before_first_fit": true
+  },
+  "source_contract": {
+    "domain_heads_plan": "research/stage1_domain_heads_20261018/plan.json",
+    "domain_heads_plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+    "training_source": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": [
+        "inputs/daily_frame",
+        "inputs/features",
+        "inputs/common",
+        "inputs/timing",
+        "inputs/auxiliary",
+        "models/base_outer_71",
+        "models/base_outer_172",
+        "models/base_outer_273"
+      ],
+      "artifact_sha256": {
+        "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+        "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+        "inputs/common": "a90e4be474fae56a4cb9d226aced8186a5b402ce04aa0cc97cbef3b8dfc5eb14",
+        "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+        "inputs/auxiliary": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+        "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+        "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+        "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+      }
+    },
+    "account_source_specs": {
+      "action": {
+        "card": "research/stage1_minute_information_comparison_20261012",
+        "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+        "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+        "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+        "artifacts": [
+          "inputs/plan",
+          "inputs/market",
+          "inputs/raw_predictions",
+          "inputs/source_targets",
+          "controller/source_recovery_selection",
+          "controller/frozen_models"
+        ],
+        "artifact_sha256": {
+          "inputs/plan": "b3fddcc9f1ad9735ab4ef260bfec7792aca572adbde2ad6a78511d8c5d8fb103",
+          "inputs/market": "6b3a7ce53a2fe02b9eb4c7d0934ebae794ade047cb5a4f9209aef4770eeb8c24",
+          "inputs/raw_predictions": "63c3097b24bd6e2534b31c6d1ae691f1e0e959d0ae2afcc6940e5d427f6fffa9",
+          "inputs/source_targets": "5841299fcc37e8a01f09644072125d4d0aac5ecfaa5ba26fa26d5a41c78c7e42",
+          "controller/source_recovery_selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+          "controller/frozen_models": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1"
+        }
+      },
+      "controller": {
+        "card": "research/full_path_tiered_allocation_20261013",
+        "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+        "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+        "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7",
+        "artifacts": [
+          "inputs/controller",
+          "inputs/plan"
+        ],
+        "artifact_sha256": {
+          "inputs/controller": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+          "inputs/plan": "2a2099904dd2507e837b40c51dd15228cfded78d55c1f6a49cd5646044c1e297"
+        }
+      },
+      "raw": {
+        "card": "research/frozen_policy_raw_cashbook_20261015",
+        "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+        "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+        "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+        "artifacts": [
+          "inputs/frame",
+          "inputs/plan",
+          "inputs/raw_points",
+          "inputs/schedule",
+          "inputs/repair_1_calendar_guard",
+          "inputs/repair_1_provider_manifest",
+          "native/raw_SOXX_0",
+          "native/raw_SOXX_2",
+          "native/raw_SOXX_5",
+          "native/raw_strong9097_0",
+          "native/raw_strong9097_2",
+          "native/raw_strong9097_5",
+          "native/raw_candidate27baa_0",
+          "native/raw_candidate27baa_2",
+          "native/raw_candidate27baa_5"
+        ],
+        "artifact_sha256": {
+          "inputs/frame": "cc705b51047c85a1fc58f05d22ba4f98797830861a4bab58b94aeb4b869c20bc",
+          "inputs/plan": "ead4fa68daa779ea4da4708b762913e7d89e7c9d6f68523340e0252866eb712b",
+          "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+          "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+          "inputs/repair_1_calendar_guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24",
+          "inputs/repair_1_provider_manifest": "fe4f64aaba30981903443de94f19b36496033de66aa752692caabdf5dd953c27",
+          "native/raw_SOXX_0": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+          "native/raw_SOXX_2": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d",
+          "native/raw_SOXX_5": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e",
+          "native/raw_strong9097_0": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93",
+          "native/raw_strong9097_2": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f",
+          "native/raw_strong9097_5": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05",
+          "native/raw_candidate27baa_0": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466",
+          "native/raw_candidate27baa_2": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31",
+          "native/raw_candidate27baa_5": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+        }
+      }
+    },
+    "active_release": {
+      "path": "production/stage1_futu_sim_v1/runtime_release.json",
+      "sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+      "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+      "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+      "action_recorder_id": "b472a458fc9042b4905094fddeaebd33"
+    },
+    "source_rule": "Exact per-artifact hashes from the pinned source specifications; source/feature/scaler/price/corporate-action/fee drift fails closed. Do not use current dirty provider values or import domain-head parameters.",
+    "dataset_archive_limit": "The mechanical Recorder Dataset pickles cannot directly prepare because private caches were omitted. Rebuild native train-only DatasetH from the pinned source using the already checked source-to-tensor path; require exact recorded tensor SHA equality. Do not silently use a pandas-only substitute.",
+    "evaluation_separation": "During implementation/preflight/fitting, only full-object byte verification and immediate training-date clipping are allowed before inspecting training labels. No outer_predictions/evaluation labels are loaded into fitting. Prediction/account and classification-evaluation data become accessible only after all formal model identities are finalized under the reviewed plan."
+  },
+  "training": {
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "epochs": 300,
+    "checkpoint_policy": "Fixed final epoch300; no checkpoint/seed selection.",
+    "primary_rows": 3014,
+    "auxiliary_rows": 20741,
+    "train_end": "2022-12-30",
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "features": "Original39 primary and16 common inputs; no minute numeric extras, no FINRA input, no new source.",
+    "scalers": "Exact original mature training cohort and scaling path; verify equality against each sealed base_outer scaler before optimization. No weighted/residualized/updated scaler.",
+    "initialization": "Original973-parameter network, same seed, exact corresponding initial tensors and RNG state; C adds no parameters and consumes no extra random draws.",
+    "auxiliary_sampling": "Exact original row order/training_weight normalization and torch.Generator().manual_seed(seed*1000+epoch), torch.randint with replacement, min(2048,20741) indices each epoch. Preserve all300 draws.",
+    "losses": {
+      "P": "L_allocation +0.02*(BCE_primary_tail+BCE_primary_alpha)",
+      "A": "0.05*weighted_mean(BCE_auxiliary_tail_per_row+BCE_auxiliary_alpha_per_row)",
+      "allocation": "Exact original loss,10bp training proxy and0.006 turnover coefficient; no objective or label changes."
+    },
+    "optimizer": "Original AdamW and all saved hyperparameters, one original global clip_grad_norm_(max_norm=2.0) after gradient assembly; no per-task clipping, gradient normalization, EMA, optimizer switch or moment reset.",
+    "arms": {
+      "B": "Original MinutePitAllocator algorithm: original combined loss.backward(), global clip2, AdamW.step(). No split-gradient substitution.",
+      "C": "Same original forward/loss/data/optimizer path; calculate P/A gradients read-only for the one conditional projection, then original combined backward. Replace shared gradients only on a strict negative P/A dot with nonzero primary norm."
+    },
+    "ensemble": "Fixed equal-weight average of all3 seed predictions, every seed retained.",
+    "budget": {
+      "maximum_fit_attempts": 6,
+      "B_fit_attempts": 3,
+      "C_fit_attempts": 3,
+      "maximum_optimizer_steps_per_fit": 300,
+      "extra_initialization_or_rescue_fits": 0
+    },
+    "minimum_domain_support": "No2020 zero-aux model fit; changing cutoff/rows to create an auxiliary domain or independent validation is forbidden.",
+    "invalid_fit_policy": "Persist partial attempts and failure reason. Do not discard/restart a seed, relax parity, or form a winning subset ensemble; numerical/source/implementation failures need scoped review."
+  },
+  "gradient_contract": {
+    "shared_parameters": [
+      "tail_encoder.0.weight",
+      "tail_encoder.0.bias",
+      "tail_head.weight",
+      "tail_head.bias",
+      "alpha_head.weight",
+      "alpha_head.bias"
+    ],
+    "shared_parameter_count": 154,
+    "private_parameters": [
+      "allocation_head.0.weight",
+      "allocation_head.0.bias",
+      "allocation_head.2.weight",
+      "allocation_head.2.bias"
+    ],
+    "private_parameter_count": 819,
+    "total_parameters": 973,
+    "rule": "On shared154, if norm(gP)^2>0 and dot64(gP,gA)<0: gA_projected=cast_original_dtype(float64(gA)-dot64(gP,gA)/norm64(gP)^2*float64(gP)); otherwise no projection.",
+    "strict_conflict_rule": "No tau/angle/magnitude threshold controls the training branch. The reviewed dtype screens are numerical diagnostics only.",
+    "B_arithmetic": "Use the exact original combined.backward gradient tensor, not separately assembled gP+gA, on every parameter and every step.",
+    "C_no_conflict_arithmetic": "Keep every original combined.backward gradient tensor unchanged bit-for-bit when dot>=0 or gP is exactly zero; do not rewrite, sum, recast or copy from split gradients. Thus absent a projection, an otherwise identical B/C step has identical optimizer input.",
+    "C_conflict_arithmetic": "Replace only shared154 with gP_shared+gA_projected assembled in original dtype. Preserve the original combined.backward private819 gradients exactly. Apply globalclip once afterward.",
+    "primary_gradient": "Never project or rescale gP; preserve its audit copy.",
+    "random_projection_order": "None: one auxiliary group, one asymmetric projection, no task shuffling or added RNG stream.",
+    "mechanical_difference_from_preflight": "The24probes assembled the candidate as split P+A_projected even without conflict and copied split-control private gradients. This draft instead bypasses all substitutions without conflict and preserves original combined private gradients. Both full/shared parity were exactly0 in the24 stored probes, but that finite evidence does not prove every future training step is bitwise equivalent.",
+    "required_qualification_before_fit": "Independent implementation review must explicitly accept the branch/assembly difference. One focused synthetic arithmetic contract must establish no-conflict/zero-primary exact identity and conflict-only shared replacement/private preservation. A read-only reconciliation against the24 stored gradient arrays may be separately authorized; no new market gradient probes are authorized by this draft.",
+    "during_training_parity": "On each C epoch compare separately assembled original-dtype gP+gA to original combined backward on both all973 and shared154 using the unchanged r=32*finfo(dtype).eps allowances. Any failure is a numerical-review stop, not permission to widen r or suppress the probe.",
+    "dtype_backend": "Preserve reviewed original CPU float32 forward/autograd path and one torch compute thread; use float64 only for declared small projection/audit operations. Freeze exact versions/backend before firstfit.",
+    "limits": "CompositeP directional protection is not allocation-only protection. Raw Euclidean projection is not a guarantee for the actual AdamW update, generalization, account risk or net SOXX excess."
+  },
+  "B_reproduction_gate": {
+    "reference": "Sealed models/base_outer_71,172,273 in the pinned original training Recorder, not domain-head models or a weak fitted baseline.",
+    "required": "Same keyed parameter inventory and elementwise exact final tensor values for each seed; exact feature order/scaler/spec/candidate and maturity/sample schedule. Compare tensor state, not whole-pickle bytes containing paths/metadata.",
+    "failure": "Retain failure and stop for implementation/source/numerical review. Do not loosen equality after seeing results, choose another baseline, or attribute a C improvement to projection while B reproduction is unqualified.",
+    "scope": "Draft does not execute these checks. Final prefit code/source freeze must specify the exact source model artifact SHA and parity receipt."
+  },
+  "training_observability": {
+    "per_epoch_recorder_only": [
+      "WeightedP/A and allocation-only losses",
+      "SharedP/A dot, norms and strict-conflict flag",
+      "Original-dtype full/shared parity residuals and fixedtolerances",
+      "Projection displacement before/after cast",
+      "Original and modified globalclip coefficients",
+      "CompositeP and allocation-only dots, shared/full, pre/postclip",
+      "Actual pre/post-AdamW parameter deltas and their P/allocation dot diagnostics",
+      "Source model/optimizer state identity and sampled-index hashes"
+    ],
+    "optimizer_state_boundary": "New formal fits may own and record their actual AdamW states. Never infer or reconstruct the unsaved optimizer states of sealed source models. Actual-step diagnostics describe what happened; they do not certify finite-step loss protection or justify an adaptive safeguard.",
+    "not_new_controls": "Do not add step rejection, line search, momentum surgery, gradient clipping variants or loss-driven candidate selection after observing these traces.",
+    "prior_warning": "Only1 of24 fixed mechanical probes was resolvable. Both original and projected directions had4/24 negative full allocation-only dots and21/24 negative shared allocation-only dots; all observed globalclip coefficients were1. These are neither training-frequency estimates nor demonstrated allocation/AdamW protection."
+  },
+  "accounts": {
+    "comparison_families": [
+      "A_active_research_replay",
+      "B_shared",
+      "C_aux_projection",
+      "SOXX",
+      "strong9097",
+      "additional27baa"
+    ],
+    "initial_cash": 100000,
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "expected_sessions_each": 944,
+    "first_signal": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "terminal": "2026-10-09T09:47:00-04:00",
+    "clock": "09:45 known,09:46 decision,09:47 fill,next09:47 exit;firsthour recovery fill10:32. Historical bar availability convention, not actual first receipt/execution qualification.",
+    "ABC_policy": "Exact original b472 open HOLD/execute and recovery classifiers, own-cost own-NAV/peak/history/state/clock. NO T composition, NO cross-cost minimumcap, NO ALL3 recovery. Source smoothing EMA3/acceptance0.02 unchanged; all5 model outputs replaced jointly for B/C.",
+    "A_identity": "Frozen f696+b472 model chain under the existing raw research execution contract; not the actual deployed09:31/10:31 runtime.",
+    "reference_policy": "SOXX buyonce raw shares; strong9097/additional27baa retain their frozen commoncap/ALL3/T policies. Different strategy controls disclosed, same price/corporate/fees/dates/initialcash. Do not inherit old fullminute risk qualification.",
+    "own_state": "Every family and every cost retains its own shares,cash,fees,NAV,peak,history,risk state/clock and recovery decisions. No cross-cost state sharing, counterfactual target averaging or reusing another arm internal path.",
+    "training_vs_account_cost": "Original training cost proxy remains10bp; account gates use frozen Tiered plus0/2/5bp. This disclosed mismatch is held common, not optimized in this experiment.",
+    "tariff": {
+      "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+      "tiers": [
+        {
+          "through_shares": 300000,
+          "per_share": 0.0035
+        },
+        {
+          "through_shares": 3000000,
+          "per_share": 0.002
+        },
+        {
+          "through_shares": 20000000,
+          "per_share": 0.0015
+        },
+        {
+          "through_shares": 100000000,
+          "per_share": 0.001
+        },
+        {
+          "through_shares": null,
+          "per_share": 0.0005
+        }
+      ],
+      "minimum_per_order": 0.35,
+      "maximum_order_fraction": 0.01,
+      "venue_per_share": 0.003,
+      "venue_subdollar_fraction": 0.003,
+      "clearing_per_share": 0.0002,
+      "clearing_maximum_fraction": 0.005,
+      "sec_sale_fraction": 2.06e-05,
+      "taf_per_sold_share": 0.0,
+      "taf_maximum_per_trade": 9.79,
+      "cat_per_share": 3e-06,
+      "commission_pass_through_fraction": 0.000735,
+      "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+      "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+      "fractional_share_fills": false,
+      "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+    },
+    "budget": {
+      "maximum_total_comparison_accounts": 18,
+      "maximum_new_BC_native_accounts": 6,
+      "maximum_new_A_or_reference_accounts_without_amendment": 0
+    },
+    "reuse_rule": "Reuse verified unchanged A/SOXX/strong9097/additional27baa books only after exact dates,rawpoints,corporate-action convention,tariff,initial cash,schedule and model/controller identities match. A uses the completed domain-head card original-A book. Require exact native artifact SHA inventory in the final plan. B book reuse is permitted only after exact sealed-model and prediction identity plus the same account contract; otherwise the fixed6 B/C account ceiling applies. A/reference mismatch stops for an explicit amendment, never silently expands replay scope.",
+    "execute_regardless_of_classifier_scores": "Once all source/mechanical/B reproduction gates pass and models are frozen, run/report every predeclared cost account. No BCE/Brier/AUC/gradient score can cancel an unfavorable economic account.",
+    "native_interfaces": [
+      "src.backtest.stage1_domain_heads_raw.replay_stage1_raw",
+      "src.backtest.raw_corporate_policy.IncomeLedger",
+      "src.backtest.raw_corporate_policy.settle_raw",
+      "src.backtest.native_raw_corporate.native_raw_validate"
+    ]
+  },
+  "gates": {
+    "required_comparators": [
+      "A_active_research_replay",
+      "B_shared",
+      "SOXX",
+      "strong9097"
+    ],
+    "additional_reference": "additional27baa always report, not a postresult replacement of primary strong9097",
+    "net_relative_wealth_all_costs": ">1+1e-8 versus each required comparator",
+    "sampled_maxdrawdown": "<=30percent at close and all available raw point marks; fullminute validation separate if economic gates pass",
+    "cvar5": "no worse thanSOXX at all costs",
+    "complete_annual_positive_fraction": 0.7,
+    "minimum_complete_years": 2,
+    "rolling126_positive_fraction": 0.7,
+    "paired_uncertainty": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "alpha": 0.0020833333333333333,
+      "seed": 20261014,
+      "lower_positive": true,
+      "comparisons": 4,
+      "costs": 3,
+      "prior_search_multiplicity": "unknown; this correction doesnotreset reusedhistory",
+      "statistic": "one-sided paired stationary-bootstrap mean daily log excess; lower quantile must be strictly positive",
+      "alpha_formula": "0.025/(1 candidate equal-seed ensemble *4 required comparators *3 costs)",
+      "expected_lower_tail_draws": 20.833333333333332,
+      "resolution_rationale": "Prespecified beforeanyfit/outcome:10000draws expect20.83taildraws versus2000expect4.17. No result-dependent resampling or seed change."
+    },
+    "qualified_independent_forward": false,
+    "fresh_fullminute_risk_qualified": false,
+    "stability_comparator": "SOXX only for complete annual and126-session rolling70percent; all4required comparators for full-window wealth and pairedCI"
+  },
+  "classification_and_account_bridge": {
+    "classification": "Retain all seed and ensemble primary tail/alpha BCE,Brier,AUC,mean score and event rate under original label semantics; no probability semantics change. Evaluation occurs only in the separately authorized post-fit stage.",
+    "bridge": "Save raw5 outputs and targets, post-EMA/risk targets, legal/selected actions, actual holdings/fees/NAV. Report all years/quarters and every contiguous126-session window without favorable-slice selection.",
+    "primary_goal": "Net performance versus actualSOXX and all required comparators acrossallcosts,MaxDD<=30%,CVaR5 no worse,complete-annual and rolling126 positive excess fractions>=70%,positive fixed block-CI lower bounds. No release/promotion from mechanics or training-loss improvement.",
+    "uncertainty_contract": "Carry the domain-head predeclared10000 stationary bootstrap draws,meanblock63,seed20261014,one-sidedalpha0.025/(1ensemble*4comparators*3costs),rather than choose a new test after outcomes. This stricter carried contract requires independent design confirmation and does not correct unknown prior research multiplicity.",
+    "independence": "The944-session history and prior2020-2022 research are reused. None is newly independent because of a new card,seed,reviewer or loss. Historicalpass would still require separately frozen sufficient forward evidence and relevant fullminute risk qualification."
+  },
+  "stopping": {
+    "mechanical_rejection": "Do not launch this draft if the parent mechanical result is rejected.",
+    "fit_or_source_failure": "Retain the exact failed attempt and request scoped review; no replacement data,seed,optimizer,epoch or hidden repeat.",
+    "economic_failure": "Close this fixed asymmetric-projection version, synchronize notebook/Recorder and retain minimal evidence; no angle/magnitude thresholds,coefficient,clipping,seed,epoch,window,head or controller rescue.",
+    "historical_pass": "Only a candidate pending independent review,risk qualification and sufficient new forward evidence; no automatic deployment,real orders or Goal completion."
+  },
+  "deliverables_if_separately_authorized": {
+    "entry": "Executable research notebook,approved frozenplan,source/code/approval identities,run handle and persistent attempt log",
+    "slim_card": [
+      "workflow.yaml",
+      "summary.json",
+      "conclusion.md",
+      "small training/account/annual/quarterly/rolling/uncertainty tables"
+    ],
+    "recorder_only": [
+      "Model and optimizer state",
+      "Predictions and fulltargets",
+      "All per-epoch gradient/update vectors",
+      "Full ledger/positions/fees",
+      "NativeQlib reports and source snapshots"
+    ],
+    "artifact_policy": "slim_card_recorder_first",
+    "verification": "One focused material arithmetic regression test and one necessary native/NAS readback; reuse unchanged verified evidence; no broad suite by default"
+  },
+  "references": {
+    "pcgrad": "https://arxiv.org/abs/2001.06782",
+    "primary_anchored_decomposition": "https://david.grangier.info/papers/2021/ldery-aux-taks-iclr21.pdf",
+    "author_code": "https://github.com/ldery/ATTITTUD",
+    "community": "https://www.reddit.com/r/MachineLearning/comments/1fbvuhs/",
+    "boundary": "Restricted asymmetric adaptation; no verified SOXL/SOXX efficacy evidence from the generalNN papers/community.",
+    "qlib": "https://qlib.readthedocs.io/en/latest/"
+  },
+  "next_action": "Owner scheduling after mechanical-result review; then independent review of this draft and a final concrete implementation/source/account identity freeze. No execution from this file."
+}

@@ -1,0 +1,25 @@
+{
+  "reason": "MLflow 3.16.1 requires MLFLOW_ALLOW_FILE_STORE=true before opening existing file Recorder",
+  "failed_exec_session": 14183,
+  "failed_before_first_source_object_load": true,
+  "probe_attempts": 0,
+  "new_recorders": 0,
+  "owner_approved": "Explicit owner message permits environment-only continuation of identical 24 probes",
+  "environment_change": {
+    "MLFLOW_ALLOW_FILE_STORE": "true"
+  },
+  "plan_sha256": "67b4e25d7ed3c1087c63f8417a05e52b0160f967c944e0b2157142acf9126ba9",
+  "code_sha256_unchanged": {
+    "src/workflow/aux_projection_preflight.py": "d56464ba1dfa9d98f308dad39812b24c5dcf140a2056a66f79b111c9e3417868",
+    "src/model/minute_pit_allocator.py": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/workflow/minute_pit_allocator.py": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "tests/test_aux_projection_preflight.py": "0c500a5b7fb992ad405a8efd7bb179496f3ea4afa0c084634c7d4dd1a57c5520"
+  },
+  "notebook_before_sha256": "cb94ce7db0c73dd049a61a7908a53d7bf20b6fd0ca61cf54f4237363feda7e6d",
+  "notebook_after_sha256": "bcf5a440033dcfe37e5e20c4a54be9e2fa4bdedb1b57d12a9392e0bac21e79e2",
+  "failed_state": "preprobe_failure_1.json",
+  "mathematics_tolerances_sources_and_probe_grid_changed": false
+}

@@ -73,6 +73,13 @@ Quant StackExchange、MQL5及相关Reddit讨论作为线索入口，再追到原
 路线不作为近期必需依赖，不把同名代理量冒充原论文指标。只有可在当前三资产、
 费用和风险合同中验证的方案进入冻结实验；成功或失败都回到完整SOXX验收。
 
+需要自包含的Dataset证据时，保存前按[Qlib序列化合同](https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.utils.serial.Serializable.config)
+设置`dataset.config(dump_all=True, recursive=True)`，并在既有一次交付读回中实际
+调用`prepare`核对字段、日期与值；文件存在和哈希通过不等于缓存可用，也不证明
+底层loader可以再次`setup_data`。已封存Dataset缺缓存时，保留原件与明确限制，
+可从固定来源经原生Dataset重建并核对保存张量；不得为修复交付重复拟合、梯度探测
+或账户回放。2026-10-18辅助投影卡的96件归档和逐元素重建证据保留了这一区别。
+
 以下1–7节保留原差区间信息试验的具体合同与结果；其Ridge/H5及旧下一方向属于
 当时实验，不能覆盖本节和持续研究合同。
 

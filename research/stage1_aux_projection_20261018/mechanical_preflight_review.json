@@ -1,0 +1,87 @@
+{
+  "role": "independent_evaluator",
+  "reviewer": "/root/independent_evaluator",
+  "experiment": "stage1_aux_projection_20261018",
+  "verdict": "APPROVE_MECHANICAL_PREFLIGHT_ONLY",
+  "mechanical_preflight_approved": true,
+  "mechanical_preflight_draft_sha256": "42928b9d3cebf84063d9860bed0d8b474df567a5dc74042e940d3063361e0872",
+  "prior_draft_sha256": "690123970ecb9629abf645aa761aafa5bd9c060c1c5f0744b7fe33d454b7fa5a",
+  "role_priority": "Backup mechanical qualification; ROD remains the active priority.",
+  "approved_scope": {
+    "probe_cells": 24,
+    "seeds": [71, 172, 273],
+    "anchors": ["original_initialization", "saved_base_outer_final"],
+    "auxiliary_epoch_indices_zero_based": [0, 99, 199, 299],
+    "primary_training_rows": 3014,
+    "auxiliary_training_rows": 20741,
+    "shared_parameters": 154,
+    "private_parameters": 819,
+    "total_parameters": 973,
+    "optimizer_steps": 0,
+    "fits": 0,
+    "model_or_checkpoint_selection": 0,
+    "accounts_or_policy_replays": 0,
+    "new_market_return_labels": 0,
+    "evaluation_or_forward_label_reads": 0,
+    "new_market_source_acquisition": 0
+  },
+  "single_required_correction": {
+    "status": "resolved_before_probes",
+    "problem": "An all973-parameter residual threshold can be dominated by819 private-gradient coordinates and hide a material relative mismatch in the154 shared coordinates where projection is applied.",
+    "fixed_resolution": "Keep the original full-vector parity check and additionally require shared-local parity <=r*(norm(gP_shared)+norm(gA_shared)) for every probe. Both full and shared zero-scale cases require exact equality. Assemble the split control in the original gradient dtype and order before converting it to float64 for residual, norm and dot audits.",
+    "failure_behavior": "Any of the24 full or shared parity failures is needs_numerical_review. Do not widen r, alter probes or label the mismatch harmless rounding.",
+    "algorithm_probe_grid_and_r_unchanged": true
+  },
+  "numerical_assessment": {
+    "r": "32*finfo(original_gradient_dtype).eps",
+    "verdict": "Acceptable as a fixed, preregistered engineering-resolution screen for these computed gradient vectors. It is not a rigorous error bound on the upstream true gradient.",
+    "dot_screen": "tau_dot=(gamma(2*d)+2*r+r*r)*norm(gP)*norm(gA), using the declared dimension d for each reported dot and float64 accumulation.",
+    "gamma_scope": "The gamma term concerns rounding in the small float64 dot-product computation under its floating-point assumptions. It does not bound the forward/autograd/GEMM computations that produced gP or gA.",
+    "perturbation_scope": "The2r+r*r term is a conditional perturbation budget if each input vector has relative perturbation at most r. Neither full nor shared split-backward parity proves that assumption or certifies the sign of an exact real-valued autograd gradient.",
+    "projection_displacement": "Compare the actual after-cast displacement to the unchanged r*(norm(gP_shared)+norm(gA_shared)) screen. Retain raw negative dots and strict projection behavior even when their classification is numerically unresolved; the screen must not become an angle threshold in the algorithm.",
+    "nonfinite_or_unsupported_case": "Stop at the concrete numerical/backend problem. Preserve zero-norm and cast information; no optimizer or tolerance reconstruction is authorized.",
+    "allowed_claim_after_passing": "The specified asymmetric projection produced or did not produce a change resolvable under this fixed screen at the declared anchors/draws.",
+    "forbidden_claims": [
+      "A rigorous bound on all upstream differentiation error.",
+      "Proof of negative transfer, training-trajectory conflict frequency or generalization benefit.",
+      "Proof that an actual AdamW step protects either the composite primary loss or allocation loss.",
+      "Trading efficacy, net SOXX excess, promotion or Goal completion."
+    ]
+  },
+  "mechanism_assessment": {
+    "approved_rule": "One projection of auxiliary shared gradient against the fixed composite primary shared gradient. Keep aligned and orthogonal auxiliary components; remove only the negative primary-direction component. Return the original auxiliary tensor unchanged for no conflict or zero primary norm.",
+    "primary_objective": "P is the unchanged original allocation objective plus0.02 times both primary BCE terms; A is the original0.05 weighted auxiliary BCE objective. No loss decomposition, relabeling or weight search is authorized.",
+    "private_gradient": "The pre-clip private vector is copied unchanged from the split control. A changed global clip coefficient may scale it differently afterward; this must be reported rather than called private-update invariance.",
+    "exact_arithmetic_limit": "For nonzero shared gP, exact Euclidean projection gives dot(gP,gP+gA_projected)>=norm(gP)^2. A positive global clip factor preserves that sign, not the same magnitude. The full primary vector additionally contains its unchanged private component.",
+    "allocation_boundary": "Composite P protection does not imply an allocation-only directional improvement. Report both P and allocation-only dots, shared and full, before and after clipping as specified.",
+    "optimizer_boundary": "No AdamW step is executed. Momentum, coordinatewise preconditioning and decoupled weight decay can change the actual update direction, and unsaved optimizer states must not be inferred, zero-filled or rebuilt.",
+    "prior_evidence": "The previously reported positive near-orthogonal all-auxiliary encoder cosines do not establish a negative-transfer mechanism and do not replace the24 fixed sampled probes."
+  },
+  "execution_conditions": [
+    "Before probes, freeze the implementation/source identities and record the exact original dtype, backend, software and thread settings. Use the original source computation path; a changed precision/backend is not an automatic substitute.",
+    "Resolve the declared shared-head source Recorder and per-object hashes, original973-parameter tensors, feature/scaler order, loss coefficients, eligible rows and auxiliary sampling. A mismatch stops preflight; do not repair it by fitting.",
+    "Retain every cell in the3x2x4 grid. Epoch indices select auxiliary draws only; they are not intermediate checkpoints or a recovered optimizer trajectory.",
+    "Require all finite/identity/shape checks plus both973-full and154-shared parity checks. Preserve gP and pre-clip private vectors exactly and report the specified directional quantities and clip coefficients.",
+    "If every cell is identity or unresolved, close this fixed mechanical version as no_resolvable_intervention_at_prespecified_anchors. If any cell is resolvable, only a separately reviewed frozen training/account design may be considered; do not launch it automatically.",
+    "The research owner controls scheduling and the explicit mechanical-only execution handoff. This approval does not displace the ROD priority or authorize optimization, model selection, accounts or production changes."
+  ],
+  "reference_boundary": {
+    "pcgrad": "https://arxiv.org/abs/2001.06782",
+    "primary_anchored_decomposition": "https://david.grangier.info/papers/2021/ldery-aux-taks-iclr21.pdf",
+    "interpretation": "The proposed one-dimensional asymmetric projection is a restricted adaptation. The cited general multitask/auxiliary-task results are not a reproduction claim or SOXL/SOXX efficacy evidence."
+  },
+  "review_activity": {
+    "new_gradient_probes": 0,
+    "training_or_evaluation_labels_read": 0,
+    "optimizer_steps": 0,
+    "fits": 0,
+    "accounts": 0,
+    "scope": "Read the original and amended drafts, existing architecture/loss code and primary method references. Verified that the sole amendment adds local parity and clarifies arithmetic/error-bound meaning without changing the algorithm, r or probe grid. This receipt is the sole file written."
+  },
+  "formal_training_design_approved": false,
+  "formal_fit_execution_approved": false,
+  "real_step_protection": "unknown_not_measured",
+  "production_change_authorized": false,
+  "promotion_authorized": false,
+  "objective_achieved": false
+}

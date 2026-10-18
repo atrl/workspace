@@ -1,0 +1,485 @@
+{
+  "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+  "entries": [
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/analysis/direction_metrics",
+      "sha256": "9ebb94fc13429b31286ab6f8c02a2124beaf64ebd300007a68d359d73f711a4b",
+      "bytes": 23284
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/analysis/probe_results",
+      "sha256": "2cf94f90eaa283b8f06037d6e2dc916b179b43e2bff0529822b7fbc2f3e0486b",
+      "bytes": 14892
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/analysis/summary",
+      "sha256": "1e45eb308012a6bf43c7e1e1d8f01876c90be56e8794e1fe5f8d84de58ddac55",
+      "bytes": 1786
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/auxiliary_dataset",
+      "sha256": "0d2131ee3f0438e4d90104821ae59b298dc044ad78d2880a570c8d100e149d8b",
+      "bytes": 411
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/dataset",
+      "sha256": "872d2ba00cb38a2220428b10c676288bfa30e6bbed3560005614ba28c50cc295",
+      "bytes": 423
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/identity",
+      "sha256": "3d5bbeba2f86e9eb5ed24ca24dc8d2d04d21ee9c664c791bb4210c657e324dfb",
+      "bytes": 3825
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/plan",
+      "sha256": "de2e46c6cdec3509aca50102f9b4b1b906d9f0a41f60e01d077fa7eac0a54b8a",
+      "bytes": 10493
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/review",
+      "sha256": "0880c1d6980cdca21faa7b8cc2ea1418d99987cf26e5e6e77eb41527d98c0027",
+      "bytes": 7718
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/source_audits",
+      "sha256": "e82207ce1a5a2cb8d31b87c40088e8566cbca690e29cda1069a587806218873e",
+      "bytes": 7810
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/tensors",
+      "sha256": "6ea285da091469ea4e23391fffb12530ca1cf42646d024cd5695e694d10a6194",
+      "bytes": 2327198
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/training_audit",
+      "sha256": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53",
+      "bytes": 1606
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/models/s172_original_initialization",
+      "sha256": "fe0ad61cddce4e1bec044bb1856f7c91997ae452141633b22f6e87d059df01b7",
+      "bytes": 7305
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/models/s172_saved_base_outer_final",
+      "sha256": "fe6c5840fddfcbcb0333218854b80a6a8fdb3ba52cbc9abcf504dd901758fad9",
+      "bytes": 7305
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/models/s273_original_initialization",
+      "sha256": "ffa68c72ae8a4f525ca864c5447e3b02d3e67966f116a16c8a2fafea4ec6f63f",
+      "bytes": 7305
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/models/s273_saved_base_outer_final",
+      "sha256": "3ce4acaaf1c10103c1e0854a03666dbc3d0031ba821399cae046d3fea8c56e30",
+      "bytes": 7305
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/models/s71_original_initialization",
+      "sha256": "2fb80369b1fc7580ed6d1dfa244daa1cba01c0b2a41bec52435c3879edfc252f",
+      "bytes": 7305
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/models/s71_saved_base_outer_final",
+      "sha256": "3204bdc95a9436d3ab9fff02f60092387066a1c83f9a846b80ba797d951b3eeb",
+      "bytes": 7305
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw0/directions",
+      "sha256": "c872f68acd904c5e03cdab3daf5fbcd9cbe3a4fdf294a5859467f4049b3db9ff",
+      "bytes": 1615
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw0/result",
+      "sha256": "43ee6e75abd3f83c5bddc45b6a28afcf7edc398c5ed4b14eac3670d2f21c9bc7",
+      "bytes": 1620
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw0/vectors",
+      "sha256": "d4ba25eca68bd369195ee1bfb945b7d0dc9b5ec67be4e3a0ef874674d4d0b771",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw199/directions",
+      "sha256": "848d43fc96f91af511ed0366d2129bba54889c37a19f0e3c2008af033fe173cd",
+      "bytes": 1617
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw199/result",
+      "sha256": "078c261ea0cef5c09c0bf77c18eb941915ba4e0f8895a765b4db0249c717bef1",
+      "bytes": 1622
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw199/vectors",
+      "sha256": "44ee3bb86311afe0dcb4a8be2db4ad507052d4062bf731856921be4d007f6bc8",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw299/directions",
+      "sha256": "826847ba7c2af2f3ea95c26c13ee16e8b3b9f861ee2bfeb25775b3d3bbcf73f7",
+      "bytes": 1633
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw299/result",
+      "sha256": "f9d4e4c80512b4238ee8ccb1335f23306a8342c22b6e4808c3ba8e5a595a4cdf",
+      "bytes": 1623
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw299/vectors",
+      "sha256": "2362245ff5394c45cdf53032043e4934ac516daa4432c4c32a7b534e0c9dc5d0",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw99/directions",
+      "sha256": "912980062fdebfd6bbe18ea712bbda5426fcdeb3468fcb98bc1fca4b1a9506c1",
+      "bytes": 1616
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw99/result",
+      "sha256": "bc7ec33e0f5d7a17d0c494827705ebda3a2700b1ff2343c7e88e56f6afd10a69",
+      "bytes": 1621
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_original_initialization_draw99/vectors",
+      "sha256": "117254ddff9bb46650197d1878780f0a8e46b59f17ac6158b2833312808c7f9c",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw0/directions",
+      "sha256": "dff260b6a1c7dd615c10e67824c1671179a54b95352fbf73b972399648175b9d",
+      "bytes": 1613
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw0/result",
+      "sha256": "f1f7b259fd3ea90e9969e7b11e17722347be3393531a7faef6a3bd26bf6e4288",
+      "bytes": 1618
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw0/vectors",
+      "sha256": "c8017f4b857e47ebd268be16bdb5c5a8228b5e1dcb3a3dea222727e81417fbaf",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw199/directions",
+      "sha256": "5b52b888df0b50360b13192f2cc31f08673e52d2bd8eeed70df91c370440b153",
+      "bytes": 1615
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw199/result",
+      "sha256": "04ae5ab67071c26d7854f6675717686c1cb2f0ee652a4717436a81e5e93d8f18",
+      "bytes": 1620
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw199/vectors",
+      "sha256": "9847e92988b766154549d6cd75f884cedad3494e5bf6344c2f68d8907061547f",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw299/directions",
+      "sha256": "64a132da4d5e7c346033b628a51fa1c814f066e15e2eda9800cf87b13232cec9",
+      "bytes": 1631
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw299/result",
+      "sha256": "57dd5bc982e563ba71f7608fa11ec5a5e8020c828c404b26defcc57221796621",
+      "bytes": 1621
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw299/vectors",
+      "sha256": "e755c229e85ad00c2c8d2db4245a73dd547973fa01b89146e158bae078e7a57a",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw99/directions",
+      "sha256": "42fdc69c329c0c81706c835fa78d3e5470e58f1be1092537439fe49d9d471898",
+      "bytes": 1614
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw99/result",
+      "sha256": "bddd58767f330da6c909a83c4427b81f133bb3b2765ac6b8c5ec7aa4dcf0e40a",
+      "bytes": 1619
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s172_saved_base_outer_final_draw99/vectors",
+      "sha256": "24b2c7328bd2f99ea3b549af8880236053d660f4cf88895db29acd332c675cba",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw0/directions",
+      "sha256": "ad7d91a7e11560058195d053979ba37e99fa3f3eaa63fafeeecbcdd930bd77a3",
+      "bytes": 1631
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw0/result",
+      "sha256": "0803832ae9ddbb7701caf784498bb05b3179471bab613cf8f8c8718456578f57",
+      "bytes": 1621
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw0/vectors",
+      "sha256": "8bd3355cb22ef41733d509d13ffcf43ff4cb636ff88b1741b6d43c5df14dde53",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw199/directions",
+      "sha256": "011f7ef46104b829168edc9984f7e43c793456075d209c5d73114e20dc5583af",
+      "bytes": 1633
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw199/result",
+      "sha256": "3cec05fb56b7b19aca82f394d494a1d21c3ed9bde744522f894ed404263fd4d4",
+      "bytes": 1623
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw199/vectors",
+      "sha256": "faedfa8fabd2995597e972585506dbf7566c675de83daca0bd0099a050e3b6e8",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw299/directions",
+      "sha256": "b6c1da4651a4437ec27899cf30c1c0136f265dd547a3b66f258a2e67a36a171f",
+      "bytes": 1649
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw299/result",
+      "sha256": "b5ee3914f3ed6f1abab9704dd11fbb0647e66a43307d126a451cf92a257b8276",
+      "bytes": 1624
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw299/vectors",
+      "sha256": "e1dcbb30c1aa0b7d277c30e3b9de86f7e2e545d048105c3e3182673edc410306",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw99/directions",
+      "sha256": "db04f753f5e96dc6ed694f764e20cd22a7fc23f9009f47de7748b966f80dada7",
+      "bytes": 1632
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw99/result",
+      "sha256": "3aece460a8c7cbd2b1b0a758eebc555f0453ba96643aa7c9aae32b4539f9e049",
+      "bytes": 1622
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_original_initialization_draw99/vectors",
+      "sha256": "e60f4f09c2c888b18343e0b33ac199dbcea59167b34bef8a78536d0d7fb64ad2",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw0/directions",
+      "sha256": "6b7012994ee9a173f171e16bb19e604219f442775a12139664fb49c27a6a8242",
+      "bytes": 1629
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw0/result",
+      "sha256": "92b43937a0b42515bf5a62ad4f8f4ce1f8d12c32cac3497b5cc34d091cdcb9c0",
+      "bytes": 1621
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw0/vectors",
+      "sha256": "929b8513ddf2320930065a279d5c56eb966c408ea3f024d37f4e53c82601d004",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw199/directions",
+      "sha256": "08412e6c4feebe52726e8d8d4f2a5370c91dccaaba29db365915e91a9104d8fd",
+      "bytes": 1622
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw199/result",
+      "sha256": "236341a089ff2e4388109de110db840829b0e1e237defb60969943fddfcd3286",
+      "bytes": 1621
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw199/vectors",
+      "sha256": "9999f9cd4f41c29cd91260453ccffd850cf242a6dc0e2e10b0ff93bf6fe2e8e8",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw299/directions",
+      "sha256": "a134b94d13e799a5c7875dce3e110337c6c8373bb881cdd08b65f08a9dd9ab90",
+      "bytes": 1647
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw299/result",
+      "sha256": "a805eaab28d94db01add78facc00c96014901fda94a019ca5f35b7209cb0e155",
+      "bytes": 1622
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw299/vectors",
+      "sha256": "11585c25cf1e5a1c5952ee756ecc579804a41b60403c7db2b20cf577ee5e3576",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw99/directions",
+      "sha256": "ccc55d289d3fc13d98fe957113813c858f1363eabc65bc040a98958a4bd12f30",
+      "bytes": 1621
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw99/result",
+      "sha256": "da8efdf28a8b209ada7d5874b809762a99b73ee9e60fca157f8b10c75f9e9d06",
+      "bytes": 1620
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s273_saved_base_outer_final_draw99/vectors",
+      "sha256": "7f336c228db372f425c8ab9ba594fb87657e0477defcc28962a3e0c5d9f816be",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw0/directions",
+      "sha256": "aa1a831ebdaeb358cdf618cdc6944a816264a83ad0ae87b3fa7063d7c5801c11",
+      "bytes": 1614
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw0/result",
+      "sha256": "16ce4fffde74164725b3cfa6267f73e811cc7a00a80587e25a55da840f78051a",
+      "bytes": 1619
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw0/vectors",
+      "sha256": "59d91322f3cc025fcb2d878b0e5ad9c4bc0338d14ce648411399ea7c22b1b287",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw199/directions",
+      "sha256": "1ccd909c8361e9ad486ff45bd34307f7eeafe57232009c31dd85b87878f93d62",
+      "bytes": 1616
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw199/result",
+      "sha256": "ac922ab4d4420b709d9b6a990e4dd13c979c8bf976480008deb0c3413acad09d",
+      "bytes": 1621
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw199/vectors",
+      "sha256": "ad1e162a5809f95e4f0e70bafe3b68802316ab6a8b90a564c8a8d8f139bad860",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw299/directions",
+      "sha256": "a5d36c7a9c00403089dfa3cbcfbea5c12698ecf88c7f946a6016654afd14020c",
+      "bytes": 1632
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw299/result",
+      "sha256": "392bb364944f5e118f081177f5d1e854492c0c9dd3490bf8acaa54ddc3204251",
+      "bytes": 1622
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw299/vectors",
+      "sha256": "93230708ecb68e6b0a5871b7efc77e7bf09e4fa7a26e3d44812a4f952225f641",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw99/directions",
+      "sha256": "7dacbcbbfacf869983b6cef5971376f7d644deef80993bc3a0cf196a62adb515",
+      "bytes": 1615
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw99/result",
+      "sha256": "a7c605518318fdaa4802221512c18f1f79591c892ffedafcd4b2240bb5e26d33",
+      "bytes": 1620
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_original_initialization_draw99/vectors",
+      "sha256": "e6a4175f4e1b4fc88456f10fb41479e3863a43527bca24611e1b177f13f9b37a",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw0/directions",
+      "sha256": "990621ba4459177158367b599a95b587156ed676fd49a45931805cd45a5210ec",
+      "bytes": 1612
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw0/result",
+      "sha256": "154fc071cd09a1613292555a304b50ec4aecea99e50282daec69a2693023853b",
+      "bytes": 1617
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw0/vectors",
+      "sha256": "4d6eed3b9ce1dac5624062d377206e72a8f2b2272b56c1bfbf3d58066879cf88",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw199/directions",
+      "sha256": "4421094a454f7ae27814f5c862a89a18439cbbab1cab49d988dced210937f13f",
+      "bytes": 1605
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw199/result",
+      "sha256": "9d57a89a22bf2c07ece7f2c33ae57c0b390402477acdff006f3d1ddb33e0cf2b",
+      "bytes": 1619
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw199/vectors",
+      "sha256": "da7d65ae0c046f9ba51dbfe7a05ca96415f1a0428f0a358f4f09427dee1cb43b",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw299/directions",
+      "sha256": "c54ab1bee012d620066e0c620e05b27932bbb761a0f907179e6f7110393a8997",
+      "bytes": 1630
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw299/result",
+      "sha256": "235f42a6ab79043fb7ff2f7d7ccec658de6cd8168b1b4c9a9850ff9257648f63",
+      "bytes": 1620
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw299/vectors",
+      "sha256": "53202b8fdd85d93ed986791ad1f19652e2838e1e02495d6611ea1a7eb146da72",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw99/directions",
+      "sha256": "20e10e4d613420c8e1246350bc0e2f0edd14ab95b6071840b7ac0d7d864a69a4",
+      "bytes": 1613
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw99/result",
+      "sha256": "398d9fdc0a14637911f03fd6fc69f41fc169f882a8f091e52f715dffcb8108d4",
+      "bytes": 1618
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/probes/s71_saved_base_outer_final_draw99/vectors",
+      "sha256": "9ba86abcaa27be8f8854d0d5f7c03d6b83e1fbf82f4fbb825ecb74e2e8046dea",
+      "bytes": 48120
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/sources/src__core__recorder_sources.py",
+      "sha256": "5199232c14650441073b2990723374727ba9a7f9f67f07203a323e5ba12d45bf",
+      "bytes": 13100
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/sources/src__data__minute_intake.py",
+      "sha256": "f10a9f01fa410fbaff3b3ee2ef5f66a2d9bbadde226dd1a0fba7f468a79005a5",
+      "bytes": 11311
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/sources/src__model__minute_pit_allocator.py",
+      "sha256": "489fbbf044959a94a5b8e13deeb32d02e29118c0f2bfc56acf4a8a5287aaa88c",
+      "bytes": 13296
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/sources/src__workflow__aux_projection_preflight.py",
+      "sha256": "9255cce072a81c78e87842769221b5c4ff2f1e722aad2fe30b9a088e17aee6a0",
+      "bytes": 31044
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/sources/src__workflow__minute_pit_allocator.py",
+      "sha256": "df69ad4e5bcac990e64e05e9e89201098de859dd3a51e6ee2f7d248844d250ac",
+      "bytes": 35160
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/sources/src__workflow__pit_constituent_auxiliary_training_allocation.py",
+      "sha256": "fb56a35500a3b84434fa96764e1deb86dbb57de9cddca295819c6d301ab37be7",
+      "bytes": 102361
+    },
+    {
+      "path": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/sources/tests__test_aux_projection_preflight.py",
+      "sha256": "c14d223a837498081eac639b49af2e65cb83da3b24edcc1afd72fdd153b4287d",
+      "bytes": 1377
+    }
+  ]
+}

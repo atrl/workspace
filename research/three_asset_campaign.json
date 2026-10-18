@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_close_rod_20261018",
-  "current_phase": "FINRA_source_intake_resumed_CDN_only",
-  "next_action": "Freeze exact strategy/source/precision/funding/reference identities, finish synthetic physical-lot/grid checks and independent implementation review, then execute the single authorized ROD comparison only after owner GO.",
+  "current_phase": "ROD_fixed_economic_failure_result_review_and_attribution",
+  "next_action": "Complete independent ROD result review and one bounded attribution, deliver the closed fixed version. Review auxiliary-projection mechanics and the separate bounded training design; no fit is authorized by the draft. Continue settlement-source clarification as a source-only backup.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1657,41 +1657,9 @@
     }
   ],
   "execution_observation_20261018": {
-    "phase": "close_ROD_permission_and_source_preflight_design",
-    "model_executor": "/root/recent_evidence",
-    "raw_adapter_executor": "/root/challenge_summary",
-    "evaluator": "/root/independent_evaluator",
-    "model_training_started": true,
-    "native_accounts_started": true,
-    "new_source_requests": 0,
-    "observed_source_counts": {
-      "mature_primary": 3014,
-      "auxiliary": 20741,
-      "primary_features": 39,
-      "common_features": 16
-    },
-    "observation_scope": "Executor reported live nbconvert session66916; counters below observed from durable run_state, not a guarantee of future liveness.",
-    "execution_approval": "research/stage1_domain_heads_20261018/execution_approval.json",
-    "formal_budget": {
-      "model_fits": 6,
-      "new_native_accounts": 9,
-      "reused_reference_accounts": 9
-    },
-    "executor_session_id": 66916,
-    "executor_agent": "/root/recent_evidence",
-    "implementation_commit": "690607bd",
-    "observed_completed": {
-      "fits_done": 6,
-      "paths_done": 9,
-      "native_done": 9
-    },
-    "executor_session_exit_code": 0,
-    "next_executor": "/root/recent_evidence",
-    "next_executor_task": "FINRA source-only design review and bounded intake implementation; bulk not yet started",
-    "completed_experiment_scope": "research/stage1_domain_heads_20261018",
     "current_task": {
       "card": "research/stage1_close_rod_20261018",
-      "phase": "source_preflight_passed_strategy_implementation",
+      "phase": "ROD_fixed_economic_failure_result_review_and_attribution",
       "executor": "/root/recent_evidence",
       "source_contract_owner": "/root/intraday_novelty",
       "independent_evaluator": "/root/independent_evaluator",
@@ -1699,17 +1667,17 @@
       "policy_paths": 0,
       "accounts": 0,
       "source_HTTP_authorized": 0,
-      "ROD_or_future_return_computation_authorized": false,
+      "ROD_or_future_return_computation_authorized": true,
       "source_preflight_scope": "Existing event-date membership/coverage, native endpoints including first previous close and halfdays, exact source/F32 projection errors only. No sign, tail return, historical strategy opportunities or account execution.",
-      "policy_execution_authorized": false,
+      "policy_execution_authorized": true,
       "source_contract": "research/stage1_close_rod_20261018/source_contract_draft.json",
-      "strategy_design": "research/stage1_close_rod_20261018/experiment_design_draft.json",
+      "strategy_design": "research/stage1_close_rod_20261018/plan.json",
       "permission_change": "New close-only shared B/C permission, not an old all-day .6 allowance. C adds positive ROD; B does not. Original morning chain and state/peak clocks retained; new emergency clamp explicitly subject to review.",
-      "executor_lifecycle": "Source-only87891 actually exited0. Executor explicitly resumed for separate late-adapter/workflow implementation; passive-reference helper separately resumed after a concurrency slot freed. No policy or signal execution claimed.",
+      "executor_lifecycle": "Original35358 actually exited0 after6path/6native/12passive. No restart. Executor continues one authorized Recorder-only attribution; root coldread1465exit0. Result review pending.",
       "source_preflight_review": "research/stage1_close_rod_20261018/design_preflight_review.json",
       "source_preflight_review_sha256": "64cd67cf46bb00e80dcf262854bd6d737ef125ba4993e93d89b081e659931cc9",
       "source_preflight_execution_authorized": true,
-      "formal_strategy_design_approved": false,
+      "formal_strategy_design_approved": true,
       "source_contract_sha256": "29a1dfbbdc745627016f704b25a8baa676e9b1690183c735156c0f8a399f74f9",
       "strategy_design_draft_sha256": "94d3f362fc9990dd9f1830a6263b4158e806ad0269ebda400f89b8e1d1805aa5",
       "source_preflight_authorization_boundary": "Only existing-source endpoint/event/session/representation checks. No ROD/sign/return label, training, policy path, account or new source HTTP.",
@@ -1727,7 +1695,29 @@
         "native_float64_rows": 11302,
         "event_days_no_increment": 28,
         "regular_non_event_source_days": 908
-      }
+      },
+      "strategy_design_plan_sha256": "a548cbac5bf81787d9b14cc4491c711c903476489f17488b98e5e638bb9387b1",
+      "strategy_preflight_session_id": 45319,
+      "strategy_preflight_exit_code": 0,
+      "strategy_preflight": "research/stage1_close_rod_20261018/strategy_preflight.json",
+      "execution_authorization_scope": "ROD sign and precommitted policy/account return calculation only; no new training labels or fits",
+      "executor_session_id": 35358,
+      "executor_session_exit_code": 0,
+      "executor_job_running": false,
+      "implementation_commit": "33a68dc1",
+      "execution_approval": "research/stage1_close_rod_20261018/execution_approval.json",
+      "design_review": "research/stage1_close_rod_20261018/design_review.json",
+      "observed_completed": {
+        "paths_done": 6,
+        "native_done": 6,
+        "passive_done": 12
+      },
+      "recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
+      "archive_sha256": "430de3567f7a3ab29f41d07a064da4b3dc80e8c61f87812e58fe7910f102b1e3",
+      "fixed_result": "not_promoted_fixed_close_ROD_v1",
+      "independent_result_review_pending": true,
+      "failure_attribution_authorized_once": true,
+      "readback_verification": "research/stage1_close_rod_20261018/readback_verification.json"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -1828,6 +1818,40 @@
         "native_done": 6
       },
       "model_job_running": false
+    },
+    "completed_domain_heads_task": {
+      "phase": "close_ROD_permission_and_source_preflight_design",
+      "model_executor": "/root/recent_evidence",
+      "raw_adapter_executor": "/root/challenge_summary",
+      "evaluator": "/root/independent_evaluator",
+      "model_training_started": true,
+      "native_accounts_started": true,
+      "new_source_requests": 0,
+      "observed_source_counts": {
+        "mature_primary": 3014,
+        "auxiliary": 20741,
+        "primary_features": 39,
+        "common_features": 16
+      },
+      "observation_scope": "Executor reported live nbconvert session66916; counters below observed from durable run_state, not a guarantee of future liveness.",
+      "execution_approval": "research/stage1_domain_heads_20261018/execution_approval.json",
+      "formal_budget": {
+        "model_fits": 6,
+        "new_native_accounts": 9,
+        "reused_reference_accounts": 9
+      },
+      "executor_session_id": 66916,
+      "executor_agent": "/root/recent_evidence",
+      "implementation_commit": "690607bd",
+      "observed_completed": {
+        "fits_done": 6,
+        "paths_done": 9,
+        "native_done": 9
+      },
+      "executor_session_exit_code": 0,
+      "next_executor": "/root/recent_evidence",
+      "next_executor_task": "FINRA source-only design review and bounded intake implementation; bulk not yet started",
+      "completed_experiment_scope": "research/stage1_domain_heads_20261018"
     }
   },
   "goal_contract_20261018": {
@@ -1849,13 +1873,14 @@
   },
   "current_goal_execution_counts": {
     "model_fits": 12,
-    "new_native_accounts": 15,
-    "reused_native_accounts": 24,
-    "completed_fixed_experiments": 2,
+    "new_native_accounts": 21,
+    "reused_native_accounts": 36,
+    "completed_fixed_experiments": 3,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
     "reused_native_accounts_scope": "Cumulative comparison reuse events, not independent accounts or new market observations",
-    "unique_reused_reference_accounts": 15
+    "unique_reused_reference_accounts": 15,
+    "independent_result_reviews_pending": 1
   },
   "next_experiment": "research/stage1_close_rod_20261018",
   "external_discovery_20261018": {
@@ -1919,7 +1944,7 @@
         "reason": "Daily fixedH5 complete internal samples have almost constant overlap; current primary model is not OOB-scored bagging. Not a substantive information repair."
       },
       "closing_half_hour": {
-        "status": "source_and_strategy_drafts_written_source_only_preflight_in_progress",
+        "status": "ROD_fixed_economic_failure_result_review_and_attribution",
         "reviewer": "/root/intraday_novelty",
         "community": "https://www.quantconnect.com/forum/discussion/9030/strategy-library-addition-intraday-etf-momentum/",
         "primary": "https://academicweb.nd.edu/~zda/intramom.pdf",
@@ -1930,12 +1955,12 @@
         ],
         "constraint": "No reopening early10:30 momentum or multi-clock overnight-target rules by window search; distinct economic holding interval and executable price/fee contract must be established first.",
         "novelty": "Old early route uses opening-to10:30 and10:30-to-close; old multicycle15:30 signal targets15:45-to-next09:45 including overnight. Fixed last-half-hour continuation with same-day incremental exit was not isolated. No window/sign/threshold rescue.",
-        "candidate": "SOXX event-adjusted previous-close-to15:30 return sign; ifpositive, temporary existing risk-permitted Stage1 recovery target, delayed15:32 entry and precommitted15:59increment removal. Else unchanged target. No financing/short/expandedrisk.",
+        "candidate": "New close-only shared B/C permission under frozen structural/cash/lot limits; C adds strict positive SOXX ROD. The .6 cap is new permission using an old numeric ceiling, not an existing all-day authorization.",
         "timing": "Right-edge bars:15:30close known under +60second assumption;15:32 fill uses15:33 baropen,15:59 exit uses16:00baropen.27minutes executable interval, not exact30minute replication or guaranteedMOC.",
         "source": "semis_minute_none_20261012_v1 manifest18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3; existing corefullminute files verified by reviewer",
         "source_limits": "Normal390minute sessions only forincrement;210minute sessions remain completebaseline accounts. Previous halfday close uses13:00.2020-03-16 SOXX anomaly quarantined. Crossday split/dividend eventavailability and endpoints require separate preflight; missing meansnoincrement,neverdropday.",
         "controls": "OriginalStage1, sameclock/opportunity-set recovery withoutROD, SOXX,strongreference. All threecost accounts retain owncash/quantity/state and chargeentry+exit. Increment cannotborrow fullminute/forwardqualification.",
-        "next_action": "Only after currentFINRA experiment: separately freeze one reduced-form design and necessary endpoint/eventsource checks. No newlabels/fits/accounts yet.",
+        "next_action": "Resolve concrete full-strategy review findings, then owner approves exact final plan/code before any actual signal/account run.",
         "primary_limit": "Futures longshort and broadasset evidence is notSOXL validation; priceROD doesnotmeasuregamma orNGE; oldmarketdates remainreused.",
         "independent_novelty_review": {
           "reviewer": "/root/independent_evaluator",
@@ -1952,6 +1977,45 @@
         "source_contract": "research/stage1_close_rod_20261018/source_contract_draft.json",
         "strategy_design": "research/stage1_close_rod_20261018/experiment_design_draft.json",
         "permission_contract_correction": "New close-only shared B/C permission, not an old all-day .6 allowance. C adds positive ROD; B does not. Original morning chain and state/peak clocks retained; new emergency clamp explicitly subject to review."
+      },
+      "asymmetric_auxiliary_gradient_projection": {
+        "card": "research/stage1_aux_projection_20261018",
+        "status": "mechanical_result_accepted_separate_training_draft_pending_review",
+        "community": "https://www.reddit.com/r/MachineLearning/comments/1fbvuhs",
+        "primary": "https://arxiv.org/abs/2001.06782",
+        "primary_anchored_reference": "https://david.grangier.info/papers/2021/ldery-aux-taks-iclr21.pdf",
+        "probe_count": 24,
+        "resolvable_probes": 1,
+        "identity_probes": 23,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "optimizer_steps": 0,
+        "formal_training_authorized": false,
+        "executor_session_id": 37837,
+        "executor_exit_code": 0,
+        "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+        "archive_sha256": "767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+        "readback": "research/stage1_aux_projection_20261018/readback_verification.json",
+        "readback_limits": "96artifact hashes pass; archived Dataset caches absent, exact native source reconstruction matches all saved tensors. No repeated probes.",
+        "claim_limit": "No training-trajectory, AdamW-step, economic or forward success claim. A resolvable operation permits separately reviewing a bounded design only.",
+        "training_draft": "research/stage1_aux_projection_allocation_20261018/experiment_design_draft.json",
+        "mechanical_result_review": "research/stage1_aux_projection_20261018/mechanical_result_review.json",
+        "mechanical_result_review_sha256": "27bb926e292da5a67dd0e2a5798e427a28873183289d0344007ba6568f1d5a74"
+      },
+      "month_end_settlement": {
+        "status": "mechanism_lead_absolute_deadline_unresolved",
+        "triage": "research/external_mechanism_review_20261018/month_end_settlement_triage.md",
+        "new_external_evidence": "2026 author paper reports relative timing migration with settlement-cycle changes, but absolute offsets differ from original Dash for Cash payment example.",
+        "candidate_input": "is_last_sale_day_for_month_end_settled_cash",
+        "input_generated": false,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "needs": [
+          "Unambiguous payment cutoff and settlement buffer without return-based calibration",
+          "Service-specific historical CNS/bank settlement-calendar exceptions",
+          "Unique falsifiable translation from cross-sectional selling pressure to three-asset allocation"
+        ],
+        "priority": "ROD remains active; no new experiment execution authorized from this triage."
       }
     }
   },
