@@ -2,19 +2,32 @@
 import numpy as np
 import pandas as pd
 import pytest
+import pickle
+from qlib.data.dataset.handler import DataHandler
 
-from src.workflow.preopen_tom_allocation import _native_dataset, audit_training_residency
+from src.workflow.preopen_tom_allocation import _native_dataset, _prepare_all_groups, audit_training_residency
 
 
 def test_actual_resident_frames_not_only_prepare_segment_define_training_scope():
     dates=pd.DatetimeIndex(['2022-12-20','2022-12-21'])
     index=pd.MultiIndex.from_arrays([dates,['X','X']],names=['datetime','instrument'])
-    columns=pd.MultiIndex.from_tuples([('feature',f'f{i}') for i in range(85)])
+    columns=pd.MultiIndex.from_tuples([*[('feature',f'f{i}') for i in range(61)],
+        *[('label',f'y{i}') for i in range(5)],*[('common',f'c{i}') for i in range(16)],
+        ('meta','label_available_at'),('meta','decision_at'),('meta','return_available_at')])
     frame=pd.DataFrame(np.zeros((2,85)),index=index,columns=columns)
     dataset=_native_dataset(frame,{'train':('2011-01-03','2022-12-30')})
     audit=audit_training_residency(dataset,expected_rows=2,expected_columns=85,maximum_signal_date='2022-12-21',role='synthetic')
     assert {row['path'].split('.')[-1] for row in audit['resident_frames']} >= {'_data','_infer','_learn'}
     assert not audit['setup_data_called']
+    assert not isinstance(dataset.prepare('train',col_set=DataHandler.CS_ALL).columns,pd.MultiIndex)
+    preserved=_prepare_all_groups(dataset,'train')
+    pd.testing.assert_frame_equal(preserved,frame)
+    assert preserved[('meta','label_available_at')].eq(0).all()
+    # Appended feature columns stay appended, including through native pickle.
+    augmented=frame.copy();augmented[('feature','new_slot')]=[.5,-.5]
+    augmented_dataset=_native_dataset(augmented,{'train':(None,None)})
+    restored=pickle.loads(pickle.dumps(augmented_dataset))
+    pd.testing.assert_frame_equal(_prepare_all_groups(restored,'train'),augmented)
     hidden=frame.copy();hidden.index=pd.MultiIndex.from_arrays([pd.DatetimeIndex(['2022-12-20','2023-01-04']),['X','X']],names=index.names)
     full=_native_dataset(hidden,{'train':('2011-01-03','2022-12-30')})
     assert len(full.prepare('train',col_set='__all'))==1

@@ -8,6 +8,7 @@ import os
 import numpy as np
 import pandas as pd
 import torch
+from qlib.data.dataset.handler import DataHandler
 
 from src.core.recorder_sources import load_verified_recorder_objects
 from src.data.minute_intake import atomic_json
@@ -109,6 +110,15 @@ def _native_dataset(frame,segments):
     dataset=DatasetH(handler=DataHandlerLP.from_df(frame),segments=segments)
     dataset.config(dump_all=True,recursive=True)
     return dataset
+
+
+def _prepare_all_groups(dataset,segment):
+    # CS_ALL deliberately flattens Qlib column groups. CS_RAW preserves every
+    # original column and its order; the Dataset's default data_key is unchanged.
+    frame=dataset.prepare(segment,col_set=DataHandler.CS_RAW)
+    if not isinstance(frame.columns,pd.MultiIndex) or frame.columns.nlevels!=2:
+        raise ValueError('native Dataset lost its column groups')
+    return frame
 
 
 def _append_four(original,canonical):
@@ -232,7 +242,7 @@ def prepare(*,root,card):
         dataset,auxiliary=primary['inputs/training_dataset'],primary['inputs/auxiliary_dataset']
         residency=[audit_training_residency(dataset,expected_rows=3014,expected_columns=85,maximum_signal_date='2022-12-21',role='primary'),
           audit_training_residency(auxiliary,expected_rows=20741,expected_columns=20,maximum_signal_date='2022-12-22',role='auxiliary')]
-        train=dataset.prepare('train',col_set='__all');aux=auxiliary.prepare('train',col_set='__all')
+        train=_prepare_all_groups(dataset,'train');aux=_prepare_all_groups(auxiliary,'train')
         dates=train.index.get_level_values('datetime');maturity=train[('meta','label_available_at')]
         if not (maturity.notna() & maturity.lt(pd.Timestamp(plan['training']['cutoff']))).all() or not np.isfinite(train['label'][list(TARGETS)]).all().all():
             raise ValueError('original mature/finite training cohort differs')
@@ -281,7 +291,7 @@ def prepare(*,root,card):
                 coverage=coverage,sources={'calendar':audit_calendar,'training':audit_primary,'models':audit_models,'tensors':audit_tensors})
             for name,expected,segment in [('primary_dataset',augmented,'train'),('auxiliary_dataset',aux,'train'),
                                          ('canonical_dataset',pd.concat({'meta':native_canonical},axis=1),'all')]:
-                pd.testing.assert_frame_equal(rec.load_object('inputs/'+name).prepare(segment,col_set='__all'),expected)
+                pd.testing.assert_frame_equal(_prepare_all_groups(rec.load_object('inputs/'+name),segment),expected)
             summary={'experiment':NAME+'_preflight','plan_sha256':approval['plan_sha256'],'status':'completed',
                 'decision':'eligible_for_formal_design_review' if identifiable else 'nonidentifiable_fixed_definition',
                 'fit_eligible':identifiable,'primary_rows':3014,'auxiliary_rows':20741,'original_columns':85,'augmented_columns':89,
@@ -337,7 +347,7 @@ def _evaluate(root,plan,models,prepared):
     if len(models)!=6:raise ValueError('incomplete model set')
     sources,audits={},{}
     for name,binding in plan['evaluation_sources'].items():sources[name],audits[name]=_read(root,binding)
-    original=sources['prediction_dataset']['evaluation/dataset'].prepare('predict',col_set='__all')
+    original=_prepare_all_groups(sources['prediction_dataset']['evaluation/dataset'],'predict')
     if len(original)!=946 or len(original.columns)!=85:raise ValueError('original evaluation dataset differs')
     augmented=_append_four(original,prepared['inputs/canonical'])
     dataset=_native_dataset(augmented,{'predict':('2023-01-03','2026-10-09')})

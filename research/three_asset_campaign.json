@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/stage1_preopen_tom_20261018",
-  "current_phase": "preopen_TOM_preflight_API_repair_implementation",
-  "next_action": "Preserve failed preflight15060 and repair only Qlib full-column selection toCS_RAW, with one schema regression and an isolated repair_1 card. Independently review exact repaired identity before one further no-fit preflight; no model/account execution yet.",
+  "current_experiment": "research/stage1_preopen_tom_20261018/repair_1",
+  "current_phase": "preopen_TOM_API_repair_once_preflight_approved",
+  "next_action": "Run the isolated CS_RAW repair preflight once under identical scientific scope, then review actual train-only tensor/scaler/mask identifiability evidence before the frozen6fits/6newbooks.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1724,7 +1724,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/stage1_preopen_tom_20261018",
-      "phase": "preopen_TOM_preflight_API_repair_implementation",
+      "phase": "preopen_TOM_API_repair_once_preflight_approved",
       "executor": "/root/recent_evidence",
       "design_executor": "/root/external_methods",
       "owner": "/root",
@@ -1735,7 +1735,7 @@
       "new_accounts": 0,
       "new_feature_values": 0,
       "strategy_execution_authorized": false,
-      "executor_lifecycle": "Initial notebook exec15060 exited1 before Recorder creation at column-group access. Executor explicitly authorized for narrow implementation/schema regression only; no second real preflight yet.",
+      "executor_lifecycle": "Narrow repair independently approved; owner signed one child preflight GO. Original failed attempt retained; explicit executor resume follows.",
       "planned_fit_attempts": 6,
       "planned_new_native_accounts": 6,
       "planned_reference_accounts_reused": 15,
@@ -1760,7 +1760,11 @@
         "new_accounts": 0,
         "evaluation_objects_deserialized": 0,
         "economic_result": false
-      }
+      },
+      "repair_card": "research/stage1_preopen_tom_20261018/repair_1",
+      "repair_plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
+      "repair_review_sha256": "e9d8b19edc8084e87fb3d64d12e4f3055ec945125b235af017e104b8a7d4eea2",
+      "repair_preflight_approval": "research/stage1_preopen_tom_20261018/repair_1/preflight_execution_approval.json"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",

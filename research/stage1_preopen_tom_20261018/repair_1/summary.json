@@ -1,0 +1,25 @@
+{
+  "experiment": "stage1_preopen_tom_20261018",
+  "stage": "API_repair_1_implementation_pending_review_and_GO",
+  "plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
+  "recorder_id": null,
+  "real_second_preflight_runs": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_sourceHTTP": 0,
+  "parent_failure_receipt": "../preflight_failure_1.json",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source/*",
+      "inputs/*",
+      "training/*",
+      "models/*",
+      "predictions/*",
+      "paths/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  }
+}
