@@ -1,0 +1,552 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_aux_projection_allocation_20261018",
+  "status": "frozen_pending_implementation_completion_and_independent_design_review",
+  "frozen_before_execution": true,
+  "hypothesis": "Conditional removal of the auxiliary shared gradient component opposing the original composite primary gradient may change representation learning in a way that improves complete net-of-fee allocation accounts. No negative transfer or return improvement is presumed.",
+  "receiving_layer": "Training update of the original shared-head nonlinear Stage1 allocation model only; deployment allocation/EMA/risk/open execution/recovery logic is unchanged.",
+  "single_increment": "Keep primary gradient unchanged; project only the conflicting component of the existing auxiliary gradient on the same154 shared parameters.",
+  "novelty_boundary": "Not permanent classifier detach, domain-specific heads, additional model capacity, loss-weight search, direct full-path/STE optimization or new market information.",
+  "active_release": {
+    "path": "production/stage1_futu_sim_v1/runtime_release.json",
+    "sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33"
+  },
+  "training_source": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "artifacts": [
+      "inputs/daily_frame",
+      "inputs/features",
+      "inputs/common",
+      "inputs/timing",
+      "inputs/auxiliary",
+      "models/base_outer_71",
+      "models/base_outer_172",
+      "models/base_outer_273"
+    ],
+    "artifact_sha256": {
+      "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+      "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+      "inputs/common": "a90e4be474fae56a4cb9d226aced8186a5b402ce04aa0cc97cbef3b8dfc5eb14",
+      "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+      "inputs/auxiliary": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+      "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+      "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+      "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+    }
+  },
+  "mechanical_source": {
+    "card": "research/stage1_aux_projection_20261018",
+    "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+    "archive": "767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+    "inventory_sha256": "615112434b397c62360b81e56bad2d02a7781ec89a0deabf203b6235647142b0",
+    "artifacts": [
+      "inputs/training_audit",
+      "inputs/tensors",
+      "inputs/plan"
+    ],
+    "artifact_sha256": {
+      "inputs/training_audit": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53",
+      "inputs/tensors": "6ea285da091469ea4e23391fffb12530ca1cf42646d024cd5695e694d10a6194",
+      "inputs/plan": "de2e46c6cdec3509aca50102f9b4b1b906d9f0a41f60e01d077fa7eac0a54b8a"
+    }
+  },
+  "reviews": {
+    "mechanical": {
+      "path": "research/stage1_aux_projection_20261018/mechanical_result_review.json",
+      "sha256": "27bb926e292da5a67dd0e2a5798e427a28873183289d0344007ba6568f1d5a74"
+    },
+    "B_reproduction": {
+      "path": "research/stage1_domain_heads_20261018/independent_evaluation.json",
+      "sha256": "b1041a07774c644746c5f4b779794f52393fdc2fa47c414de864c4c3ffb7c4ff"
+    },
+    "model_implementation": {
+      "path": "research/stage1_aux_projection_allocation_20261018/model_implementation_review.json",
+      "sha256": "c3ea7d4c64836d0a3dc7a2b7e5e358a74c6c322c96fd65f7eecad59c5073a0e6"
+    }
+  },
+  "model_implementation_preflight": {
+    "path": "research/stage1_aux_projection_allocation_20261018/implementation_preflight.json",
+    "sha256": "208703d3c4636ed7c1089bd99c86df0ae3f0f5769b4ae0eb26866fd3fc6c0e23"
+  },
+  "deferred_evaluation_sources": {
+    "evaluation_data": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": [
+        "inputs/daily_frame",
+        "inputs/features",
+        "inputs/common",
+        "inputs/timing",
+        "inputs/plan"
+      ],
+      "artifact_sha256": {
+        "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+        "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+        "inputs/common": "a90e4be474fae56a4cb9d226aced8186a5b402ce04aa0cc97cbef3b8dfc5eb14",
+        "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+        "inputs/plan": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b"
+      }
+    },
+    "B_reuse": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "models/B_shared_71",
+        "models/B_shared_172",
+        "models/B_shared_273",
+        "predictions/B_shared_71",
+        "predictions/B_shared_172",
+        "predictions/B_shared_273"
+      ],
+      "artifact_sha256": {
+        "models/B_shared_71": "608b0000f61f33eeb6e82ff3854e36459e35e4ada06946888200aed1f00706c1",
+        "models/B_shared_172": "0df53d837a22119c1642a8c678f21d11f56e48e1ef9cc614aaad88efc6e0d4c1",
+        "models/B_shared_273": "e0b682764072692be133e18dc4d2844c2bf66f6ebd39a41ba76b6b43e3f98869",
+        "predictions/B_shared_71": "652315b453ed459b2c090b76e4b64c2a49970725ebae0cd5aa3d1f9c126537fb",
+        "predictions/B_shared_172": "330835b91f53df34189f1731d1f404cc860dbf959216be2fada6847d539d6113",
+        "predictions/B_shared_273": "28920ec8eb08ce890e7100cd77282b9836390487806438acd6a7d47833dac18e"
+      }
+    },
+    "account_inputs": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/frame",
+        "inputs/market",
+        "inputs/controller",
+        "inputs/selection",
+        "inputs/recovery_spec",
+        "inputs/action_spec",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "inputs/guard"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "281855c14ed6c12888defd7b10db728f2f26a4e6cd07d2cab7a36d594f684ef5",
+        "inputs/frame": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+        "inputs/market": "f2660e6403ef543c458b039bcfac520c94560d6084b3c9c215b943c1f89bfacd",
+        "inputs/controller": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+        "inputs/selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+        "inputs/recovery_spec": "4a4bb9cd5e09e0dace34615d47e25c831c58951daabace972aa7a31c93e45bda",
+        "inputs/action_spec": "3e92ec85e4c4dac43f57588e671c05c46cac57a778a2b90839a6acd277e09d43",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "inputs/guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24"
+      }
+    },
+    "AB_native": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "native/A_active_research_replay_0",
+        "native/A_active_research_replay_2",
+        "native/A_active_research_replay_5",
+        "native/B_shared_0",
+        "native/B_shared_2",
+        "native/B_shared_5"
+      ],
+      "artifact_sha256": {
+        "native/A_active_research_replay_0": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+        "native/A_active_research_replay_2": "bf6d10ac75ee84ce4f5688188259c1061141aa3110a82a0587425630fbed0284",
+        "native/A_active_research_replay_5": "1b2065502bb43f5ddcbba96a17beddcbc142b85ffea6eb2586f69e576f50062b",
+        "native/B_shared_0": "f6ad692bdc8aea7998fb0588b789eb6d07fd97d6c413e8fe1492b6bd1086a164",
+        "native/B_shared_2": "3e52887404eb44d1ce135c64b6bcdc2f91f63264324ccf48ef0889b229cd42ae",
+        "native/B_shared_5": "ebebcc0e8e79ea33cdf316a24dc1dbec88e64597f91757a903f04095af0cf896"
+      }
+    },
+    "strong_native": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "native/raw_SOXX_0",
+        "native/raw_SOXX_2",
+        "native/raw_SOXX_5",
+        "native/raw_strong9097_0",
+        "native/raw_strong9097_2",
+        "native/raw_strong9097_5",
+        "native/raw_candidate27baa_0",
+        "native/raw_candidate27baa_2",
+        "native/raw_candidate27baa_5"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "ead4fa68daa779ea4da4708b762913e7d89e7c9d6f68523340e0252866eb712b",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "native/raw_SOXX_0": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+        "native/raw_SOXX_2": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d",
+        "native/raw_SOXX_5": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e",
+        "native/raw_strong9097_0": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93",
+        "native/raw_strong9097_2": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f",
+        "native/raw_strong9097_5": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05",
+        "native/raw_candidate27baa_0": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466",
+        "native/raw_candidate27baa_2": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31",
+        "native/raw_candidate27baa_5": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+      }
+    }
+  },
+  "reference_books": [
+    {
+      "family": "A_active_research_replay",
+      "cost": 0,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_0"
+    },
+    {
+      "family": "A_active_research_replay",
+      "cost": 2,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_2"
+    },
+    {
+      "family": "A_active_research_replay",
+      "cost": 5,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_5"
+    },
+    {
+      "family": "B_shared",
+      "cost": 0,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_0"
+    },
+    {
+      "family": "B_shared",
+      "cost": 2,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_2"
+    },
+    {
+      "family": "B_shared",
+      "cost": 5,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_5"
+    },
+    {
+      "family": "SOXX",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_0"
+    },
+    {
+      "family": "SOXX",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_2"
+    },
+    {
+      "family": "SOXX",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_5"
+    },
+    {
+      "family": "strong9097",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_0"
+    },
+    {
+      "family": "strong9097",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_2"
+    },
+    {
+      "family": "strong9097",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_5"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_0"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_2"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_5"
+    }
+  ],
+  "provider_init": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "provider_output": "data/qlib/stage1_aux_projection_allocation_20261018",
+  "software": {
+    "python": "3.12.12 (main, Feb  4 2026, 01:57:59) [Clang 21.1.4 ]",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "torch": "2.11.0",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "qlib": "0.9.7",
+    "device": "cpu",
+    "original_gradient_dtype": "torch.float32",
+    "torch_threads": 1,
+    "torch_interop_threads": 10,
+    "default_dtype": "torch.float32",
+    "torch_config": "PyTorch built with:\n  - GCC 4.2\n  - C++ Version: 201703\n  - clang 15.0.0\n  - OpenMP 201811\n  - LAPACK is enabled (usually provided by MKL)\n  - NNPACK is enabled\n  - CPU capability usage: DEFAULT\n  - Build settings: BLAS_INFO=accelerate, BUILD_TYPE=Release, COMMIT_SHA=70d99e998b4955e0049d13a98d77ae1b14db1f45, CXX_COMPILER=/usr/bin/c++, CXX_FLAGS= -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_PYTORCH_QNNPACK -DAT_BUILD_ARM_VEC256_WITH_SLEEF -DUSE_XNNPACK -DUSE_PYTORCH_METAL_EXPORT -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DUSE_COREML_DELEGATE -O2 -fPIC -DC10_NODEPRECATED -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=braced-scalar-init -Werror=range-loop-construct -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wvla-extension -Wsuggest-override -Wnewline-eof -Winconsistent-missing-override -Winconsistent-missing-destructor-override -Wno-pass-failed -Wno-error=old-style-cast -Wconstant-conversion -Qunused-arguments -faligned-new -fno-math-errno -fno-trapping-math -Werror=format -DUSE_MPS -Wno-missing-braces, LAPACK_INFO=accelerate, TORCH_VERSION=2.11.0, USE_CUDA=OFF, USE_CUDNN=OFF, USE_CUSPARSELT=OFF, USE_EIGEN_FOR_BLAS=ON, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=OFF, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, USE_XCCL=OFF, USE_XPU=OFF, \n"
+  },
+  "training": {
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "epochs": 300,
+    "checkpoint_policy": "Fixed final epoch300; no checkpoint/seed selection.",
+    "primary_rows": 3014,
+    "auxiliary_rows": 20741,
+    "train_end": "2022-12-30",
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "features": "Original39 primary and16 common inputs; no minute numeric extras, no FINRA input, no new source.",
+    "scalers": "Exact original mature training cohort and scaling path; verify equality against each sealed base_outer scaler before optimization. No weighted/residualized/updated scaler.",
+    "initialization": "Original973-parameter network, same seed, exact corresponding initial tensors and RNG state; C adds no parameters and consumes no extra random draws.",
+    "auxiliary_sampling": "Exact original row order/training_weight normalization and torch.Generator().manual_seed(seed*1000+epoch), torch.randint with replacement, min(2048,20741) indices each epoch. Preserve all300 draws.",
+    "losses": {
+      "P": "L_allocation +0.02*(BCE_primary_tail+BCE_primary_alpha)",
+      "A": "0.05*weighted_mean(BCE_auxiliary_tail_per_row+BCE_auxiliary_alpha_per_row)",
+      "allocation": "Exact original loss,10bp training proxy and0.006 turnover coefficient; no objective or label changes."
+    },
+    "optimizer": "Original AdamW and all saved hyperparameters, one original global clip_grad_norm_(max_norm=2.0) after gradient assembly; no per-task clipping, gradient normalization, EMA, optimizer switch or moment reset.",
+    "arms": {
+      "B": "Reuse exactlyverified domain-head sharedB three seed checkpoints/predictions andnativebooks; no newfit or fallback",
+      "C": "Three newAuxProjectionAllocator fits only; original973parameters andfixedepoch300"
+    },
+    "ensemble": "Fixed equal-weight average of all3 seed predictions, every seed retained.",
+    "budget": {
+      "maximum_fit_attempts": 3,
+      "B_fit_attempts": 0,
+      "C_fit_attempts": 3,
+      "maximum_optimizer_steps_per_fit": 300,
+      "extra_initialization_or_rescue_fits": 0
+    },
+    "minimum_domain_support": "No2020 zero-aux model fit; changing cutoff/rows to create an auxiliary domain or independent validation is forbidden.",
+    "invalid_fit_policy": "Persist partial attempts and failure reason. Do not discard/restart a seed, relax parity, or form a winning subset ensemble; numerical/source/implementation failures need scoped review."
+  },
+  "gradient_contract": {
+    "shared_parameters": [
+      "tail_encoder.0.weight",
+      "tail_encoder.0.bias",
+      "tail_head.weight",
+      "tail_head.bias",
+      "alpha_head.weight",
+      "alpha_head.bias"
+    ],
+    "shared_parameter_count": 154,
+    "private_parameters": [
+      "allocation_head.0.weight",
+      "allocation_head.0.bias",
+      "allocation_head.2.weight",
+      "allocation_head.2.bias"
+    ],
+    "private_parameter_count": 819,
+    "total_parameters": 973,
+    "rule": "On shared154, if norm(gP)^2>0 and dot64(gP,gA)<0: gA_projected=cast_original_dtype(float64(gA)-dot64(gP,gA)/norm64(gP)^2*float64(gP)); otherwise no projection.",
+    "strict_conflict_rule": "No tau/angle/magnitude threshold controls the training branch. The reviewed dtype screens are numerical diagnostics only.",
+    "B_arithmetic": "Use the exact original combined.backward gradient tensor, not separately assembled gP+gA, on every parameter and every step.",
+    "C_no_conflict_arithmetic": "Keep every original combined.backward gradient tensor unchanged bit-for-bit when dot>=0 or gP is exactly zero; do not rewrite, sum, recast or copy from split gradients. Thus absent a projection, an otherwise identical B/C step has identical optimizer input.",
+    "C_conflict_arithmetic": "Replace only shared154 with gP_shared+gA_projected assembled in original dtype. Preserve the original combined.backward private819 gradients exactly. Apply globalclip once afterward.",
+    "primary_gradient": "Never project or rescale gP; preserve its audit copy.",
+    "random_projection_order": "None: one auxiliary group, one asymmetric projection, no task shuffling or added RNG stream.",
+    "mechanical_difference_from_preflight": "The24probes assembled the candidate as split P+A_projected even without conflict and copied split-control private gradients. This draft instead bypasses all substitutions without conflict and preserves original combined private gradients. Both full/shared parity were exactly0 in the24 stored probes, but that finite evidence does not prove every future training step is bitwise equivalent.",
+    "required_qualification_before_fit": "Independent implementation review must explicitly accept the branch/assembly difference. One focused synthetic arithmetic contract must establish no-conflict/zero-primary exact identity and conflict-only shared replacement/private preservation. A read-only reconciliation against the24 stored gradient arrays may be separately authorized; no new market gradient probes are authorized by this draft.",
+    "during_training_parity": "On each C epoch compare separately assembled original-dtype gP+gA to original combined backward on both all973 and shared154 using the unchanged r=32*finfo(dtype).eps allowances. Any failure is a numerical-review stop, not permission to widen r or suppress the probe.",
+    "dtype_backend": "Preserve reviewed original CPU float32 forward/autograd path and one torch compute thread; use float64 only for declared small projection/audit operations. Freeze exact versions/backend before firstfit.",
+    "limits": "CompositeP directional protection is not allocation-only protection. Raw Euclidean projection is not a guarantee for the actual AdamW update, generalization, account risk or net SOXX excess."
+  },
+  "training_observability": {
+    "per_epoch_recorder_only": [
+      "WeightedP/A and allocation-only losses",
+      "SharedP/A dot, norms and strict-conflict flag",
+      "Original-dtype full/shared parity residuals and fixedtolerances",
+      "Projection displacement before/after cast",
+      "Original and modified globalclip coefficients",
+      "CompositeP and allocation-only dots, shared/full, pre/postclip",
+      "Actual pre/post-AdamW parameter deltas and their P/allocation dot diagnostics",
+      "Source model/optimizer state identity and sampled-index hashes"
+    ],
+    "optimizer_state_boundary": "New formal fits may own and record their actual AdamW states. Never infer or reconstruct the unsaved optimizer states of sealed source models. Actual-step diagnostics describe what happened; they do not certify finite-step loss protection or justify an adaptive safeguard.",
+    "not_new_controls": "Do not add step rejection, line search, momentum surgery, gradient clipping variants or loss-driven candidate selection after observing these traces.",
+    "prior_warning": "Only1 of24 fixed mechanical probes was resolvable. Both original and projected directions had4/24 negative full allocation-only dots and21/24 negative shared allocation-only dots; all observed globalclip coefficients were1. These are neither training-frequency estimates nor demonstrated allocation/AdamW protection."
+  },
+  "source_access_rule": "During implementation/preflight/fitting, only full-object byte verification and immediate training-date clipping are allowed before inspecting training labels. No outer_predictions/evaluation labels are loaded into fitting. Prediction/account and classification-evaluation data become accessible only after all formal model identities are finalized under the reviewed plan.",
+  "train_dataset_rule": "Useverifiedoriginalsource helper: hashfullobject, immediatelyclipdateto<=2022-12-30; thenmaturity<2023-01-01 andfiniteoriginalTARGETS eligibility; onlytrainsegment3014/20741. Recomputeoriginalstandardize_pair scalers/tensors andrequire exactall3source/archivedmechanical equality beforeoptimization. Datasetrecursive dump_all fornewarchives.",
+  "evaluation_unlock_rule": "Onlyafterall3Cfinalmodels savedandfixedidentityhashes recorded mayevaluationDataSet/predictions/classification/accountsourcesdeserialize. Duringprepare/fits theyreceiveonlybytehashchecks. NoGates basedonclassificationscores cancelthe3costaccounts.",
+  "prediction_bounds": [
+    "2023-01-03",
+    "2026-10-09"
+  ],
+  "B_reuse_rule": "Bsource tensors/scalers/predictions alreadyverifiedexact inb1041a...review. Bindall3model/pred objects plusBnative3; neverrefit orfallback ifmismatch. No extraB reproducibility exercise.",
+  "accounts": {
+    "families": [
+      "A_active_research_replay",
+      "B_shared",
+      "SOXX",
+      "strong9097",
+      "C_aux_projection",
+      "additional27baa"
+    ],
+    "initial_cash": 100000,
+    "expected_sessions": 944,
+    "first_signal": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "terminal": "2026-10-09T09:47:00-04:00",
+    "clock": "09:45 known,09:46 decision,09:47 fill,next09:47 exit;firsthour recovery fill10:32. Historical bar availability convention, not actual first receipt/execution qualification.",
+    "A_label": "Frozen active f696+b472 model chain replayed under same raw research execution contract; not actual deployed09:31/10:31 replay.",
+    "ABC_policy": "C usesoriginalStage1b472 onowncash/NAV/peak/history/state at eachcost; noCOMMON/ALL3/T. A/B andstrongrefs retainsealedownpolicy semantics.",
+    "reference_policy": "SOXX buyonce raw shares; strong9097/additional27baa retain their frozen commoncap/ALL3/T policies. Different strategy controls disclosed, same price/corporate/fees/dates/initialcash. Do not inherit old fullminute risk qualification.",
+    "strict_reuse": "15original3778-pointnative referencebooks pinnedbyexacthash. No expandedROD grid/module; noBfit/fallbacknative. Source mismatchstops.",
+    "raw_interfaces": [
+      "src.backtest.stage1_domain_heads_raw.replay_stage1_raw",
+      "src.backtest.raw_corporate_policy.IncomeLedger",
+      "src.backtest.raw_corporate_policy.settle_raw",
+      "src.backtest.native_raw_corporate.native_raw_validate"
+    ],
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "maximum_total_comparison_accounts": 18,
+    "maximum_new_native_accounts": 3,
+    "source_native_accounts_reused": 15,
+    "currency": "USD gross paper assumption and documented corporate entitlement/payment convention; not broker or historicalPIT certification"
+  },
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "gates": {
+    "required_comparators": [
+      "A_active_research_replay",
+      "B_shared",
+      "SOXX",
+      "strong9097"
+    ],
+    "additional_reference": "additional27baa always report, not a postresult replacement of primary strong9097",
+    "net_relative_wealth_all_costs": ">1+1e-8 versus each required comparator",
+    "sampled_maxdrawdown": "<=30percent at close and all available raw point marks; fullminute validation separate if economic gates pass",
+    "cvar5": "no worse thanSOXX at all costs",
+    "complete_annual_positive_fraction": 0.7,
+    "minimum_complete_years": 2,
+    "rolling126_positive_fraction": 0.7,
+    "paired_uncertainty": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "alpha": 0.0020833333333333333,
+      "seed": 20261014,
+      "lower_positive": true,
+      "comparisons": 4,
+      "costs": 3,
+      "prior_search_multiplicity": "unknown; this correction doesnotreset reusedhistory",
+      "statistic": "one-sided paired stationary-bootstrap mean daily log excess; lower quantile must be strictly positive",
+      "alpha_formula": "0.025/(1 candidate equal-seed ensemble *4 required comparators *3 costs)",
+      "expected_lower_tail_draws": 20.833333333333332,
+      "resolution_rationale": "Prespecified beforeanyfit/outcome:10000draws expect20.83taildraws versus2000expect4.17. No result-dependent resampling or seed change."
+    },
+    "qualified_independent_forward": false,
+    "fresh_fullminute_risk_qualified": false,
+    "stability_comparator": "SOXX only for complete annual and126-session rolling70percent; all4required comparators for full-window wealth and pairedCI"
+  },
+  "maximum_model_fits": 3,
+  "maximum_new_policy_paths": 3,
+  "maximum_new_native_accounts": 3,
+  "new_B_fits": 0,
+  "reused_native_accounts": 15,
+  "total_comparison_accounts": 18,
+  "as_of": "2026-10-09",
+  "loss_or_trace_selection": false,
+  "failure_policy": {
+    "mechanical_rejection": "Do not launch this draft if the parent mechanical result is rejected.",
+    "fit_or_source_failure": "Retain the exact failed attempt and request scoped review; no replacement data,seed,optimizer,epoch or hidden repeat.",
+    "economic_failure": "Close this fixed asymmetric-projection version, synchronize notebook/Recorder and retain minimal evidence; no angle/magnitude thresholds,coefficient,clipping,seed,epoch,window,head or controller rescue.",
+    "historical_pass": "Only a candidate pending independent review,risk qualification and sufficient new forward evidence; no automatic deployment,real orders or Goal completion."
+  },
+  "execution_authorization": "Implementation andone train-onlyno-fit preflight authorized. Formal3Cfits+3accounts requirecompleteindependentdesign_review andmatchingexplicitownerexecution_approval. Thisplanfiledoesnotgranttraining.",
+  "references": {
+    "pcgrad": "https://arxiv.org/abs/2001.06782",
+    "primary_anchored_decomposition": "https://david.grangier.info/papers/2021/ldery-aux-taks-iclr21.pdf",
+    "author_code": "https://github.com/ldery/ATTITTUD",
+    "community": "https://www.reddit.com/r/MachineLearning/comments/1fbvuhs/",
+    "boundary": "Restricted asymmetric adaptation; no verified SOXL/SOXX efficacy evidence from the generalNN papers/community.",
+    "qlib": "https://qlib.readthedocs.io/en/latest/"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "optimizer/*",
+      "gradients/*",
+      "training_trace/*",
+      "predictions/*",
+      "paths/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  }
+}

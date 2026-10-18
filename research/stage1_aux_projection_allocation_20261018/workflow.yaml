@@ -1,0 +1,7 @@
+experiment: stage1_aux_projection_allocation_20261018
+entrypoint: src.workflow.aux_projection_allocation.run
+preflight: src.workflow.aux_projection_allocation.prepare
+phase: no_fit_preflight_passed_pending_design_review
+execution_environment: AUX_PROJECTION_EXECUTE=1
+training_execution_authorized: false
+artifact_policy: slim_card_recorder_first

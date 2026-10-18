@@ -1,0 +1,43 @@
+{
+  "plan_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+  "preflight_sha256": "d116937728c5c75d9c6a12e9b69ce56a105932f641878eecf170c2003d820e85",
+  "constructor_preflight_sha256": "c442e0317f8a7334f8e77b02cd7e7179075f6f91fc1528fc2edbe6b3535b13d6",
+  "model_implementation_review_sha256": "c3ea7d4c64836d0a3dc7a2b7e5e358a74c6c322c96fd65f7eecad59c5073a0e6",
+  "code_sha256": {
+    "src/workflow/aux_projection_allocation.py": "f5598508679a068adaa75d0348b867cf31cd6decccc6f44573aeca428551a3ec",
+    "src/model/aux_projection_allocator.py": "c12998f09cd57bdf2a851a9ced2a50e2d33ad4091bff55e230873e57173057a6",
+    "src/workflow/aux_projection_preflight.py": "d56464ba1dfa9d98f308dad39812b24c5dcf140a2056a66f79b111c9e3417868",
+    "src/model/minute_pit_allocator.py": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+    "src/workflow/minute_pit_allocator.py": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/backtest/stage1_domain_heads_raw.py": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "src/analysis/stage1_domain_heads.py": "b786650912e4645bd7d5bdc3ecc842f05a4f5ea9d45ffd2b6bc7158395b4fb39",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444",
+    "src/workflow/stage1_domain_heads.py": "5b4305c0c1311a52e0a7de87257bd2de03b5be34084ee7709859a9defe88b04a"
+  },
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_real_forward_gradient_probes": 0,
+  "verification": {
+    "native_no_fit_notebook": {
+      "exec_session": 99800,
+      "exit_code": 0
+    },
+    "constructor_metadata_only": {
+      "exec_session": 72746,
+      "exit_code": 0
+    },
+    "py_compile": "passed",
+    "existing_model_synthetic_and24_savedvectors": "reused_reviewed_no_rerun"
+  },
+  "source_preflight_boundary": "Only code completion after train-only preflight; no new evaluation data deserialization. Constructor supplemental checks are metadata-only. No formal execution authorized."
+}

@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_aux_projection_allocation_20261018",
-  "current_phase": "aux_projection_implementation_and_no_fit_preflight",
-  "next_action": "Complete auxiliary-projection implementation and no-fit source/identity checks, independently review the exact 3-C-fit/3-C-account/15-reused-reference plan, then owner GO. No new market probe or repeated B fit. Settlement-source backup remains needs_source.",
+  "current_phase": "aux_projection_approved_pending_actual_execution",
+  "next_action": "After exact approved implementation delivery, explicitly resume executor for3Cfits and3Cnative/15refs; poll its actual handle, retain all results, and independently evaluate. No B refit or parameter rescue.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1711,14 +1711,14 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/stage1_aux_projection_allocation_20261018",
-      "phase": "aux_projection_implementation_and_no_fit_preflight",
+      "phase": "aux_projection_approved_pending_actual_execution",
       "executor": "/root/recent_evidence",
       "model_adapter_executor": "/root/external_methods",
       "independent_evaluator": "/root/independent_evaluator",
       "implementation_authorization": "research/stage1_aux_projection_allocation_20261018/implementation_authorization.json",
-      "formal_design_approved": false,
-      "fit_execution_authorized": false,
-      "account_execution_authorized": false,
+      "formal_design_approved": true,
+      "fit_execution_authorized": true,
+      "account_execution_authorized": true,
       "observed_new_fits": 0,
       "observed_new_accounts": 0,
       "draft_budget": {
@@ -1728,7 +1728,7 @@
         "total_comparison_accounts": 18,
         "required_paired_CIs": 12
       },
-      "executor_lifecycle": "Both executors explicitly resumed for implementation. Model adapter synthetic contract has real session5894; no real training/account process claimed.",
+      "executor_lifecycle": "Independent final design accepted and owner GO issued. Executor still completed; owner will explicitly resume after this exact implementation is committed/pushed. No training job claimed yet.",
       "model_implementation_review": "research/stage1_aux_projection_allocation_20261018/model_implementation_review.json",
       "model_implementation_review_sha256": "c3ea7d4c64836d0a3dc7a2b7e5e358a74c6c322c96fd65f7eecad59c5073a0e6",
       "model_implementation_review_accepted": true,
@@ -1738,7 +1738,18 @@
       "no_fit_preflight_session_id": 99800,
       "no_fit_preflight_exit_code": 0,
       "no_fit_preflight_observation": "3014/20741 native train-only, all11 tensors and recomputed scalers match,3seed initialization/RNG match;0eval deserialization/forward/gradient/fit/accounts. Formal run implementation still being completed.",
-      "formal_plan_draft_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f"
+      "formal_plan_draft_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+      "formal_plan_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+      "implementation_identity_sha256": "613c2bdac1126e8aa74e391c3164f8a741aef8a6c1ed468ead859713f3944c2d",
+      "preflight_sha256": "d116937728c5c75d9c6a12e9b69ce56a105932f641878eecf170c2003d820e85",
+      "constructor_preflight_sha256": "c442e0317f8a7334f8e77b02cd7e7179075f6f91fc1528fc2edbe6b3535b13d6",
+      "constructor_preflight_session_id": 72746,
+      "constructor_preflight_exit_code": 0,
+      "workflow_implementation_complete": true,
+      "design_review": "research/stage1_aux_projection_allocation_20261018/design_review.json",
+      "design_review_sha256": "5bdcf1c7fe59ac4234818ca3df16b4f276ff4aaea9cef4b121e778856e12d40e",
+      "execution_approval": "research/stage1_aux_projection_allocation_20261018/execution_approval.json",
+      "execution_approval_sha256": "9229477f8fad9207f6348c003a6cc761df668a26f991e5834a0b2ff873459e81"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",

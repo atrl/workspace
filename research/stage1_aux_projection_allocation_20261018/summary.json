@@ -1,0 +1,31 @@
+{
+  "experiment": "stage1_aux_projection_allocation_20261018",
+  "stage": "no_fit_preflight_passed_pending_design_review",
+  "plan_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_gradient_probes": 0,
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "optimizer/*",
+      "gradients/*",
+      "training_trace/*",
+      "predictions/*",
+      "paths/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "new_model_fits": 0,
+  "primary_training_rows": 3014,
+  "auxiliary_training_rows": 20741,
+  "training_tensor_identity": "exact",
+  "no_fit_preflight_exec_session": 99800,
+  "constructor_metadata_exec_session": 72746
+}

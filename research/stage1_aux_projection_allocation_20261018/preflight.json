@@ -1,0 +1,416 @@
+{
+  "plan_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+  "training_audit": {
+    "primary_rows": 3014,
+    "auxiliary_rows": 20741,
+    "first_primary_signal": "2011-01-03 00:00:00",
+    "last_primary_signal": "2022-12-21 00:00:00",
+    "last_primary_maturity": "2022-12-30 09:31:00-05:00",
+    "last_auxiliary_signal": "2022-12-22 00:00:00",
+    "auxiliary_observations_end": "2022-12-30",
+    "auxiliary_maturity_basis": "Inherited pinned outer training fold and original eligible mask; no new label construction.",
+    "dataset_segments": [
+      "train"
+    ],
+    "evaluation_rows_in_dataset": 0,
+    "source_use": "Full source byte hashes, immediate date clipping, then maturity/eligible filtering before label inspection or Dataset construction.",
+    "forbidden_artifact_outer_predictions_loaded": false,
+    "source_api": [
+      "Recorder.load_object",
+      "DataHandlerLP.from_df",
+      "DatasetH.prepare"
+    ],
+    "tensor_sha256": {
+      "primary": "07c2477be4276dac6ff26bf40e1f9c2c8805d4824b7ff193db245c2dfd2286e6",
+      "common": "7e539dc141c55467c1f3e690fac81fd3a499c5eb5e4fcd3ee4028a8938d1295e",
+      "auxiliary": "f75e617f792fc1bba62e1d1a5bc3a3ac33c68869afd39f52b92b2e2dc1a46a6a",
+      "returns": "e4a7fa6ee49ba6275bfbb4cefea3a8c59e940026ed68b43315bd987b1ba49346",
+      "tail": "61000716f335b6e66e85bd06b7517d52aa2598111206373681484ee6b581d0d0",
+      "alpha": "9d1caa5fc19579409c7168a8d8bb07779158738a2c9ff92d402dab80a459a8d1",
+      "cash": "50f129e9dc8a134a0337e4bb0f27e43ab14cb68b4778c2149eeb7ff80accc775",
+      "years": "314289f59dc9c8d565dd6202ffd370763b2ae730b0545b412abf18d3effc12b0",
+      "aux_tail": "5ceb4ff3902d10d845077049b98b26d832fb6b23cffa0162ceb090fe03dac046",
+      "aux_alpha": "e5a60754326935aa0e2ab1a5649f2b9524aa0d4f58a57e554588e664b80a62ed",
+      "aux_weight": "50b409494ab5ca970bf141f704f630bf63a79a18d20e13528457a5309b128258"
+    }
+  },
+  "initialization": [
+    {
+      "seed": 71,
+      "initial_state_sha256": "5418865e334ddde6db59f27d2dae02b2e8362a396e555db0156fa1f64147f4d7",
+      "tensors_and_rng_exact": true,
+      "parameters": 973,
+      "shared_parameters": 154,
+      "private_parameters": 819,
+      "forward_or_gradient_calls": 0
+    },
+    {
+      "seed": 172,
+      "initial_state_sha256": "931a3ba10f813edfee88e9b8921cc86b5494b44f10eacd8665709f42863887bf",
+      "tensors_and_rng_exact": true,
+      "parameters": 973,
+      "shared_parameters": 154,
+      "private_parameters": 819,
+      "forward_or_gradient_calls": 0
+    },
+    {
+      "seed": 273,
+      "initial_state_sha256": "bf88d61779edb078044b1b4b47c42ebf938740768cc8f74feff36b358ff3e38c",
+      "tensors_and_rng_exact": true,
+      "parameters": 973,
+      "shared_parameters": 154,
+      "private_parameters": 819,
+      "forward_or_gradient_calls": 0
+    }
+  ],
+  "standardize_pair_scalers_equal_all_three_sealed_sources": true,
+  "standardize_pair_primary_common_equal_archived_tensors": true,
+  "all_training_tensors_elementwise_and_SHA_equal": true,
+  "primary_scaler_sha256": "0252391ae91fe1f6dba3c4d1a7da7e1ff8332f6eb11733b373b3d8ee6cd820b8",
+  "common_scaler_sha256": "a0555051e3596a21233e0a7bca14102bcbc134f5c5cbf2e0e4d5c94e6841be99",
+  "backend_exact": true,
+  "evaluation_byte_checks": {
+    "evaluation_data": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "artifacts": [
+        "inputs/daily_frame",
+        "inputs/features",
+        "inputs/common",
+        "inputs/timing",
+        "inputs/plan"
+      ],
+      "bytes_verified": true,
+      "objects_deserialized": false
+    },
+    "B_reuse": {
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "artifacts": [
+        "models/B_shared_71",
+        "models/B_shared_172",
+        "models/B_shared_273",
+        "predictions/B_shared_71",
+        "predictions/B_shared_172",
+        "predictions/B_shared_273"
+      ],
+      "bytes_verified": true,
+      "objects_deserialized": false
+    },
+    "account_inputs": {
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/frame",
+        "inputs/market",
+        "inputs/controller",
+        "inputs/selection",
+        "inputs/recovery_spec",
+        "inputs/action_spec",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "inputs/guard"
+      ],
+      "bytes_verified": true,
+      "objects_deserialized": false
+    },
+    "AB_native": {
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "artifacts": [
+        "native/A_active_research_replay_0",
+        "native/A_active_research_replay_2",
+        "native/A_active_research_replay_5",
+        "native/B_shared_0",
+        "native/B_shared_2",
+        "native/B_shared_5"
+      ],
+      "bytes_verified": true,
+      "objects_deserialized": false
+    },
+    "strong_native": {
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "native/raw_SOXX_0",
+        "native/raw_SOXX_2",
+        "native/raw_SOXX_5",
+        "native/raw_strong9097_0",
+        "native/raw_strong9097_2",
+        "native/raw_strong9097_5",
+        "native/raw_candidate27baa_0",
+        "native/raw_candidate27baa_2",
+        "native/raw_candidate27baa_5"
+      ],
+      "bytes_verified": true,
+      "objects_deserialized": false
+    }
+  },
+  "evaluation_artifacts_deserialized": 0,
+  "evaluation_datasets_created": 0,
+  "new_model_fits": 0,
+  "new_forward_or_gradient_probes": 0,
+  "optimizer_steps": 0,
+  "new_accounts": 0,
+  "B_new_fits": 0,
+  "source_audits": {
+    "inputs/daily_frame": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "experiment": "minute_information_pit_allocator_20261012",
+      "experiment_id": "905520356740140469",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "inputs/daily_frame": {
+          "artifact": "inputs/daily_frame",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/daily_frame",
+          "sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+          "bytes": 2590274,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/daily_frame",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/daily_frame"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "inputs/features": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "experiment": "minute_information_pit_allocator_20261012",
+      "experiment_id": "905520356740140469",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "inputs/features": {
+          "artifact": "inputs/features",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/features",
+          "sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+          "bytes": 1970939,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/features",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/features"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "inputs/common": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "experiment": "minute_information_pit_allocator_20261012",
+      "experiment_id": "905520356740140469",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "inputs/common": {
+          "artifact": "inputs/common",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/common",
+          "sha256": "a90e4be474fae56a4cb9d226aced8186a5b402ce04aa0cc97cbef3b8dfc5eb14",
+          "bytes": 414616,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/common",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/common"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "inputs/timing": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "experiment": "minute_information_pit_allocator_20261012",
+      "experiment_id": "905520356740140469",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "inputs/timing": {
+          "artifact": "inputs/timing",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/timing",
+          "sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+          "bytes": 128395,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/timing",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/timing"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "inputs/auxiliary": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "experiment": "minute_information_pit_allocator_20261012",
+      "experiment_id": "905520356740140469",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "inputs/auxiliary": {
+          "artifact": "inputs/auxiliary",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/auxiliary",
+          "sha256": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+          "bytes": 11323516,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/auxiliary",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/auxiliary"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "models/base_outer_71": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "experiment": "minute_information_pit_allocator_20261012",
+      "experiment_id": "905520356740140469",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "models/base_outer_71": {
+          "artifact": "models/base_outer_71",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:models/base_outer_71",
+          "sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+          "bytes": 15488,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_71",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_71"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "models/base_outer_172": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "experiment": "minute_information_pit_allocator_20261012",
+      "experiment_id": "905520356740140469",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "models/base_outer_172": {
+          "artifact": "models/base_outer_172",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:models/base_outer_172",
+          "sha256": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+          "bytes": 15488,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_172",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_172"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "models/base_outer_273": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "experiment": "minute_information_pit_allocator_20261012",
+      "experiment_id": "905520356740140469",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "models/base_outer_273": {
+          "artifact": "models/base_outer_273",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:models/base_outer_273",
+          "sha256": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a",
+          "bytes": 15489,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_273",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_273"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    }
+  },
+  "mechanical_audit": {
+    "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+    "experiment": "stage1_aux_projection_20261018",
+    "experiment_id": "721632525185874524",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_20261018/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_20261018/qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f",
+    "summary_sha256": "8d32cb0765a0f62aae9be11a4717a15349a793cc4d66da76f8f77bcd524c300c",
+    "verification_manifest_sha256": "615112434b397c62360b81e56bad2d02a7781ec89a0deabf203b6235647142b0",
+    "artifacts": {
+      "inputs/training_audit": {
+        "artifact": "inputs/training_audit",
+        "artifact_id": "7f2db7d7b3d54b9db0460489f8d2bc9f:inputs/training_audit",
+        "sha256": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53",
+        "bytes": 1606,
+        "manifest_entry": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/training_audit",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_20261018/qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/training_audit"
+      },
+      "inputs/tensors": {
+        "artifact": "inputs/tensors",
+        "artifact_id": "7f2db7d7b3d54b9db0460489f8d2bc9f:inputs/tensors",
+        "sha256": "6ea285da091469ea4e23391fffb12530ca1cf42646d024cd5695e694d10a6194",
+        "bytes": 2327198,
+        "manifest_entry": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/tensors",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_20261018/qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/tensors"
+      },
+      "inputs/plan": {
+        "artifact": "inputs/plan",
+        "artifact_id": "7f2db7d7b3d54b9db0460489f8d2bc9f:inputs/plan",
+        "sha256": "de2e46c6cdec3509aca50102f9b4b1b906d9f0a41f60e01d077fa7eac0a54b8a",
+        "bytes": 10493,
+        "manifest_entry": "qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/plan",
+        "local_path": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_20261018/qlib_recorder/721632525185874524/7f2db7d7b3d54b9db0460489f8d2bc9f/artifacts/inputs/plan"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  }
+}
