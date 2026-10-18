@@ -1,0 +1,84 @@
+{
+  "status": "passed",
+  "recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+  "archive_sha256": "cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+  "verified_artifacts": 38,
+  "native_metadata_shape": [
+    23796,
+    33
+  ],
+  "knowledge_assertions": 439,
+  "parsed_documents": 12,
+  "raw_gap_documents": 5,
+  "dataset_direct_prepare": "exact_frame_and_dtype_match",
+  "mapping": {
+    "outer_signal_rows": 946,
+    "account_signal_rows": 944,
+    "tail_signal_rows": 2,
+    "tail_original_decision_at": {
+      "2026-10-08": "2026-10-09 09:29:00-04:00",
+      "2026-10-09": null
+    },
+    "training_cohort_3014_verified": false,
+    "training_cohort_boundary": "Later label-aware model gate; source stage does not rebuild maturity/finite-return eligibility."
+  },
+  "knowledge_not_after_clock": true,
+  "historical_PIT_qualified": false,
+  "current_open_first_receipts_qualified": false,
+  "coverage": [
+    {
+      "venue": "NASDAQ",
+      "clock": "original_0929",
+      "rows": 3966,
+      "conditional_snapshot": 0,
+      "unknown": 3966,
+      "historical_PIT_rows": 0
+    },
+    {
+      "venue": "NASDAQ",
+      "clock": "research_0946",
+      "rows": 3966,
+      "conditional_snapshot": 0,
+      "unknown": 3966,
+      "historical_PIT_rows": 0
+    },
+    {
+      "venue": "NYSE",
+      "clock": "original_0929",
+      "rows": 3966,
+      "conditional_snapshot": 2925,
+      "unknown": 1041,
+      "historical_PIT_rows": 0
+    },
+    {
+      "venue": "NYSE",
+      "clock": "research_0946",
+      "rows": 3966,
+      "conditional_snapshot": 2925,
+      "unknown": 1041,
+      "historical_PIT_rows": 0
+    },
+    {
+      "venue": "NYSE_ARCA",
+      "clock": "original_0929",
+      "rows": 3966,
+      "conditional_snapshot": 2925,
+      "unknown": 1041,
+      "historical_PIT_rows": 0
+    },
+    {
+      "venue": "NYSE_ARCA",
+      "clock": "research_0946",
+      "rows": 3966,
+      "conditional_snapshot": 2925,
+      "unknown": 1041,
+      "historical_PIT_rows": 0
+    }
+  ],
+  "NAS_download_count": 1,
+  "verification_method": "One standard NAS cold restore into a new temporary card; all38 exact artifact hashes; Qlib Recorder read and Dataset direct prepare. No real source reparse or feature/return/model/account execution.",
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-calendar-repair-coldread-gzg8qg_g",
+  "only_disposable_filestore_paths_rebased": true,
+  "exec_session": 21776,
+  "exit_code": 0
+}

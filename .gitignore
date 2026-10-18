@@ -8,6 +8,7 @@ build/
 # Jupyter
 .ipynb_checkpoints/
 research/*/qlib_recorder/
+research/calendar_tom_source_20261018/repair_1/qlib_recorder/
 production/*/qlib_recorder/
 
 # Local environments and caches

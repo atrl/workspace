@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/calendar_tom_source_20261018",
-  "current_phase": "calendar_TOM_parser_repair_1_source_approved",
-  "next_action": "Execute the exact isolated repair_1 source notebook once, independently qualify repaired coverage, then freeze the single preopen NYSE-calendar receiver design if supported.",
+  "current_phase": "preopen_TOM_receiver_design_after_conditional_source_acceptance",
+  "next_action": "Freeze one09:29 conditional NYSE-calendar proxy using only prior observed sessions and already-known schedules, with tri-state OR and matched B/C masks; then independently review the6-fit/6-new-account design. Preserve all source/PIT limitations and closed routes.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1722,7 +1722,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/calendar_tom_source_20261018",
-      "phase": "calendar_TOM_parser_repair_1_source_approved",
+      "phase": "preopen_TOM_receiver_design_after_conditional_source_acceptance",
       "executor": "/root/recent_evidence",
       "owner": "/root",
       "new_model_fits": 0,
@@ -1730,7 +1730,7 @@
       "new_feature_values": 0,
       "strategy_execution_authorized": false,
       "scope": "Implement one frozen-source cache-only calendar knowledge ledger and native metadata coverage check; no candidate features, returns, fit or account. Historical clock/venue/vintage gaps remain explicit.",
-      "executor_lifecycle": "Repair implementation independently approved and owner GO signed; explicitly resume executor for one isolated cache-only source run.",
+      "executor_lifecycle": "Source repair exec65407 completed and independently accepted; root coldread21776 passed. External design executor is actively preparing the distinct preopen receiver draft, with no features/fits/accounts yet.",
       "source_plan_executor": "/root/recent_evidence",
       "source_document_executor": "/root/external_methods",
       "planned_source_card": "research/calendar_tom_source_20261018",
@@ -1779,7 +1779,22 @@
         "raw_gap_documents": 5,
         "source_review_sha256": "a058b5b593c3e30b13b0cfd03c82f8b081f038adbd7b19b1558d3f7931911a92"
       },
-      "repair_card": "research/calendar_tom_source_20261018/repair_1"
+      "repair_card": "research/calendar_tom_source_20261018/repair_1",
+      "repair_result": {
+        "recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+        "archive_sha256": "cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+        "metadata_rows": 23796,
+        "assertions": 439,
+        "parsed_documents": 12,
+        "parser_gaps": 0,
+        "raw_gaps": 5,
+        "review": "research/calendar_tom_source_20261018/repair_1/source_result_review.json",
+        "review_sha256": "21f6123bc0e5c8678341e302889e38a2c29b9d5f8596e988d4268fa013c1dd3b",
+        "readback_sha256": "3738c9547e17a423985fb5a6b93ee134c5d0c02a21a9eebd6c388f50c4b28af8",
+        "new_fits": 0,
+        "new_accounts": 0,
+        "historical_PIT_qualified": false
+      }
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",

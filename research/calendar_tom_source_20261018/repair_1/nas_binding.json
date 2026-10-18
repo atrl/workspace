@@ -1,0 +1,24 @@
+{
+  "schema_version": "recorder_evidence_binding_v1",
+  "authority": "yanxuan_nas",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "source_id": "calendar-tom-source-469e7c9d3165658be2135ea814a75fbbfa8ff1e4c57d43b1112034e8128bd0cc",
+  "as_of": "2026-10-09",
+  "source_plan": "source_plan.json",
+  "evidence": {
+    "sha256": "cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+    "size_bytes": 921476,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/cc/a1/cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 16:43:42.769452+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/cc/a1/cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+    "recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+    "experiment_id": "944021652676933250",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,14 +1,98 @@
 {
   "experiment": "calendar_tom_source_20261018",
-  "stage": "repair_1_implementation_pending_review_and_GO",
-  "recorder_id": null,
-  "initial_recorder_id": "638ecf0af9204ba38e2e36e7be0307f1",
-  "initial_archive_sha256": "0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
-  "new_source_qualification_runs": 0,
-  "new_HTTP": 0,
+  "decision": "accepted_conditional_source_not_PIT",
+  "source_plan_sha256": "469e7c9d3165658be2135ea814a75fbbfa8ff1e4c57d43b1112034e8128bd0cc",
+  "status": "source_reviewed_conditional_receiver_design_only",
+  "recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+  "experiment_id": "944021652676933250",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/calendar_tom_source_20261018/repair_1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/calendar_tom_source_20261018/repair_1/qlib_recorder/944021652676933250/82b3305714cc455db5bc2ccbcd42d2f1",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "captured_documents": 12,
+  "attempt_receipts_preserved": 17,
+  "failed_raw_document_gaps": 5,
+  "explicit_historical_capture_HTTP_attempts": 17,
+  "new_source_HTTP": 0,
+  "metadata_rows": 23796,
+  "signal_rows": 3966,
+  "venues": [
+    "NYSE",
+    "NYSE_ARCA",
+    "NASDAQ"
+  ],
+  "clocks": [
+    "original_0929",
+    "research_0946"
+  ],
+  "knowledge_assertions": 439,
+  "calendar_discrepancy_rows": 6,
+  "mapping": {
+    "outer_signal_rows": 946,
+    "account_signal_rows": 944,
+    "tail_signal_rows": 2,
+    "tail_original_decision_at": {
+      "2026-10-08": "2026-10-09 09:29:00-04:00",
+      "2026-10-09": null
+    },
+    "training_cohort_3014_verified": false,
+    "training_cohort_boundary": "Later label-aware model gate; source stage does not rebuild maturity/finite-return eligibility."
+  },
+  "dataset_direct_prepare_roundtrip": "passed",
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "receiving_venue_selected": false,
+  "original_training_clock_compatibility": "unresolved",
+  "feature_generation_approved": false,
   "candidate_features_generated": 0,
+  "return_labels_read_or_computed": 0,
   "new_fits": 0,
   "new_accounts": 0,
+  "scope_boundary": "Per-venue ordinary-schedule conditional coverage only; extraordinary corpus, current-open receipt and historical-vintage gaps remain. NoTOMproxy calculated.",
+  "source_gaps": [
+    {
+      "document_id": "nyse_rule51_2010_notice",
+      "reason": "receipt_has_no_successful_raw_response",
+      "assertions_admitted": 0
+    },
+    {
+      "document_id": "nyse_rule51_2010_exhibit5",
+      "reason": "receipt_has_no_successful_raw_response",
+      "assertions_admitted": 0
+    },
+    {
+      "document_id": "nyse_juneteenth_2021",
+      "reason": "receipt_has_no_successful_raw_response",
+      "assertions_admitted": 0
+    },
+    {
+      "document_id": "arca_juneteenth_2021",
+      "reason": "receipt_has_no_successful_raw_response",
+      "assertions_admitted": 0
+    },
+    {
+      "document_id": "nyse_calendar_2012_2013_wire",
+      "reason": "receipt_has_no_successful_raw_response",
+      "assertions_admitted": 0
+    }
+  ],
+  "known_amendment_gaps": [
+    {
+      "id": "Juneteenth_2022_original_SEC_rule_raw_unavailable",
+      "venues": [
+        "NYSE",
+        "NYSE_ARCA"
+      ],
+      "affected_calendar_years": [
+        2022
+      ],
+      "unknown_from": "2021-10-01T00:00:00-04:00",
+      "basis": "Both2021-09-30 SECnotice bodies lackrawcapture. Their already-recorded metadata warns thatthe2020baseline isnot anupdated2022calendar; do not silently certify it. Thisis a missing-source marker, not anadmitted holiday assertion.",
+      "resolution": "No repair inthisrun. Explicit2023+annualtable includesJuneteenth only fromitsown2022-12-22 conditionalknowledge time; itdoesnotretroactively qualify2022."
+    }
+  ],
+  "ordinary_horizon_complete_meaning": "Only the bounded already-announced full-year table andMonday-Friday convention cover to monthend andnext plannedopen. It is not extraordinary-closure completeness orPIT.",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
@@ -17,5 +101,108 @@
       "analysis/coverage_detail",
       "analysis/discrepancies"
     ]
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "nas_evidence": {
+    "sha256": "cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+    "size_bytes": 921476,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/cc/a1/cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 16:43:42.769452+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/cc/a1/cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+    "recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+    "experiment_id": "944021652676933250",
+    "archive_root": "qlib_recorder"
+  },
+  "repair_delivery_assessment": {
+    "repair_execution_session": 65407,
+    "initial_recorder_id": "638ecf0af9204ba38e2e36e7be0307f1",
+    "initial_archive_sha256": "0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
+    "cached_documents": 12,
+    "parsed_documents": 12,
+    "parser_gap_count": 0,
+    "raw_capture_gap_count": 5,
+    "assertions_before": 297,
+    "assertions_after": 439,
+    "ordinary_calendar_discrepancy_rows": 6,
+    "discrepancy_extract": "discrepancy_summary.json",
+    "table_year_basis": "signal_date.year, not decision tradingyear",
+    "venue_clock_coverage": [
+      {
+        "venue": "NASDAQ",
+        "clock": "original_0929",
+        "rows": 3966,
+        "ordinary_horizon_complete": 0,
+        "conditional_snapshot": 0,
+        "unknown": 3966,
+        "historical_PIT_rows": 0
+      },
+      {
+        "venue": "NASDAQ",
+        "clock": "research_0946",
+        "rows": 3966,
+        "ordinary_horizon_complete": 0,
+        "conditional_snapshot": 0,
+        "unknown": 3966,
+        "historical_PIT_rows": 0
+      },
+      {
+        "venue": "NYSE",
+        "clock": "original_0929",
+        "rows": 3966,
+        "ordinary_horizon_complete": 3176,
+        "conditional_snapshot": 2925,
+        "unknown": 1041,
+        "historical_PIT_rows": 0
+      },
+      {
+        "venue": "NYSE",
+        "clock": "research_0946",
+        "rows": 3966,
+        "ordinary_horizon_complete": 3176,
+        "conditional_snapshot": 2925,
+        "unknown": 1041,
+        "historical_PIT_rows": 0
+      },
+      {
+        "venue": "NYSE_ARCA",
+        "clock": "original_0929",
+        "rows": 3966,
+        "ordinary_horizon_complete": 3176,
+        "conditional_snapshot": 2925,
+        "unknown": 1041,
+        "historical_PIT_rows": 0
+      },
+      {
+        "venue": "NYSE_ARCA",
+        "clock": "research_0946",
+        "rows": 3966,
+        "ordinary_horizon_complete": 3176,
+        "conditional_snapshot": 2925,
+        "unknown": 1041,
+        "historical_PIT_rows": 0
+      }
+    ],
+    "parent_initial_frozen_hashes_unchanged": true,
+    "independent_source_result_review": "pending",
+    "executor_cold_NAS_reads": 0
+  },
+  "delivery_readback": {
+    "path": "readback_verification.json",
+    "sha256": "3738c9547e17a423985fb5a6b93ee134c5d0c02a21a9eebd6c388f50c4b28af8",
+    "executor": "root",
+    "exec_session": 21776,
+    "exit_code": 0,
+    "cold_restore_count": 1
+  },
+  "source_result_review": {
+    "path": "source_result_review.json",
+    "sha256": "21f6123bc0e5c8678341e302889e38a2c29b9d5f8596e988d4268fa013c1dd3b",
+    "verdict": "ACCEPT_CONDITIONAL_SOURCE_FOR_SEPARATE_RECEIVER_DESIGN"
   }
 }

@@ -1,0 +1,50 @@
+{
+  "source_recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+  "artifact": "analysis/discrepancies",
+  "artifact_sha256": "c7f60cec2480171e5ca13aa6c948c7ad989cc5f2ae4124991df9841703064ed3",
+  "rows": [
+    {
+      "date": "2018-12-05 00:00:00",
+      "venue": "NYSE",
+      "announced_state": "planned_weekday_open",
+      "observed_calendar_contains_date": false,
+      "known_document_ids": "ice_calendar_2018_2020"
+    },
+    {
+      "date": "2018-12-05 00:00:00",
+      "venue": "NYSE_ARCA",
+      "announced_state": "planned_weekday_open",
+      "observed_calendar_contains_date": false,
+      "known_document_ids": "ice_calendar_2018_2020"
+    },
+    {
+      "date": "2022-06-20 00:00:00",
+      "venue": "NYSE",
+      "announced_state": "planned_weekday_open",
+      "observed_calendar_contains_date": false,
+      "known_document_ids": "ice_calendar_2021_2023"
+    },
+    {
+      "date": "2022-06-20 00:00:00",
+      "venue": "NYSE_ARCA",
+      "announced_state": "planned_weekday_open",
+      "observed_calendar_contains_date": false,
+      "known_document_ids": "ice_calendar_2021_2023"
+    },
+    {
+      "date": "2025-01-09 00:00:00",
+      "venue": "NYSE",
+      "announced_state": "planned_weekday_open",
+      "observed_calendar_contains_date": false,
+      "known_document_ids": "ice_calendar_2023_2025"
+    },
+    {
+      "date": "2025-01-09 00:00:00",
+      "venue": "NYSE_ARCA",
+      "announced_state": "planned_weekday_open",
+      "observed_calendar_contains_date": false,
+      "known_document_ids": "ice_calendar_2023_2025"
+    }
+  ],
+  "role": "Copied sealed source diagnostic, not venue equivalence, TOMvalue orretrospective label correction."
+}

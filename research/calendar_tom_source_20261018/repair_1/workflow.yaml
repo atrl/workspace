@@ -1,8 +1,8 @@
 experiment: calendar_tom_source_20261018
 entrypoint: src.workflow.calendar_tom_source.run
-phase: repair_1_approved_once_cache_only_qualification
+phase: repair_1_source_reviewed_conditional_receiver_design_only
 parent_card: ..
 source_execution_environment: CALENDAR_TOM_SOURCE_EXECUTE=1
-source_execution_authorized: true
+repair_run: completed
+model_execution_authorized: false
 artifact_policy: slim_card_recorder_first
-source_execution_approval: source_execution_approval.json
