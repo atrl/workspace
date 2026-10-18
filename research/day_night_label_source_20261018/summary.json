@@ -1,0 +1,40 @@
+{
+  "experiment": "day_night_label_source_20261018",
+  "status": "implementation_ready_pending_review_and_phase_GO",
+  "decision": "no_real_source_phase_executed",
+  "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+  "real_operation_counts": {
+    "opaque_price_blob_materializations": 0,
+    "D_features_calls": 0,
+    "PG_training_reference_loads": 0,
+    "S_Z_rows": 0,
+    "new_source_HTTP": 0,
+    "new_fits": 0,
+    "new_accounts": 0
+  },
+  "synthetic": {
+    "session_id": 77177,
+    "exit_code": 0,
+    "passed": 1,
+    "seconds": 2.19,
+    "warning_count": 12
+  },
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "identity/selected_member_manifest",
+      "source/immutable_metadata_and_code",
+      "source/basis_certificate",
+      "source/native_training_prices",
+      "reference/original_train_index_clocks_and_targets",
+      "labels/fixed_H5_components_S_Z",
+      "analysis/source_label_checks"
+    ]
+  },
+  "as_of": "2026-07-24",
+  "source_snapshot_as_of": "2026-07-24",
+  "training_observation_end": "2022-12-30"
+}

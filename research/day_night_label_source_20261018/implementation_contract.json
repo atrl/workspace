@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "status": "implementation_ready_pending_scoped_review_and_phase_GO",
+  "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+  "entrypoint": "src.workflow.day_night_label_source.launch_phase(root=...,card=...,phase=A|B|C)",
+  "notebook_env": {
+    "DAY_NIGHT_SOURCE_EXECUTE": "1",
+    "DAY_NIGHT_SOURCE_PHASE": "A|B|C",
+    "MLFLOW_ALLOW_FILE_STORE": "true"
+  },
+  "worker": "notebook launches a new Python interpreter for every phase; guard requires recorded parent PID equals actual parent PID. Phase B is never run in the notebook interpreter.",
+  "phase_layout": "phase_A, phase_B, phase_C each has immutable attempt, separate native Recorder, summary, manifest and NAS archive. C reads only sealed B artifacts and never resumes B.",
+  "source_read_order": "Initialize Qlib and load all verified read-only source objects before a writable R.start. Persist prepared native objects only within the new R.start. Seal and archive after it ends.",
+  "phase_A": {
+    "snapshot_directory": "data/qlib/day_night_label_source_20261018/selected_ea7f22bb9becb8a8f911a5073d80d519ea3f450b",
+    "capture_count_semantics": "Exactly four opaque source price-blob captures/materializations. Every full byte access and SHA is disclosed; copies serialized as Recorder evidence are opaque byte preservation, not numerical price decoding. Seven whitelisted provider members, two source metadata objects and two same-commit builder code objects; no omitted source members inferred.",
+    "readonly": "All materialized provider files and directories are made read-only. No price values or train label objects decoded in phase A.",
+    "basis_gate": "metadata exact comparison plus pinned same-commit code evidence. Independent economic basis review required before B; near-one coefficients are not an acceptance criterion."
+  },
+  "phase_B": {
+    "public_api_budget": {
+      "D.calendar": 1,
+      "D.features": 1
+    },
+    "calendar": "One complete native calendar metadata call; it can include dates beyond 2022. No future price is read on this account.",
+    "internal_access": "D.features may internally consult calendar/instrument/provider index metadata. Those implementation calls are disclosed and not claimed to be additional research queries or hidden price reads. The binding price boundary is the patched FileFeatureStorage __getitem__ guard, which accepts exactly one slice for each of four admitted fields wholly inside fixed native indices for 2011-01-03..2022-12-30.",
+    "cache": "Fresh interpreter; expression_cache=None,dataset_cache=None,default_disk_cache=0,features(disk_cache=0),kernels=1. Only raw $open/$close; no Ref/rolling expansion.",
+    "axis": "Qlib instrument,datetime output is reordered to datetime,instrument without value conversion; original float32 dtype remains.",
+    "reference": "Only exact PG inputs/training_dataset and inputs/training_audit are unpickled. Entire admitted 85-column train-only object is resident; selection does not pretend to prevent residency. Prior accepted whole-resident train-only audit is reused. No full-period or eval object.",
+    "H1": "Selected-source float32 divide then subtract float32(1) is paired with immutable original H1. Count/max difference only; no numerical gate or source reselection.",
+    "identity_after_access": "Opaque snapshot member SHA256 and original PG artifact bytes rechecked after bounded-price Dataset construction. Full opaque hashing before/after does not decode future prices; both accesses are disclosed separately from guarded value reads."
+  },
+  "phase_C": {
+    "input": "Only B Recorder native Dataset, basis certificate, H5 mapping and immutable reference; zero D.features and no source price-bin decode.",
+    "floating_contract": "Scalar binary64 separate operations; finite inputs/intermediates/thresholds, round-to-nearest-even and gradual-underflow sanity checks, no FMA/reassociation. 44 leaves relative/22 asset; nonnegative L1 leftfold (<=43 additions), numerator=43*u, denominator=1-numerator, gamma=numerator/denominator, product=gamma*L1, allowance=43*eta, threshold=product+allowance. No nonfinite/vacuous threshold pass.",
+    "labels": "S/Z and original reference fields live in separate Dataset groups; original H1/H5 arrays and maturity retained exactly."
+  },
+  "native_persistence": "DataHandlerLP.from_df -> DatasetH; config(dump_all=True,recursive=True); all-group CS_RAW with nlevels=2; direct pickle and Recorder-load prepare roundtrip; never setup_data.",
+  "state": "No existing phase run_state may be overwritten or implicitly resumed. Any real failure preserves source snapshot/RID/attempt and requires separate repair identity and owner approval.",
+  "source_result_review_schema": {
+    "A": {
+      "verdict": "ACCEPT_PHASE_A_IDENTITY_AND_BASIS",
+      "next_phase_eligible": true
+    },
+    "B": {
+      "verdict": "ACCEPT_PHASE_B_BOUNDED_PRICE_AND_ALIGNMENT",
+      "next_phase_eligible": true
+    },
+    "binding_fields": [
+      "phase",
+      "recorder_id",
+      "summary_sha256",
+      "manifest_sha256",
+      "archive_sha256"
+    ]
+  },
+  "implementation_review_schema": {
+    "file": "implementation_review.json",
+    "verdict": "APPROVE_SOURCE_IMPLEMENTATION",
+    "phases": [
+      "A",
+      "B",
+      "C"
+    ],
+    "plan_sha256": "exact final plan",
+    "code_sha256": "exact implementation identity map"
+  },
+  "phase_owner_approval_schema": {
+    "file": "phase_<A|B|C>_execution_approval.json",
+    "approved": true,
+    "phase": "exact phase",
+    "plan_sha256": "exact final plan",
+    "implementation_identity_sha256": "exact sidecar SHA",
+    "implementation_review_sha256": "exact review SHA",
+    "maximum_counts": "exact phase counts below",
+    "upstream": "B/C only: accepted preceding result binding_fields plus review_sha256; not inferred from elapsed time"
+  },
+  "phase_maximum_counts": {
+    "A": {
+      "opaque_price_blob_materializations": 4,
+      "D_calendar_calls": 0,
+      "D_features_calls": 0,
+      "PG_training_reference_loads": 0,
+      "bounded_B_reference_loads": 0,
+      "S_Z_rows": 0,
+      "new_source_HTTP": 0,
+      "new_fits": 0,
+      "new_accounts": 0
+    },
+    "B": {
+      "opaque_price_blob_materializations": 0,
+      "D_calendar_calls": 1,
+      "D_features_calls": 1,
+      "PG_training_reference_loads": 1,
+      "bounded_B_reference_loads": 0,
+      "S_Z_rows": 0,
+      "new_source_HTTP": 0,
+      "new_fits": 0,
+      "new_accounts": 0
+    },
+    "C": {
+      "opaque_price_blob_materializations": 0,
+      "D_calendar_calls": 0,
+      "D_features_calls": 0,
+      "PG_training_reference_loads": 0,
+      "bounded_B_reference_loads": 1,
+      "S_Z_rows": 3014,
+      "new_source_HTTP": 0,
+      "new_fits": 0,
+      "new_accounts": 0
+    }
+  },
+  "scientific_decision": "Only source/label qualification. No IC/AUC/forecast MSE, annual return screening, sign/threshold/source search, models, accounts or promotion.",
+  "date_semantics": {
+    "as_of_and_source_snapshot_as_of": "2026-07-24",
+    "date_source": "plan.source_choice_before_any_price_read.selected_alternative.declared_coverage[-1]",
+    "training_observation_end": "2022-12-30",
+    "training_end_source": "plan.phase_B_native_training_price_and_alignment.native_query.end_time",
+    "A": "Whole selected opaque source-member bytes are captured without numerical price decoding.",
+    "B_C": "Numerical prices and derived labels stay in the fixed bounded training domain; snapshot date does not authorize later price values."
+  }
+}

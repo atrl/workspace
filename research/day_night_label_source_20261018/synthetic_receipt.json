@@ -1,0 +1,14 @@
+{
+  "scope": "one synthetic-only contract; no real phase or source price/label access",
+  "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_day_night_label_source.py -q",
+  "session_id": 77177,
+  "exit_code": 0,
+  "passed": 1,
+  "seconds": 2.19,
+  "warnings": 12,
+  "tested_files_sha256": {
+    "src/data/day_night_labels.py": "7e4198f091731aa1274f441ec755b3df46be95a38f2b812031a965d918cadaac",
+    "tests/test_day_night_label_source.py": "8915a6ebe61ed401886732120d50e805a9a0d5ac50468a8a989e31dca93668a1"
+  },
+  "subsequent_workflow_only_change": "Added post-access opaque snapshot/PG SHA checks, root-entry metadata paths, and owner-approved source snapshot as_of versus training_observation_end clarification. Synthetic primitive/native query code unchanged. Final compile/diff review only; no repeated data or test operations."
+}

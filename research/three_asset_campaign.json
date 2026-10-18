@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/day_night_label_source_20261018",
-  "current_phase": "source_label_design_frozen_implementation_in_progress",
-  "next_action": "Complete fixed A/B/C source-label implementation and one synthetic contract, freeze implementation identities, then execute phase A after owner GO. B and C remain gated by preceding accepted receipts; no fit/account scope.",
+  "current_phase": "phase_A_approved_ready_for_execution",
+  "next_action": "Execute exactly one phase A notebook and independently evaluate source identities/basis. Then bind accepted A evidence for B only; no source price decoding, S/Z construction, fitting or accounts is yet permitted.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1724,7 +1724,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/day_night_label_source_20261018",
-      "phase": "source_label_design_frozen_implementation_in_progress",
+      "phase": "phase_A_approved_ready_for_execution",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
@@ -1735,7 +1735,7 @@
       "new_accounts": 0,
       "real_price_or_label_reads": 0,
       "execution_authorized": false,
-      "executor_lifecycle": "Executor confirmed implementing src/data/day_night_labels.py and src/workflow/day_night_label_source.py with synthetic-only scope; evaluator completed design review. No real source operation has run.",
+      "executor_lifecycle": "Final implementation independently accepted; owner signed one A opaque-source execution. Executor will be explicitly resumed after delivery; no phase process has started yet.",
       "definition": "Qualify a fixed Git July24 source for H5 relative day/night S/Z labels. Common O/C basis from archived field scales; preserve original3014 H1/H5 tensors. A identity/basis, B train-only prices, C fixed labels; each phase requires its preceding accepted receipt.",
       "goal_turn_assessment": "Previous research turn made progress by delivering source-label design and correcting cross-vintage identity requirements. Game-troubleshooting interlude did not declare the research Goal paused or complete; this continuation resumes research.",
       "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
@@ -1743,7 +1743,22 @@
       "design_review_sha256": "9ad62c73ecd45e2b3a3d8c4967028c90bea572cad7ea1399795fc758bd6cf8ff",
       "implementation_authorization": "research/day_night_label_source_20261018/implementation_authorization.json",
       "implementation_authorized": true,
-      "real_phase_A_B_C_authorized": false
+      "real_phase_A_B_C_authorized": {
+        "A": true,
+        "B": false,
+        "C": false
+      },
+      "implementation_identity": "research/day_night_label_source_20261018/implementation_identity.json",
+      "implementation_identity_sha256": "e6b53cfb6da3807368c7a7086538fc3942e673f3f8fe391633f6eb16d1e795ae",
+      "synthetic_verification": {
+        "exec_session": 77177,
+        "exit_code": 0,
+        "passed": 1
+      },
+      "implementation_review": "research/day_night_label_source_20261018/implementation_review.json",
+      "implementation_review_sha256": "534f50e46224e0e8caefb2b3bbf70e0eeb8b8100ab7faa3cd8f640d6544cdf38",
+      "phase_A_execution_approval": "research/day_night_label_source_20261018/phase_A_execution_approval.json",
+      "phase_A_execution_approval_sha256": "5f6805abfa125711835c38bc031b916dff7d068e497b224d9406faa275e9a51d"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -2404,6 +2419,17 @@
       "next_design_executor": "/root/external_methods",
       "next_planned_card": "research/day_night_label_source_20261018",
       "actual_source_or_label_execution_authorized": false
+    },
+    "day_night_supervision_proposal": {
+      "path": "research/external_mechanism_review_20261018/day_night_supervision_proposal.md",
+      "sha256": "329f8a3be089924d3ed899b48e1715a0a447357c0fee4604bdfffdd623835387",
+      "status": "conditional_structural_proposal_registered_before_real_price_label_reads",
+      "selected_hypothesis": "Matched9-parameter shared regression head: standardizedS versus standardizedZ; original39/16 inputs, H1/H5 cohort and training retained. Unique0.02 half-MSE proposal, not an outcome-selected coefficient.",
+      "scope": "No model implementation, source reading, fit or account authorization. Final model design and exact evidence bindings require independent review after source-label qualification.",
+      "global_clip_caveat": "The new head gradient participates in the unchanged globalclip(2); even zero head initialization does not imply unchanged private updates. Full B/C package must be evaluated.",
+      "real_price_label_prediction_reads": 0,
+      "new_fits": 0,
+      "new_accounts": 0
     }
   },
   "research_focus_history": [

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "owner": "/root",
+  "approved": true,
+  "phase": "A",
+  "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+  "implementation_identity_sha256": "e6b53cfb6da3807368c7a7086538fc3942e673f3f8fe391633f6eb16d1e795ae",
+  "implementation_review_sha256": "534f50e46224e0e8caefb2b3bbf70e0eeb8b8100ab7faa3cd8f640d6544cdf38",
+  "maximum_counts": {
+    "opaque_price_blob_materializations": 4,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "PG_training_reference_loads": 0,
+    "bounded_B_reference_loads": 0,
+    "S_Z_rows": 0,
+    "new_source_HTTP": 0,
+    "new_fits": 0,
+    "new_accounts": 0
+  },
+  "scope": "One notebook-launched fresh worker; materialize/hash only the exact seven selected Git members, four opaque price blobs and fixed metadata/code. No numerical price decoding, training references, labels, fit or accounts. Preserve any failed attempt without automatic retry."
+}
