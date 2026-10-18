@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_finra_short_mix_20261018",
-  "current_phase": "FINRA_source_design_approved_implementation_pending",
-  "next_action": "Finish the source-only collector and bounded-request checks, freeze code, issue explicit source go, and collect/qualify the2059-day official FINRA history within2242 total intake requests. Preserve revision/timing gaps and Decimal authority. No labels, model fits or accounts before a separate model design approval.",
+  "current_phase": "FINRA_source_intake_running",
+  "next_action": "Launch and monitor the approved bounded FINRA source intake on its original live handle. Count every request/redirect/retry, preserve revision/coverage gaps, archive exact source bytes on NAS, and review source qualification before a separately frozen model plan.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1438,7 +1438,7 @@
     {
       "card": "research/stage1_finra_short_mix_20261018",
       "kind": "public_CNMS_short_mark_source_qualification",
-      "status": "FINRA_source_design_approved_implementation_pending",
+      "status": "FINRA_source_intake_running",
       "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
       "maximum_HTTP_requests_including_four_retained_samples": 2242,
       "maximum_new_model_fits": 0,
@@ -1450,7 +1450,8 @@
       ],
       "history_first_vintage_certified": false,
       "main_goal_blocked": false,
-      "evaluation": "research/stage1_finra_short_mix_20261018/design_review.json"
+      "evaluation": "research/stage1_finra_short_mix_20261018/design_review.json",
+      "source_execution_approval": "research/stage1_finra_short_mix_20261018/source_execution_approval.json"
     }
   ],
   "governance_review": {
@@ -1689,11 +1690,16 @@
     "completed_experiment_scope": "research/stage1_domain_heads_20261018",
     "current_task": {
       "card": "research/stage1_finra_short_mix_20261018",
-      "phase": "FINRA_source_design_approved_implementation_pending",
-      "bulk_started": false,
+      "phase": "FINRA_source_intake_running",
+      "bulk_started": true,
       "model_training_started": false,
       "account_replay_started": false,
-      "executor": "/root/recent_evidence"
+      "executor": "/root/recent_evidence",
+      "bulk_authorized": true,
+      "executor_session_id": 90248,
+      "observed_at": "2026-10-18T04:22:48.759438+00:00",
+      "HTTP_attempts_observed": 21,
+      "HTTP_ledger": "/tmp/stage1-finra-short-mix-source-intake-20261018/http_state.json"
     }
   },
   "goal_contract_20261018": {
@@ -1739,7 +1745,15 @@
       "community": "https://www.mql5.com/en/articles/23548",
       "primary_paper": "https://arxiv.org/abs/2308.15135",
       "author_code": "https://github.com/owenfutter/signature_trading",
-      "status": "untested_representation_not_new_information"
+      "status": "mathematically_nonredundant_but_measurement_and_economic_qualification_missing_do_not_train",
+      "ideal_null": "For simple-return paths y=a*x, antisymmetric area is exactly0; subtracting3*x changes no area. A log-coordinate functional y=f(x) has endpoint-only continuous area plus discretization effects.",
+      "actual_measurement_boundary": "Nonzero observed area may reflect asynchronous prices, bidask, ETF premium/tracking, or historical benchmark changes; not evidence of future executable advantage.",
+      "fixed_possible_future_design": "Only existing09:30-09:45 closed prefix; one simple-return antisymmetric scalar; shared endpoint/quadratic/realizedvariance/covariance controls; no order/window search.",
+      "benchmark_correction": "Current issuer documents show SOXX and SOXL both reference NYSE Semiconductor Index/ICESEMIT; do not assert different current benchmarks. Historical versions remain a dated-source question.",
+      "issuer_sources": [
+        "https://www.ishares.com/us/products/239705/ishares-semiconductor-etf",
+        "https://www.direxion.com/uploads/SOXL-SOXS-Fact-Sheet.pdf"
+      ]
     },
     "excluded": {
       "turn_of_month": "Historical settlement-calendar qualification missing; do not transplant T+3 window",

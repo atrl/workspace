@@ -1,0 +1,17 @@
+{
+  "checks": [
+    {
+      "command": "pytest tests/test_finra_short_mix_schema.py -q",
+      "passed": 3,
+      "scope": "four real byte samples, all-row rejection contracts, exactDecimal vs Qlibderived cache"
+    },
+    {
+      "command": "pytest tests/test_finra_source_intake.py -q",
+      "passed": 2,
+      "scope": "explicit redirect counting, shared atomic budget/cache, concurrent global0.25second launches, wrong-month/section revisionmetadata rejection"
+    }
+  ],
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "bulk_HTTP_started": false
+}
