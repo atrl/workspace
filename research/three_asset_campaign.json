@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/day_night_label_source_20261018",
-  "current_phase": "day_night_source_and_labels_accepted_next_supervision_design",
-  "next_action": "Finish the concrete preregistered six-fit S-versus-Z supervision draft with exact C-label/PG-training/held evaluation/reference identities, independently review it, and resume executor for implementation only when admitted. Source qualification does not achieve the SOXX objective.",
+  "current_experiment": "research/stage1_day_night_supervision_20261018",
+  "current_phase": "day_night_supervision_design_under_independent_review",
+  "next_action": "Finish independent model-design review, concretize only necessary unexecuted alignment/fit-loop details, freeze the single matched S/Z supervision plan, then explicitly resume executor for implementation+synthetic. No data-value reads or six-fit execution before their separate admitted gates.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1723,159 +1723,30 @@
   ],
   "execution_observation_20261018": {
     "current_task": {
-      "card": "research/day_night_label_source_20261018",
-      "phase": "day_night_source_and_labels_accepted_next_supervision_design",
+      "card": "research/stage1_day_night_supervision_20261018",
+      "phase": "day_night_supervision_design_under_independent_review",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
       "reviewer": "/root/independent_evaluator",
-      "design_draft": "research/day_night_label_source_20261018/source_label_design_draft.json",
-      "design_draft_sha256": "eec681ae2151a92f4b18779b863556fc9a2ba21a1ce14430f4e05ec5f123b6e7",
+      "design_draft": "research/stage1_day_night_supervision_20261018/design_draft.json",
+      "design_draft_sha256": "19bdb2437381af8b30a4cfc9496024baaa3dc6546313055d2d30b2fd4a8bc689",
+      "source_C": "research/day_night_label_source_20261018/phase_C",
+      "source_C_review_sha256": "6dd0b5422c05f6d5945cce761db276db27d9bf60e33cc948528c58a80699c039",
+      "planned_fits": 6,
+      "planned_new_native_accounts": 6,
+      "planned_reused_reference_accounts": 15,
+      "planned_required_paired_CI": 15,
       "new_fits": 0,
       "new_accounts": 0,
-      "executor_lifecycle": "A/B/C notebook jobs completed and accepted. Executor is idle after C; source verification is complete. External methods agent is actively drafting the next matched-supervision design; no model job or training authorization exists.",
-      "definition": "Qualify a fixed Git July24 source for H5 relative day/night S/Z labels. Common O/C basis from archived field scales; preserve original3014 H1/H5 tensors. A identity/basis, B train-only prices, C fixed labels; each phase requires its preceding accepted receipt.",
-      "goal_turn_assessment": "Previous research turn made progress by delivering source-label design and correcting cross-vintage identity requirements. Game-troubleshooting interlude did not declare the research Goal paused or complete; this continuation resumes research.",
-      "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
-      "design_review": "research/day_night_label_source_20261018/source_label_design_review.json",
-      "design_review_sha256": "9ad62c73ecd45e2b3a3d8c4967028c90bea572cad7ea1399795fc758bd6cf8ff",
-      "implementation_authorization": "research/day_night_label_source_20261018/implementation_authorization.json",
-      "implementation_authorized": true,
-      "real_phase_A_B_C_authorized": {
-        "A": "completed_accepted",
-        "B": "completed_accepted",
-        "C": "completed_accepted"
-      },
-      "implementation_identity": "research/day_night_label_source_20261018/implementation_identity.json",
-      "implementation_identity_sha256": "e6b53cfb6da3807368c7a7086538fc3942e673f3f8fe391633f6eb16d1e795ae",
-      "synthetic_verification": {
-        "exec_session": 77177,
-        "exit_code": 0,
-        "passed": 1
-      },
-      "implementation_review": "research/day_night_label_source_20261018/implementation_review.json",
-      "implementation_review_sha256": "534f50e46224e0e8caefb2b3bbf70e0eeb8b8100ab7faa3cd8f640d6544cdf38",
-      "phase_A_execution_approval": "research/day_night_label_source_20261018/phase_A_execution_approval.json",
-      "phase_A_execution_approval_sha256": "5f6805abfa125711835c38bc031b916dff7d068e497b224d9406faa275e9a51d",
-      "phase_A_job": {
-        "exec_session": 59469,
-        "nbconvert_pid": 30057,
-        "kernel_pid": 30058,
-        "worker_pid": 30067,
-        "worker_parent_pid": 30058
-      },
-      "phase_A_result": {
-        "exec_session": 59469,
-        "exit_code": 0,
-        "recorder_id": "f8a4eaec9168430da09ae46bf4b1ec8d",
-        "archive_sha256": "585d73652dfc51b0a69c80b87c7eaf29eab8725adb1534741b0d534ea371231e",
-        "summary_sha256": "d2899b6c536fa56f772a7aa2e108155bc66879074fe402468d34a01f843a7064",
-        "manifest_sha256": "8a6840be08f9c2880b104c1f3d602025225256857f8e6d8842c9c68ec344709b",
-        "artifact_count": 12,
-        "selected_members": 7,
-        "opaque_price_blob_materializations": 4,
-        "price_values_decoded": 0,
-        "train_label_objects_loaded": 0,
-        "S_Z_rows": 0,
-        "readback_verification": "research/day_night_label_source_20261018/phase_A/readback_verification.json",
-        "readback_verification_sha256": "206d456e4cad751e200b800e912858cf8022eb627bbea58153837c0912740b7d",
-        "cold_restore_downloads": 1
-      },
-      "phase_A_result_review": "research/day_night_label_source_20261018/phase_A/source_result_review.json",
-      "phase_A_result_review_sha256": "ac59a4531fc721bb8f4ae06ebe8562f461eabfb6467a0af3c35d29046b524c66",
-      "phase_B_execution_approval": "research/day_night_label_source_20261018/phase_B_execution_approval.json",
-      "phase_B_execution_approval_sha256": "6f25f2f113df2e89b74783ac0b1d529bfe2cc80c92e5db795a76edb0a89c3d93",
-      "phase_B_result": {
-        "exec_session": 94911,
-        "exit_code": 0,
-        "worker_pid": 31519,
-        "recorder_id": "ca4c274301a14149bc6f1de5ab800cd4",
-        "archive_sha256": "f4ab6a8be0b5d112ae46adcd798104a462894c712ffdcab016b0c60a8f5fb838",
-        "summary_sha256": "7de95c665b3f687fc0740cfe33334b66576cad92dc6f478f08ee7199e6f9f6f7",
-        "manifest_sha256": "1ef80e340d7377694feb4c54b78425dc4db9af20cc8b8a2bb2be5d0b69c3916b",
-        "artifact_count": 18,
-        "bounded_price_shape": [
-          6040,
-          2
-        ],
-        "original_cohort_rows": 3014,
-        "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
-        "operation_counts": {
-          "opaque_price_blob_materializations": 0,
-          "D_calendar_calls": 1,
-          "D_features_calls": 1,
-          "PG_training_reference_loads": 1,
-          "bounded_B_reference_loads": 0,
-          "S_Z_rows": 0
-        },
-        "H1_cross_vintage_diagnostic": [
-          {
-            "instrument": "SOXL",
-            "rows": 3014,
-            "exact_equal_count": 512,
-            "finite_count": 3014,
-            "missing_count": 0,
-            "max_absolute_difference": 2.8848648071289062e-05,
-            "acceptance_threshold": null,
-            "diagnostic_only": true
-          },
-          {
-            "instrument": "SOXX",
-            "rows": 3014,
-            "exact_equal_count": 449,
-            "finite_count": 3014,
-            "missing_count": 0,
-            "max_absolute_difference": 1.7881393432617188e-06,
-            "acceptance_threshold": null,
-            "diagnostic_only": true
-          }
-        ],
-        "readback_verification": "research/day_night_label_source_20261018/phase_B/readback_verification.json",
-        "readback_verification_sha256": "fdb4dc9c6bf9e13f0cd4e2467e5d4928f41b4d2f2a20e422b772fd0c9bcffa4f"
-      },
-      "phase_B_result_review": "research/day_night_label_source_20261018/phase_B/source_result_review.json",
-      "phase_B_result_review_sha256": "b7b2263b665bc5dca4ae52c28a1e367baf9a1d24d88a60a3c735f6cddf56815d",
-      "phase_C_execution_approval": "research/day_night_label_source_20261018/phase_C_execution_approval.json",
-      "phase_C_execution_approval_sha256": "041d4443d41f4ea37e67c70aaf91eb15ed012bfb597d64257cbf4bc28fd5b9df",
-      "phase_C_result": {
-        "exec_session": 57963,
-        "exit_code": 0,
-        "worker_pid": 32865,
-        "recorder_id": "3243fe48d391405bb450612e506286b2",
-        "archive_sha256": "e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
-        "summary_sha256": "afc7d24c41b76dc1646c5daf4b5c35a85c659751bf5a46239b744fbb69229287",
-        "manifest_sha256": "2e3064838ec0f2fe301361795fc6e5ace105d0aa43a5ece5653cc936cbb73c3f",
-        "artifact_count": 14,
-        "native_dataset_shape": [
-          3014,
-          19
-        ],
-        "fixed_S_Z_rows": 3014,
-        "algebra_checks": 9042,
-        "max_absolute_residual": 5.551115123125783e-17,
-        "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
-        "operation_counts": {
-          "opaque_price_blob_materializations": 0,
-          "D_calendar_calls": 0,
-          "D_features_calls": 0,
-          "PG_training_reference_loads": 0,
-          "bounded_B_reference_loads": 1,
-          "S_Z_rows": 3014
-        },
-        "readback_verification": "research/day_night_label_source_20261018/phase_C/readback_verification.json",
-        "readback_verification_sha256": "b41d7c253ca0b5cc8b0c3e0cb880f414d7a15a2a2bc1501ecba43ac501bf996e"
-      },
-      "phase_C_result_review": "research/day_night_label_source_20261018/phase_C/source_result_review.json",
-      "phase_C_result_review_sha256": "6dd0b5422c05f6d5945cce761db276db27d9bf60e33cc948528c58a80699c039",
-      "source_label_qualified": true,
-      "new_supervision_target_rows": 3014,
-      "real_data_read_counts": {
-        "native_price_query": 1,
-        "original_train_reference_load": 1,
-        "sealed_B_reference_load": 1,
-        "evaluation_objects": 0
-      },
-      "future_execution_authorized": false
+      "new_data_value_reads_in_model_design": 0,
+      "model_implementation_authorized": false,
+      "model_fit_authorized": false,
+      "account_execution_authorized": false,
+      "executor_lifecycle": "Design executor completed the three-file draft. Independent evaluator explicitly resumed for full design review. Executor explicitly resumed and completed read-only adapter/workflow preparation; no model implementation or job exists. Resume after admitted design/owner implementation GO.",
+      "implementation_preparation": "Narrow new adapter fit-loop copy preserves original combined loss order and diagnostic meaning; add regression loss after L_original. Preserve same primary state, auxiliary sampling, globalclip and original RNG; clear temporary cache before seal. No original module edits.",
+      "pending_alignment_clarification": "Source C instrument SOXL_SOXX differs from original PG SOXL_SOXX_CASH; assert both fixed single-instrument/date cohorts and original8fields, then assign S/Z by exact date order while preserving PG index/85columns. No inner join/drop/fill.",
+      "previous_goal_turn_classification": "progress: all three fixed source phases executed once, conditional labels independently accepted and cold-restored; no model/financial success claimed."
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -2285,6 +2156,161 @@
         "table_hashes_unchanged": true,
         "new_fit_forward_replay_or_CI": false
       }
+    },
+    "completed_day_night_label_source_task": {
+      "card": "research/day_night_label_source_20261018",
+      "phase": "day_night_source_and_labels_accepted_next_supervision_design",
+      "owner": "/root",
+      "design_executor": "/root/external_methods",
+      "executor": "/root/recent_evidence",
+      "reviewer": "/root/independent_evaluator",
+      "design_draft": "research/day_night_label_source_20261018/source_label_design_draft.json",
+      "design_draft_sha256": "eec681ae2151a92f4b18779b863556fc9a2ba21a1ce14430f4e05ec5f123b6e7",
+      "new_fits": 0,
+      "new_accounts": 0,
+      "executor_lifecycle": "A/B/C notebook jobs completed and accepted. Executor is idle after C; source verification is complete. External methods agent is actively drafting the next matched-supervision design; no model job or training authorization exists.",
+      "definition": "Qualify a fixed Git July24 source for H5 relative day/night S/Z labels. Common O/C basis from archived field scales; preserve original3014 H1/H5 tensors. A identity/basis, B train-only prices, C fixed labels; each phase requires its preceding accepted receipt.",
+      "goal_turn_assessment": "Previous research turn made progress by delivering source-label design and correcting cross-vintage identity requirements. Game-troubleshooting interlude did not declare the research Goal paused or complete; this continuation resumes research.",
+      "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+      "design_review": "research/day_night_label_source_20261018/source_label_design_review.json",
+      "design_review_sha256": "9ad62c73ecd45e2b3a3d8c4967028c90bea572cad7ea1399795fc758bd6cf8ff",
+      "implementation_authorization": "research/day_night_label_source_20261018/implementation_authorization.json",
+      "implementation_authorized": true,
+      "real_phase_A_B_C_authorized": {
+        "A": "completed_accepted",
+        "B": "completed_accepted",
+        "C": "completed_accepted"
+      },
+      "implementation_identity": "research/day_night_label_source_20261018/implementation_identity.json",
+      "implementation_identity_sha256": "e6b53cfb6da3807368c7a7086538fc3942e673f3f8fe391633f6eb16d1e795ae",
+      "synthetic_verification": {
+        "exec_session": 77177,
+        "exit_code": 0,
+        "passed": 1
+      },
+      "implementation_review": "research/day_night_label_source_20261018/implementation_review.json",
+      "implementation_review_sha256": "534f50e46224e0e8caefb2b3bbf70e0eeb8b8100ab7faa3cd8f640d6544cdf38",
+      "phase_A_execution_approval": "research/day_night_label_source_20261018/phase_A_execution_approval.json",
+      "phase_A_execution_approval_sha256": "5f6805abfa125711835c38bc031b916dff7d068e497b224d9406faa275e9a51d",
+      "phase_A_job": {
+        "exec_session": 59469,
+        "nbconvert_pid": 30057,
+        "kernel_pid": 30058,
+        "worker_pid": 30067,
+        "worker_parent_pid": 30058
+      },
+      "phase_A_result": {
+        "exec_session": 59469,
+        "exit_code": 0,
+        "recorder_id": "f8a4eaec9168430da09ae46bf4b1ec8d",
+        "archive_sha256": "585d73652dfc51b0a69c80b87c7eaf29eab8725adb1534741b0d534ea371231e",
+        "summary_sha256": "d2899b6c536fa56f772a7aa2e108155bc66879074fe402468d34a01f843a7064",
+        "manifest_sha256": "8a6840be08f9c2880b104c1f3d602025225256857f8e6d8842c9c68ec344709b",
+        "artifact_count": 12,
+        "selected_members": 7,
+        "opaque_price_blob_materializations": 4,
+        "price_values_decoded": 0,
+        "train_label_objects_loaded": 0,
+        "S_Z_rows": 0,
+        "readback_verification": "research/day_night_label_source_20261018/phase_A/readback_verification.json",
+        "readback_verification_sha256": "206d456e4cad751e200b800e912858cf8022eb627bbea58153837c0912740b7d",
+        "cold_restore_downloads": 1
+      },
+      "phase_A_result_review": "research/day_night_label_source_20261018/phase_A/source_result_review.json",
+      "phase_A_result_review_sha256": "ac59a4531fc721bb8f4ae06ebe8562f461eabfb6467a0af3c35d29046b524c66",
+      "phase_B_execution_approval": "research/day_night_label_source_20261018/phase_B_execution_approval.json",
+      "phase_B_execution_approval_sha256": "6f25f2f113df2e89b74783ac0b1d529bfe2cc80c92e5db795a76edb0a89c3d93",
+      "phase_B_result": {
+        "exec_session": 94911,
+        "exit_code": 0,
+        "worker_pid": 31519,
+        "recorder_id": "ca4c274301a14149bc6f1de5ab800cd4",
+        "archive_sha256": "f4ab6a8be0b5d112ae46adcd798104a462894c712ffdcab016b0c60a8f5fb838",
+        "summary_sha256": "7de95c665b3f687fc0740cfe33334b66576cad92dc6f478f08ee7199e6f9f6f7",
+        "manifest_sha256": "1ef80e340d7377694feb4c54b78425dc4db9af20cc8b8a2bb2be5d0b69c3916b",
+        "artifact_count": 18,
+        "bounded_price_shape": [
+          6040,
+          2
+        ],
+        "original_cohort_rows": 3014,
+        "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
+        "operation_counts": {
+          "opaque_price_blob_materializations": 0,
+          "D_calendar_calls": 1,
+          "D_features_calls": 1,
+          "PG_training_reference_loads": 1,
+          "bounded_B_reference_loads": 0,
+          "S_Z_rows": 0
+        },
+        "H1_cross_vintage_diagnostic": [
+          {
+            "instrument": "SOXL",
+            "rows": 3014,
+            "exact_equal_count": 512,
+            "finite_count": 3014,
+            "missing_count": 0,
+            "max_absolute_difference": 2.8848648071289062e-05,
+            "acceptance_threshold": null,
+            "diagnostic_only": true
+          },
+          {
+            "instrument": "SOXX",
+            "rows": 3014,
+            "exact_equal_count": 449,
+            "finite_count": 3014,
+            "missing_count": 0,
+            "max_absolute_difference": 1.7881393432617188e-06,
+            "acceptance_threshold": null,
+            "diagnostic_only": true
+          }
+        ],
+        "readback_verification": "research/day_night_label_source_20261018/phase_B/readback_verification.json",
+        "readback_verification_sha256": "fdb4dc9c6bf9e13f0cd4e2467e5d4928f41b4d2f2a20e422b772fd0c9bcffa4f"
+      },
+      "phase_B_result_review": "research/day_night_label_source_20261018/phase_B/source_result_review.json",
+      "phase_B_result_review_sha256": "b7b2263b665bc5dca4ae52c28a1e367baf9a1d24d88a60a3c735f6cddf56815d",
+      "phase_C_execution_approval": "research/day_night_label_source_20261018/phase_C_execution_approval.json",
+      "phase_C_execution_approval_sha256": "041d4443d41f4ea37e67c70aaf91eb15ed012bfb597d64257cbf4bc28fd5b9df",
+      "phase_C_result": {
+        "exec_session": 57963,
+        "exit_code": 0,
+        "worker_pid": 32865,
+        "recorder_id": "3243fe48d391405bb450612e506286b2",
+        "archive_sha256": "e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
+        "summary_sha256": "afc7d24c41b76dc1646c5daf4b5c35a85c659751bf5a46239b744fbb69229287",
+        "manifest_sha256": "2e3064838ec0f2fe301361795fc6e5ace105d0aa43a5ece5653cc936cbb73c3f",
+        "artifact_count": 14,
+        "native_dataset_shape": [
+          3014,
+          19
+        ],
+        "fixed_S_Z_rows": 3014,
+        "algebra_checks": 9042,
+        "max_absolute_residual": 5.551115123125783e-17,
+        "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
+        "operation_counts": {
+          "opaque_price_blob_materializations": 0,
+          "D_calendar_calls": 0,
+          "D_features_calls": 0,
+          "PG_training_reference_loads": 0,
+          "bounded_B_reference_loads": 1,
+          "S_Z_rows": 3014
+        },
+        "readback_verification": "research/day_night_label_source_20261018/phase_C/readback_verification.json",
+        "readback_verification_sha256": "b41d7c253ca0b5cc8b0c3e0cb880f414d7a15a2a2bc1501ecba43ac501bf996e"
+      },
+      "phase_C_result_review": "research/day_night_label_source_20261018/phase_C/source_result_review.json",
+      "phase_C_result_review_sha256": "6dd0b5422c05f6d5945cce761db276db27d9bf60e33cc948528c58a80699c039",
+      "source_label_qualified": true,
+      "new_supervision_target_rows": 3014,
+      "real_data_read_counts": {
+        "native_price_query": 1,
+        "original_train_reference_load": 1,
+        "sealed_B_reference_load": 1,
+        "evaluation_objects": 0
+      },
+      "future_execution_authorized": false
     }
   },
   "goal_contract_20261018": {
