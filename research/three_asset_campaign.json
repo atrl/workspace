@@ -12,7 +12,7 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/sec_uncertainty_source_20261018",
-  "current_phase": "B0_accepted_provisional_sample_prepare_B1",
+  "current_phase": "B1_implementation_authorized",
   "next_action": "Freeze/implement bounded B1 metadata/header intake for AMD0000002488 and SWKS0000004127 with fixed truthful project User-Agent, max10 source HTTP/no retry/no body. Prove first post-anchor original annual plus previous annual and historical entity/timing. Lexicon A unresolved independently. Path-area backup may receive a separate causal OOF/09:47-label bridge design, not an automatic fit.",
   "roles": {
     "owner": "/root",
@@ -1742,13 +1742,13 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/sec_uncertainty_source_20261018",
-      "phase": "B0_accepted_provisional_sample_prepare_B1",
+      "phase": "B1_implementation_authorized",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
       "reviewer": "/root/independent_evaluator",
       "source_design_draft": "research/sec_uncertainty_source_20261018/source_design_draft.json",
-      "executor_lifecycle": "Executor24234 and root coldread57821 are terminal exit0; independent B0 result accepted; executor completed notebook/receipt synchronization. No source data job currently running. Explicit followup required for B1 implementation.",
+      "executor_lifecycle": "B0 execution/review/readback terminal and delivered. Owner now explicitly resumes recent_evidence for B1 implementation only; no SEC data requests or source execution handle.",
       "model_fit_authorized": false,
       "account_execution_authorized": false,
       "new_fits": 0,
@@ -1817,7 +1817,9 @@
         "coldread_artifact_hashes": 18,
         "historical_identity_qualified": false,
         "source_pilot_ready": false
-      }
+      },
+      "B1_plan_sha256": "74a88432d406719ee3d6b149fecd355e29288b2aaf46589b435569df2fb2214d",
+      "B1_implementation_authorization_sha256": "f82532f1a7d4f0e6c4486c0f90263faf5433c59d39ff09dd577f4be9e80cf431"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
