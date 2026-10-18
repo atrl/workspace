@@ -1,0 +1,113 @@
+{
+  "schema_version": "stage1_close_rod_source_contract_draft_v1",
+  "experiment": "stage1_close_rod_20261018",
+  "status": "draft_not_frozen_not_execution_authorized",
+  "scope": "Existing-source metadata and physical incremental-holding contract only. No new market labels, fits, policy paths, accounts, HTTP, production changes or historical outcome selection.",
+  "candidate_scope": "One SOXX previous-session-close to 15:30 ROD direction inside a proposed new close-only bounded recovery-permission module, with deterministic same-session exit. This is an explicit unreviewed design change, not an already-permitted Stage1 action. No window/sign/threshold search and no gamma measurement claim.",
+  "source_bindings": {
+    "minute_manifest": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+    "minute_manifest_sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+    "minute_snapshot_dates": [
+      "2018-10-12",
+      "2026-10-09"
+    ],
+    "minute_plane": "SOXL/SOXX raw NONE 1-minute RTH; raw quantities and raw execution prices. Do not derive ROD from the full-as-of published-affine plane.",
+    "corporate_card": "research/etf_corporate_actions_20261009",
+    "corporate_recorder": "582a0c7d39964e8b860ebe33941c5dd2",
+    "corporate_artifacts": [
+      "data/cash_events.pkl",
+      "data/split_events.pkl",
+      "inputs/source_contract.pkl"
+    ],
+    "existing_corporate_qualification_as_of": "2026-09-25",
+    "existing_physical_schedule_contract": "src/backtest/raw_corporate_policy.py:make_schedule and IncomeLedger; source qualification remains conditional gross-USD paper, not historical PIT or actual broker credit.",
+    "completed_history_mapping_card": "research/diagnostic_forward_bar_mapping_20261016",
+    "completed_history_mapping_recorder": "0b98c0e31bc5468594d59e66214527df",
+    "fullminute_coverage_card": "research/fullminute_frozen_position_risk_20261015",
+    "fullminute_coverage_recorder": "5732aecd6e6148bbbb8706249006f46b"
+  },
+  "observed_event_time_evidence": {
+    "cash_rows_since_minute_source_start": {
+      "SOXX": 33,
+      "SOXL": 26
+    },
+    "cash_announcement_or_known_by_or_archive_timestamps_in_that_range": 0,
+    "cash_economic_fields": [
+      "ex_date",
+      "record_date",
+      "pay_date",
+      "original_total_decimal"
+    ],
+    "cash_evidence_fields": [
+      "source_hash",
+      "source_version",
+      "basis_source_version",
+      "source_evidence_known_by_utc",
+      "archive_timestamp_utc",
+      "announcement_at"
+    ],
+    "source_level_receipt_is_not_event_publication": {
+      "SOXX": "Issuer workbook received 2026-10-09T06:37:22.822103+00:00; historical rows have no announcement timestamp.",
+      "SOXL": "Issuer DOM observation completed no later than 2026-10-09T06:41:55+00:00; exact DOM received timestamp unknown; transcription is not an HTTP body."
+    },
+    "futu_rehab": "Existing SOXL/SOXX rehab has ex_div_date, exact split base/ert, cash and A/B fields; no publication, announcement, first-receipt or historical-vintage field. Source manifest fetched_at is 2026 retrieval only.",
+    "SOXL_2021_split": "Existing split2021.body contains publication-date literal 2021-01-29 and explicit 15-for-1 effective trading date 2021-03-02. Normalized announcement_at remains null. PDF metadata creation/modification and 2026 HTTP Last-Modified/receipt are not historical publication timestamps. No exception to the uniform v1 event-day no-increment rule is proposed.",
+    "SOXX_2024_split": "Existing Form 8937 supports 3-for-1, record 2024-03-04 and payable after close 2024-03-06; following-session effective date is 2024-03-07. Its statement of board approval on 2023-12-21 is not a public-announcement timestamp. PDF creation/modification occurs after the split; the attempted press-release raw download was 404."
+  },
+  "minimum_historical_admission": {
+    "qualification_name": "usable_under_frozen_historical_snapshot_non_event_contract",
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false,
+    "meaning": "No event row in the explicitly frozen, covered event universe is a retrospective source classification, not proof of contemporaneous knowledge that no event existed.",
+    "calendar": "Use the frozen native Qlib session set joined to the existing XNYS local session schedule. Current session must be a regular 390-minute session. Previous means immediately preceding session, including a 13:00 half-day close; never hard-code the previous close to 16:00 or skip a session.",
+    "required_input": "SOXX raw close at the prior actual session close and current 15:30 completed bar; required SOXL/SOXX execution-open marks; valid finite positive source observations with declared end-label and historical availability assumptions. Do not substitute interpolation or a neighboring date/bar.",
+    "non_event": "No cash-distribution ex-date or split effective date for either asset in (previous actual session close, current 15:30]. Include explicit zero-distribution rows in the uniform event mask. Compare issuer event-date membership with the already saved same-snapshot Futu rehab; unresolved additional events or event kinds make the shared eligibility unknown. This is source-only membership, not a return/label computation.",
+    "coverage_tail": "The original corporate card qualified through 2026-09-25 although the minute/rehab snapshot extends through 2026-10-09. Before freezing, explicitly decide and record a source-only extension of event-date coverage using the existing captured issuer/rehab objects; otherwise sessions after 2026-09-25 are shared no-increment. Do not silently extend old qualification.",
+    "event_days": "For v1, any ex/split day or missing/ambiguous event timing/coverage sets source_ready=false, ROD=unknown and candidate plus matched schedule control to no-increment. Retain the full day, Stage1 baseline holdings, fees, corporate processing and benchmark return in every account. Do not backfill an adjusted signal, use zero as observed ROD, remove the day or disable existing accounting events.",
+    "non_event_ROD": "Once the above source gate is frozen and execution is separately authorized, compute raw_SOXX_close_15_30 / raw_SOXX_previous_actual_close - 1 only on eligible non-event days. No future affine factors or future distributions enter. Source originals retain float64; Qlib float32 cache error and any sign ambiguity need explicit treatment before signal admission.",
+    "no_current_event_transform_needed": "The uniform event-day exclusion avoids estimating any missing contemporaneous split/dividend transform. It does not upgrade retrospective event-mask knowledge to PIT. A later event-day branch would be a separate design, not an in-run exception.",
+    "sign_authority_frozen_before_computation": "After final strategy design approval only: compare hash-verified native float64 SOXX prices directly as P15:30>P_previous_close; positive denominator makes this equivalent to ROD>0. Store binary0/1 and separate known flag in Qlib. Never recompute sign from float32 cached prices, select epsilon, or change sign authority after outcomes. Current source-only preflight computes neither sign nor ROD."
+  },
+  "clock_contract": {
+    "evidence_scope": "Existing independent mapping accepted saved completed-history end-label convention: 52 direct K15M windows match aggregated saved K1M OHLCV, and 780 saved NONE rows match native Qlib. It does not certify all-date vendor semantics, live prefix receipt, revision finality or broker fills.",
+    "signal": "15:30 right-edge bar close covers the completed interval through 15:30; inherited hypothetical availability is end plus 60 seconds, therefore available at 15:31.",
+    "entry": "Freeze decision before 15:32. Historical arrival-price proxy at 15:32 is raw open of the bar with retained end label 15:33. Entry price and later high/low/close are not decision features.",
+    "exit": "Exit time is precommitted, not decided from the final bar. At 15:59 use raw open of the bar with retained end label 16:00. Do not use that bar's close/high/low as the fill or as information known at exit; do not call this a closing-auction fill.",
+    "actual_exposure_window": "15:32 to 15:59, 27 minutes; a delayed implementation motivated by a last-30-minute paper, not an exact reproduction of its traded interval.",
+    "half_days": "Current 210-minute sessions: no increment for both arms, full baseline account retained. No substitution of 12:30/12:32/12:59 as a second candidate. A previous half-day supplies its actual 13:00 close to the next regular session.",
+    "provider_boundary": "Fullminute risk provider starts 2023-01-04, so it cannot alone supply 2023-01-03 previous close for the first candidate day. Use an existing same-manifest Qlib raw-close surface with that source day, or separately ingest only the required bound from the existing source before execution; never substitute a daily provider of a different basis. Existing fullminute sparse anchors do not by themselves prove newly selected 15:30/15:33/16:00 anchors.",
+    "matched_grid": "New 15:30 valuation and 15:32/15:59 execution points must retain the same raw price/share basis as existing raw-account anchors. Frozen reference positions may be passively valued on the same expanded grid for comparable risk observation, with original orders/cash/quantities/terminal wealth unchanged; this is not a new strategy return or a new policy replay. Do not inherit old sparse/fullminute risk qualification for a changed candidate path."
+  },
+  "physical_increment_holding_contract": {
+    "definition": "Temporary recovery is cash redeployment: an additional buy-only physical-share lot funded by each account's spendable cash. No sale of reserved baseline shares to fund it. Size must satisfy the separately reviewed new close-only permission module and every retained original hard prohibition; if its target requires baseline sales, take no increment rather than create a finance-dependent round-trip. The proposed 0.6 bound is not additional SOXL/3x permission; asset composition must follow the executor's explicit legal projection and may provide only SOXX increments.",
+    "permission_module_design_status": "Unreviewed owner-directed draft choice, no execution authority: B/C share a newly added close-only recovery permission using the old 0.6 bound and separable structural conditions such as alpha>=0.25 and drawdown>=8%, while retaining all original hard prohibitions. The original first-hour classifier P>=0.825 is not reused as a late-session prediction gate. Executor must enumerate the exact structural conditions, input clock, cap interactions and exclusions in experiment_design_draft.json before independent review. These examples are not an executable or exhaustive specification; old action_beta=0.6 was not an all-day permission and its proposed reuse is not approval.",
+    "matched_arms": "Candidate C and matched no-ROD schedule control B use the identical new close-only permission module, source gate, cash-only funding, opportunity set, entry/exit clocks, physical-lot attribution and unwind rules. C additionally requires ROD>0; B does not read ROD. Each cost/arm still owns its own holdings, cash, receivables, risk and fee state. A remains the original Stage1 baseline; any B-vs-A change belongs to the new permission module, not to ROD information.",
+    "opportunity_preflight": "Executor's source-code review reports original recovery requires first-hour P>=0.825 and existing A evidence has no recovery actions; do not present the new module as reuse of an already available late-session opportunity. Before freezing, identify whether the proposed module has a positive cash-funded increment under its exact retained hard constraints and own-state cap. A binding cap or forbidden action means no increment, never silent threshold relaxation. If the fixed proposed opportunity is mechanically empty, report design infeasibility before accounts rather than claiming a tested ROD null effect; no historical return/window search may repair it.",
+    "before_entry": "Apply existing due split/entitlement/pay events exactly once under each account's own IncomeLedger. Save actual q_before, spendable_cash_before, receivable_before and fee counters. q_before is a factual inventory reservation, not a counterfactual account or NAV.",
+    "entry": "Record exact executed integer delta_q per asset and actual paid fees/slippage, including any cash-funding truncation. delta_q is the positive filled quantity, not desired weight times a hypothetical NAV. Receivables are never purchase cash; preview the precommitted unwind fee reserve with frozen fee rules without using future exit prices.",
+    "exit": "Submit sells for precisely the remaining recorded incremental shares, using actual own prices and own fee/monthly-share counters. Do not call a target-weight rebalance to restore baseline weights: floor/rounding and changed NAV can leave or create shares. Do not buy back baseline shares or top up cash to match another account.",
+    "conservation": "Absent a separately recorded mandatory risk action, after exit q_after equals q_before exactly, receivables are unchanged, and cash_after equals cash_before minus actual entry notionals/fees plus actual exit notionals minus exit fees. Retain all realized overlay PnL and costs; update later Stage1 risk state from this own NAV. Never reset NAV, cash, peak or daily return to a baseline path.",
+    "intervening_risk_action": "If the separately frozen policy permits a mandatory intervening reduction, debit incremental lots first and record any baseline quantity reduction separately. Exit only residual incremental inventory; never restore sold risk by an automatic buy. Unsupported partial/missing exit is an explicit execution failure with surviving inventory, never an omitted account day or fabricated flat state.",
+    "overnight": "No surviving positive incremental lot after successful scheduled exit. Existing baseline shares and earned PnL remain in the same account overnight. Later ex-date entitlement depends only on that account's actually eligible shares; the transient lot receives no invented dividend. This does not assert identical overnight wealth or shares across independently evolving accounts.",
+    "native_reconciliation": "Future authorized implementation must send these exact physical orders through existing RawCashPosition/IncomeLedger and native raw validation. Required material assertions are incremental-lot closure, q/C/R conservation and native order/fee/point reconciliation; existing broad source suites need not be repeated.",
+    "rounding_contract": "Preserve original signed toward-zero integer-change convention, with original1e-10 rounding epsilon: delta_i=w_target_i*NAV_known/P_known_i-q_before_i; sale_i=floor(max(-delta_i,0)+1e-10), buy_i=floor(max(delta_i,0)+1e-10). Any sale_i>=1 rejects the whole incremental lot. Subshare negative gaps do not authorize sales, and every postfee envelope including raw risky-mass ceiling still must pass."
+  },
+  "minimal_missing_items_before_freeze": [
+    "Source-only event-date membership/coverage receipt combining existing issuer Recorder and saved Futu rehab, including an explicit decision for 2026-09-28 to 2026-10-09; no new network is necessary for a conditional snapshot design.",
+    "Read-only required-anchor/quality receipt through Qlib for previous actual closes and 15:30/15:33/16:00 fields, including the first previous-session boundary and half-day policy; no tail return or ROD values before design approval.",
+    "Executor's exact enumeration and independent review of the explicitly new close-only permission module, including the proposed 0.6 bound, separable structural gates and all retained hard prohibitions; then freeze the cash-funded buy-only increment, exact lot unwind and B/C matched control. This source draft does not authorize training or account execution."
+  ],
+  "minimum_additional_external_evidence_only_if_event_days_or_PIT_are_required": [
+    "Per relevant ex/split date, a dated issuer or exchange corporate-action notice with instrument, economic effective/ex date, cash amount in original share units or exact new/old split ratio, currency, source bytes/hash, and public-known-by bound before that session's 15:30. Keep event announcement, document publication, archive known-by and retrieval receipt separate; an explicit prior publication date can be conservatively bounded, but same-day date-only evidence cannot establish a pre-15:30 time.",
+    "A decision-time corporate-action calendar/inventory snapshot or authoritative dated event notices supporting its covered-through boundary is needed for genuinely PIT non-event status; absence from a 2026 current history download is insufficient."
+  ],
+  "work_performed_for_this_draft": {
+    "new_HTTP": 0,
+    "new_market_labels": 0,
+    "fits": 0,
+    "policy_replays": 0,
+    "native_accounts": 0,
+    "full_source_hash_audits_repeated": 0,
+    "read_only_recovery": "Initial metadata Recorder read required qlib.init; after initializing the existing provider, two existing corporate objects were read. Missing pdftotext was replaced by local pypdf text extraction; no source changes or new fetches."
+  }
+}

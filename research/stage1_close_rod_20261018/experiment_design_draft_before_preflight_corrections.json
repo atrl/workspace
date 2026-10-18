@@ -1,0 +1,219 @@
+{
+  "schema_version": "stage1_close_rod_design_draft_v1",
+  "experiment": "stage1_close_rod_20261018",
+  "status": "draft_not_frozen_not_execution_authorized",
+  "scope": "New close-only bounded recovery-permission module on exact active f696+b472. Read-only design only: no ROD values, future tail returns, new labels, fits, policy paths, accounts, source HTTP or production change have been generated for this draft.",
+  "hypothesis": "Conditional on a de-risked Stage1 account and existing structural restrictions, the sign of SOXX prior-close to15:30 return may time a temporary cash-funded recovery lot better than the identical scheduled recovery without that sign gate. This is a price-direction proxy motivated by ETF/hedging demand, not observed gamma or a paper replication.",
+  "mechanism_boundary": {
+    "new_permission": true,
+    "owner_choice": "Explicitly authorized before looking at tail returns: a new late-only permission ceiling. Existing action_beta0.6 is reused as its fixed numerical ceiling, not inherited as an all-day authorization.",
+    "unchanged_morning": "Exact A09:47 open HOLD/execute and10:32 classifier recovery remain. No FINRA/q/context/newB, refit, head, weight, seed or allocation-source substitution.",
+    "late_classifier": "The old first-hour probability>=0.825 is not evaluated or required for the new late branch and is not interpreted as a close-period forecast. It remains unchanged in the original10:32 branch.",
+    "comparison_attribution": "B-A estimates the combined new timing/permission module. C-B isolates the additional fixed ROD>0 admission among otherwise matched structural opportunities. Neither comparison proves a unique causal inventory/gamma mechanism."
+  },
+  "active_release": {
+    "path": "production/stage1_futu_sim_v1/runtime_release.json",
+    "sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33"
+  },
+  "source_contract": {
+    "path": "research/stage1_close_rod_20261018/source_contract_draft.json",
+    "current_draft_sha256": "245c337b9d8ce51aa14af8643867c694d0f5572a9327cfaf8ad96f7bc4b4a5a0",
+    "status": "Separate source owner controls this draft; final source identities, corporate coverage and required-anchor receipt must be frozen before execution.",
+    "signal": "ROD=SOXX raw close at completed15:30 right edge / SOXX raw close of immediately previous actual session -1. Exactly one threshold0 and one sign; no smoothing or parameter search.",
+    "clock": "Historical end-label mapping:15:30 close hypothetically available15:31; decide before15:32. Entry15:32 uses raw open of15:33-end bar. Predetermined exit15:59 uses raw open of16:00-end bar. Actual exposure27minutes, not auction or exact30minute paper trade.",
+    "sessions": "Only current390-minute sessions are eligible. Current210-minute sessions have no increment in BOTH arms but full baseline account remains. Previous half-day uses its actual13:00 close.",
+    "corporate_mask": "Both arms share the source contract non-event mask for either asset ex/split day, including zero-distribution rows; unknown/ambiguous event coverage means no increment. This is a retrospective snapshot convention, not PIT absence-of-event evidence. Corporate ledger processing remains active.",
+    "coverage_tail": "Keep current qualified corporate boundary2026-09-25 unless source owner separately freezes an existing-object coverage receipt to2026-10-09; otherwise later days are shared no-increment. No day is dropped from accounts.",
+    "future_execution_data": "Anchor presence/quality is a whole-dataset preflight dependency, not a decision feature learned from future fill availability. No future entry/exit price or tail return enters the15:31 decision. Missing/unusable future fill encountered during execution is an explicit execution failure, not a retroactive no-trade or omitted day.",
+    "numeric_projection": "Signal uses verified float64 source values through native source Dataset. Declare and measure any float32 projection; freeze handling of sign ambiguity before execution. Same source-ready rule for B/C; no source-value rounding or price-basis splice to rescue a sign."
+  },
+  "existing_policy_facts": [
+    {
+      "fact": "_base_cap raw_beta=3*wSOXL+wSOXX; base=max(.2,q*raw_beta); last4 own known returns<=-5% caps at.6; open DD>=22% caps at.3.",
+      "path": "src/workflow/intraday_recovery_direct_allocation.py",
+      "lines": [
+        881,
+        901
+      ]
+    },
+    {
+      "fact": "Drawdown>=12% enters defensive wait5days, ramp10days, hold10days; state/clock advances only once at morning decision. These are base-cap state rules, not a code-wide absolute prohibition on the existing classifier recovery branch.",
+      "path": "src/workflow/intraday_recovery_direct_allocation.py",
+      "lines": [
+        820,
+        842
+      ]
+    },
+    {
+      "fact": "Existing recovery requires openDD>=8%, min(raw_beta,action_beta)>basecap, finite early_ret_soxx/alpha, alpha>=.25, and frozen classifierP>=.825. Selectedaction_beta=.6.",
+      "path": "src/workflow/stage1_open_action_value.py",
+      "lines": [
+        655,
+        687
+      ],
+      "parameter_source": "research/stage1_open_action_value_net_fees_20260928/summary.json"
+    },
+    {
+      "fact": "Existing recovery code can conditionally exceed basecap, including an emergency-lowered basecap. It has no separate hard maximum-DD veto or state==wait prohibition. This fact is NOT a blanket late permission. The new draft below explicitly retains an emergency cap rather than silently copying that exception.",
+      "path": "src/workflow/stage1_open_action_value.py",
+      "lines": [
+        665,
+        687
+      ]
+    },
+    {
+      "fact": "project_legal_weights caps beta by raw_beta and given cap, risky mass by raw risky mass and1-mincash; maximumSOXL=.30, minimumcash=.15, nonnegative simplex. Atbeta<=.6, the projected increment can be SOXX only; there is no assumed SOXL/3x top-up.",
+      "path": "src/workflow/intraday_recovery_direct_allocation.py",
+      "lines": [
+        124,
+        140
+      ]
+    },
+    {
+      "fact": "Morning illegal holdings force target execution regardless HOLD score; mandatory derisk beta delta is0. Late module cannot undo position-repair legality and never changes the original morning decision.",
+      "path": "src/workflow/stage1_open_action_value.py",
+      "lines": [
+        625,
+        652
+      ]
+    },
+    {
+      "fact": "settle_raw sells before buys and can finance buys with sales; it cannot be called unmodified for the new buy-only reserved-baseline lot contract. Its fee and cash rules can be reused after explicit positive-lot sizing.",
+      "path": "src/backtest/raw_corporate_policy.py",
+      "lines": [
+        66,
+        84
+      ]
+    }
+  ],
+  "arms": {
+    "A_active_research_replay": "Pinned previously validated A f696+b472 raw account at each0/2/5bp; original orders/state/wealth retained, additional marks only passive.",
+    "B_close_permission": "Original A chain plus new constrained close-only temporary permission on every shared source-ready and structurally eligible day, without ROD sign gate.",
+    "C_close_ROD_positive": "Same new module and all same source/structural predicates; additionally require finite ROD>0. ROD=0 or<0 means no late lot; unknown means shared unavailable, never observedzero.",
+    "strong_references": [
+      "SOXX",
+      "strong9097"
+    ],
+    "additional_descriptive_reference": "additional27baa"
+  },
+  "late_structural_contract": {
+    "snapshot": "At15:31 use own q/cash/receivables marked at known15:30 prices; prior frozen source target weights/alpha and the saved same-day open controller. No counterfactual A NAV reset. Original10:32 action is already settled.",
+    "drawdown": "dd_late=max(0,1-own_NAV_15_30/own_legacy_peak). Legacy peak continues to update only at original09:45 known and actual-close events; adding valuation marks does not add peak/state update events.",
+    "eligibility": "Same B/C: source_ready; finite known alpha>=.25; dd_late>=.08; positive spendable-cash-funded integer increment; and the effective late ceiling exceeds saved morning basecap. No hidden probability or information-score screen.",
+    "nominal_ceiling": 0.6,
+    "raw_beta_ceiling": "Never exceed same-day frozen source raw_beta=3*wSOXL+wSOXX.",
+    "emergency_treatment_for_review": "Conservative explicit proposal: if max(saved_open_drawdown,dd_late)>=.22, clamp the new late ceiling to existing emergency_beta=.30. Do not treat old classifier recovery exception as authority to bypass this clamp.",
+    "trailing_treatment": "Retain existing4-known-session own-history loss trigger<=-5% and its.60 ceiling; it is numerically nonbinding against fixed new.60 but remains recorded. No new lookback/threshold.",
+    "state_treatment": "Ordinary wait/ramp basecap may be exceeded only by this newly reviewed late permission, up to the constrained ceiling; state and risk clock never advance/reset at15:31. If reviewer requires a hard wait-state veto, it must be stated explicitly before freezing, not silently omitted or selected using outcomes.",
+    "effective_ceiling_formula": "min(raw_beta,.60, .30 if max(openDD,lateDD)>=.22 else infinity, .60 if original trailing trigger else infinity). This draft proposes the conservative emergency clamp for owner/evaluator approval; it is not yet executable authorization.",
+    "target": "project_legal_weights(same_source_soxl,same_source_soxx,effective_ceiling,mincash=.15,maxSOXL=.30); preserve raw risky-mass ceiling.",
+    "hard_constraints": [
+      "No negative positions or cash; no leverage/borrowing.",
+      "Physical integers only; maxSOXLweight.30 and cash-likeweight>=.15 at admitted postfee execution.",
+      "Use spendable cash only; receivables count inNAV but cannot pay for a lot.",
+      "Never sell reserved baseline shares to finance the late lot.",
+      "No new overnight incremental position after successful15:59 unwind.",
+      "No module action on unavailable/ambiguous source or half-day; full baseline daily return remains."
+    ],
+    "no_new_derisk_branch": "If current marked baseline already violates the proposed late envelope, take no new lot. Do not introduce an extra mandatory sell, reset NAV/peak, or change original next-morning repair. Existing morning/10:32 branches remain as originally defined."
+  },
+  "sizing_and_unwind": {
+    "known_time_request": "Use known15:30 marks/NAV and fixed target to request integer positive deltas with existing floor convention. A target requiring at least one whole-share baseline sale in either asset makes the entire late increment ineligible. Negative fractional deltas that floor tozero do not require a physical sale.",
+    "order_priority": "Fixed existing SYMBOLS order SOXL thenSOXX; never outcome-selected. Desired quantities fixed before15:32; execution may only reduce/reject, never increase them from future prices.",
+    "funding_and_fee_reserve": "Preview entry plus predetermined unwind fees using known prices and copied own month-volume counters, without future exit prices. Atactual15:32 arrival, only truncate requested buys until spendable cash, fee reserve, maxSOXL/mincash and effective beta ceiling remain legal after actual entry fees; preserve ordinary tariff/cost semantics.",
+    "cap_precision": "No tolerance tuning: use existing numerical epsilon only for equality/rounding. Whole-share truncation resolves postfeecap overshoot.",
+    "reserve_inventory": "Save factual q_before and exact executed integer delta_q. Additional shares are a tracked lot in the SAME account, not an independently financed shadow book.",
+    "exit": "At15:59 sell precisely remaining delta_q, charged actual own fees/slippage/monthly tiers. Do not rebalance to baseline weights, buy back baseline shares, or top up cash. No after-close/auction fill approximation.",
+    "conservation": "Absent a separately approved intervening risk reduction, after exit q_after==q_before exactly and receivables unchanged; cash retains actual round-trip PnL and costs. Subsequent Stage1 uses this own actual wealth/history/fee state.",
+    "no_extra_intraday_stop": "v1 adds no discretionary interval stop or dynamic exit threshold. Unsupported missed/partial exit is retained as an execution failure with surviving inventory; do not fabricate flatness or omit that day."
+  },
+  "opportunity_set_feasibility": {
+    "old_cap_problem": "Under unchanged basecap an already projected morning account has no structural restoration room except price drift/rounding. Requiring unchanged oldP>=.825 also gives no new permission beyond the old branch. This experiment explicitly adds the reviewed late permission instead.",
+    "analytic_nonzero_witness": "Without any historical prices/labels: raw source(.20,.60,.20) givesraw_beta1.20/rawrisk.80; basecap.20 givesbaseline(0,.20,.80). WithknownDD.10, alpha.50, no emergency, newcap.60 givesprojected(0,.60,.40): positive cash-funded SOXX increment is structurally possible. Integer amount/fees depend on later approved actual-source evaluation. This is not evidence of historical profitability or observed opportunities.",
+    "no_false_null": "Do not widen caps/gates or search timestamps if actual eligible whole-share increments arezero. Report an uninformative/no-op opportunity set separately from a tested negative ROD effect. Source coverage/analytic legality can be checked pre-execution; do not run an unbudgeted strategy path to choose windows."
+  },
+  "native_and_reference_contract": {
+    "new_adapter_boundary": "Existing replay_stage1_raw._validate_grid demands exactly4marks/day; new separate narrow adapter must add late slots while preserving original morning call order/state updates. Do not modify the closed Stage1/FINRA adapter or replace it with COMMON/ALL3/T.",
+    "existing_native_reuse": "native_raw_validate accepts prescribed physical orders on a generic point grid, appliesCA at09:45 and anchors interval endpoints at09:47. Its order/fee/q/C/R reconciliation can validate the6new books without an additional training or policy family.",
+    "matched_grid": "Same expanded raw quote grid for every family/cost: original known09:45/open09:47/recovery10:32/actualclose plus regular-day15:30 valuation,15:32 entry,15:59 exit; terminal known/open and strictly later native guard remain distinct. Addedmarks do not mutate reference policy state or original peak clocks.",
+    "reference_passive_revaluation": "Read original native q/cash/receivable snapshots and orders. For added late marks carry the actually held post10:32 inventory until the next original event and value at same observed new quotes. Preserve every original order, fee/monthly counter, corporate receipt, oldmark NAV and daily endpoint/terminalwealth. Verify old anchors and returns exactly; added observations can change measured point drawdown only.",
+    "reference_evidence_label": "Keep original native audit and explicit passive-expanded-grid audit as separate evidence roles. Do not claim12newpolicy/nativeaccounts or newly qualified fullminute risk. Derived reports consume original native positions plus Qlib-read new marks.",
+    "missing_anchor_policy": "If required regular-day anchor coverage cannot support a common grid, stop for a source/data decision before accounts; do not substitute neighboring bars or select an outcome-dependent subset. Event/half-day no-increment rules never delete ordinary account days.",
+    "budget_revision_needed": false,
+    "budget_reason": "The existing native validator is grid-generic; only the separate policy adapter needs expanded slots.12references can be passively valued without re-executingtheir policies or adding native fits/accounts. If implementation disproves this, stop and ask owner for one explicit verification-budget amendment before executing it."
+  },
+  "budget": {
+    "new_source_HTTP": 0,
+    "new_model_fits": 0,
+    "new_candidate_native_accounts": 6,
+    "costs_bps": [
+      0,
+      2,
+      5
+    ],
+    "new_families": [
+      "B_close_permission",
+      "C_close_ROD_positive"
+    ],
+    "reused_native_reference_accounts": 12,
+    "passive_reference_grid_extensions": 12,
+    "total_comparison_accounts": 18,
+    "policy_candidates": 1,
+    "parameter_searches": 0,
+    "expected_sessions_each": 944,
+    "first_signal": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "terminal": "2026-10-09T09:47:00-04:00",
+    "initial_cash": 100000,
+    "tariff": "Exact frozen current-IBKR-tiered projection from prior raw contract; no reinterpretation as historical realized broker bills."
+  },
+  "economic_and_risk_gates": {
+    "required_comparators": [
+      "A_active_research_replay",
+      "B_close_permission",
+      "SOXX",
+      "strong9097"
+    ],
+    "additional_descriptive": "additional27baa always displayed; cannot replace requiredstrong9097",
+    "full_window_wealth": "C relative wealth >1+1e-8 against everyrequired comparator atall3costs",
+    "paired_CI": {
+      "method": "One-sided paired stationary-bootstrap mean daily log excess",
+      "mean_block": 63,
+      "resamples": 10000,
+      "seed": 20261014,
+      "alpha": 0.0020833333333333333,
+      "multiplicity": "1fixedcandidate x4requiredcomparators x3costs",
+      "required_positive_lower_bounds": 12
+    },
+    "stability": "RelativeSOXX positive complete-year fraction>=.70 with>=2completeyears; every126-session rolling-window fraction>=.70. Reportallpartial years andallquarters separately.",
+    "risk": "Close and allcommon-grid sampled maximum drawdown<=30%; CVaR5% no worse thanSOXX atallcosts. Fresh fullminute and independent forward remain separate closed gates.",
+    "all_paths_precommitted": "All6new0/2/5accounts run under authorized budget regardless ROD correlation or preliminary return direction. No selective seed/window, no cancellation after information metrics.",
+    "historical_status": "All2023+history already reused; source assumptions and independent reviewer do not create independent validation."
+  },
+  "minimum_checks_before_final_freeze": [
+    "Resolve the explicitly proposed emergency/base-state risk semantics in independent design review; no undocumented hard veto may be bypassed.",
+    "Source owner freezes event-date membership/coverage tail and same-manifest required-anchor/first-previous-close quality without computingfuturetailreturns.",
+    "PinA/SOXX/9097/27baa exact native objects, originalpointgrid/schedule/tariff/initialcash andrawquote lineage; no statistical outcome-driven reference switch.",
+    "Freeze exact incremental integer lot/funding/exit invariants and passive reference marking roles; one material synthetic test per contract, not repeated broad suites.",
+    "Create executable notebook, source/no-label preflight, independent model-free strategy design review andowner execution approval; thisdraftdoesnoneofthose executions."
+  ],
+  "failure_policy": "Close this fixed ROD positive permission version onfailedgates orreportno-op infeasibility; no reverse sign/size/cap/window/exit/threshold rescue. Continuous SOXX stability goal remains active.",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+    "https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.utils.serial.Serializable.config"
+  ],
+  "documentation_note": "Official strategy documentation confirms customBaseStrategy and nativebacktest composition. Standalone component/backtest.html returned an internal error; API behavior above is tied to the reachableofficial strategy docs and the already verified projectnative wrapper, not an invented newAPI.",
+  "work_performed": {
+    "new_labels": 0,
+    "new_ROD_values": 0,
+    "new_tail_returns": 0,
+    "fits": 0,
+    "policy_replays": 0,
+    "new_native_accounts": 0,
+    "new_HTTP": 0,
+    "business_code_changed": false
+  }
+}

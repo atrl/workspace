@@ -1,0 +1,77 @@
+{
+  "role": "independent_evaluator",
+  "reviewer": "/root/independent_evaluator",
+  "experiment": "stage1_close_rod_20261018",
+  "verdict": "APPROVE_SOURCE_ENDPOINT_EVENT_PREFLIGHT_ONLY",
+  "reviewed_design_draft_sha256": "0ef242e9c8cc252ecc6f7ba967676c3978737fe60d182c2c6e10e6e020a4477e",
+  "reviewed_source_contract_draft_sha256": "245c337b9d8ce51aa14af8643867c694d0f5572a9327cfaf8ad96f7bc4b4a5a0",
+  "source_only_preflight_eligible": true,
+  "full_strategy_design_approved": false,
+  "policy_execution_approved": false,
+  "approval_scope": "Existing-source endpoint, session and event-coverage preflight only. The owner's exact sizing and sign-authority resolutions below must be incorporated into the final frozen strategy plan and implementation; they do not authorize signal generation or accounts.",
+  "late_permission_semantics": {
+    "explicit_new_module_acknowledged": true,
+    "assessment": "The draft now correctly treats the late0.60 ceiling as a new permission rather than an inherited all-day Stage1 authorization. The proposed alpha>=0.25, late drawdown>=0.08 and late cap interaction are explicit new branch rules.",
+    "emergency_rule": "The0.22 drawdown threshold and0.30 ceiling reuse existing parameter values, but applying the ceiling to max(saved opening drawdown, late drawdown) is a newly specified late rule. It must remain labeled and frozen as such, not represented as an unchanged legacy action.",
+    "wait_state": "The inspected existing code has no absolute wait-state prohibition on its original classifier recovery branch. This review does not invent an additional hard wait-state veto. Exceeding the ordinary wait/ramp basecap in the proposed late branch must remain the expressly reviewed new permission.",
+    "unchanged_original_chain": "The09:47 and10:32 branches, original peak update events, once-per-morning risk-state/clock advancement and next-morning repair remain unchanged. Late valuation does not reset or advance those states.",
+    "risk_limit_interpretation": "A late beta ceiling and emergency clamp do not guarantee realized maximum drawdown<=30percent. The original empirical risk gate remains required; there is no permission to weaken it.",
+    "analytic_feasibility": "The supplied synthetic raw(.20,.60,.20), baseline(0,.20,.80), DD.10 and alpha.50 example permits a cash-funded SOXX increment under the proposed0.60 ceiling. It establishes structural nonemptiness only, not historical opportunity frequency or profitability. No SOXL increment is presumed."
+  },
+  "minimum_corrections_before_strategy_freeze": [
+    {
+      "id": "signed_integer_sizing_and_postfee_envelope",
+      "issue": "The statement that a negative fractional delta floors to zero is mathematically false. Ignoring a sub-share sale must also not silently relax the retained position envelope.",
+      "status": "Resolved by explicit owner choice; final frozen plan and implementation still pending",
+      "required_contract": "Define delta_i = target_weight_i * known_NAV / known_price_i - q_before_i. Retain the existing signed integer-change convention exactly: requested_sale_i = floor(max(-delta_i,0)+1e-10) and requested_buy_i = floor(max(delta_i,0)+1e-10). This is toward-zero conversion of the signed change with the existing fixed rounding epsilon, not floor of the absolute target quantity and not mathematical floor of a negative delta. Any requested_sale_i>=1 makes the whole increment ineligible; only requested_buy_i may be submitted. Every admitted postfee fill must still satisfy all declared hard bounds, including the raw risky-mass ceiling as well as beta, SOXL, cash-like weight, spendable-cash funding and the unwind reserve. Actual-price processing may only truncate/reject requested buys, never increase them or sell baseline inventory."
+    },
+    {
+      "id": "ROD_sign_authority_before_first_signal",
+      "issue": "The draft leaves float64 versus float32 sign disagreement unresolved at the zero threshold.",
+      "status": "Resolved by explicit owner choice; final frozen plan and implementation still pending",
+      "owner_selected_fixed_contract": "Only after final strategy design authorization, compare the hash-verified native float64 source P_15:30 and P_previous_actual_close directly, using strict P_15:30>P_previous_actual_close. With positive prices this is the intended positive-ROD decision without subtractive division rounding. Store the determined0/1 sign and a separate known/ready flag in Qlib. Do not recompute admission from float32 prices, introduce an epsilon threshold, or select another precision method after observing signs or outcomes. Current source preflight computes no ROD value or sign."
+    }
+  ],
+  "approved_no_label_preflight": {
+    "existing_sources_only": true,
+    "new_HTTP": 0,
+    "new_ROD_values_or_signs": 0,
+    "new_tail_returns_or_market_labels": 0,
+    "model_fits": 0,
+    "policy_replays": 0,
+    "native_accounts": 0,
+    "allowed_checks": [
+      "Verify source bindings and required native/raw endpoint presence, field identity, valid finite positive values and declared timestamp mapping. Measure representation errors without computing ROD, tail returns or signal-success counts.",
+      "Verify current-session390/210-minute classification and the immediately preceding native session's actual close, including a prior half-day13:00 close and the first account day's previous-close boundary.",
+      "Check existing issuer and same-snapshot Futu rehab event-date membership, including zero-distribution rows, unresolved event kinds and both assets' ex/split dates. Freeze whether existing captured objects support the coverage tail through2026-10-09; otherwise retain shared no-increment beyond2026-09-25.",
+      "Record whole-dataset endpoint coverage dependencies and gaps. Missing future entry/exit marks must not become a retrospective per-day no-trade selector or an omitted account day; unresolved common-grid coverage requires a source decision before policy execution.",
+      "Document the proposed passive-reference expanded-grid construction and exact reference identities. Do not execute the12 passive revaluations or any new policy accounts under this source-only approval."
+    ],
+    "not_authorized": [
+      "Computing ROD signs, tail-return labels, correlations or economic outcomes.",
+      "Replaying actual B/C account paths to choose eligibility, caps, clock times or exits.",
+      "Using future fill prices, later OHLC fields or outcome-selected subsets as decision inputs.",
+      "Changing the original morning policy, closed experiments, source gates or active release."
+    ]
+  },
+  "later_account_contract_boundaries": [
+    "B and C share the same new late permission code, source mask, known-time sizing, arrival-price truncation and exact-lot unwind. Only C adds ROD>0. Their realized future eligibility may diverge through their own PnL, fees and states; do not force a common realized account state to hide that mechanism effect.",
+    "Reserve factual baseline quantities, buy only positive integer incremental lots with spendable cash, and sell exactly residual incremental lots at the precommitted exit. Preserve own PnL, fees, receivables and future risk feedback; never restore a counterfactual NAV or buy back sold baseline inventory.",
+    "The source-clock convention remains15:30 completed close known under the+60-second assumption,15:32 arrival proxy from the15:33-end bar open and15:59 exit proxy from the16:00-end bar open. This is27minutes, not a guaranteed auction fill or exact paper replication.",
+    "The12 frozen references may later receive only passive valuation on the shared expanded grid. Original orders, fee counters, corporate receipts, old anchors, daily returns and terminal wealth must remain exact. Their original native audit and any passive-grid audit remain distinct evidence roles.",
+    "The proposed later budget arithmetic is coherent: six new B/C accounts plus twelve reference revaluations equals eighteen comparison books, with four required comparators at three costs giving twelve required CIs. No part of that account budget is authorized by this receipt."
+  ],
+  "remaining_before_full_design_review": [
+    "Incorporate the owner's exact signed-change epsilon1e-10 sizing and strict native-float64 sign choices into the final frozen plan and implementation, without reopening either choice using outcomes.",
+    "Complete and bind the approved source-only endpoint/event coverage receipt and exact reference, raw-quote, fee and corporate-action identities.",
+    "Provide the separate policy adapter, exact physical-order and passive-marking implementation, executable notebook and minimal material synthetic checks.",
+    "Obtain a full independent strategy design review and a separate owner execution GO before any signal, label or account execution beyond the approved source preflight."
+  ],
+  "source_qualification": "Conditional current historical snapshot and declared historical clock assumptions only; retrospective non-event classification does not prove contemporaneous knowledge that no event existed.",
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "production_change_authorized": false,
+  "promotion_authorized": false,
+  "objective_achieved": false,
+  "review_activity": "Read only the two specified drafts and relevant existing cap, recovery, projection and raw settlement code. No new source HTTP, ROD values, labels, fits, replays or accounts. This review receipt is the sole file written."
+}

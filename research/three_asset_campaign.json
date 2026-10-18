@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/stage1_finra_short_mix_allocation_20261018",
+  "current_experiment": "research/stage1_close_rod_20261018",
   "current_phase": "FINRA_source_intake_resumed_CDN_only",
-  "next_action": "Freeze the distinct close-only ROD cash-funded temporary increment contract, source endpoints/event eligibility and matched control before any new outcomes or accounts. Research Goal remains active; no FINRA retuning.",
+  "next_action": "Complete and review bounded no-label ROD source preflight; then freeze one precise new late permission strategy and matching control before any sign/outcome/account execution. Stable net SOXX excess gates remain unchanged.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1553,7 +1553,7 @@
     "existing_NVDA_model_role": "frozen additional economic reference only",
     "valuation_priority": false,
     "allocation_horizon": "Frozen per experiment; no postresult horizon rescue",
-    "next_mechanism_domain": "ETF off-exchange short-mark composition from official free FINRA data",
+    "next_mechanism_domain": "Close-only transient return continuation and explicitly new bounded late permission, using existing ETF prices/events; no FINRA retuning",
     "options_data_required": false,
     "external_discovery_policy": "docs/research_failure_to_feature_sop.md"
   },
@@ -1657,7 +1657,7 @@
     }
   ],
   "execution_observation_20261018": {
-    "phase": "FINRA_model_design_review_after_source_completion",
+    "phase": "close_ROD_permission_and_source_preflight_design",
     "model_executor": "/root/recent_evidence",
     "raw_adapter_executor": "/root/challenge_summary",
     "evaluator": "/root/independent_evaluator",
@@ -1690,6 +1690,31 @@
     "next_executor_task": "FINRA source-only design review and bounded intake implementation; bulk not yet started",
     "completed_experiment_scope": "research/stage1_domain_heads_20261018",
     "current_task": {
+      "card": "research/stage1_close_rod_20261018",
+      "phase": "source_only_preflight_implementation_after_narrow_review",
+      "executor": "/root/recent_evidence",
+      "source_contract_owner": "/root/intraday_novelty",
+      "independent_evaluator": "/root/independent_evaluator",
+      "model_fits": 0,
+      "policy_paths": 0,
+      "accounts": 0,
+      "source_HTTP_authorized": 0,
+      "ROD_or_future_return_computation_authorized": false,
+      "source_preflight_scope": "Existing event-date membership/coverage, native endpoints including first previous close and halfdays, exact source/F32 projection errors only. No sign, tail return, historical strategy opportunities or account execution.",
+      "policy_execution_authorized": false,
+      "source_contract": "research/stage1_close_rod_20261018/source_contract_draft.json",
+      "strategy_design": "research/stage1_close_rod_20261018/experiment_design_draft.json",
+      "permission_change": "New close-only shared B/C permission, not an old all-day .6 allowance. C adds positive ROD; B does not. Original morning chain and state/peak clocks retained; new emergency clamp explicitly subject to review.",
+      "executor_lifecycle": "Completed executor explicitly restarted with followup_task for bounded source-only preflight implementation; no strategy job claimed running.",
+      "source_preflight_review": "research/stage1_close_rod_20261018/design_preflight_review.json",
+      "source_preflight_review_sha256": "64cd67cf46bb00e80dcf262854bd6d737ef125ba4993e93d89b081e659931cc9",
+      "source_preflight_execution_authorized": true,
+      "formal_strategy_design_approved": false,
+      "source_contract_sha256": "29a1dfbbdc745627016f704b25a8baa676e9b1690183c735156c0f8a399f74f9",
+      "strategy_design_draft_sha256": "94d3f362fc9990dd9f1830a6263b4158e806ad0269ebda400f89b8e1d1805aa5",
+      "source_preflight_authorization_boundary": "Only existing-source endpoint/event/session/representation checks. No ROD/sign/return label, training, policy path, account or new source HTTP."
+    },
+    "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
       "phase": "FINRA_fixed_version_closed_next_ROD_contract_design",
       "bulk_started": true,
@@ -1829,7 +1854,8 @@
       "historical_full_coverage_verified": true,
       "limitations": "Not short interest, net inventory, sentiment, or reproduction of operational-shorting measure requiring signed intraday imbalance and creation data",
       "source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
-      "coverage_qualification": "All2059 current-byte daily source files and4118readyrows qualified; original-vintage/revision metadata and independent forward remain unqualified."
+      "coverage_qualification": "All2059 current-byte daily source files and4118readyrows qualified; original-vintage/revision metadata and independent forward remain unqualified.",
+      "status": "fixed_q_v1_closed_not_promoted"
     },
     "backup_candidate": {
       "mechanism": "Fixed second-order antisymmetric synchronous ETF path area",
@@ -1878,7 +1904,7 @@
         "reason": "Daily fixedH5 complete internal samples have almost constant overlap; current primary model is not OOB-scored bagging. Not a substantive information repair."
       },
       "closing_half_hour": {
-        "status": "distinct_narrow_mechanism_pending_source_endpoint_and_event_contract_then_design_review",
+        "status": "source_and_strategy_drafts_written_source_only_preflight_in_progress",
         "reviewer": "/root/intraday_novelty",
         "community": "https://www.quantconnect.com/forum/discussion/9030/strategy-library-addition-intraday-etf-momentum/",
         "primary": "https://academicweb.nd.edu/~zda/intramom.pdf",
@@ -1907,7 +1933,10 @@
             "Define temporary recovery and unwind as feasible per-cost own-state changes in physical quantity/exposure. Preserve all PnL and two-sided costs; no imaginary reset to no-overlay counterfactual NAV. Matched noROD control changes only the sign gate."
           ],
           "invalidating_changes": "Leaving increment overnight, inheriting old overnight prediction labels or selecting windows after outcomes invalidates novelty approval."
-        }
+        },
+        "source_contract": "research/stage1_close_rod_20261018/source_contract_draft.json",
+        "strategy_design": "research/stage1_close_rod_20261018/experiment_design_draft.json",
+        "permission_contract_correction": "New close-only shared B/C permission, not an old all-day .6 allowance. C adds positive ROD; B does not. Original morning chain and state/peak clocks retained; new emergency clamp explicitly subject to review."
       }
     }
   },

@@ -19,5 +19,6 @@
   },
   "scientific_execute_results_preserved": true,
   "metrics_not_recomputed_for_text": true,
-  "independent_result_review": "pending"
+  "independent_result_review_at_execution_receipt": "pending",
+  "final_review_location": "summary.json independent_evaluation; execution receipt records the earlier execution-only checkpoint"
 }
