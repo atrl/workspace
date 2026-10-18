@@ -1,0 +1,90 @@
+{
+  "recorder_id": "5bc372553abf4f27a2620f1d554b87b3",
+  "entries": [
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/analysis/ledger",
+      "sha256": "e56b4796952d4d75868b4ee650286c186dd18e5e245e3325f40e4dea9de14237",
+      "bytes": 363
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/analysis/metadata_dataset",
+      "sha256": "c1e802ec640f1e7eca9f28054dac4a46d5276dbd94cac2a967e2e87ecd8e1319",
+      "bytes": 2461
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/analysis/qualified_C_URL_manifest",
+      "sha256": "ec0a6ccf9debf1c16781445c4b9106080d00478b0559469336db7c7b7b9711c8",
+      "bytes": 5
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/analysis/request_receipts",
+      "sha256": "b1f004fb9ec1b79214aea91faaeb793e0c523a6559dc457206533f09fead4c2a",
+      "bytes": 857
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/analysis/selection_progress",
+      "sha256": "4ee817566a5e38d4d755ab11efb333e3a2c2483f8fea46907706a58a4486bf7d",
+      "bytes": 933
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/analysis/summary",
+      "sha256": "b981aaea62bc88f2d94a1503219e9ff09cf244c15ebe33c88afcea80d3138f3e",
+      "bytes": 1938
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/code_diff.txt",
+      "sha256": "8d952dc92545579c1fcfebc23e7980d576a225fb956b5efe826defef2342dba8",
+      "bytes": 420608
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/code_status.txt",
+      "sha256": "cc17bddef3c26c076cd680e21aa60d44082cd26bc73f422f404d51ef31c468b5",
+      "bytes": 66244
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/implementation/code",
+      "sha256": "2fe7f47e7d0eeb202ef6f26ef4c40ee90ff654c4addc9b560c5ca62b378ef79e",
+      "bytes": 93514
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/inputs/B0_objects",
+      "sha256": "374317a1d22e30f6b9ce0cb42d0a93506d35efad95c55888b0135735eb8d123b",
+      "bytes": 36569
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/inputs/B0_source_audit",
+      "sha256": "a06ec887eb6d802965343c8f22ddeadfc06477a5538e23cd7a5cdbb5ab9de3da",
+      "bytes": 2610
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/inputs/approval",
+      "sha256": "6052ab0d07e630e7280ddf906ee208354d0ab93ed8b69f643524c400ba2b2ab5",
+      "bytes": 1030
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/inputs/plan",
+      "sha256": "4aae1c18511a6c063dad9dd35f484d8cda38c3cb3c9718bf1df580079011507e",
+      "bytes": 12333
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/source/HTTP_state",
+      "sha256": "b5cce1a1ed65351d50c5a9dd80363c0603769fa4b90ada34301044e78f066425",
+      "bytes": 884
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/source/raw_http/request_01",
+      "sha256": "73aa75740dc9251a268014485c86913c1150d2b7c292a388aed70d2a25d37385",
+      "bytes": 4837
+    },
+    {
+      "path": "qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3/artifacts/source/request_receipts",
+      "sha256": "b1f004fb9ec1b79214aea91faaeb793e0c523a6559dc457206533f09fead4c2a",
+      "bytes": 857
+    }
+  ]
+}

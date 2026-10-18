@@ -1,19 +1,61 @@
 {
   "experiment": "sec_uncertainty_source_20261018_B1",
   "phase": "B1",
-  "status": "implementation_ready_pending_review_and_execution_GO",
-  "source_execution_completed": false,
-  "source_objects_loaded": 0,
-  "source_HTTP_requests": 0,
+  "status": "completed_pending_independent_review",
+  "decision": "needs_source_metadata_clock_or_identity_qualification",
+  "four_original_headers_qualified": false,
+  "selected_provisional_ciks": [
+    "0000002488",
+    "0000004127"
+  ],
+  "fixed_ledger_slots": 4,
+  "selected_accessions": [
+    null,
+    null,
+    null,
+    null
+  ],
+  "gap_rows": 4,
+  "source_HTTP_requests": 1,
+  "HTTP_by_kind": {
+    "current": 1,
+    "history": 0,
+    "header": 0
+  },
+  "stopped_hosts": {
+    "data.sec.gov": {
+      "status": 403,
+      "challenge": true,
+      "at": "2026-10-18T14:22:32.862514+00:00"
+    }
+  },
+  "retries": 0,
+  "redirects_followed": 0,
+  "source_objects_loaded": 4,
   "new_D_calendar_calls": 0,
   "D_features_calls": 0,
   "filing_body_requests": 0,
+  "dictionary_reads": 0,
   "word_counts": 0,
   "features": 0,
-  "fits": 0,
-  "accounts": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "body_first_vintage_qualified": false,
+  "first_receipt_qualified": false,
   "historical_PIT_qualified": false,
-  "promotion_decision": "not_applicable_source_only",
+  "C_execution_authorized": false,
+  "current_metadata_is_first_publication_evidence": false,
+  "native_metadata_direct_prepare_roundtrip": "passed",
+  "plan_sha256": "3867e7dbe2bbe4e6af911d978a6ba1bfce3b0af712154f3924d9e2f71437da2d",
+  "native_metadata_index_semantics": "B0 anchor is a pilot grouping index only, never filing availability; qualification uses separate conditional_available_at and clock columns.",
+  "recorder_id": "5bc372553abf4f27a2620f1d554b87b3",
+  "experiment_id": "350626717031588765",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/sec_uncertainty_source_20261018/B1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/sec_uncertainty_source_20261018/B1/qlib_recorder/350626717031588765/5bc372553abf4f27a2620f1d554b87b3",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_pit_leveraged_training_v1",
+  "region": "us",
+  "as_of": "2026-10-18",
+  "historical_pair_cutoff": "2023-01-01",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
@@ -23,5 +65,18 @@
       "inputs/B0_objects",
       "analysis/metadata_dataset"
     ]
+  },
+  "nas_evidence": {
+    "sha256": "840fe18b286a1b3fe157ba3ae5cc28553b549730b4e5e81f18c48139376d1323",
+    "size_bytes": 115648,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/84/0f/840fe18b286a1b3fe157ba3ae5cc28553b549730b4e5e81f18c48139376d1323",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 22:22:33.445568+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/84/0f/840fe18b286a1b3fe157ba3ae5cc28553b549730b4e5e81f18c48139376d1323",
+    "recorder_id": "5bc372553abf4f27a2620f1d554b87b3",
+    "experiment_id": "350626717031588765",
+    "archive_root": "qlib_recorder"
   }
 }

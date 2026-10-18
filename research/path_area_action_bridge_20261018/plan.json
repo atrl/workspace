@@ -1,0 +1,642 @@
+{
+  "schema_version": 1,
+  "experiment": "path_area_action_bridge_20261018",
+  "status": "frozen_P1_implementation_only",
+  "frozen": true,
+  "authorization": {
+    "design_only": true,
+    "implementation": true,
+    "source_preflight": false,
+    "model_object_loading": false,
+    "price_or_label_loading": false,
+    "OOF_prediction": false,
+    "area_computation": false,
+    "OOF_fits": false,
+    "action_fits": false,
+    "shadow_or_native_accounts": false,
+    "new_market_HTTP": false,
+    "implementation_scope": "P1 only; actual source/model/value reads andP2/P3 remain unapproved."
+  },
+  "single_hypothesis": "Fixed signed second-order SOXX/SOXL raw-minute simple-return path area over09:30–09:45 may add useful conditional ordering information to the09:46 opening action decision, after identical endpoint/quadratic/realizedvariance/covariation controls.",
+  "receiving_layer": "09:45 closedprefix ->09:46 EXECUTE/HOLD action ->09:47 fill. Never feed currentprefix to09:29allocation.",
+  "preserved_contract": {
+    "original_allocation_primary_features": 39,
+    "original_common_features": 16,
+    "original_outer_mature_primary_rows": 3014,
+    "original_outer_auxiliary_rows": 20741,
+    "outer_train_end": "2022-12-30",
+    "outer_cutoff": "2023-01-01T00:00:00-05:00",
+    "outer_primary_last_signal": "2022-12-21",
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "epochs": 300,
+    "original_H1_H5_arrays": "Immutable. AllocationgrossreturnsH1; tail/cash/alphaH5; originaljointH5maturityandfinite5TARGETS retained. Per-fold training subsets are explicit earlierhistories, not deletion from the outer3014 authority.",
+    "closed_routes": "Do not modify/reopen tangent,oldopening,labelalignment,S/Z,PG,FINRA orcurrentrelease. No cost-sensitive-loss stacking."
+  },
+  "registered_evidence": {
+    "readiness": {
+      "path": "research/external_mechanism_review_20261018/signature_path_readiness.md",
+      "sha256": "01f05acbe9883f890abfe1a1ca7101d303c9572b0aa3a477c08e26338e9af944"
+    },
+    "OOF_inventory": {
+      "path": "research/external_mechanism_review_20261018/path_action_oof_source_inventory.md",
+      "sha256": "f51f7788e22dbc18c9fa300495a05d6d42eaf6e581ecefcade750e3f5f830972"
+    },
+    "campaign_contract": {
+      "path": "docs/three_asset_research_contract.md",
+      "sha256": "9e90f4e4466352341064a20a310e08547b445d0722c2ee950dfc8d6b5f35d3a9"
+    },
+    "original_minute_plan": {
+      "path": "research/minute_information_pit_allocator_20261012/plan.json",
+      "sha256": "a010b1f2a3d17187dafafec0bbd7210bf8da60c819bcc9cedf23da6c5648a806"
+    },
+    "raw_account_reference_plan": {
+      "path": "research/stage1_preopen_tom_20261018/repair_1/plan.json",
+      "sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4"
+    },
+    "reference_role": "Only source identities,unchanged rawaccount/cost/gates andexisting originalreferences; noTOMfeatures/SZlabels/candidatepredictions."
+  },
+  "sources": {
+    "PG_train_only": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "inventory_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "artifacts": [
+        "inputs/training_dataset",
+        "inputs/auxiliary_dataset",
+        "inputs/training_audit"
+      ],
+      "artifact_sha256": {
+        "inputs/training_dataset": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+        "inputs/auxiliary_dataset": "78ad08e92061c32d8ce6ce4dc7c6ffb163b1f9cfef9aab66589a74515ba02d78",
+        "inputs/training_audit": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53"
+      },
+      "read_phase": "Only afterseparateP1source/no-fitGO, neverduringthisdesign."
+    },
+    "original_OOF_candidates": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "models/base_2020_71": "f9bef1bfed5815a632efd33ded5e98cef2cb090b41b670e75786da038a202a40",
+        "models/base_2020_172": "9e6d354b91a12600a8f0eeaedc541a314cc9e0675bb29ab0330b7061e67065e9",
+        "models/base_2020_273": "7bf1451562409592c27d4deebde083ddf0816aa1c3ddc56122fec373d79a011a",
+        "models/base_2021_71": "9a02f1a267462914ca82bf4a3879c7b7e222ea0d862ba2b4146d558afff65d37",
+        "models/base_2021_172": "65f87112bf60e36236f06d444cc4b0d4f94b0611d5ca67eb820898fa5f58140c",
+        "models/base_2021_273": "3992909cb15da24a8d7b10dd9380722052a9833b5fe87a629b66cbf4c877c7bc",
+        "models/base_2022_71": "d226915b5062436a6ef106f70ca054c8ffd9662d2268528dbd6605d6df798b44",
+        "models/base_2022_172": "dd69fea76a11df330f2f6bee12bd06d1a98593e9a918432ee12955e1403f3728",
+        "models/base_2022_273": "973923cc39c076b3b4342435d74e236d0900e263084873d42e5b90c0c0f93b8e",
+        "inputs/audit": "9a349f71d9046b5977007008cc06924dc04a1dc17546753b7584d3e31552f32a",
+        "inputs/auxiliary": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+        "inputs/plan": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b"
+      },
+      "status": "Nine savedidentities only; loadability,cutoff/scaler/auxiliary/sourceaudit eligibility unverified. No automaticrefit ifanyexistingmodel fails."
+    },
+    "raw_minute": {
+      "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+      "manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+      "snapshot_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+      "authority": "yanxuan_nas",
+      "source_start": "2018-10-12",
+      "source_as_of": "2026-10-09",
+      "source_inventory": {
+        "path": "research/intraday_full_day_expansion_20261012/source_inventory.json",
+        "sha256": "30ef7df2dd382b517808d99cd203de4431dd56384c033090d3c26fe2836f0474"
+      },
+      "raw_originals": {
+        "SOXL_none.parquet": "94b2ee6bf16f76d2e3e453f45a8db533869a2fe6303e90c47505a61647d0dc2a",
+        "SOXX_none.parquet": "9133d01608d534d753015fa043d1fc538ccd12afbab8aaa1a01daa0f64448561"
+      },
+      "basis": "rawNONE only; do not substitute published_affine soxl_intraday_1min or dailyadjustedprices.",
+      "bin_identity_gate": "P1 first freezes/validates the exact relevantnativebin/calendar/instrument bytes before numericalloads. Prefer inherited knownsnapshot identities. If inherited per-bin contenthashes areabsent, record this specificlineagegap and the inspected currentbyteidentity; independentreview must admit the conditional train-only source beforeP2, never silentlyequate manifesthash withpricecontentproof."
+    },
+    "daily_calendar": {
+      "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+      "calendar_path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/calendars/day.txt",
+      "calendar_sha256": "7d45256ab69fbf3d156fa23823f5cc865225082debc559789ef87503a7248afb",
+      "role": "Native session mapping/purge/dateaudit only, no dailypricequery."
+    },
+    "auxiliary_PIT_provider": {
+      "provider_uri": "data/qlib/soxx_pit_leveraged_training_v1",
+      "manifest_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+      "calendar_sha256": "2a861bcf94a9abcfe78b9d2ed7248df20a3e147c53610751abcd7f183ff9bc56",
+      "P1_field_allowlist": [
+        "$pit_available",
+        "$pit_member",
+        "$instrument_type"
+      ],
+      "role": "Bounded pre-fold rawmembership flags to test strictPIT support for missing2018/2019 folds; not synthetic labels from2022relabelled backward. Needed per-fieldbinidentity andsourceversion mustbe qualified.",
+      "fixed_instruments": [
+        "ACLS",
+        "ADI",
+        "ALAB",
+        "AMAT",
+        "AMD",
+        "AMDL",
+        "ARM",
+        "ASML",
+        "ASX",
+        "AVGO",
+        "CRDO",
+        "CRUS",
+        "ENTG",
+        "INTC",
+        "INTW",
+        "KLAC",
+        "LRCX",
+        "LSCC",
+        "MCHP",
+        "MKSI",
+        "MPWR",
+        "MRVL",
+        "MTSI",
+        "MU",
+        "MULL",
+        "MVLL",
+        "NVDA",
+        "NVDL",
+        "NVMI",
+        "NXPI",
+        "OLED",
+        "ON",
+        "ONTO",
+        "QCOM",
+        "QRVO",
+        "RMBS",
+        "SLAB",
+        "SMTC",
+        "STM",
+        "SWKS",
+        "SYNA",
+        "TER",
+        "TSM",
+        "TXN",
+        "UMC",
+        "USD"
+      ],
+      "fixed_start": "2007-02-01",
+      "support_semantics": "Certificate concerns admissible strictPIT training support, not absence of real index constituents. Missing/invalid/uncovered observations cannot become an empty certificate."
+    },
+    "corporate_events_metadata": {
+      "card": "research/etf_corporate_actions_20261009",
+      "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+      "inventory_sha256": "625ba522fbadc4377c87f56e4a241deca714cc556dbd7227b3f7e414d938a6f3",
+      "archive": null,
+      "archive_status": "Legacy referenceplan doesnotnameaNASarchive; verify exactlocalRecorder paths/manifest or explicitlyresolveaqualifiedarchive beforeloading, no guessedNASidentity.",
+      "artifacts": {
+        "data/cash_events.pkl": "4ad373f39401f5dc6f826e17806243a3331f19f569ab1d4bc617efc5954e5d5a",
+        "data/split_events.pkl": "92f74ce2ceb29ddd0daac623a949d0076516de6f6c19b3c5e8071e086943a125"
+      },
+      "residency": "These are eventmetadata objects thatmay containpost2023events. If explicitlyadmittedinP1, disclose wholeobjectresidency and immediatelyfilter byneededtraininterval before schedulework. Do notclaimall2023+metadata wereunseen. No price,return,label oraccountobject isadmittedthroughthisexception.",
+      "retrieval_mode": "verified_existing_local_Recorder_only",
+      "experiment_id": "649036106770763940",
+      "summary_sha256": "7532d3fff2c79c34c81a042da88ec8acbded721dbdc288662314be855b4a2275",
+      "no_NAS_archive_required_or_inferred": true
+    }
+  },
+  "static_code_bindings": [
+    {
+      "path": "src/model/minute_pit_allocator.py",
+      "sha256": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8"
+    },
+    {
+      "path": "src/workflow/minute_pit_allocator.py",
+      "sha256": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13"
+    },
+    {
+      "path": "src/workflow/pit_allocation_retrain.py",
+      "sha256": "d350f8a62f19c29d975325279ee6bbdbe7d5c588623e172f01e7925685e6a224"
+    },
+    {
+      "path": "src/factor/soxx_pit_tail_factors.py",
+      "sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976"
+    },
+    {
+      "path": "src/analysis/tiered_action_labels.py",
+      "sha256": "209c916c4d8937ced5824d86fde15f5381508fa3b085a41d37d03bc8a116fb0f"
+    },
+    {
+      "path": "src/backtest/raw_corporate_policy.py",
+      "sha256": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa"
+    },
+    {
+      "path": "src/backtest/ibkr_tiered.py",
+      "sha256": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35"
+    },
+    {
+      "path": "src/backtest/stage1_domain_heads_raw.py",
+      "sha256": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef"
+    },
+    {
+      "path": "src/workflow/stage1_open_action_value.py",
+      "sha256": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671"
+    },
+    {
+      "path": "src/data/intraday.py",
+      "sha256": "dcf8f1312ed27d3df048e435f08b075050efdf0824bd13f0705d97697f662edb"
+    }
+  ],
+  "existing_training_data_feasibility": {
+    "PG_primary": "Existingreadback records native prepare(train) shape3014x85; original61featurecolumns include the39base inputs, plus16common,5labels,3meta. Do not prune the85-source schema to39. Residualhandler/loader caches mustbe auditedfortrain-onlyresidency again whenmaterialized.",
+    "OOF_predict_fields": "Original MinutePitAllocator.predict requests onlyfeature/common. The39/16 subset and originalinputfeatureorder/scaler can therefore be extractedfromPG train-only source without loadingoriginal inputs/features/common/daily_frame mixed2023+objects. P1 verifies exactcolumn/index/cohort and permodelscalers; this is static feasibility, not actual successfulprepare/predict.",
+    "needed_timing": "Use PG meta decision_at,return_available_at,label_available_at pluspinneddailycalendar. Derive trade_date fromoriginaldecision_at andexit_date fromreturn_available_at, then verify T→nextsession andT→secondsession exactly. No invented marketrows.",
+    "tail_gap": "PG ends signal2022-12-21. No sourceextension/mixedevalframe toobtain laternexttargets. Preserve thecomplete3014source, produceonlysupportedOOFinputs, and mark anyterminal localactionlabel withmissingnexttarget unknown. Shadow mayterminalmark theactualnextsession within2022 ifsourcespermit, but cannot synthesize areset target.",
+    "fold_route": "OOF assignment is actualtrade_date.year, not signal_date.year. A previousyear-end signal mayuse the newtrade-year model. Do not reusepreviouslyexported predictionarrays whoseboundaryroutinghasnotbeenverified.",
+    "forbidden_sources_before_later_barrier": [
+      "original inputs/daily_frame",
+      "original inputs/features/common",
+      "original analysis/development_predictions orouter_predictions",
+      "evaluation/dataset",
+      "oldstrategyreturn/account/labelobjects",
+      "native2023+prices oranysource beyondboundedqueries"
+    ],
+    "parent_aux_residency": "IfPGouteraux/audit cannotestablisholdfoldmetadata, the singlepinned original inputs/auxiliary dictionary is a deliberate allowance: allfoldkeys2020,2021,2022,outer mayberesident, including2022labels thatarefuture toearlierfolds. Audit everyframe maxdate andschema; no2023+data allowed. Only eachactualfold slice mayenterthatmodel provenance check. Nevercall it anearlierfold-onlyload oruseouterrows tofit anearlymodel."
+  },
+  "fold_contract": {
+    "intended_trade_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "fixed_missing_years": [
+      2018,
+      2019
+    ],
+    "reusable_years": [
+      2020,
+      2021,
+      2022
+    ],
+    "cutoff_rule": "For foldY cutoff=Y-01-01T00:00:00-05:00; train_end=calendar[calendar.searchsorted(Jan1Y)-20-1], copiedexactlyfromoriginalworkflow. Nativecalendarbounds/indicesmustexist. Purge andH5jointmaturity areseparatechecks.",
+    "eligibility": "Fromoriginal3014authority take index<=fold_train_end, original label_available_at finite andstrictly<foldcutoff, allfive originalTARGETSfinite; preserve alloriginaltargetvalues. Fitprimary/common scalers onthatfoldonly.",
+    "random_seed_rule": "Actualmodelseed=base_seed+foldY forbase_seeds71/172/273; validate savedseed accordingly. Outer71/172/273 aredifferentmodels and cannot serve as earlyteachers.",
+    "source_checks": "For9savedmodels validate class/973networkshape/39+16 order/extra_features=[]/originalnonemptyinactivefeature_masks/spec/candidate, cutoff,train_end,seeds,trainingauditcounts and exact primary/common scaler parity. No realforward/gradientsinP1. A mismatch stopsreuse;6supplemental slots cannotrefit existingyears.",
+    "auxiliary_reconstruction": "Keep fixedPIT-onlycandidate. Original _training_auxiliary loads raw observations only through eachfoldend before constructing5-step2xlabels; _auxiliary_dataset subsequentlyfiltersPIT/trainingeligibility andwritesobservations_end. That writtenfield isnotanindependentmaturityproof. NeverfilterPG2022labels bysignalindexandrewritethefield.",
+    "supplemental_empty_aux": "P1 mayprove strictPIT qualifiedmembership empty usingonly the three rawflags boundedtoeach2018/2019foldend. Ifempty isproven, freezea typedzero-row20columnnativeauxDataset and use theexisting MinutePitAllocator len(auxiliary_x)==0 loss=0 branch; coefficient0.05 andprimarymathremainunchanged. No union_backfill_pretrain, future2xcalibration or fakepositive support. Do notassumeempty beforethecheck.",
+    "if_nonempty_or_unproven_aux": "Do notcreateemptydata asrescue. Reportneeds_fold_raw_auxiliary_source. A separate boundedplan/GO mustadmitall12 PIT_TAIL_RAW_FIELDS atstart=originalauxcalendar_start/end=foldend, run theunchanged builder aftercrop, andaudit5-stepmaturity/PIT-onlyfilter beforeanyfit. Thisextraactualprice/labelreconstruction isnot silently included inP1 flags-onlybudget."
+  },
+  "prefix_contract": {
+    "coordinates": "x_j=P_SOXX,j/P_SOXX,0-1; y_j=P_SOXL,j/P_SOXL,0-1. rawNONE; fixedorientation.",
+    "grid": "P0=09:30open fromright-labelled09:31bar; j1..15=closedminutecloses at09:31..09:45. Allgridpointsrequired forbothsymbols, unique andpositivefinite withbar-localprice_valid. No09:46close, nointerpolation/forwardfill/backfill.",
+    "signed_area": "A=0.5*leftfold_sum(j=1..15)[x_(j-1)*delta_y_j-y_(j-1)*delta_x_j], arithmeticfloat64 afterwideningthefrozennativevalues. No signflip/abs/area-volatilityratio/extraorderorwindow.",
+    "shared_controls": [
+      "X",
+      "Y",
+      "X_squared",
+      "XY",
+      "Y_squared",
+      "sum_delta_x_squared",
+      "sum_delta_x_delta_y",
+      "sum_delta_y_squared"
+    ],
+    "shared_mask": "Only sameprefix validity availableby09:46. Never usecompleted_session minute_core_ready/full390or210barcompleteness, laterafternoonfields, finaldailyclose, futurecorporateevents orlabels tosetprefixmask.",
+    "unknown": "CanonicalA and8controls stayNaN andprefixmask0. Preserveoriginal3014allocation authority andentireprescribedaction/accountgrid; sourceunavailablebefore2018isnotaknownzeroarea. Actualactionfiteligibility stillrequires validfuturelocal labels; do notrenameactionrowsas3014.",
+    "mechanical_nulls": "y=a*x haszeroarea; subtracting3*x preservesarea; increment-orderpermutations canpreserveendpoints/QV/covarianceandchangearea. Testsyntheticallyonly duringimplementation. Rawquoteasync/bidask/rounding limitinterpretation, notautomaticresearchprohibition.",
+    "timing": "Allprefixbarsclosedby09:45, historical+60savailability09:46, orderfill09:47underfixedrawexecutioncontract. Actualfirstreceipt/bidask ortruearbitrage isnotcertified."
+  },
+  "P1_train_only_source_no_fit": {
+    "requires": "Independentdesign/implementationreview andseparateowner source/no-fitGO. Thisdraft doesnotgrantit.",
+    "purpose": "Turn minimalidentity/schema/maturity/OOFprediction-support/emptyaux/prefix-andexecutionmarkcoverage unknowns into auditabletrain-only inputs, beforeallrealprediction,area,fit,labelbranch oraccountwork.",
+    "object_budget": {
+      "PG_objects": 3,
+      "saved_OOF_models": 9,
+      "parent_small_plan_audit": 2,
+      "parent_multifold_aux_dictionary": 1,
+      "corporate_event_metadata_objects_maximum": 2
+    },
+    "query_budget": {
+      "new_market_HTTP": 0,
+      "native_D_calendar_maximum": 2,
+      "native_D_features_maximum": 3,
+      "core_minute_queries": 1,
+      "per_missing_fold_membershipflag_queries": 2,
+      "real_model_forward_or_autograd": 0,
+      "area_calculations": 0,
+      "new_action_labels": 0,
+      "fits": 0,
+      "accounts": 0
+    },
+    "price_bounds": {
+      "symbols": [
+        "SOXL",
+        "SOXX"
+      ],
+      "core_fields": [
+        "$open",
+        "$high",
+        "$low",
+        "$close",
+        "$volume",
+        "$price_valid"
+      ],
+      "start": "2018-10-12 09:30:00",
+      "end": "2022-12-30 16:00:00",
+      "residency": "Oneboundednativequery mayreturnalltrain intradaytimes, includingafternoons. Disclose thatresidency; constructprefixvalidityonlyfromtheclosedprefix. Othertrained-sessionmarks are usedsolelyfor coveragequalification, never todecideprefixmask. No2023price decoded."
+    },
+    "membership_bounds": "Each2018/2019query ends atitscomputed20purgefold_train_end; start=thepinnedauxcalendar_start. Fields onlyPITflags/instrument_type, notOHLC/returns/labels. Validate sourceidentity andactualmaxdatetime.",
+    "ordered_checks": [
+      "Verify plan/reviews/artifact andsourcecode identities; nativebin bytes mustbefrozen before theirvalueinspection. Missingexactsources remainmissing, no dirtyprovider substitution.",
+      "Load/auditPGtrain-onlyDataset/aux/audit; allhandler/data-loader residentframes mustfitdeclaredtrainbounds. Extractonlyinput/timingview forOOF prediction feasibility. Keeporiginalfive-targetdigest unchanged.",
+      "Derive allfive foldtrainends andtrade-yearroutingfromnativecalendar. Compare saved9modelmetadata/audits/scalers withfixedfoldviews, withoutpredict. Validateperfold auxiliarysourceaudit/rows; acknowledge originalmultifolddictionaryresidency ifloaded.",
+      "Qualify2018/19strictPITflag support and freezeemptyauxonly ifproven; otherwise leaveexactraw-before-cutoff reconstructiondependency unresolved.",
+      "Audit exactlydefined prefixbars andseparate known09:45/open09:47/actualsessionclose/terminalmarks forplannedshadow dates. Noarea orlaterday-dependentprefixmask. Trace eachmark toitsnativebar open/close semantics.",
+      "Checkcorporateeventmetadata/schema/sourcecoverage fortrainonlyschedule. Do not load anold mixed raw_points/frame/account toavoid buildinga boundedtrain view. Existingeventobjects maycontainlaterdates asdisclosed; noactualshadow yet.",
+      "Sealtrain-only nativeDataset inputviews and per-foldmetadata/coverage/tensor/scalerequality evidence withrecursive dump_all andnativeRecorder. Recordeveryunknown; thisisnotanOOFprediction orsample-count success."
+    ],
+    "outputs": [
+      "source_preflight_summary",
+      "perfold_identity_and_input_support_ledger",
+      "PGoriginaltargets/indexpreservation hashes",
+      "typedemptyauxcertificates ifsupported",
+      "prefixmask/sourcecoverage audit withoutA",
+      "rawexecutionmark/corporatecoverage qualification",
+      "train-only Dataset andsourcebindings onlyinRecorder"
+    ],
+    "pass_scope": "P1 can partiallyqualify9modelreuse/inputschemas whilemissingfold/sourceledgerrequirements stayunknown. P2needsallrequireddependenciesaccepted; neverclaimmereidentitylist provesobjectsreadable orfittedcausally.",
+    "metadata_identity_capture_during_implementation": {
+      "allowed": "Hash/size only of named manifests/calendars/instrumentfiles/core6fieldsx2symbols/PIT3fieldsx46instruments andcode/package metadata. No modelunpickle or price/label numericdecode. Separate inherited expectedhashes from currentbytecapture.",
+      "execution_gate": "GO binds byteinventory/codeidentity; nativecalendar-derived sliceindices validated before numericalread duringP1. No2023price decode. Budgets count explicitnativeAPIcalls, not internalcalendar metadata reads.",
+      "conditional_lineage": "Absent inherited binhashes remain origin gaps after currentSHA capture; P2 needsindependent sourceadmission."
+    },
+    "required_freeze_conditions": [
+      {
+        "id": "explicit_source_and_native_read_allowlists",
+        "condition": "Keep PG three objects, exactly nine originalbase2020/21/22 models, parentplan/audit and the explicitly admitted multifold auxiliary dictionary. Retain full PG3014x85/20741x20 and original target/index hashes. Freeze exact native calendar/instrument/field/bin inventories before decoding values, with bounded native reads and no2023 numerical price access. A manifest hash alone does not identify price-bin contents; absent inherited bin hashes must remain a declared lineage gap with current-byte identities, never an automatic P2 admission."
+      },
+      {
+        "id": "fold_static_eligibility",
+        "condition": "Route by actual trade_date.year from original timing, including cross-year signals. Use original calendar.searchsorted(Jan1Y)-20-1 and independently enforce finite jointH5 label_available_at<cutoff. Savedmodel seed must equal base_seed+year. Check original973 shape/39+16 order/spec/candidate/inactive feature_masks, audit/sourcecutoffs and exact fold-only primary/common scalers without forward/predict/gradient. Nine failed reuse slots cannot consume the six supplemental2018/19 fit slots. A loaded multifold aux dictionary includes later-to-earlier-fold labels through2022 and must be disclosed; observations_end assignment alone is not maturity proof."
+      },
+      {
+        "id": "bounded_empty_aux_proof",
+        "condition": "Freeze the membership instrument universe to the46 entries in the pinned PIT provider manifest, start2007-02-01, each2018/19 query ending at its computed purgedfoldend, and only pit_available/pit_member/instrument_type. Report admitted type0/PITavailable/member support and missing/invalid/uncovered counts separately. Read failure, missing bins or unverifiable coverage cannot become an empty-support certificate. A proven empty qualified pool may use the unchanged typed20-column emptyaux/zeroaux-loss branch; nonempty or unproven needs the separate raw-before-cutoff source plan, not union/future-label backfill."
+      },
+      {
+        "id": "clock_and_session_matrix",
+        "condition": "Add the exact normalizer/source-writer and execution-mark writer identities below, plus a frozen exchange-session/half-day close authority. Explicitly map right-edge09:31.open to09:30 P0,09:31..09:45.close to prefix,09:45.close available09:46,09:48.open to09:47fill,10:33.open to10:32mark, and actualsessionclose.close/next09:48.open terminal marks. Do not infer actual close from the last observed bar or use completed-day completeness to set prefixmask. Unproved source/session/availability semantics are reported unknown in P1 rather than guessed or numerically rescued."
+      },
+      {
+        "id": "corporate_metadata_local_mode",
+        "condition": "Use only the two pinned cash/split event artifacts via their exact existing local Recorder/verification manifest; do not require or invent an absent NAS archive identity. Preserve whole-object post2022 metadata residency, then derive only the needed training-interval event view. No price/account/return object enters this exception. Missing retrieval or unsupported corporate ordering remains a P2 dependency without blocking independent P1 model/schema qualification."
+      }
+    ]
+  },
+  "P2_OOF_and_local_label_bridge": {
+    "requires": "AcceptedP1 andseparateownerboundedbridgeGO withallsource/fee/shadow/labelcodeidentities. If2018/19aux/sourcequalification unresolved, no supplementalfit orpretendfull2018–2022teacher.",
+    "intended_period": "OOFpredictionwarmup coverssupportedinputrows withactualtrade_date.year2018–2022, includingprior-yearsignalboundaryrows. Continuousphysicalshadowstarts2018-10-12 andendsatlastPG-supportedtrade_date; terminalvaluationonlywhenexistingnativeexitmark available within2022. NoPGtail extension.",
+    "new_OOF_fit_budget": {
+      "maximum": 6,
+      "years": [
+        2018,
+        2019
+      ],
+      "base_seeds": [
+        71,
+        172,
+        273
+      ],
+      "actual_seed": "base_seed+foldyear",
+      "epochs": 300,
+      "refit_saved2020_2022": 0,
+      "rescue_fits": 0,
+      "rule": "Missingfoldcompletion isfixed byintendedsourceperiod beforeobservingsupport/performance, nevertriggeredautomatically justtoreach200. Eachsix-fit authorization isseparate fromP1."
+    },
+    "OOF_predictions": "Reuseonlyqualified9modelstates and6qualifiednewstates. Predictfromexact39/16train-onlyinputviews usingactualtrade_date.year, never2022outer onearlierdecisions. All3seed predictions averagedperfold; original legalprojection/smoothing/rebalance rules unchanged. Smoothingwarmup iscomputedcausally overthecompleteadmittedOOFinputsequence; do notreset atyearboundaries orimportfuture/outerpredictions.",
+    "training_shadow": {
+      "initial_cash": 100000,
+      "slippage_bps": 2,
+      "policy_paths": 1,
+      "native_accounts": 1,
+      "scope": "Onecontinuous original-structureOOF targetstream, originaldeterministic riskprojection, always-execute target policy. Learnedopening AND recoverycontrollers disabled because their2022fits are notearlyknown. Nofirsthour learnedrecovery orders, noCOMMON/ALL3/T transform, noyearlyNAV/position reset. Thisshadow istrainingreferenceonly, notthefinalcandidatepolicy.",
+      "state": "physicalintegerholdings, spendablecash, dividendreceivables, appliedcorporateevents, ownNAV/peak/history/riskclock andrealmonthlyTieredfee counters; usecurrentrawcashbook primitives, notadjustedshares.",
+      "no_future_teacher": "Features atd09:46 useonlythecommonshadow state markedatknown09:45 plusprefix. Noactualfill09:47, nexttarget, futurecorpoutcome orfuturelabels ininputs."
+    },
+    "local_action_label": {
+      "branches": "Atonecommon pre-actionshadowstate clonefullq/cash/IncomeLedger/TieredFees state. EXECUTE settlescurrentdesiredtarget atactualraw09:47; HOLD settlesnoorder. No mid-interval learnedrecovery. Apply between-date splits/entitlement/pay events exactlyonce ineachclone.",
+      "common_reset": "Bothbranches reset atnextactual09:47 tothesame targetweights fromthecommonreference shadow next09:46 decision, nevertheir ownrecomputedfuturetarget. Physicalquantities/feeusage/cash maydiffer; include bothentry andresetfees. Nofundingfromunpaidreceivables.",
+      "definition": "Delta=(NAV_execute_after_common_reset - NAV_hold_after_common_reset)/common_prebranch_NAV_at_current09:47. Futuredenominator/resetprice arelabelonly. Thisislocalfixed-reset advantage, notcompletealternativepolicyvalue.",
+      "training_cost": "FrozenTieredtariff+2bp only forcommonstrainingteacher/labels; final0/2/5bpaccountpaths remainindependentandnotrelabelled bycost.",
+      "maturity": "Noearlier thanmax(nextcommon-target informationtime, next09:47raw-open barcompletion+originalreceiptlag), plannednext09:49NY whenbarsemanticsconfirm. Strictbefore2023cutoff. Missingnexttarget/mark/PACcorporateunitsunsupported ->labelunknown; neverzerofillterminalrow.",
+      "eligibility": "Retainoriginalmandatoryderisk/large-transition/position-repair eligibility andfiniteoriginal22actionfields; preserveallshadowdaysinledger. B/C sameeligiblematurelabelset. Prefixmissingdoesnotdelete avalidlabelrow; encodeunknown+mask identically."
+    },
+    "legacy_label_compatibility": {
+      "reference_code": {
+        "path": "src/analysis/tiered_action_labels.py",
+        "sha256": "209c916c4d8937ced5824d86fde15f5381508fa3b085a41d37d03bc8a116fb0f"
+      },
+      "finding": "reset_advantage uses settle_tiered_event withadjusted/rawpriceconversion andfeeclone; itsstate lacksIncomeLedger/explicit corporateapplication. It isnot drop-in equivalentto currentphysicalrawcashbook. Originalold09:31/25bp traininglabels and10:31 recoverylabels are also notacceptable substitutes.",
+      "required_before_actual_bridge": "Staticdifference ledger plusonesyntheticfocused contract: no-corporate/unit=1 case parity wherecontractsagree; split/ex/pay/receivable/nonspendablecash/month-fee-boundary cases satisfycurrentrawconservation andbothbranchreset costs. Differences fromoldhelper mustbeexplained,notforcedequal. Currentraw nativevalidation ofone commonshadow then supportsitsphysicalorders/cash only.",
+      "implementation": "Newbounded adapter/module; do not modifysealedoldlabelhelper oroldcards. Do notloadoldtangentlabelarrays asnewteacher."
+    },
+    "area_and_controls": "Onlyinthis separatelyapprovedtrain-onlybridge compute thefixedA/eightcontrols/mask onadmittedprefixes andjoin tosamecommonshadowstate. Nochoiceofwindow/order/sign/resolution fromcountsorlabels.",
+    "support_report": "Keeporiginal3014allocationdataset intact. Reportactualnewactioncountsbyyear/eligibility/maturity/prefixmask andbefore2022; do not assume260/154 repeatsunderneworiginalteacher. Synthetic/nonfinite/sourcegap audits are notpredictivegates.",
+    "bridge_budget": {
+      "new_OOF_fits_maximum": 6,
+      "reused_model_states": 9,
+      "new_shadow_policy_paths": 1,
+      "new_shadow_native_accounts": 1,
+      "local_branch_pairs_maximum": "Atmostone EXECUTE/HOLD pair pereligiblecommonshadowdecision withnexttarget; no independentfullaccount perrow. NumberboundedbythePGsupportedtrade-dategrid.",
+      "new_market_HTTP": 0
+    }
+  },
+  "P3_future_action_and_economic_experiment": {
+    "requires": "Separatelyreviewedcompleteeconomicsplan andownerGO afterP2; notautomaticwhenbridgefinishes.",
+    "models": {
+      "maximum_new_action_fits": 2,
+      "B": "Original22actioninputs+8sharedcontrols+sharedprefixmask+neutralarea0",
+      "C": "Same32-input logisticpipeline, onlyobserved signedA inlastslot",
+      "pipeline": "Preserve originalSimpleImputer(mean)/StandardScaler/LogisticRegression C=.10,class_weight=balanced,max_iter2000,random_state42,threshold.50 andunchangedmandatoryguards. Fitpreprocessing onlyontrainingrows; never addabs(Delta) weighting orA×direction interactions.",
+      "target": "Delta>0 fromthecommonqualified2bptraininglabel; ties/nonpositiveclass asoriginal. Nohead/threshold/seedselection.",
+      "cutoff": "Finaltwofits strictlymature before2023-01-01NY; nofutureevalfeatures/labels forfitting. Noadditionaldevelopmentrefits hiddeninbudget.",
+      "minimum_rows_each_actual_fit": 200,
+      "legacy_development_check": "Report whetherpre2022 matureeligibleactionrows meet200, withoutloweringit. Passingacountisnotindependentvalidation. Withonlytwofinalfits,thisdraftdoesnotproducea separate2022developmentfit/test; anyadditionalfitwouldneedanewexplicitbudget. Ifbelow200, markdevelopment-supportfailed/needsdata, neverpassed; finalfiteligibility andscope needindependentreview beforeGO.",
+      "allocation_fits": 0,
+      "allocation_source": "Frozenoriginalouter3seedmodels/predictions reused onlyatlaterauthorizedevaluation; original39/16/3014contract unchanged.",
+      "pre2022_support_gate_clarification": "Original200-row development-support requirement cannot be lowered or replaced bytwofinalfits. Countpass isnotindependent development evidence. P3 needsitsownvalidation/fitbudget approval."
+    },
+    "model_barrier": "Sealbothfinalactionmodels,preprocessing,featureorderandSHA beforedeserializingany2023+evaluationlabels/prices/predictions/accountobjects. P1/P2 donotload mixedprimary/evalframe forschema. Noarea/labelperformance screening decideswhetherthepredeclaredsixaccountsrun.",
+    "new_accounts": {
+      "ensemble_families": 2,
+      "new_cost_specific_policy_paths": 6,
+      "new_native_accounts": 6,
+      "slippage_bps": [
+        0,
+        2,
+        5
+      ],
+      "initial_cash": 100000,
+      "grid": "Original944accountintervals/946predictiontails contract. Fullmissing/terminalrules unchanged; nosyntheticexecution.",
+      "own_state": "EachB/C/cost path hasindependentquantities/cash/receivables/fees/NAV/peak/riskstate. Restore frozenoriginalrecoverypolicy for2023+only; everyinputreadatitsownclock. Openingmodelnew32features passedwithcurrentdecisioncontext,notcachedfuturestate.",
+      "references": "Reuse15exactapprovednativebooks forAactive,oldB_shared,SOXX,strong9097,additional27baa onlywhenallpricegrid/corporate/tariff/initialstate identitiesmatch. MatchedB isnew. additional27baa report-only; nofallbackreplay ifidentitydiffers."
+    },
+    "required_comparators": [
+      "SOXX",
+      "new_matched_B",
+      "old_B_shared",
+      "A_active_research_replay",
+      "strong9097"
+    ],
+    "economic_gates": "At all costs: net relative wealth > 1+1e-8 against all five comparators; close and available raw-point MaxDD <= 30%; CVaR5 no worse than SOXX; complete annual positive excess >= 70% (minimum 2 complete years) and 126-session positive fraction >= 70%; all 15 fixed paired CI lower bounds > 0. Full-minute and fresh independent forward qualifications remain separate.",
+    "CI": {
+      "pairs": 15,
+      "statistic": "pairedmean dailylogexcess stationarybootstrap",
+      "mean_block": 63,
+      "resamples": 10000,
+      "alpha": 0.0016666666666666668,
+      "seed": 20261014,
+      "selection_history": "Historical reuse/multiplicityunknown retained; nooutcome-dependentresample/seedchange."
+    },
+    "non_success": "NonzeroA, lowertrainingloss,classificationaccuracy,lesscash orbeatingonlyB isnot stableSOXXexcess. Noindependentforwardorproductionpermission."
+  },
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "total_prospective_budgets": {
+    "P1_fits_predictions_area_accounts": 0,
+    "supplemental_allocation_OOF_fits_maximum": 6,
+    "saved_OOF_models_potentially_reused": 9,
+    "bridge_training_shadow_native_accounts": 1,
+    "future_action_fits_maximum": 2,
+    "future_economic_native_accounts": 6,
+    "frozen_economic_reference_accounts": 15,
+    "future_economic_comparison_books": 21,
+    "newmarketrequests": 0,
+    "additionalfits_to_reach200": 0,
+    "not_authorized_now": true
+  },
+  "source_failures_and_limits": {
+    "no_silent_completion": "Missing2018/19models,sourcebins/auxrawcutoffs/corporateevents/maturity/scalers orPGtailnexttarget remainexplicit. Nooutermodelbackfill,unionPITbackfill,currentmemberrepair,changedthresholdorcohortshorteningtoforcequalification.",
+    "constant_area": "Mechanicalidentity/constant orpredeclaredunresolvable arithmeticqualification mayclosefixedversion; measurementnoisealone doesnotbanresearch. Numericbounds mustbe justifiedandfrozenbeforeactualA, notfittoobservedprofits.",
+    "bridge_only": "Training-shadow/sourcework isnotcandidateeconomicexecution. Reusedhistoricalhyperparameterchoice isnotmadeindependentbycausalOOF ornewreviewer.",
+    "unsupported_events": "Unsupportedfractionalsplit/CIL orambiguoussame-daycorporateordering failunderexistingrawledgercontracts, noinventedcashflow."
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml afterimplementationauthorization",
+    "notebook": "path_area_action_bridge_20261018.ipynb",
+    "recorders": "SeparateactualnativeQlibRecorder forP1sourcequalification/P2bridge/futureeconomics; useexistingverifiedobjectreaders/nativeDatasetH. Rawarrays/models/OOFpredictions/area/tensors/localbranchledgers/fullchecks/nativebooks liveonlyinRecorder/NAS. Preserve recursive dump_all andoncefocusedcoldreadback; providerinitializationoutsideactiveRecorder whereQLibrequires.",
+    "root_current_files": [
+      "design_draft.json",
+      "path_area_action_bridge_20261018.ipynb",
+      "conclusion.md"
+    ],
+    "qlib_authority": [
+      "https://qlib.readthedocs.io/en/latest/component/data.html",
+      "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+    ]
+  },
+  "pending_before_freeze": [
+    "Independentdesignreview andstageownerpermissions",
+    "P1 source/bin/legacycorporateartifact retrieval identities andspecificqueryallowlists/codeidentity",
+    "ActualPGresidency/perfoldinput/scaler/maturity and9modeleligibility checks",
+    "2018/19strictPITsupport andemptyauxcertification ornewboundedrawauxsourceplan",
+    "Rawcorporate two-branch/reset numericalcontract andsyntheticqualification beforeP2",
+    "Actualsupportcounts/sourcecoverage withoutperformance-basedyears/seedselection",
+    "Separatefuture2fit/6native economicapproval withexactreferencebindings andnohidden developmentfits"
+  ],
+  "current_execution_counts": {
+    "real_models_deserialized": 0,
+    "prices_labels_predictions_deserialized": 0,
+    "real_preflight": 0,
+    "OOF_predictions": 0,
+    "area_calculations": 0,
+    "fits": 0,
+    "shadow_paths": 0,
+    "native_accounts": 0,
+    "new_market_HTTP": 0
+  },
+  "frozen_at_utc": "2026-10-18T14:44:57.535363+00:00",
+  "frozen_from": {
+    "draft_sha256": "61af5d54ec1857bac4c59e9f5f483aeeba8a8e188cc63711bf308dde739053cb",
+    "review_sha256": "10097e9704bfd3fd88327cea4eee5b6f9c77a63158d9cbfdbdcb002ce9be1a03"
+  },
+  "source_clock_identity": {
+    "src/data/minute_price_basis.py": "d3abbb1b7a3ca6e1b7cdd78e55903c2b03dd4202cadd4caf61fac91ebe68dbf5",
+    "src/data/full_path_prices.py": "a048feafe47db675009e196c55376aaf4e2dc09e5aa40523094afe912cbfef8d",
+    "src/data/nas_minute_bundle.py": "a70d04cceee3012d7139b5e96ef045aa39d2aa0cccd56b0fc281723ba2fa2b65",
+    "src/workflow/close_rod_source_preflight.py": "dc566ff14916b79526129df7a3010569547f35bddb09362229cc105413850ee8"
+  },
+  "source_clock_matrix": {
+    "prefix_P0": "right-edge09:31.open ->09:30",
+    "prefix_closes": "09:31..09:45.close ->latestknown09:46 under+60seconds",
+    "known_state": "09:45.close ->decision09:46",
+    "opening_fill": "09:48.open ->09:47",
+    "frozen_recovery_reference": "10:33.open ->10:32",
+    "actual_close": "exchange schedule close.close, never last-observed-bar inference",
+    "next_fill": "next09:48.open ->next09:47; label observation no earlier than next09:49 under+60seconds",
+    "qualification": "Historical research clock convention, not vendorfirstreceipt certification."
+  },
+  "exchange_session_authority": {
+    "package": "exchange-calendars",
+    "version": "4.13.2",
+    "calendar": "XNYS",
+    "schedule_start": "2018-10-12",
+    "schedule_end": "2022-12-30",
+    "fields": [
+      "open",
+      "close"
+    ],
+    "timezone": "America/New_York",
+    "module_identities": {
+      "exchange_calendars.exchange_calendar_xnys": {
+        "path": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/exchange_calendars/exchange_calendar_xnys.py",
+        "sha256": "baa39f07163abafcf2800b69edc5d920c3db0a64f8bbb30dc7d522883d0b5bd7"
+      },
+      "exchange_calendars.exchange_calendar": {
+        "path": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/exchange_calendars/exchange_calendar.py",
+        "sha256": "7b8087892b698299fe448afbc4b3fb9300a34ba1605804999436525391c08de6"
+      },
+      "exchange_calendars.us_holidays": {
+        "path": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/exchange_calendars/us_holidays.py",
+        "sha256": "a2444bd7aef3ff651faff3f9117c47a0d41e9e7c312f38ecf42403e4d996830e"
+      }
+    },
+    "uses": "Regular/half-day open/actualclose; align nativecalendar and report conflicts, never infer close from absentbars.",
+    "scope": "One metadata schedule during authorizedP1, no marketHTTP/price inference."
+  }
+}

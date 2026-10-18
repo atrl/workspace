@@ -1,0 +1,35 @@
+[
+  {
+    "number": 1,
+    "kind": "current",
+    "cik": "0000002488",
+    "url": "https://data.sec.gov/submissions/CIK0000002488.json",
+    "started_at": "2026-10-18T14:22:31.872063+00:00",
+    "state": "response_recorded",
+    "user_agent": "SOXL-Qlib-Research/1.0 (+https://github.com/atrl)",
+    "status": 403,
+    "headers": {
+      "Date": "Sun, 18 Oct 2026 14:22:32 GMT",
+      "Content-Type": "text/html",
+      "Content-Encoding": null,
+      "Location": null,
+      "Retry-After": null,
+      "Last-Modified": null,
+      "ETag": null
+    },
+    "error": null,
+    "completed_at": "2026-10-18T14:22:32.862246+00:00",
+    "raw_sha256": "a8d96fac01d48fca8860cc74cadfab0395dca076c5f0f4a8eaf9ec36e9b07442",
+    "raw_bytes": 4819,
+    "raw_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/sec_uncertainty_B1_kqgrrn1q/01_current_0000002488.bin",
+    "challenge": true,
+    "redirect_not_followed": false
+  },
+  {
+    "url": "https://data.sec.gov/submissions/CIK0000004127.json",
+    "kind": "current",
+    "cik": "0000004127",
+    "no_request": true,
+    "reason": "host_stopped"
+  }
+]

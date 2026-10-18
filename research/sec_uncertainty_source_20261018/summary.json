@@ -119,5 +119,21 @@
   "owner_cold_readback_status": "passed",
   "independent_result_review_file": "B0_result_review.json",
   "independent_result_review_sha256": "247873e158acc05541223cff1bbe6ed43daa058fb95121dc3ceb7b6510c85307",
-  "B1_execution_authorized": false
+  "B1_execution_authorized": false,
+  "B1_source_status": {
+    "phase": "B1",
+    "decision": "ACCEPT_B1_SOURCE_GAP",
+    "source_HTTP": 1,
+    "HTTP_status": 403,
+    "challenge": true,
+    "headers_qualified": 0,
+    "C_authorized": false,
+    "recorder_id": "5bc372553abf4f27a2620f1d554b87b3",
+    "summary": "B1/summary.json",
+    "result_review": "B1/result_review.json",
+    "result_review_sha256": "e7894eaf36ff83b9ccc862d6a26ca49a74eed9cf519f5e5ccf15ef9514e9c0a6",
+    "readback": "B1/readback_verification.json",
+    "readback_sha256": "7fb2dfa73e40274ca707bed1ce152b4398bba48b436d2218fdd2a3438616316f",
+    "fixed_intake_closed": true
+  }
 }

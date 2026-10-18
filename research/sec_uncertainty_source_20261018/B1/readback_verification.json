@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "scope": "Unique NAS restore/readback of the bounded transport-rejected B1 result; no new SEC request, reselection, calendar query or parser rerun",
+  "observed_at_utc": "2026-10-18T14:25:18.430704+00:00",
+  "recorder_id": "5bc372553abf4f27a2620f1d554b87b3",
+  "archive_sha256": "840fe18b286a1b3fe157ba3ae5cc28553b549730b4e5e81f18c48139376d1323",
+  "archive_bytes": 115648,
+  "manifest_sha256": "c658fb2c589113c53ec5190096cfb10a0f0bbfa74607fcc121b781f86af4ee82",
+  "summary_sha256": "551b3c1e3f7d9f436158019e4f49be6237c7e175fe43308f8c8447492168f6bd",
+  "all_artifact_hashes_verified": 17,
+  "metadata_dataset_shape": [
+    4,
+    7
+  ],
+  "native_direct_prepare_matches_four_gap_ledger": true,
+  "actual_source_HTTP_requests": 1,
+  "observed_status": 403,
+  "observed_challenge": true,
+  "second_CIK_no_request_host_stopped": true,
+  "raw_response_hash_verified": true,
+  "C_URLs": 0,
+  "source_retries": 0,
+  "new_source_HTTP_during_readback": 0,
+  "new_D_calendar_or_features": 0,
+  "new_fits_accounts": 0,
+  "failure_cause_beyond_observed_403_challenge": "not inferred",
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-sec-B1-coldread-fxhfceqg",
+  "original_recorder_and_sealed_summary_unchanged": true,
+  "exec_session": 12814,
+  "exit_code": 0
+}

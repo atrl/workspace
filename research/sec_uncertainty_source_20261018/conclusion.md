@@ -11,3 +11,7 @@
 独立评估已接受B0 provisional样本，见 [B0结果评审](B0_result_review.json)；它只接受固定两CIK选样，不授历史identity/10-K/PIT或模型资格，不晋升。B1仍需独立GO和诚实declaredidentity绑定，实际SEC接受性未知；个人email不被当成新增硬要求。A词表身份/许可独立未决，A/B1/C本轮未实现或执行。没有窗口/经济指标，不能从两家pilot外推全篮子或模型可用性。
 
 Owner唯一NAS冷读 `57821` exit0：18个artifact hash、原生2×13 metadata Dataset直接prepare及原3个来源对象身份均通过，见 [冷读收据](B0_readback_verification.json)。这验证交付与复现；独立B0验收也已完成，接受范围仍仅provisional样本。
+
+## 后续 B1 来源状态（B0 封存证据不变）
+
+B1 单次读取已完成并独立验收为来源缺口：唯一 AMD current 请求返回403/challenge，data.sec.gov停主机；SWKS未发出请求，0history/header、4个年报位置全缺口，C未授权。17项NAS恢复核验通过。详细结果见 [B1结论](B1/conclusion.md)。不重试或更换身份；总Goal继续本地路径面积桥接。此前B0结论中的“B1尚待执行”是B0交接时状态，以本段为最新来源状态；B0子卡summary/manifest/Recorder始终未改。

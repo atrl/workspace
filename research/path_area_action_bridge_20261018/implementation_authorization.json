@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "owner": "/root",
+  "decision": "GO_IMPLEMENT_P1_ONLY",
+  "plan_sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+  "design_review_sha256": "10097e9704bfd3fd88327cea4eee5b6f9c77a63158d9cbfdbdcb002ce9be1a03",
+  "allowed": [
+    "P1 train-only source/static-model and coverage implementation",
+    "Whitelisted byte-identity metadata capture withoutnumericdecode",
+    "One concentrated synthetic afterfinalcode",
+    "Implementation/code/source-byte identities and independentreview handoff"
+  ],
+  "forbidden": [
+    "Actualsource/model/Dataset/event unpickle",
+    "D.features oractualnativecalendar query",
+    "Realforward/gradient/area/labels/fit/account",
+    "P2/P3implementation ornewmarketrequests"
+  ],
+  "ownership": {
+    "external_methods": [
+      "src/data/path_area_source_preflight.py",
+      "tests/test_path_area_source_preflight.py"
+    ],
+    "recent_evidence": [
+      "src/workflow/path_area_source_preflight.py",
+      "research/path_area_action_bridge_20261018/workflow.yaml",
+      "research/path_area_action_bridge_20261018/path_area_action_bridge_20261018.ipynb",
+      "research/path_area_action_bridge_20261018/source_byte_identity.json",
+      "research/path_area_action_bridge_20261018/implementation_contract.json",
+      "research/path_area_action_bridge_20261018/implementation_identity.json",
+      "research/path_area_action_bridge_20261018/synthetic_receipt.json"
+    ]
+  },
+  "actual_execution_authorized": false
+}
