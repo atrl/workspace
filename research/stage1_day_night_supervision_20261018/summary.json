@@ -47,7 +47,7 @@
   "production_changed": false,
   "account_price_access": "After six-model barrier: pinned raw_points/market plus derived Qlib execution-provider/native-backtest reads; no new market source or S/Z evaluation prices.",
   "history_status": "reused_history_not_independent_validation",
-  "independent_evaluation": "pending",
+  "independent_evaluation": "ACCEPT_NEGATIVE_RESULT",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
@@ -81,10 +81,20 @@
   },
   "execution_receipt": "execution_receipt.json",
   "selected_model": "selected_model.json",
-  "fixed_candidate_version_status": "not_promoted_pending_independent_result_review",
+  "fixed_candidate_version_status": "closed_not_promoted",
   "artifact_count": 88,
   "all_costs_and_seeds_retained": true,
   "CI_lower_positive_count": 0,
   "CI_required_count": 15,
-  "formal_exec_session_id": 85921
+  "formal_exec_session_id": 85921,
+  "independent_evaluation_file": "independent_evaluation.json",
+  "independent_evaluation_sha256": "7bdc537cfc0f42126a37119eb815252cc343782aa6baedaf12399a32a60ad742",
+  "readback_verification": "readback_verification.json",
+  "readback_verification_sha256": "6a91edda7c4fcea6c53fee79aa7fd0d5a50c15b49c9dd48ce5d72797b14eb60d",
+  "failure_attribution": "failure_attribution.json",
+  "failure_attribution_sha256": "507b85b03772eda2b8f3d8b1e56072aae31e7371fb498fd17240d504f6e63c53",
+  "failure_attribution_scope": "attribution_scope.json",
+  "failure_attribution_scope_sha256": "eb973bdd1ccf2e7b63d7f5f1b225c2a234411dc1d28c1c573057f35540d8b6f0",
+  "failure_attribution_conclusion": "attribution_conclusion.md",
+  "failure_attribution_exec_session_id": 6809
 }

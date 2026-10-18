@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_day_night_supervision_20261018",
-  "current_phase": "fixed_day_night_supervision_closed_bounded_attribution_in_progress",
-  "next_action": "Finish the already-authorized one-pass saved-evidence attribution, then advance a distinct falsifiable mechanism. NAV same-source path stays closed; FOMC preannouncement stays closed and policy-cycle update does not qualify a replacement flag. Goal remains active, no stable SOXX excess achieved.",
+  "current_phase": "fixed_day_night_version_closed_after_one_attribution",
+  "next_action": "Close and deliver the fixed S/Z result/one attribution. Prepare a bounded source-only SEC-text qualification design for the one new information hypothesis; first resolve cutoff-valid lexicon provenance and use terms, original filing clocks/revisions, disclosed-basket coverage. No automatic corpus acquisition, feature generation or model fit from the triage alone.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1724,7 +1724,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/stage1_day_night_supervision_20261018",
-      "phase": "fixed_day_night_supervision_closed_bounded_attribution_in_progress",
+      "phase": "fixed_day_night_version_closed_after_one_attribution",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
@@ -1743,7 +1743,7 @@
       "model_implementation_authorized": true,
       "model_fit_authorized": false,
       "account_execution_authorized": false,
-      "executor_lifecycle": "Actual formal85921 completed6fits/6independent paths/6native+15refs and15CI; independent negative result accepted, unique88-artifact coldread52313 exited0. Fixed version closed. Executor explicitly resumed only for one bounded attribution from saved evidence; no refit/replay/bootstrap/source query. External NAV/FOMC triages completed without a new admitted candidate.",
+      "executor_lifecycle": "Formal85921, independent negative review, one NAS coldread52313 and one attribution6809 all completed. Executor idle; fixed version closed. No further tests/refits/replays on this route. External methods completed NAV/FOMC rejection and one SEC-text source-feasibility triage; next work is a concrete bounded source qualification design.",
       "implementation_preparation": "Narrow new adapter fit-loop copy preserves original combined loss order and diagnostic meaning; add regression loss after L_original. Preserve same primary state, auxiliary sampling, globalclip and original RNG; clear temporary cache before seal. No original module edits.",
       "pending_alignment_clarification": "Source C instrument SOXL_SOXX differs from original PG SOXL_SOXX_CASH; assert both fixed single-instrument/date cohorts and original8fields, then assign S/Z by exact date order while preserving PG index/85columns. No inner join/drop/fill.",
       "previous_goal_turn_classification": "progress: all three fixed source phases executed once, conditional labels independently accepted and cold-restored; no model/financial success claimed.",
@@ -1835,7 +1835,19 @@
       "independent_evaluation": "research/stage1_day_night_supervision_20261018/independent_evaluation.json",
       "independent_evaluation_sha256": "7bdc537cfc0f42126a37119eb815252cc343782aa6baedaf12399a32a60ad742",
       "readback_verification": "research/stage1_day_night_supervision_20261018/readback_verification.json",
-      "readback_verification_sha256": "6a91edda7c4fcea6c53fee79aa7fd0d5a50c15b49c9dd48ce5d72797b14eb60d"
+      "readback_verification_sha256": "6a91edda7c4fcea6c53fee79aa7fd0d5a50c15b49c9dd48ce5d72797b14eb60d",
+      "attribution": {
+        "scope": "research/stage1_day_night_supervision_20261018/attribution_scope.json",
+        "scope_sha256": "eb973bdd1ccf2e7b63d7f5f1b225c2a234411dc1d28c1c573057f35540d8b6f0",
+        "result": "research/stage1_day_night_supervision_20261018/failure_attribution.json",
+        "result_sha256": "507b85b03772eda2b8f3d8b1e56072aae31e7371fb498fd17240d504f6e63c53",
+        "exec_session": 6809,
+        "exit_code": 0,
+        "attempts": 1,
+        "new_fits_replays_or_CI": 0,
+        "recorder_88_objects_unchanged": true
+      },
+      "readback_scope_clarification": "Formal coldread verified saved model architecture/target-scaler/optimizer-trace identities. Original initialization/RNG evidence was reused from accepted no-fit and coldread87112, not rerun in formal-result coldread."
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -2742,6 +2754,20 @@
       "market_datasets_downloaded": 0,
       "new_fits": 0,
       "new_accounts": 0
+    },
+    "sec_text_information_triage": {
+      "path": "research/external_mechanism_review_20261018/sec_text_information_triage.md",
+      "sha256": "1f8fde51488395369d576a7383c32bea73e35579cf270438d265b25d5989960c",
+      "status": "needs_frozen_pre_cutoff_lexicon_and_causal_sector_corpus",
+      "query_attempts": 8,
+      "successful_queries": 6,
+      "failed_queries_counted_without_retry": 2,
+      "candidate": "Fixed annual10-K uncertainty word-share change on the contemporaneously disclosed SOXX basket; one lexical information hypothesis, not numeric EPS/guidance or modernLLM retrospective scoring.",
+      "raw_corpus_or_lexicon_downloads": 0,
+      "market_price_label_prediction_reads": 0,
+      "new_fits": 0,
+      "new_accounts": 0,
+      "qualification": "None; a source design must fix dictionary identity/use terms, raw-accession and publication/amendment timing, disclosed-basket/CIK/coverage and parser scope before numerical extraction."
     }
   },
   "research_focus_history": [
@@ -2796,7 +2822,21 @@
     "new_fits": 6,
     "new_native_accounts": 6,
     "reused_native_accounts": 15,
-    "attribution_status": "authorized_once_in_progress",
-    "next_action": "Close fixed head/weight/target/seed/controller version. Complete one descriptive failure attribution and pursue a substantively distinct information mechanism; do not promote matched B after seeing results."
+    "attribution_status": "completed_fixed_once_no_retry",
+    "next_action": "Close fixed head/weight/target/seed/controller version. Complete one descriptive failure attribution and pursue a substantively distinct information mechanism; do not promote matched B after seeing results.",
+    "attribution": {
+      "path": "research/stage1_day_night_supervision_20261018/attribution_conclusion.md",
+      "source_artifacts": 27,
+      "paired_sampling_hashes_equal": "900/900",
+      "actual_gradient_clip_active_steps": 0,
+      "maximum_preclip_norm_approx": 0.03704,
+      "C_raw_nominal_beta": 1.07373,
+      "B_raw_nominal_beta": 1.068083,
+      "C_2bp_ending_nominal_beta": 0.85617,
+      "B_2bp_ending_nominal_beta": 0.870049,
+      "C_B_risk_state_different_days_2bp": 51,
+      "C_B_risk_clock_different_days_2bp": 124,
+      "interpretation": "The added supervision changed proposals and realized exposures/state paths but failed economic stability. Actual clipping never activated; no controller-only or universal-Z-predictability conclusion."
+    }
   }
 }

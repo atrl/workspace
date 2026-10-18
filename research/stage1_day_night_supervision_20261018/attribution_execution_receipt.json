@@ -1,0 +1,49 @@
+{
+  "scope_sha256": "eb973bdd1ccf2e7b63d7f5f1b225c2a234411dc1d28c1c573057f35540d8b6f0",
+  "code_sha256": "5af1dc7b39cfb3b70392233f9f80049a7e85f89b44d49e368544a246e8542933",
+  "exec_session_id": 6809,
+  "exit_code": 0,
+  "nbconvert_pid": 47291,
+  "kernel_pid": 47292,
+  "attempt": "attribution_attempt.json",
+  "result_sha256": "507b85b03772eda2b8f3d8b1e56072aae31e7371fb498fd17240d504f6e63c53",
+  "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
+  "source_artifacts_read": 27,
+  "original_main_delivered_commit": "9ff0868a",
+  "formal_notebook_before_merge_sha256": "34aaf2ff206b7da8b93ed7007db73f3966f30efa139e8a028891303ca5e64305",
+  "executed_attribution_notebook_sha256": "335249832d9977a9182933b1d0f87649b578f2b318b137facd4de2ffd8800ca2",
+  "executed_attribution_cell_count": 1,
+  "final_merged_notebook_sha256": "ff8514e6f395abac7a14e7d969f24c2449151af791c9ffceb7eda08033d68658",
+  "final_merged_notebook_bytes": 83229,
+  "four_tables": {
+    "periods": {
+      "path": "attribution_periods.csv",
+      "sha256": "6704e164519330175a5169b1072c7d7dc83a2e133e3ebf476644f1afab0c3626",
+      "rows": 396
+    },
+    "path_summary": {
+      "path": "attribution_path_summary.csv",
+      "sha256": "13e0fbf8565858750a21459eb04a3e321372e9a99b5cc4527ef90bd4b23bbaa6",
+      "rows": 6
+    },
+    "state_differences": {
+      "path": "attribution_state_differences.csv",
+      "sha256": "439c3cfaf3651e5f83526427d8190b93c2a25a4c6c1916860762d048c1000b4b",
+      "rows": 54
+    },
+    "training": {
+      "path": "attribution_training.csv",
+      "sha256": "736f78d8b1557d4ca2c2f24eba8753ddcc612edd44f3f7189a94907d82a2a59f",
+      "rows": 6
+    }
+  },
+  "main_stage_artifacts": 88,
+  "main_stage_manifest_sha256": "8c3b6adb161f751591ff162b6033d5595583e37fec1cf16cc68b1af48c0af7c4",
+  "main_stage_archive_sha256": "c992d899300006d90a90080b1fcefd183e85d55913a92bb2d615590326f056f7",
+  "all_loaded_sealed_artifacts_rehashed_unchanged": true,
+  "new_fit_forward_gradient_optimizer_replay_native_CI_sourceHTTP_NASdownload": 0,
+  "no_primary_recorder_rearchive": true,
+  "root_summary_after_merge_sha256": "e9695956191635ecf83226d6121319886af53186577368a0a3a99bf6f6bc564e",
+  "selected_model_after_closure_sha256": "629db5c114d2a224538a06308f72f5b913d7847c9d21c0df3b3d728e4d265bec",
+  "formatting": "Transient widget-view MIME omitted when merging; original executed temporary notebook is unchanged. Formal research code cells and their substantive outputs not rerun."
+}

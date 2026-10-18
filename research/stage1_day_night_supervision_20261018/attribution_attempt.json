@@ -1,0 +1,31 @@
+{
+  "status": "completed",
+  "scope_sha256": "eb973bdd1ccf2e7b63d7f5f1b225c2a234411dc1d28c1c573057f35540d8b6f0",
+  "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
+  "new_fit_forward_replay_native_CI_sourceHTTP_NASdownload": 0,
+  "completed_tables": {
+    "periods": {
+      "path": "attribution_periods.csv",
+      "sha256": "6704e164519330175a5169b1072c7d7dc83a2e133e3ebf476644f1afab0c3626",
+      "rows": 396
+    },
+    "path_summary": {
+      "path": "attribution_path_summary.csv",
+      "sha256": "13e0fbf8565858750a21459eb04a3e321372e9a99b5cc4527ef90bd4b23bbaa6",
+      "rows": 6
+    },
+    "state_differences": {
+      "path": "attribution_state_differences.csv",
+      "sha256": "439c3cfaf3651e5f83526427d8190b93c2a25a4c6c1916860762d048c1000b4b",
+      "rows": 54
+    },
+    "training": {
+      "path": "attribution_training.csv",
+      "sha256": "736f78d8b1557d4ca2c2f24eba8753ddcc612edd44f3f7189a94907d82a2a59f",
+      "rows": 6
+    }
+  },
+  "result_sha256": "507b85b03772eda2b8f3d8b1e56072aae31e7371fb498fd17240d504f6e63c53",
+  "source_artifacts_read": 27,
+  "sealed_evidence_unchanged": true
+}

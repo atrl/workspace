@@ -6,7 +6,7 @@
   "decision": "not_promoted_fixed_day_night_supervision",
   "candidate_retained": true,
   "promotion_approved": false,
-  "independent_evaluation": "pending",
+  "independent_evaluation": "ACCEPT_NEGATIVE_RESULT",
   "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
   "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
   "model_sha256": {
@@ -33,5 +33,8 @@
   "new_native_accounts": 6,
   "active_release_changed": false,
   "historical_PIT_qualified": false,
-  "independent_forward_qualified": false
+  "independent_forward_qualified": false,
+  "independent_evaluation_file": "independent_evaluation.json",
+  "independent_evaluation_sha256": "7bdc537cfc0f42126a37119eb815252cc343782aa6baedaf12399a32a60ad742",
+  "candidate_version_status": "closed_not_promoted"
 }

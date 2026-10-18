@@ -1,0 +1,1333 @@
+{
+  "scope_sha256": "eb973bdd1ccf2e7b63d7f5f1b225c2a234411dc1d28c1c573057f35540d8b6f0",
+  "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
+  "archive_sha256": "c992d899300006d90a90080b1fcefd183e85d55913a92bb2d615590326f056f7",
+  "code_sha256": "5af1dc7b39cfb3b70392233f9f80049a7e85f89b44d49e368544a246e8542933",
+  "source_artifacts": {
+    "analysis/annual_metrics": {
+      "artifact": "analysis/annual_metrics",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/annual_metrics",
+      "sha256": "20996fb312d0fb9afd47af619a5e26ded6c148ccae124c27ca06c514ae5d6a33",
+      "bytes": 26349,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/annual_metrics",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/annual_metrics"
+    },
+    "analysis/quarterly_metrics": {
+      "artifact": "analysis/quarterly_metrics",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/quarterly_metrics",
+      "sha256": "e38e52097f84db6ef7bc816f68c755b5da1111301bb1c6c7d5a869815389c3ed",
+      "bytes": 99114,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/quarterly_metrics",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/quarterly_metrics"
+    },
+    "analysis/monthly_metrics": {
+      "artifact": "analysis/monthly_metrics",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/monthly_metrics",
+      "sha256": "82b5b313b12cbcf682c4a62f5b4e4345373cf0c5d85a869442d046145e445f75",
+      "bytes": 281665,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/monthly_metrics",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/monthly_metrics"
+    },
+    "analysis/rolling_summary": {
+      "artifact": "analysis/rolling_summary",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/rolling_summary",
+      "sha256": "0aa78198c5b1f6cfc9171c66ce4420aa7d35fa3ad3108699d819e37eec35d286",
+      "bytes": 2322,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling_summary",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling_summary"
+    },
+    "analysis/metrics": {
+      "artifact": "analysis/metrics",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/metrics",
+      "sha256": "489c491a91fd6713f9a119ca93505e803101359a4cc1fed6b1be83c80835774b",
+      "bytes": 9046,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/metrics",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/metrics"
+    },
+    "analysis/ensembles": {
+      "artifact": "analysis/ensembles",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/ensembles",
+      "sha256": "3903144a57ce880b69028e45b9128d6e6741383ea3f7c470486e1f0f8e3484cb",
+      "bytes": 77120,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/ensembles",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/ensembles"
+    },
+    "analysis/smoothed_targets": {
+      "artifact": "analysis/smoothed_targets",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/smoothed_targets",
+      "sha256": "83e4b57ff28b6848e4f1aea7f32f1e9821661f69d7a17ca4e641589a86af22be",
+      "bytes": 69594,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/smoothed_targets",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/smoothed_targets"
+    },
+    "analysis/classification": {
+      "artifact": "analysis/classification",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/classification",
+      "sha256": "e796717fd6bd1b23eff572f61642925161bfdb9d3bef0df3bc1aaa0664dc313b",
+      "bytes": 3202,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/classification",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/classification"
+    },
+    "analysis/summary": {
+      "artifact": "analysis/summary",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/summary",
+      "sha256": "3cd934e46b995746e2c03e21153de89d226fefc73eedd7dc74966bb1ca23ad7a",
+      "bytes": 2786,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/summary",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/summary"
+    },
+    "native/B_day_night_total_0": {
+      "artifact": "native/B_day_night_total_0",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:native/B_day_night_total_0",
+      "sha256": "117a61c7306d559a940ec9cd3a6222b4b2e679ae108697423b8d820c241b0505",
+      "bytes": 9430339,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/B_day_night_total_0",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/B_day_night_total_0"
+    },
+    "native/B_day_night_total_2": {
+      "artifact": "native/B_day_night_total_2",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:native/B_day_night_total_2",
+      "sha256": "df6e341434e51a74654fc34c91be9688dbd3462e328142e8fda64a15e58d18b3",
+      "bytes": 9440675,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/B_day_night_total_2",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/B_day_night_total_2"
+    },
+    "native/B_day_night_total_5": {
+      "artifact": "native/B_day_night_total_5",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:native/B_day_night_total_5",
+      "sha256": "122fa0a95b245a3ea42d0cb218ec16577b64a45a504f7c6f4fb10f00657a2d8d",
+      "bytes": 9382376,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/B_day_night_total_5",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/B_day_night_total_5"
+    },
+    "native/C_day_night_contrast_0": {
+      "artifact": "native/C_day_night_contrast_0",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:native/C_day_night_contrast_0",
+      "sha256": "6bdf5aa9272d1a708d2f70e95ac8b22048f072218cf645793ee212c33b1fb3a2",
+      "bytes": 9397757,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/C_day_night_contrast_0",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/C_day_night_contrast_0"
+    },
+    "native/C_day_night_contrast_2": {
+      "artifact": "native/C_day_night_contrast_2",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:native/C_day_night_contrast_2",
+      "sha256": "db965eee63b72696d87b589d32935d282fe25626924d2b5a0be39fc0e4c9e801",
+      "bytes": 9404391,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/C_day_night_contrast_2",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/C_day_night_contrast_2"
+    },
+    "native/C_day_night_contrast_5": {
+      "artifact": "native/C_day_night_contrast_5",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:native/C_day_night_contrast_5",
+      "sha256": "7ff977e88abf56ee8dc81f618f70415b981c2e73951cefd299e8ff646335e5a7",
+      "bytes": 9352469,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/C_day_night_contrast_5",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/native/C_day_night_contrast_5"
+    },
+    "training_trace/B_day_night_total_71": {
+      "artifact": "training_trace/B_day_night_total_71",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:training_trace/B_day_night_total_71",
+      "sha256": "4b26507f2d05211b96babddd49ea0248a13b29c7f3ac49b9a0806a58fc5dccfa",
+      "bytes": 48872,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/B_day_night_total_71",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/B_day_night_total_71"
+    },
+    "training_trace/B_day_night_total_172": {
+      "artifact": "training_trace/B_day_night_total_172",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:training_trace/B_day_night_total_172",
+      "sha256": "e04145d2144c26d69fdf2176cc5f3ac69c1b17bc656694e710c61189827def20",
+      "bytes": 48872,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/B_day_night_total_172",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/B_day_night_total_172"
+    },
+    "training_trace/B_day_night_total_273": {
+      "artifact": "training_trace/B_day_night_total_273",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:training_trace/B_day_night_total_273",
+      "sha256": "1354f321b5103ddcfa5257939f9770518ad31e608e6741c06f564353ae16ac68",
+      "bytes": 48872,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/B_day_night_total_273",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/B_day_night_total_273"
+    },
+    "training_trace/C_day_night_contrast_71": {
+      "artifact": "training_trace/C_day_night_contrast_71",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:training_trace/C_day_night_contrast_71",
+      "sha256": "d8010de623906a870dddbb9c43fe0ed724cb8593ac03908f865c14249dadf755",
+      "bytes": 48872,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/C_day_night_contrast_71",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/C_day_night_contrast_71"
+    },
+    "training_trace/C_day_night_contrast_172": {
+      "artifact": "training_trace/C_day_night_contrast_172",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:training_trace/C_day_night_contrast_172",
+      "sha256": "12c8ba3ca08b69373ae9e8c271dec8138ea06876abeaa57a90cec1b9ca6eacff",
+      "bytes": 48872,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/C_day_night_contrast_172",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/C_day_night_contrast_172"
+    },
+    "training_trace/C_day_night_contrast_273": {
+      "artifact": "training_trace/C_day_night_contrast_273",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:training_trace/C_day_night_contrast_273",
+      "sha256": "d0a8209308d77ca662735a3446b5c1f234a2112b5841e726233d9544770150d5",
+      "bytes": 48872,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/C_day_night_contrast_273",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/training_trace/C_day_night_contrast_273"
+    },
+    "analysis/rolling/B_day_night_total_0": {
+      "artifact": "analysis/rolling/B_day_night_total_0",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/rolling/B_day_night_total_0",
+      "sha256": "9dd6ba5cfde8c79c89dea792f5b10b79f78ac0ad5643aed5006b1c8841d581ea",
+      "bytes": 27297,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/B_day_night_total_0",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/B_day_night_total_0"
+    },
+    "analysis/rolling/B_day_night_total_2": {
+      "artifact": "analysis/rolling/B_day_night_total_2",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/rolling/B_day_night_total_2",
+      "sha256": "f14e83166fcfd98811d9aa4f8441de40254514e17bb82ca591ed78eacd556f9e",
+      "bytes": 27297,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/B_day_night_total_2",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/B_day_night_total_2"
+    },
+    "analysis/rolling/B_day_night_total_5": {
+      "artifact": "analysis/rolling/B_day_night_total_5",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/rolling/B_day_night_total_5",
+      "sha256": "f8cbc490f02067604d7424a9def6b95d8a0fcd5d6baf08c600b2f7e77d0a71e9",
+      "bytes": 27297,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/B_day_night_total_5",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/B_day_night_total_5"
+    },
+    "analysis/rolling/C_day_night_contrast_0": {
+      "artifact": "analysis/rolling/C_day_night_contrast_0",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/rolling/C_day_night_contrast_0",
+      "sha256": "cb2a4a57ea8299c3c05d4a0e8daf3d312c34b8bd6d9ce684024ec453161a4dcc",
+      "bytes": 27297,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/C_day_night_contrast_0",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/C_day_night_contrast_0"
+    },
+    "analysis/rolling/C_day_night_contrast_2": {
+      "artifact": "analysis/rolling/C_day_night_contrast_2",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/rolling/C_day_night_contrast_2",
+      "sha256": "1f9b1c07ec89382629d9b5e87ba947e138839802b3025ed2408d2fb50028c848",
+      "bytes": 27297,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/C_day_night_contrast_2",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/C_day_night_contrast_2"
+    },
+    "analysis/rolling/C_day_night_contrast_5": {
+      "artifact": "analysis/rolling/C_day_night_contrast_5",
+      "artifact_id": "fd026924cf24465b918ec4ebd04ca639:analysis/rolling/C_day_night_contrast_5",
+      "sha256": "29bdbd37d952a36da648c80af05b6d8e8c9212476ee5fdcea65085252dc4cc32",
+      "bytes": 27297,
+      "manifest_entry": "qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/C_day_night_contrast_5",
+      "local_path": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/qlib_recorder/146240142478072451/fd026924cf24465b918ec4ebd04ca639/artifacts/analysis/rolling/C_day_night_contrast_5"
+    }
+  },
+  "small_tables": {
+    "periods": {
+      "path": "attribution_periods.csv",
+      "sha256": "6704e164519330175a5169b1072c7d7dc83a2e133e3ebf476644f1afab0c3626",
+      "rows": 396
+    },
+    "path_summary": {
+      "path": "attribution_path_summary.csv",
+      "sha256": "13e0fbf8565858750a21459eb04a3e321372e9a99b5cc4527ef90bd4b23bbaa6",
+      "rows": 6
+    },
+    "state_differences": {
+      "path": "attribution_state_differences.csv",
+      "sha256": "439c3cfaf3651e5f83526427d8190b93c2a25a4c6c1916860762d048c1000b4b",
+      "rows": 54
+    },
+    "training": {
+      "path": "attribution_training.csv",
+      "sha256": "736f78d8b1557d4ca2c2f24eba8753ddcc612edd44f3f7189a94907d82a2a59f",
+      "rows": 6
+    }
+  },
+  "period_win_counts": [
+    {
+      "kind": "annual",
+      "slippage_bps": 0,
+      "comparator": "B_day_night_total",
+      "coverage": "all",
+      "periods": 4,
+      "wins": 1,
+      "loss_or_tie": 3
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 0,
+      "comparator": "B_day_night_total",
+      "coverage": "complete",
+      "periods": 2,
+      "wins": 1,
+      "loss_or_tie": 1
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 0,
+      "comparator": "B_day_night_total",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 0,
+      "loss_or_tie": 2
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "coverage": "all",
+      "periods": 4,
+      "wins": 1,
+      "loss_or_tie": 3
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "coverage": "complete",
+      "periods": 2,
+      "wins": 1,
+      "loss_or_tie": 1
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 0,
+      "loss_or_tie": 2
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 2,
+      "comparator": "B_day_night_total",
+      "coverage": "all",
+      "periods": 4,
+      "wins": 1,
+      "loss_or_tie": 3
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 2,
+      "comparator": "B_day_night_total",
+      "coverage": "complete",
+      "periods": 2,
+      "wins": 1,
+      "loss_or_tie": 1
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 2,
+      "comparator": "B_day_night_total",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 0,
+      "loss_or_tie": 2
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "coverage": "all",
+      "periods": 4,
+      "wins": 1,
+      "loss_or_tie": 3
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "coverage": "complete",
+      "periods": 2,
+      "wins": 1,
+      "loss_or_tie": 1
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 0,
+      "loss_or_tie": 2
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 5,
+      "comparator": "B_day_night_total",
+      "coverage": "all",
+      "periods": 4,
+      "wins": 3,
+      "loss_or_tie": 1
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 5,
+      "comparator": "B_day_night_total",
+      "coverage": "complete",
+      "periods": 2,
+      "wins": 2,
+      "loss_or_tie": 0
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 5,
+      "comparator": "B_day_night_total",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 1,
+      "loss_or_tie": 1
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "coverage": "all",
+      "periods": 4,
+      "wins": 1,
+      "loss_or_tie": 3
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "coverage": "complete",
+      "periods": 2,
+      "wins": 1,
+      "loss_or_tie": 1
+    },
+    {
+      "kind": "annual",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 0,
+      "loss_or_tie": 2
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 0,
+      "comparator": "B_day_night_total",
+      "coverage": "all",
+      "periods": 16,
+      "wins": 7,
+      "loss_or_tie": 9
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 0,
+      "comparator": "B_day_night_total",
+      "coverage": "complete",
+      "periods": 14,
+      "wins": 5,
+      "loss_or_tie": 9
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 0,
+      "comparator": "B_day_night_total",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 2,
+      "loss_or_tie": 0
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "coverage": "all",
+      "periods": 16,
+      "wins": 8,
+      "loss_or_tie": 8
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "coverage": "complete",
+      "periods": 14,
+      "wins": 6,
+      "loss_or_tie": 8
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 2,
+      "loss_or_tie": 0
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 2,
+      "comparator": "B_day_night_total",
+      "coverage": "all",
+      "periods": 16,
+      "wins": 7,
+      "loss_or_tie": 9
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 2,
+      "comparator": "B_day_night_total",
+      "coverage": "complete",
+      "periods": 14,
+      "wins": 5,
+      "loss_or_tie": 9
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 2,
+      "comparator": "B_day_night_total",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 2,
+      "loss_or_tie": 0
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "coverage": "all",
+      "periods": 16,
+      "wins": 8,
+      "loss_or_tie": 8
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "coverage": "complete",
+      "periods": 14,
+      "wins": 6,
+      "loss_or_tie": 8
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 2,
+      "loss_or_tie": 0
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 5,
+      "comparator": "B_day_night_total",
+      "coverage": "all",
+      "periods": 16,
+      "wins": 8,
+      "loss_or_tie": 8
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 5,
+      "comparator": "B_day_night_total",
+      "coverage": "complete",
+      "periods": 14,
+      "wins": 6,
+      "loss_or_tie": 8
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 5,
+      "comparator": "B_day_night_total",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 2,
+      "loss_or_tie": 0
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "coverage": "all",
+      "periods": 16,
+      "wins": 7,
+      "loss_or_tie": 9
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "coverage": "complete",
+      "periods": 14,
+      "wins": 5,
+      "loss_or_tie": 9
+    },
+    {
+      "kind": "quarterly",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 2,
+      "loss_or_tie": 0
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 0,
+      "comparator": "B_day_night_total",
+      "coverage": "all",
+      "periods": 46,
+      "wins": 19,
+      "loss_or_tie": 27
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 0,
+      "comparator": "B_day_night_total",
+      "coverage": "complete",
+      "periods": 44,
+      "wins": 18,
+      "loss_or_tie": 26
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 0,
+      "comparator": "B_day_night_total",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 1,
+      "loss_or_tie": 1
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "coverage": "all",
+      "periods": 46,
+      "wins": 19,
+      "loss_or_tie": 27
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "coverage": "complete",
+      "periods": 44,
+      "wins": 17,
+      "loss_or_tie": 27
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 2,
+      "loss_or_tie": 0
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 2,
+      "comparator": "B_day_night_total",
+      "coverage": "all",
+      "periods": 46,
+      "wins": 19,
+      "loss_or_tie": 27
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 2,
+      "comparator": "B_day_night_total",
+      "coverage": "complete",
+      "periods": 44,
+      "wins": 18,
+      "loss_or_tie": 26
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 2,
+      "comparator": "B_day_night_total",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 1,
+      "loss_or_tie": 1
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "coverage": "all",
+      "periods": 46,
+      "wins": 18,
+      "loss_or_tie": 28
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "coverage": "complete",
+      "periods": 44,
+      "wins": 16,
+      "loss_or_tie": 28
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 2,
+      "loss_or_tie": 0
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 5,
+      "comparator": "B_day_night_total",
+      "coverage": "all",
+      "periods": 46,
+      "wins": 20,
+      "loss_or_tie": 26
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 5,
+      "comparator": "B_day_night_total",
+      "coverage": "complete",
+      "periods": 44,
+      "wins": 19,
+      "loss_or_tie": 25
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 5,
+      "comparator": "B_day_night_total",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 1,
+      "loss_or_tie": 1
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "coverage": "all",
+      "periods": 46,
+      "wins": 16,
+      "loss_or_tie": 30
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "coverage": "complete",
+      "periods": 44,
+      "wins": 14,
+      "loss_or_tie": 30
+    },
+    {
+      "kind": "monthly",
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "coverage": "partial",
+      "periods": 2,
+      "wins": 2,
+      "loss_or_tie": 0
+    }
+  ],
+  "rolling_all_windows": [
+    {
+      "slippage_bps": 0,
+      "comparator": "B_day_night_total",
+      "windows": 819,
+      "first_window_trade": "2023-01-04 00:00:00",
+      "last_window_exit": "2026-10-09 00:00:00",
+      "positive_windows": 264,
+      "positive_fraction": 0.32234432234432236,
+      "minimum_relative_log": -0.10991677512294087,
+      "maximum_relative_log": 0.07728510561990251,
+      "mean_relative_log": -0.00993366393768884,
+      "overlapping_not_independent": true,
+      "method": "Subtract the two stored SOXX-relative log windows for C/B; no return replay or bootstrap."
+    },
+    {
+      "slippage_bps": 0,
+      "comparator": "SOXX",
+      "windows": 819,
+      "first_window_trade": "2023-01-04 00:00:00",
+      "last_window_exit": "2026-10-09 00:00:00",
+      "positive_windows": 255,
+      "positive_fraction": 0.31135531135531136,
+      "minimum_relative_log": -0.21383895452907456,
+      "maximum_relative_log": 0.14705492291968805,
+      "mean_relative_log": -0.03152367668594514,
+      "overlapping_not_independent": true,
+      "method": "Subtract the two stored SOXX-relative log windows for C/B; no return replay or bootstrap."
+    },
+    {
+      "slippage_bps": 2,
+      "comparator": "B_day_night_total",
+      "windows": 819,
+      "first_window_trade": "2023-01-04 00:00:00",
+      "last_window_exit": "2026-10-09 00:00:00",
+      "positive_windows": 266,
+      "positive_fraction": 0.3247863247863248,
+      "minimum_relative_log": -0.2869212206575418,
+      "maximum_relative_log": 0.07759950468363572,
+      "mean_relative_log": -0.03642946158619003,
+      "overlapping_not_independent": true,
+      "method": "Subtract the two stored SOXX-relative log windows for C/B; no return replay or bootstrap."
+    },
+    {
+      "slippage_bps": 2,
+      "comparator": "SOXX",
+      "windows": 819,
+      "first_window_trade": "2023-01-04 00:00:00",
+      "last_window_exit": "2026-10-09 00:00:00",
+      "positive_windows": 249,
+      "positive_fraction": 0.304029304029304,
+      "minimum_relative_log": -0.2153905373855208,
+      "maximum_relative_log": 0.1456440957358103,
+      "mean_relative_log": -0.03318010265724893,
+      "overlapping_not_independent": true,
+      "method": "Subtract the two stored SOXX-relative log windows for C/B; no return replay or bootstrap."
+    },
+    {
+      "slippage_bps": 5,
+      "comparator": "B_day_night_total",
+      "windows": 819,
+      "first_window_trade": "2023-01-04 00:00:00",
+      "last_window_exit": "2026-10-09 00:00:00",
+      "positive_windows": 312,
+      "positive_fraction": 0.38095238095238093,
+      "minimum_relative_log": -0.12155826477464307,
+      "maximum_relative_log": 0.15139692742757105,
+      "mean_relative_log": 0.0010153096628875587,
+      "overlapping_not_independent": true,
+      "method": "Subtract the two stored SOXX-relative log windows for C/B; no return replay or bootstrap."
+    },
+    {
+      "slippage_bps": 5,
+      "comparator": "SOXX",
+      "windows": 819,
+      "first_window_trade": "2023-01-04 00:00:00",
+      "last_window_exit": "2026-10-09 00:00:00",
+      "positive_windows": 202,
+      "positive_fraction": 0.24664224664224665,
+      "minimum_relative_log": -0.33407382390575535,
+      "maximum_relative_log": 0.14315950173144265,
+      "mean_relative_log": -0.06423868368399699,
+      "overlapping_not_independent": true,
+      "method": "Subtract the two stored SOXX-relative log windows for C/B; no return replay or bootstrap."
+    }
+  ],
+  "B_C_proposal_differences": [
+    {
+      "kind": "raw",
+      "field": "soxl_weight",
+      "rows": 944,
+      "B_mean": 0.2249981531840347,
+      "C_mean": 0.22606853541387964,
+      "mean_C_minus_B": 0.0010703822298449223,
+      "MAE": 0.010321839285704168,
+      "RMSE": 0.015322992737403125,
+      "maximum_absolute_difference": 0.06839449061239786,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "raw",
+      "field": "soxx_weight",
+      "rows": 944,
+      "B_mean": 0.3930889200051319,
+      "C_mean": 0.3955241281263208,
+      "mean_C_minus_B": 0.0024352081211889537,
+      "MAE": 0.011701304742518787,
+      "RMSE": 0.016224693961027714,
+      "maximum_absolute_difference": 0.09043449183802124,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "raw",
+      "field": "cash_weight",
+      "rows": 944,
+      "B_mean": 0.38191292681083344,
+      "C_mean": 0.3784073364597995,
+      "mean_C_minus_B": -0.0035055903510338776,
+      "MAE": 0.020172217206310634,
+      "RMSE": 0.028363948983134057,
+      "maximum_absolute_difference": 0.1322989312141296,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "raw",
+      "field": "tail_probability",
+      "rows": 944,
+      "B_mean": 0.1585288643836975,
+      "C_mean": 0.15680356323719025,
+      "mean_C_minus_B": -0.0017253000987693667,
+      "MAE": 0.0030545454937964678,
+      "RMSE": 0.004486703313887119,
+      "maximum_absolute_difference": 0.027379542589187622,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "raw",
+      "field": "alpha_probability",
+      "rows": 944,
+      "B_mean": 0.5223191380500793,
+      "C_mean": 0.5229389667510986,
+      "mean_C_minus_B": 0.0006198313785716891,
+      "MAE": 0.0033668314572423697,
+      "RMSE": 0.004736240953207016,
+      "maximum_absolute_difference": 0.027171790599822998,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "raw",
+      "field": "nominal_beta",
+      "rows": 944,
+      "B_mean": 1.068083379557236,
+      "C_mean": 1.0737297343679597,
+      "mean_C_minus_B": 0.005646354810723721,
+      "MAE": 0.0401359975886909,
+      "RMSE": 0.05740926803294508,
+      "maximum_absolute_difference": 0.22269813218043266,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "smoothed",
+      "field": "soxl_weight",
+      "rows": 944,
+      "B_mean": 0.22520398309498002,
+      "C_mean": 0.22628122215189891,
+      "mean_C_minus_B": 0.0010772390569189039,
+      "MAE": 0.00963365051554678,
+      "RMSE": 0.013402624351459703,
+      "maximum_absolute_difference": 0.06546374161710564,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "smoothed",
+      "field": "soxx_weight",
+      "rows": 944,
+      "B_mean": 0.39278610209702425,
+      "C_mean": 0.39523733530559746,
+      "mean_C_minus_B": 0.0024512332085731333,
+      "MAE": 0.01062387382333007,
+      "RMSE": 0.01391177183034572,
+      "maximum_absolute_difference": 0.06299544795043654,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "smoothed",
+      "field": "cash_weight",
+      "rows": 944,
+      "B_mean": 0.3820099148079957,
+      "C_mean": 0.3784814425425037,
+      "mean_C_minus_B": -0.003528472265492039,
+      "MAE": 0.018288030416042295,
+      "RMSE": 0.024493098215211426,
+      "maximum_absolute_difference": 0.10350129057829377,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "smoothed",
+      "field": "tail_probability",
+      "rows": 944,
+      "B_mean": 0.1585288643836975,
+      "C_mean": 0.15680356323719025,
+      "mean_C_minus_B": -0.0017253000987693667,
+      "MAE": 0.0030545454937964678,
+      "RMSE": 0.004486703313887119,
+      "maximum_absolute_difference": 0.027379542589187622,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "smoothed",
+      "field": "alpha_probability",
+      "rows": 944,
+      "B_mean": 0.5223191380500793,
+      "C_mean": 0.5229389667510986,
+      "mean_C_minus_B": 0.0006198313785716891,
+      "MAE": 0.0033668314572423697,
+      "RMSE": 0.004736240953207016,
+      "maximum_absolute_difference": 0.027171790599822998,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    },
+    {
+      "kind": "smoothed",
+      "field": "nominal_beta",
+      "rows": 944,
+      "B_mean": 1.0683980513819642,
+      "C_mean": 1.0740810017612943,
+      "mean_C_minus_B": 0.005682950379329841,
+      "MAE": 0.03674286252672998,
+      "RMSE": 0.04990433675201807,
+      "maximum_absolute_difference": 0.23442877381250504,
+      "domain": "All original944 account signals; two non-account raw prediction tails remain in the source Recorder."
+    }
+  ],
+  "paired_training_differences_and_sampling": [
+    {
+      "seed": 71,
+      "paired_epochs": 300,
+      "sampling_hash_equal_epochs": 300,
+      "sampling_hash_all_equal": true,
+      "first_sampling_difference_epoch": null,
+      "sampling_hash_check_only": "Recorded hashes compared; no RNG resampling or training run.",
+      "allocation_loss_last_C_minus_B": -2.0890729501843452e-07,
+      "allocation_loss_all_step_MAE": 2.718455216381699e-06,
+      "primary_bce_last_C_minus_B": -0.0009611248970031738,
+      "primary_bce_all_step_MAE": 0.0009998909632364908,
+      "auxiliary_bce_last_C_minus_B": 0.00042450428009033203,
+      "auxiliary_bce_all_step_MAE": 0.000345610777537028,
+      "original_loss_last_C_minus_B": 1.7955899238586426e-06,
+      "original_loss_all_step_MAE": 2.0272458593050638e-05,
+      "loss_last_C_minus_B": 5.599111318588257e-05,
+      "loss_all_step_MAE": 3.380631407101949e-05
+    },
+    {
+      "seed": 172,
+      "paired_epochs": 300,
+      "sampling_hash_equal_epochs": 300,
+      "sampling_hash_all_equal": true,
+      "first_sampling_difference_epoch": null,
+      "sampling_hash_check_only": "Recorded hashes compared; no RNG resampling or training run.",
+      "allocation_loss_last_C_minus_B": 4.245259333401918e-06,
+      "allocation_loss_all_step_MAE": 7.877974882527875e-06,
+      "primary_bce_last_C_minus_B": -0.0014560818672180176,
+      "primary_bce_all_step_MAE": 0.0009415876865386963,
+      "auxiliary_bce_last_C_minus_B": 0.0005826950073242188,
+      "auxiliary_bce_all_step_MAE": 0.0004904059569040935,
+      "original_loss_last_C_minus_B": 4.26173210144043e-06,
+      "original_loss_all_step_MAE": 3.6187047759691876e-05,
+      "loss_last_C_minus_B": 0.0001656860113143921,
+      "loss_all_step_MAE": 0.00011490665376186371
+    },
+    {
+      "seed": 273,
+      "paired_epochs": 300,
+      "sampling_hash_equal_epochs": 300,
+      "sampling_hash_all_equal": true,
+      "first_sampling_difference_epoch": null,
+      "sampling_hash_check_only": "Recorded hashes compared; no RNG resampling or training run.",
+      "allocation_loss_last_C_minus_B": 3.809714689850807e-05,
+      "allocation_loss_all_step_MAE": 9.312666225014255e-06,
+      "primary_bce_last_C_minus_B": 3.737211227416992e-05,
+      "primary_bce_all_step_MAE": 0.0004316826661427816,
+      "auxiliary_bce_last_C_minus_B": 0.0006529092788696289,
+      "auxiliary_bce_all_step_MAE": 0.00047429839769999187,
+      "original_loss_last_C_minus_B": 7.148832082748413e-05,
+      "original_loss_all_step_MAE": 3.010171155134837e-05,
+      "loss_last_C_minus_B": 0.00022125989198684692,
+      "loss_all_step_MAE": 0.0001040073980887731
+    }
+  ],
+  "classification_summary": [
+    {
+      "family": "B_day_night_total",
+      "seed": "71",
+      "task": "tail",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 105,
+      "event_rate": 0.11170212765957446,
+      "mean_probability": 0.14907208961295954,
+      "bce": 0.3457647497114449,
+      "brier": 0.09842471336582304,
+      "auc": 0.6098431708012546,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "B_day_night_total",
+      "seed": "71",
+      "task": "alpha",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 537,
+      "event_rate": 0.5712765957446808,
+      "mean_probability": 0.5230121763779761,
+      "bce": 0.6868273665516813,
+      "brier": 0.2468849758948754,
+      "auc": 0.49434178484457814,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "B_day_night_total",
+      "seed": "172",
+      "task": "tail",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 105,
+      "event_rate": 0.11170212765957446,
+      "mean_probability": 0.1755187186392698,
+      "bce": 0.36479511393131203,
+      "brier": 0.10348059767609519,
+      "auc": 0.5251097804391218,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "B_day_night_total",
+      "seed": "172",
+      "task": "alpha",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 537,
+      "event_rate": 0.5712765957446808,
+      "mean_probability": 0.51955170647261,
+      "bce": 0.6885724913164342,
+      "brier": 0.2477493696623913,
+      "auc": 0.507871596175795,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "B_day_night_total",
+      "seed": "273",
+      "task": "tail",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 105,
+      "event_rate": 0.11170212765957446,
+      "mean_probability": 0.15159111442242532,
+      "bce": 0.3447403663075448,
+      "brier": 0.09804237134789158,
+      "auc": 0.6240661534074707,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "B_day_night_total",
+      "seed": "273",
+      "task": "alpha",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 537,
+      "event_rate": 0.5712765957446808,
+      "mean_probability": 0.5242399450629316,
+      "bce": 0.6905140046265259,
+      "brier": 0.24871952624858681,
+      "auc": 0.47692122858819563,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "C_day_night_contrast",
+      "seed": "71",
+      "task": "tail",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 105,
+      "event_rate": 0.11170212765957446,
+      "mean_probability": 0.14745846569062548,
+      "bce": 0.3450765342170129,
+      "brier": 0.09840290764632952,
+      "auc": 0.6214656401482749,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "C_day_night_contrast",
+      "seed": "71",
+      "task": "alpha",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 537,
+      "event_rate": 0.5712765957446808,
+      "mean_probability": 0.5245337027501553,
+      "bce": 0.6866591068553858,
+      "brier": 0.24678811558555144,
+      "auc": 0.49891641367582984,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "C_day_night_contrast",
+      "seed": "172",
+      "task": "tail",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 105,
+      "event_rate": 0.11170212765957446,
+      "mean_probability": 0.1734407349628337,
+      "bce": 0.36316309534709246,
+      "brier": 0.10295048577972592,
+      "auc": 0.5291474194468206,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "C_day_night_contrast",
+      "seed": "172",
+      "task": "alpha",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 537,
+      "event_rate": 0.5712765957446808,
+      "mean_probability": 0.5193358949841337,
+      "bce": 0.6895592731870304,
+      "brier": 0.24822911526542094,
+      "auc": 0.501536428370092,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "C_day_night_contrast",
+      "seed": "273",
+      "task": "tail",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 105,
+      "event_rate": 0.11170212765957446,
+      "mean_probability": 0.15009278815160407,
+      "bce": 0.3448765218926379,
+      "brier": 0.09814055302566231,
+      "auc": 0.6207470772740235,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "C_day_night_contrast",
+      "seed": "273",
+      "task": "alpha",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 537,
+      "event_rate": 0.5712765957446808,
+      "mean_probability": 0.5247671755704474,
+      "bce": 0.6894739516101703,
+      "brier": 0.2482168428922497,
+      "auc": 0.4788666010507784,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "B_day_night_total",
+      "seed": "ensemble",
+      "task": "tail",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 105,
+      "event_rate": 0.11170212765957446,
+      "mean_probability": 0.15872730749084593,
+      "bce": 0.3504618158066713,
+      "brier": 0.09950137975098286,
+      "auc": 0.6014143142286854,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "B_day_night_total",
+      "seed": "ensemble",
+      "task": "alpha",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 537,
+      "event_rate": 0.5712765957446808,
+      "mean_probability": 0.5222679423842024,
+      "bce": 0.6884288751460406,
+      "brier": 0.24768010849488978,
+      "auc": 0.4926644209397859,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "C_day_night_contrast",
+      "seed": "ensemble",
+      "task": "tail",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 105,
+      "event_rate": 0.11170212765957446,
+      "mean_probability": 0.1569973296941595,
+      "bce": 0.34987405761700635,
+      "brier": 0.09938811670033111,
+      "auc": 0.6036726546906188,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    },
+    {
+      "family": "C_day_night_contrast",
+      "seed": "ensemble",
+      "task": "alpha",
+      "as_of": "2026-10-09 09:47:00-04:00",
+      "prediction_rows": 946,
+      "observations": 940,
+      "excluded_unmatured_or_unknown_maturity": 6,
+      "excluded_matured_missing_label": 0,
+      "positive_events": 537,
+      "event_rate": 0.5712765957446808,
+      "mean_probability": 0.5228789225854772,
+      "bce": 0.6883556516783835,
+      "brier": 0.24763745844201568,
+      "auc": 0.49324202559019636,
+      "history_status": "reused_out_of_fit_primary_data_not_independent_validation",
+      "account_execution_gate": false
+    }
+  ],
+  "recorded_economic_gates": {
+    "net_relative_wealth_all_costs": false,
+    "sampled_drawdown_30pct": true,
+    "cvar_no_worse_soxx": true,
+    "minimum_complete_years": true,
+    "complete_annual_70pct": false,
+    "rolling126_70pct": false,
+    "paired_block_lower_positive": false,
+    "fresh_fullminute_risk_qualified": false,
+    "qualified_independent_forward": false
+  },
+  "new_fit_forward_replay_native_CI_sourceHTTP_NASdownload": 0,
+  "sealed_manifest_archive_binding_and_loaded_artifacts_unchanged": true,
+  "limits": [
+    "S and Z are different normalized training targets; their MSE is not comparable alpha or evaluation predictability.",
+    "Original H5 tail/alpha classification is not a direct test of evaluation S/Z, which was never constructed.",
+    "Nominal beta is3*SOXLweight+SOXXweight, not an estimated market beta; ending cash-like includes receivables.",
+    "Risk/clock/action/fee differences describe coupled endogenous full paths; no counterfactual/controller ablation was run.",
+    "All stored periods and all819 rolling windows retained; overlap is not independent evidence.",
+    "Fixed C remains closed. Matched B cannot replace it; no head/lambda/seed/window/sign or threshold rescue."
+  ]
+}
