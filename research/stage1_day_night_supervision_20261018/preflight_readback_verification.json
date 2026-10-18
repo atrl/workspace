@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "recorder_id": "737188ea81cb42dab51327e2c3265911",
+  "archive_sha256": "2d17e38105552b6760ce5d32fff3a1e30c471ed04ab2fdfe99e0ac81490943e7",
+  "preflight_summary_sha256": "0897ac3ba8cfd0929f117bb1d076728487c06e47f514ba140ec9186f33db031a",
+  "verification_manifest_sha256": "4acb948f39ab5b7be02429cabbb6cc0cbffed1eb5f269ab1b155279983098f56",
+  "verified_artifacts": 15,
+  "primary_shape": [
+    3014,
+    87
+  ],
+  "auxiliary_shape": [
+    20741,
+    20
+  ],
+  "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
+  "original_target_digest_exact": true,
+  "resident_frame_audits": [
+    {
+      "role": "cold_primary",
+      "resident_frames": [
+        {
+          "path": "dataset.handler._data",
+          "rows": 3014,
+          "columns": 87,
+          "first_date": "2011-01-03 00:00:00",
+          "last_date": "2022-12-21 00:00:00"
+        },
+        {
+          "path": "dataset.handler._infer",
+          "rows": 3014,
+          "columns": 87,
+          "first_date": "2011-01-03 00:00:00",
+          "last_date": "2022-12-21 00:00:00"
+        },
+        {
+          "path": "dataset.handler._learn",
+          "rows": 3014,
+          "columns": 87,
+          "first_date": "2011-01-03 00:00:00",
+          "last_date": "2022-12-21 00:00:00"
+        }
+      ],
+      "setup_data_called": false,
+      "evaluation_object_deserialized": false
+    },
+    {
+      "role": "cold_auxiliary",
+      "resident_frames": [
+        {
+          "path": "dataset.handler._data",
+          "rows": 20741,
+          "columns": 20,
+          "first_date": "2019-11-25 00:00:00",
+          "last_date": "2022-12-22 00:00:00"
+        },
+        {
+          "path": "dataset.handler._infer",
+          "rows": 20741,
+          "columns": 20,
+          "first_date": "2019-11-25 00:00:00",
+          "last_date": "2022-12-22 00:00:00"
+        },
+        {
+          "path": "dataset.handler._learn",
+          "rows": 20741,
+          "columns": 20,
+          "first_date": "2019-11-25 00:00:00",
+          "last_date": "2022-12-22 00:00:00"
+        }
+      ],
+      "setup_data_called": false,
+      "evaluation_object_deserialized": false
+    }
+  ],
+  "frozen_scale_raw_index_and_normalized_hashes_verified": true,
+  "scalers_refitted": false,
+  "three_seed_saved_initialization_passes_verified": true,
+  "native_CS_RAW_direct_readback": "passed",
+  "NAS_download_count": 1,
+  "evaluation_objects_deserialized": 0,
+  "new_price_queries": 0,
+  "real_gradient_probes": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-day-night-prefit-coldread-2jr4bpto",
+  "method": "One cold NAS restore, all15 artifact hashes, native training-only Dataset residency and original-target digest; frozen scale transform/hash readback without fitting statistics or scoring predictivity.",
+  "exec_session": 87112,
+  "exit_code": 0
+}

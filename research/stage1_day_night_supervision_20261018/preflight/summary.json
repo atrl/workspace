@@ -1,0 +1,99 @@
+{
+  "experiment": "stage1_day_night_supervision_20261018_preflight",
+  "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+  "status": "completed",
+  "decision": "eligible_for_formal_design_review",
+  "fit_eligible": true,
+  "primary_rows": 3014,
+  "auxiliary_rows": 20741,
+  "original_columns": 85,
+  "augmented_columns": 87,
+  "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
+  "all_original_training_tensors_scalers_exact": true,
+  "all_resident_frames_train_only": true,
+  "target_scaling_fitted_once": true,
+  "target_scaling_finite": true,
+  "no_predictive_score_screen": true,
+  "initialization": [
+    {
+      "seed": 71,
+      "original_parameters": 973,
+      "paired_parameters": 982,
+      "original_tensors_identical": true,
+      "paired_tensors_identical": true,
+      "original_outputs_identical": true,
+      "rng_identical": true,
+      "new_head_zero": true,
+      "original_parameter_order_preserved": true,
+      "input_scope": "fixed synthetic39/16 only"
+    },
+    {
+      "seed": 172,
+      "original_parameters": 973,
+      "paired_parameters": 982,
+      "original_tensors_identical": true,
+      "paired_tensors_identical": true,
+      "original_outputs_identical": true,
+      "rng_identical": true,
+      "new_head_zero": true,
+      "original_parameter_order_preserved": true,
+      "input_scope": "fixed synthetic39/16 only"
+    },
+    {
+      "seed": 273,
+      "original_parameters": 973,
+      "paired_parameters": 982,
+      "original_tensors_identical": true,
+      "paired_tensors_identical": true,
+      "original_outputs_identical": true,
+      "rng_identical": true,
+      "new_head_zero": true,
+      "original_parameter_order_preserved": true,
+      "input_scope": "fixed synthetic39/16 only"
+    }
+  ],
+  "evaluation_objects_deserialized": 0,
+  "new_price_queries": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_source_HTTP": 0,
+  "recorder_id": "737188ea81cb42dab51327e2c3265911",
+  "experiment_id": "995544772562124587",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/preflight/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_day_night_supervision_20261018/preflight/qlib_recorder/995544772562124587/737188ea81cb42dab51327e2c3265911",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "as_of": "2022-12-30",
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "../workflow.yaml",
+    "recorder_only_artifacts": [
+      "training datasets and original/new target tensors",
+      "target scaling constants and per-fit traces",
+      "six model/checkpoint/optimizer states",
+      "all-model and ensemble predictions",
+      "raw policy traces and cost-specificbooks",
+      "native reports/positions/riskanalysis",
+      "paired bootstrap samples and fullwindowtables"
+    ],
+    "current_deliverables": [
+      "design_draft.json",
+      "stage1_day_night_supervision_20261018.ipynb",
+      "conclusion.md"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "2d17e38105552b6760ce5d32fff3a1e30c471ed04ab2fdfe99e0ac81490943e7",
+    "size_bytes": 2791752,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/2d/17/2d17e38105552b6760ce5d32fff3a1e30c471ed04ab2fdfe99e0ac81490943e7",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 19:57:45.565316+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/2d/17/2d17e38105552b6760ce5d32fff3a1e30c471ed04ab2fdfe99e0ac81490943e7",
+    "recorder_id": "737188ea81cb42dab51327e2c3265911",
+    "experiment_id": "995544772562124587",
+    "archive_root": "qlib_recorder"
+  }
+}

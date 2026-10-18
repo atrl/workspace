@@ -1,11 +1,9 @@
-# 固定 S/Z 监督：实现与唯一合成合同完成
+# S/Z 配对监督：无拟合预检已验收，正式执行已批准
 
-新workflow保留原PG3014×85主训练和20741×20辅助，只在严格证明C来源instrument/完整日期顺序/原8字段与digest后追加独立S/Z监督组到87列。原39/16输入和全部原目标不变；来源artifact名与实际fixed_day_night_label列组明确分开，原闲置feature_masks字典保留但extra_features仍为空。
+唯一真实预检 56431 exit 0。主训练保持原 3014 行与全部 85 列，只追加 S/Z 两列至 87；辅助训练 20741×20 未变。原目标、时钟、11 个输入张量及原 scaler 精确一致，所有实际 resident frames 都限于训练域。两套 S/Z 缩放统计各计算一次，并固定原始值、完整索引与标准化值哈希。
 
-模型保持原973参数子集，在同一次primary共享8状态后加9参数零head；B监督S、C监督Z。原combined loss之后才加固定0.02×half-MSE，原aux采样、一次global clip2及AdamW保留；新head参与全局范数，不能声称private更新受保护。推理不读监督目标，训练图不封存。
+三个 seed 的原 973 参数子集、配对 982 参数、原输出及 RNG 均通过初始化核验。Recorder `737188ea81cb42dab51327e2c3265911` 的 15 个 artifacts 已归档 NAS，唯一冷恢复 87112 exit 0；冷读只应用已冻结统计核对哈希，没有重拟合尺度。独立评估接受预检证据并签署正式设计评审。
 
-唯一集中synthetic最终句柄55347 exit0，1 passed / 2.13s。保留首19539仅fixture频率metadata失败、52338前版通过，以及原闲置mask兼容修正后的55347最终通过履历。实际19列来源schema、PG85→87、原index/参数/RNG、尺度、推理隔离及globalclip耦合都纳入同一合同；没有调用真实model.fit或optimizer.step。
+截至此处真实模型拟合、optimizer step、政策路径、账户与评价对象读取仍为 0；没有预测能力、市场分窗或经济结果，PIT 和独立前向资格仍未通过，未晋升。
 
-当前真实source对象/标签/模型读取=0、真实梯度=0、无拟合预检=0、fit/account=0。六模型SHA封存后才允许原946行评价Dataset与6成本独立路径/native、15参考及15CI；0新市场来源查询不等于否认已授权账户阶段对固定raw价及派生Qlib execution provider的读取。
-
-无市场分窗或经济结果，不晋升。历史PIT/独立前向资格仍false。下一步仅为完整实现独评与单独train-only无拟合GO；预检通过后正式训练/账户仍需最终评审和owner GO。代码测试通过不证明S/Z预测性或SOXX稳定超额。
+已单独批准固定六次 300-epoch 拟合；全部六个终态模型及身份封存后才读取评价对象，随后完成 B/C×0/2/5bp 六条独立自有状态政策路径和六个原生账户、十五个固定参考及十五项配对区间。训练分数不筛选或取消账户；不改 seed、权重、窗口、控制器或现役 release。总 Goal 继续。

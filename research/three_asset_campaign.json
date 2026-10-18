@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_day_night_supervision_20261018",
-  "current_phase": "day_night_supervision_no_fit_preflight_approved",
-  "next_action": "Execute one separately approved native train-only preflight and inspect its actual Recorder evidence. If eligible, independently accept the result and freeze formal six-fit/six-path execution GO; do not deserialize evaluation objects before six final models seal.",
+  "current_phase": "day_night_supervision_formal_six_fit_execution_approved",
+  "next_action": "Execute the single frozen six-fit S/Z supervision experiment, seal all6model identities before evaluation reads, then complete all21books/15CI regardless of training scores and obtain independent result review.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1724,7 +1724,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/stage1_day_night_supervision_20261018",
-      "phase": "day_night_supervision_no_fit_preflight_approved",
+      "phase": "day_night_supervision_formal_six_fit_execution_approved",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
@@ -1741,9 +1741,9 @@
       "new_accounts": 0,
       "new_data_value_reads_in_model_design": 0,
       "model_implementation_authorized": true,
-      "model_fit_authorized": false,
-      "account_execution_authorized": false,
-      "executor_lifecycle": "Model/workflow implementation completed, final synthetic passed and independent final23-code review accepted. Owner signed one real train-only no-fit attempt; executor will be explicitly resumed after exact code/GO delivery. No real source reads/model fits/accounts yet.",
+      "model_fit_authorized": true,
+      "account_execution_authorized": true,
+      "executor_lifecycle": "Successful native no-fit evidence and single coldread accepted independently. Owner signed exact6fits/6cost-specific policy paths/6native+15reference/15CI. Executor will now be explicitly resumed after preflight/GO delivery; formal run_state does not exist yet.",
       "implementation_preparation": "Narrow new adapter fit-loop copy preserves original combined loss order and diagnostic meaning; add regression loss after L_original. Preserve same primary state, auxiliary sampling, globalclip and original RNG; clear temporary cache before seal. No original module edits.",
       "pending_alignment_clarification": "Source C instrument SOXL_SOXX differs from original PG SOXL_SOXX_CASH; assert both fixed single-instrument/date cohorts and original8fields, then assign S/Z by exact date order while preserving PG index/85columns. No inner join/drop/fill.",
       "previous_goal_turn_classification": "progress: all three fixed source phases executed once, conditional labels independently accepted and cold-restored; no model/financial success claimed.",
@@ -1772,7 +1772,40 @@
         "retained_fixture_failure_session": 19539,
         "prior_pass_before_inactive_mask_fix": 52338
       },
-      "real_no_fit_preflight_authorized": true
+      "real_no_fit_preflight_authorized": true,
+      "preflight_result": {
+        "exec_session": 56431,
+        "exit_code": 0,
+        "nbconvert_pid": 41133,
+        "kernel_pid": 41137,
+        "recorder_id": "737188ea81cb42dab51327e2c3265911",
+        "archive_sha256": "2d17e38105552b6760ce5d32fff3a1e30c471ed04ab2fdfe99e0ac81490943e7",
+        "manifest_sha256": "4acb948f39ab5b7be02429cabbb6cc0cbffed1eb5f269ab1b155279983098f56",
+        "summary_sha256": "0897ac3ba8cfd0929f117bb1d076728487c06e47f514ba140ec9186f33db031a",
+        "artifact_count": 15,
+        "primary_shape": [
+          3014,
+          87
+        ],
+        "auxiliary_shape": [
+          20741,
+          20
+        ],
+        "original_tensor_scalers_and_target_identity_exact": true,
+        "scales_fitted_once": true,
+        "three_seed_initialization_passed": true,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "evaluation_objects_deserialized": 0,
+        "coldread_exec_session": 87112,
+        "coldread_exit_code": 0,
+        "coldread_receipt": "research/stage1_day_night_supervision_20261018/preflight_readback_verification.json",
+        "coldread_receipt_sha256": "3797c46d893ca102c686e94230de030653345ffdb0b27479d2bde9f04543b956"
+      },
+      "formal_design_review": "research/stage1_day_night_supervision_20261018/design_review.json",
+      "formal_design_review_sha256": "8b72b5229d310be3ed35bc418d9dacf252d9a9e6ba05be17553eb520cf9db296",
+      "formal_execution_approval": "research/stage1_day_night_supervision_20261018/execution_approval.json",
+      "formal_execution_approval_sha256": "08375a45c24b30acca8aad29fa309cfbbb77fb1d80cdbe8de485c27d4f6dc272"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
