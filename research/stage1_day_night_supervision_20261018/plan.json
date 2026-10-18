@@ -1,0 +1,817 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_day_night_supervision_20261018",
+  "status": "frozen_design_implementation_and_synthetic_only",
+  "frozen": true,
+  "implementation": true,
+  "fit": false,
+  "authorization": {
+    "design": true,
+    "implementation_and_synthetic": true,
+    "real_training_only_preflight": false,
+    "fit": false,
+    "accounts": false,
+    "production": false,
+    "phase_authority": "These are initial-stage authorizations. Each later phase requires its separate hash-bound owner GO and accepted prior review; frozen scientific rules are never rewritten to unlock a phase."
+  },
+  "scope": {
+    "single_increment": "One scalar supervised regression head on the original shared8-state; matched B=S versus candidate C=Z. No input, original target, trading clock or controller change.",
+    "receiving_layer": "Original Stage1 allocation-model shared representation; whole added-supervision/optimizer package is the treatment.",
+    "assets": [
+      "SOXL",
+      "SOXX",
+      "CASH"
+    ],
+    "long_only": true,
+    "financing": false,
+    "weight_sum": 1.0,
+    "no_alternative_head_weight_target_source_seed_window": true
+  },
+  "prospective_adoption": {
+    "owner_adoption": {
+      "path": "research/external_mechanism_review_20261018/day_night_supervision_owner_adoption.json",
+      "sha256": "0f91dcb4dc3e8b3b4670c17744ef5f07ca9711268970db7725d1505d663e3e28"
+    },
+    "proposal": {
+      "path": "research/external_mechanism_review_20261018/day_night_supervision_proposal.md",
+      "sha256": "329f8a3be089924d3ed899b48e1715a0a447357c0fee4604bdfffdd623835387"
+    },
+    "timing": "Owner adopted the unique9-parameter head, target scaling,0.02 half-MSE and globalclip before source S/Z construction. This draft fills identity/account/workflow detail, not a selection from S/Z values."
+  },
+  "hypothesis": {
+    "mechanism": "H5 total relative endpoint return can conceal cancelling day/night components. A contrast target may constrain the original shared representation differently from a matched total-return target.",
+    "evidence": "Component heterogeneity is supported by the registered primary papers; no paper validates this network/loss/SOXL H5/09:47 account. This is no new exogenous information.",
+    "falsifiability": "The single C ensemble must pass every frozen economic gate against SOXX and the other four required comparators at all costs; low targetMSE, lower cash, or only beating B is insufficient.",
+    "limits": "The new head receives only16 common inputs. Predictability of Z, helpful transfer to allocation and transmission through the original endogenous risk controller remain unproved."
+  },
+  "inheritance": {
+    "account_training_authority": {
+      "path": "research/stage1_preopen_tom_20261018/repair_1/plan.json",
+      "sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4"
+    },
+    "PG_plan": {
+      "path": "research/stage1_aux_projection_allocation_20261018/plan.json",
+      "sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f"
+    },
+    "domain_heads_plan": {
+      "path": "research/stage1_domain_heads_20261018/plan.json",
+      "sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7"
+    },
+    "campaign_contract": {
+      "path": "docs/three_asset_research_contract.md",
+      "sha256": "9e90f4e4466352341064a20a310e08547b445d0722c2ee950dfc8d6b5f35d3a9"
+    },
+    "included": "Exact original train-only datasets/tensors/model specs/scalers, deferred evaluation artifacts,15 reference books, raw-account/cost/economic contracts.",
+    "excluded": "No TOM four-slot features or calendar/availability semantics; no FINRA q, PG projection, asset-domain clone heads, previous candidate predictions or failed-route feature reuse."
+  },
+  "source_C": {
+    "card": "research/day_night_label_source_20261018/phase_C",
+    "recorder_id": "3243fe48d391405bb450612e506286b2",
+    "archive": "e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
+    "inventory": {
+      "path": "research/day_night_label_source_20261018/phase_C/verification_manifest.json",
+      "sha256": "2e3064838ec0f2fe301361795fc6e5ace105d0aa43a5ece5653cc936cbb73c3f"
+    },
+    "summary": {
+      "path": "research/day_night_label_source_20261018/phase_C/summary.json",
+      "sha256": "afc7d24c41b76dc1646c5daf4b5c35a85c659751bf5a46239b744fbb69229287"
+    },
+    "source_plan": {
+      "path": "research/day_night_label_source_20261018/plan.json",
+      "sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228"
+    },
+    "result_review": {
+      "path": "research/day_night_label_source_20261018/phase_C/source_result_review.json",
+      "sha256": "6dd0b5422c05f6d5945cce761db276db27d9bf60e33cc948528c58a80699c039",
+      "status": "accepted_conditional_training_label_source",
+      "verdict": "ACCEPT_CONDITIONAL_TRAINING_LABEL_SOURCE",
+      "source_label_qualified": true
+    },
+    "artifact_sha256": {
+      "labels/fixed_H5_components_S_Z": "db967331d8619fba70cbf3c902aa45ba6df33bc0eecd6b70b86ea9124d86a249",
+      "reference/h5_mapping": "7ce8d64593401535db1fd70281414fd6dc0a679b446fd0d19c59b494a86d54ef",
+      "reference/original_train_index_clocks_and_targets": "d2cd29e752b518bac1b1dd56ec4727c4ea8230f11f9fd926cfc147b4bf2820d0",
+      "source/basis_certificate": "9d8ea8d7c3f785264eabede26f60a1932c41609fcbaa3bc39d3610e516251d6d"
+    },
+    "selected_vintage": "Immutable July24 Git snapshot ea7f22bb9becb8a8f911a5073d80d519ea3f450b; new S/Z source, not substitution for original Oct9 H1/H5 arrays.",
+    "meaning": "Distribution-adjusted research-price plane with the frozen common open-basis stitch. Daily f_t cancels from intraday D and f_(t+1)/f_t enters overnight N. Not unadjusted raw prices, actual dividend cashflows, fee-net account returns or original27/63/10 alpha.",
+    "labels": "Use only already constructed S and Z from the pinned training-only artifact; do not recompute from price providers, choose another source or build evaluation S/Z.",
+    "qualification_boundary": "Independent source C acceptance qualifies only the fixed conditional training-label source. It does not grant model eligibility, implementation/fit/account permission, economic evidence or historical first-vintage/PIT certification.",
+    "source_reader_gate": "Accepted source C review is now bound; deserialization still requires separately authorized training-only no-fit preflight and exact source artifact identity. No source values during design/implementation-only.",
+    "source_label_rows_expected": 3014,
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false
+  },
+  "training_sources": {
+    "training_only": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "inventory_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "artifacts": [
+        "inputs/training_dataset",
+        "inputs/auxiliary_dataset",
+        "inputs/training_audit"
+      ],
+      "artifact_sha256": {
+        "inputs/training_dataset": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+        "inputs/auxiliary_dataset": "78ad08e92061c32d8ce6ce4dc7c6ffb163b1f9cfef9aab66589a74515ba02d78",
+        "inputs/training_audit": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53"
+      },
+      "read_phase": "Only after separate training-only no-fit preflight GO; no deserialization during design/implementation-only."
+    },
+    "original_models": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": [
+        "models/base_outer_71",
+        "models/base_outer_172",
+        "models/base_outer_273"
+      ],
+      "artifact_sha256": {
+        "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+        "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+        "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+      },
+      "read_phase": "Only after separate training-only no-fit preflight GO; no deserialization during design/implementation-only."
+    },
+    "mechanical_tensors": {
+      "card": "research/stage1_aux_projection_20261018",
+      "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+      "archive": "767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+      "inventory_sha256": "615112434b397c62360b81e56bad2d02a7781ec89a0deabf203b6235647142b0",
+      "artifacts": [
+        "inputs/tensors"
+      ],
+      "artifact_sha256": {
+        "inputs/tensors": "6ea285da091469ea4e23391fffb12530ca1cf42646d024cd5695e694d10a6194"
+      },
+      "read_phase": "Only after separate training-only no-fit preflight GO; no deserialization during design/implementation-only."
+    }
+  },
+  "deferred_evaluation_sources": {
+    "account_inputs": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/frame",
+        "inputs/market",
+        "inputs/controller",
+        "inputs/selection",
+        "inputs/recovery_spec",
+        "inputs/action_spec",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "inputs/guard"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "281855c14ed6c12888defd7b10db728f2f26a4e6cd07d2cab7a36d594f684ef5",
+        "inputs/frame": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+        "inputs/market": "f2660e6403ef543c458b039bcfac520c94560d6084b3c9c215b943c1f89bfacd",
+        "inputs/controller": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+        "inputs/selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+        "inputs/recovery_spec": "4a4bb9cd5e09e0dace34615d47e25c831c58951daabace972aa7a31c93e45bda",
+        "inputs/action_spec": "3e92ec85e4c4dac43f57588e671c05c46cac57a778a2b90839a6acd277e09d43",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "inputs/guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24"
+      },
+      "read_phase": "Only after all six successful epoch300 model artifacts and SHA identities are durably sealed in the new native Recorder; evaluation GO must already be explicit."
+    },
+    "AB_native": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "native/A_active_research_replay_0",
+        "native/A_active_research_replay_2",
+        "native/A_active_research_replay_5",
+        "native/B_shared_0",
+        "native/B_shared_2",
+        "native/B_shared_5"
+      ],
+      "artifact_sha256": {
+        "native/A_active_research_replay_0": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+        "native/A_active_research_replay_2": "bf6d10ac75ee84ce4f5688188259c1061141aa3110a82a0587425630fbed0284",
+        "native/A_active_research_replay_5": "1b2065502bb43f5ddcbba96a17beddcbc142b85ffea6eb2586f69e576f50062b",
+        "native/B_shared_0": "f6ad692bdc8aea7998fb0588b789eb6d07fd97d6c413e8fe1492b6bd1086a164",
+        "native/B_shared_2": "3e52887404eb44d1ce135c64b6bcdc2f91f63264324ccf48ef0889b229cd42ae",
+        "native/B_shared_5": "ebebcc0e8e79ea33cdf316a24dc1dbec88e64597f91757a903f04095af0cf896"
+      },
+      "read_phase": "Only after all six successful epoch300 model artifacts and SHA identities are durably sealed in the new native Recorder; evaluation GO must already be explicit."
+    },
+    "strong_native": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "native/raw_SOXX_0",
+        "native/raw_SOXX_2",
+        "native/raw_SOXX_5",
+        "native/raw_strong9097_0",
+        "native/raw_strong9097_2",
+        "native/raw_strong9097_5",
+        "native/raw_candidate27baa_0",
+        "native/raw_candidate27baa_2",
+        "native/raw_candidate27baa_5"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "ead4fa68daa779ea4da4708b762913e7d89e7c9d6f68523340e0252866eb712b",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "native/raw_SOXX_0": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+        "native/raw_SOXX_2": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d",
+        "native/raw_SOXX_5": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e",
+        "native/raw_strong9097_0": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93",
+        "native/raw_strong9097_2": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f",
+        "native/raw_strong9097_5": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05",
+        "native/raw_candidate27baa_0": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466",
+        "native/raw_candidate27baa_2": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31",
+        "native/raw_candidate27baa_5": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+      },
+      "read_phase": "Only after all six successful epoch300 model artifacts and SHA identities are durably sealed in the new native Recorder; evaluation GO must already be explicit."
+    },
+    "prediction_dataset": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "inventory_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "artifacts": [
+        "evaluation/dataset"
+      ],
+      "artifact_sha256": {
+        "evaluation/dataset": "4a2bcfc01540d110844607cf60a49f302b25529e92e8fba1b3d6d4e07b601042"
+      },
+      "read_phase": "Only after all six successful epoch300 model artifacts and SHA identities are durably sealed in the new native Recorder; evaluation GO must already be explicit."
+    }
+  },
+  "reference_books": [
+    {
+      "family": "A_active_research_replay",
+      "cost": 0,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_0"
+    },
+    {
+      "family": "A_active_research_replay",
+      "cost": 2,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_2"
+    },
+    {
+      "family": "A_active_research_replay",
+      "cost": 5,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_5"
+    },
+    {
+      "family": "B_shared",
+      "cost": 0,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_0"
+    },
+    {
+      "family": "B_shared",
+      "cost": 2,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_2"
+    },
+    {
+      "family": "B_shared",
+      "cost": 5,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_5"
+    },
+    {
+      "family": "SOXX",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_0"
+    },
+    {
+      "family": "SOXX",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_2"
+    },
+    {
+      "family": "SOXX",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_5"
+    },
+    {
+      "family": "strong9097",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_0"
+    },
+    {
+      "family": "strong9097",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_2"
+    },
+    {
+      "family": "strong9097",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_5"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_0"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_2"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_5"
+    }
+  ],
+  "active_release": {
+    "path": "production/stage1_futu_sim_v1/runtime_release.json",
+    "sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33"
+  },
+  "unchanged_code_authorities": [
+    {
+      "path": "src/model/minute_pit_allocator.py",
+      "sha256": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8"
+    },
+    {
+      "path": "src/workflow/pit_constituent_auxiliary_training_allocation.py",
+      "sha256": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+    },
+    {
+      "path": "src/backtest/stage1_domain_heads_raw.py",
+      "sha256": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef"
+    },
+    {
+      "path": "src/backtest/raw_corporate_policy.py",
+      "sha256": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa"
+    },
+    {
+      "path": "src/backtest/native_raw_corporate.py",
+      "sha256": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75"
+    }
+  ],
+  "planned_implementation": {
+    "model": "src/model/day_night_supervision_allocator.py",
+    "workflow": "src/workflow/day_night_supervision.py",
+    "code_sha256": null,
+    "tests_sha256": null,
+    "rule": "Do not edit original MinutePitAllocator or sealed source/PG/domain/TOM code. A thin extension must retain the exact original data/scaler/loss/sample/optimizer sequence, documenting any unavoidable fit-loop copy. Implementation needs separate GO.",
+    "fit_loop_copy_contract": "Keep original authority files unchanged. If the fit loop must be copied, bind its source SHA and preserve preparation, scalers, targets, auxiliary sampling and original combined-loss operation order. Append0.02*halfMSE only after L_original; do not inject it into allocation_objective or relabel allocation-loss diagnostics. Use the same primary encoder state, prevent auxiliary calls from overwriting that state, clear transient caches before model sealing, and retain one ordinary combined backward/globalclip2/AdamW step."
+  },
+  "training": {
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "train_end": "2022-12-30",
+    "expected_primary_rows": 3014,
+    "primary_signal_range": [
+      "2011-01-03",
+      "2022-12-21"
+    ],
+    "expected_auxiliary_rows": 20741,
+    "primary_feature_count": 39,
+    "common_feature_count": 16,
+    "new_input_feature_count": 0,
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "epochs": 300,
+    "checkpoint": "fixed_final_epoch300",
+    "fit_order": [
+      [
+        "B_day_night_total",
+        71
+      ],
+      [
+        "C_day_night_contrast",
+        71
+      ],
+      [
+        "B_day_night_total",
+        172
+      ],
+      [
+        "C_day_night_contrast",
+        172
+      ],
+      [
+        "B_day_night_total",
+        273
+      ],
+      [
+        "C_day_night_contrast",
+        273
+      ]
+    ],
+    "arms": {
+      "B_day_night_total": "Original model plus new scalar head supervised by standardized S",
+      "C_day_night_contrast": "Identical model plus identical scalar head supervised by standardized Z"
+    },
+    "head": {
+      "receiver": "tail_encoder(common_x), original8-dimensional state",
+      "form": "Linear(8,1)",
+      "new_parameters": 9,
+      "original_parameters": 973,
+      "parameters_each_arm": 982,
+      "inference": "Ignore regression output. Return original allocation/tail/alpha outputs without requiring S/Z labels."
+    },
+    "initialization": "For each seed construct the original973-parameter network exactly, then append a zero-weight/zero-bias head without advancing the original RNG state. B/C all initial tensors and outputs identical; original973 subset and RNG equal to original initializer. New parameters follow originals in the optimizer sequence. No loading trained weights as initialization.",
+    "target_scaling": {
+      "fit_rows": "Exactly the same original3014 mature rows in source order for both targets",
+      "algorithm": "For each S and Z compute float64 mean and sample std(ddof=1); standardize in float64 and cast once to float32. Constants shared by all3seeds; save constants and target hashes in Recorder. No evaluation fit/transform targets needed.",
+      "no_rescue": [
+        "clipping",
+        "winsorization",
+        "epsilon denominator",
+        "sign flip",
+        "alternative std",
+        "per-seed scale",
+        "threshold or horizon selection"
+      ],
+      "failure": "Zero/nonfinite std or nonfinite standardized result stops; no partial cohort or altered formula."
+    },
+    "loss": "L_original +0.02*0.5*mean((new_scalar_head-standardized_target)**2), equal weighting over all3014primary rows.",
+    "original_loss": "Unchanged H1 allocation objective, primaryH5 tail+alpha BCE coefficient0.02, auxiliary weighted tail+alpha BCE coefficient0.05, original10bp training proxy and0.006 turnover coefficient; all other spec/candidate settings inherited by exact saved model identities.",
+    "new_loss_path": "Direct graph touches new head and shared encoder. At zero head initialization the first-step direct encoder gradient from new loss is0. New-head gradients still contribute to globalclip norm, so allocation-private updates can change; later representation and AdamW histories also differ. No shared-only/private-protected claim.",
+    "auxiliary_sampling": "Original20741 rows/order/training_weight normalization, generator seed*1000+epoch, torch.randint with replacement, min(2048,20741) samples each of300epochs. B/C draw sequences identical. No S/Z supervision on auxiliary rows.",
+    "original_scalers": "Recompute via original training-only path and require exact match to each pinned base_outer scaler and mechanical training tensors. All85original columns retained; model selects unchanged39primary/16common in original order.",
+    "optimizer": "Exact original saved AdamW lr/weight_decay/all arguments, ordinary combined backward, one clip_grad_norm_(all parameters,max_norm=2.0), then one step per epoch. No per-task clipping, PG, detach, gradient normalization, extra steps or moment reset.",
+    "ensemble": "Equal-weight all3seed predictions within each arm using the original aggregation path. No seed/checkpoint/arm selection; candidate is C only.",
+    "loss_trace": "Persist all6 training traces and original/new loss components as diagnostics, not stop/selection/performance gates. Save final model/spec/scalers/target stats/optimizer state and attempt identity."
+  },
+  "label_semantics": {
+    "primary_tail": "SOXX five next-open intervals entry-relative path min<=-6percent, not SOXL3x or peak-to-trough MaxDD",
+    "primary_alpha": "27percentSOXL+63percentSOXX+10percentcash fixed reference five-session relative growth vsSOXX",
+    "aux_tail": "Historical PIT constituent synthetic daily-reset2x, five close-close intervals,95bp annual fee, path min<=-12percent OR terminal<=-15percent",
+    "aux_alpha": "Synthetic2x five-session terminal return exceeds constituent1x",
+    "maturity": "Exact saved native primary available_at strictlybeforecutoff; auxiliary observations_end<=train_end. Preserve source labels, no current dirty provider data replacement.",
+    "allocation_return": "soxl_forward_open_return andsoxx_forward_open_return: T+1open→T+2open H1, not five-session returns.",
+    "joint_maturity": "OriginalcommonH5 label_available_at<2023cutoff andall5TARGETSfinite preserves3014rows. AllocationH1 earlieravailability doesnotchange eligibility."
+  },
+  "new_supervision_semantics": {
+    "horizon": 5,
+    "d0": "T+1 original next open",
+    "d5": "T+6 original open",
+    "D_i": "sum(j=0..4) log(C_i,dj/O_i,dj)",
+    "N_i": "sum(j=0..4) log(O_i,dj+1/C_i,dj)",
+    "S": "(D_SOXL-D_SOXX)+(N_SOXL-N_SOXX)",
+    "Z": "(N_SOXL-N_SOXX)-(D_SOXL-D_SOXX)",
+    "joint_maturity": "No earlier than original d5 09:31 America/New_York label_available_at, strictly before2023cutoff. Preserve originalH5 eligibility even though allocation uses H1. Historical research availability convention, not actual first receipt.",
+    "immutability": "All original H1/H5 arrays, source dates and cohort immutable. Source vintage diagnostic is not an equality gate or source-selection rule. New missing labels stop, never drop rows.",
+    "execution_gap": "Day-level open labels are not09:47 fill labels; original training/execution mapping remains explicitly inherited."
+  },
+  "dataset_contract": {
+    "primary_original_columns": 85,
+    "primary_augmented_columns": 87,
+    "append_columns": [
+      [
+        "supervision",
+        "S"
+      ],
+      [
+        "supervision",
+        "Z"
+      ]
+    ],
+    "model_input_effect": "Neither appended target is a feature/common input; model selects the assigned target only for added train loss. Preserve all original85columns byte/value identity and order, including unused original source feature/flag/meta fields.",
+    "primary_segments": [
+      "train"
+    ],
+    "auxiliary_columns": 20,
+    "auxiliary_changed": false,
+    "evaluation_dataset": "Reuse original946-row prediction Dataset after barrier, with original inputs and original labels only; no supervision group is required by predict.",
+    "native_boundary": "Use native DatasetH/DataHandlerLP with prepared train-only frame; config(dump_all=True,recursive=True) before Recorder save. Verify recursive handler/loader residency contains only authorized train rows before any real fit. Never load a full-period source then crop and claim eval was unaccessed.",
+    "reference_readback": {
+      "path": "research/stage1_aux_projection_allocation_20261018/readback_verification.json",
+      "sha256": "99206359b124b16d14f6c43badb284ffdb647d3f54b00f57b39b587da85692d8",
+      "limit": "Existingprepare(train) shapes are notalone aresidency audit. Authorizednofit mustinspect allactual handler_data/_infer/_learn andloader residualDataFrames recursively, withoutsetup_data."
+    },
+    "strict_source_alignment": {
+      "source_label_instrument": "SOXL_SOXX",
+      "primary_instrument": "SOXL_SOXX_CASH",
+      "required_rows": 3014,
+      "procedure": "Assert each expected unique instrument and3014 unique ordered datetime values; prove exact date/order equality and original8fields/digest/maturity. Assign S/Z only in that order to new supervision columns, preserving original PG full index and85-column order.",
+      "forbidden": [
+        "direct mismatched MultiIndex join",
+        "index renaming",
+        "inner join",
+        "row loss",
+        "fill"
+      ]
+    }
+  },
+  "stage_gates": [
+    {
+      "stage": "design",
+      "authorized_now": true,
+      "allowed": "Read small metadata/code/docs; write this draft/notebook/conclusion only. No actual Dataset/model/price/label/prediction deserialization."
+    },
+    {
+      "stage": "implementation_and_synthetic",
+      "authorized_now": true,
+      "requires": "Independent full-design review plus owner implementation GO",
+      "allowed": "Model/workflow code, one concentrated synthetic contract and static identity checks. No real S/Z/source tensors, gradients, fits or accounts."
+    },
+    {
+      "stage": "training_only_no_fit_preflight",
+      "authorized_now": false,
+      "requires": "Accepted sourceC review, frozen implementation/source identities and separate owner GO",
+      "allowed": "Pinned train-only Dataset/model metadata/tensor/label artifacts only; verify original3014/20741/index/clocks/H1-H5 digest/input tensors/scalers, target schema/scale finiteness and source identity, then original/B/C initialization and sampling parity. No actual optimizer step or real-gradient probe; no predictive target-score screening.",
+      "prohibited": "Any eval object, full historical daily_frame/features/common/multifoldaux object, new price fetch, S/Z evaluation target."
+    },
+    {
+      "stage": "fit",
+      "authorized_now": false,
+      "requires": "Accepted no-fit preflight and frozen finalplan plus explicit owner6fit+6account GO",
+      "allowed": "Exactly6fixedepoch300fits; nativeRecorder artifacts durable aftereach fit. Original/raw/new gradient choices fixed; no gradient-based retuning.",
+      "barrier": "All6successful final model artifacts/spec/scalers/targetstats plus SHA identities are saved and sealed before any evaluation source is deserialized."
+    },
+    {
+      "stage": "evaluation_and_accounts",
+      "authorized_now": false,
+      "requires": "All6model barrier and explicit corresponding owner GO; doesnotdependonMSE/AUC",
+      "allowed": "Only now prepare946prediction rows, original classification labels, and frozen raw account/reference objects. Run both fixed equal-seed ensembles independently at0/2/5bp, all6nativeaccounts,15exactreferencebooks and15requiredCI. Never build/predictivelyscoreS/Zevaltargets or readnewprices."
+    },
+    {
+      "stage": "results_review",
+      "authorized_now": false,
+      "allowed": "Independent review of frozen model/account/CI evidence, one bounded coldreadback and synchronized notebook/summary/conclusion. No automaticpromotion."
+    }
+  ],
+  "minimal_preflight_contract": {
+    "synthetic_only": "One concentrated synthetic contract: botharms same architecture/original-subset/RNG init; target selection never feature input; exact scale formula and nonfinite/zero-std failclosed; regression-head inference discard/no labels; zero-head first-step directencoder derivative0; oneglobalclip2 including a synthetic norm>2 case where private updates can scale; no separated clipping. No real probe or fit during this stage.",
+    "train_only": "Exact source and native dataset/schema/residency/index/clocks/targets/tensor/scaler identity; finite S/Z and fixed train-only scale. No Pearson/IC/ranking/AUC/economic screen and no criterion that the new target must look useful to run the predeclared accounts.",
+    "deferred_reference_check": "Afterbarrier, exact source inventory/artifacthashes plus944date/pricegrid/corporate/cost/controller identity for15books; no fallback replay.",
+    "numerical_failures": "No new tolerance fitted to observations. Existing unchanged tensor/scaler identity uses exact equality; normalized targets need finite values and positive finite std only. Detailed synthetic arithmetic checks must follow their operations/dtype, not become a predictive gate."
+  },
+  "prediction_contract": {
+    "prediction_rows": 946,
+    "account_sessions": 944,
+    "as_of": "2026-10-09",
+    "tails": "Retain all946prediction rows and the two original tails; no synthetic future fills/returns/labels. Use sealed originalmapping to944accounts.",
+    "evaluation_unlock": "Both labels and return/prediction/referenceobjects stay locked until all6models sealed, including original evaluation/dataset whose labels may be resident inside the pickle.",
+    "no_new_eval_supervision": "No source price query, S/Zconstruction or S/Zout-of-fitMSE/IC. Head is train-only and discarded during predict."
+  },
+  "accounts": {
+    "families": [
+      "A_active_research_replay",
+      "B_shared",
+      "B_day_night_total",
+      "C_day_night_contrast",
+      "SOXX",
+      "strong9097",
+      "additional27baa"
+    ],
+    "initial_cash": 100000,
+    "expected_sessions": 944,
+    "first_signal": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "terminal": "2026-10-09T09:47:00-04:00",
+    "clock": "09:45 known,09:46 decision,09:47 fill,next09:47 exit;firsthour recovery fill10:32. Historical bar availability convention, not actual first receipt/execution qualification.",
+    "A_label": "Frozen active f696+b472 model chain replayed under same raw research execution contract; not actual deployed09:31/10:31 replay.",
+    "ABC_policy": "New B/C use original b472 open/recovery on each own cost-specific cash, shares, NAV, peak, history and risk state; no COMMON/ALL3/T substitution. Reference policies remain sealed.",
+    "reference_policy": "SOXX buyonce raw shares; strong9097/additional27baa retain their frozen commoncap/ALL3/T policies. Different strategy controls disclosed, same price/corporate/fees/dates/initialcash. Do not inherit old fullminute risk qualification.",
+    "strict_reuse": "Reuse the exact15 pinned books below. Before reuse require identity of schedule, quote grid, corporate entitlement/payment convention, tariff, initial state and frozen controller; mismatch stops, no fallback replay or new price source.",
+    "raw_interfaces": [
+      "src.backtest.stage1_domain_heads_raw.replay_stage1_raw",
+      "src.backtest.raw_corporate_policy.IncomeLedger",
+      "src.backtest.raw_corporate_policy.settle_raw",
+      "src.backtest.native_raw_corporate.native_raw_validate"
+    ],
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "maximum_total_comparison_accounts": 21,
+    "maximum_new_native_accounts": 6,
+    "source_native_accounts_reused": 15,
+    "currency": "USD gross paper assumption and documented corporate entitlement/payment convention; not broker or historicalPIT certification",
+    "new_ensemble_native_accounts": 6,
+    "per_seed_accounts": 0,
+    "policy_inheritance": "B/C keep the original b472 open/recovery policy, each on independent cost-specific state. No TOM/FINRA features, PG, asset-domain heads, new risk threshold, cash floor or controller rescue.",
+    "ensemble_families": 2,
+    "maximum_new_policy_path_attempts": 6,
+    "path_budget_semantics": "Six independent endogenous policy paths: B/C times0/2/5bp, each owns cash/shares/NAV/peak/history/risk. Six native accounts; never two shared policy paths with later fee deductions."
+  },
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "gates": {
+    "required_comparators": [
+      "SOXX",
+      "B_day_night_total",
+      "B_shared",
+      "A_active_research_replay",
+      "strong9097"
+    ],
+    "additional_reference": "additional27baa always report, not a postresult replacement of primary strong9097",
+    "net_relative_wealth_all_costs": ">1+1e-8 versus each required comparator",
+    "sampled_maxdrawdown": "<=30percent at close and all available raw point marks; fullminute validation separate if economic gates pass",
+    "cvar5": "no worse thanSOXX at all costs",
+    "complete_annual_positive_fraction": 0.7,
+    "minimum_complete_years": 2,
+    "rolling126_positive_fraction": 0.7,
+    "paired_uncertainty": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "alpha": 0.0016666666666666668,
+      "seed": 20261014,
+      "lower_positive": true,
+      "comparisons": 5,
+      "costs": 3,
+      "prior_search_multiplicity": "unknown; this correction doesnotreset reusedhistory",
+      "statistic": "one-sided paired stationary-bootstrap mean daily log excess; lower quantile must be strictly positive",
+      "alpha_formula": "0.025/(1 candidate equal-seed ensemble *5 required comparators *3 costs)",
+      "expected_lower_tail_draws": 16.666666666666668,
+      "resolution_rationale": "Fixed10000 draws before fitting; approximately16.67 expected lower-tail draws, MonteCarlo limitation retained; no outcome-dependent rerun or seed change.",
+      "candidate": "C_day_night_contrast equal-weight three-seed ensemble only; B is the predeclared matched control, not an alternate candidate.",
+      "required_pairs": 15
+    },
+    "qualified_independent_forward": false,
+    "fresh_fullminute_risk_qualified": false,
+    "stability_comparator": "SOXX annual/rolling70percent; all5 required comparators full-window wealth >1+1e-8 and pairedCI lower>0.",
+    "independent_forward_contract": {
+      "authority": "docs/three_asset_research_contract.md",
+      "authority_sha256": "9e90f4e4466352341064a20a310e08547b445d0722c2ee950dfc8d6b5f35d3a9",
+      "prerequisite": "Historical gates only produce a candidate; freeze full decision rule, model, sources, costs, state definitions, observation frequency and evaluation times before independent shadow/paper evidence.",
+      "minimum_observation_only": {
+        "complete_paired_days": 60,
+        "days_in_each_preregistered_market_state": 15,
+        "state_transitions": 3
+      },
+      "not_sufficient": "These minimum counts are not acceptance. Annual and126-session stability require enough genuinely new observations and the complete economic/risk/statistical gates. No reused oldpaper days, historical renaming, repeated daily tests until passing, or automatic promotion atday60.",
+      "current_status": "Unqualified; this design grants no forward launch or production permission."
+    }
+  },
+  "budget": {
+    "maximum_fit_attempts": 6,
+    "B_fits": 3,
+    "C_fits": 3,
+    "maximum_optimizer_steps_per_fit": 300,
+    "maximum_new_native_accounts": 6,
+    "reference_native_accounts_reused": 15,
+    "total_comparison_accounts": 21,
+    "required_paired_CI": 15,
+    "per_seed_native_accounts": 0,
+    "extra_candidates_windows_seeds_refits": 0,
+    "new_market_HTTP": 0,
+    "new_price_reads": 0,
+    "evaluation_S_Z_labels": 0,
+    "ensemble_families": 2,
+    "maximum_new_policy_path_attempts": 6
+  },
+  "reporting": {
+    "training": "All6attempts and fixedloss traces, including targetmean/std and trainMSE inRecorder. MSE isnot a gate and doesnot decide account execution; B/C regress different targets so lowerMSE isnot direct alpha evidence.",
+    "classification": "OriginalH5tail/alpha BCE/Brier/AUC/scoremean/eventrate for everyseed andensemble only afterall6models, using original maturity/finite-label rules; all946predictions/tails remain retained. No newtarget or classification gate/modelselection.",
+    "economic": "Only eacharm equal-weight3seed ensemble atall0/2/5bp; no perseedaccounts. Report all7families/21books, original/raw versuscontrolled proposals, actualactions/positions/cash/beta/riskstates/costs andmetrics. Always reportadditional27baa asdiagnostic, never swapitforstrong9097.",
+    "windows": "Allcomplete2024/2025; partial2023/2026 separately; completeannual70percent andall prescribed126sessionwindows; quarter/year/monthdiagnostics saved withoutselection. Historical2023+ fullyreused developmental/diagnostic, notindependentvalidation.",
+    "uncertainty": "Exactly15 C-versus-required-comparator/cost stationarybootstrap intervals,10000resamples,meanblock63,seed20261014,alpha0.025/15,lowerstrictlypositive. No outcome-dependent rerun, differentseed or expandedfamily.",
+    "failure_attribution": "If fixedeconomicresult fails, any bounded Recorder-only attribution requires explicitowner scope; it cannot authorize newfits, source/head/weight orcontrollerrescue.",
+    "promotion": "SourcePITfalse, independentforwardfalse andfreshfullminutequalificationfalse persist. Historicalpasses only nominate a candidate for separate qualification."
+  },
+  "provider_and_native_workflow": {
+    "init_provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "region": "us",
+    "provider_role": "Original frozen Qlib init context only; model uses sealed native Dataset sources, not current dirty provider feature/price reads. Raw evaluation provider outputs belong to new card afterbarrier only.",
+    "new_market_feature_queries": 0,
+    "analysis_calendar": "Afterbarrier use exact pinned evaluation_dataset/account_inputs schedule and existing reference nativebook axes to enforce946prediction/944account mappings. Do not inherit TOM source calendar/features or infer sessions from new price availability.",
+    "recording": "Use native qlib R.start/Recorder; source identities, all6models, preparedDataset objects, traces, prediction matrices, native reports/positions/riskanalyses and15CI samples live onlyinRecorder/NAS. No fakeRecorder or pandas-only accountsubstitution.",
+    "qlib_docs": [
+      {
+        "url": "https://qlib.readthedocs.io/en/latest/component/data.html",
+        "checked": "2026-10-18",
+        "role": "Native Dataset/Handler and data layer API authority"
+      },
+      {
+        "url": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+        "checked": "2026-10-18",
+        "role": "NativeRecorder workflow evidence authority"
+      }
+    ]
+  },
+  "software_reference": {
+    "python": "3.12.12 (main, Feb  4 2026, 01:57:59) [Clang 21.1.4 ]",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "torch": "2.11.0",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "qlib": "0.9.7",
+    "device": "cpu",
+    "original_gradient_dtype": "torch.float32",
+    "torch_threads": 1,
+    "torch_interop_threads": 10,
+    "default_dtype": "torch.float32",
+    "torch_config": "PyTorch built with:\n  - GCC 4.2\n  - C++ Version: 201703\n  - clang 15.0.0\n  - OpenMP 201811\n  - LAPACK is enabled (usually provided by MKL)\n  - NNPACK is enabled\n  - CPU capability usage: DEFAULT\n  - Build settings: BLAS_INFO=accelerate, BUILD_TYPE=Release, COMMIT_SHA=70d99e998b4955e0049d13a98d77ae1b14db1f45, CXX_COMPILER=/usr/bin/c++, CXX_FLAGS= -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_PYTORCH_QNNPACK -DAT_BUILD_ARM_VEC256_WITH_SLEEF -DUSE_XNNPACK -DUSE_PYTORCH_METAL_EXPORT -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DUSE_COREML_DELEGATE -O2 -fPIC -DC10_NODEPRECATED -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=braced-scalar-init -Werror=range-loop-construct -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wvla-extension -Wsuggest-override -Wnewline-eof -Winconsistent-missing-override -Winconsistent-missing-destructor-override -Wno-pass-failed -Wno-error=old-style-cast -Wconstant-conversion -Qunused-arguments -faligned-new -fno-math-errno -fno-trapping-math -Werror=format -DUSE_MPS -Wno-missing-braces, LAPACK_INFO=accelerate, TORCH_VERSION=2.11.0, USE_CUDA=OFF, USE_CUDNN=OFF, USE_CUSPARSELT=OFF, USE_EIGEN_FOR_BLAS=ON, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=OFF, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, USE_XCCL=OFF, USE_XPU=OFF, \n"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml (to be created only during authorized implementation)",
+    "recorder_only_artifacts": [
+      "training datasets and original/new target tensors",
+      "target scaling constants and per-fit traces",
+      "six model/checkpoint/optimizer states",
+      "all-model and ensemble predictions",
+      "raw policy traces and cost-specificbooks",
+      "native reports/positions/riskanalysis",
+      "paired bootstrap samples and fullwindowtables"
+    ],
+    "current_deliverables": [
+      "design_draft.json",
+      "stage1_day_night_supervision_20261018.ipynb",
+      "conclusion.md"
+    ]
+  },
+  "pending_before_freeze": [
+    "Scientific design frozen; actual implementation/code identities and one concentrated synthetic contract remain to be reviewed before a separately authorized no-fit preflight.",
+    "Six fits and six policy/native accounts remain disabled until accepted preflight and exact phase GO."
+  ],
+  "failure_policy": {
+    "source_or_identity": "Failclosed andretain attempt; no sourcefallback, fullobjectcrop, rowdrop or tolerance adjustment. A sourceversion failure doesnotclose thetotalGoal.",
+    "fit": "Retain everyattempt/partialstate and failures; no omittedseed, rescuefit, alternatecheckpoint orwinning-subsetensemble. Implementationfault requires scopedreview; thisdraft authorizes noextraattempt.",
+    "economic": "All predeclaredaccounts andcosts reported once technicalqualification permits; anyrequiredgatefailure closesfixedversion notGoal. Nohead/scale/loss/controller/seed rescue.",
+    "evidence": "Sourcequalification/softwaretests/nativeledgeragreement and trainingMSE are notstableSOXXoutperformance. Independentreview required; historicalreuse andfirstvintagelimits explicit."
+  },
+  "current_execution_counts": {
+    "actual_price_label_prediction_reads_by_drafter": 0,
+    "feature_constructions": 0,
+    "fits": 0,
+    "native_accounts": 0,
+    "new_market_HTTP": 0
+  },
+  "design_origin": {
+    "draft": "research/stage1_day_night_supervision_20261018/design_draft.json",
+    "draft_sha256": "19bdb2437381af8b30a4cfc9496024baaa3dc6546313055d2d30b2fd4a8bc689",
+    "independent_review": "research/stage1_day_night_supervision_20261018/design_draft_review.json",
+    "independent_review_sha256": "bba926ee04e1db3385b264c1a2d7f23c11e194286bd5aaa1203abe80b4fd23ca",
+    "owner": "/root",
+    "conditions_adopted_before_model_implementation": [
+      "Source C has instrument SOXL_SOXX while the original PG primary Dataset uses SOXL_SOXX_CASH. Assert each expected unique instrument,3014 unique ordered dates and exact datetime equality; compare original8 fields/digest/maturity. Assign S/Z in that proven order to a new supervision group while retaining the original PG full index and85-column order. No direct mismatched MultiIndex join, index renaming, inner join, row loss or fill.",
+      "Keep original authority files unchanged. If the fit loop must be copied, bind its source SHA and preserve preparation, scalers, targets, auxiliary sampling and original combined-loss operation order. Append0.02*halfMSE only after L_original; do not inject it into allocation_objective or relabel allocation-loss diagnostics. Use the same primary encoder state, prevent auxiliary calls from overwriting that state, clear transient caches before model sealing, and retain one ordinary combined backward/globalclip2/AdamW step.",
+      "In the executable plan replace ambiguous new_policy_paths=2 wording with ensemble_families=2 and maximum_new_policy_path_attempts=6. B/C each require separate0/2/5bp endogenous policy paths and six native accounts; two shared paths with later fee deductions are not permitted. The fifteen sealed references and twenty-one comparison books remain unchanged."
+    ]
+  }
+}

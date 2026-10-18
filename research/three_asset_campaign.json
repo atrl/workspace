@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_day_night_supervision_20261018",
-  "current_phase": "day_night_supervision_design_under_independent_review",
-  "next_action": "Finish independent model-design review, concretize only necessary unexecuted alignment/fit-loop details, freeze the single matched S/Z supervision plan, then explicitly resume executor for implementation+synthetic. No data-value reads or six-fit execution before their separate admitted gates.",
+  "current_phase": "day_night_supervision_design_frozen_implementation_authorized",
+  "next_action": "Implement the single matched S/Z model and gated workflow in parallel with disjoint files, run one concentrated synthetic contract, and submit fixed code identities for no-fit preflight review. Actual source-object reads/fit/account execution remain disabled.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1724,7 +1724,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/stage1_day_night_supervision_20261018",
-      "phase": "day_night_supervision_design_under_independent_review",
+      "phase": "day_night_supervision_design_frozen_implementation_authorized",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
@@ -1740,13 +1740,20 @@
       "new_fits": 0,
       "new_accounts": 0,
       "new_data_value_reads_in_model_design": 0,
-      "model_implementation_authorized": false,
+      "model_implementation_authorized": true,
       "model_fit_authorized": false,
       "account_execution_authorized": false,
-      "executor_lifecycle": "Design executor completed the three-file draft. Independent evaluator explicitly resumed for full design review. Executor explicitly resumed and completed read-only adapter/workflow preparation; no model implementation or job exists. Resume after admitted design/owner implementation GO.",
+      "executor_lifecycle": "Independent review accepted and owner froze three concrete implementation conditions. Model/synthetic and workflow/notebook owners will now be explicitly resumed in parallel; no actual model data/preflight/fit/account GO.",
       "implementation_preparation": "Narrow new adapter fit-loop copy preserves original combined loss order and diagnostic meaning; add regression loss after L_original. Preserve same primary state, auxiliary sampling, globalclip and original RNG; clear temporary cache before seal. No original module edits.",
       "pending_alignment_clarification": "Source C instrument SOXL_SOXX differs from original PG SOXL_SOXX_CASH; assert both fixed single-instrument/date cohorts and original8fields, then assign S/Z by exact date order while preserving PG index/85columns. No inner join/drop/fill.",
-      "previous_goal_turn_classification": "progress: all three fixed source phases executed once, conditional labels independently accepted and cold-restored; no model/financial success claimed."
+      "previous_goal_turn_classification": "progress: all three fixed source phases executed once, conditional labels independently accepted and cold-restored; no model/financial success claimed.",
+      "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+      "design_review": "research/stage1_day_night_supervision_20261018/design_draft_review.json",
+      "design_review_sha256": "bba926ee04e1db3385b264c1a2d7f23c11e194286bd5aaa1203abe80b4fd23ca",
+      "implementation_authorization": "research/stage1_day_night_supervision_20261018/implementation_authorization.json",
+      "implementation_authorization_sha256": "c2fe49076b376da5619b7851c05ec7797050399e6d1e2ec7827f6aadf309856f",
+      "planned_cost_specific_policy_paths": 6,
+      "planned_ensemble_families": 2
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",

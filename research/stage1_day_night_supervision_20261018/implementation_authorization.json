@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "owner": "/root",
+  "status": "approved_implementation_and_synthetic_only",
+  "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+  "design_review_sha256": "bba926ee04e1db3385b264c1a2d7f23c11e194286bd5aaa1203abe80b4fd23ca",
+  "allowed": [
+    "new model adapter and narrow fit-loop copy",
+    "new workflow and executable notebook/metadata",
+    "one concentrated synthetic contract",
+    "static source and code identity reads"
+  ],
+  "prohibited": [
+    "real Dataset/model/price/label/prediction object deserialization",
+    "real-gradient probes or optimizer steps",
+    "no-fit preflight on actual data",
+    "model fits",
+    "policy/native accounts",
+    "production or active-release changes"
+  ],
+  "ownership": {
+    "model_and_synthetic": "/root/external_methods",
+    "workflow_and_notebook": "/root/recent_evidence",
+    "campaign_and_delivery": "/root",
+    "independent_evaluation": "/root/independent_evaluator"
+  },
+  "interface_coordination": "Implementers must agree a small model/scaler/trace interface before writing overlapping code; each owns its named files. No edits to sealed original authority files."
+}

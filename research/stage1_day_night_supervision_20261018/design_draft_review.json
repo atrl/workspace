@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/independent_evaluator",
+  "verdict": "APPROVE_IMPLEMENTATION_AND_SYNTHETIC_SCOPE",
+  "design_draft_sha256": "19bdb2437381af8b30a4cfc9496024baaa3dc6546313055d2d30b2fd4a8bc689",
+  "prospective_owner_adoption_sha256": "0f91dcb4dc3e8b3b4670c17744ef5f07ca9711268970db7725d1505d663e3e28",
+  "accepted_source_C_review_sha256": "6dd0b5422c05f6d5945cce761db276db27d9bf60e33cc948528c58a80699c039",
+  "source_C_recorder_id": "3243fe48d391405bb450612e506286b2",
+  "source_C_archive_sha256": "e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
+  "material_scientific_blockers": [],
+  "assessment": "The single matched9-parameter head on the original8-state is a falsifiable supervision intervention. B=S and C=Z share982-parameter architecture, zero-head initialization, original973 tensors/RNG, data/cohort, sampling, optimizer and0.02 half-MSE coefficient. Separate float64 mean/std(ddof=1) over exactly3014 training rows, followed by one float32 cast, is predeclared; zero/nonfinite scales stop without rescue. No target is an input feature or required by prediction. Globalclip can alter private updates, so only the complete matched training package is compared, not claimed private-gradient protection.",
+  "required_implementation_conditions": [
+    "Source C has instrument SOXL_SOXX while the original PG primary Dataset uses SOXL_SOXX_CASH. Assert each expected unique instrument,3014 unique ordered dates and exact datetime equality; compare original8 fields/digest/maturity. Assign S/Z in that proven order to a new supervision group while retaining the original PG full index and85-column order. No direct mismatched MultiIndex join, index renaming, inner join, row loss or fill.",
+    "Keep original authority files unchanged. If the fit loop must be copied, bind its source SHA and preserve preparation, scalers, targets, auxiliary sampling and original combined-loss operation order. Append0.02*halfMSE only after L_original; do not inject it into allocation_objective or relabel allocation-loss diagnostics. Use the same primary encoder state, prevent auxiliary calls from overwriting that state, clear transient caches before model sealing, and retain one ordinary combined backward/globalclip2/AdamW step.",
+    "In the executable plan replace ambiguous new_policy_paths=2 wording with ensemble_families=2 and maximum_new_policy_path_attempts=6. B/C each require separate0/2/5bp endogenous policy paths and six native accounts; two shared paths with later fee deductions are not permitted. The fifteen sealed references and twenty-one comparison books remain unchanged."
+  ],
+  "stage_and_evidence_contract": "Implementation/synthetic only may follow owner GO. Real no-fit preflight must separately verify train-only residency, exact source/label/index/scaler/tensor identity, positive finite target scales, paired initialization/RNG and unchanged inference without supervision. Seal all six successful epoch300 model artifacts/spec/scalers/targetstats before any evaluation-label/return/prediction/reference object is deserialized. No new prices or evaluation S/Z labels, score screening, seed selection or fallback refits.",
+  "fixed_future_budget": {"fits": 6, "epochs_each": 300, "ensemble_families": 2, "cost_specific_policy_paths": 6, "new_native_accounts": 6, "sealed_reference_books": 15, "comparison_books": 21, "required_CI": 15},
+  "economic_contract": "Candidate C must beat SOXX, matched B, original B, A and strong9097 at every frozen cost, with close/allpoint MaxDD<=30%,CVaR5 no worse than SOXX,complete-year and126-session positive excess fractions>=70%,and all15 fixed bootstrap lower bounds positive. Additional27baa remains descriptive. Low MSE or beating matched B alone is insufficient; no historical result automatically grants forward or promotion qualification.",
+  "review_method": "Read the draft, prospective adoption and small source/reference manifests; all checked adoption/source_C/training/deferred-reference artifact identities match. Reused accepted source and existing model/account contracts. No label, Dataset, model, prediction or price object was deserialized; no code implementation, tests, fits or accounts were run.",
+  "implementation_and_synthetic_design_eligible": true,
+  "owner_implementation_GO_required": true,
+  "real_preflight_approved": false,
+  "fit_approved": false,
+  "account_approved": false,
+  "promotion_approved": false,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "next_action": "Freeze the executable plan with these three implementation conditions, then authorize the single implementation/synthetic stage. Review final code and the separately authorized no-fit result before any six-fit/six-account execution GO."
+}
