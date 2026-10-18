@@ -1,0 +1,8 @@
+experiment: calendar_tom_source_20261018
+entrypoint: src.workflow.calendar_tom_source.run
+phase: repair_1_approved_once_cache_only_qualification
+parent_card: ..
+source_execution_environment: CALENDAR_TOM_SOURCE_EXECUTE=1
+source_execution_authorized: true
+artifact_policy: slim_card_recorder_first
+source_execution_approval: source_execution_approval.json

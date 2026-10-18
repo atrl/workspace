@@ -41,6 +41,11 @@ _DATE = re.compile(
 _EARLY = re.compile(
     r"Each market will close early at (\d{1,2}):(\d{2})\s*p\.m\."
     r"\s*(?:\([^)]*\))?\s*on (.+?)\.(?=\s|$)", re.I)
+_NOMINAL_OBSERVED_NOTE = re.compile(
+    r"(?P<actual>(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+"
+    r"(?:" + "|".join(_MONTHS) + r")\s+\d{1,2})\s*"
+    r"\((?:" + "|".join(_MONTHS) + r")\s+\d{1,2}\s+holiday observed\)\s*[*†┼]*",
+    re.I)
 _HOLIDAY = re.compile(
     r"^(?:New Year.?s Day|Martin Luther King.*Day|Washington.?s Birthday|"
     r"Presidents.? Day|Good Friday|Memorial Day|Juneteenth.*Day|"
@@ -251,6 +256,13 @@ def _ice_rows(raw: bytes, spec: dict, common: dict, text: str,
             dates = _dates(value, year)
             if len(dates) == 1:
                 session = dates[0]
+            elif "holiday observed" in value.lower():
+                # Here the parenthesis names the nominal holiday.  Only this
+                # exact two-date grammar makes the leading date authoritative.
+                note = _NOMINAL_OBSERVED_NOTE.fullmatch(value)
+                if note is None or len(dates) != 2:
+                    raise ValueError("nominal observed-holiday annotation is ambiguous")
+                session = _dates(note["actual"], year)[0]
             elif "observed" in value.lower():
                 observed = re.split(r"observed", value, flags=re.I)[-1]
                 observed_dates = _dates(observed, year)

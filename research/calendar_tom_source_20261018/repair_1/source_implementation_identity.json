@@ -1,0 +1,25 @@
+{
+  "source_plan_sha256": "469e7c9d3165658be2135ea814a75fbbfa8ff1e4c57d43b1112034e8128bd0cc",
+  "code_sha256": {
+    "src/workflow/calendar_tom_source.py": "20f6d82dd8972071442d440fa6f5273b6bba1091c73a189388b02ffa68620d4c",
+    "src/data/calendar_knowledge.py": "cd66e99fcc21515f58a0d4b6c9095018cc57c2282d3cc32b85652fcafc61612a",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444",
+    "tests/test_calendar_knowledge.py": "9e17b4b359d060f05f88e4642a786030062ad014bff90566f171cc472c1a9a08",
+    "tests/test_calendar_tom_source.py": "6ec5ce7c63466edef6037ec3e507d3e04e421a11309779fff57dd941e20347c0"
+  },
+  "parser_specs_sha256": "05cb9602134355cccea7555f4a3b77769e6441d15f63f18585adf0863a452953",
+  "initial_source_plan_sha256": "ef3e10ca812f7bf45bc8ed22a6f54df61ff11a03dbd1dd29b4872acff8c23dbb",
+  "initial_result_review_sha256": "a058b5b593c3e30b13b0cfd03c82f8b081f038adbd7b19b1558d3f7931911a92",
+  "initial_Recorder_and38artifacts_preserved": true,
+  "focused_regression": {
+    "exec_session": 98401,
+    "exit_code": 0,
+    "passed": 1,
+    "new_real_corpus_parses": 0
+  },
+  "compile_and_diffcheck": "passed",
+  "newHTTP_feature_return_fit_account_NASreads": 0,
+  "source_execution_authorized": false
+}

@@ -1,0 +1,21 @@
+{
+  "experiment": "calendar_tom_source_20261018",
+  "stage": "repair_1_implementation_pending_review_and_GO",
+  "recorder_id": null,
+  "initial_recorder_id": "638ecf0af9204ba38e2e36e7be0307f1",
+  "initial_archive_sha256": "0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
+  "new_source_qualification_runs": 0,
+  "new_HTTP": 0,
+  "candidate_features_generated": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source/*",
+      "analysis/coverage_detail",
+      "analysis/discrepancies"
+    ]
+  }
+}

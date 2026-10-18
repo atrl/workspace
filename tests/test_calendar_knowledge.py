@@ -104,3 +104,34 @@ def test_cached_announcement_ledger_keeps_knowledge_time_and_venue_boundaries():
         assert text[row.source_span["start"]:row.source_span["end"]] == row.source_text
         assert row.raw_sha256 == hashlib.sha256(bodies[row.document_id]).hexdigest()
     assert not any(name in ledger for name in ["tom", "first_three", "last_day", "feature", "return"])
+
+    # The outer date is the closure; the parenthesis is a nominal holiday.
+    observed = (f"<p>Nov 01, 2019</p><p>{ice_scope}</p><table>"
+                "<tr><td>2020 Holidays</td></tr><tr><td>Independence Day</td>"
+                "<td>Friday, July 3 (July 4 holiday observed)</td></tr>"
+                "<tr><td>2021 Holidays</td></tr><tr><td>Independence Day</td>"
+                "<td>Monday, July 5 (July 4 holiday observed)</td></tr>"
+                "<tr><td>2022 Holidays</td></tr><tr><td>Christmas Day</td>"
+                "<td>Sunday, December 25 (Observed Monday, December 26)</td></tr></table>"
+                "<p>Each market will close early at 1:00 p.m. on Thursday, December 24, 2020.</p>").encode()
+    regressions = {
+        "observed": observed,
+        "extra_nominal_date": observed.replace(b"July 4 holiday observed)",
+                                               b"July 4 holiday observed and July 6)", 1),
+        "missing_leading_weekday": observed.replace(b"Friday, July 3 (", b"July 3 (", 1),
+    }
+    observed_spec = {"parser_type": "ice_calendar", "scope_anchor": ice_scope,
+                     "venues": ["NYSE", "NYSE_ARCA"],
+                     "publication": publication("2019-11-01", "Nov 01, 2019"),
+                     "calendar": {"table_index": 0, "years": [2020, 2021, 2022], "full_years": []}}
+    regression_docs = [{"id": key, "native_capture": {"http_status": 200,
+                        "sha256": hashlib.sha256(raw).hexdigest(), "bytes": len(raw)}}
+                       for key, raw in regressions.items()]
+    repair = build_knowledge_ledger(regression_docs, regressions,
+                                    document_specs={key: observed_spec for key in regressions})
+    admitted = repair["ledger"]
+    assert set(admitted.document_id) == {"observed"}
+    closed_days = admitted[admitted.assertion_kind == "planned_closed"].session_date
+    assert set(closed_days.dt.strftime("%Y-%m-%d")) == {"2020-07-03", "2021-07-05", "2022-12-26"}
+    assert len(repair["source_gaps"]) == 2
+    assert all("nominal observed-holiday annotation" in gap["reason"] for gap in repair["source_gaps"])
