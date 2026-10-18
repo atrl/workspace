@@ -2291,6 +2291,19 @@
       "new_accounts": 0,
       "approved_new_candidates": 0,
       "next_action": "Continue current calendar source/receiving-task qualification. Neither external lead is an executable replacement for the stable-SOXX-excess goal."
+    },
+    "overnight_intraday_supervision_triage": {
+      "path": "research/external_mechanism_review_20261018/overnight_intraday_task_triage.md",
+      "sha256": "dbb2f97c24fdb96a3def67eb6cfc7570819babb91d6ab6cb4894ef5fe5ce1ea9",
+      "search_groups": 4,
+      "queries": 12,
+      "status": "needs_train_only_label_contract_and_matched_supervision_design",
+      "possible_mechanism": "H5 overnight-minus-intraday relative log-return contrast supervision with unchanged original inputs, H1 allocation objective and H5 tail/alpha tasks",
+      "priority": "not_direct_fit_ready",
+      "important_correction": "Original allocation returns are H1 next-open to following-open; H5 tail/cash/alpha and shared maturity filtering remain unchanged. This corrects prose, not saved data or mathematics.",
+      "new_features_labels_fits_accounts": 0,
+      "candidate_execution_authorized": false,
+      "next_action": "Retain as separate bounded lead; current preopen TOM implementation remains primary. No overnight-only account, offset, sign or threshold rescue."
     }
   },
   "research_focus_history": [
