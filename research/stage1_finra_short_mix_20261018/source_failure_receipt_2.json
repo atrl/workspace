@@ -1,0 +1,13 @@
+{
+  "error": "CNMSSchemaError: trade date must be exactly YYYYMMDD",
+  "exit_code": 1,
+  "session_id": 79014,
+  "HTTP_attempts": 2178,
+  "new_daily_after_repair1": 2052,
+  "new_www_after_repair1": 0,
+  "new_retry_after_repair1": 0,
+  "unfinished_attempts": 0,
+  "raw_cache_preserved": true,
+  "Recorder_created": false,
+  "NAS_archive_created": false
+}

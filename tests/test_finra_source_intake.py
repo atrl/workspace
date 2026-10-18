@@ -8,6 +8,29 @@ import pytest
 from src.workflow.finra_short_mix_source_intake import BudgetedHTTP, month_links
 
 
+def test_cached_finalize_converts_calendar_dates_without_network(tmp_path):
+    from src.data.finra_short_mix_schema import parse_cnms_file
+    from src.workflow.finra_short_mix_source_intake import source_calendar_frame
+    import hashlib
+    body = b"Date|Symbol|ShortVolume|ShortExemptVolume|TotalVolume|Market\n20261009|SOXL|12.123456|0|20.123456|B,Q,N\n20261009|SOXX|2|0|10|B,Q,N\n2\n"
+    digest = hashlib.sha256(body).hexdigest()
+    client = BudgetedHTTP(tmp_path, maximum=0, retry_maximum=0, gap=.25,
+                          headers={}, cache_only_hosts={"cdn.finra.org", "www.finra.org", "finra.org"})
+    url = "https://cdn.finra.org/equity/regsho/daily/CNMSshvol20261009.txt"
+    path = tmp_path / "objects" / (digest + ".bin")
+    path.parent.mkdir(exist_ok=True)
+    path.write_bytes(body)
+    receipt = {"status": 200, "sha256": digest, "object": "objects/" + path.name}
+    client.state["cache"][url] = receipt
+    retained, observed = client.get(url, "daily")
+    assert retained == body and observed["sha256"] == digest
+    panel = source_calendar_frame({"2026-10-09": parse_cnms_file(retained, "20261009")})
+    assert len(panel) == 2 and str(panel.datetime.iloc[0].date()) == "2026-10-09"
+    assert panel.source_ready.eq(1).all()
+    assert client.get(url.replace("20261009", "20261008"), "daily")[1]["no_http_request"]
+    assert client.state["attempts"] == []
+
+
 def test_redirect_counts_global_budget_and_successful_cache_is_not_fetched(tmp_path):
     calls = []
     class Handler(BaseHTTPRequestHandler):

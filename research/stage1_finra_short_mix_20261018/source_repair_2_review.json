@@ -1,0 +1,71 @@
+{
+  "role": "independent_evaluator",
+  "reviewer": "/root/independent_evaluator",
+  "experiment": "stage1_finra_short_mix_20261018",
+  "verdict": "APPROVE_SOURCE_REPAIR_2",
+  "repair_sha256": "ac6af1840cb2a00492dedd45c11456c5b63d2fbd089b7f908b8d97bc2b6ee109",
+  "source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+  "preflight_sha256": "227659241303cfe527f6a8ca448267289c15f78d0d452137ec5c44d055cb89d9",
+  "code_sha256": {
+    "src/workflow/finra_short_mix_source_intake.py": "874b0b940f59bfd2a0bd2613801770193b015b690db083aef9ab893e137a3def",
+    "src/data/finra_short_mix_schema.py": "581717db684804d8a4a6dbd175f9eb7cc73b819033de5a2a12bafd7bd8358c53",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "scope": "Cache-only source finalization after the ISO-to-compact date-key call-site failure. This review does not approve a model or certify the unfinished source results.",
+  "findings": [],
+  "independent_checks": {
+    "repair_preflight_and_live_code_hashes_match": true,
+    "original_plan_and_authorization_chain_hashes_match": true,
+    "preserved_old_code_HTTP_state_and_failure_snapshot_hashes_match": true,
+    "preserved_attempt_prefix_count": 2178,
+    "preserved_attempt_prefix_sha256": "4d688e84be278a062ed2330e64b355b7ede7a113d60f6d7b4cdfd841be4afae8",
+    "current_attempts_equal_preserved_snapshot": true,
+    "HTTP200_count": 2068,
+    "HTTP429_count": 110,
+    "incomplete_started_attempts": 0,
+    "original_HTTP_hard_limit": 2242,
+    "original_retry_budget_consumed": 16,
+    "calendar_dates": 2059,
+    "ISO_to_compact_keys_are_unique_and_bijective": true,
+    "successful_daily_cache_keys_exactly_match_frozen_calendar": true,
+    "source_schema_unchanged": true,
+    "source_Recorder_exists_before_finalize": false
+  },
+  "contract_review": [
+    "daily() already parses each raw file using its compact YYYYMMDD trade date. source_calendar_frame now converts only the ISO dictionary keys at the source_frame call boundary. The strict schema and parsed trade_date checks remain unchanged.",
+    "The original parsed_exact and receipt dictionaries retain their ISO keys. The adapter does not shift dates, remove calendar rows, replace source bytes or create prices and return labels.",
+    "All allowed FINRA source hosts are cache-only. Successful cache reads verify the existing body hash; missing or failed cached dependencies cannot issue a new request. Redirect following remains disabled and the exhausted retry budget is not reset.",
+    "The full 2178-attempt fingerprint is checked before and after cached collection. The preserved 126-attempt repair-1 prefix and exhausted retry identity are also retained.",
+    "The raw bundle includes repair_2 with the old workflow, failed run-state and full HTTP-state snapshot. The new Recorder retains repair-2 plan, failure receipt, preflight, independent review and owner approval alongside the source evidence.",
+    "Original daily coverage, document success, revision metadata and historical vintage/PIT gates are not relaxed. Cached global publication semantics remain a separate supplement; invalid month indexes remain unknown."
+  ],
+  "execution_boundary": {
+    "requires_owner_source_resume_approval_2": true,
+    "owner_approval_must_match_repair_and_final_code": true,
+    "maximum_additional_FINRA_source_HTTP_requests": 0,
+    "maximum_additional_source_retries": 0,
+    "all_hosts_cache_only": [
+      "finra.org",
+      "www.finra.org",
+      "cdn.finra.org"
+    ],
+    "already_authorized_NAS_evidence_upload_allowed": true,
+    "NAS_upload_is_not_source_recollection": true,
+    "new_sources": 0,
+    "return_labels": 0,
+    "model_fits": 0,
+    "portfolio_accounts": 0
+  },
+  "verification_scope": "Read-only repair diff, focused regression-test source, exact hashes, preserved journal, cache URL identities and frozen calendar mapping. The executor reported the one focused regression passed; this evaluator did not rerun tests or execute finalization, and made no HTTP requests.",
+  "source_result_review_required_after_finalize": true,
+  "conditional_model_design_eligible": null,
+  "model_execution_approved": false,
+  "source_qualification_gates_relaxed": false,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "production_change_authorized": false,
+  "promotion_authorized": false,
+  "objective_achieved": false
+}

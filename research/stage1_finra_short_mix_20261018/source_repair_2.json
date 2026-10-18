@@ -1,0 +1,36 @@
+{
+  "repair": 2,
+  "phase": "cache_only_finalize_after_all_daily_HTTP",
+  "source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+  "failure": "Collector ISO calendar dictionary keys passed to source_frame requiring compact YYYYMMDD; failure before Qlib/Recorder/NAS archive, no scientific outcome.",
+  "failed_session": 79014,
+  "failed_exit_code": 1,
+  "original_execution_approval_sha256": "0a1f6cfd0f91490b82e9aeaedabecb0081e786aeefb207da13b1e6b03dd7269b",
+  "prior_resume_approval_sha256": "cb4c882fcf06e1a7f12cbc98df4e025dbba800b9f709fccfb0c55b2c58a97e96",
+  "prior_repair_sha256": "aba1bb658a0cb8c4dbc18dafcfe46057e6158068cbbcff3f4d80fef0236b21a9",
+  "preserved_attempt_prefix_count": 2178,
+  "preserved_attempt_prefix_sha256": "4d688e84be278a062ed2330e64b355b7ede7a113d60f6d7b4cdfd841be4afae8",
+  "successful_daily_cache": 2059,
+  "HTTP_statuses": {
+    "200": 2068,
+    "429": 110
+  },
+  "maximum_additional_HTTP_requests": 0,
+  "all_hosts_cache_only": [
+    "finra.org",
+    "www.finra.org",
+    "cdn.finra.org"
+  ],
+  "retries": 0,
+  "new_sources": 0,
+  "labels": 0,
+  "fits": 0,
+  "accounts": 0,
+  "repair_scope": "Normalize ISO calendar keys only at source_frame boundary; preserve parsed_exact ISO keys and compact source trade_date. All source bodies unchanged. Reparse cache, build native source store, archive Recorder/rawbytes to NAS; metadata/vintage unknown unchanged.",
+  "old_workflow_sha256": "db798c3595cc96783f199880cdd185df878d940ccab02b813d28b0372cc937d5",
+  "HTTP_state_snapshot_sha256": "3653928509b37163398574fea86c7660c7bc8e4fa5761979b5225054d7d4a612",
+  "failed_state_sha256": "defcedfa1b756a183a6fd01606e7d5dc4e915a3eae3c5aae36f706261f7ed1e0",
+  "preserved_evidence_dir": "/tmp/stage1-finra-short-mix-source-intake-20261018/repair_2",
+  "execution": "Requires narrow independent repair2 review plus owner source_resume_approval_2 matching code/plan/prefix; no automatic execution.",
+  "source_HTTP_scope": "FINRA source requests only. Already-authorized NAS evidence upload transport is allowed and is not source recollection."
+}

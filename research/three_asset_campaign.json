@@ -1691,38 +1691,36 @@
     "completed_experiment_scope": "research/stage1_domain_heads_20261018",
     "current_task": {
       "card": "research/stage1_finra_short_mix_20261018",
-      "phase": "FINRA_source_intake_resumed_CDN_only",
+      "phase": "FINRA_cache_finalize_running",
       "bulk_started": true,
       "model_training_started": false,
       "account_replay_started": false,
       "executor": "/root/recent_evidence",
       "bulk_authorized": true,
-      "executor_session_id": 79014,
+      "executor_session_id": 41517,
       "observed_at": "2026-10-18T04:37:18.342833+00:00",
-      "HTTP_attempts_observed": 165,
+      "HTTP_attempts_observed": 2178,
       "HTTP_ledger": "/tmp/stage1-finra-short-mix-source-intake-20261018/http_state.json",
       "executor_session_exit_code": null,
-      "collection_currently_running": true,
-      "successful_daily_cache_files": 7,
+      "collection_currently_running": false,
+      "successful_daily_cache_files": 2059,
       "repair_executor": "/root/recent_evidence",
       "metadata_dependency": "Incorrect form parameters and www429 challenge; cache-only during raw-daily recovery",
       "Goal_stopped": false,
-      "previous_executor_session_id": 90248,
-      "previous_executor_exit_code": 130,
-      "source_resume_approval": "research/stage1_finra_short_mix_20261018/source_resume_approval_1.json",
+      "previous_executor_session_id": 79014,
+      "previous_executor_exit_code": 1,
+      "source_resume_approval": "research/stage1_finra_short_mix_20261018/source_resume_approval_2.json",
       "new_www_HTTP": 0,
       "additional_retries": 0,
       "latest_source_checkpoint": {
         "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
-        "stage": "collecting_source_only",
-        "daily_processed": 1200,
-        "daily_valid": 1200,
-        "HTTP_attempts": 1323,
-        "HTTP_hard_limit": 2242,
+        "stage": "source_intake_failed_cache_preserved",
+        "error": "CNMSSchemaError: trade date must be exactly YYYYMMDD",
+        "HTTP_attempts": 2178,
         "model_fits": 0,
         "accounts": 0
       },
-      "liveness_observation": "Original nbconvert PID59397 independently observed; executor polled same session79014. Source-only, no fit/account.",
+      "liveness_observation": "Executor launched and owns new cache-only finalize session41517 after original79014 terminalexit1; no source HTTP allowed. Root independently checked new nbconvert process.",
       "deterministic_model_preparation": {
         "model_input_adapter": "src/model/finra_allocator.py",
         "source_feature_adapter": "src/data/finra_allocation_features.py",
@@ -1744,7 +1742,12 @@
           },
           "scope": "Deterministic feature/model and21-account analysis contracts only; no formal model execution, source completion or promotion approval. Workflow still must bind verified source/account identities and enforce944-executable-date scope."
         }
-      }
+      },
+      "source_http_complete": true,
+      "source_archive_complete": false,
+      "repair_2_reason": "Caller passed ISO date keys to strict YYYYMMDD source-frame interface; failed before any Recorder. Fix conversion and finalize cached bytes only.",
+      "repair_2_new_HTTP_authorized": 0,
+      "cache_finalization_running": true
     }
   },
   "goal_contract_20261018": {
@@ -1849,7 +1852,19 @@
         "source_limits": "Normal390minute sessions only forincrement;210minute sessions remain completebaseline accounts. Previous halfday close uses13:00.2020-03-16 SOXX anomaly quarantined. Crossday split/dividend eventavailability and endpoints require separate preflight; missing meansnoincrement,neverdropday.",
         "controls": "OriginalStage1, sameclock/opportunity-set recovery withoutROD, SOXX,strongreference. All threecost accounts retain owncash/quantity/state and chargeentry+exit. Increment cannotborrow fullminute/forwardqualification.",
         "next_action": "Only after currentFINRA experiment: separately freeze one reduced-form design and necessary endpoint/eventsource checks. No newlabels/fits/accounts yet.",
-        "primary_limit": "Futures longshort and broadasset evidence is notSOXL validation; priceROD doesnotmeasuregamma orNGE; oldmarketdates remainreused."
+        "primary_limit": "Futures longshort and broadasset evidence is notSOXL validation; priceROD doesnotmeasuregamma orNGE; oldmarketdates remainreused.",
+        "independent_novelty_review": {
+          "reviewer": "/root/independent_evaluator",
+          "verdict": "ALLOW_SEPARATE_FROZEN_DESIGN_AFTER_FINRA",
+          "execution_approved": false,
+          "scientific_success_claimed": false,
+          "basis": "Information set, same-day terminal holding interval and external transient-pressure hypothesis differ jointly from closed early/all-day-overnight routes. Reused market history remains reused.",
+          "remaining": [
+            "Fix right-edge bar economic timing and point-in-time split/dividend treatment; previous close must be actual previous session including halfday. Missing endpoint/event eligibility disables both overlays but preserves baseline account day.",
+            "Define temporary recovery and unwind as feasible per-cost own-state changes in physical quantity/exposure. Preserve all PnL and two-sided costs; no imaginary reset to no-overlay counterfactual NAV. Matched noROD control changes only the sign gate."
+          ],
+          "invalidating_changes": "Leaving increment overnight, inheriting old overnight prediction labels or selecting windows after outcomes invalidates novelty approval."
+        }
       }
     }
   },

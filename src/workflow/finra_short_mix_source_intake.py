@@ -308,8 +308,9 @@ def process_lock(work):
 
 def _approval(root, card, plan_sha):
     review = json.loads((card / "design_review.json").read_text())
-    repair_path = card / "source_repair_1.json"
-    approval_name = "source_resume_approval_1.json" if repair_path.exists() else "source_execution_approval.json"
+    repair_number = 2 if (card / "source_repair_2.json").exists() else 1
+    repair_path = card / f"source_repair_{repair_number}.json"
+    approval_name = f"source_resume_approval_{repair_number}.json" if repair_path.exists() else "source_execution_approval.json"
     execution = json.loads((card / approval_name).read_text())
     if review.get("plan_sha256") != plan_sha or review.get("verdict") != "APPROVE_SOURCE_INTAKE_ONLY":
         raise ValueError("source-only design approval missing or changed")
@@ -319,13 +320,17 @@ def _approval(root, card, plan_sha):
         raise ValueError("source intake implementation changed after approval")
     if repair_path.exists():
         repair = json.loads(repair_path.read_text())
-        repair_review = json.loads((card / "source_repair_1_review.json").read_text())
+        repair_review = json.loads((card / f"source_repair_{repair_number}_review.json").read_text())
         if execution.get("repair_sha256") != sha(repair_path) or repair_review.get("repair_sha256") != sha(repair_path):
             raise ValueError("source repair identities differ")
-        if repair_review.get("verdict") not in {"APPROVE_SOURCE_REPAIR_1", "APPROVE_SOURCE_REPAIR"}:
+        if repair_review.get("verdict") not in {f"APPROVE_SOURCE_REPAIR_{repair_number}", "APPROVE_SOURCE_REPAIR"}:
             raise ValueError("source repair review not approved")
         if sha(card / "source_execution_approval.json") != repair["original_execution_approval_sha256"]:
             raise ValueError("original source authorization changed")
+        if repair_number == 2 and sha(card / "source_resume_approval_1.json") != repair["prior_resume_approval_sha256"]:
+            raise ValueError("prior source resume authorization changed")
+        if repair_number == 2 and sha(card / "source_repair_1.json") != repair["prior_repair_sha256"]:
+            raise ValueError("prior source repair identity changed")
 
 
 def preflight(*, root, card):
@@ -377,7 +382,19 @@ def preflight(*, root, card):
             remaining_HTTP_max=arithmetic - len(state["attempts"]), successful_daily_cache=len(daily_cached),
             unique_daily_remaining=2059 - len(daily_cached), additional_retries=0,
             www_branch="cache_only_no_new_requests", prior_attempt_prefix_unchanged=True)
-        atomic_json(result, card / "source_repair_preflight_1.json")
+        repair2_path = card / "source_repair_2.json"
+        if repair2_path.exists():
+            repair2 = json.loads(repair2_path.read_text())
+            fingerprint = hashlib.sha256(json.dumps(state["attempts"], sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+            if (len(state["attempts"]) != repair2["preserved_attempt_prefix_count"]
+                    or fingerprint != repair2["preserved_attempt_prefix_sha256"] or len(daily_cached) != 2059):
+                raise ValueError("cache-only finalize requires all daily bytes and unchanged full HTTP history")
+            result.update(source_repair_sha256=sha(repair2_path), maximum_additional_HTTP_requests=0,
+                          remaining_HTTP_max=0, all_hosts_cache_only=repair2["all_hosts_cache_only"],
+                          bulk_HTTP_started=True, new_HTTP_in_this_preflight=0)
+            atomic_json(result, card / "source_repair_preflight_2.json")
+        else:
+            atomic_json(result, card / "source_repair_preflight_1.json")
     else:
         atomic_json(result, card / "source_preflight.json")
     return result
@@ -416,16 +433,20 @@ def _collect(root, card, plan, plan_sha, calendar, work):
     requests = plan["requests"]
     repair_path = card / "source_repair_1.json"
     repair = json.loads(repair_path.read_text()) if repair_path.exists() else None
+    repair2_path = card / "source_repair_2.json"
+    repair2 = json.loads(repair2_path.read_text()) if repair2_path.exists() else None
     client = BudgetedHTTP(work, maximum=requests["maximum_total_HTTP_requests"],
         retry_maximum=requests["maximum_network_retries"], gap=requests["minimum_global_request_gap_seconds"],
         headers=requests["headers"], timeout=requests["timeout_seconds"],
-        cache_only_hosts=repair["metadata_hosts_cache_only"] if repair else (),
+        cache_only_hosts=repair2["all_hosts_cache_only"] if repair2 else repair["metadata_hosts_cache_only"] if repair else (),
         follow_redirects=not bool(repair), canonical_daily_only=bool(repair))
     if repair:
         prefix = client.state["attempts"][:repair["preserved_attempt_prefix_count"]]
         fingerprint = hashlib.sha256(json.dumps(prefix, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
         if fingerprint != repair["preserved_attempt_prefix_sha256"] or len(client.state["retried"]) != 16:
             raise ValueError("preserved request prefix or exhausted retry budget changed")
+    if repair2:
+        _assert_offline_history(client.state, repair2)
     for probe in json.loads((card / "probe_receipts.json").read_text())["samples"]:
         client.import_probe(probe)
     months = list(pd.period_range(requests["month_first"], requests["month_last"], freq="M"))
@@ -501,9 +522,23 @@ def _collect(root, card, plan, plan_sha, calendar, work):
         status = "unknown" if not month["valid"] or not links else "updated_link_present" if any(row["updated"] for row in links) else "original_link_observed_not_vintage_certified"
         revision_rows.append({"trade_date": day, "revision_metadata": status, "month_index_valid": month["valid"],
                               "original_bytes_certified": False, "links": links})
-    panel = source_frame(parsed_by_date)
+    panel = source_calendar_frame(parsed_by_date)
+    if repair2:
+        _assert_offline_history(client.state, repair2)
     return _archive(root, card, plan, plan_sha, work, client, panel, parsed_by_date,
                     receipts, metadata, documents, update_receipts, revision_rows, errors)
+
+
+def source_calendar_frame(parsed_by_date):
+    """Translate the Qlib ISO calendar key to the parser's compact-date contract."""
+    return source_frame({day.replace("-", ""): parsed for day, parsed in parsed_by_date.items()})
+
+
+def _assert_offline_history(state, repair):
+    fingerprint = hashlib.sha256(json.dumps(state["attempts"], sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    if (len(state["attempts"]) != repair["preserved_attempt_prefix_count"]
+            or fingerprint != repair["preserved_attempt_prefix_sha256"]):
+        raise ValueError("cache-only finalize changed the preserved HTTP history")
 
 
 def _archive(root, card, plan, plan_sha, work, client, panel, parsed, receipts, metadata, documents, updates, revisions, errors):
@@ -540,6 +575,8 @@ def _archive(root, card, plan, plan_sha, work, client, panel, parsed, receipts, 
         archive.add(client.path, arcname="http_state.json")
         if (work / "repair_1").exists():
             archive.add(work / "repair_1", arcname="repair_1")
+        if (work / "repair_2").exists():
+            archive.add(work / "repair_2", arcname="repair_2")
     valid_documents = sum(receipt.get("status") == 200 for receipt in documents.values())
     raw_daily_complete = not errors and len(parsed) == 2059
     revision_unknown = sum(row["revision_metadata"] == "unknown" for row in revisions)
@@ -556,6 +593,11 @@ def _archive(root, card, plan, plan_sha, work, client, panel, parsed, receipts, 
             repair_names = ["source_repair_1", "source_form_mapping", "source_interruption_receipt",
                             "source_repair_preflight_1", "source_repair_1_review", "source_resume_approval_1"]
             rec.save_objects(artifact_path="inputs/repair_1", **{
+                name: json.loads((card / (name + ".json")).read_text()) for name in repair_names})
+        if (card / "source_repair_2.json").exists():
+            repair_names = ["source_repair_2", "source_failure_receipt_2", "source_repair_preflight_2",
+                            "source_repair_2_review", "source_resume_approval_2"]
+            rec.save_objects(artifact_path="inputs/repair_2", **{
                 name: json.loads((card / (name + ".json")).read_text()) for name in repair_names})
         rec.save_objects(artifact_path="source", parsed_exact=parsed, panel_float64=panel, dataset=dataset,
             daily_receipts=receipts, monthly_metadata=metadata, official_documents=documents,

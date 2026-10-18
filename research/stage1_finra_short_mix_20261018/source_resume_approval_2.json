@@ -1,0 +1,24 @@
+{
+  "approved": true,
+  "approved_by": "/root",
+  "approved_at": "2026-10-18T05:16:58.427180+00:00",
+  "scope": "Finalize all2059 cached daily files only: ISO-to-compact key repair, native Qlib source readback and existing NAS evidence upload. Zero additional FINRA source HTTP. Preserve2178 attempts and all raw bytes; no model/account or production change.",
+  "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+  "repair_sha256": "ac6af1840cb2a00492dedd45c11456c5b63d2fbd089b7f908b8d97bc2b6ee109",
+  "repair_review_sha256": "47b7107db41ea07bdc72e455ab007e0ea326e798d5ddc98fd882a61650e5d5ea",
+  "repair_preflight_sha256": "227659241303cfe527f6a8ca448267289c15f78d0d452137ec5c44d055cb89d9",
+  "code_sha256": {
+    "src/workflow/finra_short_mix_source_intake.py": "874b0b940f59bfd2a0bd2613801770193b015b690db083aef9ab893e137a3def",
+    "src/data/finra_short_mix_schema.py": "581717db684804d8a4a6dbd175f9eb7cc73b819033de5a2a12bafd7bd8358c53",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "HTTP_hard_limit": 2242,
+  "already_consumed": 2178,
+  "remaining_unique_daily_URLs": 0,
+  "maximum_additional_FINRA_HTTP_requests": 0,
+  "new_model_fits_authorized": 0,
+  "new_accounts_authorized": 0,
+  "production_change_authorized": false
+}
