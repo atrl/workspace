@@ -1,0 +1,9 @@
+来源预检完成：944账户日，其中936正常日、8半日。必要端点15060行，缺失或无效0行；两资产各3778个原账户价格锚点精确核对。首个上一交易日为2023-01-03，实际收盘2023-01-03 16:00:00；前一半日13:00收盘按原日历使用。
+
+事件源当前快照覆盖至2026-10-09，尾段支持=True。事件及未知覆盖日双方均不允许新增尾盘lot，完整原账户日保留；这不构成历史PIT的无事件证明。
+
+仅校验原始价格和Qlib数值表示误差，未比较两价格生成方向，未计算ROD/尾盘收益/标签，0fit/0policy/0account/0新市场数据HTTP。float64价格是未来获批后的严格符号权威；Qlibfloat32仅派生缓存。
+
+决定：source_dependencies_observed_for_separate_strategy_review。来源与NAS身份见source_preflight/summary.json；正式策略设计独评和另行执行GO仍必需。稳定超额目标未完成。
+
+独立来源结果评价已允许进入完整策略冻结；不批准ROD信号计算或策略账户。NAS冷恢复28个产物哈希、原生float64 Dataset、端点与事件mask均一致。旧锚点保持原F32投影，新增成交/估值也用F32读数升64算账；未来ROD符号另用已验证native float64严格价格比较。来源PIT和独立前向资格仍为false。详见source_result_review.json与source_preflight/readback_verification.json。

@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "synthetic_contract_tests": [
+    {
+      "path": "tests/test_close_rod_raw.py",
+      "passed": 1,
+      "scope": "toward-zero lot/full envelope/receivable nofunding/exactunwind/B-Cgate/unchangedmorning/nativebridge",
+      "final_seconds": 2.51
+    },
+    {
+      "path": "tests/test_close_rod_reference.py",
+      "passed": 1,
+      "scope": "passive-only grid/price/state identity/old wealth invariance",
+      "seconds": 0.89
+    }
+  ],
+  "existing_source_tests_repeated": false,
+  "actual_integration_preflight": {
+    "session": 45319,
+    "exit_code": 0,
+    "signs": 0,
+    "paths": 0,
+    "native_accounts": 0,
+    "passive_valuations": 0
+  }
+}

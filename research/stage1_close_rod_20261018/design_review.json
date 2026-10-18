@@ -1,0 +1,113 @@
+{
+  "role": "independent_evaluator",
+  "reviewer": "/root/independent_evaluator",
+  "experiment": "stage1_close_rod_20261018",
+  "verdict": "APPROVE_STRATEGY_DESIGN",
+  "plan_sha256": "a548cbac5bf81787d9b14cc4491c711c903476489f17488b98e5e638bb9387b1",
+  "implementation_identity_sha256": "e92affedc942f46fe16b24289d0432d0833eca19e5842d3ceabb6897feeaac6e",
+  "preflight_sha256": "e269db6b083a3b7fd11b4e7416aeed224fd1306a74c051da017335bc465421c3",
+  "preserved_preflight_path": "strategy_preflight_before_consistency_review.json",
+  "preflight_identity_rebinding_sha256": "d58ec5a30ce988cf3c129620395935d2dc79a44a91ea38fbf9c68a195f9d48de",
+  "code_sha256": {
+    "src/workflow/close_rod.py": "6ee89fcc877431e6240c1877600080189ba7032ccafe32da7e6e6cf2bf2f37f9",
+    "src/backtest/close_rod_raw.py": "77b71170a93080f1d4b7137b4a2a7fb7578b894ae4eb2fa69cc74c508bd30963",
+    "src/backtest/close_rod_reference.py": "52c4f3cb4dbf27750eb6aca90ab3a7b5c7a1412b280861457637cdec66b4f979",
+    "src/analysis/close_rod.py": "498667ef4a7910715ef75c9477d50c4d96b558d3453800b3e5ca8ae2e0143a98",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "src/analysis/stage1_domain_heads.py": "b786650912e4645bd7d5bdc3ecc842f05a4f5ea9d45ffd2b6bc7158395b4fb39",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "findings": [],
+  "resolved_plan_consistency_issue": {
+    "previous_plan_sha256": "45d68634ed8c72f6ad6bb67185792ee0c74bfd09842ce6c75504f375829e8a32",
+    "changes_verified": [
+      "Source contract digest now equals the actual29a1dfbbdc745627016f704b25a8baa676e9b1690183c735156c0f8a399f74f9 file.",
+      "Conditional event coverage is fixed through2026-10-09, with all28 event dates excluded from increments and the old issuer9/25 qualification unchanged.",
+      "Late cap/emergency/wait treatment is fixed; stale wording no longer leaves a runtime veto or cap choice.",
+      "The unchanged.025/12 CI formula correctly names one fixed policy rather than a nonexistent seed ensemble."
+    ],
+    "policy_code_or_numeric_rules_changed": false,
+    "preflight_reexecuted_for_documentation": false,
+    "preflight_reuse_basis": "Session45319 exited0 under the preserved prior plan; all15 implementation hashes and all actual source, quote, parameter and coverage choices are identical. The rebinding receipt explicitly preserves that original observation identity rather than claiming a new preflight run."
+  },
+  "approved_design_budget": {
+    "model_fits": 0,
+    "new_policy_paths": 6,
+    "new_native_accounts": 6,
+    "reused_native_reference_accounts": 12,
+    "passive_reference_valuations": 12,
+    "total_comparison_accounts": 18,
+    "required_paired_CIs": 12,
+    "costs_bps": [0, 2, 5],
+    "candidate_policy_count": 1,
+    "parameter_searches": 0,
+    "new_market_source_HTTP": 0
+  },
+  "preflight_scope_verified": {
+    "account_sessions": 944,
+    "regular_sessions": 936,
+    "half_days": 8,
+    "regular_non_event_source_sessions": 908,
+    "old_anchor_points": 3778,
+    "expanded_grid_points": 6586,
+    "old_anchor_values_exact": true,
+    "reference_objects_byte_verified": 12,
+    "reference_objects_loaded_or_valued": 0,
+    "new_ROD_values_or_signs": 0,
+    "new_policy_paths": 0,
+    "new_native_accounts": 0
+  },
+  "implementation_checks": [
+    "The workflow requires a full strategy review and matching owner execution approval before calculating actual signs, loading reference portfolio objects for valuation, or running policy accounts. Source approval alone does not satisfy that guard.",
+    "B and C retain the original morning HOLD/execute and10:32 recovery calls, event order, peak events, known-return history and once-per-morning risk-clock transition. Each arm/cost constructs its own cash, quantities, income ledger and fee counters.",
+    "The new late permission uses only the known15:30 valuation and prior frozen source target/alpha. The0.60 ceiling, alpha>=0.25, lateDD>=0.08, raw-beta limit and max(openDD,lateDD)>=0.22=>cap0.30 rule are explicit new branch rules. The first-hour classifier is not repurposed as a late predictor and no new wait-state veto is inserted.",
+    "Signed quantity changes use floor(max(-delta,0)+1e-10) for forbidden baseline sales and floor(max(delta,0)+1e-10) for buys. The known-time request is first funded and constrained on copied fee state using known prices. Arrival-price processing receives only that known funded lot and may reduce or reject it, never enlarge it.",
+    "Every admitted partial buy checks the full postfee envelope: spendable cash and exit-fee reserve, no negative quantities, beta, SOXL weight, cash-like weight and raw risky mass. Receivables do not fund purchases; reserved baseline shares are not sold.",
+    "The scheduled exit sells exactly the executed integer lot using actual own prices and fee counters. The implementation asserts exact baseline-quantity restoration, unchanged receivables and cash conservation while retaining the realized lot PnL and fees. It does not reset NAV, peak, cash or future account state to a counterfactual baseline.",
+    "Strict native-float64 price comparison generates the later approved ROD0/1 flag. Execution and valuation use separately frozen native-F32 quotes promoted to float64; all old quote anchors remain exactly unchanged. Half-days and corporate-event/unknown-source days stay in the baseline calendar with no late increment.",
+    "Passive reference expansion requires exact old two-asset quote anchors, native q/C/R consistency, unchanged post10:32 state through close, no intervening orders/events and exactly the declared added grid. It preserves original orders, fees, corporate receipts, native reports/positions and daily authority. Added marks explicitly do not inherit native execution validation.",
+    "The analysis wrapper requires native validation for both new families and a separate passive-expansion audit for each frozen reference. It retains all18 books, all required costs, four required comparators, descriptive27baa, complete/partial periods and every126-session window.",
+    "Durable attempt inventories cap policy/native attempts at6 and passive valuations at12, with no silent retry. All paths are precommitted. An empty executable-lot opportunity set is reported as no-op/informationally untested rather than a successful timing test."
+  ],
+  "source_and_evidence_boundary": {
+    "source_recorder_id": "f8fd1c596eb04acc85febad7e2ee9474",
+    "source_archive_sha256": "ea8c5d50c40247a6324d64f593e4b90c34bac02df6603fe159ad737d8a78b6e1",
+    "source_result_review_sha256": "54094790192cf5ecfb50192d2cf14ac77af67585ef8ae28924cec88a8f1df3c9",
+    "source_qualification": "Conditional completed-history snapshot and historical end-label/+60-second assumptions; retrospective non-event membership is not historical PIT absence-of-event evidence.",
+    "actual_late_exposure": "15:32 to15:59,27minutes; not an auction fill or exact reproduction of the paper's interval.",
+    "risk_scope": "The6586-point common grid is expanded sparse monitoring, not fullminute or all-hours risk certification. Existing reference native audits cover their original grid only."
+  },
+  "statistical_and_Goal_gates": {
+    "required_comparators": ["A_active_research_replay", "B_close_permission", "SOXX", "strong9097"],
+    "wealth_gate": "C relative wealth>1+1e-8 against every required comparator at0/2/5bp",
+    "mean_block": 63,
+    "resamples": 10000,
+    "seed": 20261014,
+    "one_sided_alpha": 0.0020833333333333333,
+    "positive_lower_bounds_required": 12,
+    "stability": "SOXX-relative complete-year and126-session positive-excess fractions>=0.70, at least two complete years, partial periods separately reported",
+    "risk": "Close and all available common-grid MaxDD<=30percent and CVaR5 no worse than SOXX at every cost",
+    "limits": "All market history is reused, prior search multiplicity is unknown, and the fixed finite-bootstrap screen is conditional historical evidence. Source, fullminute risk and sufficiently qualified independent forward remain separate requirements; neither this review nor a completed backtest achieves the Goal."
+  },
+  "required_before_execution": [
+    "The owner must issue execution_approval for this exact final plan and these15 code hashes after this review, retaining the original preflight and its explicit identity-rebinding receipt.",
+    "Do not change caps, source masks, precision, clock times, sign, sizing, exit or comparator selection in response to results. Any concrete implementation failure stops at its evidence; the failed fixed version is not rescued by another parameter family."
+  ],
+  "verification_method": "Independent read-only review of the final plan, actual implementation and the two existing focused synthetic contracts; reused the completed source review and no-sign preflight. Verified the exact local consistency amendment, preserved preflight and15 unchanged source hashes. No actual ROD/sign, policy path, passive valuation or backtest was run by the evaluator; no test suite or NAS recovery was repeated.",
+  "required_code_fixes": [],
+  "owner_execution_GO_given_by_this_review": false,
+  "independent_result_review_required": true,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "production_change_authorized": false,
+  "promotion_authorized": false,
+  "objective_achieved": false
+}
