@@ -1,13 +1,9 @@
-# 09:29条件NYSE日历代理：实现阶段
+# 09:29条件NYSE日历代理：首次无拟合预检中断
 
-已实现固定四日条件代理、B/C四槽模型适配和阶段隔离工作流。三个集中synthetic合同均通过：feature71154、model3495、训练驻留范围33079，各1 passed；没有真实source/训练对象读取或proxy生成，0实际no-fit预检、fit、账户和新来源HTTP。
+唯一获批preflight执行15060已exit1（PID12442/kernel12443）。source-feature函数和训练对象驻留范围检查已运行，随后Dataset.prepare(col_set=CS_ALL)展平列层次，读取(meta,label_available_at)时报KeyError。canonical值尚未持久化，尚未创建本卡Recorder；tensor/scaler、初始化和mask组内可辨识性检查未完成，不能宣称通过。
 
-训练白名单只用已封存PG训练专用Dataset3014×85及20741×20，保留全部原列并只追加4列。未来预检将核全部驻留handler/loader帧、原39/16及11tensor/scaler、共同cohort和三mask组内proxy0/1变化。评价标签/收益对象仅在6个最终模型SHA固定后才加载；不能先加载全期对象再crop称未读。
+0优化器步、0fit、0account、0评价标签/收益对象读取，0新sourceHTTP。读取仅限获批calendar primitives和train-only对象，没有反序列化全期标签再crop。此为确定API接口缺陷，不是日历机制或经济结果；没有任何收益、区间或晋升结论。
 
-原allocation收益为H1次开盘到下次开盘，tail/alpha/cash为H5；共同H5成熟期筛选保持3014条，不因H1较早成熟扩样本。此为语义澄清，无标签或数学变更。
+原plan、GO、failedattempt及failure_receipt保留。公开DataHandler.CS_RAW只保留分组和列顺序，不更换data_key或数据内容；窄修复与现有synthetic回归将在独立repair_1子卡审查，真实第二次预检仍需owner GO。四日窗口、09:29因果定义、三态mask、原H1配置/H5辅助及共同3014cohort不变。
 
-未来上限为6fits、6个等权ensemble费用原生账户、15旧参考，共21books及15CI，当前均未执行。没有新的收益/窗口结果，不晋升。来源仍conditional/PITfalse，matched B的三mask本身含部分日历信息；数值增量是否可辨识须先过冻结预检门。
-
-下一步：独立整体实现review与owner source-feature+train-only no-fit GO；实际预检通过后，才由合并最终design/preflight-result评审和ownerfit/account GO批准正式实验。
-
-入口：[plan.json](plan.json)、[source_whitelist.json](source_whitelist.json)、[implementation_identity.json](implementation_identity.json)、[label_horizon_clarification.json](label_horizon_clarification.json)。
+证据：[preflight_failure_1.json](preflight_failure_1.json)、[failedattempt](preflight/run_state.json)、[plan.json](plan.json)、[preflight_execution_approval.json](preflight_execution_approval.json)。

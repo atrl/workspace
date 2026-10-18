@@ -1,10 +1,10 @@
 {
   "experiment": "stage1_preopen_tom_20261018",
-  "status": "implementation_complete_pending_preflight_review_and_GO",
+  "status": "initial_no_fit_preflight_failed_API_column_grouping",
   "plan_sha256": "c55f56e86d09c2895156b32ede90448c98ccc7dccf2a0c5486efe3ec0a9dccbe",
   "recorder_id": null,
-  "actual_source_feature_generation": false,
-  "actual_training_no_fit_preflight": false,
+  "actual_source_feature_generation": true,
+  "actual_training_no_fit_preflight": true,
   "new_fits": 0,
   "new_accounts": 0,
   "future_budget": {
@@ -32,5 +32,12 @@
     ]
   },
   "historical_PIT_qualified": false,
-  "independent_forward_qualified": false
+  "independent_forward_qualified": false,
+  "decision": "implementation_failure_not_economic_result",
+  "optimizer_steps": 0,
+  "evaluation_objects_deserialized": 0,
+  "preflight_attempt": "preflight/run_state.json",
+  "failure_receipt": "preflight_failure_1.json",
+  "canonical_output_persisted": false,
+  "within_mask_identifiability_checked": false
 }

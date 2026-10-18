@@ -1,0 +1,37 @@
+{
+  "exec_session": 15060,
+  "nbconvert_pid": 12442,
+  "kernel_pid": 12443,
+  "exit_code": 1,
+  "failure": {
+    "plan_sha256": "c55f56e86d09c2895156b32ede90448c98ccc7dccf2a0c5486efe3ec0a9dccbe",
+    "status": "failed",
+    "new_fits": 0,
+    "new_accounts": 0,
+    "exception_type": "KeyError",
+    "exception": "('meta', 'label_available_at')"
+  },
+  "failed_stage": "train Dataset column-group access after source-feature derivation and resident train-frame audit",
+  "recorder_created": false,
+  "canonical_output_persisted": false,
+  "training_tensor_scaler_check_completed": false,
+  "within_mask_identifiability_checked": false,
+  "new_optimizer_steps": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "evaluation_objects_deserialized": 0,
+  "new_source_HTTP": 0,
+  "automatic_retry": false,
+  "frozen_plan_sha256": "c55f56e86d09c2895156b32ede90448c98ccc7dccf2a0c5486efe3ec0a9dccbe",
+  "frozen_workflow_sha256": "a3a777127a4746451f3c76b19d56d5706e43b8b25bf9a22a7d0ec0a73445a3af",
+  "local_qlib_API_evidence": {
+    "path": "qlib_venv/lib/python3.12/site-packages/qlib/data/dataset/handler.py",
+    "lines": [
+      49,
+      50
+    ],
+    "CS_ALL": "__all: allcolumns withsingle-levelindex",
+    "CS_RAW": "__raw: rawdata withmulti-levelcolumns"
+  },
+  "narrow_repair_proposal": "Use public CS_RAW forfull-group Dataset reads, preservingall originalcolumns andhierarchy/order intrain/aux/evaluation/roundtrip. No labels, cohort, features,modelmath orstagebarrier changes. Addthisschema-regressiontoexisting singleworkflow synthetic. Realretry needsseparateapproval andpreservedinitialattempt."
+}

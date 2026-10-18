@@ -1,0 +1,8 @@
+{
+  "plan_sha256": "c55f56e86d09c2895156b32ede90448c98ccc7dccf2a0c5486efe3ec0a9dccbe",
+  "status": "failed",
+  "new_fits": 0,
+  "new_accounts": 0,
+  "exception_type": "KeyError",
+  "exception": "('meta', 'label_available_at')"
+}
