@@ -2,7 +2,7 @@
   "schema_version": 1,
   "campaign": "three_asset_stable_excess_20261015",
   "contract": "docs/three_asset_research_contract.md",
-  "goal_thread_id": "01a13d5e-34fc-7900-a845-ca53afc39d45",
+  "goal_thread_id": "01a14cc9-e797-7b31-90f6-d95a821e4deb",
   "objective_achieved": false,
   "status": "active",
   "assets": [
@@ -11,13 +11,14 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/minute_self_supervised_20261017",
-  "current_phase": "minute_self_supervised_fixed_screens_completed_negative",
-  "next_action": "Close both fixed masked-reconstruction and instance-contrastive frozen-probe versions without hyperparameter rescue. Their pretraining did not beat fixed simple/parent controls, and no native account is warranted. The public method inventory records distinct cross-sectional latent/relationship models and causal adaptation as untested branches; qualify historical universe/relationships or freeze a new causal adaptation design before any new experiment. Preserve all prior versions and production release.",
+  "current_experiment": "research/stage1_domain_heads_20261018",
+  "current_phase": "design_and_implementation_before_independent_review",
+  "next_action": "Freeze exact source and independent-cost Stage1 raw replay design, obtain independent design review, then execute six paired domain-head fits and registered complete accounts. Evaluate stable net SOXX excess, not Stage1 improvement alone. Continue evidence-led research after a fixed negative result without reopening its parameter variants.",
   "roles": {
     "owner": "/root",
-    "research_executor": "/root/research",
-    "independent_evaluator": "/root/evaluator",
+    "research_executor": "/root/recent_evidence",
+    "account_adapter_executor": "/root/challenge_summary",
+    "independent_evaluator": "/root/independent_evaluator",
     "evaluator_mutates_candidate": false
   },
   "reference_cards": [
@@ -44,23 +45,30 @@
     },
     {
       "branch": "etf_monthly_valuation",
-      "status": "pending_input_ingestion_and_basis_implementation",
-      "dependency": "historical signed whole-basket earnings yields with qualified public vintages, share units and historical holdings",
+      "status": "fixed_annual_and_quarterly_experiments_completed_not_promoted",
+      "dependency": "Closed fixed versions; new source/mechanism required for further valuation research. Prior ingestion counts are historical, not current unexecuted-task status.",
       "blocks_current_attribution": false,
       "blocks_other_source_research": false,
-      "available_evidence": {
-        "issuer_CIKs_with_complete_payloads": 47,
-        "raw_facts": 35146,
-        "candidate_95pct_months": 23,
-        "maximum_prior60_candidate_months": 18,
-        "required_prior_snapshots": 36,
-        "qualified_ETF_EP_months": 0,
-        "qualified_two_issuer_annual_EP_rows": 164
+      "historical_source_preflight": {
+        "available_evidence": {
+          "issuer_CIKs_with_complete_payloads": 47,
+          "raw_facts": 35146,
+          "candidate_95pct_months": 23,
+          "maximum_prior60_candidate_months": 18,
+          "required_prior_snapshots": 36,
+          "qualified_ETF_EP_months": 0,
+          "qualified_two_issuer_annual_EP_rows": 164
+        },
+        "remaining_work": [
+          "Official foreign quarterly body ingestion; report existence confirmed, native transport failed",
+          "Implement and validate whole-basket numerator ownership, shares,ADR,FX,nominal-price and weight alignment",
+          "Obtain sufficient qualified history without weakening frozen eligibility"
+        ]
       },
-      "remaining_work": [
-        "Official foreign quarterly body ingestion; report existence confirmed, native transport failed",
-        "Implement and validate whole-basket numerator ownership, shares,ADR,FX,nominal-price and weight alignment",
-        "Obtain sufficient qualified history without weakening frozen eligibility"
+      "current_evidence": [
+        "research/etf_annual_valuation_information_20261016",
+        "research/etf_quarterly_profit_information_20261016",
+        "research/etf_quarterly_profit_allocation_20261016"
       ]
     },
     {
@@ -68,6 +76,14 @@
       "status": "needs_dated_historical_weights",
       "dependency": "dated historical index methodology/weights, announcement and effective times",
       "blocks_monthly_valuation": false
+    },
+    {
+      "branch": "semis_option_skew",
+      "status": "deferred_not_current_dependency",
+      "dependency": "historical option quote/surface entitlement unavailable to user",
+      "evidence": "docs/semis_option_skew_source_20261018.md",
+      "blocks_current_experiment": false,
+      "purchase_authorized": false
     }
   ],
   "experiments": [
@@ -1369,6 +1385,31 @@
         ]
       },
       "nas_archive_sha256": "7ab0ab4e4076107829b58ebacbc2ddb2b31151d713adfc26b06d0139dd3f0ef6"
+    },
+    {
+      "card": "research/stage1_domain_heads_20261018",
+      "kind": "stage1_primary_auxiliary_domain_specific_output_heads",
+      "status": "design_and_implementation_before_independent_review",
+      "maximum_new_fits": 6,
+      "maximum_total_economic_accounts": 18,
+      "fit_cutoff": "2023-01-01T00:00:00-05:00",
+      "seeds": [
+        71,
+        172,
+        273
+      ],
+      "epochs": 300,
+      "checkpoint": "fixed_final_epoch",
+      "baseline_identity": {
+        "allocation": "f696f656b3d44e868588e09a5d97c905",
+        "action": "b472a458fc9042b4905094fddeaebd33"
+      },
+      "closed_routes_not_reopened": [
+        "classifier_gradient_detach",
+        "generic_index_tail_transfer",
+        "sparse_joint_tail_terminal_classifier"
+      ],
+      "counts_added_to_campaign_totals": false
     }
   ],
   "governance_review": {
@@ -1492,21 +1533,24 @@
   },
   "post_registration_generic_novelty_triage": "research/diagnostic_forward_io_v2_20261016/post_registration_research_triage.json",
   "goal_lifecycle_observation": {
-    "tool_status": "blocked",
-    "user_requested_resume": true,
-    "actual_research_resumed": true,
+    "tool_status": "active",
+    "observed_on": "2026-10-18",
+    "thread_id": "01a14cc9-e797-7b31-90f6-d95a821e4deb",
+    "created_by": "create_goal after user explicitly requested Goal and implementation",
+    "total_token_budget_set": false,
     "automatic_continuation_verified": false,
-    "limitation": "Available Goal API has no resume operation; UI resume required to restore automatic continuation. Do not mark complete or create a replacement to bypass unfinished objective.",
-    "current_session_tool_status": "no_goal_in_current_thread",
-    "current_session_note": "get_goal returned null on2026-10-16; old goal_thread_id retained as historical reference, no newGoal created and no automatic continuation asserted."
+    "same_total_blocker_consecutive_goal_turns": 0,
+    "current_blocker": null,
+    "note": "Actual Goal tool is active. Automatic continuation has not yet been observed; task files and queued messages are not liveness evidence."
   },
   "resume_note": "docs/three_asset_progress_restart_20261016.md",
   "restart_contract": "docs/etf_valuation_restart_20261016.md",
   "execution_roles_current_session": {
     "owner": "/root",
-    "attribution_and_identifier_support": "/root/attribution",
-    "source_executor": "/root/sources",
-    "independent_evaluator": "/root/evaluator"
+    "research_executor": "/root/recent_evidence",
+    "account_adapter_executor": "/root/challenge_summary",
+    "independent_evaluator": "/root/independent_evaluator",
+    "evaluator_mutates_candidate": false
   },
   "restart_delivery": {
     "document": "docs/etf_valuation_restart_20261016.md",
@@ -1554,5 +1598,54 @@
       "qualified_forward"
     ],
     "optional_primary_risk_audit_launched": false
+  },
+  "goal_history": [
+    {
+      "thread_id": "01a13d5e-34fc-7900-a845-ca53afc39d45",
+      "observation": {
+        "tool_status": "blocked",
+        "user_requested_resume": true,
+        "actual_research_resumed": true,
+        "automatic_continuation_verified": false,
+        "limitation": "Available Goal API has no resume operation; UI resume required to restore automatic continuation. Do not mark complete or create a replacement to bypass unfinished objective.",
+        "current_session_tool_status": "no_goal_in_current_thread",
+        "current_session_note": "get_goal returned null on2026-10-16; old goal_thread_id retained as historical reference, no newGoal created and no automatic continuation asserted."
+      },
+      "superseded_as_current_on": "2026-10-18",
+      "reason": "User explicitly authorized a new active Goal in current thread; prior thread retained as historical evidence."
+    }
+  ],
+  "execution_observation_20261018": {
+    "phase": "implementation_before_design_review",
+    "model_executor": "/root/recent_evidence",
+    "raw_adapter_executor": "/root/challenge_summary",
+    "evaluator": "/root/independent_evaluator",
+    "model_training_started": false,
+    "native_accounts_started": false,
+    "new_source_requests": 0,
+    "observed_source_counts": {
+      "mature_primary": 3014,
+      "auxiliary": 20741,
+      "primary_features": 39,
+      "common_features": 16
+    },
+    "observation_scope": "Executor confirmed source preflight and model implementation; no claim of model training or automatic future liveness."
+  },
+  "goal_contract_20261018": {
+    "benchmark": "SOXX ETF",
+    "stage1_role": "frozen comparison, not completion benchmark",
+    "initial_cash": 100000,
+    "costs": "frozen IBKR Pro Tiered with independent 0/2/5bp slippage",
+    "max_drawdown_limit": 0.3,
+    "cvar5": "not worse than same-basis SOXX",
+    "complete_annual_positive_excess_minimum": 0.7,
+    "rolling126_positive_excess_minimum": 0.7,
+    "confidence": "preregistered stationary block lower bounds per contract",
+    "forward": "frozen identity; 60 complete paired days, each state15 and3 transitions are minima, not substitutes for actual annual/126-day evidence",
+    "continuous_policy": "repair implementation; close failed fixed version; attribute once; freeze next distinct evidence-based mechanism; do not stop for one branch dependency",
+    "paused": "only explicit user request",
+    "blocked": "same total blocker at least3 consecutive Goal turns and no meaningful alternative progress; reset count after resumed blocked Goal",
+    "complete": "all economic and sufficient independent-forward gates accepted by independent evaluator",
+    "production_changes_authorized": false
   }
 }

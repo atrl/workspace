@@ -83,6 +83,14 @@ qlib research/production card 必须使用瘦根目录、recorder-first 的产�
 
 ### SOXX 稳定超额研究入口
 
+2026-10-18用户要求按真实Goal持续推进到费用后稳定超过SOXX ETF，而非仅超过
+Stage1或完成若干实验。Stage1作为可回退冻结参考，允许有证据地替换模块，全部
+风险、稳定性与独立前向门沿用`docs/three_asset_research_contract.md`。首轮为
+主/辅助监督输出头分域的同条件实验；原共享编码器与回传保留，不是重开旧detach
+或稀疏联合事件分类路线。实验设计、执行句柄、失败归因及下一机制由
+`research/three_asset_campaign.json`登记，SOP按接收决策层选择检验并桥接完整账户。
+单实验失败关闭版本，不结束总目标；不购买期权数据、不真实下单、不替换现役release。
+
 2026-10-16用户批准ETF估值优先、月度中期配置与固定短期风控分离，执行边界见
 `docs/etf_valuation_restart_20261016.md`。先复用原生Recorder归因，再核查历史估值、
 成分财报与SOXX/SOX调仓来源。当前市盈率或成功下载不能认证历史时点；历史盈利
