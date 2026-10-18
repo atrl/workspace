@@ -1,17 +1,13 @@
-# 09:29 条件日历接收设计草案
+# 09:29条件NYSE日历代理：实现阶段
 
-本卡只完成设计，frozen=false；没有生成日历特征、读取原收益、拟合或回放账户。repair_1来源身份已登记，来源独评已接受，接收设计批准仍待绑定，不继承source执行许可。
+已实现固定四日条件代理、B/C四槽模型适配和阶段隔离工作流。三个集中synthetic合同均通过：feature71154、model3495、训练驻留范围33079，各1 passed；没有真实source/训练对象读取或proxy生成，0实际no-fit预检、fit、账户和新来源HTTP。
 
-唯一窗口固定为{−1,+1,+2,+3}，研究日历事前选NYSE。09:29只使用d之前的SOXL/SOXX共同session快照前缀和当时已知的NYSE普通计划，不要求d已经开市，也不把共同session称为官方NYSE开市记录。三态OR保留：任一已知真即真，两支已知假才是假；缺公告、2022修订缺口、冲突及prefix缺口不被抹去。不会使用source的qualification_status或current_date_in_observed_calendar作新mask。
+训练白名单只用已封存PG训练专用Dataset3014×85及20741×20，保留全部原列并只追加4列。未来预检将核全部驻留handler/loader帧、原39/16及11tensor/scaler、共同cohort和三mask组内proxy0/1变化。评价标签/收益对象仅在6个最终模型SHA固定后才加载；不能先加载全期对象再crop称未读。
 
-拟保持原39/16输入、共享主辅模型、损失、300epochs、3seeds及3014/20741成熟训练cohort。B/C同shape、三availability mask和初始化；C仅增加一个固定centered日历数值，B该槽中性。unknown在规范源中仍为NaN，模型latent0只是encoding。预计6fits、B/C各一个等权3seed集合在三成本下共6个新增独立费用账户（单seed仅预测/分类诊断，不建账户），精确复用15参考账户，保留946预测行与944账户区间。
+原allocation收益为H1次开盘到下次开盘，tail/alpha/cash为H5；共同H5成熟期筛选保持3014条，不因H1较早成熟扩样本。此为语义澄清，无标签或数学变更。
 
-目前没有经济指标或分窗结果；不得把来源覆盖或现金下降当成稳定超额。完整继承0/2/5bp、SOXX及强参考、MaxDD/CVaR、完整年度和126滚动70%、配对CI等门。PIT与独立前向资格仍false，不晋升，不改变生产。
+未来上限为6fits、6个等权ensemble费用原生账户、15旧参考，共21books及15CI，当前均未执行。没有新的收益/窗口结果，不晋升。来源仍conditional/PITfalse，matched B的三mask本身含部分日历信息；数值增量是否可辨识须先过冻结预检门。
 
-下一步：负责人审查并冻结接收定义和完整实验合同后，才另行授权最小预检及经济执行。
+下一步：独立整体实现review与owner source-feature+train-only no-fit GO；实际预检通过后，才由合并最终design/preflight-result评审和ownerfit/account GO批准正式实验。
 
-独立前向完整条件见[持续研究合同](../../docs/three_asset_research_contract.md)：冻结全决策/来源/成本与观察时点后，至少60完整配对日、各预登记市场状态15日及3次转换仅是观察下限；年度与126日资格仍需真实足量的新观测，不因达到60日自动通过。
-
-设计预检补充：同一三mask组合内必须在原成熟训练域同时出现已知0和1，否则calendar值只是mask的确定函数，按不可辨识停止。B已从可用性模式获得部分日历信息，C只检验其外的数值增量。训练必须使用已核验train-only对象，不能先反序列化含outer收益的大对象再声称未读；6个模型身份封存后才访问评估对象。异常非空时钟视为来源完整性失败。
-
-独立设计评审已通过，root仅批准实现与聚焦合成验证。真实日历值、训练对象预检、6次拟合及账户回放仍须最终代码/来源绑定与分阶段GO。见[design_draft_review.json](design_draft_review.json)及[implementation_authorization.json](implementation_authorization.json)。
+入口：[plan.json](plan.json)、[source_whitelist.json](source_whitelist.json)、[implementation_identity.json](implementation_identity.json)、[label_horizon_clarification.json](label_horizon_clarification.json)。

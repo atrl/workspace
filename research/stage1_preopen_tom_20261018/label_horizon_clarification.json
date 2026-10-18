@@ -1,0 +1,53 @@
+{
+  "scope": "Semanticclarification only; no labels regenerated, tensors/math/eligibility changed.",
+  "allocation_H1": {
+    "definition": "open.shift(-2)/open.shift(-1)-1, T+1open→T+2open",
+    "source": [
+      {
+        "path": "src/workflow/soxs_defensive_hurdle.py",
+        "line": 134,
+        "sha256": "38e8e3d34b57e02aca360d5a5c8b181c28edd629ab27b58e64c02454d8513059"
+      },
+      {
+        "path": "src/workflow/direct_continuous_soxx_allocation.py",
+        "line": 270,
+        "sha256": "983f56aa7747144ff299b40ea653893633989c6e52d4f594a50792c82be65ebc"
+      }
+    ]
+  },
+  "tail_cash_H5": {
+    "definition": "Five consecutiveH1 intervals fromshift0..4/cumprod; minimum constructsSOXXtail/cash target",
+    "source": [
+      {
+        "path": "src/workflow/direct_continuous_soxx_allocation.py",
+        "line": 161,
+        "sha256": "983f56aa7747144ff299b40ea653893633989c6e52d4f594a50792c82be65ebc"
+      }
+    ]
+  },
+  "alpha_H5": {
+    "definition": "Five-session27/63/10 daily-reset reference relativegrowth vsSOXX",
+    "source": [
+      {
+        "path": "src/workflow/cash_floor_relative_feature_reintegration.py",
+        "line": 315,
+        "sha256": "a08f72231b47838dc4165b61d7cedeeed1321256c16618dc518d9d0805669302"
+      }
+    ]
+  },
+  "joint_eligibility": {
+    "definition": "Original MinutePitAllocator.fit jointlyfilters label_available_at<cutoff/index<=train_end/allTARGETSfinite; no H1-driven expansion.",
+    "source": [
+      {
+        "path": "src/model/minute_pit_allocator.py",
+        "line": 127,
+        "sha256": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8"
+      },
+      {
+        "path": "src/model/minute_pit_allocator.py",
+        "line": 154,
+        "sha256": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8"
+      }
+    ]
+  }
+}

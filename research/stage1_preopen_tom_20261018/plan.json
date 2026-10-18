@@ -1,0 +1,822 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_preopen_tom_20261018",
+  "status": "frozen_implementation_pending_source_feature_and_training_no_fit_GO",
+  "frozen": true,
+  "authorization": {
+    "implementation_and_synthetic": true,
+    "source_feature_preflight_execution": false,
+    "training_no_fit_execution": false,
+    "fits": false,
+    "accounts": false,
+    "new_source_HTTP": 0
+  },
+  "scope": "Single conditional09:29 exchange-calendar proxy, paired shared-head training and full fixed-cost accounts. This file is design only; no feature values, return labels, fits or accounts have been produced.",
+  "hypothesis": {
+    "name": "preopen_ordinary_tom_4d_proxy",
+    "external_window": [
+      -1,
+      1,
+      2,
+      3
+    ],
+    "no_day_zero": true,
+    "claim": "Conditional ordinary-calendar position may supply information not captured by the original feature set. It does not establish pension flow, a cash deadline, economic causality or expected outperformance.",
+    "distinction_from_source_card": "This receiving definition uses only pre-d core-session history and a known ordinary planned-open decision for d. It does NOT require current d to have opened, and does NOT import the old confirmed-open candidate definition.",
+    "receiver_calendar": "NYSE",
+    "receiver_choice_basis": "Fixed ex ante research-calendar convention; not a claim that NYSE is the listing/primary exchange of SOXX or SOXL. No comparison or selection across NYSE_ARCA/NASDAQ.",
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false,
+    "literature_triage": "research/external_mechanism_review_20261018/calendar_tom_proxy_triage.md",
+    "literature_triage_sha256": "bee429081feada52b8b9630f8dc3ab191e1e7018eb3399901b3411c6627d8cbe",
+    "primary_paper": "https://business.purdue.edu/faculty/mcconnell/publications/Equity-Returns-at-the-Turn-of-the-Month.pdf",
+    "counterevidence": "Retain the triage401k-flow counterevidence, contrasting historical samples and changing institutions. Fixed4day window is not an optimized SOXX window."
+  },
+  "calendar_source_binding": {
+    "card": "research/calendar_tom_source_20261018/repair_1",
+    "recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+    "experiment_id": "944021652676933250",
+    "archive_sha256": "cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+    "verification_manifest_sha256": "fbc4b6f4b4bd33436f13dc16d18e7c5744d08e08e5d2b4887790bfc30203779b",
+    "source_plan_sha256": "469e7c9d3165658be2135ea814a75fbbfa8ff1e4c57d43b1112034e8128bd0cc",
+    "root_cold_readback": {
+      "path": "research/calendar_tom_source_20261018/repair_1/readback_verification.json",
+      "sha256": "3738c9547e17a423985fb5a6b93ee134c5d0c02a21a9eebd6c388f50c4b28af8",
+      "reported_status": "passed"
+    },
+    "allowed_artifact_identities": {
+      "analysis/mapping": "e89584b83deee5a90c27616be3db6b12b59f7ea1abeb0886c6e0cf1b4f24ab25",
+      "source/actual_calendar": "024c0fb151832fc57ed6af16789b52de5cb5d74950595a39db5ca523854e584b",
+      "source/decision_metadata": "c0df437019597f2a7aa81b10f98d0dd10cadd0bb8dbe1defa50a4156d88e454b",
+      "source/document_status": "b5c11a03bac07e49cfd8ad0ea87aa502d4669f518fda5e6563e0e947f6728f7f",
+      "source/knowledge_ledger": "06b9748ed892f03904db50a066f8346aac9a16e6eaecce43332949810131921e",
+      "source/original_timing": "4808291a3ac57d3c649064dcc818bf6577ab53975b69b511a2c1d6a7670455cb",
+      "source/source_gaps": "7ffcc9f461102802b8d817c35d68bf6a8c08752efda99eb5e606a773427d5512"
+    },
+    "source_result_review_path": "research/calendar_tom_source_20261018/repair_1/source_result_review.json",
+    "source_result_review_sha256": "21f6123bc0e5c8678341e302889e38a2c29b9d5f8596e988d4268fa013c1dd3b",
+    "preopen_definition_review_path": "research/stage1_preopen_tom_20261018/design_draft_review.json",
+    "preopen_definition_review_sha256": "a218325d8922ad650a1adad4a5139092a384644f572ab2073bbf1b4b408d2daf",
+    "final_source_binding_status": "Primitivewhitelist andacceptedsource frozen; realreceiving feature/preflight notexecuted. Wholeimplementation review andexplicitstageGO remainrequired.",
+    "coverage_warning": "Source2925/3966 conditional_snapshot count includes a different current-observed-open condition. It is NOT the proxy-known count and must not be copied as the new mask.",
+    "unchanged_source_limits": [
+      "2011-2013 ordinary-announcement gaps",
+      "2022 missing Juneteenth amendment block, including dates that appear closed in an old table",
+      "NYSE extraordinary-event source completeness unqualified",
+      "Current-byte historical release dates and prior core-session snapshot remain conditional, not verified first receipts"
+    ],
+    "source_summary_sha256": "a56bc992c8dd0c940f05104698e4e9a22cacaa8819e89d02fe5ca0d0df5b269f"
+  },
+  "reference_contract_binding": {
+    "path": "research/stage1_finra_short_mix_allocation_20261018/plan.json",
+    "sha256": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
+    "inherit_json_pointers": [
+      "/sources/training",
+      "/sources/action",
+      "/sources/controller",
+      "/sources/raw",
+      "/sources/current_shared",
+      "/active_release",
+      "/tariff",
+      "/label_semantics",
+      "/analysis_scope"
+    ],
+    "excluded_pointer": "/sources/finra and all FINRA feature/source semantics are NOT inherited. This is a paired-workflow reference, not reuse of the failed q feature.",
+    "materialization_gate": "Before final freeze, resolve these exact saved source/Recorder/artifact SHA identities into the executable plan. Mismatch stops; no unreviewed new source or reference replay."
+  },
+  "clock_and_row_mapping": {
+    "timezone": "America/New_York",
+    "as_of": "2026-10-09",
+    "primary_signal_index": "Keep original inputs/timing.index exactly; do not shift or relabel source rows.",
+    "decision": "d=date(original decision_at), exactly the saved next-session09:29 clock. Do not derive d by shifting a newly cropped calendar.",
+    "publication": "Only known ledger versions with knowledge_at<=original decision_at. Preserve the date-only next-midnight convention and source amendment/conflict rules. No substitution of09:46 information.",
+    "original_horizon": "Allocation TARGETS[0:2] are originalH1=T+1open→T+2open. Tail/cash/alpha labels spanH5. TheexistingcommonH5 label_available_at andallTARGETSfinite filtering stayunchanged; noearlier-H1 cohortexpansion.",
+    "policy": "Reuse the same frozen calendar value at original account09:46 decision /09:47 fill. No intraday re-evaluation using observed open.",
+    "prediction_rows": 946,
+    "account_intervals": 944,
+    "prediction_tails": {
+      "2026-10-08": "Retain original decision_at2026-10-09 09:29; proxy may only be derived if otherwise source-eligible, but account_eligible=false because no subsequent funded interval.",
+      "2026-10-09": "Retain original NaT decision; all3 model knowledge masksfalse and canonical valueNaN. No invented next session."
+    },
+    "invalid_clock": "Original NaT decision or decision date beyond as_of yields all3 model masksfalse/canonical valueNaN with the row retained and no synthetic execution. An unexpected non-null timezone/clock differing from the frozen09:29 source, identity mismatch or duplicate mapping is an integrity failure: stop preflight rather than neutralize it as ordinary missing information."
+  },
+  "canonical_definition": {
+    "prior_prefix": "Read the pinned core SOXL/SOXX Qlib D.calendar snapshot as a conditional common-session record. For d, expose only civil dates s<d in d month. This is not an official NYSE open-session or receipt record. Complete month-start coverage and original prefix/data gaps must remain explicit.",
+    "ordinary_plan": "Select the already-known applicable NYSE full-year ordinary-plan version and same-venue admitted dated exceptions, under source priority/conflict rules. Weekend/halfday conventions come from the frozen source contract. No Nasdaq-to-NYSE inheritance.",
+    "eligibility_order": [
+      "Validate original decision clock and source identity.",
+      "Apply missing-announcement, known-amendment, conflict and version-gap rules BEFORE using any table open/closed cell. In particular2022 cannot become known from an obsolete closed entry.",
+      "Derive current_plan_known and planned state from admissible already-known NYSE plan, never from current observed calendar membership.",
+      "Derive prefix_available only from d-prior source prefix completeness. Derive monthend_horizon_known only from already-announced coverage through monthend and next planned open after it."
+    ],
+    "first3_branch": "If admissible plan says d closed: branch_known=true and branch_value=false. If plan says d open and the d-prior month prefix is complete: known value=(number of core observed sessions s<d in month+1 in {1,2,3}). Otherwise unknown. No current-d open confirmation is read.",
+    "expected_last_branch": "If admissible plan says d closed: branch_known=true and branch_value=false. If plan says d open and admissible monthend/next-open horizon is complete: known value=(there is no later planned-open date in d month). Otherwise unknown. Do not use realized future dates, calendar tail(as_of), or retrospectively learned surprise closures.",
+    "three_state_OR": {
+      "any_known_true": "proxy=1, proxy_known=1, even if the other branch is unknown",
+      "both_known_false": "proxy=0, proxy_known=1",
+      "otherwise": "proxy=NaN, proxy_known=0"
+    },
+    "canonical_columns": [
+      "signal_date",
+      "original_decision_at",
+      "decision_date",
+      "source_as_of",
+      "prefix_available",
+      "current_plan_known",
+      "current_planned_state",
+      "monthend_horizon_known",
+      "first3_branch_known",
+      "first3_branch_value_nullable",
+      "expected_last_branch_known",
+      "expected_last_branch_value_nullable",
+      "proxy_known",
+      "preopen_tom_proxy_nullable",
+      "missing_announcement_reason",
+      "amendment_gap_reason",
+      "conflict_reason",
+      "prefix_gap_reason",
+      "knowledge_version_ids",
+      "knowledge_max_at",
+      "historical_PIT_qualified",
+      "account_eligible"
+    ],
+    "forbidden_mask_dependencies": [
+      "current_date_in_observed_calendar",
+      "metadata.qualification_status",
+      "current_open_first_receipt",
+      "09:46 observed-open confirmation",
+      "realized sessions on or after d",
+      "returns/labels/predictions/risk state/account results"
+    ],
+    "source_qualification_flags": "Preserve vintage/extraordinary completeness and PITfalse as separate qualification flags. Conditional ordinary plan means a planned proxy, not a claim that all future closures were announced. Do not erase a localized source gap to raise coverage.",
+    "halfday": "A past core opened halfday counts once; a planned current/future halfday is a planned-open session. No volume/return-duration filtering.",
+    "coverage": "Never choose venue, starting year, window, masks or encoding after seeing coverage or returns. Missing branches remain nullable; rows are never dropped."
+  },
+  "feature_delivery": {
+    "receiver": "Original shared-primary/auxiliary model,4 added coordinates only into primary allocation head. Original39 main features and16 common remain in original order.",
+    "feature_order": [
+      "first3_branch_known",
+      "expected_last_branch_known",
+      "proxy_known",
+      "preopen_tom_centered"
+    ],
+    "raw_value": "Canonical proxy is nullable{0,1}; unknown must remainNaN with explicit reasons in source feature artifacts.",
+    "masks": "All3 known masks are identical in B and C. They are not source.qualification_status and not current-d-open observations.",
+    "B": "[first3_known,last_known,proxy_known,0]",
+    "C": "[first3_known,last_known,proxy_known,proxy-0.5 if proxy_known else0]",
+    "encoding_boundary": "The unknown-to-latent0 operation is model encoding only. It does not assert unknown calendar=false. Knownfalse=-0.5, knowntrue=+0.5, unknownlatent0; no ffill, interpolation, trainmean or learned extra scaler.",
+    "primary_input_count": 43,
+    "common_input_count": 16,
+    "calendar_numeric_coordinates": 1,
+    "matched_availability_coordinates": 3,
+    "dtype": "Model added coordinates float32; canonical nullable values and exact timezone-aware date metadata retained separately in native Recorder/Dataset, not timestamp float32 bins.",
+    "capacity_warning": "Equal B/C parameter count and initialization control architecture; three shared masks can learn era/availability effects. C-vs-B isolates the numeric proxy conditional on those masks; comparison to B_shared/A remains mandatory. In some mask combinations proxy_known itself implies a true branch. Matched B therefore already contains partial calendar information; C-vs-B tests only the numeric increment beyond these same masks."
+  },
+  "training": {
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "train_end": "2022-12-30",
+    "expected_mature_primary_rows": 3014,
+    "expected_auxiliary_rows": 20741,
+    "primary_feature_count": 39,
+    "common_feature_count": 16,
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "epochs": 300,
+    "checkpoint": "fixed_final_epoch",
+    "all_hyperparameters": "Inherit exact saved original model specification, candidate coefficients, feature order, 39-primary/16-common scalers, optimizer and all label/sample contracts; no source-related changes to the mature cohort.",
+    "input_features": "Original39 primary features plus4 allocation-head-only slots; original16 common unchanged. Calendar never enters auxiliary rows, common encoder inputs or classifier-head inputs directly.",
+    "auxiliary_sampling": "Exact20741 source rows/order/weights and original normalized weighting; torch.Generator().manual_seed(seed*1000+epoch), torch.randint with replacement, min(2048,20741) indices for each of300 epochs. Same draws for paired B/C; original auxiliary coefficient0.05.",
+    "primary_losses": "Original main tail+alpha BCE0.02, original allocation loss10bp turnover proxy0.006; no label changes",
+    "paired_arms": {
+      "B_preopen_tom_context": "Three new fits: original network, all3 availability masks, neutral calendar value0.",
+      "C_preopen_tom": "Three new fits: identical network/three masks, one centered observed calendar value."
+    },
+    "initialization": "Per original seed, instantiate original39/16 network then extend allocation-head input by4 zero-weight columns, copying every original tensor. B/C initial tensors, added-zero columns, paired initial outputs and RNG state must match. Original reference model tensor subset must remain identical; no random new-feature initialization.",
+    "ensemble": "All three seed predictions equal-weight, no seed or checkpoint selection",
+    "model_count": 6,
+    "optimizer": "Exact original AdamW settings; one original global gradient clipping at2.0 before its step. Ordinary combined backward, no PG or domain-head changes.",
+    "extra_scaling": "No fitted scaler for the4 new slots. Three masks are binary; C numeric value is known(raw_proxy-0.5), otherwise0, and B numeric value is always0. All original scalers remain bitwise matched.",
+    "fit_failures": "Retain every attempt/partial state. No seed omission, rescue fit, restarts with changed mathematics, extra cutoff, checkpoint or hyperparameter search."
+  },
+  "label_semantics": {
+    "primary_tail": "SOXX five next-open intervals entry-relative path min<=-6percent, not SOXL3x or peak-to-trough MaxDD",
+    "primary_alpha": "27percentSOXL+63percentSOXX+10percentcash fixed reference five-session relative growth vsSOXX",
+    "aux_tail": "Historical PIT constituent synthetic daily-reset2x, five close-close intervals,95bp annual fee, path min<=-12percent OR terminal<=-15percent",
+    "aux_alpha": "Synthetic2x five-session terminal return exceeds constituent1x",
+    "maturity": "Exact saved native primary available_at strictlybeforecutoff; auxiliary observations_end<=train_end. Preserve source labels, no current dirty provider data replacement.",
+    "allocation_return": "soxl_forward_open_return andsoxx_forward_open_return: T+1open→T+2open H1, not five-session returns.",
+    "joint_maturity": "OriginalcommonH5 label_available_at<2023cutoff andall5TARGETSfinite preserves3014rows. AllocationH1 earlieravailability doesnotchange eligibility."
+  },
+  "training_cohort": {
+    "train_end": "2022-12-30",
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "expected_primary_mature_rows": 3014,
+    "expected_primary_signal_end": "2022-12-21",
+    "expected_auxiliary_rows": 20741,
+    "eligibility": "Exact original source index<=train_end, original label_available_at strictlybefore cutoff and original TARGETS finite. Calendar readiness never enters cohort eligibility.",
+    "no_row_loss": "Left-align calendar metadata to original rows; preserve all unavailable years and all946 prediction rows. Do not inner-join, reduce to known rows, or downsample based on calendar values.",
+    "source_stage_boundary": "Source stage did not verify3014 mature/finite-label rows; the future model preflight must match exact original cohort/tensor/scaler hashes using training-only data, not claim source coverage already proved them."
+  },
+  "minimal_preflight_before_fit": {
+    "execution_authorized_now": false,
+    "source_only_first": [
+      "Freeze and independently review this receiving definition, all source bindings and codeidentity before any actual proxy derivation.",
+      "Read admitted ledger/timing/prior-calendar from the native source; recompute the new09:29 branch masks from allowed primitives. Never reuse the source qualification_status/current-day-open mask.",
+      "Retain all amendment/conflict/prefix missing reasons; publish coverage by signal year and decision year without changing any definition or cohort.",
+      "Check exact946/944/two-tail alignment and three-state OR; prove source knowledge_max_at<=09:29.",
+      "One focused synthetic contract must show removing/replacing d and future observed sessions cannot alter proxy or masks; future announcements do not backfill, closed-vs-missing precedence is preserved, and knowntrue OR unknown remains true."
+    ],
+    "training_only_next": [
+      "Use hash-verified training-only Recorder objects for original3014 primary and20741 auxiliary rows, with exact source/cohort/scaler/label identity proven before fitting. A full object containing2023+ labels must not be deserialized and then described as unread merely because it is immediately cropped. Resolve and pin admissible training-only objects in the executable plan; stop if this boundary cannot be met.",
+      "Verify original3014/20741 cohorts,39/16 feature order, original scalers, labels and sampling identities; added masks must match B/C.",
+      "Verify paired new network shapes, original tensor copy, zero added columns, same initial outputs and same auxiliary sampling; no real optimizer step in no-fit preflight.",
+      "Report train-known/value support. Before any optimizer step require at least one identical three-mask combination containing both known proxy=0 and known proxy=1 within the original mature primary training cohort. Otherwise the numeric proxy is a deterministic function of shared masks (or entirely missing/constant), so stop as nonidentifiable. Do not change venue/window/encoding/masks/cohort or sample minimum to rescue it. Coverage magnitude otherwise is descriptive."
+    ],
+    "fit_then_eval_order": "Only after explicit final-fit GO run all6 predetermined fits using admitted training-only objects and seal all6 model artifact identities. No object containing2023+ evaluation labels/returns or prior outer predictions may be deserialized before that barrier. Classification diagnostics do not select seeds/checkpoints or cancel predeclared B/C accounts. Resolve exact source objects and enforce this separation in implementation/no-fit review."
+  },
+  "accounts": {
+    "families": [
+      "A_active_research_replay",
+      "B_shared",
+      "B_preopen_tom_context",
+      "C_preopen_tom",
+      "SOXX",
+      "strong9097",
+      "additional27baa"
+    ],
+    "initial_cash": 100000,
+    "expected_sessions": 944,
+    "first_signal": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "terminal": "2026-10-09T09:47:00-04:00",
+    "clock": "09:45 known,09:46 decision,09:47 fill,next09:47 exit;firsthour recovery fill10:32. Historical bar availability convention, not actual first receipt/execution qualification.",
+    "A_label": "Frozen active f696+b472 model chain replayed under same raw research execution contract; not actual deployed09:31/10:31 replay.",
+    "ABC_policy": "New B/C use original b472 open/recovery on each own cost-specific cash, shares, NAV, peak, history and risk state; no COMMON/ALL3/T substitution. Reference policies remain sealed.",
+    "reference_policy": "SOXX buyonce raw shares; strong9097/additional27baa retain their frozen commoncap/ALL3/T policies. Different strategy controls disclosed, same price/corporate/fees/dates/initialcash. Do not inherit old fullminute risk qualification.",
+    "strict_reuse": "Reuse the same 15 exact original reference books identified by pinned FINRA plan sources.current_shared and sources.raw. Schedule, quote grid, corporate actions, tariffs, initial state and controller must match. No fallback replay if identity differs.",
+    "raw_interfaces": [
+      "src.backtest.stage1_domain_heads_raw.replay_stage1_raw",
+      "src.backtest.raw_corporate_policy.IncomeLedger",
+      "src.backtest.raw_corporate_policy.settle_raw",
+      "src.backtest.native_raw_corporate.native_raw_validate"
+    ],
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "maximum_total_comparison_accounts": 21,
+    "maximum_new_native_accounts": 6,
+    "source_native_accounts_reused": 15,
+    "currency": "USD gross paper assumption and documented corporate entitlement/payment convention; not broker or historicalPIT certification"
+  },
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "gates": {
+    "required_comparators": [
+      "A_active_research_replay",
+      "B_shared",
+      "B_preopen_tom_context",
+      "SOXX",
+      "strong9097"
+    ],
+    "additional_reference": "additional27baa always report, not a postresult replacement of primary strong9097",
+    "net_relative_wealth_all_costs": ">1+1e-8 versus each required comparator",
+    "sampled_maxdrawdown": "<=30percent at close and all available raw point marks; fullminute validation separate if economic gates pass",
+    "cvar5": "no worse thanSOXX at all costs",
+    "complete_annual_positive_fraction": 0.7,
+    "minimum_complete_years": 2,
+    "rolling126_positive_fraction": 0.7,
+    "paired_uncertainty": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "alpha": 0.0016666666666666668,
+      "seed": 20261014,
+      "lower_positive": true,
+      "comparisons": 5,
+      "costs": 3,
+      "prior_search_multiplicity": "unknown; this correction doesnotreset reusedhistory",
+      "statistic": "one-sided paired stationary-bootstrap mean daily log excess; lower quantile must be strictly positive",
+      "alpha_formula": "0.025/(1 candidate equal-seed ensemble *5 required comparators *3 costs)",
+      "expected_lower_tail_draws": 16.666666666666668,
+      "resolution_rationale": "Fixed10000 draws before fitting; approximately16.67 expected lower-tail draws, MonteCarlo limitation retained; no outcome-dependent rerun or seed change."
+    },
+    "qualified_independent_forward": false,
+    "fresh_fullminute_risk_qualified": false,
+    "stability_comparator": "SOXX annual/rolling70percent; all5 required comparators full-window wealth >1+1e-8 and pairedCI lower>0.",
+    "independent_forward_contract": {
+      "authority": "docs/three_asset_research_contract.md",
+      "authority_sha256": "9e90f4e4466352341064a20a310e08547b445d0722c2ee950dfc8d6b5f35d3a9",
+      "prerequisite": "Historical gates only produce a candidate; freeze full decision rule, model, sources, costs, state definitions, observation frequency and evaluation times before independent shadow/paper evidence.",
+      "minimum_observation_only": {
+        "complete_paired_days": 60,
+        "days_in_each_preregistered_market_state": 15,
+        "state_transitions": 3
+      },
+      "not_sufficient": "These minimum counts are not acceptance. Annual and126-session stability require enough genuinely new observations and the complete economic/risk/statistical gates. No reused oldpaper days, historical renaming, repeated daily tests until passing, or automatic promotion atday60.",
+      "current_status": "Unqualified; this draft grants no forward launch or production permission."
+    }
+  },
+  "budget": {
+    "maximum_fit_attempts": 6,
+    "B_fits": 3,
+    "C_fits": 3,
+    "maximum_new_native_accounts": 6,
+    "reference_native_accounts_reused": 15,
+    "total_comparison_accounts": 21,
+    "additional_models_windows_seeds": 0,
+    "new_source_HTTP": 0
+  },
+  "reporting": {
+    "classification": {
+      "scope": "Primary out-of-fit tail/alphaBCE,Brier,AUC,scoremean/eventrate for every seed and ensemble; predictions and monthly/annual diagnostics inRecorder. Training losses also saved. No classification gate decides whether predeclared accounts run.",
+      "history": "All2023+ dates already reused; not independent market evidence. Existing prior2020-2022 zeroaux fit is not developmental proof for this intervention."
+    },
+    "economic": "For each arm, report the single fixed equal-weight3seed ensemble account at each0/2/5bp cost:6newnativeaccounts total. Each seed has predictions/classification diagnostics only, no per-seed accounts. Report complete2024/2025 and partial2023/2026 separately, all prescribed126-session windows and pairedCI. Always compare SOXX,strong9097,A,oldB_shared andmatchedB. Lowercash or winning onlyB is not success.",
+    "failure_attribution": "If fixed result fails, one Recorder-only attribution may describe masks, raw proposals, actualbeta/cash, risk-state/cost path and losing/winning complete periods under separately scoped authorization. It does not authorize retuning.",
+    "promotion": "PITfalse and independent-forwardfalse persist. Historical economic passes would only permit separate fullminute/fresh-forward qualification, not production promotion."
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source/*",
+      "inputs/*",
+      "training/*",
+      "models/*",
+      "predictions/*",
+      "paths/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "pending_before_freeze": [
+    "Real source-feature/training-no-fit GO",
+    "Whole implementation review tied tothisplan/code",
+    "Aftercompletedidentifiable preflight, finaldesign+explicitfit/account GO"
+  ],
+  "failure_policy": "A fixed negative result closes this version. No venue/window/sign/offset/normalization/mask/seed/epoch/loss/recovery-threshold rescue; source or implementation failures preserve receipts and require scoped review. The overallGoal remains separate.",
+  "design_review_conditions": {
+    "mask_identifiability": "A matched-mask group must contain both numeric values on the fixed mature train cohort before fitting; B already receives partial calendar information through masks.",
+    "evaluation_barrier": "Use pinned train-only objects; deserialization of full outer-return objects counts as access. All6 model identities must precede evaluation-object loading.",
+    "invalid_non_null_clock": "Source integrity failure, not a missing-value encoding opportunity."
+  },
+  "implementation_authorization_sha256": "a94ea17974048d3e2c0c9013bb05271e94d140fe8cd0ab239fa163b868512e03",
+  "design_draft_sha256": "d65bb92c7e80829439da14e6c38b19b2ed84f2e5345fc3305ec46d22968084ff",
+  "design_draft_review_sha256": "a218325d8922ad650a1adad4a5139092a384644f572ab2073bbf1b4b408d2daf",
+  "preflight_sources": {
+    "calendar": {
+      "card": "research/calendar_tom_source_20261018/repair_1",
+      "recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+      "archive": "cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+      "inventory_sha256": "fbc4b6f4b4bd33436f13dc16d18e7c5744d08e08e5d2b4887790bfc30203779b",
+      "artifacts": [
+        "source/actual_calendar",
+        "source/original_timing",
+        "source/knowledge_ledger"
+      ],
+      "artifact_sha256": {
+        "source/actual_calendar": "024c0fb151832fc57ed6af16789b52de5cb5d74950595a39db5ca523854e584b",
+        "source/original_timing": "4808291a3ac57d3c649064dcc818bf6577ab53975b69b511a2c1d6a7670455cb",
+        "source/knowledge_ledger": "06b9748ed892f03904db50a066f8346aac9a16e6eaecce43332949810131921e"
+      },
+      "read_phase": "only afterexplicit source-feature+training-no-fit approval; neverduringimplementation"
+    },
+    "training_only": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "inventory_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "artifacts": [
+        "inputs/training_dataset",
+        "inputs/auxiliary_dataset",
+        "inputs/training_audit"
+      ],
+      "artifact_sha256": {
+        "inputs/training_dataset": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+        "inputs/auxiliary_dataset": "78ad08e92061c32d8ce6ce4dc7c6ffb163b1f9cfef9aab66589a74515ba02d78",
+        "inputs/training_audit": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53"
+      },
+      "read_phase": "only afterexplicit source-feature+training-no-fit approval; neverduringimplementation"
+    },
+    "original_models": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": [
+        "models/base_outer_71",
+        "models/base_outer_172",
+        "models/base_outer_273"
+      ],
+      "artifact_sha256": {
+        "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+        "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+        "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+      },
+      "read_phase": "only afterexplicit source-feature+training-no-fit approval; neverduringimplementation"
+    },
+    "mechanical_tensors": {
+      "card": "research/stage1_aux_projection_20261018",
+      "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+      "archive": "767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+      "inventory_sha256": "615112434b397c62360b81e56bad2d02a7781ec89a0deabf203b6235647142b0",
+      "artifacts": [
+        "inputs/tensors"
+      ],
+      "artifact_sha256": {
+        "inputs/tensors": "6ea285da091469ea4e23391fffb12530ca1cf42646d024cd5695e694d10a6194"
+      },
+      "read_phase": "only afterexplicit source-feature+training-no-fit approval; neverduringimplementation"
+    }
+  },
+  "evaluation_sources": {
+    "account_inputs": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/frame",
+        "inputs/market",
+        "inputs/controller",
+        "inputs/selection",
+        "inputs/recovery_spec",
+        "inputs/action_spec",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "inputs/guard"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "281855c14ed6c12888defd7b10db728f2f26a4e6cd07d2cab7a36d594f684ef5",
+        "inputs/frame": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+        "inputs/market": "f2660e6403ef543c458b039bcfac520c94560d6084b3c9c215b943c1f89bfacd",
+        "inputs/controller": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+        "inputs/selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+        "inputs/recovery_spec": "4a4bb9cd5e09e0dace34615d47e25c831c58951daabace972aa7a31c93e45bda",
+        "inputs/action_spec": "3e92ec85e4c4dac43f57588e671c05c46cac57a778a2b90839a6acd277e09d43",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "inputs/guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24"
+      },
+      "read_phase": "onlyafterall6finalmodelSHAsealed"
+    },
+    "AB_native": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "native/A_active_research_replay_0",
+        "native/A_active_research_replay_2",
+        "native/A_active_research_replay_5",
+        "native/B_shared_0",
+        "native/B_shared_2",
+        "native/B_shared_5"
+      ],
+      "artifact_sha256": {
+        "native/A_active_research_replay_0": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+        "native/A_active_research_replay_2": "bf6d10ac75ee84ce4f5688188259c1061141aa3110a82a0587425630fbed0284",
+        "native/A_active_research_replay_5": "1b2065502bb43f5ddcbba96a17beddcbc142b85ffea6eb2586f69e576f50062b",
+        "native/B_shared_0": "f6ad692bdc8aea7998fb0588b789eb6d07fd97d6c413e8fe1492b6bd1086a164",
+        "native/B_shared_2": "3e52887404eb44d1ce135c64b6bcdc2f91f63264324ccf48ef0889b229cd42ae",
+        "native/B_shared_5": "ebebcc0e8e79ea33cdf316a24dc1dbec88e64597f91757a903f04095af0cf896"
+      },
+      "read_phase": "onlyafterall6finalmodelSHAsealed"
+    },
+    "strong_native": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "native/raw_SOXX_0",
+        "native/raw_SOXX_2",
+        "native/raw_SOXX_5",
+        "native/raw_strong9097_0",
+        "native/raw_strong9097_2",
+        "native/raw_strong9097_5",
+        "native/raw_candidate27baa_0",
+        "native/raw_candidate27baa_2",
+        "native/raw_candidate27baa_5"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "ead4fa68daa779ea4da4708b762913e7d89e7c9d6f68523340e0252866eb712b",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "native/raw_SOXX_0": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+        "native/raw_SOXX_2": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d",
+        "native/raw_SOXX_5": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e",
+        "native/raw_strong9097_0": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93",
+        "native/raw_strong9097_2": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f",
+        "native/raw_strong9097_5": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05",
+        "native/raw_candidate27baa_0": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466",
+        "native/raw_candidate27baa_2": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31",
+        "native/raw_candidate27baa_5": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+      },
+      "read_phase": "onlyafterall6finalmodelSHAsealed"
+    },
+    "prediction_dataset": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "inventory_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "artifacts": [
+        "evaluation/dataset"
+      ],
+      "artifact_sha256": {
+        "evaluation/dataset": "4a2bcfc01540d110844607cf60a49f302b25529e92e8fba1b3d6d4e07b601042"
+      },
+      "read_phase": "onlyafterall6finalmodelSHAsealed"
+    }
+  },
+  "training_dataset_content_contract": {
+    "primary": {
+      "artifact": "inputs/training_dataset",
+      "original_total_columns": 85,
+      "rows": 3014,
+      "signal_min": "2011-01-03",
+      "signal_max": "2022-12-21",
+      "segments": [
+        "train"
+      ],
+      "extra_columns_to_append": 4
+    },
+    "auxiliary": {
+      "artifact": "inputs/auxiliary_dataset",
+      "original_total_columns": 20,
+      "rows": 20741,
+      "signal_max": "2022-12-22",
+      "observations_end": "2022-12-30",
+      "segments": [
+        "train"
+      ],
+      "changed": false
+    },
+    "static_builder_authority": {
+      "path": "src/workflow/aux_projection_preflight.py",
+      "sha256": "d56464ba1dfa9d98f308dad39812b24c5dcf140a2056a66f79b111c9e3417868",
+      "construction": "_prepare_training filters/copies maturefinite traincohort beforefrom_df; no evaluation frame attached."
+    },
+    "existing_cold_readback": {
+      "path": "research/stage1_aux_projection_allocation_20261018/readback_verification.json",
+      "sha256": "99206359b124b16d14f6c43badb284ffdb647d3f54b00f57b39b587da85692d8",
+      "limit": "Existingprepare(train) shapes are notalone aresidency audit. Authorizednofit mustinspect allactual handler_data/_infer/_learn andloader residualDataFrames recursively, withoutsetup_data."
+    },
+    "forbidden_before_six_model_barrier": [
+      "originalfull inputs/daily_frame",
+      "originalfull inputs/features/common",
+      "original inputauxiliary dictionarycontainingmultiplefolds",
+      "anyevaluation/dataset",
+      "outer_predictions",
+      "rawreturns/nativeaccountobjects"
+    ],
+    "preserve_all_original_columns": "Do notcut61featurecolumns down to39; modelselectsbase39, sourceFLAGS/metadata remain. Retain original85 totalcolumns thenappend4featurecolumns."
+  },
+  "reference_books": [
+    {
+      "family": "A_active_research_replay",
+      "cost": 0,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_0"
+    },
+    {
+      "family": "A_active_research_replay",
+      "cost": 2,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_2"
+    },
+    {
+      "family": "A_active_research_replay",
+      "cost": 5,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_5"
+    },
+    {
+      "family": "B_shared",
+      "cost": 0,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_0"
+    },
+    {
+      "family": "B_shared",
+      "cost": 2,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_2"
+    },
+    {
+      "family": "B_shared",
+      "cost": 5,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_5"
+    },
+    {
+      "family": "SOXX",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_0"
+    },
+    {
+      "family": "SOXX",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_2"
+    },
+    {
+      "family": "SOXX",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_5"
+    },
+    {
+      "family": "strong9097",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_0"
+    },
+    {
+      "family": "strong9097",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_2"
+    },
+    {
+      "family": "strong9097",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_5"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_0"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_2"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_5"
+    }
+  ],
+  "active_release": {
+    "path": "production/stage1_futu_sim_v1/runtime_release.json",
+    "sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33"
+  },
+  "provider_init": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "provider_output": "data/qlib/stage1_preopen_tom_20261018",
+  "calendar_source_plan": {
+    "path": "research/calendar_tom_source_20261018/repair_1/source_plan.json",
+    "sha256": "469e7c9d3165658be2135ea814a75fbbfa8ff1e4c57d43b1112034e8128bd0cc"
+  },
+  "prefix_start": "2010-03-11",
+  "prefix_gaps": [],
+  "software": {
+    "python": "3.12.12 (main, Feb  4 2026, 01:57:59) [Clang 21.1.4 ]",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "torch": "2.11.0",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "qlib": "0.9.7",
+    "device": "cpu",
+    "original_gradient_dtype": "torch.float32",
+    "torch_threads": 1,
+    "torch_interop_threads": 10,
+    "default_dtype": "torch.float32",
+    "torch_config": "PyTorch built with:\n  - GCC 4.2\n  - C++ Version: 201703\n  - clang 15.0.0\n  - OpenMP 201811\n  - LAPACK is enabled (usually provided by MKL)\n  - NNPACK is enabled\n  - CPU capability usage: DEFAULT\n  - Build settings: BLAS_INFO=accelerate, BUILD_TYPE=Release, COMMIT_SHA=70d99e998b4955e0049d13a98d77ae1b14db1f45, CXX_COMPILER=/usr/bin/c++, CXX_FLAGS= -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_PYTORCH_QNNPACK -DAT_BUILD_ARM_VEC256_WITH_SLEEF -DUSE_XNNPACK -DUSE_PYTORCH_METAL_EXPORT -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DUSE_COREML_DELEGATE -O2 -fPIC -DC10_NODEPRECATED -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=braced-scalar-init -Werror=range-loop-construct -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wvla-extension -Wsuggest-override -Wnewline-eof -Winconsistent-missing-override -Winconsistent-missing-destructor-override -Wno-pass-failed -Wno-error=old-style-cast -Wconstant-conversion -Qunused-arguments -faligned-new -fno-math-errno -fno-trapping-math -Werror=format -DUSE_MPS -Wno-missing-braces, LAPACK_INFO=accelerate, TORCH_VERSION=2.11.0, USE_CUDA=OFF, USE_CUDNN=OFF, USE_CUSPARSELT=OFF, USE_EIGEN_FOR_BLAS=ON, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=OFF, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, USE_XCCL=OFF, USE_XPU=OFF, \n"
+  },
+  "preflight_stage_scope": {
+    "implementation_current": "JSON/manifests/sourcecode only. No object deserialization orrealfeaturevalues.",
+    "later_authorized_preflight": "Firstderiveonlycalendarproxy fromqualifiedmetadata/primitives; then readpinnedtrain-onlyDataSets/modelmetadata/tensors. Assertallresidentframes trainonly beforepreparinglabels, 3014/20741+alltensor/scaler equality, canonicalencoding, pairedinit andwithin-mask binaryvariation.",
+    "output": "Independentpreflight Recorder+nativeprimary/aux/featureDataset withself-contained dump_all; smallpreflightjson. Notmodel/account authority.",
+    "barrier": "Futureexecute loads onlythispinnedpreflighttrain bundle, fitsall6, persistsSHA, thenreadsevaluation_sources. Nofull-object crop exception.",
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_source_HTTP": 0
+  },
+  "frozen_before_preflight": true,
+  "label_horizon_clarification": {
+    "path": "research/stage1_preopen_tom_20261018/label_horizon_clarification.json",
+    "sha256": "2afcfd570b75b4a4a98eb3d784ba15124accbfce2f9c5f3f4c9fe50571847742"
+  },
+  "frozen_review_files": {
+    "research/stage1_preopen_tom_20261018/design_draft.json": "d65bb92c7e80829439da14e6c38b19b2ed84f2e5345fc3305ec46d22968084ff",
+    "research/stage1_preopen_tom_20261018/design_draft_review.json": "a218325d8922ad650a1adad4a5139092a384644f572ab2073bbf1b4b408d2daf",
+    "research/stage1_preopen_tom_20261018/implementation_authorization.json": "a94ea17974048d3e2c0c9013bb05271e94d140fe8cd0ab239fa163b868512e03",
+    "research/stage1_preopen_tom_20261018/label_horizon_clarification.json": "2afcfd570b75b4a4a98eb3d784ba15124accbfce2f9c5f3f4c9fe50571847742",
+    "research/calendar_tom_source_20261018/repair_1/source_result_review.json": "21f6123bc0e5c8678341e302889e38a2c29b9d5f8596e988d4268fa013c1dd3b",
+    "research/calendar_tom_source_20261018/repair_1/readback_verification.json": "3738c9547e17a423985fb5a6b93ee134c5d0c02a21a9eebd6c388f50c4b28af8",
+    "research/calendar_tom_source_20261018/repair_1/summary.json": "a56bc992c8dd0c940f05104698e4e9a22cacaa8819e89d02fe5ca0d0df5b269f",
+    "research/stage1_finra_short_mix_allocation_20261018/plan.json": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
+    "research/stage1_aux_projection_allocation_20261018/readback_verification.json": "99206359b124b16d14f6c43badb284ffdb647d3f54b00f57b39b587da85692d8"
+  },
+  "approval_contract": {
+    "preflight_review": {
+      "file": "preflight_design_review.json",
+      "verdict": "APPROVE_NO_FIT_PREFLIGHT",
+      "required_bindings": [
+        "plan_sha256",
+        "code_sha256"
+      ]
+    },
+    "preflight_owner_GO": {
+      "file": "preflight_execution_approval.json",
+      "required": {
+        "approved": true,
+        "source_feature_generation": true,
+        "training_only_no_fit": true,
+        "fits": false,
+        "accounts": false
+      },
+      "required_bindings": [
+        "plan_sha256",
+        "code_sha256",
+        "review_sha256"
+      ],
+      "environment": "PREOPEN_TOM_PREFLIGHT=1"
+    },
+    "fit_review": {
+      "file": "design_review.json",
+      "verdict": "APPROVE_DESIGN",
+      "role": "Singlecombinedfinaldesign andactualpreflightresults review",
+      "required_bindings": [
+        "plan_sha256",
+        "code_sha256",
+        "preflight_manifest_sha256",
+        "preflight_summary_sha256"
+      ]
+    },
+    "fit_owner_GO": {
+      "file": "execution_approval.json",
+      "required": {
+        "approved": true
+      },
+      "required_bindings": [
+        "plan_sha256",
+        "code_sha256",
+        "review_sha256",
+        "preflight_manifest_sha256",
+        "preflight_summary_sha256"
+      ],
+      "environment": "PREOPEN_TOM_EXECUTE=1"
+    },
+    "mutually_exclusive_stages": true,
+    "stage_permissions_do_not_inherit": "Implementation/synthetic approval isnotrealpreflight; realpreflight isnotfit/account approval."
+  },
+  "analysis_calendar": "Use thepinnedsource/actual_calendar date-only snapshot asdailycalendar_frame.trade_date. Its2023+ trading-sessioncoverage ischeckedagainst everyreferenceauthority andthe944accountintervals; no new calendar orreturnlabel source.",
+  "initialization_checks": "Exact originalcopiedtensors/new4columns zero/B-Cinitialtensors/RNG andsyntheticinitialoutputs; original-vs-extended floatingoutputmaxerror recorded. No actualmarket inference duringno-fit."
+}

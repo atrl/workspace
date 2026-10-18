@@ -1,0 +1,10 @@
+experiment: stage1_preopen_tom_20261018
+preflight_entrypoint: src.workflow.preopen_tom_allocation.prepare
+execution_entrypoint: src.workflow.preopen_tom_allocation.run
+phase: approved_once_source_feature_training_only_preflight
+preflight_environment: PREOPEN_TOM_PREFLIGHT=1
+execution_environment: PREOPEN_TOM_EXECUTE=1
+actual_preflight_authorized: true
+fit_account_authorized: false
+artifact_policy: slim_card_recorder_first
+preflight_execution_approval: preflight_execution_approval.json

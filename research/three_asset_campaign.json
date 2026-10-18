@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_preopen_tom_20261018",
-  "current_phase": "preopen_TOM_implementation_and_synthetic",
-  "next_action": "Implement the approved single preopen proxy and matched four-slot adapter; verify focused synthetic contracts, pin train-only/feature/evaluation source objects and final code, then independently review a bounded source-feature/no-fit preflight before6fits/6accounts.",
+  "current_phase": "preopen_TOM_source_feature_training_only_preflight_approved",
+  "next_action": "Run the approved native preflight once: derive causal calendar values, inspect full training-only object residency, verify exact tensors/scalers/initialization and within-mask identifiability. Review its Recorder result before any6-fit/6-account execution.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1724,7 +1724,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/stage1_preopen_tom_20261018",
-      "phase": "preopen_TOM_implementation_and_synthetic",
+      "phase": "preopen_TOM_source_feature_training_only_preflight_approved",
       "executor": "/root/recent_evidence",
       "design_executor": "/root/external_methods",
       "owner": "/root",
@@ -1735,14 +1735,19 @@
       "new_accounts": 0,
       "new_feature_values": 0,
       "strategy_execution_authorized": false,
-      "executor_lifecycle": "Independent design review completed; owner implementation+synthetic authority signed. Explicit resume follows; no actual feature/preflight/fit/account run claimed.",
+      "executor_lifecycle": "Final implementation/no-fit review completed; owner signed one preflight GO. Explicit executor resume follows; no run claimed live yet.",
       "planned_fit_attempts": 6,
       "planned_new_native_accounts": 6,
       "planned_reference_accounts_reused": 15,
       "definition": "Single preopen conditional NYSE calendar proxy, d-prior common sessions only, fixed4day external window, tri-state OR and3 shared availability masks plus1 value; source remains conditional notPIT.",
       "design_review": "research/stage1_preopen_tom_20261018/design_draft_review.json",
       "design_review_sha256": "a218325d8922ad650a1adad4a5139092a384644f572ab2073bbf1b4b408d2daf",
-      "implementation_authorization": "research/stage1_preopen_tom_20261018/implementation_authorization.json"
+      "implementation_authorization": "research/stage1_preopen_tom_20261018/implementation_authorization.json",
+      "preflight_design_review": "research/stage1_preopen_tom_20261018/preflight_design_review.json",
+      "preflight_design_review_sha256": "d8568203c6e85c2ff72ae11fbcac28f4c354f193bc7c5aa8b23091eac28be99d",
+      "plan_sha256": "c55f56e86d09c2895156b32ede90448c98ccc7dccf2a0c5486efe3ec0a9dccbe",
+      "implementation_identity_sha256": "c42bf44ebe39c7c6a0a2df3d9351cf43d2b55d7ffc80d1e995f87cc218c24595",
+      "preflight_execution_approval": "research/stage1_preopen_tom_20261018/preflight_execution_approval.json"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",

@@ -1,0 +1,36 @@
+{
+  "experiment": "stage1_preopen_tom_20261018",
+  "status": "implementation_complete_pending_preflight_review_and_GO",
+  "plan_sha256": "c55f56e86d09c2895156b32ede90448c98ccc7dccf2a0c5486efe3ec0a9dccbe",
+  "recorder_id": null,
+  "actual_source_feature_generation": false,
+  "actual_training_no_fit_preflight": false,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "future_budget": {
+    "maximum_fit_attempts": 6,
+    "B_fits": 3,
+    "C_fits": 3,
+    "maximum_new_native_accounts": 6,
+    "reference_native_accounts_reused": 15,
+    "total_comparison_accounts": 21,
+    "additional_models_windows_seeds": 0,
+    "new_source_HTTP": 0
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source/*",
+      "inputs/*",
+      "training/*",
+      "models/*",
+      "predictions/*",
+      "paths/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false
+}
