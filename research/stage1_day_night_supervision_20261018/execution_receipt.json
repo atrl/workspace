@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "exec_session_id": 85921,
+  "exit_code": 0,
+  "nbconvert_pid": 43289,
+  "kernel_pid": 43297,
+  "timeout_seconds": 7200,
+  "preflight_env_explicitly_unset": true,
+  "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+  "implementation_identity_sha256": "7f76c5450fb8961a947c70a56339044af7268eb7ef68417c6168d79145eb8f53",
+  "execution_approval_sha256": "08375a45c24b30acca8aad29fa309cfbbb77fb1d80cdbe8de485c27d4f6dc272",
+  "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
+  "experiment_id": "146240142478072451",
+  "artifact_count": 88,
+  "verification_manifest_sha256": "8c3b6adb161f751591ff162b6033d5595583e37fec1cf16cc68b1af48c0af7c4",
+  "summary_before_wording_sha256": "c61b0530ab20b89f6fbe73d437f74a72ea17e82b894d4c5f557a226ec5ec2419",
+  "archive_sha256": "c992d899300006d90a90080b1fcefd183e85d55913a92bb2d615590326f056f7",
+  "fit_attempts": [
+    "B_day_night_total_71",
+    "C_day_night_contrast_71",
+    "B_day_night_total_172",
+    "C_day_night_contrast_172",
+    "B_day_night_total_273",
+    "C_day_night_contrast_273"
+  ],
+  "fits_done": [
+    "B_day_night_total_71",
+    "C_day_night_contrast_71",
+    "B_day_night_total_172",
+    "C_day_night_contrast_172",
+    "B_day_night_total_273",
+    "C_day_night_contrast_273"
+  ],
+  "path_attempts": [
+    "B_day_night_total_0",
+    "B_day_night_total_2",
+    "B_day_night_total_5",
+    "C_day_night_contrast_0",
+    "C_day_night_contrast_2",
+    "C_day_night_contrast_5"
+  ],
+  "paths_done": [
+    "B_day_night_total_0",
+    "B_day_night_total_2",
+    "B_day_night_total_5",
+    "C_day_night_contrast_0",
+    "C_day_night_contrast_2",
+    "C_day_night_contrast_5"
+  ],
+  "native_attempts": [
+    "B_day_night_total_0",
+    "B_day_night_total_2",
+    "B_day_night_total_5",
+    "C_day_night_contrast_0",
+    "C_day_night_contrast_2",
+    "C_day_night_contrast_5"
+  ],
+  "native_done": [
+    "B_day_night_total_0",
+    "B_day_night_total_2",
+    "B_day_night_total_5",
+    "C_day_night_contrast_0",
+    "C_day_night_contrast_2",
+    "C_day_night_contrast_5"
+  ],
+  "model_sha256": {
+    "B_day_night_total_71": "2db9e7799a5edaa73fcdad58e9cd033e3367903cf1856d0dcb37695937e45cf6",
+    "C_day_night_contrast_71": "2d875fcac0bfeb2047d9ff5c62f4b36bd78ca423e7adaab31de3b314345d5154",
+    "B_day_night_total_172": "72c56694ffc207d67cd86dae80a197fa4dfec5140245700692d4e403ba724c41",
+    "C_day_night_contrast_172": "b810bf146b4c3c795464e41dbb692471eb74dd9a4c24de92c2e87f3cb1d8fc25",
+    "B_day_night_total_273": "75798bdb5b7f677de5f829829fe8619d83ed7412ed2fd1bc0ee270216ed62645",
+    "C_day_night_contrast_273": "7494b6e02964c3b048d417e903ca2f87758392069d4db6c938d68fea34aaa501"
+  },
+  "all_six_models_fixed_before_evaluation": true,
+  "completed_fits": 6,
+  "epochs_each": 300,
+  "completed_policy_paths": 6,
+  "completed_new_native_accounts": 6,
+  "reused_native_accounts": 15,
+  "comparison_accounts": 21,
+  "paired_intervals": 15,
+  "independent_promotion_signed_by_executor": false,
+  "automatic_retries": 0,
+  "new_market_source_HTTP": 0,
+  "evaluation_S_Z_labels": 0,
+  "executor_NAS_cold_downloads": 0,
+  "raw_executed_notebook_sha256": "70c245072a11b1c36e2c998efc9ffe0b2259f045783026dcc66e5e24e0ae9a08",
+  "raw_executed_notebook_bytes": 1627889,
+  "temporary_unslimmed_notebook": "/tmp/stage1_day_night_supervision_20261018.executed.unslimmed.ipynb",
+  "transient_widget_state_removed": true,
+  "transient_widget_views_removed": 46,
+  "plaintext_execution_outputs_preserved": "All unique plaintext/values preserved; only exact repeated warning blocks collapsed with original message and exact counts.",
+  "final_notebook_sha256": "34aaf2ff206b7da8b93ed7007db73f3966f30efa139e8a028891303ca5e64305",
+  "final_notebook_bytes": 44775,
+  "selected_model_sha256": "d6accb3f815a8c7aa52e97ab1b5a86528b3a7969ee5a4943c75f08db7fa9bb14",
+  "sync_scope": "Only prose/entry metadata/receipt and transient UI widget state; no research rerun, model/account/CI recalculation or sealed Recorder/NAS modification.",
+  "repeated_warning_blocks_collapsed": [
+    {
+      "cell": 2,
+      "output": 77,
+      "repetitions": 946,
+      "warning": "qlib/utils/index_data.py:492 RuntimeWarning: Mean of empty slice"
+    },
+    {
+      "cell": 2,
+      "output": 87,
+      "repetitions": 946,
+      "warning": "qlib/utils/index_data.py:492 RuntimeWarning: Mean of empty slice"
+    },
+    {
+      "cell": 2,
+      "output": 97,
+      "repetitions": 946,
+      "warning": "qlib/utils/index_data.py:492 RuntimeWarning: Mean of empty slice"
+    },
+    {
+      "cell": 2,
+      "output": 107,
+      "repetitions": 946,
+      "warning": "qlib/utils/index_data.py:492 RuntimeWarning: Mean of empty slice"
+    },
+    {
+      "cell": 2,
+      "output": 117,
+      "repetitions": 946,
+      "warning": "qlib/utils/index_data.py:492 RuntimeWarning: Mean of empty slice"
+    },
+    {
+      "cell": 2,
+      "output": 127,
+      "repetitions": 946,
+      "warning": "qlib/utils/index_data.py:492 RuntimeWarning: Mean of empty slice"
+    }
+  ],
+  "warning_occurrences_preserved_by_counts": 5676
+}

@@ -1,0 +1,193 @@
+{
+  "status": "passed",
+  "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
+  "archive_sha256": "c992d899300006d90a90080b1fcefd183e85d55913a92bb2d615590326f056f7",
+  "result_summary_sha256": "c50203d5e339e94fcf0fdff4fdd13e78087d8abab97fa487ae4f6cf3cf74681c",
+  "verification_manifest_sha256": "8c3b6adb161f751591ff162b6033d5595583e37fec1cf16cc68b1af48c0af7c4",
+  "verified_artifacts": 88,
+  "models_verified": 6,
+  "epochs_each": 300,
+  "parameters_each": 982,
+  "paired_sampling_hashes_equal": true,
+  "all_six_model_hashes_match_evaluation_unlock": true,
+  "evaluation_reads_before_model_barrier": 0,
+  "prediction_rows": {
+    "B_day_night_total_71": 946,
+    "C_day_night_contrast_71": 946,
+    "B_day_night_total_172": 946,
+    "C_day_night_contrast_172": 946,
+    "B_day_night_total_273": 946,
+    "C_day_night_contrast_273": 946
+  },
+  "evaluation_dataset_shape": [
+    946,
+    85
+  ],
+  "new_native_accounts": 6,
+  "reused_reference_accounts": 15,
+  "native_checks": [
+    {
+      "family": "A_active_research_replay",
+      "slippage_bps": 0,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "A_active_research_replay",
+      "slippage_bps": 2,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "A_active_research_replay",
+      "slippage_bps": 5,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "B_shared",
+      "slippage_bps": 0,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "B_shared",
+      "slippage_bps": 2,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "B_shared",
+      "slippage_bps": 5,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "SOXX",
+      "slippage_bps": 0,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "SOXX",
+      "slippage_bps": 2,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "SOXX",
+      "slippage_bps": 5,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "strong9097",
+      "slippage_bps": 0,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "strong9097",
+      "slippage_bps": 2,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "strong9097",
+      "slippage_bps": 5,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "additional27baa",
+      "slippage_bps": 0,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "additional27baa",
+      "slippage_bps": 2,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "additional27baa",
+      "slippage_bps": 5,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "B_day_night_total",
+      "slippage_bps": 0,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "B_day_night_total",
+      "slippage_bps": 2,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "B_day_night_total",
+      "slippage_bps": 5,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "C_day_night_contrast",
+      "slippage_bps": 0,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "C_day_night_contrast",
+      "slippage_bps": 2,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    },
+    {
+      "family": "C_day_night_contrast",
+      "slippage_bps": 5,
+      "sessions": 944,
+      "points": 3778,
+      "max_relative_error": 0.0
+    }
+  ],
+  "all_new_native_account_return_cost_values_finite": true,
+  "metrics_rows": 21,
+  "required_CI_rows": 15,
+  "positive_CI_lower_count": 0,
+  "saved_metrics_CI_and_gates_match": true,
+  "decision": "not_promoted_fixed_day_night_supervision",
+  "NAS_download_count": 1,
+  "new_source_queries": 0,
+  "new_fits": 0,
+  "new_policy_replays": 0,
+  "new_native_accounts_computed": 0,
+  "bootstrap_recomputed": false,
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-day-night-final-coldread-extmnf_f",
+  "method": "One NAS cold restore;88 artifact hashes, six sealed model/trace/scaler and initialization metadata identities, paired sampling, predictions,21native book shapes/finiteNAV/reconciliations, stored CI/gates/CSV readback. No refit, replay, bootstrap or new source.",
+  "exec_session": 52313,
+  "exit_code": 0
+}

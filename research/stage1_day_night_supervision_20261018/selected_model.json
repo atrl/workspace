@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "candidate_family": "C_day_night_contrast",
+  "matched_control_family": "B_day_night_total",
+  "selection_rule": "Predeclared C only, fixed all3seed equal ensemble; no outcome-based seed/checkpoint/arm selection",
+  "decision": "not_promoted_fixed_day_night_supervision",
+  "candidate_retained": true,
+  "promotion_approved": false,
+  "independent_evaluation": "pending",
+  "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
+  "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+  "model_sha256": {
+    "B_day_night_total_71": "2db9e7799a5edaa73fcdad58e9cd033e3367903cf1856d0dcb37695937e45cf6",
+    "C_day_night_contrast_71": "2d875fcac0bfeb2047d9ff5c62f4b36bd78ca423e7adaab31de3b314345d5154",
+    "B_day_night_total_172": "72c56694ffc207d67cd86dae80a197fa4dfec5140245700692d4e403ba724c41",
+    "C_day_night_contrast_172": "b810bf146b4c3c795464e41dbb692471eb74dd9a4c24de92c2e87f3cb1d8fc25",
+    "B_day_night_total_273": "75798bdb5b7f677de5f829829fe8619d83ed7412ed2fd1bc0ee270216ed62645",
+    "C_day_night_contrast_273": "7494b6e02964c3b048d417e903ca2f87758392069d4db6c938d68fea34aaa501"
+  },
+  "candidate_models": [
+    "C_day_night_contrast_71",
+    "C_day_night_contrast_172",
+    "C_day_night_contrast_273"
+  ],
+  "ensemble_weights": {
+    "71": 0.3333333333333333,
+    "172": 0.3333333333333333,
+    "273": 0.3333333333333333
+  },
+  "all_six_models_retained": true,
+  "inference_contract": "Original39/16 inputs and original5 outputs; added regression head is ignored, no evaluation S/Z targets",
+  "new_fits": 6,
+  "new_native_accounts": 6,
+  "active_release_changed": false,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false
+}

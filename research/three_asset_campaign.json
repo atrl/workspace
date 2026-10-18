@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_day_night_supervision_20261018",
-  "current_phase": "day_night_supervision_formal_six_fit_execution_approved",
-  "next_action": "Execute the single frozen six-fit S/Z supervision experiment, seal all6model identities before evaluation reads, then complete all21books/15CI regardless of training scores and obtain independent result review.",
+  "current_phase": "fixed_day_night_supervision_closed_bounded_attribution_in_progress",
+  "next_action": "Finish the already-authorized one-pass saved-evidence attribution, then advance a distinct falsifiable mechanism. NAV same-source path stays closed; FOMC preannouncement stays closed and policy-cycle update does not qualify a replacement flag. Goal remains active, no stable SOXX excess achieved.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1724,7 +1724,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/stage1_day_night_supervision_20261018",
-      "phase": "day_night_supervision_formal_six_fit_execution_approved",
+      "phase": "fixed_day_night_supervision_closed_bounded_attribution_in_progress",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
@@ -1737,13 +1737,13 @@
       "planned_new_native_accounts": 6,
       "planned_reused_reference_accounts": 15,
       "planned_required_paired_CI": 15,
-      "new_fits": 0,
-      "new_accounts": 0,
+      "new_fits": 6,
+      "new_accounts": 6,
       "new_data_value_reads_in_model_design": 0,
       "model_implementation_authorized": true,
-      "model_fit_authorized": true,
-      "account_execution_authorized": true,
-      "executor_lifecycle": "Successful native no-fit evidence and single coldread accepted independently. Owner signed exact6fits/6cost-specific policy paths/6native+15reference/15CI. Executor will now be explicitly resumed after preflight/GO delivery; formal run_state does not exist yet.",
+      "model_fit_authorized": false,
+      "account_execution_authorized": false,
+      "executor_lifecycle": "Actual formal85921 completed6fits/6independent paths/6native+15refs and15CI; independent negative result accepted, unique88-artifact coldread52313 exited0. Fixed version closed. Executor explicitly resumed only for one bounded attribution from saved evidence; no refit/replay/bootstrap/source query. External NAV/FOMC triages completed without a new admitted candidate.",
       "implementation_preparation": "Narrow new adapter fit-loop copy preserves original combined loss order and diagnostic meaning; add regression loss after L_original. Preserve same primary state, auxiliary sampling, globalclip and original RNG; clear temporary cache before seal. No original module edits.",
       "pending_alignment_clarification": "Source C instrument SOXL_SOXX differs from original PG SOXL_SOXX_CASH; assert both fixed single-instrument/date cohorts and original8fields, then assign S/Z by exact date order while preserving PG index/85columns. No inner join/drop/fill.",
       "previous_goal_turn_classification": "progress: all three fixed source phases executed once, conditional labels independently accepted and cold-restored; no model/financial success claimed.",
@@ -1805,7 +1805,37 @@
       "formal_design_review": "research/stage1_day_night_supervision_20261018/design_review.json",
       "formal_design_review_sha256": "8b72b5229d310be3ed35bc418d9dacf252d9a9e6ba05be17553eb520cf9db296",
       "formal_execution_approval": "research/stage1_day_night_supervision_20261018/execution_approval.json",
-      "formal_execution_approval_sha256": "08375a45c24b30acca8aad29fa309cfbbb77fb1d80cdbe8de485c27d4f6dc272"
+      "formal_execution_approval_sha256": "08375a45c24b30acca8aad29fa309cfbbb77fb1d80cdbe8de485c27d4f6dc272",
+      "formal_counts_registered": true,
+      "new_policy_paths": 6,
+      "reused_native_accounts": 15,
+      "formal_result": {
+        "exec_session": 85921,
+        "exit_code": 0,
+        "nbconvert_pid": 43289,
+        "kernel_pid": 43297,
+        "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
+        "archive_sha256": "c992d899300006d90a90080b1fcefd183e85d55913a92bb2d615590326f056f7",
+        "manifest_sha256": "8c3b6adb161f751591ff162b6033d5595583e37fec1cf16cc68b1af48c0af7c4",
+        "result_summary_sha256": "c50203d5e339e94fcf0fdff4fdd13e78087d8abab97fa487ae4f6cf3cf74681c",
+        "artifact_count": 88,
+        "all_six_models_sealed_before_eval": true,
+        "model_sha256": {
+          "B_day_night_total_71": "2db9e7799a5edaa73fcdad58e9cd033e3367903cf1856d0dcb37695937e45cf6",
+          "C_day_night_contrast_71": "2d875fcac0bfeb2047d9ff5c62f4b36bd78ca423e7adaab31de3b314345d5154",
+          "B_day_night_total_172": "72c56694ffc207d67cd86dae80a197fa4dfec5140245700692d4e403ba724c41",
+          "C_day_night_contrast_172": "b810bf146b4c3c795464e41dbb692471eb74dd9a4c24de92c2e87f3cb1d8fc25",
+          "B_day_night_total_273": "75798bdb5b7f677de5f829829fe8619d83ed7412ed2fd1bc0ee270216ed62645",
+          "C_day_night_contrast_273": "7494b6e02964c3b048d417e903ca2f87758392069d4db6c938d68fea34aaa501"
+        },
+        "total_comparison_books": 21,
+        "required_CI": 15,
+        "positive_CI_lower_bounds": 0
+      },
+      "independent_evaluation": "research/stage1_day_night_supervision_20261018/independent_evaluation.json",
+      "independent_evaluation_sha256": "7bdc537cfc0f42126a37119eb815252cc343782aa6baedaf12399a32a60ad742",
+      "readback_verification": "research/stage1_day_night_supervision_20261018/readback_verification.json",
+      "readback_verification_sha256": "6a91edda7c4fcea6c53fee79aa7fd0d5a50c15b49c9dd48ce5d72797b14eb60d"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -2214,6 +2244,50 @@
         "output_finalize_exit": 0,
         "table_hashes_unchanged": true,
         "new_fit_forward_replay_or_CI": false
+      },
+      "closed_result_summary": {
+        "card": "research/stage1_preopen_tom_20261018/repair_1",
+        "decision": "not_promoted_fixed_preopen_TOM",
+        "independent_verdict": "ACCEPT_NEGATIVE_RESULT_CLOSE_FIXED_VERSION",
+        "review": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json",
+        "C_return_pct_0_2_5bp": [
+          112.2794519973856,
+          109.64412232194162,
+          102.34379390714808
+        ],
+        "C_close_max_drawdown_pct_0_2_5bp": [
+          -29.630795572807024,
+          -29.82021675306482,
+          -30.113665989140216
+        ],
+        "C_sampled_max_drawdown_pct_0_2_5bp": [
+          -30.52216249033679,
+          -30.71063642143681,
+          -30.993863789726493
+        ],
+        "complete_annual_SOXX_positive_fraction_each_cost": 0.5,
+        "C_rolling126_positive_fraction": [
+          0.2661782661782662,
+          0.2564102564102564,
+          0.2490842490842491
+        ],
+        "positive_CI_lower_bounds": "0/15",
+        "new_fits": 6,
+        "new_native_accounts": 6,
+        "reused_native_accounts": 15,
+        "attribution_status": "completed_fixed_once_with_output_serialization_repair",
+        "next_action": "Closefixedversion; do not rescue window/sign/venue/mask/seed/encoding/controller.",
+        "attribution": {
+          "path": "research/stage1_preopen_tom_20261018/repair_1/failure_attribution.md",
+          "C_raw_beta": 1.1098278570686837,
+          "B_raw_beta": 1.0959261985804114,
+          "C_2bp_actual_ending_beta": 0.6902508857812963,
+          "B_2bp_actual_ending_beta": 0.8427742092129161,
+          "C_2bp_cash_like_weight": 0.5300501907371621,
+          "B_2bp_cash_like_weight": 0.4564829840501579,
+          "C_B_risk_state_different_days_2bp": 319,
+          "interpretation": "Inputs reached proposals and realized holdings, but worse endogenous full-account paths erased the intended gain. This is descriptive, not a controller-isolation counterfactual."
+        }
       }
     },
     "completed_day_night_label_source_task": {
@@ -2390,10 +2464,10 @@
     "production_changes_authorized": false
   },
   "current_goal_execution_counts": {
-    "model_fits": 21,
-    "new_native_accounts": 30,
-    "reused_native_accounts": 66,
-    "completed_fixed_experiments": 5,
+    "model_fits": 27,
+    "new_native_accounts": 36,
+    "reused_native_accounts": 81,
+    "completed_fixed_experiments": 6,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
     "reused_native_accounts_scope": "Cumulative comparison reuse events, not independent accounts or new market observations",
@@ -2650,6 +2724,24 @@
       "new_accounts": 0,
       "historical_PIT_qualified": false,
       "economic_success": false
+    },
+    "nav_premium_source_triage": {
+      "path": "research/external_mechanism_review_20261018/nav_premium_source_triage.md",
+      "sha256": "2f8fd72cb1de7d5a286b48e0938d40693c636dd7d75ada9420d58d957d255833",
+      "queries": 0,
+      "status": "existing_same_source_gap_no_reopening",
+      "market_datasets_downloaded": 0,
+      "new_fits": 0,
+      "new_accounts": 0
+    },
+    "fomc_information_triage": {
+      "path": "research/external_mechanism_review_20261018/fomc_information_triage.md",
+      "sha256": "e1be4a202d64e48616c4edadde2f7acb663db76ac21b46427e1a18b7b078a848",
+      "queries": 8,
+      "status": "no_new_candidate_existing_closed_route_clock_mismatch_and_updated_counterevidence",
+      "market_datasets_downloaded": 0,
+      "new_fits": 0,
+      "new_accounts": 0
     }
   },
   "research_focus_history": [
@@ -2670,47 +2762,41 @@
     }
   ],
   "latest_fixed_result": {
-    "card": "research/stage1_preopen_tom_20261018/repair_1",
-    "decision": "not_promoted_fixed_preopen_TOM",
-    "independent_verdict": "ACCEPT_NEGATIVE_RESULT_CLOSE_FIXED_VERSION",
-    "review": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json",
+    "card": "research/stage1_day_night_supervision_20261018",
+    "decision": "not_promoted_fixed_day_night_supervision",
+    "independent_verdict": "ACCEPT_NEGATIVE_RESULT",
+    "review": "research/stage1_day_night_supervision_20261018/independent_evaluation.json",
     "C_return_pct_0_2_5bp": [
-      112.2794519973856,
-      109.64412232194162,
-      102.34379390714808
+      259.74103894809434,
+      255.43453899804632,
+      191.19922988280112
+    ],
+    "matched_B_return_pct_0_2_5bp": [
+      287.01738096653236,
+      354.27926286228546,
+      190.4853139544003
     ],
     "C_close_max_drawdown_pct_0_2_5bp": [
-      -29.630795572807024,
-      -29.82021675306482,
-      -30.113665989140216
+      -26.924589593202075,
+      -26.950722766752012,
+      -27.180685689063456
     ],
     "C_sampled_max_drawdown_pct_0_2_5bp": [
-      -30.52216249033679,
-      -30.71063642143681,
-      -30.993863789726493
+      -27.322417550400125,
+      -27.51196656303693,
+      -27.801891339878704
     ],
     "complete_annual_SOXX_positive_fraction_each_cost": 0.5,
     "C_rolling126_positive_fraction": [
-      0.2661782661782662,
-      0.2564102564102564,
-      0.2490842490842491
+      0.31135531135531136,
+      0.304029304029304,
+      0.24664224664224665
     ],
     "positive_CI_lower_bounds": "0/15",
     "new_fits": 6,
     "new_native_accounts": 6,
     "reused_native_accounts": 15,
-    "attribution_status": "completed_fixed_once_with_output_serialization_repair",
-    "next_action": "Closefixedversion; do not rescue window/sign/venue/mask/seed/encoding/controller.",
-    "attribution": {
-      "path": "research/stage1_preopen_tom_20261018/repair_1/failure_attribution.md",
-      "C_raw_beta": 1.1098278570686837,
-      "B_raw_beta": 1.0959261985804114,
-      "C_2bp_actual_ending_beta": 0.6902508857812963,
-      "B_2bp_actual_ending_beta": 0.8427742092129161,
-      "C_2bp_cash_like_weight": 0.5300501907371621,
-      "B_2bp_cash_like_weight": 0.4564829840501579,
-      "C_B_risk_state_different_days_2bp": 319,
-      "interpretation": "Inputs reached proposals and realized holdings, but worse endogenous full-account paths erased the intended gain. This is descriptive, not a controller-isolation counterfactual."
-    }
+    "attribution_status": "authorized_once_in_progress",
+    "next_action": "Close fixed head/weight/target/seed/controller version. Complete one descriptive failure attribution and pursue a substantively distinct information mechanism; do not promote matched B after seeing results."
   }
 }

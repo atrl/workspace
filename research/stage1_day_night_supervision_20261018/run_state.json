@@ -1,0 +1,66 @@
+{
+  "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+  "fit_attempts": [
+    "B_day_night_total_71",
+    "C_day_night_contrast_71",
+    "B_day_night_total_172",
+    "C_day_night_contrast_172",
+    "B_day_night_total_273",
+    "C_day_night_contrast_273"
+  ],
+  "fits_done": [
+    "B_day_night_total_71",
+    "C_day_night_contrast_71",
+    "B_day_night_total_172",
+    "C_day_night_contrast_172",
+    "B_day_night_total_273",
+    "C_day_night_contrast_273"
+  ],
+  "path_attempts": [
+    "B_day_night_total_0",
+    "B_day_night_total_2",
+    "B_day_night_total_5",
+    "C_day_night_contrast_0",
+    "C_day_night_contrast_2",
+    "C_day_night_contrast_5"
+  ],
+  "paths_done": [
+    "B_day_night_total_0",
+    "B_day_night_total_2",
+    "B_day_night_total_5",
+    "C_day_night_contrast_0",
+    "C_day_night_contrast_2",
+    "C_day_night_contrast_5"
+  ],
+  "native_attempts": [
+    "B_day_night_total_0",
+    "B_day_night_total_2",
+    "B_day_night_total_5",
+    "C_day_night_contrast_0",
+    "C_day_night_contrast_2",
+    "C_day_night_contrast_5"
+  ],
+  "native_done": [
+    "B_day_night_total_0",
+    "B_day_night_total_2",
+    "B_day_night_total_5",
+    "C_day_night_contrast_0",
+    "C_day_night_contrast_2",
+    "C_day_night_contrast_5"
+  ],
+  "model_sha256": {
+    "B_day_night_total_71": "2db9e7799a5edaa73fcdad58e9cd033e3367903cf1856d0dcb37695937e45cf6",
+    "C_day_night_contrast_71": "2d875fcac0bfeb2047d9ff5c62f4b36bd78ca423e7adaab31de3b314345d5154",
+    "B_day_night_total_172": "72c56694ffc207d67cd86dae80a197fa4dfec5140245700692d4e403ba724c41",
+    "C_day_night_contrast_172": "b810bf146b4c3c795464e41dbb692471eb74dd9a4c24de92c2e87f3cb1d8fc25",
+    "B_day_night_total_273": "75798bdb5b7f677de5f829829fe8619d83ed7412ed2fd1bc0ee270216ed62645",
+    "C_day_night_contrast_273": "7494b6e02964c3b048d417e903ca2f87758392069d4db6c938d68fea34aaa501"
+  },
+  "phase": "completed",
+  "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
+  "experiment_id": "146240142478072451",
+  "all_six_models_fixed": true,
+  "evaluation_unlocked": true,
+  "analysis_attempted": true,
+  "completed": true
+}

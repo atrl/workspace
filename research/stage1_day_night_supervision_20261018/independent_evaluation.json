@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT_NEGATIVE_RESULT",
+  "reviewer": "independent_evaluator",
+  "reviewed_at_utc": "2026-10-18T12:21:33.650746+00:00",
+  "experiment": "stage1_day_night_supervision_20261018",
+  "decision": "not_promoted_fixed_day_night_supervision",
+  "fixed_version_status": "closed_not_promoted",
+  "objective_achieved": false,
+  "promotion_approved": false,
+  "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+  "implementation_identity_sha256": "7f76c5450fb8961a947c70a56339044af7268eb7ef68417c6168d79145eb8f53",
+  "design_review_sha256": "8b72b5229d310be3ed35bc418d9dacf252d9a9e6ba05be17553eb520cf9db296",
+  "execution_approval_sha256": "08375a45c24b30acca8aad29fa309cfbbb77fb1d80cdbe8de485c27d4f6dc272",
+  "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
+  "reviewed_root_summary_sha256": "c50203d5e339e94fcf0fdff4fdd13e78087d8abab97fa487ae4f6cf3cf74681c",
+  "verification_manifest_sha256": "8c3b6adb161f751591ff162b6033d5595583e37fec1cf16cc68b1af48c0af7c4",
+  "archive_sha256": "c992d899300006d90a90080b1fcefd183e85d55913a92bb2d615590326f056f7",
+  "execution_receipt_sha256": "408ea3b3dfe70f66017c892a0b7599849e21e6c4e25c2634d7437b2bc2e6d8b1",
+  "run_state_sha256": "45e4138718f0dc50fc503955030c97c4725ecf404e3bb6c1e63be7e5d0f00c3e",
+  "scope": "Minimum independent result review of frozen identities, actual attempt inventories, saved six-model barrier, native account completeness and predetermined economic failures; unchanged design and source qualification reused.",
+  "evidence": {
+    "formal_session_id": 85921,
+    "formal_exit_code": 0,
+    "artifact_count": 88,
+    "local_hash_verified_artifacts_loaded": 16,
+    "current_code_identity_files_matched": 23,
+    "fits": 6,
+    "epochs_each": 300,
+    "optimizer_steps_each": 300,
+    "policy_paths": 6,
+    "new_native_accounts": 6,
+    "reused_native_accounts": 15,
+    "comparison_accounts": 21,
+    "required_paired_intervals": 15,
+    "automatic_retries": 0,
+    "all_six_model_bytes_match_saved_barrier_SHA": true,
+    "evaluation_objects_read_before_barrier": 0,
+    "all_six_native_audits_passed": true,
+    "native_sessions_each": 944,
+    "native_points_each": 3778,
+    "native_max_relative_error_all_six": 0.0,
+    "all_six_native_CA_from_own_positions": true,
+    "cost_paths_remain_separate": true,
+    "native_account_return_cost_daily_equity_return_point_NAV_all_finite": true,
+    "candidate_is_no_op": false,
+    "history_status": "reused_history_not_independent_validation",
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false,
+    "new_market_source_HTTP": 0,
+    "new_market_source_price_queries": 0,
+    "evaluation_S_Z_labels": 0,
+    "production_changed": false
+  },
+  "candidate_results_pct": [
+    {
+      "slippage_bps": 0,
+      "C_return": 259.7410389481,
+      "matched_B_return": 287.0173809665,
+      "SOXX_return": 380.5878111063,
+      "C_close_MaxDD": -26.9245895932,
+      "C_sampled_point_MaxDD": -27.3224175504,
+      "C_CVaR5": -4.299547784,
+      "SOXX_CVaR5": -4.90478329,
+      "rolling126_positive_pct": 31.13553114
+    },
+    {
+      "slippage_bps": 2,
+      "C_return": 255.434538998,
+      "matched_B_return": 354.2792628623,
+      "SOXX_return": 380.5678686626,
+      "C_close_MaxDD": -26.9507227668,
+      "C_sampled_point_MaxDD": -27.511966563,
+      "C_CVaR5": -4.3013222998,
+      "SOXX_CVaR5": -4.9052404232,
+      "rolling126_positive_pct": 30.4029304
+    },
+    {
+      "slippage_bps": 5,
+      "C_return": 191.1992298828,
+      "matched_B_return": 190.4853139544,
+      "SOXX_return": 380.5379549969,
+      "C_close_MaxDD": -27.1806856891,
+      "C_sampled_point_MaxDD": -27.8018913399,
+      "C_CVaR5": -4.2408949784,
+      "SOXX_CVaR5": -4.905926307,
+      "rolling126_positive_pct": 24.66422466
+    }
+  ],
+  "failed_scientific_gates": {
+    "net_relative_wealth_all_costs": "Fails at every cost, including SOXX and strong9097 at all costs. Individual passes against A at0/5bp and matchedB at5bp do not satisfy the all-required-comparator gate.",
+    "complete_annual_70pct": "2024 positive and2025 negative at every cost:1/2=50percent below70percent. Partial2023/2026 are retained but excluded from complete-year gate.",
+    "rolling126_70pct": "819 overlapping windows per cost; positive fractions31.1355/30.4029/24.6642percent below70percent.",
+    "paired_block_lower_positive": "0/15 lower bounds strictly positive; all five required comparators at all three costs fail. No bootstrap rerun."
+  },
+  "passed_scientific_gates": [
+    "sampled_drawdown_30pct",
+    "cvar_no_worse_soxx",
+    "minimum_complete_years"
+  ],
+  "unqualified_future_requirements": [
+    "fresh_fullminute_risk_qualified",
+    "qualified_independent_forward"
+  ],
+  "warning_boundary": "Repeated qlib Mean of empty slice warnings remain recorded with exact counts and unslimmed notebook identity. Direct checks of all six saved native books found no nonfinite daily equity/strategy_return, native account/return/cost or point NAV. No claim that all optional Qlib indicators are populated; no additional broad warning audit is needed to reject this version.",
+  "verification_note": "Saved execution/receipt is captured at phase analysis before sealing; final run_state is completed. Attempt lists, model hashes and barrier fields agree. An initial reviewer equality assertion incorrectly included this lifecycle difference; corrected comparison passed in session18022 exit0. No experiment rerun or evidence mutation.",
+  "reviewer_actions": {
+    "new_fits": 0,
+    "replays": 0,
+    "new_tests": 0,
+    "bootstrap_reruns": 0,
+    "new_source_queries": 0,
+    "NAS_downloads": 0
+  },
+  "NAS_cold_readback": "Separate unique owner cold restore; not duplicated and not claimed completed in this local result review.",
+  "closure": {
+    "no_head_lambda_seed_or_controller_rescue": true,
+    "matched_B_not_promoted_as_alternate_candidate": true,
+    "fixed_version_closed": true,
+    "continuous_goal_remains_active": true,
+    "next_action": "Owner may authorize one bounded attribution from existing Recorder outcomes; any new substantive mechanism requires a new frozen design."
+  }
+}
