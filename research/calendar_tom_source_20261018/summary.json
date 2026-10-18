@@ -1,15 +1,108 @@
 {
   "experiment": "calendar_tom_source_20261018",
-  "status": "implementation_ready_pending_review_and_source_GO",
-  "decision": "needs_source_knowledge_review",
-  "recorder_id": null,
-  "source_documents_acquired": 0,
+  "decision": "partial_conditional_source_repair_required",
+  "source_plan_sha256": "ef3e10ca812f7bf45bc8ed22a6f54df61ff11a03dbd1dd29b4872acff8c23dbb",
+  "status": "initial_source_reviewed_parser_repair_required",
+  "recorder_id": "638ecf0af9204ba38e2e36e7be0307f1",
+  "experiment_id": "753140948980509208",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/calendar_tom_source_20261018/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/calendar_tom_source_20261018/qlib_recorder/753140948980509208/638ecf0af9204ba38e2e36e7be0307f1",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "region": "us",
+  "as_of": "2026-10-09",
+  "captured_documents": 12,
+  "attempt_receipts_preserved": 17,
+  "failed_raw_document_gaps": 5,
+  "explicit_historical_capture_HTTP_attempts": 17,
+  "new_source_HTTP": 0,
+  "metadata_rows": 23796,
+  "signal_rows": 3966,
+  "venues": [
+    "NYSE",
+    "NYSE_ARCA",
+    "NASDAQ"
+  ],
+  "clocks": [
+    "original_0929",
+    "research_0946"
+  ],
+  "knowledge_assertions": 297,
+  "calendar_discrepancy_rows": 2,
+  "mapping": {
+    "outer_signal_rows": 946,
+    "account_signal_rows": 944,
+    "tail_signal_rows": 2,
+    "tail_original_decision_at": {
+      "2026-10-08": "2026-10-09 09:29:00-04:00",
+      "2026-10-09": null
+    },
+    "training_cohort_3014_verified": false,
+    "training_cohort_boundary": "Later label-aware model gate; source stage does not rebuild maturity/finite-return eligibility."
+  },
+  "dataset_direct_prepare_roundtrip": "passed",
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "receiving_venue_selected": false,
+  "original_training_clock_compatibility": "unresolved",
+  "feature_generation_approved": false,
   "candidate_features_generated": 0,
   "return_labels_read_or_computed": 0,
   "new_fits": 0,
   "new_accounts": 0,
-  "historical_PIT_qualified": false,
-  "model_execution_approved": false,
+  "scope_boundary": "Per-venue ordinary-schedule conditional coverage only; extraordinary corpus, current-open receipt and historical-vintage gaps remain. NoTOMproxy calculated.",
+  "source_gaps": [
+    {
+      "document_id": "nyse_rule51_2010_notice",
+      "reason": "receipt_has_no_successful_raw_response",
+      "assertions_admitted": 0
+    },
+    {
+      "document_id": "nyse_rule51_2010_exhibit5",
+      "reason": "receipt_has_no_successful_raw_response",
+      "assertions_admitted": 0
+    },
+    {
+      "document_id": "nyse_juneteenth_2021",
+      "reason": "receipt_has_no_successful_raw_response",
+      "assertions_admitted": 0
+    },
+    {
+      "document_id": "arca_juneteenth_2021",
+      "reason": "receipt_has_no_successful_raw_response",
+      "assertions_admitted": 0
+    },
+    {
+      "document_id": "ice_calendar_2021_2023",
+      "reason": "observed date is ambiguous",
+      "assertions_admitted": 0
+    },
+    {
+      "document_id": "nyse_calendar_2012_2013_wire",
+      "reason": "receipt_has_no_successful_raw_response",
+      "assertions_admitted": 0
+    },
+    {
+      "document_id": "ice_calendar_2018_2020",
+      "reason": "observed date is ambiguous",
+      "assertions_admitted": 0
+    }
+  ],
+  "known_amendment_gaps": [
+    {
+      "id": "Juneteenth_2022_original_SEC_rule_raw_unavailable",
+      "venues": [
+        "NYSE",
+        "NYSE_ARCA"
+      ],
+      "affected_calendar_years": [
+        2022
+      ],
+      "unknown_from": "2021-10-01T00:00:00-04:00",
+      "basis": "Both2021-09-30 SECnotice bodies lackrawcapture. Their already-recorded metadata warns thatthe2020baseline isnot anupdated2022calendar; do not silently certify it. Thisis a missing-source marker, not anadmitted holiday assertion.",
+      "resolution": "No repair inthisrun. Explicit2023+annualtable includesJuneteenth only fromitsown2022-12-22 conditionalknowledge time; itdoesnotretroactively qualify2022."
+    }
+  ],
+  "ordinary_horizon_complete_meaning": "Only the bounded already-announced full-year table andMonday-Friday convention cover to monthend andnext plannedopen. It is not extraordinary-closure completeness orPIT.",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
@@ -19,20 +112,90 @@
       "analysis/discrepancies"
     ]
   },
-  "canonical_source_documents_imported": 0,
-  "discovery_cache_successful_documents": 12,
-  "discovery_cache_failed_documents": 5,
-  "source_discovery_HTTP_requests_by_other_agent": 17,
-  "remaining_source_HTTP_budget": 0,
-  "source_discovery_cumulative_HTTP_ceiling": 17,
-  "extension_1_maximum_new_HTTP_requests": 5,
-  "extension_1_actual_HTTP_requests": 5,
-  "source_inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
-  "extension_1_sha256": "450bada2a5fd10561b547a458b3b1715f7fd5e14e50c8213114b97369429b1dc",
-  "remaining_discovery_HTTP_budget": 0,
-  "source_plan_sha256": "ef3e10ca812f7bf45bc8ed22a6f54df61ff11a03dbd1dd29b4872acff8c23dbb",
-  "source_implementation_identity": "source_implementation_identity.json",
-  "source_qualification_executed": false,
-  "real_cache_parses": 0,
-  "metadata_rows_generated": 0
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "nas_evidence": {
+    "sha256": "0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
+    "size_bytes": 909688,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/0f/77/0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 16:34:03.878637+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/0f/77/0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
+    "recorder_id": "638ecf0af9204ba38e2e36e7be0307f1",
+    "experiment_id": "753140948980509208",
+    "archive_root": "qlib_recorder"
+  },
+  "parser_delivery_assessment": {
+    "cached_documents": 12,
+    "parsed_documents": 10,
+    "parser_gap_documents": [
+      "ice_calendar_2018_2020",
+      "ice_calendar_2021_2023"
+    ],
+    "parser_gap_count": 2,
+    "raw_capture_gap_count": 5,
+    "diagnostic": "parse_gap_diagnostic.json",
+    "coverage_table_year_basis": "signal_date.year, not decision tradingyear",
+    "venue_clock_coverage": [
+      {
+        "venue": "NASDAQ",
+        "clock": "original_0929",
+        "rows": 3966,
+        "conditional_snapshot": 0,
+        "unknown": 3966,
+        "historical_PIT_rows": 0
+      },
+      {
+        "venue": "NASDAQ",
+        "clock": "research_0946",
+        "rows": 3966,
+        "conditional_snapshot": 0,
+        "unknown": 3966,
+        "historical_PIT_rows": 0
+      },
+      {
+        "venue": "NYSE",
+        "clock": "original_0929",
+        "rows": 3966,
+        "conditional_snapshot": 1916,
+        "unknown": 2050,
+        "historical_PIT_rows": 0
+      },
+      {
+        "venue": "NYSE",
+        "clock": "research_0946",
+        "rows": 3966,
+        "conditional_snapshot": 1916,
+        "unknown": 2050,
+        "historical_PIT_rows": 0
+      },
+      {
+        "venue": "NYSE_ARCA",
+        "clock": "original_0929",
+        "rows": 3966,
+        "conditional_snapshot": 1916,
+        "unknown": 2050,
+        "historical_PIT_rows": 0
+      },
+      {
+        "venue": "NYSE_ARCA",
+        "clock": "research_0946",
+        "rows": 3966,
+        "conditional_snapshot": 1916,
+        "unknown": 2050,
+        "historical_PIT_rows": 0
+      }
+    ],
+    "next_action": "One separately approved narrow grammar repair; no silent real secondparse or newHTTP.",
+    "sealed_recorder_unchanged": true
+  },
+  "initial_source_review": {
+    "path": "source_result_review_initial.json",
+    "sha256": "a058b5b593c3e30b13b0cfd03c82f8b081f038adbd7b19b1558d3f7931911a92",
+    "verdict": "ACCEPT_INITIAL_SOURCE_RESULT_REPAIR_REQUIRED"
+  }
 }

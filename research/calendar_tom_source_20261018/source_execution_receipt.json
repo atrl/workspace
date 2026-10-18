@@ -1,0 +1,20 @@
+{
+  "exec_session": 64428,
+  "nbconvert_pid": 3124,
+  "kernel_pid": 3128,
+  "exit_code": 0,
+  "source_plan_sha256": "ef3e10ca812f7bf45bc8ed22a6f54df61ff11a03dbd1dd29b4872acff8c23dbb",
+  "recorder_id": "638ecf0af9204ba38e2e36e7be0307f1",
+  "archive_sha256": "0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
+  "artifact_count": 38,
+  "raw_cache_documents": 12,
+  "parsed_documents": 10,
+  "parser_gap_documents": 2,
+  "raw_gap_documents": 5,
+  "metadata_rows": 23796,
+  "native_dataset_direct_prepare_roundtrip": "passed",
+  "new_sourceHTTP_features_returns_fit_accounts": 0,
+  "notebook_markdown_synchronized_without_rerun": true,
+  "executor_NAS_coldread": false,
+  "repair_execution_authorized": false
+}

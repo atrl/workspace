@@ -1,0 +1,42 @@
+{
+  "source_recorder_id": "638ecf0af9204ba38e2e36e7be0307f1",
+  "archive_sha256": "0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
+  "status": "deterministic_supported_format_parser_gap_pending_scoped_repair_review",
+  "raw_cache_documents": 12,
+  "parsed_documents": 10,
+  "parser_gaps": 2,
+  "failed_raw_documents": 5,
+  "cases": [
+    {
+      "document_id": "ice_calendar_2021_2023",
+      "raw_sha256": "8fbde46b98a6f518cc398d9e595aef5d5f8a2140dca6e04ba4b43e729241d8f9",
+      "source_text": "Monday, July 5 (July 4 holiday observed)",
+      "source_span": {
+        "surface": "canonical_visible_text_v1",
+        "start": 2469,
+        "end": 2509
+      },
+      "meaning": "Leadingdate isobserved closure; parentheticalJuly4 namesnominal holiday.",
+      "current_parser_behavior": "_dates finds2dates; suffix-after-last-observed containszero dates; strictlen!=1 rejects entire document.",
+      "split_after_observed": ")"
+    },
+    {
+      "document_id": "ice_calendar_2018_2020",
+      "raw_sha256": "23264461e846e63febb5c5752e03164023216334d6c71490c81a161572c41e2d",
+      "source_text": "Friday, July 3 (July 4 holiday observed)",
+      "source_span": {
+        "surface": "canonical_visible_text_v1",
+        "start": 2365,
+        "end": 2405
+      },
+      "meaning": "Leadingdate isobserved closure; parentheticalJuly4 namesnominal holiday.",
+      "current_parser_behavior": "_dates finds2dates; suffix-after-last-observed containszero dates; strictlen!=1 rejects entire document.",
+      "split_after_observed": ")"
+    }
+  ],
+  "repair_proposal": "Add narrowlyvalidated observed-date grammar: whenoneleadingdate precedesparentheticalnominalholiday observed, selecttheleadingdate; retain existing(Observed date)syntax andfailclosedforgenuinelyambiguouscases. No fallbackdateguess orchangeofknown_at/venue/vintage.",
+  "code_changed": false,
+  "parser_or_workflow_reexecuted": false,
+  "newHTTP_features_returns_fits_accounts": 0,
+  "existing_recorder_or_archive_modified": false
+}

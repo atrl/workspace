@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/independent_evaluator",
+  "verdict": "ACCEPT_INITIAL_SOURCE_RESULT_REPAIR_REQUIRED",
+  "source_plan_sha256": "ef3e10ca812f7bf45bc8ed22a6f54df61ff11a03dbd1dd29b4872acff8c23dbb",
+  "source_recorder_id": "638ecf0af9204ba38e2e36e7be0307f1",
+  "archive_sha256": "0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
+  "verification_manifest_sha256": "416f8025420e54a8597a9331eedb3189f0822c78192377234c62ee9dccdd5022",
+  "initial_evidence_must_remain_immutable": true,
+  "verified_result": {
+    "registered_artifacts": 38,
+    "cached_raw_documents": 12,
+    "capture_receipts": 17,
+    "raw_unavailable_documents": 5,
+    "parsed_documents": 10,
+    "parser_rejected_documents": 2,
+    "knowledge_assertions": 297,
+    "signal_rows": 3966,
+    "native_metadata_shape": [23796, 33],
+    "direct_Dataset_prepare_matches_recorded_metadata": true,
+    "outer_signal_rows": 946,
+    "account_rows_per_venue_clock": 944,
+    "two_non_account_tail_rows_preserved": true,
+    "source_asof_observed_calendar_unchanged": true,
+    "knowledge_max_at_not_after_audited_clock": true,
+    "both_clocks_current_open_first_receipt_unverified": true,
+    "no_float32_metadata_time_encoding": true,
+    "historical_PIT_qualified": false,
+    "new_source_HTTP": 0,
+    "candidate_features_generated": 0,
+    "new_labels_fits_accounts": 0
+  },
+  "coverage": {
+    "NYSE_each_clock": {"conditional_snapshot": 1916, "unknown": 2050},
+    "NYSE_ARCA_each_clock": {"conditional_snapshot": 1916, "unknown": 2050},
+    "NASDAQ_each_clock": {"conditional_snapshot": 0, "unknown": 3966},
+    "interpretation": "Counts describe ordinary-calendar source coverage, not usable TOM observations.09:29 does not acquire09:46 current-open confirmation; receiver venue remains unselected.2011–2013 decision dates and2022 remain unknown. Source coverage years must distinguish signal_date from the mapped decision date."
+  },
+  "parser_finding": {
+    "classification": "deterministic_parser_defect_not_semantic_source_ambiguity",
+    "affected_documents": [
+      {"document_id": "ice_calendar_2018_2020", "raw_sha256": "23264461e846e63febb5c5752e03164023216334d6c71490c81a161572c41e2d", "cell": "Friday, July 3 (July 4 holiday observed)"},
+      {"document_id": "ice_calendar_2021_2023", "raw_sha256": "8fbde46b98a6f518cc398d9e595aef5d5f8a2140dca6e04ba4b43e729241d8f9", "cell": "Monday, July 5 (July 4 holiday observed)"}
+    ],
+    "cause": "The parser counts the explanatory parenthetical nominal holiday as a second date, then searches after the word observed, where only a closing parenthesis remains. The resulting rejection correctly stayed fail-closed, but the source states one explicit observed closure date.",
+    "minimum_repair": "Admit only the frozen leading weekday/date plus parenthetical holiday-observed explanation grammar. Use the single leading calendar date as the closure; retain the parenthetical in source provenance. Continue rejecting genuinely competing dates, inconsistent weekday/year or unsupported forms.",
+    "repair_boundary": "Freeze a separate bounded cache-only parser repair and one qualification run. Preserve this Recorder,38-artifact manifest/archive, original result and failed-document records. No new HTTP, feature, return, model or account work."
+  },
+  "review_method": "Read verified local Recorder metadata Dataset, ledger, mapping, status and coverage objects; compared root CSV serialization and exact clock/dtype/tail boundaries. Inspected the two hash-verified raw table excerpts without rebuilding the ledger. No source replay, NAS restore, tests, TOM computation or market values were used.",
+  "source_result_ready_for_full_feature_delivery": false,
+  "model_execution_approved": false,
+  "account_execution_approved": false,
+  "next_action": "Review only the bounded parser-format repair and immutable repair lifecycle, then assess repaired source coverage. Receiving venue and09:29/09:46-to-label compatibility remain separate downstream design gates."
+}

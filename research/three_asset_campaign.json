@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/calendar_tom_source_20261018",
-  "current_phase": "calendar_TOM_once_cache_only_source_qualification_approved",
-  "next_action": "Run exact approved calendar source notebook once, then independently review per-venue and per-clock coverage and gaps. No candidate feature or model/account execution.",
+  "current_phase": "calendar_TOM_bounded_parser_repair_implementation",
+  "next_action": "Review the narrowly scoped holiday-observed parser repair, approve one cache-only repair qualification preserving the initial source Recorder, then decide the receiving clock/venue design. No feature/model/account execution yet.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1722,7 +1722,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/calendar_tom_source_20261018",
-      "phase": "calendar_TOM_once_cache_only_source_qualification_approved",
+      "phase": "calendar_TOM_bounded_parser_repair_implementation",
       "executor": "/root/recent_evidence",
       "owner": "/root",
       "new_model_fits": 0,
@@ -1730,7 +1730,7 @@
       "new_feature_values": 0,
       "strategy_execution_authorized": false,
       "scope": "Implement one frozen-source cache-only calendar knowledge ledger and native metadata coverage check; no candidate features, returns, fit or account. Historical clock/venue/vintage gaps remain explicit.",
-      "executor_lifecycle": "Implementation independently approved; owner GO signed. Executor requires explicit resume for single source run; no live run claimed yet.",
+      "executor_lifecycle": "Initial source exec64428 completed exit0; independent review accepted partial result and identified two deterministic parser defects. Executor resumed for bounded repair implementation; no repair source execution yet.",
       "source_plan_executor": "/root/recent_evidence",
       "source_document_executor": "/root/external_methods",
       "planned_source_card": "research/calendar_tom_source_20261018",
@@ -1769,7 +1769,16 @@
       "source_design_review_sha256": "f8f6f7d2b2e23ceca36cdc9cdbc9fd971f2cdeba2f2cfface5bdcff6ff607ae2",
       "source_implementation_authorization": "research/calendar_tom_source_20261018/implementation_authorization.json",
       "source_implementation_authorized": true,
-      "source_execution_approval": "research/calendar_tom_source_20261018/source_execution_approval.json"
+      "source_execution_approval": "research/calendar_tom_source_20261018/source_execution_approval.json",
+      "initial_source_result": {
+        "recorder_id": "638ecf0af9204ba38e2e36e7be0307f1",
+        "archive_sha256": "0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
+        "metadata_rows": 23796,
+        "parsed_documents": 10,
+        "parser_gap_documents": 2,
+        "raw_gap_documents": 5,
+        "source_review_sha256": "a058b5b593c3e30b13b0cfd03c82f8b081f038adbd7b19b1558d3f7931911a92"
+      }
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
