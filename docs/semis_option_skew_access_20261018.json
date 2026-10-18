@@ -1,0 +1,115 @@
+{
+  "checked_at": "2026-10-18T00:23:19.291167+00:00",
+  "local": [
+    {
+      "path": "data/raw/options/polygon_soxl_daily/option_daily_bars.parquet",
+      "rows": 3838,
+      "columns": [
+        "provider",
+        "underlying",
+        "option_ticker",
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "vwap",
+        "transactions",
+        "adjusted",
+        "fetched_at"
+      ],
+      "start": "2026-01-02",
+      "end": "2026-07-07"
+    },
+    {
+      "path": "data/raw/options/polygon_soxl_safe_haven_daily/option_daily_bars.parquet",
+      "rows": 5087,
+      "columns": [
+        "provider",
+        "underlying",
+        "option_ticker",
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "vwap",
+        "transactions",
+        "adjusted",
+        "fetched_at"
+      ],
+      "start": "2026-01-02",
+      "end": "2026-07-07"
+    }
+  ],
+  "probes": [
+    {
+      "symbol": "SOXX",
+      "endpoint": "contracts",
+      "http": 200,
+      "status": "OK",
+      "count": 1,
+      "contract": "O:SOXX260925C00305000"
+    },
+    {
+      "symbol": "SOXX",
+      "contract": "O:SOXX260925C00305000",
+      "endpoint": "historical_quotes",
+      "date": "2026-09-01",
+      "http": 403,
+      "status": "NOT_AUTHORIZED",
+      "count": 0,
+      "message": "You are not entitled to this data. Please upgrade your plan at https://massive.com/pricing",
+      "sample_fields": []
+    },
+    {
+      "symbol": "SMH",
+      "endpoint": "contracts",
+      "http": 200,
+      "status": "OK",
+      "count": 1,
+      "contract": "O:SMH260925C00310000"
+    },
+    {
+      "symbol": "SMH",
+      "contract": "O:SMH260925C00310000",
+      "endpoint": "historical_quotes",
+      "date": "2026-09-01",
+      "http": 403,
+      "status": "NOT_AUTHORIZED",
+      "count": 0,
+      "message": "You are not entitled to this data. Please upgrade your plan at https://massive.com/pricing",
+      "sample_fields": []
+    }
+  ],
+  "decision": "needs_data_historical_option_quotes_entitlement",
+  "scope": "SOXX/SMH historical option skew source qualification only",
+  "new_fits": 0,
+  "new_backtests": 0,
+  "production_changed": false,
+  "credential_values_recorded": false,
+  "probe_contract_parameters": {
+    "as_of": "2026-09-01",
+    "expiration_date.gte": "2026-09-20",
+    "expiration_date.lte": "2026-10-16",
+    "limit": 1
+  },
+  "probe_quote_parameters": {
+    "timestamp": "2026-09-01",
+    "limit": 1
+  },
+  "official_sources": [
+    "https://massive.com/docs/rest/options/trades-quotes/quotes",
+    "https://datashop.cboe.com/volatility-surfaces",
+    "https://datashop.cboe.com/option-eod-summary",
+    "https://qlib.readthedocs.io/en/latest/component/data.html"
+  ],
+  "limitations": [
+    "One contract per symbol is an entitlement probe, not a coverage audit.",
+    "No claim that unexamined accounts or external archives have no data.",
+    "Local caches are SOXL trade aggregates, not synchronized SOXX/SMH option surfaces.",
+    "No API secret or authenticated request URL is retained."
+  ]
+}
