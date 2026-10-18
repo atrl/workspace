@@ -3,7 +3,7 @@
   "owner": "/root",
   "decision": "GO_IMPLEMENT_B1_ONLY",
   "phase": "B1",
-  "plan_sha256": "74a88432d406719ee3d6b149fecd355e29288b2aaf46589b435569df2fb2214d",
+  "plan_sha256": "3867e7dbe2bbe4e6af911d978a6ba1bfce3b0af712154f3924d9e2f71437da2d",
   "parent_design_review_sha256": "c823cc5700cd7ce66a8a8ad56f741cb2f03f7438ba019ec29a1f02dcbd47de0c",
   "B0_result_review_sha256": "247873e158acc05541223cff1bbe6ed43daa058fb95121dc3ceb7b6510c85307",
   "scope": "Instantiate already-reviewed B1 design for sealed AMD/SWKS pair and truthful declared identity; no source requests or real source-object reads yet. New modules only; preserve B0 code/plan/notebook/evidence.",
@@ -13,5 +13,7 @@
     "Independent implementation review handoff"
   ],
   "execution_authorized": false,
-  "A_C_features_fits_accounts_authorized": false
+  "A_C_features_fits_accounts_authorized": false,
+  "pre_execution_clarification_sha256": "1d06556587e0c5bc8fab7965a2d7e907c8cb3deb959448beb86e44f67c1338e5",
+  "previous_plan_preserved": "B1_plan_v1.json"
 }

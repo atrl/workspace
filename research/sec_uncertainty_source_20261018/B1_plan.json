@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "experiment": "sec_uncertainty_source_20261018_B1",
   "phase": "B1",
   "frozen": true,
@@ -54,7 +54,7 @@
       "Only additional JSON filenames explicitly listed by that response, chosen by date-range coverage of the fixed anchor/adjacentannualpair; max2perissuer",
       "https://www.sec.gov/Archives/edgar/data/{CIK}/{accession_no_dashes}/{accession}.hdr.sgml for exactly4selectedoriginals"
     ],
-    "history_paging_rule": "For eachfixedCIK, inspect current recentmetadata and listedhistory ranges. Sort listedfiles by (filingFrom,filingTo,filename). If recentmetadata doesnot cover theanchor, request the singlelistedrange containing it; if no suchrange, failgap. Use atmostone adjacent listedrange next: preceding if thefirstsubsequent10-K is known but its priorannual ismissing; following if theanchor range has no subsequent10-K. Require explicit continuousdatecoverage fromanchor throughselectedsubsequent and backthroughpriorannual, and completeoriginal10-K ordering withinthatcoverage. A firstfound filing isnot earliest unlesscoverage provesit. Currentmetadata thatalreadycovers bothdates requires nohistoryHTTP. Missing/overlapping/conflictingranges or needingathirdhistoryfile fail; no pages rescued.",
+    "history_paging_rule": "Treat the single observed complete catalog, including current recent metadata coverage, as ordered non-overlapping filing ranges. If a unique range contains anchor, follow the original containing-range then one directly adjacent preceding/following range rule. If anchor is strictly between two direct neighboring ranges, use the successor first, then at most its direct predecessor. Current recent metadata need not be fetched again and consumes no history slot. Verify each loaded response against its declared range and records. Require exclusion of all unread catalog ranges that could intervene from anchor to the first subsequent original10-K and its immediately preceding distinct annual; a natural-date no-filing gap alone is not a missing record. Missing/ambiguous/overlapping/conflicting catalogs or a need for a third history JSON fail with an explicit gap. Maximum two history JSON per issuer and10sourceHTTP total remain unchanged.",
     "checks": [
       "Verify CIK, legal/historicalentity, form, accession, periodofreport, primaryDocument, filingdate and acceptance raw/schema/timezone; currentticker alone cannot certifyidentity.",
       "Bind completeheader bytes and DATE AS OF CHANGE, note PAC/amendments/corrections; unresolved historical textversion cannot be called originalfirstvintage.",
@@ -88,7 +88,7 @@
     "official_boundary": "SEC states acceptance-to-website lag is often1–3min but notguaranteed, and nofirst-sec.gov-availabilitytimestamp is provided. Some ordinary forms accepted after17:30ET aredisseminated nextbusinessday. Currentrules cannot silently certify allhistoricalversions.",
     "conditional_date_only_rule": "For this sourcepilot, if only historicaldate evidence isavailable, effective_public_date=max(officialfiled_date, acceptancecalendar_date interpretedunder its validatedheader timezone). Admit no earlier than the first original09:29NY decision strictly after that date23:59:59NY. This is a fixed conservative research proxy, not firstreceipt certification. Missing/conflicting date/time schema staysunknown; latefiling nextdayfiledate naturallydelays further. Do not use PACdate topretend revisedtext was original.",
     "exact_time_rule": "Preserve authentic exactpublication/receipt evidence if present, but thepilot still uses the same conservative date rule for candidate availability; no performance-dependent switch to fastertimestamps.",
-    "version_rule": "Original10-K is immutable byaccession/bodySHA. 10-K/A separate; DATEASOFCHANGE or PAC evidence laterthanoriginal publicdate requires an auditable originalbodyversion, otherwise originalhistoricaltextqualification isunknown. No automaticOldloads search or amended-text fallback.",
+    "version_rule": "Original10-K and10-K/A remain distinct. PAC affects metadata/deletion/form-or-document types and does not update document text under the reviewed official PDS specification. DATEASOFCHANGE later than original filing triggers explicit metadata-version assessment, not an automatic body-mutation assertion; it also cannot prove body first vintage. Keep metadata_version_status and body_first_vintage_status separate, unknown unless independently evidenced. No automatic Oldloads search or amended-text fallback.",
     "signal_execution_mapping": "Original signal indexT maps to its next native trade sessiond: information cutoff d09:29NY, execution d09:47NY (nextsession relative tosignalT), and H1 exits nextsession09:47. A document arriving between09:29 and09:47 cannot enter thatdecision; 09:47fill isnot a relaxedinformationcutoff. Sourcepilot doesnotloadH1/H5 arrays or evaluateaccounts.",
     "historical_PIT_qualified": false,
     "first_receipt_qualified": false
@@ -120,7 +120,7 @@
   },
   "transport_stop": "Every attempt including timeout/error consumes budget.403/429/challenge stops that host; no alternate IP/endpoint/User-Agent, no retries. Preserve successful receipts and explicit missing rows.",
   "source_calendar": "Reuse the sealed B0 inputs/native_calendar through native Recorder; qlib.init the pinned parent provider only, no new calendar query/features. Bounds2011-01-03..2022-12-30.",
-  "parser_scope": "Submissions JSON and original SGML header metadata only. Preserve raw bytes/status/content type/fetch time/hash. No body parsing or dictionary. Clock schema/issuer/version uncertainties stay explicit; do not guess timezone from a JSON suffix.",
+  "parser_scope": "Submissions JSON and original SGML header metadata only. Preserve raw bytes/status/content type/fetch time/hash. No body parsing or dictionary. Clock schema/issuer/version uncertainties stay explicit; do not guess timezone from a JSON suffix. Apply the pinned pre-execution annual-end350..380day metadata screen and separate metadata/body version status; no documentary fiscal-period or text novelty certification.",
   "result_contract": "Freeze four original annual accession/header identities only if coverage, adjacency, issuer and conditional date rules pass. Any gap remains; no third issuer or alternative period. No text/body URL qualification if headers fail. Current metadata is not first-publication evidence.",
   "artifact_contract": {
     "card": "research/sec_uncertainty_source_20261018/B1",
@@ -138,5 +138,13 @@
   "validation": "One concentrated synthetic contract for coverage-before-earliest selection, adjacent prior original annual vs amendment, header/CIK/clock mismatch and HTTP budget/no retry stop. No real source requests until separate code review/owner execution GO.",
   "source_execution_authorized": false,
   "body_feature_model_account_authorized": false,
-  "no_change_to_completed_B0": true
+  "no_change_to_completed_B0": true,
+  "previous_plan_sha256": "74a88432d406719ee3d6b149fecd355e29288b2aaf46589b435569df2fb2214d",
+  "pre_execution_clarification_sha256": "1d06556587e0c5bc8fab7965a2d7e907c8cb3deb959448beb86e44f67c1338e5",
+  "annual_end_metadata_screen": {
+    "minimum_calendar_days": 350,
+    "maximum_calendar_days": 380,
+    "inclusive": true,
+    "meaning": "Metadata end-date consistency only, not proof of complete financial periods or historic share-class identity. Original10-K ordering/adjacent distinct periods and header checks still required; no tuning after intake."
+  }
 }

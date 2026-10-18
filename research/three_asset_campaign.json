@@ -1660,9 +1660,9 @@
     "note": "The intervening game troubleshooting task did not change research evidence. Overall research has an actionable offline metadata branch; do not mark blocked for one missing source configuration.",
     "latest_continuation_previous_turn_classification": "progress",
     "latest_continuation_evidence": [
-      "SEC source design frozen and independently accepted; B0 implemented and focused synthetic passed",
-      "B0 actual24234 completed,18objects archived; native two-row metadata readback57821 and independent sample review accepted",
-      "Path-area readiness identified specific post09:47 label/causal OOF gaps; no fit or alpha claim"
+      "Previous turn: B0 executed once, independently accepted and NAS cold-restored18artifacts; main pushedd5bef150",
+      "Current actual agent check: B1 executor running; external narrow official-doc support completed; no SEC data request yet",
+      "Static OOF inventory found nine original base model artifact identities potentially reusable; no numerical object reads or new fit"
     ],
     "same_total_blocker_consecutive_turns": 0,
     "objective_achieved": false
@@ -1748,7 +1748,7 @@
       "executor": "/root/recent_evidence",
       "reviewer": "/root/independent_evaluator",
       "source_design_draft": "research/sec_uncertainty_source_20261018/source_design_draft.json",
-      "executor_lifecycle": "B0 execution/review/readback terminal and delivered. Owner now explicitly resumes recent_evidence for B1 implementation only; no SEC data requests or source execution handle.",
+      "executor_lifecycle": "B1 executor is actively implementing; official-doc support completed and independent reviewer accepted narrow pre-execution pagination/PAC/annual-end clarifications. No company HTTP or B1 source-object read has run.",
       "model_fit_authorized": false,
       "account_execution_authorized": false,
       "new_fits": 0,
@@ -1818,8 +1818,9 @@
         "historical_identity_qualified": false,
         "source_pilot_ready": false
       },
-      "B1_plan_sha256": "74a88432d406719ee3d6b149fecd355e29288b2aaf46589b435569df2fb2214d",
-      "B1_implementation_authorization_sha256": "f82532f1a7d4f0e6c4486c0f90263faf5433c59d39ff09dd577f4be9e80cf431"
+      "B1_plan_sha256": "3867e7dbe2bbe4e6af911d978a6ba1bfce3b0af712154f3924d9e2f71437da2d",
+      "B1_implementation_authorization_sha256": "c9de8dfe804aaabc528c9ebcfb3e5dbf6a017e3c4136b1ab3f7ea99f22a97502",
+      "B1_design_clarification_sha256": "1d06556587e0c5bc8fab7965a2d7e907c8cb3deb959448beb86e44f67c1338e5"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -2626,7 +2627,11 @@
         "area_computations": 0,
         "fits": 0,
         "accounts": 0
-      }
+      },
+      "OOF_source_inventory": "research/external_mechanism_review_20261018/path_action_oof_source_inventory.md",
+      "OOF_source_inventory_sha256": "f51f7788e22dbc18c9fa300495a05d6d42eaf6e581ecefcade750e3f5f830972",
+      "OOF_original_base_model_metadata_count": 9,
+      "OOF_source_inventory_limits": "Only manifest/code metadata inspected. Models/cutoffs/binary values not loaded or validated; any earlierfold generation requires separate fixed source/auxiliary maturity and budget approval. Do not substitute tangent teacher or backcast final2022 model."
     },
     "excluded": {
       "turn_of_month": "Historical settlement-calendar qualification missing; do not transplant T+3 window",
@@ -2781,6 +2786,20 @@
           "new_native_accounts": 6,
           "review": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json"
         }
+      },
+      "dictionary_free_text_change": {
+        "status": "mechanism_lead_not_selected_not_frozen",
+        "note": "research/external_mechanism_review_20261018/dictionary_free_text_change_triage.md",
+        "sha256": "db035dd62b0e2300465f59fa3a5ca1645064e42519a0b42937d303e2d94f4449",
+        "primary": "https://www.nber.org/papers/w25084",
+        "published": "https://doi.org/10.1111/jofi.12885",
+        "community": "https://www.quantconnect.com/forum/discussion/20966",
+        "mechanism": "Candidate pair-local raw word-frequency cosine distance between adjacent original annual10-Ks; no LM/LLM/global vocabulary dependency, no exact paper replication claimed",
+        "source_boundary": "B0/B1 metadata may be reusable; no text counts/corpus/model/financial admission. Existing uncertainty lexicon A remains unresolved.",
+        "full_method_access": "NBER PDF403 and Ivey PDF inaccessible; no retry/bypass; only primary abstract and returned method excerpt inspected",
+        "search_queries": 3,
+        "page_open_attempts": 4,
+        "word_counts_features_fits_accounts": 0
       }
     },
     "bounded_review_after_projection": {
