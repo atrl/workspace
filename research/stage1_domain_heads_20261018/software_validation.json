@@ -1,0 +1,33 @@
+{
+  "checks": [
+    {
+      "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_stage1_domain_heads.py -q",
+      "passed": 2,
+      "scope": "clone initial tensors/RNG/forward and supervised-domain gradient routes"
+    },
+    {
+      "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_minute_pit_allocator.py tests/test_allocation_encoder_routing.py -q",
+      "passed": 4,
+      "scope": "existing native input/account and detached classifier regression coverage"
+    },
+    {
+      "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_stage1_domain_heads_raw.py -q",
+      "passed": 2,
+      "scope": "single-cost own-state Stage1 routing and native corporate cash/share reconciliation",
+      "executor": "challenge_summary"
+    },
+    {
+      "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_stage1_domain_heads_analysis.py -q",
+      "passed": 2,
+      "scope": "calendar completeness, risk marks, paired gate/statistic plumbing and mature classification labels",
+      "executor": "challenge_summary"
+    }
+  ],
+  "recorder_lifecycle": "recorder_lifecycle_smoke.json",
+  "source_preflight": "preflight.json",
+  "formal_model_fits": 0,
+  "new_scientific_accounts": 0,
+  "notes": "Synthetic focused tests are software checks, not economic research fits or evidence. No fullsuite rerun.",
+  "notebook_preflight_execution": "passed with STAGE1_DOMAIN_HEADS_EXECUTE=0; no scientific fits/accounts",
+  "notebook_compaction": "Removed transient progress widget outputs/state only; retained all scientific readback outputs and conclusion"
+}

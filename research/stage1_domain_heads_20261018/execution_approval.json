@@ -1,0 +1,30 @@
+{
+  "approved": true,
+  "approved_by": "/root",
+  "authority": "User explicitly requested implementation of the accepted continuous Goal plan; independent design approved before fits.",
+  "approved_at": "2026-10-18T03:39:42.485321+00:00",
+  "plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+  "code_sha256": {
+    "src/workflow/stage1_domain_heads.py": "5b4305c0c1311a52e0a7de87257bd2de03b5be34084ee7709859a9defe88b04a",
+    "src/model/stage1_domain_heads.py": "79f7cceec8897837dd77d03cbba97f3de7892e6388edf3109170eb194a5dbd6f",
+    "src/model/minute_pit_allocator.py": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+    "src/backtest/stage1_domain_heads_raw.py": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+    "src/workflow/minute_pit_allocator.py": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/analysis/stage1_domain_heads.py": "9b788311f6fdee87527be1240c6a15d11c3ebea8f5e608d8e3748957ac08fafd"
+  },
+  "design_review_sha256": "4705a80d1e7e35c3ce0286b5e98a8e303c59ca5f86f1ca14c6524b2c976f41c0",
+  "preflight_sha256": "3c5fa2fd9afbb12c9a8ac474a802ad089196de2c1b0359fcc1d411408510d7ab",
+  "maximum_model_fits": 6,
+  "maximum_new_native_accounts": 9,
+  "reused_reference_accounts": 9,
+  "production_change_authorized": false,
+  "objective_achieved": false
+}

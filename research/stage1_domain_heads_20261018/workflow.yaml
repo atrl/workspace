@@ -1,0 +1,4 @@
+experiment: stage1_domain_heads_20261018
+entrypoint: src.workflow.stage1_domain_heads.run
+phase: pending_independent_design_review
+provider_uri: data/qlib/stage1_domain_heads_20261018

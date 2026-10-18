@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_domain_heads_20261018",
-  "current_phase": "design_and_implementation_before_independent_review",
-  "next_action": "Freeze exact source and independent-cost Stage1 raw replay design, obtain independent design review, then execute six paired domain-head fits and registered complete accounts. Evaluate stable net SOXX excess, not Stage1 improvement alone. Continue evidence-led research after a fixed negative result without reopening its parameter variants.",
+  "current_phase": "execution_authorized_awaiting_live_handle",
+  "next_action": "Start and observe the existing executor notebook handle; complete six paired fits and nine new native accounts without stopping on intermediate information scores, then independent result evaluation.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1389,7 +1389,7 @@
     {
       "card": "research/stage1_domain_heads_20261018",
       "kind": "stage1_primary_auxiliary_domain_specific_output_heads",
-      "status": "design_and_implementation_before_independent_review",
+      "status": "execution_authorized_awaiting_live_handle",
       "maximum_new_fits": 6,
       "maximum_total_economic_accounts": 18,
       "fit_cutoff": "2023-01-01T00:00:00-05:00",
@@ -1409,7 +1409,12 @@
         "generic_index_tail_transfer",
         "sparse_joint_tail_terminal_classifier"
       ],
-      "counts_added_to_campaign_totals": false
+      "counts_added_to_campaign_totals": false,
+      "design_review": {
+        "path": "research/stage1_domain_heads_20261018/design_review.json",
+        "plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+        "verdict": "APPROVE_DESIGN"
+      }
     }
   ],
   "governance_review": {
@@ -1616,7 +1621,7 @@
     }
   ],
   "execution_observation_20261018": {
-    "phase": "implementation_before_design_review",
+    "phase": "execution_authorized_awaiting_live_handle",
     "model_executor": "/root/recent_evidence",
     "raw_adapter_executor": "/root/challenge_summary",
     "evaluator": "/root/independent_evaluator",
@@ -1629,7 +1634,13 @@
       "primary_features": 39,
       "common_features": 16
     },
-    "observation_scope": "Executor confirmed source preflight and model implementation; no claim of model training or automatic future liveness."
+    "observation_scope": "Executor confirmed source preflight and model implementation; no claim of model training or automatic future liveness.",
+    "execution_approval": "research/stage1_domain_heads_20261018/execution_approval.json",
+    "formal_budget": {
+      "model_fits": 6,
+      "new_native_accounts": 9,
+      "reused_reference_accounts": 9
+    }
   },
   "goal_contract_20261018": {
     "benchmark": "SOXX ETF",

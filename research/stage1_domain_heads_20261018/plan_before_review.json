@@ -1,0 +1,283 @@
+{
+  "experiment": "stage1_domain_heads_20261018",
+  "schema_version": 1,
+  "frozen_before_fits": true,
+  "scope": "One paired Stage1 auxiliary-domain output-head separation; six fixed fits and all predeclared native accounts regardless classification metrics. No new source, no production change.",
+  "hypothesis": "Different primary and auxiliary supervised events may require different output maps while sharing representation. Splitting the two output maps can improve primary calibration and economic allocation; negative transfer is not presumed.",
+  "novelty_boundary": "Not classifier-input detach, auxiliary-source replacement, loss-weight tuning, small allocation head or generic-index rescue. Other architectures had auxiliary heads; this is an exact controlled intervention in the original nonlinear PitAux architecture.",
+  "sources": {
+    "training": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": [
+        "inputs/daily_frame",
+        "inputs/features",
+        "inputs/common",
+        "inputs/timing",
+        "inputs/auxiliary",
+        "inputs/plan",
+        "analysis/outer_predictions",
+        "models/base_outer_71",
+        "models/base_outer_172",
+        "models/base_outer_273"
+      ],
+      "artifact_sha256": {
+        "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+        "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+        "inputs/common": "a90e4be474fae56a4cb9d226aced8186a5b402ce04aa0cc97cbef3b8dfc5eb14",
+        "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+        "inputs/auxiliary": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+        "inputs/plan": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b",
+        "analysis/outer_predictions": "20774d619976cb2963d38aef606de924db0aa78b4e6c38da499a4120a53bee80",
+        "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+        "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+        "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+      }
+    },
+    "action": {
+      "card": "research/stage1_minute_information_comparison_20261012",
+      "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+      "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+      "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/market",
+        "inputs/raw_predictions",
+        "inputs/source_targets",
+        "controller/source_recovery_selection",
+        "controller/frozen_models"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "b3fddcc9f1ad9735ab4ef260bfec7792aca572adbde2ad6a78511d8c5d8fb103",
+        "inputs/market": "6b3a7ce53a2fe02b9eb4c7d0934ebae794ade047cb5a4f9209aef4770eeb8c24",
+        "inputs/raw_predictions": "63c3097b24bd6e2534b31c6d1ae691f1e0e959d0ae2afcc6940e5d427f6fffa9",
+        "inputs/source_targets": "5841299fcc37e8a01f09644072125d4d0aac5ecfaa5ba26fa26d5a41c78c7e42",
+        "controller/source_recovery_selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+        "controller/frozen_models": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1"
+      }
+    },
+    "controller": {
+      "card": "research/full_path_tiered_allocation_20261013",
+      "recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+      "archive": "61e331c4d0d920e22eced638dd9d5d2283e6748d78f87bbfd420377e1de24d5a",
+      "inventory_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7",
+      "artifacts": [
+        "inputs/controller",
+        "inputs/plan"
+      ],
+      "artifact_sha256": {
+        "inputs/controller": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+        "inputs/plan": "2a2099904dd2507e837b40c51dd15228cfded78d55c1f6a49cd5646044c1e297"
+      }
+    },
+    "raw": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": [
+        "inputs/frame",
+        "inputs/plan",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "inputs/repair_1_calendar_guard",
+        "inputs/repair_1_provider_manifest",
+        "native/raw_SOXX_0",
+        "native/raw_SOXX_2",
+        "native/raw_SOXX_5",
+        "native/raw_strong9097_0",
+        "native/raw_strong9097_2",
+        "native/raw_strong9097_5",
+        "native/raw_candidate27baa_0",
+        "native/raw_candidate27baa_2",
+        "native/raw_candidate27baa_5"
+      ],
+      "artifact_sha256": {
+        "inputs/frame": "cc705b51047c85a1fc58f05d22ba4f98797830861a4bab58b94aeb4b869c20bc",
+        "inputs/plan": "ead4fa68daa779ea4da4708b762913e7d89e7c9d6f68523340e0252866eb712b",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "inputs/repair_1_calendar_guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24",
+        "inputs/repair_1_provider_manifest": "fe4f64aaba30981903443de94f19b36496033de66aa752692caabdf5dd953c27",
+        "native/raw_SOXX_0": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+        "native/raw_SOXX_2": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d",
+        "native/raw_SOXX_5": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e",
+        "native/raw_strong9097_0": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93",
+        "native/raw_strong9097_2": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f",
+        "native/raw_strong9097_5": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05",
+        "native/raw_candidate27baa_0": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466",
+        "native/raw_candidate27baa_2": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31",
+        "native/raw_candidate27baa_5": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+      }
+    }
+  },
+  "active_release": {
+    "path": "production/stage1_futu_sim_v1/runtime_release.json",
+    "sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+    "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "action_recorder_id": "b472a458fc9042b4905094fddeaebd33"
+  },
+  "provider_init": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "provider_output": "data/qlib/stage1_domain_heads_20261018",
+  "training": {
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "train_end": "2022-12-30",
+    "expected_mature_primary_rows": 3014,
+    "expected_auxiliary_rows": 20741,
+    "primary_feature_count": 39,
+    "common_feature_count": 16,
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "epochs": 300,
+    "checkpoint": "fixed_final_epoch",
+    "all_hyperparameters": "Exact saved base_outer model spec, candidate, feature order, masks, scalers and source Dataset; no tuning",
+    "input_features": "Original nonlinear allocator39 plus shared common16; no minute numeric extras",
+    "excluded_2020": "Saved2020 cutoff has2244main/0aux, so no identifiable auxiliary intervention and no fits",
+    "auxiliary_sampling": "Same seed*1000+epoch generator, row order, weights,2048batch and original0.05 coefficient",
+    "primary_losses": "Original main tail+alpha BCE0.02, original allocation loss10bp turnover proxy0.006; no label changes",
+    "paired_arms": {
+      "B_shared": "Original MinutePitAllocator with shared primary/auxiliary classifiers, freshly fit",
+      "C_domain": "Only auxiliary BCE uses deepcopy clones of tail_head/alpha_head; encoder still shared and receives all losses; original primary forward unchanged"
+    },
+    "initialization": "Construct original network first; deepcopy heads without RNG use. Original tensors/main and aux initial outputs identical per seed. Two Linear8to1 clones add18 parameters; global gradient clipping/AdamW differences belong to mechanism, not capacity-isolated proof.",
+    "ensemble": "All three seed predictions equal-weight, no seed or checkpoint selection",
+    "model_count": 6
+  },
+  "label_semantics": {
+    "primary_tail": "SOXX five next-open intervals entry-relative path min<=-6percent, not SOXL3x or peak-to-trough MaxDD",
+    "primary_alpha": "27percentSOXL+63percentSOXX+10percentcash fixed reference five-session relative growth vsSOXX",
+    "aux_tail": "Historical PIT constituent synthetic daily-reset2x, five close-close intervals,95bp annual fee, path min<=-12percent OR terminal<=-15percent",
+    "aux_alpha": "Synthetic2x five-session terminal return exceeds constituent1x",
+    "maturity": "Exact saved native primary available_at strictlybeforecutoff; auxiliary observations_end<=train_end. Preserve source labels, no current dirty provider data replacement."
+  },
+  "preflight_observed": {
+    "primary_rows": 3014,
+    "auxiliary_rows": 20741,
+    "first_aux_signal": "2019-11-25",
+    "last_aux_signal": "2022-12-22",
+    "aux_observations_end_max": "2022-12-30",
+    "primary_last_mature": "2022-12-30T09:31:00-05:00",
+    "predict_rows_including_unmatured": 946
+  },
+  "accounts": {
+    "families": [
+      "A_active_research_replay",
+      "B_shared",
+      "C_domain",
+      "SOXX",
+      "strong9097",
+      "additional27baa"
+    ],
+    "initial_cash": 100000,
+    "expected_sessions": 944,
+    "first_signal": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "terminal": "2026-10-09T09:47:00-04:00",
+    "clock": "09:45 known,09:46 decision,09:47 fill,next09:47 exit;firsthour recovery fill10:32. Historical bar availability convention, not actual first receipt/execution qualification.",
+    "A_label": "Frozen active f696+b472 model chain replayed under same raw research execution contract; not actual deployed09:31/10:31 replay.",
+    "ABC_policy": "Exact original b472 open HOLD/execute and recovery classifiers, own-cost own-NAV/peak/history/state/clock. NO T composition, NO cross-cost minimumcap, NO ALL3 recovery. Source smoothing EMA3/acceptance0.02 unchanged; all5 model outputs replaced jointly for B/C.",
+    "reference_policy": "SOXX buyonce raw shares; strong9097/additional27baa retain their frozen commoncap/ALL3/T policies. Different strategy controls disclosed, same price/corporate/fees/dates/initialcash. Do not inherit old fullminute risk qualification.",
+    "strict_reuse": "Reuse9 source native raw reference books only if exact944 dates/rawpoint grid/initialcash/tariff/cost/schedule match. Otherwise fail for amended approval, never silently extend budget. A/B/C9 new books.",
+    "raw_interfaces": [
+      "src.backtest.stage1_domain_heads_raw.replay_stage1_raw",
+      "src.backtest.raw_corporate_policy.IncomeLedger",
+      "src.backtest.raw_corporate_policy.settle_raw",
+      "src.backtest.native_raw_corporate.native_raw_validate"
+    ],
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "maximum_total_comparison_accounts": 18,
+    "maximum_new_native_accounts": 9,
+    "source_native_accounts_reused": 9,
+    "currency": "USD gross paper assumption and documented corporate entitlement/payment convention; not broker or historicalPIT certification"
+  },
+  "maximum_model_fits": 6,
+  "tariff": {
+    "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+    "tiers": [
+      {
+        "through_shares": 300000,
+        "per_share": 0.0035
+      },
+      {
+        "through_shares": 3000000,
+        "per_share": 0.002
+      },
+      {
+        "through_shares": 20000000,
+        "per_share": 0.0015
+      },
+      {
+        "through_shares": 100000000,
+        "per_share": 0.001
+      },
+      {
+        "through_shares": null,
+        "per_share": 0.0005
+      }
+    ],
+    "minimum_per_order": 0.35,
+    "maximum_order_fraction": 0.01,
+    "venue_per_share": 0.003,
+    "venue_subdollar_fraction": 0.003,
+    "clearing_per_share": 0.0002,
+    "clearing_maximum_fraction": 0.005,
+    "sec_sale_fraction": 2.06e-05,
+    "taf_per_sold_share": 0.0,
+    "taf_maximum_per_trade": 9.79,
+    "cat_per_share": 3e-06,
+    "commission_pass_through_fraction": 0.000735,
+    "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+    "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+    "fractional_share_fills": false,
+    "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+  },
+  "classification_reporting": {
+    "scope": "Primary out-of-fit tail/alphaBCE,Brier,AUC,scoremean/eventrate for every seed and ensemble; predictions and monthly/annual diagnostics inRecorder. Training losses also saved. No classification gate decides whether predeclared accounts run.",
+    "history": "All2023+ dates already reused; not independent market evidence. Existing prior2020-2022 zeroaux fit is not developmental proof for this intervention."
+  },
+  "gates": {
+    "required_comparators": [
+      "A_active_research_replay",
+      "B_shared",
+      "SOXX",
+      "strong9097"
+    ],
+    "additional_reference": "additional27baa always report, not a postresult replacement of primary strong9097",
+    "net_relative_wealth_all_costs": ">1 versus each required comparator",
+    "sampled_maxdrawdown": "<=30percent at close and all available raw point marks; fullminute validation separate if economic gates pass",
+    "cvar5": "no worse thanSOXX at all costs",
+    "complete_annual_positive_fraction": 0.7,
+    "minimum_complete_years": 2,
+    "rolling126_positive_fraction": 0.7,
+    "paired_uncertainty": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "alpha": 0.0020833333333333333,
+      "seed": 20261018,
+      "lower_positive": true,
+      "comparisons": 4,
+      "costs": 3,
+      "prior_search_multiplicity": "unknown; this correction doesnotreset reusedhistory"
+    },
+    "qualified_independent_forward": false,
+    "fresh_fullminute_risk_qualified": false
+  },
+  "analysis_scope": "All years/quarters including partial first and last periods, every126tradingday window; declare complete years by frozen calendar coverage. No selected losing periods or threshold repair.",
+  "failure_policy": "Close thisfixed version without headcount/feature/lossweight/seed/window/epoch/controller search; retain minimum Qlib evidence and independent evaluation. Goal remainsunachieved.",
+  "execution_authorization": "Implementation and no-fit preflight allowed now. Formal fitting and accounts require independent design_review matching this plan SHA plus root explicit go. Final code/source identity fixed in execution_approval before firstfit.",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/model.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ]
+}

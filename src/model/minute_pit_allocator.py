@@ -117,6 +117,11 @@ class MinutePitAllocator(Model):
     def observe_epoch(self, epoch):
         pass
 
+    def auxiliary_logits(self, state):
+        """Default shared classifiers; subclasses may separate supervision domains."""
+        return (self.network.tail_head(state).squeeze(1),
+                self.network.alpha_head(state).squeeze(1))
+
     def fit(self, dataset, *, auxiliary_dataset, **kwargs):
         source = _flat_index(dataset.prepare("train", col_set=["feature", "label", "common", "meta"]))
         maturity = pd.to_datetime(source[("meta", "label_available_at")])
@@ -173,8 +178,7 @@ class MinutePitAllocator(Model):
                 sampled = torch.randint(len(auxiliary_x), (min(self.spec.auxiliary_batch_size, len(auxiliary_x)),),
                                         generator=generator)
                 state = self.network.tail_encoder(auxiliary_x[sampled])
-                aux_tail_logits = self.network.tail_head(state).squeeze(1)
-                aux_alpha_logits = self.network.alpha_head(state).squeeze(1)
+                aux_tail_logits, aux_alpha_logits = self.auxiliary_logits(state)
                 auxiliary_loss = ((nn.functional.binary_cross_entropy_with_logits(aux_tail_logits,
                     aux_tail[sampled], reduction="none") + nn.functional.binary_cross_entropy_with_logits(
                     aux_alpha_logits, aux_alpha[sampled], reduction="none")) * aux_weight[sampled]).mean()

@@ -1,0 +1,51 @@
+{
+  "role": "independent_evaluator",
+  "reviewer": "/root/independent_evaluator",
+  "experiment": "stage1_domain_heads_20261018",
+  "plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+  "decision": "approved_before_fit",
+  "scope": "Bounded historical diagnostic: six B/C model fits and nine new A/B/C native raw accounts; nine frozen reference accounts strictly reused, eighteen total comparison accounts.",
+  "approved_budget": {
+    "new_model_fits": 6,
+    "new_native_accounts": 9,
+    "frozen_native_accounts_reused": 9,
+    "total_comparison_accounts": 18
+  },
+  "required_before_first_fit": [
+    "Root explicit go and execution_approval binding this plan hash plus final implementation/source artifact identities before fitting.",
+    "Retain successful no-fit native source and Dataset preflight: 3014 matured primary rows, 20741 auxiliary rows, original39+common16, identical B/C initial tensors/RNG and auxiliary sampling; no fit-time substitution from dirty current providers.",
+    "Strict reference reuse must verify all944 intervals, raw point grid,100000USD initial cash, corporate schedule, tariff and0/2/5bp identities; any mismatch fails closed without expanding budget."
+  ],
+  "checks_passed": [
+    "Single identified intervention: auxiliary BCE uses independent deepcopy output heads while gradients still reach the shared encoder; primary inference and default shared-head behavior remain unchanged.",
+    "Paired seed71/172/273, fixed final300, no seed/checkpoint selection; extra18parameters and global clipping/optimizer differences disclosed as part of the mechanism package.",
+    "A is frozen f696+b472 under the common research clock, not the deployed09:31/10:31 implementation; B is a matched refit rather than a claimed reproduction of legacybest checkpoint.",
+    "Raw adapter retains the real b472 open HOLD/execute and recovery functions, independent per-cost account state, integer raw shares and nonspendable receivables; no T/COMMON/ALL3 substitution.",
+    "Direct SOXX, matched B, A and preregistered9097 full-window gates retained; additional27baa always reported; no inherited fullminute risk qualification.",
+    "Source manifests, selected native Recorder objects and active release identity independently read back; raw reference dates/fees/costs/cash match the design.",
+    "Review amendments verified: bootstrapseed20261014 restored, net relative wealth threshold>1+1e-8, one-sided paired-log statistic and multiplicity explicit, annual/rolling70percent comparator explicitlySOXX."
+  ],
+  "statistical_review": {
+    "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+    "mean_block": 63,
+    "resamples": 10000,
+    "seed": 20261014,
+    "one_sided_alpha": 0.0020833333333333333,
+    "family": "1 fixed candidate ensemble x4 required comparators x3 costs",
+    "expected_lower_tail_draws": 20.833333333333332,
+    "verdict": "Acceptable prespecified increase from2000 to10000 draws for the smaller one-sided tail; existing function uses quantile(alpha), not alpha/2. No result-dependent reseeding/resampling.",
+    "limitation": "Conditional reused-history diagnostic with finite MonteCarlo resolution; does not correct unknown prior research search or create independent observations."
+  },
+  "evidence_limits": [
+    "2023+ market data are reused; zero qualified independent forward days.",
+    "3778 raw marks are four event/close points per session plus terminal marks, not fullminute coverage. Passing sampled risk does not certify the30percent fullminute gate.",
+    "Auxiliary observations_end is the bounded source-construction cutoff attached to Dataset metadata, not a per-row historical first-receipt timestamp.",
+    "Different label assets/clocks/thresholds do not by themselves establish negative transfer; positive B/C results identify this complete domain-head intervention only."
+  ],
+  "result_review_required": true,
+  "production_change_authorized": false,
+  "promotion_authorized": false,
+  "objective_achieved": false,
+  "verdict": "APPROVE_DESIGN",
+  "root_schema_normalization": "APPROVE_DESIGN is the workflow enum corresponding to evaluator decision approved_before_fit; all preconditions remain required."
+}

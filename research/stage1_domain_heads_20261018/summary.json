@@ -1,0 +1,19 @@
+{
+  "experiment": "stage1_domain_heads_20261018",
+  "decision": "implementation_pending_independent_design_review",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "paths/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  }
+}
