@@ -1,0 +1,30 @@
+{
+  "owner": "/root",
+  "authorized_at_utc": "2026-10-18T07:57:57.068237+00:00",
+  "scope": "One bounded discovery supplement for missing historical public exchange calendars; not native source qualification or feature/model execution",
+  "prior_inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
+  "prior_explicit_document_HTTP_attempts": 12,
+  "prior_inventory_immutable": true,
+  "new_inventory": "source_document_extension_1.json",
+  "maximum_new_URLs": 5,
+  "maximum_new_explicit_byte_HTTP_attempts": 5,
+  "maximum_lifetime_explicit_document_HTTP_attempts": 17,
+  "retries": 0,
+  "followed_redirects": 0,
+  "refetch_existing_successful_cache": false,
+  "retry_existing_SEC_403": false,
+  "prioritized_known_gaps": [
+    "2011-2014 ordinary dated calendars",
+    "2017-2020 ordinary dated calendars",
+    "2024-2025 fixed evaluation-year calendars",
+    "Authoritative versions after Juneteenth was introduced"
+  ],
+  "authority": "NYSE/NYSEEuronext/ICE/SEC original documents or issuer-authored original corporate releases hosted by BusinessWire/PRNewswire; secondary reporting is discovery only.",
+  "web_discovery_counting": "Search/open tool discovery is recorded separately; unavailable underlying request counts stay unknown. The17 cap refers to explicit original-byte collector requests, not an invented total for all web browsing.",
+  "qualification_intake_after_discovery": "Cache-only; successful exact bytes/hash reused once, all missing/403/venue/time/vintage gaps retained.",
+  "candidate_feature_values": 0,
+  "market_return_reads": 0,
+  "fits": 0,
+  "accounts": 0,
+  "source_native_execution_GO": false
+}

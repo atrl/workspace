@@ -1,0 +1,31 @@
+{
+  "experiment": "calendar_tom_source_20261018",
+  "status": "draft_source_only_not_executed",
+  "decision": "needs_source_knowledge_review",
+  "recorder_id": null,
+  "source_documents_acquired": 0,
+  "candidate_features_generated": 0,
+  "return_labels_read_or_computed": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "historical_PIT_qualified": false,
+  "model_execution_approved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source/*",
+      "analysis/coverage_detail",
+      "analysis/discrepancies"
+    ]
+  },
+  "canonical_source_documents_imported": 0,
+  "discovery_cache_successful_documents": 8,
+  "discovery_cache_failed_documents": 4,
+  "source_discovery_HTTP_requests_by_other_agent": 12,
+  "remaining_source_HTTP_budget": 0,
+  "source_discovery_cumulative_HTTP_ceiling": 17,
+  "extension_1_maximum_new_HTTP_requests": 5,
+  "extension_1_actual_HTTP_requests": "pending_receipt",
+  "source_inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083"
+}

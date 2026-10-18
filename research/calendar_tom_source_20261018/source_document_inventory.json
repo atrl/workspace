@@ -1,0 +1,527 @@
+{
+  "schema_version": 1,
+  "card": "calendar_tom_source_20261018",
+  "status": "partial_official_source_inventory_not_full_period_qualified",
+  "scope": "Source discovery and one bounded document capture only. No calendar knowledge ledger, candidate feature, market-data/return read, fit, account replay or model change.",
+  "owner_authorization": "Root explicitly authorized at most 12 official rule/announcement documents for read-only discovery and small source capture. Future native source-intake/ledger execution remains separately controlled by the source plan and its review.",
+  "target_interval": {
+    "start": "2011-01-01",
+    "end": "2026-10-09",
+    "timezone": "America/New_York"
+  },
+  "document_budget": {
+    "selected_documents": 12,
+    "maximum_selected_documents": 12,
+    "native_http_attempts": 12,
+    "retries": 0,
+    "successful_raw_captures": 8,
+    "sec_pdf_http_403": 4
+  },
+  "capture_boundary": {
+    "execution_handle": "4279",
+    "execution_exit_code": 0,
+    "temporary_capture_receipt": "/tmp/soxl_calendar_tom_sources_20261018/capture_receipt.json",
+    "durable_raw_archive_created": false,
+    "reuse_rule": "The eight successful bytes are discovery cache, not a newly authorized ledger. A later authorized workflow should verify their SHA and reuse them rather than redownload. The four SEC documents are web-tool-readable but lack native raw-byte capture; do not fabricate hashes or claim Recorder archival.",
+    "remaining_same_budget_http_requests": 0
+  },
+  "publication_contract": {
+    "date_source": "Document body or the official associated release, never search-engine publication/crawl dates, HTTP Last-Modified or current access time.",
+    "true_first_publication_verified": false,
+    "intraday_publication_time_known": false,
+    "proposed_conservative_available_from": "Following local midnight after the stated publication day, America/New_York, unless a separately reviewed exact timestamp exists. This is a date-precision research convention, not a measured receipt timestamp or original-vintage proof.",
+    "same_day_use": "Not allowed by these date-only sources at 09:29/09:46.",
+    "effective_vs_knowledge": "Rule filing/effectiveness is recorded separately and does not backdate public knowledge.",
+    "current_snapshot_limitation": "The captured pages are current accessible representations with historical body datelines; none is represented as a contemporaneously archived immutable vintage."
+  },
+  "scope_rules": {
+    "half_day_counts_as_one": true,
+    "no_options_only_substitution": true,
+    "no_nasdaq_to_nyse_arbitrary_equivalence": true,
+    "no_asof_tail_as_month_end": true,
+    "no_retrospective_unannounced_closure_relabeling": true,
+    "no_institutional_cash_deadline_claim": true
+  },
+  "qualification_gaps": [
+    "Pre-2011 complete NYSE/NYSE Arca ordinary-holiday and observed-day rules were not established. The 2010 Rule51 documents provide interruption authority and hours, not the missing Rule51.10 holiday text.",
+    "The three selected annual schedules directly cover only 2015-2016, 2021-2023 and 2026-2028. Complete prior-known ordinary schedules for 2011-2014 and 2017-2020 remain unknown. 2024-2025 may only be addressed later from an explicitly reviewed continuing-rule interpretation; this inventory has not approved that extrapolation.",
+    "The general month/year-end observation exception is discretionary. Specific announced New Year dates support their named years; a universal Saturday-New-Year algorithm has not been independently established here.",
+    "Nasdaq extraordinary-closure notices prove Nasdaq venue scope only. Separate NYSE/NYSE Arca matching event notices or a justified receiving-calendar mapping are absent from this finite corpus.",
+    "Four SEC PDFs returned HTTP403 in the single native capture attempt. Web-tool body inspection establishes readable content, not a locally captured original-byte SHA or durable Recorder evidence.",
+    "All selected publication evidence is day-precision; true first-publication timestamps and historical page immutability are unverified.",
+    "No claim is made that this finite corpus exhausts all extraordinary closures, all later rule amendments, or all venue changes in 2011-2026."
+  ],
+  "qualitative_boundary_notes": [
+    "Sandy closures concern the end of October; their staged announcement and reopening sequence can matter to expected-last knowledge. No TOM values or realized classifications were calculated.",
+    "The Bush closure is near the opening of December and can affect first-three counting. The late-day publication uncertainty is preserved.",
+    "Carter's January 9 closure and Juneteenth's June 19/observed dates appear away from the first/last boundary under an otherwise normal schedule. This is qualitative calendar position, not a feature calculation or exemption from recording the events.",
+    "Failure to qualify the complete source ledger is a data-coverage result, not evidence for or against the TOM return hypothesis."
+  ],
+  "documents": [
+    {
+      "id": "nyse_rule51_2010_notice",
+      "issuer": "SEC / NYSE",
+      "publication_date": "2010-03-31",
+      "date_evidence": "SEC release 34-61810 dateline; filing date 2010-03-25 is separately stated.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "NYSE cash equities"
+      ],
+      "effective_scope": "2010 filing clarifies the CEO's extraordinary-closure authority; this inventory does not infer an exact operative timestamp from the standard delay clause.",
+      "scope": "Pre-2011 authority for extraordinary exchange interruptions, including severe weather and national mourning.",
+      "supports": [
+        "A published exchange rule permits discretionary interruptions rather than a permanently fixed realized calendar."
+      ],
+      "does_not_support": [
+        "The notice does not reproduce supplementary Rule 51.10's complete ordinary holiday list or observed-holiday rules.",
+        "No particular later interruption or full 2011 calendar is certified."
+      ],
+      "url": "https://www.sec.gov/files/rules/sro/nyse/2010/34-61810.pdf",
+      "native_capture": {
+        "id": "nyse_rule51_2010_notice",
+        "requested_url": "https://www.sec.gov/files/rules/sro/nyse/2010/34-61810.pdf",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:07.073757+00:00",
+        "status": "not_captured",
+        "error": "HTTPError: HTTP Error 403: Forbidden",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:08.377924+00:00",
+        "http_status": 403,
+        "sha256": null,
+        "bytes": null,
+        "temporary_raw_path": null
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2010-04-01T00:00:00-04:00",
+      "document_body_locus": "SEC release dateline page1; purpose and authority description pages2/5; operative clause page7."
+    },
+    {
+      "id": "nyse_rule51_2010_exhibit5",
+      "issuer": "NYSE filing hosted by SEC",
+      "publication_date": "2010-03-31",
+      "date_evidence": "Associated with release 34-61810 through the official SEC filing page; the exhibit has no separate publication dateline.",
+      "publication_precision": "associated_release_day_only",
+      "applicable_venues": [
+        "NYSE cash equities"
+      ],
+      "effective_scope": "Exhibit to SR-NYSE-2010-26, not an independently dated annual schedule.",
+      "scope": "Rule 51 business hours and extraordinary interruption/extension authority.",
+      "supports": [
+        "The reproduced text provides ordinary business hours and exceptional closure powers."
+      ],
+      "does_not_support": [
+        "Supplementary Rule 51.10 Holidays is absent.",
+        "This is not pre-2011 proof of the full holiday/observance regime."
+      ],
+      "url": "https://www.sec.gov/files/rules/sro/nyse/2010/34-61810-ex5.pdf",
+      "native_capture": {
+        "id": "nyse_rule51_2010_exhibit5",
+        "requested_url": "https://www.sec.gov/files/rules/sro/nyse/2010/34-61810-ex5.pdf",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:07.073978+00:00",
+        "status": "not_captured",
+        "error": "HTTPError: HTTP Error 403: Forbidden",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:08.475559+00:00",
+        "http_status": 403,
+        "sha256": null,
+        "bytes": null,
+        "temporary_raw_path": null
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2010-04-01T00:00:00-04:00",
+      "document_body_locus": "Exhibit5 pages1-2, Rule51; no supplementary .10 text."
+    },
+    {
+      "id": "nyse_juneteenth_2021",
+      "issuer": "SEC / NYSE",
+      "publication_date": "2021-09-30",
+      "date_evidence": "SEC release 34-93183 body dateline; separately states filing on 2021-09-28.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "NYSE cash equities"
+      ],
+      "effective_scope": "Commission waived the operative delay and designated the change operative upon filing, 2021-09-28; public knowledge is not backdated to that filing date.",
+      "scope": "Adds Juneteenth to NYSE holidays; states weekend-observation practice and accounting-period exception.",
+      "supports": [
+        "The post-change holiday list includes Juneteenth.",
+        "Saturday generally observes Friday and Sunday Monday; the text expressly preserves exceptions for unusual business conditions, including month/year accounting ends."
+      ],
+      "does_not_support": [
+        "No June 2021 closure is implied by a September rule change.",
+        "This later notice cannot establish pre-2011 knowledge.",
+        "The general accounting-period discretion is not an unconditional algorithm for every Saturday New Year."
+      ],
+      "url": "https://www.sec.gov/files/rules/sro/nyse/2021/34-93183.pdf",
+      "native_capture": {
+        "id": "nyse_juneteenth_2021",
+        "requested_url": "https://www.sec.gov/files/rules/sro/nyse/2021/34-93183.pdf",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:07.074049+00:00",
+        "status": "not_captured",
+        "error": "HTTPError: HTTP Error 403: Forbidden",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:07.859717+00:00",
+        "http_status": 403,
+        "sha256": null,
+        "bytes": null,
+        "temporary_raw_path": null
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2021-10-01T00:00:00-04:00",
+      "document_body_locus": "SEC release pages1-3, footnote6; operative waiver page5."
+    },
+    {
+      "id": "arca_juneteenth_2021",
+      "issuer": "SEC / NYSE Arca",
+      "publication_date": "2021-09-30",
+      "date_evidence": "SEC release 34-93186 body dateline; separately states filing on 2021-09-28.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "NYSE Arca equities, Rule 7.2-E",
+        "NYSE Arca options, Rule 7.2-O"
+      ],
+      "effective_scope": "Commission waived the operative delay and designated the change operative upon filing, 2021-09-28; historical knowledge is conservatively after the notice day.",
+      "scope": "Equity AND options holiday rule change adds Juneteenth; ordinary holiday list and observed-day accounting exception are stated.",
+      "supports": [
+        "This is not an options-only Rule 7.2-O source.",
+        "As of the notice, Juneteenth June 19 is added with weekend-observation rules and the accounting-period exception."
+      ],
+      "does_not_support": [
+        "No retroactive inference that Juneteenth was an equity holiday before this change.",
+        "No full pre-2011 annual schedule or first public receipt timestamp."
+      ],
+      "url": "https://www.sec.gov/files/rules/sro/nysearca/2021/34-93186.pdf",
+      "native_capture": {
+        "id": "arca_juneteenth_2021",
+        "requested_url": "https://www.sec.gov/files/rules/sro/nysearca/2021/34-93186.pdf",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:07.074105+00:00",
+        "status": "not_captured",
+        "error": "HTTPError: HTTP Error 403: Forbidden",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:07.768704+00:00",
+        "http_status": 403,
+        "sha256": null,
+        "bytes": null,
+        "temporary_raw_path": null
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2021-10-01T00:00:00-04:00",
+      "document_body_locus": "SEC release pages1-3, footnote6; operative waiver page5."
+    },
+    {
+      "id": "sandy_20121029_close",
+      "issuer": "Nasdaq OMX",
+      "publication_date": "2012-10-28",
+      "date_evidence": "Trader News page body says Sunday, October 28, 2012.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "Nasdaq OMX U.S. equity and derivatives exchanges",
+        "FINRA/Nasdaq TRF"
+      ],
+      "effective_scope": "Confirmed closure 2012-10-29; 2012-10-30 is only described as likely, pending confirmation.",
+      "scope": "Sandy Monday closure announcement.",
+      "supports": [
+        "An unexpected closure can change a previously announced future month-end schedule."
+      ],
+      "does_not_support": [
+        "Tuesday closure was not yet final in this notice.",
+        "'All U.S.' describes Nasdaq OMX's exchanges, not every U.S. exchange; NYSE/NYSE Arca synchronization is unverified by this document."
+      ],
+      "url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2012-44",
+      "native_capture": {
+        "id": "sandy_20121029_close",
+        "requested_url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2012-44",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:07.768783+00:00",
+        "http_status": 200,
+        "final_url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2012-44",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 60394,
+        "sha256": "762fe20ed86cdd1590ddb6917d7c49a03023cbf2a6fc035076de9176b7644896",
+        "status": "captured",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_20261018/sandy_20121029_close.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:09.094764+00:00"
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2012-10-29T00:00:00-04:00",
+      "document_body_locus": "Trader News body date, Monday closure heading and Tuesday likely-closure language."
+    },
+    {
+      "id": "sandy_20121030_close",
+      "issuer": "Nasdaq OMX",
+      "publication_date": "2012-10-29",
+      "date_evidence": "Trader News body says Monday, October 29, 2012; URL ETA2012-45 displays a duplicated #2012-44 header.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "Nasdaq OMX U.S. equity and derivatives exchanges",
+        "FINRA/Nasdaq TRF"
+      ],
+      "effective_scope": "Confirms closure 2012-10-30. Expected reopening 2012-10-31 remains subject to further information here.",
+      "scope": "Sandy Tuesday closure confirmation.",
+      "supports": [
+        "The Tuesday closure has its own later announcement day; do not backdate it to Sunday's likely-closure notice."
+      ],
+      "does_not_support": [
+        "No confirmed Wednesday reopening until the subsequent notice.",
+        "No independent NYSE/NYSE Arca closure proof."
+      ],
+      "url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2012-45",
+      "native_capture": {
+        "id": "sandy_20121030_close",
+        "requested_url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2012-45",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:07.859791+00:00",
+        "http_status": 200,
+        "final_url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2012-45",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 60231,
+        "sha256": "ead1a6ff157838c8dc230ad646ad1be3e55fa0b58119e102266c6cd51158e2a0",
+        "status": "captured",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_20261018/sandy_20121030_close.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:09.241832+00:00"
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2012-10-30T00:00:00-04:00",
+      "document_body_locus": "Trader News body date and Tuesday closure heading; Wednesday expected-opening language."
+    },
+    {
+      "id": "sandy_20121031_reopen",
+      "issuer": "Nasdaq OMX",
+      "publication_date": "2012-10-30",
+      "date_evidence": "Trader News body says Tuesday, October 30, 2012.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "Nasdaq OMX U.S. equity and derivatives exchanges",
+        "FINRA/Nasdaq TRF"
+      ],
+      "effective_scope": "Reopens 2012-10-31.",
+      "scope": "Sandy Wednesday reopening announcement.",
+      "supports": [
+        "A separate reopening notice is available before the final October calendar date."
+      ],
+      "does_not_support": [
+        "No NYSE/NYSE Arca reopening certification.",
+        "No assumption that reopening was already certain in earlier announcements."
+      ],
+      "url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2012-48",
+      "native_capture": {
+        "id": "sandy_20121031_reopen",
+        "requested_url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2012-48",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:08.377997+00:00",
+        "http_status": 200,
+        "final_url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2012-48",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 57509,
+        "sha256": "d6fb3448d421f3b5bbabe9ec81e342f73ffb44e0b47b356706fd426e7c4bb512",
+        "status": "captured",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_20261018/sandy_20121031_reopen.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:09.682038+00:00"
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2012-10-31T00:00:00-04:00",
+      "document_body_locus": "Trader News body date and confirmed Wednesday opening body."
+    },
+    {
+      "id": "bush_20181205_close",
+      "issuer": "Nasdaq",
+      "publication_date": "2018-12-03",
+      "date_evidence": "ETA2018-98 body says Monday, December 3, 2018; this is not December 1.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "Nasdaq U.S. equity and options markets"
+      ],
+      "effective_scope": "Closed 2018-12-05 for national mourning.",
+      "scope": "Bush mourning closure.",
+      "supports": [
+        "A closure near the beginning of a month can alter the first-three realized-open count after the announcement."
+      ],
+      "does_not_support": [
+        "No verified intraday posting time on December 3; same-day 09:29/09:46 knowledge must not be asserted.",
+        "No NYSE/NYSE Arca coverage or earliest industry-wide announcement date."
+      ],
+      "url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2018-98",
+      "native_capture": {
+        "id": "bush_20181205_close",
+        "requested_url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2018-98",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:08.475643+00:00",
+        "http_status": 200,
+        "final_url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2018-98",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 56996,
+        "sha256": "525435d8b706371ef22fd1596061b33afba8a22aedcbd68d15e40214e72dfce1",
+        "status": "captured",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_20261018/bush_20181205_close.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:11.450941+00:00"
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2018-12-04T00:00:00-05:00",
+      "document_body_locus": "Trader News body date and December5 closure body."
+    },
+    {
+      "id": "carter_20250109_close",
+      "issuer": "Nasdaq",
+      "publication_date": "2024-12-31",
+      "date_evidence": "ECA2024-632 body says Tuesday, December 31, 2024.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "Nasdaq U.S. equities and options markets"
+      ],
+      "effective_scope": "Closed 2025-01-09; the document separately distinguishes trade and settlement dates.",
+      "scope": "Carter mourning closure; only the cash-equity trade-date statement is in scope.",
+      "supports": [
+        "A dated Nasdaq body explicitly confirms the full-day closure."
+      ],
+      "does_not_support": [
+        "No DTC/bank calendar or settlement-derived proxy is admitted.",
+        "The linked ETA2024-86 currently resolves to a differently numbered December 29 silence notice, which does not itself confirm January 9 closure.",
+        "No NYSE/NYSE Arca coverage or earliest public notice is inferred."
+      ],
+      "url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2024-632",
+      "native_capture": {
+        "id": "carter_20250109_close",
+        "requested_url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2024-632",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:09.094875+00:00",
+        "http_status": 200,
+        "final_url": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2024-632",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 59160,
+        "sha256": "4528631b910bf9d1ed94c26543ff7cd9f0ebb3284003da88def7eb568ca4b424",
+        "status": "captured",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_20261018/carter_20250109_close.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:10.447010+00:00"
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2025-01-01T00:00:00-05:00",
+      "document_body_locus": "Corporate Actions Alert body date and first paragraph, Nasdaq trade-date statement only."
+    },
+    {
+      "id": "ice_calendar_2015_2016",
+      "issuer": "ICE / NYSE Group",
+      "publication_date": "2014-12-08",
+      "date_evidence": "Official release body dateline Dec 08, 2014.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "NYSE",
+        "NYSE MKT cash equities",
+        "NYSE Arca cash equities"
+      ],
+      "effective_scope": "Annual holiday and early-close schedules for calendar years 2015 and 2016.",
+      "scope": "2016 schedule and explicitly reprinted previously announced 2015 schedule.",
+      "supports": [
+        "Full holiday tables for 2015/2016 include observed July 3, 2015 and December 26, 2016.",
+        "Specified early-close dates are trading sessions and count as one session under the proposed proxy."
+      ],
+      "does_not_support": [
+        "The earlier original publication date of the reprinted 2015 schedule is not established.",
+        "No 2011-2014 or post-2016 schedule coverage."
+      ],
+      "url": "https://ir.theice.com/press/news-details/2014/NYSE-Group-2016-Holiday-Calendar-and-Early-Closings/default.aspx",
+      "native_capture": {
+        "id": "ice_calendar_2015_2016",
+        "requested_url": "https://ir.theice.com/press/news-details/2014/NYSE-Group-2016-Holiday-Calendar-and-Early-Closings/default.aspx",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:09.241871+00:00",
+        "http_status": 200,
+        "final_url": "https://ir.theice.com/press/news-details/2014/NYSE-Group-2016-Holiday-Calendar-and-Early-Closings/default.aspx",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 72398,
+        "sha256": "495bdfd53302303caeeff4360e93aa89b3b5aaf45a88436f55c7cbea3376d425",
+        "status": "captured",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_20261018/ice_calendar_2015_2016.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:10.667277+00:00"
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2014-12-09T00:00:00-05:00",
+      "document_body_locus": "Release date, cash-equity venue paragraph, 2015/2016 tables and early-close footnotes."
+    },
+    {
+      "id": "ice_calendar_2021_2023",
+      "issuer": "ICE / NYSE Group",
+      "publication_date": "2020-12-28",
+      "date_evidence": "Official release body dateline Dec 28, 2020.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "NYSE",
+        "NYSE American cash equities",
+        "NYSE Arca equities",
+        "NYSE Chicago",
+        "NYSE National"
+      ],
+      "effective_scope": "Schedules for calendar years 2021, 2022, 2023 as announced at this publication date; later formal changes may override.",
+      "scope": "Complete listed holiday and early-close tables at the 2020 announcement vintage.",
+      "supports": [
+        "The 2022 NewYear cell has no observed holiday. This supports not shifting that holiday to Friday December31,2021; it is not a guarantee against an independent emergency closure.",
+        "The baseline predates the Juneteenth amendment, so the later 2021 notices must be applied prospectively.",
+        "Early-closing sessions remain trading sessions."
+      ],
+      "does_not_support": [
+        "Absence of Juneteenth in this old table does not override the later adopted rule.",
+        "The annual table does not establish a universal Saturday-New-Year exception for every unlisted year.",
+        "No 2011-2020 annual schedule coverage."
+      ],
+      "url": "https://ir.theice.com/press/news-details/2020/NYSE-Group-Announces-2021-2022-and-2023-Holiday-and-Early-Closings-Calendar/default.aspx",
+      "native_capture": {
+        "id": "ice_calendar_2021_2023",
+        "requested_url": "https://ir.theice.com/press/news-details/2020/NYSE-Group-Announces-2021-2022-and-2023-Holiday-and-Early-Closings-Calendar/default.aspx",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:09.682140+00:00",
+        "http_status": 200,
+        "final_url": "https://ir.theice.com/press/news-details/2020/NYSE-Group-Announces-2021-2022-and-2023-Holiday-and-Early-Closings-Calendar/default.aspx",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 69652,
+        "sha256": "8fbde46b98a6f518cc398d9e595aef5d5f8a2140dca6e04ba4b43e729241d8f9",
+        "status": "captured",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_20261018/ice_calendar_2021_2023.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:10.820947+00:00"
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2020-12-29T00:00:00-05:00",
+      "document_body_locus": "Release date, named venues, three-year table including 2022 NewYear cell."
+    },
+    {
+      "id": "ice_calendar_2026_2028",
+      "issuer": "ICE / NYSE Group",
+      "publication_date": "2025-12-23",
+      "date_evidence": "Official release body dateline Dec 23, 2025.",
+      "publication_precision": "day",
+      "applicable_venues": [
+        "NYSE",
+        "NYSE American equities",
+        "NYSE Arca equities",
+        "NYSE National",
+        "NYSE Texas"
+      ],
+      "effective_scope": "Schedules for 2026, 2027, 2028; only planned dates relevant to the frozen source audit ending 2026-10-09 may be used.",
+      "scope": "2026-2028 annual full-holiday and early-close tables.",
+      "supports": [
+        "The announced 2026 schedule supplies planned horizon beyond the frozen October9 as_of without reading future realized sessions.",
+        "The footnote states no NewYear holiday is observed for Saturday January1,2028. This supports not shifting that holiday to December31,2027; it does not rule out a separate future emergency closure. This example is outside the target interval.",
+        "Half-days remain one session."
+      ],
+      "does_not_support": [
+        "The 2025 publication is not evidence of what was known during earlier years.",
+        "No historical realized opens beyond as_of are admitted.",
+        "No blanket venue equivalence outside the named cash-equity markets."
+      ],
+      "url": "https://ir.theice.com/press/news-details/2025/NYSE-Group-Announces-2026-2027-and-2028-Holiday-and-Early-Closings-Calendar/default.aspx",
+      "native_capture": {
+        "id": "ice_calendar_2026_2028",
+        "requested_url": "https://ir.theice.com/press/news-details/2025/NYSE-Group-Announces-2026-2027-and-2028-Holiday-and-Early-Closings-Calendar/default.aspx",
+        "attempt_count": 1,
+        "retrieval_started_at_utc": "2026-10-18T07:49:10.447095+00:00",
+        "http_status": 200,
+        "final_url": "https://ir.theice.com/press/news-details/2025/NYSE-Group-Announces-2026-2027-and-2028-Holiday-and-Early-Closings-Calendar/default.aspx",
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 72003,
+        "sha256": "04d012cc212fd1de78801e1493dfb34b2c10f954f6b2a279ddc6a86485678db1",
+        "status": "captured",
+        "temporary_raw_path": "/tmp/soxl_calendar_tom_sources_20261018/ice_calendar_2026_2028.html",
+        "retrieval_finished_at_utc": "2026-10-18T07:49:11.816432+00:00"
+      },
+      "web_body_inspected": true,
+      "proposed_conservative_available_from": "2025-12-24T00:00:00-05:00",
+      "document_body_locus": "Release date, named venues, three-year table and first NewYear footnote."
+    }
+  ]
+}

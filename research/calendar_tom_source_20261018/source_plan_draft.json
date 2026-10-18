@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "experiment": "calendar_tom_source_20261018",
+  "status": "draft_source_only_pending_independent_review",
+  "frozen": false,
+  "execution_authorized": false,
+  "scope": "Calendar knowledge ledger, date-only native source mapping and coverage qualification only; no candidate feature values or return analysis.",
+  "hypothesis_boundary": {
+    "candidate_name": "exchange_tom_4d_proxy",
+    "fixed_window": [
+      -1,
+      1,
+      2,
+      3
+    ],
+    "definition": "At the decision trading date d, OR of confirmed current-month actual-open prefix rank in {1,2,3} and expected-last trading day under the schedule known at that decision. No Day0, offset alternatives, smoothing, threshold or directional search.",
+    "economic_claim": "A fixed exchange-calendar seasonality proxy. It is not measured pension/401k flow, institutional payment pressure, a cash deadline, or settlement timing.",
+    "excluded_calendars": [
+      "DTC",
+      "NSCC/CNS settlement",
+      "bank/Fedwire payment",
+      "futures",
+      "options-only exchange schedules"
+    ],
+    "literature_triage": "research/external_mechanism_review_20261018/calendar_tom_proxy_triage.md",
+    "triage_sha256": "bee429081feada52b8b9630f8dc3ab191e1e7018eb3399901b3411c6627d8cbe",
+    "prior_negative_routes": "PG, ROD, FINRA and actual institution-cash-deadline routes retain their closed/parked status. This source card does not reopen them or certify model novelty/economic value."
+  },
+  "bounds": {
+    "observed_calendar_snapshot_start": "2010-03-11",
+    "historical_snapshot_as_of": "2026-10-09",
+    "required_prefix_start": "Beginning of each decision month, including complete actual-open prefix before d; no prefix reconstructed from a cropped training slice.",
+    "required_announced_horizon": "At least through that month end AND the next planned open session afterward, based only on documents known by the clock being audited.",
+    "asof_rule": "Observed-calendar tail and an annual PDF last page are not month-end evidence. Announced future dates may extend beyond as_of as plans; realized events/opens beyond as_of may not be read or backfilled.",
+    "full_2011_2026_qualification_claimed": false,
+    "signal_rows_start": "2011-01-03",
+    "signal_rows_end": "2026-10-09",
+    "decision_rows": "Derived from each original non-null timing09:29; may be later than its signal_date. No decision past frozenas_of or NaT is synthesized."
+  },
+  "clocks": {
+    "timezone": "America/New_York",
+    "original_signal_row": "Prior signal_date from original frozen timing.index; never shift the index to make a calendar input appear earlier.",
+    "original_training_decision": "Original inputs/timing.decision_at: next trading day 09:29, kept verbatim.",
+    "original_return_start": "The original main training return uses an opening-price interval. This source card does not alter that label, its start clock, train cohort or cutoff.",
+    "stage1_research_policy_decision": "Trade date 09:46, with known mark09:45 and fill09:47. Store as a separate clock; do not overwrite original09:29.",
+    "dual_clock_audit": [
+      "known_by_original_0929",
+      "known_by_research_0946"
+    ],
+    "unresolved_model_compatibility": "A day confirmed open at09:46 was not yet confirmed open at09:29. Knowledge from09:46 must not be assigned to a label whose return began at09:30. Later model design must prove earlier availability or separately freeze an appropriate receiving task; this source plan grants neither change.",
+    "publication_comparison": "knowledge_at <= audited decision clock, with explicit timezone; ambiguous/NaT remains unknown.",
+    "current_open_confirmation": "Calendar membership is an ex-post fact, not an archival first-open message. Record the historical-prefix research assumption and its evidence class; do not fabricate an observed_at timestamp from a date alone."
+  },
+  "local_sources": {
+    "actual_daily_calendar": {
+      "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+      "api": "qlib.init + D.calendar(freq=day)",
+      "calendar_file": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/calendars/day.txt",
+      "calendar_sha256": "7d45256ab69fbf3d156fa23823f5cc865225082debc559789ef87503a7248afb",
+      "allowed_content": "Dates only. No D.features price/return calls, binary price fields or derived returns.",
+      "authority_boundary": "Pinned existing observed session-date snapshot. Its future rows are unavailable to a decision prefix; it is not an announcement-vintage ledger."
+    },
+    "original_timing": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifact": "inputs/timing",
+      "artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+      "allowed_columns": [
+        "index(signal_date)",
+        "decision_at",
+        "label_available_at",
+        "return_available_at"
+      ],
+      "content_boundary": "Timestamp metadata only; no features, daily_frame, prediction, target, native authority, label tensor or return artifact is allowed in this source intake."
+    },
+    "reference_card_metadata": {
+      "path": "research/stage1_domain_heads_20261018/plan.json",
+      "sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+      "allowed_use": "Only frozen first_signal/first_trade/terminal/expected_sessions clock metadata, not performance or policy replay."
+    }
+  },
+  "mapping_contract": {
+    "signal_rows": "Use original timing index unchanged. Derive a candidate trade_date only from non-null original decision_at; do not use shift(-1) on an as_of-truncated new calendar.",
+    "training": "Produce source coverage for the complete original timing calendar in2011–2022. Existing mature training count3014 and endpoints2011-01-03 to2022-12-21 are expectations only. A later model preflight must match the exact original mature/finite-label cohort; source-only work does not read returns to rebuild that mask or change it.",
+    "auxiliary": "No constituent/auxiliary records, features or labels are loaded or modified.",
+    "account_mapping": "Use metadata signal range2023-01-03 to2026-10-07, trade dates2023-01-04 to2026-10-08, terminal2026-10-09, expected944 intervals; confirm with timing metadata and D.calendar only. An inconsistency is needs_data, not permission to inner-join/drop rows.",
+    "prediction_tail": "Original outer timing has946 signal rows through2026-10-09. Keep2026-10-08 (next trade at terminal but no following funded account interval) and2026-10-09 (next decision unknown/NaT) in date metadata; mark account_eligible=false. Never fabricate an executable next date.",
+    "half_days": "An actual opened half day counts once in the prefix. Do not remove it based on length, return, volume or future outcome.",
+    "feature_delivery": "Not decided here. No exchange_tom_4d_proxy vector, first3 flag or expected-last feature is generated in this source-only stage."
+  },
+  "official_corpus": {
+    "inventory": "source_document_inventory.json",
+    "inventory_owner": "/root/external_methods",
+    "freeze_rule": "Before source execution, bind an exact URL/expected venue/title/date/document-type row and hash the final inventory. Unfilled discovery slots are not request authority. Current plan remains draft.",
+    "maximum_documents": 17,
+    "allowed_domains": [
+      "sec.gov",
+      "www.sec.gov",
+      "nyse.com",
+      "www.nyse.com",
+      "ir.theice.com",
+      "nasdaqtrader.com",
+      "www.nasdaqtrader.com"
+    ],
+    "selection_order": [
+      "Dated pre2011 NYSE/Arca cash-equity holiday rule/baseline if recoverable",
+      "Dated multi-year NYSE/Arca cash-equity calendars",
+      "Dated changes or exceptional closes: Sandy2012, Bush2018, Juneteenth2021/22, Carter2025",
+      "Explicit year-end Saturday NewYear exception; never generic USFederalHolidayCalendar"
+    ],
+    "authority_scope": "A Nasdaq notice may corroborate cross-market closure; it is not automatically NYSE/Arca authority. Each assertion carries applicable_venues, and a missing required venue stays unknown.",
+    "mismatch_example": "ETA2024-86 currently contains a2024-12-29 moment-of-silence notice, not the referenced Jan9 closure. URL identifier or cross-reference alone is not evidence; reject title/body/date mismatch.",
+    "not_complete_by_design": "Original12 plus atmost5new extensiondocuments. Publish exactremaining knowledge/venue/vintage gaps; do not scrape indefinitely, inferfullcoverage fromdocumentcount, or backfill earlyyears fromcurrentrules.",
+    "research_browsing_boundary": "Design-stage web reading is not a canonical byte snapshot or source acquisition receipt. Official bytes/hashes must be captured only under the later approved source intake.",
+    "discovery_cache": {
+      "authorized_owner": "root separate12-document source-discovery task",
+      "executor": "/root/external_methods",
+      "exec_session": 4279,
+      "exit_code": 0,
+      "location": "/tmp/soxl_calendar_tom_sources_20261018",
+      "actual_HTTP_requests": 12,
+      "successful_HTML_200": 8,
+      "SEC_PDF_403": 4,
+      "retries": 0,
+      "binding": "Final source_document_inventory.json must pin exactbytes/hash/receipt before source-intake GO. No canonical import or knowledge ledger has run.",
+      "reuse": "Import/cache-validate successful bytes under laterGO; do not refetch. Preserve4PDF403 as unavailable rawobjects, even when webtext was readable."
+    },
+    "venue_specific_gaps": "Nasdaq Sandy/Bush/Carter notices cover their stated Nasdaq-operated venues. This12-document corpus does not establish simultaneousNYSE/Arca exception timing; those assertions remainunknown forNYSE/Arca.",
+    "inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
+    "extension_1": {
+      "path": "source_document_extension_1.json",
+      "sha256": null,
+      "status": "separately_owner_authorized_discovery_pending_receipt",
+      "owner": "/root/external_methods",
+      "maximum_new_document_URLs": 5,
+      "maximum_explicit_HTTP_attempts": 5,
+      "fixed_gap_scope": [
+        "2011–2014 ordinary NYSE equity calendar",
+        "2017–2020 ordinary NYSE equity calendar",
+        "2024–2025 ordinary NYSE equity calendar and Juneteenth schedule version"
+      ],
+      "no_retry_or_redirect": true,
+      "old_403_refetch_forbidden": true,
+      "capture_boundary": "Separate append-only receipt; original12-document inventory remainsbyte-identical. Web discovery queries/open calls andexplicit rawcapture HTTP must be recorded separately.",
+      "qualification_boundary": "Document discovery doesnotauthorize source/nativeledger, feature/model/account execution. Finalsource qualification remainscache-only afterindependent review andownerGO."
+    }
+  },
+  "request_budget": {
+    "status": "Draft cumulative ceiling: original12 captured attempts plus separatelyowner-authorized extension_1 atmost5; sourcequalification remainscache-only.",
+    "maximum_official_document_urls": 17,
+    "maximum_actual_HTTP_requests": 17,
+    "maximum_retries": 0,
+    "automatic_redirect_following": false,
+    "maximum_followed_redirects": 0,
+    "concurrency": 1,
+    "minimum_request_start_interval_seconds": 1,
+    "maximum_bytes_per_document": 5242880,
+    "maximum_total_response_bytes": 89128960,
+    "counting": "Every actualHTTP attempt including errors consumes one global durable counter slot. No implicit urllib redirect. Cache successful bytes/hash and never refetch them.",
+    "on_redirect": "Store status/Location as an unresolved source gap; no alternate URL or follow without a scoped new authorization.",
+    "on_429_or_challenge": "Stop requests to that host, preserve response/Retry-After and attempts. Do not rotate identities, mirrors or IPs.",
+    "search_requests_in_intake": 0,
+    "price_HTTP_requests": 0,
+    "paid_or_authenticated_requests": 0,
+    "NAS": "Only future standard evidence upload under explicit source approval; no cold NAS restore or duplicate source download in this draft.",
+    "already_consumed_actual_HTTP_requests": 12,
+    "source_intake_network_policy": "0 newHTTP during future sourcequalification. Reuse all successful exact-hash discoverycaches fromthe original inventory andextensionreceipt; retainold4SEC403andanyextensiongaps. No old403refetch, retries, implicit redirects orunknown-budget substitution.",
+    "remaining_source_intake_HTTP_requests": 0,
+    "extension_1_maximum_discovery_HTTP_requests": 5,
+    "extension_1_consumed_actual_HTTP_requests": "pending finalexternal receipt; none assumed here"
+  },
+  "schemas": {
+    "document_receipt": [
+      "document_id",
+      "requested_url",
+      "response_url",
+      "http_status",
+      "retrieved_at_utc",
+      "sha256",
+      "byte_count",
+      "content_type",
+      "issuer",
+      "applicable_venues",
+      "document_title",
+      "body_declared_publication_text",
+      "publication_at",
+      "publication_precision",
+      "publication_timezone",
+      "effective_from",
+      "effective_until",
+      "scope_dates",
+      "historical_vintage_status",
+      "supersedes_document_id",
+      "parser_status",
+      "gap_reason"
+    ],
+    "knowledge_ledger": [
+      "assertion_id",
+      "document_id",
+      "raw_sha256",
+      "assertion_kind(rule|planned_open|planned_closed|early_close|temporary_change|reopening)",
+      "venue",
+      "session_date_or_rule",
+      "effective_from",
+      "effective_until",
+      "published_at",
+      "knowledge_at",
+      "knowledge_basis",
+      "version_status",
+      "supersedes_assertion_id",
+      "rule_priority",
+      "source_span",
+      "conflict_status"
+    ],
+    "decision_metadata": [
+      "signal_date",
+      "original_decision_at",
+      "mapped_trade_date",
+      "research_decision_at_0946",
+      "source_as_of",
+      "original_clock_known_status",
+      "research_clock_known_status",
+      "actual_prefix_coverage_start",
+      "actual_prefix_coverage_end",
+      "prefix_complete",
+      "current_open_evidence_class",
+      "announcement_coverage_through",
+      "next_planned_open_covered",
+      "knowledge_version_ids",
+      "knowledge_max_at",
+      "account_eligible",
+      "tail_reason",
+      "qualification_status",
+      "unknown_reason"
+    ],
+    "coverage_summary": [
+      "year_or_month",
+      "clock",
+      "total_signal_rows",
+      "account_eligible_rows",
+      "prefix_complete_rows",
+      "announced_horizon_complete_rows",
+      "knowledge_qualified_rows",
+      "conditional_snapshot_rows",
+      "unknown_rows",
+      "conflict_rows"
+    ],
+    "forbidden_outputs": [
+      "SOXX/SOXL price or return",
+      "new maturity/return labels",
+      "candidate feature values",
+      "fitted model",
+      "target weights",
+      "new account",
+      "strategy ranking"
+    ]
+  },
+  "knowledge_policy": {
+    "dated_time": "Use the explicit exchange/official publication timestamp and timezone, never retrieval time as a historical known time.",
+    "date_only": "Use next calendar day00:00 America/New_York as a conservative date-upper-bound research convention only when the official US-market dateline is unambiguous. Preserve the date-only precision/zone assumption; not an assertion of actual first dissemination.",
+    "missing_or_ambiguous_date": "knowledge_at=null andunknown; no guessed earliest date from URL/year/search snippet.",
+    "filing_vs_publication": "Effective/filing/publication times are distinct. A retrospectively effective rule is not known on its effective date unless public evidence existed then.",
+    "vintage": "A currently downloaded page with an old dateline is not by itself a verified first vintage. Record immutable dated official PDF vs mutable dated release vs current-only text separately. Revisions without version timing are unknown for affected claims.",
+    "precedence": "Only applicable already-known later explicit notices can supersede a baseline rule. Keep append-only versions; never overwrite earlier expected schedules with final realized closures.",
+    "last_day": "For future candidate use, a known planned trading date d is expected-last only if the then-known schedule excludes every remaining date in that month and includes the next planned open afterward. Later surprise closes never retroactively relabel d.",
+    "first_three": "For future candidate use, count only already-confirmed opened sessions since the civil month start, including current d only if confirmation is available by the chosen clock. Planned-open at09:29 and confirmed-open by09:46 are distinct states.",
+    "tri_state_OR": "For future fixedproxy: any known true branch=>true; both knownfalse=>false; otherwiseunknown. Unknown is never filled0. Source intake stores knowledge eligibility only and does not compute this feature.",
+    "unexpected_closure_audit": "Compare known-schedule expectations with the final observed calendar solely as a source discrepancy ledger; discrepancies cannot select windows, alter timestamps or produce historical signal corrections."
+  },
+  "qlib_contract": {
+    "read_api": [
+      "qlib.init",
+      "D.calendar",
+      "verified Recorder.load_object(inputs/timing)"
+    ],
+    "write_after_approval": [
+      "Recorder rawbytes/document receipts/knowledge ledger/date mapping/coverage",
+      "DataHandlerLP.from_df + DatasetH over source-only meta columns; no labels or learned processors"
+    ],
+    "exact_time_authority": "Recorder retains timezone-aware timestamps and exact source text/bytes. Do not encode epoch timestamps in float32 or claim a Qlib binary cache is lossless for them.",
+    "serialization": "Before saving a new Dataset, config(dump_all=True,recursive=True); directprepare roundtrip only. Do not claim StaticDataLoader.setup_data is self-contained.",
+    "original_provider_immutable": true,
+    "planned_vs_realized": "Never append futureplanned opens to the original observed Qlib calendar. Any later derived date-onlystore is separate and explicitly tagged.",
+    "recorder_only": [
+      "source/raw_documents/*",
+      "source/receipts",
+      "source/knowledge_ledger",
+      "source/decision_metadata",
+      "source/metadata_dataset",
+      "source/actual_calendar",
+      "analysis/coverage_detail",
+      "analysis/discrepancies"
+    ]
+  },
+  "source_gates": [
+    "Exact source identities anddate-only access; no returns/labels/featurevalues generated",
+    "All17-or-fewer documents have receipt/schema/venue/body-date verification or an explicit gap; failures are not evidence of absence",
+    "Versionknowledge_at never exceeds the clock being qualified; no asof-tail/monthend shortcut",
+    "944account date mapping and946outer tail metadata preserved; exact mature training eligibility remains a later gate",
+    "Year/month and09:29/09:46 coverage/unknown/conflict published without performance-dependent exclusions",
+    "Source-only nativeDataset/Recorder serialization verified once afterapproved implementation; no model/account certificate"
+  ],
+  "current_qualification": {
+    "calendar_knowledge_ledger_complete": false,
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false,
+    "original_training_clock_compatibility": "unresolved",
+    "model_execution_approved": false
+  },
+  "explicit_zero_budget": {
+    "candidate_features_generated": 0,
+    "return_labels_computed_or_read": 0,
+    "new_model_fits": 0,
+    "new_accounts": 0,
+    "CI_resamples": 0
+  },
+  "next_action": "Independent source design review then exact inventory/code/plan freeze and explicit owner source-only GO. No collector or downstreammodel implementation is authorized by this draft.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source/*",
+      "analysis/coverage_detail",
+      "analysis/discrepancies"
+    ]
+  },
+  "references": {
+    "Qlib_data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "Qlib_recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "SEC_Arca_equity_rule_notice": "https://www.sec.gov/files/rules/sro/nysearca/2021/34-93186.pdf",
+    "rule_boundary": "2021-09-30 notice says filing2021-09-28 andoperativeuponfiling; source knowledge must not be backdated tofiling without publicevidence. Both7.2-E and7.2-O are discussed; use cash-equity applicability only."
+  },
+  "budget_history": [
+    {
+      "phase": "original_discovery",
+      "inventory": "source_document_inventory.json",
+      "sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
+      "authorized_maximum": 12,
+      "actual_explicit_HTTP_requests": 12,
+      "successes": 8,
+      "HTTP403": 4,
+      "retry": 0,
+      "handle": 4279,
+      "exit_code": 0
+    },
+    {
+      "phase": "extension_1_discovery",
+      "inventory": "source_document_extension_1.json",
+      "sha256": null,
+      "authorized_maximum_new_URLs": 5,
+      "authorized_maximum_explicit_HTTP_requests": 5,
+      "actual_explicit_HTTP_requests": "pending_receipt",
+      "retry": 0,
+      "redirect_follow": 0,
+      "prior_draft_sha256": "4b7e02287bc7685778b4a8ee2e275ffc1d8a8fe2f1d3ada0d73d189c251f6e31",
+      "preserved_scientific_contract": [
+        "samefourdayproxy",
+        "same09:29/09:46 distinction",
+        "sameunknown semantics",
+        "samefuture source-only review+GO gate",
+        "no marketreturn/feature/model/account work"
+      ]
+    }
+  ]
+}

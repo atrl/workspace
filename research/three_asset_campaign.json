@@ -13,7 +13,7 @@
   "production_changes_authorized": false,
   "current_experiment": "research/external_mechanism_review_20261018",
   "current_phase": "calendar_TOM_source_contract_and_document_discovery",
-  "next_action": "Finish bounded primary-paper and timing qualification of one fixed public exchange-calendar TOM proxy. If qualified, freeze a separate mechanism and source-only/native input design before any feature or model run; otherwise report the precise missing condition and continue other substantively new authorized research.",
+  "next_action": "Finish only the approved5-document supplement for fixed missing year spans, preserve the original12-request inventory, then freeze a cache-only source knowledge/coverage plan and independently review it. No calendar feature/model/account execution yet.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1732,7 +1732,21 @@
       "source_only_eligibility_review_sha256": "c16753f4e6e4e98dfb4070ed4e0f00d72eb9f579938d6af1cbc3f334879940bd",
       "source_draft_and_bounded_official_document_discovery_authorized": true,
       "maximum_discovery_documents": 12,
-      "feature_generation_authorized": false
+      "feature_generation_authorized": false,
+      "source_inventory": "research/calendar_tom_source_20261018/source_document_inventory.json",
+      "source_inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
+      "original_document_capture_exec": 4279,
+      "original_document_capture_exit_code": 0,
+      "original_document_capture_results": {
+        "HTTP_attempts": 12,
+        "successful_HTML": 8,
+        "SEC_PDF_403": 4,
+        "retries": 0
+      },
+      "discovery_extension_authorization": "research/calendar_tom_source_20261018/discovery_extension_1_authorization.json",
+      "maximum_additional_document_requests": 5,
+      "maximum_lifetime_explicit_document_requests": 17,
+      "source_native_execution_authorized": false
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
