@@ -1,10 +1,9 @@
 experiment: stage1_preopen_tom_20261018
 preflight_entrypoint: src.workflow.preopen_tom_allocation.prepare
 execution_entrypoint: src.workflow.preopen_tom_allocation.run
-phase: repair_1_preflight_completed_pending_final_design_and_fit_GO
+phase: completed_fixed_negative_independently_accepted
 parent_card: ..
-preflight_environment: PREOPEN_TOM_PREFLIGHT=1
-execution_environment: PREOPEN_TOM_EXECUTE=1
-fit_account_authorized: true
+new_fits: 6
+new_native_accounts: 6
+reused_native_accounts: 15
 artifact_policy: slim_card_recorder_first
-formal_execution_approval: execution_approval.json

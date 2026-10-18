@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/independent_evaluator",
+  "verdict": "ACCEPT_NEGATIVE_RESULT_CLOSE_FIXED_VERSION",
+  "experiment": "stage1_preopen_tom_20261018",
+  "plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
+  "design_review_sha256": "9f1d852e62c4ff56cebf70e243f52a3f1cc4a1a8f362bdc014f3a85e538c69d1",
+  "recorder_id": "891acb11f06746baa0d17e98f756bb8f",
+  "archive_sha256": "8ce5b683e4cd8e22d1dbf64732bc432f551d23e9759a67965251d002e5287a61",
+  "verification_manifest_sha256": "019ee687f5f3ec22dd4df68a4e2f6d918591f2480d24bfc5d7a0c65fec186a94",
+  "material_evidence_findings": [],
+  "verified_scope": {
+    "registered_artifacts": 98,
+    "new_fits": 6,
+    "epochs_each": 300,
+    "primary_rows_each": 3014,
+    "auxiliary_rows_each": 20741,
+    "new_policy_paths": 6,
+    "new_native_accounts": 6,
+    "sealed_references": 15,
+    "comparison_books": 21,
+    "required_paired_intervals": 15,
+    "formal_attempt_retries": 0,
+    "all_six_models_sealed_before_evaluation": true,
+    "model_bytes_match_barrier_and_manifest": true,
+    "all_frozen_code_and_owner_review_bindings_match": true,
+    "active_release_unchanged": true,
+    "all_six_native_audits_passed": true,
+    "native_max_relative_error": 0.0,
+    "sessions_each": 944,
+    "native_points_each": 3778,
+    "all_three_seeds_retained_each_arm": true
+  },
+  "candidate_results": {
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "net_return_pct": [
+      112.2794519974,
+      109.6441223219,
+      102.3437939071
+    ],
+    "close_max_drawdown_pct": [
+      -29.6307955728,
+      -29.8202167531,
+      -30.1136659891
+    ],
+    "sampled_point_max_drawdown_pct": [
+      -30.5221624903,
+      -30.7106364214,
+      -30.9938637897
+    ],
+    "cvar5_pct": [
+      -4.03825,
+      -4.0395738655,
+      -3.9816550876
+    ],
+    "complete_annual_positive_excess_fraction": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "rolling126_positive_excess_fraction": [
+      0.2661782662,
+      0.2564102564,
+      0.2490842491
+    ],
+    "rolling_windows_each": 819,
+    "positive_required_CI_lower_bounds": 0,
+    "required_CI_count": 15
+  },
+  "decisive_comparison": "At2bp C returned109.644% versus matchedB241.008%, originalB270.223%, A280.650%, SOXX380.568% and strong9097 434.269%. At every cost the available-point MaxDD exceeded30%;5bp close MaxDD also exceeded30%. Complete2024 beat SOXX and complete2025 did not, so annual stability was50%.",
+  "failed_gates": [
+    "net_relative_wealth_all_costs",
+    "sampled_drawdown_30pct",
+    "complete_annual_70pct",
+    "rolling126_70pct",
+    "paired_block_lower_positive"
+  ],
+  "passed_available_gates": [
+    "cvar_no_worse_soxx",
+    "minimum_complete_years"
+  ],
+  "review_method": "Read hash-verified local Recorder result tables, six native books, training counts and model-unlock/attempt receipts. Checked all model artifact bytes, table serialization, native terminal-return and available-point drawdown arithmetic. Reused frozen design/model/source reviews. No training, policy replay, test rerun, CI resampling, fullminute expansion or NAS download.",
+  "NAS_delivery_boundary": "The owner performs the single final archive cold read; that delivery receipt is separate and need not be duplicated to establish the fixed economic rejection.",
+  "source_qualification": "Conditional dated-calendar snapshot with reused market history; historicalPIT and independent-forward qualification remainfalse.",
+  "decision": "not_promoted_fixed_preopen_TOM",
+  "fixed_version_closed": true,
+  "promotion_approved": false,
+  "goal_achieved": false,
+  "next_action": "Retain minimal evidence and the separately authorized bounded Recorder-only attribution. Do not rescue this version with new thresholds, windows, signs, venues, masks, seeds or checkpoints. Continue the overall Goal only through a separately justified substantive mechanism."
+}

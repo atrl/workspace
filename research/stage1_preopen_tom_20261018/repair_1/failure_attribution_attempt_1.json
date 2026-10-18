@@ -1,0 +1,29 @@
+{
+  "exec_session": 42903,
+  "exit_code": 1,
+  "failure_phase": "final JSONserialization after allfourtable calculations andsealedidentity check",
+  "exception": "TypeError: Object of type int64 is not JSON serializable",
+  "source_scope_sha256": "aa6e3987bafc5672ec90b0dc270daf60631d60c694c96877e9e036a303b0bff1",
+  "analysis_code_sha256": "a544b1571328ca4cdc0dfc9283e06fd31f9c507c8bfd7cd5dc22f13f72a54bb8",
+  "completed_tables": {
+    "attribution_calendar_groups.csv": {
+      "sha256": "2bdbbc89d4d320a70bcdff14159824110b07f899896968f63084dbafbdf9fa68",
+      "rows": 288
+    },
+    "attribution_path_summary.csv": {
+      "sha256": "6646e3a17dfb316e148f6e9510f430a6b50e2b5e14f5427657276838dc3279cc",
+      "rows": 12
+    },
+    "attribution_periods.csv": {
+      "sha256": "aebb86b74166ff417938280d41e5cf1c636b6d32d3395135e28ab51531987a2d",
+      "rows": 180
+    },
+    "attribution_state_differences.csv": {
+      "sha256": "fcfd5234188344e2f0e4c1f7a85f369ebe1420daf0420fc028b9fe8f1f50fc1e",
+      "rows": 54
+    }
+  },
+  "new_fit_forward_account_replay_CI_HTTP_NASreads": 0,
+  "automatic_attribution_rerun": false,
+  "sealed_model_Recorder_modified": false
+}

@@ -1,0 +1,19 @@
+{
+  "kind": "output_finalize_not_new_research_attempt",
+  "owner_authorized": true,
+  "failed_exec": 42903,
+  "failure_receipt": "failure_attribution_attempt_1.json",
+  "failure_receipt_sha256": "4b012c56f429f101cdbd27725fbecf0e8aff7b88f14ff5be3a689c5004d742a5",
+  "original_scope_sha256": "aa6e3987bafc5672ec90b0dc270daf60631d60c694c96877e9e036a303b0bff1",
+  "original_code_snapshot": "attribution_attempt_1_source.txt",
+  "original_code_sha256": "a544b1571328ca4cdc0dfc9283e06fd31f9c507c8bfd7cd5dc22f13f72a54bb8",
+  "scope": "NormalizeNumPyscalars, readbackhash-stablefourCSVtables, rebuildunpersistedJSONsmallcounts/differences fromsamefixedinputs. No nativeaccount/group-return/CI recomputation.",
+  "same_recorder_small_artifacts": [
+    "analysis/ensembles",
+    "analysis/smoothed_targets",
+    "analysis/classification",
+    "analysis/training"
+  ],
+  "newfit_forward_replay_account_CI_HTTP_NASreads": 0,
+  "finalize_code_sha256": "a7db5765a5bf3837a37edce17724307ce70e327169779917235f760f198f7068"
+}

@@ -1,46 +1,47 @@
 {
   "experiment": "stage1_preopen_tom_20261018",
-  "stage": "repair_1_no_fit_preflight_complete_pending_final_design_and_fit_GO",
   "plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
-  "recorder_id": null,
-  "preflight_card": "preflight",
-  "preflight_recorder_id": "f0f68379c58b4f859e0fccb981eca00c",
-  "preflight_archive_sha256": "55c29a488ad2149ad29bf62c7e4f4ce45ee5c2a020fe5f0fb72be0419301a25c",
-  "preflight_manifest_sha256": "850865df02cd43d785ea6f219a770a8362a5c625383543cfed805045fc8c6fb1",
-  "preflight_summary_sha256": "eea8187e3f70b3fabb2a1eda65856e4af85f7bdbdd6d46a8b6ab75eb562b4382",
-  "fit_eligible": true,
-  "fit_execution_approved": false,
-  "account_execution_approved": false,
-  "new_fits": 0,
-  "new_accounts": 0,
-  "optimizer_steps": 0,
-  "evaluation_objects_deserialized": 0,
-  "new_source_HTTP": 0,
-  "primary_rows": 3014,
-  "auxiliary_rows": 20741,
-  "train_known_proxy_rows": 1980,
-  "train_unknown_proxy_rows": 1034,
-  "within_mask_identifiability": {
-    "pattern": [
-      true,
-      true,
-      true
-    ],
-    "rows": 1974,
-    "known_zero": 1597,
-    "known_one": 377
+  "decision": "not_promoted_fixed_preopen_TOM",
+  "objective_achieved": false,
+  "promotion_approved": false,
+  "gates": {
+    "net_relative_wealth_all_costs": false,
+    "sampled_drawdown_30pct": false,
+    "cvar_no_worse_soxx": true,
+    "minimum_complete_years": true,
+    "complete_annual_70pct": false,
+    "rolling126_70pct": false,
+    "paired_block_lower_positive": false,
+    "fresh_fullminute_risk_qualified": false,
+    "qualified_independent_forward": false
   },
-  "all_original_training_tensors_scalers_exact": true,
-  "all_resident_frames_train_only": true,
-  "original_primary_columns": 85,
-  "augmented_primary_columns": 89,
-  "three_seed_initialization_verified": true,
-  "all_added_columns_zero": true,
-  "paired_parameter_count": 1037,
-  "old_parameter_count": 973,
-  "parent_failed_attempt_preserved": true,
+  "coarse_economic_gates_pass": false,
+  "new_fits": 6,
+  "new_native_accounts": 6,
+  "reused_native_accounts": 15,
+  "total_comparison_accounts": 21,
+  "required_paired_intervals": 15,
+  "model_sha256": {
+    "B_preopen_tom_context_71": "6ec3914c3fc08d8e9ab9e35cbda2aeeb7e02e4b3ceb7ca61300a6131505ace00",
+    "B_preopen_tom_context_172": "7fe1d9725fcf790dc8d5478212509f2851016ca29e527311f73abcf1a3cfe559",
+    "B_preopen_tom_context_273": "98a907250f6d7c94e2729e2f0e292a47c84db27f73fe380a0be70c927897954c",
+    "C_preopen_tom_71": "6cd4029a2601e1c4a40542feaba585edcec3ebac59288e730eacdadabc5731e8",
+    "C_preopen_tom_172": "baf5b7ed946fba1b662816e65b9bdc6674713bfe46261266cc6b44b0e62ac8af",
+    "C_preopen_tom_273": "55d84083a7f4fb0485b6bb56871071fbe87146fc967471ed071517ae896da210"
+  },
+  "sessions_each": 944,
+  "native_points_each": 3778,
+  "recorder_id": "891acb11f06746baa0d17e98f756bb8f",
+  "experiment_id": "428508478536238213",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_preopen_tom_20261018/repair_1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_preopen_tom_20261018/repair_1/qlib_recorder/428508478536238213/891acb11f06746baa0d17e98f756bb8f",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_preopen_tom_20261018",
+  "as_of": "2026-10-09",
   "historical_PIT_qualified": false,
   "independent_forward_qualified": false,
+  "new_source_HTTP": 0,
+  "production_changed": false,
+  "history_status": "reused_history_not_independent_validation",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
@@ -55,16 +56,37 @@
       "analysis/rolling/*"
     ]
   },
-  "independent_preflight_result_review": "pending",
-  "preflight_result_review": {
-    "path": "design_review.json",
-    "sha256": "9f1d852e62c4ff56cebf70e243f52a3f1cc4a1a8f362bdc014f3a85e538c69d1",
-    "verdict": "APPROVE_DESIGN"
+  "independent_evaluation": {
+    "path": "independent_evaluation.json",
+    "sha256": "bf13e037a21ccdd78756f0c7b1a5a0c732c0c41dd819017e67c86d9a2d89254e"
   },
-  "preflight_readback": {
-    "path": "preflight_readback_verification.json",
-    "sha256": "c92d666ca9e2124d2e0c9e11f8fe532e9bdb88c010bcf19a8738b5f22fa43c24",
-    "status": "passed"
+  "nas_evidence": {
+    "sha256": "8ce5b683e4cd8e22d1dbf64732bc432f551d23e9759a67965251d002e5287a61",
+    "size_bytes": 23852116,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/8c/e5/8ce5b683e4cd8e22d1dbf64732bc432f551d23e9759a67965251d002e5287a61",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 17:48:48.297394+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/8c/e5/8ce5b683e4cd8e22d1dbf64732bc432f551d23e9759a67965251d002e5287a61",
+    "recorder_id": "891acb11f06746baa0d17e98f756bb8f",
+    "experiment_id": "428508478536238213",
+    "archive_root": "qlib_recorder"
   },
-  "formal_execution_authorized": true
+  "delivery_readback": {
+    "path": "readback_verification.json",
+    "sha256": "77015b98c2e51ba3201b713c09dc1e4e7bb3ac40d06a7c0af8fd090e3d8e3d3e",
+    "executor": "root",
+    "exec_session": 55774,
+    "exit_code": 0,
+    "cold_read_count": 1
+  },
+  "failure_attribution": {
+    "path": "failure_attribution.json",
+    "scope": "failure_attribution_scope.json",
+    "conclusion": "failure_attribution.md",
+    "calculation_attempt": 42903,
+    "output_finalize": 57415,
+    "new_research_or_native_replay": false
+  }
 }

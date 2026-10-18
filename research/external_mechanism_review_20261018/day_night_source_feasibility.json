@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "status": "metadata_only_not_label_qualified",
+  "created_local_date": "2026-10-18",
+  "scope": "Exactly two existing price-provider candidates and their lineage metadata/code were examined. No price/label object was deserialized; no D.features, source rebuild, new HTTP, feature, Z/S calculation, fit or account was run. This selects no model or loss weight.",
+  "preferred_candidate": "frozen_minute_card_daily_prices",
+  "candidate_count": 2,
+  "candidates": [
+    {
+      "id": "frozen_minute_card_daily_prices",
+      "status": "bounded_native_read_is_structurally_feasible_cross_field_basis_not_yet_qualified",
+      "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+      "fields": [
+        "$open",
+        "$close"
+      ],
+      "instruments": [
+        "SOXL",
+        "SOXX"
+      ],
+      "freq": "day",
+      "region": "us",
+      "manifest": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/qlib_store_manifest.json",
+      "manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+      "manifest_declared_coverage": {
+        "calendar_start": "2010-03-11",
+        "calendar_end": "2026-10-09",
+        "as_of": "2026-10-09",
+        "row_count": 8344,
+        "declared_feature_file_count": 4
+      },
+      "calendar_sha256": "7d45256ab69fbf3d156fa23823f5cc865225082debc559789ef87503a7248afb",
+      "instrument_manifest_sha256": "c5a3c374d7ecd11a737f9fe139893e034104b55ff0c214374f7ac71a1dc79385",
+      "origin": "src/workflow/minute_pit_allocator.py:98-105 reads exactly SOXL/SOXX $open/$close from the then-pinned soxl_soxx_soxs provider using native Qlib and builds this separate daily_prices store. It is not the raw NONE minute plane.",
+      "frozen_origin_plan": {
+        "path": "research/minute_information_pit_allocator_20261012/plan.json",
+        "sha256": "a010b1f2a3d17187dafafec0bbd7210bf8da60c819bcc9cedf23da6c5648a806",
+        "expected_parent_manifest_sha256": "71fe82a5b4391d4b157a45c18a3afd3eadbba9f36c3c2b66d3a1411177e93174"
+      },
+      "value_identity_limit": "The root manifest and calendar identities are known, but the manifest short hash/audit_snapshot_hash are hashes of metadata payloads, not full price values. No primitive price-bin content hashes were read/generated in this metadata-only task.",
+      "feature_file_metadata": [
+        {
+          "path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/features/soxl/open.day.bin",
+          "bytes": 16692,
+          "content_sha256": null,
+          "value_read": false
+        },
+        {
+          "path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/features/soxl/close.day.bin",
+          "bytes": 16692,
+          "content_sha256": null,
+          "value_read": false
+        },
+        {
+          "path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/features/soxx/open.day.bin",
+          "bytes": 16692,
+          "content_sha256": null,
+          "value_read": false
+        },
+        {
+          "path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/features/soxx/close.day.bin",
+          "bytes": 16692,
+          "content_sha256": null,
+          "value_read": false
+        }
+      ],
+      "extra_file_notice": "Directory metadata also contains SOXL high.day.bin and low.day.bin, despite the recorded manifest declaring four features. They were not opened, are outside the explicit four-file whitelist, and were not removed. Their existence reinforces that manifest identity alone is not complete content identity."
+    },
+    {
+      "id": "current_upstream_soxl_soxx_soxs",
+      "status": "not_a_drop_in_frozen_source",
+      "provider_uri": "data/qlib/soxl_soxx_soxs",
+      "manifest": "data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+      "current_manifest_sha256": "0fd85c0e3e5718f9236b9622070db7bcdec57857d594df08740e2e6a508a27a5",
+      "current_as_of": "2026-10-16",
+      "expected_frozen_manifest_sha256": "71fe82a5b4391d4b157a45c18a3afd3eadbba9f36c3c2b66d3a1411177e93174",
+      "matches_original_frozen_manifest": false,
+      "raw_source_manifest": "data/raw/soxs_defensive_v1/source_manifest.json",
+      "current_raw_source_manifest_sha256": "3a730e34b3cb65de4c4d64fdbc22b690b614a2da93b82a7919502747314d28fe",
+      "use_boundary": "The mutable upstream now extends through2026-10-16. Current append-only metadata does not prove equality to the original frozen2011-2022 values; do not silently replace the child or query all symbols/fields."
+    }
+  ],
+  "price_basis": {
+    "pipeline_evidence": [
+      "src/data/soxs_defensive.py:166-191 estimates an independent median Yahoo-to-Nasdaq scale for each OHLC field from the first40 overlap rows, then scales the earlier Yahoo segment.",
+      "src/data/soxs_defensive.py:103-125 derives Yahoo adjusted_close/close by date. Lines253-264 multiply every OHLC field by that common date factor.",
+      "src/data/soxs_defensive.py:268-300 preserves earlier raw-history rows on incremental refresh and builds the intersection of SOXL/SOXX/SOXS dates. The child inherits that observed calendar; it is not an independent official exchange calendar.",
+      "src/data/qlib_native.py:370-381 writes float32 feature storage; later casting to float64 does not restore original precision."
+    ],
+    "split_and_dividend_claim": "These are stitched, distribution-adjusted historical research prices, not raw unadjusted cash/share marks. Yahoo/Nasdaq historical adjustment and prior per-field scaling are inherited. No separate corporate-action entitlement/payment ledger or original publication timestamps exists in the two-field child store.",
+    "same_date_factor": "A common adjusted-close factor applied to O and C cancels within same-day C/O, but changes across dates enter the overnight leg. The economic treatment of distributions must be stated separately from a cash dividend received by an actual portfolio.",
+    "cross_field_risk": "If an early segment has O*=kO*O and C*=kC*C, its daily log day leg is shifted by log(kC/kO), and its night leg by the opposite term when endpoints remain in that segment. The sum can telescope correctly while the day/night contrast is shifted. This is a symbolic measurement-risk argument, not a computed label or evidence of a material realized bias.",
+    "risk_not_overstated": "Recovered older stitch metadata has O/C scales very close to1; this task does not infer economically significant distortion, nor assume those older coefficients are exactly the ones used by the October frozen clone.",
+    "minimum_unresolved_provenance": "Bind the four frozen-clone O/C columns to the applicable historical stitching/adjustment metadata version or a matching sealed train-only price-provenance artifact. The original parent manifest71fe82... is pinned but its exact byte object and its linkage to recovered stitch coefficients were not found in the bounded checks. Do not guess coefficients or certify cross-field labels from same-column H1 agreement alone."
+  },
+  "bounded_native_read_design_not_executed": {
+    "entry": "Use a fresh isolated Qlib process with the explicitly pinned child provider. Disable expression/dataset disk caches and query only raw fields, avoiding Ref/rolling expressions that extend the requested range.",
+    "proposed_calls": [
+      "qlib.init(provider_uri=FIXED_CHILD, region=\"us\", kernels=1, expression_cache=None, dataset_cache=None)",
+      "D.calendar(start_time=\"2011-01-03\", end_time=\"2022-12-30\", freq=\"day\")",
+      "D.features([\"SOXL\",\"SOXX\"], [\"$open\",\"$close\"], start_time=\"2011-01-03\", end_time=\"2022-12-30\", freq=\"day\", disk_cache=0)"
+    ],
+    "observation_bounds": {
+      "start": "2011-01-03",
+      "end": "2022-12-30",
+      "purpose": "Covers original2011 signal cohort forward d0..d5 endpoint needs through2022-12-30; exact per-row endpoints still must be mapped against the frozen3014 train-only identity after separate approval."
+    },
+    "local_API_evidence": [
+      "qlib/data/data.py:1162-1190 accepts explicit start/end and disk_cache=0.",
+      "qlib/data/data.py:737-741 LocalFeatureProvider slices backend[start_index:end_index+1].",
+      "qlib/data/storage/file_storage.py:346-373 FileFeatureStorage seeks to the requested offset and reads4*count bytes for the slice; it does not need to deserialize a full all-period price object for raw fields."
+    ],
+    "honesty": "Qlib may read whole calendar/instrument metadata to locate range indexes. That is distinct from decoding future prices/labels. This is code-path feasibility only, not a completed runtime isolation audit. Backend/cache identities and a training-range-only readback must be frozen and separately authorized.",
+    "forbidden": [
+      "No prepare_minute_allocator_inputs or original _load_frame rerun: those helpers load full as_of frames and labels.",
+      "No load of full inputs/daily_frame or inputs/native_prices followed by cropping while claiming evaluation data were never accessed.",
+      "No provider rebuild/refresh, current upstream substitution, extra symbols/fields, or label/feature generation in this task."
+    ],
+    "source_hash_gate": "Before a real read, separately bind exact selected primitive file content identity and the fixed calendar/manifest, or recover an equally precise frozen-content identity. A manifest-only checksum is not silently promoted to a complete value checksum."
+  },
+  "maturity_and_account_mapping": {
+    "original_h1": "src/workflow/soxs_defensive_hurdle.py:134-136 defines O(T+2)/O(T+1)-1.",
+    "original_h5": "src/data/minute_allocation_features.py:122-135 declares label_available_at at native dateT+6 09:31NY, return_available_at atT+2 09:31NY, decision_at atT+1 09:29NY. These are historical timing conventions, not real first-receipt certification.",
+    "cohort": "The3014 mature primary row identity, all original TARGETS finite and original cutoff2023-01-01NY must remain unchanged. Do not rebuild eligibility from the candidate O/C completeness or shorten H5 to gain rows.",
+    "new_label_boundary": "A future day/night label would need all d0..d5 O/C observations and a declared accounting basis, with availability no earlier than the original H5 maturity. This task did not calculate endpoints per row, S, Z or any label.",
+    "execution_limit": "Daily open is not the09:47 account mark; no price-label equality or execution-alignment benefit is inferred. Real dividends, all-minute risk and first-publication/PIT remain unqualified."
+  },
+  "checked_recorder_inventory_only": {
+    "original": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "full_native_prices": {
+        "artifact": "inputs/native_prices",
+        "sha256": "68d68e30ec64129b012a0b8afc3c5848db9056238d9b9ed7fc1a21cfe3bc9167",
+        "bytes": 126596,
+        "scope_from_creator_code": "Full2010-03-11 through2026-10-09 O/C frame; not a train-only price object.",
+        "loaded": false
+      },
+      "full_daily_frame": {
+        "artifact": "inputs/daily_frame",
+        "sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+        "contains_evaluation_period": true,
+        "loaded": false
+      }
+    },
+    "PG_train_only": {
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "verification_manifest_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "training_dataset_sha256": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+      "auxiliary_dataset_sha256": "78ad08e92061c32d8ce6ce4dc7c6ffb163b1f9cfef9aab66589a74515ba02d78",
+      "dedicated_train_only_O_C_artifact_found": false,
+      "basis": "The checked inputs inventory has training_dataset/auxiliary_dataset/training_audit, not a dedicated price panel. Its creator _prepare_training builds feature39/label5/common/meta and does not save raw O/C as an independent train-only object. No Dataset or tensor was deserialized in this task.",
+      "absence_scope": "Only these explicitly checked source/PG inventories; not a claim that no such object exists anywhere in the workspace."
+    }
+  },
+  "lightweight_git_metadata_recovery": {
+    "method": "Read Git metadata blobs only; no checkout/reset, price/blob decode or Recorder object load. Checked HEAD and the first three recorded raw source-manifest versions, plus the original fixed card plan/summary/inventory.",
+    "HEAD_provider_manifest": {
+      "git_path": "HEAD:data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+      "sha256": "2c338680dcdef7ba5f84e809b043ed4c5df41bdbcdc64f9d9439b9ef404ae4da",
+      "as_of": "2026-10-08",
+      "matches_frozen71fe82": false
+    },
+    "HEAD_raw_manifest": {
+      "git_path": "HEAD:data/raw/soxs_defensive_v1/source_manifest.json",
+      "sha256": "dee2c685eb355371edca437ddb39ad62bb8dc59d9f7ae295f5dfc043a697b01b",
+      "as_of": "2026-10-08",
+      "stitch_scales_present": false
+    },
+    "frozen71fe82_blob_found_in_checked_locations": false,
+    "fixed_card_source_audit": "The fixed plan retains71fe82... as expected identity; summary/base_input_audit/execution_provider records paths, scope and relationship audit rather than stitch coefficients. The listed inputs/audit pickle was not deserialized.",
+    "recovered_metadata": [
+      {
+        "git_path": "921ec916e36f419179dd02e104b20555748c92af:data/raw/soxs_defensive_v1/source_manifest.json",
+        "sha256": "4fc035e9998b25e62237a3d8fb7b19c98366d795321145959f8731dc1e6e07a4",
+        "as_of": "2026-07-21",
+        "nasdaq_start": "2016-07-21",
+        "SOXL": {
+          "open": 0.9999999610685462,
+          "close": 1.00000000785413
+        },
+        "SOXX": {
+          "open": 0.9999999803829277,
+          "close": 0.9999999978860088
+        }
+      },
+      {
+        "git_path": "86b75cfbe5cc21ce5c9ffd8c1c69491a21f75be3:data/raw/soxs_defensive_v1/source_manifest.json",
+        "sha256": "cfbdba305c5f11035363b98e23023e2309753d9199c2569f1e8370e1f174e307",
+        "as_of": "2026-07-23",
+        "nasdaq_start": "2016-07-25",
+        "SOXL": {
+          "open": 0.9999999610685462,
+          "close": 1.0000000052935292
+        },
+        "SOXX": {
+          "open": 0.9999999803829277,
+          "close": 0.9999999935486612
+        }
+      },
+      {
+        "git_path": "ea7f22bb9becb8a8f911a5073d80d519ea3f450b:data/raw/soxs_defensive_v1/source_manifest.json",
+        "sha256": "435ba39c17336d6c02501bc47723bf20eb5fb75b1fc7e8c1516ebe6b9d757157",
+        "as_of": "2026-07-24",
+        "nasdaq_start": "2016-07-25",
+        "SOXL": {
+          "open": 0.9999999610685462,
+          "close": 1.0000000052935292
+        },
+        "SOXX": {
+          "open": 0.9999999803829277,
+          "close": 0.9999999935486612
+        }
+      }
+    ],
+    "static_construction_scope": "Recovered fields are symbol_audits.<symbol>.stitch_scales from early Yahoo OHLC scaled to first Nasdaq overlap, with Nasdaq authoritative thereafter and a separate common daily adjusted-close factor. They describe those July snapshots, not automatically the October frozen clone. No unknown coefficient was filled or extrapolated."
+  },
+  "code_identity_metadata": {
+    "src/workflow/minute_pit_allocator.py": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+    "src/data/soxs_defensive.py": "efbd5dcd1a86518044e82e46dce174e9dcf39eecbc449a41a69d35f6a37c13df",
+    "src/data/minute_allocation_features.py": "aeb8e024c31eab53be7ec2205ae290e632bc21fe281d39bc8f81f8252aaa7fc4",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "qlib_venv/lib/python3.12/site-packages/qlib/data/data.py": "9156bfef585b9e2d22d4d1ba5831efdb63b419d24846ee738eee237090ff6a24",
+    "qlib_venv/lib/python3.12/site-packages/qlib/data/storage/file_storage.py": "7261420971a2b6cc3de9a9dbac6288216fdc9653e2d99f269df01d1cf5ec55c0"
+  },
+  "API_authority": {
+    "official_reference": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "verification": "Official Qlib data APIs already checked in preceding source implementation/review; this task additionally inspected installed native provider/storage code without invoking it. No fresh web/source request."
+  },
+  "next_action": "Stop metadata inspection here. Owner decides whether to authorize a narrowly frozen train-only price/basis qualification that closes the provenance/content gap before any new labels. No model, weight or execution-window selection is made.",
+  "executed_counts": {
+    "price_objects_deserialized": 0,
+    "label_objects_deserialized": 0,
+    "D_features_calls": 0,
+    "D_calendar_calls": 0,
+    "new_market_HTTP": 0,
+    "new_features_or_labels": 0,
+    "fits": 0,
+    "accounts": 0
+  }
+}

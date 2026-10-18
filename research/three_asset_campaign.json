@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_preopen_tom_20261018/repair_1",
-  "current_phase": "preopen_TOM_six_fit_six_account_execution_approved",
-  "next_action": "Execute the fixed six paired fits, seal all six models before evaluation access, then run six own-state cost accounts and compare fifteen sealed references under every frozen economic gate. Independently evaluate the result; do not promote on software/preflight success.",
+  "current_phase": "closed_TOM_delivered_next_day_night_source_design",
+  "next_action": "Prepare one bounded train-only day/night price/basis and label-identity qualification design, based on the external primary-source triage. Resolve original fixed OHLC lineage before label generation; no new fit/weight/window selection. TOM remains closed.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1642,9 +1642,9 @@
     "note": "Automatic Goal continuation observed on 2026-10-18 after first implementation turn; existing source job independently verified live by PID59397 and executor polling original session79014. This observation is not a guarantee of future liveness.",
     "latest_continuation_previous_turn_classification": "progress",
     "latest_continuation_evidence": [
-      "Calendar initial source64428 completed, deterministic parser failure diagnosed and preserved2c7c2070",
-      "Bounded repair65407 completed12parsed/439assertions; independently accepted and38-artifact coldread21776 passed; deliveredf474521e",
-      "External6-search-group review delivered93fe247a; separate6fit preopen receiver draft now in independent design review"
+      "Model/feature/workflow implemented and source API grouping failure repaired with original attempt preserved",
+      "Native preflight74423 and18-artifact coldread90001 passed fixed training/mask contracts",
+      "Formal22675 completed6fits/6native+15refs; independently rejected and98-artifact coldread55774 passed; bounded attribution running"
     ],
     "same_total_blocker_consecutive_turns": 0,
     "objective_achieved": false
@@ -1724,18 +1724,18 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/stage1_preopen_tom_20261018/repair_1",
-      "phase": "preopen_TOM_six_fit_six_account_execution_approved",
+      "phase": "preopen_TOM_fixed_version_closed_after_attribution",
       "executor": "/root/recent_evidence",
       "design_executor": "/root/external_methods",
       "owner": "/root",
       "reviewer": "/root/independent_evaluator",
       "design_draft": "research/stage1_preopen_tom_20261018/design_draft.json",
       "design_draft_sha256": "d65bb92c7e80829439da14e6c38b19b2ed84f2e5345fc3305ec46d22968084ff",
-      "new_fits": 0,
-      "new_accounts": 0,
-      "new_feature_values": 0,
+      "new_fits": 6,
+      "new_accounts": 6,
+      "new_feature_values": 2912,
       "strategy_execution_authorized": false,
-      "executor_lifecycle": "Preflight and owner coldread completed and independently approved. Owner signed fixed6fit/6native GO; explicit executor resume follows, no fit yet claimed.",
+      "executor_lifecycle": "Formal experiment22675, independent result review and coldread55774 completed. One attribution42903 completed four tables and failed JSON output only; scoped output-finalize57415 passed with unchanged tables. Fixed route fully closed; no more fits/accounts on this version.",
       "planned_fit_attempts": 6,
       "planned_new_native_accounts": 6,
       "planned_reference_accounts_reused": 15,
@@ -1779,7 +1779,26 @@
         "coldread_exec_session": 90001,
         "coldread_exit_code": 0
       },
-      "formal_execution_approval": "research/stage1_preopen_tom_20261018/repair_1/execution_approval.json"
+      "formal_execution_approval": "research/stage1_preopen_tom_20261018/repair_1/execution_approval.json",
+      "reused_native_accounts": 15,
+      "recorder_id": "891acb11f06746baa0d17e98f756bb8f",
+      "archive_sha256": "8ce5b683e4cd8e22d1dbf64732bc432f551d23e9759a67965251d002e5287a61",
+      "independent_evaluation": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json",
+      "independent_evaluation_sha256": "bf13e037a21ccdd78756f0c7b1a5a0c732c0c41dd819017e67c86d9a2d89254e",
+      "readback_sha256": "77015b98c2e51ba3201b713c09dc1e4e7bb3ac40d06a7c0af8fd090e3d8e3d3e",
+      "formal_exec_session": 22675,
+      "formal_exit_code": 0,
+      "new_feature_rows": 3966,
+      "attribution": "research/stage1_preopen_tom_20261018/repair_1/failure_attribution.json",
+      "attribution_sha256": "174c3dd2a6b0ec95e83862e95ea2f3dec6f28eb50f1e515af59401f05d05863e",
+      "attribution_execution": {
+        "initial": 42903,
+        "initial_exit": 1,
+        "output_finalize": 57415,
+        "output_finalize_exit": 0,
+        "table_hashes_unchanged": true,
+        "new_fit_forward_replay_or_CI": false
+      }
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -2131,10 +2150,10 @@
     "production_changes_authorized": false
   },
   "current_goal_execution_counts": {
-    "model_fits": 15,
-    "new_native_accounts": 24,
-    "reused_native_accounts": 51,
-    "completed_fixed_experiments": 4,
+    "model_fits": 21,
+    "new_native_accounts": 30,
+    "reused_native_accounts": 66,
+    "completed_fixed_experiments": 5,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
     "reused_native_accounts_scope": "Cumulative comparison reuse events, not independent accounts or new market observations",
@@ -2306,15 +2325,24 @@
         "next_action": "Retain source-only negative qualification. Reconsider only with auditable publication vintages and a distinct post-release liquid-ETF mechanism; no bulk intake or trading experiment authorized."
       },
       "public_calendar_TOM_proxy": {
-        "status": "source_only_qualification_eligible_not_model_approved",
+        "status": "conditional_source_retained_fixed_preopen_receiver_closed_not_promoted",
         "triage": "research/external_mechanism_review_20261018/calendar_tom_proxy_triage.md",
         "review": "research/external_mechanism_review_20261018/calendar_tom_proxy_review.json",
         "fixed_external_window": "four days {-1,+1,+2,+3}; noDay0",
         "claim": "Public exchange-calendar proxy, not observed institutional cash deadline, pensions flow or exact close-close strategy replication",
         "time_boundary": "Prior actual opening prefix plus known expected-last schedule; no asof truncation or surprise-closure hindsight. Original source09:29 and account09:46 clocks remain distinct until separately reviewed model mapping.",
         "new_feature_values": 0,
-        "new_fits": 0,
-        "new_accounts": 0
+        "new_fits": 6,
+        "new_accounts": 6,
+        "model_card": "research/stage1_preopen_tom_20261018/repair_1",
+        "result_review": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json",
+        "fixed_preopen_receiver_result": {
+          "card": "research/stage1_preopen_tom_20261018/repair_1",
+          "decision": "not_promoted_fixed_preopen_TOM",
+          "new_fits": 6,
+          "new_native_accounts": 6,
+          "review": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json"
+        }
       }
     },
     "bounded_review_after_projection": {
@@ -2341,6 +2369,18 @@
       "new_features_labels_fits_accounts": 0,
       "candidate_execution_authorized": false,
       "next_action": "Retain as separate bounded lead; current preopen TOM implementation remains primary. No overnight-only account, offset, sign or threshold rescue."
+    },
+    "day_night_source_feasibility": {
+      "path": "research/external_mechanism_review_20261018/day_night_source_feasibility.json",
+      "sha256": "e1c7dc2cffdb2276907e78b2b8214ebbf4d4d708d0be4de364d828f011951240",
+      "status": "metadata_only_not_label_qualified",
+      "provider_candidates_examined": 2,
+      "actual_price_or_label_objects_deserialized": 0,
+      "D_features_calls": 0,
+      "primary_remaining_need": "Exact content and cross-field-basis lineage for the fixed Oct9 open/close source; recovered earlier near-one stitch scales do not establish that link or a material bias.",
+      "next_design_executor": "/root/external_methods",
+      "next_planned_card": "research/day_night_label_source_20261018",
+      "actual_source_or_label_execution_authorized": false
     }
   },
   "research_focus_history": [
@@ -2361,30 +2401,47 @@
     }
   ],
   "latest_fixed_result": {
-    "card": "research/stage1_aux_projection_allocation_20261018",
-    "decision": "not_promoted_fixed_aux_projection",
+    "card": "research/stage1_preopen_tom_20261018/repair_1",
+    "decision": "not_promoted_fixed_preopen_TOM",
     "independent_verdict": "ACCEPT_NEGATIVE_RESULT_CLOSE_FIXED_VERSION",
-    "review": "research/stage1_aux_projection_allocation_20261018/independent_evaluation.json",
+    "review": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json",
     "C_return_pct_0_2_5bp": [
-      299.58670536557526,
-      270.53536200318587,
-      267.972676840328
+      112.2794519973856,
+      109.64412232194162,
+      102.34379390714808
+    ],
+    "C_close_max_drawdown_pct_0_2_5bp": [
+      -29.630795572807024,
+      -29.82021675306482,
+      -30.113665989140216
+    ],
+    "C_sampled_max_drawdown_pct_0_2_5bp": [
+      -30.52216249033679,
+      -30.71063642143681,
+      -30.993863789726493
     ],
     "complete_annual_SOXX_positive_fraction_each_cost": 0.5,
-    "positive_CI_lower_bounds": "1/12; only5bp againstA",
-    "actual_projected_training_steps": [
-      13,
-      0,
-      17
-    ],
-    "new_fits": 3,
-    "new_native_accounts": 3,
-    "reused_native_accounts": 15,
-    "attribution": "Learning intervention was rare and late, rawcash MAE.000692,2bp realized beta/cash nearly unchanged andrisk states identical toB. No postresult anchor/weight rescue.",
     "C_rolling126_positive_fraction": [
-      0.39194139194139194,
-      0.3504273504273504,
-      0.34554334554334554
-    ]
+      0.2661782661782662,
+      0.2564102564102564,
+      0.2490842490842491
+    ],
+    "positive_CI_lower_bounds": "0/15",
+    "new_fits": 6,
+    "new_native_accounts": 6,
+    "reused_native_accounts": 15,
+    "attribution_status": "completed_fixed_once_with_output_serialization_repair",
+    "next_action": "Closefixedversion; do not rescue window/sign/venue/mask/seed/encoding/controller.",
+    "attribution": {
+      "path": "research/stage1_preopen_tom_20261018/repair_1/failure_attribution.md",
+      "C_raw_beta": 1.1098278570686837,
+      "B_raw_beta": 1.0959261985804114,
+      "C_2bp_actual_ending_beta": 0.6902508857812963,
+      "B_2bp_actual_ending_beta": 0.8427742092129161,
+      "C_2bp_cash_like_weight": 0.5300501907371621,
+      "B_2bp_cash_like_weight": 0.4564829840501579,
+      "C_B_risk_state_different_days_2bp": 319,
+      "interpretation": "Inputs reached proposals and realized holdings, but worse endogenous full-account paths erased the intended gain. This is descriptive, not a controller-isolation counterfactual."
+    }
   }
 }

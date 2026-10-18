@@ -1,0 +1,30 @@
+{
+  "kind": "output_finalize_not_new_research",
+  "exec_session": 57415,
+  "exit_code": 0,
+  "original_failed_exec": 42903,
+  "scope_sha256": "1297c783b92fb8125db315a7ba4d62f775d04283c222597474e04c4b65a37108",
+  "analysis_code_sha256": "a7db5765a5bf3837a37edce17724307ce70e327169779917235f760f198f7068",
+  "original_four_tables": {
+    "attribution_calendar_groups.csv": {
+      "sha256": "2bdbbc89d4d320a70bcdff14159824110b07f899896968f63084dbafbdf9fa68",
+      "rows": 288
+    },
+    "attribution_path_summary.csv": {
+      "sha256": "6646e3a17dfb316e148f6e9510f430a6b50e2b5e14f5427657276838dc3279cc",
+      "rows": 12
+    },
+    "attribution_periods.csv": {
+      "sha256": "aebb86b74166ff417938280d41e5cf1c636b6d32d3395135e28ab51531987a2d",
+      "rows": 180
+    },
+    "attribution_state_differences.csv": {
+      "sha256": "fcfd5234188344e2f0e4c1f7a85f369ebe1420daf0420fc028b9fe8f1f50fc1e",
+      "rows": 54
+    }
+  },
+  "original_four_table_hashes_unchanged": true,
+  "sealed_98artifacts_and_NAS_unchanged": true,
+  "newfit_forward_account_replay_CI_sourceHTTP_NASreads": 0,
+  "failed_and_finalize_execution_cells_preserved": true
+}

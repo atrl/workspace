@@ -1,0 +1,66 @@
+{
+  "plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
+  "fit_attempts": [
+    "B_preopen_tom_context_71",
+    "B_preopen_tom_context_172",
+    "B_preopen_tom_context_273",
+    "C_preopen_tom_71",
+    "C_preopen_tom_172",
+    "C_preopen_tom_273"
+  ],
+  "fits_done": [
+    "B_preopen_tom_context_71",
+    "B_preopen_tom_context_172",
+    "B_preopen_tom_context_273",
+    "C_preopen_tom_71",
+    "C_preopen_tom_172",
+    "C_preopen_tom_273"
+  ],
+  "path_attempts": [
+    "B_preopen_tom_context_0",
+    "B_preopen_tom_context_2",
+    "B_preopen_tom_context_5",
+    "C_preopen_tom_0",
+    "C_preopen_tom_2",
+    "C_preopen_tom_5"
+  ],
+  "paths_done": [
+    "B_preopen_tom_context_0",
+    "B_preopen_tom_context_2",
+    "B_preopen_tom_context_5",
+    "C_preopen_tom_0",
+    "C_preopen_tom_2",
+    "C_preopen_tom_5"
+  ],
+  "native_attempts": [
+    "B_preopen_tom_context_0",
+    "B_preopen_tom_context_2",
+    "B_preopen_tom_context_5",
+    "C_preopen_tom_0",
+    "C_preopen_tom_2",
+    "C_preopen_tom_5"
+  ],
+  "native_done": [
+    "B_preopen_tom_context_0",
+    "B_preopen_tom_context_2",
+    "B_preopen_tom_context_5",
+    "C_preopen_tom_0",
+    "C_preopen_tom_2",
+    "C_preopen_tom_5"
+  ],
+  "model_sha256": {
+    "B_preopen_tom_context_71": "6ec3914c3fc08d8e9ab9e35cbda2aeeb7e02e4b3ceb7ca61300a6131505ace00",
+    "B_preopen_tom_context_172": "7fe1d9725fcf790dc8d5478212509f2851016ca29e527311f73abcf1a3cfe559",
+    "B_preopen_tom_context_273": "98a907250f6d7c94e2729e2f0e292a47c84db27f73fe380a0be70c927897954c",
+    "C_preopen_tom_71": "6cd4029a2601e1c4a40542feaba585edcec3ebac59288e730eacdadabc5731e8",
+    "C_preopen_tom_172": "baf5b7ed946fba1b662816e65b9bdc6674713bfe46261266cc6b44b0e62ac8af",
+    "C_preopen_tom_273": "55d84083a7f4fb0485b6bb56871071fbe87146fc967471ed071517ae896da210"
+  },
+  "phase": "completed",
+  "recorder_id": "891acb11f06746baa0d17e98f756bb8f",
+  "experiment_id": "428508478536238213",
+  "all_six_models_fixed": true,
+  "evaluation_unlocked": true,
+  "analysis_attempted": true,
+  "completed": true
+}

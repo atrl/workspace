@@ -1,0 +1,31 @@
+{
+  "exec_session": 22675,
+  "nbconvert_pid": 15970,
+  "kernel_pid": 15974,
+  "exit_code": 0,
+  "plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
+  "recorder_id": "891acb11f06746baa0d17e98f756bb8f",
+  "archive_sha256": "8ce5b683e4cd8e22d1dbf64732bc432f551d23e9759a67965251d002e5287a61",
+  "artifact_count": 98,
+  "new_fits": 6,
+  "new_native_accounts": 6,
+  "sealed_reference_accounts": 15,
+  "total_accounts": 21,
+  "required_CI": 15,
+  "all_six_models_sealed_before_evaluation": true,
+  "model_artifact_sha256": {
+    "B_preopen_tom_context_71": "6ec3914c3fc08d8e9ab9e35cbda2aeeb7e02e4b3ceb7ca61300a6131505ace00",
+    "B_preopen_tom_context_172": "7fe1d9725fcf790dc8d5478212509f2851016ca29e527311f73abcf1a3cfe559",
+    "B_preopen_tom_context_273": "98a907250f6d7c94e2729e2f0e292a47c84db27f73fe380a0be70c927897954c",
+    "C_preopen_tom_71": "6cd4029a2601e1c4a40542feaba585edcec3ebac59288e730eacdadabc5731e8",
+    "C_preopen_tom_172": "baf5b7ed946fba1b662816e65b9bdc6674713bfe46261266cc6b44b0e62ac8af",
+    "C_preopen_tom_273": "55d84083a7f4fb0485b6bb56871071fbe87146fc967471ed071517ae896da210"
+  },
+  "new_source_HTTP": 0,
+  "production_changed": false,
+  "source_preflight_reexecuted": false,
+  "executor_NAS_coldread": false,
+  "owner_final_coldread_exec": 55774,
+  "notebook_prose_updated_without_reexecution": true,
+  "routine_stream_characters_removed": 909240
+}

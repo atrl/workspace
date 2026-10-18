@@ -1,0 +1,36 @@
+{
+  "candidate_family": "C_preopen_tom",
+  "matched_control_family": "B_preopen_tom_context",
+  "candidate_retained_for_audit": true,
+  "decision": "not_promoted_fixed_preopen_TOM",
+  "promoted": false,
+  "selection_performed": false,
+  "checkpoint": "fixed_final_epoch300",
+  "ensemble": {
+    "families": [
+      "B_preopen_tom_context",
+      "C_preopen_tom"
+    ],
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "weights": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "per_seed_accounts": false
+  },
+  "model_artifact_sha256": {
+    "B_preopen_tom_context_71": "6ec3914c3fc08d8e9ab9e35cbda2aeeb7e02e4b3ceb7ca61300a6131505ace00",
+    "B_preopen_tom_context_172": "7fe1d9725fcf790dc8d5478212509f2851016ca29e527311f73abcf1a3cfe559",
+    "B_preopen_tom_context_273": "98a907250f6d7c94e2729e2f0e292a47c84db27f73fe380a0be70c927897954c",
+    "C_preopen_tom_71": "6cd4029a2601e1c4a40542feaba585edcec3ebac59288e730eacdadabc5731e8",
+    "C_preopen_tom_172": "baf5b7ed946fba1b662816e65b9bdc6674713bfe46261266cc6b44b0e62ac8af",
+    "C_preopen_tom_273": "55d84083a7f4fb0485b6bb56871071fbe87146fc967471ed071517ae896da210"
+  },
+  "recorder_id": "891acb11f06746baa0d17e98f756bb8f",
+  "active_release_changed": false
+}

@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "recorder_id": "891acb11f06746baa0d17e98f756bb8f",
+  "archive_sha256": "8ce5b683e4cd8e22d1dbf64732bc432f551d23e9759a67965251d002e5287a61",
+  "verification_manifest_sha256": "019ee687f5f3ec22dd4df68a4e2f6d918591f2480d24bfc5d7a0c65fec186a94",
+  "verified_artifacts": 98,
+  "train_shape": [
+    3014,
+    89
+  ],
+  "auxiliary_shape": [
+    20741,
+    20
+  ],
+  "evaluation_shape": [
+    946,
+    89
+  ],
+  "six_model_hashes_match": true,
+  "model_training_rows_aux_rows_epochs_and_mode_match": true,
+  "evaluation_unlock_matches_all6_models": true,
+  "native_accounts": 6,
+  "reference_books": 15,
+  "sessions_per_book": 944,
+  "points_per_book": 3778,
+  "prediction_rows_per_model": 946,
+  "full_comparison_rows": 21,
+  "paired_intervals": 15,
+  "saved_gates_match": true,
+  "decision": "not_promoted_fixed_preopen_TOM",
+  "NAS_download_count": 1,
+  "additional_source_feature_derivation": false,
+  "new_fit_or_backtest_or_CI": false,
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-preopen-final-coldread-z_xiyk8p",
+  "verification_method": "One standard NAS cold restore and98 exact artifact hashes; native Qlib Dataset/Recorder reads for models, predictions, all6 new and15 preserved native books, barrier and frozen analysis outputs. No re-estimation or backtest.",
+  "exec_session": 55774,
+  "exit_code": 0
+}
