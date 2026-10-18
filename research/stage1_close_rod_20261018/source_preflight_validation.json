@@ -1,0 +1,8 @@
+{
+  "source_endpoint_test": "1 passed; halfday/current-vs-previous clocks, sparse native roundtrip, float64 serialization",
+  "initial_test_error": "Expected local provider audit status passed; actual documented project status is ok. Corrected test assertion; no production logic change.",
+  "events_test": "1 passed by source helper author; not repeated",
+  "source_label_policy": "No ROD or sign or return computation",
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

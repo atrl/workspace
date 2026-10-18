@@ -1,0 +1,121 @@
+{
+  "experiment": "stage1_close_rod_20261018_source_preflight",
+  "stage": "frozen_source_only_no_signal",
+  "frozen_before_execution": true,
+  "as_of": "2026-10-09",
+  "review_sha256": "64cd67cf46bb00e80dcf262854bd6d737ef125ba4993e93d89b081e659931cc9",
+  "corrected_design_sha256": "94d3f362fc9990dd9f1830a6263b4158e806ad0269ebda400f89b8e1d1805aa5",
+  "source_contract_sha256": "29a1dfbbdc745627016f704b25a8baa676e9b1690183c735156c0f8a399f74f9",
+  "budget": {
+    "new_market_source_HTTP": 0,
+    "new_ROD_or_sign": 0,
+    "new_returns_or_labels": 0,
+    "model_fits": 0,
+    "policy_paths": 0,
+    "native_accounts": 0,
+    "passive_reference_revaluations": 0
+  },
+  "calendar": {
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "file": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/calendars/day.txt",
+    "sha256": "7d45256ab69fbf3d156fa23823f5cc865225082debc559789ef87503a7248afb",
+    "binding_evidence": "research/minute_value_weight_20261017/summary.json:data_audit.provider_file_sha256",
+    "first_previous_session": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "last_trade": "2026-10-08",
+    "expected_sessions": 944,
+    "exchange_calendars_version": "4.13.2"
+  },
+  "minute_manifest": {
+    "path": "data/raw/external/semis_minute_none_20261012_v1/source_manifest.json",
+    "sha256": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+    "objects": "Only SOXL/SOXX NONE and rehab objects, exact per-entry hashes checked. No upstream/HTTP fallback."
+  },
+  "sources": {
+    "corporate": {
+      "card": "research/etf_corporate_actions_20261009",
+      "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+      "manifest_sha256": "625ba522fbadc4377c87f56e4a241deca714cc556dbd7227b3f7e414d938a6f3",
+      "artifacts": [
+        "data/cash_events.pkl",
+        "data/split_events.pkl",
+        "inputs/source_contract.pkl"
+      ],
+      "artifact_sha256": {
+        "data/cash_events.pkl": "4ad373f39401f5dc6f826e17806243a3331f19f569ab1d4bc617efc5954e5d5a",
+        "data/split_events.pkl": "92f74ce2ceb29ddd0daac623a949d0076516de6f6c19b3c5e8071e086943a125",
+        "inputs/source_contract.pkl": "90ee1af96af9374e096dd2f3c681ec5654c4943bad4dba829d3097a6d07c4532"
+      }
+    },
+    "anchors": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "manifest_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": [
+        "inputs/raw_points"
+      ],
+      "artifact_sha256": {
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd"
+      },
+      "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869"
+    }
+  },
+  "reference_identities": {
+    "A": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "manifest_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "native/A_active_research_replay_0",
+        "native/A_active_research_replay_2",
+        "native/A_active_research_replay_5"
+      ],
+      "artifact_sha256": {
+        "native/A_active_research_replay_0": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+        "native/A_active_research_replay_2": "bf6d10ac75ee84ce4f5688188259c1061141aa3110a82a0587425630fbed0284",
+        "native/A_active_research_replay_5": "1b2065502bb43f5ddcbba96a17beddcbc142b85ffea6eb2586f69e576f50062b"
+      },
+      "archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884"
+    },
+    "fixed_raw": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "manifest_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": [
+        "native/raw_SOXX_0",
+        "native/raw_SOXX_2",
+        "native/raw_SOXX_5",
+        "native/raw_strong9097_0",
+        "native/raw_strong9097_2",
+        "native/raw_strong9097_5",
+        "native/raw_candidate27baa_0",
+        "native/raw_candidate27baa_2",
+        "native/raw_candidate27baa_5"
+      ],
+      "artifact_sha256": {
+        "native/raw_SOXX_0": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+        "native/raw_SOXX_2": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d",
+        "native/raw_SOXX_5": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e",
+        "native/raw_strong9097_0": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93",
+        "native/raw_strong9097_2": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f",
+        "native/raw_strong9097_5": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05",
+        "native/raw_candidate27baa_0": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466",
+        "native/raw_candidate27baa_2": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31",
+        "native/raw_candidate27baa_5": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+      },
+      "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869"
+    }
+  },
+  "reference_action": "Pin identities only; do not load portfolio/return tables or execute passive valuations in this preflight.",
+  "provider_output": "data/qlib/stage1_close_rod_20261018_source",
+  "source_output_card": "research/stage1_close_rod_20261018/source_preflight",
+  "nas_transport_binding": "research/stage1_domain_heads_20261018/nas_binding.json",
+  "native_source": "Preserve selected raw OHLC/valid/final as float64 native DatasetH, dump_all recursive. Derived float32 store read viaD.features, compare representation errors only. No pairwise day-price comparisons/signs/returns.",
+  "endpoints": "Previousactualclose, original09:45close/09:48open/10:33open/actualclose, regular-day15:30close/15:33open/16:00open; terminal09:45close/09:48open. Source bar labels and execution timestamps remain distinct.",
+  "source_gate": "Missing/invalid future fill marks are a whole-source dependency failure, never ex-post no-trade/date filtering. No interpolation or neighbouringbar substitution.",
+  "events": "Use source-only helper to compare existingissuer/rehab membership inclzero-distributions and unknownkinds; eitherexplicit conditional snapshot extension to10/9 orretainno-increment after9/25. No PIT/forward upgrade.",
+  "signal_authority_later_only": "After separate strategyapproval, strict nativefloat64P15:30>Ppreviousclose determines0/1+known persisted inQlib; sourcepreflight doesnotcompute this comparison.",
+  "result_contract": "Small source count/coverage/precision/event summaries; full endpoint/mask tables andfloat64nativeDataset remain Recorder-only. Stableexcess objective is not achieved by source qualification.",
+  "formal_strategy_execution_approved": false,
+  "implementation_identity": "source_preflight_implementation_identity.json"
+}

@@ -1,0 +1,22 @@
+{
+  "recorder_id": "f8fd1c596eb04acc85febad7e2ee9474",
+  "archive_sha256": "ea8c5d50c40247a6324d64f593e4b90c34bac02df6603fe159ad737d8a78b6e1",
+  "status": "passed",
+  "cold_archive_restored_outside_repository": true,
+  "verified_artifact_count": 28,
+  "all_artifact_hashes_match": true,
+  "native_summary_matches": true,
+  "direct_Dataset_prepare_rows": 11302,
+  "native_float64_frame_index_values_equal": true,
+  "valid_endpoint_rows": 15060,
+  "sessions": 944,
+  "regular_non_event_source_sessions": 908,
+  "readback_attempts": 1,
+  "new_ROD_values_or_signs": 0,
+  "new_return_labels": 0,
+  "new_model_fits": 0,
+  "new_policy_paths": 0,
+  "new_accounts": 0,
+  "new_market_source_HTTP": 0,
+  "original_archive_modified": false
+}

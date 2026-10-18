@@ -1,0 +1,15 @@
+{
+  "plan_sha256": "1f11bbdaac7d01f739820ca325390217d718d2dc252f21094e961cb0b8f36c46",
+  "code_sha256": {
+    "src/workflow/close_rod_source_preflight.py": "dc566ff14916b79526129df7a3010569547f35bddb09362229cc105413850ee8",
+    "src/data/close_rod_events.py": "5ce09d3c176e4ecda1bac1fbec2189d18a0141e0f9c6e352ce185a86a8e9bc8e",
+    "src/data/full_path_prices.py": "a048feafe47db675009e196c55376aaf4e2dc09e5aa40523094afe912cbfef8d",
+    "src/data/minute_price_basis.py": "d3abbb1b7a3ca6e1b7cdd78e55903c2b03dd4202cadd4caf61fac91ebe68dbf5",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "new_signals": 0,
+  "new_returns": 0,
+  "new_policy_accounts": 0
+}

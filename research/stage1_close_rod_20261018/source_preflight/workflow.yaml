@@ -1,0 +1,4 @@
+experiment: stage1_close_rod_20261018_source_preflight
+entrypoint: src.workflow.close_rod_source_preflight.run
+phase: source_only_preflight_completed
+artifact_policy: slim_card_recorder_first

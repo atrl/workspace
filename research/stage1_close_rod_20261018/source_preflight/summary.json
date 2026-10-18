@@ -1,0 +1,102 @@
+{
+  "experiment": "stage1_close_rod_20261018_source_preflight",
+  "plan_sha256": "1f11bbdaac7d01f739820ca325390217d718d2dc252f21094e961cb0b8f36c46",
+  "stage": "source_only_preflight_completed",
+  "decision": "source_dependencies_observed_for_separate_strategy_review",
+  "endpoint_gate_pass": true,
+  "account_sessions": 944,
+  "regular_sessions": 936,
+  "half_days": 8,
+  "first_previous_session": "2023-01-03",
+  "first_previous_close": "2023-01-03 16:00:00",
+  "prior_half_day_closes_used": 8,
+  "endpoint_rows": 15060,
+  "invalid_endpoint_rows": 0,
+  "native_float64_rows": 11302,
+  "original_anchor_checks": [
+    {
+      "instrument": "SOXL",
+      "original_points": 3778,
+      "exact_float32_anchor_equality": true
+    },
+    {
+      "instrument": "SOXX",
+      "original_points": 3778,
+      "exact_float32_anchor_equality": true
+    }
+  ],
+  "event_audit": {
+    "status": "conditional_snapshot_event_mask_ready",
+    "qualification": "frozen_current_history_non_event_classification_not_historical_PIT",
+    "event_tail_supported": true,
+    "qualified_through": "2026-10-09",
+    "original_qualified_through": "2026-09-25",
+    "requested_as_of": "2026-10-09",
+    "snapshot_as_of": "2026-10-09",
+    "tail_basis": "Completed same-snapshot rehab with no unresolved additional tail events; issuer card itself is not rewritten or extended.",
+    "rehab_fetched_at": {
+      "SOXL": "2026-10-12T07:25:15.995008+00:00",
+      "SOXX": "2026-10-12T07:25:16.487267+00:00"
+    },
+    "unknown_or_conflict_dates": [],
+    "unknown_or_conflict_dates_in_requested_sessions": [],
+    "off_native_session_dates": [],
+    "tail_unknown_dates": [],
+    "session_rows": 944,
+    "conditional_non_event_sessions": 916,
+    "shared_no_increment_sessions": 28,
+    "issuer_cash_rows": 125,
+    "issuer_explicit_zero_rows": 14,
+    "issuer_split_rows": 3,
+    "byte_identity_verified_by_caller_required": true,
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false,
+    "new_ROD_values_or_signs": 0,
+    "new_returns_or_labels": 0,
+    "event_day_policy": "Both arms no-increment; retain day, baseline holdings and corporate accounting.",
+    "no_event_proof_limit": "Absence in a current historical table is conditional snapshot classification, not contemporaneous proof that no event was known or existed."
+  },
+  "source_regular_non_event_sessions": 908,
+  "new_market_source_HTTP": 0,
+  "new_ROD_values_or_signs": 0,
+  "new_return_labels": 0,
+  "new_model_fits": 0,
+  "new_policy_paths": 0,
+  "new_native_accounts": 0,
+  "reference_passive_revaluations": 0,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "strategy_design_approved": false,
+  "policy_execution_approved": false,
+  "objective_achieved": false,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_close_rod_20261018_source",
+  "as_of": "2026-10-09",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "source/*",
+      "analysis/endpoint_rows",
+      "analysis/event_mask",
+      "sources/*"
+    ]
+  },
+  "recorder_id": "f8fd1c596eb04acc85febad7e2ee9474",
+  "experiment_id": "148736363395423587",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_close_rod_20261018/source_preflight/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_close_rod_20261018/source_preflight/qlib_recorder/148736363395423587/f8fd1c596eb04acc85febad7e2ee9474",
+  "nas_evidence": {
+    "sha256": "ea8c5d50c40247a6324d64f593e4b90c34bac02df6603fe159ad737d8a78b6e1",
+    "size_bytes": 843581,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ea/8c/ea8c5d50c40247a6324d64f593e4b90c34bac02df6603fe159ad737d8a78b6e1",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 14:12:06.269851+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ea/8c/ea8c5d50c40247a6324d64f593e4b90c34bac02df6603fe159ad737d8a78b6e1",
+    "recorder_id": "f8fd1c596eb04acc85febad7e2ee9474",
+    "experiment_id": "148736363395423587",
+    "archive_root": "qlib_recorder"
+  }
+}

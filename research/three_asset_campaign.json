@@ -13,7 +13,7 @@
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_close_rod_20261018",
   "current_phase": "FINRA_source_intake_resumed_CDN_only",
-  "next_action": "Complete and review bounded no-label ROD source preflight; then freeze one precise new late permission strategy and matching control before any sign/outcome/account execution. Stable net SOXX excess gates remain unchanged.",
+  "next_action": "Freeze exact strategy/source/precision/funding/reference identities, finish synthetic physical-lot/grid checks and independent implementation review, then execute the single authorized ROD comparison only after owner GO.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1691,7 +1691,7 @@
     "completed_experiment_scope": "research/stage1_domain_heads_20261018",
     "current_task": {
       "card": "research/stage1_close_rod_20261018",
-      "phase": "source_only_preflight_implementation_after_narrow_review",
+      "phase": "source_preflight_passed_strategy_implementation",
       "executor": "/root/recent_evidence",
       "source_contract_owner": "/root/intraday_novelty",
       "independent_evaluator": "/root/independent_evaluator",
@@ -1705,14 +1705,29 @@
       "source_contract": "research/stage1_close_rod_20261018/source_contract_draft.json",
       "strategy_design": "research/stage1_close_rod_20261018/experiment_design_draft.json",
       "permission_change": "New close-only shared B/C permission, not an old all-day .6 allowance. C adds positive ROD; B does not. Original morning chain and state/peak clocks retained; new emergency clamp explicitly subject to review.",
-      "executor_lifecycle": "Completed executor explicitly restarted with followup_task for bounded source-only preflight implementation; no strategy job claimed running.",
+      "executor_lifecycle": "Source-only87891 actually exited0. Executor explicitly resumed for separate late-adapter/workflow implementation; passive-reference helper separately resumed after a concurrency slot freed. No policy or signal execution claimed.",
       "source_preflight_review": "research/stage1_close_rod_20261018/design_preflight_review.json",
       "source_preflight_review_sha256": "64cd67cf46bb00e80dcf262854bd6d737ef125ba4993e93d89b081e659931cc9",
       "source_preflight_execution_authorized": true,
       "formal_strategy_design_approved": false,
       "source_contract_sha256": "29a1dfbbdc745627016f704b25a8baa676e9b1690183c735156c0f8a399f74f9",
       "strategy_design_draft_sha256": "94d3f362fc9990dd9f1830a6263b4158e806ad0269ebda400f89b8e1d1805aa5",
-      "source_preflight_authorization_boundary": "Only existing-source endpoint/event/session/representation checks. No ROD/sign/return label, training, policy path, account or new source HTTP."
+      "source_preflight_authorization_boundary": "Only existing-source endpoint/event/session/representation checks. No ROD/sign/return label, training, policy path, account or new source HTTP.",
+      "source_preflight_session_id": 87891,
+      "source_preflight_exit_code": 0,
+      "source_recorder_id": "f8fd1c596eb04acc85febad7e2ee9474",
+      "source_archive_sha256": "ea8c5d50c40247a6324d64f593e4b90c34bac02df6603fe159ad737d8a78b6e1",
+      "source_result_review": "research/stage1_close_rod_20261018/source_result_review.json",
+      "strategy_freeze_eligible": true,
+      "source_preflight_counts": {
+        "sessions": 944,
+        "regular_sessions": 936,
+        "half_days": 8,
+        "valid_endpoint_rows": 15060,
+        "native_float64_rows": 11302,
+        "event_days_no_increment": 28,
+        "regular_non_event_source_days": 908
+      }
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
