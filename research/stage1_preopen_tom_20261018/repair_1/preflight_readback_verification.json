@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "recorder_id": "f0f68379c58b4f859e0fccb981eca00c",
+  "archive_sha256": "55c29a488ad2149ad29bf62c7e4f4ce45ee5c2a020fe5f0fb72be0419301a25c",
+  "verification_manifest_sha256": "850865df02cd43d785ea6f219a770a8362a5c625383543cfed805045fc8c6fb1",
+  "preflight_summary_sha256": "eea8187e3f70b3fabb2a1eda65856e4af85f7bdbdd6d46a8b6ab75eb562b4382",
+  "verified_artifacts": 18,
+  "primary_shape": [
+    3014,
+    89
+  ],
+  "auxiliary_shape": [
+    20741,
+    20
+  ],
+  "canonical_rows": 3966,
+  "native_roundtrip_groups_order_and_dtypes": "passed",
+  "all_resident_training_frames_in_scope": true,
+  "resident_frame_audits": [
+    {
+      "role": "primary_coldread",
+      "resident_frames": [
+        {
+          "path": "dataset.handler._data",
+          "rows": 3014,
+          "columns": 89,
+          "first_date": "2011-01-03 00:00:00",
+          "last_date": "2022-12-21 00:00:00"
+        },
+        {
+          "path": "dataset.handler._infer",
+          "rows": 3014,
+          "columns": 89,
+          "first_date": "2011-01-03 00:00:00",
+          "last_date": "2022-12-21 00:00:00"
+        },
+        {
+          "path": "dataset.handler._learn",
+          "rows": 3014,
+          "columns": 89,
+          "first_date": "2011-01-03 00:00:00",
+          "last_date": "2022-12-21 00:00:00"
+        }
+      ],
+      "setup_data_called": false,
+      "evaluation_object_deserialized": false
+    },
+    {
+      "role": "auxiliary_coldread",
+      "resident_frames": [
+        {
+          "path": "dataset.handler._data",
+          "rows": 20741,
+          "columns": 20,
+          "first_date": "2019-11-25 00:00:00",
+          "last_date": "2022-12-22 00:00:00"
+        },
+        {
+          "path": "dataset.handler._infer",
+          "rows": 20741,
+          "columns": 20,
+          "first_date": "2019-11-25 00:00:00",
+          "last_date": "2022-12-22 00:00:00"
+        },
+        {
+          "path": "dataset.handler._learn",
+          "rows": 20741,
+          "columns": 20,
+          "first_date": "2019-11-25 00:00:00",
+          "last_date": "2022-12-22 00:00:00"
+        }
+      ],
+      "setup_data_called": false,
+      "evaluation_object_deserialized": false
+    }
+  ],
+  "within_common_mask_known_zero": 1597,
+  "within_common_mask_known_one": 377,
+  "training_unknown_rows_retained": 1034,
+  "all3014_rows_retained": true,
+  "knowledge_not_after_original_clock": true,
+  "outer_rows": 946,
+  "account_rows": 944,
+  "historical_PIT_qualified": false,
+  "NAS_download_count": 1,
+  "new_source_HTTP": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "evaluation_objects_deserialized": 0,
+  "source_features_rederived": false,
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-preopen-preflight-coldread-ev5hieca",
+  "verification_method": "Single standard NAS cold restore,18 exact artifact hashes, native CS_RAW Dataset readback and full resident-frame bounds; no feature regeneration, fitting or account replay.",
+  "exec_session": 90001,
+  "exit_code": 0
+}

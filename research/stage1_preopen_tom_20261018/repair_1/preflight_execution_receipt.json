@@ -1,0 +1,33 @@
+{
+  "exec_session": 74423,
+  "nbconvert_pid": 14239,
+  "kernel_pid": 14240,
+  "exit_code": 0,
+  "plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
+  "recorder_id": "f0f68379c58b4f859e0fccb981eca00c",
+  "archive_sha256": "55c29a488ad2149ad29bf62c7e4f4ce45ee5c2a020fe5f0fb72be0419301a25c",
+  "preflight_manifest_sha256": "850865df02cd43d785ea6f219a770a8362a5c625383543cfed805045fc8c6fb1",
+  "preflight_summary_sha256": "eea8187e3f70b3fabb2a1eda65856e4af85f7bdbdd6d46a8b6ab75eb562b4382",
+  "artifact_count": 18,
+  "fit_eligible": true,
+  "new_optimizer_steps": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "evaluation_objects_deserialized": 0,
+  "new_source_HTTP": 0,
+  "executor_NAS_coldread": false,
+  "parent_frozen_files_unchanged": {
+    "research/stage1_preopen_tom_20261018/design_draft.json": true,
+    "research/stage1_preopen_tom_20261018/design_draft_review.json": true,
+    "research/stage1_preopen_tom_20261018/implementation_authorization.json": true,
+    "research/stage1_preopen_tom_20261018/label_horizon_clarification.json": true,
+    "research/stage1_preopen_tom_20261018/plan.json": true,
+    "research/stage1_preopen_tom_20261018/preflight_execution_approval.json": true,
+    "research/stage1_preopen_tom_20261018/preflight_design_review.json": true,
+    "research/stage1_preopen_tom_20261018/preflight/run_state.json": true,
+    "research/stage1_preopen_tom_20261018/preflight_failure_1.json": true,
+    "research/stage1_preopen_tom_20261018/implementation_identity.json": true,
+    "research/stage1_preopen_tom_20261018/source_whitelist.json": true
+  },
+  "notebook_conclusion_updated_without_rerun": true
+}

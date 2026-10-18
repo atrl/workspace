@@ -1,0 +1,309 @@
+{
+  "status": "static_whitelist_only_no_values_loaded",
+  "preflight_sources": {
+    "calendar": {
+      "card": "research/calendar_tom_source_20261018/repair_1",
+      "recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+      "archive": "cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+      "inventory_sha256": "fbc4b6f4b4bd33436f13dc16d18e7c5744d08e08e5d2b4887790bfc30203779b",
+      "artifacts": [
+        "source/actual_calendar",
+        "source/original_timing",
+        "source/knowledge_ledger"
+      ],
+      "artifact_sha256": {
+        "source/actual_calendar": "024c0fb151832fc57ed6af16789b52de5cb5d74950595a39db5ca523854e584b",
+        "source/original_timing": "4808291a3ac57d3c649064dcc818bf6577ab53975b69b511a2c1d6a7670455cb",
+        "source/knowledge_ledger": "06b9748ed892f03904db50a066f8346aac9a16e6eaecce43332949810131921e"
+      },
+      "read_phase": "only afterexplicit source-feature+training-no-fit approval; neverduringimplementation"
+    },
+    "training_only": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "inventory_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "artifacts": [
+        "inputs/training_dataset",
+        "inputs/auxiliary_dataset",
+        "inputs/training_audit"
+      ],
+      "artifact_sha256": {
+        "inputs/training_dataset": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+        "inputs/auxiliary_dataset": "78ad08e92061c32d8ce6ce4dc7c6ffb163b1f9cfef9aab66589a74515ba02d78",
+        "inputs/training_audit": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53"
+      },
+      "read_phase": "only afterexplicit source-feature+training-no-fit approval; neverduringimplementation"
+    },
+    "original_models": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": [
+        "models/base_outer_71",
+        "models/base_outer_172",
+        "models/base_outer_273"
+      ],
+      "artifact_sha256": {
+        "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+        "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+        "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+      },
+      "read_phase": "only afterexplicit source-feature+training-no-fit approval; neverduringimplementation"
+    },
+    "mechanical_tensors": {
+      "card": "research/stage1_aux_projection_20261018",
+      "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+      "archive": "767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+      "inventory_sha256": "615112434b397c62360b81e56bad2d02a7781ec89a0deabf203b6235647142b0",
+      "artifacts": [
+        "inputs/tensors"
+      ],
+      "artifact_sha256": {
+        "inputs/tensors": "6ea285da091469ea4e23391fffb12530ca1cf42646d024cd5695e694d10a6194"
+      },
+      "read_phase": "only afterexplicit source-feature+training-no-fit approval; neverduringimplementation"
+    }
+  },
+  "evaluation_sources": {
+    "account_inputs": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/frame",
+        "inputs/market",
+        "inputs/controller",
+        "inputs/selection",
+        "inputs/recovery_spec",
+        "inputs/action_spec",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "inputs/guard"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "281855c14ed6c12888defd7b10db728f2f26a4e6cd07d2cab7a36d594f684ef5",
+        "inputs/frame": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+        "inputs/market": "f2660e6403ef543c458b039bcfac520c94560d6084b3c9c215b943c1f89bfacd",
+        "inputs/controller": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+        "inputs/selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+        "inputs/recovery_spec": "4a4bb9cd5e09e0dace34615d47e25c831c58951daabace972aa7a31c93e45bda",
+        "inputs/action_spec": "3e92ec85e4c4dac43f57588e671c05c46cac57a778a2b90839a6acd277e09d43",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "inputs/guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24"
+      },
+      "read_phase": "onlyafterall6finalmodelSHAsealed"
+    },
+    "AB_native": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "artifacts": [
+        "native/A_active_research_replay_0",
+        "native/A_active_research_replay_2",
+        "native/A_active_research_replay_5",
+        "native/B_shared_0",
+        "native/B_shared_2",
+        "native/B_shared_5"
+      ],
+      "artifact_sha256": {
+        "native/A_active_research_replay_0": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+        "native/A_active_research_replay_2": "bf6d10ac75ee84ce4f5688188259c1061141aa3110a82a0587425630fbed0284",
+        "native/A_active_research_replay_5": "1b2065502bb43f5ddcbba96a17beddcbc142b85ffea6eb2586f69e576f50062b",
+        "native/B_shared_0": "f6ad692bdc8aea7998fb0588b789eb6d07fd97d6c413e8fe1492b6bd1086a164",
+        "native/B_shared_2": "3e52887404eb44d1ce135c64b6bcdc2f91f63264324ccf48ef0889b229cd42ae",
+        "native/B_shared_5": "ebebcc0e8e79ea33cdf316a24dc1dbec88e64597f91757a903f04095af0cf896"
+      },
+      "read_phase": "onlyafterall6finalmodelSHAsealed"
+    },
+    "strong_native": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": [
+        "inputs/plan",
+        "inputs/raw_points",
+        "inputs/schedule",
+        "native/raw_SOXX_0",
+        "native/raw_SOXX_2",
+        "native/raw_SOXX_5",
+        "native/raw_strong9097_0",
+        "native/raw_strong9097_2",
+        "native/raw_strong9097_5",
+        "native/raw_candidate27baa_0",
+        "native/raw_candidate27baa_2",
+        "native/raw_candidate27baa_5"
+      ],
+      "artifact_sha256": {
+        "inputs/plan": "ead4fa68daa779ea4da4708b762913e7d89e7c9d6f68523340e0252866eb712b",
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+        "native/raw_SOXX_0": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+        "native/raw_SOXX_2": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d",
+        "native/raw_SOXX_5": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e",
+        "native/raw_strong9097_0": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93",
+        "native/raw_strong9097_2": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f",
+        "native/raw_strong9097_5": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05",
+        "native/raw_candidate27baa_0": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466",
+        "native/raw_candidate27baa_2": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31",
+        "native/raw_candidate27baa_5": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+      },
+      "read_phase": "onlyafterall6finalmodelSHAsealed"
+    },
+    "prediction_dataset": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "inventory_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "artifacts": [
+        "evaluation/dataset"
+      ],
+      "artifact_sha256": {
+        "evaluation/dataset": "4a2bcfc01540d110844607cf60a49f302b25529e92e8fba1b3d6d4e07b601042"
+      },
+      "read_phase": "onlyafterall6finalmodelSHAsealed"
+    }
+  },
+  "immutable_train_cohort_contract": {
+    "primary": {
+      "artifact": "inputs/training_dataset",
+      "original_total_columns": 85,
+      "rows": 3014,
+      "signal_min": "2011-01-03",
+      "signal_max": "2022-12-21",
+      "segments": [
+        "train"
+      ],
+      "extra_columns_to_append": 4
+    },
+    "auxiliary": {
+      "artifact": "inputs/auxiliary_dataset",
+      "original_total_columns": 20,
+      "rows": 20741,
+      "signal_max": "2022-12-22",
+      "observations_end": "2022-12-30",
+      "segments": [
+        "train"
+      ],
+      "changed": false
+    },
+    "static_builder_authority": {
+      "path": "src/workflow/aux_projection_preflight.py",
+      "sha256": "d56464ba1dfa9d98f308dad39812b24c5dcf140a2056a66f79b111c9e3417868",
+      "construction": "_prepare_training filters/copies maturefinite traincohort beforefrom_df; no evaluation frame attached."
+    },
+    "existing_cold_readback": {
+      "path": "research/stage1_aux_projection_allocation_20261018/readback_verification.json",
+      "sha256": "99206359b124b16d14f6c43badb284ffdb647d3f54b00f57b39b587da85692d8",
+      "limit": "Existingprepare(train) shapes are notalone aresidency audit. Authorizednofit mustinspect allactual handler_data/_infer/_learn andloader residualDataFrames recursively, withoutsetup_data."
+    },
+    "forbidden_before_six_model_barrier": [
+      "originalfull inputs/daily_frame",
+      "originalfull inputs/features/common",
+      "original inputauxiliary dictionarycontainingmultiplefolds",
+      "anyevaluation/dataset",
+      "outer_predictions",
+      "rawreturns/nativeaccountobjects"
+    ],
+    "preserve_all_original_columns": "Do notcut61featurecolumns down to39; modelselectsbase39, sourceFLAGS/metadata remain. Retain original85 totalcolumns thenappend4featurecolumns."
+  },
+  "reference_books": [
+    {
+      "family": "A_active_research_replay",
+      "cost": 0,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_0"
+    },
+    {
+      "family": "A_active_research_replay",
+      "cost": 2,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_2"
+    },
+    {
+      "family": "A_active_research_replay",
+      "cost": 5,
+      "source_role": "AB_native",
+      "artifact": "native/A_active_research_replay_5"
+    },
+    {
+      "family": "B_shared",
+      "cost": 0,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_0"
+    },
+    {
+      "family": "B_shared",
+      "cost": 2,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_2"
+    },
+    {
+      "family": "B_shared",
+      "cost": 5,
+      "source_role": "AB_native",
+      "artifact": "native/B_shared_5"
+    },
+    {
+      "family": "SOXX",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_0"
+    },
+    {
+      "family": "SOXX",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_2"
+    },
+    {
+      "family": "SOXX",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_SOXX_5"
+    },
+    {
+      "family": "strong9097",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_0"
+    },
+    {
+      "family": "strong9097",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_2"
+    },
+    {
+      "family": "strong9097",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_strong9097_5"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 0,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_0"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 2,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_2"
+    },
+    {
+      "family": "additional27baa",
+      "cost": 5,
+      "source_role": "strong_native",
+      "artifact": "native/raw_candidate27baa_5"
+    }
+  ],
+  "new_realfeatures_labels_fit_accounts": 0
+}

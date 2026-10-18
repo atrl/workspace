@@ -1,0 +1,5 @@
+first3_branch_known,expected_last_branch_known,proxy_known,rows,known_zero,known_one,unknown
+False,False,False,999,0,0,999
+True,False,False,35,0,0,35
+True,False,True,6,0,6,0
+True,True,True,1974,1597,377,0

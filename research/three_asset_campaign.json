@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_preopen_tom_20261018/repair_1",
-  "current_phase": "preopen_TOM_API_repair_once_preflight_approved",
-  "next_action": "Run the isolated CS_RAW repair preflight once under identical scientific scope, then review actual train-only tensor/scaler/mask identifiability evidence before the frozen6fits/6newbooks.",
+  "current_phase": "preopen_TOM_six_fit_six_account_execution_approved",
+  "next_action": "Execute the fixed six paired fits, seal all six models before evaluation access, then run six own-state cost accounts and compare fifteen sealed references under every frozen economic gate. Independently evaluate the result; do not promote on software/preflight success.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1723,8 +1723,8 @@
   ],
   "execution_observation_20261018": {
     "current_task": {
-      "card": "research/stage1_preopen_tom_20261018",
-      "phase": "preopen_TOM_API_repair_once_preflight_approved",
+      "card": "research/stage1_preopen_tom_20261018/repair_1",
+      "phase": "preopen_TOM_six_fit_six_account_execution_approved",
       "executor": "/root/recent_evidence",
       "design_executor": "/root/external_methods",
       "owner": "/root",
@@ -1735,13 +1735,13 @@
       "new_accounts": 0,
       "new_feature_values": 0,
       "strategy_execution_authorized": false,
-      "executor_lifecycle": "Narrow repair independently approved; owner signed one child preflight GO. Original failed attempt retained; explicit executor resume follows.",
+      "executor_lifecycle": "Preflight and owner coldread completed and independently approved. Owner signed fixed6fit/6native GO; explicit executor resume follows, no fit yet claimed.",
       "planned_fit_attempts": 6,
       "planned_new_native_accounts": 6,
       "planned_reference_accounts_reused": 15,
       "definition": "Single preopen conditional NYSE calendar proxy, d-prior common sessions only, fixed4day external window, tri-state OR and3 shared availability masks plus1 value; source remains conditional notPIT.",
       "design_review": "research/stage1_preopen_tom_20261018/design_draft_review.json",
-      "design_review_sha256": "a218325d8922ad650a1adad4a5139092a384644f572ab2073bbf1b4b408d2daf",
+      "design_review_sha256": "9f1d852e62c4ff56cebf70e243f52a3f1cc4a1a8f362bdc014f3a85e538c69d1",
       "implementation_authorization": "research/stage1_preopen_tom_20261018/implementation_authorization.json",
       "preflight_design_review": "research/stage1_preopen_tom_20261018/preflight_design_review.json",
       "preflight_design_review_sha256": "d8568203c6e85c2ff72ae11fbcac28f4c354f193bc7c5aa8b23091eac28be99d",
@@ -1764,7 +1764,22 @@
       "repair_card": "research/stage1_preopen_tom_20261018/repair_1",
       "repair_plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
       "repair_review_sha256": "e9d8b19edc8084e87fb3d64d12e4f3055ec945125b235af017e104b8a7d4eea2",
-      "repair_preflight_approval": "research/stage1_preopen_tom_20261018/repair_1/preflight_execution_approval.json"
+      "repair_preflight_approval": "research/stage1_preopen_tom_20261018/repair_1/preflight_execution_approval.json",
+      "preflight_result": {
+        "exec_session": 74423,
+        "exit_code": 0,
+        "recorder_id": "f0f68379c58b4f859e0fccb981eca00c",
+        "archive_sha256": "55c29a488ad2149ad29bf62c7e4f4ce45ee5c2a020fe5f0fb72be0419301a25c",
+        "primary_rows": 3014,
+        "auxiliary_rows": 20741,
+        "training_unknown_rows_retained": 1034,
+        "same_mask_known_zero": 1597,
+        "same_mask_known_one": 377,
+        "all_original_tensors_scalers_exact": true,
+        "coldread_exec_session": 90001,
+        "coldread_exit_code": 0
+      },
+      "formal_execution_approval": "research/stage1_preopen_tom_20261018/repair_1/execution_approval.json"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",

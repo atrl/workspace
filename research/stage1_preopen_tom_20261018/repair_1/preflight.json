@@ -1,0 +1,101 @@
+{
+  "experiment": "stage1_preopen_tom_20261018_preflight",
+  "plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
+  "status": "completed",
+  "decision": "eligible_for_formal_design_review",
+  "fit_eligible": true,
+  "primary_rows": 3014,
+  "auxiliary_rows": 20741,
+  "original_columns": 85,
+  "augmented_columns": 89,
+  "all_original_training_tensors_scalers_exact": true,
+  "all_resident_frames_train_only": true,
+  "canonical_rows": 3966,
+  "outer_rows": 946,
+  "account_rows": 944,
+  "evaluation_objects_deserialized": 0,
+  "timestamp_only_mapping": {
+    "outer_signal_rows": 946,
+    "account_signal_rows": 944,
+    "tail_signal_rows": 2,
+    "tail_original_decision_at": {
+      "2026-10-08": "2026-10-09 09:29:00-04:00",
+      "2026-10-09": null
+    },
+    "training_cohort_3014_verified": false,
+    "training_cohort_boundary": "Later label-aware model gate; source stage does not rebuild maturity/finite-return eligibility."
+  },
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_source_HTTP": 0,
+  "recorder_id": "f0f68379c58b4f859e0fccb981eca00c",
+  "experiment_id": "922860286596729903",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_preopen_tom_20261018/repair_1/preflight/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_preopen_tom_20261018/repair_1/preflight/qlib_recorder/922860286596729903/f0f68379c58b4f859e0fccb981eca00c",
+  "initialization": [
+    {
+      "seed": 71,
+      "original_tensors_identical": true,
+      "paired_initial_tensors_identical": true,
+      "paired_initial_outputs_identical": true,
+      "paired_initial_rng_state_identical": true,
+      "added_columns_zero": true,
+      "original_vs_extended_output_max_absolute_error": 0.0,
+      "original_parameters": 973,
+      "paired_parameters": 1037,
+      "paired_initial_sha256": "cce4b78a3765a5bb52207df9da1be858d3eda6e9394204caaab3359cb6c99661"
+    },
+    {
+      "seed": 172,
+      "original_tensors_identical": true,
+      "paired_initial_tensors_identical": true,
+      "paired_initial_outputs_identical": true,
+      "paired_initial_rng_state_identical": true,
+      "added_columns_zero": true,
+      "original_vs_extended_output_max_absolute_error": 0.0,
+      "original_parameters": 973,
+      "paired_parameters": 1037,
+      "paired_initial_sha256": "b1f483129819c17a6c937107b93dab961808f69968b53b02815878a1e0eda0d2"
+    },
+    {
+      "seed": 273,
+      "original_tensors_identical": true,
+      "paired_initial_tensors_identical": true,
+      "paired_initial_outputs_identical": true,
+      "paired_initial_rng_state_identical": true,
+      "added_columns_zero": true,
+      "original_vs_extended_output_max_absolute_error": 0.0,
+      "original_parameters": 973,
+      "paired_parameters": 1037,
+      "paired_initial_sha256": "9b87e485f96d48ef153bea5853eb4b4a61be50603f6a61d37e515aa7a9840194"
+    }
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "source/*",
+      "inputs/*",
+      "training/*",
+      "models/*",
+      "predictions/*",
+      "paths/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "historical_PIT_qualified": false,
+  "nas_evidence": {
+    "sha256": "55c29a488ad2149ad29bf62c7e4f4ce45ee5c2a020fe5f0fb72be0419301a25c",
+    "size_bytes": 2897772,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/55/c2/55c29a488ad2149ad29bf62c7e4f4ce45ee5c2a020fe5f0fb72be0419301a25c",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 17:36:42.027812+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/55/c2/55c29a488ad2149ad29bf62c7e4f4ce45ee5c2a020fe5f0fb72be0419301a25c",
+    "recorder_id": "f0f68379c58b4f859e0fccb981eca00c",
+    "experiment_id": "922860286596729903",
+    "archive_root": "qlib_recorder"
+  }
+}

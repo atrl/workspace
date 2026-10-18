@@ -1,13 +1,46 @@
 {
   "experiment": "stage1_preopen_tom_20261018",
-  "stage": "API_repair_1_implementation_pending_review_and_GO",
+  "stage": "repair_1_no_fit_preflight_complete_pending_final_design_and_fit_GO",
   "plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
   "recorder_id": null,
-  "real_second_preflight_runs": 0,
+  "preflight_card": "preflight",
+  "preflight_recorder_id": "f0f68379c58b4f859e0fccb981eca00c",
+  "preflight_archive_sha256": "55c29a488ad2149ad29bf62c7e4f4ce45ee5c2a020fe5f0fb72be0419301a25c",
+  "preflight_manifest_sha256": "850865df02cd43d785ea6f219a770a8362a5c625383543cfed805045fc8c6fb1",
+  "preflight_summary_sha256": "eea8187e3f70b3fabb2a1eda65856e4af85f7bdbdd6d46a8b6ab75eb562b4382",
+  "fit_eligible": true,
+  "fit_execution_approved": false,
+  "account_execution_approved": false,
   "new_fits": 0,
   "new_accounts": 0,
-  "new_sourceHTTP": 0,
-  "parent_failure_receipt": "../preflight_failure_1.json",
+  "optimizer_steps": 0,
+  "evaluation_objects_deserialized": 0,
+  "new_source_HTTP": 0,
+  "primary_rows": 3014,
+  "auxiliary_rows": 20741,
+  "train_known_proxy_rows": 1980,
+  "train_unknown_proxy_rows": 1034,
+  "within_mask_identifiability": {
+    "pattern": [
+      true,
+      true,
+      true
+    ],
+    "rows": 1974,
+    "known_zero": 1597,
+    "known_one": 377
+  },
+  "all_original_training_tensors_scalers_exact": true,
+  "all_resident_frames_train_only": true,
+  "original_primary_columns": 85,
+  "augmented_primary_columns": 89,
+  "three_seed_initialization_verified": true,
+  "all_added_columns_zero": true,
+  "paired_parameter_count": 1037,
+  "old_parameter_count": 973,
+  "parent_failed_attempt_preserved": true,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
@@ -21,5 +54,17 @@
       "native/*",
       "analysis/rolling/*"
     ]
-  }
+  },
+  "independent_preflight_result_review": "pending",
+  "preflight_result_review": {
+    "path": "design_review.json",
+    "sha256": "9f1d852e62c4ff56cebf70e243f52a3f1cc4a1a8f362bdc014f3a85e538c69d1",
+    "verdict": "APPROVE_DESIGN"
+  },
+  "preflight_readback": {
+    "path": "preflight_readback_verification.json",
+    "sha256": "c92d666ca9e2124d2e0c9e11f8fe532e9bdb88c010bcf19a8738b5f22fa43c24",
+    "status": "passed"
+  },
+  "formal_execution_authorized": true
 }
