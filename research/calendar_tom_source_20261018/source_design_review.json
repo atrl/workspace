@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/independent_evaluator",
+  "verdict": "APPROVE_SOURCE_ONLY_DESIGN",
+  "source_plan_draft_sha256": "0bc753956fa6a1611fcc2045c8df6c27d99abc9b216ebd770670443d261f33e6",
+  "inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
+  "extension_1_sha256": "450bada2a5fd10561b547a458b3b1715f7fd5e14e50c8213114b97369429b1dc",
+  "material_blocking_findings": [],
+  "approved_scope": "Implement one cache-only calendar knowledge ledger, timestamp-only source mapping, venue-aware coverage/discrepancy report and native Qlib metadata Dataset/Recorder. Freeze the final plan/code and obtain owner source-only GO before execution.",
+  "source_identity_and_budget": {
+    "explicit_capture_attempts_already_consumed": 17,
+    "successful_cached_documents": 12,
+    "all_12_cached_raw_SHA_values_verified": true,
+    "SEC_403_gaps": 4,
+    "BusinessWire_timeout_gaps": 1,
+    "reported_capture_retries": 0,
+    "reported_capture_redirects_followed": 0,
+    "new_source_HTTP_allowed": 0,
+    "web_discovery_underlying_HTTP": "unknown, separately recorded;17 is the explicit capture count, not total discovery network traffic",
+    "failed_raw_bodies": "Unavailable; retain failure receipts and null raw hashes. Web-readable text is not a replacement raw capture."
+  },
+  "implementation_boundaries": [
+    "Read only the pinned observed D.calendar dates, original inputs/timing timestamp columns and12 hash-verified successful caches. Preserve all17 capture receipts and rejected/mismatched-document status. Do not import the unadmitted2021 release or retry any missing document.",
+    "Keep original signal index and09:29 decision verbatim, with a separate09:46 clock. Keep946 outer metadata rows and both non-account tail rows; validate944 account date mappings from metadata only. The3014 mature training cohort remains a later label-aware gate, not a source-only filter.",
+    "Qualify confirmed past-open prefixes separately from current-open evidence. No archival open-confirmation timestamp may be invented from calendar membership;09:46 information cannot become09:29 knowledge or support the unchanged09:30-start label retrospectively.",
+    "Keep publication, effectiveness and retrieval times distinct. Date-only next-midnight availability is a declared conditional research convention. Mutable current snapshots and missing revision times remain unqualified as historical first vintages;2011–2013 and other uncovered periods remain visible.",
+    "Preserve applicable venue on every assertion and on coverage output, either as a venue key or an explicit named scope. An undecided receiving venue remains unresolved; Nasdaq-only exceptions cannot qualify NYSE/Arca. Do not silently aggregate different venue calendars into a qualified composite.",
+    "Expected future schedules remain source metadata. Do not add future planned sessions to the original observed provider or use its as_of tail as month-end. Unknown/conflicting rules and temporary-closure gaps do not disappear through joins, retrospective relabeling or calendar-library defaults.",
+    "Use DataHandlerLP.from_df and DatasetH for metadata only, without labels or learned processors. Preserve exact timezone-aware timestamps, source spans and bytes in Recorder; avoid float32 time encoding. Configure recursive dump_all and verify one direct prepare roundtrip after saving."
+  ],
+  "qualification_boundary": "A completed ledger may legitimately conclude conditional_snapshot, unknown or partial coverage. This approval does not certify full-period PIT, original training-clock compatibility, a receiving model task or TOM efficacy.",
+  "review_method": "Read the frozen draft and both inventories; verified their SHA values, explicit capture counts and all successful cache hashes. Reused prior novelty/literature review. No source HTTP, market values, timing-object deserialization, feature construction, tests or NAS restore performed.",
+  "qlib_api_reference": "https://qlib.readthedocs.io/en/latest/component/data.html",
+  "source_only_implementation_approved": true,
+  "source_execution_requires_final_freeze_and_owner_GO": true,
+  "source_result_already_qualified": false,
+  "feature_generation_approved": false,
+  "model_execution_approved": false,
+  "account_execution_approved": false,
+  "promotion_approved": false,
+  "next_action": "Implement and freeze the bounded cache-only source workflow, then execute once under owner GO and report complete coverage/unknown counts. Return source results for qualification review before any feature/model design."
+}

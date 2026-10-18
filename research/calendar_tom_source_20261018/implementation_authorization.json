@@ -1,0 +1,21 @@
+{
+  "owner": "/root",
+  "source_design_review_sha256": "f8f6f7d2b2e23ceca36cdc9cdbc9fd971f2cdeba2f2cfface5bdcff6ff607ae2",
+  "scope": "Implement the approved cache-only source knowledge and coverage workflow; no actual qualification execution yet",
+  "allowed": [
+    "source ledger/calendar metadata implementation",
+    "one focused synthetic calendar knowledge contract if needed",
+    "formal source plan and notebook entrypoint preparation"
+  ],
+  "new_source_HTTP": 0,
+  "source_native_execution_approved": false,
+  "candidate_feature_generation_approved": false,
+  "return_or_label_reads_approved": false,
+  "model_or_account_execution_approved": false,
+  "required_before_source_run": [
+    "final source plan and code identities",
+    "independent implementation check",
+    "explicit owner source execution approval"
+  ],
+  "executor": "/root/recent_evidence"
+}

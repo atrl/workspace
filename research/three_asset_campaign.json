@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/external_mechanism_review_20261018",
-  "current_phase": "calendar_TOM_cache_only_source_design_review_running",
-  "next_action": "Review and freeze one cache-only calendar knowledge/coverage design using12 successful raw documents and all17 request receipts. Preserve early-year/venue/vintage/09:29-vs09:46 gaps; source-only execution needs owner GO and explicit executor resume. No model or feature generation approved.",
+  "current_phase": "calendar_TOM_cache_only_source_implementation",
+  "next_action": "Finish cache-only calendar source implementation, review exact plan/code, then owner GO for one native knowledge/coverage run. Keep venue/clock/vintage/early-year gaps explicit. Do not generate the candidate feature or run a model at this stage.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1716,15 +1716,15 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/external_mechanism_review_20261018",
-      "phase": "calendar_TOM_cache_only_source_design_review_running",
-      "executor": "/root/external_methods",
+      "phase": "calendar_TOM_cache_only_source_implementation",
+      "executor": "/root/recent_evidence",
       "owner": "/root",
       "new_model_fits": 0,
       "new_accounts": 0,
       "new_feature_values": 0,
       "strategy_execution_authorized": false,
       "scope": "Only determine whether an externally fixed exchange-calendar TOM proxy can be qualified separately from the unresolved actual institutional cash-deadline hypothesis. No SOXX window search, source bulk intake or training.",
-      "executor_lifecycle": "Document discovery and source draft executors completed; independent evaluator explicitly resumed for final cache-only source design review. No source-native/feature/model job claimed.",
+      "executor_lifecycle": "Source design reviewer completed and approved only source qualification design. Source executor explicitly resumed for implementation, no real source-native/feature/model/account run authorized yet.",
       "source_plan_executor": "/root/recent_evidence",
       "source_document_executor": "/root/external_methods",
       "planned_source_card": "research/calendar_tom_source_20261018",
@@ -1758,7 +1758,11 @@
         "BusinessWire_timeout": 1
       },
       "remaining_source_qualification_HTTP_requests": 0,
-      "source_plan_draft_sha256": "0bc753956fa6a1611fcc2045c8df6c27d99abc9b216ebd770670443d261f33e6"
+      "source_plan_draft_sha256": "0bc753956fa6a1611fcc2045c8df6c27d99abc9b216ebd770670443d261f33e6",
+      "source_design_review": "research/calendar_tom_source_20261018/source_design_review.json",
+      "source_design_review_sha256": "f8f6f7d2b2e23ceca36cdc9cdbc9fd971f2cdeba2f2cfface5bdcff6ff607ae2",
+      "source_implementation_authorization": "research/calendar_tom_source_20261018/implementation_authorization.json",
+      "source_implementation_authorized": true
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
