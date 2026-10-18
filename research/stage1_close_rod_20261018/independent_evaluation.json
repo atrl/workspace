@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT_NEGATIVE_RESULT_CLOSE_FIXED_VERSION",
+  "experiment": "stage1_close_rod_20261018",
+  "reviewer_role": "independent_evaluator",
+  "plan_sha256": "a548cbac5bf81787d9b14cc4491c711c903476489f17488b98e5e638bb9387b1",
+  "design_review_sha256": "29c001b0b181e01e816234b0ed3ebc88dfbc8f805016ccfc70fea978054f0893",
+  "implementation_identity_sha256": "e92affedc942f46fe16b24289d0432d0833eca19e5842d3ceabb6897feeaac6e",
+  "recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
+  "archive_sha256": "430de3567f7a3ab29f41d07a064da4b3dc80e8c61f87812e58fe7910f102b1e3",
+  "verification_manifest_sha256": "7512360dc75dc55870e5c2e0389c153e4eda3ad4463af0e7862fae6738d303ea",
+  "frozen_scope_verified": {
+    "fits": 0,
+    "new_policy_paths": 6,
+    "new_native_accounts": 6,
+    "passive_reference_extensions": 12,
+    "total_comparison_books": 18,
+    "retry_count": 0,
+    "sessions_per_book": 944,
+    "marks_per_book": 6586,
+    "native_audits_pass": true,
+    "passive_reference_marks_not_native_replays": true,
+    "independent_cost_state_and_fee_paths": true,
+    "incremental_lots_closed_exactly": true,
+    "code_and_source_identities_match": true,
+    "active_release_unchanged": true
+  },
+  "candidate": {
+    "slippage_bps": [0, 2, 5],
+    "net_return_pct": [183.4789412214339, 138.85607929085734, 29.056788630115914],
+    "rolling126_positive_excess_fraction": [0.3247863247863248, 0.18803418803418803, 0.1916971916971917],
+    "complete_annual_positive_excess": "0 of 2 complete years at every cost; partial years retained separately",
+    "required_ci_positive_lower_count": 0,
+    "required_ci_count": 12,
+    "late_trade_days": [92, 113, 141],
+    "no_op": false
+  },
+  "failed_gates": [
+    "net_relative_wealth_all_costs",
+    "complete_annual_70pct",
+    "rolling126_70pct",
+    "paired_block_lower_positive"
+  ],
+  "passed_available_gates": ["sampled_drawdown_30pct", "cvar_no_worse_soxx", "minimum_complete_years"],
+  "decisive_comparison": "At 2bp C returned 138.856% versus B 137.206%, but remained below A 280.650%, SOXX 380.568% and strong9097 434.269%. C/B also failed its frozen CI lower bound. At 0bp and 5bp C did not beat B.",
+  "review_method": "Read frozen identities, completed attempt records and verified Recorder artifacts; checked recorded account roles, preserved reference anchors, lot conservation and reported gate arithmetic. Reused the owner's single NAS readback. No fit, policy replay, signal recomputation or bootstrap rerun.",
+  "qualification_limits": "Reused historical evidence and sampled risk only; no new PIT, fullminute or independent forward qualification.",
+  "decision": "not_promoted_fixed_close_ROD_v1",
+  "fixed_version_closed": true,
+  "promotion_approved": false,
+  "goal_achieved": false,
+  "next_action": "Retain minimal evidence and the separately bounded attribution. Do not reopen this version with sign, window, threshold or controller tuning; continue the authorized Goal through a separately frozen substantive mechanism."
+}

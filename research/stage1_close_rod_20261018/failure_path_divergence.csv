@@ -1,0 +1,13 @@
+role,left_family,left_cost,right_family,right_cost,sessions,risk_state_different_days,risk_state_first_difference,risk_clock_different_days,risk_clock_first_difference,execute_open_target_different_days,execute_open_target_first_difference,recovery_action_different_days,recovery_action_first_difference,any_recorded_policy_state_different_days,first_recorded_policy_state_difference
+same_cost_own_state,B_close_permission,0,C_close_ROD_positive,0,944,122,2024-03-27,136,2024-03-27,34,2023-09-25,0,,158,2023-09-25
+same_cost_own_state,B_close_permission,0,A_active_research_replay,0,944,212,2024-02-21,198,2024-02-21,52,2023-08-16,0,,242,2023-08-16
+same_cost_own_state,C_close_ROD_positive,0,A_active_research_replay,0,944,257,2024-02-21,263,2024-02-21,54,2023-08-16,0,,307,2023-08-16
+same_cost_own_state,B_close_permission,2,C_close_ROD_positive,2,944,0,,0,,18,2023-08-16,0,,18,2023-08-16
+same_cost_own_state,B_close_permission,2,A_active_research_replay,2,944,241,2024-02-21,274,2024-02-21,58,2023-10-10,0,,303,2023-10-10
+same_cost_own_state,C_close_ROD_positive,2,A_active_research_replay,2,944,241,2024-02-21,274,2024-02-21,58,2023-08-16,0,,305,2023-08-16
+same_cost_own_state,B_close_permission,5,C_close_ROD_positive,5,944,338,2024-02-13,364,2024-02-13,82,2023-09-25,0,,410,2023-09-25
+same_cost_own_state,B_close_permission,5,A_active_research_replay,5,944,460,2024-02-13,399,2024-02-13,116,2023-09-25,0,,531,2023-09-25
+same_cost_own_state,C_close_ROD_positive,5,A_active_research_replay,5,944,315,2024-06-07,259,2024-06-07,92,2023-10-10,0,,421,2023-10-10
+C_across_costs,C_close_ROD_positive,0,C_close_ROD_positive,2,944,170,2023-08-11,272,2023-08-11,51,2023-06-20,0,,295,2023-06-20
+C_across_costs,C_close_ROD_positive,0,C_close_ROD_positive,5,944,304,2023-08-11,432,2023-08-11,76,2023-05-30,0,,457,2023-05-30
+C_across_costs,C_close_ROD_positive,2,C_close_ROD_positive,5,944,194,2024-06-07,218,2024-06-07,77,2023-05-30,0,,257,2023-05-30

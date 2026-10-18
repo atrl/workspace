@@ -1,0 +1,67 @@
+{
+  "plan_sha256": "a548cbac5bf81787d9b14cc4491c711c903476489f17488b98e5e638bb9387b1",
+  "path_attempts": [
+    "B_close_permission_0",
+    "B_close_permission_2",
+    "B_close_permission_5",
+    "C_close_ROD_positive_0",
+    "C_close_ROD_positive_2",
+    "C_close_ROD_positive_5"
+  ],
+  "paths_done": [
+    "B_close_permission_0",
+    "B_close_permission_2",
+    "B_close_permission_5",
+    "C_close_ROD_positive_0",
+    "C_close_ROD_positive_2",
+    "C_close_ROD_positive_5"
+  ],
+  "native_attempts": [
+    "B_close_permission_0",
+    "B_close_permission_2",
+    "B_close_permission_5",
+    "C_close_ROD_positive_0",
+    "C_close_ROD_positive_2",
+    "C_close_ROD_positive_5"
+  ],
+  "native_done": [
+    "B_close_permission_0",
+    "B_close_permission_2",
+    "B_close_permission_5",
+    "C_close_ROD_positive_0",
+    "C_close_ROD_positive_2",
+    "C_close_ROD_positive_5"
+  ],
+  "passive_attempts": [
+    "A_active_research_replay_0",
+    "A_active_research_replay_2",
+    "A_active_research_replay_5",
+    "SOXX_0",
+    "SOXX_2",
+    "SOXX_5",
+    "strong9097_0",
+    "strong9097_2",
+    "strong9097_5",
+    "additional27baa_0",
+    "additional27baa_2",
+    "additional27baa_5"
+  ],
+  "passive_done": [
+    "A_active_research_replay_0",
+    "A_active_research_replay_2",
+    "A_active_research_replay_5",
+    "SOXX_0",
+    "SOXX_2",
+    "SOXX_5",
+    "strong9097_0",
+    "strong9097_2",
+    "strong9097_5",
+    "additional27baa_0",
+    "additional27baa_2",
+    "additional27baa_5"
+  ],
+  "recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
+  "experiment_id": "744225113974357313",
+  "sources_saved": true,
+  "completed": true
+}

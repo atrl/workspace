@@ -1,0 +1,28 @@
+{
+  "session_id": 35358,
+  "exit_code": 0,
+  "plan_sha256": "a548cbac5bf81787d9b14cc4491c711c903476489f17488b98e5e638bb9387b1",
+  "new_fits": 0,
+  "path_attempts": 6,
+  "paths_done": 6,
+  "native_attempts": 6,
+  "native_done": 6,
+  "passive_attempts": 12,
+  "passive_done": 12,
+  "recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
+  "nas_archive_sha256": "430de3567f7a3ab29f41d07a064da4b3dc80e8c61f87812e58fe7910f102b1e3",
+  "registered_artifacts": 82,
+  "read_only_attribution_session": 10854,
+  "new_model_or_account_for_attribution": 0,
+  "notebook_bytes_before": 1188226,
+  "notebook_bytes_after": 65548,
+  "notebook_log_compaction": {
+    "widget_outputs": 6,
+    "routine_streams": 113,
+    "repeated_empty_mean_warnings": 5675
+  },
+  "original_scientific_execute_results_preserved": true,
+  "prose_rerun_fit_or_replay": false,
+  "sealed_recorder_archive_modified": false,
+  "executor_NAS_cold_reads": 0
+}

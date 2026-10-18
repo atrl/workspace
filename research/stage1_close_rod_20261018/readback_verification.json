@@ -1,0 +1,90 @@
+{
+  "recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
+  "archive_sha256": "430de3567f7a3ab29f41d07a064da4b3dc80e8c61f87812e58fe7910f102b1e3",
+  "status": "passed",
+  "artifact_count": 82,
+  "native_summary_matches_root": true,
+  "signal_dataset_shape": [
+    944,
+    2
+  ],
+  "strict_float64_known_signs_match": true,
+  "known_source_dates": 908,
+  "new_native_accounts_verified": 6,
+  "native_audits": {
+    "B_close_permission_0": {
+      "status": "passed",
+      "sessions": 944,
+      "points": 6586,
+      "orders": 1619,
+      "max_relative_error": 4.3635669531920335e-16,
+      "native_CA_from_own_positions": true,
+      "receivable_in_NAV_not_spendable": true,
+      "currency_assumption": "USD gross pretax paper",
+      "historical_PIT_qualified": false
+    },
+    "B_close_permission_2": {
+      "status": "passed",
+      "sessions": 944,
+      "points": 6586,
+      "orders": 1694,
+      "max_relative_error": 1.1126110696252104e-15,
+      "native_CA_from_own_positions": true,
+      "receivable_in_NAV_not_spendable": true,
+      "currency_assumption": "USD gross pretax paper",
+      "historical_PIT_qualified": false
+    },
+    "B_close_permission_5": {
+      "status": "passed",
+      "sessions": 944,
+      "points": 6586,
+      "orders": 1666,
+      "max_relative_error": 4.4234374686430307e-16,
+      "native_CA_from_own_positions": true,
+      "receivable_in_NAV_not_spendable": true,
+      "currency_assumption": "USD gross pretax paper",
+      "historical_PIT_qualified": false
+    },
+    "C_close_ROD_positive_0": {
+      "status": "passed",
+      "sessions": 944,
+      "points": 6586,
+      "orders": 1466,
+      "max_relative_error": 4.4289208951492297e-16,
+      "native_CA_from_own_positions": true,
+      "receivable_in_NAV_not_spendable": true,
+      "currency_assumption": "USD gross pretax paper",
+      "historical_PIT_qualified": false
+    },
+    "C_close_ROD_positive_2": {
+      "status": "passed",
+      "sessions": 944,
+      "points": 6586,
+      "orders": 1468,
+      "max_relative_error": 6.573621443772999e-16,
+      "native_CA_from_own_positions": true,
+      "receivable_in_NAV_not_spendable": true,
+      "currency_assumption": "USD gross pretax paper",
+      "historical_PIT_qualified": false
+    },
+    "C_close_ROD_positive_5": {
+      "status": "passed",
+      "sessions": 944,
+      "points": 6586,
+      "orders": 1465,
+      "max_relative_error": 4.4323883599038207e-16,
+      "native_CA_from_own_positions": true,
+      "receivable_in_NAV_not_spendable": true,
+      "currency_assumption": "USD gross pretax paper",
+      "historical_PIT_qualified": false
+    }
+  },
+  "passive_references_verified": 12,
+  "reference_added_marks_native_validated": false,
+  "all_incremental_lots_closed": true,
+  "attempts": 1,
+  "new_fits": 0,
+  "new_replays": 0,
+  "new_bootstrap_resamples": 0,
+  "restore_directory": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/close-rod-strategy-cold-vptpbyde"
+}

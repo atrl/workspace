@@ -1,0 +1,70 @@
+{
+  "schema_version": "month_end_settlement_source_clarification_v1",
+  "date": "2026-10-18",
+  "status": "needs_source_absolute_cash_deadline",
+  "campaign_role": "backup_only; projected-gradient mechanism is the next main candidate; the fixed ROD result is closed",
+  "input_generation_authorized": false,
+  "backtest_authorized": false,
+  "literature_clarification": {
+    "original_source": "https://wp.lancs.ac.uk/fofi2018/files/2018/03/FoFI-2018-0169-Kalle-Rinne.pdf",
+    "original_locations": "2017-12-28 author manuscript, PDF pages 3 and 13, footnote 5, and Figure A2 caption on PDF page 70",
+    "original_event": "T-4 is the latest sale close for the example of cash paid to recipients on the morning of T: T+3 settlement supplies cash by T-1 close. It is not the beginning of the selling interval. The text separately allows T+1 payment obligations to extend sales to T-3, with liquidity/risk considerations moving some selling earlier.",
+    "later_source": "https://danielrnathan.com/assets/pdf/The_Intramonth_Momentum_Cycle.pdf",
+    "later_appendix": "https://danielrnathan.com/assets/pdf/The_Intramonth_Momentum_Cycle_Appendix.pdf",
+    "later_locations": "2026-06-08 main text section 5, footnotes 23-24; appendix IA.17",
+    "later_event": "The later paper calls tau-5/tau-4/tau-3 the marginal cash-raising boundary under T+3/T+2/T+1. These are not the starting days of its six-day PreTOM interval. Footnote 23 relates boundaries to the full-sample smoothed interval; the reform test concerns adjacent boundary-day relocation.",
+    "resolved": "The discrepancy is not a start-versus-end comparison or a different month-end zero point. Both use the last trading day as T/tau and discuss a marginal/latest selling boundary.",
+    "unresolved": "The examined text does not supply a common recipient-payment deadline or an explicit additional processing/custody buffer that maps the original T-4 under T+3 to the later tau-5 under T+3.",
+    "inference_not_source_fact": "If all intervening days were ordinary settlement days, a T+3 sale at tau-5 supplies cash at tau-2, whereas a sale at T-4 supplies cash at T-1. An additional one-day cash buffer could reconcile these, but that buffer is not established by the examined documents and must not be invented or selected from return peaks."
+  },
+  "bounded_official_materials": [
+    {
+      "id": 1,
+      "url": "https://www.frbservices.org/resources/resource-centers/same-day-ach-resource-center/fedach-processing-schedule/",
+      "access": "official full text accessible through web tool",
+      "document_effective_date": "2022-09-12",
+      "finding": "FedACH distinguishes same-day settlement windows from future-dated items settling at 08:30 on the applicable banking day; file submission cutoffs and effective dates matter.",
+      "limit": "It does not establish that pension funds universally must hold month-end cash one or two business days early, nor document individual banks' prefunding policies or a complete historical bank/CNS calendar."
+    },
+    {
+      "id": 2,
+      "url": "https://www.calpers.ca.gov/docs/forms-publications/payday-schedule-retirees-2024.pdf",
+      "access": "official-domain search-index text available; direct web open inaccessible, no raw original acquired",
+      "document_label": "2024 Pay Days for Retirees and Beneficiaries, marked 01-2024",
+      "finding": "Indexed text lists institution-specific direct-deposit dates and says the financial institution determines when funds are placed in an account.",
+      "limit": "This is an unqualified discovery lead, not an acquired historical source or an institution's settled-cash prefunding cutoff; it cannot supply a universal T deadline."
+    },
+    {
+      "id": 3,
+      "url": "https://www.dtcc.com/-/media/Files/pdf/2023/12/5/a9364.pdf",
+      "access": "official-domain search-index text available; direct web open HTTP 404, no original acquired",
+      "document_label": "NSCC A9364, 2023-12-05, New Year's Day schedule",
+      "finding": "Indexed text specifically states no CNS settlement on 2024-01-01 and describes requests for 2024-01-02.",
+      "limit": "Only a service-specific lead for one holiday; the failed direct fetch is not converted into source-store qualification or a full 2023-2024 calendar."
+    },
+    {
+      "id": 4,
+      "url": "https://www.dtcc.com/Globals/PDFs/2025/February/28/21560-25",
+      "access": "official-domain search-index text available; direct web open HTTP 404, no original acquired",
+      "document_label": "DTC 21560-25, 2025-02-28, Good Friday 2025",
+      "finding": "Indexed text describes limited 2025-04-18 processing with receiver authorization and service-specific exceptions, including money-market-instrument processing.",
+      "limit": "DTC limited processing does not certify ordinary equity CNS availability. No original body or complete 2025 service calendar was qualified."
+    }
+  ],
+  "decision": "Retain the single settlement-cash deadline mechanism as a backup needs_source lead. Do not select either absolute offset, add an empirical PreTOM window, generate the proposed indicator or start a backtest.",
+  "minimum_remaining_condition": "A dated institutional recipient-payment obligation together with its bank/custodian cash-funding cutoff and applicable ordinary-equity CNS/banking-day exception rules must determine one explicit deadline. A one-day buffer inferred from the external return profile is insufficient. Existing 2026 anticipated DTC notice and the limited indexed holiday leads do not complete the historical calendar.",
+  "scope_receipt": {
+    "additional_official_material_limit": 4,
+    "additional_official_materials_examined": 4,
+    "authenticated_access_or_paywall_bypass": false,
+    "author_contact": false,
+    "purchases": false,
+    "local_market_return_reads": 0,
+    "generated_calendar_inputs": 0,
+    "signals_or_labels": 0,
+    "fits": 0,
+    "policy_or_reference_accounts": 0,
+    "other_mechanisms_added": 0,
+    "further_search_this_task": false
+  }
+}

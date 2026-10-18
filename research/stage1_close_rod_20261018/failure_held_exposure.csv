@@ -1,0 +1,10 @@
+family,slippage_bps,mean_ending_SOXL_weight,mean_ending_SOXX_weight,mean_ending_cash_weight,mean_ending_nominal_beta,risk_state_nonzero_days,open_execute_days,recovery_action_days,basis
+B_close_permission,0,0.14960761159587757,0.3680347817815137,0.4823576066226088,0.8168576165691465,449,789,0,"Recorded next-open endpoint weights, not intraday time-average exposure"
+B_close_permission,2,0.12264477861647473,0.356460885878281,0.5208943355052443,0.7243952217277053,608,794,0,"Recorded next-open endpoint weights, not intraday time-average exposure"
+B_close_permission,5,0.14432113881558245,0.3645832592592839,0.49109560192513363,0.7975466757060313,488,789,0,"Recorded next-open endpoint weights, not intraday time-average exposure"
+C_close_ROD_positive,0,0.13956003688074856,0.36603044845787086,0.49440951466138056,0.7847105591001167,521,793,0,"Recorded next-open endpoint weights, not intraday time-average exposure"
+C_close_ROD_positive,2,0.12387639022409311,0.3577746206696694,0.5183489891062375,0.7294037913419487,608,796,0,"Recorded next-open endpoint weights, not intraday time-average exposure"
+C_close_ROD_positive,5,0.10112208198489821,0.34089894966732087,0.5579789683477809,0.6442651956220156,728,801,0,"Recorded next-open endpoint weights, not intraday time-average exposure"
+A_active_research_replay,0,0.1509402426172226,0.3671228177544822,0.48193693962829515,0.81994354560615,353,797,0,"Recorded next-open endpoint weights, not intraday time-average exposure"
+A_active_research_replay,2,0.1508224973909921,0.3659709831120031,0.4832065194970048,0.8184384752849795,440,782,0,"Recorded next-open endpoint weights, not intraday time-average exposure"
+A_active_research_replay,5,0.09567344695194474,0.3342173269775096,0.5701092260705456,0.6212376678333438,728,777,0,"Recorded next-open endpoint weights, not intraday time-average exposure"

@@ -1,0 +1,49 @@
+{
+  "phase": "one_bounded_post_result_failure_attribution",
+  "source_recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
+  "source_manifest_sha256": "7512360dc75dc55870e5c2e0389c153e4eda3ad4463af0e7862fae6738d303ea",
+  "recorded_before_computation": true,
+  "already_observed": "Formal all-cost summary/metrics/late_activity/rolling, CI pass count and C2bpannual rows were read to report the fixed result. This attribution is post-result development evidence, not independentvalidation.",
+  "groups": [
+    "All6B/Ccost books: recordedlate days and first-rejection reasons, physicalbuy/selllot quantities, actualentry+exitfees and recordedcashPnLidentity. No hypotheticaloutcomeonrejectedopportunities.",
+    "All4annual+16quarterlyperiods x3costsx3comparators(B/A/SOXX)=180C-pairs, complete/partialseparate, no windowselection.",
+    "B-C/B-A/C-Aatall3costs plus C0-2/0-5/2-5: firstandtotal differences inriskstate/clock/openexecute/recovery; actualendingSOXL/SOXX/cashmeans."
+  ],
+  "frozen_A_reference_source": {
+    "card": "research/stage1_domain_heads_20261018",
+    "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+    "artifacts": [
+      "native/A_active_research_replay_0",
+      "native/A_active_research_replay_2",
+      "native/A_active_research_replay_5"
+    ],
+    "artifact_sha256": {
+      "native/A_active_research_replay_0": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+      "native/A_active_research_replay_2": "bf6d10ac75ee84ce4f5688188259c1061141aa3110a82a0587425630fbed0284",
+      "native/A_active_research_replay_5": "1b2065502bb43f5ddcbba96a17beddcbc142b85ffea6eb2586f69e576f50062b"
+    }
+  },
+  "rules": {
+    "new_fit": 0,
+    "new_replay": 0,
+    "CI_resampling": 0,
+    "new_market_source_HTTP": 0,
+    "sealed_Recorder_or_NAS_changes": 0,
+    "old_A_trace_reconstructed": false,
+    "outcome_window_or_threshold_search": false,
+    "source": "Verified currentRecorder plus fixed A nativeauthorityonly; no newlymanufacturedcounterfactual."
+  },
+  "outputs": [
+    "failure_attribution.json",
+    "failure_late_cashbook.csv",
+    "failure_late_reasons.csv",
+    "failure_period_comparison.csv",
+    "failure_period_summary.csv",
+    "failure_path_divergence.csv",
+    "failure_held_exposure.csv",
+    "executed read-onlyattribution notebookcell andChineseconclusion"
+  ],
+  "interpretation_limit": "Compare actualsignedlotcashchange with whole-account terminaldifferenceasdifferentdescriptives; endogenousstatefeedbackpreventsa uniquecontrolleror simplefee-subtraction attribution."
+}

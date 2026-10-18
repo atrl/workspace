@@ -1,0 +1,35 @@
+{
+  "owner": "/root",
+  "scope": "Implementation and no-fit preparation only after accepted mechanical result and independent draft advisory",
+  "draft_sha256": "4f11c8bb956e9a4f99d29e5ef201d1013ec971237de1d15bba03ac45035fc492",
+  "mechanical_result_review_sha256": "27bb926e292da5a67dd0e2a5798e427a28873183289d0344007ba6568f1d5a74",
+  "independent_draft_advisory": {
+    "reviewer": "/root/independent_evaluator",
+    "basis": "Reviewer accepted the direction with three concrete conditions, recorded here by owner; final executable design review remains required.",
+    "conditions": [
+      "Reuse previously exactly reproduced B seed models/predictions/native accounts; bind original source and reproduction receipt hashes. No new B fits or fallback replay.",
+      "Bind mechanical result and exact source/code/backend/tensor/scaler identities before fit.",
+      "One focused synthetic contract and saved-array compatibility establish combined-gradient bypass, shared-only conflict replacement and unchanged private preclip gradient; retain original single global clip/AdamW."
+    ]
+  },
+  "fixed_proposed_execution_budget": {
+    "new_C_fits": 3,
+    "new_C_native_accounts": 3,
+    "reused_native_references": 15,
+    "total_comparison_accounts": 18,
+    "required_paired_CIs": 12
+  },
+  "currently_authorized": {
+    "model_adapter_implementation": true,
+    "workflow_and_notebook_implementation": true,
+    "focused_synthetic_contract": true,
+    "existing_24_recorded_vector_compatibility": true,
+    "no_fit_source_preflight": true,
+    "new_market_gradient_probes": false,
+    "real_model_fits": false,
+    "new_policy_or_native_accounts": false
+  },
+  "executor": "/root/recent_evidence",
+  "model_adapter_executor": "/root/external_methods",
+  "formal_review_and_owner_execution_GO_pending": true
+}

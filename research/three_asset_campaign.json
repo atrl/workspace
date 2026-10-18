@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/stage1_close_rod_20261018",
-  "current_phase": "ROD_fixed_economic_failure_result_review_and_attribution",
-  "next_action": "Complete independent ROD result review and one bounded attribution, deliver the closed fixed version. Review auxiliary-projection mechanics and the separate bounded training design; no fit is authorized by the draft. Continue settlement-source clarification as a source-only backup.",
+  "current_experiment": "research/stage1_aux_projection_allocation_20261018",
+  "current_phase": "aux_projection_implementation_and_no_fit_preflight",
+  "next_action": "Complete auxiliary-projection implementation and no-fit source/identity checks, independently review the exact 3-C-fit/3-C-account/15-reused-reference plan, then owner GO. No new market probe or repeated B fit. Settlement-source backup remains needs_source.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -28,7 +28,10 @@
   ],
   "closed_route_authorities": [
     "docs/research_failure_to_feature_sop.md",
-    "docs/research_evidence_boundary_20261015.md"
+    "docs/research_evidence_boundary_20261015.md",
+    "research/stage1_domain_heads_20261018/independent_evaluation.json",
+    "research/stage1_finra_short_mix_allocation_20261018/independent_evaluation.json",
+    "research/stage1_close_rod_20261018/independent_evaluation.json"
   ],
   "data_use": {
     "2023_through_2026_prior_results": "reused_diagnostic_not_independent",
@@ -1438,7 +1441,7 @@
     {
       "card": "research/stage1_finra_short_mix_20261018",
       "kind": "public_CNMS_short_mark_source_qualification",
-      "status": "FINRA_source_intake_resumed_CDN_only",
+      "status": "completed_conditional_source_snapshot",
       "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
       "maximum_HTTP_requests_including_four_retained_samples": 2242,
       "maximum_new_model_fits": 0,
@@ -1450,9 +1453,58 @@
       ],
       "history_first_vintage_certified": false,
       "main_goal_blocked": false,
-      "evaluation": "research/stage1_finra_short_mix_20261018/design_review.json",
+      "evaluation": "research/stage1_finra_short_mix_20261018/source_result_review.json",
       "source_execution_approval": "research/stage1_finra_short_mix_20261018/source_execution_approval.json",
-      "operational_repair": "research/stage1_finra_short_mix_20261018/source_repair_1.json"
+      "operational_repair": "research/stage1_finra_short_mix_20261018/source_repair_1.json",
+      "actual_HTTP_requests": 2178,
+      "recorder_id": "ca3433457b504654bca2011ad2c6ef65",
+      "nas_archive_sha256": "8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d"
+    },
+    {
+      "card": "research/stage1_finra_short_mix_allocation_20261018",
+      "kind": "conditional_CNMS_q_nonlinear_allocation",
+      "status": "completed_not_promoted_fixed_version_closed",
+      "actual_new_fits": 6,
+      "actual_new_native_accounts": 6,
+      "reused_native_accounts": 15,
+      "evaluation": "research/stage1_finra_short_mix_allocation_20261018/independent_evaluation.json",
+      "recorder_id": "8e87af53d57a4022bcf19b5dbc690e33"
+    },
+    {
+      "card": "research/stage1_close_rod_20261018",
+      "kind": "fixed_close_only_ROD_permission",
+      "status": "completed_not_promoted_fixed_version_closed",
+      "actual_new_fits": 0,
+      "actual_new_native_accounts": 6,
+      "reused_native_accounts": 12,
+      "passive_reference_valuations": 12,
+      "evaluation": "research/stage1_close_rod_20261018/independent_evaluation.json",
+      "recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
+      "failed_gates": [
+        "net_relative_wealth_all_costs",
+        "complete_annual_70pct",
+        "rolling126_70pct",
+        "paired_block_lower_positive"
+      ]
+    },
+    {
+      "card": "research/stage1_aux_projection_20261018",
+      "kind": "fixed_auxiliary_gradient_projection_mechanics",
+      "status": "mechanical_result_accepted_only",
+      "actual_new_fits": 0,
+      "actual_new_native_accounts": 0,
+      "fixed_probe_count": 24,
+      "evaluation": "research/stage1_aux_projection_20261018/mechanical_result_review.json"
+    },
+    {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "kind": "asymmetric_auxiliary_gradient_training",
+      "status": "implementation_no_fits_authorized",
+      "maximum_new_C_fits_proposed": 3,
+      "maximum_new_C_native_accounts_proposed": 3,
+      "reused_native_references_proposed": 15,
+      "actual_new_fits": 0,
+      "actual_new_native_accounts": 0
     }
   ],
   "governance_review": {
@@ -1658,66 +1710,25 @@
   ],
   "execution_observation_20261018": {
     "current_task": {
-      "card": "research/stage1_close_rod_20261018",
-      "phase": "ROD_fixed_economic_failure_result_review_and_attribution",
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "phase": "aux_projection_implementation_and_no_fit_preflight",
       "executor": "/root/recent_evidence",
-      "source_contract_owner": "/root/intraday_novelty",
+      "model_adapter_executor": "/root/external_methods",
       "independent_evaluator": "/root/independent_evaluator",
-      "model_fits": 0,
-      "policy_paths": 0,
-      "accounts": 0,
-      "source_HTTP_authorized": 0,
-      "ROD_or_future_return_computation_authorized": true,
-      "source_preflight_scope": "Existing event-date membership/coverage, native endpoints including first previous close and halfdays, exact source/F32 projection errors only. No sign, tail return, historical strategy opportunities or account execution.",
-      "policy_execution_authorized": true,
-      "source_contract": "research/stage1_close_rod_20261018/source_contract_draft.json",
-      "strategy_design": "research/stage1_close_rod_20261018/plan.json",
-      "permission_change": "New close-only shared B/C permission, not an old all-day .6 allowance. C adds positive ROD; B does not. Original morning chain and state/peak clocks retained; new emergency clamp explicitly subject to review.",
-      "executor_lifecycle": "Original35358 actually exited0 after6path/6native/12passive. No restart. Executor continues one authorized Recorder-only attribution; root coldread1465exit0. Result review pending.",
-      "source_preflight_review": "research/stage1_close_rod_20261018/design_preflight_review.json",
-      "source_preflight_review_sha256": "64cd67cf46bb00e80dcf262854bd6d737ef125ba4993e93d89b081e659931cc9",
-      "source_preflight_execution_authorized": true,
-      "formal_strategy_design_approved": true,
-      "source_contract_sha256": "29a1dfbbdc745627016f704b25a8baa676e9b1690183c735156c0f8a399f74f9",
-      "strategy_design_draft_sha256": "94d3f362fc9990dd9f1830a6263b4158e806ad0269ebda400f89b8e1d1805aa5",
-      "source_preflight_authorization_boundary": "Only existing-source endpoint/event/session/representation checks. No ROD/sign/return label, training, policy path, account or new source HTTP.",
-      "source_preflight_session_id": 87891,
-      "source_preflight_exit_code": 0,
-      "source_recorder_id": "f8fd1c596eb04acc85febad7e2ee9474",
-      "source_archive_sha256": "ea8c5d50c40247a6324d64f593e4b90c34bac02df6603fe159ad737d8a78b6e1",
-      "source_result_review": "research/stage1_close_rod_20261018/source_result_review.json",
-      "strategy_freeze_eligible": true,
-      "source_preflight_counts": {
-        "sessions": 944,
-        "regular_sessions": 936,
-        "half_days": 8,
-        "valid_endpoint_rows": 15060,
-        "native_float64_rows": 11302,
-        "event_days_no_increment": 28,
-        "regular_non_event_source_days": 908
+      "implementation_authorization": "research/stage1_aux_projection_allocation_20261018/implementation_authorization.json",
+      "formal_design_approved": false,
+      "fit_execution_authorized": false,
+      "account_execution_authorized": false,
+      "observed_new_fits": 0,
+      "observed_new_accounts": 0,
+      "draft_budget": {
+        "new_C_fits": 3,
+        "new_C_native_accounts": 3,
+        "reused_native_references": 15,
+        "total_comparison_accounts": 18,
+        "required_paired_CIs": 12
       },
-      "strategy_design_plan_sha256": "a548cbac5bf81787d9b14cc4491c711c903476489f17488b98e5e638bb9387b1",
-      "strategy_preflight_session_id": 45319,
-      "strategy_preflight_exit_code": 0,
-      "strategy_preflight": "research/stage1_close_rod_20261018/strategy_preflight.json",
-      "execution_authorization_scope": "ROD sign and precommitted policy/account return calculation only; no new training labels or fits",
-      "executor_session_id": 35358,
-      "executor_session_exit_code": 0,
-      "executor_job_running": false,
-      "implementation_commit": "33a68dc1",
-      "execution_approval": "research/stage1_close_rod_20261018/execution_approval.json",
-      "design_review": "research/stage1_close_rod_20261018/design_review.json",
-      "observed_completed": {
-        "paths_done": 6,
-        "native_done": 6,
-        "passive_done": 12
-      },
-      "recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
-      "archive_sha256": "430de3567f7a3ab29f41d07a064da4b3dc80e8c61f87812e58fe7910f102b1e3",
-      "fixed_result": "not_promoted_fixed_close_ROD_v1",
-      "independent_result_review_pending": true,
-      "failure_attribution_authorized_once": true,
-      "readback_verification": "research/stage1_close_rod_20261018/readback_verification.json"
+      "executor_lifecycle": "Both executors explicitly resumed for implementation. Model adapter synthetic contract has real session5894; no real training/account process claimed."
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -1852,6 +1863,73 @@
       "next_executor": "/root/recent_evidence",
       "next_executor_task": "FINRA source-only design review and bounded intake implementation; bulk not yet started",
       "completed_experiment_scope": "research/stage1_domain_heads_20261018"
+    },
+    "completed_ROD_task": {
+      "card": "research/stage1_close_rod_20261018",
+      "phase": "fixed_ROD_closed_after_independent_evaluation",
+      "executor": "/root/recent_evidence",
+      "source_contract_owner": "/root/intraday_novelty",
+      "independent_evaluator": "/root/independent_evaluator",
+      "model_fits": 0,
+      "policy_paths": 0,
+      "accounts": 0,
+      "source_HTTP_authorized": 0,
+      "ROD_or_future_return_computation_authorized": true,
+      "source_preflight_scope": "Existing event-date membership/coverage, native endpoints including first previous close and halfdays, exact source/F32 projection errors only. No sign, tail return, historical strategy opportunities or account execution.",
+      "policy_execution_authorized": true,
+      "source_contract": "research/stage1_close_rod_20261018/source_contract_draft.json",
+      "strategy_design": "research/stage1_close_rod_20261018/plan.json",
+      "permission_change": "New close-only shared B/C permission, not an old all-day .6 allowance. C adds positive ROD; B does not. Original morning chain and state/peak clocks retained; new emergency clamp explicitly subject to review.",
+      "executor_lifecycle": "Original35358 actually exited0 after6path/6native/12passive. No restart. Executor continues one authorized Recorder-only attribution; root coldread1465exit0. Result review pending.",
+      "source_preflight_review": "research/stage1_close_rod_20261018/design_preflight_review.json",
+      "source_preflight_review_sha256": "64cd67cf46bb00e80dcf262854bd6d737ef125ba4993e93d89b081e659931cc9",
+      "source_preflight_execution_authorized": true,
+      "formal_strategy_design_approved": true,
+      "source_contract_sha256": "29a1dfbbdc745627016f704b25a8baa676e9b1690183c735156c0f8a399f74f9",
+      "strategy_design_draft_sha256": "94d3f362fc9990dd9f1830a6263b4158e806ad0269ebda400f89b8e1d1805aa5",
+      "source_preflight_authorization_boundary": "Only existing-source endpoint/event/session/representation checks. No ROD/sign/return label, training, policy path, account or new source HTTP.",
+      "source_preflight_session_id": 87891,
+      "source_preflight_exit_code": 0,
+      "source_recorder_id": "f8fd1c596eb04acc85febad7e2ee9474",
+      "source_archive_sha256": "ea8c5d50c40247a6324d64f593e4b90c34bac02df6603fe159ad737d8a78b6e1",
+      "source_result_review": "research/stage1_close_rod_20261018/source_result_review.json",
+      "strategy_freeze_eligible": true,
+      "source_preflight_counts": {
+        "sessions": 944,
+        "regular_sessions": 936,
+        "half_days": 8,
+        "valid_endpoint_rows": 15060,
+        "native_float64_rows": 11302,
+        "event_days_no_increment": 28,
+        "regular_non_event_source_days": 908
+      },
+      "strategy_design_plan_sha256": "a548cbac5bf81787d9b14cc4491c711c903476489f17488b98e5e638bb9387b1",
+      "strategy_preflight_session_id": 45319,
+      "strategy_preflight_exit_code": 0,
+      "strategy_preflight": "research/stage1_close_rod_20261018/strategy_preflight.json",
+      "execution_authorization_scope": "ROD sign and precommitted policy/account return calculation only; no new training labels or fits",
+      "executor_session_id": 35358,
+      "executor_session_exit_code": 0,
+      "executor_job_running": false,
+      "implementation_commit": "33a68dc1",
+      "execution_approval": "research/stage1_close_rod_20261018/execution_approval.json",
+      "design_review": "research/stage1_close_rod_20261018/design_review.json",
+      "observed_completed": {
+        "paths_done": 6,
+        "native_done": 6,
+        "passive_done": 12
+      },
+      "recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
+      "archive_sha256": "430de3567f7a3ab29f41d07a064da4b3dc80e8c61f87812e58fe7910f102b1e3",
+      "fixed_result": "not_promoted_fixed_close_ROD_v1",
+      "independent_result_review_pending": false,
+      "failure_attribution_authorized_once": true,
+      "readback_verification": "research/stage1_close_rod_20261018/readback_verification.json",
+      "independent_evaluation": "research/stage1_close_rod_20261018/independent_evaluation.json",
+      "independent_evaluation_sha256": "04de05004d25d22f02b8562a712da79c8f85238668b381eeafb6c0cde7e17cbd",
+      "failure_attribution_completed": true,
+      "failure_attribution_session_id": 10854,
+      "failure_attribution_exit_code": 0
     }
   },
   "goal_contract_20261018": {
@@ -1880,9 +1958,9 @@
     "qualified_forward_days": 0,
     "reused_native_accounts_scope": "Cumulative comparison reuse events, not independent accounts or new market observations",
     "unique_reused_reference_accounts": 15,
-    "independent_result_reviews_pending": 1
+    "independent_result_reviews_pending": 0
   },
-  "next_experiment": "research/stage1_close_rod_20261018",
+  "next_experiment": "research/stage1_aux_projection_allocation_20261018",
   "external_discovery_20261018": {
     "user_explicitly_requested": true,
     "lead_policy": "Community/social discussion leads, then original paper/author code and official fields; no claims from screenshots or backtest marketing",
@@ -1944,7 +2022,7 @@
         "reason": "Daily fixedH5 complete internal samples have almost constant overlap; current primary model is not OOB-scored bagging. Not a substantive information repair."
       },
       "closing_half_hour": {
-        "status": "ROD_fixed_economic_failure_result_review_and_attribution",
+        "status": "fixed_close_ROD_v1_closed_not_promoted",
         "reviewer": "/root/intraday_novelty",
         "community": "https://www.quantconnect.com/forum/discussion/9030/strategy-library-addition-intraday-etf-momentum/",
         "primary": "https://academicweb.nd.edu/~zda/intramom.pdf",
@@ -2000,10 +2078,13 @@
         "claim_limit": "No training-trajectory, AdamW-step, economic or forward success claim. A resolvable operation permits separately reviewing a bounded design only.",
         "training_draft": "research/stage1_aux_projection_allocation_20261018/experiment_design_draft.json",
         "mechanical_result_review": "research/stage1_aux_projection_20261018/mechanical_result_review.json",
-        "mechanical_result_review_sha256": "27bb926e292da5a67dd0e2a5798e427a28873183289d0344007ba6568f1d5a74"
+        "mechanical_result_review_sha256": "27bb926e292da5a67dd0e2a5798e427a28873183289d0344007ba6568f1d5a74",
+        "implementation_authorized": true,
+        "implementation_scope": "Deterministic model/gradient adapter, one focused synthetic contract, and existing24 recorded-vector compatibility check only; no new gradient probe, fit or account.",
+        "implementation_executor": "/root/external_methods"
       },
       "month_end_settlement": {
-        "status": "mechanism_lead_absolute_deadline_unresolved",
+        "status": "needs_source_absolute_cash_deadline",
         "triage": "research/external_mechanism_review_20261018/month_end_settlement_triage.md",
         "new_external_evidence": "2026 author paper reports relative timing migration with settlement-cycle changes, but absolute offsets differ from original Dash for Cash payment example.",
         "candidate_input": "is_last_sale_day_for_month_end_settled_cash",
@@ -2015,7 +2096,12 @@
           "Service-specific historical CNS/bank settlement-calendar exceptions",
           "Unique falsifiable translation from cross-sectional selling pressure to three-asset allocation"
         ],
-        "priority": "ROD remains active; no new experiment execution authorized from this triage."
+        "priority": "ROD remains active; no new experiment execution authorized from this triage.",
+        "source_clarification": "research/external_mechanism_review_20261018/source_clarification.json",
+        "bounded_additional_official_documents": 4,
+        "inputs_generated": 0,
+        "additional_market_return_reads": 0,
+        "next_action": "Source-only branch parked after bounded clarification: require externally justified payment/buffer definition and qualified settlement-service calendar; do not select an offset using returns."
       }
     }
   },
@@ -2037,32 +2123,25 @@
     }
   ],
   "latest_fixed_result": {
-    "card": "research/stage1_finra_short_mix_allocation_20261018",
-    "recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
-    "decision": "not_promoted_fixed_FINRA_short_mix_v1",
-    "independent_verdict": "ACCEPT_NOT_PROMOTED_FIXED_EXPERIMENT",
-    "failed_scientific_gates": [
-      "net_relative_wealth_all_costs",
-      "sampled_drawdown_30pct",
-      "complete_annual_70pct",
-      "rolling126_70pct",
-      "paired_block_lower_positive"
+    "card": "research/stage1_close_rod_20261018",
+    "decision": "not_promoted_fixed_close_ROD_v1",
+    "independent_verdict": "ACCEPT_NEGATIVE_RESULT_CLOSE_FIXED_VERSION",
+    "review": "research/stage1_close_rod_20261018/independent_evaluation.json",
+    "C_return_pct_0_2_5bp": [
+      183.4789412214339,
+      138.85607929085734,
+      29.056788630115914
     ],
-    "C_net_return_pct_by_cost": {
-      "0": 101.02988057447362,
-      "2": 83.29146106635254,
-      "5": 48.014954841051136
-    },
-    "C_rolling126_positive_fraction_by_cost": {
-      "0": 0.29181929181929184,
-      "2": 0.16971916971916973,
-      "5": 0.06105006105006105
-    },
-    "complete_year_wins_by_cost": "0/2 in2024and2025 for each0/2/5bp",
-    "paired_CI_pass_count": 0,
-    "paired_CI_count": 15,
-    "bounded_attribution": "research/stage1_finra_short_mix_allocation_20261018/failure_attribution.json",
-    "route_closed": true,
-    "no_rescue": "No q sign/window/smoothing/background-feature/weight/threshold rescue on reused history."
+    "C_rolling126_positive_fraction": [
+      0.3247863247863248,
+      0.18803418803418803,
+      0.1916971916971917
+    ],
+    "complete_annual_SOXX_wins_each_cost": "0/2",
+    "positive_CI_lower_bounds": "0/12",
+    "new_fits": 0,
+    "new_native_accounts": 6,
+    "passive_reference_valuations": 12,
+    "next_action": "Close version; no sign/window/cap/exit/threshold rescue. Proceed to distinct auxiliary projection training design."
   }
 }
