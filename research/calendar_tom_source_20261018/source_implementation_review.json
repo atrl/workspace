@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/independent_evaluator",
+  "verdict": "APPROVE_SOURCE_IMPLEMENTATION",
+  "source_plan_sha256": "ef3e10ca812f7bf45bc8ed22a6f54df61ff11a03dbd1dd29b4872acff8c23dbb",
+  "source_implementation_identity_sha256": "a4ec71aaf7283eb42151f14feb55e0e271631df2bd937376450b38ed608bb47e",
+  "source_design_review_sha256": "f8f6f7d2b2e23ceca36cdc9cdbc9fd971f2cdeba2f2cfface5bdcff6ff607ae2",
+  "parser_specs_sha256": "05cb9602134355cccea7555f4a3b77769e6441d15f63f18585adf0863a452953",
+  "code_sha256": {
+    "src/workflow/calendar_tom_source.py": "20f6d82dd8972071442d440fa6f5273b6bba1091c73a189388b02ffa68620d4c",
+    "src/data/calendar_knowledge.py": "5d707c6dce67d82a0bb017ef841c86240c1c625ca477a07d0f852742b473fde2",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444",
+    "tests/test_calendar_knowledge.py": "56057963f2e3ccc8f15f164a160b1943e00db2c0875f8bc236b109bb1d5ea006",
+    "tests/test_calendar_tom_source.py": "6ec5ce7c63466edef6037ec3e507d3e04e421a11309779fff57dd941e20347c0"
+  },
+  "material_blocking_findings": [],
+  "resolved_finding": "The verified timing-source read originally occurred inside a writable R.start context, which the source helper rejects. The final workflow moves archive/hash verification, timestamp-object loading and date slicing before R.start; the helper protection and single-attempt ledger remain unchanged.",
+  "approved_scope": "One owner-approved cache-only source qualification using12 fixed raw caches,17 capture receipts, pinned D.calendar dates and whitelisted original timing metadata. No candidate features, returns, labels, fitting, accounts or new source HTTP.",
+  "checked_contracts": [
+    "All7 final code hashes, frozen source-file hashes and parser-spec identity match.",
+    "Pinned body datelines, venue anchors and dated table/event spans support parser assertions; an unparseable document contributes zero assertions plus a gap.",
+    "Monday-Friday annual-baseline inference is explicitly a conditional ordinary-schedule convention, not proof of realized opens or an exhaustive closure feed.",
+    "Venues and09:29/09:46 knowledge clocks remain separate; current-open first receipt stays unverified and neither clock becomes PIT.",
+    "Effective baseline/exception provenance and maximum known time propagate; missing2022 amendment raw evidence prevents an old annual table from qualifying2022.",
+    "Full946 outer timestamp rows and944 account mappings retain both tail rows; original3014 mature-label cohort is not rebuilt.",
+    "Future planned schedules remain metadata; the observed provider is read-only. Same-clock conflicts, missing years/venues and source-vintage gaps remain explicit.",
+    "Timezone-aware timestamps and text are retained exactly in metadata/Recorder, not float32 epochs. New Dataset config uses recursive dump_all with direct prepare readback.",
+    "One persistent attempt and matching plan/code/review plus separate owner GO are required; failure cannot silently retry."
+  ],
+  "review_method": "Static implementation and template review plus exact identity verification. Reused prior source design and two reported focused synthetic passes. Only the moved timing-read block was rechecked after repair; no synthetic rerun, real corpus build, native source run, source HTTP, market-value read or NAS restore.",
+  "real_corpus_parse_verified": false,
+  "source_qualification_achieved": false,
+  "source_execution_requires_owner_GO": true,
+  "feature_generation_approved": false,
+  "model_execution_approved": false,
+  "account_execution_approved": false,
+  "promotion_approved": false,
+  "next_action": "Owner may sign the matching source-only execution approval and run this exact workflow once. Preserve parser gaps and coverage results for independent source-result review; implementation approval is not source/PIT or model qualification."
+}

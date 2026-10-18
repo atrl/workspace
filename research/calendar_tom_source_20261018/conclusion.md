@@ -15,3 +15,5 @@
 补证入口：[source_document_extension_1.json](source_document_extension_1.json)（已完成独立receipt；SHA450bada2…29b1dc）。web发现查询与显式原文HTTP分别记账；是否补齐全部knowledge覆盖尚未确定，不按找到的文档数量宣称合格。当前草案仍未frozen，来源native/特征/模型/账户执行未授权。
 
 补证结果已绑定：exec39737 exit0，5个新URL中4份ICE年历原文成功、1份BusinessWire超时；累计17次显式HTTP、12份成功raw、4个SEC403和1个timeout，0retry/redirect。2014–2020及2023–2025相关普通年历覆盖得到补充，但不得据此宣称全历史资格；2011–2013、SEC原文、NYSE/Arca临时闭市及vintage仍有缺口。发现但未抓取的2021-12-27新年历不纳入raw corpus。所有来源native/ledger/feature/fit/account仍为0，后续只可在独评source-onlyplan+ownerGO后cache-only资格检查。
+
+实现阶段已完成：cache-only纯解析器、按NYSE/NYSE_ARCA/NASDAQ分域的双clock metadata、带有效exception文档的provenance、coverage/discrepancy与Qlib Dataset/Recorder流程已具备。两个集中synthetic各1 passed（36269、2866），仅合成fixture；原生metadata Dataset pickle→直接prepare保留精确时间。source_plan.json和7文件identity现已冻结待实现评审+owner GO，未解析真实corpus、未生成真实ledger或日期资格，也没有TOM特征/收益/模型/账户。

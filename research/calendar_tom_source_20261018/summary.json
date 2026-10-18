@@ -1,6 +1,6 @@
 {
   "experiment": "calendar_tom_source_20261018",
-  "status": "draft_source_only_not_executed",
+  "status": "implementation_ready_pending_review_and_source_GO",
   "decision": "needs_source_knowledge_review",
   "recorder_id": null,
   "source_documents_acquired": 0,
@@ -29,5 +29,10 @@
   "extension_1_actual_HTTP_requests": 5,
   "source_inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
   "extension_1_sha256": "450bada2a5fd10561b547a458b3b1715f7fd5e14e50c8213114b97369429b1dc",
-  "remaining_discovery_HTTP_budget": 0
+  "remaining_discovery_HTTP_budget": 0,
+  "source_plan_sha256": "ef3e10ca812f7bf45bc8ed22a6f54df61ff11a03dbd1dd29b4872acff8c23dbb",
+  "source_implementation_identity": "source_implementation_identity.json",
+  "source_qualification_executed": false,
+  "real_cache_parses": 0,
+  "metadata_rows_generated": 0
 }

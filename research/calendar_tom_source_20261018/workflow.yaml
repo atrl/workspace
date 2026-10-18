@@ -1,6 +1,8 @@
 experiment: calendar_tom_source_20261018
-entrypoint: calendar_tom_source_20261018.ipynb
-phase: source_design_draft
-source_execution_authorized: false
+entrypoint: src.workflow.calendar_tom_source.run
+phase: approved_once_cache_only_source_qualification
+source_execution_environment: CALENDAR_TOM_SOURCE_EXECUTE=1
+source_execution_authorized: true
 model_execution_authorized: false
 artifact_policy: slim_card_recorder_first
+source_execution_approval: source_execution_approval.json

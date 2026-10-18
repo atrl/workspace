@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "owner": "/root",
+  "approved": true,
+  "approved_at_utc": "2026-10-18T08:32:54.952900+00:00",
+  "source_plan_sha256": "ef3e10ca812f7bf45bc8ed22a6f54df61ff11a03dbd1dd29b4872acff8c23dbb",
+  "implementation_review_sha256": "7b9be4ed5a343bd9044303dee5f5744ebd7e46f15572dd5e3b577cf823764167",
+  "source_implementation_identity_sha256": "a4ec71aaf7283eb42151f14feb55e0e271631df2bd937376450b38ed608bb47e",
+  "code_sha256": {
+    "src/workflow/calendar_tom_source.py": "20f6d82dd8972071442d440fa6f5273b6bba1091c73a189388b02ffa68620d4c",
+    "src/data/calendar_knowledge.py": "5d707c6dce67d82a0bb017ef841c86240c1c625ca477a07d0f852742b473fde2",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444",
+    "tests/test_calendar_knowledge.py": "56057963f2e3ccc8f15f164a160b1943e00db2c0875f8bc236b109bb1d5ea006",
+    "tests/test_calendar_tom_source.py": "6ec5ce7c63466edef6037ec3e507d3e04e421a11309779fff57dd941e20347c0"
+  },
+  "scope": "Exactly one cache-only native source qualification; 12 pinned raw caches, 17 receipts, observed D.calendar and original inputs/timing metadata. Standard NAS evidence archive allowed.",
+  "new_source_HTTP": 0,
+  "candidate_feature_generation": false,
+  "return_or_label_reads": false,
+  "model_execution": false,
+  "account_execution": false,
+  "promotion": false,
+  "failure_policy": "Preserve failed attempt; no silent retry. Review any narrow repair before resuming."
+}

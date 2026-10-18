@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/external_mechanism_review_20261018",
-  "current_phase": "calendar_TOM_cache_only_source_implementation",
-  "next_action": "Finish cache-only calendar source implementation, review exact plan/code, then owner GO for one native knowledge/coverage run. Keep venue/clock/vintage/early-year gaps explicit. Do not generate the candidate feature or run a model at this stage.",
+  "current_experiment": "research/calendar_tom_source_20261018",
+  "current_phase": "calendar_TOM_once_cache_only_source_qualification_approved",
+  "next_action": "Run exact approved calendar source notebook once, then independently review per-venue and per-clock coverage and gaps. No candidate feature or model/account execution.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1639,7 +1639,13 @@
     "automatic_continuation_verified": true,
     "same_total_blocker_consecutive_goal_turns": 0,
     "current_blocker": null,
-    "note": "Automatic Goal continuation observed on 2026-10-18 after first implementation turn; existing source job independently verified live by PID59397 and executor polling original session79014. This observation is not a guarantee of future liveness."
+    "note": "Automatic Goal continuation observed on 2026-10-18 after first implementation turn; existing source job independently verified live by PID59397 and executor polling original session79014. This observation is not a guarantee of future liveness.",
+    "latest_continuation_previous_turn_classification": "progress",
+    "latest_continuation_evidence": [
+      "Final calendar source implementation corrected Recorder source-read lifecycle; independent implementation review APPROVE_SOURCE_IMPLEMENTATION SHA 7b9be4ed5a343bd9044303dee5f5744ebd7e46f15572dd5e3b577cf823764167"
+    ],
+    "same_total_blocker_consecutive_turns": 0,
+    "objective_achieved": false
   },
   "resume_note": "docs/three_asset_progress_restart_20261016.md",
   "restart_contract": "docs/etf_valuation_restart_20261016.md",
@@ -1715,16 +1721,16 @@
   ],
   "execution_observation_20261018": {
     "current_task": {
-      "card": "research/external_mechanism_review_20261018",
-      "phase": "calendar_TOM_cache_only_source_implementation",
+      "card": "research/calendar_tom_source_20261018",
+      "phase": "calendar_TOM_once_cache_only_source_qualification_approved",
       "executor": "/root/recent_evidence",
       "owner": "/root",
       "new_model_fits": 0,
       "new_accounts": 0,
       "new_feature_values": 0,
       "strategy_execution_authorized": false,
-      "scope": "Only determine whether an externally fixed exchange-calendar TOM proxy can be qualified separately from the unresolved actual institutional cash-deadline hypothesis. No SOXX window search, source bulk intake or training.",
-      "executor_lifecycle": "Source design reviewer completed and approved only source qualification design. Source executor explicitly resumed for implementation, no real source-native/feature/model/account run authorized yet.",
+      "scope": "Implement one frozen-source cache-only calendar knowledge ledger and native metadata coverage check; no candidate features, returns, fit or account. Historical clock/venue/vintage gaps remain explicit.",
+      "executor_lifecycle": "Implementation independently approved; owner GO signed. Executor requires explicit resume for single source run; no live run claimed yet.",
       "source_plan_executor": "/root/recent_evidence",
       "source_document_executor": "/root/external_methods",
       "planned_source_card": "research/calendar_tom_source_20261018",
@@ -1762,7 +1768,8 @@
       "source_design_review": "research/calendar_tom_source_20261018/source_design_review.json",
       "source_design_review_sha256": "f8f6f7d2b2e23ceca36cdc9cdbc9fd971f2cdeba2f2cfface5bdcff6ff607ae2",
       "source_implementation_authorization": "research/calendar_tom_source_20261018/implementation_authorization.json",
-      "source_implementation_authorized": true
+      "source_implementation_authorized": true,
+      "source_execution_approval": "research/calendar_tom_source_20261018/source_execution_approval.json"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",

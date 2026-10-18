@@ -1,0 +1,52 @@
+{
+  "source_plan_sha256": "ef3e10ca812f7bf45bc8ed22a6f54df61ff11a03dbd1dd29b4872acff8c23dbb",
+  "source_design_review_sha256": "f8f6f7d2b2e23ceca36cdc9cdbc9fd971f2cdeba2f2cfface5bdcff6ff607ae2",
+  "parser_specs_sha256": "05cb9602134355cccea7555f4a3b77769e6441d15f63f18585adf0863a452953",
+  "code_sha256": {
+    "src/workflow/calendar_tom_source.py": "20f6d82dd8972071442d440fa6f5273b6bba1091c73a189388b02ffa68620d4c",
+    "src/data/calendar_knowledge.py": "5d707c6dce67d82a0bb017ef841c86240c1c625ca477a07d0f852742b473fde2",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444",
+    "tests/test_calendar_knowledge.py": "56057963f2e3ccc8f15f164a160b1943e00db2c0875f8bc236b109bb1d5ea006",
+    "tests/test_calendar_tom_source.py": "6ec5ce7c63466edef6037ec3e507d3e04e421a11309779fff57dd941e20347c0"
+  },
+  "synthetic_checks": [
+    {
+      "file": "tests/test_calendar_knowledge.py",
+      "exec_session": 36269,
+      "exit_code": 0,
+      "passed": 1,
+      "scope": "synthetic parser only; no real corpus call"
+    },
+    {
+      "file": "tests/test_calendar_tom_source.py",
+      "exec_session": 2866,
+      "exit_code": 0,
+      "passed": 1,
+      "scope": "same synthetic clock fixture extended for effectiveexceptionprovenance, amendmentgap andnativeDataset exactpickle prepare"
+    }
+  ],
+  "subsequent_compile_only": "Finalmapping contiguity/archiveguard/failure-state metadata checks do not change the tested helper semantics.",
+  "actual_source_qualification_runs": 0,
+  "real_cache_parses": 0,
+  "candidate_features_generated": 0,
+  "new_HTTP": 0,
+  "returns_read": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "scope": "Implementation-only; finalsource execution needs matching independentimplementation review andownerGO.",
+  "lifecycle_fix": {
+    "prior_identity_sha256": "351bc76f19f405b3eee42a03408b5a4f862687cfce48d6ef3247c19ae14fb73b",
+    "prior_workflow_sha256": "65e8c00139719c01eba8163e4da9a61a70bb6506a512409a3beeb3038990d795",
+    "change": "Originaltiming archive/hash verification, read-only Recorder load anddate-onlyslice now precede thiscard R.start. Existing source attempt record andhelper strictactive-writer rejection remainunchanged.",
+    "plan_semantics_changed": false,
+    "verified_by": [
+      "py_compile",
+      "diffcheck",
+      "localindependent review pending"
+    ],
+    "unchanged_synthetic_helpers_not_rerun": true,
+    "real_source_native_or_corpus_execution": false
+  }
+}

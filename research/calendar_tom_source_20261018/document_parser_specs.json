@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "scope": "Pinned offline parser design only; no real corpus build_knowledge_ledger call or source assertions executed. Failed raw receipts intentionally have no parser specification.",
+  "real_corpus_parsing_executed": false,
+  "base_inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
+  "extension_1_sha256": "450bada2a5fd10561b547a458b3b1715f7fd5e14e50c8213114b97369429b1dc",
+  "document_specs": {
+    "ice_calendar_2015_2016": {
+      "parser_type": "ice_calendar",
+      "raw_sha256": "495bdfd53302303caeeff4360e93aa89b3b5aaf45a88436f55c7cbea3376d425",
+      "publication": {
+        "precision": "day",
+        "value": "2014-12-08",
+        "anchor": "Dec 08, 2014",
+        "occurrence": 0
+      },
+      "scope_anchor": "cash equity markets: New York Stock Exchange, NYSE MKT and NYSE Arca.",
+      "venues": [
+        "NYSE",
+        "NYSE_ARCA"
+      ],
+      "calendar": {
+        "table_index": 0,
+        "years": [
+          2015,
+          2016
+        ],
+        "full_years": [
+          2015,
+          2016
+        ]
+      }
+    },
+    "ice_calendar_2021_2023": {
+      "parser_type": "ice_calendar",
+      "raw_sha256": "8fbde46b98a6f518cc398d9e595aef5d5f8a2140dca6e04ba4b43e729241d8f9",
+      "publication": {
+        "precision": "day",
+        "value": "2020-12-28",
+        "anchor": "Dec 28, 2020",
+        "occurrence": 0
+      },
+      "scope_anchor": "cash equity markets: New York Stock Exchange, NYSE American, NYSE Arca Equities, NYSE Chicago, and NYSE National, as well as",
+      "venues": [
+        "NYSE",
+        "NYSE_ARCA"
+      ],
+      "calendar": {
+        "table_index": 0,
+        "years": [
+          2021,
+          2022,
+          2023
+        ],
+        "full_years": [
+          2021,
+          2022,
+          2023
+        ]
+      }
+    },
+    "ice_calendar_2026_2028": {
+      "parser_type": "ice_calendar",
+      "raw_sha256": "04d012cc212fd1de78801e1493dfb34b2c10f954f6b2a279ddc6a86485678db1",
+      "publication": {
+        "precision": "day",
+        "value": "2025-12-23",
+        "anchor": "Dec 23, 2025",
+        "occurrence": 0
+      },
+      "scope_anchor": "cash equity markets: New York Stock Exchange, NYSE American Equities, NYSE Arca Equities, NYSE National, and NYSE Texas, as well as",
+      "venues": [
+        "NYSE",
+        "NYSE_ARCA"
+      ],
+      "calendar": {
+        "table_index": 0,
+        "years": [
+          2026,
+          2027,
+          2028
+        ],
+        "full_years": [
+          2026,
+          2027,
+          2028
+        ]
+      }
+    },
+    "ice_calendar_2014_2015": {
+      "parser_type": "ice_calendar",
+      "raw_sha256": "a546ec299f34b2e2829b3a31eb21112bf8bff59668bc0ec5db3715f0de651c6c",
+      "publication": {
+        "precision": "day",
+        "value": "2013-12-20",
+        "anchor": "Dec 20, 2013",
+        "occurrence": 0
+      },
+      "scope_anchor": "cash equity markets: New York Stock Exchange, NYSE MKT and NYSE Arca.",
+      "venues": [
+        "NYSE",
+        "NYSE_ARCA"
+      ],
+      "calendar": {
+        "table_index": 0,
+        "years": [
+          2014,
+          2015
+        ],
+        "full_years": [
+          2014,
+          2015
+        ]
+      }
+    },
+    "ice_calendar_2017": {
+      "parser_type": "ice_calendar",
+      "raw_sha256": "ac92e0459d7cdfa3fcd55b7caec3ec00db9bd717e808a1c8923a4f2aa134e3c1",
+      "publication": {
+        "precision": "day",
+        "value": "2016-02-02",
+        "anchor": "Feb 02, 2016",
+        "occurrence": 0
+      },
+      "scope_anchor": "cash equity markets: New York Stock Exchange, NYSE MKT and NYSE Arca.",
+      "venues": [
+        "NYSE",
+        "NYSE_ARCA"
+      ],
+      "calendar": {
+        "table_index": 0,
+        "years": [
+          2016,
+          2017
+        ],
+        "full_years": [
+          2017
+        ]
+      }
+    },
+    "ice_calendar_2018_2020": {
+      "parser_type": "ice_calendar",
+      "raw_sha256": "23264461e846e63febb5c5752e03164023216334d6c71490c81a161572c41e2d",
+      "publication": {
+        "precision": "day",
+        "value": "2017-11-27",
+        "anchor": "Nov 27, 2017",
+        "occurrence": 0
+      },
+      "scope_anchor": "cash equity markets: New York Stock Exchange, NYSE American and NYSE Arca Equities, as well as",
+      "venues": [
+        "NYSE",
+        "NYSE_ARCA"
+      ],
+      "calendar": {
+        "table_index": 0,
+        "years": [
+          2018,
+          2019,
+          2020
+        ],
+        "full_years": [
+          2018,
+          2019,
+          2020
+        ]
+      }
+    },
+    "ice_calendar_2023_2025": {
+      "parser_type": "ice_calendar",
+      "raw_sha256": "eda26864925d91335c002fb553db28dd8d48851d0707e7d515ee06237e1c4d1c",
+      "publication": {
+        "precision": "day",
+        "value": "2022-12-21",
+        "anchor": "Dec 21, 2022",
+        "occurrence": 0
+      },
+      "scope_anchor": "cash equity markets: New York Stock Exchange, NYSE American Equities, NYSE Arca Equities, NYSE Chicago, and NYSE National, as well as",
+      "venues": [
+        "NYSE",
+        "NYSE_ARCA"
+      ],
+      "calendar": {
+        "table_index": 0,
+        "years": [
+          2023,
+          2024,
+          2025
+        ],
+        "full_years": [
+          2023,
+          2024,
+          2025
+        ]
+      }
+    },
+    "sandy_20121029_close": {
+      "parser_type": "nasdaq_notice",
+      "raw_sha256": "762fe20ed86cdd1590ddb6917d7c49a03023cbf2a6fc035076de9176b7644896",
+      "publication": {
+        "precision": "day",
+        "value": "2012-10-28",
+        "anchor": "Sunday, October 28, 2012",
+        "occurrence": 0
+      },
+      "scope_anchor": "NASDAQ OMX ® will close all U.S. equity and derivatives exchanges, as well as the NASDAQ /FINRA TRF on Monday, October 29 th , due to Hurricane Sandy.",
+      "venues": [
+        "NASDAQ"
+      ],
+      "events": [
+        {
+          "assertion_kind": "temporary_closed",
+          "date": "2012-10-29",
+          "anchor": "NASDAQ OMX ® will close all U.S. equity and derivatives exchanges, as well as the NASDAQ /FINRA TRF on Monday, October 29 th , due to Hurricane Sandy."
+        }
+      ]
+    },
+    "sandy_20121030_close": {
+      "parser_type": "nasdaq_notice",
+      "raw_sha256": "ead1a6ff157838c8dc230ad646ad1be3e55fa0b58119e102266c6cd51158e2a0",
+      "publication": {
+        "precision": "day",
+        "value": "2012-10-29",
+        "anchor": "Monday, October 29, 2012",
+        "occurrence": 0
+      },
+      "scope_anchor": "NASDAQ OMX ® will close all U.S. equity and derivatives exchanges, as well as the NASDAQ /FINRA TRF on Tuesday, October 30 th , due to Hurricane Sandy.",
+      "venues": [
+        "NASDAQ"
+      ],
+      "events": [
+        {
+          "assertion_kind": "temporary_closed",
+          "date": "2012-10-30",
+          "anchor": "NASDAQ OMX ® will close all U.S. equity and derivatives exchanges, as well as the NASDAQ /FINRA TRF on Tuesday, October 30 th , due to Hurricane Sandy."
+        }
+      ]
+    },
+    "sandy_20121031_reopen": {
+      "parser_type": "nasdaq_notice",
+      "raw_sha256": "d6fb3448d421f3b5bbabe9ec81e342f73ffb44e0b47b356706fd426e7c4bb512",
+      "publication": {
+        "precision": "day",
+        "value": "2012-10-30",
+        "anchor": "Tuesday, October 30, 2012",
+        "occurrence": 0
+      },
+      "scope_anchor": "NASDAQ OMX and all of its U.S. equity and derivatives exchanges will be open for trading on Wednesday, October 31, 2012.",
+      "venues": [
+        "NASDAQ"
+      ],
+      "events": [
+        {
+          "assertion_kind": "reopening",
+          "date": "2012-10-31",
+          "anchor": "NASDAQ OMX and all of its U.S. equity and derivatives exchanges will be open for trading on Wednesday, October 31, 2012."
+        }
+      ]
+    },
+    "bush_20181205_close": {
+      "parser_type": "nasdaq_notice",
+      "raw_sha256": "525435d8b706371ef22fd1596061b33afba8a22aedcbd68d15e40214e72dfce1",
+      "publication": {
+        "precision": "day",
+        "value": "2018-12-03",
+        "anchor": "Monday, December 3, 2018",
+        "occurrence": 0
+      },
+      "scope_anchor": "Nasdaq U.S. equities and options markets will be closed on Wednesday, December 5, 2018 , in observance of the passing of President George H.W. Bush.",
+      "venues": [
+        "NASDAQ"
+      ],
+      "events": [
+        {
+          "assertion_kind": "temporary_closed",
+          "date": "2018-12-05",
+          "anchor": "Nasdaq U.S. equities and options markets will be closed on Wednesday, December 5, 2018 , in observance of the passing of President George H.W. Bush."
+        }
+      ]
+    },
+    "carter_20250109_close": {
+      "parser_type": "nasdaq_notice",
+      "raw_sha256": "4528631b910bf9d1ed94c26543ff7cd9f0ebb3284003da88def7eb568ca4b424",
+      "publication": {
+        "precision": "day",
+        "value": "2024-12-31",
+        "anchor": "Tuesday, December 31, 2024",
+        "occurrence": 0
+      },
+      "scope_anchor": "Nasdaq U.S. equities and options markets will be closed on Thursday, January 9, 2025, in observance of the passing of President Jimmy Carter.",
+      "venues": [
+        "NASDAQ"
+      ],
+      "events": [
+        {
+          "assertion_kind": "temporary_closed",
+          "date": "2025-01-09",
+          "anchor": "Nasdaq U.S. equities and options markets will be closed on Thursday, January 9, 2025, in observance of the passing of President Jimmy Carter."
+        }
+      ]
+    }
+  }
+}
