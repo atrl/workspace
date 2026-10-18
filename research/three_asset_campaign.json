@@ -11,9 +11,9 @@
     "CASH"
   ],
   "production_changes_authorized": false,
-  "current_experiment": "research/stage1_domain_heads_20261018",
-  "current_phase": "first_fixed_experiment_closed_next_external_source_design_running",
-  "next_action": "Qualify public FINRA CNMS short-mark mix history and freeze its source/paired Stage1 experiment design before bulk intake or fitting. Quant-community sources guide mechanism discovery; original papers/code/official data govern claims. Keep signature-area mechanism as untested backup. No domain-head rescue.",
+  "current_experiment": "research/stage1_finra_short_mix_20261018",
+  "current_phase": "FINRA_source_design_approved_implementation_pending",
+  "next_action": "Finish the source-only collector and bounded-request checks, freeze code, issue explicit source go, and collect/qualify the2059-day official FINRA history within2242 total intake requests. Preserve revision/timing gaps and Decimal authority. No labels, model fits or accounts before a separate model design approval.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1434,6 +1434,23 @@
         "verified_artifacts": 94,
         "all_hashes_match": true
       }
+    },
+    {
+      "card": "research/stage1_finra_short_mix_20261018",
+      "kind": "public_CNMS_short_mark_source_qualification",
+      "status": "FINRA_source_design_approved_implementation_pending",
+      "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+      "maximum_HTTP_requests_including_four_retained_samples": 2242,
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "source_calendar_sessions": 2059,
+      "source_history": [
+        "2018-08-01",
+        "2026-10-09"
+      ],
+      "history_first_vintage_certified": false,
+      "main_goal_blocked": false,
+      "evaluation": "research/stage1_finra_short_mix_20261018/design_review.json"
     }
   ],
   "governance_review": {
@@ -1529,16 +1546,14 @@
     "interpretation": "New accounting identity; does not overwrite sealed proxy evidence or add independent market observations"
   },
   "research_focus": {
-    "user_steering": "Focus on SOXL/SOXX/CASH portfolio decisions; stop letting individual-stock research dominate",
+    "user_steering": "Continuous Goal: stable net SOXX excess; frozen Stage1 baseline with evidence-based module changes; actively search quant communities/social discussions then verify primary sources.",
     "new_individual_stock_fundamental_research": false,
-    "existing_NVDA_model_role": "frozen comparator only; no new NVDA interaction extension",
-    "next_mechanism_domain": "ETF valuation and earnings cycle for monthly SOXL/SOXX/CASH allocation with fixed short-term risk layer",
-    "preserve_stable_excess_objective": true,
-    "generic_market_direction": "Prefer reusable index/market data and cross-market training; review prior mixed-index experiments before a distinct new mechanism",
-    "valuation_priority": true,
-    "allocation_horizon": "monthly",
-    "secondary_source_branch": "SOXX/SOX historical weights and announced rebalance changes; source qualification only",
-    "constituent_fundamentals_role": "Basket aggregation only; no issuer-specific predictive branch"
+    "existing_NVDA_model_role": "frozen additional economic reference only",
+    "valuation_priority": false,
+    "allocation_horizon": "Frozen per experiment; no postresult horizon rescue",
+    "next_mechanism_domain": "ETF off-exchange short-mark composition from official free FINRA data",
+    "options_data_required": false,
+    "external_discovery_policy": "docs/research_failure_to_feature_sop.md"
   },
   "generic_training_precedent_correction": "research/family_balanced_direct_utility_training_20261015/precedent_correction.json",
   "prospective_supervision": {
@@ -1670,7 +1685,16 @@
     },
     "executor_session_exit_code": 0,
     "next_executor": "/root/recent_evidence",
-    "next_executor_task": "FINRA source qualification and bounded plan; no new model training yet"
+    "next_executor_task": "FINRA source-only design review and bounded intake implementation; bulk not yet started",
+    "completed_experiment_scope": "research/stage1_domain_heads_20261018",
+    "current_task": {
+      "card": "research/stage1_finra_short_mix_20261018",
+      "phase": "FINRA_source_design_approved_implementation_pending",
+      "bulk_started": false,
+      "model_training_started": false,
+      "account_replay_started": false,
+      "executor": "/root/recent_evidence"
+    }
   },
   "goal_contract_20261018": {
     "benchmark": "SOXX ETF",
@@ -1707,7 +1731,8 @@
       "primary_paper": "https://www.sec.gov/comments/s7-08-22/s70822-20149120-316297.pdf",
       "source_samples_observed": 4,
       "historical_full_coverage_verified": false,
-      "limitations": "Not short interest, net inventory, sentiment, or reproduction of operational-shorting measure requiring signed intraday imbalance and creation data"
+      "limitations": "Not short interest, net inventory, sentiment, or reproduction of operational-shorting measure requiring signed intraday imbalance and creation data",
+      "source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770"
     },
     "backup_candidate": {
       "mechanism": "Fixed second-order antisymmetric synchronous ETF path area",
@@ -1721,5 +1746,22 @@
       "issuer_NAV_basis": "Existing issuer workbook lacks contemporaneous market price; do not splice unrelated close to manufacture basis",
       "generic_SMA_volatility_HOLD_retuning": "Closed prior routes or no substantive new mechanism"
     }
-  }
+  },
+  "research_focus_history": [
+    {
+      "superseded_on": "2026-10-18",
+      "focus": {
+        "user_steering": "Focus on SOXL/SOXX/CASH portfolio decisions; stop letting individual-stock research dominate",
+        "new_individual_stock_fundamental_research": false,
+        "existing_NVDA_model_role": "frozen comparator only; no new NVDA interaction extension",
+        "next_mechanism_domain": "ETF valuation and earnings cycle for monthly SOXL/SOXX/CASH allocation with fixed short-term risk layer",
+        "preserve_stable_excess_objective": true,
+        "generic_market_direction": "Prefer reusable index/market data and cross-market training; review prior mixed-index experiments before a distinct new mechanism",
+        "valuation_priority": true,
+        "allocation_horizon": "monthly",
+        "secondary_source_branch": "SOXX/SOX historical weights and announced rebalance changes; source qualification only",
+        "constituent_fundamentals_role": "Basket aggregation only; no issuer-specific predictive branch"
+      }
+    }
+  ]
 }

@@ -1,0 +1,15 @@
+{
+  "source_card": "research/minute_value_weight_20261017",
+  "source_summary_sha256": "ce64ffa90a1dc75fb8c774996c9d5e09f4a9f5669a5c216085af9c9103fde2c8",
+  "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "calendar_file": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/calendars/day.txt",
+  "calendar_file_sha256": "7d45256ab69fbf3d156fa23823f5cc865225082debc559789ef87503a7248afb",
+  "api": "qlib.data.D.calendar",
+  "requested_start": "2018-08-01",
+  "requested_end": "2026-10-09",
+  "calendar_rows": 2059,
+  "first": "2018-08-01",
+  "last": "2026-10-09",
+  "request_calendar_sha256": "b769db730fac3531d8d1f5009868adee1a7948094dce1a29d8515fb2858febce",
+  "months": 99
+}

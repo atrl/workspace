@@ -1,0 +1,107 @@
+{
+  "stage": "four_raw_readiness_samples_retained_bulk_not_started",
+  "calendar_count": 2059,
+  "month_index_count": 99,
+  "budget_HTTP_max": 2242,
+  "probe_receipts_sha256": "3c9adb08ebe149fa26d13a48d8d43d46c04cc1959d257dee69d883266972cafc",
+  "probe_samples": [
+    {
+      "trade_date": "20180801",
+      "url": "https://cdn.finra.org/equity/regsho/daily/CNMSshvol20180801.txt",
+      "sha256": "7f207fe39c7c5c69cd6a92f15d8a6fd5990742279d26da6a9c27d165834dd79e",
+      "bytes": 249497,
+      "raw_temporary_path": "/tmp/stage1-finra-short-mix-source-probes-20261018/20180801.txt",
+      "received_at": "2026-10-18T03:59:12.343948+00:00",
+      "historical_original_vintage_certified": false
+    },
+    {
+      "trade_date": "20200316",
+      "url": "https://cdn.finra.org/equity/regsho/daily/CNMSshvol20200316.txt",
+      "sha256": "53c28a040247936c68a947ab6fa8a71298665806566882f50f0f75ca207af467",
+      "bytes": 291877,
+      "raw_temporary_path": "/tmp/stage1-finra-short-mix-source-probes-20261018/20200316.txt",
+      "received_at": "2026-10-18T03:59:13.971552+00:00",
+      "historical_original_vintage_certified": false
+    },
+    {
+      "trade_date": "20221230",
+      "url": "https://cdn.finra.org/equity/regsho/daily/CNMSshvol20221230.txt",
+      "sha256": "b41b8673b9b42db05759216baa66c4d509ec0919bc75de14c288f2e899e4504b",
+      "bytes": 336508,
+      "raw_temporary_path": "/tmp/stage1-finra-short-mix-source-probes-20261018/20221230.txt",
+      "received_at": "2026-10-18T03:59:15.693030+00:00",
+      "historical_original_vintage_certified": false
+    },
+    {
+      "trade_date": "20261009",
+      "url": "https://cdn.finra.org/equity/regsho/daily/CNMSshvol20261009.txt",
+      "sha256": "cf3d0bcc6c9e5de24c1d5c199e9e0b13c6600c829fd122dc4b09369e291b970b",
+      "bytes": 534897,
+      "raw_temporary_path": "/tmp/stage1-finra-short-mix-source-probes-20261018/20261009.txt",
+      "received_at": "2026-10-18T03:59:17.846918+00:00",
+      "historical_original_vintage_certified": false
+    }
+  ],
+  "bulk_source_qualified": false,
+  "current_temp_probes_not_yet_NAS_authority": true,
+  "source_semantics": "CNMSShortVolume includesexempt; offexchangepublictrades, notshortinterest/netinventory",
+  "references": [
+    {
+      "role": "official_collection_and_publication",
+      "title": "FINRA Daily Short Sale Volume Files",
+      "url": "https://www.finra.org/finra-data/browse-catalog/short-sale-volume-data/daily-short-sale-volume-files",
+      "used": "ConsolidatedNMS earliest2018-08-01; same-day publication no later18:00ET; original/Updated files separately listed; Chicago starts2018-09-10"
+    },
+    {
+      "role": "official_field_semantics",
+      "title": "FINRA Regulation SHO Daily Short Sale Volume File Layout",
+      "url": "https://www.finra.org/sites/default/files/2021-07/DailyShortSaleVolumeFileLayout.pdf",
+      "used": "ShortVolume includesShortExemptVolume; totalvolume is samefacilityscope, regularhours, publicdissemination; oldguide integer wording superseded by observed fractional regime"
+    },
+    {
+      "role": "official_interpretation_limits",
+      "title": "Understanding Short Sale Volume Data on FINRA website, Information Notice May10 2019",
+      "url": "https://www.finra.org/rules-guidance/notices/information-notice-051019",
+      "used": "Notshortinterest, notnetinventory, notexchange-consolidated; offsetting nondisseminated buying canbeabsent"
+    },
+    {
+      "role": "official_fractional_reporting",
+      "title": "FINRA Trade Reporting Notice January14 2026",
+      "url": "https://www.finra.org/sites/default/files/2026-01/Trade-Reporting-Notice-20260114.pdf",
+      "used": "NMS fractional reporting enhancement effective2026-02-23, up tosix decimals; preserve received decimals, donotfloor"
+    },
+    {
+      "role": "primary_mechanism_not_replication",
+      "title": "Operational Shorting and ETF Liquidity Provision",
+      "authors": [
+        "Richard B. Evans",
+        "Rabih Moussawi",
+        "Michael S. Pagano",
+        "John Sedunov"
+      ],
+      "version": "June2022 publicauthor manuscript; later2026JFE version",
+      "url": "https://www.sec.gov/comments/s7-08-22/s70822-20149120-316297.pdf",
+      "published_version_url": "https://www.sciencedirect.com/science/article/pii/S0304405X26000127",
+      "used": "Liquidity provision canproduce operationalshorting and short-termprice effects; authorsmeasure requires signedintraday imbalance andsharesoutstanding andmultimarketshortvolume; CNMS-only q is NOTtheir operationalshorting estimator; highliquiditymismatch findings neednottransfer toSOXX"
+    },
+    {
+      "role": "community_discovery_only",
+      "title": "What does short volume in FINRA RegSHO actually measure?",
+      "url": "https://quant.stackexchange.com/questions/60901/what-does-short-volume-in-finra-regsho-actually-measure",
+      "used": "Measurement discussion; officialFINRA definitions areauthority"
+    },
+    {
+      "role": "community_negative_boundary",
+      "title": "Estimating current short interest from daily short volume",
+      "url": "https://www.reddit.com/r/algotrading/comments/1vr1eak/estimating_current_short_interest_from_daily/",
+      "used": "Nowcasting shortinterest isnot returnforecasting or evidenceofSOXLalpha; do notcopy objective"
+    },
+    {
+      "role": "rejected_existing_source",
+      "title": "Existing SOXX issuerfund download workbook",
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/issuer_fund_download.bin",
+      "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+      "used": "Historical8928rows onlyAsOf/NAVperShare/ExDividends/SharesOutstanding. No contemporaneousmarketprice/premiumdiscount. Noexternalprice splice."
+    }
+  ]
+}

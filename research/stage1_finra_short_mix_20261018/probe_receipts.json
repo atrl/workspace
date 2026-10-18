@@ -1,0 +1,102 @@
+{
+  "scope": "Four explicit retained readiness samples; no bulk history or models. Earlier exploratory successful responses were not durably saved; these timestamps are current re-receipts, not original publication.",
+  "raw_temporary_root": "/tmp/stage1-finra-short-mix-source-probes-20261018",
+  "samples": [
+    {
+      "trade_date": "20180801",
+      "url": "https://cdn.finra.org/equity/regsho/daily/CNMSshvol20180801.txt",
+      "status": 200,
+      "request_started_at": "2026-10-18T03:59:10.436118+00:00",
+      "received_at": "2026-10-18T03:59:12.343948+00:00",
+      "response_headers": {
+        "Date": "Sun, 18 Oct 2026 03:59:11 GMT",
+        "Last-Modified": "Wed, 27 Oct 2021 14:34:10 GMT",
+        "Content-Type": "text/plain",
+        "ETag": "W/\"3165f6e990339e7181fb7b808f8986e4\""
+      },
+      "bytes": 249497,
+      "sha256": "7f207fe39c7c5c69cd6a92f15d8a6fd5990742279d26da6a9c27d165834dd79e",
+      "raw_path": "/tmp/stage1-finra-short-mix-source-probes-20261018/20180801.txt",
+      "selected_rows": [
+        "20180801|SOXL|36859|0|170731|Q,N",
+        "20180801|SOXX|398507|0|432709|Q,N"
+      ],
+      "header": "Date|Symbol|ShortVolume|ShortExemptVolume|TotalVolume|Market",
+      "trailer": "7676",
+      "historical_first_receipt": null,
+      "historical_original_vintage_certified": false
+    },
+    {
+      "trade_date": "20200316",
+      "url": "https://cdn.finra.org/equity/regsho/daily/CNMSshvol20200316.txt",
+      "status": 200,
+      "request_started_at": "2026-10-18T03:59:12.347986+00:00",
+      "received_at": "2026-10-18T03:59:13.971552+00:00",
+      "response_headers": {
+        "Date": "Sun, 18 Oct 2026 03:59:13 GMT",
+        "Last-Modified": "Fri, 21 May 2021 06:02:38 GMT",
+        "Content-Type": "text/plain",
+        "ETag": "W/\"10215ee1a8805814f3f5d2e8664311fd\""
+      },
+      "bytes": 291877,
+      "sha256": "53c28a040247936c68a947ab6fa8a71298665806566882f50f0f75ca207af467",
+      "raw_path": "/tmp/stage1-finra-short-mix-source-probes-20261018/20200316.txt",
+      "selected_rows": [
+        "20200316|SOXL|840022|71242|1414795|B,Q,N",
+        "20200316|SOXX|66782|10200|270390|B,Q,N"
+      ],
+      "header": "Date|Symbol|ShortVolume|ShortExemptVolume|TotalVolume|Market",
+      "trailer": "8205",
+      "historical_first_receipt": null,
+      "historical_original_vintage_certified": false
+    },
+    {
+      "trade_date": "20221230",
+      "url": "https://cdn.finra.org/equity/regsho/daily/CNMSshvol20221230.txt",
+      "status": 200,
+      "request_started_at": "2026-10-18T03:59:13.978477+00:00",
+      "received_at": "2026-10-18T03:59:15.693030+00:00",
+      "response_headers": {
+        "Date": "Sun, 18 Oct 2026 03:59:15 GMT",
+        "Last-Modified": "Fri, 30 Dec 2022 22:16:09 GMT",
+        "Content-Type": "text/plain",
+        "ETag": "W/\"69ec9fdbb6c1769077ca2027252242cd\""
+      },
+      "bytes": 336508,
+      "sha256": "b41b8673b9b42db05759216baa66c4d509ec0919bc75de14c288f2e899e4504b",
+      "raw_path": "/tmp/stage1-finra-short-mix-source-probes-20261018/20221230.txt",
+      "selected_rows": [
+        "20221230|SOXL|10769744|240375|28839493|B,Q,N",
+        "20221230|SOXX|162087|513|219282|B,Q,N"
+      ],
+      "header": "Date|Symbol|ShortVolume|ShortExemptVolume|TotalVolume|Market",
+      "trailer": "10009",
+      "historical_first_receipt": null,
+      "historical_original_vintage_certified": false
+    },
+    {
+      "trade_date": "20261009",
+      "url": "https://cdn.finra.org/equity/regsho/daily/CNMSshvol20261009.txt",
+      "status": 200,
+      "request_started_at": "2026-10-18T03:59:15.700161+00:00",
+      "received_at": "2026-10-18T03:59:17.846918+00:00",
+      "response_headers": {
+        "Date": "Sun, 18 Oct 2026 03:59:16 GMT",
+        "Last-Modified": "Fri, 09 Oct 2026 21:17:53 GMT",
+        "Content-Type": "text/plain",
+        "ETag": "W/\"a3b261d3ad166a480f900cfc7b180aa6\""
+      },
+      "bytes": 534897,
+      "sha256": "cf3d0bcc6c9e5de24c1d5c199e9e0b13c6600c829fd122dc4b09369e291b970b",
+      "raw_path": "/tmp/stage1-finra-short-mix-source-probes-20261018/20261009.txt",
+      "selected_rows": [
+        "20261009|SOXL|16217885.634043|2390308.327559|25932779.397585|B,Q,N",
+        "20261009|SOXX|938590.159269|1906|1852475.189320|B,Q,N"
+      ],
+      "header": "Date|Symbol|ShortVolume|ShortExemptVolume|TotalVolume|Market",
+      "trailer": "12278",
+      "historical_first_receipt": null,
+      "historical_original_vintage_certified": false
+    }
+  ]
+}

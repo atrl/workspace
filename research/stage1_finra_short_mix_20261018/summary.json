@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_finra_short_mix_20261018",
+  "stage": "source_intake_pending_review",
+  "decision": "no_model_or_portfolio_run",
+  "new_fits": 0,
+  "new_accounts": 0,
+  "retained_raw_probe_files": 4,
+  "bulk_requests_started": 0,
+  "source_calendar_rows": 2059,
+  "historical_PIT_qualified": false,
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "rawdailybytes/*",
+      "rawmonthlyindex/*",
+      "rawdocs/*",
+      "HTTPattemptreceipts",
+      "versionindex",
+      "all-symbolrawfileinventory",
+      "normalizedSOXL_SOXXsourcepanel",
+      "QlibsourceDataset"
+    ]
+  }
+}

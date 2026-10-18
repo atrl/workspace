@@ -1,0 +1,229 @@
+{
+  "experiment": "stage1_finra_short_mix_20261018",
+  "schema_version": 1,
+  "stage": "source_intake_only_before_model_design",
+  "frozen_before_bulk_history": true,
+  "scope": "Collectandqualify only officialFINRA CNMS history andmetadata. No marketoutcomes, traininglabels, model fits, predictions, backtests, orproductionchanges. Future modelproposal isseparateunapproveddraft.",
+  "mechanism_under_consideration": "One prospective q=SOXL ShortVolume/TotalVolume minusSOXX ShortVolume/TotalVolume. Newoff-exchangetrademarkcomposition observation, notshare-creationflow, sentiment, netshortinventory oroperationalshortingreplication.",
+  "calendar": {
+    "source_card": "research/minute_value_weight_20261017",
+    "source_summary_sha256": "ce64ffa90a1dc75fb8c774996c9d5e09f4a9f5669a5c216085af9c9103fde2c8",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "calendar_file": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/calendars/day.txt",
+    "calendar_file_sha256": "7d45256ab69fbf3d156fa23823f5cc865225082debc559789ef87503a7248afb",
+    "api": "qlib.data.D.calendar",
+    "requested_start": "2018-08-01",
+    "requested_end": "2026-10-09",
+    "calendar_rows": 2059,
+    "first": "2018-08-01",
+    "last": "2026-10-09",
+    "request_calendar_sha256": "b769db730fac3531d8d1f5009868adee1a7948094dce1a29d8515fb2858febce",
+    "months": 99
+  },
+  "calendar_text_sha256": "b769db730fac3531d8d1f5009868adee1a7948094dce1a29d8515fb2858febce",
+  "symbols": [
+    "SOXL",
+    "SOXX"
+  ],
+  "facilities": "CNMS consolidatedTRF/ADF listedsecurities only; neveraddindividualfacilityfilesontopofCNMS; noORF or exchange-executedvolume claim.",
+  "requests": {
+    "daily_base_url": "https://cdn.finra.org/equity/regsho/daily/",
+    "daily_filename": "CNMSshvolYYYYMMDD.txt",
+    "daily_date_source": "source_calendar.txt via frozenQlibD.calendar",
+    "daily_unique_count": 2059,
+    "retained_probe_dates": [
+      "20180801",
+      "20200316",
+      "20221230",
+      "20261009"
+    ],
+    "retained_probe_count": 4,
+    "remaining_daily_first_requests": 2055,
+    "month_index_url": "https://www.finra.org/finra-data/browse-catalog/short-sale-volume-data/daily-short-sale-volume-files",
+    "month_index_query_fields": {
+      "custom_month[month]": "integer1..12",
+      "custom_year[year]": "YYYY"
+    },
+    "month_first": "2018-08",
+    "month_last": "2026-10",
+    "month_index_count": 99,
+    "official_document_urls": [
+      "https://www.finra.org/finra-data/browse-catalog/short-sale-volume-data/daily-short-sale-volume-files",
+      "https://www.finra.org/sites/default/files/2021-07/DailyShortSaleVolumeFileLayout.pdf",
+      "https://www.finra.org/rules-guidance/notices/information-notice-051019",
+      "https://www.finra.org/sites/default/files/2026-01/Trade-Reporting-Notice-20260114.pdf"
+    ],
+    "official_document_count": 4,
+    "maximum_extra_updated_files": 64,
+    "updated_rule": "Only explicitUpdatedlinks foundin99officialmonthindexes withrequestedtrade_date andofficialcdn path; sortdate+URL, retainbothversions; noreturn-basedchoice; if>64 stopbeforeextra beyondcap andreport needs_source_amendment.",
+    "maximum_network_retries": 16,
+    "retry_rule": "Atmostone retryperfailedURL and16total, onlytimeout/connectionerror/429/5xx; fixedboundedbackoff, noUArotation/mirrors/authbypass; permanent403/404 retainedasfailure.",
+    "maximum_total_HTTP_requests": 2242,
+    "maximum_remaining_HTTP_requests_after_retained_samples": 2238,
+    "budget_arithmetic": "2059 daily(includes4retainedprobes)+99monthindexes+4docs+64possibleUpdated+16failed-requestretries=2242",
+    "single_pass": "Successfulsavedhash-verifiedURL reusedonresume, neverre-requesttochooseversion. EachrequestattemptdurablyloggedbeforeHTTP. Initialpre-planexploratoryreadinessrequests recordedaspriorwork, nothiddenintobulkbudget.",
+    "workers": 3,
+    "minimum_global_request_gap_seconds": 0.25,
+    "timeout_seconds": 30,
+    "headers": {
+      "User-Agent": "SOXL research source qualification",
+      "Accept": "text/plain,text/html,application/pdf"
+    },
+    "bulk_requires": "Independentdesignreview matchingplanSHA plusowner explicit sourcego"
+  },
+  "parsing_contract": {
+    "header": [
+      "Date",
+      "Symbol",
+      "ShortVolume",
+      "ShortExemptVolume",
+      "TotalVolume",
+      "Market"
+    ],
+    "trade_date": "Eachdata rowmustmatchrequestedYYYYMMDD; no timezone reinterpretation oftrade-date strings",
+    "decimal_units": "PreserverawDecimalsharequantities inall3numericcolumns; nointegercoercion/notsplit-adjustedfinancialholdings",
+    "invariants": [
+      "0<=ShortExemptVolume<=ShortVolume<=TotalVolume",
+      "UniqueDate/SymbolperCNMSfile",
+      "footerrecordcount equalsalldata-rowcount, excludingheader/footer",
+      "rawheaders/bodylength/hash/HTTPreceiptretained",
+      "BothETFrowsstrictlymatchedbyofficialsymbol; missingrowremainsunknown, neverzero",
+      "TotalVolume>0 requiredforratio; zeroorabsent isnot0shortshare",
+      "Marketcodesretained; codecombination describesreportedvenues, notproofall-exchangecoverage"
+    ],
+    "no_double_count": "ShortVolumealreadyincludesshort-exempt; numeratorisShortVolumealone",
+    "regimes": [
+      {
+        "date": "2018-08-01",
+        "event": "consolidatedNMSstart"
+      },
+      {
+        "date": "2018-09-10",
+        "event": "ChicagoTRFstart; publicsourcecoverageregime"
+      },
+      {
+        "date": "2026-02-23",
+        "event": "fractionalNMStradereportingregime"
+      }
+    ],
+    "invalid_rows": "Retainrawbytesandreason; neverdropbadrows silently or infermissingaszero"
+  },
+  "vintage_and_clocks": {
+    "trade_date": "Economictransactiondate",
+    "published_schedule": "Officialdailyfile no later18:00America/New_York ontrade_date; schedule isnotobservedfirstreceipt",
+    "current_received_at": "ActualUTCrequeststart/body-complete timestamps foreachcurrentfetch",
+    "historical_received_at": null,
+    "historical_first_publication_time": null,
+    "response_LastModified": "Transportmetadataonly, neveroriginalpublicationproof",
+    "revision_status": "Recordoriginal/Updatedlabels fromofficialmonthHTML, everyURL/hash andobservedlinkcontext; ifambiguity remains markunknown/current_historical_snapshot. Do notoverwriteoriginalbytes.",
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false,
+    "future_model_assumption": "Atmostnextnative-session09:29 historicalresearchavailability assumption afterprior-daypublicationupperbound; clearlynotfirst-vintage/live-receiptqualification. No useofsame-dayclosingfilefordecisionbefore18:00. Anyextradaylagmustbefrozenbeforemodelrun, notchosenonresults.",
+    "future_corrections": "Currentrevisionstatus is metadata, NOT a historicallyknownpredictor oroutcome-conditionedrowfilter; genuineforwardrequiresactualreceived_at<=decision.",
+    "canonical_preference": "Useexplicitnon-Updatedoriginallinkwhenretained; otherwisepreserveavailablehistoricalsnapshotwithunknown/updated-onlyvintage label. No claimthatnominalpublicationrule certifiescurrentbytesasoriginal."
+  },
+  "source_qualification_gates": {
+    "all_requested_files_accounted_for": 2059,
+    "all_daily_HTTP_and_schema_valid_for_full_history": true,
+    "no_duplicate_dates_or_symbols": true,
+    "source_ready_per_ETF": "Explicit finitepositiveTotalVolume andallnumericinvariants; record coverage byyear/asset, countmissing separately",
+    "bulk_complete_not_predictive_success": true,
+    "promotion_claims_forbidden": true,
+    "stop_before_models": "Sourceintake cannotlaunchfits evenifallsourcegatespass; nextmodelplan reviewedseparately",
+    "fail_state": "needs_data forunresolvedsourceholes/schema/publicationconditions, notgoalcompletion"
+  },
+  "artifacts": {
+    "temporary_download_root": "/tmp/stage1-finra-short-mix-source-intake-20261018",
+    "retained_probe_root": "/tmp/stage1-finra-short-mix-source-probes-20261018",
+    "durable_raw_authority": "NAS immutable content-addressed source archive/Recorder; noGitrawpayloads orlookupcache",
+    "recorder_only": [
+      "rawdailybytes/*",
+      "rawmonthlyindex/*",
+      "rawdocs/*",
+      "HTTPattemptreceipts",
+      "versionindex",
+      "all-symbolrawfileinventory",
+      "normalizedSOXL_SOXXsourcepanel",
+      "QlibsourceDataset"
+    ],
+    "slim_card": [
+      "notebook",
+      "plan.json",
+      "source_inventory.json",
+      "source_calendar_binding.json",
+      "source_calendar.txt",
+      "coverage_by_year.csv",
+      "summary.json",
+      "conclusion.md",
+      "nas_binding.json",
+      "verification_manifest.json"
+    ],
+    "native_source": "Qlibsourceprovider/Calendar/D.features readback ofexactsourcefields only, nofinancialreturnlabels; do notmutateexistingdailyproviders/indexes"
+  },
+  "budget": {
+    "new_model_fits": 0,
+    "return_label_calculations": 0,
+    "new_portfolio_accounts": 0,
+    "historical_source_HTTP_max": 2242,
+    "new_data_scopes": 1
+  },
+  "references": [
+    {
+      "role": "official_collection_and_publication",
+      "title": "FINRA Daily Short Sale Volume Files",
+      "url": "https://www.finra.org/finra-data/browse-catalog/short-sale-volume-data/daily-short-sale-volume-files",
+      "used": "ConsolidatedNMS earliest2018-08-01; same-day publication no later18:00ET; original/Updated files separately listed; Chicago starts2018-09-10"
+    },
+    {
+      "role": "official_field_semantics",
+      "title": "FINRA Regulation SHO Daily Short Sale Volume File Layout",
+      "url": "https://www.finra.org/sites/default/files/2021-07/DailyShortSaleVolumeFileLayout.pdf",
+      "used": "ShortVolume includesShortExemptVolume; totalvolume is samefacilityscope, regularhours, publicdissemination; oldguide integer wording superseded by observed fractional regime"
+    },
+    {
+      "role": "official_interpretation_limits",
+      "title": "Understanding Short Sale Volume Data on FINRA website, Information Notice May10 2019",
+      "url": "https://www.finra.org/rules-guidance/notices/information-notice-051019",
+      "used": "Notshortinterest, notnetinventory, notexchange-consolidated; offsetting nondisseminated buying canbeabsent"
+    },
+    {
+      "role": "official_fractional_reporting",
+      "title": "FINRA Trade Reporting Notice January14 2026",
+      "url": "https://www.finra.org/sites/default/files/2026-01/Trade-Reporting-Notice-20260114.pdf",
+      "used": "NMS fractional reporting enhancement effective2026-02-23, up tosix decimals; preserve received decimals, donotfloor"
+    },
+    {
+      "role": "primary_mechanism_not_replication",
+      "title": "Operational Shorting and ETF Liquidity Provision",
+      "authors": [
+        "Richard B. Evans",
+        "Rabih Moussawi",
+        "Michael S. Pagano",
+        "John Sedunov"
+      ],
+      "version": "June2022 publicauthor manuscript; later2026JFE version",
+      "url": "https://www.sec.gov/comments/s7-08-22/s70822-20149120-316297.pdf",
+      "published_version_url": "https://www.sciencedirect.com/science/article/pii/S0304405X26000127",
+      "used": "Liquidity provision canproduce operationalshorting and short-termprice effects; authorsmeasure requires signedintraday imbalance andsharesoutstanding andmultimarketshortvolume; CNMS-only q is NOTtheir operationalshorting estimator; highliquiditymismatch findings neednottransfer toSOXX"
+    },
+    {
+      "role": "community_discovery_only",
+      "title": "What does short volume in FINRA RegSHO actually measure?",
+      "url": "https://quant.stackexchange.com/questions/60901/what-does-short-volume-in-finra-regsho-actually-measure",
+      "used": "Measurement discussion; officialFINRA definitions areauthority"
+    },
+    {
+      "role": "community_negative_boundary",
+      "title": "Estimating current short interest from daily short volume",
+      "url": "https://www.reddit.com/r/algotrading/comments/1vr1eak/estimating_current_short_interest_from_daily/",
+      "used": "Nowcasting shortinterest isnot returnforecasting or evidenceofSOXLalpha; do notcopy objective"
+    },
+    {
+      "role": "rejected_existing_source",
+      "title": "Existing SOXX issuerfund download workbook",
+      "path": "data/raw/external/etf_corporate_actions_20261009_v1/soxx/issuer_fund_download.bin",
+      "sha256": "1932baf722d6170cee585fe9cc918ee60ca70c591d0ff40ee7010e3020f4e1af",
+      "used": "Historical8928rows onlyAsOf/NAVperShare/ExDividends/SharesOutstanding. No contemporaneousmarketprice/premiumdiscount. Noexternalprice splice."
+    }
+  ]
+}

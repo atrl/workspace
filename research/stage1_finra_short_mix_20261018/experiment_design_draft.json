@@ -1,0 +1,31 @@
+{
+  "status": "unapproved_model_draft_not_authorization",
+  "parent_source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+  "candidate_numeric": "q_d = ShortVolume_SOXL_d / TotalVolume_SOXL_d - ShortVolume_SOXX_d / TotalVolume_SOXX_d",
+  "fixed_formula": "Noinverse/smoothing/window/signsearch; useonlynextsessionafterdeclaredprior-dayavailability",
+  "receiver": "Original full nonlinearshared-headMinutePitAllocator; noDomainHeadAllocator/tangenthead/detach",
+  "B_C_shared_context": [
+    "finra_both_ready",
+    "chicago_regime",
+    "fractional_regime",
+    "log1p_SOXL_CNMS_TotalVolume",
+    "log1p_SOXX_CNMS_TotalVolume"
+  ],
+  "B": "samecontext andsameinputdimension; qstandardizedcoordinate alwayszero",
+  "C": "samecontext; onlyqcoordinatehasobservedvalues",
+  "missing": "2011+fulldailytrainingpreserved; unavailableFINRArawfieldremainsNaN; standardizeonmatureknowntrain only, thenneutral0+sameavailabilityflag. No inventedpre2018data.",
+  "training": "Original3014main/20741aux subjecttopreflight,2023cutoff,seeds71/172/273,300finalepochs,originalloss andhyperparameters; all6fits displayed",
+  "economics": "All0/2/5fullStage1accounts precommitted regardlessMSE/classification. Originalb472 independentcoststates,09:47/10:32 rawresearchclock; noT/commoncap/ALL3.",
+  "references": [
+    "f696+b472A_research_replay",
+    "currentoriginalshared_B_fromstage1_domain_heads",
+    "newB_FINRAcontext",
+    "SOXX",
+    "strong9097",
+    "additional27baa_descriptive"
+  ],
+  "account_budget": "6newB/Cnativeaccounts+15strictlymatchedreusedreferenceaccounts=21totalcomparisons; refsreuseonlyexactdates/prices/fees/initialcash/CA/policyidentity.",
+  "gates": "BeatA,currentB,newBcontext,SOXX,strong9097 allcostfullwealth andpairedCI; SOXX annual/rolling70percent,close/allpointDD<=30,CVaRno-worse; fullminute/independentforward separate andnotinherited. Freezefinalbootstrap/periodcontractbeforefit.",
+  "closure": "Ifnegative closeonlyqv1; do notflipq, addqwindows orrestoreclosedflows/headvariants.",
+  "mechanism_limit": "Operationalshortingpaper usesmoredata andliquidity-mismatchidentification; CNMSq isonlynewobservableproxy, notcausalquantity orpaperreplication."
+}
