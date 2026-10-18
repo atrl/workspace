@@ -27,5 +27,60 @@
   "account_budget": "6newB/Cnativeaccounts+15strictlymatchedreusedreferenceaccounts=21totalcomparisons; refsreuseonlyexactdates/prices/fees/initialcash/CA/policyidentity.",
   "gates": "BeatA,currentB,newBcontext,SOXX,strong9097 allcostfullwealth andpairedCI; SOXX annual/rolling70percent,close/allpointDD<=30,CVaRno-worse; fullminute/independentforward separate andnotinherited. Freezefinalbootstrap/periodcontractbeforefit.",
   "closure": "Ifnegative closeonlyqv1; do notflipq, addqwindows orrestoreclosedflows/headvariants.",
-  "mechanism_limit": "Operationalshortingpaper usesmoredata andliquidity-mismatchidentification; CNMSq isonlynewobservableproxy, notcausalquantity orpaperreplication."
+  "mechanism_limit": "Operationalshortingpaper usesmoredata andliquidity-mismatchidentification; CNMSq isonlynewobservableproxy, notcausalquantity orpaperreplication.",
+  "intended_model_card": "research/stage1_finra_short_mix_allocation_20261018",
+  "design_detail_status": "pre-source-result draft; requires separate frozen model plan, source-result review and execution approval",
+  "feature_delivery": {
+    "receiver": "Six extra primary allocation-head coordinates; original 39 primary inputs and 16 common inputs remain unchanged. No FINRA input to common encoder, auxiliary examples or classifier heads.",
+    "feature_order": [
+      "finra_both_ready",
+      "chicago_regime",
+      "fractional_regime",
+      "log1p_SOXL_CNMS_TotalVolume",
+      "log1p_SOXX_CNMS_TotalVolume",
+      "finra_short_mix"
+    ],
+    "binary": "Use exact 0/1 flags, no learned standardization. Readiness is 1 only when both source rows satisfy frozen parser invariants and positive TotalVolume.",
+    "regimes": "Source-date indicators: chicago >=2018-09-10, fractional >=2026-02-23. Both arms receive the same indicators. Fractional flag is identically zero before the 2023 training cutoff; its new weight cannot learn a fractional-regime response from training.",
+    "source_date": "For primary signal_date d use CNMS trade_date d only, never the next trade date. No forward fill across missing source dates.",
+    "conditional_availability": "Assume captured historical daily values were available at 18:00 America/New_York on source date d. Require this assumed timestamp strictly before the existing next-session 09:29 decision_at; trading account keeps frozen 09:45 known / 09:47 fill / 10:32 recovery clock.",
+    "honesty": "The current-byte assumption is conditional historical research only; unknown revisions and actual first receipt remain unqualified. No PIT, forward or promotion claim follows from assumed timestamps.",
+    "auxiliary": "Keep all 20741 original auxiliary rows and original COMMON_FEATURES, labels, weights, sampling and 0.05 coefficient. Do not attach SOXL/SOXX q to constituent rows.",
+    "full_calendar": "Keep all original primary rows, including pre2018 missing source. Canonical unknown numeric values remain NaN; transformed unknown numeric coordinates are zero, with explicit shared readiness flag.",
+    "scaling": "Fit means and sample standard deviations for two log volumes and q on finite ready mature primary train rows only. Use original saved minimum_observations and clip standardized values to [-8,8]. Freeze scalers; never use prediction-period values. B and C fit identical q scaler; B then overwrites only transformed q coordinate with zero.",
+    "paired_initialization": "Use identical saved model spec and seed, original initialization followed by six zero-weight added columns. Exact original tensors and paired initial outputs must match; equal parameter count is not equal effective information or capacity.",
+    "qlib": "Read source through verified Recorder DatasetH.prepare, construct derived feature store, and read with D.features before joined DatasetH; retain source date, assumed availability, exact-decimal lineage and quantization evidence."
+  },
+  "statistical_draft": {
+    "required_comparators": [
+      "A_active_research_replay",
+      "B_shared",
+      "B_FINRAcontext",
+      "SOXX",
+      "strong9097"
+    ],
+    "additional_descriptive": "additional27baa; always reported and cannot replace preregistered strong9097",
+    "candidate": "C_FINRA_short_mix equal-weight ensemble of all three fixed seeds",
+    "mean_block": 63,
+    "resamples": 10000,
+    "seed": 20261014,
+    "alpha": 0.0016666666666666668,
+    "statistic": "One-sided paired stationary-bootstrap mean daily log excess; each of 15 lower bounds must exceed zero.",
+    "multiplicity": "0.025/(1 candidate * 5 required comparators * 3 costs). Prior search multiplicity unknown; reused market history remains reused.",
+    "stability": "SOXX-only complete-year and every 126-session rolling positive excess fraction >=0.7, >=2 complete years. Report partial years separately.",
+    "scope": "Same 944 account sessions, signal 2023-01-03, first trade 2023-01-04, terminal 2026-10-09 09:47 ET; no outcome-based subsetting."
+  },
+  "training_frozen_detail": {
+    "train_end": "2022-12-30",
+    "cutoff": "2023-01-01T00:00:00-05:00",
+    "primary_eligibility": "Original label_available_at strictly before cutoff, source index <=train_end and all original TARGETS finite; expected3014. Source availability never filters primary train rows.",
+    "prediction_tail": "Retain original prediction rows with NaT decision_at as unexecutable pending clock; do not invent future sessions or include in944accounts.",
+    "bootstrap_precision": "Fixed10000 draws at alpha0.025/15 has about16.67 expected lower-tail draws; retain Monte Carlo precision limitation, do not rerun seeds until pass."
+  },
+  "pending_freeze": [
+    "Exact completed FINRA source Recorder/NAS archive/manifest and field hashes; canonical current-byte snapshot selection; raw coverage, supplemental official semantics and revision unknown statuses kept separate.",
+    "Explicit numeric projection: raw Decimal-derived source ratios and totals -> verified source Recorder DatasetH -> feature formula -> derived float32 Qlib store -> D.features -> primary DatasetH. q and both log volumes use both-ready mask; revision status never enters features.",
+    "Pin exact6 A/B shared native objects from6e227278b7a64eafbcf34b965e16d2b9 and9 SOXX/9097/27baa objects from55b4223a73d44fee89c86608edf8f58c, fee/point/calendar/schedule/initialcash identities and1e-8relativewealth tolerance.",
+    "New thin analysis adapter must explicitly handle21accounts,5requiredcomparators,C_FINRA candidate. Do not mutate closed C_domain analysis evidence."
+  ]
 }

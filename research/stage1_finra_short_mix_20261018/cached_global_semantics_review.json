@@ -1,0 +1,70 @@
+{
+  "role": "independent_evaluator",
+  "reviewer": "/root/independent_evaluator",
+  "experiment": "stage1_finra_short_mix_20261018",
+  "review": "cached_invalid_filter_HTML_global_semantics",
+  "verdict": "ACCEPT_SUPPLEMENTARY_GLOBAL_OFFICIAL_EXPLANATION",
+  "new_HTTP_requests": 0,
+  "files_written_during_source_review": 0,
+  "receipt_write_scope": "This JSON receipt only, written afterward at the research owner's explicit request; no source plan, source gates or source results changed.",
+  "model_fits": 0,
+  "return_labels": 0,
+  "portfolio_accounts": 0,
+  "method": "Verified the immutable 126-attempt snapshot SHA256 before reading its receipts; verified each cached HTML object's SHA256 and byte count before parsing; inspected body paragraphs, selected filter values and CNMS file links without contacting any host.",
+  "snapshot_sha256": "fb37c6c51871d2216a7ce89fdbcf3fab0a103a4b8cc06a04d61120ec23732690",
+  "minimal_evidence_anchor": {
+    "attempt_id": 4,
+    "request_url": "https://www.finra.org/finra-data/browse-catalog/short-sale-volume-data/daily-short-sale-volume-files?custom_month%5Bmonth%5D=8&custom_year%5Byear%5D=2018",
+    "received_at": "2026-10-18T04:22:22.306412+00:00",
+    "content_type": "text/html; charset=UTF-8",
+    "title": "Daily Short Sale Volume Files | FINRA.org",
+    "bytes": 87649,
+    "sha256": "b07a8942db95833a56cac0624309b6af6f65719f79d7c4ec93ce0220b8046901",
+    "raw_object": "objects/b07a8942db95833a56cac0624309b6af6f65719f79d7c4ec93ce0220b8046901.bin",
+    "publication_paragraph_raw_byte_offset": 55832
+  },
+  "all_six_cached_HTML_hashes_verified": [
+    "b07a8942db95833a56cac0624309b6af6f65719f79d7c4ec93ce0220b8046901",
+    "64c1e79cde6a7f23ff52120543ac7e95688fd74ccfc4c2318c7804f87d500e84",
+    "69abc210e72b6c84e7aa8e076e31ef68747faae99717a25ba2be7d9ca55f7acc",
+    "bd3356cb276aebe719dc1c68046970f304f981c415afabd11412190bfc04f391",
+    "5598e886cdd3df98bba696d416dc8cf5ce2e83f009618600af663695ff13c878",
+    "6fff88abcb01ac9ec83653d8c1774832636aeb4e0e2eebeae7508b629e9f2bd5"
+  ],
+  "global_text_equivalence": {
+    "identical_across_six_responses": true,
+    "paragraph_count": 3,
+    "normalization": "For the three HTML p elements beginning The Daily Short Sale Volume Files provide; FINRA posts the Daily Short Sale Volume Files; Given the low volume: get_text with space separator, collapse whitespace, join paragraphs with newline, encode UTF8.",
+    "normalized_text_sha256": "d94dd998523880cf0a8e5f87466eff23061dea800e6462c2e2a698294c145b70",
+    "source_count_interpretation": "Repeated renderings of one official document, not six independent sources or market observations."
+  },
+  "supported_global_claims": [
+    "The files aggregate publicly disseminated short-sale trading volume during normal market hours.",
+    "The consolidated TRF/ADF file combines exchange-listed securities reported to those facilities; it is not exchange-wide consolidated trading volume.",
+    "The page states a same-trade-date publication deadline of 18:00 ET.",
+    "Later updates may occur and the page distinguishes original and Updated files.",
+    "The stated CNMS start is 2018-08-01 and the Chicago facility-file start is 2018-09-10."
+  ],
+  "unsupported_by_this_HTML_alone": [
+    "Exact ShortVolume versus ShortExemptVolume inclusion semantics; the separate cached formatting PDF is the evidence for that field definition.",
+    "Historical actual publication timestamps, original vintages, actual first receipt or the historical implementation of the current publication rule.",
+    "Any requested month's file coverage, absence of Updated revisions, or historical availability of today's retained daily bytes."
+  ],
+  "month_index_findings": {
+    "all_six_have_no_valid_selected_year": true,
+    "CNMS_daily_file_links_each": 0,
+    "valid_month_revision_indexes_added": 0,
+    "revision_metadata_status": "unknown"
+  },
+  "qualification_boundaries": {
+    "global_publication_and_scope_semantics_supplement_supported": true,
+    "unfiltered_daily_page_HTTP429_receipt_unchanged": true,
+    "original_all_document_HTTP_success_gate_overridden": false,
+    "original_source_plan_or_gates_changed": false,
+    "month_revision_coverage_qualified": false,
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false,
+    "model_plan_approved": false
+  },
+  "recommended_recording": "Keep this as a separate cached-global-semantics supplemental receipt pointing to the existing raw-object hashes and original attempts. Preserve failed URL/month-index statuses unchanged. It may inform a separately reviewed conditional-history model design after raw coverage qualification, but is not itself model authorization or evidence of predictive value."
+}
