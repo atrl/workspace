@@ -1715,14 +1715,36 @@
       "latest_source_checkpoint": {
         "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
         "stage": "collecting_source_only",
-        "daily_processed": 650,
-        "daily_valid": 650,
-        "HTTP_attempts": 773,
+        "daily_processed": 1200,
+        "daily_valid": 1200,
+        "HTTP_attempts": 1323,
         "HTTP_hard_limit": 2242,
         "model_fits": 0,
         "accounts": 0
       },
-      "liveness_observation": "Original nbconvert PID59397 independently observed; executor polled same session79014. Source-only, no fit/account."
+      "liveness_observation": "Original nbconvert PID59397 independently observed; executor polled same session79014. Source-only, no fit/account.",
+      "deterministic_model_preparation": {
+        "model_input_adapter": "src/model/finra_allocator.py",
+        "source_feature_adapter": "src/data/finra_allocation_features.py",
+        "account_analysis_adapter": "src/analysis/finra_allocation.py",
+        "feature_tests": "3 passed; synthetic DatasetH, no real outcome labels",
+        "analysis_tests": "3 passed; original18 and new21 account comparison contracts",
+        "formal_model_design_approved": false,
+        "new_model_fits": 0,
+        "new_accounts": 0,
+        "pending": "Completed source identity and qualification, separate frozen model plan, implementation preflight, independent design review and owner execution approval",
+        "independent_implementation_review": {
+          "reviewer": "/root/independent_evaluator",
+          "verdict": "NO_MATERIAL_CONTRACT_ISSUE_FOUND",
+          "source_sha256": {
+            "src/data/finra_allocation_features.py": "03513e6ff77db2776936d6438114d46982bc01a218480eb420710a8875870a19",
+            "src/model/finra_allocator.py": "88eaf33745bcafd481b5fec226ee7f771bc6058828fffb0787517e5421fd1388",
+            "src/analysis/finra_allocation.py": "8ec4e365969bd8ffc7f657ddd578894af4040462d5a65e49527e804c4510196e",
+            "src/analysis/stage1_domain_heads.py": "b786650912e4645bd7d5bdc3ecc842f05a4f5ea9d45ffd2b6bc7158395b4fb39"
+          },
+          "scope": "Deterministic feature/model and21-account analysis contracts only; no formal model execution, source completion or promotion approval. Workflow still must bind verified source/account identities and enforce944-executable-date scope."
+        }
+      }
     }
   },
   "goal_contract_20261018": {
@@ -1810,7 +1832,7 @@
         "reason": "Daily fixedH5 complete internal samples have almost constant overlap; current primary model is not OOB-scored bagging. Not a substantive information repair."
       },
       "closing_half_hour": {
-        "status": "novelty_and_source_contract_review_running_no_labels",
+        "status": "distinct_narrow_mechanism_pending_source_endpoint_and_event_contract_then_design_review",
         "reviewer": "/root/intraday_novelty",
         "community": "https://www.quantconnect.com/forum/discussion/9030/strategy-library-addition-intraday-etf-momentum/",
         "primary": "https://academicweb.nd.edu/~zda/intramom.pdf",
@@ -1819,7 +1841,15 @@
           "research/intraday_early_momentum_20261010",
           "research/intraday_full_day_expansion_20261012"
         ],
-        "constraint": "No reopening early10:30 momentum or multi-clock overnight-target rules by window search; distinct economic holding interval and executable price/fee contract must be established first."
+        "constraint": "No reopening early10:30 momentum or multi-clock overnight-target rules by window search; distinct economic holding interval and executable price/fee contract must be established first.",
+        "novelty": "Old early route uses opening-to10:30 and10:30-to-close; old multicycle15:30 signal targets15:45-to-next09:45 including overnight. Fixed last-half-hour continuation with same-day incremental exit was not isolated. No window/sign/threshold rescue.",
+        "candidate": "SOXX event-adjusted previous-close-to15:30 return sign; ifpositive, temporary existing risk-permitted Stage1 recovery target, delayed15:32 entry and precommitted15:59increment removal. Else unchanged target. No financing/short/expandedrisk.",
+        "timing": "Right-edge bars:15:30close known under +60second assumption;15:32 fill uses15:33 baropen,15:59 exit uses16:00baropen.27minutes executable interval, not exact30minute replication or guaranteedMOC.",
+        "source": "semis_minute_none_20261012_v1 manifest18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3; existing corefullminute files verified by reviewer",
+        "source_limits": "Normal390minute sessions only forincrement;210minute sessions remain completebaseline accounts. Previous halfday close uses13:00.2020-03-16 SOXX anomaly quarantined. Crossday split/dividend eventavailability and endpoints require separate preflight; missing meansnoincrement,neverdropday.",
+        "controls": "OriginalStage1, sameclock/opportunity-set recovery withoutROD, SOXX,strongreference. All threecost accounts retain owncash/quantity/state and chargeentry+exit. Increment cannotborrow fullminute/forwardqualification.",
+        "next_action": "Only after currentFINRA experiment: separately freeze one reduced-form design and necessary endpoint/eventsource checks. No newlabels/fits/accounts yet.",
+        "primary_limit": "Futures longshort and broadasset evidence is notSOXL validation; priceROD doesnotmeasuregamma orNGE; oldmarketdates remainreused."
       }
     }
   },
