@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "status": "implementation_only_pending_code_review_and_no_fit_GO",
+  "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+  "files": {
+    "model": "src/model/day_night_supervision_allocator.py",
+    "workflow": "src/workflow/day_night_supervision.py",
+    "single_synthetic": "tests/test_day_night_supervision_allocator.py"
+  },
+  "entrypoints": {
+    "preflight": "src.workflow.day_night_supervision.prepare",
+    "fit_and_accounts": "src.workflow.day_night_supervision.run"
+  },
+  "actual_data_authority": "No source objects or real tensors are loaded during implementation. Preflight and fit each require separate matching independent review and owner approval.",
+  "model_interface": {
+    "class": "DayNightSupervisionAllocator(target_name,target_scaler,**original_args)",
+    "scaler_fit": "fit_supervision_scalers(raw_S_Z) returns stats[S/Z], normalized_targets and hashes; call once after strict PG full-index alignment in authorized preflight.",
+    "scaler_use": "Every model gets the same frozen per-target stats. fit verifies original full MultiIndex/raw/normalized hashes and transforms only; no per-seed mean/std fitting.",
+    "initialization": "initialization_contract(original,B,C) uses fixed synthetic inputs only, with 973 original params, 982 paired params, restored original RNG and last9zero params; no actual real-X forward/gradient probe in preflight.",
+    "fit_copy": "Original preparation/scalers/eligibility/targets/sampling/L_original order copied narrowly in new model, original source untouched. Append0.02*halfMSE only after original combinedloss, same one primary encoder state through temporary hook removed immediately; aux cannot overwrite. One globalclip2 and original AdamW step; no private-gradient protection claim.",
+    "inference": "Inherited predict requires only feature/common. Regression head ignored; no S/Z or labels in inference, no training graph cache serialized.",
+    "evidence": "training_trace scalar rows and actual optimizer_state_dict/completed_step_count retained. Failure keeps actual available state, never reconstructs old optimizer or silently retries.",
+    "inactive_feature_mask_metadata": "Preserve the exact original nonempty feature_masks dictionary even though extra_features=[]; it remains inactive and adds zero input slots. Constructor metadata comparisons stay exact."
+  },
+  "source_alignment": {
+    "artifact": "labels/fixed_H5_components_S_Z",
+    "actual_dataset_shape": [
+      3014,
+      19
+    ],
+    "column_groups": {
+      "original": 8,
+      "fixed_day_night_label": 11
+    },
+    "label_columns_selected": [
+      "S",
+      "Z"
+    ],
+    "source_instrument": "SOXL_SOXX",
+    "primary_instrument": "SOXL_SOXX_CASH",
+    "method": "Require exact unique3014 ordered datetime values, expected single instruments, original8fields and accepted original digest/maturity. Then assign raw S/Z by position after proof, preserving original PG MultiIndex and85cols exactly; no join/drop/fill/index rename.",
+    "output": "Primary3014x87 with supervision.S/Z rawfloat64; auxiliary20741x20 unchanged. Scaler index hash binds the PG full MultiIndex, not a separately flattened axis."
+  },
+  "native_API_chain": [
+    "qlib.init(original init-context provider,region=us,kernels=1)",
+    "load_verified_recorder_objects outside active writable R.start, exact manifests/archive/artifact SHA",
+    "DatasetH.prepare(col_set=DataHandler.CS_RAW) preserves full grouped columns and original default data_key",
+    "DataHandlerLP.from_df -> DatasetH(train only), config(dump_all=True,recursive=True)",
+    "Recorder.save_objects and direct Recorder.load_object -> prepare roundtrip; never setup_data",
+    "with R.start for preflight/training; global scope exits before source reads and qlib/native reinitialization; same explicit Recorder low-level start_run/end_run for evaluation/accounts"
+  ],
+  "train_residency": "Inspect actual handler _data/_infer/_learn and any residual loader frames for original and augmented primary plus auxiliary, with exact date/shape/cohort; accepted source-C caches must exactly equal its3014x19 prepared frame. No full-period object then crop.",
+  "phase_separation": "Preflight saves the paired native Dataset, unchanged auxiliary, one scaling package, source/model/tensor audits and constructor checks. All6 successful final300-epoch models/spec/scalers/targetstats plus SHA are durable before any evaluation object is loaded.",
+  "fit_order": [
+    [
+      "B_day_night_total",
+      71
+    ],
+    [
+      "C_day_night_contrast",
+      71
+    ],
+    [
+      "B_day_night_total",
+      172
+    ],
+    [
+      "C_day_night_contrast",
+      172
+    ],
+    [
+      "B_day_night_total",
+      273
+    ],
+    [
+      "C_day_night_contrast",
+      273
+    ]
+  ],
+  "reference_reuse": "Only after six-model barrier, exact15old books with raw_points/schedule/tariff/capital/date/grid/native audit equality; mismatch stops, no fallback replay.",
+  "price_budget_semantics": "0 new market source HTTP or feature/price source reads and0 evaluation S/Z construction. Frozen raw_points/market/guard are decoded after the six-model barrier under the account authorization; derived Qlib execution-provider/native-backtest price reads are real account evidence and are explicitly disclosed, not counted as nonexistent reads.",
+  "derived_execution_provider": "data/qlib/stage1_day_night_supervision_20261018_execution",
+  "provider_adapter": "Pass a local copy {**prepared, plan:{**frozenplan, provider_output:derived_execution_provider}} to unchanged stage1_domain_heads._provider. Never alter frozen plan or original providers. Save provider config and exact native manifest in Recorder.",
+  "analysis_calendar": "After barrier use exact946 signal-date axis from pinned original evaluation Dataset, including the original leading and terminal dates; require944 account trade_dates exactly equal the interior interval. No weekday reconstruction, TOM calendar or new source-price calendar. Full2024/25 and partial2023/26 remain explicit.",
+  "analysis": "analyze_paired_accounts(candidate_family=C_day_night_contrast,required_comparators=SOXX/B_day_night_total/B_shared/A_active_research_replay/strong9097,expected_families=all7). All21books/15CI fixed; old additional27baa descriptive. Original native authority months are summarized with existing paired_metrics/_period_coverage into Recorder only, no extra replay/bootstrap.",
+  "phase_budgets": {
+    "preflight": {
+      "training_only_no_fit": true,
+      "fits": 0,
+      "policy_paths": 0,
+      "native_accounts": 0,
+      "new_market_HTTP": 0
+    },
+    "fit": {
+      "fits": 6,
+      "policy_paths": 6,
+      "native_accounts": 6,
+      "reused_native_accounts": 15,
+      "paired_intervals": 15,
+      "new_market_HTTP": 0
+    }
+  },
+  "review_schema": {
+    "preflight": "preflight_design_review.json verdict APPROVE_NO_FIT_PREFLIGHT with plan_sha256/code_sha256",
+    "fit": "design_review.json verdict APPROVE_DESIGN with plan_sha256/code_sha256 plus preflight_manifest_sha256/preflight_summary_sha256"
+  },
+  "owner_approval_schema": {
+    "preflight": "preflight_execution_approval.json",
+    "fit": "execution_approval.json",
+    "required": [
+      "approved=true",
+      "plan_sha256",
+      "code_sha256",
+      "review_sha256",
+      "implementation_identity_sha256",
+      "scope exactly matching phase_budgets"
+    ],
+    "fit_extra": [
+      "preflight_manifest_sha256",
+      "preflight_summary_sha256"
+    ]
+  },
+  "environment": {
+    "preflight": "DAY_NIGHT_SUPERVISION_PREFLIGHT=1; DAY_NIGHT_SUPERVISION_EXECUTE unset",
+    "fit": "DAY_NIGHT_SUPERVISION_EXECUTE=1; DAY_NIGHT_SUPERVISION_PREFLIGHT unset",
+    "shared": "MLFLOW_ALLOW_FILE_STORE=true; absolute PYTHONPATH=/Users/rziiiii/dev/workspace"
+  },
+  "closed_routes": "No TOM/FINRA input, PG projection, domain-head change, old candidate weights, controller parameter or late ROD permission is inherited. S/Z loss is the only paired treatment difference.",
+  "authorization_now": {
+    "real_preflight": false,
+    "fit": false,
+    "account": false,
+    "source_reads": false
+  },
+  "identity_freeze": "Final code/scaler/contract/notebook identity binds actual unique synthetic receipt. No broad repeat tests, source replay or cold NAS read in implementation."
+}

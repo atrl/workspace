@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scope": "one concentrated synthetic contract only; no real model.fit/optimizer.step/source object access",
+  "attempts": [
+    {
+      "exec_session_id": 19539,
+      "exit_code": 1,
+      "reason": "synthetic reference retained BusinessDay frequency while MultiIndex-derived reference had None; fixture corrected only, exact alignment not weakened"
+    },
+    {
+      "exec_session_id": 52338,
+      "exit_code": 0,
+      "passed": 1,
+      "seconds": 1.88,
+      "model_sha256": "b0a93717a14d85e13108799dcb6c41c9b01ce60c62bbe0f2d0e013f165c51129",
+      "test_sha256": "b9eee53b6329d8168e521a526a42eaef8f5e9635249ab71ee8cdf5b4088fea6a"
+    },
+    {
+      "exec_session_id": 55347,
+      "exit_code": 0,
+      "passed": 1,
+      "seconds": 2.13,
+      "reason": "necessary inactive original feature_masks metadata compatibility regression",
+      "model_sha256": "db3f410c8a610b6f7168029d7da0d0cd4a58b288c340858e95eb7a43743a44a8",
+      "test_sha256": "ff5458db871ac9a30f28961fe778d3c9af2c2f219fe154a7facbc19a6384136d"
+    }
+  ],
+  "final_model_sha256": "db3f410c8a610b6f7168029d7da0d0cd4a58b288c340858e95eb7a43743a44a8",
+  "final_test_sha256": "ff5458db871ac9a30f28961fe778d3c9af2c2f219fe154a7facbc19a6384136d",
+  "tested_append_supervision_source_sha256": "ea6d71d8d3e7c9441b02f310fcf3b2d9f5485b6a2b13b295562a4e1b8efa9e44",
+  "contracts": [
+    "original973 and paired982 initialization/parameter order/RNG/zero head",
+    "inactive original mask metadata preserved without extra inputs",
+    "one target scale fit and frozen hash validation; zero/nonfinite std failclosed",
+    "no-label inference and target-feature isolation",
+    "same primary state captured once; auxiliary cannot overwrite; exception removes hook",
+    "first-step direct new-loss encoder gradient zero; norm>2 global clip also scales private gradients",
+    "actual source-C19-column groups; exact instruments/dates and PG85-to87 preservation; missing/reordered date and badinstrument rejected"
+  ],
+  "real_source_objects_loaded": 0,
+  "real_gradient_probes": 0,
+  "real_fit_or_optimizer_step": 0,
+  "new_accounts": 0,
+  "later_workflow_changes": "No change to tested append_supervision function. Static workflow corrections bind original idle mask metadata, isolated derived execution provider and postbarrier price-access semantics; compile/AST/diff checks only, no separate test suite."
+}

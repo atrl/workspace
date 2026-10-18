@@ -1,0 +1,35 @@
+{
+  "experiment": "stage1_day_night_supervision_20261018",
+  "status": "implementation_complete_pending_no_fit_review_and_GO",
+  "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+  "decision": "no_real_preflight_or_experiment_executed",
+  "source_objects_deserialized": 0,
+  "real_gradient_probes": 0,
+  "optimizer_steps": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_market_source_queries": 0,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "promotion_approved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "training datasets and original/new target tensors",
+      "target scaling constants and per-fit traces",
+      "six model/checkpoint/optimizer states",
+      "all-model and ensemble predictions",
+      "raw policy traces and cost-specificbooks",
+      "native reports/positions/riskanalysis",
+      "paired bootstrap samples and fullwindowtables"
+    ]
+  },
+  "synthetic": {
+    "final_session_id": 55347,
+    "exit_code": 0,
+    "passed": 1,
+    "seconds": 2.13,
+    "receipt": "synthetic_receipt.json"
+  }
+}

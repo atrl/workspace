@@ -1,0 +1,38 @@
+experiment: stage1_day_night_supervision_20261018
+plan: plan.json
+entrypoints:
+  preflight: src.workflow.day_night_supervision.prepare
+  fit_and_accounts: src.workflow.day_night_supervision.run
+provider_uri: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+provider_role: Qlib initialization context only; inputs are sealed native train-only Datasets
+execution_provider_uri: data/qlib/stage1_day_night_supervision_20261018_execution
+region: us
+segments:
+  train: [2011-01-03, 2022-12-30]
+  predict: [2023-01-03, 2026-10-09]
+recorder_uri: research/stage1_day_night_supervision_20261018/qlib_recorder
+preflight_recorder_uri: research/stage1_day_night_supervision_20261018/preflight/qlib_recorder
+model_selection:
+  candidate: C_day_night_contrast
+  control: B_day_night_total
+  seeds: [71, 172, 273]
+  epochs: 300
+  checkpoint: fixed_final_epoch
+  ensemble: all_three_seeds_equal_weight
+  training_MSE_gate: false
+  classification_gate: false
+  alternatives_or_refits: 0
+execution_budget:
+  fits: 6
+  ensemble_families: 2
+  policy_paths: 6
+  new_native_accounts: 6
+  reused_native_accounts: 15
+  total_comparison_accounts: 21
+  paired_CI: 15
+  new_market_source_requests: 0
+  evaluation_S_Z_labels: 0
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: [datasets, target_scaling, model_states, optimizer_states, training_traces, predictions, native_reports, positions, rolling_windows, monthly_metrics, paired_bootstrap]

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "verdict": "APPROVE_NO_FIT_PREFLIGHT",
+  "reviewer": "independent_evaluator",
+  "reviewed_at_utc": "2026-10-18T11:54:34.322168+00:00",
+  "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+  "implementation_identity_sha256": "7f76c5450fb8961a947c70a56339044af7268eb7ef68417c6168d79145eb8f53",
+  "code_sha256": {
+    "src/workflow/day_night_supervision.py": "7ce5a6b36459c2390ad0db86df3eb8518f479210335a2d1faeddc19b0412fd9c",
+    "src/model/day_night_supervision_allocator.py": "db3f410c8a610b6f7168029d7da0d0cd4a58b288c340858e95eb7a43743a44a8",
+    "tests/test_day_night_supervision_allocator.py": "ff5458db871ac9a30f28961fe778d3c9af2c2f219fe154a7facbc19a6384136d",
+    "src/model/minute_pit_allocator.py": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+    "src/workflow/preopen_tom_allocation.py": "961319cedf1c6a35aacb5ea945717360984fdb953ad741d80c9eed890d6495c1",
+    "src/workflow/minute_pit_allocator.py": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/workflow/aux_projection_preflight.py": "d56464ba1dfa9d98f308dad39812b24c5dcf140a2056a66f79b111c9e3417868",
+    "src/workflow/stage1_domain_heads.py": "5b4305c0c1311a52e0a7de87257bd2de03b5be34084ee7709859a9defe88b04a",
+    "src/backtest/stage1_domain_heads_raw.py": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "src/analysis/stage1_domain_heads.py": "b786650912e4645bd7d5bdc3ecc842f05a4f5ea9d45ffd2b6bc7158395b4fb39",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444",
+    "src/data/day_night_labels.py": "7e4198f091731aa1274f441ec755b3df46be95a38f2b812031a965d918cadaac"
+  },
+  "implementation_contract_sha256": "6854864210f31ac53e394b14c6068a0ee4cc337385ef3bd1249ba0186c742fb0",
+  "synthetic_receipt_sha256": "38fc5fb4c23d6e519cee4ddeed6a3eb74aadba46cd0f2dfd8d19a7af4117092b",
+  "prior_design_review_sha256": "bba926ee04e1db3385b264c1a2d7f23c11e194286bd5aaa1203abe80b4fd23ca",
+  "accepted_label_source_review_sha256": "6dd0b5422c05f6d5945cce761db276db27d9bf60e33cc948528c58a80699c039",
+  "scope": "Final static implementation review for one separately authorized training-only no-fit preflight; reuse unchanged source, design and numerical reviews.",
+  "material_findings": [],
+  "resolved_interfaces": [
+    "Preserve original nonempty inactive feature_masks exactly while extra_features remains empty; no input slots or mathematics added.",
+    "Read the source-C fixed_day_night_label column group; adapt provider_output only in a local derived execution-provider configuration."
+  ],
+  "accepted_contracts": [
+    "Require exact ordered 3014 dates, each expected single instrument and original eight target/clock fields and digest before assigning S/Z; preserve PG index and all original 85 columns, with no join/drop/fill.",
+    "Fit S/Z training-only scalers once after alignment; per-seed fits validate frozen raw/index/normalized hashes. Preserve original tensors, target semantics, sampling and inactive metadata.",
+    "Append the nine-parameter zero-initialized head after original RNG initialization; capture the same primary encoder state with a temporary removed hook. Append 0.02 half-MSE after unchanged original combined-loss order, then one backward/global clip/AdamW. No optimizer or private-gradient protection claim.",
+    "Train-only full resident objects and native CS_RAW roundtrip are checked during preflight. Six successful fixed models must be durably hashed before any evaluation-object deserialization; failure state is retained without fallback retry.",
+    "Future formal execution remains six fits, six independent cost-state policy paths/native accounts and fifteen exact reused accounts, all twenty-one books and fifteen fixed required intervals; original risk, excess, stability and forward gates remain unchanged.",
+    "Runtime separately checks independent review identity and owner approval for preflight and fit; fit also binds actual preflight summary and manifest."
+  ],
+  "verification": {
+    "code_identity_files_verified": 23,
+    "final_synthetic_session_id": 55347,
+    "final_synthetic_exit_code": 0,
+    "final_synthetic_passed": 1,
+    "synthetic_evidence_reused_without_rerun": true,
+    "reviewer_real_source_objects_deserialized": 0,
+    "reviewer_real_gradient_probes": 0,
+    "reviewer_fits_or_accounts": 0,
+    "reviewer_NAS_downloads": 0
+  },
+  "approved_next_scope": {
+    "training_only_no_fit": true,
+    "fits": 0,
+    "policy_paths": 0,
+    "native_accounts": 0,
+    "new_market_HTTP": 0
+  },
+  "owner_preflight_GO_required": true,
+  "training_only_no_fit_design_approved": true,
+  "fit_approved": false,
+  "account_approved": false,
+  "promotion_approved": false,
+  "remaining_boundaries": [
+    "No actual preflight result is certified by this implementation review. Actual resident-frame, tensor/scaler, alignment and initialization checks must pass and be independently reviewed before fit GO.",
+    "The accepted S/Z source remains conditional adjusted research-price evidence; it is not PIT, a cash ledger, predictive qualification or independent forward evidence."
+  ]
+}

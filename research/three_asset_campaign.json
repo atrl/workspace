@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/stage1_day_night_supervision_20261018",
-  "current_phase": "day_night_supervision_design_frozen_implementation_authorized",
-  "next_action": "Implement the single matched S/Z model and gated workflow in parallel with disjoint files, run one concentrated synthetic contract, and submit fixed code identities for no-fit preflight review. Actual source-object reads/fit/account execution remain disabled.",
+  "current_phase": "day_night_supervision_no_fit_preflight_approved",
+  "next_action": "Execute one separately approved native train-only preflight and inspect its actual Recorder evidence. If eligible, independently accept the result and freeze formal six-fit/six-path execution GO; do not deserialize evaluation objects before six final models seal.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1724,7 +1724,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/stage1_day_night_supervision_20261018",
-      "phase": "day_night_supervision_design_frozen_implementation_authorized",
+      "phase": "day_night_supervision_no_fit_preflight_approved",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
@@ -1743,7 +1743,7 @@
       "model_implementation_authorized": true,
       "model_fit_authorized": false,
       "account_execution_authorized": false,
-      "executor_lifecycle": "Independent review accepted and owner froze three concrete implementation conditions. Model/synthetic and workflow/notebook owners will now be explicitly resumed in parallel; no actual model data/preflight/fit/account GO.",
+      "executor_lifecycle": "Model/workflow implementation completed, final synthetic passed and independent final23-code review accepted. Owner signed one real train-only no-fit attempt; executor will be explicitly resumed after exact code/GO delivery. No real source reads/model fits/accounts yet.",
       "implementation_preparation": "Narrow new adapter fit-loop copy preserves original combined loss order and diagnostic meaning; add regression loss after L_original. Preserve same primary state, auxiliary sampling, globalclip and original RNG; clear temporary cache before seal. No original module edits.",
       "pending_alignment_clarification": "Source C instrument SOXL_SOXX differs from original PG SOXL_SOXX_CASH; assert both fixed single-instrument/date cohorts and original8fields, then assign S/Z by exact date order while preserving PG index/85columns. No inner join/drop/fill.",
       "previous_goal_turn_classification": "progress: all three fixed source phases executed once, conditional labels independently accepted and cold-restored; no model/financial success claimed.",
@@ -1753,7 +1753,26 @@
       "implementation_authorization": "research/stage1_day_night_supervision_20261018/implementation_authorization.json",
       "implementation_authorization_sha256": "c2fe49076b376da5619b7851c05ec7797050399e6d1e2ec7827f6aadf309856f",
       "planned_cost_specific_policy_paths": 6,
-      "planned_ensemble_families": 2
+      "planned_ensemble_families": 2,
+      "implementation_owner_map": {
+        "model_and_synthetic": "/root/external_methods",
+        "workflow_and_notebook": "/root/recent_evidence",
+        "independent_review": "/root/independent_evaluator"
+      },
+      "implementation_identity": "research/stage1_day_night_supervision_20261018/implementation_identity.json",
+      "implementation_identity_sha256": "7f76c5450fb8961a947c70a56339044af7268eb7ef68417c6168d79145eb8f53",
+      "preflight_design_review": "research/stage1_day_night_supervision_20261018/preflight_design_review.json",
+      "preflight_design_review_sha256": "e635d00b042e342611d78f0663c9361e52522e85c343c10a9b9e97779b426eb3",
+      "preflight_execution_approval": "research/stage1_day_night_supervision_20261018/preflight_execution_approval.json",
+      "preflight_execution_approval_sha256": "ee1961a883cd21046ad16bf04d97f436d7b05d504edb7fcb03a15e9d3eebf78d",
+      "synthetic": {
+        "final_session": 55347,
+        "exit_code": 0,
+        "passed": 1,
+        "retained_fixture_failure_session": 19539,
+        "prior_pass_before_inactive_mask_fix": 52338
+      },
+      "real_no_fit_preflight_authorized": true
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
