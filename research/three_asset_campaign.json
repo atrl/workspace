@@ -1734,7 +1734,11 @@
       "model_implementation_review_accepted": true,
       "model_synthetic_test_passed": 1,
       "stored_vector_compatibility_count": 24,
-      "new_market_gradient_probes": 0
+      "new_market_gradient_probes": 0,
+      "no_fit_preflight_session_id": 99800,
+      "no_fit_preflight_exit_code": 0,
+      "no_fit_preflight_observation": "3014/20741 native train-only, all11 tensors and recomputed scalers match,3seed initialization/RNG match;0eval deserialization/forward/gradient/fit/accounts. Formal run implementation still being completed.",
+      "formal_plan_draft_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -2108,6 +2112,22 @@
         "inputs_generated": 0,
         "additional_market_return_reads": 0,
         "next_action": "Source-only branch parked after bounded clarification: require externally justified payment/buffer definition and qualified settlement-service calendar; do not select an offset using returns."
+      },
+      "SEC_FTD_publication": {
+        "status": "not_selected",
+        "source_status": "needs_publication_timestamps",
+        "mechanism_status": "needs_etf_post_release_evidence",
+        "triage": "research/external_mechanism_review_20261018/ftd_timing_triage.md",
+        "triage_sha256": "e064ef11c0964b6a8de15b68f407a70dec699cfa0cbcea5978f3bdd122308069",
+        "community": "https://www.quantconnect.com/forum/discussion/13119/short-data/",
+        "official": "https://www.sec.gov/data-research/sec-markets-data/fails-deliver-data",
+        "primary": "https://www.sec.gov/comments/s7-08-22/s70822-20149120-316297.pdf",
+        "boundary": "Public half-month aggregate outstanding failures differ from same-day TAQ/share-creation operational shorting and from closed FINRA short-volume q. Fixed settlement+14 publication proxies do not qualify real public timing.",
+        "new_FTD_ZIP_or_CSV_downloads": 0,
+        "features_created": 0,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "next_action": "Retain source-only negative qualification. Reconsider only with auditable publication vintages and a distinct post-release liquid-ETF mechanism; no bulk intake or trading experiment authorized."
       }
     }
   },
