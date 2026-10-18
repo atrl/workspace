@@ -10,7 +10,8 @@ from qlib.data.dataset.handler import DataHandlerLP
 import src.analysis.stage1_domain_heads as analysis
 
 
-def test_account_summary_preserves_all_windows_calendar_and_intraday_risk(monkeypatch):
+@pytest.mark.parametrize("finra", [False, True])
+def test_account_summary_preserves_all_windows_calendar_and_intraday_risk(monkeypatch, finra):
     plan = json.loads(Path("research/stage1_domain_heads_20261018/plan.json").read_text())
     calendar = pd.bdate_range("2022-12-30", "2026-02-02")
     trade = calendar[(calendar >= "2023-01-03") & (calendar < "2026-02-02")]
@@ -20,6 +21,16 @@ def test_account_summary_preserves_all_windows_calendar_and_intraday_risk(monkey
                             first_trade="2023-01-03", terminal="2026-02-02T09:47:00-05:00")
     rates = {"A_active_research_replay": .0003, "B_shared": .0004, "C_domain": .001,
              "SOXX": .0002, "strong9097": .0005, "additional27baa": .002}
+    candidate_name = "C_domain"
+    analyzer = analysis.analyze_accounts
+    if finra:
+        from src.analysis.finra_allocation import analyze_accounts, CANDIDATE, REQUIRED, FAMILIES
+        candidate_name, analyzer = CANDIDATE, analyze_accounts
+        rates[candidate_name] = rates.pop("C_domain")
+        rates["B_FINRAcontext"] = .0006
+        plan["accounts"]["families"] = list(FAMILIES)
+        plan["gates"]["required_comparators"] = list(REQUIRED)
+        plan["gates"]["paired_uncertainty"]["alpha"] = .025 / 15
     books = {}
     for family, rate in rates.items():
         for cost in plan["accounts"]["slippage_bps"]:
@@ -35,7 +46,7 @@ def test_account_summary_preserves_all_windows_calendar_and_intraday_risk(monkey
                 nav = cash if number == 0 else cash * path.equity.iloc[number - 1]
                 rows.append({"stamp": day + pd.Timedelta(hours=9, minutes=45), "nav": nav,
                              "cash": cash if number == 0 else nav, "receivable": 0., "q_soxl": 0., "q_soxx": 0.})
-                closing = nav * .6 if family == "C_domain" and number == 300 else nav
+                closing = nav * .6 if family == candidate_name and number == 300 else nav
                 rows.append({"stamp": day + pd.Timedelta(hours=16), "nav": closing,
                              "cash": closing, "receivable": 0., "q_soxl": 0., "q_soxx": 0.})
             books[(family, cost)] = {"authority": path, "points": pd.DataFrame(rows), "audit": {"status": "passed"}}
@@ -46,9 +57,10 @@ def test_account_summary_preserves_all_windows_calendar_and_intraday_risk(monkey
         return {"lower_bound_positive": True, "daily_lower_bound": .0001, **kwargs}
 
     monkeypatch.setattr(analysis, "stationary_bootstrap_excess", bootstrap)
-    result = analysis.analyze_accounts(books, pd.DataFrame({"trade_date": calendar}), plan)
-    assert len(result["metrics"]) == 18 and len(result["paired_comparison"]) == 15
-    assert len(result["rolling"]) == 18
+    result = analyzer(books, pd.DataFrame({"trade_date": calendar}), plan)
+    assert len(result["metrics"]) == (21 if finra else 18)
+    assert len(result["paired_comparison"]) == (18 if finra else 15)
+    assert len(result["rolling"]) == (21 if finra else 18)
     assert all(len(frame) == len(trade) - 125 for frame in result["rolling"].values())
     annual = result["annual_metrics"]
     assert set(annual.loc[annual.complete_period, "period"]) == {"2024", "2025"}
@@ -58,14 +70,20 @@ def test_account_summary_preserves_all_windows_calendar_and_intraday_risk(monkey
     assert result["gates"]["minimum_complete_years"] is True
     assert result["gates"]["net_relative_wealth_all_costs"] is True  # 27baa is additional only.
     assert result["gates"]["sampled_drawdown_30pct"] is False
-    candidate = result["metrics"].query("family == 'C_domain'")
+    candidate = result["metrics"].loc[result["metrics"].family.eq(candidate_name)]
     assert candidate.max_drawdown_pct.eq(0).all()
     assert candidate.close_max_drawdown_pct.le(-39).all()
     assert not result["gates"]["fresh_fullminute_risk_qualified"]
     assert not result["gates"]["qualified_independent_forward"]
-    assert len(calls) == 12
-    assert all(call == {"mean_block": 63, "resamples": 10000, "alpha": .025 / 12, "seed": 20261014}
+    assert len(calls) == (15 if finra else 12)
+    assert all(call == {"mean_block": 63, "resamples": 10000, "alpha": .025 / (15 if finra else 12), "seed": 20261014}
                for call in calls)
+    if finra:
+        # A missing newly required control must not silently fall back to the
+        # old four-comparator analysis or discard the unmatched cost account.
+        incomplete = {key: value for key, value in books.items() if key != ("B_FINRAcontext", 5)}
+        with pytest.raises(ValueError, match="all three cost accounts"):
+            analyzer(incomplete, pd.DataFrame({"trade_date": calendar}), plan)
 
 
 def test_information_uses_mature_primary_labels_and_zero_alpha_is_negative():

@@ -38,6 +38,15 @@ def _period_coverage(trade_dates, calendar, frequency):
 
 
 def analyze_accounts(books, daily_calendar_frame, plan):
+    """Original fixed domain-head comparison contract."""
+    return analyze_paired_accounts(books, daily_calendar_frame, plan,
+        candidate_family="C_domain",
+        required_comparators=("A_active_research_replay", "B_shared", "SOXX", "strong9097"),
+        expected_families=("A_active_research_replay", "B_shared", "C_domain", "SOXX", "strong9097", "additional27baa"))
+
+
+def analyze_paired_accounts(books, daily_calendar_frame, plan, *, candidate_family,
+                            required_comparators, expected_families):
     """Small paired summaries plus all overlapping windows for Recorder storage.
 
     ``daily_calendar_frame`` is the pinned Qlib source calendar, not a new
@@ -48,10 +57,13 @@ def analyze_accounts(books, daily_calendar_frame, plan):
     families, costs = account["families"], account["slippage_bps"]
     comparators = plan["gates"]["required_comparators"]
     expected_keys = {(family, cost) for family in families for cost in costs}
-    if len(expected_keys) != 18 or set(books) != expected_keys:
-        raise ValueError("blocked: all six families and three cost accounts are required")
-    if set(comparators) != {"A_active_research_replay", "B_shared", "SOXX", "strong9097"}:
+    if (len(families) != len(expected_families) or set(families) != set(expected_families)
+            or list(costs) != [0, 2, 5] or set(books) != expected_keys):
+        raise ValueError("blocked: frozen families and all three cost accounts are required")
+    if len(comparators) != len(required_comparators) or set(comparators) != set(required_comparators):
         raise ValueError("blocked: frozen paired comparator contract differs")
+    if candidate_family not in families or candidate_family in comparators:
+        raise ValueError("blocked: candidate must be distinct from paired comparators")
     initial_cash = float(account["initial_cash"])
     calendar = pd.DatetimeIndex(pd.to_datetime(daily_calendar_frame.trade_date).dropna()).unique().sort_values()
     if calendar.empty or not calendar.equals(calendar.normalize()):
@@ -146,18 +158,18 @@ def analyze_accounts(books, daily_calendar_frame, plan):
     bootstrap = plan["gates"]["paired_uncertainty"]
     bootstrap_args = {name: bootstrap[name] for name in ("mean_block", "resamples", "alpha", "seed")}
     for cost in costs:
-        candidate = paths[("C_domain", cost)]
+        candidate = paths[(candidate_family, cost)]
         for comparator in [*comparators, "additional27baa"]:
             other = paths[(comparator, cost)]
-            meta = {"family": "C_domain", "comparator": comparator, "slippage_bps": cost,
+            meta = {"family": candidate_family, "comparator": comparator, "slippage_bps": cost,
                     "required_comparator": comparator in comparators}
             pairs.append({**meta, **paired_metrics(candidate, other)})
             if comparator in comparators:
                 uncertainty.append({**meta, **stationary_bootstrap_excess(candidate, other, **bootstrap_args)})
     metrics, periods, pairs = pd.DataFrame(metrics), pd.DataFrame(periods), pd.DataFrame(pairs)
     roll_summary, uncertainty = pd.DataFrame(roll_summary), pd.DataFrame(uncertainty)
-    candidate = metrics.loc[metrics.family.eq("C_domain")]
-    annual = periods.loc[periods.family.eq("C_domain") & periods.kind.eq("year") & periods.complete_period]
+    candidate = metrics.loc[metrics.family.eq(candidate_family)]
+    annual = periods.loc[periods.family.eq(candidate_family) & periods.kind.eq("year") & periods.complete_period]
     annual_counts = annual.groupby("slippage_bps").size().reindex(costs, fill_value=0)
     annual_rates = annual.groupby("slippage_bps").relative_wealth.apply(lambda wealth: wealth.gt(1).mean()).reindex(costs)
     gates = {
@@ -168,7 +180,7 @@ def analyze_accounts(books, daily_calendar_frame, plan):
         "minimum_complete_years": bool(annual_counts.ge(plan["gates"]["minimum_complete_years"]).all()),
         "complete_annual_70pct": bool(annual_rates.notna().all()
                                      and annual_rates.ge(plan["gates"]["complete_annual_positive_fraction"]).all()),
-        "rolling126_70pct": bool(roll_summary.loc[roll_summary.family.eq("C_domain"), "positive_fraction"]
+        "rolling126_70pct": bool(roll_summary.loc[roll_summary.family.eq(candidate_family), "positive_fraction"]
                                  .ge(plan["gates"]["rolling126_positive_fraction"]).all()),
         "paired_block_lower_positive": bool(len(uncertainty) == len(comparators) * len(costs)
                                             and uncertainty.lower_bound_positive.all()),
