@@ -1,0 +1,66 @@
+{
+  "experiment": "day_night_label_source_20261018_phase_A",
+  "phase": "A",
+  "status": "completed_pending_independent_review",
+  "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+  "recorder_id": "f8a4eaec9168430da09ae46bf4b1ec8d",
+  "experiment_id": "982597081245923065",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/day_night_label_source_20261018/phase_A/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/day_night_label_source_20261018/phase_A/qlib_recorder/982597081245923065/f8a4eaec9168430da09ae46bf4b1ec8d",
+  "region": "us",
+  "as_of": "2026-07-24",
+  "source_snapshot_as_of": "2026-07-24",
+  "training_observation_end": "2022-12-30",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/day_night_label_source_20261018/selected_ea7f22bb9becb8a8f911a5073d80d519ea3f450b",
+  "selected_members": 7,
+  "selected_price_fields": 4,
+  "price_values_decoded": 0,
+  "train_label_objects_loaded": 0,
+  "opaque_access_scope": "Entire selected source-member bytes captured; no numerical price decoding.",
+  "partial_provider_disclosed": true,
+  "basis_review_pending": true,
+  "decision": "identity_and_declared_basis_complete_pending_independent_review",
+  "operation_counts": {
+    "opaque_price_blob_materializations": 4,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "PG_training_reference_loads": 0,
+    "bounded_B_reference_loads": 0,
+    "S_Z_rows": 0
+  },
+  "new_source_HTTP": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "promotion": "not_assessed_source_only",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "../workflow.yaml",
+    "recorder_only_artifacts": [
+      "opaque_selected_members",
+      "native_training_prices",
+      "original_train_index_clocks_and_targets",
+      "H1_cross_vintage_paired",
+      "cached_common_log_plane",
+      "fixed_H5_components_S_Z"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "585d73652dfc51b0a69c80b87c7eaf29eab8725adb1534741b0d534ea371231e",
+    "size_bytes": 172317,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/58/5d/585d73652dfc51b0a69c80b87c7eaf29eab8725adb1534741b0d534ea371231e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 19:03:38.97497+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/58/5d/585d73652dfc51b0a69c80b87c7eaf29eab8725adb1534741b0d534ea371231e",
+    "recorder_id": "f8a4eaec9168430da09ae46bf4b1ec8d",
+    "experiment_id": "982597081245923065",
+    "archive_root": "qlib_recorder"
+  }
+}

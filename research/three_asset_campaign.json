@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/day_night_label_source_20261018",
-  "current_phase": "phase_A_approved_ready_for_execution",
-  "next_action": "Execute exactly one phase A notebook and independently evaluate source identities/basis. Then bind accepted A evidence for B only; no source price decoding, S/Z construction, fitting or accounts is yet permitted.",
+  "current_phase": "phase_A_accepted_phase_B_approved",
+  "next_action": "Execute one phaseB fresh-process bounded native price/original-cohort qualification, then independently review its mapping/source checks before permitting C. No S/Z, fit or accounts authorized.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1724,7 +1724,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/day_night_label_source_20261018",
-      "phase": "phase_A_approved_ready_for_execution",
+      "phase": "phase_A_accepted_phase_B_approved",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
@@ -1735,7 +1735,7 @@
       "new_accounts": 0,
       "real_price_or_label_reads": 0,
       "execution_authorized": false,
-      "executor_lifecycle": "Final implementation independently accepted; owner signed one A opaque-source execution. Executor will be explicitly resumed after delivery; no phase process has started yet.",
+      "executor_lifecycle": "A accepted independently and cold-restored once. B notebook code cells match original frozen implementation. Owner signed one B execution; executor will be resumed explicitly after source A delivery.",
       "definition": "Qualify a fixed Git July24 source for H5 relative day/night S/Z labels. Common O/C basis from archived field scales; preserve original3014 H1/H5 tensors. A identity/basis, B train-only prices, C fixed labels; each phase requires its preceding accepted receipt.",
       "goal_turn_assessment": "Previous research turn made progress by delivering source-label design and correcting cross-vintage identity requirements. Game-troubleshooting interlude did not declare the research Goal paused or complete; this continuation resumes research.",
       "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
@@ -1744,8 +1744,8 @@
       "implementation_authorization": "research/day_night_label_source_20261018/implementation_authorization.json",
       "implementation_authorized": true,
       "real_phase_A_B_C_authorized": {
-        "A": true,
-        "B": false,
+        "A": "completed_accepted",
+        "B": true,
         "C": false
       },
       "implementation_identity": "research/day_night_label_source_20261018/implementation_identity.json",
@@ -1758,7 +1758,35 @@
       "implementation_review": "research/day_night_label_source_20261018/implementation_review.json",
       "implementation_review_sha256": "534f50e46224e0e8caefb2b3bbf70e0eeb8b8100ab7faa3cd8f640d6544cdf38",
       "phase_A_execution_approval": "research/day_night_label_source_20261018/phase_A_execution_approval.json",
-      "phase_A_execution_approval_sha256": "5f6805abfa125711835c38bc031b916dff7d068e497b224d9406faa275e9a51d"
+      "phase_A_execution_approval_sha256": "5f6805abfa125711835c38bc031b916dff7d068e497b224d9406faa275e9a51d",
+      "phase_A_job": {
+        "exec_session": 59469,
+        "nbconvert_pid": 30057,
+        "kernel_pid": 30058,
+        "worker_pid": 30067,
+        "worker_parent_pid": 30058
+      },
+      "phase_A_result": {
+        "exec_session": 59469,
+        "exit_code": 0,
+        "recorder_id": "f8a4eaec9168430da09ae46bf4b1ec8d",
+        "archive_sha256": "585d73652dfc51b0a69c80b87c7eaf29eab8725adb1534741b0d534ea371231e",
+        "summary_sha256": "d2899b6c536fa56f772a7aa2e108155bc66879074fe402468d34a01f843a7064",
+        "manifest_sha256": "8a6840be08f9c2880b104c1f3d602025225256857f8e6d8842c9c68ec344709b",
+        "artifact_count": 12,
+        "selected_members": 7,
+        "opaque_price_blob_materializations": 4,
+        "price_values_decoded": 0,
+        "train_label_objects_loaded": 0,
+        "S_Z_rows": 0,
+        "readback_verification": "research/day_night_label_source_20261018/phase_A/readback_verification.json",
+        "readback_verification_sha256": "206d456e4cad751e200b800e912858cf8022eb627bbea58153837c0912740b7d",
+        "cold_restore_downloads": 1
+      },
+      "phase_A_result_review": "research/day_night_label_source_20261018/phase_A/source_result_review.json",
+      "phase_A_result_review_sha256": "ac59a4531fc721bb8f4ae06ebe8562f461eabfb6467a0af3c35d29046b524c66",
+      "phase_B_execution_approval": "research/day_night_label_source_20261018/phase_B_execution_approval.json",
+      "phase_B_execution_approval_sha256": "6f25f2f113df2e89b74783ac0b1d529bfe2cc80c92e5db795a76edb0a89c3d93"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",

@@ -1,40 +1,49 @@
 {
   "experiment": "day_night_label_source_20261018",
-  "status": "implementation_ready_pending_review_and_phase_GO",
-  "decision": "no_real_source_phase_executed",
+  "latest_phase": "A",
+  "phase_summary": "phase_A/summary.json",
+  "status": "phase_A_accepted_phase_B_ready",
+  "decision": "identity_and_common_basis_accepted_price_labels_not_yet_read",
+  "recorder_id": "f8a4eaec9168430da09ae46bf4b1ec8d",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/day_night_label_source_20261018/phase_A/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/day_night_label_source_20261018/phase_A/qlib_recorder/982597081245923065/f8a4eaec9168430da09ae46bf4b1ec8d",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/day_night_label_source_20261018/selected_ea7f22bb9becb8a8f911a5073d80d519ea3f450b",
   "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
-  "real_operation_counts": {
-    "opaque_price_blob_materializations": 0,
-    "D_features_calls": 0,
-    "PG_training_reference_loads": 0,
-    "S_Z_rows": 0,
-    "new_source_HTTP": 0,
-    "new_fits": 0,
-    "new_accounts": 0
-  },
-  "synthetic": {
-    "session_id": 77177,
-    "exit_code": 0,
-    "passed": 1,
-    "seconds": 2.19,
-    "warning_count": 12
-  },
-  "historical_PIT_qualified": false,
-  "independent_forward_qualified": false,
+  "as_of": "2026-07-24",
+  "source_snapshot_as_of": "2026-07-24",
+  "training_observation_end": "2022-12-30",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": [
-      "identity/selected_member_manifest",
-      "source/immutable_metadata_and_code",
-      "source/basis_certificate",
-      "source/native_training_prices",
-      "reference/original_train_index_clocks_and_targets",
-      "labels/fixed_H5_components_S_Z",
-      "analysis/source_label_checks"
+      "opaque_selected_members",
+      "native_training_prices",
+      "original_train_index_clocks_and_targets",
+      "H1_cross_vintage_paired",
+      "cached_common_log_plane",
+      "fixed_H5_components_S_Z"
     ]
   },
-  "as_of": "2026-07-24",
-  "source_snapshot_as_of": "2026-07-24",
-  "training_observation_end": "2022-12-30"
+  "new_fits": 0,
+  "new_accounts": 0,
+  "historical_PIT_qualified": false,
+  "operation_counts": {
+    "opaque_price_blob_materializations": 4,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "PG_training_reference_loads": 0,
+    "bounded_B_reference_loads": 0,
+    "S_Z_rows": 0
+  },
+  "price_values_decoded": 0,
+  "train_label_objects_loaded": 0,
+  "artifact_count": 12,
+  "archive_sha256": "585d73652dfc51b0a69c80b87c7eaf29eab8725adb1534741b0d534ea371231e",
+  "phase_manifest_sha256": "8a6840be08f9c2880b104c1f3d602025225256857f8e6d8842c9c68ec344709b",
+  "execution_receipt": "phase_A/execution_receipt.json",
+  "B_C_executed": false,
+  "independent_result_review": "phase_A/source_result_review.json",
+  "readback_verification": "phase_A/readback_verification.json",
+  "next_phase": "B",
+  "next_phase_execution_approval": "phase_B_execution_approval.json"
 }

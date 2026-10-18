@@ -1,0 +1,10 @@
+{
+  "status": "failed_verifier_expectation",
+  "exec_session": 68932,
+  "exit_code": 1,
+  "NAS_download_count": 1,
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-day-night-A-coldread-pv3hqeav",
+  "completed_before_failure": "NAS archive and all12 artifact hashes passed; native Recorder readback loaded only member metadata, opaque bytes, basis certificate and source code. All7 raw SHA/GitOID and materialized byte hashes matched.",
+  "failure": "Verifier compared certificate.coefficients (two symbol keys) to plan fixed_metadata_coefficients including its extra source-description annotation. This is a verifier schema expectation error, not a basis/data discrepancy.",
+  "repair_scope": "Reuse the same cold restore; compare the fixed SOXL/SOXX coefficient entries and finish remaining metadata code identity checks. No new NAS fetch, source capture, numerical price decode or source phase execution."
+}

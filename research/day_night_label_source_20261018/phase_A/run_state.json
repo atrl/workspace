@@ -1,0 +1,36 @@
+{
+  "phase": "A",
+  "status": "completed",
+  "pid": 30067,
+  "parent_pid": 30058,
+  "opaque_price_blob_materializations": 4,
+  "D_calendar_calls": 0,
+  "D_features_calls": 0,
+  "PG_training_reference_loads": 0,
+  "bounded_B_reference_loads": 0,
+  "S_Z_rows": 0,
+  "new_source_HTTP": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "approval": {
+    "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+    "implementation_identity_sha256": "e6b53cfb6da3807368c7a7086538fc3942e673f3f8fe391633f6eb16d1e795ae",
+    "implementation_review_sha256": "534f50e46224e0e8caefb2b3bbf70e0eeb8b8100ab7faa3cd8f640d6544cdf38",
+    "owner_approval_sha256": "5f6805abfa125711835c38bc031b916dff7d068e497b224d9406faa275e9a51d",
+    "code_sha256": {
+      "src/data/day_night_labels.py": "7e4198f091731aa1274f441ec755b3df46be95a38f2b812031a965d918cadaac",
+      "src/workflow/day_night_label_source.py": "30ce06bd62d4f903e838ea6f0d84b945edd69da543cf41b6740112304507f947",
+      "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+      "src/data/minute_intake.py": "26937e726f04f9cb29ca60149f5c0819bff359b14da6aae0ed0a9b79fe8af992",
+      "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444",
+      "tests/test_day_night_label_source.py": "8915a6ebe61ed401886732120d50e805a9a0d5ac50468a8a989e31dca93668a1",
+      "installed_qlib/data/data.py": "9156bfef585b9e2d22d4d1ba5831efdb63b419d24846ee738eee237090ff6a24",
+      "installed_qlib/data/storage/file_storage.py": "7261420971a2b6cc3de9a9dbac6288216fdc9653e2d99f269df01d1cf5ec55c0",
+      "installed_qlib/data/dataset/handler.py": "8fc3732631bc5e199f8c925827fb0dc7775cfc4edcf3d16e2ac591ec71a4ae90",
+      "installed_qlib/utils/serial.py": "153fad06ee6c256974c4b8c7c54ea86ed77dc4c1d331cf894e7354e18dcb469c"
+    },
+    "upstream": null
+  },
+  "recorder_id": "f8a4eaec9168430da09ae46bf4b1ec8d",
+  "experiment_id": "982597081245923065"
+}
