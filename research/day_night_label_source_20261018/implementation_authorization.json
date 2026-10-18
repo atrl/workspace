@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "owner": "/root",
+  "status": "implementation_and_synthetic_only_while_source_design_review_pending",
+  "draft": "research/day_night_label_source_20261018/source_label_design_draft.json",
+  "draft_sha256": "eec681ae2151a92f4b18779b863556fc9a2ba21a1ce14430f4e05ec5f123b6e7",
+  "authorized": {
+    "new_scoped_modules": true,
+    "executable_notebook_and_slim_sidecars": true,
+    "one_focused_synthetic_contract": true,
+    "real_phase_A_opaque_materialization": false,
+    "real_phase_B_prices": false,
+    "real_phase_C_labels": false,
+    "fit": false,
+    "account": false
+  },
+  "review_boundary": "Code preparation is reversible and authorized by the continuous campaign. Freeze the accepted design and implementation identities after independent review before ANY real source operation. Review corrections may change unexecuted code only; no real prices or labels have been read.",
+  "scope": "Implement the fixed draft A/B/C interfaces with separate phase gates; preserve source version and original3014 targets. Bind same-commit qlib_native.py write path as additional source code identity. No new candidate variants or inferred permission to run real phases."
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/independent_evaluator",
+  "verdict": "APPROVE_SOURCE_LABEL_DESIGN_FOR_IMPLEMENTATION",
+  "draft_sha256": "eec681ae2151a92f4b18779b863556fc9a2ba21a1ce14430f4e05ec5f123b6e7",
+  "phase_A_design_eligible": true,
+  "implementation_and_synthetic_eligible": true,
+  "material_phase_A_blockers": [],
+  "source_and_basis": "The selected commit exists and all seven listed member OIDs match its tree. Both metadata SHA256s and the same-commit builder hash match. The recorded early per-field stitch scales followed by a common daily distribution factor justify keeping O unchanged and mapping early C to the O scale using k_open/k_close. This is an explicitly new conditional July24 label source, not recovery of the unresolved October chain, a PIT certificate or evidence that near-one differences caused old performance failures.",
+  "additional_basis_code_identity": {
+    "git_commit": "ea7f22bb9becb8a8f911a5073d80d519ea3f450b",
+    "path": "src/data/qlib_native.py",
+    "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "implementation_binding": "Include this same-commit serialization helper in the frozen implementation evidence; its field mapping/reindex/float32 storage introduces no further price normalization."
+  },
+  "phase_B_boundary": "The proposed fresh-process two-symbol/two-raw-field training-range Qlib read is structurally feasible. LocalFeatureProvider and FileFeatureStorage use the requested index slice; whole calendar/instrument metadata access is distinct from future price decoding. Freeze backend/cache identity and verify the actual bounded result after separate GO. Retain the original3014 cohort and targets; map d0..d5 on the full selected native calendar, with O at d0..d5 and C at d0..d4 used by the labels. Original decision/H1 exit/H5 maturity clocks must match; cross-vintage H1 differences remain diagnostic without a numerical equality gate.",
+  "phase_C_numeric_assessment": "The combined residual graph has43 add/subtract operations and44 cached-log leaf occurrences; a per-asset graph has21 operations and22 leaves. The proposed gamma43*L1+43*eta is conservative. Treating the same cached corrected logs as constants proves the telescope independently of libm log accuracy, but does not validate the economic price basis or predictiveness.",
+  "fixed_implementation_conditions": [
+    "Describe S/Z as distribution-adjusted research-price log quantities, not unadjusted price-only or cash-dividend returns. The common daily factor cancels in each same-day C/O leg; its cross-date change enters N. The fixed splice/open-scale convention also remains part of that declared plane. No actual entitlement/payment ledger or first-receipt claim follows.",
+    "For C, require finite cached logs, intermediate results and threshold; IEEE754 binary64 round-to-nearest with gradual underflow, no FTZ/DAZ, overflow, fast-math or reassociation. Freeze the stated leftfold operations, compute L1 from the44 nonnegative leaf magnitudes with at most43 additions, and evaluate gamma43=43u/(1-43u), then gamma43*L1+43eta in a fixed order. The graph's maximum leaf depth8 (7 per asset) supplies sufficient slack for this ordinary binary64 threshold evaluation; no tolerance multiplier change is needed. Nonfinite thresholds fail rather than pass vacuously."
+  ],
+  "review_scope": "Git tree identities, immutable metadata/code and symbolic arithmetic only. A separate pure-math subreview confirmed the43-operation bound. No price blob content, price/label object or actual numeric training data was read; no D.features, labels, model or account ran.",
+  "phase_A_real_execution_approved": false,
+  "phase_B_price_read_approved": false,
+  "phase_C_label_execution_approved": false,
+  "fit_approved": false,
+  "account_approved": false,
+  "historical_PIT_qualified": false,
+  "next_action": "Freeze the implementation and these two conditions, then review/sign the bounded phaseA opaque-materialization GO. PhaseB requires the accepted A receipt and its own bounded-read GO; phaseC requires accepted B and its own GO. No model design or outcome-based source/threshold selection is authorized."
+}

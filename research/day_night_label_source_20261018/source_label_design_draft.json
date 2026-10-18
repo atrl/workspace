@@ -1,0 +1,318 @@
+{
+  "schema_version": 1,
+  "experiment": "day_night_label_source_20261018",
+  "status": "source_label_design_draft_new_frozen_label_source_proposed",
+  "frozen": false,
+  "authorization": {
+    "design_only": true,
+    "implementation": false,
+    "phase_A_identity_and_basis": false,
+    "phase_B_bounded_prices": false,
+    "phase_C_S_Z_labels": false,
+    "fit": false,
+    "account": false
+  },
+  "purpose": "Qualify one H5 relative day/night contrast Z and matched-total S as possible future supervision. This is source/label qualification only; no model, loss weight, strategy or holding-window selection.",
+  "limits": {
+    "existing_price_source_candidates": 2,
+    "selected_price_source_count": 1,
+    "new_market_HTTP": 0,
+    "paid_data": false,
+    "options": false,
+    "provider_refresh": false,
+    "full_period_price_or_label_deserialization": false,
+    "new_fits": 0,
+    "new_accounts": 0,
+    "real_price_or_label_operations_in_draft": 0
+  },
+  "prior_evidence": {
+    "triage": "research/external_mechanism_review_20261018/overnight_intraday_task_triage.md",
+    "triage_sha256": "dbb2f97c24fdb96a3def67eb6cfc7570819babb91d6ab6cb4894ef5fe5ce1ea9",
+    "metadata_feasibility": "research/external_mechanism_review_20261018/day_night_source_feasibility.json",
+    "metadata_feasibility_sha256": "e1c7dc2cffdb2276907e78b2b8214ebbf4d4d708d0be4de364d828f011951240",
+    "TOM_boundary": "Fixed TOM is closed after its complete failure and one attribution. Its cash/beta/risk-state results do not authorize controller rescue or choose these labels/source checks."
+  },
+  "source_choice_before_any_price_read": {
+    "original_Oct9_child": {
+      "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+      "manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+      "frozen_parent_manifest_sha256": "71fe82a5b4391d4b157a45c18a3afd3eadbba9f36c3c2b66d3a1411177e93174",
+      "current_status": "Not selected for new S/Z source: original four-column content linkage and exact cross-field transform metadata remain incomplete. This is not a finding of material price bias.",
+      "price_query_budget": 0,
+      "not_a_mandatory_filename": "Recovering71fe itself is not the sole admissible path; the substantive requirement is provable content identity and common O/C basis."
+    },
+    "selected_alternative": {
+      "name": "existing_Git_20260724_Qlib_snapshot_open_basis",
+      "selection_basis": "Selected from metadata completeness and immutable Git membership before observing price or label values. No return/coverage/performance-dependent source choice.",
+      "git_commit": "ea7f22bb9becb8a8f911a5073d80d519ea3f450b",
+      "provider_tree_prefix": "data/qlib/soxl_soxx_soxs",
+      "declared_coverage": [
+        "2010-03-11",
+        "2026-07-24"
+      ],
+      "provider_manifest_sha256": "ebe85e1dc64acfca4597c62813e9417694804aa9f32ccf09e3b3eb41940d2c70",
+      "raw_source_manifest": {
+        "git_path": "ea7f22bb9becb8a8f911a5073d80d519ea3f450b:data/raw/soxs_defensive_v1/source_manifest.json",
+        "git_blob_oid": "49314e889ac4faaf1718b3f5cc5bd4d8339c71eb",
+        "sha256": "435ba39c17336d6c02501bc47723bf20eb5fb75b1fc7e8c1516ebe6b9d757157"
+      },
+      "same_commit_builder": {
+        "git_path": "ea7f22bb9becb8a8f911a5073d80d519ea3f450b:src/data/soxs_defensive.py",
+        "sha256": "6fe5f0b40fdbbda3ead06fcba798652900aba708537e319ce02f163d85473d87",
+        "evidence": "stitch_yahoo_to_nasdaq applies each disclosed field scale to the early Yahoo segment; build_soxs_defensive_provider then multiplies all OHLC fields by the same daily Yahoo adjusted_close/close factor."
+      },
+      "selected_provider_members": [
+        {
+          "relative_path": "calendars/day.txt",
+          "expected_git_blob_oid": "8e5496afcf28721cf5e6f5d6903100619a38876a",
+          "sha256_at_future_opaque_materialization": null
+        },
+        {
+          "relative_path": "instruments/all.txt",
+          "expected_git_blob_oid": "5c9574df6c83e22d08a00647bf41e8408746ca0f",
+          "sha256_at_future_opaque_materialization": null
+        },
+        {
+          "relative_path": "features/soxl/open.day.bin",
+          "expected_git_blob_oid": "6954f7946a26bb50b7bba44ff3c43fc74ce4ecb8",
+          "sha256_at_future_opaque_materialization": null
+        },
+        {
+          "relative_path": "features/soxl/close.day.bin",
+          "expected_git_blob_oid": "13e8338141d3b81a07939de83d2653d32731ea03",
+          "sha256_at_future_opaque_materialization": null
+        },
+        {
+          "relative_path": "features/soxx/open.day.bin",
+          "expected_git_blob_oid": "fdff879d07671ff10c29470981f5d2edc04607ee",
+          "sha256_at_future_opaque_materialization": null
+        },
+        {
+          "relative_path": "features/soxx/close.day.bin",
+          "expected_git_blob_oid": "05976388b46b502392cce4802e8a3ded2ba6c039",
+          "sha256_at_future_opaque_materialization": null
+        },
+        {
+          "relative_path": "qlib_store_manifest.json",
+          "expected_git_blob_oid": "d136283352795aab600a00a8ed04c89196762e31",
+          "sha256_at_future_opaque_materialization": null
+        }
+      ],
+      "symbol_selection": [
+        "SOXL",
+        "SOXX"
+      ],
+      "field_selection": [
+        "$open",
+        "$close"
+      ],
+      "partial_materialization_honesty": "Materialize only these four field blobs and native date/instrument metadata in a separate read-only snapshot directory after GO. The original manifest describes a larger3-symbol/4-field source; do not claim this whitelist materializes its entire provider. Explicit two-symbol/two-field queries only. Do not overwrite a working provider or edit original metadata bytes."
+    },
+    "no_fallback": "If the selected immutable source fails provenance/common basis, temporal, original-target immutability or missingness gates, close this source version. Cross-vintage H1 differences are diagnostic only. Do not switch to current upstream, Oct9 child, another Git date/vendor or modified coefficients after seeing values."
+  },
+  "phase_A_content_identity_and_common_basis": {
+    "price_decoding_allowed": false,
+    "train_label_decoding_allowed": false,
+    "bounded_identity_actions": [
+      "Verify the exact selected Git commit/member identities and the two metadata SHA256s. The exact same-commit builder identity must match.",
+      "Under explicit phaseA GO, hash/materialize only the four fixed binary blobs and listed native metadata, checking git blob OIDs and registering SHA256 of every copied member. Read price blobs as opaque bytes only; record that full bytes were accessed without decoding prices. No full-period DataFrame/pickle load.",
+      "Record immutable metadata/code/primitive identities in a native Recorder. A metadata-only row-count hash is not a price-content hash. No original provider mutation."
+    ],
+    "maximum_price_blob_materializations": 4,
+    "maximum_metadata_source_objects": 2,
+    "fixed_metadata_coefficients": {
+      "source": "symbol_audits.<symbol>.stitch_scales and nasdaq_start in the selected raw_source_manifest",
+      "SOXL": {
+        "early_segment_before": "2016-07-25",
+        "k_open": 0.9999999610685462,
+        "k_close": 1.0000000052935292
+      },
+      "SOXX": {
+        "early_segment_before": "2016-07-25",
+        "k_open": 0.9999999803829277,
+        "k_close": 0.9999999935486612
+      }
+    },
+    "one_common_basis_rule": {
+      "anchor": "Keep the selected source open column unchanged because original allocation/H5targets use open endpoints. Map only the new auxiliary-label close column to the documented open scale.",
+      "early_segment": "For source date strictlybefore each recorded nasdaq_start, C_common=C_stored*(k_open/k_close); O_common=O_stored. At/after nasdaq_start, both columns are unchanged.",
+      "actual_numerical_implementation_later": "After source prices are separately authorized, cache ell_O=log(float64(O_stored)). Cache ell_C=log(float64(C_stored))+[log(k_open)-log(k_close)] only in the metadata-defined early segment; no further rounding tofloat32. The same cached ell_C is used in both day and night legs.",
+      "algebraic_basis_evidence": "For early raw values O_stored≈f_t*k_open*O_raw and C_stored≈f_t*k_close*C_raw from the recorded pipeline, this maps both to the common f_t*k_open plane, up to inherited storage rounding. On the Nasdaq segment both retain the same f_t plane.",
+      "not_a_new_estimate": "The factor and segment boundary come entirely from the immutable metadata. No price fitting, mean/median refit, closeness-to1 gate, alternate anchor, result-conditioned correction or tolerance tuning.",
+      "main_targets_unchanged": "This is an explicitly declared new S/Z-label source normalization. It does not modify the original3014 rows, original85-column Dataset, H1 arrays, H5tail/alpha/cash labels, base39/common16 features or any existing provider/account.",
+      "limitations": "The old prices are historical adjusted research prices, not verified broker cash/share marks. Float32 storage rounding remains. Corporate-action factors and common numerical basis do not establish historical first receipt or a cash-dividend payment ledger."
+    },
+    "basis_gate": [
+      "Selected source manifest, four blobs and same-commit builder are a coherent immutable version; metadata coefficients/segment boundaries are present, finite and positive.",
+      "The documented transformations apply the same daily distribution factor to open and close; no undocumented additional per-column or per-date adjustment is present.",
+      "The exact metadata-derived close-to-open-basis map is independently reviewed BEFORE any price decoding. If its economic basis cannot be justified from the selected version, fail this source rather than use near1 as permission."
+    ],
+    "interpretation": "The original October chain remains unresolved and is not declared repaired. The July source has its own concrete immutable identity and an explicit label-only basis map. Small archived coefficient differences are not claimed to have caused significant bias in earlier research.",
+    "failure_status": "source_content_or_common_basis_not_qualified; stop selected source version before any numerical price/label phase.",
+    "hash_semantics": "Verify each Git blob OID against its exact Git object encoding and separately record raw-byte SHA256 during authorized opaque materialization. Git SHA1 OID is not mislabeled as raw-byte SHA256. No price blob bytes were read in drafting."
+  },
+  "phase_B_native_training_price_and_alignment": {
+    "requires": [
+      "PhaseA independently accepted immutable identities and basis map",
+      "Separately frozen implementation identity and owner phaseB GO"
+    ],
+    "fresh_process": true,
+    "maximum_D_features_calls": 1,
+    "maximum_D_calendar_calls": 1,
+    "native_query": {
+      "provider": "isolated exact selected Git snapshot",
+      "region": "us",
+      "freq": "day",
+      "instruments": [
+        "SOXL",
+        "SOXX"
+      ],
+      "fields": [
+        "$open",
+        "$close"
+      ],
+      "start_time": "2011-01-03",
+      "end_time": "2022-12-30",
+      "disk_cache": 0,
+      "expression_cache": null,
+      "dataset_cache": null,
+      "kernels": 1
+    },
+    "read_proof": "Use checked LocalFeatureProvider/FileFeatureStorage raw-field range slicing. No Ref/rolling query expansion or persistent expression/dataset cache. Calendar/instrument metadata may be read for index location; disclose that metadata access is distinct from future price decoding.",
+    "train_reference": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "inventory_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "artifacts": [
+        "inputs/training_dataset",
+        "inputs/training_audit"
+      ],
+      "artifact_sha256": {
+        "inputs/training_dataset": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+        "inputs/training_audit": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53"
+      },
+      "read_phase": "Only under separately approved phaseB source/label qualification; the object is entirely training-domain but includes original train features as well as labels/meta."
+    },
+    "reference_access_honesty": "The sealed PG training_dataset contains85 train-only columns. All those train-only values become resident on deserialization; only the unchanged index, maturity/decision clocks and original H1 labels are consumed here. No claim that prepare(label,meta) prevents other train-only columns being resident. Reuse its previously accepted training-only residency evidence and exact hash instead of a new broad schema audit.",
+    "never_load": [
+      "original inputs/native_prices all-period pickle",
+      "original inputs/daily_frame/features/common all-period objects",
+      "prior outer_predictions or evaluation/dataset",
+      "2023+ price/return/label values",
+      "source preparation workflow that rebuilds or reads all-period labels"
+    ],
+    "hard_checks": [
+      "Query output has only the fixed two symbols/two fields and training-range dates; source member identities are unchanged after access.",
+      "Map d0..d5 on the selected complete native calendar BEFORE selecting the original3014 cohort. Never shift only among the selected3014 rows.",
+      "Every original signal is retained; d0 original09:29-decision date, d1 originalH1 exit and d5 originalH5 maturity date match the sealed original metadata exactly.",
+      "All required endpoint/intermediate O/C entries for each original3014 row are present, finite and strictly positive. Noffill, interpolation, later-available opening substitution, shorter horizon or excluded year."
+    ],
+    "native_persistence": "Store only the bounded native price frame, immutable identities and exact training index/clock references in a new Qlib Recorder/DatasetH. dump_all=True,recursive=True and a direct prepare roundtrip; no provider rewrite.",
+    "failure_status": "training_price_identity_temporal_missing_or_original_target_immutability_failed; stop before S/Z.",
+    "original_target_immutability_hard_gate": {
+      "scope": "The existing3014-cohort H1/H5 arrays and clocks are the immutable original training reference, not targets to regenerate from the alternate source.",
+      "identity": "Verify the exact admitted train-only artifact/source identities. Preserve copies/hashes of original target columns before/after all qualification operations; mismatch or any assignment into original labels is a hard failure.",
+      "no_cross_vintage_equality_claim": "July24 andOct9 are explicitly different price vintages. They need not produce bit-identical H1 returns, even when they use a common economic adjustment basis, because values and float32 rounding can differ."
+    },
+    "H1_cross_vintage_diagnostic_only": {
+      "formula": "On fixed original3014 rows and exact matched d0/d1 dates, reconstruct the selected July24 raw-open H1 using the documented float32 operation order and compare with the sealed original H1 values. Open-basis close normalization does not change this reconstructed H1.",
+      "report": "Recorder-only paired values/differences; small summary records exact-equal count, finite/missing counts and maximum absolute difference for both instruments. No strategy or predictive score.",
+      "acceptance_threshold": null,
+      "not_a_gate": "No bit-identical or fitted numerical tolerance is imposed across two declared vintages. This diagnostic cannot change source, rows, source normalization, original arrays, model or loss weights. Hard gates remain immutable provenance/commonO-Cbasis, identity and dates, finite/positive primitives, original target immutability and maturity.",
+      "no_after_value_rule_change": "Do not turn an observed difference into a new pass threshold or choose a different source after looking. A demonstrable source/metadata contradiction is recorded for independent review and closes the affected version; it is not repaired by adjusting H1 values."
+    }
+  },
+  "phase_C_single_fixed_S_Z_construction": {
+    "requires": [
+      "PhaseB accepted price/mapping/finite-source and original-target-immutability receipt; H1 cross-vintage diagnostic has no numerical pass threshold",
+      "Separate owner phaseC GO"
+    ],
+    "horizon": 5,
+    "start": "d0 is originalT+1 opening after09:29 decision; do not include previous close→d0 open in future labels.",
+    "end": "d5 is originalT+6 opening, within2022-12-30 for the fixed cohort.",
+    "cached_log_plane": "Once per primitive/date, widen float32 prices tofloat64 and cache ell_O and the phaseA declared ell_C. No alternative log/price adjustment, scaling or recomputation is selected from outcomes.",
+    "formulas": {
+      "D_i": "leftfold_sum(j=0..4)[ell_C(i,dj)-ell_O(i,dj)]",
+      "N_i": "leftfold_sum(j=0..4)[ell_O(i,d(j+1))-ell_C(i,dj)]",
+      "D_relative": "D_SOXL-D_SOXX",
+      "N_relative": "N_SOXL-N_SOXX",
+      "S": "D_relative+N_relative",
+      "Z": "N_relative-D_relative",
+      "S_endpoint": "(ell_O(SOXL,d5)-ell_O(SOXL,d0))-(ell_O(SOXX,d5)-ell_O(SOXX,d0))"
+    },
+    "meaning": "S is the selected source price-only H5 total relative log return; Z is its night-minus-day component contrast. Close-basis normalization cancels algebraically inS because the same ell_C enters D andN with opposite sign. Neither is the original daily-reset27/63/10 reference-alpha label, cash probability, fee-net portfolio return or cash-dividend ledger.",
+    "original_targets_and_maturity": "All originalH1/H5 arrays stay immutable. Preserve original label_available_at=T+6 09:31NY and cutoff2023-01-01NY; required primitive observation dates must not exceed that originalH5 maturity. H1 return_available_at does not permit earlier cohort admission. This is the inherited historical clock convention, not first-receipt/PIT certification.",
+    "missing": "Retain all3014 reference rows in the audit. Any missing/nonpositive primitive, nonfiniteS/Z, identity or maturity mismatch fails this source-label version; no partialH5 aggregate, masked-subset training or cohort change is authorized.",
+    "numeric_contract": {
+      "dtype": "IEEE754 binary64 round-to-nearest additions/subtractions; no fast-math/FMA/reassociation.",
+      "fixed_algorithm": "Each5-term sum starts with the first difference and performs4 additions. Four legs use20 subtractions+16 additions; composing two relative differences andS adds3 operations=39. Direct endpoint expression adds3 subtractions and residual comparison1, giving43 operations.",
+      "u": "2**-53",
+      "gamma43": "43*u/(1-43*u)",
+      "L1": "Sum absolute values of all44 cached-log leaf occurrences in theS andendpoint computation graphs, including repeated occurrences.",
+      "eta": "Smallest positive binary64 subnormal, np.nextafter(0.0,1.0).",
+      "acceptance": "abs(S-S_endpoint)<=gamma43*L1+43*eta. Apply the same conservative43-operation bound with the appropriate leaf list to each per-asset D_i+N_i endpoint identity.",
+      "log_boundary": "Cached corrected log values are treated as the shared input constants in this algebraic check. No assumption of correctly-rounded libm log is needed to prove cancellation on those same constants. This does not certify true-price accuracy, common economic basis or statistical usefulness.",
+      "no_rescue": "No outcome-conditioned multiplier, minimum economic floor, relaxed tolerance or repeat until passing."
+    },
+    "reports_allowed": [
+      "Content/source/basis identities and declared normalization",
+      "Original3014 index andH1/H5 array preservation",
+      "Calendar endpoint/maturity andfinite/missing counts",
+      "Algebra residual/bound and exact pass/fail flags",
+      "Fixed old-versus-new H1 comparison is source-vintage diagnosis only, with no equality/tolerance gate and no source selection from its values."
+    ],
+    "reports_forbidden": [
+      "IC/AUC/forecastMSE or predictive rankings",
+      "strategy returns, beta/cash/riskstates",
+      "sign/window/quantile/class-threshold selection",
+      "market-regime or annual performance screening"
+    ],
+    "success_status": "conditional_training_label_source_qualified_not_economic_success",
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false
+  },
+  "planned_implementation_and_synthetic": {
+    "approved_now": false,
+    "one_focused_contract": "Synthetic-only: isolated train-range query boundary; exact archived stitch metadata maps C to O scale while original source O and original reference arrays stay fixed; absent metadata doesnot pass bynear1; common distribution factor and fixedsplice dates; distinct vintages may differ numerically without automaticfailure, while row/clock or original-array mutation hardfails; H5 endpoint/maturity, missingness and cached-log telescope bound. No real values are used to define tests or bounds.",
+    "real_repeat_policy": "One approved execution per reached phase. Genuine implementation defects retain failedreceipt and need a separately identified repair; scientific/source failures do not permit unbounded reruns."
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "draft_files_only": [
+      "source_label_design_draft.json",
+      "day_night_label_source_20261018.ipynb",
+      "conclusion.md"
+    ],
+    "future_recorder_only": [
+      "identity/selected_member_manifest",
+      "source/immutable_metadata_and_code",
+      "source/basis_certificate",
+      "source/native_training_prices",
+      "reference/original_train_index_clocks_and_targets",
+      "labels/fixed_H5_components_S_Z",
+      "analysis/source_label_checks"
+    ],
+    "no_new_recorder_claimed_in_draft": true
+  },
+  "pending_before_execution": [
+    "Independent review of this ex-ante alternate-source choice and exact metadata-derived open-basis map",
+    "Explicit implementation+synthetic authorization",
+    "PhaseA implementation/memberidentity review and GO before opaque capture/materialization",
+    "Separate phaseB price/cohort-reference and phaseC label GO after preceding receipts pass"
+  ],
+  "qlib_authority": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "current_execution_counts": {
+    "price_blob_reads_or_materializations": 0,
+    "price_or_label_objects_deserialized": 0,
+    "D_features_calls": 0,
+    "S_Z_labels_constructed": 0,
+    "market_HTTP": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "failure_scope": "A qualified source may still give a failed future model. A source-onlyfailure closes this fixed source-label version, not the overallGoal; no model/weight/trading decision follows automatically."
+}
