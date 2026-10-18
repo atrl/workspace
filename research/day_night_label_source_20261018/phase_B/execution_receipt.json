@@ -1,0 +1,41 @@
+{
+  "phase": "B",
+  "execution": "single_approved_notebook_run",
+  "exec_session_id": 94911,
+  "exit_code": 0,
+  "nbconvert_pid": 31508,
+  "kernel_pid": 31509,
+  "fresh_worker_pid": 31519,
+  "phase_worker_parent_pid": 31509,
+  "timeout_seconds": 7200,
+  "automatic_retry": false,
+  "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+  "implementation_identity_sha256": "e6b53cfb6da3807368c7a7086538fc3942e673f3f8fe391633f6eb16d1e795ae",
+  "owner_approval_sha256": "6f25f2f113df2e89b74783ac0b1d529bfe2cc80c92e5db795a76edb0a89c3d93",
+  "recorder_id": "ca4c274301a14149bc6f1de5ab800cd4",
+  "manifest_sha256": "1ef80e340d7377694feb4c54b78425dc4db9af20cc8b8a2bb2be5d0b69c3916b",
+  "phase_summary_sha256": "7de95c665b3f687fc0740cfe33334b66576cad92dc6f478f08ee7199e6f9f6f7",
+  "archive_sha256": "f4ab6a8be0b5d112ae46adcd798104a462894c712ffdcab016b0c60a8f5fb838",
+  "artifact_count": 18,
+  "operation_counts": {
+    "opaque_price_blob_materializations": 0,
+    "D_calendar_calls": 1,
+    "D_features_calls": 1,
+    "PG_training_reference_loads": 1,
+    "bounded_B_reference_loads": 0,
+    "S_Z_rows": 0
+  },
+  "public_query_budget_interpretation": "One complete D.calendar metadata call and one bounded D.features; internal provider/calendar metadata calls disclosed; raw-value access is four guarded FileFeatureStorage slices.",
+  "source_snapshot_as_of": "2026-07-24",
+  "training_observation_end": "2022-12-30",
+  "new_source_HTTP": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "C_executed": false,
+  "executor_NAS_cold_downloads": 0,
+  "phase_A_sealed_hashes": {
+    "summary.json": "d2899b6c536fa56f772a7aa2e108155bc66879074fe402468d34a01f843a7064",
+    "verification_manifest.json": "8a6840be08f9c2880b104c1f3d602025225256857f8e6d8842c9c68ec344709b"
+  },
+  "wording_sync": "Notebook first/final markdown and small card conclusions/entry summary only; no rerun, no A/B sealed Recorder/manifest/phase summary change."
+}

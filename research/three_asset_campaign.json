@@ -12,8 +12,8 @@
   ],
   "production_changes_authorized": false,
   "current_experiment": "research/day_night_label_source_20261018",
-  "current_phase": "phase_A_accepted_phase_B_approved",
-  "next_action": "Execute one phaseB fresh-process bounded native price/original-cohort qualification, then independently review its mapping/source checks before permitting C. No S/Z, fit or accounts authorized.",
+  "current_phase": "phase_B_accepted_phase_C_approved",
+  "next_action": "Execute exactly one fixed C label construction from sealed B, independently evaluate source/label qualification, then draft the pre-registered matched supervision experiment if qualified. No fit/account GO.",
   "roles": {
     "owner": "/root",
     "research_executor": "/root/recent_evidence",
@@ -1724,7 +1724,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/day_night_label_source_20261018",
-      "phase": "phase_A_accepted_phase_B_approved",
+      "phase": "phase_B_accepted_phase_C_approved",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
@@ -1735,7 +1735,7 @@
       "new_accounts": 0,
       "real_price_or_label_reads": 0,
       "execution_authorized": false,
-      "executor_lifecycle": "A accepted independently and cold-restored once. B notebook code cells match original frozen implementation. Owner signed one B execution; executor will be resumed explicitly after source A delivery.",
+      "executor_lifecycle": "B result independently accepted and coldread84191 completed. C signed for one fixed label construction, with no D.features/refit/account. Executor will be explicitly resumed after B delivery.",
       "definition": "Qualify a fixed Git July24 source for H5 relative day/night S/Z labels. Common O/C basis from archived field scales; preserve original3014 H1/H5 tensors. A identity/basis, B train-only prices, C fixed labels; each phase requires its preceding accepted receipt.",
       "goal_turn_assessment": "Previous research turn made progress by delivering source-label design and correcting cross-vintage identity requirements. Game-troubleshooting interlude did not declare the research Goal paused or complete; this continuation resumes research.",
       "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
@@ -1745,8 +1745,8 @@
       "implementation_authorized": true,
       "real_phase_A_B_C_authorized": {
         "A": "completed_accepted",
-        "B": true,
-        "C": false
+        "B": "completed_accepted",
+        "C": true
       },
       "implementation_identity": "research/day_night_label_source_20261018/implementation_identity.json",
       "implementation_identity_sha256": "e6b53cfb6da3807368c7a7086538fc3942e673f3f8fe391633f6eb16d1e795ae",
@@ -1786,7 +1786,59 @@
       "phase_A_result_review": "research/day_night_label_source_20261018/phase_A/source_result_review.json",
       "phase_A_result_review_sha256": "ac59a4531fc721bb8f4ae06ebe8562f461eabfb6467a0af3c35d29046b524c66",
       "phase_B_execution_approval": "research/day_night_label_source_20261018/phase_B_execution_approval.json",
-      "phase_B_execution_approval_sha256": "6f25f2f113df2e89b74783ac0b1d529bfe2cc80c92e5db795a76edb0a89c3d93"
+      "phase_B_execution_approval_sha256": "6f25f2f113df2e89b74783ac0b1d529bfe2cc80c92e5db795a76edb0a89c3d93",
+      "phase_B_result": {
+        "exec_session": 94911,
+        "exit_code": 0,
+        "worker_pid": 31519,
+        "recorder_id": "ca4c274301a14149bc6f1de5ab800cd4",
+        "archive_sha256": "f4ab6a8be0b5d112ae46adcd798104a462894c712ffdcab016b0c60a8f5fb838",
+        "summary_sha256": "7de95c665b3f687fc0740cfe33334b66576cad92dc6f478f08ee7199e6f9f6f7",
+        "manifest_sha256": "1ef80e340d7377694feb4c54b78425dc4db9af20cc8b8a2bb2be5d0b69c3916b",
+        "artifact_count": 18,
+        "bounded_price_shape": [
+          6040,
+          2
+        ],
+        "original_cohort_rows": 3014,
+        "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
+        "operation_counts": {
+          "opaque_price_blob_materializations": 0,
+          "D_calendar_calls": 1,
+          "D_features_calls": 1,
+          "PG_training_reference_loads": 1,
+          "bounded_B_reference_loads": 0,
+          "S_Z_rows": 0
+        },
+        "H1_cross_vintage_diagnostic": [
+          {
+            "instrument": "SOXL",
+            "rows": 3014,
+            "exact_equal_count": 512,
+            "finite_count": 3014,
+            "missing_count": 0,
+            "max_absolute_difference": 2.8848648071289062e-05,
+            "acceptance_threshold": null,
+            "diagnostic_only": true
+          },
+          {
+            "instrument": "SOXX",
+            "rows": 3014,
+            "exact_equal_count": 449,
+            "finite_count": 3014,
+            "missing_count": 0,
+            "max_absolute_difference": 1.7881393432617188e-06,
+            "acceptance_threshold": null,
+            "diagnostic_only": true
+          }
+        ],
+        "readback_verification": "research/day_night_label_source_20261018/phase_B/readback_verification.json",
+        "readback_verification_sha256": "fdb4dc9c6bf9e13f0cd4e2467e5d4928f41b4d2f2a20e422b772fd0c9bcffa4f"
+      },
+      "phase_B_result_review": "research/day_night_label_source_20261018/phase_B/source_result_review.json",
+      "phase_B_result_review_sha256": "b7b2263b665bc5dca4ae52c28a1e367baf9a1d24d88a60a3c735f6cddf56815d",
+      "phase_C_execution_approval": "research/day_night_label_source_20261018/phase_C_execution_approval.json",
+      "phase_C_execution_approval_sha256": "041d4443d41f4ea37e67c70aaf91eb15ed012bfb597d64257cbf4bc28fd5b9df"
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",
@@ -2457,7 +2509,11 @@
       "global_clip_caveat": "The new head gradient participates in the unchanged globalclip(2); even zero head initialization does not imply unchanged private updates. Full B/C package must be evaluated.",
       "real_price_label_prediction_reads": 0,
       "new_fits": 0,
-      "new_accounts": 0
+      "new_accounts": 0,
+      "owner_adoption_before_S_Z": {
+        "path": "research/external_mechanism_review_20261018/day_night_supervision_owner_adoption.json",
+        "sha256": "0f91dcb4dc3e8b3b4670c17744ef5f07ca9711268970db7725d1505d663e3e28"
+      }
     }
   },
   "research_focus_history": [

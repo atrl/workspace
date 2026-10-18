@@ -1,0 +1,92 @@
+{
+  "experiment": "day_night_label_source_20261018_phase_B",
+  "phase": "B",
+  "status": "completed_pending_independent_review",
+  "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+  "recorder_id": "ca4c274301a14149bc6f1de5ab800cd4",
+  "experiment_id": "227688884897789224",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/day_night_label_source_20261018/phase_B/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/day_night_label_source_20261018/phase_B/qlib_recorder/227688884897789224/ca4c274301a14149bc6f1de5ab800cd4",
+  "region": "us",
+  "as_of": "2026-07-24",
+  "source_snapshot_as_of": "2026-07-24",
+  "training_observation_end": "2022-12-30",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/day_night_label_source_20261018/selected_ea7f22bb9becb8a8f911a5073d80d519ea3f450b",
+  "bounded_native_price_rows": 6040,
+  "original_cohort_rows": 3014,
+  "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
+  "original_targets_unchanged": true,
+  "original_training_dataset_artifact_sha256": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+  "H1_cross_vintage_diagnostic": [
+    {
+      "instrument": "SOXL",
+      "rows": 3014,
+      "exact_equal_count": 512,
+      "finite_count": 3014,
+      "missing_count": 0,
+      "max_absolute_difference": 2.8848648071289062e-05,
+      "acceptance_threshold": null,
+      "diagnostic_only": true
+    },
+    {
+      "instrument": "SOXX",
+      "rows": 3014,
+      "exact_equal_count": 449,
+      "finite_count": 3014,
+      "missing_count": 0,
+      "max_absolute_difference": 1.7881393432617188e-06,
+      "acceptance_threshold": null,
+      "diagnostic_only": true
+    }
+  ],
+  "H1_diagnostic_has_numerical_gate": false,
+  "mapping_rows": 3014,
+  "last_maturity": "2022-12-30 09:31:00-05:00",
+  "price_start": "2011-01-03",
+  "price_end": "2022-12-30",
+  "native_dataset_direct_prepare_roundtrip": "passed",
+  "decision": "bounded_price_and_alignment_complete_pending_review",
+  "operation_counts": {
+    "opaque_price_blob_materializations": 0,
+    "D_calendar_calls": 1,
+    "D_features_calls": 1,
+    "PG_training_reference_loads": 1,
+    "bounded_B_reference_loads": 0,
+    "S_Z_rows": 0
+  },
+  "new_source_HTTP": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "historical_PIT_qualified": false,
+  "independent_forward_qualified": false,
+  "promotion": "not_assessed_source_only",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "../workflow.yaml",
+    "recorder_only_artifacts": [
+      "opaque_selected_members",
+      "native_training_prices",
+      "original_train_index_clocks_and_targets",
+      "H1_cross_vintage_paired",
+      "cached_common_log_plane",
+      "fixed_H5_components_S_Z"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "f4ab6a8be0b5d112ae46adcd798104a462894c712ffdcab016b0c60a8f5fb838",
+    "size_bytes": 367267,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f4/ab/f4ab6a8be0b5d112ae46adcd798104a462894c712ffdcab016b0c60a8f5fb838",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-18 19:10:14.1757+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f4/ab/f4ab6a8be0b5d112ae46adcd798104a462894c712ffdcab016b0c60a8f5fb838",
+    "recorder_id": "ca4c274301a14149bc6f1de5ab800cd4",
+    "experiment_id": "227688884897789224",
+    "archive_root": "qlib_recorder"
+  }
+}

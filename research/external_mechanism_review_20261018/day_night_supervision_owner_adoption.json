@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "owner": "/root",
+  "status": "conditional_structural_choice_registered_before_S_Z_construction",
+  "proposal": "research/external_mechanism_review_20261018/day_night_supervision_proposal.md",
+  "proposal_sha256": "329f8a3be089924d3ed899b48e1715a0a447357c0fee4604bdfffdd623835387",
+  "decision": "Adopt this single structural hypothesis as the prospective next design, conditional on source-label qualification and independent full-experiment review. No alternative head/weight/target choice is reserved for selection from S/Z values.",
+  "fixed_structural_choices": {
+    "receiver": "Original8-dimensional shared tail_encoder state",
+    "extra_head": "One9-parameter Linear(8,1), same B/C architecture and zero initialization with original RNG restored",
+    "B_target": "S",
+    "C_target": "Z",
+    "target_scaling": "Each target float64 mean/std(ddof=1) over the same original3014 matured rows, then one float32 cast; no clipping or epsilon fallback",
+    "additional_loss": "0.02 * 0.5 * mean squared error on standardized target",
+    "original_training": "Keep original objectives, auxiliary domain, one globalclip2 and AdamW/seed/epoch budget; no PG, detach or domain-head intervention",
+    "gradient_caveat": "Global clipping couples new-head gradients to other parameter updates; only a complete matched B/C package may be attributed."
+  },
+  "evidence_boundary": "Proposal was registered before any actual price/label phase. A/B source qualification now completed; fixed S/Z have not been constructed. No target means, variances, prediction scores or economic results were used to select these choices. Weight is an ex-ante design choice, not a paper recommendation.",
+  "not_authorized": {
+    "model_implementation": true,
+    "model_fits": true,
+    "account_execution": true,
+    "promotion": true
+  },
+  "still_required": "Source C qualification; full immutable dataset/model/reference/cost/gate bindings and independent model-design review before implementation or any fit. This owner selection does not certify model eligibility or success."
+}

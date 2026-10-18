@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "recorder_id": "ca4c274301a14149bc6f1de5ab800cd4",
+  "archive_sha256": "f4ab6a8be0b5d112ae46adcd798104a462894c712ffdcab016b0c60a8f5fb838",
+  "summary_sha256": "7de95c665b3f687fc0740cfe33334b66576cad92dc6f478f08ee7199e6f9f6f7",
+  "verification_manifest_sha256": "1ef80e340d7377694feb4c54b78425dc4db9af20cc8b8a2bb2be5d0b69c3916b",
+  "verified_artifacts": 18,
+  "bounded_price_shape": [
+    6040,
+    2
+  ],
+  "original_reference_rows": 3014,
+  "native_CS_RAW_direct_prepare": "passed",
+  "resident_frames": [
+    {
+      "path": "dataset.handler._data",
+      "shape": [
+        6040,
+        2
+      ],
+      "first_date": "2011-01-03",
+      "last_date": "2022-12-30"
+    },
+    {
+      "path": "dataset.handler._infer",
+      "shape": [
+        6040,
+        2
+      ],
+      "first_date": "2011-01-03",
+      "last_date": "2022-12-30"
+    },
+    {
+      "path": "dataset.handler._learn",
+      "shape": [
+        6040,
+        2
+      ],
+      "first_date": "2011-01-03",
+      "last_date": "2022-12-30"
+    }
+  ],
+  "original_target_digest_unchanged": true,
+  "exact_original_clocks_matched": true,
+  "required_primitives_missing_or_nonpositive": 0,
+  "four_bounded_native_slices_verified": true,
+  "NAS_download_count": 1,
+  "new_D_features_calls": 0,
+  "full_period_or_evaluation_values_decoded": 0,
+  "S_Z_constructed": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-day-night-B-coldread-jzdf1x56",
+  "method": "Single NAS cold restore, all artifact hashes, native bounded Dataset direct readback, original target digest and clock/slice verification. No market query, label construction or refit.",
+  "exec_session": 84191,
+  "exit_code": 0
+}
