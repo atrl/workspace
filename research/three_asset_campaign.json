@@ -1754,7 +1754,7 @@
   "execution_observation_20261018": {
     "current_task": {
       "card": "research/path_area_action_bridge_20261018",
-      "phase": "P1_implementation_accepted_pending_real_execution",
+      "phase": "P1_accepted_P2_draft_ready_for_scoped_review",
       "owner": "/root",
       "design_executor": "/root/external_methods",
       "executor": "/root/recent_evidence",
@@ -1767,8 +1767,8 @@
       "account_execution_authorized": false,
       "new_fits": 0,
       "new_accounts": 0,
-      "executor_lifecycle": "All three delegated implementation/review agents observed completed. P1 implementation/static review and synthetic checks passed; no P1_run_state or actual source/fit/account job exists. Goal controller was observed blocked without an exposed reason.",
-      "observed_at": "2026-10-18T14:32:36.473065+00:00",
+      "executor_lifecycle": "P1 execution52035 and unique NAS coldread48660 completed; independent result accepted. P2 design executor completed its draft; no model training, source task, account replay or implementation job is running.",
+      "observed_at": "2026-10-19T03:21:30.279074+00:00",
       "plan_sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
       "design_review_sha256": "10097e9704bfd3fd88327cea4eee5b6f9c77a63158d9cbfdbdcb002ce9be1a03",
       "implementation_authorization_sha256": "f52d2e475654e38b27cc8d5471caa6f66be2093f7de2dbc9cc7bce44efc7733c",
@@ -1784,7 +1784,49 @@
           41040
         ],
         "real_source_execution": false
-      }
+      },
+      "execution_approval": "research/path_area_action_bridge_20261018/P1_execution_approval.json",
+      "execution_approval_sha256": "c09c6aa545b323e2313b78be10dfae614dbbb2fb5050fa7c1dfa93455b3e73f6",
+      "executor_session_id": 52035,
+      "nbconvert_pid": 74974,
+      "executor_session_exit_code": 0,
+      "P1": {
+        "exec_session": 52035,
+        "exit_code": 0,
+        "recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+        "experiment_id": "959574308010795325",
+        "archive_sha256": "775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+        "summary_sha256": "29cd78de38fb5dfe4355d39d4706f0f46728e9fe8f34726ecabfd10697b583c7",
+        "manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+        "source_objects_loaded": 17,
+        "D_calendar_calls": 2,
+        "D_features_calls": 3,
+        "saved_models_static_qualified": 9,
+        "prefix_valid_rows": 1056,
+        "qualified_action_label_count": null,
+        "membership_status": {
+          "2018": "proven_empty",
+          "2019": "proven_empty"
+        },
+        "new_fits": 0,
+        "new_accounts": 0,
+        "source_HTTP": 0,
+        "coldread_exec_session": 48660,
+        "coldread_exit_code": 0,
+        "coldread_artifact_hashes": 21,
+        "readback_sha256": "04d624f991be488e8a8aabe36960b7a9af16fb52aa0f54b440aefbc2502e8103",
+        "historical_origin_lineage_certified": false,
+        "P2_execution_authorized": false,
+        "complete_prefix_marks_and_next_target_rows": 1055,
+        "coverage_count_semantics": "1055 is the complete-prefix plus marks plus next-target intersection only, not an upper bound on all action labels. Otherwise valid missing-prefix rows remain eligible with shared missingness mask under P2.",
+        "result_review_sha256": "44e872ca5f14cba88ab162f269f79c147d5e0aa9f0c93b69dc394a23e636ba96",
+        "P2_design_admissible": true
+      },
+      "result_review": "research/path_area_action_bridge_20261018/result_review.json",
+      "result_review_sha256": "44e872ca5f14cba88ab162f269f79c147d5e0aa9f0c93b69dc394a23e636ba96",
+      "P2_design_draft": "research/path_area_action_bridge_20261018/P2_design_draft.json",
+      "P2_design_draft_sha256": "c8db689b9f12b20756b003ff7e002de6fc428ddfe2460a9a7fd5a336891d66b5",
+      "next_action": "Scoped P2 design review of OOF clock and physical local-label contract, then owner freeze/implementation within existing campaign authorization. No source rerun or failed-route retuning."
     },
     "completed_FINRA_task": {
       "card": "research/stage1_finra_short_mix_allocation_20261018",

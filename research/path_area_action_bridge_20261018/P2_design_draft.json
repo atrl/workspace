@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "experiment": "path_area_action_bridge_20261018",
+  "phase": "P2",
+  "status": "design_only_pending_scoped_review",
+  "frozen": false,
+  "authorization": {
+    "design_only": true,
+    "implementation": false,
+    "source_loading": false,
+    "OOF_fits": false,
+    "OOF_prediction": false,
+    "area_or_action_labels": false,
+    "shadow_or_native_account": false,
+    "P3": false
+  },
+  "purpose": "Build one causal original-allocation OOF teacher and one costed physical training shadow, then fixed signed path-area inputs and same-state/same-reset local action labels. This phase trains no action classifier and evaluates no 2023+ account.",
+  "inherits": {
+    "P1_plan": {
+      "path": "research/path_area_action_bridge_20261018/plan.json",
+      "sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376"
+    },
+    "original_bridge_design": {
+      "path": "research/path_area_action_bridge_20261018/design_draft.json",
+      "sha256": "61af5d54ec1857bac4c59e9f5f483aeeba8a8e188cc63711bf308dde739053cb"
+    },
+    "P1_result_review": {
+      "path": "research/path_area_action_bridge_20261018/result_review.json",
+      "sha256": "44e872ca5f14cba88ab162f269f79c147d5e0aa9f0c93b69dc394a23e636ba96"
+    },
+    "P1_result_overview": {
+      "path": "research/path_area_action_bridge_20261018/P1_result_overview.json",
+      "sha256": "b97faab55c8536cdfddf973bd7c3071cc72039236d28b041a26f332e27ec8cf3"
+    },
+    "P1_summary": {
+      "path": "research/path_area_action_bridge_20261018/P1/summary.json",
+      "sha256": "29cd78de38fb5dfe4355d39d4706f0f46728e9fe8f34726ecabfd10697b583c7"
+    },
+    "P1_readback": {
+      "path": "research/path_area_action_bridge_20261018/P1/readback_verification.json",
+      "sha256": "04d624f991be488e8a8aabe36960b7a9af16fb52aa0f54b440aefbc2502e8103"
+    },
+    "unchanged_clauses": [
+      "preserved_contract: original39/16, PG3014x85/aux20741x20, originalH1/H5 arrays",
+      "prefix_contract: one signedA, eight controls, prefix-only availability",
+      "tariff: fixed Tiered projection; no historical-bill claim",
+      "P3_future_action_and_economic_experiment: entirely deferred, all economic gates retained"
+    ]
+  },
+  "P1_evidence": {
+    "recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+    "experiment_id": "959574308010795325",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P1/qlib_recorder",
+    "archive_sha256": "775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+    "manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+    "source_byte_identity_sha256": "29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124",
+    "native_readback": "One completed cold restore, exec48660 exit0,21 artifact hashes and native direct prepare verified; no repetition for this draft.",
+    "observed": {
+      "old_models_static_qualified": 9,
+      "early_auxiliary_status": {
+        "2018": "proven_empty",
+        "2019": "proven_empty"
+      },
+      "complete_prefix_marks_and_next_target_rows": 1055,
+      "complete_prefix_marks_and_next_target_by_trade_year": {
+        "2018": 54,
+        "2019": 252,
+        "2020": 252,
+        "2021": 252,
+        "2022": 245
+      },
+      "corporate_metadata_events": 33
+    },
+    "count_limit": "1055 is the complete-prefix intersection, NOT an action-label count or upper bound. The2020 missing-prefix/complete-marks row stays eligible for a label with mask0. Actual eligible mature action counts and the200 pre2022 gate remain unknown."
+  },
+  "source_admission": {
+    "mode": "explicit_present_day_frozen_retrospective_snapshot",
+    "decision_basis": "P1 independent result review accepts these exact bounded native inputs for conditional retrospective P2 development. Missing historical per-bin vintage hashes do not require reconstruction or block this version.",
+    "claims_false": [
+      "historical_origin_lineage_certified",
+      "historical_PIT_qualified",
+      "actual_first_receipt_certified",
+      "independent_validation",
+      "alpha_qualified",
+      "production_permission"
+    ],
+    "conditional_semantics": "rawNONE and right-edge+60s use the pinned source writer/manifest and P1 native read; do not relabel these as historical first-receipt evidence.",
+    "read_allowlist": {
+      "inputs/datasets": "7ca649a8b9fc1cc12443f69cafa79dc2303a1d622436d284f9ad7fe629fadb70",
+      "inputs/admitted_source_objects": "f665c2dcd57a3730b580c134169297d1669d6388e8895029f44a6ae22171d079",
+      "inputs/daily_calendar": "024c0fb151832fc57ed6af16789b52de5cb5d74950595a39db5ca523854e584b",
+      "analysis/fold_package": "5d9d428a54c9da1d29f861cfaa46c5db40ad0c952bbdec559f2bbfe65de23e9d",
+      "analysis/model_eligibility": "0f3b927f4ab6c17b47a31743589323073320becb3c04dce08a0c6dc8e361410e",
+      "analysis/membership_qualification": "9d4fb3636c60d7073d8aa7758867b8383447a01f78fde191e018bce2715445ef",
+      "analysis/minute_coverage": "14487156bfb7681ae93adc18dbe81fda66bcbd3278b25184097001e001cead5f",
+      "analysis/corporate_qualification": "71bac100c8cfe028e755b26c389627761183b1767bd9499c14e5a4c4aa96ad7d",
+      "inputs/source_read_audits": "cf1873b51a0dc286f431197a2437eee8ac7ff1c0949ffcf1f000bba7abddddf0"
+    },
+    "maximum_parent_artifact_loads": 9,
+    "residency": "P1 admitted_source_objects contains17 previously qualified objects, including9 models, PG datasets, all2020/21/22/outer auxiliary frames and whole two event-metadata objects with later dates. Disclose this residency; no2023+ price/label object is admitted. Early fits only use their sealed fold Dataset plus their typed-empty auxiliary Dataset.",
+    "no_new_source_queries": true,
+    "market_HTTP": 0,
+    "fallback": "None. Missing or changed required artifact stops this version; never use dirty provider, mixed eval frame, old tangent labels or2022outer predictions.",
+    "native_use": "Load verified Recorder objects and prepare DatasetH directly. A derived raw point provider for one native reconciliation may be built only from the admitted bounded_core_minutes Dataset, with its required Qlib readback; this is not a new market source."
+  },
+  "OOF_training": {
+    "new_slots": [
+      {
+        "trade_year": 2018,
+        "base_seed": 71,
+        "model_seed": 2089
+      },
+      {
+        "trade_year": 2018,
+        "base_seed": 172,
+        "model_seed": 2190
+      },
+      {
+        "trade_year": 2018,
+        "base_seed": 273,
+        "model_seed": 2291
+      },
+      {
+        "trade_year": 2019,
+        "base_seed": 71,
+        "model_seed": 2090
+      },
+      {
+        "trade_year": 2019,
+        "base_seed": 172,
+        "model_seed": 2191
+      },
+      {
+        "trade_year": 2019,
+        "base_seed": 273,
+        "model_seed": 2292
+      }
+    ],
+    "new_fit_maximum": 6,
+    "epochs_per_fit": 300,
+    "source": "P1 inputs/datasets fold_2018/fold_2019 and empty_aux_2018/empty_aux_2019; exact original MinutePitAllocator, base feature order39/common16, extra_features=[], original inactive feature_masks/spec/minimum_observations. Preserve original loss, optimizer, RNG sampling and one globalclip2.",
+    "empty_aux": "P1 proved strict PIT pool empty in each early fold. Preserve typed0x20 Dataset and unchanged len(auxiliary_x)==0 zero auxiliary loss branch. Keep auxiliary coefficient0.05; no union backfill, fake rows, or future calibration.",
+    "fold_rule": "cutoff=Jan1(trade_year)00:00America/New_York; train_end=calendar[searchsorted(Jan1)-20-1]. Independently retain original five-target finite and jointH5 label_available_at<cutoff. Original allocation gross-return target isH1; tail/cash/alpha targets areH5.",
+    "reuse": {
+      "trade_years": [
+        2020,
+        2021,
+        2022
+      ],
+      "base_seeds": [
+        71,
+        172,
+        273
+      ],
+      "model_count": 9,
+      "source": "P1 admitted original_OOF_candidates models/base_{year}_{seed}, exact previously qualified bytes; do not refit.",
+      "refit_slots": 0
+    },
+    "barrier": "Seal all six new states, full native train/empty-aux Dataset identities, fitted scaler equality to P1 fold scalers, original target digests and training audits before any P2 OOF prediction, area, shadow or local action label. No partial-seed ensemble; no seed/epoch retry or replacement model.",
+    "failure": "Record failed attempt and actual completed count. Six is a hard fit ceiling, not six successful fits plus retries. Any operational resume preserving an exact unfinished trajectory requires a separate reviewed receipt; no automatic restart."
+  },
+  "OOF_and_target_clock": {
+    "prediction_rows": "Only P1 input/timing rows with actual trade_date.year in2018..2022, including previous-year signal dates at year boundaries. No2023+ forward call.",
+    "routing": "Use actual trade_date.year, never signal_date.year. Each year uses its three states seed=base_seed+year; exact equal-weight ensemble of the five original outputs, normalize three weights as original _ensemble.",
+    "prediction_clock": "Raw allocation outputs use prior-session features at original decision_at09:29NY.",
+    "target_algorithm": "Preserve original _smooth_weights EMA/span and threshold/spec/candidate, applied once over the full chronological admitted2018..2022 OOF sequence with no annual reset. Warm smoothing from the first supported2018 trade row before physical shadow start; initial virtual weights are original CASH. Original PGH1 arrays remain unchanged.",
+    "target_clock": "The smoothed target is consumed at09:46NY. Its virtual holding update from a previous H1 return is admitted only after that original return_available_at (normally current09:31). The current/future H1 may not affect its own decision. Implement chronologically and assert every used return clock<=current09:46; do not claim the whole smoothed target existed at09:29.",
+    "risk_target": "At09:46 pass smoothed weights and original ensemble probabilities to prepare_on_policy_open(model=None), with only the common raw shadow state marked at known09:45. Original nonlearned risk state/projection/mandatory guards; no composition transform, no common cross-cost cap, no learned opening or recovery controller."
+  },
+  "nonlearned_policy_identity": {
+    "metadata_path": "research/stage1_minute_information_comparison_20261012/plan.json",
+    "metadata_sha256": "bf5fd58c01a15182d17f53b63710d7cf31af207e23387dc4b1a297cae4e32d94",
+    "action_spec": {
+      "experiment": "stage1_open_action_value_net_fees_20260928",
+      "source_experiment": "stage1_confidence_veto_recovery_v1",
+      "transaction_cost_bps": 10.0,
+      "stress_cost_bps": 25.0,
+      "logistic_c": 0.1,
+      "execute_probability_threshold": 0.5,
+      "maximum_skippable_turnover": 0.05,
+      "mandatory_derisk_beta_delta": 0.0,
+      "minimum_training_rows": 200,
+      "maximum_open_trade_day_ratio": 0.92,
+      "minimum_annual_wealth_ratio": 0.985
+    },
+    "recovery_spec": {
+      "experiment": "intraday_recovery_direct_allocation_v1",
+      "source_experiment": "pit_constituent_auxiliary_training_allocation_retrained_20260928",
+      "development_years": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "intraday_selection_years": [
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "outer_years": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "first_intraday_action_year": 2020,
+      "intraday_bars_observed": 4,
+      "transaction_cost_bps": 10.0,
+      "stress_cost_bps": 25.0,
+      "teacher_recovery_beta": 1.2,
+      "minimum_cash_weight": 0.15,
+      "maximum_soxl_weight": 0.3,
+      "recovery_eligibility_drawdown": 0.08,
+      "stop_drawdown": 0.12,
+      "defensive_beta": 0.2,
+      "wait_days": 5,
+      "ramp_days": 10,
+      "hold_days": 10,
+      "trailing_loss_days": 4,
+      "trailing_loss_trigger": 0.05,
+      "trailing_loss_beta": 0.6,
+      "emergency_drawdown": 0.22,
+      "emergency_beta": 0.3
+    },
+    "use_scope": "Only existing deterministic prepare_on_policy_open/guard fields. The legacy10/25bp spec fields do not set shadow/branch costs; only the inherited Tiered tariff plus2bp does. No learned controller or historical policy-selection independence is claimed.",
+    "learned_opening": null,
+    "learned_recovery": null,
+    "recovery_orders": false,
+    "source_code_sha256": {
+      "src/model/minute_pit_allocator.py": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+      "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+      "src/workflow/minute_pit_allocator.py": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+      "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+      "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+      "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+      "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+      "src/backtest/stage1_domain_heads_raw.py": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+      "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+      "src/data/full_path_prices.py": "a048feafe47db675009e196c55376aaf4e2dc09e5aa40523094afe912cbfef8d",
+      "src/analysis/tiered_action_labels.py": "209c916c4d8937ced5824d86fde15f5381508fa3b085a41d37d03bc8a116fb0f"
+    }
+  },
+  "common_training_shadow": {
+    "paths": 1,
+    "initial_cash_usd": 100000,
+    "slippage_bps": 2,
+    "native_reconciliations": 1,
+    "start_trade_date": "2018-10-12",
+    "last_trade_date_rule": "Last P1 PG-supported trade date, without source extension. A final valuation at its native exit date within2022 is allowed; absence of a next target still forbids that row label.",
+    "ownership": "One continuously owned physical account: integer SOXL/SOXX quantities, spendable cash, receivables, applied event IDs, fee month counters, NAV/peak, prior-known NAV/history, risk_state/risk_clock. No annual reset and no branch writes back into teacher.",
+    "sequence": [
+      "Apply that day qualified split/ex/pay events once before known09:45; unpaid receivable contributes toNAV but cannot fund buys.",
+      "At known09:45 mark raw holdings+cash+receivable; update peak/history and call original deterministic opening preparation for09:46.",
+      "Settle the always-execute desired risk-projected target at raw09:47 using IncomeLedger/settle_raw/TieredFees; sell before buy and retain original affordability/integer rules.",
+      "No learned or discretionary10:32 order; preserve10:32 mark and exchange-schedule actual close. Update close peak using that close only.",
+      "Next session applies its own events before known/entry marks; persist complete teacher ledger and immutable per-decision prebranch state/target."
+    ],
+    "missing": "Preserve every prescribed shadow session. Missing required mark or corporate unit/order ambiguity stops the continuous shadow, never silently jumps dates. A missing prefix alone only sets mask0 and does not stop shadow or discard a valid label.",
+    "implementation_boundary": "A narrow training-mode adapter may reuse existing physical primitives and output schema; do not invoke replay_stage1_raw unchanged because it requires a fitted opening controller. Do not invoke replay_raw_package because it applies composition/cross-cost transforms. Sealed helpers/cards remain unchanged.",
+    "native_authority": "One native_raw_validate replay of this exact prescribed order path with original frozen reconciliation tolerances and dividend/split cash conservation. Validation certifies the training shadow ledger, not alpha or a candidate account."
+  },
+  "local_action_labels": {
+    "eligibility": "Original opening guards: no mandatory_derisk, no large_transition, no mandatory_position_repair; original22 feature values finite. No fitted execute probability required in the teacher. Record all days and explicit reasons; availability of prefix is not eligibility.",
+    "state_and_entry": "For each eligible row with a valid next common target/marks, deep-clone the same pre-order physical quantities, spendable cash, IncomeLedger receivables/applied IDs and TieredFees monthly counters. At current09:47 EXECUTE submits current desired target; HOLD submits no order.",
+    "interval": "No intervening learned recovery. Each branch applies the same scheduled corporate events exactly once to its own actual holdings/cash. Preserve own fee tier usage, dividend amounts and spendable-cash constraints.",
+    "reset": "At next common teacher09:46 the reset target weights are fixed by the teacher, not either counterfactual branch. Both branches reset to these same weights at next raw09:47. Quantity/cash/NAV and reset cost may differ. No reset-day opening order is omitted from either branch.",
+    "definition": "Delta=(post-reset NAV_EXECUTE - post-reset NAV_HOLD) / common pre-order NAV valued at current raw09:47, including receivables. Denominator/fills and subsequent target are label-only, never current decision inputs. This local fixed-reset contrast is not the value of a recursively altered strategy.",
+    "maturity": "max(next teacher target informationtime09:46, next right-edge09:48 bar completion plus60s)=next09:49NY under the pinned research clock; require strictly before the intended fitting cutoff. A later actual dependency shifts maturity forward, never earlier.",
+    "missing": "PG final missing next target stays NaN/unknown, even when exit prices exist. No mixed2023+frame, synthesized target or zero-filled label. Missing prefix retains NaN A/control values andmask0 while a valid local label remains usable.",
+    "budget": "At most one EXECUTE/HOLD pair per eligible row on the original PG-supported shadow grid; no alternative windows, costs or branch targets. No full native account per branch.",
+    "legacy_helper": "tiered_action_labels.reset_advantage is a conceptual/zero-corporate unit1 reference only: it lacks physical corporate accounting. Do not load its old labels or force corporate-event equality to that obsolete convention."
+  },
+  "fixed_path_inputs": {
+    "grid": "P0=09:31.open (bar starts09:30); fifteen closes09:31..09:45 on both ETFs, all closed by09:45 and known09:46. No09:46close or afternoon completeness in mask.",
+    "coordinates": "x=SOXX price/P0-1; y=SOXL price/P0-1; fixed orientation and rawNONE minute plane.",
+    "arithmetic": "Widen frozen float32 native values tofloat64 before division. Sequential j=1..15 left-fold accumulation, A=0.5*sum(x[j-1]*dy[j]-y[j-1]*dx[j]); same sequential order for Qx=sum(dx^2),Qxy=sum(dx*dy),Qy=sum(dy^2). No compensation/order/precision/window alternatives or outcome-based tolerance.",
+    "controls": [
+      "X",
+      "Y",
+      "X_squared",
+      "XY",
+      "Y_squared",
+      "Qx",
+      "Qxy",
+      "Qy"
+    ],
+    "mask": "P1 prefix-only coverage with both assets; unknown canonical A/eight controls remainNaN, mask0. No zero substitution in canonical data.",
+    "future_pairing": "Later B/C would share original22 inputs+same8 controls+same mask and same nominal area slot: B neutral0, C signedA. All model encoding/scaling is deferred to P3. No abs(A), sign selection, volatility normalization or A×direction.",
+    "numerical_failure": "Nonfinite values from an otherwise declared-valid positive prefix are a mechanical failure with receipt; do not select new arithmetic after viewing A. Constant/near-zero/endpoint-related outputs are reported, not used to tune thresholds or claim alpha."
+  },
+  "mechanical_implementation_gate": {
+    "scope": "One concentrated synthetic contract before any real P2 execution. No new broad test family.",
+    "cases": [
+      "trade-year routing, independent20purge/H5 clocks and unchanged original targets/scalers",
+      "No model forward through2023; six-state barrier and strictly clocked lagged-H1 smoothing",
+      "prefix-only timing, line-path zero area and order permutations with matched endpoints/QV/covariance",
+      "clone isolation; no-corporate unit1 comparison where legacy contracts agree; split/ex/pay/unpaid-dividend and month-tier reset costs; teacher unchanged by branches",
+      "same next target reset, final missing-target label unknown, prefix-missing valid-label row retained"
+    ],
+    "tolerance": "Reuse exact integer/date identities and frozen native_raw_validate numeric bounds. Any new floating comparison bound must be derived from the chosen arithmetic and fixed in the implementation contract before real values; no label/economic result-dependent bound.",
+    "implementation_and_source_GO": "Root must freeze this P2 scope, approve implementation, then receive code/synthetic review and separately authorize the actual run. This draft grants none of these."
+  },
+  "support_and_stop": {
+    "minimum_pre2022_eligible_mature_action_rows": 200,
+    "classification_fit_rows": "Also require original minimum200 for any later actual fit; class support must be reported. Count only finite local label + valid original22 features + original eligibility + maturity before2022 cutoff; do not require prefixmask1.",
+    "report": "Rows by trade year, guard reason, maturity, prefixmask, label availability, and complete-prefix intersection. Keep counts distinct from3014 allocator training rows,1055 coverage intersection and old tangent260/154.",
+    "below_gate": "Close this fixed bridge as insufficient action support/needs_data for P3; no lower threshold, extra teacher years/seeds, source extension, learned-controller substitution or automatic fit to reach200.",
+    "interpretation": "Countpass/native agreement/nonzeroA are not independent validation, predictive value or stable SOXX excess. Research-history selection remains disclosed.",
+    "P3": "Separate plan/review/GO; future2action fits+6own-state0/2/5bp accounts+15exactrefs and every SOXX/risk/annual/126/CI/fresh-forward gate remain as inherited. No P3 work in this phase."
+  },
+  "budgets": {
+    "new_allocation_fits_maximum": 6,
+    "epochs_each": 300,
+    "saved_models_reused": 9,
+    "refit_saved_models": 0,
+    "action_classifier_fits": 0,
+    "common_shadow_policy_paths": 1,
+    "common_shadow_native_accounts": 1,
+    "local_branch_pairs_maximum": "one per eligible PG-supported training shadow row",
+    "new_market_HTTP": 0,
+    "new_market_source_queries": 0,
+    "native_derived_point_provider_builds": 1,
+    "evaluation_2023_plus_forward_or_accounts": 0,
+    "parameter_search": 0
+  },
+  "recorder_delivery": {
+    "policy": "slim_card_recorder_first",
+    "phase_directory": "research/path_area_action_bridge_20261018/P2",
+    "notebook": "research/path_area_action_bridge_20261018/path_area_action_bridge_20261018.ipynb",
+    "new_run": "Separate P2 Recorder; preserve sealed P1 and all closed cards.",
+    "recorder_only": [
+      "six fitted model states/scalers/audits",
+      "all per-seed OOF predictions and ensemble/clocked targets",
+      "fixed area/control/mask frame and original22 action features",
+      "one common physical shadow orders/positions/cash/receivables/fee/state trace and native report",
+      "per-row branch costs/corporate receipts/reset targets/Delta/maturity/eligibility",
+      "native DatasetH inputs and labels with recursive dump_all, source identities and execution state"
+    ],
+    "small_root": [
+      "frozen P2 plan/code identity",
+      "fit barrier",
+      "summary/support counts/gaps",
+      "review and one coldread receipt",
+      "notebook Chinese conclusion"
+    ],
+    "failed_run": "Persist actual consumed budget and partial results; do not relabel an exception as no attempt or automatically retry."
+  },
+  "unresolved_before_execution": [
+    "Independent scoped P2 design review, including explicit09:46 smoother clock and physical reset contract",
+    "Owner freeze and implementation authorization",
+    "New training-shadow/branch adapter identity plus one synthetic qualification, then separate actual GO"
+  ],
+  "current_actions": {
+    "metadata_and_code_reads_only": true,
+    "real_sources_models_prices_labels_deserialized": 0,
+    "source_queries": 0,
+    "predictions_area_or_labels_computed": 0,
+    "implementation_changes": 0,
+    "fits": 0,
+    "shadow_or_accounts": 0,
+    "campaign_edits": 0
+  }
+}

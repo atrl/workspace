@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "phase": "P1",
+  "session_id": 52035,
+  "start_chunk": "874756",
+  "final_chunk": "d2435b",
+  "nbconvert_pid": 74974,
+  "kernel_pid": "not_observed_before_completion",
+  "exit_code": 0,
+  "restarts": 0,
+  "log_path": "/tmp/path_area_P1_execution.iGRpVd",
+  "command": "PATH_AREA_P1_EXECUTE=1 MLFLOW_ALLOW_FILE_STORE=true PYTHONPATH=/Users/rziiiii/dev/workspace qlib_venv/bin/python -m nbconvert --execute research/path_area_action_bridge_20261018/path_area_action_bridge_20261018.ipynb --to notebook --inplace --ExecutePreprocessor.timeout=3600",
+  "plan_sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+  "owner_approval_sha256": "c09c6aa545b323e2313b78be10dfae614dbbb2fb5050fa7c1dfa93455b3e73f6",
+  "implementation_identity_sha256": "4a2e97cbba809543d2b0760ff0b41d28a79e006eab89885dd1470b923eb92408",
+  "implementation_review_sha256": "47f01127073056bf2b72ac3a8ba20ffaa97eefade4bc710e56c61ee443b53abe",
+  "recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+  "experiment_id": "959574308010795325",
+  "P1_summary_sha256": "29cd78de38fb5dfe4355d39d4706f0f46728e9fe8f34726ecabfd10697b583c7",
+  "manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+  "artifact_count": 21,
+  "archive_sha256": "775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+  "archive_bytes": 31059335,
+  "actual_counts": {
+    "phase": "P1",
+    "source_object_load_attempted": 17,
+    "source_objects_loaded": 17,
+    "D_calendar_calls": 2,
+    "D_features_calls": 3,
+    "new_source_HTTP": 0,
+    "model_forward": 0,
+    "gradients": 0,
+    "area": 0,
+    "new_labels": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "primary_rows": 3014,
+  "auxiliary_rows": 20741,
+  "saved_models_static_qualified": 9,
+  "membership_status": {
+    "2018": "proven_empty",
+    "2019": "proven_empty"
+  },
+  "prefix_valid": 1056,
+  "all_required_marks_and_next_target": {
+    "value": 1055,
+    "authority": "root readback_verification.json from this same sealed P1 metadata, no source rerun",
+    "semantics": "Complete-prefix plus marks plus next-target intersection, not total action-label count or upper bound."
+  },
+  "result_only_readback": {
+    "session_id": 3235,
+    "exit_code": 0,
+    "artifact_count": 3,
+    "artifact_whitelist": {
+      "analysis/membership_qualification": "9d4fb3636c60d7073d8aa7758867b8383447a01f78fde191e018bce2715445ef",
+      "analysis/minute_coverage": "14487156bfb7681ae93adc18dbe81fda66bcbd3278b25184097001e001cead5f",
+      "analysis/corporate_qualification": "71bac100c8cfe028e755b26c389627761183b1767bd9499c14e5a4c4aa96ad7d"
+    },
+    "original_source_reload_count": 0,
+    "D_calendar_D_features_calls": 0
+  },
+  "root_unique_NAS_coldread": {
+    "session_id": 48660,
+    "exit_code": 0,
+    "receipt_sha256": "04d624f991be488e8a8aabe36960b7a9af16fb52aa0f54b440aefbc2502e8103"
+  },
+  "executor_NAS_downloads": 0,
+  "P2_P3_authorized": false,
+  "Goal_lifecycle_modified": false,
+  "code_cells_equal_approved_commit_2acc75ef": true,
+  "notebook_sha256": "2b2f1396add62d76f080fdf1a086b130d617ec86c6a6be068f129b84f5971336",
+  "conclusion_sha256": "4add8803e54868a106e40852dbdec40c6d50f576911e8afe051437fbdc88ee74",
+  "P1_result_overview_sha256": "b97faab55c8536cdfddf973bd7c3071cc72039236d28b041a26f332e27ec8cf3",
+  "sealed_Recorder_manifest_archive_modified": false,
+  "independent_result_review": {
+    "path": "result_review.json",
+    "sha256": "44e872ca5f14cba88ab162f269f79c147d5e0aa9f0c93b69dc394a23e636ba96",
+    "verdict": "ACCEPT_P1_CONDITIONAL_SOURCE_AND_STATIC_REUSE"
+  },
+  "executor_self_certified_promotion": false,
+  "notebook_output_slimming": {
+    "pre_cleanup_sha256": "2d473442398b3d24b7aa0582fd9a9d1461137e8a53465b801f706497c0a3c9d3",
+    "removed_widget_metadata": true,
+    "removed_progress_outputs": 17,
+    "execution_code_changed": false,
+    "reexecution": false
+  }
+}

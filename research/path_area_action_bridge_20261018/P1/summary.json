@@ -1,0 +1,79 @@
+{
+  "experiment": "path_area_action_bridge_20261018_P1",
+  "phase": "P1",
+  "status": "completed_pending_independent_review",
+  "decision": "source_static_qualification_only_not_P2_authorization",
+  "recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+  "experiment_id": "959574308010795325",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P1/qlib_recorder/959574308010795325/e1d8101b42b44248aa2ea0a4920ebb19",
+  "plan_sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+  "source_byte_identity_sha256": "29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124",
+  "provider_uri": {
+    "daily_calendar": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "raw_minute": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+    "auxiliary_PIT_provider": "data/qlib/soxx_pit_leveraged_training_v1"
+  },
+  "region": "us",
+  "training_observation_end": "2022-12-30",
+  "as_of": "2026-10-09",
+  "counts": {
+    "phase": "P1",
+    "source_object_load_attempted": 17,
+    "source_objects_loaded": 17,
+    "D_calendar_calls": 2,
+    "D_features_calls": 3,
+    "new_source_HTTP": 0,
+    "model_forward": 0,
+    "gradients": 0,
+    "area": 0,
+    "new_labels": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "primary_rows": 3014,
+  "auxiliary_rows": 20741,
+  "saved_models_checked": 9,
+  "saved_models_static_qualified": 9,
+  "membership_status": {
+    "2018": "proven_empty",
+    "2019": "proven_empty"
+  },
+  "coverage_rows": 3014,
+  "prefix_valid_rows": 1056,
+  "source_gaps": [],
+  "origin_lineage_gaps": [
+    "Core and PIT manifests do not supply inherited per-bin SHA256; current byte identities do not independently authenticate inherited source contents. P2 admission remains separate."
+  ],
+  "multifold_auxiliary_residency": "All admitted2020/2021/2022/outer frames may be resident; not earlier-fold-only.",
+  "corporate_residency": "Whole two event-metadata objects may include later dates; only bounded event view is qualified.",
+  "intraday_residency": "Bounded2018-10-12..2022-12-30 includes afternoons; prefix mask uses only09:31..09:45.",
+  "P2_authorized": false,
+  "P3_authorized": false,
+  "historical_PIT_qualified": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "../workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/admitted_source_objects",
+      "inputs/datasets",
+      "inputs/bounded_PIT_flags",
+      "analysis/fold_package",
+      "analysis/minute_coverage",
+      "analysis/native_read_audits"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+    "size_bytes": 31059335,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/77/5b/775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-19 11:08:54.901946+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/77/5b/775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+    "recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+    "experiment_id": "959574308010795325",
+    "archive_root": "qlib_recorder"
+  }
+}

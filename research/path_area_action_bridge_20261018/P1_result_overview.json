@@ -1,0 +1,224 @@
+{
+  "source_recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+  "source_summary_sha256": "29cd78de38fb5dfe4355d39d4706f0f46728e9fe8f34726ecabfd10697b583c7",
+  "source_manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+  "result_only_artifact_whitelist": {
+    "analysis/membership_qualification": "9d4fb3636c60d7073d8aa7758867b8383447a01f78fde191e018bce2715445ef",
+    "analysis/minute_coverage": "14487156bfb7681ae93adc18dbe81fda66bcbd3278b25184097001e001cead5f",
+    "analysis/corporate_qualification": "71bac100c8cfe028e755b26c389627761183b1767bd9499c14e5a4c4aa96ad7d"
+  },
+  "result_artifacts_loaded": 3,
+  "original_source_reload_count": 0,
+  "new_D_calendar_calls": 0,
+  "new_D_features_calls": 0,
+  "forward_area_newlabels_fits_accounts": 0,
+  "membership": {
+    "2018": {
+      "status": "proven_empty",
+      "empty_pool_proven": true,
+      "qualified_rows": 0,
+      "expected_cells": 70998,
+      "missing_rows": 0,
+      "nonfinite_cells": 0,
+      "invalid_cells": 0,
+      "type0_rows": 68269,
+      "PIT_available_rows": 0,
+      "member_rows": 0,
+      "unknowns": [],
+      "historical_origin_lineage_certified": false,
+      "P2_admitted": false
+    },
+    "2019": {
+      "status": "proven_empty",
+      "empty_pool_proven": true,
+      "qualified_rows": 0,
+      "expected_cells": 80285,
+      "missing_rows": 0,
+      "nonfinite_cells": 0,
+      "invalid_cells": 0,
+      "type0_rows": 77305,
+      "PIT_available_rows": 0,
+      "member_rows": 0,
+      "unknowns": [],
+      "historical_origin_lineage_certified": false,
+      "P2_admitted": false
+    }
+  },
+  "coverage_totals": {
+    "rows": 3014,
+    "prefix_mask": 1056,
+    "prefix_qualification_known": 1057,
+    "known_0945_close": 1057,
+    "fill_0947_open": 1057,
+    "recovery_1032_open": 1057,
+    "session_close": 1057,
+    "next_0947_open": 1058,
+    "next_target_present": 3013
+  },
+  "all_trade_year_coverage": [
+    {
+      "trade_year": 2011,
+      "source_rows": 251,
+      "prefix_mask": 0,
+      "prefix_qualification_known": 0,
+      "known_0945_close": 0,
+      "fill_0947_open": 0,
+      "recovery_1032_open": 0,
+      "session_close": 0,
+      "next_0947_open": 0,
+      "next_target_present": 251
+    },
+    {
+      "trade_year": 2012,
+      "source_rows": 250,
+      "prefix_mask": 0,
+      "prefix_qualification_known": 0,
+      "known_0945_close": 0,
+      "fill_0947_open": 0,
+      "recovery_1032_open": 0,
+      "session_close": 0,
+      "next_0947_open": 0,
+      "next_target_present": 250
+    },
+    {
+      "trade_year": 2013,
+      "source_rows": 252,
+      "prefix_mask": 0,
+      "prefix_qualification_known": 0,
+      "known_0945_close": 0,
+      "fill_0947_open": 0,
+      "recovery_1032_open": 0,
+      "session_close": 0,
+      "next_0947_open": 0,
+      "next_target_present": 252
+    },
+    {
+      "trade_year": 2014,
+      "source_rows": 252,
+      "prefix_mask": 0,
+      "prefix_qualification_known": 0,
+      "known_0945_close": 0,
+      "fill_0947_open": 0,
+      "recovery_1032_open": 0,
+      "session_close": 0,
+      "next_0947_open": 0,
+      "next_target_present": 252
+    },
+    {
+      "trade_year": 2015,
+      "source_rows": 252,
+      "prefix_mask": 0,
+      "prefix_qualification_known": 0,
+      "known_0945_close": 0,
+      "fill_0947_open": 0,
+      "recovery_1032_open": 0,
+      "session_close": 0,
+      "next_0947_open": 0,
+      "next_target_present": 252
+    },
+    {
+      "trade_year": 2016,
+      "source_rows": 252,
+      "prefix_mask": 0,
+      "prefix_qualification_known": 0,
+      "known_0945_close": 0,
+      "fill_0947_open": 0,
+      "recovery_1032_open": 0,
+      "session_close": 0,
+      "next_0947_open": 0,
+      "next_target_present": 252
+    },
+    {
+      "trade_year": 2017,
+      "source_rows": 251,
+      "prefix_mask": 0,
+      "prefix_qualification_known": 0,
+      "known_0945_close": 0,
+      "fill_0947_open": 0,
+      "recovery_1032_open": 0,
+      "session_close": 0,
+      "next_0947_open": 0,
+      "next_target_present": 251
+    },
+    {
+      "trade_year": 2018,
+      "source_rows": 251,
+      "prefix_mask": 54,
+      "prefix_qualification_known": 54,
+      "known_0945_close": 54,
+      "fill_0947_open": 54,
+      "recovery_1032_open": 54,
+      "session_close": 54,
+      "next_0947_open": 55,
+      "next_target_present": 251
+    },
+    {
+      "trade_year": 2019,
+      "source_rows": 252,
+      "prefix_mask": 252,
+      "prefix_qualification_known": 252,
+      "known_0945_close": 252,
+      "fill_0947_open": 252,
+      "recovery_1032_open": 252,
+      "session_close": 252,
+      "next_0947_open": 252,
+      "next_target_present": 252
+    },
+    {
+      "trade_year": 2020,
+      "source_rows": 253,
+      "prefix_mask": 252,
+      "prefix_qualification_known": 253,
+      "known_0945_close": 253,
+      "fill_0947_open": 253,
+      "recovery_1032_open": 253,
+      "session_close": 253,
+      "next_0947_open": 253,
+      "next_target_present": 253
+    },
+    {
+      "trade_year": 2021,
+      "source_rows": 252,
+      "prefix_mask": 252,
+      "prefix_qualification_known": 252,
+      "known_0945_close": 252,
+      "fill_0947_open": 252,
+      "recovery_1032_open": 252,
+      "session_close": 252,
+      "next_0947_open": 252,
+      "next_target_present": 252
+    },
+    {
+      "trade_year": 2022,
+      "source_rows": 246,
+      "prefix_mask": 246,
+      "prefix_qualification_known": 246,
+      "known_0945_close": 246,
+      "fill_0947_open": 246,
+      "recovery_1032_open": 246,
+      "session_close": 246,
+      "next_0947_open": 246,
+      "next_target_present": 245
+    }
+  ],
+  "corporate": {
+    "status": "qualified_metadata_only",
+    "unknowns": [],
+    "residency": {
+      "cash": {
+        "whole_object_rows": 125,
+        "post_train_rows": 27
+      },
+      "split": {
+        "whole_object_rows": 3,
+        "post_train_rows": 1
+      }
+    },
+    "prices_or_accounts_examined": false,
+    "actual_event_announcement_PIT_certified": false,
+    "P2_admitted": false
+  },
+  "bounded_corporate_event_count": 33,
+  "P2_authorized": false,
+  "P3_authorized": false
+}

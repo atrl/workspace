@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "scope": "One NAS restore of completed P1 output; artifact hashes and selected native datasets direct prepare; no source rerun/model forward/new labels/fits/accounts",
+  "observed_at_utc": "2026-10-19T03:10:42.299787+00:00",
+  "recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+  "archive_sha256": "775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+  "archive_bytes": 31059335,
+  "summary_sha256": "29cd78de38fb5dfe4355d39d4706f0f46728e9fe8f34726ecabfd10697b583c7",
+  "manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+  "all_artifact_hashes_verified": 21,
+  "native_direct_prepare_shapes": {
+    "original_input_timing": [
+      3014,
+      80
+    ],
+    "empty_aux_2018": [
+      0,
+      20
+    ],
+    "empty_aux_2019": [
+      0,
+      20
+    ],
+    "bounded_core_minutes": [
+      825120,
+      6
+    ]
+  },
+  "saved_models_static_qualified": 9,
+  "membership_status": {
+    "2018": "proven_empty",
+    "2019": "proven_empty"
+  },
+  "corporate_status": "qualified_metadata_only",
+  "corporate_unknowns": [],
+  "coverage_mark_counts": {
+    "prefix_mask": 1056,
+    "fill_0947_open": 1057,
+    "recovery_1032_open": 1057,
+    "session_close": 1057,
+    "next_0947_open": 1058,
+    "next_target_present": 3013
+  },
+  "coverage_check": {
+    "all_required_marks_and_next_target": 1055,
+    "by_trade_year": {
+      "2011": {
+        "rows": 251,
+        "prefix_valid": 0,
+        "all_required_marks_and_next_target": 0
+      },
+      "2012": {
+        "rows": 250,
+        "prefix_valid": 0,
+        "all_required_marks_and_next_target": 0
+      },
+      "2013": {
+        "rows": 252,
+        "prefix_valid": 0,
+        "all_required_marks_and_next_target": 0
+      },
+      "2014": {
+        "rows": 252,
+        "prefix_valid": 0,
+        "all_required_marks_and_next_target": 0
+      },
+      "2015": {
+        "rows": 252,
+        "prefix_valid": 0,
+        "all_required_marks_and_next_target": 0
+      },
+      "2016": {
+        "rows": 252,
+        "prefix_valid": 0,
+        "all_required_marks_and_next_target": 0
+      },
+      "2017": {
+        "rows": 251,
+        "prefix_valid": 0,
+        "all_required_marks_and_next_target": 0
+      },
+      "2018": {
+        "rows": 251,
+        "prefix_valid": 54,
+        "all_required_marks_and_next_target": 54
+      },
+      "2019": {
+        "rows": 252,
+        "prefix_valid": 252,
+        "all_required_marks_and_next_target": 252
+      },
+      "2020": {
+        "rows": 253,
+        "prefix_valid": 252,
+        "all_required_marks_and_next_target": 252
+      },
+      "2021": {
+        "rows": 252,
+        "prefix_valid": 252,
+        "all_required_marks_and_next_target": 252
+      },
+      "2022": {
+        "rows": 246,
+        "prefix_valid": 246,
+        "all_required_marks_and_next_target": 245
+      }
+    }
+  },
+  "new_source_HTTP": 0,
+  "new_D_calendar_or_features": 0,
+  "model_forward_new_labels_fits_accounts": 0,
+  "historical_origin_lineage_certified": false,
+  "P2_authorized": false,
+  "original_recorder_and_sealed_summary_unchanged": true,
+  "temporary_restore_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-path-area-P1-coldread-qmd88o5v",
+  "exec_session": 48660,
+  "exit_code": 0
+}

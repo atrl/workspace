@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT_P1_CONDITIONAL_SOURCE_AND_STATIC_REUSE",
+  "phase": "P1",
+  "reviewer": "independent_evaluator",
+  "reviewed_at_utc": "2026-10-19T03:17:27.842360+00:00",
+  "plan_sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+  "implementation_review_sha256": "47f01127073056bf2b72ac3a8ba20ffaa97eefade4bc710e56c61ee443b53abe",
+  "execution_approval_sha256": "c09c6aa545b323e2313b78be10dfae614dbbb2fb5050fa7c1dfa93455b3e73f6",
+  "source_byte_identity_sha256": "29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124",
+  "recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+  "summary_sha256": "29cd78de38fb5dfe4355d39d4706f0f46728e9fe8f34726ecabfd10697b583c7",
+  "manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+  "archive_sha256": "775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+  "owner_readback_sha256": "04d624f991be488e8a8aabe36960b7a9af16fb52aa0f54b440aefbc2502e8103",
+  "scope": "Completed P1 result only; seven hash-verified saved analysis artifacts reviewed. No source/model reload, selector/source rerun, test, market API or repeated NAS recovery.",
+  "material_findings": [],
+  "actual_result": {
+    "execution_session_id": 52035,
+    "execution_exit_code": 0,
+    "attempts": 1,
+    "artifacts": 21,
+    "source_objects_loaded": 17,
+    "explicit_D_calendar_calls": 2,
+    "D_features_calls": 3,
+    "primary_rows": 3014,
+    "auxiliary_rows": 20741,
+    "saved_original_models_static_qualified": 9,
+    "model_years": [
+      2020,
+      2021,
+      2022
+    ],
+    "base_seeds": [
+      71,
+      172,
+      273
+    ],
+    "early_PIT": {
+      "2018": {
+        "status": "proven_empty",
+        "expected_cells": 70998,
+        "qualified_rows": 0,
+        "missing_nonfinite_invalid": 0,
+        "last_decoded_date": "2017-11-30"
+      },
+      "2019": {
+        "status": "proven_empty",
+        "expected_cells": 80285,
+        "qualified_rows": 0,
+        "missing_nonfinite_invalid": 0,
+        "last_decoded_date": "2018-11-29"
+      }
+    },
+    "PIT_field_slices_each": 138,
+    "core_field_slices": 12,
+    "core_decoded_bounds": [
+      "2018-10-12 09:31:00",
+      "2022-12-30 16:00:00"
+    ],
+    "coverage_rows": 3014,
+    "prefix_valid_rows": 1056,
+    "known_fill_recovery_close_rows_each": 1057,
+    "next_fill_rows": 1058,
+    "next_target_present_rows": 3013,
+    "complete_prefix_marks_and_next_target_rows": 1055,
+    "coverage_intersection_is_action_label_count_or_upper_bound": false,
+    "corporate_status": "qualified_metadata_only",
+    "corporate_unknowns": [],
+    "bounded_corporate_events": {
+      "cash": 32,
+      "split": 1
+    },
+    "whole_corporate_residency": {
+      "cash_rows": 125,
+      "cash_post_train_rows": 27,
+      "split_rows": 3,
+      "split_post_train_rows": 1
+    },
+    "source_gaps": [],
+    "new_source_HTTP": 0,
+    "model_forward": 0,
+    "gradients": 0,
+    "area": 0,
+    "new_labels": 0,
+    "fits": 0,
+    "accounts": 0,
+    "owner_unique_NAS_readback": "21hashes and direct native inputtiming3014x80,emptyaux0x20 for both earlyfolds,core825120x6 passed; no duplicate restore by reviewer."
+  },
+  "P1_accepted": true,
+  "P2_design_admissible": true,
+  "P2_execution_approved": false,
+  "P3_approved": false,
+  "fit_approved": false,
+  "account_approved": false,
+  "conditional_source_admission": "The frozen present-day bytes and bounded native training datasets are admissible for a separately reviewed retrospective P2 design. Missing historical per-bin hashes remain an origin-lineage limitation, not a requirement to obtain unavailable historical vintages or reconstruct the same source before any retrospective research. RawNONE/right-edge semantics remain the declared frozen writer/manifest research convention.",
+  "historical_origin_lineage_certified": false,
+  "historical_PIT_qualified": false,
+  "first_receipt_qualified": false,
+  "independent_validation_qualified": false,
+  "alpha_or_economic_success": false,
+  "minimum_remaining_conditions": [
+    "Bind P2 to this exact P1 evidence and explicitly retain conditional retrospective source status. Actual OOF generation, six missingfold fits, area/newlabels and raw-corporate shadow/reset behavior require their own frozen design, implementation review and owner GO.",
+    "Preserve unknown prefixes and the terminal missing nexttarget. In2020 one prefix is incomplete while marks are present; that row must remain under the sharedmask and may still have an eligible label.1055 is only the complete-prefix/marks/nexttarget intersection, never a blanket action-cohort filter or label upper bound.",
+    "Actual action eligibility/maturity/counts, thepre2022 minimum200 support gate, paired model economics and independent forward remain unmeasured. A source count or nine static model passes cannot replace them."
+  ],
+  "next_action": "Proceed to a separate scoped P2 design review; P1 completion alone grants no prediction, fit, area, label, shadow/account or promotion execution."
+}
