@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "implemented_phase": "P1 only",
+  "plan_sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+  "entrypoint": "src.workflow.path_area_source_preflight.run_p1",
+  "notebook_env": {
+    "PATH_AREA_P1_EXECUTE": "1",
+    "MLFLOW_ALLOW_FILE_STORE": "true",
+    "PYTHONPATH": "/Users/rziiiii/dev/workspace"
+  },
+  "execution_approval_schema": {
+    "approved": true,
+    "phase": "P1",
+    "plan_sha256": "exact",
+    "implementation_identity_sha256": "exact",
+    "implementation_review_sha256": "exact",
+    "source_byte_identity_sha256": "exact",
+    "maximum_counts": {
+      "source_objects": 17,
+      "D_calendar_calls": 2,
+      "D_features_calls": 3,
+      "new_source_HTTP": 0,
+      "forward_gradient_area_newlabels_fits_accounts": 0
+    }
+  },
+  "implementation_review_schema": {
+    "verdict": "APPROVE_P1_IMPLEMENTATION",
+    "plan_sha256": "exact",
+    "code_sha256": "exact map",
+    "source_byte_identity_sha256": "exact"
+  },
+  "approval_files": {
+    "review": "implementation_review.json",
+    "owner_GO": "P1_execution_approval.json"
+  },
+  "actual_execution_authorized": false,
+  "byte_capture": {
+    "mode": "opaque streaming SHA256/size only; no pickle or numerical bin decode",
+    "allowed_source_locators": 17,
+    "core_field_bins": 12,
+    "PIT_flag_bins": 138,
+    "source_byte_identity_sha256": "29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124",
+    "metadata_capture_sessions": [
+      75570,
+      25001
+    ],
+    "reason_for_second_capture": "Include two declared source/parent-plan metadata SHA entries; no numerical decode or API call in either capture.",
+    "missing_paths": [],
+    "mismatched_inherited_hashes": []
+  },
+  "source_origin_boundary": "Current bin SHA captures freeze this implementation input but do not establish inherited snapshot origin where no historical per-bin hashes were provided. The gap remains explicit; P2 admission is independent. Manifest source strings are declarations, not price-content proofs.",
+  "source_object_allowlist": {
+    "PG_train_only": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "inventory_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "artifacts": [
+        "inputs/training_dataset",
+        "inputs/auxiliary_dataset",
+        "inputs/training_audit"
+      ],
+      "artifact_sha256": {
+        "inputs/training_dataset": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+        "inputs/auxiliary_dataset": "78ad08e92061c32d8ce6ce4dc7c6ffb163b1f9cfef9aab66589a74515ba02d78",
+        "inputs/training_audit": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53"
+      },
+      "read_phase": "Only afterseparateP1source/no-fitGO, neverduringthisdesign."
+    },
+    "original_OOF_candidates": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "archive": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+      "inventory_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "models/base_2020_71": "f9bef1bfed5815a632efd33ded5e98cef2cb090b41b670e75786da038a202a40",
+        "models/base_2020_172": "9e6d354b91a12600a8f0eeaedc541a314cc9e0675bb29ab0330b7061e67065e9",
+        "models/base_2020_273": "7bf1451562409592c27d4deebde083ddf0816aa1c3ddc56122fec373d79a011a",
+        "models/base_2021_71": "9a02f1a267462914ca82bf4a3879c7b7e222ea0d862ba2b4146d558afff65d37",
+        "models/base_2021_172": "65f87112bf60e36236f06d444cc4b0d4f94b0611d5ca67eb820898fa5f58140c",
+        "models/base_2021_273": "3992909cb15da24a8d7b10dd9380722052a9833b5fe87a629b66cbf4c877c7bc",
+        "models/base_2022_71": "d226915b5062436a6ef106f70ca054c8ffd9662d2268528dbd6605d6df798b44",
+        "models/base_2022_172": "dd69fea76a11df330f2f6bee12bd06d1a98593e9a918432ee12955e1403f3728",
+        "models/base_2022_273": "973923cc39c076b3b4342435d74e236d0900e263084873d42e5b90c0c0f93b8e",
+        "inputs/audit": "9a349f71d9046b5977007008cc06924dc04a1dc17546753b7584d3e31552f32a",
+        "inputs/auxiliary": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+        "inputs/plan": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b"
+      },
+      "status": "Nine savedidentities only; loadability,cutoff/scaler/auxiliary/sourceaudit eligibility unverified. No automaticrefit ifanyexistingmodel fails."
+    },
+    "corporate_events_metadata": {
+      "card": "research/etf_corporate_actions_20261009",
+      "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+      "inventory_sha256": "625ba522fbadc4377c87f56e4a241deca714cc556dbd7227b3f7e414d938a6f3",
+      "archive": null,
+      "archive_status": "Legacy referenceplan doesnotnameaNASarchive; verify exactlocalRecorder paths/manifest or explicitlyresolveaqualifiedarchive beforeloading, no guessedNASidentity.",
+      "artifacts": {
+        "data/cash_events.pkl": "4ad373f39401f5dc6f826e17806243a3331f19f569ab1d4bc617efc5954e5d5a",
+        "data/split_events.pkl": "92f74ce2ceb29ddd0daac623a949d0076516de6f6c19b3c5e8071e086943a125"
+      },
+      "residency": "These are eventmetadata objects thatmay containpost2023events. If explicitlyadmittedinP1, disclose wholeobjectresidency and immediatelyfilter byneededtraininterval before schedulework. Do notclaimall2023+metadata wereunseen. No price,return,label oraccountobject isadmittedthroughthisexception.",
+      "retrieval_mode": "verified_existing_local_Recorder_only",
+      "experiment_id": "649036106770763940",
+      "summary_sha256": "7532d3fff2c79c34c81a042da88ec8acbded721dbdc288662314be855b4a2275",
+      "no_NAS_archive_required_or_inferred": true
+    }
+  },
+  "source_lifecycle": "All17 source load attempts use existing local hash-verified QlibRecorders before this task R.start. No NAS restoration. Corporate two-object local manifest is sufficient for identity; no archive invented. Missing source retains a gap and cannot be replaced. Source errors may expose part of the admitted group; attempt inventory is explicitly disclosed.",
+  "native_sequence": "qlib.init(daily) -> three load_verified_recorder_objects groups -> D.calendar(day) -> CS_RAW PG prepare/resident audit/static folds/models -> qlib.init(PIT) per missingfold and one bounded D.features flags each -> qlib.init(core) -> D.calendar(1min) and one bounded D.features core -> pinnedXNYS schedule and separate eventmetadata qualification -> verify sourcebytes unchanged -> R.start(P1), native Dataset/Recorder/manifest/NAS.",
+  "budget_meaning": "Two explicit research D.calendar calls are daily and core-minute. Three D.features calls are two missingfoldflag queries and onecorequery. D.features legitimately loads native indexing calendar internally; FileCalendarStorage.data is observed and recorded, not counted as an additional research API call. No hidden price expression/Ref/rolling expansion. Installed Qlib code identities are frozen.",
+  "numerical_slice_guard": "FileFeatureStorage.__getitem__ only allows exact named provider/instrument/field paths and slices inside declared start/end mapped from native indexing calendars. Header start_index/length metadata may be inspected internally; no later numerical price value is decoded. All field reads logged; duplicate/extra field slices reject. clear_mem_cache=True and expression/dataset/disk caches disabled; kernels1.",
+  "raw_bounds": {
+    "symbols": [
+      "SOXL",
+      "SOXX"
+    ],
+    "core_fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close",
+      "$volume",
+      "$price_valid"
+    ],
+    "start": "2018-10-12 09:30:00",
+    "end": "2022-12-30 16:00:00",
+    "residency": "Oneboundednativequery mayreturnalltrain intradaytimes, includingafternoons. Disclose thatresidency; constructprefixvalidityonlyfromtheclosedprefix. Othertrained-sessionmarks are usedsolelyfor coveragequalification, never todecideprefixmask. No2023price decoded."
+  },
+  "flags": "46 fixed instruments, only$pit_available/$pit_member/$instrument_type, start2007-02-01, eachfold actual20-purgeend. Frozen native instruments/all.txt supplies lifespanmetadata, not current constituent selection. Missing/invalid/nonfinite/unobserved cells remainunknown; no emptyaux whenunknown ornonempty.",
+  "training": "PG original3014x85 and20741x20 retained. Audit every resident handler/loader frame and forbid external reload references. DataHandler.CS_RAW preserves group/order. Original five targets/fullindex hashes before/after; no new targets. Fold train/maturity uses original20purge and jointH5clock/finite five targets. Calendar-derived clocks compare to original metadata without changing them.",
+  "original_models": "Nine saved base2020/21/22 only; no initialize/forward/predict/autograd/optimizer. Check exactclass/973shape/39+16 order/inactive feature_masks/spec/candidate/seed=base+year/cutoff/train_end/audit/scalers/minimum_observations. Failed reusedslot cannot consume six future missingfoldfit slots.",
+  "auxiliary_residency": "The explicitly admitted original inputs/auxiliary dict contains2020/2021/2022/outer raw-derived label frames through2022 and is not an early-fold-only load. Everyfold date/source raw_observation_end and originalprelabelcrop/union/calibration flags checked before countparity. Written observations_end is not independent maturity proof. No backward reuse of outer2022labels to create2018/19aux.",
+  "empty_aux": "Only proven_empty identity+valid coverage can produce typedzero-row20column native Dataset derived from admitted empty schema; coefficients and original loss unchanged. Nonempty/unknown leaves separate raw-before-cutoff reconstruction dependency. Neither result authorizes P2 or fits.",
+  "clock_and_coverage": "Use exact frozen right-edge mappings fromplan. Prefix mask uses only P0=09:31open and09:31..09:45closes withbar-localvalidity. Full query includes trainafternoons, explicitly resident, but09:48open/10:33open/exchangesessionclose/next09:48 are separate coverage only. No A/returns/newlabels. XNYS4.13.2 exactmodulehash schedule, native session equality, never infer close from missingbars.",
+  "corporate_metadata": "Two wholeeventobjects may containpost2022metadata. Discloseactual wholeobject residency, immediately boundedview for2018-10-12..2022-12-30; cash availability strictly nextnative session afterpay. Unsupportedfractionalsplit/same-dayordering/unknownschema remainsdependency. No rawledger/account simulation.",
+  "native_artifacts": "Derived complete input/timing and per-fold DatasetH(DataHandlerLP.from_df) use config(dump_all=True,recursive=True). Synthetic/actual native directprepare roundtrips useCS_RAW; no setup_data. Large sourceobjects/models/boundedarrays/fold views/coverage liveonlyP1 Recorder/NAS. Rootsummary/slimlinks retain independentreview pending.",
+  "phase_outputs": "P1/summary.json andP1/verification_manifest.json are sourceauthority; rootsummary preserves actualP1experiment/RID and points there. P1 native bytes/identity success cannot authorize P2/P3. No6newOOF/prediction/area/actionlabel/shadow/nativeaccount code implemented.",
+  "failure": "Exclusive P1_run_state consumes one attempt. Persist attempted/returned object and nativeAPI counts; never autoretry. Missing qualification may be a completedpartial result; unexpectedexception reportsfailed, and ifRecorder alreadycreated savefailure in sameRecorder andkeepFAILED. No alternate source or currentdirtyprovider substitution.",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "actual_counts_now": {
+    "source_objects_unpickled": 0,
+    "numerical_bins_decoded": 0,
+    "D_calendar": 0,
+    "D_features": 0,
+    "real_model_forward_gradient_area_labels_fits_accounts": 0,
+    "market_HTTP": 0
+  }
+}

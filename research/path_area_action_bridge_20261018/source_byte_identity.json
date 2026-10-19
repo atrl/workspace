@@ -1,0 +1,2099 @@
+{
+  "schema_version": 1,
+  "plan_sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+  "mode": "opaque_hash_size_and_locator_only",
+  "sources": {
+    "PG_train_only": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_allocation_20261018/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_aux_projection_allocation_20261018/qlib_recorder/320515720462995186/fce9a058996142c6bef71196aba31db9",
+      "manifest_name": "verification_manifest.json",
+      "artifacts": {
+        "inputs/training_dataset": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+        "inputs/auxiliary_dataset": "78ad08e92061c32d8ce6ce4dc7c6ffb163b1f9cfef9aab66589a74515ba02d78",
+        "inputs/training_audit": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53"
+      },
+      "retrieval_mode": "existing_local_verified_Recorder_only",
+      "object_count": 3,
+      "archive_sha256": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5"
+    },
+    "original_OOF_candidates": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "manifest_name": "verification_manifest.json",
+      "artifacts": {
+        "models/base_2020_71": "f9bef1bfed5815a632efd33ded5e98cef2cb090b41b670e75786da038a202a40",
+        "models/base_2020_172": "9e6d354b91a12600a8f0eeaedc541a314cc9e0675bb29ab0330b7061e67065e9",
+        "models/base_2020_273": "7bf1451562409592c27d4deebde083ddf0816aa1c3ddc56122fec373d79a011a",
+        "models/base_2021_71": "9a02f1a267462914ca82bf4a3879c7b7e222ea0d862ba2b4146d558afff65d37",
+        "models/base_2021_172": "65f87112bf60e36236f06d444cc4b0d4f94b0611d5ca67eb820898fa5f58140c",
+        "models/base_2021_273": "3992909cb15da24a8d7b10dd9380722052a9833b5fe87a629b66cbf4c877c7bc",
+        "models/base_2022_71": "d226915b5062436a6ef106f70ca054c8ffd9662d2268528dbd6605d6df798b44",
+        "models/base_2022_172": "dd69fea76a11df330f2f6bee12bd06d1a98593e9a918432ee12955e1403f3728",
+        "models/base_2022_273": "973923cc39c076b3b4342435d74e236d0900e263084873d42e5b90c0c0f93b8e",
+        "inputs/audit": "9a349f71d9046b5977007008cc06924dc04a1dc17546753b7584d3e31552f32a",
+        "inputs/auxiliary": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+        "inputs/plan": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b"
+      },
+      "retrieval_mode": "existing_local_verified_Recorder_only",
+      "object_count": 12,
+      "archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1"
+    },
+    "corporate_events_metadata": {
+      "card": "research/etf_corporate_actions_20261009",
+      "recorder_id": "582a0c7d39964e8b860ebe33941c5dd2",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_corporate_actions_20261009/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2",
+      "manifest_name": "verification_manifest.json",
+      "artifacts": {
+        "data/cash_events.pkl": "4ad373f39401f5dc6f826e17806243a3331f19f569ab1d4bc617efc5954e5d5a",
+        "data/split_events.pkl": "92f74ce2ceb29ddd0daac623a949d0076516de6f6c19b3c5e8071e086943a125"
+      },
+      "retrieval_mode": "existing_local_verified_Recorder_only",
+      "object_count": 2
+    }
+  },
+  "providers": {
+    "raw_minute": {
+      "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+      "freq": "1min",
+      "bin_paths": [
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/open.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/high.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/low.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/close.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/volume.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/price_valid.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/open.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/high.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/low.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/close.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/volume.1min.bin",
+        "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/price_valid.1min.bin"
+      ],
+      "inherited_per_bin_sha256_available": false,
+      "current_bytes_are_snapshot_origin_proof": false,
+      "manifest_source_declaration": "NAS raw NONE snapshot sha256=18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3"
+    },
+    "daily_calendar": {
+      "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+      "freq": "day",
+      "bin_paths": [],
+      "inherited_per_bin_sha256_available": false,
+      "current_bytes_are_snapshot_origin_proof": false,
+      "manifest_source_declaration": "Qlib observed open/close execution marks only; source manifests pinned by plan.json"
+    },
+    "auxiliary_PIT_provider": {
+      "provider_uri": "data/qlib/soxx_pit_leveraged_training_v1",
+      "freq": "day",
+      "bin_paths": [
+        "data/qlib/soxx_pit_leveraged_training_v1/features/acls/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/acls/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/acls/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/adi/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/adi/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/adi/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/alab/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/alab/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/alab/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/amat/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/amat/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/amat/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/amd/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/amd/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/amd/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/amdl/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/amdl/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/amdl/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/arm/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/arm/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/arm/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/asml/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/asml/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/asml/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/asx/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/asx/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/asx/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/avgo/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/avgo/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/avgo/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/crdo/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/crdo/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/crdo/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/crus/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/crus/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/crus/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/entg/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/entg/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/entg/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/intc/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/intc/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/intc/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/intw/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/intw/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/intw/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/klac/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/klac/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/klac/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/lrcx/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/lrcx/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/lrcx/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/lscc/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/lscc/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/lscc/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mchp/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mchp/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mchp/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mksi/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mksi/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mksi/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mpwr/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mpwr/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mpwr/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mrvl/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mrvl/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mrvl/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mtsi/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mtsi/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mtsi/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mu/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mu/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mu/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mull/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mull/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mull/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mvll/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mvll/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/mvll/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nvda/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nvda/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nvda/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nvdl/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nvdl/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nvdl/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nvmi/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nvmi/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nvmi/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nxpi/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nxpi/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/nxpi/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/oled/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/oled/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/oled/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/on/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/on/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/on/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/onto/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/onto/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/onto/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/qcom/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/qcom/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/qcom/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/qrvo/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/qrvo/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/qrvo/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/rmbs/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/rmbs/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/rmbs/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/slab/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/slab/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/slab/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/smtc/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/smtc/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/smtc/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/stm/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/stm/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/stm/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/swks/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/swks/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/swks/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/syna/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/syna/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/syna/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/ter/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/ter/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/ter/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/tsm/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/tsm/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/tsm/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/txn/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/txn/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/txn/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/umc/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/umc/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/umc/instrument_type.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/usd/pit_available.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/usd/pit_member.day.bin",
+        "data/qlib/soxx_pit_leveraged_training_v1/features/usd/instrument_type.day.bin"
+      ],
+      "inherited_per_bin_sha256_available": false,
+      "current_bytes_are_snapshot_origin_proof": false,
+      "manifest_source_declaration": "/Users/rziiiii/dev/workspace/data/raw/soxx_constituents/pit_holdings_history.csv;/Users/rziiiii/dev/workspace/data/raw/soxx_constituents/pit_price_manifest.json;/Users/rziiiii/dev/workspace/data/raw/soxx_leveraged_training/manifest.json"
+    }
+  },
+  "entries": [
+    {
+      "path": "research/stage1_aux_projection_allocation_20261018/summary.json",
+      "role": "PG_train_only:summary",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "76a8f7d811c778265e3f48ac166dd0122cc92921fc55d8e13f156153a7fcc024",
+      "bytes": 4034,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "research/stage1_aux_projection_allocation_20261018/verification_manifest.json",
+      "role": "PG_train_only:manifest",
+      "exists": true,
+      "expected_sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "sha256": "555e2e1380c8a6507742670274429e55ac3e91a42d85f2fc083d3217d674b696",
+      "bytes": 22343,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/stage1_aux_projection_allocation_20261018/qlib_recorder/320515720462995186/fce9a058996142c6bef71196aba31db9/artifacts/inputs/training_dataset",
+      "role": "PG_train_only:inputs/training_dataset",
+      "exists": true,
+      "expected_sha256": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+      "sha256": "bce1a9d8bed8a3ecbccc187929c1941b7e1950059163de760c0413245c7691ac",
+      "bytes": 1942799,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/stage1_aux_projection_allocation_20261018/qlib_recorder/320515720462995186/fce9a058996142c6bef71196aba31db9/artifacts/inputs/auxiliary_dataset",
+      "role": "PG_train_only:inputs/auxiliary_dataset",
+      "exists": true,
+      "expected_sha256": "78ad08e92061c32d8ce6ce4dc7c6ffb163b1f9cfef9aab66589a74515ba02d78",
+      "sha256": "78ad08e92061c32d8ce6ce4dc7c6ffb163b1f9cfef9aab66589a74515ba02d78",
+      "bytes": 2643350,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/stage1_aux_projection_allocation_20261018/qlib_recorder/320515720462995186/fce9a058996142c6bef71196aba31db9/artifacts/inputs/training_audit",
+      "role": "PG_train_only:inputs/training_audit",
+      "exists": true,
+      "expected_sha256": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53",
+      "sha256": "61099209a064a3853c9174b1967b69dc4f022bfbf28cc1e4a0f46d094c556e53",
+      "bytes": 1606,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/summary.json",
+      "role": "original_OOF_candidates:summary",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+      "bytes": 19418,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/verification_manifest.json",
+      "role": "original_OOF_candidates:manifest",
+      "exists": true,
+      "expected_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "bytes": 29020,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_2020_71",
+      "role": "original_OOF_candidates:models/base_2020_71",
+      "exists": true,
+      "expected_sha256": "f9bef1bfed5815a632efd33ded5e98cef2cb090b41b670e75786da038a202a40",
+      "sha256": "f9bef1bfed5815a632efd33ded5e98cef2cb090b41b670e75786da038a202a40",
+      "bytes": 15488,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_2020_172",
+      "role": "original_OOF_candidates:models/base_2020_172",
+      "exists": true,
+      "expected_sha256": "9e6d354b91a12600a8f0eeaedc541a314cc9e0675bb29ab0330b7061e67065e9",
+      "sha256": "9e6d354b91a12600a8f0eeaedc541a314cc9e0675bb29ab0330b7061e67065e9",
+      "bytes": 15488,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_2020_273",
+      "role": "original_OOF_candidates:models/base_2020_273",
+      "exists": true,
+      "expected_sha256": "7bf1451562409592c27d4deebde083ddf0816aa1c3ddc56122fec373d79a011a",
+      "sha256": "7bf1451562409592c27d4deebde083ddf0816aa1c3ddc56122fec373d79a011a",
+      "bytes": 15488,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_2021_71",
+      "role": "original_OOF_candidates:models/base_2021_71",
+      "exists": true,
+      "expected_sha256": "9a02f1a267462914ca82bf4a3879c7b7e222ea0d862ba2b4146d558afff65d37",
+      "sha256": "9a02f1a267462914ca82bf4a3879c7b7e222ea0d862ba2b4146d558afff65d37",
+      "bytes": 15489,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_2021_172",
+      "role": "original_OOF_candidates:models/base_2021_172",
+      "exists": true,
+      "expected_sha256": "65f87112bf60e36236f06d444cc4b0d4f94b0611d5ca67eb820898fa5f58140c",
+      "sha256": "65f87112bf60e36236f06d444cc4b0d4f94b0611d5ca67eb820898fa5f58140c",
+      "bytes": 15489,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_2021_273",
+      "role": "original_OOF_candidates:models/base_2021_273",
+      "exists": true,
+      "expected_sha256": "3992909cb15da24a8d7b10dd9380722052a9833b5fe87a629b66cbf4c877c7bc",
+      "sha256": "3992909cb15da24a8d7b10dd9380722052a9833b5fe87a629b66cbf4c877c7bc",
+      "bytes": 15489,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_2022_71",
+      "role": "original_OOF_candidates:models/base_2022_71",
+      "exists": true,
+      "expected_sha256": "d226915b5062436a6ef106f70ca054c8ffd9662d2268528dbd6605d6df798b44",
+      "sha256": "d226915b5062436a6ef106f70ca054c8ffd9662d2268528dbd6605d6df798b44",
+      "bytes": 15489,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_2022_172",
+      "role": "original_OOF_candidates:models/base_2022_172",
+      "exists": true,
+      "expected_sha256": "dd69fea76a11df330f2f6bee12bd06d1a98593e9a918432ee12955e1403f3728",
+      "sha256": "dd69fea76a11df330f2f6bee12bd06d1a98593e9a918432ee12955e1403f3728",
+      "bytes": 15489,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_2022_273",
+      "role": "original_OOF_candidates:models/base_2022_273",
+      "exists": true,
+      "expected_sha256": "973923cc39c076b3b4342435d74e236d0900e263084873d42e5b90c0c0f93b8e",
+      "sha256": "973923cc39c076b3b4342435d74e236d0900e263084873d42e5b90c0c0f93b8e",
+      "bytes": 15489,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/audit",
+      "role": "original_OOF_candidates:inputs/audit",
+      "exists": true,
+      "expected_sha256": "9a349f71d9046b5977007008cc06924dc04a1dc17546753b7584d3e31552f32a",
+      "sha256": "9a349f71d9046b5977007008cc06924dc04a1dc17546753b7584d3e31552f32a",
+      "bytes": 7275,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/auxiliary",
+      "role": "original_OOF_candidates:inputs/auxiliary",
+      "exists": true,
+      "expected_sha256": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+      "sha256": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+      "bytes": 11323516,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/plan",
+      "role": "original_OOF_candidates:inputs/plan",
+      "exists": true,
+      "expected_sha256": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b",
+      "sha256": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b",
+      "bytes": 7759,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/summary.json",
+      "role": "corporate_events_metadata:summary",
+      "exists": true,
+      "expected_sha256": "7532d3fff2c79c34c81a042da88ec8acbded721dbdc288662314be855b4a2275",
+      "sha256": "7532d3fff2c79c34c81a042da88ec8acbded721dbdc288662314be855b4a2275",
+      "bytes": 7164,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/verification_manifest.json",
+      "role": "corporate_events_metadata:manifest",
+      "exists": true,
+      "expected_sha256": "625ba522fbadc4377c87f56e4a241deca714cc556dbd7227b3f7e414d938a6f3",
+      "sha256": "625ba522fbadc4377c87f56e4a241deca714cc556dbd7227b3f7e414d938a6f3",
+      "bytes": 44820,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/data/cash_events.pkl",
+      "role": "corporate_events_metadata:data/cash_events.pkl",
+      "exists": true,
+      "expected_sha256": "4ad373f39401f5dc6f826e17806243a3331f19f569ab1d4bc617efc5954e5d5a",
+      "sha256": "4ad373f39401f5dc6f826e17806243a3331f19f569ab1d4bc617efc5954e5d5a",
+      "bytes": 26147,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/etf_corporate_actions_20261009/qlib_recorder/649036106770763940/582a0c7d39964e8b860ebe33941c5dd2/artifacts/data/split_events.pkl",
+      "role": "corporate_events_metadata:data/split_events.pkl",
+      "exists": true,
+      "expected_sha256": "92f74ce2ceb29ddd0daac623a949d0076516de6f6c19b3c5e8071e086943a125",
+      "sha256": "92f74ce2ceb29ddd0daac623a949d0076516de6f6c19b3c5e8071e086943a125",
+      "bytes": 1782,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/qlib_store_manifest.json",
+      "role": "raw_minute:qlib_store_manifest.json",
+      "exists": true,
+      "expected_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+      "sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+      "bytes": 943,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/calendars/1min.txt",
+      "role": "raw_minute:calendars/1min.txt",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "01d00736617fea7392ce81a400339cc6b061396a5e7f2a94cd844c554362a08c",
+      "bytes": 15601200,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/instruments/all.txt",
+      "role": "raw_minute:instruments/all.txt",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "c01836ac69f179ad7f51e4e774b7b5b8f8ebcbb29f7ae893fb3a5371c1bcc9cc",
+      "bytes": 90,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/qlib.yaml",
+      "role": "raw_minute:qlib.yaml",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "1eb18f08c3f6cfe79524567b99079d41f0b5175eb1b2dcb0e80e312baaf32ff0",
+      "bytes": 202,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/open.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d98700b1af7c9fc1fabd2a35271c2b8026344ab74d1a3dfb77d4f03a6305657d",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/high.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "8e4c593a9e6c2aedff0c58c14b33868b2e6062c16abc80ca66c7c2230dbfbb27",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/low.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "41e62bcef7ca022452db51580cc8ee5dc0486d22a3004aa4c55c73dedb5a1e91",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/close.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "3f8f9e85a6f6ce5a0ae632dd8dc368afefc31a3371340173cb403663b8e66755",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/volume.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "8ba5adfae5cb5bf5d4af54eadf3a88c3d7f2567b0a0e957fa9f9aae1536b4632",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/price_valid.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "a60d3277dd03b79c86f96cac4ce7d3b8b491d0de240424603db01854dfec9ed1",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/open.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "8a6a7ad2418f42c53ef81b003356242effcbc9a165741baf2805796470c45c0b",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/high.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "cafae875ffb979963fc76ca7e549619ef9b1cf909530b8df9917809175045bc4",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/low.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "5b615cbbda58f71e99407b404e4fca6a6732ac511df229d7dbe554e71e456550",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/close.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "83069807a4fbfca7c545973055fb31a43cfd796d365c200bf4ebe0af42a83f88",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/volume.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "61be185bd67152db79aee7549f6ac638ca4cf0f495e8240a2030107d9b371b58",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/price_valid.1min.bin",
+      "role": "raw_minute:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "ac6d88813afc59ce9aef5da3e4c1456de7dc9e6b7b4b806a19a1ab6ea53b38d2",
+      "bytes": 3120244,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/qlib_store_manifest.json",
+      "role": "daily_calendar:qlib_store_manifest.json",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+      "bytes": 844,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/calendars/day.txt",
+      "role": "daily_calendar:calendars/day.txt",
+      "exists": true,
+      "expected_sha256": "7d45256ab69fbf3d156fa23823f5cc865225082debc559789ef87503a7248afb",
+      "sha256": "7d45256ab69fbf3d156fa23823f5cc865225082debc559789ef87503a7248afb",
+      "bytes": 45892,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/instruments/all.txt",
+      "role": "daily_calendar:instruments/all.txt",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "c5a3c374d7ecd11a737f9fe139893e034104b55ff0c214374f7ac71a1dc79385",
+      "bytes": 54,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/qlib.yaml",
+      "role": "daily_calendar:qlib.yaml",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2",
+      "bytes": 205,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json",
+      "role": "auxiliary_PIT_provider:qlib_store_manifest.json",
+      "exists": true,
+      "expected_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+      "sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+      "bytes": 3672,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/calendars/day.txt",
+      "role": "auxiliary_PIT_provider:calendars/day.txt",
+      "exists": true,
+      "expected_sha256": "2a861bcf94a9abcfe78b9d2ed7248df20a3e147c53610751abcd7f183ff9bc56",
+      "sha256": "2a861bcf94a9abcfe78b9d2ed7248df20a3e147c53610751abcd7f183ff9bc56",
+      "bytes": 53735,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/instruments/all.txt",
+      "role": "auxiliary_PIT_provider:instruments/all.txt",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "6acaa738bf41dc350c84204f3e920c755e92c0801f304777e464c08072e96d67",
+      "bytes": 1228,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/qlib.yaml",
+      "role": "auxiliary_PIT_provider:qlib.yaml",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "203b3132dfd2787f1ba9c7a1cee5ecdef29a40d1e6224c5f5cc9846611bcf355",
+      "bytes": 181,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/acls/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/acls/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "588237b0cfa29afcc56a1a11d1dacfaecbdecec3c785dc7b56946b3dcf7b928e",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/acls/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/adi/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/adi/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/adi/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/alab/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "cf558db5d5c4907e4bacd13ef2964acbe2e15a1f8fbbc01297193a64f9ca5849",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/alab/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "0ae4d0c80182fa1f572d1259550dd1f7d8453cce27c29b4ccc059a249e5ad37b",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/alab/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "e6372d9aca6334fc4e42d8981d0553407d2b6e5a08a802af66c84c04bf323f7a",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/amat/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/amat/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/amat/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/amd/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/amd/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/amd/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/amdl/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "879dd59d52798565da00c36e5dac8cbffc16e96fb018756ccd8cd575a2398c4a",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/amdl/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "879dd59d52798565da00c36e5dac8cbffc16e96fb018756ccd8cd575a2398c4a",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/amdl/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "e1bd2a835e47dd51c9d2de996955a32f481ac2366aee731d0f0daed530398d23",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/arm/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "2ae2f3c0cf6a814777b2f2ee8a7e2cb50fa5864e6619009ce1fe26484a4218af",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/arm/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "8c62cde4ad68e881e0bcee84def26899601c3a4bce68e52c6ad8194b09cb2e2d",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/arm/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "a60493aeac25804ac45562e30ee3e6db60ed0c34cb93a84ffe810288ffcb817a",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/asml/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/asml/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/asml/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/asx/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/asx/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "17e2897a9681c724b82fee696e386d7ae6a30d7aa51a98952bb46c8d67c5f972",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/asx/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/avgo/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/avgo/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/avgo/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/crdo/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "defc7399f7fb069930b6dd794c0294dc5567c66fffed3692ea38711631eeb5a0",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/crdo/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "4080864bcd1905578f8ea7c6c54d5201af021d1ebe041d3d80d52fb1492ef34f",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/crdo/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "91d2dfc11164402c487a46a3fd9daba31f7c09484f46acfdcc1dbca8e9d51e6d",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/crus/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/crus/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "c3fb031d82848dec322fa0b9baa7aaaf3afc389403c03193af1434e2ba447aac",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/crus/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/entg/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/entg/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/entg/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/intc/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/intc/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/intc/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/intw/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "2e2e10e5af9376bad8a10290eceff5a28cf038c6b02513e8f1ff3a043b2adb7d",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/intw/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "2e2e10e5af9376bad8a10290eceff5a28cf038c6b02513e8f1ff3a043b2adb7d",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/intw/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "f84ae2eb3d692db1b624c2ba3268ce522755d74214106e36af25918e8c69a08a",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/klac/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/klac/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/klac/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/lrcx/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/lrcx/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/lrcx/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/lscc/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/lscc/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "79fa614c82bec0ecfb6717c5de08510c68b9db0c32e82e6096690684150eaeaf",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/lscc/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mchp/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mchp/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mchp/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mksi/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mksi/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "2e8ebefa879d4469cdb296fc3b0bfd5144e1f48274a3b27afbfa746f54622315",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mksi/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mpwr/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mpwr/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mpwr/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mrvl/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mrvl/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mrvl/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mtsi/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d09b7d47997087f0e70541a1c0276ce4bb35298fd230111ccd4e901a6620629e",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mtsi/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "dccfc9c2948efe57c4406dad78a3ca716593e40421c674e69814200050672a12",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mtsi/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d63ed5ec3dc5c38228db80e846bdcb8a8bac0cb9e311b1817c1128a4e0044382",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mu/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mu/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mu/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mull/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "9a88f18f0a953127d32f4de35aae928a364279f26b27512741507896a10e7ecd",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mull/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "9a88f18f0a953127d32f4de35aae928a364279f26b27512741507896a10e7ecd",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mull/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "94a7532db56b1f3338d438f5c4f42dc56a4acabd2be16dbc0a88dc36b0296cfe",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mvll/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "cc19d4f71aba42bf040e37693fa419a112d886f7f6d1febeb53e2e1d4ce9bbed",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mvll/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "cc19d4f71aba42bf040e37693fa419a112d886f7f6d1febeb53e2e1d4ce9bbed",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/mvll/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "75d8fd0702ae122039359068392e6a943b3cef85e328abc3936323e02d8e21a3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nvda/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nvda/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nvda/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nvdl/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "49da3ead29e60a645a30141038e924c34d02260c46a994cf1934cea3c12c4d3d",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nvdl/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "49da3ead29e60a645a30141038e924c34d02260c46a994cf1934cea3c12c4d3d",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nvdl/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "552931b3d0913f652de27ac10eb287611d3396ded8036bf9e6f9aca4f456793f",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nvmi/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nvmi/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "9c4f0c5af4f1fe8cce46c723ddaa0980aa45286f87bc4b5ced4cbeb2f61b979d",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nvmi/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nxpi/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "1b5da984e2cbf9c1ac032760f9f7ef4fbe6ecbdc14ec86f48172bf1aa71717c3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nxpi/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "1b5da984e2cbf9c1ac032760f9f7ef4fbe6ecbdc14ec86f48172bf1aa71717c3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/nxpi/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "6b99d2f177f0c1ce6b36965a77f0f8b9ad81018948a6b0a1398a4b8bafe317bb",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/oled/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/oled/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "3c4c1140885b2f845021a5f8fb2783ee9b1f9edb9df2696215b69739b43db2d2",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/oled/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/on/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/on/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/on/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/onto/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d75ccab4b4e830375f5379bdd70ebdd087ba587063af103c4243847a950602a0",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/onto/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "76375638b27ba65444a5fcdf54f596f078d706260c4ce8c8199958737be5024f",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/onto/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d25228ed806ada03c8f29449d7222ee1aa14c58791c050e8501cf418cffec685",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/qcom/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/qcom/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/qcom/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/qrvo/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "eabd19d9269fcba69754f13c735e92896a4be85bcfccf73af8816a43233c692f",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/qrvo/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d8fcceca8c3b017c88bf716ebefe62a478ff192402c05b7ef8d1d27d34783b7e",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/qrvo/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "326cbafc5120b4e98b84e9e06712c8652af58baa350729ff670d985c2f3f9cf6",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/rmbs/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/rmbs/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "49917a3abde6675e070e0fda79e81b359806c6b43e5e9ec9fbe2517a046c9b1b",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/rmbs/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/slab/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/slab/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "1d2f2b67047217390c5ea903fc755a06c68efe34c052433819a2401254b3774b",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/slab/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/smtc/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/smtc/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "c3fb031d82848dec322fa0b9baa7aaaf3afc389403c03193af1434e2ba447aac",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/smtc/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/stm/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/stm/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "17e2897a9681c724b82fee696e386d7ae6a30d7aa51a98952bb46c8d67c5f972",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/stm/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/swks/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/swks/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/swks/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/syna/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/syna/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "2d0806d23d573c9f8989c58bf00333bf18f249ccbb9ded7d6c853795d6fd6fe3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/syna/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/ter/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/ter/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/ter/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/tsm/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/tsm/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/tsm/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/txn/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/txn/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/txn/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/umc/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "d3f2177ae8490bcb1e0c623855184dd1aa84c89e23a01a08015e057b5d91ae52",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/umc/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "17e2897a9681c724b82fee696e386d7ae6a30d7aa51a98952bb46c8d67c5f972",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/umc/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "b3b79eb10e7ef58bce81ce79a15b7c93d1125a9354de30e2013b57d7bfd674e3",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/usd/pit_available.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "6242c7f91cd5b48288b83238a60de53c7a65e8840783679bdafaddec363e870d",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/usd/pit_member.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "6242c7f91cd5b48288b83238a60de53c7a65e8840783679bdafaddec363e870d",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "data/qlib/soxx_pit_leveraged_training_v1/features/usd/instrument_type.day.bin",
+      "role": "auxiliary_PIT_provider:opaque_bin",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "ae24b68fa167a765d90ff9405cdd426e7478cf2ce2d0a25b1a3dc1db51d3b44a",
+      "bytes": 19544,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "src/model/minute_pit_allocator.py",
+      "role": "frozen_code",
+      "exists": true,
+      "expected_sha256": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+      "sha256": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+      "bytes": 13278,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/workflow/minute_pit_allocator.py",
+      "role": "frozen_code",
+      "exists": true,
+      "expected_sha256": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+      "sha256": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+      "bytes": 35142,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/workflow/pit_allocation_retrain.py",
+      "role": "frozen_code",
+      "exists": true,
+      "expected_sha256": "d350f8a62f19c29d975325279ee6bbdbe7d5c588623e172f01e7925685e6a224",
+      "sha256": "d350f8a62f19c29d975325279ee6bbdbe7d5c588623e172f01e7925685e6a224",
+      "bytes": 16822,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/factor/soxx_pit_tail_factors.py",
+      "role": "frozen_code",
+      "exists": true,
+      "expected_sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "sha256": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "bytes": 17962,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/analysis/tiered_action_labels.py",
+      "role": "frozen_code",
+      "exists": true,
+      "expected_sha256": "209c916c4d8937ced5824d86fde15f5381508fa3b085a41d37d03bc8a116fb0f",
+      "sha256": "209c916c4d8937ced5824d86fde15f5381508fa3b085a41d37d03bc8a116fb0f",
+      "bytes": 5683,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/backtest/raw_corporate_policy.py",
+      "role": "frozen_code",
+      "exists": true,
+      "expected_sha256": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+      "sha256": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+      "bytes": 12419,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/backtest/ibkr_tiered.py",
+      "role": "frozen_code",
+      "exists": true,
+      "expected_sha256": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+      "sha256": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+      "bytes": 8341,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/backtest/stage1_domain_heads_raw.py",
+      "role": "frozen_code",
+      "exists": true,
+      "expected_sha256": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+      "sha256": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+      "bytes": 10080,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/workflow/stage1_open_action_value.py",
+      "role": "frozen_code",
+      "exists": true,
+      "expected_sha256": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+      "sha256": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+      "bytes": 62864,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/data/intraday.py",
+      "role": "frozen_code",
+      "exists": true,
+      "expected_sha256": "dcf8f1312ed27d3df048e435f08b075050efdf0824bd13f0705d97697f662edb",
+      "sha256": "dcf8f1312ed27d3df048e435f08b075050efdf0824bd13f0705d97697f662edb",
+      "bytes": 25627,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/data/minute_price_basis.py",
+      "role": "source_clock_code",
+      "exists": true,
+      "expected_sha256": "d3abbb1b7a3ca6e1b7cdd78e55903c2b03dd4202cadd4caf61fac91ebe68dbf5",
+      "sha256": "d3abbb1b7a3ca6e1b7cdd78e55903c2b03dd4202cadd4caf61fac91ebe68dbf5",
+      "bytes": 7284,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/data/full_path_prices.py",
+      "role": "source_clock_code",
+      "exists": true,
+      "expected_sha256": "a048feafe47db675009e196c55376aaf4e2dc09e5aa40523094afe912cbfef8d",
+      "sha256": "a048feafe47db675009e196c55376aaf4e2dc09e5aa40523094afe912cbfef8d",
+      "bytes": 7519,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/data/nas_minute_bundle.py",
+      "role": "source_clock_code",
+      "exists": true,
+      "expected_sha256": "a70d04cceee3012d7139b5e96ef045aa39d2aa0cccd56b0fc281723ba2fa2b65",
+      "sha256": "a70d04cceee3012d7139b5e96ef045aa39d2aa0cccd56b0fc281723ba2fa2b65",
+      "bytes": 3400,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/workflow/close_rod_source_preflight.py",
+      "role": "source_clock_code",
+      "exists": true,
+      "expected_sha256": "dc566ff14916b79526129df7a3010569547f35bddb09362229cc105413850ee8",
+      "sha256": "dc566ff14916b79526129df7a3010569547f35bddb09362229cc105413850ee8",
+      "bytes": 19399,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "src/data/qlib_native.py",
+      "role": "native_float32_store_writer",
+      "exists": true,
+      "expected_sha256": null,
+      "sha256": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "bytes": 19985,
+      "matches_inherited_identity": null
+    },
+    {
+      "path": "research/intraday_full_day_expansion_20261012/source_inventory.json",
+      "role": "source_declaration_metadata",
+      "exists": true,
+      "expected_sha256": "30ef7df2dd382b517808d99cd203de4431dd56384c033090d3c26fe2836f0474",
+      "sha256": "30ef7df2dd382b517808d99cd203de4431dd56384c033090d3c26fe2836f0474",
+      "bytes": 39000,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "research/minute_information_pit_allocator_20261012/plan.json",
+      "role": "source_declaration_metadata",
+      "exists": true,
+      "expected_sha256": "a010b1f2a3d17187dafafec0bbd7210bf8da60c819bcc9cedf23da6c5648a806",
+      "sha256": "a010b1f2a3d17187dafafec0bbd7210bf8da60c819bcc9cedf23da6c5648a806",
+      "bytes": 8967,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "qlib_venv/lib/python3.12/site-packages/exchange_calendars/exchange_calendar_xnys.py",
+      "role": "exchange_schedule_code",
+      "exists": true,
+      "expected_sha256": "baa39f07163abafcf2800b69edc5d920c3db0a64f8bbb30dc7d522883d0b5bd7",
+      "sha256": "baa39f07163abafcf2800b69edc5d920c3db0a64f8bbb30dc7d522883d0b5bd7",
+      "bytes": 9403,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "qlib_venv/lib/python3.12/site-packages/exchange_calendars/exchange_calendar.py",
+      "role": "exchange_schedule_code",
+      "exists": true,
+      "expected_sha256": "7b8087892b698299fe448afbc4b3fb9300a34ba1605804999436525391c08de6",
+      "sha256": "7b8087892b698299fe448afbc4b3fb9300a34ba1605804999436525391c08de6",
+      "bytes": 105953,
+      "matches_inherited_identity": true
+    },
+    {
+      "path": "qlib_venv/lib/python3.12/site-packages/exchange_calendars/us_holidays.py",
+      "role": "exchange_schedule_code",
+      "exists": true,
+      "expected_sha256": "a2444bd7aef3ff651faff3f9117c47a0d41e9e7c312f38ecf42403e4d996830e",
+      "sha256": "a2444bd7aef3ff651faff3f9117c47a0d41e9e7c312f38ecf42403e4d996830e",
+      "bytes": 10190,
+      "matches_inherited_identity": true
+    }
+  ],
+  "source_object_count": 17,
+  "core_bins": 12,
+  "PIT_flag_bins": 138,
+  "exchange_calendars_version": "4.13.2",
+  "missing_paths": [],
+  "mismatched_inherited_paths": [],
+  "origin_lineage_gaps": [
+    "Core and PIT manifests do not supply inherited per-bin SHA256; current byte identities do not independently authenticate inherited source contents. P2 admission remains separate."
+  ],
+  "objects_unpickled": 0,
+  "numeric_bin_values_decoded": 0,
+  "D_calendar_calls": 0,
+  "D_features_calls": 0,
+  "model_forward_area_labels_fits_accounts": 0,
+  "new_source_HTTP": 0
+}

@@ -1,0 +1,35 @@
+experiment: path_area_action_bridge_20261018_P1
+card_experiment: path_area_action_bridge_20261018
+phase: P1_train_only_source_static_qualification
+entrypoint: src.workflow.path_area_source_preflight.run_p1
+plan: plan.json
+provider_uri:
+  daily_calendar: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+  core_raw_none: data/qlib/minute_information_pit_allocator_20261012/core_1min
+  PIT_flags: data/qlib/soxx_pit_leveraged_training_v1
+region: us
+segments:
+  original_primary: [2011-01-03, 2022-12-21]
+  outer_auxiliary_maximum: 2022-12-30
+  bounded_core: ['2018-10-12 09:30:00', '2022-12-30 16:00:00']
+  PIT_flags_start: 2007-02-01
+  PIT_flags_end: each fixed2018/19 fold20-purge train_end
+  intended_trade_years: [2018, 2019, 2020, 2021, 2022]
+recorder_uri: research/path_area_action_bridge_20261018/P1/qlib_recorder
+qualification_authority: [P1/summary.json, P1/verification_manifest.json]
+model_selection: none; static saved9model qualification only
+execution_budget:
+  source_objects: 17
+  explicit_D_calendar: 2
+  D_features: 3
+  source_HTTP: 0
+  forward_gradient_area_newlabels_fits_accounts: 0
+source_identity: source_byte_identity.json
+execution_env:
+  PATH_AREA_P1_EXECUTE: '1'
+  MLFLOW_ALLOW_FILE_STORE: 'true'
+  PYTHONPATH: /Users/rziiiii/dev/workspace
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: [inputs/admitted_source_objects, inputs/datasets, inputs/bounded_PIT_flags, analysis/fold_package, analysis/minute_coverage, analysis/native_read_audits]

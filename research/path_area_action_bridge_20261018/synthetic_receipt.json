@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scope": "one concentrated synthetic contract; no real source execution",
+  "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_path_area_source_preflight.py -q",
+  "test_case_count": 1,
+  "execution_history": [
+    {
+      "session_id": 90128,
+      "final_chunk": "c516b3",
+      "exit_code": 1,
+      "reason": "synthetic FileFeatureStorage fixture lacked initialized Qlib C.mount_path; earlier pure contracts and typed-empty Dataset passed"
+    },
+    {
+      "session_id": 41040,
+      "final_chunk": "397193",
+      "exit_code": 1,
+      "role": "shorttrace reproduction of same fixture failure",
+      "seconds": 1.88
+    },
+    {
+      "session_id": 49122,
+      "final_chunk": "666c89",
+      "exit_code": 0,
+      "result": "1 passed, 43 warnings in 2.45s"
+    }
+  ],
+  "repair": "Only synthetic temporary provider day.txt and qlib.init added; no real source/Qlib API read.",
+  "executing_agent": "external_methods",
+  "pure_module_sha256": "4d8896357363ca66e6fd4b12f8d48e2bf9080466336c62204bae91adc8e2f860",
+  "test_sha256": "ba1d45e646bc7686105fec2d129384246ab3a75cd8be5e03b3b1b38bc1883dc2",
+  "tested_workflow_functions": {
+    "bounded_raw_slices": "a056c7a87b6fbbba696beff44f2cd85ce4885f28fa2721a24430ada2be9d12a1",
+    "_dataset": "d9149388f0105761fa01f1c941f947ce307bff21c0444cb1ae015513828d2ab1"
+  },
+  "whole_real_workflow_tested": false,
+  "checks": [
+    "full85/20/index/targets retained",
+    "trade-year cross-year routing,20purge and jointH5maturity",
+    "saved973shape/class/scaler/masks/seeds without forward",
+    "prefix independent of afternoon/halfday missingbars, correct09:48.open",
+    "valid emptyPIT versus missingflags and nonempty",
+    "corporate strict-next-pay session and same-day ambiguity",
+    "synthetic FileFeatureStorage bound allows selectedslice and rejects overflow",
+    "typedempty20column nativeDataset prepare/serialization retainsschema"
+  ],
+  "actual_source_objects_unpickled": 0,
+  "actual_market_values_or_D_calendar_D_features_read": 0,
+  "actual_model_forward_gradient_area_labels_fits_accounts": 0,
+  "network_requests": 0,
+  "warnings": "43 existing NumPy/Pandas timedelta deprecation warnings; not expanded into unrelated fixes."
+}
