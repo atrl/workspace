@@ -1,0 +1,778 @@
+{
+  "status": "completed_metadata_gap_triage",
+  "plan_sha256": "01b87306651303e2f54ee18cb09df524fde11ee6090788ffcaefa8ca6d1cb76f",
+  "source_identity": {
+    "card": "research/inventory_sales_source_qualification_20261021",
+    "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+    "experiment_id": "873125435674837267",
+    "manifest_sha256": "577361bcb56d0db2f4f921804305c8a37b6fddd60b50afb77cd453ae468075ff",
+    "summary_sha256": "46dc6a037308eee8ccb84401a76ddf753d0f982ef566e9c182da9461393ce3bb",
+    "archive_sha256": "ed567e4397b0210832239f7110a6d5635bfe66718a5ddb0806e092225bc7179e",
+    "artifacts": {
+      "analysis/issuer_month_support": "911f0fc793e6c36d02fe518ddfb8a32251ebbef68289ccb9898a5c694a751c9c",
+      "analysis/annual_pairs": "46a934737f1b0416b6275ccaa2c6f482faf8f72e50a3391b44ba8b21e320ff65"
+    }
+  },
+  "verified_loader_receipt": {
+    "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+    "experiment": "inventory_sales_source_qualification_20261021",
+    "experiment_id": "873125435674837267",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/inventory_sales_source_qualification_20261021/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/inventory_sales_source_qualification_20261021/qlib_recorder/873125435674837267/8bcee06471bf43d3a08d043a8a5531c2",
+    "summary_sha256": "46dc6a037308eee8ccb84401a76ddf753d0f982ef566e9c182da9461393ce3bb",
+    "verification_manifest_sha256": "577361bcb56d0db2f4f921804305c8a37b6fddd60b50afb77cd453ae468075ff",
+    "artifacts": {
+      "analysis/issuer_month_support": {
+        "artifact": "analysis/issuer_month_support",
+        "artifact_id": "8bcee06471bf43d3a08d043a8a5531c2:analysis/issuer_month_support",
+        "sha256": "911f0fc793e6c36d02fe518ddfb8a32251ebbef68289ccb9898a5c694a751c9c",
+        "bytes": 325947,
+        "manifest_entry": "qlib_recorder/873125435674837267/8bcee06471bf43d3a08d043a8a5531c2/artifacts/analysis/issuer_month_support",
+        "local_path": "/Users/rziiiii/dev/workspace/research/inventory_sales_source_qualification_20261021/qlib_recorder/873125435674837267/8bcee06471bf43d3a08d043a8a5531c2/artifacts/analysis/issuer_month_support"
+      },
+      "analysis/annual_pairs": {
+        "artifact": "analysis/annual_pairs",
+        "artifact_id": "8bcee06471bf43d3a08d043a8a5531c2:analysis/annual_pairs",
+        "sha256": "46a934737f1b0416b6275ccaa2c6f482faf8f72e50a3391b44ba8b21e320ff65",
+        "bytes": 44929,
+        "manifest_entry": "qlib_recorder/873125435674837267/8bcee06471bf43d3a08d043a8a5531c2/artifacts/analysis/annual_pairs",
+        "local_path": "/Users/rziiiii/dev/workspace/research/inventory_sales_source_qualification_20261021/qlib_recorder/873125435674837267/8bcee06471bf43d3a08d043a8a5531c2/artifacts/analysis/annual_pairs"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  },
+  "actual_operation_counts": {
+    "own_output_metadata_objects": 2,
+    "original_source_object_reads_total_unchanged": 9,
+    "additional_original_source_objects": 0,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "HTTP": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "metadata_dimensions": {
+    "issuer_month_rows": 2400,
+    "annual_pair_rows": 529,
+    "columns": {
+      "issuer_month_support": [
+        "datetime",
+        "ticker",
+        "cusip",
+        "isin",
+        "candidate_ciks",
+        "identity_status",
+        "weight_pct",
+        "basket_accession",
+        "uncovered_reason",
+        "pair_accession",
+        "prior_pair_accession",
+        "pair_fiscal_end",
+        "conditional_available_session",
+        "historical_identity_qualified",
+        "original_semantics_verified",
+        "historical_PIT_qualified"
+      ],
+      "annual_pairs": [
+        "cik",
+        "unit",
+        "taxonomy",
+        "revenue_tag",
+        "inventory_tag",
+        "fiscal_end",
+        "prior_fiscal_end",
+        "accession",
+        "prior_accession",
+        "latest_filed",
+        "conditional_available_session",
+        "calendar_lower_bound_clipped",
+        "original_semantics_verified",
+        "historical_PIT_qualified"
+      ]
+    }
+  },
+  "latest_pair_ambiguity": {
+    "total_issuer_months": 198,
+    "by_ticker": {
+      "ASX": {
+        "months": 59,
+        "difference_types": {
+          "unit": 59
+        },
+        "representative_cases": [
+          {
+            "ticker": "ASX",
+            "month": "2021-09-01 00:00:00",
+            "rows": 2,
+            "differences": [
+              "unit"
+            ],
+            "pair_signatures": [
+              {
+                "unit": "TWD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0000950103-21-005259",
+                "prior_accession": "0000950103-20-006422",
+                "prior_fiscal_end": "2019-12-31T00:00:00.000",
+                "cik": 1122411,
+                "fiscal_end": "2020-12-31T00:00:00.000",
+                "conditional_available_session": "2021-04-07T00:00:00.000"
+              },
+              {
+                "unit": "USD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0000950103-21-005259",
+                "prior_accession": "0000950103-20-006422",
+                "prior_fiscal_end": "2019-12-31T00:00:00.000",
+                "cik": 1122411,
+                "fiscal_end": "2020-12-31T00:00:00.000",
+                "conditional_available_session": "2021-04-07T00:00:00.000"
+              }
+            ]
+          },
+          {
+            "ticker": "ASX",
+            "month": "2026-07-01 00:00:00",
+            "rows": 2,
+            "differences": [
+              "unit"
+            ],
+            "pair_signatures": [
+              {
+                "unit": "TWD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0001193125-26-135585",
+                "prior_accession": "0001193125-25-064603",
+                "prior_fiscal_end": "2024-12-31T00:00:00.000",
+                "cik": 1122411,
+                "fiscal_end": "2025-12-31T00:00:00.000",
+                "conditional_available_session": "2026-04-02T00:00:00.000"
+              },
+              {
+                "unit": "USD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0001193125-26-135585",
+                "prior_accession": "0001193125-25-064603",
+                "prior_fiscal_end": "2024-12-31T00:00:00.000",
+                "cik": 1122411,
+                "fiscal_end": "2025-12-31T00:00:00.000",
+                "conditional_available_session": "2026-04-02T00:00:00.000"
+              }
+            ]
+          }
+        ]
+      },
+      "TSM": {
+        "months": 80,
+        "difference_types": {
+          "unit": 80
+        },
+        "representative_cases": [
+          {
+            "ticker": "TSM",
+            "month": "2019-12-02 00:00:00",
+            "rows": 2,
+            "differences": [
+              "unit"
+            ],
+            "pair_signatures": [
+              {
+                "unit": "TWD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0001193125-19-108390",
+                "prior_accession": "0001193125-18-121866",
+                "prior_fiscal_end": "2017-12-31T00:00:00.000",
+                "cik": 1046179,
+                "fiscal_end": "2018-12-31T00:00:00.000",
+                "conditional_available_session": "2019-04-18T00:00:00.000"
+              },
+              {
+                "unit": "USD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0001193125-19-108390",
+                "prior_accession": "0001193125-18-121866",
+                "prior_fiscal_end": "2017-12-31T00:00:00.000",
+                "cik": 1046179,
+                "fiscal_end": "2018-12-31T00:00:00.000",
+                "conditional_available_session": "2019-04-18T00:00:00.000"
+              }
+            ]
+          },
+          {
+            "ticker": "TSM",
+            "month": "2026-07-01 00:00:00",
+            "rows": 2,
+            "differences": [
+              "unit"
+            ],
+            "pair_signatures": [
+              {
+                "unit": "TWD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0001193125-25-083423",
+                "prior_accession": "0001193125-24-099840",
+                "prior_fiscal_end": "2023-12-31T00:00:00.000",
+                "cik": 1046179,
+                "fiscal_end": "2024-12-31T00:00:00.000",
+                "conditional_available_session": "2025-04-21T00:00:00.000"
+              },
+              {
+                "unit": "USD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0001193125-25-083423",
+                "prior_accession": "0001193125-24-099840",
+                "prior_fiscal_end": "2023-12-31T00:00:00.000",
+                "cik": 1046179,
+                "fiscal_end": "2024-12-31T00:00:00.000",
+                "conditional_available_session": "2025-04-21T00:00:00.000"
+              }
+            ]
+          }
+        ]
+      },
+      "UMC": {
+        "months": 59,
+        "difference_types": {
+          "unit": 59
+        },
+        "representative_cases": [
+          {
+            "ticker": "UMC",
+            "month": "2021-09-01 00:00:00",
+            "rows": 2,
+            "differences": [
+              "unit"
+            ],
+            "pair_signatures": [
+              {
+                "unit": "TWD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0001564590-21-021578",
+                "prior_accession": "0001193125-20-121853",
+                "prior_fiscal_end": "2019-12-31T00:00:00.000",
+                "cik": 1033767,
+                "fiscal_end": "2020-12-31T00:00:00.000",
+                "conditional_available_session": "2021-04-30T00:00:00.000"
+              },
+              {
+                "unit": "USD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0001564590-21-021578",
+                "prior_accession": "0001193125-20-121853",
+                "prior_fiscal_end": "2019-12-31T00:00:00.000",
+                "cik": 1033767,
+                "fiscal_end": "2020-12-31T00:00:00.000",
+                "conditional_available_session": "2021-04-30T00:00:00.000"
+              }
+            ]
+          },
+          {
+            "ticker": "UMC",
+            "month": "2026-07-01 00:00:00",
+            "rows": 2,
+            "differences": [
+              "unit"
+            ],
+            "pair_signatures": [
+              {
+                "unit": "TWD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0001193125-25-092142",
+                "prior_accession": "0001193125-24-111429",
+                "prior_fiscal_end": "2023-12-31T00:00:00.000",
+                "cik": 1033767,
+                "fiscal_end": "2024-12-31T00:00:00.000",
+                "conditional_available_session": "2025-04-25T00:00:00.000"
+              },
+              {
+                "unit": "USD",
+                "taxonomy": "ifrs-full",
+                "revenue_tag": "Revenue",
+                "inventory_tag": "Inventories",
+                "accession": "0001193125-25-092142",
+                "prior_accession": "0001193125-24-111429",
+                "prior_fiscal_end": "2023-12-31T00:00:00.000",
+                "cik": 1033767,
+                "fiscal_end": "2024-12-31T00:00:00.000",
+                "conditional_available_session": "2025-04-25T00:00:00.000"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requested_issuers": {
+    "TSM": {
+      "candidate_ciks": [
+        1046179
+      ],
+      "issuer_months": 80,
+      "reason_counts": {
+        "ambiguous_latest_fiscal_pair": 80
+      },
+      "annual_pair_metadata_rows": 15,
+      "units": [
+        "TWD",
+        "USD"
+      ],
+      "revenue_tags": [
+        "Revenue"
+      ],
+      "fiscal_end_range": [
+        "2017-12-31",
+        "2024-12-31"
+      ],
+      "representative_support": [
+        {
+          "datetime": "2019-12-02T00:00:00.000",
+          "candidate_ciks": "[1046179]",
+          "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+          "uncovered_reason": "ambiguous_latest_fiscal_pair",
+          "pair_accession": null,
+          "prior_pair_accession": null,
+          "pair_fiscal_end": null,
+          "conditional_available_session": null
+        },
+        {
+          "datetime": "2026-07-01T00:00:00.000",
+          "candidate_ciks": "[1046179]",
+          "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+          "uncovered_reason": "ambiguous_latest_fiscal_pair",
+          "pair_accession": null,
+          "prior_pair_accession": null,
+          "pair_fiscal_end": null,
+          "conditional_available_session": null
+        }
+      ],
+      "representative_pairs": [
+        {
+          "cik": 1046179,
+          "unit": "TWD",
+          "taxonomy": "ifrs-full",
+          "revenue_tag": "Revenue",
+          "inventory_tag": "Inventories",
+          "fiscal_end": "2024-12-31T00:00:00.000",
+          "prior_fiscal_end": "2023-12-31T00:00:00.000",
+          "accession": "0001193125-25-083423",
+          "prior_accession": "0001193125-24-099840",
+          "latest_filed": "2025-04-17T00:00:00.000",
+          "conditional_available_session": "2025-04-21T00:00:00.000",
+          "calendar_lower_bound_clipped": false,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        },
+        {
+          "cik": 1046179,
+          "unit": "USD",
+          "taxonomy": "ifrs-full",
+          "revenue_tag": "Revenue",
+          "inventory_tag": "Inventories",
+          "fiscal_end": "2024-12-31T00:00:00.000",
+          "prior_fiscal_end": "2023-12-31T00:00:00.000",
+          "accession": "0001193125-25-083423",
+          "prior_accession": "0001193125-24-099840",
+          "latest_filed": "2025-04-17T00:00:00.000",
+          "conditional_available_session": "2025-04-21T00:00:00.000",
+          "calendar_lower_bound_clipped": false,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        }
+      ],
+      "minimum_resolving_evidence": [
+        "Original annual filing bodies/XBRL contexts for the exact current/prior accessions shown in ambiguity representativecases, including inventory instant end, revenue annual start/end, consolidated entity scope, denomination and any convenience USD translation note.",
+        "Document a fixed native/presentation-currency rule from original disclosure semantics across periods; do not choose currency by growth, coverage improvement or return result. Within-issuer same-currency growth needs no cross-currency conversion; this mathematical property does not certify which column is economically native.",
+        "Dated holding CUSIP/ISIN or ADR issuer evidence binding the disclosed security to this CIK over the actual basket dates; all observed mapping statuses remain current-ticker candidates.",
+        "Authenticated original accession/form/acceptance and retained immutable original bytes; date-only filed+next-session remains conditional, not first receipt or historicalPIT certification."
+      ],
+      "structural_judgment": "Mechanically repairable unit duplication in saved metadata, conditional on original currency/context and security identity evidence. Do not retrospectively change this frozen qualifier or treat the alternate USD/TWD rows as distinct issuer information."
+    },
+    "UMC": {
+      "candidate_ciks": [
+        1033767
+      ],
+      "issuer_months": 59,
+      "reason_counts": {
+        "ambiguous_latest_fiscal_pair": 59
+      },
+      "annual_pair_metadata_rows": 15,
+      "units": [
+        "TWD",
+        "USD"
+      ],
+      "revenue_tags": [
+        "Revenue"
+      ],
+      "fiscal_end_range": [
+        "2017-12-31",
+        "2024-12-31"
+      ],
+      "representative_support": [
+        {
+          "datetime": "2021-09-01T00:00:00.000",
+          "candidate_ciks": "[1033767]",
+          "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+          "uncovered_reason": "ambiguous_latest_fiscal_pair",
+          "pair_accession": null,
+          "prior_pair_accession": null,
+          "pair_fiscal_end": null,
+          "conditional_available_session": null
+        },
+        {
+          "datetime": "2026-07-01T00:00:00.000",
+          "candidate_ciks": "[1033767]",
+          "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+          "uncovered_reason": "ambiguous_latest_fiscal_pair",
+          "pair_accession": null,
+          "prior_pair_accession": null,
+          "pair_fiscal_end": null,
+          "conditional_available_session": null
+        }
+      ],
+      "representative_pairs": [
+        {
+          "cik": 1033767,
+          "unit": "TWD",
+          "taxonomy": "ifrs-full",
+          "revenue_tag": "Revenue",
+          "inventory_tag": "Inventories",
+          "fiscal_end": "2024-12-31T00:00:00.000",
+          "prior_fiscal_end": "2023-12-31T00:00:00.000",
+          "accession": "0001193125-25-092142",
+          "prior_accession": "0001193125-24-111429",
+          "latest_filed": "2025-04-24T00:00:00.000",
+          "conditional_available_session": "2025-04-25T00:00:00.000",
+          "calendar_lower_bound_clipped": false,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        },
+        {
+          "cik": 1033767,
+          "unit": "USD",
+          "taxonomy": "ifrs-full",
+          "revenue_tag": "Revenue",
+          "inventory_tag": "Inventories",
+          "fiscal_end": "2024-12-31T00:00:00.000",
+          "prior_fiscal_end": "2023-12-31T00:00:00.000",
+          "accession": "0001193125-25-092142",
+          "prior_accession": "0001193125-24-111429",
+          "latest_filed": "2025-04-24T00:00:00.000",
+          "conditional_available_session": "2025-04-25T00:00:00.000",
+          "calendar_lower_bound_clipped": false,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        }
+      ],
+      "minimum_resolving_evidence": [
+        "Original annual filing bodies/XBRL contexts for the exact current/prior accessions shown in ambiguity representativecases, including inventory instant end, revenue annual start/end, consolidated entity scope, denomination and any convenience USD translation note.",
+        "Document a fixed native/presentation-currency rule from original disclosure semantics across periods; do not choose currency by growth, coverage improvement or return result. Within-issuer same-currency growth needs no cross-currency conversion; this mathematical property does not certify which column is economically native.",
+        "Dated holding CUSIP/ISIN or ADR issuer evidence binding the disclosed security to this CIK over the actual basket dates; all observed mapping statuses remain current-ticker candidates.",
+        "Authenticated original accession/form/acceptance and retained immutable original bytes; date-only filed+next-session remains conditional, not first receipt or historicalPIT certification."
+      ],
+      "structural_judgment": "Mechanically repairable unit duplication in saved metadata, conditional on original currency/context and security identity evidence. Do not retrospectively change this frozen qualifier or treat the alternate USD/TWD rows as distinct issuer information."
+    },
+    "ASX": {
+      "candidate_ciks": [
+        1122411
+      ],
+      "issuer_months": 59,
+      "reason_counts": {
+        "ambiguous_latest_fiscal_pair": 59
+      },
+      "annual_pair_metadata_rows": 17,
+      "units": [
+        "TWD",
+        "USD"
+      ],
+      "revenue_tags": [
+        "Revenue"
+      ],
+      "fiscal_end_range": [
+        "2017-12-31",
+        "2025-12-31"
+      ],
+      "representative_support": [
+        {
+          "datetime": "2021-09-01T00:00:00.000",
+          "candidate_ciks": "[1122411]",
+          "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+          "uncovered_reason": "ambiguous_latest_fiscal_pair",
+          "pair_accession": null,
+          "prior_pair_accession": null,
+          "pair_fiscal_end": null,
+          "conditional_available_session": null
+        },
+        {
+          "datetime": "2026-07-01T00:00:00.000",
+          "candidate_ciks": "[1122411]",
+          "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+          "uncovered_reason": "ambiguous_latest_fiscal_pair",
+          "pair_accession": null,
+          "prior_pair_accession": null,
+          "pair_fiscal_end": null,
+          "conditional_available_session": null
+        }
+      ],
+      "representative_pairs": [
+        {
+          "cik": 1122411,
+          "unit": "TWD",
+          "taxonomy": "ifrs-full",
+          "revenue_tag": "Revenue",
+          "inventory_tag": "Inventories",
+          "fiscal_end": "2025-12-31T00:00:00.000",
+          "prior_fiscal_end": "2024-12-31T00:00:00.000",
+          "accession": "0001193125-26-135585",
+          "prior_accession": "0001193125-25-064603",
+          "latest_filed": "2026-04-01T00:00:00.000",
+          "conditional_available_session": "2026-04-02T00:00:00.000",
+          "calendar_lower_bound_clipped": false,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        },
+        {
+          "cik": 1122411,
+          "unit": "USD",
+          "taxonomy": "ifrs-full",
+          "revenue_tag": "Revenue",
+          "inventory_tag": "Inventories",
+          "fiscal_end": "2025-12-31T00:00:00.000",
+          "prior_fiscal_end": "2024-12-31T00:00:00.000",
+          "accession": "0001193125-26-135585",
+          "prior_accession": "0001193125-25-064603",
+          "latest_filed": "2026-04-01T00:00:00.000",
+          "conditional_available_session": "2026-04-02T00:00:00.000",
+          "calendar_lower_bound_clipped": false,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        }
+      ],
+      "minimum_resolving_evidence": [
+        "Original annual filing bodies/XBRL contexts for the exact current/prior accessions shown in ambiguity representativecases, including inventory instant end, revenue annual start/end, consolidated entity scope, denomination and any convenience USD translation note.",
+        "Document a fixed native/presentation-currency rule from original disclosure semantics across periods; do not choose currency by growth, coverage improvement or return result. Within-issuer same-currency growth needs no cross-currency conversion; this mathematical property does not certify which column is economically native.",
+        "Dated holding CUSIP/ISIN or ADR issuer evidence binding the disclosed security to this CIK over the actual basket dates; all observed mapping statuses remain current-ticker candidates.",
+        "Authenticated original accession/form/acceptance and retained immutable original bytes; date-only filed+next-session remains conditional, not first receipt or historicalPIT certification."
+      ],
+      "structural_judgment": "Mechanically repairable unit duplication in saved metadata, conditional on original currency/context and security identity evidence. Do not retrospectively change this frozen qualifier or treat the alternate USD/TWD rows as distinct issuer information."
+    },
+    "NVDA": {
+      "candidate_ciks": [
+        1045810
+      ],
+      "issuer_months": 80,
+      "reason_counts": {
+        "": 59,
+        "latest_pair_stale_or_future_period": 21
+      },
+      "annual_pair_metadata_rows": 14,
+      "units": [
+        "USD"
+      ],
+      "revenue_tags": [
+        "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "Revenues"
+      ],
+      "fiscal_end_range": [
+        "2010-01-31",
+        "2026-01-25"
+      ],
+      "representative_support": [
+        {
+          "datetime": "2020-03-02T00:00:00.000",
+          "candidate_ciks": "[1045810]",
+          "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+          "uncovered_reason": "",
+          "pair_accession": "0001045810-20-000010",
+          "prior_pair_accession": "0001045810-19-000023",
+          "pair_fiscal_end": "2020-01-26T00:00:00.000",
+          "conditional_available_session": "2020-02-21T00:00:00.000"
+        },
+        {
+          "datetime": "2026-07-01T00:00:00.000",
+          "candidate_ciks": "[1045810]",
+          "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+          "uncovered_reason": "",
+          "pair_accession": "0001045810-26-000021",
+          "prior_pair_accession": "0001045810-25-000023",
+          "pair_fiscal_end": "2026-01-25T00:00:00.000",
+          "conditional_available_session": "2026-02-26T00:00:00.000"
+        },
+        {
+          "datetime": "2019-12-02T00:00:00.000",
+          "candidate_ciks": "[1045810]",
+          "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+          "uncovered_reason": "latest_pair_stale_or_future_period",
+          "pair_accession": null,
+          "prior_pair_accession": null,
+          "pair_fiscal_end": null,
+          "conditional_available_session": null
+        },
+        {
+          "datetime": "2024-02-01T00:00:00.000",
+          "candidate_ciks": "[1045810]",
+          "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+          "uncovered_reason": "latest_pair_stale_or_future_period",
+          "pair_accession": null,
+          "prior_pair_accession": null,
+          "pair_fiscal_end": null,
+          "conditional_available_session": null
+        }
+      ],
+      "representative_pairs": [
+        {
+          "cik": 1045810,
+          "unit": "USD",
+          "taxonomy": "us-gaap",
+          "revenue_tag": "Revenues",
+          "inventory_tag": "InventoryNet",
+          "fiscal_end": "2018-01-28T00:00:00.000",
+          "prior_fiscal_end": "2017-01-29T00:00:00.000",
+          "accession": "0001045810-18-000010",
+          "prior_accession": "0001045810-17-000027",
+          "latest_filed": "2018-02-28T00:00:00.000",
+          "conditional_available_session": "2019-01-02T00:00:00.000",
+          "calendar_lower_bound_clipped": true,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        },
+        {
+          "cik": 1045810,
+          "unit": "USD",
+          "taxonomy": "us-gaap",
+          "revenue_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "inventory_tag": "InventoryNet",
+          "fiscal_end": "2020-01-26T00:00:00.000",
+          "prior_fiscal_end": "2019-01-27T00:00:00.000",
+          "accession": "0001045810-20-000010",
+          "prior_accession": "0001045810-19-000023",
+          "latest_filed": "2020-02-20T00:00:00.000",
+          "conditional_available_session": "2020-02-21T00:00:00.000",
+          "calendar_lower_bound_clipped": false,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        },
+        {
+          "cik": 1045810,
+          "unit": "USD",
+          "taxonomy": "us-gaap",
+          "revenue_tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "inventory_tag": "InventoryNet",
+          "fiscal_end": "2021-01-31T00:00:00.000",
+          "prior_fiscal_end": "2020-01-26T00:00:00.000",
+          "accession": "0001045810-21-000010",
+          "prior_accession": "0001045810-20-000010",
+          "latest_filed": "2021-02-26T00:00:00.000",
+          "conditional_available_session": "2021-03-01T00:00:00.000",
+          "calendar_lower_bound_clipped": false,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        },
+        {
+          "cik": 1045810,
+          "unit": "USD",
+          "taxonomy": "us-gaap",
+          "revenue_tag": "Revenues",
+          "inventory_tag": "InventoryNet",
+          "fiscal_end": "2024-01-28T00:00:00.000",
+          "prior_fiscal_end": "2023-01-29T00:00:00.000",
+          "accession": "0001045810-24-000029",
+          "prior_accession": "0001045810-23-000017",
+          "latest_filed": "2024-02-21T00:00:00.000",
+          "conditional_available_session": "2024-02-22T00:00:00.000",
+          "calendar_lower_bound_clipped": false,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        },
+        {
+          "cik": 1045810,
+          "unit": "USD",
+          "taxonomy": "us-gaap",
+          "revenue_tag": "Revenues",
+          "inventory_tag": "InventoryNet",
+          "fiscal_end": "2026-01-25T00:00:00.000",
+          "prior_fiscal_end": "2025-01-26T00:00:00.000",
+          "accession": "0001045810-26-000021",
+          "prior_accession": "0001045810-25-000023",
+          "latest_filed": "2026-02-25T00:00:00.000",
+          "conditional_available_session": "2026-02-26T00:00:00.000",
+          "calendar_lower_bound_clipped": false,
+          "original_semantics_verified": false,
+          "historical_PIT_qualified": false
+        }
+      ],
+      "minimum_resolving_evidence": [
+        "FY2019 original10-K accession0001045810-19-000023 (seen as prioraccession ofFY2020pair), plusFY2018 accession0001045810-18-000010 andFY2020 accession0001045810-20-000010: verify actual revenue definition/tag transition and FY start/end against unchanged InventoryNet context.",
+        "FY2023 original accession0001045810-23-000017 (seen as prioraccession ofFY2024pair) andFY2024 accession0001045810-24-000029; obtain authenticatedFY2022 original accession/header because it is not identified by admitted pairmetadata. Verify annual starts/ends, current/prior original values and taxonomy mapping; do not backfill from a later comparative filing.",
+        "An explicit cause ledger from those original annual contexts for whyFY2019/FY2022/FY2023 do not form an admitted pair. These two objects cannot distinguish missingstandardtag, aliastransition, earliestconflict or period-contiguity failure. No new revenuealias is selected here.",
+        "Dated holding security-toCIK1045810 evidence and original filing availability/version proof; current-ticker candidate status alone is insufficient."
+      ],
+      "structural_judgment": "Potentially reconstructable annual gap with existing standard-tag families, but feasibility of each missing year remains conditional until original annual context/period and accession cause is resolved. No reason to relax550day age or infer forwardfilled eligibility."
+    }
+  },
+  "limitations": [
+    "Annual pair metadata do not retain revenue period start or original inventory/revenue context, so period-start-only/semantic ambiguity cannot be settled by these two objects.",
+    "No financial values or raw filing rows are loaded here. Missing-pair absence cannot identify whether missing tag, same-accession failure, original-form filter, earliest-fact conflict or period-contiguity was decisive.",
+    "Candidate CIK and current ticker mapping do not authenticate historical security/ADR continuity. Strict original/publication/PIT/model qualification remains false."
+  ],
+  "metadata_loader_attempts": [
+    {
+      "attempt": 1,
+      "own_output_object_loads": 0,
+      "failure": "get_recorder: No valid experiment with default tracking setup; no object deserialization",
+      "runtime_remedy": "Explicit same summary recorder_uri and MLFLOW_ALLOW_FILE_STORE=true; shared verified loader unchanged"
+    },
+    {
+      "attempt": 2,
+      "own_output_object_loads": 2,
+      "result": "success"
+    }
+  ],
+  "findings": {
+    "all_198_saved_latest_pair_ambiguities": "TWD/USD alternatives only; TSM80, UMC59, ASX59. Within every ambiguous latest pair, saved taxonomy, revenue/inventory tags, fiscal_end/prior_fiscal_end, current/prior accessions agree. No saved field exceptunit differs.",
+    "period_start_limit": "Revenue start dates, original context references, form and column meaning are absent from annual_pairs; metadata agreement does not prove identical original accounting context.",
+    "NVDA": "80 issuer-months:59 mechanicalsupport,21 stale latestpairs, not multiclurrencyambiguity. Saved pair sequence skipsFYends2019-01-27,2022 and2023; originaldocument or earliestcandidate metadata is needed to determine whether tag continuity, earliestconflict, periodstart/contiguity or sameaccession selection caused each gap. Do not infer missing underlying financial data from absent pairs."
+  },
+  "feasibility_conclusion": {
+    "status": "structurally_feasible_conditional_source_reconstruction_not_model_ready",
+    "basis": "Most reported ambiguity is a finite unit duplication with identical saved filing identities, rather than missing annualrecords. NVDA stale gaps are localized across already identified annual filings/tag families; exactcause unresolved. No market outcomes were loaded and no effectiveness result follows.",
+    "next_minimum_work": "One bounded original-document/context and historical identity qualification using the listed accession families; freeze a currency/context rule from disclosure meaning and diagnose missing NVDA annual periods before any factor construction. Financial source access/bytes must be separately authorized and bounded; no same-run tag/threshold/source expansion.",
+    "strict_qualified_status": {
+      "original_semantics": false,
+      "first_receipt": false,
+      "historical_PIT": false,
+      "model_input": false
+    },
+    "original_source_read_cap_unchanged": 9,
+    "own_output_metadata_reads": 2,
+    "further_reads_this_triage": 0
+  }
+}

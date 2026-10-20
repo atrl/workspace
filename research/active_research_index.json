@@ -4,9 +4,11 @@
   "active": [
     {
       "card": "research/inventory_sales_source_qualification_20261021",
-      "phase": "source_qualification_design",
-      "role": "distinct_inventory_demand_mechanism_data_qualification",
-      "full_economic_experiment": false
+      "phase": "original_filing_reconstruction_next",
+      "role": "inventory_demand_mechanism_source_reconstruction",
+      "full_economic_experiment": false,
+      "status": "source_qualification_complete_next_design_pending",
+      "source_gap_report": "research/inventory_sales_source_qualification_20261021/gap_triage.json"
     }
   ],
   "framework": [

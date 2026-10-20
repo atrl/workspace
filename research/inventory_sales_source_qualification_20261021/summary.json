@@ -1,0 +1,133 @@
+{
+  "experiment": "inventory_sales_source_qualification_20261021",
+  "status": "completed_pending_independent_review",
+  "decision": "mechanical_source_candidates_exist_conditional_coverage_only",
+  "raw_fact_rows": 19565,
+  "raw_CIKs": 47,
+  "raw_tag_issuer_availability": {
+    "inventory": 46,
+    "revenue": 47,
+    "assets": 47
+  },
+  "conditional_coverage_pct": {
+    "min": 0.0,
+    "max": 93.87525488224301,
+    "median": 87.18473848725398
+  },
+  "by_year": {
+    "2019": {
+      "months": 12,
+      "months_with_basket": 1,
+      "months_with_mechanical_support": 1
+    },
+    "2020": {
+      "months": 12,
+      "months_with_basket": 12,
+      "months_with_mechanical_support": 12
+    },
+    "2021": {
+      "months": 12,
+      "months_with_basket": 12,
+      "months_with_mechanical_support": 12
+    },
+    "2022": {
+      "months": 12,
+      "months_with_basket": 12,
+      "months_with_mechanical_support": 12
+    },
+    "2023": {
+      "months": 12,
+      "months_with_basket": 12,
+      "months_with_mechanical_support": 12
+    },
+    "2024": {
+      "months": 12,
+      "months_with_basket": 12,
+      "months_with_mechanical_support": 12
+    },
+    "2025": {
+      "months": 12,
+      "months_with_basket": 12,
+      "months_with_mechanical_support": 12
+    },
+    "2026": {
+      "months": 7,
+      "months_with_basket": 7,
+      "months_with_mechanical_support": 7
+    }
+  },
+  "mechanical_annual_joint_rows": 623,
+  "mechanical_prior_current_pairs": 529,
+  "issuer_month_uncovered_reasons": {
+    "": 1835,
+    "latest_pair_stale_or_future_period": 298,
+    "ambiguous_latest_fiscal_pair": 198,
+    "no_conditionally_available_annual_pair": 48,
+    "missing_or_ambiguous_candidate_CIK": 21
+  },
+  "issuer_month_identity_statuses": {
+    "[\"current_ticker_candidate_requires_historic_identity_check\"]": 2256,
+    "[\"historic_mapping_documented\"]": 144
+  },
+  "top_uncovered_tickers": {
+    "TSM": 80,
+    "UMC": 59,
+    "ASX": 59,
+    "MRVL": 28,
+    "CREE": 27,
+    "OLED": 27,
+    "SWKS": 23,
+    "CCMP": 21,
+    "NVDA": 21,
+    "ARM": 20
+  },
+  "conflicting_earliest_groups": 44,
+  "monthly_rows": 91,
+  "strict_PIT_qualified_rows": 0,
+  "model_input_qualified": false,
+  "original_semantics_verified": false,
+  "first_receipt_verified": false,
+  "attempt": 2,
+  "cumulative_source_object_reads": 9,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "source_HTTP": 0,
+  "D_features_calls": 0,
+  "D_calendar_calls": 1,
+  "plan_sha256": "b109506d86f81f4eb6e29be1978f11514aaa47a392e7d3a24d09f0eaf6c2a591",
+  "module_sha256": "54d6c0c7820a91ad545a7b14c51403334c81b8e883f478e76b8ada6d99b1e4ce",
+  "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+  "experiment_id": "873125435674837267",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/inventory_sales_source_qualification_20261021/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/inventory_sales_source_qualification_20261021/qlib_recorder/873125435674837267/8bcee06471bf43d3a08d043a8a5531c2",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/*",
+      "metadata/qualification_dataset",
+      "inputs/source_audit",
+      "sources/*"
+    ]
+  },
+  "qualification_boundary": "Mechanical candidate coverage only; not original-document semantic, first receipt, historical PIT or factor effectiveness.",
+  "minimum_missing_inputs": [
+    "Original annual inventory/revenue context and units",
+    "Historical security/CIK continuity",
+    "Authenticated publication/version clocks; current download is not PIT evidence"
+  ],
+  "native_DatasetH_prepare_and_Recorder_readback": "passed",
+  "nas_evidence": {
+    "sha256": "ed567e4397b0210832239f7110a6d5635bfe66718a5ddb0806e092225bc7179e",
+    "size_bytes": 379946,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ed/56/ed567e4397b0210832239f7110a6d5635bfe66718a5ddb0806e092225bc7179e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-21 00:45:44.295624+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ed/56/ed567e4397b0210832239f7110a6d5635bfe66718a5ddb0806e092225bc7179e",
+    "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+    "experiment_id": "873125435674837267",
+    "archive_root": "qlib_recorder"
+  }
+}

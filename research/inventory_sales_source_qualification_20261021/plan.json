@@ -1,0 +1,157 @@
+{
+  "experiment": "inventory_sales_source_qualification_20261021",
+  "frozen": true,
+  "phase": "source_qualification_only",
+  "execution_authorized": false,
+  "question": "Can existing original-accession annual inventory/revenue source candidates support a later inventory-demand-mismatch test? No effectiveness test.",
+  "hypothesis": "Inventory accumulation conditional on sales changes may contain demand-shift information hidden in contemporaneous earnings; direction at basket/time-series level is unresolved.",
+  "papers": [
+    "https://link.springer.com/article/10.1023/A:1020221918065",
+    "https://escholarship.org/uc/item/9d1148bj"
+  ],
+  "overlap": "Distinct fields and operating-demand mechanism from closed annual E/P, quarterly profit diffusion, delayed EPS and gross-margin versions; no reopening of those versions.",
+  "source": {
+    "card": "research/etf_pit_fundamentals_repair_20261016",
+    "recorder_id": "1e947608d2f64491a754d576814e9165",
+    "experiment_id": "492553231561774143",
+    "archive_sha256": "5aeff2e680628d614d23e85cb2a0877f64d48dbb362d89404949d94a2a117119",
+    "manifest_sha256": "8ee3d7fc75f2f2e50d587e40c387a367dd7ec7983940e6049bea837b3b937054",
+    "summary_sha256": "c3f262970bc64aa735ea8191c943a75ca56b4276394f783caa1cd51611d5585c",
+    "artifacts": {
+      "inputs/raw_payloads": "5215348ccc4b591e50344086fa25539fe934881977437f47fd97c9d48fa89172",
+      "inputs/acquisition_manifest": "f3f5ef4f48bb08ddc362365fe6024734f3a44ac5bffede7512d4b767bcb7b848",
+      "inputs/holdings": "6f78d70bc5f3eef1b6fbb61967d552f599be97d411335549b9efc3edd4dfadd6",
+      "analysis/issuer_mapping": "eee4d1b7d0e5e4bd6ff0856b022e6243cd30df7f46963600b43a79bf7acd3eef"
+    },
+    "complete_ciks": 47,
+    "selection": "For each CIK use last manifest HTTP200 entry with parse_valid exactly true, or legacy parse_valid key absent AND reused_parent exactly true. Explicit false/None and unmarked legacy rejected. The hash-authenticated source manifest and per-payload hash/JSON/CIK checks still apply; require exactly47. No financial rule changes.",
+    "nas_binding_sha256": "18c5dddaab82debb72bfb1422da0b674db3719a098fe8e04c41b7c9a0f3cff1a"
+  },
+  "tags": {
+    "us-gaap": {
+      "inventory": [
+        "InventoryNet"
+      ],
+      "revenue": [
+        "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "Revenues",
+        "SalesRevenueNet"
+      ],
+      "assets": [
+        "Assets"
+      ]
+    },
+    "ifrs-full": {
+      "inventory": [
+        "Inventories"
+      ],
+      "revenue": [
+        "Revenue"
+      ],
+      "assets": [
+        "Assets"
+      ]
+    }
+  },
+  "annual": {
+    "forms": [
+      "10-K",
+      "20-F",
+      "40-F"
+    ],
+    "duration_days": [
+      330,
+      380
+    ],
+    "currencies": [
+      "USD",
+      "TWD",
+      "EUR",
+      "JPY",
+      "GBP",
+      "CHF",
+      "CNY",
+      "KRW"
+    ],
+    "rule": "No quarter derivation. Revenue start/end annual; inventory instant at same end, same CIK/taxonomy/currency/accession. Assets optional diagnostic, never a factor. Earliest eligible non-amended Companyfacts row in admitted corpus for each economic period and field; amendments excluded as initial facts and counted. Differing aliases/values in earliest filings are conflicts, not a precedence choice. Prior/current revenue periods contiguous by1calendar day and end dates330-380days apart; stable revenue tag and form across pair. Negative/nonfinite inventory or nonpositive revenues/prior inventory fail mechanical growth eligibility. No growth factor computed."
+  },
+  "time": {
+    "filing_clock": "Date precision only; conditional available session is first native session strictly after filed date. Period and filing dates must parse and filed>=end. Later comparative cannot replace earliest eligible non-amended Companyfacts row in admitted corpus.",
+    "raw_vintage": "Current2026 companyfacts download is not historical original-version/first-publication proof; earliest known filed is not certified earliest dissemination.",
+    "original_semantics_verified": false,
+    "first_receipt_verified": false,
+    "historical_PIT_qualified": false
+  },
+  "calendar": {
+    "provider_uri": "data/qlib/soxx_pit_leveraged_training_v1",
+    "path": "data/qlib/soxx_pit_leveraged_training_v1/calendars/day.txt",
+    "sha256": "2a861bcf94a9abcfe78b9d2ed7248df20a3e147c53610751abcd7f183ff9bc56",
+    "bounds": [
+      "2019-01-01",
+      "2026-07-02"
+    ],
+    "max_age_days": 550
+  },
+  "basket": {
+    "authority": "Same Recorder inputs/holdings: disclosed NPORT basket proxy only, not contemporaneous index weights. Latest report_date then latest filing_date strictly before month decision session; older report amendment cannot replace newer report.",
+    "mapping": "Unique ticker candidate only, retain original identity_status; MRVL pre2021-04-20 useCIK1058057 only if present in mapping; post-bankruptcy WOLF2025+ ineligible. No mapping repair.",
+    "weight_rule": "Sum original weight_pct of unique security rows, never renormalize uncovered weight. Conditional source coverage only; strict identity/original/PIT-qualified coverage remains0.",
+    "monthly_proxy": "Select unique latest fiscal pair among conditionally available annual mechanical pairs per CIK/month; duplicate latest alternatives are unknown, never choose by source outcome. Fiscal end age<=550days. Missing months explicit. Persist issuer-month ticker/CIK/identity_status/security/weight/accession/fiscal-end/support reason. No sector classification invented; universe is disclosed SOXX semiconductors basket."
+  },
+  "budget": {
+    "source_recorder_objects": 4,
+    "companyfacts_ciks": 47,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "source_HTTP": 0,
+    "market_value_arrays": 0,
+    "labels": 0,
+    "factor_values": 0,
+    "fits": 0,
+    "accounts": 0,
+    "NAS_archives": 1,
+    "maximum_attempts": 2,
+    "cumulative_source_object_read_cap": 9
+  },
+  "outputs": [
+    "Recorder extraction ledger with raw tags/forms/currency/period/accession/filed/gaps",
+    "Recorder issuer/tag coverage, annual mechanical pair ledger, monthly conditional weight coverage",
+    "native DatasetH qualification panel and direct prepare readback",
+    "slim summary/conclusion/verification_manifest/NAS binding",
+    "Recorder exact module bytes and normalized notebook bytes bound to execution approval hashes; summary conditional min/max/median, by-year counts, raw issuer field availability and concrete support gaps"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/*",
+      "metadata/qualification_dataset",
+      "inputs/source_audit",
+      "sources/*"
+    ]
+  },
+  "stops": "Missing/stale plan-bound GO, identity mismatch, raw schema/CIK/47count mismatch -> stop. Empty fields/pairs -> valid needs_data report; no alias/source/period/search expansion. First attempt retained. Only one independently reviewed/root-authorized schema recovery; two attempts total; no automatic rerun.",
+  "authorization_boundary": "Root authorized design/implementation/synthetic only. No real payload/calendar/market reads before root GO bound to plan and module SHA. NAS archival uses existing endpoint once after successful local completion. GO also binds normalized-notebook SHA. Exact source nas_binding supplies authority/ssh; no default transport.",
+  "recovery": {
+    "attempt1_evidence_sha256": "577fc6006482e5db81a89574ad56c81beaffe7d37a9409d6fb991e999a2805e4",
+    "schema_diagnostic_sha256": "10cfb897006cd09c7485200cd21e6c44078cab99f85d7a3e90c0593370942078",
+    "failure": "Attempt1 selected18 explicitTrue CIKs rather than47, before raw JSON parsing/D.calendar. Diagnostic establishes29 missing parse_valid and3 explicitFalse. Each missing-field row must prove literal reused_parent true within authorized attempt2 before raw JSON parsing, or unchanged47guard fails. Provenance breakdown is not yet observed; attempt2_manifest_schema.json will retain it without extra reads.",
+    "maximum_attempts": 2,
+    "explicit_entrypoint": "run(root, recovery=True)",
+    "authorization": "Root recovery_authorization.json required, binds newplan/module/normalizednotebook, old module SHA and exact attempt1evidence/schema_diagnostic/failed_run_state.json/recoveryreview and identical4sourceartifact hashes. Original run_state preserved; separate attempt2_run_state records recovery.",
+    "actual_prior_source_object_reads": 4,
+    "diagnostic_source_object_reads": 1,
+    "recovery_source_object_reads": 4,
+    "cumulative_source_object_read_cap": 9,
+    "unchanged": [
+      "47CIKs",
+      "tags",
+      "annual periods/forms/currencies",
+      "financial eligibility",
+      "source identities",
+      "zero outcomes/fits/accounts"
+    ],
+    "attempt1_module_sha256": "916bd3eba1dbd5e59fdaade565732de6808bd814d8e1aca7e353c2e659f494b2",
+    "original_source_snapshot": "attempt1_evidence.json contains exactbytes+SHA of plan/module/notebook/review/GO/synthetic/job/process/runstate; failed_run_state.json retains root classified failurestate. No redundant tree."
+  }
+}

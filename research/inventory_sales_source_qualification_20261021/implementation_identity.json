@@ -1,0 +1,9 @@
+{
+  "plan_sha256": "b109506d86f81f4eb6e29be1978f11514aaa47a392e7d3a24d09f0eaf6c2a591",
+  "module_sha256": "54d6c0c7820a91ad545a7b14c51403334c81b8e883f478e76b8ada6d99b1e4ce",
+  "notebook_sha256": "ea51e2fcd9cac17107533e0bd7ebae7807b9a6ea4a11e7cdfae1518c2c3e38eb",
+  "execution_status": "attempt1_failed_waiting_reviewed_root_recovery_GO",
+  "prior_source_object_reads": 5,
+  "recovery_source_object_read_cap": 4,
+  "maximum_attempts": 2
+}

@@ -1,0 +1,22 @@
+{
+  "plan_sha256": "20134bbc82b17054758f2d0a62ba84935e055792c2a43f7c3bca5e50bbdf0df6",
+  "execution_authorization_sha256": "b9573e76fd2f786214b10bd50b11aed6f35977ed34ff8bd6250d2887f697c2b5",
+  "implementation_identity_sha256": "916bd3eba1dbd5e59fdaade565732de6808bd814d8e1aca7e353c2e659f494b2",
+  "log_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-inventory-source-cupan6qe/nbconvert.log",
+  "command": [
+    "/Users/rziiiii/dev/workspace/qlib_venv/bin/python",
+    "-m",
+    "nbconvert",
+    "--execute",
+    "/Users/rziiiii/dev/workspace/research/inventory_sales_source_qualification_20261021/inventory_sales_source_qualification_20261021.ipynb",
+    "--to",
+    "notebook",
+    "--inplace",
+    "--ExecutePreprocessor.timeout=3600"
+  ],
+  "pid": 64449,
+  "start_identity": "ps:Wed Oct 21 00:38:24 2026",
+  "phase": "inventory_sales_source_qualification",
+  "job_id": "inventory-source-20134bbc82b1",
+  "observed_at_utc": "2026-10-20T16:38:24.435112+00:00"
+}

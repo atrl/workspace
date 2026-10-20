@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "command": "PYTHONPATH=. qlib_venv/bin/python /tmp/check_inventory_source.py",
+  "fixture_sha256": "e5e5026dd2d6a81da24d618ceb573f36426e7e450d2efa74d650ac9bdcf66181",
+  "module_sha256": "54d6c0c7820a91ad545a7b14c51403334c81b8e883f478e76b8ada6d99b1e4ce",
+  "checks": [
+    "original_vs_later_and_amendment",
+    "earliest_conflict_exclusion",
+    "annual_same_accession_pair",
+    "unreweighted_conditional_coverage",
+    "DatasetH_prepare_roundtrip",
+    "latest_unique_conditionally_available_pair",
+    "ambiguous_latest_rejection",
+    "issuer_month_identity_support_ledger",
+    "authenticated_reused_parent_missing_parse_valid_accepted",
+    "unmarked_legacy_false_and_None_excluded"
+  ],
+  "real_source_payload_reads": 0,
+  "real_calendar_reads": 0,
+  "market_reads": 0,
+  "fits": 0,
+  "accounts": 0,
+  "summary_and_source_snapshot_only_changes_after_behavior_check": false
+}

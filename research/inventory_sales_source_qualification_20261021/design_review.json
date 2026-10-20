@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent_scoped_source_design_and_implementation_reviewer",
+  "scope": "Static review of one bounded SEC companyfacts source-qualification plan, its small parser, notebook/workflow identity, prior source Recorder manifest/summary metadata, and the reported synthetic check. Reviewer did not load actual companyfacts payloads, annual financial values, native calendar rows, market prices, labels, model fits, accounts, or any Recorder object.",
+  "verdict": "ACCEPT_BOUNDED_INVENTORY_SALES_SOURCE_QUALIFICATION",
+  "plan_sha256": "20134bbc82b17054758f2d0a62ba84935e055792c2a43f7c3bca5e50bbdf0df6",
+  "module_sha256": "916bd3eba1dbd5e59fdaade565732de6808bd814d8e1aca7e353c2e659f494b2",
+  "notebook_sha256": "4c79fd6e346c55ba849359dae923383be04597dd59e7271a1411d65bc58bb96c",
+  "notebook_identity_rule": "SHA256 of sorted compact JSON notebook after clearing code-cell outputs and execution counts; code and markdown source remain in the identity.",
+  "workflow_sha256": "39656786b41fffdbf529ae41d2dae4e140ba56125a603e1548102ea8f6496cc0",
+  "synthetic_check_sha256": "7f81d08750494b0dba99c9197b6e3ef12f51cd23801ef96cc5b7c50da21fc6d4",
+  "source_recorder_id": "1e947608d2f64491a754d576814e9165",
+  "source_experiment_id": "492553231561774143",
+  "source_NAS_archive_sha256": "5aeff2e680628d614d23e85cb2a0877f64d48dbb362d89404949d94a2a117119",
+  "source_manifest_sha256": "8ee3d7fc75f2f2e50d587e40c387a367dd7ec7983940e6049bea837b3b937054",
+  "blockers": [],
+  "verified_contracts": [
+    "The four prior Recorder artifact identities and source summary/manifest and Qlib day-calendar SHA match the frozen plan metadata. The run requires a separate exact root GO for the frozen plan, parser and normalized notebook before any real payload or calendar read.",
+    "The allowed annual fields are fixed: InventoryNet or IFRS Inventories, predefined US-GAAP revenue tags or IFRS Revenue, and Assets only as a diagnostic. Revenue must cover 330-380 days on 10-K/20-F/40-F; inventory is an instant at the same fiscal end, same issuer, taxonomy, currency and accession. No quarter or TTM values are fabricated.",
+    "The parser selects the earliest eligible non-amended Companyfacts row in this admitted corpus, excludes conflicting earliest aliases/values/accessions, and requires contiguous prior/current annual revenue periods with stable tag, form, taxonomy and currency. It does not certify original filing text or historical first publication.",
+    "Each issuer-month support row records the disclosed security identity, original weight, mapping identity_status, selected unique latest conditionally available annual-pair accession and fiscal end, or an explicit ambiguity/missing/staleness reason. Monthly covered weight sums original disclosed security weights without renormalizing uncovered names.",
+    "The conditional availability proxy is the first native session strictly after the date-only filed field. Strict historical original-document, first-receipt, issuer-identity and PIT-qualified coverage remain zero. Mechanical source feasibility and conditional coverage are reported separately from model-input qualification.",
+    "The source-only run uses one Qlib D.calendar call, a native DatasetH qualification panel and one new Recorder/NAS archive. It makes no D.features price query, external HTTP request, factor value, return label, fit or account. The result decision distinguishes actual mechanical annual-pair support from zero-pair needs_data."
+  ],
+  "focused_synthetic_evidence": "Executor reported one synthetic check passed against the final module identity, covering earliest-versus-later and amended filings, earliest conflicts, same-accession annual pairs, latest unique pair or ambiguity, unreweighted conditional coverage, issuer-month identity ledger and native DatasetH prepare readback. Reviewer did not rerun it or read real source values.",
+  "approval_boundary": "Approval permits only this single bounded source-feasibility attempt. A positive mechanical annual-pair count may support a later separately frozen diagnostic after specific issuer identity and timing work; it does not establish original-document semantics, certified historical PIT, factor effectiveness, fee-net SOXX excess or promotion. A zero-pair result is needs_data for these fixed tags and periods, not a block on unrelated research.",
+  "references": [
+    "research/etf_pit_fundamentals_repair_20261016/summary.json",
+    "research/etf_pit_fundamentals_repair_20261016/verification_manifest.json",
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

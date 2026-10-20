@@ -1,0 +1,24 @@
+{
+  "receipts": [
+    {
+      "phase": "source_qualification_attempt1",
+      "status": "execution_failed_before_numeric_parse",
+      "source": "research/inventory_sales_source_qualification_20261021/attempt1_evidence.json",
+      "source_sha256": "577fc6006482e5db81a89574ad56c81beaffe7d37a9409d6fb991e999a2805e4"
+    },
+    {
+      "phase": "source_qualification_attempt2",
+      "status": "completed_conditional_source_feasibility_only",
+      "source": "research/inventory_sales_source_qualification_20261021/result_review.json",
+      "source_sha256": "c8f3fa8bcf4ceb0c74633b408684bc2ad62ee83169c532729bfa56735fe12324",
+      "model_input_qualified": false
+    },
+    {
+      "phase": "metadata_gap_triage",
+      "status": "completed",
+      "source": "research/inventory_sales_source_qualification_20261021/gap_triage.json",
+      "source_sha256": "c9714d0c9bbfa76da8becbea0a4278cde7e5952daf5276bf0eed05671c3806e5",
+      "own_metadata_object_reads": 2
+    }
+  ]
+}

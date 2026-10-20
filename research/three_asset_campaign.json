@@ -13,22 +13,29 @@
     "thread_id": "01a14cc9-e797-7b31-90f6-d95a821e4deb",
     "observed_status": "blocked",
     "objective_v2_applied": false,
-    "observed_at_utc": "2026-10-20T07:50:37.186235+00:00",
+    "observed_at_utc": "2026-10-20T16:48:17.863576+00:00",
     "resume_status": "client_action_required",
     "resume_attempts": [
       "supported app-server proxy initialize timed out without response; no mutation issued",
       "Computer Use explicitly denied control of com.openai.codex; no bypass attempted"
     ],
-    "last_readback_this_delivery": "blocked; old objective; no supported resume/update completed"
+    "last_readback_this_delivery": "Rechecked after signed variance and inventory source qualification: still blocked; old comparator objective; no supported resume/update completed. Ordinary authorized research performed."
   },
   "current_task": {
     "card": "research/inventory_sales_source_qualification_20261021",
-    "phase": "source_qualification_design",
+    "phase": "source_qualification_and_gap_triage_complete",
     "implementation_executor": "/root/next_factor_mechanism",
     "independent_reviewer": "/root/basket_lead_review",
-    "next_action": "Freeze and execute one source-only qualification of original SEC companyfacts inventory and annual revenue pairs. No market outcomes, fits, accounts, paid data or new network data acquisition. Decide source feasibility before any factor information experiment.",
-    "last_scientific_observation": "Signed variance fixed test closed not_promoted: q coefficient -0.752394, mean QLIKE improvement +0.000251445, lower -0.002235144; 946 complete held sessions, 2 fits/1 bootstrap/0 accounts.",
-    "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once"
+    "next_action": "Freeze targeted original-filing reconstruction for TSM/UMC/ASX reporting-currency duplicates and NVDA annual-pair gaps. Preserve partial-year and missing-identity boundaries; after admitted inputs exist, freeze a single inventory-vs-sales return-information test. No currently running model or backtest.",
+    "last_scientific_observation": "Inventory mechanism source support exists:46/47CIKs have inventory,529annualpairs;conditionalbasketweight median87.1847%,max93.8753%. This is source feasibility only, no effectiveness result. Prior basket and signedvariance fixed tests remain notpromoted.",
+    "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once",
+    "run_state": "research/inventory_sales_source_qualification_20261021/attempt2_run_state.json",
+    "job_handle": "research/inventory_sales_source_qualification_20261021/attempt2_job_handle.json",
+    "execution_receipt": "research/inventory_sales_source_qualification_20261021/attempt2_process_exit.json",
+    "phase_receipts": "research/inventory_sales_source_qualification_20261021/phase_receipts.json",
+    "last_operational_observation": "Inventory qualification attempt2 exit0 and native readback/NAS archive complete. Initialfailedstatepreserved. Postrun ownmetadata triage completed2objects; no additionaloldsource/prices/fits. No live notebook process remains.",
+    "source_gap_report": "research/inventory_sales_source_qualification_20261021/gap_triage.json",
+    "original_filing_leads": "research/inventory_sales_source_qualification_20261021/original_filing_leads.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -54,7 +61,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-20T16:29:50.896435+00:00",
+  "updated_at_utc": "2026-10-20T16:53:15.919340+00:00",
   "execution_totals": {
     "new_model_fits": 39,
     "new_native_accounts": 43,
@@ -65,6 +72,7 @@
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
     "basis": "Prior campaign 35 fits/43 accounts plus basket lead and signed variance: 2 information fits each, zero accounts. Seven economic experiments and two information experiments closed; no historical pass or qualified forward days. Earlier repository campaigns remain in their own histories.",
-    "completed_fixed_information_experiments": 2
+    "completed_fixed_information_experiments": 2,
+    "completed_source_qualifications": 1
   }
 }

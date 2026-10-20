@@ -1,0 +1,45 @@
+{
+  "frozen": true,
+  "scope": "One pass over exactly two own-output source qualification metadata objects; no raw financial values, raw old payloads, market outcomes, fit or rerun.",
+  "authorization": "Root authorized bounded metadata gap triage after successful source qualification.",
+  "source": {
+    "card": "research/inventory_sales_source_qualification_20261021",
+    "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+    "experiment_id": "873125435674837267",
+    "manifest_sha256": "577361bcb56d0db2f4f921804305c8a37b6fddd60b50afb77cd453ae468075ff",
+    "summary_sha256": "46dc6a037308eee8ccb84401a76ddf753d0f982ef566e9c182da9461393ce3bb",
+    "archive_sha256": "ed567e4397b0210832239f7110a6d5635bfe66718a5ddb0806e092225bc7179e",
+    "artifacts": {
+      "analysis/issuer_month_support": "911f0fc793e6c36d02fe518ddfb8a32251ebbef68289ccb9898a5c694a751c9c",
+      "analysis/annual_pairs": "46a934737f1b0416b6275ccaa2c6f482faf8f72e50a3391b44ba8b21e320ff65"
+    }
+  },
+  "native_init": {
+    "provider_uri": "data/qlib/soxx_pit_leveraged_training_v1",
+    "region": "us",
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "exp_manager_uri": "/Users/rziiiii/dev/workspace/research/inventory_sales_source_qualification_20261021/qlib_recorder"
+  },
+  "questions": [
+    "Latest-pair ambiguity: distinguish multiple units/currencies, taxonomies/tags, accession pairs and prior fiscal ends using only saved pair metadata. Original period starts not present remain unknown.",
+    "For TSM, UMC, ASX, NVDA report reason counts, candidate CIK and representative available fiscal pairs/accessions.",
+    "State minimum original-filing, accession, historical identity and publication evidence needed; no tag/threshold changes."
+  ],
+  "budgets": {
+    "own_output_metadata_objects": 2,
+    "prior_original_source_object_reads_unchanged": 9,
+    "additional_original_source_objects": 0,
+    "fits": 0,
+    "accounts": 0,
+    "HTTP": 0
+  },
+  "report": "gap_triage.json only; raw object tables remain in source Recorder",
+  "stop": "Source identity mismatch abort; incomplete columns are an explicit inference limit, no additional object loads.",
+  "metadata_loader_preliminary_attempt": {
+    "result": "No valid experiment at get_recorder using default Qlib tracking setup",
+    "own_output_objects_loaded": 0,
+    "source_objects_loaded": 0,
+    "repair": "Explicit MLflowExpManager URI from exact own summary; shared verified loader unchanged"
+  }
+}

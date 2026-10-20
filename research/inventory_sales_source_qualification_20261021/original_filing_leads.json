@@ -1,0 +1,30 @@
+{
+  "status": "primary_document_followup_leads_not_canonical_feature_inputs",
+  "observed_at_utc": "2026-10-20T16:52:34.862436+00:00",
+  "basis": "Post-qualification targeted public-source check; independent from the completed zero-HTTP numeric qualification run. No market labels or factor calculations.",
+  "observations": [
+    {
+      "issuer": "TSM",
+      "fiscal_year": 2018,
+      "source": "https://investor.tsmc.com/sites/ir/sec-filings/20F-2018.pdf",
+      "location": "Exchange Rates, printed page3; financial statements note3",
+      "finding": "Issuer publishes consolidated financial statements in New Taiwan dollars; USD columns are convenience translations. This supports investigating TWD as the reporting basis for this exact year.",
+      "limits": "Web-read issuer copy; no canonical downloaded-byte binding or cross-year original-accession/context validation. Does not authorize changing all historical unit choices."
+    },
+    {
+      "issuer": "UMC",
+      "accession": "0001564590-21-021578",
+      "source": "https://www.sec.gov/Archives/edgar/data/1033767/000156459021021578/0001564590-21-021578-index.htm",
+      "finding": "SEC filing index identifies CIK1033767, FY2020, filed2021-04-29, accepted2021-04-29 06:48:05, and the primary20-F/XBRL links.",
+      "limits": "Index metadata only. Primary full20-F could not be opened by the web tool in this check; currency/context semantics remain to verify."
+    }
+  ],
+  "unresolved": [
+    "TSM/UMC/ASX exact original annual filings and matching XBRL reporting-currency contexts across admitted periods",
+    "Historical security/issuer continuity",
+    "NVDA missing annual-pair source cause"
+  ],
+  "source_qualification_flags_changed": false,
+  "new_fits": 0,
+  "new_accounts": 0
+}

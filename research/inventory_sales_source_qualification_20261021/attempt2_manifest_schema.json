@@ -1,0 +1,23 @@
+{
+  "breakdown": [
+    {
+      "status": 200,
+      "parse_valid": "missing",
+      "reused_parent": "True",
+      "rows": 29
+    },
+    {
+      "status": 200,
+      "parse_valid": "True",
+      "reused_parent": "False",
+      "rows": 18
+    },
+    {
+      "status": 200,
+      "parse_valid": "False",
+      "reused_parent": "False",
+      "rows": 3
+    }
+  ],
+  "additional_object_reads": 0
+}

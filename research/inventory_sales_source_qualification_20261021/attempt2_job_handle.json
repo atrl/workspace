@@ -1,0 +1,22 @@
+{
+  "plan_sha256": "b109506d86f81f4eb6e29be1978f11514aaa47a392e7d3a24d09f0eaf6c2a591",
+  "execution_authorization_sha256": "9b44fb33fd61f02055b211dfefb5d197f7e2f42972684b189a381fc8fd5fbe2a",
+  "implementation_identity_sha256": "54d6c0c7820a91ad545a7b14c51403334c81b8e883f478e76b8ada6d99b1e4ce",
+  "log_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-inventory-source-recovery-gnjvxnz2/nbconvert.log",
+  "command": [
+    "/Users/rziiiii/dev/workspace/qlib_venv/bin/python",
+    "-m",
+    "nbconvert",
+    "--execute",
+    "/Users/rziiiii/dev/workspace/research/inventory_sales_source_qualification_20261021/inventory_sales_source_qualification_20261021.ipynb",
+    "--to",
+    "notebook",
+    "--inplace",
+    "--ExecutePreprocessor.timeout=3600"
+  ],
+  "pid": 65635,
+  "start_identity": "ps:Wed Oct 21 00:45:35 2026",
+  "phase": "inventory_sales_source_qualification_attempt2",
+  "job_id": "inventory-source-recovery-b109506d86f8",
+  "observed_at_utc": "2026-10-20T16:45:35.806324+00:00"
+}

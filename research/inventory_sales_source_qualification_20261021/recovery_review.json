@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent_scoped_schema_recovery_reviewer",
+  "verdict": "ACCEPT_ONE_BOUNDED_MANIFEST_SCHEMA_RECOVERY",
+  "scope": "Static review of the preserved first-attempt failure, metadata-only manifest diagnostic, revised frozen plan and parser, recovery GO contract and reported synthetic selection regression. Reviewer did not reload any source Recorder object, decode raw Companyfacts JSON, read a numeric financial fact or Qlib calendar, or run fits/accounts/tests.",
+  "attempt1": {
+    "plan_sha256": "20134bbc82b17054758f2d0a62ba84935e055792c2a43f7c3bca5e50bbdf0df6",
+    "module_sha256": "916bd3eba1dbd5e59fdaade565732de6808bd814d8e1aca7e353c2e659f494b2",
+    "original_execution_approval_sha256": "b9573e76fd2f786214b10bd50b11aed6f35977ed34ff8bd6250d2887f697c2b5",
+    "original_design_review_sha256": "ec77428cc7f443de223fbcf1c1dd5ffa0f8201abedf814dc1f12f18a84379522",
+    "attempt1_evidence_sha256": "577fc6006482e5db81a89574ad56c81beaffe7d37a9409d6fb991e999a2805e4",
+    "schema_diagnostic_sha256": "10cfb897006cd09c7485200cd21e6c44078cab99f85d7a3e90c0593370942078",
+    "failed_run_state_sha256": "902a824c480cccd844cf834bb4eb43a9ad9fa2bf19f69f368b2b043963e36580",
+    "process_exit_sha256": "7efa578bf7f4e82da5ee629ee3090421cb21ebebd2f096f8ead481ccef4bd94c",
+    "job_handle_sha256": "a1abc80a7bf590cbb66f10ea1eacd00b5f599885eb6a3f15326fa0b9ac687e4c",
+    "process_exit_code": 1,
+    "process_job_handle_match": true,
+    "failure_stage": "The original selector retained 18 manifest rows marked parse_valid true and failed the fixed 47-CIK gate before any payload JSON decode or D.calendar read.",
+    "manifest_metadata_counts": {"HTTP200_parse_valid_key_missing": 29, "HTTP200_parse_valid_true": 18, "HTTP200_parse_valid_false": 3},
+    "source_object_loads": 4,
+    "additional_diagnostic_object_loads": 1,
+    "raw_payload_numeric_parses": 0,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "recovery_identity": {
+    "plan_sha256": "b109506d86f81f4eb6e29be1978f11514aaa47a392e7d3a24d09f0eaf6c2a591",
+    "module_sha256": "54d6c0c7820a91ad545a7b14c51403334c81b8e883f478e76b8ada6d99b1e4ce",
+    "normalized_notebook_sha256": "ea51e2fcd9cac17107533e0bd7ebae7807b9a6ea4a11e7cdfae1518c2c3e38eb",
+    "synthetic_check_sha256": "7b9f002e9bfc1deac6ef17a4da3589fba70fe52d4b063965d1457ef2acfa6d4d",
+    "source_recorder_id": "1e947608d2f64491a754d576814e9165",
+    "source_artifact_count": 4,
+    "maximum_attempts_total": 2,
+    "source_object_loads_attempt2_budget": 4,
+    "source_object_loads_cumulative_cap": 9
+  },
+  "approved_delta": [
+    "A manifest entry is selectable only when HTTP status is 200 and parse_valid is the literal boolean true, or the parse_valid key is absent and reused_parent is the literal boolean true. Explicit false, explicit null and unmarked legacy rows remain excluded.",
+    "The original 47-CIK requirement, per-payload name and SHA256 validation, parsed JSON CIK check, annual tag/form/period/currency rules, pair selection, conditional monthly coverage and zero-outcome/zero-fit/zero-account scope are unchanged.",
+    "Attempt 2 writes a metadata-only breakdown of status, parse_valid and reused_parent from the same four authorized source objects before decoding any raw payload JSON. The prior diagnostic proves only 29 missing parse_valid keys, not their provenance; each must satisfy the literal reused_parent guard at runtime or the unchanged 47-CIK gate stops the attempt.",
+    "Recovery requires a distinct root recovery_authorization.json binding the revised plan/module/normalized notebook, original module, preserved attempt1 evidence, schema diagnostic, failed state, this review and the same four source artifact hashes. It writes attempt2_run_state.json and cannot automatically repeat.",
+    "The owner must verify immediately before GO that live run_state.json bytes still match preserved failed_run_state.json and bind that equality receipt. This precondition is owned by the root GO wrapper; recovery code leaves original run_state.json unchanged."
+  ],
+  "synthetic_evidence": "Executor reported a focused synthetic selection regression passed against the revised module hash: literal reused_parent with absent parse_valid is admitted, while unmarked missing, explicit false and explicit null are excluded. Reviewer inspected the saved synthetic receipt and did not rerun it.",
+  "blockers": [],
+  "permission_boundary": "Approval covers only one independently authorized schema-repair retry, not new financial fields, issuers, source acquisition, dates, factor outcomes, model fits or accounts. If provenance or exact 47-CIK validation fails, stop and preserve the second attempt; do not loosen selection or start a third attempt. Mechanical source coverage remains distinct from certified original-document and historical PIT qualification."
+}

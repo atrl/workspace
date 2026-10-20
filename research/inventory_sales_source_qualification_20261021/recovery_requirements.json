@@ -1,0 +1,38 @@
+{
+  "status": "requirements_only_not_authorization",
+  "entrypoint": "run(root, recovery=True)",
+  "authorization_file": "recovery_authorization.json",
+  "required_fields": {
+    "approved": true,
+    "attempt": 2,
+    "maximum_attempts": 2,
+    "plan_sha256": "b109506d86f81f4eb6e29be1978f11514aaa47a392e7d3a24d09f0eaf6c2a591",
+    "module_sha256": "54d6c0c7820a91ad545a7b14c51403334c81b8e883f478e76b8ada6d99b1e4ce",
+    "notebook_sha256": "ea51e2fcd9cac17107533e0bd7ebae7807b9a6ea4a11e7cdfae1518c2c3e38eb",
+    "attempt1_module_sha256": "916bd3eba1dbd5e59fdaade565732de6808bd814d8e1aca7e353c2e659f494b2",
+    "source_artifacts": {
+      "inputs/raw_payloads": "5215348ccc4b591e50344086fa25539fe934881977437f47fd97c9d48fa89172",
+      "inputs/acquisition_manifest": "f3f5ef4f48bb08ddc362365fe6024734f3a44ac5bffede7512d4b767bcb7b848",
+      "inputs/holdings": "6f78d70bc5f3eef1b6fbb61967d552f599be97d411335549b9efc3edd4dfadd6",
+      "analysis/issuer_mapping": "eee4d1b7d0e5e4bd6ff0856b022e6243cd30df7f46963600b43a79bf7acd3eef"
+    },
+    "recovery_bindings": {
+      "attempt1_evidence.json": "577fc6006482e5db81a89574ad56c81beaffe7d37a9409d6fb991e999a2805e4",
+      "schema_diagnostic.json": "10cfb897006cd09c7485200cd21e6c44078cab99f85d7a3e90c0593370942078",
+      "failed_run_state.json": "902a824c480cccd844cf834bb4eb43a9ad9fa2bf19f69f368b2b043963e36580",
+      "recovery_review.json": "SHA256_OF_FINAL_INDEPENDENT_RECOVERY_REVIEW"
+    }
+  },
+  "actual_counts_before_recovery": {
+    "attempt1_source_object_reads": 4,
+    "diagnostic_source_object_reads": 1,
+    "payload_numeric_parses": 0,
+    "D_calendar_calls": 0
+  },
+  "cumulative_source_object_read_cap_after_recovery": 9,
+  "state_paths": {
+    "attempt1": "run_state.json and failed_run_state.json preserved",
+    "attempt2": "attempt2_run_state.json single attempt guard"
+  },
+  "provenance_breakdown": "Within same authorized4object load, before rawJSONparse; no additionalsource reads."
+}

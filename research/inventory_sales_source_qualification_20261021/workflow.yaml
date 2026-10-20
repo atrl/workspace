@@ -1,0 +1,16 @@
+experiment: inventory_sales_source_qualification_20261021
+module: src.workflow.inventory_sales_source_qualification
+entrypoint: run
+plan: plan.json
+notebook: inventory_sales_source_qualification_20261021.ipynb
+provider_uri: data/qlib/soxx_pit_leveraged_training_v1
+region: us
+phase: source_qualification_only
+source_objects: 4
+D_calendar_calls: 1
+D_features_calls: 0
+fits: 0
+accounts: 0
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts: [analysis/*, metadata/qualification_dataset, inputs/source_audit, sources/*]

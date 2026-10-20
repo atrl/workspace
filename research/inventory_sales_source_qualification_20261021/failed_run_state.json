@@ -1,0 +1,13 @@
+{
+  "status": "execution_failed",
+  "plan_sha256": "20134bbc82b17054758f2d0a62ba84935e055792c2a43f7c3bca5e50bbdf0df6",
+  "failure": "Legacy reused-parent manifest entries omit parse_valid; filtering only explicit true kept18 instead47 before parsing.",
+  "actual_source_object_reads": 4,
+  "diagnostic_additional_object_reads": 1,
+  "payload_numeric_parses": 0,
+  "D_calendar_calls": 0,
+  "fits": 0,
+  "accounts": 0,
+  "automatic_resume_forbidden": true,
+  "attempt": 1
+}

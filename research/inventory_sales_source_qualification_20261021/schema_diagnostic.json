@@ -1,0 +1,55 @@
+{
+  "source_object": "inputs/acquisition_manifest",
+  "identity_audit": {
+    "recorder_id": "1e947608d2f64491a754d576814e9165",
+    "experiment": "etf_pit_fundamentals_repair_20261016",
+    "experiment_id": "492553231561774143",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/etf_pit_fundamentals_repair_20261016/qlib_recorder",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/etf_pit_fundamentals_repair_20261016/qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165",
+    "summary_sha256": "c3f262970bc64aa735ea8191c943a75ca56b4276394f783caa1cd51611d5585c",
+    "verification_manifest_sha256": "8ee3d7fc75f2f2e50d587e40c387a367dd7ec7983940e6049bea837b3b937054",
+    "artifacts": {
+      "inputs/acquisition_manifest": {
+        "artifact": "inputs/acquisition_manifest",
+        "artifact_id": "1e947608d2f64491a754d576814e9165:inputs/acquisition_manifest",
+        "sha256": "f3f5ef4f48bb08ddc362365fe6024734f3a44ac5bffede7512d4b767bcb7b848",
+        "bytes": 12457,
+        "manifest_entry": "qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/inputs/acquisition_manifest",
+        "local_path": "/Users/rziiiii/dev/workspace/research/etf_pit_fundamentals_repair_20261016/qlib_recorder/492553231561774143/1e947608d2f64491a754d576814e9165/artifacts/inputs/acquisition_manifest"
+      }
+    },
+    "read_only": true,
+    "local_filestore_only": true,
+    "hashes_checked_before_unpickling": true,
+    "metadata_and_artifact_hashes_rechecked": true,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object"
+    ]
+  },
+  "rows": 50,
+  "status_parse_valid_counts": [
+    {
+      "status": "200",
+      "parse_valid": "None",
+      "type": "NoneType",
+      "count": 29
+    },
+    {
+      "status": "200",
+      "parse_valid": "False",
+      "type": "bool",
+      "count": 3
+    },
+    {
+      "status": "200",
+      "parse_valid": "True",
+      "type": "bool",
+      "count": 18
+    }
+  ],
+  "additional_object_reads": 1,
+  "raw_payload_numeric_parses": 0,
+  "fits": 0,
+  "accounts": 0
+}
