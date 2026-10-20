@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "status": "completed_not_promoted_fixed_version_closed",
+  "references": {
+    "summary.json": {
+      "path": "research/path_area_action_bridge_20261018/P3/summary.json",
+      "sha256": "75df49464f8d63ae6cf798cf420c87153811ef796cee5b1d4ca09b41e06a30b6"
+    },
+    "result_review.json": {
+      "path": "research/path_area_action_bridge_20261018/P3/result_review.json",
+      "sha256": "3131d4a2eaac21f272f331e3493ffb04908a455f3e09e66c3cd0510984c63b6b"
+    },
+    "verification_manifest.json": {
+      "path": "research/path_area_action_bridge_20261018/P3/verification_manifest.json",
+      "sha256": "65a4631f3b1f583ef68fb4d1586900f3c31c4501579a41de121f1d1d07f23551"
+    },
+    "cold_restore_receipt.json": {
+      "path": "research/path_area_action_bridge_20261018/P3/cold_restore_receipt.json",
+      "sha256": "49fa74871efe86d84e03f62c4596d9b7508c3e131a26e25cf36e0cf31c30a5ea"
+    },
+    "failure_attribution.json": {
+      "path": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
+      "sha256": "5474152f36494ab6b34de2a0efdc8870c6ff1319677c4be1b560c3abcb69181c"
+    },
+    "candidate_failure.json": {
+      "path": "research/path_area_action_bridge_20261018/P3/candidate_failure.json",
+      "sha256": "6e7c68f1ce7a96f721f0e2da54c16061cee28afa149460bf827646f883c93b9b"
+    },
+    "conclusion.md": {
+      "path": "research/path_area_action_bridge_20261018/P3/conclusion.md",
+      "sha256": "c0d00bec4f6ef6bc75d29f4845f4e7a32322f50ba2de4a399430eae48daa4b16"
+    },
+    "path_area_action_bridge_p3.ipynb": {
+      "path": "research/path_area_action_bridge_20261018/P3/path_area_action_bridge_p3.ipynb",
+      "sha256": "dcf52ce6a3d8e027e31b14d78086a4ee54d62dbbe74f22d2dfdcbf59904a777d"
+    }
+  },
+  "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+  "experiment_id": "365001093815326744",
+  "archive_sha256": "099773a3f9f9cf4ac70a8bb2f853cb2251e16e3bb5f5ffcf257cd6b93aac4bd1",
+  "scientific_result": {
+    "decision": "not_promoted",
+    "hard_benchmark": "SOXX only at matching 0/2/5bp",
+    "C_to_SOXX_net_relative_wealth_0_2_5bp": [
+      0.7409801930343225,
+      0.724054874836902,
+      0.7455604812656106
+    ],
+    "close_and_available_point_drawdown_30pct": "passed on available raw marks",
+    "CVaR5_no_worse_than_SOXX": true,
+    "complete_years": [
+      2024,
+      2025
+    ],
+    "positive_complete_years_each_cost": 1,
+    "complete_year_positive_fraction": 0.5,
+    "incomplete_years_reported_separately": [
+      2023,
+      2026
+    ],
+    "rolling126_windows_each_cost": 819,
+    "rolling126_positive_fractions_0_2_5bp": [
+      0.27594627594627597,
+      0.2783882783882784,
+      0.3431013431013431
+    ],
+    "SOXX_paired_daily_log_excess_CI_lower_0_2_5bp": [
+      -0.000934898000208752,
+      -0.0010078448691246908,
+      -0.0009978227441426173
+    ],
+    "C_to_matched_B_net_relative_wealth_0_2_5bp": [
+      0.9974541620157555,
+      1.0037817231373791,
+      0.9998790063165541
+    ],
+    "matched_B_CI_lower_positive_at_any_cost": false,
+    "signed_area_increment_established": false,
+    "failed_hard_gates": [
+      "soxx_relative_wealth",
+      "annual_positive_fraction_70pct",
+      "soxx_rolling_126_positive_70pct",
+      "soxx_ci_lower_positive"
+    ],
+    "fullminute_risk_qualified": false,
+    "historical_PIT_qualified": false,
+    "independent_forward_qualified": false,
+    "promotion_permission": false,
+    "continuous_goal_complete": false
+  },
+  "counts": {
+    "new_action_fits": 2,
+    "new_allocation_fits": 0,
+    "new_native_accounts": 6,
+    "reused_native_books": 15,
+    "native_sessions_each": 944,
+    "action_prediction_attempts": 5664,
+    "recovery_prediction_attempts": 1190,
+    "cold_NAS_downloads": 1,
+    "cold_readback_object_loads": 36
+  },
+  "continuous_objective_achieved": false,
+  "next_information_need": "Before a new candidate, distinguish the risk projection protective contribution from benchmark-relative opportunity cost and recovery reachability under a separately frozen training-period counterfactual design. Do not tune P3 thresholds/sign/window or rename Delta by subtracting the same benchmark from both branches."
+}

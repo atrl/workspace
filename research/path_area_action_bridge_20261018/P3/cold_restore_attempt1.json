@@ -1,0 +1,11 @@
+{
+  "status": "readback_metadata_type_mismatch",
+  "temporary_card": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-p3-coldread-fq4g71a8",
+  "NAS_download_attempts": 1,
+  "object_loads_confirmed": 18,
+  "all_artifact_hashes_passed": true,
+  "source_snapshot_files_verified": 29,
+  "model_barrier_hashes_verified": 4,
+  "reason": "CSV annual period was inferred as integer while Recorder period is string; values agree as labels",
+  "temporary_copy_preserved": true
+}

@@ -43,11 +43,11 @@
     },
     {
       "phase": "P3",
-      "status": "execution_authorized",
-      "source": "research/path_area_action_bridge_20261018/P3/P3_execution_authorization.json",
-      "source_sha256": "b5326435efd7192d888410ca4589fbc4c1ae8d2f22984147a0fb1e43b3e31fbc",
-      "review": "research/path_area_action_bridge_20261018/P3_implementation_review.json",
-      "review_sha256": "4868e7e5cf1435a940889c1e39c379f22d2c20df95d42997c58c7aeb0b5b5d32"
+      "status": "not_promoted",
+      "source": "research/path_area_action_bridge_20261018/P3_result_overview.json",
+      "source_sha256": "0b58565552cae4147c858a280f0b4d2e1bc64d9c61f10b6cb79cd339d42316db",
+      "review": "research/path_area_action_bridge_20261018/P3/result_review.json",
+      "review_sha256": "3131d4a2eaac21f272f331e3493ffb04908a455f3e09e66c3cd0510984c63b6b"
     }
   ]
 }

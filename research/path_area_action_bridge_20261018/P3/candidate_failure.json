@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "candidate_id": "path_area_signed_local_execute_hold_20261020",
+  "mechanism": "Fixed signed second-order SOXX/SOXL path-order area may add conditional information to the local opening execute-versus-hold decision after matching endpoints and quadratic path controls.",
+  "failed_gate": "soxx_relative_wealth,annual_positive_fraction_70pct,soxx_rolling_126_positive_70pct,soxx_ci_lower_positive",
+  "reason": "C failed net SOXX wealth, annual/rolling stability and all SOXX CI lower bounds; matched C/B evidence did not establish signed-area benefit.",
+  "route_state": "closed",
+  "parent_route_state": "open",
+  "reopening_rule": "requires new_evidence_ref or reviewed_mechanism_change; parameter/name rescue is insufficient",
+  "fixed_version": "P3",
+  "review": {
+    "path": "research/path_area_action_bridge_20261018/P3/result_review.json",
+    "sha256": "3131d4a2eaac21f272f331e3493ffb04908a455f3e09e66c3cd0510984c63b6b"
+  },
+  "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+  "archive_sha256": "099773a3f9f9cf4ac70a8bb2f853cb2251e16e3bb5f5ffcf257cd6b93aac4bd1",
+  "continuous_objective_achieved": false
+}

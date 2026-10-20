@@ -1,0 +1,24 @@
+{
+  "plan_sha256": "a46094a1658c6006bc831a4a70d70a45f3d1a2023c6bd3288f8004cdd7e6c4c0",
+  "execution_authorization_sha256": "b5326435efd7192d888410ca4589fbc4c1ae8d2f22984147a0fb1e43b3e31fbc",
+  "implementation_identity_sha256": "ebb658ac8bbb45094f163fc65d6cc5aa80c2269b2e4f6e8b4775d5c0c78a0de4",
+  "log_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-p3-nldga4fk/nbconvert.log",
+  "command": [
+    "/Users/rziiiii/dev/workspace/qlib_venv/bin/python",
+    "-m",
+    "nbconvert",
+    "--execute",
+    "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P3/path_area_action_bridge_p3.ipynb",
+    "--to",
+    "notebook",
+    "--inplace",
+    "--ExecutePreprocessor.timeout=3600"
+  ],
+  "pid": 26240,
+  "start_identity": "ps:Tue Oct 20 20:36:36 2026",
+  "phase": "P3",
+  "job_id": "P3-b5326435efd7",
+  "observed_at_utc": "2026-10-20T12:36:36.777758+00:00",
+  "exit_code": 0,
+  "finished_at_utc": "2026-10-20T12:37:41.991182+00:00"
+}

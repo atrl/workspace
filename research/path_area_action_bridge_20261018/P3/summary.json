@@ -1,0 +1,462 @@
+{
+  "experiment": "path_area_action_bridge_20261018_P3",
+  "phase": "P3",
+  "plan_sha256": "a46094a1658c6006bc831a4a70d70a45f3d1a2023c6bd3288f8004cdd7e6c4c0",
+  "implementation_sha256": "ebb658ac8bbb45094f163fc65d6cc5aa80c2269b2e4f6e8b4775d5c0c78a0de4",
+  "decision": "not_promoted",
+  "soxx_objective": {
+    "contract_version": 2,
+    "candidate_family": "C_path_area",
+    "status": "historical_fail",
+    "historical_pass": false,
+    "gates": {
+      "receipt_provenance": true,
+      "one_candidate_row_per_cost": true,
+      "finite_required_metrics": true,
+      "soxx_pair_per_cost": true,
+      "candidate_soxx_wealth_consistent": true,
+      "soxx_relative_wealth": false,
+      "two_complete_years_each_cost": true,
+      "annual_positive_fraction_70pct": false,
+      "soxx_rolling_126_positive_70pct": false,
+      "drawdown_limit_30pct": true,
+      "cvar_no_worse_than_soxx": true,
+      "soxx_ci_per_cost": true,
+      "soxx_ci_lower_positive": false,
+      "statistics_match_frozen_policy": true
+    },
+    "policy_status": "verified_from_frozen_plan_identity",
+    "expected_statistics": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "random_seed": 20261014,
+      "alpha": 0.025,
+      "family_size": 15
+    },
+    "legacy_analysis_gates": {
+      "net_relative_wealth_all_costs": false,
+      "sampled_drawdown_30pct": true,
+      "cvar_no_worse_soxx": true,
+      "minimum_complete_years": true,
+      "complete_annual_70pct": false,
+      "rolling126_70pct": false,
+      "paired_block_lower_positive": false,
+      "fresh_fullminute_risk_qualified": false,
+      "qualified_independent_forward": false
+    },
+    "assessment_scope": "historical_only_reused_data",
+    "independent_forward_qualified": false,
+    "promotion_eligible": false,
+    "goal_complete": false,
+    "provenance": {
+      "phase": "P3",
+      "candidate_family": "C_path_area",
+      "frozen_plan_sha256": "a46094a1658c6006bc831a4a70d70a45f3d1a2023c6bd3288f8004cdd7e6c4c0",
+      "objective_policy": {
+        "contract_version": 2,
+        "candidate_family": "C_path_area",
+        "phase": "P3",
+        "benchmark": "SOXX",
+        "slippage_bps": [
+          0,
+          2,
+          5
+        ],
+        "relative_wealth_threshold_exclusive": 1.00000001,
+        "risk": {
+          "close_and_sampled_point_max_drawdown_pct_at_least": -30,
+          "cvar5_no_worse_than": "SOXX"
+        },
+        "stability": {
+          "minimum_complete_years": 2,
+          "complete_year_positive_excess_fraction_at_least": 0.7,
+          "rolling_window_sessions": 126,
+          "rolling_positive_excess_fraction_at_least": 0.7
+        },
+        "statistical_settings": {
+          "mean_block": 63,
+          "resamples": 10000,
+          "random_seed": 20261014,
+          "alpha": 0.025,
+          "family_size": 15
+        },
+        "per_comparison_alpha": 0.0016666666666666668,
+        "selection_boundary": "C_path_area is the only registered candidate; B_path_control is attribution-only and never substituted after evaluation.",
+        "independent_forward_qualified": false
+      },
+      "frozen_plan_policy_sha256": "0519ca005b6a83e4d17aa97a5e4ea3e7499b5487b16c7830aaba02cef8d1a955",
+      "receipt_refs": [
+        {
+          "path": "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P3/P3_execution_authorization.json",
+          "sha256": "b5326435efd7192d888410ca4589fbc4c1ae8d2f22984147a0fb1e43b3e31fbc"
+        },
+        {
+          "path": "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P3_implementation_review.json",
+          "sha256": "4868e7e5cf1435a940889c1e39c379f22d2c20df95d42997c58c7aeb0b5b5d32"
+        }
+      ]
+    }
+  },
+  "signed_area_increment_diagnostic_pass": false,
+  "legacy_gates_diagnostic_only": {
+    "net_relative_wealth_all_costs": false,
+    "sampled_drawdown_30pct": true,
+    "cvar_no_worse_soxx": true,
+    "minimum_complete_years": true,
+    "complete_annual_70pct": false,
+    "rolling126_70pct": false,
+    "paired_block_lower_positive": false,
+    "fresh_fullminute_risk_qualified": false,
+    "qualified_independent_forward": false
+  },
+  "candidate_metrics": [
+    {
+      "family": "C_path_area",
+      "slippage_bps": 0,
+      "sessions": 944,
+      "start_signal": "2023-01-03",
+      "last_exit": "2026-10-09",
+      "terminal_wealth": 3.5610604904352043,
+      "return_pct": 256.10604904352044,
+      "cagr_pct": 40.36009073573557,
+      "annualized_log_volatility_pct": 30.421436146875756,
+      "max_drawdown_pct": -25.65431909031009,
+      "qlib_max_drawdown_without_initial_mark_pct": -25.654319090310096,
+      "worst_day_pct": -9.97568905260634,
+      "cvar5_pct": -4.250247050722438,
+      "worst_5d_pct": -15.208071440742868,
+      "turnover": 60.13964141029066,
+      "trade_days": 766,
+      "sum_session_fee_rates": 0.009458930251504523,
+      "benchmark_return_pct": 380.587811106343,
+      "benchmark_cagr_pct": 52.054283228655265,
+      "benchmark_max_drawdown_pct": -42.40091358114727,
+      "benchmark_cvar5_pct": -4.90478329004924,
+      "benchmark_worst_day_pct": -10.062254810188575,
+      "benchmark_worst_5d_pct": -17.40845816136143,
+      "log_excess_sum": -0.2997813840914521,
+      "relative_wealth": 0.7409801930343225,
+      "relative_return_pct": -25.901980696567755,
+      "annualized_log_excess": -0.08002638643119273,
+      "annualized_relative_return_pct": -7.690801103796686,
+      "relative_max_drawdown_pct": -33.55844117991187,
+      "up_day_conditional_relative_return_pct": -82.21961609568751,
+      "down_day_conditional_relative_return_pct": 316.7402667017798,
+      "conditional_returns_are_noncontiguous_statistics": true,
+      "risk_policy": "reported against benchmark; no implicit fixed drawdown or exposure limit",
+      "annualization_sessions": 252,
+      "max_drawdown_basis": "next_open_to_next_open_net_account_returns",
+      "close_max_drawdown_pct": -25.72409071168843,
+      "sampled_point_max_drawdown_pct": -25.9298233653639,
+      "mean_ending_soxl_weight": 0.15489898836516672,
+      "mean_ending_soxx_weight": 0.37923250587512497,
+      "mean_ending_cash_weight": 0.46586850575970834,
+      "zero_SOXL_quantity_fraction": 0.24470338983050846,
+      "fresh_fullminute_risk_qualified": false
+    },
+    {
+      "family": "C_path_area",
+      "slippage_bps": 2,
+      "sessions": 944,
+      "start_signal": "2023-01-03",
+      "last_exit": "2026-10-09",
+      "terminal_wealth": 3.479575079950998,
+      "return_pct": 247.9575079950998,
+      "cagr_pct": 39.4954246619559,
+      "annualized_log_volatility_pct": 30.172217560463462,
+      "max_drawdown_pct": -25.915653665408346,
+      "qlib_max_drawdown_without_initial_mark_pct": -25.915653665408335,
+      "worst_day_pct": -9.974854528207654,
+      "cvar5_pct": -4.208912953998769,
+      "worst_5d_pct": -15.220469089818382,
+      "turnover": 59.84220596459744,
+      "trade_days": 763,
+      "sum_session_fee_rates": 0.021291768826095576,
+      "benchmark_return_pct": 380.56786866255055,
+      "benchmark_cagr_pct": 52.05259885114122,
+      "benchmark_max_drawdown_pct": -42.40463958032062,
+      "benchmark_cvar5_pct": -4.9052404232292,
+      "benchmark_worst_day_pct": -10.06326009742281,
+      "benchmark_worst_5d_pct": -17.41065179646094,
+      "log_excess_sum": -0.3228880954950172,
+      "relative_wealth": 0.724054874836902,
+      "relative_return_pct": -27.5945125163098,
+      "annualized_log_excess": -0.08619470345841561,
+      "annualized_relative_return_pct": -8.258441015847833,
+      "relative_max_drawdown_pct": -33.95293344706346,
+      "up_day_conditional_relative_return_pct": -83.59923270885692,
+      "down_day_conditional_relative_return_pct": 341.4762199741193,
+      "conditional_returns_are_noncontiguous_statistics": true,
+      "risk_policy": "reported against benchmark; no implicit fixed drawdown or exposure limit",
+      "annualization_sessions": 252,
+      "max_drawdown_basis": "next_open_to_next_open_net_account_returns",
+      "close_max_drawdown_pct": -25.753479618397968,
+      "sampled_point_max_drawdown_pct": -26.190593929157302,
+      "mean_ending_soxl_weight": 0.15202580677482688,
+      "mean_ending_soxx_weight": 0.3782181902743316,
+      "mean_ending_cash_weight": 0.4697560029508416,
+      "zero_SOXL_quantity_fraction": 0.2584745762711864,
+      "fresh_fullminute_risk_qualified": false
+    },
+    {
+      "family": "C_path_area",
+      "slippage_bps": 5,
+      "sessions": 944,
+      "start_signal": "2023-01-03",
+      "last_exit": "2026-10-09",
+      "terminal_wealth": 3.5827010899385296,
+      "return_pct": 258.27010899385294,
+      "cagr_pct": 40.58728486024634,
+      "annualized_log_volatility_pct": 30.135985984920577,
+      "max_drawdown_pct": -24.43830453476275,
+      "qlib_max_drawdown_without_initial_mark_pct": -24.438304534762757,
+      "worst_day_pct": -9.978757812628913,
+      "cvar5_pct": -4.211009523528405,
+      "worst_5d_pct": -15.24390692524628,
+      "turnover": 60.475423270272714,
+      "trade_days": 763,
+      "sum_session_fee_rates": 0.03970766564017537,
+      "benchmark_return_pct": 380.5379549968622,
+      "benchmark_cagr_pct": 52.05007218879509,
+      "benchmark_max_drawdown_pct": -42.41022980708187,
+      "benchmark_cvar5_pct": -4.905926307023082,
+      "benchmark_worst_day_pct": -10.06476840496181,
+      "benchmark_worst_5d_pct": -17.41394328587883,
+      "log_excess_sum": -0.2936190196098492,
+      "relative_wealth": 0.7455604812656106,
+      "relative_return_pct": -25.443951873438948,
+      "annualized_log_excess": -0.07838134845517161,
+      "annualized_relative_return_pct": -7.5388239962924155,
+      "relative_max_drawdown_pct": -32.712429663470814,
+      "up_day_conditional_relative_return_pct": -83.06985746293525,
+      "down_day_conditional_relative_return_pct": 340.37460383654343,
+      "conditional_returns_are_noncontiguous_statistics": true,
+      "risk_policy": "reported against benchmark; no implicit fixed drawdown or exposure limit",
+      "annualization_sessions": 252,
+      "max_drawdown_basis": "next_open_to_next_open_net_account_returns",
+      "close_max_drawdown_pct": -25.812689300061507,
+      "sampled_point_max_drawdown_pct": -25.812689300061507,
+      "mean_ending_soxl_weight": 0.15367279189495306,
+      "mean_ending_soxx_weight": 0.3783918177296235,
+      "mean_ending_cash_weight": 0.4679353903754234,
+      "zero_SOXL_quantity_fraction": 0.2478813559322034,
+      "fresh_fullminute_risk_qualified": false
+    }
+  ],
+  "objective_achieved": false,
+  "promotion_approved": false,
+  "independent_forward_qualified": false,
+  "historical_PIT_qualified": false,
+  "fullminute_risk_qualified": false,
+  "source_qualification_limits": {
+    "minute_source": "P2 inherited conditional retrospective minute source. P1 source_byte_identity records exact current-bin bytes, but the inherited NAS evidence lacked per-bin SHA-256; current byte IDs do not prove NAS snapshot origin.",
+    "first_receipt": "Historical first-receipt/PIT timing is not certified by this plan.",
+    "boundary": "Carry this qualification forward; do not reopen broad source audit or claim independent forward evidence.",
+    "numeric_residency": "The bounded post-barrier raw minute read includes intervening non-prefix minute rows within the fixed date-time rectangle. No other fields, dates outside bounds, full-day completeness, or 2026-10-09 tail prefix are read or used; the full rectangle is never saved."
+  },
+  "actual_counts": {
+    "plan_sha256": "a46094a1658c6006bc831a4a70d70a45f3d1a2023c6bd3288f8004cdd7e6c4c0",
+    "implementation_sha256": "ebb658ac8bbb45094f163fc65d6cc5aa80c2269b2e4f6e8b4775d5c0c78a0de4",
+    "phase": "complete_before_archive",
+    "source_objects_read": 36,
+    "action_forecast_attempts": 5664,
+    "recovery_forecast_attempts": 1190,
+    "allocation_forecast_attempts": 0,
+    "model_sha256": {
+      "B_action_model": "10cfc0eeb86e2ea4bfc464ad60670351ab37588663a14a84b6961f877ac9677e",
+      "B_preprocessor": "f194d8ec7d427ff61c55b8d43efcc39041753f7ec22304a6eaa1068026022845",
+      "C_action_model": "f4f299b2e4e44a49503729d452dde5144c00ae7970f93db9d08c1cbe1d726f23",
+      "C_preprocessor": "c1a9f7e314f2bb039f68eb35f888eef048289e6bc7f3941a6ee29491cfa2e1ad"
+    },
+    "derived_native_provider_build_attempts": 1,
+    "derived_native_provider_builds": 1,
+    "derived_native_provider_readback_attempts": 1,
+    "derived_native_provider_readbacks": 1,
+    "source_D_calendar_attempts": 1,
+    "source_D_features_attempts": 1,
+    "source_attempts": [
+      "P3a_training_only",
+      "P3b_B_targets",
+      "P3b_structural",
+      "P3b_recovery",
+      "P3b_raw",
+      "P3b_AB_native",
+      "P3b_strong_native"
+    ],
+    "source_done": [
+      "P3a_training_only",
+      "P3b_B_targets",
+      "P3b_structural",
+      "P3b_recovery",
+      "P3b_raw",
+      "P3b_AB_native",
+      "P3b_strong_native"
+    ],
+    "fit_attempts": [
+      "B",
+      "C"
+    ],
+    "fit_done": [
+      "B",
+      "C"
+    ],
+    "prefix_attempts": [
+      "native_prefix_and_daily_calendar"
+    ],
+    "prefix_done": [
+      "native_prefix_and_daily_calendar"
+    ],
+    "provider_attempts": [
+      "derived_provider_build_and_readback"
+    ],
+    "provider_done": [
+      "derived_provider_build_and_readback"
+    ],
+    "path_attempts": [
+      "B_path_control_0",
+      "B_path_control_2",
+      "B_path_control_5",
+      "C_path_area_0",
+      "C_path_area_2",
+      "C_path_area_5"
+    ],
+    "path_done": [
+      "B_path_control_0",
+      "B_path_control_2",
+      "B_path_control_5",
+      "C_path_area_0",
+      "C_path_area_2",
+      "C_path_area_5"
+    ],
+    "native_attempts": [
+      "B_path_control_0",
+      "B_path_control_2",
+      "B_path_control_5",
+      "C_path_area_0",
+      "C_path_area_2",
+      "C_path_area_5"
+    ],
+    "native_done": [
+      "B_path_control_0",
+      "B_path_control_2",
+      "B_path_control_5",
+      "C_path_area_0",
+      "C_path_area_2",
+      "C_path_area_5"
+    ],
+    "analysis_attempts": [
+      "fixed_15_pair_bootstrap"
+    ],
+    "analysis_done": [
+      "fixed_15_pair_bootstrap"
+    ],
+    "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+    "experiment_id": "365001093815326744",
+    "models_sealed": true,
+    "evaluation_unlocked": true,
+    "native_source_counts": {
+      "D_calendar_calls": 1,
+      "D_features_calls": 1,
+      "numeric_field_slices": [
+        {
+          "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/close.1min.bin",
+          "start_index": 412950,
+          "end_index": 779294,
+          "start": "2023-01-04 09:31:00",
+          "end": "2026-10-08 09:45:00"
+        },
+        {
+          "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/open.1min.bin",
+          "start_index": 412950,
+          "end_index": 779294,
+          "start": "2023-01-04 09:31:00",
+          "end": "2026-10-08 09:45:00"
+        },
+        {
+          "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/price_valid.1min.bin",
+          "start_index": 412950,
+          "end_index": 779294,
+          "start": "2023-01-04 09:31:00",
+          "end": "2026-10-08 09:45:00"
+        },
+        {
+          "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/close.1min.bin",
+          "start_index": 412950,
+          "end_index": 779294,
+          "start": "2023-01-04 09:31:00",
+          "end": "2026-10-08 09:45:00"
+        },
+        {
+          "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/open.1min.bin",
+          "start_index": 412950,
+          "end_index": 779294,
+          "start": "2023-01-04 09:31:00",
+          "end": "2026-10-08 09:45:00"
+        },
+        {
+          "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/price_valid.1min.bin",
+          "start_index": 412950,
+          "end_index": 779294,
+          "start": "2023-01-04 09:31:00",
+          "end": "2026-10-08 09:45:00"
+        }
+      ],
+      "query_start": "2023-01-04 09:31:00",
+      "query_end": "2026-10-08 09:45:00",
+      "decoded_contiguous_rows": 732690,
+      "retained_prefix_rows": 28320,
+      "funded_sessions": 944,
+      "valid_prefix_sessions": 944,
+      "missing_prefix_sessions": 0,
+      "intervening_rows_used_in_features_or_masks": false,
+      "prefix_available_at_rule": "actual trade_date 09:46 America/New_York",
+      "source_bytes_verified_before_and_after": true,
+      "historical_PIT_qualified": false,
+      "independent_validation_qualified": false,
+      "source_byte_identity_sha256": "29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124"
+    }
+  },
+  "new_action_fits": 2,
+  "new_native_accounts": 6,
+  "reused_native_accounts": 15,
+  "total_comparison_accounts": 21,
+  "source_HTTP": 0,
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P3/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/predictions",
+      "analysis/native/*"
+    ]
+  },
+  "workflow_config": "workflow.yaml",
+  "production_changed": false,
+  "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+  "experiment_id": "365001093815326744",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P3/qlib_recorder/365001093815326744/a7f77f8020a74651abe2fce076959a85",
+  "metrics": {
+    "new_native_accounts": 6.0,
+    "historical_soxx_pass": 0.0,
+    "action_forecast_attempts": 5664.0,
+    "completed_native_accounts": 6.0,
+    "new_action_fits": 2.0
+  },
+  "verification_manifest": "verification_manifest.json",
+  "nas_evidence": {
+    "sha256": "099773a3f9f9cf4ac70a8bb2f853cb2251e16e3bb5f5ffcf257cd6b93aac4bd1",
+    "size_bytes": 13606709,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/09/97/099773a3f9f9cf4ac70a8bb2f853cb2251e16e3bb5f5ffcf257cd6b93aac4bd1",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-20 20:37:39.001072+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/09/97/099773a3f9f9cf4ac70a8bb2f853cb2251e16e3bb5f5ffcf257cd6b93aac4bd1",
+    "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+    "experiment_id": "365001093815326744",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -1,14 +1,7 @@
 {
   "schema_version": 1,
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
-  "active": [
-    {
-      "card": "research/path_area_action_bridge_20261018",
-      "phase": "P3",
-      "role": "single_economic_experiment_execution_authorized",
-      "completed_training_bridge": "research/path_area_action_bridge_20261018/P2_result_overview.json"
-    }
-  ],
+  "active": [],
   "framework": [
     "src/core/research_runtime.py",
     "src/core/native_evidence.py",
@@ -54,6 +47,13 @@
       "status": "not_promoted",
       "default_search": false,
       "evidence_preserved": true
+    },
+    {
+      "card": "research/path_area_action_bridge_20261018/P3",
+      "status": "not_promoted",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/path_area_action_bridge_20261018/P3_result_overview.json"
     }
   ],
   "deferred_sources": {
@@ -65,5 +65,11 @@
     "closed Recorder/model objects without new bounded need",
     "whole chat history for monitoring",
     "all provider bin files for documentation"
-  ]
+  ],
+  "next_information_need": {
+    "status": "needs_separately_frozen_design",
+    "topic": "risk_projection_protection_vs_SOXX_opportunity_cost_and_recovery_reachability",
+    "source": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
+    "execution_authorized": false
+  }
 }

@@ -1,0 +1,89 @@
+{
+  "path": "data/qlib/path_area_action_bridge_20261018_P3_execution",
+  "status": "removed_after_successful_native_validation_and_NAS_readback",
+  "created_by_this_run": true,
+  "entries_before_removal": [
+    {
+      "path": "calendars/1min.txt",
+      "sha256": "c081a6be0fcbfd3388925d47967df95452fbefb926310a5b5fe07545a42168d5",
+      "bytes": 75580
+    },
+    {
+      "path": "features/soxl/close.1min.bin",
+      "sha256": "c9019e62494e9cb0a56e9e303538f2f6f8e98077ae37b50c50569caaafa4149b",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxl/execution_price.1min.bin",
+      "sha256": "c9019e62494e9cb0a56e9e303538f2f6f8e98077ae37b50c50569caaafa4149b",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxl/high.1min.bin",
+      "sha256": "c9019e62494e9cb0a56e9e303538f2f6f8e98077ae37b50c50569caaafa4149b",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxl/low.1min.bin",
+      "sha256": "c9019e62494e9cb0a56e9e303538f2f6f8e98077ae37b50c50569caaafa4149b",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxl/open.1min.bin",
+      "sha256": "c9019e62494e9cb0a56e9e303538f2f6f8e98077ae37b50c50569caaafa4149b",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxl/raw_execution_price.1min.bin",
+      "sha256": "c9019e62494e9cb0a56e9e303538f2f6f8e98077ae37b50c50569caaafa4149b",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxx/close.1min.bin",
+      "sha256": "1d352cc20ac4ec9614fc854d0b36935bffc1a377daa8e712d2d5a722fbd6ca89",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxx/execution_price.1min.bin",
+      "sha256": "1d352cc20ac4ec9614fc854d0b36935bffc1a377daa8e712d2d5a722fbd6ca89",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxx/high.1min.bin",
+      "sha256": "1d352cc20ac4ec9614fc854d0b36935bffc1a377daa8e712d2d5a722fbd6ca89",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxx/low.1min.bin",
+      "sha256": "1d352cc20ac4ec9614fc854d0b36935bffc1a377daa8e712d2d5a722fbd6ca89",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxx/open.1min.bin",
+      "sha256": "1d352cc20ac4ec9614fc854d0b36935bffc1a377daa8e712d2d5a722fbd6ca89",
+      "bytes": 15120
+    },
+    {
+      "path": "features/soxx/raw_execution_price.1min.bin",
+      "sha256": "1d352cc20ac4ec9614fc854d0b36935bffc1a377daa8e712d2d5a722fbd6ca89",
+      "bytes": 15120
+    },
+    {
+      "path": "instruments/all.txt",
+      "sha256": "3f72e4589fd6cbb14e4aa3d22ffd1ee276ea6b88bed5a5fde661e300a1b4ff62",
+      "bytes": 90
+    },
+    {
+      "path": "qlib.yaml",
+      "sha256": "ce10bb53d4373d58669348553cb21f0952318d16466010b4f640fa045547dea1",
+      "bytes": 196
+    },
+    {
+      "path": "qlib_store_manifest.json",
+      "sha256": "24176bdbefed9c4027a5651d83741c7d4a244292e54ba01c5739a491bc54ddd8",
+      "bytes": 948
+    }
+  ],
+  "source": "Exact pinned raw points and guard from P3 frozen allowlist remain in their immutable Recorders; build recipe src/workflow/path_area_action_bridge_p3.py:_execution_provider",
+  "research_replay_performed_for_cleanup": false
+}

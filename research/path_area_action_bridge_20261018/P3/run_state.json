@@ -1,0 +1,163 @@
+{
+  "plan_sha256": "a46094a1658c6006bc831a4a70d70a45f3d1a2023c6bd3288f8004cdd7e6c4c0",
+  "implementation_sha256": "ebb658ac8bbb45094f163fc65d6cc5aa80c2269b2e4f6e8b4775d5c0c78a0de4",
+  "phase": "completed",
+  "source_objects_read": 36,
+  "action_forecast_attempts": 5664,
+  "recovery_forecast_attempts": 1190,
+  "allocation_forecast_attempts": 0,
+  "model_sha256": {
+    "B_action_model": "10cfc0eeb86e2ea4bfc464ad60670351ab37588663a14a84b6961f877ac9677e",
+    "B_preprocessor": "f194d8ec7d427ff61c55b8d43efcc39041753f7ec22304a6eaa1068026022845",
+    "C_action_model": "f4f299b2e4e44a49503729d452dde5144c00ae7970f93db9d08c1cbe1d726f23",
+    "C_preprocessor": "c1a9f7e314f2bb039f68eb35f888eef048289e6bc7f3941a6ee29491cfa2e1ad"
+  },
+  "derived_native_provider_build_attempts": 1,
+  "derived_native_provider_builds": 1,
+  "derived_native_provider_readback_attempts": 1,
+  "derived_native_provider_readbacks": 1,
+  "source_D_calendar_attempts": 1,
+  "source_D_features_attempts": 1,
+  "source_attempts": [
+    "P3a_training_only",
+    "P3b_B_targets",
+    "P3b_structural",
+    "P3b_recovery",
+    "P3b_raw",
+    "P3b_AB_native",
+    "P3b_strong_native"
+  ],
+  "source_done": [
+    "P3a_training_only",
+    "P3b_B_targets",
+    "P3b_structural",
+    "P3b_recovery",
+    "P3b_raw",
+    "P3b_AB_native",
+    "P3b_strong_native"
+  ],
+  "fit_attempts": [
+    "B",
+    "C"
+  ],
+  "fit_done": [
+    "B",
+    "C"
+  ],
+  "prefix_attempts": [
+    "native_prefix_and_daily_calendar"
+  ],
+  "prefix_done": [
+    "native_prefix_and_daily_calendar"
+  ],
+  "provider_attempts": [
+    "derived_provider_build_and_readback"
+  ],
+  "provider_done": [
+    "derived_provider_build_and_readback"
+  ],
+  "path_attempts": [
+    "B_path_control_0",
+    "B_path_control_2",
+    "B_path_control_5",
+    "C_path_area_0",
+    "C_path_area_2",
+    "C_path_area_5"
+  ],
+  "path_done": [
+    "B_path_control_0",
+    "B_path_control_2",
+    "B_path_control_5",
+    "C_path_area_0",
+    "C_path_area_2",
+    "C_path_area_5"
+  ],
+  "native_attempts": [
+    "B_path_control_0",
+    "B_path_control_2",
+    "B_path_control_5",
+    "C_path_area_0",
+    "C_path_area_2",
+    "C_path_area_5"
+  ],
+  "native_done": [
+    "B_path_control_0",
+    "B_path_control_2",
+    "B_path_control_5",
+    "C_path_area_0",
+    "C_path_area_2",
+    "C_path_area_5"
+  ],
+  "analysis_attempts": [
+    "fixed_15_pair_bootstrap"
+  ],
+  "analysis_done": [
+    "fixed_15_pair_bootstrap"
+  ],
+  "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+  "experiment_id": "365001093815326744",
+  "models_sealed": true,
+  "evaluation_unlocked": true,
+  "native_source_counts": {
+    "D_calendar_calls": 1,
+    "D_features_calls": 1,
+    "numeric_field_slices": [
+      {
+        "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/close.1min.bin",
+        "start_index": 412950,
+        "end_index": 779294,
+        "start": "2023-01-04 09:31:00",
+        "end": "2026-10-08 09:45:00"
+      },
+      {
+        "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/open.1min.bin",
+        "start_index": 412950,
+        "end_index": 779294,
+        "start": "2023-01-04 09:31:00",
+        "end": "2026-10-08 09:45:00"
+      },
+      {
+        "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxl/price_valid.1min.bin",
+        "start_index": 412950,
+        "end_index": 779294,
+        "start": "2023-01-04 09:31:00",
+        "end": "2026-10-08 09:45:00"
+      },
+      {
+        "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/close.1min.bin",
+        "start_index": 412950,
+        "end_index": 779294,
+        "start": "2023-01-04 09:31:00",
+        "end": "2026-10-08 09:45:00"
+      },
+      {
+        "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/open.1min.bin",
+        "start_index": 412950,
+        "end_index": 779294,
+        "start": "2023-01-04 09:31:00",
+        "end": "2026-10-08 09:45:00"
+      },
+      {
+        "path": "/Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/core_1min/features/soxx/price_valid.1min.bin",
+        "start_index": 412950,
+        "end_index": 779294,
+        "start": "2023-01-04 09:31:00",
+        "end": "2026-10-08 09:45:00"
+      }
+    ],
+    "query_start": "2023-01-04 09:31:00",
+    "query_end": "2026-10-08 09:45:00",
+    "decoded_contiguous_rows": 732690,
+    "retained_prefix_rows": 28320,
+    "funded_sessions": 944,
+    "valid_prefix_sessions": 944,
+    "missing_prefix_sessions": 0,
+    "intervening_rows_used_in_features_or_masks": false,
+    "prefix_available_at_rule": "actual trade_date 09:46 America/New_York",
+    "source_bytes_verified_before_and_after": true,
+    "historical_PIT_qualified": false,
+    "independent_validation_qualified": false,
+    "source_byte_identity_sha256": "29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124"
+  },
+  "completed": true
+}

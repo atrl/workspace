@@ -26,14 +26,14 @@
     "phase_receipts": "research/path_area_action_bridge_20261018/phase_receipts.json",
     "implementation_executor": "/root/p3_workflow",
     "independent_reviewer": "/root/p3_design_review",
-    "next_action": "Run one authorized P3:5 trainingobjects -> countgate ->2actionfits/seal -> postseal sourcequery and6own-state/nativeaccounts -> frozen SOXX evaluation.",
+    "next_action": "Before a new candidate, distinguish the risk projection protective contribution from benchmark-relative opportunity cost and recovery reachability under a separately frozen training-period counterfactual design. Do not tune P3 thresholds/sign/window or rename Delta by subtracting the same benchmark from both branches.",
     "run_state": "research/path_area_action_bridge_20261018/P3/run_state.json",
     "job_handle": "research/path_area_action_bridge_20261018/P3_job_handle.json",
     "execution_receipt": "research/path_area_action_bridge_20261018/P3_process_exit.json",
-    "last_scientific_observation": "P2 native consistency/count gate accepted:1057sessions,error0,strictpre2022rows243(classes104/139). No actionfits/economic eval/independent evidence/promotion.",
+    "last_scientific_observation": "P3 independently accepted NOT_PROMOTED: C/SOXX wealth .741/.724/.746; annual1/2; rolling27.6/27.8/34.3%; riskDD/CVaRpass; noC/Bincrement; all6nativeerror0. Fixedversionclosed.",
     "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once",
-    "result_overview": "research/path_area_action_bridge_20261018/P2_result_overview.json",
-    "next_design": "research/path_area_action_bridge_20261018/P3_plan.json"
+    "result_overview": "research/path_area_action_bridge_20261018/P3_result_overview.json",
+    "next_design": null
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -42,17 +42,6 @@
     "decision_bridge": "implemented_and_focused_check_passed",
     "source_and_data_WIP": "preserved",
     "model_policy": "docs/research_operations.md"
-  },
-  "historical_execution_counts": {
-    "model_fits": 27,
-    "new_native_accounts": 36,
-    "reused_native_accounts": 81,
-    "completed_fixed_experiments": 6,
-    "historical_passing_candidates": 0,
-    "qualified_forward_days": 0,
-    "reused_native_accounts_scope": "Cumulative comparison reuse events, not independent accounts or new market observations",
-    "unique_reused_reference_accounts": 15,
-    "independent_result_reviews_pending": 0
   },
   "independent_forward_qualified_days": 0,
   "historical_evaluation_is_independent": false,
@@ -70,14 +59,16 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-20T12:36:01.816711+00:00",
-  "execution_totals_including_P2": {
-    "new_model_fits": 33,
-    "new_native_accounts": 37,
-    "completed_fixed_economic_experiments": 6,
+  "updated_at_utc": "2026-10-20T12:49:33.126945+00:00",
+  "execution_totals": {
+    "new_model_fits": 35,
+    "new_native_accounts": 43,
+    "completed_fixed_economic_experiments": 7,
     "completed_training_bridges_added": 1,
+    "reused_native_reference_events": 96,
+    "unique_reused_reference_accounts": 15,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
-    "basis": "historical baseline27fits/36native plusP2 6fits/1native; trainingbridge is not a seventh economic experiment"
+    "basis": "previous33fits/37native +P3 2actionfits/6native; baseline6fixedeconomicexperiments +P3=7; referenceevents81+15=96"
   }
 }
