@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "artifact_type": "bounded_candidate_registration",
+  "registration_mode": "retrospective_registry_integration",
+  "is_fresh_preregistration": false,
+  "candidate": {
+    "candidate_id": "path_area_signed_local_execute_hold_20261020",
+    "mechanism": "Fixed signed second-order SOXX/SOXL path-order area may add conditional information to the local opening execute-versus-hold decision after matching endpoints and quadratic path controls.",
+    "receiver": "open",
+    "expression_kind": "code_identity",
+    "expression": "src/data/path_area_bridge.py#e5ebe11f5a6ee69a76865ce31f8af97a11ab8a9ef970a25bf66a14a3a296b320",
+    "allowed_fields": [],
+    "fields_identity": "P1 admitted native minute plane; manifest and source-byte identities are pinned below; canonical inputs are the fixed rawNONE SOXL/SOXX 09:30-09:45 prefix.",
+    "available_at_rule": "Only P0=09:30 open and fifteen closed minute closes 09:31-09:45 for both assets; all prefix bars closed by 09:45 and historical availability is 09:46 New York. No later session completeness, afternoon, corporate-event, target, or label information.",
+    "target_rule": "At 09:46 compare EXECUTE of the current desired opening target at 09:47 against HOLD from the same pre-order physical state; apply each branch own physical accounting and reset both to the same next teacher target at next 09:47. Label Delta=(post-reset NAV_EXECUTE-post-reset NAV_HOLD)/common pre-order NAV at current 09:47. This is a local fixed-reset label, not recursively altered strategy value.",
+    "maturity_rule": "max(next teacher target information time 09:46, next right-edge 09:48 bar completion plus 60 seconds)=next 09:49 New York under frozen P2 clock; must be strictly before each intended fit cutoff. Later dependency shifts maturity later.",
+    "fixed_parameters": {
+      "area": "A=0.5*leftfold[j=1..15](x[j-1]*dy[j]-y[j-1]*dx[j]); x=SOXX/P0-1, y=SOXL/P0-1; float32 source values widened to float64.",
+      "controls": [
+        "X",
+        "Y",
+        "X_squared",
+        "XY",
+        "Y_squared",
+        "Qx",
+        "Qxy",
+        "Qy"
+      ],
+      "mask": "P1 prefix-only binary mask; missing A and controls remain NaN.",
+      "source_admission": "explicit_present_day_frozen_retrospective_snapshot",
+      "budget": "P2 design only; action label pairs at most one per eligible row; no classifier or 2023+ account."
+    },
+    "matched_control": "Same rows, original 22 inputs, same eight fixed path controls and same mask, same pinned folds and execution/label contract; signed area slot neutralized to zero versus signed A in any later paired comparison. The P2 bridge itself computes no comparative performance.",
+    "rejection_rule": "Reject or mark needs_data if source/code/split identities differ, prefix timing or label maturity fails, fewer than the frozen 200 mature eligible pre-2022 rows for a later fit, execution/HOLD labels are mechanically invalid, or a future review rejects the fixed mechanism. No threshold/window/sign tuning on reused history. No promotion claim from registration or local labels.",
+    "source_urls": [
+      "https://github.com/microsoft/RD-Agent",
+      "https://arxiv.org/abs/2502.16789",
+      "https://arxiv.org/abs/2602.14670"
+    ],
+    "prior_route": "Existing frozen path_area_action_bridge_20261018 P2 hypothesis and design; this is retrospective registry integration after the hypothesis was already frozen.",
+    "new_evidence_explanation": "No new scientific evidence is asserted. Registration records the already frozen hypothesis and its pinned metadata identities; it is not fresh preregistration, independent validation, or evidence of predictive value.",
+    "complete_economic_experiment": false,
+    "code_review_ref": "research/path_area_action_bridge_20261018/P2_implementation_review.json#sha256:777834f2121366cb71ac0ddcaabd970d867c60f1e5f6b36a5699ac78478e5353",
+    "independently_verified_review_identity": "777834f2121366cb71ac0ddcaabd970d867c60f1e5f6b36a5699ac78478e5353"
+  },
+  "identities": {
+    "data_identity": "P1-manifest-sha256:817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd;source-bytes-sha256:29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124;archive-sha256:775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+    "code_identity": "src/data/path_area_bridge.py#e5ebe11f5a6ee69a76865ce31f8af97a11ab8a9ef970a25bf66a14a3a296b320",
+    "split_identity": "P2-frozen-OOF-and-target-clock-sha256:e0f20186ccd8198f3a21442a0a5694589d036c4262378f7cbdff0a06b5c793a5",
+    "p1_metadata": {
+      "plan": {
+        "path": "research/path_area_action_bridge_20261018/plan.json",
+        "sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376"
+      },
+      "recorder_archive_sha256": "775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+      "manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+      "source_byte_identity_sha256": "29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124"
+    },
+    "original_implementation_review": {
+      "path": "research/path_area_action_bridge_20261018/implementation_review.json",
+      "sha256": "47f01127073056bf2b72ac3a8ba20ffaa97eefade4bc710e56c61ee443b53abe",
+      "verified_against_result_review_metadata": true,
+      "scope": "P1 source/no-fit implementation only; not a review of P2 completion or scientific outcomes."
+    },
+    "p2_design_review": {
+      "path": "research/path_area_action_bridge_20261018/P2_design_review.json",
+      "sha256": "2663e6f5ad1a9917828de5956c5dcdbe5ce58525b2253836fe7808cf0057336d",
+      "verified_against_frozen_P2_plan": true,
+      "verdict": "APPROVE_P2_IMPLEMENTATION_DESIGN",
+      "scope": "Static design review provenance only; not used as the candidate code review identity."
+    },
+    "p2_implementation_review": {
+      "path": "research/path_area_action_bridge_20261018/P2_implementation_review.json",
+      "sha256": "777834f2121366cb71ac0ddcaabd970d867c60f1e5f6b36a5699ac78478e5353",
+      "verdict": "APPROVE_P2_IMPLEMENTATION_FOR_SEPARATE_EXECUTION_GO",
+      "implementation_identity_sha256": "456c3b342c36a4ce016dacbdf2949e8c9e307d8eb97b9b9788c2f9941a760d15",
+      "identity_metadata_path": "research/path_area_action_bridge_20261018/P2_implementation_identity.json",
+      "identity_metadata_sha256": "0c4d7156ba807b8ba01ef05e11511a497a92749fcb7cc17f081057b29578d1fd",
+      "identity_scope": "27 bound code, test, notebook, P2 workflow/conclusion, frozen support and XNYS environment entries from current_path_area_implementation_identity",
+      "verified_module_binding": {
+        "path": "src/data/path_area_bridge.py",
+        "sha256": "e5ebe11f5a6ee69a76865ce31f8af97a11ab8a9ef970a25bf66a14a3a296b320",
+        "matches_identity_metadata": true
+      },
+      "scope_limit": "P2 implementation review bound this module as one item in a 27-entry implementation identity. The phase later failed before physical shadow entry; this review does not establish completed P2, labels, scientific value, or promotion."
+    }
+  },
+  "provenance_limits": {
+    "external_methods": "RD-Agent, AlphaAgent, and FactorMiner are workflow inspirations only; none validates this factor or supplies factor evidence.",
+    "current_state": "P2 native completion has not been established by this registration. No P2 source, model, label, Recorder, or experimental result was inspected or used here.",
+    "scientific_status": "hypothesis_registered_retrospectively; no predictive, economic, independent-validation, or promotion claim."
+  },
+  "validation": {
+    "validator": "src.factor.research_candidates.CandidateSpec/validate_batch/memo_key",
+    "validate_batch": {
+      "path_area_signed_local_execute_hold_20261020": {
+        "expression_sha256": "bdce7b0450c65fe862d6ec866f25dd4acc04eedc970d93bbd7a613b8605e3f15",
+        "binding_sha256": "a7b1eb5e62c07f5d67a3c4c677e9470be843bb35d58649cac6a8bda2d5867a85",
+        "code_review_status": "review_identity_supplied"
+      }
+    },
+    "memo_key_sha256": "a779ce896a4e63f364c69ed97c1c2e764f9ad4976da033447dc911132c60d4b6",
+    "data_free": true
+  }
+}

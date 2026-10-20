@@ -611,16 +611,7 @@ def _predict_oof(inputs: dict[str, Any], saved_models: dict[tuple[int, int], Any
                 raise ValueError("blocked: model prediction index differs from P1 trade-year rows")
             prediction = prediction.reindex(target_dates)
             seed_outputs.append(prediction)
-        if any(not seed_outputs[0].index.equals(part.index) for part in seed_outputs[1:]):
-            raise ValueError("blocked: three-seed prediction calendars differ")
-        ensemble = sum(seed_outputs) / 3.0
-        weights = ["soxl_weight", "soxx_weight", "cash_weight"]
-        weight_sum = ensemble.loc[:, weights].sum(axis=1)
-        if not np.isfinite(ensemble.to_numpy(dtype=float)).all() or (weight_sum <= 0).any():
-            raise ValueError("blocked: original five-output ensemble is nonfinite")
-        ensemble.loc[:, weights] = ensemble.loc[:, weights].div(weight_sum, axis=0)
-        ensemble = ensemble.copy()
-        ensemble.index.name = "signal_date"
+        ensemble = _equal_weight_ensemble(seed_outputs)
         complete[year] = ensemble
         all_outputs.append(ensemble)
     prediction = pd.concat(all_outputs).sort_index()
@@ -629,6 +620,22 @@ def _predict_oof(inputs: dict[str, Any], saved_models: dict[tuple[int, int], Any
     if any(pd.Timestamp(value).year >= 2023 for value in prediction.index):
         raise ValueError("blocked: a P2 model forward reached 2023 or later")
     return prediction.loc[:, ["soxl_weight", "soxx_weight", "cash_weight", "tail_probability", "alpha_probability"]]
+
+
+def _equal_weight_ensemble(seed_outputs: list[pd.DataFrame]) -> pd.DataFrame:
+    """Original three-seed P2 arithmetic, shared by forward and saved-output reads."""
+    if len(seed_outputs) != 3 or any(not seed_outputs[0].index.equals(part.index)
+                                     for part in seed_outputs[1:]):
+        raise ValueError("blocked: three-seed prediction calendars differ")
+    ensemble = sum(seed_outputs) / 3.0
+    weights = ["soxl_weight", "soxx_weight", "cash_weight"]
+    weight_sum = ensemble.loc[:, weights].sum(axis=1)
+    if not np.isfinite(ensemble.to_numpy(dtype=float)).all() or (weight_sum <= 0).any():
+        raise ValueError("blocked: original five-output ensemble is nonfinite")
+    ensemble.loc[:, weights] = ensemble.loc[:, weights].div(weight_sum, axis=0)
+    ensemble = ensemble.copy()
+    ensemble.index.name = "signal_date"
+    return ensemble
 
 
 def _event_views(admitted: dict[str, Any], start: pd.Timestamp, end: pd.Timestamp) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -956,7 +963,7 @@ def _complete_postfit(*, root: Path, card: Path, plan: dict[str, Any], inputs: d
         decision_bridge_daily=decision_bridge["daily"],
         decision_bridge_periods=decision_bridge["periods"],
         decision_bridge_rolling_126=decision_bridge["rolling_126"])
-    repair = phase == "P2_repair_1"
+    repair = phase.startswith("P2_repair_")
     recorder.log_metrics(completed_new_allocation_fits=0 if repair else 6,
         reused_original_models=9, oof_prediction_rows=0 if repair else len(predictions),
         checkpoint_oof_prediction_rows=len(predictions) if repair else 0,

@@ -1,0 +1,31 @@
+{
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "failure_manifest_sha256": "138afc66502fccbaaa271f632c7928cf72ea1dfb8cdd0e5a7fa383517c864192",
+  "repair_plan_sha256": "291c0f92ebb6fb6a91807488b3057604e2accdd14cfe25548b4fddd5a33a6f15",
+  "repair_implementation_sha256": "f67caed8e2ca2065d4f95833d238db3b161375c98e0a546171123d6a6d25c251",
+  "approved": true,
+  "owner": "/root",
+  "scope": "actual_P2_repair_3_execution",
+  "P3": false,
+  "budget": {
+    "new_allocation_fits": 0,
+    "new_model_forward_calls": 0,
+    "area_recomputations": 0,
+    "common_shadow_policy_paths": 0,
+    "local_action_label_passes": 0,
+    "common_shadow_native_accounts": 1,
+    "checkpoint_objects_loaded": 16,
+    "parent_artifact_loads_maximum": 3,
+    "native_derived_point_provider_builds": 1,
+    "native_derived_point_provider_readbacks": 1,
+    "action_classifier_fits": 0,
+    "evaluation_2023_plus_forward_or_accounts": 0,
+    "new_market_source_queries": 0,
+    "new_market_HTTP": 0
+  },
+  "repair_implementation_review_sha256": "81b20859922c787119ab658fb8252a1e8ad389d8dc67a2f4facba0857b8f27db",
+  "maximum_attempts": 1,
+  "approved_at_utc": "2026-10-20T09:36:41.796724+00:00",
+  "authorization_basis": "User approved plan; bounded native-only completion after independent implementation review. Preserve completed models/shadow/labels and all FAILED histories.",
+  "operational_NAS_archive_and_one_cold_restore_authorized": true
+}

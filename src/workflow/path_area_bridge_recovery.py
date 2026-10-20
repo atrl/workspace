@@ -5,6 +5,7 @@ FAILED-run object is deserialized, and the new run has its own Qlib Recorder.
 """
 from __future__ import annotations
 
+from dataclasses import dataclass
 import json
 from pathlib import Path
 import shutil
@@ -25,6 +26,32 @@ ORIGINAL_IMPLEMENTATION_SHA256 = "456c3b342c36a4ce016dacbdf2949e8c9e307d8eb97b9b
 REPAIR_CARD = Path("research/path_area_action_bridge_20261018/P2/repair_1")
 REPAIR_EXPERIMENT = "path_area_action_bridge_20261018_P2_repair_1"
 REPAIR_RECORDER_NAME = "path_area_action_bridge_P2_repair_1"
+REPAIR1_FAILURE_RECEIPT_SHA256 = "e70fbd1895b846f626ab39699a7aa87a80afc923dfe23270c46864110c17c798"
+
+
+@dataclass(frozen=True)
+class RepairVersion:
+    number: int
+
+    @property
+    def card(self) -> Path:
+        return REPAIR_CARD.parent / f"repair_{self.number}"
+
+    @property
+    def phase(self) -> str:
+        return f"P2_repair_{self.number}"
+
+    @property
+    def experiment(self) -> str:
+        return f"path_area_action_bridge_20261018_P2_repair_{self.number}"
+
+    @property
+    def recorder_name(self) -> str:
+        return f"path_area_action_bridge_P2_repair_{self.number}"
+
+
+REPAIR_1 = RepairVersion(1)
+REPAIR_2 = RepairVersion(2)
 SAVED_STATE_NAMES = tuple(f"models/new_{year}_{seed}" for year in (2018, 2019)
                           for seed in (71, 172, 273))
 SEED_PREDICTION_NAMES = tuple(f"OOF_seed_predictions/year_{year}_seed_{seed}"
@@ -102,7 +129,32 @@ def _read_seal(root: Path) -> tuple[dict[str, Any], dict[str, Any]]:
     return manifest, recorded
 
 
-def _load_failed_checkpoint(root: Path, recorded: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+def _validate_aggregate_checkpoint(predictions: Any) -> None:
+    """Check basic shape; exact rows and values are proved against P1 routes later."""
+    columns = ["soxl_weight", "soxx_weight", "cash_weight",
+               "tail_probability", "alpha_probability"]
+    if (not isinstance(predictions, pd.DataFrame) or predictions.empty
+            or not predictions.index.is_unique or list(predictions.columns) != columns):
+        raise ValueError("blocked: saved aggregate OOF prediction schema differs")
+
+
+def _record_checkpoint_progress(state: dict[str, Any], state_path: Path,
+                                event: str, name: str) -> None:
+    if event == "attempt":
+        state["checkpoint_artifacts_load_attempted"] += 1
+        state["current_checkpoint_artifact"] = name
+    elif event == "completed":
+        state["checkpoint_artifacts_loaded"] += 1
+        state["current_checkpoint_artifact"] = None
+    elif event == "unknown_partial":
+        state["checkpoint_partial_load_unknown_on_exception"] = True
+    else:
+        raise ValueError("blocked: unknown checkpoint progress event")
+    p2._atomic_json(state_path, state)
+
+
+def _load_failed_checkpoint(root: Path, recorded: dict[str, Any], *,
+                            progress: Any = None) -> tuple[dict[str, Any], dict[str, Any]]:
     """Read the pinned FAILED run without starting or resuming it."""
     from qlib.workflow import R
 
@@ -128,7 +180,17 @@ def _load_failed_checkpoint(root: Path, recorded: dict[str, Any]) -> tuple[dict[
             path = artifact_root / name
             if p2._sha_file(path) != recorded[name]["sha256"]:
                 raise ValueError("blocked: checkpoint changed before unpickling: " + name)
-            loaded[name] = recorder.load_object(name)
+            if progress is not None:
+                progress("attempt", name)
+            try:
+                value = recorder.load_object(name)
+            except BaseException:
+                if progress is not None:
+                    progress("unknown_partial", name)
+                raise
+            loaded[name] = value
+            if progress is not None:
+                progress("completed", name)
         if recorder.client.get_run(recorder.id).info.status != "FAILED":
             raise ValueError("blocked: FAILED Recorder status changed during checkpoint read")
     if R.get_uri() != original_uri or R.exp_manager.active_experiment is not active:
@@ -142,9 +204,7 @@ def _load_failed_checkpoint(root: Path, recorded: dict[str, Any]) -> tuple[dict[
             or len(barrier.get("completed_slots", [])) != 6):
         raise ValueError("blocked: deserialized fit barrier differs")
     predictions = loaded["OOF/raw_equal_weight_predictions"]
-    if (not isinstance(predictions, pd.DataFrame) or len(predictions) != 3762
-            or not predictions.index.is_unique):
-        raise ValueError("blocked: saved aggregate OOF prediction grid differs")
+    _validate_aggregate_checkpoint(predictions)
     return loaded, {"recorder_id": FAILED_RID, "experiment_id": FAILED_EID,
         "recorder_status": "FAILED", "failure_manifest_sha256": FAILURE_MANIFEST_SHA256,
         "checkpoint_artifacts": {name: recorded[name]["sha256"] for name in CHECKPOINT_NAMES},
@@ -153,7 +213,6 @@ def _load_failed_checkpoint(root: Path, recorded: dict[str, Any]) -> tuple[dict[
 
 def _verify_saved_predictions(checkpoint: dict[str, Any], inputs: dict[str, Any]) -> pd.DataFrame:
     """Assemble stored outputs only, proving the aggregate without model forward."""
-    import numpy as np
     from src.model.minute_pit_allocator import _flat_index
 
     timing = inputs["timing"]
@@ -173,14 +232,7 @@ def _verify_saved_predictions(checkpoint: dict[str, Any], inputs: dict[str, Any]
             if flat.index.has_duplicates or set(flat.index) != set(dates):
                 raise ValueError("blocked: saved per-seed OOF index differs")
             seed_outputs.append(flat.reindex(dates))
-        ensemble = sum(seed_outputs) / 3.0
-        weights = ["soxl_weight", "soxx_weight", "cash_weight"]
-        weight_sum = ensemble.loc[:, weights].sum(axis=1)
-        if not np.isfinite(ensemble.to_numpy(dtype=float)).all() or (weight_sum <= 0).any():
-            raise ValueError("blocked: saved OOF contains nonfinite values")
-        ensemble.loc[:, weights] = ensemble.loc[:, weights].div(weight_sum, axis=0)
-        ensemble = ensemble.copy()
-        ensemble.index.name = "signal_date"
+        ensemble = p2._equal_weight_ensemble(seed_outputs)
         annual.append(ensemble)
     assembled = pd.concat(annual).sort_index().loc[:,
         ["soxl_weight", "soxx_weight", "cash_weight", "tail_probability", "alpha_probability"]]
@@ -193,12 +245,28 @@ def _verify_saved_predictions(checkpoint: dict[str, Any], inputs: dict[str, Any]
     return saved
 
 
-def _require_repair_go(root: Path, repair_identity: str) -> dict[str, Any]:
-    path = root / REPAIR_CARD / "repair_execution_authorization.json"
+def _verify_repair1_failure(root: Path) -> dict[str, Any]:
+    path = root / REPAIR_1.card / "failure_receipt.json"
+    if not path.is_file() or p2._sha_file(path) != REPAIR1_FAILURE_RECEIPT_SHA256:
+        raise ValueError("blocked: sealed repair_1 failure receipt differs")
+    receipt = json.loads(path.read_text(encoding="utf-8"))
+    raw = root / receipt["raw_state_path"]
+    if (receipt.get("status") != "failed_implementation_before_P1_reload"
+            or receipt.get("corrected_checkpoint_objects_loaded") != 23
+            or receipt.get("new_P1_artifact_loads") != 0
+            or receipt.get("new_Recorder_created") is not False
+            or p2._sha_file(raw) != receipt.get("raw_state_sha256")):
+        raise ValueError("blocked: repair_1 failure boundary differs")
+    return receipt
+
+
+def _require_repair_go(root: Path, repair_identity: str,
+                       version: RepairVersion = REPAIR_1) -> dict[str, Any]:
+    path = root / version.card / "repair_execution_authorization.json"
     if not path.is_file():
         raise PermissionError("blocked: separate P2 repair execution GO is required")
     go = json.loads(path.read_text(encoding="utf-8"))
-    repair_plan_sha256 = p2._sha_file(root / REPAIR_CARD / "repair_plan.json")
+    repair_plan_sha256 = p2._sha_file(root / version.card / "repair_plan.json")
     budget = {"new_allocation_fits": 0, "new_model_forward_calls": 0,
         "saved_new_models_loaded": 6, "saved_seed_predictions_loaded": 15,
         "parent_artifact_loads_maximum": 9, "common_shadow_policy_paths": 1,
@@ -208,27 +276,30 @@ def _require_repair_go(root: Path, repair_identity: str) -> dict[str, Any]:
         "native_derived_point_provider_readbacks": 1,
         "area_recomputations_maximum": 1}
     if (go.get("approved") is not True or go.get("owner") != "/root"
-            or go.get("scope") != "actual_P2_repair_1_execution"
+            or go.get("scope") != f"actual_P2_repair_{version.number}_execution"
             or go.get("P3") is not False or go.get("plan_sha256") != p2.PLAN_SHA256
             or go.get("failure_manifest_sha256") != FAILURE_MANIFEST_SHA256
             or go.get("repair_plan_sha256") != repair_plan_sha256
             or go.get("repair_implementation_sha256") != repair_identity
             or go.get("repair_implementation_review_sha256") !=
-                p2._sha_file(root / REPAIR_CARD / "repair_implementation_review.json")
+                p2._sha_file(root / version.card / "repair_implementation_review.json")
+            or (version.number == 2 and go.get("repair_1_failure_receipt_sha256") !=
+                REPAIR1_FAILURE_RECEIPT_SHA256)
             or go.get("budget") != budget):
         raise PermissionError("blocked: P2 repair GO differs from sealed scope and budgets")
     return {"path": str(path), "sha256": p2._sha_file(path), "receipt": go}
 
 
-def repair_implementation_identity(root: str | Path | None = None) -> dict[str, Any]:
+def repair_implementation_identity(root: str | Path | None = None, *,
+                                   version: RepairVersion = REPAIR_1) -> dict[str, Any]:
     """Code-only identity for review; never deserializes a source object."""
     workspace = p2._resolve_root(root)
     _, plan = p2._load_plan(workspace)
     hashes = dict(p2._implementation_identity(workspace, plan)["files"])
     files = ("src/workflow/path_area_bridge_recovery.py",
-             "research/path_area_action_bridge_20261018/P2/repair_1/repair_plan.json",
-             "research/path_area_action_bridge_20261018/P2/repair_1/workflow.yaml",
-             "research/path_area_action_bridge_20261018/P2/repair_1/repair_1.ipynb",
+             str(version.card / "repair_plan.json"),
+             str(version.card / "workflow.yaml"),
+             str(version.card / f"repair_{version.number}.ipynb"),
              "tests/test_path_area_bridge_recovery.py")
     for name in files:
         path = workspace / name
@@ -237,38 +308,50 @@ def repair_implementation_identity(root: str | Path | None = None) -> dict[str, 
     return {"files": hashes, "sha256": p2._canonical_sha(hashes)}
 
 
-def _require_unused_repair_card(card: Path) -> None:
-    allowed = {"workflow.yaml", "repair_plan.json", "repair_1.ipynb",
+def _require_unused_repair_card(card: Path, version: RepairVersion = REPAIR_1) -> None:
+    allowed = {"workflow.yaml", "repair_plan.json", f"repair_{version.number}.ipynb",
                "repair_execution_authorization.json", "repair_implementation_review.json"}
     if not card.is_dir() or any(path.name not in allowed for path in card.iterdir()):
-        raise FileExistsError("blocked: repair_1 already has execution artifacts; no automatic retry")
+        raise FileExistsError(f"blocked: repair_{version.number} already has execution artifacts; no automatic retry")
 
 
-def run_path_area_bridge_repair(*, root: str | Path | None = None) -> dict[str, Any]:
+def _run_repair(*, root: str | Path | None = None,
+                version: RepairVersion) -> dict[str, Any]:
     """Execute only the uncompleted P2 stages after an exact separate repair GO."""
     root = p2._resolve_root(root)
     _, plan = p2._load_plan(root)
     inherited = p2._verify_inherited(root, plan)
-    repair_identity = repair_implementation_identity(root)
-    review_path = root / REPAIR_CARD / "repair_implementation_review.json"
+    repair_identity = repair_implementation_identity(root, version=version)
+    if version.number == 2:
+        _verify_repair1_failure(root)
+    review_path = root / version.card / "repair_implementation_review.json"
     if not review_path.is_file():
         raise PermissionError("blocked: scoped P2 repair implementation review is required")
     review = json.loads(review_path.read_text(encoding="utf-8"))
-    if (review.get("verdict") != "APPROVE_P2_REPAIR_FOR_SEPARATE_EXECUTION_GO"
+    verdict = ("APPROVE_P2_REPAIR_FOR_SEPARATE_EXECUTION_GO" if version.number == 1
+               else "APPROVE_P2_REPAIR_2_FOR_SEPARATE_EXECUTION_GO")
+    if (review.get("verdict") != verdict
             or review.get("plan_sha256") != p2.PLAN_SHA256
             or review.get("failure_manifest_sha256") != FAILURE_MANIFEST_SHA256
+            or (version.number == 2 and review.get("repair_1_failure_receipt_sha256") !=
+                REPAIR1_FAILURE_RECEIPT_SHA256)
             or review.get("repair_implementation_sha256") != repair_identity["sha256"]
             or review.get("material_blockers") != []):
         raise PermissionError("blocked: scoped P2 repair review does not bind current code")
-    go = _require_repair_go(root, repair_identity["sha256"])
+    go = _require_repair_go(root, repair_identity["sha256"], version)
     manifest, recorded = _read_seal(root)
-    card = root / REPAIR_CARD
-    _require_unused_repair_card(card)
+    card = root / version.card
+    _require_unused_repair_card(card, version)
     state_path = card / "repair_execution_state.json"
-    state = {"phase": "P2_repair_1", "status": "started", "failed_recorder_id": FAILED_RID,
+    state = {"phase": version.phase, "status": "started", "failed_recorder_id": FAILED_RID,
              "failure_manifest_sha256": FAILURE_MANIFEST_SHA256, "plan_sha256": p2.PLAN_SHA256,
              "execution_authorization_sha256": go["sha256"], "source_artifacts_loaded": 0,
-             "checkpoint_artifacts_loaded": 0, "new_allocation_fit_attempted": 0,
+             "checkpoint_artifacts_requested": len(CHECKPOINT_NAMES),
+             "checkpoint_artifacts_load_attempted": 0,
+             "checkpoint_artifacts_loaded": 0, "current_checkpoint_artifact": None,
+             "checkpoint_partial_load_unknown_on_exception": False,
+             "checkpoint_stage_completed": False,
+             "new_allocation_fit_attempted": 0,
              "OOF_prediction_calls_attempted": 0, "area_calculation_attempts": 0,
              "shadow_policy_path_attempts": 0, "shadow_policy_paths": 0,
              "local_label_generation_attempts": 0, "native_account_attempts": 0,
@@ -294,8 +377,14 @@ def run_path_area_bridge_repair(*, root: str | Path | None = None) -> dict[str, 
             raise ValueError("blocked: frozen P1 tariff is absent or malformed")
         daily_provider = root / p1_plan["sources"]["daily_calendar"]["provider_uri"]
         qlib.init(provider_uri=str(daily_provider), region="us", kernels=1)
-        checkpoint, checkpoint_audit = _load_failed_checkpoint(root, recorded)
-        state["checkpoint_artifacts_loaded"] = len(CHECKPOINT_NAMES)
+        def checkpoint_progress(event: str, name: str) -> None:
+            _record_checkpoint_progress(state, state_path, event, name)
+
+        checkpoint, checkpoint_audit = _load_failed_checkpoint(root, recorded,
+                                                               progress=checkpoint_progress)
+        if state["checkpoint_artifacts_loaded"] != len(CHECKPOINT_NAMES):
+            raise ValueError("blocked: incomplete FAILED checkpoint load")
+        state["checkpoint_stage_completed"] = True
         p2._atomic_json(state_path, state)
         barrier = checkpoint["barrier/fit_barrier"]
         new_models = {}
@@ -359,7 +448,7 @@ def run_path_area_bridge_repair(*, root: str | Path | None = None) -> dict[str, 
         p2._atomic_json(binding_path, {"schema_version": "recorder_evidence_binding_v1",
             "authority": p1_binding["authority"], "ssh": p1_binding["ssh"],
             "source_id": source_identity["phase_identity_sha256"],
-            "as_of": str(terminal.date()), "phase": "P2_repair_1", "plan_sha256": p2.PLAN_SHA256})
+            "as_of": str(terminal.date()), "phase": version.phase, "plan_sha256": p2.PLAN_SHA256})
         recovery_spec = IntradayRecoveryDirectAllocationSpec(root=root, **{
             key: value for key, value in plan["nonlearned_policy_identity"]["recovery_spec"].items()
             if key in IntradayRecoveryDirectAllocationSpec.__dataclass_fields__ and key != "root"})
@@ -370,7 +459,7 @@ def run_path_area_bridge_repair(*, root: str | Path | None = None) -> dict[str, 
                                               include_union_backfill=False)
         tracking = card / "qlib_recorder"
         qlib.init(provider_uri=str(daily_provider), region="us", kernels=1)
-        with R.start(experiment_name=REPAIR_EXPERIMENT, recorder_name=REPAIR_RECORDER_NAME,
+        with R.start(experiment_name=version.experiment, recorder_name=version.recorder_name,
                      uri=str(tracking)):
             recorder = R.get_recorder()
             recorder.log_params(plan_sha256=p2.PLAN_SHA256,
@@ -406,7 +495,7 @@ def run_path_area_bridge_repair(*, root: str | Path | None = None) -> dict[str, 
                 h1_projection=h1_projection, fit_barrier=barrier, tracking=tracking,
                 daily_provider=daily_provider, tariff=tariff, candidate=candidate,
                 recovery_spec=recovery_spec, action_spec=action_spec,
-                experiment_name=REPAIR_EXPERIMENT, phase="P2_repair_1")
+                experiment_name=version.experiment, phase=version.phase)
             result.update(repair_of_failed_recorder=FAILED_RID,
                           repair_failure_manifest_sha256=FAILURE_MANIFEST_SHA256,
                           repair_implementation_sha256=repair_identity["sha256"],
@@ -416,7 +505,9 @@ def run_path_area_bridge_repair(*, root: str | Path | None = None) -> dict[str, 
                               "derived_provider_readbacks": 1,
                               "deterministic_smoothing_and_area_passes": 1},
                           repair_run={"new_allocation_fits": 0,
-                              "new_model_forward_calls": 0, "P1_artifact_loads": 9,
+                              "new_model_forward_calls": 0,
+                              "checkpoint_artifacts_loaded": len(CHECKPOINT_NAMES),
+                              "P1_artifact_loads": 9,
                               "derived_provider_builds": 1, "derived_provider_readbacks": 1,
                               "deterministic_smoothing_and_area_passes": 1,
                               "physical_shadow_paths": 1, "native_accounts": 1},
@@ -426,6 +517,13 @@ def run_path_area_bridge_repair(*, root: str | Path | None = None) -> dict[str, 
                               "derived_provider_readbacks": 2,
                               "deterministic_smoothing_and_area_passes": 2,
                               "physical_shadow_paths": 1, "native_accounts": 1})
+            if version.number == 2:
+                result["prior_repair_1"] = {"checkpoint_artifacts_loaded": 23,
+                    "P1_artifact_loads": 0, "derived_provider_builds": 0,
+                    "deterministic_smoothing_and_area_passes": 0,
+                    "physical_shadow_paths": 0, "native_accounts": 0,
+                    "failure_receipt_sha256": REPAIR1_FAILURE_RECEIPT_SHA256}
+                result["cumulative_work"]["checkpoint_artifact_loads"] = 46
         result = finalize_evidence(recorder, card=card, summary=result,
             transport_binding=binding_path, workspace_root=root, include_code_artifacts=True)
         shutil.rmtree(provider)
@@ -447,3 +545,13 @@ def run_path_area_bridge_repair(*, root: str | Path | None = None) -> dict[str, 
         if provider is not None:
             shutil.rmtree(provider, ignore_errors=True)
         raise
+
+
+def run_path_area_bridge_repair(*, root: str | Path | None = None) -> dict[str, Any]:
+    """Historical repair_1 entry; its sealed code/failed attempt remain archived."""
+    return _run_repair(root=root, version=REPAIR_1)
+
+
+def run_path_area_bridge_repair_2(*, root: str | Path | None = None) -> dict[str, Any]:
+    """Run a separately reviewed, post-fit repair_2 only after its exact GO."""
+    return _run_repair(root=root, version=REPAIR_2)

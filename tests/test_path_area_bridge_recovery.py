@@ -88,6 +88,13 @@ def test_failed_checkpoint_seal_and_saved_oof_have_no_forward_or_refit(tmp_path,
         rows.append(combined.iloc[0].to_dict())
     aggregate = pd.DataFrame(rows, index=timing_dates)
     aggregate.index.name = "signal_date"
+    # Fifteen saved seed outputs contain three copies of each five-row route;
+    # the aggregate has five rows, never the sum of those per-seed rows.
+    assert sum(len(checkpoint[name]) for name in repair.SEED_PREDICTION_NAMES) == 15
+    assert len(aggregate) == 5
+    repair._validate_aggregate_checkpoint(aggregate)
+    with pytest.raises(ValueError, match="schema"):
+        repair._validate_aggregate_checkpoint(pd.concat([aggregate, aggregate.iloc[:1]]))
     checkpoint["OOF/raw_equal_weight_predictions"] = aggregate
     assert repair._verify_saved_predictions(checkpoint, {"timing": timing,
         "fold_package": {"folds": folds}}).equals(aggregate)
@@ -95,3 +102,21 @@ def test_failed_checkpoint_seal_and_saved_oof_have_no_forward_or_refit(tmp_path,
     with pytest.raises(AssertionError):
         repair._verify_saved_predictions(checkpoint, {"timing": timing,
             "fold_package": {"folds": folds}})
+
+    # State is written after each actual object load, including uncertainty
+    # when a Recorder.load_object raises during a later object.
+    progress_path = tmp_path / "checkpoint_progress.json"
+    progress = {"checkpoint_artifacts_load_attempted": 0,
+                "checkpoint_artifacts_loaded": 0,
+                "current_checkpoint_artifact": None,
+                "checkpoint_partial_load_unknown_on_exception": False}
+    repair._record_checkpoint_progress(progress, progress_path, "attempt", "barrier/fit_barrier")
+    assert json.loads(progress_path.read_text())["checkpoint_artifacts_load_attempted"] == 1
+    repair._record_checkpoint_progress(progress, progress_path, "completed", "barrier/fit_barrier")
+    repair._record_checkpoint_progress(progress, progress_path, "attempt", "models/new_2018_71")
+    repair._record_checkpoint_progress(progress, progress_path, "unknown_partial", "models/new_2018_71")
+    observed = json.loads(progress_path.read_text())
+    assert observed["checkpoint_artifacts_load_attempted"] == 2
+    assert observed["checkpoint_artifacts_loaded"] == 1
+    assert observed["current_checkpoint_artifact"] == "models/new_2018_71"
+    assert observed["checkpoint_partial_load_unknown_on_exception"] is True

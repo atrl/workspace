@@ -1,0 +1,570 @@
+{
+  "purpose": "one_authorized_mechanical_schema_inspection_no_execution_GO",
+  "recorder_id": "ecce5facd2424cc6a8e79e102d89cdee",
+  "source_manifest_sha256": "138afc66502fccbaaa271f632c7928cf72ea1dfb8cdd0e5a7fa383517c864192",
+  "object_loads": 16,
+  "P1_object_loads": 0,
+  "native_accounts": 0,
+  "fits": 0,
+  "forwards": 0,
+  "area": 0,
+  "shadow": 0,
+  "labels_generated": 0,
+  "objects": {
+    "shadow_python/trace": {
+      "type": "pandas.core.frame.DataFrame",
+      "shape": [
+        1057,
+        40
+      ],
+      "index_names": [
+        "trade_date"
+      ],
+      "index_unique": true,
+      "columns": [
+        "signal_date",
+        "decision_at",
+        "known_nav_0945",
+        "prebranch_nav_0947",
+        "drawdown",
+        "risk_state",
+        "risk_clock",
+        "current_beta_cap",
+        "source_target_soxl_weight",
+        "source_target_soxx_weight",
+        "source_target_cash_weight",
+        "projected_target_soxl_weight",
+        "projected_target_soxx_weight",
+        "projected_target_cash_weight",
+        "pretrade_soxl_weight",
+        "pretrade_soxx_weight",
+        "pretrade_cash_weight",
+        "mandatory_derisk",
+        "large_transition",
+        "mandatory_position_repair",
+        "eligible",
+        "eligibility_reasons",
+        "prefix_mask",
+        "path_area_signed",
+        "filled_order_count",
+        "filled_notional_usd",
+        "total_order_fees_usd",
+        "slippage_reserve_usd",
+        "pretrade_q_soxl",
+        "pretrade_q_soxx",
+        "pretrade_cash_usd",
+        "pretrade_receivable_usd",
+        "postfill_q_soxl",
+        "postfill_q_soxx",
+        "postfill_cash_usd",
+        "postfill_receivable_usd",
+        "postfill_nav_0947",
+        "postfill_soxl_weight",
+        "postfill_soxx_weight",
+        "postfill_cash_weight"
+      ],
+      "index_coverage": [
+        "2018-10-12 00:00:00",
+        "2022-12-22 00:00:00"
+      ]
+    },
+    "shadow_python/corporate_receipts": {
+      "type": "pandas.core.frame.DataFrame",
+      "shape": [
+        64,
+        12
+      ],
+      "index_names": [
+        null
+      ],
+      "index_unique": true,
+      "columns": [
+        "date",
+        "kind",
+        "symbol",
+        "id",
+        "rate",
+        "pay_date",
+        "available_date",
+        "eligible_or_after_shares",
+        "recognized_income",
+        "cash_after",
+        "receivable_after",
+        "ratio"
+      ]
+    },
+    "shadow_python/targets": {
+      "type": "pandas.core.frame.DataFrame",
+      "shape": [
+        1057,
+        8
+      ],
+      "index_names": [
+        null
+      ],
+      "index_unique": true,
+      "columns": [
+        "trade_date",
+        "signal_date",
+        "decision_at",
+        "known_nav",
+        "current_beta_cap",
+        "soxl_weight",
+        "soxx_weight",
+        "cash_weight"
+      ],
+      "trade_date_coverage": [
+        "2018-10-12 00:00:00",
+        "2022-12-22 00:00:00"
+      ]
+    },
+    "shadow_python/prebranch_state": {
+      "type": "builtins.list",
+      "length": 1057
+    },
+    "shadow_python/decisions": {
+      "type": "pandas.core.frame.DataFrame",
+      "shape": [
+        1057,
+        64
+      ],
+      "index_names": [
+        "trade_date"
+      ],
+      "index_unique": true,
+      "columns": [
+        "signal_date",
+        "decision_at",
+        "known_nav",
+        "prebranch_nav_0947",
+        "drawdown",
+        "risk_state",
+        "risk_clock",
+        "current_beta_cap",
+        "mandatory_derisk",
+        "large_transition",
+        "mandatory_position_repair",
+        "eligible",
+        "eligibility_reasons",
+        "prefix_mask",
+        "path_area_signed",
+        "path_control_X",
+        "path_control_Y",
+        "path_control_X_squared",
+        "path_control_XY",
+        "path_control_Y_squared",
+        "path_control_Qx",
+        "path_control_Qxy",
+        "path_control_Qy",
+        "source_target_soxl_weight",
+        "source_target_soxx_weight",
+        "source_target_cash_weight",
+        "soxl_weight",
+        "soxx_weight",
+        "cash_weight",
+        "projected_target_soxl_weight",
+        "projected_target_soxx_weight",
+        "projected_target_cash_weight",
+        "pretrade_soxl_weight",
+        "pretrade_soxx_weight",
+        "pretrade_cash_weight",
+        "filled_order_count",
+        "filled_notional_usd",
+        "total_order_fees_usd",
+        "slippage_reserve_usd",
+        "postfill_q_soxl",
+        "postfill_q_soxx",
+        "postfill_cash",
+        "postfill_receivable",
+        "postfill_nav",
+        "postfill_soxl_weight",
+        "postfill_soxx_weight",
+        "postfill_cash_weight",
+        "portfolio_drawdown",
+        "raw_effective_beta",
+        "raw_soxl_weight",
+        "raw_soxx_weight",
+        "raw_cash_weight",
+        "tail_probability",
+        "alpha_probability",
+        "portfolio_ret_1d",
+        "portfolio_ret_3d",
+        "portfolio_ret_5d",
+        "target_soxl_weight",
+        "target_soxx_weight",
+        "target_cash_weight",
+        "soxl_weight_delta",
+        "soxx_weight_delta",
+        "effective_beta_delta",
+        "open_turnover"
+      ],
+      "index_coverage": [
+        "2018-10-12 00:00:00",
+        "2022-12-22 00:00:00"
+      ]
+    },
+    "shadow_python/python_audit": {
+      "type": "builtins.dict",
+      "keys": [
+        "status",
+        "sessions",
+        "points",
+        "orders",
+        "slippage_bps",
+        "initial_cash_usd",
+        "continuous_physical_account",
+        "historical_PIT_qualified"
+      ]
+    },
+    "shadow_python/path_area_inputs": {
+      "type": "pandas.core.frame.DataFrame",
+      "shape": [
+        1254,
+        12
+      ],
+      "index_names": [
+        null
+      ],
+      "index_unique": true,
+      "columns": [
+        "signal_date",
+        "trade_date",
+        "path_area_signed",
+        "path_control_X",
+        "path_control_Y",
+        "path_control_X_squared",
+        "path_control_XY",
+        "path_control_Y_squared",
+        "path_control_Qx",
+        "path_control_Qxy",
+        "path_control_Qy",
+        "prefix_mask"
+      ],
+      "trade_date_coverage": [
+        "2018-01-02 00:00:00",
+        "2022-12-22 00:00:00"
+      ]
+    },
+    "shadow_python/points": {
+      "type": "pandas.core.frame.DataFrame",
+      "shape": [
+        4232,
+        6
+      ],
+      "index_names": [
+        null
+      ],
+      "index_unique": true,
+      "columns": [
+        "stamp",
+        "q_soxl",
+        "q_soxx",
+        "cash",
+        "receivable",
+        "nav"
+      ],
+      "stamp_coverage": [
+        "2018-10-12 09:45:00",
+        "2022-12-23 16:00:00"
+      ]
+    },
+    "shadow_python/replay": {
+      "type": "pandas.core.frame.DataFrame",
+      "shape": [
+        1057,
+        7
+      ],
+      "index_names": [
+        null
+      ],
+      "index_unique": true,
+      "columns": [
+        "signal_date",
+        "trade_date",
+        "exit_date",
+        "start_nav",
+        "native_expected_nav",
+        "strategy_return",
+        "equity"
+      ],
+      "trade_date_coverage": [
+        "2018-10-12 00:00:00",
+        "2022-12-22 00:00:00"
+      ],
+      "exit_date_coverage": [
+        "2018-10-15 00:00:00",
+        "2022-12-23 00:00:00"
+      ]
+    },
+    "shadow_python/orders": {
+      "type": "pandas.core.frame.DataFrame",
+      "shape": [
+        1284,
+        20
+      ],
+      "index_names": [
+        null
+      ],
+      "index_unique": true,
+      "columns": [
+        "symbol",
+        "sell",
+        "raw_shares",
+        "adjusted_amount",
+        "raw_price",
+        "adjusted_price",
+        "stamp",
+        "brokerage",
+        "venue",
+        "clearing",
+        "sec",
+        "taf",
+        "cat",
+        "pass_through",
+        "slippage",
+        "notional",
+        "cap_applied",
+        "total",
+        "slot",
+        "trade_date"
+      ],
+      "stamp_coverage": [
+        "2018-10-12 09:47:00",
+        "2022-12-22 09:47:00"
+      ],
+      "trade_date_coverage": [
+        "2018-10-12 00:00:00",
+        "2022-12-22 00:00:00"
+      ]
+    },
+    "local_labels/labels": {
+      "type": "pandas.core.frame.DataFrame",
+      "shape": [
+        1057,
+        54
+      ],
+      "index_names": [
+        "trade_date"
+      ],
+      "index_unique": true,
+      "columns": [
+        "signal_date",
+        "decision_at",
+        "eligible",
+        "eligibility_reasons",
+        "prefix_mask",
+        "path_area_signed",
+        "path_control_X",
+        "path_control_Y",
+        "path_control_X_squared",
+        "path_control_XY",
+        "path_control_Y_squared",
+        "path_control_Qx",
+        "path_control_Qxy",
+        "path_control_Qy",
+        "portfolio_drawdown",
+        "current_beta_cap",
+        "raw_effective_beta",
+        "risk_state",
+        "raw_soxl_weight",
+        "raw_soxx_weight",
+        "raw_cash_weight",
+        "tail_probability",
+        "alpha_probability",
+        "portfolio_ret_1d",
+        "portfolio_ret_3d",
+        "portfolio_ret_5d",
+        "target_soxl_weight",
+        "target_soxx_weight",
+        "target_cash_weight",
+        "pretrade_soxl_weight",
+        "pretrade_soxx_weight",
+        "pretrade_cash_weight",
+        "soxl_weight_delta",
+        "soxx_weight_delta",
+        "effective_beta_delta",
+        "open_turnover",
+        "label_available_at",
+        "label_status",
+        "execute_delta",
+        "execute_nav_after_reset",
+        "hold_nav_after_reset",
+        "common_prebranch_nav",
+        "next_common_teacher_target_present",
+        "common_reset_target_soxl",
+        "common_reset_target_soxx",
+        "common_reset_target_cash",
+        "label_reason",
+        "execute_orders",
+        "execute_reset_orders",
+        "hold_orders",
+        "execute_receipts",
+        "hold_receipts",
+        "execute_fee_month_shares",
+        "hold_fee_month_shares"
+      ],
+      "index_coverage": [
+        "2018-10-12 00:00:00",
+        "2022-12-22 00:00:00"
+      ]
+    },
+    "local_labels/action_label_frame": {
+      "type": "pandas.core.frame.DataFrame",
+      "shape": [
+        1057,
+        36
+      ],
+      "index_names": [
+        "datetime",
+        "instrument"
+      ],
+      "index_unique": true,
+      "columns": [
+        "('feature', 'portfolio_drawdown')",
+        "('feature', 'current_beta_cap')",
+        "('feature', 'raw_effective_beta')",
+        "('feature', 'risk_state')",
+        "('feature', 'raw_soxl_weight')",
+        "('feature', 'raw_soxx_weight')",
+        "('feature', 'raw_cash_weight')",
+        "('feature', 'tail_probability')",
+        "('feature', 'alpha_probability')",
+        "('feature', 'portfolio_ret_1d')",
+        "('feature', 'portfolio_ret_3d')",
+        "('feature', 'portfolio_ret_5d')",
+        "('feature', 'target_soxl_weight')",
+        "('feature', 'target_soxx_weight')",
+        "('feature', 'target_cash_weight')",
+        "('feature', 'pretrade_soxl_weight')",
+        "('feature', 'pretrade_soxx_weight')",
+        "('feature', 'pretrade_cash_weight')",
+        "('feature', 'soxl_weight_delta')",
+        "('feature', 'soxx_weight_delta')",
+        "('feature', 'effective_beta_delta')",
+        "('feature', 'open_turnover')",
+        "('feature', 'path_area_signed')",
+        "('feature', 'path_control_X')",
+        "('feature', 'path_control_Y')",
+        "('feature', 'path_control_X_squared')",
+        "('feature', 'path_control_XY')",
+        "('feature', 'path_control_Y_squared')",
+        "('feature', 'path_control_Qx')",
+        "('feature', 'path_control_Qxy')",
+        "('feature', 'path_control_Qy')",
+        "('feature', 'prefix_mask')",
+        "('label', 'local_execute_delta')",
+        "('meta', 'trade_date')",
+        "('meta', 'label_available_at')",
+        "('meta', 'prefix_mask')"
+      ],
+      "index_coverage": [
+        "2018-10-11 00:00:00",
+        "2022-12-21 00:00:00"
+      ]
+    },
+    "local_labels/action_label_dataset": {
+      "type": "qlib.data.dataset.DatasetH"
+    },
+    "sources/identity": {
+      "type": "builtins.dict",
+      "keys": [
+        "P1_recorder_id",
+        "P1_manifest_sha256",
+        "P1_artifacts",
+        "P1_fold_dataset_identity",
+        "P1_empty_aux_identity",
+        "P1_input_view",
+        "P1_primary_training_frame",
+        "P1_minute_frame",
+        "P1_coverage",
+        "H1_projection",
+        "derived_point_provider",
+        "inherited_evidence",
+        "failed_checkpoint",
+        "repair_implementation_identity_sha256",
+        "phase_identity_sha256"
+      ]
+    },
+    "sources/load_audit": {
+      "type": "builtins.dict",
+      "keys": [
+        "recorder_id",
+        "experiment",
+        "experiment_id",
+        "recorder_uri",
+        "recorder_local_dir",
+        "summary_sha256",
+        "verification_manifest_sha256",
+        "artifacts",
+        "read_only",
+        "local_filestore_only",
+        "hashes_checked_before_unpickling",
+        "metadata_and_artifact_hashes_rechecked",
+        "source_api"
+      ]
+    },
+    "sources/H1_projection": {
+      "type": "builtins.dict",
+      "keys": [
+        "dataset_artifact",
+        "columns",
+        "signal_index_sha256",
+        "two_original_H1_arrays_sha256",
+        "five_original_targets_sha256_before",
+        "five_original_targets_sha256_after",
+        "price_derived_returns"
+      ]
+    }
+  },
+  "native_interface_schema": "passed",
+  "source_identity_structural_fields": {
+    "P1_minute_frame": {
+      "rows": 825120,
+      "columns": 6,
+      "sha256": "2d8a84ac63941c884fcd0e4a4a29c51267081ec3d8dd0f14d0e0ecb0876b4132",
+      "index_names": [
+        "datetime",
+        "instrument"
+      ],
+      "column_names": [
+        null,
+        null
+      ]
+    },
+    "derived_point_provider_keys": [
+      "manifest",
+      "provider_tree",
+      "rows",
+      "first_point",
+      "last_point",
+      "native_readback",
+      "provider_path",
+      "provider_build_count",
+      "derived_only_from_P1_bounded_core_minutes",
+      "native_readback_count",
+      "executor_guard"
+    ],
+    "manifest_keys": [
+      "provider_uri",
+      "market",
+      "region",
+      "freq",
+      "as_of",
+      "source",
+      "instruments",
+      "fields",
+      "calendar_start",
+      "calendar_end",
+      "max_datetime",
+      "row_count",
+      "feature_file_count",
+      "audit_snapshot_hash",
+      "operation",
+      "status",
+      "hash",
+      "source_api"
+    ],
+    "provider_quote_files": 14
+  },
+  "old_recorder_status": "FAILED_unchanged"
+}

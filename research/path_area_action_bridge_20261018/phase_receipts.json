@@ -20,6 +20,18 @@
       "status": "closed_failed",
       "source": "research/path_area_action_bridge_20261018/P2/repair_1/failure_receipt.json",
       "source_sha256": "e70fbd1895b846f626ab39699a7aa87a80afc923dfe23270c46864110c17c798"
+    },
+    {
+      "phase": "P2_repair_2",
+      "status": "closed_failed",
+      "source": "research/path_area_action_bridge_20261018/P2/repair_2/failure_summary.json",
+      "source_sha256": "1ee2b6b93c0a9ba637b70d36a76654a711b485ca04473f8f04032ed4ad04eed1"
+    },
+    {
+      "phase": "P2_repair_3",
+      "status": "closed_failed",
+      "source": "research/path_area_action_bridge_20261018/P2/repair_3/failure_receipt.json",
+      "source_sha256": "cc1e640522a4ea28eb413bb5988ac2597eef54b83b08edaef38fa62b353db6f1"
     }
   ]
 }

@@ -29,6 +29,9 @@ def test_job_observation_detects_missing_and_pid_reuse(monkeypatch):
 def test_exit_receipt_requires_matching_pid_and_start_identity(monkeypatch):
     monkeypatch.setattr(runtime, "_pid_alive", lambda _pid: True)
     monkeypatch.setattr(runtime, "process_start_identity", lambda _pid: "start-current")
+    handle = runtime.make_job_handle(123, phase="P2", job_id="job-1")
+    receipt = runtime.make_exit_receipt(handle, 0)
+    assert receipt["pid"] == 123 and receipt["start_identity"] == "start-current"
     mismatched = runtime.observe_job(pid=123, start_identity="start-current",
         exit_receipt={"pid": 456, "start_identity": "start-current", "exit_code": 0})
     assert mismatched["status"] == "running"

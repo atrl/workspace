@@ -1,0 +1,27 @@
+experiment: path_area_action_bridge_20261018_P2_repair_3
+phase: P2_repair_3_native_only
+entrypoint: src.workflow.path_area_native_completion.run_path_area_native_completion
+frozen_original_plan: ../../P2_plan.json
+repair_plan: repair_plan.json
+failure_manifest: ../repair_2/failure_manifest.json
+actual_execution_authorization: repair_execution_authorization.json
+region: us
+recorder_uri: qlib_recorder
+read_only_failed_recorder_id: ecce5facd2424cc6a8e79e102d89cdee
+checkpoint_objects: 16
+P1_artifact_loads: 3
+new_allocation_fits: 0
+new_model_forward_calls: 0
+area_or_smoothing_passes: 0
+Python_shadow_paths: 0
+local_label_generation_passes: 0
+native_accounts: 1
+provider_builds_and_readbacks: 1
+new_market_source_queries: 0
+execution_guard:
+  requires: repair_implementation_review.json and repair_execution_authorization.json bound to implementation, frozen plan, seal and exact budget
+  native_validation: no active writable Recorder
+  output_writer: new Recorder only after successful native validation
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts: [shadow_python, local_labels, native, sources, implementation]

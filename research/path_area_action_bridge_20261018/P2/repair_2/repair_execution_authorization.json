@@ -1,0 +1,32 @@
+{
+  "approved": true,
+  "owner": "/root",
+  "scope": "actual_P2_repair_2_execution",
+  "P3": false,
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "failure_manifest_sha256": "1ee03974f3abfac3db38b6b0a988166a3544d0d9e4209c9c1b549ef551ba9143",
+  "repair_plan_sha256": "aea14f7651e9c05ae78aae853022ee233944fe48e4e4225ed1bb5b00584f90f5",
+  "repair_implementation_sha256": "cb5e6c2a201a169a773cad064efb8c857313e3066343476037492959f983978b",
+  "repair_implementation_review_sha256": "d08b0a06a4bec4ed916eda2f6ab38ec6611eaac8294edcceda6a030aebb5e65e",
+  "repair_1_failure_receipt_sha256": "e70fbd1895b846f626ab39699a7aa87a80afc923dfe23270c46864110c17c798",
+  "budget": {
+    "new_allocation_fits": 0,
+    "new_model_forward_calls": 0,
+    "saved_new_models_loaded": 6,
+    "saved_seed_predictions_loaded": 15,
+    "parent_artifact_loads_maximum": 9,
+    "common_shadow_policy_paths": 1,
+    "common_shadow_native_accounts": 1,
+    "action_classifier_fits": 0,
+    "evaluation_2023_plus_forward_or_accounts": 0,
+    "new_market_source_queries": 0,
+    "new_market_HTTP": 0,
+    "native_derived_point_provider_builds": 1,
+    "native_derived_point_provider_readbacks": 1,
+    "area_recomputations_maximum": 1
+  },
+  "maximum_attempts": 1,
+  "approved_at_utc": "2026-10-20T09:07:09.745556+00:00",
+  "authorization_basis": "Continue authorized mechanical recovery; original models/OOF exact, zero new fit/forward; previous failed attempts retained.",
+  "operational_NAS_archive_authorized": true
+}

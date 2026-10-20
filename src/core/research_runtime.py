@@ -105,6 +105,27 @@ def _pid_alive(pid: int) -> bool:
         return True
 
 
+def make_job_handle(pid: int, *, phase: str, job_id: str, **metadata) -> dict[str, Any]:
+    """Canonical metadata for an already-launched child; never launches it."""
+    if pid <= 0 or not phase or not job_id:
+        raise ValueError("pid, phase and stable job_id are required")
+    identity = process_start_identity(pid)
+    if not identity:
+        raise ValueError("cannot bind a job without its OS process start identity")
+    return {**metadata, "pid": int(pid), "start_identity": identity,
+            "phase": phase, "job_id": job_id,
+            "observed_at_utc": datetime.now(timezone.utc).isoformat()}
+
+
+def make_exit_receipt(handle: Mapping[str, Any], exit_code: int) -> dict[str, Any]:
+    """Pair an owner's actual wait result with its canonical launch identity."""
+    if (type(handle.get("pid")) is not int or not handle.get("start_identity")
+            or not handle.get("job_id") or type(exit_code) is not int):
+        raise ValueError("exit receipt requires a canonical job handle and integer return code")
+    return {**handle, "exit_code": exit_code,
+            "finished_at_utc": datetime.now(timezone.utc).isoformat()}
+
+
 def observe_job(*, pid: int | None = None, start_identity: str | None = None,
                 exit_receipt: str | Path | Mapping[str, Any] | None = None,
                 progress_path: str | Path | None = None, heartbeat: str | None = None,

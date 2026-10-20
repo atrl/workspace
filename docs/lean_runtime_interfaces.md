@@ -57,3 +57,11 @@ PYTHONPATH=. python -m src.core.research_monitor --state run_state.json \
 
 The CLI prints only changed structured summaries. It does not print source file
 contents, prompts, or credentials.
+
+For launched jobs, the owner records `make_job_handle(pid, phase=..., job_id=...)`
+immediately after `Popen`; it captures the OS process-start identity. On completion,
+`make_exit_receipt(handle, exit_code)` binds the exit to that same process. Keep
+these receipts outside guarded experiment directories. The monitor reads them
+through `--campaign research/three_asset_campaign.json`; it does not need the
+owner's tool session handle. A missing live PID plus a matching exit receipt is a
+terminal result, not an invitation to restart.

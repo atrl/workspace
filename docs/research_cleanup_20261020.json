@@ -6,7 +6,8 @@
   "source_commit": "1a1cc9e3df15251aec21bed3b81635e84cf627b1",
   "active_entry": {
     "path": "research/three_asset_campaign.json",
-    "sha256": "136feefab89cace9ca5f37a5700d2451f56d539e21f76da6538b4cdd8c9da29c"
+    "mutable_projection": true,
+    "snapshot_identity_policy": "Historical hashes are dated snapshots; resolve the current file when monitoring."
   },
   "archives": [
     {

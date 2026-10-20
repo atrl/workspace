@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "phase": "P2_repair_3",
+  "reviewer": "independent_evaluator",
+  "verdict": "APPROVE_P2_REPAIR_3_FOR_SEPARATE_EXECUTION_GO",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "repair_plan_sha256": "291c0f92ebb6fb6a91807488b3057604e2accdd14cfe25548b4fddd5a33a6f15",
+  "failure_manifest_sha256": "138afc66502fccbaaa271f632c7928cf72ea1dfb8cdd0e5a7fa383517c864192",
+  "failed_recorder_id": "ecce5facd2424cc6a8e79e102d89cdee",
+  "repair_implementation_sha256": "f67caed8e2ca2065d4f95833d238db3b161375c98e0a546171123d6a6d25c251",
+  "implementation_identity_entries": 33,
+  "material_blockers": [],
+  "review_scope": "Native-only continuation from sealed repair_2 Python shadow and local labels. Earlier allocation, path-area, corporate, branch-label and post-fit scientific design reviews are reused.",
+  "reviewed_findings": [
+    "The strict completed-stage reader verifies the repair_2 FAILED Recorder identity, full sealed artifact inventory, metadata and hashes before any selected object is deserialized. The cached native interface and label DatasetH schema are checked against the inspection receipt; repair_2 stays FAILED and read-only.",
+    "Repair_3 loads 16 cached objects and exactly three pinned P1 artifacts, checks native minute Dataset identity and exchange calendar, rebuilds one temporary raw quote provider with one Qlib readback, and verifies quote bytes/source identity against the cached shadow. Corporate schedule comes from the same P1 metadata. No fit, model forward, smoothing, path area, Python shadow or local-label generation is invoked.",
+    "Native validation is called with no active writable Recorder. Only after native success does a new repair_3 Recorder open to save the cached stages, native report, positions and analysis. Native/account attempts are recorded before execution, and the failed source Recorder is not resumed or relabeled.",
+    "The 33-entry code/environment identity is recomputed before authorization. Exact UTF-8 source bytes for every bound repo file, with normalized notebook source-cell identity, are verified before campaign reads and saved as implementation/code plus identity in the new Recorder. The focused real-Qlib lifecycle regression read back both artifacts.",
+    "This execution adds at most 16 checkpoint loads, three P1 artifact loads, one provider build/readback and one native account. The prior 16 authorized schema-inspection reads are separate. Frozen cumulative ceilings remain six fits, 1800 epochs, 15 OOF forwards, 21 P1 artifact loads, three provider builds/readbacks, two deterministic smoothing/area passes, one Python shadow, one local-label pass and one native account."
+  ],
+  "verification_basis": {
+    "review_mode": "scoped static code and metadata review",
+    "implementation_identity_recomputed_by_reviewer": true,
+    "repair_plan_and_failure_manifest_hashes_verified": true,
+    "focused_regression": "implementer reported actual native lifecycle regression 1 passed in 5.76 seconds after source snapshot patch",
+    "real_campaign_objects_or_accounts_loaded_by_reviewer": 0,
+    "new_tests_fits_predictions_or_replays_by_reviewer": 0
+  },
+  "delivery_condition": "After notebook execution, synchronize the Chinese conclusion cell from conclusion.md and verify it, because nbconvert may save an earlier in-memory cell. This presentation step does not rerun research or alter the bound executable notebook-source identity.",
+  "next_action": "Owner may issue a separate repair_3 execution authorization bound to this exact plan, seal, implementation identity, review hash and budget. Actual native evidence and scientific result require their own review."
+}

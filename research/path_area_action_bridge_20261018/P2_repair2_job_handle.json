@@ -1,0 +1,23 @@
+{
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "execution_authorization_sha256": "1ab4b8f732e81486f2d2322cd2bffb0f5560604dbbca7628973b4d685bd586fa",
+  "implementation_identity_sha256": "cb5e6c2a201a169a773cad064efb8c857313e3066343476037492959f983978b",
+  "log_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-p2-repair2-v85o3upy/nbconvert.log",
+  "command": [
+    "/Users/rziiiii/dev/workspace/qlib_venv/bin/python",
+    "-u",
+    "-m",
+    "nbconvert",
+    "--execute",
+    "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P2/repair_2/repair_2.ipynb",
+    "--to",
+    "notebook",
+    "--inplace",
+    "--ExecutePreprocessor.timeout=3600"
+  ],
+  "pid": 94684,
+  "start_identity": "ps:Tue Oct 20 17:07:09 2026",
+  "phase": "P2_repair_2",
+  "job_id": "P2-repair2-1ab4b8f732e81486",
+  "observed_at_utc": "2026-10-20T09:07:09.759565+00:00"
+}

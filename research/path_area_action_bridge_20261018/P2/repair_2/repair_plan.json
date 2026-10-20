@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "phase": "P2_repair_2",
+  "status": "implementation_review_pending_no_actual_GO",
+  "purpose": "Complete the frozen P2 post-fit training bridge after repair_1 stopped at a mistaken aggregate OOF row-count guard; reuse the same sealed FAILED-run checkpoint with zero new fits or model forwards.",
+  "original_P2_plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "failed_recorder_id": "004c3320e6214a14bfdbd06425379514",
+  "failed_recorder_status": "FAILED",
+  "failure_manifest_sha256": "1ee03974f3abfac3db38b6b0a988166a3544d0d9e4209c9c1b549ef551ba9143",
+  "failure_summary_sha256": "69451895cb53eb04ec46bfc3bb3c1beb571e45fc9ab9f13cca87196f8886315d",
+  "failure_metadata_receipt_sha256": "c39877e64eb267828ec047a31909f87e5f6120c08f1c665c4c3fa30759869ec5",
+  "original_implementation_sha256": "456c3b342c36a4ce016dacbdf2949e8c9e307d8eb97b9b9788c2f9941a760d15",
+  "failure_boundary": "The original attempt saved six fitted new states, 15 per-seed OOF outputs, the aggregate OOF output and fit barrier; it failed before entering the physical shadow on P2 plan['tariff'] lookup. The original recorder remains FAILED and immutable.",
+  "mechanical_correction": "Validate aggregate checkpoint as nonempty unique five-output DataFrame before P1 read. After P1 read, reconstruct original equal-weight ensemble from all fifteen saved per-seed outputs with the same pure helper as P2, and require exact equality to the saved aggregate and frozen P1 fold routes. Count each attempted/completed checkpoint object load durably; mark an exception inside load_object as partial count unknown. No fit, forward, tariff, fee, target, source, timing, cost or gate change.",
+  "execution": {
+    "separate_execution_GO_required": true,
+    "entrypoint": "src.workflow.path_area_bridge_recovery.run_path_area_bridge_repair_2",
+    "new_recorder_experiment": "path_area_action_bridge_20261018_P2_repair_2",
+    "new_recorder_card": "research/path_area_action_bridge_20261018/P2/repair_2",
+    "old_recorder_resume": false,
+    "P3": false
+  },
+  "additional_budget": {
+    "new_allocation_fits": 0,
+    "new_model_forward_calls": 0,
+    "saved_new_models_loaded": 6,
+    "saved_seed_predictions_loaded": 15,
+    "parent_artifact_loads_maximum": 9,
+    "common_shadow_policy_paths": 1,
+    "common_shadow_native_accounts": 1,
+    "action_classifier_fits": 0,
+    "evaluation_2023_plus_forward_or_accounts": 0,
+    "new_market_source_queries": 0,
+    "new_market_HTTP": 0,
+    "native_derived_point_provider_builds": 1,
+    "native_derived_point_provider_readbacks": 1,
+    "area_recomputations_maximum": 1
+  },
+  "cumulative_ceiling_original_plus_repair": {
+    "new_allocation_fits": 6,
+    "training_epochs": 1800,
+    "OOF_model_forward_calls": 15,
+    "parent_artifact_loads": 18,
+    "derived_point_provider_builds": 2,
+    "derived_point_provider_readbacks": 2,
+    "deterministic_smoothing_and_area_computations": 2,
+    "physical_shadow_policy_paths": 1,
+    "local_action_label_passes": 1,
+    "native_accounts": 1,
+    "checkpoint_object_loads": 46
+  },
+  "scientific_boundary": "A completed training bridge only yields local action support and native reconciliation. Original FAILED and repair_1 failed attempts remain separate and auditable. It does not certify SOXX excess, historical PIT, independent validation, P3, or promotion.",
+  "repair_1_failure_receipt_sha256": "e70fbd1895b846f626ab39699a7aa87a80afc923dfe23270c46864110c17c798",
+  "repair_1_boundary": {
+    "checkpoint_objects_loaded": 23,
+    "P1_artifacts_loaded": 0,
+    "derived_provider_builds": 0,
+    "area_calculations": 0,
+    "new_Recorder_created": false,
+    "raw_state_unchanged": true
+  }
+}

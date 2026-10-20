@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "phase": "P2_repair_2",
+  "reviewer": "independent_evaluator",
+  "verdict": "APPROVE_P2_REPAIR_2_FOR_SEPARATE_EXECUTION_GO",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "repair_plan_sha256": "aea14f7651e9c05ae78aae853022ee233944fe48e4e4225ed1bb5b00584f90f5",
+  "failure_manifest_sha256": "1ee03974f3abfac3db38b6b0a988166a3544d0d9e4209c9c1b549ef551ba9143",
+  "repair_1_failure_receipt_sha256": "e70fbd1895b846f626ab39699a7aa87a80afc923dfe23270c46864110c17c798",
+  "repair_implementation_sha256": "cb5e6c2a201a169a773cad064efb8c857313e3066343476037492959f983978b",
+  "implementation_identity_entries": 32,
+  "material_blockers": [],
+  "review_scope": "Only the repair_2 aggregate-check and per-object checkpoint-load accounting delta, phase-specific card/GO routing, and exact pre-execution code identity. Earlier post-fit timing, physical accounting, local labels and native reconciliation review is reused.",
+  "reviewed_findings": [
+    "The repair_1 failure receipt is hash-bound and describes 23 completed checkpoint object loads, zero P1 artifact reloads, zero derived provider builds, zero area work and no new Recorder. Its raw state and receipt remain unchanged. The original P2 FAILED Recorder remains the pinned read-only checkpoint.",
+    "The mistaken 3762-row aggregate guard is replaced with an early nonempty, unique-index, exact five-column schema guard. After the nine pinned P1 artifacts are loaded, all 15 saved seed outputs are checked against actual trade-year P1 routes and assembled with the same pure equal-weight helper used by original P2. Exact frame equality to the saved aggregate is then required; no model fit or forward is called.",
+    "Every checkpoint load records an attempt before deserialization, a completion after return, and an explicit unknown-partial marker on load exception. The frozen 23-object set remains hash-preflighted before unpickling; repair_2 adds at most 23 more completed loads, for a cumulative ceiling of 46.",
+    "Repair_2 has its own static card, notebook, Recorder experiment and GO path. The review and GO must match the final 32-entry implementation identity, original failure manifest, repair_1 failure receipt, repair plan and exact zero-fit/zero-forward budget before source loading. The old raw state, GO, review and FAILED run are not rewritten.",
+    "Across original P2, repair_1 and proposed repair_2, the frozen ceilings remain six total allocation fits, 15 total model forwards, 18 P1 artifact loads, two derived provider builds/readbacks, two deterministic smoothing/area passes, one shadow and one native account. This is operational recovery, not a new scientific candidate or independent validation."
+  ],
+  "verification_basis": {
+    "review_mode": "scoped static delta review",
+    "identity_recomputed_by_reviewer": true,
+    "repair_1_failure_receipt_sha256_verified": true,
+    "focused_tests": "implementer reported two focused tests passed; reviewer did not rerun",
+    "real_checkpoint_source_model_or_price_objects_loaded_by_reviewer": 0,
+    "new_fits_predictions_accounts_by_reviewer": 0
+  },
+  "next_action": "Owner may issue a separate repair_2 execution authorization bound to this exact review and implementation identity. Actual execution and result still require separate evidence review."
+}
