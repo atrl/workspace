@@ -1,0 +1,32 @@
+{
+  "approved": true,
+  "owner": "/root",
+  "scope": "actual_P2_repair_1_execution",
+  "P3": false,
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "repair_plan_sha256": "c69e478aae1328787b0179487a4321514430c57df5b2fc655788fec95890df4d",
+  "failure_manifest_sha256": "1ee03974f3abfac3db38b6b0a988166a3544d0d9e4209c9c1b549ef551ba9143",
+  "repair_implementation_sha256": "4203a1e1167fe600e9b90e00e922012d55201e413d63b04eb86b269d7e9908e8",
+  "repair_implementation_review_sha256": "1d99ec640a95b7d1e5e598258883e290a2a5980148855cdb7ce3f0bf059a9240",
+  "budget": {
+    "new_allocation_fits": 0,
+    "new_model_forward_calls": 0,
+    "saved_new_models_loaded": 6,
+    "saved_seed_predictions_loaded": 15,
+    "parent_artifact_loads_maximum": 9,
+    "common_shadow_policy_paths": 1,
+    "common_shadow_native_accounts": 1,
+    "action_classifier_fits": 0,
+    "evaluation_2023_plus_forward_or_accounts": 0,
+    "new_market_source_queries": 0,
+    "new_market_HTTP": 0,
+    "native_derived_point_provider_builds": 1,
+    "native_derived_point_provider_readbacks": 1,
+    "area_recomputations_maximum": 1
+  },
+  "maximum_attempts": 1,
+  "approved_at_utc": "2026-10-20T08:45:07.419764+00:00",
+  "authorization_basis": "Authorized implementation repair after mechanical inherited-tariff failure; preserve completed fits and forwards, old FAILED Recorder immutable.",
+  "operational_NAS_archive_authorized": true,
+  "goal_controller_status_observed": "blocked"
+}

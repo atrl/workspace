@@ -1,0 +1,15 @@
+{
+  "phase": "P2",
+  "approved": true,
+  "scope": "implementation_and_one_concentrated_synthetic_contract_only",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "design_review_sha256": "2663e6f5ad1a9917828de5956c5dcdbe5ce58525b2253836fe7808cf0057336d",
+  "owner": "/root",
+  "approved_at_utc": "2026-10-20T07:32:44.166234+00:00",
+  "source_loading_authorized": false,
+  "model_fit_authorized": false,
+  "real_prediction_area_labels_authorized": false,
+  "account_execution_authorized": false,
+  "P3_authorized": false,
+  "authorization_basis": "User approved aligned plan and explicitly requested Implement the plan."
+}

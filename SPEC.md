@@ -1,395 +1,120 @@
-# SPEC.md
+# SOXL Qlib Workspace Specification
 
-在当前 repo 内重建 SOXL 全平台，不再考虑强化学习。核心目标是把可复用能力沉到 `src/`，把研究和生产方案放到 notebook 中维护；skill 只保留方法论、发散思考、研究流程抽象，不承载具体业务功能。
+This specification is the active architecture for new work. Qlib is the source
+of truth for market-data alignment, research workflows, recorders, reports, and
+analysis evidence. The current three-asset campaign's scientific gates and
+roles are defined in `docs/three_asset_research_contract.md`; task sizing,
+model choice, monitoring, and archival procedure are defined in
+`docs/research_operations.md`. Historical instructions are retained in
+`docs/archive/` and apply only to artifacts that explicitly reference them.
 
-本 SPEC 的最高优先级约束是：**必须使用 qlib 原生工作流**。只做 qlib-like 文件布局、只用 pandas 读取本地 CSV、只手写 calendar 对齐、只自定义 backtest/recorder，都不算满足本项目重建要求。
+Default implementation agents use Luna/medium, monitors Luna/low, and scoped
+reviewers Sol/high. Dispatch with an explicit model and short independent
+context; escalate concrete failures as needed. Do not default routine work to
+the owner's model or reasoning effort.
 
-## Qlib 强制合同
+## Active campaign boundary
 
-所有数据、训练、回测、分析、晋升和生产 paper/sim 工作都必须以 qlib 为系统入口。
+New campaign work uses SOXL, SOXX, and cash. SOXX is the final fee-adjusted
+performance hard gate. Stage1 is a frozen comparison baseline; matching controls
+and pre-registered references support attribution and remain diagnostic. Do not
+rewrite old cards or retroactively change their gates. The active campaign
+projection is `research/three_asset_campaign.json`; detailed acceptance,
+statistical, risk, cost, forward-evidence, and Goal lifecycle rules are in the
+versioned contract.
 
-- 每个 research/production notebook 必须显式执行 `qlib.init(...)`，并在 `summary.json` 或 notebook 结论中记录 `provider_uri`、`market/region`、`as_of`、数据区间和 qlib recorder 信息。
-- 数据读取必须通过 qlib Data API 或 Dataset API：
-  - 日历、标的、特征读取优先使用 `qlib.data.D.calendar`、`D.instruments`、`D.features`。
-  - 模型训练/验证必须使用 qlib `DatasetH`、`DataHandlerLP` 或项目内对这些 qlib Dataset/Handler 的薄封装。
-  - 本地 CSV、raw parquet、broker export 只能作为构建 qlib store 的输入，不能作为研究/训练/回测的最终数据源。
-- qlib store 构建必须有明确门禁：
-  - raw CSV/DataFrame/parquet 只能进入 `src/data` 的 qlib store builder。
-  - builder 必须写出 qlib provider 结构、calendar、instrument、feature bin 和 manifest。
-  - builder 完成后必须通过 `qlib.init(...)` + `qlib.data.D.calendar`/`D.instruments`/`D.features` 读回审计。
-  - manifest 必须记录 source、provider_uri、market/region/freq、as_of、字段、标的、数据区间、feature 文件数、hash 和使用的 qlib API。
-  - raw 数据日期超过 `as_of` 时必须 fail closed，不得截断后继续。
-- 实验证据必须使用 qlib Workflow/Recorder：
-  - 使用 `from qlib.workflow import R` 和 `with R.start(...)` 创建实验记录。
-  - 参数、指标、模型、预测、portfolio report、risk analysis、sidecar manifest 必须通过 qlib recorder 写入或登记。
-  - 每个 notebook 的 `summary.json` 必须包含 experiment name、recorder id、artifact uri/path、qlib docs reference。
-- 回测和分析必须使用 qlib Record/Report 输出作为主证据：
-  - 信号分析使用 qlib `SigAnaRecord` 或等价 qlib analyzer 输出。
-  - 投组回测使用 qlib `SignalRecord`、`PortAnaRecord` 或 qlib backtest/report 输出。
-  - `src/analysis` 可以把 qlib recorder/report/risk_analysis 包装成稳定项目报告，但不得绕过 qlib 直接把散落 CSV 当作主分析来源。
-- `src/` 只能封装 qlib，不得替代 qlib：
-  - `src/data` 负责 qlib store 构建、provider_uri 校验、calendar/instrument/feature 审计、snapshot manifest。
-  - `src/model` 负责 qlib Dataset 到模型训练/预测/保存/加载的合同。
-  - `src/backtest` 负责 qlib backtest/report 结果的稳定接口和项目侧压力窗口扩展。
-  - `src/dashboard`、`src/schedule`、`src/api` 只能读取 qlib recorder 或由 qlib recorder 登记的 manifest/export。
-- 如果 qlib 不可用、provider_uri 不存在、recorder 写入失败、Dataset 无法构建，任务必须 fail closed，并明确写出 `blocked: qlib unavailable` 或具体缺失项；不得降级为 pandas-only 或 fake qlib。
+The workspace supports research and paper/simulated execution. Do not buy data,
+place real broker orders, or replace an active release through research code.
+Missing evidence for one branch does not stop eligible work on another branch.
 
-## 产物合同
+## Architecture and data authority
 
-qlib research/production card 必须使用瘦根目录、recorder-first 的产物结构。
+- `data/` holds canonical inputs, Qlib stores, snapshots, manifests, and source
+  lineage. Record source identity, event/availability time, label maturity,
+  calendar, provider, and snapshot/version for each result.
+- `src/core/` defines schemas, manifests, hashes, configuration, and validation.
+  `src/data/` builds and audits Qlib providers and snapshots. `src/factor/`,
+  `src/model/`, and `src/objective/` implement Qlib Dataset-based factors,
+  registered models, and classification/regression/ranking/risk-return objectives.
+- `src/backtest/` owns Qlib signal/portfolio workflows and costs;
+  `src/analysis/` wraps Recorder, report, and risk-analysis outputs into stable
+  reports. Dashboard, schedules, and adapters consume registered manifests or
+  exports from `src/`; they must not mine ad hoc notebook internals.
+- `research/<experiment>/` contains research notebooks and slim card sidecars.
+  `production/<strategy>/` contains promoted paper/sim notebooks, fixed inputs,
+  and their recorder evidence. `tests/` covers the relevant shared contracts.
+- Existing `soxl_backtest/` is compatibility/reference material. New reusable
+  code belongs in `src/`; preserve legacy import paths and frozen evidence when
+  referenced. Skills describe methodology only and are not executable entrypoints
+  or storage for business logic, project state, or fixed parameters.
 
-- 每个 card 根目录必须保留：
-  - 主 notebook：`<experiment>.ipynb` 或 `<strategy>.ipynb`。
-  - `workflow.yaml`：记录 provider_uri、recorder_uri、market/region、segments、model_selection 和 artifact_policy。
-  - `summary.json`：机器入口，必须包含 recorder id/path、qlib artifact 列表、sidecars、benchmark、model_selection 和 artifact_policy。
-  - `conclusion.md` 和 notebook 中文结论 cell。
-  - 小型 sidecar：`selected_model.json`、`model_selection.csv`、`risk_analysis.csv`、`backtest_benchmark_comparison.csv`、`backtest_window_metrics.csv`、`backtest_walk_forward_metrics.csv`、`analysis_summary.json`、`regime_metrics.csv`、`window_metrics.csv`、`model_comparison.csv`、`explainability.csv`、`failure_modes.md`。
-- `summary.json.artifact_policy.policy` 必须是 `slim_card_recorder_first`。
-- `summary.json.artifact_policy.recorder_only_artifacts` 必须明确指向 qlib recorder 中的：
-  - `artifacts/pred.pkl`
-  - `artifacts/label.pkl`
-  - `artifacts/model_selection/all_model_predictions.csv`
-  - `artifacts/portfolio_analysis/report_normal_1day.pkl`
-  - `artifacts/portfolio_analysis/positions_normal_1day.pkl`
-  - `artifacts/portfolio_analysis/port_analysis_1day.pkl`
-- 以下文件不得作为 card 根目录持久产物提交，除非任务明确要求临时导出且提交前删除：
-  - `predictions.csv`
-  - `signals.csv`
-  - `all_model_predictions.csv`
-  - `portfolio_report.csv`
-  - `qlib_portfolio_report.csv`
-  - `qlib_positions.csv`
-- `model_results.csv` 不是默认产物。模型比较应统一写入 `model_selection.csv`、`model_comparison.csv` 和 qlib recorder；只有外部系统明确要求单文件聚合时才生成，并必须在 `summary.json` 说明用途。
+## Native Qlib requirements
 
-## 晋升语义
+Use Qlib APIs as documented at `https://qlib.readthedocs.io/en/latest/` for
+calendar, instrument and feature access, Dataset construction, Recorder,
+Workflow, backtest, reports, and risk analysis. Read the local experiment skill
+before substantial Qlib research and consult the official docs before designing
+or changing these API surfaces. If docs are unreachable, say so and do not guess.
 
-- `research/qlib_native_reference_v1` 类 card 是 qlib 原生链路验收，不承担生产晋升。
-- search card 可以是诊断卡：允许记录没有跑赢 benchmark 或 legacy SOXL rulebase 的候选，但结论必须写清“不晋升”和失败原因。
-- validated card 是晋升前研究门：必须固定评估窗口、直接 benchmark、成本/滑点、风险说明，并记录是否超过直接比较基准。
-- production paper/sim card 是生产门：必须复用 validated 参数或明确记录固定参数来源，直接从 qlib recorder 读取预测/组合证据，不读取根目录大 CSV。
+Workflows must use `qlib.init`, `qlib.data.D` and/or Qlib Dataset, and native
+`qlib.workflow.R` Recorder/Records where applicable. Do not treat raw parquet,
+calendar files, pandas-only results, hand-built recorder IDs, or Qlib-named
+folders as native Qlib evidence. Do not invent API behavior or silently fall
+back to pandas when Qlib inputs are missing.
 
-## 禁止的伪 qlib 实现
+## Notebook and card contract
 
-以下实现一律不算完成：
+Research begins in `research/<experiment>/<experiment>.ipynb`; promoted runnable
+strategies begin in `production/<strategy>/<strategy>.ipynb`. Each notebook
+records its hypothesis or strategy, source/provider and timing, Qlib loading,
+fit/predict/backtest steps, analysis, sidecars, and a final Chinese conclusion
+covering work performed, metrics, regime/window differences, promotion decision,
+risks, next action, and Recorder identity. Docs, tests, and small framework work
+may be notebook-free.
 
-- 只创建 `data/qlib/...` 文件夹但没有调用 qlib API。
-- 只解析 `calendars/day.txt` 或 `.bin` 文件但没有通过 `qlib.data.D` 读取。
-- 只用 pandas DataFrame 完成训练、回测、分析，之后把结果命名为 qlib artifact。
-- 自己实现 recorder/experiment id，而不是使用 qlib `R` 或 qlib recorder。
-- notebook 只写 “qlib calendar” 字样，但没有 `qlib.init`、Dataset、Recorder、Record/Report 的可执行证据。
-- skill 中出现具体路径、模型结果、固定参数或项目状态。
+Each card root remains small: notebook, `workflow.yaml`, `summary.json`,
+`conclusion.md`, selected-model metadata, and compact analysis/backtest/risk
+summaries. `summary.json` includes `artifact_policy.policy` set to
+`slim_card_recorder_first`, workflow configuration, and the recorder-only
+artifact list. Predictions, signals, all-model prediction matrices, portfolio
+reports, and positions live in the Qlib Recorder. A requested temporary export
+must be removed before commit. Keep sidecars synchronized with the notebook
+conclusion. Validated research and production cards include a direct benchmark
+comparison and explicit promotion decision; diagnostic search cards may fail.
 
-## 核心架构
+## Artifact, compatibility, and execution constraints
 
-### SOXX 稳定超额研究入口
+Before generating artifacts, assign them to `data/`, `src/`, a research or
+production card, or an external scratch location. Commit only durable evidence
+needed to reproduce or audit a result. Exclude caches, logs, `__pycache__`,
+`.DS_Store`, local locks, downloads, screenshots, and unregistered large model
+files. Force-add only exact verified sidecars. Preserve required MLflow recorder
+directories and record a real metric when needed. Never rebuild a repo-wide
+index from a partial tree.
 
-2026-10-18用户要求按真实Goal持续推进到费用后稳定超过SOXX ETF，而非仅超过
-Stage1或完成若干实验。Stage1作为可回退冻结参考，允许有证据地替换模块，全部
-风险、稳定性与独立前向门沿用`docs/three_asset_research_contract.md`。首轮为
-主/辅助监督输出头分域的同条件实验；原共享编码器与回传保留，不是重开旧detach
-或稀疏联合事件分类路线。实验设计、执行句柄、失败归因及下一机制由
-`research/three_asset_campaign.json`登记，SOP按接收决策层选择检验并桥接完整账户。
-单实验失败关闭版本，不结束总目标；不购买期权数据、不真实下单、不替换现役release。
+Do not recreate reinforcement-learning reward flows. Use objective contracts.
+V1 broker-facing code is limited to adapter contracts and paper/simulated target
+positions; no real order execution. Existing code with frozen references must
+remain recoverable. Before cleanup, inspect imports, notebooks, registries,
+frozen manifests and serialized artifacts; archive exact bytes, identity hashes,
+source commit, and restoration path before deletion. If deletion safety is
+uncertain, preserve the code and report that it remains.
 
-2026-10-16用户批准ETF估值优先、月度中期配置与固定短期风控分离，执行边界见
-`docs/etf_valuation_restart_20261016.md`。先复用原生Recorder归因，再核查历史估值、
-成分财报与SOXX/SOX调仓来源。当前市盈率或成功下载不能认证历史时点；历史盈利
-重建用于ETF篮子，不恢复个股预测支线。月度输入资格与实际组合实验分别记录，
-来源未合格不能声称已经训练；单支线缺数据不升级为总目标完成或阻塞。
+## Verification and delivery
 
-2026-10-15重新授权的持续三资产研究遵循
-`docs/three_asset_research_contract.md`，当前任务和评估状态由
-`research/three_asset_campaign.json`登记。研究执行与独立评估分离；固定路线
-失败不代表总目标完成或自动阻塞。SOXL/SOXX/CASH、只做多、无融资和30%回撤
-验收不变；旧SOXL上限30%及现金下限15%可作为预登记结构对照研究，不修改
-封存卡片或现役生产参数。近期0/2/5bp滑点及Tiered费用研究不套用旧10/25bp
-身份。独立前向最低观察日数不代替126日滚动与统计资格。
+Use the repository Qlib environment and the smallest relevant existing check.
+Run focused checks once after the final code change. Add tests only for a new
+material contract or a concrete regression not caught by existing coverage.
+Do not run broad suites unless a shared/cross-layer change or explicit request
+justifies them. Documentation-only work requires diff review and
+`git diff --check`, not pytest or notebook execution. Research still requires
+the relevant notebook, native Qlib evidence, source/timing/cost checks, and
+scientific gates; software tests do not substitute for them. Reuse verified
+unchanged Recorder evidence and perform one targeted readback if delivery moves
+the evidence layout.
 
-新一轮基准相对研究使用 `research/benchmark_relative_architecture_20261009/`
-作为可执行参考，方法与外部机制依据分别保存在卡片的 `architecture.md`、
-`research_sources.md`；参数和候选预算以执行前冻结的 `plan.json` 为准。
-这是一张历史诊断卡，不构成生产策略或稳定超额已实现的声明。
-
-- `src/data/benchmark_relative_data.py` 通过 Qlib Data API 和 DatasetH 提供
-  独立的信号、成交、结算与反馈可用时点；不以缺失数据截短共同样本。
-- `src/model/online_expert_allocation.py` 只负责有明确可用时点的在线专家状态，
-  不读取研究目录、未来标签或评估汇总；所有配置由卡片传入。
-- `src/backtest/benchmark_relative_replay.py` 为各费用情景及主组合单独结算，
-  随后必须经原生 Qlib 回放对账；不得把专家收益加权当作主账户收益。
-- `src/analysis/benchmark_relative_protocol.py` 统一核验完整日历、同窗同成本的
-  SOXX 比较、年度与滚动超额、MaxDD/CVaR 及区块区间。历史门不签发前向资格，
-  调用者给出一个“forward”字符串也不能获得晋升。
-- `src/workflow/benchmark_relative_research.py` 显式接收源码根、只读证据根、
-  输出卡和 Recorder 路径，核验实际导入源码身份；不硬编码主 checkout。
-  原生回放在活跃 Recorder 外执行，恢复时必须核验原 ID，成功归档后才发布摘要。
-
-既有封存实验及生产入口保留原身份，不因新合同重新解释旧结果。后续机制一次只
-登记一个增量、一个有限对照集，保留失败和所有成本场景。新的可晋升方案必须先
-冻结，再取得连续、独立、决策早于市场结果的前向证据；不能把复用历史改名为留出期。
-
-后续实验已将以下边界独立出来，新的组合研究应复用这些合同，而不是在 notebook
-中重新拼接预测、费用与评价：
-
-- `src/data/oos_horizon_inputs.py` 绑定原生价格、标签、成熟时点及日风险协方差；
-  五日收益预测与每日风险的单位分别保存，终端未成熟标签保留为未知。
-- `src/model/annual_ridge_selection.py` 在当前年之前的完整成熟验证年选择预测模型，
-  再以当时可得数据重拟合；历史均值预测是显式模型，不等于全仓 SOXX 策略。
-- `src/backtest/horizon_matched_allocation.py` 管理固定调仓节奏、精确 HOLD 与真实
-  费用结算。调仓日风险约束和持有期间的风险漂移分别报告。
-- `src/model/benchmark_terminal_value.py` 只转换规划中的期末计价和均值误差协方差；
-  不改变每日市场风险、不生成未来订单，也不把假设的未来费用扣入实际净值。
-- `src/core/recorder_sources.py` 通过卡片 manifest、显式对象哈希及 Qlib Recorder
-  读取已经完成的父证据。读取不启动或恢复父 run，不把重新拟合冒充冻结预测复用。
-  旧 `artifact_manifest.json` 只允许通过显式文件名及固定 manifest、对象哈希读取，
-  不自动回退、迁移或改写已封存卡片。
-- `src/model/benchmark_core_risk.py` 将给定风险矩阵与预算映射成两种持仓表示，
-  不读取收益均值或未来结果。`src/backtest/target_schedule_replay.py` 独立管理
-  逐日目标的真实持仓与费用；目标的数学风险证书、实际结算及 Qlib 持仓风险分层验证。
-- `src/workflow/benchmark_evidence.py` 统一完整策略和费用清单及共同日历上的比较；
-  `src/analysis/excess_resolution.py` 在保留原收益、估计值和置信区间的前提下，
-  排除数值不可辨识的正超额，原始分类同时保留。
-
-预测误差改善、配置目标修正、原生账本对账通过和稳定超额是不同结论。前两项可以
-改善系统，但不能替代最后一项的历史与独立前向证据。执行参数、有限候选预算、
-费用、数值分辨下限及失败结果保留在各自冻结卡片，不写入技能或生产默认值。
-
-单一标的的长历史不再通过双标的共同面截短：
-`src/data/soxx_extended_history.py` 分离显式只读采集与离线资格 notebook，以新的
-SOXX-only provider 保存真实较早历史，并核验与原 provider 的重叠值不变。更长
-SOXX 历史不能补造 SOXL 成立前的价格、特征或标签。价格、事件来源、真实分红
-现金流和历史时点认证是不同资格；复权值相同不能代替后两项。
-
-稳定超额前沿已用因果、无收益预测的规则系统界定：
-`src/analysis/stable_excess_frontier.py` 与 `src/workflow/stable_excess_frontier.py`
-在 qlib 原生链路上评估一族预登记、只使用过去可得的已实现波动与趋势状态的
-SOXX/SOXL/现金暴露规则，要求收益、回撤、Sharpe 同时超过 SOXX buy-and-hold。
-`research/soxl_stable_excess_frontier_20261010/` 记录：该族在 development、
-复用诊断区间与新的前向区间均未产生稳定超额。收益预测信息在父证据中 IC 接近零；
-SOXL 的 Sharpe 不高于 SOXX；单纯的杠杆、波动目标或趋势门控都不能稳定超越基准。
-后续机制必须一次只登记一个增量、保留失败结果，并以独立前向证据决定晋升；
-不得把复用历史改名为留出期，不得用累积历史回看替代前向资格。
-
-日内机制同样必须自证：`src/analysis/intraday_early_momentum.py` 与
-`src/workflow/intraday_early_momentum.py` 只用 qlib 原生 15 分钟 provider，
-把开盘 09:30–10:30 的可观测路径映射到当日 10:30–收盘仓位，不依赖父模型。
-`research/intraday_early_momentum_20261010/` 记录：该族在 development、
-复用诊断与新的前向区间也未产生稳定超额，且 25bp 成本下更差。真正有证据的
-日内结论来自 `intraday_recovery_direct_allocation_v1` 的低频、状态条件动作，
-而不是每日高换手的早盘动量。任何后续日内机制必须报告换手、成本敏感性与
-逐年前向胜率，而不是只看累计财富。
-
-分钟源修复与全天增量参考 `research/intraday_full_day_expansion_20261012/`：
-SOXL/SOXX 的 raw NONE 1 分钟与公开系数研究价量分别保存，QQQ/SMH/NVDA/AMD
-以真实 5 分钟历史提供同步上下文。聚合线携带底层观察数、预期数与完整标记；
-源 OHLC 错误保留并隔离，不插值。核心刷新从 raw NONE 补历史缺口并重新应用
-公开事件，避免混用成交额与复权价格。原始来源、观察时间和具体残余异常以该卡
-及 source manifest 为准；历史右边界与一分钟可用延迟不等于实盘接收认证。
-分钟数据的持久权威是 Yanxuan NAS：不可变快照位于 NAS `/data/market/us_semis/`，
-当前来源登记在既有 DuckDB/API `sync.current` 的 `us_semis_intraday` 条目。
-`data/nas_sources.json` 只保存消费者连接配置，卡片 `nas_binding.json` 固定来源与
-NAS Recorder 对象哈希。Git 交付代码、notebook、瘦卡和引用；原始行情、处理后
-Parquet 与大 Recorder 对象保留在 NAS。`data/` 中的分钟缓存和原生 Qlib store
-可从 NAS 校验恢复或重建；已有 Git 历史中的旧缓存暂留作兼容输入。
-核心刷新先解析 NAS 当前来源，再由本机 Futu OpenD 补采，校验并写回 NAS 后登记；
-NAS 读取失败明确 `needs_data`，不切回旧采集口径。四个上下文标的的历史快照
-单独保留 `context_as_of`，核心日期更新不冒充上下文同步更新。
-每日同步器替换 `sync.current` 后若来源条目消失，消费者只从 NAS 上的已校验
-不可变快照重建该索引；不从本地缓存或上游采集结果猜测当前来源。
-三组固定线性模型在 DatasetH 成熟标签与原生独立费用账户中未获得有效增量，
-保持 `not_promoted`；全天特征数量增加不能代替预测信息与净超额验证。
-
-`research/minute_information_pit_allocator_20261012/` 将全天信息直接加入现役同结构
-的 PIT 辅助三资产 MLP：39 项原输入、可用性对照、12 项核心路径和 8 项同期上下文
-在完整 2011+ 日频历史上比较，缺分钟通道只在模型标准化后中性编码，不补造行情。
-`src/data/minute_allocation_features.py` 使用 raw NONE 同时段比率和真实半日市日历；
-`src/model/minute_pit_allocator.py` 保留原网络、损失与持仓约束，共享原初始化，新输入
-权重从零开始；`src/backtest/minute_allocator.py` 按实际持仓独立结算两种费用。
-固定三 seed、54 次正式拟合、42 个原生账户完成：核心路径改善重训基线的回撤，
-但 25bp 增量收益为负、区块置信区间跨零，同行上下文开发期落后，保持 `not_promoted`。
-相对旧单模型的提升也出现在无新增分钟数值的重训基线中，不能归因于分钟信息。
-诊断账户更新到 2026-10-09，最新未成熟信号保留用于预测；不改现役 release/动作层。
-
-跨数据源搜索已封闭：`src/analysis/cross_source_signal_search.py` 与
-`src/workflow/cross_source_signal_search.py` 用统一标准（收益+回撤+Sharpe 同时
-超越 SOXX 且多数年份为正）在本地全部可用数据源上搜索因果信号，包括
-`data/qlib/soxl`（SOXL/SOXX 日线）、`data/qlib/soxx_constituents`（30 只半导体
-日线）、`data/qlib/soxl_intraday_t1`（1 分钟派生日内特征）与
-`data/qlib/soxl_intraday_15min`（SOXL/SOXX 15 分钟）。
-`research/cross_source_signal_search_20261010/` 与
-`research/intraday_early_momentum_20261010/` 记录：没有任何信号在收益、回撤、
-Sharpe 三方面同时稳定超越基准。日内早盘动量在 10bp 下可临时通过，但其条件超额
-在相邻阈值上符号翻转，且 25bp 成本下失效，说明边缘极薄且不稳健。
-唯一有正面证据的机制仍是 `intraday_recovery_direct_allocation_v1` 的低频、
-状态条件动作。
-
-新增外部数据源已采集并检验：
-`data/raw/external/asia_semis_20261010_v1`（Yahoo Finance，亚洲半导体市场
-台湾加权/台积电/韩国SK海力士/KOSPI/日经，2011-2026）与
-`data/raw/external/macro_vol_20261010_v1`（FRED+CBOE，SOX 指数/VIX/VIX 期限结构/
-信用价差/美元指数/美债收益率，最长至 1962）。
-`research/cross_market_lead_lag_20261010/` 记录：亚洲盘与同日美股 SOXL 有 0.15-0.21
-的同期相关，但**严格滞后 IC 几乎为零**（|-0.01~0.03|），所以它是同期共振而非可交易
-预测；任何同日对齐得到的巨额回测都是时间戳污染，不是领先信号。
-`research/cross_source_signal_search_20261010/` 将搜索扩展到 60 条候选 × 5 类数据源
-（含新采集的宏观/波动率），仍**零个信号**在收益、回撤、Sharpe 三方面同时稳定超越基准。
-结论：本地与新增外部数据中均未发现对 SOXL 相对 SOXX 的稳定风险调整超额。
-Stage1 生产线的验证完整性已被独立审计并写入仓库：
-`src/analysis/stage1_history_audit.py`、`src/analysis/recorder_provenance_audit.py` 与
-`src/workflow/stage1_history_audit.py`、`src/workflow/stage1_gate_recheck.py` 只读
-卡片摘要与运行状态，不重放、不改 recorder。
-`research/stage1_history_audit_20261010/` 记录：
-- 审查 7 张卡，**5 个声明 recorder 不在仓库**（包括两张晋级卡与生产卡自身），
-  其结论无法独立复现。
-- `2023-2026` 被标记为 `reused_diagnostic_not_fresh_unseen_test`，是项目反复查看过的
-  窗口，**不能当作样本外证据**。
-- `completed_slots` 原始观测日（约 14）不等于合格前向；settled 日（约 48）也不等于
-  合格配对前向。缺完整/时序/配对/身份/绩效校验时，资格为 `needs_data`。
-- 受管理前向交易日为 `needs_data`（不计原始日；门槛 60），且曾发生前视 bug
-  （`stage1_open_action_value_v1` 的 `blocked_pending_causal_revalidation`）。
-- 判定：**未通过新鲜 walk-forward**，决定 `no_fresh_walk_forward_evidence`；
-  本审查只做诊断，无成功分支。
-
-**更正（重要）**：此前“当前 `paper_sim_blocked` 只是证据治理/recorder provenance 缺陷、
-不是策略失败”的说法**不成立**，已撤回。现役 release 绑定 allocation `f696f656...` 与
-action `b472a458...`；其 action 开发期在 **MaxDD 与 CVaR5 两项上劣于其自身基线**
-（candidate MaxDD −30.083% vs baseline −29.931%；CVaR5 −3.539% vs −3.485%），
-`development_gate_pass=false`，仅因用户授权收据才允许 SIMULATE 试运行。
-`research/stage1_gate_recheck_20261010/` 的 legacy 诊断已改为：短窗/不同身份一律
-`not_comparable`，`production_gate_override=false`，不得用短窗 PASS 推翻长窗失败。
-
-规则：晋级卡必须留下已提交 recorder；不得用 reused diagnostic 充当样本外；
-在取得 ≥60 个受管理前向交易日并补齐 recorder 前，不得宣称通过 walk-forward。
-
-夜盘信号卡已被独立审查判定 **invalid_for_promotion**，此前“首个因果有效策略”的结论**已撤回**：
-`data/raw/external/night_session_20261010_v1` 采集的夜盘数据（Yahoo Finance 1h 含盘前盘后，
-2024-10 至 2026-10）。**原策略对该数据的使用存在前视**：原实现把 `index.time < 09:30` 选入 NQ 的 `09:00` 一小时 bar，
-而该 bar 覆盖 `09:00–10:00`，其 close 是 **10:00 价格**（现金开盘之后）。
-源快照 `research/night_session_signal_20261010/night_span_source_audit.json`
-（sha256 `4a5f55b3...`，绑定原始 parquet `5caf8600...`）经离线重聚合证实：`09:00` 一小时 bar 与
-`09:00–10:00` 的 5m 聚合五个字段完全一致，4 天各 12 根。
-- 不安全 cutoff（09:30）：IC(SOXL)=**+0.2200**，IC(超额)=+0.2244
-- 安全 cutoff（09:00）：IC(SOXL)=**−0.0119**，IC(超额)=−0.0072
-
-原高 IC 依赖含开盘后信息的小时 bar。其余错误口径（headline open→close vs native open→次日 open、
-round-trip 成本未计足、基准“SOXX buyhold”实为日内、诊断内重选阈值、Recorder 只存 summary 却
-声称有 panels）**未修复，仅隔离时点**。两个 cutoff 的 IC 仅为**源时间戳敏感性取证**，
-不是可交易结果，也不是新的 Qlib 研究。新数据源（股指期货夜盘/盘前）仍可用于**细粒度、
-同口径、经 Qlib 再验证**的重建，但在完成该重建并取得连续前向证据前**不得晋升**，也不得
-据原 +0.22 宣称因果或可上线。`src/workflow/night_session_signal.py` 的 run 已无条件阻断，writer 拒绝写入成功资格。
-非独立或同期数据（如亚洲盘同日相关）不得冒充可交易领先信号。
-
-Stage1 冻结常数 `action_beta=0.6` 是可优化结构，不是硬参数：
-`src/analysis/dynamic_beta_cap.py` 与 `src/workflow/dynamic_beta_cap.py` 在冻结上游原始
-目标上比较常数上限与随已实现波动缩放的上限，不改信号。
-`research/stage1_dynamic_beta_cap_20261010/` 记录一个**必须引以为戒的陷阱**：若先用
-outer 筛选规则，会看到 vol_w30_s6/vol_w60_s6 “通过两个窗口”；但**严格只用
-development 选择**时，dev 最优的 vol_w30_s10 在 outer 上 Sharpe 反而低于冻结常数
-（1.11 vs 1.24）且回撤更大（−39% vs −30%）——说明之前的“改善”是**选择偏差**，
-不是真实样本外优势。结论：动态 beta 上限**未获得样本外改善**，不得据二窗口
-“同时通过”宣称优化；选择必须只用 development，outer 只能读一次。
-前视检查：development 每年 train_end < 信号年年初；outer 模型冻结在 2022-12-30。
-`research/stage1_cash_drag_overlay_20261010/` 证明：高现金来自策略自身原始目标而非硬
-上限（cap_binding_fraction=0）；放宽 action_beta 提高绝对收益但降低 Sharpe 并翻倍回撤；
-冻结常数在风险调整后最优。所有变体均跑输 SOXX buy&hold 收益。
-
-- `src/core`: 稳定契约、注册表、schema version、manifest、hash、配置、校验。
-- `src/data`: qlib store 构建、qlib provider 审计、数据更新、calendar/instrument/feature 对齐、canonical snapshot，最终写入 `data/`。
-- `src/factor`: 基于 qlib Dataset 的单因子、多因子、IC、相关性、分层回测、因子组合诊断。
-- `src/model`: QuantBench 模型注册、qlib Dataset 训练、预测、保存、加载、模型能力说明。
-- `src/objective`: 分类、MSE、IC、ranking、收益风险 utility、晋升评分；替代原 reward 概念。
-- `src/backtest`: qlib 信号记录、portfolio report、成本、滑点、walk-forward、压力窗口、基准对比。
-- `src/analysis`: qlib recorder/report/risk_analysis 读取、regime 分层、区间对比、模型差异解释、稳定性诊断。
-- `src/dashboard`: 只读取 qlib recorder 登记的 manifest/export，不直接读散落实验文件。
-- `src/schedule`: qlib 数据更新、模型刷新、dashboard export、通知、锁、重试。
-- `src/api`: broker/data adapter contract，v1 只实现 paper/sim，不做真实 broker 下单。
-- `research/<experiment>/`: qlib research notebooks；每个实验一个主 `.ipynb`。
-- `production/<strategy>/`: qlib-backed promoted paper/sim notebooks；每个方案一个主 `.ipynb`。
-
-## src/analysis 设计
-
-- qlib 集成：
-  - 读取 qlib recorder、portfolio metrics、risk analysis、report 数据。
-  - 提供统一 `AnalysisReport`，让 dashboard、notebook、promotion 都读同一套 qlib-derived 结果。
-
-- Regime 分析：
-  - 支持按 VIX、趋势、回撤、波动、成交量冲击、牛熊/震荡等 regime 切片。
-  - 每个模型输出全区间表现、分 regime 表现、regime 间稳定性差异。
-
-- 区间对比：
-  - 固定窗口：YTD、近 1/3/6/12 个月、2020、2022、2023-2024、用户自定义窗口。
-  - Walk-forward：每个 fold 的收益、回撤、Sharpe、turnover、暴露、相对 SOXL。
-
-- 模型差异：
-  - 对比不同模型、不同 objective、不同因子集、不同训练窗口。
-  - 输出 winner/loser 不是只看收益，还要看回撤、换手、压力期暴露、稳定性。
-
-- 解释层：
-  - tabular 模型支持 feature importance / permutation / SHAP 可选。
-  - deep/sequence/graph 模型先支持输入敏感度、窗口贡献、regime 表现差异。
-
-- 产物：
-  - `analysis_summary.json`
-  - `regime_metrics.csv`
-  - `window_metrics.csv`
-  - `model_comparison.csv`
-  - `failure_modes.md`
-  - qlib recorder artifact links
-  - 中文 notebook 结论 cell
-
-## Skill 边界
-
-- skill 不实现业务逻辑，不保存项目状态，不作为功能入口。
-- skill 用途：
-  - 抽象研究方法。
-  - 提醒如何提出假设、拆因子、设计 regime、解释模型差异。
-  - 帮模型发散思考候选方向。
-- 具体可运行功能必须放在：
-  - `src/` 的稳定模块；
-  - `research/<experiment>/*.ipynb` 的 qlib 实验流程；
-  - `production/<strategy>/*.ipynb` 的 qlib paper/sim 晋升方案；
-  - `data/` 的 qlib store、snapshot、manifest。
-- 如果 skill 里出现具体路径、模型结果、固定参数或项目状态，应迁回 notebook 或 `src/core` manifest。
-
-## Notebook 规则
-
-- `research/<experiment>/<experiment>.ipynb`: 研究入口，必须包含 qlib init、qlib data/Dataset、训练/预测、qlib recorder、qlib record/report、analysis、sidecar、结论。
-- `production/<strategy>/<strategy>.ipynb`: 生产 paper/sim 入口，必须包含固定参数、qlib data/Dataset、qlib recorder、运行输入输出、风险说明。
-- 每个 notebook 最后必须有中文结论 cell：做了什么、核心指标、regime 差异、是否晋升、风险、下一步、qlib recorder id。
-- CSV/JSON 是 sidecar，不能替代 notebook 结论，也不能替代 qlib recorder。
-- 如果 notebook 需要读取预测或组合明细，优先从 `summary.json.recorder_local_dir` 下的 qlib recorder artifact 读取，不从 card 根目录大 CSV 读取。
-
-## 测试计划
-
-- 架构测试：允许新 `src/`、`research/`、`production/`，替换 retired surface 测试。
-- qlib 强制测试：
-  - notebook 必须包含 `import qlib`、`qlib.init`、`qlib.data.D` 或 qlib Dataset、`qlib.workflow.R`。
-  - 至少一个 research notebook 必须执行 qlib Dataset + Recorder + Record/Report 路径。
-  - qlib provider_uri 缺失时必须 fail closed，不允许 pandas-only fallback。
-- 契约测试：schema version、manifest、hash、序列化稳定性。
-- 数据测试：qlib `D.calendar`/`D.features` 对齐、snapshot、防未来函数。
-- 因子测试：基于 qlib Dataset 的单因子 IC、多因子相关性、组合回测。
-- Objective 测试：classification/MSE/IC/ranking/utility score 输出一致。
-- 模型测试：QuantBench registry 完整性，每个 model family 有 qlib Dataset fit/predict smoke test。
-- Backtest 测试：qlib SignalRecord/PortAnaRecord 输出、固定窗口、walk-forward、成本滑点、benchmark 对比。
-- Analysis 测试：qlib recorder/report/risk_analysis 解析、regime 切片、窗口对比、模型差异表。
-- Dashboard 测试：只读 qlib recorder 登记的 manifest/export。
-- Schedule/API 测试：qlib data refresh、job lock、retry、paper broker target-position flow。
-
-## 验收标准
-
-一个任务只有同时满足以下条件才算完成：
-
-1. 代码或 notebook 直接调用 qlib 原生 API。
-2. 产物能追溯到 qlib provider_uri、Dataset、Recorder、Record/Report。
-3. focused tests 覆盖 qlib 强制路径和 fail-closed 路径。
-4. notebook 已执行，中文结论和 sidecars 与 qlib recorder 结果一致。
-5. 没有把 skill、pandas-only 脚本、散落 CSV、临时 cache 当作主工作流。
-6. card 根目录没有持久化 recorder-only 大 CSV，`summary.json.artifact_policy` 能说明所有保留与 recorder-only 产物。
-
-## 假设
-
-- 不再做强化学习，不保留 RL reward。
-- reward 改为 objective。
-- 中文是默认文档和 notebook 结论语言，代码命名仍用英文。
-- v1 不做真实 broker 下单，只实现 adapter contract 和 paper/sim。
-- `src/analysis` 是正式框架能力；skill 只做研究思路抽象。
+Every change must preserve unrelated WIP, be staged by exact path, and receive
+the appropriate verification, commit, and push unless blocked by network or
+permissions. If a worktree was necessary, complete validation and delivery,
+merge into the integration target, synchronize the primary checkout, and remove
+only the clean merged worktree and branch before handoff.

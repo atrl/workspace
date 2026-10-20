@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "phase": "P2",
+  "reviewer": "independent_evaluator",
+  "verdict": "APPROVE_P2_IMPLEMENTATION_FOR_SEPARATE_EXECUTION_GO",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "design_review_sha256": "2663e6f5ad1a9917828de5956c5dcdbe5ce58525b2253836fe7808cf0057336d",
+  "implementation_identity_sha256": "456c3b342c36a4ce016dacbdf2949e8c9e307d8eb97b9b9788c2f9941a760d15",
+  "implementation_identity_scope": "27 bound code, test, notebook, P2 workflow/conclusion, frozen support and XNYS environment entries from current_path_area_implementation_identity",
+  "material_blockers": [],
+  "reviewed_findings": [
+    "The default entry refuses source loading, fits, predictions and accounts without a separate owner receipt matching the frozen plan, implementation identity, and exact budget. Source artifact hashes, native input views, derived provider readback and source/code identities are established before R.start.",
+    "Exactly six fixed 2018/2019 original allocation fits use typed-empty auxiliary Datasets, are counted before each attempt, and must all seal before any OOF predict. Nine P1-qualified 2020/2021/2022 models are reused without refit. Fifteen OOF prediction calls are separate from 1800 training forward epochs; routing uses actual trade year and refuses 2023+ predictions.",
+    "H1 virtual holdings are updated only after the prior return availability clock and before the next 09:46 target. Raw original predictions retain the 09:29 decision clock. Path area uses the fixed 09:31 open and fifteen closes through 09:45; missing prefix remains NaN with mask zero and does not suppress an otherwise eligible action label.",
+    "The single 2bp physical teacher owns share quantities, spendable cash, dividend receivables, event IDs, fee tiers, NAV/peak/history and risk state continuously. Each EXECUTE/HOLD local label deep-clones the same pre-order state, applies branch-specific corporate and fee outcomes, and resets both paths to the same next teacher target. The final missing next target has an unknown label.",
+    "One native raw-account validation checks the prescribed shadow. Its derived Qlib provider adds only an admitted next-session 2022 raw 09:31 open as an executor calendar guard. That guard is outside point_prices, orders, valuations, labels and native comparison. Missing required marks stop the run.",
+    "The support gate counts eligible mature pre-2022 action rows without requiring prefix mask one. A count pass, native agreement and this review do not certify historical PIT, first receipt, independent validation, SOXX excess, P3 or production readiness.",
+    "Final delta: each OOF model.predict is recorded as attempted before invocation, then completed with returned row count and a partial Recorder artifact immediately after return. Failure retains the in-progress slot or failure receipt, so a mid-loop exception cannot be reported as zero consumed forwards. The final summary distinguishes 15 OOF predictions from 1800 training forward epochs.",
+    "Final delta: the exact implementation review SHA is required by the separate P2 GO receipt. The result summary supplies an absolute P2 recorder_uri for the existing verified Recorder reader, plus daily Qlib provider and P1 snapshot lineage; the temporary derived provider is disclosed as removed after validation.",
+    "Final delta: a source-reader exception leaves loaded-artifact count explicitly unknown; incomplete fits retain an unknown epoch count. Area, local-label, shadow and native-account attempts are recorded before execution. Python shadow and label artifacts are saved before native validation so a native failure leaves the consumed work auditable."
+  ],
+  "verification_basis": {
+    "review_mode": "static scoped code and metadata review",
+    "synthetic_contract": "executor reported focused test_path_area_bridge.py passing after final delta: 1 passed",
+    "identity_recomputed_by_reviewer": true,
+    "real_P1_objects_or_models_loaded_by_reviewer": 0,
+    "real_prices_or_labels_read_by_reviewer": 0,
+    "new_tests_or_fits_or_accounts_by_reviewer": 0
+  },
+  "execution_scope_remaining": "Owner must issue a distinct P2_execution_authorization.json bound to this exact implementation identity and frozen budget before a real P2 run. P3 and economic promotion remain outside this review."
+}

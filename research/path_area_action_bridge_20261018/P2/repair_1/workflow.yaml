@@ -1,0 +1,33 @@
+experiment: path_area_action_bridge_20261018_P2_repair_1
+phase: P2_repair_1_postfit_only
+entrypoint: src.workflow.path_area_bridge_recovery.run_path_area_bridge_repair
+frozen_original_plan: ../../P2_plan.json
+repair_plan: repair_plan.json
+failure_manifest: ../failure_manifest.json
+actual_execution_authorization: repair_execution_authorization.json
+region: us
+recorder_uri: qlib_recorder
+source_recorder: ../../P1/qlib_recorder
+failed_checkpoint_recorder: ../qlib_recorder
+read_only_failed_recorder_id: 004c3320e6214a14bfdbd06425379514
+new_allocation_fits: 0
+new_model_forward_calls: 0
+saved_new_states: 6
+saved_seed_oof_outputs: 15
+parent_artifact_loads_maximum: 9
+shadow_policy_paths: 1
+native_accounts: 1
+action_classifier_fits: 0
+evaluation_2023_plus_accounts: 0
+new_market_source_queries: 0
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+    - saved_six_states_fit_barrier_and_fifteen_seed_oof_outputs
+    - source_and_checkpoint_read_audits
+    - smoothed_targets_path_area_controls_and_mask
+    - physical_shadow_orders_positions_cash_receivables_fee_state
+    - local_action_labels_and_native_reconciliation
+execution_guard:
+  requires: repair_implementation_review.json and separate repair_execution_authorization.json
+  default: no source or checkpoint deserialization and no Recorder start

@@ -1,0 +1,11 @@
+{
+  "pid": 87339,
+  "start_identity": "ps:Tue Oct 20 16:19:06 2026",
+  "exit_code": 1,
+  "finished_at": "2026-10-20T08:19:21.708857+00:00",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "implementation_identity_sha256": "456c3b342c36a4ce016dacbdf2949e8c9e307d8eb97b9b9788c2f9941a760d15",
+  "execution_authorization_sha256": "edb6ecd025d8e89a0b768d44ad0b34f78c0e32f3a46f689dea72a2d1bf59225e",
+  "status": "failed",
+  "log_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-path-area-p2-fcwyrc4_/nbconvert.log"
+}

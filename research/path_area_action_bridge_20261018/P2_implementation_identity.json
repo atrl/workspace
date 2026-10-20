@@ -1,0 +1,32 @@
+{
+  "files": {
+    "src/core/recorder_sources.py": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+    "src/core/native_evidence.py": "a02b3c6b1800874553ee40e939959acddbc81f9b2443c3aeafe6942bca067ebb",
+    "src/analysis/decision_bridge.py": "8c4d880f48807e0bea442f2abd04d45ede04cbab2bdf5a5f45b1bb535560e6bc",
+    "src/data/path_area_bridge.py": "e5ebe11f5a6ee69a76865ce31f8af97a11ab8a9ef970a25bf66a14a3a296b320",
+    "src/backtest/path_area_teacher.py": "37cda05d48d6f90ef6e658d78545a6d103200d09276b5aea193e74960ac62c0a",
+    "src/workflow/path_area_bridge.py": "01f6c4f0d7b77aa44ae9555888df889a3d278aec7d3b1f7fa80f7ff255b14070",
+    "src/data/path_area_source_preflight.py": "4d8896357363ca66e6fd4b12f8d48e2bf9080466336c62204bae91adc8e2f860",
+    "src/model/minute_pit_allocator.py": "d06962ac2739633c0af34e3843365f1ad4c0a9bbc9dff0ba38e1636db6a175c8",
+    "src/workflow/minute_pit_allocator.py": "7d8131a084b173e7903dbdf246001c6b73d29d83433177564e2cce04a0c62a13",
+    "src/backtest/raw_corporate_policy.py": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+    "src/backtest/ibkr_tiered.py": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+    "src/data/minute_price_basis.py": "d3abbb1b7a3ca6e1b7cdd78e55903c2b03dd4202cadd4caf61fac91ebe68dbf5",
+    "src/data/full_path_prices.py": "a048feafe47db675009e196c55376aaf4e2dc09e5aa40523094afe912cbfef8d",
+    "tests/test_path_area_bridge.py": "53bbf85e8f3963340fb22b450e4146b793a824f163e1edad782fdcbfa27d44dd",
+    "research/path_area_action_bridge_20261018/path_area_action_bridge_20261018.ipynb": "ada716981d085c13781a5fd295fb1519d5a8d19765d9a4646f9f82567a14f704",
+    "research/path_area_action_bridge_20261018/P2/workflow.yaml": "27f43ec2a81dd745d4f09b41023941a55bb1aa5acc820ffaba64fd5b5fcdb06b",
+    "src/backtest/stage1_domain_heads_raw.py": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+    "src/analysis/tiered_action_labels.py": "209c916c4d8937ced5824d86fde15f5381508fa3b085a41d37d03bc8a116fb0f",
+    "src/data/nas_minute_bundle.py": "a70d04cceee3012d7139b5e96ef045aa39d2aa0cccd56b0fc281723ba2fa2b65",
+    "src/workflow/close_rod_source_preflight.py": "dc566ff14916b79526129df7a3010569547f35bddb09362229cc105413850ee8",
+    "environment:exchange_calendars.exchange_calendar_xnys": "baa39f07163abafcf2800b69edc5d920c3db0a64f8bbb30dc7d522883d0b5bd7",
+    "environment:exchange_calendars.exchange_calendar": "7b8087892b698299fe448afbc4b3fb9300a34ba1605804999436525391c08de6",
+    "environment:exchange_calendars.us_holidays": "a2444bd7aef3ff651faff3f9117c47a0d41e9e7c312f38ecf42403e4d996830e"
+  },
+  "sha256": "456c3b342c36a4ce016dacbdf2949e8c9e307d8eb97b9b9788c2f9941a760d15"
+}

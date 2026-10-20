@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "receipts": [
+    {
+      "phase": "P1",
+      "status": "completed",
+      "source": "research/path_area_action_bridge_20261018/P1_execution_receipt.json",
+      "source_sha256": "74f3395da99c4cbf6e18a753bd98e10a3569fd45cd57e42a7060242e72e1c37c",
+      "review": "research/path_area_action_bridge_20261018/result_review.json",
+      "review_sha256": "44e872ca5f14cba88ab162f269f79c147d5e0aa9f0c93b69dc394a23e636ba96"
+    },
+    {
+      "phase": "P2",
+      "status": "closed_failed",
+      "source": "research/path_area_action_bridge_20261018/P2/failure_summary.json",
+      "source_sha256": "69451895cb53eb04ec46bfc3bb3c1beb571e45fc9ab9f13cca87196f8886315d"
+    },
+    {
+      "phase": "P2_repair_1",
+      "status": "closed_failed",
+      "source": "research/path_area_action_bridge_20261018/P2/repair_1/failure_receipt.json",
+      "source_sha256": "e70fbd1895b846f626ab39699a7aa87a80afc923dfe23270c46864110c17c798"
+    }
+  ]
+}

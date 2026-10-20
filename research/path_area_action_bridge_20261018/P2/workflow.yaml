@@ -1,0 +1,39 @@
+experiment: path_area_action_bridge_20261018_P2
+card_experiment: path_area_action_bridge_20261018
+phase: P2_train_only_oof_path_area_local_action_bridge
+entrypoint: src.workflow.path_area_bridge.run_path_area_bridge
+plan: ../P2_plan.json
+plan_sha256: db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171
+implementation_authorization: ../P2_implementation_authorization.json
+actual_execution_authorization: P2_execution_authorization.json
+implementation_review: ../P2_implementation_review.json
+provider_uri:
+  P1_recorder: ../P1/qlib_recorder
+  source_dataset: P1 inputs/datasets and inputs/admitted_source_objects only
+  derived_point_provider: temporary outside workspace from P1 bounded_core_minutes Dataset
+region: us
+trade_years: [2018, 2019, 2020, 2021, 2022]
+new_fit_slots: 6
+reused_model_slots: 9
+shadow_policy_paths: 1
+native_accounts: 1
+action_classifier_fits: 0
+evaluation_2023_plus_accounts: 0
+market_http: 0
+new_market_source_queries: 0
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+    - fitted_models_and_fit_barrier
+    - per_seed_oof_and_smoothed_targets
+    - path_area_controls_and_mask
+    - shadow_orders_positions_cash_receivables_fee_state
+    - local_action_branch_labels_and_costs
+    - native_dataset_and_account_reconciliation
+  root_sidecars:
+    - workflow.yaml
+    - conclusion.md
+    - P2_execution_state.json after actual execution GO
+execution_guard:
+  requires: P2_execution_authorization.json with exact frozen plan SHA and exact budget
+  default: no source load, fit, prediction, area, label, shadow, native account, or Recorder run

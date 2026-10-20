@@ -12,9 +12,8 @@ notebook.
 
 ## Required Shape
 
-- Prefer `runtime/<direction>/card/<experiment>/` for new runtime experiments.
-  Existing promoted qlib cards may live under `research/<experiment>/` or
-  `production/<experiment>/`.
+- Use the repository's active research/production notebook surfaces as defined
+  in AGENTS.md; do not introduce a second runtime card hierarchy.
 - Make `<experiment>.ipynb` the primary executable workflow and conclusion.
 - Keep the card directory slim: `workflow.yaml`, `summary.json`, selected model
   metadata, risk/backtest/analysis summaries, and the notebook.
@@ -28,13 +27,12 @@ notebook.
 - Keep `soxl_backtest.reference` only as the legacy comparison benchmark when
   needed.
 
-## Default Validation
+## Focused Validation
 
-```bash
-PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_soxlbacktest_framework.py -q
-PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_qlib_native_workflow.py tests/test_qlib_model_selection_validation.py tests/test_qlib_native_notebook_cards.py -q
-PYTHONPATH=. qlib_venv/bin/python -m nbconvert --execute runtime/model_selection/card/<experiment>/<experiment>.ipynb --to notebook --inplace
-```
+Follow the repository verification policy: use the smallest meaningful existing
+check for the changed layer. Execute the relevant notebook for new research;
+reuse unchanged verified Recorder evidence for presentation or delivery changes.
+Do not rerun generic suites, refit models, or replay accounts just to update prose.
 
 Every notebook should end with a concise conclusion cell covering what ran, key
 metrics, decision, risk notes, artifact links, and next action.

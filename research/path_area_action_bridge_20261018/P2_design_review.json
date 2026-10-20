@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "phase": "P2",
+  "reviewer": "independent_evaluator",
+  "verdict": "APPROVE_P2_IMPLEMENTATION_DESIGN",
+  "design_draft_sha256": "c8db689b9f12b20756b003ff7e002de6fc428ddfe2460a9a7fd5a336891d66b5",
+  "P1_result_review_sha256": "44e872ca5f14cba88ab162f269f79c147d5e0aa9f0c93b69dc394a23e636ba96",
+  "scope": "Static P2 design review only. This approves freezing and implementing the bounded design, not a real-source run, completed fit, label, account, P3, or promotion.",
+  "material_design_blockers": [],
+  "review_findings": [
+    "Routing uses actual trade year, original twenty-session purge and independently mature H5 labels. Exactly six early original-model fits are budgeted; nine qualified 2020-2022 model bytes are reused with zero refits. Typed-empty early auxiliary datasets preserve the original zero-loss branch.",
+    "Original _smooth_weights consumes the current H1 return only after outputting the current accepted target, so a chronological implementation can use that update for the next 09:46 decision only. Keep explicit per-row return availability assertions. Raw predictions retain their 09:29 clock; the smoothed target does not inherit it.",
+    "One physical training shadow owns quantities, spendable cash, receivables, applied corporate-event IDs, fee tiers, NAV history and risk state. The nonlearned opening preparation and always-execute target are distinct from fitted opening/recovery controllers; the existing replay_stage1_raw and replay_raw_package cannot be invoked unchanged.",
+    "Each local EXECUTE/HOLD pair clones the same pre-order physical state, settles each own fee and corporate path, and resets at the same following teacher target. Branch-specific quantities, NAV, cash and reset costs are legitimate. The terminal missing next target remains an unknown label.",
+    "The 1055 complete-prefix/marks/next-target intersection is neither label count nor upper bound. The missing-prefix 2020 row retains mask zero and may retain a mature label. Actual pre-2022 support must be counted after P2; the threshold remains 200.",
+    "Present-day source bytes are admitted for conditional retrospective development only. Historical PIT, first receipt, independence, economic success and production permission remain false. The final benchmark for later economic evaluation is SOXX, with unchanged risk, stability and forward gates."
+  ],
+  "implementation_review_focus": [
+    "Verify exact first and final prescribed trade dates against PG signal/trade/exit timing and bounded 2022 marks; do not infer an exit mark or use a 2023 price object. If a required final native endpoint is unavailable, stop the shadow rather than alter the grid silently.",
+    "Show that each 09:46 risk-state input uses only the shadow's known 09:45 NAV/history and that the next common target is calculated once on the teacher state, not recalculated separately inside branches.",
+    "Freeze the clone depth and event/fee ordering, including month transitions and unpaid dividends, in the concentrated synthetic receipt before any real price, model, label or account load."
+  ],
+  "budget": {
+    "new_original_allocation_fits_maximum": 6,
+    "saved_model_reuse": 9,
+    "common_shadow_paths": 1,
+    "native_reconciliations": 1,
+    "action_classifier_fits": 0,
+    "evaluation_2023_plus": 0
+  },
+  "reviewer_actions": {
+    "static_code_and_metadata_only": true,
+    "models_or_Datasets_deserialized": 0,
+    "price_or_label_values_read": 0,
+    "market_or_source_API_calls": 0,
+    "tests_or_predictions_or_fits_or_accounts": 0
+  },
+  "next_action": "Owner may freeze P2 and authorize implementation. Review the completed code and one synthetic qualification separately before any actual P2 run."
+}

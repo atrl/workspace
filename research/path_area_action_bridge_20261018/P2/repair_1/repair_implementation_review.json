@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "phase": "P2_repair_1",
+  "reviewer": "independent_evaluator",
+  "verdict": "APPROVE_P2_REPAIR_FOR_SEPARATE_EXECUTION_GO",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "failure_manifest_sha256": "1ee03974f3abfac3db38b6b0a988166a3544d0d9e4209c9c1b549ef551ba9143",
+  "failure_summary_sha256": "69451895cb53eb04ec46bfc3bb3c1beb571e45fc9ab9f13cca87196f8886315d",
+  "failure_metadata_receipt_sha256": "c39877e64eb267828ec047a31909f87e5f6120c08f1c665c4c3fa30759869ec5",
+  "failed_recorder_id": "004c3320e6214a14bfdbd06425379514",
+  "failed_recorder_status": "FAILED",
+  "repair_implementation_sha256": "4203a1e1167fe600e9b90e00e922012d55201e413d63b04eb86b269d7e9908e8",
+  "repair_implementation_entries": 32,
+  "material_blockers": [],
+  "scope": "One mechanical post-fit continuation for the KeyError tariff lookup, with the frozen P1 Tiered tariff passed explicitly and deepcopy imported for the previously unentered shadow receipt. No scientific parameter, target, cost, gate, source or selection change.",
+  "reviewed_conditions": [
+    "The original run remains a distinct FAILED Qlib Recorder. Repair preflights the sealed run metadata and all 34 artifact bytes, verifies its failed status and fixed six-state barrier, and reads the six saved states, 15 seed OOF outputs and aggregate prediction without calling fit or predict.",
+    "The repair reloads the same nine pinned P1 artifacts, rebuilds one temporary derived point provider with one native readback, and recomputes the same smoothing and path area once. Its GO budget is zero additional fits and zero model forwards, one physical shadow, one local-label pass and one native reconciliation. Cumulative original-plus-repair ceilings are six fits, 1800 epochs, 15 OOF forwards, 18 P1 artifact loads, two provider builds/readbacks and two deterministic smoothing/area passes.",
+    "A new repair Recorder and card receive copied checkpoint evidence and the reviewed implementation code snapshot. Repair-run metrics record zero fits and zero OOF prediction rows; the summary labels prior failed-run, repair-run and cumulative work separately. The failed Recorder is never resumed or relabeled.",
+    "The default repair entry requires this review and a separate owner execution receipt bound to its exact code identity, failure seal and budget. The repair notebook is an allowed static card file; existing execution artifacts prevent retry. Historical PIT, first receipt, independent validation, SOXX excess, P3 and promotion remain unqualified."
+  ],
+  "verification_basis": {
+    "review_mode": "scoped static design and implementation review",
+    "identity_recomputed_by_reviewer": true,
+    "failure_seal_metadata_hashes_verified_by_reviewer": true,
+    "focused_synthetic": "executor reported two focused tests passed; guarded notebook code cell executed without GO or source read",
+    "real_source_checkpoint_or_model_objects_loaded_by_reviewer": 0,
+    "new_fits_predictions_shadow_labels_or_native_accounts_by_reviewer": 0
+  },
+  "next_action": "Owner may issue a separate exact repair_execution_authorization.json. Actual run and subsequent scientific result require their own evidence review."
+}

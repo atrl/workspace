@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-20",
+  "scope": "active three-asset campaign entry and instruction/archive transition only",
+  "integration_target": "main",
+  "source_commit": "1a1cc9e3df15251aec21bed3b81635e84cf627b1",
+  "active_entry": {
+    "path": "research/three_asset_campaign.json",
+    "sha256": "136feefab89cace9ca5f37a5700d2451f56d539e21f76da6538b4cdd8c9da29c"
+  },
+  "archives": [
+    {
+      "path": "docs/archive/three_asset_research_contract_v1_20261020.md",
+      "sha256": "9e90f4e4466352341064a20a310e08547b445d0722c2ee950dfc8d6b5f35d3a9",
+      "source_path": "docs/three_asset_research_contract.md",
+      "source_commit": "1a1cc9e3df15251aec21bed3b81635e84cf627b1",
+      "verification": "SHA-256 matches source bytes at source_commit"
+    },
+    {
+      "path": "docs/archive/research_failure_to_feature_sop_pre_20261020.md",
+      "sha256": "3f2bfb7b2b15819af1db7817074eaa387d78112f5231dc85a410091dca6fab38",
+      "source_path": "docs/research_failure_to_feature_sop.md",
+      "source_commit": "1a1cc9e3df15251aec21bed3b81635e84cf627b1",
+      "verification": "SHA-256 matches source bytes at source_commit"
+    },
+    {
+      "path": "research/campaign_history/three_asset_campaign_pre_v2_20261020.json",
+      "sha256": "1486e2f1eb5daee9afd40e43b4acb880c3243da9154fb7f20d30dd7945c9624d",
+      "source_path": "research/three_asset_campaign.json",
+      "source_commit": "1a1cc9e3df15251aec21bed3b81635e84cf627b1",
+      "verification": "SHA-256 matches source bytes at source_commit"
+    },
+    {
+      "path": "docs/archive/AGENTS_pre_20261020.md",
+      "sha256": "039194968e6f2469698923b9b79a12a195db6ebc4fff59222c43676074d05005",
+      "source_path": "AGENTS.md",
+      "source_commit": "1a1cc9e3df15251aec21bed3b81635e84cf627b1",
+      "verification": "SHA-256 matches source bytes at source_commit"
+    },
+    {
+      "path": "docs/archive/SPEC_pre_20261020.md",
+      "sha256": "9a97d0ef124c42b5b4377f45fb9d98671863b79abc20ff3258eb3f75981d7840",
+      "source_path": "SPEC.md",
+      "source_commit": "1a1cc9e3df15251aec21bed3b81635e84cf627b1",
+      "verification": "SHA-256 matches source bytes at source_commit"
+    }
+  ],
+  "cleanup_result": {
+    "scientific_code_deletions": 0,
+    "reason": "Frozen cards, imports, or serialized artifacts preserve references; code remains recoverable.",
+    "repository_wide_cleanup_claimed": false,
+    "preexisting_worktree_changes_preserved": true
+  },
+  "active_campaign_snapshot": {
+    "path": "research/three_asset_campaign.json",
+    "sha256": "354236909d7ec9af9f3ea0a8d5fe7424d4413d620285901e26b415bc24d817fe",
+    "bytes": 3264,
+    "as_of_utc": "2026-10-20T08:55:53.491699+00:00"
+  }
+}

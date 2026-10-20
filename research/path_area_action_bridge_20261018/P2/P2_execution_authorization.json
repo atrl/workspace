@@ -1,0 +1,30 @@
+{
+  "approved": true,
+  "owner": "/root",
+  "scope": "actual_P2_bridge_execution",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "design_review_sha256": "2663e6f5ad1a9917828de5956c5dcdbe5ce58525b2253836fe7808cf0057336d",
+  "implementation_identity_sha256": "456c3b342c36a4ce016dacbdf2949e8c9e307d8eb97b9b9788c2f9941a760d15",
+  "implementation_review_sha256": "777834f2121366cb71ac0ddcaabd970d867c60f1e5f6b36a5699ac78478e5353",
+  "approved_at_utc": "2026-10-20T08:18:09.761304+00:00",
+  "authorization_basis": "User approved the aligned v2 plan and explicitly requested implementation; scoped design and implementation independently accepted.",
+  "maximum_attempts": 1,
+  "budget": {
+    "new_allocation_fits_maximum": 6,
+    "saved_models_reused": 9,
+    "common_shadow_policy_paths": 1,
+    "common_shadow_native_accounts": 1,
+    "action_classifier_fits": 0,
+    "evaluation_2023_plus_forward_or_accounts": 0,
+    "new_market_source_queries": 0,
+    "new_market_HTTP": 0,
+    "parent_artifact_loads_maximum": 9,
+    "native_derived_point_provider_builds": 1,
+    "native_derived_point_provider_readbacks": 1,
+    "local_branch_pairs_maximum": "one per eligible PG-supported training shadow row"
+  },
+  "P3": false,
+  "operational_NAS_archive_authorized": true,
+  "goal_controller_status_observed": "blocked",
+  "goal_status_changed_by_this_authorization": false
+}

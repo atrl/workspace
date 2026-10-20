@@ -1,0 +1,385 @@
+{
+  "status": "passed",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "expected_slots": [
+    {
+      "trade_year": 2018,
+      "base_seed": 71,
+      "model_seed": 2089
+    },
+    {
+      "trade_year": 2018,
+      "base_seed": 172,
+      "model_seed": 2190
+    },
+    {
+      "trade_year": 2018,
+      "base_seed": 273,
+      "model_seed": 2291
+    },
+    {
+      "trade_year": 2019,
+      "base_seed": 71,
+      "model_seed": 2090
+    },
+    {
+      "trade_year": 2019,
+      "base_seed": 172,
+      "model_seed": 2191
+    },
+    {
+      "trade_year": 2019,
+      "base_seed": 273,
+      "model_seed": 2292
+    }
+  ],
+  "completed_slots": [
+    {
+      "trade_year": 2018,
+      "base_seed": 71,
+      "model_seed": 2089,
+      "status": "fit_completed",
+      "state_sha256": "4ee447cef9ecf78ae0826ed527c6d62d3771be4639214db5ccae638d249e9cb4",
+      "train_dataset": {
+        "rows": 1741,
+        "columns": 85,
+        "sha256": "99671760aaae27e09b3156e1bcc71e70fa05184abe77d2b61a02b6dad69cbc5f",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "empty_aux_dataset": {
+        "rows": 0,
+        "columns": 20,
+        "sha256": "cf6afb91aea8c2ba25a272e1b7b136f318a67fee375806da4399b93581ab9a22",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "five_targets_sha256": "2b0d6453b09779911e5fbb6708a3f212eb306b4b6855678446c2b5ded860897d",
+      "primary_scaler_matches_P1": true,
+      "common_scaler_matches_P1": true,
+      "training_rows": 1741,
+      "audit": {
+        "training_rows": 1741,
+        "first_training_signal": "2011-01-03",
+        "last_training_signal": "2017-11-30",
+        "last_mature_label_at": "2017-12-08 09:31:00-05:00",
+        "cutoff": "2018-01-01 00:00:00-05:00",
+        "auxiliary_rows": 0,
+        "epochs": 300,
+        "checkpoint_policy": "fixed_final_epoch",
+        "loss_before_last_update": 0.016271116212010384,
+        "allocation_loss_before_last_update": -0.0008511352934874594,
+        "observed_minute_training_rows": {
+          "minute_core_ready": 0,
+          "minute_peer_ready": 0
+        },
+        "extra_scaler": {},
+        "feature_count": 39,
+        "native_dataset_class": "DatasetH",
+        "auxiliary_dataset_class": "DatasetH"
+      }
+    },
+    {
+      "trade_year": 2018,
+      "base_seed": 172,
+      "model_seed": 2190,
+      "status": "fit_completed",
+      "state_sha256": "58482ac67efeb44c35b5c2450e481a51822056221b22bb66d6631da3ea0189f2",
+      "train_dataset": {
+        "rows": 1741,
+        "columns": 85,
+        "sha256": "99671760aaae27e09b3156e1bcc71e70fa05184abe77d2b61a02b6dad69cbc5f",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "empty_aux_dataset": {
+        "rows": 0,
+        "columns": 20,
+        "sha256": "cf6afb91aea8c2ba25a272e1b7b136f318a67fee375806da4399b93581ab9a22",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "five_targets_sha256": "2b0d6453b09779911e5fbb6708a3f212eb306b4b6855678446c2b5ded860897d",
+      "primary_scaler_matches_P1": true,
+      "common_scaler_matches_P1": true,
+      "training_rows": 1741,
+      "audit": {
+        "training_rows": 1741,
+        "first_training_signal": "2011-01-03",
+        "last_training_signal": "2017-11-30",
+        "last_mature_label_at": "2017-12-08 09:31:00-05:00",
+        "cutoff": "2018-01-01 00:00:00-05:00",
+        "auxiliary_rows": 0,
+        "epochs": 300,
+        "checkpoint_policy": "fixed_final_epoch",
+        "loss_before_last_update": 0.016309721395373344,
+        "allocation_loss_before_last_update": -0.0008403856190852821,
+        "observed_minute_training_rows": {
+          "minute_core_ready": 0,
+          "minute_peer_ready": 0
+        },
+        "extra_scaler": {},
+        "feature_count": 39,
+        "native_dataset_class": "DatasetH",
+        "auxiliary_dataset_class": "DatasetH"
+      }
+    },
+    {
+      "trade_year": 2018,
+      "base_seed": 273,
+      "model_seed": 2291,
+      "status": "fit_completed",
+      "state_sha256": "fe24f9892bb5f53b53a549b815c823e4f0d2a4119b84d04b0e9e39a5a2313c2f",
+      "train_dataset": {
+        "rows": 1741,
+        "columns": 85,
+        "sha256": "99671760aaae27e09b3156e1bcc71e70fa05184abe77d2b61a02b6dad69cbc5f",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "empty_aux_dataset": {
+        "rows": 0,
+        "columns": 20,
+        "sha256": "cf6afb91aea8c2ba25a272e1b7b136f318a67fee375806da4399b93581ab9a22",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "five_targets_sha256": "2b0d6453b09779911e5fbb6708a3f212eb306b4b6855678446c2b5ded860897d",
+      "primary_scaler_matches_P1": true,
+      "common_scaler_matches_P1": true,
+      "training_rows": 1741,
+      "audit": {
+        "training_rows": 1741,
+        "first_training_signal": "2011-01-03",
+        "last_training_signal": "2017-11-30",
+        "last_mature_label_at": "2017-12-08 09:31:00-05:00",
+        "cutoff": "2018-01-01 00:00:00-05:00",
+        "auxiliary_rows": 0,
+        "epochs": 300,
+        "checkpoint_policy": "fixed_final_epoch",
+        "loss_before_last_update": 0.01595502346754074,
+        "allocation_loss_before_last_update": -0.0008201368618756533,
+        "observed_minute_training_rows": {
+          "minute_core_ready": 0,
+          "minute_peer_ready": 0
+        },
+        "extra_scaler": {},
+        "feature_count": 39,
+        "native_dataset_class": "DatasetH",
+        "auxiliary_dataset_class": "DatasetH"
+      }
+    },
+    {
+      "trade_year": 2019,
+      "base_seed": 71,
+      "model_seed": 2090,
+      "status": "fit_completed",
+      "state_sha256": "016227b420d7f16cf6e86d61467228fddc55ceb4d91cd6ef01498bdf2fbafcdf",
+      "train_dataset": {
+        "rows": 1992,
+        "columns": 85,
+        "sha256": "94cc8c67ee91e9af6934e181558ca316fa8386e1ae89a79619a4f4fd2efdd61c",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "empty_aux_dataset": {
+        "rows": 0,
+        "columns": 20,
+        "sha256": "cf6afb91aea8c2ba25a272e1b7b136f318a67fee375806da4399b93581ab9a22",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "five_targets_sha256": "10d7fe77a86197a7c7015a6cf35ea1d68482d4b4e4624f58857e32129cbab205",
+      "primary_scaler_matches_P1": true,
+      "common_scaler_matches_P1": true,
+      "training_rows": 1992,
+      "audit": {
+        "training_rows": 1992,
+        "first_training_signal": "2011-01-03",
+        "last_training_signal": "2018-11-29",
+        "last_mature_label_at": "2018-12-10 09:31:00-05:00",
+        "cutoff": "2019-01-01 00:00:00-05:00",
+        "auxiliary_rows": 0,
+        "epochs": 300,
+        "checkpoint_policy": "fixed_final_epoch",
+        "loss_before_last_update": 0.016100937500596046,
+        "allocation_loss_before_last_update": -0.0009123361669480801,
+        "observed_minute_training_rows": {
+          "minute_core_ready": 34,
+          "minute_peer_ready": 34
+        },
+        "extra_scaler": {},
+        "feature_count": 39,
+        "native_dataset_class": "DatasetH",
+        "auxiliary_dataset_class": "DatasetH"
+      }
+    },
+    {
+      "trade_year": 2019,
+      "base_seed": 172,
+      "model_seed": 2191,
+      "status": "fit_completed",
+      "state_sha256": "bbf88b08388f9234eb802994792912ae1d134eeb0b8b1ebf9cc4a64d55137cbc",
+      "train_dataset": {
+        "rows": 1992,
+        "columns": 85,
+        "sha256": "94cc8c67ee91e9af6934e181558ca316fa8386e1ae89a79619a4f4fd2efdd61c",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "empty_aux_dataset": {
+        "rows": 0,
+        "columns": 20,
+        "sha256": "cf6afb91aea8c2ba25a272e1b7b136f318a67fee375806da4399b93581ab9a22",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "five_targets_sha256": "10d7fe77a86197a7c7015a6cf35ea1d68482d4b4e4624f58857e32129cbab205",
+      "primary_scaler_matches_P1": true,
+      "common_scaler_matches_P1": true,
+      "training_rows": 1992,
+      "audit": {
+        "training_rows": 1992,
+        "first_training_signal": "2011-01-03",
+        "last_training_signal": "2018-11-29",
+        "last_mature_label_at": "2018-12-10 09:31:00-05:00",
+        "cutoff": "2019-01-01 00:00:00-05:00",
+        "auxiliary_rows": 0,
+        "epochs": 300,
+        "checkpoint_policy": "fixed_final_epoch",
+        "loss_before_last_update": 0.01625928469002247,
+        "allocation_loss_before_last_update": -0.0008457053918391466,
+        "observed_minute_training_rows": {
+          "minute_core_ready": 34,
+          "minute_peer_ready": 34
+        },
+        "extra_scaler": {},
+        "feature_count": 39,
+        "native_dataset_class": "DatasetH",
+        "auxiliary_dataset_class": "DatasetH"
+      }
+    },
+    {
+      "trade_year": 2019,
+      "base_seed": 273,
+      "model_seed": 2292,
+      "status": "fit_completed",
+      "state_sha256": "c6abc013eac9460853bb29b5056fa700b73655f1f9b1be672de8196ad164f12f",
+      "train_dataset": {
+        "rows": 1992,
+        "columns": 85,
+        "sha256": "94cc8c67ee91e9af6934e181558ca316fa8386e1ae89a79619a4f4fd2efdd61c",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "empty_aux_dataset": {
+        "rows": 0,
+        "columns": 20,
+        "sha256": "cf6afb91aea8c2ba25a272e1b7b136f318a67fee375806da4399b93581ab9a22",
+        "index_names": [
+          "datetime",
+          "instrument"
+        ],
+        "column_names": [
+          null,
+          null
+        ]
+      },
+      "five_targets_sha256": "10d7fe77a86197a7c7015a6cf35ea1d68482d4b4e4624f58857e32129cbab205",
+      "primary_scaler_matches_P1": true,
+      "common_scaler_matches_P1": true,
+      "training_rows": 1992,
+      "audit": {
+        "training_rows": 1992,
+        "first_training_signal": "2011-01-03",
+        "last_training_signal": "2018-11-29",
+        "last_mature_label_at": "2018-12-10 09:31:00-05:00",
+        "cutoff": "2019-01-01 00:00:00-05:00",
+        "auxiliary_rows": 0,
+        "epochs": 300,
+        "checkpoint_policy": "fixed_final_epoch",
+        "loss_before_last_update": 0.016203131526708603,
+        "allocation_loss_before_last_update": -0.000951199559494853,
+        "observed_minute_training_rows": {
+          "minute_core_ready": 34,
+          "minute_peer_ready": 34
+        },
+        "extra_scaler": {},
+        "feature_count": 39,
+        "native_dataset_class": "DatasetH",
+        "auxiliary_dataset_class": "DatasetH"
+      }
+    }
+  ],
+  "fitted_state_count": 6,
+  "maximum_new_fits": 6,
+  "partial_ensemble_permitted": false,
+  "all_states_sealed_before_prediction": true,
+  "sha256": "29b87bbbbf4dd643d4c85168581ed44d99ce5085d08472134c32573dfda9b6fc"
+}

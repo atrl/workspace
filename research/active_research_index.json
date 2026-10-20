@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
+  "active": [
+    {
+      "card": "research/path_area_action_bridge_20261018",
+      "phase": "P2",
+      "role": "single_numerical_experiment"
+    }
+  ],
+  "framework": [
+    "src/core/research_runtime.py",
+    "src/core/native_evidence.py",
+    "src/factor/research_candidates.py",
+    "src/analysis/decision_bridge.py",
+    "src/core/research_monitor.py"
+  ],
+  "closed_fixed_versions": [
+    {
+      "card": "research/stage1_domain_heads_20261018",
+      "status": "not_promoted",
+      "default_search": false,
+      "evidence_preserved": true
+    },
+    {
+      "card": "research/stage1_finra_short_mix_allocation_20261018",
+      "status": "not_promoted",
+      "default_search": false,
+      "evidence_preserved": true
+    },
+    {
+      "card": "research/stage1_close_rod_20261018",
+      "status": "not_promoted",
+      "default_search": false,
+      "evidence_preserved": true
+    },
+    {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "status": "not_promoted",
+      "default_search": false,
+      "evidence_preserved": true
+    },
+    {
+      "card": "research/stage1_preopen_tom_20261018",
+      "status": "not_promoted",
+      "default_search": false,
+      "evidence_preserved": true
+    },
+    {
+      "card": "research/stage1_day_night_supervision_20261018",
+      "status": "not_promoted",
+      "default_search": false,
+      "evidence_preserved": true
+    }
+  ],
+  "deferred_sources": {
+    "authority": "research/campaign_history/three_asset_campaign_pre_v2_20261020.json",
+    "options_required": false,
+    "paid_acquisition": false
+  },
+  "do_not_reload": [
+    "closed Recorder/model objects without new bounded need",
+    "whole chat history for monitoring",
+    "all provider bin files for documentation"
+  ]
+}

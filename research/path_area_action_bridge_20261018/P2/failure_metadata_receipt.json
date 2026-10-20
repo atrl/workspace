@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "scope": "immutable failed P2 stage metadata and checkpoint manifest; no success relabeling",
+  "entries": [
+    {
+      "path": "research/path_area_action_bridge_20261018/P2/P2_execution_state.json",
+      "sha256": "65aa49497d5053c8c25c3af7ed6d6c21d5f3f6d3f7d4780d84ed0678cd92a018",
+      "bytes": 1689
+    },
+    {
+      "path": "research/path_area_action_bridge_20261018/P2/P2_failed_attempt.json",
+      "sha256": "ec8a3bb4a37e83da75b6986803c47b58c875b1d3006b82ec9ffda5b2ed78235e",
+      "bytes": 2618
+    },
+    {
+      "path": "research/path_area_action_bridge_20261018/P2/failure_manifest.json",
+      "sha256": "1ee03974f3abfac3db38b6b0a988166a3544d0d9e4209c9c1b549ef551ba9143",
+      "bytes": 8628
+    },
+    {
+      "path": "research/path_area_action_bridge_20261018/P2/failure_summary.json",
+      "sha256": "69451895cb53eb04ec46bfc3bb3c1beb571e45fc9ab9f13cca87196f8886315d",
+      "bytes": 4027
+    },
+    {
+      "path": "research/path_area_action_bridge_20261018/P2_process_exit.json",
+      "sha256": "f541bf5acebb0f0445cc5b0a4bc14718de3bfed2dae35706ff53fbb91f504cc9",
+      "bytes": 563
+    },
+    {
+      "path": "research/path_area_action_bridge_20261018/P2_job_handle.json",
+      "sha256": "318dc514ab75eebdf12f5f9eb9ee4e8335b156fd37d37de255f8d74c5ed0ca5b",
+      "bytes": 983
+    },
+    {
+      "path": "research/path_area_action_bridge_20261018/P2/P2_execution_authorization.json",
+      "sha256": "edb6ecd025d8e89a0b768d44ad0b34f78c0e32f3a46f689dea72a2d1bf59225e",
+      "bytes": 1407
+    }
+  ]
+}

@@ -1,0 +1,3100 @@
+{
+  "schema_version": 1,
+  "campaign": "three_asset_stable_excess_20261015",
+  "contract": "docs/three_asset_research_contract.md",
+  "goal_thread_id": "01a14cc9-e797-7b31-90f6-d95a821e4deb",
+  "objective_achieved": false,
+  "status": "blocked",
+  "assets": [
+    "SOXL",
+    "SOXX",
+    "CASH"
+  ],
+  "production_changes_authorized": false,
+  "current_experiment": "research/path_area_action_bridge_20261018",
+  "current_phase": "P1_implementation_accepted_pending_real_execution",
+  "next_action": "P1 is technically ready for a separately bound one-shot source/no-fit execution; no actual data qualification or model result exists yet. Goal controller reports blocked without a cause, so do not claim automatic execution is active. Prior continuous research authorization and all scientific gates remain unchanged.",
+  "roles": {
+    "owner": "/root",
+    "research_executor": "/root/recent_evidence",
+    "account_adapter_executor": "/root/challenge_summary",
+    "independent_evaluator": "/root/independent_evaluator",
+    "evaluator_mutates_candidate": false
+  },
+  "reference_cards": [
+    "research/tangent_allocation_head_20261014",
+    "research/open_router_ablation_20261015",
+    "research/tangent_risk_layer_20261014"
+  ],
+  "closed_route_authorities": [
+    "docs/research_failure_to_feature_sop.md",
+    "docs/research_evidence_boundary_20261015.md",
+    "research/stage1_domain_heads_20261018/independent_evaluation.json",
+    "research/stage1_finra_short_mix_allocation_20261018/independent_evaluation.json",
+    "research/stage1_close_rod_20261018/independent_evaluation.json",
+    "research/stage1_aux_projection_allocation_20261018/independent_evaluation.json"
+  ],
+  "data_use": {
+    "2023_through_2026_prior_results": "reused_diagnostic_not_independent",
+    "historical_total_trials": null,
+    "complete_repository_inventory": false
+  },
+  "forward_candidate": null,
+  "branch_dependencies": [
+    {
+      "branch": "historical_consensus_eps_surprise",
+      "status": "needs_data",
+      "dependency": "Matching point-in-time comparable actual, expectation sample/version and publication evidence",
+      "blocks_current_attribution": false
+    },
+    {
+      "branch": "etf_monthly_valuation",
+      "status": "fixed_annual_and_quarterly_experiments_completed_not_promoted",
+      "dependency": "Closed fixed versions; new source/mechanism required for further valuation research. Prior ingestion counts are historical, not current unexecuted-task status.",
+      "blocks_current_attribution": false,
+      "blocks_other_source_research": false,
+      "historical_source_preflight": {
+        "available_evidence": {
+          "issuer_CIKs_with_complete_payloads": 47,
+          "raw_facts": 35146,
+          "candidate_95pct_months": 23,
+          "maximum_prior60_candidate_months": 18,
+          "required_prior_snapshots": 36,
+          "qualified_ETF_EP_months": 0,
+          "qualified_two_issuer_annual_EP_rows": 164
+        },
+        "remaining_work": [
+          "Official foreign quarterly body ingestion; report existence confirmed, native transport failed",
+          "Implement and validate whole-basket numerator ownership, shares,ADR,FX,nominal-price and weight alignment",
+          "Obtain sufficient qualified history without weakening frozen eligibility"
+        ]
+      },
+      "current_evidence": [
+        "research/etf_annual_valuation_information_20261016",
+        "research/etf_quarterly_profit_information_20261016",
+        "research/etf_quarterly_profit_allocation_20261016"
+      ]
+    },
+    {
+      "branch": "soxx_sox_rebalance_information",
+      "status": "needs_dated_historical_weights",
+      "dependency": "dated historical index methodology/weights, announcement and effective times",
+      "blocks_monthly_valuation": false
+    },
+    {
+      "branch": "semis_option_skew",
+      "status": "deferred_not_current_dependency",
+      "dependency": "historical option quote/surface entitlement unavailable to user",
+      "evidence": "docs/semis_option_skew_source_20261018.md",
+      "blocks_current_experiment": false,
+      "purchase_authorized": false
+    },
+    {
+      "branch": "sec_uncertainty_lexicon",
+      "status": "needs_usage_and_byte_identity",
+      "dependency": "Fixed mirror metadata found; actual bytes/schema and purpose-compatible rights unresolved. No paid acquisition or author contact authorized.",
+      "blocks_other_source_research": false
+    },
+    {
+      "branch": "sec_uncertainty_offline_basket",
+      "status": "accepted_provisional_sample_only",
+      "dependency": "B0 actual Recorder/readback/independent review complete; AMD/SWKS frozen, 30 security records preserved. Historical identity/original10K/PIT qualification remains unknown.",
+      "blocks_other_source_research": false
+    },
+    {
+      "branch": "sec_uncertainty_SEC_network",
+      "status": "fixed_B1_intake_closed_403_challenge",
+      "dependency": "One actual403/challenge; data.sec.gov host-stop, zero history/headers, four missing annualslots. Independent review accepts gap, not source qualification. Needs new compliant source/access evidence; no same-run retry/identity/endpoint rotation. Does not block local path-area research.",
+      "blocks_other_source_research": false
+    },
+    {
+      "branch": "path_area_action_bridge",
+      "status": "P1_design_review",
+      "dependency": "Bounded local train-only source/input/model/corporate-clock qualification; actual OOF/area/labels/fits/accounts require later frozen stages.",
+      "blocks_other_source_research": false
+    }
+  ],
+  "experiments": [
+    {
+      "card": "research/three_asset_failure_attribution_20261015",
+      "kind": "diagnostic_no_new_fits_or_accounts",
+      "status": "completed_diagnostic_no_promotion",
+      "evaluation": "research/three_asset_failure_attribution_20261015/independent_evaluation.json",
+      "next_mechanism": "beta-preserving composition of risk-projected targets; not actual risk equivalence",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_DESCRIPTIVE_EXECUTION",
+        "plan_sha256": "3403f74384e08dc52c0e242c21ad62d00de2bda98c532a2d5ededc7b85157993",
+        "requirements": [
+          "exact source dates and frozen price basis equality",
+          "duplicate controls equal at all costs",
+          "no silent calendar intersection",
+          "full contiguous 126-session windows",
+          "endogenous state and recovery timing labels",
+          "no promotion or independent evidence claim"
+        ]
+      },
+      "recorder_id": "845902131e7c49e78d84e5a887881a8a",
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_decision_accounting.py tests/test_integrated_allocation_analysis.py -q",
+        "passed": 11,
+        "nas_cold_readback_artifacts": 46,
+        "all_hashes_match": true
+      }
+    },
+    {
+      "card": "research/beta_preserving_composition_20261015",
+      "kind": "bounded_composition_mechanism",
+      "parent": "research/three_asset_failure_attribution_20261015",
+      "status": "completed_not_promoted",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 3,
+      "evaluation": "research/beta_preserving_composition_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVED_FOR_BOUNDED_IMPLEMENTATION",
+        "plan_sha256": "c95dc0d2b29b3972d95a7f901026ede7e6a12b462125f72f2b3995c856e4c33b",
+        "required_source_check": "all native consumed fill and valuation marks, not merely open/recovery; exact dates and native report timestamps"
+      },
+      "recorder_id": "6680a54e6ac440bdbe96e438f5b9e197",
+      "failed_gates": [
+        "0bp monitored drawdown30.8604% exceeds30%",
+        "all126-session rolling positive excess rates below70%",
+        "all bootstrap lower bounds negative",
+        "independent_development absent",
+        "qualified_forward absent"
+      ],
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_full_path_tiered.py -q",
+        "passed": 4,
+        "new_fits": 0,
+        "new_native_accounts": 3,
+        "readback": "research/beta_preserving_composition_20261015/readback_verification.json"
+      }
+    },
+    {
+      "card": "research/composition_path_diagnosis_20261015",
+      "kind": "saved_account_failure_diagnostic",
+      "parent": "research/beta_preserving_composition_20261015",
+      "status": "completed_diagnostic_no_promotion",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FROZEN_READ_ONLY_DIAGNOSIS",
+        "plan_sha256": "e7013e820bf85fea37969a6fe4372d8f031afed13b290594d48a797fdb5143a3",
+        "timing_condition": "Current session execution fees occur after known NAV; separate prior cumulative fees from same-day fees."
+      },
+      "evaluation": "research/composition_path_diagnosis_20261015/independent_evaluation.json",
+      "recorder_id": "d09427aacccd442b87a4f0ffcc096935",
+      "next_mechanism": "Train allocation utility through fixed composition, retain raw inference plus original controller; design pending."
+    },
+    {
+      "card": "research/composition_objective_training_20261015",
+      "kind": "bounded_allocation_objective_training",
+      "parent": "research/composition_path_diagnosis_20261015",
+      "status": "completed_not_promoted",
+      "maximum_new_model_fits": 3,
+      "maximum_new_native_accounts": 3,
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_TRAINING_DESIGN",
+        "plan_sha256": "727edb8b7d997176ffe2dd29df1803383e3f80c9ac9b68e6cf80a7fe6acc9590",
+        "conditions": [
+          "same initialization/data/scalers/label maturity",
+          "T changes allocation objective only; inference raw then controller thenTonce",
+          "allcost candidate must beat pairedposthoc and strongalways; ownDD30unchanged",
+          "3fits3accounts; no coefficient/seed/epoch/window rescue"
+        ]
+      },
+      "evaluation": "research/composition_objective_training_20261015/independent_evaluation.json",
+      "recorder_id": "6f10179415094652b7107bcc506d7d50",
+      "failed_gates": [
+        "beat_paired_all_costs",
+        "beat_strong_always_all_costs",
+        "net_soxx_excess_all_costs",
+        "drawdown_30pct",
+        "rolling_70pct",
+        "complete_annual_70pct",
+        "bootstrap_positive",
+        "independent_development",
+        "qualified_forward"
+      ],
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_tangent_allocator.py -q",
+        "passed": 2,
+        "new_fits": 3,
+        "new_native_accounts": 3,
+        "nas_verified_artifacts": 61,
+        "budget_execution": {
+          "fit_attempts": [
+            71,
+            172,
+            273
+          ],
+          "fitted": [
+            71,
+            172,
+            273
+          ],
+          "native_attempts": [
+            0,
+            2,
+            5
+          ],
+          "native": [
+            0,
+            2,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "card": "research/causal_cost_scenario_controller_20261015",
+      "kind": "bounded_causal_cost_scenario_controller",
+      "parent": "research/composition_path_diagnosis_20261015",
+      "status": "completed_not_promoted",
+      "maximum_new_model_fits": 0,
+      "maximum_new_shadow_paths": 3,
+      "maximum_new_native_accounts": 3,
+      "evaluation": "research/causal_cost_scenario_controller_20261015/independent_evaluation.json",
+      "mechanism": "fixed minimumcap across predecision0/2/5 hypothetical own-state ledgers; unanimous recovery policy; coupled risk inputs with independently settled ledgers",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_COUPLED_POLICY_TEST",
+        "plan_sha256": "4e1eda15221fa741a9b4699271b34e1e1f82d663a9ab52e93e33a0b1f8733fff",
+        "conditions": [
+          "All scenarios snapshot before any same-clock fill",
+          "Fixedminimum caps andunanimous recovery package",
+          "Coupled signals but independent quantities/cash/NAV/monthlyfees",
+          "No scenario iterationorder effects; single-scenario/prefixsynthetic checks",
+          "0fits3shadowpaths3native validations; alloriginalgates retained"
+        ]
+      },
+      "recorder_id": "9097b0d6baae44b792ba7f7ec3e48d0b",
+      "failed_gates": [
+        "beat_paired_all_costs",
+        "rolling_70pct",
+        "bootstrap_positive",
+        "independent_development",
+        "qualified_forward"
+      ],
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_causal_cost_scenario_controller.py -q",
+        "passed": 1,
+        "new_fits": 0,
+        "new_shadow_paths": 3,
+        "new_native_accounts": 3,
+        "nas_verified_artifacts": 58,
+        "budget_execution": {
+          "shadow_attempted": true,
+          "shadow_completed": true,
+          "native_attempts": [
+            0,
+            2,
+            5
+          ],
+          "native": [
+            0,
+            2,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "card": "research/seed_disagreement_information_20261015",
+      "kind": "bounded_derived_model_reliability_information",
+      "parent": "research/causal_cost_scenario_controller_20261015",
+      "status": "completed_information_gate_failed",
+      "maximum_new_model_fits": 6,
+      "maximum_new_native_accounts": 0,
+      "evaluation": "research/seed_disagreement_information_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_INFORMATION_TEST",
+        "plan_sha256": "d1ca9add36db1fd90c06941261360d6c70f5d32725d5b8a73aa5ad4e217038ca",
+        "conditions": [
+          "annualOOF perseed rawprediction identity",
+          "43sharedbaseline+1populationbetaSTD coordinate",
+          "train-onlysharedbase preprocessing andidenticalrows",
+          "strictJan1maturity; final2022unknown kept",
+          "6fits0accounts; eachfoldMSE and masked756positionblockCI",
+          "alpha.05 onlysinglefeatureinformationscreen; notportfolioalpha.025"
+        ]
+      },
+      "recorder_id": "8a96b8c477d44bd0a8d58be793ffcfb9",
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_seed_disagreement_information.py -q",
+        "passed": 1,
+        "new_statistical_fits": 6,
+        "new_native_accounts": 0,
+        "nas_verified_artifacts": 22,
+        "execution_attempts": "research/seed_disagreement_information_20261015/execution_attempts.json"
+      }
+    },
+    {
+      "card": "research/fullminute_frozen_position_risk_20261015",
+      "kind": "fullminute_frozen_holdings_risk_qualification",
+      "parent": "research/causal_cost_scenario_controller_20261015",
+      "status": "completed_bounded_RTH_risk_qualified_no_promotion",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "fixed_valuation_count": 6,
+      "evaluation": "research/fullminute_frozen_position_risk_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FROZEN_RTH_RISK_VALUATION",
+        "plan_sha256": "46f662ce8983809514bb8327254d0512edbf692cf6139dbfc66b1e80fd90588f",
+        "conditions": [
+          "pinned fullminute source and sameaffinequantitybasis",
+          "exactparentanchors andnativeq/cash/fee reconciliation",
+          "rightedgebar andpre/postfillevent chronology",
+          "terminalexitopen only, no laterextrema/liquidation",
+          "observed vs conservativebound qualified separately",
+          "RTHproxyonly, noovernight/broker/dividend upgrade"
+        ]
+      },
+      "recorder_id": "5732aecd6e6148bbbb8706249006f46b",
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_fullminute_frozen_position_risk.py -q",
+        "passed": 1,
+        "fixed_valuations": 6,
+        "new_native_accounts": 0,
+        "new_fits": 0,
+        "nas_verified_artifacts": 29
+      }
+    },
+    {
+      "card": "research/cpi_opening_context_information_20261015",
+      "kind": "external_release_context_information",
+      "parent": "research/causal_cost_scenario_controller_20261015",
+      "status": "source_gate_blocked_before_any_fit",
+      "maximum_new_statistical_fits": 6,
+      "maximum_new_native_accounts": 0,
+      "source_gate_expected_releases": 48,
+      "evaluation": "research/cpi_opening_context_information_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_SOURCE_GATE_THEN_BOUNDED_INFORMATION_TEST",
+        "plan_sha256": "25fb29f5d9b8e3e89877af9a701dbb1af9e7f453f969f4e4436618cfd619ee31",
+        "conditions": [
+          "All48officialactualreleaseheaders beforeanyfit",
+          "Releasecontext not CPIvalues/surprise/schedulevintage/firstreceipt",
+          "Baseline includesCPIflag plainopeningreturn andsourceavailability",
+          "Fixednext09:47 horizon; strictmaturity andsame756calendar755labels",
+          "6Ridgefits46vs47columns; informationgateonly",
+          "Sourcefailureblocksbranch no substitutions or globalGoalcompletion"
+        ]
+      },
+      "recorder_id": "a669eaea24b9402eb58870f4c661a2e4",
+      "scientific_hypothesis_evaluated": false,
+      "verification": {
+        "command": "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_cpi_release_calendar.py -q",
+        "passed": 1,
+        "new_fits": 0,
+        "new_native_accounts": 0,
+        "request_attempts": 1,
+        "source_http_status": 403,
+        "execution_attempts": "research/cpi_opening_context_information_20261015/execution_attempts.json"
+      }
+    },
+    {
+      "card": "research/cpi_official_text_intake_20261015",
+      "kind": "source_only_retrieval_format_amendment",
+      "parent": "research/cpi_opening_context_information_20261015",
+      "status": "completed_source_qualified_no_promotion",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "maximum_unique_official_urls": 49,
+      "maximum_tool_operations": 156,
+      "evaluation": "research/cpi_official_text_intake_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_SOURCE_ONLY_FORMAT_AMENDMENT",
+        "plan_sha256": "ce60cc27c499da45a6f86651433debf0d103922a977b0288efdb4114fc00a0c6",
+        "prior_unexecuted_plan_sha256": "f8350524e0e2039bf7d09f91cfaeefed87864c32df536c90d28242341a920aeb",
+        "conditions": [
+          "Officialindexclick countsasreleaseopen within existingbudget",
+          "Capturedtooltext/cache hash NOTpublisherHTMLhash",
+          "Every48header/date/month/clock complete, no snippets/inference",
+          "No fits under source-only approval; newsourcebinding required"
+        ]
+      },
+      "actual_tool_operations": 49,
+      "parsed_headers": 48,
+      "original_calendar_rejection": {
+        "recorder_id": "5ff7d49ca2d3445fb95b303a33e711e2",
+        "archive_sha256": "c1098b7c5d766989f0364dfbc274cad574b4352a1fb01e8abeb7cd71d4014a9b",
+        "reason": "Valid 2020-04-10 GoodFriday release is not XNYS session; no model fit or event shift"
+      },
+      "recorder_id": "3b119c3350784dec83b90c18fbf1535a",
+      "source_gate": {
+        "passed": true,
+        "same_day_trading_events": 47,
+        "trading_events_by_release_year": {
+          "2019": 12,
+          "2020": 11,
+          "2021": 12,
+          "2022": 12
+        },
+        "nontrading_release_dates": [
+          "2020-04-10"
+        ],
+        "events": 48,
+        "distinct_urls": 49,
+        "operations": 49,
+        "index_operations": 1,
+        "maximum_release_operations": 1,
+        "actual_release_year_counts": {
+          "2019": 12,
+          "2020": 12,
+          "2021": 12,
+          "2022": 12
+        },
+        "capture_format": "official web-tool rendered text, NOT publisher HTML bytes",
+        "qualification": "Qualified only as official rendered-text date/time evidence for historical release-before-decision flag. Does not prove originalHTMLbytes,firstreceipt,site-publication latency,preannouncedschedule vintage ornumericCPIvalue vintage. Source-only result not information/portfolio gate."
+      },
+      "calendar_amendment_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_PRE_FIT_HOLIDAY_PRESERVING_CORRECTION",
+        "plan_sha256": "f6e5b4b303bb504a22877db1df98ae6256013bc9d8fa7b0b13535201a4e2cdfc",
+        "conditions": [
+          "All48events retained,47same-day trading events",
+          "No forwardfill, no synthetic market row, no outcome selection",
+          "Zero new retrieval orfits"
+        ]
+      },
+      "verification": {
+        "nas_verified_artifacts": 12,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_accounts": 0
+      }
+    },
+    {
+      "card": "research/cpi_opening_context_information_text_20261015",
+      "kind": "fixed_cpi_opening_interaction_information",
+      "parent": "research/cpi_official_text_intake_20261015",
+      "status": "completed_not_promoted_fixed_route_closed",
+      "maximum_new_statistical_fits": 6,
+      "maximum_new_native_accounts": 0,
+      "plan_sha256": "7d2b686bdd74253707e85de07f45ea9b4cf0972a228f841155ff7f437dad002c",
+      "source_event_count": 48,
+      "native_event_count": 47,
+      "evaluation": "research/cpi_opening_context_information_text_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_NEW_SOURCE_BOUND_FIXED_INFORMATION_TEST",
+        "plan_sha256": "7d2b686bdd74253707e85de07f45ea9b4cf0972a228f841155ff7f437dad002c",
+        "conditions": [
+          "Original statistical design unchanged",
+          "Source48/native47 same-day join, no Monday shift",
+          "Release timestamp before decision, same masks and strict maturity",
+          "6fits0newfetch0accounts, no parameter rescue"
+        ]
+      },
+      "recorder_id": "6a3f6df19a09412e917504083df8d699",
+      "information_gate_pass": false,
+      "failed_gates": [
+        "2020 and2021 fold MSE improvements negative",
+        "Pooled fullcalendar lower5percent block bound negative"
+      ],
+      "verification": {
+        "new_statistical_fits": 6,
+        "new_native_accounts": 0,
+        "new_retrieval_operations": 0,
+        "nas_verified_artifacts": 29,
+        "all_hashes_match": true
+      }
+    },
+    {
+      "card": "research/coupled_controller_gradient_feasibility_20261015",
+      "kind": "pre_fit_exact_controller_gradient_feasibility",
+      "status": "completed_fixed_surrogate_rejected",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "maximum_reference_shadow_paths": 27,
+      "maximum_tensor_baseline_paths": 3,
+      "initial_plan_sha256": "abf885a1dc27d62b3e9174ea75f34844653c01dad6237508d4c633a7146b9840",
+      "independent_design_findings": [
+        "Exact current coupledcontroller training not literally tested by prior full_path or compositionproxy routes",
+        "Benchmark enters nonlinear shortfall derivative; exact object needed",
+        "Warmup DD mask must be explicit and identical",
+        "Qualification limited to exercised branches"
+      ],
+      "evaluation": "research/coupled_controller_gradient_feasibility_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_ZERO_OPTIMIZATION_MECHANICAL_QUALIFICATION",
+        "plan_sha256": "c73103cf2aabedf405dd35d0f95d56c58dae584fb37dddd1d9a591eb91969d10",
+        "conditions": [
+          "Exact pinned SOXX close NAV endpoints retained inside nonlinear loss",
+          "DD all189 includingwarmup, relative row62 to188",
+          "Originalfloat32 inference, float64 ledger",
+          "Qualified only on exercised branches, not global gradient or economic merit",
+          "No optimizer/fits/nativeaccounts or adaptive directions/epsilons"
+        ]
+      },
+      "recorder_id": "10e1a90b59214f51a382f8fb44219a26",
+      "mechanical_gate_pass": false,
+      "verification": {
+        "completed_reference_shadow_paths": 27,
+        "completed_tensor_paths": 3,
+        "optimizer_steps": 0,
+        "new_model_fits": 0,
+        "new_native_accounts": 0,
+        "nas_verified_artifacts": 31,
+        "all_hashes_match": true,
+        "original_inference_fidelity": "independently verified postrun"
+      },
+      "failed_gates": [
+        "All4 autograd versus exact finite difference comparisons fail",
+        "Both fixed directions change finite-difference sign across fixed scales"
+      ]
+    },
+    {
+      "card": "research/nvda_own_guidance_realization_source_20261015",
+      "kind": "existing_corpus_management_forecast_realization_source",
+      "status": "completed_source_qualified_subset_no_promotion",
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "maximum_new_fetches": 0,
+      "maximum_existing_fact_records": 66,
+      "maximum_existing_secondary_texts": 48,
+      "universe_target_quarters": 63,
+      "evaluation": "research/nvda_own_guidance_realization_source_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_EXISTING_CORPUS_SOURCE_QUALIFICATION",
+        "plan_sha256": "130fbe46bb32dbd7475bce70fe89d7c741316d47b35c0951a48a8f7d75ee7165",
+        "conditions": [
+          "Original regular-report actual versus own earlier original guidance, not fresh orconsensus surprise",
+          "Keepall63targets and originalqualificationflags",
+          "Explicit scopebridge for acquisition mismatches; no estimates",
+          "Keepknownpreannouncements, no allupdatescoverage claim",
+          "Conservative existingdatebound; no errorfeature ormarketoutcomes"
+        ]
+      },
+      "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0",
+      "qualification": {
+        "targets": 63,
+        "comparable": 61,
+        "blocked_scope": 1,
+        "not_yet_reported": 1,
+        "comparable_pre2023_events": 46,
+        "known_preannouncement_cases": 3
+      },
+      "verification": {
+        "nas_verified_artifacts": 16,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "new_fetches": 0
+      }
+    },
+    {
+      "card": "research/nvda_own_guidance_realization_training_20261015",
+      "kind": "full_history_paired_own_forecast_realization_training",
+      "status": "completed_fixed_route_not_promoted",
+      "maximum_new_model_fits": 6,
+      "maximum_shadow_policy_paths": 6,
+      "maximum_new_native_accounts": 6,
+      "evaluation": "research/nvda_own_guidance_realization_training_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_PAIRED_TRAINING",
+        "plan_sha256": "52c4e88636b29ec0ab87e5e22d88b422f1d7c7ddaf1f885e997ff8984330ebce",
+        "conditions": [
+          "Same42base coordinates, numericcandidate zeroextension",
+          "Source09:31 cannot enter same09:29decision; blocked resets/future ignored",
+          "Original longhistory loss/spec/cohorts fixed, all3seeds300epochs",
+          "Same currentcoupled mincap/recovery/T policy botharms",
+          "Mustbeatmatchedcontrol,current9097reference andSOXXallcosts/CI",
+          "Quarterly sourceevents not independent dailysamples",
+          "No postfailure tuning/promotion"
+        ]
+      },
+      "recorder_id": "27baa03f0d3046d8b82408ecb6ca07e7",
+      "verification": {
+        "new_allocator_fits": 6,
+        "new_shadow_policy_paths": 6,
+        "new_native_accounts": 6,
+        "focused_tests_passed": 1,
+        "nas_verified_artifacts": 97,
+        "all_hashes_match": true
+      },
+      "failed_gates": [
+        "Rolling126positive fractions0.664225/0.656899/0.648352 below0.70",
+        "Bootstrap lowerbounds versusSOXX andcurrent9097 nonpositive",
+        "No independent development/forward qualification"
+      ],
+      "historical_point_improvement_all_costs": true
+    },
+    {
+      "card": "research/amd_own_guidance_realization_source_20261015",
+      "kind": "fixed_AMD_existing_corpus_own_guidance_source",
+      "status": "completed_existing_source_subset_qualified_with_gaps",
+      "maximum_new_fetches": 0,
+      "maximum_new_fits": 0,
+      "maximum_new_accounts": 0,
+      "current_target_rows": 36,
+      "overall_intended_target_rows": 63,
+      "evaluation": "research/amd_own_guidance_realization_source_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_EXISTING_CORPUS_QUALIFICATION",
+        "plan_sha256": "60401a091aa770c8459f663c66dc4f57996c8362a839b136063843e0742e9044",
+        "conditions": [
+          "Only35regular+1preliminary existingAMD documents",
+          "Explicit original same-report scopebridge with published precision, no estimatedsubtraction",
+          "Original guide andsamequarter actual roles distinct; updates retained",
+          "36currentrows plus27olderdependency not mistakenforfullhistory",
+          "No newfetch/outcome/errorfeature/fits orautomatic19eventtraining"
+        ]
+      },
+      "recorder_id": "868e58319b964688bef06235f9e91fc2",
+      "qualification": {
+        "current_targets": 36,
+        "comparable": 30,
+        "scopeproof_blocked": 4,
+        "missing_original_guide": 1,
+        "not_yet_reported": 1,
+        "pre2023_comparable_events": 17
+      },
+      "verification": {
+        "nas_verified_artifacts": 14,
+        "all_hashes_match": true,
+        "new_fetches": 0,
+        "new_fits": 0,
+        "new_accounts": 0
+      }
+    },
+    {
+      "card": "research/amd_own_guidance_history_intake_20261015",
+      "kind": "fixed_AMD_older_primary_source_intake",
+      "status": "completed_bounded_history_qualified_with_gaps",
+      "target_regular_reports": 28,
+      "target_report_range": "FY2010Q4–FY2017Q3",
+      "maximum_total_operations": 140,
+      "maximum_unique_urls": 85,
+      "maximum_official_queries": 28,
+      "maximum_new_fits": 0,
+      "maximum_new_accounts": 0,
+      "evaluation": "research/amd_own_guidance_history_intake_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_OFFICIAL_HISTORY_INTAKE",
+        "plan_sha256": "5e419a90afbb7daa21e372f1f5ffd4b31cb2e97e78bc2456fda31781c7a45f07",
+        "conditions": [
+          "FixedAMDonly28regularreports",
+          "OfficialAMD/SEC only; retries/redirects/failures count",
+          "Reused2011capture pinned, no pointlessrefetch",
+          "RawHTML versusrenderedtext identities distinguished",
+          "Keep parent4scopeblocks; no later-doc repair",
+          "No outcomes/errorfeatures/fits orautomatictraining"
+        ]
+      },
+      "recorder_id": "0eb8433c64e54764ad5702c9b0bdab05",
+      "qualification": {
+        "targets": 63,
+        "comparable": 55,
+        "scopeproof_blocked": 5,
+        "qualitative_unknown": 2,
+        "not_yet_reported": 1,
+        "pre2023_comparable_events": 42
+      },
+      "verification": {
+        "network_operations": 42,
+        "new_URLs": 40,
+        "new_regular_reports": 28,
+        "new_update_documents": 4,
+        "nas_verified_artifacts": 18,
+        "all_hashes_match": true,
+        "focused_tests_passed": 1,
+        "new_fits": 0,
+        "new_accounts": 0
+      }
+    },
+    {
+      "card": "research/amd_frozen_nvda_residual_training_20261015",
+      "kind": "fixed_AMD_increment_on_frozen_NVDA_base",
+      "status": "completed_fixed_AMD_residual_not_promoted",
+      "maximum_new_residual_fits": 6,
+      "maximum_new_base_model_fits": 0,
+      "maximum_new_shadow_paths": 6,
+      "maximum_new_native_accounts": 6,
+      "evaluation": "research/amd_frozen_nvda_residual_training_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_FROZEN_BASE_RESIDUAL",
+        "plan_sha256": "9e9ab6c1cd142a2e348476cd77664aae71f5207c941c2d2e724bdb1186a7b508",
+        "conditions": [
+          "Immutable27baa base tensors/scalers/featureorder and NVDAstate",
+          "ZeroAMDlinear9vs12weights,biasFalse; beforefitraw/EMA parity",
+          "OnlyresidualW optimized; no aux/classifier gradient claims",
+          "Same3014eligibleprimary,timejoin,train-onlyscaling and unknownrules",
+          "6residualfits/6paths/6native, all3seeds300epochs",
+          "HardfrozenNVDA/matched/SOXX andconfidence gates",
+          "No capacity/gain/epoch/epsilon orotherissuer sweep"
+        ]
+      },
+      "recorder_id": "d037b7d15b7f42c9ba89caf49728e250",
+      "verification": {
+        "new_residual_fits": 6,
+        "new_base_model_fits": 0,
+        "new_auxiliary_gradient_rows": 0,
+        "new_shadow_paths": 6,
+        "new_native_accounts": 6,
+        "focused_tests_passed": 2,
+        "nas_verified_artifacts": 81,
+        "all_hashes_match": true
+      },
+      "failed_gates": [
+        "Belowmatchedcontrol,frozenNVDA27baa andSOXXallcosts",
+        "Rolling126positive fractions0.5617/0.5592/0.5470 below0.70",
+        "Completeannual andbootstrap gates fail",
+        "No independentforward"
+      ]
+    },
+    {
+      "card": "research/nvda_diagnostic_forward_readiness_20261015",
+      "kind": "bounded_readonly_diagnostic_forward_readiness",
+      "status": "completed_not_ready",
+      "recorder_id": "a803f9b1884f4e93a9572614701ed978",
+      "evaluation": "research/nvda_diagnostic_forward_readiness_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_READONLY_ASSESSMENT",
+        "plan_sha256": "02583876910a238a0d42119fe1ae5b0cb41e7d86427dc8c9a41914e5b2da2aed"
+      },
+      "verification": {
+        "nas_verified_artifacts": 12,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_replays": 0,
+        "new_accounts": 0,
+        "new_data_fetches": 0,
+        "launches": 0,
+        "orders": 0,
+        "production_changes": 0
+      },
+      "qualified_new_forward_days": 0,
+      "next_action_review": "research/nvda_diagnostic_forward_readiness_20261015/next_action_review.json"
+    },
+    {
+      "card": "research/affine_raw_accounting_bridge_20261015",
+      "kind": "finite_existing_source_unit_accounting_timing_bridge",
+      "status": "completed_finite_unit_bridge_cash_and_PIT_unqualified",
+      "numeric_unit_cases": 3,
+      "price_anchor_rows": 8,
+      "new_policy_replays": 0,
+      "new_native_accounts": 0,
+      "new_fits": 0,
+      "new_fetches": 0,
+      "evaluation": "research/affine_raw_accounting_bridge_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_THREE_CASE_BRIDGE",
+        "plan_sha256": "1e03bf5f8b8f813a46e2cb26909c8d2d1cec4759693bcb2e7d160db935bf75c6",
+        "conditions": [
+          "Dates/types chosen beforevalues, no substituteevents",
+          "ActualreferenceB0; nonzeroB onlysymbolic,outside2010event",
+          "Cashfieldnot inferredfromB; splitsuseexplicitratio",
+          "Providerroundoff separatefromeconomicexposure",
+          "Unknowncurrency/entitlement/paydate/receipt cannotpasscash/PIT",
+          "No strategyreturn/risk/biasestimation orobserverlaunch"
+        ]
+      },
+      "recorder_id": "b6cf662c0feb4d46badbdad4ccf18346",
+      "effective_report": "research/affine_raw_accounting_bridge_20261015/case_gates_corrected.csv",
+      "reporting_correction": "research/affine_raw_accounting_bridge_20261015/reporting_correction.json",
+      "verification": {
+        "numeric_unit_cases": 3,
+        "Qlib_anchor_rows": 8,
+        "nas_verified_artifacts": 19,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_replays": 0,
+        "new_accounts": 0,
+        "new_fetches": 0,
+        "observer_launches": 0
+      },
+      "cash_economic_bridge_qualified": false,
+      "PIT_timing_qualified": false,
+      "whole_strategy_bias_estimated": false
+    },
+    {
+      "card": "research/soxl_20230321_cash_event_qualification_20261015",
+      "kind": "fixed_existing_cash_event_source_qualification",
+      "status": "completed_conditional_paper_convention_currency_PIT_unqualified",
+      "recorder_id": "324f8b8d1b04425996b7292460304d0b",
+      "evaluation": "research/soxl_20230321_cash_event_qualification_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "plan_sha256": "82a3085dee6023be3a3035fac51e47855bbd35c5c6f56ff363ee41cee0e5cafa",
+        "verdict": "APPROVE_FIXED_ONE_EVENT"
+      },
+      "verification": {
+        "fixed_events": 1,
+        "nas_verified_artifacts": 15,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_replays": 0,
+        "new_accounts": 0,
+        "new_fetches": 0,
+        "observer_launches": 0
+      },
+      "amount_and_economic_dates_qualified_under_parent_contract": true,
+      "paper_convention_defined_conditionally": true,
+      "currency_qualified": false,
+      "historical_PIT_qualified": false,
+      "actual_broker_credit_verified": false
+    },
+    {
+      "card": "research/raw_share_unit_cashbook_20261015",
+      "kind": "finite_raw_share_unit_cashbook",
+      "status": "completed_unit_accounting_not_strategy_qualification",
+      "recorder_id": "30c103a97bd3485897dd3de6c7f7d60b",
+      "evaluation": "research/raw_share_unit_cashbook_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "plan_sha256": "470922f2e293fe7ce6f0844f274bf7e57ee3f49fdd6d8aba82929e1ea99e127a",
+        "verdict": "APPROVE_FIXED_THREE_UNIT_BOOKS"
+      },
+      "verification": {
+        "unit_books": 3,
+        "unique_events": 11,
+        "saved_raw_marks": 8,
+        "focused_tests_passed": 1,
+        "nas_verified_artifacts": 24,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_policy_replays": 0,
+        "new_native_backtest_accounts": 0,
+        "new_fetches": 0,
+        "observer_launches": 0
+      },
+      "currency": "explicit_USD_gross_pretax_paper_assumption",
+      "historical_PIT_qualified": false,
+      "actual_broker_parity": false
+    },
+    {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "kind": "full_frozen_policy_raw_accounting_impact",
+      "status": "completed_not_promoted_rolling_and_confidence_failed",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "evaluation": "research/frozen_policy_raw_cashbook_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_NINE_PATH_RAW_ACCOUNTING_IMPACT",
+        "plan_sha256": "5a1c72285db384e01646c27f9bca491212dcf0095d5ec347fa49068fafddf68c"
+      },
+      "verification": {
+        "native_unique_cases": 9,
+        "native_attempts": 10,
+        "policy_paths": 9,
+        "new_fits": 0,
+        "focused_tests_passed": 1,
+        "cold_read_artifacts": 56,
+        "all_hashes_match": true
+      },
+      "gates": {
+        "net_soxx_excess_all_costs": true,
+        "beat_raw_strong_all_costs": true,
+        "sampled_drawdown_30pct": true,
+        "cvar_no_worse": true,
+        "rolling_70pct": false,
+        "complete_annual_70pct": true,
+        "bootstrap_positive": false,
+        "fullminute_risk_qualified": false,
+        "independent_development": false,
+        "qualified_forward": false
+      },
+      "currency": "explicit_USD_gross_pretax_paper_assumption",
+      "benchmark": "raw SOXX buy once, cash dividends retained, no automatic reinvestment",
+      "historical_PIT_qualified": false,
+      "actual_broker_parity": false
+    },
+    {
+      "card": "research/raw_weaktrend_exposure_diagnostic_20261015",
+      "kind": "saved_raw_policy_exposure_diagnostic",
+      "status": "completed_descriptive_no_promotion",
+      "recorder_id": "ddd40ced5c194300bfa3eed6e62db3dc",
+      "evaluation": "research/raw_weaktrend_exposure_diagnostic_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_EXISTING_TRACE_DIAGNOSIS",
+        "plan_sha256": "7dffc8c8fde3650f034b13b70cc1f84e23eb49fd427fab0c76210fb1e357b33a"
+      },
+      "verification": {
+        "paths": 6,
+        "sessions_per_path": 944,
+        "windows_per_path": 819,
+        "nas_verified_artifacts": 26,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_inference": 0,
+        "new_policy_paths": 0,
+        "new_fetches": 0
+      },
+      "next_direction_review": "research/raw_weaktrend_exposure_diagnostic_20261015/market_reuse_review.json"
+    },
+    {
+      "card": "research/family_balanced_direct_utility_training_20261015",
+      "kind": "family_balanced_generic_direct_utility_comparison",
+      "status": "not_promoted_fixed_package_closed",
+      "recorder_id": "bc51d1c6a4644b1b8c9a1a455bd348c1",
+      "evaluation": "research/family_balanced_direct_utility_training_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_FAMILY_BALANCED_UTILITY_COMPARISON",
+        "plan_sha256": "766c18e6e706a3c8de716910cadf6189f7eb19cfb7c5c980f39658058a247b80"
+      },
+      "verification": {
+        "fits": 6,
+        "new_policy_paths": 6,
+        "new_native_accounts": 6,
+        "focused_tests_passed": 1,
+        "cold_read_artifacts": 71,
+        "all_hashes_match": true
+      },
+      "gates": {
+        "beat_matched_control_all_costs": true,
+        "beat_frozen_raw27baa_all_costs": false,
+        "net_soxx_excess_all_costs": false,
+        "sampled_drawdown_30pct": true,
+        "cvar_no_worse_soxx": true,
+        "rolling_70pct_soxx": false,
+        "complete_annual_70pct_soxx": false,
+        "bootstrap_positive_all_three": false,
+        "fullminute_risk_qualified": false,
+        "independent_development": false,
+        "qualified_forward": false
+      },
+      "historical_point_increment_not_statistically_established": true,
+      "two_bp_return_pct": 238.25941,
+      "two_bp_matched_control_return_pct": 199.138535,
+      "two_bp_rolling_positive_fraction": 0.379731,
+      "individual_stock_feature_extensions": false
+    },
+    {
+      "card": "research/generic_index_risk_transfer_20261015",
+      "kind": "generic_index_tail_only_representation_transfer",
+      "status": "not_promoted_fixed_package_closed",
+      "recorder_id": "83a13ab47cdb4e28a5fe285821909a28",
+      "evaluation": "research/generic_index_risk_transfer_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_INDEX_TAIL_RISK_TRANSFER",
+        "plan_sha256": "79528e43569e199bf608469b8869b6287f294d5f40f6a30237f0053fa8c0e4b9"
+      },
+      "verification": {
+        "trained_models": 6,
+        "fit_invocations": 7,
+        "new_policy_paths": 6,
+        "new_native_accounts": 6,
+        "focused_tests_passed": 1,
+        "cold_read_artifacts": 76,
+        "all_hashes_match": true
+      },
+      "gates": {
+        "beat_matched_control_all_costs": true,
+        "beat_frozen_raw27baa_all_costs": false,
+        "net_soxx_excess_all_costs": true,
+        "sampled_drawdown_30pct": true,
+        "cvar_no_worse_soxx": true,
+        "rolling_70pct_soxx": false,
+        "complete_annual_70pct_soxx": true,
+        "bootstrap_positive_all_three": false,
+        "fullminute_risk_qualified": false,
+        "independent_development": false,
+        "qualified_forward": false
+      },
+      "two_bp_return_pct": 418.551533,
+      "two_bp_matched_return_pct": 392.036183,
+      "two_bp_rolling_positive_fraction": 0.582418,
+      "point_increment_not_statistically_established": true,
+      "next_question_review": "research/generic_index_risk_transfer_20261015/next_question_review.json"
+    },
+    {
+      "card": "research/generic_index_tail_scoring_20261015",
+      "kind": "saved_tail_forecast_proper_scoring",
+      "status": "completed_candidate_scoring_worse_parent_route_closed",
+      "recorder_id": "85d314b1f0ac470e856da416a2f156cd",
+      "evaluation": "research/generic_index_tail_scoring_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_FIXED_SAVED_FORECAST_SCORING",
+        "plan_sha256": "ae4ef830a9d8e9995c495c6a12db0dcb8cf46109d2fb502557c44f81324e29f8"
+      },
+      "verification": {
+        "cold_read_artifacts": 20,
+        "all_hashes_match": true,
+        "new_fits": 0,
+        "new_inference": 0,
+        "new_accounts": 0,
+        "new_fetches": 0
+      },
+      "calendar_rows": 944,
+      "scored_rows": 940,
+      "event_count": 105,
+      "unknown_rows": 4,
+      "primary_logloss_improvement": -0.09125544730360703,
+      "primary_interval": [
+        -0.1475460873114306,
+        -0.04196168198506539
+      ],
+      "parent_portfolio_route_remains_closed": true
+    },
+    {
+      "card": "research/sector_residual_context_information_20261015",
+      "kind": "fixed_paired_covariance_context_information",
+      "status": "not_promoted_fixed_formula_closed",
+      "recorder_id": "aada2e6cfdb5406e918a2ad3949da9c7",
+      "evaluation": "research/sector_residual_context_information_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_PREFIT_AMENDED_CONTEXT_TEST",
+        "plan_sha256": "a13b47d17e1a2a629bb3fd4a55654027e99d5a9fed1833e87c439c790c961d66",
+        "prefit_change": "Before source reads, labels or fits, require5of7positiveyears plus unchanged pooledCI; original2446draft preserved inplan"
+      },
+      "verification": {
+        "Ridge_fits": 14,
+        "new_policy_accounts": 0,
+        "new_fetches": 0,
+        "focused_tests_passed": 1,
+        "cold_read_artifacts": 42,
+        "all_hashes_match": true
+      },
+      "information_gate_pass": false,
+      "positive_years": 1,
+      "evaluation_calendar_rows": 1762,
+      "mature_scored_rows": 1756,
+      "pooled_MSE_improvement": -1.3286112556877183e-06,
+      "interval": [
+        -3.866224969704034e-06,
+        5.571246356027737e-07
+      ],
+      "next_source_hypothesis": "research/sector_residual_context_information_20261015/next_source_hypothesis.json"
+    },
+    {
+      "card": "research/equal_weight_market_context_information_20261015",
+      "kind": "fixed_equal_weight_market_context_source_and_information_test",
+      "status": "source_passed_information_failed_fixed_route_closed",
+      "recorder_id": "eea365a8953e4e85ba3b98f4132926d2",
+      "evaluation": "research/equal_weight_market_context_information_20261015/independent_evaluation.json",
+      "design_review": {
+        "reviewer": "/root/evaluator",
+        "verdict": "APPROVE_BOUNDED_SOURCE_GATE_THEN_INFORMATION_TEST",
+        "plan_sha256": "d459a7c53fe187c59e49300a025ee6adf3df04d23fb1ed886108aeb7fed02208"
+      },
+      "verification": {
+        "Ridge_fits": 14,
+        "HTTP_attempts": 2,
+        "new_policy_accounts": 0,
+        "focused_tests_passed": 1,
+        "cold_read_artifacts": 49,
+        "all_hashes_match": true
+      },
+      "source_gate_pass": true,
+      "information_gate_pass": false,
+      "positive_years": 2,
+      "pooled_MSE_improvement": -3.2557686964430186e-07,
+      "interval": [
+        -9.667440620901033e-07,
+        2.6957096423394664e-07
+      ],
+      "next_branch_review": "research/equal_weight_market_context_information_20261015/next_branch_review.json"
+    },
+    {
+      "card": "research/diagnostic_forward_study_20261016",
+      "kind": "prospective_diagnostic_offline_foundation",
+      "status": "offline_verified_live_mapping_and_transport_pending",
+      "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+      "recorder_id": "f294dd70e80e40b9acf977adc7c250d2",
+      "new_fits": 0,
+      "offline_allocator_calls": 9,
+      "offline_output_rows": 45,
+      "formula_reconstruction_passed": true,
+      "saved_prediction_parity_passed": true,
+      "new_forward_days": 0,
+      "pilot_launches": 0,
+      "evaluation": "research/diagnostic_forward_study_20261016/independent_evaluation.json",
+      "readback_artifacts": 28,
+      "promotion_eligible": false
+    },
+    {
+      "card": "research/diagnostic_forward_probe_20261016",
+      "kind": "four_call_read_only_pre_pilot_probe",
+      "status": "completed_negative_start_label_gate",
+      "recorder_id": "0e6f44724ed142f7bba9efa3e0705b3f",
+      "application_calls": 4,
+      "successful_protocol_responses": 4,
+      "selected_session": "2026-10-14",
+      "observed_rows_per_symbol": 390,
+      "observed_labels": "09:31..16:00",
+      "source_gate_passed": false,
+      "new_fits": 0,
+      "model_calls": 0,
+      "new_forward_days": 0,
+      "pilot_launches": 0,
+      "evaluation": "research/diagnostic_forward_probe_20261016/independent_evaluation.json",
+      "readback_artifacts": 25
+    },
+    {
+      "card": "research/diagnostic_forward_bar_mapping_20261016",
+      "kind": "zero_fetch_saved_history_bar_mapping",
+      "status": "completed_bounded_mapping_pass",
+      "plan_sha256": "00b8b8a366046e9765e2c0950cccc255af78b27e66a486d285d3b00c9339ffcf",
+      "recorder_id": "0b98c0e31bc5468594d59e66214527df",
+      "comparison_windows": 52,
+      "fields_per_window": 5,
+      "maximum_aggregation_error": 0.0,
+      "Qlib_rows": 780,
+      "Qlib_calendar_endpoints": 390,
+      "original_artifacts_preserved": 22,
+      "native_software_repair_count": 1,
+      "new_fits": 0,
+      "model_calls": 0,
+      "new_forward_days": 0,
+      "pilot_launches": 0,
+      "evaluation": "research/diagnostic_forward_bar_mapping_20261016/independent_evaluation.json",
+      "readback_artifacts": 29
+    },
+    {
+      "card": "research/diagnostic_forward_io_v2_20261016",
+      "kind": "complete_prospective_IO_v2_offline_implementation",
+      "status": "offline_verified_not_live_qualified",
+      "plan_sha256": "a8eb75331f4a0071bfe00f1f207711f540ff8c3c41cd4806a2a62d5e07a4438b",
+      "recorder_id": "28d006871fbc409f8c20766cf5dc6e9e",
+      "offline_real_saved_SPY_rows": 3226,
+      "synthetic_native_books": 12,
+      "mock_model_calls": 9,
+      "actual_model_calls": 0,
+      "new_fits": 0,
+      "market_data_requests": 0,
+      "new_forward_days": 0,
+      "pilot_launched": false,
+      "readback_artifacts": 23,
+      "evaluation": "research/diagnostic_forward_io_v2_20261016/independent_evaluation.json",
+      "new_input_plane_not_historical_equivalence": true,
+      "remaining_gate": "Exact registered future pilot with actual source/clock/model/native evidence"
+    },
+    {
+      "card": "research/etf_transfer_attribution_20261016",
+      "kind": "saved_native_account_descriptive_attribution",
+      "status": "descriptive_diagnosis_only_parent_routes_remain_not_promoted",
+      "recorder_id": "1a3e5cd71d6e4887b87adc01fee7ebb9",
+      "evaluation": "research/etf_transfer_attribution_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_valuation_source_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "needs_qualified_historical_valuation_inputs",
+      "recorder_id": "dfc655657b964f9e97b06d74505598aa",
+      "evaluation": "research/etf_valuation_source_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_monthly_valuation_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "needs_data_monthly_valuation_only",
+      "recorder_id": "74a79f6e67ea44e782bb49c970978a56",
+      "evaluation": "research/etf_monthly_valuation_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_pit_fundamentals_intake_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "raw_issuer_facts_acquired_needs_original_TTM_share_price_identity_validation",
+      "recorder_id": "19fc354e534c44ea95f5332258e54565",
+      "evaluation": "research/etf_pit_fundamentals_intake_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0,
+      "raw_fact_rows": 19749
+    },
+    {
+      "card": "research/etf_pit_fundamentals_repair_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "raw_issuer_facts_acquired_needs_original_TTM_share_price_identity_validation",
+      "recorder_id": "1e947608d2f64491a754d576814e9165",
+      "evaluation": "research/etf_pit_fundamentals_repair_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0,
+      "raw_fact_rows": 35146
+    },
+    {
+      "card": "research/etf_pit_ttm_coverage_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "candidate_monetary_TTM_constructed_not_EP_qualified",
+      "recorder_id": "1a8e335b8ec94277b5f4e70af3228bc6",
+      "evaluation": "research/etf_pit_ttm_coverage_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_pit_ttm_tag_coverage_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "candidate_monetary_TTM_constructed_not_EP_qualified",
+      "recorder_id": "d677363e9fdc439f871e41dddb58b498",
+      "evaluation": "research/etf_pit_ttm_tag_coverage_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_foreign_quarterly_source_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "historical_quarter_reports_discoverable_native_transport_not_qualified",
+      "recorder_id": "fcfce8a112db462cbc75f05140d3b771",
+      "evaluation": "research/etf_foreign_quarterly_source_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0
+    },
+    {
+      "card": "research/etf_earnings_price_basis_20261016",
+      "kind": "source_and_feature_qualification_no_model",
+      "status": "two_issuer_delayed_annual_EP_source_pilot_only",
+      "recorder_id": "e7b8e8ee8554466bad2b1a26e498f0a8",
+      "evaluation": "research/etf_earnings_price_basis_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "qualified_ETF_monthly_rows": 0,
+      "qualified_two_issuer_annual_EP_rows": 164
+    },
+    {
+      "card": "research/etf_foreign_quarterly_intake_20261016",
+      "kind": "continuous_foreign_parent_income_source",
+      "status": "continuous_parent_income_source_reconstructed_research_proxy",
+      "recorder_id": "66f16a3c3d4a414e8b11a3584c3b5478",
+      "evaluation": "research/etf_foreign_quarterly_intake_20261016/independent_evaluation.json",
+      "new_fits": 0,
+      "new_native_accounts": 0,
+      "quarters_per_issuer": 34,
+      "canonical_event_vintages": 255
+    },
+    {
+      "card": "research/etf_annual_valuation_information_20261016",
+      "kind": "paired_monthly_annual_valuation_information",
+      "status": "completed_not_promoted_fixed_information_version",
+      "recorder_id": "50e5ce9c48b94216aa1e66649a509e87",
+      "evaluation": "research/etf_annual_valuation_information_20261016/independent_evaluation.json",
+      "new_fits": 6,
+      "new_native_accounts": 0,
+      "evaluation_months": 31,
+      "paired_normalized_MSE_improvement": -0.18188343234227902,
+      "gates": {
+        "pooled_improvement_positive": false,
+        "bootstrap_lower_positive": false,
+        "complete_year_70pct": false
+      }
+    },
+    {
+      "card": "research/etf_quarterly_profit_information_20261016",
+      "kind": "paired_monthly_quarterly_profit_information",
+      "status": "not_promoted_fixed_quarterly_profit_information",
+      "recorder_id": "e5cddbe95c994b93ae60b8475ec9abc4",
+      "new_fits": 8,
+      "new_accounts": 0,
+      "evaluation_months": 43,
+      "independent_forward": false
+    },
+    {
+      "card": "research/etf_quarterly_profit_allocation_20261016",
+      "kind": "preregistered_direct_monthly_quarterly_profit_utility",
+      "status": "not_promoted_fixed_quarterly_profit_direct_allocation",
+      "recorder_id": "7e061c68d0624f99ab78db89df866f3f",
+      "new_fits": 6,
+      "new_native_accounts": 15,
+      "monthly_references": 31,
+      "daily_sessions": 647,
+      "historical_data_reused": true,
+      "evaluation": "research/etf_quarterly_profit_allocation_20261016/independent_evaluation.json"
+    },
+    {
+      "card": "research/minute_value_weight_20261017",
+      "kind": "bounded_minute_value_weight_information_screen",
+      "status": "not_promoted_information_gate_failed",
+      "maximum_new_model_fits": 18,
+      "maximum_new_native_accounts": 0,
+      "historical_data_reused": true,
+      "production_changes_authorized": false,
+      "evaluation": "research/minute_value_weight_20261017/independent_evaluation.json",
+      "design_review": {
+        "role": "independent_evaluator",
+        "agent": "/root/reviewer",
+        "reviewed_at_utc": "2026-10-17T01:23:43.844208+00:00",
+        "plan_sha256": "202a0d38175ea113f553e4396f52c5c4c356e24b9ed6513e163e95f6db183dc0",
+        "decision": "approved_before_fit",
+        "conditions": "Source preflight success: 2007 qualified sessions,17 early closes; native minute all OHLCV float32 equals immutable source, daily marks equal verified parent Recorder; DatasetH readback exact.",
+        "checks": [
+          "label shifts before missing-session filtering",
+          "strict maturity cutoff",
+          "shared uniform/learned Value initialization",
+          "masked padded values invariant in both networks"
+        ],
+        "caveat": "Learned weighting adds GRU capacity; positive result is this mechanism package, not capacity-isolated proof."
+      },
+      "recorder_id": "0f1a94b799624d258aa1bf8acd18044d",
+      "new_fits": 18,
+      "new_native_accounts": 0,
+      "failed_gates": [
+        "development_2021_2022_mse_better_handcrafted",
+        "development_2021_2022_two_seeds_handcrafted",
+        "paired_bootstrap_handcrafted",
+        "paired_bootstrap_uniform"
+      ],
+      "qualified_forward_days": 0,
+      "nas_archive_sha256": "0d993eed1656b427b14802cc580e7607f17a24d2675887b72a773e0c69556a73"
+    },
+    {
+      "card": "research/minute_self_supervised_20261017",
+      "kind": "train_only_self_supervised_minute_representation_screen",
+      "status": "not_promoted_information_gate_failed",
+      "maximum_pretraining_fits": 12,
+      "maximum_probe_fits": 20,
+      "maximum_new_native_accounts": 0,
+      "historical_data_reused": true,
+      "production_changes_authorized": false,
+      "evaluation": "research/minute_self_supervised_20261017/independent_evaluation.json",
+      "design_review": "research/minute_self_supervised_20261017/design_review.json",
+      "plan_sha256": "5424af1632b320ed66835c3551e1b73cf78f9cae3c3eb9c480b9894966690511",
+      "recorder_id": "49eee23e6f9c412d816a64fbc55b6cd6",
+      "new_pretraining_fits": 12,
+      "new_probe_fits": 20,
+      "new_native_accounts": 0,
+      "passing_candidates": [],
+      "failed_gates": {
+        "masked_reconstruction": [
+          "development_2021_2022_mse_better_handcrafted_ridge",
+          "development_2021_2022_mse_better_parent_best_observed",
+          "development_2021_2022_mse_better_training_mean",
+          "development_2021_2022_mse_better_zero_excess",
+          "reused_2023_2026_mse_better_parent_best_observed",
+          "reused_2023_2026_mse_better_training_mean",
+          "reused_2023_2026_mse_better_zero_excess",
+          "paired_bootstrap_random_frozen",
+          "paired_bootstrap_handcrafted_ridge",
+          "paired_bootstrap_parent_best_observed",
+          "paired_bootstrap_training_mean",
+          "paired_bootstrap_zero_excess"
+        ],
+        "contrastive": [
+          "development_2021_2022_positive_ic",
+          "development_2021_2022_mse_better_random_frozen",
+          "development_2021_2022_mse_better_handcrafted_ridge",
+          "development_2021_2022_mse_better_parent_best_observed",
+          "development_2021_2022_mse_better_training_mean",
+          "development_2021_2022_mse_better_zero_excess",
+          "reused_2023_2026_mse_better_random_frozen",
+          "reused_2023_2026_mse_better_handcrafted_ridge",
+          "reused_2023_2026_mse_better_parent_best_observed",
+          "reused_2023_2026_mse_better_training_mean",
+          "reused_2023_2026_mse_better_zero_excess",
+          "reused_2023_2026_two_seeds_better_random",
+          "paired_bootstrap_random_frozen",
+          "paired_bootstrap_handcrafted_ridge",
+          "paired_bootstrap_parent_best_observed",
+          "paired_bootstrap_training_mean",
+          "paired_bootstrap_zero_excess"
+        ]
+      },
+      "nas_archive_sha256": "7ab0ab4e4076107829b58ebacbc2ddb2b31151d713adfc26b06d0139dd3f0ef6"
+    },
+    {
+      "card": "research/stage1_domain_heads_20261018",
+      "kind": "stage1_primary_auxiliary_domain_specific_output_heads",
+      "status": "completed_not_promoted_fixed_version_closed",
+      "maximum_new_fits": 6,
+      "maximum_total_economic_accounts": 18,
+      "fit_cutoff": "2023-01-01T00:00:00-05:00",
+      "seeds": [
+        71,
+        172,
+        273
+      ],
+      "epochs": 300,
+      "checkpoint": "fixed_final_epoch",
+      "baseline_identity": {
+        "allocation": "f696f656b3d44e868588e09a5d97c905",
+        "action": "b472a458fc9042b4905094fddeaebd33"
+      },
+      "closed_routes_not_reopened": [
+        "classifier_gradient_detach",
+        "generic_index_tail_transfer",
+        "sparse_joint_tail_terminal_classifier"
+      ],
+      "counts_added_to_campaign_totals": true,
+      "design_review": {
+        "path": "research/stage1_domain_heads_20261018/design_review.json",
+        "plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+        "verdict": "APPROVE_DESIGN"
+      },
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "evaluation": "research/stage1_domain_heads_20261018/independent_evaluation.json",
+      "failed_gates": [
+        "net_relative_wealth_all_costs",
+        "complete_annual_70pct",
+        "rolling126_70pct",
+        "paired_block_lower_positive",
+        "fresh_fullminute_risk_qualified",
+        "qualified_independent_forward"
+      ],
+      "actual_new_fits": 6,
+      "actual_new_native_accounts": 9,
+      "reused_native_accounts": 9,
+      "nas_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "readback": {
+        "path": "research/stage1_domain_heads_20261018/readback_verification.json",
+        "verified_artifacts": 94,
+        "all_hashes_match": true
+      }
+    },
+    {
+      "card": "research/stage1_finra_short_mix_20261018",
+      "kind": "public_CNMS_short_mark_source_qualification",
+      "status": "completed_conditional_source_snapshot",
+      "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+      "maximum_HTTP_requests_including_four_retained_samples": 2242,
+      "maximum_new_model_fits": 0,
+      "maximum_new_native_accounts": 0,
+      "source_calendar_sessions": 2059,
+      "source_history": [
+        "2018-08-01",
+        "2026-10-09"
+      ],
+      "history_first_vintage_certified": false,
+      "main_goal_blocked": false,
+      "evaluation": "research/stage1_finra_short_mix_20261018/source_result_review.json",
+      "source_execution_approval": "research/stage1_finra_short_mix_20261018/source_execution_approval.json",
+      "operational_repair": "research/stage1_finra_short_mix_20261018/source_repair_1.json",
+      "actual_HTTP_requests": 2178,
+      "recorder_id": "ca3433457b504654bca2011ad2c6ef65",
+      "nas_archive_sha256": "8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d"
+    },
+    {
+      "card": "research/stage1_finra_short_mix_allocation_20261018",
+      "kind": "conditional_CNMS_q_nonlinear_allocation",
+      "status": "completed_not_promoted_fixed_version_closed",
+      "actual_new_fits": 6,
+      "actual_new_native_accounts": 6,
+      "reused_native_accounts": 15,
+      "evaluation": "research/stage1_finra_short_mix_allocation_20261018/independent_evaluation.json",
+      "recorder_id": "8e87af53d57a4022bcf19b5dbc690e33"
+    },
+    {
+      "card": "research/stage1_close_rod_20261018",
+      "kind": "fixed_close_only_ROD_permission",
+      "status": "completed_not_promoted_fixed_version_closed",
+      "actual_new_fits": 0,
+      "actual_new_native_accounts": 6,
+      "reused_native_accounts": 12,
+      "passive_reference_valuations": 12,
+      "evaluation": "research/stage1_close_rod_20261018/independent_evaluation.json",
+      "recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
+      "failed_gates": [
+        "net_relative_wealth_all_costs",
+        "complete_annual_70pct",
+        "rolling126_70pct",
+        "paired_block_lower_positive"
+      ]
+    },
+    {
+      "card": "research/stage1_aux_projection_20261018",
+      "kind": "fixed_auxiliary_gradient_projection_mechanics",
+      "status": "mechanical_result_accepted_only",
+      "actual_new_fits": 0,
+      "actual_new_native_accounts": 0,
+      "fixed_probe_count": 24,
+      "evaluation": "research/stage1_aux_projection_20261018/mechanical_result_review.json"
+    },
+    {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "kind": "asymmetric_auxiliary_gradient_training",
+      "status": "completed_not_promoted_fixed_version_closed",
+      "maximum_new_C_fits_proposed": 3,
+      "maximum_new_C_native_accounts_proposed": 3,
+      "reused_native_references_proposed": 15,
+      "actual_new_fits": 3,
+      "actual_new_native_accounts": 3,
+      "reused_native_accounts": 15,
+      "evaluation": "research/stage1_aux_projection_allocation_20261018/independent_evaluation.json",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "nas_archive_sha256": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5"
+    }
+  ],
+  "governance_review": {
+    "reviewer": "/root/evaluator",
+    "verdict": "no_material_issue",
+    "strong_reference_requirement": "predeclare comparable risk-qualified references; bypass is diagnostic only"
+  },
+  "research_reference": {
+    "card": "research/causal_cost_scenario_controller_20261015",
+    "role": "Observed historical reference passes netSOXX and sampledDD/CVaR at allcosts; pairedincrement/rolling/confidence still fail",
+    "risk_scope": "Fullminute/event marks and conservativeOHLC bounds within30 only in represented RTH affine-price domain; no overnight/broker/dividend qualification",
+    "paired_composition_reference": "research/beta_preserving_composition_20261015",
+    "risk_valid_reference": "research/open_router_ablation_20261015:strong_always",
+    "promotion_eligible": false,
+    "risk_evidence": "research/fullminute_frozen_position_risk_20261015"
+  },
+  "cumulative_new_fits_in_this_campaign": 93,
+  "cumulative_new_native_accounts_in_this_campaign": 66,
+  "rejected_directions": [
+    {
+      "direction": "Broad account-state-aware full-path training",
+      "reason": "Already executed27fits66nativeaccounts and failed; do not relabel same mechanism",
+      "evidence": "research/full_path_tiered_allocation_20261013/conclusion.md",
+      "early_oof_evidence_available": "research/full_history_recovery_20261015,1061rows2018-10-15..2022-12-30; not composition on-policy trajectories"
+    },
+    {
+      "direction": "SIA/WSTS monthly demandcycle sales acceleration",
+      "reason": "Already106monthlyreports and6Ridge informationfits, developmentgatesfailed; sameMoM/YoYfields are not newmechanism",
+      "evidence": "research/sia_sales_information_20261013/conclusion.md",
+      "new_collection_or_fits": 0
+    },
+    {
+      "direction": "TSMC monthly reported revenue YoY acceleration",
+      "reason": "Already qualified130sourceevents and tested fixed5session positive association; development84observations IC-0.09477 and95percent interval crosseszero. Fixed route closed, no sign/horizon/threshold rescue. Source is not an untested new demand signal.",
+      "evidence": "research/tsmc_yoy_acceleration_5session_information_20261010/conclusion.md",
+      "source_evidence": "research/tsmc_monthly_revenue_pit_qualification_20261010/conclusion.md",
+      "new_collection_or_fits": 0
+    }
+  ],
+  "cumulative_new_shadow_paths_in_this_campaign": 36,
+  "cumulative_new_allocator_fits_in_this_campaign": 39,
+  "cumulative_new_statistical_fits_in_this_campaign": 54,
+  "cumulative_frozen_risk_valuations": 6,
+  "mechanism_triage": {
+    "document": "docs/composition_execution_contract_triage.md",
+    "reviewer": "/root/evaluator",
+    "verdict": "source_comparison_accepted",
+    "finding": "Prior fullpath learned a replacement controller; prior compositiontraining changed proxyweights only. Exactcurrent coupledcontroller gradient contract remains mechanically unqualified."
+  },
+  "cumulative_mechanical_shadow_equivalent_paths": 30,
+  "observed_return_stability_leader": {
+    "card": "research/nvda_own_guidance_realization_training_20261015",
+    "scope": "Prespecified current campaign comparison set, historical point estimates only",
+    "decision": "not_promoted_fixed_own_guidance_realization",
+    "two_bp_net_return_pct": 478.029361,
+    "two_bp_rolling126_positive_fraction": 0.656899,
+    "risk_scope": "known/close sampled DD27.221187percent only, fullminute unqualified",
+    "must_not_inherit_reference_risk_qualification": true,
+    "promotion_eligible": false,
+    "use": "Retain frozen as additional economic comparator, not deployed or silently promoted"
+  },
+  "cumulative_new_residual_fits_in_this_campaign": 6,
+  "cumulative_new_full_allocator_fits_in_this_campaign": 27,
+  "prospective_observation_governance": {
+    "reviewer": "/root/evaluator",
+    "verdict": "APPROVE_IMPLEMENTATION_ONLY",
+    "candidate_role": "diagnostic_observation_of_not_promoted_reference",
+    "reference_card": "research/nvda_own_guidance_realization_training_20261015",
+    "historical_failures_preserved": true,
+    "launch_authorized_by_this_review": false,
+    "production_change_authorized": false,
+    "requirements_before_future_study": [
+      "Exactmodel/scaler/inputformula/delay/controller/3costidentity",
+      "Initialcash/state/starttime andmatchedSOXX/9097 plus relevantmatchedcontrol identities",
+      "Actual source/marketreceipt andsignal-before-execution clocks",
+      "Missing/failedsession rules andfixed statisticaldates/stopping/multiplicity",
+      "No oldSIMdayreuse,nofuture-outcome tuning,no daily peek untilpass",
+      "60days minimum not substitute for126/annual/statistical coverage",
+      "Forwardpass doesnoterasehistoricalfailure orcompleteGoal"
+    ],
+    "approval": "research/diagnostic_forward_study_20261016/implementation_approval.json",
+    "plan_sha256": "b27c525b21f230a06bc0463a05fddda13a7c87eaf4b8c33e34bb00ede67927c7",
+    "offline_evidence": "research/diagnostic_forward_study_20261016/offline_summary.json",
+    "live_ready": false
+  },
+  "raw_accounting_reference": {
+    "card": "research/frozen_policy_raw_cashbook_20261015",
+    "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "status": "not_promoted",
+    "candidate_frozen_model_recorder": "27baa03f0d3046d8b82408ecb6ca07e7",
+    "strong_frozen_model_recorder": "9097b0d6baae44b792ba7f7ec3e48d0b",
+    "risk_scope": "sampled raw point NAV only; fullminute unqualified",
+    "interpretation": "New accounting identity; does not overwrite sealed proxy evidence or add independent market observations"
+  },
+  "research_focus": {
+    "user_steering": "Continuous Goal: stable net SOXX excess; frozen Stage1 baseline with evidence-based module changes; actively search quant communities/social discussions then verify primary sources.",
+    "new_individual_stock_fundamental_research": false,
+    "existing_NVDA_model_role": "frozen additional economic reference only",
+    "valuation_priority": false,
+    "allocation_horizon": "Frozen per experiment; no postresult horizon rescue",
+    "next_mechanism_domain": "Close-only transient return continuation and explicitly new bounded late permission, using existing ETF prices/events; no FINRA retuning",
+    "options_data_required": false,
+    "external_discovery_policy": "docs/research_failure_to_feature_sop.md"
+  },
+  "generic_training_precedent_correction": "research/family_balanced_direct_utility_training_20261015/precedent_correction.json",
+  "prospective_supervision": {
+    "registration": "research/diagnostic_forward_io_v2_20261016/pilot_registration.json",
+    "registration_sha256": "6d62b2aa7d57cac4237e52102d92c1b1312611d45c2ed3d4cd1f77d980b4799c",
+    "activation": "research/diagnostic_forward_io_v2_20261016/pilot_activation.json",
+    "supervision_approval": "research/diagnostic_forward_io_v2_20261016/supervision_approval.json",
+    "launch_verification": "research/diagnostic_forward_io_v2_20261016/supervision_launch_receipt.json",
+    "pid": 29707,
+    "tool_session_id": 88524,
+    "last_verified_phase": "waiting",
+    "pilot_started_at_last_verification": false,
+    "source_calls_at_last_verification": 0,
+    "qualified_forward_days": 0,
+    "do_not_assume_future_liveness": true
+  },
+  "post_registration_generic_novelty_triage": "research/diagnostic_forward_io_v2_20261016/post_registration_research_triage.json",
+  "goal_lifecycle_observation": {
+    "tool_status": "blocked",
+    "observed_on": "2026-10-18",
+    "thread_id": "01a14cc9-e797-7b31-90f6-d95a821e4deb",
+    "created_by": "create_goal after user explicitly requested Goal and implementation",
+    "total_token_budget_set": false,
+    "automatic_continuation_verified": true,
+    "same_total_blocker_consecutive_goal_turns": 0,
+    "current_blocker": null,
+    "note": "Live get_goal returned blocked while campaign previously said active. Recorded observed controller state; no update_goal call, no conclusion that three scientific-blocker turns occurred, and no claim of completed objective.",
+    "latest_continuation_previous_turn_classification": "progress",
+    "latest_continuation_evidence": [
+      "B1 implemented and synthetic passed; actual20440 recorded403 source gap with hoststop and no retry",
+      "Independent B1 source-gap review and unique17-artifact NAS readback12814 completed",
+      "Path-area bridge draft completed and independent P1 review started; original9model metadata reuse lead and dictionary-free text-change lead recorded"
+    ],
+    "same_total_blocker_consecutive_turns": 0,
+    "objective_achieved": false,
+    "observed_at_utc": "2026-10-19T02:29:19.516812+00:00",
+    "status_source": "get_goal",
+    "state_change_cause": "not returned by tool",
+    "blocked_status_set_by_this_turn": false,
+    "overall_research_impasse_confirmed": false,
+    "meaningful_next_action_available": true
+  },
+  "resume_note": "docs/three_asset_progress_restart_20261016.md",
+  "restart_contract": "docs/etf_valuation_restart_20261016.md",
+  "execution_roles_current_session": {
+    "owner": "/root",
+    "research_executor": "/root/recent_evidence",
+    "account_adapter_executor": "/root/challenge_summary",
+    "independent_evaluator": "/root/independent_evaluator",
+    "evaluator_mutates_candidate": false
+  },
+  "restart_delivery": {
+    "document": "docs/etf_valuation_restart_20261016.md",
+    "new_model_fits": 0,
+    "new_strategy_accounts": 0,
+    "monthly_strategy_experiment_completed": false,
+    "scientific_objective_achieved": false,
+    "automatic_continuation_asserted": false,
+    "production_changed": false,
+    "execution_state": "all_current_turn_jobs_finished_no_background_model_training"
+  },
+  "continuation_20261016": {
+    "user_requested_continue": true,
+    "primary_method": "signed_disclosed_basket_annual_EP_v1 (annualparentincome/laggedreportedshares-basedmarketcap, researchproxy)",
+    "ttm_role": "separatefutureinformationcondition_not_best-performing_candidate_selection",
+    "rank_policy": "36/60rank optional; unknownrank doesnot invalidate qualifiedunrankedEP orlossweight; missinggrowth handledseparately",
+    "frozen_information_plan": "research/etf_annual_valuation_information_20261016/plan.json",
+    "source_count_observations": "research/etf_annual_valuation_information_20261016/source_count_observations.json",
+    "return_labels_read": true,
+    "market_fits": 6,
+    "active_roles": {
+      "direct_allocation_executor": "/root/attribution",
+      "quarterly_source_executor": "/root/sources",
+      "independent_evaluator": "/root/evaluator",
+      "information_executor_owner": "/root"
+    },
+    "annual_information_status": "not_promoted_fixed_annual_valuation_information",
+    "next_mechanism": "quarterly reported-profit diffusion and loss breadth across then-disclosed basket, not annualvaluation-level retuning",
+    "annual_delivery_commit": "9bbc01fd",
+    "annual_failure_attribution": "research/etf_annual_information_attribution_20261016",
+    "quarterly_information_plan": "research/etf_quarterly_profit_information_20261016/plan.json",
+    "direct_allocation_plan": "research/etf_quarterly_profit_allocation_20261016/plan.json",
+    "direct_allocation_conditioned_on_favorable_information_MSE": false,
+    "quarterly_analysis_registry": "research/etf_quarterly_profit_information_20261016/analysis_registry.json",
+    "new_quarterly_fits": 14,
+    "new_quarterly_accounts": 15,
+    "current_execution": "All bounded ETF experiments and independent evaluations finished; no model/account/background job running. Objective unachieved, no promotion and no automatic continuation claimed.",
+    "quarterly_information_status": "not_promoted_fixed_quarterly_profit_information",
+    "direct_allocation_status": "not_promoted_fixed_quarterly_profit_direct_allocation",
+    "primary_reference_original_gate_failures": [
+      "beat_paired_all_costs",
+      "rolling_70pct",
+      "bootstrap_positive",
+      "independent_development",
+      "qualified_forward"
+    ],
+    "optional_primary_risk_audit_launched": false
+  },
+  "goal_history": [
+    {
+      "thread_id": "01a13d5e-34fc-7900-a845-ca53afc39d45",
+      "observation": {
+        "tool_status": "blocked",
+        "user_requested_resume": true,
+        "actual_research_resumed": true,
+        "automatic_continuation_verified": false,
+        "limitation": "Available Goal API has no resume operation; UI resume required to restore automatic continuation. Do not mark complete or create a replacement to bypass unfinished objective.",
+        "current_session_tool_status": "no_goal_in_current_thread",
+        "current_session_note": "get_goal returned null on2026-10-16; old goal_thread_id retained as historical reference, no newGoal created and no automatic continuation asserted."
+      },
+      "superseded_as_current_on": "2026-10-18",
+      "reason": "User explicitly authorized a new active Goal in current thread; prior thread retained as historical evidence."
+    }
+  ],
+  "execution_observation_20261018": {
+    "current_task": {
+      "card": "research/path_area_action_bridge_20261018",
+      "phase": "P1_accepted_P2_draft_ready_for_scoped_review",
+      "owner": "/root",
+      "design_executor": "/root/external_methods",
+      "executor": "/root/recent_evidence",
+      "reviewer": "/root/independent_evaluator",
+      "design_draft": "research/path_area_action_bridge_20261018/design_draft.json",
+      "design_draft_sha256": "61af5d54ec1857bac4c59e9f5f483aeeba8a8e188cc63711bf308dde739053cb",
+      "implementation_authorized": true,
+      "source_execution_authorized": false,
+      "model_fit_authorized": false,
+      "account_execution_authorized": false,
+      "new_fits": 0,
+      "new_accounts": 0,
+      "executor_lifecycle": "P1 execution52035 and unique NAS coldread48660 completed; independent result accepted. P2 design executor completed its draft; no model training, source task, account replay or implementation job is running.",
+      "observed_at": "2026-10-19T03:21:30.279074+00:00",
+      "plan_sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+      "design_review_sha256": "10097e9704bfd3fd88327cea4eee5b6f9c77a63158d9cbfdbdcb002ce9be1a03",
+      "implementation_authorization_sha256": "f52d2e475654e38b27cc8d5471caa6f66be2093f7de2dbc9cc7bce44efc7733c",
+      "implementation_identity_sha256": "4a2e97cbba809543d2b0760ff0b41d28a79e006eab89885dd1470b923eb92408",
+      "implementation_review_sha256": "47f01127073056bf2b72ac3a8ba20ffaa97eefade4bc710e56c61ee443b53abe",
+      "source_byte_identity_sha256": "29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124",
+      "synthetic": {
+        "final_session": 49122,
+        "exit_code": 0,
+        "passed": 1,
+        "initial_fixture_failure_sessions": [
+          90128,
+          41040
+        ],
+        "real_source_execution": false
+      },
+      "execution_approval": "research/path_area_action_bridge_20261018/P1_execution_approval.json",
+      "execution_approval_sha256": "c09c6aa545b323e2313b78be10dfae614dbbb2fb5050fa7c1dfa93455b3e73f6",
+      "executor_session_id": 52035,
+      "nbconvert_pid": 74974,
+      "executor_session_exit_code": 0,
+      "P1": {
+        "exec_session": 52035,
+        "exit_code": 0,
+        "recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+        "experiment_id": "959574308010795325",
+        "archive_sha256": "775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+        "summary_sha256": "29cd78de38fb5dfe4355d39d4706f0f46728e9fe8f34726ecabfd10697b583c7",
+        "manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+        "source_objects_loaded": 17,
+        "D_calendar_calls": 2,
+        "D_features_calls": 3,
+        "saved_models_static_qualified": 9,
+        "prefix_valid_rows": 1056,
+        "qualified_action_label_count": null,
+        "membership_status": {
+          "2018": "proven_empty",
+          "2019": "proven_empty"
+        },
+        "new_fits": 0,
+        "new_accounts": 0,
+        "source_HTTP": 0,
+        "coldread_exec_session": 48660,
+        "coldread_exit_code": 0,
+        "coldread_artifact_hashes": 21,
+        "readback_sha256": "04d624f991be488e8a8aabe36960b7a9af16fb52aa0f54b440aefbc2502e8103",
+        "historical_origin_lineage_certified": false,
+        "P2_execution_authorized": false,
+        "complete_prefix_marks_and_next_target_rows": 1055,
+        "coverage_count_semantics": "1055 is the complete-prefix plus marks plus next-target intersection only, not an upper bound on all action labels. Otherwise valid missing-prefix rows remain eligible with shared missingness mask under P2.",
+        "result_review_sha256": "44e872ca5f14cba88ab162f269f79c147d5e0aa9f0c93b69dc394a23e636ba96",
+        "P2_design_admissible": true
+      },
+      "result_review": "research/path_area_action_bridge_20261018/result_review.json",
+      "result_review_sha256": "44e872ca5f14cba88ab162f269f79c147d5e0aa9f0c93b69dc394a23e636ba96",
+      "P2_design_draft": "research/path_area_action_bridge_20261018/P2_design_draft.json",
+      "P2_design_draft_sha256": "c8db689b9f12b20756b003ff7e002de6fc428ddfe2460a9a7fd5a336891d66b5",
+      "next_action": "Scoped P2 design review of OOF clock and physical local-label contract, then owner freeze/implementation within existing campaign authorization. No source rerun or failed-route retuning."
+    },
+    "completed_FINRA_task": {
+      "card": "research/stage1_finra_short_mix_allocation_20261018",
+      "phase": "FINRA_fixed_version_closed_next_ROD_contract_design",
+      "bulk_started": true,
+      "model_training_started": true,
+      "account_replay_started": true,
+      "executor": "/root/recent_evidence",
+      "bulk_authorized": true,
+      "executor_session_id": 81120,
+      "observed_at": "2026-10-18T04:37:18.342833+00:00",
+      "HTTP_attempts_observed": 2178,
+      "HTTP_ledger": "/tmp/stage1-finra-short-mix-source-intake-20261018/http_state.json",
+      "executor_session_exit_code": 0,
+      "collection_currently_running": false,
+      "successful_daily_cache_files": 2059,
+      "repair_executor": "/root/recent_evidence",
+      "metadata_dependency": "Incorrect form parameters and www429 challenge; cache-only during raw-daily recovery",
+      "Goal_stopped": false,
+      "previous_executor_session_id": 79014,
+      "previous_executor_exit_code": 1,
+      "source_resume_approval": "research/stage1_finra_short_mix_20261018/source_resume_approval_2.json",
+      "new_www_HTTP": 0,
+      "additional_retries": 0,
+      "latest_source_checkpoint": {
+        "stage": "completed",
+        "plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+        "actual_HTTP_attempts": 2178,
+        "recorder_id": "ca3433457b504654bca2011ad2c6ef65",
+        "model_fits": 0,
+        "accounts": 0
+      },
+      "liveness_observation": "Original81120 actually exited0 per executor; root observed no remaining nbconvert process and completed6fit/6path/6native run_state. No retry. Results awaiting independent evaluation.",
+      "deterministic_model_preparation": {
+        "model_input_adapter": "src/model/finra_allocator.py",
+        "source_feature_adapter": "src/data/finra_allocation_features.py",
+        "account_analysis_adapter": "src/analysis/finra_allocation.py",
+        "feature_tests": "3 passed; synthetic DatasetH, no real outcome labels",
+        "analysis_tests": "3 passed; original18 and new21 account comparison contracts",
+        "formal_model_design_approved": false,
+        "new_model_fits": 0,
+        "new_accounts": 0,
+        "pending": "Independent final model design review, then root execution GO for6fits/6newnativeaccounts.",
+        "independent_implementation_review": {
+          "reviewer": "/root/independent_evaluator",
+          "verdict": "NO_MATERIAL_CONTRACT_ISSUE_FOUND",
+          "source_sha256": {
+            "src/data/finra_allocation_features.py": "03513e6ff77db2776936d6438114d46982bc01a218480eb420710a8875870a19",
+            "src/model/finra_allocator.py": "88eaf33745bcafd481b5fec226ee7f771bc6058828fffb0787517e5421fd1388",
+            "src/analysis/finra_allocation.py": "8ec4e365969bd8ffc7f657ddd578894af4040462d5a65e49527e804c4510196e",
+            "src/analysis/stage1_domain_heads.py": "b786650912e4645bd7d5bdc3ecc842f05a4f5ea9d45ffd2b6bc7158395b4fb39"
+          },
+          "scope": "Deterministic feature/model and21-account analysis contracts only; no formal model execution, source completion or promotion approval. Workflow still must bind verified source/account identities and enforce944-executable-date scope."
+        }
+      },
+      "source_http_complete": true,
+      "source_archive_complete": true,
+      "repair_2_reason": "Caller passed ISO date keys to strict YYYYMMDD source-frame interface; failed before any Recorder. Fix conversion and finalize cached bytes only.",
+      "repair_2_new_HTTP_authorized": 0,
+      "cache_finalization_running": false,
+      "source_recorder_id": "ca3433457b504654bca2011ad2c6ef65",
+      "source_archive_sha256": "8d44f8a079ad82b5ec97820a002b3dad24daaa0e5b4c5624727bcba57323b83d",
+      "source_native_readback": "37 NAS artifact hashes passed; original serialized dataset lacks cache. Verified canonical panel rebuilt through native DataHandlerLP/DatasetH.prepare:4118x6float64 exact. Original archive unchanged.",
+      "source_metadata_limits": {
+        "valid_month_indexes": 0,
+        "requested_month_indexes": 99,
+        "valid_official_documents": 3,
+        "requested_official_documents": 4,
+        "revision_unknown_days": 2059,
+        "historical_PIT_qualified": false,
+        "independent_forward_qualified": false
+      },
+      "source_card": "research/stage1_finra_short_mix_20261018",
+      "last_source_executor_session_id": 41517,
+      "last_source_executor_exit_code": 0,
+      "source_result_review": "research/stage1_finra_short_mix_20261018/source_result_review.json",
+      "conditional_model_design_eligible": true,
+      "model_preflight_completed": true,
+      "model_plan_sha256": "017535b8a9708c80475e04cfaf869a4cd70a42ff369d8b8fe1c4062ef4d7cc0e",
+      "model_preflight": {
+        "primary_rows": 3014,
+        "auxiliary_rows": 20741,
+        "FINRA_ready_mature_primary_rows": 1107,
+        "executable_account_sessions": 944,
+        "reused_native_accounts": 15,
+        "unexecutable_prediction_tail_rows": 1,
+        "fits": 0,
+        "accounts": 0
+      },
+      "executor_pid": null,
+      "model_recorder_id": "8e87af53d57a4022bcf19b5dbc690e33",
+      "execution_approval": "research/stage1_finra_short_mix_allocation_20261018/execution_approval.json",
+      "implementation_commit": "b05dc45b",
+      "model_design_approved": true,
+      "observed_completed": {
+        "fits_done": 6,
+        "paths_done": 6,
+        "native_done": 6
+      },
+      "model_job_running": false
+    },
+    "completed_domain_heads_task": {
+      "phase": "close_ROD_permission_and_source_preflight_design",
+      "model_executor": "/root/recent_evidence",
+      "raw_adapter_executor": "/root/challenge_summary",
+      "evaluator": "/root/independent_evaluator",
+      "model_training_started": true,
+      "native_accounts_started": true,
+      "new_source_requests": 0,
+      "observed_source_counts": {
+        "mature_primary": 3014,
+        "auxiliary": 20741,
+        "primary_features": 39,
+        "common_features": 16
+      },
+      "observation_scope": "Executor reported live nbconvert session66916; counters below observed from durable run_state, not a guarantee of future liveness.",
+      "execution_approval": "research/stage1_domain_heads_20261018/execution_approval.json",
+      "formal_budget": {
+        "model_fits": 6,
+        "new_native_accounts": 9,
+        "reused_reference_accounts": 9
+      },
+      "executor_session_id": 66916,
+      "executor_agent": "/root/recent_evidence",
+      "implementation_commit": "690607bd",
+      "observed_completed": {
+        "fits_done": 6,
+        "paths_done": 9,
+        "native_done": 9
+      },
+      "executor_session_exit_code": 0,
+      "next_executor": "/root/recent_evidence",
+      "next_executor_task": "FINRA source-only design review and bounded intake implementation; bulk not yet started",
+      "completed_experiment_scope": "research/stage1_domain_heads_20261018"
+    },
+    "completed_ROD_task": {
+      "card": "research/stage1_close_rod_20261018",
+      "phase": "fixed_ROD_closed_after_independent_evaluation",
+      "executor": "/root/recent_evidence",
+      "source_contract_owner": "/root/intraday_novelty",
+      "independent_evaluator": "/root/independent_evaluator",
+      "model_fits": 0,
+      "policy_paths": 0,
+      "accounts": 0,
+      "source_HTTP_authorized": 0,
+      "ROD_or_future_return_computation_authorized": true,
+      "source_preflight_scope": "Existing event-date membership/coverage, native endpoints including first previous close and halfdays, exact source/F32 projection errors only. No sign, tail return, historical strategy opportunities or account execution.",
+      "policy_execution_authorized": true,
+      "source_contract": "research/stage1_close_rod_20261018/source_contract_draft.json",
+      "strategy_design": "research/stage1_close_rod_20261018/plan.json",
+      "permission_change": "New close-only shared B/C permission, not an old all-day .6 allowance. C adds positive ROD; B does not. Original morning chain and state/peak clocks retained; new emergency clamp explicitly subject to review.",
+      "executor_lifecycle": "Original35358 actually exited0 after6path/6native/12passive. No restart. Executor continues one authorized Recorder-only attribution; root coldread1465exit0. Result review pending.",
+      "source_preflight_review": "research/stage1_close_rod_20261018/design_preflight_review.json",
+      "source_preflight_review_sha256": "64cd67cf46bb00e80dcf262854bd6d737ef125ba4993e93d89b081e659931cc9",
+      "source_preflight_execution_authorized": true,
+      "formal_strategy_design_approved": true,
+      "source_contract_sha256": "29a1dfbbdc745627016f704b25a8baa676e9b1690183c735156c0f8a399f74f9",
+      "strategy_design_draft_sha256": "94d3f362fc9990dd9f1830a6263b4158e806ad0269ebda400f89b8e1d1805aa5",
+      "source_preflight_authorization_boundary": "Only existing-source endpoint/event/session/representation checks. No ROD/sign/return label, training, policy path, account or new source HTTP.",
+      "source_preflight_session_id": 87891,
+      "source_preflight_exit_code": 0,
+      "source_recorder_id": "f8fd1c596eb04acc85febad7e2ee9474",
+      "source_archive_sha256": "ea8c5d50c40247a6324d64f593e4b90c34bac02df6603fe159ad737d8a78b6e1",
+      "source_result_review": "research/stage1_close_rod_20261018/source_result_review.json",
+      "strategy_freeze_eligible": true,
+      "source_preflight_counts": {
+        "sessions": 944,
+        "regular_sessions": 936,
+        "half_days": 8,
+        "valid_endpoint_rows": 15060,
+        "native_float64_rows": 11302,
+        "event_days_no_increment": 28,
+        "regular_non_event_source_days": 908
+      },
+      "strategy_design_plan_sha256": "a548cbac5bf81787d9b14cc4491c711c903476489f17488b98e5e638bb9387b1",
+      "strategy_preflight_session_id": 45319,
+      "strategy_preflight_exit_code": 0,
+      "strategy_preflight": "research/stage1_close_rod_20261018/strategy_preflight.json",
+      "execution_authorization_scope": "ROD sign and precommitted policy/account return calculation only; no new training labels or fits",
+      "executor_session_id": 35358,
+      "executor_session_exit_code": 0,
+      "executor_job_running": false,
+      "implementation_commit": "33a68dc1",
+      "execution_approval": "research/stage1_close_rod_20261018/execution_approval.json",
+      "design_review": "research/stage1_close_rod_20261018/design_review.json",
+      "observed_completed": {
+        "paths_done": 6,
+        "native_done": 6,
+        "passive_done": 12
+      },
+      "recorder_id": "f1f70f58b59946feabe131ff8b3d9645",
+      "archive_sha256": "430de3567f7a3ab29f41d07a064da4b3dc80e8c61f87812e58fe7910f102b1e3",
+      "fixed_result": "not_promoted_fixed_close_ROD_v1",
+      "independent_result_review_pending": false,
+      "failure_attribution_authorized_once": true,
+      "readback_verification": "research/stage1_close_rod_20261018/readback_verification.json",
+      "independent_evaluation": "research/stage1_close_rod_20261018/independent_evaluation.json",
+      "independent_evaluation_sha256": "04de05004d25d22f02b8562a712da79c8f85238668b381eeafb6c0cde7e17cbd",
+      "failure_attribution_completed": true,
+      "failure_attribution_session_id": 10854,
+      "failure_attribution_exit_code": 0
+    },
+    "completed_aux_projection_task": {
+      "card": "research/stage1_aux_projection_allocation_20261018",
+      "phase": "aux_projection_fixed_version_closed_after_independent_review",
+      "executor": "/root/recent_evidence",
+      "model_adapter_executor": "/root/external_methods",
+      "independent_evaluator": "/root/independent_evaluator",
+      "implementation_authorization": "research/stage1_aux_projection_allocation_20261018/implementation_authorization.json",
+      "formal_design_approved": true,
+      "fit_execution_authorized": true,
+      "account_execution_authorized": true,
+      "observed_new_fits": 3,
+      "observed_new_accounts": 3,
+      "draft_budget": {
+        "new_C_fits": 3,
+        "new_C_native_accounts": 3,
+        "reused_native_references": 15,
+        "total_comparison_accounts": 18,
+        "required_paired_CIs": 12
+      },
+      "executor_lifecycle": "Completed executor explicitly resumed after reviewed code/owner GO delivery; actual nbconvert1842 reported running. Poll that existing handle only.",
+      "model_implementation_review": "research/stage1_aux_projection_allocation_20261018/model_implementation_review.json",
+      "model_implementation_review_sha256": "c3ea7d4c64836d0a3dc7a2b7e5e358a74c6c322c96fd65f7eecad59c5073a0e6",
+      "model_implementation_review_accepted": true,
+      "model_synthetic_test_passed": 1,
+      "stored_vector_compatibility_count": 24,
+      "new_market_gradient_probes": 0,
+      "no_fit_preflight_session_id": 99800,
+      "no_fit_preflight_exit_code": 0,
+      "no_fit_preflight_observation": "3014/20741 native train-only, all11 tensors and recomputed scalers match,3seed initialization/RNG match;0eval deserialization/forward/gradient/fit/accounts. Formal run implementation still being completed.",
+      "formal_plan_draft_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+      "formal_plan_sha256": "5da635fd947e1cbd017e9e32565a241b180bcf0038118c3c44544fe3603c3c3f",
+      "implementation_identity_sha256": "613c2bdac1126e8aa74e391c3164f8a741aef8a6c1ed468ead859713f3944c2d",
+      "preflight_sha256": "d116937728c5c75d9c6a12e9b69ce56a105932f641878eecf170c2003d820e85",
+      "constructor_preflight_sha256": "c442e0317f8a7334f8e77b02cd7e7179075f6f91fc1528fc2edbe6b3535b13d6",
+      "constructor_preflight_session_id": 72746,
+      "constructor_preflight_exit_code": 0,
+      "workflow_implementation_complete": true,
+      "design_review": "research/stage1_aux_projection_allocation_20261018/design_review.json",
+      "design_review_sha256": "5bdcf1c7fe59ac4234818ca3df16b4f276ff4aaea9cef4b121e778856e12d40e",
+      "execution_approval": "research/stage1_aux_projection_allocation_20261018/execution_approval.json",
+      "execution_approval_sha256": "9229477f8fad9207f6348c003a6cc761df668a26f991e5834a0b2ff873459e81",
+      "executor_session_id": 1842,
+      "executor_session_exit_code": 0,
+      "executor_job_running": false,
+      "implementation_commit": "6c7eacc8",
+      "recorder_id": "fce9a058996142c6bef71196aba31db9",
+      "archive_sha256": "058c406592f8902d5a89f6f0a80d1e476c267a2daa2458f50883ef7ff8d199b5",
+      "independent_evaluation": "research/stage1_aux_projection_allocation_20261018/independent_evaluation.json",
+      "independent_evaluation_sha256": "f15a9d40c01314c8df4a8dea787cff71d78630851bcf9295c102ab0d10315f71",
+      "failure_attribution_completed": true,
+      "failure_attribution_session_id": 73107,
+      "failure_attribution_exit_code": 0,
+      "readback_verification": "research/stage1_aux_projection_allocation_20261018/readback_verification.json"
+    },
+    "completed_calendar_source_task": {
+      "card": "research/calendar_tom_source_20261018",
+      "phase": "preopen_TOM_receiver_design_after_conditional_source_acceptance",
+      "executor": "/root/recent_evidence",
+      "owner": "/root",
+      "new_model_fits": 0,
+      "new_accounts": 0,
+      "new_feature_values": 0,
+      "strategy_execution_authorized": false,
+      "scope": "Implement one frozen-source cache-only calendar knowledge ledger and native metadata coverage check; no candidate features, returns, fit or account. Historical clock/venue/vintage gaps remain explicit.",
+      "executor_lifecycle": "Source repair exec65407 completed and independently accepted; root coldread21776 passed. External design executor is actively preparing the distinct preopen receiver draft, with no features/fits/accounts yet.",
+      "source_plan_executor": "/root/recent_evidence",
+      "source_document_executor": "/root/external_methods",
+      "planned_source_card": "research/calendar_tom_source_20261018",
+      "source_only_eligibility_review": "research/external_mechanism_review_20261018/calendar_tom_proxy_review.json",
+      "source_only_eligibility_review_sha256": "c16753f4e6e4e98dfb4070ed4e0f00d72eb9f579938d6af1cbc3f334879940bd",
+      "source_draft_and_bounded_official_document_discovery_authorized": true,
+      "maximum_discovery_documents": 12,
+      "feature_generation_authorized": false,
+      "source_inventory": "research/calendar_tom_source_20261018/source_document_inventory.json",
+      "source_inventory_sha256": "d0859c2733e21f213c7eeaed8a687b53b42098485a55d1604bae719b7bcee083",
+      "original_document_capture_exec": 4279,
+      "original_document_capture_exit_code": 0,
+      "original_document_capture_results": {
+        "HTTP_attempts": 12,
+        "successful_HTML": 8,
+        "SEC_PDF_403": 4,
+        "retries": 0
+      },
+      "discovery_extension_authorization": "research/calendar_tom_source_20261018/discovery_extension_1_authorization.json",
+      "maximum_additional_document_requests": 5,
+      "maximum_lifetime_explicit_document_requests": 17,
+      "source_native_execution_authorized": false,
+      "source_document_extension": "research/calendar_tom_source_20261018/source_document_extension_1.json",
+      "source_document_extension_sha256": "450bada2a5fd10561b547a458b3b1715f7fd5e14e50c8213114b97369429b1dc",
+      "extension_capture_exec": 39737,
+      "extension_capture_exit_code": 0,
+      "actual_explicit_document_requests": 17,
+      "successful_document_caches": 12,
+      "failed_explicit_requests": {
+        "SEC_403": 4,
+        "BusinessWire_timeout": 1
+      },
+      "remaining_source_qualification_HTTP_requests": 0,
+      "source_plan_draft_sha256": "0bc753956fa6a1611fcc2045c8df6c27d99abc9b216ebd770670443d261f33e6",
+      "source_design_review": "research/calendar_tom_source_20261018/source_design_review.json",
+      "source_design_review_sha256": "f8f6f7d2b2e23ceca36cdc9cdbc9fd971f2cdeba2f2cfface5bdcff6ff607ae2",
+      "source_implementation_authorization": "research/calendar_tom_source_20261018/implementation_authorization.json",
+      "source_implementation_authorized": true,
+      "source_execution_approval": "research/calendar_tom_source_20261018/source_execution_approval.json",
+      "initial_source_result": {
+        "recorder_id": "638ecf0af9204ba38e2e36e7be0307f1",
+        "archive_sha256": "0f77e058238f7a28014f47b267a739df68881b1317a61110f97902054783035a",
+        "metadata_rows": 23796,
+        "parsed_documents": 10,
+        "parser_gap_documents": 2,
+        "raw_gap_documents": 5,
+        "source_review_sha256": "a058b5b593c3e30b13b0cfd03c82f8b081f038adbd7b19b1558d3f7931911a92"
+      },
+      "repair_card": "research/calendar_tom_source_20261018/repair_1",
+      "repair_result": {
+        "recorder_id": "82b3305714cc455db5bc2ccbcd42d2f1",
+        "archive_sha256": "cca1821148944e014df02352ac71989a2fdb350f851d403f444bb2f733d451f8",
+        "metadata_rows": 23796,
+        "assertions": 439,
+        "parsed_documents": 12,
+        "parser_gaps": 0,
+        "raw_gaps": 5,
+        "review": "research/calendar_tom_source_20261018/repair_1/source_result_review.json",
+        "review_sha256": "21f6123bc0e5c8678341e302889e38a2c29b9d5f8596e988d4268fa013c1dd3b",
+        "readback_sha256": "3738c9547e17a423985fb5a6b93ee134c5d0c02a21a9eebd6c388f50c4b28af8",
+        "new_fits": 0,
+        "new_accounts": 0,
+        "historical_PIT_qualified": false
+      }
+    },
+    "completed_preopen_TOM_task": {
+      "card": "research/stage1_preopen_tom_20261018/repair_1",
+      "phase": "preopen_TOM_fixed_version_closed_after_attribution",
+      "executor": "/root/recent_evidence",
+      "design_executor": "/root/external_methods",
+      "owner": "/root",
+      "reviewer": "/root/independent_evaluator",
+      "design_draft": "research/stage1_preopen_tom_20261018/design_draft.json",
+      "design_draft_sha256": "d65bb92c7e80829439da14e6c38b19b2ed84f2e5345fc3305ec46d22968084ff",
+      "new_fits": 6,
+      "new_accounts": 6,
+      "new_feature_values": 2912,
+      "strategy_execution_authorized": false,
+      "executor_lifecycle": "Formal experiment22675, independent result review and coldread55774 completed. One attribution42903 completed four tables and failed JSON output only; scoped output-finalize57415 passed with unchanged tables. Fixed route fully closed; no more fits/accounts on this version.",
+      "planned_fit_attempts": 6,
+      "planned_new_native_accounts": 6,
+      "planned_reference_accounts_reused": 15,
+      "definition": "Single preopen conditional NYSE calendar proxy, d-prior common sessions only, fixed4day external window, tri-state OR and3 shared availability masks plus1 value; source remains conditional notPIT.",
+      "design_review": "research/stage1_preopen_tom_20261018/design_draft_review.json",
+      "design_review_sha256": "9f1d852e62c4ff56cebf70e243f52a3f1cc4a1a8f362bdc014f3a85e538c69d1",
+      "implementation_authorization": "research/stage1_preopen_tom_20261018/implementation_authorization.json",
+      "preflight_design_review": "research/stage1_preopen_tom_20261018/preflight_design_review.json",
+      "preflight_design_review_sha256": "d8568203c6e85c2ff72ae11fbcac28f4c354f193bc7c5aa8b23091eac28be99d",
+      "plan_sha256": "c55f56e86d09c2895156b32ede90448c98ccc7dccf2a0c5486efe3ec0a9dccbe",
+      "implementation_identity_sha256": "c42bf44ebe39c7c6a0a2df3d9351cf43d2b55d7ffc80d1e995f87cc218c24595",
+      "preflight_execution_approval": "research/stage1_preopen_tom_20261018/preflight_execution_approval.json",
+      "preflight_failure": {
+        "exec_session": 15060,
+        "exit_code": 1,
+        "receipt": "research/stage1_preopen_tom_20261018/preflight_failure_1.json",
+        "cause": "CS_ALL flattened Qlib column groups; metadata tuple lookup failed",
+        "feature_derivation_attempted": true,
+        "canonical_output_persisted": false,
+        "retained_new_feature_values": 0,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "evaluation_objects_deserialized": 0,
+        "economic_result": false
+      },
+      "repair_card": "research/stage1_preopen_tom_20261018/repair_1",
+      "repair_plan_sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
+      "repair_review_sha256": "e9d8b19edc8084e87fb3d64d12e4f3055ec945125b235af017e104b8a7d4eea2",
+      "repair_preflight_approval": "research/stage1_preopen_tom_20261018/repair_1/preflight_execution_approval.json",
+      "preflight_result": {
+        "exec_session": 74423,
+        "exit_code": 0,
+        "recorder_id": "f0f68379c58b4f859e0fccb981eca00c",
+        "archive_sha256": "55c29a488ad2149ad29bf62c7e4f4ce45ee5c2a020fe5f0fb72be0419301a25c",
+        "primary_rows": 3014,
+        "auxiliary_rows": 20741,
+        "training_unknown_rows_retained": 1034,
+        "same_mask_known_zero": 1597,
+        "same_mask_known_one": 377,
+        "all_original_tensors_scalers_exact": true,
+        "coldread_exec_session": 90001,
+        "coldread_exit_code": 0
+      },
+      "formal_execution_approval": "research/stage1_preopen_tom_20261018/repair_1/execution_approval.json",
+      "reused_native_accounts": 15,
+      "recorder_id": "891acb11f06746baa0d17e98f756bb8f",
+      "archive_sha256": "8ce5b683e4cd8e22d1dbf64732bc432f551d23e9759a67965251d002e5287a61",
+      "independent_evaluation": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json",
+      "independent_evaluation_sha256": "bf13e037a21ccdd78756f0c7b1a5a0c732c0c41dd819017e67c86d9a2d89254e",
+      "readback_sha256": "77015b98c2e51ba3201b713c09dc1e4e7bb3ac40d06a7c0af8fd090e3d8e3d3e",
+      "formal_exec_session": 22675,
+      "formal_exit_code": 0,
+      "new_feature_rows": 3966,
+      "attribution": "research/stage1_preopen_tom_20261018/repair_1/failure_attribution.json",
+      "attribution_sha256": "174c3dd2a6b0ec95e83862e95ea2f3dec6f28eb50f1e515af59401f05d05863e",
+      "attribution_execution": {
+        "initial": 42903,
+        "initial_exit": 1,
+        "output_finalize": 57415,
+        "output_finalize_exit": 0,
+        "table_hashes_unchanged": true,
+        "new_fit_forward_replay_or_CI": false
+      },
+      "closed_result_summary": {
+        "card": "research/stage1_preopen_tom_20261018/repair_1",
+        "decision": "not_promoted_fixed_preopen_TOM",
+        "independent_verdict": "ACCEPT_NEGATIVE_RESULT_CLOSE_FIXED_VERSION",
+        "review": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json",
+        "C_return_pct_0_2_5bp": [
+          112.2794519973856,
+          109.64412232194162,
+          102.34379390714808
+        ],
+        "C_close_max_drawdown_pct_0_2_5bp": [
+          -29.630795572807024,
+          -29.82021675306482,
+          -30.113665989140216
+        ],
+        "C_sampled_max_drawdown_pct_0_2_5bp": [
+          -30.52216249033679,
+          -30.71063642143681,
+          -30.993863789726493
+        ],
+        "complete_annual_SOXX_positive_fraction_each_cost": 0.5,
+        "C_rolling126_positive_fraction": [
+          0.2661782661782662,
+          0.2564102564102564,
+          0.2490842490842491
+        ],
+        "positive_CI_lower_bounds": "0/15",
+        "new_fits": 6,
+        "new_native_accounts": 6,
+        "reused_native_accounts": 15,
+        "attribution_status": "completed_fixed_once_with_output_serialization_repair",
+        "next_action": "Closefixedversion; do not rescue window/sign/venue/mask/seed/encoding/controller.",
+        "attribution": {
+          "path": "research/stage1_preopen_tom_20261018/repair_1/failure_attribution.md",
+          "C_raw_beta": 1.1098278570686837,
+          "B_raw_beta": 1.0959261985804114,
+          "C_2bp_actual_ending_beta": 0.6902508857812963,
+          "B_2bp_actual_ending_beta": 0.8427742092129161,
+          "C_2bp_cash_like_weight": 0.5300501907371621,
+          "B_2bp_cash_like_weight": 0.4564829840501579,
+          "C_B_risk_state_different_days_2bp": 319,
+          "interpretation": "Inputs reached proposals and realized holdings, but worse endogenous full-account paths erased the intended gain. This is descriptive, not a controller-isolation counterfactual."
+        }
+      }
+    },
+    "completed_day_night_label_source_task": {
+      "card": "research/day_night_label_source_20261018",
+      "phase": "day_night_source_and_labels_accepted_next_supervision_design",
+      "owner": "/root",
+      "design_executor": "/root/external_methods",
+      "executor": "/root/recent_evidence",
+      "reviewer": "/root/independent_evaluator",
+      "design_draft": "research/day_night_label_source_20261018/source_label_design_draft.json",
+      "design_draft_sha256": "eec681ae2151a92f4b18779b863556fc9a2ba21a1ce14430f4e05ec5f123b6e7",
+      "new_fits": 0,
+      "new_accounts": 0,
+      "executor_lifecycle": "A/B/C notebook jobs completed and accepted. Executor is idle after C; source verification is complete. External methods agent is actively drafting the next matched-supervision design; no model job or training authorization exists.",
+      "definition": "Qualify a fixed Git July24 source for H5 relative day/night S/Z labels. Common O/C basis from archived field scales; preserve original3014 H1/H5 tensors. A identity/basis, B train-only prices, C fixed labels; each phase requires its preceding accepted receipt.",
+      "goal_turn_assessment": "Previous research turn made progress by delivering source-label design and correcting cross-vintage identity requirements. Game-troubleshooting interlude did not declare the research Goal paused or complete; this continuation resumes research.",
+      "plan_sha256": "3514e5b96ea1a00bb46532a9e443ea720abdd7eeaa5b61d8a8bb81a02db9e228",
+      "design_review": "research/day_night_label_source_20261018/source_label_design_review.json",
+      "design_review_sha256": "9ad62c73ecd45e2b3a3d8c4967028c90bea572cad7ea1399795fc758bd6cf8ff",
+      "implementation_authorization": "research/day_night_label_source_20261018/implementation_authorization.json",
+      "implementation_authorized": true,
+      "real_phase_A_B_C_authorized": {
+        "A": "completed_accepted",
+        "B": "completed_accepted",
+        "C": "completed_accepted"
+      },
+      "implementation_identity": "research/day_night_label_source_20261018/implementation_identity.json",
+      "implementation_identity_sha256": "e6b53cfb6da3807368c7a7086538fc3942e673f3f8fe391633f6eb16d1e795ae",
+      "synthetic_verification": {
+        "exec_session": 77177,
+        "exit_code": 0,
+        "passed": 1
+      },
+      "implementation_review": "research/day_night_label_source_20261018/implementation_review.json",
+      "implementation_review_sha256": "534f50e46224e0e8caefb2b3bbf70e0eeb8b8100ab7faa3cd8f640d6544cdf38",
+      "phase_A_execution_approval": "research/day_night_label_source_20261018/phase_A_execution_approval.json",
+      "phase_A_execution_approval_sha256": "5f6805abfa125711835c38bc031b916dff7d068e497b224d9406faa275e9a51d",
+      "phase_A_job": {
+        "exec_session": 59469,
+        "nbconvert_pid": 30057,
+        "kernel_pid": 30058,
+        "worker_pid": 30067,
+        "worker_parent_pid": 30058
+      },
+      "phase_A_result": {
+        "exec_session": 59469,
+        "exit_code": 0,
+        "recorder_id": "f8a4eaec9168430da09ae46bf4b1ec8d",
+        "archive_sha256": "585d73652dfc51b0a69c80b87c7eaf29eab8725adb1534741b0d534ea371231e",
+        "summary_sha256": "d2899b6c536fa56f772a7aa2e108155bc66879074fe402468d34a01f843a7064",
+        "manifest_sha256": "8a6840be08f9c2880b104c1f3d602025225256857f8e6d8842c9c68ec344709b",
+        "artifact_count": 12,
+        "selected_members": 7,
+        "opaque_price_blob_materializations": 4,
+        "price_values_decoded": 0,
+        "train_label_objects_loaded": 0,
+        "S_Z_rows": 0,
+        "readback_verification": "research/day_night_label_source_20261018/phase_A/readback_verification.json",
+        "readback_verification_sha256": "206d456e4cad751e200b800e912858cf8022eb627bbea58153837c0912740b7d",
+        "cold_restore_downloads": 1
+      },
+      "phase_A_result_review": "research/day_night_label_source_20261018/phase_A/source_result_review.json",
+      "phase_A_result_review_sha256": "ac59a4531fc721bb8f4ae06ebe8562f461eabfb6467a0af3c35d29046b524c66",
+      "phase_B_execution_approval": "research/day_night_label_source_20261018/phase_B_execution_approval.json",
+      "phase_B_execution_approval_sha256": "6f25f2f113df2e89b74783ac0b1d529bfe2cc80c92e5db795a76edb0a89c3d93",
+      "phase_B_result": {
+        "exec_session": 94911,
+        "exit_code": 0,
+        "worker_pid": 31519,
+        "recorder_id": "ca4c274301a14149bc6f1de5ab800cd4",
+        "archive_sha256": "f4ab6a8be0b5d112ae46adcd798104a462894c712ffdcab016b0c60a8f5fb838",
+        "summary_sha256": "7de95c665b3f687fc0740cfe33334b66576cad92dc6f478f08ee7199e6f9f6f7",
+        "manifest_sha256": "1ef80e340d7377694feb4c54b78425dc4db9af20cc8b8a2bb2be5d0b69c3916b",
+        "artifact_count": 18,
+        "bounded_price_shape": [
+          6040,
+          2
+        ],
+        "original_cohort_rows": 3014,
+        "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
+        "operation_counts": {
+          "opaque_price_blob_materializations": 0,
+          "D_calendar_calls": 1,
+          "D_features_calls": 1,
+          "PG_training_reference_loads": 1,
+          "bounded_B_reference_loads": 0,
+          "S_Z_rows": 0
+        },
+        "H1_cross_vintage_diagnostic": [
+          {
+            "instrument": "SOXL",
+            "rows": 3014,
+            "exact_equal_count": 512,
+            "finite_count": 3014,
+            "missing_count": 0,
+            "max_absolute_difference": 2.8848648071289062e-05,
+            "acceptance_threshold": null,
+            "diagnostic_only": true
+          },
+          {
+            "instrument": "SOXX",
+            "rows": 3014,
+            "exact_equal_count": 449,
+            "finite_count": 3014,
+            "missing_count": 0,
+            "max_absolute_difference": 1.7881393432617188e-06,
+            "acceptance_threshold": null,
+            "diagnostic_only": true
+          }
+        ],
+        "readback_verification": "research/day_night_label_source_20261018/phase_B/readback_verification.json",
+        "readback_verification_sha256": "fdb4dc9c6bf9e13f0cd4e2467e5d4928f41b4d2f2a20e422b772fd0c9bcffa4f"
+      },
+      "phase_B_result_review": "research/day_night_label_source_20261018/phase_B/source_result_review.json",
+      "phase_B_result_review_sha256": "b7b2263b665bc5dca4ae52c28a1e367baf9a1d24d88a60a3c735f6cddf56815d",
+      "phase_C_execution_approval": "research/day_night_label_source_20261018/phase_C_execution_approval.json",
+      "phase_C_execution_approval_sha256": "041d4443d41f4ea37e67c70aaf91eb15ed012bfb597d64257cbf4bc28fd5b9df",
+      "phase_C_result": {
+        "exec_session": 57963,
+        "exit_code": 0,
+        "worker_pid": 32865,
+        "recorder_id": "3243fe48d391405bb450612e506286b2",
+        "archive_sha256": "e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
+        "summary_sha256": "afc7d24c41b76dc1646c5daf4b5c35a85c659751bf5a46239b744fbb69229287",
+        "manifest_sha256": "2e3064838ec0f2fe301361795fc6e5ace105d0aa43a5ece5653cc936cbb73c3f",
+        "artifact_count": 14,
+        "native_dataset_shape": [
+          3014,
+          19
+        ],
+        "fixed_S_Z_rows": 3014,
+        "algebra_checks": 9042,
+        "max_absolute_residual": 5.551115123125783e-17,
+        "original_target_sha256": "79cc7e741a322484d04a31321b6cef7b2aabb0fedc44108f0e522c1018d6a7e2",
+        "operation_counts": {
+          "opaque_price_blob_materializations": 0,
+          "D_calendar_calls": 0,
+          "D_features_calls": 0,
+          "PG_training_reference_loads": 0,
+          "bounded_B_reference_loads": 1,
+          "S_Z_rows": 3014
+        },
+        "readback_verification": "research/day_night_label_source_20261018/phase_C/readback_verification.json",
+        "readback_verification_sha256": "b41d7c253ca0b5cc8b0c3e0cb880f414d7a15a2a2bc1501ecba43ac501bf996e"
+      },
+      "phase_C_result_review": "research/day_night_label_source_20261018/phase_C/source_result_review.json",
+      "phase_C_result_review_sha256": "6dd0b5422c05f6d5945cce761db276db27d9bf60e33cc948528c58a80699c039",
+      "source_label_qualified": true,
+      "new_supervision_target_rows": 3014,
+      "real_data_read_counts": {
+        "native_price_query": 1,
+        "original_train_reference_load": 1,
+        "sealed_B_reference_load": 1,
+        "evaluation_objects": 0
+      },
+      "future_execution_authorized": false
+    },
+    "completed_day_night_supervision_task": {
+      "card": "research/stage1_day_night_supervision_20261018",
+      "phase": "fixed_day_night_version_closed_after_one_attribution",
+      "owner": "/root",
+      "design_executor": "/root/external_methods",
+      "executor": "/root/recent_evidence",
+      "reviewer": "/root/independent_evaluator",
+      "design_draft": "research/stage1_day_night_supervision_20261018/design_draft.json",
+      "design_draft_sha256": "19bdb2437381af8b30a4cfc9496024baaa3dc6546313055d2d30b2fd4a8bc689",
+      "source_C": "research/day_night_label_source_20261018/phase_C",
+      "source_C_review_sha256": "6dd0b5422c05f6d5945cce761db276db27d9bf60e33cc948528c58a80699c039",
+      "planned_fits": 6,
+      "planned_new_native_accounts": 6,
+      "planned_reused_reference_accounts": 15,
+      "planned_required_paired_CI": 15,
+      "new_fits": 6,
+      "new_accounts": 6,
+      "new_data_value_reads_in_model_design": 0,
+      "model_implementation_authorized": true,
+      "model_fit_authorized": false,
+      "account_execution_authorized": false,
+      "executor_lifecycle": "Formal85921, independent negative review, one NAS coldread52313 and one attribution6809 all completed. Executor idle; fixed version closed. No further tests/refits/replays on this route. External methods completed NAV/FOMC rejection and one SEC-text source-feasibility triage; next work is a concrete bounded source qualification design.",
+      "implementation_preparation": "Narrow new adapter fit-loop copy preserves original combined loss order and diagnostic meaning; add regression loss after L_original. Preserve same primary state, auxiliary sampling, globalclip and original RNG; clear temporary cache before seal. No original module edits.",
+      "pending_alignment_clarification": "Source C instrument SOXL_SOXX differs from original PG SOXL_SOXX_CASH; assert both fixed single-instrument/date cohorts and original8fields, then assign S/Z by exact date order while preserving PG index/85columns. No inner join/drop/fill.",
+      "previous_goal_turn_classification": "progress: all three fixed source phases executed once, conditional labels independently accepted and cold-restored; no model/financial success claimed.",
+      "plan_sha256": "8a2b91549f9c39ab479f48bf91d884ae7ea23b0ce12401b70c1542679c9ec888",
+      "design_review": "research/stage1_day_night_supervision_20261018/design_draft_review.json",
+      "design_review_sha256": "bba926ee04e1db3385b264c1a2d7f23c11e194286bd5aaa1203abe80b4fd23ca",
+      "implementation_authorization": "research/stage1_day_night_supervision_20261018/implementation_authorization.json",
+      "implementation_authorization_sha256": "c2fe49076b376da5619b7851c05ec7797050399e6d1e2ec7827f6aadf309856f",
+      "planned_cost_specific_policy_paths": 6,
+      "planned_ensemble_families": 2,
+      "implementation_owner_map": {
+        "model_and_synthetic": "/root/external_methods",
+        "workflow_and_notebook": "/root/recent_evidence",
+        "independent_review": "/root/independent_evaluator"
+      },
+      "implementation_identity": "research/stage1_day_night_supervision_20261018/implementation_identity.json",
+      "implementation_identity_sha256": "7f76c5450fb8961a947c70a56339044af7268eb7ef68417c6168d79145eb8f53",
+      "preflight_design_review": "research/stage1_day_night_supervision_20261018/preflight_design_review.json",
+      "preflight_design_review_sha256": "e635d00b042e342611d78f0663c9361e52522e85c343c10a9b9e97779b426eb3",
+      "preflight_execution_approval": "research/stage1_day_night_supervision_20261018/preflight_execution_approval.json",
+      "preflight_execution_approval_sha256": "ee1961a883cd21046ad16bf04d97f436d7b05d504edb7fcb03a15e9d3eebf78d",
+      "synthetic": {
+        "final_session": 55347,
+        "exit_code": 0,
+        "passed": 1,
+        "retained_fixture_failure_session": 19539,
+        "prior_pass_before_inactive_mask_fix": 52338
+      },
+      "real_no_fit_preflight_authorized": true,
+      "preflight_result": {
+        "exec_session": 56431,
+        "exit_code": 0,
+        "nbconvert_pid": 41133,
+        "kernel_pid": 41137,
+        "recorder_id": "737188ea81cb42dab51327e2c3265911",
+        "archive_sha256": "2d17e38105552b6760ce5d32fff3a1e30c471ed04ab2fdfe99e0ac81490943e7",
+        "manifest_sha256": "4acb948f39ab5b7be02429cabbb6cc0cbffed1eb5f269ab1b155279983098f56",
+        "summary_sha256": "0897ac3ba8cfd0929f117bb1d076728487c06e47f514ba140ec9186f33db031a",
+        "artifact_count": 15,
+        "primary_shape": [
+          3014,
+          87
+        ],
+        "auxiliary_shape": [
+          20741,
+          20
+        ],
+        "original_tensor_scalers_and_target_identity_exact": true,
+        "scales_fitted_once": true,
+        "three_seed_initialization_passed": true,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "evaluation_objects_deserialized": 0,
+        "coldread_exec_session": 87112,
+        "coldread_exit_code": 0,
+        "coldread_receipt": "research/stage1_day_night_supervision_20261018/preflight_readback_verification.json",
+        "coldread_receipt_sha256": "3797c46d893ca102c686e94230de030653345ffdb0b27479d2bde9f04543b956"
+      },
+      "formal_design_review": "research/stage1_day_night_supervision_20261018/design_review.json",
+      "formal_design_review_sha256": "8b72b5229d310be3ed35bc418d9dacf252d9a9e6ba05be17553eb520cf9db296",
+      "formal_execution_approval": "research/stage1_day_night_supervision_20261018/execution_approval.json",
+      "formal_execution_approval_sha256": "08375a45c24b30acca8aad29fa309cfbbb77fb1d80cdbe8de485c27d4f6dc272",
+      "formal_counts_registered": true,
+      "new_policy_paths": 6,
+      "reused_native_accounts": 15,
+      "formal_result": {
+        "exec_session": 85921,
+        "exit_code": 0,
+        "nbconvert_pid": 43289,
+        "kernel_pid": 43297,
+        "recorder_id": "fd026924cf24465b918ec4ebd04ca639",
+        "archive_sha256": "c992d899300006d90a90080b1fcefd183e85d55913a92bb2d615590326f056f7",
+        "manifest_sha256": "8c3b6adb161f751591ff162b6033d5595583e37fec1cf16cc68b1af48c0af7c4",
+        "result_summary_sha256": "c50203d5e339e94fcf0fdff4fdd13e78087d8abab97fa487ae4f6cf3cf74681c",
+        "artifact_count": 88,
+        "all_six_models_sealed_before_eval": true,
+        "model_sha256": {
+          "B_day_night_total_71": "2db9e7799a5edaa73fcdad58e9cd033e3367903cf1856d0dcb37695937e45cf6",
+          "C_day_night_contrast_71": "2d875fcac0bfeb2047d9ff5c62f4b36bd78ca423e7adaab31de3b314345d5154",
+          "B_day_night_total_172": "72c56694ffc207d67cd86dae80a197fa4dfec5140245700692d4e403ba724c41",
+          "C_day_night_contrast_172": "b810bf146b4c3c795464e41dbb692471eb74dd9a4c24de92c2e87f3cb1d8fc25",
+          "B_day_night_total_273": "75798bdb5b7f677de5f829829fe8619d83ed7412ed2fd1bc0ee270216ed62645",
+          "C_day_night_contrast_273": "7494b6e02964c3b048d417e903ca2f87758392069d4db6c938d68fea34aaa501"
+        },
+        "total_comparison_books": 21,
+        "required_CI": 15,
+        "positive_CI_lower_bounds": 0
+      },
+      "independent_evaluation": "research/stage1_day_night_supervision_20261018/independent_evaluation.json",
+      "independent_evaluation_sha256": "7bdc537cfc0f42126a37119eb815252cc343782aa6baedaf12399a32a60ad742",
+      "readback_verification": "research/stage1_day_night_supervision_20261018/readback_verification.json",
+      "readback_verification_sha256": "6a91edda7c4fcea6c53fee79aa7fd0d5a50c15b49c9dd48ce5d72797b14eb60d",
+      "attribution": {
+        "scope": "research/stage1_day_night_supervision_20261018/attribution_scope.json",
+        "scope_sha256": "eb973bdd1ccf2e7b63d7f5f1b225c2a234411dc1d28c1c573057f35540d8b6f0",
+        "result": "research/stage1_day_night_supervision_20261018/failure_attribution.json",
+        "result_sha256": "507b85b03772eda2b8f3d8b1e56072aae31e7371fb498fd17240d504f6e63c53",
+        "exec_session": 6809,
+        "exit_code": 0,
+        "attempts": 1,
+        "new_fits_replays_or_CI": 0,
+        "recorder_88_objects_unchanged": true
+      },
+      "readback_scope_clarification": "Formal coldread verified saved model architecture/target-scaler/optimizer-trace identities. Original initialization/RNG evidence was reused from accepted no-fit and coldread87112, not rerun in formal-result coldread."
+    },
+    "completed_SEC_uncertainty_source_task": {
+      "card": "research/sec_uncertainty_source_20261018",
+      "phase": "B1_fixed_intake_closed_accepted_source_gap",
+      "owner": "/root",
+      "design_executor": "/root/external_methods",
+      "executor": "/root/recent_evidence",
+      "reviewer": "/root/independent_evaluator",
+      "source_design_draft": "research/sec_uncertainty_source_20261018/source_design_draft.json",
+      "executor_lifecycle": "B1 execution20440, independent source-gap review, unique NAS coldread12814 and conclusion synchronization completed. Fixed intake closed; no retry or network/identity change; no source job running.",
+      "model_fit_authorized": false,
+      "account_execution_authorized": false,
+      "new_fits": 0,
+      "new_accounts": 0,
+      "source_execution_authorized": false,
+      "observed_metadata": {
+        "earliest_report_date": "2019-09-30",
+        "earliest_filing_date": "2019-11-25",
+        "basket_accession": "0001752724-19-177706",
+        "conditional_next_session": "2019-11-26",
+        "raw_dictionary_downloads": 0,
+        "filing_body_downloads": 0,
+        "word_frequency_calculations": 0,
+        "price_label_prediction_objects_read": 0
+      },
+      "independent_dependencies": {
+        "A": "needs_purpose_compatible_lexicon_use_and_byte_identity",
+        "B0": "accepted_provisional_sample_only",
+        "B1": "sealed_two_CIKs_and_truthful_project_identity_available; needs_frozen_B1_code_review_and_execution_GO",
+        "C": "needs_accepted_B1_fixed_four_original_accessions"
+      },
+      "observed_at": "2026-10-18T13:45:03.576140+00:00",
+      "plan_sha256": "b51c7b1f204c305fc062d476845e2e44b03f258fc309725e7bf9cd09e1476c50",
+      "source_design_review_sha256": "c823cc5700cd7ce66a8a8ad56f741cb2f03f7438ba019ec29a1f02dcbd47de0c",
+      "implementation_authorization_sha256": "84a3a5facfec3b74a70a3a2d01c7191c7ae6b76b2aea757aa997123d0b258610",
+      "implementation_authorized": true,
+      "transport_identity_review": "research/sec_uncertainty_source_20261018/transport_identity_review.json",
+      "authorized_source_stage": null,
+      "implementation_identity_sha256": "2eb7879682ac72513b266bf72425b439f8bc955cf68872b8740071477075a763",
+      "implementation_review_sha256": "b211699fa40377ca2fe7b2f097a42765230e2e17703ce26a9519c12c91849b7b",
+      "execution_approval_sha256": "8195fa039e736ee196541a3ef92c55d55d783598e9b70e44109ee7f4c4376adc",
+      "synthetic": {
+        "exec_session": 85793,
+        "exit_code": 0,
+        "passed": 1,
+        "actual_source_reads": 0
+      },
+      "B0": {
+        "exec_session": 24234,
+        "exit_code": 0,
+        "nbconvert_pid": 59277,
+        "kernel_pid": 59281,
+        "recorder_id": "029934c9e5b94b04933849c229d19c2a",
+        "experiment_id": "873402594771051925",
+        "archive_sha256": "8b0630e30ca09527ab93d757846980f8bfd43e395c00f74df2334177aa5b384e",
+        "archive_size_bytes": 144943,
+        "manifest_sha256": "5e84ff66e0ce11b5f321341198606496dac07cfd2ea0f24ce739f040af3ede5d",
+        "summary_sha256": "4e9bf567c4634007149ed273f12bba2cbe356724c625cd1f59bd414dd189264b",
+        "artifact_count": 18,
+        "selected_provisional_ciks": [
+          "0000002488",
+          "0000004127"
+        ],
+        "anchor_security_rows": 30,
+        "source_metadata_objects": 3,
+        "D_calendar_calls": 1,
+        "D_features_calls": 0,
+        "external_source_HTTP": 0,
+        "operational_NAS_uploads": 1,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "result_review_sha256": "247873e158acc05541223cff1bbe6ed43daa058fb95121dc3ceb7b6510c85307",
+        "readback_sha256": "29ed1229b23b02a9237ae34778ec7fee27f101507672db9f1e814f27c93a15b5",
+        "coldread_exec_session": 57821,
+        "coldread_exit_code": 0,
+        "coldread_artifact_hashes": 18,
+        "historical_identity_qualified": false,
+        "source_pilot_ready": false
+      },
+      "B1_plan_sha256": "3867e7dbe2bbe4e6af911d978a6ba1bfce3b0af712154f3924d9e2f71437da2d",
+      "B1_implementation_authorization_sha256": "c9de8dfe804aaabc528c9ebcfb3e5dbf6a017e3c4136b1ab3f7ea99f22a97502",
+      "B1_design_clarification_sha256": "1d06556587e0c5bc8fab7965a2d7e907c8cb3deb959448beb86e44f67c1338e5",
+      "B1_implementation_identity_sha256": "4cbf888464cf78bb005b5067dd9fce49c852720e622463b66e6efd13b3cd6c9c",
+      "B1_implementation_review_sha256": "9932fa031d1fc1bc3730389c37d220d5ede0d7dc9d7ea566771f4eb842b63d47",
+      "B1_execution_approval_sha256": "4bdfd8661382d4e3fe2bd7cfb456e8bfe507e9ff945b4f86684017a483836882",
+      "B1_synthetic": {
+        "session_id": 55590,
+        "exit_code": 0,
+        "passed": 1,
+        "real_source_HTTP": 0
+      },
+      "B1": {
+        "exec_session": 20440,
+        "exit_code": 0,
+        "nbconvert_pid": 66837,
+        "recorder_id": "5bc372553abf4f27a2620f1d554b87b3",
+        "experiment_id": "350626717031588765",
+        "source_HTTP": 1,
+        "status": 403,
+        "challenge": true,
+        "stopped_host": "data.sec.gov",
+        "SWKS_no_request": true,
+        "history_HTTP": 0,
+        "header_HTTP": 0,
+        "fixed_slots": 4,
+        "qualified_headers": 0,
+        "C_authorized": false,
+        "manifest_sha256": "c658fb2c589113c53ec5190096cfb10a0f0bbfa74607fcc121b781f86af4ee82",
+        "summary_sha256": "551b3c1e3f7d9f436158019e4f49be6237c7e175fe43308f8c8447492168f6bd",
+        "archive_sha256": "840fe18b286a1b3fe157ba3ae5cc28553b549730b4e5e81f18c48139376d1323",
+        "archive_bytes": 115648,
+        "artifact_count": 17,
+        "result_review_sha256": "e7894eaf36ff83b9ccc862d6a26ca49a74eed9cf519f5e5ccf15ef9514e9c0a6",
+        "coldread_exec_session": 12814,
+        "coldread_exit_code": 0,
+        "readback_sha256": "7fb2dfa73e40274ca707bed1ce152b4398bba48b436d2218fdd2a3438616316f",
+        "retries": 0,
+        "new_fits": 0,
+        "new_accounts": 0
+      }
+    }
+  },
+  "goal_contract_20261018": {
+    "benchmark": "SOXX ETF",
+    "stage1_role": "frozen comparison, not completion benchmark",
+    "initial_cash": 100000,
+    "costs": "frozen IBKR Pro Tiered with independent 0/2/5bp slippage",
+    "max_drawdown_limit": 0.3,
+    "cvar5": "not worse than same-basis SOXX",
+    "complete_annual_positive_excess_minimum": 0.7,
+    "rolling126_positive_excess_minimum": 0.7,
+    "confidence": "preregistered stationary block lower bounds per contract",
+    "forward": "frozen identity; 60 complete paired days, each state15 and3 transitions are minima, not substitutes for actual annual/126-day evidence",
+    "continuous_policy": "repair implementation; close failed fixed version; attribute once; freeze next distinct evidence-based mechanism; do not stop for one branch dependency",
+    "paused": "only explicit user request",
+    "blocked": "same total blocker at least3 consecutive Goal turns and no meaningful alternative progress; reset count after resumed blocked Goal",
+    "complete": "all economic and sufficient independent-forward gates accepted by independent evaluator",
+    "production_changes_authorized": false
+  },
+  "current_goal_execution_counts": {
+    "model_fits": 27,
+    "new_native_accounts": 36,
+    "reused_native_accounts": 81,
+    "completed_fixed_experiments": 6,
+    "historical_passing_candidates": 0,
+    "qualified_forward_days": 0,
+    "reused_native_accounts_scope": "Cumulative comparison reuse events, not independent accounts or new market observations",
+    "unique_reused_reference_accounts": 15,
+    "independent_result_reviews_pending": 0
+  },
+  "next_experiment": null,
+  "external_discovery_20261018": {
+    "user_explicitly_requested": true,
+    "lead_policy": "Community/social discussion leads, then original paper/author code and official fields; no claims from screenshots or backtest marketing",
+    "primary_candidate": {
+      "mechanism": "SOXL minus SOXX FINRA CNMS short-mark fraction, conditional on same venue total volumes/availability",
+      "community": "https://quant.stackexchange.com/questions/60901/what-does-short-volume-in-finra-regsho-actually-measure",
+      "primary_paper": "https://www.sec.gov/comments/s7-08-22/s70822-20149120-316297.pdf",
+      "source_samples_observed": 2059,
+      "historical_full_coverage_verified": true,
+      "limitations": "Not short interest, net inventory, sentiment, or reproduction of operational-shorting measure requiring signed intraday imbalance and creation data",
+      "source_plan_sha256": "3e03c2718c4916d75e316e21208dbfaffb16ac7fb78e512c7bbd279cecf16770",
+      "coverage_qualification": "All2059 current-byte daily source files and4118readyrows qualified; original-vintage/revision metadata and independent forward remain unqualified.",
+      "status": "fixed_q_v1_closed_not_promoted"
+    },
+    "backup_candidate": {
+      "mechanism": "Fixed second-order antisymmetric synchronous ETF path area",
+      "community": "https://www.mql5.com/en/articles/23548",
+      "primary_paper": "https://arxiv.org/abs/2308.15135",
+      "author_code": "https://github.com/owenfutter/signature_trading",
+      "status": "conditional_price_path_statistic_admissible_needs_fixed_post0947_label_and_causal_OOF_bridge_not_fit_ready",
+      "ideal_null": "For simple-return paths y=a*x, antisymmetric area is exactly0; subtracting3*x changes no area. A log-coordinate functional y=f(x) has endpoint-only continuous area plus discretization effects.",
+      "actual_measurement_boundary": "Nonzero observed area may reflect asynchronous prices, bidask, ETF premium/tracking, or historical benchmark changes; not evidence of future executable advantage.",
+      "fixed_possible_future_design": "Only existing09:30-09:45 closed prefix; one simple-return antisymmetric scalar; shared endpoint/quadratic/realizedvariance/covariance controls; no order/window search.",
+      "benchmark_correction": "Current issuer documents show SOXX and SOXL both reference NYSE Semiconductor Index/ICESEMIT; do not assert different current benchmarks. Historical versions remain a dated-source question.",
+      "issuer_sources": [
+        "https://www.ishares.com/us/products/239705/ishares-semiconductor-etf",
+        "https://www.direxion.com/uploads/SOXL-SOXS-Fact-Sheet.pdf"
+      ],
+      "readiness_note": "research/external_mechanism_review_20261018/signature_path_readiness.md",
+      "readiness_sha256": "01f05acbe9883f890abfe1a1ca7101d303c9572b0aa3a477c08e26338e9af944",
+      "measurement_clarification": "Same minute grid is not simultaneous last trades. Asynchronous prints/bidask limit mechanism interpretation but do not alone invalidate a causal closed-prefix input; no claim of arbitrage or alpha.",
+      "receiving_layer": "09:45 closed prefix,09:46 action decision,09:47 fill; must not enter09:29 allocation",
+      "prefix_mask_rule": "Only prefix evidence; never whole-session minute_core_ready that uses future afternoon completeness",
+      "label_gap": "Old open action labels09:31/next09:30 and25bp proxy, or10:31 recovery labels, do not qualify the new09:47 action task",
+      "OOF_gap": "Existing tangent teacher260mature/154pre2022 below old200development minimum is not original Stage1 teacher; fixed causal OOF construction may need a separate bounded fit budget. Do not backcast2022-trained models into early training decisions.",
+      "current_readiness_execution_counts": {
+        "price_label_reads": 0,
+        "area_computations": 0,
+        "fits": 0,
+        "accounts": 0
+      },
+      "OOF_source_inventory": "research/external_mechanism_review_20261018/path_action_oof_source_inventory.md",
+      "OOF_source_inventory_sha256": "f51f7788e22dbc18c9fa300495a05d6d42eaf6e581ecefcade750e3f5f830972",
+      "OOF_original_base_model_metadata_count": 9,
+      "OOF_source_inventory_limits": "Only manifest/code metadata inspected. Models/cutoffs/binary values not loaded or validated; any earlierfold generation requires separate fixed source/auxiliary maturity and budget approval. Do not substitute tangent teacher or backcast final2022 model."
+    },
+    "excluded": {
+      "turn_of_month": "Historical settlement-calendar qualification missing; do not transplant T+3 window",
+      "issuer_NAV_basis": "Existing issuer workbook lacks contemporaneous market price; do not splice unrelated close to manufacture basis",
+      "generic_SMA_volatility_HOLD_retuning": "Closed prior routes or no substantive new mechanism"
+    },
+    "additional_method_triage": {
+      "reviewer": "/root/external_methods",
+      "new_fits": 0,
+      "new_accounts": 0,
+      "cost_sensitive_action_loss": {
+        "status": "bounded_backup_not_frozen_not_authorized_to_fit",
+        "mechanism": "Keep existing action features and net EXECUTE-minus-HOLD advantage Delta; compare unbalanced BCE with normalized abs(Delta)-weighted BCE. Fixed0.5 threshold targets expected signed advantage in the population, not win probability.",
+        "community": "https://www.reddit.com/r/quant/comments/1i7zuyo/what_is_everyones_onetwo_piece_of_notsocommon/",
+        "primary": "https://hunch.net/~jl/projects/reductions/costing/finalICDM2003.pdf",
+        "author_code": "https://github.com/albahnsen/CostSensitiveClassification",
+        "novelty_boundary": "Prior class-balanced action classifiers, continuous net-advantage Ridge and full-path utility already exist; only the fixed magnitude-weighted classification estimator is new. No new information claim.",
+        "data_limit": "Existing260matureOOF action rows; only154before2022, below old200development minimum. Do not lower gate or call reused outcomes independent.",
+        "possible_budget": "Only after separate approval:2fits/6newnativeaccounts; preserve original frozen Stage1, matched always-execute, strongreference andSOXX comparison.",
+        "closure": "No weight-power, clipping,threshold,C orwindow rescue."
+      },
+      "conditional_quantiles": {
+        "status": "not_ready_to_freeze",
+        "community": "https://www.reddit.com/r/algotrading/comments/poqofj/",
+        "primary": "https://arxiv.org/abs/1906.04404",
+        "reason": "Original LOB data unavailable in minuteOHLCV; choosing quantiles/distribution-to-allocation/tail handling adds unspecified interventions."
+      },
+      "label_uniqueness": {
+        "status": "not_selected",
+        "source": "https://www.risklab.ai/research/financial-data-science/weights",
+        "reason": "Daily fixedH5 complete internal samples have almost constant overlap; current primary model is not OOB-scored bagging. Not a substantive information repair."
+      },
+      "closing_half_hour": {
+        "status": "fixed_close_ROD_v1_closed_not_promoted",
+        "reviewer": "/root/intraday_novelty",
+        "community": "https://www.quantconnect.com/forum/discussion/9030/strategy-library-addition-intraday-etf-momentum/",
+        "primary": "https://academicweb.nd.edu/~zda/intramom.pdf",
+        "hypothesis": "Previous-close to final-half-hour-start return may predict last-half-hour continuation; reduced-form test requires no options, but does not measure gamma exposure.",
+        "prior_to_distinguish": [
+          "research/intraday_early_momentum_20261010",
+          "research/intraday_full_day_expansion_20261012"
+        ],
+        "constraint": "No reopening early10:30 momentum or multi-clock overnight-target rules by window search; distinct economic holding interval and executable price/fee contract must be established first.",
+        "novelty": "Old early route uses opening-to10:30 and10:30-to-close; old multicycle15:30 signal targets15:45-to-next09:45 including overnight. Fixed last-half-hour continuation with same-day incremental exit was not isolated. No window/sign/threshold rescue.",
+        "candidate": "New close-only shared B/C permission under frozen structural/cash/lot limits; C adds strict positive SOXX ROD. The .6 cap is new permission using an old numeric ceiling, not an existing all-day authorization.",
+        "timing": "Right-edge bars:15:30close known under +60second assumption;15:32 fill uses15:33 baropen,15:59 exit uses16:00baropen.27minutes executable interval, not exact30minute replication or guaranteedMOC.",
+        "source": "semis_minute_none_20261012_v1 manifest18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3; existing corefullminute files verified by reviewer",
+        "source_limits": "Normal390minute sessions only forincrement;210minute sessions remain completebaseline accounts. Previous halfday close uses13:00.2020-03-16 SOXX anomaly quarantined. Crossday split/dividend eventavailability and endpoints require separate preflight; missing meansnoincrement,neverdropday.",
+        "controls": "OriginalStage1, sameclock/opportunity-set recovery withoutROD, SOXX,strongreference. All threecost accounts retain owncash/quantity/state and chargeentry+exit. Increment cannotborrow fullminute/forwardqualification.",
+        "next_action": "Resolve concrete full-strategy review findings, then owner approves exact final plan/code before any actual signal/account run.",
+        "primary_limit": "Futures longshort and broadasset evidence is notSOXL validation; priceROD doesnotmeasuregamma orNGE; oldmarketdates remainreused.",
+        "independent_novelty_review": {
+          "reviewer": "/root/independent_evaluator",
+          "verdict": "ALLOW_SEPARATE_FROZEN_DESIGN_AFTER_FINRA",
+          "execution_approved": false,
+          "scientific_success_claimed": false,
+          "basis": "Information set, same-day terminal holding interval and external transient-pressure hypothesis differ jointly from closed early/all-day-overnight routes. Reused market history remains reused.",
+          "remaining": [
+            "Fix right-edge bar economic timing and point-in-time split/dividend treatment; previous close must be actual previous session including halfday. Missing endpoint/event eligibility disables both overlays but preserves baseline account day.",
+            "Define temporary recovery and unwind as feasible per-cost own-state changes in physical quantity/exposure. Preserve all PnL and two-sided costs; no imaginary reset to no-overlay counterfactual NAV. Matched noROD control changes only the sign gate."
+          ],
+          "invalidating_changes": "Leaving increment overnight, inheriting old overnight prediction labels or selecting windows after outcomes invalidates novelty approval."
+        },
+        "source_contract": "research/stage1_close_rod_20261018/source_contract_draft.json",
+        "strategy_design": "research/stage1_close_rod_20261018/experiment_design_draft.json",
+        "permission_contract_correction": "New close-only shared B/C permission, not an old all-day .6 allowance. C adds positive ROD; B does not. Original morning chain and state/peak clocks retained; new emergency clamp explicitly subject to review."
+      },
+      "asymmetric_auxiliary_gradient_projection": {
+        "card": "research/stage1_aux_projection_20261018",
+        "status": "fixed_training_projection_version_closed_not_promoted",
+        "community": "https://www.reddit.com/r/MachineLearning/comments/1fbvuhs",
+        "primary": "https://arxiv.org/abs/2001.06782",
+        "primary_anchored_reference": "https://david.grangier.info/papers/2021/ldery-aux-taks-iclr21.pdf",
+        "probe_count": 24,
+        "resolvable_probes": 1,
+        "identity_probes": 23,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "optimizer_steps": 0,
+        "formal_training_authorized": false,
+        "executor_session_id": 37837,
+        "executor_exit_code": 0,
+        "recorder_id": "7f2db7d7b3d54b9db0460489f8d2bc9f",
+        "archive_sha256": "767ddc04e1bd04ffcb6561ad216176510cb31fe44e5a8fa79abd8f00100df0bc",
+        "readback": "research/stage1_aux_projection_20261018/readback_verification.json",
+        "readback_limits": "96artifact hashes pass; archived Dataset caches absent, exact native source reconstruction matches all saved tensors. No repeated probes.",
+        "claim_limit": "No training-trajectory, AdamW-step, economic or forward success claim. A resolvable operation permits separately reviewing a bounded design only.",
+        "training_draft": "research/stage1_aux_projection_allocation_20261018/experiment_design_draft.json",
+        "mechanical_result_review": "research/stage1_aux_projection_20261018/mechanical_result_review.json",
+        "mechanical_result_review_sha256": "27bb926e292da5a67dd0e2a5798e427a28873183289d0344007ba6568f1d5a74",
+        "implementation_authorized": true,
+        "implementation_scope": "Deterministic model/gradient adapter, one focused synthetic contract, and existing24 recorded-vector compatibility check only; no new gradient probe, fit or account.",
+        "implementation_executor": "/root/external_methods",
+        "training_card": "research/stage1_aux_projection_allocation_20261018",
+        "training_result": "not_promoted_fixed_aux_projection",
+        "actual_new_fits": 3,
+        "actual_new_native_accounts": 3,
+        "next_action": "No anchor/weight/threshold/epoch rescue; distinct external mechanism qualification only."
+      },
+      "month_end_settlement": {
+        "status": "needs_source_absolute_cash_deadline",
+        "triage": "research/external_mechanism_review_20261018/month_end_settlement_triage.md",
+        "new_external_evidence": "2026 author paper reports relative timing migration with settlement-cycle changes, but absolute offsets differ from original Dash for Cash payment example.",
+        "candidate_input": "is_last_sale_day_for_month_end_settled_cash",
+        "input_generated": false,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "needs": [
+          "Unambiguous payment cutoff and settlement buffer without return-based calibration",
+          "Service-specific historical CNS/bank settlement-calendar exceptions",
+          "Unique falsifiable translation from cross-sectional selling pressure to three-asset allocation"
+        ],
+        "priority": "ROD remains active; no new experiment execution authorized from this triage.",
+        "source_clarification": "research/external_mechanism_review_20261018/source_clarification.json",
+        "bounded_additional_official_documents": 4,
+        "inputs_generated": 0,
+        "additional_market_return_reads": 0,
+        "next_action": "Source-only branch parked after bounded clarification: require externally justified payment/buffer definition and qualified settlement-service calendar; do not select an offset using returns."
+      },
+      "SEC_FTD_publication": {
+        "status": "not_selected",
+        "source_status": "needs_publication_timestamps",
+        "mechanism_status": "needs_etf_post_release_evidence",
+        "triage": "research/external_mechanism_review_20261018/ftd_timing_triage.md",
+        "triage_sha256": "e064ef11c0964b6a8de15b68f407a70dec699cfa0cbcea5978f3bdd122308069",
+        "community": "https://www.quantconnect.com/forum/discussion/13119/short-data/",
+        "official": "https://www.sec.gov/data-research/sec-markets-data/fails-deliver-data",
+        "primary": "https://www.sec.gov/comments/s7-08-22/s70822-20149120-316297.pdf",
+        "boundary": "Public half-month aggregate outstanding failures differ from same-day TAQ/share-creation operational shorting and from closed FINRA short-volume q. Fixed settlement+14 publication proxies do not qualify real public timing.",
+        "new_FTD_ZIP_or_CSV_downloads": 0,
+        "features_created": 0,
+        "new_fits": 0,
+        "new_accounts": 0,
+        "next_action": "Retain source-only negative qualification. Reconsider only with auditable publication vintages and a distinct post-release liquid-ETF mechanism; no bulk intake or trading experiment authorized."
+      },
+      "public_calendar_TOM_proxy": {
+        "status": "conditional_source_retained_fixed_preopen_receiver_closed_not_promoted",
+        "triage": "research/external_mechanism_review_20261018/calendar_tom_proxy_triage.md",
+        "review": "research/external_mechanism_review_20261018/calendar_tom_proxy_review.json",
+        "fixed_external_window": "four days {-1,+1,+2,+3}; noDay0",
+        "claim": "Public exchange-calendar proxy, not observed institutional cash deadline, pensions flow or exact close-close strategy replication",
+        "time_boundary": "Prior actual opening prefix plus known expected-last schedule; no asof truncation or surprise-closure hindsight. Original source09:29 and account09:46 clocks remain distinct until separately reviewed model mapping.",
+        "new_feature_values": 0,
+        "new_fits": 6,
+        "new_accounts": 6,
+        "model_card": "research/stage1_preopen_tom_20261018/repair_1",
+        "result_review": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json",
+        "fixed_preopen_receiver_result": {
+          "card": "research/stage1_preopen_tom_20261018/repair_1",
+          "decision": "not_promoted_fixed_preopen_TOM",
+          "new_fits": 6,
+          "new_native_accounts": 6,
+          "review": "research/stage1_preopen_tom_20261018/repair_1/independent_evaluation.json"
+        }
+      },
+      "dictionary_free_text_change": {
+        "status": "mechanism_lead_not_selected_not_frozen",
+        "note": "research/external_mechanism_review_20261018/dictionary_free_text_change_triage.md",
+        "sha256": "db035dd62b0e2300465f59fa3a5ca1645064e42519a0b42937d303e2d94f4449",
+        "primary": "https://www.nber.org/papers/w25084",
+        "published": "https://doi.org/10.1111/jofi.12885",
+        "community": "https://www.quantconnect.com/forum/discussion/20966",
+        "mechanism": "Candidate pair-local raw word-frequency cosine distance between adjacent original annual10-Ks; no LM/LLM/global vocabulary dependency, no exact paper replication claimed",
+        "source_boundary": "B0/B1 metadata may be reusable; no text counts/corpus/model/financial admission. Existing uncertainty lexicon A remains unresolved.",
+        "full_method_access": "NBER PDF403 and Ivey PDF inaccessible; no retry/bypass; only primary abstract and returned method excerpt inspected",
+        "search_queries": 3,
+        "page_open_attempts": 4,
+        "word_counts_features_fits_accounts": 0
+      }
+    },
+    "bounded_review_after_projection": {
+      "path": "research/external_mechanism_review_20261018/new_mechanisms_review.md",
+      "sha256": "84cae8ad568ed065edcbdc167f18cf19048307f1414ee9bd23a82d1f4964cfe9",
+      "search_groups": 6,
+      "queries": 20,
+      "Rule201_carryover": "needs_data_and_post_announcement_evidence_low_priority",
+      "SPO_plus": "not_ready_to_freeze_no_equivalent_account_oracle",
+      "new_fits": 0,
+      "new_accounts": 0,
+      "approved_new_candidates": 0,
+      "next_action": "Continue current calendar source/receiving-task qualification. Neither external lead is an executable replacement for the stable-SOXX-excess goal."
+    },
+    "overnight_intraday_supervision_triage": {
+      "path": "research/external_mechanism_review_20261018/overnight_intraday_task_triage.md",
+      "sha256": "dbb2f97c24fdb96a3def67eb6cfc7570819babb91d6ab6cb4894ef5fe5ce1ea9",
+      "search_groups": 4,
+      "queries": 12,
+      "status": "needs_train_only_label_contract_and_matched_supervision_design",
+      "possible_mechanism": "H5 overnight-minus-intraday relative log-return contrast supervision with unchanged original inputs, H1 allocation objective and H5 tail/alpha tasks",
+      "priority": "not_direct_fit_ready",
+      "important_correction": "Original allocation returns are H1 next-open to following-open; H5 tail/cash/alpha and shared maturity filtering remain unchanged. This corrects prose, not saved data or mathematics.",
+      "new_features_labels_fits_accounts": 0,
+      "candidate_execution_authorized": false,
+      "next_action": "Retain as separate bounded lead; current preopen TOM implementation remains primary. No overnight-only account, offset, sign or threshold rescue."
+    },
+    "day_night_source_feasibility": {
+      "path": "research/external_mechanism_review_20261018/day_night_source_feasibility.json",
+      "sha256": "e1c7dc2cffdb2276907e78b2b8214ebbf4d4d708d0be4de364d828f011951240",
+      "status": "metadata_only_not_label_qualified",
+      "provider_candidates_examined": 2,
+      "actual_price_or_label_objects_deserialized": 0,
+      "D_features_calls": 0,
+      "primary_remaining_need": "Exact content and cross-field-basis lineage for the fixed Oct9 open/close source; recovered earlier near-one stitch scales do not establish that link or a material bias.",
+      "next_design_executor": "/root/external_methods",
+      "next_planned_card": "research/day_night_label_source_20261018",
+      "actual_source_or_label_execution_authorized": false
+    },
+    "day_night_supervision_proposal": {
+      "path": "research/external_mechanism_review_20261018/day_night_supervision_proposal.md",
+      "sha256": "329f8a3be089924d3ed899b48e1715a0a447357c0fee4604bdfffdd623835387",
+      "status": "conditional_structural_proposal_registered_before_real_price_label_reads",
+      "selected_hypothesis": "Matched9-parameter shared regression head: standardizedS versus standardizedZ; original39/16 inputs, H1/H5 cohort and training retained. Unique0.02 half-MSE proposal, not an outcome-selected coefficient.",
+      "scope": "No model implementation, source reading, fit or account authorization. Final model design and exact evidence bindings require independent review after source-label qualification.",
+      "global_clip_caveat": "The new head gradient participates in the unchanged globalclip(2); even zero head initialization does not imply unchanged private updates. Full B/C package must be evaluated.",
+      "real_price_label_prediction_reads": 0,
+      "new_fits": 0,
+      "new_accounts": 0,
+      "owner_adoption_before_S_Z": {
+        "path": "research/external_mechanism_review_20261018/day_night_supervision_owner_adoption.json",
+        "sha256": "0f91dcb4dc3e8b3b4670c17744ef5f07ca9711268970db7725d1505d663e3e28"
+      }
+    },
+    "day_night_source_qualification": {
+      "card": "research/day_night_label_source_20261018",
+      "status": "conditional_training_label_source_qualified",
+      "final_recorder_id": "3243fe48d391405bb450612e506286b2",
+      "archive_sha256": "e53a5aa9cc7f06a25f7947e852a301da757c1b061846b651cb54671c77627221",
+      "manifest_sha256": "2e3064838ec0f2fe301361795fc6e5ace105d0aa43a5ece5653cc936cbb73c3f",
+      "independent_review_sha256": "6dd0b5422c05f6d5945cce761db276db27d9bf60e33cc948528c58a80699c039",
+      "fixed_S_Z_rows": 3014,
+      "algebra_checks": 9042,
+      "new_model_fits": 0,
+      "new_accounts": 0,
+      "historical_PIT_qualified": false,
+      "economic_success": false
+    },
+    "nav_premium_source_triage": {
+      "path": "research/external_mechanism_review_20261018/nav_premium_source_triage.md",
+      "sha256": "2f8fd72cb1de7d5a286b48e0938d40693c636dd7d75ada9420d58d957d255833",
+      "queries": 0,
+      "status": "existing_same_source_gap_no_reopening",
+      "market_datasets_downloaded": 0,
+      "new_fits": 0,
+      "new_accounts": 0
+    },
+    "fomc_information_triage": {
+      "path": "research/external_mechanism_review_20261018/fomc_information_triage.md",
+      "sha256": "e1be4a202d64e48616c4edadde2f7acb663db76ac21b46427e1a18b7b078a848",
+      "queries": 8,
+      "status": "no_new_candidate_existing_closed_route_clock_mismatch_and_updated_counterevidence",
+      "market_datasets_downloaded": 0,
+      "new_fits": 0,
+      "new_accounts": 0
+    },
+    "sec_text_information_triage": {
+      "path": "research/external_mechanism_review_20261018/sec_text_information_triage.md",
+      "sha256": "1f8fde51488395369d576a7383c32bea73e35579cf270438d265b25d5989960c",
+      "status": "needs_frozen_pre_cutoff_lexicon_and_causal_sector_corpus",
+      "query_attempts": 8,
+      "successful_queries": 6,
+      "failed_queries_counted_without_retry": 2,
+      "candidate": "Fixed annual10-K uncertainty word-share change on the contemporaneously disclosed SOXX basket; one lexical information hypothesis, not numeric EPS/guidance or modernLLM retrospective scoring.",
+      "raw_corpus_or_lexicon_downloads": 0,
+      "market_price_label_prediction_reads": 0,
+      "new_fits": 0,
+      "new_accounts": 0,
+      "qualification": "None; a source design must fix dictionary identity/use terms, raw-accession and publication/amendment timing, disclosed-basket/CIK/coverage and parser scope before numerical extraction."
+    }
+  },
+  "research_focus_history": [
+    {
+      "superseded_on": "2026-10-18",
+      "focus": {
+        "user_steering": "Focus on SOXL/SOXX/CASH portfolio decisions; stop letting individual-stock research dominate",
+        "new_individual_stock_fundamental_research": false,
+        "existing_NVDA_model_role": "frozen comparator only; no new NVDA interaction extension",
+        "next_mechanism_domain": "ETF valuation and earnings cycle for monthly SOXL/SOXX/CASH allocation with fixed short-term risk layer",
+        "preserve_stable_excess_objective": true,
+        "generic_market_direction": "Prefer reusable index/market data and cross-market training; review prior mixed-index experiments before a distinct new mechanism",
+        "valuation_priority": true,
+        "allocation_horizon": "monthly",
+        "secondary_source_branch": "SOXX/SOX historical weights and announced rebalance changes; source qualification only",
+        "constituent_fundamentals_role": "Basket aggregation only; no issuer-specific predictive branch"
+      }
+    }
+  ],
+  "latest_fixed_result": {
+    "card": "research/stage1_day_night_supervision_20261018",
+    "decision": "not_promoted_fixed_day_night_supervision",
+    "independent_verdict": "ACCEPT_NEGATIVE_RESULT",
+    "review": "research/stage1_day_night_supervision_20261018/independent_evaluation.json",
+    "C_return_pct_0_2_5bp": [
+      259.74103894809434,
+      255.43453899804632,
+      191.19922988280112
+    ],
+    "matched_B_return_pct_0_2_5bp": [
+      287.01738096653236,
+      354.27926286228546,
+      190.4853139544003
+    ],
+    "C_close_max_drawdown_pct_0_2_5bp": [
+      -26.924589593202075,
+      -26.950722766752012,
+      -27.180685689063456
+    ],
+    "C_sampled_max_drawdown_pct_0_2_5bp": [
+      -27.322417550400125,
+      -27.51196656303693,
+      -27.801891339878704
+    ],
+    "complete_annual_SOXX_positive_fraction_each_cost": 0.5,
+    "C_rolling126_positive_fraction": [
+      0.31135531135531136,
+      0.304029304029304,
+      0.24664224664224665
+    ],
+    "positive_CI_lower_bounds": "0/15",
+    "new_fits": 6,
+    "new_native_accounts": 6,
+    "reused_native_accounts": 15,
+    "attribution_status": "completed_fixed_once_no_retry",
+    "next_action": "Close fixed head/weight/target/seed/controller version. Complete one descriptive failure attribution and pursue a substantively distinct information mechanism; do not promote matched B after seeing results.",
+    "attribution": {
+      "path": "research/stage1_day_night_supervision_20261018/attribution_conclusion.md",
+      "source_artifacts": 27,
+      "paired_sampling_hashes_equal": "900/900",
+      "actual_gradient_clip_active_steps": 0,
+      "maximum_preclip_norm_approx": 0.03704,
+      "C_raw_nominal_beta": 1.07373,
+      "B_raw_nominal_beta": 1.068083,
+      "C_2bp_ending_nominal_beta": 0.85617,
+      "B_2bp_ending_nominal_beta": 0.870049,
+      "C_B_risk_state_different_days_2bp": 51,
+      "C_B_risk_clock_different_days_2bp": 124,
+      "interpretation": "The added supervision changed proposals and realized exposures/state paths but failed economic stability. Actual clipping never activated; no controller-only or universal-Z-predictability conclusion."
+    }
+  },
+  "status_semantics": "Mirrors current get_goal controller status, not a conclusion that research options are exhausted."
+}
