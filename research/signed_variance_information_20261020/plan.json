@@ -1,0 +1,83 @@
+{
+  "experiment": "signed_variance_information_20261020",
+  "status": "frozen_design_pre_data",
+  "claim_scope": "One retrospective risk-information screen only; reused 2023-2026 history is not independent validation, return alpha, or portfolio promotion.",
+  "question": "Does the negative one-minute semivariance share of the prior completed SOXX regular session improve a next-session full-RTH realized-variance forecast, conditional on the same session's unsigned realized variance, its 5- and 22-session variance means, and its signed RTH return?",
+  "novelty_gate": {
+    "decision": "eligible_once",
+    "mechanism": "The sign composition of intraday variance may persist into the next session's total variance after conditioning on both unsigned variance and daily signed return.",
+    "distinct_from_closed": [
+      "minute_information_pit_allocator_20261012 used five-minute downside share in H5 allocation among many features; this does not re-open its fixed allocation route.",
+      "minute_risk_oof_20261015 added unsigned intraday RV to a 09:47-to-next-09:47 squared-return forecast; this uses a signed composition and a next full-RTH RV label.",
+      "skew_information_20261014 tested CBOE SKEW level against an H5 downside target; it did not test realized SOXX semivariance conditional on same-session RV."
+    ],
+    "not_novel_by_itself": "Changing five-minute bins to one-minute bins or renaming an existing downside-share field is not novelty.",
+    "primary_basis": [
+      "https://public.econ.duke.edu/~ap172/Patton_Sheppard_REStat_2015.pdf",
+      "https://amoreira2.github.io/alan-moreira.github.io/VolPortfolios_published.pdf"
+    ],
+    "paper_limits": "Patton and Sheppard study signed realized semivariance and future volatility, not this exact SOXX forecast. Moreira and Muir motivate a later economic test of volatility timing; neither paper establishes fee-net SOXX excess."
+  },
+  "source": {
+    "provider_uri": "data/qlib/nas_minute_features_20261014/core",
+    "instrument": "SOXX",
+    "frequency": "1min",
+    "adjustment": "raw NONE",
+    "fields": ["$open", "$close", "$price_valid"],
+    "manifest_source": "Pinned NAS raw NONE 2c70bd56ffc15ad4ba4eb243e0ca0b9409cd9d39f369c0d95ac02829de1fcf58",
+    "manifest_snapshot_hash": "23162e92b8378ede",
+    "manifest_calendar_start": "2018-10-12 09:31:00",
+    "manifest_calendar_end": "2026-10-13 16:00:00",
+    "sha256": {
+      "qlib_store_manifest.json": "a02a3481dd923fbe98bf2339f78a3102b391498b77d6c554bc58623d23ce4d84",
+      "qlib.yaml": "279765937c06514c29d543328230ec44b509d3819636aa0cd2f26e435279e4c4",
+      "calendars/1min.txt": "a510cc56a3493c4d38d5c4fcf28d25aafb5325b2af219a4178e61a0943e7bf7c",
+      "instruments/all.txt": "a226623fa2ef2d2031c29f9877c9e72f8f071af148778d288ac5fc84a0b872b1",
+      "features/soxx/open.1min.bin": "796ec04db205752971bccc7ce433d050f233bb9d4b19352d02a2056843f0cac1",
+      "features/soxx/close.1min.bin": "deebdb8b3ab0e36e77df6ef8f2ac4cb71df16904e8b99dd87b6308ba2633dffb",
+      "features/soxx/price_valid.1min.bin": "d1176e36f3120d390262387527e09be9c4d55e28a95d6d895acccc042b76f07e"
+    },
+    "identity_rule": "Verify every pinned byte hash before a numeric D.features read and again before held-phase reads; abort on mismatch. The retrospective snapshot does not certify historical first receipt or revisions."
+  },
+  "calendar_and_measurement": {
+    "api": "qlib.init(provider_uri, region='us'); D.calendar(freq='1min'); D.features(['SOXX'], ['$open','$close','$price_valid'], freq='1min'); native Qlib DatasetH and R Recorder for the experiment",
+    "schedule_binding": {
+      "exchange": "XNYS",
+      "library": "exchange_calendars",
+      "library_version": "4.13.2",
+      "qlib_distribution": "pyqlib",
+      "qlib_version": "0.9.7",
+      "python_version": "3.12.12",
+      "inclusive_bounds": ["2018-10-12", "2026-10-09"],
+      "session_count": 2008,
+      "first_session": "2018-10-12",
+      "last_session": "2026-10-09",
+      "regular_390_minute_sessions": 1991,
+      "early_210_minute_sessions": 17,
+      "canonical_serialization": "With exchange_calendars.get_calendar('XNYS').sessions_in_range(inclusive_bounds), emit one list row per ordered session: {'session':YYYY-MM-DD,'open_et':official_open.astimezone(ZoneInfo('America/New_York')).isoformat(timespec='seconds'),'close_et':official_close likewise,'minutes':integer elapsed minutes}. Require minutes in {390,210}. Serialize the full list using json.dumps(rows,sort_keys=True,separators=(',',':'),ensure_ascii=True)+'\\n', encode UTF-8, and SHA256 those exact bytes. No header or whitespace beyond the terminal LF.",
+      "canonical_schedule_sha256": "f16f7a780eb620df436e04a935f77a2130fc5b0cca5a7d5b81c3011e4cccdf24",
+      "pre_read_rule": "Recompute and match all version, count, early-close and digest values before any numeric D.features read; store a durable pre-read seal. Reverify the same bounded digest at held-phase entry. Do not extend the calendar horizon or use future dates as a held-year filter. The separately pinned Qlib 1min source calendar hash remains a distinct identity check."
+    },
+    "bar_convention": "For each session s, map naive Qlib 1min labels to America/New_York right edges at official open+1 minute through official close. Require exactly 390 labels on regular sessions or 210 on official early closes, equal to the sealed XNYS schedule. Take the valid raw-NONE open of the first right-edge-labelled bar (09:31 on ordinary sessions), representing the official 09:30 open, and consecutive one-minute closes through official close. Require all finite positive prices and price_valid=1; do not bridge missing bars or append an overnight jump. A deficient session is missing for both models and counted.",
+    "formula": "p_s,0=open of first 09:31-labelled bar; p_s,i=close at scheduled minute i; r_s,i=log(p_s,i/p_s,i-1); RV_s=sum_i r_s,i^2; RSminus_s=sum_{r_s,i<0} r_s,i^2; q_s=RSminus_s/RV_s; signed_return_s=log(final close/p_s,0). Require RV_s>0; no floor or zero fill.",
+    "timing": "A completed session's features become available at official close plus 60 seconds; forecast for the next XNYS session is fixed at 09:29 ET. Its full-RTH RV label matures at that next session's official close plus 60 seconds. No same-day bars enter the 09:29 forecast.",
+    "window": "RV1_s=RV_s; RV5_s=mean(RV_s..RV_s-4); RV22_s=mean(RV_s..RV_s-21), each over consecutive official sessions, with no skipped or partial session. Training may omit a row with an incomplete window from both models and must report it. Any missing held target session or any required prior 22-session lag member aborts the entire held evaluation; never compact gapped dates into adjacent bootstrap positions."
+  },
+  "fit_and_evaluation": {
+    "training_target_sessions": "2019-01-02 through 2022-12-30, inclusive, on native XNYS sessions; train only rows whose target is in this period and matured by 2022-12-30 close+60s. Use 2018 source solely for 22-session lookback.",
+    "held_target_sessions": "2023-01-03 through 2026-10-09, inclusive, on native XNYS sessions; all are reused research history.",
+    "baseline_B": "OLS with intercept: log(next-session RV) ~ log(RV1_s)+log(RV5_s)+log(RV22_s)+signed_return_s.",
+    "candidate_C": "Same intercept and regressors as B, plus q_s with one unrestricted OLS coefficient; positive q coefficient is pre-registered.",
+    "fit_rule": "Exactly one common complete training row set and one OLS fit per model. Require >=200 rows and full column rank in both; otherwise stop without changing model, windows, source, or dates. With y_i=log(target RV), compute each model's positive level forecast as exp(predicted log RV)*mean_training(exp(y_i-fitted_y_i)); the smearing factor is fit on training residuals only. Require finite positive forecasts; otherwise fail.",
+    "metric": "For target RV>0 and forecast vhat>0, QLIKE=log(vhat)+RV/vhat. Paired daily improvement=QLIKE_B-QLIKE_C, so positive favors C. Report full held period and each calendar year without selecting on intervals.",
+    "bootstrap": "Only after every bounded held XNYS target session and its required prior 22-session window is complete, perform exactly one paired stationary bootstrap of consecutive held daily improvements: 10000 resamples, average circular block length 63 native sessions (restart probability 1/63), seed 20261014, lower percentile .025/15. No missing-row compression, parameter or seed search.",
+    "pass": "C's fitted q coefficient >0, held mean paired QLIKE improvement >0, and the pre-registered bootstrap lower bound >0. Any failure closes this fixed risk-information route after minimal auditable attribution.",
+    "economic_boundary": "A pass only permits a separately frozen matched SOXL/SOXX/cash portfolio study with SOXX opportunity cost, IBKR Tiered fees, 0/2/5bp slippage, risk, annual/rolling stability and independent forward evidence. It does not authorize an allocation change or promotion."
+  },
+  "two_phase_bounds": {
+    "phase_1_preseal": "After static review and before any numeric D.features read, verify the pinned source hashes, Python/pyqlib/exchange_calendars versions, and exact bounded XNYS schedule digest; record the durable pre-read seal. Use D for 2018 lookback and 2019-2022 training labels/features only, cache the exact 22-session RV tail ending 2022-12-30 for held start, fit B and C once, store coefficients/smearing/row audit and hashes in one Qlib Recorder, then seal model outputs. Do not read 2023+ numeric prices, labels, or predictions before the model seal.",
+    "phase_2_held": "After model seal, reverify the source identities and same bounded schedule/version seal, then read only the 2023-01-03..2026-10-09 source slice with the sealed 2022 lag tail. Require every target and prior 22-session predictor member; any gap aborts before QLIKE or bootstrap. Forecast before each target session from the previous completed session, score paired mature labels once, run the single bootstrap, write Recorder evidence and compact card conclusion. No new fit or model selection.",
+    "budgets": {"candidates": 1, "model_fits": 2, "bootstraps": 1, "new_portfolio_accounts": 0, "source_query_phases": 2},
+    "stop_conditions": "Abort and report needs_data on identity or bounded calendar/version mismatch, any held target or required 22-lag session gap, insufficient or rank-deficient training rows, nonpositive target/forecast, or timing breach. Do not revise this plan based on held results; do not reopen any closed route."
+  }
+}

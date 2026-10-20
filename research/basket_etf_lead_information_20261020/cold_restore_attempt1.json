@@ -1,0 +1,8 @@
+{
+  "status": "verification_metadata_shape_error",
+  "temporary_card": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/basket-lead-cold-6bs0gu6_",
+  "NAS_downloads": 1,
+  "objects_loaded": 11,
+  "reason": "Owner verifier expected source_code entry to be a bare digest; pinned plan stores a sha256/use mapping. No source-byte mismatch established.",
+  "temporary_copy_preserved": true
+}

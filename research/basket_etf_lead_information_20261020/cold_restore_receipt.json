@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "NAS_downloads": 1,
+  "recorder_id": "c0c07a824ad8495daa5a19db4d793a8a",
+  "archive_sha256": "539842e6db512afdb2e4ffed72a297bdaaf2d8525e1522b59c2a1dc54f756001",
+  "summary_sha256": "015d1c90189ae12b2ddc15d6973c200e229ec8a30c2a532f7aaf9d5603888be1",
+  "manifest_sha256": "3435621a2fd75f1d7cd03a18fe93b3def66b20f7b3be41e14b7dfc42c74ddbb3",
+  "artifact_hashes_verified": 21,
+  "objects_loaded": [
+    "models/B",
+    "models/C",
+    "freeze/receipt",
+    "inputs/training_dataset",
+    "evaluation/dataset",
+    "evaluation/result",
+    "sources/implementation_snapshot",
+    "sources/normalized_notebook",
+    "sources/implementation_identity",
+    "inputs/pit_weight_dataset",
+    "evaluation/pit_weight_dataset"
+  ],
+  "object_loads": 11,
+  "total_readback_object_loads": 22,
+  "readback_attempts": 2,
+  "prior_attempt": "Verifier source_code metadata shape assumption; reused restored copy, no new NAS download",
+  "models_equal_freeze_receipt": true,
+  "source_snapshot_hashes_verified": 8,
+  "normalized_notebook_hash_verified": true,
+  "train_rows": 252,
+  "evaluation_rows": 250,
+  "evaluation_labels_equal_saved_losses": true,
+  "native_weight_datasets": [
+    {
+      "year": 2024,
+      "rows": 7560,
+      "days": 252,
+      "WOLF_rows": 229
+    },
+    {
+      "year": 2025,
+      "rows": 7500,
+      "days": 250,
+      "WOLF_rows": 0
+    }
+  ],
+  "mse_B": 2.1596628713846102e-05,
+  "mse_C": 2.2191909213189656e-05,
+  "relative_MSE_change_C_vs_B": 0.02756358444787743,
+  "saved_bootstrap_quantile_verified_no_resampling": true,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_random_bootstraps": 0,
+  "independent_validation": false,
+  "fee_net_performance_claim": false,
+  "temporary_metadata_rebased_only": true
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent_scoped_design_reviewer",
+  "scope": "Static pre-execution review of one signed-semivariance risk-information plan, prior closed card descriptions and source code, primary research papers, official Qlib documentation, and XNYS calendar metadata. No actual Qlib price/feature arrays, prior or new Recorder objects, model fits, bootstrap draws, or portfolio accounts were read or run.",
+  "verdict": "ACCEPT_ONE_BOUNDED_SIGNED_VARIANCE_INFORMATION_DESIGN",
+  "plan_path": "research/signed_variance_information_20261020/plan.json",
+  "plan_sha256": "b4829e924858c5dbd37b2d8f65ef678a53e8271b00c5d4647ec5bc5d557bcb93",
+  "blockers": [],
+  "novelty_decision": {
+    "eligible_once": true,
+    "reason": "The closed minute allocator used a full-session five-minute downside share among many neural H5 allocation features. The closed risk OOF card tested unsigned intraday RV against a 09:47-to-next-09:47 squared-return target. The new nested question is whether the signed composition q of prior full-session one-minute RV adds information for next full-RTH RV after controlling for RV1, RV5, RV22 and signed RTH return. Changing the bar size or factor name alone would not justify another experiment; the distinct conditional target and comparison do.",
+    "limits": "The Patton-Sheppard signed-semivariance mechanism motivates the direction, but neither cited paper establishes this SOXX result, a tradable volatility signal, or fee-net SOXX outperformance. Closed allocator and risk routes stay closed."
+  },
+  "calendar_metadata_verification": {
+    "method": "Independently recomputed only the versioned exchange_calendars XNYS schedule and canonical ET open/close/minute serialization in the local qlib_venv; no Qlib numeric source was queried.",
+    "python_version": "3.12.12",
+    "pyqlib_version": "0.9.7",
+    "exchange_calendars_version": "4.13.2",
+    "inclusive_bounds": ["2018-10-12", "2026-10-09"],
+    "sessions": 2008,
+    "regular_390_minute_sessions": 1991,
+    "early_210_minute_sessions": 17,
+    "canonical_schedule_sha256": "f16f7a780eb620df436e04a935f77a2130fc5b0cca5a7d5b81c3011e4cccdf24",
+    "matches_plan": true,
+    "pre_read_requirement": "A durable exact version/source/calendar seal must be written before any numeric D.features call, and the same bounded seal checked at held-phase entry. Do not use an unbounded future calendar as a held-year filter."
+  },
+  "approved_fixed_contract": [
+    "Read only pinned SOXX raw-NONE 1-minute Qlib source fields via qlib.init, D.calendar, bounded D.features, phase DatasetH, and a new R Recorder. A full regular or official early-close RTH session must have every expected right-edge bar and valid positive prices; no missing-bar or overnight bridging.",
+    "For each completed session, compute 1-minute RV, negative semivariance share q, signed RTH return, and consecutive native-session RV1/RV5/RV22. Target the following full RTH RV. Features are prior-close information for a 09:29 ET forecast; target maturity follows that next official close.",
+    "Fit only one baseline OLS and one q-augmented OLS on identical eligible 2019-2022 target rows, with at least 200 rows and full rank. Freeze both coefficient sets and training-only smearing factors before any 2023+ numeric price or label read.",
+    "For the 2023-01-03 to 2026-10-09 held target sessions, any missing target or required prior 22-session predictor member aborts the information screen as needs_data. Never compress gapped valid rows into adjacent 63-session bootstrap positions.",
+    "On fully contiguous held sessions, use paired QLIKE_B minus QLIKE_C, one stationary bootstrap with 10000 resamples, mean circular block 63 sessions, seed 20261014 and one-sided lower quantile .025/15. Pass requires positive fitted q coefficient, positive held paired mean, and positive lower bound; no sign, window, seed or model search.",
+    "A passing risk-information result permits only a separately frozen economic study with actual SOXL/SOXX/cash portfolios, matching SOXX opportunity cost, fees, slippage, risk, annual/rolling stability and independent forward evidence. It gives no account, allocation, or promotion permission by itself."
+  ],
+  "execution_boundary": "This accepts a pre-data scientific design, not a research result. If any pinned byte, XNYS/Qlib calendar, session coverage, maturity, rank, or source version requirement fails, report needs_data or the precise execution failure without tuning this fixed candidate. A negative information result closes this version while the continuous fee-net SOXX objective remains active.",
+  "references": [
+    "research/minute_information_pit_allocator_20261012/plan.json",
+    "research/minute_information_pit_allocator_20261012/conclusion.md",
+    "research/minute_risk_oof_20261015/plan.json",
+    "src/data/minute_allocation_features.py",
+    "https://public.econ.duke.edu/~ap172/Patton_Sheppard_REStat_2015.pdf",
+    "https://amoreira2.github.io/alan-moreira.github.io/VolPortfolios_published.pdf",
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

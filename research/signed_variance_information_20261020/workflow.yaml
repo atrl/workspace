@@ -1,0 +1,26 @@
+experiment: signed_variance_information_20261020
+status: frozen_design_pre_data
+entrypoint: signed_variance_information_20261020.ipynb
+callable: src.workflow.signed_variance_information.run
+plan: plan.json
+design_review: design_review.json
+implementation_review: implementation_review.json
+execution_authorization: execution_authorization.json
+single_attempt_journal: run_state.json
+training_source: [2018-10-12 09:31:00, 2022-12-30 16:00:00]
+training_targets: [2019-01-02, 2022-12-30]
+held_source_and_targets: [2023-01-03, 2026-10-09]
+source_fields: ['$open', '$close', '$price_valid']
+source_d_features_calls: 2
+source_calendar_calls: 2
+source_instrument_metadata_calls: 2
+source_datasets: [training_daily, training_targets, frozen_22_session_tail, held_daily, held_targets]
+models: [B, C]
+model_fits: 2
+training_only_scaler: true
+training_only_smearing: true
+held_missing_policy: abort_before_qlike_and_bootstrap
+bootstraps: 1
+stationary_bootstrap: {mean_block_length: 63, replicates: 10000, seed: 20261014, lower_quantile: 0.0016666666666666668}
+accounts: 0
+claim: reused_history_risk_information_screen_only

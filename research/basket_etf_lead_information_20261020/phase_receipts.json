@@ -3,11 +3,11 @@
   "receipts": [
     {
       "phase": "basket_lead_information",
-      "status": "execution_authorized",
-      "source": "research/basket_etf_lead_information_20261020/execution_authorization.json",
-      "source_sha256": "00ef112ec12effe3a91de26e6516236fa9124d9ca36e176ccd22875351943eb2",
-      "review": "research/basket_etf_lead_information_20261020/implementation_review.json",
-      "review_sha256": "a1d7d8048f381a705a0b0dedafe6e9eceed31b14c57f1e368df0bf93b2032517"
+      "status": "not_promoted",
+      "source": "research/basket_etf_lead_information_20261020/summary.json",
+      "source_sha256": "015d1c90189ae12b2ddc15d6973c200e229ec8a30c2a532f7aaf9d5603888be1",
+      "review": "research/basket_etf_lead_information_20261020/result_review.json",
+      "review_sha256": "04e88312f43f39382ff640ffdbd0fb82c6181660d2a7f1bc09f7b1fface2f9c3"
     }
   ]
 }

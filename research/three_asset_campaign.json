@@ -22,15 +22,15 @@
     "last_readback_this_delivery": "blocked; old objective; no supported resume/update completed"
   },
   "current_task": {
-    "card": "research/basket_etf_lead_information_20261020",
-    "phase_receipts": "research/basket_etf_lead_information_20261020/phase_receipts.json",
+    "card": "research/signed_variance_information_20261020",
+    "phase_receipts": "research/signed_variance_information_20261020/phase_receipts.json",
     "implementation_executor": "/root/basket_lead_completion",
     "independent_reviewer": "/root/basket_lead_review",
-    "next_action": "Execute one frozen arithmetic-basket ETF lead information test:2024 fit2models andseal, then2025price/labelreads andsinglepairedlossbootstrap;0financialaccounts.",
-    "run_state": "research/basket_etf_lead_information_20261020/run_state.json",
-    "job_handle": "research/basket_etf_lead_information_20261020/job_handle.json",
-    "execution_receipt": "research/basket_etf_lead_information_20261020/process_exit.json",
-    "last_scientific_observation": "P3 remainsclosed/not_promoted. Newbasketleadmechanism fromprimaryliterature; no outcome yet. UserstableSOXXobjectiveunchanged.",
+    "next_action": "Run two fixed log-HAR variance models on2019-2022 thenseal; held2023-2026 hasstrictfullcalendarcoverage gate andonepairedQLIKEbootstrap. Zeroaccounts; riskinformationonly.",
+    "run_state": "research/signed_variance_information_20261020/run_state.json",
+    "job_handle": "research/signed_variance_information_20261020/job_handle.json",
+    "execution_receipt": "research/signed_variance_information_20261020/process_exit.json",
+    "last_scientific_observation": "Basketleadinformationtest independentlynotpromoted:2025MSE+2.756%worse,all502daysknown. Fixedbasketclosed. NextsignedcompositionreceiverdiffersfromclosedH5/unsignedrisk; noresults yet.",
     "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once"
   },
   "parallel_engineering": {
@@ -57,9 +57,9 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-20T15:48:08.123052+00:00",
+  "updated_at_utc": "2026-10-20T16:22:05.833911+00:00",
   "execution_totals": {
-    "new_model_fits": 35,
+    "new_model_fits": 37,
     "new_native_accounts": 43,
     "completed_fixed_economic_experiments": 7,
     "completed_training_bridges_added": 1,
@@ -67,6 +67,7 @@
     "unique_reused_reference_accounts": 15,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
-    "basis": "previous33fits/37native +P3 2actionfits/6native; baseline6fixedeconomicexperiments +P3=7; referenceevents81+15=96"
+    "basis": "Campaign prior35fits/43native plusbasketlead2informationfits/0accounts; sevenfinancialexperiments andoneinformationexperiment closed. Earlier repo campaigns remain in their own histories.",
+    "completed_fixed_information_experiments": 1
   }
 }

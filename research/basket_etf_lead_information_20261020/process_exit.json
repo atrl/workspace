@@ -1,0 +1,24 @@
+{
+  "plan_sha256": "a697e4e9e15c8c343427b4c3efcc7d2532e0a59b6f281d60c15e94b66b22d837",
+  "execution_authorization_sha256": "00ef112ec12effe3a91de26e6516236fa9124d9ca36e176ccd22875351943eb2",
+  "implementation_identity_sha256": "b883708d818af70376332549a19b0fe755a60a37dbbe3b3db581892abb84d9cb",
+  "log_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-basket-lead-b9gb6gra/nbconvert.log",
+  "command": [
+    "/Users/rziiiii/dev/workspace/qlib_venv/bin/python",
+    "-m",
+    "nbconvert",
+    "--execute",
+    "/Users/rziiiii/dev/workspace/research/basket_etf_lead_information_20261020/basket_etf_lead_information_20261020.ipynb",
+    "--to",
+    "notebook",
+    "--inplace",
+    "--ExecutePreprocessor.timeout=3600"
+  ],
+  "pid": 55370,
+  "start_identity": "ps:Tue Oct 20 23:49:56 2026",
+  "phase": "basket_lead_information",
+  "job_id": "basket-lead-00ef112ec12e",
+  "observed_at_utc": "2026-10-20T15:49:56.131548+00:00",
+  "exit_code": 0,
+  "finished_at_utc": "2026-10-20T15:50:24.958372+00:00"
+}

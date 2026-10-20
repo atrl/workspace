@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent_scoped_implementation_reviewer",
+  "scope": "Cold static review of the frozen signed-variance plan, exact workflow code, Qlib notebook entrypoint, focused synthetic/native test, workflow config and official Qlib API behavior. Reviewer did not open actual SOXX source feature arrays or any research Recorder, and did not execute market reads, fit models, bootstrap, accounts, or another test.",
+  "verdict": "APPROVE_BOUNDED_SIGNED_VARIANCE_INFORMATION_IMPLEMENTATION",
+  "plan_sha256": "b4829e924858c5dbd37b2d8f65ef678a53e8271b00c5d4647ec5bc5d557bcb93",
+  "design_review_sha256": "ff9468c6c49215af09662c2d598835384dd358955070a319e147a4caf7c040e8",
+  "implementation_sha256": "173bccdfee8e0fbaca794cc25547e3622c240f57b1d515249a537a904c907d48",
+  "notebook_sha256": "5356b82767dc5408bfe7ed08ec5a0494902db9f100a48c92e927d751ad6ff174",
+  "notebook_identity_rule": "SHA256 of JSON with sorted keys for cell_type and joined source of every notebook cell except metadata role=conclusion; outputs and execution counts are excluded.",
+  "notebook_file_sha256": "4d4c25f59f1b04db479cd2450520365f0fbbb9391eabf3aac86c19853e9ae933",
+  "workflow_sha256": "8e21f2cf937d0edef1d55eb7f8d35f9080732f5cd319e5ca44c5e93f62e733a2",
+  "test_sha256": "451a100ba6aa7cfbaa15c41132683c1ee962c1739edcb0adeae16fa5fe3708b0",
+  "implementation_dependencies_sha256": {
+    "src/core/native_evidence.py": "a02b3c6b1800874553ee40e939959acddbc81f9b2443c3aeafe6942bca067ebb",
+    "src/objective/relative_wealth.py": "3d1c58c381687de928c06cfa9ce2715bcb2d6bc312de6e2a9a74f96ebe279549",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "blockers": [],
+  "verified_contracts": [
+    "The notebook invokes one concrete run(root) entrypoint. It requires an exact root GO binding the plan, design and implementation reviews, workflow code, normalized notebook, test, dependencies and frozen two-phase budget before a single-attempt journal or market read.",
+    "Before each phase's numeric D.features call, the runner verifies pinned SOXX source bytes and recomputes the exact bounded XNYS version/calendar seal. The pre-read seal is durable; the held phase also follows finished Recorder and frozen-model/tail readback.",
+    "Qlib D.instruments supplies a pool config, D.list_instruments verifies SOXX presence, and one bounded 1-minute D.features call per phase returns only SOXX open/close/price_valid. Instrument-first Qlib index levels are normalized to unique naive ET right-edge labels.",
+    "Each regular or official early-close session requires exactly 390 or 210 native right-edge minutes, valid positive open/close and price_valid=1. The first bar open and consecutive closes produce within-RTH log returns only; no missing-minute or overnight bridge enters RV or negative semivariance share.",
+    "Target rows use the previous 22 consecutive official XNYS sessions and an explicit prior-close availability clock before the 09:29 ET decision. Training uses 2018 only for lag warmup and 2019-2022 target rows. The exact final 22-session training tail, B/C coefficients and training-only standardization/smearing are saved in a new native Recorder, which must finish and read back before 2023+ source values can be requested.",
+    "The held Dataset retains every official target date from 2023-01-03 through 2026-10-09. Any missing target session or required lag aborts before QLIKE or bootstrap. On complete dates the paired score is QLIKE_B minus QLIKE_C, with one fixed 63-native-session stationary bootstrap, 10000 draws, seed 20261014 and one-sided lower quantile .025/15. Positive q coefficient, paired mean and lower bound are all required for an information-screen pass.",
+    "The result card writes an absolute Recorder URI, region and nested slim-card workflow config. Predictions, losses, bootstrap draws, native Datasets and freeze evidence remain in the Recorder. The output labels any pass as reused-history risk information only, with zero accounts and no fee-net or promotion claim."
+  ],
+  "focused_test": "Implementation agent reported one focused synthetic test passed after the final code change. It constructs a tiny real Qlib 1-minute provider and native Recorder, exercises a 210-minute early close, missing-minute and lag propagation, training-only smearing, frozen-model readback, QLIKE direction and the held gap stop before bootstrap. Reviewer inspected the assertions and did not rerun it.",
+  "approval_boundary": "Approval covers one bounded implementation attempt under the exact plan. Actual session coverage, model fit, held QLIKE result, source identity, and independent forward/economic value remain unobserved. A missing required session must become needs_data; an information failure closes this fixed version while the broader fee-net SOXX objective remains active.",
+  "references": [
+    "https://qlib.readthedocs.io/en/latest/reference/api.html",
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

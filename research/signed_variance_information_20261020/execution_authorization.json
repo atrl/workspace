@@ -1,0 +1,28 @@
+{
+  "root_go": true,
+  "owner": "root",
+  "approved": true,
+  "implementation_sha256": "173bccdfee8e0fbaca794cc25547e3622c240f57b1d515249a537a904c907d48",
+  "notebook_sha256": "5356b82767dc5408bfe7ed08ec5a0494902db9f100a48c92e927d751ad6ff174",
+  "test_sha256": "451a100ba6aa7cfbaa15c41132683c1ee962c1739edcb0adeae16fa5fe3708b0",
+  "implementation_dependencies_sha256": {
+    "src/core/native_evidence.py": "a02b3c6b1800874553ee40e939959acddbc81f9b2443c3aeafe6942bca067ebb",
+    "src/objective/relative_wealth.py": "3d1c58c381687de928c06cfa9ce2715bcb2d6bc312de6e2a9a74f96ebe279549",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "plan_sha256": "b4829e924858c5dbd37b2d8f65ef678a53e8271b00c5d4647ec5bc5d557bcb93",
+  "design_review_sha256": "ff9468c6c49215af09662c2d598835384dd358955070a319e147a4caf7c040e8",
+  "implementation_review_sha256": "36fcb5651288c151caac965fa48e4c5c9718e4fde4999cbbe535b67ed379f117",
+  "budget": {
+    "candidates": 1,
+    "model_fits": 2,
+    "bootstraps": 1,
+    "new_portfolio_accounts": 0,
+    "source_query_phases": 2
+  },
+  "maximum_attempts": 1,
+  "approved_at_utc": "2026-10-20T16:22:05.832699+00:00",
+  "authorization_basis": "User reaffirmed continuous effective-factor research toward stable net SOXX excess; second distinct fixed information mechanism, conditional sign composition for future RTH risk. Prior allocation and unsigned-risk routes stay closed.",
+  "operational_NAS_archive_and_one_cold_restore_authorized": true,
+  "new_financial_accounts_authorized": false
+}

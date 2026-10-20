@@ -3,9 +3,9 @@
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
   "active": [
     {
-      "card": "research/basket_etf_lead_information_20261020",
+      "card": "research/signed_variance_information_20261020",
       "phase": "information_screen",
-      "role": "single_new_factor_fixed_information_test",
+      "role": "second_distinct_fixed_factor_information_test",
       "full_economic_experiment": false
     }
   ],
@@ -61,6 +61,13 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/path_area_action_bridge_20261018/P3_result_overview.json"
+    },
+    {
+      "card": "research/basket_etf_lead_information_20261020",
+      "status": "not_promoted_information_screen",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/basket_etf_lead_information_20261020/result_review.json"
     }
   ],
   "deferred_sources": {
