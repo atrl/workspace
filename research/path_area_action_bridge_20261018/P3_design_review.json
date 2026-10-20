@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "phase": "P3",
+  "reviewer": "independent_design_evaluator",
+  "verdict": "APPROVE_P3_FROZEN_DESIGN_FOR_SCOPED_IMPLEMENTATION",
+  "plan_path": "research/path_area_action_bridge_20261018/P3_plan.json",
+  "plan_sha256": "a46094a1658c6006bc831a4a70d70a45f3d1a2023c6bd3288f8004cdd7e6c4c0",
+  "review_scope": "Static design, source metadata, code, and official Qlib documentation only. No Qlib Recorder, model, pickle, price, label, provider, prediction, or account object was loaded; no fit, replay, or test was run.",
+  "material_design_blockers": [],
+  "findings": [
+    "One full P3 plan freezes a training-only preflight and at most one B plus one C fit. The preflight fails closed on strict pre-2023 label maturity, at least 200 exact rows per fit, at least 200 pre-2022 eligible mature rows, both classes, finite original 22 features, identical B/C row IDs and labels, and 32 retained features. P2's 243-row count is context, not a substitute.",
+    "B and C use the same 32 ordered inputs, mean imputation, StandardScaler, C=0.10 balanced logistic model, seed 42 and threshold 0.50. B has a zero area slot; C alone receives signed area. Missing prefixes retain the row with eight control NaNs, C area NaN and mask zero. Mandatory original guards remain fixed.",
+    "The P3a Recorder artifact allowlist is exact and hash-bound. Both model and preprocessing hashes, training rows and schema must be sealed and read back before any 2023+ price, prediction, reference book, or account object is read. A failed preflight or seal cannot silently consume a new fit budget.",
+    "P3b uses saved B_shared smoothed targets with all three saved seed predictions required for 946-row tail proof. It loads a 944-row structural frame but must overwrite its five A_active allocation outputs with exact B_shared values before routing; signal and trade dates must match. No allocation forward or smoothing pass is allowed.",
+    "P3b pins the raw-minute Qlib provider's current calendar, instrument and SOXL/SOXX open, close and price_valid bytes. Its one D.features call decodes a continuous 2023-01-04 09:31 through 2026-10-08 09:45 rectangle, including intervening nonprefix rows after the model barrier; it immediately filters to the 944 funded 09:31-09:45 prefixes and discards the larger frame. P0 comes from the right-edge 09:31 open. A separate pinned daily Qlib calendar serves annual/window boundaries. The existing train-only coverage helper is not eligible for 2023+ bars.",
+    "Six B/C by 0/2/5bp accounts have independent physical and cost/risk state on the 944 funded intervals, with 946 prediction rows and two retained tails. Fifteen exact reference books are named with Recorder/archive and artifact hashes; no TOM feature or substitute reference enters P3.",
+    "SOXX alone supplies the v2 performance hard gate at each cost. C_path_area is the sole preregistered primary candidate; B_path_control and other references support attribution. C-versus-B matched evidence is required for a signed-area increment claim, and B cannot be selected after evaluation as an unregistered rescue. The frozen objective_policy digest 0519ca005b6a83e4d17aa97a5e4ea3e7499b5487b16c7830aaba02cef8d1a955 matches canonical JSON and retains the effective .025/15 bootstrap allocation, risk, annual, rolling, and independent-forward limits.",
+    "Current minute-bin hashes do not independently authenticate the inherited NAS snapshot or historical first receipt. P3 remains conditional retrospective research; even a historical hard-gate pass is not independent forward evidence or promotion permission."
+  ],
+  "implementation_review_focus": [
+    "Verify the actual train-only load list and 32-column/row/class checks before either fit; record exact consumed budget if execution stops.",
+    "Prove the saved B_shared target/date extraction and 946/944 tail mapping. The structural frame may be loaded, but all five A_active allocation fields must be replaced before routing; no TOM value or allocation forward is used.",
+    "Use the scoped 2023+ Qlib reader and mask builder; verify the one contiguous D.features decode is confined to the six pinned slices, filtered immediately to funded prefixes, and never persisted or used for completed-day gating. Verify right-edge bar clock and source hashes.",
+    "Enforce a real model/preprocessor seal barrier before P3b source reads, then run all six native own-state accounts and reconcile exact reference identities and accounting basis.",
+    "Keep the executable research notebook, Recorder evidence and Chinese conclusion synchronized with all hard gates, diagnostics and source qualifications."
+  ],
+  "authorization_boundary": "This approves the frozen design for scoped implementation. Root's plan-and-implementation-bound execution GO remains to be recorded before any P3a source read or fit. No evaluation, scientific result, independent validation, or promotion is approved by this review.",
+  "reviewer_actions": {
+    "static_files_only": true,
+    "recorder_or_model_objects_loaded": 0,
+    "provider_or_price_or_label_reads": 0,
+    "fits": 0,
+    "native_accounts": 0,
+    "tests": 0
+  }
+}

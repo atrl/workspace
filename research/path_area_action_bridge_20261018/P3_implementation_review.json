@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "phase": "P3",
+  "reviewer": "independent_implementation_evaluator",
+  "verdict": "APPROVE_P3_IMPLEMENTATION_FOR_SEPARATE_EXECUTION_GO",
+  "plan_sha256": "a46094a1658c6006bc831a4a70d70a45f3d1a2023c6bd3288f8004cdd7e6c4c0",
+  "design_review_sha256": "83ca4a22a43015eef7e283b3245e5b761bd18153b36df2ff92f9952de514a454",
+  "implementation_sha256": "ebb658ac8bbb45094f163fc65d6cc5aa80c2269b2e4f6e8b4775d5c0c78a0de4",
+  "scope": "Focused static review of the scoped P3 model, prefix reader, account adapter, workflow, notebook, and existing focused synthetic receipts. No campaign Recorder/model/pickle/provider/price/label object was loaded and no actual P3 fit or account was run by the reviewer.",
+  "material_blockers": [],
+  "review_findings": [
+    "The workflow checks frozen plan, design review, implementation identity, and separate root GO before creating an attempt ledger or opening research objects. The initial P3a verified source read occurs before the first writable P3 Recorder, with a durable single-attempt run_state file if prewriter work fails.",
+    "Training reconciles Qlib DatasetH and the saved P2 label frame on signal and actual trade dates. The 1,254-row path input artifact includes earlier warmup; the implementation validates that superset and selects the exact 1,057 shadow signal rows before asserting trade dates and path fields. Exact eligible, mature, class, prefix, and 32-column checks precede the two fixed logistic fits.",
+    "Each B/C fit attempt is recorded before fitting. The successful model and preprocessing artifacts are hashed and read back; any incomplete or changed seal blocks all P3b evaluation reads. The original 22 action inputs, eight controls, mask and final signed-area slot retain the frozen order, threshold and mandatory guards.",
+    "The P3b source loader, Qlib prefix/calendar query, derived provider build/readback, and native reconciliations run with the detached Recorder writer closed. The same Recorder is reopened to attach audit artifacts and checkpoints; the focused synthetic lifecycle check covered two sequential close/reopen operations.",
+    "The evaluation reader verifies pinned Qlib provider bytes and performs one post-barrier six-slice D.features query over the disclosed continuous rectangle. It retains only the 944 funded session prefixes before area/mask arithmetic, with P0 mapped to right-edge 09:31 open and later closes to 09:31–09:45. Missing prefixes remain masked rows.",
+    "The workflow binds the saved B_shared smoothed target stream and three seed prediction artifacts to the 944 account intervals and 946 prediction/tail rows. It overwrites all five allocation outputs in the structural frame before routing, retains frozen recovery and raw account inputs, and checks exact date/grid/initial-state identity for 15 reused native reference books.",
+    "Six B_path_control/C_path_area by 0/2/5bp paths call the original own-state raw replay and native validator separately. Cost-specific state, action features, prediction attempts, fees, receivables and account results are recorded. SOXX v2 uses the frozen objective_policy digest and .025/15 statistical allocation; C-versus-B remains diagnostic.",
+    "The executable phase notebook and workflow point to the guarded run. Result sidecars and Chinese conclusion are generated only from the completed Recorder outcome. Conditional retrospective source and missing independent-forward/full-minute-risk qualifications remain explicit."
+  ],
+  "verification": {
+    "focused_model_preflight_check": "reported passed by implementation agent; synthetic only",
+    "focused_native_account_check": "reported passed by root; one synthetic native reconciliation, no campaign source",
+    "focused_workflow_lifecycle_check": "reported passed by implementation agent; one test, 5.43 seconds, synthetic source and fake fits only",
+    "reviewer_static_implementation_identity_recomputed": "ebb658ac8bbb45094f163fc65d6cc5aa80c2269b2e4f6e8b4775d5c0c78a0de4",
+    "reviewer_actual_campaign_reads": 0,
+    "reviewer_actual_fits": 0,
+    "reviewer_actual_native_accounts": 0
+  },
+  "execution_boundary": "Root may record one exact GO bound to this plan SHA, design-review SHA, implementation SHA, implementation-review SHA, and frozen budget. This review does not assert that the P3 research run has started, that native evidence exists, or that economic or forward gates pass."
+}

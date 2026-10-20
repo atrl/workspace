@@ -4,8 +4,8 @@
   "active": [
     {
       "card": "research/path_area_action_bridge_20261018",
-      "phase": "P3_design_pending",
-      "role": "bounded_next_design_no_execution_GO",
+      "phase": "P3",
+      "role": "single_economic_experiment_execution_authorized",
       "completed_training_bridge": "research/path_area_action_bridge_20261018/P2_result_overview.json"
     }
   ],

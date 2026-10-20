@@ -1,0 +1,17 @@
+schema_version: 1
+experiment: path_area_action_bridge_20261018_P3
+phase: P3
+plan: ../P3_plan.json
+entrypoint: src.workflow.path_area_action_bridge_p3.run
+notebook: path_area_action_bridge_p3.ipynb
+execution_authorization: P3_execution_authorization.json
+implementation_review: ../P3_implementation_review.json
+design_review: ../P3_design_review.json
+candidate_family: C_path_area
+control_family: B_path_control
+execution_mode: single_attempt_no_automatic_resume
+model_fits: 2
+native_accounts: 6
+reused_native_accounts: 15
+source_HTTP: 0
+artifact_policy: slim_card_recorder_first

@@ -1,0 +1,888 @@
+{
+  "schema_version": 1,
+  "experiment": "path_area_action_bridge_20261018",
+  "phase": "P3",
+  "artifact_type": "frozen_economic_experiment_plan",
+  "version": "v3",
+  "status": "frozen_design_pending_independent_review_and_execution_authorization",
+  "frozen": true,
+  "approved": false,
+  "owner_go": false,
+  "authorization_boundary": {
+    "current_authority": "Static plan drafting and review only. Root has authorized continued P3 planning; no data/model/evaluation read, fit, recorder creation, account replay, promotion, or external source query has occurred in this task.",
+    "required_before_P3a_source_or_label_read_or_fit": "Independent design review acceptance plus one separately recorded root execution GO bound to this plan SHA and implementation SHA. This GO covers the full fixed sequence P3a -> model barrier -> P3b; no second read authorization is implied or required between phases.",
+    "required_before_P3b_evaluation_source_read": "All two fitted action model and preprocessing artifact hashes sealed and verified, then the same explicit execution GO permits the fixed P3b allowlist.",
+    "prohibited": "No allocation refits; no extra model fits; no evaluation reads before model barrier; no new market HTTP; no real orders; no promotion by this plan.",
+    "existing_P2_boundary": "P2 repair_4 remains immutable and accepted as training bridge only; P3 is a new fixed version."
+  },
+  "purpose": "Test whether signed SOXX/SOXL prefix path area improves the 09:46 EXECUTE/HOLD decision after matched controls and under costed complete-account evaluation.",
+  "hypothesis": "The signed path-area candidate C improves complete costed SOXX-relative economics versus the fixed common-shadow policy; B_path_control is the matched neutral-area attribution control.",
+  "p2_basis": {
+    "status": "completed_training_bridge_no_economic_evaluation",
+    "decision": "count_only_pass",
+    "recorder_id": "4c8ac31f8671487ca422175e1c72c0eb",
+    "experiment_id": "125080206845583831",
+    "summary_path": "research/path_area_action_bridge_20261018/P2/repair_4/summary.json",
+    "summary_sha256": "ac663e9795cc8b9603c4db40bf65d2fee922f6f8a058a5b5bf0bd1024d6e67d9",
+    "verification_manifest_path": "research/path_area_action_bridge_20261018/P2/repair_4/verification_manifest.json",
+    "verification_manifest_sha256": "26b911a91fba2e8e8f8cee832a145106f5941650c53a0ab4799fb327d5b33b70",
+    "nas_archive_sha256": "98132b6ad5408c39c85252952c9ee921ce45ad816f9b7448f9d17df8bdaf2019",
+    "source_identity_sha256": "859b4e9800613724079b60ed0a1a57bb82fa129fd2b07e8bb4058e288b2f0c7d",
+    "native_reconciliation": {
+      "status": "passed",
+      "sessions": 1057,
+      "max_relative_error": 0.0
+    },
+    "strict_pre2022_mature_label_rows": 243,
+    "strict_pre2022_label_signs": {
+      "positive": 104,
+      "nonpositive_including_zero": 139,
+      "ties": 51
+    },
+    "qualification": "These are metadata totals, not P3 exact eligible B/C fit counts. P3a must read only its allowlisted train artifacts and calculate exact counts before fitting."
+  },
+  "sources_and_phase_allowlists": {
+    "P3a_training_only": {
+      "recorder": {
+        "card": "research/path_area_action_bridge_20261018/P2/repair_4",
+        "recorder_id": "4c8ac31f8671487ca422175e1c72c0eb",
+        "experiment_id": "125080206845583831",
+        "archive_sha256": "98132b6ad5408c39c85252952c9ee921ce45ad816f9b7448f9d17df8bdaf2019",
+        "verification_manifest_sha256": "26b911a91fba2e8e8f8cee832a145106f5941650c53a0ab4799fb327d5b33b70"
+      },
+      "artifact_allowlist_sha256": {
+        "local_labels/action_label_dataset": "6dd9aa5c578aa145f945bcfec4eab605c94483d0fdf85377e1b13786d31195ea",
+        "local_labels/action_label_frame": "221c3625c3c26cf3d61cf03b14d9dc88c528e3c4924cc858da187b7114727730",
+        "local_labels/labels": "4e81ad326af46480b8d08907e3896fd29f4aae7a02a46428da8aa738665501b8",
+        "shadow_python/path_area_inputs": "f5c65a01026aa59fb4e461d0fa41ecdcc54b652071b2e3fd377a5f8204c79598",
+        "shadow_python/decisions": "09824fe19e9db23e34ebf235c8319f5c8008aa69ec5f5680b7c57ed5087d0ccc"
+      },
+      "allowed_static_metadata": [
+        "P2 repair_4 summary.json",
+        "P2 repair_4 verification_manifest.json",
+        "this P3_plan.json",
+        "frozen P1/P2 plan metadata named by this plan"
+      ],
+      "forbidden_before_model_barrier": [
+        "any 2023+ price/return/label/prediction/evaluation dataset/account artifact",
+        "stage1_preopen_tom evaluation_sources",
+        "reference books",
+        "model deserialization outside the two P3 fits"
+      ],
+      "purpose": "Exact count preflight, then at most one B fit and one C fit on identical rows; no allocation fit."
+    },
+    "P3b_evaluation_only_after_barrier": {
+      "reference_sources": {
+        "AB_native": {
+          "card": "research/stage1_domain_heads_20261018",
+          "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+          "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+          "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+          "artifacts": [
+            "native/A_active_research_replay_0",
+            "native/A_active_research_replay_2",
+            "native/A_active_research_replay_5",
+            "native/B_shared_0",
+            "native/B_shared_2",
+            "native/B_shared_5"
+          ],
+          "artifact_sha256": {
+            "native/A_active_research_replay_0": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+            "native/A_active_research_replay_2": "bf6d10ac75ee84ce4f5688188259c1061141aa3110a82a0587425630fbed0284",
+            "native/A_active_research_replay_5": "1b2065502bb43f5ddcbba96a17beddcbc142b85ffea6eb2586f69e576f50062b",
+            "native/B_shared_0": "f6ad692bdc8aea7998fb0588b789eb6d07fd97d6c413e8fe1492b6bd1086a164",
+            "native/B_shared_2": "3e52887404eb44d1ce135c64b6bcdc2f91f63264324ccf48ef0889b229cd42ae",
+            "native/B_shared_5": "ebebcc0e8e79ea33cdf316a24dc1dbec88e64597f91757a903f04095af0cf896"
+          },
+          "read_phase": "only after both P3 action model and preprocessing SHA seals are verified"
+        },
+        "strong_native": {
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifacts": [
+            "inputs/plan",
+            "inputs/raw_points",
+            "inputs/schedule",
+            "native/raw_SOXX_0",
+            "native/raw_SOXX_2",
+            "native/raw_SOXX_5",
+            "native/raw_strong9097_0",
+            "native/raw_strong9097_2",
+            "native/raw_strong9097_5",
+            "native/raw_candidate27baa_0",
+            "native/raw_candidate27baa_2",
+            "native/raw_candidate27baa_5"
+          ],
+          "artifact_sha256": {
+            "inputs/plan": "ead4fa68daa779ea4da4708b762913e7d89e7c9d6f68523340e0252866eb712b",
+            "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+            "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+            "native/raw_SOXX_0": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+            "native/raw_SOXX_2": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d",
+            "native/raw_SOXX_5": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e",
+            "native/raw_strong9097_0": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93",
+            "native/raw_strong9097_2": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f",
+            "native/raw_strong9097_5": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05",
+            "native/raw_candidate27baa_0": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466",
+            "native/raw_candidate27baa_2": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31",
+            "native/raw_candidate27baa_5": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+          },
+          "read_phase": "only after both P3 action model and preprocessing SHA seals are verified"
+        }
+      },
+      "reference_books": [
+        {
+          "family": "A_active_research_replay",
+          "cost": 0,
+          "source_role": "AB_native",
+          "artifact": "native/A_active_research_replay_0",
+          "card": "research/stage1_domain_heads_20261018",
+          "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+          "archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+          "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+          "artifact_sha256": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678"
+        },
+        {
+          "family": "A_active_research_replay",
+          "cost": 2,
+          "source_role": "AB_native",
+          "artifact": "native/A_active_research_replay_2",
+          "card": "research/stage1_domain_heads_20261018",
+          "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+          "archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+          "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+          "artifact_sha256": "bf6d10ac75ee84ce4f5688188259c1061141aa3110a82a0587425630fbed0284"
+        },
+        {
+          "family": "A_active_research_replay",
+          "cost": 5,
+          "source_role": "AB_native",
+          "artifact": "native/A_active_research_replay_5",
+          "card": "research/stage1_domain_heads_20261018",
+          "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+          "archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+          "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+          "artifact_sha256": "1b2065502bb43f5ddcbba96a17beddcbc142b85ffea6eb2586f69e576f50062b"
+        },
+        {
+          "family": "B_shared",
+          "cost": 0,
+          "source_role": "AB_native",
+          "artifact": "native/B_shared_0",
+          "card": "research/stage1_domain_heads_20261018",
+          "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+          "archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+          "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+          "artifact_sha256": "f6ad692bdc8aea7998fb0588b789eb6d07fd97d6c413e8fe1492b6bd1086a164"
+        },
+        {
+          "family": "B_shared",
+          "cost": 2,
+          "source_role": "AB_native",
+          "artifact": "native/B_shared_2",
+          "card": "research/stage1_domain_heads_20261018",
+          "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+          "archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+          "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+          "artifact_sha256": "3e52887404eb44d1ce135c64b6bcdc2f91f63264324ccf48ef0889b229cd42ae"
+        },
+        {
+          "family": "B_shared",
+          "cost": 5,
+          "source_role": "AB_native",
+          "artifact": "native/B_shared_5",
+          "card": "research/stage1_domain_heads_20261018",
+          "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+          "archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+          "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+          "artifact_sha256": "ebebcc0e8e79ea33cdf316a24dc1dbec88e64597f91757a903f04095af0cf896"
+        },
+        {
+          "family": "SOXX",
+          "cost": 0,
+          "source_role": "strong_native",
+          "artifact": "native/raw_SOXX_0",
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifact_sha256": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550"
+        },
+        {
+          "family": "SOXX",
+          "cost": 2,
+          "source_role": "strong_native",
+          "artifact": "native/raw_SOXX_2",
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifact_sha256": "e706271daa924cb98fbc1065438368c2582b68edfe690659d54bf45536356b0d"
+        },
+        {
+          "family": "SOXX",
+          "cost": 5,
+          "source_role": "strong_native",
+          "artifact": "native/raw_SOXX_5",
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifact_sha256": "4a65872ec33a0934f0a6b3b62321488703285acc27bbf538c1af1714e4978a9e"
+        },
+        {
+          "family": "strong9097",
+          "cost": 0,
+          "source_role": "strong_native",
+          "artifact": "native/raw_strong9097_0",
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifact_sha256": "cfb9fe304a02ed7f3bc5732e665fdc936f1b36c675aa4eadac87ce932146dc93"
+        },
+        {
+          "family": "strong9097",
+          "cost": 2,
+          "source_role": "strong_native",
+          "artifact": "native/raw_strong9097_2",
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifact_sha256": "74beab09a00bf4240f4b3c0d8c79470efbdf3c10cced45e70241a06657caf85f"
+        },
+        {
+          "family": "strong9097",
+          "cost": 5,
+          "source_role": "strong_native",
+          "artifact": "native/raw_strong9097_5",
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifact_sha256": "740cdb55442a414e7cd8fe486b0f5d5bf42d4e95a3387dbf098f566d653e0a05"
+        },
+        {
+          "family": "additional27baa",
+          "cost": 0,
+          "source_role": "strong_native",
+          "artifact": "native/raw_candidate27baa_0",
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifact_sha256": "36857d66a4d2160ab753c0db94246717968233b95d38b15828acaf314264a466"
+        },
+        {
+          "family": "additional27baa",
+          "cost": 2,
+          "source_role": "strong_native",
+          "artifact": "native/raw_candidate27baa_2",
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifact_sha256": "d4eba2b0584392ab27548acdf53cfd53650b65f21a9e2a2cf3f2f3fa58324f31"
+        },
+        {
+          "family": "additional27baa",
+          "cost": 5,
+          "source_role": "strong_native",
+          "artifact": "native/raw_candidate27baa_5",
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifact_sha256": "40139b6b2558043a96f4e5542d3449746a27dd75287e66c3da7c7ffb0798c77d"
+        }
+      ],
+      "source_plan": {
+        "path": "research/stage1_preopen_tom_20261018/repair_1/plan.json",
+        "sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4"
+      },
+      "evaluation_read_rule": "Allowlisted objects only, loaded via verified Qlib Recorder source loader after both P3 action models/preprocessors are sealed and their manifest read back. Every artifact hash, Recorder/archive identity, source plan hash, calendar, price grid, corporate actions, tariff, and initial-state identity must match exactly. Mismatch stops; no fallback replay.",
+      "prefix_feature_source": {
+        "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+        "freq": "1min",
+        "manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+        "snapshot_id": "18f1fb3f17907932ddd13881aea9199369181a92c9b6c77395d0b255100c68c3",
+        "source_inventory": {
+          "path": "research/intraday_full_day_expansion_20261012/source_inventory.json",
+          "sha256": "30ef7df2dd382b517808d99cd203de4431dd56384c033090d3c26fe2836f0474"
+        },
+        "source_byte_identity": {
+          "path": "research/path_area_action_bridge_20261018/source_byte_identity.json",
+          "sha256": "29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124"
+        },
+        "current_provider_file_sha256": {
+          "calendars/1min.txt": "01d00736617fea7392ce81a400339cc6b061396a5e7f2a94cd844c554362a08c",
+          "instruments/all.txt": "c01836ac69f179ad7f51e4e774b7b5b8f8ebcbb29f7ae893fb3a5371c1bcc9cc",
+          "features/soxl/open.1min.bin": "d98700b1af7c9fc1fabd2a35271c2b8026344ab74d1a3dfb77d4f03a6305657d",
+          "features/soxl/close.1min.bin": "3f8f9e85a6f6ce5a0ae632dd8dc368afefc31a3371340173cb403663b8e66755",
+          "features/soxl/price_valid.1min.bin": "a60d3277dd03b79c86f96cac4ce7d3b8b491d0de240424603db01854dfec9ed1",
+          "features/soxx/open.1min.bin": "8a6a7ad2418f42c53ef81b003356242effcbc9a165741baf2805796470c45c0b",
+          "features/soxx/close.1min.bin": "83069807a4fbfca7c545973055fb31a43cfd796d365c200bf4ebe0af42a83f88",
+          "features/soxx/price_valid.1min.bin": "ac6d88813afc59ce9aef5da3e4c1456de7dc9e6b7b4b806a19a1ab6ea53b38d2"
+        },
+        "field_allowlist": [
+          "SOXL.$open",
+          "SOXL.$close",
+          "SOXL.$price_valid",
+          "SOXX.$open",
+          "SOXX.$close",
+          "SOXX.$price_valid"
+        ],
+        "session_scope": "One bounded Qlib D.features call spans the contiguous provider rectangle 2023-01-04 09:31 through 2026-10-08 09:45 for the six allowlisted SOXL/SOXX open/close/price_valid slices. Qlib decodes intervening non-prefix minute rows inside this rectangle. Immediately project to the 944 funded trade dates and retain only each date 09:31..09:45 for prefix statistics/mask. Do not query a 2026-10-09 tail prefix or use full-day completeness. Do not save or otherwise use the large intervening frame.",
+        "arithmetic": "Fixed P0 + fifteen paired closes in src/data/path_area_bridge.py; raw NONE basis only.",
+        "missing_semantics": "A session is mask=1 only if every required SOXL/SOXX mark exists, is price_valid=1, finite and positive. Otherwise retain the row, set mask=0 and area/eight controls=NaN. A declared-complete but malformed set is an integrity stop.",
+        "read_phase": "Only after both P3 action model and preprocessing SHA seals are verified.",
+        "lineage_limit": "Per-bin hashes were not inherited from the NAS archive. These are the current byte IDs recorded by the prior P1 source review and do not prove NAS snapshot origin or historical first receipt; carry conditional retrospective qualification forward.",
+        "verification": "Before Qlib D.features numeric reads, require provider manifest, calendar, instrument and each allowlisted file to match the pinned identity; any mismatch stops. Use qlib.init and qlib.data.D per official Qlib docs. Do not extend query bounds.",
+        "exact_qlib_mapping": {
+          "P0": "09:31.$open represents 09:30 session open",
+          "P1_to_P15": "09:31..09:45.$close",
+          "availability": "each Qlib right-edge bar is available at timestamp + 60 seconds; final close known before 09:46 decision",
+          "funded_rows": "944 account trade dates only; join signal_date and trade_date exactly"
+        },
+        "query_rectangle": {
+          "start": "2023-01-04 09:31 America/New_York",
+          "end": "2026-10-08 09:45 America/New_York",
+          "assets": [
+            "SOXL",
+            "SOXX"
+          ],
+          "fields_per_asset": [
+            "$open",
+            "$close",
+            "$price_valid"
+          ],
+          "Qlib_slices": 6,
+          "funded_prefix_dates": 944,
+          "retained_time_per_funded_date": "09:31..09:45",
+          "decoded_intervening_rows": "All provider minute rows inside the contiguous rectangle; residency is bounded but includes intervening non-prefix times."
+        },
+        "numeric_read_residency": "After model barrier only. The D.features rectangle necessarily materializes intervening rows for the six fields; restrict downstream access immediately to the 944 funded daily prefixes and discard the bounded larger frame. Save only projected prefix Dataset and audit, never full rectangle."
+      },
+      "source_plan_role": "The stage1_preopen_tom plan supplies reference-book identities/clock metadata only. No TOM predictor or outputs enter P3.",
+      "original_allocation_target_stream": {
+        "card": "research/stage1_domain_heads_20261018",
+        "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+        "experiment_id": "283510277269468590",
+        "archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+        "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+        "artifact": "analysis/smoothed_targets",
+        "artifact_sha256": "873e83727939e85018757b8d40ad40d9e01ca9fc4cdd2903a6c0df87888ec04c",
+        "allowed_key": "B_shared only; exact existing smoothed target series / original five outputs, no recomputation or re-smoothing.",
+        "excluded_keys": [
+          "C_domain",
+          "A_active_research_replay"
+        ],
+        "row_rule": "Use saved B_shared smoothed targets for exactly the 944 funded account intervals. Require all three saved B_shared seed prediction artifacts (946 rows each) to reconcile the two prediction tails and exact signal_date/trade_date mapping. The pinned inputs/frame and inputs/market are 944-row structural/risk context only. Before any route is called, overwrite all five allocation-output fields in the 944-row structural frame from B_shared targets and assert exact signal_date and trade_date identity. Never use A_active or C_domain allocation outputs; no allocation model forward, re-smoothing, or substitution.",
+        "required_tail_audit": {
+          "artifacts": {
+            "predictions/B_shared_71": "652315b453ed459b2c090b76e4b64c2a49970725ebae0cd5aa3d1f9c126537fb",
+            "predictions/B_shared_172": "330835b91f53df34189f1731d1f404cc860dbf959216be2fada6847d539d6113",
+            "predictions/B_shared_273": "28920ec8eb08ce890e7100cd77282b9836390487806438acd6a7d47833dac18e"
+          },
+          "purpose": "Required exact 946-row tail proof and mapping only; never regenerate or select allocation predictions."
+        }
+      },
+      "original_recovery_and_account_sources": {
+        "recovery_selection_and_models": {
+          "card": "research/stage1_minute_information_comparison_20261012",
+          "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+          "archive_sha256": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+          "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+          "artifacts": {
+            "controller/source_recovery_selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+            "controller/frozen_models": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+            "inputs/plan": "b3fddcc9f1ad9735ab4ef260bfec7792aca572adbde2ad6a78511d8c5d8fb103"
+          },
+          "use": "Frozen original recovery selection/model only; inputs/plan supplies pinned recovery_spec/action_spec. No refit and no prediction artifact read."
+        },
+        "raw_account_grid_and_marks": {
+          "card": "research/frozen_policy_raw_cashbook_20261015",
+          "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+          "archive_sha256": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+          "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+          "artifacts": {
+            "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+            "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+            "inputs/repair_1_calendar_guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24",
+            "inputs/repair_1_provider_manifest": "fe4f64aaba30981903443de94f19b36496033de66aa752692caabdf5dd953c27"
+          },
+          "excluded_artifacts": [
+            "inputs/frame"
+          ],
+          "use": "Raw account points, exchange schedule, and admitted calendar/provider guard only; no A_active-weight frame from this raw source."
+        },
+        "no_TOM": "No TOM proxy, calendar feature, mask, model output, or P3-specific value is read. The stage1_preopen_tom plan is referenced only as a static catalog of the exact 15 reusable book identities and row contract; it is not a P3 data source.",
+        "structural_evaluation_context": {
+          "card": "research/stage1_domain_heads_20261018",
+          "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+          "experiment_id": "283510277269468590",
+          "archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+          "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+          "artifacts": {
+            "inputs/frame": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+            "inputs/market": "f2660e6403ef543c458b039bcfac520c94560d6084b3c9c215b943c1f89bfacd"
+          },
+          "use": "Retain the source 944-row account interval index, clocks and structural/risk context needed by the raw own-state replay.",
+          "allocation_output_rule": "The frame contains A_active allocation weights. Do not consume any of its five allocation outputs; replace all five from saved B_shared smoothed targets and verify exact signal_date and trade_date equality before replay.",
+          "excluded": "No dataset evaluation/dataset artifact; no A_active or C_domain allocation prediction/target consumption."
+        }
+      },
+      "full_daily_calendar": {
+        "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+        "calendar_path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/calendars/day.txt",
+        "calendar_sha256": "7d45256ab69fbf3d156fa23823f5cc865225082debc559789ef87503a7248afb",
+        "instrument_path": "data/qlib/minute_information_pit_allocator_20261012/daily_prices/instruments/all.txt",
+        "instrument_sha256": "c5a3c374d7ecd11a737f9fe139893e034104b55ff0c214374f7ac71a1dc79385",
+        "role": "One native Qlib D.calendar query for complete annual/window boundaries and account session coverage; no daily price/return features and no TOM calendar/feature.",
+        "read_phase": "After both P3 action model and preprocessing SHA seals are verified."
+      }
+    }
+  },
+  "model_design": {
+    "primary_candidate": "C_path_area only. No switching to B_path_control based on evaluation outcomes. B_path_control is fixed matched attribution control; if it alone succeeds, report it as a separate future hypothesis requiring a new approved version.",
+    "action_fits": {
+      "maximum_total": 2,
+      "B": 1,
+      "C": 1,
+      "allocation_fits": 0,
+      "recovery_fits": 0,
+      "rescue_or_refit": 0
+    },
+    "feature_order": [
+      "portfolio_drawdown",
+      "current_beta_cap",
+      "raw_effective_beta",
+      "risk_state",
+      "raw_soxl_weight",
+      "raw_soxx_weight",
+      "raw_cash_weight",
+      "tail_probability",
+      "alpha_probability",
+      "portfolio_ret_1d",
+      "portfolio_ret_3d",
+      "portfolio_ret_5d",
+      "target_soxl_weight",
+      "target_soxx_weight",
+      "target_cash_weight",
+      "pretrade_soxl_weight",
+      "pretrade_soxx_weight",
+      "pretrade_cash_weight",
+      "soxl_weight_delta",
+      "soxx_weight_delta",
+      "effective_beta_delta",
+      "open_turnover",
+      "path_control_X",
+      "path_control_Y",
+      "path_control_X_squared",
+      "path_control_XY",
+      "path_control_Y_squared",
+      "path_control_Qx",
+      "path_control_Qxy",
+      "path_control_Qy",
+      "prefix_mask",
+      "path_area_signed"
+    ],
+    "original22_order_source": "Exact ACTION_FEATURES tuple from src/workflow/stage1_open_action_value.py, bound by static SHA in code_reuse_and_implementation_boundary.reuse_candidates.",
+    "B": "Original22 + eight fixed controls + shared prefix_mask + path_area_signed slot fixed to 0.",
+    "C": "Same 32 ordered columns, same rows and mask as B; only path_area_signed is observed signed path area.",
+    "missing_prefix": "Keep every otherwise eligible label row. path_area_signed and eight controls remain NaN; prefix_mask=0. B path_area_signed slot remains zero. C path_area_signed remains NaN when prefix unavailable and uses train-fitted mean imputation; mask distinguishes unavailable from a measured zero. Do not zero-fill controls/area or drop rows.",
+    "imputer_contract": "SimpleImputer(strategy=mean), scaler fit on each arm training rows only. Preflight/fit must assert all 32 columns survive and prediction probability interface remains 32-wide; if the installed sklearn drops an all-missing column, stop rather than alter the feature family.",
+    "pipeline": "SimpleImputer(strategy=mean) -> StandardScaler -> LogisticRegression(C=0.10,class_weight=balanced,max_iter=2000,random_state=42), probability threshold 0.50, unchanged original mandatory guards. No extra scaling or feature selection.",
+    "target": "EXECUTE iff P2 local Delta > 0; ties/nonpositive are HOLD.",
+    "prohibitions": [
+      "abs(Delta) weighting",
+      "A-by-direction interactions",
+      "extra heads",
+      "threshold, sign, seed, window, feature or model-family tuning",
+      "2022 development refits",
+      "selection using P3b metrics"
+    ],
+    "training_cutoff": "Only labels whose label_available_at is strictly before 2023-01-01 00:00 America/New_York.",
+    "minimum_support": {
+      "each_final_fit_rows": 200,
+      "pre2022_mature_eligible_rows": 200,
+      "classes_each_fit": 2,
+      "finite_original22": true,
+      "same_B_C_eligible_row_ids_and_labels": true,
+      "all_32_features_retained": true,
+      "prefix_support": "At least one nonmissing signed area in fit cohort; otherwise stop because C is not identifiable."
+    },
+    "preflight_action": "Compute exact label-mature eligible rows, class counts, B/C row-id parity, pre-2022 support, prefix mask counts, 32-column finiteness/missingness, and feature order using only P3a allowlist. If any gate fails, stop before fitting and mark needs_data/blocked_by_design as appropriate; do not lower support or alter cohort.",
+    "family_names": {
+      "B": "B_path_control",
+      "C": "C_path_area"
+    }
+  },
+  "model_barrier": {
+    "required_before_any_P3b_read": "Both final models and both fitted preprocessing pipelines saved to a new Qlib Recorder and sealed with SHA-256; record exact source artifact identities, row IDs digest, class counts, cutoff, ordered 32-feature schema, sklearn/code versions, implementation source SHA, model file hashes, and preprocessing hashes. Read back once and verify.",
+    "barrier_artifacts": [
+      "models/B_action_model",
+      "models/B_preprocessor",
+      "models/C_action_model",
+      "models/C_preprocessor",
+      "inputs/P3a_fit_audit",
+      "inputs/P3a_source_identity",
+      "sources/implementation_snapshot"
+    ],
+    "barrier_failure": "Any mismatch or incomplete seal blocks all P3b evaluation reads; preserve partial run and spent fit count; no restart or budget reset."
+  },
+  "clock_and_account_contract": {
+    "timezone": "America/New_York",
+    "decision": "09:46",
+    "fill": "09:47",
+    "next_open_reset": "next actual 09:47 decision/fill transition as inherited from P2 local label contract",
+    "prefix": "For each of 944 funded trade dates, P0 is the 09:30 opening print read from Qlib 09:31.$open; P1..P15 are 09:31..09:45.$close right-edge marks. The final 09:45 close is available at +60s by the 09:46 decision. Strict join to the 944-row frame signal_date/trade_date mapping. Do not build prefix values for tails.",
+    "account_grid": {
+      "prediction_rows": 946,
+      "account_intervals": 944,
+      "first_signal": "2023-01-03",
+      "first_trade": "2023-01-04",
+      "terminal": "2026-10-09T09:47:00-04:00",
+      "tail_rows": "Retain both original prediction tails; the final tail without a funded interval is never synthetically executed.",
+      "prediction_tails": "946 saved B_shared seed prediction rows each; two original tails preserved and proved from the saved outputs. Structural frame, market context, area prefixes, and funded account replay cover 944 intervals only."
+    },
+    "source_clock_binding": {
+      "path": "research/stage1_preopen_tom_20261018/repair_1/plan.json",
+      "sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4",
+      "inherited_fields": [
+        "clock_and_row_mapping",
+        "accounts",
+        "analysis_calendar",
+        "reference_contract_binding"
+      ]
+    },
+    "policy": "Each B/C × 0/2/5bp account owns quantities, cash, receivables, fee counters, NAV, peak and risk state. Recovery policy and allocation stream are fixed/reused under their own decision clocks. No cached future state; every action feature uses current decision-context state.",
+    "raw_execution": "Reuse frozen raw 09:47 fills, raw share accounting, distributions, splits, missing-session and terminal-row conventions. No synthetic fills.",
+    "allocation_and_recovery": "Use only the saved B_shared smoothed allocation target stream and exact frozen recovery selection/model bindings under original clock semantics. Keep inputs/frame and inputs/market strictly as structural 946-row/risk-context inputs; overwrite all five allocation outputs from saved B_shared targets with row/date identity checks before action generation. Require all three saved B_shared seed predictions for 946-tail proof. No allocation forward prediction or re-smoothing. The P3 action model changes only the opening EXECUTE/HOLD receiver.",
+    "active_release": {
+      "path": "production/stage1_futu_sim_v1/runtime_release.json",
+      "sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+      "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+      "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+      "action_recorder_id": "b472a458fc9042b4905094fddeaebd33"
+    },
+    "raw_replay_interface": "src.backtest.stage1_domain_heads_raw.replay_stage1_raw with a new, explicit P3 32-feature adapter; do not use shared-cap replay_raw_package. Do not edit frozen legacy cards or helper behavior."
+  },
+  "costs_and_budgets": {
+    "initial_cash_usd": 100000,
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "tariff": {
+      "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+      "tiers": [
+        {
+          "through_shares": 300000,
+          "per_share": 0.0035
+        },
+        {
+          "through_shares": 3000000,
+          "per_share": 0.002
+        },
+        {
+          "through_shares": 20000000,
+          "per_share": 0.0015
+        },
+        {
+          "through_shares": 100000000,
+          "per_share": 0.001
+        },
+        {
+          "through_shares": null,
+          "per_share": 0.0005
+        }
+      ],
+      "minimum_per_order": 0.35,
+      "maximum_order_fraction": 0.01,
+      "venue_per_share": 0.003,
+      "venue_subdollar_fraction": 0.003,
+      "clearing_per_share": 0.0002,
+      "clearing_maximum_fraction": 0.005,
+      "sec_sale_fraction": 2.06e-05,
+      "taf_per_sold_share": 0.0,
+      "taf_maximum_per_trade": 9.79,
+      "cat_per_share": 3e-06,
+      "commission_pass_through_fraction": 0.000735,
+      "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+      "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+      "fractional_share_fills": false,
+      "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+    },
+    "new_native_accounts": 6,
+    "new_policy_paths": 6,
+    "new_action_fits": 2,
+    "allocation_fits": 0,
+    "recovery_fits": 0,
+    "reference_native_books_reused": 15,
+    "maximum_total_comparison_books": 21,
+    "new_market_HTTP": 0,
+    "reference_identity_gate": "Reuse exact 15 native books listed in sources_and_phase_allowlists.P3b_evaluation_only_after_barrier.reference_books. Require identical source price grid, corporate action inputs/units, calendar, tariff, initial state, and full dates. Additional27baa is report-only; no substitution.",
+    "native_qlib_read_budget": {
+      "D_calendar_calls": 1,
+      "D_features_calls": 1,
+      "prefix_sessions": 944,
+      "prefix_asset_field_pairs": 6,
+      "derived_native_provider_builds": 1,
+      "derived_native_provider_readbacks": 1,
+      "source_HTTP": 0,
+      "daily_price_or_return_feature_queries": 0,
+      "prefix_D_features_query": "One contiguous rectangular Qlib query over 2023-01-04 09:31 to 2026-10-08 09:45, six asset-field slices; this reads intervening rows. Retain only 944 funded-session prefixes."
+    }
+  },
+  "v2_gates": {
+    "hard_benchmark": "C_path_area vs SOXX only at matching 0/2/5bp and same dates/accounting basis.",
+    "net_wealth": "C fee-adjusted relative wealth > 1 + 1e-8 versus SOXX at all 3 costs.",
+    "risk": "Close and all available raw-point maximum drawdown <=30%; CVaR5 no worse than SOXX at all costs. If full minute risk is not qualified, state the gap.",
+    "annual": "At least 2 complete calendar years; positive SOXX excess in >=70% complete years; partial years separate.",
+    "rolling": "Positive SOXX excess in >=70% of every eligible overlapping 126-trading-day window; retain every window.",
+    "statistics": {
+      "hard_pairs": "Three C-vs-SOXX cost comparisons",
+      "statistic": "paired mean daily log excess",
+      "method": "stationary bootstrap",
+      "mean_block_days": 63,
+      "resamples": 10000,
+      "seed": 20261014,
+      "alpha": 0.0016666666666666668,
+      "alpha_basis": "Frozen conservative .025/15 allocation; no outcome-dependent adjustment or rerun."
+    },
+    "diagnostics_only": [
+      "B_path_control",
+      "A_active_research_replay",
+      "B_shared",
+      "strong9097",
+      "additional27baa"
+    ],
+    "independent_forward": "Not established by this reused-history P3; separate forward evidence and independent review remain required. Historical pass does not authorize production.",
+    "expected_families": [
+      "A_active_research_replay",
+      "B_shared",
+      "B_path_control",
+      "C_path_area",
+      "SOXX",
+      "strong9097",
+      "additional27baa"
+    ],
+    "C_comparators": [
+      "SOXX",
+      "B_path_control",
+      "A_active_research_replay",
+      "B_shared",
+      "strong9097"
+    ],
+    "additional_reference_role": "additional27baa is always reported as diagnostic only; it is never a hard gate or replacement comparator."
+  },
+  "failure_and_stop_rules": [
+    "Any source hash, Recorder/archive, timing, maturity, row support, class balance, source lineage, or reference identity failure stops at the earliest affected stage with needs_data or blocked_by_design; do not replace source or lower threshold.",
+    "If P3a count gate fails, perform zero fits and zero P3b reads.",
+    "If fit or model seal fails, preserve partial evidence and actual spent budget; zero P3b reads.",
+    "If any C vs SOXX v2 hard gate fails, this fixed version is not_promoted after one bounded attribution across all annual/126-day windows and the signal-to-account chain. No rescue tuning on reused history.",
+    "B success alone is diagnostic and cannot replace C as primary after evaluation.",
+    "No historical result establishes independent forward qualification, production permission, or overall campaign completion."
+  ],
+  "code_reuse_and_implementation_boundary": {
+    "reuse_candidates": [
+      {
+        "path": "src/data/path_area_bridge.py",
+        "sha256": "e5ebe11f5a6ee69a76865ce31f8af97a11ab8a9ef970a25bf66a14a3a296b320",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      },
+      {
+        "path": "src/workflow/path_area_bridge.py",
+        "sha256": "20dd45408f2de13c3f3de14337bdd9be5628f8d8eb9302cdceb308a6c1dcf936",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      },
+      {
+        "path": "src/backtest/path_area_teacher.py",
+        "sha256": "37cda05d48d6f90ef6e658d78545a6d103200d09276b5aea193e74960ac62c0a",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      },
+      {
+        "path": "src/workflow/stage1_open_action_value.py",
+        "sha256": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      },
+      {
+        "path": "src/backtest/stage1_domain_heads_raw.py",
+        "sha256": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      },
+      {
+        "path": "src/backtest/raw_corporate_policy.py",
+        "sha256": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      },
+      {
+        "path": "src/backtest/native_raw_corporate.py",
+        "sha256": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      },
+      {
+        "path": "src/workflow/aux_projection_allocation.py",
+        "sha256": "f5598508679a068adaa75d0348b867cf31cd6decccc6f44573aeca428551a3ec",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      },
+      {
+        "path": "src/workflow/day_night_supervision.py",
+        "sha256": "7ce5a6b36459c2390ad0db86df3eb8518f479210335a2d1faeddc19b0412fd9c",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      },
+      {
+        "path": "src/analysis/integrated_allocation.py",
+        "sha256": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      },
+      {
+        "path": "src/backtest/ibkr_tiered.py",
+        "sha256": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+        "role": "static reuse candidate; runtime execution requires source/code identity recheck"
+      }
+    ],
+    "no_platform_rewrite": "Reuse P2 path arithmetic/coverage helpers, existing raw account primitives, Qlib Recorder verification, native report/statistics helpers and exact reference bindings. Add only a scoped P3 workflow/adapter after the plan is reviewed; do not introduce a general platform or edit immutable P1/P2 cards.",
+    "suggested_new_workflow": "src/workflow/path_area_action_bridge_p3.py (not created in this static planning task); consume the scoped SessionPathModel interface in src/backtest/path_area_action.py once its implementation SHA is bound in the reviewed execution packet.",
+    "required_interface_review": [
+      "src.backtest.stage1_domain_heads_raw.replay_stage1_raw (own-state per-cost account)",
+      "src.data.path_area_bridge.build_path_area_inputs for deterministic signed-area arithmetic; add scoped prefix coverage/query adapter because P2 coverage helper intentionally rejects post-2022 rows",
+      "src.workflow.stage1_open_action_value.ACTION_FEATURES / decide_open_execution; new 32-column adapter with exact action order",
+      "src.backtest.raw_corporate_policy IncomeLedger/settle_raw and src.backtest.native_raw_corporate.native_raw_validate",
+      "src.analysis.integrated_allocation paired metrics/stationary bootstrap",
+      "src/backtest/path_area_action.py scoped SessionPathModel interface; bind exact implementation SHA before execution authorization"
+    ]
+  },
+  "source_identities": {
+    "original_frozen_plan": {
+      "path": "research/path_area_action_bridge_20261018/plan.json",
+      "sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+      "clause": "P3_future_action_and_economic_experiment"
+    },
+    "P2_repair4_summary": {
+      "path": "research/path_area_action_bridge_20261018/P2/repair_4/summary.json",
+      "sha256": "ac663e9795cc8b9603c4db40bf65d2fee922f6f8a058a5b5bf0bd1024d6e67d9",
+      "recorder_id": "4c8ac31f8671487ca422175e1c72c0eb",
+      "experiment_id": "125080206845583831"
+    },
+    "P2_verification_manifest": {
+      "path": "research/path_area_action_bridge_20261018/P2/repair_4/verification_manifest.json",
+      "sha256": "26b911a91fba2e8e8f8cee832a145106f5941650c53a0ab4799fb327d5b33b70"
+    },
+    "P2_NAS_binding": {
+      "path": "research/path_area_action_bridge_20261018/P2/repair_4/nas_binding.json",
+      "sha256": "da6ed9881610ea688e869ad16af3a78a38e1b0b898838838bcf970e5454c0e34",
+      "archive_sha256": "98132b6ad5408c39c85252952c9ee921ce45ad816f9b7448f9d17df8bdaf2019"
+    },
+    "current_contract_v2": {
+      "path": "docs/three_asset_research_contract.md",
+      "sha256": "293b52fa25ca060245dc4fadf61401334a5ab510b7ebf4c4af52c9651d92a341"
+    },
+    "evaluation_source_plan": {
+      "path": "research/stage1_preopen_tom_20261018/repair_1/plan.json",
+      "sha256": "71251287ea8e0a420f6570dd7466518fa0c8d9fc5d46cb1f7ef56790a6c87fc4"
+    },
+    "evaluation_review_status": "Source/evaluation data are reused historical evidence; exact identities are pinned but not loaded or revalidated in this task.",
+    "stage1_domain_heads": {
+      "path": "research/stage1_domain_heads_20261018/plan.json",
+      "sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+      "verification_manifest_path": "research/stage1_domain_heads_20261018/verification_manifest.json",
+      "verification_manifest_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "experiment_id": "283510277269468590"
+    }
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "analysis/predictions",
+      "analysis/native/*"
+    ]
+  },
+  "review_state": {
+    "independent_design_review": "pending",
+    "implementation_review": "pending",
+    "root_execution_GO": "pending",
+    "P3a_data_read_or_fit": "not_started",
+    "P3b_evaluation_or_accounts": "not_started"
+  },
+  "draft_disclaimer": "This is a frozen design only. It does not authorize reads, fits, accounts, market queries, promotion, or release changes.",
+  "stages": {
+    "P3a_train_only": [
+      "Verify plan, implementation, Recorder, archive, manifest and allowlisted artifact hashes before loading any artifact.",
+      "Load only the P3a training-only allowlist.",
+      "Run one exact count preflight: strict maturity, P3 eligibility/guards, exact B/C row parity, pre-2022 support, class counts, finite Original22, prefix-mask/area support, and 32-column survivorship.",
+      "If every prefit gate passes, fit exactly one B and one C model; otherwise fit zero.",
+      "Seal and read back both fitted models and preprocessing state before P3b."
+    ],
+    "barrier": "Only after successful P3a seal may the predeclared P3b evaluation allowlist be opened. All six accounts remain mandatory; no classifier metric cancels an account.",
+    "P3b_evaluation": [
+      "Read the pinned full daily Qlib calendar once (D.calendar) for annual/window completeness and session coverage.",
+      "Read the pinned original allocation/recovery context and 15 frozen reference books by exact Qlib Recorder identity and artifact hash; use only B_shared targets and the required B_shared seed predictions for 946-row/tail proof.",
+      "Read the pinned raw minute provider with one D.features call over the exact bounded 2023-01-04 09:31 through 2026-10-08 09:45 rectangle and six SOXL/SOXX fields; it necessarily decodes intervening non-prefix minute rows. Immediately retain only 09:31..09:45 for each of 944 funded dates and discard the rest.",
+      "Verify 944-row frame/market context plus exact signal_date/trade_date joins, full raw account and corporate-action identities, and 946 prediction tail alignment.",
+      "Run all six B/C x 0/2/5bp native Qlib accounts and report all 15 reused reference books."
+    ]
+  },
+  "source_qualification_limits": {
+    "minute_source": "P2 inherited conditional retrospective minute source. P1 source_byte_identity records exact current-bin bytes, but the inherited NAS evidence lacked per-bin SHA-256; current byte IDs do not prove NAS snapshot origin.",
+    "first_receipt": "Historical first-receipt/PIT timing is not certified by this plan.",
+    "boundary": "Carry this qualification forward; do not reopen broad source audit or claim independent forward evidence.",
+    "numeric_residency": "The bounded post-barrier raw minute read includes intervening non-prefix minute rows within the fixed date-time rectangle. No other fields, dates outside bounds, full-day completeness, or 2026-10-09 tail prefix are read or used; the full rectangle is never saved."
+  },
+  "evaluation_usage_policy": {
+    "C_vs_B_attribution": "Report paired C_path_area-minus-B_path_control costed net outcomes at all costs and paired stationary-bootstrap lower bounds under the same fixed block/seed convention. Claim signed-area incremental value only if net effect is positive at all costs and all three paired lower bounds are positive; this attribution is diagnostic and does not replace the SOXX hard gate.",
+    "simpler_model_rule": "If B_path_control meets all SOXX v2 economic gates, prefer it as the simpler passing policy unless C_path_area demonstrates the predeclared incremental C-vs-B evidence. SOXX pass alone never proves path-area increment.",
+    "selection": "C is the sole registered signed-area candidate. No choosing B/C, cost, year, window, or comparator after seeing P3b results."
+  },
+  "notebook_and_deliverables": {
+    "notebook": "research/path_area_action_bridge_20261018/P3/path_area_action_bridge_p3.ipynb",
+    "workflow_config": "research/path_area_action_bridge_20261018/P3/workflow.yaml",
+    "summary": "research/path_area_action_bridge_20261018/P3/summary.json",
+    "conclusion": "research/path_area_action_bridge_20261018/P3/conclusion.md",
+    "workflow_requirements": "Executable Qlib workflow using qlib.init, qlib.data.D, Qlib Dataset/Recorder as applicable; preserve source lineage, model barrier and recorder-first artifacts; conclude in Chinese with Recorder identity, gates, risks, promotion decision and next action.",
+    "status": "planned deliverables; not created or executed in this static planning task"
+  },
+  "objective_policy": {
+    "contract_version": 2,
+    "candidate_family": "C_path_area",
+    "phase": "P3",
+    "benchmark": "SOXX",
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "relative_wealth_threshold_exclusive": 1.00000001,
+    "risk": {
+      "close_and_sampled_point_max_drawdown_pct_at_least": -30,
+      "cvar5_no_worse_than": "SOXX"
+    },
+    "stability": {
+      "minimum_complete_years": 2,
+      "complete_year_positive_excess_fraction_at_least": 0.7,
+      "rolling_window_sessions": 126,
+      "rolling_positive_excess_fraction_at_least": 0.7
+    },
+    "statistical_settings": {
+      "mean_block": 63,
+      "resamples": 10000,
+      "random_seed": 20261014,
+      "alpha": 0.025,
+      "family_size": 15
+    },
+    "per_comparison_alpha": 0.0016666666666666668,
+    "selection_boundary": "C_path_area is the only registered candidate; B_path_control is attribution-only and never substituted after evaluation.",
+    "independent_forward_qualified": false
+  },
+  "objective_policy_sha256": "0519ca005b6a83e4d17aa97a5e4ea3e7499b5487b16c7830aaba02cef8d1a955"
+}

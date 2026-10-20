@@ -1,0 +1,82 @@
+{
+  "approved": true,
+  "owner": "root",
+  "scope": "actual_P3_execution",
+  "maximum_attempts": 1,
+  "plan_sha256": "a46094a1658c6006bc831a4a70d70a45f3d1a2023c6bd3288f8004cdd7e6c4c0",
+  "implementation_sha256": "ebb658ac8bbb45094f163fc65d6cc5aa80c2269b2e4f6e8b4775d5c0c78a0de4",
+  "design_review_sha256": "83ca4a22a43015eef7e283b3245e5b761bd18153b36df2ff92f9952de514a454",
+  "implementation_review_sha256": "4868e7e5cf1435a940889c1e39c379f22d2c20df95d42997c58c7aeb0b5b5d32",
+  "budget": {
+    "initial_cash_usd": 100000,
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "tariff": {
+      "role": "2026-10-13 current IBKR Pro Tiered price projection across reused history, not historical realized bills",
+      "tiers": [
+        {
+          "through_shares": 300000,
+          "per_share": 0.0035
+        },
+        {
+          "through_shares": 3000000,
+          "per_share": 0.002
+        },
+        {
+          "through_shares": 20000000,
+          "per_share": 0.0015
+        },
+        {
+          "through_shares": 100000000,
+          "per_share": 0.001
+        },
+        {
+          "through_shares": null,
+          "per_share": 0.0005
+        }
+      ],
+      "minimum_per_order": 0.35,
+      "maximum_order_fraction": 0.01,
+      "venue_per_share": 0.003,
+      "venue_subdollar_fraction": 0.003,
+      "clearing_per_share": 0.0002,
+      "clearing_maximum_fraction": 0.005,
+      "sec_sale_fraction": 2.06e-05,
+      "taf_per_sold_share": 0.0,
+      "taf_maximum_per_trade": 9.79,
+      "cat_per_share": 3e-06,
+      "commission_pass_through_fraction": 0.000735,
+      "venue_assumption": "SMART orders removing displayed Nasdaq liquidity; no assumed maker rebate",
+      "TAF_rule": "current IBKR fee holiday 2026-10-01 through 2026-12-31; zero projection over the full diagnostic history",
+      "fractional_share_fills": false,
+      "usd_cent_rounding": "unrounded rate projection, not exact statement cents"
+    },
+    "new_native_accounts": 6,
+    "new_policy_paths": 6,
+    "new_action_fits": 2,
+    "allocation_fits": 0,
+    "recovery_fits": 0,
+    "reference_native_books_reused": 15,
+    "maximum_total_comparison_books": 21,
+    "new_market_HTTP": 0,
+    "reference_identity_gate": "Reuse exact 15 native books listed in sources_and_phase_allowlists.P3b_evaluation_only_after_barrier.reference_books. Require identical source price grid, corporate action inputs/units, calendar, tariff, initial state, and full dates. Additional27baa is report-only; no substitution.",
+    "native_qlib_read_budget": {
+      "D_calendar_calls": 1,
+      "D_features_calls": 1,
+      "prefix_sessions": 944,
+      "prefix_asset_field_pairs": 6,
+      "derived_native_provider_builds": 1,
+      "derived_native_provider_readbacks": 1,
+      "source_HTTP": 0,
+      "daily_price_or_return_feature_queries": 0,
+      "prefix_D_features_query": "One contiguous rectangular Qlib query over 2023-01-04 09:31 to 2026-10-08 09:45, six asset-field slices; this reads intervening rows. Retain only 944 funded-session prefixes."
+    }
+  },
+  "user_authorization": "User continue after P2 completion and P3 next-step disclosure. Root records the concrete reviewed one-experiment authorization.",
+  "approved_at_utc": "2026-10-20T12:36:01.815897+00:00",
+  "operational_NAS_archive_and_one_cold_restore_authorized": true,
+  "promotion_authorized": false
+}
