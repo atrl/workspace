@@ -4,8 +4,9 @@
   "active": [
     {
       "card": "research/path_area_action_bridge_20261018",
-      "phase": "P2",
-      "role": "single_numerical_experiment"
+      "phase": "P3_design_pending",
+      "role": "bounded_next_design_no_execution_GO",
+      "completed_training_bridge": "research/path_area_action_bridge_20261018/P2_result_overview.json"
     }
   ],
   "framework": [
@@ -13,7 +14,9 @@
     "src/core/native_evidence.py",
     "src/factor/research_candidates.py",
     "src/analysis/decision_bridge.py",
-    "src/core/research_monitor.py"
+    "src/core/research_monitor.py",
+    "src/analysis/soxx_objective.py",
+    "src/core/completed_checkpoints.py"
   ],
   "closed_fixed_versions": [
     {

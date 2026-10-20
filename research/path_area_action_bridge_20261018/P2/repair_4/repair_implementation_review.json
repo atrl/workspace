@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "phase": "P2_repair_4",
+  "reviewer": "independent_evaluator",
+  "verdict": "APPROVE_P2_REPAIR_4_FOR_SEPARATE_EXECUTION_GO",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "repair_plan_sha256": "1bcbd1625c718b8c8b1bfbddfc4e3e3892da1ef01f54d32d3128f3e9fad311e5",
+  "failure_manifest_sha256": "138afc66502fccbaaa271f632c7928cf72ea1dfb8cdd0e5a7fa383517c864192",
+  "repair_3_failure_receipt_sha256": "cc1e640522a4ea28eb413bb5988ac2597eef54b83b08edaef38fa62b353db6f1",
+  "repair_implementation_sha256": "fdb651f1017e0af39635f009642cb02e63e8c93f2296333377733a446e11bdec",
+  "implementation_identity_entries": 33,
+  "material_blockers": [],
+  "review_scope": "Only the repair_4 provider-identity comparison and phase/authorization delta. The accepted native-before-writer, sealed checkpoint, cached shadow and label contracts are reused.",
+  "reviewed_findings": [
+    "The repair_3 failure receipt is hash-bound and records 16 cached checkpoint loads, three P1 artifact loads and one derived provider build/readback before quote comparison failed. No native account was attempted and no new Recorder was opened. Its failed card and state remain separate.",
+    "The Qlib audit snapshot hash includes provider_uri, and the builder manifest hash includes both provider_uri and that audit hash. Repair_4 independently recomputes each audit and manifest hash from its own URI-bound payload instead of requiring raw cross-location hash equality.",
+    "The comparison requires exactly 14 calendar, instrument and feature files with matching paths, SHA-256 values and byte sizes; it also requires the same point span and executor guard. All manifest fields are compared except provider_uri, audit_snapshot_hash and hash. Both complete source identities and pending/pass/fail comparison evidence are persisted before any native account attempt.",
+    "Repair_4 has a separate card, implementation identity, review and owner execution GO. It adds at most 16 cached object loads, three pinned P1 artifact loads, one provider build/readback and one native account. It performs zero new fits, forwards, smoothing, area, Python shadow or local-label generation. The single earlier identity-only diagnostic read is accounted for separately.",
+    "Cumulative ceilings after repair_4 are six allocation fits, 15 model forwards, 24 P1 artifact loads, four derived provider builds/readbacks, two smoothing/area passes, one Python shadow, one label pass, one native account and 95 cached object loads. Native consistency alone cannot qualify SOXX excess, historical PIT, independent validation, P3 or promotion."
+  ],
+  "verification_basis": {
+    "review_mode": "scoped static correction review",
+    "implementation_identity_recomputed_by_reviewer": true,
+    "repair_plan_and_repair_3_failure_hashes_verified": true,
+    "focused_checks": "implementer reported relocation/tamper/native lifecycle regression passed once in 4.46 seconds; additive 13/15-file guard regression passed in 2.21 seconds",
+    "campaign_source_model_or_account_loads_by_reviewer": 0,
+    "new_tests_or_replays_by_reviewer": 0
+  },
+  "next_action": "Owner may issue a separate repair_4 execution authorization bound to this exact review, code identity, failure receipt, plan and budget. The actual native result still needs evidence review."
+}

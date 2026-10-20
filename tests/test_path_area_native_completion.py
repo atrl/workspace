@@ -1,11 +1,22 @@
 """Actual Qlib lifecycle/schema regression; synthetic inputs, no campaign replay."""
 import hashlib
 import json
+from copy import deepcopy
 
 import pandas as pd
 import pytest
 
 from src.workflow import path_area_native_completion as completion
+
+
+def test_quote_inventory_rejects_equal_incomplete_or_expanded_maps():
+    # Equality alone must not admit a consistently missing/extra quote file.
+    for count in (13, 15):
+        identity = {"provider_tree": {"entries": [
+            {"path": f"features/soxl/quote_{number}.bin", "sha256": "0" * 64, "bytes": 4}
+            for number in range(count)]}}
+        with pytest.raises(ValueError, match="exactly 14 files"):
+            completion._verify_quote_identity(identity, deepcopy(identity))
 
 
 def test_native_before_writer_and_sealed_completed_stage_no_recompute(tmp_path, monkeypatch):
@@ -36,8 +47,39 @@ def test_native_before_writer_and_sealed_completed_stage_no_recompute(tmp_path, 
     rows = [{"datetime": stamp, "instrument": symbol, **{name: value for name in fields}}
             for symbol in guarded for stamp, value in guarded[symbol].items()]
     provider = tmp_path / "provider"
-    build_qlib_store_from_frame(pd.DataFrame(rows), provider_uri=provider, freq="1min", region="us",
+    provider_manifest = build_qlib_store_from_frame(pd.DataFrame(rows), provider_uri=provider, freq="1min", region="us",
         as_of="2020-01-07", field_map={name: name for name in fields}, source="synthetic lifecycle regression")
+    # The actual builder's audit and manifest hashes include its own location.
+    # Relocating the same quote-file identity must pass, while a byte change fails.
+    from src.core import stable_hash
+    provider_identity = {"provider_path": str(provider), "manifest": provider_manifest,
+        "provider_tree": completion.p2._point_provider_identity(provider), "rows": len(prices),
+        "first_point": str(stamps[0]), "last_point": str(stamps[-1]),
+        "native_readback": "passed_exact_float32", "executor_guard": {"policy_timestamp": str(guarded.index[-1])}}
+    relocated = deepcopy(provider_identity)
+    relocated["provider_path"] = str(tmp_path / "relocated-identical-quotes")
+    relocated_manifest = relocated["manifest"]
+    relocated_manifest["provider_uri"] = str((tmp_path / "relocated-identical-quotes").resolve())
+    audit_payload = {"provider_uri": relocated_manifest["provider_uri"], "market": relocated_manifest["market"],
+        "region": relocated_manifest["region"], "instruments": relocated_manifest["instruments"],
+        "fields": relocated_manifest["fields"], "start": relocated_manifest["calendar_start"],
+        "end": relocated_manifest["calendar_end"], "max_datetime": relocated_manifest["max_datetime"],
+        "row_count": relocated_manifest["row_count"]}
+    relocated_manifest["audit_snapshot_hash"] = stable_hash(audit_payload)
+    relocated_manifest["hash"] = stable_hash({key: value for key, value in relocated_manifest.items()
+        if key not in ("operation", "status", "hash", "source_api")})
+    assert relocated_manifest["audit_snapshot_hash"] != provider_manifest["audit_snapshot_hash"]
+    comparison = completion._verify_quote_identity(provider_identity, relocated)
+    assert comparison["status"] == "passed" and comparison["exact_calendar_instrument_feature_files"] == 14
+    tampered = deepcopy(relocated)
+    feature = next(item for item in tampered["provider_tree"]["entries"] if item["path"].startswith("features/"))
+    feature["sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="quote/source identity differs"):
+        completion._verify_quote_identity(provider_identity, tampered)
+    tampered = deepcopy(relocated)
+    tampered["manifest"]["audit_snapshot_hash"] = "0" * 16
+    with pytest.raises(ValueError, match="own-URI audit or manifest integrity"):
+        completion._verify_quote_identity(provider_identity, tampered)
     tariff = {"tiers": [{"through_shares": None, "per_share": .0035}], "minimum_per_order": .35,
               "maximum_order_fraction": 1., **{key: 0. for key in ("venue_per_share",
               "venue_subdollar_fraction", "clearing_per_share", "clearing_maximum_fraction",

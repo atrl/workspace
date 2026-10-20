@@ -1,0 +1,294 @@
+{
+  "status": "passed",
+  "old_identity": {
+    "manifest": {
+      "provider_uri": "/private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-path-area-p2-provider-y0eqbyle",
+      "market": "all",
+      "region": "us",
+      "freq": "1min",
+      "as_of": "2022-12-27",
+      "source": "P1 bounded_core_minutes DatasetH; P2 scheduled raw event marks",
+      "instruments": [
+        "SOXL",
+        "SOXX"
+      ],
+      "fields": [
+        "$open",
+        "$high",
+        "$low",
+        "$close",
+        "$execution_price",
+        "$raw_execution_price"
+      ],
+      "calendar_start": "2018-10-12 09:45:00",
+      "calendar_end": "2022-12-27 09:30:00",
+      "max_datetime": "2022-12-27 09:30:00",
+      "row_count": 8466,
+      "feature_file_count": 12,
+      "audit_snapshot_hash": "44595d34af1bdc5c",
+      "operation": "qlib_store_build",
+      "status": "ok",
+      "hash": "e6ab7210cb36915d",
+      "source_api": [
+        "qlib.init",
+        "qlib.data.storage.file_storage.FileFeatureStorage",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ]
+    },
+    "provider_tree": {
+      "entries": [
+        {
+          "path": "calendars/1min.txt",
+          "sha256": "30f0776587fba7291fbd0e58643d157ace24b63804369d3211340961345fca2f",
+          "bytes": 84660
+        },
+        {
+          "path": "features/soxl/close.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxl/execution_price.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxl/high.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxl/low.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxl/open.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxl/raw_execution_price.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/close.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/execution_price.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/high.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/low.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/open.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/raw_execution_price.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "instruments/all.txt",
+          "sha256": "083743ef0cb22508f463c2d9f4eb42ff857de64adf193c965ea7e4927554fc60",
+          "bytes": 90
+        },
+        {
+          "path": "qlib.yaml",
+          "sha256": "812ecce06116b86cb96a7f7f9f2a9c687a0e9f5592bbe33b94c289d8ebe37ece",
+          "bytes": 204
+        },
+        {
+          "path": "qlib_store_manifest.json",
+          "sha256": "2e47bb3673626e90f837a1218e642804d8d794ecadd0b2fb1f768ab5232a50c2",
+          "bytes": 928
+        }
+      ],
+      "sha256": "a2d08b0ff67f98271fdd007cb92e846dc0fd30c906f2f926e4a1638b40c853e8"
+    },
+    "rows": 4232,
+    "first_point": "2018-10-12 09:45:00",
+    "last_point": "2022-12-23 16:00:00",
+    "native_readback": "passed_exact_float32",
+    "provider_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-path-area-p2-provider-y0eqbyle",
+    "provider_build_count": 1,
+    "derived_only_from_P1_bounded_core_minutes": true,
+    "native_readback_count": 1,
+    "executor_guard": {
+      "policy_timestamp": "2022-12-27 09:30:00",
+      "source_right_edge_timestamp": "2022-12-27 09:31:00",
+      "raw_open_values": {
+        "SOXL": 9.579999923706055,
+        "SOXX": 346.1099853515625
+      },
+      "from_admitted_next_raw_quote": true,
+      "outside_account_interval": true,
+      "outside_point_prices": true,
+      "excluded_from_orders_valuation_labels_and_native_comparison": true
+    }
+  },
+  "new_identity": {
+    "manifest": {
+      "provider_uri": "/private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-path-area-p2-provider-w6u8w_zd",
+      "market": "all",
+      "region": "us",
+      "freq": "1min",
+      "as_of": "2022-12-27",
+      "source": "P1 bounded_core_minutes DatasetH; P2 scheduled raw event marks",
+      "instruments": [
+        "SOXL",
+        "SOXX"
+      ],
+      "fields": [
+        "$open",
+        "$high",
+        "$low",
+        "$close",
+        "$execution_price",
+        "$raw_execution_price"
+      ],
+      "calendar_start": "2018-10-12 09:45:00",
+      "calendar_end": "2022-12-27 09:30:00",
+      "max_datetime": "2022-12-27 09:30:00",
+      "row_count": 8466,
+      "feature_file_count": 12,
+      "audit_snapshot_hash": "2fc97b75dce5fc54",
+      "operation": "qlib_store_build",
+      "status": "ok",
+      "hash": "8d96c8cecb316f70",
+      "source_api": [
+        "qlib.init",
+        "qlib.data.storage.file_storage.FileFeatureStorage",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ]
+    },
+    "provider_tree": {
+      "entries": [
+        {
+          "path": "calendars/1min.txt",
+          "sha256": "30f0776587fba7291fbd0e58643d157ace24b63804369d3211340961345fca2f",
+          "bytes": 84660
+        },
+        {
+          "path": "features/soxl/close.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxl/execution_price.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxl/high.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxl/low.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxl/open.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxl/raw_execution_price.1min.bin",
+          "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/close.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/execution_price.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/high.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/low.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/open.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "features/soxx/raw_execution_price.1min.bin",
+          "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+          "bytes": 16936
+        },
+        {
+          "path": "instruments/all.txt",
+          "sha256": "083743ef0cb22508f463c2d9f4eb42ff857de64adf193c965ea7e4927554fc60",
+          "bytes": 90
+        },
+        {
+          "path": "qlib.yaml",
+          "sha256": "9e4ab9356f9eb3e68720914fd2f49ea3448dd02eea41903868c912c789015046",
+          "bytes": 204
+        },
+        {
+          "path": "qlib_store_manifest.json",
+          "sha256": "d4014ea01c7d8db0f7efd90e6c8afa580248a3d2f6463e0fb7bc98b0fb99198f",
+          "bytes": 928
+        }
+      ],
+      "sha256": "3c09674555bd385dddde8787ed712a94fa03615304553e2bffefab93ebcf81ff"
+    },
+    "rows": 4232,
+    "first_point": "2018-10-12 09:45:00",
+    "last_point": "2022-12-23 16:00:00",
+    "native_readback": "passed_exact_float32",
+    "provider_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-path-area-p2-provider-w6u8w_zd",
+    "provider_build_count": 1,
+    "derived_only_from_P1_bounded_core_minutes": true,
+    "native_readback_count": 1,
+    "executor_guard": {
+      "policy_timestamp": "2022-12-27 09:30:00",
+      "source_right_edge_timestamp": "2022-12-27 09:31:00",
+      "raw_open_values": {
+        "SOXL": 9.579999923706055,
+        "SOXX": 346.1099853515625
+      },
+      "from_admitted_next_raw_quote": true,
+      "outside_account_interval": true,
+      "outside_point_prices": true,
+      "excluded_from_orders_valuation_labels_and_native_comparison": true
+    }
+  },
+  "native_account_attempts": 0,
+  "exact_calendar_instrument_feature_files": 14,
+  "own_URI_audit_and_manifest_hashes_verified": true,
+  "location_independent_manifest_fields_equal": true,
+  "guard_and_point_shape_equal": true
+}

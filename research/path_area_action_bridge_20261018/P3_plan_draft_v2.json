@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "experiment": "path_area_action_bridge_20261018",
+  "phase": "P3",
+  "artifact_type": "economic_experiment_design_draft",
+  "version": "v2",
+  "status": "draft_pending_independent_design_review",
+  "frozen": false,
+  "approved": false,
+  "owner_go": false,
+  "authorization_boundary": {
+    "current_authority": "Design drafting only.",
+    "required_before_any_source_model_or_evaluation_read": "Separate independent review of this complete-economics design and explicit owner GO.",
+    "not_authorized_by_this_draft": [
+      "source loading",
+      "model deserialization or fit",
+      "2023+ evaluation reads",
+      "account replay",
+      "promotion"
+    ],
+    "basis": "P2 cold-restore metadata records P3_authorized=false and promotion_permission=false."
+  },
+  "purpose": "Bound one paired B/C opening-action experiment to test whether fixed signed path-area information changes costed economic outcomes after matched controls. P2 bridge completion, local labels, or fit readiness do not themselves establish predictive or economic value.",
+  "hypothesis": "Within the frozen 09:46 opening EXECUTE/HOLD receiver, adding signed SOXX/SOXL prefix path area may improve costed outcomes over the matched neutral-area model after identical original22 inputs, eight path controls, and mask.",
+  "p2_metadata_basis": {
+    "status": "completed_training_bridge_no_economic_evaluation",
+    "decision": "count_only_pass",
+    "native_reconciliation": {
+      "status": "passed",
+      "sessions": 1057,
+      "max_relative_error": 0.0
+    },
+    "strict_pre2022_mature_rows": 243,
+    "strict_pre2022_label_signs": {
+      "positive": 104,
+      "nonpositive_including_zero": 139,
+      "zero_included_in_nonpositive": 51
+    },
+    "count_limit": "These strict-maturity totals are not the final exact fit-eligible feature/guard/class counts. Verify those counts in a bounded, separately authorized preflight; do not infer fit eligibility from 243.",
+    "P3_authorized": false,
+    "promotion_permission": false
+  },
+  "model_design": {
+    "maximum_action_fits": 2,
+    "B": {
+      "family": "matched neutral-area control",
+      "features": "Original22 + eight fixed path controls + shared prefix mask + area slot fixed at zero (32 inputs total)."
+    },
+    "C": {
+      "family": "signed-area candidate",
+      "features": "Same 32-input pipeline and rows as B; only the final area slot is observed signed A."
+    },
+    "pipeline": "Preserve SimpleImputer(strategy=mean), StandardScaler, LogisticRegression(C=0.10,class_weight=balanced,max_iter=2000,random_state=42), threshold=0.50 and original mandatory guards. Fit preprocessing on training rows only.",
+    "target": "EXECUTE iff local Delta > 0; ties and nonpositive labels are HOLD. No abs(Delta) weighting, A-by-direction interactions, extra heads, feature selection, threshold/seed/window tuning, or model-family search.",
+    "cutoff": "Both final fits may use only labels strictly mature before 2023-01-01 00:00 America/New_York. No 2022 development refits hidden in the budget.",
+    "minimum_rows": "At least 200 eligible mature rows for each actual fit, plus retain/report the original pre-2022 support gate without lowering it. If a gate fails, stop or mark needs_data; do not manufacture support.",
+    "bounded_preflight": "Before fitting, verify and record exact final pre-2023 rows by eligibility and class using the pinned labels/features/guards, and the pre-2022 support count. Existing 243 and class totals are context only, not a substitute."
+  },
+  "model_barrier": "Seal both fitted model files, preprocessing objects, feature order, training cutoffs, row/class counts, code identity and hashes before any 2023+ price, prediction, label, or evaluation-account object is read. No screening result may cancel any of the six preregistered accounts.",
+  "evaluation": {
+    "new_accounts": 6,
+    "families": [
+      "B",
+      "C"
+    ],
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "initial_cash_usd": 100000,
+    "account_state": "Each family/cost path has independent quantities, cash, receivables, fee counters, NAV, peak and risk state. Preserve the frozen raw execution, corporate-action, target/reset, missing-session and terminal-row contracts; no synthetic fills.",
+    "commission": "Frozen IBKR Pro Tiered schedule and existing account cost conventions.",
+    "references": {
+      "SOXX": "Final hard gate at each matching cost.",
+      "B": "Matched attribution diagnostic.",
+      "Stage1": "Frozen baseline diagnostic.",
+      "strong references": "Exact pre-approved books only when price grid, corporate-action, tariff and initial-state identities match; diagnostic attribution only."
+    },
+    "reuse_boundary": "Repeated historical use, OOF construction, a new card, or an independent reviewer does not make reused dates independent validation."
+  },
+  "hard_gates_v2": {
+    "benchmark": "SOXX only; pair each strategy cost path with same-window, same-accounting-basis SOXX.",
+    "net_wealth": "Fee-adjusted relative wealth ratio versus SOXX > 1 at all three costs, using frozen numeric tolerance.",
+    "risk": "Close and available raw-point maximum drawdown <=30%; CVaR5 no worse than SOXX. If complete minute-risk evidence is unavailable, state the qualification gap.",
+    "annual": "At least two complete years; positive SOXX excess in >=70% of complete years. Incomplete years separate.",
+    "rolling": "Positive SOXX excess in >=70% of all eligible overlapping 126-trading-day windows; retain every window.",
+    "statistics": {
+      "pairs": "Three SOXX cost comparisons are the statistical hard gate.",
+      "method": "Paired mean daily log excess; stationary bootstrap; mean block length 63; 10,000 resamples; seed 20261014.",
+      "alpha": 0.0016666666666666668,
+      "alpha_note": "Retain conservative frozen family allocation .025/15 even though SOXX alone is the v2 hard-gate family; no outcome-dependent change."
+    },
+    "independent_forward": "Historical success only makes a future forward candidate. Independent forward evidence is a separate requirement and is not established by this P3 historical design."
+  },
+  "diagnostic_attribution": {
+    "non_hard_comparators": [
+      "B",
+      "Stage1",
+      "strong references"
+    ],
+    "failure_readback": "For a failed gate, perform one bounded attribution across every complete annual interval and every 126-day window, then the decision chain: source and availability -> prediction -> target -> risk projection/mandatory guard -> execute or hold -> holdings/holding duration -> fees -> NAV.",
+    "reporting": "Keep all annual and rolling windows, including losing and overlapping windows. Separate target changes, action changes, execution/cost effects and account outcomes. Do not add local label advantages into portfolio return or select windows after observing outcomes."
+  },
+  "stop_and_exit_rules": [
+    "If source identities, timing, maturity, row/class support, or frozen label definitions fail preflight, stop with needs_data or blocked-by-design as applicable; do not reduce minimum rows or alter features.",
+    "If any final SOXX hard gate fails, mark this fixed version not_promoted, retain minimum auditable evidence and perform one necessary attribution. No threshold, sign, window, seed, model, or cost rescue on reused history.",
+    "If implementation or native account reconciliation fails, preserve actual completion and failure evidence; no automatic retry or budget reset. A repair requires explicit scope and authorization.",
+    "Passing historical gates does not establish independent forward qualification or production permission."
+  ],
+  "source_identities": {
+    "frozen_original_plan": {
+      "path": "research/path_area_action_bridge_20261018/plan.json",
+      "sha256": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+      "clause": "P3_future_action_and_economic_experiment"
+    },
+    "p2_repair4_summary": {
+      "path": "research/path_area_action_bridge_20261018/P2/repair_4/summary.json",
+      "sha256": "ac663e9795cc8b9603c4db40bf65d2fee922f6f8a058a5b5bf0bd1024d6e67d9",
+      "source_identity_sha256": "859b4e9800613724079b60ed0a1a57bb82fa129fd2b07e8bb4058e288b2f0c7d",
+      "recorder_id": "4c8ac31f8671487ca422175e1c72c0eb",
+      "experiment_id": "125080206845583831"
+    },
+    "p2_verification_manifest": {
+      "path": "research/path_area_action_bridge_20261018/P2/repair_4/verification_manifest.json",
+      "sha256": "26b911a91fba2e8e8f8cee832a145106f5941650c53a0ab4799fb327d5b33b70",
+      "receipt_bound_sha256": "26b911a91fba2e8e8f8cee832a145106f5941650c53a0ab4799fb327d5b33b70"
+    },
+    "p2_nas_binding": {
+      "path": "research/path_area_action_bridge_20261018/P2/repair_4/nas_binding.json",
+      "sha256": "da6ed9881610ea688e869ad16af3a78a38e1b0b898838838bcf970e5454c0e34",
+      "source_id": "859b4e9800613724079b60ed0a1a57bb82fa129fd2b07e8bb4058e288b2f0c7d",
+      "archive_sha256": "98132b6ad5408c39c85252952c9ee921ce45ad816f9b7448f9d17df8bdaf2019"
+    },
+    "p2_cold_restore_receipt": {
+      "path": "research/path_area_action_bridge_20261018/P2/repair_4/cold_restore_receipt.json",
+      "sha256": "d4852e27f02650339308f2bf826a248915833c36854d737e2c241dbae75ddcd9"
+    },
+    "research_contract_v2": {
+      "path": "docs/three_asset_research_contract.md",
+      "sha256": "293b52fa25ca060245dc4fadf61401334a5ab510b7ebf4c4af52c9651d92a341"
+    }
+  },
+  "draft_disclaimer": "This file is a design draft only. It does not modify the frozen plan, authorize implementation or reads, constitute fresh independent validation, or claim scientific success."
+}

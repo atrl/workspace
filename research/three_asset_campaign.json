@@ -18,24 +18,27 @@
     "resume_attempts": [
       "supported app-server proxy initialize timed out without response; no mutation issued",
       "Computer Use explicitly denied control of com.openai.codex; no bypass attempted"
-    ]
+    ],
+    "last_readback_this_delivery": "blocked; old objective; no supported resume/update completed"
   },
   "current_task": {
     "card": "research/path_area_action_bridge_20261018",
     "phase_receipts": "research/path_area_action_bridge_20261018/phase_receipts.json",
     "implementation_executor": "/root/p2_native_completion",
     "independent_reviewer": "/root/p2_review",
-    "next_action": "Observe one authorized native-only completion; no fit/forward/area/shadow/label recomputation.",
-    "run_state": "research/path_area_action_bridge_20261018/P2/repair_3/repair_execution_state.json",
-    "job_handle": "research/path_area_action_bridge_20261018/P2_repair3_job_handle.json",
-    "execution_receipt": "research/path_area_action_bridge_20261018/P2_repair3_process_exit.json",
-    "last_scientific_observation": "Six fits/all OOF outputs, one Python shadow and352 local label pairs cached. repair2 failed Qlib init before any native account; native-only repair3 authorized.",
-    "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once"
+    "next_action": "Independently review and freeze bounded v2 P3 design, verify final-fit eligibility, then issue separate owner execution GO; no implicit fit or evaluation authorization.",
+    "run_state": "research/path_area_action_bridge_20261018/P2/repair_4/repair_execution_state.json",
+    "job_handle": "research/path_area_action_bridge_20261018/P2_repair4_job_handle.json",
+    "execution_receipt": "research/path_area_action_bridge_20261018/P2_repair4_process_exit.json",
+    "last_scientific_observation": "P2 native consistency/count gate accepted:1057sessions,error0,strictpre2022rows243(classes104/139). No actionfits/economic eval/independent evidence/promotion.",
+    "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once",
+    "result_overview": "research/path_area_action_bridge_20261018/P2_result_overview.json",
+    "next_design": "research/path_area_action_bridge_20261018/P3_plan_draft_v2.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
     "native_evidence": "implemented_and_reviewed",
-    "candidate_funnel": "implemented_pending_owner_readback",
+    "candidate_funnel": "implemented_registered_existing_hypothesis_and_owner_readback_passed",
     "decision_bridge": "implemented_and_focused_check_passed",
     "source_and_data_WIP": "preserved",
     "model_policy": "docs/research_operations.md"
@@ -67,5 +70,14 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-20T09:36:41.797264+00:00"
+  "updated_at_utc": "2026-10-20T09:53:17.285346+00:00",
+  "execution_totals_including_P2": {
+    "new_model_fits": 33,
+    "new_native_accounts": 37,
+    "completed_fixed_economic_experiments": 6,
+    "completed_training_bridges_added": 1,
+    "historical_passing_candidates": 0,
+    "qualified_forward_days": 0,
+    "basis": "historical baseline27fits/36native plusP2 6fits/1native; trainingbridge is not a seventh economic experiment"
+  }
 }

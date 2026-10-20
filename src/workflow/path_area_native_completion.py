@@ -14,11 +14,11 @@ import pandas as pd
 
 from src.workflow import path_area_bridge as p2
 
-CARD = p2.P2_CARD / "repair_3"
+CARD = p2.P2_CARD / "repair_4"
 SOURCE_CARD = p2.P2_CARD / "repair_2"
 SOURCE_RID = "ecce5facd2424cc6a8e79e102d89cdee"
 SOURCE_EID = "517546296839356582"
-EXPERIMENT = "path_area_action_bridge_20261018_P2_repair_3"
+EXPERIMENT = "path_area_action_bridge_20261018_P2_repair_4"
 SHADOW_NAMES = ("trace", "corporate_receipts", "targets", "prebranch_state", "decisions",
                 "python_audit", "path_area_inputs", "points", "replay", "orders")
 LABEL_NAMES = ("labels", "action_label_frame", "action_label_dataset")
@@ -41,7 +41,7 @@ def native_completion_implementation_identity(root=None):
     files = dict(p2._implementation_identity(root, plan)["files"])
     for name in ("src/workflow/path_area_native_completion.py", "src/core/completed_checkpoints.py",
                  "tests/test_path_area_native_completion.py", str(CARD / "repair_plan.json"),
-                 str(CARD / "workflow.yaml"), str(CARD / "repair_3.ipynb")):
+                 str(CARD / "workflow.yaml"), str(CARD / "repair_4.ipynb")):
         path = root / name
         files[name] = p2._notebook_source_identity(path) if path.suffix == ".ipynb" else p2._sha_file(path)
     return {"files": files, "sha256": p2._canonical_sha(files)}
@@ -86,24 +86,25 @@ def _authorization(root, identity):
     review_path = card / "repair_implementation_review.json"
     go_path = card / "repair_execution_authorization.json"
     if not review_path.is_file() or not go_path.is_file():
-        raise PermissionError("blocked: repair_3 scoped review and separate native execution GO required")
+        raise PermissionError("blocked: repair_4 scoped review and separate native execution GO required")
     review, go = (json.loads(path.read_text()) for path in (review_path, go_path))
     bindings = {"plan_sha256": p2.PLAN_SHA256,
                 "failure_manifest_sha256": repair_plan["failure_manifest_sha256"],
+                "repair_3_failure_receipt_sha256": repair_plan["repair_3_failure_receipt_sha256"],
                 "repair_plan_sha256": p2._sha_file(card / "repair_plan.json"),
                 "repair_implementation_sha256": identity["sha256"]}
     if (any(review.get(key) != value or go.get(key) != value for key, value in bindings.items())
-            or review.get("verdict") != "APPROVE_P2_REPAIR_3_FOR_SEPARATE_EXECUTION_GO"
+            or review.get("verdict") != "APPROVE_P2_REPAIR_4_FOR_SEPARATE_EXECUTION_GO"
             or review.get("material_blockers") != [] or go.get("approved") is not True
-            or go.get("owner") != "/root" or go.get("scope") != "actual_P2_repair_3_execution"
+            or go.get("owner") != "/root" or go.get("scope") != "actual_P2_repair_4_execution"
             or go.get("P3") is not False or go.get("budget") != BUDGET
             or go.get("repair_implementation_review_sha256") != p2._sha_file(review_path)):
-        raise PermissionError("blocked: repair_3 authorization differs from code, seal or bounded scope")
-    allowed = {"repair_plan.json", "workflow.yaml", "repair_3.ipynb",
+        raise PermissionError("blocked: repair_4 authorization differs from code, seal or bounded scope")
+    allowed = {"repair_plan.json", "workflow.yaml", "repair_4.ipynb",
                "repair_implementation_review.json", "repair_execution_authorization.json",
                "checkpoint_schema_inspection.json"}
     if any(path.name not in allowed for path in card.iterdir()):
-        raise FileExistsError("blocked: repair_3 already has execution evidence; no automatic retry")
+        raise FileExistsError("blocked: repair_4 already has execution evidence; no automatic retry")
     return repair_plan, {"sha256": p2._sha_file(go_path)}, {"sha256": p2._sha_file(review_path)}
 
 
@@ -170,6 +171,37 @@ def _completed_boundary(root, repair_plan):
         raise ValueError("blocked: completed-stage counters differ")
 
 
+def _prior_failure_boundary(root, repair_plan):
+    card = root / p2.P2_CARD / "repair_3"
+    receipt_path = card / "failure_receipt.json"
+    if p2._sha_file(receipt_path) != repair_plan["repair_3_failure_receipt_sha256"]:
+        raise ValueError("blocked: repair_3 immutable failure receipt differs")
+    receipt = json.loads(receipt_path.read_text())
+    if (receipt.get("status") != "closed_failed_before_native"
+            or receipt.get("new_recorder_created") is not False
+            or receipt.get("counts", {}).get("checkpoint_artifacts_loaded") != 16
+            or receipt.get("counts", {}).get("source_artifacts_loaded") != 3
+            or receipt.get("counts", {}).get("native_account_attempts") != 0
+            or p2._sha_file(card / "repair_execution_state.json") != receipt.get("execution_state_sha256")):
+        raise ValueError("blocked: repair_3 closed failure boundary differs")
+
+
+def _provider_manifest_integrity(identity):
+    """Verify location-dependent hashes against that provider's own metadata."""
+    from src.core import stable_hash
+    manifest = identity["manifest"]
+    audit_payload = {"provider_uri": manifest["provider_uri"], "market": manifest["market"],
+        "region": manifest["region"], "instruments": manifest["instruments"], "fields": manifest["fields"],
+        "start": manifest["calendar_start"], "end": manifest["calendar_end"],
+        "max_datetime": manifest["max_datetime"], "row_count": manifest["row_count"]}
+    build_payload = {key: value for key, value in manifest.items()
+                     if key not in ("operation", "status", "hash", "source_api")}
+    if (str(Path(identity["provider_path"]).resolve()) != manifest["provider_uri"]
+            or stable_hash(audit_payload) != manifest["audit_snapshot_hash"]
+            or stable_hash(build_payload) != manifest["hash"]):
+        raise ValueError("blocked: provider own-URI audit or manifest integrity differs")
+
+
 def _verify_quote_identity(old, new):
     # Provider path and manifest hash include the temporary directory name.
     # Calendar/instrument/feature bytes and the content snapshot must be exact.
@@ -177,11 +209,22 @@ def _verify_quote_identity(old, new):
         return {row["path"]: (row["sha256"], row["bytes"])
                 for row in identity["provider_tree"]["entries"]
                 if row["path"].startswith(("features/", "calendars/", "instruments/"))}
+    if len(quote_files(old)) != 14 or len(quote_files(new)) != 14:
+        raise ValueError("blocked: native quote inventory requires exactly 14 files")
     keys = ("rows", "first_point", "last_point", "native_readback", "executor_guard")
+    _provider_manifest_integrity(old)
+    _provider_manifest_integrity(new)
+    def source_manifest(identity):
+        return {key: value for key, value in identity["manifest"].items()
+                if key not in ("provider_uri", "audit_snapshot_hash", "hash")}
     if (any(old.get(key) != new.get(key) for key in keys)
             or not quote_files(old) or quote_files(old) != quote_files(new)
-            or old["manifest"]["audit_snapshot_hash"] != new["manifest"]["audit_snapshot_hash"]):
+            or source_manifest(old) != source_manifest(new)):
         raise ValueError("blocked: rebuilt native provider quote/source identity differs")
+    return {"status": "passed", "exact_calendar_instrument_feature_files": len(quote_files(old)),
+            "own_URI_audit_and_manifest_hashes_verified": True,
+            "location_independent_manifest_fields_equal": True,
+            "guard_and_point_shape_equal": True}
 
 
 def _native_then_record(*, shadow, labels, provider, point_prices, schedule, tariff,
@@ -204,7 +247,7 @@ def _native_then_record(*, shadow, labels, provider, point_prices, schedule, tar
     persist()
     _no_writer()
     # All init/provider/source operations have now completed. No init in this block.
-    with R.start(experiment_name=EXPERIMENT, recorder_name="path_area_action_bridge_P2_repair_3",
+    with R.start(experiment_name=EXPERIMENT, recorder_name="path_area_action_bridge_P2_repair_4",
                  uri=str(tracking)):
         recorder = R.get_recorder()
         state["recorder_id"] = str(recorder.id)
@@ -241,17 +284,20 @@ def _native_then_record(*, shadow, labels, provider, point_prices, schedule, tar
     return recorder, native, bridge
 
 
-def run_path_area_native_completion(*, root=None):
+def run_path_area_native_completion(*, root=None, repair_number=4):
+    if repair_number != 4:
+        raise ValueError("blocked: closed repair versions cannot execute; only reviewed repair_4 is supported")
     root = p2._resolve_root(root)
     _, plan = p2._load_plan(root)
     inherited = p2._verify_inherited(root, plan)
     identity = native_completion_implementation_identity(root)
     repair_plan, go, review = _authorization(root, identity)
     _completed_boundary(root, repair_plan)
+    _prior_failure_boundary(root, repair_plan)
     code_snapshot = _verified_code_snapshot(root, identity)
     card = root / CARD
     state_path = card / "repair_execution_state.json"
-    state = {"phase": "P2_repair_3", "status": "started", "plan_sha256": p2.PLAN_SHA256,
+    state = {"phase": "P2_repair_4", "status": "started", "plan_sha256": p2.PLAN_SHA256,
         "execution_authorization_sha256": go["sha256"], "native_account_attempts": 0,
         "native_accounts": 0, "checkpoint_artifacts_load_attempted": 0,
         "checkpoint_artifacts_loaded": 0, "source_artifacts_loaded": 0,
@@ -311,7 +357,19 @@ def run_path_area_native_completion(*, root=None):
             root, {"minute_frame": minute_frame}, plan, terminal)
         state.update(native_derived_point_provider_builds=1, native_derived_point_provider_readbacks=1)
         persist()
-        _verify_quote_identity(previous_source["derived_point_provider"], point_identity)
+        comparison_path = card / "quote_comparison.json"
+        comparison = {"status": "pending", "old_identity": previous_source["derived_point_provider"],
+                      "new_identity": point_identity, "native_account_attempts": 0}
+        p2._atomic_json(comparison_path, comparison)
+        try:
+            comparison.update(_verify_quote_identity(previous_source["derived_point_provider"], point_identity))
+        except BaseException as error:
+            comparison.update(status="failed", exception_type=type(error).__name__, exception=str(error))
+            p2._atomic_json(comparison_path, comparison)
+            raise
+        p2._atomic_json(comparison_path, comparison)
+        state["quote_comparison_sha256"] = p2._sha_file(comparison_path)
+        persist()
         if not point_prices.index.equals(pd.DatetimeIndex(shadow["points"].stamp)):
             raise ValueError("blocked: rebuilt provider grid differs from cached Python points")
         cash, split = p2._event_views(source["inputs/admitted_source_objects"], start, terminal)
@@ -327,7 +385,7 @@ def run_path_area_native_completion(*, root=None):
         binding = json.loads((root / p2.P1_CARD / "nas_binding.json").read_text())
         binding_path = card / "nas_binding.json"
         p2._atomic_json(binding_path, {**binding, "source_id": source_identity["phase_identity_sha256"],
-                                     "phase": "P2_repair_3", "as_of": str(terminal.date())})
+                                     "phase": "P2_repair_4", "as_of": str(terminal.date())})
         tracking = card / "qlib_recorder"
         recorder, native, bridge = _native_then_record(shadow=shadow, labels=labels,
             provider=provider, point_prices=point_prices, schedule=schedule, tariff=p1_plan["tariff"],
@@ -335,7 +393,7 @@ def run_path_area_native_completion(*, root=None):
             state=state, persist=persist, implementation_identity=identity,
             code_snapshot=code_snapshot, source_audit=source_audit, checkpoint_audit=checkpoint_audit)
         support = p2._support_report(shadow["decisions"], labels["labels"], plan)
-        result = {"experiment": EXPERIMENT, "phase": "P2_repair_3",
+        result = {"experiment": EXPERIMENT, "phase": "P2_repair_4",
             "status": "completed_training_bridge_no_economic_evaluation", "decision": support["gate"],
             "plan_sha256": p2.PLAN_SHA256, "implementation_identity_sha256": identity["sha256"],
             "implementation_review_sha256": review["sha256"], "region": "us", "recorder_uri": str(tracking),
@@ -352,10 +410,11 @@ def run_path_area_native_completion(*, root=None):
                 "source_training_states": "original FAILED P2 Recorder retained by immutable checkpoint reference",
                 "derived_provider_status": "temporary exact-quote provider removed after reconciliation"},
             "cumulative_work": {"new_allocation_fits": 6, "training_epochs": 1800,
-                "OOF_model_forward_calls": 15, "P1_artifact_loads": 21,
-                "derived_provider_builds": 3, "derived_provider_readbacks": 3,
+                "OOF_model_forward_calls": 15, "P1_artifact_loads": 24,
+                "derived_provider_builds": 4, "derived_provider_readbacks": 4,
                 "deterministic_smoothing_and_area_passes": 2, "physical_shadow_paths": 1,
                 "local_action_label_passes": 1, "native_accounts": 1,
+                "checkpoint_object_loads": 95,
                 "prior_native_initialization_failures_before_account_start": 1},
             "area_masked_rows": int(shadow["path_area_inputs"].prefix_mask.eq(1).sum()),
             "area_unknown_rows": int(shadow["path_area_inputs"].prefix_mask.eq(0).sum()),
@@ -367,7 +426,7 @@ def run_path_area_native_completion(*, root=None):
         result = finalize_evidence(recorder, card=card, summary=result, transport_binding=binding_path,
                                    workspace_root=root, include_code_artifacts=True)
         conclusion = ("## 中文结论\n\n"
-            f"P2 repair_3 原生对账通过；新 Recorder `{result['recorder_id']}`。复用 repair_2 的"
+            f"P2 repair_4 原生对账通过；新 Recorder `{result['recorder_id']}`。复用 repair_2 的"
             "完整 Python 影子路径、面积输入与局部标签；新增拟合、模型预测、面积计算、Python 账户和标签生成均为0。"
             f"本次仅构建/读回1份相同报价 provider、运行1个 native 账户，对账最大相对误差"
             f"{native['audit']['max_relative_error']:.3g}；成熟局部标签"
@@ -378,7 +437,7 @@ def run_path_area_native_completion(*, root=None):
             "历史 PIT、首次收据、SOXX费用后超额与晋升资格均未取得。"
             "下一步为独立结果审查；P3须另行冻结设计与执行授权。\n")
         (card / "conclusion.md").write_text(conclusion, encoding="utf-8")
-        notebook_path = card / "repair_3.ipynb"
+        notebook_path = card / "repair_4.ipynb"
         notebook = json.loads(notebook_path.read_text())
         for cell in notebook["cells"]:
             if cell.get("id") == "path-p2-conclusion":

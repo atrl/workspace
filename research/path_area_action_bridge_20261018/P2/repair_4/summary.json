@@ -1,0 +1,806 @@
+{
+  "experiment": "path_area_action_bridge_20261018_P2_repair_4",
+  "phase": "P2_repair_4",
+  "status": "completed_training_bridge_no_economic_evaluation",
+  "decision": "count_only_pass",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "implementation_identity_sha256": "fdb651f1017e0af39635f009642cb02e63e8c93f2296333377733a446e11bdec",
+  "implementation_review_sha256": "6960895dd6462a400de781a61510846a273abda7b3d0fc5b16569aefc095fe03",
+  "region": "us",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P2/repair_4/qlib_recorder",
+  "repair_of_failed_recorder": "ecce5facd2424cc6a8e79e102d89cdee",
+  "completed_checkpoint": {
+    "recorder_id": "ecce5facd2424cc6a8e79e102d89cdee",
+    "experiment_id": "517546296839356582",
+    "recorder_status": "FAILED",
+    "failure_manifest_sha256": "138afc66502fccbaaa271f632c7928cf72ea1dfb8cdd0e5a7fa383517c864192",
+    "artifacts": {
+      "shadow_python/trace": "0b8f0c66f4ec4423c29218e90b2f2bb34dd64ddab3c63b945deda162a2b9be35",
+      "shadow_python/corporate_receipts": "672623333d7b8881988f9028ef79a3f3c9f7c6a35deebb13dd2f0f3beb510d62",
+      "shadow_python/targets": "fd06e2c8ef454c4618ef56c89ac81b6e6ec397367b2ab0b18da1f45e54eebdbc",
+      "shadow_python/prebranch_state": "612c07c4c54800b09ef2686fb700e4d57ee0fa9a21ca48219627b1b13c2fb327",
+      "shadow_python/decisions": "e3de25a6ffb02cb6c8a3331b8defee1cc52122fbf17f117454a1aedba6f9006c",
+      "shadow_python/python_audit": "bd4de32bd3d8fd74e05369e17b6cb2eeee3e59d030b204a7ea8bbb30bae99550",
+      "shadow_python/path_area_inputs": "f5c65a01026aa59fb4e461d0fa41ecdcc54b652071b2e3fd377a5f8204c79598",
+      "shadow_python/points": "0b653002e9b1ab24855604232d819c63458b37d950729e509ffe26e711e48ade",
+      "shadow_python/replay": "957a4a34bf58c86717a54c9ca0cfb1af9f810f6b32e8516caedb46ae831d5c07",
+      "shadow_python/orders": "1b2b0a9ed9e128005f33a109ec8d7f1e2a44135995d95b4300c480ffe002ad9f",
+      "local_labels/labels": "b1220b622ea1c2c50419c80aa8880319705458f4ff0bbdedaed1422c02d3aabf",
+      "local_labels/action_label_frame": "1a6e9fb0fa211b4e0337aade60bbf5c281a6f9c27fe090dcc6c14d79d9888ad5",
+      "local_labels/action_label_dataset": "1babe70d5229201e9f1b70303badef3eb567a21d91940d17da0983269cfc95e9",
+      "sources/identity": "df93808deb4fc22646de251137968fddb3c76f5ca8275cba761c7c92a0f49cd0",
+      "sources/load_audit": "a9f0611f83f1e73864d20157716836a2cc8135c5c1c2463428e0ce65b664004e",
+      "sources/H1_projection": "74b07c5dcbc2dfd044af2810ba05c918c7eca642f8d08c7e1cba667f5fdb6b89"
+    },
+    "hashes_checked_before_unpickling": true,
+    "old_recorder_read_only": true
+  },
+  "source_identity_sha256": "859b4e9800613724079b60ed0a1a57bb82fa129fd2b07e8bb4058e288b2f0c7d",
+  "source_snapshot_lineage": {
+    "recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+    "experiment_id": "959574308010795325",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P1/qlib_recorder",
+    "archive_sha256": "775be805b14728b54d4f9d008d3f1679feea5140e6954b831fc99165390d178b",
+    "manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+    "source_byte_identity_sha256": "29feecc798f9effaa39fc5a795ad4c3c8ba6efaec5f0a5451e9f04f39b617124",
+    "native_readback": "One completed cold restore, exec48660 exit0,21 artifact hashes and native direct prepare verified; no repetition for this draft.",
+    "observed": {
+      "old_models_static_qualified": 9,
+      "early_auxiliary_status": {
+        "2018": "proven_empty",
+        "2019": "proven_empty"
+      },
+      "complete_prefix_marks_and_next_target_rows": 1055,
+      "complete_prefix_marks_and_next_target_by_trade_year": {
+        "2018": 54,
+        "2019": 252,
+        "2020": 252,
+        "2021": 252,
+        "2022": 245
+      },
+      "corporate_metadata_events": 33
+    },
+    "count_limit": "1055 is the complete-prefix intersection, NOT an action-label count or upper bound. The2020 missing-prefix/complete-marks row stays eligible for a label with mask0. Actual eligible mature action counts and the200 pre2022 gate remain unknown."
+  },
+  "source_status": "explicit_present_day_frozen_retrospective_snapshot",
+  "claims_false": [
+    "historical_origin_lineage_certified",
+    "historical_PIT_qualified",
+    "actual_first_receipt_certified",
+    "independent_validation",
+    "alpha_qualified",
+    "production_permission"
+  ],
+  "support": {
+    "by_trade_year": {
+      "2018": {
+        "shadow_rows": 54,
+        "eligible_rows": 11,
+        "mandatory_derisk_rows": 28,
+        "large_transition_rows": 25,
+        "mandatory_position_repair_rows": 28,
+        "nonfinite_original22_rows": 0,
+        "prefix_mask_1_rows": 54,
+        "prefix_mask_0_rows": 0,
+        "next_common_teacher_target_rows": 54,
+        "complete_prefix_marks_next_target_intersection": 54,
+        "mature_action_labels": 11,
+        "unknown_action_labels": 43,
+        "label_available_rows": 54,
+        "label_available_before_2023": 54
+      },
+      "2019": {
+        "shadow_rows": 252,
+        "eligible_rows": 85,
+        "mandatory_derisk_rows": 125,
+        "large_transition_rows": 53,
+        "mandatory_position_repair_rows": 129,
+        "nonfinite_original22_rows": 0,
+        "prefix_mask_1_rows": 252,
+        "prefix_mask_0_rows": 0,
+        "next_common_teacher_target_rows": 252,
+        "complete_prefix_marks_next_target_intersection": 252,
+        "mature_action_labels": 85,
+        "unknown_action_labels": 167,
+        "label_available_rows": 252,
+        "label_available_before_2023": 252
+      },
+      "2020": {
+        "shadow_rows": 253,
+        "eligible_rows": 54,
+        "mandatory_derisk_rows": 133,
+        "large_transition_rows": 89,
+        "mandatory_position_repair_rows": 135,
+        "nonfinite_original22_rows": 0,
+        "prefix_mask_1_rows": 252,
+        "prefix_mask_0_rows": 1,
+        "next_common_teacher_target_rows": 253,
+        "complete_prefix_marks_next_target_intersection": 252,
+        "mature_action_labels": 54,
+        "unknown_action_labels": 199,
+        "label_available_rows": 253,
+        "label_available_before_2023": 253
+      },
+      "2021": {
+        "shadow_rows": 252,
+        "eligible_rows": 93,
+        "mandatory_derisk_rows": 120,
+        "large_transition_rows": 63,
+        "mandatory_position_repair_rows": 121,
+        "nonfinite_original22_rows": 0,
+        "prefix_mask_1_rows": 252,
+        "prefix_mask_0_rows": 0,
+        "next_common_teacher_target_rows": 252,
+        "complete_prefix_marks_next_target_intersection": 252,
+        "mature_action_labels": 93,
+        "unknown_action_labels": 159,
+        "label_available_rows": 252,
+        "label_available_before_2023": 252
+      },
+      "2022": {
+        "shadow_rows": 246,
+        "eligible_rows": 110,
+        "mandatory_derisk_rows": 104,
+        "large_transition_rows": 49,
+        "mandatory_position_repair_rows": 104,
+        "nonfinite_original22_rows": 0,
+        "prefix_mask_1_rows": 246,
+        "prefix_mask_0_rows": 0,
+        "next_common_teacher_target_rows": 245,
+        "complete_prefix_marks_next_target_intersection": 245,
+        "mature_action_labels": 109,
+        "unknown_action_labels": 137,
+        "label_available_rows": 245,
+        "label_available_before_2023": 245
+      }
+    },
+    "pre2022_eligible_mature_action_rows": 243,
+    "minimum_required": 200,
+    "gate": "count_only_pass",
+    "prefix_mask_required_for_label_count": false,
+    "classification_fits": 0,
+    "economic_or_independent_validation_claim": false
+  },
+  "native_reconciliation": {
+    "status": "passed",
+    "sessions": 1057,
+    "points": 4232,
+    "orders": 1284,
+    "max_relative_error": 0.0,
+    "native_CA_from_own_positions": true,
+    "receivable_in_NAV_not_spendable": true,
+    "currency_assumption": "USD gross pretax paper",
+    "historical_PIT_qualified": false
+  },
+  "decision_chain": {
+    "status": "descriptive_only",
+    "rows": 1057,
+    "trace_sha256": "2bb14f21107e94ebe0054cc26e1f0e90dd04bed619ea2231e7dc4e7754282114",
+    "source_identity": {
+      "prior_completed_stage_source": {
+        "P1_recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+        "P1_manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+        "P1_artifacts": {
+          "inputs/datasets": "7ca649a8b9fc1cc12443f69cafa79dc2303a1d622436d284f9ad7fe629fadb70",
+          "inputs/admitted_source_objects": "f665c2dcd57a3730b580c134169297d1669d6388e8895029f44a6ae22171d079",
+          "inputs/daily_calendar": "024c0fb151832fc57ed6af16789b52de5cb5d74950595a39db5ca523854e584b",
+          "analysis/fold_package": "5d9d428a54c9da1d29f861cfaa46c5db40ad0c952bbdec559f2bbfe65de23e9d",
+          "analysis/model_eligibility": "0f3b927f4ab6c17b47a31743589323073320becb3c04dce08a0c6dc8e361410e",
+          "analysis/membership_qualification": "9d4fb3636c60d7073d8aa7758867b8383447a01f78fde191e018bce2715445ef",
+          "analysis/minute_coverage": "14487156bfb7681ae93adc18dbe81fda66bcbd3278b25184097001e001cead5f",
+          "analysis/corporate_qualification": "71bac100c8cfe028e755b26c389627761183b1767bd9499c14e5a4c4aa96ad7d",
+          "inputs/source_read_audits": "cf1873b51a0dc286f431197a2437eee8ac7ff1c0949ffcf1f000bba7abddddf0"
+        },
+        "P1_fold_dataset_identity": {
+          "2018": {
+            "rows": 1741,
+            "columns": 85,
+            "sha256": "99671760aaae27e09b3156e1bcc71e70fa05184abe77d2b61a02b6dad69cbc5f",
+            "index_names": [
+              "datetime",
+              "instrument"
+            ],
+            "column_names": [
+              null,
+              null
+            ]
+          },
+          "2019": {
+            "rows": 1992,
+            "columns": 85,
+            "sha256": "94cc8c67ee91e9af6934e181558ca316fa8386e1ae89a79619a4f4fd2efdd61c",
+            "index_names": [
+              "datetime",
+              "instrument"
+            ],
+            "column_names": [
+              null,
+              null
+            ]
+          }
+        },
+        "P1_empty_aux_identity": {
+          "2018": {
+            "rows": 0,
+            "columns": 20,
+            "sha256": "cf6afb91aea8c2ba25a272e1b7b136f318a67fee375806da4399b93581ab9a22",
+            "index_names": [
+              "datetime",
+              "instrument"
+            ],
+            "column_names": [
+              null,
+              null
+            ]
+          },
+          "2019": {
+            "rows": 0,
+            "columns": 20,
+            "sha256": "cf6afb91aea8c2ba25a272e1b7b136f318a67fee375806da4399b93581ab9a22",
+            "index_names": [
+              "datetime",
+              "instrument"
+            ],
+            "column_names": [
+              null,
+              null
+            ]
+          }
+        },
+        "P1_input_view": {
+          "rows": 3014,
+          "columns": 80,
+          "sha256": "ef16bc5af18a125b0712b9a7784b7e82a37d206fe71cd722d2f0ae45e53a5b84",
+          "index_names": [
+            "datetime",
+            "instrument"
+          ],
+          "column_names": [
+            null,
+            null
+          ]
+        },
+        "P1_primary_training_frame": {
+          "rows": 3014,
+          "columns": 85,
+          "sha256": "b9c5bcd781a3bf4ed16583417064e319160196fddb9db270e69139d2e9ac682f",
+          "index_names": [
+            "datetime",
+            "instrument"
+          ],
+          "column_names": [
+            null,
+            null
+          ]
+        },
+        "P1_minute_frame": {
+          "rows": 825120,
+          "columns": 6,
+          "sha256": "2d8a84ac63941c884fcd0e4a4a29c51267081ec3d8dd0f14d0e0ecb0876b4132",
+          "index_names": [
+            "datetime",
+            "instrument"
+          ],
+          "column_names": [
+            null,
+            null
+          ]
+        },
+        "P1_coverage": {
+          "rows": 3014,
+          "columns": 16,
+          "sha256": "f8d92ae9d26c58b8da1d7153ec283048368e7d4d8d2ae3d5002eb842044d610e",
+          "index_names": [
+            "signal_date"
+          ],
+          "column_names": [
+            null
+          ]
+        },
+        "H1_projection": {
+          "dataset_artifact": "inputs/admitted_source_objects:PG_train_only/inputs/training_dataset",
+          "columns": [
+            "soxl_forward_open_return",
+            "soxx_forward_open_return",
+            "return_available_at"
+          ],
+          "signal_index_sha256": "86a2b25089c67366882cc949df214d58807a5e40626299cf69a8b26fa56e35e0",
+          "two_original_H1_arrays_sha256": "6590c3c17a2c56f35e8fd556cb3245d94f42887d1607f00421e025c92cd81035",
+          "five_original_targets_sha256_before": "46ee40d2d34d5f090a557d2f802741083bf90bd882452c8e201a4e1f81801593",
+          "five_original_targets_sha256_after": "46ee40d2d34d5f090a557d2f802741083bf90bd882452c8e201a4e1f81801593",
+          "price_derived_returns": false
+        },
+        "derived_point_provider": {
+          "manifest": {
+            "provider_uri": "/private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-path-area-p2-provider-y0eqbyle",
+            "market": "all",
+            "region": "us",
+            "freq": "1min",
+            "as_of": "2022-12-27",
+            "source": "P1 bounded_core_minutes DatasetH; P2 scheduled raw event marks",
+            "instruments": [
+              "SOXL",
+              "SOXX"
+            ],
+            "fields": [
+              "$open",
+              "$high",
+              "$low",
+              "$close",
+              "$execution_price",
+              "$raw_execution_price"
+            ],
+            "calendar_start": "2018-10-12 09:45:00",
+            "calendar_end": "2022-12-27 09:30:00",
+            "max_datetime": "2022-12-27 09:30:00",
+            "row_count": 8466,
+            "feature_file_count": 12,
+            "audit_snapshot_hash": "44595d34af1bdc5c",
+            "operation": "qlib_store_build",
+            "status": "ok",
+            "hash": "e6ab7210cb36915d",
+            "source_api": [
+              "qlib.init",
+              "qlib.data.storage.file_storage.FileFeatureStorage",
+              "qlib.data.D.calendar",
+              "qlib.data.D.instruments",
+              "qlib.data.D.features"
+            ]
+          },
+          "provider_tree": {
+            "entries": [
+              {
+                "path": "calendars/1min.txt",
+                "sha256": "30f0776587fba7291fbd0e58643d157ace24b63804369d3211340961345fca2f",
+                "bytes": 84660
+              },
+              {
+                "path": "features/soxl/close.1min.bin",
+                "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxl/execution_price.1min.bin",
+                "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxl/high.1min.bin",
+                "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxl/low.1min.bin",
+                "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxl/open.1min.bin",
+                "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxl/raw_execution_price.1min.bin",
+                "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxx/close.1min.bin",
+                "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxx/execution_price.1min.bin",
+                "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxx/high.1min.bin",
+                "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxx/low.1min.bin",
+                "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxx/open.1min.bin",
+                "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+                "bytes": 16936
+              },
+              {
+                "path": "features/soxx/raw_execution_price.1min.bin",
+                "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+                "bytes": 16936
+              },
+              {
+                "path": "instruments/all.txt",
+                "sha256": "083743ef0cb22508f463c2d9f4eb42ff857de64adf193c965ea7e4927554fc60",
+                "bytes": 90
+              },
+              {
+                "path": "qlib.yaml",
+                "sha256": "812ecce06116b86cb96a7f7f9f2a9c687a0e9f5592bbe33b94c289d8ebe37ece",
+                "bytes": 204
+              },
+              {
+                "path": "qlib_store_manifest.json",
+                "sha256": "2e47bb3673626e90f837a1218e642804d8d794ecadd0b2fb1f768ab5232a50c2",
+                "bytes": 928
+              }
+            ],
+            "sha256": "a2d08b0ff67f98271fdd007cb92e846dc0fd30c906f2f926e4a1638b40c853e8"
+          },
+          "rows": 4232,
+          "first_point": "2018-10-12 09:45:00",
+          "last_point": "2022-12-23 16:00:00",
+          "native_readback": "passed_exact_float32",
+          "provider_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-path-area-p2-provider-y0eqbyle",
+          "provider_build_count": 1,
+          "derived_only_from_P1_bounded_core_minutes": true,
+          "native_readback_count": 1,
+          "executor_guard": {
+            "policy_timestamp": "2022-12-27 09:30:00",
+            "source_right_edge_timestamp": "2022-12-27 09:31:00",
+            "raw_open_values": {
+              "SOXL": 9.579999923706055,
+              "SOXX": 346.1099853515625
+            },
+            "from_admitted_next_raw_quote": true,
+            "outside_account_interval": true,
+            "outside_point_prices": true,
+            "excluded_from_orders_valuation_labels_and_native_comparison": true
+          }
+        },
+        "inherited_evidence": {
+          "research/path_area_action_bridge_20261018/plan.json": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+          "research/path_area_action_bridge_20261018/design_draft.json": "61af5d54ec1857bac4c59e9f5f483aeeba8a8e188cc63711bf308dde739053cb",
+          "research/path_area_action_bridge_20261018/result_review.json": "44e872ca5f14cba88ab162f269f79c147d5e0aa9f0c93b69dc394a23e636ba96",
+          "research/path_area_action_bridge_20261018/P1_result_overview.json": "b97faab55c8536cdfddf973bd7c3071cc72039236d28b041a26f332e27ec8cf3",
+          "research/path_area_action_bridge_20261018/P1/summary.json": "29cd78de38fb5dfe4355d39d4706f0f46728e9fe8f34726ecabfd10697b583c7",
+          "research/path_area_action_bridge_20261018/P1/readback_verification.json": "04d624f991be488e8a8aabe36960b7a9af16fb52aa0f54b440aefbc2502e8103"
+        },
+        "failed_checkpoint": {
+          "recorder_id": "004c3320e6214a14bfdbd06425379514",
+          "experiment_id": "744316177731782220",
+          "recorder_status": "FAILED",
+          "failure_manifest_sha256": "1ee03974f3abfac3db38b6b0a988166a3544d0d9e4209c9c1b549ef551ba9143",
+          "checkpoint_artifacts": {
+            "barrier/fit_barrier": "c3afdcb99b03d9f486e90d0f0b30fa0cc91b3adf9f7168da944d7933a46bd4c1",
+            "models/new_2018_71": "58aba267e1ae7032c225d9274a63fc4a37357848d40f03a747f48a8ce3f9562a",
+            "models/new_2018_172": "c499ca96c3242d758e435585dd607146d8c4d2229fc79d9b36f1a9ae50200bfc",
+            "models/new_2018_273": "1c8dbe34e3a0f858c188892a7efed6d512f8f2abc42de2d1b35ebbf68e9eb5ad",
+            "models/new_2019_71": "80a954ac53fb875a66f2ec53200529c593def5f8b7e3109e28496097e17547f3",
+            "models/new_2019_172": "efc977b9f58f52ea3402a95ee7133a22f34bc5851f64f3cb71860c13fc523a25",
+            "models/new_2019_273": "367b4037ae1480e2ad9f8891a41350e2b02fd331204e56f02d90556c4d1dd757",
+            "OOF_seed_predictions/year_2018_seed_71": "abf8cb4b9d629ef076f6859e85c4bafb183bfddfcac03a43f9636a0990ba35d1",
+            "OOF_seed_predictions/year_2018_seed_172": "249338bccefa9cfede6488591a187a9cac4567259f942e83bcf2b0f9dc643c91",
+            "OOF_seed_predictions/year_2018_seed_273": "b8c50cc016fd81f0189df30c50e31dd6eef52d86c18f979fd5bbbe40888ff0ac",
+            "OOF_seed_predictions/year_2019_seed_71": "ea51ed4b3884c5c3c1c4920e40fc5a7517b2ffec25710d6e9b878d694e1c95ab",
+            "OOF_seed_predictions/year_2019_seed_172": "94e1b1b14c01b1468ab2be1b8dfad4960aa837b600abd83993a0c44f182286bf",
+            "OOF_seed_predictions/year_2019_seed_273": "cbe406b5b6d6f19795238c6fd68352b4a66d733d3fea139c6e40cb6eaa6e36a7",
+            "OOF_seed_predictions/year_2020_seed_71": "b3a90a9f3daedde8d421a655459cc9d28fe045a061b15c59c4e9b55f0e66d9f0",
+            "OOF_seed_predictions/year_2020_seed_172": "346009497575d99465b5b87190325709ea29f0b987b619191a90391449e8c1be",
+            "OOF_seed_predictions/year_2020_seed_273": "5f50d135f04d80444c4daf4c7f2566e67bc185e8929831926f444c5d63df4cee",
+            "OOF_seed_predictions/year_2021_seed_71": "48ac65c586dcf98e6b9c72fa5965dcbf5258fac7617ae2adb94210e86c1c4902",
+            "OOF_seed_predictions/year_2021_seed_172": "9f6e7f1a0dc2b149012198193d778f1c0732fcf0502db4b62a5dbc12c2046149",
+            "OOF_seed_predictions/year_2021_seed_273": "b99548aa92c555303cc9ef9807ec0e20dbde5f8563bd5ad59f2684fff33f7e91",
+            "OOF_seed_predictions/year_2022_seed_71": "20dc061436bdf8bd23c085852274b045561b0bd8d04c42aad92ac82397d5d458",
+            "OOF_seed_predictions/year_2022_seed_172": "a3c3906bf6630cf8a7ffa845040aa674446b4878f3f0bd4c8e4d4d6c304ac378",
+            "OOF_seed_predictions/year_2022_seed_273": "daf01eadb962f8d48be7cf4eade84c7d314808fc023830f1f14416cff335aa5e",
+            "OOF/raw_equal_weight_predictions": "ebfec5f52e11d835932026b3a4cfd4e346d9307b2c09db5d05e9cc0d8e966e8f"
+          },
+          "hashes_checked_before_unpickling": true,
+          "old_recorder_read_only": true
+        },
+        "repair_implementation_identity_sha256": "cb5e6c2a201a169a773cad064efb8c857313e3066343476037492959f983978b",
+        "phase_identity_sha256": "db64e1fc71db12333b48582055c5d650d9ade9830e3ebbb82576ab1c57b27887"
+      },
+      "P1_recorder_id": "e1d8101b42b44248aa2ea0a4920ebb19",
+      "P1_manifest_sha256": "817070e12e7297d1b52ed75d11f1fd38d739087f442c4dd32b5cba97913f9edd",
+      "P1_artifacts": {
+        "inputs/datasets": "7ca649a8b9fc1cc12443f69cafa79dc2303a1d622436d284f9ad7fe629fadb70",
+        "inputs/admitted_source_objects": "f665c2dcd57a3730b580c134169297d1669d6388e8895029f44a6ae22171d079",
+        "inputs/daily_calendar": "024c0fb151832fc57ed6af16789b52de5cb5d74950595a39db5ca523854e584b"
+      },
+      "derived_point_provider": {
+        "manifest": {
+          "provider_uri": "/private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-path-area-p2-provider-w6u8w_zd",
+          "market": "all",
+          "region": "us",
+          "freq": "1min",
+          "as_of": "2022-12-27",
+          "source": "P1 bounded_core_minutes DatasetH; P2 scheduled raw event marks",
+          "instruments": [
+            "SOXL",
+            "SOXX"
+          ],
+          "fields": [
+            "$open",
+            "$high",
+            "$low",
+            "$close",
+            "$execution_price",
+            "$raw_execution_price"
+          ],
+          "calendar_start": "2018-10-12 09:45:00",
+          "calendar_end": "2022-12-27 09:30:00",
+          "max_datetime": "2022-12-27 09:30:00",
+          "row_count": 8466,
+          "feature_file_count": 12,
+          "audit_snapshot_hash": "2fc97b75dce5fc54",
+          "operation": "qlib_store_build",
+          "status": "ok",
+          "hash": "8d96c8cecb316f70",
+          "source_api": [
+            "qlib.init",
+            "qlib.data.storage.file_storage.FileFeatureStorage",
+            "qlib.data.D.calendar",
+            "qlib.data.D.instruments",
+            "qlib.data.D.features"
+          ]
+        },
+        "provider_tree": {
+          "entries": [
+            {
+              "path": "calendars/1min.txt",
+              "sha256": "30f0776587fba7291fbd0e58643d157ace24b63804369d3211340961345fca2f",
+              "bytes": 84660
+            },
+            {
+              "path": "features/soxl/close.1min.bin",
+              "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxl/execution_price.1min.bin",
+              "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxl/high.1min.bin",
+              "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxl/low.1min.bin",
+              "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxl/open.1min.bin",
+              "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxl/raw_execution_price.1min.bin",
+              "sha256": "47af0afbe1a42d9b038e419a2942d72dc687a5352ba69e66e5f84a6a6b5df766",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxx/close.1min.bin",
+              "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxx/execution_price.1min.bin",
+              "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxx/high.1min.bin",
+              "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxx/low.1min.bin",
+              "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxx/open.1min.bin",
+              "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+              "bytes": 16936
+            },
+            {
+              "path": "features/soxx/raw_execution_price.1min.bin",
+              "sha256": "4a023247b24a07c080979a83cf6b5590723143305f618c33de469710e2c4fd62",
+              "bytes": 16936
+            },
+            {
+              "path": "instruments/all.txt",
+              "sha256": "083743ef0cb22508f463c2d9f4eb42ff857de64adf193c965ea7e4927554fc60",
+              "bytes": 90
+            },
+            {
+              "path": "qlib.yaml",
+              "sha256": "9e4ab9356f9eb3e68720914fd2f49ea3448dd02eea41903868c912c789015046",
+              "bytes": 204
+            },
+            {
+              "path": "qlib_store_manifest.json",
+              "sha256": "d4014ea01c7d8db0f7efd90e6c8afa580248a3d2f6463e0fb7bc98b0fb99198f",
+              "bytes": 928
+            }
+          ],
+          "sha256": "3c09674555bd385dddde8787ed712a94fa03615304553e2bffefab93ebcf81ff"
+        },
+        "rows": 4232,
+        "first_point": "2018-10-12 09:45:00",
+        "last_point": "2022-12-23 16:00:00",
+        "native_readback": "passed_exact_float32",
+        "provider_path": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/soxl-path-area-p2-provider-w6u8w_zd",
+        "provider_build_count": 1,
+        "derived_only_from_P1_bounded_core_minutes": true,
+        "native_readback_count": 1,
+        "executor_guard": {
+          "policy_timestamp": "2022-12-27 09:30:00",
+          "source_right_edge_timestamp": "2022-12-27 09:31:00",
+          "raw_open_values": {
+            "SOXL": 9.579999923706055,
+            "SOXX": 346.1099853515625
+          },
+          "from_admitted_next_raw_quote": true,
+          "outside_account_interval": true,
+          "outside_point_prices": true,
+          "excluded_from_orders_valuation_labels_and_native_comparison": true
+        }
+      },
+      "inherited_evidence": {
+        "research/path_area_action_bridge_20261018/plan.json": "5dab137531bb5e8327288a4312d11fb7aa241ccabf4e20b979c74d68ff7a3376",
+        "research/path_area_action_bridge_20261018/design_draft.json": "61af5d54ec1857bac4c59e9f5f483aeeba8a8e188cc63711bf308dde739053cb",
+        "research/path_area_action_bridge_20261018/result_review.json": "44e872ca5f14cba88ab162f269f79c147d5e0aa9f0c93b69dc394a23e636ba96",
+        "research/path_area_action_bridge_20261018/P1_result_overview.json": "b97faab55c8536cdfddf973bd7c3071cc72039236d28b041a26f332e27ec8cf3",
+        "research/path_area_action_bridge_20261018/P1/summary.json": "29cd78de38fb5dfe4355d39d4706f0f46728e9fe8f34726ecabfd10697b583c7",
+        "research/path_area_action_bridge_20261018/P1/readback_verification.json": "04d624f991be488e8a8aabe36960b7a9af16fb52aa0f54b440aefbc2502e8103"
+      },
+      "completed_checkpoint": {
+        "recorder_id": "ecce5facd2424cc6a8e79e102d89cdee",
+        "experiment_id": "517546296839356582",
+        "recorder_status": "FAILED",
+        "failure_manifest_sha256": "138afc66502fccbaaa271f632c7928cf72ea1dfb8cdd0e5a7fa383517c864192",
+        "artifacts": {
+          "shadow_python/trace": "0b8f0c66f4ec4423c29218e90b2f2bb34dd64ddab3c63b945deda162a2b9be35",
+          "shadow_python/corporate_receipts": "672623333d7b8881988f9028ef79a3f3c9f7c6a35deebb13dd2f0f3beb510d62",
+          "shadow_python/targets": "fd06e2c8ef454c4618ef56c89ac81b6e6ec397367b2ab0b18da1f45e54eebdbc",
+          "shadow_python/prebranch_state": "612c07c4c54800b09ef2686fb700e4d57ee0fa9a21ca48219627b1b13c2fb327",
+          "shadow_python/decisions": "e3de25a6ffb02cb6c8a3331b8defee1cc52122fbf17f117454a1aedba6f9006c",
+          "shadow_python/python_audit": "bd4de32bd3d8fd74e05369e17b6cb2eeee3e59d030b204a7ea8bbb30bae99550",
+          "shadow_python/path_area_inputs": "f5c65a01026aa59fb4e461d0fa41ecdcc54b652071b2e3fd377a5f8204c79598",
+          "shadow_python/points": "0b653002e9b1ab24855604232d819c63458b37d950729e509ffe26e711e48ade",
+          "shadow_python/replay": "957a4a34bf58c86717a54c9ca0cfb1af9f810f6b32e8516caedb46ae831d5c07",
+          "shadow_python/orders": "1b2b0a9ed9e128005f33a109ec8d7f1e2a44135995d95b4300c480ffe002ad9f",
+          "local_labels/labels": "b1220b622ea1c2c50419c80aa8880319705458f4ff0bbdedaed1422c02d3aabf",
+          "local_labels/action_label_frame": "1a6e9fb0fa211b4e0337aade60bbf5c281a6f9c27fe090dcc6c14d79d9888ad5",
+          "local_labels/action_label_dataset": "1babe70d5229201e9f1b70303badef3eb567a21d91940d17da0983269cfc95e9",
+          "sources/identity": "df93808deb4fc22646de251137968fddb3c76f5ca8275cba761c7c92a0f49cd0",
+          "sources/load_audit": "a9f0611f83f1e73864d20157716836a2cc8135c5c1c2463428e0ce65b664004e",
+          "sources/H1_projection": "74b07c5dcbc2dfd044af2810ba05c918c7eca642f8d08c7e1cba667f5fdb6b89"
+        },
+        "hashes_checked_before_unpickling": true,
+        "old_recorder_read_only": true
+      },
+      "H1_projection": {
+        "dataset_artifact": "inputs/admitted_source_objects:PG_train_only/inputs/training_dataset",
+        "columns": [
+          "soxl_forward_open_return",
+          "soxx_forward_open_return",
+          "return_available_at"
+        ],
+        "signal_index_sha256": "86a2b25089c67366882cc949df214d58807a5e40626299cf69a8b26fa56e35e0",
+        "two_original_H1_arrays_sha256": "6590c3c17a2c56f35e8fd556cb3245d94f42887d1607f00421e025c92cd81035",
+        "five_original_targets_sha256_before": "46ee40d2d34d5f090a557d2f802741083bf90bd882452c8e201a4e1f81801593",
+        "five_original_targets_sha256_after": "46ee40d2d34d5f090a557d2f802741083bf90bd882452c8e201a4e1f81801593",
+        "price_derived_returns": false
+      },
+      "phase_identity_sha256": "859b4e9800613724079b60ed0a1a57bb82fa129fd2b07e8bb4058e288b2f0c7d",
+      "current_P2_recorder_id": "4c8ac31f8671487ca422175e1c72c0eb",
+      "current_P2_experiment_id": "125080206845583831"
+    },
+    "unknown_stages": [],
+    "causal_effect_identified": false,
+    "SOXX_comparison_performed": false,
+    "promotion_eligible": false,
+    "rolling_windows_overlap": true,
+    "net_return": 0.6096775966684191,
+    "source_target_known_observed": 1057,
+    "source_target_known_mean": 1.0,
+    "projected_target_known_observed": 1057,
+    "projected_target_known_mean": 1.0,
+    "postfill_weights_known_observed": 1057,
+    "postfill_weights_known_mean": 1.0,
+    "source_target_to_projected_target_l1_observed": 1057,
+    "source_target_to_projected_target_l1_mean": 0.3909252072220085,
+    "projected_target_to_postfill_weights_l1_observed": 1057,
+    "projected_target_to_postfill_weights_l1_mean": 0.00230708562375783,
+    "order_count_observed": 1057,
+    "order_count_sum": 1284.0,
+    "fees_usd_observed": 1057,
+    "fees_usd_sum": 2401.1418415751905
+  },
+  "native_executed_before_output_recorder": true,
+  "repair_run": {
+    "new_allocation_fits": 0,
+    "new_model_forward_calls": 0,
+    "area_recomputations": 0,
+    "common_shadow_policy_paths": 0,
+    "local_action_label_passes": 0,
+    "common_shadow_native_accounts": 1,
+    "checkpoint_objects_loaded": 16,
+    "parent_artifact_loads_maximum": 3,
+    "native_derived_point_provider_builds": 1,
+    "native_derived_point_provider_readbacks": 1,
+    "action_classifier_fits": 0,
+    "evaluation_2023_plus_forward_or_accounts": 0,
+    "new_market_source_queries": 0,
+    "new_market_HTTP": 0
+  },
+  "new_allocation_fits": 0,
+  "new_training_epochs": 0,
+  "OOF_prediction_calls": 0,
+  "action_classifier_fits": 0,
+  "native_accounts": 1,
+  "no_2023_plus_forward_or_accounts": true,
+  "native_dataset_authority": {
+    "P2_action_labels": "cached native DatasetH copied without label generation",
+    "source_training_states": "original FAILED P2 Recorder retained by immutable checkpoint reference",
+    "derived_provider_status": "temporary exact-quote provider removed after reconciliation"
+  },
+  "cumulative_work": {
+    "new_allocation_fits": 6,
+    "training_epochs": 1800,
+    "OOF_model_forward_calls": 15,
+    "P1_artifact_loads": 24,
+    "derived_provider_builds": 4,
+    "derived_provider_readbacks": 4,
+    "deterministic_smoothing_and_area_passes": 2,
+    "physical_shadow_paths": 1,
+    "local_action_label_passes": 1,
+    "native_accounts": 1,
+    "checkpoint_object_loads": 95,
+    "prior_native_initialization_failures_before_account_start": 1
+  },
+  "area_masked_rows": 1056,
+  "area_unknown_rows": 198,
+  "new_market_HTTP": 0,
+  "new_market_source_queries": 0,
+  "P3_authorized": false,
+  "promotion_permission": false,
+  "historical_PIT_qualified": false,
+  "independent_validation_qualified": false,
+  "alpha_or_economic_success": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "shadow_python",
+      "local_labels",
+      "native",
+      "sources",
+      "implementation"
+    ]
+  },
+  "recorder_id": "4c8ac31f8671487ca422175e1c72c0eb",
+  "experiment_id": "125080206845583831",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/path_area_action_bridge_20261018/P2/repair_4/qlib_recorder/125080206845583831/4c8ac31f8671487ca422175e1c72c0eb",
+  "metrics": {
+    "native_reconciliation_pass": 1.0,
+    "mature_action_labels": 352.0,
+    "shadow_sessions": 1057.0
+  },
+  "verification_manifest": "verification_manifest.json",
+  "nas_evidence": {
+    "sha256": "98132b6ad5408c39c85252952c9ee921ce45ad816f9b7448f9d17df8bdaf2019",
+    "size_bytes": 2462942,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/98/13/98132b6ad5408c39c85252952c9ee921ce45ad816f9b7448f9d17df8bdaf2019",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-20 17:47:36.977409+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/98/13/98132b6ad5408c39c85252952c9ee921ce45ad816f9b7448f9d17df8bdaf2019",
+    "recorder_id": "4c8ac31f8671487ca422175e1c72c0eb",
+    "experiment_id": "125080206845583831",
+    "archive_root": "qlib_recorder"
+  }
+}

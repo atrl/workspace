@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "phase": "P2_repair_4",
+  "reviewer": "independent_evaluator",
+  "verdict": "ACCEPT_P2_TRAINING_BRIDGE_COUNT_ONLY",
+  "scope": "Completed native-only P2 training bridge; small summary, state, quote comparison, process exit, notebook conclusion and owner cold-read receipt. No model, source object or native account reload by reviewer.",
+  "plan_sha256": "db509d12808a4cccef4ddd539cbb0bf9918d1815726dcf0d0e9e7069d0438171",
+  "implementation_identity_sha256": "fdb651f1017e0af39635f009642cb02e63e8c93f2296333377733a446e11bdec",
+  "recorder_id": "4c8ac31f8671487ca422175e1c72c0eb",
+  "experiment_id": "125080206845583831",
+  "summary_sha256": "ac663e9795cc8b9603c4db40bf65d2fee922f6f8a058a5b5bf0bd1024d6e67d9",
+  "verification_manifest_sha256": "26b911a91fba2e8e8f8cee832a145106f5941650c53a0ab4799fb327d5b33b70",
+  "quote_comparison_sha256": "02b5c6dc681c6ab73982be8deb7b3527c348f3f8aa9dacef06a7ef98db98d4ee",
+  "process_exit_sha256": "0d4e67d96dc7bc83fa96914c71b86b35c67b92959dfbfe22c03777e969988a50",
+  "cold_restore_receipt_sha256": "d4852e27f02650339308f2bf826a248915833c36854d737e2c241dbae75ddcd9",
+  "notebook_delivery_receipt_sha256": "a3448584933900999b4eac633bb744aee9330c71eb49ab88b42737f0372a64ec",
+  "nas_archive_sha256": "98132b6ad5408c39c85252952c9ee921ce45ad816f9b7448f9d17df8bdaf2019",
+  "material_findings": [],
+  "actual_result": {
+    "process_exit_code": 0,
+    "recorder_status": "FINISHED",
+    "native_audit_status": "passed",
+    "shadow_sessions": 1057,
+    "native_points": 4232,
+    "native_orders": 1284,
+    "maximum_relative_reconciliation_error": 0.0,
+    "mature_local_action_labels": 352,
+    "strict_pre2022_eligible_mature_rows": 243,
+    "minimum_pre2022_rows": 200,
+    "strict_pre2022_label_signs": {
+      "execute_positive": 104,
+      "negative": 88,
+      "zero_tie": 51,
+      "nonpositive_for_frozen_delta_gt_zero_target": 139
+    },
+    "prefix_missing_2020_row_retained": true,
+    "terminal_missing_next_target_remains_unknown": true
+  },
+  "delivery_and_budget": {
+    "quote_comparison": "passed: 14 exact quote files; own-URI audit and manifest hashes; point span and executor guard",
+    "repair_4": "16 cached objects, three P1 artifacts, one derived provider build/readback and one native account; zero fit, forward, area, Python shadow or label passes",
+    "cumulative": "six allocation fits, 1800 epochs, 15 OOF forwards, 24 P1 artifact loads, four provider builds/readbacks, two smoothing/area passes, one shadow, one label pass, one native account, 95 cached object loads",
+    "failed_history": "repair_2 Recorder remains FAILED; new repair_4 Recorder is FINISHED",
+    "cold_read": "Two NAS restores: attempt one verified hashes but loaded zero objects before Qlib initialization; attempt two verified 32 artifact hashes, loaded nine selected objects, matched Dataset, native audit, support and 30 code files without account recomputation",
+    "notebook_conclusion_matches_sidecar": true,
+    "notebook_delivery": "Delivery-only slimming removed 49 progress/stderr outputs and widget metadata, retained final execution stdout, synchronized the Chinese conclusion, and did not reexecute. The executable-source identity remains fdb651f1017e0af39635f009642cb02e63e8c93f2296333377733a446e11bdec."
+  },
+  "scientific_decision": {
+    "P2_training_bridge_complete": true,
+    "P3_planning_eligible": true,
+    "P3_fit_or_execution_authorized": false,
+    "historical_PIT_qualified": false,
+    "independent_validation_qualified": false,
+    "SOXX_excess_tested": false,
+    "alpha_or_economic_success": false,
+    "promotion_permission": false,
+    "continuous_goal_complete": false
+  },
+  "next_action": "Review the separate unapproved P3_plan_draft_v2 under campaign v2 before any P3 GO. Retain the fixed Delta>0 target with ties in the nonpositive class, the actual 104/139 class support and 243 strictly mature pre-2022 rows. Any two action fits, 0/2/5bp own-state accounts, SOXX fee-adjusted hard gate, risk/stability/CI checks and independent forward evidence require separate authorization and native evidence."
+}

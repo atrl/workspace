@@ -1,0 +1,11 @@
+{
+  "status": "restored_hashes_verified_object_read_not_started",
+  "NAS_downloads": 1,
+  "archive_sha256": "98132b6ad5408c39c85252952c9ee921ce45ad816f9b7448f9d17df8bdaf2019",
+  "all_artifact_hashes_passed": true,
+  "object_loads": 0,
+  "failure": "Qlib context not initialized before verified source reader",
+  "temporary_copy_removed_on_exception": true,
+  "native_accounts": 0,
+  "fits": 0
+}
