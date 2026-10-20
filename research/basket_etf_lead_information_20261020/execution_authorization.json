@@ -1,0 +1,37 @@
+{
+  "root_go": true,
+  "owner": "root",
+  "approved": true,
+  "implementation_sha256": "b883708d818af70376332549a19b0fe755a60a37dbbe3b3db581892abb84d9cb",
+  "notebook_sha256": "06151a773967427b1dc8dc210ec058011fe48085fc8e849270173be7181e408e",
+  "test_sha256": "ff25626f28da2c3d37353676df22c21a9b82cff28147858be42d75a5060fd098",
+  "implementation_dependencies_sha256": {
+    "src/core/native_evidence.py": "a02b3c6b1800874553ee40e939959acddbc81f9b2443c3aeafe6942bca067ebb",
+    "src/objective/relative_wealth.py": "3d1c58c381687de928c06cfa9ce2715bcb2d6bc312de6e2a9a74f96ebe279549",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "plan_sha256": "a697e4e9e15c8c343427b4c3efcc7d2532e0a59b6f281d60c15e94b66b22d837",
+  "design_review_sha256": "62b6521d0e1d544f038131fc2b90aa5fe9de54fdd4ef5fcdc8008d7883854661",
+  "implementation_review_sha256": "a1d7d8048f381a705a0b0dedafe6e9eceed31b14c57f1e368df0bf93b2032517",
+  "budget": {
+    "new_information_fits": 2,
+    "additional_candidates": 0,
+    "future_account_fits_or_replays": 0,
+    "new_external_market_data_sources": 0,
+    "trading_accounts": 0,
+    "excluded": [
+      "P3 retuning",
+      "threshold or sign search",
+      "alternate horizons/windows",
+      "SOXL/cash allocation or account claims",
+      "fee/performance/promotion claims",
+      "filling missing or incomplete baskets",
+      "Reads of any pre-existing Recorder; the new experiment Recorder may be written and read back"
+    ]
+  },
+  "maximum_attempts": 1,
+  "approved_at_utc": "2026-10-20T15:48:08.122511+00:00",
+  "authorization_basis": "User reaffirmed continuous effective-factor research toward stable net SOXX excess; one independently reviewed new information mechanism, not a reopening of P3.",
+  "operational_NAS_archive_and_one_cold_restore_authorized": true,
+  "new_financial_accounts_authorized": false
+}

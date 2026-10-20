@@ -1,7 +1,14 @@
 {
   "schema_version": 1,
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
-  "active": [],
+  "active": [
+    {
+      "card": "research/basket_etf_lead_information_20261020",
+      "phase": "information_screen",
+      "role": "single_new_factor_fixed_information_test",
+      "full_economic_experiment": false
+    }
+  ],
   "framework": [
     "src/core/research_runtime.py",
     "src/core/native_evidence.py",
@@ -67,7 +74,7 @@
     "all provider bin files for documentation"
   ],
   "next_information_need": {
-    "status": "needs_separately_frozen_design",
+    "status": "deferred_while_distinct_factor_screen_runs",
     "topic": "risk_projection_protection_vs_SOXX_opportunity_cost_and_recovery_reachability",
     "source": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
     "execution_authorized": false

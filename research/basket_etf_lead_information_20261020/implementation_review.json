@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent_scoped_implementation_reviewer",
+  "scope": "Cold static review of the exact final implementation, focused synthetic contract test, runnable notebook source, workflow config, frozen plan, and Qlib API documentation. Reviewer did not load actual market arrays, SEC holding rows, prior or new Recorder objects, model fits, bootstrap draws, or account results, and did not run the notebook or tests.",
+  "verdict": "APPROVE_BOUNDED_INFORMATION_IMPLEMENTATION",
+  "plan_sha256": "a697e4e9e15c8c343427b4c3efcc7d2532e0a59b6f281d60c15e94b66b22d837",
+  "design_review_sha256": "62b6521d0e1d544f038131fc2b90aa5fe9de54fdd4ef5fcdc8008d7883854661",
+  "implementation_sha256": "b883708d818af70376332549a19b0fe755a60a37dbbe3b3db581892abb84d9cb",
+  "notebook_sha256": "06151a773967427b1dc8dc210ec058011fe48085fc8e849270173be7181e408e",
+  "notebook_identity_rule": "SHA-256 of cell type and source for every notebook cell except the metadata role=conclusion cell, serialized as JSON with sorted keys and ensure_ascii=False; outputs, execution counts and conclusion prose are excluded.",
+  "notebook_file_sha256": "4dc0e29d1620e28b5e587aa31451fe6aaf1aa89d8d0f25bdbac36139c3780324",
+  "workflow_sha256": "af25ec3c94e66ed7163f2ea36fc465d1fbe2fa75bd54f807be6ea2386348c5a2",
+  "test_sha256": "ff25626f28da2c3d37353676df22c21a9b82cff28147858be42d75a5060fd098",
+  "implementation_dependencies_sha256": {
+    "src/core/native_evidence.py": "a02b3c6b1800874553ee40e939959acddbc81f9b2443c3aeafe6942bca067ebb",
+    "src/objective/relative_wealth.py": "3d1c58c381687de928c06cfa9ce2715bcb2d6bc312de6e2a9a74f96ebe279549",
+    "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+  },
+  "blockers": [],
+  "verified_contracts": [
+    "Execution rejects a missing or stale root GO before creating a run journal or reading market values. GO binds the plan, accepted design and implementation reviews, normalized notebook, focused test, implementation dependencies, and exact frozen budget.",
+    "A durable single-attempt journal precedes each source operation. The 2024 phase reads only its year through Qlib calendars and exactly one 5-minute constituent and one 1-minute SOXX D.features call. The 2025 price and label reads are reached only after the 2024 Recorder finishes and the frozen receipt and both models are read back.",
+    "Qlib D.instruments is used as a pool config and D.list_instruments supplies phase metadata. D.features instrument-first indexes are normalized explicitly. The SOXX query selects SOXX from the two-symbol core provider; all 37 frozen constituent symbols are requested in one bounded price call per year while PIT-active membership must be present.",
+    "SEC holdings rows are filtered by filing_date before each session with the fixed one-day lag. The phase DatasetH preserves accession and filing metadata, including WOLF in 2024 and eligible 2024 filings carried into early 2025. The older incomplete PIT bins are not used for membership.",
+    "All 12 expected 5-minute member bars and all 60 SOXX 1-minute first-hour bars must be present and valid, with positive endpoint volume. A missing or stale active member makes the whole basket unknown; the native daily calendar row remains. The primary label uses SOXX opens at right-edge 10:33 and 11:01; the pre-entry mark is diagnostic only.",
+    "The candidate applies log1p to the normalized weighted simple-return basket before subtracting SOXX's first-hour log return. The focused synthetic test includes heterogeneous perfect-tracking returns, WOLF missingness, Qlib index order, annual instrument membership, and the source phase path.",
+    "B and C fit on identical eligible 2024 dates with frozen means, standard deviations and coefficients. The held-year gate requires positive C gamma, positive paired mean daily MSE improvement and a positive one-sided stationary-bootstrap lower quantile at alpha=.025/15, mean block 63 sessions, 10000 draws, seed 20261014. Pearson contribution correlation is diagnostic only.",
+    "Predictions, paired losses, bootstrap draws, Dataset objects and freeze evidence are written to the new Recorder. The result is labeled a reused-history information screen with no fee-net, independent-forward, trading-account or promotion claim.",
+    "The final metadata-only revision writes the absolute local recorder_uri, region=us, and artifact_policy.workflow_config=workflow.yaml to summary.json so the frozen Recorder can be located and its slim-card policy read back. It changes no factor, fit, label, bootstrap, source read or pass gate."
+  ],
+  "focused_test": "Implementation agent reported one focused synthetic test passed after the final code change; reviewer inspected its assertions and did not rerun it.",
+  "approval_boundary": "Approval covers one bounded implementation attempt under the frozen plan. It does not certify source availability, eligible-row count, model information value, an executable fill, net-of-fee SOXX excess, forward validation or promotion. The run must verify pinned source bytes and return needs_data or a failed fixed screen honestly if its gates fail.",
+  "references": [
+    "https://qlib.readthedocs.io/en/latest/reference/api.html",
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

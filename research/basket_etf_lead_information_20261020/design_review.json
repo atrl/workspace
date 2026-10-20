@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent_scoped_design_reviewer",
+  "scope": "Static pre-execution review of the bounded basket-lead information plan, source-card summaries and manifests, timing helper, project contract, and official Qlib documentation. No 2024 or 2025 feature arrays, labels, fit outputs, Recorder objects, or accounts were opened; no fit, bootstrap, notebook, or test was run.",
+  "plan_path": "research/basket_etf_lead_information_20261020/plan.json",
+  "plan_sha256": "a697e4e9e15c8c343427b4c3efcc7d2532e0a59b6f281d60c15e94b66b22d837",
+  "verdict": "ACCEPT_STATIC_BOUNDED_INFORMATION_DESIGN",
+  "superseded_plan_sha256": "21f1c93bc316dd20fd498466de2c652b631da14369c3ce1bc9a1b6764723ef4b",
+  "pre_execution_formula_repair": "The fixed candidate now takes log1p of the full 30-member normalized weighted simple-return basket and subtracts the SOXX first-hour log return. With two equal-weight stocks returning +10% and -10%, the fixed-dollar arithmetic basket and perfectly tracking ETF each return zero, so new x=0; the former weighted-log basket would be 0.5*ln(1.1)+0.5*ln(0.9)=0.5*ln(0.99)<0. The revision removes this mechanical dispersion residual before any candidate outcomes were read. It remains an opening-dollar-weight proxy, not NAV or actual holding replication.",
+  "positive_checks": [
+    "The source card reports 502 complete, valid 2024-2025 basket sessions and pins its Futu NONE Qlib provider and source Recorder; this is source qualification, not candidate information evidence.",
+    "The factor uses all 30 SEC-disclosed equities with filing_date strictly before each session, whole-basket weights, and full observed 5-minute endpoints; SOXX 1-minute control and forward label clocks are separated.",
+    "The 2024 fit and sealed freeze receipt precede all 2025 numeric price/label reads and 2025 weight Dataset construction. B/C use identical complete dates, a fixed positive sign, exactly two fits, and zero accounts. Both years remain reused history and the 10:31 availability delay is an assumption, not certified first receipt.",
+    "The Box et al. paper supports examining constituent-to-ETF information flow; it does not establish this SOXX horizon, delayed execution, or a fee-net edge. The plan limits its claim accordingly.",
+    "The candidate is a price residual using constituent returns, separate from the closed P3 path-area account route and the earlier breadth/rotation descriptors; P3 remains closed.",
+    "The plan uses the already-qualified SEC holdings CSV only to ingest phase-filtered PIT metadata into native DatasetH/DataHandlerLP, with 2025 retaining eligible prior-2025 filings. It explicitly excludes the older PIT provider's incomplete membership because it omits WOLF, an active 2024 constituent.",
+    "All currently relevant price-provider manifests, calendars, instrument lists, and exact feature-bin bytes are pinned as present-day snapshots; these hashes do not establish historical first receipt or an immutable vintage.",
+    "The fixed information gate requires fitted 2024 gamma > 0, positive 2025 mean paired MSE improvement, and a positive one-sided stationary-bootstrap lower quantile at alpha=.025/15 with mean block 63 sessions, 10000 replicates, and seed 20261014. Pearson contribution correlation is diagnostic only.",
+    "The sole pre-execution formula repair changes weighted constituent log returns to the log of the normalized weighted simple-return basket. It prevents a Jensen/dispersion residual under perfect arithmetic-basket tracking; the plan records the former accepted hash as superseded before execution and prohibits a parallel geometric candidate.",
+    "Execution requires Qlib native calendars and bounded D.features reads by year, separate phase DatasetH/DataHandlerLP objects, and a new R Recorder for freeze and evaluation evidence. Pre-existing Recorder reads are excluded; new Recorder readback is allowed."
+  ],
+  "required_changes": [],
+  "execution_boundary": "This accepts a static, frozen design only. Before execution, verify each pinned source byte hash and the full 30-member WOLF-aware PIT construction; failure means needs_data, with no partial basket repair. This review has not run the notebook or certified a scientific outcome. An information pass remains diagnostic and cannot establish an independently validated, fee-net SOXX account.",
+  "source_references": [
+    "research/constituent_intraday_history_20261014/summary.json",
+    "data/qlib/constituent_intraday_history_20261014/qlib_store_manifest.json",
+    "data/qlib/nas_minute_features_20261014/core/qlib_store_manifest.json",
+    "data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_manifest.json",
+    "src/data/closed_intraday_window.py",
+    "docs/three_asset_research_contract.md",
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://www.andrewalynch.com/papers/2021-etf-arbitrage.pdf"
+  ]
+}

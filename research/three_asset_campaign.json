@@ -22,18 +22,16 @@
     "last_readback_this_delivery": "blocked; old objective; no supported resume/update completed"
   },
   "current_task": {
-    "card": "research/path_area_action_bridge_20261018",
-    "phase_receipts": "research/path_area_action_bridge_20261018/phase_receipts.json",
-    "implementation_executor": "/root/p3_workflow",
-    "independent_reviewer": "/root/p3_design_review",
-    "next_action": "Before a new candidate, distinguish the risk projection protective contribution from benchmark-relative opportunity cost and recovery reachability under a separately frozen training-period counterfactual design. Do not tune P3 thresholds/sign/window or rename Delta by subtracting the same benchmark from both branches.",
-    "run_state": "research/path_area_action_bridge_20261018/P3/run_state.json",
-    "job_handle": "research/path_area_action_bridge_20261018/P3_job_handle.json",
-    "execution_receipt": "research/path_area_action_bridge_20261018/P3_process_exit.json",
-    "last_scientific_observation": "P3 independently accepted NOT_PROMOTED: C/SOXX wealth .741/.724/.746; annual1/2; rolling27.6/27.8/34.3%; riskDD/CVaRpass; noC/Bincrement; all6nativeerror0. Fixedversionclosed.",
-    "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once",
-    "result_overview": "research/path_area_action_bridge_20261018/P3_result_overview.json",
-    "next_design": null
+    "card": "research/basket_etf_lead_information_20261020",
+    "phase_receipts": "research/basket_etf_lead_information_20261020/phase_receipts.json",
+    "implementation_executor": "/root/basket_lead_completion",
+    "independent_reviewer": "/root/basket_lead_review",
+    "next_action": "Execute one frozen arithmetic-basket ETF lead information test:2024 fit2models andseal, then2025price/labelreads andsinglepairedlossbootstrap;0financialaccounts.",
+    "run_state": "research/basket_etf_lead_information_20261020/run_state.json",
+    "job_handle": "research/basket_etf_lead_information_20261020/job_handle.json",
+    "execution_receipt": "research/basket_etf_lead_information_20261020/process_exit.json",
+    "last_scientific_observation": "P3 remainsclosed/not_promoted. Newbasketleadmechanism fromprimaryliterature; no outcome yet. UserstableSOXXobjectiveunchanged.",
+    "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -59,7 +57,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-20T12:49:33.126945+00:00",
+  "updated_at_utc": "2026-10-20T15:48:08.123052+00:00",
   "execution_totals": {
     "new_model_fits": 35,
     "new_native_accounts": 43,

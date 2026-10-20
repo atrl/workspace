@@ -1,0 +1,34 @@
+experiment: basket_etf_lead_information_20261020
+status: static_plan_only_not_executed
+entrypoint: basket_etf_lead_information_20261020.ipynb
+callable: src.workflow.basket_etf_lead_information.run
+execution_authorization: execution_authorization.json
+single_attempt_journal: run_state.json
+normalized_notebook_identity: ignore_outputs_execution_counts_and_role_conclusion_only
+plan: plan.json
+design_review: design_review.json
+training_period: [2024-01-02, 2024-12-31]
+held_year: [2025-01-02, 2025-12-31]
+models: [B, C]
+model: ordinary_least_squares
+model_fits: 2
+hyperparameter_search: false
+accounts_or_replays: 0
+data_access:
+  phase_order: [2024_training_and_sealed_freeze, 2025_evaluation]
+  d_features_calls_per_phase: 2
+  calendar_calls_per_phase: 3
+  instrument_metadata_calls_per_phase: 2
+  qlib_datasets_per_phase: 2
+  minimum_eligible_days_per_phase: 200
+  basket_members: 30
+evaluation:
+  paired_daily_metric: "(y - prediction_B)^2 - (y - prediction_C)^2"
+  stationary_bootstrap_mean_block_sessions: 63
+  stationary_bootstrap_replicates: 10000
+  stationary_bootstrap_seed: 20261014
+  one_sided_lower_quantile: 0.0016666666666666668
+  positive_gamma_required: true
+  positive_mean_loss_improvement_required: true
+  positive_bootstrap_lower_bound_required: true
+claim_limit: reused_history_information_screen_only

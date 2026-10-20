@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "receipts": [
+    {
+      "phase": "basket_lead_information",
+      "status": "execution_authorized",
+      "source": "research/basket_etf_lead_information_20261020/execution_authorization.json",
+      "source_sha256": "00ef112ec12effe3a91de26e6516236fa9124d9ca36e176ccd22875351943eb2",
+      "review": "research/basket_etf_lead_information_20261020/implementation_review.json",
+      "review_sha256": "a1d7d8048f381a705a0b0dedafe6e9eceed31b14c57f1e368df0bf93b2032517"
+    }
+  ]
+}
