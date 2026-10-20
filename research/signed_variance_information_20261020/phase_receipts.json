@@ -5,6 +5,13 @@
       "status": "execution_authorized",
       "source": "research/signed_variance_information_20261020/execution_authorization.json",
       "source_sha256": "714db2ef41e57cdbc3f5809e22447f94900aef38dada8648ad4a0f0f966f164c"
+    },
+    {
+      "phase": "signed_variance_information",
+      "status": "not_promoted",
+      "source": "research/signed_variance_information_20261020/result_review.json",
+      "source_sha256": "9d2a71c44dd0fca13fe0452c6e8a4ef54631b61a447511cd38974120a1f24b4f",
+      "fixed_version_closed": true
     }
   ]
 }

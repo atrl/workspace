@@ -22,15 +22,12 @@
     "last_readback_this_delivery": "blocked; old objective; no supported resume/update completed"
   },
   "current_task": {
-    "card": "research/signed_variance_information_20261020",
-    "phase_receipts": "research/signed_variance_information_20261020/phase_receipts.json",
-    "implementation_executor": "/root/basket_lead_completion",
+    "card": "research/inventory_sales_source_qualification_20261021",
+    "phase": "source_qualification_design",
+    "implementation_executor": "/root/next_factor_mechanism",
     "independent_reviewer": "/root/basket_lead_review",
-    "next_action": "Run two fixed log-HAR variance models on2019-2022 thenseal; held2023-2026 hasstrictfullcalendarcoverage gate andonepairedQLIKEbootstrap. Zeroaccounts; riskinformationonly.",
-    "run_state": "research/signed_variance_information_20261020/run_state.json",
-    "job_handle": "research/signed_variance_information_20261020/job_handle.json",
-    "execution_receipt": "research/signed_variance_information_20261020/process_exit.json",
-    "last_scientific_observation": "Basketleadinformationtest independentlynotpromoted:2025MSE+2.756%worse,all502daysknown. Fixedbasketclosed. NextsignedcompositionreceiverdiffersfromclosedH5/unsignedrisk; noresults yet.",
+    "next_action": "Freeze and execute one source-only qualification of original SEC companyfacts inventory and annual revenue pairs. No market outcomes, fits, accounts, paid data or new network data acquisition. Decide source feasibility before any factor information experiment.",
+    "last_scientific_observation": "Signed variance fixed test closed not_promoted: q coefficient -0.752394, mean QLIKE improvement +0.000251445, lower -0.002235144; 946 complete held sessions, 2 fits/1 bootstrap/0 accounts.",
     "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once"
   },
   "parallel_engineering": {
@@ -57,9 +54,9 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-20T16:22:05.833911+00:00",
+  "updated_at_utc": "2026-10-20T16:29:50.896435+00:00",
   "execution_totals": {
-    "new_model_fits": 37,
+    "new_model_fits": 39,
     "new_native_accounts": 43,
     "completed_fixed_economic_experiments": 7,
     "completed_training_bridges_added": 1,
@@ -67,7 +64,7 @@
     "unique_reused_reference_accounts": 15,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
-    "basis": "Campaign prior35fits/43native plusbasketlead2informationfits/0accounts; sevenfinancialexperiments andoneinformationexperiment closed. Earlier repo campaigns remain in their own histories.",
-    "completed_fixed_information_experiments": 1
+    "basis": "Prior campaign 35 fits/43 accounts plus basket lead and signed variance: 2 information fits each, zero accounts. Seven economic experiments and two information experiments closed; no historical pass or qualified forward days. Earlier repository campaigns remain in their own histories.",
+    "completed_fixed_information_experiments": 2
   }
 }

@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "NAS_downloads": 1,
+  "recorder_id": "cd099f4ba3254914acfae4b0f5c30ff8",
+  "archive_sha256": "dfb2830640dfe11e7985c49eaa7cbc3b276cdfd395acd14caa1a50de74d755c5",
+  "summary_sha256": "7cbc00c11e402b06155af1a57fd2d8c639a1b98a3c1a95ecea7d8877a9d00b02",
+  "manifest_sha256": "a44bfdbea197e043e9f2ea71af3a5c272a060d137dbef4a4db5c1892f802d977",
+  "artifact_hashes_verified": 23,
+  "objects_loaded": [
+    "models/B",
+    "models/C",
+    "freeze/receipt",
+    "freeze/lag_tail_dataset",
+    "inputs/training_dataset",
+    "held/dataset",
+    "analysis/result",
+    "sources/implementation_snapshot",
+    "sources/normalized_notebook",
+    "sources/identity",
+    "inputs/bounded_schedule",
+    "inputs/training_daily_dataset"
+  ],
+  "object_loads": 12,
+  "models_equal_freeze_receipt": true,
+  "source_snapshot_hashes_verified": 5,
+  "normalized_notebook_hash_verified": true,
+  "training_target_rows": 1008,
+  "qualified_training_rows": 985,
+  "unknown_training_source_sessions": [
+    "2020-03-16"
+  ],
+  "held_rows": 946,
+  "sealed_tail_sessions": 22,
+  "held_labels_equal_saved_losses": true,
+  "frozen_forecasts_and_QLIKE_recalculated": true,
+  "saved_bootstrap_quantile_verified_no_resampling": true,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_random_bootstraps": 0,
+  "independent_validation": false,
+  "fee_net_performance_claim": false,
+  "temporary_metadata_rebased_only": true
+}

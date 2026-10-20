@@ -1,0 +1,182 @@
+{
+  "status": "completed",
+  "identity": {
+    "implementation_sha256": "173bccdfee8e0fbaca794cc25547e3622c240f57b1d515249a537a904c907d48",
+    "notebook_sha256": "5356b82767dc5408bfe7ed08ec5a0494902db9f100a48c92e927d751ad6ff174",
+    "test_sha256": "451a100ba6aa7cfbaa15c41132683c1ee962c1739edcb0adeae16fa5fe3708b0",
+    "implementation_dependencies_sha256": {
+      "src/core/native_evidence.py": "a02b3c6b1800874553ee40e939959acddbc81f9b2443c3aeafe6942bca067ebb",
+      "src/objective/relative_wealth.py": "3d1c58c381687de928c06cfa9ce2715bcb2d6bc312de6e2a9a74f96ebe279549",
+      "src/data/nas_market_data.py": "ce52e7597630e4064dffa20be8e718d9b7d4eb8fa54ba9c1778e8f43e9b89444"
+    },
+    "plan_sha256": "b4829e924858c5dbd37b2d8f65ef678a53e8271b00c5d4647ec5bc5d557bcb93",
+    "design_review_sha256": "ff9468c6c49215af09662c2d598835384dd358955070a319e147a4caf7c040e8"
+  },
+  "authorization_sha256": "714db2ef41e57cdbc3f5809e22447f94900aef38dada8648ad4a0f0f966f164c",
+  "operations": [
+    {
+      "phase": "training",
+      "operation": "D.calendar",
+      "status": "started"
+    },
+    {
+      "phase": "training",
+      "operation": "D.calendar",
+      "status": "completed"
+    },
+    {
+      "phase": "training",
+      "operation": "D.list_instruments",
+      "status": "started"
+    },
+    {
+      "phase": "training",
+      "operation": "D.list_instruments",
+      "status": "completed"
+    },
+    {
+      "phase": "training",
+      "operation": "D.features",
+      "status": "started"
+    },
+    {
+      "phase": "training",
+      "operation": "D.features",
+      "status": "completed"
+    },
+    {
+      "phase": "training",
+      "operation": "OLS_B",
+      "status": "started"
+    },
+    {
+      "phase": "training",
+      "operation": "OLS_B",
+      "status": "completed"
+    },
+    {
+      "phase": "training",
+      "operation": "OLS_C",
+      "status": "started"
+    },
+    {
+      "phase": "training",
+      "operation": "OLS_C",
+      "status": "completed"
+    },
+    {
+      "phase": "held",
+      "operation": "D.calendar",
+      "status": "started"
+    },
+    {
+      "phase": "held",
+      "operation": "D.calendar",
+      "status": "completed"
+    },
+    {
+      "phase": "held",
+      "operation": "D.list_instruments",
+      "status": "started"
+    },
+    {
+      "phase": "held",
+      "operation": "D.list_instruments",
+      "status": "completed"
+    },
+    {
+      "phase": "held",
+      "operation": "D.features",
+      "status": "started"
+    },
+    {
+      "phase": "held",
+      "operation": "D.features",
+      "status": "completed"
+    },
+    {
+      "phase": "held",
+      "operation": "QLIKE_stationary_bootstrap",
+      "status": "started"
+    },
+    {
+      "phase": "held",
+      "operation": "QLIKE_stationary_bootstrap",
+      "status": "completed"
+    }
+  ],
+  "fits_completed": [
+    "B",
+    "C"
+  ],
+  "fit_attempts": 2,
+  "bootstrap_attempts": 1,
+  "bootstrap_completed": 1,
+  "accounts": 0,
+  "automatic_resume_forbidden": true,
+  "training_pre_read_seal": {
+    "calendar": {
+      "python_version": "3.12.12",
+      "qlib_version": "0.9.7",
+      "library_version": "4.13.2",
+      "session_count": 2008,
+      "first_session": "2018-10-12",
+      "last_session": "2026-10-09",
+      "regular_390_minute_sessions": 1991,
+      "early_210_minute_sessions": 17,
+      "canonical_schedule_sha256": "f16f7a780eb620df436e04a935f77a2130fc5b0cca5a7d5b81c3011e4cccdf24"
+    },
+    "source": {
+      "qlib_store_manifest.json": "a02a3481dd923fbe98bf2339f78a3102b391498b77d6c554bc58623d23ce4d84",
+      "qlib.yaml": "279765937c06514c29d543328230ec44b509d3819636aa0cd2f26e435279e4c4",
+      "calendars/1min.txt": "a510cc56a3493c4d38d5c4fcf28d25aafb5325b2af219a4178e61a0943e7bf7c",
+      "instruments/all.txt": "a226623fa2ef2d2031c29f9877c9e72f8f071af148778d288ac5fc84a0b872b1",
+      "features/soxx/open.1min.bin": "796ec04db205752971bccc7ce433d050f233bb9d4b19352d02a2056843f0cac1",
+      "features/soxx/close.1min.bin": "deebdb8b3ab0e36e77df6ef8f2ac4cb71df16904e8b99dd87b6308ba2633dffb",
+      "features/soxx/price_valid.1min.bin": "d1176e36f3120d390262387527e09be9c4d55e28a95d6d895acccc042b76f07e"
+    }
+  },
+  "training_audit": {
+    "target_sessions": 1008,
+    "qualified_sessions": 985,
+    "excluded_sessions": 23,
+    "measured_sessions": 1062,
+    "unknown_source_sessions": 1
+  },
+  "recorder_id": "cd099f4ba3254914acfae4b0f5c30ff8",
+  "experiment_id": "496593316731094735",
+  "model_sha256": {
+    "B": "35e41aa2d9a157a1d7239fe9cf991b608dd150d1ffde795208f6fba5fd1e92ad",
+    "C": "ea7b7c5a9d108439f1c7e229869dbfefce45c6e0921e4b9b0c636f200d8d173d"
+  },
+  "freeze_receipt_sha256": "6f38c2891ef01a37c4906c1199fce4b23f85bb0ea1bb9f55ed606c1ba6993083",
+  "held_pre_read_seal": {
+    "calendar": {
+      "python_version": "3.12.12",
+      "qlib_version": "0.9.7",
+      "library_version": "4.13.2",
+      "session_count": 2008,
+      "first_session": "2018-10-12",
+      "last_session": "2026-10-09",
+      "regular_390_minute_sessions": 1991,
+      "early_210_minute_sessions": 17,
+      "canonical_schedule_sha256": "f16f7a780eb620df436e04a935f77a2130fc5b0cca5a7d5b81c3011e4cccdf24"
+    },
+    "source": {
+      "qlib_store_manifest.json": "a02a3481dd923fbe98bf2339f78a3102b391498b77d6c554bc58623d23ce4d84",
+      "qlib.yaml": "279765937c06514c29d543328230ec44b509d3819636aa0cd2f26e435279e4c4",
+      "calendars/1min.txt": "a510cc56a3493c4d38d5c4fcf28d25aafb5325b2af219a4178e61a0943e7bf7c",
+      "instruments/all.txt": "a226623fa2ef2d2031c29f9877c9e72f8f071af148778d288ac5fc84a0b872b1",
+      "features/soxx/open.1min.bin": "796ec04db205752971bccc7ce433d050f233bb9d4b19352d02a2056843f0cac1",
+      "features/soxx/close.1min.bin": "deebdb8b3ab0e36e77df6ef8f2ac4cb71df16904e8b99dd87b6308ba2633dffb",
+      "features/soxx/price_valid.1min.bin": "d1176e36f3120d390262387527e09be9c4d55e28a95d6d895acccc042b76f07e"
+    }
+  },
+  "held_audit": {
+    "target_sessions": 946,
+    "qualified_sessions": 946,
+    "unknown_target_sessions": 0,
+    "unknown_lag_windows": 0
+  },
+  "decision": "not_promoted"
+}

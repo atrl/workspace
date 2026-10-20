@@ -3,9 +3,9 @@
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
   "active": [
     {
-      "card": "research/signed_variance_information_20261020",
-      "phase": "information_screen",
-      "role": "second_distinct_fixed_factor_information_test",
+      "card": "research/inventory_sales_source_qualification_20261021",
+      "phase": "source_qualification_design",
+      "role": "distinct_inventory_demand_mechanism_data_qualification",
       "full_economic_experiment": false
     }
   ],
@@ -68,6 +68,13 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/basket_etf_lead_information_20261020/result_review.json"
+    },
+    {
+      "card": "research/signed_variance_information_20261020",
+      "status": "not_promoted_information_screen",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/signed_variance_information_20261020/result_review.json"
     }
   ],
   "deferred_sources": {
