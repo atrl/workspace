@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-22",
+  "status": "closed_result_details_deleted_by_user_request",
+  "decision": [
+    "not_promoted_fixed_fomc_event_screen_failed",
+    "",
+    "",
+    ""
+  ],
+  "reason": "Fixed failed result; no external tracked exact Recorder path or run-ID reference found; no card WIP. Keep conclusion, summary, notebook, source/provider references and compact original run metrics.",
+  "deleted_local_recorder": "research/fomc_preannouncement_20261014/qlib_recorder",
+  "deleted_bytes": 228969283,
+  "deleted_files": 50,
+  "runs": [
+    {
+      "run_id": "0af67f085ad6402e947a035c01c51b5b",
+      "metadata_yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/fomc_preannouncement_20261014/qlib_recorder/499009058993512579/0af67f085ad6402e947a035c01c51b5b/artifacts\nend_time: 1791922650971\nentry_point_name: ''\nexperiment_id: '499009058993512579'\nlifecycle_stage: active\nrun_id: 0af67f085ad6402e947a035c01c51b5b\nrun_name: mlflow_recorder\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1791922649791\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+      "metrics": {
+        "metrics/registered_artifact_count": "1791922710898 37.0 0\n",
+        "metrics/completed_new_native_cases": "1791922654458 1.0 0\n1791922658189 2.0 0\n1791922661752 3.0 0\n1791922665904 4.0 0\n1791922670176 5.0 0\n1791922674148 6.0 0\n1791922678036 7.0 0\n1791922682106 8.0 0\n1791922685611 9.0 0\n1791922690270 10.0 0\n1791922694171 11.0 0\n1791922699012 12.0 0\n1791922702363 13.0 0\n1791922705742 14.0 0\n1791922710259 15.0 0\n"
+      },
+      "params": {
+        "params/plan_sha256": "0481ce401470bd25901e838c41c7a5c747eed9c66fbde56c592a75b0c06f45a6",
+        "params/maximum_new_native_cases": "15",
+        "params/new_fits": "0",
+        "params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmp7_klal_s.json --HistoryManager.hist_file=:memory:"
+      }
+    }
+  ],
+  "reproduction_limit": "Local detailed Recorder artifacts were intentionally deleted. Historical notebook/summary Recorder references identify the original run, not an available local artifact. This result is retained as a negative research conclusion; do not reopen the frozen route."
+}

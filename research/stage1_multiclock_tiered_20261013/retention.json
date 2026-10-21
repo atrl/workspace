@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-22",
+  "status": "closed_result_details_deleted_by_user_request",
+  "decision": [
+    "not_promoted_multiclock_full_stage1_gates_failed",
+    "",
+    "",
+    ""
+  ],
+  "reason": "Fixed failed result; no external tracked exact Recorder path or run-ID reference found; no card WIP. Keep conclusion, summary, notebook, source/provider references and compact original run metrics.",
+  "deleted_local_recorder": "research/stage1_multiclock_tiered_20261013/qlib_recorder",
+  "deleted_bytes": 850494378,
+  "deleted_files": 90,
+  "runs": [
+    {
+      "run_id": "bc1b02de4dcb4628a4aff415536e0ff8",
+      "metadata_yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/stage1_multiclock_tiered_20261013/qlib_recorder/540542923399766386/bc1b02de4dcb4628a4aff415536e0ff8/artifacts\nend_time: 1791889350977\nentry_point_name: ''\nexperiment_id: '540542923399766386'\nlifecycle_stage: active\nrun_id: bc1b02de4dcb4628a4aff415536e0ff8\nrun_name: frozen_multiclock_full_controller\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1791889349984\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+      "metrics": {},
+      "params": {
+        "params/plan_sha256": "c802759212306f7e9ad8820be96e8e5ef07d8aa167eed77658d9080e89f48b30",
+        "params/maximum_native_cases": "18",
+        "params/new_model_fits": "0",
+        "params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmpu5uafdwc.json --HistoryManager.hist_file=:memory:"
+      }
+    },
+    {
+      "run_id": "29cb05a455b043eeb04e0ebede2de382",
+      "metadata_yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/stage1_multiclock_tiered_20261013/qlib_recorder/540542923399766386/29cb05a455b043eeb04e0ebede2de382/artifacts\nend_time: 1791888463098\nentry_point_name: ''\nexperiment_id: '540542923399766386'\nlifecycle_stage: active\nrun_id: 29cb05a455b043eeb04e0ebede2de382\nrun_name: frozen_multiclock_full_controller\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1791888462093\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+      "metrics": {},
+      "params": {
+        "params/plan_sha256": "c802759212306f7e9ad8820be96e8e5ef07d8aa167eed77658d9080e89f48b30",
+        "params/maximum_native_cases": "18",
+        "params/new_model_fits": "0",
+        "params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmp1lkyqycu.json --HistoryManager.hist_file=:memory:"
+      }
+    },
+    {
+      "run_id": "b6fa35570534402fb8721a81128e0679",
+      "metadata_yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/stage1_multiclock_tiered_20261013/qlib_recorder/540542923399766386/b6fa35570534402fb8721a81128e0679/artifacts\nend_time: 1791890180835\nentry_point_name: ''\nexperiment_id: '540542923399766386'\nlifecycle_stage: active\nrun_id: b6fa35570534402fb8721a81128e0679\nrun_name: frozen_multiclock_full_controller\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1791890179837\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+      "metrics": {
+        "metrics/registered_artifact_count": "1791890421783 34.0 0\n1791892193901 37.0 0\n",
+        "metrics/completed_native_cases": "1791890192462 1.0 0\n1791890206149 2.0 0\n1791890220007 3.0 0\n1791890233909 4.0 0\n1791890248004 5.0 0\n1791890257677 6.0 0\n1791890270036 7.0 0\n1791890284578 8.0 0\n1791890296968 9.0 0\n1791890312618 10.0 0\n1791890329060 11.0 0\n1791890337141 12.0 0\n1791890354655 13.0 0\n1791890367234 14.0 0\n1791890379611 15.0 0\n1791890400917 16.0 0\n1791890413573 17.0 0\n1791890421591 18.0 0\n"
+      },
+      "params": {
+        "params/plan_sha256": "c802759212306f7e9ad8820be96e8e5ef07d8aa167eed77658d9080e89f48b30",
+        "params/maximum_native_cases": "18",
+        "params/new_model_fits": "0",
+        "params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmpi5rkq4do.json --HistoryManager.hist_file=:memory:"
+      }
+    }
+  ],
+  "reproduction_limit": "Local detailed Recorder artifacts were intentionally deleted. Historical notebook/summary Recorder references identify the original run, not an available local artifact. This result is retained as a negative research conclusion; do not reopen the frozen route."
+}

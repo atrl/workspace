@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-22",
+  "status": "closed_result_details_deleted_by_user_request",
+  "decision": [
+    "not_promoted_sales_information_gate_failed",
+    "",
+    "",
+    ""
+  ],
+  "reason": "Fixed failed result; no external tracked exact Recorder path or run-ID reference found; no card WIP. Keep conclusion, summary, notebook, source/provider references and compact original run metrics.",
+  "deleted_local_recorder": "research/sia_sales_information_20261013/qlib_recorder",
+  "deleted_bytes": 849699,
+  "deleted_files": 32,
+  "runs": [
+    {
+      "run_id": "22fcbb3ef6224edc803c49d6db424cde",
+      "metadata_yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/sia_sales_information_20261013/qlib_recorder/817261767923806163/22fcbb3ef6224edc803c49d6db424cde/artifacts\nend_time: 1791896406167\nentry_point_name: ''\nexperiment_id: '817261767923806163'\nlifecycle_stage: active\nrun_id: 22fcbb3ef6224edc803c49d6db424cde\nrun_name: sales_return_and_downside_information\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1791896405216\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+      "metrics": {
+        "metrics/completed_model_fits": "1791896406195 1.0 0\n1791896406201 2.0 0\n1791896406212 3.0 0\n1791896406218 4.0 0\n1791896406230 5.0 0\n1791896406237 6.0 0\n",
+        "metrics/registered_artifact_count": "1791896406262 19.0 0\n"
+      },
+      "params": {
+        "params/plan_sha256": "7346b53063f88986c02da7275106b81aac5c2772603b17e908330bd663426b6f",
+        "params/maximum_backtests": "0",
+        "params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmp9n83fatw.json --HistoryManager.hist_file=:memory:",
+        "params/maximum_model_fits": "6"
+      }
+    }
+  ],
+  "reproduction_limit": "Local detailed Recorder artifacts were intentionally deleted. Historical notebook/summary Recorder references identify the original run, not an available local artifact. This result is retained as a negative research conclusion; do not reopen the frozen route."
+}

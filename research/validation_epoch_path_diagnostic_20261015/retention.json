@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-22",
+  "status": "closed_result_details_deleted_by_user_request",
+  "decision": [
+    "diagnostic_only_parent_remains_not_promoted",
+    "",
+    "",
+    ""
+  ],
+  "reason": "Fixed failed result; no external tracked exact Recorder path or run-ID reference found; no card WIP. Keep conclusion, summary, notebook, source/provider references and compact original run metrics.",
+  "deleted_local_recorder": "research/validation_epoch_path_diagnostic_20261015/qlib_recorder",
+  "deleted_bytes": 597246,
+  "deleted_files": 23,
+  "runs": [
+    {
+      "run_id": "397c2162460244f2b9b72705ec092b77",
+      "metadata_yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/validation_epoch_path_diagnostic_20261015/qlib_recorder/657719219744680326/397c2162460244f2b9b72705ec092b77/artifacts\nend_time: 1792008984105\nentry_point_name: ''\nexperiment_id: '657719219744680326'\nlifecycle_stage: active\nrun_id: 397c2162460244f2b9b72705ec092b77\nrun_name: mlflow_recorder\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1792008929732\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+      "metrics": {
+        "metrics/new_native_cases": "1792008930522 0.0 0\n",
+        "metrics/new_fits": "1792008930521 0.0 0\n",
+        "metrics/registered_artifact_count": "1792008930522 9.0 0\n"
+      },
+      "params": {
+        "params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmptaolnnnb.json --HistoryManager.hist_file=:memory:"
+      }
+    }
+  ],
+  "reproduction_limit": "Local detailed Recorder artifacts were intentionally deleted. Historical notebook/summary Recorder references identify the original run, not an available local artifact. This result is retained as a negative research conclusion; do not reopen the frozen route."
+}

@@ -9,8 +9,8 @@
   "cache_bytes_removed": 23476552,
   "hash_manifest_sha256": "c9e1ad5d18d86b2882e1bd4b23371daf677e6d4fa43c4d2adedb21c873b43879",
   "git_WIP_preserved": true,
-  "restoration": "For each moved-recorders.json path, verify the symlink target, unlink only the symlink, and rename archive/recorders/<path> to the original path. Restore caches from disposable-caches.tar.gz if needed. Exact symlink ignores are local in .git/info/exclude; its pre-cleanup bytes are archived.",
-  "note": "Recorder relocation reduces physical project contents, not total disk usage. Existing paths resolve through local absolute symlinks. Archive must be retained with this checkout.",
+  "restoration": "Superseded: deleted payloads are no longer recoverable from this local archive. Retained Recorder stores were restored at their original paths.",
+  "note": "The earlier relocation/readback describes the first pass only. current_state is authoritative after the user-requested disposal.",
   "native_qlib_readback": {
     "stores": 74,
     "runs": 78,
@@ -21,5 +21,312 @@
     ],
     "result": "passed",
     "environment": "MLFLOW_ALLOW_FILE_STORE=true (required by installed MLflow)"
+  },
+  "superseded_by": "User rejected external relocation; 24 closed unreferenced local Recorder payloads deleted and remaining 50 restored in place.",
+  "current_state": {
+    "deleted_recorders": 24,
+    "deleted_recorder_bytes": 1908834288,
+    "deleted_recorder_files": 962,
+    "restored_recorders": 50,
+    "external_recorder_payloads_remaining": 0,
+    "cache_backup_deleted_bytes": 9164542,
+    "retained": "Original card conclusions, summaries, notebooks; per-card retention.json contains original run metadata, metrics and params. Referenced and uncertain evidence restored in place.",
+    "deletion_ledger": "docs/workspace_cleanup_20261022_deleted_files.json.gz",
+    "cards": [
+      {
+        "card": "research/asia_same_session_information_20261014",
+        "decision": [
+          "not_promoted_fixed_asia_remaining_session_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 3517380,
+        "deleted_files": 39,
+        "conclusion": "research/asia_same_session_information_20261014/conclusion.md"
+      },
+      {
+        "card": "research/stop_rearm_20261014",
+        "decision": [
+          "not_promoted_fixed_rearm_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 73525149,
+        "deleted_files": 40,
+        "conclusion": "research/stop_rearm_20261014/conclusion.md"
+      },
+      {
+        "card": "research/drawdown_transition_information_20261014",
+        "decision": [
+          "not_promoted_fixed_drawdown_transition_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 1927071,
+        "deleted_files": 29,
+        "conclusion": "research/drawdown_transition_information_20261014/conclusion.md"
+      },
+      {
+        "card": "research/small_head_minute_increment_20261014",
+        "decision": [
+          "not_promoted_small_head_minute_increment_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 148900115,
+        "deleted_files": 60,
+        "conclusion": "research/small_head_minute_increment_20261014/conclusion.md"
+      },
+      {
+        "card": "research/signed_variance_information_20261020",
+        "decision": [
+          "not_promoted",
+          "",
+          "not_promoted",
+          ""
+        ],
+        "deleted_bytes": 1260056,
+        "deleted_files": 37,
+        "conclusion": "research/signed_variance_information_20261020/conclusion.md"
+      },
+      {
+        "card": "research/skew_information_20261014",
+        "decision": [
+          "not_promoted_fixed_skew_information_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 1971068,
+        "deleted_files": 37,
+        "conclusion": "research/skew_information_20261014/conclusion.md"
+      },
+      {
+        "card": "research/fed_capacity_information_20261013",
+        "decision": [
+          "not_promoted_capacity_information_gate_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 877146,
+        "deleted_files": 36,
+        "conclusion": "research/fed_capacity_information_20261013/conclusion.md"
+      },
+      {
+        "card": "research/allocation_encoder_routing_20261014",
+        "decision": [
+          "not_promoted_fixed_encoder_routing_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 99372510,
+        "deleted_files": 51,
+        "conclusion": "research/allocation_encoder_routing_20261014/conclusion.md"
+      },
+      {
+        "card": "research/minute_risk_oof_20261015",
+        "decision": [
+          "not_promoted_minute_risk_information_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 7007009,
+        "deleted_files": 28,
+        "conclusion": "research/minute_risk_oof_20261015/conclusion.md"
+      },
+      {
+        "card": "research/rotation_information_20261014",
+        "decision": [
+          "not_promoted_fixed_rotation_information_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 596458,
+        "deleted_files": 25,
+        "conclusion": "research/rotation_information_20261014/conclusion.md"
+      },
+      {
+        "card": "research/recovery_score_information_20261014",
+        "decision": [
+          "not_promoted_frozen_recovery_score_information_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 553576,
+        "deleted_files": 21,
+        "conclusion": "research/recovery_score_information_20261014/conclusion.md"
+      },
+      {
+        "card": "research/annual_allocator_refit_20261014",
+        "decision": [
+          "not_promoted_fixed_annual_refit_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 255735420,
+        "deleted_files": 71,
+        "conclusion": "research/annual_allocator_refit_20261014/conclusion.md"
+      },
+      {
+        "card": "research/tangent_router_refit_20261015",
+        "decision": [
+          "not_promoted_fixed_tangent_router_refit",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 50931723,
+        "deleted_files": 33,
+        "conclusion": "research/tangent_router_refit_20261015/conclusion.md"
+      },
+      {
+        "card": "research/revenue_surprise_information_20261013",
+        "decision": [
+          "not_promoted_revenue_information_gate_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 1451998,
+        "deleted_files": 35,
+        "conclusion": "research/revenue_surprise_information_20261013/conclusion.md"
+      },
+      {
+        "card": "research/disjoint_momentum_training_20261014",
+        "decision": [
+          "not_promoted_fixed_representation_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 99214594,
+        "deleted_files": 51,
+        "conclusion": "research/disjoint_momentum_training_20261014/conclusion.md"
+      },
+      {
+        "card": "research/validation_epoch_path_diagnostic_20261015",
+        "decision": [
+          "diagnostic_only_parent_remains_not_promoted",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 597246,
+        "deleted_files": 23,
+        "conclusion": "research/validation_epoch_path_diagnostic_20261015/conclusion.md"
+      },
+      {
+        "card": "research/etf_flow_information_20261013",
+        "decision": [
+          "not_promoted_flow_information_gate_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 4597639,
+        "deleted_files": 38,
+        "conclusion": "research/etf_flow_information_20261013/conclusion.md"
+      },
+      {
+        "card": "research/stage1_multiclock_tiered_20261013",
+        "decision": [
+          "not_promoted_multiclock_full_stage1_gates_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 850494378,
+        "deleted_files": 90,
+        "conclusion": "research/stage1_multiclock_tiered_20261013/conclusion.md"
+      },
+      {
+        "card": "research/funding_information_20261014",
+        "decision": [
+          "not_promoted_fixed_funding_information_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 1227092,
+        "deleted_files": 41,
+        "conclusion": "research/funding_information_20261014/conclusion.md"
+      },
+      {
+        "card": "research/basket_etf_lead_information_20261020",
+        "decision": [
+          "not_promoted",
+          "",
+          "not_promoted",
+          ""
+        ],
+        "deleted_bytes": 1582029,
+        "deleted_files": 40,
+        "conclusion": "research/basket_etf_lead_information_20261020/conclusion.md"
+      },
+      {
+        "card": "research/oof_mean_allocation_20261015",
+        "decision": [
+          "not_promoted_fixed_oof_mean",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 73151925,
+        "deleted_files": 33,
+        "conclusion": "research/oof_mean_allocation_20261015/conclusion.md"
+      },
+      {
+        "card": "research/fomc_preannouncement_20261014",
+        "decision": [
+          "not_promoted_fixed_fomc_event_screen_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 228969283,
+        "deleted_files": 50,
+        "conclusion": "research/fomc_preannouncement_20261014/conclusion.md"
+      },
+      {
+        "card": "research/sia_sales_information_20261013",
+        "decision": [
+          "not_promoted_sales_information_gate_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 849699,
+        "deleted_files": 32,
+        "conclusion": "research/sia_sales_information_20261013/conclusion.md"
+      },
+      {
+        "card": "research/contraction_information_20261014",
+        "decision": [
+          "not_promoted_fixed_contraction_information_failed",
+          "",
+          "",
+          ""
+        ],
+        "deleted_bytes": 523724,
+        "deleted_files": 22,
+        "conclusion": "research/contraction_information_20261014/conclusion.md"
+      }
+    ],
+    "verification": {
+      "original_WIP_preserved": true,
+      "all_74_paths_checked": true,
+      "restored_recorder_sample_readback": "passed",
+      "deleted_files_hash_verified_before_disposal": true
+    }
   }
 }

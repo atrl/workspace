@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-22",
+  "status": "closed_result_details_deleted_by_user_request",
+  "decision": [
+    "not_promoted_fixed_drawdown_transition_failed",
+    "",
+    "",
+    ""
+  ],
+  "reason": "Fixed failed result; no external tracked exact Recorder path or run-ID reference found; no card WIP. Keep conclusion, summary, notebook, source/provider references and compact original run metrics.",
+  "deleted_local_recorder": "research/drawdown_transition_information_20261014/qlib_recorder",
+  "deleted_bytes": 1927071,
+  "deleted_files": 29,
+  "runs": [
+    {
+      "run_id": "d1240e470d8842119f1ea5c1b478b878",
+      "metadata_yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/drawdown_transition_information_20261014/qlib_recorder/700866641604596852/d1240e470d8842119f1ea5c1b478b878/artifacts\nend_time: 1791958925197\nentry_point_name: ''\nexperiment_id: '700866641604596852'\nlifecycle_stage: active\nrun_id: d1240e470d8842119f1ea5c1b478b878\nrun_name: fixed_drawdown_transition\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1791958923992\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+      "metrics": {
+        "metrics/registered_artifact_count": "1791958925196 17.0 0\n",
+        "metrics/completed_fits": "1791958925195 6.0 0\n"
+      },
+      "params": {
+        "params/new_backtests": "0",
+        "params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmpz97x1v17.json --HistoryManager.hist_file=:memory:",
+        "params/maximum_model_fits": "6"
+      }
+    }
+  ],
+  "reproduction_limit": "Local detailed Recorder artifacts were intentionally deleted. Historical notebook/summary Recorder references identify the original run, not an available local artifact. This result is retained as a negative research conclusion; do not reopen the frozen route."
+}

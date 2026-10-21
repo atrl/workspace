@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-22",
+  "status": "closed_result_details_deleted_by_user_request",
+  "decision": [
+    "not_promoted_fixed_funding_information_failed",
+    "",
+    "",
+    ""
+  ],
+  "reason": "Fixed failed result; no external tracked exact Recorder path or run-ID reference found; no card WIP. Keep conclusion, summary, notebook, source/provider references and compact original run metrics.",
+  "deleted_local_recorder": "research/funding_information_20261014/qlib_recorder",
+  "deleted_bytes": 1227092,
+  "deleted_files": 41,
+  "runs": [
+    {
+      "run_id": "b294ecf8630b4f1382a98814000ecd6f",
+      "metadata_yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/funding_information_20261014/qlib_recorder/678756047482701851/b294ecf8630b4f1382a98814000ecd6f/artifacts\nend_time: 1791976184240\nentry_point_name: ''\nexperiment_id: '678756047482701851'\nlifecycle_stage: active\nrun_id: b294ecf8630b4f1382a98814000ecd6f\nrun_name: fixed_funding_information_no_fit\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1791976183245\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+      "metrics": {
+        "metrics/registered_artifact_count": "1791976184238 9.0 0\n"
+      },
+      "params": {
+        "params/new_backtests": "0",
+        "params/expected_sign": "positive",
+        "params/new_fits": "0",
+        "params/horizon": "5",
+        "params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmp_b8yufa4.json --HistoryManager.hist_file=:memory:"
+      }
+    },
+    {
+      "run_id": "1c4b036994bd402288cf6634d536a073",
+      "metadata_yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/funding_information_20261014/qlib_recorder/678756047482701851/1c4b036994bd402288cf6634d536a073/artifacts\nend_time: 1791975976265\nentry_point_name: ''\nexperiment_id: '678756047482701851'\nlifecycle_stage: active\nrun_id: 1c4b036994bd402288cf6634d536a073\nrun_name: fixed_funding_information_no_fit\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1791975975232\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+      "metrics": {
+        "metrics/registered_artifact_count": "1791975976263 8.0 0\n"
+      },
+      "params": {
+        "params/new_backtests": "0",
+        "params/expected_sign": "positive",
+        "params/new_fits": "0",
+        "params/horizon": "5",
+        "params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmpysb42ej1.json --HistoryManager.hist_file=:memory:"
+      }
+    }
+  ],
+  "reproduction_limit": "Local detailed Recorder artifacts were intentionally deleted. Historical notebook/summary Recorder references identify the original run, not an available local artifact. This result is retained as a negative research conclusion; do not reopen the frozen route."
+}

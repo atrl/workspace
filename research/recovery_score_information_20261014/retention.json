@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-22",
+  "status": "closed_result_details_deleted_by_user_request",
+  "decision": [
+    "not_promoted_frozen_recovery_score_information_failed",
+    "",
+    "",
+    ""
+  ],
+  "reason": "Fixed failed result; no external tracked exact Recorder path or run-ID reference found; no card WIP. Keep conclusion, summary, notebook, source/provider references and compact original run metrics.",
+  "deleted_local_recorder": "research/recovery_score_information_20261014/qlib_recorder",
+  "deleted_bytes": 553576,
+  "deleted_files": 21,
+  "runs": [
+    {
+      "run_id": "65af326e94e1479286fdac66ae2b3e82",
+      "metadata_yaml": "artifact_uri: /Users/rziiiii/dev/workspace/research/recovery_score_information_20261014/qlib_recorder/403178118746313968/65af326e94e1479286fdac66ae2b3e82/artifacts\nend_time: 1791970609088\nentry_point_name: ''\nexperiment_id: '403178118746313968'\nlifecycle_stage: active\nrun_id: 65af326e94e1479286fdac66ae2b3e82\nrun_name: fixed_recovery_score_information\nsource_name: ''\nsource_type: 4\nsource_version: ''\nstart_time: 1791970607960\nstatus: 3\ntags: []\nuser_id: rziiiii\n",
+      "metrics": {
+        "metrics/registered_artifact_count": "1791970609086 8.0 0\n"
+      },
+      "params": {
+        "params/new_backtests": "0",
+        "params/bootstrap_mean_block": "63",
+        "params/resamples": "1000",
+        "params/new_fits": "0",
+        "params/cmd-sys.argv": "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.12/site-packages/ipykernel_launcher.py -f /private/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/tmphqorxfi9.json --HistoryManager.hist_file=:memory:"
+      }
+    }
+  ],
+  "reproduction_limit": "Local detailed Recorder artifacts were intentionally deleted. Historical notebook/summary Recorder references identify the original run, not an available local artifact. This result is retained as a negative research conclusion; do not reopen the frozen route."
+}
