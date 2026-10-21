@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-22",
+  "source_commit": "4168ac1ba5185322c05ef9fd819b0960d7c68c23",
+  "archive": "/Users/rziiiii/dev/workspace-archives/cleanup-20261022",
+  "recorders_relocated": 74,
+  "recorder_files": 4166,
+  "recorder_bytes": 7307702749,
+  "cache_files_removed": 895,
+  "cache_bytes_removed": 23476552,
+  "hash_manifest_sha256": "c9e1ad5d18d86b2882e1bd4b23371daf677e6d4fa43c4d2adedb21c873b43879",
+  "git_WIP_preserved": true,
+  "restoration": "For each moved-recorders.json path, verify the symlink target, unlink only the symlink, and rename archive/recorders/<path> to the original path. Restore caches from disposable-caches.tar.gz if needed. Exact symlink ignores are local in .git/info/exclude; its pre-cleanup bytes are archived.",
+  "note": "Recorder relocation reduces physical project contents, not total disk usage. Existing paths resolve through local absolute symlinks. Archive must be retained with this checkout.",
+  "native_qlib_readback": {
+    "stores": 74,
+    "runs": 78,
+    "checks": [
+      "get_recorder",
+      "list_metrics",
+      "list_artifacts"
+    ],
+    "result": "passed",
+    "environment": "MLFLOW_ALLOW_FILE_STORE=true (required by installed MLflow)"
+  }
+}
