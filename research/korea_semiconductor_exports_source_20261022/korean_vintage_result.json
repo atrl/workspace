@@ -1,0 +1,41 @@
+{
+  "status": "Korean_original_release_samples_value_and_clock_crosscheck_complete_PIT_gap",
+  "korean_pdf_plan_sha256": "066494312c6c11b2d5c5242b4fe91769cea00c6a470ebc24bc7f5665a444927d",
+  "korean_html_receipts_sha256": "0f8415b3abc5d6ea822eb22e8e31ebe08b00cb583d8ab860bb260f523e643f2b",
+  "korean_pdf_receipts_sha256": "3e0b066baf2fa5bd9354828df8ba8eb634776ab7d06368259965beee735be7d8",
+  "samples": [
+    {
+      "month": "2025-05",
+      "korean_registration_date": "2025-06-01",
+      "current_PDF_creation_metadata": "D:20250602164237+09'00'",
+      "current_PDF_modification_metadata": "D:20250602164237+09'00'",
+      "PDF_creation_day_minus_registration_day": 1,
+      "PDF_filename": "250601_2025\ub144 5\uc6d4 \uc218\ucd9c\uc785\ub3d9\ud5a5_3\ubcf4.pdf [2,443.8 KB]",
+      "semiconductor_exports_USD_billion_from_Korean_table": 13.79,
+      "YoY_pct": 21.2,
+      "English_rounded_amount_USD_billion": 13.8,
+      "Korean_HTML_SHA256": "c51358ac0e594be92669aebac25b92f952c0010b0ce43dc61cafc1a105cd890d",
+      "Korean_PDF_SHA256": "cf109a28bae2f5f22295149715f5e4c28910262e8e583181387409e2567782fb",
+      "PDF_pages": 36
+    },
+    {
+      "month": "2026-05",
+      "korean_registration_date": "2026-06-01",
+      "current_PDF_creation_metadata": "D:20260601103841+09'00'",
+      "current_PDF_modification_metadata": "D:20260601103841+09'00'",
+      "PDF_creation_day_minus_registration_day": 0,
+      "PDF_filename": "2026\ub144 5\uc6d4 \uc218\ucd9c\uc785\ub3d9\ud5a5_3\ubcf4_\ucd5c\uc885_\uc218\uc815.pdf [1,783.3 KB]",
+      "semiconductor_exports_USD_billion_from_Korean_table": 37.16,
+      "YoY_pct": 169.4,
+      "English_rounded_amount_USD_billion": 37.2,
+      "Korean_HTML_SHA256": "1791192c931003ee242106d4b02a24d2aadb09319275d18dd071f6bb207967ae",
+      "Korean_PDF_SHA256": "e1c89aeda48ef27f1533c4f2683829b102d3ab3ef301e6a423994915b1cf9d76",
+      "PDF_pages": 37
+    }
+  ],
+  "source_clock_interpretation": "Korean PDF front pages visibly say 11:00 KST distribution on June 1 of each year. Current 2025 PDF bytes were created June 2; current 2026 revised-name PDF bytes were created June 1 before 11:00. Metadata and current page do not prove exact first-public bytes or absence of later revisions.",
+  "historical_original_vintage_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

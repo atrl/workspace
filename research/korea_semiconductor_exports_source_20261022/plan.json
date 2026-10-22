@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "experiment": "korea_semiconductor_exports_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "official_original_release_source_probe_only",
+  "hypothesis": "Korea monthly semiconductor export growth published near the next month start may provide a timelier and geographically different semiconductor demand observation than the closed SIA three-month global sales screen; no predictive claim before a fixed information test.",
+  "distinctness": "Korean official product-specific export value and publication event; not SIA global smoothed sales, Fed US semiconductor capacity, TSMC issuer revenue, price/variance timing or FINRA short-volume mix.",
+  "source": "Korea Ministry of Trade, Industry and Resources English original press releases",
+  "pages": [
+    {
+      "observation_month": "2025-05",
+      "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2290/view"
+    },
+    {
+      "observation_month": "2026-05",
+      "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2637/view?bbsCdN=2&pageIndex=1"
+    }
+  ],
+  "source_clock": "Use registration date visible in source; trade no earlier than next full US session unless exact first-public timestamp is separately established. If registration can occur after earlier release, historical original vintage remains unqualified.",
+  "semantics": "USD monthly semiconductor export amount and year-over-year percentage, optionally DRAM/NAND when explicitly present. Do not mix gross total exports, monthly import value or working-day averages.",
+  "max_response_bytes": 1000000,
+  "budget": {
+    "http_gets": 2,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "acceptance": [
+    "Two official pages HTTP200 exact bytes/URL/retrieval time/SHA256 archived",
+    "Both report May monthly semiconductor export amount and YoY with registration date",
+    "Currency, preliminary/final status and product categorization made explicit",
+    "No market labels or factor values read"
+  ],
+  "stops": [
+    "Non-200 or ambiguous month/semiconductor metric: preserve bytes and stop",
+    "No model/account before fixed broader source and timing qualification",
+    "Do not substitute a mutable summary or search snippet as original bytes"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "plan_sha256": "d4383406186fa576a836901f0e6b4f15b634e5950cd7206b77be7ae91f8c9735",
+  "completed_new_PDFs": 88,
+  "planned_new_PDFs": 91,
+  "failed_month": "2026-07",
+  "error": "ValueError: URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)>"
+}

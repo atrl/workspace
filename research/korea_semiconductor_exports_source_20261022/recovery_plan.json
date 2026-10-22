@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_PDF_cross_page_text_recovery",
+  "original_execution_plan_sha256": "e68bf959211f75e134e9492949ed0d99fa10cd23fd8c039d5c2c821bfc4224c1",
+  "attempt1_failure_sha256": "d97e484de074b56eccaa42154705e9c35817c51096e88944569fa9e5a79fda12",
+  "recovered_notebook_sha256": "db8b2d6b904aaa63f48a8207d0454bf8f884127c9620c9a08ae370d7c9b45889",
+  "changes": [
+    "2026 PDF page1 category lead and page2 amount/YoY continuation asserted separately; HTML requires full sentence",
+    "No date, value, currency, source, Qlib provider, timing rule or model budget change"
+  ],
+  "budget": {
+    "cumulative_prior_distinct_source_reads": 4,
+    "new_distinct_source_reads": 4,
+    "new_D_calendar_calls": 1,
+    "new_writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0,
+    "attempts": 1
+  }
+}

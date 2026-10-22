@@ -1,0 +1,68 @@
+{
+  "status": "official_archive_depth_to_2019_observed_broader_monthly_coverage_unqualified",
+  "prior_receipts_sha256": "9f061967042292351526f19104d82bc6d9e76b0065b4436fe71a59592f9bd3a0",
+  "older_receipts_sha256": "c987c1ff9076970c9d8977527b00cfec0b4402202bd68dd70bc821bd5b3c0d52",
+  "pages": [
+    {
+      "page_index": 90,
+      "status": "official_archive_page_read",
+      "article_items": 8,
+      "newest_registration_date": "2024-09-19",
+      "oldest_registration_date": "2024-09-12",
+      "export_title_examples": [
+        "Korea\u2019s automobile exports log $5.1 bln in August",
+        "Korea\u2019s ICT exports climb 28.5% in August"
+      ],
+      "last_archive_page_index": 334,
+      "sha256": "c75e7d1b809b5479da2cf070edc998bc00a2ed9f86574cb5e4ba20547898b42c"
+    },
+    {
+      "page_index": 140,
+      "status": "official_archive_page_read",
+      "article_items": 8,
+      "newest_registration_date": "2024-01-05",
+      "oldest_registration_date": "2023-12-22",
+      "export_title_examples": [
+        "Korea's exports grow 5.1% in December"
+      ],
+      "last_archive_page_index": 334,
+      "sha256": "40f5b1d39ce873c819886cfedc11ef7c21f6dc909f38c380a48400bf8cf70cb5"
+    },
+    {
+      "page_index": 190,
+      "status": "official_archive_page_read",
+      "article_items": 8,
+      "newest_registration_date": "2023-03-09",
+      "oldest_registration_date": "2023-02-28",
+      "export_title_examples": [
+        "Minister holds meeting with commercial attach\u00e9s to bolster exports",
+        "Korea's exports decline 7.5% in February"
+      ],
+      "last_archive_page_index": 334,
+      "sha256": "94ff2907b62528c50a6155a95da9b86cff21359498a50a0e9c253275d4ae631a"
+    },
+    {
+      "page_index": 250,
+      "status": "official_archive_page_read",
+      "article_items": 8,
+      "newest_registration_date": "2019-06-21",
+      "oldest_registration_date": "2019-04-28",
+      "export_title_examples": [
+        "ICT industry exports $14.3 billion worth of goods in May",
+        "Korea\u2019s auto output, exports in May see year-on-year increases",
+        "Korea\u2019s May exports decrease 9.4% to $45.9 billion"
+      ],
+      "last_archive_page_index": 334,
+      "sha256": "47d232d79bc06f771d149ff183943176f901448d3e3679bc96e0896c0db771b7"
+    },
+    {
+      "page_index": 300,
+      "status": "request_failed",
+      "error": "URLError: <urlopen error _ssl.c:993: The handshake operation timed out>"
+    }
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "next_action": "Freeze all-listing-page harvest and exact monthly export article/PDF inclusion rules before any market result; page300 timeout is not an absence of older archive."
+}

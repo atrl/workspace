@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "current_PDF_bytes_postdate_web_registration",
+  "source_qualification_result_sha256": "dc3192250bf49a5af85e2931ed44b11e0929e841cdff9ffa95a69daa022175dc",
+  "observations": [
+    {
+      "observation_month": "2025-05",
+      "registered_date": "2025-06-02",
+      "pdf_embargo_not_before_text": "11:00 June 1 (KST)",
+      "raw_pdf_CreationDate": "D:20250623150934+09'00'",
+      "raw_pdf_ModDate": "D:20250623150934+09'00'",
+      "pdf_creation_calendar_days_after_registration": 21,
+      "PDF_SHA256": "593f28f6059119c265f322570be1adaa16209b033d10dc928dba91486630f743"
+    },
+    {
+      "observation_month": "2026-05",
+      "registered_date": "2026-06-01",
+      "pdf_embargo_not_before_text": "11:00 June 1 (KST)",
+      "raw_pdf_CreationDate": "D:20260701101202+09'00'",
+      "raw_pdf_ModDate": "D:20260701101202+09'00'",
+      "pdf_creation_calendar_days_after_registration": 30,
+      "PDF_SHA256": "f7df941d0f6996467507c6e9e79798e981ce467bd2d58f089edc891f848391ca"
+    }
+  ],
+  "interpretation": "Current PDF files were produced 21 and 30 calendar days after web registration. They support value/format comparison but cannot prove those exact bytes existed at the embargo or registration time. This does not prove the economic data first became public on PDF creation dates; an independent original release receipt/vintage is missing.",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "next_action": "Seek contemporaneous official release archive or timestamped original document before using June 1 as historical trade availability; source probe remains not PIT qualified."
+}

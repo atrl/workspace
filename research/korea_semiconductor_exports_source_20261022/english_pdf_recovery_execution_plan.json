@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_exact_tail_PDF_recovery_attempt",
+  "recovery_plan_sha256": "4e58eaff939eb612e7d8307500b929274cbb11a466e6709e6a975a14693c68d2",
+  "implementation_module_sha256": "adcef3bfaa04011916cf2b208ad5ec1d8a98bb3556d1a8d469402370fe7b9158",
+  "budget": {
+    "new_distinct_HTTP_gets": 3,
+    "max_new_wire_attempts": 6,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop": "Terminal failure stays preserved; no second recovery version without another exact frozen attribution."
+}

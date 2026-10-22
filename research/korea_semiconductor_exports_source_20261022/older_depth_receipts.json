@@ -1,0 +1,20 @@
+{
+  "queries": [
+    {
+      "page_index": 250,
+      "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada?pageIndex=250",
+      "requested_at_utc": "2026-10-22T04:55:48.679942+00:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "relative_path": "data/snapshots/korea_semiconductor_exports_source_20261022/archive_probe/250.html",
+      "bytes": 33917,
+      "sha256": "47d232d79bc06f771d149ff183943176f901448d3e3679bc96e0896c0db771b7"
+    },
+    {
+      "page_index": 300,
+      "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada?pageIndex=300",
+      "requested_at_utc": "2026-10-22T04:55:50.380449+00:00",
+      "error": "URLError: <urlopen error _ssl.c:993: The handshake operation timed out>"
+    }
+  ]
+}

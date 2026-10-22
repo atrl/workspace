@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "exact_93_official_English_PDF_source_acquisition",
+  "article_HTML_audit_sha256": "5383f4e867f80242f0a645c3497f99a0d32f4dd3e000e0173d1cca0679640b85",
+  "month_count": 93,
+  "reused_exact_months": {
+    "2025-05": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/2025-05.pdf",
+      "sha256": "593f28f6059119c265f322570be1adaa16209b033d10dc928dba91486630f743",
+      "original_url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/86bbf41ddb5bbbef11d9eff88001909a/9a9db098b587ee18b321c826f3707a49"
+    },
+    "2026-05": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/2026-05.pdf",
+      "sha256": "f7df941d0f6996467507c6e9e79798e981ce467bd2d58f089edc891f848391ca",
+      "original_url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/5d701b5e2492c11a7dc700205927d56e/9a9db098b587ee18b321c826f3707a49"
+    }
+  },
+  "new_PDF_requests": 91,
+  "request_policy": {
+    "max_new_HTTP_gets": 91,
+    "max_wire_HTTP_attempts": 182,
+    "one_retry_on_transient": true,
+    "minimum_seconds_between_gets": 0.2,
+    "max_bytes_per_response": 5000000,
+    "stop_on_first_permanent_error": true,
+    "resume_exact_prefix_only": true
+  },
+  "checks": [
+    "One exact official PDF URL per frozen month from original article HTML, raw bytes/URL/time/SHA256 and PDF magic retained",
+    "No source amount guessed from English text or future market result",
+    "Creation/modification metadata and semiconductor figure completeness audited after all 93 responses, not used to change source set"
+  ],
+  "budget": {
+    "Qlib_D_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

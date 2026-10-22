@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "queries": [
+    {
+      "observation_month": "2025-05",
+      "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2290/view",
+      "requested_at_utc": "2026-10-22T04:49:54.071891+00:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Thu, 22 Oct 2026 04:49:55 GMT",
+      "last_modified": null,
+      "relative_path": "data/snapshots/korea_semiconductor_exports_source_20261022/2025-05.html",
+      "bytes": 31680,
+      "sha256": "b67c451b80d2e6fddb7b8d12a7be5d9cd0b7d2189445d0baeba86e4d2ccc3970"
+    },
+    {
+      "observation_month": "2026-05",
+      "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2637/view?bbsCdN=2&pageIndex=1",
+      "requested_at_utc": "2026-10-22T04:49:56.402332+00:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Thu, 22 Oct 2026 04:49:57 GMT",
+      "last_modified": null,
+      "relative_path": "data/snapshots/korea_semiconductor_exports_source_20261022/2026-05.html",
+      "bytes": 33161,
+      "sha256": "5e4c4b018378814df4f4e205d3f6ddcb8ad76a4f8ccfbbd585b82101ab162808"
+    }
+  ]
+}

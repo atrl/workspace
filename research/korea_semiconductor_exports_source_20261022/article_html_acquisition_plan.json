@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "exact_93_original_English_article_HTML_acquisition",
+  "candidate_manifest_sha256": "dbf82abd823a616324245562c12bc55484b4f3050c7dbfca940686fb8395ec9f",
+  "selection_recovery_v2_plan_sha256": "c048de352f5220c504a58a73832df39b7589cf4832dc5d43e93cc85ace8122e4",
+  "target_months": 93,
+  "reused_exact_months": {
+    "2025-05": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/2025-05.html",
+      "sha256": "b67c451b80d2e6fddb7b8d12a7be5d9cd0b7d2189445d0baeba86e4d2ccc3970",
+      "original_url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2290/view"
+    },
+    "2026-05": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/2026-05.html",
+      "sha256": "5e4c4b018378814df4f4e205d3f6ddcb8ad76a4f8ccfbbd585b82101ab162808",
+      "original_url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2637/view?bbsCdN=2&pageIndex=1"
+    }
+  },
+  "new_HTML_requests": 91,
+  "base_source": "https://english.motir.go.kr/eng/article/EATCLdfa319ada",
+  "request_policy": {
+    "max_new_HTTP_gets": 91,
+    "max_wire_HTTP_attempts": 182,
+    "one_retry_on_transient": true,
+    "minimum_seconds_between_gets": 0.2,
+    "max_bytes_per_response": 1000000,
+    "stop_on_permanent_error": true,
+    "resume_exact_prefix_only": true
+  },
+  "checks": [
+    "Every exact article ID/title/registration date from manifest remains identical in response",
+    "Save exact bytes/URL/time/SHA256; no PDF or market result in this phase",
+    "Reused May2025/May2026 original HTML hashes remain exact"
+  ],
+  "budget": {
+    "Qlib_D_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop": "Changed article identity or permanently missing month stops; no silent exclusion or re-selection."
+}

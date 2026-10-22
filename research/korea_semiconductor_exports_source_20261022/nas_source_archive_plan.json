@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_NAS_original_source_bytes_archive",
+  "source_manifest_sha256": "c2a08c97ac1230565087702a7454fac8dd83e1901c0538394ce5b62950e1cf17",
+  "source_file_count": 446,
+  "source_bytes": 50572658,
+  "root": "data/snapshots/korea_semiconductor_exports_source_20261022",
+  "archive_format": "deterministic tar.gz; all paths repo-relative under data/snapshots, uid/gid=0, mtime=0",
+  "budget": {
+    "NAS_PUT_attempts": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "required_receipt": "Upload hash and bytes equal local archive; preserve local source files; retain restoration path and verify manifest on recovery.",
+  "stop": "Any source hash change or NAS failure preserves all local bytes; no deletion or fallback success claim."
+}

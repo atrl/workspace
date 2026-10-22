@@ -1,0 +1,851 @@
+{
+  "status": "one_national_release_candidate_each_month",
+  "selection_recovery_plan_sha256": "747630f628751d6ae8844890af75451a6376a89918625d5b2a59f7c3800e7a47",
+  "archive_index_sha256": "59772dffb0f12e326c41e0a1b7769e5b744c1e204bf5b665cea88bb23b29f8e7",
+  "target_months": 93,
+  "one_candidate_months": 93,
+  "missing_months": [],
+  "multiple_months": {},
+  "articles_by_month": {
+    "2019-01": [
+      {
+        "article_id": "695",
+        "registration_date": "2019-02-01",
+        "title": "Korea’s January exports decrease 5.8 percent to $46.4 billion",
+        "source_page_index": 252,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/695/view"
+      }
+    ],
+    "2019-02": [
+      {
+        "article_id": "699",
+        "registration_date": "2019-03-01",
+        "title": "Korea’s exports decrease 11.1 percent to $39.6 billion in February",
+        "source_page_index": 252,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/699/view"
+      }
+    ],
+    "2019-03": [
+      {
+        "article_id": "702",
+        "registration_date": "2019-04-01",
+        "title": "Korea’s March exports drop 8.2 percent to $47.1 billion",
+        "source_page_index": 251,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/702/view"
+      }
+    ],
+    "2019-04": [
+      {
+        "article_id": "711",
+        "registration_date": "2019-05-01",
+        "title": "Korea’s exports in April fall 2 percent to $48.9 billion",
+        "source_page_index": 250,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/711/view"
+      }
+    ],
+    "2019-05": [
+      {
+        "article_id": "715",
+        "registration_date": "2019-06-01",
+        "title": "Korea’s May exports decrease 9.4% to $45.9 billion",
+        "source_page_index": 250,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/715/view"
+      }
+    ],
+    "2019-06": [
+      {
+        "article_id": "719",
+        "registration_date": "2019-07-01",
+        "title": "Korean exports in June decrease 13.5% to $44.2 billion",
+        "source_page_index": 249,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/719/view"
+      }
+    ],
+    "2019-07": [
+      {
+        "article_id": "731",
+        "registration_date": "2019-08-01",
+        "title": "Korea’s July exports decrease 11% to $46.1 billion",
+        "source_page_index": 248,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/731/view"
+      }
+    ],
+    "2019-08": [
+      {
+        "article_id": "735",
+        "registration_date": "2019-09-02",
+        "title": "Exports in August fall 13.6% to $44.2 billion",
+        "source_page_index": 248,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/735/view"
+      }
+    ],
+    "2019-09": [
+      {
+        "article_id": "739",
+        "registration_date": "2019-10-01",
+        "title": "September exports decrease 11.7% to $44.7 billion",
+        "source_page_index": 247,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/739/view"
+      }
+    ],
+    "2019-10": [
+      {
+        "article_id": "748",
+        "registration_date": "2019-11-01",
+        "title": "Korean exports in October decrease 14.7% to $46.8 billion",
+        "source_page_index": 246,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/748/view"
+      }
+    ],
+    "2019-11": [
+      {
+        "article_id": "755",
+        "registration_date": "2019-12-02",
+        "title": "Korea’s November exports fall 14.3% to $44.1 billion",
+        "source_page_index": 245,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/755/view"
+      }
+    ],
+    "2019-12": [
+      {
+        "article_id": "759",
+        "registration_date": "2020-01-02",
+        "title": "Korea’s trade value reaches $1 trillion in 2019 for the third consecutive year despite challenges in global trade",
+        "source_page_index": 245,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/759/view"
+      }
+    ],
+    "2020-01": [
+      {
+        "article_id": "764",
+        "registration_date": "2020-02-03",
+        "title": "Korea’s January exports fall 6.1% to $43.4 billion",
+        "source_page_index": 244,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/764/view"
+      }
+    ],
+    "2020-02": [
+      {
+        "article_id": "769",
+        "registration_date": "2020-03-02",
+        "title": "Korea’s February exports rebound for the first time in 15 months and grow 4.5% to $41.3 billion",
+        "source_page_index": 244,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/769/view"
+      }
+    ],
+    "2020-03": [
+      {
+        "article_id": "774",
+        "registration_date": "2020-04-01",
+        "title": "Korea's March exports edge down 0.2 percent to $46.9 billion amid COVID-19 outbreak",
+        "source_page_index": 243,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/774/view"
+      }
+    ],
+    "2020-04": [
+      {
+        "article_id": "779",
+        "registration_date": "2020-05-01",
+        "title": "Korea’s exports fall 24.3 percent to $36.9 billion in April",
+        "source_page_index": 242,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/779/view"
+      }
+    ],
+    "2020-05": [
+      {
+        "article_id": "783",
+        "registration_date": "2020-06-01",
+        "title": "Korea’s May exports fall 23.7% to $34.9 billion",
+        "source_page_index": 242,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/783/view"
+      }
+    ],
+    "2020-06": [
+      {
+        "article_id": "787",
+        "registration_date": "2020-07-01",
+        "title": "Korea’s June exports decrease 10.9% to $39.2 billion, show signs of improvement",
+        "source_page_index": 241,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/787/view"
+      }
+    ],
+    "2020-07": [
+      {
+        "article_id": "794",
+        "registration_date": "2020-08-03",
+        "title": "Korea’s export decline eases in July, exports down 7% to $42.8 billion",
+        "source_page_index": 241,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/794/view"
+      }
+    ],
+    "2020-08": [
+      {
+        "article_id": "798",
+        "registration_date": "2020-09-01",
+        "title": "Korea’s exports in August fall 9.9 percent to $39.7 billion",
+        "source_page_index": 240,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/798/view"
+      }
+    ],
+    "2020-09": [
+      {
+        "article_id": "803",
+        "registration_date": "2020-10-01",
+        "title": "Korea’s September exports post growth for first time since COVID-19, up 7.7% to $48.1 billion",
+        "source_page_index": 240,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/803/view"
+      }
+    ],
+    "2020-10": [
+      {
+        "article_id": "810",
+        "registration_date": "2020-11-02",
+        "title": "October exports in Korea decrease 3.6% to $45.0 billion",
+        "source_page_index": 239,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/810/view"
+      }
+    ],
+    "2020-11": [
+      {
+        "article_id": "817",
+        "registration_date": "2020-12-01",
+        "title": "Korea’s November exports grow 4.0% to $45.8 billion",
+        "source_page_index": 238,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/817/view"
+      }
+    ],
+    "2020-12": [
+      {
+        "article_id": "823",
+        "registration_date": "2021-01-04",
+        "title": "Korea’s exports reach $512.9 billion in 2020, exceeding $500 billion mark for 4th consecutive year",
+        "source_page_index": 237,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/823/view"
+      }
+    ],
+    "2021-01": [
+      {
+        "article_id": "830",
+        "registration_date": "2021-02-01",
+        "title": "Korea’s January exports expand 11.4% to $48.0 billion",
+        "source_page_index": 236,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/830/view"
+      }
+    ],
+    "2021-02": [
+      {
+        "article_id": "834",
+        "registration_date": "2021-03-02",
+        "title": "Korea’s export value grows 9.5% to $44.8 billion in February",
+        "source_page_index": 236,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/834/view"
+      }
+    ],
+    "2021-03": [
+      {
+        "article_id": "839",
+        "registration_date": "2021-04-01",
+        "title": "Korea’s March exports advance 16.6% to $53.8 billion",
+        "source_page_index": 235,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/839/view"
+      }
+    ],
+    "2021-04": [
+      {
+        "article_id": "845",
+        "registration_date": "2021-05-03",
+        "title": "Korea’s exports in April jump 41.1% to $51.2 billion",
+        "source_page_index": 234,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/845/view"
+      }
+    ],
+    "2021-05": [
+      {
+        "article_id": "853",
+        "registration_date": "2021-06-01",
+        "title": "Korea’s exports expand 45.6% to $50.7 billion in May",
+        "source_page_index": 233,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/853/view"
+      }
+    ],
+    "2021-06": [
+      {
+        "article_id": "858",
+        "registration_date": "2021-07-01",
+        "title": "Korea’s exports in 1st half of 2021 hit record high",
+        "source_page_index": 232,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/858/view"
+      }
+    ],
+    "2021-07": [
+      {
+        "article_id": "864",
+        "registration_date": "2021-08-02",
+        "title": "Korea’s exports in July grow 29.6% to $55.4 billion, hitting record high value",
+        "source_page_index": 232,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/864/view"
+      }
+    ],
+    "2021-08": [
+      {
+        "article_id": "869",
+        "registration_date": "2021-09-02",
+        "title": "Korea’s August exports jump 34.9% to $53.2 billion",
+        "source_page_index": 231,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/869/view"
+      }
+    ],
+    "2021-09": [
+      {
+        "article_id": "874",
+        "registration_date": "2021-10-01",
+        "title": "Korea’s exports hit record high monthly value in September",
+        "source_page_index": 230,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/874/view"
+      }
+    ],
+    "2021-10": [
+      {
+        "article_id": "879",
+        "registration_date": "2021-11-01",
+        "title": "Exports expand 24% to $55.6 billion in October",
+        "source_page_index": 229,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/879/view"
+      }
+    ],
+    "2021-11": [
+      {
+        "article_id": "894",
+        "registration_date": "2021-12-01",
+        "title": "Korea’s November exports hit $60 billion for first time in history",
+        "source_page_index": 229,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/894/view"
+      }
+    ],
+    "2021-12": [
+      {
+        "article_id": "902",
+        "registration_date": "2022-01-03",
+        "title": "Korea’s exports achieve all-time high of $644.5 billion in 2021",
+        "source_page_index": 228,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/902/view"
+      }
+    ],
+    "2022-01": [
+      {
+        "article_id": "916",
+        "registration_date": "2022-02-01",
+        "title": "Korea's exports achieve $55.3 billion in January",
+        "source_page_index": 226,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/916/view"
+      }
+    ],
+    "2022-02": [
+      {
+        "article_id": "930",
+        "registration_date": "2022-03-02",
+        "title": "Korea’s exports expand 20.6% to $53.9 billion in February",
+        "source_page_index": 225,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/930/view"
+      }
+    ],
+    "2022-03": [
+      {
+        "article_id": "948",
+        "registration_date": "2022-04-01",
+        "title": "March exports grow 18.2%, reaching $63.5 billion",
+        "source_page_index": 223,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/948/view"
+      }
+    ],
+    "2022-04": [
+      {
+        "article_id": "968",
+        "registration_date": "2022-05-02",
+        "title": "Korea's exports grow 12.6% in April",
+        "source_page_index": 220,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/968/view"
+      }
+    ],
+    "2022-05": [
+      {
+        "article_id": "982",
+        "registration_date": "2022-06-02",
+        "title": "Korea's exports achieve 21.3% growth in May",
+        "source_page_index": 218,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/982/view"
+      }
+    ],
+    "2022-06": [
+      {
+        "article_id": "1006",
+        "registration_date": "2022-07-01",
+        "title": "Korea's exports gain 15.6% in first half of 2022",
+        "source_page_index": 215,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1006/view"
+      }
+    ],
+    "2022-07": [
+      {
+        "article_id": "1031",
+        "registration_date": "2022-08-01",
+        "title": "Korea's exports gain 9.4% in July",
+        "source_page_index": 213,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1031/view"
+      }
+    ],
+    "2022-08": [
+      {
+        "article_id": "1057",
+        "registration_date": "2022-09-01",
+        "title": "Korea's exports rise 6.6% in August",
+        "source_page_index": 209,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1057/view"
+      }
+    ],
+    "2022-09": [
+      {
+        "article_id": "1085",
+        "registration_date": "2022-10-04",
+        "title": "Korea's exports grow 2.8% in September",
+        "source_page_index": 206,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1085/view"
+      }
+    ],
+    "2022-10": [
+      {
+        "article_id": "1112",
+        "registration_date": "2022-11-01",
+        "title": "Korea's exports fall 5.7% in October",
+        "source_page_index": 203,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1112/view"
+      }
+    ],
+    "2022-11": [
+      {
+        "article_id": "1138",
+        "registration_date": "2022-12-01",
+        "title": "Korea's exports decline 14.0% in November",
+        "source_page_index": 199,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1138/view"
+      }
+    ],
+    "2022-12": [
+      {
+        "article_id": "1167",
+        "registration_date": "2023-01-03",
+        "title": "Korea's exports grow 6.1% in 2022",
+        "source_page_index": 196,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1167/view"
+      }
+    ],
+    "2023-01": [
+      {
+        "article_id": "1186",
+        "registration_date": "2023-02-01",
+        "title": "Korea's exports decline 16.6% in January",
+        "source_page_index": 194,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1186/view"
+      }
+    ],
+    "2023-02": [
+      {
+        "article_id": "1213",
+        "registration_date": "2023-03-02",
+        "title": "Korea's exports decline 7.5% in February",
+        "source_page_index": 190,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1213/view"
+      }
+    ],
+    "2023-03": [
+      {
+        "article_id": "1241",
+        "registration_date": "2023-04-03",
+        "title": "Korea's exports fall 13.6% in March, but trade balance improves",
+        "source_page_index": 187,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1241/view"
+      }
+    ],
+    "2023-04": [
+      {
+        "article_id": "1271",
+        "registration_date": "2023-05-02",
+        "title": "Korea's exports decline 14.2% in April",
+        "source_page_index": 184,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1271/view"
+      }
+    ],
+    "2023-05": [
+      {
+        "article_id": "1305",
+        "registration_date": "2023-06-01",
+        "title": "Korea's exports decline 15.2% in May",
+        "source_page_index": 180,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1305/view"
+      }
+    ],
+    "2023-06": [
+      {
+        "article_id": "1340",
+        "registration_date": "2023-07-03",
+        "title": "Korea's exports decline 6.0% in June",
+        "source_page_index": 175,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1340/view"
+      }
+    ],
+    "2023-07": [
+      {
+        "article_id": "1378",
+        "registration_date": "2023-08-01",
+        "title": "Korea's July exports record trade surplus for 2nd successive month",
+        "source_page_index": 171,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1378/view"
+      }
+    ],
+    "2023-08": [
+      {
+        "article_id": "1409",
+        "registration_date": "2023-09-01",
+        "title": "Korea's exports decline 8.4% in August",
+        "source_page_index": 167,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1409/view"
+      }
+    ],
+    "2023-09": [
+      {
+        "article_id": "1444",
+        "registration_date": "2023-10-02",
+        "title": "Korea's exports decline 4.4% in September",
+        "source_page_index": 163,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1444/view"
+      }
+    ],
+    "2023-10": [
+      {
+        "article_id": "1499",
+        "registration_date": "2023-11-02",
+        "title": "Korea's exports grow 5.1% in October",
+        "source_page_index": 156,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1499/view"
+      }
+    ],
+    "2023-11": [
+      {
+        "article_id": "1579",
+        "registration_date": "2023-12-01",
+        "title": "Korea's exports grow 7.8% in November",
+        "source_page_index": 146,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1579/view"
+      }
+    ],
+    "2023-12": [
+      {
+        "article_id": "1631",
+        "registration_date": "2024-01-02",
+        "title": "Korea's exports grow 5.1% in December",
+        "source_page_index": 140,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1631/view"
+      }
+    ],
+    "2024-01": [
+      {
+        "article_id": "1664",
+        "registration_date": "2024-02-01",
+        "title": "Korea's exports advance 18% in January",
+        "source_page_index": 136,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1664/view"
+      }
+    ],
+    "2024-02": [
+      {
+        "article_id": "1701",
+        "registration_date": "2024-03-04",
+        "title": "Korea's exports advance 4.8% in February",
+        "source_page_index": 131,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1701/view"
+      }
+    ],
+    "2024-03": [
+      {
+        "article_id": "1755",
+        "registration_date": "2024-04-01",
+        "title": "Korea's exports grow 3.1% in March",
+        "source_page_index": 125,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1755/view"
+      }
+    ],
+    "2024-04": [
+      {
+        "article_id": "1815",
+        "registration_date": "2024-05-02",
+        "title": "Korea's exports climb 13.8% in April",
+        "source_page_index": 117,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1815/view"
+      }
+    ],
+    "2024-05": [
+      {
+        "article_id": "1878",
+        "registration_date": "2024-06-03",
+        "title": "Korea's exports climb 11.7% in May",
+        "source_page_index": 109,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1878/view"
+      }
+    ],
+    "2024-06": [
+      {
+        "article_id": "1933",
+        "registration_date": "2024-07-01",
+        "title": "Korea's H1 2024 exports climb 9.1%",
+        "source_page_index": 103,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1933/view"
+      }
+    ],
+    "2024-07": [
+      {
+        "article_id": "1973",
+        "registration_date": "2024-08-01",
+        "title": "Korea’s exports rise 13.9% in July",
+        "source_page_index": 98,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/1973/view"
+      }
+    ],
+    "2024-08": [
+      {
+        "article_id": "2008",
+        "registration_date": "2024-09-02",
+        "title": "Korea’s exports climb 11.4% in August",
+        "source_page_index": 93,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2008/view"
+      }
+    ],
+    "2024-09": [
+      {
+        "article_id": "2060",
+        "registration_date": "2024-10-02",
+        "title": "Korea’s exports advance 7.5% in September",
+        "source_page_index": 87,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2060/view"
+      }
+    ],
+    "2024-10": [
+      {
+        "article_id": "2108",
+        "registration_date": "2024-11-01",
+        "title": "Korea’s exports rise 4.6% in October",
+        "source_page_index": 81,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2108/view"
+      }
+    ],
+    "2024-11": [
+      {
+        "article_id": "2151",
+        "registration_date": "2024-12-02",
+        "title": "Korea’s exports grow for the 14th consecutive month",
+        "source_page_index": 76,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2151/view"
+      }
+    ],
+    "2024-12": [
+      {
+        "article_id": "2185",
+        "registration_date": "2025-01-02",
+        "title": "Korea’s annual exports reach new highs in 2024",
+        "source_page_index": 72,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2185/view"
+      }
+    ],
+    "2025-01": [
+      {
+        "article_id": "2206",
+        "registration_date": "2025-02-03",
+        "title": "Korea’s exports fall 10.3% in January",
+        "source_page_index": 69,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2206/view"
+      }
+    ],
+    "2025-02": [
+      {
+        "article_id": "2227",
+        "registration_date": "2025-03-04",
+        "title": "Korea’s exports resume growth in February",
+        "source_page_index": 66,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2227/view"
+      }
+    ],
+    "2025-03": [
+      {
+        "article_id": "2250",
+        "registration_date": "2025-04-01",
+        "title": "Korea’s exports gain 3.1% in March",
+        "source_page_index": 63,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2250/view"
+      }
+    ],
+    "2025-04": [
+      {
+        "article_id": "2266",
+        "registration_date": "2025-05-02",
+        "title": "Korea’s exports gain 3.7% in April",
+        "source_page_index": 61,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2266/view"
+      }
+    ],
+    "2025-05": [
+      {
+        "article_id": "2290",
+        "registration_date": "2025-06-02",
+        "title": "Korea’s exports decline 1.3% in May",
+        "source_page_index": 59,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2290/view"
+      }
+    ],
+    "2025-06": [
+      {
+        "article_id": "2300",
+        "registration_date": "2025-07-01",
+        "title": "Korea’s exports grow 4.3% in June",
+        "source_page_index": 57,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2300/view"
+      }
+    ],
+    "2025-07": [
+      {
+        "article_id": "2311",
+        "registration_date": "2025-08-01",
+        "title": "Korea's Exports Rise 5.9% in July",
+        "source_page_index": 56,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2311/view"
+      }
+    ],
+    "2025-08": [
+      {
+        "article_id": "2329",
+        "registration_date": "2025-09-02",
+        "title": "Korea’s Exports Rise 1.3% in August",
+        "source_page_index": 54,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2329/view"
+      }
+    ],
+    "2025-09": [
+      {
+        "article_id": "2356",
+        "registration_date": "2025-10-01",
+        "title": "Korea’s Exports Hit Record High in September",
+        "source_page_index": 51,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2356/view"
+      }
+    ],
+    "2025-10": [
+      {
+        "article_id": "2385",
+        "registration_date": "2025-11-03",
+        "title": "Korea’s Exports Hit New Peak for October",
+        "source_page_index": 47,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2385/view"
+      }
+    ],
+    "2025-11": [
+      {
+        "article_id": "2433",
+        "registration_date": "2025-12-01",
+        "title": "Korea’s Exports Hit Record High in November",
+        "source_page_index": 41,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2433/view"
+      }
+    ],
+    "2025-12": [
+      {
+        "article_id": "2470",
+        "registration_date": "2026-01-02",
+        "title": "Korea’s Annual Exports Reach New Highs in 2025",
+        "source_page_index": 37,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2470/view"
+      }
+    ],
+    "2026-01": [
+      {
+        "article_id": "2495",
+        "registration_date": "2026-02-03",
+        "title": "January Exports Top $60 Billion for the First Time",
+        "source_page_index": 34,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2495/view"
+      }
+    ],
+    "2026-02": [
+      {
+        "article_id": "2519",
+        "registration_date": "2026-03-03",
+        "title": "February 2026 Exports Hit Record High for Any February at $67.5 Billion",
+        "source_page_index": 31,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2519/view"
+      }
+    ],
+    "2026-03": [
+      {
+        "article_id": "2559",
+        "registration_date": "2026-04-01",
+        "title": "March 2026 Exports Reach Record $86.1 Billion, Surpassing $80 Billion for the First Time",
+        "source_page_index": 26,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2559/view"
+      }
+    ],
+    "2026-04": [
+      {
+        "article_id": "2595",
+        "registration_date": "2026-05-04",
+        "title": "April 2026 Exports Reach $85.9 Billion, Surpassing $80 Billion for Second Consecutive Month",
+        "source_page_index": 21,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2595/view"
+      }
+    ],
+    "2026-05": [
+      {
+        "article_id": "2637",
+        "registration_date": "2026-06-01",
+        "title": "May 2026 Exports Reach Monthly Record of $87.8 Billion",
+        "source_page_index": 16,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2637/view"
+      }
+    ],
+    "2026-06": [
+      {
+        "article_id": "2677",
+        "registration_date": "2026-07-01",
+        "title": "Korea’s June Exports Top $100 Billion for First Time, First-Half Exports Reach Record High",
+        "source_page_index": 11,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2677/view"
+      }
+    ],
+    "2026-07": [
+      {
+        "article_id": "2701",
+        "registration_date": "2026-08-03",
+        "title": "July 2026 Exports Reach $98.89 Billion, Second-Highest on Record",
+        "source_page_index": 8,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2701/view"
+      }
+    ],
+    "2026-08": [
+      {
+        "article_id": "2719",
+        "registration_date": "2026-09-01",
+        "title": "August Exports Exceed USD 90 Billion for Third Consecutive Month",
+        "source_page_index": 6,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2719/view"
+      }
+    ],
+    "2026-09": [
+      {
+        "article_id": "2743",
+        "registration_date": "2026-10-01",
+        "title": "September Exports Reach Record $120.9 Billion, Trade Surplus Hits Record $49.9 Billion",
+        "source_page_index": 3,
+        "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada/2743/view"
+      }
+    ]
+  },
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

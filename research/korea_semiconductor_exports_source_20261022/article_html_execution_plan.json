@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_resumable_91_article_HTML_acquisition",
+  "source_plan_sha256": "dcda65fb61ef7c6937325cf174868883a8a5b576d990d2783054df5173ca5b7d",
+  "candidate_manifest_sha256": "dbf82abd823a616324245562c12bc55484b4f3050c7dbfca940686fb8395ec9f",
+  "module_sha256": "bac607d23939ac0d7fa942402c4c4ef0be3346134958e87deb9bde85f1c2bcba",
+  "preflight": "Both reused original May sample title/registration identities matched exact frozen listing entries.",
+  "budget": {
+    "new_distinct_HTTP_articles": 91,
+    "reused_articles": 2,
+    "max_wire_HTTP_attempts": 182,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop": "Same process/receipt prefix after timeouts; no new source selection or silent replacement."
+}

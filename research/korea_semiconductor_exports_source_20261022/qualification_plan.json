@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "two_original_release_semantics_and_conservative_availability",
+  "source_plan_sha256": "23fdee57fa6998edc00527fc5a753dd39dab196a0a586b5d49fdc8e5907b7ee6",
+  "html_receipts_sha256": "6d8aa043826fceed0722f8fabf0d1996bf1e5607f007b830959c107eea1ec52a",
+  "attachment_plan_sha256": "98111a94027b6e3c3284b658c918246904cd9b828a3f6da56c471fbb6dac3441",
+  "pdf_receipts_sha256": "4eb6c01027223cbb8e26883a9516ea102493df7f21be6a172d9e0e6b6592a4e3",
+  "snapshots_sha256": {
+    "data/snapshots/korea_semiconductor_exports_source_20261022/2025-05.html": "b67c451b80d2e6fddb7b8d12a7be5d9cd0b7d2189445d0baeba86e4d2ccc3970",
+    "data/snapshots/korea_semiconductor_exports_source_20261022/2026-05.html": "5e4c4b018378814df4f4e205d3f6ddcb8ad76a4f8ccfbbd585b82101ab162808",
+    "data/snapshots/korea_semiconductor_exports_source_20261022/2025-05.pdf": "593f28f6059119c265f322570be1adaa16209b033d10dc928dba91486630f743",
+    "data/snapshots/korea_semiconductor_exports_source_20261022/2026-05.pdf": "f7df941d0f6996467507c6e9e79798e981ce467bd2d58f089edc891f848391ca"
+  },
+  "expected_sample": {
+    "2025-05": {
+      "registration_date": "2025-06-02",
+      "embargo_text": "11:00 June 1 (KST)",
+      "semiconductor_exports_usd_billion": 13.8,
+      "yoy_pct": 21.2
+    },
+    "2026-05": {
+      "registration_date": "2026-06-01",
+      "embargo_text": "11:00 June 1 (KST)",
+      "semiconductor_exports_usd_billion": 37.2,
+      "yoy_pct": 169.4
+    }
+  },
+  "calendar_provider": "data/qlib/soxl",
+  "calendar_manifest_sha256": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+  "calendar_file_sha256": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e",
+  "availability_rule": "First conservative US decision session strictly after the public page registration date, never the PDF embargo time alone. A current page/PDF download does not certify original vintage or guarantee registration equals first publication.",
+  "budget": {
+    "source_snapshot_reads": 4,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stops": [
+    "Any hash or PDF/HTML period/currency/value mismatch stops",
+    "No predictive factor or trading claim from two source samples"
+  ]
+}

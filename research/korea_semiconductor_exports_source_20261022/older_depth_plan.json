@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_archive_older_depth_probe",
+  "prior_discovery_plan_sha256": "76640bf25d4a0f41ec4d01f1a67fa45baffa6146fed422f2a5aea128f361eda4",
+  "prior_discovery_receipts_sha256": "9f061967042292351526f19104d82bc6d9e76b0065b4436fe71a59592f9bd3a0",
+  "page_indices": [
+    250,
+    300
+  ],
+  "base_url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada",
+  "budget": {
+    "http_gets": 2,
+    "model_fits": 0,
+    "market_outcome_reads": 0
+  },
+  "check": "Confirm older original registration dates and export-release links without price data. No bulk harvest yet."
+}

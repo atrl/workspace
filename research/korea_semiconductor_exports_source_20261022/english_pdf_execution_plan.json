@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_resumable_91_official_PDF_acquisition",
+  "PDF_plan_sha256": "d4383406186fa576a836901f0e6b4f15b634e5950cd7206b77be7ae91f8c9735",
+  "article_audit_sha256": "5383f4e867f80242f0a645c3497f99a0d32f4dd3e000e0173d1cca0679640b85",
+  "module_sha256": "3da6db035e6bd33f63ab191c3dcbd4128ad40ff09cda795549832c94baff454c",
+  "budget": {
+    "new_distinct_PDF_HTTP_gets": 91,
+    "reused_PDFs": 2,
+    "max_wire_HTTP_attempts": 182,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop": "Same exact process/receipt prefix after timeout; preserve failures. No indicator or market outcome selected from PDFs."
+}

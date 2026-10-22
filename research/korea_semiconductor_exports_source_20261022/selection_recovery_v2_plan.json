@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_title_second_correction_before_article_fetch",
+  "prior_recovery_plan_sha256": "747630f628751d6ae8844890af75451a6376a89918625d5b2a59f7c3800e7a47",
+  "prior_candidate_manifest_sha256": "b36a77b832bb2e5684abb90f3f8dd19c18ddf3c2c12494a59fd719db99ce000e",
+  "same_complete_archive_index_sha256": "59772dffb0f12e326c41e0a1b7769e5b744c1e204bf5b665cea88bb23b29f8e7",
+  "correction": [
+    "National monthly releases in sampled 2019-2026 archive are registered by day 5 of following month; tighten cutoff to <=5, retaining explicit missing-month reporting.",
+    "Exclude nonstatistic minister/statement/meeting/export-control/support/summit/deal and Q1/sector stories, even when title contains exports.",
+    "For December observation only, allow national title Korea/Korean trade value or annual exports with calendar year, even without explicit export word; source attribution identified the year-end article.",
+    "Keep all remaining candidates; no SOXX outcome or threshold selection."
+  ],
+  "budget": {
+    "source_index_reads": 1,
+    "article_HTTP_gets": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

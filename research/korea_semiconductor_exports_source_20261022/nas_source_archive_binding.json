@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "authority": "yanxuan_nas",
+  "source_root": "data/snapshots/korea_semiconductor_exports_source_20261022",
+  "source_manifest": "source_snapshot_manifest.json",
+  "source_manifest_sha256": "c2a08c97ac1230565087702a7454fac8dd83e1901c0538394ce5b62950e1cf17",
+  "source_file_count": 446,
+  "source_bytes": 50572658,
+  "archive_sha256": "c265f00432cdfe1c06ab51aac1ac4f66a6000cb9aefd4f56d3009192dbbb9c79",
+  "archive_bytes": 34335877,
+  "NAS_storage_uri": "sha256/c2/65/c265f00432cdfe1c06ab51aac1ac4f66a6000cb9aefd4f56d3009192dbbb9c79",
+  "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/c2/65/c265f00432cdfe1c06ab51aac1ac4f66a6000cb9aefd4f56d3009192dbbb9c79",
+  "NAS_receipt": {
+    "sha256": "c265f00432cdfe1c06ab51aac1ac4f66a6000cb9aefd4f56d3009192dbbb9c79",
+    "size_bytes": 34335877,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c2/65/c265f00432cdfe1c06ab51aac1ac4f66a6000cb9aefd4f56d3009192dbbb9c79",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 13:24:33.100184+08",
+    "duplicate": false
+  },
+  "restoration": "Download archive by NAS_path, verify archive_sha256, extract safe repo-relative data/snapshots paths at workspace root, then verify every source_snapshot_manifest.json entry.",
+  "local_source_files_preserved": true,
+  "NAS_remote_SHA256_verified": true
+}

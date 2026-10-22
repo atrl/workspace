@@ -1,0 +1,55 @@
+{
+  "recorder_id": "eedbfb80f177403e8a8c40dfbf20548e",
+  "entries": [
+    {
+      "path": "qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e/artifacts/analysis/monthly_source_clocks",
+      "sha256": "670d8513da478f766b3b62fb2207346cad11b956901a44d4064869b51cbf8e27",
+      "bytes": 14708
+    },
+    {
+      "path": "qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e/artifacts/analysis/source_qualification",
+      "sha256": "059633f40ab2c35bdfd2c5b071c6e943fe76ed8dea7f0feb96d3ca657f0cdcd5",
+      "bytes": 1035
+    },
+    {
+      "path": "qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e/artifacts/code_diff.txt",
+      "sha256": "76e655040c3bb2a78194b8aebd48b2c8fc825df022c58369cce296fb59a03946",
+      "bytes": 433260
+    },
+    {
+      "path": "qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e/artifacts/code_status.txt",
+      "sha256": "45285a2a13935da09d674eb548592ee0aed8227f1d6977bb44a5cdd7a09b2a72",
+      "bytes": 61253
+    },
+    {
+      "path": "qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e/artifacts/sources/NAS_binding",
+      "sha256": "491668bbb4ae4349b5f4756b7ced513dabece5e91a22ec698874b771aeedad6b",
+      "bytes": 1246
+    },
+    {
+      "path": "qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e/artifacts/sources/PDF_audit",
+      "sha256": "c6b3ba9c29c101003ac9b43cf6c2f7a58eec80c20e4ebab90d1004c5a43d074e",
+      "bytes": 24030
+    },
+    {
+      "path": "qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e/artifacts/sources/archive_manifest",
+      "sha256": "d6f95e373f6be9818b3cbcbafb176443c51e2faf38cf222eed140d7a5a58c793",
+      "bytes": 73621
+    },
+    {
+      "path": "qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e/artifacts/sources/article_audit",
+      "sha256": "7e612cdbc155c241223e34b09ff616bfb2e7ddb03de44992c54507b22794f826",
+      "bytes": 38824
+    },
+    {
+      "path": "qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e/artifacts/sources/source_plan",
+      "sha256": "7d9df48a6c1fd31e3d1ca67413940f16d3b0e3ec754fc3b047a44d7c4edd1854",
+      "bytes": 2749
+    }
+  ]
+}

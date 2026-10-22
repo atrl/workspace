@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_title_rule_recovery_before_article_fetch",
+  "initial_selection_plan_sha256": "b3ac053ad2855497c47e1f3a185723ae986ec3606001a0cab8495c511ad2a910",
+  "initial_candidate_manifest_sha256": "1afbb11d800feb25c4ea245a9421a27e69df8e963e84774ce7a81fb969348c29",
+  "gap_attribution_sha256": "1af9d29bbbe400d31f46ae79a6cd16fd26c0cc40c96874bcf769bbd2c38ccaf6",
+  "archive_index_sha256": "59772dffb0f12e326c41e0a1b7769e5b744c1e204bf5b665cea88bb23b29f8e7",
+  "correction": [
+    "Use registration day <=8 rather than <=15; source attribution shows national monthly releases in the first days and day11-15 matches are sector stories.",
+    "Observation month is preceding calendar month of registration; do not require month name in title because June/December national releases use H1/annual titles and 2024-Nov has no month in title.",
+    "Require national title prefix Korea/Korean, prior-month name, Exports or Trade, and export word. Exclude sector-specific auto/car/ICT/ship/steel/battery/agriculture/food/cosmetics/biohealth/free-trade/export-control/exporter/service/SME/equipment stories.",
+    "Retain zero or multiple candidates as explicit source gaps; no SOXX outcome read or ad hoc candidate choice."
+  ],
+  "budget": {
+    "source_index_reads": 1,
+    "article_gets": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

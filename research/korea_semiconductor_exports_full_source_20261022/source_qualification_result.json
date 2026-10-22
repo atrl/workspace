@@ -1,0 +1,33 @@
+{
+  "status": "complete_93_month_English_source_archive_historical_vintage_not_qualified",
+  "months": 93,
+  "first_month": "2019-01",
+  "last_month": "2026-09",
+  "original_source_files_archived": 446,
+  "source_archive_sha256": "c265f00432cdfe1c06ab51aac1ac4f66a6000cb9aefd4f56d3009192dbbb9c79",
+  "source_archive_remote_hash_verified": true,
+  "PDF_creation_lag_gt_7d": 69,
+  "PDF_creation_lag_gt_30d": 26,
+  "English_HTML_no_semiconductor_months": [
+    "2020-06",
+    "2020-08",
+    "2021-06",
+    "2022-03"
+  ],
+  "English_PDF_no_semiconductor_months": [
+    "2022-03"
+  ],
+  "Korean_two_sample_vintage_audit": "research/korea_semiconductor_exports_source_20261022/korean_vintage_result.json",
+  "historical_first_public_vintage_qualified": false,
+  "numeric_monthly_factor_values_qualified": false,
+  "market_outcome_reads": 0,
+  "D_calendar_calls": 1,
+  "D_features_calls": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "boundary": "The current English PDF file dates are often much later than article registration and cannot be treated as original publication vintages. Qlib session mappings are descriptive only, not tradeable factor rows.",
+  "recorder_id": "eedbfb80f177403e8a8c40dfbf20548e",
+  "experiment_id": "146659135685351395",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/korea_semiconductor_exports_full_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/korea_semiconductor_exports_full_source_20261022/qlib_recorder/146659135685351395/eedbfb80f177403e8a8c40dfbf20548e"
+}

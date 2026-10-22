@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_resumable_official_archive_listing_collection",
+  "source_plan_sha256": "c2641fa8b83b2740866a8f69bd6fe7dc834adf3d775607d0b1d93733dce92f10",
+  "implementation_module_sha256": "f1636e3ad54b7a92e6b104e646209e615ea877a3d3eaea6e7e16a647bdcbb656",
+  "prior_depth_result_sha256": "57a2e9df2f048b490cbf0b21cfba2e2363117ab9f6d8232bcfe44a672b11d0c9",
+  "planned_new_pages": 251,
+  "reused_pages": 4,
+  "budget": {
+    "distinct_new_archive_HTTP_responses": 251,
+    "max_wire_HTTP_attempts": 502,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop": "On first failed page, preserve exact prefix and do not restart without verifying live handle/state and an explicit repair decision. No article/PDF fetch in this phase."
+}

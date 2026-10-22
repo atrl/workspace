@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_original_PDF_HTML_source_qualification_notebook",
+  "qualification_plan_sha256": "6b49bd9449bd342de01fd6b92c01cd3b653733c4ce9ade13ea8a7908313c1f5a",
+  "notebook_sha256": "f0a72a84ef3c63291d3d4b5dafe8d4200343c2b700a8650653f3e70b969c91f8",
+  "pypdf_version": "6.20.1",
+  "budget": {
+    "notebook_attempts": 1,
+    "source_snapshot_reads": 4,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "new_writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stops": [
+    "Any original PDF/HTML or Qlib calendar identity mismatch before Recorder",
+    "No output-selection or market outcome read after source values"
+  ]
+}

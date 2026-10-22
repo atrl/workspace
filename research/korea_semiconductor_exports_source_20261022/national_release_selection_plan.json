@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "deterministic_national_monthly_export_release_article_selection",
+  "archive_index_sha256": "59772dffb0f12e326c41e0a1b7769e5b744c1e204bf5b665cea88bb23b29f8e7",
+  "archive_audit_sha256": "979cef3807ed84bcef0cd0fb7f18910a469ca5759b6352b2b4c33fe9be5e67c1",
+  "target_observation_months": [
+    "2019-01",
+    "2026-09"
+  ],
+  "rule": [
+    "Registration date must occur in calendar month immediately following observation month and by day 15.",
+    "Title must contain the full English observation month name and the word export or exports.",
+    "Title must begin with Korea/Korea’s/Korea's, the observation month name, Exports, or Trade.",
+    "Reject title if it contains any product-specific or non-national terms: ICT, automobile, automotive, car parts, ship, steel, battery, agricultural, free trade zone, industrial complex, cosmetics, biohealth, export control, exporter, SME, overseas investment, service exports.",
+    "Keep all qualifying articles by observation month. Zero or multiple candidates is a source-selection gap requiring source-only attribution, never silent choice."
+  ],
+  "budget": {
+    "source_index_reads": 1,
+    "article_HTTP_gets": 0,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "next_phase": "After candidate manifest and all ambiguous/gap months are reviewed, freeze exact article/PDF HTTP budget and source identities before download."
+}

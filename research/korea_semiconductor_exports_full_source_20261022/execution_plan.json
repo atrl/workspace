@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_full_source_native_qlib_audit_notebook",
+  "plan_sha256": "a54061762bffafdaa6543734a7d31975ef4fd9b3a350624d77cfe080a892d74f",
+  "notebook_sha256": "6ee791fa05dea103db312be2ee78561a5fa38c59cb1badce711079d5ded6559c",
+  "budget": {
+    "notebook_attempts": 1,
+    "D_calendar_calls": 1,
+    "writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stops": [
+    "Source/NAS binding or Qlib provider mismatch before Recorder",
+    "No market outcome/fit/account if historical original vintage is unqualified"
+  ]
+}

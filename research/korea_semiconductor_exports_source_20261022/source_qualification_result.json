@@ -1,0 +1,42 @@
+{
+  "status": "two_original_release_samples_semantically_qualified_PIT_gap",
+  "samples": [
+    {
+      "observation_month": "2025-05",
+      "registration_date": "2025-06-02",
+      "PDF_embargo_not_before_KST": "11:00 June 1 (KST)",
+      "semiconductor_exports_USD_billion": 13.8,
+      "YoY_pct": 21.2,
+      "PDF_pages": 4,
+      "HTML_SHA256": "b67c451b80d2e6fddb7b8d12a7be5d9cd0b7d2189445d0baeba86e4d2ccc3970",
+      "PDF_SHA256": "593f28f6059119c265f322570be1adaa16209b033d10dc928dba91486630f743",
+      "first_conservative_US_session_after_registration": "2025-06-03"
+    },
+    {
+      "observation_month": "2026-05",
+      "registration_date": "2026-06-01",
+      "PDF_embargo_not_before_KST": "11:00 June 1 (KST)",
+      "semiconductor_exports_USD_billion": 37.2,
+      "YoY_pct": 169.4,
+      "PDF_pages": 5,
+      "HTML_SHA256": "5e4c4b018378814df4f4e205d3f6ddcb8ad76a4f8ccfbbd585b82101ab162808",
+      "PDF_SHA256": "f7df941d0f6996467507c6e9e79798e981ce467bd2d58f089edc891f848391ca",
+      "first_conservative_US_session_after_registration": "2026-06-02"
+    }
+  ],
+  "HTML_PDF_value_match": true,
+  "native_calendar_rows": 258,
+  "PDF_embargo_is_not_actual_release_receipt": true,
+  "registration_may_lag_actual_announcement": true,
+  "historical_original_vintage_qualified": false,
+  "continuous_monthly_coverage_qualified": false,
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "D_calendar_calls": 1,
+  "boundary": "Two original official PDF+HTML samples confirm month/category/currency/value and a not-before embargo, but current downloads do not certify historical first publication or revisions. Conservative rule uses next US session after page registration.",
+  "recorder_id": "beba7e2b838d49168b8e6953d0e5b84a",
+  "experiment_id": "828300743016446812",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/korea_semiconductor_exports_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/korea_semiconductor_exports_source_20261022/qlib_recorder/828300743016446812/beba7e2b838d49168b8e6953d0e5b84a"
+}

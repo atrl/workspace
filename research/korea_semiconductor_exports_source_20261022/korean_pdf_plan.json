@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "two_official_Korean_PDF_vintage_checks",
+  "korean_page_receipts_sha256": "0f8415b3abc5d6ea822eb22e8e31ebe08b00cb583d8ab860bb260f523e643f2b",
+  "attachments": [
+    {
+      "period": "2025-05",
+      "source_html_sha256": "c51358ac0e594be92669aebac25b92f952c0010b0ce43dc61cafc1a105cd890d",
+      "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/ae1c1aa1fadab2c300a06e76430ae9f8/9a9db098b587ee18b321c826f3707a49",
+      "filename": "250601_2025\ub144 5\uc6d4 \uc218\ucd9c\uc785\ub3d9\ud5a5_3\ubcf4.pdf [2,443.8 KB]"
+    },
+    {
+      "period": "2026-05",
+      "source_html_sha256": "1791192c931003ee242106d4b02a24d2aadb09319275d18dd071f6bb207967ae",
+      "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/b3b27a830684a10a7847dfd15a8b5e47/9a9db098b587ee18b321c826f3707a49",
+      "filename": "2026\ub144 5\uc6d4 \uc218\ucd9c\uc785\ub3d9\ud5a5_3\ubcf4_\ucd5c\uc885_\uc218\uc815.pdf [1,783.3 KB]"
+    }
+  ],
+  "max_bytes_per_PDF": 3500000,
+  "budget": {
+    "http_gets": 2,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "checks": [
+    "Exact PDF bytes/metadata and source page linkage",
+    "Compare Korean original or revised filename/creation date with English later-created PDF and public registration",
+    "Semiconductor value/category discrepancies flagged; no first-public claim from PDF metadata alone"
+  ]
+}

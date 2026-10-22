@@ -1,0 +1,1354 @@
+{
+  "status": "article_HTML_link_inventory_complete",
+  "months": 93,
+  "unique_PDF_link_months": 93,
+  "missing_PDF_months": [],
+  "multiple_PDF_months": [],
+  "months_without_semiconductor_word": [
+    "2020-06",
+    "2020-08",
+    "2021-06",
+    "2022-03"
+  ],
+  "by_year": {
+    "2019": {
+      "months": 12,
+      "PDF_unique": 12
+    },
+    "2020": {
+      "months": 12,
+      "PDF_unique": 12
+    },
+    "2021": {
+      "months": 12,
+      "PDF_unique": 12
+    },
+    "2022": {
+      "months": 12,
+      "PDF_unique": 12
+    },
+    "2023": {
+      "months": 12,
+      "PDF_unique": 12
+    },
+    "2024": {
+      "months": 12,
+      "PDF_unique": 12
+    },
+    "2025": {
+      "months": 12,
+      "PDF_unique": 12
+    },
+    "2026": {
+      "months": 9,
+      "PDF_unique": 9
+    }
+  },
+  "month_details": {
+    "2019-01": {
+      "article_id": "695",
+      "registration_date": "2019-02-01",
+      "title": "Korea’s January exports decrease 5.8 percent to $46.4 billion",
+      "source_SHA256": "6f6c025066e4491d3d997a3b3f6bceb3ddb3300fe5e55ca894024822ff946637",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/025868bb85531c72de9985ee9e3cb48c/9a9db098b587ee18b321c826f3707a49",
+          "label": "190201_[press release] Korea’s January exports decrease 5.8 percent to $46.4 billion.pdf [259.5 KB]"
+        }
+      ],
+      "semiconductor_mentions": 8,
+      "has_semiconductor_category_text": true
+    },
+    "2019-02": {
+      "article_id": "699",
+      "registration_date": "2019-03-01",
+      "title": "Korea’s exports decrease 11.1 percent to $39.6 billion in February",
+      "source_SHA256": "0011ece4c92a66bc9557e447e05d3fc59dcaf6757732cbf8dec978c846135d2a",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/e8e6e9db1a25d64ff493a1830608792a/9a9db098b587ee18b321c826f3707a49",
+          "label": "190301_[press release] Korea’s exports decrease 11.1 percent to $39.6 billion in February.pdf [372.2 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2019-03": {
+      "article_id": "702",
+      "registration_date": "2019-04-01",
+      "title": "Korea’s March exports drop 8.2 percent to $47.1 billion",
+      "source_SHA256": "5251631f2177d2530de1aaad60dd9f619d64cca582754a083ab549eacd087171",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/93975835cb62bceb8db96df6d74df327/9a9db098b587ee18b321c826f3707a49",
+          "label": "190401_[press release] Korea’s March exports drop 8.2 percent to $47.1 billion.pdf [262.4 KB]"
+        }
+      ],
+      "semiconductor_mentions": 6,
+      "has_semiconductor_category_text": true
+    },
+    "2019-04": {
+      "article_id": "711",
+      "registration_date": "2019-05-01",
+      "title": "Korea’s exports in April fall 2 percent to $48.9 billion",
+      "source_SHA256": "5e4ce58ae80d94b125078482f7a40d1997edc41b6c738c4058aca7ec9687dbc5",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/f4304c3485911d64ad424cdcddd3dcfa/9a9db098b587ee18b321c826f3707a49",
+          "label": "190501_[press release] Korea’s exports in April fall 2 percent to $48.9 billion.pdf [258.6 KB]"
+        }
+      ],
+      "semiconductor_mentions": 7,
+      "has_semiconductor_category_text": true
+    },
+    "2019-05": {
+      "article_id": "715",
+      "registration_date": "2019-06-01",
+      "title": "Korea’s May exports decrease 9.4% to $45.9 billion",
+      "source_SHA256": "181b18da6157c4fa3eed493f5f41aae0fd856f8ec347f3a16535a5fed2e6a5a4",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/0620ee4420767449a3d8bcb9ffd37769/9a9db098b587ee18b321c826f3707a49",
+          "label": "190601_[press release] Korea’s May exports decrease 9.4% to $45.9 billion.pdf [264.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 8,
+      "has_semiconductor_category_text": true
+    },
+    "2019-06": {
+      "article_id": "719",
+      "registration_date": "2019-07-01",
+      "title": "Korean exports in June decrease 13.5% to $44.2 billion",
+      "source_SHA256": "c9041dec853412fddb351b8628861faef5f8736305ee0600a621816ed66bb47d",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/e5fb9ac8a928f22e9ceff56c807ddfe4/9a9db098b587ee18b321c826f3707a49",
+          "label": "190701_[press release] Korean exports in June decrease 13.5% to $44.2 billion.pdf [214.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2019-07": {
+      "article_id": "731",
+      "registration_date": "2019-08-01",
+      "title": "Korea’s July exports decrease 11% to $46.1 billion",
+      "source_SHA256": "520efbdcf92ace7f3a49d3ee59cd2d42d3e8b27015d45f105c812eeec621d37e",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/c16cadb3795f676a484ecdfa13cd6f6b/9a9db098b587ee18b321c826f3707a49",
+          "label": "190801_[press release] Korea’s July exports decrease 11% to $46.1 billion.pdf [409.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 5,
+      "has_semiconductor_category_text": true
+    },
+    "2019-08": {
+      "article_id": "735",
+      "registration_date": "2019-09-02",
+      "title": "Exports in August fall 13.6% to $44.2 billion",
+      "source_SHA256": "1082c0a3055ecf831dbcdbcde264942ce5de5749ad64967b405fd36677a3b683",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/49c6d2bde981842a6d5c19f72ca38524/9a9db098b587ee18b321c826f3707a49",
+          "label": "190901_[press release] Exports in August fall 13.6% to $44.2 billion.pdf [319.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2019-09": {
+      "article_id": "739",
+      "registration_date": "2019-10-01",
+      "title": "September exports decrease 11.7% to $44.7 billion",
+      "source_SHA256": "4ccf9e6820342b39e8d7447447263b8399c9dd5a19a5b406646b0b4e4ae7ddfb",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/03608d6af29ba70ea2025f4b242dede1/9a9db098b587ee18b321c826f3707a49",
+          "label": "191001_[press release] September exports decrease 11.7% to $44.7 billion.pdf [323.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 5,
+      "has_semiconductor_category_text": true
+    },
+    "2019-10": {
+      "article_id": "748",
+      "registration_date": "2019-11-01",
+      "title": "Korean exports in October decrease 14.7% to $46.8 billion",
+      "source_SHA256": "7f460dc2d5f9f6a7434e07f6437523cf3924b043e7ca0ab71c1b12b5b88b22be",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/618d410cf7a61eb913708020a4874d4f/9a9db098b587ee18b321c826f3707a49",
+          "label": "191101_[press release] Korean exports in October decrease 14.7% to $46.8 billion.pdf [317.8 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2019-11": {
+      "article_id": "755",
+      "registration_date": "2019-12-02",
+      "title": "Korea’s November exports fall 14.3% to $44.1 billion",
+      "source_SHA256": "a627239e3f5fc51ca8bbd8d3580977fd2eac3b6803d537b87bf3d50754fd0510",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/979810580ec211fc21b7c785b3ab269a/9a9db098b587ee18b321c826f3707a49",
+          "label": "191201_[press release] Korea’s November exports fall 14.3% to $44.1 billion.pdf [410.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2019-12": {
+      "article_id": "759",
+      "registration_date": "2020-01-02",
+      "title": "Korea’s trade value reaches $1 trillion in 2019 for the third consecutive year despite challenges in global trade",
+      "source_SHA256": "97d026ecdc09add6b230ddd614e26ab8f1c1281c24fca9ff37c34eb28e9eaefb",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/0d5bc80a51bacdeaf2fc891c879fc35d/9a9db098b587ee18b321c826f3707a49",
+          "label": "200101_[press release] Korea's trade value reaches 1 trillion in 2019.pdf [418.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2020-01": {
+      "article_id": "764",
+      "registration_date": "2020-02-03",
+      "title": "Korea’s January exports fall 6.1% to $43.4 billion",
+      "source_SHA256": "e5ad4af36a4a8820785084ae8693142aea07af6884f810b3fbabe527b5a29359",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/c04cdc7f85f157e44c70a9387c3bb5ef/9a9db098b587ee18b321c826f3707a49",
+          "label": "200201_[press release]_Korea’s January exports fall 6.1% to $43.4 billion.pdf [513.2 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2020-02": {
+      "article_id": "769",
+      "registration_date": "2020-03-02",
+      "title": "Korea’s February exports rebound for the first time in 15 months and grow 4.5% to $41.3 billion",
+      "source_SHA256": "f003081e320b022959ae05ee5a7fb5b868ab6390cf04f42e931f9f163edd58c7",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/a81c1bec2d3f6db1a8a8a01ae1153958/9a9db098b587ee18b321c826f3707a49",
+          "label": "200301_[press release]_Korea’s February exports rebound for the first time in 15 months and grow 4.5% to $41.3 billion.pdf [516.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2020-03": {
+      "article_id": "774",
+      "registration_date": "2020-04-01",
+      "title": "Korea's March exports edge down 0.2 percent to $46.9 billion amid COVID-19 outbreak",
+      "source_SHA256": "12c561a4a7f5ba6cdc0497e556a72fc06ba84c8b11949a50989709c25c5ddc29",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/224aa7932eb3645f83f6894177922124/9a9db098b587ee18b321c826f3707a49",
+          "label": "200401_[press release] Korea's March exports edge down 0.2 percent to $46.9 billion.pdf [410.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 6,
+      "has_semiconductor_category_text": true
+    },
+    "2020-04": {
+      "article_id": "779",
+      "registration_date": "2020-05-01",
+      "title": "Korea’s exports fall 24.3 percent to $36.9 billion in April",
+      "source_SHA256": "ee4d6fe592450b8edf23f4aaa97a5e8c4cba0060b8ecf4c3415b9c2a6cd8fffc",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/027df92ba67466bf5c0f50788466af23/9a9db098b587ee18b321c826f3707a49",
+          "label": "200501_[press release] Korea’s exports fall 24.3 percent to $36.9 billion in April.pdf [406.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2020-05": {
+      "article_id": "783",
+      "registration_date": "2020-06-01",
+      "title": "Korea’s May exports fall 23.7% to $34.9 billion",
+      "source_SHA256": "c0cd88df4c62b849d0d29ce2eb9f8d37452afc4e570d1a26d43b1ee8d27644af",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/1173307914e947e508535c1e0ed6dedf/9a9db098b587ee18b321c826f3707a49",
+          "label": "200601_[press release] Korea’s May exports fall 23.7% to $34.9 billion.pdf [404.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2020-06": {
+      "article_id": "787",
+      "registration_date": "2020-07-01",
+      "title": "Korea’s June exports decrease 10.9% to $39.2 billion, show signs of improvement",
+      "source_SHA256": "f321b5c12bcdd0710f2c52904ac8ed05aeb3843d577546d2078987d6866715bb",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/d2e4b63c736f1c0d32a614dcea9c5518/9a9db098b587ee18b321c826f3707a49",
+          "label": "200701_[press release] Korea’s June exports decrease 10.9% to $39.2 billion, show signs of improvement.pdf [409.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 0,
+      "has_semiconductor_category_text": false
+    },
+    "2020-07": {
+      "article_id": "794",
+      "registration_date": "2020-08-03",
+      "title": "Korea’s export decline eases in July, exports down 7% to $42.8 billion",
+      "source_SHA256": "c30d141316c33506d77fd0c85b3ff11c6b71656992919c2dc6e1b77d3e2e9751",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/839c9640765658d2dfdb2b94ea085d41/9a9db098b587ee18b321c826f3707a49",
+          "label": "200801_[press release] Korea’s export decline eases in July, exports down 7% to $42.8 billion.pdf [412.9 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2020-08": {
+      "article_id": "798",
+      "registration_date": "2020-09-01",
+      "title": "Korea’s exports in August fall 9.9 percent to $39.7 billion",
+      "source_SHA256": "51add2a355489c9c084ca34728114f79d6564183a84e1945c931c44cd88ce19e",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/fb06edebb6ccddcb0bf850a2e71ad9d5/9a9db098b587ee18b321c826f3707a49",
+          "label": "200901_[press release] Korea’s exports in August fall 9.9 percent to $39.7 billion.pdf [413.5 KB]"
+        }
+      ],
+      "semiconductor_mentions": 0,
+      "has_semiconductor_category_text": false
+    },
+    "2020-09": {
+      "article_id": "803",
+      "registration_date": "2020-10-01",
+      "title": "Korea’s September exports post growth for first time since COVID-19, up 7.7% to $48.1 billion",
+      "source_SHA256": "85c13ef7fb943777a959b64b31fab771a5218f071847c51fe62e48d31ff27546",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/00ad44623228e62f04cabf4e3ff58e97/9a9db098b587ee18b321c826f3707a49",
+          "label": "201001_[press release] Korea’s September exports post growth for first time since COVID-19, up 7.7% to $48.1 billion.pdf [416.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2020-10": {
+      "article_id": "810",
+      "registration_date": "2020-11-02",
+      "title": "October exports in Korea decrease 3.6% to $45.0 billion",
+      "source_SHA256": "e90e5928228ef3a26b6468780397b19fbe983ee5465af52401d9c570bb5bd4c4",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/0fd603a6ba5eee8521db44366c410b94/9a9db098b587ee18b321c826f3707a49",
+          "label": "201101_[press release] October exports in Korea decrease 3.6% to $45.0 billion.pdf [320.8 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2020-11": {
+      "article_id": "817",
+      "registration_date": "2020-12-01",
+      "title": "Korea’s November exports grow 4.0% to $45.8 billion",
+      "source_SHA256": "22ad28409d59d55061342d9fe508acc9a332b2f88deb58b102e1e172dae30c76",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/9e45507671ac6767aaca88693dea6c02/9a9db098b587ee18b321c826f3707a49",
+          "label": "201201_[press release] Korea’s November exports grow 4.0% to $45.8 billion.pdf [406.6 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2020-12": {
+      "article_id": "823",
+      "registration_date": "2021-01-04",
+      "title": "Korea’s exports reach $512.9 billion in 2020, exceeding $500 billion mark for 4th consecutive year",
+      "source_SHA256": "1f1e7592dd6765382554603b27ed189ea9280a4d69462be81c9f05d097aec55e",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/18a7021e7c1aa46d5046f08f01ac5f7d/9a9db098b587ee18b321c826f3707a49",
+          "label": "210101_[press release] Korea’s exports reach $512.9 billion in 2020, exceeding $500 billion mark for 4th consecutive year.pdf [429.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2021-01": {
+      "article_id": "830",
+      "registration_date": "2021-02-01",
+      "title": "Korea’s January exports expand 11.4% to $48.0 billion",
+      "source_SHA256": "cfeaf6dc59c554bca5b31d92e83dfec551a192865fd87f59ce0d4b9c7c3df646",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/9ced0d0111ea720d4b7ffbcfee8a5601/9a9db098b587ee18b321c826f3707a49",
+          "label": "210201_[press release] Korea’s January exports expand 11.4% to $48.0 billion.pdf [418.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2021-02": {
+      "article_id": "834",
+      "registration_date": "2021-03-02",
+      "title": "Korea’s export value grows 9.5% to $44.8 billion in February",
+      "source_SHA256": "eb387929d9fb701200fa82b59c74b9d5b1760df850b34e03985761514ff07c57",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/59ddab63957a6ae5b15e1e96af3d161d/9a9db098b587ee18b321c826f3707a49",
+          "label": "210301_[press release] Korea’s export value grows 9.5% to $44.8 billion in February.pdf [414.4 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2021-03": {
+      "article_id": "839",
+      "registration_date": "2021-04-01",
+      "title": "Korea’s March exports advance 16.6% to $53.8 billion",
+      "source_SHA256": "0fdb5ad9410066d377ca9195f87f8055ed066c7e4d07e9c7bcc6da2e80c48800",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/0aa105ff5368b5d23a5d45f63304a296/9a9db098b587ee18b321c826f3707a49",
+          "label": "210401_[press release] Korea’s March exports advance 16.6% to $53.8 billion.pdf [420.8 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2021-04": {
+      "article_id": "845",
+      "registration_date": "2021-05-03",
+      "title": "Korea’s exports in April jump 41.1% to $51.2 billion",
+      "source_SHA256": "5d538dac4626791600478849c66e37a5036df2ed68d50bb0dda7d9356d245f38",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/44b526cef05288cb02901914aab52045/9a9db098b587ee18b321c826f3707a49",
+          "label": "210501_[press release] Korea’s exports in April jump 41.1% to $51.2 billion.pdf [434.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2021-05": {
+      "article_id": "853",
+      "registration_date": "2021-06-01",
+      "title": "Korea’s exports expand 45.6% to $50.7 billion in May",
+      "source_SHA256": "38b539428ed8da1b90bb920e9d4e489ce55fd6cd6b2c61470bdebcc68b7f91e3",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/9288db437daba8c98b2a7ec71a9d2e34/9a9db098b587ee18b321c826f3707a49",
+          "label": "210601_[press release] Korea’s exports expand 45.6% to $50.7 billion in May.pdf [422.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2021-06": {
+      "article_id": "858",
+      "registration_date": "2021-07-01",
+      "title": "Korea’s exports in 1st half of 2021 hit record high",
+      "source_SHA256": "88d754a8c7b1046e9dcacaba91e519af8aaca5c6ec652fa1439947f7b7950c3b",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/6dae681e29efc5b48b7a7f8413ca6dae/9a9db098b587ee18b321c826f3707a49",
+          "label": "210701_[press release] Korea’s exports in 1st half of 2021 hit record high.pdf [418.6 KB]"
+        }
+      ],
+      "semiconductor_mentions": 0,
+      "has_semiconductor_category_text": false
+    },
+    "2021-07": {
+      "article_id": "864",
+      "registration_date": "2021-08-02",
+      "title": "Korea’s exports in July grow 29.6% to $55.4 billion, hitting record high value",
+      "source_SHA256": "ad7dcb868d0a2b5e7cb9072037bef1319f218773395be1399f7f332395451734",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/20fa5a1d6b7c1c09e3bbe6bccf6ddf19/9a9db098b587ee18b321c826f3707a49",
+          "label": "210801_[press release] Korea’s exports in July grow 29.6% to $55.4 billion, hitting record high value.pdf [428.2 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2021-08": {
+      "article_id": "869",
+      "registration_date": "2021-09-02",
+      "title": "Korea’s August exports jump 34.9% to $53.2 billion",
+      "source_SHA256": "174224781b58c4b134bd1884fd4bf46d70b0cab87c8e2dd7befb5ef732ea9290",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/91eb44a8ba8a01a0c5dd88c8eb8700b0/9a9db098b587ee18b321c826f3707a49",
+          "label": "210901_[press release] Korea’s August exports jump 34.9% to $53.2 billion.pdf [402.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2021-09": {
+      "article_id": "874",
+      "registration_date": "2021-10-01",
+      "title": "Korea’s exports hit record high monthly value in September",
+      "source_SHA256": "59faae6074dfe760115a9b6868ca05cf1e626f5ab2f832f72438366ff04034d4",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/9b118ed49cdfe23aa2881f2acc1999ba/9a9db098b587ee18b321c826f3707a49",
+          "label": "211001_[press release] Korea’s exports hit record high monthly value in September.pdf [494.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2021-10": {
+      "article_id": "879",
+      "registration_date": "2021-11-01",
+      "title": "Exports expand 24% to $55.6 billion in October",
+      "source_SHA256": "8b8ef0467e4e8e0ee8f84231b7a90aa74fa89f5064b3daf56b412efe82074402",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/5db865552eeb5c4b25a5b3404246be32/9a9db098b587ee18b321c826f3707a49",
+          "label": "211101_[press release] Exports expand 24% to $55.6 billion in October.pdf [315.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2021-11": {
+      "article_id": "894",
+      "registration_date": "2021-12-01",
+      "title": "Korea’s November exports hit $60 billion for first time in history",
+      "source_SHA256": "95602d3156018a23a6712681dc63135121e6f5f14e9764d7c982013e70724966",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/7bba9cb40c2eb8c417b50f88fb5ae133/9a9db098b587ee18b321c826f3707a49",
+          "label": "211201_[press release] Korea’s November exports hit $60 billion for first time in history.pdf [484.9 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2021-12": {
+      "article_id": "902",
+      "registration_date": "2022-01-03",
+      "title": "Korea’s exports achieve all-time high of $644.5 billion in 2021",
+      "source_SHA256": "ea75d23472f18caeadf4d8fc0b5ae954b11a60f08ebea5318493bdb3b1c2d219",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/25167c92120a84145e5a6843eba7066f/9a9db098b587ee18b321c826f3707a49",
+          "label": "20220111_[Press Release]_2021 Annual Trade Report.pdf [329.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2022-01": {
+      "article_id": "916",
+      "registration_date": "2022-02-01",
+      "title": "Korea's exports achieve $55.3 billion in January",
+      "source_SHA256": "598c5e092f3a2f8fbac2d68ed4f11af8143447bb5162f36702fccfa3e0a3dfbe",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/57ab6bbe6dadb5b55c845f5354537869/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release]_January Import & Export Trends Report_LV.pdf [326.8 KB]"
+        }
+      ],
+      "semiconductor_mentions": 5,
+      "has_semiconductor_category_text": true
+    },
+    "2022-02": {
+      "article_id": "930",
+      "registration_date": "2022-03-02",
+      "title": "Korea’s exports expand 20.6% to $53.9 billion in February",
+      "source_SHA256": "35b3d517fda690014a21d1b6bd24411fc0d8590761f015564c67cee97de750af",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/fb4c9f2bc7e37167156bbc45484dd9a2/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release}_Feb Trade Report_LV.pdf [291.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2022-03": {
+      "article_id": "948",
+      "registration_date": "2022-04-01",
+      "title": "March exports grow 18.2%, reaching $63.5 billion",
+      "source_SHA256": "e44235c4d2bb0316e7131d673fc34793440158316ef8bfe4fad226b8cfca7b50",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/b35e389ac1fbed2138826ed4aeda36f2/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press release]_March Trade Report (LV).pdf [307.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 0,
+      "has_semiconductor_category_text": false
+    },
+    "2022-04": {
+      "article_id": "968",
+      "registration_date": "2022-05-02",
+      "title": "Korea's exports grow 12.6% in April",
+      "source_SHA256": "815bad915163b2e2a663037ff59d19fecbba40836539b4dc8bd42941d86c2657",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/5221e1072e97199e061f2d298ccf3346/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release]_April Exports 2022_LV.pdf [324.6 KB]"
+        }
+      ],
+      "semiconductor_mentions": 5,
+      "has_semiconductor_category_text": true
+    },
+    "2022-05": {
+      "article_id": "982",
+      "registration_date": "2022-06-02",
+      "title": "Korea's exports achieve 21.3% growth in May",
+      "source_SHA256": "1899e777d8415230987c69b3e0dd81376f6b0f59f3f7457e16c5943bf547ab73",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/904855f185edc9ff6c859e2274ab88b6/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_May 2022 Trade_LV.pdf [306.6 KB]"
+        }
+      ],
+      "semiconductor_mentions": 5,
+      "has_semiconductor_category_text": true
+    },
+    "2022-06": {
+      "article_id": "1006",
+      "registration_date": "2022-07-01",
+      "title": "Korea's exports gain 15.6% in first half of 2022",
+      "source_SHA256": "29dc339777bc0e86589f7c647c8983cfdfea3f0969b8745292bbb17817bbe530",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/3bffc973f7b05ac579f9609d93df45ea/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release]_H1 2022_June_LV.pdf [376 KB]"
+        }
+      ],
+      "semiconductor_mentions": 7,
+      "has_semiconductor_category_text": true
+    },
+    "2022-07": {
+      "article_id": "1031",
+      "registration_date": "2022-08-01",
+      "title": "Korea's exports gain 9.4% in July",
+      "source_SHA256": "909f0d3802298e617b5c73c0b3c46cd4286c8bdbf0c55902bf51b06d59714ac1",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/48f7e6f890ca2281f4243a16f3d74a10/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release]_July Exports_LV.pdf [300.8 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2022-08": {
+      "article_id": "1057",
+      "registration_date": "2022-09-01",
+      "title": "Korea's exports rise 6.6% in August",
+      "source_SHA256": "3db9d6e3be7b1405a2c03c6a27b33cbbc0d468b128fa75e55375e253b1691ba8",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/873ba2bdc15a8918f89ccfd66eb014f3/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release]_August Trade_LV.pdf [263.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2022-09": {
+      "article_id": "1085",
+      "registration_date": "2022-10-04",
+      "title": "Korea's exports grow 2.8% in September",
+      "source_SHA256": "ec34cd9351bcb8707021a7164c7d1c576b80f4e4a57e03083a483bf8ffeac7a9",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/182f7d4f68dfce6847e9851c88643a7a/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release]_September exports_LV.pdf [264.6 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2022-10": {
+      "article_id": "1112",
+      "registration_date": "2022-11-01",
+      "title": "Korea's exports fall 5.7% in October",
+      "source_SHA256": "eb60b897cc1c05c18d5a3f4e2e157277972ecb5d595112e266cf1d5542245dfa",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/8e4c5ff7255f487f09f2b50e7bc99b13/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_Oct_Trade_LV.pdf [281.5 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2022-11": {
+      "article_id": "1138",
+      "registration_date": "2022-12-01",
+      "title": "Korea's exports decline 14.0% in November",
+      "source_SHA256": "fd9d1497cc165fa5bc2671f1012c67de4a5834c9b4937b3b76fbcf3e3120c863",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/e2820f917ad21be2d73ef027e6062803/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_November trade_LV.pdf [286.4 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2022-12": {
+      "article_id": "1167",
+      "registration_date": "2023-01-03",
+      "title": "Korea's exports grow 6.1% in 2022",
+      "source_SHA256": "54f0e43c06b3d2fc4cc57c36820d265049fc4a53b1eb2fcf259c9eb7015c6cbd",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/f3007cd69830e35b4114f1e8ad223b19/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release]_2022 Trade_LV.pdf [261.9 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2023-01": {
+      "article_id": "1186",
+      "registration_date": "2023-02-01",
+      "title": "Korea's exports decline 16.6% in January",
+      "source_SHA256": "5b5c777e32c70726a1e3d72ab3faab4d150a3ba0910c1303724dbdb95d48da3c",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/b1980b0317326694d861eb2015198402/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release} January Exports Report_LV.pdf [290.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2023-02": {
+      "article_id": "1213",
+      "registration_date": "2023-03-02",
+      "title": "Korea's exports decline 7.5% in February",
+      "source_SHA256": "6824043d1c07cf41e5b2f4afa45b89f29352f187facaef8b6c8a7faf00f49be6",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/4f8ff747bde816532919e46f8c1fc981/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release]_February Trade Report_LV.pdf [314.2 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2023-03": {
+      "article_id": "1241",
+      "registration_date": "2023-04-03",
+      "title": "Korea's exports fall 13.6% in March, but trade balance improves",
+      "source_SHA256": "92578bc11c4804f9edd20616d93ce8e03523ff20ca95f6a34431ba5ac0bbc3bb",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/805a5f4c2813bb7208191050d317f2cc/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release]_March Trade Report (LV).pdf [291.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 8,
+      "has_semiconductor_category_text": true
+    },
+    "2023-04": {
+      "article_id": "1271",
+      "registration_date": "2023-05-02",
+      "title": "Korea's exports decline 14.2% in April",
+      "source_SHA256": "0b7a69a43cbe5388e72ef33f544644e68f15119d5b29a9a21eea49bb93cafae2",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/459cf64c52e52c65376071c60061ddbb/9a9db098b587ee18b321c826f3707a49",
+          "label": "Trade Report_April 2023_LV.pdf [308.2 KB]"
+        }
+      ],
+      "semiconductor_mentions": 7,
+      "has_semiconductor_category_text": true
+    },
+    "2023-05": {
+      "article_id": "1305",
+      "registration_date": "2023-06-01",
+      "title": "Korea's exports decline 15.2% in May",
+      "source_SHA256": "03d650be2f094d2491176b232be7f3e1d13580a8615ee10c5fe78c0324bf4662",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/622d2b5518d2ad1563adb214ad7fee45/9a9db098b587ee18b321c826f3707a49",
+          "label": "May 2023 Trade Report_LV.pdf [305.9 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2023-06": {
+      "article_id": "1340",
+      "registration_date": "2023-07-03",
+      "title": "Korea's exports decline 6.0% in June",
+      "source_SHA256": "d75fae45d0fffa421799840a6939d4a5ce0cf637976b2aaa9c14681ed9377c2c",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/a14f01d1e14ceb2a9810e15d5761b7be/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_June Trade Report_LV.pdf [316.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2023-07": {
+      "article_id": "1378",
+      "registration_date": "2023-08-01",
+      "title": "Korea's July exports record trade surplus for 2nd successive month",
+      "source_SHA256": "a4e501637f8fb9e371f1a35387e85137e472dbbfece028dda24cf10684cf0930",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/d3aadd81070cf0939e4133003ca45ccc/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_July Trade Report_LV.pdf [291.4 KB]"
+        }
+      ],
+      "semiconductor_mentions": 7,
+      "has_semiconductor_category_text": true
+    },
+    "2023-08": {
+      "article_id": "1409",
+      "registration_date": "2023-09-01",
+      "title": "Korea's exports decline 8.4% in August",
+      "source_SHA256": "f836ec66158382ecbace9cc2d706698e5d2b13061bf4b2931136dc8194a1a92d",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/1a2bb0086d11a7a66c4849d44fc18816/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_August Trade Report_LV.pdf [274.2 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2023-09": {
+      "article_id": "1444",
+      "registration_date": "2023-10-02",
+      "title": "Korea's exports decline 4.4% in September",
+      "source_SHA256": "69944a6cb2127263fccf0d0d7d627bee4e9cfc3f50368dbede1f2fc1dccd9d2d",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/bc2c6212079d4d4e48fc0d2d96a50068/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_September Trade Report (LV).pdf [291.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2023-10": {
+      "article_id": "1499",
+      "registration_date": "2023-11-02",
+      "title": "Korea's exports grow 5.1% in October",
+      "source_SHA256": "c9b74c4bbf00443915f88e2b7748c092157e7c7b75707c23963f0cae75ef01a8",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/56f071686feda0beec3893d605e6cc07/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea's exports grow 5.1% in October_LV.pdf [288.2 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2023-11": {
+      "article_id": "1579",
+      "registration_date": "2023-12-01",
+      "title": "Korea's exports grow 7.8% in November",
+      "source_SHA256": "f017161d8f97195797a79ebeff736bce812e14744a900c4a397e8f9dfaeea9f8",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/ca5e8ad94a44e211ce757e206b89bfa1/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea's exports grow 7.8% in November_LV.pdf [264.5 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2023-12": {
+      "article_id": "1631",
+      "registration_date": "2024-01-02",
+      "title": "Korea's exports grow 5.1% in December",
+      "source_SHA256": "28b1145146d374794e35fcd7c260fe3019ebb5cb54823530639f5e0db52ad70c",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/6a422e341f058afe3ffaf25bd4afbc1f/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea's exports grow 5.1% in December_LV.pdf [303.8 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2024-01": {
+      "article_id": "1664",
+      "registration_date": "2024-02-01",
+      "title": "Korea's exports advance 18% in January",
+      "source_SHA256": "8054c1b9c1b1fda5377204467c7d4475c7e55b08e4caea032d2178949b596bda",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/93f8ddb69b4d7553aea80772c011bb17/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea's exports advance 18% in January_LV.pdf [246.8 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2024-02": {
+      "article_id": "1701",
+      "registration_date": "2024-03-04",
+      "title": "Korea's exports advance 4.8% in February",
+      "source_SHA256": "e600fa5e4c88ac0312247f8efce345140f6a1b042090b6e9f35827320307ff07",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/d2deca35769a1e8ba38b28e19c16e353/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea's exports advance 4.8% in February.pdf [237.6 KB]"
+        }
+      ],
+      "semiconductor_mentions": 1,
+      "has_semiconductor_category_text": true
+    },
+    "2024-03": {
+      "article_id": "1755",
+      "registration_date": "2024-04-01",
+      "title": "Korea's exports grow 3.1% in March",
+      "source_SHA256": "4a73fbc43f89fbc4e71a4b7b68d411b69a0e801e27fa1cf29a6ded63be6dce2a",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/204648013fe623c4b3912ce34a6df9ee/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea's exports grow 3.1% in March_LV.pdf [246.6 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2024-04": {
+      "article_id": "1815",
+      "registration_date": "2024-05-02",
+      "title": "Korea's exports climb 13.8% in April",
+      "source_SHA256": "694503702f23d03b04c37c6f52c347a24f92c40a0251ddbd04d3c1e670cfe41a",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/11b802611a69a431d85e9a579c8bb59c/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea's exports climb 13.8% in April_LV.pdf [254.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2024-05": {
+      "article_id": "1878",
+      "registration_date": "2024-06-03",
+      "title": "Korea's exports climb 11.7% in May",
+      "source_SHA256": "729faa24b5943d80923d102bb01badafdeee200284e43d6e230a4ae1550a1c57",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/7a2dbcee5e4144fd97ff0a8c6497eadd/9a9db098b587ee18b321c826f3707a49",
+          "label": "[Press Release]_Korea's exports climb 11.7% in May_LV.pdf [269.8 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2024-06": {
+      "article_id": "1933",
+      "registration_date": "2024-07-01",
+      "title": "Korea's H1 2024 exports climb 9.1%",
+      "source_SHA256": "5e30d28182129e6c8cafec4050072dced6dbc91225cf3570b05a757e477aa4ba",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/3470f7f4d70c9784e065ecf4ea0fb201/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea's H1 2024 exports climb 9.1%.pdf [279.9 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2024-07": {
+      "article_id": "1973",
+      "registration_date": "2024-08-01",
+      "title": "Korea’s exports rise 13.9% in July",
+      "source_SHA256": "6a9ee76fb52ae63d36764ac0e4cdfb5e734887b955a965af764dafdecc33e37f",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/7474d784fa8eb1995bc76131e20fd7a8/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea’s exports rise 13.9% in July (LV).pdf [267.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2024-08": {
+      "article_id": "2008",
+      "registration_date": "2024-09-02",
+      "title": "Korea’s exports climb 11.4% in August",
+      "source_SHA256": "9b54359ba8f81ea67387ac9c475254370010bcd46a14681eff72db28bf308e0d",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/958fd49907d0d4173730cef82f9420a6/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea’s exports climb 11.4% in August_LV.pdf [265.2 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2024-09": {
+      "article_id": "2060",
+      "registration_date": "2024-10-02",
+      "title": "Korea’s exports advance 7.5% in September",
+      "source_SHA256": "40430da38216cdccd68ff99fcc8e11120f73a291fe9db48966cfe08010200ee9",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/601e4deef5a63835615e7cee93e34369/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIE_Korea’s exports advance 7.5% in September_LV.pdf [268.4 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2024-10": {
+      "article_id": "2108",
+      "registration_date": "2024-11-01",
+      "title": "Korea’s exports rise 4.6% in October",
+      "source_SHA256": "7d6da2e1f5f7c680c23c1f37ec1cb734379b800e5ab7d373cfe9eed5efb3db2c",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/350fb2ba11f6b2df6efc5cd26e38ae10/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea’s exports rise 4.6% in October_LV.pdf [268 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2024-11": {
+      "article_id": "2151",
+      "registration_date": "2024-12-02",
+      "title": "Korea’s exports grow for the 14th consecutive month",
+      "source_SHA256": "8f34d0064d9c1d20daa7121bc83a8c0d9c3575f7ff42666d8987f07934408015",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/9dde8041e7abd66d1ea5f85070458f69/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea’s exports grow for the 14th consecutive month_LV.pdf [283.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2024-12": {
+      "article_id": "2185",
+      "registration_date": "2025-01-02",
+      "title": "Korea’s annual exports reach new highs in 2024",
+      "source_SHA256": "1e91f2b51dbce1cf4128c25785e381b424f19d5080c56111dbc435246927df57",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/a67345597bffa311cca1c593c57adac8/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea’s annual exports reach new highs in 2024_LV.pdf [278.9 KB]"
+        }
+      ],
+      "semiconductor_mentions": 5,
+      "has_semiconductor_category_text": true
+    },
+    "2025-01": {
+      "article_id": "2206",
+      "registration_date": "2025-02-03",
+      "title": "Korea’s exports fall 10.3% in January",
+      "source_SHA256": "fc56bec9789ccf598e188e8131f799b1a7ede1e17723f60a6485461f47d007d8",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/234e62d468238d16a0560dfbf55020b7/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea’s exports fall 10.3% in January_LV.pdf [259 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2025-02": {
+      "article_id": "2227",
+      "registration_date": "2025-03-04",
+      "title": "Korea’s exports resume growth in February",
+      "source_SHA256": "0ea930a465dd61263744bf930ec483b20b8cc2e35ae1b88f4a89f8a790f9dc95",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/32ef5ce99e805915235e5df306f7e0c9/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea’s exports resume growth in February_LV.pdf [269.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 3,
+      "has_semiconductor_category_text": true
+    },
+    "2025-03": {
+      "article_id": "2250",
+      "registration_date": "2025-04-01",
+      "title": "Korea’s exports gain 3.1% in March",
+      "source_SHA256": "ab29083e943064285e64238e633c3e76f9ed16075894b5add47ee80d3e8bffb0",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/59a3788669ea1093490c65c1ca1f0fe9/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIE_Korea’s exports gain 3.1% in March_LV.pdf [267.5 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2025-04": {
+      "article_id": "2266",
+      "registration_date": "2025-05-02",
+      "title": "Korea’s exports gain 3.7% in April",
+      "source_SHA256": "45da0760b1aa0f820ee1752bd722358418561636726485306330e50ffd61b9e9",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/08e38a1adb04c5896147bae687712c0a/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea’s exports gain 3.7% in April_LV.pdf [272.4 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2025-05": {
+      "article_id": "2290",
+      "registration_date": "2025-06-02",
+      "title": "Korea’s exports decline 1.3% in May",
+      "source_SHA256": "b67c451b80d2e6fddb7b8d12a7be5d9cd0b7d2189445d0baeba86e4d2ccc3970",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/86bbf41ddb5bbbef11d9eff88001909a/9a9db098b587ee18b321c826f3707a49",
+          "label": "[MOTIE]_Press Release_Korea’s exports decline 1.3% in May_LV.pdf [273.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2025-06": {
+      "article_id": "2300",
+      "registration_date": "2025-07-01",
+      "title": "Korea’s exports grow 4.3% in June",
+      "source_SHA256": "f800084101bf359a261f6e8b4342d306771aacb188984a2c071620780b11a569",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/ac2ca1c63d4e246c1fd624d6ffdfeeeb/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIE_Korea’s exports grow 4.3% in June_LV.pdf [328.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2025-07": {
+      "article_id": "2311",
+      "registration_date": "2025-08-01",
+      "title": "Korea's Exports Rise 5.9% in July",
+      "source_SHA256": "cb808e0dc2cb6cb8863917cc99a865ab26034d0caf7dbc161bd5b59caf858140",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/16ecde67f212b4d2037bf633a5254f2e/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIE_Korea's Exports Rise 5.9% in July_LV.pdf [405.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2025-08": {
+      "article_id": "2329",
+      "registration_date": "2025-09-02",
+      "title": "Korea’s Exports Rise 1.3% in August",
+      "source_SHA256": "0aa874bf70463942ea5e62a70f03149553f51eb3ac8631f49b3bb9988ccdc108",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/df9e17c1208f0dcb9f285fa3eef9e4e8/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIE_Korea’s Exports Rise 1.3% in August_LV.pdf [363.5 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2025-09": {
+      "article_id": "2356",
+      "registration_date": "2025-10-01",
+      "title": "Korea’s Exports Hit Record High in September",
+      "source_SHA256": "44feeddc4629408698e341a6414090435a0ee701c010f5b81e87d6790878e161",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/2e786a1ddcb6ef4e00d09d5de8155472/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_Korea’s Exports Hit Record High in September_LV.pdf [438.5 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2025-10": {
+      "article_id": "2385",
+      "registration_date": "2025-11-03",
+      "title": "Korea’s Exports Hit New Peak for October",
+      "source_SHA256": "7623427bf3943c269663f758cd1cc6fb5f9f2e954851fa1911a7374adbe16a84",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/c89cf46f9b6217b65b1d6562d3ab73f6/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_Korea’s Exports Hit New Peak for October_LV.pdf [313.4 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2025-11": {
+      "article_id": "2433",
+      "registration_date": "2025-12-01",
+      "title": "Korea’s Exports Hit Record High in November",
+      "source_SHA256": "bfa90b5000f7c1af79eeffe6f85bf3c5c52175d0d331661f6b7ea409b7e59162",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/97656469baecea4fa41cd8c5f43846a3/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_Korea’s Exports Hit Record High in November LV.pdf [383 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2025-12": {
+      "article_id": "2470",
+      "registration_date": "2026-01-02",
+      "title": "Korea’s Annual Exports Reach New Highs in 2025",
+      "source_SHA256": "7a724f8896f9d382581227170e9c697079cd2d0b0dfc6770df7d9fc7b6fd7d6a",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/2e866f23fd4fc0cda151a3d853ea4235/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_Korea’s annual exports reach new highs in 2025 - LV.pdf [496.4 KB]"
+        }
+      ],
+      "semiconductor_mentions": 9,
+      "has_semiconductor_category_text": true
+    },
+    "2026-01": {
+      "article_id": "2495",
+      "registration_date": "2026-02-03",
+      "title": "January Exports Top $60 Billion for the First Time",
+      "source_SHA256": "640868cb70388ecfa5e95f813b8e53850334594442de28568ee0f3402d17d32f",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/9bdc10c3a977016118a3eab107c16811/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_January Exports Top $60 Billion for the First Time LV.pdf [264.9 KB]"
+        }
+      ],
+      "semiconductor_mentions": 2,
+      "has_semiconductor_category_text": true
+    },
+    "2026-02": {
+      "article_id": "2519",
+      "registration_date": "2026-03-03",
+      "title": "February 2026 Exports Hit Record High for Any February at $67.5 Billion",
+      "source_SHA256": "353fc575b639c3d07778f66de2ccc6d7dc83c36ee595430e01f0dfe09232fd2e",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/e1a86c0916684df397b439ffba0ce11a/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_February 2026 Exports Hit Record High for Any February at $67.5 Billion LV.pdf [280.9 KB]"
+        }
+      ],
+      "semiconductor_mentions": 5,
+      "has_semiconductor_category_text": true
+    },
+    "2026-03": {
+      "article_id": "2559",
+      "registration_date": "2026-04-01",
+      "title": "March 2026 Exports Reach Record $86.1 Billion, Surpassing $80 Billion for the First Time",
+      "source_SHA256": "72ccd397a1d89815347b01aed091b15266748ce6bf393250b70137df07b82586",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/1029fbe2902f85eddde778447535332d/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_March 2026 Exports Reach Record $86.1 Billion, Surpassing $80 Billion for the First Time LV.pdf [288.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 5,
+      "has_semiconductor_category_text": true
+    },
+    "2026-04": {
+      "article_id": "2595",
+      "registration_date": "2026-05-04",
+      "title": "April 2026 Exports Reach $85.9 Billion, Surpassing $80 Billion for Second Consecutive Month",
+      "source_SHA256": "a0032d1e5e166f6052a71e11c3b1ea1bab30b4de39f496d0375611351849d41f",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/1fe9132e57815d215eb2a3dfbd3acfe4/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_April 2026 Exports Reach $85.9 Billion, Surpassing $80 Billion for Second Consecutive Month LV.pdf [300.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 4,
+      "has_semiconductor_category_text": true
+    },
+    "2026-05": {
+      "article_id": "2637",
+      "registration_date": "2026-06-01",
+      "title": "May 2026 Exports Reach Monthly Record of $87.8 Billion",
+      "source_SHA256": "5e4c4b018378814df4f4e205d3f6ddcb8ad76a4f8ccfbbd585b82101ab162808",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/5d701b5e2492c11a7dc700205927d56e/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_May 2026 Exports Reach Monthly Record of $87.8 Billion LV.pdf [299.1 KB]"
+        }
+      ],
+      "semiconductor_mentions": 5,
+      "has_semiconductor_category_text": true
+    },
+    "2026-06": {
+      "article_id": "2677",
+      "registration_date": "2026-07-01",
+      "title": "Korea’s June Exports Top $100 Billion for First Time, First-Half Exports Reach Record High",
+      "source_SHA256": "e3fc624ad9026606b592a9604a05dd31bc04ad705a66ffacbba20ef0745a2faf",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/4df9fd2e4d115bc63898fe0ab557910d/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_June 2026 Exports Top $100 Billion for First Time, First-Half Exports Reach Record High LV.pdf [340.9 KB]"
+        }
+      ],
+      "semiconductor_mentions": 14,
+      "has_semiconductor_category_text": true
+    },
+    "2026-07": {
+      "article_id": "2701",
+      "registration_date": "2026-08-03",
+      "title": "July 2026 Exports Reach $98.89 Billion, Second-Highest on Record",
+      "source_SHA256": "21f502350194836415939cbdf103a3ca726e6bb11979181753a3d54540eb2b9e",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/b8a8f858c26dc6fd074dbf350af4971f/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_July 2026 Exports Reach $98.89 Billion, Second-Highest on Record LV.pdf [334.3 KB]"
+        }
+      ],
+      "semiconductor_mentions": 8,
+      "has_semiconductor_category_text": true
+    },
+    "2026-08": {
+      "article_id": "2719",
+      "registration_date": "2026-09-01",
+      "title": "August Exports Exceed USD 90 Billion for Third Consecutive Month",
+      "source_SHA256": "ae489a5193edca9b5b1b69d1c2e5644d95cca92e1f553b5e2fd39e577619f736",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/619d34eccb190767ecd26c97853a9720/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_August Exports Exceed USD 90 Billion for Third Consecutive Month LV.pdf [256.7 KB]"
+        }
+      ],
+      "semiconductor_mentions": 10,
+      "has_semiconductor_category_text": true
+    },
+    "2026-09": {
+      "article_id": "2743",
+      "registration_date": "2026-10-01",
+      "title": "September Exports Reach Record $120.9 Billion, Trade Surplus Hits Record $49.9 Billion",
+      "source_SHA256": "92cbcfb6bc25d5a5c0a4adfab742cfde52d0842da0a243cc4f92f3603a442bb0",
+      "PDF_links": [
+        {
+          "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/fcb1b5bfc27b68003963e8c6de5dd028/9a9db098b587ee18b321c826f3707a49",
+          "label": "Press Release_MOTIR_September Exports Reach Record $120.9 Billion, Trade Surplus Hits Record $49.9 Billion LV.pdf [456.8 KB]"
+        }
+      ],
+      "semiconductor_mentions": 8,
+      "has_semiconductor_category_text": true
+    }
+  },
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "all_93_exact_article_PDF_link_and_semiconductor_text_inventory",
+  "candidate_manifest_sha256": "dbf82abd823a616324245562c12bc55484b4f3050c7dbfca940686fb8395ec9f",
+  "article_plan_sha256": "dcda65fb61ef7c6937325cf174868883a8a5b576d990d2783054df5173ca5b7d",
+  "article_receipts_sha256": "666432fb50b3f1815e0950653ae334648b76964e0fbb60ad213a44e7c4812aa7",
+  "article_run_state_sha256": "953471306610159b4e39a1b3661259368771919ad9bc8320b2217d12f8593e01",
+  "reused_html_receipts_sha256": "6d8aa043826fceed0722f8fabf0d1996bf1e5607f007b830959c107eea1ec52a",
+  "budget": {
+    "source_HTML_file_reads": 93,
+    "new_HTTP_gets": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "checks": [
+    "All 93 exact page hashes and registration/title identities",
+    "Count PDF attachment links and semiconductor category mentions by month, report missing/multiple",
+    "Do not parse numeric factor or read SOXX label from these pages in this phase"
+  ]
+}

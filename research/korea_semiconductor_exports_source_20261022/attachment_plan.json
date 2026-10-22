@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "two_original_attached_pdf_verification",
+  "parent_plan_sha256": "23fdee57fa6998edc00527fc5a753dd39dab196a0a586b5d49fdc8e5907b7ee6",
+  "parent_html_receipts_sha256": "6d8aa043826fceed0722f8fabf0d1996bf1e5607f007b830959c107eea1ec52a",
+  "attachments": [
+    {
+      "observation_month": "2025-05",
+      "source_html_sha256": "b67c451b80d2e6fddb7b8d12a7be5d9cd0b7d2189445d0baeba86e4d2ccc3970",
+      "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/86bbf41ddb5bbbef11d9eff88001909a/9a9db098b587ee18b321c826f3707a49",
+      "label": "[MOTIE]_Press Release_Korea\u2019s exports decline 1.3% in May_LV.pdf [273.3 KB]"
+    },
+    {
+      "observation_month": "2026-05",
+      "source_html_sha256": "5e4c4b018378814df4f4e205d3f6ddcb8ad76a4f8ccfbbd585b82101ab162808",
+      "url": "https://english.motir.go.kr/attach/down/778bdbf5db9ced7c8fd52756c00bf0cd/5d701b5e2492c11a7dc700205927d56e/9a9db098b587ee18b321c826f3707a49",
+      "label": "Press Release_MOTIR_May 2026 Exports Reach Monthly Record of $87.8 Billion LV.pdf [299.1 KB]"
+    }
+  ],
+  "budget": {
+    "http_gets": 2,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "max_pdf_bytes": 2000000,
+  "check": "PDF original exact bytes, source-page linkage, document period/currency/semiconductor export amount and YoY; no historical PIT claim from current download."
+}

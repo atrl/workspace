@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "complete_official_archive_listing_inventory_and_dedup",
+  "source_plan_sha256": "c2641fa8b83b2740866a8f69bd6fe7dc834adf3d775607d0b1d93733dce92f10",
+  "fetch_receipts_sha256": "6676e3fb378db6c4a7b746f0e86046414ea12a07bcd87462eec396ee75fb5f52",
+  "run_state_sha256": "01ecd8e3a0a1260aecc67ef8c11099e5e3f8282cf9ac762946cc2b4ebf81af2f",
+  "reused_source_receipts_sha256": [
+    "9f061967042292351526f19104d82bc6d9e76b0065b4436fe71a59592f9bd3a0",
+    "c987c1ff9076970c9d8977527b00cfec0b4402202bd68dd70bc821bd5b3c0d52"
+  ],
+  "method": "Verify exact 255 listing-page source hashes, parse official article IDs/title/registration date in listed order. Count unique IDs, overlaps, date bounds and candidate national monthly export-release titles. Save complete source-derived inventory under data/snapshots; no market outcomes. Candidate-selection rule will be separately frozen from this source-only inventory before article/PDF fetch.",
+  "budget": {
+    "source_page_reads": 255,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stops": [
+    "Duplicate/missing page or nonmonotonic archive date must be reported, not silently compacted",
+    "No indicator/model value from listing titles alone"
+  ]
+}

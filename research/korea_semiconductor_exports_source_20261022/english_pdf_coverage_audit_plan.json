@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "all_93_official_PDF_vintage_and_text_coverage_audit",
+  "article_HTML_audit_sha256": "5383f4e867f80242f0a645c3497f99a0d32f4dd3e000e0173d1cca0679640b85",
+  "original_PDF_receipts_sha256": "470aa3765eb471addaef7652c8548cdde0c3fd7ad723a6f05775a3a1bfb1f9cd",
+  "terminal_PDF_failure_state_sha256": "33f8ba043205783b3155a47fa20b85711d6af6399e447b52fc3e4e74680276b4",
+  "recovery_plan_sha256": "4e58eaff939eb612e7d8307500b929274cbb11a466e6709e6a975a14693c68d2",
+  "recovery_receipts_sha256": "d560785c8af7e88565592e9d1b3e01d06c31fc6c6ff2b87801525e22bb99ee85",
+  "recovery_completed_state_sha256": "c37596c51dc2093de37f45c82bac2099e7631d6f12344c352d0b62e9bfc1897e",
+  "budget": {
+    "distinct_PDF_source_reads": 93,
+    "market_outcome_reads": 0,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "method": "Verify exact PDF source hashes, page counts, raw CreationDate/ModDate, lag from official English page registration, and whether extractable text contains semiconductor category. Report all 93 months and gaps; do not infer first-public release from current PDF metadata. Numeric factor extraction requires a later separately frozen plan."
+}

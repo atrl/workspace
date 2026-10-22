@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_english_press_archive_depth_probe",
+  "parent_source_plan_sha256": "23fdee57fa6998edc00527fc5a753dd39dab196a0a586b5d49fdc8e5907b7ee6",
+  "parent_qualification_result_sha256": "dc3192250bf49a5af85e2931ed44b11e0929e841cdff9ffa95a69daa022175dc",
+  "base_url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada",
+  "page_indices": [
+    90,
+    140,
+    190
+  ],
+  "max_response_bytes": 1000000,
+  "budget": {
+    "http_gets": 3,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "check": "For each exact official archive listing, preserve bytes/URL/time/hash and report oldest/latest visible press release registration dates plus monthly export-release link count. No price or candidate outcome selection.",
+  "stop": "If older archive pages cannot be reached, source coverage unresolved; do not substitute search snippets."
+}

@@ -1,0 +1,27 @@
+{
+  "experiment": "korea_semiconductor_exports_source_20261022",
+  "status": "two_original_release_samples_semantically_qualified_PIT_gap",
+  "decision": "two_samples_qualified_broader_vintage_and_coverage_required_before_information_screen",
+  "result": "source_qualification_result.json",
+  "recorder_id": "beba7e2b838d49168b8e6953d0e5b84a",
+  "experiment_id": "828300743016446812",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/korea_semiconductor_exports_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/korea_semiconductor_exports_source_20261022/qlib_recorder/828300743016446812/beba7e2b838d49168b8e6953d0e5b84a",
+  "model_fits": 0,
+  "accounts": 0,
+  "qualified_forward_days": 0,
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "9a713f8790755d45ef139175e5cdb3368cdb5c81fa0d544d64cba03ed8eb2537",
+    "size_bytes": 62661,
+    "storage_uri": "sha256/9a/71/9a713f8790755d45ef139175e5cdb3368cdb5c81fa0d544d64cba03ed8eb2537"
+  }
+}

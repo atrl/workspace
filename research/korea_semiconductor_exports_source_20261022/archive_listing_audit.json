@@ -1,0 +1,28 @@
+{
+  "status": "archive_listing_inventory_complete",
+  "source_pages": 255,
+  "listing_rows": 2040,
+  "unique_article_ids": 2040,
+  "duplicate_article_ids": 0,
+  "date_order_inversions": 0,
+  "newest_registration_date": "2026-10-21",
+  "oldest_registration_date": "2018-10-02",
+  "raw_title_export_candidates_day_le_15": 236,
+  "candidate_registration_year_counts": {
+    "2018": 6,
+    "2019": 18,
+    "2020": 25,
+    "2021": 36,
+    "2022": 29,
+    "2023": 28,
+    "2024": 30,
+    "2025": 30,
+    "2026": 34
+  },
+  "complete_index_path": "data/snapshots/korea_semiconductor_exports_source_20261022/archive_article_index.json",
+  "complete_index_sha256": "59772dffb0f12e326c41e0a1b7769e5b744c1e204bf5b665cea88bb23b29f8e7",
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "boundary": "Title/day filter is only a schema diagnostic, not the final monthly source selection or a factor result."
+}

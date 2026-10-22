@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "terminal_TLS_failure_exact_tail_recovery",
+  "original_plan_sha256": "d4383406186fa576a836901f0e6b4f15b634e5950cd7206b77be7ae91f8c9735",
+  "original_receipts_sha256": "470aa3765eb471addaef7652c8548cdde0c3fd7ad723a6f05775a3a1bfb1f9cd",
+  "original_failed_state_sha256": "33f8ba043205783b3155a47fa20b85711d6af6399e447b52fc3e4e74680276b4",
+  "article_audit_sha256": "5383f4e867f80242f0a645c3497f99a0d32f4dd3e000e0173d1cca0679640b85",
+  "successful_prefix_new_PDFs": 88,
+  "failed_month": "2026-07",
+  "remaining_fixed_months": [
+    "2026-07",
+    "2026-08",
+    "2026-09"
+  ],
+  "request_policy": {
+    "max_new_distinct_HTTP_gets": 3,
+    "max_new_wire_HTTP_attempts": 6,
+    "one_retry_per_month": true,
+    "max_bytes_per_response": 5000000
+  },
+  "source_boundary": "Preserve original 88 successful PDF hashes and failed two-attempt TLS receipt; no re-selection, no re-download or market label read.",
+  "budget": {
+    "Qlib_D_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

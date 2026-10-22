@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "two_official_Korean_original_vintage_probe",
+  "English_source_plan_sha256": "23fdee57fa6998edc00527fc5a753dd39dab196a0a586b5d49fdc8e5907b7ee6",
+  "English_PDF_vintage_audit_sha256": "2b1c216ff8847c323626e447915dc4ebdde484918278fb1a005a8d25a8471635",
+  "pages": [
+    {
+      "period": "2025-05",
+      "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170581/view"
+    },
+    {
+      "period": "2026-05",
+      "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171880/view"
+    }
+  ],
+  "budget": {
+    "HTML_gets": 2,
+    "PDF_gets_after_exact_link_freeze": 2,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "max_html_bytes": 1500000,
+  "checks": [
+    "Exact official Korean registration date and attachment filenames/URLs",
+    "PDF original or revised version status and internal creation/modification metadata",
+    "Semiconductor export amount/YoY matches English original values or discrepancy explicitly reported",
+    "First-public time remains unqualified without contemporaneous receipt despite metadata"
+  ],
+  "stops": [
+    "No mutable replacement assumed to be original; preserve bytes and hashes",
+    "No market label or strategy result from this source probe"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "first_notebook_attempt_source_layout_stop_before_Qlib",
+  "execution_plan_sha256": "e68bf959211f75e134e9492949ed0d99fa10cd23fd8c039d5c2c821bfc4224c1",
+  "notebook_sha256": "f0a72a84ef3c63291d3d4b5dafe8d4200343c2b700a8650653f3e70b969c91f8",
+  "failure": "2026 PDF original sentence spans pages 1 and 2; contiguous full-phrase text extraction assertion failed although HTML phrase and visual PDF pages agree.",
+  "operations_consumed": {
+    "distinct_source_snapshot_reads": 4,
+    "D_calendar_calls": 0,
+    "writable_Recorders": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "next_action": "Freeze one document-layout-only recovery, assert PDF page1 category lead and page2 amount/YoY continuation separately; original source hashes and scientific scope unchanged."
+}

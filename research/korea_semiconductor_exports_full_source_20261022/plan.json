@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "experiment": "korea_semiconductor_exports_full_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "full_monthly_source_coverage_vintage_qualification_no_market_labels",
+  "source_card": "research/korea_semiconductor_exports_source_20261022",
+  "source_identities_sha256": {
+    "research/korea_semiconductor_exports_source_20261022/summary.json": "4a14f71eb5110da22232c33a9e5b51a532585b27fac5e50e51b690ff97762a6c",
+    "research/korea_semiconductor_exports_source_20261022/source_snapshot_manifest.json": "c2a08c97ac1230565087702a7454fac8dd83e1901c0538394ce5b62950e1cf17",
+    "research/korea_semiconductor_exports_source_20261022/nas_source_archive_binding.json": "ae21dc7aa0abcb86970b8c7891e439f7d5a2e72b0c1425cbf76834447630258b",
+    "research/korea_semiconductor_exports_source_20261022/national_release_candidate_manifest_v3.json": "dbf82abd823a616324245562c12bc55484b4f3050c7dbfca940686fb8395ec9f",
+    "research/korea_semiconductor_exports_source_20261022/article_html_audit.json": "5383f4e867f80242f0a645c3497f99a0d32f4dd3e000e0173d1cca0679640b85",
+    "research/korea_semiconductor_exports_source_20261022/english_pdf_coverage_audit.json": "4b1f0370166e12edac173186a4e462a76b115ab77652cbe02abd27c94035e6d7",
+    "research/korea_semiconductor_exports_source_20261022/korean_vintage_result.json": "933dd894dbc3094b41ef8d577ef519e2802e87335717a423eb41c4fd9b114d82",
+    "research/korea_semiconductor_exports_source_20261022/pdf_vintage_audit.json": "2b1c216ff8847c323626e447915dc4ebdde484918278fb1a005a8d25a8471635"
+  },
+  "calendar_provider": "data/qlib/soxl",
+  "calendar_manifest_sha256": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+  "calendar_file_sha256": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e",
+  "months": [
+    "2019-01",
+    "2026-09"
+  ],
+  "source_boundary": "Current source archive contains 93 HTML/PDF month pairs and two Korean comparisons, but is retrospectively retrieved. PDF creation metadata is not first-public evidence; original vintage remains unqualified.",
+  "analysis": "For each month record original English page registration, current PDF creation-date lag and word coverage, and native-Qlib following US session after each stated date as descriptive clocks. Do not read any SOXX price/return label or calculate a factor.",
+  "budget": {
+    "source_manifest_and_sidecar_hash_reads": 8,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "new_writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stops": [
+    "Any source/NAS receipt/provider identity mismatch before Recorder",
+    "Do not infer historical PIT from PDF metadata",
+    "No economic account or prediction"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

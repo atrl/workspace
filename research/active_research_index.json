@@ -108,7 +108,8 @@
     "options_required": false,
     "paid_acquisition": false,
     "cboe_total_options_activity_card": "research/cboe_total_options_activity_source_20261022",
-    "TSMC_monthly_release_source_gap": "research/tsmc_monthly_revenue_release_source_20261022/source_probe_result.json"
+    "TSMC_monthly_release_source_gap": "research/tsmc_monthly_revenue_release_source_20261022/source_probe_result.json",
+    "Korean_semiconductor_exports_full_archive": "research/korea_semiconductor_exports_full_source_20261022/source_qualification_result.json"
   },
   "do_not_reload": [
     "closed Recorder/model objects without new bounded need",
@@ -120,7 +121,8 @@
     "topic": "Cboe total activity vintage stability and IBKR SOXX option IV/Delta availability",
     "evidence": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json",
     "constraint": "At/after 2026-10-22 12:45 UTC run one remaining Cboe preopen vintage; at 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. No source is a qualified factor or economic strategy.",
-    "execution_authorized": false
+    "execution_authorized": false,
+    "parallel_source_gap": "Korean national semiconductor exports: 93 monthly official HTML/PDF pairs and 446 raw files archived with remote SHA256, but 69 PDF creation dates >7d after registration and no original publication vintages; do not run historical factor until contemporaneous Korean records or forward snapshots are qualified."
   },
   "closed_source_probes": [
     {

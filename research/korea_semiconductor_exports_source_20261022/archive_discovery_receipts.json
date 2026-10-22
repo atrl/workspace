@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "queries": [
+    {
+      "page_index": 90,
+      "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada?pageIndex=90",
+      "requested_at_utc": "2026-10-22T04:55:12.417461+00:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Thu, 22 Oct 2026 04:55:13 GMT",
+      "relative_path": "data/snapshots/korea_semiconductor_exports_source_20261022/archive_probe/90.html",
+      "bytes": 46183,
+      "sha256": "c75e7d1b809b5479da2cf070edc998bc00a2ed9f86574cb5e4ba20547898b42c"
+    },
+    {
+      "page_index": 140,
+      "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada?pageIndex=140",
+      "requested_at_utc": "2026-10-22T04:55:14.327575+00:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Thu, 22 Oct 2026 04:55:15 GMT",
+      "relative_path": "data/snapshots/korea_semiconductor_exports_source_20261022/archive_probe/140.html",
+      "bytes": 33980,
+      "sha256": "40f5b1d39ce873c819886cfedc11ef7c21f6dc909f38c380a48400bf8cf70cb5"
+    },
+    {
+      "page_index": 190,
+      "url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada?pageIndex=190",
+      "requested_at_utc": "2026-10-22T04:55:16.111807+00:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Thu, 22 Oct 2026 04:55:17 GMT",
+      "relative_path": "data/snapshots/korea_semiconductor_exports_source_20261022/archive_probe/190.html",
+      "bytes": 34010,
+      "sha256": "94ff2907b62528c50a6155a95da9b86cff21359498a50a0e9c253275d4ae631a"
+    }
+  ]
+}

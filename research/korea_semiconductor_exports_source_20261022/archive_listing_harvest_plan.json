@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "bounded_official_press_archive_listing_harvest",
+  "parent_qualification_summary_sha256": "4a14f71eb5110da22232c33a9e5b51a532585b27fac5e50e51b690ff97762a6c",
+  "archive_depth_result_sha256": "57a2e9df2f048b490cbf0b21cfba2e2363117ab9f6d8232bcfe44a672b11d0c9",
+  "base_url": "https://english.motir.go.kr/eng/article/EATCLdfa319ada",
+  "page_index_first": 1,
+  "page_index_last": 255,
+  "reused_exact_pages": {
+    "90": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/archive_probe/90.html",
+      "sha256": "c75e7d1b809b5479da2cf070edc998bc00a2ed9f86574cb5e4ba20547898b42c"
+    },
+    "140": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/archive_probe/140.html",
+      "sha256": "40f5b1d39ce873c819886cfedc11ef7c21f6dc909f38c380a48400bf8cf70cb5"
+    },
+    "190": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/archive_probe/190.html",
+      "sha256": "94ff2907b62528c50a6155a95da9b86cff21359498a50a0e9c253275d4ae631a"
+    },
+    "250": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/archive_probe/250.html",
+      "sha256": "47d232d79bc06f771d149ff183943176f901448d3e3679bc96e0896c0db771b7"
+    }
+  },
+  "expected_minimum_archive_year": 2019,
+  "max_response_bytes": 1000000,
+  "request_policy": {
+    "max_new_HTTP_gets": 251,
+    "minimum_seconds_between_gets": 0.2,
+    "retry_count_for_transient_error": 1,
+    "stop_after_permanent_schema_or_identity_error": true,
+    "resume_only_exact_plan": true,
+    "max_wire_HTTP_attempts": 502,
+    "max_new_HTTP_gets_definition": "Distinct archive page responses; one retry may add a second wire attempt on transient errors."
+  },
+  "inclusion_rule_for_future_article_manifest": "Only official press-release listing rows with title matching monthly national exports/imports or exports result and registration date 2019-01-01..2026-10-22; discovery is title/date/link inventory, not signal selection. Article/PDF fetch requires later exact frozen manifest.",
+  "budgets": {
+    "market_outcome_reads": 0,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stops": [
+    "Missing or changed page list structure stops; preserve partial source and receipts",
+    "Do not derive factor or select months from SOXX performance"
+  ]
+}

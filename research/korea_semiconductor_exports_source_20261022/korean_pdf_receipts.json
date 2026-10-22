@@ -1,0 +1,30 @@
+{
+  "queries": [
+    {
+      "period": "2025-05",
+      "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/ae1c1aa1fadab2c300a06e76430ae9f8/9a9db098b587ee18b321c826f3707a49",
+      "filename": "250601_2025\ub144 5\uc6d4 \uc218\ucd9c\uc785\ub3d9\ud5a5_3\ubcf4.pdf [2,443.8 KB]",
+      "requested_at_utc": "2026-10-22T05:04:31.558953+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "response_date": "Thu, 22 Oct 2026 05:04:32 GMT",
+      "relative_path": "data/snapshots/korea_semiconductor_exports_source_20261022/korean_original/2025-05.pdf",
+      "bytes": 2502494,
+      "sha256": "cf109a28bae2f5f22295149715f5e4c28910262e8e583181387409e2567782fb",
+      "pdf_magic": true
+    },
+    {
+      "period": "2026-05",
+      "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/b3b27a830684a10a7847dfd15a8b5e47/9a9db098b587ee18b321c826f3707a49",
+      "filename": "2026\ub144 5\uc6d4 \uc218\ucd9c\uc785\ub3d9\ud5a5_3\ubcf4_\ucd5c\uc885_\uc218\uc815.pdf [1,783.3 KB]",
+      "requested_at_utc": "2026-10-22T05:04:40.852997+00:00",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "response_date": "Thu, 22 Oct 2026 05:04:41 GMT",
+      "relative_path": "data/snapshots/korea_semiconductor_exports_source_20261022/korean_original/2026-05.pdf",
+      "bytes": 1826145,
+      "sha256": "e1c89aeda48ef27f1533c4f2683829b102d3ab3ef301e6a423994915b1cf9d76",
+      "pdf_magic": true
+    }
+  ]
+}
