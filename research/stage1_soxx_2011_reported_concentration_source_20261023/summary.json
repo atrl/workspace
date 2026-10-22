@@ -1,14 +1,28 @@
 {
   "experiment": "stage1_soxx_2011_reported_concentration_source_20261023",
-  "decision": "frozen_source_numeric_pilot_not_executed",
+  "decision": "four_original_2011_SOXX_reported_equity_value_sources_closed_full_history_pending",
   "objective_achieved": false,
   "plan": "plan.json",
-  "reports_parsed": 0,
+  "reports_parsed": 4,
   "model_fits": 0,
   "native_accounts": 0,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "result": "source_result.json",
+  "reports_with_numeric_closure": 4,
+  "report_dates": [
+    "2011-01-31",
+    "2011-04-30",
+    "2011-07-31",
+    "2011-10-31"
+  ],
+  "top5_disclosed_equity_share_range": [
+    0.3703861720427014,
+    0.4055862611800344
+  ],
+  "historical_2012_2022_coverage_qualified": false,
+  "held_2023_2026_coverage_qualified": false
 }
