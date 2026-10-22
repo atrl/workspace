@@ -1,0 +1,34 @@
+{
+  "status": "one_bounded_source_diagnostic_completed",
+  "source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "original_plan_sha256": "dbda099d477c95b16e7060dacd3062d922499613fc1fdaf5d14ee15362744e3d",
+  "verified_source_object_loads_total": 2,
+  "passed_release_rows": 191,
+  "failed_release_rows": 1,
+  "failures": [
+    {
+      "release_file": "20251223_sup.txt",
+      "raw_sha256": "4fc96d63629b52e6b2d27f5ba0563147aeba098a91a8bcc72cc8a0e631898f02",
+      "error": "ValueError: needs_data: original six seasonally adjusted IP months incomplete",
+      "structure": {
+        "header_month_tokens": [
+          "May",
+          "June",
+          "July",
+          "Aug",
+          "Sept",
+          "Oct",
+          "Nov"
+        ],
+        "SA_value_token_count": 7,
+        "observation_month": "2025-11-01",
+        "label_gap_lines": 0,
+        "row_part_count": 5
+      }
+    }
+  ],
+  "market_outcome_reads": 0,
+  "numeric_feature_output_rows": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
