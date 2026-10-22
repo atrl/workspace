@@ -12,4 +12,6 @@
 
 随后只读原始 PDF 的固定行审核在 **144/144 个月份**找到唯一的 Exhibit 7 半导体出口数值行和首页发布标识，详细页码、当前及同版上月值、印出的月变化与原 PDF 哈希在 `full_training_row_audit.json`。此项已解决来源字段行覆盖；仍须核对每份报表的月份身份、历史首次公开字节与 2012 分类连续性。没有 Qlib 因子、模型或资金账户。
 
+报表月份身份限定核查：143 份首页标题直接匹配目标月份；唯一例外为 2022-12 的年终合并标题“December and Annual 2022”。其精确 PDF SHA、2023-02-07 08:30 EST 发布标识、Exhibit 7 当月栏和官方索引 URL 经单例合同核对后，**144 份报表月份身份均有证据**。严格初次匹配失败与单例修复分别保存在 `full_training_report_identity.json`、`report_identity_exception_result.json`。这仍不证明当年首次公开的 PDF 字节未被后续替换。
+
 官方原件：[2011-12 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1112.pdf)、[2017-05 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1705.pdf)、[2024-04 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2404.pdf)；[历史发布索引](https://www.census.gov/foreign-trade/Press-Release/ft900_index.html)、[2012 分类变动说明](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1202.pdf)。

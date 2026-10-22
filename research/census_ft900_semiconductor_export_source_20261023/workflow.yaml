@@ -18,6 +18,8 @@ outputs:
   - full_training_request_ledger.jsonl
   - full_training_year_archives.jsonl
   - full_training_row_audit.json
+  - full_training_report_identity.json
+  - report_identity_exception_result.json
 market_outcome_reads: 0
 model_fits: 0
 native_accounts: 0
