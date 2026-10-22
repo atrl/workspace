@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_official_index_label_typo_adjudication_without_network",
+  "parent_audit": "training_index_audit.json",
+  "raw_index_sha256": "cdf3d48e9f6ff7a571c9d1d0d982499d59750df2f915a40ec95a9fe49730e0ad",
+  "sole_gap": "2019-02",
+  "literal_index_title": "Ferbruary 2019",
+  "literal_index_pdf_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1902.pdf",
+  "accept_only_if": [
+    "The literal item occurs exactly once in the exact archived official index bytes and lies in the 2019 year section.",
+    "Its same item PDF link is the frozen literal URL ending ft900_1902.pdf.",
+    "The neighboring ordinary 2019-03 and 2019-01 items have their own distinct official PDF links, and no ordinary February 2019 item exists."
+  ],
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "monthly_PDF_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If any condition fails, retain the 143/144 gap. This adjudication only binds an official index URL; it cannot qualify PDF bytes, semiconductors row coverage, historical first publication or market outcomes."
+}

@@ -1,0 +1,587 @@
+{
+  "status": "143_direct_month_titles_one_2019_02_gap_stop",
+  "index_sha256": "cdf3d48e9f6ff7a571c9d1d0d982499d59750df2f915a40ec95a9fe49730e0ad",
+  "target_months": 144,
+  "unambiguous_title_bindings": 143,
+  "missing_months": [
+    "2019-02"
+  ],
+  "bindings": {
+    "2022-12": {
+      "index_title": "December 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2212.pdf"
+    },
+    "2022-11": {
+      "index_title": "November 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2211.pdf"
+    },
+    "2022-10": {
+      "index_title": "October 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2210.pdf"
+    },
+    "2022-09": {
+      "index_title": "September 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2209.pdf"
+    },
+    "2022-08": {
+      "index_title": "August 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2208.pdf"
+    },
+    "2022-07": {
+      "index_title": "July 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2207.pdf"
+    },
+    "2022-06": {
+      "index_title": "June 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2206.pdf"
+    },
+    "2022-05": {
+      "index_title": "May 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2205.pdf"
+    },
+    "2022-04": {
+      "index_title": "April 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2204.pdf"
+    },
+    "2022-03": {
+      "index_title": "March 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2203.pdf"
+    },
+    "2022-02": {
+      "index_title": "February 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2202.pdf"
+    },
+    "2022-01": {
+      "index_title": "January 2022",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2201.pdf"
+    },
+    "2021-12": {
+      "index_title": "December 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2112.pdf"
+    },
+    "2021-11": {
+      "index_title": "November 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2111.pdf"
+    },
+    "2021-10": {
+      "index_title": "October 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2110.pdf"
+    },
+    "2021-09": {
+      "index_title": "September 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2109.pdf"
+    },
+    "2021-08": {
+      "index_title": "August 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2108.pdf"
+    },
+    "2021-07": {
+      "index_title": "July 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2107.pdf"
+    },
+    "2021-06": {
+      "index_title": "June 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2106.pdf"
+    },
+    "2021-05": {
+      "index_title": "May 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2105.pdf"
+    },
+    "2021-04": {
+      "index_title": "April 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2104.pdf"
+    },
+    "2021-03": {
+      "index_title": "March 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2103.pdf"
+    },
+    "2021-02": {
+      "index_title": "February 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2102.pdf"
+    },
+    "2021-01": {
+      "index_title": "January 2021",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2101.pdf"
+    },
+    "2020-12": {
+      "index_title": "December 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2012.pdf"
+    },
+    "2020-11": {
+      "index_title": "November 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2011.pdf"
+    },
+    "2020-10": {
+      "index_title": "October 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2010.pdf"
+    },
+    "2020-09": {
+      "index_title": "September 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2009.pdf"
+    },
+    "2020-08": {
+      "index_title": "August 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2008.pdf"
+    },
+    "2020-07": {
+      "index_title": "July 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2007.pdf"
+    },
+    "2020-06": {
+      "index_title": "June 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2006.pdf"
+    },
+    "2020-05": {
+      "index_title": "May 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2005.pdf"
+    },
+    "2020-04": {
+      "index_title": "April 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2004.pdf"
+    },
+    "2020-03": {
+      "index_title": "March 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2003.pdf"
+    },
+    "2020-02": {
+      "index_title": "February 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2002.pdf"
+    },
+    "2020-01": {
+      "index_title": "January 2020",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2001.pdf"
+    },
+    "2019-12": {
+      "index_title": "December 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1912.pdf"
+    },
+    "2019-11": {
+      "index_title": "November 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1911.pdf"
+    },
+    "2019-10": {
+      "index_title": "October 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1910.pdf"
+    },
+    "2019-09": {
+      "index_title": "September 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1909.pdf"
+    },
+    "2019-08": {
+      "index_title": "August 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1908.pdf"
+    },
+    "2019-07": {
+      "index_title": "July 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1907.pdf"
+    },
+    "2019-06": {
+      "index_title": "June 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1906.pdf"
+    },
+    "2019-05": {
+      "index_title": "May 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1905.pdf"
+    },
+    "2019-04": {
+      "index_title": "April 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1904.pdf"
+    },
+    "2019-03": {
+      "index_title": "March 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1903.pdf"
+    },
+    "2019-01": {
+      "index_title": "January 2019",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1901.pdf"
+    },
+    "2018-12": {
+      "index_title": "December 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1812.pdf"
+    },
+    "2018-11": {
+      "index_title": "November 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1811.pdf"
+    },
+    "2018-10": {
+      "index_title": "October 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1810.pdf"
+    },
+    "2018-09": {
+      "index_title": "September 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1809.pdf"
+    },
+    "2018-08": {
+      "index_title": "August 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1808.pdf"
+    },
+    "2018-07": {
+      "index_title": "July 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1807.pdf"
+    },
+    "2018-06": {
+      "index_title": "June 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1806.pdf"
+    },
+    "2018-05": {
+      "index_title": "May  2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1805.pdf"
+    },
+    "2018-04": {
+      "index_title": "April 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1804.pdf"
+    },
+    "2018-03": {
+      "index_title": "March 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1803.pdf"
+    },
+    "2018-02": {
+      "index_title": "February 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1802.pdf"
+    },
+    "2018-01": {
+      "index_title": "January 2018",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1801.pdf"
+    },
+    "2017-12": {
+      "index_title": "December 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1712.pdf"
+    },
+    "2017-11": {
+      "index_title": "November 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1711.pdf"
+    },
+    "2017-10": {
+      "index_title": "October 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1710.pdf"
+    },
+    "2017-09": {
+      "index_title": "September 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1709.pdf"
+    },
+    "2017-08": {
+      "index_title": "August 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1708.pdf"
+    },
+    "2017-07": {
+      "index_title": "July 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1707.pdf"
+    },
+    "2017-06": {
+      "index_title": "June 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1706.pdf"
+    },
+    "2017-05": {
+      "index_title": "May 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1705.pdf"
+    },
+    "2017-04": {
+      "index_title": "April 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1704.pdf"
+    },
+    "2017-03": {
+      "index_title": "March 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1703.pdf"
+    },
+    "2017-02": {
+      "index_title": "February 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1702.pdf"
+    },
+    "2017-01": {
+      "index_title": "January 2017",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1701.pdf"
+    },
+    "2016-12": {
+      "index_title": "December 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1612.pdf"
+    },
+    "2016-11": {
+      "index_title": "November 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1611.pdf"
+    },
+    "2016-10": {
+      "index_title": "October 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1610.pdf"
+    },
+    "2016-09": {
+      "index_title": "September 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1609.pdf"
+    },
+    "2016-08": {
+      "index_title": "August 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1608.pdf"
+    },
+    "2016-07": {
+      "index_title": "July 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1607.pdf"
+    },
+    "2016-06": {
+      "index_title": "June 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1606.pdf"
+    },
+    "2016-05": {
+      "index_title": "May 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1605.pdf"
+    },
+    "2016-04": {
+      "index_title": "April 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1604.pdf"
+    },
+    "2016-03": {
+      "index_title": "March 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1603.pdf"
+    },
+    "2016-02": {
+      "index_title": "February 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1602.pdf"
+    },
+    "2016-01": {
+      "index_title": "January 2016",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1601.pdf"
+    },
+    "2015-12": {
+      "index_title": "December 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1512.pdf"
+    },
+    "2015-11": {
+      "index_title": "November 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1511.pdf"
+    },
+    "2015-10": {
+      "index_title": "October 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1510.pdf"
+    },
+    "2015-09": {
+      "index_title": "September 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1509.pdf"
+    },
+    "2015-08": {
+      "index_title": "August 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1509.pdf"
+    },
+    "2015-07": {
+      "index_title": "July 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1507.pdf"
+    },
+    "2015-06": {
+      "index_title": "June 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1506.pdf"
+    },
+    "2015-05": {
+      "index_title": "May 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1505.pdf"
+    },
+    "2015-04": {
+      "index_title": "April 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1504.pdf"
+    },
+    "2015-03": {
+      "index_title": "March 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1503.pdf"
+    },
+    "2015-02": {
+      "index_title": "February 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1502.pdf"
+    },
+    "2015-01": {
+      "index_title": "January 2015",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1501.pdf"
+    },
+    "2014-12": {
+      "index_title": "December 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1412.pdf"
+    },
+    "2014-11": {
+      "index_title": "November 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1411.pdf"
+    },
+    "2014-10": {
+      "index_title": "October 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1410.pdf"
+    },
+    "2014-09": {
+      "index_title": "September 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1409.pdf"
+    },
+    "2014-08": {
+      "index_title": "August 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1408.pdf"
+    },
+    "2014-07": {
+      "index_title": "July 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1407.pdf"
+    },
+    "2014-06": {
+      "index_title": "June 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1406.pdf"
+    },
+    "2014-05": {
+      "index_title": "May 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1405.pdf"
+    },
+    "2014-04": {
+      "index_title": "April 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1404.pdf"
+    },
+    "2014-03": {
+      "index_title": "March 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1403.pdf"
+    },
+    "2014-02": {
+      "index_title": "February 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1402.pdf"
+    },
+    "2014-01": {
+      "index_title": "January 2014",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1401.pdf"
+    },
+    "2013-12": {
+      "index_title": "December 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1312.pdf"
+    },
+    "2013-11": {
+      "index_title": "November 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1311.pdf"
+    },
+    "2013-10": {
+      "index_title": "October 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1310.pdf"
+    },
+    "2013-09": {
+      "index_title": "September 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1309.pdf"
+    },
+    "2013-08": {
+      "index_title": "August 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1308.pdf"
+    },
+    "2013-07": {
+      "index_title": "July 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1307.pdf"
+    },
+    "2013-06": {
+      "index_title": "June 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1306.pdf"
+    },
+    "2013-05": {
+      "index_title": "May 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1305.pdf"
+    },
+    "2013-04": {
+      "index_title": "April 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1304.pdf"
+    },
+    "2013-03": {
+      "index_title": "March 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1303.pdf"
+    },
+    "2013-02": {
+      "index_title": "February 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1302.pdf"
+    },
+    "2013-01": {
+      "index_title": "January 2013",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1301.pdf"
+    },
+    "2012-12": {
+      "index_title": "December 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1212.pdf"
+    },
+    "2012-11": {
+      "index_title": "November 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1211.pdf"
+    },
+    "2012-10": {
+      "index_title": "October 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1210.pdf"
+    },
+    "2012-09": {
+      "index_title": "September 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1209.pdf"
+    },
+    "2012-08": {
+      "index_title": "August 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1208.pdf"
+    },
+    "2012-07": {
+      "index_title": "July 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1207.pdf"
+    },
+    "2012-06": {
+      "index_title": "June 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1206.pdf"
+    },
+    "2012-05": {
+      "index_title": "May 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1205.pdf"
+    },
+    "2012-04": {
+      "index_title": "April 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1204.pdf"
+    },
+    "2012-03": {
+      "index_title": "March 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1203.pdf"
+    },
+    "2012-02": {
+      "index_title": "February 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1202.pdf"
+    },
+    "2012-01": {
+      "index_title": "January 2012",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1201.pdf"
+    },
+    "2011-12": {
+      "index_title": "December 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1112.pdf"
+    },
+    "2011-11": {
+      "index_title": "November 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1111.pdf"
+    },
+    "2011-10": {
+      "index_title": "October 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1110.pdf"
+    },
+    "2011-09": {
+      "index_title": "September 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1109.pdf"
+    },
+    "2011-08": {
+      "index_title": "August 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1108.pdf"
+    },
+    "2011-07": {
+      "index_title": "July 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1107.pdf"
+    },
+    "2011-06": {
+      "index_title": "June 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1106.pdf"
+    },
+    "2011-05": {
+      "index_title": "May 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1105.pdf"
+    },
+    "2011-04": {
+      "index_title": "April 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1104.pdf"
+    },
+    "2011-03": {
+      "index_title": "March 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1103.pdf"
+    },
+    "2011-02": {
+      "index_title": "February 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1102.pdf"
+    },
+    "2011-01": {
+      "index_title": "January 2011",
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1101.pdf"
+    }
+  },
+  "monthly_PDF_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
