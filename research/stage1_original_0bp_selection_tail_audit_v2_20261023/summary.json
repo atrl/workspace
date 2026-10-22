@@ -1,0 +1,44 @@
+{
+  "experiment": "stage1_original_0bp_selection_tail_audit_v2_20261023",
+  "decision": "descriptive_original_Stage1_selection_loss_sparse_days_forward_price_context_only",
+  "objective_achieved": false,
+  "plan_sha256": "e8f6f0f364cccfa6c0fa18ce50c75ebab8e8901c5e8d932422b9752f3edc3c40",
+  "recorder_id": "e03c00f4017746bf942c1306dddbdedb",
+  "experiment_id": "788481216699025954",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_original_0bp_selection_tail_audit_v2_20261023/qlib_recorder",
+  "result": "result.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Forward price ratios are saved original Stage1 price-plane inputs, not independent vendor validation or fee-net contribution.",
+    "Selection-loss dates are hindsight data-quality candidates, not a trading switch.",
+    "All 2023-2026 history is reused development feedback."
+  ],
+  "nas_evidence": {
+    "sha256": "9d0fab5f8717b65d75388a9775855c709a5e053762da69b3f8eadce31566810e",
+    "size_bytes": 180661,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/9d/0f/9d0fab5f8717b65d75388a9775855c709a5e053762da69b3f8eadce31566810e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 07:08:12.689544+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/9d/0f/9d0fab5f8717b65d75388a9775855c709a5e053762da69b3f8eadce31566810e",
+    "recorder_id": "e03c00f4017746bf942c1306dddbdedb",
+    "experiment_id": "788481216699025954",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "9d0fab5f8717b65d75388a9775855c709a5e053762da69b3f8eadce31566810e"
+  },
+  "output_compaction": "output_compaction.json",
+  "result_sha256": "85db833ffb9326a0b4104bf95f23523542e3d85ceb4fc9fb8f2d2a92dd3eb9a3"
+}

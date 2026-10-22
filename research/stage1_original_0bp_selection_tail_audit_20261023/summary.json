@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_original_0bp_selection_tail_audit_20261023",
+  "decision": "v1_price_context_and_top10_gate_invalid_for_outlier_conclusion",
+  "objective_achieved": false,
+  "plan_sha256": "d2fad3f5554b0417cd97e1da7b7af3ee9c946145a24cd2622a681fe58d1c4d9e",
+  "recorder_id": "8ea62d29d5f748d6b1673742e91c145c",
+  "experiment_id": "687910100685888074",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_original_0bp_selection_tail_audit_20261023/qlib_recorder",
+  "result": "result.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Same physical-account source validated earlier; this is concentration attribution, not independent price validation.",
+    "Top negative days are selected for source-quality triage only, never as a trading rule.",
+    "2023-2026 outcome history is reused development feedback."
+  ],
+  "nas_evidence": {
+    "sha256": "6a6bb50f667975f67c8dc23a81b49144d5fb0684ccf86adceb56d1f0c0cb6d1f",
+    "size_bytes": 129807,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/6a/6b/6a6bb50f667975f67c8dc23a81b49144d5fb0684ccf86adceb56d1f0c0cb6d1f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 07:06:30.887231+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/6a/6b/6a6bb50f667975f67c8dc23a81b49144d5fb0684ccf86adceb56d1f0c0cb6d1f",
+    "recorder_id": "8ea62d29d5f748d6b1673742e91c145c",
+    "experiment_id": "687910100685888074",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "6a6bb50f667975f67c8dc23a81b49144d5fb0684ccf86adceb56d1f0c0cb6d1f"
+  },
+  "failure_attribution": "failure_attribution.json"
+}

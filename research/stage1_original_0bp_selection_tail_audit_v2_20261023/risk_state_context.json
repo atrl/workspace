@@ -1,0 +1,28 @@
+{
+  "status": "posthoc_two_largest_Q3_selection_loss_dates_risk_state_context_only",
+  "source_signal_loss_summary_sha256": "898089b008f1f6f50016ddbbd2fc082f77423464ed8613c54dbdd5fbbae1dc3a",
+  "source_signal_loss_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "source_code": "src/workflow/intraday_recovery_direct_allocation.py _advance_state and _base_cap",
+  "2026_07_06": {
+    "risk_state": 0,
+    "raw_nominal_beta": 1.3301900422546988,
+    "own_state_beta_cap": 1.3301900422546988,
+    "cap_binding": false,
+    "open_execute": true,
+    "SOXL_selection_log": -0.03904331168412108
+  },
+  "2026_07_27": {
+    "risk_state": 3,
+    "risk_clock": 0,
+    "drawdown": 0.206997,
+    "emergency_drawdown_spec": 0.22,
+    "raw_nominal_beta": 1.3182447476964723,
+    "own_state_beta_cap": 1.3182447476964723,
+    "cap_binding": false,
+    "open_execute": true,
+    "SOXL_selection_log": -0.04725687009335112
+  },
+  "semantic_boundary": "state3 is post-stop ramp-completion full-beta hold phase, not opening-order HOLD; trailing/emergency could still tighten base cap in general. Neither listed date was raw-target-above-cap. No causal or tradable switch inference.",
+  "new_fits": 0,
+  "new_accounts": 0
+}

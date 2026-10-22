@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_original_0bp_selection_tail_audit_v2_20261023",
+  "phase": "mechanical_forward_price_time_and_sparse_negative_days_repair_read_only",
+  "question": "Is the original frozen Stage1 A_0 SOXL-relative selection loss, especially 2026Q3, concentrated in a few anomalous price days or distributed across many normal open-to-open intervals? A concentration result only directs a separate source-quality audit; it is not a tradable rule.",
+  "sources": {
+    "stage1_card": "research/stage1_domain_heads_20261018",
+    "stage1_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "stage1_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "stage1_experiment_id": "283510277269468590",
+    "stage1_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "stage1_NAS_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "component_card": "research/stage1_original_0bp_account_contributions_20261023",
+    "component_summary_sha256": "055cea546522037402cd7f92714ae64aef759913fa7369d40555f06df4f1c4e5",
+    "component_recorder_id": "bf012e010e3f4a5b9fd030b939ab989f",
+    "component_experiment_id": "320335441277021728",
+    "component_daily_sha256": "7de1c0a56036efdf47e2bb60a8ed5bb215aa0d9ebfc8681c249fc268e80d360e",
+    "component_NAS_archive_sha256": "e8874e3659435248ed6444d6fbad787ba53162f0053c0d6d544b432fac134285",
+    "calendar_provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices"
+  },
+  "fixed_statistics": {
+    "daily_negative_selection": "SOXL_selection_log<0, all 944 days retained",
+    "negative_day_concentration": "For each all/quarter segment report count, total negative/positive, shares of negative magnitude from worst 2 and worst 5 (min with available negatives), and effective negative loss days=(sum_abs)^2/sum_squared_abs; no threshold or data-driven gate.",
+    "forward_price_context": "For the same trade-to-exit interval compute raw and normalized SOXL and SOXX open-price simple returns from frame.raw_[asset]_exit_open/frame.raw_[asset]_open -1 and frame.[asset]_exit_open/frame.[asset]_open -1. These are descriptive price returns, not fee-net physical contributions. Prior frame.soxl_return is never used as forward return.",
+    "preidentified_comparisons": [
+      "2024Q3",
+      "2026Q2",
+      "2026Q3",
+      "original worst126 from 2023-08-01 trade to 2024-01-31 exit"
+    ],
+    "source_quality_read": "Inspect every Q3 negative selection day and all Q3 raw-vs-normalized price ratio discrepancies, retaining all daily rows. A difference needs separate original source/corporate-action audit; no trade decision from these dates."
+  },
+  "budget": {
+    "source_Recorder_loads": 2,
+    "new_market_requests": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "bootstraps": 0,
+    "new_Qlib_Recorders": 1
+  },
+  "stop": "Any source hash/date/calendar or physical selection totals mismatch stops. Do not turn top-day list into regime switch, model training or account replay.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "predecessor": {
+    "card": "research/stage1_original_0bp_selection_tail_audit_20261023",
+    "plan_sha256": "d2fad3f5554b0417cd97e1da7b7af3ee9c946145a24cd2622a681fe58d1c4d9e",
+    "summary_sha256": "db5a7a34f3fb768dabd9d4c1c2079709a6ca656d07bbdedc630b9ef434a7f9ec",
+    "failure_attribution_sha256": "66675f7045c6a8b27983269bf8e8ed19af11aad2fa9d11ae1db106fee5e49a6c",
+    "recorder_id": "8ea62d29d5f748d6b1673742e91c145c"
+  }
+}

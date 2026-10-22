@@ -1,0 +1,11 @@
+{
+  "status": "v1_source_quality_triage_invalid_but_physical_daily_component_readback_valid",
+  "error_1": "frame.soxl_return/frame.soxx_return are already-known prior returns, not trade-to-exit forward price returns. Saved price-plane column cannot explain concurrent selection loss.",
+  "error_2": "Q3 had only 8 negative selection days; top10 share is mechanically 1.0, so the fixed >=0.70 top10 outlier trigger is uninformative for this interval.",
+  "v1_recorder_id": "8ea62d29d5f748d6b1673742e91c145c",
+  "physical_selection_full_sum_unchanged": 0.22593145822639604,
+  "physical_selection_Q3_sum_unchanged": -0.14390082802460138,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "repair": "Separately freeze top2/top5/effective negative-day concentration and trade-to-exit raw/normalized open-price ratios from saved Stage1 Qlib frame; no strategy change."
+}

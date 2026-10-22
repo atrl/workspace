@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_original_0bp_selection_tail_audit_20261023",
+  "phase": "read_only_original_Stage1_0bp_SOXL_selection_daily_loss_concentration",
+  "question": "Is the original frozen Stage1 A_0 SOXL-relative selection loss, especially 2026Q3, concentrated in a few anomalous price days or distributed across many normal open-to-open intervals? A concentration result only directs a separate source-quality audit; it is not a tradable rule.",
+  "sources": {
+    "stage1_card": "research/stage1_domain_heads_20261018",
+    "stage1_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "stage1_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "stage1_experiment_id": "283510277269468590",
+    "stage1_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "stage1_NAS_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "component_card": "research/stage1_original_0bp_account_contributions_20261023",
+    "component_summary_sha256": "055cea546522037402cd7f92714ae64aef759913fa7369d40555f06df4f1c4e5",
+    "component_recorder_id": "bf012e010e3f4a5b9fd030b939ab989f",
+    "component_experiment_id": "320335441277021728",
+    "component_daily_sha256": "7de1c0a56036efdf47e2bb60a8ed5bb215aa0d9ebfc8681c249fc268e80d360e",
+    "component_NAS_archive_sha256": "e8874e3659435248ed6444d6fbad787ba53162f0053c0d6d544b432fac134285",
+    "calendar_provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices"
+  },
+  "fixed_statistics": {
+    "daily_negative_selection": "SOXL_selection_log<0; zero is nonnegative",
+    "full_calendar": "All 944 same-order signal/trade/exit dates and full 16 quarters",
+    "top_negative_count": 10,
+    "concentration_fraction": "sum absolute 10 most negative daily SOXL_selection_log / sum absolute all negative daily SOXL_selection_log, separately full path and 2026Q3; also save all quarter counts/sums",
+    "data_quality_triage": "If 2026Q3 top10 fraction >=0.70, only then suggest a separately frozen independent-price/corporate-action outlier audit; otherwise treat loss as distributed before selecting next source mechanism. This is not a factor gate or economic optimization.",
+    "comparisons": [
+      "2024Q3",
+      "2026Q2",
+      "2026Q3"
+    ],
+    "source_return_check": "Report frame.soxl_return minus frame.soxx_return on the listed days as saved Qlib price-plane context; never treat this price-plane difference as exact physical fee-net account contribution."
+  },
+  "budget": {
+    "source_Recorder_loads": 2,
+    "new_market_requests": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "bootstraps": 0,
+    "new_Qlib_Recorders": 1
+  },
+  "stop": "Any source hash, date order, 944 calendar, SOXL component closure to already saved summary, Qlib DatasetH or NAS restore failure stops. No source price overrides, trades, fit or account replay.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

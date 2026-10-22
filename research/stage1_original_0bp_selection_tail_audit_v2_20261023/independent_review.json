@@ -1,0 +1,26 @@
+{
+  "verdict": "CONFIRM_V2_DESCRIPTIVE_CONCENTRATION",
+  "reviewer": "independent_stage1_nvda_design_review",
+  "recorder_id": "e03c00f4017746bf942c1306dddbdedb",
+  "native_status": "FINISHED",
+  "source_hashes_match": true,
+  "calendar_rows": 944,
+  "quarters": 16,
+  "Q3_negative_days": 8,
+  "Q3_zero_days": 47,
+  "Q3_worst2_share": 0.5795018066977847,
+  "Q3_worst5_share": 0.9016053573631932,
+  "Q3_effective_negative_loss_days": 4.731758855992485,
+  "Q3_negative_day_raw_vs_normalized_max_abs_gap": 1.940932485844371e-07,
+  "NAS_sha256": "9d0fab5f8717b65d75388a9775855c709a5e053762da69b3f8eadce31566810e",
+  "v1_failure_preserved": true,
+  "risk_state_followup": "state3 full-beta recovery hold phase not order HOLD; no cap binding on July6 or July27",
+  "model_fits": 0,
+  "accounts": 0,
+  "caveats": [
+    "no independent vendor quote/corporate action certification",
+    "no causal leverage or risk-state effect",
+    "no outcome-selected trading switch"
+  ],
+  "delivery_note": "Reviewer verified full Recorder report before root result compaction; full Q3 daily rows remain in Recorder analysis/daily and analysis/report. Root summary metrics unchanged."
+}

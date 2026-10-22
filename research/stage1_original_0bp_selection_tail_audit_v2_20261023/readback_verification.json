@@ -1,0 +1,16 @@
+{
+  "status": "native_Qlib_selection_concentration_readback_pass",
+  "recorder_id": "e03c00f4017746bf942c1306dddbdedb",
+  "daily_rows": 944,
+  "q3_rows": 64,
+  "q3_negative_days": 8,
+  "q3_selection_log_sum": -0.14390082802460138,
+  "q3_worst2_negative_share": 0.5795018066977847,
+  "q3_worst5_negative_share": 0.9016053573631932,
+  "q3_negative_day_max_raw_vs_normalized_return_gap": 1.940932485844371e-07,
+  "q3_all_max_raw_vs_normalized_return_gap": 0.000701541063284683,
+  "dataset_rows": 944,
+  "NAS_remote_scoped_restore_verified": true,
+  "model_fits": 0,
+  "accounts": 0
+}

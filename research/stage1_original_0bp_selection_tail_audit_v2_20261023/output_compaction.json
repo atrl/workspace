@@ -1,0 +1,10 @@
+{
+  "status": "slim_card_root_result_Q3_daily_detail_recorder_only",
+  "full_before_compaction_sha256": "72a9f2bc0360eb6e81cfe2367e0eb0e40f074b1138461ab9c285d353d0f2966e",
+  "full_recorder_report_sha256": "db329f5e7fcef35379e708a7a6976b50a2d4766b01d3a9470ee5b59e3357a626",
+  "removed_Q3_detailed_mismatch_rows_from_root": 51,
+  "full_daily_and_full_report_in_native_Qlib_Recorder": true,
+  "after_compaction_sha256": "85db833ffb9326a0b4104bf95f23523542e3d85ceb4fc9fb8f2d2a92dd3eb9a3",
+  "new_model_fits": 0,
+  "new_accounts": 0
+}
