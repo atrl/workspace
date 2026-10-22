@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "needs_entitled_survivorship_free_price_and_identity_source",
+  "purpose": "Source access brief for a Stage1-derived SOXX disclosed-basket downside-contribution feature; no factor, model or account is authorized by this brief.",
+  "existing_evidence": {
+    "2011_first_basket": "research/stage1_disclosed_loss_concentration_preflight_20261023/summary.json",
+    "2011_first_basket_sha256": "4dfc2f7b67530003c0680db848bee1a687874d90318288253ef9d3399d71d911",
+    "2011_three_missing_original_securities_weight": 0.16889242613581723,
+    "2017_first_basket": "research/stage1_soxx_2017_basket_price_coverage_preflight_20261023/summary.json",
+    "2017_first_basket_sha256": "6753cc7bea49f9225c49b85d3e5979e3cb742127e52805a690ab91ce933accda",
+    "2017_nine_aliases_missing_existing_Qlib_weight_lower_bound": 0.14274518693874025,
+    "IBKR_single_MXIM_error": "research/stage1_mxim_ibkr_delisted_price_source_probe_20261023/summary.json",
+    "IBKR_single_MXIM_error_sha256": "e824658cedd17dea1dbbe5e33e58ec64ec3fc89595af4afaa82a9cce073a758d"
+  },
+  "options": [
+    {
+      "source": "CRSP US Stock Databases via an authorized CRSP/WRDS license",
+      "role": "Preferred institutional source if existing access is available: permanent security-level PERMNO, name/CUSIP history, daily prices and corporate actions, with delisting information.",
+      "coverage_claim": "CRSP's product description says daily and monthly market data and corporate actions for active and inactive US securities, with permanent identifiers.",
+      "primary_docs": ["https://www.crsp.org/research/crsp-us-stock-databases-2025-layout/", "https://wrds-www.wharton.upenn.edu/documents/396/CRSP_US_Stock_Indices_Data_Descriptions.pdf"],
+      "access_gap": "Current workspace entitlement and exact SNDK/ALTR/BRCM plus 2017 nine-security rows have not been checked; no license was purchased."
+    },
+    {
+      "source": "Nasdaq Data Link Sharadar Equity Prices (SEP) and ACTIONS/TICKERS",
+      "role": "Candidate paid API source: active and delisted US tickers, raw and adjusted daily OHLCV, corporate actions and reference metadata from 1998 onward.",
+      "primary_docs": ["https://data.nasdaq.com/databases/SEP/documentation"],
+      "access_gap": "Premium authenticated feed; exact old security IDs, ticker reuse, 2010-2022 bars, event dates and historical revision behavior must be verified before use. No subscription was purchased."
+    },
+    {
+      "source": "EODHD delisted US EOD API",
+      "role": "Potential lower-friction price probe, not a complete accepted 2011 basket source by itself.",
+      "primary_docs": ["https://eodhd.com/financial-apis/delisted-stock-companies-data-2", "https://eodhd.com/financial-apis/api-for-historical-data-and-volumes"],
+      "known_limit": "EODHD states delistings before 2018 have EOD only; dividends and splits are included for delistings after 2018. The 2015-2016 ALTR/BRCM/SNDK corporate-action and acquisition path therefore needs another certified source for full 2011 training, even if EOD bars exist.",
+      "access_gap": "An API token and exact old-symbol coverage have not been checked; no purchase or data request occurred."
+    }
+  ],
+  "minimum_acceptance_checks_before_any_factor": [
+    "Use original SEC disclosed security names, share classes, CUSIP/ISIN and legal-entity lineage to assign permanent security identities; explicitly distinguish original SNDK, ALTR and BRCM from later reused or successor tickers and old Broadcom from Avago/AVGO.",
+    "Show dated raw daily opens/closes/volume and exchange/currency for every original held security over each decision-relevant period; include delisting/acquisition terminal treatment and flag missing dates. Do not silently remove missing names or renormalize reported weights.",
+    "Provide unadjusted prices plus splits, cash dividends and other distributions with ex-dates and, when a decision feature uses them, first-public timing. Current hindsight-adjusted closes alone are not point-in-time proof.",
+    "Check 2010-10-31 and 2017-03-31 basket positive controls against original reported share counts and fair values, then audit all quarterly baskets and price coverage before fitting.",
+    "Preserve received provider bytes, schema/license identity, snapshot version, SHA-256, Yanxuan NAS receipt and scoped restore; map accepted series through native Qlib D/DatasetH/Recorder.",
+    "Only after source qualification freeze one feature formula, original Stage1 receiver/control, cost and information gates. Any accepted feature first runs its own full funded 0bp Stage1-derived Tiered account versus SOXX."
+  ],
+  "budget": {"vendor_purchases": 0, "new_vendor_data_requests": 0, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "decision": "Source dependency is concrete; no listed vendor is yet verified for this exact basket and no SOXX strategy success is claimed."
+}
