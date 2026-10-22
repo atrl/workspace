@@ -18,15 +18,19 @@ def test_mobile_summary_uses_paired_qlib_marks_and_confirmed_fills(tmp_path):
             {"date": "2026-10-21", "source": "qlib.data.D.features", "equity": 110,
              "prices": {"SOXL": 55, "SOXX": 105}},
         ],
-        "fills": [{"side": "BUY", "symbol": "SOXX", "quantity": 2,
+        "fills": [{"side": "SELL", "symbol": "SOXL", "quantity": 1,
+                   "price": 54, "updated_time": "2026-10-20 09:31:00"},
+                  {"side": "BUY", "symbol": "SOXX", "quantity": 2,
                    "price": 101, "updated_time": "2026-10-21 09:31:00"}],
     }))
     summary = build_stage1_mobile_summary(tmp_path)
     assert summary["status"] == "ready"
     assert summary["performance"]["returns_pct"] == pytest.approx({"Stage1": 10.0, "SOXX": 5.0, "SOXL": 10.0})
     assert summary["performance"]["difference_vs_soxx_pp"] == pytest.approx(5.0)
-    assert summary["recent_fills"][0]["side"] == "BUY"
+    assert summary["recent_fills"][-1]["side"] == "BUY"
+    assert {row["side"] for row in summary["latest_by_side"]} == {"BUY", "SELL"}
     message = build_stage1_bark_message({"status": "heartbeat", "slot": "daily_heartbeat"},
                                         mobile_summary=summary)
     assert "SOXX +5.00% / SOXL +10.00%" in message["body"]
     assert "最近成交 2026-10-21 09:31:00 纽约 BUY 2 SOXX" in message["body"]
+    assert "最近成交 2026-10-20 09:31:00 纽约 SELL 1 SOXL" in message["body"]

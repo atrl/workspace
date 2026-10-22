@@ -61,6 +61,17 @@ def build_stage1_mobile_summary(root: Path) -> dict[str, Any]:
                "side": row["side"], "symbol": row["symbol"],
                "quantity": int(float(row["quantity"])), "price": float(row.get("price", 0))}
               for row in fills[-6:]]
+    latest_by_side = []
+    for side in ("BUY", "SELL"):
+        match = next((row for row in reversed(fills) if row["side"] == side), None)
+        if match is not None:
+            latest_by_side.append({
+                "time": match.get("updated_time") or match.get("create_time"),
+                "side": side, "symbol": match["symbol"],
+                "quantity": int(float(match["quantity"])),
+                "price": float(match.get("price", 0)),
+            })
+    latest_by_side.sort(key=lambda row: str(row["time"]))
     return {
         "status": "ready", "mode": "SIMULATE", "cycle_id": cycle["cycle_id"],
         "as_of": ledger.get("updated_at"), "inception_date": ledger.get("inception_date"),
@@ -68,5 +79,6 @@ def build_stage1_mobile_summary(root: Path) -> dict[str, Any]:
         "positions": {symbol: int(ledger.get("positions", {}).get(symbol, 0))
                       for symbol in ("SOXL", "SOXX")},
         "performance": performance, "recent_fills": recent,
+        "latest_by_side": latest_by_side,
         "real_broker_orders": False,
     }

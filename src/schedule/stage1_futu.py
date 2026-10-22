@@ -1238,8 +1238,7 @@ def build_stage1_bark_message(
                 f"Stage1 {returns['Stage1']:+.2f}% / SOXX {returns['SOXX']:+.2f}% / SOXL {returns['SOXL']:+.2f}%"
             )
             lines.append(f"相对 SOXX {performance['difference_vs_soxx_pp']:+.2f}pp（诊断值）")
-        fills = mobile_summary.get("recent_fills") or []
-        for fill in fills[-2:]:
+        for fill in mobile_summary.get("latest_by_side") or []:
             lines.append(f"最近成交 {fill['time']} 纽约 {fill['side']} {fill['quantity']} {fill['symbol']}")
 
     lines.extend(
