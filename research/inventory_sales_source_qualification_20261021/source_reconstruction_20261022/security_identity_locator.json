@@ -1,0 +1,73 @@
+{
+  "status": "disclosed_security_identifier_locator_complete",
+  "plan": "security_identity_locator_plan.json",
+  "source_recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+  "artifact_sha256": "911f0fc793e6c36d02fe518ddfb8a32251ebbef68289ccb9898a5c694a751c9c",
+  "source_rows_read": 2400,
+  "target_issuer_month_rows": 278,
+  "groups": [
+    {
+      "ticker": "ASX",
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "candidate_ciks": "[1122411]",
+      "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+      "months": 59,
+      "first_month": "2021-09-01",
+      "last_month": "2026-07-01",
+      "distinct_basket_accessions": 20
+    },
+    {
+      "ticker": "NVDA",
+      "cusip": "67066G104",
+      "isin": "US67066G1040",
+      "candidate_ciks": "[1045810]",
+      "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+      "months": 80,
+      "first_month": "2019-12-02",
+      "last_month": "2026-07-01",
+      "distinct_basket_accessions": 27
+    },
+    {
+      "ticker": "TSM",
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "candidate_ciks": "[1046179]",
+      "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+      "months": 80,
+      "first_month": "2019-12-02",
+      "last_month": "2026-07-01",
+      "distinct_basket_accessions": 27
+    },
+    {
+      "ticker": "UMC",
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "candidate_ciks": "[1033767]",
+      "identity_status": "[\"current_ticker_candidate_requires_historic_identity_check\"]",
+      "months": 59,
+      "first_month": "2021-09-01",
+      "last_month": "2026-07-01",
+      "distinct_basket_accessions": 20
+    }
+  ],
+  "summary_by_ticker": {
+    "NVDA": {
+      "issuer_months": 80,
+      "unique_security_id_groups": 1
+    },
+    "TSM": {
+      "issuer_months": 80,
+      "unique_security_id_groups": 1
+    },
+    "UMC": {
+      "issuer_months": 59,
+      "unique_security_id_groups": 1
+    },
+    "ASX": {
+      "issuer_months": 59,
+      "unique_security_id_groups": 1
+    }
+  },
+  "qualification_boundary": "Current candidate CIK and ticker are not historically verified issuer/security identity. No market values, model or SOXX result."
+}

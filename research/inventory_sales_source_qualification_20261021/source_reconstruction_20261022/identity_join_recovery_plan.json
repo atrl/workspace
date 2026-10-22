@@ -1,0 +1,113 @@
+{
+  "status": "frozen_identity_join_attempt_2",
+  "attempt": 2,
+  "maximum_attempts": 2,
+  "attempt1_plan_sha256": "b4b338eda55ab919b3846a173ce2f8d0a28d37adbfa5d4dd89ee741ee8e402a8",
+  "attempt1_failure_sha256": "a262f0ae09bd1de0b0ab4457cadd4872de638c3dc3ba532215a70f1dbab897fe",
+  "sources": [
+    {
+      "card": "research/etf_pit_fundamentals_repair_20261016",
+      "recorder_id": "1e947608d2f64491a754d576814e9165",
+      "summary_sha256": "c3f262970bc64aa735ea8191c943a75ca56b4276394f783caa1cd51611d5585c",
+      "verification_manifest_sha256": "8ee3d7fc75f2f2e50d587e40c387a367dd7ec7983940e6049bea837b3b937054",
+      "artifact": "inputs/holdings",
+      "artifact_sha256": "6f78d70bc5f3eef1b6fbb61967d552f599be97d411335549b9efc3edd4dfadd6"
+    },
+    {
+      "card": "research/inventory_sales_source_qualification_20261021",
+      "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+      "summary_sha256": "46dc6a037308eee8ccb84401a76ddf753d0f982ef566e9c182da9461393ce3bb",
+      "verification_manifest_sha256": "577361bcb56d0db2f4f921804305c8a37b6fddd60b50afb77cd453ae468075ff",
+      "artifact": "analysis/issuer_month_support",
+      "artifact_sha256": "911f0fc793e6c36d02fe518ddfb8a32251ebbef68289ccb9898a5c694a751c9c"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/security_identity_locator.json",
+      "sha256": "50e42b259872b7d3fabc737c8f96c4eee625d0daac971ff7e6901ce8f394e51d"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/NPORT_name_locator.json",
+      "sha256": "5c4b8db5d2cc61c532e5f7cd8b768f105b9b6447dc6f12d04cfbb502dde01ae2"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/security_identity_original_audit.json",
+      "sha256": "d92446520aa5d7176546f4f4f121e51c371fddbc51e012c58c572580e2948fab"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/security_identity_FY2025_original_audit.json",
+      "sha256": "dff7d4d5e6a22d4397ee84dd8de2f2ee8b7f7a8bdd0bffe3c7a6bb8834139b13"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/NVDA_historical_issuer_anchor_audit.json",
+      "sha256": "bbba293c496b3ee9a72a8d4431e1ac561c6c094534293152b4312ba70a57a5b8"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/NVDA_recent_identity_original_audit.json",
+      "sha256": "7617ac3c161a01d8e06442c3aa2146c3511ddaeb176ddaa398a6984bdf61bf3e"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/NVDA_CUSIP_crosscheck.json",
+      "sha256": "bf48383a7aeb0500fbaa4f5c13e040e521c3a2161e3297cd2feb25f69e586834"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/historical_filing_locator_20261022.json",
+      "sha256": "dabc21bed22d6b95629116d06590f4c4305fbfdc2e267bb922243e496511e614"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/original_filing_reconstruction_20261022.json",
+      "sha256": "6cab2f2913dca994e2fac976fc17c28b0aead81e75a76e8d7673eaa29120f80b"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/security_identity_right_edge_locator.json",
+      "sha256": "001328bfddbf00f17c7e0f02d28fd1c30af7f5357c4dbd2844b8570b99ae431a"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/nvda_gap_locator.json",
+      "sha256": "1bcf03ce4639b0f235cb86bef65315e8c6c03e0554a8e82faffbc072dc0a82e5"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/NVDA_recent_identity_locator.json",
+      "sha256": "053ae098b69cd11b5a6234c960def4ff7e9c89e6752b37a9a590b6c3521f1a78"
+    }
+  ],
+  "identifiers": {
+    "NVDA": {
+      "cik": 1045810,
+      "cusip": "67066G104",
+      "isin": "US67066G1040",
+      "link_type": "own_name_ticker_plus_fund_CUSIP_with_SEC_13G_corrob"
+    },
+    "TSM": {
+      "cik": 1046179,
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "link_type": "own_ADS_CUSIP_direct"
+    },
+    "UMC": {
+      "cik": 1033767,
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "link_type": "own_ADS_CUSIP_direct"
+    },
+    "ASX": {
+      "cik": 1122411,
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "link_type": "own_ADS_CUSIP_direct_post_2018"
+    }
+  },
+  "budget": {
+    "new_native_recorder_object_loads": 2,
+    "cumulative_native_recorder_object_load_cap": 4,
+    "new_D_calendar_calls": 0,
+    "new_market_data_reads": 0,
+    "new_HTTP": 0,
+    "new_fits": 0,
+    "new_accounts": 0,
+    "new_writable_recorders": 0
+  },
+  "repair": "Build accession-to-filed map from FY2017-FY2023 locator plus the separately pinned FY2024 original filing and FY2025 right-edge locator. Use explicit merge indicator, never inferred tuple attribute. Require every target row to match one fund holding and one prior own-issuer filing anchor.",
+  "decision_rule": "Do not promote to historical PIT. Report exact join/availability failures and categorize foreign direct issuer CUSIP anchors separately from NVDA indirect name/ticker/CUSIP chain. No future issuer filing may qualify an earlier fund disclosure."
+}

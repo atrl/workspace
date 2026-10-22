@@ -1,0 +1,25 @@
+{
+  "status": "frozen_read_only_security_identity_locator",
+  "purpose": "List exact disclosed N-PORT security identifiers and month spans for NVDA, TSM, UMC and ASX before seeking dated issuer-to-CIK evidence.",
+  "source_card": "research/inventory_sales_source_qualification_20261021",
+  "source_recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+  "summary_sha256": "46dc6a037308eee8ccb84401a76ddf753d0f982ef566e9c182da9461393ce3bb",
+  "verification_manifest_sha256": "577361bcb56d0db2f4f921804305c8a37b6fddd60b50afb77cd453ae468075ff",
+  "artifact": "analysis/issuer_month_support",
+  "artifact_sha256": "911f0fc793e6c36d02fe518ddfb8a32251ebbef68289ccb9898a5c694a751c9c",
+  "tickers": [
+    "NVDA",
+    "TSM",
+    "UMC",
+    "ASX"
+  ],
+  "budget": {
+    "native_recorder_object_loads": 1,
+    "market_data_reads": 0,
+    "HTTP": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "output": "Unique ticker/CUSIP/ISIN candidate CIK, first and last disclosed basket month, month count and identity-status counts; no financial values or returns.",
+  "decision_rule": "Treat these as historical fund-disclosed securities only. A current ticker-to-CIK candidate is not identity qualification; seek dated issuer/ADR/CUSIP evidence for each unique security interval."
+}

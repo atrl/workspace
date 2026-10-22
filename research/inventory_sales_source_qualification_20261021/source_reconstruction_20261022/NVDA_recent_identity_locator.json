@@ -1,0 +1,33 @@
+{
+  "status": "both_recent_NVDA_originals_located",
+  "plan": "NVDA_recent_identity_locator_plan.json",
+  "plan_sha256": "50d65266e099d10b0ae985c694e279f4ff75e58c4e2bd869870adfea8e2623f1",
+  "records": [
+    {
+      "report_date": "2025-01-26",
+      "matches": [
+        {
+          "accession": "0001045810-25-000023",
+          "primary_document": "nvda-20250126.htm",
+          "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/nvda-20250126.htm",
+          "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/0001045810-25-000023-index.htm",
+          "filed": "2025-02-26"
+        }
+      ],
+      "status": "unique_original_locator"
+    },
+    {
+      "report_date": "2026-01-25",
+      "matches": [
+        {
+          "accession": "0001045810-26-000021",
+          "primary_document": "nvda-20260125.htm",
+          "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+          "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/0001045810-26-000021-index.htm",
+          "filed": "2026-02-25"
+        }
+      ],
+      "status": "unique_original_locator"
+    }
+  ]
+}

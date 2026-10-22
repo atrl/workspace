@@ -1,0 +1,47 @@
+{
+  "status": "dated_security_join_passed_source_only",
+  "plan": "identity_join_recovery_plan.json",
+  "attempt": 2,
+  "prior_failure": "identity_join_attempt1_failure.json",
+  "native_source_artifacts": [
+    {
+      "recorder_id": "1e947608d2f64491a754d576814e9165",
+      "artifact_sha256": "6f78d70bc5f3eef1b6fbb61967d552f599be97d411335549b9efc3edd4dfadd6"
+    },
+    {
+      "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+      "artifact_sha256": "911f0fc793e6c36d02fe518ddfb8a32251ebbef68289ccb9898a5c694a751c9c"
+    }
+  ],
+  "new_source_object_loads": 2,
+  "cumulative_source_object_loads": 4,
+  "target_fund_holding_rows": 98,
+  "target_issuer_month_rows": 278,
+  "joined_rows": 278,
+  "failure_rows": [],
+  "failure_count": 0,
+  "by_ticker": {
+    "NVDA": {
+      "issuer_months": 80,
+      "linked_months": 80,
+      "link_type": "own_name_ticker_plus_fund_CUSIP_with_SEC_13G_corrob"
+    },
+    "TSM": {
+      "issuer_months": 80,
+      "linked_months": 80,
+      "link_type": "own_ADS_CUSIP_direct"
+    },
+    "UMC": {
+      "issuer_months": 59,
+      "linked_months": 59,
+      "link_type": "own_ADS_CUSIP_direct"
+    },
+    "ASX": {
+      "issuer_months": 59,
+      "linked_months": 59,
+      "link_type": "own_ADS_CUSIP_direct_post_2018"
+    }
+  },
+  "row_fingerprint_sha256": "a4cee1946500c4e83f9fb9aa505675edea225fe5f502d0c43363a68b14089bbc",
+  "qualification_boundary": "Fund-disclosed security identifier/name and a prior dated own-issuer anchor are checked for each month. Foreign ADS CUSIP is directly stated by issuer; NVDA CUSIP-to-CIK is an indirect legal-name/ticker chain corroborated by SEC 13G. This does not establish original financial value/vintage timing, PIT model input or SOXX efficacy."
+}

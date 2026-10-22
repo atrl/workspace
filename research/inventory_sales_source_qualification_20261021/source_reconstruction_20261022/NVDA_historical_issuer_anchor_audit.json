@@ -1,0 +1,104 @@
+{
+  "status": "NVDA_FY2019_FY2024_own_issuer_anchors_complete",
+  "plan": "NVDA_historical_issuer_anchor_plan.json",
+  "plan_sha256": "1d12069e91a45bd515632ef86ca302a4c645dea767041fa5a4de448928c52b73",
+  "records": [
+    {
+      "fiscal_year": 2019,
+      "accession": "0001045810-19-000023",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/nvda-2019x10k.htm",
+      "source_sha256": "58c4160990b611b738752250fc8f2f03ae81548fdb30a457e57561ef0779b315",
+      "original_registrant_names": [
+        "NVIDIA CORPORATION"
+      ],
+      "original_CIKs": [
+        "0001045810 from original SEC accession/index"
+      ],
+      "original_trading_symbols": [
+        "NVDA from original common-stock cover text"
+      ],
+      "status": "own_cover_name_symbol_SEC_accession_CIK_anchor"
+    },
+    {
+      "fiscal_year": 2020,
+      "accession": "0001045810-20-000010",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581020000010/nvda-2020x10k.htm",
+      "source_sha256": "d9532d1f0f4d23167a0b27611f4e5bd98e10d8ea00fc9b5b98489e9bc3340442",
+      "original_registrant_names": [
+        "NVIDIA CORP"
+      ],
+      "original_CIKs": [
+        "0001045810"
+      ],
+      "original_trading_symbols": [
+        "NVDA"
+      ],
+      "status": "own_inline_CIK_name_NVDA_common_stock_anchor"
+    },
+    {
+      "fiscal_year": 2021,
+      "accession": "0001045810-21-000010",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581021000010/nvda-20210131.htm",
+      "source_sha256": "19fa65a0ba5ed089a205a39b277471d43e9f676c07dce4aa122c97179db61078",
+      "original_registrant_names": [
+        "NVIDIA CORP"
+      ],
+      "original_CIKs": [
+        "0001045810"
+      ],
+      "original_trading_symbols": [
+        "NVDA"
+      ],
+      "status": "own_inline_CIK_name_NVDA_common_stock_anchor"
+    },
+    {
+      "fiscal_year": 2022,
+      "accession": "0001045810-22-000036",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000036/nvda-20220130.htm",
+      "source_sha256": "8f375d216ae713543a940c826bb125886d4c45371754c4b5755e76e716252d9c",
+      "original_registrant_names": [
+        "NVIDIA CORP"
+      ],
+      "original_CIKs": [
+        "0001045810"
+      ],
+      "original_trading_symbols": [
+        "NVDA"
+      ],
+      "status": "own_inline_CIK_name_NVDA_common_stock_anchor"
+    },
+    {
+      "fiscal_year": 2023,
+      "accession": "0001045810-23-000017",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000017/nvda-20230129.htm",
+      "source_sha256": "20da7c484b772a9566b1a9767f7516a0c16f9351b4ffdc977c5aeae7553e7c42",
+      "original_registrant_names": [
+        "NVIDIA CORP"
+      ],
+      "original_CIKs": [
+        "0001045810"
+      ],
+      "original_trading_symbols": [
+        "NVDA"
+      ],
+      "status": "own_inline_CIK_name_NVDA_common_stock_anchor"
+    },
+    {
+      "fiscal_year": 2024,
+      "accession": "0001045810-24-000029",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000029/nvda-20240128.htm",
+      "source_sha256": "a489f072539c9b6866e3d44c433e04dd997eb297ce0dbed2eb12352bf7e77e96",
+      "original_registrant_names": [
+        "NVIDIA CORP"
+      ],
+      "original_CIKs": [
+        "0001045810"
+      ],
+      "original_trading_symbols": [
+        "NVDA"
+      ],
+      "status": "own_inline_CIK_name_NVDA_common_stock_anchor"
+    }
+  ],
+  "boundary": "Own annual issuer/ticker/CIK anchors link legal issuer; CUSIP comes from original N-PORT and dated SEC third-party security descriptions. Original financial value timing remains separate."
+}

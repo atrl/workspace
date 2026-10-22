@@ -1,0 +1,47 @@
+{
+  "status": "four_security_dated_source_linkage_passed_original_value_timing_pending",
+  "scope": "Four stable disclosed SOXX N-PORT securities: NVDA, TSM, UMC and ASX; no full-basket identity or factor qualification.",
+  "native_source_join": {
+    "path": "identity_join_result.json",
+    "status": "dated_security_join_passed_source_only",
+    "fund_holding_rows": 98,
+    "issuer_month_rows": 278,
+    "joined_to_unique_prior_filed_fund_holding_and_issuer_anchor": 278,
+    "join_failures": 0,
+    "attempt1_failure_retained": "identity_join_attempt1_failure.json",
+    "cumulative_read_only_recorder_object_loads": 4
+  },
+  "direct_foreign_ADS_links": {
+    "issuer_months": 198,
+    "TSM": {"CUSIP": "874039100", "CIK": 1046179, "months": 80},
+    "UMC": {"CUSIP": "910873405", "CIK": 1033767, "months": 59},
+    "ASX": {"CUSIP": "00215W100", "CIK": 1122411, "months": 59},
+    "source": ["security_identity_original_audit.json", "security_identity_FY2025_original_audit.json"],
+    "boundary": "Each relevant own original 20-F states the NYSE ADS symbol and exact CUSIP. ASX's pre-2018 predecessor security is excluded."
+  },
+  "NVDA_indirect_common_stock_link": {
+    "CUSIP": "67066G104",
+    "CIK": 1045810,
+    "months": 80,
+    "fund_source": "NPORT_name_locator.json",
+    "own_issuer_sources": ["NVDA_historical_issuer_anchor_audit.json", "NVDA_recent_identity_original_audit.json"],
+    "third_party_CUSIP_crosscheck": "NVDA_CUSIP_crosscheck.json",
+    "boundary": "Fund filings give NVIDIA name/NVDA/CUSIP; own 10-K gives name/CIK/NVDA common stock; three dated SEC 13G filings independently describe NVIDIA common stock with the same CUSIP. This is a documented transitive chain, not an issuer 10-K CUSIP statement."
+  },
+  "original_bytes_archive": {
+    "manifest": "data/snapshots/inventory_sales_original_sec_20261022/archive_manifest.json",
+    "source_objects": 44,
+    "nas_sha256": "111b7ee2b449212723e59e853223efdcb6afc015745d8c61662b0219acb82466",
+    "nas_size_bytes": 15452764
+  },
+  "qualification_flags": {
+    "four_security_dated_linkage_source_supported": true,
+    "entire_basket_historical_identity_qualified": false,
+    "NVDA_direct_issuer_CUSIP_statement": false,
+    "original_financial_value_version_clock_qualified": false,
+    "historical_PIT_model_input_qualified": false,
+    "factor_effectiveness_tested": false,
+    "SOXX_excess_established": false
+  },
+  "next_minimum_work": "From the preserved exact original 10-K/20-F and EX-101.INS bytes, reconstruct only the four issuers' own-period inventory/revenue values, filing accession and conservative next-session availability. Exclude ASX FY2017-to-FY2018 and NVDA FY2018-to-FY2019 structural/accounting breaks. Check source coverage without renormalizing missing basket weight, then freeze one return-information screen only if the timestamp/version and identity inputs are admitted."
+}

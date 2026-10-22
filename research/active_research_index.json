@@ -4,7 +4,7 @@
   "active": [
     {
       "card": "research/inventory_sales_source_qualification_20261021",
-      "phase": "NVDA_source_bridge_complete_historical_identity_and_PIT_next",
+      "phase": "four_security_identity_source_chain_joined_original_value_clock_next",
       "role": "inventory_demand_mechanism_source_reconstruction",
       "full_economic_experiment": false,
       "status": "source_qualification_complete_next_design_pending",
@@ -13,7 +13,9 @@
       "source_reconstruction": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/summary.json",
       "nvda_gap_cause": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/nvda_gap_cause.json",
       "source_bridge_card": "research/inventory_sales_nvda_alias_bridge_20261022",
-      "source_bridge_summary": "research/inventory_sales_nvda_alias_bridge_20261022/summary.json"
+      "source_bridge_summary": "research/inventory_sales_nvda_alias_bridge_20261022/summary.json",
+      "security_identity_progress": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/security_identity_progress.json",
+      "original_source_archive": "data/snapshots/inventory_sales_original_sec_20261022/archive_manifest.json"
     }
   ],
   "framework": [

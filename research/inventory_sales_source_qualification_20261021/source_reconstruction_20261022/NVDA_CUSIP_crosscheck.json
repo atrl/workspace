@@ -1,0 +1,42 @@
+{
+  "status": "NVDA_third_party_CUSIP_crosscheck_complete",
+  "plan": "NVDA_CUSIP_crosscheck_plan.json",
+  "plan_sha256": "ae5ad361aa1b82bbc9a3d50aa6a5aa8c6cad48c629beea3552bbccc04c28959b",
+  "records": [
+    {
+      "event_date": "2019-12-31",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/102909/000110465920018469/tv01719-nvidiacorp.htm",
+      "bytes": 12251,
+      "sha256": "769d9c44da2f862a23335bd861ccfc4d34c1d844fb44545f2328f4d52d0e519b",
+      "NVIDIA_name_present": true,
+      "CUSIP_present": true,
+      "common_stock_present": true,
+      "event_date_present": true,
+      "status": "dated_SEC_filer_name_CUSIP_anchor"
+    },
+    {
+      "event_date": "2020-12-31",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/102909/000110465921018767/tv01517-nvidiacorp.htm",
+      "bytes": 12430,
+      "sha256": "31d8bc50faef185510d9652e469acb7e55a2bed6b2bc7f8d88085499b60ebdb3",
+      "NVIDIA_name_present": true,
+      "CUSIP_present": true,
+      "common_stock_present": true,
+      "event_date_present": true,
+      "status": "dated_SEC_filer_name_CUSIP_anchor"
+    },
+    {
+      "event_date": "2025-12-31",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000226/xslSCHEDULE_13G_X01/primary_doc.xml",
+      "bytes": 27383,
+      "sha256": "82ef11bbf7fca927545b69e2a4cc518d31144fa3d849b265fe1bbec7649998c8",
+      "NVIDIA_name_present": true,
+      "CUSIP_present": true,
+      "common_stock_present": true,
+      "event_date_present": true,
+      "status": "dated_SEC_filer_name_CUSIP_anchor",
+      "date_format": "12/31/2025 in original HTML-formatted XML"
+    }
+  ],
+  "boundary": "SEC-filed third-party Schedule 13G supports name/CUSIP/common-stock identity at reported event dates. Own NVIDIA 10-K supplies CIK/name/NVDA listed title. Neither alone certifies all intervening fund months or first-public financial facts."
+}

@@ -1,0 +1,413 @@
+{
+  "status": "frozen_exact_original_SEC_source_archive",
+  "purpose": "Preserve exact original foreign issuer annual 20-F, old original EX-101.INS, recent NVDA 10-K, and dated third-party NVDA CUSIP evidence for later original-value and identity qualification.",
+  "sources": [
+    {
+      "member": "foreign_instance/ASX/FY2017_000095010318003940_asx-20171231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010318003940/asx-20171231.xml",
+      "sha256": "6cd9ac4a5e57c3889e14ee36ea05e2593b0ea70a0590ef41f3fc71ae0c91fc83",
+      "bytes": 7335632,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "ASX",
+      "fiscal_year": 2017
+    },
+    {
+      "member": "foreign_instance/ASX/FY2018_000095010319005149_asx-20181231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/asx-20181231.xml",
+      "sha256": "335d6abd725014286749b497df5ca3e605b1800a1e609fda62544f2353381a32",
+      "bytes": 8165928,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "ASX",
+      "fiscal_year": 2018
+    },
+    {
+      "member": "foreign_instance/ASX/FY2019_000095010320006422_asx-20191231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010320006422/asx-20191231.xml",
+      "sha256": "6093c99c9b98df7de65616bc43af1d27d235bf4b8d60bf75de027a6df04e5337",
+      "bytes": 21290811,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "ASX",
+      "fiscal_year": 2019
+    },
+    {
+      "member": "foreign_instance/ASX/FY2020_000095010321005259_asx-20201231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010321005259/asx-20201231.xml",
+      "sha256": "54bedf9b7dacd59cbc969324c6416ee3001fb1143d80069e2afdd3f7566d29a2",
+      "bytes": 12875952,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "ASX",
+      "fiscal_year": 2020
+    },
+    {
+      "member": "foreign_instance/TSM/FY2017_000119312518121866_tsm-20171231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312518121866/tsm-20171231.xml",
+      "sha256": "2a305b2af64ea35011ade3583ab485d6cdc54c73ec295bfcd43f62dfc3811084",
+      "bytes": 5394910,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "TSM",
+      "fiscal_year": 2017
+    },
+    {
+      "member": "foreign_instance/TSM/FY2018_000119312519108390_tsm-20181231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312519108390/tsm-20181231.xml",
+      "sha256": "4e718989b347437a95d9b931b5978ed56e546dea6f2dbe28a47a14cf8e400dc2",
+      "bytes": 5398968,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "TSM",
+      "fiscal_year": 2018
+    },
+    {
+      "member": "foreign_instance/TSM/FY2019_000119312520107579_tsm-20191231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312520107579/tsm-20191231.xml",
+      "sha256": "44767672e94c22337cfd583d6cfc8ddef0f400a702ccd91e35bd85b51c7fa436",
+      "bytes": 8545721,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "TSM",
+      "fiscal_year": 2019
+    },
+    {
+      "member": "foreign_instance/TSM/FY2020_000119312521118512_tsm-20201231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312521118512/tsm-20201231.xml",
+      "sha256": "74e6d6c16eb35b824c5fbeeaf1c70eeb8784d94f1c03ee05a9bcc0ab87bceed4",
+      "bytes": 8390395,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "TSM",
+      "fiscal_year": 2020
+    },
+    {
+      "member": "foreign_instance/UMC/FY2017_000119312518132616_umc-20171231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312518132616/umc-20171231.xml",
+      "sha256": "6998e3a9cf30ff380fc4d3d527c46d88b521f63aff2ad24fe580b8ad36969080",
+      "bytes": 4692298,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "UMC",
+      "fiscal_year": 2017
+    },
+    {
+      "member": "foreign_instance/UMC/FY2018_000119312519117861_umc-20181231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312519117861/umc-20181231.xml",
+      "sha256": "e94b2d5b9627a6dee319fe9622a69c2836fbc2448d6946f0c280bc282e389b9a",
+      "bytes": 5460422,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "UMC",
+      "fiscal_year": 2018
+    },
+    {
+      "member": "foreign_instance/UMC/FY2019_000119312520121853_umc-20191231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312520121853/umc-20191231.xml",
+      "sha256": "e987423417a51d024322351c5f882afd15696811e4baa604e46c51e9113c739a",
+      "bytes": 11372849,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "UMC",
+      "fiscal_year": 2019
+    },
+    {
+      "member": "foreign_instance/UMC/FY2020_000156459021021578_umc-20201231.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000156459021021578/umc-20201231.xml",
+      "sha256": "5a9f94a10958574b1dd0b26617ea38a7c3f5af2bd1338c4dd39cab2a1f5a0867",
+      "bytes": 16424710,
+      "kind": "original_20F_EX101_INS",
+      "ticker": "UMC",
+      "fiscal_year": 2020
+    },
+    {
+      "member": "foreign_primary/ASX/FY2017_000095010318003940_dp87030_20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010318003940/dp87030_20f.htm",
+      "sha256": "9c3bb2e4293db8071d15f9acdb563f75e1f29026f308c6366a0770ff1c7d3acd",
+      "bytes": 4423421,
+      "kind": "original_20F",
+      "ticker": "ASX",
+      "fiscal_year": 2017
+    },
+    {
+      "member": "foreign_primary/ASX/FY2018_000095010319005149_dp102525_20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/dp102525_20f.htm",
+      "sha256": "b3a512b70ce3010d3c7c39abd2c054e839b2cf8f9ee990246ad09837e99e8a50",
+      "bytes": 4649304,
+      "kind": "original_20F",
+      "ticker": "ASX",
+      "fiscal_year": 2018
+    },
+    {
+      "member": "foreign_primary/ASX/FY2019_000095010320006422_dp121474_20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010320006422/dp121474_20f.htm",
+      "sha256": "0a1c9ebba064fb34e8d0482ffb2a677cc0268e42ee3f7c09c9590d272be0a254",
+      "bytes": 6338872,
+      "kind": "original_20F",
+      "ticker": "ASX",
+      "fiscal_year": 2019
+    },
+    {
+      "member": "foreign_primary/ASX/FY2020_000095010321005259_dp146696_20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010321005259/dp146696_20f.htm",
+      "sha256": "4df74efe0a52744681426de2f07ee4116d753de2ce3d1fe8c5f50f92bd08598e",
+      "bytes": 4644346,
+      "kind": "original_20F",
+      "ticker": "ASX",
+      "fiscal_year": 2020
+    },
+    {
+      "member": "foreign_primary/ASX/FY2021_000119312522087341_d272809d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312522087341/d272809d20f.htm",
+      "sha256": "660445832e7aafbfcb163f7df1a8587e7d879040a648d735d3f33164959f6ebd",
+      "bytes": 12769158,
+      "kind": "original_20F",
+      "ticker": "ASX",
+      "fiscal_year": 2021
+    },
+    {
+      "member": "foreign_primary/ASX/FY2022_000119312523095811_d418771d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312523095811/d418771d20f.htm",
+      "sha256": "b00a82070facf912d9e363e06ec176c826e24c3ec408665db5d4c998193f4d55",
+      "bytes": 10253932,
+      "kind": "original_20F",
+      "ticker": "ASX",
+      "fiscal_year": 2022
+    },
+    {
+      "member": "foreign_primary/ASX/FY2023_000119312524085380_d434934d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312524085380/d434934d20f.htm",
+      "sha256": "d7295901bbda8918c18aed46908bc53e8d4b42499a467b3cd11ba21fbbdf0f32",
+      "bytes": 10405567,
+      "kind": "original_20F",
+      "ticker": "ASX",
+      "fiscal_year": 2023
+    },
+    {
+      "member": "foreign_primary/ASX/FY2024_000119312525064603_d889608d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312525064603/d889608d20f.htm",
+      "sha256": "45708ba71b2200a78444c29145cc4d1ea7e315b9a9c92e346ad915859d390982",
+      "bytes": 11017056,
+      "kind": "original_20F",
+      "ticker": "ASX",
+      "fiscal_year": 2024
+    },
+    {
+      "member": "foreign_primary/ASX/FY2025_000119312526135585_d50802d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312526135585/d50802d20f.htm",
+      "sha256": "54e7a8d18f45ee907ceb168aeb47634502dd81e9059e41b4ceb5ffac768280af",
+      "bytes": 10672453,
+      "kind": "original_20F",
+      "ticker": "ASX",
+      "fiscal_year": 2025
+    },
+    {
+      "member": "foreign_primary/TSM/FY2017_000119312518121866_d459142d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312518121866/d459142d20f.htm",
+      "sha256": "5e46d94477f94bae82491c93d1c9584da37d0aa167e0b5914923e83982f027a8",
+      "bytes": 3073362,
+      "kind": "original_20F",
+      "ticker": "TSM",
+      "fiscal_year": 2017
+    },
+    {
+      "member": "foreign_primary/TSM/FY2018_000119312519108390_d665387d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312519108390/d665387d20f.htm",
+      "sha256": "5a217378a99761f8e8cce4eb353c53caee91f740d86aba11c76975baa12036b2",
+      "bytes": 2936557,
+      "kind": "original_20F",
+      "ticker": "TSM",
+      "fiscal_year": 2018
+    },
+    {
+      "member": "foreign_primary/TSM/FY2019_000119312520107579_d831201d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312520107579/d831201d20f.htm",
+      "sha256": "fe733c7177bb12c04bb72f064f3ad35cc266f3a50de36ea686f0141e058ab258",
+      "bytes": 2908760,
+      "kind": "original_20F",
+      "ticker": "TSM",
+      "fiscal_year": 2019
+    },
+    {
+      "member": "foreign_primary/TSM/FY2020_000119312521118512_d94821d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312521118512/d94821d20f.htm",
+      "sha256": "9041524c3bd5b9aa490c276bf556e4c4148dce61b5cd943761b3991378276033",
+      "bytes": 2869715,
+      "kind": "original_20F",
+      "ticker": "TSM",
+      "fiscal_year": 2020
+    },
+    {
+      "member": "foreign_primary/TSM/FY2021_000119312522104891_d204786d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312522104891/d204786d20f.htm",
+      "sha256": "57aebee3578e98d63f573fd4f34659dda13a880f1929caace38c43ab88e3ddb5",
+      "bytes": 6930877,
+      "kind": "original_20F",
+      "ticker": "TSM",
+      "fiscal_year": 2021
+    },
+    {
+      "member": "foreign_primary/TSM/FY2022_000119312523107214_d428519d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312523107214/d428519d20f.htm",
+      "sha256": "348808dc3df339b6b637b92a26c6d04e4763bc6dbf2e1f120789a516d8b58fa3",
+      "bytes": 6175810,
+      "kind": "original_20F",
+      "ticker": "TSM",
+      "fiscal_year": 2022
+    },
+    {
+      "member": "foreign_primary/TSM/FY2023_000119312524099840_d592628d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312524099840/d592628d20f.htm",
+      "sha256": "868b11a4996ed7b340e3d4c33597c3530a62892a80a8362bb7b20eda7cfc7f0c",
+      "bytes": 7294368,
+      "kind": "original_20F",
+      "ticker": "TSM",
+      "fiscal_year": 2023
+    },
+    {
+      "member": "foreign_primary/TSM/FY2024_000119312525083423_d896993d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312525083423/d896993d20f.htm",
+      "sha256": "eb4de82b8902b11c707cf8f4f0e3825599dd8d772d128d3a1f624527739b1d00",
+      "bytes": 8404908,
+      "kind": "original_20F",
+      "ticker": "TSM",
+      "fiscal_year": 2024
+    },
+    {
+      "member": "foreign_primary/TSM/FY2025_000162828026025362_tsm-20251231.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm",
+      "sha256": "8ad4d7163bf308c22e92617be162c5bc7718e4e0debabb2cd021d306542df366",
+      "bytes": 10355931,
+      "kind": "original_20F",
+      "ticker": "TSM",
+      "fiscal_year": 2025
+    },
+    {
+      "member": "foreign_primary/UMC/FY2017_000119312518132616_d484523d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312518132616/d484523d20f.htm",
+      "sha256": "b96fab1f9d6f0a45b477a3c11c3cf452ac3ea246cea4b3c87e798266e5e40435",
+      "bytes": 2754800,
+      "kind": "original_20F",
+      "ticker": "UMC",
+      "fiscal_year": 2017
+    },
+    {
+      "member": "foreign_primary/UMC/FY2018_000119312519117861_d603585d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312519117861/d603585d20f.htm",
+      "sha256": "d28cc9d99ba9c65ac879672f83c1658e5761e091e722a93391f3a03214f8ea73",
+      "bytes": 2934151,
+      "kind": "original_20F",
+      "ticker": "UMC",
+      "fiscal_year": 2018
+    },
+    {
+      "member": "foreign_primary/UMC/FY2019_000119312520121853_d820941d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312520121853/d820941d20f.htm",
+      "sha256": "409004e005078fa6bc9ee6888890330da124c5ec223b6483074c38bb114df63c",
+      "bytes": 3164827,
+      "kind": "original_20F",
+      "ticker": "UMC",
+      "fiscal_year": 2019
+    },
+    {
+      "member": "foreign_primary/UMC/FY2020_000156459021021578_umc-20f_20201231.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000156459021021578/umc-20f_20201231.htm",
+      "sha256": "ac570a3778337b3e75ca401bee116357c383a6121c6f9655135edce848889448",
+      "bytes": 12965393,
+      "kind": "original_20F",
+      "ticker": "UMC",
+      "fiscal_year": 2020
+    },
+    {
+      "member": "foreign_primary/UMC/FY2021_000119312522125284_d168667d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312522125284/d168667d20f.htm",
+      "sha256": "d1378792f54618e9dd69eae5ee5ace3942a6321942d14b37a783ba744cdc8ce5",
+      "bytes": 6856308,
+      "kind": "original_20F",
+      "ticker": "UMC",
+      "fiscal_year": 2021
+    },
+    {
+      "member": "foreign_primary/UMC/FY2022_000119312523119772_d389572d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312523119772/d389572d20f.htm",
+      "sha256": "5004ffafa60b30975433834ff82d076120231fde582e973ccac7bda403aac251",
+      "bytes": 6492110,
+      "kind": "original_20F",
+      "ticker": "UMC",
+      "fiscal_year": 2022
+    },
+    {
+      "member": "foreign_primary/UMC/FY2023_000119312524111429_d448612d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312524111429/d448612d20f.htm",
+      "sha256": "6cbddf9013c9d65447024c6a6221ec45f4395a83a1b4acc6e54fc632e0dc8ba2",
+      "bytes": 5520321,
+      "kind": "original_20F",
+      "ticker": "UMC",
+      "fiscal_year": 2023
+    },
+    {
+      "member": "foreign_primary/UMC/FY2024_000119312525092142_d846836d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312525092142/d846836d20f.htm",
+      "sha256": "d682b2f62725026ed41db763812fc84121b6b69b01e383c8706387c2d7f2faef",
+      "bytes": 5672592,
+      "kind": "original_20F",
+      "ticker": "UMC",
+      "fiscal_year": 2024
+    },
+    {
+      "member": "foreign_primary/UMC/FY2025_000119312526193757_d91630d20f.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312526193757/d91630d20f.htm",
+      "sha256": "b2a2f75bc31f2aed98ca636c2929b0420cd4f307d5ebfea0c48fe198bd6cd8c5",
+      "bytes": 5417002,
+      "kind": "original_20F",
+      "ticker": "UMC",
+      "fiscal_year": 2025
+    },
+    {
+      "member": "nvda_recent/FY2025_000104581025000023_nvda-20250126.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/nvda-20250126.htm",
+      "sha256": "6b7305159bab1481deb3bacc7b488d1b8a1f585d889c9afd735c533f321bd4dd",
+      "bytes": 2067635,
+      "kind": "original_10K",
+      "ticker": "NVDA",
+      "fiscal_year": 2025
+    },
+    {
+      "member": "nvda_recent/FY2026_000104581026000021_nvda-20260125.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+      "sha256": "da9d303996fc11fe1e7d64c463bc3b338521fbf1291eacda3e269d446abfaa36",
+      "bytes": 1967931,
+      "kind": "original_10K",
+      "ticker": "NVDA",
+      "fiscal_year": 2026
+    },
+    {
+      "member": "nvda_third_party_CUSIP/2019-12-31_tv01719-nvidiacorp.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/102909/000110465920018469/tv01719-nvidiacorp.htm",
+      "sha256": "769d9c44da2f862a23335bd861ccfc4d34c1d844fb44545f2328f4d52d0e519b",
+      "bytes": 12251,
+      "kind": "SEC_third_party_13G",
+      "ticker": "NVDA",
+      "event_date": "2019-12-31"
+    },
+    {
+      "member": "nvda_third_party_CUSIP/2020-12-31_tv01517-nvidiacorp.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/102909/000110465921018767/tv01517-nvidiacorp.htm",
+      "sha256": "31d8bc50faef185510d9652e469acb7e55a2bed6b2bc7f8d88085499b60ebdb3",
+      "bytes": 12430,
+      "kind": "SEC_third_party_13G",
+      "ticker": "NVDA",
+      "event_date": "2020-12-31"
+    },
+    {
+      "member": "nvda_third_party_CUSIP/2025-12-31_primary_doc.xml",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000226/xslSCHEDULE_13G_X01/primary_doc.xml",
+      "sha256": "82ef11bbf7fca927545b69e2a4cc518d31144fa3d849b265fe1bbec7649998c8",
+      "bytes": 27383,
+      "kind": "SEC_third_party_13G",
+      "ticker": "NVDA",
+      "event_date": "2025-12-31"
+    }
+  ],
+  "prior_NVDA_archive": "data/snapshots/nvda_original_10k_bridge_20261022/manifest.json",
+  "archive_format": "deterministic tar.gz with zero mtime/uid/gid; exact source bytes per member",
+  "budget": {
+    "original_source_objects": 44,
+    "source_HTTP": 0,
+    "NAS_artifact_uploads": 1,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "decision_rule": "Hash every existing downloaded source against prior saved source-audit digest before archive. Upload one blob under its SHA-256 and require NAS receipt SHA and size equality. This preserves bytes; it does not make source timing or factor efficacy qualified."
+}

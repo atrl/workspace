@@ -19,7 +19,10 @@
   },
   "structural_boundary": {
     "ticker": "ASX",
-    "period_pair": ["2017-12-31", "2018-12-31"],
+    "period_pair": [
+      "2017-12-31",
+      "2018-12-31"
+    ],
     "status": "not_comparable_without_same_scope_reconstruction",
     "original_source": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/dp102525_20f.htm",
     "original_accession": "0000950103-19-005149",
@@ -43,5 +46,14 @@
     "factor_effectiveness": false,
     "SOXX_excess": false
   },
-  "next_minimum_work": "Freeze an exact original-source NVDA total-revenue alias bridge for FY2021-FY2023 while excluding the FY2018/FY2019 accounting break; separately resolve historical N-PORT security-to-CIK continuity and ASX restructuring, and qualify value-availability/version clocks before one inventory-sales information test."
+  "next_minimum_work": "Reconstruct four issuers own-period inventory/revenue values from the archived original filings, with conservative next-session filing availability and explicit ASX/NVDA breaks; preserve missing fund weight and require source admission before one return-information screen.",
+  "four_security_identity_source_progress": {
+    "path": "security_identity_progress.json",
+    "issuer_month_rows": 278,
+    "dated_source_join_passed": 278,
+    "foreign_direct_ADS_CUSIP_months": 198,
+    "NVDA_transitive_name_ticker_CUSIP_months": 80,
+    "strict_full_basket_historical_identity_qualified": false,
+    "original_value_timing_qualified": false
+  }
 }

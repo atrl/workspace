@@ -1,0 +1,56 @@
+{
+  "status": "FY2025_right_edge_originals_located",
+  "plan": "security_identity_right_edge_locator_plan.json",
+  "plan_sha256": "e3c5ffb22e17474d24dbfc17614a6243250a02192905e4ede3a0b529c689fe9a",
+  "records": [
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "report_date": "2025-12-31",
+      "matches": [
+        {
+          "accession": "0001628280-26-025362",
+          "primary_document": "tsm-20251231.htm",
+          "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm",
+          "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/0001628280-26-025362-index.htm",
+          "filed": "2026-04-16",
+          "acceptance_datetime_api": "2026-04-16T14:05:49.000Z"
+        }
+      ],
+      "status": "unique_original_locator"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "report_date": "2025-12-31",
+      "matches": [
+        {
+          "accession": "0001193125-26-193757",
+          "primary_document": "d91630d20f.htm",
+          "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312526193757/d91630d20f.htm",
+          "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312526193757/0001193125-26-193757-index.htm",
+          "filed": "2026-04-30",
+          "acceptance_datetime_api": "2026-04-30T14:04:15.000Z"
+        }
+      ],
+      "status": "unique_original_locator"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "report_date": "2025-12-31",
+      "matches": [
+        {
+          "accession": "0001193125-26-135585",
+          "primary_document": "d50802d20f.htm",
+          "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312526135585/d50802d20f.htm",
+          "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312526135585/0001193125-26-135585-index.htm",
+          "filed": "2026-04-01",
+          "acceptance_datetime_api": "2026-04-01T14:05:49.000Z"
+        }
+      ],
+      "status": "unique_original_locator"
+    }
+  ],
+  "original_primary_bodies_read": 0
+}

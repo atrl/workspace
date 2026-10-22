@@ -20,24 +20,26 @@
   },
   "current_task": {
     "card": "research/inventory_sales_source_qualification_20261021",
-    "phase": "NVDA_FY2022_dual_alias_source_bridge_complete_identity_and_PIT_pending",
+    "phase": "four_security_dated_identity_source_chain_278_months_joined_original_value_clock_next",
     "implementation_executor": null,
     "independent_reviewer": null,
-    "next_action": "Qualify dated N-PORT security-to-CIK continuity for the three high-weight foreign issuers and NVDA, preserve ASX FY2018 scope break, and qualify original value availability/version clocks. Only after source admission freeze one inventory-vs-sales return-information screen; no model or account running.",
-    "last_scientific_observation": "Exact original FY2022 NVDA equal-value dual revenue tags, without retagging neighboring years, add two conditional mechanical annual pairs (529 to 531) and recover 18 NVDA disclosed-basket months. Existing non-NVDA and NVDA pair keys remain; FY2018/FY2019 accounting break stays excluded. Native Qlib Recorder 1075c1691c8d42b89365ce8cfe554f91 passed targeted readback. Historical PIT/model input, factor efficacy and SOXX excess remain false.",
+    "next_action": "From the NAS-preserved exact original filings and original EX-101.INS, reconstruct own-period inventory/revenue values for NVDA, TSM, UMC and ASX with accession/version and conservative next-Qlib-session availability. Exclude ASX FY2017/FY2018 and NVDA FY2018/FY2019 breaks, retain uncovered N-PORT weight, and freeze one return-information screen only after source admission. No model or account running.",
+    "last_scientific_observation": "Qlib Recorder source join links 278/278 selected issuer-month rows to a unique prior-filed N-PORT security and earlier own-issuer filing anchor: 198 foreign ADS months with direct issuer CUSIP, 80 NVDA months through an indirect name/ticker/CUSIP chain corroborated by SEC 13G. Exact bytes of 44 original source documents are archived on NAS. Full-basket identity, original financial value/vintage timing, historical PIT/model input, factor efficacy and SOXX excess remain unqualified.",
     "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once",
     "run_state": "research/inventory_sales_source_qualification_20261021/attempt2_run_state.json",
     "job_handle": "research/inventory_sales_source_qualification_20261021/attempt2_job_handle.json",
     "execution_receipt": "research/inventory_sales_source_qualification_20261021/attempt2_process_exit.json",
     "phase_receipts": "research/inventory_sales_source_qualification_20261021/phase_receipts.json",
-    "last_operational_observation": "Attempt1 failed before a new Recorder after 4 verified source loads and 1 D.calendar; one bounded attribution read used 1 object. Attempt2 completed using 4 more verified source objects and 1 D.calendar, 0 fits/accounts, one finished Recorder. Targeted native readback passed; Recorder archived to NAS with hash c7c8b37bf9cee84d2e8a2c60093769e0dec72afcbd29184508a5860371f8d3b9. No live notebook process.",
+    "last_operational_observation": "This identity source phase used six hash-verified read-only Recorder object loads, eight targeted new original SEC document downloads and one 44-object NAS source archive upload. The first two-object join attempt failed before a result due a missing FY2024 filed-date map; the one bounded recovery used two more objects and joined 278/278 rows. No writable Recorder, D.calendar, fits, accounts or market labels; no live process.",
     "source_gap_report": "research/inventory_sales_source_qualification_20261021/gap_triage.json",
     "original_filing_leads": "research/inventory_sales_source_qualification_20261021/original_filing_leads.json",
     "original_filing_probe": "research/inventory_sales_source_qualification_20261021/original_filing_reconstruction_20261022.json",
     "source_reconstruction": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/summary.json",
     "nvda_gap_cause": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/nvda_gap_cause.json",
     "source_bridge_card": "research/inventory_sales_nvda_alias_bridge_20261022",
-    "source_bridge_summary": "research/inventory_sales_nvda_alias_bridge_20261022/summary.json"
+    "source_bridge_summary": "research/inventory_sales_nvda_alias_bridge_20261022/summary.json",
+    "security_identity_progress": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/security_identity_progress.json",
+    "original_source_archive": "data/snapshots/inventory_sales_original_sec_20261022/archive_manifest.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -63,7 +65,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T02:25:02+00:00",
+  "updated_at_utc": "2026-10-22T02:41:33+00:00",
   "execution_totals": {
     "new_model_fits": 39,
     "new_native_accounts": 43,
@@ -76,6 +78,7 @@
     "basis": "Prior campaign 35 fits/43 accounts plus basket lead and signed variance: 2 information fits each, zero accounts. Seven economic experiments and two information experiments closed; no historical pass or qualified forward days. Earlier repository campaigns remain in their own histories.",
     "completed_fixed_information_experiments": 2,
     "completed_source_qualifications": 1,
-    "completed_source_repairs": 1
+    "completed_source_repairs": 1,
+    "completed_identity_source_checks": 1
   }
 }

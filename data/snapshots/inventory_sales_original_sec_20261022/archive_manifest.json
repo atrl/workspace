@@ -1,0 +1,20 @@
+{
+  "status": "exact_original_bytes_archived_on_NAS",
+  "plan": "archive_plan.json",
+  "plan_sha256": "6f3413e86f3bfd6286760eadd20107c9d01805dd45535982fd61cc06e9930c7e",
+  "archive_sha256": "111b7ee2b449212723e59e853223efdcb6afc015745d8c61662b0219acb82466",
+  "archive_bytes": 15452764,
+  "archive_members": 44,
+  "raw_member_bytes": 297338127,
+  "nas_evidence": {
+    "sha256": "111b7ee2b449212723e59e853223efdcb6afc015745d8c61662b0219acb82466",
+    "size_bytes": 15452764,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/11/1b/111b7ee2b449212723e59e853223efdcb6afc015745d8c61662b0219acb82466",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 10:40:22.519839+08",
+    "duplicate": false
+  },
+  "qualification_boundary": "Byte preservation only; no PIT or factor result.",
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/11/1b/111b7ee2b449212723e59e853223efdcb6afc015745d8c61662b0219acb82466"
+}

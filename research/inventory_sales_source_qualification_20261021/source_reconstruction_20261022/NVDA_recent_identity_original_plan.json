@@ -1,0 +1,31 @@
+{
+  "status": "frozen_NVDA_FY2025_FY2026_original_issuer_cover_audit",
+  "purpose": "Check own original 10-K cover for NVIDIA legal issuer name, CIK 1045810 and NVDA listed common-stock symbol through the 2026 N-PORT right edge.",
+  "locator_path": "NVDA_recent_identity_locator.json",
+  "locator_sha256": "053ae098b69cd11b5a6234c960def4ff7e9c89e6752b37a9a590b6c3521f1a78",
+  "sources": [
+    {
+      "report_date": "2025-01-26",
+      "accession": "0001045810-25-000023",
+      "primary_document": "nvda-20250126.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/nvda-20250126.htm",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/0001045810-25-000023-index.htm",
+      "filed": "2025-02-26"
+    },
+    {
+      "report_date": "2026-01-25",
+      "accession": "0001045810-26-000021",
+      "primary_document": "nvda-20260125.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/0001045810-26-000021-index.htm",
+      "filed": "2026-02-25"
+    }
+  ],
+  "budget": {
+    "new_original_primary_HTTP": 2,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "decision_rule": "An own CIK/name/NVDA cover anchor plus fund-disclosed name/CUSIP is a dated identity chain, but do not infer original financial fact publication timing from it."
+}

@@ -1,0 +1,55 @@
+{
+  "status": "frozen_FY2025_original_ADS_identity_audit",
+  "purpose": "Check exact FY2025 original 20-F issuer/ticker/CUSIP anchor for the 2026 right-edge N-PORT interval.",
+  "locator_path": "security_identity_right_edge_locator.json",
+  "locator_sha256": "001328bfddbf00f17c7e0f02d28fd1c30af7f5357c4dbd2844b8570b99ae431a",
+  "sources": [
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "accession": "0001628280-26-025362",
+      "primary_document": "tsm-20251231.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/0001628280-26-025362-index.htm",
+      "filed": "2026-04-16",
+      "acceptance_datetime_api": "2026-04-16T14:05:49.000Z"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "accession": "0001193125-26-193757",
+      "primary_document": "d91630d20f.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312526193757/d91630d20f.htm",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312526193757/0001193125-26-193757-index.htm",
+      "filed": "2026-04-30",
+      "acceptance_datetime_api": "2026-04-30T14:04:15.000Z"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "accession": "0001193125-26-135585",
+      "primary_document": "d50802d20f.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312526135585/d50802d20f.htm",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312526135585/0001193125-26-135585-index.htm",
+      "filed": "2026-04-01",
+      "acceptance_datetime_api": "2026-04-01T14:05:49.000Z"
+    }
+  ],
+  "budget": {
+    "new_original_primary_HTTP": 3,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "checks": [
+    "Bind downloaded exact original bytes to SEC accession, size and SHA-256.",
+    "Require own original filing to identify same NYSE ADS ticker and CUSIP as fund-disclosed security.",
+    "Keep publication/value timing and intervening monthly identity separate; no factor or return use."
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "status": "FY2025_original_ADS_anchor_audit_complete",
+  "plan": "security_identity_FY2025_original_plan.json",
+  "plan_sha256": "4f3ef9b9cafb6702c94d452604e7c96e1a3fe05ab1f73f7438808abe43f08abf",
+  "records": [
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "accession": "0001628280-26-025362",
+      "filed": "2026-04-16",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm",
+      "bytes": 10355931,
+      "sha256": "8ad4d7163bf308c22e92617be162c5bc7718e4e0debabb2cd021d306542df366",
+      "expected_CUSIP": "874039100",
+      "matching_CUSIP_mentions": 1,
+      "NYSE_ADS_ticker_near_CUSIP": true,
+      "ADS_near_CUSIP": true,
+      "status": "own_original_ADS_ticker_CUSIP_anchor"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "accession": "0001193125-26-193757",
+      "filed": "2026-04-30",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312526193757/d91630d20f.htm",
+      "bytes": 5417002,
+      "sha256": "b2a2f75bc31f2aed98ca636c2929b0420cd4f307d5ebfea0c48fe198bd6cd8c5",
+      "expected_CUSIP": "910873405",
+      "matching_CUSIP_mentions": 1,
+      "NYSE_ADS_ticker_near_CUSIP": true,
+      "ADS_near_CUSIP": true,
+      "status": "own_original_ADS_ticker_CUSIP_anchor"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "accession": "0001193125-26-135585",
+      "filed": "2026-04-01",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312526135585/d50802d20f.htm",
+      "bytes": 10672453,
+      "sha256": "54e7a8d18f45ee907ceb168aeb47634502dd81e9059e41b4ceb5ffac768280af",
+      "expected_CUSIP": "00215W100",
+      "matching_CUSIP_mentions": 1,
+      "NYSE_ADS_ticker_near_CUSIP": true,
+      "ADS_near_CUSIP": true,
+      "status": "own_original_ADS_ticker_CUSIP_anchor"
+    }
+  ],
+  "limits": [
+    "Anchors issuer/ticker/CUSIP in own original FY2025 filing by its filing date. Does not prove first public financial facts or every intervening fund-disclosed month.",
+    "Fund-disclosed ISIN remains a separate identifier not independently verified by these CUSIP paragraphs."
+  ]
+}

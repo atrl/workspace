@@ -1,0 +1,289 @@
+{
+  "status": "frozen_original_issuer_ADS_identity_anchor_audit",
+  "purpose": "Test whether own original TSM/UMC/ASX FY2017-FY2024 20-F identifies the same NYSE ADS ticker/CUSIP disclosed by historical SOXX N-PORT holdings, without inferring intervening-month continuity.",
+  "source_ledger": [
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/historical_original_body_audit_20261022.json",
+      "sha256": "c0209a331faf485089d28772371aed129d86577f175f2ee7b1c334a508c98606"
+    },
+    {
+      "path": "research/inventory_sales_source_qualification_20261021/original_filing_reconstruction_20261022.json",
+      "sha256": "6cab2f2913dca994e2fac976fc17c28b0aead81e75a76e8d7673eaa29120f80b"
+    }
+  ],
+  "sources": [
+    {
+      "ticker": "TSM",
+      "period_end": "2017-12-31",
+      "cik": 1046179,
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "accession": "0001193125-18-121866",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312518121866/d459142d20f.htm",
+      "bytes": 3073362,
+      "sha256": "5e46d94477f94bae82491c93d1c9584da37d0aa167e0b5914923e83982f027a8"
+    },
+    {
+      "ticker": "TSM",
+      "period_end": "2018-12-31",
+      "cik": 1046179,
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "accession": "0001193125-19-108390",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312519108390/d665387d20f.htm",
+      "bytes": 2936557,
+      "sha256": "5a217378a99761f8e8cce4eb353c53caee91f740d86aba11c76975baa12036b2"
+    },
+    {
+      "ticker": "TSM",
+      "period_end": "2019-12-31",
+      "cik": 1046179,
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "accession": "0001193125-20-107579",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312520107579/d831201d20f.htm",
+      "bytes": 2908760,
+      "sha256": "fe733c7177bb12c04bb72f064f3ad35cc266f3a50de36ea686f0141e058ab258"
+    },
+    {
+      "ticker": "TSM",
+      "period_end": "2020-12-31",
+      "cik": 1046179,
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "accession": "0001193125-21-118512",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312521118512/d94821d20f.htm",
+      "bytes": 2869715,
+      "sha256": "9041524c3bd5b9aa490c276bf556e4c4148dce61b5cd943761b3991378276033"
+    },
+    {
+      "ticker": "TSM",
+      "period_end": "2021-12-31",
+      "cik": 1046179,
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "accession": "0001193125-22-104891",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312522104891/d204786d20f.htm",
+      "bytes": 6930877,
+      "sha256": "57aebee3578e98d63f573fd4f34659dda13a880f1929caace38c43ab88e3ddb5"
+    },
+    {
+      "ticker": "TSM",
+      "period_end": "2022-12-31",
+      "cik": 1046179,
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "accession": "0001193125-23-107214",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312523107214/d428519d20f.htm",
+      "bytes": 6175810,
+      "sha256": "348808dc3df339b6b637b92a26c6d04e4763bc6dbf2e1f120789a516d8b58fa3"
+    },
+    {
+      "ticker": "TSM",
+      "period_end": "2023-12-31",
+      "cik": 1046179,
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "accession": "0001193125-24-099840",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312524099840/d592628d20f.htm",
+      "bytes": 7294368,
+      "sha256": "868b11a4996ed7b340e3d4c33597c3530a62892a80a8362bb7b20eda7cfc7f0c"
+    },
+    {
+      "ticker": "UMC",
+      "period_end": "2017-12-31",
+      "cik": 1033767,
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "accession": "0001193125-18-132616",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312518132616/d484523d20f.htm",
+      "bytes": 2754800,
+      "sha256": "b96fab1f9d6f0a45b477a3c11c3cf452ac3ea246cea4b3c87e798266e5e40435"
+    },
+    {
+      "ticker": "UMC",
+      "period_end": "2018-12-31",
+      "cik": 1033767,
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "accession": "0001193125-19-117861",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312519117861/d603585d20f.htm",
+      "bytes": 2934151,
+      "sha256": "d28cc9d99ba9c65ac879672f83c1658e5761e091e722a93391f3a03214f8ea73"
+    },
+    {
+      "ticker": "UMC",
+      "period_end": "2019-12-31",
+      "cik": 1033767,
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "accession": "0001193125-20-121853",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312520121853/d820941d20f.htm",
+      "bytes": 3164827,
+      "sha256": "409004e005078fa6bc9ee6888890330da124c5ec223b6483074c38bb114df63c"
+    },
+    {
+      "ticker": "UMC",
+      "period_end": "2020-12-31",
+      "cik": 1033767,
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "accession": "0001564590-21-021578",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000156459021021578/umc-20f_20201231.htm",
+      "bytes": 12965393,
+      "sha256": "ac570a3778337b3e75ca401bee116357c383a6121c6f9655135edce848889448"
+    },
+    {
+      "ticker": "UMC",
+      "period_end": "2021-12-31",
+      "cik": 1033767,
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "accession": "0001193125-22-125284",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312522125284/d168667d20f.htm",
+      "bytes": 6856308,
+      "sha256": "d1378792f54618e9dd69eae5ee5ace3942a6321942d14b37a783ba744cdc8ce5"
+    },
+    {
+      "ticker": "UMC",
+      "period_end": "2022-12-31",
+      "cik": 1033767,
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "accession": "0001193125-23-119772",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312523119772/d389572d20f.htm",
+      "bytes": 6492110,
+      "sha256": "5004ffafa60b30975433834ff82d076120231fde582e973ccac7bda403aac251"
+    },
+    {
+      "ticker": "UMC",
+      "period_end": "2023-12-31",
+      "cik": 1033767,
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "accession": "0001193125-24-111429",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312524111429/d448612d20f.htm",
+      "bytes": 5520321,
+      "sha256": "6cbddf9013c9d65447024c6a6221ec45f4395a83a1b4acc6e54fc632e0dc8ba2"
+    },
+    {
+      "ticker": "ASX",
+      "period_end": "2017-12-31",
+      "cik": 1122411,
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "accession": "0000950103-18-003940",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010318003940/dp87030_20f.htm",
+      "bytes": 4423421,
+      "sha256": "9c3bb2e4293db8071d15f9acdb563f75e1f29026f308c6366a0770ff1c7d3acd"
+    },
+    {
+      "ticker": "ASX",
+      "period_end": "2018-12-31",
+      "cik": 1122411,
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "accession": "0000950103-19-005149",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/dp102525_20f.htm",
+      "bytes": 4649304,
+      "sha256": "b3a512b70ce3010d3c7c39abd2c054e839b2cf8f9ee990246ad09837e99e8a50"
+    },
+    {
+      "ticker": "ASX",
+      "period_end": "2019-12-31",
+      "cik": 1122411,
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "accession": "0000950103-20-006422",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010320006422/dp121474_20f.htm",
+      "bytes": 6338872,
+      "sha256": "0a1c9ebba064fb34e8d0482ffb2a677cc0268e42ee3f7c09c9590d272be0a254"
+    },
+    {
+      "ticker": "ASX",
+      "period_end": "2020-12-31",
+      "cik": 1122411,
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "accession": "0000950103-21-005259",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010321005259/dp146696_20f.htm",
+      "bytes": 4644346,
+      "sha256": "4df74efe0a52744681426de2f07ee4116d753de2ce3d1fe8c5f50f92bd08598e"
+    },
+    {
+      "ticker": "ASX",
+      "period_end": "2021-12-31",
+      "cik": 1122411,
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "accession": "0001193125-22-087341",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312522087341/d272809d20f.htm",
+      "bytes": 12769158,
+      "sha256": "660445832e7aafbfcb163f7df1a8587e7d879040a648d735d3f33164959f6ebd"
+    },
+    {
+      "ticker": "ASX",
+      "period_end": "2022-12-31",
+      "cik": 1122411,
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "accession": "0001193125-23-095811",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312523095811/d418771d20f.htm",
+      "bytes": 10253932,
+      "sha256": "b00a82070facf912d9e363e06ec176c826e24c3ec408665db5d4c998193f4d55"
+    },
+    {
+      "ticker": "ASX",
+      "period_end": "2023-12-31",
+      "cik": 1122411,
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "accession": "0001193125-24-085380",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312524085380/d434934d20f.htm",
+      "bytes": 10405567,
+      "sha256": "d7295901bbda8918c18aed46908bc53e8d4b42499a467b3cd11ba21fbbdf0f32"
+    },
+    {
+      "ticker": "TSM",
+      "period_end": "2024-12-31",
+      "cik": 1046179,
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "accession": "0001193125-25-083423",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312525083423/d896993d20f.htm",
+      "bytes": 8404908,
+      "sha256": "eb4de82b8902b11c707cf8f4f0e3825599dd8d772d128d3a1f624527739b1d00"
+    },
+    {
+      "ticker": "UMC",
+      "period_end": "2024-12-31",
+      "cik": 1033767,
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "accession": "0001193125-25-092142",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312525092142/d846836d20f.htm",
+      "bytes": 5672592,
+      "sha256": "d682b2f62725026ed41db763812fc84121b6b69b01e383c8706387c2d7f2faef"
+    },
+    {
+      "ticker": "ASX",
+      "period_end": "2024-12-31",
+      "cik": 1122411,
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "accession": "0001193125-25-064603",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312525064603/d889608d20f.htm",
+      "bytes": 11017056,
+      "sha256": "45708ba71b2200a78444c29145cc4d1ea7e315b9a9c92e346ad915859d390982"
+    }
+  ],
+  "budget": {
+    "existing_original_20F_bytes_reused": 24,
+    "new_HTTP": 0,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "check": "Exact source hash, CIK/accession, ADS listing ticker and CUSIP co-occur in the issuer original 20-F. Record yearly anchor or missing/structural break; do not mark every N-PORT month PIT-qualified from annual anchors alone.",
+  "decision_rule": "Require matching listed ADS ticker and CUSIP in own original filing. ASX FY2017 predecessor is a separate scope; do not backfill post-2018 holding-company identity. ISIN from N-PORT remains fund-disclosed unless original issuer source separately authenticates it."
+}

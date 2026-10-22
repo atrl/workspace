@@ -1,0 +1,50 @@
+{
+  "status": "NVDA_recent_original_issuer_anchors_complete",
+  "plan": "NVDA_recent_identity_original_plan.json",
+  "plan_sha256": "451786a5f0f0753b9695d415b56c696cdc2fc28aeda558de02f2ab13091a9f6c",
+  "records": [
+    {
+      "report_date": "2025-01-26",
+      "accession": "0001045810-25-000023",
+      "filed": "2025-02-26",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/nvda-20250126.htm",
+      "bytes": 2067635,
+      "sha256": "6b7305159bab1481deb3bacc7b488d1b8a1f585d889c9afd735c533f321bd4dd",
+      "original_registrant_names": [
+        "NVIDIA CORP"
+      ],
+      "original_CIKs": [
+        "0001045810"
+      ],
+      "original_trading_symbols": [
+        "NVDA"
+      ],
+      "registered_security_titles": [
+        "Common Stock, $0.001 par value per share"
+      ],
+      "status": "own_original_CIK_name_NVDA_common_stock_anchor"
+    },
+    {
+      "report_date": "2026-01-25",
+      "accession": "0001045810-26-000021",
+      "filed": "2026-02-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+      "bytes": 1967931,
+      "sha256": "da9d303996fc11fe1e7d64c463bc3b338521fbf1291eacda3e269d446abfaa36",
+      "original_registrant_names": [
+        "NVIDIA CORP"
+      ],
+      "original_CIKs": [
+        "0001045810"
+      ],
+      "original_trading_symbols": [
+        "NVDA"
+      ],
+      "registered_security_titles": [
+        "Common Stock, $0.001 par value per share"
+      ],
+      "status": "own_original_CIK_name_NVDA_common_stock_anchor"
+    }
+  ],
+  "boundary": "Own 10-K proves CIK/name/NVDA common stock at filing; CUSIP comes from fund disclosure and dated third-party SEC filings, not this cover."
+}

@@ -1,0 +1,118 @@
+{
+  "status": "NPORT_security_name_locator_complete",
+  "plan": "NPORT_name_locator_plan.json",
+  "artifact_sha256": "6f78d70bc5f3eef1b6fbb61967d552f599be97d411335549b9efc3edd4dfadd6",
+  "source_rows_read": 840,
+  "target_rows": 98,
+  "groups": [
+    {
+      "ticker": "ASX",
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "fund_disclosed_name": "ASE Technology Holding Co Ltd",
+      "country": "TW",
+      "holding_rows": 5,
+      "first_report_date": "2021-06-30",
+      "last_report_date": "2022-06-30",
+      "first_filing_date": "2021-08-26",
+      "last_filing_date": "2022-08-25"
+    },
+    {
+      "ticker": "ASX",
+      "cusip": "00215W100",
+      "isin": "US00215W1009",
+      "fund_disclosed_name": "ASE Technology Holding Co. Ltd.",
+      "country": "TW",
+      "holding_rows": 16,
+      "first_report_date": "2022-09-30",
+      "last_report_date": "2026-03-31",
+      "first_filing_date": "2022-11-28",
+      "last_filing_date": "2026-07-13"
+    },
+    {
+      "ticker": "NVDA",
+      "cusip": "67066G104",
+      "isin": "US67066G1040",
+      "fund_disclosed_name": "NVIDIA Corp",
+      "country": "US",
+      "holding_rows": 12,
+      "first_report_date": "2019-09-30",
+      "last_report_date": "2022-06-30",
+      "first_filing_date": "2019-11-25",
+      "last_filing_date": "2022-08-25"
+    },
+    {
+      "ticker": "NVDA",
+      "cusip": "67066G104",
+      "isin": "US67066G1040",
+      "fund_disclosed_name": "NVIDIA Corp.",
+      "country": "US",
+      "holding_rows": 16,
+      "first_report_date": "2022-09-30",
+      "last_report_date": "2026-03-31",
+      "first_filing_date": "2022-11-28",
+      "last_filing_date": "2026-07-13"
+    },
+    {
+      "ticker": "TSM",
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "fund_disclosed_name": "TSMC",
+      "country": "TW",
+      "holding_rows": 1,
+      "first_report_date": "2019-09-30",
+      "last_report_date": "2019-09-30",
+      "first_filing_date": "2019-11-25",
+      "last_filing_date": "2019-11-25"
+    },
+    {
+      "ticker": "TSM",
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "fund_disclosed_name": "Taiwan Semiconductor Manufacturing Co Ltd",
+      "country": "TW",
+      "holding_rows": 11,
+      "first_report_date": "2019-12-31",
+      "last_report_date": "2022-06-30",
+      "first_filing_date": "2020-02-27",
+      "last_filing_date": "2022-08-25"
+    },
+    {
+      "ticker": "TSM",
+      "cusip": "874039100",
+      "isin": "US8740391003",
+      "fund_disclosed_name": "Taiwan Semiconductor Manufacturing Co. Ltd.",
+      "country": "TW",
+      "holding_rows": 16,
+      "first_report_date": "2022-09-30",
+      "last_report_date": "2026-03-31",
+      "first_filing_date": "2022-11-28",
+      "last_filing_date": "2026-07-13"
+    },
+    {
+      "ticker": "UMC",
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "fund_disclosed_name": "United Microelectronics Corp",
+      "country": "TW",
+      "holding_rows": 5,
+      "first_report_date": "2021-06-30",
+      "last_report_date": "2022-06-30",
+      "first_filing_date": "2021-08-26",
+      "last_filing_date": "2022-08-25"
+    },
+    {
+      "ticker": "UMC",
+      "cusip": "910873405",
+      "isin": "US9108734057",
+      "fund_disclosed_name": "United Microelectronics Corp.",
+      "country": "TW",
+      "holding_rows": 16,
+      "first_report_date": "2022-09-30",
+      "last_report_date": "2026-03-31",
+      "first_filing_date": "2022-11-28",
+      "last_filing_date": "2026-07-13"
+    }
+  ],
+  "boundary": "Fund-disclosed names/identifiers need dated issuer CIK linkage; not PIT/model input by themselves."
+}

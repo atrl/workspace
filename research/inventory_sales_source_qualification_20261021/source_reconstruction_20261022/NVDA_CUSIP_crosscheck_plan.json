@@ -1,0 +1,13 @@
+{
+  "status": "frozen_dated_third_party_SEC_CUSIP_crosscheck",
+  "purpose": "Corroborate the N-PORT NVIDIA common-stock CUSIP against SEC-filed Schedule 13G name/CUSIP records spanning the basket history; link issuer CIK separately through own original 10-K.",
+  "expected_issuer_name": "NVIDIA Corp",
+  "expected_CUSIP": "67066G104",
+  "sources": [
+    {"event_date": "2019-12-31", "url": "https://www.sec.gov/Archives/edgar/data/102909/000110465920018469/tv01719-nvidiacorp.htm"},
+    {"event_date": "2020-12-31", "url": "https://www.sec.gov/Archives/edgar/data/102909/000110465921018767/tv01517-nvidiacorp.htm"},
+    {"event_date": "2025-12-31", "url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000226/xslSCHEDULE_13G_X01/primary_doc.xml"}
+  ],
+  "budget": {"original_SEC_documents": 3, "market_data_reads": 0, "fits": 0, "accounts": 0},
+  "decision_rule": "Require exact reported issuer name, common stock title and CUSIP in each filed document. These are third-party security descriptions, not issuer-authored CIK links or proof of each intervening month. Preserve the distinction."
+}

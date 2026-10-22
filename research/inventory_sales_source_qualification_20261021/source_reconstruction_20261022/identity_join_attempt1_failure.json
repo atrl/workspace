@@ -1,0 +1,17 @@
+{
+  "status": "source_join_implementation_failed_before_result",
+  "attempt": 1,
+  "plan": "identity_join_plan.json",
+  "failure": "KeyError: 0001193125-25-083423",
+  "cause": "The script looked up FY2024 issuer filing dates only in the FY2017-FY2023 locator, although FY2024 has its own original-filing record. No identity join verdict was produced.",
+  "consumption": {
+    "hash_verified_native_recorder_object_loads": 2,
+    "D_calendar_calls": 0,
+    "market_data_reads": 0,
+    "HTTP": 0,
+    "fits": 0,
+    "accounts": 0,
+    "writable_recorders": 0
+  },
+  "next_action": "Freeze one recovery using the existing FY2024 original-filing metadata for dates and a checked merge indicator, retaining this failure and the two reads in cumulative counts."
+}

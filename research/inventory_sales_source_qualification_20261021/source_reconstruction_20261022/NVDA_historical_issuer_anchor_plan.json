@@ -1,0 +1,60 @@
+{
+  "status": "frozen_NVDA_FY2019_FY2024_own_issuer_anchor_audit",
+  "purpose": "Anchor N-PORT NVIDIA name/ticker to original own CIK1045810 annual filings from before the first disclosed fund holding through FY2024.",
+  "snapshot_manifest": "data/snapshots/nvda_original_10k_bridge_20261022/manifest.json",
+  "snapshot_manifest_sha256": "010c9b6a6e77850bcf6f4d4ea0ea875be3fedfdf60bc2471991e73a28d19289a",
+  "archive": "data/snapshots/nvda_original_10k_bridge_20261022/original_filings.tar.gz",
+  "archive_sha256": "239b65344e85d2c33016bfc9447f7ed63ff529879e6f5ee19d5a567e9ba884dd",
+  "members": [
+    {
+      "member": "primary/FY2019_nvda-2019x10k.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/nvda-2019x10k.htm",
+      "accession": "0001045810-19-000023",
+      "bytes": 2307905,
+      "sha256": "58c4160990b611b738752250fc8f2f03ae81548fdb30a457e57561ef0779b315"
+    },
+    {
+      "member": "primary/FY2020_nvda-2020x10k.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581020000010/nvda-2020x10k.htm",
+      "accession": "0001045810-20-000010",
+      "bytes": 2655268,
+      "sha256": "d9532d1f0f4d23167a0b27611f4e5bd98e10d8ea00fc9b5b98489e9bc3340442"
+    },
+    {
+      "member": "primary/FY2021_nvda-20210131.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581021000010/nvda-20210131.htm",
+      "accession": "0001045810-21-000010",
+      "bytes": 2511777,
+      "sha256": "19fa65a0ba5ed089a205a39b277471d43e9f676c07dce4aa122c97179db61078"
+    },
+    {
+      "member": "primary/FY2022_nvda-20220130.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000036/nvda-20220130.htm",
+      "accession": "0001045810-22-000036",
+      "bytes": 2548543,
+      "sha256": "8f375d216ae713543a940c826bb125886d4c45371754c4b5755e76e716252d9c"
+    },
+    {
+      "member": "primary/FY2023_nvda-20230129.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000017/nvda-20230129.htm",
+      "accession": "0001045810-23-000017",
+      "bytes": 2669354,
+      "sha256": "20da7c484b772a9566b1a9767f7516a0c16f9351b4ffdc977c5aeae7553e7c42"
+    },
+    {
+      "member": "primary/FY2024_nvda-20240128.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000029/nvda-20240128.htm",
+      "accession": "0001045810-24-000029",
+      "bytes": 2085681,
+      "sha256": "a489f072539c9b6866e3d44c433e04dd997eb297ce0dbed2eb12352bf7e77e96"
+    }
+  ],
+  "budget": {
+    "archived_original_primary_members": 6,
+    "HTTP": 0,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "decision_rule": "Require own original 10-K CIK/name/NVDA common-stock registration (or FY2019 cover plus SEC accession CIK). CUSIP association remains from dated fund/third-party filing."
+}

@@ -1,0 +1,23 @@
+{
+  "status": "frozen_NVDA_recent_issuer_identity_locator",
+  "purpose": "Locate own original FY2025/FY2026 NVIDIA 10-K to anchor issuer legal name, CIK and NVDA exchange symbol at the disclosed-basket right edge.",
+  "source_snapshot": {
+    "url": "https://data.sec.gov/submissions/CIK0001045810.json",
+    "bytes": 159761,
+    "sha256": "682c49d59116ae49b317eb4adddf3ef9142dfd97f59c5d8e5a5acad7f9058ab4"
+  },
+  "report_dates": [
+    "2025-01-26",
+    "2026-01-25"
+  ],
+  "cik": 1045810,
+  "form": "10-K",
+  "budget": {
+    "reused_submission_snapshots": 1,
+    "new_HTTP": 0,
+    "primary_original_downloads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "decision_rule": "Exact 10-K reportDate/CIK; later comparatives and third-party ticker directories are not issuer identity proof."
+}
