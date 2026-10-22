@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_exact_2011_10_31_SEC_NQ_SOXX_schedule_identity_check",
+  "inventory_sha256": "5b589304a02461d4e6c89d5dc6f7f21164270a1580731c66719e72fef044300a",
+  "prior_april_identity_sha256": "659268c59689d7ea577d0c1bc2b42fbc4d50137f07539df80ad29e561a79d624",
+  "prior_july_identity_sha256": "5d793e6911f06e2c8485d274d0312b13a00c01fbc2d4166ccaae5d96282be193",
+  "candidate": {
+    "sidecar": "CIK0001100663-submissions-011.json",
+    "accession": "0001193125-11-355398",
+    "form": "N-Q",
+    "filed": "2011-12-29",
+    "report_date": "2011-10-31",
+    "accepted_at": "2011-12-30T00:10:28.000Z",
+    "primary_document": "d270541dnq.htm"
+  },
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511355398/d270541dnq.htm",
+  "expected_fund_title": "PHLX SOX Semiconductor Sector Index Fund",
+  "expected_report_date": "October 31, 2011",
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 1,
+    "max_response_bytes": 45000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 120
+  },
+  "identity_gate": "Exact target title near October 31 2011 and Security/Shares/Value header in same bounded section; do not accept generic semiconductor company rows.",
+  "preserve": "Exact body/headers UTC times and SHA-256, NAS remote hash plus scoped raw-member restore.",
+  "budget": {
+    "GETs": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Wrong URL, HTTP/body/size failure, ambiguous identity or no matching schedule stops without retry, weights or model.",
+  "boundary": "If 2011 quarterly identities complete, full 2012-2022 historical availability and price/adjustment sources remain unqualified."
+}
