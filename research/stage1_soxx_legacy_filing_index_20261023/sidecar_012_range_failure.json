@@ -1,0 +1,24 @@
+{
+  "status": "fixed_sidecar_012_range_gate_failed_before_candidate_acceptance",
+  "sidecar_plan_sha256": "503d0092c458dc6c50ad097be374038ae3dc5c67468adf7433ee353e86c4821a",
+  "raw_sha256": "c1ef217b77a0841d2e60316b1f06a9174747ad42c43eff76aac6cca9826d200f",
+  "expected_filing_date_range": [
+    "1999-12-16",
+    "2011-02-02"
+  ],
+  "actual_filing_date_range": [
+    "1999-12-16",
+    "2011-02-03"
+  ],
+  "row_count": 1877,
+  "NAS_source_sha256": "84e2126d1421e65e4b304feda6aad9c6e84f95784a1c7aae9e6dbc7447c7f285",
+  "NAS_scoped_restore_verified": true,
+  "GETs": 1,
+  "additional_GETs": 0,
+  "filing_body_GETs": 0,
+  "candidate_acceptance_under_fixed_plan": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "Sidecar index advertised filingTo 2011-02-02 but exact JSON includes 2011-02-03 filing rows. Frozen exact-range assertion failed. Do not treat candidate rows as accepted under this plan or fetch filing bodies."
+}

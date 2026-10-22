@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "offline_sidecar_range_metadata_adjudication_and_pre_signal_candidate_filter",
+  "failed_original_plan_sha256": "503d0092c458dc6c50ad097be374038ae3dc5c67468adf7433ee353e86c4821a",
+  "range_failure_sha256": "39e3f00dedc5090170837dda0fc9d7521421637284e6531b28f8c4a65737de6e",
+  "raw_path": "data/snapshots/stage1_soxx_legacy_filing_index_20261023/CIK0001100663-submissions-012.json",
+  "raw_sha256": "c1ef217b77a0841d2e60316b1f06a9174747ad42c43eff76aac6cca9826d200f",
+  "source_transport_receipt": "sidecar_012_transport_result.json",
+  "source_expected_from_index": [
+    "1999-12-16",
+    "2011-02-02"
+  ],
+  "actual_externally_observed_range": [
+    "1999-12-16",
+    "2011-02-03"
+  ],
+  "adjudication": "Treat the parent-index filingTo as approximate metadata, not an exact row maximum, only for this already archived sidecar. Accept if raw CIK arrays have equal lengths, actual first date equals 1999-12-16, actual last date equals 2011-02-03, and all candidate acceptance times are earlier than 2011-01-03 for the first-signal question. Any other drift stops.",
+  "forms": [
+    "N-Q",
+    "N-CSR",
+    "N-CSRS"
+  ],
+  "candidate_window": [
+    "2010-01-01",
+    "2011-02-03"
+  ],
+  "first_Stage1_signal": "2011-01-03",
+  "budget": {
+    "HTTP_GETs": 0,
+    "filing_body_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "boundary": "Trust-level candidate accession and acceptance time only; SOXX series schedule and holdings still require exact body evidence."
+}
