@@ -1,0 +1,9 @@
+{
+  "status": "verified_before_new_fit",
+  "NAS_archive_sha256": "1ff4dfdfd9bcdc96ffafe9fecd2a7bf4e753c633e5191d4fb2e0d3db5f971fe6",
+  "scoped_objects": [
+    "models/baseline",
+    "predictions/baseline"
+  ],
+  "all_sha256_and_sizes_match": true
+}

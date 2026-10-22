@@ -9,6 +9,8 @@
     "Stage1_cash_signal_information": "research/allocator_cash_information_20261014/conclusion.md",
     "Stage1_0bp_funded_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/component_result.json",
     "Stage1_original_0bp_funded_component_attribution": "research/stage1_original_0bp_account_contributions_20261023/component_result.json",
+    "Stage1_original39_dual_receiver_information_result": "research/stage1_dual_task_39_information_20261023/summary.json",
+    "Stage1_original39_dual_receiver_interpretation": "The frozen original 39-input information set was tested as two separate fixed H5 Ridge receivers after native account attribution identified distinct cash and SOXL-relative failures. Reused exact cash Ridge head versus its training-mean control worsened held MSE by 0.000179583; one new SOXL-minus-SOXX head worsened held MSE by 0.001237508. Full/half/2024-2025 year/corrected lower gates fail jointly; one new fit, two bootstraps, no economic account. This closes that fixed task-separation receiver, not every model or new source.",
     "Stage1_original_0bp_failure_interpretation": "The exact original Stage1 own-state 0bp native account has SOXX log excess -0.376868: cash opportunity -0.600323, SOXL-relative exposure/selection +0.225931, direct fees -0.010265 and timing/benchmark residual +0.007788. Its worst 126-session window 2023-08-01..2024-01-31 lost -0.127238 cash and -0.121381 SOXL-relative log points; 2026Q3 lost -0.143901 from SOXL-relative selection and only -0.025267 from cash, while 2024Q3 cash helped. This is closed physical-share accounting, not predictive skill or a tradable switch. The separate composition candidate has its own state and cannot be component-subtracted causally.",
     "Stage1_0bp_risk_projection_gap": "research/stage1_risk_projection_gap_20261023/summary.json",
     "Stage1_dynamic_risk_bypass_0bp_result": "research/stage1_dynamic_risk_bypass_0bp_20261023/summary.json",
@@ -80,7 +82,7 @@
   },
   "current_task": {
     "card": "research/three_asset_campaign.json",
-    "phase": "Stage1_0bp_goal_active_original_account_dual_failure_components_closed_new_mechanism_needed",
+    "phase": "Stage1_0bp_goal_active_original39_dual_receiver_information_failed_new_source_or_account_value_mechanism_needed",
     "implementation_executor": null,
     "independent_reviewer": null,
     "execution_authorized": false,
@@ -308,9 +310,9 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T20:35:28.054117+00:00",
+  "updated_at_utc": "2026-10-22T20:38:07+00:00",
   "execution_totals": {
-    "new_model_fits": 74,
+    "new_model_fits": 75,
     "new_native_accounts": 50,
     "completed_fixed_economic_experiments": 11,
     "completed_training_bridges_added": 1,
@@ -318,8 +320,8 @@
     "unique_reused_reference_accounts": 15,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
-    "basis": "Prior 62 fits and 48 native accounts include the independently closed FT-900 information screen. The subsequently fixed ADS level/H5 and original-Stage1 volatility-gap/H5 information screens each added exactly two verified Ridge fits and one paired bootstrap, no economic accounts, and failed their preregistered full/half/uncertainty gates. Historical passing candidates and qualified forward days remain zero; source-only probes and reviews did not add fits or accounts. The fixed Stage1 reported-equity diversity/H5 information screen added two Ridge fits and one paired bootstrap, failed coefficient/full/both-halves/corrected-lower gates, and ran zero accounts. The exact Stage1-parent dynamic-risk whole-layer bypass added one independently funded 0bp Tiered-fee native account and one preregistered bootstrap, with Stage1/SOXX native references reused; it failed drawdown, CVaR5, annual, rolling and lower-bound gates. The fixed Stage1 HYG-LQD credit-pair H5 information screen added two Ridge fits and one bootstrap, failed all information gates, and ran zero accounts. The fixed Stage1 XSD-SOXX breadth H5 screen added two Ridge fits and one bootstrap, failed full, halves and corrected lower gates, and ran zero accounts. The 0bp signed-volume recovery training label bridge added one 1061-session native Tiered-fee reference and one local label pass, with no fits or held economic candidate account. The fixed signed-volume recovery amount information screen added two Ridge fits and one corrected paired bootstrap on 173/265 mature eligible labels, failed coefficient/full/both-year/lower gates, and ran zero new accounts.",
-    "completed_fixed_information_experiments": 15,
+    "basis": "Prior 62 fits and 48 native accounts include the independently closed FT-900 information screen. The subsequently fixed ADS level/H5 and original-Stage1 volatility-gap/H5 information screens each added exactly two verified Ridge fits and one paired bootstrap, no economic accounts, and failed their preregistered full/half/uncertainty gates. Historical passing candidates and qualified forward days remain zero; source-only probes and reviews did not add fits or accounts. The fixed Stage1 reported-equity diversity/H5 information screen added two Ridge fits and one paired bootstrap, failed coefficient/full/both-halves/corrected-lower gates, and ran zero accounts. The exact Stage1-parent dynamic-risk whole-layer bypass added one independently funded 0bp Tiered-fee native account and one preregistered bootstrap, with Stage1/SOXX native references reused; it failed drawdown, CVaR5, annual, rolling and lower-bound gates. The fixed Stage1 HYG-LQD credit-pair H5 information screen added two Ridge fits and one bootstrap, failed all information gates, and ran zero accounts. The fixed Stage1 XSD-SOXX breadth H5 screen added two Ridge fits and one bootstrap, failed full, halves and corrected lower gates, and ran zero accounts. The 0bp signed-volume recovery training label bridge added one 1061-session native Tiered-fee reference and one local label pass, with no fits or held economic candidate account. The fixed signed-volume recovery amount information screen added two Ridge fits and one corrected paired bootstrap on 173/265 mature eligible labels, failed coefficient/full/both-year/lower gates, and ran zero new accounts. The original39 dual-receiver H5 information screen reused the saved cash Ridge head, added one SOXL-relative Ridge fit and two corrected bootstraps, failed both target gates on 3014/940 mature rows, and ran zero accounts.",
+    "completed_fixed_information_experiments": 16,
     "completed_source_qualifications": 2,
     "completed_source_repairs": 2,
     "completed_identity_source_checks": 1

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_dual_task_39_information_20261023",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "phase": "original_Stage1_39_input_two_receiver_capability_screen_cash_and_SOXL_relative_H5",
+  "question": "Does the frozen original Stage1 39-input information set separately predict both the SOXX cash opportunity and SOXL-minus-SOXX relative selection targets that account attribution found to be distinct failure terms? This tests receiver/task alignment, not a new external factor or strategy.",
+  "source": {
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "parent_features_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "parent_frame_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "parent_timing_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "parent_model_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "parent_NAS_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "cash_head_card": "research/stage1_credit_pair_h5_information_20261023",
+    "cash_head_summary_sha256": "683c2f16193afa8397389148da09deb1845b33f662ecad2a466a06710e727a74",
+    "cash_head_recorder_id": "6a726f961a564a598a52e5054925a0e1",
+    "cash_head_model_sha256": "c065b62c59f4c12bdb79ae1ad32f637779db386d18e807a515a56e95ee409810",
+    "cash_head_model_bytes": 2656,
+    "cash_head_predictions_sha256": "a29f4759c8244cd1ec24fdfd02be6c2d8d915d9a9b6d30998a6a2a3790073ef0",
+    "cash_head_predictions_bytes": 23566,
+    "cash_head_NAS_archive_sha256": "1ff4dfdfd9bcdc96ffafe9fecd2a7bf4e753c633e5191d4fb2e0d3db5f971fe6",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "bootstrap_module_sha256": "02705f897e668b710a38aae514df08b86e26c8cd8951405339960355a08a5ac4"
+  },
+  "targets": {
+    "cash_advantage_H5": "negative sum of five next open-to-open SOXX log returns; positive means cash beats SOXX before trading costs. Reuse the saved credit-screen original-39 Ridge baseline by exact sign inversion of its prediction and target; no cash refit.",
+    "SOXL_relative_H5": "sum of five next open-to-open SOXL log returns minus the identical SOXX sum; no dividend or Tiered fee claim. Fit one fixed original-39-input Ridge(alpha=1) head.",
+    "label_maturity": "Fifth open-to-open return's saved Qlib return_available_at, strictly before training cutoff and held evaluation terminal; last four held source rows unknown, never filled.",
+    "decision_clock": "Original Stage1 signal date features before next session 09:46 action; no same-day 2023+ outcome in training."
+  },
+  "cohorts": {
+    "train_signal": ["2011-01-03", "2022-12-30"],
+    "held_reused_diagnostic": ["2023-01-03", "2026-10-07"],
+    "held_halves": [["2023-01-03", "2024-12-31"], ["2025-01-02", "2026-10-07"]],
+    "complete_held_years": [2024, 2025],
+    "expected_train_mature_rows": 3014,
+    "expected_held_mature_rows": 940,
+    "full_calendar_retained": true,
+    "historical_independence": false
+  },
+  "model_and_controls": {
+    "cash_head": "reuse exact saved SimpleImputer(median)->StandardScaler->Ridge(alpha=1) original-39 baseline from the sealed credit information card; prediction and target both negated for cash advantage",
+    "relative_head": "one new SimpleImputer(median)->StandardScaler->Ridge(alpha=1) on original 39 in their frozen order",
+    "each_control": "constant training-mean forecast for that target; fixed before held read",
+    "new_fit_attempts_max": 1,
+    "no_hyperparameter_or_prediction_to_position_mapping_search": true
+  },
+  "joint_information_gate": {
+    "per_target": ["full held MSE improvement over train-mean control positive", "both fixed held halves positive", "2024 and 2025 complete-year paired MSE improvements positive", "63-session stationary-bootstrap corrected lower bound positive"],
+    "both_targets_must_pass": true,
+    "bootstrap": {"mean_block_sessions": 63, "draws_each": 10000, "seed": 20261023, "one_sided_alpha_each": 0.00078125, "family_denominator": 32}
+  },
+  "budget": {"new_market_requests": 0, "source_Recorder_object_loads_max": 6, "DatasetH_builds": 1, "new_model_fit_attempts_max": 1, "bootstrap_attempts_max": 2, "new_writable_Qlib_Recorders_max": 1, "native_accounts": 0},
+  "stop": "Require exact source bytes and cold NAS scoped readback of the reused cash model/prediction before constructing labels. If dates, label maturity, saved cash-target equality, feature order or full 3014/940 support fail, stop before fit. After one relative fit and two fixed bootstraps, failure of either head closes this dual-receiver version; no outcome-chosen mapping, threshold, horizon, sign, year or feature repair. A joint historical information pass would still require one separately frozen full Stage1-derived own-state 0bp Tiered account and all SOXX v2 gates, then 2/5bp and independent forward evidence."
+}

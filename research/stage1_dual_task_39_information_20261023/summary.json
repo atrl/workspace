@@ -1,0 +1,163 @@
+{
+  "experiment": "stage1_dual_task_39_information_20261023",
+  "decision": "not_promoted_fixed_original39_dual_receiver_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "1e979655505b125d57747fa6ffc83daa612cb975d11a866c92ce06616e910b51",
+  "preflight": {
+    "status": "two_original39_receiver_labels_calendar_and_reused_cash_head_verified",
+    "plan_sha256": "1e979655505b125d57747fa6ffc83daa612cb975d11a866c92ce06616e910b51",
+    "parent_rows": 3966,
+    "train_mature_rows": 3014,
+    "held_mature_rows": 940,
+    "source_Recorder_loads": 6,
+    "DatasetH_builds": 1,
+    "reused_cash_head_model_and_predictions_sha256_verified": true,
+    "reused_cash_head_NAS_scoped_restore_verified": true,
+    "new_model_fits": 0,
+    "new_accounts": 0
+  },
+  "joint_information_pass": false,
+  "metrics": {
+    "cash": {
+      "control_train_mean": -0.0032255746731863185,
+      "control_held_mse": 0.0023466841316487535,
+      "model_held_mse": 0.0025262669365982205,
+      "paired_mean_mse_improvement": -0.00017958280494946737,
+      "halves": [
+        {
+          "start": "2023-01-03",
+          "end": "2024-12-31",
+          "rows": 502,
+          "paired_mean_mse_improvement": -7.603950759173151e-05
+        },
+        {
+          "start": "2025-01-02",
+          "end": "2026-10-07",
+          "rows": 438,
+          "paired_mean_mse_improvement": -0.0002982557165329912
+        }
+      ],
+      "complete_years": [
+        {
+          "year": 2024,
+          "rows": 252,
+          "paired_mean_mse_improvement": 4.860755535483653e-06
+        },
+        {
+          "year": 2025,
+          "rows": 250,
+          "paired_mean_mse_improvement": -0.0002145025684821343
+        }
+      ],
+      "bootstrap": {
+        "paired_mean_loss_improvement": -0.0001795828049494674,
+        "lower_bound": -0.0004454941692562761,
+        "upper_bound": 6.512196527160112e-05,
+        "valid_replicates": 10000,
+        "invalid_replicates": 0,
+        "calendar_rows": 944,
+        "scored_rows": 940
+      }
+    },
+    "SOXL_relative": {
+      "control_train_mean": 0.0008179531594095632,
+      "control_held_mse": 0.009816160572319597,
+      "model_held_mse": 0.011053668538613615,
+      "paired_mean_mse_improvement": -0.001237507966294018,
+      "halves": [
+        {
+          "start": "2023-01-03",
+          "end": "2024-12-31",
+          "rows": 502,
+          "paired_mean_mse_improvement": -0.00039041265672455557
+        },
+        {
+          "start": "2025-01-02",
+          "end": "2026-10-07",
+          "rows": 438,
+          "paired_mean_mse_improvement": -0.002208379759453539
+        }
+      ],
+      "complete_years": [
+        {
+          "year": 2024,
+          "rows": 252,
+          "paired_mean_mse_improvement": -8.344237695049621e-05
+        },
+        {
+          "year": 2025,
+          "rows": 250,
+          "paired_mean_mse_improvement": -0.0011762914245783752
+        }
+      ],
+      "bootstrap": {
+        "paired_mean_loss_improvement": -0.001237507966294018,
+        "lower_bound": -0.0034088478487161464,
+        "upper_bound": 9.621458659863993e-05,
+        "valid_replicates": 10000,
+        "invalid_replicates": 0,
+        "calendar_rows": 944,
+        "scored_rows": 940
+      }
+    }
+  },
+  "gates": {
+    "cash": {
+      "full_held_positive": false,
+      "both_halves_positive": false,
+      "both_complete_years_positive": false,
+      "corrected_lower_positive": false
+    },
+    "SOXL_relative": {
+      "full_held_positive": false,
+      "both_halves_positive": false,
+      "both_complete_years_positive": false,
+      "corrected_lower_positive": false
+    }
+  },
+  "new_model_fits": 1,
+  "reused_cash_head_fits": 1,
+  "new_bootstraps": 2,
+  "new_native_accounts": 0,
+  "held_market_history_reused": true,
+  "independent_forward_qualified_days": 0,
+  "recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+  "experiment_id": "666721299406485975",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_dual_task_39_information_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Price H5 information labels omit raw-share dividend and Tiered funded-account effects.",
+    "2023-2026 history and saved cash head have been reused for earlier research; no independent forward qualification.",
+    "A positive model-versus-prior-mean screen would not prove incremental economic value versus frozen Stage1 weights or yield a predeclared position mapping."
+  ],
+  "nas_evidence": {
+    "sha256": "5ebda191e82d5262b92f7c196dcaca036c22ae8a8f14e30ded63ce4b07b32f66",
+    "size_bytes": 1579665,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/5e/bd/5ebda191e82d5262b92f7c196dcaca036c22ae8a8f14e30ded63ce4b07b32f66",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:37:04.851328+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/5e/bd/5ebda191e82d5262b92f7c196dcaca036c22ae8a8f14e30ded63ce4b07b32f66",
+    "recorder_id": "a4bbc11f5c764ac38ff2f682eadd0e1d",
+    "experiment_id": "666721299406485975",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "5ebda191e82d5262b92f7c196dcaca036c22ae8a8f14e30ded63ce4b07b32f66",
+    "bytes": 1579665,
+    "verified": true
+  },
+  "source_restore": "source_restore.json",
+  "verification_manifest": "verification_manifest.json",
+  "nas_scoped_restore": "nas_scoped_restore.json"
+}
