@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "numeric_candidate_source_coverage_incomplete_no_factor",
+  "Korean_source_summary_sha256": "9fc24363a46855d4572cfccfd7970ab8b23b2d36fa3145d5e7cfeb68a97da47a",
+  "proximity_inventory_sha256": "3f4698cb62ff8b215dd5cc297d1f3bc1dc3ba4c6d6d82a1df85aeb383c752c52",
+  "table_inventory_sha256": "ae5aeaaf537e8cc6988f0a75969d34ff3aa4d15880c238342b76256fc9da56c1",
+  "legacy_layout_attribution_sha256": "52ac02d402b89f96da6b10cd5ff1d46b2a93a16fd296d104245d4d2abad67f92",
+  "within_PDF_2020_05_conflict_sha256": "db8a196773252cff952ceb64fb9cd11af75b50d10c6222c65536ad46bc101f6d",
+  "months_total": 93,
+  "months_with_at_least_one_numeric_candidate": 86,
+  "missing_old_layout_months": [
+    "2019-02",
+    "2019-04",
+    "2019-05",
+    "2019-07",
+    "2020-05",
+    "2020-07",
+    "2020-08"
+  ],
+  "internal_current_document_conflict_month": "2020-05",
+  "current_document_semantics_resolved_but_PIT_unqualified": true,
+  "factor_values_selected": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "next_action": "One bounded legacy-table extraction and all-month value/version crosscheck. Do not build Qlib factor or read SOXX outcomes until numeric and vintage gates are explicit."
+}

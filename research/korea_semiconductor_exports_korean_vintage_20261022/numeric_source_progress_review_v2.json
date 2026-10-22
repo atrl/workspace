@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "status": "all_93_months_have_unselected_numeric_source_candidates_factor_not_qualified",
+  "previous_progress_review_sha256": "d138feba01ee7ac3b3038702777ff00114c9f42a6a0efef67b3828a34f5e8863",
+  "legacy_timeline_result_sha256": "edd0202cad20d5838ed18557ba0f7f0ab66524fc14608edabf85d2f432e55870",
+  "table_candidate_inventory_sha256": "ae5aeaaf537e8cc6988f0a75969d34ff3aa4d15880c238342b76256fc9da56c1",
+  "proximity_candidate_inventory_sha256": "3f4698cb62ff8b215dd5cc297d1f3bc1dc3ba4c6d6d82a1df85aeb383c752c52",
+  "within_document_conflict_result_sha256": "db8a196773252cff952ceb64fb9cd11af75b50d10c6222c65536ad46bc101f6d",
+  "candidate_months": 93,
+  "strictly_verified_current_month_values": 0,
+  "dual_version_months_unresolved": [
+    "2020-06",
+    "2020-10",
+    "2023-05"
+  ],
+  "known_current_PDF_internal_amount_conflict": "2020-05",
+  "historical_first_public_vintage_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "next_action": "Freeze one deterministic source-only value-precedence and cross-language validation rule, compute amount/YoY for every version, stop if any month or dual-version remains ambiguous. Only then consider one Qlib information screen, still diagnostic until historical/forward PIT proof."
+}

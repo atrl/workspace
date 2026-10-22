@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "current_document_2020_05_amount_semantically_resolved_PIT_gap",
+  "Korean_PDF_SHA256": "0dc84e2a434d72d75f7682a65d64d5afb045156609a73d835305ecdde915e4b6",
+  "English_HTML_SHA256": "c0cd88df4c62b849d0d29ce2eb9f8d37452afc4e570d1a26d43b1ee8d27644af",
+  "Korean_PDF_pages": [
+    {
+      "page": 6,
+      "relevant_lines": [
+        "최대 수출 품목인 반도체는 코로나 에도 불구하고 ´\u0017 크게 선전 크게 선전 크게 선전 크게 선전",
+        "글로벌 시장 조사기관들이 년 반도체 시장규모에 대한 전망치 전망치 전망치 전망치를",
+        "하향 조정 하향 조정 하향 조정 하향 조정하는 등 반도체 업황 부진에도 불구하고",
+        "반도체 수출 반도체 수출 반도체 수출 반도체 수출이 개월만에 총수출 총수출 총수출 총수출 일평균 일평균 일평균 일평균 수출 모두 수출 모두 수출 모두 수출 모두",
+        "반도체 시장 전망 * (‘19.12 → ’20.3, %) : (Gartner) 12.5 → 0.9, (IHS) 5.5△ → 2.5",
+        "일 반도체 수출액 증감률 억 * 5.1~25 / ( 달러, %) : 중국 ( ) 미국 28.8(34.1), ( ) 4.4(46.4),",
+        "반도체 수출액 증감률 억 * / ( 달러, %) : (’19.5) 75.4( 30.5) △ → (‘20.5) 80.1(7.1)"
+      ]
+    },
+    {
+      "page": 10,
+      "relevant_lines": [
+        "1 반도체 7,537 30.5 △ 8,757 2.7 △ 7,176 14.9 △ 8,068 7.1"
+      ]
+    },
+    {
+      "page": 11,
+      "relevant_lines": [
+        "반도체 반도체 반도체 반도체 휴대폰의 글로벌 판매 부진에 따른 스마트폰 부품용",
+        "반도체 수출 부진에도 불구하고 재택근무 온라인 교육 증가 등으 로",
+        "월 재가동하면서 주문량 주문량 주문량 주문량을 회복 회복 회복 회복함에 따라 반도체 수출 증가",
+        "* 반도체 시장 성장률 수정전망(‘20.3) : (IHS) 5.5% 2.5% / (Gartne r) 12.5% 0.9% → →△",
+        "반도체 수출액 증감률 억 * / ( 달러, %) : (’19.5) 75.4( 30.5) △ → (‘20.5) 80.7(7.1)"
+      ]
+    }
+  ],
+  "English_source_windows": [
+    "hones. As Chinese PC producers resumed operation, semiconductor exports went up. Exports of computers spiked 82.7 percent to $1.2 billion. Sales of solid state drives (SSDs) grew thanks to the expansion of data center and server capacities. Demand for laptops also increased as more people are workin"
+  ],
+  "apparent_internal_discrepancy": "Korean p6 narrative 80.1억 versus p10 table 8,068 million USD and p11 80.7억, all +7.1%.",
+  "source_only_interpretation": "Korean p10 current-month table 8,068 USD million, p11 narrative 80.7억 and English rounded USD8.1 billion agree; p6 80.1억 is internally inconsistent. This resolves current document semantics only; no original vintage/PIT factor value certified.",
+  "historical_PIT_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "English_current_press_value": "chip exports +7.1% to USD8.1 billion (rounded), matching Korean p10 USD8.068 billion/p11 80.7억 rather than p6 80.1억"
+}

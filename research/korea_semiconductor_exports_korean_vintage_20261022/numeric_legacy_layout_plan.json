@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "seven_legacy_Korean_PDF_numeric_layout_diagnosis",
+  "proximity_inventory_sha256": "3f4698cb62ff8b215dd5cc297d1f3bc1dc3ba4c6d6d82a1df85aeb383c752c52",
+  "table_inventory_sha256": "ae5aeaaf537e8cc6988f0a75969d34ff3aa4d15880c238342b76256fc9da56c1",
+  "source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "months": [
+    "2019-02",
+    "2019-04",
+    "2019-05",
+    "2019-07",
+    "2020-05",
+    "2020-07",
+    "2020-08"
+  ],
+  "method": "Read only these seven original PDFs, inspect text windows around semiconductor mention and nearby amount/growth headings across all pages. Report source structure, no numeric factor selection or market outcomes.",
+  "budget": {
+    "PDF_source_file_reads": 7,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

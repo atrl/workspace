@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "all_96_Korean_PDF_semiconductor_table_numeric_candidate_inventory",
+  "source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "previous_proximity_inventory_sha256": "3f4698cb62ff8b215dd5cc297d1f3bc1dc3ba4c6d6d82a1df85aeb383c752c52",
+  "missing_layout_attribution_sha256": "8a5f43daaa4ceb5fe5bb9763008d709f011b99013776d347256eddb5fe8e036b",
+  "method": "Across all pages of each exact PDF version, find Korean major-export-item tables whose header has 구 분 followed by 반도체. Retain every following 수출액 and 증감률 text window plus first numeric tokens; do not choose a current-month figure or version. Report missing/ambiguous candidates.",
+  "budget": {
+    "PDF_source_file_reads": 96,
+    "Qlib_D_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop": "No sign/window/threshold or factor value selection from market outcomes."
+}

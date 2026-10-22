@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "twelve_no_candidate_PDF_source_layout_attribution",
+  "initial_inventory_sha256": "3f4698cb62ff8b215dd5cc297d1f3bc1dc3ba4c6d6d82a1df85aeb383c752c52",
+  "source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "exact_missing_versions": [
+    {
+      "month": "2019-02",
+      "version_index": 1
+    },
+    {
+      "month": "2019-04",
+      "version_index": 1
+    },
+    {
+      "month": "2019-05",
+      "version_index": 1
+    },
+    {
+      "month": "2019-07",
+      "version_index": 1
+    },
+    {
+      "month": "2020-05",
+      "version_index": 1
+    },
+    {
+      "month": "2020-07",
+      "version_index": 1
+    },
+    {
+      "month": "2020-08",
+      "version_index": 1
+    },
+    {
+      "month": "2021-08",
+      "version_index": 1
+    },
+    {
+      "month": "2021-09",
+      "version_index": 1
+    },
+    {
+      "month": "2022-09",
+      "version_index": 1
+    },
+    {
+      "month": "2022-12",
+      "version_index": 1
+    },
+    {
+      "month": "2023-10",
+      "version_index": 1
+    }
+  ],
+  "method": "Read all pages of only these 12 exact PDFs and record short text windows around semiconductor amount, growth and table headers; no numeric factor value selected and no market outcomes.",
+  "budget": {
+    "PDF_file_reads": 12,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

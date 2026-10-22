@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "seven_legacy_current_month_timeline_numeric_candidates",
+  "progress_review_sha256": "d138feba01ee7ac3b3038702777ff00114c9f42a6a0efef67b3828a34f5e8863",
+  "source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "months": [
+    "2019-02",
+    "2019-04",
+    "2019-05",
+    "2019-07",
+    "2020-05",
+    "2020-07",
+    "2020-08"
+  ],
+  "method": "In exact Korean PDFs, record all lines mentioning semiconductor export amount/growth and explicit current observation-month token YY.M; extract every following amount(percentage) pair, never choose among conflicts. No market outcomes.",
+  "budget": {
+    "PDF_file_reads": 7,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

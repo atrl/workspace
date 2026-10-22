@@ -132,7 +132,8 @@
     "evidence": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json",
     "constraint": "At/after 2026-10-22 12:45 UTC run one remaining Cboe preopen vintage; at 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. No source is a qualified factor or economic strategy.",
     "execution_authorized": false,
-    "parallel_source_gap": "Korean national export source: 93 months/96 PDF versions, 221 exact files in nine remote-hash-verified NAS archives. Current Korean PDFs: 50 created on registration day, 13 next day, 12 >7d later, 3 dual-version months. Numeric factor and immutable first-public vintages remain unqualified; next source-only step is bounded extraction/version comparison, no SOXX label."
+    "parallel_source_gap": "Korean national export source has 93/93 months with unselected semiconductor amount/YoY text candidates, but numeric values are not yet certified. Three dual-version months and 2020-05 within-PDF amount conflict require a frozen source-only precedence rule; historical first-public vintage remains unqualified. No SOXX outcome or factor fit may be read yet.",
+    "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_source_progress_review_v2.json"
   },
   "closed_source_probes": [
     {

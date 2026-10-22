@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "all_96_PDF_semiconductor_numeric_candidate_inventory_without_selection",
+  "source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "metadata_audit_sha256": "96da672ba98c8fb0ef87771db666e463f826bb9390b72911b9a5a72f202a5865",
+  "linked_native_source_result_sha256": "88abc56b4cface76b869bf92ffc08c1aea95e39c164b413c871921318d621563",
+  "method": "For all 96 exact PDF versions, extract text from first 10 pages and retain every numeric window around Korean 반도체 with an 억 달러 amount and nearby signed growth percentage. Do not choose a version, figure or sign. Record candidate counts, snippets and source/page hashes; later source-only selection may compare English press text and table rows.",
+  "budget": {
+    "PDF_source_file_reads": 96,
+    "PDF_pages_per_file_max": 10,
+    "Qlib_D_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stops": [
+    "No market labels or factor panel construction",
+    "Parse failures preserved as source quality gaps rather than replaced by guessed values"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_within_PDF_2020_05_numeric_conflict_attribution",
+  "Korean_PDF": {
+    "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2020-05_1.pdf",
+    "sha256": "0dc84e2a434d72d75f7682a65d64d5afb045156609a73d835305ecdde915e4b6"
+  },
+  "English_HTML": {
+    "path": "data/snapshots/korea_semiconductor_exports_source_20261022/article_html/2020-05.html",
+    "sha256": "c0cd88df4c62b849d0d29ce2eb9f8d37452afc4e570d1a26d43b1ee8d27644af"
+  },
+  "legacy_layout_result_sha256": "52ac02d402b89f96da6b10cd5ff1d46b2a93a16fd296d104245d4d2abad67f92",
+  "frozen_observation": "Current Korean PDF p6 says 80.1\uc5b5 for May2020, p10 official table 8,068 USD million (80.68\uc5b5), p11 says80.7\uc5b5; YoY appears7.1% in both. Determine whether p6 is stale/typo using same-document table and independent English page, but do not use market outcomes.",
+  "budget": {
+    "Korean_PDF_reads": 1,
+    "English_HTML_reads": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "decision_boundary": "If original first-published version cannot be certified, keep historical PIT false even if table amount is semantically resolved."
+}
