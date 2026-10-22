@@ -20,5 +20,9 @@
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "filing_date_repair_result": "filing_date_repair_result.json",
+  "filing_date_repair_result_sha256": "340983bc71dedf68c64709a29273db516b717ff4c3d39aa02d104b1a37fc093c",
+  "effective_calendar_mapping": "125 unchanged; AMD 2011-01-21 qualitative unknown moved from 2011-01-21 to 2011-01-24 after official SEC filing date",
+  "corrected_effective_minimum_margin_hours": 15.575833333333334
 }

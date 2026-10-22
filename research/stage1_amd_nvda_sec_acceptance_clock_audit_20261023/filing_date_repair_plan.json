@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "preserve_original_acceptance_audit_and_reconcile_one_SEC_filing_date_exception",
+  "original_result_sha256": "1d60da55aa33813acb08865e9b6b6824f70582d4437032002461c38eb2f0a6e7",
+  "quarter_event_result_sha256": "322aa6b4f8e3b167a1c17ecb79dd72d2b2d96d55f2dbf43f59d4429163cdda4a",
+  "expected_exception": {
+    "issuer": "AMD",
+    "accession": "0001193125-11-011350",
+    "accepted_header": "20110120213715",
+    "SEC_filing_date": "2011-01-21",
+    "original_acceptance_based_Qlib_session": "2011-01-21",
+    "source_value": "qualitative_unknown"
+  },
+  "corrected_rule": "For each selected original source event, take the later of the SGML acceptance calendar date and SEC official filing date. The usable signal is the first actual native Qlib trading day strictly after that later date at 09:46 America/New_York. Preserve original result; create a one-exception overlay instead of silently changing the frozen 126-row audit.",
+  "budget": {
+    "new_external_GETs": 0,
+    "Qlib_D_calendar_calls": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any source SHA, accession, acceptance header, filing date, Qlib calendar or expected single-exception mismatch stops. The qualitative value remains unknown; no feature or account may be inferred."
+}

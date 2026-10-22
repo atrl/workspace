@@ -2,4 +2,5 @@ experiment: stage1_amd_nvda_sec_acceptance_clock_audit_20261023
 phase: source_clock_only
 plan: plan.json
 result: result.json
+filing_date_repair: filing_date_repair_result.json
 provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices

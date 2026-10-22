@@ -1,0 +1,26 @@
+{
+  "status": "one_qualitative_AMD_filing_date_exception_corrected_without_backfill",
+  "repair_plan_sha256": "1b20f5ab35745e67f76ea5526b66dbdc913784a8b0a5daec7cfc5f5fc4aee75b",
+  "original_result_sha256": "1d60da55aa33813acb08865e9b6b6824f70582d4437032002461c38eb2f0a6e7",
+  "quarter_event_result_sha256": "322aa6b4f8e3b167a1c17ecb79dd72d2b2d96d55f2dbf43f59d4429163cdda4a",
+  "selected_events": 126,
+  "unchanged_calendar_mappings": 125,
+  "changed_calendar_mappings": [
+    {
+      "issuer": "AMD",
+      "accession": "0001193125-11-011350",
+      "raw_sha256": "9cf756c92cf2a5915106fb080451e7eea31ed3dace354279c000b62c19c0e106",
+      "accepted_header": "20110120213715",
+      "SEC_filing_date": "2011-01-21",
+      "prior_acceptance_based_Qlib_session": "2011-01-21",
+      "corrected_first_Qlib_session_after_later_date": "2011-01-24",
+      "source_value": "qualitative_unknown"
+    }
+  ],
+  "numeric_source_values_changed": 0,
+  "feature_values_changed": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "exact_first_public_timestamp_qualified": false
+}
