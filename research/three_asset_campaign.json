@@ -278,7 +278,9 @@
     "CFTC_NQ_H5_information_fit_admission": "rejected_before_fit_current_code_compresses_944_held_calendar_to_940_mature_rows_before_stationary_bootstrap_retain_four_unknown_days_as_NaN_no_models_or_accounts",
     "CFTC_NQ_H5_prefit_rejected_card": "research/stage1_cftc_nq_positioning_h5_information_20261023/summary.json",
     "CFTC_NQ_H5_fixed_result": "research/stage1_cftc_nq_positioning_h5_information_v2_20261023/summary.json",
-    "CFTC_NQ_H5_fixed_interpretation": "Repaired source and full-calendar v2 information screen: 2 Ridge fits/1 bootstrap, 3014 train and 940 reused held mature days, zero accounts. Baseline MSE .00252626694, candidate .00254396116; paired mean -1.76942193e-5, halves +6.321699e-7/-3.8698437e-5, coefficient positive, corrected lower -6.4410779e-5. Full, second-half and lower gates fail. 2026Q3 positive local information quarter is descriptive only; fixed CFTC delta4 H5 route closed without sign/window/quarter rescue."
+    "CFTC_NQ_H5_fixed_interpretation": "Repaired source and full-calendar v2 information screen: 2 Ridge fits/1 bootstrap, 3014 train and 940 reused held mature days, zero accounts. Baseline MSE .00252626694, candidate .00254396116; paired mean -1.76942193e-5, halves +6.321699e-7/-3.8698437e-5, coefficient positive, corrected lower -6.4410779e-5. Full, second-half and lower gates fail. 2026Q3 positive local information quarter is descriptive only; fixed CFTC delta4 H5 route closed without sign/window/quarter rescue.",
+    "TSMC_guidance_PDF_transport_probe": "research/stage1_tsmc_guidance_pdf_transport_20261023/summary.json",
+    "TSMC_guidance_PDF_transport_status": "One frozen alternate official PDF GET returned HTTP403; exact failed response backed to NAS, other two requests not made, zero fits/accounts. Close direct-PDF transport; no TSMC factor."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -343,7 +345,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T21:28:17.764416+00:00",
+  "updated_at_utc": "2026-10-22T21:32:43.725719+00:00",
   "execution_totals": {
     "new_model_fits": 81,
     "new_native_accounts": 50,

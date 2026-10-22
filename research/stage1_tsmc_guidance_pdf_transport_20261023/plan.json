@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_tsmc_guidance_pdf_transport_20261023",
+  "phase": "official_TSMC_quarterly_guidance_original_PDF_transport_preflight_only",
+  "prior_closed_html_transport": "research/stage1_tsmc_quarterly_guidance_source_preflight_20261023/summary.json",
+  "question": "Can official pr.tsmc.com newspdf attachments provide original issuer quarterly guidance text and issued date across 2016, 2022, 2026 despite direct HTML 403?",
+  "exact_requests": [
+    {
+      "anchor": "2015Q4_reported_2016_01_14",
+      "url": "https://pr.tsmc.com/system/files/newspdf/THPGSTST/NEWS_FILE_EN.pdf"
+    },
+    {
+      "anchor": "2022Q1_reported_2022_04_14",
+      "url": "https://pr.tsmc.com/system/files/newspdf/attachment/a30e03aa8dba0c29f327dab4574a4f28c8990210/1Q22%20%28E%29_with%20guidance_final_wmn.pdf"
+    },
+    {
+      "anchor": "2026Q1_reported_2026_04_16",
+      "url": "https://pr.tsmc.com/system/files/newspdf/attachment/ccc793456ad779b0f181989dffc81f4e3da4aec2/1Q26%20%28E%29_with%20gudiance_final_wmn.pdf"
+    }
+  ],
+  "request": {
+    "GETs_max": 3,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 45,
+    "max_response_bytes_each": 8000000,
+    "seconds_between_requests": 1
+  },
+  "identity_gate": "HTTP200 PDF magic and parsable first page containing TSMC/quarter/issued-date and forward guidance. Preserve raw PDF and headers even if failure. Stop at first transport failure; no alternate URL or browser rescue in this phase.",
+  "backup": "NAS archive raw bytes and HTTP headers plus receipt/digest, remote hash and scoped member restore.",
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "A transport/source pass is not historical first-public or feature qualification. No retrospective SOXX label or candidate account read."
+}

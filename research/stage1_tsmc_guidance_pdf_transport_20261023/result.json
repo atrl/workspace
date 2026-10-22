@@ -1,0 +1,13 @@
+{
+  "status": "bounded_official_PDF_transport_partial_or_failed",
+  "failure": "anchor_1_transport_or_pdf_magic",
+  "plan_sha256": "0f55cef87176cfed12b985d5e4e420166a06cb008d8a3e0fbc645048e9fabc76",
+  "GET_attempts": 1,
+  "checks": [],
+  "NAS_archive_sha256": "b1d818f59d311a6b8ced777249f8bb8d0b092fe44a9384afa8dc5a6a86e8f88c",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "historical_first_public_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

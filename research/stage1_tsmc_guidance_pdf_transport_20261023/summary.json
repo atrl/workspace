@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_tsmc_guidance_pdf_transport_20261023",
+  "decision": "needs_source_access_official_PDF_first_anchor_HTTP403",
+  "objective_achieved": false,
+  "plan_sha256": "0f55cef87176cfed12b985d5e4e420166a06cb008d8a3e0fbc645048e9fabc76",
+  "result": "result.json",
+  "GETs_consumed": 1,
+  "first_anchor_http_status": 403,
+  "historical_first_public_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "NAS_archive_sha256": "b1d818f59d311a6b8ced777249f8bb8d0b092fe44a9384afa8dc5a6a86e8f88c",
+  "NAS_scoped_restore_verified": true,
+  "next_action": "Close exact PDF direct transport route. Obtain original issuer bytes through a genuinely different permitted transport or use unrelated qualified mechanism; no TSMC factor/account from this source.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

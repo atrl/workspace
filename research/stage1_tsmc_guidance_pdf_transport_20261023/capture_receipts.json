@@ -1,0 +1,15 @@
+[
+  {
+    "anchor": "2015Q4_reported_2016_01_14",
+    "url": "https://pr.tsmc.com/system/files/newspdf/THPGSTST/NEWS_FILE_EN.pdf",
+    "requested_at_utc": "2026-10-22T21:31:52.396029+00:00",
+    "received_at_utc": "2026-10-22T21:31:53.119035+00:00",
+    "curl_exit_code": 22,
+    "http_status": 403,
+    "final_url": "https://pr.tsmc.com/system/files/newspdf/THPGSTST/NEWS_FILE_EN.pdf",
+    "stderr": "curl: (22) The requested URL returned error: 403\n",
+    "raw_sha256": "388cef5a269ed793e1a206cc2bc8c9cc79051f66559d4372986f88b4ab6989e1",
+    "raw_bytes": 5571,
+    "headers_sha256": "e94aace59f89d105dcc24f6fe75b147a0035fe624bd7140c91b7119f1a455c3e"
+  }
+]

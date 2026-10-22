@@ -410,6 +410,12 @@
       "status": "not_qualified_for_call_put_composition",
       "result": "research/cboe_soxx_soxl_options_volume_source_20261022/source_schema_audit.json",
       "default_search": false
+    },
+    {
+      "card": "research/stage1_tsmc_guidance_pdf_transport_20261023",
+      "status": "needs_source_access_official_PDF_first_anchor_HTTP403",
+      "result": "research/stage1_tsmc_guidance_pdf_transport_20261023/summary.json",
+      "default_search": false
     }
   ]
 }
