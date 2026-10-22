@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "experiment": "semiconductor_ip_stage1_availability_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "source_only_native_Qlib_Stage1_signal_calendar_alignment",
+  "source_card": "research/semiconductor_ip_numeric_vintage_20261022",
+  "source_recorder_id": "06714d1db51e487aa095d918a7eaca69",
+  "source_summary_sha256": "9e04da06eac902517371d19568efaa66baf031a93e09188d746d429c8e2ece22",
+  "source_manifest_sha256": "440da4bf340dfb9c9ec0d7f0ffb687622936631c7c6adf7dcb12996fb91a1fb7",
+  "source_artifact": "sources/vintage_events",
+  "source_artifact_sha256": "83ea084c7692f2f00f19665675a525b413be1e05bafeffee7774d924f644205a",
+  "source_numeric_audit_sha256": "859256f1c54540d8e86fe154d4375fe4b111671ae24bbfa3c3ce0bbed9a6d042",
+  "source_interpretation_note_sha256": "d725c06a0d07bb87f486ca0754c3b16b8b3c9d3815d5ee99123d74c9fca9ab85",
+  "Qlib_calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "Qlib_calendar_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "signal_bounds": {
+    "train": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "train_expected": 3020,
+    "held_expected": 944
+  },
+  "clock": "An original Fed release declares 09:15 America/New_York. Use the following actual Qlib trading session 09:31 as conservative availability; attach only to a Stage1 signal date at that session close or later. Never use a report on its release date or backfill an observation month to its calendar month.",
+  "source_state_policy": "Carry the last exact published same-vintage MoM value until a later release becomes available; retain source release date, observation month, base year and age days. Missing 2025-10 latest-month event is not fabricated; the previous release remains last-known until the 2025-12-23 seven-month publication. Report all ages and gaps without selecting an age cutoff from market outcomes.",
+  "native_evidence": [
+    "One D.calendar call over 2010-09 through 2026-10 and exact Stage1 train/held slices",
+    "DataHandlerLP.from_df and DatasetH.prepare on all mapped feature rows; compare exact sorted MultiIndex and numerical values",
+    "Recorder stores full mapped panel, source event clocks and original source hash; small card reports coverage/age/base transitions only"
+  ],
+  "budget": {
+    "source_recorder_object_loads": 1,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "DatasetH_builds": 1,
+    "new_writable_Recorders": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "limitations": [
+    "Original release archive date and declared clock do not prove historical first receipt on an individual Stage1 host",
+    "Index base years 2007/2012/2017 are kept distinct; only within-vintage dimensionless changes are mapped",
+    "Source alignment does not prove prediction or economic alpha; a separate matched information screen is required before any Stage1 account"
+  ]
+}
