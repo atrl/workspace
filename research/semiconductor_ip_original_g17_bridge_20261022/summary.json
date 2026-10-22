@@ -1,0 +1,17 @@
+{
+  "experiment": "semiconductor_ip_original_g17_bridge_20261022",
+  "decision": "row_coverage_only_no_Stage1_input_permission",
+  "objective_achieved": false,
+  "result": "source_row_audit.json",
+  "source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "source_archive_sha256": "53902fc004fa30eeda55b7d587a5a97e3e7399eb41802925651d14e37111d3a5",
+  "new_source_GETs": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "source_recorder_authority": true
+  }
+}

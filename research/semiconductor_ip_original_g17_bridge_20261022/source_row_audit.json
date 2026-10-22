@@ -1,0 +1,30 @@
+{
+  "status": "original_G17_Table1_3344_row_presence_audited",
+  "source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "plan_sha256": "0de77525e201775a882c307e7de218c7f4d96c35b4bb41d8d520def669d98c7e",
+  "original_documents": 192,
+  "Table1_exact_one_count": 190,
+  "Table1_missing_count": 2,
+  "Table1_ambiguous_count": 0,
+  "SA_header_count": 190,
+  "IP_header_count": 7,
+  "base_year_counts": {
+    "2012": 69,
+    "2017": 63,
+    "2007": 58,
+    "unknown": 2
+  },
+  "first_release": "20100915",
+  "last_release": "20260918",
+  "missing_release_files": [
+    "20120316_sup.txt",
+    "20160316_sup.txt"
+  ],
+  "numeric_feature_values_parsed": 0,
+  "market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "native_accounts": 0,
+  "historical_first_receipt_qualified": false,
+  "definition_or_base_continuity_qualified": false,
+  "decision": "row_coverage_only_no_Stage1_input_permission"
+}
