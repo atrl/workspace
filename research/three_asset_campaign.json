@@ -151,8 +151,8 @@
     "credit_risk_appetite_source_status": "Futu_US_HYG_2011_01_03_daily_success_code_zero_rows_stop_one_request_NAS_restored_zero_fits_accounts",
     "stage1_cross_market_vol_gap_information_result": "research/stage1_cross_market_vol_gap_information_20261023/summary.json",
     "stage1_cross_market_vol_gap_information_status": "closed_fixed_original_39_plus_nonlinear_vol_gap_H5_information_failed_two_fits_one_bootstrap_zero_accounts_2026Q3_worst_quarter",
-    "SOXX_legacy_filing_index_result": "research/stage1_soxx_legacy_filing_index_20261023/filing_2010_12_30_identity_result.json",
-    "SOXX_legacy_filing_index_status": "one_2010_10_31_original_SOXX_schedule_in_2010_12_30_accepted_NQ_NAS_verified_full_history_and_daily_prices_pending_zero_fits_accounts"
+    "SOXX_legacy_filing_index_result": "research/stage1_soxx_legacy_filing_index_20261023/filing_2010_12_30_numeric_repair2_result.json",
+    "SOXX_legacy_filing_index_status": "one_pre_Stage1_original_SOXX_reported_basket_30_stock_value_closure_top5_39p66pct_full_history_and_timing_pending_zero_fits_accounts"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

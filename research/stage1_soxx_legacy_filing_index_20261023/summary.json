@@ -1,6 +1,6 @@
 {
   "experiment": "stage1_soxx_legacy_filing_index_20261023",
-  "decision": "original_pre_Stage1_SOXX_schedule_specimen_qualified_full_history_and_prices_pending",
+  "decision": "single_pre_Stage1_SOXX_reported_basket_numeric_source_pilot_passed_full_history_pending",
   "objective_achieved": false,
   "plan": "plan.json",
   "http_GETs": 3,
@@ -45,5 +45,15 @@
   "original_body_NAS_scoped_restore_verified": true,
   "full_2011_2022_basket_qualified": false,
   "daily_member_prices_qualified": false,
-  "SOXX_schedule_scope": "one_2010_10_31_original_report_only"
+  "SOXX_schedule_scope": "one_2010_10_31_original_report_only",
+  "numeric_pilot_plan": "filing_2010_12_30_numeric_pilot_plan.json",
+  "numeric_pilot_initial_result": "filing_2010_12_30_numeric_pilot_result.json",
+  "numeric_repair_plan": "filing_2010_12_30_numeric_repair_plan.json",
+  "numeric_repair_attempt1_failure": "filing_2010_12_30_numeric_repair_attempt1_failure.json",
+  "numeric_repair2_plan": "filing_2010_12_30_numeric_repair2_plan.json",
+  "numeric_pilot_result": "filing_2010_12_30_numeric_repair2_result.json",
+  "single_report_equity_rows": 30,
+  "single_report_fair_value_usd": 176823015,
+  "single_report_top5_share": 0.3965793819317016,
+  "single_report_hhi": 0.05126927682917482
 }
