@@ -1,0 +1,17 @@
+{
+  "status": "fixed_0bp_action_value_DatasetH_preflight_passed",
+  "plan_sha256": "7cee52494d0f2b193728470e06a93a2c3f8671c8f3f096cc7943eda1e37de007",
+  "calendar_rows": 1061,
+  "train_calendar_rows": 558,
+  "eval_calendar_rows": 503,
+  "train_mature_eligible": 173,
+  "eval_mature_eligible": 265,
+  "eval_annual_support": {
+    "2021": 27,
+    "2022": 238
+  },
+  "unknown_source_days": 1,
+  "eligible_unknown_source_days": 0,
+  "new_model_fits": 0,
+  "native_accounts": 0
+}

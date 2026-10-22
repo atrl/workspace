@@ -286,6 +286,13 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/stage1_cap_gap_cash_information_20261023/summary.json"
+    },
+    {
+      "card": "research/stage1_signed_volume_0bp_action_information_20261023",
+      "status": "not_promoted_fixed_0bp_signed_volume_recovery_amount_information_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_signed_volume_0bp_action_information_20261023/summary.json"
     }
   ],
   "deferred_sources": {
