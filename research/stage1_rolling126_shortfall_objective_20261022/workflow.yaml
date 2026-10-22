@@ -1,0 +1,5 @@
+experiment: stage1_rolling126_shortfall_objective_20261022
+notebook: stage1_rolling126_shortfall_objective_20261022.ipynb
+phase: frozen_design_before_fit_source_and_gradient_preflight
+frozen_plan: plan.json
+artifact_policy: slim_card_recorder_first

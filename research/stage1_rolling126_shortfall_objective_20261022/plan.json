@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_rolling126_shortfall_objective_20261022",
+  "phase": "frozen_design_before_fit_source_and_gradient_preflight",
+  "execution_authorized": false,
+  "parent": {
+    "name": "Original frozen Stage1 f696 allocation plus b472 action/risk/recovery under exact source clocks and raw-share books",
+    "stage1_plan": "research/stage1_domain_heads_20261018/plan.json",
+    "stage1_plan_sha256": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+    "stage1_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "A_0bp_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "A_0bp_parity_receipt": "research/stage1_nvda_guidance_receiver_20261022/baseline_parity_result.json",
+    "A_0bp_parity_receipt_sha256": "d43869e2724d820b70fdc042f9fc288c64a137a6dc57b2cc5c5f8db6a1729704",
+    "account_source_preflight_receipt": "research/stage1_nvda_guidance_receiver_20261022/account_source_preflight.json",
+    "account_source_preflight_sha256": "1666ead0b7de45f08968177c6e34ac763e78f79120fde7c3d55152fb0418f72c"
+  },
+  "single_mechanism": "Add to the original Stage1 allocation objective the mean positive shortfall of every contiguous 126-session training-window daily-average log wealth relative to SOXX. The window 126 and 70%-positive evaluation gate are frozen contract v2 values, not selected from 2023+ intervals. The added term has coefficient exactly 1 in the same daily-log units as the base objective; retain all original absolute drawdown, cash, 5-day tail, turnover, classification and auxiliary terms.",
+  "closed_route_distinction": "The closed annual_shortfall_training_20261015 replaced the annual standard-deviation term with annual negative-excess RMS. This design retains that original annual term and adds a 126-session all-window penalty; it does not tune or resume the closed annual version.",
+  "model": {
+    "adapter": "src/model/stage1_rolling126_shortfall.py",
+    "adapter_sha256": "d2eba9518f32fe940994c1bc8ff5e161be178a24804f1e3b381775c1c361ba43",
+    "training_calendar": {
+      "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+      "manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+    },
+    "base_class": "src.model.minute_pit_allocator.MinutePitAllocator",
+    "seeds": [
+      71,
+      172,
+      273
+    ],
+    "epochs_per_seed": 300,
+    "same_inputs": "original 39 primary and 16 common features; no new feature, source, label or imputation",
+    "same_optimizer": "original AdamW, auxiliary weight, original 20-row purge and original final-epoch selection",
+    "loss_coordinate": "mean(ReLU(-rolling126_daily_average_log_excess)) over every contiguous original mature 2011-2022 training interval; no look at 2023+ outcomes",
+    "matched_initialization": "For each seed, candidate and original Stage1 source model must have exact initial parameter tensors and identical predictions before fitting."
+  },
+  "mechanical_preflight": [
+    "Verify parent/source Recorder artifact hashes, Stage1 label maturity, 3014 primary and 20741 auxiliary training rows and complete 126-window calendar",
+    "Check exact same initialized model tensors for all three seeds",
+    "On original training returns check finite positive penalty when SOXX-relative windows are negative and a nonzero gradient on allocation parameters; zero fits/accounts",
+    "Verify original A 0bp native replay parity and runtime scikit-learn 1.9.1 before own account"
+  ],
+  "economics_first_stage": {
+    "assets": [
+      "SOXL",
+      "SOXX",
+      "CASH"
+    ],
+    "initial_cash_usd": 100000,
+    "funded_sessions": 944,
+    "start_signal": "2023-01-03",
+    "terminal_exit": "2026-10-09",
+    "slippage_bps": [
+      0
+    ],
+    "fees": "Original frozen IBKR Pro Tiered projection, still charged at 0bp added slippage",
+    "own_state": "One independent B_rolling126_0 raw-share/available-minute Qlib native account with its own holdings, cash, receivables, fees, peak, risk state and clock; no price-plane or action/recovery changes",
+    "reference": "Original frozen A_active_research_replay_0 and same-native-account SOXX_0; prior strong references diagnostic only"
+  },
+  "hard_screen_0bp": {
+    "net_SOXX_relative_wealth": ">1+1e-8",
+    "available_close_and_sampled_drawdown": "<=30%; full-minute risk separately qualified",
+    "CVaR5": "no worse than same-accounting SOXX",
+    "complete_annual": "at least two complete years and >=70% positive",
+    "all_contiguous_126_session_windows": ">=70% positive net SOXX excess",
+    "paired_stationary_bootstrap": {
+      "mean_block": 63,
+      "draws": 10000,
+      "seed": 20261014,
+      "one_sided_alpha": 0.001388888888888889,
+      "lower_positive": true
+    },
+    "historical_independence": false
+  },
+  "budget": {
+    "new_model_fit_attempts_max": 3,
+    "new_0bp_native_accounts_max": 1,
+    "new_bootstrap_runs_max": 1,
+    "new_market_requests": 0,
+    "new_writable_Qlib_Recorders_max": 1,
+    "new_derived_Qlib_provider_builds_max": 1
+  },
+  "stop": "Independent final design approval and exact code/provider/source hash permit before first fit. Seal all three models and predictions before loading evaluation account objects. If any 0bp gate fails, close this fixed objective; no coefficient, window, risk cap, seed, epoch, cost or output selection rescue. Historical 0bp pass still needs separately frozen 2/5bp own-state accounts, full-minute risk and independent forward v2 gates.",
+  "account_replay": {
+    "helper_card": "research/stage1_nvda_guidance_receiver_20261022",
+    "helper_module": "src/workflow/stage1_nvda_guidance_receiver.py",
+    "helper_module_sha256": "062fbcfde9673e756169f65c2c3e7737703c901eaeb01f89aa10df0e26fa948b",
+    "provider_output": "data/qlib/stage1_rolling126_shortfall_objective_20261022",
+    "funded_date_tuple_sha256": "8a268b6e1af6d8153bf743c470916f8283efc89fb610d9ee8b6c679e3924db6a",
+    "funded_calendar_result_sha256": "90ae2bef20547ccb0e11f9d1d1fed8bc1bb08c4de57b3df9699f98de9579628a",
+    "raw_path_module_sha256": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+    "native_validator_module_sha256": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75"
+  },
+  "runtime": {
+    "saved_action_classifier_scikit_learn": "1.9.1",
+    "source": "same isolated runtime in which original Stage1 A 0bp replay exactly matched 944 rows/1275 orders/3778 marks"
+  }
+}

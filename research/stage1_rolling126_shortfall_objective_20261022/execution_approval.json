@@ -1,0 +1,21 @@
+{
+  "approved": true,
+  "authority": "active continuous SOXX Goal, bounded first Stage1-derived 0bp experiment after independent design approval",
+  "plan_sha256": "4274a0d201dac15971b5728cb32e2b2b58452cc6ed3a44079c9071b6dcfdaf4d",
+  "review_sha256": "350558502bd7eb3997c005bfd67b1072f661a0b8122866d13e9ccbd399a83c86",
+  "code_sha256": {
+    "src/workflow/stage1_rolling126_shortfall.py": "8b4ed8a19c51cb7e4d5ce7daf67fff4fda83dd02dcb5bb95eaac09cc8c806f41",
+    "src/model/stage1_rolling126_shortfall.py": "d2eba9518f32fe940994c1bc8ff5e161be178a24804f1e3b381775c1c361ba43",
+    "src/workflow/stage1_nvda_guidance_receiver.py": "062fbcfde9673e756169f65c2c3e7737703c901eaeb01f89aa10df0e26fa948b",
+    "src/backtest/stage1_domain_heads_raw.py": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+  },
+  "bounds": {
+    "fits_max": 3,
+    "own_state_0bp_accounts_max": 1,
+    "bootstrap_max": 1,
+    "real_broker_orders": 0,
+    "market_data_purchases": 0
+  }
+}

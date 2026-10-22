@@ -1,0 +1,11 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "plan_sha256": "4274a0d201dac15971b5728cb32e2b2b58452cc6ed3a44079c9071b6dcfdaf4d",
+  "workflow_sha256": "8b4ed8a19c51cb7e4d5ce7daf67fff4fda83dd02dcb5bb95eaac09cc8c806f41",
+  "review_scope": "First fit readiness: original Stage1 source, native 3014-session calendar, three initialized allocation-head gradients, pinned helper/account, bounded resume, one own-state 0bp account and NAS archive readback",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "limitations": [
+    "No fit/account performed in review",
+    "No historical economic or independent forward gate certified"
+  ]
+}

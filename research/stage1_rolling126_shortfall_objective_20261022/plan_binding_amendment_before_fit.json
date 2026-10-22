@@ -1,0 +1,14 @@
+{
+  "status": "prefit_operational_account_binding_added",
+  "prior_plan_sha256": "9bcbf9f0b010b3e4b172a99f9aba770315945342b1747254fd6624fb182eab16",
+  "current_plan_sha256": "7a570fbbbd1f42d2d581c4981a1e28017031dd051dd2450e8b1129184816ee1b",
+  "added_fields": [
+    "account_replay",
+    "runtime",
+    "budget.new_derived_Qlib_provider_builds_max"
+  ],
+  "unchanged_scientific_hypothesis_model_objective_cost_gates_and_windows": true,
+  "model_fits_before_change": 0,
+  "native_accounts_before_change": 0,
+  "evaluation_outcomes_read": 0
+}
