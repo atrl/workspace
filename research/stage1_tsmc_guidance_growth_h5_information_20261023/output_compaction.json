@@ -1,0 +1,18 @@
+{
+  "status": "verbose_Qlib_progress_output_compacted_after_execution",
+  "original_notebook_sha256": "be46ca595ec9500927f3f2e24cc930c4640cc0c19c1b497dfe9df27e65aa7fe7",
+  "original_notebook_bytes": 82955,
+  "backup_local_path": "data/snapshots/stage1_tsmc_guidance_growth_h5_information_20261023/notebook_before_output_compaction.ipynb",
+  "backup_sha256": "be46ca595ec9500927f3f2e24cc930c4640cc0c19c1b497dfe9df27e65aa7fe7",
+  "old_output_chars_by_code_cell": [
+    1950,
+    1868
+  ],
+  "retained_output_count_by_code_cell": [
+    1,
+    1
+  ],
+  "compacted_notebook_sha256": "f15ae34334f1be4450716934193e44db0775163521a2d7b01c5b903181b3e44e",
+  "recorder_id": "6d80c635f005430497d086d99a5298fa",
+  "notebook_not_rerun": true
+}

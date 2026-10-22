@@ -1,0 +1,23 @@
+{
+  "status": "conditional_TSMC_guidance_H5_DatasetH_source_maturity_novelty_preflight_passed_no_fit",
+  "plan_sha256": "10e1fdcd1ba3af7f09675793b30b2bdee1ed052828b12b76ea2f0ad9240751e6",
+  "source_recorder_id": "9770e4b8e19c488f95221fc4a8150f11",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "original_primary_features": 39,
+  "candidate_coordinates": 1,
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "train_segment_rows": 3020,
+  "held_segment_rows": 944,
+  "source_known_train_calendar": 3002,
+  "source_known_held_calendar": 944,
+  "candidate_train_unknown_mature_rows": 18,
+  "candidate_held_unknown_mature_rows": 0,
+  "max_abs_training_pairwise_Pearson": 0.11683956342141448,
+  "parent_Recorder_object_loads": 4,
+  "source_Recorder_object_loads": 1,
+  "DatasetH_builds": 1,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_first_public_exact_clock_qualified": false
+}

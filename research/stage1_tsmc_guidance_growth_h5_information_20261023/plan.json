@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_tsmc_guidance_growth_h5_information_20261023",
+  "phase": "original_Stage1_39_plus_one_original_TSMC_forward_guidance_growth_H5_cash_information",
+  "execution_authorized_by_active_Goal": true,
+  "hypothesis": "A stronger issuer-communicated next-quarter TSMC revenue outlook relative to its just-reported revenue reflects semiconductor demand strength beyond Stage1 price/VIX/breadth inputs and adds positive H5 SOXX-versus-cash information. The added standardized coefficient must be positive.",
+  "parent": {
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "nas_readback": "research/minute_information_pit_allocator_20261012/nas_readback.json",
+    "feature_order": "Exact original Stage1 seed71 primary 39 base_features, no dirty provider substitution."
+  },
+  "source": {
+    "card": "research/stage1_tsmc_sec_guidance_growth_source_20261023",
+    "summary_sha256": "f6f6443492bf8dc66c3520ce10e5d2a0b14a8c2fa89d5f627cc15bddb2402d3e",
+    "recorder_id": "9770e4b8e19c488f95221fc4a8150f11",
+    "experiment_id": "286349281465786733",
+    "feature_artifact": "analysis/mapped_signals",
+    "feature_artifact_sha256": "e6569846193c16c0a8a9f8acdd5cbf10444a0cc92f31e32e51c81001fef9cc07",
+    "nas_archive_sha256": "a5c03bdb88a450e0244330d375c8ab51fe5bc05b104851066ae1befeb6c25f03",
+    "feature": "TSMC_next_guidance_mid_NT_over_current_revenue_minus1",
+    "train_calendar_known": 3002,
+    "held_calendar_known": 944,
+    "historical_first_public_exact_clock_qualified": false,
+    "timing": "Original 6-K accepted filing body; earliest candidate use is the next actual Qlib trade-date 09:46 after its filing/acceptance calendar date. Exact issuer first-public clock remains unqualified; this screen is conditional development only."
+  },
+  "single_mechanism": {
+    "baseline": "Original Stage1 39 primary inputs only.",
+    "candidate": "Identical rows, H5 SOXX label, median imputer, scaler and Ridge plus one fixed TSMC forward-guidance growth coordinate.",
+    "feature_formula": "Next-quarter revenue guidance midpoint in NT billions, converting US-dollar guidance by the same filing's stated FX assumption, divided by just-reported current-quarter consolidated revenue in NT billions, minus one; source formula frozen upstream.",
+    "training_only_max_abs_pairwise_Pearson_stop_at_or_above": 0.95,
+    "expected_added_standardized_coefficient": "positive"
+  },
+  "label": {
+    "primary": "Five consecutive original Stage1 SOXX funded open-to-open returns from signal s, summed as log1p(soxx_forward_open_return(s+j)), j=0..4.",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval; train strictly before 2023-01-01 New York, reused held before 2026-10-10 New York.",
+    "role": "Matched incremental information only, not fee-net strategy return."
+  },
+  "cohorts": {
+    "train_signal": ["2011-01-03", "2022-12-30"],
+    "held_reused_diagnostic": ["2023-01-03", "2026-10-07"],
+    "held_halves": [["2023-01-03", "2024-12-31"], ["2025-01-02", "2026-10-07"]],
+    "complete_held_years": [2024, 2025],
+    "expected_train_calendar_rows": 3020,
+    "expected_held_calendar_rows": 944,
+    "expected_mature_train_rows": 3014,
+    "expected_mature_held_rows": 940,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {"baseline": "SimpleImputer(median) -> StandardScaler -> Ridge(alpha=1.0) on original 39", "candidate": "same pipeline plus one fixed source coordinate", "fit_attempts_max": 2, "no_horizon_alpha_sign_or_window_selection": true},
+  "information_gate": {
+    "paired_metric": "On identical mature held rows, baseline squared error minus candidate squared error for SOXX five-open log return.",
+    "added_coefficient_positive": true,
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "each_complete_2024_2025_year_mean_positive": true,
+    "paired_stationary_bootstrap": {"mean_block_sessions": 63, "draws": 10000, "seed": 20261023, "one_sided_alpha": 0.0006944444444444445, "family_denominator": 36, "lower_positive": true}
+  },
+  "budget": {"new_external_requests": 0, "parent_Recorder_object_loads_per_phase_max": 4, "source_Recorder_object_loads_per_phase_max": 1, "DatasetH_builds_per_phase_max": 1, "phases_max": 2, "model_fit_attempts_max": 2, "bootstrap_attempts_max": 1, "new_writable_Qlib_Recorders_max": 1, "native_accounts": 0},
+  "stop": "Do one no-fit source, label-maturity, training-only novelty and DatasetH preflight, then one fresh-kernel identical rehydration and the fixed two Ridge fits/one full-944-calendar stationary bootstrap. Any source, coefficient, full, half, 2024/2025 or corrected-lower failure closes this version without sign, horizon, currency, season or threshold rescue. An information pass still needs source/PIT qualification and one separately frozen original-Stage1-derived full 0bp Tiered account before 2/5bp and independent forward v2 gates.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": ["inputs/*", "models/*", "predictions/*", "analysis/*"]}
+}

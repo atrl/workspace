@@ -1,0 +1,200 @@
+{
+  "experiment": "stage1_tsmc_guidance_growth_h5_information_20261023",
+  "decision": "not_promoted_fixed_TSMC_guidance_growth_H5_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "10e1fdcd1ba3af7f09675793b30b2bdee1ed052828b12b76ea2f0ad9240751e6",
+  "preflight": {
+    "status": "conditional_TSMC_guidance_H5_DatasetH_source_maturity_novelty_preflight_passed_no_fit",
+    "plan_sha256": "10e1fdcd1ba3af7f09675793b30b2bdee1ed052828b12b76ea2f0ad9240751e6",
+    "source_recorder_id": "9770e4b8e19c488f95221fc4a8150f11",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "original_primary_features": 39,
+    "candidate_coordinates": 1,
+    "training_mature_rows": 3014,
+    "held_mature_rows": 940,
+    "train_segment_rows": 3020,
+    "held_segment_rows": 944,
+    "source_known_train_calendar": 3002,
+    "source_known_held_calendar": 944,
+    "candidate_train_unknown_mature_rows": 18,
+    "candidate_held_unknown_mature_rows": 0,
+    "max_abs_training_pairwise_Pearson": 0.11683956342141448,
+    "parent_Recorder_object_loads": 4,
+    "source_Recorder_object_loads": 1,
+    "DatasetH_builds": 1,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "historical_first_public_exact_clock_qualified": false
+  },
+  "information_gate_pass": false,
+  "metrics": {
+    "baseline_held_mse": 0.0025262669365982205,
+    "candidate_held_mse": 0.002529224025152378,
+    "paired_mean_mse_improvement": -2.957088554156739e-06,
+    "held_half_means": [
+      3.6705882799204444e-06,
+      -1.0553193053487212e-05
+    ],
+    "annual": [
+      {
+        "year": 2023,
+        "n": 250,
+        "paired_mean_mse_improvement": 1.2083591001528816e-05
+      },
+      {
+        "year": 2024,
+        "n": 252,
+        "paired_mean_mse_improvement": -4.675644578818019e-06
+      },
+      {
+        "year": 2025,
+        "n": 250,
+        "paired_mean_mse_improvement": -1.3231368378203837e-05
+      },
+      {
+        "year": 2026,
+        "n": 188,
+        "paired_mean_mse_improvement": -6.991789696151276e-06
+      }
+    ],
+    "added_standardized_coefficient": -0.0010703020047631235,
+    "bootstrap_lower": -2.564096027708037e-05,
+    "bootstrap_upper": 1.9597576940325693e-05,
+    "bootstrap": {
+      "paired_mean_loss_improvement": -2.9570885541567386e-06,
+      "lower_bound": -2.564096027708037e-05,
+      "upper_bound": 1.9597576940325693e-05,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 944,
+      "scored_rows": 940
+    }
+  },
+  "gates": {
+    "coefficient_positive": false,
+    "full_held_mean_positive": false,
+    "both_held_halves_mean_positive": false,
+    "each_complete_2024_2025_year_mean_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "quarterly_information_attribution": [
+    {
+      "quarter": "2023Q1",
+      "sessions": 62,
+      "paired_mean_mse_improvement": 1.652767596254687e-05
+    },
+    {
+      "quarter": "2023Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": 3.4166083391935506e-05
+    },
+    {
+      "quarter": "2023Q3",
+      "sessions": 63,
+      "paired_mean_mse_improvement": 2.2438610332212014e-05
+    },
+    {
+      "quarter": "2023Q4",
+      "sessions": 63,
+      "paired_mean_mse_improvement": -2.4376948897223168e-05
+    },
+    {
+      "quarter": "2024Q1",
+      "sessions": 61,
+      "paired_mean_mse_improvement": 1.0926338529675941e-05
+    },
+    {
+      "quarter": "2024Q2",
+      "sessions": 63,
+      "paired_mean_mse_improvement": -3.3335978165521724e-05
+    },
+    {
+      "quarter": "2024Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 4.645850599720918e-06
+    },
+    {
+      "quarter": "2024Q4",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -6.552640332288079e-07
+    },
+    {
+      "quarter": "2025Q1",
+      "sessions": 60,
+      "paired_mean_mse_improvement": -6.456539327148141e-05
+    },
+    {
+      "quarter": "2025Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -2.5281285504803136e-05
+    },
+    {
+      "quarter": "2025Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 1.2411291811157981e-05
+    },
+    {
+      "quarter": "2025Q4",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 2.0924976986275136e-05
+    },
+    {
+      "quarter": "2026Q1",
+      "sessions": 61,
+      "paired_mean_mse_improvement": 1.0034893766321123e-05
+    },
+    {
+      "quarter": "2026Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -5.410239242935061e-05
+    },
+    {
+      "quarter": "2026Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 2.1642535766681973e-05
+    },
+    {
+      "quarter": "2026Q4",
+      "sessions": 1,
+      "paired_mean_mse_improvement": 4.2641058930063195e-05
+    }
+  ],
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "held_market_history_reused": true,
+  "historical_first_public_exact_clock_qualified": false,
+  "independent_forward_qualified_days": 0,
+  "recorder_id": "6d80c635f005430497d086d99a5298fa",
+  "experiment_id": "305564021137220484",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_tsmc_guidance_growth_h5_information_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "SEC original 6-K sources and next-session clocks are conservative but exact issuer first-public time and full economic semantic revision history remain unqualified.",
+    "Reused 2023-2026 held market history is development feedback, not independent validation.",
+    "Information MSE is not a full funded 0bp Tiered Stage1 account or SOXX net return."
+  ],
+  "nas_evidence": {
+    "sha256": "c7e5f2b8d90dc61a01c7bf55d2bcdc826b69113e1403a00b3db7ff0e94e77f8d",
+    "size_bytes": 1492505,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c7/e5/c7e5f2b8d90dc61a01c7bf55d2bcdc826b69113e1403a00b3db7ff0e94e77f8d",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 05:50:17.770486+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/c7/e5/c7e5f2b8d90dc61a01c7bf55d2bcdc826b69113e1403a00b3db7ff0e94e77f8d",
+    "recorder_id": "6d80c635f005430497d086d99a5298fa",
+    "experiment_id": "305564021137220484",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_restore_verified": true
+}
