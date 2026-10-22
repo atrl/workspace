@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_exact_later_2016_Sep_SOXX_amendment_source_and_semantics_probe",
+  "source_series_calendar_sha256": "84de74dd586d975e02fd5852acfb4d024408b0272c063e92fa3965b0d3df545b",
+  "first_version_numeric_result_sha256": "c5d63cd18677a633ec2b79b76b224f4745b935fe3947675fb2a9f0c91066f69a",
+  "report_date": "2016-09-30",
+  "amendment_form": "N-CSRS/A",
+  "amendment_accession": "0001193125-17-257378",
+  "amendment_accepted_at_utc": "2017-08-15T01:09:35.000Z",
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312517257378/d441273dncsrsa.htm",
+  "first_version_accession": "0001193125-16-788378",
+  "first_version_accepted_at_utc": "2016-12-09T00:57:38.000Z",
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 1,
+    "max_response_bytes": 70000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 120
+  },
+  "source_gate": "Archive exact original amendment body/headers/UTC/SHA to NAS with remote hash and scoped restore; verify SOXX fund title/report date and bounded Security/Shares/Value equity schedule.",
+  "semantic_gate": "If the amendment includes an original SOXX equity schedule, parse it with the already fixed positive-share/positive-value and printed-total closure rules, then compare exact security names, shares, fair values, top5/HHI against first-version 2016-09-30. If not, state amendment scope unknown/no SOXX schedule rather than fabricate a revised value.",
+  "budget": {
+    "amendment_GETs": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "availability_boundary": "Original first-version values remain the only candidate prior to 2017-08-15 acceptance; a later revised value, if qualified, may only be considered after a separately conservative next-session gate. Never overwrite the first source bytes or pre-amendment signal history.",
+  "stop": "Any transport/size/NAS/identity/printed-total failure stops this fixed amendment source version without retry or alternative URL."
+}
