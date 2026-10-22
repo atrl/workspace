@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "prospective_TSMC_2026_10_monthly_revenue_original_source_capture",
+  "target_reference_month": "2026-10",
+  "target_title": "TSMC October 2026 Revenue Report",
+  "calendar_probe_sha256": "0b420527639eee3fa975fa8d1eea0969ee63f73081d074821847da1478a065db",
+  "alternate_issuer_source_review_sha256": "4310f993ba37976c108683369cd2fe52382c756e08881a5918c2cc643b041e26",
+  "official_calendar_url": "https://investor.tsmc.com/english/financial-calendar",
+  "official_press_listing_url": "https://pr.tsmc.com/english/latest-news",
+  "scheduled_calendar_time_UTC": "2026-11-10T05:30:00+00:00",
+  "calendar_subject_to_change": true,
+  "observations": {
+    "before_scheduled": {
+      "not_before_utc": "2026-11-10T05:20:00+00:00",
+      "not_after_utc": "2026-11-10T05:28:00+00:00"
+    },
+    "after_scheduled": {
+      "not_before_utc": "2026-11-10T05:40:00+00:00",
+      "not_after_utc": "2026-11-10T05:55:00+00:00"
+    },
+    "next_day_revision": {
+      "not_before_utc": "2026-11-11T05:40:00+00:00",
+      "not_after_utc": "2026-11-11T05:55:00+00:00"
+    }
+  },
+  "source_identity_rule": "Recheck the current issuer calendar, then require exactly one issuer press listing anchor titled TSMC October 2026 Revenue Report. Preserve its issued-on date and exactly one same-host /system/files/newspdf/ PDF attachment. Do not use the mutable investor monthly table as historical vintage.",
+  "budget": {
+    "phases": 3,
+    "calendar_GETs_per_phase": 1,
+    "press_listing_GETs_per_phase": 1,
+    "article_GETs_per_phase": 1,
+    "PDF_GETs_per_phase": 1,
+    "max_HTTP_GETs_total": 12,
+    "max_HTML_bytes": 1500000,
+    "max_PDF_bytes": 5000000,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "required_evidence": [
+    "actual UTC request/response time, HTTP status, Date/Age/Cache-Control/Last-Modified headers and exact URL",
+    "original calendar/listing/article/PDF bytes and SHA256 for every successful response",
+    "target absent/present for each frozen observation without publication-time invention",
+    "calendar-change/access errors separated from issuer listing presence",
+    "same article/PDF URLs and byte hashes compared across phases for revisions"
+  ],
+  "stop_conditions": [
+    "No HTTP before each phase not-before UTC; if phase missed, record missed without backfill.",
+    "If calendar changes or is inaccessible, record that limit; source listing may still be observed, but do not claim the predeclared schedule held.",
+    "Multiple matching article IDs, wrong issuer host, missing or multiple monthly-report PDF links, or non-PDF attachment: preserve receipts and stop source qualification.",
+    "No market outcome reads, Qlib factor/model, SOXX account, orders, subscriptions or purchases."
+  ],
+  "scientific_boundary": "At best this captures observed first accessible issuer bytes for one prospective monthly event. It does not retroactively certify earlier TSM releases or count as an independent strategy forward day.",
+  "implementation_module": "src/data/tsmc_press_forward_capture.py",
+  "implementation_binding": "future_2026_10_press_capture_binding.json",
+  "next_action": "Pin implementation SHA after code/test, then schedule exactly three frozen observations in the existing Goal chat. Revalidate calendar on each run.",
+  "current_listing_preflight": {
+    "GET_budget": 1,
+    "expected_existing_title": "TSMC September 2026 Revenue Report",
+    "expected_existing_URL": "https://pr.tsmc.com/english/news/3343",
+    "purpose": "Verify live issuer news listing selector only; this current page is not a historical vintage or a future October release observation."
+  }
+}
