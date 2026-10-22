@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_resumable_all_94_new_Korean_PDF_version_capture",
+  "source_plan_sha256": "d6e2d78818a69f051358e285ecd5c4745852226849b2c20b1d4572fe52ccf07c",
+  "module_sha256": "babab71fde9279a9ba2fcdb8e47e9a452add1110038881cc5699b8452c641eed",
+  "reused_samples": 2,
+  "new_PDF_gets": 94,
+  "max_wire_attempts": 188,
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "stop": "On terminal source error preserve exact successful prefix and failed receipt; no arbitrary version choice."
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "representative_Korean_original_PDF_numeric_schema_probe_only",
+  "source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "metadata_audit_sha256": "96da672ba98c8fb0ef87771db666e463f826bb9390b72911b9a5a72f202a5865",
+  "sample_month_versions": [
+    {
+      "month": "2019-01",
+      "version": 1
+    },
+    {
+      "month": "2020-06",
+      "version": 1
+    },
+    {
+      "month": "2020-06",
+      "version": 2
+    },
+    {
+      "month": "2021-01",
+      "version": 1
+    },
+    {
+      "month": "2022-03",
+      "version": 1
+    },
+    {
+      "month": "2023-05",
+      "version": 1
+    },
+    {
+      "month": "2023-05",
+      "version": 2
+    },
+    {
+      "month": "2024-08",
+      "version": 1
+    },
+    {
+      "month": "2025-05",
+      "version": 1
+    },
+    {
+      "month": "2026-05",
+      "version": 1
+    }
+  ],
+  "budget": {
+    "PDF_file_reads": 10,
+    "Qlib_D_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "method": "Read first two pages only, retain short text windows around Korean semiconductor category and value/YoY tokens; assess extraction schema and dual-version text differences. No factor, outcome, or version selection."
+}

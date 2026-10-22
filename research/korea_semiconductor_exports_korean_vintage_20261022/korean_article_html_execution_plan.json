@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_exact_91_Korean_article_source_acquisition",
+  "source_plan_sha256": "6fd0cc830f232c0bbd127c0ba70659a56c177361c55bf4b78aeb6902026b0050",
+  "module_sha256": "41c1953473356c90ce8ef4fbaadcae907cca0fe8264d60ccf8cfe9e572319603",
+  "preflight": "Both reused official Korean May HTML source titles and registration dates matched frozen monthly manifest.",
+  "budget": {
+    "new_HTTP_articles": 91,
+    "max_wire_HTTP_attempts": 182,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop": "Any source identity or server error preserves exact prefix; no silent month replacement."
+}

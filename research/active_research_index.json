@@ -19,6 +19,15 @@
       "status": "design_only_source_timing_pending",
       "execution_authorized": false,
       "design_brief": "research/cboe_total_activity_variance_information_20261022/design_brief.json"
+    },
+    {
+      "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
+      "phase": "full_93_month_Korean_source_coverage_complete_numeric_and_PIT_pending",
+      "role": "distinct_monthly_semiconductor_export_demand_information_source",
+      "full_economic_experiment": false,
+      "status": "source_bytes_archived_96_versions_original_vintage_unqualified",
+      "execution_authorized": false,
+      "result": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json"
     }
   ],
   "framework": [
@@ -109,7 +118,8 @@
     "paid_acquisition": false,
     "cboe_total_options_activity_card": "research/cboe_total_options_activity_source_20261022",
     "TSMC_monthly_release_source_gap": "research/tsmc_monthly_revenue_release_source_20261022/source_probe_result.json",
-    "Korean_semiconductor_exports_full_archive": "research/korea_semiconductor_exports_full_source_20261022/source_qualification_result.json"
+    "Korean_semiconductor_exports_full_archive": "research/korea_semiconductor_exports_full_source_20261022/source_qualification_result.json",
+    "Korean_semiconductor_exports_current_vintage_gap": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json"
   },
   "do_not_reload": [
     "closed Recorder/model objects without new bounded need",
@@ -122,7 +132,7 @@
     "evidence": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json",
     "constraint": "At/after 2026-10-22 12:45 UTC run one remaining Cboe preopen vintage; at 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. No source is a qualified factor or economic strategy.",
     "execution_authorized": false,
-    "parallel_source_gap": "Korean national semiconductor exports: 93 monthly official HTML/PDF pairs and 446 raw files archived with remote SHA256, but 69 PDF creation dates >7d after registration and no original publication vintages; do not run historical factor until contemporaneous Korean records or forward snapshots are qualified."
+    "parallel_source_gap": "Korean national export source: 93 months/96 PDF versions, 221 exact files in nine remote-hash-verified NAS archives. Current Korean PDFs: 50 created on registration day, 13 next day, 12 >7d later, 3 dual-version months. Numeric factor and immutable first-public vintages remain unqualified; next source-only step is bounded extraction/version comparison, no SOXX label."
   },
   "closed_source_probes": [
     {

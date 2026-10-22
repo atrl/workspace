@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "natural_three_row_terminal_listing_page_recovery",
+  "original_listing_plan_sha256": "1ca235e9664e2dd535eebe8dcefbb9ad2c7f1d72dfd7b45e799974125353d038",
+  "original_execution_plan_sha256": "81c6d643fd880cb3bd0f5ee58083cd265ff7c0e9fa754c506358ed6c7f4cf8d7",
+  "failed_state_sha256": "57fb5045adafa63090a7d08015a723576c6309983431caedc3e3fd6f3fca5453",
+  "failed_receipts_sha256": "8f8c330ea80dac576715f2b98d448195d4893762fbc2c5727665344d51c36470",
+  "terminal_page_index": 30,
+  "terminal_raw_sha256": "f1e0a0f479003c6ce031cc03dd775794f43b47066db05fe5e07c6f57d9d470fe",
+  "expected_terminal_rows": 3,
+  "expected_date_range": [
+    "2016-01-04",
+    "2016-03-01"
+  ],
+  "new_HTTP_gets": 0,
+  "budget": {
+    "source_file_reads": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "repair": "Treat last filtered page as valid with 1-4 rows; require exact three unique official article IDs and registration dates. Preserve original terminal failure and no re-download."
+}

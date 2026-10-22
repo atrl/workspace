@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_29_page_official_Korean_filtered_archive_capture",
+  "listing_plan_sha256": "1ca235e9664e2dd535eebe8dcefbb9ad2c7f1d72dfd7b45e799974125353d038",
+  "module_sha256": "cd0bb2824d7b53809418bd944979b976fb2ad8b5182bf2a70900d2c0d8f96949",
+  "preflight": "Official filtered page1 parser returned ten title/date/link rows.",
+  "budget": {
+    "new_HTTP_pages": 29,
+    "wire_attempts_max": 58,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop": "No retry beyond frozen one transient retry per page; preserve exact prefix."
+}

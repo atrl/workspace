@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "nine_group_NAS_original_Korean_source_archival",
+  "manifest_sha256": "bd3836b4262b23f8fb2e78d5398ddfb1387058b3d2b253dfc9b69cfd194a08db",
+  "groups": {
+    "2019": {
+      "files": 24,
+      "bytes": 24789516
+    },
+    "2020": {
+      "files": 26,
+      "bytes": 28909948
+    },
+    "2021": {
+      "files": 24,
+      "bytes": 27831793
+    },
+    "2022": {
+      "files": 24,
+      "bytes": 25013950
+    },
+    "2023": {
+      "files": 25,
+      "bytes": 25322244
+    },
+    "2024": {
+      "files": 24,
+      "bytes": 28497967
+    },
+    "2025": {
+      "files": 24,
+      "bytes": 29111547
+    },
+    "2026": {
+      "files": 18,
+      "bytes": 17250575
+    },
+    "index": {
+      "files": 32,
+      "bytes": 3869706
+    }
+  },
+  "max_NAS_PUT_attempts": 9,
+  "archive_format": "deterministic tar.gz by group; uid/gid and mtime zero, repo-relative paths",
+  "source_bytes_preserved_locally": true,
+  "stop": "On any NAS error retain local bytes and successful group receipts; no deletion or false archival claim.",
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "status": "same_day_file_creation_time_attribution_complete",
+  "metadata_audit_sha256": "96da672ba98c8fb0ef87771db666e463f826bb9390b72911b9a5a72f202a5865",
+  "same_day_PDF_versions": 50,
+  "created_before_11_KST_by_metadata": 19,
+  "created_at_or_after_11_KST_by_metadata": 31,
+  "interpretation": "PDF creation time before/after printed 11:00 press clock only bounds when current file could exist; it does not certify publication receipt, immutable content, or completeness of market information. All historical PIT remains unqualified.",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

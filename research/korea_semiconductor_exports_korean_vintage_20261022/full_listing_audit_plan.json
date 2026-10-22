@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "all_30_filtered_Korean_listing_identity_and_month_mapping",
+  "page1_receipt_sha256": "6357e3aa0c1841acd253c729eec6aea3d9f4514a3da562d89ffbbd0e950b48b7",
+  "remaining_listing_receipts_sha256": "8f8c330ea80dac576715f2b98d448195d4893762fbc2c5727665344d51c36470",
+  "terminal_recovery_result_sha256": "abda89b955be40180582479665e1a1cf90c5ff4604f59513a41a2114fe76dd49",
+  "target_observation_months": [
+    "2019-01",
+    "2026-09"
+  ],
+  "method": "Verify 30 exact page hashes and article IDs, parse official titles/dates, exclude ICT/정보통신산업专项 titles, infer observation month as calendar month preceding registration (registration day <=10), require national 수출입 동향 title, report zero/multiple candidates. No market outcomes.",
+  "budget": {
+    "listing_source_file_reads": 30,
+    "new_HTTP_gets": 0,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  }
+}

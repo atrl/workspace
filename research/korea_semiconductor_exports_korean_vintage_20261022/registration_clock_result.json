@@ -1,0 +1,574 @@
+{
+  "schema_version": 1,
+  "status": "registration_clock_comparison_complete_not_first_public_qualified",
+  "months": 93,
+  "same_day": 50,
+  "English_later": 43,
+  "English_earlier": 0,
+  "max_English_lag_days": 3,
+  "median_English_lag_days": 0,
+  "rows": [
+    {
+      "month": "2019-01",
+      "Korean_registration": "2019-02-01",
+      "English_registration": "2019-02-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2019-02",
+      "Korean_registration": "2019-03-01",
+      "English_registration": "2019-03-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2019-03",
+      "Korean_registration": "2019-04-01",
+      "English_registration": "2019-04-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2019-04",
+      "Korean_registration": "2019-05-01",
+      "English_registration": "2019-05-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2019-05",
+      "Korean_registration": "2019-06-01",
+      "English_registration": "2019-06-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2019-06",
+      "Korean_registration": "2019-07-01",
+      "English_registration": "2019-07-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2019-07",
+      "Korean_registration": "2019-08-01",
+      "English_registration": "2019-08-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2019-08",
+      "Korean_registration": "2019-09-01",
+      "English_registration": "2019-09-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2019-09",
+      "Korean_registration": "2019-10-01",
+      "English_registration": "2019-10-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2019-10",
+      "Korean_registration": "2019-11-01",
+      "English_registration": "2019-11-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2019-11",
+      "Korean_registration": "2019-12-01",
+      "English_registration": "2019-12-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2019-12",
+      "Korean_registration": "2020-01-01",
+      "English_registration": "2020-01-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2020-01",
+      "Korean_registration": "2020-02-01",
+      "English_registration": "2020-02-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2020-02",
+      "Korean_registration": "2020-03-01",
+      "English_registration": "2020-03-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2020-03",
+      "Korean_registration": "2020-04-01",
+      "English_registration": "2020-04-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2020-04",
+      "Korean_registration": "2020-05-01",
+      "English_registration": "2020-05-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2020-05",
+      "Korean_registration": "2020-06-01",
+      "English_registration": "2020-06-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2020-06",
+      "Korean_registration": "2020-07-01",
+      "English_registration": "2020-07-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2020-07",
+      "Korean_registration": "2020-08-01",
+      "English_registration": "2020-08-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2020-08",
+      "Korean_registration": "2020-09-01",
+      "English_registration": "2020-09-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2020-09",
+      "Korean_registration": "2020-10-01",
+      "English_registration": "2020-10-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2020-10",
+      "Korean_registration": "2020-11-01",
+      "English_registration": "2020-11-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2020-11",
+      "Korean_registration": "2020-12-01",
+      "English_registration": "2020-12-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2020-12",
+      "Korean_registration": "2021-01-01",
+      "English_registration": "2021-01-04",
+      "English_minus_Korean_calendar_days": 3
+    },
+    {
+      "month": "2021-01",
+      "Korean_registration": "2021-02-01",
+      "English_registration": "2021-02-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2021-02",
+      "Korean_registration": "2021-03-01",
+      "English_registration": "2021-03-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2021-03",
+      "Korean_registration": "2021-04-01",
+      "English_registration": "2021-04-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2021-04",
+      "Korean_registration": "2021-05-01",
+      "English_registration": "2021-05-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2021-05",
+      "Korean_registration": "2021-06-01",
+      "English_registration": "2021-06-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2021-06",
+      "Korean_registration": "2021-07-01",
+      "English_registration": "2021-07-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2021-07",
+      "Korean_registration": "2021-08-01",
+      "English_registration": "2021-08-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2021-08",
+      "Korean_registration": "2021-09-01",
+      "English_registration": "2021-09-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2021-09",
+      "Korean_registration": "2021-10-01",
+      "English_registration": "2021-10-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2021-10",
+      "Korean_registration": "2021-11-01",
+      "English_registration": "2021-11-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2021-11",
+      "Korean_registration": "2021-12-01",
+      "English_registration": "2021-12-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2021-12",
+      "Korean_registration": "2022-01-01",
+      "English_registration": "2022-01-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2022-01",
+      "Korean_registration": "2022-02-01",
+      "English_registration": "2022-02-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2022-02",
+      "Korean_registration": "2022-03-01",
+      "English_registration": "2022-03-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2022-03",
+      "Korean_registration": "2022-04-01",
+      "English_registration": "2022-04-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2022-04",
+      "Korean_registration": "2022-05-01",
+      "English_registration": "2022-05-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2022-05",
+      "Korean_registration": "2022-06-01",
+      "English_registration": "2022-06-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2022-06",
+      "Korean_registration": "2022-07-01",
+      "English_registration": "2022-07-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2022-07",
+      "Korean_registration": "2022-08-01",
+      "English_registration": "2022-08-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2022-08",
+      "Korean_registration": "2022-09-01",
+      "English_registration": "2022-09-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2022-09",
+      "Korean_registration": "2022-10-01",
+      "English_registration": "2022-10-04",
+      "English_minus_Korean_calendar_days": 3
+    },
+    {
+      "month": "2022-10",
+      "Korean_registration": "2022-11-01",
+      "English_registration": "2022-11-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2022-11",
+      "Korean_registration": "2022-12-01",
+      "English_registration": "2022-12-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2022-12",
+      "Korean_registration": "2023-01-01",
+      "English_registration": "2023-01-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2023-01",
+      "Korean_registration": "2023-02-01",
+      "English_registration": "2023-02-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2023-02",
+      "Korean_registration": "2023-03-01",
+      "English_registration": "2023-03-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2023-03",
+      "Korean_registration": "2023-04-01",
+      "English_registration": "2023-04-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2023-04",
+      "Korean_registration": "2023-05-01",
+      "English_registration": "2023-05-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2023-05",
+      "Korean_registration": "2023-06-01",
+      "English_registration": "2023-06-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2023-06",
+      "Korean_registration": "2023-07-01",
+      "English_registration": "2023-07-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2023-07",
+      "Korean_registration": "2023-08-01",
+      "English_registration": "2023-08-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2023-08",
+      "Korean_registration": "2023-09-01",
+      "English_registration": "2023-09-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2023-09",
+      "Korean_registration": "2023-10-01",
+      "English_registration": "2023-10-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2023-10",
+      "Korean_registration": "2023-11-01",
+      "English_registration": "2023-11-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2023-11",
+      "Korean_registration": "2023-12-01",
+      "English_registration": "2023-12-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2023-12",
+      "Korean_registration": "2024-01-01",
+      "English_registration": "2024-01-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2024-01",
+      "Korean_registration": "2024-02-01",
+      "English_registration": "2024-02-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2024-02",
+      "Korean_registration": "2024-03-01",
+      "English_registration": "2024-03-04",
+      "English_minus_Korean_calendar_days": 3
+    },
+    {
+      "month": "2024-03",
+      "Korean_registration": "2024-04-01",
+      "English_registration": "2024-04-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2024-04",
+      "Korean_registration": "2024-05-01",
+      "English_registration": "2024-05-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2024-05",
+      "Korean_registration": "2024-06-01",
+      "English_registration": "2024-06-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2024-06",
+      "Korean_registration": "2024-07-01",
+      "English_registration": "2024-07-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2024-07",
+      "Korean_registration": "2024-08-01",
+      "English_registration": "2024-08-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2024-08",
+      "Korean_registration": "2024-09-01",
+      "English_registration": "2024-09-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2024-09",
+      "Korean_registration": "2024-10-01",
+      "English_registration": "2024-10-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2024-10",
+      "Korean_registration": "2024-11-01",
+      "English_registration": "2024-11-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2024-11",
+      "Korean_registration": "2024-12-01",
+      "English_registration": "2024-12-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2024-12",
+      "Korean_registration": "2025-01-01",
+      "English_registration": "2025-01-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2025-01",
+      "Korean_registration": "2025-02-01",
+      "English_registration": "2025-02-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2025-02",
+      "Korean_registration": "2025-03-01",
+      "English_registration": "2025-03-04",
+      "English_minus_Korean_calendar_days": 3
+    },
+    {
+      "month": "2025-03",
+      "Korean_registration": "2025-04-01",
+      "English_registration": "2025-04-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2025-04",
+      "Korean_registration": "2025-05-01",
+      "English_registration": "2025-05-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2025-05",
+      "Korean_registration": "2025-06-01",
+      "English_registration": "2025-06-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2025-06",
+      "Korean_registration": "2025-07-01",
+      "English_registration": "2025-07-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2025-07",
+      "Korean_registration": "2025-08-01",
+      "English_registration": "2025-08-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2025-08",
+      "Korean_registration": "2025-09-01",
+      "English_registration": "2025-09-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2025-09",
+      "Korean_registration": "2025-10-01",
+      "English_registration": "2025-10-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2025-10",
+      "Korean_registration": "2025-11-01",
+      "English_registration": "2025-11-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2025-11",
+      "Korean_registration": "2025-12-01",
+      "English_registration": "2025-12-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2025-12",
+      "Korean_registration": "2026-01-01",
+      "English_registration": "2026-01-02",
+      "English_minus_Korean_calendar_days": 1
+    },
+    {
+      "month": "2026-01",
+      "Korean_registration": "2026-02-01",
+      "English_registration": "2026-02-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2026-02",
+      "Korean_registration": "2026-03-01",
+      "English_registration": "2026-03-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2026-03",
+      "Korean_registration": "2026-04-01",
+      "English_registration": "2026-04-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2026-04",
+      "Korean_registration": "2026-05-01",
+      "English_registration": "2026-05-04",
+      "English_minus_Korean_calendar_days": 3
+    },
+    {
+      "month": "2026-05",
+      "Korean_registration": "2026-06-01",
+      "English_registration": "2026-06-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2026-06",
+      "Korean_registration": "2026-07-01",
+      "English_registration": "2026-07-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2026-07",
+      "Korean_registration": "2026-08-01",
+      "English_registration": "2026-08-03",
+      "English_minus_Korean_calendar_days": 2
+    },
+    {
+      "month": "2026-08",
+      "Korean_registration": "2026-09-01",
+      "English_registration": "2026-09-01",
+      "English_minus_Korean_calendar_days": 0
+    },
+    {
+      "month": "2026-09",
+      "Korean_registration": "2026-10-01",
+      "English_registration": "2026-10-01",
+      "English_minus_Korean_calendar_days": 0
+    }
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "boundary": "Current website registration dates support relative source-clock comparison, not original public receipt or immutable vintage."
+}

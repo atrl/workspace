@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "all_93_month_96_Korean_PDF_version_and_clock_qualification",
+  "source_article_manifest_sha256": "b1daf1f650a41e905d61f53f5612ecc2b17e1639694487c4e611a4c575c93ef0",
+  "article_link_audit_sha256": "8765dcfb744357cda3ba4b0e5a48596db524fb0d42b858ec552c1ed89551a92a",
+  "PDF_acquisition_plan_sha256": "d6e2d78818a69f051358e285ecd5c4745852226849b2c20b1d4572fe52ccf07c",
+  "source_PDF_links": 96,
+  "source_months": 93,
+  "calendar_provider": "data/qlib/soxl",
+  "calendar_manifest_sha256": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+  "calendar_file_sha256": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e",
+  "method": "Verify every official PDF original byte SHA, page count, current file CreationDate/ModDate and whether first-page distribution/embargo text is extractable. Compare creation date with Korean page registration. Retain both files in three dual-version months; report all ambiguity, do not choose version. Use one Qlib D.calendar for descriptive next-US-session clocks.",
+  "decision": "Even a file created at/before stated distribution time does not by itself prove first public receipt or no later revision; no historical PIT qualification without independent vintage. Numeric factor parsing and market outcome remain separate frozen phases.",
+  "budget": {
+    "source_PDF_file_reads": 96,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stops": [
+    "Missing source bytes, changed source/page identity or PDF parse errors before Recorder",
+    "No version selection or strategy result from current PDF metadata"
+  ]
+}

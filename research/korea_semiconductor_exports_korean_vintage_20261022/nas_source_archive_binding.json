@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "status": "archived_all_groups_remote_hash_verified",
+  "manifest_sha256": "bd3836b4262b23f8fb2e78d5398ddfb1387058b3d2b253dfc9b69cfd194a08db",
+  "plan_sha256": "8ac3fa8d0a948c36c6f344893d02fd8219da120f296b0105150ad6baeeb7c26e",
+  "source_files": 221,
+  "source_bytes": 210597246,
+  "groups": {
+    "2019": {
+      "files": 24,
+      "source_bytes": 24789516,
+      "archive_bytes": 17030983,
+      "archive_sha256": "59842aa1fada6a32ed2faf3fda52c9bf53dd8f9e6ed6697784ea622edeee2262",
+      "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/59/84/59842aa1fada6a32ed2faf3fda52c9bf53dd8f9e6ed6697784ea622edeee2262",
+      "NAS_storage_uri": "sha256/59/84/59842aa1fada6a32ed2faf3fda52c9bf53dd8f9e6ed6697784ea622edeee2262",
+      "remote_SHA256_verified": true
+    },
+    "2020": {
+      "files": 26,
+      "source_bytes": 28909948,
+      "archive_bytes": 20327310,
+      "archive_sha256": "173367551fa81c9b025e65f8f750f9e47f1866119f53ae97202f2ff2df3d727e",
+      "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/17/33/173367551fa81c9b025e65f8f750f9e47f1866119f53ae97202f2ff2df3d727e",
+      "NAS_storage_uri": "sha256/17/33/173367551fa81c9b025e65f8f750f9e47f1866119f53ae97202f2ff2df3d727e",
+      "remote_SHA256_verified": true
+    },
+    "2021": {
+      "files": 24,
+      "source_bytes": 27831793,
+      "archive_bytes": 18755443,
+      "archive_sha256": "0702659f5b0d58aa3feeb9e07d0f77461d10a0695fa61d83258ff9f2c69a9695",
+      "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/07/02/0702659f5b0d58aa3feeb9e07d0f77461d10a0695fa61d83258ff9f2c69a9695",
+      "NAS_storage_uri": "sha256/07/02/0702659f5b0d58aa3feeb9e07d0f77461d10a0695fa61d83258ff9f2c69a9695",
+      "remote_SHA256_verified": true
+    },
+    "2022": {
+      "files": 24,
+      "source_bytes": 25013950,
+      "archive_bytes": 17124648,
+      "archive_sha256": "e8826689ca14562d5a89679f1b95505e4f644d52eaf8b49dd0a0d24ac21a5b64",
+      "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/e8/82/e8826689ca14562d5a89679f1b95505e4f644d52eaf8b49dd0a0d24ac21a5b64",
+      "NAS_storage_uri": "sha256/e8/82/e8826689ca14562d5a89679f1b95505e4f644d52eaf8b49dd0a0d24ac21a5b64",
+      "remote_SHA256_verified": true
+    },
+    "2023": {
+      "files": 25,
+      "source_bytes": 25322244,
+      "archive_bytes": 17597812,
+      "archive_sha256": "e8eb403e76994faaa5036aa0614e023db77cb818eb899a13f42c6b4a5b434c6a",
+      "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/e8/eb/e8eb403e76994faaa5036aa0614e023db77cb818eb899a13f42c6b4a5b434c6a",
+      "NAS_storage_uri": "sha256/e8/eb/e8eb403e76994faaa5036aa0614e023db77cb818eb899a13f42c6b4a5b434c6a",
+      "remote_SHA256_verified": true
+    },
+    "2024": {
+      "files": 24,
+      "source_bytes": 28497967,
+      "archive_bytes": 19235038,
+      "archive_sha256": "5d4ff31979d3fa0f77facc67107dec92147b06c471975640964270e93a36eb8a",
+      "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/5d/4f/5d4ff31979d3fa0f77facc67107dec92147b06c471975640964270e93a36eb8a",
+      "NAS_storage_uri": "sha256/5d/4f/5d4ff31979d3fa0f77facc67107dec92147b06c471975640964270e93a36eb8a",
+      "remote_SHA256_verified": true
+    },
+    "2025": {
+      "files": 24,
+      "source_bytes": 29111547,
+      "archive_bytes": 19871482,
+      "archive_sha256": "72ce535853ad6d149a5f40b8c756aa78d60b714f4f79d28ce83caa03c88ce431",
+      "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/72/ce/72ce535853ad6d149a5f40b8c756aa78d60b714f4f79d28ce83caa03c88ce431",
+      "NAS_storage_uri": "sha256/72/ce/72ce535853ad6d149a5f40b8c756aa78d60b714f4f79d28ce83caa03c88ce431",
+      "remote_SHA256_verified": true
+    },
+    "2026": {
+      "files": 18,
+      "source_bytes": 17250575,
+      "archive_bytes": 12130170,
+      "archive_sha256": "638812c2dde8e831eae31bbd4e12a93c703b561e635ac6048c08e5a3cda83b89",
+      "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/63/88/638812c2dde8e831eae31bbd4e12a93c703b561e635ac6048c08e5a3cda83b89",
+      "NAS_storage_uri": "sha256/63/88/638812c2dde8e831eae31bbd4e12a93c703b561e635ac6048c08e5a3cda83b89",
+      "remote_SHA256_verified": true
+    },
+    "index": {
+      "files": 32,
+      "source_bytes": 3869706,
+      "archive_bytes": 500447,
+      "archive_sha256": "feb7e7facafe857f366f875479357ee284a470783793bbd7b127b3fda3a2b3a6",
+      "NAS_path": "/volume1/docker/yanxuan/registry/research-artifacts/fe/b7/feb7e7facafe857f366f875479357ee284a470783793bbd7b127b3fda3a2b3a6",
+      "NAS_storage_uri": "sha256/fe/b7/feb7e7facafe857f366f875479357ee284a470783793bbd7b127b3fda3a2b3a6",
+      "remote_SHA256_verified": true
+    }
+  },
+  "local_files_preserved": true,
+  "restoration": "Download each of nine NAS_path archives, verify archive_sha256, extract only repo-relative data/snapshots members at workspace root, then verify all source_archive_manifest.json entries. No local source files were deleted."
+}

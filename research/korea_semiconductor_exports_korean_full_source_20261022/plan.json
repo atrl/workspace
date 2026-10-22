@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "experiment": "korea_semiconductor_exports_korean_full_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "all_month_original_Korean_source_version_audit_no_market_labels",
+  "source_card": "research/korea_semiconductor_exports_korean_vintage_20261022",
+  "source_sidecars_sha256": {
+    "research/korea_semiconductor_exports_korean_vintage_20261022/korean_national_article_manifest.json": "b1daf1f650a41e905d61f53f5612ecc2b17e1639694487c4e611a4c575c93ef0",
+    "research/korea_semiconductor_exports_korean_vintage_20261022/korean_article_link_audit.json": "8765dcfb744357cda3ba4b0e5a48596db524fb0d42b858ec552c1ed89551a92a",
+    "research/korea_semiconductor_exports_korean_vintage_20261022/korean_PDF_source_index.json": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+    "research/korea_semiconductor_exports_korean_vintage_20261022/korean_vintage_metadata_audit.json": "96da672ba98c8fb0ef87771db666e463f826bb9390b72911b9a5a72f202a5865",
+    "research/korea_semiconductor_exports_korean_vintage_20261022/korean_clock_attribution.json": "958e70b9759cd281b19142418c0ae16c6c4fb0e996fd2da1b18f2ed4b93d9dba",
+    "research/korea_semiconductor_exports_korean_vintage_20261022/registration_clock_result.json": "b2d57088a7f7bf783f97cac3e776275437c72009a93050d2d3e395b0509de5ab",
+    "research/korea_semiconductor_exports_korean_vintage_20261022/source_archive_manifest.json": "bd3836b4262b23f8fb2e78d5398ddfb1387058b3d2b253dfc9b69cfd194a08db",
+    "research/korea_semiconductor_exports_korean_vintage_20261022/nas_source_archive_binding.json": "05a2aabb4578ec989896a52d64db7e1e7667ec68df0f5e7405da711eea78a1e9"
+  },
+  "source_scope": "93 national monthly registration dates 2019-01..2026-09, 96 linked Korean PDF versions, three duplicate-version months, 221 exact raw files in nine NAS archives",
+  "calendar_provider": "data/qlib/soxl",
+  "calendar_manifest_sha256": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+  "calendar_file_sha256": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e",
+  "analysis": "Use one native Qlib D.calendar to map the following US session after current Korean page registration and current PDF creation metadata for each version. Report lag/dual-version/text completeness without treating either clock as first-public certification. Store full source version table in one Recorder.",
+  "budget": {
+    "source_sidecar_hash_reads": 8,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stops": [
+    "Any source or NAS remote-verified receipt identity differs before Recorder",
+    "No numeric factor, historical PIT, price label or account inferred from metadata alone"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

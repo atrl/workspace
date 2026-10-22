@@ -1,0 +1,32 @@
+{
+  "status": "Korean_93_month_source_coverage_complete_current_vintage_not_PIT_certified",
+  "months": 93,
+  "PDF_versions": 96,
+  "double_version_months": [
+    "2020-06",
+    "2020-10",
+    "2023-05"
+  ],
+  "raw_original_files_archived": 221,
+  "NAS_group_count": 9,
+  "NAS_remote_SHA256_verified": true,
+  "current_PDF_created_same_day": 50,
+  "current_PDF_created_next_day": 13,
+  "current_PDF_created_gt_7d_later": 12,
+  "current_PDF_created_gt_30d_later": 2,
+  "first_page_11am_text_versions": 95,
+  "Korean_HTML_PDF_semiconductor_text_missing": [],
+  "English_page_registration_later_months": 43,
+  "historical_first_public_vintage_qualified": false,
+  "numeric_monthly_factor_values_qualified": false,
+  "D_calendar_calls": 1,
+  "D_features_calls": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "boundary": "Current Korean PDFs usually date closer to page registration than English PDFs, but PDF internal timestamps and printed 11:00 KST clocks are not immutable first-public receipts. Three dual-version months remain unresolved. All session mappings are descriptive.",
+  "recorder_id": "f71cdcf6bfd846178a4ba90d7553e3be",
+  "experiment_id": "401717861336110943",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/korea_semiconductor_exports_korean_full_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/korea_semiconductor_exports_korean_full_source_20261022/qlib_recorder/401717861336110943/f71cdcf6bfd846178a4ba90d7553e3be"
+}

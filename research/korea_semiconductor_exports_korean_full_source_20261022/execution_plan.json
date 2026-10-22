@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_native_Qlib_Korean_source_vintage_notebook",
+  "plan_sha256": "6f5e7b34971102cafc23db9f55b6e70d9213976f840870cf716bbe139c0594ad",
+  "notebook_sha256": "43b42b0721cc7e99c8f2b087aebd38f402b56b03e129bf943bb9e8a272bb6f2a",
+  "budget": {
+    "notebook_attempts": 1,
+    "D_calendar_calls": 1,
+    "new_writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stops": [
+    "Any source/NAS binding hash mismatch before Recorder",
+    "No false original-vintage or market strategy claim"
+  ]
+}

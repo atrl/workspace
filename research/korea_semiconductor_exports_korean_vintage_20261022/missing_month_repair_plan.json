@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "exact_five_missing_month_official_no_space_title_repair",
+  "original_listing_audit_sha256": "7b4e9a7fc536d3dcbe41a3a3dc94edb171355525590aff09607e0938d392040a",
+  "no_space_search_receipt_sha256": "9e4332b629fd51b42fa530676e23bcd529353dd08f534bfe3d83721c086c45e6",
+  "missing_months": [
+    "2020-12",
+    "2021-06",
+    "2022-09",
+    "2024-08",
+    "2026-08"
+  ],
+  "selection": "From exact no-space official listing page1, choose national release title containing 수출입동향 but not ICT/정보통신, with registration calendar month immediately after each missing observation month. Require one per missing month and unique ID across all 93 months.",
+  "budget": {
+    "new_HTTP_gets": 0,
+    "source_file_reads": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

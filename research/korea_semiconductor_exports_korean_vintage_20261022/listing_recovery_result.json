@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "terminal_page30_accepted_without_new_HTTP",
+  "recovery_plan_sha256": "dd09de6f70ad8acc36b1304cb6b35ff979a235ad657e368c83193bc7a1533fa2",
+  "raw_page_sha256": "f1e0a0f479003c6ce031cc03dd775794f43b47066db05fe5e07c6f57d9d470fe",
+  "rows": [
+    {
+      "article_id": "158035",
+      "title": "16년 2월 수출입 동향",
+      "registration_date": "2016-03-01",
+      "href": "/kor/article/ATCL3f49a5a8c/158035/view?mno=&pageIndex=30"
+    },
+    {
+      "article_id": "157972",
+      "title": "2016년 1월 수출입 동향",
+      "registration_date": "2016-02-01",
+      "href": "/kor/article/ATCL3f49a5a8c/157972/view?mno=&pageIndex=30"
+    },
+    {
+      "article_id": "157904",
+      "title": "2015년(12월, 전체) 수출입 동향 및 2016년 수출입 전망",
+      "registration_date": "2016-01-04",
+      "href": "/kor/article/ATCL3f49a5a8c/157904/view?mno=&pageIndex=30"
+    }
+  ],
+  "original_failed_state_preserved": true,
+  "new_HTTP_gets": 0,
+  "market_outcome_reads": 0
+}

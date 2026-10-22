@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "Korean_versus_English_official_article_registration_clock_audit",
+  "Korean_manifest_sha256": "b1daf1f650a41e905d61f53f5612ecc2b17e1639694487c4e611a4c575c93ef0",
+  "English_manifest_sha256": "dbf82abd823a616324245562c12bc55484b4f3050c7dbfca940686fb8395ec9f",
+  "method": "For 93 matched observation months compare current official Korean and English page registration calendar dates, report lag distribution and any English earlier months; do not infer actual publication time or read SOXX returns.",
+  "budget": {
+    "source_manifest_reads": 2,
+    "new_HTTP_gets": 0,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  }
+}

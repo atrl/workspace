@@ -1,0 +1,1299 @@
+{
+  "schema_version": 1,
+  "status": "Korean_article_PDF_link_gaps",
+  "months": 93,
+  "unique_PDF_link_months": 90,
+  "missing_PDF_months": [],
+  "multiple_PDF_months": {
+    "2020-06": [
+      {
+        "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/85ca84f4bd411de0e6baa92ed0b4390f/9a9db098b587ee18b321c826f3707a49",
+        "label": "(최종) (보도자료 3보) 200701_수출입과 20년 6월 수출입 동향(11시 엠바고).pdf [1,470.3 KB]"
+      },
+      {
+        "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/85ca84f4bd411de0e6baa92ed0b4390f/13055e35ba7465cb478c5b4be490c5a8",
+        "label": "(최종) (보도자료 3보) 200701_수출입과 20년 6월 수출입 동향(11시 엠바고).pdf [2,040.9 KB]"
+      }
+    ],
+    "2020-10": [
+      {
+        "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/73a18a86effcedd0bc33fd59bbece1f6/9a9db098b587ee18b321c826f3707a49",
+        "label": "(최종) (보도자료 3보) 201101_수출입과 20년 10월 수출입 동향(11시 엠바고)(완).pdf [1,413.2 KB]"
+      },
+      {
+        "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/73a18a86effcedd0bc33fd59bbece1f6/13055e35ba7465cb478c5b4be490c5a8",
+        "label": "(최종) (보도자료 3보) 201101_수출입과 20년 10월 수출입 동향(11시 엠바고)(완).pdf [2,196.3 KB]"
+      }
+    ],
+    "2023-05": [
+      {
+        "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/83c7342efbc8216fe35163849a2b9c06/9a9db098b587ee18b321c826f3707a49",
+        "label": "230601 수출입과 23년 5월 수출입 동향.pdf [1,501.4 KB]"
+      },
+      {
+        "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/83c7342efbc8216fe35163849a2b9c06/debc2e19d8870bf491bf5e73464259e8",
+        "label": "230601 수출입과 23년 5월 수출입 동향(최종).pdf [1,586.6 KB]"
+      }
+    ]
+  },
+  "HTML_no_semiconductor_months": [
+    "2020-01",
+    "2020-02",
+    "2020-03",
+    "2020-04",
+    "2020-10",
+    "2020-11",
+    "2020-12",
+    "2021-02",
+    "2021-03",
+    "2021-04",
+    "2021-07",
+    "2022-01",
+    "2022-02",
+    "2022-04",
+    "2022-05",
+    "2022-12",
+    "2024-08",
+    "2024-09",
+    "2024-11",
+    "2024-12",
+    "2025-01",
+    "2025-02",
+    "2025-05",
+    "2025-10",
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07"
+  ],
+  "articles_by_month": {
+    "2019-01": {
+      "article_id": "161316",
+      "registration_date": "2019-02-01",
+      "title": "2019년 1월 수출입 동향",
+      "HTML_SHA256": "2247e1f0309813c68a05d982d02c6797e98dafe63b065780cf1fe05a12265970",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/95d14176915eaaf821dc7f001da26cf8/9a9db098b587ee18b321c826f3707a49",
+          "label": "190201_수출입과 19년 1월 수출입 동향(11시 엠바고).pdf [1,672.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 3
+    },
+    "2019-02": {
+      "article_id": "161392",
+      "registration_date": "2019-03-01",
+      "title": "2019년 2월 수출입 동향",
+      "HTML_SHA256": "4d10ec568982c4a8576dca60280cf99083b1225840d86e5b80b7168440987a99",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/626cd4b9384815a750d4205f175cb8d1/9a9db098b587ee18b321c826f3707a49",
+          "label": "190301_수출입과 19년 2월 수출입 동향_재수정.pdf [1,826.8 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 3
+    },
+    "2019-03": {
+      "article_id": "161496",
+      "registration_date": "2019-04-01",
+      "title": "2019년 3월 수출입 동향",
+      "HTML_SHA256": "b012f7221080bde72af86c2eb2e3a7167a809f00dd4db1767bc3c6c1affd23ac",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/55cb2f1630acafdbd94043eceffb72f0/9a9db098b587ee18b321c826f3707a49",
+          "label": "190401_수출입과 19년 3월 수출입 동향.pdf [1,889.4 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 1
+    },
+    "2019-04": {
+      "article_id": "161620",
+      "registration_date": "2019-05-01",
+      "title": "2019년 4월 수출입 동향",
+      "HTML_SHA256": "7a350e12feb67d12f47e361bfb4e45803c0b3cc4ad56a73647ccd0a22ebc3593",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/e7314a7e1eff340c3273000deef4c0db/9a9db098b587ee18b321c826f3707a49",
+          "label": "(보도자료) 190501_수출입과 19년 4월 수출입 동향.pdf [1,743.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 1
+    },
+    "2019-05": {
+      "article_id": "161744",
+      "registration_date": "2019-06-01",
+      "title": "2019년 5월 수출입 동향",
+      "HTML_SHA256": "2e79d59b84bef7b284bc2788797124ba10a64bcdd1a3e2e8450cdde4654873cd",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/d270f85a48ba53b987608760c49d1f03/9a9db098b587ee18b321c826f3707a49",
+          "label": "(최종) 190601_수출입과 19년 5월 수출입 동향 보도자료.pdf [1,825 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 1
+    },
+    "2019-06": {
+      "article_id": "161853",
+      "registration_date": "2019-07-01",
+      "title": "2019년 6월 수출입 동향",
+      "HTML_SHA256": "8462a7ff8557defbb16818e63247b4ec85e57521f2cf140960bd204bf029bb69",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/4934822ade6317b2ed766a4f16ae102f/9a9db098b587ee18b321c826f3707a49",
+          "label": "(보도자료) 190701_수출입과 19년 6월 수출입 동향(11시 엠바고)_수정안.pdf [1,741.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 11
+    },
+    "2019-07": {
+      "article_id": "161950",
+      "registration_date": "2019-08-01",
+      "title": "2019년 7월 수출입 동향",
+      "HTML_SHA256": "f9f851b38456813075c7017bfcc9a8ed3a4055b90cd0a6e07507f50bd33f8fec",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/0095df4a68191a729f8a778df37040fe/9a9db098b587ee18b321c826f3707a49",
+          "label": "(최종) (보도자료 3보) 190801_수출입과 19년 7월 수출입 동향(11시 엠바고).pdf [1,778.4 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 9
+    },
+    "2019-08": {
+      "article_id": "162028",
+      "registration_date": "2019-09-01",
+      "title": "2019년 8월 수출입 동향",
+      "HTML_SHA256": "2e537f937b69330b6016c4ffbee73f0865dd50f0e274de43b17928f448c451b5",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/2a1c517202299a27ee242430eb676d4f/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "0901 (보도자료 3보) 190901_수출입과_ 19년 8월 수출입 동향(11시 엠바고)_수정안.pdf [1,780.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 3
+    },
+    "2019-09": {
+      "article_id": "162140",
+      "registration_date": "2019-10-01",
+      "title": "2019년 9월 수출입 동향",
+      "HTML_SHA256": "21f23b014e672f89e33367307517ebc963e2c0cdf3ef8b1c6f91cfd0bbade7f9",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/7dea8727fc180c24736d10331a3919a2/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "1001 수출입과 19년 9월 수출입 동향(11시 엠바고)_수정안.pdf [1,852.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 11
+    },
+    "2019-10": {
+      "article_id": "162265",
+      "registration_date": "2019-11-01",
+      "title": "2019년 10월 수출입 동향",
+      "HTML_SHA256": "ea51886ac4863c5ccac3c21cae2f47d2f6cd0d0f54ef4f3d0b6cc6ef7a1e497a",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/53258193a94946c4d83b8a0cbb0eeee1/9a9db098b587ee18b321c826f3707a49",
+          "label": "(최종) (보도자료 3보) 191101_수출입과 19년 10월 수출입 동향(11시 엠바고).pdf [1,647.5 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 8
+    },
+    "2019-11": {
+      "article_id": "162400",
+      "registration_date": "2019-12-01",
+      "title": "2019년 11월 수출입 동향",
+      "HTML_SHA256": "74cb95b90e920f5a8aeff7fac3ace7cb4a016e4407bb52ab7e6f9fe4fcfbaf8c",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/49feb64a72527a3d585972f86aca1070/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "(최종) (보도자료 3보) 191201_수출입과 19년 11월 수출입 동향(11시 엠바고).pdf [1,795.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2019-12": {
+      "article_id": "162521",
+      "registration_date": "2020-01-01",
+      "title": "2019년(12월, 연간) 수출입 동향 및 2020년 수출입 전망",
+      "HTML_SHA256": "d2a84ebf583a91e7e44a1e74c2efca7da1462e1b799440b84d97e710faf60a2e",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/9db28cc682aa008caba71ea0578ed759/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "0101_수출입과 19년 12월 수출입 동향(11시 엠바고)_수정.pdf [2,518.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 1
+    },
+    "2020-01": {
+      "article_id": "162630",
+      "registration_date": "2020-02-01",
+      "title": "2020년 1월 수출입 동향",
+      "HTML_SHA256": "6098c28d2483a68f7430a98d76e2ea1ea9f4458e20ec071f2e3c083400e17585",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/eb3fc4481d427267518b62ddb2d4f79d/9a9db098b587ee18b321c826f3707a49",
+          "label": "1. (보도자료 3보) 200201_수출입과 20년 1월 수출입 동향(11시 엠바고)_최종.pdf [1,527.5 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2020-02": {
+      "article_id": "162716",
+      "registration_date": "2020-03-01",
+      "title": "2020년 2월 수출입 동향",
+      "HTML_SHA256": "f9850f5b062dd7de619c0373773b6343052ff7b454387df73b2f7256b522ba5c",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/f5177a2a7c28b8d6b28b4b97beaf275f/9a9db098b587ee18b321c826f3707a49",
+          "label": "(최종) (보도자료 3보) 200301_수출입과 20년 2월 수출입 동향(11시 엠바고).pdf [1,895 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2020-03": {
+      "article_id": "162807",
+      "registration_date": "2020-04-01",
+      "title": "2020년 3월 수출입 동향",
+      "HTML_SHA256": "80300effa7a5f245a9dcbc06bc4cf251fb3fedbc42f65121da9d853791fd83ca",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/b9532a10e130ad46cfd81c156f8a0c12/9a9db098b587ee18b321c826f3707a49",
+          "label": "수출입과 20년 3월 수출입 동향.pdf [1,817.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2020-04": {
+      "article_id": "162898",
+      "registration_date": "2020-05-01",
+      "title": "2020년 4월 수출입 동향",
+      "HTML_SHA256": "6843923ff9c99fb066580d19aa6655973b571908a93f66053a1e7a6aa2e1f0f7",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/e0473bc5d88e26959b5e448a52dc2377/9a9db098b587ee18b321c826f3707a49",
+          "label": "(최종) (보도자료 3보) 200501_수출입과 20년 4월 수출입 동향(11시 엠바고).pdf [1,827.5 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2020-05": {
+      "article_id": "162995",
+      "registration_date": "2020-06-01",
+      "title": "2020년 5월 수출입 동향",
+      "HTML_SHA256": "250568a432c907a55666d938b0453fc72a669f082932e90fbbbe77aa71db6742",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/c219a461e74c04000a47fd7a254f06c8/9a9db098b587ee18b321c826f3707a49",
+          "label": "(최종) (보도자료 3보) 200601_수출입과 20년 5월 수출입 동향(11시 엠바고)-hwp.pdf [2,467 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 7
+    },
+    "2020-06": {
+      "article_id": "163092",
+      "registration_date": "2020-07-01",
+      "title": "2020년 6월 수출입 동향",
+      "HTML_SHA256": "3a331d22bdf7d90ab233d737e5caeb0c3b3d885109e4dd135f805919596ace8b",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/85ca84f4bd411de0e6baa92ed0b4390f/9a9db098b587ee18b321c826f3707a49",
+          "label": "(최종) (보도자료 3보) 200701_수출입과 20년 6월 수출입 동향(11시 엠바고).pdf [1,470.3 KB]"
+        },
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/85ca84f4bd411de0e6baa92ed0b4390f/13055e35ba7465cb478c5b4be490c5a8",
+          "label": "(최종) (보도자료 3보) 200701_수출입과 20년 6월 수출입 동향(11시 엠바고).pdf [2,040.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2020-07": {
+      "article_id": "163191",
+      "registration_date": "2020-08-01",
+      "title": "2020년 7월 수출입 동향",
+      "HTML_SHA256": "c595e65d52b66beb98e2115e1b279fcb1faba4d41936895c2781ad7cba62485c",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/899895a9fafc1943ed368277da8f06c4/9a9db098b587ee18b321c826f3707a49",
+          "label": "★ (최종) (보도자료 3보) 200801_수출입과 20년 7월 수출입 동향(11시 엠바고).pdf [1,472.2 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2020-08": {
+      "article_id": "163266",
+      "registration_date": "2020-09-01",
+      "title": "2020년 8월 수출입 동향",
+      "HTML_SHA256": "58c1af2d7f8fb9140fcaa5ea2d77d2c72b38b435768fccc00edcc1d0d47b7f10",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/f6e621d71ae829908c5ab31d91ff8e97/9a9db098b587ee18b321c826f3707a49",
+          "label": "★ (최종) (보도자료 3보) 200901_수출입과 20년 8월 수출입 동향(11시 엠바고).pdf [1,334.4 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2020-09": {
+      "article_id": "163361",
+      "registration_date": "2020-10-01",
+      "title": "2020년 9월 수출입 동향",
+      "HTML_SHA256": "d35c690423cd9035d297393c8d997cc87826fc18bd9e8e37c499ef32410b269b",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/9f16be2d8470e5e1838ca766f34a5546/9a9db098b587ee18b321c826f3707a49",
+          "label": "(최종) (보도자료 3보) 201001_수출입과 20년 9월 수출입 동향(11시 엠바고) (1).pdf [1,564.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2020-10": {
+      "article_id": "163455",
+      "registration_date": "2020-11-01",
+      "title": "2020년 10월 수출입 동향",
+      "HTML_SHA256": "5dbe10365f580eb0d25943a4090a06bb139a31cc1a93f998a98d67ef750cc30f",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/73a18a86effcedd0bc33fd59bbece1f6/9a9db098b587ee18b321c826f3707a49",
+          "label": "(최종) (보도자료 3보) 201101_수출입과 20년 10월 수출입 동향(11시 엠바고)(완).pdf [1,413.2 KB]"
+        },
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/73a18a86effcedd0bc33fd59bbece1f6/13055e35ba7465cb478c5b4be490c5a8",
+          "label": "(최종) (보도자료 3보) 201101_수출입과 20년 10월 수출입 동향(11시 엠바고)(완).pdf [2,196.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2020-11": {
+      "article_id": "163590",
+      "registration_date": "2020-12-01",
+      "title": "2020년 11월 수출입 동향",
+      "HTML_SHA256": "774488618b03d76a917dbca9f2aa4b3c690f3a8c4b112b17cb5fe3a31f3d98c8",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/86b8b7e5474c40497637898f300107a9/9a9db098b587ee18b321c826f3707a49",
+          "label": "(최종) (보도자료 3보) 201201_수출입과 20년 11월 수출입 동향(11시 엠바고).pdf [2,131.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2020-12": {
+      "article_id": "163692",
+      "registration_date": "2021-01-01",
+      "title": "2020년 12월 및 연간 수출입동향",
+      "HTML_SHA256": "27f0e8d82b8892e4d01e9c8cf01a8f7a79c68dd122ae487ccba90b4cf6554ede",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/a60af7002fbcc3915428abb58313ff10/9a9db098b587ee18b321c826f3707a49",
+          "label": "(보도자료 3보) 210101_수출입과 20년 12월 수출입 동향(11시 엠바고)(완).pdf [3,057.5 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2021-01": {
+      "article_id": "163769",
+      "registration_date": "2021-02-01",
+      "title": "2021년 1월 수출입 동향",
+      "HTML_SHA256": "c7fdf1a45a150cde7031734b747032f887f475b1ddc83aadc2ddb830602c7cef",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/5fd30d531f3ebc2bfc5933c2c87fd45f/9a9db098b587ee18b321c826f3707a49",
+          "label": "(보도자료 3보) 210201_수출입과 21년 1월 수출입 동향(11시 엠바고)(최종).pdf [2,119.4 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 5
+    },
+    "2021-02": {
+      "article_id": "163855",
+      "registration_date": "2021-03-01",
+      "title": "2021년 2월 수출입 동향",
+      "HTML_SHA256": "66c5dc2395cd815e3bd74805a67e674c32828de63fb6920db87930b2f5789bac",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/768591ae16fe87abfbe8df79c6b35218/9a9db098b587ee18b321c826f3707a49",
+          "label": "★ (보도자료 3보) 210301_수출입과 21년 2월 수출입 동향(11시 엠바고)-(최종).pdf [1,898.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2021-03": {
+      "article_id": "163969",
+      "registration_date": "2021-04-01",
+      "title": "2021년 3월 수출입 동향",
+      "HTML_SHA256": "8e1f4e9560911673e7331e49425bd1c791ad977b4941ebabc8602547f0777a19",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/9a019f10a5ce68e808da4a4dbe0bb5c1/9a9db098b587ee18b321c826f3707a49",
+          "label": "★ (보도자료 3보) 210401_수출입과 21년 3월 수출입 동향(11시 엠바고).pdf [1,820.7 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2021-04": {
+      "article_id": "164069",
+      "registration_date": "2021-05-01",
+      "title": "2021년 4월 수출입 동향",
+      "HTML_SHA256": "48535acb0ee599ebee6735787a9de6a37a60d4b2082cb34b164f50dab72d5e43",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/e01471333db7a897732d2718a096f99a/9a9db098b587ee18b321c826f3707a49",
+          "label": "★ (보도자료 3보) 210501_수출입과 21년 4월 수출입 동향(11시 엠바고) (최종).pdf [1,959.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2021-05": {
+      "article_id": "164162",
+      "registration_date": "2021-06-01",
+      "title": "2021년 5월 수출입 동향",
+      "HTML_SHA256": "253f84a59b3f8e279a3034ce2e0fc7fed31993d9c99789aa9f5b9fcde675cdc6",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/2342a452585979a005f039a38e50f605/9a9db098b587ee18b321c826f3707a49",
+          "label": "수출입과 21년 5월 수출입 동향.pdf [1,393.8 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 3
+    },
+    "2021-06": {
+      "article_id": "164313",
+      "registration_date": "2021-07-01",
+      "title": "6월 및 상반기 수출입동향",
+      "HTML_SHA256": "244b74f4c788ddd6436adc6dcdde72fee5fa6addd133e680ba9a719206015f91",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/1560ab85da5684ce19e6b9dc581ab1be/9a9db098b587ee18b321c826f3707a49",
+          "label": "★ (보도자료 3보) 210701_수출입과 21년 6월 및 상반기 수출입 동향(11시 엠바고) (최종).pdf [2,228.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 7
+    },
+    "2021-07": {
+      "article_id": "164417",
+      "registration_date": "2021-08-01",
+      "title": "2021년 7월 수출입 동향",
+      "HTML_SHA256": "738d36b66cf8402c6ea4ee054e5ce34d78009f07374b70602f30bee6799af18a",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/9b0737c6333edc70f1c0ff0a8399a9e6/9a9db098b587ee18b321c826f3707a49",
+          "label": "★ (보도자료 3보) 210801_수출입과 21년 7월 수출입 동향(11시 엠바고) (최종).pdf [2,065.2 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2021-08": {
+      "article_id": "164502",
+      "registration_date": "2021-09-01",
+      "title": "2021년 8월 수출입 동향",
+      "HTML_SHA256": "dd1ccb8a1fe760c34b0ba9ebde6651f50442f5b75e1d0bc1a01dd09f76a5a9e8",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/7edc2ef2235cd48a8de59f158e7efd9b/9a9db098b587ee18b321c826f3707a49",
+          "label": "★ (보도자료 3보) 210901_수출입과 21년 8월 수출입 동향(11시 엠바고) (최종).pdf [1,960.8 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 9
+    },
+    "2021-09": {
+      "article_id": "164629",
+      "registration_date": "2021-10-01",
+      "title": "2021년 9월 수출입 동향",
+      "HTML_SHA256": "22462715a7edaf9fc4acc928c15bbb3506f1903f55f2f9d0cfdd0c8e940bf81b",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/d4340cf2f21f9fec3f6816e1070d06fa/9a9db098b587ee18b321c826f3707a49",
+          "label": "1001(2조간)수출입과, 21년 9월 수출입 동향.pdf [2,043.4 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 7
+    },
+    "2021-10": {
+      "article_id": "164759",
+      "registration_date": "2021-11-01",
+      "title": "2021년 10월 수출입 동향",
+      "HTML_SHA256": "83f2dd7b8dd08c6ef7cdd70bc6d8216a0d37e0d7a37f73a93e03ef6777cf49b5",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/ccc1b31cca15a9224ec1cab6240f7c2f/9a9db098b587ee18b321c826f3707a49",
+          "label": "1101(1조간 11시엠바고)수출입과, 21년 10월 수출입 동향.pdf [1,924.5 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 3
+    },
+    "2021-11": {
+      "article_id": "164930",
+      "registration_date": "2021-12-01",
+      "title": "2021년 11월 수출입 동향",
+      "HTML_SHA256": "9195932444011f3431dae9b4e2008754158e92f4f4b4b67954532f5eb11b4e7e",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/21c9ab57684242900d3c4139237261cd/9a9db098b587ee18b321c826f3707a49",
+          "label": "1201(조간) 수출입과, 21년 11월 수출입 동향.pdf [2,127.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 3
+    },
+    "2021-12": {
+      "article_id": "165108",
+      "registration_date": "2022-01-01",
+      "title": "2021년 12월 및 연간 수출입 동향",
+      "HTML_SHA256": "7ee31ed9e7ed2c3469c54d441449e1634683cd60967acdf544a0e2df469ff7bb",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/584475d33d3f0366093ef58bac2df441/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "★ (보도자료 3보)_21년 연간 및 12월 수출입 동향(11시 엠바고).pdf [3,034.8 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 7
+    },
+    "2022-01": {
+      "article_id": "165244",
+      "registration_date": "2022-02-01",
+      "title": "2022년 1월 수출입 동향",
+      "HTML_SHA256": "c7a643c15e1dcd48bf430d3b531d106ae00c0cece270731d1030ba309a276095",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/02205f1589882340ffce75747eb9fb15/9a9db098b587ee18b321c826f3707a49",
+          "label": "★ (보도자료 3보) 220201_수출입과 22년 1월 수출입 동향(11시 엠바고).pdf [1,951.8 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2022-02": {
+      "article_id": "165360",
+      "registration_date": "2022-03-01",
+      "title": "2022년 2월 수출입 동향",
+      "HTML_SHA256": "3f3f1900edcd1c81b9455a8e3ecb603da2340fec266876aeb27ca992b98275af",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/ca885d0ca8136cfb7b5297b085617e8d/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "★ 220301_수출입과 22년 2월 수출입 동향(11시 엠바고).pdf [1,753.2 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2022-03": {
+      "article_id": "165465",
+      "registration_date": "2022-04-01",
+      "title": "2022년3월 수출입 동향",
+      "HTML_SHA256": "034f18ba015a1a93b74277b9aa013c5d444a7f7e4dc885d8aad650d77dc18593",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/83df9a967f8c22a90aadd40c272b0077/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "★ 220401_수출입과 22년 3월 수출입 동향(11시 엠바고).pdf [1,309.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 1
+    },
+    "2022-04": {
+      "article_id": "165568",
+      "registration_date": "2022-05-01",
+      "title": "2022년 4월 수출입 동향",
+      "HTML_SHA256": "c722c41e308de0ee86d688f3ea2fcadc21431c3c4547e1b750b201008d0537ee",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/a54ab2f700d6e2179ae07d9d85d8dc57/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "★ 220501_수출입과 22년 4월 수출입 동향(11시 엠바고).pdf [1,924.5 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2022-05": {
+      "article_id": "165644",
+      "registration_date": "2022-06-01",
+      "title": "2022년 5월 수출입 동향",
+      "HTML_SHA256": "6fe6a23854f6750ec36ff94b62d77472dc7d110600fa85062c325b4cee4d4278",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/8a1b5b3e27965735cd7b9edfe2ce92a8/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "★ 220601_(3보)_수출입과 22년 5월 수출입 동향.pdf [1,928.2 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2022-06": {
+      "article_id": "165741",
+      "registration_date": "2022-07-01",
+      "title": "2022년6월 및 상반기 수출입 동향",
+      "HTML_SHA256": "0465d2c33e665287870c38f7920d0438e6fa2fd940e1cac3f6b5a1fd779a905b",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/6582493e1d4c69776779cb1c28258679/9a9db098b587ee18b321c826f3707a49",
+          "label": "220701 수출입과 22년 6월 및 상반기 수출입 동향.pdf [2,342.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 3
+    },
+    "2022-07": {
+      "article_id": "165868",
+      "registration_date": "2022-08-01",
+      "title": "2022년7월 수출입 동향",
+      "HTML_SHA256": "e149cf54a9a94b298e1a12cb23cfa3afed36d4978244b2add56fd7381f86114a",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/d8d926a45317263af27bc6eb1de82104/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "220801 수출입과 22년 7월 수출입 동향.pdf [1,849.4 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 3
+    },
+    "2022-08": {
+      "article_id": "165971",
+      "registration_date": "2022-09-01",
+      "title": "2022년 8월 수출입 동향",
+      "HTML_SHA256": "49326c8ae7c3ce2aaf10b9bf964604f5c246287f01f44a631297a7d42783ef13",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/128589c6ac63c6855854a3f61445c597/9a9db098b587ee18b321c826f3707a49",
+          "label": "220901 수출입과 22년 8월 수출입 동향(완).pdf [1,834.7 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 5
+    },
+    "2022-09": {
+      "article_id": "166120",
+      "registration_date": "2022-10-01",
+      "title": "2022년 9월 수출입동향",
+      "HTML_SHA256": "df15f4642c89b5177a2e935ead0da3160cd960e853b84ebea1173d23b58e349d",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/a9a099e24da8c0b6c3b446472cc2f20e/9a9db098b587ee18b321c826f3707a49",
+          "label": "2022년 9월 수출입동향.pdf [1,768.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2022-10": {
+      "article_id": "166259",
+      "registration_date": "2022-11-01",
+      "title": "2022년 10월 수출입 동향",
+      "HTML_SHA256": "46e6c782e68ed8aff4681eb5827c119474d9a7e4841b9b042b29b3b6b3a6b323",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/59aa8c3a26cf1104d11f242a3239cb45/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "☆ 221101_수출입과 22년 10월 수출입 동향(재).pdf [1,729.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2022-11": {
+      "article_id": "166456",
+      "registration_date": "2022-12-01",
+      "title": "2022년 11월 수출입 동향",
+      "HTML_SHA256": "e995b432694afed62464037b9870bae78f777acc6297b19ec2ee8ba8b17f58d8",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/711e558580b7f58c161f8e648a0dbc9a/9a9db098b587ee18b321c826f3707a49",
+          "label": "221201 수출입과 22년 11월 수출입 동향.pdf [1,566.8 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2022-12": {
+      "article_id": "166607",
+      "registration_date": "2023-01-01",
+      "title": "2022년 12월 및 연간 수출입 동향",
+      "HTML_SHA256": "ef60eaebe598f1d1bb7a1e7c6f96125d33b73d2c6c5912578e397c379aff73a6",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/130aeca397d39a1d35dae3114fa51d01/9a9db098b587ee18b321c826f3707a49",
+          "label": "230101_수출입과 22년 12월 및 연간 수출입 동향(3보).pdf [2,310.7 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2023-01": {
+      "article_id": "166738",
+      "registration_date": "2023-02-01",
+      "title": "2023년 1월 수출입 동향",
+      "HTML_SHA256": "5af50b4ea0b771e8a3b1101c8b8c557d87136257f0709fa7d5fd38567f2beb5f",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/b3552dd7a00cea2c962507c4080a6c04/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "230131_수출입과 23년 1월 수출입 동향_3보_최종.pdf [1,720.7 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2023-02": {
+      "article_id": "166868",
+      "registration_date": "2023-03-01",
+      "title": "2023년 2월 수출입 동향",
+      "HTML_SHA256": "a838f9eb7293ca8387fbaa990a3724baa5f9594fd33810a30bc1ad76fc9a3fe0",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/df8f26d0ffbc9b4915a4dd01546dbffa/9a9db098b587ee18b321c826f3707a49",
+          "label": "230301 수출입과 23년 2월 수출입 동향.pdf [1,646.5 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2023-03": {
+      "article_id": "167020",
+      "registration_date": "2023-04-01",
+      "title": "2023년 3월 수출입 동향",
+      "HTML_SHA256": "c8cdf1624bf20adade9c7a0fa9e5789018a0e258cb19a7be6e0454396f8ff6a5",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/b85535bd8125becd6a88f0cb0cdf7bc1/9a9db098b587ee18b321c826f3707a49",
+          "label": "230401 수출입과 23년 3월 수출입 동향.pdf [1,554.2 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2023-04": {
+      "article_id": "167147",
+      "registration_date": "2023-05-01",
+      "title": "2023년 4월 수출입 동향",
+      "HTML_SHA256": "dc9c901d401e583c1a6b8dfb48701466ee92361cbe7b6a5cbd900c472dbfed5d",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/bbea955e34f816a3d7a18183325aa3b1/9a9db098b587ee18b321c826f3707a49",
+          "label": "230501 수출입과 23년 4월 수출입 동향.pdf [1,627 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 8
+    },
+    "2023-05": {
+      "article_id": "167315",
+      "registration_date": "2023-06-01",
+      "title": "2023년 5월 수출입 동향",
+      "HTML_SHA256": "e03e913b15f60f96847b74db921c63bfeb1c05ddf2ee8f9b333c38c2f33fd5b0",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/83c7342efbc8216fe35163849a2b9c06/9a9db098b587ee18b321c826f3707a49",
+          "label": "230601 수출입과 23년 5월 수출입 동향.pdf [1,501.4 KB]"
+        },
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/83c7342efbc8216fe35163849a2b9c06/debc2e19d8870bf491bf5e73464259e8",
+          "label": "230601 수출입과 23년 5월 수출입 동향(최종).pdf [1,586.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 3
+    },
+    "2023-06": {
+      "article_id": "167468",
+      "registration_date": "2023-07-01",
+      "title": "2023년 6월 수출입 동향",
+      "HTML_SHA256": "4ad96369e587a3bee2e5aad91b8e6c662cbcf0f46367e3aeb0e44a3163d59209",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/11f81efefebfc5eef3bf1c05a39e9306/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "230701 수출입과 23년 6월 수출입 동향(최종).pdf [2,141.7 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 4
+    },
+    "2023-07": {
+      "article_id": "167634",
+      "registration_date": "2023-08-01",
+      "title": "2023년 7월 수출입 동향",
+      "HTML_SHA256": "4a0c711e4240c6a5569327403704a55db4fee2b6060a7ec1fcb85e2adb9a3357",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/7c477b2007f6835478cba6b3e40907bc/9a9db098b587ee18b321c826f3707a49",
+          "label": "230801 수출입과 23년 7월 수출입 동향.pdf [1,700.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 6
+    },
+    "2023-08": {
+      "article_id": "167755",
+      "registration_date": "2023-09-01",
+      "title": "2023년 8월 수출입 동향",
+      "HTML_SHA256": "5f061d9317850296def818d06740c726b22a2d403af302586bfd2d1281c4f878",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/2dad530cd561d9802120651d0639d527/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "230901 수출입과 23년 8월 수출입 동향_13p 수정.pdf [1,821.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 10
+    },
+    "2023-09": {
+      "article_id": "167893",
+      "registration_date": "2023-10-01",
+      "title": "2023년 9월 수출입 동향",
+      "HTML_SHA256": "b05f20402d5e31815b15392e940a4e75bbfe2b91a2d58d3b28b76076a44f614c",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/d14dcfcac6414eac0c49fcdee0ce1a80/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "231001 수출입과 23년 9월 수출입 동향_최최종.PDF [837 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 6
+    },
+    "2023-10": {
+      "article_id": "168043",
+      "registration_date": "2023-11-01",
+      "title": "2023년 10월 수출입 동향",
+      "HTML_SHA256": "2edeadc8dbb4d54b2be11d30d1220393d5df31c84fca4c9eaf2ef5b8eef23ce9",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/833e719e32cf26a63383cbfa2b21bd38/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "1101(11일(수) 11시엠바고)2023년 10월 수출입 동향(최종).pdf [1,862.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 2
+    },
+    "2023-11": {
+      "article_id": "168239",
+      "registration_date": "2023-12-01",
+      "title": "2023년 11월 수출입 동향",
+      "HTML_SHA256": "c5e1d65cf9952a561700ea8e00b5d8625afecae3b4a14083c00ed8696089751b",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/d21742c03f1cd0dd098da616fb8035dd/9a9db098b587ee18b321c826f3707a49",
+          "label": "1201(1일(금)11시엠바고)수출입과, 2023년 11월 수출입 동향.pdf [1,897.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 4
+    },
+    "2023-12": {
+      "article_id": "168425",
+      "registration_date": "2024-01-01",
+      "title": "2023년 12월 및 연간 수출입 동향",
+      "HTML_SHA256": "e2da03279b3cbca1fb0675fbc79908cdf0c76a0c3b1355ba804c4a6c081df75e",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/4a7de7455a5f8828f95f6fbbc5d5926a/9a9db098b587ee18b321c826f3707a49",
+          "label": "0101수출입과, 2023년 12월 및 연간 수출입 동향.pdf [2,566.8 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 11
+    },
+    "2024-01": {
+      "article_id": "168574",
+      "registration_date": "2024-02-01",
+      "title": "2024년 1월 수출입 동향",
+      "HTML_SHA256": "3998c5a8dd139c05d268828d417c2023adb8dcaf648ef3739649bf2606735ca0",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/d23ba9bc98f855093b05da7a4eb02b30/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "0201(1일(목)11시엠바고)수출입과, 2024년 1월 수출입 동향(수정).pdf [1,784.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 7
+    },
+    "2024-02": {
+      "article_id": "168695",
+      "registration_date": "2024-03-01",
+      "title": "2024년 2월 수출입 동향",
+      "HTML_SHA256": "17a1f2b91c1696df545297d56449456f7b884771b3008b2c7606bc9058260fc2",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/8cad453f5d28f199b4196fdebd3ae2e1/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "2024년 2월 수출입동향.pdf [2,002 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 6
+    },
+    "2024-03": {
+      "article_id": "168853",
+      "registration_date": "2024-04-01",
+      "title": "2024년 3월 수출입 동향",
+      "HTML_SHA256": "9bb37689aa6be91ccc9fa5caf47b999f37eab2b90a7aac09503a8293837783eb",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/deaf2c5435d9172c13bbf13895cb38b2/9a9db098b587ee18b321c826f3707a49",
+          "label": "0401(1일(월)11시엠바고)수출입과, 2024년 3월 수출입 동향(수정).pdf [2,049.1 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 7
+    },
+    "2024-04": {
+      "article_id": "168991",
+      "registration_date": "2024-05-01",
+      "title": "2024년 4월 수출입 동향",
+      "HTML_SHA256": "8ffd2cfd14b13d945f7212a95c5f071dbdde74378ee1d64d9f9c6b3c4cefe74f",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/ba1b0ee2dd866eb97fa46d30d3ad9739/9a9db098b587ee18b321c826f3707a49",
+          "label": "0501(1일(수)11시엠바고)수출입과, 2024년 4월 수출입동향.pdf [1,798.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 4
+    },
+    "2024-05": {
+      "article_id": "169134",
+      "registration_date": "2024-06-01",
+      "title": "2024년 5월 수출입 동향",
+      "HTML_SHA256": "e2d09aa24a541c988dbc3fe925fc6db51fd671f0a3fad882e8106a5fcca1e994",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/05daeb1711ff5b8944889e2a45f9922b/9a9db098b587ee18b321c826f3707a49",
+          "label": "0601(1일(토)11시엠바고)수출입과, 2024년 5월 수출입동향.pdf [1,975 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 4
+    },
+    "2024-06": {
+      "article_id": "169265",
+      "registration_date": "2024-07-01",
+      "title": "2024년 상반기 및 6월 수출입 동향",
+      "HTML_SHA256": "666c3f7b44f755286038d7620302ac161f2c203b8a5ba5cfffc0e49f8fdca530",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/120baf068f5e070b7da1e712461eef9e/9a9db098b587ee18b321c826f3707a49",
+          "label": "0701(1일(월)11시엠바고)수출입과, 2024년 6월 수출입동향(재수정).pdf [2,696.1 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 9
+    },
+    "2024-07": {
+      "article_id": "169370",
+      "registration_date": "2024-08-01",
+      "title": "2024년 7월 수출입 동향",
+      "HTML_SHA256": "35d3ac57cc594ace758b394c9c875d5bdf40bc2520200266a11f59273c8fc711",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/ec9f236eb512b9ecc8c3eb549dc39d05/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "0801(1일(목)11시엠바고)수출입과, 2024년 7월 수출입동향(재수정).pdf [2,054.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 7
+    },
+    "2024-08": {
+      "article_id": "169461",
+      "registration_date": "2024-09-01",
+      "title": "2024년 8월 수출입동향",
+      "HTML_SHA256": "46506fffea6a813583cec4fe702a0cc0b3555c31072c0586d083fca9b7ceed70",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/5a0fab0a7fc0594554e429b09a7294bb/9a9db098b587ee18b321c826f3707a49",
+          "label": "0901(1일(일)11시엠바고)수출입과, 2024년 8월 수출입동향.pdf [1,867.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2024-09": {
+      "article_id": "169587",
+      "registration_date": "2024-10-01",
+      "title": "2024년 9월 수출입 동향",
+      "HTML_SHA256": "5acf45aa5f66e75a649b71626202fdcce25b19135f9204ba1b84b6343324a4ed",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/161be9fc9d977e0b7c7713bd363f8d60/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "1001(1일(화)11시엠바고)수출입과, 2024년 9월 수출입동향.pdf [2,145.2 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2024-10": {
+      "article_id": "169727",
+      "registration_date": "2024-11-01",
+      "title": "2024년 10월 수출입 동향",
+      "HTML_SHA256": "db8d88546b1fe3979343c4e759fb1d3789d427781c2611459073c23e874bb757",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/986e4ab251ab3c4f5482f9e366af682c/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "1101(1일(금)11시엠바고)수출입과, 2024년 10월 수출입동향(수정).pdf [2,034 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 7
+    },
+    "2024-11": {
+      "article_id": "169872",
+      "registration_date": "2024-12-01",
+      "title": "2024년 11월 수출입 동향",
+      "HTML_SHA256": "438c6efcb0ecd8dd4d1e072af140534180d621981f09b12eacbab37312a2b040",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/68ba63942054c33ca8720e4eb46021e3/9a9db098b587ee18b321c826f3707a49",
+          "label": "1201(1일(일)11시엠바고)수출입과, 2024년 11월 수출입동향.pdf [2,102.1 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2024-12": {
+      "article_id": "170000",
+      "registration_date": "2025-01-01",
+      "title": "2024년 연간 및 12월 수출입 동향",
+      "HTML_SHA256": "e60593c3958ad29d425dce6af5d9ee9156b107189f696e4aa4f9dbacee8e78d4",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/b14cae210e96255ca12455f4e804a287/9a9db098b587ee18b321c826f3707a49",
+          "label": "250101_수출입과_24년_연간_및_12월_수출입_동향(3보).pdf [3,476.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2025-01": {
+      "article_id": "170090",
+      "registration_date": "2025-02-01",
+      "title": "2025년 1월 수출입 동향",
+      "HTML_SHA256": "4c3b428af90d389bdd677214828934448089b4cf81368dce107785e775033be1",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/ec0e8da2ffcbaba60274810dfc05234e/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "250201_수출입과_25년 1월 수출입 동향_3보.pdf [2,527.8 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2025-02": {
+      "article_id": "170220",
+      "registration_date": "2025-03-01",
+      "title": "2025년 2월 수출입 동향",
+      "HTML_SHA256": "fabbdf5b762689bd10398b00204fa1c263c37343e88ed4407e23e8502db6ea4f",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/e91de514ce5885f6b3ca8e4d0a9eb74f/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "250301_수출입과_25년 2월 수출입_동향_3보.pdf [2,540.5 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2025-03": {
+      "article_id": "170365",
+      "registration_date": "2025-04-01",
+      "title": "2025년 3월 수출입 동향",
+      "HTML_SHA256": "2a856afea1446ddc8d0dd0520e8f808d579541712985b245f2e2f7548a32733a",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/07efd5b72f1db2fe1b2b62e0f9e3032c/9a9db098b587ee18b321c826f3707a49",
+          "label": "250401_수출입과_2025년 3월 수출입동향_3보.pdf [1,973 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 6
+    },
+    "2025-04": {
+      "article_id": "170484",
+      "registration_date": "2025-05-01",
+      "title": "2025년 4월 수출입 동향",
+      "HTML_SHA256": "c3d3460234dab6fd89dd8da1b33b6c01986b426a89596f184cca819609e7c245",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/750fa0dfa620d4640c16f3cbc3364858/9a9db098b587ee18b321c826f3707a49",
+          "label": "250430_2025년 4월 수출입동향_3보.pdf [1,925.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 8
+    },
+    "2025-05": {
+      "article_id": "170581",
+      "registration_date": "2025-06-01",
+      "title": "2025년 5월 수출입 동향",
+      "HTML_SHA256": "c51358ac0e594be92669aebac25b92f952c0010b0ce43dc61cafc1a105cd890d",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/ae1c1aa1fadab2c300a06e76430ae9f8/9a9db098b587ee18b321c826f3707a49",
+          "label": "250601_2025년 5월 수출입동향_3보.pdf [2,443.8 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2025-06": {
+      "article_id": "170672",
+      "registration_date": "2025-07-01",
+      "title": "2025년 6월 및 상반기 수출입 동향",
+      "HTML_SHA256": "abdfcb7534efd9f0fb315137ee5a3c91971ae7eed46f2e80ec7b677a1303952e",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/f5347d501cab712e4a4933c7ae32543c/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "250701_2025년 6월 수출입동향_3보_추가수정.pdf [2,627 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 13
+    },
+    "2025-07": {
+      "article_id": "170772",
+      "registration_date": "2025-08-01",
+      "title": "2025년 7월 수출입 동향",
+      "HTML_SHA256": "4bac73be9ad68e9626c2447d3dee0c92f8c6072c56ece9f19910812471844e58",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/4ea110bb5ad7879f31e5dbbe0b433442/9a9db098b587ee18b321c826f3707a49",
+          "label": "250801_2025년 7월 수출입동향_3보_송부용.pdf [1,996.2 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 10
+    },
+    "2025-08": {
+      "article_id": "170869",
+      "registration_date": "2025-09-01",
+      "title": "2025년 8월 수출입 동향",
+      "HTML_SHA256": "919a8bee53ec4973c9e0f24f54e351117dbb824e9cb4b2e1c2d176bd581b06ed",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/060a2179a6dfa23392e838ea1a8a7200/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "250828_2025년 8월 수출입동향_3보.pdf [1,973.7 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 10
+    },
+    "2025-09": {
+      "article_id": "171048",
+      "registration_date": "2025-10-01",
+      "title": "2025년 9월 수출입 동향",
+      "HTML_SHA256": "cbfe3205bf97200183c750818f78789810b208545296aad5863859c5268805ef",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/1d7930f94dbee4c34f97b1d6a87b030f/9a9db098b587ee18b321c826f3707a49",
+          "label": "251001_2025년 9월 수출입동향_3보_송부용.pdf [2,300.6 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 8
+    },
+    "2025-10": {
+      "article_id": "171141",
+      "registration_date": "2025-11-01",
+      "title": "2025년 10월 수출입 동향",
+      "HTML_SHA256": "5c34e871b57007d13dbf9db30973d59fccd2d28b55dde0800acc26533fc9d429",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/69a97bea7c27d706f62609a5e5cf9860/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "251101_2025년 10월 수출입동향_3보.pdf [2,016.1 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2025-11": {
+      "article_id": "171276",
+      "registration_date": "2025-12-01",
+      "title": "2025년 11월 수출입 동향",
+      "HTML_SHA256": "fa235bc27cff3deea3db6df016961ac57a02afb0c4395535c0ad2c3830316eba",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/bcf6e4f65c8d3fdb65c20e6e709b9148/9a9db098b587ee18b321c826f3707a49",
+          "label": "251201_2025년 11월 수출입동향_3보_최종.pdf [1,933.7 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 9
+    },
+    "2025-12": {
+      "article_id": "171403",
+      "registration_date": "2026-01-01",
+      "title": "2025년 연간 및 12월 수출입 동향",
+      "HTML_SHA256": "edca2e9a10d9cc0616b38365699c7098157c6b4dc681dee495432f7ad856ed24",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/9c3a063fcb514e658c430d0cecdb2370/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "260101_수출입과_25년_연간_및_12월_수출입_동향_3보 최종(수정완).pdf [2,349.5 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2026-01": {
+      "article_id": "171483",
+      "registration_date": "2026-02-01",
+      "title": "2026년 1월 수출입 동향",
+      "HTML_SHA256": "a5dfd9e677c6f7102ae1e11441a48b562733c7e997a6abb0cfea583e6ee47073",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/a0f07e39ad80bda4be23f80fd7a6a1ec/9a9db098b587ee18b321c826f3707a49",
+          "label": "2026년 1월 수출입동향_3보_최종_수정.pdf [1,578.4 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2026-02": {
+      "article_id": "171550",
+      "registration_date": "2026-03-01",
+      "title": "2026년 2월 수출입 동향",
+      "HTML_SHA256": "149f4ac101e804e93b008b16a0bc5a4306242ec7cf505d1b720fa4e1dda9a4b5",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/675dbc834f97e3c6a51d48330243b08e/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "2026년 2월 수출입동향_3보_최종_수정.pdf [1,579.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2026-03": {
+      "article_id": "171670",
+      "registration_date": "2026-04-01",
+      "title": "2026년 3월 수출입 동향",
+      "HTML_SHA256": "f3d695160428fa026211777b14a07fd7e2a8a684361595b87b36d657ef08447e",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/3de4c23f8785aad4daff23ad7cdee2c2/9a9db098b587ee18b321c826f3707a49",
+          "label": "2026년 3월 수출입동향_3보_최종_수정.pdf [1,611.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2026-04": {
+      "article_id": "171795",
+      "registration_date": "2026-05-01",
+      "title": "2026년 4월 수출입 동향",
+      "HTML_SHA256": "fd4abb839ba768e41e2447fc666064c234aee6a4ef46381fbbf2d042c4a4954f",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/b72b1466083d40c13bc87bc66a8fa09d/9a9db098b587ee18b321c826f3707a49",
+          "label": "2026년 4월 수출입동향_3보_최종.pdf [1,670 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2026-05": {
+      "article_id": "171880",
+      "registration_date": "2026-06-01",
+      "title": "2026년 5월 수출입 동향",
+      "HTML_SHA256": "1791192c931003ee242106d4b02a24d2aadb09319275d18dd071f6bb207967ae",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/b3b27a830684a10a7847dfd15a8b5e47/9a9db098b587ee18b321c826f3707a49",
+          "label": "2026년 5월 수출입동향_3보_최종_수정.pdf [1,783.3 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2026-06": {
+      "article_id": "171986",
+      "registration_date": "2026-07-01",
+      "title": "2026년 6월 및 상반기 수출입 동향",
+      "HTML_SHA256": "883ea119c9e3abd2cfaf380498d9b804e1edcb18496da113c2933951000ba0db",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/c92b70725392eb00d72a0441fcdfbd30/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "2026년 6월 수출입동향_3보_최종(1100)_수정.pdf [2,384.2 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2026-07": {
+      "article_id": "172077",
+      "registration_date": "2026-08-01",
+      "title": "2026년 7월 수출입 동향",
+      "HTML_SHA256": "08a4db4f63f4ad719cf221b7ac1a43683be99cb5e1e28a21e79f3bae3e952286",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/e2aeb19f13e615840ca0ac1327e613f3/9a9db098b587ee18b321c826f3707a49",
+          "label": "★★2026년 7월 수출입동향_3보_최종_수정.pdf [1,708.7 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 0
+    },
+    "2026-08": {
+      "article_id": "172145",
+      "registration_date": "2026-09-01",
+      "title": "2026년 8월 수출입동향",
+      "HTML_SHA256": "1a615275b4a220bb577b6fb1f6b378eb4f15d4c0cb9a9feab81cd11c5f6f0fc7",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/52d327484928d19aff6c0de027275375/9a9db098b587ee18b321c826f3707a49",
+          "label": "2026년 8월 수출입동향_3보_최종.pdf [1,685.9 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 18
+    },
+    "2026-09": {
+      "article_id": "172254",
+      "registration_date": "2026-10-01",
+      "title": "2026년 9월 수출입 동향",
+      "HTML_SHA256": "8f57a8ca546076568dff295d29b8f921decf9a05072580574d05d4a1112c35b0",
+      "PDF_links": [
+        {
+          "url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/34bf74183994a94355055029d2f7e8f5/778bdbf5db9ced7c8fd52756c00bf0cd",
+          "label": "2026년 9월 수출입동향_3보_최종_수정.pdf [1,700.4 KB]"
+        }
+      ],
+      "HTML_semiconductor_mentions": 15
+    }
+  },
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

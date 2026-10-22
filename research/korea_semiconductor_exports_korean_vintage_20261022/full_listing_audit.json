@@ -1,0 +1,912 @@
+{
+  "status": "Korean_listing_source_gaps",
+  "source_pages": 30,
+  "listing_rows": 293,
+  "unique_article_ids": 293,
+  "duplicate_article_ids": 0,
+  "date_order_inversions": 0,
+  "newest_registration_date": "2026-10-14",
+  "oldest_registration_date": "2016-01-04",
+  "target_months": 93,
+  "one_candidate_months": 88,
+  "missing_months": [
+    "2020-12",
+    "2021-06",
+    "2022-09",
+    "2024-08",
+    "2026-08"
+  ],
+  "multiple_months": {},
+  "candidate_articles_by_month": {
+    "2019-01": [
+      {
+        "article_id": "161316",
+        "title": "2019년 1월 수출입 동향",
+        "registration_date": "2019-02-01",
+        "href": "/kor/article/ATCL3f49a5a8c/161316/view?mno=&pageIndex=13",
+        "source_page_index": 13,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/161316/view"
+      }
+    ],
+    "2019-02": [
+      {
+        "article_id": "161392",
+        "title": "2019년 2월 수출입 동향",
+        "registration_date": "2019-03-01",
+        "href": "/kor/article/ATCL3f49a5a8c/161392/view?mno=&pageIndex=13",
+        "source_page_index": 13,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/161392/view"
+      }
+    ],
+    "2019-03": [
+      {
+        "article_id": "161496",
+        "title": "2019년 3월 수출입 동향",
+        "registration_date": "2019-04-01",
+        "href": "/kor/article/ATCL3f49a5a8c/161496/view?mno=&pageIndex=13",
+        "source_page_index": 13,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/161496/view"
+      }
+    ],
+    "2019-04": [
+      {
+        "article_id": "161620",
+        "title": "2019년 4월 수출입 동향",
+        "registration_date": "2019-05-01",
+        "href": "/kor/article/ATCL3f49a5a8c/161620/view?mno=&pageIndex=13",
+        "source_page_index": 13,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/161620/view"
+      }
+    ],
+    "2019-05": [
+      {
+        "article_id": "161744",
+        "title": "2019년 5월 수출입 동향",
+        "registration_date": "2019-06-01",
+        "href": "/kor/article/ATCL3f49a5a8c/161744/view?mno=&pageIndex=13",
+        "source_page_index": 13,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/161744/view"
+      }
+    ],
+    "2019-06": [
+      {
+        "article_id": "161853",
+        "title": "2019년 6월 수출입 동향",
+        "registration_date": "2019-07-01",
+        "href": "/kor/article/ATCL3f49a5a8c/161853/view?mno=&pageIndex=13",
+        "source_page_index": 13,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/161853/view"
+      }
+    ],
+    "2019-07": [
+      {
+        "article_id": "161950",
+        "title": "2019년 7월 수출입 동향",
+        "registration_date": "2019-08-01",
+        "href": "/kor/article/ATCL3f49a5a8c/161950/view?mno=&pageIndex=13",
+        "source_page_index": 13,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/161950/view"
+      }
+    ],
+    "2019-08": [
+      {
+        "article_id": "162028",
+        "title": "2019년 8월 수출입 동향",
+        "registration_date": "2019-09-01",
+        "href": "/kor/article/ATCL3f49a5a8c/162028/view?mno=&pageIndex=13",
+        "source_page_index": 13,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/162028/view"
+      }
+    ],
+    "2019-09": [
+      {
+        "article_id": "162140",
+        "title": "2019년 9월 수출입 동향",
+        "registration_date": "2019-10-01",
+        "href": "/kor/article/ATCL3f49a5a8c/162140/view?mno=&pageIndex=13",
+        "source_page_index": 13,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/162140/view"
+      }
+    ],
+    "2019-10": [
+      {
+        "article_id": "162265",
+        "title": "2019년 10월 수출입 동향",
+        "registration_date": "2019-11-01",
+        "href": "/kor/article/ATCL3f49a5a8c/162265/view?mno=&pageIndex=12",
+        "source_page_index": 12,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/162265/view"
+      }
+    ],
+    "2019-11": [
+      {
+        "article_id": "162400",
+        "title": "2019년 11월 수출입 동향",
+        "registration_date": "2019-12-01",
+        "href": "/kor/article/ATCL3f49a5a8c/162400/view?mno=&pageIndex=12",
+        "source_page_index": 12,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/162400/view"
+      }
+    ],
+    "2019-12": [
+      {
+        "article_id": "162521",
+        "title": "2019년(12월, 연간) 수출입 동향 및 2020년 수출입 전망",
+        "registration_date": "2020-01-01",
+        "href": "/kor/article/ATCL3f49a5a8c/162521/view?mno=&pageIndex=12",
+        "source_page_index": 12,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/162521/view"
+      }
+    ],
+    "2020-01": [
+      {
+        "article_id": "162630",
+        "title": "2020년 1월 수출입 동향",
+        "registration_date": "2020-02-01",
+        "href": "/kor/article/ATCL3f49a5a8c/162630/view?mno=&pageIndex=12",
+        "source_page_index": 12,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/162630/view"
+      }
+    ],
+    "2020-02": [
+      {
+        "article_id": "162716",
+        "title": "2020년 2월 수출입 동향",
+        "registration_date": "2020-03-01",
+        "href": "/kor/article/ATCL3f49a5a8c/162716/view?mno=&pageIndex=12",
+        "source_page_index": 12,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/162716/view"
+      }
+    ],
+    "2020-03": [
+      {
+        "article_id": "162807",
+        "title": "2020년 3월 수출입 동향",
+        "registration_date": "2020-04-01",
+        "href": "/kor/article/ATCL3f49a5a8c/162807/view?mno=&pageIndex=12",
+        "source_page_index": 12,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/162807/view"
+      }
+    ],
+    "2020-04": [
+      {
+        "article_id": "162898",
+        "title": "2020년 4월 수출입 동향",
+        "registration_date": "2020-05-01",
+        "href": "/kor/article/ATCL3f49a5a8c/162898/view?mno=&pageIndex=12",
+        "source_page_index": 12,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/162898/view"
+      }
+    ],
+    "2020-05": [
+      {
+        "article_id": "162995",
+        "title": "2020년 5월 수출입 동향",
+        "registration_date": "2020-06-01",
+        "href": "/kor/article/ATCL3f49a5a8c/162995/view?mno=&pageIndex=12",
+        "source_page_index": 12,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/162995/view"
+      }
+    ],
+    "2020-06": [
+      {
+        "article_id": "163092",
+        "title": "2020년 6월 수출입 동향",
+        "registration_date": "2020-07-01",
+        "href": "/kor/article/ATCL3f49a5a8c/163092/view?mno=&pageIndex=12",
+        "source_page_index": 12,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/163092/view"
+      }
+    ],
+    "2020-07": [
+      {
+        "article_id": "163191",
+        "title": "2020년 7월 수출입 동향",
+        "registration_date": "2020-08-01",
+        "href": "/kor/article/ATCL3f49a5a8c/163191/view?mno=&pageIndex=11",
+        "source_page_index": 11,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/163191/view"
+      }
+    ],
+    "2020-08": [
+      {
+        "article_id": "163266",
+        "title": "2020년 8월 수출입 동향",
+        "registration_date": "2020-09-01",
+        "href": "/kor/article/ATCL3f49a5a8c/163266/view?mno=&pageIndex=11",
+        "source_page_index": 11,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/163266/view"
+      }
+    ],
+    "2020-09": [
+      {
+        "article_id": "163361",
+        "title": "2020년 9월 수출입 동향",
+        "registration_date": "2020-10-01",
+        "href": "/kor/article/ATCL3f49a5a8c/163361/view?mno=&pageIndex=11",
+        "source_page_index": 11,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/163361/view"
+      }
+    ],
+    "2020-10": [
+      {
+        "article_id": "163455",
+        "title": "2020년 10월 수출입 동향",
+        "registration_date": "2020-11-01",
+        "href": "/kor/article/ATCL3f49a5a8c/163455/view?mno=&pageIndex=11",
+        "source_page_index": 11,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/163455/view"
+      }
+    ],
+    "2020-11": [
+      {
+        "article_id": "163590",
+        "title": "2020년 11월 수출입 동향",
+        "registration_date": "2020-12-01",
+        "href": "/kor/article/ATCL3f49a5a8c/163590/view?mno=&pageIndex=11",
+        "source_page_index": 11,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/163590/view"
+      }
+    ],
+    "2020-12": [],
+    "2021-01": [
+      {
+        "article_id": "163769",
+        "title": "2021년 1월 수출입 동향",
+        "registration_date": "2021-02-01",
+        "href": "/kor/article/ATCL3f49a5a8c/163769/view?mno=&pageIndex=11",
+        "source_page_index": 11,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/163769/view"
+      }
+    ],
+    "2021-02": [
+      {
+        "article_id": "163855",
+        "title": "2021년 2월 수출입 동향",
+        "registration_date": "2021-03-01",
+        "href": "/kor/article/ATCL3f49a5a8c/163855/view?mno=&pageIndex=11",
+        "source_page_index": 11,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/163855/view"
+      }
+    ],
+    "2021-03": [
+      {
+        "article_id": "163969",
+        "title": "2021년 3월 수출입 동향",
+        "registration_date": "2021-04-01",
+        "href": "/kor/article/ATCL3f49a5a8c/163969/view?mno=&pageIndex=11",
+        "source_page_index": 11,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/163969/view"
+      }
+    ],
+    "2021-04": [
+      {
+        "article_id": "164069",
+        "title": "2021년 4월 수출입 동향",
+        "registration_date": "2021-05-01",
+        "href": "/kor/article/ATCL3f49a5a8c/164069/view?mno=&pageIndex=11",
+        "source_page_index": 11,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/164069/view"
+      }
+    ],
+    "2021-05": [
+      {
+        "article_id": "164162",
+        "title": "2021년 5월 수출입 동향",
+        "registration_date": "2021-06-01",
+        "href": "/kor/article/ATCL3f49a5a8c/164162/view?mno=&pageIndex=11",
+        "source_page_index": 11,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/164162/view"
+      }
+    ],
+    "2021-06": [],
+    "2021-07": [
+      {
+        "article_id": "164417",
+        "title": "2021년 7월 수출입 동향",
+        "registration_date": "2021-08-01",
+        "href": "/kor/article/ATCL3f49a5a8c/164417/view?mno=&pageIndex=10",
+        "source_page_index": 10,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/164417/view"
+      }
+    ],
+    "2021-08": [
+      {
+        "article_id": "164502",
+        "title": "2021년 8월 수출입 동향",
+        "registration_date": "2021-09-01",
+        "href": "/kor/article/ATCL3f49a5a8c/164502/view?mno=&pageIndex=10",
+        "source_page_index": 10,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/164502/view"
+      }
+    ],
+    "2021-09": [
+      {
+        "article_id": "164629",
+        "title": "2021년 9월 수출입 동향",
+        "registration_date": "2021-10-01",
+        "href": "/kor/article/ATCL3f49a5a8c/164629/view?mno=&pageIndex=10",
+        "source_page_index": 10,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/164629/view"
+      }
+    ],
+    "2021-10": [
+      {
+        "article_id": "164759",
+        "title": "2021년 10월 수출입 동향",
+        "registration_date": "2021-11-01",
+        "href": "/kor/article/ATCL3f49a5a8c/164759/view?mno=&pageIndex=10",
+        "source_page_index": 10,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/164759/view"
+      }
+    ],
+    "2021-11": [
+      {
+        "article_id": "164930",
+        "title": "2021년 11월 수출입 동향",
+        "registration_date": "2021-12-01",
+        "href": "/kor/article/ATCL3f49a5a8c/164930/view?mno=&pageIndex=10",
+        "source_page_index": 10,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/164930/view"
+      }
+    ],
+    "2021-12": [
+      {
+        "article_id": "165108",
+        "title": "2021년 12월 및 연간 수출입 동향",
+        "registration_date": "2022-01-01",
+        "href": "/kor/article/ATCL3f49a5a8c/165108/view?mno=&pageIndex=10",
+        "source_page_index": 10,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/165108/view"
+      }
+    ],
+    "2022-01": [
+      {
+        "article_id": "165244",
+        "title": "2022년 1월 수출입 동향",
+        "registration_date": "2022-02-01",
+        "href": "/kor/article/ATCL3f49a5a8c/165244/view?mno=&pageIndex=10",
+        "source_page_index": 10,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/165244/view"
+      }
+    ],
+    "2022-02": [
+      {
+        "article_id": "165360",
+        "title": "2022년 2월 수출입 동향",
+        "registration_date": "2022-03-01",
+        "href": "/kor/article/ATCL3f49a5a8c/165360/view?mno=&pageIndex=10",
+        "source_page_index": 10,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/165360/view"
+      }
+    ],
+    "2022-03": [
+      {
+        "article_id": "165465",
+        "title": "2022년3월 수출입 동향",
+        "registration_date": "2022-04-01",
+        "href": "/kor/article/ATCL3f49a5a8c/165465/view?mno=&pageIndex=10",
+        "source_page_index": 10,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/165465/view"
+      }
+    ],
+    "2022-04": [
+      {
+        "article_id": "165568",
+        "title": "2022년 4월 수출입 동향",
+        "registration_date": "2022-05-01",
+        "href": "/kor/article/ATCL3f49a5a8c/165568/view?mno=&pageIndex=10",
+        "source_page_index": 10,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/165568/view"
+      }
+    ],
+    "2022-05": [
+      {
+        "article_id": "165644",
+        "title": "2022년 5월 수출입 동향",
+        "registration_date": "2022-06-01",
+        "href": "/kor/article/ATCL3f49a5a8c/165644/view?mno=&pageIndex=9",
+        "source_page_index": 9,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/165644/view"
+      }
+    ],
+    "2022-06": [
+      {
+        "article_id": "165741",
+        "title": "2022년6월 및 상반기 수출입 동향",
+        "registration_date": "2022-07-01",
+        "href": "/kor/article/ATCL3f49a5a8c/165741/view?mno=&pageIndex=9",
+        "source_page_index": 9,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/165741/view"
+      }
+    ],
+    "2022-07": [
+      {
+        "article_id": "165868",
+        "title": "2022년7월 수출입 동향",
+        "registration_date": "2022-08-01",
+        "href": "/kor/article/ATCL3f49a5a8c/165868/view?mno=&pageIndex=9",
+        "source_page_index": 9,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/165868/view"
+      }
+    ],
+    "2022-08": [
+      {
+        "article_id": "165971",
+        "title": "2022년 8월 수출입 동향",
+        "registration_date": "2022-09-01",
+        "href": "/kor/article/ATCL3f49a5a8c/165971/view?mno=&pageIndex=9",
+        "source_page_index": 9,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/165971/view"
+      }
+    ],
+    "2022-09": [],
+    "2022-10": [
+      {
+        "article_id": "166259",
+        "title": "2022년 10월 수출입 동향",
+        "registration_date": "2022-11-01",
+        "href": "/kor/article/ATCL3f49a5a8c/166259/view?mno=&pageIndex=9",
+        "source_page_index": 9,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/166259/view"
+      }
+    ],
+    "2022-11": [
+      {
+        "article_id": "166456",
+        "title": "2022년 11월 수출입 동향",
+        "registration_date": "2022-12-01",
+        "href": "/kor/article/ATCL3f49a5a8c/166456/view?mno=&pageIndex=9",
+        "source_page_index": 9,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/166456/view"
+      }
+    ],
+    "2022-12": [
+      {
+        "article_id": "166607",
+        "title": "2022년 12월 및 연간 수출입 동향",
+        "registration_date": "2023-01-01",
+        "href": "/kor/article/ATCL3f49a5a8c/166607/view?mno=&pageIndex=9",
+        "source_page_index": 9,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/166607/view"
+      }
+    ],
+    "2023-01": [
+      {
+        "article_id": "166738",
+        "title": "2023년 1월 수출입 동향",
+        "registration_date": "2023-02-01",
+        "href": "/kor/article/ATCL3f49a5a8c/166738/view?mno=&pageIndex=9",
+        "source_page_index": 9,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/166738/view"
+      }
+    ],
+    "2023-02": [
+      {
+        "article_id": "166868",
+        "title": "2023년 2월 수출입 동향",
+        "registration_date": "2023-03-01",
+        "href": "/kor/article/ATCL3f49a5a8c/166868/view?mno=&pageIndex=9",
+        "source_page_index": 9,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/166868/view"
+      }
+    ],
+    "2023-03": [
+      {
+        "article_id": "167020",
+        "title": "2023년 3월 수출입 동향",
+        "registration_date": "2023-04-01",
+        "href": "/kor/article/ATCL3f49a5a8c/167020/view?mno=&pageIndex=9",
+        "source_page_index": 9,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/167020/view"
+      }
+    ],
+    "2023-04": [
+      {
+        "article_id": "167147",
+        "title": "2023년 4월 수출입 동향",
+        "registration_date": "2023-05-01",
+        "href": "/kor/article/ATCL3f49a5a8c/167147/view?mno=&pageIndex=8",
+        "source_page_index": 8,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/167147/view"
+      }
+    ],
+    "2023-05": [
+      {
+        "article_id": "167315",
+        "title": "2023년 5월 수출입 동향",
+        "registration_date": "2023-06-01",
+        "href": "/kor/article/ATCL3f49a5a8c/167315/view?mno=&pageIndex=8",
+        "source_page_index": 8,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/167315/view"
+      }
+    ],
+    "2023-06": [
+      {
+        "article_id": "167468",
+        "title": "2023년 6월 수출입 동향",
+        "registration_date": "2023-07-01",
+        "href": "/kor/article/ATCL3f49a5a8c/167468/view?mno=&pageIndex=8",
+        "source_page_index": 8,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/167468/view"
+      }
+    ],
+    "2023-07": [
+      {
+        "article_id": "167634",
+        "title": "2023년 7월 수출입 동향",
+        "registration_date": "2023-08-01",
+        "href": "/kor/article/ATCL3f49a5a8c/167634/view?mno=&pageIndex=8",
+        "source_page_index": 8,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/167634/view"
+      }
+    ],
+    "2023-08": [
+      {
+        "article_id": "167755",
+        "title": "2023년 8월 수출입 동향",
+        "registration_date": "2023-09-01",
+        "href": "/kor/article/ATCL3f49a5a8c/167755/view?mno=&pageIndex=8",
+        "source_page_index": 8,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/167755/view"
+      }
+    ],
+    "2023-09": [
+      {
+        "article_id": "167893",
+        "title": "2023년 9월 수출입 동향",
+        "registration_date": "2023-10-01",
+        "href": "/kor/article/ATCL3f49a5a8c/167893/view?mno=&pageIndex=8",
+        "source_page_index": 8,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/167893/view"
+      }
+    ],
+    "2023-10": [
+      {
+        "article_id": "168043",
+        "title": "2023년 10월 수출입 동향",
+        "registration_date": "2023-11-01",
+        "href": "/kor/article/ATCL3f49a5a8c/168043/view?mno=&pageIndex=7",
+        "source_page_index": 7,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/168043/view"
+      }
+    ],
+    "2023-11": [
+      {
+        "article_id": "168239",
+        "title": "2023년 11월 수출입 동향",
+        "registration_date": "2023-12-01",
+        "href": "/kor/article/ATCL3f49a5a8c/168239/view?mno=&pageIndex=7",
+        "source_page_index": 7,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/168239/view"
+      }
+    ],
+    "2023-12": [
+      {
+        "article_id": "168425",
+        "title": "2023년 12월 및 연간 수출입 동향",
+        "registration_date": "2024-01-01",
+        "href": "/kor/article/ATCL3f49a5a8c/168425/view?mno=&pageIndex=7",
+        "source_page_index": 7,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/168425/view"
+      }
+    ],
+    "2024-01": [
+      {
+        "article_id": "168574",
+        "title": "2024년 1월 수출입 동향",
+        "registration_date": "2024-02-01",
+        "href": "/kor/article/ATCL3f49a5a8c/168574/view?mno=&pageIndex=7",
+        "source_page_index": 7,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/168574/view"
+      }
+    ],
+    "2024-02": [
+      {
+        "article_id": "168695",
+        "title": "2024년 2월 수출입 동향",
+        "registration_date": "2024-03-01",
+        "href": "/kor/article/ATCL3f49a5a8c/168695/view?mno=&pageIndex=7",
+        "source_page_index": 7,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/168695/view"
+      }
+    ],
+    "2024-03": [
+      {
+        "article_id": "168853",
+        "title": "2024년 3월 수출입 동향",
+        "registration_date": "2024-04-01",
+        "href": "/kor/article/ATCL3f49a5a8c/168853/view?mno=&pageIndex=6",
+        "source_page_index": 6,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/168853/view"
+      }
+    ],
+    "2024-04": [
+      {
+        "article_id": "168991",
+        "title": "2024년 4월 수출입 동향",
+        "registration_date": "2024-05-01",
+        "href": "/kor/article/ATCL3f49a5a8c/168991/view?mno=&pageIndex=6",
+        "source_page_index": 6,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/168991/view"
+      }
+    ],
+    "2024-05": [
+      {
+        "article_id": "169134",
+        "title": "2024년 5월 수출입 동향",
+        "registration_date": "2024-06-01",
+        "href": "/kor/article/ATCL3f49a5a8c/169134/view?mno=&pageIndex=6",
+        "source_page_index": 6,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/169134/view"
+      }
+    ],
+    "2024-06": [
+      {
+        "article_id": "169265",
+        "title": "2024년 상반기 및 6월 수출입 동향",
+        "registration_date": "2024-07-01",
+        "href": "/kor/article/ATCL3f49a5a8c/169265/view?mno=&pageIndex=6",
+        "source_page_index": 6,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/169265/view"
+      }
+    ],
+    "2024-07": [
+      {
+        "article_id": "169370",
+        "title": "2024년 7월 수출입 동향",
+        "registration_date": "2024-08-01",
+        "href": "/kor/article/ATCL3f49a5a8c/169370/view?mno=&pageIndex=6",
+        "source_page_index": 6,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/169370/view"
+      }
+    ],
+    "2024-08": [],
+    "2024-09": [
+      {
+        "article_id": "169587",
+        "title": "2024년 9월 수출입 동향",
+        "registration_date": "2024-10-01",
+        "href": "/kor/article/ATCL3f49a5a8c/169587/view?mno=&pageIndex=5",
+        "source_page_index": 5,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/169587/view"
+      }
+    ],
+    "2024-10": [
+      {
+        "article_id": "169727",
+        "title": "2024년 10월 수출입 동향",
+        "registration_date": "2024-11-01",
+        "href": "/kor/article/ATCL3f49a5a8c/169727/view?mno=&pageIndex=5",
+        "source_page_index": 5,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/169727/view"
+      }
+    ],
+    "2024-11": [
+      {
+        "article_id": "169872",
+        "title": "2024년 11월 수출입 동향",
+        "registration_date": "2024-12-01",
+        "href": "/kor/article/ATCL3f49a5a8c/169872/view?mno=&pageIndex=5",
+        "source_page_index": 5,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/169872/view"
+      }
+    ],
+    "2024-12": [
+      {
+        "article_id": "170000",
+        "title": "2024년 연간 및 12월 수출입 동향",
+        "registration_date": "2025-01-01",
+        "href": "/kor/article/ATCL3f49a5a8c/170000/view?mno=&pageIndex=5",
+        "source_page_index": 5,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170000/view"
+      }
+    ],
+    "2025-01": [
+      {
+        "article_id": "170090",
+        "title": "2025년 1월 수출입 동향",
+        "registration_date": "2025-02-01",
+        "href": "/kor/article/ATCL3f49a5a8c/170090/view?mno=&pageIndex=5",
+        "source_page_index": 5,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170090/view"
+      }
+    ],
+    "2025-02": [
+      {
+        "article_id": "170220",
+        "title": "2025년 2월 수출입 동향",
+        "registration_date": "2025-03-01",
+        "href": "/kor/article/ATCL3f49a5a8c/170220/view?mno=&pageIndex=4",
+        "source_page_index": 4,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170220/view"
+      }
+    ],
+    "2025-03": [
+      {
+        "article_id": "170365",
+        "title": "2025년 3월 수출입 동향",
+        "registration_date": "2025-04-01",
+        "href": "/kor/article/ATCL3f49a5a8c/170365/view?mno=&pageIndex=4",
+        "source_page_index": 4,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170365/view"
+      }
+    ],
+    "2025-04": [
+      {
+        "article_id": "170484",
+        "title": "2025년 4월 수출입 동향",
+        "registration_date": "2025-05-01",
+        "href": "/kor/article/ATCL3f49a5a8c/170484/view?mno=&pageIndex=4",
+        "source_page_index": 4,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170484/view"
+      }
+    ],
+    "2025-05": [
+      {
+        "article_id": "170581",
+        "title": "2025년 5월 수출입 동향",
+        "registration_date": "2025-06-01",
+        "href": "/kor/article/ATCL3f49a5a8c/170581/view?mno=&pageIndex=4",
+        "source_page_index": 4,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170581/view"
+      }
+    ],
+    "2025-06": [
+      {
+        "article_id": "170672",
+        "title": "2025년 6월 및 상반기 수출입 동향",
+        "registration_date": "2025-07-01",
+        "href": "/kor/article/ATCL3f49a5a8c/170672/view?mno=&pageIndex=4",
+        "source_page_index": 4,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170672/view"
+      }
+    ],
+    "2025-07": [
+      {
+        "article_id": "170772",
+        "title": "2025년 7월 수출입 동향",
+        "registration_date": "2025-08-01",
+        "href": "/kor/article/ATCL3f49a5a8c/170772/view?mno=&pageIndex=3",
+        "source_page_index": 3,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170772/view"
+      }
+    ],
+    "2025-08": [
+      {
+        "article_id": "170869",
+        "title": "2025년 8월 수출입 동향",
+        "registration_date": "2025-09-01",
+        "href": "/kor/article/ATCL3f49a5a8c/170869/view?mno=&pageIndex=3",
+        "source_page_index": 3,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170869/view"
+      }
+    ],
+    "2025-09": [
+      {
+        "article_id": "171048",
+        "title": "2025년 9월 수출입 동향",
+        "registration_date": "2025-10-01",
+        "href": "/kor/article/ATCL3f49a5a8c/171048/view?mno=&pageIndex=3",
+        "source_page_index": 3,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171048/view"
+      }
+    ],
+    "2025-10": [
+      {
+        "article_id": "171141",
+        "title": "2025년 10월 수출입 동향",
+        "registration_date": "2025-11-01",
+        "href": "/kor/article/ATCL3f49a5a8c/171141/view?mno=&pageIndex=3",
+        "source_page_index": 3,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171141/view"
+      }
+    ],
+    "2025-11": [
+      {
+        "article_id": "171276",
+        "title": "2025년 11월 수출입 동향",
+        "registration_date": "2025-12-01",
+        "href": "/kor/article/ATCL3f49a5a8c/171276/view?mno=&pageIndex=3",
+        "source_page_index": 3,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171276/view"
+      }
+    ],
+    "2025-12": [
+      {
+        "article_id": "171403",
+        "title": "2025년 연간 및 12월 수출입 동향",
+        "registration_date": "2026-01-01",
+        "href": "/kor/article/ATCL3f49a5a8c/171403/view?mno=&pageIndex=2",
+        "source_page_index": 2,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171403/view"
+      }
+    ],
+    "2026-01": [
+      {
+        "article_id": "171483",
+        "title": "2026년 1월 수출입 동향",
+        "registration_date": "2026-02-01",
+        "href": "/kor/article/ATCL3f49a5a8c/171483/view?mno=&pageIndex=2",
+        "source_page_index": 2,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171483/view"
+      }
+    ],
+    "2026-02": [
+      {
+        "article_id": "171550",
+        "title": "2026년 2월 수출입 동향",
+        "registration_date": "2026-03-01",
+        "href": "/kor/article/ATCL3f49a5a8c/171550/view?mno=&pageIndex=2",
+        "source_page_index": 2,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171550/view"
+      }
+    ],
+    "2026-03": [
+      {
+        "article_id": "171670",
+        "title": "2026년 3월 수출입 동향",
+        "registration_date": "2026-04-01",
+        "href": "/kor/article/ATCL3f49a5a8c/171670/view?mno=&pageIndex=2",
+        "source_page_index": 2,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171670/view"
+      }
+    ],
+    "2026-04": [
+      {
+        "article_id": "171795",
+        "title": "2026년 4월 수출입 동향",
+        "registration_date": "2026-05-01",
+        "href": "/kor/article/ATCL3f49a5a8c/171795/view?mno=&pageIndex=2",
+        "source_page_index": 2,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171795/view"
+      }
+    ],
+    "2026-05": [
+      {
+        "article_id": "171880",
+        "title": "2026년 5월 수출입 동향",
+        "registration_date": "2026-06-01",
+        "href": "/kor/article/ATCL3f49a5a8c/171880/view?mno=&pageIndex=1",
+        "source_page_index": 1,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171880/view"
+      }
+    ],
+    "2026-06": [
+      {
+        "article_id": "171986",
+        "title": "2026년 6월 및 상반기 수출입 동향",
+        "registration_date": "2026-07-01",
+        "href": "/kor/article/ATCL3f49a5a8c/171986/view?mno=&pageIndex=1",
+        "source_page_index": 1,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171986/view"
+      }
+    ],
+    "2026-07": [
+      {
+        "article_id": "172077",
+        "title": "2026년 7월 수출입 동향",
+        "registration_date": "2026-08-01",
+        "href": "/kor/article/ATCL3f49a5a8c/172077/view?mno=&pageIndex=1",
+        "source_page_index": 1,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172077/view"
+      }
+    ],
+    "2026-08": [],
+    "2026-09": [
+      {
+        "article_id": "172254",
+        "title": "2026년 9월 수출입 동향",
+        "registration_date": "2026-10-01",
+        "href": "/kor/article/ATCL3f49a5a8c/172254/view?mno=&pageIndex=1",
+        "source_page_index": 1,
+        "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172254/view"
+      }
+    ]
+  },
+  "complete_index_path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_index.json",
+  "complete_index_sha256": "45d7a4062e10339545d44dc437d8bfcdb564e507f54d75dc8dffb8e71a77d9ff",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

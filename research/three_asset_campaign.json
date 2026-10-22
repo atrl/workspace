@@ -12,27 +12,27 @@
   "goal_controller": {
     "thread_id": "01a16141-bbb9-7660-a992-86f5741aa7b7",
     "observed_status": "active",
-    "observed_at_utc": "2026-10-22T05:27:33.988006+00:00",
+    "observed_at_utc": "2026-10-22T06:11:42.616293+00:00",
     "objective_v2_applied": true,
     "previous_thread_id": "01a14cc9-e797-7b31-90f6-d95a821e4deb",
     "previous_thread_last_observed_status": "blocked",
     "source": "get_goal current thread; previous observation retained in campaign history"
   },
   "current_task": {
-    "card": "research/ibkr_soxx_option_skew_forward_source_20261022",
-    "phase": "read_only_forward_source_checks_waiting_frozen_clocks",
+    "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
+    "phase": "Korean_monthly_source_full_coverage_numeric_and_PIT_gates_pending",
     "implementation_executor": null,
     "independent_reviewer": null,
-    "next_action": "At/after 2026-10-22 12:45 UTC run the final frozen Cboe same-date preopen vintage. During 2026-10-22 13:35-19:55 UTC run exactly one underlying and two 495-strike Nov20 SOXX read-only IBKR snapshots to test REALTIME bid/ask, IV and Delta. Do not infer historical skew, place orders, or reopen failed OCC put-share.",
-    "last_scientific_observation": "OCC put-share fixed H5 information screen failed (held paired Brier -0.00109567, negative coefficient and lower). Cboe total activity intensity remains untested. IBKR after-hours SOXX call/put snapshots were FROZEN with invalid IV and empty Greeks, so no 25-Delta skew feature exists yet. Korea national export archive covers 93 monthly releases 2019-01..2026-09, but current English PDF metadata lag registration >7d for 69 months and >30d for 26; 2022-03 PDF lacks semiconductor text. Historical vintage and numeric factor rows not qualified; zero fits/accounts.",
-    "last_operational_observation": "OCC daily source acquired 493 Qlib sessions x2 symbols: 980 new HTTP plus6 reused; 3944 same-venue-day comparisons against Cboe had zero mismatch. Source Recorder 7c73158061a9478dbc659de98bd3c866 readback and NAS archival passed. Fixed information notebook had2 fits/1 bootstrap, Recorder ba7c9b2a77dd4b7ea6e68291b68e0392 readback and NAS archival passed. TSM original release and SEC local HTTP returned403; browser extension unavailable, source probe closed needs_source_access. Second Cboe Oct21 vintage at 2026-10-22 04:38 UTC matched first vintage bytes exactly for both symbols after 38.3 minutes; third preopen capture gated until 12:45 UTC, focused gate check and parser test passed. Connected IBKR exact US SOXX option chain returned 168 strikes and a 2026-11-20 regular expiration; one underlying quote was REALTIME, two selected option quotes FROZEN with invalid IV/empty Greeks. Read-only source response saved; no broker writes. Normal-hours entitlement check frozen for 13:35-19:55 UTC. Korean source-only Qlib Recorder eedbfb80f177403e8a8c40dfbf20548e verified 93 monthly source clocks and was NAS archived; 446 exact raw HTML/PDF/index files (50,572,658 bytes) archived to NAS with remote SHA256 readback. Local source bytes preserved and scoped Git ignore; no market outcome read.",
-    "design_brief": "research/ibkr_soxx_option_skew_forward_source_20261022/regular_hours_plan.json",
+    "next_action": "Perform one separately frozen Korean PDF numeric amount/YoY completeness and dual-version comparison without market outcomes; do not treat current PDF metadata as first-public proof. Also execute previously frozen Cboe preopen vintage after 12:45 UTC and IBKR regular-hours read-only quotes during 13:35-19:55 UTC.",
+    "last_scientific_observation": "OCC put-share fixed information screen failed and no SOXX economic candidate passes. Korean national monthly export source is distinct from failed SIA smoothed global sales: 93 months/96 current PDF versions, all with semiconductor text; 50 PDFs created on Korean registration date, 13 next day, 12 >7 days later; 3 months have dual versions. Historical first-public vintage and numeric factor values remain unqualified; zero Korea fits/accounts.",
+    "last_operational_observation": "OCC daily source acquired 493 Qlib sessions x2 symbols: 980 new HTTP plus6 reused; 3944 same-venue-day comparisons against Cboe had zero mismatch. Source Recorder 7c73158061a9478dbc659de98bd3c866 readback and NAS archival passed. Fixed information notebook had2 fits/1 bootstrap, Recorder ba7c9b2a77dd4b7ea6e68291b68e0392 readback and NAS archival passed. TSM original release and SEC local HTTP returned403; browser extension unavailable, source probe closed needs_source_access. Second Cboe Oct21 vintage at 2026-10-22 04:38 UTC matched first vintage bytes exactly for both symbols after 38.3 minutes; third preopen capture gated until 12:45 UTC, focused gate check and parser test passed. Connected IBKR exact US SOXX option chain returned 168 strikes and a 2026-11-20 regular expiration; one underlying quote was REALTIME, two selected option quotes FROZEN with invalid IV/empty Greeks. Read-only source response saved; no broker writes. Normal-hours entitlement check frozen for 13:35-19:55 UTC. Korean source-only Qlib Recorder eedbfb80f177403e8a8c40dfbf20548e verified 93 monthly source clocks and was NAS archived; 446 exact raw HTML/PDF/index files (50,572,658 bytes) archived to NAS with remote SHA256 readback. Local source bytes preserved and scoped Git ignore; no market outcome read. Korean original source: 30 filtered archive pages plus one no-space repair identified 93 unique national monthly articles, 96 PDFs including all three dual-version months. 221 exact raw files (210,597,246 bytes) archived across nine NAS groups with remote SHA256 checks; Qlib source Recorder f71cdcf6bfd846178a4ba90d7553e3be targeted readback and NAS archival passed. No market outcome read.",
+    "design_brief": "research/korea_semiconductor_exports_korean_vintage_20261022/source_delivery_plan.json",
     "closed_information_card": "research/inventory_sales_soxx_h63_information_20261022",
     "closed_information_result": "research/inventory_sales_soxx_h63_information_20261022/result_review.json",
     "source_failure_attribution": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
     "execution_authorized": false,
-    "result": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json",
-    "parallel_source_gap": "research/korea_semiconductor_exports_full_source_20261022/source_qualification_result.json"
+    "result": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json",
+    "parallel_source_gap": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -58,7 +58,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T05:27:33.988006+00:00",
+  "updated_at_utc": "2026-10-22T06:11:42.616293+00:00",
   "execution_totals": {
     "new_model_fits": 43,
     "new_native_accounts": 44,

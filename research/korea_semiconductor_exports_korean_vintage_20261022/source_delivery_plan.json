@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_delivery_readback_without_new_Recorder",
+  "notebook_sha256": "84a1c9c38988be710b5ec9a17325d0bde9ba17b022f022faab4f5b89f97483cd",
+  "identities_sha256": {
+    "research/korea_semiconductor_exports_korean_vintage_20261022/korean_national_article_manifest.json": "b1daf1f650a41e905d61f53f5612ecc2b17e1639694487c4e611a4c575c93ef0",
+    "research/korea_semiconductor_exports_korean_vintage_20261022/korean_vintage_metadata_audit.json": "96da672ba98c8fb0ef87771db666e463f826bb9390b72911b9a5a72f202a5865",
+    "research/korea_semiconductor_exports_korean_vintage_20261022/nas_source_archive_binding.json": "05a2aabb4578ec989896a52d64db7e1e7667ec68df0f5e7405da711eea78a1e9",
+    "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json": "88abc56b4cface76b869bf92ffc08c1aea95e39c164b413c871921318d621563"
+  },
+  "budget": {
+    "source_sidecar_reads": 4,
+    "new_HTTP_gets": 0,
+    "D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "all_30_filtered_Korean_official_release_listing_pages",
+  "parent_probe_plan_sha256": "a8ccce383ac5d6ee28e128bb34adb12a3afacf5ff7f210bffb6e858a3ad9aa01",
+  "page1_receipt_sha256": "6357e3aa0c1841acd253c729eec6aea3d9f4514a3da562d89ffbbd0e950b48b7",
+  "page1_raw_sha256": "7261eead960b64d138c1fc168acade9799bec53c71361229ef4aec022bde65b1",
+  "base_search_url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/?displayAuthor=&endDtD=&mno=&pageIndex=1&rowPageC=0&schClear=on&searchCategory=0&searchCondition=1&searchKeyword=%EC%88%98%EC%B6%9C%EC%9E%85+%EB%8F%99%ED%96%A5&startDtD=",
+  "page_index_first": 1,
+  "page_index_last": 30,
+  "reuse_page1": true,
+  "request_policy": {
+    "new_distinct_HTTP_gets": 29,
+    "max_wire_HTTP_attempts": 58,
+    "one_retry_on_transient": true,
+    "minimum_seconds_between_gets": 0.2,
+    "max_response_bytes": 1500000
+  },
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "required_checks": [
+    "All official filtered listing pages save exact bytes/URL/time/SHA256 and title/registration/link rows",
+    "Detect duplicate article IDs, missing months and ICT-only titles before source article fetch",
+    "No price or return outcome read"
+  ]
+}

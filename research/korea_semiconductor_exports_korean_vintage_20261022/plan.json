@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "experiment": "korea_semiconductor_exports_korean_vintage_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "official_Korean_original_archive_search_probe",
+  "parent_full_English_source_result_sha256": "9bd0e7a1cb12c53c4b1f5e3794fafbbe488ff9248a2ea94bb5f57bf1f8bbb609",
+  "parent_Korean_two_sample_result_sha256": "933dd894dbc3094b41ef8d577ef519e2802e87335717a423eb41c4fd9b114d82",
+  "search_url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/?displayAuthor=&endDtD=&mno=&pageIndex=1&rowPageC=0&schClear=on&searchCategory=0&searchCondition=1&searchKeyword=%EC%88%98%EC%B6%9C%EC%9E%85+%EB%8F%99%ED%96%A5&startDtD=",
+  "search_phrase_Korean": "수출입 동향",
+  "budget": {
+    "http_gets": 1,
+    "Qlib_D_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "acceptance": [
+    "Official Korean press-release list HTTP200 exact bytes/URL/time/SHA256 archived",
+    "Search result page reports original registration dates and links for national monthly export release; total pages/coverage inspected",
+    "No assumption that current PDF bytes are original publication vintage"
+  ],
+  "stop": [
+    "If search filter ignored or site inaccessible, preserve receipt and stop before bulk collection",
+    "No market outcome or trade signal from source discovery"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

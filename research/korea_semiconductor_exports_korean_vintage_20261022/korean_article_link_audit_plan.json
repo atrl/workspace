@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "all_93_Korean_national_article_PDF_link_inventory",
+  "manifest_sha256": "b1daf1f650a41e905d61f53f5612ecc2b17e1639694487c4e611a4c575c93ef0",
+  "HTML_plan_sha256": "6fd0cc830f232c0bbd127c0ba70659a56c177361c55bf4b78aeb6902026b0050",
+  "HTML_receipts_sha256": "f64282656b590f2db524e737aa897623cedaeda5662c903d3b4dc8aa2da169d8",
+  "HTML_run_state_sha256": "fabfaaf3734f4b3b5a0965e6538db827cf9faf500f501e8cbe9b342813a49b3a",
+  "budget": {
+    "source_HTML_reads": 93,
+    "new_HTTP_gets": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "checks": [
+    "Verify every page SHA256 and title/registration date",
+    "Record all linked PDF attachment URLs and filename version labels; zero/multiple per month is explicit source gap",
+    "No numeric factor or market outcome read"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "exact_93_official_Korean_national_article_HTML_acquisition",
+  "article_manifest_sha256": "b1daf1f650a41e905d61f53f5612ecc2b17e1639694487c4e611a4c575c93ef0",
+  "reused_exact_months": {
+    "2025-05": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/korean_original/2025-05.html",
+      "sha256": "c51358ac0e594be92669aebac25b92f952c0010b0ce43dc61cafc1a105cd890d",
+      "original_url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/170581/view"
+    },
+    "2026-05": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/korean_original/2026-05.html",
+      "sha256": "1791192c931003ee242106d4b02a24d2aadb09319275d18dd071f6bb207967ae",
+      "original_url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171880/view"
+    }
+  },
+  "target_months": 93,
+  "new_HTML_requests": 91,
+  "request_policy": {
+    "max_new_HTTP_gets": 91,
+    "max_wire_HTTP_attempts": 182,
+    "one_retry_on_transient": true,
+    "max_bytes_per_response": 1500000,
+    "minimum_seconds_between_gets": 0.2,
+    "resume_exact_prefix_only": true
+  },
+  "checks": [
+    "Exact official Korean article title/date and URL identity from frozen 93-month manifest",
+    "Raw bytes/URL/UTC receipt/SHA256 preserved; no PDF or market data read",
+    "All zero/multiple/missing months stop source qualification"
+  ],
+  "budget": {
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  }
+}

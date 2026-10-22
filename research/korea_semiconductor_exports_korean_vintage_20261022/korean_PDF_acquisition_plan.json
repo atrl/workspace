@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "all_96_official_Korean_PDF_versions_source_acquisition",
+  "article_link_audit_sha256": "8765dcfb744357cda3ba4b0e5a48596db524fb0d42b858ec552c1ed89551a92a",
+  "months": 93,
+  "total_attachment_links": 96,
+  "multiple_version_months": [
+    "2020-06",
+    "2020-10",
+    "2023-05"
+  ],
+  "reused_exact_samples": {
+    "2025-05": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/korean_original/2025-05.pdf",
+      "sha256": "cf109a28bae2f5f22295149715f5e4c28910262e8e583181387409e2567782fb",
+      "original_url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/ae1c1aa1fadab2c300a06e76430ae9f8/9a9db098b587ee18b321c826f3707a49"
+    },
+    "2026-05": {
+      "path": "data/snapshots/korea_semiconductor_exports_source_20261022/korean_original/2026-05.pdf",
+      "sha256": "e1c89aeda48ef27f1533c4f2683829b102d3ab3ef301e6a423994915b1cf9d76",
+      "original_url": "https://www.motir.go.kr/attach/down/095a2dda9c864e1d90d751f7668a1117/b3b27a830684a10a7847dfd15a8b5e47/9a9db098b587ee18b321c826f3707a49"
+    }
+  },
+  "new_PDF_gets": 94,
+  "request_policy": {
+    "max_new_HTTP_gets": 94,
+    "max_wire_HTTP_attempts": 188,
+    "one_retry_on_transient": true,
+    "max_bytes_per_response": 8000000,
+    "minimum_seconds_between_gets": 0.2,
+    "resume_exact_prefix_only": true
+  },
+  "checks": [
+    "Store every original link, version index, filename, UTC receipt, raw SHA256 and PDF magic",
+    "No one-version selection in 2020-06, 2020-10, 2023-05 before exact vintage audit",
+    "Do not use English current PDF as original Korean byte substitute"
+  ],
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

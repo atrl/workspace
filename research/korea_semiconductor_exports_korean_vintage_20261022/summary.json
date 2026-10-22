@@ -1,0 +1,20 @@
+{
+  "experiment": "korea_semiconductor_exports_korean_vintage_20261022",
+  "status": "Korean_93_month_original_source_archived_vintage_not_certified",
+  "decision": "source_coverage_archived_numeric_and_PIT_gates_pending",
+  "result": "source_delivery_result.json",
+  "linked_native_Recorder_id": "f71cdcf6bfd846178a4ba90d7553e3be",
+  "new_Recorder_status": "no_new_Recorder_reuses_full_source_card",
+  "model_fits": 0,
+  "accounts": 0,
+  "qualified_forward_days": 0,
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

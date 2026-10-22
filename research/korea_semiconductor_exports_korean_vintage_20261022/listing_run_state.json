@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "plan_sha256": "1ca235e9664e2dd535eebe8dcefbb9ad2c7f1d72dfd7b45e799974125353d038",
+  "completed_new_pages": 28,
+  "planned_new_pages": 29,
+  "failed_page": 30,
+  "error": "ValueError: official Korean filtered archive has too few rows"
+}

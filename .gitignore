@@ -172,3 +172,6 @@ research/stage1_day_night_supervision_20261018/preflight/qlib_recorder/
 
 # Exact Korean export release source bytes are hash-verified in the source card and archived on NAS.
 /data/snapshots/korea_semiconductor_exports_source_20261022/
+
+# Exact Korean-language release versions are in nine hash-verified NAS source archives.
+/data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/

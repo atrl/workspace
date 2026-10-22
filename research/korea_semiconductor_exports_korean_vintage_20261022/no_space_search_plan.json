@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "five_missing_months_no_space_Korean_title_search_probe",
+  "prior_full_listing_audit_sha256": "7b4e9a7fc536d3dcbe41a3a3dc94edb171355525590aff09607e0938d392040a",
+  "missing_months": [
+    "2020-12",
+    "2021-06",
+    "2022-09",
+    "2024-08",
+    "2026-08"
+  ],
+  "search_url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/?displayAuthor=&endDtD=&mno=&pageIndex=1&rowPageC=0&schClear=on&searchCategory=0&searchCondition=1&searchKeyword=%EC%88%98%EC%B6%9C%EC%9E%85%EB%8F%99%ED%96%A5&startDtD=",
+  "budget": {
+    "http_gets": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "check": "Does exact official no-space title search recover missing Korean national monthly articles? Preserve raw bytes; do not fill from third party or market outcomes."
+}

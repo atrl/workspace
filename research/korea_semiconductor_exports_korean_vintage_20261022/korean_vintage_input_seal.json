@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "post_acquisition_input_identity_seal",
+  "source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "source_receipts_sha256": "ff000de21e4e8929d84ff203ea57afe33cf1911396a0565f9d53d633998ad3b3",
+  "source_run_state_sha256": "f84f76a628426be6636261963fbb9f63b8cd572faae836e25b49cfd64a4bc172",
+  "source_link_audit_sha256": "8765dcfb744357cda3ba4b0e5a48596db524fb0d42b858ec552c1ed89551a92a",
+  "PDF_files": 96,
+  "months": 93,
+  "new_HTTP_gets": 94,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}
