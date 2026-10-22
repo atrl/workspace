@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "four_original_2012_SEC_SOXX_report_identity_and_raw_source_reads",
+  "parent_2011_source_card": "research/stage1_soxx_2011_reported_concentration_source_20261023",
+  "parent_2011_source_summary_sha256": "be3868336cb8d347ad4de10b9db2889bc26ce0efb26e9c96951eb4c6dd61f5b0",
+  "committed_trust_candidate_index_sha256": "8a8d790c4e97f0dcacca0436835f263e7dc30dc318c8bafc25e8001cf6fb64a6",
+  "reports": [
+    {
+      "report_date": "2012-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-12-151845",
+      "accepted_at_utc": "2012-04-05T23:31:35.000Z",
+      "primary_document": "d302334dncsrs.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312512151845/d302334dncsrs.htm"
+    },
+    {
+      "report_date": "2012-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-12-289215",
+      "accepted_at_utc": "2012-06-29T20:22:02.000Z",
+      "primary_document": "d370583dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312512289215/d370583dnq.htm"
+    },
+    {
+      "report_date": "2012-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-12-418172",
+      "accepted_at_utc": "2012-10-09T20:16:08.000Z",
+      "primary_document": "d391477dncsr.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312512418172/d391477dncsr.htm"
+    },
+    {
+      "report_date": "2012-10-31",
+      "form": "N-Q",
+      "accession": "0001193125-12-517738",
+      "accepted_at_utc": "2012-12-28T23:22:34.000Z",
+      "primary_document": "d450388dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312512517738/d450388dnq.htm"
+    }
+  ],
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 4,
+    "max_response_bytes_each": 45000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 120,
+    "minimum_seconds_between_requests": 1
+  },
+  "identity_gate": "Each original body must contain a SOXX PHLX Semiconductor Schedule of Investments with its exact report date and Security/Shares/Value table. For N-CSR/N-CSRS use the fund-named TOC href and bounded target anchor when inline title markup splits words; do not infer membership from semiconductor sector/company text.",
+  "preservation": "Keep exact original body, headers, UTC clocks, SHA-256, and NAS archive with remote hash and scoped member restore. No original member is disposable without restore proof.",
+  "budget": {
+    "filing_body_GETs": 4,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop before next request on HTTP/URL/body/size/NAS failure. A body that fails identity stays unqualified; no changing candidate accession or body URL under this fixed phase.",
+  "scientific_boundary": "Four 2012 source specimens do not qualify 2013-2022 or held history. Disclosed ETF basket is lagged proxy, not daily official SOXX index constituents or alpha.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
