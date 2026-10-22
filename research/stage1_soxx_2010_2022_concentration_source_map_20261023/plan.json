@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Can 48 original SOXX disclosed-equity concentration events cover all 3020 frozen Stage1 2011-2022 training signal sessions without look-ahead, and which sessions remain uncertain because of later unqualified amendments?",
+  "sources_sha256": {
+    "research/stage1_soxx_legacy_filing_index_20261023/filing_2010_12_30_numeric_repair2_result.json": "b74303a4b276ec591c37161afff0c3b360c93addba8710c290f0235eb570ab9b",
+    "research/stage1_soxx_legacy_filing_index_20261023/summary.json": "ce833d6d4eb5440c561bb79aed7debeb39257926816ffe75b18953e7069d98c0",
+    "research/stage1_soxx_2011_reported_concentration_source_20261023/source_result.json": "8e693798943fcb2c6ff244ea177036f37d3d00f0ddf57476c5eb113234f150a5",
+    "research/stage1_soxx_legacy_reported_concentration_source_20261023/numeric_2012_result.json": "00f4367f755741bbeb4f96e2680f4141ca838e984ec6f02f517ccc9b03085cad",
+    "research/stage1_soxx_2013_2014_reported_concentration_source_20261023/numeric_2013_2014_result.json": "0892d88e09cb9cd0cb297d1a9debff442cb4834f4a562cf7228475161f70c0fe",
+    "research/stage1_soxx_2015_transition_concentration_source_20261023/numeric_2015_transition_result.json": "a91964dd0eaa500476606a54137a7e06f8c87e52e45851e72a5e0012ab44a079",
+    "research/stage1_soxx_2016_reported_concentration_source_20261023/numeric_2016_first_version_result.json": "c5d63cd18677a633ec2b79b76b224f4745b935fe3947675fb2a9f0c91066f69a",
+    "research/stage1_soxx_2016_reported_concentration_source_20261023/2016_Sep_amendment_TOC_repair_result.json": "6d1e9164d7a80d9e5bfa26e716c6124e0162ca0e2d0ec024c8ec0f798fc0169c",
+    "research/stage1_soxx_2017_2018_original_concentration_source_20261023/numeric_2018_Jun_dollar_cell_repair_result.json": "6bd98e059b3dd09c2c3fda208d0e6d210932ed585d90c9a8a0ebc57754c0e26d",
+    "research/stage1_soxx_series_filing_search_20261023/series_report_calendar_inventory.json": "84de74dd586d975e02fd5852acfb4d024408b0272c063e92fa3965b0d3df545b",
+    "research/stage1_soxx_2018_2022_concentration_bridge_20261023/summary.json": "871733bf3379335a87073291bb4ebf856438b97f79f2af2e3c7fdddbc939fd72"
+  },
+  "source_groups": {
+    "pre_Stage1_anchor": "research/stage1_soxx_legacy_filing_index_20261023/filing_2010_12_30_numeric_repair2_result.json",
+    "anchor_summary": "research/stage1_soxx_legacy_filing_index_20261023/summary.json",
+    "2011_2018_base_numeric_results": [
+      "research/stage1_soxx_2011_reported_concentration_source_20261023/source_result.json",
+      "research/stage1_soxx_legacy_reported_concentration_source_20261023/numeric_2012_result.json",
+      "research/stage1_soxx_2013_2014_reported_concentration_source_20261023/numeric_2013_2014_result.json",
+      "research/stage1_soxx_2015_transition_concentration_source_20261023/numeric_2015_transition_result.json",
+      "research/stage1_soxx_2016_reported_concentration_source_20261023/numeric_2016_first_version_result.json",
+      "research/stage1_soxx_2017_2018_original_concentration_source_20261023/numeric_2018_Jun_dollar_cell_repair_result.json"
+    ],
+    "2016_Sep_amendment_same_equity": "research/stage1_soxx_2016_reported_concentration_source_20261023/2016_Sep_amendment_TOC_repair_result.json",
+    "series_calendar_and_amendments": "research/stage1_soxx_series_filing_search_20261023/series_report_calendar_inventory.json",
+    "2018_Sep_to_2022_bridge": "research/stage1_soxx_2018_2022_concentration_bridge_20261023/summary.json"
+  },
+  "expected": {
+    "pre_Stage1_anchor_events": 1,
+    "2011_2018_first_version_events": 31,
+    "late_bridge_events": 16,
+    "total_unique_base_events": 48,
+    "Stage1_train_sessions": 3020
+  },
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "train_span": [
+    "2011-01-03",
+    "2022-12-30"
+  ],
+  "mapping": "Use source-reconciled accession and report date; for 2011-2018 exact match to series-calendar filing date, the 2010 anchor from its archived SEC acceptance date, and 2018-2022 events from the earlier native Qlib Recorder. Every event becomes usable only at the next actual Qlib session strictly after filing date. Merge backward onto all 3020 frozen Stage1 training dates, never backfill unknown. Require 30 positive equity values and exact printed total closure per original report. Keep top5 and HHI as source-only coordinates; no SOXX returns or feature fit.",
+  "amendment_mask": "For the five series-specific amendments, the 2016-Sep later version has independently qualified identical SOXX equity rows. For the other four, mark a signal date uncertain only if that amendment has filed before the signal and its report period is still the latest active base report. Do not overwrite base values or claim these days qualified. Keep amendment filing and conservative next-session effective clocks in Recorder.",
+  "semantics": "Original reported ETF common-equity fair-value-normalized concentration is a delayed proxy, not official daily SOXX index weights or proof of alpha. Historical SEC first-public seconds for each base report are not separately certified beyond archived acceptance metadata; next-session-after-filing is conservative.",
+  "artifacts": "Store 48 event rows, 3020 mapped sessions, exact source hashes, amendment masks and DatasetH in a native Qlib Recorder; archive Recorder to Yanxuan NAS with remote hash and scoped restore.",
+  "budgets": {
+    "new_GETs": 0,
+    "Qlib_source_Recorder_object_loads_max": 1,
+    "original_numeric_result_reads_max": 8,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_native_source_recorders": 1
+  },
+  "stop": "Any source hash, 48-event accession/report uniqueness, printed value closure, full 3020 calendar coverage, Qlib Recorder or NAS readback failure stops. Amendment-uncertain dates block full-source qualification and any feature fit until independently resolved; no row deletion or threshold adjustment."
+}

@@ -1,0 +1,30 @@
+{
+  "status": "full_Stage1_first_original_concentration_source_map_amendment_gap_explicit",
+  "source_plan_sha256": "3ba7067c677146f65ec3e3f3f85c431637da10580e3d34bc9d2573597d8fc6f2",
+  "base_report_events": 48,
+  "old_base_reports": 31,
+  "late_bridge_events": 16,
+  "Stage1_Qlib_train_sessions": 3020,
+  "first_version_source_known_sessions": 3020,
+  "qualified_after_amendment_mask_sessions": 3009,
+  "amendment_uncertain_sessions": 11,
+  "amendment_uncertain_first_date": "2017-08-15",
+  "amendment_uncertain_last_date": "2017-08-29",
+  "amendments_total": 5,
+  "amendment_equity_semantics_qualified": 1,
+  "first_source_effective_signal": "2011-01-03",
+  "last_effective_signal": "2022-11-29",
+  "max_source_age_days": 171,
+  "top5_source_bounds": [
+    0.35091771331210675,
+    0.4193657783329641
+  ],
+  "HHI_source_bounds": [
+    0.04516447605840671,
+    0.05405313693416049
+  ],
+  "full_Stage1_concentration_source_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
