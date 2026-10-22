@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "one_offline_selector_repair_frozen",
+  "source_plan_sha256": "0b59bf83ba6ccd6d701692b2574bbff741de99d33905cab236d22fb0536d154d",
+  "initial_preflight_sha256": "404a504bd62afef694e10644e7e2238e2781693783b6660353f1535d002575db",
+  "saved_listing_html_sha256": "c47d841c0ce81596ccad30afaac1850a1a2e7753baa586b430e9cb78f8a0d00d",
+  "mechanical_change": "Accept an issuer news link whose visible text is exactly the target title or a YYYY/MM/DD date prefix followed by the exact target title; retain exact /english/news/<id> issuer URL and uniqueness checks.",
+  "new_module_sha256": "efd1b618d540e65c1be5d494a236b8e58396823ba568b858fc3525bdf185809c",
+  "additional_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "stop_after_failed_offline_reparse": true
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "status": "offline_current_listing_selector_passed",
+  "source_HTML_sha256": "c47d841c0ce81596ccad30afaac1850a1a2e7753baa586b430e9cb78f8a0d00d",
+  "selector_addendum_sha256": "2f87d8cf90b6aac9e3cda7093a20c6fe4900d3ca05e22a73efa5eb64f4947bd9",
+  "matching_existing_article_urls": [
+    "https://pr.tsmc.com/english/news/3343"
+  ],
+  "additional_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

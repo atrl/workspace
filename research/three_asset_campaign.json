@@ -45,7 +45,8 @@
     "numeric_semantics_reconciliation": "research/korea_semiconductor_exports_korean_vintage_20261022/korean_numeric_semantics_reconciliation.json",
     "prospective_Korean_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json",
     "parallel_TSMC_issuer_source_probe": "research/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press_review.json",
-    "parallel_TSMC_future_release_calendar": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_revenue_calendar_probe.json"
+    "parallel_TSMC_future_release_calendar": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_revenue_calendar_probe.json",
+    "parallel_TSMC_prospective_capture_plan": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_press_capture_plan.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",

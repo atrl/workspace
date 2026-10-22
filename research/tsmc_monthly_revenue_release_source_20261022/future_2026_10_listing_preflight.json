@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "selector_preflight_failed",
+  "plan_sha256": "0b59bf83ba6ccd6d701692b2574bbff741de99d33905cab236d22fb0536d154d",
+  "source_url": "https://pr.tsmc.com/english/latest-news",
+  "requested_at_utc": "2026-10-22T08:38:38.952490+00:00",
+  "http_GET_attempts": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "http_status": 200,
+  "content_type": "text/html; charset=UTF-8",
+  "response_date": "Thu, 22 Oct 2026 08:38:39 GMT",
+  "last_modified": "Thu, 22 Oct 2026 08:37:58 GMT",
+  "final_url": "https://pr.tsmc.com/english/latest-news",
+  "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/forward_oct_2026/preflight_listing.html",
+  "sha256": "c47d841c0ce81596ccad30afaac1850a1a2e7753baa586b430e9cb78f8a0d00d",
+  "bytes": 187125,
+  "matching_existing_article_urls": [],
+  "error": "ValueError: issuer listing title/link selector differs"
+}
