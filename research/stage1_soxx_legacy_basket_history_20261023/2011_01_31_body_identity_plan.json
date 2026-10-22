@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "two_exact_2011_01_31_SEC_NQ_body_identity_checks",
+  "parent_plan_sha256": "bfda4160dcd01c4a046332dd401be532b644dba91d92ff79297598d4b266fc03",
+  "candidate_index_sha256": "8a8d790c4e97f0dcacca0436835f263e7dc30dc318c8bafc25e8001cf6fb64a6",
+  "report_date": "2011-01-31",
+  "candidate_selection": "Both trust N-Q filings with this exact report date, in ascending acceptance time; do not select by later SOXX price or successful match.",
+  "candidates": [
+    {
+      "accession": "0001193125-11-086451",
+      "accepted_at_utc": "2011-04-01T21:33:08.000Z",
+      "primary_document": "dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511086451/dnq.htm"
+    },
+    {
+      "accession": "0001193125-11-086453",
+      "accepted_at_utc": "2011-04-01T21:33:59.000Z",
+      "primary_document": "dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511086453/dnq.htm"
+    }
+  ],
+  "identity_target": "iShares PHLX SOX Semiconductor Sector Index Fund or PHLX SOX Semiconductor Sector Index Fund, with January 31, 2011 schedule date and Security/Shares/Value table header",
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 2,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 120,
+    "max_response_bytes_each": 45000000,
+    "minimum_seconds_between_requests": 1
+  },
+  "preserve": "Exact HTML and response headers, UTC request/response clocks, SHA-256; NAS archive both raw bodies, remote hash and scoped member restore.",
+  "budget": {
+    "filing_body_GETs": 2,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop on transport failure before any remaining request; no alternate URL, no extracting weights or computing factors in this phase. If neither body contains an unambiguous SOXX schedule, record source gap.",
+  "boundary": "This only identifies one 2011 SOXX original report; it does not qualify all 2011-2022 filings or Stage1 input."
+}
