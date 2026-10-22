@@ -1,0 +1,29 @@
+{
+  "plan_sha256": "b0f160e4dafe074b94b8b7fae86c6b3a3e3c166c63f7d48ca9fb6eafc4a7d56b",
+  "GETs_consumed": 1,
+  "retries": 0,
+  "attempt": {
+    "requested_at_utc": "2026-10-22T23:36:00.020243+00:00",
+    "method": "GET",
+    "path": "/v8/finance/chart/XLNX",
+    "query": {
+      "period1": 1546300800,
+      "period2": 1672444800,
+      "interval": "1d",
+      "events": "div,splits",
+      "includeAdjustedClose": "true"
+    },
+    "http_status": 404,
+    "body_sha256": "f0b5f9feeac9f1fc93c31b1edc03fbc1fda4acb3ec5e233ebb39d6f8b66e1769",
+    "body_bytes": 108,
+    "headers": {
+      "Date": "Thu, 22 Oct 2026 23:36:00 GMT",
+      "Content-Type": "application/json;charset=utf-8"
+    },
+    "chart_error": {
+      "code": "Not Found",
+      "description": "No data found, symbol may be delisted"
+    },
+    "chart_results": 0
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "status": "source_archive_NAS_scoped_restore_verified",
+  "sha256": "b9859756d7a735d42cdb17e2984ca32444459687f04d8be9ac08aa34af95cd08",
+  "size_bytes": 1604,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b9/85/b9859756d7a735d42cdb17e2984ca32444459687f04d8be9ac08aa34af95cd08",
+  "members": {
+    "research/stage1_xlnx_yahoo_history_preflight_20261023/plan.json": "b0f160e4dafe074b94b8b7fae86c6b3a3e3c166c63f7d48ca9fb6eafc4a7d56b",
+    "research/stage1_xlnx_yahoo_history_preflight_20261023/transport_result.json": "8194a1c73190fcd08e51a0c5e49f0af0cc0405849dbd37c922e843d4c2fd00a9",
+    "data/snapshots/stage1_xlnx_yahoo_history_preflight_20261023/chart.json": "f0b5f9feeac9f1fc93c31b1edc03fbc1fda4acb3ec5e233ebb39d6f8b66e1769"
+  },
+  "verified": true
+}

@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_xlnx_yahoo_history_preflight_20261023",
+  "decision": "fixed_Yahoo_XLNX_chart_URL_not_found_no_historical_bars",
+  "objective_achieved": false,
+  "plan_sha256": "b0f160e4dafe074b94b8b7fae86c6b3a3e3c166c63f7d48ca9fb6eafc4a7d56b",
+  "result": "result.json",
+  "source_archive": "nas_source_archive.json",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "Qlib_Recorder": null,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "The 404 closes only this exact Yahoo chart URL and requested ticker/date range.",
+    "A delisted-ticker error is not proof XLNX history does not exist elsewhere.",
+    "No historical ticker prices, factor, or SOXX account result."
+  ]
+}

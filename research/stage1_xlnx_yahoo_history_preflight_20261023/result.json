@@ -1,0 +1,17 @@
+{
+  "decision": "fixed_Yahoo_XLNX_chart_URL_not_found_no_historical_bars",
+  "plan_sha256": "b0f160e4dafe074b94b8b7fae86c6b3a3e3c166c63f7d48ca9fb6eafc4a7d56b",
+  "HTTP_status": 404,
+  "provider_error": {
+    "code": "Not Found",
+    "description": "No data found, symbol may be delisted"
+  },
+  "historical_daily_price_rows": 0,
+  "2019_2022_constituent_price_source_qualified": false,
+  "historical_first_receipt_qualified": false,
+  "SOXX_outcomes_read": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "GETs": 1,
+  "retries": 0
+}

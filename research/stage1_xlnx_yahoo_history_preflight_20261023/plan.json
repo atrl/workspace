@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_xlnx_yahoo_history_preflight_20261023",
+  "phase": "source_only_delisted_XLNX_Yahoo_chart_history_probe",
+  "question": "Does one public Yahoo chart response contain the missing historical XLNX daily bars for N-PORT constituent price qualification?",
+  "prior_source_gate": "research/stage1_soxx_nport_member_price_preflight_20261023/source_audit.json",
+  "prior_source_gate_sha256": "e6316fe08df6bc3607e1ba2a62f8477759ea6d3b722f6c9eaa6e711440172f0c",
+  "Polygon_credential_blocker": "research/stage1_xlnx_polygon_price_preflight_20261023/result.json",
+  "Polygon_blocker_sha256": "cf3de5148d6c2f9e0022fd7213bbe2b167629766856ad4e4624496c16e114779",
+  "exact_request": {
+    "method": "GET",
+    "scheme_host": "https://query1.finance.yahoo.com",
+    "path": "/v8/finance/chart/XLNX",
+    "query": {
+      "period1": 1546300800,
+      "period2": 1672444800,
+      "interval": "1d",
+      "events": "div,splits",
+      "includeAdjustedClose": "true"
+    }
+  },
+  "budget": {
+    "HTTP_GETs": 1,
+    "retries": 0,
+    "fallback_hosts": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "market_outcome_reads": 0,
+    "new_Qlib_Recorders_max": 1
+  },
+  "fixed_checks": [
+    "HTTP and chart error status",
+    "exact XLNX meta symbol/currency/exchange timezone",
+    "unique ET sessions with finite positive OHLC and valid volume",
+    "NPORT XLNX active 630 sessions overlap; no acquirer splice or missing-member reweight",
+    "split and dividend objects and current-vintage caveat"
+  ],
+  "stop": "If chart missing or current revision cannot support identity and calendar, close this URL transport with no alternate host or ticker; no fit/account regardless."
+}

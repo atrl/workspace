@@ -1,0 +1,28 @@
+{
+  "decision": "current_Polygon_plan_XLNX_history_not_authorized_source_identity_only",
+  "plan_sha256": "35527da6698db176cb2a62a3be66420358be98527d3e0f1615c074f5c8612194",
+  "reference_HTTP": 200,
+  "aggregate_HTTP": 403,
+  "provider_reference_status": "OK",
+  "provider_aggregate_status": "NOT_AUTHORIZED",
+  "provider_aggregate_message": "Your plan doesn't include this data timeframe. Please upgrade your plan at https://polygon.io/pricing",
+  "asof_2020_identity": {
+    "ticker": "XLNX",
+    "name": "Xilinx Inc",
+    "cik": "0000743988",
+    "composite_figi": "BBG004PYGYW2",
+    "share_class_figi": "BBG001S62S63",
+    "list_date": "1990-06-12",
+    "active": true,
+    "type": "CS",
+    "market": "stocks"
+  },
+  "historical_daily_price_rows": 0,
+  "2019_2022_constituent_price_source_qualified": false,
+  "historical_first_receipt_qualified": false,
+  "SOXX_outcomes_read": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "HTTP_GETs": 2,
+  "retries": 0
+}

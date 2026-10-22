@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_xlnx_polygon_price_preflight_20261023",
+  "phase": "source_only_delisted_constituent_daily_price_entitlement_and_identity_probe",
+  "question": "Can the already configured Polygon/Massive account supply historical daily XLNX bars and as-of ticker identity for the missing SOXX N-PORT constituent-price source, without substituting the acquirer or using this as a trading result?",
+  "source_basis": {
+    "prior_member_price_gate": "research/stage1_soxx_nport_member_price_preflight_20261023/source_audit.json",
+    "prior_gate_sha256": "e6316fe08df6bc3607e1ba2a62f8477759ea6d3b722f6c9eaa6e711440172f0c",
+    "NPORT_XLNX_missing_ticker_days": 630,
+    "NAS_current_us_semis_snapshot_source_id": "c7ddae9b31f9a1714d886b20625c2eec4068b9bd41801c1bac4aa7ffb5c93b6e"
+  },
+  "exact_requests": [
+    {
+      "method": "GET",
+      "path": "/v3/reference/tickers/XLNX",
+      "query_without_credential": {
+        "date": "2020-06-30"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v2/aggs/ticker/XLNX/range/1/day/2019-01-02/2022-12-30",
+      "query_without_credential": {
+        "adjusted": "true",
+        "sort": "asc",
+        "limit": "5000"
+      }
+    }
+  ],
+  "request_order": "reference_then_aggregate",
+  "budget": {
+    "HTTP_GETs": 2,
+    "retries": 0,
+    "fallback_vendors": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "market_outcome_reads": 0,
+    "new_Qlib_Recorders_max": 1
+  },
+  "fixed_source_checks": [
+    "HTTP status and provider status",
+    "as-of ticker exact XLNX stock identity and name/FIGI/CIK if supplied",
+    "positive finite OHLCV, unique ascending US dates, timestamp timezone",
+    "Qlib calendar overlap on prior gate 2019-2022 active sessions; no fill or acquirer splicing",
+    "split-adjusted not dividend-adjusted; current revision, not original first receipt"
+  ],
+  "stop": "If entitlement or ticker identity fails, stop after two exact GETs; no alternative ticker, new API request, feature fit, or account. Success only advances source coverage review and does not qualify the factor."
+}

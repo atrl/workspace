@@ -1,0 +1,13 @@
+{
+  "verdict": "CONFIRM_SOURCE_GATE_NO_PRICE_ADMISSION",
+  "review_scope": "read_only_plan_transport_identity_entitlement_NAS",
+  "confirmed": [
+    "Frozen plan and prior source audit hashes match.",
+    "Exactly two planned GET receipts and raw bodies match saved hashes and sizes; no retries.",
+    "2020-06-30 reference response identifies XLNX as Xilinx Inc common stock with CIK and FIGIs.",
+    "2019-2022 adjusted daily aggregate request returned HTTP 403 NOT_AUTHORIZED for the account timeframe and zero bars.",
+    "NAS source archive remote digest and scoped member restore match local bytes.",
+    "No SOXX outcomes, model fits, or native accounts ran."
+  ],
+  "limit": "The reference body does not echo the as-of query date; request-date provenance is the saved transport receipt. This is neither historical first-public proof nor evidence that all vendors lack the data."
+}

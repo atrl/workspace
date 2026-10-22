@@ -1,0 +1,12 @@
+{
+  "verdict": "CONFIRM_SOURCE_GATE_NO_HISTORICAL_PRICE_ADMISSION",
+  "review_scope": "read_only_exact_request_raw_response_NAS_and_interpretation",
+  "confirmed": [
+    "The frozen plan and pinned prior-source hashes match.",
+    "One exact XLNX chart GET was consumed with zero retries.",
+    "HTTP 404 JSON has chart.result null and a Not Found error saying the symbol may be delisted.",
+    "Raw response, NAS archive digest, and three scoped archive member hashes match.",
+    "No historical bars, SOXX outcomes, model fits, native accounts, or Qlib Recorder were produced."
+  ],
+  "limit": "This closes only the exact Yahoo URL, ticker and exclusive date bound; historical XLNX prices at other sources remain unproven."
+}

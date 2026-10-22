@@ -535,5 +535,7 @@
   "latest_read_only_Stage1_0bp_selection_concentration": "research/stage1_original_0bp_selection_tail_audit_v2_20261023/summary.json",
   "latest_read_only_Stage1_0bp_July_quote_crosscheck": "research/stage1_original_0bp_july_quote_crosscheck_20261023/summary.json",
   "latest_read_only_Stage1_index_transition_domain_diagnostic": "research/stage1_index_transition_domain_diagnostic_20261023/summary.json",
-  "latest_read_only_Stage1_tail_probability_alignment": "research/stage1_original_tail_probability_loss_alignment_20261023/summary.json"
+  "latest_read_only_Stage1_tail_probability_alignment": "research/stage1_original_tail_probability_loss_alignment_20261023/summary.json",
+  "latest_source_gate_Stage1_XLNX_Polygon": "research/stage1_xlnx_polygon_price_preflight_20261023/summary.json",
+  "latest_source_gate_Stage1_XLNX_Yahoo": "research/stage1_xlnx_yahoo_history_preflight_20261023/summary.json"
 }

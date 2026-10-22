@@ -1,0 +1,47 @@
+{
+  "plan_sha256": "35527da6698db176cb2a62a3be66420358be98527d3e0f1615c074f5c8612194",
+  "attempts": [
+    {
+      "sequence": 1,
+      "method": "GET",
+      "endpoint_path": "/v3/reference/tickers/XLNX",
+      "query_without_credential": {
+        "date": "2020-06-30"
+      },
+      "requested_at_utc": "2026-10-22T23:34:52.192081+00:00",
+      "http_status": 200,
+      "body_sha256": "319635e02dbbf6c1a391fa87c45e59d0ecf3b9e52bf0aeb6f0eb116808965135",
+      "body_bytes": 674,
+      "raw_path": "data/snapshots/stage1_xlnx_polygon_price_preflight_20261023/reference.json",
+      "response_headers": {
+        "Date": "Thu, 22 Oct 2026 23:34:53 GMT",
+        "Content-Type": "application/json"
+      },
+      "provider_status": "OK",
+      "results_count": null
+    },
+    {
+      "sequence": 2,
+      "method": "GET",
+      "endpoint_path": "/v2/aggs/ticker/XLNX/range/1/day/2019-01-02/2022-12-30",
+      "query_without_credential": {
+        "adjusted": "true",
+        "sort": "asc",
+        "limit": "5000"
+      },
+      "requested_at_utc": "2026-10-22T23:34:53.237050+00:00",
+      "http_status": 403,
+      "body_sha256": "4b635c617a1a9048ee6befbfb91d8595f56606fc32fb897e4d253e2dcb5252b4",
+      "body_bytes": 189,
+      "raw_path": "data/snapshots/stage1_xlnx_polygon_price_preflight_20261023/aggregates.json",
+      "response_headers": {
+        "Date": "Thu, 22 Oct 2026 23:34:54 GMT",
+        "Content-Type": "application/json"
+      },
+      "provider_status": "NOT_AUTHORIZED",
+      "results_count": null
+    }
+  ],
+  "requests_consumed": 2,
+  "retries": 0
+}

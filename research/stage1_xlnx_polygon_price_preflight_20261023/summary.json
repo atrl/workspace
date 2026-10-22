@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_xlnx_polygon_price_preflight_20261023",
+  "decision": "current_Polygon_plan_XLNX_history_not_authorized_source_identity_only",
+  "objective_achieved": false,
+  "plan_sha256": "35527da6698db176cb2a62a3be66420358be98527d3e0f1615c074f5c8612194",
+  "result": "result.json",
+  "source_archive": "nas_source_archive.json",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "Qlib_Recorder": null,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "Ticker identity at 2020-06-30 is not historical price coverage or exact first-public availability.",
+    "403 is this credential and date range, not proof all vendors lack delisted XLNX history.",
+    "No market bar, factor, or SOXX account result."
+  ]
+}
