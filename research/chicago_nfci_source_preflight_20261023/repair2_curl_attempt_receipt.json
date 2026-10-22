@@ -1,0 +1,9 @@
+{
+  "url": "https://alfred.stlouisfed.org/series/downloaddata?seid=NFCI",
+  "requested_at_utc": "2026-10-22T17:13:11.626815+00:00",
+  "received_at_utc": "2026-10-22T17:15:11.660687+00:00",
+  "curl_exit_code": 28,
+  "curl_stderr": "curl: (28) Operation timed out after 120006 milliseconds with 0 bytes received\n",
+  "header_text": "",
+  "bytes": 0
+}

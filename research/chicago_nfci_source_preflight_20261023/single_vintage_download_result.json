@@ -1,0 +1,27 @@
+{
+  "status": "single_first_vintage_browser_download_unobserved_after_timeout",
+  "plan_sha256": "e68e8d8340260fc13146907ffc24918425f19d6ba40422435f3167c082f4f473",
+  "source_URL": "https://alfred.stlouisfed.org/series/downloaddata?seid=NFCI",
+  "selected_vintage_date": "2011-05-25",
+  "submitted_parameters": {
+    "observation_start": "1971-01-08",
+    "observation_end": "2011-05-25",
+    "file_type": "Observations by Vintage Date, All Observations",
+    "file_format": "Zipped CSV",
+    "selected_vintages": [
+      "2011-05-25"
+    ]
+  },
+  "browser_form_submissions": 1,
+  "download_event_wait_seconds": 60,
+  "download_event_observed": false,
+  "new_browser_tab_observed": false,
+  "matching_recent_local_download_found": false,
+  "raw_ZIP_bytes_received": 0,
+  "NAS_raw_ZIP_backup_verified": false,
+  "interpretation": "No ZIP was observed; this is a browser delivery/transport uncertainty, not evidence the historical NFCI vintage lacks values. Frozen one-submission budget consumed; do not repeat without separate plan.",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false
+}

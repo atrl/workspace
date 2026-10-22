@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "read_only_official_ALFRED_NFCI_browser_DOM_vintage_selector_feasibility",
+  "parent_plan_sha256": "a8262a960df9a40a9503c3db3162d1753c0597d590c393b39ec78093962f1004",
+  "first_transport_failure_sha256": "d2c5621c952a2d52b65effbb88170b84146203b9fe6c9af3185d7b4b88d52069",
+  "second_transport_state_sha256": "0f21856310f5eeaef6e83efe4b61e6d585114b752d2a88b83c55eaab08ad72c3",
+  "URL": "https://alfred.stlouisfed.org/series/downloaddata?seid=NFCI",
+  "purpose": "After two bounded command-line transport failures with zero form bytes, inspect the public official form through the already available user browser once for NFCI identity, observation bounds and vintage-date selector. Do not request/download series values.",
+  "method": "One new Chrome tab navigation to exact official URL; read visible DOM once and, if present, query only form fields and vintage option values through read-only browser API. Save source identity, rendered DOM selector metadata and observation date bounds as a compact receipt. Any DOM export is rendered evidence, not original HTTP response bytes or historical first-public proof.",
+  "budget": {
+    "browser_navigations_max": 1,
+    "form_submissions": 0,
+    "data_ZIP_downloads": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If navigation is blocked, no exact NFCI form, no vintage selector, or source identity ambiguous, preserve failure and stop. Even a populated selector only qualifies possible vintage availability, not values, release-time coverage or alpha."
+}

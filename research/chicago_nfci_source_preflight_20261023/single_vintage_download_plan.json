@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_ALFRED_NFCI_single_first_selectable_vintage_byte_sample",
+  "parent_browser_result_sha256": "300906e3275f91a6bf1ca9ab97ac254857db00bb64ec70400d3f6aecd59fcb4e",
+  "URL": "https://alfred.stlouisfed.org/series/downloaddata?seid=NFCI",
+  "selected_vintage_date": "2011-05-25",
+  "observation_start": "1971-01-08",
+  "observation_end": "2011-05-25",
+  "output_format": "Observations by Vintage Date, All Observations",
+  "file_format": "Zipped CSV",
+  "purpose": "Test whether ALFRED returns exact NFCI values actually present on its first selectable vintage date, and establish source ZIP byte identity, CSV schema and historical observation cutoff. No market outcomes or Stage1 feature calculation.",
+  "budget": {
+    "browser_form_submissions_max": 1,
+    "downloads_max": 1,
+    "max_ZIP_bytes": 5000000,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "acceptance": "One official ZIP download with NFCI series identity and date/value columns, no observation after selected vintage. Preserve exact ZIP bytes, browser download metadata, SHA-256 and NAS receipt/scoped restore. If UI/download/schema differs, preserve failure and do not retry.",
+  "stop": "One first-vintage sample cannot establish 2011-2026 weekly numeric coverage, release timing, revisions, Stage1 information or SOXX alpha. No factor or account."
+}

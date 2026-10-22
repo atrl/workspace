@@ -7,6 +7,8 @@
     "Stage1_objective_alignment": "research/allocator_cash_geometry_20261014/conclusion.md",
     "Stage1_turnover_zero_ablation": "research/allocator_turnover_ablation_20261014/conclusion.md",
     "Stage1_cash_signal_information": "research/allocator_cash_information_20261014/conclusion.md",
+    "Stage1_0bp_funded_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/component_result.json",
+    "Stage1_0bp_component_interpretation": "Full matched account log excess +0.074601 decomposes descriptively into cash opportunity -0.094597, SOXL-relative selection +0.161045, direct fees -0.006696 and explicit timing/benchmark residual +0.014850. In worst 126-session window cash opportunity -0.198946 dominates selection +0.054906. Dollar NAV unit repair and Qlib closure verified; these are account contributions, not causal switches or predictive skill.",
     "objective_alignment_conclusion": "Frozen Stage1 base allocation already optimizes annual log return relative to SOXX; deleting its extra turnover penalty increased cash and failed full accounts, while saved cash/tail outputs did not reliably rank SOXX cash advantage. Do not relabel a direct-SOXX objective, zero-penalty ablation or score inversion as a new mechanism without materially different decision-time information.",
     "original_account": "research/anchor_decision_attribution_20261014/conclusion.md",
     "risk_layer_intervention": "research/tangent_risk_layer_20261014/conclusion.md",
@@ -17,7 +19,7 @@
     "composition_path_diagnosis": "research/composition_path_diagnosis_20261015/conclusion.md",
     "observed": "Original accounts have large benchmark-relative cash opportunity cost; P3 remains below SOXX at all costs. The fixed composition account exceeds SOXX in cumulative net wealth at all costs but fails 0bp drawdown, 126-session stability and bootstrap gates. Recovery action is zero on the observed paths. Bypassing the dynamic risk layer improves cumulative wealth but breaches the drawdown constraint.",
     "causal_limit": "Cash, cap, cost-path and recovery observations do not isolate an independently profitable risk-rule change. The full funded paths feed holdings, peak NAV and later decisions back into one another. Reused history does not establish independent forward excess.",
-    "next_bounded_question": "Test a distinct precommitted information or allocation mechanism against the frozen full-account SOXX gates; inspect the already recorded 2023, nonpositive-trend and 2026 drawdown intervals before designing it. Do not tune closed versions on reused history.",
+    "next_bounded_question": "Find a distinct predecision signal that separates persistent broad weakness from recovery when original Stage1 holds cash: the worst 126-session path lost 0.198946 log points to cash while SOXL selection added 0.054906, but 2024Q3 cash helped. Compare all weak and good intervals and matched controls without an outcome-chosen switch; first require source timing and incremental information beyond original 39 inputs, then one full 0bp Tiered-fee Stage1-derived account. Do not tune closed versions on reused history.",
     "latest_0bp_receiver": "research/stage1_nvda_guidance_receiver_20261022/regime_attribution.json",
     "stage1_beta_composition_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/component_result.json",
     "component_observation": "Fixed Stage1 0bp composition account: full SOXX relative log +0.074601, descriptive cash opportunity -0.094597, SOXL relative exposure +0.161045, direct fees -0.006696, explicit residual +0.014850; worst 126-day 2025-04-07..10-07 cash term -0.198946 and SOXL relative +0.054906, 2026Q3 cash and SOXL relative terms both negative. Physical daily return and log component closure verified; no causal switch or promotion."
@@ -131,7 +133,9 @@
     "FT900_canonical_information_result": "research/stage1_ft900_export_unknown_information_20261023/independent_result_review.json",
     "FT900_canonical_information_status": "closed_fixed_positive_coefficient_but_negative_full_MSE_second_half_and_corrected_lower_two_fits_zero_accounts",
     "FT900_V3_duplicate_closeout": "research/stage1_ft900_export_information_v3_20261023/duplicate_closeout.json",
-    "stage1_beta_composition_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/summary.json"
+    "stage1_beta_composition_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/summary.json",
+    "NFCI_source_preflight": "research/chicago_nfci_source_preflight_20261023/summary.json",
+    "NFCI_source_status": "official_801_vintage_selector_dates_visible_in_browser_but_three_command_line_zero_byte_failures_one_unobserved_single_vintage_download_no_values_no_fit_early_2011_gap"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

@@ -1,0 +1,31 @@
+{
+  "experiment": "chicago_nfci_source_preflight_20261023",
+  "decision": "official_browser_vintage_selector_visible_single_sample_download_unobserved_needs_source_delivery",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "attempts": [
+    "execution_attempt1.json",
+    "curl_attempt_receipt.json",
+    "repair2_curl_attempt_receipt.json"
+  ],
+  "raw_form_bytes_received": 0,
+  "NAS_source_archive": null,
+  "vintage_dates_qualified": false,
+  "source_factor_authorized": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "qualified_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "single_vintage_download_result": "single_vintage_download_result.json",
+  "historical_value_bytes_received": 0,
+  "third_transport_failure": "repair2_run_state.json",
+  "command_line_form_GET_attempts": 3,
+  "command_line_response_bytes_received": 0,
+  "browser_form_submissions": 1,
+  "browser_download_events_observed": 0,
+  "conclusion": "conclusion.md"
+}
