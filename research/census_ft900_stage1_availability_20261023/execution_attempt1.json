@@ -1,0 +1,17 @@
+{
+  "status": "attempt1_failed_pre_Qlib_mechanical_header_spacing",
+  "frozen_plan_sha256": "aa929632bf971a35cf9fd67c2956f70caa60d2d6999b39f80487d11496ca9ba6",
+  "source_reference_month": "2024-08",
+  "source_pdf_sha256": "58bf02029f3712b863459ba297b28b22eed93ddc75e98eb3c96d5f1949cf716e",
+  "observed_header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, OCTOBER 8,2024",
+  "parser_expected": "month day, optional whitespace year was incorrectly required to have whitespace after comma",
+  "source_JSON_loads": 4,
+  "held_PDF_opens": 20,
+  "D_calendar_calls": 0,
+  "DatasetH_builds": 0,
+  "new_writable_Recorders": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "repair_scope": "Only permit optional whitespace after date comma; first check all held headers for same parser grammar without changing numeric source, clock lag or source identity."
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "bounded_source_header_date_spacing_diagnostic_and_mechanical_repair",
+  "parent_plan": "plan.json",
+  "failed_attempt": "execution_attempt1.json",
+  "trigger_reference_month": "2024-08",
+  "trigger_pdf_sha256": "58bf02029f3712b863459ba297b28b22eed93ddc75e98eb3c96d5f1949cf716e",
+  "trigger_header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, OCTOBER 8,2024",
+  "diagnostic": "Read first-page headers from the same 44 already archived held PDFs once, using exact existing SHA-256 receipts. Check whether the original date grammar or a grammar allowing optional spaces after the day comma matches each; list all exceptions. Do not fetch new bytes or inspect market outcomes.",
+  "repair_if_only_spacing": "Change only the report-date regular expression from comma followed by required whitespace to comma followed by optional whitespace. Preserve the month/day/year, EST/EDT, 08:30 and following-Qlib-session rules. Do not alter source values, January 2012 quarantine, Stage1 rows, models or economic gates.",
+  "budget_accounting": {
+    "attempt1_source_JSON_loads": 4,
+    "attempt1_held_PDF_opens": 20,
+    "attempt1_D_calendar_calls": 0,
+    "diagnostic_held_PDF_opens_max": 44,
+    "repaired_completion_held_PDF_opens_max": 44,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If any header fails the optional-space grammar or source SHA-256 check, preserve a concrete exception and do not run the repaired Qlib alignment."
+}
