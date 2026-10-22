@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Can the saved HYG/LQD raw daily closes and ex-dividend events supply a complete conservative 20-session credit-risk-appetite coordinate on the frozen Stage1 2011-2022 and reused 2023-2026 signal calendars?",
+  "source": {
+    "raw_price_result": "research/stage1_yahoo_credit_etf_history_source_20261023/source_result.json",
+    "raw_price_result_sha256": "c73d09fcc372848f3373c696f57a5b3ae0942c1c488f1fec3ee30b6286afe88b",
+    "event_result": "research/stage1_yahoo_credit_etf_history_source_20261023/event_repair_result.json",
+    "event_result_sha256": "fc21dca769bd37f7931cc33facb192a54e2855354ac13d30269238523941458a",
+    "raw_root": "data/snapshots/stage1_yahoo_credit_etf_history_source_20261023",
+    "symbols": ["HYG", "LQD"],
+    "historical_first_public_adjustment_vintage_qualified": false
+  },
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "train_signal_span": ["2011-01-03", "2022-12-30"],
+  "held_reused_signal_span": ["2023-01-03", "2026-10-07"],
+  "formula": "For each ETF on its original US trading date t, one-session gross total return=(unadjusted raw close_t + exact Yahoo dividend amount with ex-dividend date t)/unadjusted raw close_(t-1); splits must be absent as in captured source. Take the sum of log(gross return) over exactly the latest 20 source trading sessions ending at Stage1 signal date s for HYG, minus the same LQD sum. Require each gross return positive/finite and all 20 sessions known; never use t>s data or the retrospective adjclose array as a feature.",
+  "timing": "The Stage1 09:46 decision on the next session may use only the prior signal-date 16:00 closes and dividends on or before that date. Preserve all 3020 train and 944 held dates; do not compact survivors or fill missing values with a later release. Today's Yahoo event and raw-price response lacks historical first-received/revision proof; this source preflight cannot certify historical PIT or deployment.",
+  "quality": "Verify raw JSON hashes and NAS receipts, symbol/date/timezone identity, dividends positive and dated, 0 split events, monotonic/unique dates, exact lookback support, and compare current adjusted-close single-session returns only as a diagnostic for omitted cash actions. Report maximum and median discrepancy without changing the fixed raw-plus-dividend formula.",
+  "artifacts": "Store original event/price lineage, causal gross-return rows, complete Stage1 calendar feature, DatasetH and source audit in native Qlib Recorder; archive Recorder to Yanxuan NAS with remote hash and scoped restoration.",
+  "budget": {
+    "new_external_requests": 0,
+    "raw_price_JSON_reads": 2,
+    "event_JSON_reads": 2,
+    "Qlib_D_calendar_calls": 1,
+    "DatasetH_builds": 1,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_source_Recorders": 1
+  },
+  "stop": "Any source hash, dividend/split/date identity, 20-session feature completeness, Qlib DatasetH/Recorder or NAS readback failure stops; do not substitute adjclose, alter the 20-session horizon or use same-day 09:46 unknown close. A source pass only permits a separately frozen matched Stage1 information screen, not a 0bp account."
+}

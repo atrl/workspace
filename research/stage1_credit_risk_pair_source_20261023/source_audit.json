@@ -1,0 +1,42 @@
+{
+  "status": "HYG_LQD_raw_close_plus_dividend_20_session_source_calendar_complete_PIT_vintage_pending",
+  "plan_sha256": "de780ffabee2d1675fa1c55077271f6913067b5e0e33cbe470069e2d4f2c74f5",
+  "quality": [
+    {
+      "symbol": "HYG",
+      "price_rows": 4227,
+      "dividend_events": 200,
+      "split_events": 0,
+      "first_date": "2010-01-04",
+      "last_date": "2026-10-22",
+      "adjclose_audit_median_abs_logreturn_gap": 2.224808769259244e-07,
+      "adjclose_audit_max_abs_logreturn_gap": 0.00014102025526735104,
+      "adjclose_audit_days_abs_gap_gt_1bp": 2,
+      "raw_price_sha256": "bd9e406c67268b0f5582dc3ca2d3371d56d6d3fee9d8be11a66d555f0062e0fe",
+      "event_sha256": "6259b766f7b89c47af1ffebd1e6bdc1d3aabc39c81c81b8690be95e3b9a280f6"
+    },
+    {
+      "symbol": "LQD",
+      "price_rows": 4227,
+      "dividend_events": 200,
+      "split_events": 0,
+      "first_date": "2010-01-04",
+      "last_date": "2026-10-22",
+      "adjclose_audit_median_abs_logreturn_gap": 1.9613003273593124e-07,
+      "adjclose_audit_max_abs_logreturn_gap": 5.968809224559876e-05,
+      "adjclose_audit_days_abs_gap_gt_1bp": 0,
+      "raw_price_sha256": "b8db8de160b610b4c2a3021fa371acd5f68adcf3d1e616854d2adb04a50ca582",
+      "event_sha256": "27166ce97e6b2e281eaa35d00ffd8a003c6a89bacd8cef9cb54c8c7215d8da7a"
+    }
+  ],
+  "train_Qlib_sessions": 3020,
+  "held_Qlib_sessions": 944,
+  "known_train_sessions": 3020,
+  "known_held_sessions": 944,
+  "feature_train_min": -0.10044157674043155,
+  "feature_train_max": 0.07070274980694648,
+  "historical_adjustment_vintage_qualified": false,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
