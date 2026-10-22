@@ -1,0 +1,26 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "scope": "Conditional reused-history HYG-minus-LQD H5 information screen only: two fixed Ridge fits, one paired bootstrap, zero native accounts",
+  "plan_sha256": "62aebb5d118237f4516b79e7efa4df711d19ce46ffdce0ca264aea493ec35474",
+  "preflight_sha256": "f612ec13f9169b1b732cbc81417df5458f79d97aaa26da6f3ab055c3f17019d2",
+  "preflight_cell_source_sha256": "8ddc8732e6f45bbb5349e12257d7718458e6e09f2372aa6b941ec478bbedfb8f",
+  "fit_cell_source_sha256": "d3344027ef60e676cc0d2a4cbcc2d16cb286006e5a32e51f511550fa10f20457",
+  "reviewed_evidence": {
+    "source_summary_sha256": "0524fe1b80d6e0281205065cda3a5c8c346c6fe545d4c53563604d95dd905808",
+    "source_mapped_artifact_sha256": "0c42e2a890324079864d8e02544e237e7e14076912fd0ba959200c73d0102161",
+    "source_formula": "Fixed 20 completed source-session log total-return difference from original HYG/LQD raw closes plus cash dividends on ex-dividend dates, ending at each Stage1 signal date; retrospective adjusted close is diagnostic only.",
+    "source_calendar_rows_train_held": [3020, 944],
+    "mature_H5_rows_train_held": [3014, 940],
+    "unknown_candidate_rows_train_held": [0, 0],
+    "original_Stage1_features": 39,
+    "new_candidate_coordinates": 1,
+    "preflight_fits": 0,
+    "preflight_accounts": 0,
+    "paired_stationary_bootstrap": "63-session mean block, 10000 draws, seed 20261023, one-sided alpha 0.025/28; positive coordinate coefficient and full/half/lower-bound improvements all required.",
+    "source_identity_and_executable_seals_checked_before_writable_Recorder": true
+  },
+  "scientific_boundary": "Current Yahoo cash-dividend event amounts lack certified historical first-public and revision vintages. This does not bar the explicitly conditional retrospective information fit, but any pass remains development feedback on reused history. No 0bp fee-net account, PIT promotion, 2/5bp path or independent forward claim is authorized by this review.",
+  "material_blockers": [],
+  "model_fits_reviewed": 0,
+  "native_accounts_reviewed": 0
+}

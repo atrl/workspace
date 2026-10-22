@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "status": "mechanical_pre_fit_source_identity_repair_frozen",
+  "initial_plan_sha256": "1c523d9a47ff775c7270f66b07e1afb7af2ad24508658300f2e6374c4d9e3b4e",
+  "initial_preflight_sha256": "725e6ecdc29f71819bdb8820acfc9742e5aab73c10a5c8b9696b21eb6fde8eea",
+  "initial_receipt": "preflight_attempt1_before_artifact_pin.json",
+  "finding": "Plan pinned source Recorder and summary but not the loaded analysis/mapped_signals object bytes.",
+  "only_allowed_change": "Pin the already accepted Qlib source mapped_signals artifact SHA-256 in plan and assert its current bytes before loading it, then rerun no-fit preflight.",
+  "unchanged": "Feature formula, label, cohorts, models, gates, bootstrap, budgets and account prohibition remain exactly as frozen.",
+  "model_fit_attempts_before_repair": 0,
+  "new_accounts_before_repair": 0
+}

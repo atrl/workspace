@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_credit_pair_h5_information_20261023",
+  "phase": "original_Stage1_39_plus_one_HYG_minus_LQD_20_session_H5_information",
+  "execution_authorized_by_active_Goal": true,
+  "parent": {
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "nas_readback": "research/minute_information_pit_allocator_20261012/nas_readback.json",
+    "feature_order": "exact original Stage1 39 base_features, seed71"
+  },
+  "source": {
+    "summary": "research/stage1_credit_risk_pair_source_20261023/summary.json",
+    "summary_sha256": "0524fe1b80d6e0281205065cda3a5c8c346c6fe545d4c53563604d95dd905808",
+    "recorder_id": "018a98da05724acda3c50b11a7b9a69f",
+    "feature_artifact": "analysis/mapped_signals",
+    "train_calendar_rows": 3020,
+    "held_calendar_rows": 944,
+    "historical_adjustment_vintage_qualified": false,
+    "timing": "Use only HYG/LQD original closes and ex-dividend amounts dated no later than each Stage1 signal close, then trade decision next session 09:46. Source is today's retrospective Yahoo chart; historical first-received dividend amount/revision clock is unqualified. Conditional development-only information result, never independent validation or 0bp promotion from this version.",
+    "mapped_artifact_sha256": "0c42e2a890324079864d8e02544e237e7e14076912fd0ba959200c73d0102161"
+  },
+  "single_mechanism": {
+    "feature": "HYG_minus_LQD_log_total_return_20",
+    "formula": "sum of 20 latest source daily log((raw HYG close + ex-date HYG cash dividend)/previous raw HYG close) minus identical LQD sum, ending at Stage1 signal date; no clipping, threshold, sign or lookback selection.",
+    "hypothesis": "Broad credit-risk appetite from traded high-yield relative to investment-grade bond ETFs adds information beyond original Stage1 price/VIX/breadth inputs about whether SOXX will outperform cash over the next five funded open intervals. A positive added standardized coefficient is required.",
+    "baseline": "Original 39 Stage1 primary features only.",
+    "candidate": "Identical rows, label, median imputer, scaler and Ridge plus exactly one fixed credit coordinate.",
+    "regime_motivation": "Stage1's worst126 0bp cash drag occurred in recovery while 2024Q3 cash helped. Credit appetite is a distinct predecision stress state, not a hindsight switch from those observed windows."
+  },
+  "label": {
+    "primary": "Five consecutive original Stage1 SOXX funded open-to-open returns from signal s: sum j=0..4 log1p(soxx_forward_open_return(s+j)).",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval; training rows mature before 2023-01-01 New York, reused held rows before 2026-10-10 New York.",
+    "role": "Matched incremental information only, not fee-net strategy return."
+  },
+  "cohorts": {
+    "train_signal": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused_diagnostic": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-07"
+      ]
+    ],
+    "expected_train_calendar_rows": 3020,
+    "expected_held_calendar_rows": 944,
+    "expected_mature_train_rows": 3014,
+    "expected_mature_held_rows": 940,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "SimpleImputer(median) then StandardScaler then Ridge(alpha=1.0) on original 39 features",
+    "candidate": "Identical pipeline plus one fixed credit coordinate",
+    "new_fits": 2,
+    "runtime": "qlib_venv Python 3.12.12, scikit-learn 1.9.1",
+    "no_hyperparameter_seed_window_or_output_selection": true
+  },
+  "information_gate": {
+    "paired_metric": "On identical held signal rows, baseline squared error minus candidate squared error for five-open SOXX log return.",
+    "added_coefficient_positive": true,
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.0008928571428571429,
+      "family_denominator": 28,
+      "lower_positive": true
+    },
+    "no_gate_rescue": true
+  },
+  "budget": {
+    "new_external_requests": 0,
+    "source_Recorder_object_loads_per_phase_max": 5,
+    "DatasetH_builds_per_phase_max": 1,
+    "model_fit_attempts_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "barrier": "Execute one no-fit Qlib DatasetH/source/maturity preflight, then review exact fit code and plan before two fixed Ridge fits and one bootstrap. Failed information closes this version without sign, window, ETF, dividend treatment or label rescue. A conditional historical information pass would still need historical distribution vintage/source qualification before a separately frozen full Stage1-derived 0bp Tiered-fee account against SOXX; 2/5bp and independent forward evidence remain separate.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  }
+}

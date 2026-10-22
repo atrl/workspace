@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "status": "mechanical_pre_fit_executable_seal_repair_frozen",
+  "finding": "The fit cell checked its own approved source hash but did not bind the preflight code that constructs feature and label arrays.",
+  "only_allowed_change": "Fit cell computes notebook cell 1 source SHA-256 and checks the independent review preflight_cell_source_sha256 before first writable Recorder.",
+  "unchanged": "Plan, source object, preflight receipt, feature formula, label, cohorts, model, gates, budget and account prohibition.",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "preflight_cell_source_sha256": "8ddc8732e6f45bbb5349e12257d7718458e6e09f2372aa6b941ec478bbedfb8f",
+  "fit_cell_source_sha256": "d3344027ef60e676cc0d2a4cbcc2d16cb286006e5a32e51f511550fa10f20457"
+}
