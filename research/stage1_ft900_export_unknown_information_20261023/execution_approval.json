@@ -1,0 +1,17 @@
+{
+  "approved": true,
+  "authority": "active continuous SOXX Goal, bounded conditional information screen after independent exact design approval",
+  "plan_sha256": "bf481835acb9951da86e6b7fddeba9655f16fadf2f1ccda99194fc1e8dff5083",
+  "review_sha256": "efc0fe1b414e9a2dbf36b9ba8e962645599667598a5b82cca6f572a2d135e12e",
+  "preflight_sha256": "8ecdace9e6cd8d2d6d7f7a3f1e09e2f7da7de308c538ace1aff7510fddb770c8",
+  "preflight_cell_source_sha256": "9630f46380c631218536d445a2ba372c215320bae4e2a99ad42fbb533c1f00a6",
+  "fit_cell_source_sha256": "ca4218a414f3a1a9d9f93160b50f4097d4a00ea2f0ced6875599b26bd617911c",
+  "bounds": {
+    "new_model_fits_max": 2,
+    "bootstrap_runs_max": 1,
+    "native_accounts": 0,
+    "market_requests": 0,
+    "real_broker_orders": 0
+  },
+  "PIT_and_economic_account_authorized": false
+}

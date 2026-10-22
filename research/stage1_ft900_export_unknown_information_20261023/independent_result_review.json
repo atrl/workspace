@@ -1,0 +1,43 @@
+{
+  "verdict": "CONFIRM_NOT_PROMOTED",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "plan_sha256": "bf481835acb9951da86e6b7fddeba9655f16fadf2f1ccda99194fc1e8dff5083",
+  "recorder_id": "541223b7ae38472bbba6e71eff786cf3",
+  "native_qlib_recorder_status": "FINISHED",
+  "training_full_DatasetH_rows": 3020,
+  "held_full_DatasetH_rows": 944,
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "training_transition_unknown_rows": 23,
+  "held_prediction_rows_per_arm": 940,
+  "quarter_rows": 16,
+  "baseline_held_mse": 0.002524722393815024,
+  "candidate_held_mse": 0.0025247778723043596,
+  "held_paired_mse_improvement": -5.547848933575504e-08,
+  "held_half_paired_improvements": [
+    4.302108218158386e-06,
+    -5.04979019518521e-06
+  ],
+  "candidate_standardized_coordinate_coefficient": 0.0014818617792417563,
+  "bootstrap_lower": -6.736935398376641e-05,
+  "gates": {
+    "coefficient_positive": true,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "fixed_information_gate_pass": false,
+  "model_fit_attempts": 2,
+  "model_fits": 2,
+  "bootstrap_attempts": 1,
+  "native_accounts": 0,
+  "verified_local_recorder_manifest_entries": 17,
+  "nas_archive_sha256": "cb5b55c11d553e073a557a094da88fded4e1d7055e0c1efc9a9e05b752afb888",
+  "nas_archive_bytes": 872986,
+  "nas_remote_readback_verified": true,
+  "conclusion_sha256": "c13aed41318a7295834298df3dc4e80518ab4f7b1a5a394b085862ba220546c5",
+  "notebook_sha256_after_conclusion_sync": "4cb9a06720f123a2eefcef5526f605bed99e38f9394c2350930d076a9d3a6a67",
+  "historical_first_public_bytes_qualified": false,
+  "qualified_forward_days": 0,
+  "next_action": "Close this exact FT900 export MoM H5 route. Do not tune sign, age, transition mask, window or Ridge on reused history; seek materially different decision-time Stage1 information before another bounded screen or 0bp account."
+}

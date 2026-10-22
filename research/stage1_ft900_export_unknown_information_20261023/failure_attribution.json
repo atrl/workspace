@@ -1,0 +1,85 @@
+{
+  "status": "fixed_information_failure_descriptive_attribution_no_rescue",
+  "plan_sha256": "bf481835acb9951da86e6b7fddeba9655f16fadf2f1ccda99194fc1e8dff5083",
+  "recorder_id": "541223b7ae38472bbba6e71eff786cf3",
+  "full_held_paired_mean_MSE_improvement": -5.547848933575504e-08,
+  "half_improvements": [
+    4.302108218158386e-06,
+    -5.04979019518521e-06
+  ],
+  "annual": [
+    {
+      "year": 2023,
+      "mature_signal_rows": 250,
+      "paired_mean_mse_improvement": -1.2255691821932607e-05,
+      "quarter_signs": {
+        "2023Q1": "negative",
+        "2023Q2": "negative",
+        "2023Q3": "negative",
+        "2023Q4": "positive"
+      },
+      "complete_held_year": true
+    },
+    {
+      "year": 2024,
+      "mature_signal_rows": 252,
+      "paired_mean_mse_improvement": 2.072849714682009e-05,
+      "quarter_signs": {
+        "2024Q1": "negative",
+        "2024Q2": "negative",
+        "2024Q3": "positive",
+        "2024Q4": "positive"
+      },
+      "complete_held_year": true
+    },
+    {
+      "year": 2025,
+      "mature_signal_rows": 250,
+      "paired_mean_mse_improvement": -7.401132310700934e-05,
+      "quarter_signs": {
+        "2025Q1": "negative",
+        "2025Q2": "negative",
+        "2025Q3": "negative",
+        "2025Q4": "negative"
+      },
+      "complete_held_year": true
+    },
+    {
+      "year": 2026,
+      "mature_signal_rows": 188,
+      "paired_mean_mse_improvement": 8.665437591096391e-05,
+      "quarter_signs": {
+        "2026Q1": "negative",
+        "2026Q2": "positive",
+        "2026Q3": "positive",
+        "2026Q4": "negative"
+      },
+      "complete_held_year": false
+    }
+  ],
+  "positive_quarters": [
+    "2023Q4",
+    "2024Q3",
+    "2024Q4",
+    "2026Q2",
+    "2026Q3"
+  ],
+  "negative_quarters": [
+    "2023Q1",
+    "2023Q2",
+    "2023Q3",
+    "2024Q1",
+    "2024Q2",
+    "2025Q1",
+    "2025Q2",
+    "2025Q3",
+    "2025Q4",
+    "2026Q1",
+    "2026Q4"
+  ],
+  "interpretation": "Positive standardized candidate coefficient did not generalize to lower held error. 2024Q3 and 2026Q2/Q3 gains coexist with negative 2025 quarters and negative second held half; no stable information gate, no economic account authorization. Descriptive periods cannot become a switch.",
+  "new_model_fits": 0,
+  "new_bootstraps": 0,
+  "new_native_accounts": 0,
+  "objective_achieved": false
+}

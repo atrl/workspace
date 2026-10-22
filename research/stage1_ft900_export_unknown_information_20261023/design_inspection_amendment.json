@@ -1,0 +1,9 @@
+{
+  "old_plan_sha256": "72823d76f5a8f5c80b9aff5e54a0f42c9dcef814aded5ffc75e3a929b923f3b3",
+  "new_plan_sha256": "ca903eabf2e4b7dd2863d2a7a2979a9671a3ee3e552775dd28df7d67521d134d",
+  "source_Recorder_object_loads_before_preflight": 1,
+  "reason": "Read exact canonical mapped_signals schema for implementation; adjust source load budget before fitting, no financial output read.",
+  "new_market_requests": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,26 @@
+{
+  "status": "native_Qlib_fixed_result_readback_passed",
+  "recorder_id": "541223b7ae38472bbba6e71eff786cf3",
+  "experiment_id": "750328884082775760",
+  "training_DatasetH_rows": 3020,
+  "held_DatasetH_rows": 944,
+  "scored_held_rows": 940,
+  "model_fits": 2,
+  "bootstrap_attempts": 1,
+  "native_accounts": 0,
+  "gates": {
+    "coefficient_positive": true,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "artifact_sha256": {
+    "inputs/dataset": "e2b0c3320984ba6d27baf9bd09280df89b0bb853ef01debc1c8fb85a13787471",
+    "models/baseline": "da92e2182c0cb124401ae277156c2668cb2f9bd244362e770aaa543322c7f29e",
+    "models/candidate": "1dd03c8160488894fe7d8e88f6653fb326648d016ac328839a36c49d24547cad",
+    "analysis/metrics": "a4bb87c3cad55082d4286c4d71cb3b0c09501030aba514eea3c5651395b7b2b5",
+    "analysis/gates": "7a0bf0527400d9511bd8008324f4857aebecf0df60731abb4c1bd03e0d40e793"
+  },
+  "nas_archive_sha256": "cb5b55c11d553e073a557a094da88fded4e1d7055e0c1efc9a9e05b752afb888",
+  "nas_remote_hash_verified": true
+}

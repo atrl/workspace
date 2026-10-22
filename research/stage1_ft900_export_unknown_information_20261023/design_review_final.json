@@ -1,0 +1,17 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "scope": "Canonical FT900 transition-unknown 39+3 versus 39+3+1 conditional Stage1 Qlib information screen; two fixed Ridge fits, one bootstrap, zero accounts",
+  "plan_sha256": "bf481835acb9951da86e6b7fddeba9655f16fadf2f1ccda99194fc1e8dff5083",
+  "preflight_cell_source_sha256": "9630f46380c631218536d445a2ba372c215320bae4e2a99ad42fbb533c1f00a6",
+  "fit_cell_source_sha256": "ca4218a414f3a1a9d9f93160b50f4097d4a00ea2f0ced6875599b26bd617911c",
+  "no_fit_preflight_sha256": "8ecdace9e6cd8d2d6d7f7a3f1e09e2f7da7de308c538ace1aff7510fddb770c8",
+  "source_map_artifact_sha256": "87ee84aa936598ec5eaa97e43a0ff0099086328f35b061a0a4226cc9c0f88b8f",
+  "limitations": [
+    "23 intentionally unknown 2012 transition training rows use train-only numeric imputation and shared unknown/age/regime controls",
+    "Historical first-public PDF bytes and independent forward evidence remain unqualified",
+    "Passing information does not authorize economic account or promotion"
+  ],
+  "review_new_model_fits": 0,
+  "review_new_native_accounts": 0
+}

@@ -1,0 +1,12 @@
+{
+  "status": "closed_before_fit_duplicate_fixed_FT900_information_route",
+  "prior_plan_sha256": "611875edb670f90d72be905f3c62090cbdf5d7a2bf0ef259608f629a80bd2093",
+  "closed_plan_sha256": "4946ee2d0c523bb174f0e72f9399aed3a62a2bb20641d10f145de75c9822015e",
+  "completed_result": "research/stage1_ft900_export_unknown_information_20261023/independent_result_review.json",
+  "completed_result_sha256": "542a8273bac4e393d507293edb6853e1d9ab3b38a2e3927a35f3c69f1aa463f9",
+  "source_map_artifact_sha256": "87ee84aa936598ec5eaa97e43a0ff0099086328f35b061a0a4226cc9c0f88b8f",
+  "reason": "Same source coordinate/receiver/H5 label/control/sign on reused held history; second fit would reopen failed fixed version.",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "SOXX_goal_achieved": false
+}

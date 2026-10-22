@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment": "stage1_ft900_export_information_v3_20261023",
   "frozen": true,
-  "execution_authorized": true,
+  "execution_authorized": false,
   "phase": "review_gated_matched_information_screen_on_canonical_23_unknown_source_map",
   "question": "Does the latest published same-report U.S. semiconductor export month-over-month change add five-session future SOXX return information beyond the original Stage1 39 inputs and the common release-age, post-2012 classification and transition-unknown controls? Positive export-growth coefficient is preregistered from an external-demand recovery interpretation.",
   "novelty_boundary": "Same single FT-900 export-demand mechanism as the blocked pre-fit design, now using the independently reviewed canonical transition-unknown source map. This repairs a source-contract contradiction before any model fit; it is not a new historical search or a rescue of a failed prediction result.",
@@ -124,5 +124,6 @@
   "blocked_prior_design_sha256": "94d2b02fbcb35d52916e0c51d24048fa3bc872b9423fef98f9a3254351afd47a",
   "blocked_v2_design_review": "research/stage1_ft900_export_information_v2_20261023/design_review.json",
   "blocked_v2_design_review_sha256": "aab41f1eb50c46b43584162e3e04c637839daada1f7b6d38cf0642a0da58dc08",
-  "authorization_interpretation": "The user-authorized continuous research goal permits this bounded information-only screen; the notebook still requires an independent APPROVE_FIXED_DESIGN_BEFORE_FIT review bound to this exact plan and canonical artifact before any source or label load, fit or account."
+  "authorization_interpretation": "The user-authorized continuous research goal permits this bounded information-only screen; the notebook still requires an independent APPROVE_FIXED_DESIGN_BEFORE_FIT review bound to this exact plan and canonical artifact before any source or label load, fit or account.",
+  "scientific_duplicate_closeout": "Same canonical source artifact, original Stage1 39+3 versus +one FT900 MoM, H5 label, cohorts, positive sign, Ridge(alpha=1) and reused held history already executed and independently failed in stage1_ft900_export_unknown_information_20261023. No second fit under V3."
 }

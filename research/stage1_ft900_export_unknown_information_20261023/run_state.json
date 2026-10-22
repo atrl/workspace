@@ -1,0 +1,36 @@
+{
+  "plan_sha256": "bf481835acb9951da86e6b7fddeba9655f16fadf2f1ccda99194fc1e8dff5083",
+  "fit_attempts": [
+    "baseline",
+    "candidate"
+  ],
+  "fits_done": [
+    "baseline",
+    "candidate"
+  ],
+  "artifact_sha256": {
+    "models": {
+      "baseline": "da92e2182c0cb124401ae277156c2668cb2f9bd244362e770aaa543322c7f29e",
+      "candidate": "1dd03c8160488894fe7d8e88f6653fb326648d016ac328839a36c49d24547cad"
+    },
+    "predictions": {
+      "baseline": "75e7e61b1a66d2bf693e2d64b9ed90021e4518a4ceb0956acf2d288566bc1832",
+      "candidate": "7a4f53dd18e8cdf6463f1524f191e8d0c11c1ec72a9732ea82350fabe603ce95"
+    }
+  },
+  "bootstrap_attempted": true,
+  "new_native_accounts": 0,
+  "recorder_id": "541223b7ae38472bbba6e71eff786cf3",
+  "experiment_id": "750328884082775760",
+  "sources_saved": true,
+  "prediction_attempts": [
+    "baseline",
+    "candidate"
+  ],
+  "predictions_done": [
+    "baseline",
+    "candidate"
+  ],
+  "analysis_done": true,
+  "completed": true
+}

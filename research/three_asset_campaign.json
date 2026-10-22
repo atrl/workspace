@@ -111,7 +111,7 @@
     "taiwan_export_orders_source_triage": "research/taiwan_export_orders_source_triage_20261023/summary.json",
     "taiwan_export_orders_source_status": "needs_original_monthly_source_access_and_vintage_broad_electronics_not_semiconductor_only_no_fit",
     "FT900_semiconductor_export_source_preflight": "research/census_ft900_semiconductor_export_source_20261023/source_preflight_result.json",
-    "FT900_semiconductor_export_source_status": "188_original_month_rows_canonical_Stage1_map_23_transition_unknown_3020_train_944_held_first_public_and_information_pending_no_fit",
+    "FT900_semiconductor_export_source_status": "188_original_month_rows_canonical_Stage1_map_23_transition_unknown_3020_train_944_held_fixed_information_failed_first_public_unqualified",
     "FT900_semiconductor_export_full_training_source": "research/census_ft900_semiconductor_export_source_20261023/full_training_source_result.json",
     "FT900_semiconductor_export_full_training_row_audit": "research/census_ft900_semiconductor_export_source_20261023/full_training_row_audit.json",
     "FT900_semiconductor_export_report_identity": "research/census_ft900_semiconductor_export_source_20261023/report_identity_exception_result.json",
@@ -121,7 +121,10 @@
     "FT900_semiconductor_export_superseded_carry_map": "research/census_ft900_stage1_availability_20261023/source_conflict_correction.json",
     "FT900_semiconductor_export_blocked_information_design": "research/stage1_ft900_export_information_20261023/design_halt.json",
     "FT900_index_boundary_result": "research/census_ft900_index_boundary_20261023/result.json",
-    "FT900_index_boundary_status": "official_index_144_month_labels_143_correct_links_2015_08_official_path_verified_2012_semiconductor_media_reclassification_NAS_restored_no_fit"
+    "FT900_index_boundary_status": "official_index_144_month_labels_143_correct_links_2015_08_official_path_verified_2012_semiconductor_media_reclassification_NAS_restored_no_fit",
+    "FT900_canonical_information_result": "research/stage1_ft900_export_unknown_information_20261023/independent_result_review.json",
+    "FT900_canonical_information_status": "closed_fixed_positive_coefficient_but_negative_full_MSE_second_half_and_corrected_lower_two_fits_zero_accounts",
+    "FT900_V3_duplicate_closeout": "research/stage1_ft900_export_information_v3_20261023/duplicate_closeout.json"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

@@ -1,0 +1,12 @@
+{
+  "old_plan_sha256": "ca903eabf2e4b7dd2863d2a7a2979a9671a3ee3e552775dd28df7d67521d134d",
+  "new_plan_sha256": "bf481835acb9951da86e6b7fddeba9655f16fadf2f1ccda99194fc1e8dff5083",
+  "cause": "Initial source/DatasetH budget omitted rebuilding the read-only preflight after plan correction and on the eventual approved notebook fit run. No labels/scores were computed in the first preflight.",
+  "source_Recorder_loads_actual_before_amendment": 6,
+  "DatasetH_builds_actual_before_amendment": 1,
+  "source_Recorder_loads_max_after_amendment": 16,
+  "DatasetH_builds_max_after_amendment": 3,
+  "model_fit_attempts_max": 2,
+  "bootstrap_attempts_max": 1,
+  "native_accounts": 0
+}
