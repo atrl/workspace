@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "zero_source_read_original_name_whitespace_reconciliation",
+  "prior_semantics_result_sha256": "d328812cd11220b21753bf58b7e7ac296eabff3ff5c9dba370774cbb5f2e74c8",
+  "original_numeric_result_sha256": "6bd98e059b3dd09c2c3fda208d0e6d210932ed585d90c9a8a0ebc57754c0e26d",
+  "diagnosis": "The first exact raw-string comparison flags line breaks in security_original names from the original report while amendment names have spaces. All four reports have zero USD/top5/HHI delta and the same multiset of (shares,USD fair value).",
+  "fixed_equivalence": "For each report and each of 30 rows, canonicalize only runs of whitespace in original security_original using one join(split()); compare sorted (canonical name, exact shares integer, exact USD fair value integer) tuples against first original and previous qualified amendment. Require 30 unique canonical names, exact tuple equality and zero total/top5/HHI deltas to classify numeric equity unchanged. Preserve raw original strings and first comparison result.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "raw_source_reads": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any non-whitespace name, share or fair-value mismatch remains a changed/uncertain source version; no fuzzy issuer matching, price lookup or retrospective backfill."
+}
