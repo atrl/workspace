@@ -1,0 +1,60 @@
+{
+  "status": "four_delayed_2017_SOXX_amendments_equity_values_unchanged_after_whitespace_only",
+  "plan_sha256": "47e19463bd80d2e9f795d79daba7ab3450e699eae65988e9a72295145bf15209",
+  "original_semantics_result_sha256": "d328812cd11220b21753bf58b7e7ac296eabff3ff5c9dba370774cbb5f2e74c8",
+  "checks": [
+    {
+      "report_date": "2017-03-31",
+      "accession": "0001193125-17-257387",
+      "accepted_at_utc": "2017-08-15T01:15:12.000Z",
+      "canonical_names_unique": true,
+      "canonical_name_share_value_rows_equal_original": true,
+      "canonical_rows_equal_previous_qualified_vintage": true,
+      "zero_total_top5_HHI_delta": true,
+      "numeric_equity_unchanged_after_whitespace_only": true,
+      "original_raw_names_preserved_in_semantics_result": true
+    },
+    {
+      "report_date": "2017-03-31",
+      "accession": "0001193125-18-009766",
+      "accepted_at_utc": "2018-01-12T21:50:26.000Z",
+      "canonical_names_unique": true,
+      "canonical_name_share_value_rows_equal_original": true,
+      "canonical_rows_equal_previous_qualified_vintage": true,
+      "zero_total_top5_HHI_delta": true,
+      "numeric_equity_unchanged_after_whitespace_only": true,
+      "original_raw_names_preserved_in_semantics_result": true
+    },
+    {
+      "report_date": "2017-03-31",
+      "accession": "0001193125-18-152961",
+      "accepted_at_utc": "2018-05-05T01:05:23.000Z",
+      "canonical_names_unique": true,
+      "canonical_name_share_value_rows_equal_original": true,
+      "canonical_rows_equal_previous_qualified_vintage": true,
+      "zero_total_top5_HHI_delta": true,
+      "numeric_equity_unchanged_after_whitespace_only": true,
+      "original_raw_names_preserved_in_semantics_result": true
+    },
+    {
+      "report_date": "2017-09-30",
+      "accession": "0001193125-18-152996",
+      "accepted_at_utc": "2018-05-05T01:14:47.000Z",
+      "canonical_names_unique": true,
+      "canonical_name_share_value_rows_equal_original": true,
+      "canonical_rows_equal_previous_qualified_vintage": true,
+      "zero_total_top5_HHI_delta": true,
+      "numeric_equity_unchanged_after_whitespace_only": true,
+      "original_raw_names_preserved_in_semantics_result": true
+    }
+  ],
+  "qualified_unchanged_count": 4,
+  "source_NAS_archive_sha256": "b461e427f83cc60738f3fd085ec4e88ce08f3e10cb5a7e9c5e03936efbde4fbf",
+  "source_NAS_scoped_restore_verified": true,
+  "new_HTTP_GETs": 0,
+  "new_raw_source_reads": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "availability_boundary": "Keep each original and later amended receipt independently; equality of SOXX equity values does not make amended bytes public before their SEC acceptance."
+}

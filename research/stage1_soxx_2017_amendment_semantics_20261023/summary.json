@@ -1,6 +1,6 @@
 {
   "experiment": "stage1_soxx_2017_amendment_semantics_20261023",
-  "decision": "frozen_amendment_source_batch_not_executed",
+  "decision": "four_delayed_2017_SOXX_amendments_same_equity_values_no_new_concentration_events",
   "objective_achieved": false,
   "plan": "plan.json",
   "GETs": 0,
@@ -10,5 +10,16 @@
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "transport_result": "transport_result.json",
+  "initial_semantics_result": "semantics_result.json",
+  "name_whitespace_plan": "name_whitespace_reconciliation_plan.json",
+  "final_semantics_result": "name_whitespace_reconciliation_result.json",
+  "amendment_body_GETs": 4,
+  "SOXX_equity_schedules_numeric_qualified": 4,
+  "amendments_with_changed_concentration_value": 0,
+  "new_concentration_numeric_events_from_amendments": 0,
+  "reset_concentration_source_age_on_unchanged_amendment": false,
+  "source_NAS_archive_sha256": "b461e427f83cc60738f3fd085ec4e88ce08f3e10cb5a7e9c5e03936efbde4fbf",
+  "source_NAS_scoped_restore_verified": true
 }
