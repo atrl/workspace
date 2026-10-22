@@ -1,0 +1,33 @@
+{
+  "status": "exact_2015_Dec_original_body_received_identity_pending",
+  "plan_sha256": "726a491d7bac4d04eeeabe2fbc5f12711cb7cff95b1677b9fe3fd203f60891ca",
+  "report_date": "2015-12-31",
+  "accession": "0001193125-16-480933",
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312516480933/d146052dnq.htm",
+  "request_started_at_utc": "2026-10-22T18:44:19.919735+00:00",
+  "response_finished_at_utc": "2026-10-22T18:44:22.244998+00:00",
+  "http_status": 200,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312516480933/d146052dnq.htm",
+  "curl_exit_code": 0,
+  "curl_stderr": "",
+  "raw_path": "data/snapshots/stage1_soxx_2015_transition_concentration_source_20261023/0001193125-16-480933_d146052dnq.htm",
+  "raw_sha256": "411191758cfc056203d1741e9cd0a78c20d2a301bc7e10a34e3e2082e0ca78ca",
+  "raw_bytes": 38084849,
+  "headers_sha256": "9f0f2e9b676173af690fc7802360b3dae81f35e3d8f9625187d2da08f5982ad2",
+  "headers_bytes": 1932,
+  "new_GETs": 1,
+  "repeated_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "nas_evidence": {
+    "sha256": "9dde69bffffb98ba09bf91ef4959bb65d5671e614ef9613b58df295957eb0c04",
+    "size_bytes": 1538767,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/9d/de/9dde69bffffb98ba09bf91ef4959bb65d5671e614ef9613b58df295957eb0c04",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 02:44:22.983505+08",
+    "duplicate": false
+  },
+  "nas_scoped_restore_verified": true
+}
