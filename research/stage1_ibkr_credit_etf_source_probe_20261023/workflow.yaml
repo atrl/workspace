@@ -1,0 +1,6 @@
+experiment: stage1_ibkr_credit_etf_source_probe_20261023
+phase: connected_IBKR_read_only_HYG_historical_source_feasibility
+plan: plan.json
+model_fits: 0
+native_accounts: 0
+broker_writes: 0

@@ -1,0 +1,16 @@
+{
+  "status": "IBKR_history_4000_daily_bar_request_rejected_step_count_max1000_source_only",
+  "plan_sha256": "321cd90a06587264ee852e1133813b45130115c143abdf43025b70287bfb5285",
+  "connector_response_sha256": "4b5c3cc5736e400ea7fbb3d21b2c4cdc1ad4902026eb57358ad0dcfacbe14672",
+  "requested_daily_bars": 4000,
+  "returned_bars": 0,
+  "error": "Step count more than 1000 is not allowed",
+  "NAS_archive_sha256": "8ab80397505f25daf0781d88000215542535a7e359415e9bca43a4f45973a98a",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "HYG_2011_source_qualified": false,
+  "LQD_request_attempted": false,
+  "market_outcome_or_SOXX_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "broker_writes": 0
+}

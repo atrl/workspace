@@ -1,0 +1,19 @@
+{
+  "experiment": "stage1_ibkr_credit_etf_source_probe_20261023",
+  "decision": "connected_IBKR_HYG_daily_history_4000_bar_request_rejected_max1000_no_2011_source",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "source_result": "source_result.json",
+  "request_count": 1,
+  "returned_price_bars": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "broker_writes": 0,
+  "NAS_archive_sha256": "8ab80397505f25daf0781d88000215542535a7e359415e9bca43a4f45973a98a",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

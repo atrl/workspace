@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Can the connected read-only IBKR historical chart supply HYG daily source bars back to the 2011 start of frozen Stage1, after the earlier Futu HYG one-day request returned zero rows?",
+  "economic_mechanism": "HYG relative to LQD is a traded credit-risk appetite proxy that could distinguish broad persistent funding stress from semiconductor-specific repair beyond Stage1's original 39 price/VIX/breadth inputs. This is source availability only; no feature formula, sign, fit or account is authorized here.",
+  "contract": {
+    "symbol": "HYG",
+    "underlying_contract_id": 43652089,
+    "exchange": "ARCA",
+    "security_type": "STK",
+    "identity": "ISHR IBX USD HIYLD CB ETF-UI",
+    "discovered_by": "connected IBKR search_contracts exact US ARCA HYG row"
+  },
+  "request": {
+    "connector": "Interactive Brokers get_price_history",
+    "contract_id": 43652089,
+    "security_type": "STK",
+    "exchange": "ARCA",
+    "step": "ONE_DAY",
+    "step_count": 4000,
+    "outside_rth": false,
+    "include_corporate_actions": true,
+    "requests_max": 1
+  },
+  "acceptance": "Record complete connector response and request identity, source/delayed/error flags, bar count, earliest/latest bar timestamps, positivity/finite OHLC, duplicate timestamps and corporate-action count. A 2011-or-earlier first bar is necessary but not sufficient; next would require LQD and full 2011-2026 Qlib/availability/fee controls. If capped later or entitlement error, stop this exact source route without inferring HYG history is absent from all providers.",
+  "backup": "Write exact received connector JSON into ignored data/snapshots and archive to Yanxuan NAS with remote SHA-256 and scoped restore. Preserve local bytes if backup fails.",
+  "budget": {
+    "IBKR_read_only_history_requests": 1,
+    "market_outcome_or_SOXX_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "broker_writes": 0
+  },
+  "stop": "Do not repeat the same request or try a larger step_count after a cap/error. No LQD request until HYG's 2011 coverage is established in this fixed probe."
+}
