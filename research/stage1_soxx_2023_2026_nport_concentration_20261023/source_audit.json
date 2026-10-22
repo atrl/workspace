@@ -1,0 +1,18 @@
+{
+  "status": "held_original_NPORT_15_events_450_EC_rows_source_qualified_no_daily_active_map",
+  "source_plan_sha256": "336061fc6633ef5f738a22c190d20d6fa0818eadfbc25574e14f61e53be375f5",
+  "report_events": 15,
+  "original_base_events": 14,
+  "later_amendment_events": 1,
+  "member_rows": 450,
+  "placeholder_CUSIP_rows": 38,
+  "original_XML_reads": 15,
+  "amendment_status": "same_30_original_EC_rows",
+  "amendment_changed_member_rows": 0,
+  "first_event_effective_signal": "2023-02-27",
+  "last_event_effective_signal": "2026-07-14",
+  "source_NAS_archive_sha256": "650e7aae26f43392f7fe0c44f52ac963ad92b6a3170b1f1c7c084134cca5b455",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

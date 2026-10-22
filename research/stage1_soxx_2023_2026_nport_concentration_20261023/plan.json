@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Can fourteen original held-period SOXX NPORT-P reports plus the one late 2025-Sep amendment yield exact disclosed-equity concentration values and amendment differences, without market outcomes or look-ahead?",
+  "parent_source_identity": "research/stage1_soxx_2023_2026_nport_original_source_20261023/identity_result.json",
+  "parent_source_identity_sha256": "8d070b66108422b1b79458d5a7c2e1e1856794f195a525903a3c746e3c0b15bf",
+  "parent_source_transport": "research/stage1_soxx_2023_2026_nport_original_source_20261023/transport_result.json",
+  "parent_source_transport_sha256": "520a836d2d16f9668e29302b304939cb7d1b293b9733dc21d1b0d360ff8883f1",
+  "source_NAS_archive_sha256": "650e7aae26f43392f7fe0c44f52ac963ad92b6a3170b1f1c7c084134cca5b455",
+  "raw_root": "data/snapshots/stage1_soxx_2023_2026_nport_original_source_20261023",
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "formula": "For each original primary XML, require CIK 0001100663, series S000004354, class C000012084 and exact repPdDate from the independently qualified index. Select invstOrSec with assetCat=EC, payoffProfile=Long, units=NS, curCd=USD, issuerCat=CORP. Require 30 positive-value distinct-name rows, original pctVal equal to 100*valUSD/netAssets within 0.000001 percentage point, and no row deletion for placeholder CUSIP. Normalize each original EC valUSD by sum of all 30 EC valUSD; top5 is the largest five normalized weights and HHI is sum squared. Keep DE/STIV counts outside EC denominator.",
+  "amendment": "Compare 2025-09-30 original NPORT-P accession 0002071691-25-007653 against its 2026-07-13 NPORT-P/A accession 0002071691-26-015796 using original EC security names, CUSIPs, balances, values and concentration. Preserve any differences; never substitute amended values before their filing date or override a later report period.",
+  "availability": "Every report event enters a native Qlib event DatasetH only on the next actual session after SEC filing date. The event series records a later amendment separately; it is not yet a daily active-state map.",
+  "artifacts": "Save full original member rows, report events, amendment comparison and DatasetH in a native Qlib Recorder; NAS archive and verify remote hash plus scoped restoration. Keep card root slim.",
+  "budgets": {
+    "new_GETs": 0,
+    "original_XML_reads": 15,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_native_source_recorders": 1
+  },
+  "stop": "Any original hash, source identity, pct/netAssets closure, 30-row, event clock, DatasetH/Recorder or NAS failure stops. Preserve failed evidence; a mechanical parse correction needs a new frozen repair. No held-market selection, fit or account."
+}
