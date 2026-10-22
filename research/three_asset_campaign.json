@@ -134,9 +134,9 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T14:00:50.124657+00:00",
+  "updated_at_utc": "2026-10-22T14:01:32.361845+00:00",
   "execution_totals": {
-    "new_model_fits": 51,
+    "new_model_fits": 53,
     "new_native_accounts": 46,
     "completed_fixed_economic_experiments": 8,
     "completed_training_bridges_added": 1,
@@ -144,8 +144,8 @@
     "unique_reused_reference_accounts": 15,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
-    "basis": "Prior 43 fits/44 accounts included the earlier OCC screen. The fixed Cboe activity information screen added 2 fits and 0 accounts and failed; the fixed original-Stage1 NVDA-guidance receiver added 6 fits and 2 native 0bp accounts and failed SOXX hard gates. No other-cost account, promotion, or qualified forward day.",
-    "completed_fixed_information_experiments": 5,
+    "basis": "Prior 51 fits/46 accounts include closed OCC, Cboe and original-Stage1 NVDA-guidance versions. Add the fixed Stage1 daily-volume participation information screen: 2 Ridge fits, 1 bootstrap, 0 native accounts, information gate failed. No promotion or qualified forward day.",
+    "completed_fixed_information_experiments": 6,
     "completed_source_qualifications": 2,
     "completed_source_repairs": 2,
     "completed_identity_source_checks": 1
