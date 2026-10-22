@@ -42,7 +42,8 @@
     "coordinate_full_source_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_full_source_plan.json",
     "coordinate_full_result": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_full_source_result.json",
     "manual_original_review": "research/korea_semiconductor_exports_korean_vintage_20261022/manual_original_nine_result.json",
-    "numeric_semantics_reconciliation": "research/korea_semiconductor_exports_korean_vintage_20261022/korean_numeric_semantics_reconciliation.json"
+    "numeric_semantics_reconciliation": "research/korea_semiconductor_exports_korean_vintage_20261022/korean_numeric_semantics_reconciliation.json",
+    "prospective_Korean_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",

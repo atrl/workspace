@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "prospective_2026_10_original_Korean_export_release_source_capture",
+  "target_reference_month": "2026-10",
+  "publication_clock_hypothesis": "11:00 Asia/Seoul on 2026-11-01, suggested by prior original filenames; this is not an official confirmed 2026 schedule and does not authorize pre-embargo use.",
+  "observations": {
+    "before_hypothesis": {
+      "not_before_utc": "2026-11-01T01:48:00+00:00",
+      "not_after_utc": "2026-11-01T01:58:00+00:00"
+    },
+    "after_hypothesis": {
+      "not_before_utc": "2026-11-01T02:10:00+00:00",
+      "not_after_utc": "2026-11-01T02:25:00+00:00"
+    },
+    "next_day_revision": {
+      "not_before_utc": "2026-11-02T02:10:00+00:00",
+      "not_after_utc": "2026-11-02T02:25:00+00:00"
+    }
+  },
+  "official_listing_urls": [
+    "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/?displayAuthor=&endDtD=&mno=&pageIndex=1&rowPageC=0&schClear=on&searchCategory=0&searchCondition=1&searchKeyword=%EC%88%98%EC%B6%9C%EC%9E%85+%EB%8F%99%ED%96%A5&startDtD=",
+    "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/?displayAuthor=&endDtD=&mno=&pageIndex=1&rowPageC=0&schClear=on&searchCategory=0&searchCondition=1&searchKeyword=%EC%88%98%EC%B6%9C%EC%9E%85%EB%8F%99%ED%96%A5&startDtD="
+  ],
+  "source_listing_parser": "src/data/korea_export_korean_listing.py",
+  "source_listing_parser_sha256": "cd0bb2824d7b53809418bd944979b976fb2ad8b5182bf2a70900d2c0d8f96949",
+  "source_article_parser": "src/data/korea_export_korean_article.py",
+  "source_article_parser_sha256": "41c1953473356c90ce8ef4fbaadcae907cca0fe8264d60ccf8cfe9e572319603",
+  "source_announcement_index_sha256": "b1daf1f650a41e905d61f53f5612ecc2b17e1639694487c4e611a4c575c93ef0",
+  "target_title_rule": "Korean normalized title contains 2026년 10월 and 수출입동향, excludes ICT/정보통신; require exactly one article identity across both listing queries.",
+  "allowed_attachment_types": [
+    "pdf",
+    "hwp",
+    "hwpx"
+  ],
+  "max_attachment_links_per_observation": 4,
+  "max_response_bytes": {
+    "listing": 1500000,
+    "article": 1500000,
+    "attachment": 10000000
+  },
+  "budget": {
+    "phases": 3,
+    "listing_GETs_per_phase": 2,
+    "article_GETs_per_phase": 1,
+    "attachment_GETs_per_phase": 4,
+    "max_HTTP_GETs_total": 21,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "required_evidence": [
+    "actual UTC request/response time and Date/Age/Cache-Control/Last-Modified response headers",
+    "exact listing, article and every permitted attachment byte hash and URL",
+    "target absent/present independently for each observation, no assumed publication time",
+    "source article title, registration date, article ID, attachment labels and all versions",
+    "same URL response byte changes across phases and any new attachment versions"
+  ],
+  "stop_conditions": [
+    "Before frozen UTC window or after it, do not fetch; record missed only after window.",
+    "Any source listing/article schema drift or multiple national article matches: preserve raw bytes and record ambiguity, no numeric factor.",
+    "A source appearing before 11:00 KST is availability evidence only; never infer authorized release or tradeability before the stated embargo.",
+    "No trading, model fit or SOXX outcome read from this source observer."
+  ],
+  "scientific_boundary": "Prospective exact bytes can establish observed availability from 2026-10 onward, not retroactively certify historical 2019-2026 vintages or satisfy independent economic forward days.",
+  "implementation_module": "src/data/korea_export_forward_capture.py",
+  "implementation_binding": "forward_oct_2026_capture_binding.json",
+  "next_action": "Freeze implementation SHA in its binding before Nov1; execute each phase once, preserve raw bytes, compare revisions, then separately decide any Qlib source/strategy forward use."
+}
