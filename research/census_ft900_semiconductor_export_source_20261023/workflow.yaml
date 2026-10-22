@@ -20,6 +20,11 @@ outputs:
   - full_training_row_audit.json
   - full_training_report_identity.json
   - report_identity_exception_result.json
+  - held_index_audit.json
+  - held_source_result.json
+  - held_readback.json
+  - held_request_ledger.jsonl
+  - held_year_archives.jsonl
 market_outcome_reads: 0
 model_fits: 0
 native_accounts: 0

@@ -14,4 +14,6 @@
 
 报表月份身份限定核查：143 份首页标题直接匹配目标月份；唯一例外为 2022-12 的年终合并标题“December and Annual 2022”。其精确 PDF SHA、2023-02-07 08:30 EST 发布标识、Exhibit 7 当月栏和官方索引 URL 经单例合同核对后，**144 份报表月份身份均有证据**。严格初次匹配失败与单例修复分别保存在 `full_training_report_identity.json`、`report_identity_exception_result.json`。这仍不证明当年首次公开的 PDF 字节未被后续替换。
 
+留出期来源采集：已从同一官方索引确认 2023-01 至已发布的 2026-08 共 44 个正确月份 PDF URL；复用 2024-04 原件 1 份并新增只读 GET 43 次，**44/44 份 PDF 字节和本地 SHA-256**均核对。2023–2025 三个全年包及 2026 年 1–8 月包共 4 个 NAS 包远端哈希通过，且各恢复 1 份源 PDF 匹配 SHA 与尺寸。收据和限定恢复见 `held_request_ledger.jsonl`、`held_year_archives.jsonl`、`held_readback.json`。这些材料来自反复使用的历史区间，不是独立策略前向日；留出期逐月 Exhibit 7 行及报告身份仍待审核。
+
 官方原件：[2011-12 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1112.pdf)、[2017-05 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1705.pdf)、[2024-04 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2404.pdf)；[历史发布索引](https://www.census.gov/foreign-trade/Press-Release/ft900_index.html)、[2012 分类变动说明](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1202.pdf)。
