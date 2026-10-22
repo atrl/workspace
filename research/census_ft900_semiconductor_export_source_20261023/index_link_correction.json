@@ -1,0 +1,23 @@
+{
+  "status": "correction_143_of_144_correct_month_PDF_index_links_one_wrong_2015_08",
+  "supersedes_claim_in": "index_typo_adjudication.json",
+  "raw_index_sha256": "cdf3d48e9f6ff7a571c9d1d0d982499d59750df2f915a40ec95a9fe49730e0ad",
+  "total_month_labels_including_one_spelling_adjudication": 144,
+  "correct_month_PDF_index_links": 143,
+  "wrong_month_PDF_index_links": [
+    {
+      "reference_month": "2015-08",
+      "index_label": "August 2015",
+      "index_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1509.pdf",
+      "expected_month_filename": "ft900_1508.pdf",
+      "observed_filename": "ft900_1509.pdf"
+    }
+  ],
+  "direct_official_path_exception_qualified_here": false,
+  "new_HTTP_GETs": 0,
+  "monthly_PDF_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "full_training_PDF_coverage_qualified": false
+}

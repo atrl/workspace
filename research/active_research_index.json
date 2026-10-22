@@ -80,13 +80,14 @@
     },
     {
       "card": "research/census_ft900_semiconductor_export_source_20261023",
-      "phase": "three_sample_rows_and_144_training_month_official_PDF_URLs_verified_full_bytes_and_PIT_pending",
+      "phase": "three_sample_rows_143_of_144_correct_training_index_PDF_links_one_2015_08_mislink_full_bytes_and_PIT_pending",
       "role": "distinct_US_semiconductor_export_demand_source_preflight_for_Stage1",
       "full_economic_experiment": false,
       "status": "source_only_three_sample_preflight_no_factor_or_account",
       "execution_authorized": false,
       "result": "research/census_ft900_semiconductor_export_source_20261023/source_preflight_result.json",
       "training_index_result": "research/census_ft900_semiconductor_export_source_20261023/index_typo_adjudication.json",
+      "training_index_correction": "research/census_ft900_semiconductor_export_source_20261023/index_link_correction.json",
       "nas_archive_sha256": "0b45a088957196f7dda43827224aec38aa36c263803e93f768942952923e840b"
     }
   ],

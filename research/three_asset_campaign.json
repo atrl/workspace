@@ -111,7 +111,9 @@
     "taiwan_export_orders_source_triage": "research/taiwan_export_orders_source_triage_20261023/summary.json",
     "taiwan_export_orders_source_status": "needs_original_monthly_source_access_and_vintage_broad_electronics_not_semiconductor_only_no_fit",
     "FT900_semiconductor_export_source_preflight": "research/census_ft900_semiconductor_export_source_20261023/source_preflight_result.json",
-    "FT900_semiconductor_export_source_status": "three_original_monthly_rows_present_144_training_month_official_PDF_URLs_bound_full_bytes_first_public_and_classification_pending_no_fit"
+    "FT900_semiconductor_export_source_status": "three_original_monthly_rows_present_143_of_144_training_month_correct_index_PDF_links_2015_08_mislink_full_bytes_first_public_and_classification_pending_no_fit",
+    "FT900_index_boundary_result": "research/census_ft900_index_boundary_20261023/result.json",
+    "FT900_index_boundary_status": "official_index_144_month_labels_143_correct_links_2015_08_official_path_verified_2012_semiconductor_media_reclassification_NAS_restored_no_fit"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
