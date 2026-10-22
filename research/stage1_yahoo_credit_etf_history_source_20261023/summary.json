@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_yahoo_credit_etf_history_source_20261023",
+  "decision": "HYG_LQD_current_chart_raw_full_span_source_received_corporate_actions_and_PIT_pending",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "source_result": "source_result.json",
+  "GETs": 2,
+  "symbols": ["HYG", "LQD"],
+  "price_rows_each": 4227,
+  "first_date": "2010-01-04",
+  "last_date": "2026-10-22",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "NAS_archive_sha256": "499a2880df04cc22826f11a5ce3cf2da1d0ebd27d7d46fc7363b99ed75090ee7",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

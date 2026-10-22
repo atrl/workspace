@@ -1,0 +1,26 @@
+{
+  "plan_sha256": "57f91d5bb0beb82d9d4f08709edac30c5ca9cb49090e226d64f6ceadcd2c72b7",
+  "files": [
+    {
+      "name": "HYG.headers",
+      "sha256": "06cf030834d1e5186983882495d8a2afd92ffc85dbaa09525fdeecb49de803c6",
+      "bytes": 598
+    },
+    {
+      "name": "HYG.json",
+      "sha256": "bd9e406c67268b0f5582dc3ca2d3371d56d6d3fee9d8be11a66d555f0062e0fe",
+      "bytes": 451157
+    },
+    {
+      "name": "LQD.headers",
+      "sha256": "51cd3fa4408bb3e67763fedec331c54754b9d80f820eb069ff367a2bcc282bc6",
+      "bytes": 598
+    },
+    {
+      "name": "LQD.json",
+      "sha256": "b8db8de160b610b4c2a3021fa371acd5f68adcf3d1e616854d2adb04a50ca582",
+      "bytes": 466842
+    }
+  ],
+  "capture_receipts_sha256": "510feea76f73e3d91cc23a1104a8f12022926c7082de9398515b87ea85a40033"
+}

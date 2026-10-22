@@ -1,0 +1,41 @@
+{
+  "status": "HYG_LQD_current_chart_raw_full_span_source_received_PIT_pending",
+  "failure": null,
+  "GET_attempts": 2,
+  "checks": [
+    {
+      "symbol": "HYG",
+      "status": "identity_and_full_span_passed",
+      "raw_sha256": "bd9e406c67268b0f5582dc3ca2d3371d56d6d3fee9d8be11a66d555f0062e0fe",
+      "raw_bytes": 451157,
+      "exchange_timezone": "America/New_York",
+      "timestamp_rows": 4227,
+      "positive_close_rows": 4227,
+      "first_positive_date": "2010-01-04",
+      "last_positive_date": "2026-10-22",
+      "adjusted_close_rows": 4227,
+      "event_categories": {},
+      "duplicate_dates": 0
+    },
+    {
+      "symbol": "LQD",
+      "status": "identity_and_full_span_passed",
+      "raw_sha256": "b8db8de160b610b4c2a3021fa371acd5f68adcf3d1e616854d2adb04a50ca582",
+      "raw_bytes": 466842,
+      "exchange_timezone": "America/New_York",
+      "timestamp_rows": 4227,
+      "positive_close_rows": 4227,
+      "first_positive_date": "2010-01-04",
+      "last_positive_date": "2026-10-22",
+      "adjusted_close_rows": 4227,
+      "event_categories": {},
+      "duplicate_dates": 0
+    }
+  ],
+  "NAS_archive_sha256": "499a2880df04cc22826f11a5ce3cf2da1d0ebd27d7d46fc7363b99ed75090ee7",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_adjusted_close_first_vintage_qualified": false
+}

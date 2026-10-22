@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Does the repository's already used Yahoo chart source provide full 2011-2026 daily HYG and LQD ETF history after Futu HYG returned zero 2011 rows and connected IBKR rejected a 4000-bar request?",
+  "economic_mechanism": "A predecision HYG relative to LQD price/total-return state is a traded credit-risk appetite proxy potentially distinct from original Stage1 price/VIX/breadth inputs; no feature, sign, information fit or account is authorized by this source intake.",
+  "precedent": "src/data/market_update.py _fetch_yahoo_chart_payload uses query2 then query1 Yahoo v8 chart, period1/period2, interval=1d, events=history, includeAdjustedClose=true. This card fixes only query2 and does not retry another host after failure.",
+  "exact_requests": [
+    {
+      "symbol": "HYG",
+      "url": "https://query2.finance.yahoo.com/v8/finance/chart/HYG?period1=1262304000&period2=1792713600&interval=1d&events=history&includeAdjustedClose=true"
+    },
+    {
+      "symbol": "LQD",
+      "url": "https://query2.finance.yahoo.com/v8/finance/chart/LQD?period1=1262304000&period2=1792713600&interval=1d&events=history&includeAdjustedClose=true"
+    }
+  ],
+  "request": {
+    "method": "GET",
+    "user_agent": "Mozilla/5.0 soxl-qlib-data-refresh",
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 15000000,
+    "seconds_between_requests": 1,
+    "max_GETs": 2,
+    "retries": 0
+  },
+  "identity_gate": "Require HTTP200 JSON chart.result[0].meta.symbol exact HYG/LQD, timestamp and quote length equal, regularMarketPrice not used for historical rows, at least one valid positive raw daily close before 2011-01-03 and after 2026-10-07, no duplicate trading dates, and preserve split/dividend events and adjusted-close separately. Do not assert first-public adjusted-price vintage from a current retrospective response.",
+  "conditional_second_request": "Only request LQD if the first HYG response passes transport and source identity with the full 2011-2026 date span. If HYG fails, archive its received bytes and stop.",
+  "backup": "Archive exact response bodies, headers, request UTC clocks, SHA-256 and transport receipts to Yanxuan NAS; verify remote archive hash and scoped raw-member restore. Keep local bytes when qualification fails.",
+  "budget": {
+    "external_GETs_max": 2,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "HTTP/size/schema/coverage/NAS failure stops without changing host, period or query. A successful pair is only source availability; next requires price-basis/corporate-action timing verification, Qlib DatasetH/Recorder mapping, original-39 redundancy check and one frozen information gate before any Stage1-derived 0bp account."
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "symbol": "HYG",
+    "url": "https://query2.finance.yahoo.com/v8/finance/chart/HYG?period1=1262304000&period2=1792713600&interval=1d&events=history&includeAdjustedClose=true",
+    "requested_at_utc": "2026-10-22T19:47:44.195371+00:00",
+    "received_at_utc": "2026-10-22T19:47:45.712636+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://query2.finance.yahoo.com/v8/finance/chart/HYG?period1=1262304000&period2=1792713600&interval=1d&events=history&includeAdjustedClose=true",
+    "stderr": "",
+    "raw_sha256": "bd9e406c67268b0f5582dc3ca2d3371d56d6d3fee9d8be11a66d555f0062e0fe",
+    "raw_bytes": 451157,
+    "headers_sha256": "06cf030834d1e5186983882495d8a2afd92ffc85dbaa09525fdeecb49de803c6",
+    "headers_bytes": 598
+  },
+  {
+    "symbol": "LQD",
+    "url": "https://query2.finance.yahoo.com/v8/finance/chart/LQD?period1=1262304000&period2=1792713600&interval=1d&events=history&includeAdjustedClose=true",
+    "requested_at_utc": "2026-10-22T19:47:46.743602+00:00",
+    "received_at_utc": "2026-10-22T19:47:48.344590+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://query2.finance.yahoo.com/v8/finance/chart/LQD?period1=1262304000&period2=1792713600&interval=1d&events=history&includeAdjustedClose=true",
+    "stderr": "",
+    "raw_sha256": "b8db8de160b610b4c2a3021fa371acd5f68adcf3d1e616854d2adb04a50ca582",
+    "raw_bytes": 466842,
+    "headers_sha256": "51cd3fa4408bb3e67763fedec331c54754b9d80f820eb069ff367a2bcc282bc6",
+    "headers_bytes": 598
+  }
+]
