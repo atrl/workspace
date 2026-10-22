@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_ofr_funding_1032_source_map_20261023",
+  "phase": "OFR_FSI_Funding_category_conservative_vintage_map_to_Stage1_1032_recovery_only",
+  "mechanism": "Systemic funding-market stress from OFR composite, distinct from HYG-LQD traded-credit 20-day momentum, SOXX signed volume and intraday peer breadth. It may distinguish persistent liquidity contraction from semiconductor-specific temporary correction before 10:32 recovery, but this source-only map has no sign, model or account conclusion.",
+  "source": {
+    "card": "research/stage1_ofr_financial_stress_source_20261023",
+    "summary_sha256": "baeec233403caedc5f30b0527ad338ba6e459538caa7a159d308be1fc59094a3",
+    "source_result_sha256": "d9e772e0ad4703bda149945173a02376c34c2778700674c53c078aeb9efaa440",
+    "revision_audit_sha256": "44fa98ba0ce34ee74aa7f718313abfa50d3d7a33fec65ca082902443a755974a",
+    "publication_boundary_sha256": "bce3302d1a6a5e1fd9ec9148eb2c2cdf43c65cda5333e7a0100a801774fba315",
+    "raw_csv": "data/snapshots/stage1_ofr_financial_stress_source_20261023/fsi.csv",
+    "raw_csv_sha256": "c59b58d64c9d63e4684071baf8ff54b127158f76025638634df91a49fbea89e9",
+    "revision_workbook": "data/snapshots/stage1_ofr_financial_stress_source_20261023/FSI_Revision_History_2023-06-27.xlsx",
+    "revision_workbook_sha256": "f59409523075f5b8224e148f828e6138a988814fe753c3e72366b220b0696585",
+    "NAS_archive_sha256": "074e2c56f6f95a4f56382a32e25c65ad560e5a53ee6e4bb7fd58e50bc247b369",
+    "historical_daily_first_public_qualified": false
+  },
+  "Qlib_calendar_provider": "data/qlib/full_path_tiered_allocation_20261013",
+  "action_calendar": [
+    "2018-10-15",
+    "2026-10-08"
+  ],
+  "training": [
+    "2018-10-15",
+    "2022-12-30"
+  ],
+  "expected_training_rows": 1061,
+  "held_reused": [
+    "2023-01-04",
+    "2026-10-08"
+  ],
+  "expected_held_rows": 944,
+  "formula": "For each original Stage1 10:32 action trade date s, obtain the third prior actual Qlib US trading session cutoff. Select the latest OFR observation Date d not later than that cutoff, never a future row; require d on/after official current-FSI launch 2017-10-25, positive source identity, finite Funding value and age <=5 Qlib sessions. Use the archived current CSV Funding except for workbook-listed revised d when s is on or before the corresponding posted revision date (updated values start only the following actual Qlib session because the revision posting hour is unqualified), in which case use the workbook Old Funding value. Treat all four official page-corrected May 2026 source dates 15/18/21/22 as unknown when selected. Retain every action date, no interpolation/clipping or rule chosen from SOXX outcomes.",
+  "revision_events": [
+    {
+      "date": "2018-05-18",
+      "sheet": "sheet2.xml",
+      "date_column": "A",
+      "old_funding_column": "J",
+      "updated_funding_column": "K"
+    },
+    {
+      "date": "2018-12-04",
+      "sheet": "sheet3.xml",
+      "date_column": "A",
+      "old_funding_column": "J",
+      "updated_funding_column": "K"
+    },
+    {
+      "date": "2023-06-27",
+      "sheet": "sheet4.xml",
+      "date_column": "A",
+      "old_funding_column": "F",
+      "updated_funding_column": "P"
+    }
+  ],
+  "quality": {
+    "minimum_train_known_fraction": 0.99,
+    "minimum_held_known_fraction": 0.99,
+    "require_workbook_updated_funding_match_current_csv_abs_tol": 1e-09,
+    "source_2017_launch_boundary": "2017-10-25",
+    "same_day_release_use": false,
+    "historical_first_receipt_qualified": false
+  },
+  "budget": {
+    "external_GETs": 0,
+    "raw_source_reads": 2,
+    "Qlib_D_calendar_calls": 1,
+    "DatasetH_builds": 1,
+    "writable_Qlib_Recorders_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any raw/NAS identity, revision-old/new/current reconciliation, exact Qlib calendar, >=99% coverage, DatasetH/Recorder or NAS readback failure stops. A pass only permits a separately frozen matched 2018-2022 10:32 local action-value information screen with old21 controls. No full Stage1 2011-2022 allocation input and no 0bp account/PIT promotion from this source map."
+}

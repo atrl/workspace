@@ -1,0 +1,40 @@
+{
+  "status": "OFR_funding_1032_conservative_source_map_passed",
+  "plan_sha256": "bc332d3375b792636abfd9afc71ee26d7beddb800777bb9cc742b4600af1bb7a",
+  "action_calendar_rows": 2006,
+  "train_calendar_rows": 1061,
+  "train_known_rows": 1059,
+  "held_calendar_rows": 944,
+  "held_known_rows": 940,
+  "train_unknown_dates": [
+    "2018-10-15",
+    "2018-10-16"
+  ],
+  "held_unknown_dates": [
+    "2026-05-20",
+    "2026-05-21",
+    "2026-05-27",
+    "2026-05-28"
+  ],
+  "revision_old_value_rows_train": 249,
+  "revision_old_value_rows_held": 120,
+  "max_source_age_Qlib_sessions": 4,
+  "revision_rows_by_posting": [
+    {
+      "posted_revision_date": "2018-05-18",
+      "old_new_rows": 158
+    },
+    {
+      "posted_revision_date": "2018-12-04",
+      "old_new_rows": 2
+    },
+    {
+      "posted_revision_date": "2023-06-27",
+      "old_new_rows": 382
+    }
+  ],
+  "historical_first_receipt_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

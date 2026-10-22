@@ -68,7 +68,9 @@
     "Stage1_1032_peer_breadth_0bp_action_information_result": "research/stage1_peer_breadth_0bp_action_information_20261023/summary.json",
     "Stage1_1032_peer_breadth_0bp_action_information_interpretation": "Fixed old21 Stage1 recovery features plus one AMD/NVDA/SMH first-hour positive fraction on identical 0bp Tiered beta0.6 local action-value labels: 173 mature train and 265 mature 2021/2022 eval. Candidate MSE 8.47340e-5 vs baseline 8.38254e-5, paired improvement negative in both years, standardized coefficient negative, corrected lower negative. Two fits, one bootstrap, zero accounts. Close without basket/sign/clock/year rescue; source first receipt remains unqualified.",
     "OFR_FSI_official_source_and_revision_audit": "research/stage1_ofr_financial_stress_source_20261023/summary.json",
-    "OFR_FSI_source_status": "official_6784_numeric_dates_2000_2026_NAS_restored_but_current_method_pre2017_backfill_PIT_unqualified_2023_funding_revision_382_dates_median_abs_0p307_no_feature_fit_account"
+    "OFR_FSI_source_status": "official_6784_numeric_dates_2000_2026_NAS_restored_but_current_method_pre2017_backfill_PIT_unqualified_2023_funding_revision_382_dates_median_abs_0p307_no_feature_fit_account",
+    "OFR_Funding_1032_conservative_Qlib_source_map": "research/stage1_ofr_funding_1032_source_map_20261023/summary.json",
+    "OFR_Funding_1032_source_status": "published_after_2017_2018_2022_action_train_1059_of_1061_known_2023_2026_reused_held_940_of_944_known_249_train_120_held_revision_old_values_Qlib_Recorder_NAS_restored_first_public_pending_zero_fits_accounts"
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -316,7 +318,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T20:52:00.018927+00:00",
+  "updated_at_utc": "2026-10-22T20:54:38.040528+00:00",
   "execution_totals": {
     "new_model_fits": 77,
     "new_native_accounts": 50,
