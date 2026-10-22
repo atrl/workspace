@@ -1,0 +1,36 @@
+{
+  "status": "original_same_vintage_numeric_rows_extracted_no_Stage1_feature",
+  "plan_sha256": "dbda099d477c95b16e7060dacd3062d922499613fc1fdaf5d14ee15362744e3d",
+  "source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "release_events": 192,
+  "first_release": "2010-09-15",
+  "last_release": "2026-09-18",
+  "first_observation_month": "2010-08-01",
+  "last_observation_month": "2026-08-01",
+  "missing_observation_months": [
+    "2025-10"
+  ],
+  "base_year_counts": {
+    "2012": 70,
+    "2017": 63,
+    "2007": 59
+  },
+  "blank_line_layout_count": 2,
+  "seven_month_release_count": 1,
+  "NAICS_codes": [
+    "3344"
+  ],
+  "all_six_months_positive": true,
+  "same_vintage_mom_min_pct": -3.945885005636973,
+  "same_vintage_mom_max_pct": 3.267973856209161,
+  "numeric_source_events": 192,
+  "Stage1_aligned_feature_rows": 0,
+  "historical_first_receipt_qualified": false,
+  "cross_base_absolute_level_comparability_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "goal_achieved": false,
+  "recorder_id": "06714d1db51e487aa095d918a7eaca69",
+  "experiment_id": "320763930503576264"
+}

@@ -1,0 +1,11 @@
+{
+  "status": "source_event_gap_interpreted_without_recalculation",
+  "source_numeric_audit": "source_numeric_audit.json",
+  "missing_latest_month_event": "2025-10",
+  "meaning": "No distinct original G17 release in this inventory has October 2025 as its latest observation month. The 2025-12-23 seven-month release includes October 2025 as its prior-month value and November 2025 as its latest value. Do not fabricate an earlier October-first-public event or treat October's numeric index as absent from all original text.",
+  "source_field_name_caveat": "source_numeric_audit.json field all_six_months_positive is a retained run field name; the run also checked one explicit seven-month release, and the Recorder shows 192 positive same-vintage rows.",
+  "training_month_coverage_inference": "The audit spans 2010-08 through 2026-08 and reports only the 2025-10 latest-month event gap; therefore the monthly observation span 2011-01 through 2022-12 is present. This does not certify Stage1 decision-time availability or historical first receipt.",
+  "new_source_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

@@ -1,0 +1,16 @@
+{
+  "status": "passed_targeted_native_Qlib_and_NAS_hash_readback",
+  "recorder_id": "06714d1db51e487aa095d918a7eaca69",
+  "manifest_verified_object_loads": [
+    "sources/vintage_events",
+    "analysis/source_numeric_audit"
+  ],
+  "source_release_events": 192,
+  "seven_month_original_release_events": 1,
+  "index_base_years": [2007, 2012, 2017],
+  "saved_audit_release_events_equal_source_rows": true,
+  "NAS_archive_sha256": "e943d7a5d73413553cd99cbb32a0681c20789f38246e1c84c0e7c37ef1790a38",
+  "NAS_remote_archive_sha256_matched": true,
+  "new_model_fits_or_accounts_for_readback": 0,
+  "limitation": "Local native Qlib objects and remote archive hash were verified; this was not a full cold restoration of every artifact."
+}
