@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "eight_exact_2013_2014_SEC_SOXX_body_source_reads",
+  "parent_2011_2012_source_cards": [
+    "research/stage1_soxx_2011_reported_concentration_source_20261023",
+    "research/stage1_soxx_legacy_reported_concentration_source_20261023"
+  ],
+  "trust_candidate_index_sha256": "8a8d790c4e97f0dcacca0436835f263e7dc30dc318c8bafc25e8001cf6fb64a6",
+  "pre_2015_series_calendar_audit_sha256": "916d4fbb5613abfad18c63fd320e8223c2160d23983f9a57f01e6d90a227b633",
+  "reports": [
+    {
+      "report_date": "2013-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-13-148033",
+      "accepted_at_utc": "2013-04-10T04:13:24.000Z",
+      "primary_document": "d493068dncsrs.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312513148033/d493068dncsrs.htm"
+    },
+    {
+      "report_date": "2013-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-13-274594",
+      "accepted_at_utc": "2013-06-27T23:18:35.000Z",
+      "primary_document": "d555685dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312513274594/d555685dnq.htm"
+    },
+    {
+      "report_date": "2013-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-13-392676",
+      "accepted_at_utc": "2013-10-07T21:10:00.000Z",
+      "primary_document": "d588642dncsr.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312513392676/d588642dncsr.htm"
+    },
+    {
+      "report_date": "2013-10-31",
+      "form": "N-Q",
+      "accession": "0001193125-13-486444",
+      "accepted_at_utc": "2013-12-28T03:20:02.000Z",
+      "primary_document": "d647093dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312513486444/d647093dnq.htm"
+    },
+    {
+      "report_date": "2014-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-14-127770",
+      "accepted_at_utc": "2014-04-02T22:16:21.000Z",
+      "primary_document": "d666619dncsrs.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312514127770/d666619dncsrs.htm"
+    },
+    {
+      "report_date": "2014-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-14-251746",
+      "accepted_at_utc": "2014-06-27T04:17:50.000Z",
+      "primary_document": "d741407dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312514251746/d741407dnq.htm"
+    },
+    {
+      "report_date": "2014-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-14-366601",
+      "accepted_at_utc": "2014-10-08T23:17:34.000Z",
+      "primary_document": "d779862dncsr.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312514366601/d779862dncsr.htm"
+    },
+    {
+      "report_date": "2014-10-31",
+      "form": "N-Q",
+      "accession": "0001193125-14-455465",
+      "accepted_at_utc": "2014-12-30T02:15:31.000Z",
+      "primary_document": "d840348dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312514455465/d840348dnq.htm"
+    }
+  ],
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 8,
+    "max_response_bytes_each": 45000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 120,
+    "minimum_seconds_between_requests": 1
+  },
+  "identity_gate": "Each body must show SOXX PHLX Semiconductor original Schedule of Investments with exact report date and Security/Shares/Value header; N-CSR/N-CSRS may use fund TOC anchor when HTML splits title. Do not accept generic semiconductor sectors or trust index alone.",
+  "preservation": "Exact original bodies, headers, UTC request/response times and SHA-256; NAS archive, remote hash and scoped raw-member restore. Preserve local objects until verified.",
+  "budget": {
+    "filing_body_GETs": 8,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop before next request on HTTP/URL/body/size/NAS failure. Failed identity remains unqualified; do not select alternative accessions, fit or run an account.",
+  "scientific_boundary": "Original source coverage through 2014 still leaves 2015-2022 and held period plus first-public and revisions. This is not a SOXX excess result.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
