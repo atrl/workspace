@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "multiday_plan_sha256": "c3ef7c87d0494aa8672b99a623b4ad635d27e28a1209dde949a2614852b0f98e",
+  "observer_module_sha256": "5e6a4ecbfa6753f40f2119cfc1700d74e8c88f4567141b5ba4c1cc0c66074df6",
+  "third_receipt_path": "forward_observations/20261022T124518986131Z.json",
+  "third_receipt_sha256": "bb1b6d05a285857b80f903fd5dc58edbfe8adb63d492c8b8bc4b61767316656c",
+  "third_values": {
+    "SOXX": 7425,
+    "SOXL": 53614
+  },
+  "models": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0
+}

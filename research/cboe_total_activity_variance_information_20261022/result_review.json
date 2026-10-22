@@ -1,0 +1,31 @@
+{
+  "status": "not_promoted_information_gate_failed",
+  "train_rows": 960,
+  "held_rows": 948,
+  "candidate_activity_coefficient": -0.009415435282144093,
+  "held_mse_baseline": 0.7700888987826585,
+  "held_mse_candidate": 0.7713171132912331,
+  "held_paired_mse_improvement": -0.0012282145085746857,
+  "held_half_improvements": [
+    -9.566511691753484e-05,
+    -0.0025029674112919276
+  ],
+  "stationary_bootstrap_lower": -0.0027649606657240244,
+  "information_gate_pass": false,
+  "historical_first_public_time_qualified": false,
+  "historical_window_independent": false,
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "qualified_forward_days": 0,
+  "SOXX_goal_achieved": false,
+  "trading_or_promotion_permission": false,
+  "plan_sha256": "1277744ab022cad5ee17fa15c90cba08864dec4fae6ce31b4f4e49a7929b72b8",
+  "binding_sha256": "873f7f91450664d1d669394f26c5318e51d000b7bbd2d3ecc76a43b0c1e023ae",
+  "third_receipt_sha256": "bb1b6d05a285857b80f903fd5dc58edbfe8adb63d492c8b8bc4b61767316656c",
+  "source_recorder_id": "c3b812bc5fda409fac836fdd3a08fe0a",
+  "recorder_id": "bf87d7843e144f9c8858e542020eac3f",
+  "experiment_id": "264529806956216030",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/cboe_total_activity_variance_information_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cboe_total_activity_variance_information_20261022/qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f"
+}

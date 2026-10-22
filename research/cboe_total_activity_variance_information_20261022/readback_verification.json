@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "recorder_id": "bf87d7843e144f9c8858e542020eac3f",
+  "verification_manifest_objects": 12,
+  "all_local_artifact_hashes_and_sizes_match": true,
+  "native_Qlib_readback": "R.uri_context + R.get_recorder + analysis/result",
+  "native_result_equals_root_review": true,
+  "result": "not_promoted_information_gate_failed",
+  "new_model_fits": 2,
+  "new_native_accounts": 0,
+  "nas_archive_sha256": "c2fb3aef878c5a5f43025781e7ec66ab9c3a03979a759503bb02057ed4d87d82",
+  "nas_remote_archive_sha256_matched": true,
+  "new_training_or_account_execution_for_readback": 0
+}

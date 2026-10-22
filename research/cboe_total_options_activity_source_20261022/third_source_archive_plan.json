@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "frozen_exact_third_vintage_archive",
+  "receipt": "research/cboe_total_options_activity_source_20261022/forward_observations/20261022T124518986131Z.json",
+  "receipt_sha256": "bb1b6d05a285857b80f903fd5dc58edbfe8adb63d492c8b8bc4b61767316656c",
+  "binding": "research/cboe_total_options_activity_source_20261022/multiday_forward_binding.json",
+  "binding_sha256": "a634a26436d2fa1f3334fc16ca3a031664707aecafc90fdac0d5024c3057fd9c",
+  "raw_files": {
+    "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T124518986131Z/soxl.csv": "cdb002e13efdd9a0f2660f0428faf0ec878157ae521d0de1957fc9284267ff08",
+    "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T124518986131Z/soxx.csv": "f5cdc7a57e7cd953778e038ef9d283bf2985d078b58afec2f6afa4ce606d7f7f"
+  },
+  "archive": "One gzip tar containing those four exact files with repository-relative names; verify each source SHA before packaging, NAS PUT receipt digest and size, then read-only remote SHA-256 of the archive.",
+  "budget": {
+    "new_source_GETs": 0,
+    "NAS_uploads": 1,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "Backup proves exact bytes persist; it does not certify historical first-public timing, factor value or trading success."
+}

@@ -1,0 +1,65 @@
+{
+  "recorder_id": "bf87d7843e144f9c8858e542020eac3f",
+  "entries": [
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/analysis/result",
+      "sha256": "ee0c3f888ca056aa0345ea7a3235807a3bb8e2c06fac71ccdb1d0930007f2830",
+      "bytes": 877
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/code_diff.txt",
+      "sha256": "ab41b91a9a74ad1f9bea8ee9a3ae29251f000ec97ff64c059d9cf87bf9ff883a",
+      "bytes": 432769
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/code_status.txt",
+      "sha256": "fa7fe96b9a6092ecad34cb27ac4a58ab83ad821fcfc8f7d7a5e2d5976ed569a1",
+      "bytes": 61322
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/inputs/binding",
+      "sha256": "346a5abd15d6640a86d1bcc06e64f05c6c647b9e5207e8e3c6b084fa320cf51a",
+      "bytes": 1561
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/inputs/plan",
+      "sha256": "9158a9b23a90e942f1c7b63544147122fcf4c8ac2a339fff782d5acfb49175f5",
+      "bytes": 5113
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/inputs/source_audit",
+      "sha256": "574d232128fd8423dde693186702c28c6ca2370261cf9c478b0dc77624fd5860",
+      "bytes": 1349
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/models/baseline",
+      "sha256": "63a47c41b390903b668490bf4dba00e231b4c0ba43aa2a28d88f10069f0a1f1c",
+      "bytes": 946
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/models/candidate",
+      "sha256": "24ee21988cf82ef87bed0bcc63edfe9a33aab2156dad166daffe8b00da32fde3",
+      "bytes": 1002
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/predictions/held",
+      "sha256": "e7d3422bdcfa91b936a482a8fce884b91ddbe58d0429305501206a4d8bd181a1",
+      "bytes": 54375
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/predictions/train_features",
+      "sha256": "9b8f7b1126d0009e720a21ecf4c2d94dacd40451cbe14b67e4dcf831416ff22e",
+      "bytes": 62416
+    },
+    {
+      "path": "qlib_recorder/264529806956216030/bf87d7843e144f9c8858e542020eac3f/artifacts/sources/source_daily",
+      "sha256": "b80e3d20f339d8bd34c1ba3888638633c4564676e6340608be7ea37752a14c3c",
+      "bytes": 47950
+    }
+  ]
+}

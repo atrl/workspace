@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "not_executed_due_precommitted_information_gate_failure",
+  "frozen_design": "research/cboe_variance_conditional_composition_20261022/design_brief.json",
+  "dependency_result": "research/cboe_total_activity_variance_information_20261022/result_review.json",
+  "dependency_recorder_id": "bf87d7843e144f9c8858e542020eac3f",
+  "held_paired_MSE_improvement": -0.0012282145085746857,
+  "candidate_activity_coefficient": -0.009415435282144093,
+  "information_gate_pass": false,
+  "new_model_fits_for_this_design": 0,
+  "new_native_accounts_for_this_design": 0,
+  "SOXX_goal_achieved": false,
+  "decision": "The frozen conditional-composition design required the Cboe information gate to pass. Its dependency failed; this design is closed without testing a return account. No sign, trigger or window inversion is authorized by the failed result."
+}

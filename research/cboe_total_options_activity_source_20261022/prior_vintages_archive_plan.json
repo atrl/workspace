@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "frozen_exact_first_two_vintages_archive",
+  "source_addendum_sha256": "2ae5bd2155bd2cf74798bcf2e99d4f233a4068478a9382dacc5638803229a69c",
+  "files_sha256": {
+    "research/cboe_total_options_activity_source_20261022/forward_observations/20261022T040020511695Z.json": "38e8205bb9182e23dc3edc28e095f632c5a4040643eee2bb0b3a238e53b06b72",
+    "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T040020511695Z/soxx.csv": "f5cdc7a57e7cd953778e038ef9d283bf2985d078b58afec2f6afa4ce606d7f7f",
+    "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T040020511695Z/soxl.csv": "cdb002e13efdd9a0f2660f0428faf0ec878157ae521d0de1957fc9284267ff08",
+    "research/cboe_total_options_activity_source_20261022/forward_observations/20261022T043839228878Z.json": "45b733a63ce65583e805c1e7cc50cccc107653eb43a9af0315ef44d632851dfc",
+    "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T043839228878Z/soxx.csv": "f5cdc7a57e7cd953778e038ef9d283bf2985d078b58afec2f6afa4ce606d7f7f",
+    "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T043839228878Z/soxl.csv": "cdb002e13efdd9a0f2660f0428faf0ec878157ae521d0de1957fc9284267ff08"
+  },
+  "archive": "one gzip tar with repository-relative paths; verify each member before upload and full blob digest after NAS PUT",
+  "budget": {
+    "new_source_GETs": 0,
+    "NAS_uploads": 1,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "NAS byte backup does not establish first publication time or predictive information"
+}

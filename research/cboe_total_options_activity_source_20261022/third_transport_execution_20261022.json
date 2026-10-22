@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "third_same_date_observed_and_bound",
+  "executed_module": "src/data/cboe_volume_forward_capture.py",
+  "executed_module_sha256": "ddf9d62fa2889cbe1b9e1be41ce355d524bb656a17b151eb8f6f4d7bfcb6d0f4",
+  "module_identity_basis": "committed post-edit implementation per forward_transport_identity_clarification.json",
+  "receipt_path": "forward_observations/20261022T124518986131Z.json",
+  "receipt_sha256": "bb1b6d05a285857b80f903fd5dc58edbfe8adb63d492c8b8bc4b61767316656c",
+  "receipt_status": "observed",
+  "requested_at_utc": {
+    "SOXX": "2026-10-22T12:45:18.987010+00:00",
+    "SOXL": "2026-10-22T12:45:20.291395+00:00"
+  },
+  "binding_path": "multiday_forward_binding.json",
+  "binding_sha256": "a634a26436d2fa1f3334fc16ca3a031664707aecafc90fdac0d5024c3057fd9c",
+  "source_archive": "forward_source_archive_20261022.json",
+  "model_fits": 0,
+  "market_outcome_reads": 0,
+  "PIT_qualified": false
+}

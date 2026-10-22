@@ -1,0 +1,25 @@
+{
+  "status": "exact_third_vintage_archived_and_remote_hash_verified",
+  "plan_sha256": "e73c3ef2582efafac8a0f92ef1945dc61d95ab33062c8d835550ca0173059646",
+  "member_sha256": {
+    "research/cboe_total_options_activity_source_20261022/forward_observations/20261022T124518986131Z.json": "bb1b6d05a285857b80f903fd5dc58edbfe8adb63d492c8b8bc4b61767316656c",
+    "research/cboe_total_options_activity_source_20261022/multiday_forward_binding.json": "a634a26436d2fa1f3334fc16ca3a031664707aecafc90fdac0d5024c3057fd9c",
+    "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T124518986131Z/soxl.csv": "cdb002e13efdd9a0f2660f0428faf0ec878157ae521d0de1957fc9284267ff08",
+    "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T124518986131Z/soxx.csv": "f5cdc7a57e7cd953778e038ef9d283bf2985d078b58afec2f6afa4ce606d7f7f"
+  },
+  "nas_evidence": {
+    "sha256": "3eeb054c9f47d80b14504c413862bf7d3faa0cf175ba8482796f6cc6a5c3acff",
+    "size_bytes": 1779,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/3e/eb/3eeb054c9f47d80b14504c413862bf7d3faa0cf175ba8482796f6cc6a5c3acff",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 20:47:37.597448+08",
+    "duplicate": false
+  },
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/3e/eb/3eeb054c9f47d80b14504c413862bf7d3faa0cf175ba8482796f6cc6a5c3acff",
+  "remote_sha256": "3eeb054c9f47d80b14504c413862bf7d3faa0cf175ba8482796f6cc6a5c3acff",
+  "new_source_GETs": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_PIT_qualified": false
+}
