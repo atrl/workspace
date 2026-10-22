@@ -175,3 +175,7 @@ research/stage1_day_night_supervision_20261018/preflight/qlib_recorder/
 
 # Exact Korean-language release versions are in nine hash-verified NAS source archives.
 /data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/
+
+# ALFRED semiconductor PPI source ZIP and Qlib Recorder stay outside Git; the card pins their hashes.
+/data/snapshots/semiconductor_ppi_alfred_source_20261022/
+/research/semiconductor_ppi_alfred_source_20261022/qlib_recorder/

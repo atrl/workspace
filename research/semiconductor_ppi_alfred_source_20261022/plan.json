@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "experiment": "semiconductor_ppi_alfred_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "source_only_ALFRED_all_vintages_no_market_outcomes",
+  "hypothesis_boundary": "US semiconductor manufacturing producer prices may measure sector price pressure distinct from Fed capacity utilization and Korea export demand; source qualification is not predictive evidence.",
+  "series_id": "PCU334413334413",
+  "source_url": "https://alfred.stlouisfed.org/series/downloaddata?seid=PCU334413334413",
+  "source_authority": "BLS PPI distributed as dated ALFRED historical vintages",
+  "vintage_start": "2019-01-01",
+  "vintage_end": "2026-10-15",
+  "expected_selected_vintages": 93,
+  "observation_start": "2018-01-01",
+  "observation_end": "2026-09-01",
+  "download_format": "Observations by Vintage Date, All Observations",
+  "download_file_type": "2",
+  "download_file_format": "csv",
+  "request_budget": {
+    "form_GETs": 1,
+    "archive_POSTs": 1,
+    "max_archive_bytes": 2000000,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "preflight_form_observation": {
+    "as_of_utc": "2026-10-22",
+    "all_vintage_dates": 138,
+    "selected_vintage_dates": 93,
+    "first_selected": "2019-01-15",
+    "last_selected": "2026-10-15",
+    "web_identity": "https://alfred.stlouisfed.org/series/downloaddata?seid=PCU334413334413"
+  },
+  "release_timing": "ALFRED date-level version only; BLS PPI release currently scheduled 08:30 ET. Any eventual signal must wait until the next Qlib-supported trading session after the archive vintage date. Intraday first reception and historical all-month 08:30 release clock remain unproved.",
+  "revision_and_definition_caveats": [
+    "BLS says PPI values can be revised up to four months after first publication.",
+    "BLS 2024 hedonic microprocessor adjustment may affect comparability of the aggregate semiconductor industry price index; any structural break must be reported before modeling.",
+    "US quality-adjusted producer prices are not global semiconductor sales, memory spot prices or SOXX fair value.",
+    "Adjacent-month changes must use values from one vintage column, never initial values from different release dates."
+  ],
+  "source_references": [
+    "https://fred.stlouisfed.org/series/PCU334413334413",
+    "https://alfred.stlouisfed.org/series/downloaddata?seid=PCU334413334413",
+    "https://www.bls.gov/ppi/detailed-report/home.htm",
+    "https://www.bls.gov/ppi/quality-adjustment/ppi-modifies-hedonic-quality-adjustments-for-microprocessors.htm"
+  ],
+  "raw_path": "data/snapshots/semiconductor_ppi_alfred_source_20261022/vintage_panel.zip",
+  "stop_conditions": [
+    "Wrong ALFRED series, selected vintage count other than 93, changed form format or URL: stop before POST.",
+    "Non-ZIP/oversize response, wrong README identity/output format or unexpected CSV structure: preserve raw bytes and stop qualification.",
+    "Missing, nonsensical or revised-only values: report source gap; no market read or model."
+  ],
+  "historical_source_qualified": false,
+  "factor_values_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}
