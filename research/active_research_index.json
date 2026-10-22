@@ -27,13 +27,15 @@
     },
     {
       "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
-      "phase": "numeric_auto_resolver_closed_manual_source_and_PIT_qualification_needed",
+      "phase": "coordinate_full_current_PDF_source_extraction_pending_PIT_unqualified",
       "role": "distinct_monthly_semiconductor_export_demand_information_source",
       "full_economic_experiment": false,
       "status": "27_of_93_current_document_pairs_consistent_66_unresolved_first_public_vintage_unqualified",
       "execution_authorized": false,
       "result": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json",
-      "official_same_day_mirror_probe": "research/korea_semiconductor_exports_korean_vintage_20261022/official_mirror_2020_05_probe.json"
+      "official_same_day_mirror_probe": "research/korea_semiconductor_exports_korean_vintage_20261022/official_mirror_2020_05_probe.json",
+      "coordinate_probe_review": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_layout_probe_review.json",
+      "coordinate_full_source_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_full_source_plan.json"
     }
   ],
   "framework": [
@@ -147,7 +149,7 @@
     "constraint": "At/after 2026-10-22 12:45 UTC run one remaining Cboe preopen vintage; at 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. No source is a qualified factor or economic strategy.",
     "execution_authorized": false,
     "parallel_source_gap": "Korean source-only automatic pairing verified 27/93 current-document month pairs; 66 months including all three dual-version months remain unresolved. Four known controls pass, so unresolved means extractor/source semantics need original-document review, not factor failure. Historical first-public vintage is unqualified. No SOXX outcome or Korea fit may be read.",
-    "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json",
+    "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_layout_probe_review.json",
     "closed_PPI_information_result": "research/semiconductor_ppi_leverage_information_20261022/result_review.json",
     "follow_on_Cboe_source_plan": "research/cboe_total_options_activity_source_20261022/multiday_forward_plan.json",
     "contingent_Cboe_economic_design": "research/cboe_variance_conditional_composition_20261022/design_brief.json"

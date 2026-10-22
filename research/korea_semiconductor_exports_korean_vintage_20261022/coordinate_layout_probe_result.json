@@ -1,0 +1,1531 @@
+{
+  "schema_version": 1,
+  "status": "coordinate_source_candidate_probe_complete_no_factor_selection",
+  "plan_sha256": "341c8f2e4b705ea5318747d7617f9305344b22274dd65e9a2fd0f3a7af71886d",
+  "versions": 12,
+  "with_candidate": 12,
+  "per_version": [
+    {
+      "month": "2019-02",
+      "version_index": 1,
+      "source_SHA256": "940936daabf9a0671dc2896564ef55f392890bf38c45dd7e5b52b53a95c8a24b",
+      "pages": 29,
+      "coordinate_candidates": [
+        {
+          "kind": "row_table",
+          "page": 4,
+          "anchor_xy": [
+            177.6,
+            272.7
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 265.1,
+              "text": "126,706"
+            },
+            {
+              "x": 354.5,
+              "text": "7,421(△23.3)"
+            },
+            {
+              "x": 458.3,
+              "text": "6,773(△24.8)"
+            }
+          ],
+          "all_right_numeric_count": 3
+        },
+        {
+          "kind": "row_table",
+          "page": 10,
+          "anchor_xy": [
+            112.1,
+            281.5
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 330.9,
+              "text": "90.0(40.8)"
+            },
+            {
+              "x": 435.8,
+              "text": "67.7(△24.8)"
+            }
+          ],
+          "all_right_numeric_count": 2
+        }
+      ],
+      "total_candidates": 2
+    },
+    {
+      "month": "2019-04",
+      "version_index": 1,
+      "source_SHA256": "0df485444073241079eeb0b761dc8fe69dfe30b341b73b813d0bd9e6ed5712dd",
+      "pages": 19,
+      "coordinate_candidates": [
+        {
+          "kind": "column_table",
+          "page": 6,
+          "anchor_xy": [
+            66.9,
+            253.7
+          ],
+          "amount_row_y": 293.3,
+          "growth_row_y": 306.1,
+          "nearest_amount_tokens": [
+            {
+              "x": 663.7,
+              "text": "45.9(8.4)",
+              "dx": 612.9
+            },
+            {
+              "x": 733.6,
+              "text": "46.0(0.3)",
+              "dx": 682.8
+            }
+          ],
+          "nearest_growth_tokens": [
+            {
+              "x": 772.6,
+              "text": "1.8(86.5)",
+              "dx": 720.9
+            }
+          ]
+        },
+        {
+          "kind": "row_table",
+          "page": 2,
+          "anchor_xy": [
+            493.2,
+            179.1
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 535.2,
+              "text": "393.5(△0.1)"
+            },
+            {
+              "x": 591.1,
+              "text": "387.6(△2.0)"
+            },
+            {
+              "x": 646.9,
+              "text": "326.8(△8.0)"
+            },
+            {
+              "x": 702.8,
+              "text": "381.0(△5.9)"
+            },
+            {
+              "x": 759.8,
+              "text": "404.0(+0.8)"
+            }
+          ],
+          "all_right_numeric_count": 5
+        },
+        {
+          "kind": "row_table",
+          "page": 3,
+          "anchor_xy": [
+            85.6,
+            126.7
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 119.6,
+              "text": "9,779"
+            },
+            {
+              "x": 156.1,
+              "text": "37.0"
+            },
+            {
+              "x": 188.0,
+              "text": "6,772"
+            },
+            {
+              "x": 220.2,
+              "text": "△24.8"
+            },
+            {
+              "x": 256.3,
+              "text": "9,005"
+            },
+            {
+              "x": 288.5,
+              "text": "△16.6"
+            },
+            {
+              "x": 326.8,
+              "text": "8,455"
+            },
+            {
+              "x": 357.0,
+              "text": "△13.5"
+            }
+          ],
+          "all_right_numeric_count": 8
+        },
+        {
+          "kind": "row_table",
+          "page": 6,
+          "anchor_xy": [
+            500.0,
+            186.2
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 655.2,
+              "text": "97.8(37.0)"
+            },
+            {
+              "x": 729.8,
+              "text": "84.6(△13.5)"
+            }
+          ],
+          "all_right_numeric_count": 2
+        }
+      ],
+      "total_candidates": 7
+    },
+    {
+      "month": "2020-05",
+      "version_index": 1,
+      "source_SHA256": "0dc84e2a434d72d75f7682a65d64d5afb045156609a73d835305ecdde915e4b6",
+      "pages": 36,
+      "coordinate_candidates": [
+        {
+          "kind": "row_table",
+          "page": 4,
+          "anchor_xy": [
+            142.8,
+            601.4
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 386.9,
+              "text": "12.5"
+            },
+            {
+              "x": 493.5,
+              "text": "5.5"
+            }
+          ],
+          "all_right_numeric_count": 2
+        },
+        {
+          "kind": "row_table",
+          "page": 6,
+          "anchor_xy": [
+            109.3,
+            507.1
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 356.2,
+              "text": "12.5"
+            },
+            {
+              "x": 464.3,
+              "text": "5.5"
+            }
+          ],
+          "all_right_numeric_count": 2
+        },
+        {
+          "kind": "row_table",
+          "page": 10,
+          "anchor_xy": [
+            125.2,
+            167.9
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 179.5,
+              "text": "7,537"
+            },
+            {
+              "x": 231.5,
+              "text": "30.5"
+            },
+            {
+              "x": 270.2,
+              "text": "8,757"
+            },
+            {
+              "x": 328.8,
+              "text": "2.7"
+            },
+            {
+              "x": 363.8,
+              "text": "7,176"
+            },
+            {
+              "x": 418.6,
+              "text": "14.9"
+            },
+            {
+              "x": 460.2,
+              "text": "8,068"
+            },
+            {
+              "x": 521.6,
+              "text": "7.1"
+            }
+          ],
+          "all_right_numeric_count": 8
+        },
+        {
+          "kind": "row_table",
+          "page": 11,
+          "anchor_xy": [
+            111.9,
+            255.1
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 327.8,
+              "text": "5.5%"
+            },
+            {
+              "x": 363.9,
+              "text": "2.5%"
+            },
+            {
+              "x": 457.5,
+              "text": "12.5%"
+            },
+            {
+              "x": 511.6,
+              "text": "0.9%"
+            }
+          ],
+          "all_right_numeric_count": 4
+        }
+      ],
+      "total_candidates": 6
+    },
+    {
+      "month": "2020-06",
+      "version_index": 1,
+      "source_SHA256": "3f52df6a5e01c4227f3e061fa87f64ea70aaa38e8ef29ed11b293a85422edd36",
+      "pages": 18,
+      "coordinate_candidates": [
+        {
+          "kind": "column_table",
+          "page": 6,
+          "anchor_xy": [
+            79.5,
+            294.1
+          ],
+          "amount_row_y": 333.8,
+          "growth_row_y": 345.1,
+          "nearest_amount_tokens": [
+            {
+              "x": 662.6,
+              "text": "31.2(△24.6)",
+              "dx": 605.8
+            },
+            {
+              "x": 745.6,
+              "text": "27.5(△11.8)",
+              "dx": 688.8
+            }
+          ],
+          "nearest_growth_tokens": [
+            {
+              "x": 757.7,
+              "text": "1.7(△29.9)",
+              "dx": 697.2
+            }
+          ]
+        },
+        {
+          "kind": "row_table",
+          "page": 5,
+          "anchor_xy": [
+            509.3,
+            116.2
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 547.8,
+              "text": "8,306"
+            },
+            {
+              "x": 576.1,
+              "text": "△25.6"
+            },
+            {
+              "x": 612.2,
+              "text": "7,173"
+            },
+            {
+              "x": 640.5,
+              "text": "△14.9"
+            },
+            {
+              "x": 678.5,
+              "text": "8,067"
+            },
+            {
+              "x": 722.0,
+              "text": "7.0"
+            },
+            {
+              "x": 746.8,
+              "text": "8,303"
+            },
+            {
+              "x": 777.2,
+              "text": "△0.03"
+            }
+          ],
+          "all_right_numeric_count": 8
+        },
+        {
+          "kind": "row_table",
+          "page": 6,
+          "anchor_xy": [
+            134.8,
+            228.1
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 663.6,
+              "text": "30.3(△26.0)"
+            },
+            {
+              "x": 746.7,
+              "text": "15.7(△48.2)"
+            }
+          ],
+          "all_right_numeric_count": 2
+        },
+        {
+          "kind": "row_table",
+          "page": 6,
+          "anchor_xy": [
+            79.5,
+            294.1
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 232.5,
+              "text": "83.1(△25.6)"
+            },
+            {
+              "x": 315.6,
+              "text": "83.0(△0.03)"
+            }
+          ],
+          "all_right_numeric_count": 2
+        }
+      ],
+      "total_candidates": 10
+    },
+    {
+      "month": "2020-06",
+      "version_index": 2,
+      "source_SHA256": "68f66c5e86ce48b63c5c5b2dbd6d54dd1594021761428211db8ddf5106e2bfc4",
+      "pages": 18,
+      "coordinate_candidates": [
+        {
+          "kind": "column_table",
+          "page": 6,
+          "anchor_xy": [
+            79.5,
+            294.1
+          ],
+          "amount_row_y": 333.8,
+          "growth_row_y": 345.1,
+          "nearest_amount_tokens": [
+            {
+              "x": 662.6,
+              "text": "31.2(△24.6)",
+              "dx": 605.8
+            },
+            {
+              "x": 745.6,
+              "text": "27.5(△11.8)",
+              "dx": 688.8
+            }
+          ],
+          "nearest_growth_tokens": [
+            {
+              "x": 757.7,
+              "text": "1.7(△29.9)",
+              "dx": 697.2
+            }
+          ]
+        },
+        {
+          "kind": "row_table",
+          "page": 5,
+          "anchor_xy": [
+            509.3,
+            116.2
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 547.8,
+              "text": "8,306"
+            },
+            {
+              "x": 576.1,
+              "text": "△25.6"
+            },
+            {
+              "x": 612.2,
+              "text": "7,173"
+            },
+            {
+              "x": 640.5,
+              "text": "△14.9"
+            },
+            {
+              "x": 678.5,
+              "text": "8,067"
+            },
+            {
+              "x": 722.0,
+              "text": "7.0"
+            },
+            {
+              "x": 746.8,
+              "text": "8,303"
+            },
+            {
+              "x": 777.2,
+              "text": "△0.03"
+            }
+          ],
+          "all_right_numeric_count": 8
+        },
+        {
+          "kind": "row_table",
+          "page": 6,
+          "anchor_xy": [
+            79.5,
+            294.1
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 232.5,
+              "text": "83.1(△25.6)"
+            },
+            {
+              "x": 315.6,
+              "text": "83.0(△0.03)"
+            }
+          ],
+          "all_right_numeric_count": 2
+        },
+        {
+          "kind": "row_table",
+          "page": 15,
+          "anchor_xy": [
+            62.8,
+            265.2
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 557.6,
+              "text": "9,923"
+            },
+            {
+              "x": 590.7,
+              "text": "-4.8"
+            },
+            {
+              "x": 619.8,
+              "text": "1.8"
+            },
+            {
+              "x": 652.8,
+              "text": "760"
+            },
+            {
+              "x": 680.1,
+              "text": "34.0"
+            },
+            {
+              "x": 713.9,
+              "text": "5,055"
+            },
+            {
+              "x": 755.1,
+              "text": "8.6"
+            },
+            {
+              "x": 790.2,
+              "text": "2.2"
+            }
+          ],
+          "all_right_numeric_count": 8
+        }
+      ],
+      "total_candidates": 9
+    },
+    {
+      "month": "2020-07",
+      "version_index": 1,
+      "source_SHA256": "636c1256755df0deba77e9b5ced36c01d24884365f5c56f7d5435aabd5d6606e",
+      "pages": 36,
+      "coordinate_candidates": [
+        {
+          "kind": "column_table",
+          "page": 16,
+          "anchor_xy": [
+            382.8,
+            706.6
+          ],
+          "amount_row_y": 730.4,
+          "growth_row_y": 745.9,
+          "nearest_amount_tokens": [
+            {
+              "x": 328.5,
+              "text": "20.6(△23.7)",
+              "dx": -22.2
+            },
+            {
+              "x": 445.4,
+              "text": "16.8(△18.4)",
+              "dx": 94.7
+            }
+          ],
+          "nearest_growth_tokens": []
+        },
+        {
+          "kind": "row_table",
+          "page": 10,
+          "anchor_xy": [
+            125.1,
+            160.9
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 182.4,
+              "text": "7,461"
+            },
+            {
+              "x": 222.4,
+              "text": "△28.1"
+            },
+            {
+              "x": 273.1,
+              "text": "8,067"
+            },
+            {
+              "x": 331.6,
+              "text": "7.0"
+            },
+            {
+              "x": 366.6,
+              "text": "8,303"
+            },
+            {
+              "x": 409.3,
+              "text": "△0.03"
+            },
+            {
+              "x": 462.9,
+              "text": "7,877"
+            },
+            {
+              "x": 524.4,
+              "text": "5.6"
+            }
+          ],
+          "all_right_numeric_count": 8
+        },
+        {
+          "kind": "row_table",
+          "page": 11,
+          "anchor_xy": [
+            112.1,
+            222.7
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 327.9,
+              "text": "74.6(△28.1)"
+            },
+            {
+              "x": 444.8,
+              "text": "78.8(5.6)"
+            }
+          ],
+          "all_right_numeric_count": 2
+        },
+        {
+          "kind": "row_table",
+          "page": 30,
+          "anchor_xy": [
+            86.5,
+            604.5
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 188.3,
+              "text": "93,930"
+            },
+            {
+              "x": 235.0,
+              "text": "-25.9"
+            },
+            {
+              "x": 276.1,
+              "text": "17.3"
+            },
+            {
+              "x": 320.6,
+              "text": "5,735"
+            },
+            {
+              "x": 370.8,
+              "text": "0.7"
+            },
+            {
+              "x": 408.6,
+              "text": "52,598"
+            },
+            {
+              "x": 467.9,
+              "text": "-1.0"
+            },
+            {
+              "x": 516.0,
+              "text": "19.2"
+            }
+          ],
+          "all_right_numeric_count": 8
+        }
+      ],
+      "total_candidates": 6
+    },
+    {
+      "month": "2020-10",
+      "version_index": 1,
+      "source_SHA256": "9fe56f0ee51e92a7c5e32e4553cf1fccd22e40715e53d879810a4d05b02a6f4b",
+      "pages": 19,
+      "coordinate_candidates": [
+        {
+          "kind": "row_table",
+          "page": 5,
+          "anchor_xy": [
+            509.1,
+            115.4
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 543.7,
+              "text": "7,862"
+            },
+            {
+              "x": 575.3,
+              "text": "△32.1"
+            },
+            {
+              "x": 610.6,
+              "text": "8,200"
+            },
+            {
+              "x": 648.7,
+              "text": "2.8"
+            },
+            {
+              "x": 677.5,
+              "text": "9,504"
+            },
+            {
+              "x": 713.2,
+              "text": "11.8"
+            },
+            {
+              "x": 744.3,
+              "text": "8,679"
+            },
+            {
+              "x": 780.1,
+              "text": "10.4"
+            }
+          ],
+          "all_right_numeric_count": 8
+        },
+        {
+          "kind": "row_table",
+          "page": 6,
+          "anchor_xy": [
+            79.5,
+            181.8
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 237.2,
+              "text": "78.6(△32.1)"
+            },
+            {
+              "x": 325.0,
+              "text": "86.8(10.4)"
+            }
+          ],
+          "all_right_numeric_count": 2
+        },
+        {
+          "kind": "row_table",
+          "page": 16,
+          "anchor_xy": [
+            61.3,
+            429.4
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 334.6,
+              "text": "2.0"
+            },
+            {
+              "x": 366.1,
+              "text": "19.5"
+            },
+            {
+              "x": 553.9,
+              "text": "3,697"
+            },
+            {
+              "x": 586.9,
+              "text": "-6.4"
+            },
+            {
+              "x": 616.0,
+              "text": "0.7"
+            },
+            {
+              "x": 654.5,
+              "text": "166"
+            },
+            {
+              "x": 681.1,
+              "text": "-39.6"
+            },
+            {
+              "x": 720.2,
+              "text": "2,636"
+            },
+            {
+              "x": 756.6,
+              "text": "-9.4"
+            },
+            {
+              "x": 791.3,
+              "text": "0.7"
+            }
+          ],
+          "all_right_numeric_count": 16
+        },
+        {
+          "kind": "row_table",
+          "page": 17,
+          "anchor_xy": [
+            154.0,
+            193.7
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 210.3,
+              "text": "27.5%"
+            },
+            {
+              "x": 545.9,
+              "text": "69,025"
+            },
+            {
+              "x": 583.4,
+              "text": "1.7"
+            },
+            {
+              "x": 606.9,
+              "text": "13.7"
+            },
+            {
+              "x": 646.6,
+              "text": "4,671"
+            },
+            {
+              "x": 682.1,
+              "text": "-6.1"
+            },
+            {
+              "x": 717.9,
+              "text": "55,034"
+            },
+            {
+              "x": 758.8,
+              "text": "-2.5"
+            },
+            {
+              "x": 788.9,
+              "text": "14.7"
+            }
+          ],
+          "all_right_numeric_count": 9
+        }
+      ],
+      "total_candidates": 7
+    },
+    {
+      "month": "2020-10",
+      "version_index": 2,
+      "source_SHA256": "ef118bf35b4226842cc94e0e9caa1eb0624edbbc734f18a3f9df5acd544bd231",
+      "pages": 37,
+      "coordinate_candidates": [
+        {
+          "kind": "row_table",
+          "page": 10,
+          "anchor_xy": [
+            125.1,
+            162.5
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 173.8,
+              "text": "7,862"
+            },
+            {
+              "x": 218.2,
+              "text": "△32.1"
+            },
+            {
+              "x": 267.9,
+              "text": "8,200"
+            },
+            {
+              "x": 321.7,
+              "text": "2.8"
+            },
+            {
+              "x": 362.2,
+              "text": "9,504"
+            },
+            {
+              "x": 412.6,
+              "text": "11.8"
+            },
+            {
+              "x": 456.4,
+              "text": "8,679"
+            },
+            {
+              "x": 506.8,
+              "text": "10.4"
+            }
+          ],
+          "all_right_numeric_count": 8
+        },
+        {
+          "kind": "row_table",
+          "page": 11,
+          "anchor_xy": [
+            112.1,
+            256.0
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 334.5,
+              "text": "78.6(△32.1)"
+            },
+            {
+              "x": 458.0,
+              "text": "86.8(10.4)"
+            }
+          ],
+          "all_right_numeric_count": 2
+        },
+        {
+          "kind": "row_table",
+          "page": 31,
+          "anchor_xy": [
+            86.5,
+            604.5
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 188.3,
+              "text": "93,930"
+            },
+            {
+              "x": 235.0,
+              "text": "-25.9"
+            },
+            {
+              "x": 276.1,
+              "text": "17.3"
+            },
+            {
+              "x": 320.6,
+              "text": "6,461"
+            },
+            {
+              "x": 370.8,
+              "text": "8.2"
+            },
+            {
+              "x": 408.6,
+              "text": "78,904"
+            },
+            {
+              "x": 471.6,
+              "text": "2.0"
+            },
+            {
+              "x": 516.0,
+              "text": "19.5"
+            }
+          ],
+          "all_right_numeric_count": 8
+        },
+        {
+          "kind": "row_table",
+          "page": 33,
+          "anchor_xy": [
+            217.0,
+            732.6
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 237.0,
+              "text": "19.9%"
+            },
+            {
+              "x": 486.8,
+              "text": "△47.7%"
+            }
+          ],
+          "all_right_numeric_count": 2
+        }
+      ],
+      "total_candidates": 5
+    },
+    {
+      "month": "2023-05",
+      "version_index": 1,
+      "source_SHA256": "5aea7be6f12ed902d8ad203a288f165b2b73c66fb659b139a0886f37e678074d",
+      "pages": 37,
+      "coordinate_candidates": [
+        {
+          "kind": "column_table",
+          "page": 6,
+          "anchor_xy": [
+            310.9,
+            678.7
+          ],
+          "amount_row_y": 697.0,
+          "growth_row_y": 715.4,
+          "nearest_amount_tokens": [
+            {
+              "x": 299.6,
+              "text": "73.7",
+              "dx": -0.1
+            },
+            {
+              "x": 364.1,
+              "text": "43.6",
+              "dx": 64.5
+            },
+            {
+              "x": 235.1,
+              "text": "44.7",
+              "dx": -64.6
+            }
+          ],
+          "nearest_growth_tokens": [
+            {
+              "x": 293.6,
+              "text": "△36.2",
+              "dx": -0.1
+            },
+            {
+              "x": 358.1,
+              "text": "△33.2",
+              "dx": 64.5
+            },
+            {
+              "x": 234.2,
+              "text": "+1.6",
+              "dx": -64.5
+            }
+          ]
+        },
+        {
+          "kind": "column_table",
+          "page": 15,
+          "anchor_xy": [
+            335.2,
+            233.2
+          ],
+          "amount_row_y": 266.3,
+          "growth_row_y": 283.1,
+          "nearest_amount_tokens": [],
+          "nearest_growth_tokens": []
+        },
+        {
+          "kind": "column_table",
+          "page": 15,
+          "anchor_xy": [
+            95.0,
+            266.3
+          ],
+          "amount_row_y": 283.1,
+          "growth_row_y": 301.1,
+          "nearest_amount_tokens": [],
+          "nearest_growth_tokens": []
+        },
+        {
+          "kind": "row_table",
+          "page": 7,
+          "anchor_xy": [
+            115.3,
+            130.9
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 272.7,
+              "text": "△42.5"
+            },
+            {
+              "x": 347.8,
+              "text": "△34.5"
+            },
+            {
+              "x": 422.9,
+              "text": "△41.0"
+            },
+            {
+              "x": 497.9,
+              "text": "△36.2"
+            }
+          ],
+          "all_right_numeric_count": 4
+        }
+      ],
+      "total_candidates": 7
+    },
+    {
+      "month": "2023-05",
+      "version_index": 2,
+      "source_SHA256": "f1fa3a0896206d9a20f4dc48c80d889f05530dafc95a3e68cc21a630b96c81eb",
+      "pages": 37,
+      "coordinate_candidates": [
+        {
+          "kind": "column_table",
+          "page": 6,
+          "anchor_xy": [
+            311.0,
+            679.4
+          ],
+          "amount_row_y": 697.8,
+          "growth_row_y": 716.2,
+          "nearest_amount_tokens": [
+            {
+              "x": 299.8,
+              "text": "73.7",
+              "dx": -0.1
+            },
+            {
+              "x": 364.3,
+              "text": "43.6",
+              "dx": 64.5
+            },
+            {
+              "x": 235.2,
+              "text": "44.7",
+              "dx": -64.6
+            }
+          ],
+          "nearest_growth_tokens": [
+            {
+              "x": 293.8,
+              "text": "△36.2",
+              "dx": -0.1
+            },
+            {
+              "x": 358.3,
+              "text": "△33.2",
+              "dx": 64.5
+            },
+            {
+              "x": 234.4,
+              "text": "+1.6",
+              "dx": -64.6
+            }
+          ]
+        },
+        {
+          "kind": "column_table",
+          "page": 15,
+          "anchor_xy": [
+            335.3,
+            233.5
+          ],
+          "amount_row_y": 266.6,
+          "growth_row_y": 283.4,
+          "nearest_amount_tokens": [],
+          "nearest_growth_tokens": []
+        },
+        {
+          "kind": "column_table",
+          "page": 15,
+          "anchor_xy": [
+            95.0,
+            266.6
+          ],
+          "amount_row_y": 283.4,
+          "growth_row_y": 301.4,
+          "nearest_amount_tokens": [],
+          "nearest_growth_tokens": []
+        },
+        {
+          "kind": "row_table",
+          "page": 7,
+          "anchor_xy": [
+            115.3,
+            131.0
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 272.9,
+              "text": "△42.5"
+            },
+            {
+              "x": 348.0,
+              "text": "△34.5"
+            },
+            {
+              "x": 423.1,
+              "text": "△41.0"
+            },
+            {
+              "x": 498.1,
+              "text": "△36.2"
+            }
+          ],
+          "all_right_numeric_count": 4
+        }
+      ],
+      "total_candidates": 7
+    },
+    {
+      "month": "2025-05",
+      "version_index": 1,
+      "source_SHA256": "cf109a28bae2f5f22295149715f5e4c28910262e8e583181387409e2567782fb",
+      "pages": 36,
+      "coordinate_candidates": [
+        {
+          "kind": "column_table",
+          "page": 5,
+          "anchor_xy": [
+            151.2,
+            333.8
+          ],
+          "amount_row_y": 355.0,
+          "growth_row_y": 376.2,
+          "nearest_amount_tokens": [
+            {
+              "x": 137.9,
+              "text": "137.9",
+              "dx": -0.0
+            },
+            {
+              "x": 192.3,
+              "text": "13.4",
+              "dx": 51.3
+            },
+            {
+              "x": 243.6,
+              "text": "13.0",
+              "dx": 102.6
+            }
+          ],
+          "nearest_growth_tokens": [
+            {
+              "x": 137.1,
+              "text": "+21.2",
+              "dx": -0.0
+            },
+            {
+              "x": 186.7,
+              "text": "△18.0",
+              "dx": 51.3
+            },
+            {
+              "x": 242.7,
+              "text": "+3.9",
+              "dx": 102.6
+            }
+          ]
+        },
+        {
+          "kind": "column_table",
+          "page": 6,
+          "anchor_xy": [
+            151.2,
+            608.7
+          ],
+          "amount_row_y": 631.3,
+          "growth_row_y": 653.7,
+          "nearest_amount_tokens": [
+            {
+              "x": 137.9,
+              "text": "137.9",
+              "dx": -0.0
+            },
+            {
+              "x": 192.3,
+              "text": "13.4",
+              "dx": 51.3
+            },
+            {
+              "x": 243.6,
+              "text": "13.0",
+              "dx": 102.6
+            }
+          ],
+          "nearest_growth_tokens": [
+            {
+              "x": 137.1,
+              "text": "+21.2",
+              "dx": -0.0
+            },
+            {
+              "x": 186.7,
+              "text": "△18.0",
+              "dx": 51.3
+            },
+            {
+              "x": 242.7,
+              "text": "+3.9",
+              "dx": 102.6
+            }
+          ]
+        },
+        {
+          "kind": "row_table",
+          "page": 12,
+          "anchor_xy": [
+            135.6,
+            177.6
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 181.4,
+              "text": "11,378"
+            },
+            {
+              "x": 270.7,
+              "text": "13,057"
+            },
+            {
+              "x": 360.1,
+              "text": "11,666"
+            },
+            {
+              "x": 449.4,
+              "text": "13,794"
+            }
+          ],
+          "all_right_numeric_count": 4
+        },
+        {
+          "kind": "row_table",
+          "page": 30,
+          "anchor_xy": [
+            101.8,
+            567.0
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 175.9,
+              "text": "141,920"
+            },
+            {
+              "x": 228.2,
+              "text": "43.9"
+            },
+            {
+              "x": 267.2,
+              "text": "20.8"
+            },
+            {
+              "x": 308.3,
+              "text": "9,691"
+            },
+            {
+              "x": 355.7,
+              "text": "17.2"
+            },
+            {
+              "x": 397.2,
+              "text": "54,193"
+            },
+            {
+              "x": 452.5,
+              "text": "10.1"
+            },
+            {
+              "x": 501.4,
+              "text": "20.9"
+            }
+          ],
+          "all_right_numeric_count": 8
+        }
+      ],
+      "total_candidates": 7
+    },
+    {
+      "month": "2026-05",
+      "version_index": 1,
+      "source_SHA256": "e1c89aeda48ef27f1533c4f2683829b102d3ab3ef301e6a423994915b1cf9d76",
+      "pages": 37,
+      "coordinate_candidates": [
+        {
+          "kind": "column_table",
+          "page": 6,
+          "anchor_xy": [
+            155.0,
+            301.0
+          ],
+          "amount_row_y": 314.8,
+          "growth_row_y": 328.6,
+          "nearest_amount_tokens": [
+            {
+              "x": 141.6,
+              "text": "371.6",
+              "dx": -0.1
+            },
+            {
+              "x": 204.5,
+              "text": "14.7",
+              "dx": 59.8
+            },
+            {
+              "x": 264.4,
+              "text": "14.6",
+              "dx": 119.7
+            }
+          ],
+          "nearest_growth_tokens": [
+            {
+              "x": 137.8,
+              "text": "+169.4",
+              "dx": -0.1
+            },
+            {
+              "x": 203.6,
+              "text": "+9.4",
+              "dx": 59.7
+            },
+            {
+              "x": 260.5,
+              "text": "+12.6",
+              "dx": 119.6
+            }
+          ]
+        },
+        {
+          "kind": "row_table",
+          "page": 12,
+          "anchor_xy": [
+            135.6,
+            175.4
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 184.3,
+              "text": "13,794"
+            },
+            {
+              "x": 273.7,
+              "text": "32,829"
+            },
+            {
+              "x": 363.0,
+              "text": "31,895"
+            },
+            {
+              "x": 452.3,
+              "text": "37,157"
+            }
+          ],
+          "all_right_numeric_count": 4
+        },
+        {
+          "kind": "row_table",
+          "page": 13,
+          "anchor_xy": [
+            178.2,
+            261.1
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 238.0,
+              "text": "90.5"
+            },
+            {
+              "x": 357.6,
+              "text": "42.4"
+            }
+          ],
+          "all_right_numeric_count": 2
+        },
+        {
+          "kind": "row_table",
+          "page": 31,
+          "anchor_xy": [
+            101.8,
+            590.4
+          ],
+          "right_numeric_tokens": [
+            {
+              "x": 175.9,
+              "text": "173,407"
+            },
+            {
+              "x": 228.2,
+              "text": "22.2"
+            },
+            {
+              "x": 267.2,
+              "text": "24.4"
+            },
+            {
+              "x": 305.8,
+              "text": "27,547"
+            },
+            {
+              "x": 353.2,
+              "text": "184.3"
+            },
+            {
+              "x": 394.7,
+              "text": "137,949"
+            },
+            {
+              "x": 450.0,
+              "text": "154.6"
+            },
+            {
+              "x": 501.4,
+              "text": "37.1"
+            }
+          ],
+          "all_right_numeric_count": 8
+        }
+      ],
+      "total_candidates": 5
+    }
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "historical_first_public_vintage_qualified": false,
+  "factor_values_qualified": false
+}

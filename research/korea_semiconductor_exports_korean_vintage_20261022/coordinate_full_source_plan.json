@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "frozen_full_current_PDF_geometry_source_qualification",
+  "sample_probe_review_sha256": "7afcf39c22314db1a6099bbf51e17fcd1e26d0ea6e25dfa5d3e74325e58189a0",
+  "sample_probe_result_sha256": "151fc14dfd6fe8e50406a24fd331604e59d8e2330a020c20f74ce23052b9830e",
+  "source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "selection_rules": [
+    "Locate a rank-1 semiconductor row with a header for the target current month; parse the rightmost current-month amount/growth pair inside the table header x boundary. Legacy row unit is USD million; preserve exact integer and convert to 100m USD only for comparison.",
+    "Or locate semiconductor as a table column under a category header, followed by export amount and growth rows; require each nearest numeric token center within 15 PDF points of the header center and source caption unit 100m USD.",
+    "Require source month/header agreement, finite amount and signed growth, and no other contradictory qualifying table pair within the same PDF. Duplicated equivalent table blocks are one source assertion.",
+    "For the three dual-version months, require every version to yield the same source pair; do not choose a favorable version.",
+    "Keep the 2020-05 p6 80.1 narrative versus p10 table 80.7 discrepancy as an explicit within-document conflict even if the table row is selected for current-document semantics.",
+    "No English or latest-statistics replacement for missing original Korean table values; report unresolved with page/box evidence."
+  ],
+  "acceptance_controls": {
+    "2019-02": "rank row p4 6,773 million USD and -24.8%; same PDF p10 rounded 67.7",
+    "2019-04": "rank row p3 8,455 million USD and -13.5%",
+    "2020-05": "rank row p10 8,068 million USD and +7.1%; p6 narrative 80.1 100m USD conflicts and remains unresolved as document inconsistency",
+    "2020-06": "both versions show rank row 8,303 million USD and -0.03%",
+    "2020-07": "rank row p10 7,877 million USD and +5.6%",
+    "2020-10": "both versions show rank row 8,679 million USD and +10.4%",
+    "2023-05": "both versions show aligned column 73.7 100m USD and -36.2%",
+    "2025-05": "aligned column 137.9 100m USD and +21.2%",
+    "2026-05": "aligned column 371.6 100m USD and +169.4%"
+  },
+  "budget": {
+    "PDF_versions": 96,
+    "max_pages_per_version": "all original text-layer pages",
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "outputs": "source-only per-version candidate table pairs with page/box, unit, conflict and dual-version audit; factor series remains unqualified until complete and timing gates checked",
+  "historical_first_public_vintage_qualified": false,
+  "stop_conditions": [
+    "Any source PDF or index hash mismatch stops before parsing.",
+    "If rule fails a positive sample control or a dual version, preserve failure and stop this selector; no coordinate tolerance or sign adjustment using SOXX outcomes.",
+    "If any month lacks a unique qualified pair, do not construct a 93-month factor vector."
+  ],
+  "source_index_path": "research/korea_semiconductor_exports_korean_vintage_20261022/korean_PDF_source_index.json",
+  "expected_PDF_versions": 96
+}

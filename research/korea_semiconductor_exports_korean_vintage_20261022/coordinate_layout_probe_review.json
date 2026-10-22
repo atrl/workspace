@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "coordinate_sample_structurally_recoverable_full_series_not_qualified",
+  "plan_sha256": "341c8f2e4b705ea5318747d7617f9305344b22274dd65e9a2fd0f3a7af71886d",
+  "candidate_result_sha256": "151fc14dfd6fe8e50406a24fd331604e59d8e2330a020c20f74ce23052b9830e",
+  "sample_PDF_versions": 12,
+  "versions_with_some_coordinate_candidates": 12,
+  "layout_families": [
+    "legacy rank-1 semiconductor row with current-month rightmost amount/growth, million USD",
+    "modern semiconductor column with aligned export amount and growth rows, 100m USD"
+  ],
+  "manual_source_controls": {
+    "2019-02": "rank row p4 6,773 million USD and -24.8%; same PDF p10 rounded 67.7",
+    "2019-04": "rank row p3 8,455 million USD and -13.5%",
+    "2020-05": "rank row p10 8,068 million USD and +7.1%; p6 narrative 80.1 100m USD conflicts and remains unresolved as document inconsistency",
+    "2020-06": "both versions show rank row 8,303 million USD and -0.03%",
+    "2020-07": "rank row p10 7,877 million USD and +5.6%",
+    "2020-10": "both versions show rank row 8,679 million USD and +10.4%",
+    "2023-05": "both versions show aligned column 73.7 100m USD and -36.2%",
+    "2025-05": "aligned column 137.9 100m USD and +21.2%",
+    "2026-05": "aligned column 371.6 100m USD and +169.4%"
+  },
+  "dual_version_months_same_sample_table_pair": [
+    "2020-06",
+    "2020-10",
+    "2023-05"
+  ],
+  "false_positive_layouts_seen": [
+    "narrative semiconductor anchors with unrelated numeric tokens on same line",
+    "a column-like geometry with amounts far outside the semiconductor x coordinate",
+    "duplicate table blocks on consecutive pages"
+  ],
+  "factor_values_qualified": false,
+  "historical_first_public_vintage_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "decision": "Freeze one geometry-and-header-based selector for the full 96 current PDF versions. Require exact source hash, rank/header month and unit in row layout or tight x-column alignment and amount/growth labels in column layout; report unresolved pages rather than borrowing a nearby number. Do not fit a Korea factor unless all 93 months and three dual-version comparisons pass and historical/forward timing limits are explicit."
+}
