@@ -1,0 +1,33 @@
+{
+  "status": "exact_delayed_2016_Sep_amendment_body_received_semantics_pending",
+  "plan_sha256": "032578b83b46a20abee3b46ab8410135a84fd4e4f431f457b037faa381512148",
+  "report_date": "2016-09-30",
+  "accession": "0001193125-17-257378",
+  "accepted_at_utc": "2017-08-15T01:09:35.000Z",
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312517257378/d441273dncsrsa.htm",
+  "request_started_at_utc": "2026-10-22T18:54:52.954926+00:00",
+  "response_finished_at_utc": "2026-10-22T18:54:55.488136+00:00",
+  "http_status": 200,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312517257378/d441273dncsrsa.htm",
+  "curl_exit_code": 0,
+  "curl_stderr": "",
+  "raw_path": "data/snapshots/stage1_soxx_2016_reported_concentration_source_20261023/amendment/0001193125-17-257378_d441273dncsrsa.htm",
+  "raw_sha256": "f84d338131e549780e41b4d96e893daf492a443bdbaa093146a44c27162521f5",
+  "raw_bytes": 57450885,
+  "headers_sha256": "23434bdf7ffba1e391a488420fbc3931b47aa27b76ad2c68d4105d8e8eeeb055",
+  "headers_bytes": 2178,
+  "GETs": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "nas_evidence": {
+    "sha256": "9aeaa24d20f984cc589f87b7972a7149f3b5797433ed071d3eebfa44af8deeee",
+    "size_bytes": 2680287,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/9a/ea/9aeaa24d20f984cc589f87b7972a7149f3b5797433ed071d3eebfa44af8deeee",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 02:54:56.419851+08",
+    "duplicate": false
+  },
+  "nas_scoped_restore_verified": true
+}

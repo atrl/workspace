@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "original_vs_delayed_amendment_2016_Sep_SOXX_equity_schedule_semantics",
+  "source_amendment_plan_sha256": "032578b83b46a20abee3b46ab8410135a84fd4e4f431f457b037faa381512148",
+  "source_amendment_transport_sha256": "64eac524b7b867c8a3964d6256379684cd40febb7472684fc911bdb78927bf6c",
+  "original_first_version_result_sha256": "c5d63cd18677a633ec2b79b76b224f4745b935fe3947675fb2a9f0c91066f69a",
+  "report_date": "2016-09-30",
+  "original_accession": "0001193125-16-788378",
+  "original_accepted_at_utc": "2016-12-09T00:57:38.000Z",
+  "original_raw_sha256": "e82162b5465a3d1baf2192ae6065918494df1231407d1c9fa22acd57b61f9f72",
+  "amendment_accession": "0001193125-17-257378",
+  "amendment_accepted_at_utc": "2017-08-15T01:09:35.000Z",
+  "amendment_raw_path": "data/snapshots/stage1_soxx_2016_reported_concentration_source_20261023/amendment/0001193125-17-257378_d441273dncsrsa.htm",
+  "amendment_raw_sha256": "f84d338131e549780e41b4d96e893daf492a443bdbaa093146a44c27162521f5",
+  "amendment_raw_bytes": 57450885,
+  "amendment_NAS_archive_sha256": "9aeaa24d20f984cc589f87b7972a7149f3b5797433ed071d3eebfa44af8deeee",
+  "source_identity_gate": "Find fund-named PHLX Semiconductor ETF TOC link or same original title, exact September 30 2016 report date and bounded Security/Shares/Value COMMON STOCKS section. A generic SOXX mention or semiconductor row is insufficient.",
+  "numeric_gate": "Use the fixed original 2016 direct-HTML security name/positive shares/positive USD fair value parser through TOTAL COMMON STOCKS; 20-40 distinct rows and printed total closure within one USD. Do not loosen after values.",
+  "comparison": "Compare original and amendment sorted exact security_original, shares_original, fair_value_usd_original and same-report normalized weights; also total USD, top5 share and HHI. Record any member or numeric change; do not silently rewrite original data.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "amendment_raw_body_reads_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "availability": "Original first-filed observation can apply only after its own acceptance/next-session clock. Any amendment value can apply only after 2017-08-15 acceptance/next-session clock; no retroactive backfill.",
+  "stop": "If amendment SOXX equity schedule identity, parser or total closure fails, report amendment scope unqualified, preserve first version and do not infer revised values."
+}
