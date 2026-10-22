@@ -1,0 +1,38 @@
+{
+  "experiment": "stage1_cftc_nq_tff_14d_timing_repair_20261023",
+  "decision": "development_only_conservative_CFTC_NQ_delta4_calendar_mapped_first_public_vintage_pending",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "source_audit": "source_audit.json",
+  "recorder_id": "f11156af93d24fdbb942c0c37c5408ad",
+  "experiment_id": "681074833032459051",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_cftc_nq_tff_14d_timing_repair_20261023/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "382b8b0a16f07a742f0a2384f9a2a281f77f39639c53147a21d0fd4a096f87dc",
+    "size_bytes": 219217,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/38/2b/382b8b0a16f07a742f0a2384f9a2a281f77f39639c53147a21d0fd4a096f87dc",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 05:22:48.016905+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/38/2b/382b8b0a16f07a742f0a2384f9a2a281f77f39639c53147a21d0fd4a096f87dc",
+    "recorder_id": "f11156af93d24fdbb942c0c37c5408ad",
+    "experiment_id": "681074833032459051",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "382b8b0a16f07a742f0a2384f9a2a281f77f39639c53147a21d0fd4a096f87dc",
+    "verified": true
+  },
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*"
+    ]
+  }
+}

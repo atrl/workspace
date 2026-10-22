@@ -1,0 +1,15 @@
+{
+  "status": "conditional_source_timing_repair_passed_for_development_only",
+  "scope": "Read-only independent review of the new Qlib source map after the 2025-12-23 report-row timing exclusion",
+  "plan_sha256": "e2bd03b4558042f962640fb40c8eb2877908e91f030425fb592aeec95737044c",
+  "summary_sha256": "05828e3da9ca7c0cf336c163b4fcdd75000c41ada596e8b565c5b433433633dd",
+  "recorder_id": "f11156af93d24fdbb942c0c37c5408ad",
+  "mapped_artifact_sha256": "a74a4d705983f34d0ecbb3df9dcf9855be26496c285d7c95f61acbd1cb47d061",
+  "source_audit": {"excluded_report_date": "2025-12-23", "invalidated_delta4_dependents": 4, "changed_signal_rows_vs_parent": 28, "first_changed_signal": "2025-12-30", "last_changed_signal": "2026-02-09"},
+  "native_readback": {"2025-12-29": "2025-12-16", "2025-12-30": "2025-12-16", "2025-12-31": "2025-12-16", "2026-01-02": "2025-12-16"},
+  "finding": "The known Dec 30 use of the current Dec 23 annual row is removed. The repaired map retains the older Dec 16 report on Dec 30 and never labels the excluded row itself as the selected known coordinate.",
+  "boundary": "The ordinary 14-day release proxy and historical first-public value remain unqualified. This review supports only a separately frozen conditional development information screen; it does not approve the old information plan, a full 0bp funded account, or SOXX promotion.",
+  "required_next_step": "A new fixed information plan must pin this repaired summary and Recorder/artifact hashes and rerun no-fit source/maturity/novelty checks. The old cdd3e57a source-plan version remains rejected before fit.",
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_cftc_nq_tff_14d_timing_repair_20261023",
+  "phase": "source_only_timing_repair_exclude_updated_2025_12_23_report_and_delta4_dependents",
+  "source_card": "research/stage1_cftc_nq_tff_source_probe_20261023/summary.json",
+  "raw_zip_sha256": {
+    "2011": "583a93474847f1070b213e2b12cfa73c48d9ba05f24f7d001a338de125468b57",
+    "2012": "c5b65a8c3e0f597fae6b41eaba9246e2a995b14de3aa8fd12aabee8d05032a58",
+    "2013": "682e643683c1ca36f723980544f4ff3bef7e0c3d299bc85c0904ef17b97f2780",
+    "2014": "83893048e9a73e8b6e81d9ef7a737f9f86db6bdc28f17d393b8df2e87ab713d6",
+    "2015": "a506b8ceb510fb49b8b21a1687fff35903698b8968d079b9e5f12ce92f96b68e",
+    "2016": "e8570bcd83df5c3e25aca61a59985001db83a8299a25943525c8d109ffc94a15",
+    "2017": "e6e2dd537efcc57cdd6cdcc4e45e567fd47e65d8afc8369d8383bf09195ae7f5",
+    "2018": "6843d130a25a17c6248df67463810f02077ef4eeafdd629299d21c18f5125e40",
+    "2019": "631b31880d513072aa50d63117c896184dd35db3cc8fcdd6debd80197ee7a661",
+    "2020": "c90d98d94db708772d669f263fb8061c75f8a7f681ba231fb21247e5c9798e6b",
+    "2021": "5c929991038c70ae2501661b6d442b9e784d3c29d3166ceac2e21b45ac93d56a",
+    "2022": "94c9c1fdee9dfbe377a09923ddfe26b88d3460605dd076081f221ad367d88601",
+    "2023": "43c3dbdd4d01fceefad5e457003751cdc0974c7cf46097b322e26e9e2fe44d7a",
+    "2024": "3f00585741a7cf76c207df640951d644dd91ff22a1106b38ca37a2469c765637",
+    "2025": "2ea0cda6395f7dd6501c27422be3763e1f2f5b41b768cfd36b871f092a07d438",
+    "2026": "6722fc377087c9380d7504345ac7145a891185ea7d57c9ad3f184b29da43aa57"
+  },
+  "contract_code": "209742",
+  "coordinate": {
+    "name": "CFTC_NQ_LevNetOI_delta4",
+    "formula": "[(LeveragedMoneyLong-LeveragedMoneyShort)/OpenInterest]_report_t minus the same ratio exactly four report rows earlier",
+    "one_coordinate": true,
+    "source_only_no_sign_or_target_selection": true
+  },
+  "availability": {
+    "ordinary": "report_date plus 14 calendar days at 00:00 America/New_York, then only Stage1 decision at 09:45 New York or later",
+    "2025_backlog_final_official_release_dates": {
+      "2025-09-30": "2025-11-19",
+      "2025-10-07": "2025-11-21",
+      "2025-10-14": "2025-11-25",
+      "2025-10-21": "2025-12-02",
+      "2025-10-28": "2025-12-05",
+      "2025-11-04": "2025-12-09",
+      "2025-11-10": "2025-12-10",
+      "2025-11-18": "2025-12-12",
+      "2025-11-25": "2025-12-15",
+      "2025-12-02": "2025-12-17",
+      "2025-12-09": "2025-12-19",
+      "2025-12-16": "2025-12-23",
+      "2025-12-23": "2025-12-29"
+    },
+    "backlog_use": "official actual release date plus one calendar day at 00:00 New York",
+    "unknown_report_date_ranges_inclusive": [
+      [
+        "2018-12-24",
+        "2019-02-26"
+      ],
+      [
+        "2023-01-31",
+        "2023-03-14"
+      ]
+    ],
+    "unknown_rows": "exclude source row and any delta4 that depends on it; never infer a date from ordering",
+    "max_feature_age_calendar_days": 56,
+    "special_known_revision": "2019-03-26 corrected 2019-04-03; ordinary 14-day embargo covers documented correction. 2011-06-21 adjusted in original 2011-06-24 publication.",
+    "limitation": "14-day ordinary embargo is a conservative development proxy based on usual CFTC Friday release, not certified historical first-public time. Annual compressed data might contain later revisions.",
+    "additional_excluded_report_dates": [
+      "2025-12-23"
+    ],
+    "additional_exclusion_reason": "Current weekly report version says Updated 2025-12-31 after scheduled 2025-12-29 publication, so annual current-version row cannot be assigned to 2025-12-30. Exclude row and four subsequent delta4 dependencies."
+  },
+  "official_sources": {
+    "schedule": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/ReleaseSchedule/index.htm",
+    "special_announcements": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalSpecialAnnouncements/index.htm",
+    "2025_revised": "https://www.cftc.gov/PressRoom/PressReleases/9147-25",
+    "2019_backlog": "https://www.cftc.gov/PressRoom/PressReleases/7864-19",
+    "historical_dates_limit": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm"
+  },
+  "Qlib": {
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "calendar": "D.calendar day 2011-01-03 through 2026-10-07",
+    "mapping": "asof last source coordinate available before 09:45 New York; full calendar with NaNs, no survivor compaction"
+  },
+  "budget": {
+    "external_GETs": 0,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "market_outcome_reads": 0,
+    "Qlib_writable_recorders_max": 1
+  },
+  "stop": "Keep parent Recorder untouched. New Qlib Recorder/NAS map only. No outcomes/fits/accounts. If source identity, date, full-calendar or NAS readback fails stop and preserve partial evidence.",
+  "parent_frozen_map_plan_sha256": "eeee19efe080d3330b386e40d6acad7960501295dcb2575819783c88059abd96",
+  "parent_frozen_map_summary_sha256": "ca26e5eb406bb599f2830c750b4abd7dc9bec3c26c513b224e96e4ad06f55524",
+  "timing_audit_sha256": "86be93ef59b278e76d150b6653bdd9030ec39d270682b3d418d8f272a9163b2e",
+  "independent_review_sha256": "68e9f2738b3cda6e51a5c6c44f8885b47e34cf4a8f8d0a302e71d374a8c921f8"
+}

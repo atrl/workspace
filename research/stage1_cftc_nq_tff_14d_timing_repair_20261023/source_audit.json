@@ -1,0 +1,23 @@
+{
+  "status": "development_only_conservative_CFTC_NQ_delta4_calendar_mapped_first_public_vintage_pending",
+  "plan_sha256": "e2bd03b4558042f962640fb40c8eb2877908e91f030425fb592aeec95737044c",
+  "weekly_report_rows": 824,
+  "source_coordinate_valid_rows": 790,
+  "unknown_clock_report_rows": 18,
+  "train_calendar_rows": 3020,
+  "held_calendar_rows": 944,
+  "known_train_sessions": 2947,
+  "known_held_sessions": 915,
+  "missing_train_sessions": 73,
+  "missing_held_sessions": 29,
+  "coordinate_train_min": -0.33269111915727184,
+  "coordinate_train_max": 0.30047364803745835,
+  "first_public_vintage_qualified": false,
+  "historical_release_calendar_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "changed_signal_rows_vs_parent_map": 28,
+  "changed_signal_first": "2025-12-30 00:00:00",
+  "changed_signal_last": "2026-02-09 00:00:00"
+}

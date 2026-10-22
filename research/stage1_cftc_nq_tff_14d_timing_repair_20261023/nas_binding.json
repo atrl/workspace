@@ -1,0 +1,23 @@
+{
+  "schema_version": "recorder_evidence_binding_v1",
+  "authority": "yanxuan_nas",
+  "source_id": "stage1_cftc_nq_tff_14d_timing_repair_20261023",
+  "ssh": {
+    "host": "rziiiii@192.168.1.3",
+    "port": 911
+  },
+  "source_plan": "plan.json",
+  "evidence": {
+    "sha256": "382b8b0a16f07a742f0a2384f9a2a281f77f39639c53147a21d0fd4a096f87dc",
+    "size_bytes": 219217,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/38/2b/382b8b0a16f07a742f0a2384f9a2a281f77f39639c53147a21d0fd4a096f87dc",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 05:22:48.016905+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/38/2b/382b8b0a16f07a742f0a2384f9a2a281f77f39639c53147a21d0fd4a096f87dc",
+    "recorder_id": "f11156af93d24fdbb942c0c37c5408ad",
+    "experiment_id": "681074833032459051",
+    "archive_root": "qlib_recorder"
+  }
+}

@@ -135,6 +135,16 @@
       "execution_authorized": false,
       "result": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/summary.json",
       "source_audit": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/source_audit.json"
+    },
+    {
+      "card": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023",
+      "phase": "source_timing_repair_full_calendar_map_complete_first_public_pending",
+      "role": "Stage1_CFTC_NQ_positioning_delta4_corrected_source_coordinate",
+      "full_economic_experiment": false,
+      "status": "development_only_source_map_no_fit_or_account",
+      "execution_authorized": false,
+      "result": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/summary.json",
+      "source_audit": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/source_audit.json"
     }
   ],
   "framework": [
@@ -370,7 +380,8 @@
     "forward_IO_status": "Oct19 diagnostic pilot missed and Oct22 paired paper scheduler blocked by frozen release source hash mismatch. No new qualified forward day; old claim/release cannot be silently resumed or rehashed.",
     "paper_release_hash_block": "production/stage1_regime_paper_20261001/runtime_code_identity_block_20261022.json",
     "Stage1_CFTC_TFF_source_identity": "research/stage1_cftc_nq_tff_source_probe_20261023/summary.json",
-    "Stage1_CFTC_NQ_positioning_map": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/summary.json"
+    "Stage1_CFTC_NQ_positioning_map": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/summary.json",
+    "Stage1_CFTC_NQ_timing_repaired_map": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/summary.json"
   },
   "closed_source_probes": [
     {
