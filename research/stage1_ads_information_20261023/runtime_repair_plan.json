@@ -1,0 +1,13 @@
+{
+  "frozen": true,
+  "parent_plan": "plan.json",
+  "failure": "preflight_attempt1_failure.json",
+  "scope": "No-fit preflight runtime only. Use qlib_venv/bin/python3.12 and its ipykernel, as used by the frozen Stage1-era notebooks; retain identical source, label, feature, control and information gates.",
+  "reason": "Default Homebrew Python 3.14 aborts with duplicate OpenMP library while loading the frozen Stage1 model; repository qlib_venv Python 3.12.12 has scikit-learn 1.9.1 and Qlib 0.9.7.",
+  "additional_preflight_attempts_max": 1,
+  "source_recorder_loads_total_max": 16,
+  "DatasetH_builds_total_max": 3,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "forbidden_workaround": "Do not set KMP_DUPLICATE_LIB_OK; this could mask unsafe duplicate OpenMP linkage."
+}

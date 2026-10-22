@@ -1,0 +1,162 @@
+{
+  "experiment": "stage1_ads_information_20261023",
+  "plan_sha256": "dbf06de420cc63a12ef52f7ea8377152b1b51ced87d2bd1004c64004470b4143",
+  "decision": "not_promoted_fixed_ADS_information_failed",
+  "objective_achieved": false,
+  "information_gate_pass": false,
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "metrics": {
+    "baseline_held_mse": 0.002525385602851134,
+    "candidate_held_mse": 0.0025737515716430944,
+    "held_paired_mse_improvement": -4.8365968791960854e-05,
+    "held_half_paired_improvements": [
+      -6.505570087442132e-06,
+      -9.634295543503939e-05
+    ],
+    "candidate_standardized_coordinate_coefficient": -0.002955128343110155,
+    "bootstrap_lower": -0.00014107765658738999,
+    "bootstrap_upper": 1.504907173798025e-05,
+    "bootstrap": {
+      "paired_mean_loss_improvement": -4.8365968791960854e-05,
+      "lower_bound": -0.00014107765658738999,
+      "upper_bound": 1.504907173798025e-05,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 940,
+      "scored_rows": 940
+    }
+  },
+  "gates": {
+    "coefficient_positive": false,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "quarterly_information_attribution": [
+    {
+      "quarter": "2023Q1",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -4.7955082788038155e-05
+    },
+    {
+      "quarter": "2023Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": 2.2350912827646815e-05
+    },
+    {
+      "quarter": "2023Q3",
+      "sessions": 63,
+      "paired_mean_mse_improvement": -6.847039210547297e-06
+    },
+    {
+      "quarter": "2023Q4",
+      "sessions": 63,
+      "paired_mean_mse_improvement": -3.758889886574706e-06
+    },
+    {
+      "quarter": "2024Q1",
+      "sessions": 61,
+      "paired_mean_mse_improvement": -4.4451051673054065e-05
+    },
+    {
+      "quarter": "2024Q2",
+      "sessions": 63,
+      "paired_mean_mse_improvement": -1.3232952402743901e-05
+    },
+    {
+      "quarter": "2024Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 2.803898383452929e-05
+    },
+    {
+      "quarter": "2024Q4",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 1.157079804353573e-05
+    },
+    {
+      "quarter": "2025Q1",
+      "sessions": 60,
+      "paired_mean_mse_improvement": 6.827510544146585e-05
+    },
+    {
+      "quarter": "2025Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -0.0003296389884472894
+    },
+    {
+      "quarter": "2025Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -2.980755876946094e-05
+    },
+    {
+      "quarter": "2025Q4",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -1.6145038330784936e-05
+    },
+    {
+      "quarter": "2026Q1",
+      "sessions": 61,
+      "paired_mean_mse_improvement": -2.156105568970178e-06
+    },
+    {
+      "quarter": "2026Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -0.00045851535801138404
+    },
+    {
+      "quarter": "2026Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 8.627362817165642e-05
+    },
+    {
+      "quarter": "2026Q4",
+      "sessions": 1,
+      "paired_mean_mse_improvement": 0.00012182512453945817
+    }
+  ],
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "reused_market_history": true,
+  "historical_exact_intraday_release_clock_qualified": false,
+  "independent_forward_qualified_days": 0,
+  "recorder_id": "2859f5a0f084429fb31319c0aa252ef0",
+  "experiment_id": "731245870150375705",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_ads_information_20261023/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_ads_information_20261023/qlib_recorder/731245870150375705/2859f5a0f084429fb31319c0aa252ef0",
+  "mapped_source_sha256": "a3890f40f8cb4d67e5571c7eb63cb544179824c3628c676ff20f7e7a0ede902e",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Official real-time ADS vintage date uses conservative next-Qlib-session availability; exact historical intraday publication clock is not certified",
+    "No ADS source missingness in the 3014/940 eligible sessions; reused held history is development feedback",
+    "Information MSE is not a fee-net account result, nor independent forward evidence"
+  ],
+  "nas_evidence": {
+    "sha256": "e017b8d9e0a461ae9b55b120139222ad0eccffa8c472f98bcd5b6893f6a01358",
+    "size_bytes": 889390,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/e0/17/e017b8d9e0a461ae9b55b120139222ad0eccffa8c472f98bcd5b6893f6a01358",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 01:43:16.576946+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e0/17/e017b8d9e0a461ae9b55b120139222ad0eccffa8c472f98bcd5b6893f6a01358",
+    "recorder_id": "2859f5a0f084429fb31319c0aa252ef0",
+    "experiment_id": "731245870150375705",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "e017b8d9e0a461ae9b55b120139222ad0eccffa8c472f98bcd5b6893f6a01358",
+    "bytes": 889390,
+    "verified": true
+  }
+}

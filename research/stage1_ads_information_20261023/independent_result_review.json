@@ -1,41 +1,55 @@
 {
-  "schema_version": 1,
-  "verdict": "FAIL_INFORMATION_GATE_CLOSE_FIXED_ADS_VERSION",
-  "reviewer": "independent Goal task result readback, separate from fixed information executor",
+  "verdict": "CONFIRM_NOT_PROMOTED",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "decision": "not_promoted_fixed_ADS_information_failed",
   "plan_sha256": "dbf06de420cc63a12ef52f7ea8377152b1b51ced87d2bd1004c64004470b4143",
-  "summary_sha256": "bfe0d179e19fe608e15230c674acdab3777cbaca2856b13fb74c8f3c189f9338",
-  "result_review_sha256": "c48bd1ccbcf2639e48b78d49a4da7c6f3558a21b8452bfdcf5d93438ab6c8b24",
-  "run_state_sha256": "c416297fee0744b0cdef06bf03a3fd04c015793679722ca290a539993caeea89",
   "recorder_id": "2859f5a0f084429fb31319c0aa252ef0",
-  "native_Recorder_readback": {
-    "predictions_baseline_and_candidate_rows": 940,
-    "first_signal_date": "2023-01-03",
-    "last_mature_signal_date": "2026-10-01",
-    "baseline_mse": 0.002525385602851134,
-    "candidate_mse": 0.0025737515716430944,
-    "paired_improvement": -4.8365968791960854e-05,
-    "metrics_and_gates_equal_stored_Recorder": true
+  "experiment_id": "731245870150375705",
+  "native_Recorder_status": "FINISHED",
+  "matched_rows": {
+    "train_segment": 3020,
+    "held_segment": 944,
+    "mature_training": 3014,
+    "mature_held": 940,
+    "held_daily_scores": 940,
+    "quarter_rows": 16
   },
-  "fixed_gates": {
+  "completed_budget": {
+    "model_fit_attempts": 2,
+    "models_saved": 2,
+    "prediction_artifacts": 2,
+    "paired_bootstrap_attempts": 1,
+    "native_accounts": 0
+  },
+  "metrics": {
+    "baseline_held_mse": 0.002525385602851134,
+    "candidate_held_mse": 0.0025737515716430944,
+    "held_paired_mse_improvement": -0.000048365968791960854,
+    "held_half_paired_improvements": [-0.000006505570087442132, -0.00009634295543503939],
+    "candidate_standardized_ADS_coefficient": -0.002955128343110155,
+    "corrected_bootstrap_lower": -0.00014107765658738999,
+    "bootstrap_alpha": 0.001,
+    "bootstrap_draws": 10000
+  },
+  "gates": {
     "coefficient_positive": false,
     "full_held_mean_positive": false,
-    "both_halves_positive": false,
-    "bootstrap_lower_positive": false
+    "both_held_halves_positive": false,
+    "corrected_bootstrap_lower_positive": false
   },
-  "bootstrap_lower": -0.00014107765658738999,
-  "coefficient": -0.002955128343110155,
-  "motivation_interval_attribution": {
-    "2025Q2_paired_mean_mse_improvement": -0.0003296389884472894,
-    "2025Q3_paired_mean_mse_improvement": -2.980755876946094e-05,
-    "interpretation": "ADS worsened H5 SOXX information in the 2025 quarters overlapping the cash-opportunity-dominated weak Stage1 interval; quarter means are descriptive, not a trading rule."
+  "evidence_checks": {
+    "plan_review_permit_preflight_and_both_code_cell_hashes_match": true,
+    "native_Qlib_DatasetH_and_analysis_readback_passed": true,
+    "local_Recorder_manifest_entries_verified": 17,
+    "NAS_archive_sha256": "e017b8d9e0a461ae9b55b120139222ad0eccffa8c472f98bcd5b6893f6a01358",
+    "NAS_archive_bytes": 889390,
+    "NAS_saved_receipt_and_remote_readback_match": true
   },
-  "evidence_limits": [
-    "The Qlib source map has complete aligned values but historical ADS intraday first-public clocks remain unqualified.",
-    "The 940 held signals reuse market history; this is development feedback, not independent validation.",
-    "No new Stage1 action/risk/recovery account was run; MSE cannot establish net SOXX excess."
-  ],
-  "decision": "Do not run the fixed ADS candidate through a 0bp economic account or change its sign, window, controls, or threshold on reused history. Continue the Goal with a materially different decision-time mechanism.",
-  "new_fits": 2,
-  "new_accounts": 0,
-  "goal_complete": false
+  "scientific_boundary": "The ADS vintage-date mapping is conservative but exact historical intraday release time is unqualified; the 2023-2026 held history is reused development data. Information MSE is not a fee-net SOXX account result or independent forward evidence.",
+  "fixed_version_closed": true,
+  "next_action": "Close this ADS level/H5/Ridge version without sign, age, window, control or coefficient rescue. Continue the SOXX goal with a substantively different decision-time mechanism.",
+  "delivery_status": "Confirmed complete: conclusion.md and notebook final Chinese markdown match the saved fixed failure, two fits, one bootstrap, zero accounts, Recorder/NAS identities and closed-route boundary. Reviewed preflight and fit code-cell hashes remain unchanged; no refit or bootstrap was run for delivery.",
+  "review_new_model_fits": 0,
+  "review_new_bootstraps": 0,
+  "review_new_native_accounts": 0
 }

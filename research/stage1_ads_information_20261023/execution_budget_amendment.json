@@ -1,0 +1,12 @@
+{
+  "frozen": true,
+  "parent_plan": "plan.json",
+  "reason": "Two failed no-fit preflight diagnostics consumed at most two source Recorder loads each, and the guarded Python 3.12 preflight consumed five loads. A final repaired no-fit preflight consumed five. The planned fit-run source reconstruction needs five more; worst case total is 19.",
+  "source_recorder_artifact_loads_max": 20,
+  "DatasetH_builds_max": 3,
+  "scientific_choices_unchanged": true,
+  "model_fit_attempts_max": 2,
+  "bootstrap_attempts_max": 1,
+  "native_accounts": 0,
+  "pre_fit_barrier": "Require exact-plan, preflight-result, preflight-code and fit-code independent review before fit. The .025/25 bootstrap correction remains fixed."
+}

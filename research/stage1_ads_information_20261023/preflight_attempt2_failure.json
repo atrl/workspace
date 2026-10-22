@@ -1,0 +1,11 @@
+{
+  "status": "no_fit_preflight_stopped_before_DatasetH",
+  "runtime": "qlib_venv Python 3.12.12 scikit-learn 1.9.1",
+  "source_and_parent_recorder_loads_completed": 5,
+  "failed_assertion": "Full parent daily_frame date range ADS nonmissing, including rows outside frozen train/held signal cohorts",
+  "diagnosis": "The availability map deliberately contains exactly the 3020 training and 944 reused held sessions. Matched information eligibility is a subset of those sessions. The assertion was broader than the frozen cohorts and does not indicate source missingness within the admitted rows.",
+  "DatasetH_builds": 0,
+  "model_fits": 0,
+  "bootstrap_runs": 0,
+  "native_accounts": 0
+}

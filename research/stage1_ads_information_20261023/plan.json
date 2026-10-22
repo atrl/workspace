@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_ads_information_20261023",
+  "phase": "matched_original_Stage1_ADS_information_design_before_fit",
+  "execution_authorized": false,
+  "parent": {
+    "name": "Original frozen complete Stage1 allocator and unchanged action/risk/recovery chain",
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "feature_order": "exact original Stage1 39 base_features, seed71"
+  },
+  "candidate_source": {
+    "card": "research/stage1_ads_availability_20261023",
+    "recorder_id": "5707514424bb4d338c85ecb5a227cb7b",
+    "experiment_id": "667335954941907928",
+    "summary_sha256": "0c4dbacc788b5910a0c4209d9cb002aafe29a1a87a08b738a2cc4ee6253f084f",
+    "availability_audit_sha256": "87b1bc27c6b1368e018aeb590a2d027ffa57def822f107c6826b8dd456b8f5bd",
+    "mapped_artifact_sha256": "a3890f40f8cb4d67e5571c7eb63cb544179824c3628c676ff20f7e7a0ede902e",
+    "nas_archive_sha256": "2a9cb5253904e3b80e1443af3dce70bd968b02b84aad4287caaac238b8dec386",
+    "source_raw_sha256": "6b6001da2127ad94066828b3a3151368adeb8f83a7dfe65f1901678703cfef44",
+    "availability": "strictly earlier vintage calendar date than signal Qlib session, latest observation no later than vintage date",
+    "historical_exact_intraday_release_clock_qualified": false
+  },
+  "single_mechanism": {
+    "feature": "ads_latest_observation_asof_vintage",
+    "hypothesis": "Stronger real-time broad U.S. activity adds positive information about the next five funded SOXX open intervals beyond Stage1 price/VIX/breadth inputs and shared source-age controls; broad demand persistence differs from previously failed semiconductor output/export coordinates.",
+    "required_added_standardized_coefficient_sign": "positive",
+    "baseline_control": "Original 39 Stage1 inputs plus vintage_age_days and observation_age_days in both arms.",
+    "candidate": "Same rows, label, imputer, scaler and Ridge plus exactly one ADS real-time index value.",
+    "no_survivor_compaction": true
+  },
+  "label": {
+    "primary": "Five consecutive original Stage1 SOXX funded open-to-open returns from signal s: sum j=0..4 log1p(soxx_forward_open_return(s+j)).",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval; train strictly before 2023-01-01 America/New_York and held before 2026-10-10 America/New_York.",
+    "role": "Matched incremental information only, not fee-net strategy return."
+  },
+  "cohorts": {
+    "train_signal": ["2011-01-03", "2022-12-30"],
+    "held_reused_diagnostic": ["2023-01-03", "2026-10-07"],
+    "held_halves": [["2023-01-03", "2024-12-31"], ["2025-01-02", "2026-10-07"]],
+    "expected_mature_train_rows": 3014,
+    "expected_mature_held_rows": 940,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "SimpleImputer(median) then StandardScaler then Ridge(alpha=1.0) on original 39 and two shared source-age controls",
+    "candidate": "Identical pipeline plus one ADS numeric coordinate",
+    "new_fits": 2,
+    "no_hyperparameter_seed_window_or_output_selection": true
+  },
+  "information_gate": {
+    "paired_metric": "On identical held signals, baseline squared error minus candidate squared error for five-open SOXX log return.",
+    "added_coefficient_positive": true,
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {"mean_block_sessions": 63, "draws": 10000, "seed": 20261023, "one_sided_alpha": 0.001, "family_denominator": 25, "lower_positive": true},
+    "no_gate_rescue": true
+  },
+  "budget": {"new_market_requests": 0, "source_recorder_artifact_loads_max": 16, "DatasetH_builds_max": 3, "model_fit_attempts_max": 2, "bootstrap_attempts_max": 1, "new_writable_Qlib_Recorders_max": 1, "native_accounts": 0},
+  "barrier": "Before either fit, run a no-fit native Qlib DatasetH label/source/maturity preflight, bind its code and output to this plan, and obtain independent scoped design review. The prior FT900 screen used denominator 24; ADS is the next tested candidate and is preregistered at 0.025/25. A passing reused-history information screen remains conditional; full 0bp Stage1-derived account and later 2/5bp plus independent forward evidence are separate gates.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": ["inputs/*", "models/*", "predictions/*", "analysis/*"]}
+}

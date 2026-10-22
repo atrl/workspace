@@ -1,0 +1,13 @@
+{
+  "frozen": true,
+  "parent_plan": "plan.json",
+  "failure": "preflight_attempt2_failure.json",
+  "scope": "Move ADS-value and source-age nonmissing/temporal assertions from the entire original parent frame to the exact predeclared train and held eligible masks after H5 label maturity. Preserve every admitted session, both arms, label, controls and all information gates.",
+  "additional_no_fit_preflight_attempts_max": 1,
+  "source_recorder_loads_total_worst_case": 14,
+  "source_recorder_loads_frozen_max": 16,
+  "DatasetH_builds_frozen_max": 3,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "stop": "If admitted-session source values or ages are missing or temporal order is invalid, stop and report. Do not compact rows or proceed to fits."
+}

@@ -1,0 +1,13 @@
+{
+  "status": "not_completed_kernel_died_before_preflight_receipt",
+  "exception": "nbclient.exceptions.DeadKernelError: Kernel died",
+  "code_sha256": "acccced367953a8397245df22e2e73bd372f2b546f6c045a93bc5f9a4d5d674f",
+  "preflight_receipt_exists": false,
+  "fit_attempts": 0,
+  "bootstrap_attempts": 0,
+  "native_accounts": 0,
+  "source_artifact_load_count": "unknown_at_crash_max_5",
+  "DatasetH_build_count": "unknown_at_crash_max_1",
+  "diagnostic_retry": "A direct Python 3.14 run reached ADS Recorder readback, then exited 134 while loading the frozen Stage1 model because two libomp.dylib copies were initialized. No receipt or fit was produced.",
+  "next_action": "Use the repository's existing qlib_venv Python 3.12.12 / scikit-learn 1.9.1 runtime matching the frozen Stage1 notebook. Do not use KMP_DUPLICATE_LIB_OK. One guarded no-fit preflight remains within the 16 source-load and 3 DatasetH caps."
+}

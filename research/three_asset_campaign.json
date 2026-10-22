@@ -142,7 +142,11 @@
     "Philadelphia_ADS_schema_header_audit": "research/philadelphia_ads_vintage_source_20261023/schema_header_audit.json",
     "Philadelphia_ADS_Stage1_availability_plan": "research/stage1_ads_availability_20261023/plan.json",
     "Philadelphia_ADS_Stage1_availability_result": "research/stage1_ads_availability_20261023/availability_audit.json",
-    "Philadelphia_ADS_Stage1_availability_status": "1576_original_vintage_diagonals_valid_3020_train_944_held_Qlib_sessions_nonmissing_NAS_restored_zero_fits_accounts_information_gate_pending"
+    "Philadelphia_ADS_Stage1_availability_status": "1576_original_vintage_diagonals_valid_3020_train_944_held_Qlib_sessions_nonmissing_NAS_restored_zero_fits_accounts_information_gate_pending",
+    "Philadelphia_ADS_Stage1_information_plan": "research/stage1_ads_information_20261023/plan.json",
+    "Philadelphia_ADS_Stage1_information_preflight": "research/stage1_ads_information_20261023/preflight_result.json",
+    "Philadelphia_ADS_Stage1_information_status": "closed_fixed_ADS_H5_information_failed_two_fits_one_bootstrap_zero_accounts_MSE_worse_both_halves_negative",
+    "Philadelphia_ADS_Stage1_information_result": "research/stage1_ads_information_20261023/summary.json"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

@@ -1,0 +1,26 @@
+{
+  "status": "ADS_original_Stage1_DatasetH_label_maturity_preflight_passed_no_fit",
+  "plan_sha256": "dbf06de420cc63a12ef52f7ea8377152b1b51ced87d2bd1004c64004470b4143",
+  "source_recorder_id": "5707514424bb4d338c85ecb5a227cb7b",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "original_primary_features": 39,
+  "common_controls": [
+    "vintage_age_days",
+    "observation_age_days"
+  ],
+  "candidate_coordinates": 1,
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "training_last_label_available_at": "2022-12-30 14:31:00+00:00",
+  "held_last_label_available_at": "2026-10-09 13:31:00+00:00",
+  "train_segment_rows": 3020,
+  "held_segment_rows": 944,
+  "candidate_train_unknown_rows": 0,
+  "candidate_held_unknown_rows": 0,
+  "source_Recorder_object_loads": 5,
+  "DatasetH_builds": 1,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "held_scores_computed": false,
+  "historical_independence": false
+}
