@@ -1,0 +1,15 @@
+{
+  "status": "operational_source_transport_failure_no_data_received",
+  "plan_sha256": "a8262a960df9a40a9503c3db3162d1753c0597d590c393b39ec78093962f1004",
+  "URL": "https://alfred.stlouisfed.org/series/downloaddata?seid=NFCI",
+  "transport": "Python requests.get",
+  "timeout_seconds": 40,
+  "error_type": "requests.exceptions.ReadTimeout",
+  "raw_bytes_received": 0,
+  "GET_attempts": 1,
+  "data_ZIP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "The timeout does not prove the official form or vintage dates are absent. The exact frozen one-GET attempt is consumed; only a separately frozen transport repair may read again."
+}

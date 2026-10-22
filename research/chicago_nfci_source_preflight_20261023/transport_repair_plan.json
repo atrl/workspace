@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "bounded_official_ALFRED_NFCI_form_transport_repair",
+  "parent_plan": "plan.json",
+  "failed_attempt": "execution_attempt1.json",
+  "reason": "The first Python requests GET read-timed-out after 40 seconds before response bytes. This is an operational transport uncertainty, not a scientific source rejection.",
+  "exact_URL": "https://alfred.stlouisfed.org/series/downloaddata?seid=NFCI",
+  "new_transport": "One direct native curl GET with explicit no-proxy, connect timeout 10 seconds and total timeout 120 seconds. Capture response headers and exact HTML bytes. No automatic retry or alternate URL.",
+  "budget": {
+    "additional_form_GETs": 1,
+    "total_form_GET_attempts_including_failure_max": 2,
+    "max_response_bytes": 5000000,
+    "data_ZIP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If curl fails, response is not official NFCI HTML, vintage selector is missing, or the source bytes cannot be hash-archived to NAS, preserve the exact dependency and stop. Do not infer that the economic mechanism fails."
+}
