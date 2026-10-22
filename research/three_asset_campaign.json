@@ -138,7 +138,8 @@
     "NFCI_source_status": "official_801_vintage_selector_dates_visible_no_value_delivery_three_command_line_failures_one_unobserved_browser_download_public_graph_vintage_parameter_ignored_rejected_response_NAS_backed_zero_fits",
     "NFCI_graph_vintage_probe": "research/chicago_nfci_source_preflight_20261023/graph_vintage_probe_result.json",
     "Philadelphia_ADS_vintage_source_preflight": "research/philadelphia_ads_vintage_source_20261023/source_preflight_result.json",
-    "Philadelphia_ADS_source_status": "official_168969969_byte_all_vintages_ZIP_NAS_backed_XLSX_member_schema_and_PIT_pending_zero_fits_accounts"
+    "Philadelphia_ADS_source_status": "official_168969969_byte_all_vintages_ZIP_NAS_backed_1576_unique_2008_to_2026_vintage_headers_PIT_pending_zero_fits_accounts",
+    "Philadelphia_ADS_schema_header_audit": "research/philadelphia_ads_vintage_source_20261023/schema_header_audit.json"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

@@ -1,6 +1,6 @@
 {
   "experiment": "philadelphia_ads_vintage_source_20261023",
-  "decision": "official_ADS_all_vintages_original_ZIP_archived_schema_pending",
+  "decision": "official_ADS_all_vintages_original_ZIP_archived_header_dates_qualified_availability_pending",
   "objective_achieved": false,
   "plan": "plan.json",
   "size_transport_repair_plan": "size_transport_repair_plan.json",
@@ -12,6 +12,8 @@
   "NAS_archive_sha256": "641bffb7c565097790d976a7c80c39e4ab17f6a233e44135e3a6f4d9f00fc84a",
   "NAS_remote_and_scoped_restore_verified": true,
   "nested_member": "ADS_All_Vintages-zip.xlsx",
+  "schema_header_audit": "schema_header_audit.json",
+  "vintage_header_dates_qualified": true,
   "vintage_dates_qualified": false,
   "Stage1_factor_authorized": false,
   "model_fits": 0,
