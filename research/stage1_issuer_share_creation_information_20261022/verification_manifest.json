@@ -1,0 +1,95 @@
+{
+  "recorder_id": "92ab42ddb5644ce599afef5b86c358e4",
+  "entries": [
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/analysis/bootstrap_replicates",
+      "sha256": "2ca8e79f2ccd484aef016ca48aa2f377ca25fd4804de69af660de94cb253c355",
+      "bytes": 80161
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/analysis/daily/held",
+      "sha256": "286a0e181131e0b0755fb3723de48a3d5f1dd4e87d892e197ebde98281eef2e4",
+      "bytes": 62456
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/analysis/gates",
+      "sha256": "4bcd5a309f2ce7fc0e60521421626357fac000d20ca6a2cd262a5cb51a8a24e9",
+      "bytes": 119
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/analysis/information_gate_pass",
+      "sha256": "24a5341c9a6e30357187cbeaebee0a02714ee3b3d6cead951a613e96ffb746dc",
+      "bytes": 4
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/analysis/metrics",
+      "sha256": "a1f14ffc3c41f706b9dfe8bd8e62893c773a9d0b06e5be572fd381e15c0d7c56",
+      "bytes": 462
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/analysis/quarters",
+      "sha256": "a269853a1b20ef045cdb60105cdff64d663850ff39a1e51b47e209759f3282fe",
+      "bytes": 541
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/code_cached.txt",
+      "sha256": "b03ec2f64d0864ed9c31fc7af62bcbf3d598def0bf38bc505fc4aca1f31f042b",
+      "bytes": 409739
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/code_diff.txt",
+      "sha256": "ab41b91a9a74ad1f9bea8ee9a3ae29251f000ec97ff64c059d9cf87bf9ff883a",
+      "bytes": 432769
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/code_status.txt",
+      "sha256": "a3a859cfa4be6c8be5bc44723415a7ecf40306cdd326ee1a49d184343258c9ce",
+      "bytes": 61800
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/inputs/dataset",
+      "sha256": "8cede14ca8ca120c5563b8e8d79d89ecee77bb3a74fea79f84324b2d43a59949",
+      "bytes": 459
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/inputs/plan",
+      "sha256": "b9f55a618f483592e1b6725bfbcdc3398f7c69399c27dd5a127e2ca09c681310",
+      "bytes": 6491
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/inputs/preflight",
+      "sha256": "1d3ba42fb11f60cea2b54a420764897d63a87ddfebf8cc0de328f303a48ab45e",
+      "bytes": 992
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/inputs/source_audit",
+      "sha256": "ed9762a1dcbb4ca2f901326beb411030e3baace7d6274b4a02fd357e892434aa",
+      "bytes": 1653
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/inputs/workbook_vintage_audit",
+      "sha256": "0544565378e46371fcfe4b3b51490811f5667ced511afa67aa114aa11682182e",
+      "bytes": 3113
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/models/baseline",
+      "sha256": "11543449a5967ff0dac21deb794b476d436ce1036e0f95fc56f9c7d296e0fc94",
+      "bytes": 2656
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/models/candidate",
+      "sha256": "138add2962743b73c2737f6e239219ea10293a85df1582e242f1651c49509204",
+      "bytes": 2696
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/predictions/baseline",
+      "sha256": "25897663a2a8bc339c2fe8bde3cfa3f83043bcf3b61d39b8fb1ebfc962c3fd85",
+      "bytes": 23566
+    },
+    {
+      "path": "qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4/artifacts/predictions/candidate",
+      "sha256": "7511e3a80b2d7a883537269209341a93aeefa7cdef69cdb60de2095ae06e93cb",
+      "bytes": 23566
+    }
+  ]
+}

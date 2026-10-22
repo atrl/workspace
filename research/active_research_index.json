@@ -17,7 +17,8 @@
       "vintage_audit": "research/soxx_issuer_shares_source_20261022/vintage_audit.json",
       "training_redundancy": "research/soxx_issuer_shares_source_20261022/redundancy_audit.json",
       "raw_source_archive": "research/soxx_issuer_shares_source_20261022/nas_source_archive_receipt.json",
-      "vintage_archive": "research/soxx_issuer_shares_source_20261022/nas_vintage_archive_receipt.json"
+      "vintage_archive": "research/soxx_issuer_shares_source_20261022/nas_vintage_archive_receipt.json",
+      "closed_conditional_information_version": "research/stage1_issuer_share_creation_information_20261022/independent_result_review.json"
     },
     {
       "card": "research/ibkr_soxx_option_skew_forward_source_20261022",
@@ -73,6 +74,15 @@
     "src/core/completed_checkpoints.py"
   ],
   "closed_fixed_versions": [
+    {
+      "card": "research/stage1_issuer_share_creation_information_20261022",
+      "status": "not_promoted_fixed_issuer_share_creation_information_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_issuer_share_creation_information_20261022/independent_result_review.json",
+      "recorder_id": "92ab42ddb5644ce599afef5b86c358e4",
+      "nas_archive_sha256": "1525808e55f05ca58294c9b93d17563fc16c9729a73f4a8dae5b8ed030810148"
+    },
     {
       "card": "research/stage1_rolling126_shortfall_objective_20261022",
       "status": "not_promoted_fixed_Stage1_rolling126_objective_0bp",

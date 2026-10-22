@@ -1,0 +1,163 @@
+{
+  "experiment": "stage1_issuer_share_creation_information_20261022",
+  "plan_sha256": "d919e03a2be8bed45c66ad8eed00cddf4bbba883f8449fec1cbe013b4be0e59f",
+  "decision": "not_promoted_fixed_issuer_share_creation_information_failed",
+  "objective_achieved": false,
+  "information_gate_pass": false,
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "metrics": {
+    "baseline_held_mse": 0.002526266936598172,
+    "candidate_held_mse": 0.00252441548383492,
+    "held_paired_mse_improvement": 1.8514527632520031e-06,
+    "held_half_paired_improvements": [
+      1.0537687949846867e-06,
+      2.7656932930926258e-06
+    ],
+    "candidate_standardized_coordinate_coefficient": -0.0010668837948544395,
+    "bootstrap_lower": -4.986555050665274e-06,
+    "bootstrap_upper": 1.009656047304336e-05,
+    "bootstrap": {
+      "paired_mean_loss_improvement": 1.8514527632520031e-06,
+      "lower_bound": -4.986555050665274e-06,
+      "upper_bound": 1.009656047304336e-05,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 940,
+      "scored_rows": 940
+    }
+  },
+  "gates": {
+    "coefficient_positive": false,
+    "full_held_mean_positive": true,
+    "both_halves_positive": true,
+    "bootstrap_lower_positive": false
+  },
+  "quarterly_information_attribution": [
+    {
+      "quarter": "2023Q1",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -1.2381236529854003e-06
+    },
+    {
+      "quarter": "2023Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": 1.037965728699588e-05
+    },
+    {
+      "quarter": "2023Q3",
+      "sessions": 63,
+      "paired_mean_mse_improvement": -1.5507507009593105e-06
+    },
+    {
+      "quarter": "2023Q4",
+      "sessions": 63,
+      "paired_mean_mse_improvement": -4.600832536619302e-06
+    },
+    {
+      "quarter": "2024Q1",
+      "sessions": 61,
+      "paired_mean_mse_improvement": 3.871412832973687e-06
+    },
+    {
+      "quarter": "2024Q2",
+      "sessions": 63,
+      "paired_mean_mse_improvement": -3.8582391861167936e-07
+    },
+    {
+      "quarter": "2024Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 6.7079102031150114e-06
+    },
+    {
+      "quarter": "2024Q4",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -4.552952112454754e-06
+    },
+    {
+      "quarter": "2025Q1",
+      "sessions": 60,
+      "paired_mean_mse_improvement": -9.608716541408342e-06
+    },
+    {
+      "quarter": "2025Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": 1.2596504897424548e-05
+    },
+    {
+      "quarter": "2025Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 1.0812791164467004e-06
+    },
+    {
+      "quarter": "2025Q4",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 2.334939143343707e-06
+    },
+    {
+      "quarter": "2026Q1",
+      "sessions": 61,
+      "paired_mean_mse_improvement": -6.532625129084164e-06
+    },
+    {
+      "quarter": "2026Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": 3.0920825022384566e-05
+    },
+    {
+      "quarter": "2026Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -1.1302278760681047e-05
+    },
+    {
+      "quarter": "2026Q4",
+      "sessions": 1,
+      "paired_mean_mse_improvement": -6.9797952379593614e-06
+    }
+  ],
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "reused_market_history": true,
+  "historical_first_public_clock_qualified": false,
+  "independent_forward_qualified_days": 0,
+  "recorder_id": "92ab42ddb5644ce599afef5b86c358e4",
+  "experiment_id": "225440139424661069",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_issuer_share_creation_information_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_issuer_share_creation_information_20261022/qlib_recorder/225440139424661069/92ab42ddb5644ce599afef5b86c358e4",
+  "derived_provider_manifest_sha256": "1512248e8eb9324bcd3333e5832cf97018529eccb4c715c217119e05de4c1769",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/daily/*",
+      "analysis/bootstrap/*"
+    ]
+  },
+  "limitations": [
+    "Current issuer workbook is retrospective; two-Qlib-session delay is an as-if timing assumption",
+    "Exact 2021/22/23 vintage shares do not certify first publication on every historical date",
+    "Information MSE is not a fee-net account result, nor independent forward evidence"
+  ],
+  "nas_evidence": {
+    "sha256": "1525808e55f05ca58294c9b93d17563fc16c9729a73f4a8dae5b8ed030810148",
+    "size_bytes": 248652,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/15/25/1525808e55f05ca58294c9b93d17563fc16c9729a73f4a8dae5b8ed030810148",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 23:18:48.138324+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/15/25/1525808e55f05ca58294c9b93d17563fc16c9729a73f4a8dae5b8ed030810148",
+    "recorder_id": "92ab42ddb5644ce599afef5b86c358e4",
+    "experiment_id": "225440139424661069",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "1525808e55f05ca58294c9b93d17563fc16c9729a73f4a8dae5b8ed030810148",
+    "bytes": 248652,
+    "verified": true
+  }
+}

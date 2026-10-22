@@ -34,13 +34,13 @@
   },
   "current_task": {
     "card": "research/three_asset_campaign.json",
-    "phase": "Stage1_source_qualification_multiple_routes_pending",
+    "phase": "Stage1_issuer_creation_information_failed_qualified_new_mechanism_needed",
     "implementation_executor": null,
     "independent_reviewer": null,
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "The fixed Stage1 rolling126 objective failed SOXX 0bp wealth, annual, rolling and bootstrap gates; close that version. Compare all 16 quarters and native target-to-account projection: 2026Q3 target 22% SOXL ended 2% SOXL with risk state >=2 on 73.4% of sessions, whereas 2024Q3 defense helped. One original 2011-10-31 SOXX holdings schedule has now been verified as a possible reported-basket source; qualify original 2010-2022 report inventory, filing clocks and historical security prices before any Stage1 breadth feature fit. The known 2011 report cannot be backfilled before its public availability. Preserve the original 39 inputs and closed breadth/signed variance/volume conclusions; do not tune the closed loss, risk cap, quarter switch or use reused history as independent forward evidence. Official iShares SOXX Data Download has issuer shares on all 3020 Stage1 training sessions and 944 funded signal dates; three archived issuer-page values match after the 2024 three-for-one unit adjustment. Historical daily first-public and revision timing remains unqualified, so no fit or 0bp account from this source.",
+    "next_action": "The fixed Stage1 rolling126 objective failed SOXX 0bp wealth, annual, rolling and bootstrap gates; close that version. Compare all 16 quarters and native target-to-account projection: 2026Q3 target 22% SOXL ended 2% SOXL with risk state >=2 on 73.4% of sessions, whereas 2024Q3 defense helped. One original 2011-10-31 SOXX holdings schedule has now been verified as a possible reported-basket source; qualify original 2010-2022 report inventory, filing clocks and historical security prices before any Stage1 breadth feature fit. The known 2011 report cannot be backfilled before its public availability. Preserve the original 39 inputs and closed breadth/signed variance/volume conclusions; do not tune the closed loss, risk cap, quarter switch or use reused history as independent forward evidence. Official iShares SOXX Data Download has issuer shares on all 3020 Stage1 training sessions and 944 funded signal dates; three archived issuer-page values match after the 2024 three-for-one unit adjustment. Historical daily first-public and revision timing remains unqualified, so no fit or 0bp account from this source. Fixed conditional issuer-share 39-versus-40 information screen now failed despite small positive held MSE mean: standardized coefficient -0.001067 versus positive preregistration and .025/19 bootstrap lower -4.987e-6. Close this feature version, no sign/lag/window rescue or 0bp account. Continue distinct decision-time source mechanisms, including the original reported-basket holdings provenance route, while preserving Stage1 and SOXX hard gates.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -88,7 +88,9 @@
     "issuer_shares_source_result": "research/soxx_issuer_shares_source_20261022/summary.json",
     "issuer_shares_source_status": "full_retrospective_numeric_coverage_qualified_PIT_and_revisions_unqualified_no_fit",
     "issuer_shares_raw_nas_archive_sha256": "983e211fc34fc8bae16f9342941a53de31c639c6feccadce93399d1a96f72628",
-    "issuer_shares_vintage_nas_archive_sha256": "062ce54864a40f6f7130067a6e1ee152dff5cd721d553d3189a6d0373daec183"
+    "issuer_shares_vintage_nas_archive_sha256": "062ce54864a40f6f7130067a6e1ee152dff5cd721d553d3189a6d0373daec183",
+    "issuer_shares_information_result": "research/stage1_issuer_share_creation_information_20261022/independent_result_review.json",
+    "issuer_shares_information_status": "closed_fixed_negative_coefficient_and_nonpositive_corrected_lower_zero_accounts"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -153,9 +155,9 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T15:00:11.276740+00:00",
+  "updated_at_utc": "2026-10-22T15:20:55.473754+00:00",
   "execution_totals": {
-    "new_model_fits": 56,
+    "new_model_fits": 58,
     "new_native_accounts": 47,
     "completed_fixed_economic_experiments": 9,
     "completed_training_bridges_added": 1,
@@ -163,8 +165,8 @@
     "unique_reused_reference_accounts": 15,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
-    "basis": "Prior 53 fits/46 accounts included the closed daily-volume information screen. Add fixed Stage1 rolling126 objective: 3 fitted seeds, 1 independent 0bp native account, 1 paired bootstrap, 1 completed fixed economic version. Historical 0bp SOXX gates failed; no promotion or qualified forward day.",
-    "completed_fixed_information_experiments": 6,
+    "basis": "Prior 56 fits/47 accounts included the closed Stage1 rolling126 economic version. Add one fixed conditional issuer-share information screen: 2 matched Ridge fits, 1 paired bootstrap, 0 economic accounts; coefficient and corrected lower-bound gates failed. No promotion or qualified forward day.",
+    "completed_fixed_information_experiments": 7,
     "completed_source_qualifications": 2,
     "completed_source_repairs": 2,
     "completed_identity_source_checks": 1

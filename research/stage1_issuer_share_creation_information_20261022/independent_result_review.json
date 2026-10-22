@@ -1,0 +1,31 @@
+{
+  "verdict": "CONFIRM_NOT_PROMOTED_FIXED_INFORMATION_GATE_FAILED",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "plan_sha256": "d919e03a2be8bed45c66ad8eed00cddf4bbba883f8449fec1cbe013b4be0e59f",
+  "recorder_id": "92ab42ddb5644ce599afef5b86c358e4",
+  "native_qlib_recorder_status": "FINISHED",
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "quarter_rows": 16,
+  "new_model_fits": 2,
+  "new_bootstrap_runs": 1,
+  "new_native_accounts": 0,
+  "paired_mse_improvement": 1.8514527632520031e-06,
+  "candidate_standardized_coefficient": -0.0010668837948544395,
+  "bootstrap_lower": -4.986555050665274e-06,
+  "failed_gates": [
+    "coefficient_positive",
+    "bootstrap_lower_positive"
+  ],
+  "verified_local_recorder_manifest_entries": 18,
+  "nas_archive_sha256": "1525808e55f05ca58294c9b93d17563fc16c9729a73f4a8dae5b8ed030810148",
+  "nas_archive_bytes": 248652,
+  "remote_readback_verified": true,
+  "notebook_conclusion_sidecar_synchronized": true,
+  "approved_preflight_and_fit_cell_source_hashes_unchanged": true,
+  "historical_first_public_clock_qualified": false,
+  "economic_account_authorized": false,
+  "review_new_fits": 0,
+  "review_new_accounts": 0,
+  "conclusion": "The fixed 39-versus-40 issuer-share information screen fails preregistered coefficient direction and corrected paired lower-bound gates. Close this feature version without sign/window/lag rescue."
+}
