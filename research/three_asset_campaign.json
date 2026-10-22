@@ -8,6 +8,8 @@
     "Stage1_turnover_zero_ablation": "research/allocator_turnover_ablation_20261014/conclusion.md",
     "Stage1_cash_signal_information": "research/allocator_cash_information_20261014/conclusion.md",
     "Stage1_0bp_funded_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/component_result.json",
+    "Stage1_original_0bp_funded_component_attribution": "research/stage1_original_0bp_account_contributions_20261023/component_result.json",
+    "Stage1_original_0bp_failure_interpretation": "The exact original Stage1 own-state 0bp native account has SOXX log excess -0.376868: cash opportunity -0.600323, SOXL-relative exposure/selection +0.225931, direct fees -0.010265 and timing/benchmark residual +0.007788. Its worst 126-session window 2023-08-01..2024-01-31 lost -0.127238 cash and -0.121381 SOXL-relative log points; 2026Q3 lost -0.143901 from SOXL-relative selection and only -0.025267 from cash, while 2024Q3 cash helped. This is closed physical-share accounting, not predictive skill or a tradable switch. The separate composition candidate has its own state and cannot be component-subtracted causally.",
     "Stage1_0bp_risk_projection_gap": "research/stage1_risk_projection_gap_20261023/summary.json",
     "Stage1_dynamic_risk_bypass_0bp_result": "research/stage1_dynamic_risk_bypass_0bp_20261023/summary.json",
     "Stage1_cap_gap_cash_information": "research/stage1_cap_gap_cash_information_20261023/summary.json",
@@ -36,7 +38,7 @@
     "composition_path_diagnosis": "research/composition_path_diagnosis_20261015/conclusion.md",
     "observed": "Original accounts have large benchmark-relative cash opportunity cost; P3 remains below SOXX at all costs. The fixed composition account exceeds SOXX in cumulative net wealth at all costs but fails 0bp drawdown, 126-session stability and bootstrap gates. Recovery action is zero on the observed paths. Bypassing the dynamic risk layer improves cumulative wealth but breaches the drawdown constraint.",
     "causal_limit": "Cash, cap, cost-path and recovery observations do not isolate an independently profitable risk-rule change. The full funded paths feed holdings, peak NAV and later decisions back into one another. Reused history does not establish independent forward excess.",
-    "next_bounded_question": "Find a distinct predecision signal that separates persistent broad weakness from recovery when original Stage1 holds cash: the worst 126-session path lost 0.198946 log points to cash while SOXL selection added 0.054906, but 2024Q3 cash helped. Compare all weak and good intervals and matched controls without an outcome-chosen switch; first require source timing and incremental information beyond original 39 inputs, then one full 0bp Tiered-fee Stage1-derived account. Do not tune closed versions on reused history.",
+    "next_bounded_question": "Find distinct decision-time information that separates both cash opportunity from useful protection and SOXL-relative selection from leveraged drag. Exact original Stage1 accounting shows full-path cash -0.600323 versus SOXL-relative +0.225931, but its worst 126-session window lost cash -0.127238 and SOXL-relative -0.121381 together; 2026Q3 loss was mostly SOXL-relative while 2024Q3 cash helped. Compare every weak and good interval and matched controls without an outcome-chosen switch; require source timing and information beyond original 39 inputs, then one full 0bp Tiered-fee Stage1-derived account. Do not tune closed versions on reused history.",
     "latest_0bp_receiver": "research/stage1_nvda_guidance_receiver_20261022/regime_attribution.json",
     "stage1_beta_composition_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/component_result.json",
     "Stage1_SOXL_target_relative_rank_diagnostic": "research/stage1_soxl_relative_target_information_20261023/source_audit.json",
@@ -73,7 +75,7 @@
   },
   "current_task": {
     "card": "research/three_asset_campaign.json",
-    "phase": "Stage1_0bp_goal_active_1032_signed_volume_action_information_failed_next_distinct_mechanism_needed",
+    "phase": "Stage1_0bp_goal_active_original_account_dual_failure_components_closed_new_mechanism_needed",
     "implementation_executor": null,
     "independent_reviewer": null,
     "execution_authorized": false,
@@ -301,7 +303,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T20:26:20+00:00",
+  "updated_at_utc": "2026-10-22T20:31:45+00:00",
   "execution_totals": {
     "new_model_fits": 74,
     "new_native_accounts": 50,

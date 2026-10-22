@@ -1,0 +1,63 @@
+{
+  "status": "original_Stage1_native_account_components_closed_descriptive_only",
+  "source_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "plan_sha256": "7842600f7348d1c9e7369198e930c1302d2485d1a0037a9e4b0e47f737e5f199",
+  "daily_rows": 944,
+  "quarters": 16,
+  "rolling126_windows": 819,
+  "full_relative_log_excess": -0.37686826802572004,
+  "full_relative_wealth": 0.6860064369263443,
+  "full_log_components": {
+    "cash_opportunity_log": -0.6003226009036167,
+    "SOXL_selection_log": 0.22593145822639604,
+    "Stage1_direct_fees_log": -0.010264807879909826,
+    "timing_and_benchmark_residual_log": 0.007787682531410271
+  },
+  "max_native_daily_return_closure_error": 4.3021142204224816e-16,
+  "max_daily_log_component_closure_error": 1.0408340855860843e-17,
+  "residual_absolute_magnitude_relative_to_paired_log": 0.009315188809629579,
+  "negative_quarters": [
+    "2023Q2",
+    "2023Q3",
+    "2023Q4",
+    "2024Q1",
+    "2024Q2",
+    "2025Q2",
+    "2025Q3",
+    "2025Q4",
+    "2026Q1",
+    "2026Q3"
+  ],
+  "worst_126": {
+    "kind": "rolling126",
+    "period": "2023-08-01 00:00:00",
+    "partial_boundary_period": false,
+    "sessions": 126,
+    "first_trade": "2023-08-01",
+    "last_exit": "2024-01-31",
+    "relative_log_excess": -0.250087867159336,
+    "relative_wealth": 0.778732355065239,
+    "cash_opportunity_log": -0.1272377892915478,
+    "SOXL_selection_log": -0.12138086818958936,
+    "Stage1_direct_fees_log": -0.0018273588562888311,
+    "timing_and_benchmark_residual_log": 0.000358149178089986,
+    "mean_post_open_cash_weight": 0.5078022673144013,
+    "mean_post_open_soxl_weight": 0.1136343416880879,
+    "risk_state_ge2_fraction": 0.7380952380952381
+  },
+  "separate_composition_context": {
+    "source_component_result_sha256": "fa81ebcb92492f40340d8b034bdab39a45da8c1b9c5eb38e4ddfc6e5411a40e9",
+    "relative_wealth": 1.0774546325434138,
+    "full_log_components": {
+      "cash_opportunity_log": -0.09459682946948093,
+      "SOXL_selection_log": 0.16104450931369918,
+      "candidate_direct_fees_log": -0.006696129287773061,
+      "timing_and_benchmark_residual_log": 0.014849887184845357
+    },
+    "comparison_is_not_causal_policy_effect": true
+  },
+  "no_causal_switch_identified": true,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_bootstraps": 0
+}

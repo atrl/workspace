@@ -1,0 +1,48 @@
+{
+  "experiment": "stage1_original_0bp_account_contributions_20261023",
+  "decision": "descriptive_original_Stage1_component_attribution_no_promotion",
+  "objective_achieved": false,
+  "plan_sha256": "7842600f7348d1c9e7369198e930c1302d2485d1a0037a9e4b0e47f737e5f199",
+  "result": "component_result.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "recorder_id": "bf012e010e3f4a5b9fd030b939ab989f",
+  "experiment_id": "320335441277021728",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_original_0bp_account_contributions_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "analysis/segments",
+      "analysis/rolling126"
+    ]
+  },
+  "limitations": [
+    "Cash/selection/fee terms are descriptive account contributions with explicit residual, not actionable or causal factors.",
+    "Original Stage1 and composition candidate have different own states and their component totals cannot be subtracted as an isolated policy effect.",
+    "Historical accounts and available raw marks do not qualify independent forward or full-minute risk."
+  ],
+  "nas_evidence": {
+    "sha256": "e8874e3659435248ed6444d6fbad787ba53162f0053c0d6d544b432fac134285",
+    "size_bytes": 354021,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/e8/87/e8874e3659435248ed6444d6fbad787ba53162f0053c0d6d544b432fac134285",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:30:32.529246+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e8/87/e8874e3659435248ed6444d6fbad787ba53162f0053c0d6d544b432fac134285",
+    "recorder_id": "bf012e010e3f4a5b9fd030b939ab989f",
+    "experiment_id": "320335441277021728",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "e8874e3659435248ed6444d6fbad787ba53162f0053c0d6d544b432fac134285",
+    "bytes": 354021,
+    "verified": true
+  },
+  "verification_manifest": "verification_manifest.json",
+  "nas_scoped_restore": "nas_scoped_restore.json"
+}

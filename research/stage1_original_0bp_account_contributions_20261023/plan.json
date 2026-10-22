@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_original_0bp_account_contributions_20261023",
+  "frozen": true,
+  "phase": "read_only_original_Stage1_0bp_native_cash_selection_fee_component_attribution",
+  "question": "For the complete frozen original Stage1 A_0 funded account, which exact descriptive account components explain its SOXX-relative underperformance across all years, quarters and 126-session windows, using the same corrected USD-NAV and raw-price method as the separate beta-composition attribution?",
+  "parent": "Frozen original f696 Stage1 allocation and b472 action/risk/recovery native A_active_research_replay_0 at 0bp added slippage, with independent Tiered fees and its own state; matching native SOXX_0 is the only final benchmark.",
+  "sources": {
+    "stage1_card": "research/stage1_domain_heads_20261018",
+    "stage1_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "stage1_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "stage1_manifest_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+    "stage1_native_artifact_sha256": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+    "stage1_path_artifact_sha256": "3901f80a552b01addbc6dadc5ad677f71a175d65e5a17fe3ad1137e101c891ef",
+    "stage1_NAS_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "account_helper_card": "research/stage1_nvda_guidance_receiver_20261022",
+    "account_helper_receipt_sha256": "1666ead0b7de45f08968177c6e34ac763e78f79120fde7c3d55152fb0418f72c",
+    "provider_uri": "data/qlib/stage1_domain_heads_20261018",
+    "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083",
+    "corrected_attribution_module_sha256": "0561a6c4a6a468f7d4a6b859d547d63edd5f03de1236f0492ac2dc0e63f48f8f",
+    "separate_composition_component_result_sha256": "fa81ebcb92492f40340d8b034bdab39a45da8c1b9c5eb38e4ddfc6e5411a40e9"
+  },
+  "method": "Read exact saved Qlib native original Stage1 book, original path and source-helper raw point grid/corporate schedule. Use src.analysis.etf_transfer_attribution.holdings_attribution once and require daily physical return closure. Convert actual post-open raw-share/cash USD divided by prior native_expected_nav USD into descriptive cash opportunity, SOXL-relative selection, direct fees and explicit timing/benchmark residual. Map arithmetic to paired log with the exact same-day scale; require daily and interval component closure. Raw allocator target comes from the pinned source frame, not the already risk-projected path target.",
+  "comparison": "Read the separately sealed beta-composition component_result.json only after original source identities and accounting are established; compare completed paths descriptively and never subtract their component totals as a causal policy effect because each path has different holdings, fees, peak NAV and risk state.",
+  "periods": "All 944 funded sessions, 2024/2025 complete years, 2023/2026 partial endpoint years, all 16 quarters and 819 contiguous 126-session windows. Pre-identified illustrative intervals: 2024Q3 effective protection, 2026Q3 underperformance and original Stage1 worst 126 window; all other intervals retained.",
+  "budget": {"new_market_requests": 0, "helper_calls_max": 1, "source_Recorder_object_loads_max": 2, "holdings_attribution_calls_max": 1, "new_model_fits": 0, "new_native_accounts": 0, "new_bootstraps": 0, "new_Qlib_recorders": 1},
+  "stop": "If source hashes/native dates or 944 daily return and component closures fail, preserve the failed attempt and do not report an economic component. No replay, target change, risk-cap change, model fit, account or bootstrap. A descriptive path decomposition cannot qualify a tradable switch or change failed Stage1/SOXX gates."
+}
