@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "frozen_source_directory_probe",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1100663/index.json",
+  "source_role": "SEC CIK 1100663 archive directory only; discover 2010 accession folder names without reading market outcomes",
+  "new_http_get_budget": 1,
+  "max_response_bytes": 20000000,
+  "raw_path": "data/snapshots/stage1_legacy_holdings_source_probe_20261022/sec_1100663_directory_20261022.json",
+  "required_checks": [
+    "HTTP 200, JSON schema, exact response bytes and SHA-256",
+    "NAS archive receipt and scoped remote hash/restore readback",
+    "list 2010-2011 accession folder names only; this directory alone does not identify N-Q/N-CSR contents or public timing"
+  ],
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "no_backfill": true
+}
