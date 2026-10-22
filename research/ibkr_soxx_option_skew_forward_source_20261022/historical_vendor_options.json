@@ -1,0 +1,40 @@
+{
+  "status": "read_only_vendor_capability_survey_no_data_acquired",
+  "source_checked_at_utc": "2026-10-22T13:30:00Z",
+  "research_role": "Historical exact SOXX option IV/Delta and quotes for a potential Stage1 feature, contingent on a passing forward entitlement/source observation",
+  "local_inventory": "No strike-level SOXX IV/Delta history found in current workspace or NAS-backed card inventory; Cboe total-activity history is a different aggregate field",
+  "official_options": [
+    {
+      "product": "Cboe Option Quote Intervals",
+      "page": "https://datashop.cboe.com/option-quote-intervals",
+      "claimed_coverage": "FAQ lists Option Quotes from Jan 2010; verify exact SOXX symbol and selected intervals in a vendor sample",
+      "fields": "NBBO quotes and optional IV/Greeks including Delta; intraday snapshots; historical purchase option",
+      "availability_boundary": "Any same-day 09:40 snapshot is after frozen Stage1 09:29 decision; a previous-day timestamp and receipt timing must be used unless an earlier qualified snapshot exists."
+    },
+    {
+      "product": "Cboe Option EOD Summary",
+      "page": "https://datashop.cboe.com/option-eod-summary",
+      "claimed_coverage": "Product page says historical data from Jan 2012, while FAQ lists Option EOD Summary from Jan 2010; 2011 coverage must be resolved before matching full Stage1 training history",
+      "fields": "15:45 NBBO and optional IV/Greeks; daily delivery overnight or next morning",
+      "availability_boundary": "Need prove previous-day publication/receipt before next 09:29 NY decision."
+    }
+  ],
+  "acceptance_checks": [
+    "Vendor sample must show exact SOXX root/adjusted contract handling and 2011-2022 full training-date coverage.",
+    "For each decision, reconstruct prior-available expiry/strike chain, finite ordered bid/ask, valid IV and correctly signed Delta; record missingness without imputation.",
+    "Specify fixed 25-Delta put/call and tenor interpolation before seeing any market outcomes.",
+    "Original timestamp and received-at metadata must precede the frozen Stage1 signal-to-trade 09:29 New York decision.",
+    "Import validated source into native Qlib provider/Recorder with source and NAS hashes before fitting any Stage1 receiver."
+  ],
+  "unresolved": [
+    "SOXX-specific historical coverage and cost",
+    "2010 FAQ versus 2012 product start-date discrepancy",
+    "first-public/receipt timing and quote revisions",
+    "live IBKR regular-hours entitlement result pending"
+  ],
+  "market_requests": 0,
+  "paid_orders": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "feature_qualified": false
+}

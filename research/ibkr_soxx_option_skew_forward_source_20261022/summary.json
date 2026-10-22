@@ -1,8 +1,8 @@
 {
   "experiment": "ibkr_soxx_option_skew_forward_source_20261022",
-  "status": "needs_regular_hours_option_market_data_check",
-  "decision": "source_preflight_only_no_skew_factor",
-  "result": "sample_result.json",
+  "status": "regular_hours_option_field_entitlement_passed",
+  "decision": "source_entitlement_passed_feature_not_qualified",
+  "result": "regular_hours_result.json",
   "recorder_status": "not_started_source_qualification_only",
   "objective_achieved": false,
   "qualified_forward_days": 0,
@@ -15,5 +15,12 @@
       "sources/*",
       "analysis/*"
     ]
-  }
+  },
+  "regular_hours_result": "regular_hours_result.json",
+  "historical_vendor_options": "historical_vendor_options.json",
+  "source_archive": "source_archive_receipt.json",
+  "source_response": "regular_hours_response_20261022.json",
+  "regular_hours_known_calls": 9,
+  "forward_25delta_skew_qualified": false,
+  "historical_2011_2022_source_qualified": false
 }

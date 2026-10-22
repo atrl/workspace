@@ -1,7 +1,7 @@
 experiment: ibkr_soxx_option_skew_forward_source_20261022
-phase: read_only_forward_source_preflight
 notebook: ibkr_soxx_option_skew_forward_source_20261022.ipynb
-preflight: preflight_plan.json
-sample: sample_plan.json
-model_fits: 0
-accounts: 0
+phase: source_entitlement_passed_feature_not_qualified
+frozen_regular_hours_plan: regular_hours_plan.json
+result: regular_hours_result.json
+source_archive: source_archive_receipt.json
+artifact_policy: slim_card_recorder_first

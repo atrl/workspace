@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "source": "Interactive Brokers (IBKR) connected read-only get_price_snapshot",
+  "request_window": "2026-10-22T13:35:10Z to 2026-10-22T13:35:25Z",
+  "plan": "regular_hours_plan.json",
+  "requests": [
+    {
+      "role": "underlying",
+      "contract_id": 12658194,
+      "exchange": "SMART",
+      "market_data_names": [
+        "last",
+        "top_status",
+        "bid_ask"
+      ],
+      "response": {
+        "last": {
+          "price": 489.49,
+          "ts": 1792676119,
+          "halted": false,
+          "is_close": false
+        },
+        "top-status": {
+          "status": "REALTIME"
+        },
+        "bid-ask": {
+          "bid": 489.28000000000003,
+          "bid_size": 100,
+          "ask": 489.54,
+          "ask_size": 40
+        }
+      }
+    },
+    {
+      "role": "call_495_2026_11_20",
+      "contract_id": 849288046,
+      "exchange": "SMART",
+      "market_data_names": [
+        "bid_ask",
+        "option_midpoint_iv",
+        "option_greeks",
+        "top_status"
+      ],
+      "response": {
+        "option-midpoint-iv": {
+          "dailyIv": 0.026703375199530244,
+          "annualIv": 0.4239029396640409,
+          "isValid": true
+        },
+        "top-status": {
+          "status": "REALTIME"
+        },
+        "option-greeks": {
+          "delta": 0.4985732777931287,
+          "gamma": 0.006734019009816903,
+          "theta": -0.43420257709157184,
+          "vega": 0.5543618985624583,
+          "option_price": 21.962048252033277
+        },
+        "bid-ask": {
+          "bid": 21,
+          "bid_size": 1087,
+          "ask": 22.6,
+          "ask_size": 3337
+        }
+      }
+    },
+    {
+      "role": "put_495_2026_11_20",
+      "contract_id": 849290865,
+      "exchange": "SMART",
+      "market_data_names": [
+        "bid_ask",
+        "option_midpoint_iv",
+        "option_greeks",
+        "top_status"
+      ],
+      "response": {
+        "option-midpoint-iv": {
+          "dailyIv": 0.026950142581463832,
+          "annualIv": 0.4278202504097135,
+          "isValid": true
+        },
+        "top-status": {
+          "status": "REALTIME"
+        },
+        "option-greeks": {
+          "delta": -0.5047797363994972,
+          "gamma": 0.006811615897028228,
+          "theta": -0.381339600239027,
+          "vega": 0.5537666550649902,
+          "option_price": 25.9225430004196
+        },
+        "bid-ask": {
+          "bid": 24.5,
+          "bid_size": 2898,
+          "ask": 27.200000000000003,
+          "ask_size": 5252
+        }
+      }
+    }
+  ],
+  "broker_order_calls": 0,
+  "account_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

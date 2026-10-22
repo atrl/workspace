@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "status": "observed_regular_hours_read_only",
+  "source": "IBKR connected market-data snapshot",
+  "plan_sha256": "31ce89cde6f0e2628f1aa6a5b6e5fbd0133326038a31cd2ad8f81976b7c7043e",
+  "observed_at_utc": "2026-10-22 13:35:15 UTC",
+  "snapshots": {
+    "underlying": {
+      "requested_at_utc": "2026-10-22 13:35:15 UTC",
+      "received_at_utc": "2026-10-22 13:35:20 UTC",
+      "request_fields": [
+        "bid_ask",
+        "top_status"
+      ],
+      "raw_response": "{\"top-status\":{\"status\":\"REALTIME\"},\"bid-ask\":{\"bid\":489.42,\"bid_size\":36.0,\"ask\":489.57,\"ask_size\":50.0}}",
+      "parsed_response": {
+        "top-status": {
+          "status": "REALTIME"
+        },
+        "bid-ask": {
+          "bid": 489.42,
+          "bid_size": 36,
+          "ask": 489.57,
+          "ask_size": 50
+        }
+      }
+    },
+    "call": {
+      "requested_at_utc": "2026-10-22 13:35:31 UTC",
+      "received_at_utc": "2026-10-22 13:35:33 UTC",
+      "request_fields": [
+        "bid_ask",
+        "option_midpoint_iv",
+        "option_greeks",
+        "top_status"
+      ],
+      "raw_response": "{\"option-midpoint-iv\":{\"dailyIv\":0.026703375199530244,\"annualIv\":0.4239029396640409,\"isValid\":true},\"top-status\":{\"status\":\"REALTIME\"},\"option-greeks\":{\"delta\":0.4985732777931287,\"gamma\":0.006734019009816903,\"theta\":-0.43420257709157184,\"vega\":0.5543618985624583,\"option_price\":21.962048252033277},\"bid-ask\":{\"bid\":21.0,\"bid_size\":1187.0,\"ask\":22.6,\"ask_size\":3561.0}}",
+      "parsed_response": {
+        "option-midpoint-iv": {
+          "dailyIv": 0.026703375199530244,
+          "annualIv": 0.4239029396640409,
+          "isValid": true
+        },
+        "top-status": {
+          "status": "REALTIME"
+        },
+        "option-greeks": {
+          "delta": 0.4985732777931287,
+          "gamma": 0.006734019009816903,
+          "theta": -0.43420257709157184,
+          "vega": 0.5543618985624583,
+          "option_price": 21.962048252033277
+        },
+        "bid-ask": {
+          "bid": 21,
+          "bid_size": 1187,
+          "ask": 22.6,
+          "ask_size": 3561
+        }
+      }
+    },
+    "put": {
+      "requested_at_utc": "2026-10-22 13:35:31 UTC",
+      "received_at_utc": "2026-10-22 13:35:33 UTC",
+      "request_fields": [
+        "bid_ask",
+        "option_midpoint_iv",
+        "option_greeks",
+        "top_status"
+      ],
+      "raw_response": "{\"option-midpoint-iv\":{\"dailyIv\":0.026950142581463832,\"annualIv\":0.4278202504097135,\"isValid\":true},\"top-status\":{\"status\":\"REALTIME\"},\"option-greeks\":{\"delta\":-0.5047797363994972,\"gamma\":0.006811615897028228,\"theta\":-0.381339600239027,\"vega\":0.5537666550649902,\"option_price\":25.9225430004196},\"bid-ask\":{\"bid\":24.5,\"bid_size\":3592.0,\"ask\":27.200000000000003,\"ask_size\":5333.0}}",
+      "parsed_response": {
+        "option-midpoint-iv": {
+          "dailyIv": 0.026950142581463832,
+          "annualIv": 0.4278202504097135,
+          "isValid": true
+        },
+        "top-status": {
+          "status": "REALTIME"
+        },
+        "option-greeks": {
+          "delta": -0.5047797363994972,
+          "gamma": 0.006811615897028228,
+          "theta": -0.381339600239027,
+          "vega": 0.5537666550649902,
+          "option_price": 25.9225430004196
+        },
+        "bid-ask": {
+          "bid": 24.5,
+          "bid_size": 3592,
+          "ask": 27.200000000000003,
+          "ask_size": 5333
+        }
+      }
+    }
+  },
+  "order_calls": 0,
+  "alerts": 0,
+  "watchlist_writes": 0,
+  "account_reads": 0,
+  "model_fits": 0
+}

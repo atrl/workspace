@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "frozen_read_only_snapshot_budget_exceeded_by_concurrent_tasks",
+  "plan": "regular_hours_plan.json",
+  "planned_snapshots": 3,
+  "observed_preserved_snapshot_sets": [
+    {
+      "path": "regular_hours_response.json",
+      "sha256": "b8df938cc687ca2e2869e7b21f9e0072fc46e864cd84f24cfaeade6e8f60febe",
+      "snapshots": 3
+    },
+    {
+      "path": "regular_hours_response_20261022.json",
+      "sha256": "5610460e149d8e502e051e59f2d82d2a4ce3b1969e227307e59de4da20b1d438",
+      "snapshots": 3
+    },
+    {
+      "path": "regular_hours_parallel_duplicate_20261022.json",
+      "sha256": "1df30089ce15b65b458adebf9481fbd9ef08030c3edaf0caae9a7faf4df900d3",
+      "snapshots": 3
+    }
+  ],
+  "minimum_known_read_only_snapshots": 9,
+  "cause": "Parallel heartbeat executions sampled the same frozen underlying/call/put contracts before the receipts were visible to one another. The additional set is preserved as an unplanned duplicate, not an independent source date or a second qualified forward observation.",
+  "economic_or_model_impact": "No orders, account reads, model fits, economic accounts, or 25-Delta skew qualification followed from these calls.",
+  "remedy": "Close this fixed entitlement check with the budget variance disclosed. Future market-hour capture should use one durable per-phase claim before any broker read and verify an existing receipt instead of repeating it."
+}

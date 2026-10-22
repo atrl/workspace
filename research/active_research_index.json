@@ -6,12 +6,13 @@
   "active": [
     {
       "card": "research/ibkr_soxx_option_skew_forward_source_20261022",
-      "phase": "regular_hours_read_only_market_data_entitlement_check_pending",
+      "phase": "regular_hours_entitlement_observed_history_and_25Delta_unqualified",
       "role": "fixed_25delta_SOXX_option_skew_forward_source_qualification",
       "full_economic_experiment": false,
-      "status": "after_hours_FROZEN_IV_Delta_invalid",
+      "status": "REALTIME_field_entitlement_passed_not_feature_qualified",
       "execution_authorized": false,
-      "result": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json"
+      "result": "research/ibkr_soxx_option_skew_forward_source_20261022/regular_hours_result.json",
+      "source_archive": "research/ibkr_soxx_option_skew_forward_source_20261022/source_archive_receipt.json"
     },
     {
       "card": "research/cboe_total_options_activity_source_20261022",
@@ -166,10 +167,10 @@
     "all provider bin files for documentation"
   ],
   "next_information_need": {
-    "status": "Cboe_third_vintage_complete_IBKR_regular_hours_check_pending",
+    "status": "IBKR_realtime_fields_observed_25Delta_and_history_unqualified",
     "topic": "IBKR SOXX option IV/Delta availability and Cboe multiday source-only observation",
-    "evidence": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json",
-    "constraint": "Third Cboe Oct21 same-date vintage was stable and exact bytes are backed up on NAS; its fixed future-variance information screen failed, so its conditional-composition design is closed without accounts. At 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. Distinct Cboe forward dates remain source-only. No source is a qualified economic strategy.",
+    "evidence": "research/ibkr_soxx_option_skew_forward_source_20261022/regular_hours_result.json",
+    "constraint": "Nine concurrent read-only snapshots exceeded the frozen three-call budget and are one source day. No 25Delta sample, quote timestamp, historical training coverage, Stage1 fit or account. Any further option read needs an exclusive phase claim and reviewed plan.",
     "execution_authorized": false,
     "parallel_source_gap": "All 93 Korean current-document monthly table cells are accounted for. The 2020-05 p6 discrepancy remains visible but an earlier source-only audit had already selected the detailed table as current-document semantics. Historical first-public PDF vintages and availability timing remain unqualified; no Korea factor or SOXX account may be run.",
     "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/korean_numeric_semantics_reconciliation.json",

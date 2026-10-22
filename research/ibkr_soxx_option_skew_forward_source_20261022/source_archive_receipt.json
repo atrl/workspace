@@ -1,0 +1,25 @@
+{
+  "status": "uploaded_exact_regular_hours_source_bundle",
+  "archive_sha256": "c77cb3081a728facc3d00dc14339a2b2d2baa056448070d15e2d98013a481e65",
+  "archive_bytes": 4441,
+  "entries": {
+    "regular_hours_plan.json": "31ce89cde6f0e2628f1aa6a5b6e5fbd0133326038a31cd2ad8f81976b7c7043e",
+    "regular_hours_response_20261022.json": "5610460e149d8e502e051e59f2d82d2a4ce3b1969e227307e59de4da20b1d438",
+    "regular_hours_response.json": "b8df938cc687ca2e2869e7b21f9e0072fc46e864cd84f24cfaeade6e8f60febe",
+    "regular_hours_parallel_duplicate_20261022.json": "1df30089ce15b65b458adebf9481fbd9ef08030c3edaf0caae9a7faf4df900d3",
+    "regular_hours_result.json": "c2e8a90e9738be7885d15d29ef64b9c253bbf411e062614fe96d541f00391f90",
+    "historical_vendor_options.json": "da31da6bf36fb9749132c4e3de27bfa00bc536e1366a10b9339113fed58301e8"
+  },
+  "nas_artifact": {
+    "sha256": "c77cb3081a728facc3d00dc14339a2b2d2baa056448070d15e2d98013a481e65",
+    "size_bytes": 4441,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c7/7c/c77cb3081a728facc3d00dc14339a2b2d2baa056448070d15e2d98013a481e65",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 21:37:50.226682+08",
+    "duplicate": false
+  },
+  "remote_hash_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0
+}

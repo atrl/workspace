@@ -1,0 +1,47 @@
+{
+  "status": "regular_hours_option_field_entitlement_passed",
+  "regular_hours_plan_sha256": "31ce89cde6f0e2628f1aa6a5b6e5fbd0133326038a31cd2ad8f81976b7c7043e",
+  "source_response_sha256": "5610460e149d8e502e051e59f2d82d2a4ce3b1969e227307e59de4da20b1d438",
+  "canonical_response": "regular_hours_response_20261022.json",
+  "additional_duplicate_receipts": [
+    "regular_hours_response.json",
+    "regular_hours_parallel_duplicate_20261022.json"
+  ],
+  "additional_response_sha256": {
+    "regular_hours_response.json": "b8df938cc687ca2e2869e7b21f9e0072fc46e864cd84f24cfaeade6e8f60febe",
+    "regular_hours_parallel_duplicate_20261022.json": "1df30089ce15b65b458adebf9481fbd9ef08030c3edaf0caae9a7faf4df900d3"
+  },
+  "snapshot_window": "2026-10-22 13:35:15 UTC to 2026-10-22 13:35:33 UTC",
+  "underlying_status": "REALTIME",
+  "call_status": "REALTIME",
+  "put_status": "REALTIME",
+  "call_bid_ask": [
+    21,
+    22.6
+  ],
+  "put_bid_ask": [
+    24.5,
+    27.200000000000003
+  ],
+  "call_IV_annual": 0.4239029396640409,
+  "put_IV_annual": 0.4278202504097135,
+  "call_Delta": 0.4985732777931287,
+  "put_Delta": -0.5047797363994972,
+  "sample_strike": "495",
+  "expiration": "2026-11-20",
+  "sample_is_25_delta": false,
+  "option_quote_timestamps_provided": false,
+  "historical_2011_2022_skew_available": false,
+  "forward_25delta_skew_qualified": false,
+  "frozen_plan_market_data_snapshots": 3,
+  "known_additional_duplicate_calls": 6,
+  "known_total_regular_hours_calls": 9,
+  "frozen_market_request_budget_exceeded": true,
+  "independent_observations_from_duplicates": 0,
+  "chain_searches": 0,
+  "broker_order_calls": 0,
+  "account_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "The frozen near-ATM 495 call/put proves regular-hours REALTIME fields, not a 25-Delta or constant-tenor feature. Concurrent tasks made six extra read-only snapshots; they are retained but do not add independent observations and exceeded the request budget. The connector omitted option quote timestamps and historical chain coverage. No Stage1 fit or account may use this as qualified input."
+}
