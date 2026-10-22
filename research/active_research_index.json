@@ -185,6 +185,16 @@
       "execution_authorized": false,
       "result": "research/stage1_amd_nvda_guidance_breadth_source_20261023/summary.json",
       "independent_source_review": "research/stage1_amd_nvda_guidance_breadth_source_20261023/independent_numeric_source_review.json"
+    },
+    {
+      "card": "research/stage1_amd_nvda_guidance_breadth_qlib_map_v2_20261023",
+      "phase": "conditional_Qlib_full_calendar_source_map_complete_first_public_pending",
+      "role": "original_AMD_NVDA_forward_growth_positive_breadth_source",
+      "full_economic_experiment": false,
+      "status": "development_only_no_fit_or_account",
+      "execution_authorized": false,
+      "result": "research/stage1_amd_nvda_guidance_breadth_qlib_map_v2_20261023/summary.json",
+      "independent_source_review": "research/stage1_amd_nvda_guidance_breadth_qlib_map_v2_20261023/independent_source_review.json"
     }
   ],
   "framework": [
@@ -447,7 +457,8 @@
     "TSMC_SEC_guidance_Qlib_source": "research/stage1_tsmc_sec_guidance_growth_source_20261023/summary.json",
     "closed_TSMC_SEC_guidance_H5_information_result": "research/stage1_tsmc_guidance_growth_h5_information_20261023/summary.json",
     "AMD_NVDA_original_guidance_source_probe": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/summary.json",
-    "AMD_NVDA_numeric_guidance_source": "research/stage1_amd_nvda_guidance_breadth_source_20261023/summary.json"
+    "AMD_NVDA_numeric_guidance_source": "research/stage1_amd_nvda_guidance_breadth_source_20261023/summary.json",
+    "AMD_NVDA_guidance_breadth_Qlib_source": "research/stage1_amd_nvda_guidance_breadth_qlib_map_v2_20261023/summary.json"
   },
   "closed_source_probes": [
     {
@@ -467,6 +478,12 @@
       "status": "needs_source_access_official_PDF_first_anchor_HTTP403",
       "result": "research/stage1_tsmc_guidance_pdf_transport_20261023/summary.json",
       "default_search": false
+    },
+    {
+      "card": "research/stage1_amd_nvda_guidance_breadth_qlib_map_20261023",
+      "status": "failed_pre_recorder_overstrict_clock_equality",
+      "default_search": false,
+      "result": "research/stage1_amd_nvda_guidance_breadth_qlib_map_20261023/summary.json"
     }
   ]
 }

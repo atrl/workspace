@@ -1,0 +1,10 @@
+{
+  "status": "failed_before_writable_Qlib_Recorder_due_overstrict_audit_date_equality",
+  "plan_sha256": "3e579dcc45d4ddfbe10e5dc4072d2c65c092621448d7b6fa3983abe1b9f82a00",
+  "cause": "AMD 2011-01-21 qualitative original accepted 2011-01-20 21:37:15; external audit earliest next Qlib session Jan21, while frozen mapping required strictly after official filing date Jan21 and therefore selects Jan24. Requiring equality incorrectly rejects a more conservative later date.",
+  "affected_accession": "0001193125-11-011350",
+  "new_Recorders": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0
+}

@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_amd_nvda_guidance_breadth_qlib_map_20261023",
+  "decision": "failed_pre_recorder_source_clock_equality_assertion_no_model_or_account",
+  "objective_achieved": false,
+  "plan_sha256": "3e579dcc45d4ddfbe10e5dc4072d2c65c092621448d7b6fa3983abe1b9f82a00",
+  "failure": "failure.json",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/*",
+      "metadata/*"
+    ]
+  }
+}

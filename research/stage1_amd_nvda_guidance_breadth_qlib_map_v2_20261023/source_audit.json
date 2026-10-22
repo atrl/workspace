@@ -1,0 +1,30 @@
+{
+  "status": "original_AMD_NVDA_positive_guidance_breadth_Qlib_full_calendar_mapped_development_only",
+  "plan_sha256": "2a2496a90526bd35db077a5a5a206622c8b5759037c30591569c2e8dd3594b0a",
+  "original_events": 126,
+  "events_delayed_beyond_audited_earliest_due_filing_date": 1,
+  "numeric_events": 124,
+  "qualitative_unknown_events": 2,
+  "full_Qlib_calendar_rows": 3966,
+  "train_calendar_rows": 3020,
+  "held_calendar_rows": 944,
+  "known_train_sessions": 2881,
+  "known_held_sessions": 944,
+  "unknown_train_sessions": 139,
+  "unknown_held_sessions": 0,
+  "train_breadth_counts": {
+    "0.0": 772,
+    "0.5": 951,
+    "1.0": 1158
+  },
+  "held_breadth_counts": {
+    "0.0": 0,
+    "0.5": 396,
+    "1.0": 548
+  },
+  "first_known_signal_date": "2011-07-22",
+  "issuer_first_public_exact_clock_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0
+}

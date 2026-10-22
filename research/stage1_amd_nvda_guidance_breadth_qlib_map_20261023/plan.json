@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_amd_nvda_guidance_breadth_qlib_map_20261023",
+  "phase": "source_only_original_SEC_AMD_NVDA_forward_growth_breadth_Qlib_full_calendar_map",
+  "source": {
+    "numeric_card": "research/stage1_amd_nvda_guidance_breadth_source_20261023",
+    "final_numeric_result_sha256": "2f8ad7e4f5f52b40ec54e121a8e3abc5a57073586db54c6ffa712b946cbd16b2",
+    "independent_numeric_review_sha256": "c318774dd53ca05959ccccb006a3f623e543ae11a8324e6f6ea33d8e0e1dce0d",
+    "original_parent_card": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023",
+    "original_quarter_event_result_sha256": "322aa6b4f8e3b167a1c17ecb79dd72d2b2d96d55f2dbf43f59d4429163cdda4a",
+    "original_full_submission_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee"
+  },
+  "timing": {
+    "audit_card": "research/stage1_amd_nvda_sec_acceptance_clock_audit_20261023",
+    "audit_result_sha256": "1d60da55aa33813acb08865e9b6b6824f70582d4437032002461c38eb2f0a6e7",
+    "availability": "For each issuer source event, start on first native Qlib day strictly after SEC filing date. Verify exact day equals 126-row conditional acceptance audit next_Qlib_session. No same-day use or API-Z clock.",
+    "max_age": "Each issuer last numeric event must be no older than four calendar months relative to signal date, using pandas DateOffset(months=4), inclusive. Qualitative event invalidates issuer value until next numeric event.",
+    "full_history_first_public_qualified": false
+  },
+  "feature": {
+    "name": "AMD_NVDA_forward_growth_positive_breadth",
+    "formula": "If both latest issuer source events are numeric and not older than four calendar months, (1[AMD sequential growth>0]+1[NVDA sequential growth>0])/2. Exactly zero is not positive. Otherwise NaN.",
+    "no_outcome_or_threshold_selection": true
+  },
+  "Qlib": {
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "calendar": "D.calendar day 2011-01-03 through 2026-10-09",
+    "train": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "expected_full_rows": 3966,
+    "expected_train_rows": 3020,
+    "expected_held_rows": 944,
+    "no_survivor_compaction": true
+  },
+  "budget": {
+    "external_GETs": 0,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stop": "Any source hash, event identity, 126 timing audit mismatch, missingness/order anomaly, Qlib calendar mismatch or NAS readback failure stops. Source map alone cannot establish SOXX information, full 0bp account, or PIT promotion.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/*",
+      "metadata/*"
+    ]
+  }
+}
