@@ -1,0 +1,104 @@
+{
+  "experiment": "stage1_peer_breadth_0bp_action_information_20261023",
+  "decision": "not_promoted_fixed_0bp_peer_breadth_recovery_amount_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "e6d9d693d166468b6acfe1042ead40e36d69905f4eab7bba00926423b598dc70",
+  "preflight": {
+    "status": "fixed_0bp_action_value_DatasetH_preflight_passed",
+    "plan_sha256": "e6d9d693d166468b6acfe1042ead40e36d69905f4eab7bba00926423b598dc70",
+    "calendar_rows": 1061,
+    "train_calendar_rows": 558,
+    "eval_calendar_rows": 503,
+    "train_mature_eligible": 173,
+    "eval_mature_eligible": 265,
+    "eval_annual_support": {
+      "2021": 27,
+      "2022": 238
+    },
+    "unknown_source_days": 0,
+    "eligible_unknown_source_days": 0,
+    "new_model_fits": 0,
+    "native_accounts": 0,
+    "max_abs_training_pairwise_Pearson": 0.7105168475468391
+  },
+  "information_gate_pass": false,
+  "metrics": {
+    "baseline_eval_mse": 8.382540986858794e-05,
+    "candidate_eval_mse": 8.473396385364946e-05,
+    "paired_mse_improvement": -9.085539850614873e-07,
+    "annual": [
+      {
+        "year": 2021,
+        "calendar_rows": 252,
+        "scored_rows": 27,
+        "mean_paired_mse_improvement": -6.428275687706998e-07
+      },
+      {
+        "year": 2022,
+        "calendar_rows": 251,
+        "scored_rows": 238,
+        "mean_paired_mse_improvement": -9.38699418842375e-07
+      }
+    ],
+    "added_standardized_coefficient": -0.00035476929014682866,
+    "bootstrap_lower": -1.696240089724634e-06,
+    "bootstrap_upper": 1.6958659093635407e-07,
+    "bootstrap": {
+      "paired_mean_loss_improvement": -9.085539850614874e-07,
+      "lower_bound": -1.696240089724634e-06,
+      "upper_bound": 1.6958659093635407e-07,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 503,
+      "scored_rows": 265
+    }
+  },
+  "gates": {
+    "coefficient_positive": false,
+    "full_eval_mean_positive": false,
+    "each_eval_year_mean_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "evaluated_held_2023_2026": false,
+  "historical_independence": false,
+  "recorder_id": "66e2528b09594b90b5526746a59f3585",
+  "experiment_id": "286875463397396513",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_peer_breadth_0bp_action_information_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "2018-2022 OOF Stage1-architecture local action labels are reused development history and not independent forward evidence.",
+    "The training reference omits actual broker-fill and corporate-action parity; no 2023+ complete funded account was run.",
+    "The AMD/NVDA/SMH first-hour peer source 10:31 availability is a completed-bar research assumption, not certified historical first receipt."
+  ],
+  "nas_evidence": {
+    "sha256": "e6264a58e74c60f07d91390f39fe6228f4431d278781b0b583c7600c1f4073b6",
+    "size_bytes": 624624,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/e6/26/e6264a58e74c60f07d91390f39fe6228f4431d278781b0b583c7600c1f4073b6",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:42:18.80429+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e6/26/e6264a58e74c60f07d91390f39fe6228f4431d278781b0b583c7600c1f4073b6",
+    "recorder_id": "66e2528b09594b90b5526746a59f3585",
+    "experiment_id": "286875463397396513",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "e6264a58e74c60f07d91390f39fe6228f4431d278781b0b583c7600c1f4073b6",
+    "bytes": 624624,
+    "verified": true
+  },
+  "readback_verification": "readback_verification.json"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "second_mechanical_fresh_kernel_rehydration_after_JSON_key_only_failure",
+  "base_plan_sha256": "e6d9d693d166468b6acfe1042ead40e36d69905f4eab7bba00926423b598dc70",
+  "first_rehydration_addendum_sha256": "9257f1cd0813eb70185463f180937577f298c8dbe907ece6f3696f797df1c84a",
+  "failed_attempt_sha256": "9559b96b28745dc22a9f979a7bc81d5aa18be0ee16cf0c2ec9f5370246690a6b",
+  "preflight_receipt_sha256_unchanged": "d0e0eb28085af51871f9d24463ebf07205d37dabbd1b7d89ee77a01add2d108d",
+  "only_code_change": "Compare receipt to JSON-roundtripped preflight report, converting integer year keys to their serialized string form; no numeric, cohort, feature, label, model or gate change.",
+  "additional_allowed_before_fit": {
+    "source_Recorder_object_loads": 2,
+    "DatasetH_builds": 1
+  },
+  "cumulative_after_next_successful_fresh_kernel_preflight": {
+    "source_Recorder_object_loads": 6,
+    "DatasetH_builds": 3
+  },
+  "model_fits_so_far": 0,
+  "new_writable_Recorders_so_far": 0,
+  "native_accounts_so_far": 0
+}

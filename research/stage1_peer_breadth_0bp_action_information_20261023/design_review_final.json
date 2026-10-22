@@ -1,0 +1,41 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "scope": "One conditional reused-history incremental information screen on saved 0bp Tiered local recovery amount labels: two fixed Ridge fits, one paired bootstrap, zero new native accounts",
+  "plan_sha256": "e6d9d693d166468b6acfe1042ead40e36d69905f4eab7bba00926423b598dc70",
+  "preflight_sha256": "d0e0eb28085af51871f9d24463ebf07205d37dabbd1b7d89ee77a01add2d108d",
+  "preflight_cell_sha256": "9067cdcdfaf2e9bd1b6b873edbf7f18025b767b1fdf1dc0cc554471482f8fc18",
+  "fit_cell_sha256": "9d668e42b066d121404176e60394b574d645db44798f43344cf301d91f17ddfa",
+  "rehydration_addendum_sha256": "9257f1cd0813eb70185463f180937577f298c8dbe907ece6f3696f797df1c84a",
+  "second_rehydration_addendum_sha256": "6b1b34acd053d01fc592ed67449b0cc096518f63db967e93e7540a90383c17d1",
+  "source_identity": {
+    "peer_feature_recorder_id": "de73b6f2f7de4fe385ac1178674efefc",
+    "peer_feature_artifact_sha256": "cbf595f80bdebb9949560d654986bbb0b0df84e97e36f0a22340b5c6930f9c99",
+    "peer_feature_NAS_archive_sha256_remote_readback": "bbadc66d6f50c96f6db2ed136d833b0042f0a8d750601ea4fdfe9fb62873145b",
+    "label_source_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "label_artifact_sha256": "0670e49833b909748fcf97b619a035a07c9847890d8ad428b699e55583f217f2",
+    "label_NAS_archive_sha256_remote_readback": "73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb",
+    "old_21_recovery_feature_module_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013"
+  },
+  "preflight_checks": {
+    "full_calendar_rows": 1061,
+    "training_mature_eligible_rows": 173,
+    "evaluation_mature_eligible_rows": 265,
+    "evaluation_year_support": {"2021": 27, "2022": 238},
+    "eligible_unknown_source_days": 0,
+    "maximum_absolute_training_pairwise_Pearson": 0.7105168475468391,
+    "new_model_fits": 0,
+    "new_native_accounts": 0
+  },
+  "design_checks": {
+    "timing": "The three-peer 09:35-open to 10:30-close sign fraction is assumed available at 10:31 before the 10:32 recovery action; historical first receipt and bar finality remain unqualified.",
+    "label": "The pinned OOF Stage1-architecture 0bp Tiered beta0.6 same-state local recovery-minus-HOLD amount matures after next 09:49 and is a training reference, not the frozen 2023+ full funded Stage1 account.",
+    "matched_receiver": "The original 21 recovery features are shared in both arms; the candidate adds exactly the fixed AMD/NVDA/SMH positive fraction. Same eligible mature rows, imputer, scaler, Ridge alpha 1 and local net-advantage amount label are used in both arms.",
+    "novelty": "This first-hour cross-asset participation source differs from the closed SOXX signed-volume pressure coordinate and the daily XSD-minus-SOXX allocation feature.",
+    "gate": "Positive added standardized coefficient, positive full and each-2021/2022 paired MSE improvement, and positive one-sided stationary full-calendar lower bound using mean block 63, 10000 draws, seed 20261023 and alpha 0.025/32.",
+    "budget": "The first no-fit phase used two source Recorder loads and one DatasetH build; a second fresh-kernel preflight stopped only on Python integer versus JSON string year keys after two more loads and one build. The frozen second rehydration permits one more exact no-fit reconstruction, cumulative six loads and three builds before fitting. Direct fit-cell rerun is blocked before state write or Recorder creation; exactly two fit attempts and one bootstrap remain authorized."
+  },
+  "scientific_boundary": "The 2018-2022 OOF training-reference account, peer-bar first-receipt clock and local action labels provide conditional development information only. A passing screen cannot establish 2023+ original Stage1 own-state fee-net SOXX excess, independent forward evidence, or promotion; those require a separately frozen complete account and source qualification.",
+  "material_blockers": [],
+  "model_fits_reviewed": 0,
+  "new_native_accounts_reviewed": 0
+}

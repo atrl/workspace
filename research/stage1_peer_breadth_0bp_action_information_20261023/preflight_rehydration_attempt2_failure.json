@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "status": "fresh_kernel_preflight_JSON_key_normalization_failure_before_fit",
+  "first_preflight_receipt_sha256": "d0e0eb28085af51871f9d24463ebf07205d37dabbd1b7d89ee77a01add2d108d",
+  "failed_preflight_cell_sha256": "1cbcdc1e95a546ccbd969ea1cab5259a0f24db93bf81272ee85cd3c0c8c65e6c",
+  "cause": "eval_annual_support Python dict has integer year keys; stored JSON has string keys, so direct json.loads(receipt)==preflight fails despite identical values.",
+  "consumed_in_failed_fresh_kernel": {
+    "source_Recorder_object_loads": 2,
+    "DatasetH_builds": 1,
+    "model_fits": 0,
+    "new_Qlib_recorders": 0,
+    "native_accounts": 0
+  },
+  "notebook_output": "First code cell preserved CellExecutionError at receipt comparison. No run_state.json/qlib_recorder exists."
+}

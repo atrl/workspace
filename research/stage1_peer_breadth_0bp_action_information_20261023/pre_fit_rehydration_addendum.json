@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "status": "mechanical_fresh_kernel_preflight_rehydration_before_fit",
+  "plan_sha256": "e6d9d693d166468b6acfe1042ead40e36d69905f4eab7bba00926423b598dc70",
+  "first_no_fit_preflight_sha256": "d0e0eb28085af51871f9d24463ebf07205d37dabbd1b7d89ee77a01add2d108d",
+  "finding": "The standalone no-fit preflight already loaded 2 source Recorder objects and built 1 DatasetH. The approved notebook fit requires a fresh kernel and reruns the same pinned no-fit cell to reconstruct exact dataset/train/held arrays before the first writable Recorder.",
+  "additional_allowed_before_fit": {
+    "source_Recorder_object_loads": 2,
+    "DatasetH_builds": 1
+  },
+  "cumulative_after_rehydration_before_fit": {
+    "source_Recorder_object_loads": 4,
+    "DatasetH_builds": 2
+  },
+  "unchanged": "Same source object bytes, feature, 2018-2020 train and 2021-2022 evaluation cohorts, label maturity, estimator, alpha, bootstrap, gates, two fit attempts and zero accounts. The preflight receipt must be byte-equivalent after rehydration.",
+  "model_fits_so_far": 0,
+  "new_native_accounts_so_far": 0,
+  "first_preflight_receipt_preserved": "preflight_attempt1_before_control_code_seal.json",
+  "first_preflight_receipt_preserved_sha256": "d0e0eb28085af51871f9d24463ebf07205d37dabbd1b7d89ee77a01add2d108d",
+  "control_module": "src/workflow/intraday_recovery_direct_allocation.py",
+  "control_module_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+  "rehydrated_preflight_extra_check": "Verify current old21 FEATURE_COLUMNS module bytes equal the frozen source label-plan code_sha256 before the two Recorder loads; receipt remains numerically identical."
+}

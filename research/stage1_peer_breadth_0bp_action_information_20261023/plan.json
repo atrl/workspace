@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_peer_breadth_0bp_action_information_20261023",
+  "frozen": true,
+  "execution_authorized_by_active_Goal": true,
+  "phase": "old_21_recovery_inputs_plus_one_1031_AMD_NVDA_SMH_peer_positive_fraction_to_0bp_Tiered_beta06_net_action_value",
+  "hypothesis": "A higher fraction of AMD, NVDA and SMH with positive completed first-hour returns indicates broad semiconductor participation and adds positive information beyond the old 21 recovery features about whether actual beta0.6 10:32 recovery has higher local 0bp Tiered fee-net value than HOLD after a common next-session reset.",
+  "parent_boundary": "Original Stage1-architecture 2018-2022 OOF allocation training-reference state, 0bp added slippage with frozen Tiered fees. Prior SOXX signed-volume route failed; this cross-asset first-hour breadth source and mechanism are distinct. Reused history remains development only. Any later 2023+ full economic candidate starts from frozen f696/b472 Stage1 full own-state chain.",
+  "sources": {
+    "action_feature_card": "research/stage1_first_hour_peer_breadth_action_source_20261023",
+    "action_feature_summary_sha256": "1392309ddfead6e61141df220888f2e043e49c28c514b4c39cd00fc50b0d6b65",
+    "action_feature_artifact_sha256": "cbf595f80bdebb9949560d654986bbb0b0df84e97e36f0a22340b5c6930f9c99",
+    "action_feature_recorder_id": "de73b6f2f7de4fe385ac1178674efefc",
+    "action_feature_NAS_sha256": "bbadc66d6f50c96f6db2ed136d833b0042f0a8d750601ea4fdfe9fb62873145b",
+    "label_card": "research/stage1_signed_volume_0bp_action_label_source_20261023",
+    "label_summary_sha256": "ce6652a6323ec9bd11a8ce8de89239cba167a53bedb50e471080006a1a89f476",
+    "label_manifest_sha256": "6438b57702896d96e2a9654100d232f9ed505987c170157e5dc00d56a805dd01",
+    "label_artifact_sha256": "0670e49833b909748fcf97b619a035a07c9847890d8ad428b699e55583f217f2",
+    "label_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "label_NAS_sha256": "73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb"
+  },
+  "receiver": {
+    "old_features": "exact 21 frozen Stage1 recovery FEATURE_COLUMNS in source order",
+    "new_feature": "first_hour_semiconductor_peer_positive_fraction_3, one fixed coordinate from AMD/NVDA/SMH 09:35 open to 10:30 close signs, assumed available at 10:31 New York",
+    "label": "Saved 0bp-added-slippage with Tiered beta0.6 eligible local net_advantage: 10:32 recovery minus HOLD from same post-open raw shares/cash and independent monthly fee state, common next09:47 target reset; label mature next09:49",
+    "eligibility": "Use only the frozen risk-drawdown/raw-beta-over-cap/alpha and complete-old-input domain; keep every ineligible and unknown calendar row in Recorder, do not compact the native account path",
+    "historical_first_receipt_qualified": false,
+    "training_only_max_abs_pairwise_Pearson_stop_at_or_above": 0.95
+  },
+  "cohorts": {
+    "full_calendar": [
+      "2018-10-15",
+      "2022-12-30"
+    ],
+    "calendar_rows": 1061,
+    "train_trade_dates": [
+      "2018-10-15",
+      "2020-12-31"
+    ],
+    "train_label_mature_before": "2021-01-01T00:00:00-05:00",
+    "evaluation_trade_dates": [
+      "2021-01-01",
+      "2022-12-30"
+    ],
+    "evaluation_label_mature_before": "2023-01-01T00:00:00-05:00",
+    "evaluation_complete_years": [
+      2021,
+      2022
+    ],
+    "minimum_mature_train_eligible": 150,
+    "minimum_mature_eval_eligible": 250,
+    "minimum_each_eval_year": 20,
+    "all_calendar_rows_retained": true,
+    "history_reused_not_independent": true
+  },
+  "model": {
+    "baseline": "SimpleImputer(median) -> StandardScaler -> Ridge(alpha=1) on exact 21 old recovery features",
+    "candidate": "same pipeline plus the single peer-positive fraction coordinate",
+    "target_units": "saved fractional local net_advantage; no sign-only conversion",
+    "fit_attempts_max": 2,
+    "no_seed_alpha_window_or_feature_selection": true
+  },
+  "information_gate": {
+    "paired_metric": "On identical eligible mature 2021-2022 rows, baseline squared error minus candidate squared error for net_advantage amount",
+    "added_standardized_coefficient_positive": true,
+    "full_eval_mean_positive": true,
+    "each_2021_and_2022_mean_positive": true,
+    "paired_stationary_bootstrap": {
+      "calendar": "full evaluation trading calendar with ineligible/unknown rows retained NaN",
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.00078125,
+      "family_denominator": 32,
+      "lower_positive": true
+    }
+  },
+  "budget": {
+    "new_external_requests": 0,
+    "source_Recorder_object_loads": 2,
+    "DatasetH_builds": 1,
+    "model_fit_attempts_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "stop": "Before fitting, verify exact pinned source bytes/NAS readback, full 1061-row join, assumed feature availability <=10:31, label maturity and fixed sample support. If any fails, do not fit. After exactly two fits and one bootstrap, a failed coefficient/full/year/lower gate closes this peer-breadth mechanism without symbol, peer basket, sign, bar cutoff, training-year, risk threshold or label rescue. A local information pass still requires the original Stage1 full 0bp Tiered own-state account, then 2/5bp and qualified independent forward v2 gates."
+}

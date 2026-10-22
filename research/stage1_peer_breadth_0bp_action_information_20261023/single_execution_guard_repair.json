@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "status": "mechanical_once_only_fit_entry_guard_before_first_state_write",
+  "fit_cell_sha256_before": "6ac1c51e6072fd917ca31892c33dd02e1afd8001ed4f324e9a17b9a082c37734",
+  "fit_cell_sha256_after": "d294b6f0e13d6603ed3730b79eee508d36ffc643389719d8c8060e3992161872",
+  "change": "Assert no existing run_state.json and no existing qlib_recorder before state write or R.start, so a direct cell-3 rerun cannot spend another two fits/bootstrap.",
+  "plan_preflight_source_model_gates_unchanged": true,
+  "new_model_fits_before_repair": 0,
+  "new_accounts_before_repair": 0
+}
