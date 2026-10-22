@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "For the 13 original SOXX NPORT disclosure baskets in 2019-2022, can the existing Qlib constituent-price provider support the prespecified 20-session member-price inputs without dropping or renormalizing any reported equity?",
+  "original_source": {
+    "card_summary": "research/stage1_soxx_2019_2022_nport_equity_concentration_20261023/summary.json",
+    "card_summary_sha256": "533a680456b0e7b33b36f27a75498a6aed6a5e1b3cf2ded79821e978830819e0",
+    "recorder_id": "7f2b90c01f3c4820a6173a113018adf3",
+    "recorder_artifacts": ["analysis/source_events", "analysis/member_rows"]
+  },
+  "late_training_map": {
+    "summary": "research/stage1_soxx_2018_2022_concentration_bridge_20261023/summary.json",
+    "summary_sha256": "871733bf3379335a87073291bb4ebf856438b97f79f2af2e3c7fdddbc939fd72",
+    "recorder_id": "b9f1a84df25846dc8bc45b2e95906b31",
+    "artifact": "analysis/mapped_signals"
+  },
+  "legacy_price_provider": {
+    "provider": "data/qlib/soxx_pit_leveraged_training_v1",
+    "manifest": "data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json",
+    "manifest_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+    "ticker_bridge": "data/qlib/soxx_pit_leveraged_training_v1/sec_nport_holdings_history.csv",
+    "ticker_bridge_sha256": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa"
+  },
+  "identity_gate": "For every one of 390 original EC rows, require the same accession and original USD fair value in the legacy ticker bridge. Non-placeholder CUSIP must also match exactly. Preserve 000000000/N/A original CUSIP placeholders as name-and-value-only ticker identity, unqualified for a strict all-member feature; never infer cross-report identity from a placeholder.",
+  "price_gate": "Use native qlib.init, D.calendar and one bounded D.features read of $adj_close on available ticker instruments for 2019-10-01 through 2022-12-30. For each next-session signal with an NPORT report, require the member's signal-date close plus 20 prior actual Qlib session closes, all positive finite. Count exact full-basket days, strict-CUSIP full-basket days, missing members and missing original equity weight without renormalization. Do not compute returns, labels, model fits or a strategy account.",
+  "timing_and_vintage": "Only already-filed report baskets enter each signal day. Existing provider prices were assembled from retrospective Yahoo/other sources and historical first-received adjusted-close vintages are not certified; mark this separate qualification gap even if numerical coverage passes.",
+  "budget": {
+    "new_GETs": 0,
+    "Qlib_price_feature_batch_reads_max": 1,
+    "Qlib_source_Recorder_object_loads_max": 3,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_native_source_recorders": 1
+  },
+  "stop": "Any source hash, 390-row identity/value mismatch, timing, Qlib price or Recorder/NAS failure stops qualification. Do not compact to surviving members or change the 20-session window. A pass here is price availability only and cannot authorize an information fit without full 2011-2022 Stage1 and held-source timing."
+}

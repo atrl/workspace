@@ -1,0 +1,63 @@
+{
+  "status": "original_NPORT_2019_2022_member_price_coverage_diagnostic_only",
+  "source_plan_sha256": "7d688efd589f101bf55ef59ba359bf36c8d459d3391aec44bc04b93b6be8ca94",
+  "original_report_events": 13,
+  "original_equity_rows": 390,
+  "strict_CUSIP_value_matches": 357,
+  "placeholder_name_value_only_rows": 33,
+  "legacy_ticker_bridge_rows_matched": 390,
+  "NPORT_active_Qlib_sessions": 780,
+  "distinct_bridge_tickers": 39,
+  "Qlib_provider_tickers_present": 32,
+  "Qlib_provider_tickers_absent": [
+    "BRKS",
+    "CCMP",
+    "CREE",
+    "IPHI",
+    "MXIM",
+    "WOLF",
+    "XLNX"
+  ],
+  "full_30_member_21_close_window_sessions": 0,
+  "strict_full_30_identity_and_price_window_sessions": 0,
+  "median_missing_members": 4.0,
+  "max_missing_original_equity_weight": 0.07693408273616119,
+  "median_missing_original_equity_weight": 0.05695845070007403,
+  "top_missing_ticker_days": [
+    [
+      "XLNX",
+      630
+    ],
+    [
+      "CREE",
+      567
+    ],
+    [
+      "CCMP",
+      441
+    ],
+    [
+      "MXIM",
+      316
+    ],
+    [
+      "WOLF",
+      213
+    ],
+    [
+      "BRKS",
+      188
+    ],
+    [
+      "IPHI",
+      188
+    ]
+  ],
+  "source_price_vintage_qualified": false,
+  "2011_2022_full_Stage1_feature_qualified": false,
+  "new_GETs": 0,
+  "Qlib_price_feature_batch_reads": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
