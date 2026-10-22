@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "status": "mechanical_calendar_identity_diagnosis_before_any_Recorder",
+  "first_preflight_sha256": "22505ca134b17957867f7a4314344df39cfdd0ba3e5798f77c1c18f78ab26569",
+  "failure": "Combined frame.index.equals(D.calendar through 2026-10-07) and source-date membership assertion failed after source-action checks and parent object reads.",
+  "diagnostic_scope": "Print exact calendar/frame index lengths and endpoints, then repair only calendar reference alignment if Qlib source coverage remains complete. No feature formula, label, model, gate, budget or account change.",
+  "model_fits": 0,
+  "accounts": 0,
+  "writable_Recorders": 0
+}

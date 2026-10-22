@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "XSD_minus_SOXX_20_session_total_return_source_map_and_Stage1_train_redundancy_only",
+  "source": {
+    "card": "research/stage1_xsd_semiconductor_breadth_source_20261023",
+    "summary_sha256": "04812a07777f28c656ec2706c7103bd0f108cabc19439262583e68afb518d314",
+    "raw_root": "data/snapshots/stage1_xsd_semiconductor_breadth_source_20261023",
+    "raw_sha256": {
+      "XSD": "f6df2827bd64fb46a198863edcbb134f901fc3e595e4a8d2b8618e5c5fd11f5c",
+      "SOXX": "3439ce09ac74780dd6713f278176b92440d0953b8d126c8de3e3c546e9a64b29"
+    },
+    "NAS_archive_sha256": "fbcf034d8a1b0b17a32ec2f6ac290e4c0a2605a4efc83371bb0941e308a2c52c",
+    "historical_corporate_action_first_public_vintage_qualified": false
+  },
+  "parent": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "experiment_id": "905520356740140469",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "base_features_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c"
+  },
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "train_signal": [
+    "2011-01-03",
+    "2022-12-30"
+  ],
+  "held_reused_signal": [
+    "2023-01-03",
+    "2026-10-07"
+  ],
+  "formula": "For XSD and SOXX on each source date t, one-session gross total return=(Yahoo split-restated close_t + Yahoo ex-date dividend_t in the same present-share basis)/Yahoo split-restated close_(t-1); take difference of sums of 20 latest log gross returns ending at signal date s: XSD minus SOXX. Require positive finite returns, exact 20 source sessions, no value after s. A split date must not create a mechanical jump.",
+  "timing": "Stage1 signal date s close/ex-date cash is before next-session preopen decision. Current retrospective corporate action revisions are not first-public vintage qualified. This phase cannot authorize account or promotion.",
+  "quality": {
+    "source_session_dates_exact_pair": true,
+    "stage1_calendar_rows_train": 3020,
+    "stage1_calendar_rows_held": 944,
+    "full_feature_known_required": true,
+    "gross_vs_retrospective_adjclose_log_return_abs_gap_max_bp": 2.0,
+    "split_day_gross_log_abs_max": 0.4,
+    "redundancy": "Report full original Stage1 39 training pairwise Pearson correlations and max absolute value; abs>=0.95 marks likely duplicate and stops before any model. This is a necessary but not sufficient novelty check.",
+    "no_outcome_selected_subgroups": true
+  },
+  "artifacts": "Native Qlib D.calendar and D.features source-plane diagnostic, DatasetH mapped full signal calendar, source and redundancy artifacts in Qlib Recorder; archive and readback NAS.",
+  "budget": {
+    "new_external_requests": 0,
+    "raw_JSON_reads": 2,
+    "Qlib_D_calendar_calls": 1,
+    "Qlib_D_features_calls": 1,
+    "parent_Recorder_object_loads": 3,
+    "DatasetH_builds": 1,
+    "new_source_Recorders_max": 1,
+    "model_fits": 0,
+    "bootstrap_runs": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any pinned hash, NAS source receipt, source identity, date/return/split/adjclose tolerance, full Stage1 feature coverage, Qlib, Recorder or NAS failure stops without changing formula. A pairwise duplicate closes before information fit. Passing remains source-only and retrospective, with vintage and independent history unresolved."
+}

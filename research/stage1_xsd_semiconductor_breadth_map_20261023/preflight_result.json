@@ -1,0 +1,104 @@
+{
+  "status": "source_map_and_training_redundancy_preflight_passed_no_fit",
+  "plan_sha256": "1e26e8ad96f9ae88edf007510425cb8a2626396d440215bc60eb2dcf050b8ade",
+  "source_summary_sha256": "04812a07777f28c656ec2706c7103bd0f108cabc19439262583e68afb518d314",
+  "source_NAS_sha256": "fbcf034d8a1b0b17a32ec2f6ac290e4c0a2605a4efc83371bb0941e308a2c52c",
+  "symbols": {
+    "XSD": {
+      "rows": 4218,
+      "first_date": "2010-01-04",
+      "last_date": "2026-10-09",
+      "dividend_events": 67,
+      "split_events": [
+        {
+          "date": "2015-09-11",
+          "ratio": "2:1"
+        }
+      ],
+      "max_abs_gross_adj_log_gap_bp": 0.8800187822781067,
+      "median_abs_gross_adj_log_gap_bp": 0.0011828509440675594,
+      "split_day_max_abs_gross_log": 0.0034692825085043994,
+      "all_positive_finite": true
+    },
+    "SOXX": {
+      "rows": 4218,
+      "first_date": "2010-01-04",
+      "last_date": "2026-10-09",
+      "dividend_events": 65,
+      "split_events": [
+        {
+          "date": "2024-03-07",
+          "ratio": "3:1"
+        }
+      ],
+      "max_abs_gross_adj_log_gap_bp": 1.2989714399291863,
+      "median_abs_gross_adj_log_gap_bp": 0.0011770752019954478,
+      "split_day_max_abs_gross_log": 0.03372026189332046,
+      "all_positive_finite": true
+    }
+  },
+  "source_pair_dates_exact": true,
+  "model_fits": 0,
+  "new_native_accounts": 0,
+  "Qlib_calendar_rows": 3964,
+  "training_rows": 3020,
+  "held_rows": 944,
+  "candidate_train_unknown": 0,
+  "candidate_held_unknown": 0,
+  "source_feature_min_train": -0.07606804500765295,
+  "source_feature_max_train": 0.0624089601077847,
+  "parent_original_features": 39,
+  "top_training_correlations": [
+    {
+      "feature": "high_chop_pressure",
+      "pearson": -0.18058740374007723
+    },
+    {
+      "feature": "soxx_ret20",
+      "pearson": 0.17437336440093862
+    },
+    {
+      "feature": "soxl_ret20",
+      "pearson": 0.17434612013108888
+    },
+    {
+      "feature": "relative_momentum20",
+      "pearson": 0.1720234335477635
+    },
+    {
+      "feature": "rv20_expansion",
+      "pearson": -0.15874236565949906
+    },
+    {
+      "feature": "soxx_trend20",
+      "pearson": 0.15287083907877702
+    },
+    {
+      "feature": "cross_breadth_pos_20",
+      "pearson": 0.13153349257898972
+    },
+    {
+      "feature": "trend_efficiency_20",
+      "pearson": 0.1291333114042378
+    },
+    {
+      "feature": "tech_breadth_20",
+      "pearson": 0.12794186255238482
+    },
+    {
+      "feature": "soxl_ret10",
+      "pearson": 0.12491128750516653
+    }
+  ],
+  "max_abs_training_pairwise_pearson": 0.18058740374007723,
+  "duplicate_pairwise_ge_095": false,
+  "Qlib_SOXX_close_return_plane_diagnostic": {
+    "rows": 3964,
+    "paired_returns": 3963,
+    "median_abs_log_return_gap_bp": 0.0018011400568229696,
+    "max_abs_log_return_gap_bp": 6.805725861340761
+  },
+  "DatasetH_train_rows": 3020,
+  "DatasetH_held_rows": 944,
+  "historical_corporate_action_vintage_qualified": false
+}

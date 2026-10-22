@@ -1,0 +1,13 @@
+{
+  "status": "diagnostic_frame_has_two_source_tail_dates_beyond_frozen_held_cutoff",
+  "frame_rows": 3966,
+  "frame_first": "2011-01-03",
+  "frame_last": "2026-10-09",
+  "frozen_calendar_rows": 3964,
+  "frozen_calendar_first": "2011-01-03",
+  "frozen_calendar_last": "2026-10-07",
+  "source_rows": 4218,
+  "source_last": "2026-10-09",
+  "frozen_calendar_source_member_count": 3964,
+  "repair": "Require frame index prefix of length frozen calendar equals frozen Qlib calendar; retain last two parent frame dates outside fixed held cohort without using them in feature or redundancy."
+}

@@ -39,7 +39,9 @@
     "Stage1_credit_pair_H5_information_result": "research/stage1_credit_pair_h5_information_20261023/summary.json",
     "Stage1_credit_pair_H5_interpretation": "Fixed Stage1 39 plus HYG-LQD 20-session credit total-return coordinate: two Ridge fits and one corrected paired bootstrap on 3014/940 mature rows. Candidate MSE 0.002550556 vs baseline 0.002526267, both halves negative, added coefficient negative, lower negative; all four information gates failed, zero accounts. Retrospective Yahoo dividend first-public vintage remains unqualified. Close this version; no sign/window/ETF rescue.",
     "XSD_modified_equal_weight_semiconductor_source": "research/stage1_xsd_semiconductor_breadth_source_20261023/summary.json",
-    "XSD_source_status": "XSD_SOXX_4218_matched_raw_daily_dates_2010_2026_corporate_actions_retrospective_NAS_restored_0_fits_accounts_next_PIT_Qlib_and_redundancy"
+    "XSD_source_status": "XSD_SOXX_4218_matched_raw_daily_dates_2010_2026_corporate_actions_retrospective_NAS_restored_0_fits_accounts_next_PIT_Qlib_and_redundancy",
+    "XSD_Stage1_Qlib_source_map": "research/stage1_xsd_semiconductor_breadth_map_20261023/summary.json",
+    "XSD_Stage1_Qlib_source_map_status": "3020_train_944_reused_held_all_known_max_training_abs_pairwise_corr_0p181_split_actions_audited_Recorder_NAS_restored_corporate_action_first_public_vintage_pending_0_fits_accounts"
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -287,7 +289,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T20:08:07+00:00",
+  "updated_at_utc": "2026-10-22T20:09:08.775204+00:00",
   "execution_totals": {
     "new_model_fits": 70,
     "new_native_accounts": 49,

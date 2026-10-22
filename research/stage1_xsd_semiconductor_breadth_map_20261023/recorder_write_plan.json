@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "write_Qlib_source_map_Recorder_after_passed_no_fit_preflight",
+  "plan_sha256": "1e26e8ad96f9ae88edf007510425cb8a2626396d440215bc60eb2dcf050b8ade",
+  "preflight_result_sha256": "15aafb09cabae95ae2a4a9fdc0ec5a14e97e2d4e956d9d88b636d7c6d2e9b149",
+  "preflight_cell_sha256": "60bf93bdaf9036887fc7559da052873e505c00e37eda0c7c00255151aea6c705",
+  "write_cell_sha256": "53ffa2927c8dfc7ef472788c00f57b281ac5da0f439965748b71f68a88bd190b",
+  "mechanical_preflight_attempts": {
+    "initial_combined_calendar_assertion": 3,
+    "read_only_alignment_diagnostic": 3,
+    "repaired_preflight": 3,
+    "final_notebook_execution_budget": 3,
+    "parent_Recorder_object_loads_total_at_completion": 12
+  },
+  "scientific_change": "none",
+  "max_new_writable_Qlib_Recorders": 1,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "NAS_remote_readback_required": true
+}

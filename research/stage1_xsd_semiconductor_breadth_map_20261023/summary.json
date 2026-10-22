@@ -1,0 +1,128 @@
+{
+  "experiment": "stage1_xsd_semiconductor_breadth_map_20261023",
+  "plan_sha256": "1e26e8ad96f9ae88edf007510425cb8a2626396d440215bc60eb2dcf050b8ade",
+  "decision": "source_map_passed_retrospective_action_vintage_pending_no_fit",
+  "objective_achieved": false,
+  "training_rows": 3020,
+  "held_rows": 944,
+  "candidate_unknown_train_held": [
+    0,
+    0
+  ],
+  "max_abs_training_pairwise_pearson": 0.18058740374007723,
+  "top_training_correlations": [
+    {
+      "feature": "high_chop_pressure",
+      "pearson": -0.18058740374007723
+    },
+    {
+      "feature": "soxx_ret20",
+      "pearson": 0.17437336440093862
+    },
+    {
+      "feature": "soxl_ret20",
+      "pearson": 0.17434612013108888
+    },
+    {
+      "feature": "relative_momentum20",
+      "pearson": 0.1720234335477635
+    },
+    {
+      "feature": "rv20_expansion",
+      "pearson": -0.15874236565949906
+    },
+    {
+      "feature": "soxx_trend20",
+      "pearson": 0.15287083907877702
+    },
+    {
+      "feature": "cross_breadth_pos_20",
+      "pearson": 0.13153349257898972
+    },
+    {
+      "feature": "trend_efficiency_20",
+      "pearson": 0.1291333114042378
+    },
+    {
+      "feature": "tech_breadth_20",
+      "pearson": 0.12794186255238482
+    },
+    {
+      "feature": "soxl_ret10",
+      "pearson": 0.12491128750516653
+    }
+  ],
+  "corporate_action_diagnostics": {
+    "XSD": {
+      "rows": 4218,
+      "first_date": "2010-01-04",
+      "last_date": "2026-10-09",
+      "dividend_events": 67,
+      "split_events": [
+        {
+          "date": "2015-09-11",
+          "ratio": "2:1"
+        }
+      ],
+      "max_abs_gross_adj_log_gap_bp": 0.8800187822781067,
+      "median_abs_gross_adj_log_gap_bp": 0.0011828509440675594,
+      "split_day_max_abs_gross_log": 0.0034692825085043994,
+      "all_positive_finite": true
+    },
+    "SOXX": {
+      "rows": 4218,
+      "first_date": "2010-01-04",
+      "last_date": "2026-10-09",
+      "dividend_events": 65,
+      "split_events": [
+        {
+          "date": "2024-03-07",
+          "ratio": "3:1"
+        }
+      ],
+      "max_abs_gross_adj_log_gap_bp": 1.2989714399291863,
+      "median_abs_gross_adj_log_gap_bp": 0.0011770752019954478,
+      "split_day_max_abs_gross_log": 0.03372026189332046,
+      "all_positive_finite": true
+    }
+  },
+  "Qlib_SOXX_close_return_plane_diagnostic": {
+    "rows": 3964,
+    "paired_returns": 3963,
+    "median_abs_log_return_gap_bp": 0.0018011400568229696,
+    "max_abs_log_return_gap_bp": 6.805725861340761
+  },
+  "historical_corporate_action_vintage_qualified": false,
+  "historical_independence": false,
+  "model_fits": 0,
+  "new_native_accounts": 0,
+  "recorder_id": "f3eb1079959b448bb826eb9eda08264a",
+  "experiment_id": "541018705945447568",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_xsd_semiconductor_breadth_map_20261023/qlib_recorder",
+  "source_NAS_sha256": "fbcf034d8a1b0b17a32ec2f6ac290e4c0a2605a4efc83371bb0941e308a2c52c",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "cd9b4920f0b0e33f899a114f107095fbd460ade187f67afb1737fd61e21122b3",
+    "size_bytes": 301097,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/cd/9b/cd9b4920f0b0e33f899a114f107095fbd460ade187f67afb1737fd61e21122b3",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:08:36.489578+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/cd/9b/cd9b4920f0b0e33f899a114f107095fbd460ade187f67afb1737fd61e21122b3",
+    "recorder_id": "f3eb1079959b448bb826eb9eda08264a",
+    "experiment_id": "541018705945447568",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "cd9b4920f0b0e33f899a114f107095fbd460ade187f67afb1737fd61e21122b3",
+    "verified": true
+  }
+}
