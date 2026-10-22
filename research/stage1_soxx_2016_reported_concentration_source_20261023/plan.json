@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "four_first_original_2016_SOXX_series_filing_body_reads",
+  "series_calendar_sha256": "84de74dd586d975e02fd5852acfb4d024408b0272c063e92fa3965b0d3df545b",
+  "series_id": "S000004354",
+  "reports": [
+    {
+      "report_date": "2016-03-31",
+      "form": "N-CSR",
+      "accession": "0001193125-16-613829",
+      "accepted_at_utc": "2016-06-06T22:59:07.000Z",
+      "primary_document": "d184535dncsr.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312516613829/d184535dncsr.htm"
+    },
+    {
+      "report_date": "2016-06-30",
+      "form": "N-Q",
+      "accession": "0001193125-16-695276",
+      "accepted_at_utc": "2016-08-29T21:37:08.000Z",
+      "primary_document": "d231174dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312516695276/d231174dnq.htm"
+    },
+    {
+      "report_date": "2016-09-30",
+      "form": "N-CSRS",
+      "accession": "0001193125-16-788378",
+      "accepted_at_utc": "2016-12-09T00:57:38.000Z",
+      "primary_document": "d270106dncsrs.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312516788378/d270106dncsrs.htm"
+    },
+    {
+      "report_date": "2016-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-17-065125",
+      "accepted_at_utc": "2017-03-02T00:38:08.000Z",
+      "primary_document": "d346678dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312517065125/d346678dnq.htm"
+    }
+  ],
+  "later_amendment_excluded_from_first_version": {
+    "report_date": "2016-09-30",
+    "form": "N-CSRS/A",
+    "accession": "0001193125-17-257378",
+    "accepted_at_utc": "2017-08-15T01:09:35.000Z"
+  },
+  "target_fund_title": "PHLX SEMICONDUCTOR ETF",
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 4,
+    "max_response_bytes_each": 70000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 120,
+    "minimum_seconds_between_requests": 1
+  },
+  "identity_gate": "Each exact first filing body must contain a bounded SOXX original equity Schedule of Investments with its report date and Security/Shares/Value header; N-CSR/N-CSRS may use fund-named TOC anchor.",
+  "preservation": "Archive exact raw bodies, headers and UTC times to NAS, verify remote SHA-256 and scoped member restore.",
+  "budget": {
+    "first_version_filing_body_GETs": 4,
+    "amendment_body_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop before next GET on HTTP/URL/body/raw-size/NAS failure. Do not substitute amendment or later report if identity fails. Keep the September amendment out of historical pre-2017-08 features.",
+  "scientific_boundary": "Four source reports do not qualify future revisions, 2017-2022 and held source coverage, incremental information or Stage1 account performance.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
