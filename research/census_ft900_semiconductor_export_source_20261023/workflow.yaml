@@ -13,6 +13,10 @@ outputs:
   - training_index_audit.json
   - index_typo_adjudication.json
   - index_link_correction.json
+  - full_training_source_result.json
+  - full_training_readback.json
+  - full_training_request_ledger.jsonl
+  - full_training_year_archives.jsonl
 market_outcome_reads: 0
 model_fits: 0
 native_accounts: 0

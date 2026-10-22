@@ -1,0 +1,111 @@
+{
+  "status": "all_144_local_hashes_and_12_scoped_NAS_member_restores_verified",
+  "request_ledger_entries": 284,
+  "new_GETs": 140,
+  "reused_PDFs": 4,
+  "monthly_PDF_hashes_verified": 144,
+  "year_archives": 12,
+  "scoped_restores": [
+    {
+      "year": 2011,
+      "month": "2011-01",
+      "member": "ft900_1101.pdf",
+      "sha256": "08514b3a8875a61a3ada290e1212711af8e272a31e119f386ad3f66e6ad82484",
+      "bytes": 362522,
+      "archive_sha256": "70bf6c07793af3ae6f2fbce93d89fcb3d6103cb511f50aa2a09eaed37af1788e"
+    },
+    {
+      "year": 2012,
+      "month": "2012-01",
+      "member": "ft900_1201.pdf",
+      "sha256": "827efe67a3bb680d144ca185845c6d888260f5c85782aa22c842e44c0df7403f",
+      "bytes": 449548,
+      "archive_sha256": "ee2560f9a344230c97194f264a41a6cfd15bc9201b04bea05b43d380432cf68f"
+    },
+    {
+      "year": 2013,
+      "month": "2013-01",
+      "member": "ft900_1301.pdf",
+      "sha256": "c955853075771a71599db696017a94ad22a589c903e758a3d5ee26521a7ceeee",
+      "bytes": 1019606,
+      "archive_sha256": "f65b607d43afa4adc7208437e3aaebb1612426de608ba270437c604645a08657"
+    },
+    {
+      "year": 2014,
+      "month": "2014-01",
+      "member": "ft900_1401.pdf",
+      "sha256": "202d56d71927f7d9629e2956eb57bdeb8273ec9e7fdf09332280ffd0c3881a30",
+      "bytes": 1023804,
+      "archive_sha256": "6240fbf3e5917dabb93dce3f3d52c4e932049a61d3e8b03f9c36ce816cfb1e46"
+    },
+    {
+      "year": 2015,
+      "month": "2015-01",
+      "member": "ft900_1501.pdf",
+      "sha256": "6c799fe9fbb473dd2e1b56fb34cdf5e0d9e6e7c88c05ca9c09f085f48a26a936",
+      "bytes": 907370,
+      "archive_sha256": "c29b3e47aa9259ca10463e6e9ad0afc06b497df649faf7f9f318e6047381a68c"
+    },
+    {
+      "year": 2016,
+      "month": "2016-01",
+      "member": "ft900_1601.pdf",
+      "sha256": "53a080a0cb14d72ccc9a5f57f9558403716eab3e9704e2b9fed72dbc3e9b785d",
+      "bytes": 916265,
+      "archive_sha256": "0f881c3a358a99d5257f46e4f647a26ac181fd24b598e1f393cbaeef0a93de3f"
+    },
+    {
+      "year": 2017,
+      "month": "2017-01",
+      "member": "ft900_1701.pdf",
+      "sha256": "b873765a2109cfc721165c66426a7e2c0e752cf197922f2e38cbbbebee495fd9",
+      "bytes": 1059159,
+      "archive_sha256": "529d1c3fbd9c7fdf89620126626462ac285e246954061a8df2816a807ece4a2e"
+    },
+    {
+      "year": 2018,
+      "month": "2018-01",
+      "member": "ft900_1801.pdf",
+      "sha256": "e54b8eb5c8ca212ea723cee07e9acb31acbfa2015d1eca7851fb1d8ec6cbdbf7",
+      "bytes": 1481137,
+      "archive_sha256": "df3726394db64c03c6a80eddaf2c4d75b6c356d6a8dfbc9203e328330dd87a34"
+    },
+    {
+      "year": 2019,
+      "month": "2019-01",
+      "member": "ft900_1901.pdf",
+      "sha256": "6ac6ef30327aa955e00106087ad848420fd7a728a35a023b924b4c6877200e26",
+      "bytes": 1281834,
+      "archive_sha256": "f07acb4cb16650f99d1e31f6deec187ee099cc6593b60f12462c6715a7c351bc"
+    },
+    {
+      "year": 2020,
+      "month": "2020-01",
+      "member": "ft900_2001.pdf",
+      "sha256": "b1cfa18560bc0bbb4c325d5b49bdba078407d6d247197ce1edc2d6ae30be61bf",
+      "bytes": 1386800,
+      "archive_sha256": "ab0bbd84db69936a4bcda3bc1f5d894a85ed035554f8bd6259c95178e1684c35"
+    },
+    {
+      "year": 2021,
+      "month": "2021-01",
+      "member": "ft900_2101.pdf",
+      "sha256": "652c639ba59b9533af44b034a9cfe6eb4b4468890e5aa267e186233d755610b7",
+      "bytes": 1441662,
+      "archive_sha256": "6f331941c17ab03e1ff882b229c4f935a7dc98a7ce8d8ed577c16632c43f7596"
+    },
+    {
+      "year": 2022,
+      "month": "2022-01",
+      "member": "ft900_2201.pdf",
+      "sha256": "35b49992a5c9fba615423084d6fcf60bb11e45adce50676eb8e87b46c6903375",
+      "bytes": 1457197,
+      "archive_sha256": "40c14f75d3ffa96444702a6f0247eb8440c0ac3b816b18cff48201612c77d390"
+    }
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_first_public_bytes_qualified": false,
+  "Exhibit7_row_coverage_qualified": false
+}

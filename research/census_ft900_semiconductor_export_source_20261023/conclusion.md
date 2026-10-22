@@ -8,4 +8,6 @@
 
 这证明一个与 G.17 国内产量不同的**出口需求来源候选**，尚不证明它能预测收益。当前下载的历史 PDF 不能单独证明其字节就是当时首次公开的版本；2012 年最终用途分类调整及后续修订使今日 API 的长历史不能直接充当逐月 PIT 原件。下一步如继续，先限定核查 2011–2022 每份当期 Exhibit 7 的行覆盖、当期值/修订和首次公开时钟；再与 Stage1 原 39 输入做去重，并事前冻结信息门。只有信息门通过，才允许独立完整账户按 0bp、IBKR Tiered 费用先检验，SOXX 仍是最终硬门。
 
+来源采集进展：已按冻结的 144 个月份 URL 映射取得 **144/144 份训练期 PDF 字节**（复用既有 4 份、新 GET 140 次）。每年 12 份构成一个 NAS 年包，12 包远端 SHA-256 全部一致；另从每个年包实际恢复 1 份 PDF 并核对尺寸与 SHA-256，144 份本地 PDF 均按请求收据复核。账本见 `full_training_request_ledger.jsonl`、`full_training_year_archives.jsonl`，限定恢复见 `full_training_readback.json`。本地源字节继续保留。**字节覆盖不等于**逐月 Exhibit 7 行、历史首次公开字节、2012 跨分类可比性或 Stage1 因子资格；尚未构造因子、拟合或运行账户。
+
 官方原件：[2011-12 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1112.pdf)、[2017-05 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1705.pdf)、[2024-04 FT-900](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2404.pdf)；[历史发布索引](https://www.census.gov/foreign-trade/Press-Release/ft900_index.html)、[2012 分类变动说明](https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1202.pdf)。
