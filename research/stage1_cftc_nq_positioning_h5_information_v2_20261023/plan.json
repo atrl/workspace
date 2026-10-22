@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_cftc_nq_positioning_h5_information_v2_20261023",
+  "phase": "original_Stage1_39_plus_repaired_CFTC_NQ_LevNetOI_delta4_H5_development_information",
+  "execution_authorized_by_active_Goal": true,
+  "parent": {
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "nas_readback": "research/minute_information_pit_allocator_20261012/nas_readback.json",
+    "nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "feature_order": "exact original Stage1 39 base_features, seed71"
+  },
+  "source": {
+    "summary": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/summary.json",
+    "summary_sha256": "05828e3da9ca7c0cf336c163b4fcdd75000c41ada596e8b565c5b433433633dd",
+    "recorder_id": "f11156af93d24fdbb942c0c37c5408ad",
+    "experiment_id": "681074833032459051",
+    "feature_artifact": "analysis/mapped_signals",
+    "mapped_artifact_sha256": "a74a4d705983f34d0ecbb3df9dcf9855be26496c285d7c95f61acbd1cb47d061",
+    "known_train_calendar_rows": 2947,
+    "known_held_calendar_rows": 915,
+    "first_public_vintage_qualified": false,
+    "timing": "Development-only repaired CFTC annual compressed 14-day ordinary embargo, official delayed 2025 dates, 2025-12-23 updated-current-version row and dependent delta4 excluded, unknown 2018-19/2023 periods masked; Stage1 09:45 decision. First-public source remains unqualified."
+  },
+  "single_mechanism": {
+    "feature": "CFTC_NQ_LevNetOI_delta4",
+    "formula": "difference across four weekly reports of (leveraged-money long minus short)/open interest; same-source 14d availability proxy and exceptions frozen in source map",
+    "hypothesis": "Growing Nasdaq futures leveraged-money net participation reflects risk appetite beyond original Stage1 price/VIX/breadth controls and should add positive H5 SOXX-versus-cash information. Positive standardized coefficient required.",
+    "baseline": "Original 39 Stage1 primary features only",
+    "candidate": "Identical rows, label, median imputer, scaler and Ridge plus exactly one CFTC coordinate",
+    "regime_motivation": "Original Stage1 worst126 cash opportunity and 2026Q3 adverse local executes require distinct predecision risk appetite evidence; no hindsight switch or threshold from those intervals."
+  },
+  "label": {
+    "primary": "Five consecutive original Stage1 SOXX funded open-to-open returns from signal s: sum j=0..4 log1p(soxx_forward_open_return(s+j)).",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval; train mature before 2023-01-01 New York; held before 2026-10-10 New York.",
+    "role": "Matched incremental information only, not fee-net strategy return."
+  },
+  "cohorts": {
+    "train_signal": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused_diagnostic": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-07"
+      ]
+    ],
+    "expected_train_calendar_rows": 3020,
+    "expected_held_calendar_rows": 944,
+    "expected_mature_train_rows": 3014,
+    "expected_mature_held_rows": 940,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "SimpleImputer(median) then StandardScaler then Ridge(alpha=1.0) on original 39 features",
+    "candidate": "Identical pipeline plus one fixed CFTC coordinate",
+    "new_fits": 2,
+    "runtime": "qlib_venv Python3.12.12 scikit-learn1.9.1",
+    "no_hyperparameter_sign_window_or_output_selection": true
+  },
+  "information_gate": {
+    "paired_metric": "Identical held signal rows baseline squared error minus candidate squared error for five-open SOXX log return",
+    "added_coefficient_positive": true,
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.0007142857142857143,
+      "family_denominator": 35,
+      "lower_positive": true
+    },
+    "no_gate_rescue": true
+  },
+  "budget": {
+    "new_external_requests": 0,
+    "source_Recorder_object_loads_per_phase_max": 5,
+    "DatasetH_builds_per_phase_max": 1,
+    "model_fit_attempts_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "barrier": "Execute one no-fit Qlib DatasetH/source/maturity preflight, then inspect exact fit code and plan before two fixed Ridge fits and one bootstrap. Failed information closes version. Conditional pass still requires first-public/revision source qualification before one full Stage1-derived 0bp Tiered-fee account. 2/5bp and independent forward separate.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "plan_revision": {
+    "prior_frozen_plan_sha256": "03ffc673ab1b6012a432f6826aaf17f5ce2eb7d7c10fc3211d862556e793d156",
+    "prior_preflight_sha256": "079b4a2fd1fefb74ef6bd2d4b95779829c089e52d54a5c00e4fda3ab482c8ee4",
+    "reason": "New frozen information version after old card rejected pre-fit for Dec30 current-version timing risk; repaired source new Recorder and family denominator35. No fits/accounts in rejected version."
+  },
+  "supersedes_rejected_card": "research/stage1_cftc_nq_positioning_h5_information_20261023"
+}

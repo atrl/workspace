@@ -1,0 +1,21 @@
+{
+  "status": "Stage1_CFTC_NQ_delta4_DatasetH_label_maturity_preflight_passed_conditional_source_no_fit",
+  "plan_sha256": "9a3ddd716a2135bf3968f58654887e27b3b3dd434295792a090027e7b01ea885",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_recorder_id": "f11156af93d24fdbb942c0c37c5408ad",
+  "original_primary_features": 39,
+  "candidate_coordinates": 1,
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "train_segment_rows": 3020,
+  "held_segment_rows": 944,
+  "candidate_train_unknown_rows": 73,
+  "candidate_held_unknown_rows": 29,
+  "source_Recorder_object_loads": 5,
+  "DatasetH_builds": 1,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "held_scores_computed": false,
+  "historical_independence": false,
+  "historical_first_public_qualified": false
+}

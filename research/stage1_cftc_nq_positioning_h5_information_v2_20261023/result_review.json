@@ -1,0 +1,34 @@
+{
+  "status": "not_promoted_fixed_CFTC_NQ_delta4_H5_information_failed",
+  "plan_sha256": "1ce7890357e9ad882f44981d08fcb8079da6101653237b4d9a150c1e68cb71d9",
+  "recorder_id": "c2a9af571dbf486fb7b9ba279e0b9571",
+  "metrics": {
+    "baseline_held_mse": 0.0025262669365982205,
+    "candidate_held_mse": 0.002543961155931939,
+    "held_paired_mse_improvement": -1.769421933371854e-05,
+    "held_half_paired_improvements": [
+      6.321699327697393e-07,
+      -3.869843716882611e-05
+    ],
+    "candidate_standardized_coordinate_coefficient": 0.0015153548068414493,
+    "bootstrap_lower": -6.441077928794541e-05,
+    "bootstrap_upper": 2.057971519741317e-05,
+    "bootstrap": {
+      "paired_mean_loss_improvement": -1.769421933371854e-05,
+      "lower_bound": -6.441077928794541e-05,
+      "upper_bound": 2.057971519741317e-05,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 944,
+      "scored_rows": 940
+    }
+  },
+  "gates": {
+    "coefficient_positive": true,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "new_model_fits": 2,
+  "new_native_accounts": 0
+}

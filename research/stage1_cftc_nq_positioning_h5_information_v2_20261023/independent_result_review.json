@@ -1,0 +1,37 @@
+{
+  "verdict": "CONFIRM_NOT_PROMOTED",
+  "reviewer": "/root/stage1_nvda_design_review",
+  "scope": "Independent read-only fixed-result review; no new fit or account",
+  "plan_sha256": "1ce7890357e9ad882f44981d08fcb8079da6101653237b4d9a150c1e68cb71d9",
+  "recorder_id": "c2a9af571dbf486fb7b9ba279e0b9571",
+  "recorder_status": "FINISHED",
+  "saved_model_count": 2,
+  "held_predictions_each": 940,
+  "bootstrap_calendar_rows": 944,
+  "bootstrap_scored_rows": 940,
+  "bootstrap_replicates": 10000,
+  "quarter_count": 16,
+  "gates": {
+    "coefficient_positive": true,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "metrics": {
+    "baseline_held_mse": 0.0025262669365982205,
+    "candidate_held_mse": 0.002543961155931939,
+    "paired_improvement": -1.769421933371854e-05,
+    "halves": [
+      6.321699327697393e-07,
+      -3.869843716882611e-05
+    ],
+    "coefficient": 0.0015153548068414493,
+    "bootstrap_lower": -6.441077928794541e-05
+  },
+  "nas_remote_sha256": "116e559e512554f15985beeb9871f1d12e61094e9c69c8e9705eaf8bea3149ff",
+  "nas_readback_verified": true,
+  "new_model_fits": 2,
+  "new_native_accounts": 0,
+  "scientific_decision": "fixed_version_closed_no_0bp_account",
+  "descriptive_2026Q3_not_trade_rule": true
+}

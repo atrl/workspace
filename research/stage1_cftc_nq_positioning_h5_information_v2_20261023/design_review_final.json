@@ -1,0 +1,21 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "scope": "Independent read-only pre-fit v2 review; conditional reused-history development information only",
+  "reviewer": "/root/stage1_nvda_design_review",
+  "plan_sha256": "1ce7890357e9ad882f44981d08fcb8079da6101653237b4d9a150c1e68cb71d9",
+  "preflight_sha256": "3824da81f4d907c5d4718e1066885909cb35db5e05f12a0b989ae25c81c20a89",
+  "preflight_cell_source_sha256": "65dc5d0fc8170e55a85f5dc0a2ac2b40eb68648e01f94c788a32251f7df6a6e0",
+  "fit_cell_source_sha256": "96406e97f3e689ea2ded88d5d37275fb06be629ba7c99fc1efa50a6476e193cf",
+  "source_recorder_id": "f11156af93d24fdbb942c0c37c5408ad",
+  "source_NAS_archive_sha256": "382b8b0a16f07a742f0a2384f9a2a281f77f39639c53147a21d0fd4a096f87dc",
+  "full_held_calendar_rows": 944,
+  "mature_scored_rows": 940,
+  "terminal_unknown_rows": 4,
+  "bootstrap_alpha": 0.0007142857142857143,
+  "model_fits_at_review": 0,
+  "native_accounts_at_review": 0,
+  "limitations": [
+    "first-public/revision vintage unqualified",
+    "information gate is not a fee-net account or independent validation"
+  ]
+}

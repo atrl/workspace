@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_cftc_nq_positioning_h5_information_20261023",
+  "decision": "rejected_pre_fit_due_compressed_bootstrap_calendar",
+  "objective_achieved": false,
+  "plan_sha256": "9a3ddd716a2135bf3968f58654887e27b3b3dd434295792a090027e7b01ea885",
+  "preflight_sha256": "b60282516fd8b3faefc9495133628ff39d7b943f29539f1cee118b8b1f921a4a",
+  "review": "design_review_final.json",
+  "source_recorder_id": "f11156af93d24fdbb942c0c37c5408ad",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "reused_history": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  }
+}

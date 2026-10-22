@@ -1,0 +1,162 @@
+{
+  "experiment": "stage1_cftc_nq_positioning_h5_information_v2_20261023",
+  "plan_sha256": "1ce7890357e9ad882f44981d08fcb8079da6101653237b4d9a150c1e68cb71d9",
+  "decision": "not_promoted_fixed_CFTC_NQ_delta4_H5_information_failed",
+  "objective_achieved": false,
+  "information_gate_pass": false,
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "metrics": {
+    "baseline_held_mse": 0.0025262669365982205,
+    "candidate_held_mse": 0.002543961155931939,
+    "held_paired_mse_improvement": -1.769421933371854e-05,
+    "held_half_paired_improvements": [
+      6.321699327697393e-07,
+      -3.869843716882611e-05
+    ],
+    "candidate_standardized_coordinate_coefficient": 0.0015153548068414493,
+    "bootstrap_lower": -6.441077928794541e-05,
+    "bootstrap_upper": 2.057971519741317e-05,
+    "bootstrap": {
+      "paired_mean_loss_improvement": -1.769421933371854e-05,
+      "lower_bound": -6.441077928794541e-05,
+      "upper_bound": 2.057971519741317e-05,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 944,
+      "scored_rows": 940
+    }
+  },
+  "gates": {
+    "coefficient_positive": true,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "quarterly_information_attribution": [
+    {
+      "quarter": "2023Q1",
+      "sessions": 62,
+      "paired_mean_mse_improvement": 5.011852808069823e-06
+    },
+    {
+      "quarter": "2023Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": 1.8029385862726255e-05
+    },
+    {
+      "quarter": "2023Q3",
+      "sessions": 63,
+      "paired_mean_mse_improvement": -1.805291190483238e-05
+    },
+    {
+      "quarter": "2023Q4",
+      "sessions": 63,
+      "paired_mean_mse_improvement": 2.2156457088893322e-05
+    },
+    {
+      "quarter": "2024Q1",
+      "sessions": 61,
+      "paired_mean_mse_improvement": -4.443545340615906e-05
+    },
+    {
+      "quarter": "2024Q2",
+      "sessions": 63,
+      "paired_mean_mse_improvement": 1.4009384277410988e-05
+    },
+    {
+      "quarter": "2024Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -1.2432645054064395e-05
+    },
+    {
+      "quarter": "2024Q4",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 1.9592654591002264e-05
+    },
+    {
+      "quarter": "2025Q1",
+      "sessions": 60,
+      "paired_mean_mse_improvement": -9.76077024892546e-05
+    },
+    {
+      "quarter": "2025Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -0.00011762544578740416
+    },
+    {
+      "quarter": "2025Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -2.013414424442604e-05
+    },
+    {
+      "quarter": "2025Q4",
+      "sessions": 64,
+      "paired_mean_mse_improvement": -2.0670389019438157e-05
+    },
+    {
+      "quarter": "2026Q1",
+      "sessions": 61,
+      "paired_mean_mse_improvement": -2.587814593375573e-05
+    },
+    {
+      "quarter": "2026Q2",
+      "sessions": 62,
+      "paired_mean_mse_improvement": -6.976737413653956e-05
+    },
+    {
+      "quarter": "2026Q3",
+      "sessions": 64,
+      "paired_mean_mse_improvement": 7.53688777783498e-05
+    },
+    {
+      "quarter": "2026Q4",
+      "sessions": 1,
+      "paired_mean_mse_improvement": -0.00010864964227402774
+    }
+  ],
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "historical_first_public_qualified": false,
+  "reused_market_history": true,
+  "independent_forward_qualified_days": 0,
+  "recorder_id": "c2a9af571dbf486fb7b9ba279e0b9571",
+  "experiment_id": "467338920976963020",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_cftc_nq_positioning_h5_information_v2_20261023/qlib_recorder",
+  "parent_feature_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+  "source_summary_sha256": "05828e3da9ca7c0cf336c163b4fcdd75000c41ada596e8b565c5b433433633dd",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "CFTC annual compressed values lack complete first-public revision and release-clock certification",
+    "Information MSE is not fee-net SOXX funded account result",
+    "Reused held 2023-2026 is development feedback, not independent forward"
+  ],
+  "nas_evidence": {
+    "sha256": "116e559e512554f15985beeb9871f1d12e61094e9c69c8e9705eaf8bea3149ff",
+    "size_bytes": 892325,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/11/6e/116e559e512554f15985beeb9871f1d12e61094e9c69c8e9705eaf8bea3149ff",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 05:26:52.832442+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/11/6e/116e559e512554f15985beeb9871f1d12e61094e9c69c8e9705eaf8bea3149ff",
+    "recorder_id": "c2a9af571dbf486fb7b9ba279e0b9571",
+    "experiment_id": "467338920976963020",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "116e559e512554f15985beeb9871f1d12e61094e9c69c8e9705eaf8bea3149ff",
+    "verified": true
+  },
+  "independent_result_review": "independent_result_review.json"
+}

@@ -1,0 +1,14 @@
+{
+  "status": "preflight_failed_before_fit_due_parent_two_extra_2026_10_08_09_dates",
+  "plan_sha256": "03ffc673ab1b6012a432f6826aaf17f5ce2eb7d7c10fc3211d862556e793d156",
+  "attempt1_code_sha256": "44bfd70c2f7978c4198b06dd1e9c6ff7a281d973fb33101c95dc60358649c56b",
+  "source_map_calendar_rows": 3964,
+  "parent_frame_rows": 3966,
+  "missing_parent_tail_dates": [
+    "2026-10-08",
+    "2026-10-09"
+  ],
+  "repair": "Reindex frozen source map to parent full index and mark absent two tail dates source_known=False; held cohort ends 2026-10-07, no market outcome or model read beyond existing parent artifact.",
+  "model_fits": 0,
+  "native_accounts": 0
+}
