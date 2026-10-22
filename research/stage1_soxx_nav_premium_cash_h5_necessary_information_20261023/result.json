@@ -1,0 +1,149 @@
+{
+  "decision": "closed_fixed_prior_premium_cash_H5_necessary_information_failed",
+  "primary_H5_spearman": 0.019706768399538513,
+  "held_halves_H5_spearman": [
+    0.04131638349401171,
+    -0.006083242011750618
+  ],
+  "complete_2024_2025_H5_spearman": {
+    "2024": 0.04256566806367603,
+    "2025": -0.02947055152882446
+  },
+  "descriptive_95pct_full_calendar_block_interval": [
+    -0.03837375896088763,
+    0.07372372515474371
+  ],
+  "necessary_support": false,
+  "annual": {
+    "2023": {
+      "rows": 250,
+      "spearman": 0.04224720395526328,
+      "mean_premium": 1.958651063382666e-05,
+      "mean_cash_advantage_h5": -0.008650433604488783
+    },
+    "2024": {
+      "rows": 252,
+      "spearman": 0.04256566806367603,
+      "mean_premium": 3.688371581764756e-05,
+      "mean_cash_advantage_h5": -0.004284974388278902
+    },
+    "2025": {
+      "rows": 250,
+      "spearman": -0.02947055152882446,
+      "mean_premium": -3.921391115955908e-05,
+      "mean_cash_advantage_h5": -0.007413215247555229
+    },
+    "2026": {
+      "rows": 188,
+      "spearman": 0.035903465190073446,
+      "mean_premium": 1.3635286711618417e-05,
+      "mean_cash_advantage_h5": -0.0154833085330155
+    }
+  },
+  "quarters": {
+    "2023Q1": {
+      "rows": 62,
+      "spearman": 0.0919392611618947,
+      "mean_premium": -6.5928877465596646e-06,
+      "mean_cash_advantage_h5": -0.014464682821386424
+    },
+    "2023Q2": {
+      "rows": 62,
+      "spearman": -0.03140187857268767,
+      "mean_premium": 4.908393797485544e-05,
+      "mean_cash_advantage_h5": -0.012742875812740296
+    },
+    "2023Q3": {
+      "rows": 63,
+      "spearman": 0.00024001536098310295,
+      "mean_premium": 5.780137512937395e-05,
+      "mean_cash_advantage_h5": 0.004256096365222746
+    },
+    "2023Q4": {
+      "rows": 63,
+      "spearman": 0.03873847926267281,
+      "mean_premium": -2.1893715696003684e-05,
+      "mean_cash_advantage_h5": -0.011807521219291624
+    },
+    "2024Q1": {
+      "rows": 61,
+      "spearman": 0.1821787414066631,
+      "mean_premium": 4.78539035715175e-05,
+      "mean_cash_advantage_h5": -0.016874393800157067
+    },
+    "2024Q2": {
+      "rows": 63,
+      "spearman": -0.11170314900153609,
+      "mean_premium": 4.113066093844276e-05,
+      "mean_cash_advantage_h5": -0.0104873786781542
+    },
+    "2024Q3": {
+      "rows": 64,
+      "spearman": 0.18150183150183147,
+      "mean_premium": 6.36730470061405e-05,
+      "mean_cash_advantage_h5": 0.00811643814068138
+    },
+    "2024Q4": {
+      "rows": 64,
+      "spearman": -0.044459706959706954,
+      "mean_premium": -4.54216217703543e-06,
+      "mean_cash_advantage_h5": 0.001418395182553188
+    },
+    "2025Q1": {
+      "rows": 60,
+      "spearman": -0.03673242567379829,
+      "mean_premium": 8.470173008734428e-06,
+      "mean_cash_advantage_h5": 0.023526793316835708
+    },
+    "2025Q2": {
+      "rows": 62,
+      "spearman": -0.05099342751378712,
+      "mean_premium": -0.0001222133018599242,
+      "mean_cash_advantage_h5": -0.02914174796843203
+    },
+    "2025Q3": {
+      "rows": 64,
+      "spearman": -0.059340659340659324,
+      "mean_premium": -4.375167125527171e-05,
+      "mean_cash_advantage_h5": -0.013285872390732216
+    },
+    "2025Q4": {
+      "rows": 64,
+      "spearman": -0.05086996336996336,
+      "mean_premium": 1.0256797693571074e-06,
+      "mean_cash_advantage_h5": -0.009497300060145337
+    },
+    "2026Q1": {
+      "rows": 61,
+      "spearman": 0.06377578001057642,
+      "mean_premium": -2.3944964569168404e-05,
+      "mean_cash_advantage_h5": -0.00698199535645004
+    },
+    "2026Q2": {
+      "rows": 62,
+      "spearman": 0.1912568306010929,
+      "mean_premium": -5.390439943055741e-05,
+      "mean_cash_advantage_h5": -0.04033034736442766
+    },
+    "2026Q3": {
+      "rows": 64,
+      "spearman": -0.15856227106227105,
+      "mean_premium": 0.00010154453647277274,
+      "mean_cash_advantage_h5": -0.000657552452457761
+    },
+    "2026Q4": {
+      "rows": 1,
+      "spearman": null,
+      "mean_premium": 0.0008672991709406386,
+      "mean_cash_advantage_h5": 0.05760460608834971
+    }
+  },
+  "calendar_rows": 944,
+  "mature_H5_rows": 940,
+  "bootstrap_replicates": 2000,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "historical_independence": false,
+  "historical_PIT_qualified": false,
+  "project_wide_search_corrected": false
+}

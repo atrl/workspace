@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_nav_premium_cash_h5_necessary_information_20261023",
+  "phase": "conditional_retrospective_one_coordinate_H5_cash_advantage_necessary_rank_screen",
+  "question": "Does prior trading-session SOXX raw market-close premium to issuer NAV rank subsequent H5 SOXX cash advantage in the prespecified positive direction over the entire reused Stage1 held calendar?",
+  "sources": {
+    "premium_source_card": "research/stage1_soxx_nav_yahoo_raw_close_source_20261023",
+    "premium_source_summary_sha256": "50d3ca34ad897af6d111625d2cb811776fe0ab0ca9f0f00d4c74080636c35fdd",
+    "premium_source_recorder_id": "f2cfbeb58e004d079ac129eaeb447af6",
+    "premium_source_experiment_id": "421611483785789510",
+    "premium_source_frame_sha256": "5750d9e5e2d460c65f31968c5e000badebbe4e5d49cb53e4edb476aa6a237873",
+    "premium_source_NAS_sha256": "dc2743fcccc096f31b0668c5a23e203ce7880c568ac79b9b0e06ef07d3ce307e",
+    "cash_label_card": "research/allocator_cash_information_20261014",
+    "cash_label_summary_sha256": "bc093ba4f1ba9b14bc1ac9632bfdd70dfd9b3d1eba833621d080c7f905fd52a0",
+    "cash_label_recorder_id": "2d7bd1e5020d46dd801f384a3c97ef7f",
+    "cash_label_experiment_id": "408822489499271253",
+    "cash_label_daily_sha256": "36da3ce44a3ea6fc0ae6b3c22b0e25f325c4d821aa1034beeb70be4abcf88755",
+    "cash_label_NAS_sha256": "0d458acae46b991b8ce21a03f742a9dcba94a0bd4eed0f3bca41d2a40d8da9c5",
+    "Qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_config_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2"
+  },
+  "score": "For each original Stage1 signal date use preceding native Qlib trading session quote.close / issuer NAV - 1, from saved source frame; no same-session close, threshold, normalization or outcome-driven sign.",
+  "label": "Saved original Stage1 cash_advantage_h5, positive when cash beats SOXX over five future funded 09:47-to-next-09:47 intervals. Four terminal dates stay unknown.",
+  "cohort": {
+    "start": "2023-01-03",
+    "end": "2026-10-07",
+    "full_calendar_rows": 944,
+    "mature_H5_rows": 940,
+    "complete_years": [
+      2024,
+      2025
+    ],
+    "partial_endpoint_years": [
+      2023,
+      2026
+    ],
+    "reused_history": true
+  },
+  "statistics": {
+    "primary": "Spearman(prior_session_premium,cash_advantage_h5) on all 940 mature matched rows; expected positive",
+    "secondary": "all four years, 16 quarters and two fixed halves 2023-2024 versus 2025-2026; descriptive only",
+    "uncertainty": {
+      "method": "stationary circular block bootstrap indices on full 944 calendar, mature finite rows inside replicate",
+      "mean_block_sessions": 63,
+      "draws": 2000,
+      "seed": 20261023,
+      "two_sided_descriptive_quantiles": [
+        0.025,
+        0.975
+      ]
+    },
+    "necessary_support": "Full point >0, both fixed halves >0, complete 2024 and 2025 >0, and descriptive lower 95% >0 required merely to justify controlled original39 receiver test. Not multiple-search-corrected confirmation or account success."
+  },
+  "source_limits": [
+    "Yahoo and issuer NAV histories are current revised versions.",
+    "Original NAV first-publication/receipt and historical vintage are unqualified; only conditional retrospective development evidence can result.",
+    "Prior-session lag is a conservative design assumption, not first-public certification."
+  ],
+  "budget": {
+    "external_requests": 0,
+    "source_Recorder_loads": 2,
+    "DatasetH_builds": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 1,
+    "new_Qlib_Recorders": 1
+  },
+  "stop": "If source hashes, Qlib 944/940 alignment, label maturity, previous-session mapping or full-calendar bootstrap fail, stop. If any necessary support gate fails, close this exact sign/lag/H5 route without sign/window/threshold rescue. Even a pass cannot go to account before source PIT and incremental receiver proof.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}
