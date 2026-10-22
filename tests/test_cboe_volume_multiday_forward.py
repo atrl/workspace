@@ -74,7 +74,8 @@ def test_frozen_window_blocks_early_fetch(tmp_path):
 
     with pytest.raises(ValueError, match="before frozen window"):
         _capture(tmp_path, "2026-10-22", "post_midnight",
-                 now=dt.datetime(2026, 10, 23, 4, 0, tzinfo=dt.timezone.utc), fetch=forbidden)
+                 now=dt.datetime(2026, 10, 23, 4, 0, tzinfo=dt.timezone.utc),
+                 fetch=forbidden, clock=lambda: dt.datetime(2026, 10, 23, 4, 0, tzinfo=dt.timezone.utc))
     assert not (card / "multiday_forward_observations/2026-10-22").exists()
 
 
@@ -93,7 +94,8 @@ def test_first_day_preserves_raw_and_predecessor_check(tmp_path):
         return _Response(body)
 
     receipt = _capture(tmp_path, "2026-10-22", "post_midnight",
-                       now=dt.datetime(2026, 10, 23, 4, 10, tzinfo=dt.timezone.utc), fetch=fetch)
+                       now=dt.datetime(2026, 10, 23, 4, 10, tzinfo=dt.timezone.utc),
+                       fetch=fetch, clock=lambda: dt.datetime(2026, 10, 23, 4, 10, tzinfo=dt.timezone.utc))
     assert requests == ["SOXX", "SOXL"]
     assert receipt["status"] == "observed" and receipt["http_GETs"] == 2
     assert all(row["target_date_present"] and row["predecessor_unchanged"] for row in receipt["records"])
@@ -102,4 +104,25 @@ def test_first_day_preserves_raw_and_predecessor_check(tmp_path):
     assert (card / "multiday_forward_observations/2026-10-22/post_midnight.json").is_file()
     with pytest.raises(ValueError, match="already attempted"):
         _capture(tmp_path, "2026-10-22", "post_midnight",
-                 now=dt.datetime(2026, 10, 23, 4, 11, tzinfo=dt.timezone.utc), fetch=fetch)
+                 now=dt.datetime(2026, 10, 23, 4, 11, tzinfo=dt.timezone.utc),
+                 fetch=fetch, clock=lambda: dt.datetime(2026, 10, 23, 4, 11, tzinfo=dt.timezone.utc))
+
+
+def test_second_symbol_does_not_fetch_after_window_closes(tmp_path):
+    _fixture(tmp_path)
+    requests = []
+    moments = iter([dt.datetime(2026, 10, 23, 4, 54, tzinfo=dt.timezone.utc),
+                    dt.datetime(2026, 10, 23, 4, 56, tzinfo=dt.timezone.utc)])
+
+    def fetch(request, timeout):
+        requests.append(parse_qs(urlparse(request.full_url).query)["symbol"][0])
+        return _Response(("Trade Date,Underlying,Product Type,Exchange,Volume\n"
+                          "2026/10/21,SOXX,S,CBOE,7425\n"
+                          "2026/10/22,SOXX,S,CBOE,8100\n").encode())
+
+    receipt = _capture(tmp_path, "2026-10-22", "post_midnight",
+                       now=dt.datetime(2026, 10, 23, 4, 54, tzinfo=dt.timezone.utc),
+                       fetch=fetch, clock=lambda: next(moments))
+    assert requests == ["SOXX"]
+    assert receipt["status"] == "partial_failure" and receipt["http_GETs"] == 1
+    assert "outside frozen window" in receipt["records"][1]["error"]

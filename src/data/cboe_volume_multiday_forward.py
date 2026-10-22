@@ -125,7 +125,7 @@ def _predecessor_values(card: Path, plan: dict, target: str, predecessor: str, b
             and predecessor in row.get("daily_contracts", {})}
 
 
-def _capture(root: Path, target: str, phase_name: str, *, now: dt.datetime, fetch=urlopen) -> dict:
+def _capture(root: Path, target: str, phase_name: str, *, now: dt.datetime, fetch=urlopen, clock=None) -> dict:
     root = Path(root).resolve()
     card = root / "research/cboe_total_options_activity_source_20261022"
     plan_path = card / "multiday_forward_plan.json"
@@ -159,7 +159,7 @@ def _capture(root: Path, target: str, phase_name: str, *, now: dt.datetime, fetc
         _write_json(receipt_path, receipt)
         return receipt
     observed = list((card / "multiday_forward_observations").glob("*/*.json"))
-    consumed = sum(len(json.loads(path.read_text()).get("records", [])) for path in observed)
+    consumed = sum(json.loads(path.read_text()).get("http_GETs", 0) for path in observed)
     if consumed + len(plan["symbols"]) > plan["budget"]["max_http_GETs_total"]:
         raise ValueError("forward HTTP budget exhausted")
     position = plan["target_trade_dates"].index(target)
@@ -170,13 +170,23 @@ def _capture(root: Path, target: str, phase_name: str, *, now: dt.datetime, fetc
         raise ValueError("forward source raw path already exists")
     raw_dir.mkdir(parents=True)
     records = []
+    attempted_GETs = 0
+    if clock is None:
+        clock = lambda: dt.datetime.now(dt.timezone.utc)
     for symbol in plan["symbols"]:
         query = {**{k: v for k, v in plan["form_parameters"].items() if k != "exchanges"},
                  "symbol": symbol, "startDate": predecessor, "endDate": target}
         url = plan["source_endpoint"] + "?" + urlencode(query) + "&" + urlencode(
             [("exchanges", venue) for venue in plan["form_parameters"]["exchanges"]])
-        row = {"symbol": symbol, "url": url, "requested_at_utc": dt.datetime.now(dt.timezone.utc).isoformat()}
+        requested = clock()
+        if requested.tzinfo is None:
+            raise ValueError("request clock must be timezone-aware")
+        requested = requested.astimezone(dt.timezone.utc)
+        row = {"symbol": symbol, "url": url, "requested_at_utc": requested.isoformat()}
         try:
+            if not first <= requested <= last:
+                raise ValueError("request outside frozen window")
+            attempted_GETs += 1
             with fetch(Request(url, headers={"User-Agent": "Mozilla/5.0 research source qualification",
                                              "Accept": "text/csv,*/*"}), timeout=30) as response:
                 body = response.read(plan["max_response_bytes"] + 1)
@@ -204,7 +214,7 @@ def _capture(root: Path, target: str, phase_name: str, *, now: dt.datetime, fetc
             row["error"] = type(error).__name__ + ": " + str(error)
         records.append(row)
     receipt = {**common, "status": "observed" if all("error" not in row for row in records) else "partial_failure",
-               "records": records, "http_GETs": len(records), "predecessor_trade_date": predecessor}
+               "records": records, "http_GETs": attempted_GETs, "predecessor_trade_date": predecessor}
     _write_json(receipt_path, receipt)
     return receipt
 
