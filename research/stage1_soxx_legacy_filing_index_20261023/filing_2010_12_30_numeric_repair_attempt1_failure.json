@@ -1,0 +1,12 @@
+{
+  "status": "mechanical_repair_stopped_on_stale_initial_ambiguity_flag",
+  "failed_cell_source_sha256": "722e4efa30c71ad2b4498da100daa73af2d1cdb6d9066adfcf1749fecfbc00a3",
+  "prior_numeric_result_sha256": "9388688b10307dc70d71540309062836ca895e2b0ba0f7c3857881403f929915",
+  "scoped_layout_hash_and_adjacent_row_assertions_reached": true,
+  "failure_point": "assert all(checks.values()) retained prior ambiguous_rows_zero=False even after the unique cost/value row was resolved",
+  "new_full_source_passes": 0,
+  "scoped_layout_reads": 1,
+  "HTTP_GETs": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

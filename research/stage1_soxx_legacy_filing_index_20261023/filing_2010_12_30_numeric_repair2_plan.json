@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "zero_source_read_check_state_repair_after_stale_flag",
+  "parent_repair_plan_sha256": "3395de5bf99e14447104935945cc1c9c84e5938cf7cdc980b6e14a79f94ff390",
+  "failed_attempt_sha256": "31c2625cbb2251ec021d6f0ab20eda393aa84cbfb565948e8ba87360880309d4",
+  "original_numeric_result_sha256": "9388688b10307dc70d71540309062836ca895e2b0ba0f7c3857881403f929915",
+  "resolution": "Reuse the 30 original parsed rows. Require exactly one ambiguous cost/value row whose sole amount equals sum of parsed values, and the failed first repair notebook cell having already passed scoped source hash and adjacent-row assertions. Set resolved ambiguity to zero; do not recalculate securities or read raw bytes.",
+  "budget": {
+    "new_raw_source_reads": 0,
+    "new_scoped_layout_reads": 0,
+    "HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any mismatch keeps parser unqualified."
+}
