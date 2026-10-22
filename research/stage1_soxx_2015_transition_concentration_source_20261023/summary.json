@@ -1,9 +1,9 @@
 {
   "experiment": "stage1_soxx_2015_transition_concentration_source_20261023",
-  "decision": "fixed_2015_source_batch_stopped_fourth_body_oversize_preserved",
+  "decision": "five_original_2015_transition_SOXX_equity_values_closed_2016_2022_pending",
   "objective_achieved": false,
   "plan": "plan.json",
-  "filing_body_GETs": 4,
+  "filing_body_GETs": 5,
   "model_fits": 0,
   "native_accounts": 0,
   "artifact_policy": {
@@ -13,10 +13,31 @@
   },
   "transport_result": "transport_result.json",
   "transport_size_exception": "transport_size_exception.json",
-  "received_original_bodies": 4,
+  "received_original_bodies": 5,
   "original_bodies_within_frozen_cap": 3,
   "September_raw_oversize_preserved": true,
   "December_body_GETs": 0,
   "source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
-  "source_NAS_scoped_restore_verified": true
+  "source_NAS_scoped_restore_verified": true,
+  "size_repair_plan": "2015_remaining_size_repair_plan.json",
+  "remaining_transport_result": "remaining_transport_result.json",
+  "identity_plan": "2015_identity_after_size_repair_plan.json",
+  "initial_identity_result": "2015_identity_result.json",
+  "TOC_layout_addendum": "2015_TOC_layout_identity_addendum.json",
+  "final_identity_result": "2015_TOC_layout_identity_result.json",
+  "numeric_plan": "numeric_2015_transition_plan.json",
+  "numeric_result": "numeric_2015_transition_result.json",
+  "SOXX_schedule_identities_qualified": 5,
+  "reports_with_numeric_closure": 5,
+  "original_source_NAS_archives": [
+    "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
+    "9dde69bffffb98ba09bf91ef4959bb65d5671e614ef9613b58df295957eb0c04"
+  ],
+  "all_source_NAS_scoped_restores_verified": true,
+  "top5_share_range": [
+    0.36178246317242774,
+    0.39437283637913717
+  ],
+  "full_2016_2022_training_coverage": false,
+  "held_2023_2026_coverage": false
 }

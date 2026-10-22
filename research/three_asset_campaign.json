@@ -169,7 +169,9 @@
     "SOXX_2012_reported_concentration_source": "research/stage1_soxx_legacy_reported_concentration_source_20261023/numeric_2012_result.json",
     "SOXX_2012_reported_concentration_status": "four_2012_original_SOXX_baskets_30_rows_exact_closure_eight_2011_2012_source_values_2013_2022_and_held_pending_zero_fits_accounts",
     "SOXX_2013_2014_reported_concentration_source": "research/stage1_soxx_2013_2014_reported_concentration_source_20261023/numeric_2013_2014_result.json",
-    "SOXX_2013_2014_reported_concentration_status": "eight_2013_2014_original_SOXX_baskets_30_rows_exact_closure_sixteen_2011_2014_values_2015_2022_and_held_pending_zero_fits_accounts"
+    "SOXX_2013_2014_reported_concentration_status": "eight_2013_2014_original_SOXX_baskets_30_rows_exact_closure_sixteen_2011_2014_values_2015_2022_and_held_pending_zero_fits_accounts",
+    "SOXX_2015_transition_reported_concentration_source": "research/stage1_soxx_2015_transition_concentration_source_20261023/numeric_2015_transition_result.json",
+    "SOXX_2015_transition_reported_concentration_status": "five_2015_original_SOXX_transition_baskets_30_rows_exact_closure_twentyone_2011_2015_source_values_2016_2022_and_held_pending_zero_fits_accounts"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

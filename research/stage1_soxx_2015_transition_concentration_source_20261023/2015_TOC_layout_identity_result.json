@@ -1,0 +1,381 @@
+{
+  "status": "five_2015_original_SOXX_schedule_identities_confirmed_transition_source_only",
+  "addendum_sha256": "2170d9b847d3d1a985d80142736149be799abab73c4abccb5d5ce22401ef9618",
+  "prior_identity_result_sha256": "7906f55cd99d08d254fb6a9dcc77ca77378ae7961ec8e2dc53a8019e81800701",
+  "checks": [
+    {
+      "report_date": "2015-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-15-122693",
+      "raw_sha256": "c481d867c2002e4cb9d19cd0e0e6454483deb2a7820f64c008f0b8cdd02668dd",
+      "raw_bytes": 29180398,
+      "source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
+      "inline_hits": [
+        {
+          "method": "inline_original_new_title",
+          "offset": 9882,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 14958,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 160598,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 769949,
+          "date_near_title": true,
+          "table_header_near_title": true,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 1244818,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        }
+      ],
+      "TOC_hits": [
+        {
+          "method": "TOC_anchor_new_title",
+          "anchor": "toc875397_9",
+          "start": 769783,
+          "end": 820732,
+          "section_sha256": "995d09ed630f8973a17d41540ad221886efda5801dee577497b4481b2873263c",
+          "accepted": false
+        }
+      ],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "TOC_anchor_equity_header",
+      "selected_identity_location": {
+        "method": "TOC_anchor_equity_header",
+        "anchor": "toc875397_9",
+        "start": 769783,
+        "end": 820732,
+        "section_sha256": "995d09ed630f8973a17d41540ad221886efda5801dee577497b4481b2873263c",
+        "accepted": true
+      },
+      "TOC_layout_repair_checks": {
+        "target_fund_title": true,
+        "report_date": true,
+        "Security_Shares_Value": true,
+        "common_stocks": true,
+        "pinned_anchor_and_hash": true
+      }
+    },
+    {
+      "report_date": "2015-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-15-238848",
+      "raw_sha256": "92759d923d8b2eae1bad3439b5b6cb4bec781cf035e1a98a650d2e10e25cf8de",
+      "raw_bytes": 24737700,
+      "source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
+      "inline_hits": [
+        {
+          "method": "inline_original_new_title",
+          "offset": 23776019,
+          "date_near_title": true,
+          "table_header_near_title": true,
+          "schedule_phrase": false,
+          "accepted": true
+        }
+      ],
+      "TOC_hits": [],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "inline_original_new_title",
+      "selected_identity_location": {
+        "method": "inline_original_new_title",
+        "offset": 23776019,
+        "date_near_title": true,
+        "table_header_near_title": true,
+        "schedule_phrase": false,
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2015-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-15-339410",
+      "raw_sha256": "f4066b79e07007b02fe09c5a3103f727ff59f61413b2084e775143180fd262d5",
+      "raw_bytes": 36220846,
+      "source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
+      "inline_hits": [
+        {
+          "method": "inline_original_new_title",
+          "offset": 11119,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 16812,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 252580,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 252866,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 1071733,
+          "date_near_title": true,
+          "table_header_near_title": true,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 1583768,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 1668853,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 1673480,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 1723419,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 1810658,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 1812983,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 1892054,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 1967464,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        }
+      ],
+      "TOC_hits": [
+        {
+          "method": "TOC_anchor_new_title",
+          "anchor": "toc98289_10",
+          "start": 1071567,
+          "end": 1122831,
+          "section_sha256": "5c606bcb72155d8b07b0540845b6e0f44838ef965517b7da031e1a9905ca8779",
+          "accepted": false
+        }
+      ],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "TOC_anchor_equity_header",
+      "selected_identity_location": {
+        "method": "TOC_anchor_equity_header",
+        "anchor": "toc98289_10",
+        "start": 1071567,
+        "end": 1122831,
+        "section_sha256": "5c606bcb72155d8b07b0540845b6e0f44838ef965517b7da031e1a9905ca8779",
+        "accepted": true
+      },
+      "TOC_layout_repair_checks": {
+        "target_fund_title": true,
+        "report_date": true,
+        "Security_Shares_Value": true,
+        "common_stocks": true,
+        "pinned_anchor_and_hash": true
+      }
+    },
+    {
+      "report_date": "2015-09-30",
+      "form": "N-CSRS",
+      "accession": "0001193125-15-396474",
+      "raw_sha256": "c3cc85a5554434ff5155eb59d8a9cb4fd7c3553bfa8ac3ac602208659c902e67",
+      "raw_bytes": 48557624,
+      "source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
+      "inline_hits": [
+        {
+          "method": "inline_original_new_title",
+          "offset": 31820664,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 31826332,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 32018792,
+          "date_near_title": true,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 32806912,
+          "date_near_title": true,
+          "table_header_near_title": true,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 33388092,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        },
+        {
+          "method": "inline_original_new_title",
+          "offset": 33611797,
+          "date_near_title": false,
+          "table_header_near_title": false,
+          "schedule_phrase": false,
+          "accepted": false
+        }
+      ],
+      "TOC_hits": [
+        {
+          "method": "TOC_anchor_new_title",
+          "anchor": "toc22690_10",
+          "start": 32806746,
+          "end": 32858147,
+          "section_sha256": "8510e49f00206d8b9530b7d91e463a462610543983ed54a19d519c6151191f5f",
+          "accepted": false
+        }
+      ],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "TOC_anchor_equity_header",
+      "selected_identity_location": {
+        "method": "TOC_anchor_equity_header",
+        "anchor": "toc22690_10",
+        "start": 32806746,
+        "end": 32858147,
+        "section_sha256": "8510e49f00206d8b9530b7d91e463a462610543983ed54a19d519c6151191f5f",
+        "accepted": true
+      },
+      "TOC_layout_repair_checks": {
+        "target_fund_title": true,
+        "report_date": true,
+        "Security_Shares_Value": true,
+        "common_stocks": true,
+        "pinned_anchor_and_hash": true
+      }
+    },
+    {
+      "report_date": "2015-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-16-480933",
+      "raw_sha256": "411191758cfc056203d1741e9cd0a78c20d2a301bc7e10a34e3e2082e0ca78ca",
+      "raw_bytes": 38084849,
+      "source_NAS_archive_sha256": "9dde69bffffb98ba09bf91ef4959bb65d5671e614ef9613b58df295957eb0c04",
+      "inline_hits": [
+        {
+          "method": "inline_original_new_title",
+          "offset": 19729058,
+          "date_near_title": true,
+          "table_header_near_title": true,
+          "schedule_phrase": false,
+          "accepted": true
+        }
+      ],
+      "TOC_hits": [],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "inline_original_new_title",
+      "selected_identity_location": {
+        "method": "inline_original_new_title",
+        "offset": 19729058,
+        "date_near_title": true,
+        "table_header_near_title": true,
+        "schedule_phrase": false,
+        "accepted": true
+      }
+    }
+  ],
+  "identity_pass_count": 5,
+  "source_NAS_archives": [
+    "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
+    "9dde69bffffb98ba09bf91ef4959bb65d5671e614ef9613b58df295957eb0c04"
+  ],
+  "source_NAS_scoped_restores_verified": true,
+  "new_HTTP_GETs": 0,
+  "security_values_extracted": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "full_2016_2022_coverage": false,
+  "interpretation": "Five 2015 original series bodies meet the unchanged fund/date/equity-table identity, with three annual/semianual schedules located by their pinned TOC anchors. Literal Schedule of Investments text within the anchor was not required; the prior narrower failure is preserved."
+}

@@ -1,0 +1,1060 @@
+{
+  "status": "five_2015_transition_original_SOXX_reported_value_sources_closed",
+  "plan_sha256": "2983c0bd17beac8fef6b07c02dee5d91afd91079921ea442cf1a97ddaa69cf40",
+  "reports": [
+    {
+      "report_date": "2015-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-15-122693",
+      "accepted_at_utc": "2015-04-08T23:50:12.000Z",
+      "raw_sha256": "c481d867c2002e4cb9d19cd0e0e6454483deb2a7820f64c008f0b8cdd02668dd",
+      "section_sha256": "53ade70cd4329231441c14797dfdacd6603c4250c24c64ededc4e7ab964d4211",
+      "status": "numeric_source_closure_passed",
+      "parsed_equity_rows": 30,
+      "equities": [
+        {
+          "security_original": "QUALCOMM Inc.",
+          "shares_original": 617191,
+          "fair_value_usd_original": 38549750,
+          "reported_equity_weight": 0.07220267203837552
+        },
+        {
+          "security_original": "SanDisk Corp.",
+          "shares_original": 217382,
+          "fair_value_usd_original": 16501468,
+          "reported_equity_weight": 0.03090681735045619
+        },
+        {
+          "security_original": "Applied Materials Inc.",
+          "shares_original": 1483502,
+          "fair_value_usd_original": 33883186,
+          "reported_equity_weight": 0.06346231989502596
+        },
+        {
+          "security_original": "ASML Holding NV\nNYS a",
+          "shares_original": 111874,
+          "fair_value_usd_original": 11628184,
+          "reported_equity_weight": 0.021779284061605734
+        },
+        {
+          "security_original": "KLA-Tencor Corp.",
+          "shares_original": 225258,
+          "fair_value_usd_original": 13846609,
+          "reported_equity_weight": 0.025934335980664438
+        },
+        {
+          "security_original": "Lam Research Corp.",
+          "shares_original": 217724,
+          "fair_value_usd_original": 16642822,
+          "reported_equity_weight": 0.031171569690051453
+        },
+        {
+          "security_original": "SunEdison\nInc. b,c",
+          "shares_original": 371325,
+          "fair_value_usd_original": 6954917,
+          "reported_equity_weight": 0.013026377374824028
+        },
+        {
+          "security_original": "Teradyne Inc.",
+          "shares_original": 296680,
+          "fair_value_usd_original": 5369908,
+          "reported_equity_weight": 0.010057697033061148
+        },
+        {
+          "security_original": "Altera Corp.",
+          "shares_original": 417720,
+          "fair_value_usd_original": 13753431,
+          "reported_equity_weight": 0.02575981602722267
+        },
+        {
+          "security_original": "Analog Devices Inc.",
+          "shares_original": 411674,
+          "fair_value_usd_original": 21450274,
+          "reported_equity_weight": 0.04017580136720195
+        },
+        {
+          "security_original": "ARM Holdings PLC",
+          "shares_original": 169199,
+          "fair_value_usd_original": 7925281,
+          "reported_equity_weight": 0.014843843730632982
+        },
+        {
+          "security_original": "Atmel\nCorp. b",
+          "shares_original": 571940,
+          "fair_value_usd_original": 4764260,
+          "reported_equity_weight": 0.008923334192453933
+        },
+        {
+          "security_original": "Avago Technologies Ltd.",
+          "shares_original": 240849,
+          "fair_value_usd_original": 24778545,
+          "reported_equity_weight": 0.046409565774697105
+        },
+        {
+          "security_original": "Broadcom Corp. Class A",
+          "shares_original": 521533,
+          "fair_value_usd_original": 22131253,
+          "reported_equity_weight": 0.04145125719770724
+        },
+        {
+          "security_original": "Cavium\nInc. b,c",
+          "shares_original": 73872,
+          "fair_value_usd_original": 4344412,
+          "reported_equity_weight": 0.00813696988529324
+        },
+        {
+          "security_original": "Cree\nInc. b,c",
+          "shares_original": 163683,
+          "fair_value_usd_original": 5787831,
+          "reported_equity_weight": 0.010840455865642269
+        },
+        {
+          "security_original": "Freescale Semiconductor Ltd. b,c",
+          "shares_original": 416561,
+          "fair_value_usd_original": 13367442,
+          "reported_equity_weight": 0.025036868740212496
+        },
+        {
+          "security_original": "Intel Corp.",
+          "shares_original": 1207879,
+          "fair_value_usd_original": 39908322,
+          "reported_equity_weight": 0.07474724181007365
+        },
+        {
+          "security_original": "Linear Technology Corp.",
+          "shares_original": 326678,
+          "fair_value_usd_original": 14680909,
+          "reported_equity_weight": 0.027496958028320174
+        },
+        {
+          "security_original": "Marvell Technology Group Ltd.",
+          "shares_original": 704925,
+          "fair_value_usd_original": 10919288,
+          "reported_equity_weight": 0.02045154042131452
+        },
+        {
+          "security_original": "Maxim Integrated Products Inc.",
+          "shares_original": 387713,
+          "fair_value_usd_original": 12829423,
+          "reported_equity_weight": 0.024029173245237435
+        },
+        {
+          "security_original": "Microchip Technology\nInc. c",
+          "shares_original": 275401,
+          "fair_value_usd_original": 12420585,
+          "reported_equity_weight": 0.02326343037969809
+        },
+        {
+          "security_original": "Micron Technology\nInc. b",
+          "shares_original": 1251556,
+          "fair_value_usd_original": 36626786,
+          "reported_equity_weight": 0.06860101083347529
+        },
+        {
+          "security_original": "NVIDIA Corp.",
+          "shares_original": 744853,
+          "fair_value_usd_original": 14304902,
+          "reported_equity_weight": 0.026792706765857162
+        },
+        {
+          "security_original": "NXP Semiconductors\nNV b",
+          "shares_original": 289090,
+          "fair_value_usd_original": 22936401,
+          "reported_equity_weight": 0.04295927831292469
+        },
+        {
+          "security_original": "ON Semiconductor\nCorp. b",
+          "shares_original": 597318,
+          "fair_value_usd_original": 5979153,
+          "reported_equity_weight": 0.011198796960454196
+        },
+        {
+          "security_original": "Skyworks Solutions Inc.",
+          "shares_original": 261150,
+          "fair_value_usd_original": 21688508,
+          "reported_equity_weight": 0.04062200740927461
+        },
+        {
+          "security_original": "Taiwan Semiconductor Manufacturing Co. Ltd. SP ADR",
+          "shares_original": 958398,
+          "fair_value_usd_original": 21765219,
+          "reported_equity_weight": 0.04076568510302712
+        },
+        {
+          "security_original": "Texas Instruments Inc.",
+          "shares_original": 826779,
+          "fair_value_usd_original": 44191338,
+          "reported_equity_weight": 0.08276921859547733
+        },
+        {
+          "security_original": "Xilinx Inc.",
+          "shares_original": 362408,
+          "fair_value_usd_original": 13979889,
+          "reported_equity_weight": 0.02618396592973738
+        }
+      ],
+      "ambiguous_rows": [],
+      "parsed_fair_value_total_usd": 533910296,
+      "printed_total_common_stocks_usd": 533910296,
+      "total_closure_difference_usd": 0,
+      "checks": {
+        "common_stocks_heading_found": true,
+        "total_label_found": true,
+        "printed_total_found": true,
+        "row_count_20_to_40": true,
+        "all_positive": true,
+        "distinct_names": true,
+        "total_closure_within_1_usd": true,
+        "ambiguous_rows_zero": true
+      },
+      "top5_disclosed_equity_value_share": 0.36178246317242774,
+      "herfindahl_sum_squared_disclosed_equity_weights": 0.045968893970912
+    },
+    {
+      "report_date": "2015-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-15-238848",
+      "accepted_at_utc": "2015-06-29T22:56:42.000Z",
+      "raw_sha256": "92759d923d8b2eae1bad3439b5b6cb4bec781cf035e1a98a650d2e10e25cf8de",
+      "section_sha256": "9564919a127c860f540530258764e135ba258d039e2704362860697712f8e0f3",
+      "status": "numeric_source_closure_passed",
+      "parsed_equity_rows": 30,
+      "equities": [
+        {
+          "security_original": "QUALCOMM Inc.",
+          "shares_original": 580255,
+          "fair_value_usd_original": 39457341,
+          "reported_equity_weight": 0.07808479214400597
+        },
+        {
+          "security_original": "Applied Materials Inc.",
+          "shares_original": 839797,
+          "fair_value_usd_original": 16619583,
+          "reported_equity_weight": 0.03288961321734922
+        },
+        {
+          "security_original": "ASML Holding NV\nNYS a",
+          "shares_original": 99432,
+          "fair_value_usd_original": 10643201,
+          "reported_equity_weight": 0.021062547976354425
+        },
+        {
+          "security_original": "KLA-Tencor Corp.",
+          "shares_original": 196125,
+          "fair_value_usd_original": 11532150,
+          "reported_equity_weight": 0.022821749081457326
+        },
+        {
+          "security_original": "Lam Research Corp.",
+          "shares_original": 192086,
+          "fair_value_usd_original": 14517860,
+          "reported_equity_weight": 0.028730371883796697
+        },
+        {
+          "security_original": "SunEdison\nInc. b,c",
+          "shares_original": 326702,
+          "fair_value_usd_original": 8272095,
+          "reported_equity_weight": 0.016370206463493603
+        },
+        {
+          "security_original": "Teradyne Inc.",
+          "shares_original": 262578,
+          "fair_value_usd_original": 4792048,
+          "reported_equity_weight": 0.00948330684584396
+        },
+        {
+          "security_original": "Altera Corp.",
+          "shares_original": 362784,
+          "fair_value_usd_original": 15120837,
+          "reported_equity_weight": 0.029923643719134415
+        },
+        {
+          "security_original": "Analog Devices Inc.",
+          "shares_original": 359361,
+          "fair_value_usd_original": 22222884,
+          "reported_equity_weight": 0.04397836331597601
+        },
+        {
+          "security_original": "ARM Holdings PLC ADR",
+          "shares_original": 154158,
+          "fair_value_usd_original": 7860516,
+          "reported_equity_weight": 0.015555705033561011
+        },
+        {
+          "security_original": "Atmel Corp.",
+          "shares_original": 501783,
+          "fair_value_usd_original": 3803515,
+          "reported_equity_weight": 0.007527032249629008
+        },
+        {
+          "security_original": "Avago Technologies Ltd.",
+          "shares_original": 276126,
+          "fair_value_usd_original": 32273607,
+          "reported_equity_weight": 0.06386841663588877
+        },
+        {
+          "security_original": "Broadcom Corp. Class A",
+          "shares_original": 465112,
+          "fair_value_usd_original": 20560276,
+          "reported_equity_weight": 0.040688116259111194
+        },
+        {
+          "security_original": "Cavium\nInc. b,c",
+          "shares_original": 65018,
+          "fair_value_usd_original": 4212516,
+          "reported_equity_weight": 0.00833643190156426
+        },
+        {
+          "security_original": "Cree\nInc. b,c",
+          "shares_original": 134589,
+          "fair_value_usd_original": 4263780,
+          "reported_equity_weight": 0.008437881687156005
+        },
+        {
+          "security_original": "Freescale Semiconductor Ltd. b",
+          "shares_original": 369345,
+          "fair_value_usd_original": 14437696,
+          "reported_equity_weight": 0.028571729939895
+        },
+        {
+          "security_original": "Intel Corp.",
+          "shares_original": 1265384,
+          "fair_value_usd_original": 41188249,
+          "reported_equity_weight": 0.08151020267535418
+        },
+        {
+          "security_original": "Linear Technology Corp.",
+          "shares_original": 288391,
+          "fair_value_usd_original": 13303477,
+          "reported_equity_weight": 0.02632714749677542
+        },
+        {
+          "security_original": "Marvell Technology Group Ltd.",
+          "shares_original": 616228,
+          "fair_value_usd_original": 8633354,
+          "reported_equity_weight": 0.017085126253074748
+        },
+        {
+          "security_original": "Maxim Integrated Products Inc.",
+          "shares_original": 341066,
+          "fair_value_usd_original": 11197197,
+          "reported_equity_weight": 0.02215888800871015
+        },
+        {
+          "security_original": "Microchip Technology Inc.",
+          "shares_original": 242886,
+          "fair_value_usd_original": 11574732,
+          "reported_equity_weight": 0.022906017471947097
+        },
+        {
+          "security_original": "Micron Technology\nInc. b",
+          "shares_original": 1160326,
+          "fair_value_usd_original": 32639970,
+          "reported_equity_weight": 0.06459343707515898
+        },
+        {
+          "security_original": "NVIDIA Corp.",
+          "shares_original": 655335,
+          "fair_value_usd_original": 14545160,
+          "reported_equity_weight": 0.028784397694241737
+        },
+        {
+          "security_original": "NXP Semiconductors\nNV b",
+          "shares_original": 247804,
+          "fair_value_usd_original": 23818921,
+          "reported_equity_weight": 0.04713686853301896
+        },
+        {
+          "security_original": "ON Semiconductor\nCorp. b",
+          "shares_original": 520030,
+          "fair_value_usd_original": 5990746,
+          "reported_equity_weight": 0.01185549112895203
+        },
+        {
+          "security_original": "Skyworks Solutions Inc.",
+          "shares_original": 230065,
+          "fair_value_usd_original": 21223496,
+          "reported_equity_weight": 0.04200060702846505
+        },
+        {
+          "security_original": "Taiwan Semiconductor Manufacturing Co. Ltd. ADR",
+          "shares_original": 857602,
+          "fair_value_usd_original": 20959793,
+          "reported_equity_weight": 0.04147874738407718
+        },
+        {
+          "security_original": "Texas Instruments Inc.",
+          "shares_original": 715541,
+          "fair_value_usd_original": 38789478,
+          "reported_equity_weight": 0.07676311302894162
+        },
+        {
+          "security_original": "Xilinx Inc.",
+          "shares_original": 315208,
+          "fair_value_usd_original": 13667419,
+          "reported_equity_weight": 0.027047376855932538
+        },
+        {
+          "security_original": "SanDisk Corp.",
+          "shares_original": 256829,
+          "fair_value_usd_original": 17192133,
+          "reported_equity_weight": 0.03402267101113341
+        }
+      ],
+      "ambiguous_rows": [],
+      "parsed_fair_value_total_usd": 505314030,
+      "printed_total_common_stocks_usd": 505314030,
+      "total_closure_difference_usd": 0,
+      "checks": {
+        "common_stocks_heading_found": true,
+        "total_label_found": true,
+        "printed_total_found": true,
+        "row_count_20_to_40": true,
+        "all_positive": true,
+        "distinct_names": true,
+        "total_closure_within_1_usd": true,
+        "ambiguous_rows_zero": true
+      },
+      "top5_disclosed_equity_value_share": 0.36481996155934954,
+      "herfindahl_sum_squared_disclosed_equity_weights": 0.04642080960066855
+    },
+    {
+      "report_date": "2015-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-15-339410",
+      "accepted_at_utc": "2015-10-08T00:30:16.000Z",
+      "raw_sha256": "f4066b79e07007b02fe09c5a3103f727ff59f61413b2084e775143180fd262d5",
+      "section_sha256": "64423adb98c3db70b738cc4791030c9daf7f03c7d3f399eca9be33daa276b4f5",
+      "status": "numeric_source_closure_passed",
+      "parsed_equity_rows": 30,
+      "equities": [
+        {
+          "security_original": "QUALCOMM Inc.",
+          "shares_original": 526287,
+          "fair_value_usd_original": 33887620,
+          "reported_equity_weight": 0.08519239834648369
+        },
+        {
+          "security_original": "Applied Materials Inc.",
+          "shares_original": 910868,
+          "fair_value_usd_original": 15812668,
+          "reported_equity_weight": 0.039752544179163234
+        },
+        {
+          "security_original": "ASML Holding NV\nNYS a",
+          "shares_original": 79490,
+          "fair_value_usd_original": 7883023,
+          "reported_equity_weight": 0.019817668977357893
+        },
+        {
+          "security_original": "KLA-Tencor Corp.",
+          "shares_original": 163430,
+          "fair_value_usd_original": 8669962,
+          "reported_equity_weight": 0.021796008582275074
+        },
+        {
+          "security_original": "Lam Research Corp.",
+          "shares_original": 161796,
+          "fair_value_usd_original": 12437259,
+          "reported_equity_weight": 0.0312668733616108
+        },
+        {
+          "security_original": "SunEdison\nInc. b,c",
+          "shares_original": 280597,
+          "fair_value_usd_original": 6532298,
+          "reported_equity_weight": 0.016421989308601156
+        },
+        {
+          "security_original": "Teradyne Inc.",
+          "shares_original": 219062,
+          "fair_value_usd_original": 4219134,
+          "reported_equity_weight": 0.010606768619489747
+        },
+        {
+          "security_original": "Altera Corp.",
+          "shares_original": 307690,
+          "fair_value_usd_original": 15279885,
+          "reported_equity_weight": 0.038413144670781274
+        },
+        {
+          "security_original": "Analog Devices Inc.",
+          "shares_original": 269804,
+          "fair_value_usd_original": 15737667,
+          "reported_equity_weight": 0.039563994051760226
+        },
+        {
+          "security_original": "ARM Holdings PLC ADR",
+          "shares_original": 132601,
+          "fair_value_usd_original": 6237551,
+          "reported_equity_weight": 0.015681004729706828
+        },
+        {
+          "security_original": "Atmel Corp.",
+          "shares_original": 426770,
+          "fair_value_usd_original": 3533656,
+          "reported_equity_weight": 0.008883498739995378
+        },
+        {
+          "security_original": "Avago Technologies Ltd.",
+          "shares_original": 226789,
+          "fair_value_usd_original": 28380376,
+          "reported_equity_weight": 0.07134736217577349
+        },
+        {
+          "security_original": "Broadcom Corp. Class A",
+          "shares_original": 488749,
+          "fair_value_usd_original": 24735587,
+          "reported_equity_weight": 0.06218447861012675
+        },
+        {
+          "security_original": "Cavium\nInc. b,c",
+          "shares_original": 56555,
+          "fair_value_usd_original": 3834429,
+          "reported_equity_weight": 0.00963963249113715
+        },
+        {
+          "security_original": "Cree\nInc. b,c",
+          "shares_original": 111354,
+          "fair_value_usd_original": 2744876,
+          "reported_equity_weight": 0.0069005309196604175
+        },
+        {
+          "security_original": "Intel Corp.",
+          "shares_original": 1064179,
+          "fair_value_usd_original": 30807982,
+          "reported_equity_weight": 0.07745028641124102
+        },
+        {
+          "security_original": "Linear Technology Corp.",
+          "shares_original": 244714,
+          "fair_value_usd_original": 10033274,
+          "reported_equity_weight": 0.02522333156850253
+        },
+        {
+          "security_original": "Marvell Technology Group Ltd.",
+          "shares_original": 530093,
+          "fair_value_usd_original": 6594357,
+          "reported_equity_weight": 0.016578003659829848
+        },
+        {
+          "security_original": "Maxim Integrated Products Inc.",
+          "shares_original": 290224,
+          "fair_value_usd_original": 9879225,
+          "reported_equity_weight": 0.02483605728447558
+        },
+        {
+          "security_original": "Microchip Technology Inc.",
+          "shares_original": 206773,
+          "fair_value_usd_original": 8858155,
+          "reported_equity_weight": 0.022269119795810276
+        },
+        {
+          "security_original": "Micron Technology\nInc. b",
+          "shares_original": 656485,
+          "fair_value_usd_original": 12151537,
+          "reported_equity_weight": 0.030548577345533127
+        },
+        {
+          "security_original": "NVIDIA Corp.",
+          "shares_original": 549790,
+          "fair_value_usd_original": 10968311,
+          "reported_equity_weight": 0.027573984832812655
+        },
+        {
+          "security_original": "NXP Semiconductors\nNV b",
+          "shares_original": 163348,
+          "fair_value_usd_original": 15843123,
+          "reported_equity_weight": 0.039829107080058664
+        },
+        {
+          "security_original": "ON Semiconductor\nCorp. b",
+          "shares_original": 438660,
+          "fair_value_usd_original": 4658569,
+          "reported_equity_weight": 0.011711494226286182
+        },
+        {
+          "security_original": "Qorvo\nInc. b",
+          "shares_original": 150071,
+          "fair_value_usd_original": 8696614,
+          "reported_equity_weight": 0.021863010862185273
+        },
+        {
+          "security_original": "Skyworks Solutions Inc.",
+          "shares_original": 167664,
+          "fair_value_usd_original": 16040415,
+          "reported_equity_weight": 0.04032509289005578
+        },
+        {
+          "security_original": "Taiwan Semiconductor Manufacturing Co. Ltd. ADR",
+          "shares_original": 755180,
+          "fair_value_usd_original": 16697030,
+          "reported_equity_weight": 0.04197580210599589
+        },
+        {
+          "security_original": "Texas Instruments Inc.",
+          "shares_original": 655788,
+          "fair_value_usd_original": 32776284,
+          "reported_equity_weight": 0.08239853500616094
+        },
+        {
+          "security_original": "Xilinx Inc.",
+          "shares_original": 264345,
+          "fair_value_usd_original": 11036404,
+          "reported_equity_weight": 0.027745168468034223
+        },
+        {
+          "security_original": "SanDisk Corp.",
+          "shares_original": 212477,
+          "fair_value_usd_original": 12810238,
+          "reported_equity_weight": 0.0322045306990949
+        }
+      ],
+      "ambiguous_rows": [],
+      "parsed_fair_value_total_usd": 397777509,
+      "printed_total_common_stocks_usd": 397777509,
+      "total_closure_difference_usd": 0,
+      "checks": {
+        "common_stocks_heading_found": true,
+        "total_label_found": true,
+        "printed_total_found": true,
+        "row_count_20_to_40": true,
+        "all_positive": true,
+        "distinct_names": true,
+        "total_closure_within_1_usd": true,
+        "ambiguous_rows_zero": true
+      },
+      "top5_disclosed_equity_value_share": 0.3785730605497859,
+      "herfindahl_sum_squared_disclosed_equity_weights": 0.04743111433486949
+    },
+    {
+      "report_date": "2015-09-30",
+      "form": "N-CSRS",
+      "accession": "0001193125-15-396474",
+      "accepted_at_utc": "2015-12-08T01:56:36.000Z",
+      "raw_sha256": "c3cc85a5554434ff5155eb59d8a9cb4fd7c3553bfa8ac3ac602208659c902e67",
+      "section_sha256": "4279e9be5f3546fa54fc12e7852b61536d6c32bb8df913445ada2b472a7a804b",
+      "status": "numeric_source_closure_passed",
+      "parsed_equity_rows": 30,
+      "equities": [
+        {
+          "security_original": "Infinera\nCorp. a",
+          "shares_original": 160502,
+          "fair_value_usd_original": 3139419,
+          "reported_equity_weight": 0.008669618118860889
+        },
+        {
+          "security_original": "QUALCOMM Inc.",
+          "shares_original": 520770,
+          "fair_value_usd_original": 27980972,
+          "reported_equity_weight": 0.07727045731536288
+        },
+        {
+          "security_original": "Applied Materials Inc.",
+          "shares_original": 915917,
+          "fair_value_usd_original": 13454821,
+          "reported_equity_weight": 0.03715597055621756
+        },
+        {
+          "security_original": "ASML Holding NV\nNYS b",
+          "shares_original": 78603,
+          "fair_value_usd_original": 6915492,
+          "reported_equity_weight": 0.01909737908321174
+        },
+        {
+          "security_original": "KLA-Tencor Corp.",
+          "shares_original": 180916,
+          "fair_value_usd_original": 9045800,
+          "reported_equity_weight": 0.024980300998239426
+        },
+        {
+          "security_original": "Lam Research Corp.",
+          "shares_original": 181656,
+          "fair_value_usd_original": 11867587,
+          "reported_equity_weight": 0.03277276696177157
+        },
+        {
+          "security_original": "SunEdison\nInc. a,c",
+          "shares_original": 361795,
+          "fair_value_usd_original": 2597688,
+          "reported_equity_weight": 0.007173608540926682
+        },
+        {
+          "security_original": "Teradyne Inc.",
+          "shares_original": 242141,
+          "fair_value_usd_original": 4360959,
+          "reported_equity_weight": 0.01204294462192191
+        },
+        {
+          "security_original": "Analog Devices Inc.",
+          "shares_original": 263736,
+          "fair_value_usd_original": 14877348,
+          "reported_equity_weight": 0.04108432986530272
+        },
+        {
+          "security_original": "ARM Holdings PLC ADR",
+          "shares_original": 150604,
+          "fair_value_usd_original": 6513623,
+          "reported_equity_weight": 0.01798760343242779
+        },
+        {
+          "security_original": "Atmel Corp.",
+          "shares_original": 480478,
+          "fair_value_usd_original": 3877457,
+          "reported_equity_weight": 0.010707736515037968
+        },
+        {
+          "security_original": "Avago Technologies\nLtd. c",
+          "shares_original": 233905,
+          "fair_value_usd_original": 29240464,
+          "reported_equity_weight": 0.08074858962702956
+        },
+        {
+          "security_original": "Cavium\nInc. a,c",
+          "shares_original": 63909,
+          "fair_value_usd_original": 3922095,
+          "reported_equity_weight": 0.010831005952341403
+        },
+        {
+          "security_original": "Cypress Semiconductor Corp.",
+          "shares_original": 384988,
+          "fair_value_usd_original": 3280098,
+          "reported_equity_weight": 0.00905810822080116
+        },
+        {
+          "security_original": "Intel Corp.",
+          "shares_original": 1032413,
+          "fair_value_usd_original": 31116928,
+          "reported_equity_weight": 0.0859305122355728
+        },
+        {
+          "security_original": "Linear Technology Corp.",
+          "shares_original": 275345,
+          "fair_value_usd_original": 11110171,
+          "reported_equity_weight": 0.03068113552387967
+        },
+        {
+          "security_original": "Marvell Technology Group Ltd.",
+          "shares_original": 594411,
+          "fair_value_usd_original": 5379420,
+          "reported_equity_weight": 0.014855461185959134
+        },
+        {
+          "security_original": "Maxim Integrated Products Inc.",
+          "shares_original": 326551,
+          "fair_value_usd_original": 10906803,
+          "reported_equity_weight": 0.030119527500995023
+        },
+        {
+          "security_original": "Microchip Technology\nInc. c",
+          "shares_original": 242434,
+          "fair_value_usd_original": 10446481,
+          "reported_equity_weight": 0.028848331795130248
+        },
+        {
+          "security_original": "Micron Technology\nInc. a",
+          "shares_original": 897775,
+          "fair_value_usd_original": 13448670,
+          "reported_equity_weight": 0.03713898434919992
+        },
+        {
+          "security_original": "Microsemi\nCorp. a",
+          "shares_original": 109623,
+          "fair_value_usd_original": 3597827,
+          "reported_equity_weight": 0.009935528245107426
+        },
+        {
+          "security_original": "NVIDIA Corp.",
+          "shares_original": 618981,
+          "fair_value_usd_original": 15257882,
+          "reported_equity_weight": 0.04213518814871204
+        },
+        {
+          "security_original": "NXP Semiconductors\nNV a,c",
+          "shares_original": 174049,
+          "fair_value_usd_original": 15154446,
+          "reported_equity_weight": 0.04184954592645929
+        },
+        {
+          "security_original": "ON Semiconductor\nCorp. a",
+          "shares_original": 474195,
+          "fair_value_usd_original": 4457433,
+          "reported_equity_weight": 0.012309361031582101
+        },
+        {
+          "security_original": "Qorvo\nInc. a,c",
+          "shares_original": 171707,
+          "fair_value_usd_original": 7735400,
+          "reported_equity_weight": 0.021361584419485425
+        },
+        {
+          "security_original": "Skyworks Solutions Inc.",
+          "shares_original": 168662,
+          "fair_value_usd_original": 14203027,
+          "reported_equity_weight": 0.039222168248924535
+        },
+        {
+          "security_original": "Taiwan Semiconductor Manufacturing Co. Ltd. ADR",
+          "shares_original": 1078522,
+          "fair_value_usd_original": 22379331,
+          "reported_equity_weight": 0.061801324871125884
+        },
+        {
+          "security_original": "Texas Instruments Inc.",
+          "shares_original": 615907,
+          "fair_value_usd_original": 30499715,
+          "reported_equity_weight": 0.08422605640855624
+        },
+        {
+          "security_original": "Xilinx Inc.",
+          "shares_original": 297027,
+          "fair_value_usd_original": 12593945,
+          "reported_equity_weight": 0.0347786306192125
+        },
+        {
+          "security_original": "SanDisk Corp.",
+          "shares_original": 234788,
+          "fair_value_usd_original": 12756032,
+          "reported_equity_weight": 0.035226239680644506
+        }
+      ],
+      "ambiguous_rows": [],
+      "parsed_fair_value_total_usd": 362117334,
+      "printed_total_common_stocks_usd": 362117334,
+      "total_closure_difference_usd": 0,
+      "checks": {
+        "common_stocks_heading_found": true,
+        "total_label_found": true,
+        "printed_total_found": true,
+        "row_count_20_to_40": true,
+        "all_positive": true,
+        "distinct_names": true,
+        "total_closure_within_1_usd": true,
+        "ambiguous_rows_zero": true
+      },
+      "top5_disclosed_equity_value_share": 0.38997694045764736,
+      "herfindahl_sum_squared_disclosed_equity_weights": 0.0493319001148516
+    },
+    {
+      "report_date": "2015-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-16-480933",
+      "accepted_at_utc": "2016-02-26T23:14:01.000Z",
+      "raw_sha256": "411191758cfc056203d1741e9cd0a78c20d2a301bc7e10a34e3e2082e0ca78ca",
+      "section_sha256": "2a7312a1667dad784f2c05a54df4152f73077849685aa0d9681e1422653cc21c",
+      "status": "numeric_source_closure_passed",
+      "parsed_equity_rows": 30,
+      "equities": [
+        {
+          "security_original": "Infinera\nCorp. a,b",
+          "shares_original": 160690,
+          "fair_value_usd_original": 2911704,
+          "reported_equity_weight": 0.007378386893999969
+        },
+        {
+          "security_original": "QUALCOMM Inc.",
+          "shares_original": 660531,
+          "fair_value_usd_original": 33016642,
+          "reported_equity_weight": 0.0836656331195372
+        },
+        {
+          "security_original": "Applied Materials Inc.",
+          "shares_original": 858484,
+          "fair_value_usd_original": 16027896,
+          "reported_equity_weight": 0.040615398331971427
+        },
+        {
+          "security_original": "ASML Holding NV\nNYS b,c",
+          "shares_original": 68323,
+          "fair_value_usd_original": 6065033,
+          "reported_equity_weight": 0.015369062239457484
+        },
+        {
+          "security_original": "KLA-Tencor Corp.",
+          "shares_original": 179377,
+          "fair_value_usd_original": 12439795,
+          "reported_equity_weight": 0.03152299148266663
+        },
+        {
+          "security_original": "Lam Research Corp.",
+          "shares_original": 182191,
+          "fair_value_usd_original": 14469609,
+          "reported_equity_weight": 0.0366666300581735
+        },
+        {
+          "security_original": "SunEdison\nInc. a,b",
+          "shares_original": 363805,
+          "fair_value_usd_original": 1851767,
+          "reported_equity_weight": 0.004692459591889025
+        },
+        {
+          "security_original": "Teradyne Inc.",
+          "shares_original": 236401,
+          "fair_value_usd_original": 4886409,
+          "reported_equity_weight": 0.012382376822755163
+        },
+        {
+          "security_original": "Analog Devices Inc.",
+          "shares_original": 261460,
+          "fair_value_usd_original": 14463967,
+          "reported_equity_weight": 0.036652332980291975
+        },
+        {
+          "security_original": "ARM Holdings PLC ADR",
+          "shares_original": 132518,
+          "fair_value_usd_original": 5995114,
+          "reported_equity_weight": 0.015191884396777877
+        },
+        {
+          "security_original": "Atmel Corp.",
+          "shares_original": 483468,
+          "fair_value_usd_original": 4162660,
+          "reported_equity_weight": 0.010548364802252535
+        },
+        {
+          "security_original": "Avago Technologies\nLtd. b",
+          "shares_original": 247048,
+          "fair_value_usd_original": 35859017,
+          "reported_equity_weight": 0.09086833725698838
+        },
+        {
+          "security_original": "Cavium\nInc. a,b",
+          "shares_original": 64332,
+          "fair_value_usd_original": 4227256,
+          "reported_equity_weight": 0.010712053927178977
+        },
+        {
+          "security_original": "Cypress Semiconductor Corp. b",
+          "shares_original": 383966,
+          "fair_value_usd_original": 3766707,
+          "reported_equity_weight": 0.009545002363680492
+        },
+        {
+          "security_original": "Intel Corp.",
+          "shares_original": 926871,
+          "fair_value_usd_original": 31930706,
+          "reported_equity_weight": 0.08091382319994278
+        },
+        {
+          "security_original": "Linear Technology Corp.",
+          "shares_original": 275075,
+          "fair_value_usd_original": 11682435,
+          "reported_equity_weight": 0.029603807699548627
+        },
+        {
+          "security_original": "Marvell Technology Group Ltd.",
+          "shares_original": 595381,
+          "fair_value_usd_original": 5251260,
+          "reported_equity_weight": 0.01330692541583426
+        },
+        {
+          "security_original": "Maxim Integrated Products Inc.",
+          "shares_original": 326923,
+          "fair_value_usd_original": 12423074,
+          "reported_equity_weight": 0.03148061972810141
+        },
+        {
+          "security_original": "Microchip Technology\nInc. b",
+          "shares_original": 233641,
+          "fair_value_usd_original": 10873652,
+          "reported_equity_weight": 0.027554315756930153
+        },
+        {
+          "security_original": "Micron Technology\nInc. a",
+          "shares_original": 1011536,
+          "fair_value_usd_original": 14323350,
+          "reported_equity_weight": 0.036296003274431214
+        },
+        {
+          "security_original": "Microsemi\nCorp. a,b",
+          "shares_original": 110642,
+          "fair_value_usd_original": 3605823,
+          "reported_equity_weight": 0.00913731518220384
+        },
+        {
+          "security_original": "NVIDIA Corp.",
+          "shares_original": 507999,
+          "fair_value_usd_original": 16743647,
+          "reported_equity_weight": 0.0424291430662464
+        },
+        {
+          "security_original": "NXP Semiconductors\nNV a,b",
+          "shares_original": 172413,
+          "fair_value_usd_original": 14525795,
+          "reported_equity_weight": 0.036809007870625
+        },
+        {
+          "security_original": "ON Semiconductor\nCorp. a",
+          "shares_original": 474723,
+          "fair_value_usd_original": 4652285,
+          "reported_equity_weight": 0.011789096237513376
+        },
+        {
+          "security_original": "Qorvo\nInc. a",
+          "shares_original": 162578,
+          "fair_value_usd_original": 8275220,
+          "reported_equity_weight": 0.020969773985599644
+        },
+        {
+          "security_original": "Skyworks Solutions Inc.",
+          "shares_original": 194093,
+          "fair_value_usd_original": 14912165,
+          "reported_equity_weight": 0.03778808656277048
+        },
+        {
+          "security_original": "Taiwan Semiconductor Manufacturing Co. Ltd. ADR",
+          "shares_original": 1073913,
+          "fair_value_usd_original": 24431521,
+          "reported_equity_weight": 0.061910556274568096
+        },
+        {
+          "security_original": "Texas Instruments Inc.",
+          "shares_original": 554496,
+          "fair_value_usd_original": 30391926,
+          "reported_equity_weight": 0.0770144865281007
+        },
+        {
+          "security_original": "Xilinx Inc.",
+          "shares_original": 295584,
+          "fair_value_usd_original": 13883581,
+          "reported_equity_weight": 0.03518160915126915
+        },
+        {
+          "security_original": "SanDisk Corp.",
+          "shares_original": 218135,
+          "fair_value_usd_original": 16576078,
+          "reported_equity_weight": 0.04200451579869424
+        }
+      ],
+      "ambiguous_rows": [],
+      "parsed_fair_value_total_usd": 394626094,
+      "printed_total_common_stocks_usd": 394626094,
+      "total_closure_difference_usd": 0,
+      "checks": {
+        "common_stocks_heading_found": true,
+        "total_label_found": true,
+        "printed_total_found": true,
+        "row_count_20_to_40": true,
+        "all_positive": true,
+        "distinct_names": true,
+        "total_closure_within_1_usd": true,
+        "ambiguous_rows_zero": true
+      },
+      "top5_disclosed_equity_value_share": 0.39437283637913717,
+      "herfindahl_sum_squared_disclosed_equity_weights": 0.05028177396781788
+    }
+  ],
+  "reports_attempted": 5,
+  "reports_with_numeric_closure": 5,
+  "source_NAS_archive_sha256": [
+    "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
+    "9dde69bffffb98ba09bf91ef4959bb65d5671e614ef9613b58df295957eb0c04"
+  ],
+  "source_NAS_scoped_restore_verified": true,
+  "full_2016_2022_training_coverage": false,
+  "held_2023_2026_coverage": false,
+  "HTTP_GETs_new": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "scientific_boundary": "These five transitional report values add one source period but do not establish incremental information or a Stage1 0bp account."
+}
