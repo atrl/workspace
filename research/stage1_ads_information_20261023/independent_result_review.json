@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "verdict": "FAIL_INFORMATION_GATE_CLOSE_FIXED_ADS_VERSION",
+  "reviewer": "independent Goal task result readback, separate from fixed information executor",
+  "plan_sha256": "dbf06de420cc63a12ef52f7ea8377152b1b51ced87d2bd1004c64004470b4143",
+  "summary_sha256": "bfe0d179e19fe608e15230c674acdab3777cbaca2856b13fb74c8f3c189f9338",
+  "result_review_sha256": "c48bd1ccbcf2639e48b78d49a4da7c6f3558a21b8452bfdcf5d93438ab6c8b24",
+  "run_state_sha256": "c416297fee0744b0cdef06bf03a3fd04c015793679722ca290a539993caeea89",
+  "recorder_id": "2859f5a0f084429fb31319c0aa252ef0",
+  "native_Recorder_readback": {
+    "predictions_baseline_and_candidate_rows": 940,
+    "first_signal_date": "2023-01-03",
+    "last_mature_signal_date": "2026-10-01",
+    "baseline_mse": 0.002525385602851134,
+    "candidate_mse": 0.0025737515716430944,
+    "paired_improvement": -4.8365968791960854e-05,
+    "metrics_and_gates_equal_stored_Recorder": true
+  },
+  "fixed_gates": {
+    "coefficient_positive": false,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "bootstrap_lower": -0.00014107765658738999,
+  "coefficient": -0.002955128343110155,
+  "motivation_interval_attribution": {
+    "2025Q2_paired_mean_mse_improvement": -0.0003296389884472894,
+    "2025Q3_paired_mean_mse_improvement": -2.980755876946094e-05,
+    "interpretation": "ADS worsened H5 SOXX information in the 2025 quarters overlapping the cash-opportunity-dominated weak Stage1 interval; quarter means are descriptive, not a trading rule."
+  },
+  "evidence_limits": [
+    "The Qlib source map has complete aligned values but historical ADS intraday first-public clocks remain unqualified.",
+    "The 940 held signals reuse market history; this is development feedback, not independent validation.",
+    "No new Stage1 action/risk/recovery account was run; MSE cannot establish net SOXX excess."
+  ],
+  "decision": "Do not run the fixed ADS candidate through a 0bp economic account or change its sign, window, controls, or threshold on reused history. Continue the Goal with a materially different decision-time mechanism.",
+  "new_fits": 2,
+  "new_accounts": 0,
+  "goal_complete": false
+}
