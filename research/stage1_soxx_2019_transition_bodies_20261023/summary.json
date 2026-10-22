@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_soxx_2019_transition_bodies_20261023",
+  "decision": "two_2019_transition_original_SOXX_schedule_identities_passed_numeric_values_pending",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "transport": "transport_result.json",
+  "identity": "identity_result.json",
+  "body_GETs": 2,
+  "original_bodies_with_SOXX_schedule_identity": 2,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "NAS_archive_sha256": "bf6f45614df9703c9c586133bf53be61c8008d4496ea09693671057cec9c43c9",
+  "NAS_scoped_restore_verified": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "accession": "0001193125-19-059323",
+    "report_period": "2018-12-31",
+    "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312519059323/d655820dnq.htm",
+    "requested_at_utc": "2026-10-22T18:46:45.438981+00:00",
+    "received_at_utc": "2026-10-22T18:46:55.446216+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312519059323/d655820dnq.htm",
+    "stderr": "",
+    "raw_sha256": "f02e90225242df322429af014137fea70f5b0605436f51daec00cd4a90cffe3d",
+    "raw_bytes": 28888117,
+    "headers_sha256": "9afa753a8eb7fec4d56405ef04b53d72cf846e6fca2481bae7be718dc3b36944",
+    "headers_bytes": 1858
+  },
+  {
+    "accession": "0001193125-19-167652",
+    "report_period": "2019-03-31",
+    "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312519167652/d738391dncsr.htm",
+    "requested_at_utc": "2026-10-22T18:46:56.489347+00:00",
+    "received_at_utc": "2026-10-22T18:47:16.920029+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312519167652/d738391dncsr.htm",
+    "stderr": "",
+    "raw_sha256": "7e52011b073c29500e420ce3a1205584f7dd0227cbb93a6c8d3c061d12e25577",
+    "raw_bytes": 47521335,
+    "headers_sha256": "78b228efcdc21cc3158360d2ed637b8f83d688e5f1255f6e89f1d35ee05f26dd",
+    "headers_bytes": 1858
+  }
+]

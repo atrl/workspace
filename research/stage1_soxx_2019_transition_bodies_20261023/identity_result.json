@@ -1,0 +1,42 @@
+{
+  "status": "two_2019_transition_original_SOXX_schedule_identities_passed",
+  "source_plan_sha256": "216c2df11e4220463eef26deccc4f0b70e121bd555524b864b45c8d05cb56c2e",
+  "NAS_archive_sha256": "bf6f45614df9703c9c586133bf53be61c8008d4496ea09693671057cec9c43c9",
+  "NAS_scoped_restore_verified": true,
+  "rows": [
+    {
+      "accession": "0001193125-19-059323",
+      "report_period": "2018-12-31",
+      "raw_sha256": "f02e90225242df322429af014137fea70f5b0605436f51daec00cd4a90cffe3d",
+      "raw_bytes": 28888117,
+      "matching_dated_SOXX_schedule_headers": 1,
+      "matching_headers": [
+        {
+          "title_offset": 12564907,
+          "header_excerpt": "Schedule of Investments (unaudited) December 31, 2018 iShares \u00ae PHLX Semiconductor ETF (Percentages shown are based on Net Assets) Security Shares Value Common Stocks Semiconductor Equipment \u2014 15.3% Applied Materials Inc. 1,242,388 $ 40,675,783 ASML Holding NV,",
+          "has_table_markup": true
+        }
+      ],
+      "identity_passed": true
+    },
+    {
+      "accession": "0001193125-19-167652",
+      "report_period": "2019-03-31",
+      "raw_sha256": "7e52011b073c29500e420ce3a1205584f7dd0227cbb93a6c8d3c061d12e25577",
+      "raw_bytes": 47521335,
+      "matching_dated_SOXX_schedule_headers": 1,
+      "matching_headers": [
+        {
+          "title_offset": 30148338,
+          "header_excerpt": "Schedule of Investments March 31, 2019 iShares \u00ae PHLX Semiconductor ETF (Percentages shown are based on Net Assets) Security Shares Value Common Stocks Semiconductor Equipment \u2014 16.4% Applied Materials Inc. 1,069,650 $ 42,422,319 ASML Holding NV,",
+          "has_table_markup": true
+        }
+      ],
+      "identity_passed": true
+    }
+  ],
+  "numeric_holdings_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

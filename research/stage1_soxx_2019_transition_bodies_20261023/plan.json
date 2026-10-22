@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Do the two 2019 transition old-form original filing bodies contain their own SOXX dated Schedule of Investments, before numeric basket construction?",
+  "parent_index_identity": "research/stage1_soxx_2019_transition_index_20261023/identity_result.json",
+  "parent_index_identity_sha256": "ed02eea600e70cddc8a1e3fb2575236a01fe48d292e32024f5195a5a97e6a01b",
+  "exact_bodies": [
+    {
+      "report_period": "2018-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-19-059323",
+      "document": "d655820dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312519059323/d655820dnq.htm",
+      "index_size_bytes": 28888002
+    },
+    {
+      "report_period": "2019-03-31",
+      "form": "N-CSR",
+      "accession": "0001193125-19-167652",
+      "document": "d738391dncsr.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312519167652/d738391dncsr.htm",
+      "index_size_bytes": 47521220
+    }
+  ],
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 2,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 180,
+    "max_response_bytes_each": 60000000,
+    "minimum_seconds_between_requests": 1,
+    "retries": 0
+  },
+  "identity_gate": "Bounded original-body text must show SOXX/iShares PHLX Semiconductor ETF (or the exact historic fund title) together with the intended report date and its own Schedule of Investments, with a table region, not merely a trust contents list. Do not parse value rows in this source card.",
+  "backup": "Exact body and response-header bytes, request UTC times and SHA-256; archive to Yanxuan NAS, verify remote digest and scoped raw-member restoration before discarding nothing.",
+  "budgets": {
+    "body_GETs": 2,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any HTTP, size or NAS failure stops before next GET; preserve partial bytes. Identity failure stops qualification without replacement filing or market reads."
+}
