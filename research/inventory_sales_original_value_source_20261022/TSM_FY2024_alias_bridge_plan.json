@@ -1,0 +1,28 @@
+{
+  "status": "frozen_one_original_alias_bridge_check",
+  "question": "Did the own original TSM FY2024 20-F report both ifrs-full:Revenue and ifrs-full:RevenueFromContractsWithCustomers for the same undimensioned annual TWD context/value, permitting a source-semantic bridge to FY2025 without later comparative backfill?",
+  "source_plan_sha256": "bed8419971ebdcb41f6f6ce4775c079c61d5f0a026e878e936fc7528be55048a",
+  "FY2025_gap_attribution_sha256": "e2ea8c64192293c5e621989e75b787226c88f9cada3603b89145020a5168ca2d",
+  "ticker": "TSM",
+  "fiscal_year": 2024,
+  "accession": "0001193125-25-083423",
+  "original_member": "foreign_primary/TSM/FY2024_000119312525083423_d896993d20f.htm",
+  "original_sha256": "eb4de82b8902b11c707cf8f4f0e3825599dd8d772d128d3a1f624527739b1d00",
+  "original_bytes": 8404908,
+  "archive_sha256": "111b7ee2b449212723e59e853223efdcb6afc015745d8c61662b0219acb82466",
+  "exact_period": [
+    "2024-01-01",
+    "2024-12-31"
+  ],
+  "frozen_tags": [
+    "ifrs-full:Revenue",
+    "ifrs-full:RevenueFromContractsWithCustomers"
+  ],
+  "budget": {
+    "original_member_reads": 1,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "decision_rule": "An alias bridge requires exact same original issuer, annual period, undimensioned context, TWD unit and numeric value. Otherwise leave FY2025 missing. No old result mutation or return-informed choice."
+}

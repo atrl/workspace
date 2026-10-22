@@ -1,0 +1,48 @@
+{
+  "status": "original_TSM_FY2025_gap_attributed",
+  "plan": "TSM_FY2025_gap_attribution_plan.json",
+  "source_sha256": "8ad4d7163bf308c22e92617be162c5bc7718e4e0debabb2cd021d306542df366",
+  "accession": "0001628280-26-025362",
+  "period": [
+    "2025-01-01",
+    "2025-12-31"
+  ],
+  "exact_original_checks": {
+    "ifrs-full:Inventories": {
+      "exact_undimensioned_TWD_values": [
+        288109500000
+      ],
+      "context_refs": [
+        "c-3"
+      ]
+    },
+    "ifrs-full:Revenue": {
+      "exact_undimensioned_TWD_values": [],
+      "context_refs": []
+    },
+    "ifrs-full:RevenueFromContractsWithCustomers": {
+      "exact_undimensioned_TWD_values": [
+        3809054300000
+      ],
+      "context_refs": [
+        "c-1"
+      ]
+    }
+  },
+  "related_original_tag_counts": {
+    "ifrs-full:Inventories": 5,
+    "ifrs-full:RevenueFromContractsWithCustomers": 94,
+    "ifrs-full:RevenueFromInterest": 7,
+    "ifrs-full:AdjustmentsForDecreaseIncreaseInInventories": 4,
+    "ifrs-full:WritedownsReversalsOfInventories": 3,
+    "ifrs-full:RevenueThatWasIncludedInContractLiabilityBalanceAtBeginningOfPeriod": 3,
+    "ifrs-full:InterestRevenueForFinancialAssetsMeasuredAtFairValueThroughOtherComprehensiveIncome": 3,
+    "ifrs-full:RevenueFromGovernmentGrants": 3,
+    "ifrs-full:RevenueFromSaleOfGoodsRelatedPartyTransactions": 3,
+    "ifrs-full:Revenue": 6,
+    "ifrs-full:PercentageOfEntitysRevenue": 6
+  },
+  "old_card_changed": false,
+  "new_fits_or_accounts": 0,
+  "next_action": "Preserve the failed fixed Revenue tag row. If an exact alternate original revenue tag is present with the same consolidated annual scope, freeze a new source version to evaluate semantic comparability without using market outcomes."
+}

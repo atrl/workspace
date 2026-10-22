@@ -1,0 +1,33 @@
+{
+  "status": "frozen_one_original_document_gap_attribution",
+  "source_recorder_id": "c141d8145a15413daa9d74ab1c3ab214",
+  "source_plan_sha256": "bed8419971ebdcb41f6f6ce4775c079c61d5f0a026e878e936fc7528be55048a",
+  "source_summary_sha256": "708b2da04d6bb2deb4010395e56a4f19673fda5f827893c15731de0e36bbf2d2",
+  "ticker": "TSM",
+  "fiscal_year": 2025,
+  "accession": "0001628280-26-025362",
+  "original_member": "foreign_primary/TSM/FY2025_000162828026025362_tsm-20251231.htm",
+  "original_sha256": "8ad4d7163bf308c22e92617be162c5bc7718e4e0debabb2cd021d306542df366",
+  "original_bytes": 10355931,
+  "archive_sha256": "111b7ee2b449212723e59e853223efdcb6afc015745d8c61662b0219acb82466",
+  "exact_period": [
+    "2025-01-01",
+    "2025-12-31"
+  ],
+  "fixed_tags": [
+    "ifrs-full:Inventories",
+    "ifrs-full:Revenue"
+  ],
+  "diagnostic_tags": [
+    "ifrs-full:RevenueFromContractsWithCustomers"
+  ],
+  "budget": {
+    "original_member_reads": 1,
+    "Qlib_Recorder_object_loads": 0,
+    "D_calendar_calls": 0,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "decision_rule": "Explain the fixed missing year from this original filing only. Alternative tag presence is diagnostic for a future separately frozen source version; do not repair or rerun the completed card here."
+}

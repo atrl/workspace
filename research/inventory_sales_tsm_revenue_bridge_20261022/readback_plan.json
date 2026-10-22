@@ -1,0 +1,24 @@
+{
+  "status": "frozen_one_native_bridge_readback",
+  "recorder_id": "b17476ef090346e8bcbb45c85312da5a",
+  "summary_sha256": "a4c02278843bce096dbe35ac3c3bd2aa6f89f5c28a62fa7ddb48a6e6a063d506",
+  "verification_manifest_sha256": "355ff05cfef5d34d8fbf0a93ebf0f55546a6ac8c4da74ef6f3294620b2094153",
+  "artifacts": {
+    "analysis/summary": "e24829d6dc4082ee96abc7672b1abb114ed51fedec281bf4599c561baf900c69",
+    "analysis/bridged_annual_values": "2fd93d28e69ab84d60b254b37518b08761092bd7d7531917368d05f90ecff03d",
+    "analysis/bridged_comparable_pairs": "c80506a89cd5f6bec5e70909772c60db129542ac3dcbd5f6e43859c8b9a606fc",
+    "analysis/four_name_monthly_support": "d5bf049e3954a2e8b9ba453596076e544e9ffb2473ae996adaa713cc434d1cd2",
+    "metadata/bridge_dataset": "2a2e7d41165e5fc7daec077be861a5e6cf52efca9d7a00c8fcff193f8247d13c"
+  },
+  "budget": {
+    "read_only_recorder_object_loads": 5,
+    "D_calendar_calls": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "checks": [
+    "36/36 own-original years and 29 pair keys with one exact TSM addition.",
+    "275/278 supported issuer-months; list the three unsupported rows as necessary attribution without replay.",
+    "Native DatasetH metadata equals source support panel."
+  ]
+}

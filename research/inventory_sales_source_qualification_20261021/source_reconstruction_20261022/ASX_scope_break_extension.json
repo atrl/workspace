@@ -1,0 +1,12 @@
+{
+  "status": "original_scope_break_extends_through_FY2019_growth_pair",
+  "original_FY2019_20F": {
+    "accession": "0000950103-20-006422",
+    "url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010320006422/dp121474_20f.htm",
+    "sha256": "0a1c9ebba064fb34e8d0482ffb2a677cc0268e42ee3f7c09c9590d272be0a254"
+  },
+  "finding": "The FY2019 original report says FY2018 includes SPIL only from the 2018-04-30 share exchange while FY2019 reflects combined post-acquisition operations. It warns annual/interim operating results may be non-comparable.",
+  "frozen_source_handling_for_next_version": "Exclude ordinary same-scope inventory/sales growth pairs ending FY2018 and FY2019 for ASX unless original pro-forma same-scope facts are separately qualified before any return look. FY2020-onward may be evaluated under its own original-context checks.",
+  "market_returns_read": false,
+  "old_frozen_results_changed": false
+}

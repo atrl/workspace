@@ -1,0 +1,72 @@
+{
+  "experiment": "inventory_sales_original_value_source_20261022",
+  "status": "completed_source_only_not_promoted",
+  "decision": "original_four_issuer_annual_source_audited",
+  "original_issuer_years": 36,
+  "own_original_value_years": 35,
+  "missing_or_conflicting_years": [
+    {
+      "ticker": "TSM",
+      "fiscal_year": 2025,
+      "status": "missing_or_conflicting_original_fact"
+    }
+  ],
+  "comparable_annual_pairs": 28,
+  "excluded_growth_pairs": [
+    [
+      "ASX",
+      2018
+    ],
+    [
+      "ASX",
+      2019
+    ],
+    [
+      "NVDA",
+      2019
+    ]
+  ],
+  "four_name_issuer_months": 278,
+  "four_name_months_with_original_pair": 275,
+  "median_raw_four_name_weight_pct": 12.813661981959001,
+  "median_raw_original_pair_supported_weight_pct": 12.813661981959001,
+  "strict_PIT_qualified_rows": 0,
+  "model_input_qualified": false,
+  "factor_effectiveness_tested": false,
+  "SOXX_excess_established": false,
+  "first_public_value_clock_verified": false,
+  "conservative_original_filing_next_session_available": true,
+  "D_calendar_calls": 1,
+  "D_features_calls": 0,
+  "market_price_or_label_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "source_recorder_object_loads": 1,
+  "original_source_members_read": 50,
+  "source_recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+  "plan_sha256": "bed8419971ebdcb41f6f6ce4775c079c61d5f0a026e878e936fc7528be55048a",
+  "module_sha256": "5495211817b9c2bbc3b262f62b2c1989669a011e550cd79d345a7ea88b4232f5",
+  "recorder_id": "c141d8145a15413daa9d74ab1c3ab214",
+  "experiment_id": "782467205054121138",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/inventory_sales_original_value_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/inventory_sales_original_value_source_20261022/qlib_recorder/782467205054121138/c141d8145a15413daa9d74ab1c3ab214",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*",
+      "sources/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "5aa9b734a2a1cb4ba949a8ce2c4ee0f8385338f42c086b12390aff5380dd3fce",
+    "size_bytes": 87645,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/5a/a9/5aa9b734a2a1cb4ba949a8ce2c4ee0f8385338f42c086b12390aff5380dd3fce",
+    "recorder_id": "c141d8145a15413daa9d74ab1c3ab214",
+    "experiment_id": "782467205054121138",
+    "archive_root": "qlib_recorder"
+  }
+}

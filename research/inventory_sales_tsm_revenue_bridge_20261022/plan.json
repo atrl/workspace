@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "experiment": "inventory_sales_tsm_revenue_bridge_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "source_repair_only",
+  "question": "Does the exact original FY2024 same-context/same-value Revenue and RevenueFromContractsWithCustomers bridge admit TSM FY2025 original RevenueFromContractsWithCustomers, adding only FY2024-to-FY2025 pair and no losses elsewhere?",
+  "source": {
+    "card": "research/inventory_sales_original_value_source_20261022",
+    "recorder_id": "c141d8145a15413daa9d74ab1c3ab214",
+    "summary_sha256": "d4144fb7e8d07e20722c683a7361a1e813819c5b014fa839bcacd82c4d4f0a44",
+    "verification_manifest_sha256": "33b097b9f8c995dfb690da565d61f4788c01a35664b1fc8527f7baec45abe567",
+    "artifacts": {
+      "analysis/original_annual_values": "849be86a6a5f9b443f4626e0cbb982fddaf9000d19135fa69be6cf6ab878ca21",
+      "analysis/original_comparable_pairs": "c0e6f0d49e2ff7e00b3b96128ff71e402fbcd015b0540264859b58d2680a4908",
+      "analysis/four_name_monthly_support": "c78d83c619b0de9f85e160d43b9ae62132cbd88089de209a123074a28fff40b5"
+    },
+    "original_plan": "research/inventory_sales_original_value_source_20261022/plan.json",
+    "original_plan_sha256": "bed8419971ebdcb41f6f6ce4775c079c61d5f0a026e878e936fc7528be55048a"
+  },
+  "original_archive": {
+    "manifest": "data/snapshots/inventory_sales_original_sec_20261022/archive_manifest.json",
+    "manifest_sha256": "0d6e0a79b14ab67ac5ec5451d787b40b9b5d37ac502ebe06669848a823bf7224",
+    "local_archive": "/tmp/soxx_inventory_sales_original_sec_20261022.tar.gz",
+    "archive_sha256": "111b7ee2b449212723e59e853223efdcb6afc015745d8c61662b0219acb82466",
+    "members": {
+      "2024": {
+        "member": "foreign_primary/TSM/FY2024_000119312525083423_d896993d20f.htm",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312525083423/d896993d20f.htm",
+        "sha256": "eb4de82b8902b11c707cf8f4f0e3825599dd8d772d128d3a1f624527739b1d00",
+        "bytes": 8404908,
+        "kind": "original_20F",
+        "ticker": "TSM",
+        "fiscal_year": 2024
+      },
+      "2025": {
+        "member": "foreign_primary/TSM/FY2025_000162828026025362_tsm-20251231.htm",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm",
+        "sha256": "8ad4d7163bf308c22e92617be162c5bc7718e4e0debabb2cd021d306542df366",
+        "bytes": 10355931,
+        "kind": "original_20F",
+        "ticker": "TSM",
+        "fiscal_year": 2025
+      }
+    }
+  },
+  "evidence": {
+    "FY2025_gap": {
+      "path": "research/inventory_sales_original_value_source_20261022/TSM_FY2025_gap_attribution.json",
+      "sha256": "e2ea8c64192293c5e621989e75b787226c88f9cada3603b89145020a5168ca2d"
+    },
+    "FY2024_exact_bridge": {
+      "path": "research/inventory_sales_original_value_source_20261022/TSM_FY2024_alias_bridge_result.json",
+      "sha256": "174d2140c0fa956c718395ff879028a275dfcee4a42dc5821c44b609c42c4bef"
+    }
+  },
+  "frozen_rule": {
+    "ticker": "TSM",
+    "cik": 1046179,
+    "unit": "TWD",
+    "FY2024_accession": "0001193125-25-083423",
+    "FY2024_period": [
+      "2024-01-01",
+      "2024-12-31"
+    ],
+    "FY2024_equal_value": 2894307700000,
+    "FY2024_tags": [
+      "ifrs-full:Revenue",
+      "ifrs-full:RevenueFromContractsWithCustomers"
+    ],
+    "FY2025_accession": "0001628280-26-025362",
+    "FY2025_period": [
+      "2025-01-01",
+      "2025-12-31"
+    ],
+    "FY2025_revenue_tag": "ifrs-full:RevenueFromContractsWithCustomers",
+    "FY2025_revenue_value": 3809054300000,
+    "FY2025_inventory_tag": "ifrs-full:Inventories",
+    "FY2025_inventory_value": 288109500000,
+    "expected_added_pair": [
+      "2024-12-31",
+      "2025-12-31"
+    ],
+    "surrounding_years_and_other_issuers": "unchanged"
+  },
+  "budget": {
+    "source_recorder_object_loads": 3,
+    "exact_original_members": 2,
+    "D_calendar_calls": 0,
+    "market_price_or_label_reads": 0,
+    "fits": 0,
+    "accounts": 0,
+    "writable_recorders": 1,
+    "attempts": 1
+  },
+  "stops": [
+    "Source Recorder, archive, original bridge/gap evidence, module or notebook hashes differ.",
+    "FY2024 original aliases are not same context/value or FY2025 original revenue/inventory differ from frozen numbers.",
+    "Any old comparable pair is lost, non-TSM annual row changes, or new pair key differs from exact frozen pair.",
+    "No return/factor/account result is authorized in this source repair."
+  ],
+  "outputs": [
+    "Executable Qlib notebook, native Recorder annual/pair/metadata support and exact source audit",
+    "Slim summary and Chinese non-promotion conclusion"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*",
+      "sources/*"
+    ]
+  },
+  "implementation": {
+    "module": "src/data/inventory_sales_tsm_revenue_bridge.py",
+    "module_sha256": "1d55620181b8d838e8e790141869d20a944255b8f63dcbf4ca96254e1c263a3d",
+    "notebook": "research/inventory_sales_tsm_revenue_bridge_20261022/inventory_sales_tsm_revenue_bridge_20261022.ipynb",
+    "notebook_sha256": "2d849e2fcc147ff7bec3b4b6007364e1afa89d213ed0c13c6c588cede55bd6cc"
+  }
+}

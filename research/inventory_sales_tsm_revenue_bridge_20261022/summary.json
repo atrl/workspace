@@ -1,0 +1,50 @@
+{
+  "experiment": "inventory_sales_tsm_revenue_bridge_20261022",
+  "status": "completed_source_only_not_promoted",
+  "decision": "exact_TSM_original_revenue_alias_repaired_only",
+  "original_issuer_years": 36,
+  "own_original_value_years": 36,
+  "original_annual_pairs": 29,
+  "annual_pairs_added": 1,
+  "four_name_issuer_months": 278,
+  "four_name_months_with_original_pair": 275,
+  "TSM_conditionally_recovered_months": 0,
+  "old_pair_keys_preserved": true,
+  "non_TSM_support_unchanged": true,
+  "strict_PIT_qualified_rows": 0,
+  "model_input_qualified": false,
+  "factor_effectiveness_tested": false,
+  "SOXX_excess_established": false,
+  "D_calendar_calls": 0,
+  "market_price_or_label_reads": 0,
+  "source_recorder_object_loads": 3,
+  "original_source_member_reads": 2,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "source_recorder_id": "c141d8145a15413daa9d74ab1c3ab214",
+  "plan_sha256": "7bca92ad1a981861328a222aa694a6083673c2f232292638412eb36ea3fc3e4f",
+  "module_sha256": "1d55620181b8d838e8e790141869d20a944255b8f63dcbf4ca96254e1c263a3d",
+  "recorder_id": "b17476ef090346e8bcbb45c85312da5a",
+  "experiment_id": "203627101861452664",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/inventory_sales_tsm_revenue_bridge_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/inventory_sales_tsm_revenue_bridge_20261022/qlib_recorder/203627101861452664/b17476ef090346e8bcbb45c85312da5a",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*",
+      "sources/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "3f95cb3599b9125205c2ebdf262ec53a03a8aa831a2e1f1ac82f3f2d036be143",
+    "size_bytes": 77812,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/3f/95/3f95cb3599b9125205c2ebdf262ec53a03a8aa831a2e1f1ac82f3f2d036be143",
+    "recorder_id": "b17476ef090346e8bcbb45c85312da5a",
+    "experiment_id": "203627101861452664",
+    "archive_root": "qlib_recorder"
+  }
+}

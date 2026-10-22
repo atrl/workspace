@@ -1,0 +1,748 @@
+{
+  "schema_version": 1,
+  "experiment": "inventory_sales_original_value_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "source_qualification_only",
+  "question": "Can four dated security-linked issuers supply exact own-original annual inventory/revenue values with conservative post-filing Qlib availability and explicit non-comparable growth boundaries, without current Companyfacts comparative backfill?",
+  "source_archives": {
+    "main_manifest": "data/snapshots/inventory_sales_original_sec_20261022/archive_manifest.json",
+    "main_manifest_sha256": "0d6e0a79b14ab67ac5ec5451d787b40b9b5d37ac502ebe06669848a823bf7224",
+    "main_archive_sha256": "111b7ee2b449212723e59e853223efdcb6afc015745d8c61662b0219acb82466",
+    "main_local_archive": "/tmp/soxx_inventory_sales_original_sec_20261022.tar.gz",
+    "nvda_prior_manifest": "data/snapshots/nvda_original_10k_bridge_20261022/manifest.json",
+    "nvda_prior_manifest_sha256": "010c9b6a6e77850bcf6f4d4ea0ea875be3fedfdf60bc2471991e73a28d19289a",
+    "nvda_prior_archive": "data/snapshots/nvda_original_10k_bridge_20261022/original_filings.tar.gz",
+    "nvda_prior_archive_sha256": "239b65344e85d2c33016bfc9447f7ed63ff529879e6f5ee19d5a567e9ba884dd",
+    "main_plan": "data/snapshots/inventory_sales_original_sec_20261022/archive_plan.json",
+    "main_plan_sha256": "6f3413e86f3bfd6286760eadd20107c9d01805dd45535982fd61cc06e9930c7e"
+  },
+  "source_identity_evidence": {
+    "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/security_identity_progress.json",
+    "sha256": "e582b2d5bbf875ae94eff51761db5e628095ad5fb71c505cdd6c6556fcc3c738",
+    "join_path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/identity_join_result.json",
+    "join_sha256": "e5bd6831d2dd627cf24c682d789bfa932389bb0983c232075b56b260f3617992"
+  },
+  "ASX_scope_break": {
+    "path": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/ASX_scope_break_extension.json",
+    "sha256": "5b81838378caca429401630519ee65f60bf752c2285765a2bde958fde6b9db9e"
+  },
+  "NVDA_alias_bridge": {
+    "path": "research/inventory_sales_nvda_alias_bridge_20261022/summary.json",
+    "sha256": "50d4c287f3d1b5bcb2719cde913948a35beb0864531a1363ec05ba0b6718c514"
+  },
+  "issuer_years": [
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "fiscal_year": 2017,
+      "period_start": "2017-01-01",
+      "period_end": "2017-12-31",
+      "filed": "2018-04-19",
+      "accession": "0001193125-18-121866",
+      "primary_member": "foreign_primary/TSM/FY2017_000119312518121866_d459142d20f.htm",
+      "fact_member": "foreign_instance/TSM/FY2017_000119312518121866_tsm-20171231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "fiscal_year": 2018,
+      "period_start": "2018-01-01",
+      "period_end": "2018-12-31",
+      "filed": "2019-04-17",
+      "accession": "0001193125-19-108390",
+      "primary_member": "foreign_primary/TSM/FY2018_000119312519108390_d665387d20f.htm",
+      "fact_member": "foreign_instance/TSM/FY2018_000119312519108390_tsm-20181231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "fiscal_year": 2019,
+      "period_start": "2019-01-01",
+      "period_end": "2019-12-31",
+      "filed": "2020-04-15",
+      "accession": "0001193125-20-107579",
+      "primary_member": "foreign_primary/TSM/FY2019_000119312520107579_d831201d20f.htm",
+      "fact_member": "foreign_instance/TSM/FY2019_000119312520107579_tsm-20191231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "fiscal_year": 2020,
+      "period_start": "2020-01-01",
+      "period_end": "2020-12-31",
+      "filed": "2021-04-16",
+      "accession": "0001193125-21-118512",
+      "primary_member": "foreign_primary/TSM/FY2020_000119312521118512_d94821d20f.htm",
+      "fact_member": "foreign_instance/TSM/FY2020_000119312521118512_tsm-20201231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "fiscal_year": 2021,
+      "period_start": "2021-01-01",
+      "period_end": "2021-12-31",
+      "filed": "2022-04-14",
+      "accession": "0001193125-22-104891",
+      "primary_member": "foreign_primary/TSM/FY2021_000119312522104891_d204786d20f.htm",
+      "fact_member": "foreign_primary/TSM/FY2021_000119312522104891_d204786d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "fiscal_year": 2022,
+      "period_start": "2022-01-01",
+      "period_end": "2022-12-31",
+      "filed": "2023-04-20",
+      "accession": "0001193125-23-107214",
+      "primary_member": "foreign_primary/TSM/FY2022_000119312523107214_d428519d20f.htm",
+      "fact_member": "foreign_primary/TSM/FY2022_000119312523107214_d428519d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "fiscal_year": 2023,
+      "period_start": "2023-01-01",
+      "period_end": "2023-12-31",
+      "filed": "2024-04-18",
+      "accession": "0001193125-24-099840",
+      "primary_member": "foreign_primary/TSM/FY2023_000119312524099840_d592628d20f.htm",
+      "fact_member": "foreign_primary/TSM/FY2023_000119312524099840_d592628d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "fiscal_year": 2024,
+      "period_start": "2024-01-01",
+      "period_end": "2024-12-31",
+      "filed": "2025-04-17",
+      "accession": "0001193125-25-083423",
+      "primary_member": "foreign_primary/TSM/FY2024_000119312525083423_d896993d20f.htm",
+      "fact_member": "foreign_primary/TSM/FY2024_000119312525083423_d896993d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "fiscal_year": 2025,
+      "period_start": "2025-01-01",
+      "period_end": "2025-12-31",
+      "filed": "2026-04-16",
+      "accession": "0001628280-26-025362",
+      "primary_member": "foreign_primary/TSM/FY2025_000162828026025362_tsm-20251231.htm",
+      "fact_member": "foreign_primary/TSM/FY2025_000162828026025362_tsm-20251231.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "fiscal_year": 2017,
+      "period_start": "2017-01-01",
+      "period_end": "2017-12-31",
+      "filed": "2018-04-26",
+      "accession": "0001193125-18-132616",
+      "primary_member": "foreign_primary/UMC/FY2017_000119312518132616_d484523d20f.htm",
+      "fact_member": "foreign_instance/UMC/FY2017_000119312518132616_umc-20171231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "fiscal_year": 2018,
+      "period_start": "2018-01-01",
+      "period_end": "2018-12-31",
+      "filed": "2019-04-25",
+      "accession": "0001193125-19-117861",
+      "primary_member": "foreign_primary/UMC/FY2018_000119312519117861_d603585d20f.htm",
+      "fact_member": "foreign_instance/UMC/FY2018_000119312519117861_umc-20181231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "fiscal_year": 2019,
+      "period_start": "2019-01-01",
+      "period_end": "2019-12-31",
+      "filed": "2020-04-28",
+      "accession": "0001193125-20-121853",
+      "primary_member": "foreign_primary/UMC/FY2019_000119312520121853_d820941d20f.htm",
+      "fact_member": "foreign_instance/UMC/FY2019_000119312520121853_umc-20191231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "fiscal_year": 2020,
+      "period_start": "2020-01-01",
+      "period_end": "2020-12-31",
+      "filed": "2021-04-29",
+      "accession": "0001564590-21-021578",
+      "primary_member": "foreign_primary/UMC/FY2020_000156459021021578_umc-20f_20201231.htm",
+      "fact_member": "foreign_instance/UMC/FY2020_000156459021021578_umc-20201231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "fiscal_year": 2021,
+      "period_start": "2021-01-01",
+      "period_end": "2021-12-31",
+      "filed": "2022-04-28",
+      "accession": "0001193125-22-125284",
+      "primary_member": "foreign_primary/UMC/FY2021_000119312522125284_d168667d20f.htm",
+      "fact_member": "foreign_primary/UMC/FY2021_000119312522125284_d168667d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "fiscal_year": 2022,
+      "period_start": "2022-01-01",
+      "period_end": "2022-12-31",
+      "filed": "2023-04-27",
+      "accession": "0001193125-23-119772",
+      "primary_member": "foreign_primary/UMC/FY2022_000119312523119772_d389572d20f.htm",
+      "fact_member": "foreign_primary/UMC/FY2022_000119312523119772_d389572d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "fiscal_year": 2023,
+      "period_start": "2023-01-01",
+      "period_end": "2023-12-31",
+      "filed": "2024-04-25",
+      "accession": "0001193125-24-111429",
+      "primary_member": "foreign_primary/UMC/FY2023_000119312524111429_d448612d20f.htm",
+      "fact_member": "foreign_primary/UMC/FY2023_000119312524111429_d448612d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "fiscal_year": 2024,
+      "period_start": "2024-01-01",
+      "period_end": "2024-12-31",
+      "filed": "2025-04-24",
+      "accession": "0001193125-25-092142",
+      "primary_member": "foreign_primary/UMC/FY2024_000119312525092142_d846836d20f.htm",
+      "fact_member": "foreign_primary/UMC/FY2024_000119312525092142_d846836d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "fiscal_year": 2025,
+      "period_start": "2025-01-01",
+      "period_end": "2025-12-31",
+      "filed": "2026-04-30",
+      "accession": "0001193125-26-193757",
+      "primary_member": "foreign_primary/UMC/FY2025_000119312526193757_d91630d20f.htm",
+      "fact_member": "foreign_primary/UMC/FY2025_000119312526193757_d91630d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "fiscal_year": 2017,
+      "period_start": "2017-01-01",
+      "period_end": "2017-12-31",
+      "filed": "2018-03-28",
+      "accession": "0000950103-18-003940",
+      "primary_member": "foreign_primary/ASX/FY2017_000095010318003940_dp87030_20f.htm",
+      "fact_member": "foreign_instance/ASX/FY2017_000095010318003940_asx-20171231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "fiscal_year": 2018,
+      "period_start": "2018-01-01",
+      "period_end": "2018-12-31",
+      "filed": "2019-04-26",
+      "accession": "0000950103-19-005149",
+      "primary_member": "foreign_primary/ASX/FY2018_000095010319005149_dp102525_20f.htm",
+      "fact_member": "foreign_instance/ASX/FY2018_000095010319005149_asx-20181231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "fiscal_year": 2019,
+      "period_start": "2019-01-01",
+      "period_end": "2019-12-31",
+      "filed": "2020-03-31",
+      "accession": "0000950103-20-006422",
+      "primary_member": "foreign_primary/ASX/FY2019_000095010320006422_dp121474_20f.htm",
+      "fact_member": "foreign_instance/ASX/FY2019_000095010320006422_asx-20191231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "fiscal_year": 2020,
+      "period_start": "2020-01-01",
+      "period_end": "2020-12-31",
+      "filed": "2021-04-06",
+      "accession": "0000950103-21-005259",
+      "primary_member": "foreign_primary/ASX/FY2020_000095010321005259_dp146696_20f.htm",
+      "fact_member": "foreign_instance/ASX/FY2020_000095010321005259_asx-20201231.xml",
+      "fact_format": "original_XML",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "fiscal_year": 2021,
+      "period_start": "2021-01-01",
+      "period_end": "2021-12-31",
+      "filed": "2022-03-29",
+      "accession": "0001193125-22-087341",
+      "primary_member": "foreign_primary/ASX/FY2021_000119312522087341_d272809d20f.htm",
+      "fact_member": "foreign_primary/ASX/FY2021_000119312522087341_d272809d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "fiscal_year": 2022,
+      "period_start": "2022-01-01",
+      "period_end": "2022-12-31",
+      "filed": "2023-04-10",
+      "accession": "0001193125-23-095811",
+      "primary_member": "foreign_primary/ASX/FY2022_000119312523095811_d418771d20f.htm",
+      "fact_member": "foreign_primary/ASX/FY2022_000119312523095811_d418771d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "fiscal_year": 2023,
+      "period_start": "2023-01-01",
+      "period_end": "2023-12-31",
+      "filed": "2024-04-03",
+      "accession": "0001193125-24-085380",
+      "primary_member": "foreign_primary/ASX/FY2023_000119312524085380_d434934d20f.htm",
+      "fact_member": "foreign_primary/ASX/FY2023_000119312524085380_d434934d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "fiscal_year": 2024,
+      "period_start": "2024-01-01",
+      "period_end": "2024-12-31",
+      "filed": "2025-03-27",
+      "accession": "0001193125-25-064603",
+      "primary_member": "foreign_primary/ASX/FY2024_000119312525064603_d889608d20f.htm",
+      "fact_member": "foreign_primary/ASX/FY2024_000119312525064603_d889608d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "fiscal_year": 2025,
+      "period_start": "2025-01-01",
+      "period_end": "2025-12-31",
+      "filed": "2026-04-01",
+      "accession": "0001193125-26-135585",
+      "primary_member": "foreign_primary/ASX/FY2025_000119312526135585_d50802d20f.htm",
+      "fact_member": "foreign_primary/ASX/FY2025_000119312526135585_d50802d20f.htm",
+      "fact_format": "original_inline",
+      "unit": "TWD",
+      "inventory_tag": "ifrs-full:Inventories",
+      "revenue_tags": [
+        "ifrs-full:Revenue"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "fiscal_year": 2018,
+      "period_start": "2017-01-30",
+      "period_end": "2018-01-28",
+      "filed": "2018-02-28",
+      "accession": "0001045810-18-000010",
+      "primary_archive": "nvda_prior",
+      "primary_member": "primary/FY2018_nvda-2018x10k.htm",
+      "fact_archive": "nvda_prior",
+      "fact_member": "instance/FY2018_nvda-20180128.xml",
+      "fact_format": "original_XML",
+      "unit": "USD",
+      "inventory_tag": "us-gaap:InventoryNet",
+      "revenue_tags": [
+        "us-gaap:Revenues"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "fiscal_year": 2019,
+      "period_start": "2018-01-29",
+      "period_end": "2019-01-27",
+      "filed": "2019-02-21",
+      "accession": "0001045810-19-000023",
+      "primary_archive": "nvda_prior",
+      "primary_member": "primary/FY2019_nvda-2019x10k.htm",
+      "fact_archive": "nvda_prior",
+      "fact_member": "instance/FY2019_nvda-20190127.xml",
+      "fact_format": "original_XML",
+      "unit": "USD",
+      "inventory_tag": "us-gaap:InventoryNet",
+      "revenue_tags": [
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "fiscal_year": 2020,
+      "period_start": "2019-01-28",
+      "period_end": "2020-01-26",
+      "filed": "2020-02-20",
+      "accession": "0001045810-20-000010",
+      "primary_archive": "nvda_prior",
+      "primary_member": "primary/FY2020_nvda-2020x10k.htm",
+      "fact_archive": "nvda_prior",
+      "fact_member": "primary/FY2020_nvda-2020x10k.htm",
+      "fact_format": "original_inline",
+      "unit": "USD",
+      "inventory_tag": "us-gaap:InventoryNet",
+      "revenue_tags": [
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "fiscal_year": 2021,
+      "period_start": "2020-01-27",
+      "period_end": "2021-01-31",
+      "filed": "2021-02-26",
+      "accession": "0001045810-21-000010",
+      "primary_archive": "nvda_prior",
+      "primary_member": "primary/FY2021_nvda-20210131.htm",
+      "fact_archive": "nvda_prior",
+      "fact_member": "primary/FY2021_nvda-20210131.htm",
+      "fact_format": "original_inline",
+      "unit": "USD",
+      "inventory_tag": "us-gaap:InventoryNet",
+      "revenue_tags": [
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "fiscal_year": 2022,
+      "period_start": "2021-02-01",
+      "period_end": "2022-01-30",
+      "filed": "2022-03-18",
+      "accession": "0001045810-22-000036",
+      "primary_archive": "nvda_prior",
+      "primary_member": "primary/FY2022_nvda-20220130.htm",
+      "fact_archive": "nvda_prior",
+      "fact_member": "primary/FY2022_nvda-20220130.htm",
+      "fact_format": "original_inline",
+      "unit": "USD",
+      "inventory_tag": "us-gaap:InventoryNet",
+      "revenue_tags": [
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "us-gaap:Revenues"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "fiscal_year": 2023,
+      "period_start": "2022-01-31",
+      "period_end": "2023-01-29",
+      "filed": "2023-02-24",
+      "accession": "0001045810-23-000017",
+      "primary_archive": "nvda_prior",
+      "primary_member": "primary/FY2023_nvda-20230129.htm",
+      "fact_archive": "nvda_prior",
+      "fact_member": "primary/FY2023_nvda-20230129.htm",
+      "fact_format": "original_inline",
+      "unit": "USD",
+      "inventory_tag": "us-gaap:InventoryNet",
+      "revenue_tags": [
+        "us-gaap:Revenues"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "fiscal_year": 2024,
+      "period_start": "2023-01-30",
+      "period_end": "2024-01-28",
+      "filed": "2024-02-21",
+      "accession": "0001045810-24-000029",
+      "primary_archive": "nvda_prior",
+      "primary_member": "primary/FY2024_nvda-20240128.htm",
+      "fact_archive": "nvda_prior",
+      "fact_member": "primary/FY2024_nvda-20240128.htm",
+      "fact_format": "original_inline",
+      "unit": "USD",
+      "inventory_tag": "us-gaap:InventoryNet",
+      "revenue_tags": [
+        "us-gaap:Revenues"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "fiscal_year": 2025,
+      "period_start": "2024-01-29",
+      "period_end": "2025-01-26",
+      "filed": "2025-02-26",
+      "accession": "0001045810-25-000023",
+      "primary_archive": "main",
+      "primary_member": "nvda_recent/FY2025_000104581025000023_nvda-20250126.htm",
+      "fact_archive": "main",
+      "fact_member": "nvda_recent/FY2025_000104581025000023_nvda-20250126.htm",
+      "fact_format": "original_inline",
+      "unit": "USD",
+      "inventory_tag": "us-gaap:InventoryNet",
+      "revenue_tags": [
+        "us-gaap:Revenues"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "fiscal_year": 2026,
+      "period_start": "2025-01-27",
+      "period_end": "2026-01-25",
+      "filed": "2026-02-25",
+      "accession": "0001045810-26-000021",
+      "primary_archive": "main",
+      "primary_member": "nvda_recent/FY2026_000104581026000021_nvda-20260125.htm",
+      "fact_archive": "main",
+      "fact_member": "nvda_recent/FY2026_000104581026000021_nvda-20260125.htm",
+      "fact_format": "original_inline",
+      "unit": "USD",
+      "inventory_tag": "us-gaap:InventoryNet",
+      "revenue_tags": [
+        "us-gaap:Revenues"
+      ]
+    }
+  ],
+  "calendar": {
+    "provider_uri": "data/qlib/soxx_pit_leveraged_training_v1",
+    "path": "data/qlib/soxx_pit_leveraged_training_v1/calendars/day.txt",
+    "sha256": "2a861bcf94a9abcfe78b9d2ed7248df20a3e147c53610751abcd7f183ff9bc56",
+    "bounds": [
+      "2019-01-01",
+      "2026-07-02"
+    ],
+    "max_age_days": 550
+  },
+  "source_rules": {
+    "undimensioned_issuer_context": true,
+    "original_current_period_only": true,
+    "same_currency_same_accession_inventory_and_revenue": true,
+    "duplicates": "accept only identical normalized values within same tag/context; conflicting values unknown",
+    "NVDA_FY2022_dual_alias": "two frozen tags must have same exact original context and value",
+    "availability": "first Qlib native session strictly after SEC filed date",
+    "excluded_growth_pairs": [
+      [
+        "ASX",
+        2018
+      ],
+      [
+        "ASX",
+        2019
+      ],
+      [
+        "NVDA",
+        2019
+      ]
+    ],
+    "max_pair_age_days": 550,
+    "no_fund_weight_renormalization": true
+  },
+  "budget": {
+    "main_archive_fact_or_primary_members": 41,
+    "nvda_prior_archive_members": 9,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "market_price_or_label_reads": 0,
+    "fits": 0,
+    "accounts": 0,
+    "writable_recorders": 1,
+    "attempts": 1,
+    "native_recorder_object_loads": 1,
+    "expected_original_fact_members": 50
+  },
+  "stops": [
+    "Any source archive, member, identity-evidence, scope-break, alias-bridge or calendar hash differs: stop before a writable Recorder.",
+    "For a missing, dimensioned, mixed-unit or conflicting own-period fact: preserve an unknown year in the native source audit and fail model-input admission; never substitute current Companyfacts or a later comparison.",
+    "An excluded accounting/merger growth pair must not enter the comparable pair set.",
+    "No output may be called a factor or SOXX excess because no market labels/accounts are read."
+  ],
+  "outputs": [
+    "Executable Qlib notebook, source byte/context audit, native DatasetH original annual panel and Recorder",
+    "Small summary/conclusion of own-original rows, comparable pairs and disclosed basket conditional coverage; no returns"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*",
+      "sources/*"
+    ]
+  },
+  "source_monthly_support": {
+    "card": "research/inventory_sales_source_qualification_20261021",
+    "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+    "summary_sha256": "46dc6a037308eee8ccb84401a76ddf753d0f982ef566e9c182da9461393ce3bb",
+    "verification_manifest_sha256": "577361bcb56d0db2f4f921804305c8a37b6fddd60b50afb77cd453ae468075ff",
+    "artifact": "analysis/issuer_month_support",
+    "artifact_sha256": "911f0fc793e6c36d02fe518ddfb8a32251ebbef68289ccb9898a5c694a751c9c"
+  },
+  "implementation": {
+    "module": "src/data/inventory_sales_original_value.py",
+    "module_sha256": "5495211817b9c2bbc3b262f62b2c1989669a011e550cd79d345a7ea88b4232f5",
+    "notebook": "research/inventory_sales_original_value_source_20261022/inventory_sales_original_value_source_20261022.ipynb",
+    "notebook_sha256": "27fe425a9d12965ba120f714d2a9070b6a3e0e8035848179753389dfb7bc74b0"
+  }
+}

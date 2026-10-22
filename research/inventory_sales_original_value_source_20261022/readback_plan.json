@@ -1,0 +1,24 @@
+{
+  "status": "frozen_one_native_source_readback",
+  "recorder_id": "c141d8145a15413daa9d74ab1c3ab214",
+  "summary_sha256": "708b2da04d6bb2deb4010395e56a4f19673fda5f827893c15731de0e36bbf2d2",
+  "verification_manifest_sha256": "33b097b9f8c995dfb690da565d61f4788c01a35664b1fc8527f7baec45abe567",
+  "artifacts": {
+    "analysis/summary": "d3c6e70bde55751ab0f2cded83d4539815f919cad58605848f774da0d22c6851",
+    "analysis/original_annual_values": "849be86a6a5f9b443f4626e0cbb982fddaf9000d19135fa69be6cf6ab878ca21",
+    "analysis/original_comparable_pairs": "c0e6f0d49e2ff7e00b3b96128ff71e402fbcd015b0540264859b58d2680a4908",
+    "analysis/four_name_monthly_support": "c78d83c619b0de9f85e160d43b9ae62132cbd88089de209a123074a28fff40b5",
+    "metadata/source_dataset": "2a2e7d41165e5fc7daec077be861a5e6cf52efca9d7a00c8fcff193f8247d13c"
+  },
+  "budget": {
+    "read_only_recorder_object_loads": 5,
+    "D_calendar_calls": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "checks": [
+    "Summary/Recorder agreement on 36 own years, 35 available values, 28 comparable pairs, 275 supported issuer-month rows.",
+    "ASX FY2018/FY2019 and NVDA FY2019 excluded; TSM FY2025 remains unknown.",
+    "Native DatasetH metadata equal saved monthly panel; no replay or fit."
+  ]
+}

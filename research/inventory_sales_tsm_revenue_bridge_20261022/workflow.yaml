@@ -1,0 +1,11 @@
+experiment: inventory_sales_tsm_revenue_bridge_20261022
+phase: source_repair_only
+notebook: inventory_sales_tsm_revenue_bridge_20261022.ipynb
+plan: plan.json
+module: src.data.inventory_sales_tsm_revenue_bridge
+entrypoint: run
+source_recorder: research/inventory_sales_original_value_source_20261022
+original_source_archive: data/snapshots/inventory_sales_original_sec_20261022/archive_manifest.json
+market_returns: none
+model_fits: 0
+native_accounts: 0

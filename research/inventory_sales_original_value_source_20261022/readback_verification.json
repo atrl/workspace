@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "plan": "readback_plan.json",
+  "recorder_id": "c141d8145a15413daa9d74ab1c3ab214",
+  "artifact_sha256": {
+    "analysis/summary": "d3c6e70bde55751ab0f2cded83d4539815f919cad58605848f774da0d22c6851",
+    "analysis/original_annual_values": "849be86a6a5f9b443f4626e0cbb982fddaf9000d19135fa69be6cf6ab878ca21",
+    "analysis/original_comparable_pairs": "c0e6f0d49e2ff7e00b3b96128ff71e402fbcd015b0540264859b58d2680a4908",
+    "analysis/four_name_monthly_support": "c78d83c619b0de9f85e160d43b9ae62132cbd88089de209a123074a28fff40b5",
+    "metadata/source_dataset": "2a2e7d41165e5fc7daec077be861a5e6cf52efca9d7a00c8fcff193f8247d13c"
+  },
+  "read_only_object_loads": 5,
+  "annual_rows": 36,
+  "exact_value_years": 35,
+  "comparable_pairs": 28,
+  "issuer_months": 278,
+  "source_supported_issuer_months": 275,
+  "TSM_FY2025_unknown": true,
+  "excluded_breaks_absent": true,
+  "native_DatasetH_prepare_equal": true,
+  "new_fits_accounts_or_replays": 0,
+  "boundary": "No market return, PIT model admission or SOXX excess.",
+  "post_readback_NAS_archive": {
+    "status": "receipt_hash_matches_summary",
+    "sha256": "5aa9b734a2a1cb4ba949a8ce2c4ee0f8385338f42c086b12390aff5380dd3fce",
+    "recorder_layout_moved": false,
+    "source_readback_not_repeated": true
+  }
+}

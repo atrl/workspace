@@ -1,0 +1,28 @@
+{
+  "status": "FY2024_exact_alias_bridge_confirmed",
+  "plan": "TSM_FY2024_alias_bridge_plan.json",
+  "source_sha256": "eb4de82b8902b11c707cf8f4f0e3825599dd8d772d128d3a1f624527739b1d00",
+  "accession": "0001193125-25-083423",
+  "exact_original_checks": {
+    "ifrs-full:Revenue": {
+      "values": [
+        2894307700000
+      ],
+      "context_refs": [
+        "P01_01_2024To12_31_2024"
+      ]
+    },
+    "ifrs-full:RevenueFromContractsWithCustomers": {
+      "values": [
+        2894307700000
+      ],
+      "context_refs": [
+        "P01_01_2024To12_31_2024"
+      ]
+    }
+  },
+  "same_context_same_value": true,
+  "old_card_changed": false,
+  "new_fits_or_accounts": 0,
+  "next_action": "A new frozen source version may map the exact FY2025 original RevenueFromContractsWithCustomers to the prior Revenue concept only if the FY2024 bridge is confirmed."
+}
