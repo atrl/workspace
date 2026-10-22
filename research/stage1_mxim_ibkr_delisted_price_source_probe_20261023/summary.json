@@ -1,0 +1,18 @@
+{
+  "experiment": "stage1_mxim_ibkr_delisted_price_source_probe_20261023",
+  "decision": "needs_market_data_IBKR_old_MXIM_history_details_unavailable",
+  "objective_achieved": false,
+  "plan_sha256": "0b99276afcd061949cd353a476a34a936760f69b095da856dc49f40cea8cf65b",
+  "source_result": "source_result.json",
+  "history_calls": 1,
+  "returned_bars": 0,
+  "NAS_archive_sha256": "1c4a26d6456bc13acdffdd4abcf83ca6b387378fa6cf2ef54eb3a43a1e0fa925",
+  "NAS_scoped_restore_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

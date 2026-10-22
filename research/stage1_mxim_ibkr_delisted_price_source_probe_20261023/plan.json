@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_mxim_ibkr_delisted_price_source_probe_20261023",
+  "phase": "one_exact_read_only_historical_chart_probe_for_old_MXIM_security",
+  "purpose": "Determine whether the connected IBKR read-only chart can return 2017-era daily bars for the original Maxim Integrated Products security in the 2017-03-31 SOXX disclosed basket. This is a source-capability check, not a factor or account.",
+  "prior_discovery": {"method": "Interactive Brokers search_contracts", "query": "MXIM", "calls_before_freeze": 1, "exact_result": {"underlying_contract_id": 272207, "exchange": "VALUE", "symbol": "MXIM", "description": "MAXIM INTEGRATED PRODUCTS", "security_type": "STK"}, "raw_discovery_response_not_preserved": true},
+  "request": {"method": "Interactive Brokers get_price_history", "contract_id": 272207, "security_type": "STK", "step": "ONE_DAY", "step_count": 1000, "outside_rth": false, "include_corporate_actions": true, "exchange": "SMART", "max_calls": 1, "no_retry": true},
+  "acceptance": "Preserve the exact connector JSON and request identity. Report error/source/delayed flags, bar count, first/last timestamps, finite positive OHLC, duplicate dates and corporate-action count. A bar on or before 2017-06-07 is useful for the first legally available 2017-03-31 disclosed basket, but not sufficient for complete history or certified original security adjustment. If the connector caps at 1000 bars or has no 2017 rows, record exact limit and stop this fixed version.",
+  "source_boundary": "The 2017 original SOXX report has nine prespecified old-security aliases absent from both local Qlib price inventories, totaling 14.2745% disclosed equity weight. One MXIM chart cannot fill the other eight or establish original first-public daily values.",
+  "budget": {"IBKR_read_only_history_requests": 1, "account_reads": 0, "order_calls": 0, "alerts_or_subscriptions": 0, "model_fits": 0, "native_accounts": 0, "SOXX_outcome_reads": 0},
+  "backup": "If a response is received, preserve exact JSON locally and archive to Yanxuan NAS with SHA-256 and scoped restore before any factor use. Preserve local bytes if NAS fails.",
+  "stop": "No contract-chain search, alternate ticker, period/step-count tuning, repeated request or account access in this version. No price import, model or Stage1 policy change."
+}

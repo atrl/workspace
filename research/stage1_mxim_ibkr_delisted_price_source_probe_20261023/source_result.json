@@ -1,0 +1,46 @@
+{
+  "status": "needs_market_data_IBKR_old_MXIM_history_details_unavailable",
+  "plan_sha256": "0b99276afcd061949cd353a476a34a936760f69b095da856dc49f40cea8cf65b",
+  "connector_search_result": {
+    "underlying_contract_id": 272207,
+    "exchange": "VALUE",
+    "symbol": "MXIM",
+    "description": "MAXIM INTEGRATED PRODUCTS",
+    "security_type": "STK"
+  },
+  "history_request": {
+    "method": "Interactive Brokers get_price_history",
+    "contract_id": 272207,
+    "security_type": "STK",
+    "step": "ONE_DAY",
+    "step_count": 1000,
+    "outside_rth": false,
+    "include_corporate_actions": true,
+    "exchange": "SMART",
+    "max_calls": 1,
+    "no_retry": true
+  },
+  "history_calls": 1,
+  "returned_bars": 0,
+  "connector_error": "Details currently unavailable. Please try again later and contact client services if the issue persists.",
+  "connector_isError_flag": false,
+  "raw_response_relative_path": "data/snapshots/stage1_mxim_ibkr_delisted_price_source_probe_20261023/ibkr_response.json",
+  "raw_response_sha256": "7914fb7ea0e127103249d7dfa932c4445e596a989f228d64cb61c40fec820877",
+  "NAS_evidence": {
+    "sha256": "1c4a26d6456bc13acdffdd4abcf83ca6b387378fa6cf2ef54eb3a43a1e0fa925",
+    "size_bytes": 1660,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/1c/4a/1c4a26d6456bc13acdffdd4abcf83ca6b387378fa6cf2ef54eb3a43a1e0fa925",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 05:35:51.069114+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/1c/4a/1c4a26d6456bc13acdffdd4abcf83ca6b387378fa6cf2ef54eb3a43a1e0fa925"
+  },
+  "NAS_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "account_reads": 0,
+  "order_calls": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_2017_price_availability_concluded": false
+}
