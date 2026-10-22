@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_index_transition_relative_return_diagnostic_20261023",
+  "phase": "read_only_original_Stage1_training_price_plane_index_regime_attribution",
+  "question": "Does the independently documented 2021 switch of SOXX and SOXL from PHLX to ICE coincide with a material change in their measured daily SOXL-minus-three-times-SOXX tracking residual or five-session relative payoff distribution, warranting a new Stage1 training-domain mechanism?",
+  "source": {
+    "index_transition_card": "research/stage1_semiconductor_index_regime_source_20261023",
+    "index_transition_summary_sha256": "51d53e872aecabf77b93e1f3970d2b0f56b707a2428dd2ef01f865a9af3ef4ad",
+    "index_transition_NAS_sha256": "a3f14d3f7d89bbef40cb01aa8b381afaae5f0e4e86e473f48a624d05b14fbdb4",
+    "Stage1_training_card": "research/minute_information_pit_allocator_20261012",
+    "Stage1_training_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "Stage1_training_NAS_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "frozen_regimes": {
+    "both_pre_change": ["2011-01-03", "2021-06-11"],
+    "transition_unknown": ["2021-06-14", "2021-08-27"],
+    "both_post_change_training": ["2021-08-30", "2022-12-30"],
+    "both_post_change_reused_held": ["2023-01-03", "2026-10-07"]
+  },
+  "source_clock_reason": "SOXX filing says on or around June 21 and SOXL filing says on or about August 25; use a one-week early buffer for the pre period and begin the common post period after the August 27 ICE listing confirmation. Preserve transition dates unknown, not assigned to either comparator.",
+  "measures": {
+    "daily_simple_tracking_residual": "soxl_forward_open_return - 3*soxx_forward_open_return on identical Qlib price-plane intervals, no fees or raw-share claim",
+    "daily_log_relative_payoff": "log1p(soxl_forward_open_return)-log1p(soxx_forward_open_return)",
+    "H5_log_relative_payoff": "sum of five consecutive daily log-relative payoffs, only where all five are finite and label is mature; never use as a decision feature",
+    "controls": "For each regime report SOXX simple return mean and volatility, residual mean/median/std/absolute median/5-percent tail, log-relative mean and positive fraction, H5 log-relative mean and positive fraction. Retain complete annual, quarter and chronological daily matrices in Qlib Recorder; endpoint years marked partial. No threshold or sign selected from groups."
+  },
+  "maturity": "Use original timing.return_available_at for H1 and fifth-interval time for H5. Training labels must be mature before 2023-01-01 New York; held H5 before 2026-10-10 New York. Transition rows are retained but excluded from pre/post summaries.",
+  "budget": {"new_external_GETs": 0, "Qlib_D_calendar_calls_max": 1, "source_Recorder_object_loads_max": 2, "DatasetH_builds_max": 1, "new_writable_Qlib_Recorders_max": 1, "model_fits": 0, "native_accounts": 0, "bootstrap_attempts": 0},
+  "decision_boundary": "Descriptive source-aligned domain diagnosis, not an index-change causal effect, predictive feature or strategy. A new Stage1 0bp mechanism requires separately frozen model/receiver and own-state Tiered account with SOXX v2 gates; do not switch to a post-change parent by retrospective selection.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": ["inputs/*", "analysis/*"]}
+}
