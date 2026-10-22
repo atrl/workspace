@@ -1,0 +1,227 @@
+{
+  "experiment": "stage1_0bp_signed_volume_action_route_preflight_20261023",
+  "plan_sha256": "29b29fc100e40178917dbeedd3f38dd80a5a32a6fa3ee03fa7e6e98f0da5282b",
+  "decision": "read_only_original_Stage1_0bp_recovery_necessary_route_source_overlap_no_label",
+  "objective_achieved": false,
+  "source_parent_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "source_feature_recorder_id": "723f406c9a234790b6a96939754edd44",
+  "matched_sessions": 944,
+  "component_counts": {
+    "drawdown_gate": 494,
+    "target_above_cap_gate": 199,
+    "alpha_floor_gate": 944,
+    "necessary_route": 199,
+    "source_known": 944,
+    "necessary_route_source_known": 199
+  },
+  "actual_recovery_actions": 0,
+  "quarterly": [
+    {
+      "quarter": "2023Q1",
+      "sessions": 61,
+      "drawdown_gate": 6,
+      "target_above_cap_gate": 0,
+      "alpha_floor_gate": 61,
+      "necessary_route": 0,
+      "necessary_route_source_known": 0
+    },
+    {
+      "quarter": "2023Q2",
+      "sessions": 62,
+      "drawdown_gate": 21,
+      "target_above_cap_gate": 0,
+      "alpha_floor_gate": 62,
+      "necessary_route": 0,
+      "necessary_route_source_known": 0
+    },
+    {
+      "quarter": "2023Q3",
+      "sessions": 63,
+      "drawdown_gate": 36,
+      "target_above_cap_gate": 22,
+      "alpha_floor_gate": 63,
+      "necessary_route": 22,
+      "necessary_route_source_known": 22
+    },
+    {
+      "quarter": "2023Q4",
+      "sessions": 63,
+      "drawdown_gate": 59,
+      "target_above_cap_gate": 25,
+      "alpha_floor_gate": 63,
+      "necessary_route": 25,
+      "necessary_route_source_known": 25
+    },
+    {
+      "quarter": "2024Q1",
+      "sessions": 61,
+      "drawdown_gate": 36,
+      "target_above_cap_gate": 9,
+      "alpha_floor_gate": 61,
+      "necessary_route": 9,
+      "necessary_route_source_known": 9
+    },
+    {
+      "quarter": "2024Q2",
+      "sessions": 63,
+      "drawdown_gate": 27,
+      "target_above_cap_gate": 11,
+      "alpha_floor_gate": 63,
+      "necessary_route": 11,
+      "necessary_route_source_known": 11
+    },
+    {
+      "quarter": "2024Q3",
+      "sessions": 64,
+      "drawdown_gate": 30,
+      "target_above_cap_gate": 10,
+      "alpha_floor_gate": 64,
+      "necessary_route": 10,
+      "necessary_route_source_known": 10
+    },
+    {
+      "quarter": "2024Q4",
+      "sessions": 64,
+      "drawdown_gate": 40,
+      "target_above_cap_gate": 0,
+      "alpha_floor_gate": 64,
+      "necessary_route": 0,
+      "necessary_route_source_known": 0
+    },
+    {
+      "quarter": "2025Q1",
+      "sessions": 60,
+      "drawdown_gate": 54,
+      "target_above_cap_gate": 11,
+      "alpha_floor_gate": 60,
+      "necessary_route": 11,
+      "necessary_route_source_known": 11
+    },
+    {
+      "quarter": "2025Q2",
+      "sessions": 62,
+      "drawdown_gate": 55,
+      "target_above_cap_gate": 33,
+      "alpha_floor_gate": 62,
+      "necessary_route": 33,
+      "necessary_route_source_known": 33
+    },
+    {
+      "quarter": "2025Q3",
+      "sessions": 64,
+      "drawdown_gate": 1,
+      "target_above_cap_gate": 0,
+      "alpha_floor_gate": 64,
+      "necessary_route": 0,
+      "necessary_route_source_known": 0
+    },
+    {
+      "quarter": "2025Q4",
+      "sessions": 64,
+      "drawdown_gate": 26,
+      "target_above_cap_gate": 10,
+      "alpha_floor_gate": 64,
+      "necessary_route": 10,
+      "necessary_route_source_known": 10
+    },
+    {
+      "quarter": "2026Q1",
+      "sessions": 61,
+      "drawdown_gate": 22,
+      "target_above_cap_gate": 9,
+      "alpha_floor_gate": 61,
+      "necessary_route": 9,
+      "necessary_route_source_known": 9
+    },
+    {
+      "quarter": "2026Q2",
+      "sessions": 62,
+      "drawdown_gate": 12,
+      "target_above_cap_gate": 0,
+      "alpha_floor_gate": 62,
+      "necessary_route": 0,
+      "necessary_route_source_known": 0
+    },
+    {
+      "quarter": "2026Q3",
+      "sessions": 64,
+      "drawdown_gate": 63,
+      "target_above_cap_gate": 53,
+      "alpha_floor_gate": 64,
+      "necessary_route": 53,
+      "necessary_route_source_known": 53
+    },
+    {
+      "quarter": "2026Q4",
+      "sessions": 6,
+      "drawdown_gate": 6,
+      "target_above_cap_gate": 6,
+      "alpha_floor_gate": 6,
+      "necessary_route": 6,
+      "necessary_route_source_known": 6
+    }
+  ],
+  "annual": [
+    {
+      "year": 2023,
+      "sessions": 249,
+      "complete_year": false,
+      "necessary_route": 47,
+      "source_known": 249
+    },
+    {
+      "year": 2024,
+      "sessions": 252,
+      "complete_year": true,
+      "necessary_route": 30,
+      "source_known": 252
+    },
+    {
+      "year": 2025,
+      "sessions": 250,
+      "complete_year": true,
+      "necessary_route": 54,
+      "source_known": 250
+    },
+    {
+      "year": 2026,
+      "sessions": 193,
+      "complete_year": false,
+      "necessary_route": 68,
+      "source_known": 193
+    }
+  ],
+  "source_first_receipt_and_finality_qualified": false,
+  "necessary_not_sufficient": true,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "outcome_label_reads": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily"
+    ]
+  },
+  "recorder_id": "e57390b08fce48b8bdccaa275438e4f8",
+  "experiment_id": "281538982284140456",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_0bp_signed_volume_action_route_preflight_20261023/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "6c04907ff89341890cb25fe113d9b8b376457c1298b9ec8978460fd4a8bd92d2",
+    "size_bytes": 139664,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/6c/04/6c04907ff89341890cb25fe113d9b8b376457c1298b9ec8978460fd4a8bd92d2",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:20:23.118169+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/6c/04/6c04907ff89341890cb25fe113d9b8b376457c1298b9ec8978460fd4a8bd92d2",
+    "recorder_id": "e57390b08fce48b8bdccaa275438e4f8",
+    "experiment_id": "281538982284140456",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "6c04907ff89341890cb25fe113d9b8b376457c1298b9ec8978460fd4a8bd92d2",
+    "verified": true
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_0bp_signed_volume_action_route_preflight_20261023",
+  "phase": "original_Stage1_A_0bp_1032_recovery_necessary_route_and_signed_volume_source_overlap_no_label",
+  "question": "On the verified frozen original Stage1 A_active_research_replay_0 own-state 0bp account, how many 10:32 recovery decisions satisfy the fixed necessary drawdown, target-above-cap, source-alpha floor conditions, and have the first-hour signed-volume coordinate known?",
+  "parent": {
+    "summary": "research/stage1_domain_heads_20261018/summary.json",
+    "summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "experiment_id": "283510277269468590",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_domain_heads_20261018/qlib_recorder",
+    "NAS_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "artifact_sha256": {
+      "native/A_active_research_replay_0": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+      "inputs/frame": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+      "inputs/selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+      "inputs/recovery_spec": "4a4bb9cd5e09e0dace34615d47e25c831c58951daabace972aa7a31c93e45bda"
+    }
+  },
+  "feature_source": {
+    "summary": "research/stage1_intraday_signed_volume_action_source_20261023/summary.json",
+    "summary_sha256": "fbf48d6ea48a8cf4f83e317e655587b3a0b72647dc198633ae5ae49d77cc6171",
+    "recorder_id": "723f406c9a234790b6a96939754edd44",
+    "experiment_id": "396607154083198663",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_intraday_signed_volume_action_source_20261023/qlib_recorder",
+    "NAS_archive_sha256": "d30fd02d711780dd117366be348f6464e4f3f2404145949537ef2569b046e81d",
+    "artifact": "analysis/daily",
+    "artifact_sha256": "53856d8e44d9054fa85f53ea071f5036fb278cd89de62f9b2b272742377d9c05",
+    "first_receipt_and_finality_qualified": false
+  },
+  "calendar_provider": "data/qlib/stage1_domain_heads_20261018",
+  "matched_trade_dates": [
+    "2023-01-04",
+    "2026-10-08"
+  ],
+  "expected_dates": 944,
+  "necessary_route": "drawdown from original A_0 authority >= frozen recovery_eligibility_drawdown; min(3*frame.soxl_weight+frame.soxx_weight, selection.action_beta) > A_0 current_beta_cap +1e-12; frame.alpha_probability >= selection.minimum_source_alpha_probability. Keep all dates, report each component and overlap with source status known. This omits recovery FEATURE_COLUMNS finiteness/model score and is only a necessary upper bound, never actual route-decidable count.",
+  "clock": "Source assumes completed 09:31..10:30 first-hour bars known at10:31; Stage1 recovery action at10:32; historical actual first receipt/finality unqualified. Do not use this coordinate for 09:29 allocation.",
+  "comparison": "Report all quarters, 2023/2026 partial years and 2024/2025 complete years; do not select a tradable threshold or alter source unknowns.",
+  "budget": {
+    "new_market_requests": 0,
+    "parent_Recorder_object_loads": 4,
+    "feature_Recorder_object_loads": 1,
+    "Qlib_D_calendar_calls": 1,
+    "DatasetH_builds": 1,
+    "new_Qlib_recorders": 1,
+    "outcome_label_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any hash, NAS receipt, calendar, exact 944 trade-date join, origin price-plane or Qlib failure stops. This source overlap is not net action value, full account, 0bp SOXX excess or independent forward evidence. Before any local information test, separately freeze own-state 0bp labels, source timing and complete existing recovery feature control."
+}
