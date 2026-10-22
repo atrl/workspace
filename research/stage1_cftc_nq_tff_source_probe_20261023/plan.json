@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_cftc_nq_tff_source_probe_20261023",
+  "phase": "official_CFTC_TFF_NQ_2011_and_2026_source_identity_probe_only",
+  "question": "Do official annual CFTC Traders in Financial Futures Futures Only compressed files contain identifiable E-mini Nasdaq-100 leveraged-money positions and open interest across the early Stage1 training and current held endpoints?",
+  "official_context": {
+    "compressed_index": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalCompressed/index.htm",
+    "variable_dictionary": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalViewable/cotvariablestfm.html",
+    "release_schedule": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/ReleaseSchedule/index.htm",
+    "report_date_not_release_date": "CFTC historical page says indexed dates are report dates, not release dates; normal reports describe Tuesday positions and usually publish Friday 15:30 ET. Special delays require actual-release mapping before any factor."
+  },
+  "exact_requests": [
+    {
+      "year": 2011,
+      "url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2011.zip"
+    },
+    {
+      "year": 2026,
+      "url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2026.zip"
+    }
+  ],
+  "request": {
+    "method": "GET",
+    "user_agent": "Mozilla/5.0 soxl-qlib-source-research",
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 90,
+    "max_response_bytes_each": 20000000,
+    "seconds_between_requests": 1,
+    "max_GETs": 2,
+    "retries": 0
+  },
+  "identity_gate": "Require HTTP200 ZIP with exactly one parseable text table, TFF fields for report date, contract identity/code, open interest and leveraged-money long/short. Find one and only one E-mini Nasdaq 100/CME identity in each selected year with at least 20 distinct Tuesday report rows, positive open interest and nonnegative long/short. Preserve exact contract names/codes and raw bytes. No market return or SOXX label reads.",
+  "conditional_second_request": "Only request 2026 if 2011 transport, ZIP/text schema and Nasdaq contract identity pass.",
+  "backup": "Archive raw ZIP bytes, headers, UTC request/receipt clocks and SHA-256 to Yanxuan NAS with remote digest and scoped raw member restore; keep local raw under data/snapshots outside Git.",
+  "budget": {
+    "new_GETs_max": 2,
+    "Qlib_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any transport/schema/identity/NAS failure stops; no alternate historical provider, no sign/horizon/model/account. A source pass only permits separately frozen annual intake and true dissemination clock qualification, then Qlib mapping and incremental Stage1 information screen before 0bp account."
+}

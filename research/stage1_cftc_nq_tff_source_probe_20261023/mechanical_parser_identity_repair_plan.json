@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_mechanical_parser_and_contract_identity_repair_then_single_remaining_2026_GET",
+  "original_plan_sha256": "55dd6e9210eb6c3abd238d11695a90370b39bbc8942973b35bb3187916d23608",
+  "original_attempt1_result_sha256": "539ef3861dcd6d7946869aa77b38923ce3130fb4f624510ed11956825fc16aa0",
+  "saved_2011_raw_sha256": "583a93474847f1070b213e2b12cfa73c48d9ba05f24f7d001a338de125468b57",
+  "saved_2011_header_sha256": "40b2bc0f26f668b7651712e56289a5c48df2f32c72f2d326983775377a3e4ebc",
+  "reason": "TFF header has CFTC_Contract_Market_Code and CFTC_Contract_Market_Code_Quotes; contains-based key matching was ambiguous. The 2011 file has distinct consolidated 20974+, standard 209741 and Mini 209742 Nasdaq contracts.",
+  "repair": "Require exact normalized header keys and exact trimmed CFTC_Contract_Market_Code=209742 plus Nasdaq+Mini+CME market description. Parse saved 2011 bytes without GET; only if identity passes request the frozen 2026 URL once.",
+  "external_GETs_cumulative_max": 2,
+  "new_GETs_max": 1,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "backup": "Archive both original ZIPs and headers/receipts under a new NAS digest with remote hash and scoped member restore; preserve original partial archive."
+}

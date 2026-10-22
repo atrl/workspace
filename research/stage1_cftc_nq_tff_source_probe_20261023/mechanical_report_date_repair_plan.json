@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "status": "second_mechanical_failure_before_2026_GET",
+  "first_repair_plan_sha256": "20cf8cd443bfbf2cce9527057f705f718652e918e81a60cac571196caef35df3",
+  "first_repair_notebook_sha256": "4de496f34c4db50b4104c3be7f871e257fec90d5cf8c3434c4d71618161f12a7",
+  "saved_2011_raw_sha256": "583a93474847f1070b213e2b12cfa73c48d9ba05f24f7d001a338de125468b57",
+  "finding": "CFTC header Report_Date_as_MM_DD_YYYY contains ISO YYYY-MM-DD strings in the 2011 original. Exact Mini contract 209742 and required columns were identified before the date parse error.",
+  "only_allowed_change": "Parse report date as ISO YYYY-MM-DD or US MM/DD/YYYY according to original cell text, without changing source row selection, contract code, fee/trading model or publication rule. Reuse 2011 raw exact bytes; one 2026 GET remains after local identity passes.",
+  "actual_external_GETs_so_far": 1,
+  "remaining_new_GETs": 1,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0
+}

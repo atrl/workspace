@@ -113,6 +113,16 @@
       "execution_authorized": false,
       "result": "research/philadelphia_ads_vintage_source_20261023/source_preflight_result.json",
       "nas_archive_sha256": "641bffb7c565097790d976a7c80c39e4ab17f6a233e44135e3a6f4d9f00fc84a"
+    },
+    {
+      "card": "research/stage1_cftc_nq_tff_source_probe_20261023",
+      "phase": "2011_2026_official_source_identity_passed_release_and_first_public_pending",
+      "role": "Stage1_distinct_Nasdaq_futures_positioning_source",
+      "full_economic_experiment": false,
+      "status": "source_only_no_fit_or_account",
+      "execution_authorized": false,
+      "result": "research/stage1_cftc_nq_tff_source_probe_20261023/summary.json",
+      "NAS_archive_sha256": "e23617260a78790f41840f086d67f1e9ddd790ff42b295de29dd8f29376f978c"
     }
   ],
   "framework": [
@@ -346,7 +356,8 @@
     "Stage1_next_direction": "SOXX issuer premium page currently supplies only 2025-2026 daily values, missing 2011-2022 Stage1 history. Exact-byte NAS backup exists; another official historical endpoint and first-public clock would be required before a new factor. Existing fixed 0bp candidates failed.",
     "missed_forward_pilot_audit": "research/diagnostic_forward_io_v2_20261016/missed_pilot_audit_20261022.json",
     "forward_IO_status": "Oct19 diagnostic pilot missed and Oct22 paired paper scheduler blocked by frozen release source hash mismatch. No new qualified forward day; old claim/release cannot be silently resumed or rehashed.",
-    "paper_release_hash_block": "production/stage1_regime_paper_20261001/runtime_code_identity_block_20261022.json"
+    "paper_release_hash_block": "production/stage1_regime_paper_20261001/runtime_code_identity_block_20261022.json",
+    "Stage1_CFTC_TFF_source_identity": "research/stage1_cftc_nq_tff_source_probe_20261023/summary.json"
   },
   "closed_source_probes": [
     {

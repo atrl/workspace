@@ -1,0 +1,27 @@
+{
+  "repair_plan_sha256": "20cf8cd443bfbf2cce9527057f705f718652e918e81a60cac571196caef35df3",
+  "repair2_plan_sha256": "cbe62ee110ef841d87f201bd5386058cf7c1a5cb828e9cb21e52f8a8fc58f96c",
+  "files": [
+    {
+      "name": "fut_fin_txt_2011.zip",
+      "sha256": "583a93474847f1070b213e2b12cfa73c48d9ba05f24f7d001a338de125468b57",
+      "bytes": 336562
+    },
+    {
+      "name": "fut_fin_txt_2011.zip.headers",
+      "sha256": "40b2bc0f26f668b7651712e56289a5c48df2f32c72f2d326983775377a3e4ebc",
+      "bytes": 843
+    },
+    {
+      "name": "fut_fin_txt_2026.zip",
+      "sha256": "6722fc377087c9380d7504345ac7145a891185ea7d57c9ad3f184b29da43aa57",
+      "bytes": 578812
+    },
+    {
+      "name": "fut_fin_txt_2026.zip.headers",
+      "sha256": "8d4b9ea324841be7b764027fdd16262c9eccbdbd261ef846f8020421b5a2ca6d",
+      "bytes": 843
+    }
+  ],
+  "repair_capture_receipts_sha256": "2bbfba850f477b49d5d3f7810136554d7f3747893a59a21575796ccb96569661"
+}

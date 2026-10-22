@@ -1,0 +1,30 @@
+[
+  {
+    "year": 2011,
+    "url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2011.zip",
+    "requested_at_utc": "2026-10-22T21:06:54.693710+00:00",
+    "received_at_utc": "2026-10-22T21:06:56.217025+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2011.zip",
+    "stderr": "",
+    "raw_sha256": "583a93474847f1070b213e2b12cfa73c48d9ba05f24f7d001a338de125468b57",
+    "raw_bytes": 336562,
+    "headers_sha256": "40b2bc0f26f668b7651712e56289a5c48df2f32c72f2d326983775377a3e4ebc",
+    "headers_bytes": 843
+  },
+  {
+    "year": 2026,
+    "url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2026.zip",
+    "requested_at_utc": "2026-10-22T21:08:56.171415+00:00",
+    "received_at_utc": "2026-10-22T21:08:57.610999+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2026.zip",
+    "stderr": "",
+    "raw_sha256": "6722fc377087c9380d7504345ac7145a891185ea7d57c9ad3f184b29da43aa57",
+    "raw_bytes": 578812,
+    "headers_sha256": "8d4b9ea324841be7b764027fdd16262c9eccbdbd261ef846f8020421b5a2ca6d",
+    "headers_bytes": 843
+  }
+]

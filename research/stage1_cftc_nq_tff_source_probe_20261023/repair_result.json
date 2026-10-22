@@ -1,0 +1,46 @@
+{
+  "status": "bounded_CFTC_TFF_Emini_NQ_repair_partial_or_failed",
+  "failure": "2026_identity_failure",
+  "cumulative_GET_attempts": 2,
+  "repair_GET_attempts": 1,
+  "checks": [
+    {
+      "year": 2011,
+      "status": "official_TFF_Emini_NQ_209742_identity_passed",
+      "raw_sha256": "583a93474847f1070b213e2b12cfa73c48d9ba05f24f7d001a338de125468b57",
+      "zip_member": "FinFutYY.txt",
+      "zip_member_bytes": 1502514,
+      "total_report_rows": 1879,
+      "NQ_rows": 52,
+      "NQ_first_report_date": "2011-01-04",
+      "NQ_last_report_date": "2011-12-27",
+      "NQ_market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ],
+      "NQ_contract_code": "209742",
+      "Tuesday_report_date_share": 1.0,
+      "required_column_names": {
+        "market": "Market_and_Exchange_Names",
+        "report_date": "Report_Date_as_MM_DD_YYYY",
+        "contract_code": "CFTC_Contract_Market_Code",
+        "open_interest": "Open_Interest_All",
+        "leveraged_money_long": "Lev_Money_Positions_Long_All",
+        "leveraged_money_short": "Lev_Money_Positions_Short_All"
+      },
+      "report_date_is_not_release_date": true
+    },
+    {
+      "year": 2026,
+      "status": "2026_identity_failure",
+      "error": "AssertionError:(['marketandexchangenames', 'reportdateasmmddyyyy', 'cftccontractmarketcode', 'openinterestall', 'levmoneypositionslongall', 'levmoneypositionsshortall'], ['asofdateinformyymmdd', 'assetmgrpositionslongall', 'assetmgrpositionsshortall', 'as",
+      "raw_sha256": "6722fc377087c9380d7504345ac7145a891185ea7d57c9ad3f184b29da43aa57"
+    }
+  ],
+  "initial_partial_NAS_archive_sha256": "e81deef98e984c4c68292e0cb13a17f4788369f0b5e1c3ab7db62459e7624509",
+  "repair_NAS_archive_sha256": "e23617260a78790f41840f086d67f1e9ddd790ff42b295de29dd8f29376f978c",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_release_clock_qualified": false
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "official_CFTC_TFF_Emini_NQ_2011_and_2026_identity_passed_release_clock_pending",
+  "plan_sha256": "db917bde02d2f07b6ffb8ec406b711eef959acf56b3589a476f4eb488aa28db2",
+  "cumulative_external_GETs": 2,
+  "source_NAS_archive_sha256": "e23617260a78790f41840f086d67f1e9ddd790ff42b295de29dd8f29376f978c",
+  "source_NAS_remote_and_scoped_restore_verified": true,
+  "checks": [
+    {
+      "year": 2011,
+      "raw_sha256": "583a93474847f1070b213e2b12cfa73c48d9ba05f24f7d001a338de125468b57",
+      "contract_code": "209742",
+      "contract_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ],
+      "report_date_header": "Report_Date_as_MM_DD_YYYY",
+      "NQ_report_rows": 52,
+      "first_report_date": "2011-01-04",
+      "last_report_date": "2011-12-27",
+      "Tuesday_report_share": 1.0,
+      "market_outcome_reads": 0
+    },
+    {
+      "year": 2026,
+      "raw_sha256": "6722fc377087c9380d7504345ac7145a891185ea7d57c9ad3f184b29da43aa57",
+      "contract_code": "209742",
+      "contract_names": [
+        "NASDAQ MINI - CHICAGO MERCANTILE EXCHANGE"
+      ],
+      "report_date_header": "Report_Date_as_YYYY-MM-DD",
+      "NQ_report_rows": 41,
+      "first_report_date": "2026-01-06",
+      "last_report_date": "2026-10-13",
+      "Tuesday_report_share": 1.0,
+      "market_outcome_reads": 0
+    }
+  ],
+  "report_date_is_not_release_date": true,
+  "historical_dissemination_time_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0
+}

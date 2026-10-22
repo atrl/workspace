@@ -1,0 +1,19 @@
+{
+  "status": "bounded_CFTC_TFF_NQ_source_partial_or_failed",
+  "failure": "source_identity_or_coverage_failure",
+  "GET_attempts": 1,
+  "checks": [
+    {
+      "year": 2011,
+      "status": "source_identity_or_coverage_failure",
+      "error": "AssertionError:('cftccontractmarketcode', ['CFTC_Contract_Market_Code', 'CFTC_Contract_Market_Code_Quotes'])",
+      "raw_sha256": "583a93474847f1070b213e2b12cfa73c48d9ba05f24f7d001a338de125468b57"
+    }
+  ],
+  "NAS_archive_sha256": "e81deef98e984c4c68292e0cb13a17f4788369f0b5e1c3ab7db62459e7624509",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_release_clock_qualified": false
+}

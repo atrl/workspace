@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "status": "local_only_2026_TFF_report_date_header_alias_repair",
+  "prior_repair_result_sha256": "cf62f28fb2100bc53789954c92021b12e0b71694a9ab1632a38831aed37cdfcb",
+  "raw_2011_sha256": "583a93474847f1070b213e2b12cfa73c48d9ba05f24f7d001a338de125468b57",
+  "raw_2026_sha256": "6722fc377087c9380d7504345ac7145a891185ea7d57c9ad3f184b29da43aa57",
+  "NAS_archive_sha256": "e23617260a78790f41840f086d67f1e9ddd790ff42b295de29dd8f29376f978c",
+  "exact_date_header_aliases": [
+    "Report_Date_as_MM_DD_YYYY",
+    "Report_Date_as_YYYY-MM-DD"
+  ],
+  "contract_code": "209742",
+  "market_identity": "Contract name contains NASDAQ, MINI and CHICAGO MERCANTILE, allowing spelling change while code stays fixed.",
+  "external_GETs": 0,
+  "cumulative_GETs": 2,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}
