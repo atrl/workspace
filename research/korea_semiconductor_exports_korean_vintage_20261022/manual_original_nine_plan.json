@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "status": "frozen_nine_original_Korean_PDF_visual_semantic_review",
+  "objective": "Resolve exactly the nine remaining current-document monthly semiconductor amount/YoY table ambiguities from original Korean PDFs, without changing the closed coordinate selector or claiming first-public vintage.",
+  "source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "closed_coordinate_review_sha256": "5f94c57252581f5b93625de50e6c4ee0bca8732c77be961f8824e146d8e60cc1",
+  "closed_coordinate_result_sha256": "e4b6f124f8d6463866cf83d9cf96999cf60c95aecb9613bc3be07977327d80b0",
+  "months": [
+    "2019-01",
+    "2022-12",
+    "2023-09",
+    "2023-12",
+    "2024-10",
+    "2024-11",
+    "2024-12",
+    "2025-06",
+    "2025-12"
+  ],
+  "exact_PDFs": [
+    {
+      "month": "2019-01",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2019-01_1.pdf",
+      "sha256": "8f92397c1e046d2e51121793ca64ab3b11aa670058fe8326ad9e047be163d3d3",
+      "bytes": 1712758,
+      "Korean_registration_date": "2019-02-01"
+    },
+    {
+      "month": "2022-12",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2022-12_1.pdf",
+      "sha256": "490e651bd8a134427203f817c9c54d1d4cafc62ae71e4da8b81d70bdf312793e",
+      "bytes": 2366123,
+      "Korean_registration_date": "2023-01-01"
+    },
+    {
+      "month": "2023-09",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2023-09_1.pdf",
+      "sha256": "f46350d0fdbeaef6d3f21d63a0ccc23d8b455ff63d3592c86a286da28954a856",
+      "bytes": 857106,
+      "Korean_registration_date": "2023-10-01"
+    },
+    {
+      "month": "2023-12",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2023-12_1.pdf",
+      "sha256": "b285e0a48ffcb11896f089fa5905c122fc46986bf2347acbed36c16aaa0753d5",
+      "bytes": 2628385,
+      "Korean_registration_date": "2024-01-01"
+    },
+    {
+      "month": "2024-10",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2024-10_1.pdf",
+      "sha256": "dba5ae35813b340138969e8be4eec6664e7f534eeae22709ff927c9c64af2caa",
+      "bytes": 2082791,
+      "Korean_registration_date": "2024-11-01"
+    },
+    {
+      "month": "2024-11",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2024-11_1.pdf",
+      "sha256": "2575ae851ce43632136592aa3a726df74f9e694f7d5ac1bfeb776cd804a9c080",
+      "bytes": 2152574,
+      "Korean_registration_date": "2024-12-01"
+    },
+    {
+      "month": "2024-12",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2024-12_1.pdf",
+      "sha256": "5d8d87d69f561ffd1d70c09d77b9563e4b27810dc1d774689be88aef42ba0006",
+      "bytes": 3560059,
+      "Korean_registration_date": "2025-01-01"
+    },
+    {
+      "month": "2025-06",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2025-06_1.pdf",
+      "sha256": "3da2935bfaed81c697533c1817d2689c7d763df68965c9e1692dcdd27b09e656",
+      "bytes": 2690078,
+      "Korean_registration_date": "2025-07-01"
+    },
+    {
+      "month": "2025-12",
+      "version_index": 1,
+      "path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/article_pdf/2025-12_1.pdf",
+      "sha256": "3a3dbd97a0d3c53600c71d745bdf60b5ddea188666fff60cff75efff21264d7e",
+      "bytes": 2405927,
+      "Korean_registration_date": "2026-01-01"
+    }
+  ],
+  "method": [
+    "Render only source pages containing the current-month category table and visually inspect title, month header, amount unit, semiconductor column/row, and signed YoY cell.",
+    "Distinguish current month from year-to-date, quarter, half-year, annual, destination-specific or historical comparison tables using explicit original captions, not a magnitude guess.",
+    "Record page number and cell rectangle; transcribe source units before converting USD million to USD 100 million. Require a second independent statement inside the same PDF when available; preserve disagreement.",
+    "For missing text-layer geometry, inspect rendered original pixels. No English article replacement, current statistical download, post-hoc SOXX comparison or prior result as a numeric substitute."
+  ],
+  "budget": {
+    "original_PDF_versions": 9,
+    "max_pages_per_PDF": "all visual pages if needed",
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "acceptance": "A month is resolved only if its current-month table has one unambiguous amount and signed YoY with explicit unit and page/cell evidence. Otherwise mark unresolved; do not infer, interpolate or change the previous selector.",
+  "known_other_gaps": [
+    "2020-05 current PDF p6 80.1 versus p10 table/p11 80.7 remains a separate within-document conflict.",
+    "Historical first-public original PDF bytes and immutable timing remain unqualified for the entire 93-month series."
+  ],
+  "factor_values_qualified": false,
+  "historical_first_public_vintage_qualified": false,
+  "next_action": "Perform one visual source-only review of these nine exact PDFs, preserve conflicts and final numeric completeness status, then decide if a separate source/timing gate is possible. No Korea model/account."
+}
