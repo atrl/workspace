@@ -1,0 +1,14 @@
+{
+  "status": "first_numeric_extraction_stopped_on_source_month_or_value_contract",
+  "plan_sha256": "dbda099d477c95b16e7060dacd3062d922499613fc1fdaf5d14ee15362744e3d",
+  "run_state_sha256": "65bfb69eaa7dffb21eebed78c3acc679b5ff168925debf43ffec48af37e1d7c4",
+  "verified_source_recorder_object_loads_consumed": 1,
+  "first_failing_release": "not_recorded_by_original_execution_code",
+  "failure": "ValueError: needs_data: original six seasonally adjusted IP months incomplete",
+  "new_recorder_created": false,
+  "numeric_source_event_output_written": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "no_automatic_retry": true
+}

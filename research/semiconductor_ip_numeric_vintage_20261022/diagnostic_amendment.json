@@ -1,0 +1,14 @@
+{
+  "status": "one_bounded_source_layout_diagnostic_after_failed_attempt",
+  "original_plan_sha256": "dbda099d477c95b16e7060dacd3062d922499613fc1fdaf5d14ee15362744e3d",
+  "unchanged_source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "unchanged_source_artifact_sha256": "d2b8467087dfbb45008b1fc88bbfda85f87f24eb3f0f83526a3c82222a215d55",
+  "purpose": "Identify exactly which original release(s) fail the predeclared six-month parser and report only month-token/value counts and original header identity. Do not generate factor values or create a Qlib Recorder.",
+  "previous_verified_object_loads": 1,
+  "additional_verified_object_loads_max": 1,
+  "total_diagnostic_loads_max": 2,
+  "new_http_requests": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
