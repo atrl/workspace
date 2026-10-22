@@ -1,0 +1,109 @@
+{
+  "status": "SOXX_series_reporting_calendar_transition_identified_source_only",
+  "series_inventory_sha256": "84de74dd586d975e02fd5852acfb4d024408b0272c063e92fa3965b0d3df545b",
+  "trust_candidate_index_sha256": "8a8d790c4e97f0dcacca0436835f263e7dc30dc318c8bafc25e8001cf6fb64a6",
+  "series_source_card_status": "uncommitted_shared_WIP_at_observation_preserve_source_identity_before_numeric_use",
+  "base_report_dates_and_accessions": {
+    "2013": [
+      {
+        "report_date": "2013-01-31",
+        "form": "N-CSRS",
+        "accession": "0001193125-13-148033"
+      },
+      {
+        "report_date": "2013-04-30",
+        "form": "N-Q",
+        "accession": "0001193125-13-274594"
+      },
+      {
+        "report_date": "2013-07-31",
+        "form": "N-CSR",
+        "accession": "0001193125-13-392676"
+      },
+      {
+        "report_date": "2013-10-31",
+        "form": "N-Q",
+        "accession": "0001193125-13-486444"
+      }
+    ],
+    "2014": [
+      {
+        "report_date": "2014-01-31",
+        "form": "N-CSRS",
+        "accession": "0001193125-14-127770"
+      },
+      {
+        "report_date": "2014-04-30",
+        "form": "N-Q",
+        "accession": "0001193125-14-251746"
+      },
+      {
+        "report_date": "2014-07-31",
+        "form": "N-CSR",
+        "accession": "0001193125-14-366601"
+      },
+      {
+        "report_date": "2014-10-31",
+        "form": "N-Q",
+        "accession": "0001193125-14-455465"
+      }
+    ],
+    "2015": [
+      {
+        "report_date": "2015-01-31",
+        "form": "N-CSRS",
+        "accession": "0001193125-15-122693"
+      },
+      {
+        "report_date": "2015-04-30",
+        "form": "N-Q",
+        "accession": "0001193125-15-238848"
+      },
+      {
+        "report_date": "2015-07-31",
+        "form": "N-CSR",
+        "accession": "0001193125-15-339410"
+      },
+      {
+        "report_date": "2015-09-30",
+        "form": "N-CSRS",
+        "accession": "0001193125-15-396474"
+      },
+      {
+        "report_date": "2015-12-31",
+        "form": "N-Q",
+        "accession": "0001193125-16-480933"
+      }
+    ],
+    "2016": [
+      {
+        "report_date": "2016-03-31",
+        "form": "N-CSR",
+        "accession": "0001193125-16-613829"
+      },
+      {
+        "report_date": "2016-06-30",
+        "form": "N-Q",
+        "accession": "0001193125-16-695276"
+      },
+      {
+        "report_date": "2016-09-30",
+        "form": "N-CSRS",
+        "accession": "0001193125-16-788378"
+      },
+      {
+        "report_date": "2016-12-31",
+        "form": "N-Q",
+        "accession": "0001193125-17-065125"
+      }
+    ]
+  },
+  "2015_transition_has_five_report_dates": true,
+  "old_Jan_Apr_Jul_Oct_template_invalid_from_2015_Sep": true,
+  "2013_2014_eight_accessions_match_committed_trust_index": true,
+  "source_NAS_receipt": "research/stage1_soxx_series_filing_search_20261023/additional_forms_parse_result.json",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "next_action": "Use exact series-level accession calendar, not trust month templates, when expanding original SOXX body/source values after 2014. Wait for the series-index card to become durable before binding later years."
+}
