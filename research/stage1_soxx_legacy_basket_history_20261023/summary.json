@@ -1,6 +1,6 @@
 {
   "experiment": "stage1_soxx_legacy_basket_history_20261023",
-  "decision": "one_2011_04_30_original_SOXX_NQ_schedule_identified_full_history_pending",
+  "decision": "three_original_2010_2011_SOXX_schedule_specimens_July_2011_NCSR_layout_unqualified",
   "objective_achieved": false,
   "plan": "plan.json",
   "sidecar_GETs": 4,
@@ -17,11 +17,11 @@
   "trust_candidate_rows": 188,
   "source_NAS_archive_sha256": "8d0cba5ddb599ccba66185e0fd25b12785bee6fb0537b0c830cfa3339ecd33c5",
   "source_NAS_scoped_restore_verified": true,
-  "SOXX_original_bodies_qualified": 1,
+  "SOXX_original_bodies_qualified": 2,
   "body_identity_plan": "2011_01_31_body_identity_plan.json",
   "body_transport_result": "2011_01_31_transport_result.json",
   "body_identity_result": "2011_01_31_identity_result.json",
-  "filing_body_GETs": 3,
+  "filing_body_GETs": 5,
   "body_source_NAS_archive_sha256": "21100494b05d10b59cf1837ac323c505f1b28ae2c302a4a92bc4123a43952dfa",
   "body_source_NAS_scoped_restore_verified": true,
   "april_body_plan": "2011_04_30_body_identity_plan.json",
@@ -30,5 +30,12 @@
   "april_2011_body_sha256": "c4084f68e72c9b1af89bc430389a4afd98142d403314264c4c29f5121d08a68b",
   "april_2011_NAS_archive_sha256": "6217b225f32e2469d997618cbeb05ad913fd1648f1d9f93c35881176e7376169",
   "april_2011_NAS_scoped_restore_verified": true,
-  "full_2011_2018_SOXX_baskets_qualified": false
+  "full_2011_2018_SOXX_baskets_qualified": false,
+  "semiannual_identity_plan": "2011_semiannual_body_identity_plan.json",
+  "semiannual_identity_result": "2011_semiannual_identity_result.json",
+  "jan_2011_original_schedule_identity_passed": true,
+  "july_2011_NCSR_schedule_identity_passed": false,
+  "july_2011_NCSR_body_received": true,
+  "semiannual_NAS_archive_sha256": "89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
+  "semiannual_NAS_scoped_restore_verified": true
 }

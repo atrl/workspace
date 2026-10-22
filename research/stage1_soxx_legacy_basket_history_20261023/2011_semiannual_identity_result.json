@@ -1,0 +1,155 @@
+{
+  "status": "two_2011_semiannual_bodies_identity_checked",
+  "plan_sha256": "514d6ee64b3a07b78df1a411fb2df706cfc8fb8998712b9accd199800ee8829b",
+  "GETs_consumed": 2,
+  "checks": [
+    {
+      "accession": "0001193125-11-093502",
+      "form": "N-CSRS",
+      "report_date": "2011-01-31",
+      "accepted_at_utc": "2011-04-11T20:08:56.000Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511093502/dncsrs.htm",
+      "started_at_utc": "2026-10-22T18:15:29.686576+00:00",
+      "finished_at_utc": "2026-10-22T18:15:31.447619+00:00",
+      "http_status": 200,
+      "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511093502/dncsrs.htm",
+      "curl_exit_code": 0,
+      "curl_stderr": "",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/2011_semiannual_bodies/0001193125-11-093502_dncsrs.htm",
+      "raw_sha256": "09c2622698fd8ab36065a640c6c5159eea3251883705e486f0b191dfc5c0fcdf",
+      "raw_bytes": 20045887,
+      "headers_sha256": "03cd13e7407186c63bbe4dbdf2de476d5e6578edf211546a75533f717c2df2ca",
+      "headers_bytes": 1912,
+      "fund_title_occurrences": 9,
+      "title_checks": [
+        {
+          "title_byte_offset": 5496,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 7279,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 12729,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 163346,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 168252,
+          "report_date_near_title": true,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 168501,
+          "report_date_near_title": true,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 969998,
+          "report_date_near_title": true,
+          "security_shares_value_near_title": true
+        },
+        {
+          "title_byte_offset": 3078886,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 3352926,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        }
+      ],
+      "SOXX_identity_pass": true
+    },
+    {
+      "accession": "0001193125-11-266548",
+      "form": "N-CSR",
+      "report_date": "2011-07-31",
+      "accepted_at_utc": "2011-10-07T21:03:08.000Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511266548/d216041dncsr.htm",
+      "started_at_utc": "2026-10-22T18:15:32.489803+00:00",
+      "finished_at_utc": "2026-10-22T18:15:34.374797+00:00",
+      "http_status": 200,
+      "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511266548/d216041dncsr.htm",
+      "curl_exit_code": 0,
+      "curl_stderr": "",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/2011_semiannual_bodies/0001193125-11-266548_d216041dncsr.htm",
+      "raw_sha256": "2b5580f41067b2f7a2cf003517a9f7f7220836f22feb1fbdf8be3bea0eda54e5",
+      "raw_bytes": 22173763,
+      "headers_sha256": "f7e8ccb3c166838149bc4241b2dc8efc1d1a5590a557fccb36ff1db6e514e667",
+      "headers_bytes": 1932,
+      "fund_title_occurrences": 9,
+      "title_checks": [
+        {
+          "title_byte_offset": 12035,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 163258,
+          "report_date_near_title": true,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 172700,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 176915,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 190937,
+          "report_date_near_title": true,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 3096829,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 3423190,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 3494884,
+          "report_date_near_title": true,
+          "security_shares_value_near_title": false
+        },
+        {
+          "title_byte_offset": 3596851,
+          "report_date_near_title": false,
+          "security_shares_value_near_title": false
+        }
+      ],
+      "SOXX_identity_pass": false
+    }
+  ],
+  "SOXX_identity_pass_count": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "nas_evidence": {
+    "sha256": "89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
+    "size_bytes": 1947575,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/89/05/89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 02:15:35.771439+08",
+    "duplicate": false
+  },
+  "nas_scoped_restore_verified": true
+}
