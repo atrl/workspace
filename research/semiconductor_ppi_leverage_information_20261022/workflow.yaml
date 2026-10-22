@@ -1,0 +1,9 @@
+experiment: semiconductor_ppi_leverage_information_20261022
+plan: plan.json
+source_card: research/semiconductor_ppi_alfred_source_20261022
+source_artifact: analysis/release_availability
+provider_uri: data/qlib/soxl
+instruments: [SOXL, SOXX]
+frequency: day
+model_budget: 2
+native_account_budget: 0

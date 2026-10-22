@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "experiment": "semiconductor_ppi_leverage_information_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "one_fixed_event_level_diagnostic_information_screen_no_account",
+  "question": "Does date-vintage US semiconductor producer-price YoY add information about next 21-session SOXL versus SOXX adjusted-open relative log return beyond past SOXX price/variance and leveraged relative performance?",
+  "mechanism": "Greater received semiconductor producer-price growth may proxy pricing power and improve the relative opportunity to hold SOXL instead of SOXX. This is distinct from failed Fed capacity-utilization level/change, Korea export demand and Cboe option intensity screens.",
+  "source": {
+    "card": "research/semiconductor_ppi_alfred_source_20261022",
+    "recorder_id": "77aa6351b89b44a392a28b6ad53ef93d",
+    "summary_sha256": "181b0aa072c847b9bbda9da6c8198f8d3561fbe1b15e604676351b60c62cb8ba",
+    "source_quality_sha256": "9da9243264c7c1b9b58163362f0d53978ab03d08ba4b014fb553f66802de8b24",
+    "verification_manifest_sha256": "f34640d4ac75ba6ebc3609d674137a85c18289978bcf90ed6867adedd7222154",
+    "artifact": "analysis/release_availability",
+    "artifact_sha256": "b45c766d53432bd8fefa83fcd7e5fe9fa311aa006cbcfe5395ad8bfa62777300",
+    "NAS_readback_sha256": "c90d0d676cb2384bb7412c15908ee923cbf9f5dfabcfaf93581d1ae4204b730e",
+    "historical_intraday_first_receipt_qualified": false
+  },
+  "provider": {
+    "uri": "data/qlib/soxl",
+    "calendar_bounds": [
+      "2019-01-02",
+      "2026-10-21"
+    ],
+    "instruments": [
+      "SOXL",
+      "SOXX"
+    ],
+    "fields": [
+      "$open",
+      "$close"
+    ],
+    "frequency": "day",
+    "files_sha256": {
+      "data/qlib/soxl/qlib_store_manifest.json": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+      "data/qlib/soxl/calendars/day.txt": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e",
+      "data/qlib/soxl/features/SOXL/open.day.bin": "09ebb989e864550d2aaf263ab50f6826982dc1c56c78bd43cc5ff4d0a4bff1fe",
+      "data/qlib/soxl/features/SOXL/close.day.bin": "1305f6c5df869099fe1bb9c8488716a79ce4ed2856df54d9945e85d59c9ada7f",
+      "data/qlib/soxl/features/SOXX/open.day.bin": "5a6a48fb7482e8d0cd3490f0bef68ab52e57af21016779b979be92ea92572666",
+      "data/qlib/soxl/features/SOXX/close.day.bin": "2b8f690d6d1db8f3ee9740905c3540d36aa14afca8d4b1cd7a635b40aad9bb6e"
+    }
+  },
+  "source_clock": "One event signal at 09:46 America/New_York on first Qlib session strictly after each ALFRED vintage date. Use its latest observed month and same-vintage YoY only. No same-day trade, later revision backfill or event-date compaction. First 2019-01-15 vintage has no 12-month comparison and is excluded before outcomes.",
+  "event_windows": {
+    "train_signal": [
+      "2019-02-01",
+      "2022-11-30"
+    ],
+    "held_reused_diagnostic": [
+      "2023-01-01",
+      "2026-09-30"
+    ],
+    "held_halves": [
+      [
+        "2023-01-01",
+        "2023-12-31"
+      ],
+      [
+        "2024-01-01",
+        "2026-09-30"
+      ]
+    ],
+    "minimum_train_events": 44,
+    "minimum_held_events": 40,
+    "calendar_last_source_label_mature": "2026-10-21",
+    "excluded_gap": "2022-12 release event not trained so every training label matures before first held event; 2026-10 event label not mature."
+  },
+  "feature_formula": {
+    "baseline": [
+      "SOXX close return(s-1)",
+      "SOXX close five-session return ending s-1",
+      "SOXX close-return realized standard deviation over 22 complete sessions ending s-1",
+      "SOXL minus SOXX 22-session close log return ending s-1"
+    ],
+    "candidate": "baseline plus PPI same-vintage YoY percent on this source event",
+    "normalization": "StandardScaler fit on training event rows only"
+  },
+  "label": "At signal s, adjusted Qlib open-to-open log return of SOXL from s+1 to s+22 minus the same SOXX log return. Require both entry and exit opens finite and positive; label mature at s+22 open plus one minute. This is an information label, not a funded or fee-net account.",
+  "model": {
+    "baseline_and_candidate": "two fixed Ridge(alpha=1.0) fits, no weights, no intercept restriction, no hyperparameter search",
+    "fits": 2,
+    "candidate_positive_coefficient_required": true
+  },
+  "information_gate": {
+    "paired_metric": "held squared-error improvement baseline minus candidate on identical event dates",
+    "held_mean_positive": true,
+    "each_held_half_positive": true,
+    "stationary_bootstrap": {
+      "mean_block_events": 3,
+      "draws": 5000,
+      "seed": 20261022,
+      "lower_quantile": 0.0016666666666666668,
+      "lower_positive": true
+    },
+    "no_gate_rescue": true
+  },
+  "budget": {
+    "source_recorder_object_loads": 1,
+    "D_calendar_calls": 1,
+    "D_features_calls": 1,
+    "DatasetH_builds": 1,
+    "model_fits": 2,
+    "bootstrap_runs": 1,
+    "native_accounts": 0,
+    "new_writable_Recorders": 1
+  },
+  "stops": [
+    "Any source/provider hash or event/calendar mismatch stops before market outcome read or fit.",
+    "Any missing feature, immature label, duplicate event session or train/held mismatch stops; do not drop rows after seeing outcomes.",
+    "No YoY sign inversion, baseline change, horizon/window tuning or resampling adjustment after held scores.",
+    "No fee-net SOXX, drawdown, CVaR, annual, rolling or independent-forward claim from this information screen."
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "goal_boundary": "Even a positive information gate is development evidence only; any economic strategy must be separately frozen and pass v2 SOXX 0/2/5bp native accounts, risk, annual, rolling, bootstrap and independent forward gates."
+}
