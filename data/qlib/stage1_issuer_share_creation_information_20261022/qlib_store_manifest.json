@@ -1,0 +1,30 @@
+{
+  "as_of": "2026-10-21",
+  "audit_snapshot_hash": "0b87fe454d46cc99",
+  "calendar_end": "2026-10-09",
+  "calendar_start": "2010-03-11",
+  "feature_file_count": 1,
+  "fields": [
+    "$shares_outstanding"
+  ],
+  "freq": "day",
+  "hash": "f25bf3d616da2e93",
+  "instruments": [
+    "SOXX"
+  ],
+  "market": "all",
+  "max_datetime": "2026-10-09",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_issuer_share_creation_information_20261022",
+  "region": "us",
+  "row_count": 4172,
+  "source": "iShares SOXX official fund download sha256=74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

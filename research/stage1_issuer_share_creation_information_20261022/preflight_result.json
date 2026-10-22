@@ -1,0 +1,23 @@
+{
+  "status": "conditional_source_and_DatasetH_maturity_preflight_passed_no_fit",
+  "plan_sha256": "d919e03a2be8bed45c66ad8eed00cddf4bbba883f8449fec1cbe013b4be0e59f",
+  "source_raw_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+  "source_vintage_audit_sha256": "e56d01476538a9360bf19525505cd6a437f9936538e9d08461cb943d37a3a52c",
+  "derived_provider_manifest_sha256": "1512248e8eb9324bcd3333e5832cf97018529eccb4c715c217119e05de4c1769",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "original_primary_features": 39,
+  "candidate_coordinates": 1,
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "training_last_label_available_at": "2022-12-30 14:31:00+00:00",
+  "held_last_label_available_at": "2026-10-09 13:31:00+00:00",
+  "train_segment_rows": 3020,
+  "held_segment_rows": 944,
+  "candidate_train_nonzero_rows": 1049,
+  "candidate_held_nonzero_rows": 350,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "held_scores_computed": false,
+  "historical_independence": false,
+  "historical_first_public_clock_qualified": false
+}

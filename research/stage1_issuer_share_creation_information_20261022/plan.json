@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_issuer_share_creation_information_20261022",
+  "phase": "frozen_conditional_retrospective_information_design_before_fit",
+  "execution_authorized": false,
+  "parent": {
+    "name": "Original frozen Stage1 complete allocator baseline; 39 primary inputs, 16 common and unchanged downstream action/risk/recovery",
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "feature_order": "exact base_features of original Stage1 seed71, no feature selection"
+  },
+  "candidate_source": {
+    "card": "research/soxx_issuer_shares_source_20261022",
+    "plan_sha256": "c6ccaf3dc6df9fded63b364da02564f2a9075b17c177a83039a8a4ee8aed9d2c",
+    "summary_sha256": "87054b6f61e0a49dc244590885fb337cb3d9903015f48efaec7f5db3144f3f25",
+    "source_audit_sha256": "b1548025b49b8793aae47cccc1091518272e5d222161fe4af9ed83e944e8d3d7",
+    "workbook_vintage_audit_sha256": "e56d01476538a9360bf19525505cd6a437f9936538e9d08461cb943d37a3a52c",
+    "source_gate_review_sha256": "01d6cbcd3bdbbab9c4fee0e16e66fb1644fba1dae6f056f7b0265ed7dec492f2",
+    "current_issuer_workbook": "data/raw/external/soxx_issuer_shares_20261022/original_fund_download.xls",
+    "current_issuer_workbook_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+    "readable_archived_workbook_sha256": {
+      "data/raw/external/soxx_issuer_shares_20261022/workbook_vintages/2021-01-15.xls": "76fe70d65315075ecf1f848323134907bb35caf3db8b1bd69c388cec4b0c1e92",
+      "data/raw/external/soxx_issuer_shares_20261022/workbook_vintages/2022-07-17.xls": "f501ce0cf4ad4ef83b7017ac382928e064aa86eed45b3a9a962abd0d8e6dcb6d",
+      "data/raw/external/soxx_issuer_shares_20261022/workbook_vintages/2023-03-26.xls": "0cda8d0ce4c4421915251c09d55434855f5f1aa016f2c2f25b39b29f5e7b4613"
+    },
+    "source_nas_archive_sha256": "983e211fc34fc8bae16f9342941a53de31c639c6feccadce93399d1a96f72628",
+    "workbook_vintage_nas_archive_sha256": "7e2d70698e3cf528fea18c4391e30af55edac61bdee8f1da7ce65ff59d908930",
+    "parser": "src/data/soxx_issuer_fund_download.py",
+    "parser_sha256": "f0f0a6dced80c3875d5f15bd23f21995c986e4d3f03b93f9bda3a31e6a5cb9d7",
+    "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "calendar_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "derived_provider": "data/qlib/stage1_issuer_share_creation_information_20261022",
+    "issuer_2024_split_unit_rule": "Official SOXX 2024-03-07 3-for-1; archived 2021/22/23 shares multiplied by 3 equal current retrospective workbook on all 15661 overlapping calendar rows. Use only current internally split-adjusted share ratios; do not mix raw level units.",
+    "first_public_timing": "unverified conditional as-if availability. Three workbooks/three pages and two-session lag are not proof of every historical daily receipt."
+  },
+  "single_feature": {
+    "name": "issuer_creation_5d_after_negative_soxx_trend",
+    "formula": "At Stage1 signal Qlib session t: 1{original Stage1 soxx_ret20(t)<0} * log(SOXX issuer shares_outstanding(t-2)/shares_outstanding(t-7)), where t-k means kth prior native Qlib trading session. The issuer share series comes from its official current retrospective workbook, never weekend-filled.",
+    "hypothesis": "Positive issuer net creation after a negative SOXX trend indicates absorbed selling or renewed primary-market demand and increases the next five-open SOXX return relative to original Stage1 information.",
+    "novelty": "Issuer primary-market shares differ from already closed signed secondary-market volume participation; original Stage1 39 features contain no issuer share count.",
+    "coefficient_sign_required": "positive on standardized added coordinate",
+    "availability_lag_sessions": 2,
+    "PIT_status": "conditional_retrospective_development_only_not_qualified"
+  },
+  "label": {
+    "primary": "Five funded open-to-open SOXX intervals from original Stage1 signal s: sum j=0..4 log1p(soxx_forward_open_return(s+j)) on five consecutive native signal-calendar rows.",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval row, train strictly before 2023-01-01 America/New_York and held before 2026-10-10 America/New_York.",
+    "role": "Only matched incremental information, not fee-net strategy return."
+  },
+  "cohorts": {
+    "train_signal": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused_diagnostic": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-07"
+      ]
+    ],
+    "minimum_mature_train_rows": 2900,
+    "minimum_mature_held_rows": 900,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "Original 39 Stage1 input columns; SimpleImputer(median) then StandardScaler then Ridge(alpha=1.0)",
+    "candidate": "Exact same receiver, cohorts, label and settings plus the one issuer_creation_5d_after_negative_soxx_trend coordinate",
+    "fits": 2,
+    "same_input_order_for_39": true,
+    "no_hyperparameter_epoch_seed_or_output_selection": true,
+    "runtime_scikit_learn": "1.9.1"
+  },
+  "information_gate": {
+    "paired_metric": "On identical held signals, baseline squared error minus candidate squared error for five-open SOXX log return.",
+    "added_coefficient_positive": true,
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261014,
+      "one_sided_alpha": 0.0013157894736842105,
+      "lower_positive": true
+    },
+    "no_gate_rescue": true
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "new_derived_Qlib_provider_builds_max": 1,
+    "DatasetH_builds_max": 3,
+    "model_fit_attempts_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "barrier": "Independent scoped design approval bound to exact plan/notebook source, no-fit Qlib preflight, and unchanged source hashes before first fit. If any information gate fails, close fixed feature version. Even if all pass, evidence remains conditional retrospective, cannot authorize own-state 0bp account, 2/5bp, promotion or forward qualification until historical source timing is separately qualified.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/daily/*",
+      "analysis/bootstrap/*"
+    ]
+  }
+}

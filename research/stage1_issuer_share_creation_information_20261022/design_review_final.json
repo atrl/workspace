@@ -1,0 +1,15 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "scope": "Conditional retrospective 39-versus-40 Stage1 matched Qlib information screen, two fixed Ridge fits, one bootstrap, zero native accounts",
+  "plan_sha256": "d919e03a2be8bed45c66ad8eed00cddf4bbba883f8449fec1cbe013b4be0e59f",
+  "preflight_cell_source_sha256": "d5cec02cd5cbc452c6932dd0cf06a9c295fac483dd48967ff51a555ddb91c6cd",
+  "fit_cell_source_sha256": "be4864a54015bb0aa34bd2fdd516224fdd694eb43a5dd7986ce8867bc6c3c743",
+  "no_fit_preflight_sha256": "9dc9b04ea8be26ff969c3f21d6c153340daffa01f59df538a095dbfb5ebe18dc",
+  "limitations": [
+    "Two-session issuer availability remains as-if and historically unverified",
+    "Information pass cannot authorize native account, PIT claim, forward evidence or promotion"
+  ],
+  "review_new_model_fits": 0,
+  "review_new_native_accounts": 0
+}

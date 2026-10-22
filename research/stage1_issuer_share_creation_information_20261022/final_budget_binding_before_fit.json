@@ -1,0 +1,11 @@
+{
+  "old_plan_sha256": "8b564165814cb3b3b65bbc1560396280c925b7f1387041d4c9397bcaadca4aae",
+  "new_plan_sha256": "d919e03a2be8bed45c66ad8eed00cddf4bbba883f8449fec1cbe013b4be0e59f",
+  "old_preflight_receipt_sha256": "1ee672848ddf2d2f42f8c2cf6a8aefe7088f3e7351e740cf168d1ea71f2381f6",
+  "new_preflight_receipt_sha256": "9dc9b04ea8be26ff969c3f21d6c153340daffa01f59df538a095dbfb5ebe18dc",
+  "mechanical_change": "DatasetH construction budget 2 to 3: initial source preflight, revised no-fit preflight and one future approved execution. No source, formula, label, cohort, model, gate, account or market-request change. Rebound identical preflight values to new plan SHA without repeating Qlib construction.",
+  "DatasetH_constructions_observed_before_fit": 2,
+  "future_DatasetH_constructions_authorized": 1,
+  "model_fits": 0,
+  "native_accounts": 0
+}
