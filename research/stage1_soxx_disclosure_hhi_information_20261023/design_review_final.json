@@ -1,0 +1,31 @@
+{
+  "verdict": "HOLD_DUPLICATE",
+  "scope": "Exact frozen pre-fit HHI information design; no fit, bootstrap, or account authorized by this review",
+  "plan_sha256": "294176a21cf4617c48c8452775862a5d4b81b44b65d76af994855a76777f0033",
+  "preflight_sha256": "e8a77d4fd582d969a99cf1ffffbfb9101ebbcbfb8159648bf7c3962364deb6f0",
+  "rehydration_plan_sha256": "5a57cf8f3c23b1db1869a611c258898ba2ccd6d380a55fe191a69feb269f7e96",
+  "fit_cell_source_sha256": "17ad247d9c129df6aecaf59555dfcbcc1ec33bd397b77663cc97425f0e9776bb",
+  "preflight_cell_source_sha256": "c0adc90f6a0facf6943bf642fe8185dc0e0b0b4efa132346dc243057fdd8bc1e",
+  "mechanical_checks": {
+    "pinned_Stage1_parent_and_train_held_source_summaries": true,
+    "original_primary_features": 39,
+    "source_calendar_rows_train_held": [3020, 944],
+    "mature_H5_rows_train_held": [3014, 940],
+    "candidate_missing_rows_train_held": [0, 0],
+    "preflight_model_fits": 0,
+    "preflight_native_accounts": 0,
+    "rehydration_budget_accounts_for_fresh_kernel_source_loads": true,
+    "fit_guard_requires_APPROVE_DESIGN": true
+  },
+  "duplicate_design": {
+    "canonical_card": "research/stage1_soxx_reported_diversity_information_20261023",
+    "canonical_plan_sha256": "f353e6fd2561d966d3be78191aacb9d4ea27f234092e392e0ba60e32fe973396",
+    "overlap": "HHI and 1-minus-top5 are alternative concentration summaries of the same previously disclosed SOXX equity basket, with the same source maps, Stage1 H5 label, 3014/940 mature cohorts, Ridge receiver, and reused held history.",
+    "control_difference": "This HHI design compares original 39 inputs against 39 plus HHI. The canonical diversity design includes source age, NPORT form, and expected 2021 index-era controls in both arms. Its incremental result would therefore answer a different conditional question; the two screens cannot be treated as independent confirmations of one mechanism.",
+    "family_conflict": "Both frozen plans allocate one-sided alpha 0.025/27 while each reserves two fits and one bootstrap. Running both would add a second same-mechanism candidate without a frozen mutual exclusion or corrected joint family budget."
+  },
+  "minimum_action": "Close this HHI version before fit and retain its no-fit preflight receipt. Proceed, if separately approved, with the already frozen reported-diversity card as the single canonical information screen. Do not use later HHI or top-five outcomes to choose between the two.",
+  "scientific_boundary": "The source timing and label preflight do not establish predictive value, fee-net SOXX excess, or independent forward evidence.",
+  "new_model_fits_reviewed": 0,
+  "new_native_accounts_reviewed": 0
+}

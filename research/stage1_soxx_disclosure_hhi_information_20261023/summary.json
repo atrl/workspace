@@ -1,0 +1,24 @@
+{
+  "experiment": "stage1_soxx_disclosure_hhi_information_20261023",
+  "decision": "closed_before_fit_duplicate_of_frozen_reported_diversity_screen",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "preflight": "preflight_result.json",
+  "rehydration_plan": "rehydration_plan.json",
+  "independent_design_review": "design_review_final.json",
+  "canonical_screen": "research/stage1_soxx_reported_diversity_information_20261023/plan.json",
+  "training_mature_rows_preflight": 3014,
+  "held_mature_rows_preflight": 940,
+  "source_train_missing_rows": 0,
+  "source_held_missing_rows": 0,
+  "model_fits": 0,
+  "bootstrap_attempts": 0,
+  "native_accounts": 0,
+  "held_scores_computed": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "independent_review_verdict": "HOLD_DUPLICATE"
+}

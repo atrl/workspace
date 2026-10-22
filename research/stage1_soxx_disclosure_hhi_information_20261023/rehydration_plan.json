@@ -1,0 +1,16 @@
+{
+  "frozen": true,
+  "reason": "The completed no-fit preflight ran in a notebook kernel that terminated. The fitted run requires recreating the identical DatasetH in a fresh kernel; the original plan's six source Recorder loads covered the preflight phase only.",
+  "preflight_sha256": "e8a77d4fd582d969a99cf1ffffbfb9101ebbcbfb8159648bf7c3962364deb6f0",
+  "additional_source_recorder_loads_max": 6,
+  "cumulative_source_recorder_loads_max": 12,
+  "additional_DatasetH_builds_max": 1,
+  "scientific_contract_unchanged": [
+    "original 39-feature baseline",
+    "one original disclosed HHI coordinate",
+    "3014/940 mature rows and frozen label",
+    "two Ridge fits, one bootstrap, zero native accounts",
+    "negative coefficient and full/half/bootstrap information gates"
+  ],
+  "stop": "If rehydrated preflight differs byte-for-byte in its result from the saved preflight, or if source hashes drift, stop before either fit."
+}

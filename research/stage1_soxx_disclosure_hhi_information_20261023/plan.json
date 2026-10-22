@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_disclosure_hhi_information_20261023",
+  "phase": "original_Stage1_39_plus_one_source_qualified_disclosed_equity_HHI_H5_information",
+  "execution_authorized": true,
+  "parent": {
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "nas_readback": "research/minute_information_pit_allocator_20261012/nas_readback.json",
+    "feature_order": "exact original Stage1 39 base_features, seed71"
+  },
+  "concentration_sources": {
+    "train_summary": "research/stage1_soxx_concentration_amendment_gap_resolution_20261023/summary.json",
+    "train_summary_sha256": "63f4ca06ed7fc0691ec3ec2d1928bf839854956af04afd3b1f785e466097cc6d",
+    "train_recorder_id": "479e9d93a77a47198c23a08e429d8598",
+    "train_qualified_dates": 3020,
+    "held_summary": "research/stage1_soxx_2023_2026_concentration_source_map_20261023/summary.json",
+    "held_summary_sha256": "744b7c272fe0121291fbf2adb162e35ddf524c561a3c31405c9b8e4aafa8718a",
+    "held_recorder_id": "a66747c1a1cc46b69f17fe620deadbd1",
+    "held_source_dates": 944,
+    "availability": "Original disclosed equity values only after each SEC filing date's next actual Qlib session; report dates never used as availability. 2017 amendments verified unchanged. Held late 2025-Sep amendment verified unchanged and never overrides newer 2026-Mar report. Intraday first-public receipt is not certified, so the next-session rule is conservative."
+  },
+  "single_mechanism": {
+    "feature": "original_SOXX_disclosed_EC_HHI",
+    "formula": "sum over all 30 original disclosed EC securities of (original valUSD divided by that filing's sum of 30 EC valUSD)^2; use the latest publicly filed report available before each signal and no cross-sectional price data, gap fill, clipping, reporting-age threshold, percentile or post-outcome selection.",
+    "hypothesis": "A more concentrated reported SOXX fund basket reflects narrower semiconductor leadership and greater fragility; conditional on Stage1's original ETF-level inputs, it predicts a lower next-five-open SOXX return, so the candidate standardized coordinate coefficient must be negative. This is a distinct delayed-disclosure mechanism after the full-member new-low/downside price source failed its 0/780 coverage gate.",
+    "regime_motivation": "Frozen Stage1 0bp attribution found severe post-decline cash opportunity cost in the weak 2025-04-07..10-07 window, whereas 2024Q3 cash helped. The complete matched weak and good intervals motivate a better decision-time cash-versus-SOXX forecast, not a hindsight window switch. Keep the original Stage1 allocation/action/risk/recovery chain fixed for any later account.",
+    "baseline": "Original 39 Stage1 primary inputs only.",
+    "candidate": "Same rows, label, imputer, scaler and Ridge plus one HHI coordinate from the qualified original SEC source map."
+  },
+  "label": {
+    "primary": "Five consecutive original Stage1 SOXX funded open-to-open returns from signal s: sum j=0..4 log1p(soxx_forward_open_return(s+j)).",
+    "maturity": "Original Stage1 timing.return_available_at of the fifth interval; training rows mature strictly before 2023-01-01 New York, reused diagnostic rows before 2026-10-10 New York.",
+    "role": "Matched incremental information only, not fee-net strategy return."
+  },
+  "cohorts": {
+    "train_signal": ["2011-01-03", "2022-12-30"],
+    "held_reused_diagnostic": ["2023-01-03", "2026-10-07"],
+    "held_halves": [["2023-01-03", "2024-12-31"], ["2025-01-02", "2026-10-07"]],
+    "expected_train_calendar_rows": 3020,
+    "expected_held_calendar_rows": 944,
+    "expected_mature_train_rows": 3014,
+    "expected_mature_held_rows": 940,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "SimpleImputer(median) then StandardScaler then Ridge(alpha=1.0) on original 39 features",
+    "candidate": "Identical pipeline plus one fixed HHI coordinate",
+    "new_fits": 2,
+    "runtime": "qlib_venv Python 3.12.12, scikit-learn 1.9.1",
+    "no_hyperparameter_seed_window_or_output_selection": true
+  },
+  "information_gate": {
+    "paired_metric": "On identical held signal rows, baseline squared error minus candidate squared error for five-open SOXX log return.",
+    "added_coefficient_negative": true,
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.000925925925925926,
+      "family_denominator": 27,
+      "lower_positive": true
+    },
+    "no_gate_rescue": true
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "source_recorder_artifact_loads_max": 6,
+    "DatasetH_builds_max": 1,
+    "model_fit_attempts_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "barrier": "First perform one no-fit DatasetH/source/maturity preflight. After exact-plan/code review, execute two fixed Ridge fits, one paired bootstrap and no account. Any failed information gate closes this version without sign, window, source-age, HHI/top5, or model tuning on reused history. A pass only permits a separately frozen full Stage1-derived 0bp Tiered-fee account with SOXX hard gates; 2/5bp and independent forward evidence remain separate.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": ["inputs/*", "models/*", "predictions/*", "analysis/*"]
+  }
+}
