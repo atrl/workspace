@@ -1,0 +1,5 @@
+experiment: stage1_ads_availability_20261023
+phase: source_availability_no_fit
+plan: plan.json
+notebook: stage1_ads_availability_20261023.ipynb
+qlib_provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices

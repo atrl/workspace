@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "original_ADS_vintage_diagonal_to_frozen_Stage1_Qlib_calendar_no_fit",
+  "question": "Does the NAS-verified Philadelphia Fed ADS all-vintages source yield a nonmissing decision-time broad-activity coordinate across the complete frozen Stage1 training and reused diagnostic calendar?",
+  "source": {
+    "raw_path": "data/snapshots/philadelphia_ads_vintage_20261023/ADS_All_Vintages.zip",
+    "raw_sha256": "6b6001da2127ad94066828b3a3151368adeb8f83a7dfe65f1901678703cfef44",
+    "NAS_archive_sha256": "641bffb7c565097790d976a7c80c39e4ab17f6a233e44135e3a6f4d9f00fc84a",
+    "schema_audit": "research/philadelphia_ads_vintage_source_20261023/schema_header_audit.json",
+    "sheet": "Sheet1",
+    "vintage_header_pattern": "ADS_INDEX_MMDDYY"
+  },
+  "feature": "ads_latest_observation_asof_vintage",
+  "fixed_extraction": "For each original vintage column, retain the latest finite ADS index observation with observation date no later than that vintage calendar date. Never read a row dated after its vintage. For each Stage1 Qlib signal session, use only the latest vintage whose calendar date is strictly earlier than the signal session. Keep all sessions and record missingness rather than compacting survivors.",
+  "clock_boundary": "Conservative next actual Qlib session after the labeled ADS vintage date; no same-date intraday tradability is claimed. Vintage labels represent source real-time versions, not original historical web bytes. If publication identity or data format contradicts this rule, stop.",
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "cohorts": {
+    "train": ["2011-01-03", "2022-12-30"],
+    "held_reused": ["2023-01-03", "2026-10-07"],
+    "expected_train_sessions": 3020,
+    "expected_held_sessions": 944,
+    "independent_validation": false
+  },
+  "budget": {
+    "source_XLSX_stream_passes_max": 1,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "new_Qlib_Recorders_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "acceptance": "Complete 3020/944 native session alignment, no look-ahead date, explicit nonmissing counts and source ages, one Qlib DatasetH/Recorder readback, and NAS Recorder archive with remote SHA and scoped restore. Source availability alone does not establish incremental information or SOXX outperformance.",
+  "stop": "Any source hash or NAS identity drift, invalid/duplicate version header, observation date after vintage, calendar count mismatch, unexpected missingness, unreadable value encoding or Recorder/NAS readback failure stops this version without fitting or account replay.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": ["inputs/*", "analysis/*", "metadata/*"]
+  }
+}

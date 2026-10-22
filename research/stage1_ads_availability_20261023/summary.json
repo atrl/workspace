@@ -1,0 +1,19 @@
+{
+  "experiment": "stage1_ads_availability_20261023",
+  "decision": "planned_not_executed",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "source_raw_sha256": "6b6001da2127ad94066828b3a3151368adeb8f83a7dfe65f1901678703cfef44",
+  "Qlib_factor_rows": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*"
+    ]
+  }
+}
