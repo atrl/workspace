@@ -1,0 +1,67 @@
+{
+  "status": "representative_FY2024_original_semantics_verified_source_only",
+  "plan": "original_filing_reconstruction_plan_20261022.json",
+  "method": "Read the three exact EDGAR-indexed primary 20-F HTML documents; hash downloaded original bytes; inspect the reported-currency disclosure and inline XBRL nonfraction context, unit, issuer and period for consolidated inventory and annual revenue.",
+  "documents": [
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "accession": "0001193125-25-083423",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312525083423/0001193125-25-083423-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312525083423/d896993d20f.htm",
+      "filed": "2025-04-17",
+      "accepted": "2025-04-17 06:16:18 (SEC index display; timezone not independently verified)",
+      "period_end": "2024-12-31",
+      "bytes": 8404908,
+      "sha256": "eb4de82b8902b11c707cf8f4f0e3825599dd8d772d128d3a1f624527739b1d00",
+      "statement_currency": "TWD",
+      "usd_role": "convenience translation",
+      "inventory_context": {"name": "ifrs-full:Inventories", "context_ref": "PAsOn12_31_2024", "unit_ref": "Unit_TWD", "instant": "2024-12-31", "entity": "0001046179"},
+      "revenue_context": {"name": "ifrs-full:Revenue", "context_ref": "P01_01_2024To12_31_2024", "unit_ref": "Unit_TWD", "start": "2024-01-01", "end": "2024-12-31", "entity": "0001046179"},
+      "disclosure_basis": "Exchange Rates and Note 3 say consolidated statements are expressed in New Taiwan dollars; USD is for reader convenience."
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "accession": "0001193125-25-092142",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312525092142/0001193125-25-092142-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312525092142/d846836d20f.htm",
+      "filed": "2025-04-24",
+      "accepted": "2025-04-24 06:10:32 (SEC index display; timezone not independently verified)",
+      "period_end": "2024-12-31",
+      "bytes": 5672592,
+      "sha256": "d682b2f62725026ed41db763812fc84121b6b69b01e383c8706387c2d7f2faef",
+      "statement_currency": "TWD",
+      "usd_role": "convenience translation",
+      "inventory_context": {"name": "ifrs-full:Inventories", "context_ref": "PAsOn12_31_2024", "unit_ref": "Unit_TWD", "instant": "2024-12-31", "entity": "0001033767"},
+      "revenue_context": {"name": "ifrs-full:Revenue", "context_ref": "P01_01_2024To12_31_2024", "unit_ref": "Unit_TWD", "start": "2024-01-01", "end": "2024-12-31", "entity": "0001033767"},
+      "disclosure_basis": "Annual report says statements are published in New Taiwan dollars; Note 2(7) identifies USD as convenience translation."
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "accession": "0001193125-25-064603",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312525064603/0001193125-25-064603-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312525064603/d889608d20f.htm",
+      "filed": "2025-03-27",
+      "accepted": "2025-03-27 06:11:10 (SEC index display; timezone not independently verified)",
+      "period_end": "2024-12-31",
+      "bytes": 11017056,
+      "sha256": "45708ba71b2200a78444c29145cc4d1ea7e315b9a9c92e346ad915859d390982",
+      "statement_currency": "TWD",
+      "usd_role": "convenience translation",
+      "inventory_context": {"name": "ifrs-full:Inventories", "context_ref": "PAsOn12_31_2024", "unit_ref": "Unit_TWD", "instant": "2024-12-31", "entity": "0001122411"},
+      "revenue_context": {"name": "ifrs-full:Revenue", "context_ref": "P01_01_2024To12_31_2024", "unit_ref": "Unit_TWD", "start": "2024-01-01", "end": "2024-12-31", "entity": "0001122411"},
+      "disclosure_basis": "Report says statements are published in New Taiwan dollars; auditor describes USD columns as solely for readers outside Taiwan."
+    }
+  ],
+  "result": "For these three FY2024 original filings only, TWD is the reporting denomination for consolidated inventory and full-year revenue; paired USD entries are convenience translations of the same issuer-period, not separate issuer observations.",
+  "qualification_flags": {"FY2024_original_currency_and_period_semantics": true, "all_historical_years_original_semantics": false, "historical_security_identity": false, "first_public_value_clock": false, "historical_PIT": false, "model_input": false},
+  "limits": [
+    "The three raw HTML files and hashes are in /tmp/soxx_original_filing_probe_20261022; this note records source leads, not a canonical archived financial dataset.",
+    "The EDGAR acceptance clock proves this filing existed then; it does not prove these values were first public then or reconstruct earlier filing vintages.",
+    "The FY2024 source rule cannot be extrapolated to 2017-2023 or used to change the prior 198 ambiguous issuer-months without original-year checks.",
+    "No SOXX/SOXL prices, labels, factors, fits, accounts, or returns were read. The previous source qualification and scientific status are unchanged."
+  ],
+  "next_minimum_work": "Check the exact original current/prior annual accessions across 2017-2023 for the same context, unit and period rule; separately resolve historical security-to-CIK continuity, NVDA FY2019/FY2022/FY2023 gaps, and first-public/version timing before freezing one information experiment."
+}

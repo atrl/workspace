@@ -4,11 +4,12 @@
   "active": [
     {
       "card": "research/inventory_sales_source_qualification_20261021",
-      "phase": "original_filing_reconstruction_next",
+      "phase": "FY2024_original_semantics_verified_historical_source_work_next",
       "role": "inventory_demand_mechanism_source_reconstruction",
       "full_economic_experiment": false,
       "status": "source_qualification_complete_next_design_pending",
-      "source_gap_report": "research/inventory_sales_source_qualification_20261021/gap_triage.json"
+      "source_gap_report": "research/inventory_sales_source_qualification_20261021/gap_triage.json",
+      "source_probe": "research/inventory_sales_source_qualification_20261021/original_filing_reconstruction_20261022.json"
     }
   ],
   "framework": [

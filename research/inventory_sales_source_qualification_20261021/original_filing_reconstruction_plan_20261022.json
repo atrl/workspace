@@ -1,0 +1,18 @@
+{
+  "status": "frozen_source_only_probe",
+  "purpose": "Resolve one representative FY2024 TWD/USD duplication for each of TSM, UMC, and ASX from its original SEC 20-F, without selecting a factor or using returns.",
+  "source_identity": "SEC original primary 20-F HTML in the accession indexed by EDGAR",
+  "accessions": [
+    {"ticker": "TSM", "cik": 1046179, "accession": "0001193125-25-083423", "document": "d896993d20f.htm", "period_end": "2024-12-31"},
+    {"ticker": "UMC", "cik": 1033767, "accession": "0001193125-25-092142", "document": "d846836d20f.htm", "period_end": "2024-12-31"},
+    {"ticker": "ASX", "cik": 1122411, "accession": "0001193125-25-064603", "document": "d889608d20f.htm", "period_end": "2024-12-31"}
+  ],
+  "budget": {"original_primary_documents": 3, "model_fits": 0, "accounts": 0, "market_label_reads": 0},
+  "checks": [
+    "Bind exact downloaded bytes to accession, size, and SHA-256.",
+    "Inspect the original statement denomination and any convenience translation note for FY2024.",
+    "Inspect annual revenue duration and inventory instant/context only as a source-semantic lead; do not infer historic PIT qualification from a web download.",
+    "Keep historical issuer-security identity and first-public version status unknown unless the same original filing expressly resolves it."
+  ],
+  "decision_rule": "Mark only the source semantics demonstrated by these three original filings; do not generalize FY2024 to other years, alter the previous source qualification, calculate factor values, or choose units by market outcomes."
+}
