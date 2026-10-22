@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Can XSD, the modified equal-weight semiconductor ETF, and SOXX provide complete paired actual daily price and cash-action histories for a distinct semiconductor leadership breadth coordinate based on the frozen Stage1 signal clock?",
+  "hypothesis_scope": "Potential predecision XSD-minus-SOXX return leadership; no feature sign, lookback, model, account or scientific pass is authorized by this source-only card.",
+  "index_basis": {
+    "XSD_official": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-semiconductor-etf-xsd",
+    "index_official": "https://www.spglobal.com/spdji/en/indices/equity/sp-semiconductors-select-industry-index/",
+    "XSD_inception": "2006-01-31",
+    "index_weighting": "modified equal weighted"
+  },
+  "source_precedent": "src/data/market_update.py Yahoo v8 chart; query2 only, historical dates end before current response frontier.",
+  "exact_requests": [
+    {
+      "symbol": "XSD",
+      "url": "https://query2.finance.yahoo.com/v8/finance/chart/XSD?period1=1262304000&period2=1791590400&interval=1d&events=div%2Csplits&includeAdjustedClose=true"
+    },
+    {
+      "symbol": "SOXX",
+      "url": "https://query2.finance.yahoo.com/v8/finance/chart/SOXX?period1=1262304000&period2=1791590400&interval=1d&events=div%2Csplits&includeAdjustedClose=true"
+    }
+  ],
+  "request": {
+    "method": "GET",
+    "user_agent": "Mozilla/5.0 soxl-qlib-data-refresh",
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 15000000,
+    "seconds_between_requests": 1,
+    "max_GETs": 2,
+    "retries": 0
+  },
+  "identity_gate": "Require exact symbol, HTTP200, >3000 timestamp/close rows, unique New York dates, positive prices before 2011-01-03 and through after 2026-10-07. Keep adjusted close, dividend and split events. Do not derive a model feature from this phase.",
+  "conditional_second_request": "Only request SOXX if XSD transport, identity and span pass.",
+  "backup": "Archive exact bytes, headers, UTC clocks, SHA and receipts to NAS; verify remote hash and scoped restore.",
+  "budget": {
+    "external_GETs_max": 2,
+    "SOXX_future_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any request, identity, coverage or NAS failure stops the source version. Future feature requires separate frozen price-basis/action/clock qualification and native Qlib mapping."
+}

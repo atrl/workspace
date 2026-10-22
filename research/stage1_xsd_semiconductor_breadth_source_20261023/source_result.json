@@ -1,0 +1,47 @@
+{
+  "status": "XSD_SOXX_current_chart_raw_full_span_source_received_PIT_pending",
+  "failure": null,
+  "GET_attempts": 2,
+  "checks": [
+    {
+      "symbol": "XSD",
+      "status": "identity_and_full_span_passed",
+      "raw_sha256": "f6df2827bd64fb46a198863edcbb134f901fc3e595e4a8d2b8618e5c5fd11f5c",
+      "raw_bytes": 453863,
+      "exchange_timezone": "America/New_York",
+      "timestamp_rows": 4218,
+      "positive_close_rows": 4218,
+      "first_positive_date": "2010-01-04",
+      "last_positive_date": "2026-10-09",
+      "adjusted_close_rows": 4218,
+      "event_categories": {
+        "dividends": 67,
+        "splits": 1
+      },
+      "duplicate_dates": 0
+    },
+    {
+      "symbol": "SOXX",
+      "status": "identity_and_full_span_passed",
+      "raw_sha256": "3439ce09ac74780dd6713f278176b92440d0953b8d126c8de3e3c546e9a64b29",
+      "raw_bytes": 467650,
+      "exchange_timezone": "America/New_York",
+      "timestamp_rows": 4218,
+      "positive_close_rows": 4218,
+      "first_positive_date": "2010-01-04",
+      "last_positive_date": "2026-10-09",
+      "adjusted_close_rows": 4218,
+      "event_categories": {
+        "dividends": 65,
+        "splits": 1
+      },
+      "duplicate_dates": 0
+    }
+  ],
+  "NAS_archive_sha256": "fbcf034d8a1b0b17a32ec2f6ac290e4c0a2605a4efc83371bb0941e308a2c52c",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_corporate_action_vintage_qualified": false
+}

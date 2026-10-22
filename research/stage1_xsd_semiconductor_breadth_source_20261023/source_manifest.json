@@ -1,0 +1,26 @@
+{
+  "plan_sha256": "06dc135991c35e282edebe9287f0762f61770aba69d2faa2c4836dc0fcf73a22",
+  "files": [
+    {
+      "name": "SOXX.headers",
+      "sha256": "2c3feb00e568a50b392a6455c3b99901e88cf287872fc1eed9d123b9bd6689d1",
+      "bytes": 598
+    },
+    {
+      "name": "SOXX.json",
+      "sha256": "3439ce09ac74780dd6713f278176b92440d0953b8d126c8de3e3c546e9a64b29",
+      "bytes": 467650
+    },
+    {
+      "name": "XSD.headers",
+      "sha256": "92750bd4319fe336ce5edba3c7c49b2c2111041a18f36dc29e108d32341f8fa7",
+      "bytes": 598
+    },
+    {
+      "name": "XSD.json",
+      "sha256": "f6df2827bd64fb46a198863edcbb134f901fc3e595e4a8d2b8618e5c5fd11f5c",
+      "bytes": 453863
+    }
+  ],
+  "capture_receipts_sha256": "04ad1adc74b9e7529cf41d4738e5cc89a2fd085920bf3eeb8f6828138e397fc1"
+}

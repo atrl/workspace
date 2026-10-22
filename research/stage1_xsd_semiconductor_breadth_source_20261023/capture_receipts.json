@@ -1,0 +1,30 @@
+[
+  {
+    "symbol": "XSD",
+    "url": "https://query2.finance.yahoo.com/v8/finance/chart/XSD?period1=1262304000&period2=1791590400&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+    "requested_at_utc": "2026-10-22T20:04:27.518181+00:00",
+    "received_at_utc": "2026-10-22T20:04:28.945114+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://query2.finance.yahoo.com/v8/finance/chart/XSD?period1=1262304000&period2=1791590400&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+    "stderr": "",
+    "raw_sha256": "f6df2827bd64fb46a198863edcbb134f901fc3e595e4a8d2b8618e5c5fd11f5c",
+    "raw_bytes": 453863,
+    "headers_sha256": "92750bd4319fe336ce5edba3c7c49b2c2111041a18f36dc29e108d32341f8fa7",
+    "headers_bytes": 598
+  },
+  {
+    "symbol": "SOXX",
+    "url": "https://query2.finance.yahoo.com/v8/finance/chart/SOXX?period1=1262304000&period2=1791590400&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+    "requested_at_utc": "2026-10-22T20:04:29.981365+00:00",
+    "received_at_utc": "2026-10-22T20:04:31.704240+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://query2.finance.yahoo.com/v8/finance/chart/SOXX?period1=1262304000&period2=1791590400&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+    "stderr": "",
+    "raw_sha256": "3439ce09ac74780dd6713f278176b92440d0953b8d126c8de3e3c546e9a64b29",
+    "raw_bytes": 467650,
+    "headers_sha256": "2c3feb00e568a50b392a6455c3b99901e88cf287872fc1eed9d123b9bd6689d1",
+    "headers_bytes": 598
+  }
+]

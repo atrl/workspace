@@ -35,7 +35,9 @@
     "Stage1_SOXL_target_relative_rank_observation": "Frozen 09:46 risk-projected SOXL target weight has H1/H5 SOXL-minus-SOXX rank correlations -0.0136/-0.0449 on 944/940 matched original-price-plane rows; H5 63-session block 95pct interval [-0.2136,0.0819]. The exact worst126 account trade-date window has rank -0.1817. Positive SOXL relative accounting contribution is not proven prediction skill; this is not a native account counterfactual.",
     "component_observation": "Fixed Stage1 0bp composition account: full SOXX relative log +0.074601, descriptive cash opportunity -0.094597, SOXL relative exposure +0.161045, direct fees -0.006696, explicit residual +0.014850; worst 126-day 2025-04-07..10-07 cash term -0.198946 and SOXL relative +0.054906, 2026Q3 cash and SOXL relative terms both negative. Physical daily return and log component closure verified; no causal switch or promotion.",
     "Stage1_credit_pair_H5_information_result": "research/stage1_credit_pair_h5_information_20261023/summary.json",
-    "Stage1_credit_pair_H5_interpretation": "Fixed Stage1 39 plus HYG-LQD 20-session credit total-return coordinate: two Ridge fits and one corrected paired bootstrap on 3014/940 mature rows. Candidate MSE 0.002550556 vs baseline 0.002526267, both halves negative, added coefficient negative, lower negative; all four information gates failed, zero accounts. Retrospective Yahoo dividend first-public vintage remains unqualified. Close this version; no sign/window/ETF rescue."
+    "Stage1_credit_pair_H5_interpretation": "Fixed Stage1 39 plus HYG-LQD 20-session credit total-return coordinate: two Ridge fits and one corrected paired bootstrap on 3014/940 mature rows. Candidate MSE 0.002550556 vs baseline 0.002526267, both halves negative, added coefficient negative, lower negative; all four information gates failed, zero accounts. Retrospective Yahoo dividend first-public vintage remains unqualified. Close this version; no sign/window/ETF rescue.",
+    "XSD_modified_equal_weight_semiconductor_source": "research/stage1_xsd_semiconductor_breadth_source_20261023/summary.json",
+    "XSD_source_status": "XSD_SOXX_4218_matched_raw_daily_dates_2010_2026_corporate_actions_retrospective_NAS_restored_0_fits_accounts_next_PIT_Qlib_and_redundancy"
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -283,7 +285,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T20:02:21+00:00",
+  "updated_at_utc": "2026-10-22T20:04:55.257926+00:00",
   "execution_totals": {
     "new_model_fits": 70,
     "new_native_accounts": 49,
