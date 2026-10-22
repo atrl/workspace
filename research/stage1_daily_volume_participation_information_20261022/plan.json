@@ -31,9 +31,24 @@
     "role": "Information screen only, not a fee-net strategy result or economic SOXX gate."
   },
   "cohorts": {
-    "train_signal": ["2011-01-03", "2022-12-30"],
-    "held_reused_diagnostic": ["2023-01-03", "2026-10-07"],
-    "held_halves": [["2023-01-03", "2024-12-31"], ["2025-01-02", "2026-10-07"]],
+    "train_signal": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused_diagnostic": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-07"
+      ]
+    ],
     "minimum_mature_train_rows": 2900,
     "minimum_mature_held_rows": 900,
     "full_calendar_no_survivor_compaction": true,
@@ -50,10 +65,33 @@
     "paired_metric": "On identical held signals, squared-error improvement=baseline squared error minus candidate squared error for five-open log SOXX return.",
     "full_held_mean_positive": true,
     "both_held_halves_mean_positive": true,
-    "paired_stationary_bootstrap": {"mean_block_sessions": 63, "draws": 10000, "seed": 20261022, "one_sided_alpha": 0.0015625, "lower_positive": true},
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261022,
+      "one_sided_alpha": 0.0015625,
+      "lower_positive": true
+    },
     "no_gate_rescue": true
   },
-  "budget": {"verified_source_object_loads_max": 4, "new_writable_qlib_recorders_max": 1, "DatasetH_builds_max": 1, "model_fits_max": 2, "bootstrap_runs_max": 1, "native_accounts": 0, "new_market_requests": 0},
+  "budget": {
+    "verified_source_object_loads_max": 8,
+    "new_writable_qlib_recorders_max": 1,
+    "DatasetH_builds_max": 1,
+    "model_fits_max": 2,
+    "bootstrap_runs_max": 1,
+    "native_accounts": 0,
+    "new_market_requests": 0
+  },
   "stop": "Stop before fit if source hashes, 3020 training-feature coverage, 944 signal feature calendar, label maturity or Qlib Dataset cohort differ. If any information gate fails, close this fixed feature version without changing sign, volume normalization, trend threshold, horizon, Ridge alpha, cohorts or costs. A pass permits only a separately frozen original-Stage1 receiver and independent 0bp native account, then contract v2 2/5bp and qualified forward gates.",
-  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": ["inputs/*", "models/*", "predictions/*", "analysis/daily/*"]}
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/daily/*"
+    ]
+  }
 }

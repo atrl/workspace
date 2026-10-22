@@ -1,0 +1,14 @@
+{
+  "status": "prefit_operational_budget_revision_only",
+  "previous_plan_sha256": "517cd966587163a36adf944d2854599126b4847b50b62d41a02d886a1c0514cd",
+  "current_plan_sha256": "06701056bbefed66c2bb74981e6e7d513251df95c7840502df3f822e02500f8c",
+  "changed_field": "budget.verified_source_object_loads_max",
+  "previous_value": 4,
+  "current_value": 8,
+  "reason": "Four source objects were read during completed no-fit preflight; the first fit run must read the same four frozen Recorder objects into one live Qlib DatasetH. No feature, label, cohort, model, gate or fit budget changed.",
+  "model_fits_before_revision": 0,
+  "economic_accounts_before_revision": 0,
+  "held_scores_seen_before_revision": false,
+  "prior_preflight_result": "preflight_result.json",
+  "previous_prefit_commit": "bc55f31b"
+}
