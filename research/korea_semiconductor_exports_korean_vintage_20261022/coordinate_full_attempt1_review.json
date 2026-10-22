@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "coordinate_full_attempt1_incomplete_75_of_93_months",
+  "full_source_plan_sha256": "470f7ad4e91a4a26ba9dec438252ab48c2c211e5afa9a6cda4fbda2df18cebe2",
+  "attempt1_module_sha256": "7ae586239a420004a2ad177ea3999bf46662259293d9fc5266834c7d6a25e4a9",
+  "attempt1_result_archive_path": "data/snapshots/korea_semiconductor_exports_korean_vintage_20261022/coordinate_attempt1_result.json",
+  "attempt1_result_sha256": "6f84e42de78f66bcb797c4a62eea443e8948b43ec01ffbed3e19088ed89ce721",
+  "attempt1_result_bytes": 89625,
+  "PDF_versions_read": 96,
+  "consistent_months": 75,
+  "unresolved_months": 18,
+  "version_status_counts": {
+    "no_qualified_table_pair": 4,
+    "unique_current_document_table_pair": 78,
+    "conflicting_qualified_table_pairs": 14
+  },
+  "source_only_failure_attribution": [
+    "Four versions yielded no qualified pair under the fixed geometry templates.",
+    "Fourteen versions admitted contradictory table pairs; examples show monthly values mixed with cumulative, half-year, quarterly or year-to-date tables.",
+    "Rank-row parser took a rightmost cumulative column on a June appendix despite an earlier matching monthly header.",
+    "No SOXX outcome/model/account was read; these are source-semantic parser failures, not factor results."
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "decision": "One final mechanical source-semantic repair: select the amount under the exact current-month header in rank rows, and exclude column tables with preceding cumulative/quarter/half-year captions. Re-run sample controls before 96 PDFs. If still incomplete, close this fixed selector and preserve all unresolved months."
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "second_and_final_source_semantic_parser_repair_frozen",
+  "full_source_plan_sha256": "470f7ad4e91a4a26ba9dec438252ab48c2c211e5afa9a6cda4fbda2df18cebe2",
+  "attempt1_review_sha256": "f4673830edec4a1b78f5953d332080a1c4cbf19011aeb12211612d5f28452107",
+  "old_module_sha256": "7ae586239a420004a2ad177ea3999bf46662259293d9fc5266834c7d6a25e4a9",
+  "new_module_sha256": "8e22829f42fa57b90e0c2e07e9184762e7af7fa1fd6b3bea69593351c377f51b",
+  "changes": [
+    "rank-row current amount is the amount nearest the exact target-month header, not the rightmost amount when a cumulative appendix column follows",
+    "exclude column tables whose nearest preceding product-table caption explicitly says cumulative, half-year, quarter, annual, or a 1-to-month range"
+  ],
+  "additional_budget": {
+    "sample_PDF_version_reads": 12,
+    "full_PDF_version_reads_if_controls_pass": 96,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop_after_this_repair_if_incomplete": true,
+  "preserve_attempt1_result_sha256": "6f84e42de78f66bcb797c4a62eea443e8948b43ec01ffbed3e19088ed89ce721"
+}
