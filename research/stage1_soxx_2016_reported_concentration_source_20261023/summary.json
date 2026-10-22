@@ -1,6 +1,6 @@
 {
   "experiment": "stage1_soxx_2016_reported_concentration_source_20261023",
-  "decision": "four_first_original_2016_SOXX_reported_equity_values_closed_later_amendment_pending",
+  "decision": "four_2016_first_values_closed_later_Sep_amendment_equity_rows_unchanged",
   "objective_achieved": false,
   "plan": "plan.json",
   "GETs": 0,
@@ -17,8 +17,8 @@
   "identity_result": "identity_result.json",
   "numeric_plan": "numeric_2016_first_version_plan.json",
   "numeric_result": "numeric_2016_first_version_result.json",
-  "filing_body_GETs": 4,
-  "amendment_body_GETs": 0,
+  "filing_body_GETs": 5,
+  "amendment_body_GETs": 1,
   "first_version_schedule_identities_qualified": 4,
   "first_version_reports_with_numeric_closure": 4,
   "source_NAS_archive_sha256": "f43dc335e8e3cb90911997d9e22192f2070585db370715a56bf920855d645d05",
@@ -27,7 +27,16 @@
     0.39538006008916443,
     0.40279241315351033
   ],
-  "September_2016_later_amendment_semantics_qualified": false,
+  "September_2016_later_amendment_semantics_qualified": true,
   "full_2017_2022_training_coverage": false,
-  "held_2023_2026_coverage": false
+  "held_2023_2026_coverage": false,
+  "amendment_plan": "2016_Sep_amendment_plan.json",
+  "amendment_transport_result": "amendment_transport_result.json",
+  "amendment_semantics_plan": "2016_Sep_amendment_semantics_plan.json",
+  "initial_amendment_semantics_result": "2016_Sep_amendment_semantics_result.json",
+  "amendment_TOC_repair_plan": "2016_Sep_amendment_TOC_repair_plan.json",
+  "amendment_semantics_result": "2016_Sep_amendment_TOC_repair_result.json",
+  "amendment_NAS_archive_sha256": "9aeaa24d20f984cc589f87b7972a7149f3b5797433ed071d3eebfa44af8deeee",
+  "amendment_NAS_scoped_restore_verified": true,
+  "September_2016_amendment_exact_equity_rows_unchanged": true
 }
