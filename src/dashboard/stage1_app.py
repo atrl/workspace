@@ -7,6 +7,7 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import HTMLResponse
 
 from .stage1 import build_stage1_dashboard_payload, resolve_stage1_dashboard_source
+from .stage1_mobile import build_stage1_mobile_summary
 
 
 APP_HTML = Path(__file__).with_name("stage1.html").read_text(encoding="utf-8")
@@ -32,6 +33,10 @@ def create_stage1_app(root: Path | str | None = None) -> FastAPI:
             return build_stage1_dashboard_payload(root=source.root, start=start)
         except ValueError as exc:
             raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    @app.get("/api/stage1/mobile-summary")
+    def mobile_summary() -> dict:
+        return build_stage1_mobile_summary(source.root)
 
     return app
 

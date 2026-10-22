@@ -1170,6 +1170,7 @@ def build_stage1_bark_message(
     result: dict[str, Any],
     *,
     now: datetime | None = None,
+    mobile_summary: dict[str, Any] | None = None,
 ) -> dict[str, str]:
     observed = now or datetime.now().astimezone()
     if observed.tzinfo is None:
@@ -1222,6 +1223,24 @@ def build_stage1_bark_message(
         lines.append(
             f"模拟周期 {result['cycle_id']} / {result.get('cycle_status', 'unknown')}"
         )
+
+    if mobile_summary and mobile_summary.get("status") == "ready":
+        lines.append(f"账本截至 {mobile_summary.get('as_of') or '未知'}")
+        lines.append(
+            f"模拟净值 ${_format_money(mobile_summary['equity'])} / "
+            f"回撤 {float(mobile_summary['drawdown_pct']):.2f}%"
+        )
+        performance = mobile_summary.get("performance")
+        if performance:
+            returns = performance["returns_pct"]
+            lines.append(
+                f"同窗 {performance['start']}~{performance['end']} "
+                f"Stage1 {returns['Stage1']:+.2f}% / SOXX {returns['SOXX']:+.2f}% / SOXL {returns['SOXL']:+.2f}%"
+            )
+            lines.append(f"相对 SOXX {performance['difference_vs_soxx_pp']:+.2f}pp（诊断值）")
+        fills = mobile_summary.get("recent_fills") or []
+        for fill in fills[-2:]:
+            lines.append(f"最近成交 {fill['time']} 纽约 {fill['side']} {fill['quantity']} {fill['symbol']}")
 
     lines.extend(
         [
@@ -1304,7 +1323,11 @@ def deliver_stage1_bark(
     active_notifier = notifier or BarkNotifier(
         BarkPushConfig.from_env(dry_run=dry_run)
     )
-    message = build_stage1_bark_message(result, now=now)
+    from src.dashboard.stage1_mobile import build_stage1_mobile_summary
+
+    message = build_stage1_bark_message(
+        result, now=now, mobile_summary=build_stage1_mobile_summary(_resolve_root(None))
+    )
     return active_notifier.send_message(**message)
 
 
