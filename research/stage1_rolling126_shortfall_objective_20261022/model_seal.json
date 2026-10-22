@@ -1,0 +1,18 @@
+{
+  "status": "three_models_and_predictions_sealed",
+  "plan_sha256": "4274a0d201dac15971b5728cb32e2b2b58452cc6ed3a44079c9071b6dcfdaf4d",
+  "recorder_id": "49470beec9154d6c925d21049ea6e8e7",
+  "artifact_sha256": {
+    "models": {
+      "B_rolling126_71": "f9acd3511d55fb9cad5ef3bcf3ad279f4ab1fd8e26bfe50ce0fed2344037d805",
+      "B_rolling126_172": "1da552a3061a681351d16926e6e0c7ad405f4e46810854c9a2655feb6f99f59a",
+      "B_rolling126_273": "f70e97e211f41a3a4743952af7169b5c9eccf1ea75bc51063c393603b533f752"
+    },
+    "predictions": {
+      "B_rolling126_71": "42f5a33bc2a1a72eef5d0cb2d060fa90b4ea1e453ee2924aca7c63a7e6cfa07d",
+      "B_rolling126_172": "ddf94092832f8a7331a99d51730f7c58176118198969e27036f9c52f0c102e11",
+      "B_rolling126_273": "be0b55806c8e0380713052f230cff28ef708f258102b53a7ec56508373bfa27b"
+    }
+  },
+  "new_native_accounts": 0
+}

@@ -1,0 +1,36 @@
+{
+  "as_of": "2026-10-09",
+  "audit_snapshot_hash": "6ccb6476e29cb27d",
+  "calendar_end": "2026-10-09 10:32:00",
+  "calendar_start": "2023-01-04 09:45:00",
+  "feature_file_count": 12,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$execution_price",
+    "$raw_execution_price"
+  ],
+  "freq": "1min",
+  "hash": "fb9340347b32932c",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "market": "all",
+  "max_datetime": "2026-10-09 10:32:00",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_rolling126_shortfall_objective_20261022",
+  "region": "us",
+  "row_count": 7558,
+  "source": "Exact hash-verified raw Recorder quotes; following guard is not used for policy or NAV",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

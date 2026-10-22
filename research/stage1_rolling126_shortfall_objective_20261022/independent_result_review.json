@@ -1,0 +1,31 @@
+{
+  "verdict": "CONFIRM_NOT_PROMOTED",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "plan_sha256": "4274a0d201dac15971b5728cb32e2b2b58452cc6ed3a44079c9071b6dcfdaf4d",
+  "recorder_id": "49470beec9154d6c925d21049ea6e8e7",
+  "native_qlib_recorder_status": "FINISHED",
+  "native_audit": "passed",
+  "funded_sessions": 944,
+  "annual_rows": 4,
+  "quarter_rows": 16,
+  "rolling_windows": 819,
+  "positive_rolling_windows": 225,
+  "relative_wealth_SOXX": 0.6804529577869605,
+  "relative_wealth_Stage1": 0.9919046253206221,
+  "bootstrap_lower": -0.0011450876844453593,
+  "failed_0bp_gates": [
+    "SOXX_terminal_net_wealth",
+    "complete_years_70pct",
+    "rolling_126_70pct",
+    "SOXX_paired_lower_positive",
+    "full_minute_risk_qualified",
+    "independent_forward_qualified"
+  ],
+  "verified_local_manifest_entries": 28,
+  "nas_archive_sha256": "5656ef66324d852e65efe570a84b5f782ea58c262eead7fd1d514712aab5d5f2",
+  "nas_archive_bytes": 1436051,
+  "remote_readback_verified": true,
+  "new_fits_in_review": 0,
+  "new_accounts_in_review": 0,
+  "conclusion": "The fixed Stage1 rolling126 objective fails SOXX wealth, complete-year, rolling-window and paired-lower-bound hard gates; close this version."
+}

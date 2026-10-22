@@ -1,0 +1,22 @@
+{
+  "status": "not_promoted_fixed_Stage1_rolling126_objective_0bp",
+  "plan_sha256": "4274a0d201dac15971b5728cb32e2b2b58452cc6ed3a44079c9071b6dcfdaf4d",
+  "recorder_id": "49470beec9154d6c925d21049ea6e8e7",
+  "SOXX_relative_wealth": 0.6804529577869605,
+  "Stage1_relative_wealth": 0.9919046253206221,
+  "rolling_positive_fraction": 0.27472527472527475,
+  "SOXX_bootstrap_lower": -0.0011450876844453593,
+  "gates": {
+    "SOXX_terminal_net_wealth": false,
+    "available_drawdown_30pct": true,
+    "CVaR5_no_worse_SOXX": true,
+    "complete_years_70pct": false,
+    "rolling_126_70pct": false,
+    "SOXX_paired_lower_positive": false,
+    "full_minute_risk_qualified": false,
+    "independent_forward_qualified": false
+  },
+  "new_model_fits": 3,
+  "new_native_accounts": 1,
+  "independent_forward_qualified_days": 0
+}

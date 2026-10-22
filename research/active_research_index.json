@@ -59,6 +59,16 @@
   ],
   "closed_fixed_versions": [
     {
+      "card": "research/stage1_rolling126_shortfall_objective_20261022",
+      "status": "not_promoted_fixed_Stage1_rolling126_objective_0bp",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_rolling126_shortfall_objective_20261022/independent_result_review.json",
+      "regime_attribution": "research/stage1_rolling126_shortfall_objective_20261022/regime_attribution.json",
+      "recorder_id": "49470beec9154d6c925d21049ea6e8e7",
+      "nas_archive_sha256": "5656ef66324d852e65efe570a84b5f782ea58c262eead7fd1d514712aab5d5f2"
+    },
+    {
       "card": "research/stage1_daily_volume_participation_information_20261022",
       "status": "not_promoted_fixed_information_gate_failed",
       "default_search": false,
