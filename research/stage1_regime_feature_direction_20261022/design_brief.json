@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "design_only_no_fit_or_account",
+  "execution_authorized": false,
+  "parent": "Frozen Stage1 f696f656 allocator and b472a458 action/risk/recovery chain; same Qlib source, clocks and funded accounting for every matched comparison.",
+  "first_task": "Read the existing Stage1 0bp native Recorder and SOXX comparator once for complete year, quarter, all contiguous 126-session windows and predefined decision-time regimes. Attribute weak and strong intervals through prediction, raw/smoothed target, risk projection, action, filled holdings, cash opportunity cost, SOXL-relative selection, fees and NAV. Do not fit, replay or select the worst interval as a trading rule.",
+  "first_task_evidence": [
+    "research/stage1_domain_heads_20261018/conclusion.md",
+    "research/three_asset_failure_attribution_20261015/conclusion.md",
+    "research/regime_failure_sop_20261014/conclusion.md"
+  ],
+  "existing_regime_observation": "The prior 2/5bp diagnostic located post-decline cash drag and distinct SOXL-selection loss in different weak quarters. It does not establish the same magnitudes at 0bp or a causal benefit from changing exposure.",
+  "candidate_hypothesis": "Previously published reported-basket 20-session new-low diffusion together with concentration of negative constituent contribution among the five largest contributors may distinguish broad ongoing semiconductor weakness from a narrow or repairing selloff beyond Stage1 ETF-level inputs. Test incremental information at the Stage1 allocation receiver before any full account.",
+  "novelty_boundary": "The closed four-feature breadth route tested rising share, equal-minus-reported-weight return, cross-sectional dispersion and 60-session mean absolute correlation. The closed post-decline repair test used time since ETF low and broad technology-ETF breadth change. The proposed new-low/concentration pair has only descriptive and source-stability evidence; changing the old features' sign or window is not a new mechanism.",
+  "source_evidence": {
+    "reported_basket_and_2023Q4_decomposition": "research/breadth_change_semantics_20261014/conclusion.md",
+    "2026Q3_extension": "research/constituent_q3_extension_20261014/conclusion.md",
+    "descriptor_stability": "research/constituent_descriptor_stability_20261014/conclusion.md",
+    "old_breadth_negative": "research/semiconductor_breadth_20261005/conclusion.md",
+    "historical_first_receipt_certified": false,
+    "coverage_note": "The new Q3 reported-basket source covers 64/64 quarter sessions through 2026-09-30, while the older breadth source ends 2026-07-02. Preserve their distinct price planes and source identities; qualify any combined Stage1 input before fitting. Reported N-PORT holdings are a delayed basket proxy, not official daily SOXX constituents."
+  },
+  "nas_scope": "Stage1 domain-head Recorder passed a 94-object cold restore and hash readback. Regime and Q3-source cards record NAS archive SHA-256/size receipts, with their own scoped validations. On 2026-10-22 11:54 UTC, read-only NAS sha256sum matched all three named archive digests. This is evidence for those artifacts only; a complete workspace NAS-backup audit has not been performed. Missing archive or restoration proof must be reported per input.",
+  "nas_live_verified_archive_sha256": [
+    "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "9394055ee8ed85a4db2ef4f232832a0591d5f2f27ede937423127811e456b494",
+    "ec1416cd95ee3ede9e2bd899fbfc7cbf3b28a1160f6e56cd03d73068696e060e"
+  ],
+  "before_execution": [
+    "Confirm the 0bp Stage1 interval attribution and data identities without new accounts.",
+    "Check feature availability before each decision, historical revisions, missingness, exact formula and redundancy with frozen Stage1 inputs and closed routes.",
+    "Freeze one matched Stage1 information experiment: receiver, control, labels and maturity, training/development split, seeds, fit budget, information gate and stopping rule. Do not pick thresholds or features using the 2023Q4/2026Q3 outcomes.",
+    "Only a passing incremental-information result may justify a separately frozen 0bp Stage1-derived native account; include all intervals and SOXX gates. A 0bp pass is not promotion without 2/5bp and independent forward evidence."
+  ],
+  "current_evidence": {
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "feature_information_gate_passed": false,
+    "SOXX_goal_achieved": false
+  }
+}

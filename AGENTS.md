@@ -12,6 +12,41 @@ other comparisons support attribution and remain diagnostic. Frozen historical
 cards keep their original gates. The active campaign entry is
 `research/three_asset_campaign.json`.
 
+## Current research baseline and failure-to-feature loop
+
+- Start new economic mechanisms from the frozen, complete Stage1 allocation,
+  action, risk, and recovery chain. Reuse its matching Qlib source and native
+  account as the attribution baseline; keep SOXX as the final benchmark. Do not
+  silently switch the parent to a different allocator or a strong reference.
+- Screen a Stage1-derived candidate at 0bp added slippage first, with frozen
+  IBKR Tiered fees still charged and its own full funded account. Report SOXX
+  wealth, available-mark drawdown, CVaR5, complete years, all contiguous 126-day
+  windows, and the frozen uncertainty test. A 0bp pass only advances research;
+  contract v2 still requires separate 2/5bp paths and qualified forward evidence.
+- Diagnose the entire matched Stage1-versus-SOXX history before freezing a
+  feature experiment: retain every complete year, quarter, 126-day window,
+  and both partial endpoint years. Identify weak intervals and decision-time
+  regimes, then trace prediction -> target -> risk projection -> action ->
+  holdings -> fees/NAV.
+  Separate cash opportunity cost, SOXL-relative selection, execution cost, and
+  risk-state feedback. Compare bad intervals with good intervals and matched
+  controls; do not choose a tradable switch or threshold from hindsight groups.
+- Convert a repeatable failure mechanism into one falsifiable feature hypothesis.
+  Check what Stage1 already receives and what closed experiments already tested;
+  verify source identity, first availability, missingness, and label maturity.
+  Freeze the receiver, control, budgets, and information gate before fitting.
+  Judge any accepted feature on the complete native account and all regimes,
+  including intervals outside the motivating failure. A failed fixed version
+  stays closed. The detailed loop is `docs/research_failure_to_feature_sop.md`.
+- Use Yanxuan NAS as the durable backup for each campaign market snapshot,
+  received original-source bytes, and large Qlib Recorder evidence. For the
+  `us_semis_intraday` feed it is also the current source authority, as declared
+  in `data/nas_sources.json`.
+  Before using a source or treating a local cache as disposable, check its
+  manifest, SHA-256, size, NAS receipt, and scoped restore/readback. A per-card
+  archive does not prove every workspace file is backed up. Preserve any local
+  object whose NAS copy or restoration has not been verified; report the gap.
+
 Default new implementation agents to Luna/medium, monitors to Luna/low, and
 scoped reviewers to Sol/high. Use short independent context and request the
 model explicitly. Escalate concrete failures instead of inheriting the owner's
