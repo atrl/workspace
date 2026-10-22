@@ -1,0 +1,184 @@
+{
+  "status": "six_2017_2018_first_original_SOXX_schedule_identities_confirmed_source_only",
+  "plan_sha256": "b0189dec99839940889dbb7d2d059fcb222aaaf246c075508c4a47dd0c3dd674",
+  "checks": [
+    {
+      "report_date": "2017-03-31",
+      "form": "N-CSR",
+      "accession": "0001193125-17-194722",
+      "accepted_at_utc": "2017-06-06T00:54:56.000Z",
+      "raw_sha256": "74bedf35091698029378d3a2b17dfc3efeccaec93f6449475e41bf871b2d31ec",
+      "raw_bytes": 56512330,
+      "inline_hits": [],
+      "TOC_hits": [
+        {
+          "method": "TOC_anchor_after_fund_link",
+          "anchor": "toc364900_10",
+          "fund_link_byte_offset": 32215936,
+          "start": 33205891,
+          "end": 33267922,
+          "section_sha256": "00c2bf270ea7c0ee1106bcda3d482a12c46c60d075ca61e2312d683b282b1733",
+          "accepted": true
+        }
+      ],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "TOC_anchor_after_fund_link",
+      "selected_identity_location": {
+        "method": "TOC_anchor_after_fund_link",
+        "anchor": "toc364900_10",
+        "fund_link_byte_offset": 32215936,
+        "start": 33205891,
+        "end": 33267922,
+        "section_sha256": "00c2bf270ea7c0ee1106bcda3d482a12c46c60d075ca61e2312d683b282b1733",
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2017-06-30",
+      "form": "N-Q",
+      "accession": "0001193125-17-271743",
+      "accepted_at_utc": "2017-08-29T21:48:52.000Z",
+      "raw_sha256": "4ea1f808914fc29873f44cc00e48f8a780a9e0b8d9a812f45b01f8985d2cc8df",
+      "raw_bytes": 34298377,
+      "inline_hits": [
+        {
+          "method": "inline_title",
+          "offset": 17554673,
+          "accepted": true
+        }
+      ],
+      "TOC_hits": [],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "inline_title",
+      "selected_identity_location": {
+        "method": "inline_title",
+        "offset": 17554673,
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2017-09-30",
+      "form": "N-CSRS",
+      "accession": "0001193125-17-359934",
+      "accepted_at_utc": "2017-12-04T23:04:28.000Z",
+      "raw_sha256": "665029b775224b4c1fbe20588a7bc604673e8c32ed28e7cdfd6efa340be86ba6",
+      "raw_bytes": 57508064,
+      "inline_hits": [],
+      "TOC_hits": [
+        {
+          "method": "TOC_anchor_after_fund_link",
+          "anchor": "toc436347_10",
+          "fund_link_byte_offset": 33264531,
+          "start": 34311148,
+          "end": 34389289,
+          "section_sha256": "7a496e98e82f744198fa5bfd2ec239f977bf21c8df83af4b999193c1197bfb58",
+          "accepted": true
+        }
+      ],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "TOC_anchor_after_fund_link",
+      "selected_identity_location": {
+        "method": "TOC_anchor_after_fund_link",
+        "anchor": "toc436347_10",
+        "fund_link_byte_offset": 33264531,
+        "start": 34311148,
+        "end": 34389289,
+        "section_sha256": "7a496e98e82f744198fa5bfd2ec239f977bf21c8df83af4b999193c1197bfb58",
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2017-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-18-063612",
+      "accepted_at_utc": "2018-03-01T01:02:56.000Z",
+      "raw_sha256": "1c545629cee05f16b89d5e0ed2ed75a530f822981f6ecd74d47d067cfa125602",
+      "raw_bytes": 35484173,
+      "inline_hits": [
+        {
+          "method": "inline_title",
+          "offset": 17444109,
+          "accepted": true
+        }
+      ],
+      "TOC_hits": [],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "inline_title",
+      "selected_identity_location": {
+        "method": "inline_title",
+        "offset": 17444109,
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2018-03-31",
+      "form": "N-CSR",
+      "accession": "0001193125-18-186572",
+      "accepted_at_utc": "2018-06-07T22:04:37.000Z",
+      "raw_sha256": "12788a1be7ec39ecd145fff0a654af6ab625368ffcd352dd855d3faa7a54be22",
+      "raw_bytes": 58878919,
+      "inline_hits": [],
+      "TOC_hits": [
+        {
+          "method": "TOC_anchor_after_fund_link",
+          "anchor": "toc574743_10",
+          "fund_link_byte_offset": 34721978,
+          "start": 35857513,
+          "end": 35934353,
+          "section_sha256": "0b23f9d7ae1bd2c3c2595c1c22ddf6c0ad4f110b465d9e3c4b3ec98b0b01d2b9",
+          "accepted": true
+        }
+      ],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "TOC_anchor_after_fund_link",
+      "selected_identity_location": {
+        "method": "TOC_anchor_after_fund_link",
+        "anchor": "toc574743_10",
+        "fund_link_byte_offset": 34721978,
+        "start": 35857513,
+        "end": 35934353,
+        "section_sha256": "0b23f9d7ae1bd2c3c2595c1c22ddf6c0ad4f110b465d9e3c4b3ec98b0b01d2b9",
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2018-06-30",
+      "form": "N-Q",
+      "accession": "0001193125-18-261300",
+      "accepted_at_utc": "2018-08-29T17:48:42.000Z",
+      "raw_sha256": "cd4c6f503b43f04ae8cfbb20ae79ca05aa3787c34b57ba2b4d68367002278ee4",
+      "raw_bytes": 54050357,
+      "inline_hits": [
+        {
+          "method": "inline_title",
+          "offset": 25898872,
+          "accepted": true
+        }
+      ],
+      "TOC_hits": [],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "inline_title",
+      "selected_identity_location": {
+        "method": "inline_title",
+        "offset": 25898872,
+        "accepted": true
+      }
+    }
+  ],
+  "identity_pass_count": 6,
+  "source_NAS_archive_sha256": "c345f9144baf234077b879af84df7f9c96c214570d80f702fb9539713d516e62",
+  "source_NAS_scoped_restore_verified": true,
+  "2018_Sep_reused_result_sha256": "aa6bc271cbebbf4ea62f252793970faedb628696c4145b6004ccce5e5f418b65",
+  "later_amendment_accessions_excluded": [
+    "0001193125-17-257387",
+    "0001193125-18-009766",
+    "0001193125-18-152961",
+    "0001193125-18-152996"
+  ],
+  "new_HTTP_GETs": 0,
+  "security_values_extracted": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "full_2017_2018_numeric_coverage": false
+}

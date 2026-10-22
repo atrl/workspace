@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_2018_Jun_td_whitespace_only_numeric_repair",
+  "original_numeric_plan_sha256": "68d0e83e36ee20d247845a5b56e411a2f6700361a69c61de1318617f126b1f48",
+  "partial_numeric_result_sha256": "77088ebe705d56b1c4d9e04edfce61d5e2b922701bd3801b2501f023a458ffcb",
+  "source_raw_sha256": "cd4c6f503b43f04ae8cfbb20ae79ca05aa3787c34b57ba2b4d68367002278ee4",
+  "source_section_sha256": "3b641c1791772510963dbe3cda4e5153e9861516d0123503873afb47c1679a3f",
+  "source_section_byte_range": [
+    25898872,
+    25963872
+  ],
+  "report_date": "2018-06-30",
+  "accession": "0001193125-18-261300",
+  "diagnosis": "The original 2018 June Common Stocks TD contains an embedded newline, yielding Common\\n Stocks; the fixed parser looked only for contiguous COMMON STOCKS and therefore parsed zero rows.",
+  "mechanical_change": "Collapse internal whitespace of each direct TD/TH text with one join(split()) before applying exactly the prior source row and total rules. Do not alter numbers, names otherwise, row filter, section, report selection or five already-passed reports.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "additional_raw_report_section_reads": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any source hash, row ambiguity, count or printed total mismatch leaves June unqualified; do not reselect a different file or compact survivor periods."
+}
