@@ -1,0 +1,39 @@
+{
+  "status": "quarantine_January_2012_semiconductors_MoM_mixed_definition_risk",
+  "scope": "source_only_transition_adjudication_after_original_row_read_before_any_market_outcome",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "source_row_audit_sha256": "a1f894d0cb7ea73b2f4030cdd11d45b10d7a143215b2573f83e880d96bfbb12a",
+  "source_2012_notice_sha256": "a29c96d09feccf0be3ee399b6d4251d9c9b511fcbde73380c5017e7f74f38184",
+  "original_rows": {
+    "2011-12": {
+      "source_pdf_sha256": "ca8d4508c09b28bc3b13fb879a792d7ef868efcb9d0350535bf02dfcb20408dc",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST FRIDAY, FEBRUARY 10, 2012",
+      "current_month_million_usd": 3438,
+      "prior_month_same_release_million_usd": 3503
+    },
+    "2012-01": {
+      "source_pdf_sha256": "827efe67a3bb680d144ca185845c6d888260f5c85782aa22c842e44c0df7403f",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EST FRIDAY, MARCH 9, 2012",
+      "current_month_million_usd": 3678,
+      "prior_month_same_release_million_usd": 3438
+    },
+    "2012-02": {
+      "source_pdf_sha256": "a29c96d09feccf0be3ee399b6d4251d9c9b511fcbde73380c5017e7f74f38184",
+      "printed_release_header": "FOR IMMEDIATE RELEASE 8:30 A.M. EDT THURSDAY, APRIL 12, 2012",
+      "current_month_million_usd": 3621,
+      "prior_month_same_release_million_usd": 3678
+    }
+  },
+  "official_notice": "February 2012 original report says semiconductor media such as smart cards and flash memory cards were reclassified into semiconductors and related devices effective with January 2012 statistics; June 2012 annual revision would revise goods statistics back to 2009.",
+  "decision": "Exclude January 2012 same-report current/prior MoM from any future factor source because its December 2011 prior may retain the pre-January category definition. Equality of printed 3438 values does not prove restatement.",
+  "post_transition": "February 2012 current 3621 and same-release January prior 3678 are both post-effective months; future source design may use within-report MoM from February onward, subject to full vintage/timing checks.",
+  "reopen_only_with": "Contemporaneous official bridge or January release note explicitly showing December 2011 was recomputed under the post-January definition, or exact category adjustment for December.",
+  "absolute_level_splice_allowed": false,
+  "automatic_carry_across_break_authorized": false,
+  "historical_first_public_bytes_qualified": false,
+  "market_outcome_reads": 0,
+  "factor_rows": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false
+}
