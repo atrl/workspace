@@ -1,0 +1,4 @@
+experiment: census_ft900_index_boundary_20261023
+phase: source_only_index_and_classification_boundary
+plan: plan.json
+artifact_policy: slim_card_recorder_first

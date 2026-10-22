@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "FT900_official_index_coverage_and_2012_end_use_boundary_source_only",
+  "parent_source_card": "research/census_ft900_semiconductor_export_source_20261023",
+  "question": "Can the official FT900 historical index identify all 2011-2022 original monthly PDF URLs, and what exact original-source exceptions or semiconductor classification breaks must be handled before a Stage1 factor?",
+  "already_received_index": {
+    "url": "https://www.census.gov/foreign-trade/Press-Release/ft900_index.html",
+    "temporary_path": "/tmp/ft900_index_20261023.html",
+    "sha256": "f39c62b03894509e1f8fff748071f3b6113f715fe70b06b1f6fb2afd7c192afa",
+    "bytes": 1279391,
+    "role": "current official index snapshot, not a historical first-public receipt"
+  },
+  "exact_new_GETs": [
+    {
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1508.pdf",
+      "role": "2015-08 official-path exception where index August label points to September PDF"
+    },
+    {
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1202.pdf",
+      "role": "original February 2012 report containing Census/BEA end-use reclassification notice"
+    }
+  ],
+  "fixed_checks": [
+    "Count exact indexed PDF URLs for all 144 reference months 2011-01 through 2022-12 and identify mismatched label/href pairs without using price outcomes.",
+    "Verify both exact PDFs by byte SHA-256, size, printed report month/date and Exhibit 7 Semiconductors row presence; keep official-path 2015-08 status separate from indexed status.",
+    "Record the February 2012 notice of semiconductor media reclassification and prohibit splicing 2011 and 2012 absolute levels or today's revised API history as an unchanged point-in-time series.",
+    "Bundle the exact index and two PDFs to Yanxuan NAS and verify remote archive SHA-256."
+  ],
+  "budget": {
+    "new_PDF_GETs": 2,
+    "new_index_GETs": 0,
+    "market_outcome_reads": 0,
+    "factor_values": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "This index and two reports do not certify all 144 source bytes, first-public vintages, cross-2012 comparability, feature quality or SOXX excess. Do not fit a model or account from this audit."
+}

@@ -1,0 +1,79 @@
+{
+  "status": "index_coverage_and_2012_definition_break_verified_source_only",
+  "index_sha256": "f39c62b03894509e1f8fff748071f3b6113f715fe70b06b1f6fb2afd7c192afa",
+  "indexed_month_labels": 144,
+  "correct_label_PDF_links": 143,
+  "wrong_link_label": {
+    "year": 2015,
+    "month": 8,
+    "label": "August 2015",
+    "pdf_url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1509.pdf",
+    "expected_filename": "ft900_1508.pdf",
+    "linked_filename": "ft900_1509.pdf",
+    "link_matches_label": false
+  },
+  "august_2015_official_path_PDF_verified": true,
+  "minor_index_label_issues": [
+    "May  2018 spacing",
+    "Ferbruary 2019 spelling"
+  ],
+  "2012_classification_notice": "Effective with January 2012 statistics; semiconductor media such as smart cards and flash memory cards reassigned to semiconductors and related devices within capital goods.",
+  "raw_PDF_receipts": [
+    {
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1508.pdf",
+      "requested_at_utc": "2026-10-22T16:10:58.541928+00:00",
+      "received_at_utc": "2026-10-22T16:11:04.736216+00:00",
+      "status": 200,
+      "date_header": "Thu, 22 Oct 2026 16:10:59 GMT",
+      "last_modified_header": "Mon, 13 Sep 2021 16:53:27 GMT",
+      "content_type": "application/pdf",
+      "bytes": 1000259,
+      "sha256": "d98b4efa81a59e537e08180b5c73003564e35e9f5493e8ccf823bdfe17605fcd",
+      "pages": 54,
+      "printed_month_found": true,
+      "semiconductors_mentions": 2
+    },
+    {
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1202.pdf",
+      "requested_at_utc": "2026-10-22T16:11:05.818964+00:00",
+      "received_at_utc": "2026-10-22T16:11:08.069655+00:00",
+      "status": 200,
+      "date_header": "Thu, 22 Oct 2026 16:11:06 GMT",
+      "last_modified_header": "Mon, 13 Sep 2021 16:51:46 GMT",
+      "content_type": "application/pdf",
+      "bytes": 395812,
+      "sha256": "a29c96d09feccf0be3ee399b6d4251d9c9b511fcbde73380c5017e7f74f38184",
+      "pages": 50,
+      "printed_month_found": true,
+      "semiconductors_mentions": 3
+    }
+  ],
+  "historical_first_public_bytes_qualified": false,
+  "all_144_source_PDFs_qualified": false,
+  "cross_2012_absolute_level_comparable": false,
+  "model_input_qualified": false,
+  "market_outcome_reads": 0,
+  "factor_values": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false,
+  "nas_archive_sha256": "8568347b32295da05b300665c4771910cbbb9c8cc6861234ba4cf690873bf1a7",
+  "nas_archive_bytes": 1212765,
+  "nas_remote_hash_verified": true,
+  "targeted_readback": [
+    {
+      "file": "ft900_1508.pdf",
+      "printed_issue": "FT-900 (15-08)",
+      "printed_release": "OCTOBER 6, 2015",
+      "Exhibit7_pdf_page": 13,
+      "semiconductors_row_as_printed": "Semiconductors 3,406 3,702 -296"
+    },
+    {
+      "file": "ft900_1202.pdf",
+      "printed_issue": "FT-900 (12-02)",
+      "printed_release": "APRIL 12, 2012",
+      "Exhibit7_pdf_page": 13,
+      "semiconductors_row_as_printed": "Semiconductors 3,621 3,678 -57"
+    }
+  ]
+}

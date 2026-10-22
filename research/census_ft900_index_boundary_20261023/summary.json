@@ -1,0 +1,25 @@
+{
+  "experiment": "census_ft900_index_boundary_20261023",
+  "decision": "source_index_exception_and_2012_definition_break_audited_no_factor",
+  "objective_achieved": false,
+  "result": "result.json",
+  "nas_binding": "nas_binding.json",
+  "index_month_labels": 144,
+  "correct_index_links": 143,
+  "one_official_path_exception_verified": true,
+  "2012_semiconductor_media_reclassification": true,
+  "all_144_source_PDFs_qualified": false,
+  "historical_first_public_bytes_qualified": false,
+  "model_input_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "raw_source_nas_archive_sha256": "8568347b32295da05b300665c4771910cbbb9c8cc6861234ba4cf690873bf1a7"
+  },
+  "readback_verification": "readback_verification.json",
+  "nas_scoped_restore_verified": true
+}
