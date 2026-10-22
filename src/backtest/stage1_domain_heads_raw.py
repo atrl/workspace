@@ -53,14 +53,16 @@ def _validate_grid(frame, point_prices):
 
 def replay_stage1_raw(
     frame, *, point_prices, schedule, plan, controller, recovery_spec,
-    action_spec, selection, slippage_bps,
+    action_spec, selection, slippage_bps, target_transform=None,
 ):
     """Return one raw path accepted by ``native_raw_validate``.
 
     Invoke separately for each arm and cost.  No state or fee counter is shared
-    between invocations, and no composition transform or cross-cost vote is
-    applied.  ``frame`` contains the arm's target weights plus the frozen
-    Stage1 risk and first-hour context; future fill prices are not used by the
+    between invocations.  The optional transform acts only on executed open
+    and recovery targets after the frozen Stage1 decisions; the default
+    applies no composition transform or cross-cost vote. ``frame`` contains
+    the arm's target weights plus the frozen Stage1 risk and first-hour context;
+    future fill prices are not used by the
     opening decision.  Receivables count in NAV/cash-like weight but cannot fund
     purchases before the supplied corporate-action schedule pays them.
     """
@@ -128,6 +130,8 @@ def replay_stage1_raw(
         )
         state, clock = opened["risk_state"], opened["risk_clock"]
         desired = opened["desired_open_weights"] if opened["execute_open_target"] else None
+        if desired is not None and target_transform is not None:
+            desired = target_transform(desired, slot="open", trade_date=day)
         target = np.asarray(desired if desired is not None else pretrade, float)
         targets.append({
             "signal_date": row.signal_date, "trade_date": day,
@@ -149,8 +153,11 @@ def replay_stage1_raw(
         recovery_stamp = day + pd.Timedelta("10h32min")
         recovery_prices = prices.loc[recovery_stamp].to_numpy(float)
         if recovered["recovery_action"]:
+            recovery_target = recovered["target_weights"]
+            if target_transform is not None:
+                recovery_target = target_transform(recovery_target, slot="recovery", trade_date=day)
             q, cash, recovery_orders = settle_raw(
-                q, cash, income.value, desired=recovered["target_weights"],
+                q, cash, income.value, desired=recovery_target,
                 prices=recovery_prices, stamp=recovery_stamp, fees=fees,
             )
             session_orders.extend({**order, "slot": "recovery", "trade_date": day}

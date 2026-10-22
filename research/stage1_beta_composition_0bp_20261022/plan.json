@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_beta_composition_0bp_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "objective": "Test the already fixed nominal-beta SOXL+cash-to-SOXX target mapping on the frozen complete Stage1 chain at 0bp added slippage with Tiered fees; first Stage1 parent-specific economic evaluation, reused history only.",
+  "parent": "Frozen f696f656 Stage1 allocator plus b472a458 action/risk/recovery, own-state original A 0bp native account; SOXX is the final comparator. strong9097 and 27baa remain diagnostic.",
+  "novelty_boundary": "The closed beta_preserving_composition_20261015 used a different tangent allocator and strong_always route; stage1_cash_drag_overlay_20261010 directly recycled cash without nominal-beta conservation on 12 observed slots at 10/25bp. This fixed account changes the parent to original Stage1, with unchanged classifier/risk/fees and no parameter search. It is not independent market validation or a fresh mapping hypothesis.",
+  "mechanism": "After original Stage1 own-ledger open decision, only EXECUTE targets are transformed by delta=min(SOXL,CASH/2), new=(SOXL-delta,SOXX+3delta,CASH-2delta). HOLD never forces a trade. Apply identical transform only to an actually approved recovery target. Original risk projection and action/recovery scores use the original Stage1 target and own account state. Each next session re-evaluates legality using candidate own holdings, cash, peak and state. Funded simplex and nominal3xSOXL+SOXX are preserved per request, actual beta/risk are not guaranteed.",
+  "assets": [
+    "SOXL",
+    "SOXX",
+    "CASH"
+  ],
+  "initial_cash_usd": 100000,
+  "slippage_bps": [
+    0
+  ],
+  "fees": "Frozen IBKR Pro Tiered projection, charged at 0bp added slippage; raw shares, original corporate cash entitlement and monthly fee state",
+  "account_source_helper": "research/stage1_nvda_guidance_receiver_20261022",
+  "account_source_receipt_sha256": "1666ead0b7de45f08968177c6e34ac763e78f79120fde7c3d55152fb0418f72c",
+  "provider_uri": "data/qlib/stage1_domain_heads_20261018",
+  "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083",
+  "identity_checks": "Exact parent/helper/provider/code SHA256 before any candidate replay; helper verifies f696/b472 release, matching 944 dates, 3778 marks, frozen raw source and Stage1/SOXX native accounts. No dirty provider substitution.",
+  "identities": {
+    "src/backtest/stage1_domain_heads_raw.py": "9d188c23d6eb668aaaa268aa520f0fcd03d4a20316f55331d31056bdc614cb88",
+    "src/workflow/stage1_beta_composition_0bp.py": "f96db7c1d5eca6c4e51752dd3fbe007647b9d22eeb2f5589d0070daa85d3f649",
+    "src/model/nominal_beta_composition.py": "718cef532ebb9b009da84abfb64abdf1d0eaf23c7ac453243109e85abfdae258",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/workflow/stage1_rolling126_shortfall.py": "8b4ed8a19c51cb7e4d5ce7daf67fff4fda83dd02dcb5bb95eaac09cc8c806f41",
+    "src/workflow/stage1_nvda_guidance_receiver.py": "062fbcfde9673e756169f65c2c3e7737703c901eaeb01f89aa10df0e26fa948b",
+    "research/stage1_domain_heads_20261018/plan.json": "96dc55af2318e26162e7ff8f74c4fdf24bcd15c4d9a3c4e1e2ca18357e3e17c7",
+    "research/stage1_domain_heads_20261018/summary.json": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "research/stage1_nvda_guidance_receiver_20261022/plan.json": "89030af17eaa90d283346aecce0da85a6cfc712575f189e5c2cb3d111d91bafa",
+    "research/stage1_nvda_guidance_receiver_20261022/account_source_preflight.json": "1666ead0b7de45f08968177c6e34ac763e78f79120fde7c3d55152fb0418f72c",
+    "data/qlib/stage1_domain_heads_20261018/qlib_store_manifest.json": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083"
+  },
+  "hard_screen_0bp": {
+    "net_SOXX_relative_wealth": ">1+1e-8",
+    "available_close_and_sampled_drawdown": "<=30%; full-minute risk remains separate qualification",
+    "CVaR5": "no worse than matching SOXX",
+    "complete_annual": "at least two complete years, >=70% positive",
+    "all_contiguous_126_session_windows": ">=70% positive net SOXX excess",
+    "paired_stationary_bootstrap": {
+      "mean_block": 63,
+      "draws": 10000,
+      "seed": 20261014,
+      "one_sided_alpha": 0.0013157894736842105,
+      "lower_positive": true
+    },
+    "historical_independence": false
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_candidate_native_accounts": 1,
+    "new_bootstrap_runs": 1,
+    "new_writable_qlib_recorders": 1,
+    "new_derived_provider_builds": 0
+  },
+  "stop": "One full native account and one bootstrap attempt. If any 0bp historical gate fails, close this exact Stage1 composition version after necessary attribution. No transform fraction, cash floor, risk/action threshold, cost or window search on reused history. Even a historical pass requires independent scoped result review, separately frozen 2/5bp and qualified forward evidence.",
+  "outcome_access": "No 2023+ account outcomes are read before source/code identities and the one account attempt is recorded.",
+  "production_changed": false
+}

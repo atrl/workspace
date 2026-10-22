@@ -7,6 +7,7 @@ import pytest
 from src.backtest.native_raw_corporate import native_raw_validate
 from src.backtest.raw_corporate_policy import make_schedule
 from src.backtest.stage1_domain_heads_raw import replay_stage1_raw
+from src.model.nominal_beta_composition import AuditedComposition
 from src.data import build_qlib_store_from_frame
 from src.workflow.intraday_recovery_direct_allocation import IntradayRecoveryDirectAllocationSpec
 from src.workflow.stage1_open_action_value import Stage1OpenActionValueSpec
@@ -78,6 +79,24 @@ def test_stage1_hold_and_cost_specific_risk_recovery_are_preserved():
     again = replay_stage1_raw(frame, **kwargs, slippage_bps=0)
     pd.testing.assert_frame_equal(low["replay"], again["replay"])
     pd.testing.assert_frame_equal(low["orders"], again["orders"])
+
+
+def test_optional_composition_applies_only_to_executed_stage1_targets():
+    frame, points, plan = _case(2)
+    frame.loc[1, ["soxl_weight", "soxx_weight", "cash_weight"]] = [0., .7, .3]
+    kwargs = _kwargs(plan, points, stop_drawdown=.02, recovery_eligibility_drawdown=.01)
+    baseline = replay_stage1_raw(frame, **kwargs, slippage_bps=0)
+    transform = AuditedComposition()
+    candidate = replay_stage1_raw(frame, **kwargs, slippage_bps=0, target_transform=transform)
+
+    assert candidate["replay"].execute_open_target.tolist() == [True, False]
+    assert not candidate["replay"].recovery_action.any()
+    assert [row["slot"] for row in transform.rows] == ["open"]
+    assert all(abs(row["beta_error"]) < 1e-12 for row in transform.rows)
+    assert candidate["targets"].iloc[0].soxl_weight == pytest.approx(0.)
+    assert candidate["targets"].iloc[0].soxx_weight == pytest.approx(.7)
+    assert candidate["points"].iloc[1].q_soxl == 0
+    assert baseline["points"].iloc[1].q_soxl == 10
 
 
 def test_raw_dividend_funding_split_and_native_bridge(tmp_path):
