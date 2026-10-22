@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_SEC_complete_submissions_acceptance_clock_three_anchors_only",
+  "parent_body_result_sha256": "951a177228eb650815a0c618cc4548a9f62729215e7b70a136bb9537a5781d35",
+  "issuer_CIK": "0001046179",
+  "exact_requests": [
+    {
+      "anchor": "2011Q2_reported_2011_07_28",
+      "accession": "0001193125-11-199728",
+      "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312511199728/0001193125-11-199728.txt"
+    },
+    {
+      "anchor": "2022Q1_reported_2022_04_14",
+      "accession": "0001564590-22-014381",
+      "url": "https://www.sec.gov/Archives/edgar/data/1046179/000156459022014381/0001564590-22-014381.txt"
+    },
+    {
+      "anchor": "2026Q2_reported_2026_07_16",
+      "accession": "0001046179-26-000451",
+      "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000451/0001046179-26-000451.txt"
+    }
+  ],
+  "request": {
+    "GETs_max": 3,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 8000000,
+    "seconds_between_requests": 1,
+    "user_agent": "SOXL Qlib research source audit research@atrl.me"
+  },
+  "identity_gate": "HTTP200 full SEC-DOCUMENT with exact accession, CIK 1046179, header ACCEPTANCE-DATETIME and FILED AS OF DATE. Stop at first transport/identity failure. Preserve raw bytes and headers.",
+  "backup": "NAS exact full submissions and response headers, remote digest and scoped restore.",
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "SEC acceptance may lag issuer public press release. For historical decision availability use no earlier than later of verified issuer publication and SEC acceptance, with timezone and same-day clock checks. Three anchors do not certify all quarters or numeric comparability."
+}

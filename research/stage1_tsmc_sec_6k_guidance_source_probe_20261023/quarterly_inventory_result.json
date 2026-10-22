@@ -1,0 +1,1043 @@
+{
+  "status": "SEC_TSMC_quarterly_guidance_2011_2026_all_64_months_identified",
+  "failure": null,
+  "plan_sha256": "45d801b88db6908577a14e380c62229b8b4d5cbb792a6fbe6d7feab7d160e796",
+  "GET_attempts": 82,
+  "candidate_accessions": 219,
+  "quarter_months": 64,
+  "matched_months": 64,
+  "unknown_months": [],
+  "matches": [
+    {
+      "reporting_month": "2011-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0000950123-11-005773",
+      "filed": "2011-01-27",
+      "accepted_header": "20110127061726",
+      "accepted_api": "2011-01-27T16:17:26.000Z",
+      "raw_sha256": "5a4bbe7bcc62110797abb70cdbd4d7b7ae4be76d1259b2ea4221dcc93cd0615d",
+      "raw_name": "quarterly_0000950123-11-005773.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$105\u00a0billion and NT$107\u00a0billion; \u2022 Gross profit margin is expected to be between 47% and 49%; \u2022 Operating profit margin is expected to be betwee",
+      "first_two_numeric_values": [
+        105.0,
+        107.0
+      ]
+    },
+    {
+      "reporting_month": "2011-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0000950123-11-040487",
+      "filed": "2011-04-28",
+      "accepted_header": "20110428065015",
+      "accepted_api": "2011-04-28T14:50:15.000Z",
+      "raw_sha256": "b1d2d3aa9916e64b15ae10f890a77ceed53aa2573c76469ae9b1e325bf464b3f",
+      "raw_name": "quarterly_0000950123-11-040487.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$109\u00a0billion and NT$111\u00a0billion; l Gross profit margin is expected to be between 45.5% and 47.5%; l Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        109.0,
+        111.0
+      ]
+    },
+    {
+      "reporting_month": "2011-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001193125-11-199728",
+      "filed": "2011-07-28",
+      "accepted_header": "20110728063534",
+      "accepted_api": "2011-07-28T14:35:34.000Z",
+      "raw_sha256": "6803040b38396bf64f7051eeb4573cb765c9a8f2278150f5718d86d398b9c4a2",
+      "raw_name": "submission_1.txt",
+      "reused_anchor": true,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$102 billion and NT$104 billion; \u2022 Gross profit margin is expected to be between 40.5% and 42.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        102.0,
+        104.0
+      ]
+    },
+    {
+      "reporting_month": "2011-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001193125-11-282969",
+      "filed": "2011-10-27",
+      "accepted_header": "20111027064433",
+      "accepted_api": "2011-10-27T14:44:33.000Z",
+      "raw_sha256": "4fa66825245f63d25e324bb9449384894e092d40ac1bf3b39cece737a8bf67b4",
+      "raw_name": "quarterly_0001193125-11-282969.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$103 billion and NT$105 billion; \u2022 Gross profit margin is expected to be between 43.5% and 45.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        103.0,
+        105.0
+      ]
+    },
+    {
+      "reporting_month": "2012-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001193125-12-014609",
+      "filed": "2012-01-18",
+      "accepted_header": "20120118060534",
+      "accepted_api": "2012-01-18T16:05:34.000Z",
+      "raw_sha256": "f2f37b805089b6aaecd27e61fc686208a547b1351a1a51ce752bbbda26543ee8",
+      "raw_name": "quarterly_0001193125-12-014609.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$103 billion and NT$105 billion; \u2022 Gross profit margin is expected to be between 42.5% and 44.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        103.0,
+        105.0
+      ]
+    },
+    {
+      "reporting_month": "2012-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001193125-12-184177",
+      "filed": "2012-04-26",
+      "accepted_header": "20120426091538",
+      "accepted_api": "2012-04-26T17:15:38.000Z",
+      "raw_sha256": "2ea6079c944e80229086f3a5877fd96a5744f6246c6472360189755996c89c42",
+      "raw_name": "quarterly_0001193125-12-184177.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$126 billion and NT$128 billion; \u2022 Gross profit margin is expected to be between 47% and 49%; \u2022 Operating profit margin is expected to be betwee",
+      "first_two_numeric_values": [
+        126.0,
+        128.0
+      ]
+    },
+    {
+      "reporting_month": "2012-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001193125-12-306762",
+      "filed": "2012-07-19",
+      "accepted_header": "20120719062644",
+      "accepted_api": "2012-07-19T14:26:44.000Z",
+      "raw_sha256": "6b98bbb8888232f3a2d36faa23530bcc2cad07d67687d128f9275a5cd9a88418",
+      "raw_name": "quarterly_0001193125-12-306762.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$136 billion and NT$138 billion; \u2022 Gross profit margin is expected to be between 46% and 48%; \u2022 Operating profit margin is expected to be betwee",
+      "first_two_numeric_values": [
+        136.0,
+        138.0
+      ]
+    },
+    {
+      "reporting_month": "2012-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001193125-12-434280",
+      "filed": "2012-10-25",
+      "accepted_header": "20121025061034",
+      "accepted_api": "2012-10-25T14:10:34.000Z",
+      "raw_sha256": "997d52c3c239cd4a790679b5bf065fe5c6ee33bb1191c8e321a7de2617733f9f",
+      "raw_name": "quarterly_0001193125-12-434280.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$129 billion and NT$131 billion; \u2022 Gross profit margin is expected to be between 45% and 47%; \u2022 Operating profit margin is expected to be betwee",
+      "first_two_numeric_values": [
+        129.0,
+        131.0
+      ]
+    },
+    {
+      "reporting_month": "2013-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001193125-13-015342",
+      "filed": "2013-01-17",
+      "accepted_header": "20130117060654",
+      "accepted_api": "2013-01-17T16:06:54.000Z",
+      "raw_sha256": "3db8bac06a0c9004ff71a5b3634bc402591a75a5b28c5b8bd58156c0c848fca0",
+      "raw_name": "quarterly_0001193125-13-015342.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$127 billion and NT$129 billion; \u2022 Gross profit margin is expected to be between 43.5% and 45.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        127.0,
+        129.0
+      ]
+    },
+    {
+      "reporting_month": "2013-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001193125-13-159802",
+      "filed": "2013-04-18",
+      "accepted_header": "20130418061822",
+      "accepted_api": "2013-04-18T14:18:22.000Z",
+      "raw_sha256": "65fad1df0971becf29630e617ab77357cff41777257b11ea1dae68c7935b4b31",
+      "raw_name": "quarterly_0001193125-13-159802.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$154 billion and NT$156 billion; \u2022 Gross profit margin is expected to be between 47.5% and 49.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        154.0,
+        156.0
+      ]
+    },
+    {
+      "reporting_month": "2013-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001193125-13-293605",
+      "filed": "2013-07-18",
+      "accepted_header": "20130718060711",
+      "accepted_api": "2013-07-18T14:07:11.000Z",
+      "raw_sha256": "9ac8e5c829a073adf442cb5c30d7ddd6c34d42b9c774ccf36d2e9c808f496d77",
+      "raw_name": "quarterly_0001193125-13-293605.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$161 billion and NT$164 billion; \u2022 Gross profit margin is expected to be between 47% and 49% \u2022 Operating profit margin is expected to be between",
+      "first_two_numeric_values": [
+        161.0,
+        164.0
+      ]
+    },
+    {
+      "reporting_month": "2013-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001193125-13-401630",
+      "filed": "2013-10-17",
+      "accepted_header": "20131017060459",
+      "accepted_api": "2013-10-17T14:04:59.000Z",
+      "raw_sha256": "c3f70ed4e560a065b3935338150d8a63cb6b4e226be142f28f58147e0ada8b83",
+      "raw_name": "quarterly_0001193125-13-401630.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$144 billion and NT$147 billion; \u2022 Gross profit margin is expected to be between 44\u00a0% and 46%; \u2022 Operating profit margin is expected to be betwe",
+      "first_two_numeric_values": [
+        144.0,
+        147.0
+      ]
+    },
+    {
+      "reporting_month": "2014-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001193125-14-012590",
+      "filed": "2014-01-16",
+      "accepted_header": "20140116061929",
+      "accepted_api": "2014-01-16T16:19:29.000Z",
+      "raw_sha256": "f015d65b8b220210ae5b8a686f044a75384d88e31aff3f67ad71ddde70227275",
+      "raw_name": "quarterly_0001193125-14-012590.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$136 billion and NT$138 billion; \u2022 Gross profit margin is expected to be between 44.5\u00a0% and 46.5%; \u2022 Operating profit margin is expected to be b",
+      "first_two_numeric_values": [
+        136.0,
+        138.0
+      ]
+    },
+    {
+      "reporting_month": "2014-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001193125-14-146635",
+      "filed": "2014-04-17",
+      "accepted_header": "20140417064232",
+      "accepted_api": "2014-04-17T14:42:32.000Z",
+      "raw_sha256": "42a2135c862ef915d891e9e5a603460c534f06baf2bba14af3ece5733bdc0ded",
+      "raw_name": "quarterly_0001193125-14-146635.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$180 billion and NT$183 billion; \u2022 Gross profit margin is expected to be between 47.5\u00a0% and 49.5%; \u2022 Operating profit margin is expected to be b",
+      "first_two_numeric_values": [
+        180.0,
+        183.0
+      ]
+    },
+    {
+      "reporting_month": "2014-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001193125-14-269737",
+      "filed": "2014-07-16",
+      "accepted_header": "20140716063830",
+      "accepted_api": "2014-07-16T14:38:30.000Z",
+      "raw_sha256": "6e1839be3db5447a5c26985b76c7f09ecd694fce4bd4ce4e9b0c3112cf8f304d",
+      "raw_name": "quarterly_0001193125-14-269737.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$206 billion and NT$209 billion; \u2022 Gross profit margin is expected to be between 48.5% and 50.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        206.0,
+        209.0
+      ]
+    },
+    {
+      "reporting_month": "2014-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001193125-14-373163",
+      "filed": "2014-10-16",
+      "accepted_header": "20141016060934",
+      "accepted_api": "2014-10-16T14:09:34.000Z",
+      "raw_sha256": "d372dcaf5d725abb73c8fc0590dcedeb2901ef6ae77644cc98a421b893bc4f37",
+      "raw_name": "quarterly_0001193125-14-373163.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$217 billion and NT$220 billion; \u2022 Gross profit margin is expected to be between 48% and 50%; \u2022 Operating profit margin is expected to be betwee",
+      "first_two_numeric_values": [
+        217.0,
+        220.0
+      ]
+    },
+    {
+      "reporting_month": "2015-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001193125-15-011207",
+      "filed": "2015-01-15",
+      "accepted_header": "20150115060901",
+      "accepted_api": "2015-01-15T16:09:01.000Z",
+      "raw_sha256": "20895a62a7a1dc5281297643e90ff9686e76928e9c0a20f47e4ac78d301d2ae4",
+      "raw_name": "quarterly_0001193125-15-011207.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$221 billion and NT$224 billion; \u2022 Gross profit margin is expected to be between 48.5% and 50.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        221.0,
+        224.0
+      ]
+    },
+    {
+      "reporting_month": "2015-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001193125-15-132162",
+      "filed": "2015-04-16",
+      "accepted_header": "20150416063830",
+      "accepted_api": "2015-04-16T14:38:30.000Z",
+      "raw_sha256": "0e4eec931fc5dad440ceb3f085e831cdbb9b5a1845e75c903df5366a7b08c916",
+      "raw_name": "quarterly_0001193125-15-132162.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$204 billion and NT$207 billion; \u2022 Gross profit margin is expected to be between 47.5% and 49.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        204.0,
+        207.0
+      ]
+    },
+    {
+      "reporting_month": "2015-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001193125-15-254327",
+      "filed": "2015-07-16",
+      "accepted_header": "20150716073701",
+      "accepted_api": "2015-07-16T15:37:01.000Z",
+      "raw_sha256": "1c295d83fd919dc8187d42c22b64f244e577be88e901f36f60940dfa5d11ab57",
+      "raw_name": "quarterly_0001193125-15-254327.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$207 billion and NT$210 billion; \u2022 Gross profit margin is expected to be between 47% and 49%; \u2022 Operating profit margin is expected to be betwee",
+      "first_two_numeric_values": [
+        207.0,
+        210.0
+      ]
+    },
+    {
+      "reporting_month": "2015-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001193125-15-344166",
+      "filed": "2015-10-15",
+      "accepted_header": "20151015062800",
+      "accepted_api": "2015-10-15T14:28:00.000Z",
+      "raw_sha256": "592dd3b403e7e6981680a9d3a0722dd4f20df0fe105e523fb6bf66db8623dbc8",
+      "raw_name": "quarterly_0001193125-15-344166.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$201 billion and NT$204 billion; \u25cf Gross profit margin is expected to be between 47.5% and 49.5%; \u25cf Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        201.0,
+        204.0
+      ]
+    },
+    {
+      "reporting_month": "2016-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001193125-16-429401",
+      "filed": "2016-01-14",
+      "accepted_header": "20160114065000",
+      "accepted_api": "2016-01-14T16:50:00.000Z",
+      "raw_sha256": "d2bbb4cf9c66873e679a58b9f9e74ed85997365c65381ea70d5c330004c6f482",
+      "raw_name": "quarterly_0001193125-16-429401.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$198 billion and NT$201 billion; \u2022 Gross profit margin is expected to be between 47% and 49%; \u2022 Operating profit margin is expected to be betwee",
+      "first_two_numeric_values": [
+        198.0,
+        201.0
+      ]
+    },
+    {
+      "reporting_month": "2016-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001193125-16-540578",
+      "filed": "2016-04-14",
+      "accepted_header": "20160414061433",
+      "accepted_api": "2016-04-14T14:14:33.000Z",
+      "raw_sha256": "de8c4bdf9c1d117852cc31b04775eb05a6ea73747e770e357fa9e0b145d7ed3d",
+      "raw_name": "quarterly_0001193125-16-540578.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$215 billion and NT$218 billion; \u2022 Gross profit margin is expected to be between 49% and 51%; \u2022 Operating profit margin is expected to be betwee",
+      "first_two_numeric_values": [
+        215.0,
+        218.0
+      ]
+    },
+    {
+      "reporting_month": "2016-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001193125-16-647698",
+      "filed": "2016-07-14",
+      "accepted_header": "20160714062757",
+      "accepted_api": "2016-07-14T14:27:57.000Z",
+      "raw_sha256": "6fad320add6851d59d185cd972a59fb8fbb20ae19ea4a17ecb0ac81cbfe74ff8",
+      "raw_name": "quarterly_0001193125-16-647698.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$254 billion and NT$257 billion; \u2022 Gross profit margin is expected to be between 50% and 52%; \u2022 Operating profit margin is expected to be betwee",
+      "first_two_numeric_values": [
+        254.0,
+        257.0
+      ]
+    },
+    {
+      "reporting_month": "2016-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001193125-16-737105",
+      "filed": "2016-10-13",
+      "accepted_header": "20161013060555",
+      "accepted_api": "2016-10-13T14:05:55.000Z",
+      "raw_sha256": "be7e1119ac4472387026aa1285e0de72cd3793921dfaa7618c68861bd36654c4",
+      "raw_name": "quarterly_0001193125-16-737105.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$255 billion and NT$258 billion; \u2022 Gross profit margin is expected to be between 50.5% and 52.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        255.0,
+        258.0
+      ]
+    },
+    {
+      "reporting_month": "2017-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001193125-17-008236",
+      "filed": "2017-01-12",
+      "accepted_header": "20170112063855",
+      "accepted_api": "2017-01-12T16:38:55.000Z",
+      "raw_sha256": "dc5450625a66d75ffd713bd7b77578e827d48cc54c4b01fe26d9ab0fe93293f8",
+      "raw_name": "quarterly_0001193125-17-008236.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$236\u00a0billion and NT$239\u00a0billion; \u2022 Gross profit margin is expected to be between 51.5% and 53.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        236.0,
+        239.0
+      ]
+    },
+    {
+      "reporting_month": "2017-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001193125-17-122057",
+      "filed": "2017-04-13",
+      "accepted_header": "20170413064233",
+      "accepted_api": "2017-04-13T14:42:33.000Z",
+      "raw_sha256": "6390e754647c4ebd0049335430b9ff2a540897aef8692addecc71d75c14a9149",
+      "raw_name": "quarterly_0001193125-17-122057.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between NT$213 billion and NT$216 billion; \u2022 Gross profit margin is expected to be between 50.5% and 52.5%; \u2022 Operating profit margin is expected to be be",
+      "first_two_numeric_values": [
+        213.0,
+        216.0
+      ]
+    },
+    {
+      "reporting_month": "2017-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001193125-17-227282",
+      "filed": "2017-07-13",
+      "accepted_header": "20170713074402",
+      "accepted_api": "2017-07-13T15:44:02.000Z",
+      "raw_sha256": "a88fa04a60de7ce83bfb7a77f14d0e888e382da15f5b5fdd59efeeaf5d9f3a17",
+      "raw_name": "quarterly_0001193125-17-227282.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$8.12\u00a0billion and US$8.22\u00a0billion; And, based on the exchange",
+      "first_two_numeric_values": [
+        8.12,
+        8.22
+      ]
+    },
+    {
+      "reporting_month": "2017-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001193125-17-313208",
+      "filed": "2017-10-19",
+      "accepted_header": "20171019064857",
+      "accepted_api": "2017-10-19T14:48:57.000Z",
+      "raw_sha256": "361b9cc2f77cdd1eb9a46f117b3541a1769eafd90fba2c8621b50f5db6b536c5",
+      "raw_name": "quarterly_0001193125-17-313208.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$9.10\u00a0billion and US$9.20\u00a0billion; And, based on the exchange",
+      "first_two_numeric_values": [
+        9.1,
+        9.2
+      ]
+    },
+    {
+      "reporting_month": "2018-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001193125-18-012698",
+      "filed": "2018-01-18",
+      "accepted_header": "20180118060935",
+      "accepted_api": "2018-01-18T16:09:35.000Z",
+      "raw_sha256": "144709f4932cb77887c78c578730c140474c3ba2b57c774ec1aa73a3a617480b",
+      "raw_name": "quarterly_0001193125-18-012698.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$8.40 billion and US$8.50 billion; And, based on the exchange rate",
+      "first_two_numeric_values": [
+        8.4,
+        8.5
+      ]
+    },
+    {
+      "reporting_month": "2018-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001193125-18-121859",
+      "filed": "2018-04-19",
+      "accepted_header": "20180419075102",
+      "accepted_api": "2018-04-19T15:51:02.000Z",
+      "raw_sha256": "a5b14579f0abbbdbdec8b995b79d2d60d16b79865ed445ab448c3a9295abb609",
+      "raw_name": "quarterly_0001193125-18-121859.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$7.80\u00a0billion and US$7.90\u00a0billion; And, based on the exchange",
+      "first_two_numeric_values": [
+        7.8,
+        7.9
+      ]
+    },
+    {
+      "reporting_month": "2018-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001193125-18-220934",
+      "filed": "2018-07-19",
+      "accepted_header": "20180719061036",
+      "accepted_api": "2018-07-19T14:10:36.000Z",
+      "raw_sha256": "c539e79541c7d92010e8456d68aae4b6db9e4f36021d1d92e3ec14daf999574b",
+      "raw_name": "quarterly_0001193125-18-220934.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$8.45\u00a0billion and US$8.55\u00a0billion; And, based on the exchange",
+      "first_two_numeric_values": [
+        8.45,
+        8.55
+      ]
+    },
+    {
+      "reporting_month": "2018-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001193125-18-301425",
+      "filed": "2018-10-18",
+      "accepted_header": "20181018062938",
+      "accepted_api": "2018-10-18T14:29:38.000Z",
+      "raw_sha256": "f9f7a4dd15383d4d4ee5953ab797e436edc2005561d479830d0af244f437c610",
+      "raw_name": "quarterly_0001193125-18-301425.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$9.35\u00a0billion and US$9.45\u00a0billion; And, based on the exchange rate assumption of 1 US dollar to 30.8 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        9.35,
+        9.45
+      ]
+    },
+    {
+      "reporting_month": "2019-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001193125-19-010925",
+      "filed": "2019-01-17",
+      "accepted_header": "20190117061004",
+      "accepted_api": "2019-01-17T16:10:04.000Z",
+      "raw_sha256": "3fb7fb2634bd7836736cbdefdffbe9c98957c2e841c18f8e6bed4b17737827c8",
+      "raw_name": "quarterly_0001193125-19-010925.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$7.3\u00a0billion and US$7.4\u00a0billion; And, based on the exchange rate assumption of 1 US dollar to 30.8 NT dollars, \u2022 Gross profit margin is expected",
+      "first_two_numeric_values": [
+        7.3,
+        7.4
+      ]
+    },
+    {
+      "reporting_month": "2019-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001193125-19-110066",
+      "filed": "2019-04-18",
+      "accepted_header": "20190418092605",
+      "accepted_api": "2019-04-18T17:26:05.000Z",
+      "raw_sha256": "d6c100bbc5557b49e343fc19e59d67869e552b2082f94ceeb9fd68ffd9a95f5a",
+      "raw_name": "quarterly_0001193125-19-110066.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$7.55\u00a0billion and US$7.65\u00a0billion; And, based on the exchange rate assumption of 1 US dollar to 30.85 NT dollars, \u2022 Gross profit margin is expec",
+      "first_two_numeric_values": [
+        7.55,
+        7.65
+      ]
+    },
+    {
+      "reporting_month": "2019-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001193125-19-195998",
+      "filed": "2019-07-18",
+      "accepted_header": "20190718060655",
+      "accepted_api": "2019-07-18T14:06:55.000Z",
+      "raw_sha256": "c53166061b69ed5564a47aa4b738cf965c2d25f04f63a9b567bbe5d95e9d4876",
+      "raw_name": "quarterly_0001193125-19-195998.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$9.1\u00a0billion and US$9.2\u00a0billion; And, based on the exchange rate assumption of 1 US dollar to 31.0 NT dollars, \u2022 Gross profit margin is expected",
+      "first_two_numeric_values": [
+        9.1,
+        9.2
+      ]
+    },
+    {
+      "reporting_month": "2019-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001564590-19-037052",
+      "filed": "2019-10-17",
+      "accepted_header": "20191017072656",
+      "accepted_api": "2019-10-17T15:26:56.000Z",
+      "raw_sha256": "0f44b23fe95af95d9859edbf4cee43201c48f30476f2a9f976cc2330cbc5532a",
+      "raw_name": "quarterly_0001564590-19-037052.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$10.2 billion and US$10.3 billion; And, based on the exchange rate assumption of 1 US dollar to 30.6 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        10.2,
+        10.3
+      ]
+    },
+    {
+      "reporting_month": "2020-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001564590-20-001200",
+      "filed": "2020-01-16",
+      "accepted_header": "20200116060446",
+      "accepted_api": "2020-01-16T16:04:46.000Z",
+      "raw_sha256": "7890bf5e1d5a84b43ff826654000aed7c4853f0b74cf4a20e9fe5cf158ee6e58",
+      "raw_name": "quarterly_0001564590-20-001200.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$10.2 billion and US$10.3 billion; And, based on the exchange rate assumption of 1 US dollar to 29.9 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        10.2,
+        10.3
+      ]
+    },
+    {
+      "reporting_month": "2020-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001564590-20-016960",
+      "filed": "2020-04-16",
+      "accepted_header": "20200416072243",
+      "accepted_api": "2020-04-16T15:22:43.000Z",
+      "raw_sha256": "75871466b81a25335fb11fb9b3ca187aed3ef7119a3fc46381e2832b2e9abf47",
+      "raw_name": "quarterly_0001564590-20-016960.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$10.1 billion and US$10.4 billion; And, based on the exchange rate assumption of 1 US dollar to 30.0 NT dollars, \u25cf Gross profit margin is expect",
+      "first_two_numeric_values": [
+        10.1,
+        10.4
+      ]
+    },
+    {
+      "reporting_month": "2020-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001564590-20-032443",
+      "filed": "2020-07-16",
+      "accepted_header": "20200716063929",
+      "accepted_api": "2020-07-16T14:39:29.000Z",
+      "raw_sha256": "c84059cabaaa98624eb7139af211bf5d22533a9f3b7345af1257d6649dd5c9e0",
+      "raw_name": "quarterly_0001564590-20-032443.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$11.2 billion and US$11.5 billion; And, based on the exchange rate assumption of 1 US dollar to 29.5 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        11.2,
+        11.5
+      ]
+    },
+    {
+      "reporting_month": "2020-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001564590-20-046453",
+      "filed": "2020-10-15",
+      "accepted_header": "20201015064233",
+      "accepted_api": "2020-10-15T14:42:33.000Z",
+      "raw_sha256": "0ccd4b655ed660a325ea6caa36c95fc4a649c16818088fae75436116b356bda9",
+      "raw_name": "quarterly_0001564590-20-046453.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$12.4 billion and US$12.7 billion; And, based on the exchange rate assumption of 1 US dollar to 28.75 NT dollars, \u2022 Gross profit margin is expec",
+      "first_two_numeric_values": [
+        12.4,
+        12.7
+      ]
+    },
+    {
+      "reporting_month": "2021-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001564590-21-001132",
+      "filed": "2021-01-14",
+      "accepted_header": "20210114070042",
+      "accepted_api": "2021-01-14T17:00:42.000Z",
+      "raw_sha256": "56d9597afd48856ee6090dd0a9a6863b87dd6fff847704b5cfe45d411725d911",
+      "raw_name": "quarterly_0001564590-21-001132.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$12.7 billion and US$13.0 billion; And, based on the exchange rate assumption of 1 US dollar to 27.95 NT dollars, \u2022 Gross profit margin is expec",
+      "first_two_numeric_values": [
+        12.7,
+        13.0
+      ]
+    },
+    {
+      "reporting_month": "2021-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001564590-21-018896",
+      "filed": "2021-04-15",
+      "accepted_header": "20210415064404",
+      "accepted_api": "2021-04-15T14:44:04.000Z",
+      "raw_sha256": "5ac5afbee1eacb883ac62eeb983d689ae71bcb126d0f2ad76ab9e8f3a7e592d9",
+      "raw_name": "quarterly_0001564590-21-018896.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$12.9 billion and US$13.2 billion; And, based on the exchange rate assumption of 1 US dollar to 28.4 NT dollars, \u02d9 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        12.9,
+        13.2
+      ]
+    },
+    {
+      "reporting_month": "2021-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001564590-21-036625",
+      "filed": "2021-07-15",
+      "accepted_header": "20210715060254",
+      "accepted_api": "2021-07-15T14:02:54.000Z",
+      "raw_sha256": "68d71f64a46f06401631185a94fd4a33abf8136826f858fc406e5619ff256eef",
+      "raw_name": "quarterly_0001564590-21-036625.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$14.6 billion and US$14.9 billion; And, based on the exchange rate assumption of 1 US dollar to 27.9 NT dollars, \u02d9 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        14.6,
+        14.9
+      ]
+    },
+    {
+      "reporting_month": "2021-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001564590-21-050767",
+      "filed": "2021-10-14",
+      "accepted_header": "20211014062639",
+      "accepted_api": "2021-10-14T14:26:39.000Z",
+      "raw_sha256": "80c6620e958083d482464926b968d7f9ea3137f60180b1e91852a88c30f489f8",
+      "raw_name": "quarterly_0001564590-21-050767.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$15.4 billion and US$15.7 billion; And, based on the exchange rate assumption of 1 US dollar to 28.0 NT dollars, \u02d9 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        15.4,
+        15.7
+      ]
+    },
+    {
+      "reporting_month": "2022-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001564590-22-001132",
+      "filed": "2022-01-13",
+      "accepted_header": "20220113060231",
+      "accepted_api": "2022-01-13T16:02:31.000Z",
+      "raw_sha256": "468c8b2a89a1143be99e66875026208f1e07715c12b82dfeabf40a5c1df352fc",
+      "raw_name": "quarterly_0001564590-22-001132.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$16.6 billion and US$17.2 billion; And, based on the exchange rate assumption of 1 US dollar to 27.6 NT dollars, -Gross profit margin is expecte",
+      "first_two_numeric_values": [
+        16.6,
+        17.2
+      ]
+    },
+    {
+      "reporting_month": "2022-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001564590-22-014381",
+      "filed": "2022-04-14",
+      "accepted_header": "20220414060233",
+      "accepted_api": "2022-04-14T14:02:33.000Z",
+      "raw_sha256": "ed531eadf5ce6df379b8c5a5d57c3bd3d387b1d3f77fc7d0d2931fa69d74b03e",
+      "raw_name": "submission_2.txt",
+      "reused_anchor": true,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$17.6 billion and US$18.2 billion; And, based on the exchange rate assumption of 1 US dollar to 28.8 NT dollars, - Gross profit margin is expect",
+      "first_two_numeric_values": [
+        17.6,
+        18.2
+      ]
+    },
+    {
+      "reporting_month": "2022-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001564590-22-025726",
+      "filed": "2022-07-14",
+      "accepted_header": "20220714060155",
+      "accepted_api": "2022-07-14T14:01:55.000Z",
+      "raw_sha256": "a3ea019a541e96c0e63ef9a3ff2545faead3548b3e0b26b22f60c8e4aa7d9e41",
+      "raw_name": "quarterly_0001564590-22-025726.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$19.8 billion and US$20.6 billion; And, based on the exchange rate assumption of 1 US dollar to 29.7 NT dollars, -Gross profit margin is expecte",
+      "first_two_numeric_values": [
+        19.8,
+        20.6
+      ]
+    },
+    {
+      "reporting_month": "2022-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001564590-22-034145",
+      "filed": "2022-10-13",
+      "accepted_header": "20221013072525",
+      "accepted_api": "2022-10-13T15:25:25.000Z",
+      "raw_sha256": "406f1ec79fb75c7d55e3b4ea9ef4c7d7587158de74cd304a42b853a6d3dcd6de",
+      "raw_name": "quarterly_0001564590-22-034145.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$19.9 billion and US$20.7 billion; And, based on the exchange rate assumption of 1 US dollar to 31.5 NT dollars, -Gross profit margin is expecte",
+      "first_two_numeric_values": [
+        19.9,
+        20.7
+      ]
+    },
+    {
+      "reporting_month": "2023-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001564590-23-000363",
+      "filed": "2023-01-12",
+      "accepted_header": "20230112063724",
+      "accepted_api": "2023-01-12T16:37:24.000Z",
+      "raw_sha256": "12351c2ea661bb97a13add40feefa65f69f52f19dac1a286c28111fcadedeaa2",
+      "raw_name": "quarterly_0001564590-23-000363.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$16.7 billion and US$17.5 billion; And, based on the exchange rate assumption of 1 US dollar to 30.7 NT dollars, \u2022Gross profit margin is expecte",
+      "first_two_numeric_values": [
+        16.7,
+        17.5
+      ]
+    },
+    {
+      "reporting_month": "2023-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001628280-23-012121",
+      "filed": "2023-04-20",
+      "accepted_header": "20230420061105",
+      "accepted_api": "2023-04-20T14:11:05.000Z",
+      "raw_sha256": "41ca377b167a95d57e122790a785b014a231ec416c979d4587f7da7014db824a",
+      "raw_name": "quarterly_0001628280-23-012121.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$15.2 billion and US$16.0 billion; And, based on the exchange rate assumption of 1 US dollar to 30.4 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        15.2,
+        16.0
+      ]
+    },
+    {
+      "reporting_month": "2023-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001628280-23-025146",
+      "filed": "2023-07-20",
+      "accepted_header": "20230720060625",
+      "accepted_api": "2023-07-20T14:06:25.000Z",
+      "raw_sha256": "4da02d7b3e7949a833112bcf8e83eb0af0edf13e4b5d5e8ff620d1206f321221",
+      "raw_name": "quarterly_0001628280-23-025146.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$16.7 billion and US$17.5 billion; And, based on the exchange rate assumption of 1 US dollar to 30.8 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        16.7,
+        17.5
+      ]
+    },
+    {
+      "reporting_month": "2023-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001046179-23-000014",
+      "filed": "2023-10-19",
+      "accepted_header": "20231019062241",
+      "accepted_api": "2023-10-19T14:22:41.000Z",
+      "raw_sha256": "ea9ac8654ec56b4d543934521965ba0ede76465946dd49dbf4f861d88e4c7bb0",
+      "raw_name": "quarterly_0001046179-23-000014.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$18.8 billion and US$19.6 billion; And, based on the exchange rate assumption of 1 US dollar to 32 NT dollars, \u2022 Gross profit margin is expected",
+      "first_two_numeric_values": [
+        18.8,
+        19.6
+      ]
+    },
+    {
+      "reporting_month": "2024-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001046179-24-000005",
+      "filed": "2024-01-18",
+      "accepted_header": "20240118062157",
+      "accepted_api": "2024-01-18T16:21:57.000Z",
+      "raw_sha256": "59f3596e827050aaf83a465f1f77313991e01338a6a1cd5a59892a6f7e3b59c6",
+      "raw_name": "quarterly_0001046179-24-000005.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$18.0 billion and US$18.8 billion; And, based on the exchange rate assumption of 1 US dollar to 31.1 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        18.0,
+        18.8
+      ]
+    },
+    {
+      "reporting_month": "2024-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001046179-24-000046",
+      "filed": "2024-04-18",
+      "accepted_header": "20240418060521",
+      "accepted_api": "2024-04-18T14:05:21.000Z",
+      "raw_sha256": "19ab5e28884730ab4ec1cb37b89e16e6e06522609873bd984fc3f5802034338a",
+      "raw_name": "quarterly_0001046179-24-000046.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$19.6 billion and US$20.4 billion; And, based on the exchange rate assumption of 1 US dollar to 32.3 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        19.6,
+        20.4
+      ]
+    },
+    {
+      "reporting_month": "2024-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001046179-24-000083",
+      "filed": "2024-07-18",
+      "accepted_header": "20240718061906",
+      "accepted_api": "2024-07-18T14:19:06.000Z",
+      "raw_sha256": "bc75fe400ff6878493408cfa62d1c9cb9954ecc83a3331f06f262a43b4cc7f39",
+      "raw_name": "quarterly_0001046179-24-000083.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$22.4 billion and US$23.2 billion; And, based on the exchange rate assumption of 1 US dollar to 32.5 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        22.4,
+        23.2
+      ]
+    },
+    {
+      "reporting_month": "2024-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001046179-24-000116",
+      "filed": "2024-10-17",
+      "accepted_header": "20241017061336",
+      "accepted_api": "2024-10-17T14:13:36.000Z",
+      "raw_sha256": "031fe58043c1b07c81c52ddfc536111fa1e1bab43424659f3591fc802972d929",
+      "raw_name": "quarterly_0001046179-24-000116.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$26.1 billion and US$26.9 billion; And, based on the exchange rate assumption of 1 US dollar to 32.0 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        26.1,
+        26.9
+      ]
+    },
+    {
+      "reporting_month": "2025-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001046179-25-000004",
+      "filed": "2025-01-16",
+      "accepted_header": "20250116061335",
+      "accepted_api": "2025-01-16T16:13:35.000Z",
+      "raw_sha256": "40054c6fe44dda30cc030be4463b7a7566045cafe06dee56c889aad2fd7ab4c1",
+      "raw_name": "quarterly_0001046179-25-000004.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$25.0 billion and US$25.8 billion; And, based on the exchange rate assumption of 1 US dollar to 32.8 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        25.0,
+        25.8
+      ]
+    },
+    {
+      "reporting_month": "2025-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001046179-25-000035",
+      "filed": "2025-04-17",
+      "accepted_header": "20250417070049",
+      "accepted_api": "2025-04-17T15:00:49.000Z",
+      "raw_sha256": "ceb81e5b2862ec16e68876e09fc54f7bd135552c9d1a8fc502cd05e6a1dd85d3",
+      "raw_name": "quarterly_0001046179-25-000035.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$28.4 billion and US$29.2 billion; And, based on the exchange rate assumption of 1 US dollar to 32.5 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        28.4,
+        29.2
+      ]
+    },
+    {
+      "reporting_month": "2025-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001046179-25-000082",
+      "filed": "2025-07-17",
+      "accepted_header": "20250717074512",
+      "accepted_api": "2025-07-17T15:45:12.000Z",
+      "raw_sha256": "14031f2c71542b7fc5037b32e81ad2e6b071385dd2e3b812e3e2a59021ae1dae",
+      "raw_name": "quarterly_0001046179-25-000082.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$31.8 billion and US$33.0 billion; And, based on the exchange rate assumption of 1 US dollar to 29.0 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        31.8,
+        33.0
+      ]
+    },
+    {
+      "reporting_month": "2025-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001046179-25-000116",
+      "filed": "2025-10-16",
+      "accepted_header": "20251016063955",
+      "accepted_api": "2025-10-16T14:39:55.000Z",
+      "raw_sha256": "f7f96bf43b202b8a7d38c60a00851c1b8bc9091818365939afa59bf13f3c0b33",
+      "raw_name": "quarterly_0001046179-25-000116.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$32.2 billion and US$33.4 billion; And, based on the exchange rate assumption of 1 US dollar to 30.6 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        32.2,
+        33.4
+      ]
+    },
+    {
+      "reporting_month": "2026-01",
+      "reported_quarter_ordinal": "fourth",
+      "accession": "0001046179-26-000008",
+      "filed": "2026-01-15",
+      "accepted_header": "20260115065824",
+      "accepted_api": "2026-01-15T16:58:24.000Z",
+      "raw_sha256": "dc711b8d70cfc4e1e4b7dd301335f0dfe4a15c81ac3b35d198edcb525a89f821",
+      "raw_name": "quarterly_0001046179-26-000008.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$34.6 billion and US$35.8 billion; And, based on the exchange rate assumption of 1 US dollar to 31.6 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        34.6,
+        35.8
+      ]
+    },
+    {
+      "reporting_month": "2026-04",
+      "reported_quarter_ordinal": "first",
+      "accession": "0001046179-26-000199",
+      "filed": "2026-04-16",
+      "accepted_header": "20260416080018",
+      "accepted_api": "2026-04-16T16:00:18.000Z",
+      "raw_sha256": "04f3aaa535e36c7767d1a6bb7a49203f2253113bdbc8a3036781e2579302d225",
+      "raw_name": "quarterly_0001046179-26-000199.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$39.0 billion and US$40.2 billion; And, based on the exchange rate assumption of 1 US dollar to 31.7 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        39.0,
+        40.2
+      ]
+    },
+    {
+      "reporting_month": "2026-07",
+      "reported_quarter_ordinal": "second",
+      "accession": "0001046179-26-000451",
+      "filed": "2026-07-16",
+      "accepted_header": "20260716074543",
+      "accepted_api": "2026-07-16T15:45:43.000Z",
+      "raw_sha256": "d742f5e29a48f8288880f124d97471eab1557014f8f588d9f2912500e4ebe9bb",
+      "raw_name": "submission_3.txt",
+      "reused_anchor": true,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$44.6 billion and US$45.8 billion; And, based on the exchange rate assumption of 1 US dollar to 32 NT dollars, \u2022 Gross profit margin is expected",
+      "first_two_numeric_values": [
+        44.6,
+        45.8
+      ]
+    },
+    {
+      "reporting_month": "2026-10",
+      "reported_quarter_ordinal": "third",
+      "accession": "0001046179-26-000726",
+      "filed": "2026-10-15",
+      "accepted_header": "20261015064056",
+      "accepted_api": "2026-10-15T14:40:56.000Z",
+      "raw_sha256": "ab313b89228ddf22eef85ee22e377be2dd9cbf6e7a0cefd7f4cae3a44393ec19",
+      "raw_name": "quarterly_0001046179-26-000726.txt",
+      "reused_anchor": false,
+      "forward_revenue_range_excerpt": "Revenue is expected to be between US$52.3 billion and US$54.3 billion; And, based on the exchange rate assumption of 1 US dollar to 31.8 NT dollars, \u2022 Gross profit margin is expect",
+      "first_two_numeric_values": [
+        52.3,
+        54.3
+      ]
+    }
+  ],
+  "NAS_archive_sha256": "9d6eb73637bb84f10408c9e42d1d89eda0e30a0c3e8e9fd8969876329291e016",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "all_first_public_issuer_clocks_qualified": false,
+  "numeric_semantics_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

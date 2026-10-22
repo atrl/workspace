@@ -145,6 +145,24 @@
       "execution_authorized": false,
       "result": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/summary.json",
       "source_audit": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/source_audit.json"
+    },
+    {
+      "card": "research/stage1_tsmc_sec_6k_guidance_source_probe_20261023",
+      "phase": "source_only_2011_2026_64_quarters_first_public_exact_clock_pending",
+      "role": "TSMC_SEC_original_quarterly_guidance_inventory",
+      "full_economic_experiment": false,
+      "status": "development_only_no_fit_or_account",
+      "execution_authorized": false,
+      "result": "research/stage1_tsmc_sec_6k_guidance_source_probe_20261023/summary.json"
+    },
+    {
+      "card": "research/stage1_tsmc_sec_guidance_growth_source_20261023",
+      "phase": "source_only_2011_2026_64_quarters_first_public_exact_clock_pending",
+      "role": "TSMC_next_guidance_NT_growth_Qlib_source",
+      "full_economic_experiment": false,
+      "status": "development_only_no_fit_or_account",
+      "execution_authorized": false,
+      "result": "research/stage1_tsmc_sec_guidance_growth_source_20261023/summary.json"
     }
   ],
   "framework": [
@@ -396,7 +414,8 @@
     "Stage1_CFTC_TFF_source_identity": "research/stage1_cftc_nq_tff_source_probe_20261023/summary.json",
     "Stage1_CFTC_NQ_positioning_map": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/summary.json",
     "Stage1_CFTC_NQ_timing_repaired_map": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/summary.json",
-    "closed_CFTC_NQ_H5_information_result": "research/stage1_cftc_nq_positioning_h5_information_v2_20261023/independent_result_review.json"
+    "closed_CFTC_NQ_H5_information_result": "research/stage1_cftc_nq_positioning_h5_information_v2_20261023/independent_result_review.json",
+    "TSMC_SEC_guidance_Qlib_source": "research/stage1_tsmc_sec_guidance_growth_source_20261023/summary.json"
   },
   "closed_source_probes": [
     {

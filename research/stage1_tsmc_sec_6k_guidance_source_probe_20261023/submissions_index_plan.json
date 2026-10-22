@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_SEC_TSMC_6K_2011_2026_accession_index_source_only",
+  "parent_body_result_sha256": "951a177228eb650815a0c618cc4548a9f62729215e7b70a136bb9537a5781d35",
+  "parent_acceptance_result_sha256": "90fda1752a46c8110b92d5602cc16d8affad538220df1d7a5f460ad3f56ac982",
+  "exact_requests": [
+    {
+      "name": "recent",
+      "url": "https://data.sec.gov/submissions/CIK0001046179.json"
+    },
+    {
+      "name": "older",
+      "url": "https://data.sec.gov/submissions/CIK0001046179-submissions-001.json"
+    }
+  ],
+  "request": {
+    "GETs_max": 2,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 8000000,
+    "seconds_between_requests": 1,
+    "user_agent": "SOXL Qlib research source audit research@atrl.me"
+  },
+  "identity_gate": "HTTP200 JSON CIK1046179, recent declares exact older filename, parallel arrays equal length and unique accession, combined covers 2011-2026 with >=50 6-K forms. No filing document or financial value selected by market outcome.",
+  "backup": "Raw JSON and headers to NAS with remote SHA256/scoped restore.",
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "Metadata coverage and three anchor 6-K originals do not certify every quarterly guidance document or issued clock; separate bounded original document inventory, numeric semantics, PIT timing and redundancy screen precede any feature."
+}

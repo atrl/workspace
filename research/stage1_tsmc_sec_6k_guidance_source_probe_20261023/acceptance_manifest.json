@@ -1,0 +1,36 @@
+{
+  "plan_sha256": "55d63d682794b9686af1bdb1a446a88e5d094439441dc547f3ef2408192b306a",
+  "files": [
+    {
+      "name": "submission_1.headers",
+      "sha256": "77c2d5559d17753f695545cbc220f52eac882bd18fa5ad08e14b3bcf5b8efcda",
+      "bytes": 629
+    },
+    {
+      "name": "submission_1.txt",
+      "sha256": "6803040b38396bf64f7051eeb4573cb765c9a8f2278150f5718d86d398b9c4a2",
+      "bytes": 42509
+    },
+    {
+      "name": "submission_2.headers",
+      "sha256": "33dc231cb59e1d7a95229dd48780089a43357519d62ebd230d0d7981b54edf7e",
+      "bytes": 934
+    },
+    {
+      "name": "submission_2.txt",
+      "sha256": "ed531eadf5ce6df379b8c5a5d57c3bd3d387b1d3f77fc7d0d2931fa69d74b03e",
+      "bytes": 2173598
+    },
+    {
+      "name": "submission_3.headers",
+      "sha256": "7c8a873500111af6e3a77da0d6305ec8c3a9400332d4d844d326e34d1d78313b",
+      "bytes": 704
+    },
+    {
+      "name": "submission_3.txt",
+      "sha256": "d742f5e29a48f8288880f124d97471eab1557014f8f588d9f2912500e4ebe9bb",
+      "bytes": 1363874
+    }
+  ],
+  "receipts_sha256": "cb8258e2af53d4976c85e4ee2c0c538091f94f956f335ba140928ff3c5b7407d"
+}

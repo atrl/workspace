@@ -1,0 +1,23 @@
+{
+  "status": "original_SEC_TSMC_guidance_growth_64_events_Qlib_calendar_mapped_development_only",
+  "plan_sha256": "3d94e00fc1ff77e3b8e94802d80a941ae6b9a286c4842e9679c0501b3c33cbc0",
+  "event_rows": 64,
+  "event_currency_counts": {
+    "NT$": 26,
+    "US$": 38
+  },
+  "events_within_Stage1_provider": 63,
+  "train_calendar_rows": 3020,
+  "held_calendar_rows": 944,
+  "known_train_sessions": 3002,
+  "known_held_sessions": 944,
+  "unknown_train_sessions": 18,
+  "unknown_held_sessions": 0,
+  "feature_min": -0.2187597059737032,
+  "feature_max": 0.22453110241532848,
+  "SEC_API_Z_timestamp_used_as_clock": false,
+  "issuer_first_public_exact_clock_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0
+}

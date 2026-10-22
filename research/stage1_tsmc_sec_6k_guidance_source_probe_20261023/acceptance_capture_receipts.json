@@ -1,0 +1,44 @@
+[
+  {
+    "anchor": "2011Q2_reported_2011_07_28",
+    "accession": "0001193125-11-199728",
+    "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312511199728/0001193125-11-199728.txt",
+    "requested_at_utc": "2026-10-22T21:36:17.560665+00:00",
+    "received_at_utc": "2026-10-22T21:36:18.519118+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312511199728/0001193125-11-199728.txt",
+    "stderr": "",
+    "raw_sha256": "6803040b38396bf64f7051eeb4573cb765c9a8f2278150f5718d86d398b9c4a2",
+    "raw_bytes": 42509,
+    "headers_sha256": "77c2d5559d17753f695545cbc220f52eac882bd18fa5ad08e14b3bcf5b8efcda"
+  },
+  {
+    "anchor": "2022Q1_reported_2022_04_14",
+    "accession": "0001564590-22-014381",
+    "url": "https://www.sec.gov/Archives/edgar/data/1046179/000156459022014381/0001564590-22-014381.txt",
+    "requested_at_utc": "2026-10-22T21:36:19.524112+00:00",
+    "received_at_utc": "2026-10-22T21:36:21.494313+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1046179/000156459022014381/0001564590-22-014381.txt",
+    "stderr": "",
+    "raw_sha256": "ed531eadf5ce6df379b8c5a5d57c3bd3d387b1d3f77fc7d0d2931fa69d74b03e",
+    "raw_bytes": 2173598,
+    "headers_sha256": "33dc231cb59e1d7a95229dd48780089a43357519d62ebd230d0d7981b54edf7e"
+  },
+  {
+    "anchor": "2026Q2_reported_2026_07_16",
+    "accession": "0001046179-26-000451",
+    "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000451/0001046179-26-000451.txt",
+    "requested_at_utc": "2026-10-22T21:36:22.504024+00:00",
+    "received_at_utc": "2026-10-22T21:36:24.357162+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000451/0001046179-26-000451.txt",
+    "stderr": "",
+    "raw_sha256": "d742f5e29a48f8288880f124d97471eab1557014f8f588d9f2912500e4ebe9bb",
+    "raw_bytes": 1363874,
+    "headers_sha256": "7c8a873500111af6e3a77da0d6305ec8c3a9400332d4d844d326e34d1d78313b"
+  }
+]

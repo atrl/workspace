@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_tsmc_sec_6k_guidance_source_probe_20261023",
+  "decision": "SEC_original_TSMC_6K_2011_2026_64_quarter_guidance_identity_complete_first_public_exact_clock_pending",
+  "objective_achieved": false,
+  "stages": {
+    "three_era_original_body": "result.json",
+    "three_era_complete_submission_acceptance": "acceptance_clock_result.json",
+    "SEC_accession_index": "submissions_index_result.json",
+    "all_64_quarter_original_inventory": "quarterly_inventory_result.json"
+  },
+  "source_identity": {
+    "issuer_CIK": "0001046179",
+    "quarter_months": 64,
+    "matched_original_submissions": 64,
+    "new_full_submission_GETs": 82,
+    "metadata_6K_count": 1334,
+    "NT_guidance_quarters": 26,
+    "USD_guidance_quarters": 38
+  },
+  "NAS": {
+    "three_era_bodies": "711d1f1099a0c92177ae67deef478d241674882d954d2004bed132a606e49e9d",
+    "three_complete_submissions": "aef18786ad2ac993c7461136e1ef79b2e902fc4cd0034ff546f43f7d91a00a89",
+    "SEC_metadata_index": "12d25b1d616498b01d2deb77a0aaec0b24d16800baaf7bae458b9ea90461d023",
+    "quarter_original_inventory": "9d6eb73637bb84f10408c9e42d1d89eda0e30a0c3e8e9fd8969876329291e016",
+    "all_scoped_restore_verified": true
+  },
+  "clock": {
+    "all_header_acceptance_dates_match_filing_dates": true,
+    "SEC_submissions_API_Z_not_used": "Across 64 original filings its numeric offset versus raw header is 8h for 48 warm-season rows and 10h for 16 January rows; do not interpret as the original local acceptance clock.",
+    "exact_first_public_issuer_clock_qualified": false,
+    "next_stage1_signal": "strictly after SEC filing date on Qlib calendar"
+  },
+  "mapped_source_card": "research/stage1_tsmc_sec_guidance_growth_source_20261023/summary.json",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

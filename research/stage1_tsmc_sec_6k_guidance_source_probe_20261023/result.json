@@ -1,0 +1,41 @@
+{
+  "status": "official_SEC_6K_three_era_identity_passed_filing_clock_pending",
+  "failure": null,
+  "plan_sha256": "ed8b23fb9ff81ff3238a46565b4d80096b3ba52bab57c75c560efb15d1152c28",
+  "GET_attempts": 3,
+  "checks": [
+    {
+      "anchor": "2011Q2_reported_2011_07_28",
+      "raw_sha256": "31b14703d462d25c476436c9fcfad9189294e8609a3d328c2527c14f54f259cd",
+      "text_chars": 4735,
+      "issuer_present": true,
+      "year_present": true,
+      "forward_revenue_language_present": true,
+      "excerpt": "6-K 1 d6k.htm FORM 6-K Form 6-K 1934 Act Registration No.\u00a01-14700 SECURITIES AND EXCHANGE\nCOMMISSION Washington, DC 20549 FORM 6-K REPORT OF\nFOREIGN PRIVATE ISSUER PURSUANT TO RULE 13a-16 OR 15d-16 OF THE SECURITIES EXCHANGE ACT OF 1934 For the month of July 2011 Taiwan\nSemiconductor Manufacturing Company Ltd. (Translation of Registrant\u2019s Name Into"
+    },
+    {
+      "anchor": "2022Q1_reported_2022_04_14",
+      "raw_sha256": "684b31c21eaba6a796a7cf6768471d480b768d118ddb646c0f6a87b284e82cf0",
+      "text_chars": 3885,
+      "issuer_present": true,
+      "year_present": true,
+      "forward_revenue_language_present": true,
+      "excerpt": "EX-99.1 2 tsm-ex991_6.htm EX-99.1 tsm-ex991_6.htm TSMC Reports First Quarter EPS of NT$7.82 HSINCHU, Taiwan, R.O.C., Apr. 14, 2022 -- TSMC (TWSE: 2330, NYSE: TSM) today announced consolidated revenue of NT$491.08 billion, net income of NT$202.73 billion, and diluted earnings per share of NT$7.82 (US$1.40 per ADR unit) for the first quarter ended Ma"
+    },
+    {
+      "anchor": "2026Q2_reported_2026_07_16",
+      "raw_sha256": "0f837b16a74b06965c8eed9715f1cf41cfce07b8503c3046c3eb4c5a2f582b3e",
+      "text_chars": 3891,
+      "issuer_present": true,
+      "year_present": true,
+      "forward_revenue_language_present": true,
+      "excerpt": "EX-99.1 2 a2q26e_withguidancexfinal.htm EX-99.1 Document TSMC Reports Second Quarter EPS of NT$27.25 HSINCHU, Taiwan, R.O.C., Jul. 16, 2026 -- TSMC (TWSE: 2330, NYSE: TSM) today announced consolidated revenue of NT$1,270.38 billion, net income of NT$706.56 billion, and diluted earnings per share of NT$27.25 (US$4.31 per ADR unit) for the second qua"
+    }
+  ],
+  "NAS_archive_sha256": "711d1f1099a0c92177ae67deef478d241674882d954d2004bed132a606e49e9d",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "first_public_clock_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

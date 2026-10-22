@@ -1,0 +1,28 @@
+[
+  {
+    "name": "recent",
+    "url": "https://data.sec.gov/submissions/CIK0001046179.json",
+    "requested_at_utc": "2026-10-22T21:37:29.693601+00:00",
+    "received_at_utc": "2026-10-22T21:37:31.072104+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://data.sec.gov/submissions/CIK0001046179.json",
+    "stderr": "",
+    "raw_sha256": "5954b67a47547aba250b422a6437602dbf22919b3325077e84f30ef62b7c82d9",
+    "raw_bytes": 162526,
+    "headers_sha256": "96a6fbe2513b5378bb8cd9c3fc7b670e6eb83e8f9d1da0822f3fa69af1735e4e"
+  },
+  {
+    "name": "older",
+    "url": "https://data.sec.gov/submissions/CIK0001046179-submissions-001.json",
+    "requested_at_utc": "2026-10-22T21:37:32.088656+00:00",
+    "received_at_utc": "2026-10-22T21:37:33.261272+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://data.sec.gov/submissions/CIK0001046179-submissions-001.json",
+    "stderr": "",
+    "raw_sha256": "32ad94fde090fb3f89f315fb353ca72f5f5b28f4b4ec9aa99f42397cf21e7913",
+    "raw_bytes": 137739,
+    "headers_sha256": "9e5e2888c7888cebbc16d7905548a219972ed9ac3f70162edd806ac8131cf35c"
+  }
+]

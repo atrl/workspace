@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_tsmc_sec_guidance_growth_source_20261023",
+  "phase": "original_SEC_TSMC_quarterly_guidance_growth_source_Qlib_calendar_map_only",
+  "parent": {
+    "card": "research/stage1_tsmc_sec_6k_guidance_source_probe_20261023",
+    "quarterly_inventory_result_sha256": "22d99b748a50ae4bf3720370c6c82d58c8ee412cd39b2da2468e4644ea91d2bc",
+    "submissions_index_result_sha256": "4bf7f42b84637f44d10b798dab66119e5631f6ce9c67dbc3803cdfb1d0f242e2",
+    "acceptance_clock_result_sha256": "90fda1752a46c8110b92d5602cc16d8affad538220df1d7a5f460ad3f56ac982",
+    "raw_archive_sha256": "9d6eb73637bb84f10408c9e42d1d89eda0e30a0c3e8e9fd8969876329291e016",
+    "matched_original_submissions": 64
+  },
+  "source_semantics": {
+    "issuer_CIK": "0001046179",
+    "reported_current_quarter_revenue": "first TSMC quarterly EPS press-release sentence announcing consolidated revenue in NT$ billions",
+    "next_quarter_guidance": "first explicit next-quarter revenue expected between low/high in same original issuer release, all billion units",
+    "USD_guidance_conversion": "Multiply USD billions guidance midpoint by same release assumption of NT dollars per 1 US dollar; NT guidance stays NT billions.",
+    "feature_name": "TSMC_next_guidance_mid_NT_over_current_revenue_minus1",
+    "formula": "converted next-quarter forward revenue midpoint in NT billions / current reported consolidated revenue in NT billions - 1",
+    "no_backfill_from_realized_next_revenue": true,
+    "all_64_original_event_rows_required": true
+  },
+  "timing": {
+    "clock_source": "original EDGAR complete-submission header acceptance date, not the submissions API Z timestamp (observed 8/10-hour mismatch)",
+    "availability": "earliest Stage1 signal date strictly after SEC filing/acceptance calendar date on Qlib native day calendar; trade occurs following session, so no same-day issuer release use",
+    "issuer_first_public_exact_clock_qualified": false,
+    "historical_revision_handling": "original first matched accession per reporting month retained; later 6-K amendments are not backfilled into original values",
+    "matched_source_calendar": "D.calendar day 2011-01-03 through 2026-10-09, full days and unknown before first event retained"
+  },
+  "budget": {
+    "external_GETs": 0,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "Qlib_writable_Recorders_max": 1,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stop": "Any parent/raw hash, original CIK/accession/quarter, actual revenue, guidance currency/range or FX ambiguity stops before Recorder. Require 64 unique events, 26 NT and 38 USD, exact unambiguous numeric extraction, monotonic availability. No source-only result can authorize 0bp account or independent validation.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/*",
+      "metadata/*"
+    ]
+  }
+}

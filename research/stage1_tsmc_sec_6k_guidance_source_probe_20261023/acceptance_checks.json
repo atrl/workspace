@@ -1,0 +1,29 @@
+[
+  {
+    "anchor": "2011Q2_reported_2011_07_28",
+    "accession": "0001193125-11-199728",
+    "raw_sha256": "6803040b38396bf64f7051eeb4573cb765c9a8f2278150f5718d86d398b9c4a2",
+    "accepted_timestamp_EDGAR_header": "20110728063534",
+    "filed_date_EDGAR_header": "20110728",
+    "CIK": "0001046179",
+    "bytes": 42509
+  },
+  {
+    "anchor": "2022Q1_reported_2022_04_14",
+    "accession": "0001564590-22-014381",
+    "raw_sha256": "ed531eadf5ce6df379b8c5a5d57c3bd3d387b1d3f77fc7d0d2931fa69d74b03e",
+    "accepted_timestamp_EDGAR_header": "20220414060233",
+    "filed_date_EDGAR_header": "20220414",
+    "CIK": "0001046179",
+    "bytes": 2173598
+  },
+  {
+    "anchor": "2026Q2_reported_2026_07_16",
+    "accession": "0001046179-26-000451",
+    "raw_sha256": "d742f5e29a48f8288880f124d97471eab1557014f8f588d9f2912500e4ebe9bb",
+    "accepted_timestamp_EDGAR_header": "20260716074543",
+    "filed_date_EDGAR_header": "20260716",
+    "CIK": "0001046179",
+    "bytes": 1363874
+  }
+]

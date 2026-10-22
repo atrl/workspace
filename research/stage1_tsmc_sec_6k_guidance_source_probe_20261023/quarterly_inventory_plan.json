@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "first_original_SEC_6K_quarterly_guidance_document_inventory_2011_2026",
+  "parent_source_results": {
+    "body_sha256": "951a177228eb650815a0c618cc4548a9f62729215e7b70a136bb9537a5781d35",
+    "acceptance_sha256": "90fda1752a46c8110b92d5602cc16d8affad538220df1d7a5f460ad3f56ac982",
+    "submissions_sha256": "4bf7f42b84637f44d10b798dab66119e5631f6ce9c67dbc3803cdfb1d0f242e2"
+  },
+  "input_raw_sha256": {
+    "submissions_recent.json": "5954b67a47547aba250b422a6437602dbf22919b3325077e84f30ef62b7c82d9",
+    "submissions_older.json": "32ad94fde090fb3f89f315fb353ca72f5f5b28f4b4ec9aa99f42397cf21e7913",
+    "submission_1.txt": "6803040b38396bf64f7051eeb4573cb765c9a8f2278150f5718d86d398b9c4a2",
+    "submission_2.txt": "ed531eadf5ce6df379b8c5a5d57c3bd3d387b1d3f77fc7d0d2931fa69d74b03e",
+    "submission_3.txt": "d742f5e29a48f8288880f124d97471eab1557014f8f588d9f2912500e4ebe9bb"
+  },
+  "cohort": "TSMC CIK0001046179 Form6-K filings in Jan/Apr/Jul/Oct, filing calendar day11..31, years2011..2026 inclusive, from two official SEC submissions JSON files. Sort within reporting month by acceptanceDateTime then accession.",
+  "candidate_accession_count_expected": 219,
+  "quarter_month_count_expected": 64,
+  "reuse_full_submission_accessions": {
+    "0001193125-11-199728": "submission_1.txt",
+    "0001564590-22-014381": "submission_2.txt",
+    "0001046179-26-000451": "submission_3.txt"
+  },
+  "exact_request_template": "https://www.sec.gov/Archives/edgar/data/1046179/{accession_no_hyphen}/{accession}.txt",
+  "request": {
+    "GETs_max": 216,
+    "per_accession_GETs_max": 1,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 8000000,
+    "seconds_between_requests": 1,
+    "user_agent": "SOXL Qlib research source audit research@atrl.me"
+  },
+  "identity_gate": "For each reporting month scan candidate accessions in acceptance order until the first original full SEC submission whose normalized text contains TSMC Reports [ordinal] Quarter EPS and forward next-quarter revenue is expected between numeric low and high. Require CIK1046179/header accession, acceptance, and expected quarter relationship. Record remaining monthly candidates unrequested after first match. If no match, month unknown; do not fabricate. Any transport or schema failure stops full inventory with partial receipts preserved.",
+  "backup": "Raw newly received full submission bytes and headers, all capture receipts, manifest, result, NAS remote hash and scoped restore. Existing three anchor full submissions backed under parent acceptance archive.",
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "This inventory selects source identities only, not feature formula or target. It does not assume SEC acceptance equals first public issuer time, nor imply all guidance currencies/semantics comparable. No market outcomes or alpha screen."
+}

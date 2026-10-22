@@ -116,7 +116,7 @@
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "Keep frozen original Stage1 allocation/action/risk/recovery chain and matched 0bp Tiered account as parent, SOXX as final hard gate. CFTC Nasdaq Mini delta4 H5 fixed information screen failed full/half/lower after timing repair; close this version, no account. Original A0 0bp shortfall is mostly cash opportunity over full held period but 2026Q3 is SOXL-relative selection; compare bad and good intervals with matching decision-time controls, identify one materially different mechanism beyond closed credit, breadth, OFR, CFTC and fixed risk bypass routes, freeze source/clock/receiver/gate, then run one bounded screen. A passing screen can advance to one own-state 0bp account; then 2/5bp and independent forward. Reused held history remains development-only.",
+    "next_action": "Keep frozen full Stage1 parent and SOXX hard gate. CFTC delta4 fixed H5 information failed and TSMC direct issuer website/PDF transport closed 403. A distinct official SEC original quarterly guidance source now covers 64/64 2011-2026 quarters with Qlib-mapped next-quarter midpoint NT growth; independent source review pending. If source design holds, freeze one original39 matched H5 SOXX-cash information screen with 2 fits/1 full-calendar bootstrap; only a fixed information pass plus first-public timing qualification can advance to a full own-state 0bp Tiered account. Preserve all weak/good regimes; reused held is development-only, then 2/5bp and forward separate.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -290,7 +290,10 @@
     "CFTC_NQ_H5_fixed_result": "research/stage1_cftc_nq_positioning_h5_information_v2_20261023/summary.json",
     "CFTC_NQ_H5_fixed_interpretation": "Repaired source and full-calendar v2 information screen: 2 Ridge fits/1 bootstrap, 3014 train and 940 reused held mature days, zero accounts. Baseline MSE .00252626694, candidate .00254396116; paired mean -1.76942193e-5, halves +6.321699e-7/-3.8698437e-5, coefficient positive, corrected lower -6.4410779e-5. Full, second-half and lower gates fail. 2026Q3 positive local information quarter is descriptive only; fixed CFTC delta4 H5 route closed without sign/window/quarter rescue.",
     "TSMC_guidance_PDF_transport_probe": "research/stage1_tsmc_guidance_pdf_transport_20261023/summary.json",
-    "TSMC_guidance_PDF_transport_status": "One frozen alternate official PDF GET returned HTTP403; exact failed response backed to NAS, other two requests not made, zero fits/accounts. Close direct-PDF transport; no TSMC factor."
+    "TSMC_guidance_PDF_transport_status": "One frozen alternate official PDF GET returned HTTP403; exact failed response backed to NAS, other two requests not made, zero fits/accounts. Close direct-PDF transport; no TSMC factor.",
+    "TSMC_SEC_6K_original_quarterly_guidance_source": "research/stage1_tsmc_sec_6k_guidance_source_probe_20261023/summary.json",
+    "TSMC_SEC_6K_Qlib_guidance_growth_source": "research/stage1_tsmc_sec_guidance_growth_source_20261023/summary.json",
+    "TSMC_SEC_guidance_progress": "Official original SEC 6-K route succeeded after TSMC-site direct 403: 64/64 2011-2026 quarter months matched using 82 new full-submission GETs; originals and metadata NAS-backed. 26 NT-guidance and 38 USD-guidance converted using same release FX assumption. Qlib next-filing-date-signal map 3002/3020 train and 944/944 reused held known, 63 events before provider end. Source reviewer pending; zero market outcomes/fits/accounts; exact issuer first-public time not qualified."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -355,7 +358,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T21:32:43.725719+00:00",
+  "updated_at_utc": "2026-10-22T21:46:59.824176+00:00",
   "execution_totals": {
     "new_model_fits": 81,
     "new_native_accounts": 50,

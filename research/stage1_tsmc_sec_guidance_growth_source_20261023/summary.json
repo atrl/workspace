@@ -1,0 +1,40 @@
+{
+  "experiment": "stage1_tsmc_sec_guidance_growth_source_20261023",
+  "decision": "original_SEC_TSMC_guidance_growth_64_events_Qlib_calendar_mapped_development_only",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "source_audit": "source_audit.json",
+  "recorder_id": "9770e4b8e19c488f95221fc4a8150f11",
+  "experiment_id": "286349281465786733",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_tsmc_sec_guidance_growth_source_20261023/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "a5c03bdb88a450e0244330d375c8ab51fe5bc05b104851066ae1befeb6c25f03",
+    "size_bytes": 146632,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a5/c0/a5c03bdb88a450e0244330d375c8ab51fe5bc05b104851066ae1befeb6c25f03",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 05:46:02.60125+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a5/c0/a5c03bdb88a450e0244330d375c8ab51fe5bc05b104851066ae1befeb6c25f03",
+    "recorder_id": "9770e4b8e19c488f95221fc4a8150f11",
+    "experiment_id": "286349281465786733",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "a5c03bdb88a450e0244330d375c8ab51fe5bc05b104851066ae1befeb6c25f03",
+    "verified": true
+  },
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "analysis/*",
+      "metadata/*"
+    ]
+  },
+  "independent_source_review": "independent_source_review.json"
+}
