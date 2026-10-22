@@ -1,0 +1,17 @@
+{
+  "status": "sixteen_original_report_events_complete_2019_2022_late_train_Qlib_source_map",
+  "source_plan_sha256": "98fc1ca6e01616603d0df17b537e2ed82b0fe75ce665f32d571b8b3fd6ed297b",
+  "report_events": 16,
+  "late_train_Qlib_sessions": 1008,
+  "known_signal_sessions": 1008,
+  "unknown_prefix_sessions": 0,
+  "first_source_effective_signal": "2018-12-10",
+  "first_late_train_source_accession": "0001193125-18-344229",
+  "last_effective_signal": "2022-11-29",
+  "max_source_age_days": 171,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "full_Stage1_training_coverage_qualified": false,
+  "late_2019_2022_concentration_source_coverage_qualified": true
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Does adding the pre-2019 original 2018-09-30 SOXX report to the prior 15-event source map close all 41 unknown 2019 prefix sessions on the native Stage1 Qlib calendar, without look-ahead?",
+  "sources": {
+    "prior_bridge_summary": "research/stage1_soxx_2019_2022_concentration_bridge_20261023/summary.json",
+    "prior_bridge_summary_sha256": "276f35cf9aef3740c95821091e76c95d1f0f37ddae6a33339035f6a27ea0344b",
+    "prior_bridge_recorder_id": "c6b3030ff32445e2b5b24b9e9e404524",
+    "prior_bridge_recorder_NAS_sha256": "199179d4f1c21543a306c9afa21ee4027a306a101a4c62973f57892fdb273c86",
+    "2018_Sep_numeric_result": "research/stage1_soxx_2018_sep_concentration_20261023/result.json",
+    "2018_Sep_numeric_result_sha256": "aa6bc271cbebbf4ea62f252793970faedb628696c4145b6004ccce5e5f418b65"
+  },
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "availability_calendar_span": ["2018-12-01", "2023-01-10"],
+  "late_train_span": ["2019-01-02", "2022-12-30"],
+  "mapping": "Read all 15 previously verified source events from their native Recorder and the exact new 2018-09-30 numeric result. For each filing find the next actual Qlib day strictly after its filing date on a calendar that starts before 2019. Merge backward onto all 1,008 2019-2022 Stage1 late-training sessions; require no pre-filing use, 16 unique accessions/report periods/effective dates, no backfill, and exactly zero unknown late-training sessions for this concentration proxy.",
+  "semantic_boundary": "All source values are original disclosed common-equity value weights, not SOXX official daily index weights. The 2018 event may close a source prefix but cannot establish constituent price history, new-low/downside descriptors, incremental information or 0bp account success.",
+  "artifacts": "Store complete event table, daily map, source audit and DatasetH in a native Qlib Recorder; NAS archive with remote hash and scoped restore, keep card root slim.",
+  "budgets": {
+    "new_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_native_source_recorders": 1
+  },
+  "stop": "Source hash, Qlib calendar, 16-event uniqueness, full prefix closure, DatasetH/Recorder or NAS readback failure stops qualification. Do not fit or run a 0bp account from source mapping alone."
+}
