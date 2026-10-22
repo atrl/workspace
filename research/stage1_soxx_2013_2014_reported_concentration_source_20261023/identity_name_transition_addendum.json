@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_name_transition_only_six_failed_identity_rechecks",
+  "prior_identity_result_sha256": "032085cd35db861b544f838921449bb53c8b171e7b6068128610831f6de04562",
+  "transport_result_sha256": "0f139795b2bc37c9888567c493860fc5b4e5f69393011ed863ecdf9dd213f897",
+  "2013_July_original_body_sha256": "0ea9651500d7ba7ff7e5fe5c1faf0fa2ceee94498f2a91dfd3eb341cca991f92",
+  "name_change_evidence": "The original July 2013 N-CSR body identifies iShares PHLX Semiconductor ETF | SOXX | NASDAQ; old raw-title parser expected PHLX SOX Semiconductor Sector Index Fund and therefore missed later original Schedule of Investments sections.",
+  "title_rule": [
+    {
+      "report_date_through": "2013-04-30",
+      "title": "PHLX SOX SEMICONDUCTOR SECTOR INDEX FUND"
+    },
+    {
+      "report_date_from": "2013-07-31",
+      "title": "PHLX SEMICONDUCTOR ETF"
+    }
+  ],
+  "unchanged_identity_gates": [
+    "Exact report date in bounded source section",
+    "Schedule of Investments plus Security/Shares/Value header for N-CSR/N-CSRS TOC path",
+    "Security/Shares/Value header near original title for N-Q",
+    "Raw body SHA and NAS identity unchanged"
+  ],
+  "failed_reports_to_recheck": [
+    {
+      "report_date": "2013-07-31",
+      "accession": "0001193125-13-392676",
+      "raw_sha256": "0ea9651500d7ba7ff7e5fe5c1faf0fa2ceee94498f2a91dfd3eb341cca991f92"
+    },
+    {
+      "report_date": "2013-10-31",
+      "accession": "0001193125-13-486444",
+      "raw_sha256": "248f3f9297c42ff2dac141fc546feab32c1c0e1969f38cf98f03c4c5b307cf8f"
+    },
+    {
+      "report_date": "2014-01-31",
+      "accession": "0001193125-14-127770",
+      "raw_sha256": "93fc676ff15125ca83a4c046e11049d90ac264b4fd48e47fdc2ce8492fa9cc7d"
+    },
+    {
+      "report_date": "2014-04-30",
+      "accession": "0001193125-14-251746",
+      "raw_sha256": "8a5740f88627a60b8c3546431b6f371579e251786d686cf8995e4cbffa442dbe"
+    },
+    {
+      "report_date": "2014-07-31",
+      "accession": "0001193125-14-366601",
+      "raw_sha256": "324beb0d743dda4fecf75195957743576506d54982d9be3b5153b7d1d3f775cc"
+    },
+    {
+      "report_date": "2014-10-31",
+      "accession": "0001193125-14-455465",
+      "raw_sha256": "3929e60f16e7eaa5ff745c619e8dde0535b514c043aff30b91a662967b3aafb2"
+    }
+  ],
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "raw_body_rechecks_max": 6,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If any failed body lacks the exact later title plus unchanged date/table gate, keep it unqualified. Do not add another fund alias, alter candidate accession, use future market outcomes or extract values in this phase."
+}
