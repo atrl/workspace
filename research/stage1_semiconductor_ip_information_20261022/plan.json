@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_semiconductor_ip_information_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "one_matched_information_screen_before_any_Stage1_0bp_account",
+  "question": "Does the latest original same-vintage US semiconductor/electronic-component industrial-production month-over-month change add five-session future SOXX return information beyond the original Stage1 39 inputs, source-release age and index-base regime? Positive output-growth coefficient is preregistered from a demand-recovery interpretation; this source is broader than chip-only production.",
+  "novelty_boundary": "Different physical-output mechanism from closed Fed capacity utilization, semiconductor PPI, issuer-share creation, VIX term structure, duration/tech-breadth and daily-volume screens. Do not reopen those by sign, lag or window changes.",
+  "parent": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "artifact_sha256": {
+      "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+      "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+      "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+      "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac"
+    },
+    "baseline_features": "exact 39 base_features order from frozen Stage1 seed71 model"
+  },
+  "candidate_source": {
+    "card": "research/semiconductor_ip_stage1_availability_20261022",
+    "recorder_id": "9582d430c4b048b7b6623a99161ed71b",
+    "summary_sha256": "3c43f8ce9cf416aed1253c1c822f0cbde20f7bade9aac5f36b01f332f0f8d5d3",
+    "verification_manifest_sha256": "9fd36dff657904167f4b5fc8914ec5337dd3d5fd5cea7352b4b002f9092e5880",
+    "mapped_artifact": "analysis/mapped_signals",
+    "mapped_artifact_sha256": "b81c36d3510b5345b703b3657af92a0acbe38f506918f0c4c965ffb4a98be1df",
+    "availability_audit_sha256": "1a7b70f35e2ba27e7b93556855e2deb0bc34b49cccba60f484fa655250b2611a",
+    "readback_sha256": "5e3352da9a4eea3552acbe4a5d0138528922dfa5487db36f97cc45659ef7541d",
+    "revision_card": "research/semiconductor_ip_g17_vintage_revision_audit_20261022",
+    "revision_summary_sha256": "b1e590494173bf2d3d9c0f2240819686ce0a32cf13597b50b71c7a75dd0ec8d5",
+    "historical_first_receipt_qualified": false,
+    "source_caveat": "192 original versions, 2011-2022 complete; next-real-session conservative publication lag, 2025 maximum age78 days; within-vintage MoM only, no absolute level splice or current FRED revised history."
+  },
+  "label": {
+    "primary": "Five consecutive original Stage1 SOXX funded open-to-open returns from signal s: sum_j=0..4 log1p(soxx_forward_open_return(s+j))",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval; train strictly before 2023-01-01 America/New_York, held by 2026-10-10 America/New_York",
+    "role": "information-only, no fee-net account or SOXX promotion claim"
+  },
+  "cohorts": {
+    "train_signal": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-07"
+      ]
+    ],
+    "expected_mature_train_rows": 3014,
+    "expected_mature_held_rows": 940,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "Original 39 Stage1 features plus fixed release_age_days and two index-base dummies (2007, 2012; 2017 reference); SimpleImputer(median), StandardScaler, Ridge(alpha=1.0)",
+    "candidate": "Same rows and pipeline plus exactly ip_mom_pct_same_vintage",
+    "new_fits": 2,
+    "candidate_standardized_coefficient_sign_required": "positive",
+    "no_hyperparameter_or_feature_search": true
+  },
+  "gate": {
+    "paired_metric": "baseline squared error minus candidate squared error on identical held signal dates",
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261022,
+      "one_sided_alpha": 0.0011363636363636365,
+      "lower_positive": true
+    }
+  },
+  "budget": {
+    "verified_source_object_loads_max": 5,
+    "DatasetH_builds": 1,
+    "new_model_fits": 2,
+    "new_bootstrap_runs": 1,
+    "new_writable_Qlib_Recorders": 1,
+    "native_accounts": 0,
+    "new_market_requests": 0
+  },
+  "stops": [
+    "Stop before fits if source hashes, exact train/held rows, label maturity or full feature calendar differ",
+    "After source and cohort checks fit only the fixed baseline and candidate; seal both model bytes before held scoring",
+    "A failed gate closes this exact source/receiver/label version: no sign, lag, age cutoff, rebasing, release-window, Ridge or regime rescue",
+    "A pass is development feedback only: historical first receipt and definition continuity, full Stage1 account, 0/2/5bp and independent forward remain separate gates"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  }
+}
