@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_ft900_export_information_20261023",
+  "frozen": true,
+  "execution_authorized": false,
+  "phase": "one_matched_information_screen_before_any_Stage1_0bp_account",
+  "question": "Does the latest published same-report U.S. semiconductor export month-over-month change add five-session future SOXX return information beyond the original Stage1 39 inputs, identical release-age control and a pre/post-2012 classification indicator? Positive export-growth coefficient is preregistered from an external-demand recovery interpretation.",
+  "novelty_boundary": "Trade-demand flow from original Census/BEA FT-900 Exhibit 7, distinct from closed G17 domestic production, capacity, PPI, Cboe total activity, OCC put share and issuer-share routes. No sign, lag, window, definition or control search on reused history.",
+  "parent": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "artifact_sha256": {
+      "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+      "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+      "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+      "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac"
+    },
+    "baseline_features": "exact 39 base_features order from frozen Stage1 seed71 model"
+  },
+  "candidate_source": {
+    "card": "research/census_ft900_stage1_availability_20261023",
+    "recorder_id": "0b4c648c44d24561a8c21e0182381aa3",
+    "summary_sha256": "6f85994ca7f8b503281d2592e160601c706a97d3a8f51227714393e5827679f8",
+    "verification_manifest_sha256": "dc67716057727e2144fe132015b2a42cf08eb876a78a724de14b5542a6a56a8c",
+    "mapped_artifact": "analysis/mapped_signals",
+    "mapped_artifact_sha256": "c72b0e65440a41f1669f51b0d25ef7531f6b74aa1382fe8640d9fff7287772ed",
+    "availability_audit_sha256": "d88bc78a9309fa5950dd94d556708f5fd3e0b3eca119e957912451bf341eecbd",
+    "readback_sha256": "3e38ea629d7a0785e2994c31d96586ce02a1b3197bd8211fd246ad34609ab2e6",
+    "transition_card": "research/census_ft900_index_boundary_20261023",
+    "transition_adjudication_sha256": "7c54c848a70ef3dad961a2cad45ce08986552e9ced495a8ad12ffe1c33e7c186",
+    "historical_first_public_bytes_qualified": false,
+    "classification_continuity_qualified": false,
+    "source_caveat": "191 original report events including 2010 lead-in; January 2012 quarantined, 190 usable. Same-report dimensionless MoM only; printed 08:30 date conservatively next real Qlib session, source age max76 days; historical first-public bytes not certified."
+  },
+  "label": {
+    "primary": "Five consecutive original Stage1 SOXX funded open-to-open returns from signal s: sum_j=0..4 log1p(soxx_forward_open_return(s+j))",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval; train strictly before 2023-01-01 America/New_York, held by 2026-10-10 America/New_York",
+    "role": "information-only, no fee-net account or SOXX promotion claim"
+  },
+  "cohorts": {
+    "train_signal": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-07"
+      ]
+    ],
+    "expected_mature_train_rows": 3014,
+    "expected_mature_held_rows": 940,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "Exact original 39 Stage1 features plus fixed FT900 release_age_days and post-2012 definition-regime indicator; SimpleImputer(median), StandardScaler, Ridge(alpha=1.0)",
+    "candidate": "Same rows and pipeline plus exactly export_mom_pct_same_vintage",
+    "new_fits": 2,
+    "candidate_standardized_coefficient_sign_required": "positive",
+    "no_hyperparameter_or_feature_search": true
+  },
+  "gate": {
+    "paired_metric": "baseline squared error minus candidate squared error on identical held signal dates",
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.0010869565217391304,
+      "lower_positive": true
+    }
+  },
+  "budget": {
+    "verified_source_object_loads_max": 5,
+    "DatasetH_builds": 1,
+    "new_model_fits": 2,
+    "new_bootstrap_runs": 1,
+    "new_writable_Qlib_Recorders": 1,
+    "native_accounts": 0,
+    "new_market_requests": 0
+  },
+  "stops": [
+    "Stop before fits if source hashes, 2012-01 quarantine, exact train/held rows, label maturity or full feature calendar differ",
+    "After source and cohort checks fit only fixed baseline and candidate; seal both model bytes before held scoring",
+    "A failed gate closes this exact source/receiver/label version: no sign, lag, definition, release-age, window or Ridge rescue",
+    "A pass is development feedback only: historical first-public bytes, classification continuity, full Stage1 0bp account, 2/5bp and independent-forward gates remain separate"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "design_blocker": "The pinned carry-forward source map has 0 missing train rows and carries a pre-2012 value through 23 post-Jan2012 sessions, conflicting with the pinned transition adjudication automatic_carry_across_break_authorized=false. Independent source review blocks fitting until rebound to the NaN map or another explicitly separately frozen regime treatment."
+}

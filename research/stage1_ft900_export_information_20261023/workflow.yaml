@@ -1,0 +1,12 @@
+experiment: stage1_ft900_export_information_20261023
+phase: one_matched_information_screen_before_any_Stage1_0bp_account
+plan: plan.json
+notebook: stage1_ft900_export_information_20261023.ipynb
+parent: research/minute_information_pit_allocator_20261012
+source: research/census_ft900_stage1_availability_20261023
+provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+train: 2011-01-03/2022-12-30
+held_reused: 2023-01-03/2026-10-07
+model_fits: 2
+bootstrap_runs: 1
+native_accounts: 0
