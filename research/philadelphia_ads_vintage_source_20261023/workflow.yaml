@@ -12,6 +12,8 @@ outputs:
   - repair_capture_receipt.json
   - repair_run_state.json
   - summary.json
+  - schema_header_audit.json
+  - vintage_schema_duplicate_closeout.json
 market_outcome_reads: 0
 model_fits: 0
 native_accounts: 0

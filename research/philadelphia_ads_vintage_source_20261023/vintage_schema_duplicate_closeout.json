@@ -1,0 +1,14 @@
+{
+  "status": "closed_before_execution_duplicate_ADS_workbook_header_schema_audit",
+  "frozen_plan_sha256": "a09e95b0bcea26b922e7316883e3f90933aa6ad59597c3a463dc1356787243df",
+  "completed_header_result": "schema_header_audit.json",
+  "completed_header_result_sha256": "16e11faf460bd9ed7486dd293f6e0302152a0812ebe8981b77b5d04d89d7bf62",
+  "same_raw_ZIP_sha256": "6b6001da2127ad94066828b3a3151368adeb8f83a7dfe65f1901678703cfef44",
+  "reason": "The independent same-source header audit already read the sole XLSX worksheet header and date axis, establishing 1,576 unique version columns and 2008-2026 coverage without ADS value reads. This plan would repeat the same schema work and risk loading a 1.47GB worksheet XML.",
+  "this_plan_workbook_opens": 0,
+  "this_plan_nested_extractions": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false
+}

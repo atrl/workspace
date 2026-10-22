@@ -13,6 +13,7 @@
   "NAS_remote_and_scoped_restore_verified": true,
   "nested_member": "ADS_All_Vintages-zip.xlsx",
   "schema_header_audit": "schema_header_audit.json",
+  "duplicate_unrun_schema_plan_closeout": "vintage_schema_duplicate_closeout.json",
   "vintage_header_dates_qualified": true,
   "vintage_dates_qualified": false,
   "Stage1_factor_authorized": false,
