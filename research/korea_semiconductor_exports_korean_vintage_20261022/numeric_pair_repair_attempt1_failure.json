@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "numeric_pair_repair_attempt_failed_before_output",
+  "plan_sha256": "3cbc2b1a41af364511216c531b01c8b6ca210bb859bf63e7107bdb55d3d23616",
+  "failure": "Local English source dictionary was shadowed by a per-version set on second iteration (TypeError: set object is not subscriptable).",
+  "operations_consumed": {
+    "source_inventory_loads": 4,
+    "PDF_raw_reads": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "completed_version_results": 0
+  },
+  "next_action": "Rename per-version match set, preserve same frozen semantic rule, execute once; no source or scientific selection change."
+}

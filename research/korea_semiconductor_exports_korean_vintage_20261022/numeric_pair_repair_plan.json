@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_numeric_pairing_mechanical_repair_before_market_outcomes",
+  "prior_pair_plan_sha256": "1fbe6f70fc346af9b805fcc60bdd3affa31543daf7e8f2db4b20a25c4ba9a7f2",
+  "prior_pair_audit_sha256": "fe33f1a4ed199c60ce0947aed97f8b97f1691aed7b511ea470fa99b8bb44ca2b",
+  "source_candidate_inventories_sha256": {
+    "numeric_candidate_inventory.json": "3f4698cb62ff8b215dd5cc297d1f3bc1dc3ba4c6d6d82a1df85aeb383c752c52",
+    "table_numeric_candidate_inventory.json": "ae5aeaaf537e8cc6988f0a75969d34ff3aa4d15880c238342b76256fc9da56c1",
+    "legacy_timeline_candidate_result.json": "edd0202cad20d5838ed18557ba0f7f0ab66524fc14608edabf85d2f432e55870",
+    "English_numeric_candidate_inventory.json": "2f9040197b913f800958449e10a2435ab67b1a3f1e24e1f42295c55b6fa587f7"
+  },
+  "known_positive_controls": {
+    "2025-05": "Korean table 137.9亿 and rounded narrative 138亿, YoY +21.2%, English $13.8B +21.2%. Prefer exact table amount within 0.15亿 rounding class.",
+    "2026-05": "Korean table/narrative 371.6亿 +169.4%, English $37.2B +169.4%.",
+    "2019-02": "Korean semiconductor timeline 67.7亿 -24.8%, English $6.8B decline24.8%; exclude other-sector month tokens without same-line semiconductor amount heading.",
+    "2020-05": "Korean current table/later narrative80.7亿 +7.1% matches English $8.1B; p6 80.1亿 conflict excluded only by source table/English corroboration."
+  },
+  "repair_rule": [
+    "Pair Korean narrative amount and growth only when immediately adjacent as amount亿美金(±growth%) or amount亿美金, ±growth%, not arbitrary amount/percentage cross-product.",
+    "Pair English amount and growth only in same semiconductor/chip export clause with one of: growth percent to $X billion, $X billion (up/down growth percent), or $X billion, up/down growth percent.",
+    "Current-month timeline requires 반도체 수출액/증감률 heading in same line/context before YY.M amount(growth).",
+    "Collapse Korean amounts within 0.15亿 only when YoY signs and magnitudes are identical; prefer exact table value over rounded narrative within class.",
+    "A semantic class needs linked English clause plus one Korean method, or two independent Korean methods. Multiple supported classes or differing dual PDF versions remain unresolved.",
+    "No historical PIT certification from semantic agreement."
+  ],
+  "budget": {
+    "source_inventory_reads": 4,
+    "PDF_raw_reads": 0,
+    "Qlib_D_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}

@@ -22,12 +22,12 @@
     },
     {
       "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
-      "phase": "full_93_month_Korean_source_coverage_complete_numeric_and_PIT_pending",
+      "phase": "numeric_auto_resolver_closed_manual_source_and_PIT_qualification_needed",
       "role": "distinct_monthly_semiconductor_export_demand_information_source",
       "full_economic_experiment": false,
-      "status": "source_bytes_archived_96_versions_original_vintage_unqualified",
+      "status": "27_of_93_current_document_pairs_consistent_66_unresolved_first_public_vintage_unqualified",
       "execution_authorized": false,
-      "result": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json"
+      "result": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json"
     }
   ],
   "framework": [
@@ -132,8 +132,8 @@
     "evidence": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json",
     "constraint": "At/after 2026-10-22 12:45 UTC run one remaining Cboe preopen vintage; at 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. No source is a qualified factor or economic strategy.",
     "execution_authorized": false,
-    "parallel_source_gap": "Korean national export source has 93/93 months with unselected semiconductor amount/YoY text candidates, but numeric values are not yet certified. Three dual-version months and 2020-05 within-PDF amount conflict require a frozen source-only precedence rule; historical first-public vintage remains unqualified. No SOXX outcome or factor fit may be read yet.",
-    "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_source_progress_review_v2.json"
+    "parallel_source_gap": "Korean source-only automatic pairing verified 27/93 current-document month pairs; 66 months including all three dual-version months remain unresolved. Four known controls pass, so unresolved means extractor/source semantics need original-document review, not factor failure. Historical first-public vintage is unqualified. No SOXX outcome or Korea fit may be read.",
+    "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json"
   },
   "closed_source_probes": [
     {

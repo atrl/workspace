@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "status": "needs_manual_numeric_source_qualification_extractor_version_closed",
+  "scope": "source_only_Korean_current_PDF_semantics_no_SOXX_market_outcomes",
+  "first_resolver_audit_sha256": "fe33f1a4ed199c60ce0947aed97f8b97f1691aed7b511ea470fa99b8bb44ca2b",
+  "frozen_repair_plan_sha256": "3cbc2b1a41af364511216c531b01c8b6ca210bb859bf63e7107bdb55d3d23616",
+  "repaired_resolver_audit_sha256": "35c1da77f3f37e8680122fd7991c6007ef1fddfb4137eeabfef8c105f46ce340",
+  "source_months": 93,
+  "PDF_versions": 96,
+  "current_document_semantic_pairs_consistent_all_versions": 27,
+  "unresolved_months": 66,
+  "version_status_counts": {
+    "no_supported_pair": 61,
+    "resolved_current_semantics": 27,
+    "multiple_supported_pairs": 8
+  },
+  "no_supported_pair_classification": {
+    "Korean_pair_and_English_pair_but_no_agreement": 8,
+    "Korean_pair_no_English_signed_pair": 34,
+    "English_pair_no_Korean_pair": 4,
+    "neither_syntactic_pair": 15
+  },
+  "multiple_supported_pair_months": [
+    "2024-08",
+    "2024-09",
+    "2025-04",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-06"
+  ],
+  "dual_version_months_unresolved": [
+    "2020-06",
+    "2020-10",
+    "2023-05"
+  ],
+  "positive_controls_matched": {
+    "2019-02": "67.7 Korean 100m USD, -24.8%",
+    "2020-05": "80.7 Korean 100m USD, +7.1%; p6 80.1 source conflict remains disclosed",
+    "2025-05": "137.9 Korean 100m USD, +21.2%",
+    "2026-05": "371.6 Korean 100m USD, +169.4%"
+  },
+  "interpretation": "Remaining unresolved statuses are extraction or within-source semantic ambiguity, not evidence that original source has no values; four controls pass after one mechanical parser repair. The 2020-05 p6 conflict is not erased by the supported current document pair.",
+  "decision": "Stop this fixed automatic resolver version. A separate source-grounded method or manual original-document review is required before selecting the complete monthly amount/YoY series. No threshold or precedence tuning against SOXX outcomes.",
+  "factor_values_qualified": false,
+  "historical_first_public_vintage_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "parallel_independent_work": "Run only already frozen Cboe preopen and IBKR regular-hours read-only source checks at their scheduled clocks; no Korea factor fit."
+}

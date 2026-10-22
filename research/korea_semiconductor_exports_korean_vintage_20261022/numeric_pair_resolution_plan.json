@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "deterministic_source_only_Korean_English_numeric_pair_resolution",
+  "Korean_source_index_sha256": "1650c6fa081423346fc6d7f233b6af0ca8ff45d98914240d6eef473ec3e80a0c",
+  "Korean_proximity_inventory_sha256": "3f4698cb62ff8b215dd5cc297d1f3bc1dc3ba4c6d6d82a1df85aeb383c752c52",
+  "Korean_table_inventory_sha256": "ae5aeaaf537e8cc6988f0a75969d34ff3aa4d15880c238342b76256fc9da56c1",
+  "Korean_legacy_timeline_sha256": "edd0202cad20d5838ed18557ba0f7f0ab66524fc14608edabf85d2f432e55870",
+  "English_numeric_inventory_sha256": "2f9040197b913f800958449e10a2435ab67b1a3f1e24e1f42295c55b6fa587f7",
+  "rule": [
+    "Korean amount units are 100 million USD (억 달러); candidate amount must be finite positive <=500 units and signed YoY magnitude <=300 percentage points.",
+    "Collect every exact amount/YoY pair from Korean table candidates, current-month timeline candidates with semiconductor context, and within 90 characters of Korean narrative proximity windows; do not select by future returns.",
+    "English cross-check requires Korean amount/10 within 0.05 USD billion of an English $X billion token and abs(Korean YoY) within 0.05 percentage point of an English percent token in the same semiconductor/chip context window.",
+    "A Korean pair is source-supported if it has an English cross-check plus one Korean method, or agrees across at least two different Korean methods. If multiple distinct pairs are supported for a version, version is unresolved.",
+    "All versions of a dual-version month must have one identical supported pair; otherwise month unresolved. Negative YoY sign not independently established by an English decrease/down phrase is flagged for manual source-only review.",
+    "This is current-file semantic consistency only; historical first-public vintage remains unqualified."
+  ],
+  "budget": {
+    "source_inventory_reads": 4,
+    "PDF_raw_reads": 0,
+    "Qlib_D_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop": "No numeric Qlib feature or market outcome unless all 93 months and versions pass a later explicit source qualification review."
+}

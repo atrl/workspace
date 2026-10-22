@@ -1,0 +1,2957 @@
+{
+  "schema_version": 1,
+  "status": "source_numeric_pair_repair_audit_complete_PIT_gap",
+  "repair_plan_sha256": "3cbc2b1a41af364511216c531b01c8b6ca210bb859bf63e7107bdb55d3d23616",
+  "PDF_versions": 96,
+  "months": 93,
+  "resolved_versions": 27,
+  "resolved_all_version_months": 27,
+  "unresolved_months": [
+    "2019-01",
+    "2019-03",
+    "2019-04",
+    "2019-06",
+    "2019-08",
+    "2019-09",
+    "2019-10",
+    "2019-11",
+    "2019-12",
+    "2020-01",
+    "2020-02",
+    "2020-03",
+    "2020-04",
+    "2020-06",
+    "2020-08",
+    "2020-09",
+    "2020-10",
+    "2020-11",
+    "2020-12",
+    "2021-01",
+    "2021-02",
+    "2021-03",
+    "2021-04",
+    "2021-05",
+    "2021-06",
+    "2021-08",
+    "2021-10",
+    "2021-11",
+    "2021-12",
+    "2022-01",
+    "2022-02",
+    "2022-03",
+    "2022-04",
+    "2022-06",
+    "2022-07",
+    "2022-08",
+    "2022-09",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08",
+    "2023-09",
+    "2023-11",
+    "2023-12",
+    "2024-01",
+    "2024-02",
+    "2024-03",
+    "2024-08",
+    "2024-09",
+    "2024-12",
+    "2025-01",
+    "2025-03",
+    "2025-04",
+    "2025-08",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-06",
+    "2026-09"
+  ],
+  "per_month": {
+    "2019-01": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2019-02": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 67.7,
+        "YoY_pct": -24.8
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2019-03": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2019-04": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2019-05": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 75.4,
+        "YoY_pct": -30.5
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2019-06": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2019-07": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 74.6,
+        "YoY_pct": -28.1
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2019-08": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2019-09": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2019-10": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2019-11": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2019-12": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2020-01": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2020-02": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2020-03": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2020-04": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2020-05": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 80.7,
+        "YoY_pct": 7.1
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2020-06": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 2,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair",
+        "no_supported_pair"
+      ]
+    },
+    "2020-07": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 78.8,
+        "YoY_pct": 5.6
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2020-08": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2020-09": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2020-10": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 2,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair",
+        "no_supported_pair"
+      ]
+    },
+    "2020-11": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2020-12": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2021-01": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2021-02": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2021-03": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2021-04": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2021-05": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2021-06": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2021-07": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 110.0,
+        "YoY_pct": 39.6
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2021-08": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2021-09": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 121.8,
+        "YoY_pct": 28.2
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2021-10": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2021-11": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2021-12": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2022-01": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2022-02": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2022-03": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2022-04": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2022-05": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 115.5,
+        "YoY_pct": 15.0
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2022-06": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2022-07": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2022-08": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2022-09": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2022-10": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 92.3,
+        "YoY_pct": -17.4
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2022-11": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2022-12": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2023-01": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2023-02": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2023-03": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2023-04": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2023-05": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 2,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair",
+        "no_supported_pair"
+      ]
+    },
+    "2023-06": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2023-07": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2023-08": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2023-09": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2023-10": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 89.4,
+        "YoY_pct": -3.1
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2023-11": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2023-12": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2024-01": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2024-02": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2024-03": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2024-04": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 99.6,
+        "YoY_pct": 56.1
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2024-05": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 113.8,
+        "YoY_pct": 54.5
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2024-06": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 134.2,
+        "YoY_pct": 50.9
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2024-07": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 112.0,
+        "YoY_pct": 50.4
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2024-08": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "multiple_supported_pairs"
+      ]
+    },
+    "2024-09": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "multiple_supported_pairs"
+      ]
+    },
+    "2024-10": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 122.0,
+        "YoY_pct": 10.9
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2024-11": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 54.0,
+        "YoY_pct": 0.9
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2024-12": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2025-01": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2025-02": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 96.0,
+        "YoY_pct": 12.6
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2025-03": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2025-04": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "multiple_supported_pairs"
+      ]
+    },
+    "2025-05": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 137.9,
+        "YoY_pct": 21.2
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2025-06": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 149.7,
+        "YoY_pct": 11.6
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2025-07": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 147.1,
+        "YoY_pct": 31.6
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2025-08": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    },
+    "2025-09": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 166.1,
+        "YoY_pct": 22.0
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2025-10": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 157.3,
+        "YoY_pct": 25.4
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2025-11": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 172.6,
+        "YoY_pct": 38.6
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2025-12": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 204.0,
+        "YoY_pct": 3.8
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2026-01": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "multiple_supported_pairs"
+      ]
+    },
+    "2026-02": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "multiple_supported_pairs"
+      ]
+    },
+    "2026-03": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "multiple_supported_pairs"
+      ]
+    },
+    "2026-04": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "multiple_supported_pairs"
+      ]
+    },
+    "2026-05": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 371.6,
+        "YoY_pct": 169.4
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2026-06": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "multiple_supported_pairs"
+      ]
+    },
+    "2026-07": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 410.1,
+        "YoY_pct": 178.8
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2026-08": {
+      "status": "current_file_semantics_consistent_all_versions",
+      "versions": 1,
+      "semantic_pair": {
+        "amount_100M_USD": 466.5,
+        "YoY_pct": 209.0
+      },
+      "version_statuses": [
+        "resolved_current_semantics"
+      ]
+    },
+    "2026-09": {
+      "status": "current_file_semantics_unresolved",
+      "versions": 1,
+      "semantic_pair": null,
+      "version_statuses": [
+        "no_supported_pair"
+      ]
+    }
+  },
+  "per_version": [
+    {
+      "month": "2019-01",
+      "version_index": 1,
+      "source_SHA256": "8f92397c1e046d2e51121793ca64ab3b11aa670058fe8326ad9e047be163d3d3",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 3,
+      "English_signed_pairs": [
+        [
+          7.4,
+          -23.3
+        ]
+      ]
+    },
+    {
+      "month": "2019-02",
+      "version_index": 1,
+      "source_SHA256": "940936daabf9a0671dc2896564ef55f392890bf38c45dd7e5b52b53a95c8a24b",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 67.7,
+          "YoY_pct": -24.8,
+          "Korean_methods": [
+            "current_month_timeline"
+          ],
+          "English_signed_clause_matches": [
+            [
+              6.8,
+              -24.8
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            67.7
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": [
+        [
+          6.8,
+          -24.8
+        ]
+      ]
+    },
+    {
+      "month": "2019-03",
+      "version_index": 1,
+      "source_SHA256": "d4b58c83e1441bba77b9237a31c04bc8e8fa94ca6c193fe72dc5cd3a441b75e4",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2019-04",
+      "version_index": 1,
+      "source_SHA256": "0df485444073241079eeb0b761dc8fe69dfe30b341b73b813d0bd9e6ed5712dd",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2019-05",
+      "version_index": 1,
+      "source_SHA256": "49efc695c49f07ab14c5f07c643ef4d81c186d7b23d81e07b285f62bb3f1c071",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 75.4,
+          "YoY_pct": -30.5,
+          "Korean_methods": [
+            "current_month_timeline"
+          ],
+          "English_signed_clause_matches": [
+            [
+              7.5,
+              -30.5
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            75.4
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": [
+        [
+          7.5,
+          -30.5
+        ]
+      ]
+    },
+    {
+      "month": "2019-06",
+      "version_index": 1,
+      "source_SHA256": "15493da429cf06a2eb9df808f0bd9ea6282df4304fa12d827f82900fa6457851",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 2,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2019-07",
+      "version_index": 1,
+      "source_SHA256": "93573d96d1a665db7af75b78cc6585127d2ae56102055668c1f7371522b74f2d",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 74.6,
+          "YoY_pct": -28.1,
+          "Korean_methods": [
+            "current_month_timeline"
+          ],
+          "English_signed_clause_matches": [
+            [
+              7.5,
+              -28.1
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            74.6
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 4,
+      "English_signed_pairs": [
+        [
+          7.5,
+          -28.1
+        ]
+      ]
+    },
+    {
+      "month": "2019-08",
+      "version_index": 1,
+      "source_SHA256": "a0cc07cedffd1b02ba1fe36480b5a11805d33fe0276616cad0b2ebdb9099539d",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": [
+        [
+          8.0,
+          -30.7
+        ]
+      ]
+    },
+    {
+      "month": "2019-09",
+      "version_index": 1,
+      "source_SHA256": "8dbb44073ce2eb545aa3bef1848ecf112b027fd20405e483fc8f15651988dfcd",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 2,
+      "English_signed_pairs": [
+        [
+          5.7,
+          -2.2
+        ],
+        [
+          8.5,
+          -31.5
+        ]
+      ]
+    },
+    {
+      "month": "2019-10",
+      "version_index": 1,
+      "source_SHA256": "a34c7e9fda0c463febeadcf4219c2f759ae37a1c52145f8b27474fd3d77fa8ce",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 9,
+      "English_signed_pairs": [
+        [
+          7.9,
+          -32.1
+        ]
+      ]
+    },
+    {
+      "month": "2019-11",
+      "version_index": 1,
+      "source_SHA256": "b5a1a3ffb7786b9bbb9648ded1ee8fd17d99d0b535d1ac9b0dc482712b2cb136",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 2,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2019-12",
+      "version_index": 1,
+      "source_SHA256": "ba9bd8b376b72f57de7793c1e3144ee2dd0255e4973067bc75c1933a9c5dd3c1",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2020-01",
+      "version_index": 1,
+      "source_SHA256": "fa206718c91f4d0be9a4bd4d5bbb0e5eb77bbf9184a00e447b3241072ec3e155",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2020-02",
+      "version_index": 1,
+      "source_SHA256": "9df967bd37398466d590e65eb6bee6b980433a15bee249d78f4255e74762549a",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": [
+        [
+          7.4,
+          9.4
+        ]
+      ]
+    },
+    {
+      "month": "2020-03",
+      "version_index": 1,
+      "source_SHA256": "c9ee9751e7588de7c25ba68f6abef86abc23416e51295481c9108a268286685c",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2020-04",
+      "version_index": 1,
+      "source_SHA256": "c7f3e09254729bb07c38e3d35862b5842cdb9a44908585848486c6e6d38f5a3f",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2020-05",
+      "version_index": 1,
+      "source_SHA256": "0dc84e2a434d72d75f7682a65d64d5afb045156609a73d835305ecdde915e4b6",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 80.7,
+          "YoY_pct": 7.1,
+          "Korean_methods": [
+            "current_month_timeline"
+          ],
+          "English_signed_clause_matches": [
+            [
+              8.1,
+              7.1
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            80.7
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 2,
+      "English_signed_pairs": [
+        [
+          8.1,
+          7.1
+        ]
+      ]
+    },
+    {
+      "month": "2020-06",
+      "version_index": 1,
+      "source_SHA256": "3f52df6a5e01c4227f3e061fa87f64ea70aaa38e8ef29ed11b293a85422edd36",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2020-06",
+      "version_index": 2,
+      "source_SHA256": "68f66c5e86ce48b63c5c5b2dbd6d54dd1594021761428211db8ddf5106e2bfc4",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2020-07",
+      "version_index": 1,
+      "source_SHA256": "636c1256755df0deba77e9b5ced36c01d24884365f5c56f7d5435aabd5d6606e",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 78.8,
+          "YoY_pct": 5.6,
+          "Korean_methods": [
+            "current_month_timeline"
+          ],
+          "English_signed_clause_matches": [
+            [
+              7.9,
+              5.6
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            78.8
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": [
+        [
+          7.9,
+          5.6
+        ]
+      ]
+    },
+    {
+      "month": "2020-08",
+      "version_index": 1,
+      "source_SHA256": "5173275dcc6716db51ccdb964d4902e0e9910d140075e8e2100da7b805f6a445",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2020-09",
+      "version_index": 1,
+      "source_SHA256": "919c5a38a78b395e43f03d3e512d835bf6f002ceb20938f741f07cba6bc15742",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2020-10",
+      "version_index": 1,
+      "source_SHA256": "9fe56f0ee51e92a7c5e32e4553cf1fccd22e40715e53d879810a4d05b02a6f4b",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2020-10",
+      "version_index": 2,
+      "source_SHA256": "ef118bf35b4226842cc94e0e9caa1eb0624edbbc734f18a3f9df5acd544bd231",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2020-11",
+      "version_index": 1,
+      "source_SHA256": "50f485c5cf8ca54eec0f0014965dc012f89b3ae68a80f94f6f71b9cd3f71ea3d",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": [
+        [
+          8.6,
+          16.4
+        ]
+      ]
+    },
+    {
+      "month": "2020-12",
+      "version_index": 1,
+      "source_SHA256": "9c29924fba95427fc474b4620edd69cba323e31cf7d08ff7ec3ec97d1baa2170",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2021-01",
+      "version_index": 1,
+      "source_SHA256": "893ddbb59d2bf7e08754d6939fda17fe8ad2355388bd15f24c28be47252c4358",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2021-02",
+      "version_index": 1,
+      "source_SHA256": "c4e94dbfc17492d3ea773d9b06984d23e0bf4291004f8a4b520832f49f72e651",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2021-03",
+      "version_index": 1,
+      "source_SHA256": "979e26604c769ed6b8ec7b70df9db7768ab29181e5f8e5dc9a49b2dc2ea137fb",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2021-04",
+      "version_index": 1,
+      "source_SHA256": "1e010f5a8ead1c7cdbf58e681ef78400c38c6e630bd0501135503478c0a929f2",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2021-05",
+      "version_index": 1,
+      "source_SHA256": "7c80dd013015e5dba92f4704964860d6a0a101fecd6d15e655be2c195e45cf7c",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 0,
+      "English_signed_pairs": [
+        [
+          10.0,
+          24.5
+        ]
+      ]
+    },
+    {
+      "month": "2021-06",
+      "version_index": 1,
+      "source_SHA256": "5a5f7927d8bafaa2b99060568d3439e5b20b383491f4ba75890218e0792b961c",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2021-07",
+      "version_index": 1,
+      "source_SHA256": "75d1cf47d0165930fba2826f800710c1fa1f5d10b7877af307f0ba17bf7f7140",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 110.0,
+          "YoY_pct": 39.6,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              11.0,
+              39.6
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            110.0
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": [
+        [
+          11.0,
+          39.6
+        ]
+      ]
+    },
+    {
+      "month": "2021-08",
+      "version_index": 1,
+      "source_SHA256": "e231d0e692a7c9396034847122217281ede0977636567e06c565a49cc31e957b",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": [
+        [
+          7.7,
+          38.1
+        ]
+      ]
+    },
+    {
+      "month": "2021-09",
+      "version_index": 1,
+      "source_SHA256": "9308e883f21e7a9c8f0ef465a725fdfc68a98fc0d1207076552b42787332c959",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 121.8,
+          "YoY_pct": 28.2,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              12.2,
+              28.2
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            121.8
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": [
+        [
+          12.2,
+          28.2
+        ]
+      ]
+    },
+    {
+      "month": "2021-10",
+      "version_index": 1,
+      "source_SHA256": "10210baf088838fce539e413f5c43981d25bce85b2b2eeb5093af491b6364269",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2021-11",
+      "version_index": 1,
+      "source_SHA256": "a42e17fc86720fdc923f1276d20405587eef1c2b37432057f836ed1fff690417",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2021-12",
+      "version_index": 1,
+      "source_SHA256": "31dcf15eaa08ff4a46ecbf9fd485b70e49d4e1d8a6968a971308044bc41751a5",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 2,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2022-01",
+      "version_index": 1,
+      "source_SHA256": "d44d9fe299a319b1a6cc4eec2600513d56a8a24af8dc70e8fc23bb71913518d9",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2022-02",
+      "version_index": 1,
+      "source_SHA256": "24df7de7e76d57dfa16467df1ced401d4e839383c6174226ebb7f1298efd80b2",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2022-03",
+      "version_index": 1,
+      "source_SHA256": "452c9f9925992559ad12393a0b851239d947bd1f69d14c568308ada5fca755e3",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2022-04",
+      "version_index": 1,
+      "source_SHA256": "33dc0ed0f5ef8f64dba533e698d7e7be343147143a978dc65e82a91eb0c04040",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2022-05",
+      "version_index": 1,
+      "source_SHA256": "c5c0941d420bd1567e547ff3d8721aac7c59f6ba8b3664fb304b9317d7f417c5",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 115.5,
+          "YoY_pct": 15.0,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              11.6,
+              15.0
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            115.5
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": [
+        [
+          11.6,
+          15.0
+        ]
+      ]
+    },
+    {
+      "month": "2022-06",
+      "version_index": 1,
+      "source_SHA256": "c7cb099f6f3183d4a6437b83658d85019e07c1539571ebcfb1eafb10203729b6",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2022-07",
+      "version_index": 1,
+      "source_SHA256": "2ebd94470d707635208f8dcdff66a1ac40282b186e8f9fdd43bc6eb55af34fa3",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2022-08",
+      "version_index": 1,
+      "source_SHA256": "5396b13b4aa6d734874a05cb1ec97a9d5164332050a5d51b34de05a45a370690",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 2,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2022-09",
+      "version_index": 1,
+      "source_SHA256": "d9428a6dfb31a60473b9cc7173bd98adc461cf882c77c586c3906d3318de0c29",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2022-10",
+      "version_index": 1,
+      "source_SHA256": "7387dff7899ad083a59ff9d900ad4b7421ff6dba8a53520cfa5fcddb91627065",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 92.3,
+          "YoY_pct": -17.4,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              9.2,
+              -17.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            92.3
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 3,
+      "English_signed_pairs": [
+        [
+          9.2,
+          -17.4
+        ]
+      ]
+    },
+    {
+      "month": "2022-11",
+      "version_index": 1,
+      "source_SHA256": "7092eaa5d0962db309f5e0a35568f9b9111a7ce5ed00751cecea57ed1ce93afd",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 3,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2022-12",
+      "version_index": 1,
+      "source_SHA256": "490e651bd8a134427203f817c9c54d1d4cafc62ae71e4da8b81d70bdf312793e",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2023-01",
+      "version_index": 1,
+      "source_SHA256": "84cb240c51a62cc1c17376fba949a7635d94402e50630707689f10ac1f93d2c3",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 5,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2023-02",
+      "version_index": 1,
+      "source_SHA256": "257c995bec56615fa6fb2d5b90d2ff4734d135414b5d74cabd20488c3d7c1165",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 3,
+      "English_signed_pairs": [
+        [
+          5.6,
+          47.1
+        ]
+      ]
+    },
+    {
+      "month": "2023-03",
+      "version_index": 1,
+      "source_SHA256": "773f7a81887e570555013f0c6a6a44357ae1b42e79743c04ffacb19eb4dfc3f5",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 5,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2023-04",
+      "version_index": 1,
+      "source_SHA256": "80a2fa8cea80fb2e5faaef1ea2411cdeacef49c0d2407e2f322a0b658624a2ad",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 3,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2023-05",
+      "version_index": 1,
+      "source_SHA256": "5aea7be6f12ed902d8ad203a288f165b2b73c66fb659b139a0886f37e678074d",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2023-05",
+      "version_index": 2,
+      "source_SHA256": "f1fa3a0896206d9a20f4dc48c80d889f05530dafc95a3e68cc21a630b96c81eb",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2023-06",
+      "version_index": 1,
+      "source_SHA256": "11650fa220525ef22796c5b41b52ff075e7ab498b7c078319a0c03bb81c17ac9",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 4,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2023-07",
+      "version_index": 1,
+      "source_SHA256": "0356b9588f76d0d0e2288191ea373843bdbf7c8c4d85edd4fd85b974c1901715",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2023-08",
+      "version_index": 1,
+      "source_SHA256": "827c0ce2e9dfa0c2b7996c0345334492a1ca1b4939aac3e5254c360fbade8af8",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 2,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2023-09",
+      "version_index": 1,
+      "source_SHA256": "f46350d0fdbeaef6d3f21d63a0ccc23d8b455ff63d3592c86a286da28954a856",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": [
+        [
+          9.9,
+          -13.6
+        ]
+      ]
+    },
+    {
+      "month": "2023-10",
+      "version_index": 1,
+      "source_SHA256": "8cca3a0dc5863426496848f5af29a8c3ef91b03fdc3145527c4d8421c4277de6",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 89.4,
+          "YoY_pct": -3.1,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              8.9,
+              -3.1
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            89.4
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 1,
+      "English_signed_pairs": [
+        [
+          8.9,
+          -3.1
+        ]
+      ]
+    },
+    {
+      "month": "2023-11",
+      "version_index": 1,
+      "source_SHA256": "f5d09d68be0ebb4553e159f919610883a015d2981c979406d56c5ddca8e96977",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 4,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2023-12",
+      "version_index": 1,
+      "source_SHA256": "b285e0a48ffcb11896f089fa5905c122fc46986bf2347acbed36c16aaa0753d5",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 3,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2024-01",
+      "version_index": 1,
+      "source_SHA256": "dd6081785c95ea227d9f02256fbe3bdca41ae99676e67b6d3fa749a4f4ac07ea",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 2,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2024-02",
+      "version_index": 1,
+      "source_SHA256": "015da809ff31af82eefa57ebb249aa7ccde8fff8282d18cf6a394d87e4fb2fab",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 7,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2024-03",
+      "version_index": 1,
+      "source_SHA256": "b6bb38afc1e5a8ef5df75fc3fa4b23adea1d0e10bb178c3df2b89ee3158c55db",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 9,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2024-04",
+      "version_index": 1,
+      "source_SHA256": "0687d5066de3b17db4cead8bd8f2821ddc8d147a6d4ca18ae394e8242fcf4434",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 99.6,
+          "YoY_pct": 56.1,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              9.96,
+              56.1
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            99.6
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 3,
+      "English_signed_pairs": [
+        [
+          9.96,
+          56.1
+        ]
+      ]
+    },
+    {
+      "month": "2024-05",
+      "version_index": 1,
+      "source_SHA256": "e1e2bf5c2ad60a09100900372a510d56ac76d0faa719719ffb554f18759a0a4c",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 113.8,
+          "YoY_pct": 54.5,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              11.4,
+              54.5
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            113.8
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 9,
+      "English_signed_pairs": [
+        [
+          11.4,
+          54.5
+        ]
+      ]
+    },
+    {
+      "month": "2024-06",
+      "version_index": 1,
+      "source_SHA256": "6eb4f40b078536387a828139d94dad48c648939352831b409c5885225e5b2e1b",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 134.2,
+          "YoY_pct": 50.9,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [],
+          "rounded_Korean_amounts": [
+            134.2
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 22,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2024-07",
+      "version_index": 1,
+      "source_SHA256": "3c1cf8a7431be3c296b08b68965e198f1d8df544d4bdb0834aee7cba6eb0b4bc",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 112.0,
+          "YoY_pct": 50.4,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              11.2,
+              50.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            112.0
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 14,
+      "English_signed_pairs": [
+        [
+          11.2,
+          50.4
+        ]
+      ]
+    },
+    {
+      "month": "2024-08",
+      "version_index": 1,
+      "source_SHA256": "4de9c5cb46387a21c3aabb101e10bc6b96bbaa972182d01522cf5e01ad8a4d24",
+      "status": "multiple_supported_pairs",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 118.8,
+          "YoY_pct": 38.8,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              11.9,
+              38.8
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            118.8
+          ],
+          "table_preferred": true
+        },
+        {
+          "amount_100M_USD": 119.0,
+          "YoY_pct": 38.8,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              11.9,
+              38.8
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            119.0
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 7,
+      "English_signed_pairs": [
+        [
+          11.9,
+          38.8
+        ]
+      ]
+    },
+    {
+      "month": "2024-09",
+      "version_index": 1,
+      "source_SHA256": "5e07b413d141ca9267839d0a14c7a580f0ac3b2d0328309ca9ec1605b5e33c4e",
+      "status": "multiple_supported_pairs",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 366.8,
+          "YoY_pct": 41.4,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              36.7,
+              41.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            366.8
+          ],
+          "table_preferred": true
+        },
+        {
+          "amount_100M_USD": 367.0,
+          "YoY_pct": 41.4,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              36.7,
+              41.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            367.0
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 10,
+      "English_signed_pairs": [
+        [
+          36.7,
+          41.4
+        ]
+      ]
+    },
+    {
+      "month": "2024-10",
+      "version_index": 1,
+      "source_SHA256": "dba5ae35813b340138969e8be4eec6664e7f534eeae22709ff927c9c64af2caa",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 122.0,
+          "YoY_pct": 10.9,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              12.2,
+              10.9
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            122.0
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 6,
+      "English_signed_pairs": [
+        [
+          12.2,
+          10.9
+        ]
+      ]
+    },
+    {
+      "month": "2024-11",
+      "version_index": 1,
+      "source_SHA256": "2575ae851ce43632136592aa3a726df74f9e694f7d5ac1bfeb776cd804a9c080",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 54.0,
+          "YoY_pct": 0.9,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              5.4,
+              0.9
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            54.0
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 7,
+      "English_signed_pairs": [
+        [
+          5.4,
+          0.9
+        ]
+      ]
+    },
+    {
+      "month": "2024-12",
+      "version_index": 1,
+      "source_SHA256": "5d8d87d69f561ffd1d70c09d77b9563e4b27810dc1d774689be88aef42ba0006",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 11,
+      "English_signed_pairs": [
+        [
+          114.0,
+          4.5
+        ]
+      ]
+    },
+    {
+      "month": "2025-01",
+      "version_index": 1,
+      "source_SHA256": "4b9f7a71d950eebb79c48486117c8bb368902bbc071f8a807c1701a9eef4d825",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 6,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2025-02",
+      "version_index": 1,
+      "source_SHA256": "27cdf937711d3cb6ea745b0d30354603e49f4e0cc96a754650393454a99940db",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 96.0,
+          "YoY_pct": 12.6,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              9.6,
+              12.6
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            96.0
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 9,
+      "English_signed_pairs": [
+        [
+          9.6,
+          12.6
+        ]
+      ]
+    },
+    {
+      "month": "2025-03",
+      "version_index": 1,
+      "source_SHA256": "d9997cd8f1bf7352ce83ded1051357c4ac035ac9761b1d7989f5dadd266f4488",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 16,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2025-04",
+      "version_index": 1,
+      "source_SHA256": "1a29d931613bbab7580222b9134ecd9e72a00bdc4bedc51553c494e1eaeb2525",
+      "status": "multiple_supported_pairs",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 116.7,
+          "YoY_pct": 17.2,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              11.7,
+              17.2
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            116.7
+          ],
+          "table_preferred": true
+        },
+        {
+          "amount_100M_USD": 117.0,
+          "YoY_pct": 17.2,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              11.7,
+              17.2
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            117.0
+          ],
+          "table_preferred": false
+        },
+        {
+          "amount_100M_USD": 67.0,
+          "YoY_pct": 18.4,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              6.7,
+              18.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            67.0
+          ],
+          "table_preferred": false
+        },
+        {
+          "amount_100M_USD": 26.0,
+          "YoY_pct": 3.9,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              2.6,
+              3.9
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            26.0
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 22,
+      "English_signed_pairs": [
+        [
+          2.6,
+          3.9
+        ],
+        [
+          6.7,
+          18.4
+        ],
+        [
+          11.7,
+          17.2
+        ]
+      ]
+    },
+    {
+      "month": "2025-05",
+      "version_index": 1,
+      "source_SHA256": "cf109a28bae2f5f22295149715f5e4c28910262e8e583181387409e2567782fb",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 137.9,
+          "YoY_pct": 21.2,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              13.8,
+              21.2
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            137.9,
+            138.0
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 11,
+      "English_signed_pairs": [
+        [
+          13.8,
+          21.2
+        ]
+      ]
+    },
+    {
+      "month": "2025-06",
+      "version_index": 1,
+      "source_SHA256": "3da2935bfaed81c697533c1817d2689c7d763df68965c9e1692dcdd27b09e656",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 149.7,
+          "YoY_pct": 11.6,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              15.0,
+              11.6
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            149.7
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 14,
+      "English_signed_pairs": [
+        [
+          15.0,
+          11.6
+        ]
+      ]
+    },
+    {
+      "month": "2025-07",
+      "version_index": 1,
+      "source_SHA256": "2e4d3a390aeda0da1e00f4d71d18c3eb4c349f3757ece0754749b1684f877e88",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 147.1,
+          "YoY_pct": 31.6,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [],
+          "rounded_Korean_amounts": [
+            147.1
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 26,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2025-08",
+      "version_index": 1,
+      "source_SHA256": "e9847905a8e8cccaaa91ef499bd1e2675656020fb7a09acf2571181fff975b5d",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 19,
+      "English_signed_pairs": []
+    },
+    {
+      "month": "2025-09",
+      "version_index": 1,
+      "source_SHA256": "85d83e9e0ac158de81f93608e5870573571a9185f6889dc578ac2327ea62234e",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 166.1,
+          "YoY_pct": 22.0,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              16.6,
+              22.0
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            166.1
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 15,
+      "English_signed_pairs": [
+        [
+          16.6,
+          22.0
+        ]
+      ]
+    },
+    {
+      "month": "2025-10",
+      "version_index": 1,
+      "source_SHA256": "f5ca426cda7b6b4a3c06ac03bc504d4ae6ae9aeba3de22b9cd565d5da2ede635",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 157.3,
+          "YoY_pct": 25.4,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              15.7,
+              25.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            157.3
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 12,
+      "English_signed_pairs": [
+        [
+          15.7,
+          25.4
+        ]
+      ]
+    },
+    {
+      "month": "2025-11",
+      "version_index": 1,
+      "source_SHA256": "94cc5909d86d9f048a25db81c7a83543025b153e8abbf3345a79dee525dcbd65",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 172.6,
+          "YoY_pct": 38.6,
+          "Korean_methods": [
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              17.3,
+              38.6
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            172.6
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 17,
+      "English_signed_pairs": [
+        [
+          17.3,
+          38.6
+        ]
+      ]
+    },
+    {
+      "month": "2025-12",
+      "version_index": 1,
+      "source_SHA256": "3a3dbd97a0d3c53600c71d745bdf60b5ddea188666fff60cff75efff21264d7e",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 204.0,
+          "YoY_pct": 3.8,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              20.4,
+              3.8
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            204.0
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 12,
+      "English_signed_pairs": [
+        [
+          20.4,
+          3.8
+        ],
+        [
+          72.0,
+          1.7
+        ]
+      ]
+    },
+    {
+      "month": "2026-01",
+      "version_index": 1,
+      "source_SHA256": "029e540706d2b6b22d7bc83146a4354276205f1d53096912df99166bb78b8654",
+      "status": "multiple_supported_pairs",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 205.4,
+          "YoY_pct": 102.7,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              20.5,
+              102.7
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            205.4
+          ],
+          "table_preferred": true
+        },
+        {
+          "amount_100M_USD": 20.3,
+          "YoY_pct": 66.9,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              2.0,
+              66.9
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            20.3
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 11,
+      "English_signed_pairs": [
+        [
+          2.0,
+          66.9
+        ],
+        [
+          20.5,
+          102.7
+        ]
+      ]
+    },
+    {
+      "month": "2026-02",
+      "version_index": 1,
+      "source_SHA256": "c0607093b71f6602a4cef8e4e0f27d0c1ceab112bfa0d93bc3f435d6d7f4ed4c",
+      "status": "multiple_supported_pairs",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 251.6,
+          "YoY_pct": 160.8,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              25.2,
+              160.8
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            251.6
+          ],
+          "table_preferred": true
+        },
+        {
+          "amount_100M_USD": 124.7,
+          "YoY_pct": 30.4,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              12.5,
+              30.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            124.7
+          ],
+          "table_preferred": false
+        },
+        {
+          "amount_100M_USD": 67.6,
+          "YoY_pct": 19.1,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              6.8,
+              19.1
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            67.6
+          ],
+          "table_preferred": false
+        },
+        {
+          "amount_100M_USD": 25.6,
+          "YoY_pct": 43.4,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              2.6,
+              43.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            25.6
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 13,
+      "English_signed_pairs": [
+        [
+          2.6,
+          43.4
+        ],
+        [
+          6.8,
+          19.1
+        ],
+        [
+          12.5,
+          30.4
+        ],
+        [
+          25.2,
+          160.8
+        ]
+      ]
+    },
+    {
+      "month": "2026-03",
+      "version_index": 1,
+      "source_SHA256": "e04b68088270a8b220f6588112dd9ac31770f672fa6d2221c659db2af5fb67d2",
+      "status": "multiple_supported_pairs",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 328.3,
+          "YoY_pct": 151.4,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              32.8,
+              151.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            328.3
+          ],
+          "table_preferred": true
+        },
+        {
+          "amount_100M_USD": 86.1,
+          "YoY_pct": 34.8,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              8.6,
+              34.8
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            86.1
+          ],
+          "table_preferred": false
+        },
+        {
+          "amount_100M_USD": 28.8,
+          "YoY_pct": 4.4,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              2.9,
+              4.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            28.8
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 12,
+      "English_signed_pairs": [
+        [
+          2.9,
+          4.4
+        ],
+        [
+          8.6,
+          34.8
+        ],
+        [
+          13.8,
+          34.3
+        ],
+        [
+          32.8,
+          151.4
+        ]
+      ]
+    },
+    {
+      "month": "2026-04",
+      "version_index": 1,
+      "source_SHA256": "a7160ea147b0a43f5a03310041456928c7d4c9d94032e9e7d16945e5cda58785",
+      "status": "multiple_supported_pairs",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 319.0,
+          "YoY_pct": 173.5,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              31.9,
+              173.5
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            319.0
+          ],
+          "table_preferred": true
+        },
+        {
+          "amount_100M_USD": 163.3,
+          "YoY_pct": 54.0,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              16.3,
+              54.0
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            163.3
+          ],
+          "table_preferred": false
+        },
+        {
+          "amount_100M_USD": 25.1,
+          "YoY_pct": 59.9,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              2.5,
+              59.9
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            25.1
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 9,
+      "English_signed_pairs": [
+        [
+          2.5,
+          59.9
+        ],
+        [
+          16.3,
+          54.0
+        ],
+        [
+          31.9,
+          173.5
+        ]
+      ]
+    },
+    {
+      "month": "2026-05",
+      "version_index": 1,
+      "source_SHA256": "e1c89aeda48ef27f1533c4f2683829b102d3ab3ef301e6a423994915b1cf9d76",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 371.6,
+          "YoY_pct": 169.4,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              37.2,
+              169.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            371.6
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 23,
+      "English_signed_pairs": [
+        [
+          37.2,
+          169.4
+        ]
+      ]
+    },
+    {
+      "month": "2026-06",
+      "version_index": 1,
+      "source_SHA256": "224a3daeae3a929f9942ec4d4c4262bf62a7e685b4ce4642f917daa7d20c5922",
+      "status": "multiple_supported_pairs",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 448.2,
+          "YoY_pct": 199.5,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              44.82,
+              199.5
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            448.2
+          ],
+          "table_preferred": true
+        },
+        {
+          "amount_100M_USD": 76.2,
+          "YoY_pct": 31.8,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              7.62,
+              31.8
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            76.2
+          ],
+          "table_preferred": false
+        },
+        {
+          "amount_100M_USD": 18.0,
+          "YoY_pct": -8.4,
+          "Korean_methods": [
+            "narrative_adjacent"
+          ],
+          "English_signed_clause_matches": [
+            [
+              1.8,
+              -8.4
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            18.0
+          ],
+          "table_preferred": false
+        }
+      ],
+      "raw_Korean_pair_count": 11,
+      "English_signed_pairs": [
+        [
+          1.8,
+          -8.4
+        ],
+        [
+          7.62,
+          31.8
+        ],
+        [
+          44.82,
+          199.5
+        ],
+        [
+          192.4,
+          162.6
+        ]
+      ]
+    },
+    {
+      "month": "2026-07",
+      "version_index": 1,
+      "source_SHA256": "ef85842bcc2175cae4fba6670c618e3b33ed3c26d9dd8554691ada466c962424",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 410.1,
+          "YoY_pct": 178.8,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              41.01,
+              178.8
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            410.1
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 19,
+      "English_signed_pairs": [
+        [
+          41.01,
+          178.8
+        ]
+      ]
+    },
+    {
+      "month": "2026-08",
+      "version_index": 1,
+      "source_SHA256": "d81033eacd4430f541e8a0eb2371958db0c96a80ad009a64397da909f7b779e3",
+      "status": "resolved_current_semantics",
+      "supported_pairs": [
+        {
+          "amount_100M_USD": 466.5,
+          "YoY_pct": 209.0,
+          "Korean_methods": [
+            "narrative_adjacent",
+            "table"
+          ],
+          "English_signed_clause_matches": [
+            [
+              46.65,
+              209.0
+            ]
+          ],
+          "rounded_Korean_amounts": [
+            466.5
+          ],
+          "table_preferred": true
+        }
+      ],
+      "raw_Korean_pair_count": 18,
+      "English_signed_pairs": [
+        [
+          46.65,
+          209.0
+        ]
+      ]
+    },
+    {
+      "month": "2026-09",
+      "version_index": 1,
+      "source_SHA256": "e7f7ba494d7b43cd14eb054cd2e6ee66d4391e64863a1f47baf7ef6021df5003",
+      "status": "no_supported_pair",
+      "supported_pairs": [],
+      "raw_Korean_pair_count": 16,
+      "English_signed_pairs": [
+        [
+          60.3,
+          262.8
+        ]
+      ]
+    }
+  ],
+  "factor_values_qualified": false,
+  "historical_PIT_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_English_93_month_semiconductor_numeric_candidate_inventory_no_selection",
+  "English_article_audit_sha256": "5383f4e867f80242f0a645c3497f99a0d32f4dd3e000e0173d1cca0679640b85",
+  "English_archive_manifest_sha256": "c2a08c97ac1230565087702a7454fac8dd83e1901c0538394ce5b62950e1cf17",
+  "Korean_numeric_candidate_progress_sha256": "6a930def5871c184ad27e7f695071d859ec0110f2b24f6a2063daca7b69c26d6",
+  "method": "Read exact official English national export article HTML for all 93 months. Record each text window around semiconductor or chip that contains USD amount and percentage, including ordering variants, without selecting a field or reading market outcomes. Report missing/ambiguous candidate months and compare only as future source semantic cross-check, not PIT certification.",
+  "budget": {
+    "English_article_source_reads": 93,
+    "Qlib_D_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  }
+}
