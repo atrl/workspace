@@ -1,0 +1,19 @@
+{
+  "status": "frozen_2015_source_batch_stopped_on_fourth_raw_size_gate",
+  "plan_sha256": "b851bbdb4f751cb7caf4b551f3d76093d85c7d26218e5408ad0e90d1c163efd9",
+  "transport_result_sha256": "1690855f56697e09f3b665d9899ae54002480445bda3ca0d85e66a8250cb1d93",
+  "original_raw_size_limit_bytes": 45000000,
+  "fourth_report_date": "2015-09-30",
+  "fourth_raw_sha256": "c3cc85a5554434ff5155eb59d8a9cb4fd7c3553bfa8ac3ac602208659c902e67",
+  "fourth_raw_bytes": 48557624,
+  "fourth_curl_exit_code": 0,
+  "fourth_http_status": 200,
+  "fifth_2015_Dec_request_made": false,
+  "received_raw_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
+  "NAS_scoped_restore_verified": true,
+  "GETs_consumed": 4,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "curl max-filesize did not prevent decompressed raw body from exceeding frozen raw-byte cap; the observer correctly stopped before the fifth request. Do not refetch the fourth raw body; a new bounded size/remaining-request plan is required."
+}

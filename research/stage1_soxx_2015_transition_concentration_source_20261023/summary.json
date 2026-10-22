@@ -1,14 +1,22 @@
 {
   "experiment": "stage1_soxx_2015_transition_concentration_source_20261023",
-  "decision": "frozen_2015_transition_source_batch_not_executed",
+  "decision": "fixed_2015_source_batch_stopped_fourth_body_oversize_preserved",
   "objective_achieved": false,
   "plan": "plan.json",
-  "filing_body_GETs": 0,
+  "filing_body_GETs": 4,
   "model_fits": 0,
   "native_accounts": 0,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "transport_result": "transport_result.json",
+  "transport_size_exception": "transport_size_exception.json",
+  "received_original_bodies": 4,
+  "original_bodies_within_frozen_cap": 3,
+  "September_raw_oversize_preserved": true,
+  "December_body_GETs": 0,
+  "source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
+  "source_NAS_scoped_restore_verified": true
 }
