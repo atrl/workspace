@@ -1,6 +1,6 @@
 {
-  "status": "design_only_no_execution",
-  "objective": "Find a distinct pretrade source of short-horizon SOXX tail-risk information that can reduce unnecessary P3 cash exposure without worsening drawdown. This is not a claim of SOXX outperformance.",
+  "status": "fixed_information_plan_frozen_source_gate_pending",
+  "objective": "Test whether pretrade total Cboe SOXX option activity adds next-five-session realized-variance information beyond price, realized variance and stock volume. A later risk or SOXX outperformance claim requires separate evidence.",
   "mechanism": "Within-symbol surprise in total Cboe SOXX option participation may anticipate future realized volatility beyond prior SOXX RV, signed return and stock volume. This measures intensity, not put/call direction or implied skew.",
   "distinctness": "Cboe 2019-2026 four-exchange total contract count; different quantity and history from the closed OCC put-share composition screen. Closed signed semivariance and SIA/inventory routes are not retuned.",
   "source_evidence": {
@@ -20,10 +20,11 @@
     "Freeze one total-activity predictor with within-symbol lagged scale normalization, 2019-2022 development and 2023-2026 reused diagnostic evaluation, missingness/cost/selection gates before outcome read",
     "Use native Qlib price/calendar/DatasetH and Recorder; no account unless information and source gates pass"
   ],
-  "execution_authorized": false,
+  "execution_authorized": true,
   "model_fits": 0,
   "accounts": 0,
   "qualified_forward_days": 0,
   "promotion_boundary": "All v2 SOXX fee-net, risk, annual, rolling, bootstrap and independent forward gates still required.",
-  "next_due_source_observation": "2026-10-22T12:45:00+00:00 after the US preopen observation gate; third exact Oct21 report vintage, not a new factor fit"
+  "next_due_source_observation": "2026-10-22T12:45:00+00:00 after the US preopen observation gate; third exact Oct21 report vintage, not a new factor fit",
+  "frozen_information_plan": "research/cboe_total_activity_variance_information_20261022/precommitted_information_plan.json"
 }

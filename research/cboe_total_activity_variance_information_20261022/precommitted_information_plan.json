@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "experiment": "cboe_total_activity_variance_information_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "one_fixed_diagnostic_information_screen_after_forward_source_gate_no_account",
+  "question": "Does a lagged within-SOXX surprise in total Cboe option contract count add next-five-session realized-variance information beyond lagged SOXX price, realized variance and share volume?",
+  "distinctness": "Total Cboe option participation intensity, not OCC put-share direction or implied-volatility skew; no reuse of their failed predictor sign or selection.",
+  "source": {
+    "card": "research/cboe_total_options_activity_source_20261022",
+    "recorder_id": "c3b812bc5fda409fac836fdd3a08fe0a",
+    "summary_sha256": "66b44dbda9bb8c75d958e8fb7e0111c427b17c3aede2886f59a7a8b6b25e3f63",
+    "coverage_audit_sha256": "56f828e63e0d8e87664d5fdd7824fd0401f33f59e7a9e8c31e0e18038b71c8e5",
+    "source_scale_diagnostic_sha256": "dcd0f34f88d0ee41f961f29b0a4cf26e105f7fde5bce9063dedb7e530bfc7518",
+    "publication_window_sha256": "c6c1835bffd9550defe89649d00071595e2b4db0b9a1155f8279f45006af79a9",
+    "same_day_revision_check_sha256": "db0fbafb14954504b387d5b850b9ac88c81971350d21fed49504b6989a618387",
+    "historical_first_public_time_qualified": false
+  },
+  "provider": {
+    "uri": "data/qlib/soxl",
+    "instrument": "SOXX",
+    "frequency": "day",
+    "fields": [
+      "$open",
+      "$close",
+      "$volume"
+    ],
+    "calendar_bounds": [
+      "2019-01-02",
+      "2026-10-21"
+    ],
+    "source_count_bounds": [
+      "2019-01-02",
+      "2026-10-20"
+    ],
+    "price_plane": "Use the existing SOXX Qlib provider and verify manifest and field hashes before any market outcome read; do not substitute another adjusted or raw price plane."
+  },
+  "source_clock": "At signal date s 09:46 New York, use Cboe total for s-1 only after its observed midnight publication window and Qlib close/volume through s-1. Earliest position opportunity s+1 open. Historical original publication vintages remain unproven, so all historical scores are diagnostic regardless of performance.",
+  "feature_formula": {
+    "total_Cboe_contracts": "Sum four Cboe exchange total-contract rows for SOXX on each Qlib trading date; exact calendar join with no missing-date compaction.",
+    "total_activity_surprise": "log1p(total contracts(s-1)) minus median(log1p(total contracts(s-23..s-2))) over exactly 22 previous Qlib sessions.",
+    "baseline": [
+      "SOXX close return(s-1)",
+      "SOXX close five-session return ending s-1",
+      "SOXX daily close-return realized standard deviation over five complete sessions ending s-1",
+      "same standard deviation over 22 complete sessions ending s-1",
+      "log(SOXX share volume(s-1)/median share volume(s-23..s-2))"
+    ],
+    "candidate": "baseline plus total_activity_surprise only"
+  },
+  "label": {
+    "primary": "For signal s, r_j=open[s+j+2]/open[s+j+1]-1, j=0..4; y=log(1e-8+sum(r_j^2)). Require all six opens finite and positive; no close-to-open leakage.",
+    "maturity": "Open of s+6 plus one minute proxy; no label used before maturity.",
+    "economic_boundary": "Future realized-variance information only; no account, tail-risk, fee-net or drawdown conclusion from this label."
+  },
+  "windows": {
+    "train_signal": [
+      "2019-03-01",
+      "2022-12-19"
+    ],
+    "held_reused_diagnostic": [
+      "2023-01-03",
+      "2026-10-13"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-13"
+      ]
+    ],
+    "minimum_train_rows": 850,
+    "minimum_held_rows": 850,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline_and_candidate": "Two fixed Ridge(alpha=1.0) fits; StandardScaler fit on train only; no sample weights or hyperparameter selection.",
+    "fits": 2,
+    "candidate_coefficient_sign_required": "positive",
+    "prediction_clipping": "none"
+  },
+  "information_gate": {
+    "paired_metric": "Squared-error improvement = baseline (y-pred)^2 minus candidate (y-pred)^2 on identical held Qlib dates.",
+    "held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "stationary_bootstrap": {
+      "mean_block_sessions": 20,
+      "draws": 5000,
+      "seed": 20261022,
+      "lower_quantile": 0.0016666666666666668,
+      "lower_positive": true
+    },
+    "no_gate_rescue": true
+  },
+  "budget": {
+    "verified_source_recorder_object_loads": 1,
+    "D_calendar_calls": 1,
+    "D_features_calls": 1,
+    "DatasetH_builds": 1,
+    "model_fits": 2,
+    "bootstrap_runs": 1,
+    "native_accounts": 0,
+    "new_writable_Recorders": 1
+  },
+  "pre_execution_stops": [
+    "Do not execute before frozen third same-date Cboe vintage at or after 2026-10-22 12:45 UTC and source identity readback.",
+    "Stop before fit if third observation changes prior date values or exact source/provider hashes differ; record observed revision rather than infer PIT.",
+    "Stop before fit if any train or held source date/label is missing, immature or misaligned; do not compact dates or select survivors.",
+    "No threshold, sign, horizon, alpha, window, baseline or missingness adjustment from held outcomes.",
+    "No account or promotion from reused market data or unqualified historical first-public timing."
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "goal_boundary": "This screen can reject the mechanism. Even a pass only warrants separate bounded economic design plus qualified independent forward evidence under v2 SOXX 0/2/5bp cost, drawdown, CVaR, annual, rolling and bootstrap gates."
+}
