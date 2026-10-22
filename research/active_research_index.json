@@ -420,6 +420,13 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/stage1_tail_score_soxl_relative_information_20261023/summary.json"
+    },
+    {
+      "card": "research/stage1_tail_probability_composition_0bp_20261023",
+      "status": "not_promoted_fixed_Stage1_tail_probability_composition_0bp",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_tail_probability_composition_0bp_20261023/summary.json"
     }
   ],
   "deferred_sources": {
@@ -527,5 +534,6 @@
   "latest_read_only_Stage1_0bp_signal_loss_diagnostic": "research/stage1_original_0bp_signal_loss_chain_v2_20261023/summary.json",
   "latest_read_only_Stage1_0bp_selection_concentration": "research/stage1_original_0bp_selection_tail_audit_v2_20261023/summary.json",
   "latest_read_only_Stage1_0bp_July_quote_crosscheck": "research/stage1_original_0bp_july_quote_crosscheck_20261023/summary.json",
-  "latest_read_only_Stage1_index_transition_domain_diagnostic": "research/stage1_index_transition_domain_diagnostic_20261023/summary.json"
+  "latest_read_only_Stage1_index_transition_domain_diagnostic": "research/stage1_index_transition_domain_diagnostic_20261023/summary.json",
+  "latest_read_only_Stage1_tail_probability_alignment": "research/stage1_original_tail_probability_loss_alignment_20261023/summary.json"
 }

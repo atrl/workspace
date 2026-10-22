@@ -19,6 +19,10 @@
   "candidate_mean_tail_probability_on_transform": 0.16047645285555875,
   "candidate_mean_tail_shift": 0.018890338215862855,
   "candidate_mean_composition_delta": 0.05486903699359514,
+  "related_concurrent_information_result": "research/stage1_tail_score_soxl_relative_information_20261023/summary.json",
+  "related_concurrent_information_summary_sha256": "add54294f50da5c7c9517570d718bacb2c698f83a012f56b605d3591ded16452",
+  "related_tail_score_H5_SOXL_relative_Spearman": 0.0308,
+  "related_information_gate_status": "closed_fixed_tail_score_SOXL_relative_H5_necessary_information_failed",
   "quarter_context": {
     "2024Q3": {
       "candidate_relative_wealth": 1.0650229939371854,
@@ -33,7 +37,7 @@
       "static_composition_relative_wealth": 0.8919380926838862
     }
   },
-  "interpretation": "The one fixed smooth tail map left substantially more cash on its own path, failed SOXX wealth/year/window/lower/risk gates, and did not improve 2026Q3 relative wealth versus the closed static composition. Accounts have different holdings and endogenous risk states; differences are descriptive, not an isolated causal value of the tail transformation. No sign, threshold or fraction rescue on reused history.",
+  "interpretation": "The one fixed smooth tail map left substantially more cash on its own path, failed SOXX wealth/year/window/lower/risk gates, and did not improve 2026Q3 relative wealth versus the closed static composition. A concurrently completed fixed information audit found the original tail score had the wrong-sign near-zero H5 SOXL-relative rank on reused history; this related screen was available before this account began and should have been checked as a coordination gate. Accounts have different holdings and endogenous risk states; differences are descriptive, not an isolated causal value of the tail transformation. No sign, threshold or fraction rescue on reused history.",
   "new_model_fits_for_attribution": 0,
   "new_native_accounts_for_attribution": 0,
   "new_bootstraps_for_attribution": 0
