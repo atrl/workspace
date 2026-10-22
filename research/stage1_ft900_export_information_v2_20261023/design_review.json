@@ -1,0 +1,30 @@
+{
+  "verdict": "BLOCK_DESIGN_BEFORE_FIT",
+  "plan_sha256": "6613fdd9e2f821f8b2fe0b075d2f7f40b156ee10805ad2ae7bf28704ea9dceab",
+  "canonical_source_artifact_sha256": "87ee84aa936598ec5eaa97e43a0ff0099086328f35b061a0a4226cc9c0f88b8f",
+  "phase": "independent_fixed_design_review_before_first_fit",
+  "implementation_correctness": {
+    "status": "blocked_by_exact_frozen_plan_and_notebook_contradiction",
+    "reason": "The frozen plan sets execution_authorized=false, while the notebook's first code cell requires plan['execution_authorized'] to be true before it reads design_review.json. An approval bound to this exact plan SHA cannot pass that assertion. No fit may start under this plan.",
+    "minimum_fix": "Freeze a revised plan with execution_authorized=true, keep the scientific design and canonical source binding unchanged, and obtain a fresh independent design review bound to the revised plan SHA before the first fit. Do not edit this reviewed plan after approval."
+  },
+  "matched_design_checked": {
+    "status": "otherwise_consistent_on_named_evidence",
+    "basis": "The plan and notebook specify the original Stage1 39 features in their frozen order, five consecutive SOXX forward open-to-open returns with fifth-interval availability, full-calendar mature cohorts of 3014 train and 940 reused held rows, and the 23 train transition unknowns retained as NaN. Both arms share release-age, post-2012 definition, and transition-unknown controls. The candidate adds only same-report export MoM; median imputation is fitted on training only. The fixed budget is two Ridge fits and one 63-session, 10000-draw paired bootstrap with one-sided alpha 0.0010869565217391304; positive standardized candidate coefficient, positive full and half-period paired means, and a positive bootstrap lower bound are required.",
+    "source_evidence": "Availability summary, audit, independent review, readback, and Recorder analysis/mapped_signals agree on 191 source events, 3964 mapped sessions, 23 transition unknowns, and canonical artifact SHA. The prior automatic carry design remains closed by design_halt.json."
+  },
+  "historical_diagnostics": {
+    "status": "conditional_reused_history_only",
+    "reason": "The 2023-2026 held cohort is reused diagnostic history; an information-gate pass would be development feedback, not independent validation."
+  },
+  "independent_financial_evidence": {
+    "status": "not_established_in_this_phase",
+    "remaining_gaps": [
+      "Historical first-public FT-900 PDF bytes remain unqualified.",
+      "No full funded Stage1 0bp account or separate 2bp and 5bp paths are reviewed here.",
+      "Qualified independent forward evidence and the contract-v2 SOXX final hard gate remain separate."
+    ]
+  },
+  "review_model_fits": 0,
+  "review_accounts": 0
+}

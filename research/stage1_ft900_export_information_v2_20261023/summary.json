@@ -1,0 +1,17 @@
+{
+  "experiment": "stage1_ft900_export_information_v2_20261023",
+  "decision": "blocked_before_fit_frozen_execution_authorization_conflict",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "independent_design_review": "design_review.json",
+  "review_verdict": "BLOCK_DESIGN_BEFORE_FIT",
+  "additional_plan_coherence_issue": "Inherited design_blocker prose describes the old carry-forward source despite this plan binding the canonical 23-unknown source; remove only in a new frozen version.",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "recorder_status": "not_started",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
