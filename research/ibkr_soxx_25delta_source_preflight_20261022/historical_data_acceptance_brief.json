@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "status": "needs_vendor_sample_and_explicit_purchase_authorization",
+  "checked_at_utc_date": "2026-10-22",
+  "research_question": "Can an original, decision-available SOXX 25-Delta approximately-30-day put-minus-call IV series be reconstructed across the full Stage1 training and evaluation calendars before an information gate?",
+  "current_free_evidence": {
+    "IBKR_single_day_25delta_bracketed": "result.json",
+    "IBKR_option_quote_origin_timestamps": "not_provided_by_connector",
+    "ORATS_public_sample": "orats_public_sample_audit.json",
+    "ORATS_SOXX_rows_on_2024_01_03": 1124,
+    "ORATS_16d_and_44d_25delta_brackets": true,
+    "historical_2011_2022_SOXX_coverage": "unverified"
+  },
+  "vendor_paths": [
+    {
+      "vendor_product": "ORATS Delayed Data API, Historical Strikes",
+      "official_url": "https://orats.com/data-api",
+      "historical_spec_url": "https://orats.com/docs/historical-data-api",
+      "published_individual_price_at_check": "$199 per month, 20,000 requests; recheck before payment",
+      "published_general_history": "end-of-day option history since 2007",
+      "advantage": "Ticker/date API may avoid downloading the full all-symbol archive",
+      "unresolved": "Exact 2011-2022 SOXX availability, original daily revisions and next-decision delivery timing"
+    },
+    {
+      "vendor_product": "ORATS Near End-of-day historical archive",
+      "official_url": "https://orats.com/near-eod-data",
+      "published_individual_price_at_check": "$599 one-time; full-market history is roughly 500 GB and download access lasts 14 days; recheck before payment",
+      "published_general_history": "one approximately 15:46 ET snapshot per trading day since 2007, with quotes, IV and Greeks",
+      "advantage": "Public 2024-01-03 sample already contains SOXX and both target-Delta brackets",
+      "unresolved": "Full SOXX training-date coverage, split-adjusted contract identity, per-file original delivery/availability and historical revisions"
+    },
+    {
+      "vendor_product": "Cboe Option Quotes or Option EOD Summary with optional IV/Greeks",
+      "official_urls": ["https://datashop.cboe.com/option-quote-intervals", "https://datashop.cboe.com/option-eod-summary"],
+      "published_general_history": "January 2012 onward on both product pages",
+      "constraint": "Does not by itself cover Stage1's 2011 training dates; exact SOXX sample, cost and original delivery timing remain unverified"
+    },
+    {
+      "vendor_product": "ThetaData historical OPRA options",
+      "official_url": "https://www.thetadata.net/options-data",
+      "published_general_history": "June 2012 onward",
+      "constraint": "Does not by itself cover Stage1's 2011 training dates; exact SOXX/sample/entitlement remain unverified"
+    }
+  ],
+  "pre_purchase_acceptance": [
+    "Get original SOXX rows on stratified 2011, 2012, 2016, 2020, 2023 and 2026 trading days, including contract-adjustment and split periods; absence must stay explicit.",
+    "Show option root, quote date/time or fixed published snapshot clock, original file delivery/receipt timestamp and revision policy before the next 09:29 New York Stage1 feature decision.",
+    "On every usable day bracket call +0.25 and put -0.25 Delta at two expiries surrounding 30 calendar days with finite ordered bid/ask and positive IV; freeze interpolation and missingness before market-outcome access.",
+    "Demonstrate enough full-calendar training and held rows without shortening the 2011-2022 Stage1 cohort or filling missing source values with zero; preserve the frozen Qlib ETF price plane independently of vendor-derived underlying price.",
+    "Confirm license, filtered ticker access, actual price/transfer volume, refund or sample terms, and NAS archival permission before purchase."
+  ],
+  "permission_boundary": "No subscription, data purchase, vendor contact, broker order or Stage1 model fit was authorized by this brief.",
+  "scientific_boundary": "A source-qualified historical skew still needs one frozen matched information screen, full 0/2/5bp fee-net native accounts only after the screen, and independent forward SOXX risk/stability gates."
+}

@@ -16,7 +16,8 @@
       "fixed_delta25_source_preflight": "research/ibkr_soxx_25delta_source_preflight_20261022/summary.json",
       "fixed_delta25_source_status": "single_day_bracketed_not_PIT",
       "vendor_sample_audit": "research/ibkr_soxx_25delta_source_preflight_20261022/orats_public_sample_audit.json",
-      "vendor_sample_status": "one_day_SOXX_25delta_brackets_historical_coverage_unqualified"
+      "vendor_sample_status": "one_day_SOXX_25delta_brackets_historical_coverage_unqualified",
+      "historical_data_acceptance_brief": "research/ibkr_soxx_25delta_source_preflight_20261022/historical_data_acceptance_brief.json"
     },
     {
       "card": "research/cboe_total_options_activity_source_20261022",
@@ -45,15 +46,6 @@
       "manual_original_review": "research/korea_semiconductor_exports_korean_vintage_20261022/manual_original_nine_result.json",
       "numeric_semantics_reconciliation": "research/korea_semiconductor_exports_korean_vintage_20261022/korean_numeric_semantics_reconciliation.json",
       "prospective_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json"
-    },
-    {
-      "card": "research/stage1_daily_volume_participation_source_20261022",
-      "phase": "source_mechanics_passed_information_test_pending",
-      "role": "Stage1_full_training_price_volume_feature_preflight",
-      "full_economic_experiment": false,
-      "status": "3020_train_944_signal_source_coverage_passed_no_fit",
-      "result": "research/stage1_daily_volume_participation_source_20261022/tail_bridge_result.json",
-      "nas_archive": "research/stage1_daily_volume_participation_source_20261022/nas_source_archive_receipt.json"
     }
   ],
   "framework": [
@@ -66,6 +58,14 @@
     "src/core/completed_checkpoints.py"
   ],
   "closed_fixed_versions": [
+    {
+      "card": "research/stage1_daily_volume_participation_information_20261022",
+      "status": "not_promoted_fixed_information_gate_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_daily_volume_participation_information_20261022/result_review.json",
+      "source": "research/stage1_daily_volume_participation_source_20261022/tail_bridge_result.json"
+    },
     {
       "card": "research/stage1_nvda_guidance_receiver_20261022",
       "status": "not_promoted_fixed_0bp_SOXX_hard_gates_failed",
@@ -195,7 +195,7 @@
     "prospective_Korean_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json",
     "parallel_TSMC_issuer_source_probe": "research/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press_review.json",
     "TSMC_prospective_capture_plan": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_press_capture_plan.json",
-    "Stage1_next_direction": "Freeze and execute one incremental information test of the source-audited daily volume-participation residual; the 3020-train/944-funded signal source is complete. Only a passing fixed information gate permits a separate Stage1 0bp full-account design. Reused history and historical receipt gaps remain."
+    "Stage1_next_direction": "The full-history SOXX volume participation residual failed its fixed matched information gate before accounts. Do not tune that version. Select a materially distinct source-qualified mechanism against the original Stage1, then use the 0bp native SOXX gates before 2/5bp and independent forward."
   },
   "closed_source_probes": [
     {
