@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "experiment": "semiconductor_ip_numeric_vintage_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "source_only_same_vintage_numeric_extraction_no_market_outcome",
+  "hypothesis": "Use exact original Federal Reserve G.17 Table 1 NAICS3344 seasonally adjusted monthly indices, not Table 2 capacity or current revised FRED history. Within each dated publication calculate the last-month versus prior-month output growth, which is dimensionless under a pure multiplicative index rebase. Preserve all six source values, release clocks and base-year changes; no Stage1 factor or predictive claim yet.",
+  "source_card": "research/fed_semiconductor_capacity_source_20261013",
+  "source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "source_summary_sha256": "76776fc1b0f5f5c994701e18583abc1128570f0e9b59cef1abef18194e2cfc22",
+  "source_manifest_sha256": "c56d8ad9ba387607a0fc7f25d9ac4dab7022ed6c46bbf0b71bc119b6fa022f20",
+  "source_inventory_sha256": "7d31aedbe1182dd5e2f082284199b562566ca972f06b112b86d9e59ca6561f0e",
+  "source_raw_artifact": "sources/raw_supplements",
+  "source_raw_artifact_sha256": "d2b8467087dfbb45008b1fc88bbfda85f87f24eb3f0f83526a3c82222a215d55",
+  "row_presence_result_sha256": "b45ff78d2128ae0d4edd5a8ce1f7c1631280ca27d4834ffeb075733380aa1c9a",
+  "two_layout_adjudication_sha256": "47eea6a4c880dd074b428841a15c45b95d5fe3b7cc54ce253d15ef99c0eb3736",
+  "parser": "src/data/fed_g17_ip_vintages.py",
+  "parser_sha256": "196eca4183f4e7a71580d9c6dfddc60d1882ff55ce662bd2d3bb8a0676aaf77c",
+  "expected_original_releases": 192,
+  "positive_controls": [
+    "20110114_sup.txt",
+    "20120316_sup.txt",
+    "20150814_sup.txt",
+    "20160316_sup.txt",
+    "Current_sup.txt"
+  ],
+  "parse_contract": [
+    "Bind every raw document to one publication_inventory row by exact raw SHA, including Current_sup.txt",
+    "Require original 09:15 declared clock and release date before the observation month",
+    "Require exactly one Table1/1D Semiconductor and other electronic component NAICS3344 row",
+    "Read only six seasonally adjusted same-vintage index values and original six month labels",
+    "Report 2007/2012/2017 index-base regimes without linking absolute levels across them",
+    "Compute current/prior same-vintage percentage change only; do not splice discontinued 334412-9 or present this as true first-receipt PIT"
+  ],
+  "budget": {
+    "verified_source_recorder_object_loads": 1,
+    "new_http_requests": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "new_native_accounts": 0,
+    "new_writable_Qlib_Recorders": 1,
+    "new_bootstrap_runs": 0
+  },
+  "stops": [
+    "Any missing/duplicate row, month mismatch, nonfinite or nonpositive SA value stops the fixed parse with consumed attempt retained",
+    "No Stage1 Dataset/feature/score or economic account from this source-only extraction",
+    "A separate source-timing and definition review precedes any Stage1 matched information gate"
+  ]
+}

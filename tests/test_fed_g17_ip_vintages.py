@@ -1,0 +1,36 @@
+import pytest
+
+from src.data.fed_g17_ip_vintages import parse_ip_supplement
+
+
+def _document(*, gap="", code="3344", latest="125.9"):
+    return (
+        "January 14, 2011\n9:15 a.m. Eastern\n"
+        "Table 1 (continued)\n"
+        "INDUSTRIAL PRODUCTION: INDUSTRY SUBTOTALS AND INDIVIDUAL SERIES\n"
+        "Index, 2007 = 100\n"
+        "| | | Seasonally adjusted | Not seasonally adjusted |\n"
+        "| NAICS | Proportion | July[r] Aug.[r] Sept.[r] Oct.[r] Nov.[r] Dec.[p] | six NSA months |\n"
+        "Semiconductor and other electronic | | | |\n"
+        + gap +
+        f"component | {code} | 2.02 | 124.4 125.3 124.9 123.6 124.1 {latest} | 116.3 123.5 146.2 123.8 124.7 126.0\n"
+    ).encode()
+
+
+@pytest.mark.parametrize("gap", ["", "\n"])
+def test_original_table1_same_vintage_growth_and_blank_line(gap):
+    result = parse_ip_supplement(_document(gap=gap), expected_date="2011-01-14",
+                                 observation_month="2010-12-01")
+    assert result["index_base_year"] == 2007
+    assert result["published_months"][-2:] == ["2010-11-01", "2010-12-01"]
+    assert result["ip_mom_pct_same_vintage"] == pytest.approx(100 * (125.9 / 124.1 - 1))
+    assert result["layout_blank_lines"] == (1 if gap else 0)
+
+
+def test_wrong_scope_and_month_cannot_enter_original_ip_series():
+    with pytest.raises(ValueError, match="missing or ambiguous"):
+        parse_ip_supplement(_document(code="334412-9"), expected_date="2011-01-14",
+                            observation_month="2010-12-01")
+    with pytest.raises(ValueError, match="six seasonally adjusted IP months"):
+        parse_ip_supplement(_document(), expected_date="2011-01-14",
+                            observation_month="2010-11-01")

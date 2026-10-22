@@ -1,0 +1,4 @@
+experiment: semiconductor_ip_numeric_vintage_20261022
+plan: plan.json
+phase: source_only_same_vintage_numeric_extraction
+source_recorder: research/fed_semiconductor_capacity_source_20261013
