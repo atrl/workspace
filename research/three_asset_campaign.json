@@ -172,7 +172,7 @@
   "active_index": "research/active_research_index.json",
   "updated_at_utc": "2026-10-22T15:49:30+00:00",
   "execution_totals": {
-    "new_model_fits": 58,
+    "new_model_fits": 60,
     "new_native_accounts": 48,
     "completed_fixed_economic_experiments": 10,
     "completed_training_bridges_added": 1,
@@ -180,8 +180,8 @@
     "unique_reused_reference_accounts": 15,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
-    "basis": "Prior 58 fits/47 native accounts included the closed issuer-share information screen. Add one frozen original-Stage1 0bp composition account with zero model fits and one paired bootstrap: cumulative SOXX wealth passed but drawdown, rolling and bootstrap gates failed. Read-only attribution added no accounts. Historical passing candidates and qualified forward days remain zero.",
-    "completed_fixed_information_experiments": 7,
+    "basis": "Prior 58 fits and 48 native accounts included the closed original-Stage1 0bp composition account. The fixed G.17 semiconductor IP information screen added two fits, one paired bootstrap, and zero accounts; coefficient, full held mean, both halves, and bootstrap lower gates all failed. Historical passing candidates and qualified forward days remain zero.",
+    "completed_fixed_information_experiments": 8,
     "completed_source_qualifications": 2,
     "completed_source_repairs": 2,
     "completed_identity_source_checks": 1
