@@ -2,6 +2,19 @@
   "schema_version": 2,
   "campaign": "three_asset_stable_excess_20261015",
   "objective_achieved": false,
+  "economic_failure_diagnosis": {
+    "status": "observed_failure_chain_causal_root_unproven",
+    "original_account": "research/anchor_decision_attribution_20261014/conclusion.md",
+    "risk_layer_intervention": "research/tangent_risk_layer_20261014/conclusion.md",
+    "recovery_funnel": "research/output_routing_diagnosis_20261014/conclusion.md",
+    "P3_result": "research/path_area_action_bridge_20261018/P3_result_overview.json",
+    "P3_attribution": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
+    "composition_result": "research/beta_preserving_composition_20261015/conclusion.md",
+    "composition_path_diagnosis": "research/composition_path_diagnosis_20261015/conclusion.md",
+    "observed": "Original accounts have large benchmark-relative cash opportunity cost; P3 remains below SOXX at all costs. The fixed composition account exceeds SOXX in cumulative net wealth at all costs but fails 0bp drawdown, 126-session stability and bootstrap gates. Recovery action is zero on the observed paths. Bypassing the dynamic risk layer improves cumulative wealth but breaches the drawdown constraint.",
+    "causal_limit": "Cash, cap, cost-path and recovery observations do not isolate an independently profitable risk-rule change. The full funded paths feed holdings, peak NAV and later decisions back into one another. Reused history does not establish independent forward excess.",
+    "next_bounded_question": "Test a distinct precommitted information or allocation mechanism against the frozen full-account SOXX gates; inspect the already recorded 2023, nonpositive-trend and 2026 drawdown intervals before designing it. Do not tune closed versions on reused history."
+  },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
     "version": 2,
