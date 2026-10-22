@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_64byte_next_anchor_boundary_check_no_reparse",
+  "failed_anchor_result_sha256": "7f932780f67c42d0738760e2d9778292d0e50c259767b5af11a8162ca2675209",
+  "source_raw_sha256": "2b5580f41067b2f7a2cf003517a9f7f7220836f22feb1fbdf8be3bea0eda54e5",
+  "source_NAS_archive_sha256": "89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
+  "next_anchor_byte_offset": 1061628,
+  "expected_exact_bytes": "NAME=\"toc216041_9\"",
+  "reason": "First audit read prefix [0,next_anchor_offset), excluding the first byte of the next anchor; all eight in-section and TOC identity checks passed.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "new_full_source_passes": 0,
+    "scoped_boundary_reads": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If 64-byte boundary read lacks expected anchor or prior section hash/checks drift, keep July source unqualified."
+}

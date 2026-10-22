@@ -1,0 +1,35 @@
+{
+  "status": "July_2011_NCSR_anchor_identity_unqualified",
+  "plan_sha256": "0e044db59a4077d4fa803c046ca388ace5b632aa2db7e6a7e71f4dfae05ca80d",
+  "prior_fixed_byte_title_result_sha256": "2f1df59fb31c3132b053fdef82ce62475a9d73a38749c8dfc7f0017a487c9a9f",
+  "raw_sha256": "2b5580f41067b2f7a2cf003517a9f7f7220836f22feb1fbdf8be3bea0eda54e5",
+  "source_NAS_archive_sha256": "89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
+  "source_NAS_scoped_restore_verified": true,
+  "TOC_href": "HREF=\"#toc216041_8\"",
+  "anchor_range": [
+    1006064,
+    1061628
+  ],
+  "anchor_section_sha256": "3993617cdd02fc2fcb9324f6ec3c7e70a3660741a0d038bd2c73498f2a8661ab",
+  "checks": {
+    "TOC_href_present": true,
+    "anchor_at_frozen_offset": true,
+    "next_anchor_at_frozen_offset": false,
+    "anchor_order": true,
+    "schedule_of_investments": true,
+    "normalized_SOXX_title": true,
+    "report_date": true,
+    "Security_Shares_Value": true,
+    "common_stocks": true
+  },
+  "source_accession": "0001193125-11-266548",
+  "report_date": "2011-07-31",
+  "accepted_at_utc": "2011-10-07T21:03:08.000Z",
+  "no_security_values_extracted": true,
+  "full_2011_2018_baskets_qualified": false,
+  "new_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "The July annual report separates the fund title with HTML and locates its Schedule of Investments via a TOC anchor. The original fixed byte-title gate remains preserved as unqualified; this bounded source-structure adjudication does not validate all historic reports."
+}
