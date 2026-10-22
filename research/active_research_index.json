@@ -99,6 +99,8 @@
       "Stage1_availability_readback": "research/stage1_ft900_export_availability_20261023/readback_verification.json",
       "superseded_carry_map": "research/census_ft900_stage1_availability_20261023/source_conflict_correction.json",
       "blocked_information_design": "research/stage1_ft900_export_information_20261023/design_halt.json",
+      "closed_fixed_information_result": "research/stage1_ft900_export_unknown_information_20261023/independent_result_review.json",
+      "duplicate_V3_closeout": "research/stage1_ft900_export_information_v3_20261023/duplicate_closeout.json",
       "nas_archive_sha256": "0b45a088957196f7dda43827224aec38aa36c263803e93f768942952923e840b"
     }
   ],
@@ -112,6 +114,15 @@
     "src/core/completed_checkpoints.py"
   ],
   "closed_fixed_versions": [
+    {
+      "card": "research/stage1_ft900_export_unknown_information_20261023",
+      "status": "not_promoted_fixed_FT900_export_information_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_ft900_export_unknown_information_20261023/independent_result_review.json",
+      "recorder_id": "541223b7ae38472bbba6e71eff786cf3",
+      "nas_archive_sha256": "cb5b55c11d553e073a557a094da88fded4e1d7055e0c1efc9a9e05b752afb888"
+    },
     {
       "card": "research/stage1_semiconductor_ip_information_20261022",
       "status": "not_promoted_fixed_Stage1_IP_information_failed",

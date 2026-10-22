@@ -1,6 +1,6 @@
 {
   "experiment": "stage1_ft900_export_information_v3_20261023",
-  "decision": "blocked_before_fit_wrong_failure_version_identity",
+  "decision": "closed_before_fit_duplicate_fixed_FT900_information_route",
   "objective_achieved": false,
   "plan": "plan.json",
   "independent_design_review": "design_review.json",
@@ -12,5 +12,7 @@
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "duplicate_closeout": "duplicate_closeout.json",
+  "canonical_completed_result": "research/stage1_ft900_export_unknown_information_20261023/independent_result_review.json"
 }
