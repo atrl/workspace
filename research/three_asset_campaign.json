@@ -34,7 +34,9 @@
     "result": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json",
     "parallel_source_gap": "research/korea_semiconductor_exports_korean_full_source_20261022/source_qualification_result.json",
     "official_same_day_mirror_probe": "research/korea_semiconductor_exports_korean_vintage_20261022/official_mirror_2020_05_probe.json",
-    "closed_information_PPI_result": "research/semiconductor_ppi_leverage_information_20261022/result_review.json"
+    "closed_information_PPI_result": "research/semiconductor_ppi_leverage_information_20261022/result_review.json",
+    "follow_on_Cboe_source_plan": "research/cboe_total_options_activity_source_20261022/multiday_forward_plan.json",
+    "Cboe_transport_identity_clarification": "research/cboe_total_options_activity_source_20261022/forward_transport_identity_clarification.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",

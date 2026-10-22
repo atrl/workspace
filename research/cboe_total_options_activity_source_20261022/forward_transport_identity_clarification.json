@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "frozen_transport_module_hash_label_clarified_no_source_change",
+  "commit": "acda91c5",
+  "frozen_addendum_sha256": "2ae5bd2155bd2cf74798bcf2e99d4f233a4068478a9382dacc5638803229a69c",
+  "addendum_field": "current_capture_module_sha256",
+  "field_actual_identity": "pre_edit_module_bytes_at_parent_of_acda91c5",
+  "pre_edit_module_sha256": "ce9a6a290e1edfee2f7d427df570dd61a03334ca712add0e7c3b2e09ba0fd2e2",
+  "post_edit_module_sha256": "ddf9d62fa2889cbe1b9e1be41ce355d524bb656a17b151eb8f6f4d7bfcb6d0f4",
+  "current_module_sha256": "ddf9d62fa2889cbe1b9e1be41ce355d524bb656a17b151eb8f6f4d7bfcb6d0f4",
+  "verified_diff_scope": [
+    "third observation source plan/prior receipt hash and not-before UTC gate",
+    "additional Date/Age/CF-Cache-Status/Cache-Control/Last-Modified response headers"
+  ],
+  "same_URL_query_scope_and_budget": true,
+  "market_outcome_reads": 0,
+  "models": 0,
+  "accounts": 0,
+  "instruction": "For the third frozen capture, bind the committed post-edit module SHA as the executed implementation identity; do not treat the addendum field label as evidence the old module is currently running. Preserve the original addendum and first two receipts unchanged."
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "five_distinct_trade_date_forward_source_availability_checks",
+  "source_card": "research/cboe_total_options_activity_source_20261022",
+  "source_endpoint": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/",
+  "source_history_page": "https://www.cboe.com/us/options/market_statistics/historical_data/",
+  "options_calendar_reference": "https://www.cboe.com/us/options/notices/schedule_update/2026/",
+  "source_forward_plan_sha256": "760ec13f63a4f285840d004d715e54728c1b3baf749154f62fde61b103af7666",
+  "source_transport_addendum_sha256": "2ae5bd2155bd2cf74798bcf2e99d4f233a4068478a9382dacc5638803229a69c",
+  "parser_module": "src/data/cboe_volume_forward_capture.py",
+  "parser_module_sha256": "ddf9d62fa2889cbe1b9e1be41ce355d524bb656a17b151eb8f6f4d7bfcb6d0f4",
+  "third_same_date_binding": "multiday_forward_binding.json",
+  "target_trade_dates": [
+    "2026-10-22",
+    "2026-10-23",
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-28"
+  ],
+  "predecessor_trade_dates": [
+    "2026-10-21",
+    "2026-10-22",
+    "2026-10-23",
+    "2026-10-26",
+    "2026-10-27"
+  ],
+  "phases": {
+    "post_midnight": {
+      "next_calendar_day_UTC_time": "04:10",
+      "latest_UTC_time": "04:55"
+    },
+    "later": {
+      "next_calendar_day_UTC_time": "12:45",
+      "latest_UTC_time": "13:25"
+    }
+  },
+  "symbols": [
+    "SOXX",
+    "SOXL"
+  ],
+  "form_parameters": {
+    "reportType": "volume",
+    "volumeType": "sum",
+    "volumeAggType": "daily",
+    "symbolType": "underlying",
+    "exchanges": [
+      "CBOE",
+      "BATS",
+      "C2",
+      "EDGX"
+    ]
+  },
+  "max_response_bytes": 100000,
+  "budget": {
+    "target_trade_dates": 5,
+    "phases_per_date": 2,
+    "http_GETs_per_phase": 2,
+    "max_http_GETs_total": 20,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "required_record": [
+    "exact query URL and UTC request/response time",
+    "HTTP status and Date/Age/CF-Cache-Status/Cache-Control/Last-Modified response headers",
+    "exact response bytes, SHA256, bounded size and row schema",
+    "target-day presence; predecessor date volume and whether unchanged when previous value available",
+    "no inference of first-public origin time from a cached response"
+  ],
+  "preconditions": [
+    "Original Oct21 third same-date receipt exists and is pinned by an additional immutable binding before first new request.",
+    "Each phase runs only in its frozen UTC time window; missed windows are recorded as missed without backfill.",
+    "Do not alter the existing three-observation Oct21 plan, budget or bytes.",
+    "The additional binding must also pin the observer module SHA256 before any new request."
+  ],
+  "scientific_boundary": "Five source-only forward dates can test repeatability of next-day availability and revisions. They do not yield five qualified strategy days, historical PIT, factor validity or stable net SOXX outperformance. Any future factor/strategy observation requires a separately frozen signal and economic account.",
+  "next_action": "After the third Oct21 vintage passes its frozen same-date check, call src.data.cboe_volume_multiday_forward.bind_third(root) once to pin its exact receipt and observer code. Only then run each target-date phase once within its UTC window.",
+  "observer_module": "src/data/cboe_volume_multiday_forward.py",
+  "source_transport_identity_clarification": "forward_transport_identity_clarification.json",
+  "source_transport_identity_clarification_sha256": "2878cb0601b405da92d6caa4b2f661980f2586a5e0281ca2b03f50f0da5911eb"
+}
