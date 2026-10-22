@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_amended_full_original_ADS_vintage_ZIP_capture_after_server_size_discovery",
+  "parent_plan": "plan.json",
+  "failed_attempt": "execution_attempt1.json",
+  "reason": "The official server returned Content-Length 168,969,969 application/x-zip-compressed and Accept-Ranges bytes. Initial 10MB cap and 90s timeout were insufficient; its 114,095,793-byte partial temporary response was not preserved or interpreted.",
+  "exact_URL": "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/ads/ADS_All_Vintages-zip.zip?hash=4E6B77E5055CA510D1E653F4DD7395C2&la=en&sc_lang=en",
+  "expected_content_length": 168969969,
+  "new_transport": "One full direct curl HTTP/1.1 GET to a persistent local .partial file, connect timeout 10s, total timeout 360s. No automatic retry or ranged resume in this fixed version. On success verify exact 168,969,969 bytes and ZIP structure, then atomically promote to raw source. Preserve partial bytes and receipt on failure without using them.",
+  "source_backup": "Archive the complete exact ZIP to Yanxuan NAS, verify remote archive SHA-256 and scoped restoration of the ZIP bytes before source use. Preserve local raw ZIP regardless.",
+  "budget": {
+    "additional_full_ZIP_GETs": 1,
+    "total_ZIP_GET_attempts_including_incomplete_first": 2,
+    "max_response_bytes": 190000000,
+    "max_seconds": 360,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If full read, size, ZIP identity, NAS upload or scoped restore fails, record the concrete dependency and stop. Do not parse partial bytes, fetch an alternate URL, infer vintage values, fit Stage1 or run a SOXX account."
+}

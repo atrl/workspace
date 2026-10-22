@@ -1,0 +1,9 @@
+{
+  "url": "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/ads/ADS_All_Vintages-zip.zip?hash=4E6B77E5055CA510D1E653F4DD7395C2&la=en&sc_lang=en",
+  "requested_at_utc": "2026-10-22T17:20:56.060016+00:00",
+  "received_at_utc": "2026-10-22T17:22:26.082916+00:00",
+  "curl_exit_code": 28,
+  "curl_stderr": "curl: (28) Operation timed out after 90000 milliseconds with 114095793 out of 168969969 bytes received\n",
+  "response_headers": "HTTP/1.1 200 OK\nContent-Type: application/x-zip-compressed\nContent-Length: 168969969\nServer: Microsoft-IIS/10.0\nAccept-Ranges: bytes\nPragma: no-cache\nRequest-Context: appId=cid-v1:f9022a67-4930-4cc0-ba44-662b99235122\nCross-Origin-Resource-Policy: same-origin\nPermissions-Policy: accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(self), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(), hid=(), idle-detection=(), interest-cohort=(), serial=()\nX-Content-Type-Options: nosniff\nX-Permitted-Cross-Domain-Policies: none\nAccept-CH: Sec-CH-UA-Full-Version-List,Sec-CH-UA-Platform-Version,Sec-CH-UA-Arch,Sec-CH-UA-Model,Sec-CH-UA-Bitness\nContent-Disposition: attachment; filename=\"ADS_All_Vintages-zip.zip\"\nCache-Control: no-cache, no-store\nExpires: Thu, 22 Oct 2026 17:20:57 GMT\nDate: Thu, 22 Oct 2026 17:20:57 GMT\nConnection: keep-alive\nAlt-Svc: h3=\":443\"; ma=93600\nStrict-Transport-Security: max-age=31536000 ; includeSubDomains\n\n",
+  "bytes": 114095793
+}

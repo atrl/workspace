@@ -1,0 +1,18 @@
+{
+  "status": "first_exact_ZIP_GET_incomplete_size_contract_mismatch",
+  "parent_plan_sha256": "c43d1dff3d59bbb9b6cb15f56162e6250464d5661e1a2380cdf34b3772e731e4",
+  "source_URL": "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/ads/ADS_All_Vintages-zip.zip?hash=4E6B77E5055CA510D1E653F4DD7395C2&la=en&sc_lang=en",
+  "http_status": 200,
+  "reported_content_type": "application/x-zip-compressed",
+  "reported_content_length": 168969969,
+  "frozen_max_ZIP_bytes": 10000000,
+  "partial_bytes_before_timeout": 114095793,
+  "timeout_seconds": 90,
+  "curl_exit_code": 28,
+  "complete_raw_ZIP_preserved": false,
+  "NAS_archive_created": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "Official server file is far larger than stale page size label and frozen source budget. Partial temp download was not a valid ZIP and was not used. A new bounded size/transport plan is required before another GET."
+}

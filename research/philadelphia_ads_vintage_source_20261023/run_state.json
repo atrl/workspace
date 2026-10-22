@@ -1,0 +1,10 @@
+{
+  "status": "failed_oversize_and_90s_incomplete_GET",
+  "plan_sha256": "c43d1dff3d59bbb9b6cb15f56162e6250464d5661e1a2380cdf34b3772e731e4",
+  "GET_attempts": 1,
+  "model_fits": 0,
+  "accounts": 0,
+  "curl_exit_code": 28,
+  "partial_response_bytes": 114095793,
+  "reported_content_length": 168969969
+}
