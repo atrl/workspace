@@ -31,7 +31,16 @@
     "displayed_requests_per_month": 20000,
     "vendor_general_history": "End-of-day option history back to 2007; SOXX-specific 2011-2022 coverage unverified"
   },
-  "interpretation": "These are public on-page or vendor-published prices, not an accepted order, license quote, delivered SOXX chain, historical first-public timestamp or guarantee that all selected dates contain contracts. Cboe's published start remains 2012-01; ORATS 2011 SOXX coverage and permitted NAS archival require vendor confirmation before purchase.",
+  "ORATS_Near_EOD_Archive": {
+    "product_url": "https://orats.com/near-eod-data",
+    "displayed_individual_historical_one_time_USD": 599.0,
+    "displayed_individual_recurring_new_data_USD_per_month": 99.0,
+    "historical_backfill_compressed_approx_GB": 500,
+    "download_window_days": 14,
+    "scope": "General all-symbol near-EOD archive from 2007; recurring $99 plan starts from purchase date and alone does not backfill history",
+    "Delta_convention": "ORATS FAQ states one call Delta per strike; put Delta is call Delta minus 1"
+  },
+  "interpretation": "These are public on-page or vendor-published prices, not an accepted order, license quote, delivered SOXX chain, historical first-public timestamp or guarantee that all selected dates contain contracts. Cboe's published start remains 2012-01; ORATS 2011 SOXX coverage and permitted NAS archival require vendor confirmation before purchase. The historical API and bulk archive are different access products.",
   "cart_items": 0,
   "purchases": 0,
   "vendor_messages_sent": 0,
