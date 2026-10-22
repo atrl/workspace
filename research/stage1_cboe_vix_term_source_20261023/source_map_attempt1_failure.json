@@ -1,0 +1,12 @@
+{
+  "status": "source_map_attempt1_calendar_left_boundary_error",
+  "recorder_id": "e014a357d3be4450a3590039a482a25d",
+  "missing_signal_date": "2011-01-03",
+  "required_previous_Qlib_session": "2010-12-31",
+  "Cboe_VIX_2010_12_31_present": true,
+  "Cboe_VIX3M_2010_12_31_present": true,
+  "cause": "D.calendar called from first Stage1 signal, so shift(1) lost prior actual Qlib trading session despite original CSV coverage.",
+  "scientific_effect": "No outcomes, fits, accounts or feature selection; preserve v1 Recorder. Correct only calendar lookback in separately frozen v2.",
+  "new_model_fits": 0,
+  "new_accounts": 0
+}

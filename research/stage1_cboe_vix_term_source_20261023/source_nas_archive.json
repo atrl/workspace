@@ -1,0 +1,30 @@
+{
+  "status": "original_Cboe_CSV_and_sanitized_headers_NAS_remote_scoped_restore_verified",
+  "sha256": "fd9562a34727d30617d4c103f513056769c4ec9e5deed1f9cfee8fc72f27e5ec",
+  "size_bytes": 158090,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/fd/95/fd9562a34727d30617d4c103f513056769c4ec9e5deed1f9cfee8fc72f27e5ec",
+  "members": {
+    "research/stage1_cboe_vix_term_source_20261023/plan.json": {
+      "sha256": "eed127c12f3df8130eddd6f829ee51f5be9fc77d9a1f27e3c2e3a0ad05a6ef63",
+      "size_bytes": 3503
+    },
+    "data/snapshots/stage1_cboe_vix_term_source_20261023/vix.csv": {
+      "sha256": "9355bb6a65841239c1b17877d981812adcdf725acabac3be8655eb1f23e1cf1f",
+      "size_bytes": 473992
+    },
+    "data/snapshots/stage1_cboe_vix_term_source_20261023/vix3m.csv": {
+      "sha256": "2b59d2c72bb9b3ff282dc21ce6259ee548cd410ce9c2e91cb7d3d04b0f67e705",
+      "size_bytes": 219325
+    },
+    "data/snapshots/stage1_cboe_vix_term_source_20261023/vix_response_headers.json": {
+      "sha256": "7af2b2cb136ed1215ec7b653646d79e080270a19152806e10fe4b61f18640dca",
+      "size_bytes": 299
+    },
+    "data/snapshots/stage1_cboe_vix_term_source_20261023/vix3m_response_headers.json": {
+      "sha256": "b2d38c0b935ea9f27d352b17229eaf7cfd8f76b5b47bae51057292449076d6f8",
+      "size_bytes": 299
+    }
+  },
+  "retrieved_sha256": "fd9562a34727d30617d4c103f513056769c4ec9e5deed1f9cfee8fc72f27e5ec",
+  "remote_scoped_restore_verified": true
+}

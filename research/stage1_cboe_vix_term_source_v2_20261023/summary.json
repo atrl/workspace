@@ -1,0 +1,71 @@
+{
+  "experiment": "stage1_cboe_vix_term_source_v2_20261023",
+  "decision": "source_map_verified_candidate_closed_before_fit_duplicate_term_horizon_and_prelaunch_backfill",
+  "objective_achieved": false,
+  "plan_sha256": "5d73d3c92317c8cc3b66c6304b06f029aaa84f8fd84b27615f68c66c9a0d369e",
+  "source_nas_archive_sha256": "fd9562a34727d30617d4c103f513056769c4ec9e5deed1f9cfee8fc72f27e5ec",
+  "recorder_id": "306545c51d9549a4ab68e37a33a04dde",
+  "experiment_id": "742837079633922141",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_cboe_vix_term_source_v2_20261023/qlib_recorder",
+  "audit": {
+    "source_rows": {
+      "vix": 9299,
+      "vix3m": 4300
+    },
+    "first_source_date": {
+      "vix": "1990-01-02",
+      "vix3m": "2009-09-18"
+    },
+    "last_source_date": {
+      "vix": "2026-10-21",
+      "vix3m": "2026-10-22"
+    },
+    "common_rows": 4299,
+    "full_calendar_rows": 3966,
+    "train_calendar_rows": 3020,
+    "held_calendar_rows": 946,
+    "train_known_rows": 3020,
+    "held_known_rows": 946,
+    "missing_signal_dates": [],
+    "train_original39_pairwise_max_abs_Pearson": 0.6317475475077795,
+    "train_original39_valid_correlations": 39,
+    "source_day_later_than_signal": false,
+    "historical_first_public_or_revision_qualified": false,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "definite_prelaunch_backfill_train_rows_before_2013_10_01": 691,
+    "launch_month_exact_day_unqualified_train_rows": 23
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_qualified_days": 0,
+  "next_action": "Preserve this source map and close the VIX/VIX3M H5 candidate before fit. The prior Cboe VIX9D/VIX3M term-structure mechanism failed; switching to VIX short tenor on reused history is not a distinct mechanism. Seek materially different decision-time information; no account or promotion.",
+  "nas_evidence": {
+    "sha256": "bd8842b2f34363bc42cf7e1ee8876da18c8b21b16b194f1ebaf9284ae817cdff",
+    "size_bytes": 313893,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/bd/88/bd8842b2f34363bc42cf7e1ee8876da18c8b21b16b194f1ebaf9284ae817cdff",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 06:38:54.813749+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/bd/88/bd8842b2f34363bc42cf7e1ee8876da18c8b21b16b194f1ebaf9284ae817cdff",
+    "recorder_id": "306545c51d9549a4ab68e37a33a04dde",
+    "experiment_id": "742837079633922141",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "bd8842b2f34363bc42cf7e1ee8876da18c8b21b16b194f1ebaf9284ae817cdff"
+  },
+  "research_screen_eligible": false,
+  "independent_source_review": "independent_source_review.json"
+}

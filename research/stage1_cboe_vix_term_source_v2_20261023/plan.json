@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_cboe_vix_term_source_v2_20261023",
+  "phase": "mechanical_previous_Qlib_session_left_boundary_repair_source_only",
+  "parent": "Frozen complete original Stage1 allocation/action/risk/recovery chain; SOXX final benchmark",
+  "mechanism": "Acute broad-market implied fear relative to three-month expectation can separate temporary risk protection from costly Stage1 cash exposure; this is a new Cboe option-derived term-structure input, distinct from original VIX level and closed SOXX realized-volatility / VIX ratio. No predictive sign or outcome claim in source phase.",
+  "source_files": {
+    "vix": {
+      "url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv",
+      "relative_path": "data/snapshots/stage1_cboe_vix_term_source_20261023/vix.csv",
+      "sha256": "9355bb6a65841239c1b17877d981812adcdf725acabac3be8655eb1f23e1cf1f",
+      "size_bytes": 473992,
+      "response_headers": "data/snapshots/stage1_cboe_vix_term_source_20261023/vix_response_headers.json"
+    },
+    "vix3m": {
+      "url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX3M_History.csv",
+      "relative_path": "data/snapshots/stage1_cboe_vix_term_source_20261023/vix3m.csv",
+      "sha256": "2b59d2c72bb9b3ff282dc21ce6259ee548cd410ce9c2e91cb7d3d04b0f67e705",
+      "size_bytes": 219325,
+      "response_headers": "data/snapshots/stage1_cboe_vix_term_source_20261023/vix3m_response_headers.json"
+    }
+  },
+  "formula": "log(official Cboe VIX daily CLOSE / official Cboe VIX3M daily CLOSE) on the previous actual Stage1 Qlib trading session; both same source date, finite positive, no carry, fill, backdate, or missing-date compaction.",
+  "source_timing": "Both are Cboe close-series values. Map only to the next actual Qlib session by exact previous-session date. Cboe current-history CSV does not certify historical first public bytes, last revision, or next-session 09:46 receipt; therefore source and any future information result are conditional development only.",
+  "cohorts": {
+    "full_signal": [
+      "2011-01-03",
+      "2026-10-09"
+    ],
+    "train": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused": [
+      "2023-01-03",
+      "2026-10-09"
+    ]
+  },
+  "barrier": "Source-only Qlib D.calendar, DatasetH and Recorder; compare training-only redundancy against original Stage1 39 features, no labels/market outcomes/fits/accounts. Archive raw source bytes and Recorder to Yanxuan NAS with scoped restore. Independent source review before a separately frozen matched information screen. A screen pass would still require first-public receipt qualification before full Stage1-derived 0bp Tiered own-state account, then 2/5bp and independent forward.",
+  "budget": {
+    "external_GETs": 0,
+    "source_Recorder_loads_max": 2,
+    "DatasetH_builds_max": 1,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "SOXX_outcome_reads": 0
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "official_methodology": "https://cdn.cboe.com/api/global/us_indices/governance/Volatility_Index_Methodology_Selected_SPX_Target_Expected_Volatility_Term_Indices.pdf",
+  "closed_route_distinction": "stage1_cross_market_vol_gap_information_20261023 was a nonlinear combination of already present SOXX realized volatility and VIX, not this option-implied VIX/VIX3M term slope.",
+  "predecessor": {
+    "card": "research/stage1_cboe_vix_term_source_20261023",
+    "plan_sha256": "eed127c12f3df8130eddd6f829ee51f5be9fc77d9a1f27e3c2e3a0ad05a6ef63",
+    "summary_sha256": "873e905311821665b0a34016eada8f23ea3bc5eff31bddcd765a1cfa771a02e5",
+    "failure": "source_map_attempt1_failure.json",
+    "recorder_id": "e014a357d3be4450a3590039a482a25d"
+  },
+  "repair": {
+    "only_change": "Read Qlib calendar from 2010-12-01 and reindex previous-session map to unchanged 2011-01-03..2026-10-09 signal calendar.",
+    "unchanged_raw_Cboe_CSV_hashes": true,
+    "unchanged_formula": true,
+    "new_external_GETs": 0
+  },
+  "source_archive_receipt": "research/stage1_cboe_vix_term_source_20261023/source_nas_archive.json"
+}

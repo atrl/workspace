@@ -1,0 +1,17 @@
+{
+  "verdict": "SOURCE_MAP_VALID_HOLD_INFORMATION_FIT",
+  "independent_reviewer": "stage1_nvda_design_review",
+  "native_Recorder_id": "306545c51d9549a4ab68e37a33a04dde",
+  "raw_source_NAS_sha256": "fd9562a34727d30617d4c103f513056769c4ec9e5deed1f9cfee8fc72f27e5ec",
+  "recorder_NAS_sha256": "bd8842b2f34363bc42cf7e1ee8876da18c8b21b16b194f1ebaf9284ae817cdff",
+  "native_readback": "passed_3966_D_calendar_3020_train_946_held",
+  "numeric_rows_all": 3966,
+  "definite_prelaunch_backfill_train_rows_before_2013_10_01": 691,
+  "launch_month_exact_day_unqualified_train_rows": 23,
+  "first_public_and_revision_qualified": false,
+  "duplicate_closed_route": "research/cboe_h5_information_20261009",
+  "duplicate_reason": "Closed H5 screen already evaluated previous-session Cboe short-versus-three-month implied-vol term structure log(VIX9D/VIX3M). Replacing nine-day numerator with VIX roughly thirty-day numerator on reused history would mainly tune term horizon.",
+  "model_fits": 0,
+  "accounts": 0,
+  "next_action": "Close this candidate before information fit; retain raw source and Qlib map. Require a materially different mechanism or new independent evidence, and treat prelaunch values as unavailable."
+}

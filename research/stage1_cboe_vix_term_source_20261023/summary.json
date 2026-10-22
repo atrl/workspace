@@ -1,0 +1,70 @@
+{
+  "experiment": "stage1_cboe_vix_term_source_20261023",
+  "decision": "source_map_v1_mechanical_calendar_left_boundary_failure",
+  "objective_achieved": false,
+  "plan_sha256": "eed127c12f3df8130eddd6f829ee51f5be9fc77d9a1f27e3c2e3a0ad05a6ef63",
+  "source_nas_archive_sha256": "fd9562a34727d30617d4c103f513056769c4ec9e5deed1f9cfee8fc72f27e5ec",
+  "recorder_id": "e014a357d3be4450a3590039a482a25d",
+  "experiment_id": "288633774499776143",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_cboe_vix_term_source_20261023/qlib_recorder",
+  "audit": {
+    "source_rows": {
+      "vix": 9299,
+      "vix3m": 4300
+    },
+    "first_source_date": {
+      "vix": "1990-01-02",
+      "vix3m": "2009-09-18"
+    },
+    "last_source_date": {
+      "vix": "2026-10-21",
+      "vix3m": "2026-10-22"
+    },
+    "common_rows": 4299,
+    "full_calendar_rows": 3966,
+    "train_calendar_rows": 3020,
+    "held_calendar_rows": 946,
+    "train_known_rows": 3019,
+    "held_known_rows": 946,
+    "missing_signal_dates": [
+      "2011-01-03"
+    ],
+    "train_original39_pairwise_max_abs_Pearson": 0.6317622277924811,
+    "train_original39_valid_correlations": 39,
+    "source_day_later_than_signal": false,
+    "historical_first_public_or_revision_qualified": false,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "independent_forward_qualified_days": 0,
+  "next_action": "Preserved v1 Recorder and exact source bytes. v2 separately repaired previous Qlib session left boundary; do not use v1 as source-coverage evidence or run a model.",
+  "nas_evidence": {
+    "sha256": "ad0eda334ef98e7882350d1a7cf11699936035882881cc0daaad2fbce8a039d6",
+    "size_bytes": 313702,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ad/0e/ad0eda334ef98e7882350d1a7cf11699936035882881cc0daaad2fbce8a039d6",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 06:37:48.267279+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ad/0e/ad0eda334ef98e7882350d1a7cf11699936035882881cc0daaad2fbce8a039d6",
+    "recorder_id": "e014a357d3be4450a3590039a482a25d",
+    "experiment_id": "288633774499776143",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "ad0eda334ef98e7882350d1a7cf11699936035882881cc0daaad2fbce8a039d6"
+  },
+  "failure_attribution": "source_map_attempt1_failure.json"
+}
