@@ -1,7 +1,7 @@
 {
   "experiment": "stage1_cftc_nq_tff_source_probe_20261023",
   "phase": "source_identity_only",
-  "decision": "source_identity_passed_release_clock_and_first_public_vintage_pending",
+  "decision": "2011_2026_official_source_identity_complete_release_clock_and_first_public_vintage_pending",
   "objective_achieved": false,
   "plan_sha256": "55dd6e9210eb6c3abd238d11695a90370b39bbc8942973b35bb3187916d23608",
   "evidence": {
@@ -9,7 +9,10 @@
     "attempt1_parser_failure": "source_attempt1_parser_failure.json",
     "report_date_format_attempt": "repair_result.json",
     "NAS_archive_sha256": "e23617260a78790f41840f086d67f1e9ddd790ff42b295de29dd8f29376f978c",
-    "NAS_remote_and_scoped_restore_verified": true
+    "NAS_remote_and_scoped_restore_verified": true,
+    "annual_intake_result": "annual_intake_result.json",
+    "annual_intake_NAS_archive_sha256": "8fb79e0754542869d4edf6be530bfbeab8ce1951e213abc789966fe7c88cd298",
+    "annual_intake_NAS_remote_and_scoped_restore_verified": true
   },
   "source": {
     "2011": {
@@ -39,6 +42,27 @@
       "last_report_date": "2026-10-13",
       "Tuesday_report_share": 1.0,
       "market_outcome_reads": 0
+    },
+    "annual_2012_2025": {
+      "years": 14,
+      "NQ_report_rows": 731,
+      "yearly_rows": {
+        "2012": 53,
+        "2013": 52,
+        "2014": 52,
+        "2015": 52,
+        "2016": 52,
+        "2017": 52,
+        "2018": 53,
+        "2019": 52,
+        "2020": 52,
+        "2021": 52,
+        "2022": 52,
+        "2023": 52,
+        "2024": 53,
+        "2025": 52
+      },
+      "identity_passed": true
     }
   },
   "timing": {
@@ -47,13 +71,14 @@
     "standard_release": "Usually Friday 15:30 US/Eastern for previous Tuesday positions, but holidays, outages and backlog differ.",
     "exception_2025": "Official special announcements report delayed backfill for 2025-09-30 through 2025-12-23; use actual publication date by report date.",
     "revision_2011": "Official 2011-06-24 announcement documents exchange-reported open-interest adjustment for exact CFTC 209742 and report date 2011-06-21. Annual downloaded ZIP is not automatically first-public vintage.",
-    "historical_release_dates": "CFTC FAQ says no complete public historical release-date list."
+    "historical_release_dates": "CFTC FAQ says no complete public historical release-date list.",
+    "additional_known_exceptions": "2018-2019 US shutdown backlog, 2019-03-26 exact NQ code 209742 significant positions added later, 2023 ION reporting backlog, 2025 government shutdown backlog. A fixed Tuesday+Friday clock is invalid."
   },
   "budget": {
-    "cumulative_external_GETs": 2,
+    "cumulative_external_GETs": 16,
     "model_fits": 0,
     "native_accounts": 0,
     "market_outcome_reads": 0
   },
-  "next_action": "Freeze bounded actual-release and first-public revision audit for 2011 and 2025 before full-history source intake or feature construction. Never treat report dates as decision-available dates."
+  "next_action": "Freeze a bounded dissemination and first-public revision audit. Official weekly HTML report can be compared to compressed annual source for exception specimens; document exact availability date per report or conservative exclusion. Only then Qlib-align one feature to frozen Stage1 decision and run one preregistered 0bp information screen."
 }

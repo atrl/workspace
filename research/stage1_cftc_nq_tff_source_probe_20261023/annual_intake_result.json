@@ -1,0 +1,201 @@
+{
+  "status": "all_2012_2025_source_identity_passed_release_and_revision_pending",
+  "failure": null,
+  "plan_sha256": "ad1af9fc4e59aa6be1508aa6b90d278f94daf315c34093487168544ccfec8f4b",
+  "GET_attempts": 14,
+  "checks": [
+    {
+      "year": 2012,
+      "raw_sha256": "c5b65a8c3e0f597fae6b41eaba9246e2a995b14de3aa8fd12aabee8d05032a58",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_MM_DD_YYYY",
+      "NQ_rows": 53,
+      "first_report_date": "2012-01-03",
+      "last_report_date": "2012-12-31",
+      "Tuesday_report_share": 0.9622641509433962,
+      "market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2013,
+      "raw_sha256": "682e643683c1ca36f723980544f4ff3bef7e0c3d299bc85c0904ef17b97f2780",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2013-01-08",
+      "last_report_date": "2013-12-31",
+      "Tuesday_report_share": 1.0,
+      "market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2014,
+      "raw_sha256": "83893048e9a73e8b6e81d9ef7a737f9f86db6bdc28f17d393b8df2e87ab713d6",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2014-01-07",
+      "last_report_date": "2014-12-30",
+      "Tuesday_report_share": 1.0,
+      "market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2015,
+      "raw_sha256": "a506b8ceb510fb49b8b21a1687fff35903698b8968d079b9e5f12ce92f96b68e",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2015-01-06",
+      "last_report_date": "2015-12-29",
+      "Tuesday_report_share": 1.0,
+      "market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2016,
+      "raw_sha256": "e8570bcd83df5c3e25aca61a59985001db83a8299a25943525c8d109ffc94a15",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2016-01-05",
+      "last_report_date": "2016-12-27",
+      "Tuesday_report_share": 1.0,
+      "market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2017,
+      "raw_sha256": "e6e2dd537efcc57cdd6cdcc4e45e567fd47e65d8afc8369d8383bf09195ae7f5",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2017-01-03",
+      "last_report_date": "2017-12-26",
+      "Tuesday_report_share": 0.9807692307692307,
+      "market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2018,
+      "raw_sha256": "6843d130a25a17c6248df67463810f02077ef4eeafdd629299d21c18f5125e40",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 53,
+      "first_report_date": "2018-01-02",
+      "last_report_date": "2018-12-31",
+      "Tuesday_report_share": 0.9622641509433962,
+      "market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2019,
+      "raw_sha256": "631b31880d513072aa50d63117c896184dd35db3cc8fcdd6debd80197ee7a661",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2019-01-08",
+      "last_report_date": "2019-12-31",
+      "Tuesday_report_share": 1.0,
+      "market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2020,
+      "raw_sha256": "c90d98d94db708772d669f263fb8061c75f8a7f681ba231fb21247e5c9798e6b",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2020-01-07",
+      "last_report_date": "2020-12-29",
+      "Tuesday_report_share": 0.9807692307692307,
+      "market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2021,
+      "raw_sha256": "5c929991038c70ae2501661b6d442b9e784d3c29d3166ceac2e21b45ac93d56a",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2021-01-05",
+      "last_report_date": "2021-12-28",
+      "Tuesday_report_share": 1.0,
+      "market_names": [
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2022,
+      "raw_sha256": "94c9c1fdee9dfbe377a09923ddfe26b88d3460605dd076081f221ad367d88601",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2022-01-04",
+      "last_report_date": "2022-12-27",
+      "Tuesday_report_share": 1.0,
+      "market_names": [
+        "NASDAQ MINI - CHICAGO MERCANTILE EXCHANGE",
+        "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2023,
+      "raw_sha256": "43c3dbdd4d01fceefad5e457003751cdc0974c7cf46097b322e26e9e2fe44d7a",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2023-01-03",
+      "last_report_date": "2023-12-26",
+      "Tuesday_report_share": 0.9807692307692307,
+      "market_names": [
+        "NASDAQ MINI - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2024,
+      "raw_sha256": "3f00585741a7cf76c207df640951d644dd91ff22a1106b38ca37a2469c765637",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 53,
+      "first_report_date": "2024-01-02",
+      "last_report_date": "2024-12-31",
+      "Tuesday_report_share": 1.0,
+      "market_names": [
+        "NASDAQ MINI - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    },
+    {
+      "year": 2025,
+      "raw_sha256": "2ea0cda6395f7dd6501c27422be3763e1f2f5b41b768cfd36b871f092a07d438",
+      "member": "FinFutYY.txt",
+      "date_column": "Report_Date_as_YYYY-MM-DD",
+      "NQ_rows": 52,
+      "first_report_date": "2025-01-07",
+      "last_report_date": "2025-12-30",
+      "Tuesday_report_share": 0.9807692307692307,
+      "market_names": [
+        "NASDAQ MINI - CHICAGO MERCANTILE EXCHANGE"
+      ]
+    }
+  ],
+  "NAS": {
+    "archive_sha256": "8fb79e0754542869d4edf6be530bfbeab8ce1951e213abc789966fe7c88cd298",
+    "remote_digest_verified": true,
+    "scoped_restore_verified": true,
+    "file_count": 28
+  },
+  "historical_release_and_first_public_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0
+}

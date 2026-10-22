@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_CFTC_annual_TFF_2012_2025_source_intake_only",
+  "parent_identity_result_sha256": "5cce5eeca4594692c7339c12c4fcf2515d4152a4a63d28b9723d3ee865e2c8f5",
+  "years": [
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "exact_url_template": "https://www.cftc.gov/files/dea/history/fut_fin_txt_{year}.zip",
+  "contract_code": "209742",
+  "required_exact_columns": [
+    "Market_and_Exchange_Names",
+    "CFTC_Contract_Market_Code",
+    "Open_Interest_All",
+    "Lev_Money_Positions_Long_All",
+    "Lev_Money_Positions_Short_All"
+  ],
+  "date_column_aliases": [
+    "Report_Date_as_MM_DD_YYYY",
+    "Report_Date_as_YYYY-MM-DD"
+  ],
+  "request": {
+    "max_GETs": 14,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 90,
+    "max_response_bytes_each": 20000000,
+    "seconds_between_requests": 1
+  },
+  "identity_gate": "HTTP200 ZIP with exactly one text table; exact contract code 209742, Nasdaq Mini CME identity, at least 20 unique report dates per year, positive OI and nonnegative leveraged long and short. Stop at first failure.",
+  "backup": "Raw ZIP and HTTP headers with SHA256, receipt clocks, NAS remote digest and scoped member readback.",
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "Annual compressed source rows remain retrospective and not decision-available until dissemination clock and first-public revision handling are separately qualified. No feature sign, horizon or account selected here."
+}

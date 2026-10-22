@@ -116,13 +116,15 @@
     },
     {
       "card": "research/stage1_cftc_nq_tff_source_probe_20261023",
-      "phase": "2011_2026_official_source_identity_passed_release_and_first_public_pending",
+      "phase": "official_2011_2026_annual_source_identity_complete_publication_and_first_public_pending",
       "role": "Stage1_distinct_Nasdaq_futures_positioning_source",
       "full_economic_experiment": false,
-      "status": "source_only_no_fit_or_account",
+      "status": "all_16_years_source_only_no_fit_or_account",
       "execution_authorized": false,
       "result": "research/stage1_cftc_nq_tff_source_probe_20261023/summary.json",
-      "NAS_archive_sha256": "e23617260a78790f41840f086d67f1e9ddd790ff42b295de29dd8f29376f978c"
+      "NAS_archive_sha256": "e23617260a78790f41840f086d67f1e9ddd790ff42b295de29dd8f29376f978c",
+      "annual_intake_result": "research/stage1_cftc_nq_tff_source_probe_20261023/annual_intake_result.json",
+      "annual_NAS_archive_sha256": "8fb79e0754542869d4edf6be530bfbeab8ce1951e213abc789966fe7c88cd298"
     }
   ],
   "framework": [
