@@ -365,6 +365,13 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/stage1_cftc_nq_positioning_h5_information_v2_20261023/summary.json"
+    },
+    {
+      "card": "research/stage1_tsmc_guidance_growth_h5_information_20261023",
+      "status": "not_promoted_fixed_TSMC_guidance_growth_H5_information_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_tsmc_guidance_growth_h5_information_20261023/summary.json"
     }
   ],
   "deferred_sources": {
@@ -415,7 +422,8 @@
     "Stage1_CFTC_NQ_positioning_map": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/summary.json",
     "Stage1_CFTC_NQ_timing_repaired_map": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/summary.json",
     "closed_CFTC_NQ_H5_information_result": "research/stage1_cftc_nq_positioning_h5_information_v2_20261023/independent_result_review.json",
-    "TSMC_SEC_guidance_Qlib_source": "research/stage1_tsmc_sec_guidance_growth_source_20261023/summary.json"
+    "TSMC_SEC_guidance_Qlib_source": "research/stage1_tsmc_sec_guidance_growth_source_20261023/summary.json",
+    "closed_TSMC_SEC_guidance_H5_information_result": "research/stage1_tsmc_guidance_growth_h5_information_20261023/summary.json"
   },
   "closed_source_probes": [
     {
