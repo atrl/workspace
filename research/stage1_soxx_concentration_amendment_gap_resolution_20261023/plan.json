@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_native_Qlib_source_mask_repair_exact_11_unchanged_amendment_days",
+  "question": "Does qualified equality of all four 2017 delayed SOXX equity schedules remove the sole 11-session amendment uncertainty without changing any first-original concentration value or source age?",
+  "source_map": {
+    "card": "research/stage1_soxx_2010_2022_concentration_source_map_20261023",
+    "summary_sha256": "5cc4405af6d758a3c4b4cd02b4fe1cec969b8296664fa9696d4dfe02c72a09dd",
+    "source_audit_sha256": "6908777d9f0097edf8f06ab3bbcf5ba35ee6c3858981e54d18e59544c60b31bd",
+    "recorder_id": "d128dfd4beca4cf384e428e45a14707f",
+    "experiment_id": "505572520101679530",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_soxx_2010_2022_concentration_source_map_20261023/qlib_recorder",
+    "mapped_signals_artifact_sha256": "2d739714da80dfe1591a61feb33cab62c7cc187aa29148984f6f7c8604d8fb2b",
+    "amendments_artifact_sha256": "cda65efdcce708cd433fb1ffa0fab9d66e505e51170180ec973875b09e34522e",
+    "source_events_artifact_sha256": "606e9d11c616dc8b52ee12f0a9b35afd4c53b19897ea68ff16775b6464388bff",
+    "NAS_archive_sha256": "fecdd156e648eb8121e2fe09bd35667113792bd5025f4278fc507938e51f0c0d",
+    "NAS_readback_verified": true
+  },
+  "amendment_evidence": {
+    "card": "research/stage1_soxx_2017_amendment_semantics_20261023",
+    "result": "name_whitespace_reconciliation_result.json",
+    "result_sha256": "cc41c57e65270535fa49ebbf683333b73410eba8f10331a31f410a56c7392a7d",
+    "expected_qualified_unchanged_amendments": 4,
+    "report_periods": [
+      "2017-03-31",
+      "2017-09-30"
+    ]
+  },
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "Stage1_train_span": [
+    "2011-01-03",
+    "2022-12-30"
+  ],
+  "expected": {
+    "calendar_sessions": 3020,
+    "old_amendment_uncertain_sessions": 11,
+    "old_qualified_sessions": 3009,
+    "new_amendment_uncertain_sessions": 0,
+    "new_qualified_sessions": 3020,
+    "uncertain_first_signal": "2017-08-15",
+    "uncertain_last_signal": "2017-08-29",
+    "base_report_events": 48
+  },
+  "fixed_repair": "Load exact native Qlib source Recorder objects. Require exactly 11 old uncertain rows, all mapped to original 2017-03-31 accession 0001193125-17-194722, and amendment result proving unchanged source numeric values. Clear amendment_uncertain only for those 11; set qualified_source true. Leave signal date, original accession, report period, effective signal date, filed date, form, top5, HHI, source_known and source_age_days bitwise unchanged for all 3020 rows; no source-age reset and no added numeric amendment event. Update amendment metadata flags for four exact accessions only. Build one native DatasetH and one new Recorder; preserve old Recorder unchanged.",
+  "budget": {
+    "new_HTTP_GETs": 0,
+    "old_Qlib_Recorder_object_loads_max": 3,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "acceptance": "Exact 3020 Qlib calendar alignment, 48 event identities unchanged, every source value finite, old/new mask counts and unchanged columns verified; new Recorder and DatasetH readback, NAS archive remote SHA and scoped restore.",
+  "stop": "Any source hash/NAS drift, amendment mismatch, unexpected uncertain row/date/accession, changed concentration/age, Qlib count, Recorder or NAS readback failure stops. Do not fit, backtest, promote or rewrite the frozen old source card.",
+  "scientific_boundary": "Calendar and amendment-source completeness across 2011-2022 training is not independent held validation, exact historical first-public intraday proof, incremental information, a 0bp Stage1 account, 2/5bp or qualified forward success.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*"
+    ]
+  }
+}
