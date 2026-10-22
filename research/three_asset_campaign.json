@@ -191,7 +191,9 @@
     "SOXX_2017_2018_first_concentration_source": "research/stage1_soxx_2017_2018_original_concentration_source_20261023/numeric_2018_Jun_dollar_cell_repair_result.json",
     "SOXX_2017_2018_concentration_status": "six_2017_2018_first_SOXX_baskets_30_rows_exact_closure_2018_Sep_reused_amendments_and_cross_card_Qlib_map_pending_zero_fits_accounts",
     "SOXX_2017_late_amendment_semantics": "research/stage1_soxx_2017_amendment_semantics_20261023/name_whitespace_reconciliation_result.json",
-    "SOXX_2017_amendment_status": "four_late_amendments_same_30_equity_rows_after_whitespace_normalization_no_new_concentration_events_zero_fits_accounts"
+    "SOXX_2017_amendment_status": "four_late_amendments_same_30_equity_rows_after_whitespace_normalization_no_new_concentration_events_zero_fits_accounts",
+    "SOXX_concentration_full_Stage1_train_source": "research/stage1_soxx_concentration_amendment_gap_resolution_20261023/source_audit.json",
+    "SOXX_concentration_full_Stage1_train_status": "3020_of_3020_conservative_Qlib_train_source_days_11_amendment_gap_closed_no_numeric_or_age_change_held_and_information_pending_zero_fits_accounts"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
