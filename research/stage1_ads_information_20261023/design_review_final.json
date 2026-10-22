@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "verdict": "APPROVE_DESIGN",
+  "scope": "Exactly one matched ADS incremental-information screen with two model fit attempts and one paired bootstrap; no economic account or promotion certification",
+  "reviewer": "independent Goal task read-only design review; did not author or execute the ADS preflight or fit notebook",
+  "plan_sha256": "dbf06de420cc63a12ef52f7ea8377152b1b51ced87d2bd1004c64004470b4143",
+  "preflight_sha256": "161a39cdf55d38d30eec98528d64910fbb0e0792243c217bd597d413dd5f9360",
+  "preflight_cell_source_sha256": "66239d7581e6ea10cba17ae119df966bcd3b63e2def8d3a7cc13d3aa75e5302d",
+  "fit_cell_source_sha256": "bd510c49d1f97b75c995fd87e63329498632e8bed6c6c16f75cd038b47e39419",
+  "runtime_repair_plan_sha256": "d5bc44255b19e0eab14bc84b70cff695a6a2c90bb8cb309583165e64c596ff6e",
+  "alignment_repair_plan_sha256": "11533d4acafa8cd18307d6265dbdf5fdb222a17579841d7e8755c082f92bab55",
+  "execution_budget_amendment_sha256": "fd7767c09ee745951a2b7854d248481bd27835e650b37e7e0efb8641b5ce219b",
+  "checks": {
+    "frozen_parent_original_39_features_and_complete_Stage1_chain": true,
+    "candidate_only_ADS_value_with_same_source_age_controls_both_arms": true,
+    "no_survivor_compaction_eligible_rows_3014_940": true,
+    "H5_SOXX_label_maturity_from_original_Stage1_timing": true,
+    "reused_held_halves_and_frozen_sign_gate": true,
+    "two_fits_one_bootstrap_zero_accounts_budget": true,
+    "runtime_and_alignment_failure_consumption_preserved": true,
+    "source_historical_exact_intraday_clock_qualified": false
+  },
+  "conditions": [
+    "Review approves only the exact hashed fit code and plan; any edit voids this review.",
+    "Do not call a passing MSE screen a Stage1 0bp account or SOXX success.",
+    "Historical vintage dates and conservative next-session timing remain conditional retrospective evidence; qualify first-public timing before claiming a tradable factor.",
+    "Any fit/Recorder/NAS interruption must preserve consumed attempts and resume only from verified state."
+  ],
+  "model_fits_observed_at_review": 0,
+  "native_accounts_observed_at_review": 0,
+  "SOXX_goal_achieved": false
+}
