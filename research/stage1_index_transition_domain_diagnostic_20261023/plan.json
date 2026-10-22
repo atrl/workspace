@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_index_transition_domain_diagnostic_20261023",
+  "phase": "read_only_regime_domain_price_diagnostic",
+  "question": "Did the officially documented 2021 SOXX/SOXL underlying-index transition coincide with a material shift in the SOXL-versus-SOXX open-to-next-open relationship between original Stage1 training domains and reused held history? This is attribution, not a trading feature or causal claim.",
+  "sources": {
+    "official_index_source_card": "research/stage1_semiconductor_index_regime_source_20261023",
+    "official_index_result_sha256": "b02d2e21b16af260aad6ac5a94d13d3f6d9baa1f48730d08d039d4eda32e3a2f",
+    "original_Stage1_card": "research/stage1_domain_heads_20261018",
+    "original_Stage1_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "Qlib_price_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_price_config_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2"
+  },
+  "fixed_domains": {
+    "old_training": "2018-01-02..2021-06-11",
+    "transition_unknown": "2021-06-14..2021-08-27",
+    "new_training": "2021-08-30..2022-12-30",
+    "reused_held": "2023-01-03..2026-10-08"
+  },
+  "fixed_statistics": {
+    "calendar": "Qlib D.calendar 2018-01-02..2026-10-09 inclusive, native daily_prices provider",
+    "price_label": "Qlib D.features SOXL/SOXX Ref($open,-1)/$open-1; labels assigned to trade day and mature only if next session in provider. Diagnostic only; not point-in-time feature.",
+    "per_domain": [
+      "n",
+      "SOXX_return_mean",
+      "SOXL_minus_SOXX_mean",
+      "SOXL_minus_SOXX_median",
+      "SOXL_minus_SOXX_p05",
+      "SOXL_minus_3x_SOXX_mean",
+      "SOXL_minus_3x_SOXX_median",
+      "SOXL_minus_3x_SOXX_p05",
+      "SOXL_minus_3x_SOXX_std"
+    ],
+    "pairwise": [
+      "new_training_minus_old_training for each mean/median/p05",
+      "reused_held_minus_new_training for each mean/median/p05"
+    ],
+    "comparability": "No rescaling, no parameter search, all domains reported including transition unknown; no new fit, account, predictor, rule or promotion from this read."
+  },
+  "budget": {
+    "new_source_HTTP": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "bootstraps": 0,
+    "new_Qlib_Recorders": 1
+  },
+  "stop": "Stop on source hash, calendar, maturity, or missing-row mismatch; do not use hindsight domain differences as an entry condition or performance claim.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "attempts": [
+    {
+      "sequence": 1,
+      "status": "failed_before_market_read_or_Recorder",
+      "cause": "nbconvert kernel could not import src from its working directory",
+      "error": "ModuleNotFoundError: No module named 'src'",
+      "model_fits": 0,
+      "native_accounts": 0
+    },
+    {
+      "sequence": 2,
+      "status": "completed",
+      "repair": "Set explicit repository root on the notebook kernel import path; frozen plan and data definitions unchanged.",
+      "model_fits": 0,
+      "native_accounts": 0
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_index_transition_domain_diagnostic_20261023",
+  "decision": "read_only_2021_index_transition_domain_distribution_attribution_no_strategy_rule",
+  "objective_achieved": false,
+  "plan_sha256": "1268dae2f844eb610aeba5cbd8631db9f3077be461657a06c3390b74c25e6fed",
+  "recorder_id": "f1b34ec1665f4107be8912d0bb6d08c1",
+  "experiment_id": "895876616621403973",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_index_transition_domain_diagnostic_20261023/qlib_recorder",
+  "result": "result.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "This Qlib price provider is a diagnostic price proxy and does not reconstruct the full original Stage1 09:47 account.",
+    "Official SEC notices show an around-date transition, not exact implementation instant.",
+    "A domain distribution shift is descriptive and cannot prove causal source of Stage1 loss or a predictive trade rule.",
+    "All outcome history is reused; independent forward evidence remains zero."
+  ],
+  "nas_evidence": {
+    "sha256": "18bcfe07a649552798c06671d0b8bcbc668b9bb4a35b88aaf4361cfb4e08b137",
+    "size_bytes": 152525,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/18/bc/18bcfe07a649552798c06671d0b8bcbc668b9bb4a35b88aaf4361cfb4e08b137",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 07:27:58.833448+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/18/bc/18bcfe07a649552798c06671d0b8bcbc668b9bb4a35b88aaf4361cfb4e08b137",
+    "recorder_id": "f1b34ec1665f4107be8912d0bb6d08c1",
+    "experiment_id": "895876616621403973",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "18bcfe07a649552798c06671d0b8bcbc668b9bb4a35b88aaf4361cfb4e08b137"
+  }
+}

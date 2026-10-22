@@ -1,0 +1,4 @@
+experiment: stage1_index_transition_domain_diagnostic_20261023
+phase: read_only_regime_domain_price_diagnostic
+plan: plan.json
+provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices

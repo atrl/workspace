@@ -1,0 +1,86 @@
+{
+  "decision": "read_only_2021_index_transition_domain_distribution_attribution_no_strategy_rule",
+  "plan_sha256": "1268dae2f844eb610aeba5cbd8631db9f3077be461657a06c3390b74c25e6fed",
+  "Qlib_calendar_days": 2205,
+  "mature_price_days": 2204,
+  "domains": {
+    "old_training": {
+      "n": 867,
+      "first": "2018-01-02",
+      "last": "2021-06-11",
+      "SOXX_return_mean": 0.0013308440102264285,
+      "SOXL_minus_SOXX_mean": 0.002184433862566948,
+      "SOXL_minus_SOXX_median": 0.0036722421646118164,
+      "SOXL_minus_SOXX_p05": -0.06338200569152831,
+      "SOXL_minus_3x_SOXX_mean": -0.00047725389595143497,
+      "SOXL_minus_3x_SOXX_median": -0.00037407875061035156,
+      "SOXL_minus_3x_SOXX_p05": -0.009402889013290405,
+      "SOXL_minus_3x_SOXX_std": 0.007317561190575361
+    },
+    "transition_unknown": {
+      "n": 54,
+      "first": "2021-06-14",
+      "last": "2021-08-27",
+      "SOXX_return_mean": 0.0015732744941487908,
+      "SOXL_minus_SOXX_mean": 0.0026307161897420883,
+      "SOXL_minus_SOXX_median": 0.005263090133666992,
+      "SOXL_minus_SOXX_p05": -0.031048300862312316,
+      "SOXL_minus_3x_SOXX_mean": -0.0005158329731784761,
+      "SOXL_minus_3x_SOXX_median": -0.0004482865333557129,
+      "SOXL_minus_3x_SOXX_p05": -0.007451555132865905,
+      "SOXL_minus_3x_SOXX_std": 0.0049423836171627045
+    },
+    "new_training": {
+      "n": 338,
+      "first": "2021-08-30",
+      "last": "2022-12-30",
+      "SOXX_return_mean": -0.0004950203001499176,
+      "SOXL_minus_SOXX_mean": -0.0012009711936116219,
+      "SOXL_minus_SOXX_median": 0.000540316104888916,
+      "SOXL_minus_SOXX_p05": -0.08312186598777771,
+      "SOXL_minus_3x_SOXX_mean": -0.00021093060786370188,
+      "SOXL_minus_3x_SOXX_median": -0.00012931227684020996,
+      "SOXL_minus_3x_SOXX_p05": -0.008337250351905823,
+      "SOXL_minus_3x_SOXX_std": 0.005033327732235193
+    },
+    "reused_held": {
+      "n": 945,
+      "first": "2023-01-03",
+      "last": "2026-10-08",
+      "SOXX_return_mean": 0.0019700617995113134,
+      "SOXL_minus_SOXX_mean": 0.003345505567267537,
+      "SOXL_minus_SOXX_median": 0.003467559814453125,
+      "SOXL_minus_SOXX_p05": -0.07173947095870972,
+      "SOXL_minus_3x_SOXX_mean": -0.0005946179153397679,
+      "SOXL_minus_3x_SOXX_median": -0.00047194957733154297,
+      "SOXL_minus_3x_SOXX_p05": -0.005857610702514648,
+      "SOXL_minus_3x_SOXX_std": 0.0045425607822835445
+    }
+  },
+  "pairwise": {
+    "new_training_minus_old_training": {
+      "SOXX_return_mean": -0.0018258643103763461,
+      "SOXL_minus_SOXX_mean": -0.00338540505617857,
+      "SOXL_minus_SOXX_median": -0.0031319260597229004,
+      "SOXL_minus_SOXX_p05": -0.019739860296249398,
+      "SOXL_minus_3x_SOXX_mean": 0.0002663232880877331,
+      "SOXL_minus_3x_SOXX_median": 0.0002447664737701416,
+      "SOXL_minus_3x_SOXX_p05": 0.0010656386613845815
+    },
+    "reused_held_minus_new_training": {
+      "SOXX_return_mean": 0.002465082099661231,
+      "SOXL_minus_SOXX_mean": 0.004546476760879159,
+      "SOXL_minus_SOXX_median": 0.002927243709564209,
+      "SOXL_minus_SOXX_p05": 0.011382395029067988,
+      "SOXL_minus_3x_SOXX_mean": -0.00038368730747606605,
+      "SOXL_minus_3x_SOXX_median": -0.000342637300491333,
+      "SOXL_minus_3x_SOXX_p05": 0.002479639649391175
+    }
+  },
+  "source_event_not_exact_transition_clock": true,
+  "reused_history_not_independent_validation": true,
+  "Stage1_full_account_replayed": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "objective_achieved": false
+}

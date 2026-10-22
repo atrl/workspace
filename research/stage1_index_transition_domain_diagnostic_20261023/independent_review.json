@@ -1,0 +1,19 @@
+{
+  "verdict": "CONFIRM_SOURCE_ONLY_DESCRIPTIVE_DIAGNOSTIC",
+  "review_scope": "read_only_frozen_sources_native_Qlib_numeric_identity_and_NAS_no_fit_or_account",
+  "confirmed": [
+    "Pinned official index source, original Stage1 summary, and Qlib provider config hashes match the frozen plan.",
+    "Native Qlib Recorder is FINISHED; saved plan and report match files, DatasetH and D.features have 2204 mature rows.",
+    "Four prespecified domains have 867, 54, 338 and 945 complete rows; raw SOXL and SOXX returns match a fresh native Qlib read.",
+    "SOXL-minus-SOXX = twice SOXX plus SOXL-minus-three-times-SOXX holds for both domain mean differences within rounding.",
+    "NAS archive hash and scoped restoration receipt match.",
+    "No model fit or native account ran."
+  ],
+  "limits": [
+    "The price diagnostic does not establish the 2021 index change as a causal loss source.",
+    "The diagnostic is not the full original Stage1 09:47 fee-net account.",
+    "Reused history and domain comparisons do not establish a predictive trading rule or independent forward qualification."
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}
