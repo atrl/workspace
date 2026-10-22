@@ -1,0 +1,26 @@
+{
+  "plan_sha256": "9ca8a4e5a2ae2634fb8e69daf32f5b1073b3196242c1a0e42e4b98bcf511820b",
+  "fit_cell_source_sha256": "46977cfa036e4067de75cc34b306ed105bfbea16d01c8e7727bcaab89841ac97",
+  "fit_attempts": [
+    "baseline",
+    "candidate"
+  ],
+  "fits_done": [
+    "baseline",
+    "candidate"
+  ],
+  "prediction_attempts": [
+    "baseline",
+    "candidate"
+  ],
+  "predictions_done": [
+    "baseline",
+    "candidate"
+  ],
+  "bootstrap_attempted": true,
+  "new_native_accounts": 0,
+  "recorder_id": "4340e11b06fa4c238604982d68fd9b3a",
+  "experiment_id": "866598635718787618",
+  "completed": true,
+  "nas_archive_sha256": "4053a77399a02e71d648d3a993323dd2fbb3b67b298e5a1138fe64bdeb3d6d66"
+}

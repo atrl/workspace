@@ -1,0 +1,34 @@
+{
+  "status": "not_promoted_fixed_XSD_minus_SOXX_breadth_H5_information_failed",
+  "plan_sha256": "9ca8a4e5a2ae2634fb8e69daf32f5b1073b3196242c1a0e42e4b98bcf511820b",
+  "recorder_id": "4340e11b06fa4c238604982d68fd9b3a",
+  "metrics": {
+    "baseline_held_mse": 0.0025262669365982205,
+    "candidate_held_mse": 0.002529822407478728,
+    "held_paired_mse_improvement": -3.555470880506835e-06,
+    "held_half_paired_improvements": [
+      -1.8042017216110384e-05,
+      1.3047831084043351e-05
+    ],
+    "candidate_standardized_coordinate_coefficient": 0.0006450257021746164,
+    "bootstrap_lower": -2.7555290557740157e-05,
+    "bootstrap_upper": 2.283176112236068e-05,
+    "bootstrap": {
+      "paired_mean_loss_improvement": -3.555470880506835e-06,
+      "lower_bound": -2.7555290557740157e-05,
+      "upper_bound": 2.283176112236068e-05,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 940,
+      "scored_rows": 940
+    }
+  },
+  "gates": {
+    "coefficient_positive": true,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "new_model_fits": 2,
+  "new_native_accounts": 0
+}

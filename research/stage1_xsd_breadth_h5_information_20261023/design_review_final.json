@@ -1,0 +1,28 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "scope": "Conditional reused-history XSD-minus-SOXX H5 information screen only: two fixed Ridge fits, one paired bootstrap, zero native accounts",
+  "plan_sha256": "9ca8a4e5a2ae2634fb8e69daf32f5b1073b3196242c1a0e42e4b98bcf511820b",
+  "preflight_sha256": "91f36f44d0b0fdf329a70a417924c6d2ffdaf9fbd88f7249276067ac14db5985",
+  "preflight_cell_source_sha256": "b71fc433a18d30725bf5b66c0b582bae9423e2ef53953f624b80caf76f5a60d6",
+  "fit_cell_source_sha256": "46977cfa036e4067de75cc34b306ed105bfbea16d01c8e7727bcaab89841ac97",
+  "reviewed_evidence": {
+    "parent_Stage1_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "source_recorder_id": "f3eb1079959b448bb826eb9eda08264a",
+    "source_summary_sha256": "96d8bd4c5022828b585875a58f56167e1f6671f0e9d3c9a6b9a42f35323e68fe",
+    "source_mapped_artifact_sha256": "63ab301216ae7e0179b76f63abffc02b67b6f8ae472f901d22a5a7e839f7b331",
+    "source_NAS_archive_sha256_remote_readback": "cd9b4920f0b0e33f899a114f107095fbd460ade187f67afb1737fd61e21122b3",
+    "original_Stage1_features": 39,
+    "source_calendar_rows_train_held": [3020, 944],
+    "mature_H5_rows_train_held": [3014, 940],
+    "candidate_unknown_rows_train_held": [0, 0],
+    "source_timing": "The fixed 20-session XSD-minus-SOXX return uses completed signal-date closes and ex-date cash; the Stage1 decision is next-session preopen. The source map preserves all calendar rows and uses no later observation date in each rolling value.",
+    "information_gate": "Positive standardized added coefficient and positive full/half paired MSE improvements plus one 63-session-mean-block, 10000-draw stationary-bootstrap lower bound at one-sided alpha 0.025/29.",
+    "preflight_model_fits": 0,
+    "preflight_native_accounts": 0,
+    "source_artifact_and_both_notebook_cells_sealed_before_writable_Recorder": true
+  },
+  "scientific_boundary": "The Yahoo split-restated close and ex-date dividend history lacks certified historical first-public/revision vintages. This permits only the explicitly conditional retrospective information fit; a pass would remain reused-history development feedback and cannot authorize a 0bp account, PIT promotion, 2/5bp paths, or independent forward claims.",
+  "material_blockers": [],
+  "model_fits_reviewed": 0,
+  "native_accounts_reviewed": 0
+}
