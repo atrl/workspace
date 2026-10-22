@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "conditional_original_FT900_semiconductors_same_report_MoM_to_Stage1_native_calendar_no_fit",
+  "question": "Can exact original FT900 semiconductor export within-report MoM events be mapped conservatively to every frozen Stage1 training and reused diagnostic Qlib signal date, with January2012 definition transition quarantined, before any outcome/model/account read?",
+  "source_objects": {
+    "lead_in_result": {
+      "path": "research/census_ft900_train_leadin_20261023/result.json",
+      "sha256": "f045d33fcdff2c30ba8fde8e08fe3a04cd058475bd1885ca215b161a2b533719"
+    },
+    "lead_in_nas": {
+      "path": "research/census_ft900_train_leadin_20261023/nas_binding.json",
+      "sha256": "cd2e1bf8980ea272381a4f59173b38e223adc39f06ade85ad08fccc1056f35b9"
+    },
+    "training_rows": {
+      "path": "research/census_ft900_semiconductor_export_source_20261023/full_training_row_audit.json",
+      "sha256": "a1f894d0cb7ea73b2f4030cdd11d45b10d7a143215b2573f83e880d96bfbb12a"
+    },
+    "training_readback": {
+      "path": "research/census_ft900_semiconductor_export_source_20261023/full_training_readback.json",
+      "sha256": "b207e1baf51dba7a73591041c59fa7faeb39b2fc89f0bf4786c00b737c3112ab"
+    },
+    "held_rows": {
+      "path": "research/census_ft900_semiconductor_export_source_20261023/held_row_identity_audit.json",
+      "sha256": "8b15c91fede00ecf1bf7febbf5af3c92c9390ffc0da64dc52c29202bd2d19f3a"
+    },
+    "held_readback": {
+      "path": "research/census_ft900_semiconductor_export_source_20261023/held_readback.json",
+      "sha256": "942e70c1eb2b7dcc56d1d651e9328bb20c9c0e64ff2ce94870643f059dcc9a7d"
+    },
+    "transition": {
+      "path": "research/census_ft900_index_boundary_20261023/transition_adjudication.json",
+      "sha256": "7c54c848a70ef3dad961a2cad45ce08986552e9ced495a8ad12ffe1c33e7c186"
+    }
+  },
+  "source_semantics": "Exhibit 7 U.S. Semiconductors exports, current/prior month values printed in each original report, USD millions seasonally adjusted. Compute 100*(current/prior-1) within that report only; no current API backfill or across-report absolute level splice.",
+  "availability": "Printed FT900 release date at 08:30 ET is not assumed tradable on same day; first eligible signal is next actual native Qlib session strictly after printed release calendar date. Last published report value remains available until next report, except January2012 quarantined event sets feature missing until February2012 event.",
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "cohorts": {
+    "train": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "expected_train_sessions": 3020,
+    "expected_held_sessions": 944,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "budget": {
+    "source_json_loads_max": 7,
+    "D_calendar_calls_max": 2,
+    "DatasetH_builds_max": 2,
+    "new_writable_Qlib_Recorders_max": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "held_original_PDF_first_page_opens_max": 88,
+    "existing_Recorder_resumes_max": 1
+  },
+  "stop": "Any source hash drift, missing/duplicate report reference month, ambiguous release header, source event effective date collision, calendar mismatch or unplanned missing feature date blocks this map. A source map cannot establish FT900 historical first-public bytes, prediction alpha, fee-net account or SOXX goal.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*"
+    ]
+  },
+  "held_original_pdf_root": "data/snapshots/census_ft900_held_20261023",
+  "feature_name": "ft900_semis_export_mom_pct_same_report",
+  "transition_rule": "2012-01 original report is a source event with its MoM set to missing, not an automatic carry from the pre-reclassification report; resume from 2012-02. No calendar date is dropped.",
+  "mechanical_repair_1": {
+    "failure": "execution_attempt1_failure.json",
+    "scope": "One additional read of each of the 44 exact held PDF first pages to cache release headers with comma-optional date parsing; no source request, feature selection, fit or account.",
+    "no_more_PDF_opens_after_cache": true
+  },
+  "mechanical_repair_2": {
+    "failure": "readback_attempt1_failure.json",
+    "scope": "Rebuild the identical mapped numeric DatasetH with dump_all persistence, resume exact existing Recorder ID once, replace only metadata/dataset artifact, rearchive to NAS and do one native readback. No new Recorder, market outcome read, fit or account."
+  }
+}

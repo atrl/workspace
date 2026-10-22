@@ -1,0 +1,51 @@
+{
+  "experiment": "stage1_ft900_export_availability_20261023",
+  "decision": "conditional_source_calendar_alignment_complete_information_and_PIT_unqualified",
+  "objective_achieved": false,
+  "result": "availability_audit.json",
+  "source_events": 191,
+  "train_signal_sessions": 3020,
+  "held_signal_sessions": 944,
+  "transition_quarantine_sessions": 23,
+  "historical_first_public_bytes_qualified": false,
+  "label_maturity_checked": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "recorder_id": "e96807ef987d4abcb048dd350abc9428",
+  "experiment_id": "993438492998129634",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_ft900_export_availability_20261023/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_ft900_export_availability_20261023/qlib_recorder/993438492998129634/e96807ef987d4abcb048dd350abc9428",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "metadata/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "11ff39d62ee840c308ea83311f8cd9448b498b7f63850d206e331491aa647b03",
+    "size_bytes": 153093,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/11/ff/11ff39d62ee840c308ea83311f8cd9448b498b7f63850d206e331491aa647b03",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 00:45:53.406049+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/11/ff/11ff39d62ee840c308ea83311f8cd9448b498b7f63850d206e331491aa647b03",
+    "recorder_id": "e96807ef987d4abcb048dd350abc9428",
+    "experiment_id": "993438492998129634",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "11ff39d62ee840c308ea83311f8cd9448b498b7f63850d206e331491aa647b03",
+    "bytes": 153093,
+    "dataset_artifact_present": true,
+    "verified": true
+  },
+  "dataset_artifact_sha256": "fdb9d8bde99ee0a221c7922b0e618994deeb161805125c5f711a08966b1b7236",
+  "mechanical_repair_2": "mechanical_repair_2.json",
+  "plan_repair_sha256": "2fe572ed5ea6fa5f54064d054420d20f4deed9cfb2725b3cda89d7bef4e04736",
+  "independent_review": "independent_review.json",
+  "canonical_map_artifact_sha256": "87ee84aa936598ec5eaa97e43a0ff0099086328f35b061a0a4226cc9c0f88b8f"
+}

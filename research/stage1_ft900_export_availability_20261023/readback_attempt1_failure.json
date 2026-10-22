@@ -1,0 +1,12 @@
+{
+  "status": "native_readback_failed_DatasetH_handler_not_persisted",
+  "old_plan_sha256": "3c6d3356b1a58432256d4d2f49c7b6f6e5c9b9bcc0183daef9429924202f8600",
+  "recorder_id": "e96807ef987d4abcb048dd350abc9428",
+  "experiment_id": "993438492998129634",
+  "old_dataset_artifact_sha256": "8cede14ca8ca120c5563b8e8d79d89ecee77bb3a74fea79f84324b2d43a59949",
+  "old_nas_archive_sha256": "407729b033bd8de9967301c77344294f10cab66db426ca4b37b149617828d58a",
+  "observed_error": "AttributeError: DataHandlerLP object has no attribute _infer during deserialized DatasetH.prepare('train')",
+  "source_event_and_mapped_object_readback": "loaded_without_error",
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

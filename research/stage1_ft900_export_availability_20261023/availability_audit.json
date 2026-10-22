@@ -1,0 +1,23 @@
+{
+  "status": "conditional_FT900_source_calendar_alignment_complete_no_fit",
+  "plan_sha256": "2fe572ed5ea6fa5f54064d054420d20f4deed9cfb2725b3cda89d7bef4e04736",
+  "source_events": 191,
+  "event_reference_bounds": [
+    "2010-10",
+    "2026-08"
+  ],
+  "train_signal_sessions": 3020,
+  "held_signal_sessions": 944,
+  "train_nonmissing_feature_sessions": 2997,
+  "held_nonmissing_feature_sessions": 944,
+  "transition_quarantine_sessions": 23,
+  "transition_quarantine_first": "2012-03-12",
+  "transition_quarantine_last": "2012-04-12",
+  "max_source_age_days": 76,
+  "first_signal_source": "2010-10",
+  "last_signal_source": "2026-08",
+  "historical_first_public_bytes_qualified": false,
+  "market_outcome_reads": 0,
+  "factor_fits": 0,
+  "native_accounts": 0
+}

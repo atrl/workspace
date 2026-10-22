@@ -1,0 +1,14 @@
+{
+  "status": "native_Qlib_DatasetH_readback_and_NAS_restore_passed",
+  "recorder_id": "e96807ef987d4abcb048dd350abc9428",
+  "experiment_id": "993438492998129634",
+  "mapped_signals": 3964,
+  "train_DatasetH_rows": 3020,
+  "held_DatasetH_rows": 944,
+  "quarantined_rows": 23,
+  "dataset_artifact_sha256": "fdb9d8bde99ee0a221c7922b0e618994deeb161805125c5f711a08966b1b7236",
+  "nas_archive_sha256": "11ff39d62ee840c308ea83311f8cd9448b498b7f63850d206e331491aa647b03",
+  "nas_remote_readback_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0
+}

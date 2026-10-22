@@ -1,0 +1,12 @@
+{
+  "old_plan_sha256": "3c6d3356b1a58432256d4d2f49c7b6f6e5c9b9bcc0183daef9429924202f8600",
+  "new_plan_sha256": "2fe572ed5ea6fa5f54064d054420d20f4deed9cfb2725b3cda89d7bef4e04736",
+  "reason": "DatasetH handler state omitted from saved artifact",
+  "additional_D_calendar_calls": 1,
+  "additional_DatasetH_builds": 1,
+  "existing_Recorder_resumes_max": 1,
+  "new_writable_Qlib_Recorders_max": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

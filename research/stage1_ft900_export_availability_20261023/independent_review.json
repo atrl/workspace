@@ -1,0 +1,28 @@
+{
+  "verdict": "APPROVE_SOURCE_MAP_FOR_SEPARATE_CONDITIONAL_INFORMATION_DESIGN",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "canonical_map_artifact_sha256": "87ee84aa936598ec5eaa97e43a0ff0099086328f35b061a0a4226cc9c0f88b8f",
+  "recorder_id": "e96807ef987d4abcb048dd350abc9428",
+  "native_readback": "readback_verification.json",
+  "nas_archive_sha256": "11ff39d62ee840c308ea83311f8cd9448b498b7f63850d206e331491aa647b03",
+  "source_events": 191,
+  "train_signal_rows": 3020,
+  "held_signal_rows": 944,
+  "transition_unknown_rows": 23,
+  "transition_unknown_dates": [
+    "2012-03-12",
+    "2012-04-12"
+  ],
+  "distinctness_from_carry_map": "Rowwise Qlib comparison identical on 3941 non-transition signals; committed carry map keeps stale pre-2012 -1.855552 percent value and pre-change regime for exactly 23 sessions, while this map labels Jan2012 release and holds numeric coordinate unknown.",
+  "carry_map_artifact_sha256": "c72b0e65440a41f1669f51b0d25ef7531f6b74aa1382fe8640d9fff7287772ed",
+  "source_semantics_decision": "Canonical same-report MoM map uses 23 unknown rows under committed transition adjudication automatic_carry_across_break_authorized=false. Carry map is not interchangeable and cannot be selected after outcomes.",
+  "implementation_repairs": "44 first-page reads failed on 2024-08 date spacing, 44 bounded repair reads cached; one existing Recorder resume repaired DatasetH dump_all persistence; no new model fit or account.",
+  "minimum_before_fit": [
+    "Freeze exact original Stage1 39-input label and strict maturity on all full-calendar cohorts.",
+    "Common release-age, definition regime, and transition-unknown controls for both matched arms; numeric candidate imputed using train only, no survivor-date compaction.",
+    "One added coordinate, expected sign, information gate, multiplicity correction and fit budget before held outcomes.",
+    "Historical first-public PDF byte vintage remains PIT/promotion gap."
+  ],
+  "fit_authorized": false,
+  "native_account_authorized": false
+}

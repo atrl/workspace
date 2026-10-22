@@ -1,0 +1,14 @@
+{
+  "status": "pre_recorder_source_header_parse_stopped",
+  "old_plan_sha256": "72d730e043ed2c0eb030a4224d3c3b49710e3ef2e689de387cf34e8c305de4a2",
+  "preflight_cell_source_sha256": "cf7b712f3054acafcecf2e9976b49a333ef91c0366a6d643407a166e8dfc6daa",
+  "failed_reference_month": "2024-08",
+  "observed_header": "FOR RELEASE AT 8:30 AM EDT, TUESDAY, OCTOBER 8,2024",
+  "cause": "Parser required whitespace after date comma; original PDF has none.",
+  "held_PDF_first_page_opens_consumed": 44,
+  "new_HTTP_GETs": 0,
+  "new_Qlib_Recorders": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0
+}

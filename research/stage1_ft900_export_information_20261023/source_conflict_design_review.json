@@ -1,0 +1,12 @@
+{
+  "verdict": "BLOCK_DESIGN_BEFORE_ANY_FIT",
+  "prior_plan_sha256": "f2051c4a590b157faf139cbc8cb1431f44841068fbb9f45c6f2bab1c4f1d970d",
+  "blocked_plan_sha256": "3167c7c797049db96c64a90e26383d667d899d642be5e1448a4c2005f0e12857",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "contradiction": "Pinned carry map c72b... skips January2012 event and carries the pre-break value for 23 post-Jan-release Stage1 sessions, while pinned transition adjudication forbids automatic carry across break.",
+  "canonical_source_candidate": "research/stage1_ft900_export_availability_20261023/summary.json",
+  "canonical_map_artifact_sha256": "87ee84aa936598ec5eaa97e43a0ff0099086328f35b061a0a4226cc9c0f88b8f",
+  "next_action": "Rebind a new frozen information plan to NaN map, identical full calendar with 23 train unknown, train-only imputer, common release-age and definition controls, independent design approval before first fit.",
+  "model_fits": 0,
+  "native_accounts": 0
+}
