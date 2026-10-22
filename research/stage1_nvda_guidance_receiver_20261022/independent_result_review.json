@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "independent_scoped_negative_result_readback",
+  "recorder_id": "f284f6d663b647b297c84d62c7bffa85",
+  "recorder_status": "FINISHED",
+  "nas_archive_sha256": "abff43133d27f75d538bddb34a435f5469dfad784a515a99fb51ffd91f6769b2",
+  "cold_restored_artifact_count": 39,
+  "cold_restore_hash_mismatches": 0,
+  "native_metrics_read": 4,
+  "fixed_budget": {
+    "model_fits": 6,
+    "native_0bp_accounts": 2,
+    "additional_cost_accounts": 0
+  },
+  "B_flags_only": {
+    "relative_wealth_vs_SOXX": 0.743485573712714,
+    "complete_2024_relative_wealth": 1.1636508987453584,
+    "complete_2025_relative_wealth": 0.7318882377728276,
+    "positive_126_session_fraction": 0.3028083028083028,
+    "SOXX_daily_block_lower_bound": -0.0011772500417216586,
+    "SOXX_hard_gates_pass": false
+  },
+  "C_realization": {
+    "relative_wealth_vs_SOXX": 0.49163065621149227,
+    "complete_2024_relative_wealth": 1.202682061493307,
+    "complete_2025_relative_wealth": 0.6088331744209858,
+    "positive_126_session_fraction": 0.3797313797313797,
+    "sampled_max_drawdown_pct": -30.340464915574394,
+    "SOXX_daily_block_lower_bound": -0.0023428034751378454,
+    "SOXX_hard_gates_pass": false
+  },
+  "numeric_feature_increment": {
+    "C_over_B_relative_wealth": 0.6612511037120142,
+    "C_minus_B_daily_block_lower_bound": -0.0018026987360621764,
+    "supported": false
+  },
+  "decision": "not_promoted_fixed_Stage1_guidance_receiver_0bp",
+  "required_next_action": "Close this receiver version without sign, feature-scaling, seed, threshold or window rescue; select a distinct source-qualified information mechanism.",
+  "limits": [
+    "The historical source lacks verified first-public timing and complete update coverage.",
+    "The 2023-2026 market history was reused, so no independent forward evidence is gained.",
+    "Sampled risk points do not qualify full-minute drawdown."
+  ]
+}
