@@ -1,0 +1,14 @@
+experiment: inventory_sales_nvda_alias_bridge_20261022
+phase: source_qualification_only
+notebook: inventory_sales_nvda_alias_bridge_20261022.ipynb
+plan: recovery_plan.json
+module: src.workflow.inventory_sales_nvda_alias_bridge
+entrypoint: run
+recovery: true
+prior_failure: attempt1_failure.json
+qlib_provider: data/qlib/soxx_pit_leveraged_training_v1
+source_recorder: research/inventory_sales_source_qualification_20261021
+original_snapshot: data/snapshots/nvda_original_10k_bridge_20261022
+market_returns: none
+model_fits: 0
+native_accounts: 0

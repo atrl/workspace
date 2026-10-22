@@ -1,0 +1,52 @@
+{
+  "experiment": "inventory_sales_nvda_alias_bridge_20261022",
+  "status": "completed_source_only_not_promoted",
+  "decision": "conditional_NVDA_source_coverage_repaired_only",
+  "original_annual_pair_rows": 529,
+  "bridged_annual_pair_rows": 531,
+  "NVDA_annual_pairs_added": 2,
+  "NVDA_source_months": 80,
+  "NVDA_conditionally_recovered_months": 18,
+  "NVDA_conditionally_recovered_weight_pct_sum": 141.27974072378998,
+  "non_NVDA_pairs_unchanged": true,
+  "FY2018_FY2019_accounting_break_excluded": true,
+  "strict_PIT_qualified_rows": 0,
+  "model_input_qualified": false,
+  "factor_effectiveness_tested": false,
+  "SOXX_excess_established": false,
+  "D_calendar_calls": 1,
+  "D_features_calls": 0,
+  "market_price_or_label_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "source_recorder_object_loads": 4,
+  "cumulative_source_recorder_object_loads": 9,
+  "attempt": 2,
+  "prior_failure_receipt": "attempt1_failure.json",
+  "source_recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+  "plan_sha256": "f7f7710a0371c84b6644c04cd2ea83c1049337945a00097fe5aebe327e9f5230",
+  "module_sha256": "505dcd4ff8b62f5ed0c433027459bec1a543ce2a7b3da69c7013b4e729cbdb42",
+  "recorder_id": "1075c1691c8d42b89365ce8cfe554f91",
+  "experiment_id": "113144559146268664",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/inventory_sales_nvda_alias_bridge_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/inventory_sales_nvda_alias_bridge_20261022/qlib_recorder/113144559146268664/1075c1691c8d42b89365ce8cfe554f91",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/*",
+      "inputs/source_audit",
+      "metadata/bridge_dataset",
+      "sources/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "c7c8b37bf9cee84d2e8a2c60093769e0dec72afcbd29184508a5860371f8d3b9",
+    "size_bytes": 147968,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/c7/c8/c7c8b37bf9cee84d2e8a2c60093769e0dec72afcbd29184508a5860371f8d3b9",
+    "recorder_id": "1075c1691c8d42b89365ce8cfe554f91",
+    "experiment_id": "113144559146268664",
+    "archive_root": "qlib_recorder"
+  }
+}

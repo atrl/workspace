@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "experiment": "inventory_sales_nvda_alias_bridge_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "source_qualification_only",
+  "question": "Does an original same-context/same-value FY2022 revenue alias bridge mechanically restore NVDA FY2022 and FY2023 annual pairs and disclosed basket support without changing other issuers or crossing FY2018/FY2019 accounting adoption?",
+  "source": {
+    "card": "research/inventory_sales_source_qualification_20261021",
+    "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+    "summary_sha256": "46dc6a037308eee8ccb84401a76ddf753d0f982ef566e9c182da9461393ce3bb",
+    "verification_manifest_sha256": "577361bcb56d0db2f4f921804305c8a37b6fddd60b50afb77cd453ae468075ff",
+    "artifacts": {
+      "analysis/extraction": "dcf98356962910ffb3144627ab34e23f5c40c9a67ee9201b5719b5a7da737def",
+      "analysis/annual_pairs": "46a934737f1b0416b6275ccaa2c6f482faf8f72e50a3391b44ba8b21e320ff65",
+      "analysis/issuer_month_support": "911f0fc793e6c36d02fe518ddfb8a32251ebbef68289ccb9898a5c694a751c9c",
+      "analysis/earliest_non_amended_candidates": "18c52a5699d8c94a96b1168b8eb05123a73faa83236a5a0a6e2462d9e05d5ad3"
+    },
+    "cause_ledger": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/nvda_gap_cause.json",
+    "cause_ledger_sha256": "aa902d925cacc320c3357455c36b10250f9d78996f0940f7aaa14656d9424b17"
+  },
+  "original_snapshot": {
+    "manifest": "data/snapshots/nvda_original_10k_bridge_20261022/manifest.json",
+    "manifest_sha256": "010c9b6a6e77850bcf6f4d4ea0ea875be3fedfdf60bc2471991e73a28d19289a",
+    "archive": "data/snapshots/nvda_original_10k_bridge_20261022/original_filings.tar.gz",
+    "archive_sha256": "239b65344e85d2c33016bfc9447f7ed63ff529879e6f5ee19d5a567e9ba884dd",
+    "members": 9
+  },
+  "calendar": {
+    "provider_uri": "data/qlib/soxx_pit_leveraged_training_v1",
+    "path": "data/qlib/soxx_pit_leveraged_training_v1/calendars/day.txt",
+    "sha256": "2a861bcf94a9abcfe78b9d2ed7248df20a3e147c53610751abcd7f183ff9bc56",
+    "bounds": [
+      "2019-01-01",
+      "2026-07-02"
+    ],
+    "max_age_days": 550
+  },
+  "frozen_bridge": {
+    "cik": 1045810,
+    "unit": "USD",
+    "taxonomy": "us-gaap",
+    "form": "10-K",
+    "original_accession": "0001045810-22-000036",
+    "period_start": "2021-02-01",
+    "period_end": "2022-01-30",
+    "filed": "2022-03-18",
+    "revenue_tags": [
+      "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "Revenues"
+    ],
+    "revenue_value_usd": 26914000000,
+    "inventory_tag": "InventoryNet",
+    "inventory_value_usd": 2605000000,
+    "canonical_tag": "NVDA_TOTAL_REVENUE_POST_606",
+    "canonical_fiscal_years": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "accounting_break_excluded_pair": [
+      "2018-01-28",
+      "2019-01-27"
+    ],
+    "other_issuer_policy": "bitwise unchanged pair rows"
+  },
+  "pair_rule": {
+    "continuity_days": 1,
+    "fiscal_end_difference_days": [
+      330,
+      380
+    ],
+    "max_pair_age_days": 550,
+    "conditional_availability": "first native Qlib day strictly after filed date",
+    "annual_values": "original own-period values; no later comparative substitution"
+  },
+  "budget": {
+    "source_recorder_object_loads": 4,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "market_price_or_label_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "writable_recorders": 1,
+    "attempts": 1
+  },
+  "stops": [
+    "Source summary, manifest, named artifact, original archive or calendar hash differs.",
+    "FY2022 original and frozen Companyfacts earliest rows differ by accession, period, unit, tags or numeric value.",
+    "Any NVDA post-606 pair crosses the FY2018/FY2019 boundary or any non-NVDA pair changes.",
+    "Baseline source support cannot be reconciled to frozen Recorder before applying the bridge."
+  ],
+  "outputs": [
+    "Executable notebook, Qlib DatasetH metadata panel, Recorder source audit and bridged annual candidates/NVDA pairs/issuer-month support",
+    "Slim summary.json and Chinese conclusion with original versus bridged conditional support and explicit non-promotion"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/*",
+      "inputs/source_audit",
+      "metadata/bridge_dataset",
+      "sources/*"
+    ]
+  },
+  "qualification_boundary": "Source-coverage repair only. Original filing bytes and Companyfacts are not historical ETF identity, first-public vintage, PIT or factor effectiveness; no market returns or SOXX account.",
+  "implementation": {
+    "module": "src/workflow/inventory_sales_nvda_alias_bridge.py",
+    "module_sha256": "4b0583eee7e2a552a4146aeb36f11dda0830232599e1f85126e6249ac2f307a9",
+    "notebook": "research/inventory_sales_nvda_alias_bridge_20261022/inventory_sales_nvda_alias_bridge_20261022.ipynb",
+    "notebook_sha256": "e91c89974a5f1686aca62625b204fdb8c3857d671de90a71d5dfd1da14c07d59"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "pre_execution_normalized_notebook_sha256": "10227a32f4445cbb883a4100dbf1653338c96d4e5d02989125e963d68333c4f7",
+  "executed_notebook_normalized_source_matches": true,
+  "saved_conclusion_output_matches_sidecar": true,
+  "original_recorder_notebook_artifact_sha256": "d86eb08fb901c85fe57f02ab18a6acce4ec9c7235716689b80e11864850f9e11",
+  "native_recorder_object_loads": 1,
+  "nas_archive_sha256": "c7c8b37bf9cee84d2e8a2c60093769e0dec72afcbd29184508a5860371f8d3b9",
+  "nas_receipt_matches_summary": true,
+  "new_runs_fits_or_accounts": 0
+}

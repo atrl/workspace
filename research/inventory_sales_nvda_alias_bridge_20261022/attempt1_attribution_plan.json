@@ -1,0 +1,20 @@
+{
+  "status": "frozen_attempt1_failure_attribution",
+  "failed_attempt_receipt": "attempt1_failure.json",
+  "failed_attempt_sha256": "62f88bdbd2c46965aee4cb6ad9224b30f5f0bac442f43e6cb58a21836aeef483",
+  "source_card": "research/inventory_sales_source_qualification_20261021",
+  "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+  "summary_sha256": "46dc6a037308eee8ccb84401a76ddf753d0f982ef566e9c182da9461393ce3bb",
+  "verification_manifest_sha256": "577361bcb56d0db2f4f921804305c8a37b6fddd60b50afb77cd453ae468075ff",
+  "artifact": "analysis/annual_pairs",
+  "artifact_sha256": "46a934737f1b0416b6275ccaa2c6f482faf8f72e50a3391b44ba8b21e320ff65",
+  "budget": {
+    "additional_read_only_recorder_objects": 1,
+    "D_calendar_calls": 0,
+    "fits": 0,
+    "accounts": 0,
+    "writable_recorders": 0
+  },
+  "question": "Did attempt1 synthetic retagging destroy existing FY2024-to-FY2025 NVDA annual pair identity? Inspect only CIK1045810 prior/end/accession/tag pairs, not returns or other source arrays.",
+  "decision_rule": "If that old pair exists, preserve it by retaining original tag rows outside exact FY2022 dual-tag bridge in a separately frozen recovery. Otherwise report actual pair mismatch without guessing."
+}

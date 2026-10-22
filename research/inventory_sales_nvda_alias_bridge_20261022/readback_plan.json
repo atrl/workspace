@@ -1,0 +1,22 @@
+{
+  "status": "frozen_one_targeted_native_readback",
+  "question": "Does the completed Qlib Recorder reproduce summary, exactly two added annual pair keys, 18 recovered NVDA disclosed-basket months and DatasetH metadata without another fit or account?",
+  "source_card": "research/inventory_sales_nvda_alias_bridge_20261022",
+  "recorder_id": "1075c1691c8d42b89365ce8cfe554f91",
+  "summary_sha256": "8d89f2b068d1283a373f6299183f477ab0baac5ad5ced0e40e983d267a2a44ec",
+  "verification_manifest_sha256": "036100e0e8b09ddacbc982bdf4a6f84a8565272476eafbee9ece5004c6a40f04",
+  "artifacts": {
+    "analysis/summary": "6b93766cc4c12d004ebf28b01fec20a5044059b8060c429aedcbd2ba540d30c4",
+    "analysis/bridged_pairs": "4b209aca28cb44b62d5599e659ea5d34849a7c25b82fed8357c0f0a4198e1d00",
+    "analysis/nvda_month_support": "2e9a933bd5666bae6e78af74a0edc165b154f7c30812fa097a8605110ab90ac5",
+    "metadata/bridge_dataset": "fbdd7e8fe7164f321030d8d76bf44aed8242936f70265cb3f26e8b409cca0204"
+  },
+  "budget": {
+    "read_only_recorder_object_loads": 4,
+    "D_calendar_calls": 0,
+    "fits": 0,
+    "accounts": 0,
+    "replays": 0
+  },
+  "decision_rule": "Check exact source identity and recorder-native objects; do not rerun bridge execution or promote source coverage to factor efficacy."
+}

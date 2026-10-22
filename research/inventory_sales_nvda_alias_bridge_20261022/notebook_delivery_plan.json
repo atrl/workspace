@@ -1,0 +1,10 @@
+{
+  "status": "frozen_delivery_code_identity_readback",
+  "recorder_id": "1075c1691c8d42b89365ce8cfe554f91",
+  "summary_sha256": "50d4c287f3d1b5bcb2719cde913948a35beb0864531a1363ec05ba0b6718c514",
+  "manifest_sha256": "036100e0e8b09ddacbc982bdf4a6f84a8565272476eafbee9ece5004c6a40f04",
+  "artifact": "sources/notebook",
+  "artifact_sha256": "d86eb08fb901c85fe57f02ab18a6acce4ec9c7235716689b80e11864850f9e11",
+  "object_load_budget": 1,
+  "question": "Check delivered executed notebook code and metadata against exact pre-execution notebook bytes stored by the successful Recorder without re-running the workflow."
+}

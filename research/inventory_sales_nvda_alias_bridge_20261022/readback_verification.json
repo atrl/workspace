@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "plan": "readback_plan.json",
+  "recorder_id": "1075c1691c8d42b89365ce8cfe554f91",
+  "artifact_sha256": {
+    "analysis/summary": "6b93766cc4c12d004ebf28b01fec20a5044059b8060c429aedcbd2ba540d30c4",
+    "analysis/bridged_pairs": "4b209aca28cb44b62d5599e659ea5d34849a7c25b82fed8357c0f0a4198e1d00",
+    "analysis/nvda_month_support": "2e9a933bd5666bae6e78af74a0edc165b154f7c30812fa097a8605110ab90ac5",
+    "metadata/bridge_dataset": "fbdd7e8fe7164f321030d8d76bf44aed8242936f70265cb3f26e8b409cca0204"
+  },
+  "object_loads": 4,
+  "native_DatasetH_prepare_equal": true,
+  "added_pair_keys": [
+    [
+      "2021-01-31",
+      "2022-01-30"
+    ],
+    [
+      "2022-01-30",
+      "2023-01-29"
+    ]
+  ],
+  "accounting_break_pair_absent": true,
+  "source_months": 80,
+  "conditionally_recovered_months": 18,
+  "recorder_metrics": {
+    "recovered_nvda_months": 18.0,
+    "recovered_nvda_annual_pairs": 2.0
+  },
+  "new_fits_accounts_or_replays": 0,
+  "qualification_boundary": "Conditional source coverage only; model input and SOXX excess remain false.",
+  "post_readback_NAS_archive": {
+    "status": "receipt_hash_matches_summary",
+    "sha256": "c7c8b37bf9cee84d2e8a2c60093769e0dec72afcbd29184508a5860371f8d3b9",
+    "recorder_layout_moved": false,
+    "source_readback_not_repeated": true
+  }
+}

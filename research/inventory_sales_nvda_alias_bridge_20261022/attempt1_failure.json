@@ -1,0 +1,18 @@
+{
+  "status": "execution_failed_before_new_recorder",
+  "attempt": 1,
+  "plan_sha256": "04ae3aa96b836d5d9b7b5c39f75e3356ee4ab6e8ddcd315923b7fee22c46cea7",
+  "process_exit_code": 1,
+  "failure": "NVDA bridge recovered unexpected annual pairs",
+  "failure_location": "src/workflow/inventory_sales_nvda_alias_bridge.py annual pair identity guard before R.start",
+  "confirmed_operations": {
+    "hash_verified_source_recorder_object_loads": 4,
+    "D_calendar_calls": 1,
+    "new_writable_recorders": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "market_price_or_label_reads": 0
+  },
+  "working_hypothesis": "Retagging FY2019-FY2024 to one synthetic revenue tag likely breaks the already admitted FY2024-to-FY2025 Revenues pair. This is an implementation design failure to verify against the frozen pair ledger, not a scientific result.",
+  "next_action": "One bounded read-only attribution of old NVDA pair identities, then freeze a recovery rule preserving original tags outside the exact FY2022 dual-tag bridge. Preserve this failed attempt and all consumed reads."
+}
