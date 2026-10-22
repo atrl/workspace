@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "one_mechanical_retry_authorized_without_scientific_change",
+  "frozen": true,
+  "source_quality_plan_sha256": "d9af54a992b1238d14517182a623eaf37f9ad576c05a09d623e4b1c0ac01b29d",
+  "attempt1_failure_sha256": "9e7acb1fcb442b92052be158e46501e82725f044fcee85205c9c63b2ae8c3092",
+  "old_code_sha256": "6f783f37386bb1bb0dad9762ca39b895c3151548ae68fb11311cd0c995df3ff6",
+  "new_code_sha256": "88b94048c1cf5653e19ec29a89787ea4056af51f89f7f8ab5b57181bd34a1dc7",
+  "change": "Replace DatetimeIndex.eq(Timestamp) with DatetimeIndex == Timestamp in two October 2025 availability assertions only.",
+  "additional_budget": {
+    "source_zip_loads": 1,
+    "D_calendar_calls": 1,
+    "new_writable_Recorders": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "cumulative_max": {
+    "source_zip_loads": 2,
+    "D_calendar_calls": 2,
+    "new_writable_Recorders": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop_after_retry_failure": true
+}

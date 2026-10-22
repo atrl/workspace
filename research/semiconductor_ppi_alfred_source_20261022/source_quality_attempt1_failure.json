@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "mechanical_implementation_failure_before_recorder",
+  "attempt": 1,
+  "error_type": "AttributeError",
+  "error_message": "DatetimeIndex object has no attribute eq",
+  "failure_location": "source quality notebook quality cell line 87",
+  "original_code_sha256": "6f783f37386bb1bb0dad9762ca39b895c3151548ae68fb11311cd0c995df3ff6",
+  "source_quality_plan_sha256": "d9af54a992b1238d14517182a623eaf37f9ad576c05a09d623e4b1c0ac01b29d",
+  "retrieval_receipt_sha256": "ffee4e921c37945fd72d935e84cb8a29d8fc494798badb812e1912f732d94670",
+  "raw_zip_loads_consumed": 1,
+  "D_calendar_calls_consumed": 1,
+  "D_features_calls": 0,
+  "new_writable_Recorders": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "scientific_values_or_thresholds_changed": false,
+  "observed_at_utc": "2026-10-22T07:03:23Z"
+}
