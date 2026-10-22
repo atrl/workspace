@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_reported_diversity_information_20261023",
+  "phase": "matched_original_Stage1_single_reported_diversity_information_screen_before_any_account",
+  "execution_authorized_by_active_Goal": true,
+  "parent": {
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "train_source": {
+      "card": "research/stage1_soxx_concentration_amendment_gap_resolution_20261023",
+      "summary_sha256": "63f4ca06ed7fc0691ec3ec2d1928bf839854956af04afd3b1f785e466097cc6d",
+      "source_audit_sha256": "faf262800b186bba348dafeac4b2c04e9b604cfa5cfdd13743689aac635fc440",
+      "recorder_id": "479e9d93a77a47198c23a08e429d8598",
+      "experiment_id": "254587370707838823",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_soxx_concentration_amendment_gap_resolution_20261023/qlib_recorder",
+      "mapped_artifact_sha256": "51a0d4d2c61a788198e188bb95271c8841082890d55bd261b809692b79dbd718",
+      "NAS_archive_sha256": "d28046b6f86009838e232fa4cec8ca5657226bdd89abd409b785a8cd11c827e3",
+      "NAS_readback_verified": true
+    },
+    "held_source": {
+      "card": "research/stage1_soxx_2023_2026_concentration_source_map_20261023",
+      "summary_sha256": "744b7c272fe0121291fbf2adb162e35ddf524c561a3c31405c9b8e4aafa8718a",
+      "source_audit_sha256": "5092acc9176f57fa122940d86e8f9ef12240f0bdd6990f49ce9d157094bc639b",
+      "recorder_id": "a66747c1a1cc46b69f17fe620deadbd1",
+      "experiment_id": "673842783664127576",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_soxx_2023_2026_concentration_source_map_20261023/qlib_recorder",
+      "mapped_artifact_sha256": "c41d0b60578d15ef632ff717b007b04d7c80c134bcd52f6983f7de4f274642f8",
+      "NAS_archive_sha256": "dab30dc1159a2e410d5a9d9c24fd4e90ddf81f6aee0b594208363ccf0659a76f",
+      "NAS_readback_verified": true
+    },
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac"
+  },
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "source_index_change_context": {
+    "path": "research/soxx_sox_structure_source_20261016/index_identity.json",
+    "sha256": "b3fa21dea96c429a810b633165c7b5ba993acbce3325408fc6448d34db29b222",
+    "announced_expected_date": "2021-06-21",
+    "semantics": "Shared control for the preannounced expected index-family change, not a claim the actual operational switch was separately confirmed."
+  },
+  "single_mechanism": {
+    "feature": "reported_equity_diversity_1_minus_top5",
+    "formula": "1.0 minus latest previously filed original SOXX common-equity top-five disclosed-value share from native source map",
+    "hypothesis": "Less concentration of the previously disclosed SOXX equity basket may distinguish broad sustainable semiconductor participation from narrow leadership and add positive information about the next five funded SOXX open intervals beyond frozen Stage1 price/VIX/breadth inputs and shared source-age/format/index-era controls. It is not realized daily constituent breadth.",
+    "required_added_standardized_coefficient_sign": "positive",
+    "novelty_boundary": "Closed constituent breadth tested price-return participation/dispersion over only 2022+ and lacked full Stage1 training; this is a lagged original disclosed-weight concentration level with 2011-2026 source coverage. Do not relabel or retune closed breadth features."
+  },
+  "baseline_control": "Exact 39 original Stage1 base_features plus source_age_days, NPORT_form_indicator, and post_announced_expected_2021_index_change in both arms.",
+  "candidate": "Identical rows, labels, imputer, scaler and Ridge plus exactly one reported_equity_diversity_1_minus_top5 coordinate. HHI is source audit only, not a second fitted candidate.",
+  "label": {
+    "primary": "Five consecutive original Stage1 SOXX funded open-to-open returns from signal s: sum j=0..4 log1p(soxx_forward_open_return(s+j)).",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval; train strictly before 2023-01-01 America/New_York and held before 2026-10-10 America/New_York.",
+    "role": "Matched incremental information, not fee-net strategy return."
+  },
+  "cohorts": {
+    "train_signal": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused_diagnostic": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-07"
+      ]
+    ],
+    "expected_train_source_rows": 3020,
+    "expected_held_source_rows": 944,
+    "expected_mature_train_rows": 3014,
+    "expected_mature_held_rows": 940,
+    "independent_validation": false
+  },
+  "model": {
+    "baseline": "SimpleImputer(median) then StandardScaler then Ridge(alpha=1.0) on original 39 and three shared controls",
+    "candidate": "Identical pipeline plus one reported-diversity numeric coordinate",
+    "new_fits": 2,
+    "runtime_scikit_learn": "1.9.1",
+    "no_hyperparameter_or_window_selection": true
+  },
+  "information_gate": {
+    "paired_metric": "On identical held signals baseline squared error minus candidate squared error for five-open SOXX log return.",
+    "added_standardized_coefficient_positive": true,
+    "full_held_mean_positive": true,
+    "both_held_halves_positive": true,
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.000925925925925926,
+      "family_denominator": 27,
+      "lower_positive": true
+    },
+    "no_gate_rescue": true
+  },
+  "budget": {
+    "new_market_requests": 0,
+    "source_recorder_artifact_loads_max": 6,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "model_fit_attempts_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "barrier": "Before fits verify pinned Recorder/NAS source objects, 3020/944 native Qlib calendar rows, no source lookahead/missingness, Stage1 feature order and 3014/940 mature H5 labels in the executable notebook. Reused held history is conditional development evidence; even an information pass cannot authorize an account before separate frozen source/timing and economic review.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  }
+}

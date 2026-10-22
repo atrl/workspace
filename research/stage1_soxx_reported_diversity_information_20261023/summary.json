@@ -1,0 +1,18 @@
+{
+  "experiment": "stage1_soxx_reported_diversity_information_20261023",
+  "decision": "frozen_information_screen_not_executed",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  }
+}
