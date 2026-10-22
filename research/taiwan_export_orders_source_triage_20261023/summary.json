@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "status": "needs_original_monthly_source_access_and_vintage",
+  "role": "source-only feasibility triage for a distinct Stage1 demand-order hypothesis",
+  "candidate_source_field": "Taiwan MOEA electronic-products export orders, a broad electronics category; no semiconductor-only claim",
+  "mechanism_boundary": "New export orders measure incoming demand, distinct from realized Korean exports, US G17 physical production, and four-issuer annual inventory/revenue growth. No predictive claim has been tested.",
+  "official_evidence": [
+    {
+      "url": "https://www.moea.gov.tw/mns/populace/introduction/wHandEconomicIndicator_File.ashx?filetype=pdf&year_month=201103",
+      "finding": "2011 March official economic bulletin search-index text identifies electronic-products export orders as a separate broad product category. It is a historical bulletin, not a verified original monthly release receipt."
+    },
+    {
+      "url": "https://www.moea.gov.tw/MNS/DOS/content/wHandMenuFile.ashx?file_id=18021",
+      "finding": "2018 April official export-order report search-index text lists electronic products separately with order amount and year-on-year comparison."
+    },
+    {
+      "url": "https://www.moea.gov.tw/MNS/populace/news/EpaperDetail.aspx?volume=20260721",
+      "finding": "2026 official MOEA release page lists a separate electronic-products order attachment, showing continuing publication format; field continuity is not yet audited."
+    }
+  ],
+  "access_probe_2026_10_23": {
+    "urls_probed": 3,
+    "method": "curl HEAD to the three official MOEA URLs above",
+    "observed_http_statuses": [403, 403, 403],
+    "bytes_retained": 0,
+    "browser_check": "A focused Chrome navigation to the 2018 official PDF URL displayed Cloudflare Attention Required / Sorry, you have been blocked; no original PDF opened.",
+    "interpretation": "Current command-line and browser paths are denied; search-index text does not substitute for exact original PDF bytes or publication timestamps."
+  },
+  "required_before_factor": [
+    "Locate and archive exact original monthly releases covering the Stage1 training years and held diagnostic years, with source URL, byte SHA-256, publication or conservative receipt clock, and NAS readback.",
+    "Verify one stable electronic-products order field, units, revisions and observation month across original versions; do not rename the broad category as semiconductor-only orders.",
+    "Use the frozen original Stage1 39-input receiver and a distinct, precommitted matched information design only after source admission; compare full native 0bp account if information passes."
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false
+}

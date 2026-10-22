@@ -105,7 +105,11 @@
     "semiconductor_ip_source_status": "192_original_numeric_events_3020_train_944_reused_calendar_rows_definition_and_first_receipt_pending",
     "semiconductor_ip_information_result": "research/stage1_semiconductor_ip_information_20261022/result_review.json",
     "semiconductor_ip_information_status": "closed_fixed_negative_coefficient_negative_full_and_both_halves_negative_bootstrap_lower_zero_accounts",
-    "semiconductor_ip_duplicate_guard": "Same G17 MoM with only base-year control removal rejected before fit; do not retry closed coordinate on reused held history."
+    "semiconductor_ip_duplicate_guard": "Same G17 MoM with only base-year control removal rejected before fit; do not retry closed coordinate on reused held history.",
+    "inventory_sales_H63_information_result": "research/inventory_sales_soxx_h63_information_20261022/summary.json",
+    "inventory_sales_H63_information_status": "closed_fixed_negative_coefficient_and_negative_held_MSE_improvement_zero_accounts_no_H5_receiver_rescue",
+    "taiwan_export_orders_source_triage": "research/taiwan_export_orders_source_triage_20261023/summary.json",
+    "taiwan_export_orders_source_status": "needs_original_monthly_source_access_and_vintage_broad_electronics_not_semiconductor_only_no_fit"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
