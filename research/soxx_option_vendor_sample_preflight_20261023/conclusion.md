@@ -5,3 +5,5 @@
 Option Quotes 样本含五个内层 CSV 变体；带 Calcs 的表头有报价时间、bid/ask、隐含波动率和 Delta，样本首行标的是 AAPL 或 ^SPX。EOD 样本有 15:45 报价、IV/Delta 和日终字段，首行是 SPY。样本仅证明字段格式，不证明 SOXX 个股期权链覆盖。两份产品页目前均声明历史起点为 **2012 年 1 月**，不能据此前 FAQ 的宽泛“2010 年”说法填补冻结 Stage1 的 2011 年训练缺口。Option Quotes 日内文件延迟 15 分钟，EOD 文件隔夜或次晨交付；冻结 Stage1 的 09:29 决策只能考虑**此前交易日**的合格报价，并须证明它在该时刻前已经送达。
 
 **决定：`needs_SOXX_specific_historical_quote_sample_and_2011_gap_resolution`。** 本卡没有读取 SOXX 收益、构造 25 Delta 恒定期限偏斜、拟合模型或运行账户。下一步先取得供应商对 SOXX 在 2012、2017、2022 年原始期权链的有权限样本和报价/交付时刻，并确定 2011 年只能保持未知还是有另一个合格来源；购买前还要核对报价完整度、拆分后的合约身份、IV/Delta 正负及缺失率。不得从 AAPL/SPX/SPY 通用样本推断 SOXX 可用，更不能声称超过 SOXX。
+
+公开采购页的只读报价观察见 `live_vendor_quote_observation.json`：2012-01-04 单日 SOXX、含 IV/Greeks 的 Cboe EOD 与 390 分钟报价分别显示 **10 美元**小计，但页面价格不保证该日实际交付完整 SOXX 合约链。另一条 [ORATS Delayed Data API](https://orats.com/data-api) 当前显示 **199 美元/月、20,000 请求**和 2007 年起的一般历史；已有公开单日 SOXX 样本，仍未证明 2011–2022 全期 SOXX 覆盖、原始送达时间及 NAS 归档许可。未加入购物车、联络供应商或购买。

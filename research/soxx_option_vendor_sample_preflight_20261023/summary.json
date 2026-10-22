@@ -7,6 +7,7 @@
   "receipts": "sample_receipts.json",
   "manifest": "sample_manifest.json",
   "nested_schema": "nested_profiles.json",
+  "live_vendor_quote_observation": "live_vendor_quote_observation.json",
   "GET_attempts": 2,
   "raw_NAS_archive_sha256": "ba88ddde28a5878107c6ef48d9a76f0149270b369ed80ba09e9ce4466424cf8f",
   "NAS_remote_and_scoped_restore_verified": true,

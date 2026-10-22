@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-10-22T22:55:39Z",
+  "status": "public_product_form_price_observed_without_cart_or_purchase",
+  "Cboe_Option_EOD_Summary": {
+    "product_url": "https://datashop.cboe.com/option-eod-summary",
+    "selection": {
+      "purchase_type": "Historical",
+      "underlying_symbol": "SOXX",
+      "date": "2012-01-04",
+      "Calcs": "Include",
+      "files_grouping": "Per day"
+    },
+    "displayed_subtotal_USD": 10.0
+  },
+  "Cboe_Option_Quotes": {
+    "product_url": "https://datashop.cboe.com/option-quote-intervals",
+    "selection": {
+      "purchase_type": "Historical",
+      "underlying_symbol": "SOXX",
+      "date": "2012-01-04",
+      "interval_minutes": 390,
+      "Calcs": "Include",
+      "open_interest": "Not Include"
+    },
+    "displayed_subtotal_USD": 10.0
+  },
+  "ORATS_Delayed_Data_API": {
+    "product_url": "https://orats.com/data-api",
+    "displayed_individual_price_USD_per_month": 199.0,
+    "displayed_requests_per_month": 20000,
+    "vendor_general_history": "End-of-day option history back to 2007; SOXX-specific 2011-2022 coverage unverified"
+  },
+  "interpretation": "These are public on-page or vendor-published prices, not an accepted order, license quote, delivered SOXX chain, historical first-public timestamp or guarantee that all selected dates contain contracts. Cboe's published start remains 2012-01; ORATS 2011 SOXX coverage and permitted NAS archival require vendor confirmation before purchase.",
+  "cart_items": 0,
+  "purchases": 0,
+  "vendor_messages_sent": 0,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
