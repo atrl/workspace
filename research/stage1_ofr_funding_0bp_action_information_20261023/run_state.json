@@ -1,0 +1,16 @@
+{
+  "status": "completed",
+  "plan_sha256": "6448e0100b3d9439de56f1f116a86123e12c3c0b08831d24ea92f8b289e0763d",
+  "fit_attempts": [
+    "baseline",
+    "candidate"
+  ],
+  "fits_completed": [
+    "baseline",
+    "candidate"
+  ],
+  "bootstrap_attempts": 1,
+  "native_accounts": 0,
+  "recorder_id": "9818982b88d94b7fad413be2912ff6e7",
+  "experiment_id": "760365360549602005"
+}

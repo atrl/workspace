@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "status": "preflight_wrong_action_artifact_path_before_source_load",
+  "original_plan_sha256": "d327d5b599f7d7401b6de59b92b65092d53f0d690fb500d28fdd7c165fa1cd30",
+  "failure": "Template assumed analysis/daily, but OFR Funding source Recorder stores analysis/mapped_signals. SHA in plan already pinned the correct mapped_signals object; no source object load, DatasetH, fit or writable Recorder occurred.",
+  "only_allowed_change": "Name the pinned analysis/mapped_signals path in plan and use it for hash assertion and one Qlib Recorder load; feature, label, receiver, cohorts, costs, estimator, alpha, gates and budget unchanged.",
+  "source_Recorder_object_loads": 0,
+  "DatasetH_builds": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

@@ -1,0 +1,104 @@
+{
+  "experiment": "stage1_ofr_funding_0bp_action_information_20261023",
+  "decision": "not_promoted_fixed_0bp_OFR_Funding_recovery_amount_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "6448e0100b3d9439de56f1f116a86123e12c3c0b08831d24ea92f8b289e0763d",
+  "preflight": {
+    "status": "fixed_0bp_action_value_DatasetH_preflight_passed",
+    "plan_sha256": "6448e0100b3d9439de56f1f116a86123e12c3c0b08831d24ea92f8b289e0763d",
+    "calendar_rows": 1061,
+    "train_calendar_rows": 558,
+    "eval_calendar_rows": 503,
+    "train_mature_eligible": 173,
+    "eval_mature_eligible": 265,
+    "eval_annual_support": {
+      "2021": 27,
+      "2022": 238
+    },
+    "unknown_source_days": 2,
+    "eligible_unknown_source_days": 0,
+    "new_model_fits": 0,
+    "native_accounts": 0,
+    "max_abs_training_pairwise_Pearson": 0.6947737323384034
+  },
+  "information_gate_pass": false,
+  "metrics": {
+    "baseline_eval_mse": 8.382540986858794e-05,
+    "candidate_eval_mse": 7.757045582696983e-05,
+    "paired_mse_improvement": 6.254954041618131e-06,
+    "annual": [
+      {
+        "year": 2021,
+        "calendar_rows": 252,
+        "scored_rows": 27,
+        "mean_paired_mse_improvement": -4.471409561774802e-06
+      },
+      {
+        "year": 2022,
+        "calendar_rows": 251,
+        "scored_rows": 238,
+        "mean_paired_mse_improvement": 7.471810416792959e-06
+      }
+    ],
+    "added_standardized_coefficient": 0.0006998612524085787,
+    "bootstrap_lower": -4.495299831827363e-06,
+    "bootstrap_upper": 1.241127102217228e-05,
+    "bootstrap": {
+      "paired_mean_loss_improvement": 6.2549540416181315e-06,
+      "lower_bound": -4.495299831827363e-06,
+      "upper_bound": 1.241127102217228e-05,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 503,
+      "scored_rows": 265
+    }
+  },
+  "gates": {
+    "coefficient_negative": false,
+    "full_eval_mean_positive": true,
+    "each_eval_year_mean_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "evaluated_held_2023_2026": false,
+  "historical_independence": false,
+  "recorder_id": "9818982b88d94b7fad413be2912ff6e7",
+  "experiment_id": "760365360549602005",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_ofr_funding_0bp_action_information_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "2018-2022 OOF Stage1-architecture local action labels are reused development history and not independent forward evidence.",
+    "The training reference omits actual broker-fill and corporate-action parity; no 2023+ complete funded account was run.",
+    "The OFR Funding category uses a conservative three-Qlib-session lag and documented old revision values, but its exact historical daily first receipt and finality remain unqualified; current-method pre-2017 backfill is excluded."
+  ],
+  "nas_evidence": {
+    "sha256": "f25b9f71157be07e5e08eec302458819f24d7f4fe2e8138e89cc308a028c3601",
+    "size_bytes": 629912,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f2/5b/f25b9f71157be07e5e08eec302458819f24d7f4fe2e8138e89cc308a028c3601",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:57:53.811899+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f2/5b/f25b9f71157be07e5e08eec302458819f24d7f4fe2e8138e89cc308a028c3601",
+    "recorder_id": "9818982b88d94b7fad413be2912ff6e7",
+    "experiment_id": "760365360549602005",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "f25b9f71157be07e5e08eec302458819f24d7f4fe2e8138e89cc308a028c3601",
+    "bytes": 629912,
+    "verified": true
+  },
+  "readback_verification": "readback_verification.json"
+}

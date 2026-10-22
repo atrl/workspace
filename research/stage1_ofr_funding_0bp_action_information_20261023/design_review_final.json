@@ -1,0 +1,42 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "scope": "One conditional reused-history OFR Funding incremental information screen on saved 0bp Tiered local recovery amount labels: two fixed Ridge fits, one paired bootstrap, zero new native accounts",
+  "plan_sha256": "6448e0100b3d9439de56f1f116a86123e12c3c0b08831d24ea92f8b289e0763d",
+  "preflight_sha256": "45845746144c7f250733f112807588ae80767a6e2de03e4233619ecb8807eff4",
+  "preflight_cell_sha256": "72c4be8ac2e0c33d3efd7db26d5a105eeef3f5e71010e66b7c4386c6f41e36bf",
+  "fit_cell_sha256": "8b0c35d5c34a975a9f49c6e2d82dcd493d438db38abf113e96e1f16b62adaef2",
+  "source_identity": {
+    "OFR_feature_recorder_id": "6a55d121ea5442b4a5e558b4139e2cc8",
+    "OFR_mapped_artifact": "analysis/mapped_signals",
+    "OFR_mapped_artifact_sha256": "e8a2c96e8421046ab1ed6419c5ad27e690f4d00fc47389a25f5a166a6eaa8fe6",
+    "OFR_source_NAS_archive_sha256": "d6d1bf043100be2202af873dbd35b44d69bf51560f88d5afe9e51fe5bf8d574b",
+    "original_OFR_CSV_and_revision_archive_sha256": "074e2c56f6f95a4f56382a32e25c65ad560e5a53ee6e4bb7fd58e50bc247b369",
+    "label_source_recorder_id": "3663a1e073f042e383dbcf54969a9bc2",
+    "label_artifact_sha256": "0670e49833b909748fcf97b619a035a07c9847890d8ad428b699e55583f217f2",
+    "label_source_NAS_archive_sha256": "73e1f3d1bdb567a9906e34a5216052ab9ab22e36ff9f06d5aac8a7d083b425eb",
+    "old_21_recovery_feature_module_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013"
+  },
+  "preflight_checks": {
+    "full_calendar_rows": 1061,
+    "training_mature_eligible_rows": 173,
+    "evaluation_mature_eligible_rows": 265,
+    "evaluation_year_support": {"2021": 27, "2022": 238},
+    "source_unknown_calendar_days": 2,
+    "eligible_unknown_source_days": 0,
+    "maximum_absolute_training_pairwise_Pearson": 0.6947737323384034,
+    "new_model_fits": 0,
+    "new_native_accounts": 0
+  },
+  "design_checks": {
+    "source_timing": "Only post-2017 OFR Funding observations at least three actual Qlib sessions old enter the 2018-2022 10:32 recovery screen. The source map keeps 2018/2023 documented pre-revision Funding values until the following trading session after posting, and leaves four affected 2026 held dates unknown.",
+    "source_boundary": "The official current CSV, 2023 revision workbook and 2017 launch record do not certify historical individual daily first receipt or finality. Current-method pre-2017 backfill is excluded.",
+    "matched_receiver": "The same eligible mature local net-advantage amount rows, original 21 recovery features, imputer, scaler and Ridge alpha 1 are used in both arms; the candidate adds exactly one Funding coordinate. The saved label is a 0bp added-slippage Tiered beta0.6 same-state recovery-versus-HOLD training reference, not a 2023+ full account.",
+    "novelty": "OFR systemic Funding stress is a source and mechanism distinct from the closed HYG-minus-LQD traded-credit momentum, SOXX signed-volume pressure and first-hour peer-breadth routes.",
+    "gate": "Negative added standardized coefficient, positive full and each-2021/2022 paired MSE improvement, and positive one-sided stationary full-calendar lower bound using mean block 63, 10000 draws, seed 20261023 and alpha 0.025/33.",
+    "budget": "The saved no-load artifact-path failure consumed no source objects or DatasetH. The frozen plan allows one no-fit preflight and one fresh-kernel reconstruction, cumulative four source Recorder loads and two DatasetH builds before fitting; the fit cell blocks a direct rerun before state write or Recorder creation. Exactly two fit attempts and one bootstrap are authorized."
+  },
+  "scientific_boundary": "This is conditional retrospective information on reused 2018-2022 OOF training-reference labels. A pass cannot establish historically final OFR values, a 2023+ original Stage1 own-state funded 0bp account, independent forward evidence or SOXX fee-net promotion.",
+  "material_blockers": [],
+  "model_fits_reviewed": 0,
+  "new_native_accounts_reviewed": 0
+}

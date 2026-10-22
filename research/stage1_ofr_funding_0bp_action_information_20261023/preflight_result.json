@@ -1,0 +1,18 @@
+{
+  "status": "fixed_0bp_action_value_DatasetH_preflight_passed",
+  "plan_sha256": "6448e0100b3d9439de56f1f116a86123e12c3c0b08831d24ea92f8b289e0763d",
+  "calendar_rows": 1061,
+  "train_calendar_rows": 558,
+  "eval_calendar_rows": 503,
+  "train_mature_eligible": 173,
+  "eval_mature_eligible": 265,
+  "eval_annual_support": {
+    "2021": 27,
+    "2022": 238
+  },
+  "unknown_source_days": 2,
+  "eligible_unknown_source_days": 0,
+  "new_model_fits": 0,
+  "native_accounts": 0,
+  "max_abs_training_pairwise_Pearson": 0.6947737323384034
+}
