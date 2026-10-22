@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Can the two SOXX original 2019 transition schedules yield disclosed common-equity concentration with exact printed value closure, without outcomes or model fitting?",
+  "parent_body_identity": "research/stage1_soxx_2019_transition_bodies_20261023/identity_result.json",
+  "parent_body_identity_sha256": "9b880945226e886d19ddee3839977f5aca798ca263427440aba354ae74a16a09",
+  "parent_body_transport": "research/stage1_soxx_2019_transition_bodies_20261023/transport_result.json",
+  "parent_body_transport_sha256": "4b56967bcc892ffca71937c514d0a9b5de40de99308b798bb848e4d240ac45bf",
+  "source_NAS_archive_sha256": "bf6f45614df9703c9c586133bf53be61c8008d4496ea09693671057cec9c43c9",
+  "reports": [
+    {
+      "report_period": "2018-12-31",
+      "accession": "0001193125-19-059323",
+      "filed": "2019-03-01",
+      "accepted_display": "2019-03-01 08:18:09",
+      "raw_path": "data/snapshots/stage1_soxx_2019_transition_bodies_20261023/0001193125-19-059323.html",
+      "raw_sha256": "f02e90225242df322429af014137fea70f5b0605436f51daec00cd4a90cffe3d",
+      "raw_bytes": 28888117,
+      "bounded_section_byte_range": [12544907, 12604907],
+      "bounded_section_sha256": "d7196ed65569d74f163e8881d62e35a6e8b1ef31a739cae1b1f1027d45137de9"
+    },
+    {
+      "report_period": "2019-03-31",
+      "accession": "0001193125-19-167652",
+      "filed": "2019-06-07",
+      "accepted_display": "2019-06-07 08:00:36",
+      "raw_path": "data/snapshots/stage1_soxx_2019_transition_bodies_20261023/0001193125-19-167652.html",
+      "raw_sha256": "7e52011b073c29500e420ce3a1205584f7dd0227cbb93a6c8d3c061d12e25577",
+      "raw_bytes": 47521335,
+      "bounded_section_byte_range": [30128338, 30188338],
+      "bounded_section_sha256": "303e12849026f32ae979b9b6c5e0222711b77fe816050acb262a4422e8d549cb"
+    }
+  ],
+  "formula": "Within each pinned SOXX Schedule, parse Common Stocks Security/Shares/Value rows up to Total Common Stocks; require 20-40 distinct security names, positive original shares and USD values, zero ambiguous numeric security rows, printed Total Common Stocks and sum difference <=1 USD. Normalize each stock's original USD fair value by the sum of the parsed common-equity values; top5 is the sum of the five largest normalized weights, HHI is the sum of squared normalized weights. Preserve printed names and values; no ticker matching or official index-weight inference.",
+  "availability": "A report-period date is not decision availability. Preserve SEC filing date and accepted-display time separately; any Stage1 Qlib map must use the next actual session strictly after the filing date and must keep unknown periods unknown.",
+  "budgets": {
+    "new_GETs": 0,
+    "original_body_reads": 2,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any row ambiguity, count failure, missing printed total or value nonclosure stops source qualification without adjusting rows or switching filings. Preserve failure evidence and freeze a narrow mechanical repair before another pass."
+}

@@ -1,0 +1,22 @@
+{
+  "experiment": "stage1_soxx_2019_transition_concentration_20261023",
+  "decision": "two_2019_transition_original_SOXX_reported_value_sources_closed_full_Stage1_coverage_pending",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "first_attempt": "result.json",
+  "mechanical_repair": "repair_plan.json",
+  "numeric_result": "repair_result.json",
+  "report_events": 2,
+  "common_equity_rows": 60,
+  "new_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "source_NAS_archive_sha256": "bf6f45614df9703c9c586133bf53be61c8008d4496ea09693671057cec9c43c9",
+  "source_NAS_scoped_restore_verified": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

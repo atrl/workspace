@@ -1,0 +1,26 @@
+{
+  "frozen": true,
+  "reason": "First parse began 20,000 bytes before the SOXX schedule title and included the preceding fund's Money Market Funds row. In each report the nonclosure equals that single incorrectly included value exactly.",
+  "prior_result": "result.json",
+  "repair": "Start each fixed, source-hashed 40,000-byte section at the independently verified SOXX schedule title offset. Apply the same frozen Common Stocks parser and printed-total checks. No row deletion, name-specific exclusion, threshold change or new source request.",
+  "sections": [
+    {
+      "accession": "0001193125-19-059323",
+      "bounded_section_byte_range": [12564907, 12604907],
+      "bounded_section_sha256": "b1926d8e3b7cff41769202329e5779bedd2112bc322972e4735dee8aed4ce997"
+    },
+    {
+      "accession": "0001193125-19-167652",
+      "bounded_section_byte_range": [30148338, 30188338],
+      "bounded_section_sha256": "e8eb38dead9961c52d40830d16ddd8674a26eac47a19b26e45b3f544746c58bb"
+    }
+  ],
+  "budgets": {
+    "additional_original_body_reads": 2,
+    "new_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If the same parser still fails any frozen count, ambiguity or printed-value closure, stop and retain the failure; no second repair within this version."
+}
