@@ -22,7 +22,8 @@
       "implementation_notebook": "research/cboe_total_activity_variance_information_20261022/cboe_total_activity_variance_information_20261022.ipynb",
       "execution_binding": "research/cboe_total_activity_variance_information_20261022/execution_binding.json",
       "follow_on_source_plan": "research/cboe_total_options_activity_source_20261022/multiday_forward_plan.json",
-      "transport_identity_clarification": "research/cboe_total_options_activity_source_20261022/forward_transport_identity_clarification.json"
+      "transport_identity_clarification": "research/cboe_total_options_activity_source_20261022/forward_transport_identity_clarification.json",
+      "contingent_economic_design": "research/cboe_variance_conditional_composition_20261022/design_brief.json"
     },
     {
       "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -148,7 +149,8 @@
     "parallel_source_gap": "Korean source-only automatic pairing verified 27/93 current-document month pairs; 66 months including all three dual-version months remain unresolved. Four known controls pass, so unresolved means extractor/source semantics need original-document review, not factor failure. Historical first-public vintage is unqualified. No SOXX outcome or Korea fit may be read.",
     "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/numeric_pair_repair_review.json",
     "closed_PPI_information_result": "research/semiconductor_ppi_leverage_information_20261022/result_review.json",
-    "follow_on_Cboe_source_plan": "research/cboe_total_options_activity_source_20261022/multiday_forward_plan.json"
+    "follow_on_Cboe_source_plan": "research/cboe_total_options_activity_source_20261022/multiday_forward_plan.json",
+    "contingent_Cboe_economic_design": "research/cboe_variance_conditional_composition_20261022/design_brief.json"
   },
   "closed_source_probes": [
     {

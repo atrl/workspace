@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "status": "design_only_contingent_on_Cboe_information_gate",
+  "frozen_before_Cboe_market_outcome_read": true,
+  "execution_authorized": false,
+  "objective": "Test whether Cboe-derived incremental future-variance information can make an already-frozen nominal-beta composition rule more stable against SOXX by applying it only when the Cboe candidate predicts more variance than its matched price-only baseline.",
+  "distinct_mechanism": "Condition the existing fixed funded asset-composition cancellation on an independent lagged option-activity variance signal. Do not change the parent controller risk projection, beta-preserving algebra, forecast models, action classifier, or account accounting.",
+  "parent": {
+    "card": "research/beta_preserving_composition_20261015",
+    "plan_sha256": "c95dc0d2b29b3972d95a7f901026ede7e6a12b462125f72f2b3995c856e4c33b",
+    "summary_sha256": "c05901ecb0260b737640fdd2c11ca8f032eb19619cde50388aacefc4ee9bd041",
+    "recorder_id": "6680a54e6ac440bdbe96e438f5b9e197",
+    "as_of": "2026-10-09",
+    "historical_result": "Three 0/2/5bp net accounts exceeded SOXX in terminal wealth, but 0bp maximum drawdown exceeded 30%, all rolling 126-session win rates were below 70%, and SOXX block lower bounds were not positive; fixed version not promoted."
+  },
+  "information_dependency": {
+    "card": "research/cboe_total_activity_variance_information_20261022",
+    "frozen_plan_sha256": "1277744ab022cad5ee17fa15c90cba08864dec4fae6ce31b4f4e49a7929b72b8",
+    "required_status": "information_gate_pass=true from one completed native Qlib Recorder after the third frozen Cboe source vintage",
+    "required_model_artifacts": [
+      "models/baseline",
+      "models/candidate",
+      "predictions/held"
+    ],
+    "no_model_refit_or_held_selection": true,
+    "historical_first_public_timing_qualified": false
+  },
+  "clock": "For opening account date d, use only the Cboe variance forecasts generated at 09:46 New York on the immediately preceding Qlib session s. They use Cboe total activity and prices no later than s-1, so an action at d open has no same-day 09:46 lookahead. Apply the same prior-session decision to any recovery target on d. At the initial 2023-01-03 account date, use identity until the first eligible prior-session forecast; after warmup, any missing forecast stops the experiment.",
+  "fixed_trigger": "High incremental Cboe variance information iff candidate predicted log next-five-session SOXX realized variance > baseline predicted log variance on the same prior signal s. Equality uses identity. No percentile, learned threshold or regime search.",
+  "target_map": {
+    "when_trigger_false": "identity; preserve the parent post-projection SOXL/SOXX/CASH target",
+    "when_trigger_true": "delta=min(SOXL,CASH/2); replace target (SOXL,SOXX,CASH) by (SOXL-delta,SOXX+3*delta,CASH-2*delta), exactly the parent funded nominal-beta mapping",
+    "slots": [
+      "open_EXECUTE",
+      "executed_recovery"
+    ],
+    "HOLD": "never transform or force a trade",
+    "invariants": [
+      "weights finite, nonnegative and sum to one",
+      "nominal 3*SOXL+SOXX conserved by the map",
+      "new SOXL weight not above parent target",
+      "candidate own holdings, cash, fees, risk state and recovery history recur independently"
+    ]
+  },
+  "account_contract": {
+    "assets": [
+      "SOXL",
+      "SOXX",
+      "CASH"
+    ],
+    "start": "2023-01-03",
+    "end": "2026-10-09",
+    "initial_cash_USD": 100000,
+    "long_only_no_financing": true,
+    "slippage_bps": [
+      0,
+      2,
+      5
+    ],
+    "fees": "exact frozen IBKR Pro Tiered projection and dividend/cash/settlement treatment from parent plan; require source hashes and native Qlib account identities before run",
+    "new_candidate_native_accounts": 3,
+    "controls": "Reuse exact verified parent strong_always, always-composition and SOXX accounts only when source provider, price plane, date span, costs and accounting identities match; otherwise stop before candidate replay rather than choose controls after outcome."
+  },
+  "scientific_gates": {
+    "hard_benchmark": "SOXX fee-net same-window same-accounting, all 0/2/5bp wealth ratios >1",
+    "max_drawdown": "closing and available intraday <=30%; missing full minute risk evidence is an explicit qualification gap",
+    "CVaR5": "no worse than same-accounting SOXX",
+    "complete_years": "at least two and >=70% positive complete-year excess",
+    "rolling_126d": ">=70% positive contiguous windows",
+    "SOXX_block_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261014,
+      "alpha": 0.0015625,
+      "note": "one additional economic candidate conservatively counted beyond the base v2 family of 15; all reused historical search remains development-only"
+    },
+    "independent_forward": "identity-fixed source-qualified prospective economic and statistical evidence, including year/window length and market-state coverage; zero qualified days at design time"
+  },
+  "execution_budget": {
+    "source_recorder_readbacks": 2,
+    "model_fits": 0,
+    "new_candidate_native_accounts": 3,
+    "control_native_accounts": 0,
+    "bootstrap_runs": 1,
+    "new_writable_Recorders": 1
+  },
+  "stops": [
+    "Cboe source third vintage or fixed information gate fails: close design without economic accounts.",
+    "Price plane, parent account, source clock, predecessor-session alignment or control identities mismatch: stop before account; do not substitute a convenient provider.",
+    "No trigger inversion, threshold, cash fraction, cost, year, window or bootstrap tuning after results.",
+    "Even historical economic passes are not promotion without independently timed forward source and economic account evidence."
+  ],
+  "artifacts": "Only a later executable notebook, slim card sidecars and native Qlib Recorder may hold model/portfolio evidence; this design brief has zero model fits and zero accounts.",
+  "current_evidence": {
+    "model_fits": 0,
+    "native_accounts": 0,
+    "qualified_forward_days": 0,
+    "SOXX_goal_achieved": false
+  },
+  "next_action": "After the frozen Cboe information result, if all dependency gates pass, bind exact source/model/parent identities, create the executable notebook and run the three candidate native accounts once. If the information gate fails, mark this contingent design not_executed_due_dependency and keep the overall Goal active."
+}
