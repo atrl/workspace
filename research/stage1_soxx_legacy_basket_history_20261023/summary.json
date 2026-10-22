@@ -1,14 +1,21 @@
 {
   "experiment": "stage1_soxx_legacy_basket_history_20261023",
-  "decision": "frozen_source_batch_not_executed",
+  "decision": "official_2011_2018_trust_filing_indexes_NAS_qualified_SOXX_bodies_pending",
   "objective_achieved": false,
   "plan": "plan.json",
-  "sidecar_GETs": 0,
+  "sidecar_GETs": 4,
   "model_fits": 0,
   "native_accounts": 0,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "source_result": "transport_result.json",
+  "candidate_index": "candidate_trust_filings.json",
+  "coverage_audit": "coverage_audit.json",
+  "trust_candidate_rows": 188,
+  "source_NAS_archive_sha256": "8d0cba5ddb599ccba66185e0fd25b12785bee6fb0537b0c830cfa3339ecd33c5",
+  "source_NAS_scoped_restore_verified": true,
+  "SOXX_original_bodies_qualified": 0
 }

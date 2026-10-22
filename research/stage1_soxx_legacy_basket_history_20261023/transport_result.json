@@ -1,0 +1,123 @@
+{
+  "status": "four_official_trust_sidecars_received_metadata_only",
+  "plan_sha256": "bfda4160dcd01c4a046332dd401be532b644dba91d92ff79297598d4b266fc03",
+  "GETs_consumed": 4,
+  "requests": [
+    {
+      "url": "https://data.sec.gov/submissions/CIK0001100663-submissions-011.json",
+      "requested_at_utc": "2026-10-22T18:07:14.894808+00:00",
+      "received_at_utc": "2026-10-22T18:07:16.196654+00:00",
+      "http_status": 200,
+      "final_url": "https://data.sec.gov/submissions/CIK0001100663-submissions-011.json",
+      "curl_exit_code": 0,
+      "curl_stderr": "",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/CIK0001100663-submissions-011.json",
+      "raw_sha256": "2d76b1f4a9187ae28024cece9a22423aecfe573351f2978d5f6ee44b26190895",
+      "raw_bytes": 358015,
+      "headers_sha256": "affca59430840316ab01c324f73f87b8d20c96f947b2777658b4f07a34e71a80",
+      "headers_bytes": 455,
+      "rows": 2004,
+      "actual_range": [
+        "2011-02-04",
+        "2013-11-27"
+      ],
+      "advertised_range": [
+        "2011-02-04",
+        "2013-11-30"
+      ],
+      "range_metadata_equal": false,
+      "candidate_form_rows": 66
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0001100663-submissions-010.json",
+      "requested_at_utc": "2026-10-22T18:07:17.202236+00:00",
+      "received_at_utc": "2026-10-22T18:07:18.183985+00:00",
+      "http_status": 200,
+      "final_url": "https://data.sec.gov/submissions/CIK0001100663-submissions-010.json",
+      "curl_exit_code": 0,
+      "curl_stderr": "",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/CIK0001100663-submissions-010.json",
+      "raw_sha256": "b1c94470244afd56f8f25d3103030bc3f3ca1671f81982aba45587d0c3a154b5",
+      "raw_bytes": 370012,
+      "headers_sha256": "4387c76eb281dba5fab90408b957b69f208eae46773342fab1c7926934676ca9",
+      "headers_bytes": 418,
+      "rows": 2022,
+      "actual_range": [
+        "2013-12-02",
+        "2015-12-09"
+      ],
+      "advertised_range": [
+        "2013-12-02",
+        "2015-12-08"
+      ],
+      "range_metadata_equal": false,
+      "candidate_form_rows": 49
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0001100663-submissions-009.json",
+      "requested_at_utc": "2026-10-22T18:07:19.199584+00:00",
+      "received_at_utc": "2026-10-22T18:07:20.264532+00:00",
+      "http_status": 200,
+      "final_url": "https://data.sec.gov/submissions/CIK0001100663-submissions-009.json",
+      "curl_exit_code": 0,
+      "curl_stderr": "",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/CIK0001100663-submissions-009.json",
+      "raw_sha256": "fe78b7ac77f7f495865dbc63c0ef31df57dda876bc7ecf5167b206951d1ce70f",
+      "raw_bytes": 333274,
+      "headers_sha256": "efaff163f15378d9650d4e701075853877a0392ade2027c5ee491810efd5c1e2",
+      "headers_bytes": 418,
+      "rows": 2010,
+      "actual_range": [
+        "2015-12-10",
+        "2017-10-26"
+      ],
+      "advertised_range": [
+        "2015-12-10",
+        "2017-10-29"
+      ],
+      "range_metadata_equal": false,
+      "candidate_form_rows": 45
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0001100663-submissions-008.json",
+      "requested_at_utc": "2026-10-22T18:07:21.270395+00:00",
+      "received_at_utc": "2026-10-22T18:07:22.325428+00:00",
+      "http_status": 200,
+      "final_url": "https://data.sec.gov/submissions/CIK0001100663-submissions-008.json",
+      "curl_exit_code": 0,
+      "curl_stderr": "",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/CIK0001100663-submissions-008.json",
+      "raw_sha256": "6432f36559a2e7f6323605db1175d40240b10bc3466980bef68d9e6db6c26647",
+      "raw_bytes": 332016,
+      "headers_sha256": "4be6a131edfcaf1abbc29ba28c1965fb2bb491916d981a689626b4caf8cb06b7",
+      "headers_bytes": 418,
+      "rows": 2001,
+      "actual_range": [
+        "2017-10-31",
+        "2019-08-22"
+      ],
+      "advertised_range": [
+        "2017-10-31",
+        "2019-08-24"
+      ],
+      "range_metadata_equal": false,
+      "candidate_form_rows": 28
+    }
+  ],
+  "candidate_trust_rows": 188,
+  "filing_body_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_historical_baskets_qualified": false,
+  "nas_evidence": {
+    "sha256": "8d0cba5ddb599ccba66185e0fd25b12785bee6fb0537b0c830cfa3339ecd33c5",
+    "size_bytes": 189862,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/8d/0c/8d0cba5ddb599ccba66185e0fd25b12785bee6fb0537b0c830cfa3339ecd33c5",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 02:07:22.837453+08",
+    "duplicate": false
+  },
+  "nas_scoped_restore_verified": true
+}

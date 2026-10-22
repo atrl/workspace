@@ -1,0 +1,79 @@
+{
+  "status": "trust_level_2011_2018_candidate_metadata_coverage_only",
+  "years": {
+    "2011": {
+      "trust_candidate_rows": 20,
+      "forms": {
+        "N-Q": 10,
+        "N-CSRS": 5,
+        "N-CSR": 5
+      }
+    },
+    "2012": {
+      "trust_candidate_rows": 24,
+      "forms": {
+        "N-Q": 12,
+        "N-CSRS": 6,
+        "N-CSR": 6
+      }
+    },
+    "2013": {
+      "trust_candidate_rows": 24,
+      "forms": {
+        "N-CSR": 6,
+        "N-CSRS": 6,
+        "N-Q": 12
+      }
+    },
+    "2014": {
+      "trust_candidate_rows": 24,
+      "forms": {
+        "N-Q": 12,
+        "N-CSRS": 6,
+        "N-CSR": 6
+      }
+    },
+    "2015": {
+      "trust_candidate_rows": 24,
+      "forms": {
+        "N-CSRS": 6,
+        "N-CSR": 6,
+        "N-Q": 12
+      }
+    },
+    "2016": {
+      "trust_candidate_rows": 24,
+      "forms": {
+        "N-Q": 12,
+        "N-CSRS": 6,
+        "N-CSR": 6
+      }
+    },
+    "2017": {
+      "trust_candidate_rows": 24,
+      "forms": {
+        "N-CSR": 6,
+        "N-Q": 12,
+        "N-CSRS": 6
+      }
+    },
+    "2018": {
+      "trust_candidate_rows": 24,
+      "forms": {
+        "N-Q": 12,
+        "N-CSRS": 6,
+        "N-CSR": 6
+      }
+    }
+  },
+  "sidecars": 4,
+  "candidate_rows": 188,
+  "actual_vs_advertised_range_equal_count": 0,
+  "source_archive_sha256": "8d0cba5ddb599ccba66185e0fd25b12785bee6fb0537b0c830cfa3339ecd33c5",
+  "source_scoped_restore_verified": true,
+  "SOXX_series_body_confirmed_for_these_rows": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "next_body_selection": "Start with one exact 2011-01-31 report-date N-Q to identify which trust filing contains SOXX. Do not infer target-series presence from the trust index."
+}
