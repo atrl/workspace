@@ -29,7 +29,7 @@
   "nas_remote_hash_verified": true,
   "interpretation_note_sha256": "db52cf5d449d7ddcf7c7309feb8b8e4111750888fca8a13aabb05a67f3547d34",
   "conclusion_sha256": "9672a1c9beebeae4c6fd3508aa92be053853a919864ef244328da6af818bf5f4",
-  "notebook_sha256_after_conclusion_sync": "5bffa79e97439036bf564273465cb0017a8eaaa41959b49d7e4c5a3c967b80f6",
+  "notebook_sha256_after_conclusion_sync": "e9b0b34276b658eb6b7a33744eb73e5a4cc7f8d8d2fb25a8395efe7f55cc6fd6",
   "new_model_fits": 0,
   "new_policy_accounts": 0,
   "new_bootstraps": 0,
@@ -40,5 +40,5 @@
     "No causal or tradable cash/risk switch identified from reused historical path"
   ],
   "decision": "fixed_beta_composition_0bp_parent_remains_not_promoted",
-  "post_review_delivery_note": "One markdown warning was inserted before the unchanged repair code to label the initial invalid unit-output explicitly; no numeric code or result changed."
+  "post_review_delivery_note": "Initial invalid diagnostic outputs were cleared from notebook display after exact result and failure evidence were preserved in sidecars and Recorder; executable code and final Chinese conclusion remain unchanged."
 }
