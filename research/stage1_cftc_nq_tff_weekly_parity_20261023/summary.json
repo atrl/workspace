@@ -1,0 +1,19 @@
+{
+  "experiment": "stage1_cftc_nq_tff_weekly_parity_20261023",
+  "decision": "two_anomalous_weekly_annual_rows_match_timing_still_pending",
+  "objective_achieved": false,
+  "result": "result.json",
+  "plan_sha256": "5db2a1f2c1c511fd76e187d8ec18f39564ce1b6d29db00a2be0330ac5872a2ba",
+  "GETs_consumed": 2,
+  "weekly_cases_matched": 2,
+  "NAS_archive_sha256": "c35419a56cea8c957b468c14e943520fd953902e25c96d73fe4bcedc881610c2",
+  "NAS_scoped_restore_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

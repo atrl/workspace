@@ -1,0 +1,51 @@
+{
+  "plan_sha256": "5db2a1f2c1c511fd76e187d8ec18f39564ce1b6d29db00a2be0330ac5872a2ba",
+  "GETs_attempted": 2,
+  "captures": [
+    {
+      "case": 1,
+      "report_date": "2011-06-21",
+      "requested_url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2011/futures/financial_lf062111.htm",
+      "started_utc": "2026-10-22T21:14:57.969050+00:00",
+      "finished_utc": "2026-10-22T21:14:59.034447+00:00",
+      "curl_exit": 0,
+      "http_status": "200",
+      "effective_url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2011/futures/financial_lf062111.htm",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_cftc_nq_tff_weekly_parity_20261023/weekly_1.html",
+        "bytes": 75802,
+        "sha256": "f22034d7c6b1963fd6c9ca354f2d02699a0cad4bdce857d202dcfc5fe435412b"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_cftc_nq_tff_weekly_parity_20261023/weekly_1.headers",
+        "bytes": 747,
+        "sha256": "28169659c957dc495d7fd55de6ad1a306ade2e99a62fbaf1fa37ef48bced3826"
+      }
+    },
+    {
+      "case": 2,
+      "report_date": "2025-09-30",
+      "requested_url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2025/futures/financial_lf093025.htm",
+      "started_utc": "2026-10-22T21:14:59.035511+00:00",
+      "finished_utc": "2026-10-22T21:15:00.237740+00:00",
+      "curl_exit": 0,
+      "http_status": "200",
+      "effective_url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2025/futures/financial_lf093025.htm",
+      "stderr": "",
+      "body": {
+        "path": "data/snapshots/stage1_cftc_nq_tff_weekly_parity_20261023/weekly_2.html",
+        "bytes": 166966,
+        "sha256": "d97105b1ab2dfe958af0b52c524bf0e98ab625e41c6a882dc697d00c44fb3fdc"
+      },
+      "headers": {
+        "path": "data/snapshots/stage1_cftc_nq_tff_weekly_parity_20261023/weekly_2.headers",
+        "bytes": 734,
+        "sha256": "3258c93107096e1e805300539fb2a3bca8a3306106e916033a29f914886d98a0"
+      }
+    }
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

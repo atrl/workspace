@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_cftc_nq_tff_weekly_parity_20261023",
+  "phase": "two_official_weekly_TFF_NQ_rows_versus_annual_compressed_source_only",
+  "question": "For the anomalous 2011-06-21 and delayed 2025-09-30 report dates, do exact official weekly CFTC TFF Futures Only HTML rows for contract 209742 match the currently archived annual compressed rows in open interest and leveraged-money long/short positions?",
+  "parent_source": "research/stage1_cftc_nq_tff_source_probe_20261023/summary.json",
+  "contract_code": "209742",
+  "cases": [
+    {"report_date": "2011-06-21", "official_weekly_url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2011/futures/financial_lf062111.htm", "annual_zip": "data/snapshots/stage1_cftc_nq_tff_source_probe_20261023/fut_fin_txt_2011.zip", "annual_zip_sha256": "583a93474847f1070b213e2b12cfa73c48d9ba05f24f7d001a338de125468b57", "official_special_release_date": "2011-06-24"},
+    {"report_date": "2025-09-30", "official_weekly_url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2025/futures/financial_lf093025.htm", "annual_zip": "data/snapshots/stage1_cftc_nq_tff_source_probe_20261023/fut_fin_txt_2025.zip", "annual_zip_sha256": "2ea0cda6395f7dd6501c27422be3763e1f2f5b41b768cfd36b871f092a07d438", "official_special_release_date": "2025-11-19"}
+  ],
+  "official_context": {"historical_viewable_index": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalViewable/index.htm", "special_announcements": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalSpecialAnnouncements/index.htm", "FAQ": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm"},
+  "request_budget": {"GETs": 2, "per_URL_GETs": 1, "timeout_seconds_each": 30, "max_response_bytes_each": 1000000, "retries": 0},
+  "comparison": "Locate exactly one CFTC Code #209742 section per weekly report; parse Open Interest and the 7th and 8th numeric positions fields (Leveraged Funds Long and Short), then compare exactly to the same report-date annual ZIP row under code 209742. Keep raw weekly bytes, response headers, UTC capture clocks and SHA-256.",
+  "scientific_limit": "A two-week numerical parity result does not certify all historical weekly values, full release-date mapping, intraday first receipt, or Stage1 predictive information. The 2011 adjusted value was described by CFTC as part of the report published that day; the 2025 backlog has an explicit delayed publication date. Do not assign report dates as trading availability.",
+  "budget": {"market_outcome_reads": 0, "Qlib_calls": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any failed GET, ambiguous contract section, annual ZIP hash mismatch, row mismatch or NAS backup/readback failure stops; preserve exact failed bytes and reason. No full-history model or account from this spot check."
+}
