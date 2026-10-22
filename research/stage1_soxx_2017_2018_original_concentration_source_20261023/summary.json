@@ -1,6 +1,6 @@
 {
   "experiment": "stage1_soxx_2017_2018_original_concentration_source_20261023",
-  "decision": "frozen_six_original_source_batch_not_executed",
+  "decision": "six_2017_2018_first_SOXX_reported_equity_values_closed_2018_Sep_reused_amendments_pending",
   "objective_achieved": false,
   "plan": "plan.json",
   "GETs": 0,
@@ -10,5 +10,22 @@
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "transport_result": "transport_result.json",
+  "identity_result": "identity_result.json",
+  "numeric_plan": "numeric_2017_2018_plan.json",
+  "numeric_initial_result": "numeric_2017_2018_result.json",
+  "numeric_June_whitespace_repair_plan": "numeric_2018_Jun_whitespace_repair_plan.json",
+  "numeric_June_whitespace_result": "numeric_2018_Jun_whitespace_repair_result.json",
+  "numeric_June_dollar_cell_repair_plan": "numeric_2018_Jun_dollar_cell_repair_plan.json",
+  "numeric_result": "numeric_2018_Jun_dollar_cell_repair_result.json",
+  "filing_body_GETs": 6,
+  "first_version_schedule_identities_qualified": 6,
+  "first_version_reports_with_numeric_closure": 6,
+  "reused_2018_Sep_result": "research/stage1_soxx_2018_sep_concentration_20261023/result.json",
+  "reused_2018_Sep_result_sha256": "aa6bc271cbebbf4ea62f252793970faedb628696c4145b6004ccce5e5f418b65",
+  "source_NAS_archive_sha256": "c345f9144baf234077b879af84df7f9c96c214570d80f702fb9539713d516e62",
+  "source_NAS_scoped_restore_verified": true,
+  "later_amendments_semantics_qualified": false,
+  "full_2018_Dec_2022_training_coverage": false
 }
