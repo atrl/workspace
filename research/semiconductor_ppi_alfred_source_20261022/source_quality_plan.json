@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "phase": "same_vintage_release_and_Qlib_calendar_source_qualification",
+  "frozen": true,
+  "execution_authorized": true,
+  "source_plan_sha256": "c3980b6f9d28317359f3f030b2d45933a9a81e181056876b22dc16ec9cfd3424",
+  "retrieval_receipt_sha256": "ffee4e921c37945fd72d935e84cb8a29d8fc494798badb812e1912f732d94670",
+  "raw_zip_sha256": "4dd76bf0c53e27ceaa913afa02dd252a129e18767ddf89c9c05989fb99cb48ce",
+  "readme_sha256": "500eacc3b91d3a389f608666a19d6ce89fb14fcc0e96bfe47bb1bedc3adf97a1",
+  "csv_sha256": "1e501929b545125d9fcc2c8bf72fbc38d020cd70f3216dd7bc46d08e1d0aabc1",
+  "csv_name": "vintages_starting_2019-01-15.csv",
+  "expected_shape": [
+    105,
+    94
+  ],
+  "series_id": "PCU334413334413",
+  "expected_vintage_dates": 93,
+  "expected_latest_month_gap": "2025-10",
+  "gap_cause_official": "https://www.bls.gov/bls/news-release/ppi.htm",
+  "price_calendar_provider": "data/qlib/soxl",
+  "provider_files_sha256": {
+    "data/qlib/soxl/qlib_store_manifest.json": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+    "data/qlib/soxl/calendars/day.txt": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e"
+  },
+  "availability_rule": "For each ALFRED vintage date, first eligible SOXX signal is 09:46 America/New_York on the next strictly later Qlib-supported session; no same-day assumption. Historical first receipt remains unverified.",
+  "same_vintage_numeric_rules": [
+    "Latest observation of each vintage must be a positive finite monthly value.",
+    "MoM uses latest and prior month values in the same vintage column; YoY uses latest and 12 months prior in the same column.",
+    "For the January 2026 vintage following the canceled October 2025 release, October and November 2025 first appear together; neither is made available in November or December 2025.",
+    "No carry-forward, missing-period compaction, latest-FRED overwrite or market-guided choice."
+  ],
+  "budget": {
+    "new_HTTP_requests": 0,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "source_zip_loads": 1,
+    "new_writable_Recorders": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "acceptance": [
+    "exact archive/README/CSV hashes and format",
+    "93 vintage dates and 105 monthly observation rows",
+    "only expected latest-month gap 2025-10",
+    "each vintage has positive latest value and next Qlib session",
+    "any eventual month-growth candidate computed within the same vintage only"
+  ],
+  "limits": [
+    "BLS PPI indexes can be revised for four months.",
+    "ALFRED vintage date is not exact intraday first-receipt proof.",
+    "US quality-adjusted industry prices are not global chip sales or SOXX earnings.",
+    "BLS 2024 hedonic method change must be considered before a fixed information screen."
+  ]
+}
