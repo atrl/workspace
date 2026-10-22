@@ -1,0 +1,19 @@
+{
+  "experiment": "stage1_soxx_2018_sep_source_20261023",
+  "decision": "one_original_2018_Sep_SOXX_schedule_identity_qualified_numeric_values_pending",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "transport": "transport_result.json",
+  "identity": "identity_result.json",
+  "body_GETs": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "NAS_archive_sha256": "1d4261348ed2aaceeac1ac1b372c7283061bd785cf3b6ef9fa21ab31a1fc4d14",
+  "NAS_scoped_restore_verified": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

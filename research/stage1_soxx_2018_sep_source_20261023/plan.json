@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Does the exact 2018-09-30 SOXX original N-CSRS schedule supply the last pre-2019 disclosed basket needed for the 41 unknown 2019 late-training days?",
+  "source_series_calendar": "research/stage1_soxx_series_filing_search_20261023/series_report_calendar_inventory.json",
+  "source_series_calendar_sha256": "84de74dd586d975e02fd5852acfb4d024408b0272c063e92fa3965b0d3df545b",
+  "report_period": "2018-09-30",
+  "form": "N-CSRS",
+  "accession": "0001193125-18-344229",
+  "filed": "2018-12-07",
+  "accepted_at_utc": "2018-12-07T18:04:05.000Z",
+  "primary_document": "d586605dncsrs.htm",
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312518344229/d586605dncsrs.htm",
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 1,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 180,
+    "max_response_bytes": 70000000,
+    "retries": 0
+  },
+  "identity_gate": "The original trust filing must contain SOXX/iShares PHLX Semiconductor ETF's own 2018-09-30 Schedule of Investments and Security/Shares/Value/Common Stocks table, not merely a title in a contents list.",
+  "backup": "Save exact body and header bytes, UTC request/receipt clocks and SHA-256, archive to Yanxuan NAS, verify remote hash and scoped raw-member restore.",
+  "budgets": {
+    "body_GETs": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "HTTP, size or NAS failure stops source qualification. An identity failure stops without alternative filing, numeric parse or market reads."
+}

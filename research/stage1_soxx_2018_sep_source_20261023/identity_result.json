@@ -1,0 +1,20 @@
+{
+  "status": "2018_Sep_original_SOXX_schedule_identity_passed",
+  "plan_sha256": "cacfcd61b9c9f554900e8b6f94798f01636c456446a587e64dc91225e1537bc2",
+  "raw_sha256": "3093345845d77b1ee714f2f3e407af066749d90276db3f962e1ac4da504fc0e0",
+  "raw_bytes": 51473821,
+  "matching_dated_SOXX_schedule_headers": 1,
+  "matching_headers": [
+    {
+      "title_offset": 29818984,
+      "header_excerpt": "Schedule of Investments (unaudited) September 30, 2018 iShares \u00ae PHLX Semiconductor ETF (Percentages shown are based on Net Assets) Security Shares Value Common Stocks Semiconductor Equipment \u2014 15.1% Applied Materials Inc. 1,562,691 $ 60,398,007 ASML Holding NV,",
+      "has_table_markup": true
+    }
+  ],
+  "NAS_archive_sha256": "1d4261348ed2aaceeac1ac1b372c7283061bd785cf3b6ef9fa21ab31a1fc4d14",
+  "NAS_scoped_restore_verified": true,
+  "numeric_holdings_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
