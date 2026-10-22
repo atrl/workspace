@@ -1,0 +1,122 @@
+{
+  "status": "frozen_original_legacy_instance_audit",
+  "purpose": "Check the original FY2017-FY2020 submitted XBRL instances for the frozen consolidated inventory instant and annual revenue duration.",
+  "locator_path": "legacy_instance_locator_20261022.json",
+  "locator_sha256": "e492c6f5233612a34e9433b52d1bc1a4c8d6334f24e233b99a0b2e7f5e6ea7ed",
+  "sources": [
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2017-12-31",
+      "accession": "0001193125-18-121866",
+      "instance_document": "tsm-20171231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312518121866/tsm-20171231.xml"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2018-12-31",
+      "accession": "0001193125-19-108390",
+      "instance_document": "tsm-20181231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312519108390/tsm-20181231.xml"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-107579",
+      "instance_document": "tsm-20191231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312520107579/tsm-20191231.xml"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2020-12-31",
+      "accession": "0001193125-21-118512",
+      "instance_document": "tsm-20201231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312521118512/tsm-20201231.xml"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2017-12-31",
+      "accession": "0001193125-18-132616",
+      "instance_document": "umc-20171231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312518132616/umc-20171231.xml"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2018-12-31",
+      "accession": "0001193125-19-117861",
+      "instance_document": "umc-20181231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312519117861/umc-20181231.xml"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-121853",
+      "instance_document": "umc-20191231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312520121853/umc-20191231.xml"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2020-12-31",
+      "accession": "0001564590-21-021578",
+      "instance_document": "umc-20201231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1033767/000156459021021578/umc-20201231.xml"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2017-12-31",
+      "accession": "0000950103-18-003940",
+      "instance_document": "asx-20171231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010318003940/asx-20171231.xml"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2018-12-31",
+      "accession": "0000950103-19-005149",
+      "instance_document": "asx-20181231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/asx-20181231.xml"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2019-12-31",
+      "accession": "0000950103-20-006422",
+      "instance_document": "asx-20191231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010320006422/asx-20191231.xml"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2020-12-31",
+      "accession": "0000950103-21-005259",
+      "instance_document": "asx-20201231.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010321005259/asx-20201231.xml"
+    }
+  ],
+  "budget": {
+    "original_instance_documents": 12,
+    "other_source_objects": 0,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "frozen_tags": [
+    "ifrs-full:Inventories",
+    "ifrs-full:Revenue"
+  ],
+  "checks": [
+    "Hash exact submitted EX-101.INS bytes.",
+    "Parse each original instance only, preserving its declared IFRS namespace; require same CIK and undimensioned issuer context.",
+    "Require a TWD inventory fact at fiscal year end and a TWD revenue fact for January 1 through fiscal year end; record duplicate/conflicting contexts.",
+    "Use primary 20-F original reporting-currency disclosure already bound in historical_original_body_audit_20261022.json; do not import later comparisons or choose alternate tags by coverage."
+  ],
+  "decision_rule": "Year passes original period/unit semantics only when exact frozen tags, unit and periods are present without conflict in the same original accession instance and the own primary document reports in TWD. Missing/ambiguous stays unknown; no model-input or PIT qualification follows."
+}

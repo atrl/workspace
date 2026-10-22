@@ -20,20 +20,21 @@
   },
   "current_task": {
     "card": "research/inventory_sales_source_qualification_20261021",
-    "phase": "FY2024_original_filing_currency_context_probe_complete_historical_qualification_pending",
+    "phase": "three_issuer_FY2017_FY2024_original_currency_period_semantics_verified_identity_and_PIT_pending",
     "implementation_executor": null,
     "independent_reviewer": null,
-    "next_action": "Original current/prior filing context checks for TSM/UMC/ASX 2017-2023, then historical issuer-security continuity, NVDA annual gaps, and first-public/version timing. Freeze one inventory-vs-sales information test only after those source gates; no running model or account.",
-    "last_scientific_observation": "FY2024 original 20-F primary documents for TSM/UMC/ASX verify TWD as consolidated reporting denomination and USD as convenience translation for that year. Historical source/PIT and model-input qualification remain false; no factor efficacy result.",
+    "next_action": "Resolve historical N-PORT security-to-CIK continuity and ASX FY2017-to-FY2018 structural break; diagnose NVDA FY2019/FY2022/FY2023 original annual-pair gaps and publication/version clocks. Only then freeze one inventory-vs-sales information screen. No model or account running.",
+    "last_scientific_observation": "Original FY2017-FY2024 20-F/EX-101.INS source checks verify 24 issuer-years of TWD reporting denomination, inventory instant and full-year revenue for TSM/UMC/ASX. ASX FY2018 share exchange/SPIL inclusion makes the FY2017-to-FY2018 pair non-comparable without same-scope reconstruction. Source semantics only; historical PIT/model input and factor efficacy false.",
     "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once",
     "run_state": "research/inventory_sales_source_qualification_20261021/attempt2_run_state.json",
     "job_handle": "research/inventory_sales_source_qualification_20261021/attempt2_job_handle.json",
     "execution_receipt": "research/inventory_sales_source_qualification_20261021/attempt2_process_exit.json",
     "phase_receipts": "research/inventory_sales_source_qualification_20261021/phase_receipts.json",
-    "last_operational_observation": "Inventory qualification attempt2 exit0 and native readback/NAS archive complete. Initial failed state preserved. FY2024 source-only probe read three exact original 20-F documents; no prices, fits or accounts. No live notebook process or executor is evidenced.",
+    "last_operational_observation": "Source-only original filing reconstruction read 21 FY2017-FY2023 primary 20-F bodies, 12 exact FY2017-FY2020 original XBRL instances, 12 SEC accession indexes and 3 current SEC submission locator objects; no market arrays, fits or accounts. All source audit processes have exited.",
     "source_gap_report": "research/inventory_sales_source_qualification_20261021/gap_triage.json",
     "original_filing_leads": "research/inventory_sales_source_qualification_20261021/original_filing_leads.json",
-    "original_filing_probe": "research/inventory_sales_source_qualification_20261021/original_filing_reconstruction_20261022.json"
+    "original_filing_probe": "research/inventory_sales_source_qualification_20261021/original_filing_reconstruction_20261022.json",
+    "source_reconstruction": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/summary.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -59,7 +60,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T01:41:55+00:00",
+  "updated_at_utc": "2026-10-22T01:58:00+00:00",
   "execution_totals": {
     "new_model_fits": 39,
     "new_native_accounts": 43,

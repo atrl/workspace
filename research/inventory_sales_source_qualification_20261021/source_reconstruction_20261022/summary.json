@@ -1,0 +1,40 @@
+{
+  "status": "original_currency_and_period_semantics_verified_for_24_issuer_years_source_only",
+  "scope": "TSM, UMC and ASX original FY2017-FY2024 20-F accessions only",
+  "evidence": {
+    "FY2024_inline_probe": "../original_filing_reconstruction_20261022.json",
+    "FY2017_FY2023_locator": "historical_filing_locator_20261022.json",
+    "FY2021_FY2023_original_inline_contexts": "historical_original_body_audit_20261022.json",
+    "FY2017_FY2020_original_XBRL_instances": "legacy_original_instance_audit_20261022.json"
+  },
+  "counts": {
+    "issuers": 3,
+    "original_20F_accessions": 24,
+    "issuer_years_with_original_TWD_reporting_and_exact_TWD_inventory_instant_revenue_duration": 24,
+    "FY2017_FY2020_original_separate_XBRL_instances": 12,
+    "FY2021_FY2024_original_inline_contexts": 12,
+    "new_factor_values": 0,
+    "new_model_fits": 0,
+    "new_accounts": 0
+  },
+  "structural_boundary": {
+    "ticker": "ASX",
+    "period_pair": ["2017-12-31", "2018-12-31"],
+    "status": "not_comparable_without_same_scope_reconstruction",
+    "original_source": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/dp102525_20f.htm",
+    "original_accession": "0000950103-19-005149",
+    "reason": "The FY2018 original 20-F says ASE Technology Holding was formed by share exchange on 2018-04-30; its 2018 financial data include SPIL from that date and ASE predecessor operations. The report explicitly cautions that FY2018 financial statements may not be comparable with prior years.",
+    "factor_handling": "Do not treat FY2017-to-FY2018 inventory/sales growth as an ordinary same-scope observation; preserve unknown or exclude under a separately frozen source rule, without using returns to decide."
+  },
+  "clock_boundary": "Current SEC submissions API and EDGAR index/header acceptance displays differ in timezone representation. Neither proves first-public value time. The pre-existing date-only next-native-session rule remains conditional; do not promote these source checks to historical PIT by interpreting one clock retrospectively.",
+  "qualification_flags": {
+    "three_issuer_original_currency_period_semantics": true,
+    "historical_basket_security_identity": false,
+    "first_public_value_clock": false,
+    "historical_PIT": false,
+    "model_input": false,
+    "factor_effectiveness": false,
+    "SOXX_excess": false
+  },
+  "next_minimum_work": "Resolve historical N-PORT security-to-CIK continuity and ASX restructuring treatment; diagnose NVDA FY2019/FY2022/FY2023 annual-pair gaps from original 10-K contexts; qualify conservative value-availability/version clocks before one frozen inventory-sales information test."
+}

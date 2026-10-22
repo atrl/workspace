@@ -1,0 +1,14 @@
+{
+  "status": "frozen_source_locator",
+  "purpose": "Locate each issuer's original FY2017-FY2023 annual 20-F before reading original values or constructing inventory-sales features.",
+  "sources": [
+    {"ticker": "TSM", "cik": 1046179, "submissions_url": "https://data.sec.gov/submissions/CIK0001046179.json"},
+    {"ticker": "UMC", "cik": 1033767, "submissions_url": "https://data.sec.gov/submissions/CIK0001033767.json"},
+    {"ticker": "ASX", "cik": 1122411, "submissions_url": "https://data.sec.gov/submissions/CIK0001122411.json"}
+  ],
+  "period_ends": ["2017-12-31", "2018-12-31", "2019-12-31", "2020-12-31", "2021-12-31", "2022-12-31", "2023-12-31"],
+  "form": "20-F",
+  "budget": {"main_submission_objects": 3, "historical_submission_objects_if_needed": 3, "primary_filing_bodies": 0, "market_data_reads": 0, "fits": 0, "accounts": 0},
+  "selection_rule": "For each CIK and fiscal period, retain every exact 20-F original entry and mark duplicates or absence. Never use later 20-F/A or later comparative numbers to fill an original-period gap. Record accession, primary document, filing and acceptance timestamps as locators only.",
+  "decision_rule": "If all 21 exact originals are located, freeze a separate bounded original-body context audit. If any are missing or multiple, preserve the ambiguity and narrow the next retrieval to that CIK/period. A current submissions download is not historical PIT data."
+}

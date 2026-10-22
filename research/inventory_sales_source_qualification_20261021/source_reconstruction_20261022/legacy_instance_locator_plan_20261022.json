@@ -1,0 +1,101 @@
+{
+  "status": "frozen_legacy_instance_locator",
+  "purpose": "Find the XBRL instance submitted in each exact FY2017-FY2020 original 20-F whose primary HTML lacks inline nonfraction tags.",
+  "locator_path": "historical_filing_locator_20261022.json",
+  "locator_sha256": "dabc21bed22d6b95629116d06590f4c4305fbfdc2e267bb922243e496511e614",
+  "index_sources": [
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2017-12-31",
+      "accession": "0001193125-18-121866",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312518121866/0001193125-18-121866-index.htm"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2018-12-31",
+      "accession": "0001193125-19-108390",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312519108390/0001193125-19-108390-index.htm"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-107579",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312520107579/0001193125-20-107579-index.htm"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2020-12-31",
+      "accession": "0001193125-21-118512",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312521118512/0001193125-21-118512-index.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2017-12-31",
+      "accession": "0001193125-18-132616",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312518132616/0001193125-18-132616-index.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2018-12-31",
+      "accession": "0001193125-19-117861",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312519117861/0001193125-19-117861-index.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-121853",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312520121853/0001193125-20-121853-index.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2020-12-31",
+      "accession": "0001564590-21-021578",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000156459021021578/0001564590-21-021578-index.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2017-12-31",
+      "accession": "0000950103-18-003940",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010318003940/0000950103-18-003940-index.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2018-12-31",
+      "accession": "0000950103-19-005149",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/0000950103-19-005149-index.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2019-12-31",
+      "accession": "0000950103-20-006422",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010320006422/0000950103-20-006422-index.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2020-12-31",
+      "accession": "0000950103-21-005259",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010321005259/0000950103-21-005259-index.htm"
+    }
+  ],
+  "budget": {
+    "exact_original_accession_indexes": 12,
+    "XBRL_instance_documents": 0,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "selection_rule": "From each exact EDGAR filing index, accept only a unique Data Files row with type EX-101.INS or equivalent original submitted XBRL instance. Do not substitute a later accession, current SEC companyfacts API, or extracted modern comparison facts.",
+  "decision_rule": "Record exact instance URL or missing/ambiguous status. Inspect original instance contents only under a subsequent frozen plan."
+}

@@ -1,0 +1,291 @@
+{
+  "status": "all_12_original_instances_located_unique",
+  "plan": "legacy_instance_locator_plan_20261022.json",
+  "plan_sha256": "8bcaa9a2515f4da0e450506fa02a81163eb03aa55b3f26d1ffc067d6fdd9b690",
+  "records": [
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2017-12-31",
+      "accession": "0001193125-18-121866",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312518121866/0001193125-18-121866-index.htm",
+      "index_bytes": 13734,
+      "index_sha256": "afddcada44e9cb2c54dcfea733c7baf773138e3eb579c8a74875f489b88daf71",
+      "matches": [
+        {
+          "document": "tsm-20171231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312518121866/tsm-20171231.xml",
+          "index_row": [
+            "13",
+            "XBRL INSTANCE DOCUMENT",
+            "tsm-20171231.xml",
+            "EX-101.INS",
+            "5394910"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2018-12-31",
+      "accession": "0001193125-19-108390",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312519108390/0001193125-19-108390-index.htm",
+      "index_bytes": 12127,
+      "index_sha256": "86daa9e524f73a9341516fbc4692dd0e6b43a24e0cbf68727ad1df9debc1810d",
+      "matches": [
+        {
+          "document": "tsm-20181231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312519108390/tsm-20181231.xml",
+          "index_row": [
+            "8",
+            "XBRL INSTANCE DOCUMENT",
+            "tsm-20181231.xml",
+            "EX-101.INS",
+            "5398968"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-107579",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312520107579/0001193125-20-107579-index.htm",
+      "index_bytes": 14713,
+      "index_sha256": "254243cf9302625bb45b6f1f6aee5869dc6969e055c2c3e628132c9e6d2a0ece",
+      "matches": [
+        {
+          "document": "tsm-20191231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312520107579/tsm-20191231.xml",
+          "index_row": [
+            "16",
+            "XBRL INSTANCE DOCUMENT",
+            "tsm-20191231.xml",
+            "EX-101.INS",
+            "8545721"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2020-12-31",
+      "accession": "0001193125-21-118512",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312521118512/0001193125-21-118512-index.htm",
+      "index_bytes": 15011,
+      "index_sha256": "b38fc14aeeff00c1fd88a9aa482576ac07589936a7efd9ff885552c46b948470",
+      "matches": [
+        {
+          "document": "tsm-20201231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312521118512/tsm-20201231.xml",
+          "index_row": [
+            "17",
+            "XBRL INSTANCE DOCUMENT",
+            "tsm-20201231.xml",
+            "EX-101.INS",
+            "8390395"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2017-12-31",
+      "accession": "0001193125-18-132616",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312518132616/0001193125-18-132616-index.htm",
+      "index_bytes": 12674,
+      "index_sha256": "c92fb482d7af3cc0bb76e768b884e0287e2bfe9dcba759cfa8c217cef2cb4f9d",
+      "matches": [
+        {
+          "document": "umc-20171231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312518132616/umc-20171231.xml",
+          "index_row": [
+            "10",
+            "XBRL INSTANCE DOCUMENT",
+            "umc-20171231.xml",
+            "EX-101.INS",
+            "4692298"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2018-12-31",
+      "accession": "0001193125-19-117861",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312519117861/0001193125-19-117861-index.htm",
+      "index_bytes": 12678,
+      "index_sha256": "6c07b0b2253d96b432da6788a89deb8de45a4ee1fe286d96912151bf3840a453",
+      "matches": [
+        {
+          "document": "umc-20181231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312519117861/umc-20181231.xml",
+          "index_row": [
+            "10",
+            "XBRL INSTANCE DOCUMENT",
+            "umc-20181231.xml",
+            "EX-101.INS",
+            "5460422"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-121853",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312520121853/0001193125-20-121853-index.htm",
+      "index_bytes": 12345,
+      "index_sha256": "39833d3cce9e4067fe8977eb645a7c16ff5d378b2cee0bf240f5320a183196f3",
+      "matches": [
+        {
+          "document": "umc-20191231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312520121853/umc-20191231.xml",
+          "index_row": [
+            "9",
+            "XBRL INSTANCE DOCUMENT",
+            "umc-20191231.xml",
+            "EX-101.INS",
+            "11372849"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2020-12-31",
+      "accession": "0001564590-21-021578",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000156459021021578/0001564590-21-021578-index.htm",
+      "index_bytes": 12353,
+      "index_sha256": "7937813f42e3817457fd763b4ae182326c133db660d1ad7c42d306983695807b",
+      "matches": [
+        {
+          "document": "umc-20201231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1033767/000156459021021578/umc-20201231.xml",
+          "index_row": [
+            "9",
+            "XBRL INSTANCE DOCUMENT",
+            "umc-20201231.xml",
+            "EX-101.INS",
+            "16424710"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2017-12-31",
+      "accession": "0000950103-18-003940",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010318003940/0000950103-18-003940-index.htm",
+      "index_bytes": 12873,
+      "index_sha256": "34f72a5dc69912ae7fa61519e58adf2663566e52e3d2e51f9c263f9aab174a12",
+      "matches": [
+        {
+          "document": "asx-20171231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010318003940/asx-20171231.xml",
+          "index_row": [
+            "8",
+            "XBRL INSTANCE FILE",
+            "asx-20171231.xml",
+            "EX-101.INS",
+            "7335632"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2018-12-31",
+      "accession": "0000950103-19-005149",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/0000950103-19-005149-index.htm",
+      "index_bytes": 13926,
+      "index_sha256": "5df0ed4bf3b72df1b3f4020ccc250ec045f106986e287e94ade547f06e444121",
+      "matches": [
+        {
+          "document": "asx-20181231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/asx-20181231.xml",
+          "index_row": [
+            "14",
+            "XBRL INSTANCE FILE",
+            "asx-20181231.xml",
+            "EX-101.INS",
+            "8165928"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2019-12-31",
+      "accession": "0000950103-20-006422",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010320006422/0000950103-20-006422-index.htm",
+      "index_bytes": 14270,
+      "index_sha256": "43350aae4d48701e9edbafd7f226654ef1079ba1c8332fa542c4d9a2471e1409",
+      "matches": [
+        {
+          "document": "asx-20191231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010320006422/asx-20191231.xml",
+          "index_row": [
+            "11",
+            "XBRL INSTANCE FILE",
+            "asx-20191231.xml",
+            "EX-101.INS",
+            "21290811"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2020-12-31",
+      "accession": "0000950103-21-005259",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010321005259/0000950103-21-005259-index.htm",
+      "index_bytes": 13935,
+      "index_sha256": "4672d98f3d3abdc5a5b25469af43ea4aefd6269f2275370058caf4f9a17ec613",
+      "matches": [
+        {
+          "document": "asx-20201231.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010321005259/asx-20201231.xml",
+          "index_row": [
+            "14",
+            "XBRL INSTANCE FILE",
+            "asx-20201231.xml",
+            "EX-101.INS",
+            "12875952"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    }
+  ],
+  "counts": {
+    "indexes_read": 12,
+    "unique_original_instances": 12,
+    "instance_bodies_read": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "next_minimum_work": "Freeze source-only audit of these 12 exact submitted EX-101.INS XML objects for issuer, TWD unit, inventory instant and annual revenue duration; no later comparison or market labels."
+}

@@ -1,0 +1,258 @@
+{
+  "status": "frozen_original_body_audit",
+  "purpose": "Test whether the original FY2017-FY2023 20-F bodies, without later comparative backfill, contain same-issuer TWD consolidated inventory instant and full-year revenue duration.",
+  "locator_path": "historical_filing_locator_20261022.json",
+  "locator_sha256": "dabc21bed22d6b95629116d06590f4c4305fbfdc2e267bb922243e496511e614",
+  "sources": [
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2017-12-31",
+      "accession": "0001193125-18-121866",
+      "primary_document": "d459142d20f.htm",
+      "filing_date": "2018-04-19",
+      "acceptance_datetime_api": "2018-04-19T15:56:01.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312518121866/0001193125-18-121866-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312518121866/d459142d20f.htm"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2018-12-31",
+      "accession": "0001193125-19-108390",
+      "primary_document": "d665387d20f.htm",
+      "filing_date": "2019-04-17",
+      "acceptance_datetime_api": "2019-04-17T15:21:35.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312519108390/0001193125-19-108390-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312519108390/d665387d20f.htm"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-107579",
+      "primary_document": "d831201d20f.htm",
+      "filing_date": "2020-04-15",
+      "acceptance_datetime_api": "2020-04-15T14:35:58.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312520107579/0001193125-20-107579-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312520107579/d831201d20f.htm"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2020-12-31",
+      "accession": "0001193125-21-118512",
+      "primary_document": "d94821d20f.htm",
+      "filing_date": "2021-04-16",
+      "acceptance_datetime_api": "2021-04-16T15:58:57.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312521118512/0001193125-21-118512-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312521118512/d94821d20f.htm"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2021-12-31",
+      "accession": "0001193125-22-104891",
+      "primary_document": "d204786d20f.htm",
+      "filing_date": "2022-04-14",
+      "acceptance_datetime_api": "2022-04-14T14:49:10.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312522104891/0001193125-22-104891-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312522104891/d204786d20f.htm"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2022-12-31",
+      "accession": "0001193125-23-107214",
+      "primary_document": "d428519d20f.htm",
+      "filing_date": "2023-04-20",
+      "acceptance_datetime_api": "2023-04-20T14:19:24.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312523107214/0001193125-23-107214-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312523107214/d428519d20f.htm"
+    },
+    {
+      "ticker": "TSM",
+      "cik": 1046179,
+      "period_end": "2023-12-31",
+      "accession": "0001193125-24-099840",
+      "primary_document": "d592628d20f.htm",
+      "filing_date": "2024-04-18",
+      "acceptance_datetime_api": "2024-04-18T14:27:53.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312524099840/0001193125-24-099840-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312524099840/d592628d20f.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2017-12-31",
+      "accession": "0001193125-18-132616",
+      "primary_document": "d484523d20f.htm",
+      "filing_date": "2018-04-26",
+      "acceptance_datetime_api": "2018-04-26T14:11:40.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312518132616/0001193125-18-132616-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312518132616/d484523d20f.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2018-12-31",
+      "accession": "0001193125-19-117861",
+      "primary_document": "d603585d20f.htm",
+      "filing_date": "2019-04-25",
+      "acceptance_datetime_api": "2019-04-25T14:42:13.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312519117861/0001193125-19-117861-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312519117861/d603585d20f.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2019-12-31",
+      "accession": "0001193125-20-121853",
+      "primary_document": "d820941d20f.htm",
+      "filing_date": "2020-04-28",
+      "acceptance_datetime_api": "2020-04-28T14:47:33.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312520121853/0001193125-20-121853-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312520121853/d820941d20f.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2020-12-31",
+      "accession": "0001564590-21-021578",
+      "primary_document": "umc-20f_20201231.htm",
+      "filing_date": "2021-04-29",
+      "acceptance_datetime_api": "2021-04-29T14:48:05.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000156459021021578/0001564590-21-021578-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000156459021021578/umc-20f_20201231.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2021-12-31",
+      "accession": "0001193125-22-125284",
+      "primary_document": "d168667d20f.htm",
+      "filing_date": "2022-04-28",
+      "acceptance_datetime_api": "2022-04-28T15:02:07.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312522125284/0001193125-22-125284-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312522125284/d168667d20f.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2022-12-31",
+      "accession": "0001193125-23-119772",
+      "primary_document": "d389572d20f.htm",
+      "filing_date": "2023-04-27",
+      "acceptance_datetime_api": "2023-04-27T14:16:25.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312523119772/0001193125-23-119772-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312523119772/d389572d20f.htm"
+    },
+    {
+      "ticker": "UMC",
+      "cik": 1033767,
+      "period_end": "2023-12-31",
+      "accession": "0001193125-24-111429",
+      "primary_document": "d448612d20f.htm",
+      "filing_date": "2024-04-25",
+      "acceptance_datetime_api": "2024-04-25T14:16:44.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312524111429/0001193125-24-111429-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1033767/000119312524111429/d448612d20f.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2017-12-31",
+      "accession": "0000950103-18-003940",
+      "primary_document": "dp87030_20f.htm",
+      "filing_date": "2018-03-28",
+      "acceptance_datetime_api": "2018-03-29T01:29:52.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010318003940/0000950103-18-003940-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010318003940/dp87030_20f.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2018-12-31",
+      "accession": "0000950103-19-005149",
+      "primary_document": "dp102525_20f.htm",
+      "filing_date": "2019-04-26",
+      "acceptance_datetime_api": "2019-04-26T14:54:32.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/0000950103-19-005149-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010319005149/dp102525_20f.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2019-12-31",
+      "accession": "0000950103-20-006422",
+      "primary_document": "dp121474_20f.htm",
+      "filing_date": "2020-03-31",
+      "acceptance_datetime_api": "2020-03-31T14:13:34.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010320006422/0000950103-20-006422-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010320006422/dp121474_20f.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2020-12-31",
+      "accession": "0000950103-21-005259",
+      "primary_document": "dp146696_20f.htm",
+      "filing_date": "2021-04-06",
+      "acceptance_datetime_api": "2021-04-06T14:02:31.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010321005259/0000950103-21-005259-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000095010321005259/dp146696_20f.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2021-12-31",
+      "accession": "0001193125-22-087341",
+      "primary_document": "d272809d20f.htm",
+      "filing_date": "2022-03-29",
+      "acceptance_datetime_api": "2022-03-29T14:18:43.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312522087341/0001193125-22-087341-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312522087341/d272809d20f.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2022-12-31",
+      "accession": "0001193125-23-095811",
+      "primary_document": "d418771d20f.htm",
+      "filing_date": "2023-04-10",
+      "acceptance_datetime_api": "2023-04-10T15:11:36.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312523095811/0001193125-23-095811-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312523095811/d418771d20f.htm"
+    },
+    {
+      "ticker": "ASX",
+      "cik": 1122411,
+      "period_end": "2023-12-31",
+      "accession": "0001193125-24-085380",
+      "primary_document": "d434934d20f.htm",
+      "filing_date": "2024-04-03",
+      "acceptance_datetime_api": "2024-04-03T14:10:20.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312524085380/0001193125-24-085380-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1122411/000119312524085380/d434934d20f.htm"
+    }
+  ],
+  "budget": {
+    "primary_filing_bodies": 21,
+    "other_source_objects": 0,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "frozen_tags": [
+    "ifrs-full:Inventories",
+    "ifrs-full:Revenue"
+  ],
+  "checks": [
+    "Hash exact original HTML bytes and bind to CIK, accession, period and primary document.",
+    "Require a no-dimensional-member issuer context for reported fiscal-year-end inventory and full-year revenue; require one TWD fact for each.",
+    "Find original report statement currency/convenience-USD disclosure; mark unclear when absent.",
+    "Do not select alternate tags, same-year replacements, later comparative facts, or another currency by value coverage or returns.",
+    "Record any missing, duplicate, or conflicting original contexts as unknown rather than repair in this audit."
+  ],
+  "decision_rule": "A year passes only if both frozen tags have exact issuer/period/TWD contexts in its own original 20-F and the original document supports TWD reporting denomination. This is source semantics only, not historical ETF identity, first-public timing, factor performance or model-input qualification."
+}
