@@ -1,0 +1,19 @@
+{
+  "experiment": "ibkr_soxx_option_skew_forward_source_20261022",
+  "status": "needs_regular_hours_option_market_data_check",
+  "decision": "source_preflight_only_no_skew_factor",
+  "result": "sample_result.json",
+  "recorder_status": "not_started_source_qualification_only",
+  "objective_achieved": false,
+  "qualified_forward_days": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

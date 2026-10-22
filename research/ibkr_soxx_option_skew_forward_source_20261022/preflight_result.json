@@ -1,0 +1,19 @@
+{
+  "status": "exact_SOXX_US_OPT_contract_and_regular_expiration_found",
+  "observed_at_utc": "2026-10-22T04:44:10.778236+00:00",
+  "source": "Connected IBKR connector read-only",
+  "exact_underlying_description": "ISHARES SEMICONDUCTOR ETF",
+  "country_code": "US",
+  "primary_exchange": "NASDAQ",
+  "option_enabled": true,
+  "option_exchanges": [
+    "SMART",
+    "IBUSOPT"
+  ],
+  "nearest_regular_expiration": "2026-11-20",
+  "calendar_days_from_2026_10_22": 29,
+  "option_quote_or_entitlement_tested": false,
+  "market_outcome_reads": 0,
+  "orders_created": 0,
+  "boundary": "Chain metadata does not establish IV/Delta availability, quote freshness or historical coverage."
+}

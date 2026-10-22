@@ -1,0 +1,1587 @@
+{
+  "schema_version": 1,
+  "source": "Connected IBKR read-only market-data connector",
+  "underlying_snapshot": {
+    "last": {
+      "price": 495,
+      "ts": 1792644060,
+      "halted": false,
+      "is_close": false
+    },
+    "top-status": {
+      "status": "REALTIME"
+    },
+    "prior-close": {},
+    "bid-ask": {
+      "bid": 495.25,
+      "bid_size": 100,
+      "ask": 495.58,
+      "ask_size": 60
+    }
+  },
+  "option_chain": {
+    "currency": "USD",
+    "exchange": "SMART",
+    "contracts": [
+      {
+        "strike": "165",
+        "call_contract_id_ex": "852791181@SMART",
+        "call_contract_id": 852791181,
+        "call_description": "SOXX NOV 20 '26 165 Call",
+        "put_contract_id_ex": "852791241@SMART",
+        "put_contract_id": 852791241,
+        "put_description": "SOXX NOV 20 '26 165 Put"
+      },
+      {
+        "strike": "170",
+        "call_contract_id_ex": "852390453@SMART",
+        "call_contract_id": 852390453,
+        "call_description": "SOXX NOV 20 '26 170 Call",
+        "put_contract_id_ex": "852390483@SMART",
+        "put_contract_id": 852390483,
+        "put_description": "SOXX NOV 20 '26 170 Put"
+      },
+      {
+        "strike": "175",
+        "call_contract_id_ex": "851606098@SMART",
+        "call_contract_id": 851606098,
+        "call_description": "SOXX NOV 20 '26 175 Call",
+        "put_contract_id_ex": "851606143@SMART",
+        "put_contract_id": 851606143,
+        "put_description": "SOXX NOV 20 '26 175 Put"
+      },
+      {
+        "strike": "180",
+        "call_contract_id_ex": "850099875@SMART",
+        "call_contract_id": 850099875,
+        "call_description": "SOXX NOV 20 '26 180 Call",
+        "put_contract_id_ex": "850100147@SMART",
+        "put_contract_id": 850100147,
+        "put_description": "SOXX NOV 20 '26 180 Put"
+      },
+      {
+        "strike": "185",
+        "call_contract_id_ex": "850099904@SMART",
+        "call_contract_id": 850099904,
+        "call_description": "SOXX NOV 20 '26 185 Call",
+        "put_contract_id_ex": "850100181@SMART",
+        "put_contract_id": 850100181,
+        "put_description": "SOXX NOV 20 '26 185 Put"
+      },
+      {
+        "strike": "190",
+        "call_contract_id_ex": "850099938@SMART",
+        "call_contract_id": 850099938,
+        "call_description": "SOXX NOV 20 '26 190 Call",
+        "put_contract_id_ex": "850100215@SMART",
+        "put_contract_id": 850100215,
+        "put_description": "SOXX NOV 20 '26 190 Put"
+      },
+      {
+        "strike": "195",
+        "call_contract_id_ex": "850099964@SMART",
+        "call_contract_id": 850099964,
+        "call_description": "SOXX NOV 20 '26 195 Call",
+        "put_contract_id_ex": "850100252@SMART",
+        "put_contract_id": 850100252,
+        "put_description": "SOXX NOV 20 '26 195 Put"
+      },
+      {
+        "strike": "200",
+        "call_contract_id_ex": "849286035@SMART",
+        "call_contract_id": 849286035,
+        "call_description": "SOXX NOV 20 '26 200 Call",
+        "put_contract_id_ex": "849288132@SMART",
+        "put_contract_id": 849288132,
+        "put_description": "SOXX NOV 20 '26 200 Put"
+      },
+      {
+        "strike": "205",
+        "call_contract_id_ex": "849286078@SMART",
+        "call_contract_id": 849286078,
+        "call_description": "SOXX NOV 20 '26 205 Call",
+        "put_contract_id_ex": "849288183@SMART",
+        "put_contract_id": 849288183,
+        "put_description": "SOXX NOV 20 '26 205 Put"
+      },
+      {
+        "strike": "210",
+        "call_contract_id_ex": "849286113@SMART",
+        "call_contract_id": 849286113,
+        "call_description": "SOXX NOV 20 '26 210 Call",
+        "put_contract_id_ex": "849288231@SMART",
+        "put_contract_id": 849288231,
+        "put_description": "SOXX NOV 20 '26 210 Put"
+      },
+      {
+        "strike": "215",
+        "call_contract_id_ex": "849286146@SMART",
+        "call_contract_id": 849286146,
+        "call_description": "SOXX NOV 20 '26 215 Call",
+        "put_contract_id_ex": "849288267@SMART",
+        "put_contract_id": 849288267,
+        "put_description": "SOXX NOV 20 '26 215 Put"
+      },
+      {
+        "strike": "220",
+        "call_contract_id_ex": "849286193@SMART",
+        "call_contract_id": 849286193,
+        "call_description": "SOXX NOV 20 '26 220 Call",
+        "put_contract_id_ex": "849288311@SMART",
+        "put_contract_id": 849288311,
+        "put_description": "SOXX NOV 20 '26 220 Put"
+      },
+      {
+        "strike": "225",
+        "call_contract_id_ex": "849286237@SMART",
+        "call_contract_id": 849286237,
+        "call_description": "SOXX NOV 20 '26 225 Call",
+        "put_contract_id_ex": "849288345@SMART",
+        "put_contract_id": 849288345,
+        "put_description": "SOXX NOV 20 '26 225 Put"
+      },
+      {
+        "strike": "230",
+        "call_contract_id_ex": "849286277@SMART",
+        "call_contract_id": 849286277,
+        "call_description": "SOXX NOV 20 '26 230 Call",
+        "put_contract_id_ex": "849288387@SMART",
+        "put_contract_id": 849288387,
+        "put_description": "SOXX NOV 20 '26 230 Put"
+      },
+      {
+        "strike": "235",
+        "call_contract_id_ex": "849286317@SMART",
+        "call_contract_id": 849286317,
+        "call_description": "SOXX NOV 20 '26 235 Call",
+        "put_contract_id_ex": "849288430@SMART",
+        "put_contract_id": 849288430,
+        "put_description": "SOXX NOV 20 '26 235 Put"
+      },
+      {
+        "strike": "240",
+        "call_contract_id_ex": "849286352@SMART",
+        "call_contract_id": 849286352,
+        "call_description": "SOXX NOV 20 '26 240 Call",
+        "put_contract_id_ex": "849288469@SMART",
+        "put_contract_id": 849288469,
+        "put_description": "SOXX NOV 20 '26 240 Put"
+      },
+      {
+        "strike": "245",
+        "call_contract_id_ex": "849286391@SMART",
+        "call_contract_id": 849286391,
+        "call_description": "SOXX NOV 20 '26 245 Call",
+        "put_contract_id_ex": "849288512@SMART",
+        "put_contract_id": 849288512,
+        "put_description": "SOXX NOV 20 '26 245 Put"
+      },
+      {
+        "strike": "250",
+        "call_contract_id_ex": "849286412@SMART",
+        "call_contract_id": 849286412,
+        "call_description": "SOXX NOV 20 '26 250 Call",
+        "put_contract_id_ex": "849288551@SMART",
+        "put_contract_id": 849288551,
+        "put_description": "SOXX NOV 20 '26 250 Put"
+      },
+      {
+        "strike": "255",
+        "call_contract_id_ex": "849286453@SMART",
+        "call_contract_id": 849286453,
+        "call_description": "SOXX NOV 20 '26 255 Call",
+        "put_contract_id_ex": "849288594@SMART",
+        "put_contract_id": 849288594,
+        "put_description": "SOXX NOV 20 '26 255 Put"
+      },
+      {
+        "strike": "260",
+        "call_contract_id_ex": "849286489@SMART",
+        "call_contract_id": 849286489,
+        "call_description": "SOXX NOV 20 '26 260 Call",
+        "put_contract_id_ex": "849288639@SMART",
+        "put_contract_id": 849288639,
+        "put_description": "SOXX NOV 20 '26 260 Put"
+      },
+      {
+        "strike": "265",
+        "call_contract_id_ex": "849286529@SMART",
+        "call_contract_id": 849286529,
+        "call_description": "SOXX NOV 20 '26 265 Call",
+        "put_contract_id_ex": "849288672@SMART",
+        "put_contract_id": 849288672,
+        "put_description": "SOXX NOV 20 '26 265 Put"
+      },
+      {
+        "strike": "270",
+        "call_contract_id_ex": "849286559@SMART",
+        "call_contract_id": 849286559,
+        "call_description": "SOXX NOV 20 '26 270 Call",
+        "put_contract_id_ex": "849288712@SMART",
+        "put_contract_id": 849288712,
+        "put_description": "SOXX NOV 20 '26 270 Put"
+      },
+      {
+        "strike": "275",
+        "call_contract_id_ex": "849286602@SMART",
+        "call_contract_id": 849286602,
+        "call_description": "SOXX NOV 20 '26 275 Call",
+        "put_contract_id_ex": "849288756@SMART",
+        "put_contract_id": 849288756,
+        "put_description": "SOXX NOV 20 '26 275 Put"
+      },
+      {
+        "strike": "280",
+        "call_contract_id_ex": "849286632@SMART",
+        "call_contract_id": 849286632,
+        "call_description": "SOXX NOV 20 '26 280 Call",
+        "put_contract_id_ex": "849288797@SMART",
+        "put_contract_id": 849288797,
+        "put_description": "SOXX NOV 20 '26 280 Put"
+      },
+      {
+        "strike": "285",
+        "call_contract_id_ex": "849286666@SMART",
+        "call_contract_id": 849286666,
+        "call_description": "SOXX NOV 20 '26 285 Call",
+        "put_contract_id_ex": "849288842@SMART",
+        "put_contract_id": 849288842,
+        "put_description": "SOXX NOV 20 '26 285 Put"
+      },
+      {
+        "strike": "290",
+        "call_contract_id_ex": "849286696@SMART",
+        "call_contract_id": 849286696,
+        "call_description": "SOXX NOV 20 '26 290 Call",
+        "put_contract_id_ex": "849288883@SMART",
+        "put_contract_id": 849288883,
+        "put_description": "SOXX NOV 20 '26 290 Put"
+      },
+      {
+        "strike": "295",
+        "call_contract_id_ex": "849286731@SMART",
+        "call_contract_id": 849286731,
+        "call_description": "SOXX NOV 20 '26 295 Call",
+        "put_contract_id_ex": "849288927@SMART",
+        "put_contract_id": 849288927,
+        "put_description": "SOXX NOV 20 '26 295 Put"
+      },
+      {
+        "strike": "300",
+        "call_contract_id_ex": "849286755@SMART",
+        "call_contract_id": 849286755,
+        "call_description": "SOXX NOV 20 '26 300 Call",
+        "put_contract_id_ex": "849288972@SMART",
+        "put_contract_id": 849288972,
+        "put_description": "SOXX NOV 20 '26 300 Put"
+      },
+      {
+        "strike": "305",
+        "call_contract_id_ex": "849286786@SMART",
+        "call_contract_id": 849286786,
+        "call_description": "SOXX NOV 20 '26 305 Call",
+        "put_contract_id_ex": "849289013@SMART",
+        "put_contract_id": 849289013,
+        "put_description": "SOXX NOV 20 '26 305 Put"
+      },
+      {
+        "strike": "310",
+        "call_contract_id_ex": "849286821@SMART",
+        "call_contract_id": 849286821,
+        "call_description": "SOXX NOV 20 '26 310 Call",
+        "put_contract_id_ex": "849289083@SMART",
+        "put_contract_id": 849289083,
+        "put_description": "SOXX NOV 20 '26 310 Put"
+      },
+      {
+        "strike": "315",
+        "call_contract_id_ex": "849286857@SMART",
+        "call_contract_id": 849286857,
+        "call_description": "SOXX NOV 20 '26 315 Call",
+        "put_contract_id_ex": "849289126@SMART",
+        "put_contract_id": 849289126,
+        "put_description": "SOXX NOV 20 '26 315 Put"
+      },
+      {
+        "strike": "320",
+        "call_contract_id_ex": "849286894@SMART",
+        "call_contract_id": 849286894,
+        "call_description": "SOXX NOV 20 '26 320 Call",
+        "put_contract_id_ex": "849289172@SMART",
+        "put_contract_id": 849289172,
+        "put_description": "SOXX NOV 20 '26 320 Put"
+      },
+      {
+        "strike": "325",
+        "call_contract_id_ex": "849286913@SMART",
+        "call_contract_id": 849286913,
+        "call_description": "SOXX NOV 20 '26 325 Call",
+        "put_contract_id_ex": "849289221@SMART",
+        "put_contract_id": 849289221,
+        "put_description": "SOXX NOV 20 '26 325 Put"
+      },
+      {
+        "strike": "330",
+        "call_contract_id_ex": "849286950@SMART",
+        "call_contract_id": 849286950,
+        "call_description": "SOXX NOV 20 '26 330 Call",
+        "put_contract_id_ex": "849289250@SMART",
+        "put_contract_id": 849289250,
+        "put_description": "SOXX NOV 20 '26 330 Put"
+      },
+      {
+        "strike": "335",
+        "call_contract_id_ex": "849286981@SMART",
+        "call_contract_id": 849286981,
+        "call_description": "SOXX NOV 20 '26 335 Call",
+        "put_contract_id_ex": "849289296@SMART",
+        "put_contract_id": 849289296,
+        "put_description": "SOXX NOV 20 '26 335 Put"
+      },
+      {
+        "strike": "340",
+        "call_contract_id_ex": "849287016@SMART",
+        "call_contract_id": 849287016,
+        "call_description": "SOXX NOV 20 '26 340 Call",
+        "put_contract_id_ex": "849289346@SMART",
+        "put_contract_id": 849289346,
+        "put_description": "SOXX NOV 20 '26 340 Put"
+      },
+      {
+        "strike": "345",
+        "call_contract_id_ex": "849287043@SMART",
+        "call_contract_id": 849287043,
+        "call_description": "SOXX NOV 20 '26 345 Call",
+        "put_contract_id_ex": "849289396@SMART",
+        "put_contract_id": 849289396,
+        "put_description": "SOXX NOV 20 '26 345 Put"
+      },
+      {
+        "strike": "350",
+        "call_contract_id_ex": "849287063@SMART",
+        "call_contract_id": 849287063,
+        "call_description": "SOXX NOV 20 '26 350 Call",
+        "put_contract_id_ex": "849289441@SMART",
+        "put_contract_id": 849289441,
+        "put_description": "SOXX NOV 20 '26 350 Put"
+      },
+      {
+        "strike": "355",
+        "call_contract_id_ex": "849287088@SMART",
+        "call_contract_id": 849287088,
+        "call_description": "SOXX NOV 20 '26 355 Call",
+        "put_contract_id_ex": "849289483@SMART",
+        "put_contract_id": 849289483,
+        "put_description": "SOXX NOV 20 '26 355 Put"
+      },
+      {
+        "strike": "360",
+        "call_contract_id_ex": "849287126@SMART",
+        "call_contract_id": 849287126,
+        "call_description": "SOXX NOV 20 '26 360 Call",
+        "put_contract_id_ex": "849289522@SMART",
+        "put_contract_id": 849289522,
+        "put_description": "SOXX NOV 20 '26 360 Put"
+      },
+      {
+        "strike": "365",
+        "call_contract_id_ex": "849287166@SMART",
+        "call_contract_id": 849287166,
+        "call_description": "SOXX NOV 20 '26 365 Call",
+        "put_contract_id_ex": "849289556@SMART",
+        "put_contract_id": 849289556,
+        "put_description": "SOXX NOV 20 '26 365 Put"
+      },
+      {
+        "strike": "370",
+        "call_contract_id_ex": "849287189@SMART",
+        "call_contract_id": 849287189,
+        "call_description": "SOXX NOV 20 '26 370 Call",
+        "put_contract_id_ex": "849289603@SMART",
+        "put_contract_id": 849289603,
+        "put_description": "SOXX NOV 20 '26 370 Put"
+      },
+      {
+        "strike": "375",
+        "call_contract_id_ex": "849287224@SMART",
+        "call_contract_id": 849287224,
+        "call_description": "SOXX NOV 20 '26 375 Call",
+        "put_contract_id_ex": "849289648@SMART",
+        "put_contract_id": 849289648,
+        "put_description": "SOXX NOV 20 '26 375 Put"
+      },
+      {
+        "strike": "380",
+        "call_contract_id_ex": "849287266@SMART",
+        "call_contract_id": 849287266,
+        "call_description": "SOXX NOV 20 '26 380 Call",
+        "put_contract_id_ex": "849289706@SMART",
+        "put_contract_id": 849289706,
+        "put_description": "SOXX NOV 20 '26 380 Put"
+      },
+      {
+        "strike": "385",
+        "call_contract_id_ex": "849287302@SMART",
+        "call_contract_id": 849287302,
+        "call_description": "SOXX NOV 20 '26 385 Call",
+        "put_contract_id_ex": "849289750@SMART",
+        "put_contract_id": 849289750,
+        "put_description": "SOXX NOV 20 '26 385 Put"
+      },
+      {
+        "strike": "390",
+        "call_contract_id_ex": "849287339@SMART",
+        "call_contract_id": 849287339,
+        "call_description": "SOXX NOV 20 '26 390 Call",
+        "put_contract_id_ex": "849289795@SMART",
+        "put_contract_id": 849289795,
+        "put_description": "SOXX NOV 20 '26 390 Put"
+      },
+      {
+        "strike": "395",
+        "call_contract_id_ex": "849287368@SMART",
+        "call_contract_id": 849287368,
+        "call_description": "SOXX NOV 20 '26 395 Call",
+        "put_contract_id_ex": "849289850@SMART",
+        "put_contract_id": 849289850,
+        "put_description": "SOXX NOV 20 '26 395 Put"
+      },
+      {
+        "strike": "400",
+        "call_contract_id_ex": "849287397@SMART",
+        "call_contract_id": 849287397,
+        "call_description": "SOXX NOV 20 '26 400 Call",
+        "put_contract_id_ex": "849289910@SMART",
+        "put_contract_id": 849289910,
+        "put_description": "SOXX NOV 20 '26 400 Put"
+      },
+      {
+        "strike": "405",
+        "call_contract_id_ex": "849287429@SMART",
+        "call_contract_id": 849287429,
+        "call_description": "SOXX NOV 20 '26 405 Call",
+        "put_contract_id_ex": "849289955@SMART",
+        "put_contract_id": 849289955,
+        "put_description": "SOXX NOV 20 '26 405 Put"
+      },
+      {
+        "strike": "410",
+        "call_contract_id_ex": "849287464@SMART",
+        "call_contract_id": 849287464,
+        "call_description": "SOXX NOV 20 '26 410 Call",
+        "put_contract_id_ex": "849290008@SMART",
+        "put_contract_id": 849290008,
+        "put_description": "SOXX NOV 20 '26 410 Put"
+      },
+      {
+        "strike": "415",
+        "call_contract_id_ex": "849287502@SMART",
+        "call_contract_id": 849287502,
+        "call_description": "SOXX NOV 20 '26 415 Call",
+        "put_contract_id_ex": "849290067@SMART",
+        "put_contract_id": 849290067,
+        "put_description": "SOXX NOV 20 '26 415 Put"
+      },
+      {
+        "strike": "420",
+        "call_contract_id_ex": "849287529@SMART",
+        "call_contract_id": 849287529,
+        "call_description": "SOXX NOV 20 '26 420 Call",
+        "put_contract_id_ex": "849290123@SMART",
+        "put_contract_id": 849290123,
+        "put_description": "SOXX NOV 20 '26 420 Put"
+      },
+      {
+        "strike": "425",
+        "call_contract_id_ex": "849287559@SMART",
+        "call_contract_id": 849287559,
+        "call_description": "SOXX NOV 20 '26 425 Call",
+        "put_contract_id_ex": "849290168@SMART",
+        "put_contract_id": 849290168,
+        "put_description": "SOXX NOV 20 '26 425 Put"
+      },
+      {
+        "strike": "430",
+        "call_contract_id_ex": "849287584@SMART",
+        "call_contract_id": 849287584,
+        "call_description": "SOXX NOV 20 '26 430 Call",
+        "put_contract_id_ex": "849290227@SMART",
+        "put_contract_id": 849290227,
+        "put_description": "SOXX NOV 20 '26 430 Put"
+      },
+      {
+        "strike": "435",
+        "call_contract_id_ex": "849287625@SMART",
+        "call_contract_id": 849287625,
+        "call_description": "SOXX NOV 20 '26 435 Call",
+        "put_contract_id_ex": "849290266@SMART",
+        "put_contract_id": 849290266,
+        "put_description": "SOXX NOV 20 '26 435 Put"
+      },
+      {
+        "strike": "440",
+        "call_contract_id_ex": "849287664@SMART",
+        "call_contract_id": 849287664,
+        "call_description": "SOXX NOV 20 '26 440 Call",
+        "put_contract_id_ex": "849290324@SMART",
+        "put_contract_id": 849290324,
+        "put_description": "SOXX NOV 20 '26 440 Put"
+      },
+      {
+        "strike": "445",
+        "call_contract_id_ex": "849287692@SMART",
+        "call_contract_id": 849287692,
+        "call_description": "SOXX NOV 20 '26 445 Call",
+        "put_contract_id_ex": "849290380@SMART",
+        "put_contract_id": 849290380,
+        "put_description": "SOXX NOV 20 '26 445 Put"
+      },
+      {
+        "strike": "450",
+        "call_contract_id_ex": "849287726@SMART",
+        "call_contract_id": 849287726,
+        "call_description": "SOXX NOV 20 '26 450 Call",
+        "put_contract_id_ex": "849290431@SMART",
+        "put_contract_id": 849290431,
+        "put_description": "SOXX NOV 20 '26 450 Put"
+      },
+      {
+        "strike": "455",
+        "call_contract_id_ex": "849287769@SMART",
+        "call_contract_id": 849287769,
+        "call_description": "SOXX NOV 20 '26 455 Call",
+        "put_contract_id_ex": "849290491@SMART",
+        "put_contract_id": 849290491,
+        "put_description": "SOXX NOV 20 '26 455 Put"
+      },
+      {
+        "strike": "460",
+        "call_contract_id_ex": "849287803@SMART",
+        "call_contract_id": 849287803,
+        "call_description": "SOXX NOV 20 '26 460 Call",
+        "put_contract_id_ex": "849290530@SMART",
+        "put_contract_id": 849290530,
+        "put_description": "SOXX NOV 20 '26 460 Put"
+      },
+      {
+        "strike": "465",
+        "call_contract_id_ex": "849287834@SMART",
+        "call_contract_id": 849287834,
+        "call_description": "SOXX NOV 20 '26 465 Call",
+        "put_contract_id_ex": "849290576@SMART",
+        "put_contract_id": 849290576,
+        "put_description": "SOXX NOV 20 '26 465 Put"
+      },
+      {
+        "strike": "470",
+        "call_contract_id_ex": "849287864@SMART",
+        "call_contract_id": 849287864,
+        "call_description": "SOXX NOV 20 '26 470 Call",
+        "put_contract_id_ex": "849290626@SMART",
+        "put_contract_id": 849290626,
+        "put_description": "SOXX NOV 20 '26 470 Put"
+      },
+      {
+        "strike": "475",
+        "call_contract_id_ex": "849287911@SMART",
+        "call_contract_id": 849287911,
+        "call_description": "SOXX NOV 20 '26 475 Call",
+        "put_contract_id_ex": "849290671@SMART",
+        "put_contract_id": 849290671,
+        "put_description": "SOXX NOV 20 '26 475 Put"
+      },
+      {
+        "strike": "480",
+        "call_contract_id_ex": "849287944@SMART",
+        "call_contract_id": 849287944,
+        "call_description": "SOXX NOV 20 '26 480 Call",
+        "put_contract_id_ex": "849290717@SMART",
+        "put_contract_id": 849290717,
+        "put_description": "SOXX NOV 20 '26 480 Put"
+      },
+      {
+        "strike": "482.5",
+        "call_contract_id_ex": "936274552@SMART",
+        "call_contract_id": 936274552,
+        "call_description": "SOXX NOV 20 '26 482.5 Call",
+        "put_contract_id_ex": "936275176@SMART",
+        "put_contract_id": 936275176,
+        "put_description": "SOXX NOV 20 '26 482.5 Put"
+      },
+      {
+        "strike": "485",
+        "call_contract_id_ex": "849287978@SMART",
+        "call_contract_id": 849287978,
+        "call_description": "SOXX NOV 20 '26 485 Call",
+        "put_contract_id_ex": "849290764@SMART",
+        "put_contract_id": 849290764,
+        "put_description": "SOXX NOV 20 '26 485 Put"
+      },
+      {
+        "strike": "487.5",
+        "call_contract_id_ex": "936274627@SMART",
+        "call_contract_id": 936274627,
+        "call_description": "SOXX NOV 20 '26 487.5 Call",
+        "put_contract_id_ex": "936275252@SMART",
+        "put_contract_id": 936275252,
+        "put_description": "SOXX NOV 20 '26 487.5 Put"
+      },
+      {
+        "strike": "490",
+        "call_contract_id_ex": "849288009@SMART",
+        "call_contract_id": 849288009,
+        "call_description": "SOXX NOV 20 '26 490 Call",
+        "put_contract_id_ex": "849290815@SMART",
+        "put_contract_id": 849290815,
+        "put_description": "SOXX NOV 20 '26 490 Put"
+      },
+      {
+        "strike": "492.5",
+        "call_contract_id_ex": "936274692@SMART",
+        "call_contract_id": 936274692,
+        "call_description": "SOXX NOV 20 '26 492.5 Call",
+        "put_contract_id_ex": "936275317@SMART",
+        "put_contract_id": 936275317,
+        "put_description": "SOXX NOV 20 '26 492.5 Put"
+      },
+      {
+        "strike": "495",
+        "call_contract_id_ex": "849288046@SMART",
+        "call_contract_id": 849288046,
+        "call_description": "SOXX NOV 20 '26 495 Call",
+        "put_contract_id_ex": "849290865@SMART",
+        "put_contract_id": 849290865,
+        "put_description": "SOXX NOV 20 '26 495 Put"
+      },
+      {
+        "strike": "497.5",
+        "call_contract_id_ex": "936274767@SMART",
+        "call_contract_id": 936274767,
+        "call_description": "SOXX NOV 20 '26 497.5 Call",
+        "put_contract_id_ex": "936275393@SMART",
+        "put_contract_id": 936275393,
+        "put_description": "SOXX NOV 20 '26 497.5 Put"
+      },
+      {
+        "strike": "500",
+        "call_contract_id_ex": "849288091@SMART",
+        "call_contract_id": 849288091,
+        "call_description": "SOXX NOV 20 '26 500 Call",
+        "put_contract_id_ex": "849290921@SMART",
+        "put_contract_id": 849290921,
+        "put_description": "SOXX NOV 20 '26 500 Put"
+      },
+      {
+        "strike": "502.5",
+        "call_contract_id_ex": "936274819@SMART",
+        "call_contract_id": 936274819,
+        "call_description": "SOXX NOV 20 '26 502.5 Call",
+        "put_contract_id_ex": "936275453@SMART",
+        "put_contract_id": 936275453,
+        "put_description": "SOXX NOV 20 '26 502.5 Put"
+      },
+      {
+        "strike": "505",
+        "call_contract_id_ex": "850100000@SMART",
+        "call_contract_id": 850100000,
+        "call_description": "SOXX NOV 20 '26 505 Call",
+        "put_contract_id_ex": "850100283@SMART",
+        "put_contract_id": 850100283,
+        "put_description": "SOXX NOV 20 '26 505 Put"
+      },
+      {
+        "strike": "507.5",
+        "call_contract_id_ex": "936274887@SMART",
+        "call_contract_id": 936274887,
+        "call_description": "SOXX NOV 20 '26 507.5 Call",
+        "put_contract_id_ex": "936275506@SMART",
+        "put_contract_id": 936275506,
+        "put_description": "SOXX NOV 20 '26 507.5 Put"
+      },
+      {
+        "strike": "510",
+        "call_contract_id_ex": "850100030@SMART",
+        "call_contract_id": 850100030,
+        "call_description": "SOXX NOV 20 '26 510 Call",
+        "put_contract_id_ex": "850100324@SMART",
+        "put_contract_id": 850100324,
+        "put_description": "SOXX NOV 20 '26 510 Put"
+      },
+      {
+        "strike": "512.5",
+        "call_contract_id_ex": "936274953@SMART",
+        "call_contract_id": 936274953,
+        "call_description": "SOXX NOV 20 '26 512.5 Call",
+        "put_contract_id_ex": "936275560@SMART",
+        "put_contract_id": 936275560,
+        "put_description": "SOXX NOV 20 '26 512.5 Put"
+      },
+      {
+        "strike": "515",
+        "call_contract_id_ex": "850100061@SMART",
+        "call_contract_id": 850100061,
+        "call_description": "SOXX NOV 20 '26 515 Call",
+        "put_contract_id_ex": "850100362@SMART",
+        "put_contract_id": 850100362,
+        "put_description": "SOXX NOV 20 '26 515 Put"
+      },
+      {
+        "strike": "517.5",
+        "call_contract_id_ex": "936274997@SMART",
+        "call_contract_id": 936274997,
+        "call_description": "SOXX NOV 20 '26 517.5 Call",
+        "put_contract_id_ex": "936275630@SMART",
+        "put_contract_id": 936275630,
+        "put_description": "SOXX NOV 20 '26 517.5 Put"
+      },
+      {
+        "strike": "520",
+        "call_contract_id_ex": "850100090@SMART",
+        "call_contract_id": 850100090,
+        "call_description": "SOXX NOV 20 '26 520 Call",
+        "put_contract_id_ex": "850100392@SMART",
+        "put_contract_id": 850100392,
+        "put_description": "SOXX NOV 20 '26 520 Put"
+      },
+      {
+        "strike": "522.5",
+        "call_contract_id_ex": "936275057@SMART",
+        "call_contract_id": 936275057,
+        "call_description": "SOXX NOV 20 '26 522.5 Call",
+        "put_contract_id_ex": "936275676@SMART",
+        "put_contract_id": 936275676,
+        "put_description": "SOXX NOV 20 '26 522.5 Put"
+      },
+      {
+        "strike": "525",
+        "call_contract_id_ex": "850100111@SMART",
+        "call_contract_id": 850100111,
+        "call_description": "SOXX NOV 20 '26 525 Call",
+        "put_contract_id_ex": "850100432@SMART",
+        "put_contract_id": 850100432,
+        "put_description": "SOXX NOV 20 '26 525 Put"
+      },
+      {
+        "strike": "527.5",
+        "call_contract_id_ex": "936275113@SMART",
+        "call_contract_id": 936275113,
+        "call_description": "SOXX NOV 20 '26 527.5 Call",
+        "put_contract_id_ex": "936275742@SMART",
+        "put_contract_id": 936275742,
+        "put_description": "SOXX NOV 20 '26 527.5 Put"
+      },
+      {
+        "strike": "530",
+        "call_contract_id_ex": "850971707@SMART",
+        "call_contract_id": 850971707,
+        "call_description": "SOXX NOV 20 '26 530 Call",
+        "put_contract_id_ex": "850971803@SMART",
+        "put_contract_id": 850971803,
+        "put_description": "SOXX NOV 20 '26 530 Put"
+      },
+      {
+        "strike": "535",
+        "call_contract_id_ex": "850971748@SMART",
+        "call_contract_id": 850971748,
+        "call_description": "SOXX NOV 20 '26 535 Call",
+        "put_contract_id_ex": "850971830@SMART",
+        "put_contract_id": 850971830,
+        "put_description": "SOXX NOV 20 '26 535 Put"
+      },
+      {
+        "strike": "540",
+        "call_contract_id_ex": "850971765@SMART",
+        "call_contract_id": 850971765,
+        "call_description": "SOXX NOV 20 '26 540 Call",
+        "put_contract_id_ex": "850971854@SMART",
+        "put_contract_id": 850971854,
+        "put_description": "SOXX NOV 20 '26 540 Put"
+      },
+      {
+        "strike": "545",
+        "call_contract_id_ex": "854760044@SMART",
+        "call_contract_id": 854760044,
+        "call_description": "SOXX NOV 20 '26 545 Call",
+        "put_contract_id_ex": "854760066@SMART",
+        "put_contract_id": 854760066,
+        "put_description": "SOXX NOV 20 '26 545 Put"
+      },
+      {
+        "strike": "550",
+        "call_contract_id_ex": "872958907@SMART",
+        "call_contract_id": 872958907,
+        "call_description": "SOXX NOV 20 '26 550 Call",
+        "put_contract_id_ex": "872959119@SMART",
+        "put_contract_id": 872959119,
+        "put_description": "SOXX NOV 20 '26 550 Put"
+      },
+      {
+        "strike": "555",
+        "call_contract_id_ex": "872958936@SMART",
+        "call_contract_id": 872958936,
+        "call_description": "SOXX NOV 20 '26 555 Call",
+        "put_contract_id_ex": "872959149@SMART",
+        "put_contract_id": 872959149,
+        "put_description": "SOXX NOV 20 '26 555 Put"
+      },
+      {
+        "strike": "560",
+        "call_contract_id_ex": "872958970@SMART",
+        "call_contract_id": 872958970,
+        "call_description": "SOXX NOV 20 '26 560 Call",
+        "put_contract_id_ex": "872959164@SMART",
+        "put_contract_id": 872959164,
+        "put_description": "SOXX NOV 20 '26 560 Put"
+      },
+      {
+        "strike": "565",
+        "call_contract_id_ex": "872958998@SMART",
+        "call_contract_id": 872958998,
+        "call_description": "SOXX NOV 20 '26 565 Call",
+        "put_contract_id_ex": "872959206@SMART",
+        "put_contract_id": 872959206,
+        "put_description": "SOXX NOV 20 '26 565 Put"
+      },
+      {
+        "strike": "570",
+        "call_contract_id_ex": "872959025@SMART",
+        "call_contract_id": 872959025,
+        "call_description": "SOXX NOV 20 '26 570 Call",
+        "put_contract_id_ex": "872959238@SMART",
+        "put_contract_id": 872959238,
+        "put_description": "SOXX NOV 20 '26 570 Put"
+      },
+      {
+        "strike": "575",
+        "call_contract_id_ex": "872959063@SMART",
+        "call_contract_id": 872959063,
+        "call_description": "SOXX NOV 20 '26 575 Call",
+        "put_contract_id_ex": "872959265@SMART",
+        "put_contract_id": 872959265,
+        "put_description": "SOXX NOV 20 '26 575 Put"
+      },
+      {
+        "strike": "580",
+        "call_contract_id_ex": "872959086@SMART",
+        "call_contract_id": 872959086,
+        "call_description": "SOXX NOV 20 '26 580 Call",
+        "put_contract_id_ex": "872959295@SMART",
+        "put_contract_id": 872959295,
+        "put_description": "SOXX NOV 20 '26 580 Put"
+      },
+      {
+        "strike": "585",
+        "call_contract_id_ex": "875062951@SMART",
+        "call_contract_id": 875062951,
+        "call_description": "SOXX NOV 20 '26 585 Call",
+        "put_contract_id_ex": "875063083@SMART",
+        "put_contract_id": 875063083,
+        "put_description": "SOXX NOV 20 '26 585 Put"
+      },
+      {
+        "strike": "590",
+        "call_contract_id_ex": "875062969@SMART",
+        "call_contract_id": 875062969,
+        "call_description": "SOXX NOV 20 '26 590 Call",
+        "put_contract_id_ex": "875063103@SMART",
+        "put_contract_id": 875063103,
+        "put_description": "SOXX NOV 20 '26 590 Put"
+      },
+      {
+        "strike": "595",
+        "call_contract_id_ex": "875062990@SMART",
+        "call_contract_id": 875062990,
+        "call_description": "SOXX NOV 20 '26 595 Call",
+        "put_contract_id_ex": "875063123@SMART",
+        "put_contract_id": 875063123,
+        "put_description": "SOXX NOV 20 '26 595 Put"
+      },
+      {
+        "strike": "600",
+        "call_contract_id_ex": "875063020@SMART",
+        "call_contract_id": 875063020,
+        "call_description": "SOXX NOV 20 '26 600 Call",
+        "put_contract_id_ex": "875063151@SMART",
+        "put_contract_id": 875063151,
+        "put_description": "SOXX NOV 20 '26 600 Put"
+      },
+      {
+        "strike": "605",
+        "call_contract_id_ex": "875063043@SMART",
+        "call_contract_id": 875063043,
+        "call_description": "SOXX NOV 20 '26 605 Call",
+        "put_contract_id_ex": "875063166@SMART",
+        "put_contract_id": 875063166,
+        "put_description": "SOXX NOV 20 '26 605 Put"
+      },
+      {
+        "strike": "610",
+        "call_contract_id_ex": "875063064@SMART",
+        "call_contract_id": 875063064,
+        "call_description": "SOXX NOV 20 '26 610 Call",
+        "put_contract_id_ex": "875063189@SMART",
+        "put_contract_id": 875063189,
+        "put_description": "SOXX NOV 20 '26 610 Put"
+      },
+      {
+        "strike": "615",
+        "call_contract_id_ex": "877148108@SMART",
+        "call_contract_id": 877148108,
+        "call_description": "SOXX NOV 20 '26 615 Call",
+        "put_contract_id_ex": "877148660@SMART",
+        "put_contract_id": 877148660,
+        "put_description": "SOXX NOV 20 '26 615 Put"
+      },
+      {
+        "strike": "620",
+        "call_contract_id_ex": "877148187@SMART",
+        "call_contract_id": 877148187,
+        "call_description": "SOXX NOV 20 '26 620 Call",
+        "put_contract_id_ex": "877148709@SMART",
+        "put_contract_id": 877148709,
+        "put_description": "SOXX NOV 20 '26 620 Put"
+      },
+      {
+        "strike": "625",
+        "call_contract_id_ex": "877148245@SMART",
+        "call_contract_id": 877148245,
+        "call_description": "SOXX NOV 20 '26 625 Call",
+        "put_contract_id_ex": "877148748@SMART",
+        "put_contract_id": 877148748,
+        "put_description": "SOXX NOV 20 '26 625 Put"
+      },
+      {
+        "strike": "630",
+        "call_contract_id_ex": "877148296@SMART",
+        "call_contract_id": 877148296,
+        "call_description": "SOXX NOV 20 '26 630 Call",
+        "put_contract_id_ex": "877148799@SMART",
+        "put_contract_id": 877148799,
+        "put_description": "SOXX NOV 20 '26 630 Put"
+      },
+      {
+        "strike": "635",
+        "call_contract_id_ex": "877148310@SMART",
+        "call_contract_id": 877148310,
+        "call_description": "SOXX NOV 20 '26 635 Call",
+        "put_contract_id_ex": "877148857@SMART",
+        "put_contract_id": 877148857,
+        "put_description": "SOXX NOV 20 '26 635 Put"
+      },
+      {
+        "strike": "640",
+        "call_contract_id_ex": "877148370@SMART",
+        "call_contract_id": 877148370,
+        "call_description": "SOXX NOV 20 '26 640 Call",
+        "put_contract_id_ex": "877148905@SMART",
+        "put_contract_id": 877148905,
+        "put_description": "SOXX NOV 20 '26 640 Put"
+      },
+      {
+        "strike": "645",
+        "call_contract_id_ex": "877148427@SMART",
+        "call_contract_id": 877148427,
+        "call_description": "SOXX NOV 20 '26 645 Call",
+        "put_contract_id_ex": "877148964@SMART",
+        "put_contract_id": 877148964,
+        "put_description": "SOXX NOV 20 '26 645 Put"
+      },
+      {
+        "strike": "650",
+        "call_contract_id_ex": "877148480@SMART",
+        "call_contract_id": 877148480,
+        "call_description": "SOXX NOV 20 '26 650 Call",
+        "put_contract_id_ex": "877149029@SMART",
+        "put_contract_id": 877149029,
+        "put_description": "SOXX NOV 20 '26 650 Put"
+      },
+      {
+        "strike": "655",
+        "call_contract_id_ex": "877148534@SMART",
+        "call_contract_id": 877148534,
+        "call_description": "SOXX NOV 20 '26 655 Call",
+        "put_contract_id_ex": "877149077@SMART",
+        "put_contract_id": 877149077,
+        "put_description": "SOXX NOV 20 '26 655 Put"
+      },
+      {
+        "strike": "660",
+        "call_contract_id_ex": "877148573@SMART",
+        "call_contract_id": 877148573,
+        "call_description": "SOXX NOV 20 '26 660 Call",
+        "put_contract_id_ex": "877149125@SMART",
+        "put_contract_id": 877149125,
+        "put_description": "SOXX NOV 20 '26 660 Put"
+      },
+      {
+        "strike": "665",
+        "call_contract_id_ex": "877148610@SMART",
+        "call_contract_id": 877148610,
+        "call_description": "SOXX NOV 20 '26 665 Call",
+        "put_contract_id_ex": "877149174@SMART",
+        "put_contract_id": 877149174,
+        "put_description": "SOXX NOV 20 '26 665 Put"
+      },
+      {
+        "strike": "670",
+        "call_contract_id_ex": "879959281@SMART",
+        "call_contract_id": 879959281,
+        "call_description": "SOXX NOV 20 '26 670 Call",
+        "put_contract_id_ex": "879959615@SMART",
+        "put_contract_id": 879959615,
+        "put_description": "SOXX NOV 20 '26 670 Put"
+      },
+      {
+        "strike": "675",
+        "call_contract_id_ex": "879959364@SMART",
+        "call_contract_id": 879959364,
+        "call_description": "SOXX NOV 20 '26 675 Call",
+        "put_contract_id_ex": "879959663@SMART",
+        "put_contract_id": 879959663,
+        "put_description": "SOXX NOV 20 '26 675 Put"
+      },
+      {
+        "strike": "680",
+        "call_contract_id_ex": "879959432@SMART",
+        "call_contract_id": 879959432,
+        "call_description": "SOXX NOV 20 '26 680 Call",
+        "put_contract_id_ex": "879959701@SMART",
+        "put_contract_id": 879959701,
+        "put_description": "SOXX NOV 20 '26 680 Put"
+      },
+      {
+        "strike": "685",
+        "call_contract_id_ex": "879959461@SMART",
+        "call_contract_id": 879959461,
+        "call_description": "SOXX NOV 20 '26 685 Call",
+        "put_contract_id_ex": "879959741@SMART",
+        "put_contract_id": 879959741,
+        "put_description": "SOXX NOV 20 '26 685 Put"
+      },
+      {
+        "strike": "690",
+        "call_contract_id_ex": "879959500@SMART",
+        "call_contract_id": 879959500,
+        "call_description": "SOXX NOV 20 '26 690 Call",
+        "put_contract_id_ex": "879959784@SMART",
+        "put_contract_id": 879959784,
+        "put_description": "SOXX NOV 20 '26 690 Put"
+      },
+      {
+        "strike": "695",
+        "call_contract_id_ex": "879959534@SMART",
+        "call_contract_id": 879959534,
+        "call_description": "SOXX NOV 20 '26 695 Call",
+        "put_contract_id_ex": "879959827@SMART",
+        "put_contract_id": 879959827,
+        "put_description": "SOXX NOV 20 '26 695 Put"
+      },
+      {
+        "strike": "700",
+        "call_contract_id_ex": "879959564@SMART",
+        "call_contract_id": 879959564,
+        "call_description": "SOXX NOV 20 '26 700 Call",
+        "put_contract_id_ex": "879959875@SMART",
+        "put_contract_id": 879959875,
+        "put_description": "SOXX NOV 20 '26 700 Put"
+      },
+      {
+        "strike": "705",
+        "call_contract_id_ex": "880318905@SMART",
+        "call_contract_id": 880318905,
+        "call_description": "SOXX NOV 20 '26 705 Call",
+        "put_contract_id_ex": "880318992@SMART",
+        "put_contract_id": 880318992,
+        "put_description": "SOXX NOV 20 '26 705 Put"
+      },
+      {
+        "strike": "710",
+        "call_contract_id_ex": "880318953@SMART",
+        "call_contract_id": 880318953,
+        "call_description": "SOXX NOV 20 '26 710 Call",
+        "put_contract_id_ex": "880319040@SMART",
+        "put_contract_id": 880319040,
+        "put_description": "SOXX NOV 20 '26 710 Put"
+      },
+      {
+        "strike": "715",
+        "call_contract_id_ex": "882119569@SMART",
+        "call_contract_id": 882119569,
+        "call_description": "SOXX NOV 20 '26 715 Call",
+        "put_contract_id_ex": "882120156@SMART",
+        "put_contract_id": 882120156,
+        "put_description": "SOXX NOV 20 '26 715 Put"
+      },
+      {
+        "strike": "720",
+        "call_contract_id_ex": "882119627@SMART",
+        "call_contract_id": 882119627,
+        "call_description": "SOXX NOV 20 '26 720 Call",
+        "put_contract_id_ex": "882120200@SMART",
+        "put_contract_id": 882120200,
+        "put_description": "SOXX NOV 20 '26 720 Put"
+      },
+      {
+        "strike": "725",
+        "call_contract_id_ex": "882119685@SMART",
+        "call_contract_id": 882119685,
+        "call_description": "SOXX NOV 20 '26 725 Call",
+        "put_contract_id_ex": "882120265@SMART",
+        "put_contract_id": 882120265,
+        "put_description": "SOXX NOV 20 '26 725 Put"
+      },
+      {
+        "strike": "730",
+        "call_contract_id_ex": "882119737@SMART",
+        "call_contract_id": 882119737,
+        "call_description": "SOXX NOV 20 '26 730 Call",
+        "put_contract_id_ex": "882120304@SMART",
+        "put_contract_id": 882120304,
+        "put_description": "SOXX NOV 20 '26 730 Put"
+      },
+      {
+        "strike": "735",
+        "call_contract_id_ex": "882119782@SMART",
+        "call_contract_id": 882119782,
+        "call_description": "SOXX NOV 20 '26 735 Call",
+        "put_contract_id_ex": "882120359@SMART",
+        "put_contract_id": 882120359,
+        "put_description": "SOXX NOV 20 '26 735 Put"
+      },
+      {
+        "strike": "740",
+        "call_contract_id_ex": "882119845@SMART",
+        "call_contract_id": 882119845,
+        "call_description": "SOXX NOV 20 '26 740 Call",
+        "put_contract_id_ex": "882120405@SMART",
+        "put_contract_id": 882120405,
+        "put_description": "SOXX NOV 20 '26 740 Put"
+      },
+      {
+        "strike": "745",
+        "call_contract_id_ex": "882119901@SMART",
+        "call_contract_id": 882119901,
+        "call_description": "SOXX NOV 20 '26 745 Call",
+        "put_contract_id_ex": "882120460@SMART",
+        "put_contract_id": 882120460,
+        "put_description": "SOXX NOV 20 '26 745 Put"
+      },
+      {
+        "strike": "750",
+        "call_contract_id_ex": "882119940@SMART",
+        "call_contract_id": 882119940,
+        "call_description": "SOXX NOV 20 '26 750 Call",
+        "put_contract_id_ex": "882120519@SMART",
+        "put_contract_id": 882120519,
+        "put_description": "SOXX NOV 20 '26 750 Put"
+      },
+      {
+        "strike": "755",
+        "call_contract_id_ex": "882120000@SMART",
+        "call_contract_id": 882120000,
+        "call_description": "SOXX NOV 20 '26 755 Call",
+        "put_contract_id_ex": "882120574@SMART",
+        "put_contract_id": 882120574,
+        "put_description": "SOXX NOV 20 '26 755 Put"
+      },
+      {
+        "strike": "760",
+        "call_contract_id_ex": "882120067@SMART",
+        "call_contract_id": 882120067,
+        "call_description": "SOXX NOV 20 '26 760 Call",
+        "put_contract_id_ex": "882120617@SMART",
+        "put_contract_id": 882120617,
+        "put_description": "SOXX NOV 20 '26 760 Put"
+      },
+      {
+        "strike": "765",
+        "call_contract_id_ex": "882120112@SMART",
+        "call_contract_id": 882120112,
+        "call_description": "SOXX NOV 20 '26 765 Call",
+        "put_contract_id_ex": "882120657@SMART",
+        "put_contract_id": 882120657,
+        "put_description": "SOXX NOV 20 '26 765 Put"
+      },
+      {
+        "strike": "770",
+        "call_contract_id_ex": "883816696@SMART",
+        "call_contract_id": 883816696,
+        "call_description": "SOXX NOV 20 '26 770 Call",
+        "put_contract_id_ex": "883816870@SMART",
+        "put_contract_id": 883816870,
+        "put_description": "SOXX NOV 20 '26 770 Put"
+      },
+      {
+        "strike": "775",
+        "call_contract_id_ex": "883816737@SMART",
+        "call_contract_id": 883816737,
+        "call_description": "SOXX NOV 20 '26 775 Call",
+        "put_contract_id_ex": "883816916@SMART",
+        "put_contract_id": 883816916,
+        "put_description": "SOXX NOV 20 '26 775 Put"
+      },
+      {
+        "strike": "780",
+        "call_contract_id_ex": "883816770@SMART",
+        "call_contract_id": 883816770,
+        "call_description": "SOXX NOV 20 '26 780 Call",
+        "put_contract_id_ex": "883816950@SMART",
+        "put_contract_id": 883816950,
+        "put_description": "SOXX NOV 20 '26 780 Put"
+      },
+      {
+        "strike": "785",
+        "call_contract_id_ex": "883816796@SMART",
+        "call_contract_id": 883816796,
+        "call_description": "SOXX NOV 20 '26 785 Call",
+        "put_contract_id_ex": "883816990@SMART",
+        "put_contract_id": 883816990,
+        "put_description": "SOXX NOV 20 '26 785 Put"
+      },
+      {
+        "strike": "790",
+        "call_contract_id_ex": "883816833@SMART",
+        "call_contract_id": 883816833,
+        "call_description": "SOXX NOV 20 '26 790 Call",
+        "put_contract_id_ex": "883817020@SMART",
+        "put_contract_id": 883817020,
+        "put_description": "SOXX NOV 20 '26 790 Put"
+      },
+      {
+        "strike": "795",
+        "call_contract_id_ex": "886992902@SMART",
+        "call_contract_id": 886992902,
+        "call_description": "SOXX NOV 20 '26 795 Call",
+        "put_contract_id_ex": "886993419@SMART",
+        "put_contract_id": 886993419,
+        "put_description": "SOXX NOV 20 '26 795 Put"
+      },
+      {
+        "strike": "800",
+        "call_contract_id_ex": "886992962@SMART",
+        "call_contract_id": 886992962,
+        "call_description": "SOXX NOV 20 '26 800 Call",
+        "put_contract_id_ex": "886993472@SMART",
+        "put_contract_id": 886993472,
+        "put_description": "SOXX NOV 20 '26 800 Put"
+      },
+      {
+        "strike": "805",
+        "call_contract_id_ex": "886993028@SMART",
+        "call_contract_id": 886993028,
+        "call_description": "SOXX NOV 20 '26 805 Call",
+        "put_contract_id_ex": "886993523@SMART",
+        "put_contract_id": 886993523,
+        "put_description": "SOXX NOV 20 '26 805 Put"
+      },
+      {
+        "strike": "810",
+        "call_contract_id_ex": "886993080@SMART",
+        "call_contract_id": 886993080,
+        "call_description": "SOXX NOV 20 '26 810 Call",
+        "put_contract_id_ex": "886993569@SMART",
+        "put_contract_id": 886993569,
+        "put_description": "SOXX NOV 20 '26 810 Put"
+      },
+      {
+        "strike": "815",
+        "call_contract_id_ex": "886993127@SMART",
+        "call_contract_id": 886993127,
+        "call_description": "SOXX NOV 20 '26 815 Call",
+        "put_contract_id_ex": "886993625@SMART",
+        "put_contract_id": 886993625,
+        "put_description": "SOXX NOV 20 '26 815 Put"
+      },
+      {
+        "strike": "820",
+        "call_contract_id_ex": "886993177@SMART",
+        "call_contract_id": 886993177,
+        "call_description": "SOXX NOV 20 '26 820 Call",
+        "put_contract_id_ex": "886993659@SMART",
+        "put_contract_id": 886993659,
+        "put_description": "SOXX NOV 20 '26 820 Put"
+      },
+      {
+        "strike": "825",
+        "call_contract_id_ex": "886993228@SMART",
+        "call_contract_id": 886993228,
+        "call_description": "SOXX NOV 20 '26 825 Call",
+        "put_contract_id_ex": "886993684@SMART",
+        "put_contract_id": 886993684,
+        "put_description": "SOXX NOV 20 '26 825 Put"
+      },
+      {
+        "strike": "830",
+        "call_contract_id_ex": "886993279@SMART",
+        "call_contract_id": 886993279,
+        "call_description": "SOXX NOV 20 '26 830 Call",
+        "put_contract_id_ex": "886993739@SMART",
+        "put_contract_id": 886993739,
+        "put_description": "SOXX NOV 20 '26 830 Put"
+      },
+      {
+        "strike": "835",
+        "call_contract_id_ex": "886993320@SMART",
+        "call_contract_id": 886993320,
+        "call_description": "SOXX NOV 20 '26 835 Call",
+        "put_contract_id_ex": "886993783@SMART",
+        "put_contract_id": 886993783,
+        "put_description": "SOXX NOV 20 '26 835 Put"
+      },
+      {
+        "strike": "840",
+        "call_contract_id_ex": "886993375@SMART",
+        "call_contract_id": 886993375,
+        "call_description": "SOXX NOV 20 '26 840 Call",
+        "put_contract_id_ex": "886993817@SMART",
+        "put_contract_id": 886993817,
+        "put_description": "SOXX NOV 20 '26 840 Put"
+      },
+      {
+        "strike": "845",
+        "call_contract_id_ex": "887873405@SMART",
+        "call_contract_id": 887873405,
+        "call_description": "SOXX NOV 20 '26 845 Call",
+        "put_contract_id_ex": "887873457@SMART",
+        "put_contract_id": 887873457,
+        "put_description": "SOXX NOV 20 '26 845 Put"
+      },
+      {
+        "strike": "850",
+        "call_contract_id_ex": "887428348@SMART",
+        "call_contract_id": 887428348,
+        "call_description": "SOXX NOV 20 '26 850 Call",
+        "put_contract_id_ex": "887428525@SMART",
+        "put_contract_id": 887428525,
+        "put_description": "SOXX NOV 20 '26 850 Put"
+      },
+      {
+        "strike": "855",
+        "call_contract_id_ex": "889096938@SMART",
+        "call_contract_id": 889096938,
+        "call_description": "SOXX NOV 20 '26 855 Call",
+        "put_contract_id_ex": "889097095@SMART",
+        "put_contract_id": 889097095,
+        "put_description": "SOXX NOV 20 '26 855 Put"
+      },
+      {
+        "strike": "860",
+        "call_contract_id_ex": "887428419@SMART",
+        "call_contract_id": 887428419,
+        "call_description": "SOXX NOV 20 '26 860 Call",
+        "put_contract_id_ex": "887428600@SMART",
+        "put_contract_id": 887428600,
+        "put_description": "SOXX NOV 20 '26 860 Put"
+      },
+      {
+        "strike": "865",
+        "call_contract_id_ex": "889096965@SMART",
+        "call_contract_id": 889096965,
+        "call_description": "SOXX NOV 20 '26 865 Call",
+        "put_contract_id_ex": "889097120@SMART",
+        "put_contract_id": 889097120,
+        "put_description": "SOXX NOV 20 '26 865 Put"
+      },
+      {
+        "strike": "870",
+        "call_contract_id_ex": "887428459@SMART",
+        "call_contract_id": 887428459,
+        "call_description": "SOXX NOV 20 '26 870 Call",
+        "put_contract_id_ex": "887428652@SMART",
+        "put_contract_id": 887428652,
+        "put_description": "SOXX NOV 20 '26 870 Put"
+      },
+      {
+        "strike": "875",
+        "call_contract_id_ex": "889096990@SMART",
+        "call_contract_id": 889096990,
+        "call_description": "SOXX NOV 20 '26 875 Call",
+        "put_contract_id_ex": "889097147@SMART",
+        "put_contract_id": 889097147,
+        "put_description": "SOXX NOV 20 '26 875 Put"
+      },
+      {
+        "strike": "880",
+        "call_contract_id_ex": "889097014@SMART",
+        "call_contract_id": 889097014,
+        "call_description": "SOXX NOV 20 '26 880 Call",
+        "put_contract_id_ex": "889097170@SMART",
+        "put_contract_id": 889097170,
+        "put_description": "SOXX NOV 20 '26 880 Put"
+      },
+      {
+        "strike": "885",
+        "call_contract_id_ex": "889097035@SMART",
+        "call_contract_id": 889097035,
+        "call_description": "SOXX NOV 20 '26 885 Call",
+        "put_contract_id_ex": "889097195@SMART",
+        "put_contract_id": 889097195,
+        "put_description": "SOXX NOV 20 '26 885 Put"
+      },
+      {
+        "strike": "890",
+        "call_contract_id_ex": "889097059@SMART",
+        "call_contract_id": 889097059,
+        "call_description": "SOXX NOV 20 '26 890 Call",
+        "put_contract_id_ex": "889097215@SMART",
+        "put_contract_id": 889097215,
+        "put_description": "SOXX NOV 20 '26 890 Put"
+      },
+      {
+        "strike": "895",
+        "call_contract_id_ex": "892655714@SMART",
+        "call_contract_id": 892655714,
+        "call_description": "SOXX NOV 20 '26 895 Call",
+        "put_contract_id_ex": "892655967@SMART",
+        "put_contract_id": 892655967,
+        "put_description": "SOXX NOV 20 '26 895 Put"
+      },
+      {
+        "strike": "900",
+        "call_contract_id_ex": "889097079@SMART",
+        "call_contract_id": 889097079,
+        "call_description": "SOXX NOV 20 '26 900 Call",
+        "put_contract_id_ex": "889097238@SMART",
+        "put_contract_id": 889097238,
+        "put_description": "SOXX NOV 20 '26 900 Put"
+      },
+      {
+        "strike": "905",
+        "call_contract_id_ex": "892655756@SMART",
+        "call_contract_id": 892655756,
+        "call_description": "SOXX NOV 20 '26 905 Call",
+        "put_contract_id_ex": "892656007@SMART",
+        "put_contract_id": 892656007,
+        "put_description": "SOXX NOV 20 '26 905 Put"
+      },
+      {
+        "strike": "910",
+        "call_contract_id_ex": "892655802@SMART",
+        "call_contract_id": 892655802,
+        "call_description": "SOXX NOV 20 '26 910 Call",
+        "put_contract_id_ex": "892656047@SMART",
+        "put_contract_id": 892656047,
+        "put_description": "SOXX NOV 20 '26 910 Put"
+      },
+      {
+        "strike": "915",
+        "call_contract_id_ex": "892655845@SMART",
+        "call_contract_id": 892655845,
+        "call_description": "SOXX NOV 20 '26 915 Call",
+        "put_contract_id_ex": "892656088@SMART",
+        "put_contract_id": 892656088,
+        "put_description": "SOXX NOV 20 '26 915 Put"
+      },
+      {
+        "strike": "920",
+        "call_contract_id_ex": "892655882@SMART",
+        "call_contract_id": 892655882,
+        "call_description": "SOXX NOV 20 '26 920 Call",
+        "put_contract_id_ex": "892656127@SMART",
+        "put_contract_id": 892656127,
+        "put_description": "SOXX NOV 20 '26 920 Put"
+      },
+      {
+        "strike": "925",
+        "call_contract_id_ex": "892655911@SMART",
+        "call_contract_id": 892655911,
+        "call_description": "SOXX NOV 20 '26 925 Call",
+        "put_contract_id_ex": "892656161@SMART",
+        "put_contract_id": 892656161,
+        "put_description": "SOXX NOV 20 '26 925 Put"
+      },
+      {
+        "strike": "930",
+        "call_contract_id_ex": "892655937@SMART",
+        "call_contract_id": 892655937,
+        "call_description": "SOXX NOV 20 '26 930 Call",
+        "put_contract_id_ex": "892656194@SMART",
+        "put_contract_id": 892656194,
+        "put_description": "SOXX NOV 20 '26 930 Put"
+      },
+      {
+        "strike": "935",
+        "call_contract_id_ex": "894591665@SMART",
+        "call_contract_id": 894591665,
+        "call_description": "SOXX NOV 20 '26 935 Call",
+        "put_contract_id_ex": "894591896@SMART",
+        "put_contract_id": 894591896,
+        "put_description": "SOXX NOV 20 '26 935 Put"
+      },
+      {
+        "strike": "940",
+        "call_contract_id_ex": "894591733@SMART",
+        "call_contract_id": 894591733,
+        "call_description": "SOXX NOV 20 '26 940 Call",
+        "put_contract_id_ex": "894591961@SMART",
+        "put_contract_id": 894591961,
+        "put_description": "SOXX NOV 20 '26 940 Put"
+      },
+      {
+        "strike": "945",
+        "call_contract_id_ex": "894591782@SMART",
+        "call_contract_id": 894591782,
+        "call_description": "SOXX NOV 20 '26 945 Call",
+        "put_contract_id_ex": "894591988@SMART",
+        "put_contract_id": 894591988,
+        "put_description": "SOXX NOV 20 '26 945 Put"
+      },
+      {
+        "strike": "950",
+        "call_contract_id_ex": "894591842@SMART",
+        "call_contract_id": 894591842,
+        "call_description": "SOXX NOV 20 '26 950 Call",
+        "put_contract_id_ex": "894592043@SMART",
+        "put_contract_id": 894592043,
+        "put_description": "SOXX NOV 20 '26 950 Put"
+      }
+    ]
+  },
+  "selected_contracts": {
+    "strike": "495",
+    "call_contract_id": 849288046,
+    "put_contract_id": 849290865
+  },
+  "call_snapshot": {
+    "option-midpoint-iv": {
+      "dailyIv": -1,
+      "annualIv": -15.874507866387544,
+      "isValid": false
+    },
+    "top-status": {
+      "status": "FROZEN"
+    },
+    "option-greeks": {},
+    "option-open-interest": {
+      "callInterest": 52,
+      "putInterest": 0
+    },
+    "bid-ask": {
+      "bid": 28.400000000000002,
+      "bid_size": 12,
+      "ask": 34.2,
+      "ask_size": 14
+    }
+  },
+  "put_snapshot": {
+    "option-midpoint-iv": {
+      "dailyIv": -1,
+      "annualIv": -15.874507866387544,
+      "isValid": false
+    },
+    "top-status": {
+      "status": "FROZEN"
+    },
+    "option-greeks": {},
+    "option-open-interest": {
+      "callInterest": 0,
+      "putInterest": 381
+    },
+    "bid-ask": {
+      "bid": 14.5,
+      "bid_size": 11,
+      "ask": 19.1,
+      "ask_size": 18
+    }
+  }
+}

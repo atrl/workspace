@@ -1,0 +1,21 @@
+{
+  "status": "needs_regular_hours_option_market_data_check",
+  "source": "Connected IBKR read-only market-data connector",
+  "underlying_quote_status": "REALTIME",
+  "option_chain_rows": 168,
+  "regular_expiration": "2026-11-20",
+  "selected_strike": "495",
+  "call_quote_status": "FROZEN",
+  "put_quote_status": "FROZEN",
+  "call_IV_valid": false,
+  "put_IV_valid": false,
+  "call_Delta_available": false,
+  "put_Delta_available": false,
+  "historical_skew_available": false,
+  "forward_skew_qualified": false,
+  "broker_order_calls": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "market_data_sample_sha256": "cdce65b9339c5b3c6454bfb88c5fb4b5e62ff7f36bb2a69187a44cbb45cb8a59",
+  "interpretation": "After-hours FROZEN option quotes with invalid IV and missing Greeks cannot establish an approximately 30-day 25-Delta skew at decision time. Regular-hours sample needed; no absence-of-entitlement inference from this after-hours observation."
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "experiment": "ibkr_soxx_option_skew_forward_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "read_only_connector_entitlement_preflight",
+  "question": "Can the connected IBKR source supply a SOXX option chain and contemporaneous bid/ask, implied volatility and Delta at a fixed future decision clock for a fixed 25-Delta put-minus-call 30-day skew? No historical factor or trading claim.",
+  "source": "Connected IBKR read-only market-data tools; no account/order/alert writes",
+  "budget": {
+    "whats_new_calls_completed": 1,
+    "contract_searches": 1,
+    "option_parameter_calls": 1,
+    "option_data_calls": 0,
+    "price_snapshots": 0,
+    "order_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "selection": "Search exact symbol SOXX US ETF with OPT section; use returned underlying_contract_id only internally. Inspect expiry identities/exchange; do not choose strikes or request quotes until a separately frozen snapshot plan.",
+  "timing_boundary": "Current after-hours chain existence or delayed snapshot cannot establish trade-decision live entitlement. Forward collection must pin NY time, option class, expiry, actual Delta, bid/ask/IV and staleness before market outcomes.",
+  "stop": [
+    "No exact SOXX option-enabled contract or option parameters -> needs_auth_or_entitlement, no repeated unchanged calls",
+    "Never place orders, create alerts or purchase market data",
+    "Never call the connector account or position tools"
+  ]
+}

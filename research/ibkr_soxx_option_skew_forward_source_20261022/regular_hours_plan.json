@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_regular_hours_read_only_entitlement_check",
+  "sample_plan_sha256": "685a4a2aae4821d8005f36a45b9881a5de3f38c80dab9ed4d2f3a2f12539a995",
+  "sample_result_sha256": "1059c9d7a2345eb27d59c5147a43afc4349e8e1c72576203f20fe7a8517275f1",
+  "source_response_sha256": "cdce65b9339c5b3c6454bfb88c5fb4b5e62ff7f36bb2a69187a44cbb45cb8a59",
+  "first_allowed_utc": "2026-10-22T13:35:00+00:00",
+  "last_allowed_utc": "2026-10-22T19:55:00+00:00",
+  "underlying_contract_id": 12658194,
+  "call_contract_id": 849288046,
+  "put_contract_id": 849290865,
+  "exchange": "SMART",
+  "strike": "495",
+  "expiration": "2026-11-20",
+  "market_data_names": [
+    "bid_ask",
+    "option_midpoint_iv",
+    "option_greeks",
+    "top_status"
+  ],
+  "budget": {
+    "underlying_price_snapshots": 1,
+    "option_price_snapshots": 2,
+    "chain_searches": 0,
+    "order_calls": 0,
+    "alerts": 0,
+    "account_reads": 0,
+    "model_fits": 0
+  },
+  "gate": "Both option statuses REALTIME, bid/ask finite and ordered, annual IV positive/valid, call and put Delta finite and correctly signed; otherwise record needs_market_data. No forward feature/PIT qualification without quote timestamps and exact Delta/term interpolation.",
+  "stops": [
+    "Before first_allowed_utc or after last_allowed_utc do not call market tools",
+    "Do not create an order, alert, watchlist or subscription",
+    "No stale/frozen/delayed value as skew observation"
+  ]
+}

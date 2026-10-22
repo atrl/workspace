@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "read_only_current_quote_entitlement_sample",
+  "preflight_plan_sha256": "0ed0d8ef211335b5ef6360ed0258240019a03f9e53539b4b2a0ffc30f11fdddc",
+  "preflight_result_sha256": "2c360cb624c25473c13a11a14a8fdf5caac0720026f8c87042150525fd544102",
+  "underlying_contract_id": 12658194,
+  "expiration_id": "12658194@SMART/OPT/SMART/20261120/SOXX/1",
+  "expiration": "2026-11-20",
+  "exchange": "SMART",
+  "selection_rule": "Read underlying LAST once; select exact option strike minimizing absolute distance to that value from the returned 2026-11-20 regular SOXX class. If LAST unavailable, stop. Then read the selected call and put quotes once each.",
+  "market_data_fields": [
+    "bid_ask",
+    "option_midpoint_iv",
+    "option_greeks",
+    "option_open_interest"
+  ],
+  "budget": {
+    "underlying_price_snapshots": 1,
+    "option_data_calls": 1,
+    "option_price_snapshots": 2,
+    "order_calls": 0,
+    "account_reads": 0,
+    "model_fits": 0
+  },
+  "stops": [
+    "Missing current underlying LAST, contract IDs, quotes, IV or Delta -> record needs_market_data and stop",
+    "After-hours, delayed, crossed or stale quotes are not forward decision evidence",
+    "No new subscription, order, alert or broker action"
+  ]
+}

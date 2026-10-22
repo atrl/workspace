@@ -3,9 +3,18 @@
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
   "active": [
     {
+      "card": "research/ibkr_soxx_option_skew_forward_source_20261022",
+      "phase": "regular_hours_read_only_market_data_entitlement_check_pending",
+      "role": "fixed_25delta_SOXX_option_skew_forward_source_qualification",
+      "full_economic_experiment": false,
+      "status": "after_hours_FROZEN_IV_Delta_invalid",
+      "execution_authorized": false,
+      "result": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json"
+    },
+    {
       "card": "research/cboe_total_activity_variance_information_20261022",
-      "phase": "distinct_total_options_activity_information_design_only",
-      "role": "source_backed_new_tail_variance_mechanism_after_OCC_put_share_failure",
+      "phase": "source_publication_timing_pending",
+      "role": "separate_total_option_activity_variance_mechanism",
       "full_economic_experiment": false,
       "status": "design_only_source_timing_pending",
       "execution_authorized": false,
@@ -107,12 +116,11 @@
     "all provider bin files for documentation"
   ],
   "next_information_need": {
-    "status": "distinct_mechanism_design_pending_source_timing",
-    "topic": "Cboe SOXX total option activity surprise as incremental variance information, distinct from failed OCC put share",
-    "evidence": "research/cboe_total_options_activity_source_20261022/revision_check_20261022.json",
-    "constraint": "One target day has two exactly identical responses 38.3 minutes apart; origin first-public and cross-day revision stability remain unqualified. Third observation is frozen for 08:45 New York, then new completed days must be observed before an information screen.",
-    "execution_authorized": false,
-    "next_frozen_observation_not_before_utc": "2026-10-22T12:45:00+00:00"
+    "status": "two_bounded_forward_source_checks_due_market_hours",
+    "topic": "Cboe total activity vintage stability and IBKR SOXX option IV/Delta availability",
+    "evidence": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json",
+    "constraint": "At/after 2026-10-22 12:45 UTC run one remaining Cboe preopen vintage; at 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. No source is a qualified factor or economic strategy.",
+    "execution_authorized": false
   },
   "closed_source_probes": [
     {
