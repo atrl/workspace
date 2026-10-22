@@ -1,0 +1,72 @@
+{
+  "experiment": "taiwan_export_orders_open_data_20261023",
+  "decision": "current_government_mirror_numeric_identity_only_PIT_and_recent_months_missing",
+  "objective_achieved": false,
+  "plan_sha256": "66e09d38e382f059760d2474691af86e0dcb9b74596f42069ed72ff3c6ad5939",
+  "source_nas_sha256": "5f9634a92ed21879f38f2d8fec8b9c171e94a010831f57f10af96b25427185aa",
+  "recorder_id": "77377a2fd33b4cc5a187a1e1985125b3",
+  "experiment_id": "957029813524552338",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/taiwan_export_orders_open_data_20261023/qlib_recorder",
+  "audit": {
+    "source_rows": 511,
+    "first_observation_month": "1984-01",
+    "last_observation_month": "2026-07",
+    "single_product_statistic_and_unit": true,
+    "consecutive_unique_months": true,
+    "government_open_data_dataset_created": "2015-07-02",
+    "current_metadata_updated": "2026-09-21 13:37 Asia/Taipei as page display; source HTML exact bytes archived",
+    "original_monthly_release_vintages_qualified": false,
+    "original_first_public_or_next_Stage1_decision_clock_qualified": false,
+    "train_Qlib_signal_days": 3020,
+    "held_Qlib_signal_days": 946,
+    "train_calendar_months": 144,
+    "train_months_in_current_file": 144,
+    "held_calendar_months": 46,
+    "held_months_in_current_file": 43,
+    "held_missing_current_file_months": [
+      "2026-08",
+      "2026-09",
+      "2026-10"
+    ],
+    "current_file_missing_published_August_2026_observation": true,
+    "source_is_semiconductor_only": false,
+    "SOXX_market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "next_action": "The accessible government mirror certifies current numeric identity only. Require original monthly MOEA release bytes, vintage and decision-time clocks, plus recent 2026-08 coverage before any Stage1 factor fit or funded account.",
+  "nas_evidence": {
+    "sha256": "860e65f5930f60e9b6174f76c0f4e101147e9817cea9437e0ecdbb794c4c0e95",
+    "size_bytes": 86938,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/86/0e/860e65f5930f60e9b6174f76c0f4e101147e9817cea9437e0ecdbb794c4c0e95",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 06:52:24.945915+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/86/0e/860e65f5930f60e9b6174f76c0f4e101147e9817cea9437e0ecdbb794c4c0e95",
+    "recorder_id": "77377a2fd33b4cc5a187a1e1985125b3",
+    "experiment_id": "957029813524552338",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "860e65f5930f60e9b6174f76c0f4e101147e9817cea9437e0ecdbb794c4c0e95"
+  },
+  "transport_GET_attempts_total": 4,
+  "transport_successful_GETs": 2,
+  "transport_403_GETs": 2,
+  "transport_accounting": "transport_accounting.json",
+  "transport_NAS_archive_sha256": "8897297d6e1fdc95363159a21fdf364777237ab1d10d927dae3e1098150dddaa",
+  "independent_review": "independent_source_review.json",
+  "plan_budget_scope_note": "The frozen plan was written after all four discovery attempts and accurately pins only the two successful files; its GET budget is incomplete as an overall turn request count. No GET occurred after plan freeze. This source card is a descriptive availability audit, not preregistered PIT factor admission."
+}

@@ -1,0 +1,41 @@
+{
+  "status": "discovery_transport_four_GETs_before_source_plan_freeze",
+  "GET_attempts_total": 4,
+  "successful_original_government_files": 2,
+  "MOEA_403_discovery_failures": 2,
+  "frozen_plan_declared_external_GETs": 2,
+  "budget_interpretation": "The frozen plan was written after all four discovery attempts and accurately pins only the two successful files; its GET budget is incomplete as an overall turn request count. No GET occurred after plan freeze. This source card is a descriptive availability audit, not preregistered PIT factor admission.",
+  "requests": [
+    {
+      "url": "https://mnscdn.moea.gov.tw/Mns/populace/news/EpaperDetail.aspx?volume=20260721",
+      "status": 403,
+      "body": "data/snapshots/taiwan_export_orders_open_data_20261023/moea_mnscdn_403.html",
+      "sha256": "2a3bb5c077d48cfadee24e51c2a2cd83ae00fc7f9099964ddfb0ca19787bcac3",
+      "size_bytes": 4554
+    },
+    {
+      "url": "https://service.moea.gov.tw/EE521/common/Common.aspx?code=B&no=2",
+      "status": 403,
+      "body": "data/snapshots/taiwan_export_orders_open_data_20261023/moea_service_403.html",
+      "sha256": "cf76b05b459438b31eefc580f14d9675817d5efd5dcadac9d9a44541af1fd5a5",
+      "size_bytes": 4554
+    },
+    {
+      "url": "https://data.gov.tw/en/datasets/16362",
+      "status": 200,
+      "body": "data/snapshots/taiwan_export_orders_open_data_20261023/dataset_16362.html",
+      "sha256": "2b3438db2b7e325794f14e7a97f11f20baf5443be47d24d7baa8d4e98d6c7238",
+      "size_bytes": 475348
+    },
+    {
+      "url": "https://quality.data.gov.tw/dq_download_csv.php?nid=16362&md5_url=5e2709dc633df67acde7ba90fcc7f01f",
+      "status": 200,
+      "body": "data/snapshots/taiwan_export_orders_open_data_20261023/electronic_export_orders.csv",
+      "sha256": "cb5b469629fbc089aac7d7c4ce876672e9b4cdb1848efca679818ca19a2fb91a",
+      "size_bytes": 32262
+    }
+  ],
+  "model_fits": 0,
+  "accounts": 0,
+  "SOXX_outcome_reads": 0
+}

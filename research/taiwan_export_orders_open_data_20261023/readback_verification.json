@@ -1,0 +1,14 @@
+{
+  "status": "native_Qlib_source_audit_readback_pass",
+  "recorder_id": "77377a2fd33b4cc5a187a1e1985125b3",
+  "monthly_rows": 511,
+  "train_calendar_days": 3020,
+  "held_calendar_days": 946,
+  "audit_equal_summary": true,
+  "NAS_raw_source_verified": true,
+  "NAS_403_transport_verified": true,
+  "NAS_recorder_verified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

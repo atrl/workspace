@@ -1,0 +1,14 @@
+{
+  "status": "four_attempt_transport_original_403_bytes_NAS_restored",
+  "sha256": "8897297d6e1fdc95363159a21fdf364777237ab1d10d927dae3e1098150dddaa",
+  "size_bytes": 3167,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/88/97/8897297d6e1fdc95363159a21fdf364777237ab1d10d927dae3e1098150dddaa",
+  "members": {
+    "research/taiwan_export_orders_open_data_20261023/transport_accounting.json": "3c0f6801dfdeee6ec50557134d0617822bc7dfb6a092407ace620ba86e04c295",
+    "data/snapshots/taiwan_export_orders_open_data_20261023/moea_mnscdn_403.html": "2a3bb5c077d48cfadee24e51c2a2cd83ae00fc7f9099964ddfb0ca19787bcac3",
+    "data/snapshots/taiwan_export_orders_open_data_20261023/moea_mnscdn_403_headers.json": "4bb1064afaea442843658d7a547ef803922f201c01a0b47e857ff0e110219489",
+    "data/snapshots/taiwan_export_orders_open_data_20261023/moea_service_403.html": "cf76b05b459438b31eefc580f14d9675817d5efd5dcadac9d9a44541af1fd5a5",
+    "data/snapshots/taiwan_export_orders_open_data_20261023/moea_service_403_headers.json": "bc70072adc61ad80d109711696a7c14a39b9ac714561e4647018a84c57d85798"
+  },
+  "verified": true
+}

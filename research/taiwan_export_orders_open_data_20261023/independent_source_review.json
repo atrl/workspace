@@ -1,0 +1,23 @@
+{
+  "verdict": "CONFIRM_CURRENT_SOURCE_IDENTITY_ONLY_NO_PIT_STAGE1_FACTOR",
+  "reviewer": "independent_stage1_nvda_design_review",
+  "government_dataset_id": 16362,
+  "raw_source_NAS_sha256": "5f9634a92ed21879f38f2d8fec8b9c171e94a010831f57f10af96b25427185aa",
+  "recorder_id": "77377a2fd33b4cc5a187a1e1985125b3",
+  "recorder_NAS_sha256": "860e65f5930f60e9b6174f76c0f4e101147e9817cea9437e0ecdbb794c4c0e95",
+  "source_months": 511,
+  "first_month": "1984-01",
+  "last_month": "2026-07",
+  "train_calendar_months": 144,
+  "train_present_in_current_file": 144,
+  "held_calendar_months": 46,
+  "held_present_in_current_file": 43,
+  "transport_GETs_total": 4,
+  "transport_budget_caveat": "Plan budget of two described successful files only; four discovery attempts occurred before plan freeze.",
+  "transport_403_bytes_later_self_backed_to_NAS": "8897297d6e1fdc95363159a21fdf364777237ab1d10d927dae3e1098150dddaa",
+  "historical_PIT_qualified": false,
+  "source_is_semiconductor_only": false,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "taiwan_export_orders_open_data_20261023",
+  "phase": "official_Taiwan_MOEA_electronic_export_orders_open_data_source_only",
+  "source_identity": {
+    "publisher": "Taiwan Ministry of Economic Affairs Department of Statistics via Taiwan Government Open Data Platform",
+    "dataset_page": "https://data.gov.tw/en/datasets/16362",
+    "current_CSV_mirror": "https://quality.data.gov.tw/dq_download_csv.php?nid=16362&md5_url=5e2709dc633df67acde7ba90fcc7f01f",
+    "MOEA_original_report_access": "www.moea.gov.tw, mnscdn.moea.gov.tw and service.moea.gov.tw returned HTTP403 in prior/current probes; official government open-data mirror returned HTTP200.",
+    "field": "電子產品 external export orders amount in million USD; broad electronics, not semiconductor-only"
+  },
+  "source_files": {
+    "data/snapshots/taiwan_export_orders_open_data_20261023/dataset_16362.html": {
+      "sha256": "2b3438db2b7e325794f14e7a97f11f20baf5443be47d24d7baa8d4e98d6c7238",
+      "size_bytes": 475348
+    },
+    "data/snapshots/taiwan_export_orders_open_data_20261023/dataset_16362_headers.json": {
+      "sha256": "2f1cc572bdffeb4f54bf13462efcbf744fa950b57e22a68ce0419fbf5a4be145",
+      "size_bytes": 134
+    },
+    "data/snapshots/taiwan_export_orders_open_data_20261023/electronic_export_orders.csv": {
+      "sha256": "cb5b469629fbc089aac7d7c4ce876672e9b4cdb1848efca679818ca19a2fb91a",
+      "size_bytes": 32262
+    },
+    "data/snapshots/taiwan_export_orders_open_data_20261023/electronic_export_orders_headers.json": {
+      "sha256": "ece40011097ba970faf5e5864a088e927d01f5d9f6eedb0727d2bee50c494882",
+      "size_bytes": 104
+    }
+  },
+  "hypothesis_boundary": "Incoming Taiwanese electronics orders reflect demand commitments, distinct from Korean realized exports, US G17 production, TSMC one-issuer guidance and Cboe implied-volatility term slope. No sign, information or economic claim is tested here.",
+  "source_checks": "Require 5 exact CSV columns, single statistic/category/unit, unique consecutive ROC months, positive numeric values, explicit coverage and latest age. Do not map current revised observations to historical Stage1 decision dates or infer original release time from the present CSV.",
+  "Qlib_role": "Use original Stage1 Qlib daily calendar only to audit which training/held calendar months fall within the source current-history range; no feature, label or DatasetH because original release versions are missing. Preserve the monthly source and audit in native Recorder.",
+  "calendar": {
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "train": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "reused_held": [
+      "2023-01-03",
+      "2026-10-09"
+    ]
+  },
+  "budget": {
+    "new_external_GETs": 2,
+    "SOXX_market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_Qlib_Recorders": 1
+  },
+  "stop": "Missing original monthly releases, historical first-public/receipt clocks, revisions or incomplete current held months blocks a PIT Stage1 factor. No market outcomes, fits or accounts.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

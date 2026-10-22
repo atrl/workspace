@@ -1,0 +1,14 @@
+{
+  "status": "official_government_open_data_current_snapshot_NAS_scoped_restore_verified",
+  "sha256": "5f9634a92ed21879f38f2d8fec8b9c171e94a010831f57f10af96b25427185aa",
+  "size_bytes": 78900,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/5f/96/5f9634a92ed21879f38f2d8fec8b9c171e94a010831f57f10af96b25427185aa",
+  "member_hashes": {
+    "data/snapshots/taiwan_export_orders_open_data_20261023/dataset_16362.html": "2b3438db2b7e325794f14e7a97f11f20baf5443be47d24d7baa8d4e98d6c7238",
+    "data/snapshots/taiwan_export_orders_open_data_20261023/dataset_16362_headers.json": "2f1cc572bdffeb4f54bf13462efcbf744fa950b57e22a68ce0419fbf5a4be145",
+    "data/snapshots/taiwan_export_orders_open_data_20261023/electronic_export_orders.csv": "cb5b469629fbc089aac7d7c4ce876672e9b4cdb1848efca679818ca19a2fb91a",
+    "data/snapshots/taiwan_export_orders_open_data_20261023/electronic_export_orders_headers.json": "ece40011097ba970faf5e5864a088e927d01f5d9f6eedb0727d2bee50c494882",
+    "research/taiwan_export_orders_open_data_20261023/plan.json": "66e09d38e382f059760d2474691af86e0dcb9b74596f42069ed72ff3c6ad5939"
+  },
+  "verified": true
+}

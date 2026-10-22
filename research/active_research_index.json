@@ -434,7 +434,8 @@
     "Fed_CP_rating_spread_transport_gap": "research/fed_cp_rating_spread_source_20261023/summary.json",
     "SOXX_issuer_premium_historical_coverage": "research/soxx_issuer_premium_source_probe_20261022/source_probe_result.json",
     "closed_AMD_NVDA_guidance_breadth_H5_information_result": "research/stage1_amd_nvda_guidance_breadth_h5_information_20261023/independent_result_review.json",
-    "closed_Cboe_VIX_term_no_fit_review": "research/stage1_cboe_vix_term_source_v2_20261023/independent_source_review.json"
+    "closed_Cboe_VIX_term_no_fit_review": "research/stage1_cboe_vix_term_source_v2_20261023/independent_source_review.json",
+    "Taiwan_electronic_export_orders_current_mirror": "research/taiwan_export_orders_open_data_20261023/summary.json"
   },
   "do_not_reload": [
     "closed Recorder/model objects without new bounded need",
