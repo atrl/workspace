@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_daily_volume_participation_information_20261022",
+  "phase": "one_fixed_stage1_incremental_information_screen_before_0bp_account",
+  "frozen_before_first_fit": true,
+  "execution_authorized": true,
+  "parent": {
+    "name": "frozen original Stage1",
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "baseline_features": "exact 39 base_features order from frozen Stage1 seed71 original model; no feature selection"
+  },
+  "candidate_source": {
+    "card": "research/stage1_daily_volume_participation_source_20261022",
+    "provider": "data/qlib/stage1_daily_volume_participation_source_20261022",
+    "provider_manifest_sha256": "1c0326887e9e7706b68c4cf83cf3cdbc48865041efde46082a0b4215f22f11c6",
+    "preflight_result_sha256": "5f3490304732f3cfaaafdd7e51b8ffa92528d57e139ea67731a4cf97021720b8",
+    "tail_bridge_result_sha256": "b29bfec71d5e6198126b69caae16aeeab11f98b8372bb32564c4cb861eed4203",
+    "NAS_archive_sha256": "2ac473e0476011141ee89e4b0371edf79663a617f8f020a2ac92acfc3e7b1817",
+    "historical_first_receipt_certified": false,
+    "formula": "On each original Stage1 signal date s, prior-completed SOXX 20-session sign(return) volume-weighted share minus the same-window unweighted sign share. Return uses the source published-affine close, volume exact split-adjusted shares. Multiply this single residual by 1{original Stage1 soxx_ret20(s)<0}; positive feature means higher buying participation during an already negative 20-session SOXX trend. Unobserved values remain missing, no sign/window selection."
+  },
+  "label": {
+    "primary": "Five funded open-to-open SOXX intervals starting from original Stage1 signal s: y(s)=sum_{j=0..4} log1p(soxx_forward_open_return(s+j)) on five consecutive native signal-calendar rows; source is original Stage1 Qlib Recorder inputs/daily_frame.",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval row; training label must mature strictly before 2023-01-01 America/New_York; held label must mature by original data as_of 2026-10-09.",
+    "role": "Information screen only, not a fee-net strategy result or economic SOXX gate."
+  },
+  "cohorts": {
+    "train_signal": ["2011-01-03", "2022-12-30"],
+    "held_reused_diagnostic": ["2023-01-03", "2026-10-07"],
+    "held_halves": [["2023-01-03", "2024-12-31"], ["2025-01-02", "2026-10-07"]],
+    "minimum_mature_train_rows": 2900,
+    "minimum_mature_held_rows": 900,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "Original 39 Stage1 primary input columns, no model prediction/target/state outputs; SimpleImputer(median) then StandardScaler then Ridge(alpha=1.0)",
+    "candidate": "Same pipeline and rows plus exactly one negative-trend volume participation interaction",
+    "fits": 2,
+    "coefficient_sign_required": "positive on added standardized coordinate",
+    "no_hyperparameter_or_ensemble_search": true
+  },
+  "information_gate": {
+    "paired_metric": "On identical held signals, squared-error improvement=baseline squared error minus candidate squared error for five-open log SOXX return.",
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {"mean_block_sessions": 63, "draws": 10000, "seed": 20261022, "one_sided_alpha": 0.0015625, "lower_positive": true},
+    "no_gate_rescue": true
+  },
+  "budget": {"verified_source_object_loads_max": 4, "new_writable_qlib_recorders_max": 1, "DatasetH_builds_max": 1, "model_fits_max": 2, "bootstrap_runs_max": 1, "native_accounts": 0, "new_market_requests": 0},
+  "stop": "Stop before fit if source hashes, 3020 training-feature coverage, 944 signal feature calendar, label maturity or Qlib Dataset cohort differ. If any information gate fails, close this fixed feature version without changing sign, volume normalization, trend threshold, horizon, Ridge alpha, cohorts or costs. A pass permits only a separately frozen original-Stage1 receiver and independent 0bp native account, then contract v2 2/5bp and qualified forward gates.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": ["inputs/*", "models/*", "predictions/*", "analysis/daily/*"]}
+}

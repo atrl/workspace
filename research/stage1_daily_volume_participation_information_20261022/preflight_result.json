@@ -1,0 +1,21 @@
+{
+  "status": "source_and_DatasetH_maturity_preflight_passed_no_fit",
+  "plan_sha256": "517cd966587163a36adf944d2854599126b4847b50b62d41a02d886a1c0514cd",
+  "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_provider_manifest_sha256": "1c0326887e9e7706b68c4cf83cf3cdbc48865041efde46082a0b4215f22f11c6",
+  "source_nas_archive_sha256": "2ac473e0476011141ee89e4b0371edf79663a617f8f020a2ac92acfc3e7b1817",
+  "original_primary_features": 39,
+  "candidate_coordinates": 1,
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "training_last_label_available_at": "2022-12-30 14:31:00+00:00",
+  "held_last_label_available_at": "2026-10-09 13:31:00+00:00",
+  "train_segment_rows": 3020,
+  "held_segment_rows": 944,
+  "candidate_train_nonzero_rows": 1132,
+  "candidate_held_nonzero_rows": 357,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "held_scores_computed": false,
+  "historical_independence": false
+}

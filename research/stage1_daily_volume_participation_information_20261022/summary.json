@@ -1,0 +1,21 @@
+{
+  "experiment": "stage1_daily_volume_participation_information_20261022",
+  "decision": "prefit_source_DatasetH_maturity_passed_information_unrun",
+  "objective_achieved": false,
+  "plan_sha256": "517cd966587163a36adf944d2854599126b4847b50b62d41a02d886a1c0514cd",
+  "preflight": "preflight_result.json",
+  "training_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/daily/*"
+    ]
+  }
+}
