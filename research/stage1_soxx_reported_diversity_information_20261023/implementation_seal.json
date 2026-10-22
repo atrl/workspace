@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "plan_sha256": "f353e6fd2561d966d3be78191aacb9d4ea27f234092e392e0ba60e32fe973396",
+  "code_cell_source_sha256": "86e6ecfb107db9de31d7384fd4825a78eb36603627546adfeaca693196894ae6",
+  "notebook_code_cell_index": 1,
+  "candidate_feature": "reported_equity_diversity_1_minus_top5",
+  "source_train_recorder_id": "479e9d93a77a47198c23a08e429d8598",
+  "source_held_recorder_id": "a66747c1a1cc46b69f17fe620deadbd1",
+  "parent_Stage1_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "max_new_fits": 2,
+  "max_bootstraps": 1,
+  "max_native_accounts": 0,
+  "scientific_choices_unchanged_after_seal": true
+}
