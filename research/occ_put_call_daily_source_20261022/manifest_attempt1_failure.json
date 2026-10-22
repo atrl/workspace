@@ -1,0 +1,12 @@
+{
+  "status": "manifest_attempt_failed_before_HTTP",
+  "failure": "2026-10-20 reuse was in parent initial retrieval_receipts.json, while manifest builder loaded only depth_availability_receipts.json; KeyError SOXX 2026-10-20.",
+  "operations_consumed": {
+    "D_calendar_calls": 1,
+    "HTTP_gets": 0,
+    "manifest_writes": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "plan_sha256": "d3ce3b6f2ab525a8ea96964a835ad93b039e27dbbf678328e9b6f17197fcb6e4"
+}

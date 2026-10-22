@@ -1,0 +1,98 @@
+{
+  "status": "source_semantics_reconciliation_complete",
+  "source_date": "2026-10-20",
+  "symbols": {
+    "SOXX": {
+      "occ_rows": 96,
+      "occ_roots": {
+        "2SOXX": 13000,
+        "SOXX": 164524
+      },
+      "occ_account_type_totals": {
+        "C": 63570,
+        "F": 25565,
+        "M": 88389
+      },
+      "occ_call_put_totals": {
+        "C": 70588,
+        "P": 106936
+      },
+      "occ_exchange_count": 18,
+      "matched_cboe_exchanges": {
+        "CBOE": {
+          "cboe_total": 7322,
+          "occ_sum_all_account_types_and_roots": 14644,
+          "ratio": 2.0
+        },
+        "BATS": {
+          "cboe_total": 1675,
+          "occ_sum_all_account_types_and_roots": 3350,
+          "ratio": 2.0
+        },
+        "C2": {
+          "cboe_total": 628,
+          "occ_sum_all_account_types_and_roots": 1256,
+          "ratio": 2.0
+        },
+        "EDGX": {
+          "cboe_total": 6520,
+          "occ_sum_all_account_types_and_roots": 13040,
+          "ratio": 2.0
+        }
+      },
+      "matched_cboe_total": 16145,
+      "matched_occ_total": 32290,
+      "matched_ratio": 2.0,
+      "all_exchange_occ_total": 177524
+    },
+    "SOXL": {
+      "occ_rows": 95,
+      "occ_roots": {
+        "2SOXL": 10392,
+        "SOXL": 460984
+      },
+      "occ_account_type_totals": {
+        "C": 211971,
+        "F": 19020,
+        "M": 240385
+      },
+      "occ_call_put_totals": {
+        "C": 266422,
+        "P": 204954
+      },
+      "occ_exchange_count": 19,
+      "matched_cboe_exchanges": {
+        "CBOE": {
+          "cboe_total": 38533,
+          "occ_sum_all_account_types_and_roots": 77066,
+          "ratio": 2.0
+        },
+        "BATS": {
+          "cboe_total": 11617,
+          "occ_sum_all_account_types_and_roots": 23234,
+          "ratio": 2.0
+        },
+        "C2": {
+          "cboe_total": 2397,
+          "occ_sum_all_account_types_and_roots": 4794,
+          "ratio": 2.0
+        },
+        "EDGX": {
+          "cboe_total": 3007,
+          "occ_sum_all_account_types_and_roots": 6014,
+          "ratio": 2.0
+        }
+      },
+      "matched_cboe_total": 55554,
+      "matched_occ_total": 111108,
+      "matched_ratio": 2.0,
+      "all_exchange_occ_total": 471376
+    }
+  },
+  "budget_consumed": {
+    "source_file_reads": 4,
+    "models": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  }
+}

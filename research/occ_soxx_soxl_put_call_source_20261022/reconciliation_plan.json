@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "same_day_same_exchange_source_semantics_reconciliation",
+  "source_date": "2026-10-20",
+  "occ_plan_sha256": "cf2dc078e5d6ccf434c56a542596278243c9ec7e0967ca61772cc3eba525c693",
+  "occ_receipt_sha256": "0013eb3c2f0dba00c79989d94a16da8db01c312afe6a4c66bd3a6a139617381a",
+  "occ_snapshots": {
+    "SOXX": {
+      "path": "data/snapshots/occ_soxx_soxl_put_call_source_20261022/soxx_20261020.bin",
+      "sha256": "75c0e61caafab1932ebd3a7f4e38203be12742aa7ee695cb1367ee970e4b28a2"
+    },
+    "SOXL": {
+      "path": "data/snapshots/occ_soxx_soxl_put_call_source_20261022/soxl_20261020.bin",
+      "sha256": "c22b17dd7dc1e31d1a4cf5c01c16bcaacc24c82dc717d4dd6cc9c0e248ce92f9"
+    }
+  },
+  "cboe_snapshots": {
+    "SOXX": {
+      "path": "data/snapshots/cboe_total_options_activity_source_20261022/soxx_2019-01-02_2026-10-21.bin",
+      "sha256": "ad3488689ad076b9526f9850746164727c3274e111c7c95d2dbbadc80d4a453e"
+    },
+    "SOXL": {
+      "path": "data/snapshots/cboe_total_options_activity_source_20261022/soxl_2019-01-02_2026-10-21.bin",
+      "sha256": "3bb691211485ffe6a45bc203aae686b046ffd9d8cd45a7211b2f202b1131e936"
+    }
+  },
+  "official_occ_record_layout": "https://www.theocc.com/getmedia/50cf357d-6ec6-436e-a96b-c4710313a472/options-volume-query-record-layout.pdf;",
+  "comparison_exchanges": [
+    "CBOE",
+    "BATS",
+    "C2",
+    "EDGX"
+  ],
+  "budget": {
+    "source_file_reads": 4,
+    "models": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "method": "Parse exact 8-column OCC records (seventh header omits empty contract-date column), group quantity by underlying/options root/account type/call-put/exchange. Compare matched Cboe four-exchange total by exchange. Report raw OCC/Cboe ratios and potential side duplication without selecting a corrected scaling unless uniquely established.",
+  "stops": [
+    "Source hash, date or symbol mismatch stops",
+    "No outcome/factor/account execution",
+    "Unresolved duplicate-account or adjusted-root semantics means not qualified for put/call factor"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_qualification_analysis_only",
+  "source_plan_sha256": "cf2dc078e5d6ccf434c56a542596278243c9ec7e0967ca61772cc3eba525c693",
+  "first_receipt_sha256": "0013eb3c2f0dba00c79989d94a16da8db01c312afe6a4c66bd3a6a139617381a",
+  "reconciliation_result_sha256": "2d0f08b12470fb21d88a39c5728695aa8678840571ab1a2700b1062e82feb091",
+  "depth_receipt_sha256": "9ebdf028a515aec06cc42675fe409f0a12402081bfcb32e731fccb7d7dbd76e4",
+  "second_day_reconciliation_sha256": "68213c895d053df9ba9637b3b7d8c8eed1926f4d72be093e38b00f2254edb886",
+  "snapshot_sha256": {
+    "data/snapshots/occ_soxx_soxl_put_call_source_20261022/soxx_20261020.bin": "75c0e61caafab1932ebd3a7f4e38203be12742aa7ee695cb1367ee970e4b28a2",
+    "data/snapshots/occ_soxx_soxl_put_call_source_20261022/soxl_20261020.bin": "c22b17dd7dc1e31d1a4cf5c01c16bcaacc24c82dc717d4dd6cc9c0e248ce92f9",
+    "data/snapshots/occ_soxx_soxl_put_call_source_20261022/depth_availability/soxx_20261021.bin": "ea5668fada3ff7deb43ded061f3c794c1b502f197647e1c821f1d42339303d3e",
+    "data/snapshots/occ_soxx_soxl_put_call_source_20261022/depth_availability/soxl_20261021.bin": "5b6e4288af3ca0db9aee09a472efa51549fcdce76dc09b875390216de1776225",
+    "data/snapshots/occ_soxx_soxl_put_call_source_20261022/depth_availability/soxx_20241101.bin": "6aa158169eecba0c3ed17f1bcc2d8a496998971267483b221d58d34772fa6faf",
+    "data/snapshots/occ_soxx_soxl_put_call_source_20261022/depth_availability/soxl_20241101.bin": "3d29aba7f1244794924f5639f3fa30f34015d33ebf0eb131d6110d0c22467b11",
+    "data/snapshots/occ_soxx_soxl_put_call_source_20261022/depth_availability/soxx_20230103.bin": "1a8e216ba41f75fccdf638f788a882a66cc1087d7b7838155afe5a26a8d1f485",
+    "data/snapshots/occ_soxx_soxl_put_call_source_20261022/depth_availability/soxl_20230103.bin": "1a8e216ba41f75fccdf638f788a882a66cc1087d7b7838155afe5a26a8d1f485"
+  },
+  "calendar_provider": "data/qlib/soxl",
+  "calendar_manifest_sha256": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+  "calendar_file_sha256": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e",
+  "budget": {
+    "source_snapshot_reads": 8,
+    "D_calendar_calls": 1,
+    "new_writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "qualification_checks": [
+    "Exact current and 2024 historical OCC eight-column records, symbols, account and call/put classification",
+    "2023 dated trading session query returns only header and is unavailable in this free endpoint",
+    "Eight shared symbol-date-venue comparisons against Cboe total all show OCC all-account quantity exactly double Cboe contracts; do not interpret account type as trade initiation",
+    "Qlib D.calendar confirms sampled dates are market sessions; no D.features/returns",
+    "First-public historical timing and broad 2-year coverage remain unproven"
+  ],
+  "stops": [
+    "Any source or provider hash mismatch before Qlib read/Recorder",
+    "No candidate/model/account from this qualification"
+  ]
+}

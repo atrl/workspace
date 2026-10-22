@@ -1,0 +1,50 @@
+{
+  "recorder_id": "b6ba94e9bd2446cf8c21a70b9a750e54",
+  "entries": [
+    {
+      "path": "qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54/artifacts/analysis/exact_parsed_rows",
+      "sha256": "ab214ec5a9efe254ad7f275378fb0da1d6e203126238cc1580b498d1fcb23831",
+      "bytes": 26407
+    },
+    {
+      "path": "qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54/artifacts/analysis/first_day_reconciliation",
+      "sha256": "142d43799c21423c1cb8df3a1db8a0be0b80ec3c7391144d4819aa99dde4a237",
+      "bytes": 922
+    },
+    {
+      "path": "qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54/artifacts/analysis/qualification",
+      "sha256": "d8ef1f19ab383d50d3ee272bb88b36cb15b4350bca6d1b3a51943efb7532c066",
+      "bytes": 1228
+    },
+    {
+      "path": "qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54/artifacts/analysis/second_day_reconciliation",
+      "sha256": "82386110f697f4e13423abe4679a1a8d2fff8bd595b43f66111a2a0f70ef4369",
+      "bytes": 658
+    },
+    {
+      "path": "qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54/artifacts/code_diff.txt",
+      "sha256": "ab41b91a9a74ad1f9bea8ee9a3ae29251f000ec97ff64c059d9cf87bf9ff883a",
+      "bytes": 432769
+    },
+    {
+      "path": "qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54/artifacts/code_status.txt",
+      "sha256": "7b770be43c220e2e05a5ad6bd71a3a585294575364fae00a1d7e9839e1bca72b",
+      "bytes": 61061
+    },
+    {
+      "path": "qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54/artifacts/sources/qualification_plan",
+      "sha256": "bbcd3bb0f3b266f4b5708bd241a9a11c8c01b8586aca62c3359874fe752e71c1",
+      "bytes": 2881
+    },
+    {
+      "path": "qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54/artifacts/sources/retrieval_receipts",
+      "sha256": "e37a14fd479f58ab4e839d3dc55d8cc9a9c4905ec82f28ff6017c16321055e93",
+      "bytes": 5286
+    }
+  ]
+}

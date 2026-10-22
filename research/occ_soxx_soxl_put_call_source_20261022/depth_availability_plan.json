@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "bounded_depth_and_current_availability_probe",
+  "parent_plan_sha256": "cf2dc078e5d6ccf434c56a542596278243c9ec7e0967ca61772cc3eba525c693",
+  "reconciliation_plan_sha256": "a3bbf00a4722670ad1ece86acba83fa342320ff849237d6da60aadedb948d66a",
+  "reconciliation_result_sha256": "2d0f08b12470fb21d88a39c5728695aa8678840571ab1a2700b1062e82feb091",
+  "endpoint": "https://marketdata.theocc.com/volume-query",
+  "parameters": {
+    "format": "csv",
+    "volumeQueryType": "O",
+    "symbolType": "U",
+    "reportType": "D",
+    "accountType": "ALL",
+    "productKind": "OSTK",
+    "porc": "BOTH"
+  },
+  "queries": [
+    {
+      "symbol": "SOXX",
+      "reportDate": "20261021"
+    },
+    {
+      "symbol": "SOXL",
+      "reportDate": "20261021"
+    },
+    {
+      "symbol": "SOXX",
+      "reportDate": "20241101"
+    },
+    {
+      "symbol": "SOXL",
+      "reportDate": "20241101"
+    },
+    {
+      "symbol": "SOXX",
+      "reportDate": "20230103"
+    },
+    {
+      "symbol": "SOXL",
+      "reportDate": "20230103"
+    }
+  ],
+  "max_response_bytes": 1000000,
+  "budget": {
+    "http_gets": 6,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "checks": [
+    "Recent completed date presence with UTC retrieval receipt",
+    "One date within 24 months and one older date to bound free historical depth",
+    "Only exact OCC 8-column activity rows count as valid data",
+    "Preserve HTTP errors and bytes; no paid fallback"
+  ],
+  "stops": [
+    "No inferential factor/account work",
+    "If older date unavailable, do not repeatedly probe same entitlement or fabricate history",
+    "One current observation does not establish first-public timing"
+  ]
+}

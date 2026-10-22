@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_fixed_information_notebook_execution",
+  "scientific_plan_sha256": "81d352c252890fdb2dda08f64f956fa2131455e482b70d7621532cb8a7408913",
+  "notebook_sha256": "4b304ab26ff7288dc3045ebdbea28b995ebd66b2ea8569f143d413620b436bea",
+  "stationary_bootstrap_code_sha256": "54690d476a3ac30cb5bf3f6208593998ca6110698dc7245d15567c285998828e",
+  "source_loader_code_sha256": "3a6a15935247d3f4552fd99cc6b0b0fc33f2edadf5f9195527079312c710b3f1",
+  "budget": {
+    "notebook_attempts": 1,
+    "source_object_loads": 1,
+    "D_calendar_calls": 1,
+    "D_features_calls": 1,
+    "DatasetH_builds": 1,
+    "model_fits": 2,
+    "bootstrap_runs": 1,
+    "native_accounts": 0,
+    "writable_Recorders": 1
+  },
+  "stop": "No retry without preserving actual consumption and separately frozen engineering recovery. No changed scientific label, feature, window, threshold, cost or source based on held results."
+}

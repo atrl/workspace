@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "qualification_same_rule_following_day_source_extension",
+  "qualification_plan_sha256": "fd2b2ed83b7d6d11ae761c31c01b3c03b3e9dd608ef60966e955548f07a6d941",
+  "forward_cboe_receipt_sha256": "38e8205bb9182e23dc3edc28e095f632c5a4040643eee2bb0b3a238e53b06b72",
+  "forward_cboe_sources": {
+    "SOXX": {
+      "path": "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T040020511695Z/soxx.csv",
+      "sha256": "f5cdc7a57e7cd953778e038ef9d283bf2985d078b58afec2f6afa4ce606d7f7f"
+    },
+    "SOXL": {
+      "path": "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T040020511695Z/soxl.csv",
+      "sha256": "cdb002e13efdd9a0f2660f0428faf0ec878157ae521d0de1957fc9284267ff08"
+    }
+  },
+  "target_date": "2026-10-21",
+  "method": "Append exact hash-verified Oct21 Cboe shared-venue totals to the original full-range Cboe response ending Oct20. Preserve same exact OCC=2*Cboe contract-count gate for all 493 dates.",
+  "new_HTTP_gets": 0,
+  "new_D_calls": 0,
+  "model_fits": 0,
+  "accounts": 0
+}

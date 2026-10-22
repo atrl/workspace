@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "queries": [
+    {
+      "symbol": "SOXX",
+      "reportDate": "20261020",
+      "url": "https://marketdata.theocc.com/volume-query?format=csv&volumeQueryType=O&symbolType=U&reportType=D&accountType=ALL&productKind=OSTK&porc=BOTH&symbol=SOXX&reportDate=20261020",
+      "requested_at_utc": "2026-10-22T04:03:58.782600+00:00",
+      "http_status": 200,
+      "content_type": "application/octet-stream",
+      "content_disposition": "attachment; filename=vol-query-results.csv",
+      "response_date": "Thu, 22 Oct 2026 04:04:00 GMT",
+      "cache_control": null,
+      "relative_path": "data/snapshots/occ_soxx_soxl_put_call_source_20261022/soxx_20261020.bin",
+      "bytes": 3521,
+      "sha256": "75c0e61caafab1932ebd3a7f4e38203be12742aa7ee695cb1367ee970e4b28a2",
+      "first_200_bytes_repr": "b'quantity,underlying,symbol,actype,porc,exchange,actdate\\r\\n3250,SOXX,2SOXX,F,C,AMEX,10/20/2026,\\r\\n3250,SOXX,2SOXX,M,C,AMEX,10/20/2026,\\r\\n3250,SOXX,2SOXX,F,P,AMEX,10/20/2026,\\r\\n3250,SOXX,2SOXX,M,P,AMEX,10/2'"
+    },
+    {
+      "symbol": "SOXL",
+      "reportDate": "20261020",
+      "url": "https://marketdata.theocc.com/volume-query?format=csv&volumeQueryType=O&symbolType=U&reportType=D&accountType=ALL&productKind=OSTK&porc=BOTH&symbol=SOXL&reportDate=20261020",
+      "requested_at_utc": "2026-10-22T04:04:00.421800+00:00",
+      "http_status": 200,
+      "content_type": "application/octet-stream",
+      "content_disposition": "attachment; filename=vol-query-results.csv",
+      "response_date": "Thu, 22 Oct 2026 04:04:01 GMT",
+      "cache_control": null,
+      "relative_path": "data/snapshots/occ_soxx_soxl_put_call_source_20261022/soxl_20261020.bin",
+      "bytes": 3536,
+      "sha256": "c22b17dd7dc1e31d1a4cf5c01c16bcaacc24c82dc717d4dd6cc9c0e248ce92f9",
+      "first_200_bytes_repr": "b'quantity,underlying,symbol,actype,porc,exchange,actdate\\r\\n2500,SOXL,2SOXL,F,C,AMEX,10/20/2026,\\r\\n2500,SOXL,2SOXL,M,C,AMEX,10/20/2026,\\r\\n2500,SOXL,2SOXL,F,P,AMEX,10/20/2026,\\r\\n2500,SOXL,2SOXL,M,P,AMEX,10/2'"
+    }
+  ]
+}

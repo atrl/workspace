@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "second_day_same_exchange_semantics_reconciliation",
+  "source_date": "2026-10-21",
+  "first_day_reconciliation_sha256": "2d0f08b12470fb21d88a39c5728695aa8678840571ab1a2700b1062e82feb091",
+  "occ_depth_receipts_sha256": "9ebdf028a515aec06cc42675fe409f0a12402081bfcb32e731fccb7d7dbd76e4",
+  "cboe_forward_receipt_sha256": "38e8205bb9182e23dc3edc28e095f632c5a4040643eee2bb0b3a238e53b06b72",
+  "sources": {
+    "OCC": {
+      "SOXX": {
+        "path": "data/snapshots/occ_soxx_soxl_put_call_source_20261022/depth_availability/soxx_20261021.bin",
+        "sha256": "ea5668fada3ff7deb43ded061f3c794c1b502f197647e1c821f1d42339303d3e"
+      },
+      "SOXL": {
+        "path": "data/snapshots/occ_soxx_soxl_put_call_source_20261022/depth_availability/soxl_20261021.bin",
+        "sha256": "5b6e4288af3ca0db9aee09a472efa51549fcdce76dc09b875390216de1776225"
+      }
+    },
+    "Cboe": {
+      "SOXX": {
+        "path": "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T040020511695Z/soxx.csv",
+        "sha256": "f5cdc7a57e7cd953778e038ef9d283bf2985d078b58afec2f6afa4ce606d7f7f"
+      },
+      "SOXL": {
+        "path": "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T040020511695Z/soxl.csv",
+        "sha256": "cdb002e13efdd9a0f2660f0428faf0ec878157ae521d0de1957fc9284267ff08"
+      }
+    }
+  },
+  "exchanges": [
+    "CBOE",
+    "BATS",
+    "C2",
+    "EDGX"
+  ],
+  "budget": {
+    "source_file_reads": 4,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "method": "Compare Oct21 OCC all-account-type/all-root quantity sums with Cboe total volume on exact shared exchanges, by symbol and venue; report ratio, root composition and daily availability, without assuming correction until observed.",
+  "stops": [
+    "Identity/date mismatch or ratio disagreement: source not yet qualified",
+    "No market outcome/model/account read"
+  ]
+}

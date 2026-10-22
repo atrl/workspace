@@ -1,0 +1,27 @@
+{
+  "status": "design_only_no_execution",
+  "objective": "Find a distinct pretrade source of short-horizon SOXX tail-risk information that can reduce unnecessary P3 cash exposure without worsening drawdown. This is not a claim of SOXX outperformance.",
+  "mechanism": "Within-symbol surprise in total Cboe SOXX option participation may anticipate future realized volatility beyond prior SOXX RV, signed return and stock volume. This measures intensity, not put/call direction or implied skew.",
+  "distinctness": "Cboe 2019-2026 four-exchange total contract count; different quantity and history from the closed OCC put-share composition screen. Closed signed semivariance and SIA/inventory routes are not retuned.",
+  "source_evidence": {
+    "card": "research/cboe_total_options_activity_source_20261022",
+    "summary_sha256": "66b44dbda9bb8c75d958e8fb7e0111c427b17c3aede2886f59a7a8b6b25e3f63",
+    "coverage_audit_sha256": "56f828e63e0d8e87664d5fdd7824fd0401f33f59e7a9e8c31e0e18038b71c8e5",
+    "publication_window_sha256": "c6c1835bffd9550defe89649d00071595e2b4db0b9a1155f8279f45006af79a9"
+  },
+  "negative_prior_information": {
+    "card": "research/occ_put_share_tail_information_20261022",
+    "result_sha256": "1bbd1a2d0df9bfef9144ab2fa075e87cd0a6638bbd4959ba5e68201da5ad5cd2",
+    "fixed_put_share_information_gate_pass": false
+  },
+  "minimum_before_execution": [
+    "Further timestamped Cboe publication/revision observations; one midnight access window is insufficient to claim historical PIT",
+    "Freeze one total-activity predictor with within-symbol lagged scale normalization, 2019-2022 development and 2023-2026 reused diagnostic evaluation, missingness/cost/selection gates before outcome read",
+    "Use native Qlib price/calendar/DatasetH and Recorder; no account unless information and source gates pass"
+  ],
+  "execution_authorized": false,
+  "model_fits": 0,
+  "accounts": 0,
+  "qualified_forward_days": 0,
+  "promotion_boundary": "All v2 SOXX fee-net, risk, annual, rolling, bootstrap and independent forward gates still required."
+}

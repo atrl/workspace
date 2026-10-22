@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "exact_source_acquisition_attempt_1",
+  "plan_sha256": "d3ce3b6f2ab525a8ea96964a835ad93b039e27dbbf678328e9b6f17197fcb6e4",
+  "manifest_sha256": "16237b14d399e7c4bb6681a105299bfbde9b0dcd60f26385bb3fcd300ea33ea6",
+  "manifest_recovery_plan_sha256": "8b2338bb5d64222da123e97049f566ed81cb414ec5268be9f4e48f5e929e20c4",
+  "module_path": "src/data/occ_put_call_daily_source.py",
+  "module_sha256": "63147f3b00f1c75d00a273476a85e6c2c1d95a65069f2be62d3c226d6685643a",
+  "focused_parser_test": "tests/test_occ_put_call_daily_source.py",
+  "planned_http_gets": 980,
+  "reused_source_pairs": 6,
+  "budget": {
+    "new_HTTP_gets": 980,
+    "cumulative_prior_manifest_D_calendar_calls": 2,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stop": "One failed source request or changed schema stops exact prefix; resumption must reverify all raw bytes and identical manifest, never overwrite."
+}

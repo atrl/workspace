@@ -1,0 +1,65 @@
+{
+  "recorder_id": "ba7c9b2a77dd4b7ea6e68291b68e0392",
+  "entries": [
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/analysis/result",
+      "sha256": "7fdbd8b2d68c9f399903881dbe287ea0e5d2b8b061dc386ec976152be44dbe16",
+      "bytes": 770
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/code_diff.txt",
+      "sha256": "cb8f2db765f8578251f726559db348539b8feda31ee513f4e04770b39755e67d",
+      "bytes": 439916
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/code_status.txt",
+      "sha256": "88b2c54d25e00441a9f9e2589b123055f754a9963365a939cfdcdaa686d5f66b",
+      "bytes": 61387
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/inputs/plan",
+      "sha256": "8db03dadd75beced61df0069ce1860b70156f9970040760d0c16538312079c73",
+      "bytes": 4515
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/inputs/price_provider_identity",
+      "sha256": "d50b7634d09d586974daeed5dd038ee5a5815bbcbcc4c31d80a4a0556a78d8d4",
+      "bytes": 563
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/inputs/source_audit",
+      "sha256": "b2ef5c074b1316c2a57faa287016c706a02dc580f758fc1720d36b84f7e91668",
+      "bytes": 1277
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/models/baseline",
+      "sha256": "81ad796838df4af7500e6ad163754360915b31b506f6c01ee241fd01136dc41f",
+      "bytes": 1222
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/models/candidate",
+      "sha256": "1fd7d85fda75e5afdda228d6b516147b2cbc8ebb0d817c6803b02cbdb547c71d",
+      "bytes": 1273
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/predictions/held",
+      "sha256": "97160178e751dcfc4237c857d941b9485da4e043330f960d47a0e188c70dc9f3",
+      "bytes": 12248
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/predictions/train_features",
+      "sha256": "5987d90acd73f838d0bdfba10549a006fc200a86146e1f85234ac014a2c610e3",
+      "bytes": 16518
+    },
+    {
+      "path": "qlib_recorder/485113118693752491/ba7c9b2a77dd4b7ea6e68291b68e0392/artifacts/sources/source_daily",
+      "sha256": "a2193a32d7bb8b06ffd3a726389447ca53cf31b2aac39bfb3073b25524af01dd",
+      "bytes": 70951
+    }
+  ]
+}

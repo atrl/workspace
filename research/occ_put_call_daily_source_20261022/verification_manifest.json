@@ -1,0 +1,75 @@
+{
+  "recorder_id": "7c73158061a9478dbc659de98bd3c866",
+  "entries": [
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/analysis/daily",
+      "sha256": "1384a903605822b788c44a54290c98e5939b5a259d4f02e3fa12f45b388c393b",
+      "bytes": 138493
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/analysis/mismatches",
+      "sha256": "b7c7bc44cc7f8fba641539c6c808e1f2ba2e41ee1be4932d2842dbd274358b55",
+      "bytes": 358
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/analysis/missing_option_type_days",
+      "sha256": "b7c7bc44cc7f8fba641539c6c808e1f2ba2e41ee1be4932d2842dbd274358b55",
+      "bytes": 358
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/analysis/odd_quantity_days",
+      "sha256": "b7c7bc44cc7f8fba641539c6c808e1f2ba2e41ee1be4932d2842dbd274358b55",
+      "bytes": 358
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/analysis/qualification",
+      "sha256": "cc55e095842f79af42e1deed0b144ecc54dc4a12319e03ffc28a267e5b238300",
+      "bytes": 731
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/analysis/zero_total_days",
+      "sha256": "b7c7bc44cc7f8fba641539c6c808e1f2ba2e41ee1be4932d2842dbd274358b55",
+      "bytes": 358
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/code_diff.txt",
+      "sha256": "cb8f2db765f8578251f726559db348539b8feda31ee513f4e04770b39755e67d",
+      "bytes": 439916
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/code_status.txt",
+      "sha256": "b82ededc8b0b85b15d00d6b4be112471fcd7dcdbb09f1b9b8685fb4c2941e113",
+      "bytes": 61336
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/sources/Cboe_extension",
+      "sha256": "bfdae9808c35014bd4fbef9a697d8c1276c1b8e4c8af013cca323ba2f7320e93",
+      "bytes": 1016
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/sources/acquisition_receipts",
+      "sha256": "60ce37949bb2f08a9204b762fcadf48db3ddf33b7049271d865135a3ad663705",
+      "bytes": 842627
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/sources/plan",
+      "sha256": "4fab8a643bb8e8e34f4717eb72c5c715e683cd19828c71e5bede495c8552b1de",
+      "bytes": 3103
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/sources/qualification_plan",
+      "sha256": "98edfae841bf0232476c8da6ad007466c5a1b2e7de92d998bcfe83e85480c61c",
+      "bytes": 1591
+    },
+    {
+      "path": "qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866/artifacts/sources/request_manifest",
+      "sha256": "57004016a152c40d1ee15f69dda8ddd5a5e898a250c5dc7b1f1eefab3dfab6e7",
+      "bytes": 203656
+    }
+  ]
+}

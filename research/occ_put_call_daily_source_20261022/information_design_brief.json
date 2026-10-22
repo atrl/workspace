@@ -1,0 +1,17 @@
+{
+  "status": "design_only_no_information_execution",
+  "scientific_question": "Does the prior fully published OCC SOXX option put-share provide incremental next-session or five-session downside-risk information, conditional on existing Qlib price and variance features, enough to make a protective overlay more selective and reduce SOXX opportunity cost?",
+  "observable": "OCC put_quantity/(put_quantity+call_quantity) after pooling all roots/exchanges/account types. Each contract appears on both clearing sides; the common 2x cancels in the ratio. No buyer-to-open, trade sign, implied-volatility skew or dealer positioning is observable.",
+  "distinctness": "New clearing-source option contract-type mix, not CBOE SKEW level, generic Cboe total volume, closed price/variance/trend thresholds, constituent basket lead, or inventory/sales fundamentals.",
+  "literature_boundary": {
+    "primary_paper": "https://academic.oup.com/rfs/article-abstract/19/3/871/1646711",
+    "warning": "Pan and Poteshman use buyer-initiated opening option volume unavailable in this OCC source. Their result cannot certify this aggregate ETF put share or its economic value."
+  },
+  "timing_boundary": "Retrospective OCC file lacks original vintage. Historical analysis would remain diagnostic even with a conservative multi-session lag. Prospective decisions require timestamped captured rows and no later revisions at decision time.",
+  "minimum_source_gate": "Complete bounded 2024-11..2026-10 session coverage and exact matched Cboe venue reconciliation before any outcome read. Current source acquisition plan/manifest are authoritative.",
+  "information_gate_to_freeze_later": "One paired baseline-versus-augmented downside forecast using the existing fixed SOXX open-based five-session -6% label semantics, development dates only for model/selection, one held 2026 diagnostic read, explicit missingness and paired uncertainty. Do not tune sign, threshold, horizon or portfolio action from held outcomes.",
+  "economic_gate": "Only an information increment plus qualified source timing can authorize separately frozen 0/2/5bp native SOXL/SOXX/CASH accounts versus SOXX, all v2 risk/annual/rolling/bootstrap gates and independent forward evidence.",
+  "execution_authorized": false,
+  "new_model_fits": 0,
+  "new_accounts": 0
+}

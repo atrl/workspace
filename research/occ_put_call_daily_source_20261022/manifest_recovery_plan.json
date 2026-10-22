@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "manifest_recovery_reuse_inventory",
+  "original_plan_sha256": "d3ce3b6f2ab525a8ea96964a835ad93b039e27dbbf678328e9b6f17197fcb6e4",
+  "failure_sha256": "89c6e51dc055e6676faf548eca5d7c8c77454c38f7725a7a76dfb7d42f16cefb",
+  "parent_initial_receipts_sha256": "0013eb3c2f0dba00c79989d94a16da8db01c312afe6a4c66bd3a6a139617381a",
+  "parent_depth_receipts_sha256": "9ebdf028a515aec06cc42675fe409f0a12402081bfcb32e731fccb7d7dbd76e4",
+  "recovery": "Union exact two original Oct20 receipts and six depth Oct21/Nov1/2023 receipts; only three designated reuse dates are selected. Calendar/date algorithm, URL, source and budget unchanged.",
+  "budget": {
+    "cumulative_prior_D_calendar_calls": 1,
+    "new_D_calendar_calls": 1,
+    "new_HTTP_gets": 0,
+    "max_manifest_writes": 1
+  }
+}

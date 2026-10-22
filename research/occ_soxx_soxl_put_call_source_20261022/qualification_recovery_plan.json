@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_qualification_recovery_exact_server_history_limit",
+  "original_qualification_plan_sha256": "de55285cb1e996b24966db246f685474b5ec24efac4530c99e059adfc929201f",
+  "attempt1_failure_sha256": "701737036bba69dfb0e70a67f9efa6e2daf5b535bdc0a85599de02abb47224bd",
+  "depth_receipts_sha256": "9ebdf028a515aec06cc42675fe409f0a12402081bfcb32e731fccb7d7dbd76e4",
+  "notebook_sha256": "a964d45264621ee4f7699ed6963d72d8cd976dbccb47b545182a0f6de9de40dd",
+  "expected_legacy_response_exact": "Report date cannot be prior to  2 years\\r\\n",
+  "budget": {
+    "new_source_snapshot_reads": 8,
+    "cumulative_prior_source_snapshot_reads": 7,
+    "new_http_gets": 0,
+    "D_calendar_calls": 1,
+    "new_writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0,
+    "attempts": 1
+  },
+  "changes": [
+    "Treat 2023 HTTP200 plain-text response as explicit two-year limit, not CSV header-only",
+    "Correct dictionary identity count from 6 to 8 symbol-date combinations",
+    "Preserve same source files, comparison, Qlib calendar, scientific decision and no-market-outcome boundary"
+  ],
+  "stops": [
+    "Any byte/hash mismatch or different error text stops before Qlib",
+    "No paid fallback or history fabrication",
+    "One native Qlib calendar read and one Recorder only if source identity passes"
+  ]
+}

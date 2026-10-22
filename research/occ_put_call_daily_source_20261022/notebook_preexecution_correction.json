@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "preexecution_gate_alignment",
+  "earlier_preflight_plan_sha256": "c4a536af6d7c818a66eaa08fc11a327efe6cdbf2f18fb86a2e2b570972be2645",
+  "earlier_notebook_sha256": "e83fcf9e2adfd21d49cd52187a792f1880e35a6b0c3647cdf94425f1465519e3",
+  "corrected_notebook_sha256": "c526c582945ff525a6060a9a806e64cd3653f63c2c8049170aaab84af817e93a",
+  "reason": "Original qualification_plan.json decision rule requires exact shared-venue reconciliation and complete pairs; odd per-class clearing counts are report-only. Remove unplanned odd-count status gate before any source outcomes or notebook run.",
+  "source_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_accounts": 0
+}

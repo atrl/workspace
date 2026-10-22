@@ -1,0 +1,19 @@
+{
+  "experiment": "tsmc_monthly_revenue_release_source_20261022",
+  "status": "needs_source_access",
+  "decision": "no_TSM_monthly_factor_calculation",
+  "result": "source_probe_result.json",
+  "recorder_status": "not_started_source_access_stop",
+  "objective_achieved": false,
+  "qualified_forward_days": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

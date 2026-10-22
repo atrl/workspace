@@ -1,0 +1,77 @@
+{
+  "status": "second_day_source_reconciliation_complete",
+  "source_date": "2026-10-21",
+  "symbols": {
+    "SOXX": {
+      "OCC_rows": 86,
+      "roots": {
+        "SOXX": 76086
+      },
+      "OCC_call_put_quantity": {
+        "C": 19058,
+        "P": 57028
+      },
+      "matched": {
+        "CBOE": {
+          "occ_quantity_sum": 6502,
+          "cboe_contracts": 3251,
+          "ratio": 2.0
+        },
+        "BATS": {
+          "occ_quantity_sum": 4510,
+          "cboe_contracts": 2255,
+          "ratio": 2.0
+        },
+        "C2": {
+          "occ_quantity_sum": 1060,
+          "cboe_contracts": 530,
+          "ratio": 2.0
+        },
+        "EDGX": {
+          "occ_quantity_sum": 2778,
+          "cboe_contracts": 1389,
+          "ratio": 2.0
+        }
+      },
+      "all_four_exchanges_exactly_2x": true
+    },
+    "SOXL": {
+      "OCC_rows": 105,
+      "roots": {
+        "2SOXL": 18496,
+        "SOXL": 471148
+      },
+      "OCC_call_put_quantity": {
+        "P": 239850,
+        "C": 249794
+      },
+      "matched": {
+        "CBOE": {
+          "occ_quantity_sum": 77666,
+          "cboe_contracts": 38833,
+          "ratio": 2.0
+        },
+        "BATS": {
+          "occ_quantity_sum": 16560,
+          "cboe_contracts": 8280,
+          "ratio": 2.0
+        },
+        "C2": {
+          "occ_quantity_sum": 2504,
+          "cboe_contracts": 1252,
+          "ratio": 2.0
+        },
+        "EDGX": {
+          "occ_quantity_sum": 10498,
+          "cboe_contracts": 5249,
+          "ratio": 2.0
+        }
+      },
+      "all_four_exchanges_exactly_2x": true
+    }
+  },
+  "new_source_file_reads": 4,
+  "models": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0
+}

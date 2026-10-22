@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "experiment": "tsmc_monthly_revenue_release_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "original_press_release_source_probe",
+  "hypothesis": "TSMC first-published monthly revenue growth acceleration may be a timelier foundry demand signal for medium-horizon SOXX allocation than the previously failed SIA global three-month-moving-average sales mechanism. No predictive or portfolio claim in this source probe.",
+  "distinctness": "Issuer original monthly release and YoY acceleration, not four-name inventory/sales ratio, SIA global sales level, or price/volatility threshold tuning.",
+  "source": "TSMC official English press-center original monthly revenue news pages",
+  "sample_pages": [
+    {
+      "period": "2019-09",
+      "url": "https://pr.tsmc.com/english/news/2011"
+    },
+    {
+      "period": "2020-09",
+      "url": "https://pr.tsmc.com/english/news/2732"
+    },
+    {
+      "period": "2025-09",
+      "url": "https://pr.tsmc.com/english/news/3261"
+    },
+    {
+      "period": "2026-09",
+      "url": "https://pr.tsmc.com/english/news/3343"
+    }
+  ],
+  "time_boundary": "Published calendar date on current page is not an independently retained first-public timestamp. For any future screen, signal no earlier than the following US exchange session unless original announcement time/SEC acceptance and version are proven.",
+  "source_semantics": "Monthly consolidated net revenue in NT$ millions, monthly MoM and YoY stated in release; do not mix present revised annual totals or mutable summary page.",
+  "max_response_bytes": 1000000,
+  "budget": {
+    "http_gets": 4,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "acceptance": [
+    "All four official pages HTTP200, exact bytes/URL/retrieval time/SHA256 archived",
+    "Each page unambiguously names revenue period, issued date, consolidated revenue amount and YoY/MoM",
+    "2019/2020/2025/2026 source form comparability checked; revisions and exact first-public time remain explicit gaps",
+    "No outcome or factor calculation"
+  ],
+  "stops": [
+    "Missing source field or changed semantics: preserve and stop",
+    "No old route threshold/window rescue",
+    "No paid data acquisition or broker action"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

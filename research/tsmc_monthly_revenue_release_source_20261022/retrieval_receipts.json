@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "queries": [
+    {
+      "period": "2019-09",
+      "url": "https://pr.tsmc.com/english/news/2011",
+      "requested_at_utc": "2026-10-22T04:34:05.178988+00:00",
+      "http_status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/2019-09.html",
+      "bytes": 5428,
+      "sha256": "3a85922092c470d6a01ebb48ded3ed28252247cd087a8f0a742716e8aff2af59"
+    },
+    {
+      "period": "2020-09",
+      "url": "https://pr.tsmc.com/english/news/2732",
+      "requested_at_utc": "2026-10-22T04:34:06.968665+00:00",
+      "http_status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/2020-09.html",
+      "bytes": 5428,
+      "sha256": "328a2a5148b95b9637a6bd399e0a4908a507157aea02e4eebb513ff2492ca576"
+    },
+    {
+      "period": "2025-09",
+      "url": "https://pr.tsmc.com/english/news/3261",
+      "requested_at_utc": "2026-10-22T04:34:07.637229+00:00",
+      "http_status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/2025-09.html",
+      "bytes": 5428,
+      "sha256": "026a06f37070fc48e2bc57af42c22ea845117f0bc93aa4e9bda2f1de6bcfec01"
+    },
+    {
+      "period": "2026-09",
+      "url": "https://pr.tsmc.com/english/news/3343",
+      "requested_at_utc": "2026-10-22T04:34:08.379163+00:00",
+      "http_status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/2026-09.html",
+      "bytes": 5428,
+      "sha256": "94058057c10ab50eb80635f914404a195ceb60815a3d2f598ad12838d00edb48"
+    }
+  ]
+}

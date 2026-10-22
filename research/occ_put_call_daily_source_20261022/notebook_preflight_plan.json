@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_source_qualification_notebook_after_complete_acquisition",
+  "notebook_sha256": "e83fcf9e2adfd21d49cd52187a792f1880e35a6b0c3647cdf94425f1465519e3",
+  "qualification_plan_sha256": "fd2b2ed83b7d6d11ae761c31c01b3c03b3e9dd608ef60966e955548f07a6d941",
+  "extension_plan_sha256": "f53c4fed9669c721f3a10c1b6e812c15e88f02a96c4d73540e819111b5cfdded",
+  "request_manifest_sha256": "16237b14d399e7c4bb6681a105299bfbde9b0dcd60f26385bb3fcd300ea33ea6",
+  "source_module_sha256": "63147f3b00f1c75d00a273476a85e6c2c1d95a65069f2be62d3c226d6685643a",
+  "budget": {
+    "notebook_attempts": 1,
+    "new_D_calls": 0,
+    "new_writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stop": "Wait for exact live acquisition process to finish; do not restart it on timeout. Verify raw receipt count and source hashes before one notebook attempt. No outcome data read."
+}

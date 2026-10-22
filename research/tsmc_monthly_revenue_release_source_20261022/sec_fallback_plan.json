@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "SEC_6K_original_release_access_fallback",
+  "TSMC_direct_plan_sha256": "863cfdbc3ff970daf800f9f7d48217a7586447cf83c89adb119243966b328d2c",
+  "TSMC_direct_receipts_sha256": "76883a63eaa622fe8f200b974c4abd0f1f2ea3e4a23cd1f459fa8c439ad198f9",
+  "direct_source_status": "four official press-center URLs returned HTTP403 to local downloader; raw failure bytes retained.",
+  "source": "SEC EDGAR archived TSMC 6-K monthly revenue exhibits, conservative public time is SEC acceptance not issuer press release unless independently proven",
+  "sample_pages": [
+    {
+      "period": "2025-09",
+      "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617925000113/tsm-revenue20251009.htm"
+    },
+    {
+      "period": "2026-09",
+      "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000680/tsm-revenue20261008.htm"
+    }
+  ],
+  "max_response_bytes": 1500000,
+  "budget": {
+    "http_gets": 2,
+    "Qlib_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stops": [
+    "If SEC access or original-document identity fails, preserve and stop this fallback; do not invent bytes or timing.",
+    "No model/market/account until source qualification."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "status": "source_schema_stop_before_Qlib",
+  "attempt": 1,
+  "plan_sha256": "de55285cb1e996b24966db246f685474b5ec24efac4530c99e059adfc929201f",
+  "notebook_sha256": "0fbeec5a1321342588ead9051f6a4b7917adf0392fb0e0e2903aa12b677920b6",
+  "failure": "HTTP200 legacy-date response is plain text Report date cannot be prior to  2 years, not CSV header-only. Frozen assertion stopped before Qlib init or Recorder.",
+  "operations_consumed": {
+    "source_snapshot_reads": 7,
+    "D_calendar_calls": 0,
+    "writable_Recorders": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "next_action": "Freeze recovery qualification checking exact server limit string and original snapshot hashes; no new HTTP. Then one Qlib calendar read and Recorder if source is otherwise valid."
+}

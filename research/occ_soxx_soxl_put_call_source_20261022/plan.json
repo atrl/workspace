@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "experiment": "occ_soxx_soxl_put_call_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "source_schema_probe_only",
+  "source": "OCC official Volume Query Batch Processing",
+  "documentation_url": "https://www.theocc.com/market-data/market-data-reports/other-market-data-info/batch-processing/volume-query-batch-processing",
+  "endpoint": "https://marketdata.theocc.com/volume-query",
+  "queries": [
+    {
+      "symbol": "SOXX",
+      "reportDate": "20261020"
+    },
+    {
+      "symbol": "SOXL",
+      "reportDate": "20261020"
+    }
+  ],
+  "parameters": {
+    "format": "csv",
+    "volumeQueryType": "O",
+    "symbolType": "U",
+    "reportType": "D",
+    "accountType": "ALL",
+    "productKind": "OSTK",
+    "porc": "BOTH"
+  },
+  "contractDt_omitted": "Request all expiries; official example contains expiry filter, which would not qualify aggregate put/call volume. Response must be inspected, not assumed.",
+  "scientific_boundary": "Schema/entitlement and call-put availability only. OCC classification is not opening/closing trade direction, dealer positioning, implied volatility or a tradable signal. Historical depth and first-public timing remain separate questions.",
+  "max_response_bytes": 1000000,
+  "budget": {
+    "http_gets": 2,
+    "models": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stops": [
+    "Non-200/auth/payment: preserve receipt, no purchase",
+    "HTML/error or no unambiguous underlying and call/put volume schema: stop before extending history",
+    "No information screen, threshold, model or account from this probe"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "post_acquisition_source_coverage_and_matched_venue_audit",
+  "source_plan_sha256": "d3ce3b6f2ab525a8ea96964a835ad93b039e27dbbf678328e9b6f17197fcb6e4",
+  "request_manifest_sha256": "16237b14d399e7c4bb6681a105299bfbde9b0dcd60f26385bb3fcd300ea33ea6",
+  "cboe_raw_sha256": {
+    "SOXX": "ad3488689ad076b9526f9850746164727c3274e111c7c95d2dbbadc80d4a453e",
+    "SOXL": "3bb691211485ffe6a45bc203aae686b046ffd9d8cd45a7211b2f202b1131e936"
+  },
+  "method": "Read only exact source snapshots listed in request_manifest/fetch_receipts. For every calendar date and symbol, parse all OCC roots, account types and call/put classes, sum by exchange; compare to same-date Cboe total on CBOE/BATS/C2/EDGX (absent venue means zero on that source). OCC sum must equal 2*Cboe contract count for every shared venue-day. Record missing dates, missing option classes, root/account distribution, put/call totals and mismatches. No return labels.",
+  "budget": {
+    "new_D_calendar_calls": 0,
+    "new_D_features_calls": 0,
+    "new_writable_Recorders": 1,
+    "model_fits": 0,
+    "accounts": 0,
+    "bootstrap": 0,
+    "market_outcome_reads": 0
+  },
+  "decision_rule": "Source coverage qualified only if all planned symbol-date pairs have hash-verified official CSV and zero mismatched shared venue-day counts. Timing/PIT remains unqualified even if coverage passes. If any mismatch, freeze one bounded attribution or close; do not change threshold/date/roots after observing outcomes.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

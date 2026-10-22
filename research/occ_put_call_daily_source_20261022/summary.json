@@ -1,0 +1,27 @@
+{
+  "experiment": "occ_put_call_daily_source_20261022",
+  "status": "source_coverage_qualified_with_PIT_gap",
+  "decision": "source_qualified_information_screen_needs_PIT_and_design",
+  "result": "source_qualification_result.json",
+  "recorder_id": "7c73158061a9478dbc659de98bd3c866",
+  "experiment_id": "284174334542022177",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/occ_put_call_daily_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/occ_put_call_daily_source_20261022/qlib_recorder/284174334542022177/7c73158061a9478dbc659de98bd3c866",
+  "model_fits": 0,
+  "accounts": 0,
+  "qualified_forward_days": 0,
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "f8c3ee4f0622a72897f479fa414bbd03fc52007ee0f6bf579353e02c9ea31482",
+    "size_bytes": 213182,
+    "storage_uri": "sha256/f8/c3/f8c3ee4f0622a72897f479fa414bbd03fc52007ee0f6bf579353e02c9ea31482"
+  }
+}

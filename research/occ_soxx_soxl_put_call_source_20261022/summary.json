@@ -1,0 +1,27 @@
+{
+  "experiment": "occ_soxx_soxl_put_call_source_20261022",
+  "status": "source_semantics_qualified_limited_history_PIT_gap",
+  "decision": "source_viable_for_bounded_history_and_forward_timing_qualification_not_information_screen_yet",
+  "result": "source_qualification_result.json",
+  "recorder_id": "b6ba94e9bd2446cf8c21a70b9a750e54",
+  "experiment_id": "877360347361078464",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/occ_soxx_soxl_put_call_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/occ_soxx_soxl_put_call_source_20261022/qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54",
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "qualified_forward_days": 0,
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "0da180836243026f08048220a11e68b3e2f8ad44143e872bddbfa9781dcd22f3",
+    "size_bytes": 64587,
+    "storage_uri": "sha256/0d/a1/0da180836243026f08048220a11e68b3e2f8ad44143e872bddbfa9781dcd22f3"
+  }
+}

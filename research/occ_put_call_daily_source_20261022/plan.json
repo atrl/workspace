@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "experiment": "occ_put_call_daily_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "bounded_all_session_source_acquisition_and_reconciliation",
+  "scientific_role": "Qualify a distinct OCC put/call contract-type source for later pretrade information testing; no predictive claim or portfolio decision.",
+  "source_parent": {
+    "card": "research/occ_soxx_soxl_put_call_source_20261022",
+    "summary_sha256": "6a5eeea0a0a91d866212cff94f11a1e3ac832ff1d18967dd000bde85e116415c",
+    "qualification_result_sha256": "93ff5b75232efcae6a55ace34e6cb6bb7e85bb2fd558e721d26a3519a25c155a",
+    "first_day_reconciliation_sha256": "2d0f08b12470fb21d88a39c5728695aa8678840571ab1a2700b1062e82feb091",
+    "second_day_reconciliation_sha256": "68213c895d053df9ba9637b3b7d8c8eed1926f4d72be093e38b00f2254edb886"
+  },
+  "source_endpoint": "https://marketdata.theocc.com/volume-query",
+  "parameters": {
+    "format": "csv",
+    "volumeQueryType": "O",
+    "symbolType": "U",
+    "reportType": "D",
+    "accountType": "ALL",
+    "productKind": "OSTK",
+    "porc": "BOTH"
+  },
+  "symbols": [
+    "SOXX",
+    "SOXL"
+  ],
+  "first_trade_date": "2024-11-01",
+  "last_trade_date": "2026-10-21",
+  "calendar_provider": "data/qlib/soxl",
+  "calendar_manifest_sha256": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+  "calendar_file_sha256": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e",
+  "reused_exact_parent_source_dates": [
+    "2024-11-01",
+    "2026-10-20",
+    "2026-10-21"
+  ],
+  "parent_receipt_sha256": "9ebdf028a515aec06cc42675fe409f0a12402081bfcb32e731fccb7d7dbd76e4",
+  "cboe_reference": {
+    "card": "research/cboe_total_options_activity_source_20261022",
+    "receipt_sha256": "00cab9e87a0c43615a4daa83265e549f5d10bec5290c3c1df1fc63edf3f3c74e",
+    "SOXX_raw_sha256": "ad3488689ad076b9526f9850746164727c3274e111c7c95d2dbbadc80d4a453e",
+    "SOXL_raw_sha256": "3bb691211485ffe6a45bc203aae686b046ffd9d8cd45a7211b2f202b1131e936"
+  },
+  "server_limit": "Before 2024-10-22 in current API, older reportDate rejected with HTTP200 plain text; no older substitution or paid fallback.",
+  "request_policy": {
+    "max_bytes_per_response": 100000,
+    "max_total_http_gets": 1100,
+    "parallelism": 1,
+    "minimum_seconds_between_gets": 0.2,
+    "retry_count": 0,
+    "stop_on_first_non_200_or_schema_or_identity_error": true,
+    "resume_only_exact_same_plan_and_existing_manifest": true
+  },
+  "budget": {
+    "D_calendar_calls": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "bootstraps": 0,
+    "new_writable_Recorders": 1
+  },
+  "required_checks": [
+    "One native Qlib D.calendar materializes exact daily date manifest before first HTTP",
+    "Every requested official response exact bytes, URL, UTC time, SHA256 and HTTP content recorded",
+    "CSV eight-column schema, underlying/date/call-put/account/exchange values, nonnegative quantity and adjusted roots retained",
+    "No missing expected trade dates for either symbol",
+    "Every Cboe shared venue/day has OCC all-account quantity exactly 2x the Cboe reported contract total; mismatches close qualification",
+    "First-public timing and revision vintages remain unqualified by retrospective responses"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

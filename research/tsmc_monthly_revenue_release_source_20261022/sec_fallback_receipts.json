@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "queries": [
+    {
+      "period": "2025-09",
+      "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617925000113/tsm-revenue20251009.htm",
+      "requested_at_utc": "2026-10-22T04:34:48.274819+00:00",
+      "http_status": 403,
+      "content_type": "text/html",
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/sec/2025-09.html",
+      "bytes": 4819,
+      "sha256": "8fe515f8961bd36e960757a06aeb0fb07440e1e79586490f2a27c6e09c68029a"
+    },
+    {
+      "period": "2026-09",
+      "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000680/tsm-revenue20261008.htm",
+      "requested_at_utc": "2026-10-22T04:34:49.100215+00:00",
+      "http_status": 403,
+      "content_type": "text/html",
+      "relative_path": "data/snapshots/tsmc_monthly_revenue_release_source_20261022/sec/2026-09.html",
+      "bytes": 4819,
+      "sha256": "fe8bfcbbebf642dc81d2a8eaebbbc650cd9554722b66f138a1a67f200f538454"
+    }
+  ]
+}

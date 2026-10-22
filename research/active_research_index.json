@@ -3,13 +3,13 @@
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
   "active": [
     {
-      "card": "research/cboe_total_options_activity_source_20261022",
-      "phase": "source_coverage_and_one_day_accessibility_observed_publication_timing_pending",
-      "role": "distinct_pretrade_options_activity_tail_risk_information",
+      "card": "research/cboe_total_activity_variance_information_20261022",
+      "phase": "distinct_total_options_activity_information_design_only",
+      "role": "source_backed_new_tail_variance_mechanism_after_OCC_put_share_failure",
       "full_economic_experiment": false,
-      "status": "source_coverage_qualified_one_day_accessibility_observed_PIT_gap_remains",
+      "status": "design_only_source_timing_pending",
       "execution_authorized": false,
-      "result": "research/cboe_total_options_activity_source_20261022/summary.json"
+      "design_brief": "research/cboe_total_activity_variance_information_20261022/design_brief.json"
     }
   ],
   "framework": [
@@ -85,12 +85,21 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/inventory_sales_soxx_h63_information_20261022/result_review.json"
+    },
+    {
+      "card": "research/occ_put_share_tail_information_20261022",
+      "status": "not_promoted_fixed_information_screen",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/occ_put_share_tail_information_20261022/result_review.json"
     }
   ],
   "deferred_sources": {
     "authority": "research/campaign_history/three_asset_campaign_pre_v2_20261020.json",
     "options_required": false,
-    "paid_acquisition": false
+    "paid_acquisition": false,
+    "cboe_total_options_activity_card": "research/cboe_total_options_activity_source_20261022",
+    "TSMC_monthly_release_source_gap": "research/tsmc_monthly_revenue_release_source_20261022/source_probe_result.json"
   },
   "do_not_reload": [
     "closed Recorder/model objects without new bounded need",
@@ -98,11 +107,10 @@
     "all provider bin files for documentation"
   ],
   "next_information_need": {
-    "status": "repeat_publication_and_revision_observations_required",
-    "topic": "Cboe SOXX/SOXL total options activity as a pretrade tail-risk information source",
-    "evidence": "research/cboe_total_options_activity_source_20261022/publication_window.json",
-    "availability_observation": "research/cboe_total_options_activity_source_20261022/availability_observation.json",
-    "constraint": "One access window does not prove origin first-public time or stable historical revisions; repeat across sessions and record response cache metadata. Use only own-symbol lagged normalization if information screen later becomes eligible.",
+    "status": "distinct_mechanism_design_pending_source_timing",
+    "topic": "Cboe SOXX total option activity surprise as incremental variance information, distinct from failed OCC put share",
+    "evidence": "research/cboe_total_activity_variance_information_20261022/design_brief.json",
+    "constraint": "First-public/revision timing remains unqualified; freeze one normalized feature and fixed information gate before Qlib outcome read, then no account without positive information and full source qualification.",
     "execution_authorized": false
   },
   "closed_source_probes": [

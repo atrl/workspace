@@ -1,0 +1,91 @@
+{
+  "status": "source_semantics_qualified_limited_history_PIT_gap",
+  "sampled_dates": {
+    "SOXX": {
+      "20230103": {
+        "rows": 0,
+        "put_quantity": 0,
+        "call_quantity": 0,
+        "roots": []
+      },
+      "20241101": {
+        "rows": 68,
+        "put_quantity": 2480,
+        "call_quantity": 1468,
+        "roots": [
+          "SOXX"
+        ]
+      },
+      "20261020": {
+        "rows": 96,
+        "put_quantity": 106936,
+        "call_quantity": 70588,
+        "roots": [
+          "2SOXX",
+          "SOXX"
+        ]
+      },
+      "20261021": {
+        "rows": 86,
+        "put_quantity": 57028,
+        "call_quantity": 19058,
+        "roots": [
+          "SOXX"
+        ]
+      }
+    },
+    "SOXL": {
+      "20230103": {
+        "rows": 0,
+        "put_quantity": 0,
+        "call_quantity": 0,
+        "roots": []
+      },
+      "20241101": {
+        "rows": 72,
+        "put_quantity": 186942,
+        "call_quantity": 316240,
+        "roots": [
+          "SOXL"
+        ]
+      },
+      "20261020": {
+        "rows": 95,
+        "put_quantity": 204954,
+        "call_quantity": 266422,
+        "roots": [
+          "2SOXL",
+          "SOXL"
+        ]
+      },
+      "20261021": {
+        "rows": 105,
+        "put_quantity": 239850,
+        "call_quantity": 249794,
+        "roots": [
+          "2SOXL",
+          "SOXL"
+        ]
+      }
+    }
+  },
+  "matched_Occ_to_Cboe_ratio": 2.0,
+  "matching_symbol_date_exchange_comparisons": 16,
+  "call_put_classification_present": true,
+  "account_types_are_clearing_sides_not_initiation": true,
+  "free_2023_sample_unavailable": true,
+  "server_retro_limit": "Report date cannot be prior to  2 years",
+  "2024_11_sample_available": true,
+  "latest_2026_10_21_sample_available": true,
+  "historical_first_public_time_qualified": false,
+  "continuous_two_full_year_history_qualified": false,
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "D_calendar_calls": 1,
+  "boundary": "OCC call/put volume is by contract type, exchange and clearing account side; it is not net directional demand or dealer inventory. A put/call ratio cancels the exact two-sided factor but requires vintage and coverage qualification before prediction.",
+  "recorder_id": "b6ba94e9bd2446cf8c21a70b9a750e54",
+  "experiment_id": "877360347361078464",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/occ_soxx_soxl_put_call_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/occ_soxx_soxl_put_call_source_20261022/qlib_recorder/877360347361078464/b6ba94e9bd2446cf8c21a70b9a750e54"
+}

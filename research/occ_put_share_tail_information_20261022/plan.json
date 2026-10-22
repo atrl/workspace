@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "experiment": "occ_put_share_tail_information_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "one_fixed_diagnostic_information_screen_no_account",
+  "question": "Does prior SOXX option put-share surprise add next five-session SOXX downside-risk information beyond lagged SOXX price, variance and share-volume features?",
+  "source": {
+    "card": "research/occ_put_call_daily_source_20261022",
+    "recorder_id": "7c73158061a9478dbc659de98bd3c866",
+    "summary_sha256": "713688f47fa6ea46c1db9a8dbd53d1f8fdd6accea418ec296c0d99c15084cb02",
+    "verification_manifest_sha256": "1d0835a78dccf055a8e7e8fea0fa9f7267236fd5837faa2b27c7766348c2cb4b",
+    "artifact": "analysis/daily",
+    "artifact_sha256": "1384a903605822b788c44a54290c98e5939b5a259d4f02e3fa12f45b388c393b",
+    "qualification_result_sha256": "a6b931acf5eb6ac538fdc5719b7fa03b2a901ccb4aaf705ad48d37723707f8a6",
+    "historical_first_public_time_qualified": false
+  },
+  "provider": {
+    "uri": "data/qlib/soxl",
+    "files_sha256": {
+      "data/qlib/soxl/qlib_store_manifest.json": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+      "data/qlib/soxl/calendars/day.txt": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e",
+      "data/qlib/soxl/features/SOXX/open.day.bin": "5a6a48fb7482e8d0cd3490f0bef68ab52e57af21016779b979be92ea92572666",
+      "data/qlib/soxl/features/SOXX/close.day.bin": "2b8f690d6d1db8f3ee9740905c3540d36aa14afca8d4b1cd7a635b40aad9bb6e",
+      "data/qlib/soxl/features/SOXX/volume.day.bin": "d29ade39f91f2c3a9ae7f9c304fe2f84c139ef34d6d70b17c79e63e8071b7ac3"
+    },
+    "instruments": [
+      "SOXX"
+    ],
+    "fields": [
+      "$open",
+      "$close",
+      "$volume"
+    ],
+    "read_bounds": [
+      "2024-10-01",
+      "2026-10-21"
+    ],
+    "frequency": "day"
+  },
+  "source_clock": "Signal s at 09:46 uses only OCC put share from immediately preceding completed trading day s-1 and Qlib price/volume through s-1; position opportunity begins s+1 open. Retrospective original publication vintages are unproven; this screen is diagnostic regardless of score.",
+  "feature_formula": {
+    "put_share": "all-venue all-root put clearing quantity / (put + call clearing quantity); common 2x account-side factor cancels",
+    "put_surprise": "put_share(s-1) - median(put_share(s-23)..put_share(s-2)), exactly 22 prior sessions; no missing-date compaction",
+    "baseline": [
+      "SOXX close return(s-1)",
+      "SOXX close five-session return ending s-1",
+      "SOXX daily close-return realized standard deviation over 5 complete sessions ending s-1",
+      "same over 22 complete sessions ending s-1",
+      "log(SOXX share volume(s-1) / median volume(s-23..s-2))"
+    ],
+    "candidate": "baseline plus put_surprise only"
+  },
+  "label": {
+    "primary": "At signal s, SOXX actual Qlib open returns r_j = open[s+j+2]/open[s+j+1]-1 for j=0..4; y=1 if min over k=0..4 of product_{j=0..k}(1+r_j)-1 <= -0.06, else0. Require all five returns finite.",
+    "maturity": "Open of s+6 plus one minute proxy; no label used before maturity.",
+    "economic_boundary": "Open-based information label only; physical account and fees not inferred."
+  },
+  "windows": {
+    "train_signal": [
+      "2025-01-02",
+      "2025-12-19"
+    ],
+    "held_reused_diagnostic": [
+      "2026-01-02",
+      "2026-10-13"
+    ],
+    "minimum_train_rows": 220,
+    "minimum_held_rows": 180,
+    "minimum_train_events": 15,
+    "minimum_held_events": 15,
+    "full_years_for_goal_proven": false
+  },
+  "model": {
+    "baseline_and_candidate": "two fixed LogisticRegression fits with L2 C=1.0, no class weights, max_iter=1000; StandardScaler fit on train only",
+    "fits": 2,
+    "no_hyperparameter_search": true,
+    "candidate_positive_coefficient_required": true
+  },
+  "information_gate": {
+    "paired_metric": "Brier improvement = baseline squared probability error - candidate squared probability error on held dates",
+    "held_mean_positive": true,
+    "2026_Jan_Jun_mean_positive": true,
+    "2026_Jul_Oct_mean_positive": true,
+    "bootstrap": {
+      "kind": "stationary",
+      "mean_block_sessions": 20,
+      "draws": 5000,
+      "seed": 20261022,
+      "lower_quantile": 0.0016666666666666668
+    },
+    "lower_positive": true,
+    "no_gate_rescue": true
+  },
+  "budget": {
+    "verified_source_recorder_object_loads": 1,
+    "D_calendar_calls": 1,
+    "D_features_calls": 1,
+    "DatasetH_builds": 1,
+    "model_fits": 2,
+    "bootstrap_runs": 1,
+    "native_accounts": 0,
+    "new_writable_Recorders": 1
+  },
+  "stops": [
+    "Any source/provider hash, Qlib session or source availability mismatch stops before fitting",
+    "Missing or immature train/held labels stop; do not drop held dates or compact gaps",
+    "No threshold/sign/window/regularization adjustment from held outcomes",
+    "No promotion or economic account from reused market history or unqualified historical publication timing"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  }
+}
