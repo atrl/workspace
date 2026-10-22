@@ -1,0 +1,42 @@
+{
+  "status": "no_fit_adapter_and_source_mechanics_passed",
+  "plan_sha256": "da15412b4e4a89344b577ba3b01fae7687b0515e8c64d9d89a597222c30f92ce",
+  "source_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "seeds": [
+    {
+      "seed": 71,
+      "original_tensors_equal_after_projection": true,
+      "paired_initial_tensors_equal": true,
+      "all_initial_outputs_equal": true,
+      "added_weights_zero": true,
+      "calendar_scaler_rows": 2865,
+      "candidate_nonzero_numeric_rows": 2865
+    },
+    {
+      "seed": 172,
+      "original_tensors_equal_after_projection": true,
+      "paired_initial_tensors_equal": true,
+      "all_initial_outputs_equal": true,
+      "added_weights_zero": true,
+      "calendar_scaler_rows": 2865,
+      "candidate_nonzero_numeric_rows": 2865
+    },
+    {
+      "seed": 273,
+      "original_tensors_equal_after_projection": true,
+      "paired_initial_tensors_equal": true,
+      "all_initial_outputs_equal": true,
+      "added_weights_zero": true,
+      "calendar_scaler_rows": 2865,
+      "candidate_nonzero_numeric_rows": 2865
+    }
+  ],
+  "base_primary_features": 39,
+  "common_features": 16,
+  "train_calendar_rows": 3020,
+  "train_calendar_comparable": 2865,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "limitation": "Calendar-only scaler preview is not the formal mature-label training scaler. This preflight does not authorize fitting or account execution."
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "frozen_no_fit_Stage1_receiver_mechanics",
+  "source_preflight_plan_sha256": "7012c9a1e2671feb29f19fa3ebdefd1c5bc99ee5fdfeb2adcbe58c91afa02b40",
+  "training_source_card": "research/minute_information_pit_allocator_20261012",
+  "additional_training_artifacts_sha256": {
+    "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "models/base_outer_172": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+    "models/base_outer_273": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a"
+  },
+  "model_adapter": "src/model/stage1_nvda_guidance.py",
+  "model_adapter_sha256": "94bdc0bc87dd0d9fb7f7920199343bf19a16e24945c72b127235d81334f9f31c",
+  "scope": "For each frozen seed 71/172/273, instantiate original MinutePitAllocator and matched neutral/observed guidance receivers without fitting, verify exact zero-added-weight initialization, original feature order, matched state flags and candidate-only numeric tensor. Source alignment uses all pre-2023 calendar rows only; the formal fit must use the separately frozen mature-label mask.",
+  "expected": {
+    "base_primary_features": 39,
+    "auxiliary_common_features": 16,
+    "seeds": [71,172,273],
+    "pre2023_calendar_rows": 3020,
+    "guidance_comparable_calendar_rows": 2865,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stop": "Any source/code hash, initialization, seed, clock, availability or mask mismatch stops. This mechanical preflight cannot approve six model fits or claim alpha."
+}

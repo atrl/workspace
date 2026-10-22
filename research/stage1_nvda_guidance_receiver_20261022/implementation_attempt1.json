@@ -1,0 +1,10 @@
+{
+  "status": "software_preflight_index_name_mismatch_repaired",
+  "error": "assert_index_equal failed only on index names datetime versus signal_date before joined feature values were analyzed",
+  "source_recorder_artifacts_read": 7,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "evaluation_outcome_reads": 0,
+  "repair": "Keep strict element and order comparison, set check_names=false for the two equivalent signal-date indexes; no source value, plan, seed or feature formula changed.",
+  "final_notebook_execution": "passed"
+}

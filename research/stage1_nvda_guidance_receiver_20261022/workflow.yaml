@@ -1,6 +1,7 @@
 experiment: stage1_nvda_guidance_receiver_20261022
 phase: read_only_source_and_adapter_preflight
 source_plan: source_preflight_plan.json
+implementation_plan: implementation_preflight_plan.json
 qlib:
   region: us
   provider_uri: /Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices
@@ -11,5 +12,6 @@ source_recorders:
 model_adapter: src/model/stage1_nvda_guidance.py
 outputs:
   - source_preflight_result.json
+  - implementation_preflight_result.json
   - summary.json
   - conclusion.md
