@@ -1,0 +1,15 @@
+experiment: quant_arena_stage1_transfer_20261022
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_domain_heads_20261018
+region: us
+recorder_uri: /Users/rziiiii/dev/workspace/research/quant_arena_stage1_transfer_20261022/qlib_recorder
+plan: plan.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*
+  - analysis/daily_bridge
+  - analysis/bridge_periods
+  - analysis/relative_rolling126
+  - analysis/native_annual
+  - analysis/native_quarterly

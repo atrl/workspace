@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "recorder_id": "0bf6c7fa718f4db6b05c161bf38fe58b",
+  "recorder_status": "FINISHED",
+  "nas_archive_sha256": "95391d2dcd4100bdb75c5378bbfeb2c54ccfe85df91d64d71d45e796ce2ba4c9",
+  "scoped_cold_restore": true,
+  "native_qlib_get_recorder": true,
+  "metrics_read": 3,
+  "artifact_count": 11,
+  "artifact_hash_mismatches": 0,
+  "git_curated_recorder_artifacts": 8,
+  "nas_only_auto_code_snapshots": 3,
+  "delivery_note": "The three automatic MLflow code snapshots capture unrelated workspace WIP; the full exact-byte store is retained by the verified NAS archive, while Git includes the diagnostic objects and native metrics.",
+  "relative_wealth_ratio_readback": 0.6860064369263443,
+  "restored_into": "external temporary directory removed after verification"
+}

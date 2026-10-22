@@ -1,0 +1,57 @@
+{
+  "experiment": "quant_arena_stage1_transfer_20261022",
+  "schema_version": 1,
+  "frozen_before_new_numerical_diagnostic": true,
+  "paper": {
+    "title": "Quant-Arena: Benchmarking LLM Agents for Quantitative Trading Research",
+    "arxiv": "https://arxiv.org/abs/2610.30113",
+    "version": "v1",
+    "role": "evaluation_method_only_not_A_share_feature_transfer"
+  },
+  "hypothesis": "The frozen Stage1 model's prediction-to-account path can be audited on one complete matched 0bp native account without changing its model or selecting a new trading rule. Signal statistics and account economics must remain distinct.",
+  "parent": "Frozen f696f656 allocator plus b472a458 action/recovery chain, research replay A_active_research_replay_0; live SIM release unchanged",
+  "release_path": "production/stage1_futu_sim_v1/runtime_release.json",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "sources": {
+    "parent": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "archive": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+      "inventory_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab"
+    },
+    "action": {
+      "card": "research/stage1_minute_information_comparison_20261012",
+      "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+      "archive": "2540d2ed5459785dcf04016b20342fc73fade653e2600025f5b9aaf889d7e250",
+      "inventory_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193"
+    },
+    "raw": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "archive": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+      "inventory_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054"
+    }
+  },
+  "artifacts": {
+    "parent": ["native/A_active_research_replay_0", "paths/A_active_research_replay_0", "analysis/annual_metrics", "analysis/quarterly_metrics", "analysis/rolling_summary", "analysis/metrics", "analysis/uncertainty"],
+    "action": ["inputs/source_targets", "inputs/market"],
+    "raw": ["native/raw_SOXX_0", "inputs/frame"]
+  },
+  "provider_uri": "data/qlib/stage1_domain_heads_20261018",
+  "sessions": 944,
+  "additional_slippage_bps": 0,
+  "fees": "frozen_IBKR_Tiered_charged_in_both_native_accounts",
+  "benchmark": "SOXX_same_funded_native_cash_account",
+  "periods": ["all", "every_year_including_partial_endpoints", "every_quarter", "all_contiguous_126_session_windows"],
+  "attribution": ["reference_cash", "additional_cash", "soxl_relative", "recovery_gross", "execution_cost", "benchmark_residual", "native_reconciliation_residual"],
+  "model_path_checks": ["source_target", "action_decision_target", "ending_holdings_are_exit_not_postfill", "fees", "native_nav"],
+  "selection_policy": "No candidate selection, threshold optimization, or trade rule; all grouped outcomes descriptive and noncontiguous",
+  "budgets": {"new_model_fits": 0, "new_account_replays": 0, "new_diagnostic_recorders": 1},
+  "stop_conditions": ["source_identity_mismatch", "calendar_or_timing_mismatch", "native_reconciliation_failure", "missing_required_artifact"],
+  "preflight_correction": {
+    "prior_plan_sha256": "7852befd297adcda2fb1b305f0dccaae4055b8f340e166abfb222f70d0ff71d9",
+    "reason": "Raw-source inventory hash transcription error; identity check stopped before any new numerical read or Recorder creation",
+    "scope": "one-character source hash repair only"
+  },
+  "output_decision": "diagnostic_only_no_model_change_no_promotion"
+}

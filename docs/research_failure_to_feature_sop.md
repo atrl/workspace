@@ -32,6 +32,7 @@
 - [AlphaAgent](https://arxiv.org/abs/2502.16789)：公式结构去重、假设一致性和复杂度控制。
 - [FactorMiner](https://arxiv.org/abs/2602.14670)：记录成功与失败机制、信号相关性，防止重复挖掘。
 - [AlphaBench](https://alphabench.cc/)：区分生成、执行和评估，记录每次模型消耗；不能依赖LLM零样本质量评分。
+- [Quant-Arena](https://arxiv.org/abs/2610.30113)：借用“有限开发反馈→冻结候选→完整账户评价”的研究单位与信号到收益诊断；本项目继续用 SOXX 费用后硬门和 Qlib 原生账户，不移植其 A 股 Top-75、Level-2、综合排行榜分数或 5/20 日现金规则。现役 Stage1 的只读接入见 [`quant_arena_stage1_transfer_20261022`](../research/quant_arena_stage1_transfer_20261022/conclusion.md)：用 `src.analysis.decision_bridge` 对齐源目标、动作目标、订单及账户；缺少即时成交后权重时报告 unknown，退出持仓不能冒充成交后状态。
 - 量化社区作为线索入口，回溯论文/作者代码/官方数据说明；收益截图、点赞和其他资产结果不作为本项目的验收证据。
 
 上述横截面方法需改写为本项目的三资产时间序列/动作任务。已使用市场数据不再独立；不购买期权数据、不用当前成分回填历史、不以现代文本模型回忆伪造历史时点。
