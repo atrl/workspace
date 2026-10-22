@@ -1,0 +1,226 @@
+{
+  "status": "pre_Stage1_trust_filing_candidate_identified_SOXX_schedule_unverified",
+  "plan_sha256": "f4c770a5f315fff3a22d2b6a72248ae9efe9d0fd88c7a63e20f6dd9a4dfe3263",
+  "raw_sha256": "c1ef217b77a0841d2e60316b1f06a9174747ad42c43eff76aac6cca9826d200f",
+  "raw_bytes": 348523,
+  "row_count": 1877,
+  "actual_filing_date_range": [
+    "1999-12-16",
+    "2011-02-03"
+  ],
+  "index_advertised_range": [
+    "1999-12-16",
+    "2011-02-02"
+  ],
+  "form_counts": {
+    "N-CSR": 32,
+    "N-CSRS": 32,
+    "N-Q": 54
+  },
+  "candidate_window_rows": [
+    {
+      "accessionNumber": "0001193125-11-017024",
+      "filingDate": "2011-01-28",
+      "reportDate": "2010-11-30",
+      "acceptanceDateTime": "2011-01-28T23:11:06.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-11-017019",
+      "filingDate": "2011-01-28",
+      "reportDate": "2010-11-30",
+      "acceptanceDateTime": "2011-01-28T23:09:30.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-11-003647",
+      "filingDate": "2011-01-07",
+      "reportDate": "2010-10-31",
+      "acceptanceDateTime": "2011-01-08T01:15:47.000Z",
+      "form": "N-CSRS",
+      "primaryDocument": "dncsrs.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-291216",
+      "filingDate": "2010-12-30",
+      "reportDate": "2010-10-31",
+      "acceptanceDateTime": "2010-12-30T22:51:52.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-277292",
+      "filingDate": "2010-12-09",
+      "reportDate": "2010-09-30",
+      "acceptanceDateTime": "2010-12-09T23:01:12.000Z",
+      "form": "N-CSRS",
+      "primaryDocument": "dncsrs.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-252017",
+      "filingDate": "2010-11-08",
+      "reportDate": "2010-08-31",
+      "acceptanceDateTime": "2010-11-09T01:49:57.000Z",
+      "form": "N-CSRS",
+      "primaryDocument": "dncsrs.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-252003",
+      "filingDate": "2010-11-08",
+      "reportDate": "2010-08-31",
+      "acceptanceDateTime": "2010-11-09T01:46:24.000Z",
+      "form": "N-CSR",
+      "primaryDocument": "dncsr.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-225720",
+      "filingDate": "2010-10-07",
+      "reportDate": "2010-07-31",
+      "acceptanceDateTime": "2010-10-07T21:40:40.000Z",
+      "form": "N-CSR",
+      "primaryDocument": "dncsr.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-219438",
+      "filingDate": "2010-09-29",
+      "reportDate": "2010-07-31",
+      "acceptanceDateTime": "2010-09-29T21:31:09.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-199353",
+      "filingDate": "2010-08-27",
+      "reportDate": "2010-06-30",
+      "acceptanceDateTime": "2010-08-27T22:31:19.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-172007",
+      "filingDate": "2010-07-30",
+      "reportDate": "2010-05-31",
+      "acceptanceDateTime": "2010-07-30T21:51:34.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-171995",
+      "filingDate": "2010-07-30",
+      "reportDate": "2010-05-31",
+      "acceptanceDateTime": "2010-07-30T21:46:48.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-156615",
+      "filingDate": "2010-07-09",
+      "reportDate": "2010-04-30",
+      "acceptanceDateTime": "2010-07-10T00:23:42.000Z",
+      "form": "N-CSR",
+      "primaryDocument": "dncsr.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-149617",
+      "filingDate": "2010-06-29",
+      "reportDate": "2010-04-30",
+      "acceptanceDateTime": "2010-06-29T21:22:27.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-133919",
+      "filingDate": "2010-06-07",
+      "reportDate": "2010-03-31",
+      "acceptanceDateTime": "2010-06-08T00:00:19.000Z",
+      "form": "N-CSR",
+      "primaryDocument": "dncsr.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-113034",
+      "filingDate": "2010-05-07",
+      "reportDate": "2010-02-28",
+      "acceptanceDateTime": "2010-05-08T01:00:44.000Z",
+      "form": "N-CSR",
+      "primaryDocument": "dncsr.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-112422",
+      "filingDate": "2010-05-07",
+      "reportDate": "2010-02-28",
+      "acceptanceDateTime": "2010-05-07T20:33:13.000Z",
+      "form": "N-CSRS",
+      "primaryDocument": "dncsrs.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-080480",
+      "filingDate": "2010-04-09",
+      "reportDate": "2010-01-31",
+      "acceptanceDateTime": "2010-04-09T23:55:27.000Z",
+      "form": "N-CSRS",
+      "primaryDocument": "dncsrs.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-074947",
+      "filingDate": "2010-04-01",
+      "reportDate": "2010-01-31",
+      "acceptanceDateTime": "2010-04-01T23:31:39.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-044578",
+      "filingDate": "2010-03-01",
+      "reportDate": "2009-12-31",
+      "acceptanceDateTime": "2010-03-02T01:25:05.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-016777",
+      "filingDate": "2010-01-29",
+      "reportDate": "2009-11-30",
+      "acceptanceDateTime": "2010-01-29T23:16:32.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-016770",
+      "filingDate": "2010-01-29",
+      "reportDate": "2009-11-30",
+      "acceptanceDateTime": "2010-01-29T23:08:49.000Z",
+      "form": "N-Q",
+      "primaryDocument": "dnq.htm"
+    },
+    {
+      "accessionNumber": "0001193125-10-003328",
+      "filingDate": "2010-01-08",
+      "reportDate": "2009-10-31",
+      "acceptanceDateTime": "2010-01-08T22:22:05.000Z",
+      "form": "N-CSRS",
+      "primaryDocument": "dncsrs.htm"
+    }
+  ],
+  "prior_to_first_signal_count": 20,
+  "latest_pre_signal_trust_candidate": {
+    "accessionNumber": "0001193125-10-291216",
+    "filingDate": "2010-12-30",
+    "reportDate": "2010-10-31",
+    "acceptanceDateTime": "2010-12-30T22:51:52.000Z",
+    "form": "N-Q",
+    "primaryDocument": "dnq.htm"
+  },
+  "source_NAS_archive_sha256": "84e2126d1421e65e4b304feda6aad9c6e84f95784a1c7aae9e6dbc7447c7f285",
+  "source_NAS_scoped_restore_verified": true,
+  "SOXX_schedule_qualified": false,
+  "historical_member_prices_qualified": false,
+  "new_GETs": 0,
+  "sidecar_GETs_total": 1,
+  "filing_body_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "A trust N-Q was accepted before Stage1 first signal, but the filing body must show the SOXX series schedule before any holdings inference."
+}

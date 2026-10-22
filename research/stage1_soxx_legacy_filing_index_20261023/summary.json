@@ -1,9 +1,9 @@
 {
   "experiment": "stage1_soxx_legacy_filing_index_20261023",
-  "decision": "SEC_trust_2010_2018_sidecar_index_found_SOXX_holdings_unqualified",
+  "decision": "pre_2011_Stage1_trust_NQ_candidate_identified_SOXX_schedule_unverified",
   "objective_achieved": false,
   "plan": "plan.json",
-  "http_GETs": 1,
+  "http_GETs": 2,
   "model_fits": 0,
   "native_accounts": 0,
   "artifact_policy": {
@@ -22,5 +22,15 @@
   "source_NAS_archive_sha256": "8d2c99e9b8257699ad5eda2255c3040d8e8e464a4214ea94cb2027fe90c00f4f",
   "source_NAS_readback_verified": true,
   "nas_scoped_restore": "nas_scoped_restore.json",
-  "source_NAS_scoped_restore_verified": true
+  "source_NAS_scoped_restore_verified": true,
+  "sidecar_012_plan": "sidecar_012_plan.json",
+  "sidecar_012_transport": "sidecar_012_transport_result.json",
+  "sidecar_012_range_failure": "sidecar_012_range_failure.json",
+  "sidecar_012_range_adjudication_plan": "sidecar_012_range_adjudication_plan.json",
+  "sidecar_012_adjudication_result": "sidecar_012_adjudication_result.json",
+  "pre_signal_candidate_accession": "0001193125-10-291216",
+  "pre_signal_candidate_accepted_utc": "2010-12-30T22:51:52.000Z",
+  "pre_signal_candidate_report_date": "2010-10-31",
+  "SOXX_schedule_qualified": false,
+  "historical_member_prices_qualified": false
 }

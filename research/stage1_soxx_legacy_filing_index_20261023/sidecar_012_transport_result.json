@@ -1,0 +1,30 @@
+{
+  "status": "official_oldest_submissions_sidecar_bytes_received_parse_pending",
+  "plan_sha256": "503d0092c458dc6c50ad097be374038ae3dc5c67468adf7433ee353e86c4821a",
+  "url": "https://data.sec.gov/submissions/CIK0001100663-submissions-012.json",
+  "request_started_at_utc": "2026-10-22T17:53:02.284968+00:00",
+  "response_finished_at_utc": "2026-10-22T17:53:03.553184+00:00",
+  "http_status": 200,
+  "final_url": "https://data.sec.gov/submissions/CIK0001100663-submissions-012.json",
+  "curl_exit_code": 0,
+  "curl_stderr": "",
+  "raw_sha256": "c1ef217b77a0841d2e60316b1f06a9174747ad42c43eff76aac6cca9826d200f",
+  "raw_bytes": 348523,
+  "headers_sha256": "47d9b4352e12e07363d4652bf93c89e673b9b27c5c77357f39528bf6b1d23063",
+  "headers_bytes": 418,
+  "GETs": 1,
+  "filing_body_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "nas_evidence": {
+    "sha256": "84e2126d1421e65e4b304feda6aad9c6e84f95784a1c7aae9e6dbc7447c7f285",
+    "size_bytes": 58322,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/84/e2/84e2126d1421e65e4b304feda6aad9c6e84f95784a1c7aae9e6dbc7447c7f285",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 01:53:03.977126+08",
+    "duplicate": false
+  },
+  "nas_scoped_restore_verified": true
+}
