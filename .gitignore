@@ -187,3 +187,6 @@ research/stage1_day_night_supervision_20261018/preflight/qlib_recorder/
 # Exact alternate TSMC issuer HTML/PDF source bytes are hash-bound by the source card.
 /data/snapshots/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press/
 /data/snapshots/tsmc_monthly_revenue_release_source_20261022/forward_oct_2026/
+
+# Exact 2011 SOXX original report and response headers are hash-bound in the source card and verified from NAS.
+/data/snapshots/stage1_legacy_holdings_source_probe_20261022/

@@ -1,0 +1,39 @@
+{
+  "status": "2011_SOXX_original_schedule_confirmed_full_Stage1_history_unqualified",
+  "source_url": "https://announcements.asx.com.au/asxpdf/20120103/pdf/423lgswgkvkljj.pdf",
+  "source_pdf_sha256": "90b7f7e171e026c12bd64f72e0c3c72122fec2e4bb3af469ff4474482b4bbf62",
+  "source_pdf_bytes": 3412380,
+  "http_headers_sha256": "8110b69541b01338fa804da176c10e06ec5cd1eca9cbdb9d33797a6bff689d72",
+  "page_count": 426,
+  "SOXX_schedule_pdf_pages_one_based": [
+    361,
+    362
+  ],
+  "report_as_of": "2011-10-31",
+  "visible_columns": [
+    "Security",
+    "Shares",
+    "Value"
+  ],
+  "positive_control_names": [
+    "SanDisk Corp.",
+    "Advanced Micro Devices Inc.",
+    "NVIDIA Corp.",
+    "Taiwan Semiconductor Manufacturing Co. Ltd."
+  ],
+  "PDF_creation_metadata": "D:20120103113040+11'00'",
+  "ASX_url_calendar_date": "2012-01-03",
+  "HTTP_last_modified": "2023-02-21 21:30:46 GMT",
+  "earliest_public_time_qualified": false,
+  "complete_2011_2022_report_inventory_qualified": false,
+  "pre_2011_public_report_for_first_2011_Stage1_signal_qualified": false,
+  "historical_constituent_price_and_identity_qualified": false,
+  "Stage1_factor_values": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false,
+  "NAS_archive_sha256": "eeaedaf893c002d641acd3099e836b73f46c3e20474fe17f7d9806a44ae3397d",
+  "NAS_remote_hash_verified": true,
+  "next_action": "Inventory original 2010-2022 SOXX reports and filing clocks before the 2011-2022 Stage1 training signals; map every security identity and historical price source. Do not backfill a 2011-10-31 basket into earlier 2011 dates."
+}

@@ -1,0 +1,14 @@
+{
+  "experiment": "stage1_legacy_holdings_source_probe_20261022",
+  "decision": "2011_SOXX_original_schedule_confirmed_full_Stage1_history_unqualified",
+  "objective_achieved": false,
+  "source_result": "source_preflight_result.json",
+  "new_source_GETs": 1,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
