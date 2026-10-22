@@ -1,0 +1,126 @@
+{
+  "plan_sha256": "c6d24891b5e29436ddefa9a647d20451ed07fb87fdc072a68f8a34fcf7fea74d",
+  "files": [
+    {
+      "name": "0001752724-20-038669.headers",
+      "sha256": "8218935386c19d9af72d7a08d4530be2de423a5cd64364cecbf56f75dd71c558",
+      "bytes": 1836
+    },
+    {
+      "name": "0001752724-20-038669.xml",
+      "sha256": "ca61d60001cf3ec4eaabecad09b4a51655fe07ef917d0b946ef2e52438cf1bd4",
+      "bytes": 37845
+    },
+    {
+      "name": "0001752724-20-112013.headers",
+      "sha256": "f1a0260103c79edd72dce2a1b598fed40e1eebebdbea813a0408d23caa1266bd",
+      "bytes": 1836
+    },
+    {
+      "name": "0001752724-20-112013.xml",
+      "sha256": "0543fea92ecbdf2a6342ad5acede276f79c116a3d9af1a6c8787c7bc5b9df8a7",
+      "bytes": 38832
+    },
+    {
+      "name": "0001752724-20-176975.headers",
+      "sha256": "a415481d3672ff6762db65760da83ed633ecd0fd86e8bfedd3f089b0fadb60ed",
+      "bytes": 1816
+    },
+    {
+      "name": "0001752724-20-176975.xml",
+      "sha256": "c901df92fdedd6500bd9904af5bec5f7d05e8e25939396da2f8c8e25629bc69e",
+      "bytes": 38444
+    },
+    {
+      "name": "0001752724-20-247778.headers",
+      "sha256": "9c213d6770bf18438035520022c26536812ad123ea1552c692aedab60ad232b4",
+      "bytes": 1836
+    },
+    {
+      "name": "0001752724-20-247778.xml",
+      "sha256": "7ad3b348a5711d46eb04849334f2f2f78003a545ebe1620d48b97b829e6c2387",
+      "bytes": 37814
+    },
+    {
+      "name": "0001752724-21-040706.headers",
+      "sha256": "f6e40dc8c9cec49264216c10892dcf9820f08dd3411ab8eafa22ab84007b907c",
+      "bytes": 1816
+    },
+    {
+      "name": "0001752724-21-040706.xml",
+      "sha256": "b589d98b79c4a0bc1e8f3a105330eed58d6b1e8620d263f84e3631e6afd7e7da",
+      "bytes": 37827
+    },
+    {
+      "name": "0001752724-21-116396.headers",
+      "sha256": "92d1c42eba54fb8ae78aff1009c18cf848b4f0880a2b5a277cb7ffbd5391bf25",
+      "bytes": 1836
+    },
+    {
+      "name": "0001752724-21-116396.xml",
+      "sha256": "1587b82078471a918eb0f6a85f7046a376238e5fa3f24fa0e9178053618833a5",
+      "bytes": 37995
+    },
+    {
+      "name": "0001752724-21-186189.headers",
+      "sha256": "3be9a8aef24f4cd1d8a4fc154513451932576e8d3dee90bb0a8fcb42af99a477",
+      "bytes": 1836
+    },
+    {
+      "name": "0001752724-21-186189.xml",
+      "sha256": "c6ca63fc0af4830f1b820c44bdb3b307d829937bcb717b406e84fdaf510bde8f",
+      "bytes": 37384
+    },
+    {
+      "name": "0001752724-21-255817.headers",
+      "sha256": "ad19003c589721135dac431032efedbfe7ca966d5dd9c9c16a6a04685eac14bd",
+      "bytes": 1816
+    },
+    {
+      "name": "0001752724-21-255817.xml",
+      "sha256": "718e651a358b8595b058d6ff74e14085293e9cc60f9860f5950e2e0263c575c4",
+      "bytes": 37617
+    },
+    {
+      "name": "0001752724-22-046342.headers",
+      "sha256": "3a2eaafad10199b4a84974609bcdd174933e362aaf9bce8ed62734bbe6bfd8a9",
+      "bytes": 1816
+    },
+    {
+      "name": "0001752724-22-046342.xml",
+      "sha256": "152f21fa26f944c56518308951ccefd7aa78e20fdb6a8678ee693cc2d7930a0e",
+      "bytes": 38226
+    },
+    {
+      "name": "0001752724-22-122864.headers",
+      "sha256": "e5260ef5ffacf25eda3319089db74d793a8854b8a59be94d1a447150a49ec877",
+      "bytes": 1836
+    },
+    {
+      "name": "0001752724-22-122864.xml",
+      "sha256": "86e91dfcbfe5a0ff09340deccbb8e754386495974b5abfe2864f074e0ee44c4e",
+      "bytes": 37788
+    },
+    {
+      "name": "0001752724-22-193694.headers",
+      "sha256": "05055d85d3f440a0795934ec110baf95f3796ec074b5f7b2d417122f58692ea6",
+      "bytes": 1836
+    },
+    {
+      "name": "0001752724-22-193694.xml",
+      "sha256": "a04e5192f680d6d72806e89c2b1439e6faee6478b4faf6ab55f89b0f89271bbc",
+      "bytes": 38809
+    },
+    {
+      "name": "0001752724-22-268670.headers",
+      "sha256": "79862fbae496eb0a5769aae9ed494b70132d143470e642f424e8c02a3c4b1737",
+      "bytes": 1873
+    },
+    {
+      "name": "0001752724-22-268670.xml",
+      "sha256": "869d6e6597307b4ece7a22870665f3ec3a6da90554142fab1e2fdf8608da069f",
+      "bytes": 56266
+    }
+  ],
+  "capture_receipts_sha256": "7c70cc1d52f2c98fc818c71b1bbbe71280d661456650acf947d1a8bb62a89b9f"
+}

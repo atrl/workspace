@@ -1,0 +1,40 @@
+{
+  "verdict": "CONFIRM_SOURCE_INDEX_ONLY",
+  "scope": "Saved SEC S000004354 series filing index pages and accession-level report-calendar binding; no filing-body or point-in-time feature qualification",
+  "evidence": {
+    "SEC_index_GETs": 3,
+    "saved_raw_pages": 3,
+    "saved_headers": 3,
+    "raw_files_hash_and_size_verified": 6,
+    "first_NAS_archive_sha256_remote_readback": "14789c4727e1a518511e56dbc6112a975798a2dc0efc2def0e234de54f8bdc90",
+    "shareholder_NAS_archive_sha256_remote_readback": "c22146476851d3c9853d9c1da489fe54402f113693f72e56e176d98111f5da71",
+    "NAS_scoped_restores_recorded": true,
+    "parse_repairs": "Initial NPORT-P/A and N-CSR prefix-union schema failures were retained; both repairs parsed the same hash-pinned saved HTML with zero additional network requests."
+  },
+  "independently_checked_counts": {
+    "N_Q": 27,
+    "N_Q_2011_2018": 15,
+    "NPORT_P": 28,
+    "NPORT_P_amendments": 1,
+    "N_CSR": 22,
+    "N_CSRS": 21,
+    "N_CSR_amendments": 3,
+    "N_CSRS_amendments": 2,
+    "N_CSR_union_total": 48,
+    "2011_2018_distinct_base_report_dates": 32,
+    "2011_2018_amendment_rows": 5
+  },
+  "accession_checks": {
+    "all_37_calendar_rows_match_saved_series_page_accession_form_filing_date_and_href": true,
+    "all_37_report_dates_acceptance_times_and_primary_documents_match_hash_pinned_trust_metadata": true,
+    "2011_04_30_confirmed_SOXX_N_Q_accession_present": "0001193125-11-176858",
+    "two_2011_01_31_non_SOXX_N_Q_accessions_absent": ["0001193125-11-086451", "0001193125-11-086453"],
+    "2011_01_31_SOXX_N_CSRS_candidate_accession": "0001193125-11-093502",
+    "2011_01_31_candidate_accepted_at_utc": "2011-04-11T20:08:56.000Z"
+  },
+  "limits": "A current series-name search result and accession calendar do not verify every historical SOXX holdings body, numeric holdings, first tradable availability, constituent daily prices, or a Stage1 feature. The index does not authorize a fit or account.",
+  "material_evidence_defects": [],
+  "new_filing_body_GETs": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

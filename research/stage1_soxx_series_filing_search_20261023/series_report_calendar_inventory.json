@@ -1,0 +1,357 @@
+{
+  "status": "SOXX_series_2011_2018_filing_metadata_bound_bodies_pending",
+  "source_N_Q_index_sha256": "8b30e8c369c70be8bff3d8fffe6531744e9d2d0c3be0a397510f632284938a2c",
+  "source_shareholder_index_sha256": "41faaec5aa12885d08de6ef6f20563fbb27d42388785c3de925ea367a661ddbf",
+  "trust_candidate_index_sha256": "8a8d790c4e97f0dcacca0436835f263e7dc30dc318c8bafc25e8001cf6fb64a6",
+  "supplemental_amendment_index_sha256": "5b589304a02461d4e6c89d5dc6f7f21164270a1580731c66719e72fef044300a",
+  "base_filing_rows": 32,
+  "distinct_base_report_dates": 32,
+  "amendment_rows": 5,
+  "first_report_date": "2011-01-31",
+  "last_report_date": "2018-09-30",
+  "2011_01_report_candidate_accession": "0001193125-11-093502",
+  "2011_01_report_candidate_form": "N-CSRS",
+  "2011_01_report_candidate_accepted_utc": "2011-04-11T20:08:56.000Z",
+  "rows": [
+    {
+      "form": "N-CSRS",
+      "accession": "0001193125-11-093502",
+      "filed": "2011-04-11",
+      "report_date": "2011-01-31",
+      "accepted_at_utc": "2011-04-11T20:08:56.000Z",
+      "primary_document": "dncsrs.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312511093502/0001193125-11-093502-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-11-176858",
+      "filed": "2011-06-29",
+      "report_date": "2011-04-30",
+      "accepted_at_utc": "2011-06-29T20:43:59.000Z",
+      "primary_document": "dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312511176858/0001193125-11-176858-index.htm"
+    },
+    {
+      "form": "N-CSR",
+      "accession": "0001193125-11-266548",
+      "filed": "2011-10-07",
+      "report_date": "2011-07-31",
+      "accepted_at_utc": "2011-10-07T21:03:08.000Z",
+      "primary_document": "d216041dncsr.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312511266548/0001193125-11-266548-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-11-355398",
+      "filed": "2011-12-29",
+      "report_date": "2011-10-31",
+      "accepted_at_utc": "2011-12-30T00:10:28.000Z",
+      "primary_document": "d270541dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312511355398/0001193125-11-355398-index.htm"
+    },
+    {
+      "form": "N-CSRS",
+      "accession": "0001193125-12-151845",
+      "filed": "2012-04-05",
+      "report_date": "2012-01-31",
+      "accepted_at_utc": "2012-04-05T23:31:35.000Z",
+      "primary_document": "d302334dncsrs.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312512151845/0001193125-12-151845-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-12-289215",
+      "filed": "2012-06-29",
+      "report_date": "2012-04-30",
+      "accepted_at_utc": "2012-06-29T20:22:02.000Z",
+      "primary_document": "d370583dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312512289215/0001193125-12-289215-index.htm"
+    },
+    {
+      "form": "N-CSR",
+      "accession": "0001193125-12-418172",
+      "filed": "2012-10-09",
+      "report_date": "2012-07-31",
+      "accepted_at_utc": "2012-10-09T20:16:08.000Z",
+      "primary_document": "d391477dncsr.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312512418172/0001193125-12-418172-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-12-517738",
+      "filed": "2012-12-28",
+      "report_date": "2012-10-31",
+      "accepted_at_utc": "2012-12-28T23:22:34.000Z",
+      "primary_document": "d450388dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312512517738/0001193125-12-517738-index.htm"
+    },
+    {
+      "form": "N-CSRS",
+      "accession": "0001193125-13-148033",
+      "filed": "2013-04-10",
+      "report_date": "2013-01-31",
+      "accepted_at_utc": "2013-04-10T04:13:24.000Z",
+      "primary_document": "d493068dncsrs.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312513148033/0001193125-13-148033-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-13-274594",
+      "filed": "2013-06-27",
+      "report_date": "2013-04-30",
+      "accepted_at_utc": "2013-06-27T23:18:35.000Z",
+      "primary_document": "d555685dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312513274594/0001193125-13-274594-index.htm"
+    },
+    {
+      "form": "N-CSR",
+      "accession": "0001193125-13-392676",
+      "filed": "2013-10-07",
+      "report_date": "2013-07-31",
+      "accepted_at_utc": "2013-10-07T21:10:00.000Z",
+      "primary_document": "d588642dncsr.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312513392676/0001193125-13-392676-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-13-486444",
+      "filed": "2013-12-27",
+      "report_date": "2013-10-31",
+      "accepted_at_utc": "2013-12-28T03:20:02.000Z",
+      "primary_document": "d647093dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312513486444/0001193125-13-486444-index.htm"
+    },
+    {
+      "form": "N-CSRS",
+      "accession": "0001193125-14-127770",
+      "filed": "2014-04-02",
+      "report_date": "2014-01-31",
+      "accepted_at_utc": "2014-04-02T22:16:21.000Z",
+      "primary_document": "d666619dncsrs.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312514127770/0001193125-14-127770-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-14-251746",
+      "filed": "2014-06-27",
+      "report_date": "2014-04-30",
+      "accepted_at_utc": "2014-06-27T04:17:50.000Z",
+      "primary_document": "d741407dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312514251746/0001193125-14-251746-index.htm"
+    },
+    {
+      "form": "N-CSR",
+      "accession": "0001193125-14-366601",
+      "filed": "2014-10-08",
+      "report_date": "2014-07-31",
+      "accepted_at_utc": "2014-10-08T23:17:34.000Z",
+      "primary_document": "d779862dncsr.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312514366601/0001193125-14-366601-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-14-455465",
+      "filed": "2014-12-29",
+      "report_date": "2014-10-31",
+      "accepted_at_utc": "2014-12-30T02:15:31.000Z",
+      "primary_document": "d840348dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312514455465/0001193125-14-455465-index.htm"
+    },
+    {
+      "form": "N-CSRS",
+      "accession": "0001193125-15-122693",
+      "filed": "2015-04-08",
+      "report_date": "2015-01-31",
+      "accepted_at_utc": "2015-04-08T23:50:12.000Z",
+      "primary_document": "d875397dncsrs.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312515122693/0001193125-15-122693-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-15-238848",
+      "filed": "2015-06-29",
+      "report_date": "2015-04-30",
+      "accepted_at_utc": "2015-06-29T22:56:42.000Z",
+      "primary_document": "d944131dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312515238848/0001193125-15-238848-index.htm"
+    },
+    {
+      "form": "N-CSR",
+      "accession": "0001193125-15-339410",
+      "filed": "2015-10-07",
+      "report_date": "2015-07-31",
+      "accepted_at_utc": "2015-10-08T00:30:16.000Z",
+      "primary_document": "d98289dncsr.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312515339410/0001193125-15-339410-index.htm"
+    },
+    {
+      "form": "N-CSRS",
+      "accession": "0001193125-15-396474",
+      "filed": "2015-12-07",
+      "report_date": "2015-09-30",
+      "accepted_at_utc": "2015-12-08T01:56:36.000Z",
+      "primary_document": "d93555dncsrs.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312515396474/0001193125-15-396474-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-16-480933",
+      "filed": "2016-02-26",
+      "report_date": "2015-12-31",
+      "accepted_at_utc": "2016-02-26T23:14:01.000Z",
+      "primary_document": "d146052dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312516480933/0001193125-16-480933-index.htm"
+    },
+    {
+      "form": "N-CSR",
+      "accession": "0001193125-16-613829",
+      "filed": "2016-06-06",
+      "report_date": "2016-03-31",
+      "accepted_at_utc": "2016-06-06T22:59:07.000Z",
+      "primary_document": "d184535dncsr.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312516613829/0001193125-16-613829-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-16-695276",
+      "filed": "2016-08-29",
+      "report_date": "2016-06-30",
+      "accepted_at_utc": "2016-08-29T21:37:08.000Z",
+      "primary_document": "d231174dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312516695276/0001193125-16-695276-index.htm"
+    },
+    {
+      "form": "N-CSRS",
+      "accession": "0001193125-16-788378",
+      "filed": "2016-12-08",
+      "report_date": "2016-09-30",
+      "accepted_at_utc": "2016-12-09T00:57:38.000Z",
+      "primary_document": "d270106dncsrs.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312516788378/0001193125-16-788378-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-17-065125",
+      "filed": "2017-03-01",
+      "report_date": "2016-12-31",
+      "accepted_at_utc": "2017-03-02T00:38:08.000Z",
+      "primary_document": "d346678dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312517065125/0001193125-17-065125-index.htm"
+    },
+    {
+      "form": "N-CSR",
+      "accession": "0001193125-17-194722",
+      "filed": "2017-06-05",
+      "report_date": "2017-03-31",
+      "accepted_at_utc": "2017-06-06T00:54:56.000Z",
+      "primary_document": "d335700dncsr.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312517194722/0001193125-17-194722-index.htm"
+    },
+    {
+      "form": "N-CSRS/A",
+      "accession": "0001193125-17-257378",
+      "filed": "2017-08-14",
+      "report_date": "2016-09-30",
+      "accepted_at_utc": "2017-08-15T01:09:35.000Z",
+      "primary_document": "d441273dncsrsa.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312517257378/0001193125-17-257378-index.htm"
+    },
+    {
+      "form": "N-CSR/A",
+      "accession": "0001193125-17-257387",
+      "filed": "2017-08-14",
+      "report_date": "2017-03-31",
+      "accepted_at_utc": "2017-08-15T01:15:12.000Z",
+      "primary_document": "d426597dncsra.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312517257387/0001193125-17-257387-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-17-271743",
+      "filed": "2017-08-29",
+      "report_date": "2017-06-30",
+      "accepted_at_utc": "2017-08-29T21:48:52.000Z",
+      "primary_document": "d438168dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312517271743/0001193125-17-271743-index.htm"
+    },
+    {
+      "form": "N-CSRS",
+      "accession": "0001193125-17-359934",
+      "filed": "2017-12-04",
+      "report_date": "2017-09-30",
+      "accepted_at_utc": "2017-12-04T23:04:28.000Z",
+      "primary_document": "d462369dncsrs.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312517359934/0001193125-17-359934-index.htm"
+    },
+    {
+      "form": "N-CSR/A",
+      "accession": "0001193125-18-009766",
+      "filed": "2018-01-12",
+      "report_date": "2017-03-31",
+      "accepted_at_utc": "2018-01-12T21:50:26.000Z",
+      "primary_document": "d491396dncsra.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312518009766/0001193125-18-009766-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-18-063612",
+      "filed": "2018-02-28",
+      "report_date": "2017-12-31",
+      "accepted_at_utc": "2018-03-01T01:02:56.000Z",
+      "primary_document": "d539192dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312518063612/0001193125-18-063612-index.htm"
+    },
+    {
+      "form": "N-CSR/A",
+      "accession": "0001193125-18-152961",
+      "filed": "2018-05-04",
+      "report_date": "2017-03-31",
+      "accepted_at_utc": "2018-05-05T01:05:23.000Z",
+      "primary_document": "d575725dncsra.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312518152961/0001193125-18-152961-index.htm"
+    },
+    {
+      "form": "N-CSRS/A",
+      "accession": "0001193125-18-152996",
+      "filed": "2018-05-04",
+      "report_date": "2017-09-30",
+      "accepted_at_utc": "2018-05-05T01:14:47.000Z",
+      "primary_document": "d577154dncsrsa.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312518152996/0001193125-18-152996-index.htm"
+    },
+    {
+      "form": "N-CSR",
+      "accession": "0001193125-18-186572",
+      "filed": "2018-06-07",
+      "report_date": "2018-03-31",
+      "accepted_at_utc": "2018-06-07T22:04:37.000Z",
+      "primary_document": "d544791dncsr.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312518186572/0001193125-18-186572-index.htm"
+    },
+    {
+      "form": "N-Q",
+      "accession": "0001193125-18-261300",
+      "filed": "2018-08-29",
+      "report_date": "2018-06-30",
+      "accepted_at_utc": "2018-08-29T17:48:42.000Z",
+      "primary_document": "d577177dnq.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312518261300/0001193125-18-261300-index.htm"
+    },
+    {
+      "form": "N-CSRS",
+      "accession": "0001193125-18-344229",
+      "filed": "2018-12-07",
+      "report_date": "2018-09-30",
+      "accepted_at_utc": "2018-12-07T18:04:05.000Z",
+      "primary_document": "d586605dncsrs.htm",
+      "index_href": "/Archives/edgar/data/1100663/000119312518344229/0001193125-18-344229-index.htm"
+    }
+  ],
+  "full_body_membership_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "2011_2018_confirmed_SOXX_body_accessions": [
+    "0001193125-11-176858"
+  ]
+}

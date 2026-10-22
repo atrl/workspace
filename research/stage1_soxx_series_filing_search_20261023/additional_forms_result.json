@@ -1,0 +1,21 @@
+{
+  "status": "additional_series_index_partial_or_unqualified",
+  "error": "series_or_schema_failure:AssertionError:",
+  "GET_attempts": 1,
+  "form_counts": {
+    "N-CSR": 0,
+    "N-CSR/A": 0,
+    "N-CSRS": 0,
+    "N-CSRS/A": 0
+  },
+  "2011_2018_base_rows": 0,
+  "2011_2018_base_in_trust_index": true,
+  "nas_archive_sha256": "c22146476851d3c9853d9c1da489fe54402f113693f72e56e176d98111f5da71",
+  "nas_archive_bytes": 7209,
+  "nas_remote_and_scoped_restore_verified": true,
+  "filing_body_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "holdings_values_qualified": false
+}

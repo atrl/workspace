@@ -1,0 +1,18 @@
+{
+  "frozen": true,
+  "phase": "zero_network_original_NPORT_XML_report_period_field_semantics_repair",
+  "parent_result": "result.json",
+  "parent_result_sha256": "acb97e675adf17f98e5ee83c18113f45784cc964f009d3178ca8e646818efd75",
+  "raw_path": "data/snapshots/stage1_soxx_2019_nport_source_specimen_20261023/primary_doc.xml",
+  "raw_sha256": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+  "nas_archive_sha256": "4a5fc73692fcf3b3d43171a2dc156f98c2bb753c53d5ab0e07595ea193503308",
+  "defect": "Initial source structure audit looked for localname repPd, while original XML uses repPdDate and repPdEnd. It therefore did not verify report date against the filing index.",
+  "fixed_check": "Read the same raw XML once without network. Require CIK 0001100663, series S000004354, class C000012084, repPdDate 2019-09-30 matching the frozen SEC index, and preserve repPdEnd and dateSigned separately without treating either as public availability. Require 34 invstOrSec records and first-row field names name/cusip/balance/valUSD/pctVal; inspect schema only, no numeric holdings values.",
+  "budget": {
+    "additional_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "On any hash, identity, date, count or field mismatch, preserve failure and stop; no source substitution."
+}

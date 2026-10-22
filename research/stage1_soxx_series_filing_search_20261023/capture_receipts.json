@@ -1,0 +1,42 @@
+[
+  {
+    "form": "N-Q",
+    "url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=S000004354&action=getcompany&scd=filings&type=N-Q&count=100",
+    "requested_at_utc": "2026-10-22T18:15:58.216754+00:00",
+    "received_at_utc": "2026-10-22T18:15:59.605823+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=S000004354&action=getcompany&scd=filings&type=N-Q&count=100",
+    "stderr": "",
+    "raw_sha256": "b491e81187c61252484d09fe9ee5a933549be908b8adca091df58b866cc9ada4",
+    "raw_bytes": 24498,
+    "headers_sha256": "47857db7cb8414ede4337ef00589b3a758d9d7190f37ed14f5833a48716b992f",
+    "headers_bytes": 1793,
+    "series_id_occurrences": 2,
+    "SOXX_occurrences": 0,
+    "accession_link_count": 27,
+    "accession_numbers_unique": 27,
+    "requested_form_occurrences": 30,
+    "title": "EDGAR Search Results"
+  },
+  {
+    "form": "NPORT-P",
+    "url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=S000004354&action=getcompany&scd=filings&type=NPORT-P&count=100",
+    "requested_at_utc": "2026-10-22T18:16:00.621175+00:00",
+    "received_at_utc": "2026-10-22T18:16:02.160168+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=S000004354&action=getcompany&scd=filings&type=NPORT-P&count=100",
+    "stderr": "",
+    "raw_sha256": "037592c65811f529820a51e2fff0395ced9179a31ffdce6608378a3865d49bda",
+    "raw_bytes": 25429,
+    "headers_sha256": "f4c6f9b44fc8f112702c039d1d7cdb5752caa2664f0b7389904ae5fcda8d191a",
+    "headers_bytes": 1793,
+    "series_id_occurrences": 2,
+    "SOXX_occurrences": 0,
+    "accession_link_count": 29,
+    "accession_numbers_unique": 29,
+    "requested_form_occurrences": 32,
+    "title": "EDGAR Search Results"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "form": "N-CSR",
+    "url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=S000004354&action=getcompany&scd=filings&type=N-CSR&count=100",
+    "requested_at_utc": "2026-10-22T18:19:13.742799+00:00",
+    "received_at_utc": "2026-10-22T18:19:15.401203+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=S000004354&action=getcompany&scd=filings&type=N-CSR&count=100",
+    "stderr": "",
+    "raw_sha256": "79be2d3309d335f946bbcc8d533ad662e6e7d7cc2b4c1ae1deb021edc7a61483",
+    "raw_bytes": 36057,
+    "headers_sha256": "243832f7b4662898998042bc0348a7dccf91b6f91affea6cb57f4e5a9bab6333",
+    "headers_bytes": 1793,
+    "parse_error": "series_or_schema_failure:AssertionError:"
+  }
+]

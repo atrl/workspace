@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "two_exact_SEC_series_ID_filing_search_capability_probe",
+  "question": "Can the official SEC EDGAR series-ID filing search return SOXX-specific N-Q and NPORT-P filing index pages for S000004354, reducing trust-level body search across the Stage1 training era?",
+  "authority": {
+    "series_class_information": "https://www.sec.gov/data-research/sec-markets-data/investment-company-series-class-information",
+    "mutual_fund_search": "https://www.sec.gov/search-filings",
+    "series_id": "S000004354",
+    "class_id": "C000012084",
+    "trust_cik": "0001100663"
+  },
+  "requests_in_order": [
+    {"form": "N-Q", "url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=S000004354&action=getcompany&scd=filings&type=N-Q&count=100"},
+    {"form": "NPORT-P", "url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=S000004354&action=getcompany&scd=filings&type=NPORT-P&count=100"}
+  ],
+  "transport": {"GETs_max": 2, "retries": 0, "connect_timeout_seconds": 10, "total_timeout_seconds": 45, "max_response_bytes_each": 3000000, "seconds_between_requests": 1, "user_agent": "SOXL research codex@openai.com"},
+  "inspection": "Save exact response bytes, headers, URL and UTC clocks. Inspect only HTTP status, page title, fund/series/class identity strings, form label and accession links; do not open filing bodies or infer holdings. Retain negative/403 pages as rejection evidence.",
+  "source_backup": "Archive all exact raw responses and receipts to Yanxuan NAS, verify remote archive SHA and scoped byte restoration before treating any local response as disposable.",
+  "budget": {"filing_body_GETs": 0, "market_outcome_reads": 0, "Qlib_factor_rows": 0, "model_fits": 0, "native_accounts": 0},
+  "acceptance": "At least one response is HTTP 200 with unambiguous S000004354/SOXX series identity and filing accession links for the requested form, and the exact response is NAS-backed. A search page is only an index, not filing-source/PIT or feature qualification.",
+  "stop": "After exactly the two listed requests, stop. Do not change URL parameters, use a third endpoint, authenticate, fetch a filing body, read returns or run accounts in this fixed probe."
+}

@@ -1,0 +1,55 @@
+{
+  "status": "one_original_NPORT_XML_structure_qualified_source_only",
+  "plan_sha256": "c7200e9540af9d7cbd0b518e8f8a6d6505d73a27837ce1bb55d1a041d37a61c5",
+  "transport": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272419177706/primary_doc.xml",
+    "requested_at_utc": "2026-10-22T18:29:14.174103+00:00",
+    "received_at_utc": "2026-10-22T18:29:15.170390+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272419177706/primary_doc.xml",
+    "stderr": "",
+    "raw_sha256": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+    "raw_bytes": 38831,
+    "headers_sha256": "1834eb1ef02b03234d6c3918c754c12b5d98b133ca65b22d50df92b4759ff709",
+    "headers_bytes": 1816
+  },
+  "structure": {
+    "root_tag": "edgarSubmission",
+    "element_count": 868,
+    "identity_fields": {
+      "seriesid": [
+        "S000004354"
+      ],
+      "classid": [
+        "C000012084"
+      ],
+      "cik": [
+        "0001100663"
+      ],
+      "repPd": [],
+      "reportdate": [],
+      "seriesname": [
+        "iShares PHLX Semiconductor ETF"
+      ],
+      "registrantname": []
+    },
+    "investment_related_tag_counts": {
+      "invstOrSecs": 1,
+      "invstOrSec": 34
+    },
+    "top_level_tags": [
+      "headerData",
+      "formData"
+    ]
+  },
+  "parse_error": null,
+  "nas_archive_sha256": "4a5fc73692fcf3b3d43171a2dc156f98c2bb753c53d5ab0e07595ea193503308",
+  "nas_archive_bytes": 7771,
+  "nas_remote_and_scoped_restore_verified": true,
+  "all_2019_2022_filings_qualified": false,
+  "holding_values_parsed": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

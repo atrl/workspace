@@ -1,0 +1,26 @@
+{
+  "plan_sha256": "7388b009033d4b078b75b76ce79a1edafc3501c5717b829ae6b0e132743af6cb",
+  "files": [
+    {
+      "name": "NPORT_P.headers",
+      "sha256": "f4c6f9b44fc8f112702c039d1d7cdb5752caa2664f0b7389904ae5fcda8d191a",
+      "bytes": 1793
+    },
+    {
+      "name": "NPORT_P.html",
+      "sha256": "037592c65811f529820a51e2fff0395ced9179a31ffdce6608378a3865d49bda",
+      "bytes": 25429
+    },
+    {
+      "name": "N_Q.headers",
+      "sha256": "47857db7cb8414ede4337ef00589b3a758d9d7190f37ed14f5833a48716b992f",
+      "bytes": 1793
+    },
+    {
+      "name": "N_Q.html",
+      "sha256": "b491e81187c61252484d09fe9ee5a933549be908b8adca091df58b866cc9ada4",
+      "bytes": 24498
+    }
+  ],
+  "receipt_sha256": "135730a926c2ef4a19692864db53ce0bdb72d230d528cb67bf8ee5e6c217f658"
+}

@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_soxx_series_filing_search_20261023",
+  "decision": "SEC_series_specific_2011_2018_report_metadata_32_base_5_amendments_bodies_pending",
+  "result": "result.json",
+  "series_index_parse": "series_index_parse.json",
+  "additional_forms_plan": "additional_forms_plan.json",
+  "additional_forms_transport": "additional_forms_result.json",
+  "additional_forms_parse_repair_plan": "additional_forms_parse_repair_plan.json",
+  "shareholder_report_index": "additional_forms_parse_result.json",
+  "series_report_calendar": "series_report_calendar_inventory.json",
+  "total_index_GETs": 3,
+  "2011_2018_base_report_dates": 32,
+  "2011_2018_series_amendments": 5,
+  "N_Q_total": 27,
+  "N_Q_2011_2018": 15,
+  "NPORT_P_total": 28,
+  "NPORT_P_amendments": 1,
+  "NAS_archive_sha256": "14789c4727e1a518511e56dbc6112a975798a2dc0efc2def0e234de54f8bdc90",
+  "NAS_scoped_restore_verified": true,
+  "shareholder_page_NAS_archive_sha256": "c22146476851d3c9853d9c1da489fe54402f113693f72e56e176d98111f5da71",
+  "shareholder_page_NAS_scoped_restore_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

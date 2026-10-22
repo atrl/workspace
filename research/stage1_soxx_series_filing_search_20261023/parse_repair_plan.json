@@ -1,0 +1,20 @@
+{
+  "frozen": true,
+  "failure": "parse_attempt1_failure.json",
+  "scope": "On the exact saved NPORT-P search page, retain the one NPORT-P/A row as a separate amendment form; N-Q remains exact. Keep accession/date/index href unchanged. No new GET, no source substitution or market read.",
+  "allowed_forms_by_page": {
+    "N-Q": [
+      "N-Q",
+      "N-Q/A"
+    ],
+    "NPORT-P": [
+      "NPORT-P",
+      "NPORT-P/A"
+    ]
+  },
+  "additional_offline_parse_attempts_max": 1,
+  "new_GETs": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "stop": "If any other form, row shape, identity or page hash occurs, stop."
+}

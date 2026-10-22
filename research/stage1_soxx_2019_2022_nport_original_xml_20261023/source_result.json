@@ -1,0 +1,15 @@
+{
+  "status": "twelve_original_NPORT_XML_sources_archived_identity_passed",
+  "error": null,
+  "new_GET_attempts": 12,
+  "new_XML_identity_passed": 12,
+  "reused_2019_specimen_sha256": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+  "total_distinct_original_XML_sources": 13,
+  "nas_archive_sha256": "a5834ee5d13a560409aca89f6e56d2abc36e099b7dc937e67d67af3697f30641",
+  "nas_archive_bytes": 77754,
+  "nas_remote_and_scoped_restore_verified": true,
+  "holding_values_parsed": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

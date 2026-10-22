@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "twelve_exact_remaining_SOXX_NPORT_primary_XML_source_capture",
+  "question": "Can the exact 2019-2022 SOXX series NPORT-P original XML bytes for all 13 already identified public quarterly filings be archived and verified, using the qualified earliest 2019 specimen plus exactly 12 additional original XML GETs?",
+  "parent_index": {
+    "path": "research/stage1_soxx_2019_2022_nport_filing_metadata_20261023/metadata_result.json",
+    "sha256": "7a4c5d6ef6359b95a9871243d307db27024ef2682a527d334054c4add5553d53",
+    "series_id": "S000004354",
+    "class_id": "C000012084",
+    "trust_cik": "0001100663",
+    "index_archive_sha256": "dfdf9c63a15972786078b8c2058e1c677c9c173f4e66dff47cd2d0109a21abda"
+  },
+  "reused_specimen": {
+    "card": "research/stage1_soxx_2019_nport_source_specimen_20261023",
+    "schema_result": "research/stage1_soxx_2019_nport_source_specimen_20261023/schema_semantics_result.json",
+    "schema_result_sha256": "9e111f9e3bd36ebe95a4147fab7f8a3b8075edb3643459adff100b9066fc32fe",
+    "raw_path": "data/snapshots/stage1_soxx_2019_nport_source_specimen_20261023/primary_doc.xml",
+    "raw_sha256": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+    "nas_archive_sha256": "4a5fc73692fcf3b3d43171a2dc156f98c2bb753c53d5ab0e07595ea193503308",
+    "report_period": "2019-09-30"
+  },
+  "exact_additional_XML": [
+    {
+      "accession": "0001752724-20-038669",
+      "report_period": "2019-12-31",
+      "filed": "2020-02-27",
+      "accepted_display": "2020-02-27 11:42:50",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420038669/primary_doc.xml",
+      "index_sha256": "031c13950c25705430e27fb32df2f90107b5656d7fd11512711d0d9683e62edf"
+    },
+    {
+      "accession": "0001752724-20-112013",
+      "report_period": "2020-03-31",
+      "filed": "2020-06-01",
+      "accepted_display": "2020-05-29 21:12:06",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420112013/primary_doc.xml",
+      "index_sha256": "b6b997475336822567c6e79e9951fe72ce8672319527956babd785cc81205052"
+    },
+    {
+      "accession": "0001752724-20-176975",
+      "report_period": "2020-06-30",
+      "filed": "2020-08-27",
+      "accepted_display": "2020-08-27 15:49:02",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420176975/primary_doc.xml",
+      "index_sha256": "873559a5cbb01ab392b529654e379bb0a6c64d41f0b27ed7a43c099a3fdcaed9"
+    },
+    {
+      "accession": "0001752724-20-247778",
+      "report_period": "2020-09-30",
+      "filed": "2020-11-25",
+      "accepted_display": "2020-11-25 11:46:17",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420247778/primary_doc.xml",
+      "index_sha256": "32761cbd24bf5b93443e5284a1414612f6f352301074af7e02ed306e370d41b1"
+    },
+    {
+      "accession": "0001752724-21-040706",
+      "report_period": "2020-12-31",
+      "filed": "2021-02-25",
+      "accepted_display": "2021-02-25 14:30:01",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421040706/primary_doc.xml",
+      "index_sha256": "669531de2bce8715fac85201dea89ad966adba7734157d30f06af7829cbf3a73"
+    },
+    {
+      "accession": "0001752724-21-116396",
+      "report_period": "2021-03-31",
+      "filed": "2021-05-27",
+      "accepted_display": "2021-05-27 16:06:00",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421116396/primary_doc.xml",
+      "index_sha256": "4684ef4e8ec98f73d92c350de465eb9f28a44737bd55190c746e9dacff7275cd"
+    },
+    {
+      "accession": "0001752724-21-186189",
+      "report_period": "2021-06-30",
+      "filed": "2021-08-26",
+      "accepted_display": "2021-08-26 09:46:50",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421186189/primary_doc.xml",
+      "index_sha256": "a526f7cc7eb0e37cd74f52c33d9bd4ed74c9fb6f4acaf94e579e11cc12fc8824"
+    },
+    {
+      "accession": "0001752724-21-255817",
+      "report_period": "2021-09-30",
+      "filed": "2021-11-24",
+      "accepted_display": "2021-11-24 11:18:19",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421255817/primary_doc.xml",
+      "index_sha256": "1b4e9b9a0af2565df1492b99ea1e3cf43f4fedfe327ff83067bf0bfa7e04ee96"
+    },
+    {
+      "accession": "0001752724-22-046342",
+      "report_period": "2021-12-31",
+      "filed": "2022-02-25",
+      "accepted_display": "2022-02-25 10:58:59",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422046342/primary_doc.xml",
+      "index_sha256": "06fd94cf90b521e1cc0a1afb42339d0c9f6d7d6d649037afa80d2b78dd7d6474"
+    },
+    {
+      "accession": "0001752724-22-122864",
+      "report_period": "2022-03-31",
+      "filed": "2022-05-26",
+      "accepted_display": "2022-05-26 09:49:40",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422122864/primary_doc.xml",
+      "index_sha256": "422bd5fdff9e1565556171d76f604fb1bec4b680005912ea993e20641f69568c"
+    },
+    {
+      "accession": "0001752724-22-193694",
+      "report_period": "2022-06-30",
+      "filed": "2022-08-25",
+      "accepted_display": "2022-08-25 14:39:49",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422193694/primary_doc.xml",
+      "index_sha256": "fbe7590d1ec5fbdc2e885fb130571c62ca48e301cfe9247f9d0d4fda4ec56434"
+    },
+    {
+      "accession": "0001752724-22-268670",
+      "report_period": "2022-09-30",
+      "filed": "2022-11-28",
+      "accepted_display": "2022-11-28 10:15:29",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422268670/primary_doc.xml",
+      "index_sha256": "2bd77ca319c1797ded4e21597e2e8fcdfcc6be442e5cd6e29ae0feb3588ca6f7"
+    }
+  ],
+  "transport": {
+    "GETs_max": 12,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 45,
+    "max_response_bytes_each": 2000000,
+    "seconds_between_requests": 1,
+    "user_agent": "SOXL research codex@openai.com"
+  },
+  "inspection": "Record exact original XML and header bytes, URL and UTC clocks. After archival verify XML parse, CIK/series/class and repPdDate against each saved filing index, and count invstOrSec elements only. Do not calculate weights/returns or select features in this source phase. Preserve repPdEnd and dateSigned separately; neither is public availability.",
+  "source_backup": "Archive all 12 new original XML and capture receipts to Yanxuan NAS with remote SHA and scoped byte restore. The reused 2019 specimen already has its own verified NAS archive; retain both archive identities.",
+  "budget": {
+    "additional_primary_XML_GETs": 12,
+    "exhibit_GETs": 0,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "acceptance": "Twelve complete HTTP200 XML source objects plus one reused sample have matching accession, series, class and report period; source bytes are NAS restored. This qualifies a source inventory, not numeric concentration, first-public intraday timing, a Stage1 factor or SOXX excess.",
+  "stop": "On HTTP, oversize, XML, identity or NAS mismatch, archive partial exact bytes, record failing accession and stop further requests. No alternate URL, retry, current holdings replacement, market outcome or model fit."
+}

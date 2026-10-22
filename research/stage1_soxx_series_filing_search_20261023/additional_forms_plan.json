@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "two_additional_SEC_series_ID_shareholder_report_index_pages",
+  "parent_result": "series_index_parse.json",
+  "parent_status": "SEC_series_specific_filing_index_identity_and_accession_readback_passed",
+  "question": "Does the same SEC S000004354 series-specific index enumerate N-CSR and N-CSRS filings that complete the 2011-2018 disclosed-schedule candidate calendar alongside N-Q?",
+  "requests_in_order": [
+    {"form": "N-CSR", "url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=S000004354&action=getcompany&scd=filings&type=N-CSR&count=100"},
+    {"form": "N-CSRS", "url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=S000004354&action=getcompany&scd=filings&type=N-CSRS&count=100"}
+  ],
+  "transport": {"GETs_max": 2, "retries": 0, "connect_timeout_seconds": 10, "total_timeout_seconds": 45, "max_response_bytes_each": 3000000, "seconds_between_requests": 1, "user_agent": "SOXL research codex@openai.com"},
+  "accepted_form_variants": {"N-CSR": ["N-CSR", "N-CSR/A"], "N-CSRS": ["N-CSRS", "N-CSRS/A"]},
+  "inspection": "Archive exact HTML/headers; require displayed S000004354 Semiconductor ETF series identity, parse only form variant, accession, index URL and filing date. Preserve amendments separately; do not open filing bodies or claim SOXX holdings values.",
+  "source_backup": "Archive exact pages and receipts on Yanxuan NAS, verify remote SHA and scoped raw byte restoration.",
+  "budget": {"filing_body_GETs": 0, "market_outcome_reads": 0, "Qlib_factor_rows": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "After two exact GETs, stop. On transport/schema/series mismatch, retain raw bytes and failure; no alternate parameters, third endpoint, filing body, returns or fit."
+}

@@ -1,0 +1,59 @@
+{
+  "status": "one_original_NPORT_XML_identity_report_date_and_holdings_schema_qualified",
+  "source_raw_sha256": "951d162d4e996b74a7e1818e13c4c118c348320a95e54a72a4158a20c88d0e73",
+  "source_NAS_archive_sha256": "4a5fc73692fcf3b3d43171a2dc156f98c2bb753c53d5ab0e07595ea193503308",
+  "source_NAS_scoped_restore_verified": true,
+  "source_index_accession": "0001752724-19-177706",
+  "source_index_accepted_display": "2019-11-25 15:33:26",
+  "identity_fields": {
+    "cik": [
+      "0001100663"
+    ],
+    "seriesId": [
+      "S000004354"
+    ],
+    "classId": [
+      "C000012084"
+    ],
+    "repPdDate": [
+      "2019-09-30"
+    ],
+    "repPdEnd": [
+      "2020-03-31"
+    ],
+    "dateSigned": [
+      "2019-10-29"
+    ]
+  },
+  "original_investment_rows": 34,
+  "first_investment_row_field_names": [
+    "name",
+    "lei",
+    "title",
+    "cusip",
+    "identifiers",
+    "isin",
+    "balance",
+    "units",
+    "curCd",
+    "valUSD",
+    "pctVal",
+    "payoffProfile",
+    "assetCat",
+    "issuerCat",
+    "invCountry",
+    "isRestrictedSec",
+    "fairValLevel",
+    "securityLending",
+    "isCashCollateral",
+    "isNonCashCollateral",
+    "isLoanByFund"
+  ],
+  "holdings_values_parsed": 0,
+  "full_training_coverage_qualified": false,
+  "acceptance_timezone_qualified": false,
+  "new_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

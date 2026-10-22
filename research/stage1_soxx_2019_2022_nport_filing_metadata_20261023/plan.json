@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "thirteen_exact_SEC_SOXX_series_NPORT_filing_index_source_capture",
+  "question": "Can the 13 series-specific 2019-2022 public NPORT-P filing index pages establish exact SOXX series identity, report period and SEC acceptance clock for the later frozen Stage1 training period, before any original holdings values are parsed?",
+  "parent_source": {
+    "card": "research/stage1_soxx_series_filing_search_20261023",
+    "series_index_parse": "research/stage1_soxx_series_filing_search_20261023/series_index_parse.json",
+    "series_index_parse_sha256": "8b30e8c369c70be8bff3d8fffe6531744e9d2d0c3be0a397510f632284938a2c",
+    "series_id": "S000004354",
+    "class_id": "C000012084",
+    "trust_cik": "0001100663",
+    "search_page_NAS_archive_sha256": "14789c4727e1a518511e56dbc6112a975798a2dc0efc2def0e234de54f8bdc90"
+  },
+  "exact_index_pages": [
+    {
+      "accession": "0001752724-19-177706",
+      "filed_from_series_search": "2019-11-25",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272419177706/0001752724-19-177706-index.htm"
+    },
+    {
+      "accession": "0001752724-20-038669",
+      "filed_from_series_search": "2020-02-27",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420038669/0001752724-20-038669-index.htm"
+    },
+    {
+      "accession": "0001752724-20-112013",
+      "filed_from_series_search": "2020-06-01",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420112013/0001752724-20-112013-index.htm"
+    },
+    {
+      "accession": "0001752724-20-176975",
+      "filed_from_series_search": "2020-08-27",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420176975/0001752724-20-176975-index.htm"
+    },
+    {
+      "accession": "0001752724-20-247778",
+      "filed_from_series_search": "2020-11-25",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420247778/0001752724-20-247778-index.htm"
+    },
+    {
+      "accession": "0001752724-21-040706",
+      "filed_from_series_search": "2021-02-25",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421040706/0001752724-21-040706-index.htm"
+    },
+    {
+      "accession": "0001752724-21-116396",
+      "filed_from_series_search": "2021-05-27",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421116396/0001752724-21-116396-index.htm"
+    },
+    {
+      "accession": "0001752724-21-186189",
+      "filed_from_series_search": "2021-08-26",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421186189/0001752724-21-186189-index.htm"
+    },
+    {
+      "accession": "0001752724-21-255817",
+      "filed_from_series_search": "2021-11-24",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421255817/0001752724-21-255817-index.htm"
+    },
+    {
+      "accession": "0001752724-22-046342",
+      "filed_from_series_search": "2022-02-25",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422046342/0001752724-22-046342-index.htm"
+    },
+    {
+      "accession": "0001752724-22-122864",
+      "filed_from_series_search": "2022-05-26",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422122864/0001752724-22-122864-index.htm"
+    },
+    {
+      "accession": "0001752724-22-193694",
+      "filed_from_series_search": "2022-08-25",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422193694/0001752724-22-193694-index.htm"
+    },
+    {
+      "accession": "0001752724-22-268670",
+      "filed_from_series_search": "2022-11-28",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422268670/0001752724-22-268670-index.htm"
+    }
+  ],
+  "official_source": "https://www.sec.gov/Archives/edgar/data/1100663/",
+  "transport": {
+    "GETs_max": 13,
+    "retries": 0,
+    "user_agent": "SOXL research codex@openai.com",
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 45,
+    "max_response_bytes_each": 3000000,
+    "seconds_between_requests": 1
+  },
+  "inspection": "Record exact bytes/header hash/request clocks. From each filing index page inspect only form, accession, filing date, accepted timestamp, report period, SOXX series/class identity and listed NPORT-P XML / NPORT-EX filenames. Do not fetch any primary XML, exhibit or holdings value. Preserve absent/mismatched fields explicitly.",
+  "source_backup": "Archive every exact received index page plus response headers and receipts to Yanxuan NAS, verify remote SHA and scoped restoration. Preserve local bytes if backup fails.",
+  "budget": {
+    "primary_document_GETs": 0,
+    "exhibit_GETs": 0,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "acceptance": "All 13 index pages are HTTP200, accession and filed date match the parent series search, series/class identity is unambiguous, report/acceptance clocks are parseable, and raw bytes are NAS restored. Index metadata alone cannot qualify original holdings values, revisions, full source coverage or a Stage1 feature.",
+  "stop": "On transport or oversize failure, stop further GETs and archive partial exact bytes. On later parse mismatch, preserve raw responses and stop source qualification without changing URL or filing period. No market returns, body download, fitting or account."
+}

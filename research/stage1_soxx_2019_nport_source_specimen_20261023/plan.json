@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_exact_original_2019_SOXX_NPORT_XML_source_specimen",
+  "question": "Does the earliest series-identified 2019-09-30 SOXX NPORT-P primary XML contain unambiguous fund identity and original holding-row structure, as a source-method specimen before full 2019-2022 intake?",
+  "parent_index": {
+    "path": "research/stage1_soxx_2019_2022_nport_filing_metadata_20261023/metadata_result.json",
+    "sha256": "7a4c5d6ef6359b95a9871243d307db27024ef2682a527d334054c4add5553d53",
+    "accession": "0001752724-19-177706",
+    "report_period": "2019-09-30",
+    "filed": "2019-11-25",
+    "accepted_display": "2019-11-25 15:33:26",
+    "series_id": "S000004354",
+    "class_id": "C000012084",
+    "ticker": "SOXX",
+    "source_index_sha256": "e300d9c6f823d199f9787c6760b594b1d65425a1ec6a58686979f5d7046b7e1e",
+    "source_NAS_archive_sha256": "dfdf9c63a15972786078b8c2058e1c677c9c173f4e66dff47cd2d0109a21abda"
+  },
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272419177706/primary_doc.xml",
+  "source_authority": "https://www.sec.gov/data-research/sec-markets-data/form-n-port-data-sets",
+  "transport": {
+    "GETs_max": 1,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 45,
+    "max_response_bytes": 2000000,
+    "user_agent": "SOXL research codex@openai.com"
+  },
+  "inspection": "Record exact XML/header bytes, UTC request and response clocks and hash. Parse only XML namespace, registrant CIK, series/class/fund name, report period and count/field names of investment rows; do not calculate weights, current constituents, returns or factor values. Do not infer intraday first-public time from SEC page display alone.",
+  "source_backup": "Archive exact raw XML, headers and receipt to Yanxuan NAS; verify remote SHA and scoped byte restoration. Preserve local raw regardless.",
+  "budget": {
+    "additional_primary_XML_GETs": 1,
+    "exhibit_GETs": 0,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "acceptance": "HTTP200 exact XML below 2 MB, accession and report/series identity consistent with saved SEC index, at least one parseable investment row, and NAS remote and scoped restore verified. This is one specimen, not full training coverage or alpha.",
+  "stop": "On GET, size, XML, identity or NAS failure, retain exact receipt and stop; no alternate XML/exhibit, date, URL or retry."
+}

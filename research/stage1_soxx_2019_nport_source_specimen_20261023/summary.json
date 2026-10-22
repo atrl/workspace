@@ -1,0 +1,16 @@
+{
+  "experiment": "stage1_soxx_2019_nport_source_specimen_20261023",
+  "decision": "one_original_NPORT_XML_identity_report_date_and_holdings_schema_qualified",
+  "transport_result": "result.json",
+  "schema_semantics_result": "schema_semantics_result.json",
+  "investment_rows": 34,
+  "NAS_archive_sha256": "4a5fc73692fcf3b3d43171a2dc156f98c2bb753c53d5ab0e07595ea193503308",
+  "NAS_scoped_restore_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

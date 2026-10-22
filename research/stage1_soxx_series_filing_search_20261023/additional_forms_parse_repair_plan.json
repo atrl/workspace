@@ -1,0 +1,13 @@
+{
+  "frozen": true,
+  "phase": "zero_network_N_CSR_prefix_union_page_parse_repair",
+  "parent_plan": "additional_forms_plan.json",
+  "failed_result": "additional_forms_result.json",
+  "raw_page": "data/snapshots/stage1_soxx_series_filing_search_20261023/additional_forms/N_CSR.html",
+  "raw_sha256": "79be2d3309d335f946bbcc8d533ad662e6e7d7cc2b4c1ae1deb021edc7a61483",
+  "nas_archive_sha256": "c22146476851d3c9853d9c1da489fe54402f113693f72e56e176d98111f5da71",
+  "observed_source_page": "SEC type=N-CSR prefix search displays Items 1-48 and all four exact forms: N-CSR 22, N-CSRS 21, N-CSR/A 3, N-CSRS/A 2. This page already covers the intended form family; a second N-CSRS GET would duplicate it.",
+  "fixed_parse": "Use only the saved exact N_CSR.html. Require series S000004354 and Semiconductor ETF identity, exactly 48 rows, and only N-CSR/N-CSRS plus /A. Parse each accession, form, filed date and index href; retain amendments separately. Match 2011-2018 base-form accessions to the NAS-backed trust inventory. No source substitution.",
+  "budget": {"additional_HTTP_GETs": 0, "additional_NAS_uploads": 0, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "On page hash/identity/row count/unexpected form/accession mismatch, preserve failure and stop; no URL change or body fetch."
+}

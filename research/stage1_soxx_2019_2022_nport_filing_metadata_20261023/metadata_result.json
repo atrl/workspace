@@ -1,0 +1,305 @@
+{
+  "status": "thirteen_series_specific_NPORT_index_metadata_qualified_bodies_pending",
+  "source_plan_sha256": "19f643c7f7901e9983522695c087eb329eb5f2948295938c56b2a562983fea8d",
+  "source_archive_sha256": "dfdf9c63a15972786078b8c2058e1c677c9c173f4e66dff47cd2d0109a21abda",
+  "source_NAS_scoped_restore_verified": true,
+  "expected_pages": 13,
+  "parsed_pages": 13,
+  "errors": [],
+  "rows": [
+    {
+      "accession": "0001752724-19-177706",
+      "form": "NPORT-P",
+      "filed": "2019-11-25",
+      "accepted_display": "2019-11-25 15:33:26",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2019-09-30",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272419177706/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "38831"
+      },
+      "exhibits": [],
+      "source_index_sha256": "e300d9c6f823d199f9787c6760b594b1d65425a1ec6a58686979f5d7046b7e1e"
+    },
+    {
+      "accession": "0001752724-20-038669",
+      "form": "NPORT-P",
+      "filed": "2020-02-27",
+      "accepted_display": "2020-02-27 11:42:50",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2019-12-31",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272420038669/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "37845"
+      },
+      "exhibits": [
+        {
+          "document": "NPORT_8290761011093623.htm",
+          "href": "/Archives/edgar/data/1100663/000175272420038669/NPORT_8290761011093623.htm",
+          "type": "NPORT-EX",
+          "size_text": "76945"
+        }
+      ],
+      "source_index_sha256": "031c13950c25705430e27fb32df2f90107b5656d7fd11512711d0d9683e62edf"
+    },
+    {
+      "accession": "0001752724-20-112013",
+      "form": "NPORT-P",
+      "filed": "2020-06-01",
+      "accepted_display": "2020-05-29 21:12:06",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2020-03-31",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272420112013/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "38832"
+      },
+      "exhibits": [],
+      "source_index_sha256": "b6b997475336822567c6e79e9951fe72ce8672319527956babd785cc81205052"
+    },
+    {
+      "accession": "0001752724-20-176975",
+      "form": "NPORT-P",
+      "filed": "2020-08-27",
+      "accepted_display": "2020-08-27 15:49:02",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2020-06-30",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272420176975/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "38444"
+      },
+      "exhibits": [
+        {
+          "document": "NPORT_3228151547395922.htm",
+          "href": "/Archives/edgar/data/1100663/000175272420176975/NPORT_3228151547395922.htm",
+          "type": "NPORT-EX",
+          "size_text": "85552"
+        }
+      ],
+      "source_index_sha256": "873559a5cbb01ab392b529654e379bb0a6c64d41f0b27ed7a43c099a3fdcaed9"
+    },
+    {
+      "accession": "0001752724-20-247778",
+      "form": "NPORT-P",
+      "filed": "2020-11-25",
+      "accepted_display": "2020-11-25 11:46:17",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2020-09-30",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272420247778/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "37814"
+      },
+      "exhibits": [],
+      "source_index_sha256": "32761cbd24bf5b93443e5284a1414612f6f352301074af7e02ed306e370d41b1"
+    },
+    {
+      "accession": "0001752724-21-040706",
+      "form": "NPORT-P",
+      "filed": "2021-02-25",
+      "accepted_display": "2021-02-25 14:30:01",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2020-12-31",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272421040706/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "37827"
+      },
+      "exhibits": [
+        {
+          "document": "NPORT_8211135900033274.htm",
+          "href": "/Archives/edgar/data/1100663/000175272421040706/NPORT_8211135900033274.htm",
+          "type": "NPORT-EX",
+          "size_text": "83456"
+        }
+      ],
+      "source_index_sha256": "669531de2bce8715fac85201dea89ad966adba7734157d30f06af7829cbf3a73"
+    },
+    {
+      "accession": "0001752724-21-116396",
+      "form": "NPORT-P",
+      "filed": "2021-05-27",
+      "accepted_display": "2021-05-27 16:06:00",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2021-03-31",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272421116396/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "37995"
+      },
+      "exhibits": [],
+      "source_index_sha256": "4684ef4e8ec98f73d92c350de465eb9f28a44737bd55190c746e9dacff7275cd"
+    },
+    {
+      "accession": "0001752724-21-186189",
+      "form": "NPORT-P",
+      "filed": "2021-08-26",
+      "accepted_display": "2021-08-26 09:46:50",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2021-06-30",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272421186189/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "37384"
+      },
+      "exhibits": [
+        {
+          "document": "NPORT_0BKA_9979094658.htm",
+          "href": "/Archives/edgar/data/1100663/000175272421186189/NPORT_0BKA_9979094658.htm",
+          "type": "NPORT-EX",
+          "size_text": "73187"
+        }
+      ],
+      "source_index_sha256": "a526f7cc7eb0e37cd74f52c33d9bd4ed74c9fb6f4acaf94e579e11cc12fc8824"
+    },
+    {
+      "accession": "0001752724-21-255817",
+      "form": "NPORT-P",
+      "filed": "2021-11-24",
+      "accepted_display": "2021-11-24 11:18:19",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2021-09-30",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272421255817/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "37617"
+      },
+      "exhibits": [],
+      "source_index_sha256": "1b4e9b9a0af2565df1492b99ea1e3cf43f4fedfe327ff83067bf0bfa7e04ee96"
+    },
+    {
+      "accession": "0001752724-22-046342",
+      "form": "NPORT-P",
+      "filed": "2022-02-25",
+      "accepted_display": "2022-02-25 10:58:59",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2021-12-31",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272422046342/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "38226"
+      },
+      "exhibits": [
+        {
+          "document": "NPORT_0BKA_70998609_1221.htm",
+          "href": "/Archives/edgar/data/1100663/000175272422046342/NPORT_0BKA_70998609_1221.htm",
+          "type": "NPORT-EX",
+          "size_text": "126810"
+        }
+      ],
+      "source_index_sha256": "06fd94cf90b521e1cc0a1afb42339d0c9f6d7d6d649037afa80d2b78dd7d6474"
+    },
+    {
+      "accession": "0001752724-22-122864",
+      "form": "NPORT-P",
+      "filed": "2022-05-26",
+      "accepted_display": "2022-05-26 09:49:40",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2022-03-31",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272422122864/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "37788"
+      },
+      "exhibits": [],
+      "source_index_sha256": "422bd5fdff9e1565556171d76f604fb1bec4b680005912ea993e20641f69568c"
+    },
+    {
+      "accession": "0001752724-22-193694",
+      "form": "NPORT-P",
+      "filed": "2022-08-25",
+      "accepted_display": "2022-08-25 14:39:49",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2022-06-30",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272422193694/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "38809"
+      },
+      "exhibits": [
+        {
+          "document": "NPORT_0BKA_15033339_0622.htm",
+          "href": "/Archives/edgar/data/1100663/000175272422193694/NPORT_0BKA_15033339_0622.htm",
+          "type": "NPORT-EX",
+          "size_text": "68138"
+        }
+      ],
+      "source_index_sha256": "fbe7590d1ec5fbdc2e885fb130571c62ca48e301cfe9247f9d0d4fda4ec56434"
+    },
+    {
+      "accession": "0001752724-22-268670",
+      "form": "NPORT-P",
+      "filed": "2022-11-28",
+      "accepted_display": "2022-11-28 10:15:29",
+      "accepted_display_timezone": "SEC_page_unverified",
+      "report_period": "2022-09-30",
+      "series_id": "S000004354",
+      "class_id": "C000012084",
+      "ticker": "SOXX",
+      "primary_xml": {
+        "document": "primary_doc.xml",
+        "href": "/Archives/edgar/data/1100663/000175272422268670/primary_doc.xml",
+        "type": "NPORT-P",
+        "size_text": "56266"
+      },
+      "exhibits": [],
+      "source_index_sha256": "2bd77ca319c1797ded4e21597e2e8fcdfcc6be442e5cd6e29ae0feb3588ca6f7"
+    }
+  ],
+  "accepted_clock_timezone_qualified": false,
+  "original_holdings_values_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

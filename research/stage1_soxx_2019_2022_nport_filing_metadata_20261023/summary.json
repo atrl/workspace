@@ -1,0 +1,16 @@
+{
+  "experiment": "stage1_soxx_2019_2022_nport_filing_metadata_20261023",
+  "decision": "thirteen_series_specific_NPORT_index_metadata_qualified_XML_values_separate",
+  "transport_result": "transport_result.json",
+  "metadata_result": "metadata_result.json",
+  "filing_indexes": 13,
+  "NAS_archive_sha256": "dfdf9c63a15972786078b8c2058e1c677c9c173f4e66dff47cd2d0109a21abda",
+  "NAS_scoped_restore_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
