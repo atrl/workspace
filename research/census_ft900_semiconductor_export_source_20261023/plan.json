@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_original_FT900_semiconductor_export_feasibility",
+  "hypothesis": "Original monthly FT-900 semiconductor exports may measure external semiconductor demand that is distinct from Stage1's price and risk inputs and from G.17 domestic industrial production.",
+  "parent_if_qualified": "Frozen complete Stage1 allocation, action, risk and recovery chain with its original 39 Qlib inputs; SOXX remains the final benchmark and any accepted feature must first pass a separate frozen information gate before a 0bp Tiered-fee account.",
+  "official_source": "U.S. Census Bureau / BEA FT-900 U.S. International Trade in Goods and Services, original monthly full report, Exhibit 7 U.S. Exports of Goods by End-Use Category and Commodity",
+  "fixed_sample_urls": [
+    "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1112.pdf",
+    "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1705.pdf",
+    "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2404.pdf"
+  ],
+  "selection": "One already identified original monthly report before the 2012 classification revision, one middle-period report, and one recent report. Do not select replacements using market outcomes.",
+  "questions": [
+    "Does original Exhibit 7 name a distinct Semiconductors export row with current and prior month values in each sample?",
+    "What date and release-time statement appears on each exact original PDF?",
+    "Does the 2012 end-use reclassification or later annual revisions prevent naïve use of a current revised API history as point-in-time values?",
+    "Can the exact received source bytes, sizes and SHA-256 be preserved and restored from NAS?"
+  ],
+  "budget": {
+    "exact_PDF_GETs": 3,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "factor_values": 0
+  },
+  "stop": "If any fixed URL fails or its release/row semantics are ambiguous, preserve the observed dependency and stop. Three source samples cannot certify full 2011-2022 history, first availability, revisions, factor quality or SOXX excess."
+}
