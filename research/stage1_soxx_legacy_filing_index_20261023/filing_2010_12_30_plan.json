@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_exact_pre_Stage1_SEC_NQ_body_source_check",
+  "parent_result": "sidecar_012_adjudication_result.json",
+  "accession": "0001193125-10-291216",
+  "form": "N-Q",
+  "report_date": "2010-10-31",
+  "accepted_at_utc": "2010-12-30T22:51:52.000Z",
+  "primary_document": "dnq.htm",
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312510291216/dnq.htm",
+  "target_series_id": "S000004354",
+  "target_class_id": "C000012084",
+  "target_names": ["PHLX SOX Semiconductor", "PHLX Semiconductor", "Semiconductor Sector Index Fund"],
+  "method": "GET",
+  "user_agent": "SOXL research codex@openai.com",
+  "budget": {
+    "http_GETs": 1,
+    "max_response_bytes": 45000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 120,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "record": "Exact body and headers, UTC clocks, HTTP status, bytes/SHA-256, bounded text identity check for target SOXX series name and a matching 2010-10-31 investment schedule. Preserve raw bytes on NAS with remote hash and scoped restore. Do not extract weights or join prices in this phase.",
+  "stop": "If the exact body is denied, oversized, malformed, wrong fund or lacks an unambiguous SOXX schedule, preserve failure and stop. Do not retry the old 403 archive directory, invent a replacement URL, read returns, fit, or create an account.",
+  "boundary": "One original pre-signal schedule may establish a historical source specimen, not 2011-2022 basket continuity, daily constituent price coverage, or predictive SOXX value."
+}
