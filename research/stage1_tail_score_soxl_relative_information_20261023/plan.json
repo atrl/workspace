@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_tail_score_soxl_relative_information_20261023",
+  "phase": "read_only_original_Stage1_tail_score_to_SOXL_relative_H5_necessary_information",
+  "question": "Does the frozen original Stage1 tail head actually rank later SOXL-minus-SOXX H5 open-interval returns in the protective direction, beyond the previously tested target-weight rank? Only a necessary information test, no policy modification.",
+  "source": {
+    "Stage1_card": "research/stage1_domain_heads_20261018",
+    "Stage1_summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "Stage1_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "Stage1_experiment_id": "283510277269468590",
+    "Stage1_frame_sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+    "Stage1_NAS_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "relative_label_card": "research/stage1_soxl_relative_target_information_20261023",
+    "relative_label_summary_sha256": "fe1669ef3de9ab694ac60cb94213cc269f774409208400b0e51e195050930c86",
+    "relative_label_recorder_id": "7e833a37c0e84e25a4c4c46c624f9141",
+    "relative_label_experiment_id": "442123729809905377",
+    "matched_daily_sha256": "3482de5858a3002a6abc0829450001a0c9fc5492aa4a6b4719238b53c85540b3",
+    "relative_label_NAS_sha256": "22bf503f4dcc780e97341548952650ca13da6b7e66cb3b895c982c99d0fd6e18",
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices"
+  },
+  "score": "Original Stage1 tail_probability in saved frame at signal decision 09:46, derived from frozen model and decision-time features; no refit, threshold, sign or output selection.",
+  "label": "Saved relative_H5 log SOXL-minus-SOXX of five consecutive original open intervals, only 940 mature rows, four terminal unknown retained in full 944 Qlib calendar; H1 is secondary descriptive.",
+  "hypothesis": "Higher model-estimated tail risk should rank subsequent SOXL-minus-SOXX relative H5 lower. Required signed Spearman is negative. This is a different receiver from the closed tail-versus-cash-advantage diagnostic and the prior target-weight rank audit.",
+  "cohort": {
+    "full_signal": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "rows": 944,
+    "mature_H5": 940,
+    "mature_H1": 944,
+    "complete_years": [
+      2024,
+      2025
+    ],
+    "partial_endpoint_years": [
+      2023,
+      2026
+    ],
+    "reused_history": true
+  },
+  "statistics": {
+    "primary": "Spearman(tail_probability, relative_H5) on 940 mature matched rows; expected negative",
+    "secondary": "H1 Spearman; all four yearly and 16 quarterly H5 descriptive correlations, no subgroup selection",
+    "uncertainty": {
+      "method": "paired circular stationary bootstrap indices drawn on complete 944 session calendar, then mature finite mask inside each replicate",
+      "mean_block_sessions": 63,
+      "draws": 2000,
+      "seed": 20261023,
+      "two_sided_descriptive_quantiles": [
+        0.025,
+        0.975
+      ]
+    },
+    "necessary_support": "Negative primary point, both predeclared half periods negative, both complete years negative and descriptive 95% upper <0 are all needed merely to justify a new separately frozen Stage1 tail-aware action mechanism. This is not project-wide multiple-search-corrected confirmation or promotion."
+  },
+  "budget": {
+    "external_requests": 0,
+    "source_Recorder_loads": 2,
+    "DatasetH_builds": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 1,
+    "new_Qlib_Recorders": 1
+  },
+  "stop": "If exact hashes, 944/940 labels, maturity/decision clocks, full-calendar bootstrap or NAS readback fail, stop. If necessary support fails, close this exact tail-score/relative-H5 route; do not flip sign, choose quarter, change horizon or tune a threshold on reused history. A pass still needs independent source/receiver review and one complete own-state 0bp Tiered account, then 2/5bp and independent forward.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

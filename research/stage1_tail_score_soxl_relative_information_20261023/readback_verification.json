@@ -1,0 +1,16 @@
+{
+  "status": "native_QLib_tail_relative_information_readback_pass",
+  "recorder_id": "8b6f1604b17d4f3ebe6463ab54745f9a",
+  "calendar_rows": 944,
+  "mature_H5_rows": 940,
+  "bootstrap_replicates": 2000,
+  "primary_H5_spearman": 0.030751616822043058,
+  "block_interval": [
+    -0.07372297093100852,
+    0.14204192829668877
+  ],
+  "report_equal_summary": true,
+  "NAS_remote_scoped_restore_verified": true,
+  "model_fits": 0,
+  "accounts": 0
+}

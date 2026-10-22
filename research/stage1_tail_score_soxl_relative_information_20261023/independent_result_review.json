@@ -1,0 +1,29 @@
+{
+  "verdict": "CONFIRM_FAILED_NECESSARY_SUPPORT",
+  "reviewer": "independent_stage1_nvda_design_review",
+  "recorder_id": "8b6f1604b17d4f3ebe6463ab54745f9a",
+  "native_QLib_status": "FINISHED",
+  "full_calendar_rows": 944,
+  "mature_H5_rows": 940,
+  "terminal_unknown_rows": 4,
+  "once_only_bootstrap_attempts": 1,
+  "bootstrap_replicates": 2000,
+  "primary_H5_spearman": 0.030751616822043058,
+  "held_halves_H5_spearman": [
+    0.09252531664511109,
+    -0.01339915580227239
+  ],
+  "complete_2024_2025_H5_spearman": {
+    "2024": 0.07081030292532112,
+    "2025": -0.06221245139922238
+  },
+  "descriptive_block_interval": [
+    -0.07372297093100852,
+    0.14204192829668877
+  ],
+  "source_hashes_and_code_seal_match": true,
+  "NAS_sha256": "e33d026cb65a6433496b79a4672fb76a1009c1c84be6c3d93fe4b471b59af9d7",
+  "model_fits": 0,
+  "accounts": 0,
+  "decision": "Close exact frozen tail-score relative-H5 necessary-information route; no tail-routing economic account or sign/quarter rescue."
+}

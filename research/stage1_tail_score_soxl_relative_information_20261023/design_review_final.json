@@ -1,0 +1,17 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "reviewer": "independent_stage1_nvda_design_review",
+  "scope": "reused_history_descriptive_necessary_information_only",
+  "plan_sha256": "4d3400ac21793ae1ddd80c9c984eb92030890267309c5a4e65f6790bc24b75ff",
+  "notebook_code_cell_sha256": "9f3f1690279ea65186c972786e0af3a6a75fb9ff912788554fd6081ebf8aa706",
+  "bootstrap_attempts_max": 1,
+  "draws": 2000,
+  "calendar_rows": 944,
+  "mature_H5_rows": 940,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "limits": [
+    "not_project_wide_multiple_search_corrected",
+    "not_fee_net_account_or_independent_forward"
+  ]
+}

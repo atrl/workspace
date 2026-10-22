@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_tail_score_soxl_relative_information_20261023",
+  "decision": "closed_fixed_tail_score_SOXL_relative_H5_necessary_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "4d3400ac21793ae1ddd80c9c984eb92030890267309c5a4e65f6790bc24b75ff",
+  "result": "result.json",
+  "recorder_id": "8b6f1604b17d4f3ebe6463ab54745f9a",
+  "experiment_id": "379411153587244423",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_tail_score_soxl_relative_information_20261023/qlib_recorder",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Same reused 2023-2026 history already searched repeatedly, descriptive interval is not project-wide corrected confirmation.",
+    "Gross original price-plane H5 relative return is not complete fee-net account result.",
+    "Even positive information is only a necessary gate, not a Stage1 tail-policy or SOXX success."
+  ],
+  "nas_evidence": {
+    "sha256": "e33d026cb65a6433496b79a4672fb76a1009c1c84be6c3d93fe4b471b59af9d7",
+    "size_bytes": 136209,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/e3/3d/e33d026cb65a6433496b79a4672fb76a1009c1c84be6c3d93fe4b471b59af9d7",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 07:18:12.818282+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e3/3d/e33d026cb65a6433496b79a4672fb76a1009c1c84be6c3d93fe4b471b59af9d7",
+    "recorder_id": "8b6f1604b17d4f3ebe6463ab54745f9a",
+    "experiment_id": "379411153587244423",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "e33d026cb65a6433496b79a4672fb76a1009c1c84be6c3d93fe4b471b59af9d7"
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "decision": "closed_fixed_tail_score_SOXL_relative_H5_necessary_information_failed",
+  "primary_H5_spearman": 0.030751616822043058,
+  "secondary_H1_spearman": 0.021981546481429654,
+  "held_halves_H5_spearman": [
+    0.09252531664511109,
+    -0.01339915580227239
+  ],
+  "complete_2024_2025_H5_spearman": {
+    "2024": 0.07081030292532112,
+    "2025": -0.06221245139922238
+  },
+  "descriptive_95pct_full_calendar_block_interval": [
+    -0.07372297093100852,
+    0.14204192829668877
+  ],
+  "necessary_support": false,
+  "annual": {
+    "2023": {
+      "rows": 250,
+      "spearman": 0.13524350789612632,
+      "mean_tail_probability": 0.13035638210177422,
+      "mean_relative_H5": 0.00996077032966544
+    },
+    "2024": {
+      "rows": 252,
+      "spearman": 0.07081030292532112,
+      "mean_tail_probability": 0.1466074582958032,
+      "mean_relative_H5": -0.0011144807030173697
+    },
+    "2025": {
+      "rows": 250,
+      "spearman": -0.06221245139922238,
+      "mean_tail_probability": 0.1291084862649441,
+      "mean_relative_H5": 0.0030211890947998868
+    },
+    "2026": {
+      "rows": 188,
+      "spearman": -0.0646713875750171,
+      "mean_tail_probability": 0.205030361705638,
+      "mean_relative_H5": 0.01398716309179357
+    }
+  },
+  "quarters": {
+    "2023Q1": {
+      "rows": 62,
+      "spearman": -0.23059102012036967,
+      "mean_tail_probability": 0.14958994210727752,
+      "mean_relative_H5": 0.021018379493547918
+    },
+    "2023Q2": {
+      "rows": 62,
+      "spearman": 0.2080783661957644,
+      "mean_tail_probability": 0.12925209729902207,
+      "mean_relative_H5": 0.01790672704342934
+    },
+    "2023Q3": {
+      "rows": 63,
+      "spearman": 0.0019681259600614442,
+      "mean_tail_probability": 0.11871352011249178,
+      "mean_relative_H5": -0.01530781394439096
+    },
+    "2023Q4": {
+      "rows": 63,
+      "spearman": 0.24793586789554528,
+      "mean_tail_probability": 0.12415773516136502,
+      "mean_relative_H5": 0.016527432628895247
+    },
+    "2024Q1": {
+      "rows": 61,
+      "spearman": -0.352141723955579,
+      "mean_tail_probability": 0.13337138380672112,
+      "mean_relative_H5": 0.027129102825341533
+    },
+    "2024Q2": {
+      "rows": 63,
+      "spearman": 0.1730030721966206,
+      "mean_tail_probability": 0.13364222231838438,
+      "mean_relative_H5": 0.013082191215211888
+    },
+    "2024Q3": {
+      "rows": 64,
+      "spearman": 0.37967032967032965,
+      "mean_tail_probability": 0.1968446058453992,
+      "mean_relative_H5": -0.03313435584204007
+    },
+    "2024Q4": {
+      "rows": 64,
+      "spearman": 0.2907509157509157,
+      "mean_tail_probability": 0.1217485984088853,
+      "mean_relative_H5": -0.009989120033968683
+    },
+    "2025Q1": {
+      "rows": 60,
+      "spearman": 0.11086412892470132,
+      "mean_tail_probability": 0.1404034131517013,
+      "mean_relative_H5": -0.060547775495695615
+    },
+    "2025Q2": {
+      "rows": 62,
+      "spearman": -0.06685804940696533,
+      "mean_tail_probability": 0.13957048087350785,
+      "mean_relative_H5": 0.03901574863134335
+    },
+    "2025Q3": {
+      "rows": 64,
+      "spearman": -0.009844322344322342,
+      "mean_tail_probability": 0.09466370358131826,
+      "mean_relative_H5": 0.022083334105684697
+    },
+    "2025Q4": {
+      "rows": 64,
+      "spearman": 0.4141941391941391,
+      "mean_tail_probability": 0.14282921771518886,
+      "mean_relative_H5": 0.00868521883647814
+    },
+    "2026Q1": {
+      "rows": 61,
+      "spearman": 0.2287149656266525,
+      "mean_tail_probability": 0.15894137811465342,
+      "mean_relative_H5": 0.0023072694308238005
+    },
+    "2026Q2": {
+      "rows": 62,
+      "spearman": -0.29505678527360174,
+      "mean_tail_probability": 0.22434800791163598,
+      "mean_relative_H5": 0.055528683654367555
+    },
+    "2026Q3": {
+      "rows": 64,
+      "spearman": -0.12696886446886446,
+      "mean_tail_probability": 0.23152004682924598,
+      "mean_relative_H5": -0.013723785775581634
+    },
+    "2026Q4": {
+      "rows": 1,
+      "spearman": null,
+      "mean_tail_probability": 0.12342444807291031,
+      "mean_relative_H5": -0.07561287095662422
+    }
+  },
+  "calendar_rows": 944,
+  "mature_H5_rows": 940,
+  "bootstrap_replicates": 2000,
+  "source_new_fits": 0,
+  "new_native_accounts": 0,
+  "historical_independence": false,
+  "this_is_project_wide_multiple_test_corrected": false
+}
