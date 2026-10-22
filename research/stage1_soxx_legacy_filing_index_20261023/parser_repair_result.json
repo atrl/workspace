@@ -1,0 +1,63 @@
+{
+  "status": "official_trust_historic_filing_sidecars_identified_not_SOXX_holdings",
+  "plan_sha256": "612e454db2da4298ac4864607c021588837d332fe300dcb366324f2f543d2207",
+  "parser_repair_plan_sha256": "1f299d6fb33487a00686e5adef45760e80382a20f106f46a5e61faaaff9995d4",
+  "raw_sha256": "3f42f7e7884e137089f7dd15a0e8ca30ae13899e7665d2f012bae0b692162c2f",
+  "SEC_cik": "0001100663",
+  "trust_name": "iSHARES TRUST",
+  "recent_rows": 2463,
+  "recent_first_date": "2025-10-21",
+  "recent_last_date": "2026-10-22",
+  "recent_form_counts": {
+    "N-Q": 0,
+    "N-CSR": 16,
+    "NPORT-P": 1459,
+    "NPORT-EX": 0
+  },
+  "older_sidecars_total": 12,
+  "historic_sidecars": [
+    {
+      "name": "CIK0001100663-submissions-008.json",
+      "filingFrom": "2017-10-31",
+      "filingTo": "2019-08-24",
+      "filingCount": 2001
+    },
+    {
+      "name": "CIK0001100663-submissions-009.json",
+      "filingFrom": "2015-12-10",
+      "filingTo": "2017-10-29",
+      "filingCount": 2010
+    },
+    {
+      "name": "CIK0001100663-submissions-010.json",
+      "filingFrom": "2013-12-02",
+      "filingTo": "2015-12-08",
+      "filingCount": 2022
+    },
+    {
+      "name": "CIK0001100663-submissions-011.json",
+      "filingFrom": "2011-02-04",
+      "filingTo": "2013-11-30",
+      "filingCount": 2004
+    },
+    {
+      "name": "CIK0001100663-submissions-012.json",
+      "filingFrom": "1999-12-16",
+      "filingTo": "2011-02-02",
+      "filingCount": 1877
+    }
+  ],
+  "2011_start_covered_by_index": true,
+  "source_archive_sha256": "8d2c99e9b8257699ad5eda2255c3040d8e8e464a4214ea94cb2027fe90c00f4f",
+  "source_NAS_readback_verified": true,
+  "GETs_total": 1,
+  "new_GETs_in_repair": 0,
+  "sidecar_GETs": 0,
+  "filing_body_GETs": 0,
+  "SOXX_series_holdings_qualified": false,
+  "point_in_time_prices_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "SEC trust index has five 2010-2018 sidecar ranges, including one spanning Stage1 first signal. It is only an index; each filing body and its SOXX schedule, acceptance clock, member identity and daily price source remain unqualified."
+}

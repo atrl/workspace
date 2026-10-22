@@ -1,14 +1,26 @@
 {
   "experiment": "stage1_soxx_legacy_filing_index_20261023",
-  "decision": "frozen_source_probe_not_executed",
+  "decision": "SEC_trust_2010_2018_sidecar_index_found_SOXX_holdings_unqualified",
   "objective_achieved": false,
   "plan": "plan.json",
-  "http_GETs": 0,
+  "http_GETs": 1,
   "model_fits": 0,
   "native_accounts": 0,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "source_result": "source_result.json",
+  "parser_attempt1": "parser_attempt1_result.json",
+  "parser_repair_plan": "parser_repair_plan.json",
+  "parser_repair_result": "parser_repair_result.json",
+  "raw_sha256": "3f42f7e7884e137089f7dd15a0e8ca30ae13899e7665d2f012bae0b692162c2f",
+  "raw_bytes": 438597,
+  "historic_sidecar_count": 5,
+  "first_signal_index_range_covered": true,
+  "source_NAS_archive_sha256": "8d2c99e9b8257699ad5eda2255c3040d8e8e464a4214ea94cb2027fe90c00f4f",
+  "source_NAS_readback_verified": true,
+  "nas_scoped_restore": "nas_scoped_restore.json",
+  "source_NAS_scoped_restore_verified": true
 }

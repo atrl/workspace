@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "scope": "one_offline_CIK_normalization_parser_repair_no_new_GET",
+  "original_plan_sha256": "612e454db2da4298ac4864607c021588837d332fe300dcb366324f2f543d2207",
+  "original_attempt_receipt_sha256": "5ce38d9142ff7bf08e0da0a6757c76dfd63b746990b912d595391b48963c3e19",
+  "raw_path": "data/snapshots/stage1_soxx_legacy_filing_index_20261023/submissions_CIK0001100663.json",
+  "raw_sha256": "3f42f7e7884e137089f7dd15a0e8ca30ae13899e7665d2f012bae0b692162c2f",
+  "raw_bytes": 438597,
+  "source_archive_sha256": "8d2c99e9b8257699ad5eda2255c3040d8e8e464a4214ea94cb2027fe90c00f4f",
+  "diagnosis": "SEC returned cik as ten-character zero-padded string 0001100663; first parser compared it to str(int(target_cik)) 1100663 and falsely marked a valid response unqualified.",
+  "repair": "Compare CIKs after integer normalization, then inspect only compact filing arrays and older-file date ranges from the exact archived JSON. Preserve the original failure receipt and do not issue another HTTP request.",
+  "budget": {
+    "http_GETs": 0,
+    "sidecar_GETs": 0,
+    "filing_body_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  }
+}
