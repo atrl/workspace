@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Can all 944 frozen Stage1 2023-2026 evaluation dates receive the latest previously filed original SOXX common-equity concentration without a late old-report amendment replacing a newer report?",
+  "training_source_summary": "research/stage1_soxx_2010_2022_concentration_source_map_20261023/summary.json",
+  "training_source_summary_sha256": "5cc4405af6d758a3c4b4cd02b4fe1cec969b8296664fa9696d4dfe02c72a09dd",
+  "held_original_source_summary": "research/stage1_soxx_2023_2026_nport_concentration_20261023/summary.json",
+  "held_original_source_summary_sha256": "36148f3c235d556bcb81c6decef66e4cb4041302267831c928c12aacc7922bb6",
+  "amendment_comparison": "research/stage1_soxx_2023_2026_nport_concentration_20261023/amendment_comparison.json",
+  "amendment_comparison_sha256": "cf8602c65a0a59e10cdb56b8d13061b16996eb0e38366a7d125a31b65393a8af",
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "evaluation_span": ["2023-01-03", "2026-10-07"],
+  "mapping": "Take the last eligible 2022-09 base report from the training Qlib Recorder plus fourteen original 2023-2026 base reports and one later 2025-09 amendment from the held source Recorder. Each event becomes usable only on the next actual Qlib session strictly after its filing date. For each evaluation signal, select the greatest report period among already available events; break same-report ties by latest filing. The 2025-09 amendment must never displace the already available 2026-03 report. Preserve every one of 944 sessions, active accession, filing age, known flag and ignored-older-amendment observation.",
+  "semantics": "Only source-qualified delayed ETF common-equity concentration top5/HHI; not official daily SOXX index weights. Historical evaluation remains reused development evidence, not independent forward validation.",
+  "artifacts": "Save complete event list, daily active map and DatasetH in a native Qlib Recorder, then NAS archive with remote SHA and scoped restore.",
+  "budgets": {
+    "new_GETs": 0,
+    "Qlib_source_Recorder_object_loads_max": 2,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_native_source_recorders": 1
+  },
+  "stop": "Any source hash, 944-date coverage, event clock, late amendment ordering, DatasetH/Recorder or NAS readback failure stops. Source coverage alone cannot authorize a feature fit or 0bp account while training amendment and label timing remain unresolved."
+}

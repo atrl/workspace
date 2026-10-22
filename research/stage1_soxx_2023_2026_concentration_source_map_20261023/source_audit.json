@@ -1,0 +1,19 @@
+{
+  "status": "full_Stage1_held_original_concentration_source_map_944_dates_no_late_override",
+  "source_plan_sha256": "f3a8a68ab29e487c6f79d98af0829369dc6027638701b78371a314c7110fe07c",
+  "candidate_events": 16,
+  "held_base_events": 14,
+  "held_late_amendments": 1,
+  "Stage1_held_Qlib_sessions": 944,
+  "source_known_sessions": 944,
+  "first_active_accession": "0001752724-22-268670",
+  "last_active_accession": "0002071691-26-012504",
+  "older_amendment_available_but_not_active_sessions": 61,
+  "late_amendment_never_active_after_newer_report": true,
+  "max_source_age_days": 132,
+  "last_active_report_period": "2026-03-31",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "evaluation_history_is_independent": false
+}
