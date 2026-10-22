@@ -1,0 +1,21 @@
+{
+  "verdict": "BLOCK_DESIGN_BEFORE_FIT",
+  "plan_sha256": "611875edb670f90d72be905f3c62090cbdf5d7a2bf0ef259608f629a80bd2093",
+  "canonical_source_artifact_sha256": "87ee84aa936598ec5eaa97e43a0ff0099086328f35b061a0a4226cc9c0f88b8f",
+  "reviewed_notebook_sha256": "a3865bedf896825cd9e282fb14cb376d07e530643dbe11de761ef46cfb9eecdd",
+  "phase": "independent_fixed_design_review_before_first_fit",
+  "implementation_correctness": {
+    "status": "blocked_by_wrong_fixed_version_in_failure_output",
+    "reason": "The V3 notebook's failed-gate result status is hard-coded as not_promoted_fixed_Stage1_FT900_export_information_v2_failed. If the information gate fails, result_review.json, summary.json, and conclusion.md will label the V3 run as a V2 failure. This breaks the frozen version identity needed to close the correct candidate.",
+    "minimum_fix": "In a new frozen version, derive the failed status from that version's plan['experiment'] or use the exact new version identifier. Independently review the corrected notebook and its exact plan/source binding before any fit. Keep the V2 and V3 blocked reviews unchanged."
+  },
+  "scientific_design_checked": {
+    "status": "otherwise_consistent_on_named_pre_fit_evidence",
+    "reason": "V3 sets execution_authorized=true, and the notebook checks independent approval against the exact plan and canonical source SHA before loading Stage1 or FT900 objects. The code uses the frozen original Stage1 39 feature order; five consecutive SOXX forward open-to-open returns mature at the fifth interval; 3014 train and 940 reused held mature rows are asserted without survivor-date compaction. The 23 transition sessions remain numeric unknown and are retained in the full calendar. Release-age, post-2012 definition, and transition-unknown controls are common to both arms; candidate export MoM is the sole added coordinate and median imputation is trained only on the train cohort. Exactly two fixed Ridge fits, one 63-session 10000-draw paired stationary bootstrap at one-sided alpha 0.0010869565217391304, positive standardized candidate coefficient, positive full and both half-period paired means, and positive corrected lower bound are specified. The notebook code cell compiles syntactically; no runtime execution was performed.",
+    "source_evidence": "The pinned Recorder analysis/mapped_signals artifact SHA matches the plan. Reused unchanged availability summary, audit, independent review, and native readback identify 191 source events, 3964 mapped sessions, and 23 transition unknowns. The old carry-map design and V2 authorization design remain blocked."
+  },
+  "historical_diagnostics": "The 2023-2026 held segment is reused diagnostic history. An information-gate pass would be development feedback only.",
+  "independent_financial_evidence": "Historical first-public FT-900 PDF bytes remain unqualified. A full funded Stage1 0bp account, separate 2bp and 5bp paths, qualified independent forward evidence, and the contract-v2 SOXX final hard gate remain outside this pre-fit review.",
+  "review_model_fits": 0,
+  "review_accounts": 0
+}

@@ -1,0 +1,16 @@
+{
+  "experiment": "stage1_ft900_export_information_v3_20261023",
+  "decision": "blocked_before_fit_wrong_failure_version_identity",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "independent_design_review": "design_review.json",
+  "review_verdict": "BLOCK_DESIGN_BEFORE_FIT",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "recorder_status": "not_started",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
