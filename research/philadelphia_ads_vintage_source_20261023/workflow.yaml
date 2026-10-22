@@ -8,6 +8,10 @@ outputs:
   - capture_receipt.json
   - source_preflight_result.json
   - run_state.json
+  - execution_attempt1.json
+  - repair_capture_receipt.json
+  - repair_run_state.json
+  - summary.json
 market_outcome_reads: 0
 model_fits: 0
 native_accounts: 0

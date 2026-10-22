@@ -102,6 +102,16 @@
       "closed_fixed_information_result": "research/stage1_ft900_export_unknown_information_20261023/independent_result_review.json",
       "duplicate_V3_closeout": "research/stage1_ft900_export_information_v3_20261023/duplicate_closeout.json",
       "nas_archive_sha256": "0b45a088957196f7dda43827224aec38aa36c263803e93f768942952923e840b"
+    },
+    {
+      "card": "research/philadelphia_ads_vintage_source_20261023",
+      "phase": "official_all_vintages_ZIP_bytes_NAS_backed_member_schema_pending",
+      "role": "distinct_real_time_broad_business_conditions_source_preflight_for_Stage1_cash_risk",
+      "full_economic_experiment": false,
+      "status": "source_only_raw_ZIP_archived_no_factor_or_account",
+      "execution_authorized": false,
+      "result": "research/philadelphia_ads_vintage_source_20261023/source_preflight_result.json",
+      "nas_archive_sha256": "641bffb7c565097790d976a7c80c39e4ab17f6a233e44135e3a6f4d9f00fc84a"
     }
   ],
   "framework": [

@@ -1,0 +1,26 @@
+{
+  "experiment": "philadelphia_ads_vintage_source_20261023",
+  "decision": "official_ADS_all_vintages_original_ZIP_archived_schema_pending",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "size_transport_repair_plan": "size_transport_repair_plan.json",
+  "notebook": "size_transport_repair.ipynb",
+  "result": "source_preflight_result.json",
+  "capture_receipts": ["capture_receipt.json", "repair_capture_receipt.json"],
+  "raw_ZIP_bytes": 168969969,
+  "raw_ZIP_sha256": "6b6001da2127ad94066828b3a3151368adeb8f83a7dfe65f1901678703cfef44",
+  "NAS_archive_sha256": "641bffb7c565097790d976a7c80c39e4ab17f6a233e44135e3a6f4d9f00fc84a",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "nested_member": "ADS_All_Vintages-zip.xlsx",
+  "vintage_dates_qualified": false,
+  "Stage1_factor_authorized": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "qualified_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "raw_source_location": "data/snapshots/philadelphia_ads_vintage_20261023/ADS_All_Vintages.zip"
+  }
+}
