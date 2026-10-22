@@ -21,5 +21,6 @@
     "raw_source_nas_archive_sha256": "8568347b32295da05b300665c4771910cbbb9c8cc6861234ba4cf690873bf1a7"
   },
   "readback_verification": "readback_verification.json",
-  "nas_scoped_restore_verified": true
+  "nas_scoped_restore_verified": true,
+  "independent_source_review": "independent_source_review.json"
 }

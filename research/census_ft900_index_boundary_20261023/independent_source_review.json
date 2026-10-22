@@ -1,0 +1,18 @@
+{
+  "verdict": "distinct_source_candidate_not_ready_for_Stage1_information_fit",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "review_scope": "FT900 original Exhibit 7 semiconductor exports versus closed G17, inventory-sales, Korea; index exception and 2012 classification boundary",
+  "source_plan_sha256": "6669174a94e59302f5f8e8de68d1964386c7ddc0acd4d08c0975488ed293cf83",
+  "boundary_plan_sha256": "8f9df9a3a2fe47332941393189d2fdd02199862faf934dc1080b05eee4a99f2c",
+  "boundary_result_sha256": "fbd87956c4d9ee28275dec40561e876b21a47300c7bf928b64e51500a2ea17a8",
+  "finding": "Cross-border semiconductor export shipment value is materially distinct from G17 domestic physical output and inventory-sales balance-sheet growth; this does not establish pure demand causality or SOXX excess.",
+  "minimum_before_conditional_fit": [
+    "Receive, hash and NAS archive every original FT900 monthly report required by the frozen train and held feature calendar; verify printed report month, release date/time and Exhibit 7 same-report current/prior semiconductor values.",
+    "Map release date rather than reference month to the next safe Qlib Stage1 decision; verify no missing or duplicate feature dates and strict label maturity.",
+    "Check original January 2012 report prior-month comparability under the new classification or quarantine that transition; do not splice absolute levels or use current revised API history."
+  ],
+  "first_public_boundary": "Historical first-public PDF byte proof is not required for an explicitly conditional retrospective information screen using conservative release timing; it remains a PIT and promotion gap.",
+  "model_fits_authorized": 0,
+  "native_accounts_authorized": 0,
+  "next_action": "Full required-month original-source intake and no-fit Qlib availability alignment."
+}
