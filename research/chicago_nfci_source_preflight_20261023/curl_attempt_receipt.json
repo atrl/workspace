@@ -1,0 +1,9 @@
+{
+  "url": "https://alfred.stlouisfed.org/series/downloaddata?seid=NFCI",
+  "requested_at_utc": "2026-10-22T17:12:09.423814+00:00",
+  "received_at_utc": "2026-10-22T17:12:10.263157+00:00",
+  "curl_exit_code": 92,
+  "curl_stderr": "curl: (92) HTTP/2 stream 1 was not closed cleanly: INTERNAL_ERROR (err 2)\n",
+  "header_text": "",
+  "bytes": 0
+}
