@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_Philadelphia_Fed_ADS_nested_XLSX_vintage_schema_audit",
+  "parent_source_result": "source_preflight_result.json",
+  "raw_outer_ZIP_sha256": "6b6001da2127ad94066828b3a3151368adeb8f83a7dfe65f1901678703cfef44",
+  "nested_member": "ADS_All_Vintages-zip.xlsx",
+  "nested_uncompressed_bytes": 203849796,
+  "method": "Read the exact NAS-backed outer ZIP once, extract its one XLSX member to a persistent local source path, verify its member CRC and size, then inspect workbook sheet names, declared dimensions and at most the first 10 rows of each of at most 5 sheets in read-only mode. Record the exact nested XLSX SHA-256. Identify whether date/vintage labels appear in those headers; do not load the full value matrix or calculate market correlations.",
+  "acceptance": "One verified nested workbook, bounded schema rows, identifiable observation-date and vintage-date roles covering original 2011-2022 training and 2023-2026 reused held intervals. If first ten rows cannot establish roles, preserve needs_schema_adjudication rather than guessing.",
+  "budget": {
+    "outer_ZIP_reads": 1,
+    "nested_XLSX_extractions": 1,
+    "workbook_opens": 1,
+    "sheets_inspected_max": 5,
+    "rows_per_sheet_max": 10,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Do not scan all numeric cells, infer intraday availability from a date label, use current-revised values as historical or start Stage1 fit. Preserve exact source bytes and a concrete parser dependency if workbook schema is ambiguous."
+}
