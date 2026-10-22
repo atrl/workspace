@@ -1,0 +1,51 @@
+{
+  "status": "both_exact_2011_NQ_bodies_received_identity_pending",
+  "plan_sha256": "31c61f9b17bc5614572243c6a72bcbfc5ded422ddf1030d0599ce6702478dd09",
+  "GETs_consumed": 2,
+  "requests": [
+    {
+      "accession": "0001193125-11-086451",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511086451/dnq.htm",
+      "started_at_utc": "2026-10-22T18:09:58.585585+00:00",
+      "finished_at_utc": "2026-10-22T18:09:59.306472+00:00",
+      "http_status": 200,
+      "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511086451/dnq.htm",
+      "curl_exit_code": 0,
+      "curl_stderr": "",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/2011_01_31_bodies/0001193125-11-086451_dnq.htm",
+      "raw_sha256": "cb1ca9aaa7d024953a63b28e402490aa6192ac3306c6cd10cefb02df5b0c560f",
+      "raw_bytes": 64106,
+      "headers_sha256": "d4e68183a2b02ca19b842d0a7b612ab8fb262b75a410d7f586ce279a4c1f37c8",
+      "headers_bytes": 1919
+    },
+    {
+      "accession": "0001193125-11-086453",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511086453/dnq.htm",
+      "started_at_utc": "2026-10-22T18:10:00.316412+00:00",
+      "finished_at_utc": "2026-10-22T18:10:01.917912+00:00",
+      "http_status": 200,
+      "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511086453/dnq.htm",
+      "curl_exit_code": 0,
+      "curl_stderr": "",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/2011_01_31_bodies/0001193125-11-086453_dnq.htm",
+      "raw_sha256": "dd5effadd47cfc68b95f3f85aae837c499b2e974d0cdbb5b2629dd7683cf7471",
+      "raw_bytes": 8974684,
+      "headers_sha256": "4c486caa979a0665e68c2eb8f0335788504e9a530f8693066aa6213d7401f4ec",
+      "headers_bytes": 2178
+    }
+  ],
+  "SOXX_body_identity_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "nas_evidence": {
+    "sha256": "21100494b05d10b59cf1837ac323c505f1b28ae2c302a4a92bc4123a43952dfa",
+    "size_bytes": 362585,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/21/10/21100494b05d10b59cf1837ac323c505f1b28ae2c302a4a92bc4123a43952dfa",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 02:10:02.398972+08",
+    "duplicate": false
+  },
+  "nas_scoped_restore_verified": true
+}

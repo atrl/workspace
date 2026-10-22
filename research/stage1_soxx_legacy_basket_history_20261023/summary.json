@@ -1,6 +1,6 @@
 {
   "experiment": "stage1_soxx_legacy_basket_history_20261023",
-  "decision": "official_2011_2018_trust_filing_indexes_NAS_qualified_SOXX_bodies_pending",
+  "decision": "2011_01_31_two_NQ_bodies_excluded_SOXX_series_still_unlocated",
   "objective_achieved": false,
   "plan": "plan.json",
   "sidecar_GETs": 4,
@@ -17,5 +17,11 @@
   "trust_candidate_rows": 188,
   "source_NAS_archive_sha256": "8d0cba5ddb599ccba66185e0fd25b12785bee6fb0537b0c830cfa3339ecd33c5",
   "source_NAS_scoped_restore_verified": true,
-  "SOXX_original_bodies_qualified": 0
+  "SOXX_original_bodies_qualified": 0,
+  "body_identity_plan": "2011_01_31_body_identity_plan.json",
+  "body_transport_result": "2011_01_31_transport_result.json",
+  "body_identity_result": "2011_01_31_identity_result.json",
+  "filing_body_GETs": 2,
+  "body_source_NAS_archive_sha256": "21100494b05d10b59cf1837ac323c505f1b28ae2c302a4a92bc4123a43952dfa",
+  "body_source_NAS_scoped_restore_verified": true
 }
