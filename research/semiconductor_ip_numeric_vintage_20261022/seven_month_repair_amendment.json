@@ -9,6 +9,7 @@
   "original_header_month_count": 7,
   "original_SA_value_count": 7,
   "repair": "Permit exactly seven same-vintage months for this pinned release. All other releases retain six. Preserve every source month and derive only the final/prior pair; no imputation, sign, lag or market gate change.",
+  "repair_parser_sha256": "5f4f9fa45666eed06ff506a6f4b2e42e735043b172a92f0b327584197bea42dc",
   "first_execution_source_loads": 1,
   "diagnostic_source_loads": 1,
   "additional_completion_loads_max": 1,

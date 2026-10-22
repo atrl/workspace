@@ -34,3 +34,25 @@ def test_wrong_scope_and_month_cannot_enter_original_ip_series():
     with pytest.raises(ValueError, match="six seasonally adjusted IP months"):
         parse_ip_supplement(_document(), expected_date="2011-01-14",
                             observation_month="2010-11-01")
+
+
+def test_seven_month_release_requires_explicit_source_bound_exception():
+    source = (
+        "December 23, 2025\n9:15 a.m. Eastern\nTable 1D\n"
+        "INDUSTRIAL PRODUCTION: INDUSTRY SUBTOTALS AND INDIVIDUAL SERIES\n"
+        "Index, 2017 = 100\n"
+        "| | | Seasonally adjusted | Not seasonally adjusted |\n"
+        "| NAICS | Proportion | May[r] June[r] July[r] Aug.[r] Sept.[r] Oct.[r] Nov.[p] | NSA |\n"
+        "Semiconductor and other electronic | | | |\n"
+        "component | 3344 | 1.5 | 101 102 103 104 105 106 107 | 100 101 102 103 104 105 106\n"
+    ).encode()
+    with pytest.raises(ValueError, match="six seasonally adjusted IP months"):
+        parse_ip_supplement(source, expected_date="2025-12-23",
+                            observation_month="2025-11-01")
+    result = parse_ip_supplement(source, expected_date="2025-12-23",
+                                 observation_month="2025-11-01", monthly_columns=7)
+    assert result["published_months"] == [
+        "2025-05-01", "2025-06-01", "2025-07-01", "2025-08-01",
+        "2025-09-01", "2025-10-01", "2025-11-01",
+    ]
+    assert result["ip_mom_pct_same_vintage"] == pytest.approx(100 * (107 / 106 - 1))

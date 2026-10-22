@@ -14,7 +14,9 @@ NUMBER = r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)"
 
 
 def parse_ip_supplement(data: bytes, *, expected_date: str,
-                        observation_month: str) -> dict:
+                        observation_month: str, monthly_columns: int = 6) -> dict:
+    if monthly_columns not in (6, 7):
+        raise ValueError("blocked: unsupported original G17 month-column count")
     text = data.decode("utf-8-sig")
     stamp = re.search(r"(" + MONTH_PATTERN + r")\s+(\d{1,2}),?\s+(20\d{2})", text[:1500], re.I)
     if not stamp or not re.search(r"9:15\s*a\.?m\.?", text[:1500], re.I):
@@ -51,8 +53,8 @@ def parse_ip_supplement(data: bytes, *, expected_date: str,
     month_tokens = re.findall(r"\b(" + MONTH_PATTERN + r")\.?", header, re.I)
     months = [MONTHS[m[:3].lower()] for m in month_tokens]
     values = [float(x) for x in re.findall(NUMBER, pieces[3])]
-    expected = pd.period_range(end=expected_month, periods=6, freq="M")
-    if (len(months) != 6 or len(values) != 6 or list(expected.month) != months
+    expected = pd.period_range(end=expected_month, periods=monthly_columns, freq="M")
+    if (len(months) != monthly_columns or len(values) != monthly_columns or list(expected.month) != months
             or not np.isfinite(values).all() or not all(v > 0 for v in values)):
         raise ValueError("needs_data: original six seasonally adjusted IP months incomplete")
     return {
