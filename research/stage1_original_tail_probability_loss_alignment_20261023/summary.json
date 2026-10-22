@@ -1,0 +1,25 @@
+{
+  "experiment": "stage1_original_tail_probability_loss_alignment_20261023",
+  "decision": "descriptive_tail_head_high_on_two_losses_but_full_selection_sign_not_separated",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "result": "result.json",
+  "source_recorder_id": "2f0392615c4c4b15928b4ada6e01ecd9",
+  "sessions": 944,
+  "quarters": 16,
+  "negative_selection_days": 336,
+  "positive_selection_days": 383,
+  "zero_selection_days": 225,
+  "two_2026Q3_worst_loss_tail_probabilities": [0.3342364430427551, 0.3118877708911896],
+  "full_negative_mean_tail_probability": 0.13949411900137507,
+  "full_positive_mean_tail_probability": 0.13831752160316035,
+  "new_market_requests": 0,
+  "model_fits": 0,
+  "new_native_accounts": 0,
+  "bootstraps": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
