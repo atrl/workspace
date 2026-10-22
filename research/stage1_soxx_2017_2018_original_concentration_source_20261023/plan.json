@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "six_2017_2018_first_original_SOXX_body_source_reads",
+  "series_calendar_sha256": "84de74dd586d975e02fd5852acfb4d024408b0272c063e92fa3965b0d3df545b",
+  "series_id": "S000004354",
+  "reports": [
+    {
+      "report_date": "2017-03-31",
+      "form": "N-CSR",
+      "accession": "0001193125-17-194722",
+      "accepted_at_utc": "2017-06-06T00:54:56.000Z",
+      "primary_document": "d335700dncsr.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312517194722/d335700dncsr.htm"
+    },
+    {
+      "report_date": "2017-06-30",
+      "form": "N-Q",
+      "accession": "0001193125-17-271743",
+      "accepted_at_utc": "2017-08-29T21:48:52.000Z",
+      "primary_document": "d438168dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312517271743/d438168dnq.htm"
+    },
+    {
+      "report_date": "2017-09-30",
+      "form": "N-CSRS",
+      "accession": "0001193125-17-359934",
+      "accepted_at_utc": "2017-12-04T23:04:28.000Z",
+      "primary_document": "d462369dncsrs.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312517359934/d462369dncsrs.htm"
+    },
+    {
+      "report_date": "2017-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-18-063612",
+      "accepted_at_utc": "2018-03-01T01:02:56.000Z",
+      "primary_document": "d539192dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312518063612/d539192dnq.htm"
+    },
+    {
+      "report_date": "2018-03-31",
+      "form": "N-CSR",
+      "accession": "0001193125-18-186572",
+      "accepted_at_utc": "2018-06-07T22:04:37.000Z",
+      "primary_document": "d544791dncsr.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312518186572/d544791dncsr.htm"
+    },
+    {
+      "report_date": "2018-06-30",
+      "form": "N-Q",
+      "accession": "0001193125-18-261300",
+      "accepted_at_utc": "2018-08-29T17:48:42.000Z",
+      "primary_document": "d577177dnq.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312518261300/d577177dnq.htm"
+    }
+  ],
+  "already_qualified_2018_Sep_numeric_result": "research/stage1_soxx_2018_sep_concentration_20261023/result.json",
+  "already_qualified_2018_Sep_numeric_result_sha256": "aa6bc271cbebbf4ea62f252793970faedb628696c4145b6004ccce5e5f418b65",
+  "later_amendments_excluded_from_first_version": [
+    {
+      "report_date": "2017-03-31",
+      "form": "N-CSR/A",
+      "accession": "0001193125-17-257387",
+      "accepted_at_utc": "2017-08-15T01:15:12.000Z"
+    },
+    {
+      "report_date": "2017-03-31",
+      "form": "N-CSR/A",
+      "accession": "0001193125-18-009766",
+      "accepted_at_utc": "2018-01-12T21:50:26.000Z"
+    },
+    {
+      "report_date": "2017-03-31",
+      "form": "N-CSR/A",
+      "accession": "0001193125-18-152961",
+      "accepted_at_utc": "2018-05-05T01:05:23.000Z"
+    },
+    {
+      "report_date": "2017-09-30",
+      "form": "N-CSRS/A",
+      "accession": "0001193125-18-152996",
+      "accepted_at_utc": "2018-05-05T01:14:47.000Z"
+    }
+  ],
+  "target_fund_title": "PHLX SEMICONDUCTOR ETF",
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 6,
+    "max_response_bytes_each": 75000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 120,
+    "minimum_seconds_between_requests": 1
+  },
+  "identity_gate": "Each exact SOXX first filing body must have target title, report date and bounded Security/Shares/Value COMMON STOCKS schedule. For concatenated N-CSR/N-CSRS use the first same-ID NAME anchor AFTER the fund-named TOC href; never use the first global reused anchor.",
+  "preservation": "Archive exact original bodies, headers and UTC times to NAS with remote SHA and scoped raw-member restore. Reuse, do not refetch, the separately qualified 2018 September source.",
+  "budget": {
+    "first_version_body_GETs": 6,
+    "late_amendment_body_GETs": 0,
+    "duplicate_2018_Sep_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any HTTP/URL/body/raw-size/NAS failure stops before the next GET. Wrong-series identity remains unqualified; no substitution from trust forms or later amendments.",
+  "scientific_boundary": "Six originals plus reused 2018 September do not by themselves qualify the revision chain, 2019-2022, held forward evidence, Stage1 information or SOXX economic success.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
