@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "five_original_2015_transition_SOXX_common_stock_value_closure_source_only",
+  "final_identity_result_sha256": "68b06341e13e90927a8af0590d05976f96dd63106927d4d2d79a23a40807fa55",
+  "first_four_transport_sha256": "1690855f56697e09f3b665d9899ae54002480445bda3ca0d85e66a8250cb1d93",
+  "December_transport_sha256": "7619943f27d5befb21b0248c07db40556e9fa6853a3da142294e18e8357e651c",
+  "reports": [
+    {
+      "report_date": "2015-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-15-122693",
+      "accepted_at_utc": "2015-04-08T23:50:12.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2015_transition_concentration_source_20261023/0001193125-15-122693_d875397dncsrs.htm",
+      "raw_sha256": "c481d867c2002e4cb9d19cd0e0e6454483deb2a7820f64c008f0b8cdd02668dd",
+      "raw_bytes": 29180398,
+      "bounded_section_byte_range": [
+        769783,
+        824783
+      ],
+      "bounded_section_sha256": "53ade70cd4329231441c14797dfdacd6603c4250c24c64ededc4e7ab964d4211",
+      "identity_method": "TOC_anchor_equity_header",
+      "source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053"
+    },
+    {
+      "report_date": "2015-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-15-238848",
+      "accepted_at_utc": "2015-06-29T22:56:42.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2015_transition_concentration_source_20261023/0001193125-15-238848_d944131dnq.htm",
+      "raw_sha256": "92759d923d8b2eae1bad3439b5b6cb4bec781cf035e1a98a650d2e10e25cf8de",
+      "raw_bytes": 24737700,
+      "bounded_section_byte_range": [
+        23776019,
+        23831019
+      ],
+      "bounded_section_sha256": "9564919a127c860f540530258764e135ba258d039e2704362860697712f8e0f3",
+      "identity_method": "inline_original_new_title",
+      "source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053"
+    },
+    {
+      "report_date": "2015-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-15-339410",
+      "accepted_at_utc": "2015-10-08T00:30:16.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2015_transition_concentration_source_20261023/0001193125-15-339410_d98289dncsr.htm",
+      "raw_sha256": "f4066b79e07007b02fe09c5a3103f727ff59f61413b2084e775143180fd262d5",
+      "raw_bytes": 36220846,
+      "bounded_section_byte_range": [
+        1071567,
+        1126567
+      ],
+      "bounded_section_sha256": "64423adb98c3db70b738cc4791030c9daf7f03c7d3f399eca9be33daa276b4f5",
+      "identity_method": "TOC_anchor_equity_header",
+      "source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053"
+    },
+    {
+      "report_date": "2015-09-30",
+      "form": "N-CSRS",
+      "accession": "0001193125-15-396474",
+      "accepted_at_utc": "2015-12-08T01:56:36.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2015_transition_concentration_source_20261023/0001193125-15-396474_d93555dncsrs.htm",
+      "raw_sha256": "c3cc85a5554434ff5155eb59d8a9cb4fd7c3553bfa8ac3ac602208659c902e67",
+      "raw_bytes": 48557624,
+      "bounded_section_byte_range": [
+        32806746,
+        32861746
+      ],
+      "bounded_section_sha256": "4279e9be5f3546fa54fc12e7852b61536d6c32bb8df913445ada2b472a7a804b",
+      "identity_method": "TOC_anchor_equity_header",
+      "source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053"
+    },
+    {
+      "report_date": "2015-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-16-480933",
+      "accepted_at_utc": "2016-02-26T23:14:01.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2015_transition_concentration_source_20261023/0001193125-16-480933_d146052dnq.htm",
+      "raw_sha256": "411191758cfc056203d1741e9cd0a78c20d2a301bc7e10a34e3e2082e0ca78ca",
+      "raw_bytes": 38084849,
+      "bounded_section_byte_range": [
+        19729058,
+        19784058
+      ],
+      "bounded_section_sha256": "2a7312a1667dad784f2c05a54df4152f73077849685aa0d9681e1422653cc21c",
+      "identity_method": "inline_original_new_title",
+      "source_NAS_archive_sha256": "9dde69bffffb98ba09bf91ef4959bb65d5671e614ef9613b58df295957eb0c04"
+    }
+  ],
+  "fixed_parser": "Within each frozen bounded source section, parse direct HTML table rows from COMMON STOCKS through TOTAL COMMON STOCKS. A security row has original name and separate positive integer shares and USD fair value. Ignore sector headings/subtotals; printed total may appear in immediate following (Cost: ...) row. Require 20-40 distinct equity rows, no ambiguous security-looking row, and sum within one USD of printed total.",
+  "derived_values": [
+    "top5_disclosed_equity_value_share",
+    "herfindahl_sum_squared_disclosed_equity_weights"
+  ],
+  "semantics": "Original ETF disclosed common-stock fair values normalized to same-report total. Preserve all five report dates including 2015-09 and 2015-12; do not impose four-quarter calendar.",
+  "budget": {
+    "raw_report_parses_max": 5,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any one source hash/section, row, duplicate or printed-total failure keeps the five-report source batch incomplete; preserve all per-report results, no survivor-only sequence.",
+  "scientific_boundary": "2015 source values still leave 2016-2022 and held history, revision/first-public qualification, Stage1 information and own 0bp account."
+}
