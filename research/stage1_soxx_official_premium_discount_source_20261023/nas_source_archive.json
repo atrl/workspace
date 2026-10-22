@@ -1,0 +1,13 @@
+{
+  "status": "official_workbook_source_NAS_scoped_restore_verified",
+  "sha256": "a75d8e98023daa4e3fb5d78dd1f7a9c1e9c67194b5fb6215aa5be2bc14620a2c",
+  "size_bytes": 83020,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a7/5d/a75d8e98023daa4e3fb5d78dd1f7a9c1e9c67194b5fb6215aa5be2bc14620a2c",
+  "members": {
+    "research/stage1_soxx_official_premium_discount_source_20261023/plan.json": "dbdc5cdf884366771a0e3c3645a4a88a1ef9ad4d65ee155d9ca9ec454c60dfbc",
+    "research/stage1_soxx_official_premium_discount_source_20261023/transport_result.json": "d5b241f4fbc9286cadf0b70ae56121a54df2e4ef2d7b501d0124e358beeab06a",
+    "research/stage1_soxx_official_premium_discount_source_20261023/source_audit.json": "0c01ffc207cfea1a76433e7903ca46ef31c12dc6abd7861c3fda78c1703ea903",
+    "data/snapshots/stage1_soxx_official_premium_discount_source_20261023/fund_download.bin": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7"
+  },
+  "verified": true
+}

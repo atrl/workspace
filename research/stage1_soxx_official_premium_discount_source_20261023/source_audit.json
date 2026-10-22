@@ -1,0 +1,68 @@
+{
+  "source_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+  "http_status": 200,
+  "content_type": "application/vnd.ms-excel",
+  "parser_repaired_unescaped_ampersands": 6,
+  "raw_bytes_preserved": true,
+  "sheet_rows": {
+    "Disclaimers": 14,
+    "Holdings": 42,
+    "Historical": 8938,
+    "Performance": 308,
+    "Distributions": 94
+  },
+  "historical_header": [
+    "As Of",
+    "NAV per Share",
+    "Ex-Dividends",
+    "Shares Outstanding"
+  ],
+  "historical_daily_market_price_column": false,
+  "historical_premium_discount_column": false,
+  "historical_NAV_rows": 8937,
+  "first_date": "2001-07-10",
+  "last_date": "2026-10-21",
+  "duplicate_dates": 0,
+  "nonpositive_NAV_rows": 0,
+  "calendar_rows_2011_2022": 4383,
+  "calendar_rows_2023_2026": 1092,
+  "year_rows": {
+    "2011": 365,
+    "2012": 366,
+    "2013": 365,
+    "2014": 365,
+    "2015": 365,
+    "2016": 366,
+    "2017": 365,
+    "2018": 365,
+    "2019": 365,
+    "2020": 366,
+    "2021": 365,
+    "2022": 365,
+    "2023": 365,
+    "2024": 275,
+    "2025": 250,
+    "2026": 202
+  },
+  "weekend_rows_selected_years": {
+    "2011": 105,
+    "2018": 104,
+    "2023": 105,
+    "2024": 19,
+    "2025": 0,
+    "2026": 0
+  },
+  "weekend_equal_prior_day_selected_years": {
+    "2011": 105,
+    "2018": 104,
+    "2023": 105,
+    "2024": 18,
+    "2025": 0,
+    "2026": 0
+  },
+  "first_publication_time_qualified": false,
+  "current_revision_only": true,
+  "SOXX_future_outcomes_read": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

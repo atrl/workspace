@@ -1,0 +1,12 @@
+{
+  "decision": "official_fund_download_has_historical_NAV_but_no_dated_market_price_or_premium_series",
+  "source_audit": "source_audit.json",
+  "plan_sha256": "dbdc5cdf884366771a0e3c3645a4a88a1ef9ad4d65ee155d9ca9ec454c60dfbc",
+  "source_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+  "direct_premium_discount_source_qualified": false,
+  "historical_NAV_source_observed": true,
+  "historical_first_receipt_qualified": false,
+  "Qlib_factor_map_allowed": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

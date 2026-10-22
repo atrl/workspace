@@ -1,0 +1,13 @@
+{
+  "verdict": "CONFIRM_SOURCE_GATE_NO_DIRECT_HISTORICAL_PREMIUM_SERIES",
+  "review_scope": "read_only_exact_GET_SpreadsheetML_structure_date_grain_NAS",
+  "confirmed": [
+    "Frozen plan, one exact GET receipt, HTTP 200, raw byte size and SHA-256 match.",
+    "Temporary parser repair escaped exactly six bare ampersands; original source bytes stayed unchanged.",
+    "Five worksheets and row counts match, with Historical containing 8937 NAV rows and no dated market price or premium/discount column.",
+    "Historical dates are unique from 2001-07-10 through 2026-10-21; pre-2024 calendar weekend carry and later mixed date grain are present.",
+    "NAS remote archive digest and all four scoped member hashes match.",
+    "No future SOXX outcome, Qlib factor map, model fit or account was run."
+  ],
+  "limitation": "The download alone does not establish historical premium/discount, original publication timing, or predictive alpha."
+}

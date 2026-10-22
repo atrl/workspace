@@ -1,0 +1,19 @@
+{
+  "plan_sha256": "dbdc5cdf884366771a0e3c3645a4a88a1ef9ad4d65ee155d9ca9ec454c60dfbc",
+  "GETs_consumed": 1,
+  "retries": 0,
+  "attempt": {
+    "requested_at_utc": "2026-10-22T23:40:19.995105+00:00",
+    "url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appSubType=ISHARES&appType=PRODUCT_PAGE&component=fundDownload&locale=en_US&portfolioId=239705&targetSite=us-ishares&userType=individual",
+    "http_status": 200,
+    "content_type": "application/vnd.ms-excel",
+    "body_bytes": 3347697,
+    "body_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+    "headers": {
+      "Date": "Thu, 22 Oct 2026 23:40:21 GMT",
+      "Content-Type": "application/vnd.ms-excel",
+      "ETag": "W/\"12a30ac6\"",
+      "Content-Disposition": "attachment; filename=iShares-Semiconductor-ETF_fund.xls"
+    }
+  }
+}

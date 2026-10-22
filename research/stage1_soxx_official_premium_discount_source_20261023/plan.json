@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_official_premium_discount_source_20261023",
+  "phase": "source_only_official_SOXX_premium_discount_download_preflight",
+  "hypothesis": "Previous published SOXX market-price minus NAV premium/discount may measure ETF-specific dislocation and subsequent repair, distinct from original Stage1 return, volatility, breadth, and tail coordinates. No predictive or economic claim in this source probe.",
+  "official_landing_page": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf",
+  "exact_GET_url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appSubType=ISHARES&appType=PRODUCT_PAGE&component=fundDownload&locale=en_US&portfolioId=239705&targetSite=us-ishares&userType=individual",
+  "request_budget": {
+    "HTTP_GETs": 1,
+    "retries": 0,
+    "fallback_urls": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "SOXX_future_outcome_reads": 0
+  },
+  "fixed_source_checks": [
+    "HTTP status, content type, raw SHA256 and size",
+    "workbook/container format and worksheet names",
+    "whether rows provide date, SOXX market price, NAV, and premium/discount as an explicit daily series",
+    "minimum/maximum dated coverage and 2011-2022 training versus 2023-2026 reused history support, without silently filling dates",
+    "original publish/first-availability and revision history are unqualified unless directly evidenced",
+    "one current download does not prove historical point-in-time values"
+  ],
+  "stop": "If no dated daily premium/discount series or no historical train coverage, close this exact download source version before Qlib map/fit/account. If coverage exists, source alone still cannot qualify decision-time use until original publication timing is verified."
+}

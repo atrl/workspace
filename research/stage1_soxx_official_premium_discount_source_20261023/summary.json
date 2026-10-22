@@ -1,0 +1,23 @@
+{
+  "experiment": "stage1_soxx_official_premium_discount_source_20261023",
+  "decision": "official_fund_download_has_historical_NAV_but_no_dated_market_price_or_premium_series",
+  "objective_achieved": false,
+  "plan_sha256": "dbdc5cdf884366771a0e3c3645a4a88a1ef9ad4d65ee155d9ca9ec454c60dfbc",
+  "result": "result.json",
+  "source_audit": "source_audit.json",
+  "source_archive": "nas_source_archive.json",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_future_outcome_reads": 0,
+  "Qlib_Recorder": null,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "limitations": [
+    "The current download has NAV but lacks the other component of premium/discount.",
+    "2011-2023 calendar weekends carry the prior NAV; 2024 mixes calendar and trading-day rows, requiring native exchange-calendar alignment if NAV is later used.",
+    "Current revised workbook does not prove first-publication time or historical vintage."
+  ]
+}
