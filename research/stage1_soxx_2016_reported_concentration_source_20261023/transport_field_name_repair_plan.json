@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "scope": "mechanical_transport_code_field_name_only",
+  "parent_plan_sha256": "8da14b3cb6cb261e790d1e5bc431735d6d15116fcbbdb3f72996d7190ba7c72e",
+  "failure_receipt_sha256": "dbd3a19dcbfa54d31450f2ee0afcc0b5feaaae553685d0dfa857459d995ae51b",
+  "from_key": "source_series_calendar_sha256",
+  "to_key": "series_calendar_sha256",
+  "scientific_choices_changed": false,
+  "network_budget_remaining": 4,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "stop": "No body URL, report date, size, timing, identity or account rule may change."
+}

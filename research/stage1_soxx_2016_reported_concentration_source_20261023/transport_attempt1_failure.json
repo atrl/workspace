@@ -1,0 +1,10 @@
+{
+  "status": "first_transport_notebook_failed_before_any_HTTP_GET",
+  "plan_sha256": "8da14b3cb6cb261e790d1e5bc431735d6d15116fcbbdb3f72996d7190ba7c72e",
+  "failed_cell_source_sha256": "69ce9e64e5fa17da57a20f4378b31a8bb104395f7142d58ab12bdc04bc949e63",
+  "exception": "KeyError source_series_calendar_sha256: frozen plan uses series_calendar_sha256",
+  "GETs_consumed": 0,
+  "raw_bytes_received": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
