@@ -1,0 +1,20 @@
+{
+  "experiment": "census_ft900_train_leadin_20261023",
+  "decision": "three_prior_original_months_fill_source_lead_in_no_factor",
+  "objective_achieved": false,
+  "early_Stage1_Qlib_sessions": 47,
+  "source_rows_verified": 3,
+  "result": "result.json",
+  "nas_binding": "nas_binding.json",
+  "historical_first_public_bytes_qualified": false,
+  "full_calendar_availability_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "raw_source_nas_archive_sha256": "5d92aba136b0462dab9994bef767398f778848664b044d2c5e7eb5e52facd87f"
+  }
+}

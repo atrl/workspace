@@ -1,0 +1,22 @@
+{
+  "status": "three_2010_original_PDFs_and_index_NAS_restored",
+  "archive_sha256": "5d92aba136b0462dab9994bef767398f778848664b044d2c5e7eb5e52facd87f",
+  "archive_bytes": 945762,
+  "source_file_sha256": {
+    "ft900_1011.pdf": "70707c8d2636f09eb5dbed5e8ce5012dc8573c811ada1b2a2efdce1c84b06e30",
+    "ft900_1010.pdf": "c390494e092c1fcaf0a4a0193358437e81c7b5ac7aafed65b377d7509cfe6d96",
+    "ft900_1012.pdf": "ab5bbf407170638002806e5cd4cb8aa1f5101f08dd9d83a95bbb3fde934e876f",
+    "ft900_index.html": "cdf3d48e9f6ff7a571c9d1d0d982499d59750df2f915a40ec95a9fe49730e0ad"
+  },
+  "nas_artifact": {
+    "sha256": "5d92aba136b0462dab9994bef767398f778848664b044d2c5e7eb5e52facd87f",
+    "size_bytes": 945762,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/5d/92/5d92aba136b0462dab9994bef767398f778848664b044d2c5e7eb5e52facd87f",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 00:34:19.672418+08",
+    "duplicate": false
+  },
+  "remote_hash_verified": true,
+  "scoped_restore_verified": true
+}

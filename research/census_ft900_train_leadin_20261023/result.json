@@ -1,0 +1,86 @@
+{
+  "status": "three_original_2010_lead_in_rows_verified_source_only",
+  "plan_sha256": "b0f63c83fcb56a8e52159c94e942335b05962ea636654501269271d3157bec95",
+  "source_index_sha256": "cdf3d48e9f6ff7a571c9d1d0d982499d59750df2f915a40ec95a9fe49730e0ad",
+  "early_Stage1_Qlib_sessions": 47,
+  "rows": [
+    {
+      "reference_month": "2010-10",
+      "source_sha256": "c390494e092c1fcaf0a4a0193358437e81c7b5ac7aafed65b377d7509cfe6d96",
+      "source_bytes": 368704,
+      "printed_month": "October 2010",
+      "release_header": "FOR IMMEDIATE RELEASE \n8:30 A.M. EST FRIDAY, DECEMBER 10, 2010 ",
+      "Exhibit7_pdf_page": 11,
+      "current_month_million_usd": 3592,
+      "prior_month_same_release_million_usd": 3743,
+      "printed_change_million_usd": -151
+    },
+    {
+      "reference_month": "2010-11",
+      "source_sha256": "70707c8d2636f09eb5dbed5e8ce5012dc8573c811ada1b2a2efdce1c84b06e30",
+      "source_bytes": 386208,
+      "printed_month": "November 2010",
+      "release_header": "FOR IMMEDIATE RELEASE \n8:30 A.M. EST THURSDAY, JANUARY 13, 2011 ",
+      "Exhibit7_pdf_page": 14,
+      "current_month_million_usd": 3808,
+      "prior_month_same_release_million_usd": 3592,
+      "printed_change_million_usd": 217
+    },
+    {
+      "reference_month": "2010-12",
+      "source_sha256": "ab5bbf407170638002806e5cd4cb8aa1f5101f08dd9d83a95bbb3fde934e876f",
+      "source_bytes": 426192,
+      "printed_month": "December 2010",
+      "release_header": "FOR IMMEDIATE RELEASE \n8:30 A.M. EST FRIDAY, FEBRUARY 11, 2011 ",
+      "Exhibit7_pdf_page": 14,
+      "current_month_million_usd": 3860,
+      "prior_month_same_release_million_usd": 3804,
+      "printed_change_million_usd": 57
+    }
+  ],
+  "receipts": [
+    {
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1010.pdf",
+      "requested_at_utc": "2026-10-22T16:34:07.239122+00:00",
+      "received_at_utc": "2026-10-22T16:34:09.245733+00:00",
+      "status": 200,
+      "Date": "Thu, 22 Oct 2026 16:34:08 GMT",
+      "Last-Modified": "Mon, 13 Sep 2021 16:51:23 GMT",
+      "Content-Type": "application/pdf",
+      "bytes": 368704,
+      "sha256": "c390494e092c1fcaf0a4a0193358437e81c7b5ac7aafed65b377d7509cfe6d96"
+    },
+    {
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1011.pdf",
+      "requested_at_utc": "2026-10-22T16:34:09.675810+00:00",
+      "received_at_utc": "2026-10-22T16:34:14.230963+00:00",
+      "status": 200,
+      "Date": "Thu, 22 Oct 2026 16:34:10 GMT",
+      "Last-Modified": "Mon, 13 Sep 2021 16:51:24 GMT",
+      "Content-Type": "application/pdf",
+      "bytes": 386208,
+      "sha256": "70707c8d2636f09eb5dbed5e8ce5012dc8573c811ada1b2a2efdce1c84b06e30"
+    },
+    {
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1012.pdf",
+      "requested_at_utc": "2026-10-22T16:34:14.610776+00:00",
+      "received_at_utc": "2026-10-22T16:34:17.905258+00:00",
+      "status": 200,
+      "Date": "Thu, 22 Oct 2026 16:34:16 GMT",
+      "Last-Modified": "Mon, 13 Sep 2021 16:51:26 GMT",
+      "Content-Type": "application/pdf",
+      "bytes": 426192,
+      "sha256": "ab5bbf407170638002806e5cd4cb8aa1f5101f08dd9d83a95bbb3fde934e876f"
+    }
+  ],
+  "historical_first_public_bytes_qualified": false,
+  "full_calendar_availability_qualified": false,
+  "market_outcome_reads": 0,
+  "factor_values": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false,
+  "nas_archive_sha256": "5d92aba136b0462dab9994bef767398f778848664b044d2c5e7eb5e52facd87f",
+  "nas_remote_hash_verified": true,
+  "nas_scoped_restore_verified": true
+}

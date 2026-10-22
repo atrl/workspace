@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_2010_10_to_2010_12_FT900_training_lead_in",
+  "purpose": "Cover the 47 Stage1 Qlib sessions 2011-01-03 through 2011-03-10 before the first 2011-reference FT900 report is safely available; preserve full training calendar rather than compact survivors.",
+  "parent_source_card": "research/census_ft900_semiconductor_export_source_20261023",
+  "parent_training_row_audit_sha256": "a1f894d0cb7ea73b2f4030cdd11d45b10d7a143215b2573f83e880d96bfbb12a",
+  "official_index": {
+    "path": "data/snapshots/census_ft900_semiconductor_20261023/ft900_index.html",
+    "sha256": "cdf3d48e9f6ff7a571c9d1d0d982499d59750df2f915a40ec95a9fe49730e0ad",
+    "bytes": 1279752
+  },
+  "fixed_reference_months": [
+    "2010-10",
+    "2010-11",
+    "2010-12"
+  ],
+  "fixed_urls": [
+    "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1010.pdf",
+    "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1011.pdf",
+    "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1012.pdf"
+  ],
+  "method": "Fetch each index-bound official original full-report PDF exactly once, record UTC/HTTP/hash/size, verify printed reference month and release header plus an exact Exhibit 7 Semiconductors row; archive exact bytes and index to NAS with remote hash and scoped restore. Count Stage1 early calendar with native Qlib D.calendar, no prices or labels.",
+  "availability_rule": "The original report release date, not the reference month, is the source event. Any later factor must use the next safe Stage1 Qlib decision session after release.",
+  "budget": {
+    "new_PDF_GETs": 3,
+    "index_GETs": 0,
+    "D_calendar_calls": 1,
+    "market_outcome_reads": 0,
+    "factor_values": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any ambiguous report month, release header or row remains an exception. Three lead-in reports cannot certify full history, historical first-public bytes, feature effectiveness or SOXX excess."
+}

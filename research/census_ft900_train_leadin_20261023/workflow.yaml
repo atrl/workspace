@@ -1,0 +1,4 @@
+experiment: census_ft900_train_leadin_20261023
+phase: source_only_2010_lead_in
+plan: plan.json
+artifact_policy: slim_card_recorder_first
