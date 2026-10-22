@@ -154,7 +154,8 @@
     "SOXX_legacy_filing_index_result": "research/stage1_soxx_legacy_filing_index_20261023/filing_2010_12_30_numeric_repair2_result.json",
     "SOXX_legacy_filing_index_status": "one_pre_Stage1_original_SOXX_reported_basket_30_stock_value_closure_top5_39p66pct_full_history_and_timing_pending_zero_fits_accounts",
     "SOXX_legacy_2011_2018_index_result": "research/stage1_soxx_legacy_basket_history_20261023/coverage_audit.json",
-    "SOXX_legacy_2011_2018_index_status": "four_SEC_trust_sidecars_188_candidate_forms_NAS_restored_SOXX_bodies_unqualified_zero_fits_accounts"
+    "SOXX_legacy_2011_2018_index_status": "four_SEC_trust_sidecars_188_candidate_forms_NAS_restored_SOXX_bodies_unqualified_zero_fits_accounts",
+    "SOXX_legacy_2011_2018_amendment_reconciliation": "research/stage1_soxx_2011_2018_filing_inventory_20261023/reconciliation.json"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
