@@ -1,0 +1,117 @@
+{
+  "experiment": "stage1_risk_projection_gap_20261023",
+  "decision": "descriptive_only_risk_projection_gap_no_feature_or_policy_change",
+  "objective_achieved": false,
+  "source_plan_sha256": "d00c69026c877222c68b67604643e32947368de188cfb7547876de4fc618a25f",
+  "source_recorder_ids": {
+    "raw": "55b4223a73d44fee89c86608edf8f58c",
+    "candidate": "4cd2029dc98740349e34db8c7c6eae3e"
+  },
+  "source_nas_sha256": {
+    "raw_card": "cb4d3c04e805a7c09010d30338f0d12f3bf42a5fa1ceaa40428f0dc5bbfc3869",
+    "candidate_card": "276d3de7940772e0e8e6f25b21ea108cfbf7c5dbb15d1fc489544eeda5395af4"
+  },
+  "sessions": 944,
+  "quarters": 16,
+  "annual_periods": 4,
+  "complete_years": [
+    "2024",
+    "2025"
+  ],
+  "rolling_126_windows": 819,
+  "binding_days": 335,
+  "binding_fraction": 0.3548728813559322,
+  "mean_positive_cap_gap": 0.24934649344649804,
+  "hold_days": 25,
+  "recovery_actions": 0,
+  "illustrative_quarters": {
+    "2024Q3": {
+      "sessions": 64.0,
+      "binding_days": 31.0,
+      "binding_fraction": 0.484375,
+      "mean_positive_cap_gap": 0.298971593490184,
+      "raw_beta_mean": 0.9620784102684172,
+      "risk_cap_mean": 0.6631068167782335,
+      "target_beta_mean": 0.6629591984271024,
+      "target_cash_mean": 0.39231490157004617,
+      "ending_cash_mean": 0.3926692908165098,
+      "hold_days": 0.0,
+      "risk_state_ge2_fraction": 0.546875,
+      "paired_log_excess_sum": 0.06379970163574086,
+      "soxx_relative_wealth": 1.0658788835819686,
+      "direct_fees_usd": 77.08617326724197
+    },
+    "2026Q2": {
+      "sessions": 62.0,
+      "binding_days": 7.0,
+      "binding_fraction": 0.11290322580645161,
+      "mean_positive_cap_gap": 0.10013195738381776,
+      "raw_beta_mean": 1.3230768037059764,
+      "risk_cap_mean": 1.222944846322159,
+      "target_beta_mean": 1.2199063630355398,
+      "target_cash_mean": 0.06451612903225806,
+      "ending_cash_mean": 0.06455705306983617,
+      "hold_days": 0.0,
+      "risk_state_ge2_fraction": 0.0967741935483871,
+      "paired_log_excess_sum": 0.10241550652842735,
+      "soxx_relative_wealth": 1.1078436923956336,
+      "direct_fees_usd": 99.26134551982925
+    },
+    "2026Q3": {
+      "sessions": 64.0,
+      "binding_days": 59.0,
+      "binding_fraction": 0.921875,
+      "mean_positive_cap_gap": 0.696076278275844,
+      "raw_beta_mean": 1.1076060532201413,
+      "risk_cap_mean": 0.4115297749442972,
+      "target_beta_mean": 0.41069668801860704,
+      "target_cash_mean": 0.6200373687072238,
+      "ending_cash_mean": 0.6197740245333385,
+      "hold_days": 0.0,
+      "risk_state_ge2_fraction": 0.828125,
+      "paired_log_excess_sum": -0.11435855163137021,
+      "soxx_relative_wealth": 0.8919380926838862,
+      "direct_fees_usd": 61.234691889407344
+    }
+  },
+  "rolling_binding_fraction_range": [
+    0.1111111111111111,
+    0.5714285714285714
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstrap_runs": 0,
+  "new_market_requests": 0,
+  "interpretation": "Risk-cap binding is observed on the endogenous own-state path. It does not identify a causal effect, policy switch or incremental predictor.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "analysis/daily",
+      "analysis/annual",
+      "analysis/quarter",
+      "analysis/rolling126"
+    ]
+  },
+  "recorder_id": "ea167cc6c80e4a52ba1442b73eddaf8e",
+  "experiment_id": "636351435950813547",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_risk_projection_gap_20261023/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "a2b72e72115aa4f18b2f850846f7aeb6d7030e5b7f62ab8cda55991b228ca64b",
+    "size_bytes": 223650,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/a2/b7/a2b72e72115aa4f18b2f850846f7aeb6d7030e5b7f62ab8cda55991b228ca64b",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 03:36:23.337707+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/a2/b7/a2b72e72115aa4f18b2f850846f7aeb6d7030e5b7f62ab8cda55991b228ca64b",
+    "recorder_id": "ea167cc6c80e4a52ba1442b73eddaf8e",
+    "experiment_id": "636351435950813547",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "a2b72e72115aa4f18b2f850846f7aeb6d7030e5b7f62ab8cda55991b228ca64b",
+    "bytes": 223650,
+    "verified": true
+  }
+}

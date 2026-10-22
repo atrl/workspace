@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_risk_projection_gap_20261023",
+  "frozen": true,
+  "purpose": "Post-hoc read-only attribution of the frozen Stage1-derived 0bp account's raw target, own-state risk cap, action target, and SOXX-relative path. Not a confirmatory feature or causal test.",
+  "source": {
+    "raw_card": "research/frozen_policy_raw_cashbook_20261015",
+    "raw_recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "raw_manifest_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+    "frame_artifact_sha256": "cc705b51047c85a1fc58f05d22ba4f98797830861a4bab58b94aeb4b869c20bc",
+    "soxx_artifact_sha256": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550",
+    "candidate_card": "research/stage1_beta_composition_0bp_20261022",
+    "candidate_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+    "candidate_manifest_sha256": "f72e9737ff81fc62d18a6e1e4f91b55fb541df80b28f850a2f562e477035b9b6",
+    "path_artifact_sha256": "ca9b6d3c8390a97bef5e2126b60daeb3e1916060320d30cf7999a867160db372",
+    "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083"
+  },
+  "scope": "All 944 aligned dates, 16 trade-date quarters, 2023/2026 partial and 2024/2025 complete years, and all 819 contiguous 126-session windows. Compare already identified 2024Q3, 2026Q2, 2026Q3 without selecting a rule. Binding is raw beta > own-state cap by 1e-8. Report HOLD and actual target separately; do not assign outcome causality to binding.",
+  "budget": {
+    "new_market_requests": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "new_qlib_recorders": 1
+  },
+  "decision": "diagnostic_only; no cap, allocator, action, recovery, window, or cost parameter change on reused history"
+}
