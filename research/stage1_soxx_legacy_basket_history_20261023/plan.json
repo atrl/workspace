@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "four_exact_SEC_trust_historic_sidecar_source_reads",
+  "question": "Do official SEC filing indexes cover 2011-2018 with N-Q/N-CSR/N-CSRS trust-level candidates whose body may contain SOXX reported equity baskets?",
+  "parent_source_card": "research/stage1_soxx_legacy_filing_index_20261023",
+  "parent_raw_index_sha256": "3f42f7e7884e137089f7dd15a0e8ca30ae13899e7665d2f012bae0b692162c2f",
+  "target_cik": "0001100663",
+  "target_series_id": "S000004354",
+  "urls": [
+    "https://data.sec.gov/submissions/CIK0001100663-submissions-011.json",
+    "https://data.sec.gov/submissions/CIK0001100663-submissions-010.json",
+    "https://data.sec.gov/submissions/CIK0001100663-submissions-009.json",
+    "https://data.sec.gov/submissions/CIK0001100663-submissions-008.json"
+  ],
+  "index_advertised_ranges": [
+    ["2011-02-04", "2013-11-30"],
+    ["2013-12-02", "2015-12-08"],
+    ["2015-12-10", "2017-10-29"],
+    ["2017-10-31", "2019-08-24"]
+  ],
+  "relevant_forms": ["N-Q", "N-CSR", "N-CSRS"],
+  "target_filing_years": [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018],
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 3000000,
+    "max_GETs": 4,
+    "minimum_seconds_between_requests": 1
+  },
+  "record": "For each requested sidecar preserve exact response bytes, headers, SHA-256 and UTC times; verify source URL and columnar array lengths. Report actual versus advertised filing date range without stopping on a one-day metadata discrepancy. Extract only trust-level form, filing/report/acceptance date, accession and primary-document metadata; do not infer SOXX membership until each original body is inspected.",
+  "stop": "Stop before the next request on any transport failure, unexpected schema, oversized body, source URL drift or NAS archive failure. Do not request filing bodies, construct a factor, read SOXX market outcomes, fit models or run accounts.",
+  "preservation": "Archive every received raw sidecar and response header to Yanxuan NAS with remote SHA-256 and scoped member restore. Keep raw local files until backup verified.",
+  "budget": {
+    "sidecar_GETs": 4,
+    "filing_body_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "Trust filing indexes establish possible report coverage only. Historical SOXX baskets, announced availability, constituent identities, complete Stage1 feature values and predictive information remain unqualified."
+}

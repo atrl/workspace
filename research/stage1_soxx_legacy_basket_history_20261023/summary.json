@@ -1,0 +1,14 @@
+{
+  "experiment": "stage1_soxx_legacy_basket_history_20261023",
+  "decision": "frozen_source_batch_not_executed",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "sidecar_GETs": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
