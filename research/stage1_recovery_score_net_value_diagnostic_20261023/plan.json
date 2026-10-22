@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "On the frozen Stage1 recovery route-decidable account states, does the saved recovery classifier score rank the already saved same-state Tiered-fee net advantage amount of its fixed 0.6 beta recovery action?",
+  "score_source": {
+    "summary": "research/output_routing_diagnosis_20261014/summary.json",
+    "summary_sha256": "117ed3d093ed36f15641f9233a23df57e7c55b3770efd07afdf229c55c97c6a0",
+    "recorder_id": "b46742c4e8de4b7f83ba8f1ddd6969b3",
+    "artifact": "analysis/daily",
+    "artifact_sha256": "85f9f941bf7af8bbf3c3ed4165b9f14fb40f2ded484f66204f8a69d4365955ae"
+  },
+  "advantage_source": {
+    "summary": "research/recovery_action_size_labels_20261014/summary.json",
+    "summary_sha256": "36d96ff63fe5fb8a3cb12eacf6801d614fba63be032290001875a91b190eb7af",
+    "recorder_id": "3883915d770e45b29310a72760cbc508",
+    "artifact": "analysis/labels",
+    "artifact_sha256": "acd87889b3b3f64a413e531937c18ca7ca5af952c38de04ce3ffaa94a960589f"
+  },
+  "provider": "data/qlib/full_path_tiered_allocation_20261013",
+  "cohorts": {
+    "costs_bps": [2, 5],
+    "trade_dates": ["2023-01-04", "2026-10-08"],
+    "full_dates_each": 944,
+    "route_decidable_each": [228, 476],
+    "mature_same_state_labels_each": [227, 475],
+    "all_dates_preserved": true
+  },
+  "diagnostic": "Join by exact slippage_bps and trade_date. Only alpha_ready/cap_ready frozen route-decidable days with finite score and matured next-open small_advantage are scored. Primary diagnostic is Spearman recovery_probability versus small_advantage, separately for 2bp and 5bp. Also report large_advantage Spearman and year-level score/advantage means without selecting a threshold. Use paired stationary circular blocks of mean 63 sessions, 2000 replicates and seed 20261023 to give descriptive 95% intervals for primary correlations. No corrected success gate or candidate selection is claimed from these intervals.",
+  "causal_boundary": "Small/large advantages are retrospective local same-state recovery-to-next-open common-reset labels, not full closed-loop portfolio value. The two costs have independent state paths and are not pooled; 2023-2026 market history is reused, not independent forward. The existing 0.825 threshold stays fixed and is not tested or lowered.",
+  "artifacts": "Store complete matched daily diagnostics, grouped statistics, bootstrap replicates and DatasetH in a native Qlib Recorder; NAS archive with remote hash and scoped restore.",
+  "budget": {
+    "new_GETs": 0,
+    "source_Recorder_object_loads": 2,
+    "reused_outcome_label_objects": 1,
+    "DatasetH_builds": 1,
+    "bootstrap_replications": 4000,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_source_Recorders": 1
+  },
+  "stop": "Source hash, exact paired-count, maturity/calendar, Qlib DatasetH/Recorder or NAS failure stops. Do not refit classifier, change beta/threshold, run a recovery account, or interpret local conditional advantage as risk-free SOXX excess."
+}

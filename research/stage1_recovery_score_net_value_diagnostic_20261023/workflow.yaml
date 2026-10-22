@@ -1,0 +1,5 @@
+experiment: stage1_recovery_score_net_value_diagnostic_20261023
+phase: frozen_recovery_score_vs_same_state_net_advantage_read_only
+plan: plan.json
+model_fits: 0
+native_accounts: 0

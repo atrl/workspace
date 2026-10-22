@@ -1,0 +1,115 @@
+{
+  "status": "frozen_recovery_score_same_state_net_advantage_magnitude_diagnostic_only",
+  "plan_sha256": "fac0db3fd4559be6b6cbc2d63a12c014ff2ff676bf0ef858e7629badf0ac0225",
+  "sessions_per_cost": 944,
+  "route_decidable_per_cost": [
+    228,
+    476
+  ],
+  "mature_same_state_labels_per_cost": [
+    227,
+    475
+  ],
+  "statistics": [
+    {
+      "slippage_bps": 2,
+      "mature_route_decidable_rows": 227,
+      "score_min": 0.08675201036645579,
+      "score_max": 0.7146916820764788,
+      "small_advantage_mean_bp": -2.0894861456824088,
+      "large_advantage_mean_bp": -4.099546103236243,
+      "score_vs_small_advantage_spearman": 0.05949188397292402,
+      "score_vs_large_advantage_spearman": 0.07811740180438233,
+      "small_advantage_spearman_descriptive_95pct_block_interval": [
+        -0.02812092641868604,
+        0.1312179670957194
+      ]
+    },
+    {
+      "slippage_bps": 5,
+      "mature_route_decidable_rows": 475,
+      "score_min": 0.11630888551022195,
+      "score_max": 0.7151089522945079,
+      "small_advantage_mean_bp": 4.814875382166414,
+      "large_advantage_mean_bp": 14.17252222610412,
+      "score_vs_small_advantage_spearman": -0.012089643319019813,
+      "score_vs_large_advantage_spearman": 0.01345926245248266,
+      "small_advantage_spearman_descriptive_95pct_block_interval": [
+        -0.0874206957266907,
+        0.05771307982125254
+      ]
+    }
+  ],
+  "annual": [
+    {
+      "slippage_bps": 2,
+      "year": 2023,
+      "rows": 47,
+      "mean_recovery_score": 0.43915392447881507,
+      "mean_small_advantage_bp": 4.213626717674755,
+      "score_small_advantage_spearman": -0.04000925069380204
+    },
+    {
+      "slippage_bps": 2,
+      "year": 2024,
+      "rows": 66,
+      "mean_recovery_score": 0.39540411840168926,
+      "mean_small_advantage_bp": 0.7319501961758492,
+      "score_small_advantage_spearman": 0.06978394739588771
+    },
+    {
+      "slippage_bps": 2,
+      "year": 2025,
+      "rows": 42,
+      "mean_recovery_score": 0.38530884450848335,
+      "mean_small_advantage_bp": -25.170232770496536,
+      "score_small_advantage_spearman": -0.13102665910380035
+    },
+    {
+      "slippage_bps": 2,
+      "year": 2026,
+      "rows": 72,
+      "mean_recovery_score": 0.46392790741172685,
+      "mean_small_advantage_bp": 4.673434064064286,
+      "score_small_advantage_spearman": 0.07534246575342467
+    },
+    {
+      "slippage_bps": 5,
+      "year": 2023,
+      "rows": 47,
+      "mean_recovery_score": 0.4401484435413373,
+      "mean_small_advantage_bp": 2.7109022588584795,
+      "score_small_advantage_spearman": -0.052382053654024055
+    },
+    {
+      "slippage_bps": 5,
+      "year": 2024,
+      "rows": 107,
+      "mean_recovery_score": 0.4226151488174025,
+      "mean_small_advantage_bp": 5.029880218714634,
+      "score_small_advantage_spearman": 0.001939693175806736
+    },
+    {
+      "slippage_bps": 5,
+      "year": 2025,
+      "rows": 197,
+      "mean_recovery_score": 0.441451505001661,
+      "mean_small_advantage_bp": 2.6399952713340875,
+      "score_small_advantage_spearman": 0.01156807900825305
+    },
+    {
+      "slippage_bps": 5,
+      "year": 2026,
+      "rows": 124,
+      "mean_recovery_score": 0.4534226051256464,
+      "mean_small_advantage_bp": 8.88207377828562,
+      "score_small_advantage_spearman": -0.06546026750590087
+    }
+  ],
+  "model_fits": 0,
+  "native_accounts": 0,
+  "new_market_requests": 0,
+  "reused_outcome_label_objects": 1,
+  "local_labels_are_full_strategy_value": false,
+  "historical_independence": false
+}
