@@ -1,0 +1,47 @@
+{
+  "plan_sha256": "1bcbfdd4842824e128f1591859773a0faf14d069957ec53203668cfcfb7d0cb5",
+  "files": [
+    {
+      "relative_path": "CIK0001100663-submissions-008.json",
+      "sha256": "6432f36559a2e7f6323605db1175d40240b10bc3466980bef68d9e6db6c26647",
+      "bytes": 332016
+    },
+    {
+      "relative_path": "CIK0001100663-submissions-008.json.headers",
+      "sha256": "4c6ca1ff7fa9605a385766ef8a64e0e66ad936e7573f7191565047152ea1673c",
+      "bytes": 408
+    },
+    {
+      "relative_path": "CIK0001100663-submissions-009.json",
+      "sha256": "fe78b7ac77f7f495865dbc63c0ef31df57dda876bc7ecf5167b206951d1ce70f",
+      "bytes": 333274
+    },
+    {
+      "relative_path": "CIK0001100663-submissions-009.json.headers",
+      "sha256": "99fb24f74e394df51dce287e642caadc0c3ff10670d52e2e104f092da565fd77",
+      "bytes": 408
+    },
+    {
+      "relative_path": "CIK0001100663-submissions-010.json",
+      "sha256": "b1c94470244afd56f8f25d3103030bc3f3ca1671f81982aba45587d0c3a154b5",
+      "bytes": 370012
+    },
+    {
+      "relative_path": "CIK0001100663-submissions-010.json.headers",
+      "sha256": "686d6cdb43afa86d409c283a1e119dbc5d9fc986e8ffce72203dec7f3d7ecd31",
+      "bytes": 408
+    },
+    {
+      "relative_path": "CIK0001100663-submissions-011.json",
+      "sha256": "2d76b1f4a9187ae28024cece9a22423aecfe573351f2978d5f6ee44b26190895",
+      "bytes": 358015
+    },
+    {
+      "relative_path": "CIK0001100663-submissions-011.json.headers",
+      "sha256": "767e3e9424c7d45f21c478c60e30e87211da7118b27ae18515c726b023d6ffb0",
+      "bytes": 408
+    }
+  ],
+  "candidate_inventory_sha256": "5b589304a02461d4e6c89d5dc6f7f21164270a1580731c66719e72fef044300a",
+  "capture_receipts_sha256": "58888b0f95c41434a73a74898abf453d9a7a787c4864e5679aef14146882aedc"
+}

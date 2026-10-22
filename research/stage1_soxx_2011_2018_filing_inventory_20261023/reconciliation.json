@@ -1,0 +1,36 @@
+{
+  "status": "independent_raw_sidecar_candidate_reconciliation",
+  "primary_card": "research/stage1_soxx_legacy_basket_history_20261023",
+  "primary_candidate_index_sha256": "8a8d790c4e97f0dcacca0436835f263e7dc30dc318c8bafc25e8001cf6fb64a6",
+  "supplemental_candidate_index_sha256": "5b589304a02461d4e6c89d5dc6f7f21164270a1580731c66719e72fef044300a",
+  "exact_2011_2018_base_form_accession_match": true,
+  "matched_base_form_accessions": 188,
+  "primary_only_base_accessions": 0,
+  "supplemental_only_base_accessions": 0,
+  "additional_2011_2018_amendment_rows": 13,
+  "amendment_form_counts": {
+    "N-CSRS/A": 6,
+    "N-CSR/A": 7
+  },
+  "amendment_accessions": [
+    "0001193125-17-257378",
+    "0001193125-17-257381",
+    "0001193125-17-257387",
+    "0001193125-17-257388",
+    "0001193125-18-009766",
+    "0001193125-18-152961",
+    "0001193125-18-152980",
+    "0001193125-18-152989",
+    "0001193125-18-152996",
+    "0001193125-18-153003",
+    "0001193125-18-153019",
+    "0001193125-18-153027",
+    "0001193125-18-153042"
+  ],
+  "additional_2019_spillover_rows": 14,
+  "SOXX_series_presence_unqualified": true,
+  "new_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

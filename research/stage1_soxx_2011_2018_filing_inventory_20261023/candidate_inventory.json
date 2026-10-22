@@ -1,0 +1,1948 @@
+{
+  "parent_raw_sha256": "3f42f7e7884e137089f7dd15a0e8ca30ae13899e7665d2f012bae0b692162c2f",
+  "form_set": [
+    "N-Q",
+    "N-Q/A",
+    "N-CSR",
+    "N-CSR/A",
+    "N-CSRS",
+    "N-CSRS/A"
+  ],
+  "rows": [
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-052046",
+      "form": "N-Q",
+      "filed": "2011-03-01",
+      "report_date": "2010-12-31",
+      "accepted_at": "2011-03-02T02:04:17.000Z",
+      "primary_document": "dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-086451",
+      "form": "N-Q",
+      "filed": "2011-04-01",
+      "report_date": "2011-01-31",
+      "accepted_at": "2011-04-01T21:33:08.000Z",
+      "primary_document": "dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-086453",
+      "form": "N-Q",
+      "filed": "2011-04-01",
+      "report_date": "2011-01-31",
+      "accepted_at": "2011-04-01T21:33:59.000Z",
+      "primary_document": "dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-093502",
+      "form": "N-CSRS",
+      "filed": "2011-04-11",
+      "report_date": "2011-01-31",
+      "accepted_at": "2011-04-11T20:08:56.000Z",
+      "primary_document": "dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-131947",
+      "form": "N-CSR",
+      "filed": "2011-05-09",
+      "report_date": "2011-02-28",
+      "accepted_at": "2011-05-09T20:49:05.000Z",
+      "primary_document": "dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-131950",
+      "form": "N-CSRS",
+      "filed": "2011-05-09",
+      "report_date": "2011-02-28",
+      "accepted_at": "2011-05-09T20:50:03.000Z",
+      "primary_document": "dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-162711",
+      "form": "N-CSR",
+      "filed": "2011-06-10",
+      "report_date": "2011-03-31",
+      "accepted_at": "2011-06-10T20:15:27.000Z",
+      "primary_document": "dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-176858",
+      "form": "N-Q",
+      "filed": "2011-06-29",
+      "report_date": "2011-04-30",
+      "accepted_at": "2011-06-29T20:43:59.000Z",
+      "primary_document": "dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-184712",
+      "form": "N-CSR",
+      "filed": "2011-07-08",
+      "report_date": "2011-04-30",
+      "accepted_at": "2011-07-08T20:21:50.000Z",
+      "primary_document": "dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-184770",
+      "form": "N-CSRS",
+      "filed": "2011-07-08",
+      "report_date": "2011-04-30",
+      "accepted_at": "2011-07-08T21:19:11.000Z",
+      "primary_document": "dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-201024",
+      "form": "N-Q",
+      "filed": "2011-07-28",
+      "report_date": "2011-05-31",
+      "accepted_at": "2011-07-29T01:08:41.000Z",
+      "primary_document": "dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-201033",
+      "form": "N-Q",
+      "filed": "2011-07-28",
+      "report_date": "2011-05-31",
+      "accepted_at": "2011-07-29T01:11:15.000Z",
+      "primary_document": "dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-235651",
+      "form": "N-Q",
+      "filed": "2011-08-29",
+      "report_date": "2011-06-30",
+      "accepted_at": "2011-08-30T01:21:18.000Z",
+      "primary_document": "dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-259856",
+      "form": "N-Q",
+      "filed": "2011-09-29",
+      "report_date": "2011-07-31",
+      "accepted_at": "2011-09-29T22:46:24.000Z",
+      "primary_document": "d233688dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-259859",
+      "form": "N-Q",
+      "filed": "2011-09-29",
+      "report_date": "2011-07-31",
+      "accepted_at": "2011-09-29T22:47:22.000Z",
+      "primary_document": "d233700dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-266548",
+      "form": "N-CSR",
+      "filed": "2011-10-07",
+      "report_date": "2011-07-31",
+      "accepted_at": "2011-10-07T21:03:08.000Z",
+      "primary_document": "d216041dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-299428",
+      "form": "N-CSRS",
+      "filed": "2011-11-07",
+      "report_date": "2011-08-31",
+      "accepted_at": "2011-11-08T00:12:52.000Z",
+      "primary_document": "d239200dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-299438",
+      "form": "N-CSR",
+      "filed": "2011-11-07",
+      "report_date": "2011-08-31",
+      "accepted_at": "2011-11-08T00:16:04.000Z",
+      "primary_document": "d239109dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-336349",
+      "form": "N-CSRS",
+      "filed": "2011-12-09",
+      "report_date": "2011-09-30",
+      "accepted_at": "2011-12-10T00:06:45.000Z",
+      "primary_document": "d249987dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-11-355398",
+      "form": "N-Q",
+      "filed": "2011-12-29",
+      "report_date": "2011-10-31",
+      "accepted_at": "2011-12-30T00:10:28.000Z",
+      "primary_document": "d270541dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-005107",
+      "form": "N-CSRS",
+      "filed": "2012-01-06",
+      "report_date": "2011-10-31",
+      "accepted_at": "2012-01-07T02:05:35.000Z",
+      "primary_document": "d259417dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-005131",
+      "form": "N-CSR",
+      "filed": "2012-01-06",
+      "report_date": "2011-10-31",
+      "accepted_at": "2012-01-07T02:12:05.000Z",
+      "primary_document": "d261818dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-026876",
+      "form": "N-Q",
+      "filed": "2012-01-27",
+      "report_date": "2011-11-30",
+      "accepted_at": "2012-01-28T01:08:00.000Z",
+      "primary_document": "d283834dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-026961",
+      "form": "N-Q",
+      "filed": "2012-01-27",
+      "report_date": "2011-11-30",
+      "accepted_at": "2012-01-28T01:23:34.000Z",
+      "primary_document": "d283832dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-088646",
+      "form": "N-Q",
+      "filed": "2012-02-29",
+      "report_date": "2011-12-31",
+      "accepted_at": "2012-03-01T00:52:01.000Z",
+      "primary_document": "d302216dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-140243",
+      "form": "N-Q",
+      "filed": "2012-03-30",
+      "report_date": "2012-01-31",
+      "accepted_at": "2012-03-30T01:59:03.000Z",
+      "primary_document": "d319886dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-140251",
+      "form": "N-Q",
+      "filed": "2012-03-30",
+      "report_date": "2012-01-31",
+      "accepted_at": "2012-03-30T02:02:49.000Z",
+      "primary_document": "d319888dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-151845",
+      "form": "N-CSRS",
+      "filed": "2012-04-05",
+      "report_date": "2012-01-31",
+      "accepted_at": "2012-04-05T23:31:35.000Z",
+      "primary_document": "d302334dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-211719",
+      "form": "N-CSRS",
+      "filed": "2012-05-04",
+      "report_date": "2012-02-29",
+      "accepted_at": "2012-05-04T23:20:40.000Z",
+      "primary_document": "d314365dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-211769",
+      "form": "N-CSR",
+      "filed": "2012-05-04",
+      "report_date": "2012-02-29",
+      "accepted_at": "2012-05-04T23:32:36.000Z",
+      "primary_document": "d314329dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-264907",
+      "form": "N-CSR",
+      "filed": "2012-06-08",
+      "report_date": "2012-03-31",
+      "accepted_at": "2012-06-08T22:32:22.000Z",
+      "primary_document": "d336639dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-289215",
+      "form": "N-Q",
+      "filed": "2012-06-29",
+      "report_date": "2012-04-30",
+      "accepted_at": "2012-06-29T20:22:02.000Z",
+      "primary_document": "d370583dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-297154",
+      "form": "N-CSR",
+      "filed": "2012-07-09",
+      "report_date": "2012-04-30",
+      "accepted_at": "2012-07-09T20:34:58.000Z",
+      "primary_document": "d354233dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-297160",
+      "form": "N-CSRS",
+      "filed": "2012-07-09",
+      "report_date": "2012-04-30",
+      "accepted_at": "2012-07-09T20:39:45.000Z",
+      "primary_document": "d354273dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-321770",
+      "form": "N-Q",
+      "filed": "2012-07-30",
+      "report_date": "2012-05-31",
+      "accepted_at": "2012-07-30T20:17:04.000Z",
+      "primary_document": "d381299dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-321773",
+      "form": "N-Q",
+      "filed": "2012-07-30",
+      "report_date": "2012-05-31",
+      "accepted_at": "2012-07-30T20:17:47.000Z",
+      "primary_document": "d381327dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-373715",
+      "form": "N-Q",
+      "filed": "2012-08-29",
+      "report_date": "2012-06-30",
+      "accepted_at": "2012-08-29T21:55:12.000Z",
+      "primary_document": "d401274dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-408251",
+      "form": "N-Q",
+      "filed": "2012-09-28",
+      "report_date": "2012-07-31",
+      "accepted_at": "2012-09-28T20:09:15.000Z",
+      "primary_document": "d410831dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-408264",
+      "form": "N-Q",
+      "filed": "2012-09-28",
+      "report_date": "2012-07-31",
+      "accepted_at": "2012-09-28T20:15:06.000Z",
+      "primary_document": "d410756dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-418172",
+      "form": "N-CSR",
+      "filed": "2012-10-09",
+      "report_date": "2012-07-31",
+      "accepted_at": "2012-10-09T20:16:08.000Z",
+      "primary_document": "d391477dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-462766",
+      "form": "N-CSRS",
+      "filed": "2012-11-09",
+      "report_date": "2012-08-31",
+      "accepted_at": "2012-11-09T23:52:02.000Z",
+      "primary_document": "d409803dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-462774",
+      "form": "N-CSR",
+      "filed": "2012-11-09",
+      "report_date": "2012-08-31",
+      "accepted_at": "2012-11-09T23:53:21.000Z",
+      "primary_document": "d410023dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-494940",
+      "form": "N-CSRS",
+      "filed": "2012-12-07",
+      "report_date": "2012-09-30",
+      "accepted_at": "2012-12-07T22:46:57.000Z",
+      "primary_document": "d425526dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-12-517738",
+      "form": "N-Q",
+      "filed": "2012-12-28",
+      "report_date": "2012-10-31",
+      "accepted_at": "2012-12-28T23:22:34.000Z",
+      "primary_document": "d450388dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-005215",
+      "form": "N-CSR",
+      "filed": "2013-01-07",
+      "report_date": "2012-10-31",
+      "accepted_at": "2013-01-08T01:39:21.000Z",
+      "primary_document": "d442252dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-005255",
+      "form": "N-CSRS",
+      "filed": "2013-01-07",
+      "report_date": "2012-10-31",
+      "accepted_at": "2013-01-08T01:57:41.000Z",
+      "primary_document": "d442143dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-027803",
+      "form": "N-Q",
+      "filed": "2013-01-29",
+      "report_date": "2012-11-30",
+      "accepted_at": "2013-01-29T23:53:05.000Z",
+      "primary_document": "d468173dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-027812",
+      "form": "N-Q",
+      "filed": "2013-01-29",
+      "report_date": "2012-11-30",
+      "accepted_at": "2013-01-29T23:55:32.000Z",
+      "primary_document": "d468390dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-086998",
+      "form": "N-Q",
+      "filed": "2013-03-01",
+      "report_date": "2012-12-31",
+      "accepted_at": "2013-03-01T23:04:07.000Z",
+      "primary_document": "d488313dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-131533",
+      "form": "N-Q",
+      "filed": "2013-03-28",
+      "report_date": "2013-01-31",
+      "accepted_at": "2013-03-28T20:51:18.000Z",
+      "primary_document": "d503998dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-131540",
+      "form": "N-Q",
+      "filed": "2013-03-28",
+      "report_date": "2013-01-31",
+      "accepted_at": "2013-03-28T20:56:12.000Z",
+      "primary_document": "d505226dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-148033",
+      "form": "N-CSRS",
+      "filed": "2013-04-10",
+      "report_date": "2013-01-31",
+      "accepted_at": "2013-04-10T04:13:24.000Z",
+      "primary_document": "d493068dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-203784",
+      "form": "N-CSR",
+      "filed": "2013-05-07",
+      "report_date": "2013-02-28",
+      "accepted_at": "2013-05-07T21:29:46.000Z",
+      "primary_document": "d508781dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-203838",
+      "form": "N-CSRS",
+      "filed": "2013-05-07",
+      "report_date": "2013-02-28",
+      "accepted_at": "2013-05-07T21:43:25.000Z",
+      "primary_document": "d508756dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-251330",
+      "form": "N-CSR",
+      "filed": "2013-06-07",
+      "report_date": "2013-03-31",
+      "accepted_at": "2013-06-07T21:21:24.000Z",
+      "primary_document": "d524429dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-274594",
+      "form": "N-Q",
+      "filed": "2013-06-27",
+      "report_date": "2013-04-30",
+      "accepted_at": "2013-06-27T23:18:35.000Z",
+      "primary_document": "d555685dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-284836",
+      "form": "N-CSR",
+      "filed": "2013-07-08",
+      "report_date": "2013-04-30",
+      "accepted_at": "2013-07-09T00:30:15.000Z",
+      "primary_document": "d544192dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-284844",
+      "form": "N-CSRS",
+      "filed": "2013-07-08",
+      "report_date": "2013-04-30",
+      "accepted_at": "2013-07-09T00:35:21.000Z",
+      "primary_document": "d544402dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-309324",
+      "form": "N-Q",
+      "filed": "2013-07-30",
+      "report_date": "2013-05-31",
+      "accepted_at": "2013-07-30T20:17:40.000Z",
+      "primary_document": "d570537dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-309421",
+      "form": "N-Q",
+      "filed": "2013-07-30",
+      "report_date": "2013-05-31",
+      "accepted_at": "2013-07-30T20:41:42.000Z",
+      "primary_document": "d570630dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-351768",
+      "form": "N-Q",
+      "filed": "2013-08-29",
+      "report_date": "2013-06-30",
+      "accepted_at": "2013-08-29T22:00:45.000Z",
+      "primary_document": "d587788dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-381883",
+      "form": "N-Q",
+      "filed": "2013-09-27",
+      "report_date": "2013-07-31",
+      "accepted_at": "2013-09-27T22:10:12.000Z",
+      "primary_document": "d600781dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-381912",
+      "form": "N-Q",
+      "filed": "2013-09-27",
+      "report_date": "2013-07-31",
+      "accepted_at": "2013-09-27T22:16:25.000Z",
+      "primary_document": "d600527dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-392676",
+      "form": "N-CSR",
+      "filed": "2013-10-07",
+      "report_date": "2013-07-31",
+      "accepted_at": "2013-10-07T21:10:00.000Z",
+      "primary_document": "d588642dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-434952",
+      "form": "N-CSRS",
+      "filed": "2013-11-08",
+      "report_date": "2013-08-31",
+      "accepted_at": "2013-11-09T00:46:04.000Z",
+      "primary_document": "d599858dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-011.json",
+      "accession": "0001193125-13-435455",
+      "form": "N-CSR",
+      "filed": "2013-11-08",
+      "report_date": "2013-08-31",
+      "accepted_at": "2013-11-09T03:06:30.000Z",
+      "primary_document": "d599895dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-13-466531",
+      "form": "N-CSRS",
+      "filed": "2013-12-09",
+      "report_date": "2013-09-30",
+      "accepted_at": "2013-12-10T00:48:15.000Z",
+      "primary_document": "d609194dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-13-486444",
+      "form": "N-Q",
+      "filed": "2013-12-27",
+      "report_date": "2013-10-31",
+      "accepted_at": "2013-12-28T03:20:02.000Z",
+      "primary_document": "d647093dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-005487",
+      "form": "N-CSRS",
+      "filed": "2014-01-08",
+      "report_date": "2013-10-31",
+      "accepted_at": "2014-01-09T02:53:25.000Z",
+      "primary_document": "d636471dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-006312",
+      "form": "N-CSR",
+      "filed": "2014-01-09",
+      "report_date": "2013-10-31",
+      "accepted_at": "2014-01-09T22:25:21.000Z",
+      "primary_document": "d636306dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-020119",
+      "form": "N-Q",
+      "filed": "2014-01-24",
+      "report_date": "2013-11-30",
+      "accepted_at": "2014-01-25T00:02:13.000Z",
+      "primary_document": "d661864dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-020193",
+      "form": "N-Q",
+      "filed": "2014-01-24",
+      "report_date": "2013-11-30",
+      "accepted_at": "2014-01-25T00:28:33.000Z",
+      "primary_document": "d662116dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-076476",
+      "form": "N-Q",
+      "filed": "2014-02-28",
+      "report_date": "2013-12-31",
+      "accepted_at": "2014-03-01T00:12:50.000Z",
+      "primary_document": "d678190dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-125580",
+      "form": "N-Q",
+      "filed": "2014-04-01",
+      "report_date": "2014-01-31",
+      "accepted_at": "2014-04-01T21:18:21.000Z",
+      "primary_document": "d694277dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-125603",
+      "form": "N-Q",
+      "filed": "2014-04-01",
+      "report_date": "2014-01-31",
+      "accepted_at": "2014-04-01T21:27:23.000Z",
+      "primary_document": "d693957dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-127770",
+      "form": "N-CSRS",
+      "filed": "2014-04-02",
+      "report_date": "2014-01-31",
+      "accepted_at": "2014-04-02T22:16:21.000Z",
+      "primary_document": "d666619dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-184296",
+      "form": "N-CSR",
+      "filed": "2014-05-06",
+      "report_date": "2014-02-28",
+      "accepted_at": "2014-05-06T20:57:11.000Z",
+      "primary_document": "d699829dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-184326",
+      "form": "N-CSRS",
+      "filed": "2014-05-06",
+      "report_date": "2014-02-28",
+      "accepted_at": "2014-05-06T21:04:26.000Z",
+      "primary_document": "d699518dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-230537",
+      "form": "N-CSR",
+      "filed": "2014-06-09",
+      "report_date": "2014-03-31",
+      "accepted_at": "2014-06-10T01:06:12.000Z",
+      "primary_document": "d714017dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-251746",
+      "form": "N-Q",
+      "filed": "2014-06-27",
+      "report_date": "2014-04-30",
+      "accepted_at": "2014-06-27T04:17:50.000Z",
+      "primary_document": "d741407dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-261698",
+      "form": "N-CSRS",
+      "filed": "2014-07-07",
+      "report_date": "2014-04-30",
+      "accepted_at": "2014-07-07T21:18:38.000Z",
+      "primary_document": "d733537dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-261748",
+      "form": "N-CSR",
+      "filed": "2014-07-07",
+      "report_date": "2014-04-30",
+      "accepted_at": "2014-07-07T22:05:29.000Z",
+      "primary_document": "d732193dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-286268",
+      "form": "N-Q",
+      "filed": "2014-07-30",
+      "report_date": "2014-05-31",
+      "accepted_at": "2014-07-30T20:19:23.000Z",
+      "primary_document": "d761407dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-286367",
+      "form": "N-Q",
+      "filed": "2014-07-30",
+      "report_date": "2014-05-31",
+      "accepted_at": "2014-07-30T21:02:03.000Z",
+      "primary_document": "d761482dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-327134",
+      "form": "N-Q",
+      "filed": "2014-08-29",
+      "report_date": "2014-06-30",
+      "accepted_at": "2014-08-29T22:06:00.000Z",
+      "primary_document": "d778190dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-357238",
+      "form": "N-Q",
+      "filed": "2014-09-29",
+      "report_date": "2014-07-31",
+      "accepted_at": "2014-09-30T00:34:25.000Z",
+      "primary_document": "d792086dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-357258",
+      "form": "N-Q",
+      "filed": "2014-09-29",
+      "report_date": "2014-07-31",
+      "accepted_at": "2014-09-30T00:39:36.000Z",
+      "primary_document": "d792169dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-366601",
+      "form": "N-CSR",
+      "filed": "2014-10-08",
+      "report_date": "2014-07-31",
+      "accepted_at": "2014-10-08T23:17:34.000Z",
+      "primary_document": "d779862dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-406286",
+      "form": "N-CSR",
+      "filed": "2014-11-10",
+      "report_date": "2014-08-31",
+      "accepted_at": "2014-11-11T03:04:35.000Z",
+      "primary_document": "d794269dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-406292",
+      "form": "N-CSRS",
+      "filed": "2014-11-10",
+      "report_date": "2014-08-31",
+      "accepted_at": "2014-11-11T03:05:43.000Z",
+      "primary_document": "d794293dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-434445",
+      "form": "N-CSRS",
+      "filed": "2014-12-05",
+      "report_date": "2014-09-30",
+      "accepted_at": "2014-12-05T22:08:10.000Z",
+      "primary_document": "d804519dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-14-455465",
+      "form": "N-Q",
+      "filed": "2014-12-29",
+      "report_date": "2014-10-31",
+      "accepted_at": "2014-12-30T02:15:31.000Z",
+      "primary_document": "d840348dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-004159",
+      "form": "N-CSR",
+      "filed": "2015-01-08",
+      "report_date": "2014-10-31",
+      "accepted_at": "2015-01-08T04:09:31.000Z",
+      "primary_document": "d824821dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-004166",
+      "form": "N-CSRS",
+      "filed": "2015-01-08",
+      "report_date": "2014-10-31",
+      "accepted_at": "2015-01-08T04:15:54.000Z",
+      "primary_document": "d824775dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-021777",
+      "form": "N-Q",
+      "filed": "2015-01-27",
+      "report_date": "2014-11-30",
+      "accepted_at": "2015-01-28T01:58:11.000Z",
+      "primary_document": "d854008dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-021812",
+      "form": "N-Q",
+      "filed": "2015-01-27",
+      "report_date": "2014-11-30",
+      "accepted_at": "2015-01-28T02:10:51.000Z",
+      "primary_document": "d854014dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-065725",
+      "form": "N-Q",
+      "filed": "2015-02-26",
+      "report_date": "2014-12-31",
+      "accepted_at": "2015-02-27T02:23:38.000Z",
+      "primary_document": "d875299dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-111396",
+      "form": "N-Q",
+      "filed": "2015-03-30",
+      "report_date": "2015-01-31",
+      "accepted_at": "2015-03-30T22:38:51.000Z",
+      "primary_document": "d894435dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-111440",
+      "form": "N-Q",
+      "filed": "2015-03-30",
+      "report_date": "2015-01-31",
+      "accepted_at": "2015-03-30T22:52:47.000Z",
+      "primary_document": "d894277dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-122693",
+      "form": "N-CSRS",
+      "filed": "2015-04-08",
+      "report_date": "2015-01-31",
+      "accepted_at": "2015-04-08T23:50:12.000Z",
+      "primary_document": "d875397dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-179106",
+      "form": "N-CSRS",
+      "filed": "2015-05-08",
+      "report_date": "2015-02-28",
+      "accepted_at": "2015-05-08T21:24:48.000Z",
+      "primary_document": "d900101dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-179147",
+      "form": "N-CSR",
+      "filed": "2015-05-08",
+      "report_date": "2015-02-28",
+      "accepted_at": "2015-05-08T21:42:20.000Z",
+      "primary_document": "d900191dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-216083",
+      "form": "N-CSR",
+      "filed": "2015-06-08",
+      "report_date": "2015-03-31",
+      "accepted_at": "2015-06-08T21:35:40.000Z",
+      "primary_document": "d914945dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-238848",
+      "form": "N-Q",
+      "filed": "2015-06-29",
+      "report_date": "2015-04-30",
+      "accepted_at": "2015-06-29T22:56:42.000Z",
+      "primary_document": "d944131dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-248922",
+      "form": "N-CSR",
+      "filed": "2015-07-09",
+      "report_date": "2015-04-30",
+      "accepted_at": "2015-07-09T21:41:29.000Z",
+      "primary_document": "d927296dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-249104",
+      "form": "N-CSRS",
+      "filed": "2015-07-09",
+      "report_date": "2015-04-30",
+      "accepted_at": "2015-07-10T00:18:42.000Z",
+      "primary_document": "d927141dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-267560",
+      "form": "N-Q",
+      "filed": "2015-07-29",
+      "report_date": "2015-05-31",
+      "accepted_at": "2015-07-29T19:41:45.000Z",
+      "primary_document": "d22692dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-267608",
+      "form": "N-Q",
+      "filed": "2015-07-29",
+      "report_date": "2015-05-31",
+      "accepted_at": "2015-07-29T20:04:07.000Z",
+      "primary_document": "d78040dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-306363",
+      "form": "N-Q",
+      "filed": "2015-08-28",
+      "report_date": "2015-06-30",
+      "accepted_at": "2015-08-28T21:12:49.000Z",
+      "primary_document": "d59070dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-332397",
+      "form": "N-Q",
+      "filed": "2015-09-29",
+      "report_date": "2015-07-31",
+      "accepted_at": "2015-09-29T22:57:54.000Z",
+      "primary_document": "d13480dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-332400",
+      "form": "N-Q",
+      "filed": "2015-09-29",
+      "report_date": "2015-07-31",
+      "accepted_at": "2015-09-29T22:58:03.000Z",
+      "primary_document": "d25151dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-339410",
+      "form": "N-CSR",
+      "filed": "2015-10-07",
+      "report_date": "2015-07-31",
+      "accepted_at": "2015-10-08T00:30:16.000Z",
+      "primary_document": "d98289dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-370512",
+      "form": "N-CSR",
+      "filed": "2015-11-09",
+      "report_date": "2015-08-31",
+      "accepted_at": "2015-11-07T05:16:33.000Z",
+      "primary_document": "d44151dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-370524",
+      "form": "N-CSRS",
+      "filed": "2015-11-09",
+      "report_date": "2015-08-31",
+      "accepted_at": "2015-11-07T05:32:43.000Z",
+      "primary_document": "d74466dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-010.json",
+      "accession": "0001193125-15-396474",
+      "form": "N-CSRS",
+      "filed": "2015-12-07",
+      "report_date": "2015-09-30",
+      "accepted_at": "2015-12-08T01:56:36.000Z",
+      "primary_document": "d93555dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-15-417685",
+      "form": "N-Q",
+      "filed": "2015-12-30",
+      "report_date": "2015-10-31",
+      "accepted_at": "2015-12-31T02:21:14.000Z",
+      "primary_document": "d109159dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-425035",
+      "form": "N-CSRS",
+      "filed": "2016-01-08",
+      "report_date": "2015-10-31",
+      "accepted_at": "2016-01-09T03:01:27.000Z",
+      "primary_document": "d215134dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-425087",
+      "form": "N-CSR",
+      "filed": "2016-01-08",
+      "report_date": "2015-10-31",
+      "accepted_at": "2016-01-09T03:16:57.000Z",
+      "primary_document": "d215085dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-444110",
+      "form": "N-Q",
+      "filed": "2016-01-29",
+      "report_date": "2015-11-30",
+      "accepted_at": "2016-01-30T02:13:09.000Z",
+      "primary_document": "d116177dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-444155",
+      "form": "N-Q",
+      "filed": "2016-01-29",
+      "report_date": "2015-11-30",
+      "accepted_at": "2016-01-30T02:18:59.000Z",
+      "primary_document": "d119237dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-480933",
+      "form": "N-Q",
+      "filed": "2016-02-26",
+      "report_date": "2015-12-31",
+      "accepted_at": "2016-02-26T23:14:01.000Z",
+      "primary_document": "d146052dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-523909",
+      "form": "N-Q",
+      "filed": "2016-03-30",
+      "report_date": "2016-01-31",
+      "accepted_at": "2016-03-31T00:48:43.000Z",
+      "primary_document": "d161871dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-523941",
+      "form": "N-Q",
+      "filed": "2016-03-30",
+      "report_date": "2016-01-31",
+      "accepted_at": "2016-03-31T00:57:06.000Z",
+      "primary_document": "d139368dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-530536",
+      "form": "N-CSRS",
+      "filed": "2016-04-05",
+      "report_date": "2016-01-31",
+      "accepted_at": "2016-04-05T22:39:49.000Z",
+      "primary_document": "d149134dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-577164",
+      "form": "N-CSR",
+      "filed": "2016-05-04",
+      "report_date": "2016-02-29",
+      "accepted_at": "2016-05-04T22:11:06.000Z",
+      "primary_document": "d167756dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-577184",
+      "form": "N-CSRS",
+      "filed": "2016-05-04",
+      "report_date": "2016-02-29",
+      "accepted_at": "2016-05-04T22:19:30.000Z",
+      "primary_document": "d143340dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-613829",
+      "form": "N-CSR",
+      "filed": "2016-06-06",
+      "report_date": "2016-03-31",
+      "accepted_at": "2016-06-06T22:59:07.000Z",
+      "primary_document": "d184535dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-636214",
+      "form": "N-Q",
+      "filed": "2016-06-29",
+      "report_date": "2016-04-30",
+      "accepted_at": "2016-06-29T21:20:14.000Z",
+      "primary_document": "d207187dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-644372",
+      "form": "N-CSRS",
+      "filed": "2016-07-08",
+      "report_date": "2016-04-30",
+      "accepted_at": "2016-07-08T22:00:55.000Z",
+      "primary_document": "d195728dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-644383",
+      "form": "N-CSR",
+      "filed": "2016-07-08",
+      "report_date": "2016-04-30",
+      "accepted_at": "2016-07-08T22:13:56.000Z",
+      "primary_document": "d171028dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-664263",
+      "form": "N-Q",
+      "filed": "2016-07-29",
+      "report_date": "2016-05-31",
+      "accepted_at": "2016-07-29T22:47:11.000Z",
+      "primary_document": "d205054dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-664395",
+      "form": "N-Q",
+      "filed": "2016-07-29",
+      "report_date": "2016-05-31",
+      "accepted_at": "2016-07-29T23:20:53.000Z",
+      "primary_document": "d204981dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-695276",
+      "form": "N-Q",
+      "filed": "2016-08-29",
+      "report_date": "2016-06-30",
+      "accepted_at": "2016-08-29T21:37:08.000Z",
+      "primary_document": "d231174dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-725269",
+      "form": "N-Q",
+      "filed": "2016-09-29",
+      "report_date": "2016-07-31",
+      "accepted_at": "2016-09-29T21:57:27.000Z",
+      "primary_document": "d252328dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-725764",
+      "form": "N-Q",
+      "filed": "2016-09-29",
+      "report_date": "2016-07-31",
+      "accepted_at": "2016-09-30T00:29:43.000Z",
+      "primary_document": "d261049dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-733651",
+      "form": "N-CSR",
+      "filed": "2016-10-07",
+      "report_date": "2016-07-31",
+      "accepted_at": "2016-10-07T21:46:28.000Z",
+      "primary_document": "d208440dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-761693",
+      "form": "N-CSR",
+      "filed": "2016-11-07",
+      "report_date": "2016-08-31",
+      "accepted_at": "2016-11-08T02:21:31.000Z",
+      "primary_document": "d203723dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-761709",
+      "form": "N-CSRS",
+      "filed": "2016-11-07",
+      "report_date": "2016-08-31",
+      "accepted_at": "2016-11-08T02:27:56.000Z",
+      "primary_document": "d426114dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-788378",
+      "form": "N-CSRS",
+      "filed": "2016-12-08",
+      "report_date": "2016-09-30",
+      "accepted_at": "2016-12-09T00:57:38.000Z",
+      "primary_document": "d270106dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-16-807361",
+      "form": "N-Q",
+      "filed": "2016-12-29",
+      "report_date": "2016-10-31",
+      "accepted_at": "2016-12-30T02:36:35.000Z",
+      "primary_document": "d291667dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-004368",
+      "form": "N-CSR",
+      "filed": "2017-01-06",
+      "report_date": "2016-10-31",
+      "accepted_at": "2017-01-07T01:12:21.000Z",
+      "primary_document": "d272978dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-004472",
+      "form": "N-CSRS",
+      "filed": "2017-01-06",
+      "report_date": "2016-10-31",
+      "accepted_at": "2017-01-07T01:42:16.000Z",
+      "primary_document": "d295481dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-021416",
+      "form": "N-Q",
+      "filed": "2017-01-27",
+      "report_date": "2016-11-30",
+      "accepted_at": "2017-01-28T00:03:10.000Z",
+      "primary_document": "d334012dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-021434",
+      "form": "N-Q",
+      "filed": "2017-01-27",
+      "report_date": "2016-11-30",
+      "accepted_at": "2017-01-28T00:15:51.000Z",
+      "primary_document": "d325028dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-065125",
+      "form": "N-Q",
+      "filed": "2017-03-01",
+      "report_date": "2016-12-31",
+      "accepted_at": "2017-03-02T00:38:08.000Z",
+      "primary_document": "d346678dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-106622",
+      "form": "N-Q",
+      "filed": "2017-03-31",
+      "report_date": "2017-01-31",
+      "accepted_at": "2017-04-01T00:26:51.000Z",
+      "primary_document": "d323454dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-106629",
+      "form": "N-Q",
+      "filed": "2017-03-31",
+      "report_date": "2017-01-31",
+      "accepted_at": "2017-04-01T00:28:21.000Z",
+      "primary_document": "d323462dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-118338",
+      "form": "N-CSRS",
+      "filed": "2017-04-10",
+      "report_date": "2017-01-31",
+      "accepted_at": "2017-04-10T23:52:45.000Z",
+      "primary_document": "d257691dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-159127",
+      "form": "N-CSR",
+      "filed": "2017-05-05",
+      "report_date": "2017-02-28",
+      "accepted_at": "2017-05-05T02:34:18.000Z",
+      "primary_document": "d327618dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-159134",
+      "form": "N-CSRS",
+      "filed": "2017-05-05",
+      "report_date": "2017-02-28",
+      "accepted_at": "2017-05-05T02:43:54.000Z",
+      "primary_document": "d361801dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-194722",
+      "form": "N-CSR",
+      "filed": "2017-06-05",
+      "report_date": "2017-03-31",
+      "accepted_at": "2017-06-06T00:54:56.000Z",
+      "primary_document": "d335700dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-218038",
+      "form": "N-Q",
+      "filed": "2017-06-29",
+      "report_date": "2017-04-30",
+      "accepted_at": "2017-06-29T22:34:33.000Z",
+      "primary_document": "d404850dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-224115",
+      "form": "N-CSR",
+      "filed": "2017-07-07",
+      "report_date": "2017-04-30",
+      "accepted_at": "2017-07-07T22:19:23.000Z",
+      "primary_document": "d388708dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-224121",
+      "form": "N-CSRS",
+      "filed": "2017-07-07",
+      "report_date": "2017-04-30",
+      "accepted_at": "2017-07-07T22:24:57.000Z",
+      "primary_document": "d388717dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-240653",
+      "form": "N-Q",
+      "filed": "2017-07-28",
+      "report_date": "2017-05-31",
+      "accepted_at": "2017-07-29T00:57:57.000Z",
+      "primary_document": "d419810dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-240660",
+      "form": "N-Q",
+      "filed": "2017-07-28",
+      "report_date": "2017-05-31",
+      "accepted_at": "2017-07-29T00:58:42.000Z",
+      "primary_document": "d427898dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-257378",
+      "form": "N-CSRS/A",
+      "filed": "2017-08-14",
+      "report_date": "2016-09-30",
+      "accepted_at": "2017-08-15T01:09:35.000Z",
+      "primary_document": "d441273dncsrsa.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-257381",
+      "form": "N-CSR/A",
+      "filed": "2017-08-14",
+      "report_date": "2016-10-31",
+      "accepted_at": "2017-08-15T01:11:59.000Z",
+      "primary_document": "d439390dncsra.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-257387",
+      "form": "N-CSR/A",
+      "filed": "2017-08-14",
+      "report_date": "2017-03-31",
+      "accepted_at": "2017-08-15T01:15:12.000Z",
+      "primary_document": "d426597dncsra.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-257388",
+      "form": "N-CSRS/A",
+      "filed": "2017-08-14",
+      "report_date": "2017-04-30",
+      "accepted_at": "2017-08-15T01:17:02.000Z",
+      "primary_document": "d383393dncsrsa.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-271743",
+      "form": "N-Q",
+      "filed": "2017-08-29",
+      "report_date": "2017-06-30",
+      "accepted_at": "2017-08-29T21:48:52.000Z",
+      "primary_document": "d438168dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-299165",
+      "form": "N-Q",
+      "filed": "2017-09-29",
+      "report_date": "2017-07-31",
+      "accepted_at": "2017-09-29T20:55:42.000Z",
+      "primary_document": "d447219dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-299200",
+      "form": "N-Q",
+      "filed": "2017-09-29",
+      "report_date": "2017-07-31",
+      "accepted_at": "2017-09-29T21:16:44.000Z",
+      "primary_document": "d447215dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-009.json",
+      "accession": "0001193125-17-305873",
+      "form": "N-CSR",
+      "filed": "2017-10-06",
+      "report_date": "2017-07-31",
+      "accepted_at": "2017-10-07T00:06:50.000Z",
+      "primary_document": "d261930dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-17-338585",
+      "form": "N-CSR",
+      "filed": "2017-11-09",
+      "report_date": "2017-08-31",
+      "accepted_at": "2017-11-10T00:47:28.000Z",
+      "primary_document": "d451705dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-17-338652",
+      "form": "N-CSRS",
+      "filed": "2017-11-09",
+      "report_date": "2017-08-31",
+      "accepted_at": "2017-11-10T01:23:12.000Z",
+      "primary_document": "d451005dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-17-359934",
+      "form": "N-CSRS",
+      "filed": "2017-12-04",
+      "report_date": "2017-09-30",
+      "accepted_at": "2017-12-04T23:04:28.000Z",
+      "primary_document": "d462369dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-17-381617",
+      "form": "N-Q",
+      "filed": "2017-12-28",
+      "report_date": "2017-10-31",
+      "accepted_at": "2017-12-29T02:25:31.000Z",
+      "primary_document": "d511303dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-007060",
+      "form": "N-CSR",
+      "filed": "2018-01-09",
+      "report_date": "2017-10-31",
+      "accepted_at": "2018-01-10T00:19:54.000Z",
+      "primary_document": "d433868dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-007074",
+      "form": "N-CSRS",
+      "filed": "2018-01-09",
+      "report_date": "2017-10-31",
+      "accepted_at": "2018-01-10T00:27:57.000Z",
+      "primary_document": "d464869dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-009766",
+      "form": "N-CSR/A",
+      "filed": "2018-01-12",
+      "report_date": "2017-03-31",
+      "accepted_at": "2018-01-12T21:50:26.000Z",
+      "primary_document": "d491396dncsra.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-023200",
+      "form": "N-Q",
+      "filed": "2018-01-29",
+      "report_date": "2017-11-30",
+      "accepted_at": "2018-01-29T23:32:44.000Z",
+      "primary_document": "d524793dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-023208",
+      "form": "N-Q",
+      "filed": "2018-01-29",
+      "report_date": "2017-11-30",
+      "accepted_at": "2018-01-29T23:34:07.000Z",
+      "primary_document": "d519552dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-063612",
+      "form": "N-Q",
+      "filed": "2018-02-28",
+      "report_date": "2017-12-31",
+      "accepted_at": "2018-03-01T01:02:56.000Z",
+      "primary_document": "d539192dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-101353",
+      "form": "N-Q",
+      "filed": "2018-03-29",
+      "report_date": "2018-01-31",
+      "accepted_at": "2018-03-29T21:21:55.000Z",
+      "primary_document": "d542927dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-101391",
+      "form": "N-Q",
+      "filed": "2018-03-29",
+      "report_date": "2018-01-31",
+      "accepted_at": "2018-03-29T21:34:43.000Z",
+      "primary_document": "d554032dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-109796",
+      "form": "N-CSRS",
+      "filed": "2018-04-06",
+      "report_date": "2018-01-31",
+      "accepted_at": "2018-04-06T22:10:14.000Z",
+      "primary_document": "d519777dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-152961",
+      "form": "N-CSR/A",
+      "filed": "2018-05-04",
+      "report_date": "2017-03-31",
+      "accepted_at": "2018-05-05T01:05:23.000Z",
+      "primary_document": "d575725dncsra.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-152980",
+      "form": "N-CSRS/A",
+      "filed": "2018-05-04",
+      "report_date": "2017-04-30",
+      "accepted_at": "2018-05-05T01:10:30.000Z",
+      "primary_document": "d577399dncsrsa.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-152989",
+      "form": "N-CSR/A",
+      "filed": "2018-05-04",
+      "report_date": "2017-07-31",
+      "accepted_at": "2018-05-05T01:12:22.000Z",
+      "primary_document": "d577150dncsra.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-152996",
+      "form": "N-CSRS/A",
+      "filed": "2018-05-04",
+      "report_date": "2017-09-30",
+      "accepted_at": "2018-05-05T01:14:47.000Z",
+      "primary_document": "d577154dncsrsa.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-153003",
+      "form": "N-CSR/A",
+      "filed": "2018-05-04",
+      "report_date": "2017-08-31",
+      "accepted_at": "2018-05-05T01:17:59.000Z",
+      "primary_document": "d543984dncsra.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-153019",
+      "form": "N-CSRS/A",
+      "filed": "2018-05-04",
+      "report_date": "2017-08-31",
+      "accepted_at": "2018-05-05T01:22:57.000Z",
+      "primary_document": "d543984dncsrsa.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-153027",
+      "form": "N-CSR/A",
+      "filed": "2018-05-04",
+      "report_date": "2017-10-31",
+      "accepted_at": "2018-05-05T01:26:00.000Z",
+      "primary_document": "d583771dncsra.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-153042",
+      "form": "N-CSRS/A",
+      "filed": "2018-05-04",
+      "report_date": "2017-10-31",
+      "accepted_at": "2018-05-05T01:29:14.000Z",
+      "primary_document": "d583771dncsrsa.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-154444",
+      "form": "N-CSR",
+      "filed": "2018-05-07",
+      "report_date": "2018-02-28",
+      "accepted_at": "2018-05-08T00:13:23.000Z",
+      "primary_document": "d555869dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-154485",
+      "form": "N-CSRS",
+      "filed": "2018-05-07",
+      "report_date": "2018-02-28",
+      "accepted_at": "2018-05-08T00:25:22.000Z",
+      "primary_document": "d554162dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-186572",
+      "form": "N-CSR",
+      "filed": "2018-06-07",
+      "report_date": "2018-03-31",
+      "accepted_at": "2018-06-07T22:04:37.000Z",
+      "primary_document": "d544791dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-209526",
+      "form": "N-Q",
+      "filed": "2018-06-29",
+      "report_date": "2018-04-30",
+      "accepted_at": "2018-06-29T23:16:49.000Z",
+      "primary_document": "d586926dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-214408",
+      "form": "N-CSRS",
+      "filed": "2018-07-09",
+      "report_date": "2018-04-30",
+      "accepted_at": "2018-07-09T19:23:51.000Z",
+      "primary_document": "d594133dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-214448",
+      "form": "N-CSR",
+      "filed": "2018-07-09",
+      "report_date": "2018-04-30",
+      "accepted_at": "2018-07-09T19:48:31.000Z",
+      "primary_document": "d579884dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-231024",
+      "form": "N-Q",
+      "filed": "2018-07-30",
+      "report_date": "2018-05-31",
+      "accepted_at": "2018-07-30T21:02:20.000Z",
+      "primary_document": "d706180dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-231054",
+      "form": "N-Q",
+      "filed": "2018-07-30",
+      "report_date": "2018-05-31",
+      "accepted_at": "2018-07-30T21:15:37.000Z",
+      "primary_document": "d707737dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-261300",
+      "form": "N-Q",
+      "filed": "2018-08-29",
+      "report_date": "2018-06-30",
+      "accepted_at": "2018-08-29T17:48:42.000Z",
+      "primary_document": "d577177dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-286884",
+      "form": "N-Q",
+      "filed": "2018-09-28",
+      "report_date": "2018-07-31",
+      "accepted_at": "2018-09-28T19:41:51.000Z",
+      "primary_document": "d604311dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-286939",
+      "form": "N-Q",
+      "filed": "2018-09-28",
+      "report_date": "2018-07-31",
+      "accepted_at": "2018-09-28T20:23:21.000Z",
+      "primary_document": "d624075dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-294306",
+      "form": "N-CSR",
+      "filed": "2018-10-05",
+      "report_date": "2018-07-31",
+      "accepted_at": "2018-10-05T19:04:14.000Z",
+      "primary_document": "d617786dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-323235",
+      "form": "N-CSR",
+      "filed": "2018-11-09",
+      "report_date": "2018-08-31",
+      "accepted_at": "2018-11-09T19:13:14.000Z",
+      "primary_document": "d618719dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-323238",
+      "form": "N-CSRS",
+      "filed": "2018-11-09",
+      "report_date": "2018-08-31",
+      "accepted_at": "2018-11-09T19:15:07.000Z",
+      "primary_document": "d626855dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-344229",
+      "form": "N-CSRS",
+      "filed": "2018-12-07",
+      "report_date": "2018-09-30",
+      "accepted_at": "2018-12-07T18:04:05.000Z",
+      "primary_document": "d586605dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-18-360251",
+      "form": "N-Q",
+      "filed": "2018-12-28",
+      "report_date": "2018-10-31",
+      "accepted_at": "2018-12-28T19:29:59.000Z",
+      "primary_document": "d677589dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-003231",
+      "form": "N-CSR",
+      "filed": "2019-01-07",
+      "report_date": "2018-10-31",
+      "accepted_at": "2019-01-07T18:27:58.000Z",
+      "primary_document": "d666306dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-003301",
+      "form": "N-CSRS",
+      "filed": "2019-01-07",
+      "report_date": "2018-10-31",
+      "accepted_at": "2019-01-07T19:15:00.000Z",
+      "primary_document": "d654445dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-019951",
+      "form": "N-Q",
+      "filed": "2019-01-29",
+      "report_date": "2018-11-30",
+      "accepted_at": "2019-01-29T19:54:18.000Z",
+      "primary_document": "d689714dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-020029",
+      "form": "N-Q",
+      "filed": "2019-01-29",
+      "report_date": "2018-11-30",
+      "accepted_at": "2019-01-29T20:17:31.000Z",
+      "primary_document": "d650458dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-059323",
+      "form": "N-Q",
+      "filed": "2019-03-01",
+      "report_date": "2018-12-31",
+      "accepted_at": "2019-03-01T18:18:09.000Z",
+      "primary_document": "d655820dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-093619",
+      "form": "N-Q",
+      "filed": "2019-04-01",
+      "report_date": "2019-01-31",
+      "accepted_at": "2019-04-01T15:52:21.000Z",
+      "primary_document": "d684786dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-093659",
+      "form": "N-Q",
+      "filed": "2019-04-01",
+      "report_date": "2019-01-31",
+      "accepted_at": "2019-04-01T16:10:54.000Z",
+      "primary_document": "d719582dnq.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-100281",
+      "form": "N-CSRS",
+      "filed": "2019-04-08",
+      "report_date": "2019-01-31",
+      "accepted_at": "2019-04-08T20:16:29.000Z",
+      "primary_document": "d655826dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-139051",
+      "form": "N-CSRS",
+      "filed": "2019-05-07",
+      "report_date": "2019-02-28",
+      "accepted_at": "2019-05-07T17:28:40.000Z",
+      "primary_document": "d611424dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-139103",
+      "form": "N-CSR",
+      "filed": "2019-05-07",
+      "report_date": "2019-02-28",
+      "accepted_at": "2019-05-07T17:59:35.000Z",
+      "primary_document": "d627688dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-167652",
+      "form": "N-CSR",
+      "filed": "2019-06-07",
+      "report_date": "2019-03-31",
+      "accepted_at": "2019-06-07T16:00:36.000Z",
+      "primary_document": "d738391dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-189479",
+      "form": "N-CSR",
+      "filed": "2019-07-05",
+      "report_date": "2019-04-30",
+      "accepted_at": "2019-07-05T17:11:39.000Z",
+      "primary_document": "d716467dncsr.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-189491",
+      "form": "N-CSRS",
+      "filed": "2019-07-05",
+      "report_date": "2019-04-30",
+      "accepted_at": "2019-07-05T17:18:18.000Z",
+      "primary_document": "d716463dncsrs.htm"
+    },
+    {
+      "sidecar": "CIK0001100663-submissions-008.json",
+      "accession": "0001193125-19-206657",
+      "form": "N-CSRS/A",
+      "filed": "2019-07-30",
+      "report_date": "2018-10-31",
+      "accepted_at": "2019-07-30T20:16:14.000Z",
+      "primary_document": "d762689dncsrsa.htm"
+    }
+  ]
+}

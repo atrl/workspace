@@ -1,0 +1,31 @@
+{
+  "status": "four_sidecars_archived_candidate_inventory_only",
+  "error": null,
+  "GET_attempts": 4,
+  "sidecars_received": 4,
+  "candidate_form_rows": 215,
+  "candidate_form_counts": {
+    "N-Q": 99,
+    "N-Q/A": 0,
+    "N-CSR": 51,
+    "N-CSR/A": 7,
+    "N-CSRS": 51,
+    "N-CSRS/A": 7
+  },
+  "candidate_filing_first": "2011-03-01",
+  "candidate_filing_last": "2019-07-30",
+  "range_discrepancies": [
+    "CIK0001100663-submissions-011.json",
+    "CIK0001100663-submissions-010.json",
+    "CIK0001100663-submissions-009.json",
+    "CIK0001100663-submissions-008.json"
+  ],
+  "nas_archive_sha256": "e1194e5874e4fd46b70354e91ee47cd742421425dc81c71f617c4549e2505c4c",
+  "nas_archive_bytes": 194775,
+  "nas_remote_and_scoped_restore_verified": true,
+  "SOXX_series_schedule_qualified": false,
+  "full_training_feature_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

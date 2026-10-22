@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "four_official_SEC_trust_submissions_sidecar_inventory_source_only",
+  "question": "Do the four SEC trust filing-history sidecars spanning 2011-2018 contain dated N-Q/N-CSR/N-CSRS candidates that could later be checked for original SOXX disclosed schedules across the early Stage1 training era?",
+  "parent_source": {
+    "card": "research/stage1_soxx_legacy_filing_index_20261023",
+    "raw_path": "data/snapshots/stage1_soxx_legacy_filing_index_20261023/submissions_CIK0001100663.json",
+    "raw_sha256": "3f42f7e7884e137089f7dd15a0e8ca30ae13899e7665d2f012bae0b692162c2f",
+    "nas_archive_sha256": "8d2c99e9b8257699ad5eda2255c3040d8e8e464a4214ea94cb2027fe90c00f4f",
+    "known_pre_signal_specimen": "research/stage1_soxx_legacy_filing_index_20261023/filing_2010_12_30_numeric_repair2_result.json",
+    "CIK": "0001100663"
+  },
+  "official_api_doc": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+  "sidecars_in_order": [
+    "CIK0001100663-submissions-011.json",
+    "CIK0001100663-submissions-010.json",
+    "CIK0001100663-submissions-009.json",
+    "CIK0001100663-submissions-008.json"
+  ],
+  "base_url": "https://data.sec.gov/submissions/",
+  "form_set": ["N-Q", "N-Q/A", "N-CSR", "N-CSR/A", "N-CSRS", "N-CSRS/A"],
+  "request": {"method": "GET", "user_agent": "SOXL research codex@openai.com", "connect_timeout_seconds": 10, "total_timeout_seconds": 60, "max_response_bytes_each": 12000000, "seconds_between_requests": 1, "retries": 0},
+  "inspection": "For each exact original sidecar, record HTTP status, raw bytes/SHA, response UTC times, and the SEC columnar filing counts/date range for the exact frozen form_set including amendments. Preserve all candidate accession, form, filing date, report date, acceptance timestamp and primary-document names in a compact inventory; do not inspect filing bodies or claim the trust filing contains SOXX.",
+  "budget": {"sidecar_GETs_max": 4, "filing_body_GETs": 0, "market_outcome_reads": 0, "Qlib_factor_rows": 0, "model_fits": 0, "native_accounts": 0},
+  "acceptance": "All four exact official sidecars are complete valid JSON, parent-index identity and date-range discrepancies are explicitly recorded without silently overriding either source, raw bytes and capture receipts are archived to NAS with remote SHA and scoped restoration. A source inventory alone does not qualify SOXX basket coverage, member prices, a feature or SOXX outperformance.",
+  "stop": "On HTTP, byte-size, JSON, CIK/filename, schema or NAS failure, preserve the partial exact receipts and stop this fixed batch. A parent date-range discrepancy is retained as source metadata rather than altered; it does not by itself license a filing-body inference. Do not fetch alternate URLs, filing bodies, market outcomes or refit models."
+}

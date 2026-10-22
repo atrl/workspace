@@ -1,0 +1,19 @@
+{
+  "experiment": "stage1_soxx_2011_2018_filing_inventory_20261023",
+  "decision": "official_four_historic_sidecars_archived_trust_candidates_only",
+  "result": "result.json",
+  "reconciliation": "reconciliation.json",
+  "matched_primary_base_form_accessions": 188,
+  "additional_2011_2018_amendment_rows": 13,
+  "GET_attempts": 4,
+  "candidate_form_rows": 215,
+  "NAS_archive_sha256": "e1194e5874e4fd46b70354e91ee47cd742421425dc81c71f617c4549e2505c4c",
+  "NAS_scoped_restore_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
