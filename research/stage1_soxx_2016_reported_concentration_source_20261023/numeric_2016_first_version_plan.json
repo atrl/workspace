@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "four_2016_first_filed_original_SOXX_equity_value_closure",
+  "source_transport_sha256": "129b52c21f40e17adb3696a2290a08c342e9c0d8fee973e51817fda00dd8c113",
+  "source_identity_sha256": "d7566ab6d02943e9804286568f5f17000e2e26eac5032e9d377f38268194b2a0",
+  "source_NAS_archive_sha256": "f43dc335e8e3cb90911997d9e22192f2070585db370715a56bf920855d645d05",
+  "later_September_amendment_excluded": {
+    "report_date": "2016-09-30",
+    "form": "N-CSRS/A",
+    "accession": "0001193125-17-257378",
+    "accepted_at_utc": "2017-08-15T01:09:35.000Z"
+  },
+  "reports": [
+    {
+      "report_date": "2016-03-31",
+      "form": "N-CSR",
+      "accession": "0001193125-16-613829",
+      "accepted_at_utc": "2016-06-06T22:59:07.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2016_reported_concentration_source_20261023/0001193125-16-613829_d184535dncsr.htm",
+      "raw_sha256": "b225d194a3667c201da0e49d247f0454e2ec239e1b4fdb1ba4eab6cde136a536",
+      "raw_bytes": 58064459,
+      "bounded_section_byte_range": [
+        32536338,
+        32586338
+      ],
+      "bounded_section_sha256": "c5ef57d39fd2c157817bbe8a52e990726494a02b833dd19e40b85c45b21700be",
+      "identity_method": "TOC_anchor_equity_header"
+    },
+    {
+      "report_date": "2016-06-30",
+      "form": "N-Q",
+      "accession": "0001193125-16-695276",
+      "accepted_at_utc": "2016-08-29T21:37:08.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2016_reported_concentration_source_20261023/0001193125-16-695276_d231174dnq.htm",
+      "raw_sha256": "3592c63ccdbd50d3691362fba398b44cd1f939c69eaaa4b62b70a892afb8e952",
+      "raw_bytes": 36883492,
+      "bounded_section_byte_range": [
+        20262753,
+        20312753
+      ],
+      "bounded_section_sha256": "57561b5fc2e892772201cc640d3303e000f1031fea968a2546943f16a3ddefff",
+      "identity_method": "inline_title"
+    },
+    {
+      "report_date": "2016-09-30",
+      "form": "N-CSRS",
+      "accession": "0001193125-16-788378",
+      "accepted_at_utc": "2016-12-09T00:57:38.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2016_reported_concentration_source_20261023/0001193125-16-788378_d270106dncsrs.htm",
+      "raw_sha256": "e82162b5465a3d1baf2192ae6065918494df1231407d1c9fa22acd57b61f9f72",
+      "raw_bytes": 56485211,
+      "bounded_section_byte_range": [
+        32142001,
+        32192001
+      ],
+      "bounded_section_sha256": "01c2ef06fbc274e068e89f83339c5f78039483310cf750393949b064506f8133",
+      "identity_method": "TOC_anchor_equity_header"
+    },
+    {
+      "report_date": "2016-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-17-065125",
+      "accepted_at_utc": "2017-03-02T00:38:08.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2016_reported_concentration_source_20261023/0001193125-17-065125_d346678dnq.htm",
+      "raw_sha256": "eefd3be6b9a3782623d7e1c1b38a59a83e55ba95c43ad3616d4f3303b3bdccea",
+      "raw_bytes": 36149720,
+      "bounded_section_byte_range": [
+        19651496,
+        19701496
+      ],
+      "bounded_section_sha256": "d8e789cde25b5c8db97d6205681557984dad17e7f1bd6f74c3fd21644b5cf5c9",
+      "identity_method": "inline_title"
+    }
+  ],
+  "parser": "Parse original common-stock Security/Shares/Value rows from each bounded section through TOTAL COMMON STOCKS, including immediately following (Cost: ...) amount when split across rows. Require 20-40 distinct positive-share/value equities, no ambiguous security-like row, and USD sum within one of printed total.",
+  "derived_values": [
+    "top5_disclosed_equity_value_share",
+    "herfindahl_sum_squared_disclosed_equity_weights"
+  ],
+  "budget": {
+    "raw_report_parses_max": 4,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If any source SHA/section/row/printed-total fails, first-version four-report source batch is incomplete; no survivor compaction or use of the later amendment as an earlier value.",
+  "boundary": "First original 2016 values precede the amendment but do not establish revision semantics or 2017-2022 and held source coverage."
+}
