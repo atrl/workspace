@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_2011_2022_FT900_original_monthly_PDF_intake",
+  "url_manifest": "full_training_url_manifest.json",
+  "url_manifest_sha256": "d99cbfe275b04ba571174eecac13aca6cd66afa7c584efa0cb7cf34d8fcd805f",
+  "source_identity": "Official Census/BEA monthly FT-900 full-report PDF for each 2011-01 through 2022-12 reference month. Use 143 correct official index month links plus the separately verified official-path August 2015 exception. Reuse four already archived exact PDFs.",
+  "purpose": "Establish exact source-byte and report-row coverage for a Stage1-derived semiconductor export-demand information hypothesis. This is source collection only, not a strategy forward day.",
+  "new_request_rule": "At most one HTTP GET for each of the 140 months without a verified local PDF. Never retry an uncertain request automatically. Stop on first HTTP, size, PDF-header or source-identity failure and preserve all receipts and bytes.",
+  "receipt_fields": [
+    "reference_month",
+    "exact_URL",
+    "UTC request and receive times",
+    "HTTP status, Date, Last-Modified, ETag, Content-Type and Content-Length",
+    "exact response byte count and SHA-256",
+    "reused source path and SHA-256 where applicable"
+  ],
+  "source_archive": "Create one NAS archive for each completed calendar year containing its 12 exact PDF bytes; verify the archive SHA-256 on NAS before calling the year backed up. Preserve local objects even after remote verification until a scoped restore/readback passes.",
+  "stop_if": [
+    "Any fixed URL fails, returns non-PDF or exceeds 4,000,000 bytes",
+    "A reused local byte hash no longer matches its frozen receipt",
+    "NAS upload or remote SHA-256 verification fails"
+  ],
+  "scientific_limits": [
+    "An original monthly report downloaded now is not proof of its historically first-public byte version.",
+    "A PDF URL or successful download is not proof of an Exhibit 7 semiconductor row or definition continuity; assess those separately after intake.",
+    "The 2012 end-use reclassification and later annual revisions must remain explicit; do not splice absolute levels or use a current API history as PIT.",
+    "No SOXX market outcomes, Qlib factor construction, model fit, account, order or promotion in this phase."
+  ],
+  "budget": {
+    "target_reference_months": 144,
+    "reused_exact_PDFs": 4,
+    "new_monthly_PDF_GETs_max": 140,
+    "yearly_NAS_archives_max": 12,
+    "market_outcome_reads": 0,
+    "factor_values": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  }
+}
