@@ -1,0 +1,114 @@
+{
+  "status": "two_native_abort_reports_identify_duplicate_OpenMP_during_torch_import",
+  "source": "macOS DiagnosticReports for the two no-fit ADS preflight kernels",
+  "reports": [
+    {
+      "name": "Python-2026-10-23-013803.ips",
+      "sha256": "833635b2b6d6ff528ecfab57933e18b62ac01bb2e62afd7bacdeb510e4dc68a0",
+      "pid": 48771,
+      "signal": "SIGABRT",
+      "top_frames": [
+        "__pthread_kill",
+        "pthread_kill",
+        "abort",
+        "__kmp_abort_process",
+        "__kmp_fatal",
+        "__kmp_register_library_startup()",
+        "__kmp_do_serial_initialize()",
+        "__kmp_get_global_thread_id_reg",
+        "omp_set_num_threads",
+        "initModule",
+        "_PyImport_RunModInitFunc",
+        "import_run_extension"
+      ],
+      "libomp_images": [
+        {
+          "uuid": "cfe72905-1c0a-304f-801e-a2da3397c9db",
+          "size": 491520
+        },
+        {
+          "uuid": "38c5aa50-6bad-3764-bf27-3fad9aab41ac",
+          "size": 507904
+        }
+      ]
+    },
+    {
+      "name": "Python-2026-10-23-013839.ips",
+      "sha256": "7355cf205fdc67b527afa101133266d5179710d2604d1e4d6e0760b7838ddf72",
+      "pid": 48878,
+      "signal": "SIGABRT",
+      "top_frames": [
+        "__pthread_kill",
+        "pthread_kill",
+        "abort",
+        "__kmp_abort_process",
+        "__kmp_fatal",
+        "__kmp_register_library_startup()",
+        "__kmp_do_serial_initialize()",
+        "__kmp_get_global_thread_id_reg",
+        "omp_set_num_threads",
+        "initModule",
+        "_PyImport_RunModInitFunc",
+        "import_run_extension"
+      ],
+      "libomp_images": [
+        {
+          "uuid": "cfe72905-1c0a-304f-801e-a2da3397c9db",
+          "size": 491520
+        },
+        {
+          "uuid": "38c5aa50-6bad-3764-bf27-3fad9aab41ac",
+          "size": 507904
+        }
+      ]
+    }
+  ],
+  "diagnosis": "Both kernels terminated with SIGABRT in __kmp_register_library_startup while libtorch_python initialized; each loaded two different libomp images. This is a native runtime conflict, not an ADS value, label, or information-gate result.",
+  "frozen_parent_model_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+  "static_pickle_base_features_count": 39,
+  "static_pickle_base_features": [
+    "soxl_ret3",
+    "soxl_ret5",
+    "soxl_ret10",
+    "soxl_ret20",
+    "soxl_ret60",
+    "soxx_ret3",
+    "soxx_ret5",
+    "soxx_ret10",
+    "soxx_ret20",
+    "soxx_ret60",
+    "relative_momentum20",
+    "soxx_trend20",
+    "soxx_trend60",
+    "trend_efficiency_20",
+    "levered_decay_20",
+    "soxx_lead_10",
+    "range_pos_252",
+    "cross_breadth_pos_20",
+    "cross_breadth_pos_60",
+    "semis_vs_cross_20",
+    "semis_vs_cross_60",
+    "tech_breadth_20",
+    "tech_breadth_60",
+    "soxx_vol20",
+    "soxx_drawdown60",
+    "dist_high_252",
+    "vix",
+    "vix_chg5",
+    "vix_z_60",
+    "rv20",
+    "rv60",
+    "rv20_expansion",
+    "tracking_error_5_z20",
+    "tracking_error_5_pctile60",
+    "panic_reversal_5",
+    "chop_breakdown_risk",
+    "high_chop_pressure",
+    "cross_vol_breadth_high",
+    "cross_dispersion_20"
+  ],
+  "safe_repair": "Preserve the frozen model artifact hash. Extract its base_features list with pickletools without unpickling/importing MinutePitAllocator and torch; verify 39 exact names against the native Stage1 features Recorder object. Do not use a duplicate-runtime override. Freeze the code repair and remaining source-load/DatasetH budget before another kernel attempt.",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false
+}
