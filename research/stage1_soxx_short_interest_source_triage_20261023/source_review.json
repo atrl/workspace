@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "status": "needs_2011_2022_Nasdaq_listed_SOXX_short_interest_vintages_no_fit",
+  "evidence_type": "official_web_rendered_documents_and_indexed_Data_Link_description_not_received_raw_data_files",
+  "findings": [
+    {
+      "source": "https://www.finra.org/sites/default/files/2021-06/Regulatory-Notice-21-19.pdf",
+      "finding": "FINRA's 2021 regulatory notice distinguishes outstanding short-interest positions from executed short-sale activity and states that exchange-listed short-interest reports are supplied to the listing exchange for publication. This is a historical regulatory description, not proof of any present FINRA API's complete coverage."
+    },
+    {
+      "source": "https://nasdaqtrader.com/trader.aspx?id=ShortInterest",
+      "finding": "Nasdaq Trader describes issue-level public query as a rolling 12 months, twice-monthly settlement dates, and release after 4:00 p.m. ET on dissemination dates. Settlement date is not a decision-time publication date."
+    },
+    {
+      "source": "https://www.nasdaq.com/market-activity/etf/soxx/short-interest",
+      "finding": "The SOXX Nasdaq page rendered 'Data is currently not available' in this review, so it supplied no exact 2011-2022 observation or historical first-public timestamp. This does not prove Nasdaq has no underlying records."
+    },
+    {
+      "source": "https://data.nasdaq.com/databases/NSHRT",
+      "finding": "Nasdaq Data Link's indexed official product description says its short-interest feed begins at 2022-09-30 settlement, insufficient for the frozen 2011-2022 training calendar on its own. The JavaScript product page did not render its text in this browser tool, so this is an indexed-description observation, not direct exact-byte coverage certification or proof that Nasdaq has no earlier archive."
+    },
+    {
+      "source": "https://www.nasdaq.com/products/data/equities/short-interest",
+      "finding": "Nasdaq describes the Short Interest Report as a subscription/SFTP data product; the inspected page does not certify that a 2011-2022 SOXX raw archive and revision vintages are included. No subscription or purchase was made."
+    }
+  ],
+  "local_duplicate_check": {
+    "closed_route": "research/stage1_finra_short_mix_allocation_20261018/conclusion.md",
+    "closed_route_variable": "FINRA daily short-marked off-exchange trade-volume share",
+    "new_variable": "Nasdaq-disseminated outstanding short-position quantity for listed SOXX",
+    "same_measure": false
+  },
+  "source_qualification": {
+    "complete_2011_2022_training_history_proven": false,
+    "published_at_clock_per_record_proven": false,
+    "revision_history_proven": false,
+    "source_raw_bytes_received": false,
+    "source_NAS_backup_required_if_received": true,
+    "factor_or_model_authorized": false
+  },
+  "next_action": "Obtain an authorized official Nasdaq/vendor sample that includes SOXX in 2011, 2018 and 2022, with exact settlement/dissemination clocks, historical split basis, revision records, export rights and full-range availability before acquiring the 2011-2022 series. Continue unrelated qualified mechanisms while this dependency remains.",
+  "web_official_pages_reviewed": 5,
+  "paid_acquisitions": 0,
+  "market_outcome_reads": 0,
+  "Qlib_D_calls": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

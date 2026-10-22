@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_soxx_short_interest_source_triage_20261023",
+  "frozen": true,
+  "phase": "official_listed_short_interest_history_and_clock_source_triage",
+  "hypothesis": "The change in reported SOXX open short positions might supply positioning or covering-pressure information different from Stage1 price, VIX, breadth and the previously failed FINRA daily short-sale volume mix. No direction, factor formula or receiver is selected before source qualification.",
+  "dedup": "FINRA daily Reg SHO short-sale volume is executed trade volume; exchange-published short interest is outstanding positions at a semimonthly settlement date. They are not interchangeable.",
+  "official_pages": [
+    "https://www.finra.org/sites/default/files/2021-06/Regulatory-Notice-21-19.pdf",
+    "https://nasdaqtrader.com/trader.aspx?id=ShortInterest",
+    "https://www.nasdaq.com/market-activity/etf/soxx/short-interest",
+    "https://data.nasdaq.com/databases/NSHRT",
+    "https://www.nasdaq.com/products/data/equities/short-interest"
+  ],
+  "acceptance_for_future_source": [
+    "SOXX original-security identity and every semimonthly record across the frozen 2011-2022 Stage1 training window, with no 2022-only survivor subset",
+    "exact settlement date, separate dissemination date and earliest usable Stage1 decision; never date a feature at settlement alone",
+    "raw source bytes, URL or authorized transport, SHA-256, size, revision/correction history and scoped NAS restore",
+    "corporate-action and split basis for outstanding short shares and any denominator known at each decision",
+    "2013-2026 held/history coverage and missingness audit before one fixed original-39-input information test"
+  ],
+  "budget": {"web_official_page_reads_max": 5, "paid_acquisitions": 0, "market_outcome_reads": 0, "Qlib_D_calls": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "If the inspected free official products do not prove 2011-2022 listed SOXX history with publication vintages, record the exact vendor-data dependency and stop; do not use OTC FINRA API, settlement-date lookahead, a current-only Nasdaq table, FINRA daily short volume, or a paid feed without user authorization."
+}

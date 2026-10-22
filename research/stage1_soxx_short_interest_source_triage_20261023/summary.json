@@ -1,0 +1,18 @@
+{
+  "experiment": "stage1_soxx_short_interest_source_triage_20261023",
+  "decision": "needs_2011_2022_Nasdaq_listed_SOXX_short_interest_vintages_no_fit",
+  "objective_achieved": false,
+  "plan_sha256": "14eb913c6eb0595d5397b960cf0530b82b05dda6c726c57d9b1c4456eb772590",
+  "source_review_sha256": "880cac4bbc8ddf483dae6a23e419b6f3e63c18a3688737b1d4f6b1bb094c77e0",
+  "official_pages_reviewed": 5,
+  "complete_2011_2022_training_history_proven": false,
+  "source_raw_bytes_received": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "paid_acquisitions": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
