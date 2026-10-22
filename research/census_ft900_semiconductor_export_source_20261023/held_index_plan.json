@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_FT900_2023_01_to_2026_08_held_month_URL_audit",
+  "source_index_receipt": "training_index_receipt.json",
+  "source_index_sha256": "cdf3d48e9f6ff7a571c9d1d0d982499d59750df2f915a40ec95a9fe49730e0ad",
+  "target_reference_months": "2023-01 through 2026-08 inclusive, 44 calendar months; September 2026 report is not scheduled for publication until November 2026",
+  "method": "Parse the exact already archived official HTML index; bind month titles to their own PDF hrefs and require the ft900_YYMM.pdf suffix to agree with each title. Preserve all missing, misspelled, duplicate or mismatched entries. Do not invent URLs or fetch PDFs in this audit.",
+  "budget": {
+    "index_reads": 1,
+    "new_HTTP_GETs": 0,
+    "held_PDF_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any non-unique or wrong month link remains a source exception requiring its own frozen check before that PDF can be acquired. URL coverage is not PDF content or historical first-public evidence."
+}
