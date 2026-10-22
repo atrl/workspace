@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_144_PDF_report_month_identity_audit",
+  "parent_row_audit": "full_training_row_audit.json",
+  "method": "Recheck each of the same 144 hashed PDF bytes once. On the first page, require the official U.S. International Trade in Goods and Services title followed immediately by the expected English reference month and four-digit year. Require the first-page release header to include an 8:30 Eastern time indication. Report any missing or mismatched identity exactly; no URL pattern or neighboring PDF repairs.",
+  "expected_months": 144,
+  "budget": {
+    "PDF_opens_max": 144,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_limit": "Matching the printed report month and release-time label does not certify historical first-public PDF bytes or the 2012 classification bridge. Do not fit or run an account."
+}
