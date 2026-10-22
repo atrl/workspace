@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_0946_peer_breadth_relative_h5_information_20261023",
+  "phase": "original_Stage1_39_plus_one_same_day_0945_peer_breadth_for_SOXL_minus_SOXX_H5_information",
+  "execution_authorized_by_active_Goal": true,
+  "hypothesis": "Broad positive AMD/NVDA/SMH participation during the first completed 15 minutes indicates semiconductor-wide buying beyond the two ETF opening marks and adds positive five-session SOXL-minus-SOXX relative-return information to original Stage1 allocation inputs.",
+  "parent": {
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "nas_readback": "research/minute_information_pit_allocator_20261012/nas_readback.json",
+    "feature_order": "Exact original Stage1 39 base_features from seed71 saved model; no substituted current provider values."
+  },
+  "source": {
+    "card": "research/stage1_0946_peer_breadth_source_20261023",
+    "summary_sha256": "8021f11bf536663af0e89cba75a29dc838ff074b8e5c8d172165a46fcf07ab99",
+    "recorder_id": "e7312100d7274be7aca700754c900f0a",
+    "experiment_id": "196089799793003852",
+    "feature_artifact": "analysis/daily",
+    "feature_artifact_sha256": "bc4e09a33737230422065cc4835a3e646c215b163e7a1127497dbbaed1f742a2",
+    "train_known_days": 1061,
+    "reused_held_known_days": 944,
+    "historical_first_receipt_qualified": false,
+    "timing": "09:35/09:40/09:45 right-labelled completed peer bars are assumed available at 09:45 before the Stage1 09:46 allocation. Historical bar first receipt/finality remains unqualified; any information pass is conditional only."
+  },
+  "single_mechanism": {
+    "feature": "opening_15m_semiconductor_peer_positive_fraction_3",
+    "baseline": "Original 39 Stage1 primary inputs, same mature dates, same imputer/scaler/Ridge.",
+    "candidate": "Exactly one added fixed 0,1/3,2/3,1 peer-positive-fraction coordinate.",
+    "training_only_max_abs_pairwise_Pearson_stop_at_or_above": 0.95,
+    "expected_added_standardized_coefficient": "positive"
+  },
+  "label": {
+    "primary": "Sum of five consecutive original Stage1 log1p(SOXL forward open return) minus identical sum for SOXX, starting at signal date; no corporate-action/funded-account claim.",
+    "maturity": "Original timing.return_available_at of fifth interval; training labels before 2023-01-01 New York, held labels before 2026-10-10 New York."
+  },
+  "cohorts": {
+    "train_signal": ["2018-10-15", "2022-12-30"],
+    "held_reused_diagnostic": ["2023-01-03", "2026-10-07"],
+    "held_halves": [["2023-01-03", "2024-12-31"], ["2025-01-02", "2026-10-07"]],
+    "complete_held_years": [2024, 2025],
+    "minimum_mature_train_rows": 1050,
+    "minimum_mature_held_rows": 940,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "SimpleImputer(median) -> StandardScaler -> Ridge(alpha=1.0) on original 39 features",
+    "candidate": "Identical pipeline plus one frozen peer coordinate",
+    "fit_attempts_max": 2,
+    "no_alpha_seed_window_sign_or_feature_selection": true
+  },
+  "information_gate": {
+    "paired_metric": "On identical mature held rows, baseline squared error minus candidate squared error for SOXL-minus-SOXX H5 relative log return.",
+    "added_coefficient_positive": true,
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "each_complete_2024_2025_year_mean_positive": true,
+    "paired_stationary_bootstrap": {"mean_block_sessions": 63, "draws": 10000, "seed": 20261023, "one_sided_alpha": 0.0007352941176470588, "family_denominator": 34, "lower_positive": true}
+  },
+  "budget": {"new_external_requests": 0, "parent_Recorder_object_loads_max": 4, "source_Recorder_object_loads_max": 1, "DatasetH_builds_max": 1, "model_fit_attempts_max": 2, "bootstrap_attempts_max": 1, "new_writable_Qlib_Recorders_max": 1, "native_accounts": 0},
+  "stop": "Run one no-fit source, clock, label-maturity and training-novelty preflight. A failure closes before fitting. If fitted, any sign, full, half, complete-year or corrected-lower failure closes this fixed information version with no rescue. A pass remains conditional on actual historical first receipt and requires a separately frozen original Stage1-derived own-state full 0bp Tiered account before 2/5bp and independent forward v2 gates.",
+  "artifact_policy": {"policy": "slim_card_recorder_first", "workflow_config": "workflow.yaml", "recorder_only_artifacts": ["inputs/*", "models/*", "predictions/*", "analysis/*"]}
+}

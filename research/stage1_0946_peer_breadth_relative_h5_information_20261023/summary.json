@@ -1,0 +1,117 @@
+{
+  "experiment": "stage1_0946_peer_breadth_relative_h5_information_20261023",
+  "decision": "not_promoted_fixed_0946_peer_breadth_SOXL_relative_H5_information_failed",
+  "objective_achieved": false,
+  "plan_sha256": "3d1d627316f92cb43b8b9157feafa336ad9d6ee95914e9d80d6e256bc95054f5",
+  "preflight": {
+    "status": "conditional_0946_peer_H5_DatasetH_source_maturity_novelty_preflight_passed_no_fit",
+    "plan_sha256": "3d1d627316f92cb43b8b9157feafa336ad9d6ee95914e9d80d6e256bc95054f5",
+    "source_recorder_id": "e7312100d7274be7aca700754c900f0a",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "source_calendar_rows": 2006,
+    "original_primary_features": 39,
+    "candidate_coordinates": 1,
+    "training_mature_rows": 1055,
+    "held_mature_rows": 940,
+    "train_segment_rows": 1061,
+    "held_segment_rows": 944,
+    "max_abs_training_pairwise_Pearson": 0.08098169856588952,
+    "candidate_train_unknown_rows": 0,
+    "candidate_held_unknown_rows": 0,
+    "parent_Recorder_object_loads": 4,
+    "source_Recorder_object_loads": 1,
+    "DatasetH_builds": 1,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "historical_first_receipt_qualified": false
+  },
+  "information_gate_pass": false,
+  "metrics": {
+    "baseline_held_mse": 0.01150004118040791,
+    "candidate_held_mse": 0.011502326536765957,
+    "paired_mean_mse_improvement": -2.2853563580463027e-06,
+    "held_half_means": [
+      -1.1083991420152717e-06,
+      -3.6342890576983076e-06
+    ],
+    "annual": [
+      {
+        "year": 2023,
+        "n": 250,
+        "paired_mean_mse_improvement": 3.6722882828149446e-08
+      },
+      {
+        "year": 2024,
+        "n": 252,
+        "paired_mean_mse_improvement": -2.244432896820251e-06
+      },
+      {
+        "year": 2025,
+        "n": 250,
+        "paired_mean_mse_improvement": -1.7840735573229227e-06
+      },
+      {
+        "year": 2026,
+        "n": 188,
+        "paired_mean_mse_improvement": -6.094682010325149e-06
+      }
+    ],
+    "added_standardized_coefficient": 0.0008665540062239291,
+    "bootstrap_lower": -1.673079801700551e-05,
+    "bootstrap_upper": 1.2279053732243563e-05,
+    "bootstrap": {
+      "paired_mean_loss_improvement": -2.285356358046304e-06,
+      "lower_bound": -1.673079801700551e-05,
+      "upper_bound": 1.2279053732243563e-05,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 944,
+      "scored_rows": 940
+    }
+  },
+  "gates": {
+    "coefficient_positive": true,
+    "full_held_mean_positive": false,
+    "both_held_halves_mean_positive": false,
+    "each_complete_2024_2025_year_mean_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "held_market_history_reused": true,
+  "historical_first_receipt_qualified": false,
+  "independent_forward_qualified_days": 0,
+  "recorder_id": "26fe25ee046447c3b08c8b4ab142deb3",
+  "experiment_id": "619230069359244486",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_0946_peer_breadth_relative_h5_information_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Original 2018-2022 training and reused 2023-2026 held data do not create independent forward evidence.",
+    "The 09:45 bar clock is assumed; actual historical first receipt and finality are unqualified.",
+    "Information MSE is not a funded 0bp Tiered Stage1 account or SOXX net result."
+  ],
+  "nas_evidence": {
+    "sha256": "1a7e263dee2070c195f64aa40f3983b65013274ebca027c2c47e2c02afbf43a6",
+    "size_bytes": 1472836,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/1a/7e/1a7e263dee2070c195f64aa40f3983b65013274ebca027c2c47e2c02afbf43a6",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 05:11:01.201458+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/1a/7e/1a7e263dee2070c195f64aa40f3983b65013274ebca027c2c47e2c02afbf43a6",
+    "recorder_id": "26fe25ee046447c3b08c8b4ab142deb3",
+    "experiment_id": "619230069359244486",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_scoped_restore_verified": true
+}

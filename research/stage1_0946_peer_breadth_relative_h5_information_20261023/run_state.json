@@ -1,0 +1,18 @@
+{
+  "status": "completed",
+  "plan_sha256": "3d1d627316f92cb43b8b9157feafa336ad9d6ee95914e9d80d6e256bc95054f5",
+  "addendum_sha256": "5d97c4123bf4bc803890fc8c75fec303c85b3e435752cc8f0420fb119b179550",
+  "fit_attempts": [
+    "baseline",
+    "candidate"
+  ],
+  "fits_completed": [
+    "baseline",
+    "candidate"
+  ],
+  "bootstrap_attempts": 1,
+  "native_accounts": 0,
+  "recorder_id": "26fe25ee046447c3b08c8b4ab142deb3",
+  "experiment_id": "619230069359244486",
+  "nas_archive_sha256": "1a7e263dee2070c195f64aa40f3983b65013274ebca027c2c47e2c02afbf43a6"
+}

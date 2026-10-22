@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "frozen_before_first_fit": true,
+  "kind": "mechanical_single_fresh_kernel_rehydration",
+  "original_plan_sha256": "3d1d627316f92cb43b8b9157feafa336ad9d6ee95914e9d80d6e256bc95054f5",
+  "preflight_receipt_sha256": "d24dbb04b2f983481fade3c02331eaf0ffc5e196d9a29897300c9b010a236d41",
+  "consumed_before_addendum": {"parent_Recorder_object_loads": 4, "source_Recorder_object_loads": 1, "DatasetH_builds": 1, "model_fit_attempts": 0, "bootstrap_attempts": 0, "writable_Recorders": 0, "native_accounts": 0},
+  "reason": "The original budget counted only the no-fit preflight. Its notebook kernel exited after source, maturity and training-novelty checks, so the same pinned objects and DatasetH must be reconstructed once in a fresh kernel before the first fit.",
+  "additional_budget": {"parent_Recorder_object_loads": 4, "source_Recorder_object_loads": 1, "DatasetH_builds": 1, "model_fit_attempts": 2, "bootstrap_attempts": 1, "writable_Recorders": 1, "native_accounts": 0},
+  "cumulative_max": {"parent_Recorder_object_loads": 8, "source_Recorder_object_loads": 2, "DatasetH_builds": 2, "model_fit_attempts": 2, "bootstrap_attempts": 1, "writable_Recorders": 1, "native_accounts": 0},
+  "unchanged": ["source identities", "feature formula and sign", "2018-2022 train and 2023-2026 reused held dates", "label and maturity", "original39 control", "Ridge alpha and two fits", "full/halves/2024/2025 and corrected-lower gates", "zero accounts"],
+  "stop": "No further rehydration, fit, bootstrap or account after this one execution. If it fails, retain actual counters and close this fixed mechanical version rather than restarting."
+}

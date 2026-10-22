@@ -78,7 +78,9 @@
     "Stage1_original_A0_0bp_open_HOLD_local_value_attribution": "research/stage1_original_0bp_open_hold_local_value_20261023/summary.json",
     "Stage1_original_A0_open_HOLD_interpretation": "On the exact original A_0 0bp own-state 944-day path, 889 physical-share Tiered local EXECUTE-vs-HOLD labels passed current/next chosen-branch q/cash/NAV parity exactly. Of 147 actual HOLD days, 139 mature labels average +0.313bp for hypothetical execute; in the original worst126 their mean is -1.549bp, so HOLD is not the central loss source. Of 797 actual EXECUTE days, 750 mature labels average -0.054bp; 2026Q3 57 mature EXECUTE days average -9.410bp local. These are next-reset conditional values, not additive causal strategy returns or a rule to switch by hindsight quarter. Zero fits/new accounts.",
     "Stage1_0946_same_day_peer_breadth_source": "research/stage1_0946_peer_breadth_source_20261023/summary.json",
-    "Stage1_0946_same_day_peer_breadth_status": "AMD_NVDA_SMH_three_completed_5min_bars_1061_of_1061_train_and_944_of_944_reused_held_known_Qlib_Recorder_NAS_restored_historical_first_receipt_unqualified_zero_labels_fits_accounts"
+    "Stage1_0946_same_day_peer_breadth_status": "AMD_NVDA_SMH_three_completed_5min_bars_1061_of_1061_train_and_944_of_944_reused_held_known_Qlib_Recorder_NAS_restored_historical_first_receipt_unqualified_zero_labels_fits_accounts",
+    "Stage1_0946_peer_breadth_SOXL_relative_H5_information": "research/stage1_0946_peer_breadth_relative_h5_information_20261023/summary.json",
+    "Stage1_0946_peer_breadth_information_status": "fixed_original39_plus_one_0945_AMD_NVDA_SMH_peer_breadth_two_Ridge_fits_full_halves_2024_2025_and_corrected_lower_failed_positive_coefficient_only_no_account_first_receipt_unqualified"
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
