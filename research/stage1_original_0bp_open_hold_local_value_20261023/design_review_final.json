@@ -1,0 +1,31 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "scope": "Read-only original Stage1 A_0 0bp open EXECUTE-versus-HOLD same-state local-value attribution across the reused 944-day account calendar; zero new fits, accounts or bootstrap draws",
+  "plan_sha256": "18efa898dd05adc629aee5897ef3ba7fd12e2a3938123ceef58e0a1270095960",
+  "code_cell_sha256": "f5f9a3ce505aceda5584433bc6502212f6b5bfa3a18065002726308066330119",
+  "source_parity_evidence": {
+    "original_A0_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "original_A0_NAS_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "observed_Tiered_fee_parity_receipt_sha256": "2a44ce58395ff778bb5f18de826a34ad6d8967592f8e7a9f8b7d58fe45d6d356",
+    "observed_orders_with_exact_fee_fields_and_cap_flags": 1275,
+    "executed_projection_parity_receipt_sha256": "fa3827005bfabf3b08f008cc4584916c4d2cdfef69bee064a46d08a3dce9a97d",
+    "executed_projection_rows_exact": 797,
+    "saved_HOLD_rows": 147
+  },
+  "design_checks": {
+    "physical_state": "Each branch starts at saved original A_0 09:45 whole raw-share quantities, spendable cash and dividend receivable. Raw q times 09:45 raw price plus cash plus receivable must match saved NAV within USD 0.01.",
+    "entry": "At 09:47, EXECUTE uses the legal projection of original raw weights under that day's saved own-state beta cap; HOLD submits no target. Both use the same original raw settlement function and copied chronological monthly Tiered counters, with receivable included in NAV but unavailable to fund purchases.",
+    "current_parity": "The branch matching original A_0's actual open EXECUTE/HOLD decision must reproduce saved current 09:47 quantities, spendable cash and NAV before any local label is accepted.",
+    "common_next_reset": "On the next actual trading day 09:47, both branches use the original A_0 saved target if that next open decision EXECUTEs, or both HOLD if it does not. This future target is a reference reset, never a current decision feature.",
+    "next_parity": "The branch matching the original current decision must reproduce saved next 09:47 quantities, spendable cash and NAV; the code stops on any quantity or cash/NAV breach.",
+    "corporate_unknowns": "All 944 dates are retained. A next-day split, entitlement or payment on the full frozen schedule, and the final date lacking a next original action, receive unknown labels. Current-day actions are already settled in the saved 09:45 state.",
+    "label_maturity": "EXECUTE-minus-HOLD post-reset NAV difference is scaled by saved current 09:45 NAV to bp and becomes available next trade date 09:49 New York.",
+    "reporting": "Four annual periods with 2023/2026 partial flags, 16 quarters and all 819 contiguous 126-trade-date windows report support and local means separately for original EXECUTE/HOLD. The original A_0 worst126 example uses first trade 2023-08-01 through last trade 2024-01-30, ending at the 2024-01-31 exit mark; 2024Q3 and 2026Q3 are descriptive examples.",
+    "once_only_guard": "The exact review and plan hashes, absence of prior run_state/Recorder, pinned source/module bytes and saved fee/projection receipts are asserted before state write; code stops on chosen-branch parity failures."
+  },
+  "scientific_boundary": "Local branch values are descriptive comparisons with a common next action, not a causal closed-loop account or an additive SOXX wealth attribution. The review authorizes no threshold choice, new funded policy account, 2/5bp path, independent forward or promotion claim.",
+  "material_blockers": [],
+  "local_labels_reviewed": 0,
+  "new_model_fits_reviewed": 0,
+  "new_native_accounts_reviewed": 0
+}

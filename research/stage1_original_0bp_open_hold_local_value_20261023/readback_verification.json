@@ -1,0 +1,14 @@
+{
+  "status": "targeted_native_Qlib_and_NAS_scoped_restore_passed",
+  "recorder_id": "0968f1d2a5cd4af38af720c6fe671bec",
+  "NAS_archive_sha256": "87b0aafba2396e152266138ac81f49bb629c0bb30020adad58d88eba5b9c75fd",
+  "native_daily_annual_rolling_readback": true,
+  "restored_artifacts_sha256": {
+    "analysis/daily": "16f6e4c12919ebad06ea0bba31a48753773ebe018bcdc55c2f0f513ddc62a712",
+    "analysis/annual": "bd1a4dcada509a3257f7c6ad1036d67a66dbd2a737618512218f3f085268862c",
+    "analysis/rolling126": "31accd09fcf1a39e8049ad48386c5f6488e00ee41e77b481646e289ff18354bc",
+    "inputs/dataset": "58f589b6941e842feb7c4ebc10187905696c3888c8b2bc71fe7021ac8d941f2a"
+  },
+  "new_fits": 0,
+  "new_accounts": 0
+}
