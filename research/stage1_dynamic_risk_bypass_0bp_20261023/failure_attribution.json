@@ -1,0 +1,150 @@
+{
+  "status": "fixed_bypass_failure_attributed_whole_layer_only",
+  "source_new_recorder_id": "d6ba2b2e47754775a8ddffe57603da43",
+  "source_new_NAS_sha256": "ca3cc49ebc2094bf6954d18b813af2c863793b7e90c49aa8639948ed63c0103d",
+  "source_Stage1_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "source_SOXX_recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+  "source_original_quarter_csv_sha256": "82d0156338de21a93c492b546332c551868b7565468455211e653b368cee3570",
+  "sessions": 944,
+  "quarters": [
+    {
+      "quarter": "2023Q1",
+      "sessions": 61,
+      "Stage1_SOXX_relative_wealth": 1.0480312151004982,
+      "bypass_SOXX_relative_wealth": 1.0656397743727397,
+      "bypass_minus_Stage1_paired_log_excess": 0.01666197505112807,
+      "Stage1_risk_nonzero_fraction": 0.0
+    },
+    {
+      "quarter": "2023Q2",
+      "sessions": 62,
+      "Stage1_SOXX_relative_wealth": 0.9116901306349467,
+      "bypass_SOXX_relative_wealth": 1.002428343596128,
+      "bypass_minus_Stage1_paired_log_excess": 0.09488051561734875,
+      "Stage1_risk_nonzero_fraction": 0.0
+    },
+    {
+      "quarter": "2023Q3",
+      "sessions": 63,
+      "Stage1_SOXX_relative_wealth": 0.946165049787229,
+      "bypass_SOXX_relative_wealth": 0.9656258036065443,
+      "bypass_minus_Stage1_paired_log_excess": 0.020359367232261,
+      "Stage1_risk_nonzero_fraction": 0.5238095238095238
+    },
+    {
+      "quarter": "2023Q4",
+      "sessions": 63,
+      "Stage1_SOXX_relative_wealth": 0.8964173796387448,
+      "bypass_SOXX_relative_wealth": 1.0014883053016477,
+      "bypass_minus_Stage1_paired_log_excess": 0.11083634785352615,
+      "Stage1_risk_nonzero_fraction": 0.9682539682539684
+    },
+    {
+      "quarter": "2024Q1",
+      "sessions": 61,
+      "Stage1_SOXX_relative_wealth": 0.9326173641072067,
+      "bypass_SOXX_relative_wealth": 1.0503871064639292,
+      "bypass_minus_Stage1_paired_log_excess": 0.11891904480052742,
+      "Stage1_risk_nonzero_fraction": 0.4262295081967213
+    },
+    {
+      "quarter": "2024Q2",
+      "sessions": 63,
+      "Stage1_SOXX_relative_wealth": 0.9852337243304872,
+      "bypass_SOXX_relative_wealth": 0.998174143082699,
+      "bypass_minus_Stage1_paired_log_excess": 0.013048856547284046,
+      "Stage1_risk_nonzero_fraction": 0.3809523809523809
+    },
+    {
+      "quarter": "2024Q3",
+      "sessions": 64,
+      "Stage1_SOXX_relative_wealth": 1.078933694235245,
+      "bypass_SOXX_relative_wealth": 0.9397331347252682,
+      "bypass_minus_Stage1_paired_log_excess": -0.13813257651552469,
+      "Stage1_risk_nonzero_fraction": 0.375
+    },
+    {
+      "quarter": "2024Q4",
+      "sessions": 64,
+      "Stage1_SOXX_relative_wealth": 1.0185729900324125,
+      "bypass_SOXX_relative_wealth": 1.0078536677991814,
+      "bypass_minus_Stage1_paired_log_excess": -0.010579630084138605,
+      "Stage1_risk_nonzero_fraction": 0.0
+    },
+    {
+      "quarter": "2025Q1",
+      "sessions": 60,
+      "Stage1_SOXX_relative_wealth": 1.023011132588398,
+      "bypass_SOXX_relative_wealth": 0.9894467245341009,
+      "bypass_minus_Stage1_paired_log_excess": -0.03335972538909969,
+      "Stage1_risk_nonzero_fraction": 0.3666666666666666
+    },
+    {
+      "quarter": "2025Q2",
+      "sessions": 62,
+      "Stage1_SOXX_relative_wealth": 0.9389599210333509,
+      "bypass_SOXX_relative_wealth": 1.0126986798671085,
+      "bypass_minus_Stage1_paired_log_excess": 0.07560121106818737,
+      "Stage1_risk_nonzero_fraction": 0.8064516129032258
+    },
+    {
+      "quarter": "2025Q3",
+      "sessions": 64,
+      "Stage1_SOXX_relative_wealth": 0.9868810841743216,
+      "bypass_SOXX_relative_wealth": 1.0366188219045862,
+      "bypass_minus_Stage1_paired_log_excess": 0.04917001285445065,
+      "Stage1_risk_nonzero_fraction": 0.0
+    },
+    {
+      "quarter": "2025Q4",
+      "sessions": 64,
+      "Stage1_SOXX_relative_wealth": 0.9097618757704992,
+      "bypass_SOXX_relative_wealth": 1.0066022901921055,
+      "bypass_minus_Stage1_paired_log_excess": 0.10115297922506407,
+      "Stage1_risk_nonzero_fraction": 0.375
+    },
+    {
+      "quarter": "2026Q1",
+      "sessions": 61,
+      "Stage1_SOXX_relative_wealth": 0.9812965021199057,
+      "bypass_SOXX_relative_wealth": 1.0043867184199438,
+      "bypass_minus_Stage1_paired_log_excess": 0.02325774512973113,
+      "Stage1_risk_nonzero_fraction": 0.2950819672131147
+    },
+    {
+      "quarter": "2026Q2",
+      "sessions": 62,
+      "Stage1_SOXX_relative_wealth": 1.1604921508696693,
+      "bypass_SOXX_relative_wealth": 1.1706315832194258,
+      "bypass_minus_Stage1_paired_log_excess": 0.008699234746419093,
+      "Stage1_risk_nonzero_fraction": 0.0967741935483871
+    },
+    {
+      "quarter": "2026Q3",
+      "sessions": 64,
+      "Stage1_SOXX_relative_wealth": 0.843897362765268,
+      "bypass_SOXX_relative_wealth": 0.8894375941308993,
+      "bypass_minus_Stage1_paired_log_excess": 0.05255846717274744,
+      "Stage1_risk_nonzero_fraction": 0.921875
+    },
+    {
+      "quarter": "2026Q4",
+      "sessions": 6,
+      "Stage1_SOXX_relative_wealth": 1.011457899522371,
+      "bypass_SOXX_relative_wealth": 0.9980485955274467,
+      "bypass_minus_Stage1_paired_log_excess": -0.013346065875689303,
+      "Stage1_risk_nonzero_fraction": 1.0
+    }
+  ],
+  "bypass_better_paired_log_quarters": 12,
+  "Stage1_SOXX_relative_wealth_full": 0.6860064369263443,
+  "bypass_SOXX_relative_wealth_full": 1.1194746260944337,
+  "Stage1_close_max_drawdown_pct": -28.095726754031546,
+  "bypass_close_max_drawdown_pct": -49.20601385983083,
+  "Stage1_CVaR5_pct": -4.388905441262909,
+  "bypass_CVaR5_pct": -5.918163742121322,
+  "interpretation": "Whole-layer bypass improves terminal relative wealth in 12/16 quarters but worsens 2024Q3 versus the original Stage1 path, greatly breaches the 30% drawdown and worsens CVaR. It still loses to SOXX in 2026Q3. No outcome-chosen conditional switch or single-cap causal effect is identified.",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0
+}

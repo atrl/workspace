@@ -1,0 +1,20 @@
+{
+  "status": "resolved_pre_account_runtime_preflights",
+  "attempts": [
+    {
+      "number": 1,
+      "error": "saved Stage1 classifier requires scikit-learn 1.9.1; default Python has 1.8.0",
+      "resolution": "Use existing qlib_venv Python 3.12 with scikit-learn 1.9.1."
+    },
+    {
+      "number": 2,
+      "error": "MLflow file-store source Recorder unavailable without MLFLOW_ALLOW_FILE_STORE=true before source read",
+      "resolution": "Set documented file-store compatibility environment before Qlib source load; exact 944-session/3778-point helper readback then passed."
+    }
+  ],
+  "native_account_attempts": 0,
+  "new_model_fits": 0,
+  "new_bootstrap_runs": 0,
+  "new_market_requests": 0,
+  "frozen_plan_unchanged": true
+}

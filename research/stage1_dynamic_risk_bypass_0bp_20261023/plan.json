@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_dynamic_risk_bypass_0bp_20261023",
+  "frozen": true,
+  "execution_authorized": true,
+  "purpose": "One Stage1-parent-specific dynamic risk-layer ablation at 0bp added slippage. Estimate the combined own-state economic effect of the existing risk state/caps and recovery eligibility; do not search a better cap.",
+  "parent": "Frozen f696f656 Stage1 allocator, b472a458 action/risk/recovery, same source helper and native Stage1_A_0/SOXX_0 references. No nominal-beta composition transform or tangent allocator.",
+  "intervention": "On the candidate's own funded path only, replace recovery_spec stop_drawdown, emergency_drawdown and trailing_loss_trigger by 2.0 and defensive_beta by 0.0. With positive NAV and returns >-100%, risk_state remains 0, q=1, and current_beta_cap=raw Stage1 nominal beta; original SOXL<=30%/CASH>=15% legal projection, action classifier, Tiered fees, raw shares and corporate actions remain. Recovery eligibility becomes false because target_beta<=raw_beta=cap. The controller receives changed cap/state and may be out of its training domain.",
+  "comparison": "One new independent-state 0bp account versus the previously verified frozen Stage1_A_0 and same-date SOXX_0 native accounts. Preserve 944 sessions, 2024/2025 complete years, 2023/2026 partial endpoint years, all 16 quarters and 819 contiguous 126-session windows.",
+  "source_helper": "research/stage1_nvda_guidance_receiver_20261022",
+  "source_helper_receipt_sha256": "1666ead0b7de45f08968177c6e34ac763e78f79120fde7c3d55152fb0418f72c",
+  "provider_uri": "data/qlib/stage1_domain_heads_20261018",
+  "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083",
+  "source_code_sha256": {
+    "src/backtest/stage1_domain_heads_raw.py": "9d188c23d6eb668aaaa268aa520f0fcd03d4a20316f55331d31056bdc614cb88",
+    "src/workflow/stage1_open_action_value.py": "6459fb44b1019bd8c4555ebd6b2ba6e9dbe8241844875b23a439837040734671",
+    "src/workflow/intraday_recovery_direct_allocation.py": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75",
+    "src/workflow/stage1_rolling126_shortfall.py": "8b4ed8a19c51cb7e4d5ce7daf67fff4fda83dd02dcb5bb95eaac09cc8c806f41",
+    "src/workflow/stage1_nvda_guidance_receiver.py": "062fbcfde9673e756169f65c2c3e7737703c901eaeb01f89aa10df0e26fa948b"
+  },
+  "initial_cash_usd": 100000,
+  "slippage_bps": 0,
+  "fees": "Frozen IBKR Pro Tiered, charged independently; 0bp is zero added slippage only.",
+  "hard_screen_0bp": {
+    "net_SOXX_relative_wealth": ">1+1e-8",
+    "available_close_and_sampled_drawdown": "<=30%; full-minute risk remains separate qualification",
+    "CVaR5": "no worse than matching SOXX",
+    "complete_annual": "at least two complete years, >=70% positive",
+    "all_contiguous_126_session_windows": ">=70% positive net SOXX excess",
+    "paired_stationary_bootstrap": {"mean_block": 63, "draws": 10000, "seed": 20261014, "one_sided_alpha": 0.0013157894736842105, "lower_positive": true},
+    "historical_independence": false
+  },
+  "budget": {"new_market_requests": 0, "new_model_fits": 0, "new_native_accounts": 1, "new_bootstrap_runs": 1, "new_qlib_recorders": 1},
+  "stop": "One own-state 0bp account and one frozen uncertainty test only. If any hard gate fails, close this fixed risk-layer bypass after necessary attribution. No alternate cap, stop level, ramp, action threshold, composition transform or cost path rescue on reused history. 0bp passage alone would still require separate 2/5bp and independent forward evidence.",
+  "scientific_boundary": "This is a development-only whole-layer intervention after prior histories were inspected. It cannot isolate an individual threshold, identify risk-predictive information, or count as a new independent forward day."
+}

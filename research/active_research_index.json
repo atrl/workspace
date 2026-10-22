@@ -272,6 +272,13 @@
       "default_search": false,
       "evidence_preserved": true,
       "result": "research/semiconductor_ppi_leverage_information_20261022/result_review.json"
+    },
+    {
+      "card": "research/stage1_dynamic_risk_bypass_0bp_20261023",
+      "status": "not_promoted_fixed_Stage1_0bp_whole_risk_layer_ablation",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_dynamic_risk_bypass_0bp_20261023/summary.json"
     }
   ],
   "deferred_sources": {
