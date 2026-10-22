@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_beta_composition_account_contributions_20261023",
+  "frozen": true,
+  "phase": "read_only_native_QLib_funded_account_component_attribution",
+  "question": "Across the entire fixed Stage1 beta-composition 0bp account, can actual SOXL/SOXX holdings, Qlib raw prices, corporate actions and Tiered fees reconstruct every daily net return, then descriptively locate SOXX relative losses in cash opportunity cost, SOXL-relative selection and fees without changing any policy?",
+  "source_card": "research/stage1_beta_composition_0bp_20261022",
+  "source_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+  "source_experiment_id": "395462564842588671",
+  "source_identities": {
+    "source_summary_sha256": "262f9a5bfe855ae94310d802505e2dcdc71de441c6b6e1bf025a7f3b4b36dc35",
+    "source_manifest_sha256": "f72e9737ff81fc62d18a6e1e4f91b55fb541df80b28f850a2f562e477035b9b6",
+    "source_readback_sha256": "5415aeabd6b97a28ce23a75b8c4f2a6ef15e061a925e0183e67efdbb2fe34620",
+    "native_candidate_artifact_sha256": "b34937d3a6fea8754beda743168845c402a76b0f8e6fe85e97ec0b94d8cc0408",
+    "path_candidate_artifact_sha256": "ca9b6d3c8390a97bef5e2126b60daeb3e1916060320d30cf7999a867160db372",
+    "account_helper_receipt_sha256": "1666ead0b7de45f08968177c6e34ac763e78f79120fde7c3d55152fb0418f72c",
+    "attribution_module_sha256": "0561a6c4a6a468f7d4a6b859d547d63edd5f03de1236f0492ac2dc0e63f48f8f",
+    "provider_manifest_sha256": "b9b00a50e86cf26f254d169c886f981b6e90a9daafc3612e3c7ef7c6479b8083"
+  },
+  "helper_card": "research/stage1_nvda_guidance_receiver_20261022",
+  "provider_uri": "data/qlib/stage1_domain_heads_20261018",
+  "method": "Reuse src.analysis.etf_transfer_attribution.holdings_attribution on exact saved native book and sealed Qlib raw point prices/corporate schedule. Require arithmetic daily return closure to 1e-9 and full 944/16/819 calendar coverage. If closure passes, define cash and SOXL-selection contributions from actual segment exposures and same-segment SOXX returns; retain a separate residual for intrasegment benchmark compounding, corporate/fee conventions and any nonclosed component. Convert additive arithmetic difference to exact paired log difference with a same-day scalar only after residual is explicit. All figures are descriptive, not tradable counterfactuals or causal risk-rule effects.",
+  "comparison": "Fixed SOXX 0bp native reference from helper; frozen Stage1 A only for diagnostic module attribution. Do not substitute a different allocator or strong comparator for final SOXX gate.",
+  "periods": "All 944 funded sessions, all full and partial years, 16 quarters, and every contiguous 126-session window; no outcome-selected threshold.",
+  "budget": {
+    "new_market_requests": 0,
+    "source_recorder_object_loads_max": 3,
+    "helper_calls_max": 2,
+    "holdings_attribution_calls_max": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstraps": 0,
+    "new_writable_Qlib_Recorders_max": 1,
+    "existing_Recorder_resumes_max": 1
+  },
+  "stop": "No decomposition claim if price/quantity/corporate schedule or benchmark dates fail native equality, if daily return closure fails, or if residual is not quantified. This is one read-only failure attribution; no replay, threshold search, account or promotion.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily/*",
+      "analysis/segments/*",
+      "analysis/windows/*"
+    ]
+  },
+  "mechanical_repair_1": {
+    "failure": "attempt1_invalid_component_units.json",
+    "rule": "Use prior native_expected_nav USD for dollar holding weights, retain same 944 daily account and benchmark returns, original asset segment contributions, same full calendar and source objects. Resume exact Recorder ID once, replace only analysis artifacts, retain old NAS archive identity, rearchive and read back. No new policy account, fit, bootstrap or outcome-based parameter choice."
+  }
+}

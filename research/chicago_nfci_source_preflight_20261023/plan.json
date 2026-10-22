@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_official_ALFRED_NFCI_vintage_form_preflight",
+  "question": "Can the Chicago Fed National Financial Conditions Index supply historically vintaged weekly financial-stress information that is available before Stage1 decisions and materially different from Stage1's 39 price/VIX/breadth inputs and the failed SOFR-IORB funding spread?",
+  "economic_mechanism": "System-wide money-market, credit, leverage and equity stress may distinguish a broad liquidity-driven semiconductor decline from a sector-specific dip, potentially informing whether Stage1 cash defense is useful. This is a source hypothesis, not an alpha claim or tradable switch.",
+  "official_source_urls": [
+    "https://alfred.stlouisfed.org/series/downloaddata?seid=NFCI",
+    "https://www.chicagofed.org/research/data/nfci/current-data"
+  ],
+  "fixed_read": "One anonymous GET of the exact ALFRED NFCI download form. Save exact HTML bytes, HTTP timing/headers and SHA-256; parse only form observation bounds and selectable revision-vintage dates. Do not download or fit the series in this phase.",
+  "known_publication_boundary": "Chicago Fed describes 8:30 ET Wednesday releases for the prior Friday, Thursday after qualifying federal holidays; ALFRED page currently displays release-vintage metadata beginning 2011-05-25. The early 2011 Stage1 sessions must remain unknown unless original earlier publication evidence is later found.",
+  "acceptance": "Exact form identifies series NFCI, has a nonempty vintage-date selector with dates spanning the 2011-2022 training and 2023-2026 reused held eras, and raw bytes are archived to NAS with remote hash verification. This does not qualify value history, first availability or predictive information.",
+  "budget": {
+    "form_GETs": 1,
+    "max_response_bytes": 5000000,
+    "new_Qlib_providers": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If the form lacks usable vintage dates, returns a non-HTML/oversize response or differs from the frozen series identity, preserve the exact failure and do not request a data ZIP. No 0bp account or SOXX claim from source-only evidence."
+}

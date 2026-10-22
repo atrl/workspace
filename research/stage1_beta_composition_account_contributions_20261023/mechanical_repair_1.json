@@ -1,0 +1,11 @@
+{
+  "old_plan_sha256": "50e982f70bcaf7e7a28f5d9c0de9dc3ff6ec18de31bf9353fd61431a529fad00",
+  "new_plan_sha256": "72359d4687b8b281a43f673eeb7820ff082d09b1d783cb604bf923849fb02d49",
+  "reason": "physical unit correction normalized wealth to USD NAV",
+  "helper_calls_total_max": 2,
+  "source_Recorder_loads_total_max": 3,
+  "existing_Recorder_resumes_max": 1,
+  "new_policy_accounts": 0,
+  "new_fits": 0,
+  "new_bootstraps": 0
+}

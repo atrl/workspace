@@ -1,0 +1,55 @@
+{
+  "experiment": "stage1_beta_composition_account_contributions_20261023",
+  "decision": "descriptive_components_only_no_new_strategy",
+  "objective_achieved": false,
+  "result": "component_result.json",
+  "source_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+  "recorder_id": "6a1ae1cb25744c8cb2179176088807bd",
+  "experiment_id": "103270318570760043",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_beta_composition_account_contributions_20261023/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_beta_composition_account_contributions_20261023/qlib_recorder/103270318570760043/6a1ae1cb25744c8cb2179176088807bd",
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_bootstraps": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily/*",
+      "analysis/segments/*",
+      "analysis/windows/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "068f626ddaee9a0fa99836456252929f85b03de95d43e6f295d49f8c0e69e69c",
+    "size_bytes": 337748,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/06/8f/068f626ddaee9a0fa99836456252929f85b03de95d43e6f295d49f8c0e69e69c",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 01:06:10.063313+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/06/8f/068f626ddaee9a0fa99836456252929f85b03de95d43e6f295d49f8c0e69e69c",
+    "recorder_id": "6a1ae1cb25744c8cb2179176088807bd",
+    "experiment_id": "103270318570760043",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "068f626ddaee9a0fa99836456252929f85b03de95d43e6f295d49f8c0e69e69c",
+    "verified": true
+  },
+  "mechanical_repair_1": "mechanical_repair_1.json",
+  "unit_repaired": true,
+  "readback_verification": "readback_verification.json",
+  "source_account_fixed_not_promoted": true,
+  "interpretation": "Actual-holdings component accounting closes daily return and paired SOXX log excess. Full-path SOXL-relative selection offsets cash opportunity cost, but worst 126-day interval is cash-opportunity dominated and 2026Q3 has both cash and SOXL-selection losses. Residual and account-feedback caveats prevent a causal or tradable switch claim.",
+  "interpretation_note": "interpretation_note.json",
+  "limitations": [
+    "Post-open ratios use previous USD NAV and are descriptive exposure terms, not contemporaneous weights",
+    "Cash opportunity and SOXL relative exposure terms do not identify a causal or tradable policy change",
+    "Exact paired-log component closure is algebraic by explicit residual; physical daily return closure is independently checked",
+    "Residual is 1.77 percent of sum of absolute daily paired logs but 19.9 percent of the net full-path log excess",
+    "Original 0bp account remains not_promoted and reused history is not independent"
+  ],
+  "independent_review": "independent_review.json"
+}

@@ -1,0 +1,15 @@
+{
+  "status": "scoped_independent_interpretation_clarification",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "mean_post_open_weight_columns": "Fields named mean_post_open_*_weight in period_component_summary.csv are post-open USD holdings divided by the previous period USD NAV for additive arithmetic attribution, not contemporaneous post-open portfolio weights.",
+  "cash_opportunity_log": "Minus that cash-to-prior-NAV ratio times the full matching SOXX reference return, scaled to paired log difference; descriptive accounting term, not a causal cash-policy effect.",
+  "SOXL_selection_log": "Actual SOXL physical segment return contribution minus post-open SOXL-to-prior-NAV exposure times full matching SOXX reference return, scaled to paired log difference; relative exposure accounting, not demonstrated predictive selection skill.",
+  "residual_log": "Algebraic remainder includes intraday timing, benchmark cash/fee/corporate conventions and other denominator differences; exact component-log closure is by construction. Independent physical check is holdings_attribution native daily return closure.",
+  "residual_absolute_ratio": 0.01768283739301693,
+  "residual_absolute_ratio_denominator": "sum(abs(daily paired SOXX relative log return))",
+  "net_residual_fraction_of_net_excess": 0.19905631358397008,
+  "net_residual_log": 0.014849887184845357,
+  "no_causal_switch_identified": true,
+  "new_model_fits": 0,
+  "new_accounts": 0
+}

@@ -18,7 +18,9 @@
     "observed": "Original accounts have large benchmark-relative cash opportunity cost; P3 remains below SOXX at all costs. The fixed composition account exceeds SOXX in cumulative net wealth at all costs but fails 0bp drawdown, 126-session stability and bootstrap gates. Recovery action is zero on the observed paths. Bypassing the dynamic risk layer improves cumulative wealth but breaches the drawdown constraint.",
     "causal_limit": "Cash, cap, cost-path and recovery observations do not isolate an independently profitable risk-rule change. The full funded paths feed holdings, peak NAV and later decisions back into one another. Reused history does not establish independent forward excess.",
     "next_bounded_question": "Test a distinct precommitted information or allocation mechanism against the frozen full-account SOXX gates; inspect the already recorded 2023, nonpositive-trend and 2026 drawdown intervals before designing it. Do not tune closed versions on reused history.",
-    "latest_0bp_receiver": "research/stage1_nvda_guidance_receiver_20261022/regime_attribution.json"
+    "latest_0bp_receiver": "research/stage1_nvda_guidance_receiver_20261022/regime_attribution.json",
+    "stage1_beta_composition_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/component_result.json",
+    "component_observation": "Fixed Stage1 0bp composition account: full SOXX relative log +0.074601, descriptive cash opportunity -0.094597, SOXL relative exposure +0.161045, direct fees -0.006696, explicit residual +0.014850; worst 126-day 2025-04-07..10-07 cash term -0.198946 and SOXL relative +0.054906, 2026Q3 cash and SOXL relative terms both negative. Physical daily return and log component closure verified; no causal switch or promotion."
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -128,7 +130,8 @@
     "FT900_index_boundary_status": "official_index_144_month_labels_143_correct_links_2015_08_official_path_verified_2012_semiconductor_media_reclassification_NAS_restored_no_fit",
     "FT900_canonical_information_result": "research/stage1_ft900_export_unknown_information_20261023/independent_result_review.json",
     "FT900_canonical_information_status": "closed_fixed_positive_coefficient_but_negative_full_MSE_second_half_and_corrected_lower_two_fits_zero_accounts",
-    "FT900_V3_duplicate_closeout": "research/stage1_ft900_export_information_v3_20261023/duplicate_closeout.json"
+    "FT900_V3_duplicate_closeout": "research/stage1_ft900_export_information_v3_20261023/duplicate_closeout.json",
+    "stage1_beta_composition_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/summary.json"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

@@ -1,0 +1,20 @@
+{
+  "status": "unit_repaired_native_Qlib_components_readback_passed",
+  "recorder_id": "6a1ae1cb25744c8cb2179176088807bd",
+  "daily_rows": 944,
+  "segment_rows": 7552,
+  "quarter_rows": 16,
+  "rolling126_rows": 819,
+  "max_daily_log_closure_error": 6.938893903907228e-18,
+  "artifact_sha256": {
+    "analysis/daily/account": "631388af5981727a2e206e619d7ac50aa0ce7f12d0e610a99020e5dc1dc0f057",
+    "analysis/periods": "e75a2f6278cd60ba6d36300631d601519d2aa9e85260bf6395fc1e477145cb91",
+    "analysis/windows/rolling126": "d1ce1a600f7faa5587380e23f03a120a5c31db7e1e99e847bd1a12a5b9800194",
+    "analysis/component_result": "7afa455c29705bcf6a85544e6e040d679507dc0dbe81ea3849cdd145fa68829f"
+  },
+  "old_invalid_nas_sha256": "a6cace950f5aa1a070da8b242ea22f9340d9ccfad10670fed7eaa1b55f57762f",
+  "new_nas_sha256": "068f626ddaee9a0fa99836456252929f85b03de95d43e6f295d49f8c0e69e69c",
+  "nas_remote_hash_verified": true,
+  "new_fits": 0,
+  "new_accounts": 0
+}

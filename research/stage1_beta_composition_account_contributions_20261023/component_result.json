@@ -1,0 +1,51 @@
+{
+  "status": "unit_repaired_native_account_component_closure_descriptive_only",
+  "source_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+  "plan_sha256": "72359d4687b8b281a43f673eeb7820ff082d09b1d783cb604bf923849fb02d49",
+  "mechanical_repair_1": "mechanical_repair_1.json",
+  "invalid_attempt1": "attempt1_invalid_component_units.json",
+  "daily_rows": 944,
+  "quarters": 16,
+  "rolling126_windows": 819,
+  "full_relative_log_excess": 0.07460143774129058,
+  "full_relative_wealth": 1.0774546325434138,
+  "full_log_components": {
+    "cash_opportunity_log": -0.09459682946948093,
+    "SOXL_selection_log": 0.16104450931369918,
+    "candidate_direct_fees_log": -0.006696129287773061,
+    "timing_and_benchmark_residual_log": 0.014849887184845357
+  },
+  "max_native_daily_return_closure_error": 4.2327252813834093e-16,
+  "max_daily_log_component_closure_error": 6.938893903907228e-18,
+  "residual_absolute_magnitude_relative_to_paired_log": 0.01768283739301693,
+  "negative_quarters": [
+    "2023Q2",
+    "2023Q3",
+    "2023Q4",
+    "2024Q2",
+    "2025Q4",
+    "2026Q1",
+    "2026Q3"
+  ],
+  "worst_126": {
+    "kind": "rolling126",
+    "period": "2025-04-07 00:00:00",
+    "partial_boundary_period": false,
+    "sessions": 126,
+    "first_trade": "2025-04-07",
+    "last_exit": "2025-10-07",
+    "relative_log_excess": -0.1374587383891715,
+    "relative_wealth": 0.8715703116502439,
+    "cash_opportunity_log": -0.19894644344339243,
+    "SOXL_selection_log": 0.05490599084575895,
+    "candidate_direct_fees_log": -0.0009227501540947251,
+    "timing_and_benchmark_residual_log": 0.007504464362556764,
+    "mean_post_open_cash_weight": 0.15784668456812811,
+    "mean_post_open_soxl_weight": 0.08967409146138011,
+    "risk_state_ge2_fraction": 0.31746031746031744
+  },
+  "no_causal_switch_identified": true,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_bootstraps": 0
+}

@@ -1,0 +1,20 @@
+{
+  "status": "invalid_component_units_after_exact_native_return_closure",
+  "old_plan_sha256": "50e982f70bcaf7e7a28f5d9c0de9dc3ff6ec18de31bf9353fd61431a529fad00",
+  "recorder_id": "6a1ae1cb25744c8cb2179176088807bd",
+  "experiment_id": "103270318570760043",
+  "old_nas_archive_sha256": "a6cace950f5aa1a070da8b242ea22f9340d9ccfad10670fed7eaa1b55f57762f",
+  "old_daily_components_artifact_sha256": "aa159387be7873ba44f5d285622d1a585d93a8bdaac85495b75441a0910499c4",
+  "old_component_result_sha256": "8cd33df173fb3540158409751032fa2246f357ff6bb0be7836d831f200ac1272",
+  "cause": "Post-open cash/SOXL dollar holdings divided by prior authority.equity (normalized wealth), rather than prior native_expected_nav USD; component magnitudes are invalid despite exact daily strategy-return closure.",
+  "observed_invalid_full_log_components": {
+    "cash_opportunity_log": -9463.690204616243,
+    "SOXL_selection_log": -10342.886301830813,
+    "candidate_direct_fees_log": -0.006696129287773061,
+    "timing_and_benchmark_residual_log": 19806.65780401409
+  },
+  "observed_invalid_residual_ratio": 82113.46651118729,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_bootstraps": 0
+}

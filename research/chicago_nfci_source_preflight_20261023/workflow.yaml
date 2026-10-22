@@ -1,0 +1,13 @@
+experiment: chicago_nfci_source_preflight_20261023
+phase: source_only_official_ALFRED_NFCI_vintage_form_preflight
+plan: plan.json
+notebook: chicago_nfci_source_preflight_20261023.ipynb
+source_url: https://alfred.stlouisfed.org/series/downloaddata?seid=NFCI
+raw_source: data/snapshots/chicago_nfci_source_preflight_20261023/alfred_nfci_form.html
+outputs:
+  - form_receipt.json
+  - source_preflight_result.json
+  - run_state.json
+market_outcome_reads: 0
+model_fits: 0
+native_accounts: 0
