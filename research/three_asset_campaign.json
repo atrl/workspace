@@ -122,7 +122,7 @@
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "Use frozen full Stage1 own-state 0bp A0 and SOXX hard gate. Closed CFTC NQ and TSMC single-issuer H5 information versions remain failed. Original SEC AMD/NVDA multi-issuer forward-guidance source now has 63 quarter-event slots each from 133 NAS-backed 8-K originals; AMD one qualitative unknown, early percentage versus later dollar outlook needs separately frozen normalization. Preserve original filing availability with next signal after filed date, check missingness and redundancy to Stage1 39, then one bounded multi-issuer diffusion information screen only if source semantics qualify. No 0bp candidate passes; 2/5bp and independent forward remain.",
+    "next_action": "Original Stage1 0bp A0 remains frozen parent and SOXX final hard gate. Closed CFTC and TSMC single-issuer H5 failures remain closed. AMD/NVDA original SEC forward demand source now has 63 quarter slots per issuer, 124 numeric values and two AMD qualitative unknown, with independent source review and conservative 126/126 filing-to-next-trade date audit. Freeze one Qlib full-calendar map of the two-issuer positive-forward-growth breadth: both issuer values required, missing and max four-month age explicit, no backdating. Then only if mapped source/redundancy and maturity pass, run one bounded matched Stage1 information screen; a fixed pass plus PIT qualification may advance to own-state 0bp Tiered account, then 2/5bp and independent forward.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -304,7 +304,10 @@
     "TSMC_original_SEC_guidance_H5_interpretation": "Official original 64-quarter TSMC SEC next-quarter revenue-guidance NT growth is distinct from realized monthly revenue and only weakly correlated with original39 max abs Pearson0.11684. Fixed original39+one coordinate H5 screen ran 2 Ridge fits/one full-calendar 944-row bootstrap on 3014 mature train/940 mature reused held. Baseline MSE .00252626694, candidate .00252922403, paired mean -2.95708855e-6, coefficient -0.001070302 vs required positive, second half and complete 2024/2025 years negative, corrected lower -2.56409603e-5. All fixed information gates failed; zero account, close without sign/currency/season/horizon rescue.",
     "AMD_NVDA_original_SEC_forward_guidance_source_probe": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/summary.json",
     "AMD_NVDA_original_SEC_forward_guidance_source_status": "Four original SEC 8-K earnings exhibits across AMD/NVDA and 2011/2026 passed transport and forward-revenue-outlook identity; raw bytes/header and NAS scoped restore passed. Early guidance expresses sequential percentage, recent guidance absolute dollar range/plus-minus. Full history, numeric harmonization, PIT and any information/account result pending; zero fits/accounts.",
-    "AMD_NVDA_original_SEC_guidance_identity": "133/133 original Item2.02 8-K complete submissions NAS-backed; source-only adjudication yields 63 quarterly event slots per issuer through 2026 current date. AMD62 numeric+one early qualitative unknown; NVDA63 numeric, with May2014 outlook first released in later May8 filing. Three preliminary filing false positives excluded; independent source review conditional for numeric harmonization only. No market reads/fits/accounts."
+    "AMD_NVDA_original_SEC_guidance_identity": "133/133 original Item2.02 8-K complete submissions NAS-backed; source-only adjudication yields 63 quarterly event slots per issuer through 2026 current date. AMD62 numeric+one early qualitative unknown; NVDA63 numeric, with May2014 outlook first released in later May8 filing. Three preliminary filing false positives excluded; independent source review conditional for numeric harmonization only. No market reads/fits/accounts.",
+    "AMD_NVDA_original_guidance_numeric_source": "research/stage1_amd_nvda_guidance_breadth_source_20261023/summary.json",
+    "AMD_NVDA_original_guidance_date_audit": "research/stage1_amd_nvda_sec_acceptance_clock_audit_20261023/summary.json",
+    "AMD_NVDA_numeric_source_interpretation": "Among 126 original AMD/NVDA SEC quarterly events, 124 unambiguous numeric forward sequential-revenue-growth values (AMD61/NVDA63) and two AMD 2011 qualitative unknown. Initial parser invalid annual/segment denominator and expense-dollar matches preserved; bounded source-only repairs yielded no remaining large source-ratio anomalies, independent numeric review conditionally allows Qlib map. Separate 126/126 conservative next-trading-day acceptance date audit passed with min 12.15h margin, exact first-public still unqualified. Zero model fits/accounts/outcome reads for source."
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -369,7 +372,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T22:14:56.820295+00:00",
+  "updated_at_utc": "2026-10-22T22:22:19.905701+00:00",
   "execution_totals": {
     "new_model_fits": 83,
     "new_native_accounts": 50,

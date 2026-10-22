@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "same_original_126_event_numeric_parser_boundary_repair_before_Qlib_or_fit",
+  "original_plan_sha256": "a7e827446685fd5565dd40ec35d7e36ff5f7bce0684d06c2be8af0c1e4f67f04",
+  "failed_attempt1_result_sha256": "6c112edba1c68daa9a6d4c6ffd87c12687555dd8ebb8f57dee5b61e03cedf2b1",
+  "failure": "Initial source-only parser sometimes read annual or segment revenue as current-quarter denominator and unrelated operating expense dollars as an absolute revenue forecast after a percentage revenue sentence; example outliers are provenance failures, no market outcomes were read.",
+  "repairs": {
+    "guidance_sentence": "Start only at explicit next-quarter revenue expected/issuer expects revenue phrase inside issuer Outlook; stop at first sentence/bullet or new GAAP/gross-margin line. Absolute dollars must be inside that bounded revenue sentence; otherwise parse explicit sequential percent.",
+    "reported_current": "For absolute next guidance, first prefer a sentence that explicitly names first/second/third/fourth quarter or Q1/Q2/Q3/Q4 and reports that quarter revenue in the same issuer earnings release. Do not use full-year or segment revenue; if no unique quarter amount, unknown.",
+    "word_numbers": "Map explicitly spelled zero through twenty only in numeric percent clauses; flat plus/minus numeric percent has center zero. Qualitative flat to slightly down remains unknown.",
+    "uncertainty": "Preserve forecast low/high/plus-minus separately; source feature uses central number by original frozen formula."
+  },
+  "scope": "All 126 saved original event accessions, exact raw hashes unchanged, zero HTTP and zero market labels. Retain first attempt and produce a new result with per-event source evidence/parse method; no silent overwrite.",
+  "budget": {
+    "external_GETs": 0,
+    "Qlib_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If any numeric event lacks unique current-quarter revenue or unambiguous bounded next-quarter amount/percent, preserve unknown and list for bounded manual original-byte adjudication. No Qlib map or model from partial or outlier-tainted vector."
+}

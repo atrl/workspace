@@ -1,0 +1,30 @@
+{
+  "experiment": "stage1_amd_nvda_guidance_breadth_source_20261023",
+  "decision": "original_SEC_AMD_NVDA_124_numeric_forward_growth_values_two_qualitative_unknown_Qlib_map_pending",
+  "objective_achieved": false,
+  "plan_sha256": "a7e827446685fd5565dd40ec35d7e36ff5f7bce0684d06c2be8af0c1e4f67f04",
+  "attempt1": "numeric_attempt1_result.json",
+  "attempt2": "numeric_repair_result.json",
+  "final_semantics": "numeric_outlier_repair_result.json",
+  "independent_numeric_source_review": "independent_numeric_source_review.json",
+  "source_events": 126,
+  "numeric_growth_by_issuer": {
+    "AMD": 61,
+    "NVDA": 63
+  },
+  "AMD_qualitative_unknown": 2,
+  "source_formula": "Absolute next-quarter revenue midpoint / same-release current-quarter reported revenue -1 when available; otherwise explicit numeric sequential percentage midpoint. All units USD million; qualitative unknown.",
+  "prospective_feature": "AMD_NVDA_forward_growth_positive_breadth requiring both values known and not stale",
+  "source_original_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+  "market_outcome_reads": 0,
+  "Qlib_calls": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "first_public_clock_qualified": false,
+  "next_action": "Freeze native Qlib calendar map with source events available only from first signal strictly after SEC filed date and max four calendar months age; preserve AMD Jan/Apr2011 qualitative unknown. Then independently review source timing/coverage and freeze one matched Stage1 information screen if feasible.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "three_saved_AMD_quarter_revenue_record_adjective_source_parser_repair_only",
+  "original_plan_sha256": "a7e827446685fd5565dd40ec35d7e36ff5f7bce0684d06c2be8af0c1e4f67f04",
+  "attempt2_result_sha256": "8916918bbfd905f3f5bc0cab34efa51faf480b37c1e5e4752e16932331f0938d",
+  "exact_accessions": [
+    "0000002488-25-000106",
+    "0000002488-25-000009",
+    "0000002488-26-000014"
+  ],
+  "mechanical_cause": "First explicit current-quarter AMD revenue prose uses \"revenue was a record $X billion\"; attempt2 strict pattern misses adjective and falls back to later full-year or segment revenue.",
+  "repair": "For only these three accessions, read exact original EX-99.1 and require \"[ordinal] quarter revenue was a record $X billion\" before any full-year/segment statement; use that stated quarter amount as denominator and unchanged frozen next-quarter guidance midpoint. Preserve all other 123 rows byte-identically and both prior attempts.",
+  "budget": {
+    "external_GETs": 0,
+    "Qlib_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any ambiguous first reported-quarter amount or source hash mismatch remains unknown, no outcome-driven fill or account."
+}

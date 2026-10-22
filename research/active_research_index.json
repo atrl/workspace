@@ -175,6 +175,16 @@
       "original_inventory_result": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/item202_inventory_result.json",
       "quarter_event_result": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/quarter_event_adjudication_result.json",
       "independent_source_review": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/independent_source_review.json"
+    },
+    {
+      "card": "research/stage1_amd_nvda_guidance_breadth_source_20261023",
+      "phase": "original_SEC_AMD_NVDA_124_numeric_growth_values_two_unknown_Qlib_map_pending",
+      "role": "two_issuer_forward_revenue_growth_breadth_source",
+      "full_economic_experiment": false,
+      "status": "source_numeric_only_no_fit_or_account",
+      "execution_authorized": false,
+      "result": "research/stage1_amd_nvda_guidance_breadth_source_20261023/summary.json",
+      "independent_source_review": "research/stage1_amd_nvda_guidance_breadth_source_20261023/independent_numeric_source_review.json"
     }
   ],
   "framework": [
@@ -436,7 +446,8 @@
     "closed_CFTC_NQ_H5_information_result": "research/stage1_cftc_nq_positioning_h5_information_v2_20261023/independent_result_review.json",
     "TSMC_SEC_guidance_Qlib_source": "research/stage1_tsmc_sec_guidance_growth_source_20261023/summary.json",
     "closed_TSMC_SEC_guidance_H5_information_result": "research/stage1_tsmc_guidance_growth_h5_information_20261023/summary.json",
-    "AMD_NVDA_original_guidance_source_probe": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/summary.json"
+    "AMD_NVDA_original_guidance_source_probe": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023/summary.json",
+    "AMD_NVDA_numeric_guidance_source": "research/stage1_amd_nvda_guidance_breadth_source_20261023/summary.json"
   },
   "closed_source_probes": [
     {

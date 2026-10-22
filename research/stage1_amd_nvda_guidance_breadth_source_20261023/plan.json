@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_amd_nvda_guidance_breadth_source_20261023",
+  "phase": "original_SEC_AMD_NVDA_two_issuer_forward_revenue_growth_numeric_semantics_only",
+  "parent": {
+    "source_card": "research/stage1_amd_nvda_sec_guidance_original_probe_20261023",
+    "quarter_event_result_sha256": "322aa6b4f8e3b167a1c17ecb79dd72d2b2d96d55f2dbf43f59d4429163cdda4a",
+    "item202_inventory_result_sha256": "f6fe5cbae488dfed86e47df8e90edbc964282e560affab8a6d19ed9388ffcfd6",
+    "independent_source_review_sha256": "45d4fc5d4f3d144e6c0b570d0fe02b2adefcbb478fa3924d61389c5e2ed42cba",
+    "original_full_submission_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+    "event_slots_each_issuer": 63
+  },
+  "numeric_rule": {
+    "selected_events": "Exactly the 126 source-adjudicated AMD/NVDA quarter slots, no additional source request or market outcome selection.",
+    "precedence": "If explicit next-quarter revenue amount/range/midpoint in USD is present, use its midpoint or central amount and divide by same original release reported current-quarter GAAP consolidated revenue in USD; subtract1. If no amount, use an explicitly numeric sequential revenue-growth percentage midpoint; if qualitative/ambiguous, unknown.",
+    "units": "Unify USD million/billion before division; percent values divide by100. For amount plus/minus uncertainty, central amount is midpoint. Preserve reported interval/uncertainty separately; no ex-post realized next-quarter revenue.",
+    "source_text": "Only SEC original 8-K/EX-99.1/EX-95.1 issuer earnings release text at the selected accession; do not use later CFO commentary, external consensus or revised filings.",
+    "AMD_2011_qualitative": "Unknown, do not encode flat as zero.",
+    "NVDA_2014_late_guidance": "Numeric event begins at May8 original filing, not May6 earnings."
+  },
+  "prospective_feature": {
+    "name": "AMD_NVDA_forward_growth_positive_breadth",
+    "formula": "Among two concurrently known most recent issuer forward sequential-revenue-growth numbers, (1[AMD>0]+1[NVDA>0])/2; if either issuer source unknown or stale after four calendar months, feature unknown.",
+    "source_only_here": true
+  },
+  "budget": {
+    "external_GETs": 0,
+    "Qlib_calls": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Hash/issuer/quarter mismatch stops. Unsupported numeric wording remains unknown with exact original excerpt; no manual favorable filling or outcome-guided parser repair. Source numeric completeness and PIT must pass before Qlib mapping or one fixed information screen."
+}

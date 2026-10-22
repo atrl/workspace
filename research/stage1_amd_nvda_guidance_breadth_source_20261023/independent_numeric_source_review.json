@@ -1,0 +1,26 @@
+{
+  "verdict": "CONDITIONAL_GO_QLIB_CALENDAR_MAP_ONLY",
+  "reviewer": "/root/stage1_nvda_design_review",
+  "scope": "Read-only original SEC issuer guidance numeric-source and repair review",
+  "final_numeric_result_sha256": "2f8ad7e4f5f52b40ec54e121a8e3abc5a57073586db54c6ffa712b946cbd16b2",
+  "parent_source_plan_sha256": "a7e827446685fd5565dd40ec35d7e36ff5f7bce0684d06c2be8af0c1e4f67f04",
+  "selected_original_accessions": 126,
+  "numeric_AMD": 61,
+  "numeric_NVDA": 63,
+  "AMD_qualitative_unknown": 2,
+  "old_attempts_preserved": true,
+  "three_AMD_denominator_repairs_exact_accessions": [
+    "0000002488-25-000106",
+    "0000002488-25-000009",
+    "0000002488-26-000014"
+  ],
+  "other_123_rows_unchanged": true,
+  "original_full_submission_NAS_archive_sha256": "8273fd8c00608f5b2f1faf81368b9f3c238919f297b5d868c8af319b115d9cee",
+  "NAS_originals_verified": true,
+  "market_outcome_reads": 0,
+  "Qlib_maps": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "first_public_clock_qualified": false,
+  "next_step": "Separately freeze issuer fiscal slot, max age/missingness and Qlib first signal strictly after filing date; do not fill qualitative AMD 2011 values or backdate NVDA May2014. No information/account approval."
+}
