@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_official_ALFRED_T10Y2Y_as_of_2011_and_2020_vintage_export_probe",
+  "source_page": "https://alfred.stlouisfed.org/series/downloaddata?seid=T10Y2Y",
+  "reason": "The original Federal Reserve H.15 three-era probe obtained a valid 2011 release but the frozen 2020 dated path returned HTTP404. An official ALFRED vintage export could qualify dated historical 10-year-minus-2-year slope values without treating today's DDP history as point-in-time.",
+  "exact_request": {
+    "series": "T10Y2Y",
+    "units": "Percent",
+    "observation_range": ["2011-03-01", "2020-03-23"],
+    "entered_vintage_dates": ["2011-03-08", "2020-03-23"],
+    "output_format": "Observations by Vintage Date, All Observations",
+    "file_format": "Zipped CSV"
+  },
+  "checks": "Download once through the official form; retain exact ZIP, response/source URL when available, SHA-256 and file names. Inspect whether both dated vintage columns are present and contain finite 2y-minus-10y observations for 2011-03-07 and 2020-03-20. If the 2011 vintage is unavailable, stop source qualification. Archive exact bytes and receipt on Yanxuan NAS with scoped restore before any local cache is disposable.",
+  "budget": {
+    "download_attempts_max": 1,
+    "new_external_fallbacks": 0,
+    "SOXX_market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "No result or missing 2011/2020 vintage is a source gap. Do not alter dates, switch a FRED current-history CSV into historical PIT, fit, or change the closed real-yield/credit experiments."
+}

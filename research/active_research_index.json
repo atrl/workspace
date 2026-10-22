@@ -509,6 +509,12 @@
       "status": "generic_Cboe_option_quote_sample_schema_only_SOXX_and_2011_history_unproven",
       "result": "research/soxx_option_vendor_sample_preflight_20261023/summary.json",
       "default_search": false
+    },
+    {
+      "card": "research/stage1_fed_h15_alfred_vintage_preflight_20261023",
+      "status": "one_ALFRED_asof_ZIP_export_browser_HTTP_failure_no_source_bytes",
+      "result": "research/stage1_fed_h15_alfred_vintage_preflight_20261023/summary.json",
+      "default_search": false
     }
   ],
   "latest_read_only_Stage1_0bp_signal_loss_diagnostic": "research/stage1_original_0bp_signal_loss_chain_v2_20261023/summary.json"

@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_fed_h15_alfred_vintage_preflight_20261023",
+  "decision": "stop_fixed_ALFRED_form_export_probe_needs_transport_or_authorized_API_key",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "plan_sha256": "040d8b061f17f9d8129ba8c5b1c094c574d87ccd9a305a86adabfa325e0c76d0",
+  "result": "transport_result.json",
+  "download_attempts": 1,
+  "raw_vintage_ZIP_received": false,
+  "2011_vintage_proven": false,
+  "SOXX_market_outcome_reads": 0,
+  "Qlib_calls": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

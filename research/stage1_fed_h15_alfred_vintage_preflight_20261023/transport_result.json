@@ -1,0 +1,26 @@
+{
+  "status": "ALFRED_vintage_export_browser_HTTP_failure_no_source_bytes",
+  "plan_sha256": "040d8b061f17f9d8129ba8c5b1c094c574d87ccd9a305a86adabfa325e0c76d0",
+  "attempted_at_utc": "2026-10-22T23:06:57Z",
+  "source_page": "https://alfred.stlouisfed.org/series/downloaddata?seid=T10Y2Y",
+  "selected_form": {
+    "observation_start": "2011-03-01",
+    "observation_end": "2020-03-23",
+    "vintage_dates": ["2011-03-08", "2020-03-23"],
+    "units": "Percent",
+    "output_format": "Observations by Vintage Date, All Observations",
+    "file_format": "Zipped CSV"
+  },
+  "official_page_observation": "The visible revised-vintage chooser had 3,147 items and its first listed revision date was 2014-01-27. This does not by itself prove an entered 2011 as-of date is unavailable.",
+  "download_attempts": 1,
+  "download_result": "The in-app browser navigated to an HTTP response failure page after the Download data action; no ZIP path or payload was returned. Exact server status code was not exposed by the browser tool.",
+  "raw_vintage_ZIP_received": false,
+  "2011_vintage_proven": false,
+  "2020_vintage_proven": false,
+  "NAS_archive_required": false,
+  "SOXX_market_outcome_reads": 0,
+  "Qlib_calls": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "decision": "stop_fixed_ALFRED_form_export_probe_needs_transport_or_authorized_API_key"
+}

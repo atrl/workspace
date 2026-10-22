@@ -106,7 +106,9 @@
     "Taiwan_electronic_export_orders_current_open_data_source": "research/taiwan_export_orders_open_data_20261023/summary.json",
     "Taiwan_electronic_export_orders_source_limit": "Distinct broad electronics incoming-order source has government open-data current CSV via quality.data.gov.tw with 511 monthly rows 1984-01..2026-07 and full144/144 Stage1 training months in current history; dataset page created2015, source lacks original monthly vintages/decision-time clocks and released Aug2026 observation, so no PIT factor, fit or account. Four discovery GETs total (two MOEA403, two government200) transparently recorded; raw successes, 403 bodies and native Qlib source Recorder NAS-backed/restored. Do not infer semiconductor-only exposure or backfill historical availability.",
     "Stage1_Fed_H15_Treasury_slope_source_probe": "research/stage1_fed_h15_treasury_slope_source_probe_20261023/summary.json",
-    "Stage1_Fed_H15_Treasury_slope_source_limit": "Distinct 10y-minus-2y growth-duration hypothesis has 2011 dated H15 page with 2y/10y rows and 2:30 ET release statement, but its current HTTP Last-Modified is Mar14 for nominal Mar7 release, so same-day original bytes are unqualified. The frozen 2020 dated archive URL returned HTTP404; this closes only the exact URL transport, not Treasury data availability or factor efficacy. Two GETs, raw responses NAS-restored, zero outcomes/fits/accounts. Need official post-2016 historical vintage endpoint before Qlib map/information screen."
+    "Stage1_Fed_H15_Treasury_slope_source_limit": "Distinct 10y-minus-2y growth-duration hypothesis has 2011 dated H15 page with 2y/10y rows and 2:30 ET release statement, but its current HTTP Last-Modified is Mar14 for nominal Mar7 release, so same-day original bytes are unqualified. The frozen 2020 dated archive URL returned HTTP404; this closes only the exact URL transport, not Treasury data availability or factor efficacy. Two GETs, raw responses NAS-restored, zero outcomes/fits/accounts. Need official post-2016 historical vintage endpoint before Qlib map/information screen.",
+    "ALFRED_T10Y2Y_original_vintage_form_probe": "research/stage1_fed_h15_alfred_vintage_preflight_20261023/summary.json",
+    "ALFRED_T10Y2Y_original_vintage_form_limit": "One official ALFRED T10Y2Y as-of ZIP export for 2011-03-08 and 2020-03-23 returned an in-app browser HTTP response failure with no raw ZIP. Visible revision-date chooser began 2014-01-27 but does not prove 2011 unavailable. No registered FRED API key was present locally. Zero SOXX outcomes, fits or accounts; H15 slope source not qualified."
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -386,7 +388,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T23:00:55.229167+00:00",
+  "updated_at_utc": "2026-10-22T23:08:22Z",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 50,
