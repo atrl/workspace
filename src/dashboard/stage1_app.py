@@ -6,7 +6,7 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import HTMLResponse
 
-from .stage1 import build_stage1_dashboard_payload, resolve_stage1_dashboard_source
+from .stage1 import _resolve_root, build_stage1_dashboard_payload, resolve_stage1_dashboard_source
 from .stage1_mobile import build_stage1_mobile_summary
 
 
@@ -14,7 +14,7 @@ APP_HTML = Path(__file__).with_name("stage1.html").read_text(encoding="utf-8")
 
 
 def create_stage1_app(root: Path | str | None = None) -> FastAPI:
-    source = resolve_stage1_dashboard_source(root)
+    repo_root = _resolve_root(root)
     app = FastAPI(title="Stage1 Qlib Dashboard")
 
     @app.get("/", response_class=HTMLResponse)
@@ -23,6 +23,10 @@ def create_stage1_app(root: Path | str | None = None) -> FastAPI:
 
     @app.get("/health")
     def health() -> dict[str, str]:
+        try:
+            source = resolve_stage1_dashboard_source(repo_root)
+        except (OSError, ValueError):
+            return {"status": "needs_data", "source": "qlib_recorder"}
         return {"status": "ready", "source": "qlib_recorder", "recorder_id": source.recorder_id}
 
     @app.get("/api/stage1")
@@ -30,13 +34,13 @@ def create_stage1_app(root: Path | str | None = None) -> FastAPI:
         start: str | None = Query(default=None),
     ) -> dict:
         try:
-            return build_stage1_dashboard_payload(root=source.root, start=start)
+            return build_stage1_dashboard_payload(root=repo_root, start=start)
         except ValueError as exc:
             raise HTTPException(status_code=422, detail=str(exc)) from exc
 
     @app.get("/api/stage1/mobile-summary")
     def mobile_summary() -> dict:
-        return build_stage1_mobile_summary(source.root)
+        return build_stage1_mobile_summary(repo_root)
 
     return app
 
