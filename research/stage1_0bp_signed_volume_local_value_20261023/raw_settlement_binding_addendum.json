@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "bind_original_raw_corporate_settlement_for_local_branches_before_any_label",
+  "base_plan_sha256": "b1e71e276831c49b2a4892f9208f44ab8f310fc40267c187ec20bb9202cc54b0",
+  "label_execution_addendum_sha256": "24012b9f9fd7fea334877c0e30a3ca0001543306e1d403fd16300b67ab3df2f3",
+  "raw_settlement_module": "src/backtest/raw_corporate_policy.py",
+  "raw_settlement_module_sha256": "4783e33cf934760385c572e7da6fd4467698120801e21e5fdad7d1e608e0f4aa",
+  "reason": "Original A0 native account uses settle_raw(q,cash,receivable), sizing desired target against NAV including existing receivable while funding purchases only with spendable cash. Generic settle_tiered_event excludes receivable from target sizing and cannot represent this A0 physical branch.",
+  "branch_contract": "Use settle_raw with original physical raw q, spendable cash and unchanged receivable at current recovery and next-open common reset. Require HOLD-now branch next reset exact parity with saved A0 q/cash/NAV. Scheduled next-day corporate actions remain unknown.",
+  "prior_local_label_attempts": 0,
+  "prior_model_fits": 0,
+  "prior_accounts": 0
+}

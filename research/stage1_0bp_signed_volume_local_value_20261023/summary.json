@@ -1,0 +1,196 @@
+{
+  "experiment": "stage1_0bp_signed_volume_local_value_20261023",
+  "plan_sha256": "b1e71e276831c49b2a4892f9208f44ab8f310fc40267c187ec20bb9202cc54b0",
+  "addendum_sha256": "24012b9f9fd7fea334877c0e30a3ca0001543306e1d403fd16300b67ab3df2f3",
+  "decision": "not_promoted_fixed_0bp_signed_volume_local_value_rank_failed",
+  "objective_achieved": false,
+  "matched_sessions": 944,
+  "necessary_route_days": 199,
+  "mature_local_labels": 191,
+  "unknown_next_corporate_action": 7,
+  "unknown_no_next_date": 1,
+  "fee_parity_observed_orders": 1275,
+  "executed_legal_projection_parity_rows": 797,
+  "max_current_physical_nav_gap_usd": 0.0,
+  "max_HOLD_next_reset_quantity_gap": 0.0,
+  "max_HOLD_next_reset_cash_gap_usd": 0.0,
+  "max_HOLD_next_reset_nav_gap_usd": 0.0,
+  "full_pressure_value_spearman": 0.09892360154312481,
+  "half_pressure_value_spearman": [
+    0.24261735419630157,
+    0.02724022604082574
+  ],
+  "bootstrap_lower": -0.05159080748760015,
+  "bootstrap_upper": 0.30111661764885544,
+  "bootstrap_valid_replicates": 10000,
+  "gates": {
+    "full_positive": true,
+    "both_halves_positive": true,
+    "bootstrap_lower_positive": false
+  },
+  "information_gate_pass": false,
+  "quarters": [
+    {
+      "quarter": "2023Q1",
+      "sessions": 61,
+      "necessary_route": 0,
+      "mature_labels": 0,
+      "mean_local_value_bp": null,
+      "pressure_value_spearman": null
+    },
+    {
+      "quarter": "2023Q2",
+      "sessions": 62,
+      "necessary_route": 0,
+      "mature_labels": 0,
+      "mean_local_value_bp": null,
+      "pressure_value_spearman": null
+    },
+    {
+      "quarter": "2023Q3",
+      "sessions": 63,
+      "necessary_route": 22,
+      "mature_labels": 20,
+      "mean_local_value_bp": 3.0617956388910232,
+      "pressure_value_spearman": 0.43458646616541347
+    },
+    {
+      "quarter": "2023Q4",
+      "sessions": 63,
+      "necessary_route": 25,
+      "mature_labels": 25,
+      "mean_local_value_bp": 12.259268684262079,
+      "pressure_value_spearman": 0.2230769230769231
+    },
+    {
+      "quarter": "2024Q1",
+      "sessions": 61,
+      "necessary_route": 9,
+      "mature_labels": 9,
+      "mean_local_value_bp": 12.113506961712822,
+      "pressure_value_spearman": null
+    },
+    {
+      "quarter": "2024Q2",
+      "sessions": 63,
+      "necessary_route": 11,
+      "mature_labels": 11,
+      "mean_local_value_bp": -1.7315389817121665,
+      "pressure_value_spearman": 0.7818181818181819
+    },
+    {
+      "quarter": "2024Q3",
+      "sessions": 64,
+      "necessary_route": 10,
+      "mature_labels": 10,
+      "mean_local_value_bp": -28.094787413284006,
+      "pressure_value_spearman": -0.12727272727272726
+    },
+    {
+      "quarter": "2024Q4",
+      "sessions": 64,
+      "necessary_route": 0,
+      "mature_labels": 0,
+      "mean_local_value_bp": null,
+      "pressure_value_spearman": null
+    },
+    {
+      "quarter": "2025Q1",
+      "sessions": 60,
+      "necessary_route": 11,
+      "mature_labels": 11,
+      "mean_local_value_bp": -10.68292397058418,
+      "pressure_value_spearman": 0.15454545454545454
+    },
+    {
+      "quarter": "2025Q2",
+      "sessions": 62,
+      "necessary_route": 33,
+      "mature_labels": 33,
+      "mean_local_value_bp": 3.5605844158813165,
+      "pressure_value_spearman": 0.0768716577540107
+    },
+    {
+      "quarter": "2025Q3",
+      "sessions": 64,
+      "necessary_route": 0,
+      "mature_labels": 0,
+      "mean_local_value_bp": null,
+      "pressure_value_spearman": null
+    },
+    {
+      "quarter": "2025Q4",
+      "sessions": 64,
+      "necessary_route": 10,
+      "mature_labels": 10,
+      "mean_local_value_bp": -9.981471498949471,
+      "pressure_value_spearman": 0.006060606060606061
+    },
+    {
+      "quarter": "2026Q1",
+      "sessions": 61,
+      "necessary_route": 9,
+      "mature_labels": 8,
+      "mean_local_value_bp": 11.456591203861993,
+      "pressure_value_spearman": null
+    },
+    {
+      "quarter": "2026Q2",
+      "sessions": 62,
+      "necessary_route": 0,
+      "mature_labels": 0,
+      "mean_local_value_bp": null,
+      "pressure_value_spearman": null
+    },
+    {
+      "quarter": "2026Q3",
+      "sessions": 64,
+      "necessary_route": 53,
+      "mature_labels": 49,
+      "mean_local_value_bp": 7.436595001218563,
+      "pressure_value_spearman": 0.019183673469387753
+    },
+    {
+      "quarter": "2026Q4",
+      "sessions": 6,
+      "necessary_route": 6,
+      "mature_labels": 5,
+      "mean_local_value_bp": 0.16100547481327182,
+      "pressure_value_spearman": null
+    }
+  ],
+  "historical_independence": false,
+  "source_first_receipt_finality_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "local_labels_are_full_strategy_value": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "analysis/bootstrap_replicates"
+    ]
+  },
+  "recorder_id": "7abbbcf0fcf145b69df17ee77624aa80",
+  "experiment_id": "271674762291940481",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_0bp_signed_volume_local_value_20261023/qlib_recorder",
+  "nas_evidence": {
+    "sha256": "4b94fb82b73046c56eb477296dd9fd15e8c34ee49187ccef103a6ccd47919013",
+    "size_bytes": 190434,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/4b/94/4b94fb82b73046c56eb477296dd9fd15e8c34ee49187ccef103a6ccd47919013",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:30:43.516825+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/4b/94/4b94fb82b73046c56eb477296dd9fd15e8c34ee49187ccef103a6ccd47919013",
+    "recorder_id": "7abbbcf0fcf145b69df17ee77624aa80",
+    "experiment_id": "271674762291940481",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "4b94fb82b73046c56eb477296dd9fd15e8c34ee49187ccef103a6ccd47919013",
+    "verified": true
+  }
+}

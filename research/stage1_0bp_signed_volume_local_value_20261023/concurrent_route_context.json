@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "supplementary_original_A0_reused_held_failure_attribution_not_new_candidate_selection",
+  "primary_fixed_route": "research/stage1_signed_volume_0bp_action_information_20261023/summary.json",
+  "primary_summary_sha256": "125cbb5eca43718962090fdf3c70395e216216fd8c3df91a18e065621a232409",
+  "primary_decision": "not_promoted_fixed_0bp_signed_volume_recovery_amount_information_failed",
+  "primary_evaluation": "2018-2022 OOF Stage1 architecture train/eval information screen: 2 Ridge fits, 173/265 mature eligible labels, all four gates failed, no held account",
+  "this_card": "research/stage1_0bp_signed_volume_local_value_20261023/summary.json",
+  "this_card_summary_sha256": "aac0255a8803a5b15a2da2ec33bd075dfc00c3dff13f70a31f15255313b0e566",
+  "this_card_role": "Original A_0 physical raw-share 2023-2026 reused-held local same-state value diagnostic; no model fits/accounts; corrected rank lower negative. It does not reopen the primary signed-volume route or act as independent validation.",
+  "no_sign_beta_clock_threshold_rescue": true,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

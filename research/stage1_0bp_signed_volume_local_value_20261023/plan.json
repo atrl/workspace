@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_0bp_signed_volume_local_value_20261023",
+  "phase": "first_fee_parity_then_independently_reviewed_held_0bp_local_recovery_value_no_model",
+  "question": "Does completed first-hour SOXX signed-volume pressure rank the net same-state 0bp Tiered beta0.6 recovery-vs-HOLD value on original Stage1 A_0 necessary-route dates?",
+  "scope": "Only reused held 2023-2026 development history. Local branch to common next-open target, not a funded policy account or independent forward. No policy threshold selection.",
+  "parent": {
+    "summary": "research/stage1_domain_heads_20261018/summary.json",
+    "summary_sha256": "3b51938ca56ddf45029ff5e4a01a6bbc2f1d1407458efcad7d7c68b0ef5a1d37",
+    "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "experiment_id": "283510277269468590",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_domain_heads_20261018/qlib_recorder",
+    "NAS_archive_sha256": "f3f891d6d09d4187f12815e245b33cc9cfec4acfd4f555b734f66a59348d9884",
+    "artifact_sha256": {
+      "native/A_active_research_replay_0": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+      "inputs/frame": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+      "inputs/plan": "281855c14ed6c12888defd7b10db728f2f26a4e6cd07d2cab7a36d594f684ef5",
+      "inputs/selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+      "inputs/recovery_spec": "4a4bb9cd5e09e0dace34615d47e25c831c58951daabace972aa7a31c93e45bda",
+      "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b"
+    }
+  },
+  "source_route": {
+    "summary": "research/stage1_0bp_signed_volume_action_route_preflight_20261023/summary.json",
+    "summary_sha256": "adf3116ef71db8228a35575df4a38544e76b9816b208901d4aef25ee78ddeba4",
+    "recorder_id": "e57390b08fce48b8bdccaa275438e4f8",
+    "experiment_id": "281538982284140456",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_0bp_signed_volume_action_route_preflight_20261023/qlib_recorder",
+    "daily_artifact": "analysis/daily",
+    "daily_artifact_sha256": "31a9ed6ddbddec69b87a96175391b8f29a980bd368f902ba47ef769829bd434b",
+    "necessary_route_dates": 199,
+    "source_known_dates": 199,
+    "first_receipt_finality_qualified": false
+  },
+  "fee_runtime": {
+    "module": "src/backtest/ibkr_tiered.py",
+    "current_module_sha256": "4e47234c1aef8c9ea4fd26389cdbaa23d3affd75bd7c105bf3192939f3781c35",
+    "frozen_source_artifact_sha256": "b8d230ec57f54a4abaf7f9ae7658af2ee31fb07dc9521c77fafdb7ee31107cde",
+    "observed_order_count": 1275,
+    "max_fee_field_abs_error": 1e-07,
+    "require_cap_flags_and_order_sequence_exact": true,
+    "purpose": "Before any local value label, reproduce the original A_0 observed 0bp Tiered order fee fields and cap flags using its pinned tariff and chronological monthly counters. Current module bytes differ from frozen source object; fee parity is necessary, not proof for hypothetical order sizes."
+  },
+  "label_if_fee_parity_passes": {
+    "eligible": "Only frozen 199 necessary-route dates with known first-hour source and next original Stage1 trade date; preserve all 944 dates, mark unavailable labels unknown.",
+    "branch": "At actual original A_0 10:32 raw-share quantities, spendable cash and receivable, compare beta=min(original raw beta, frozen action_beta0.6) legal target versus HOLD, both starting with exact monthly fee counter from original earlier orders. Use raw SOXL/SOXX 10:32 prices; reset each branch at next trading day 09:47 to the same original A_0 projected target using next raw open, while holding later original account state fixed.",
+    "corporate_action_boundary": "Any scheduled split, entitlement, payment or other corporate action on the next trading date is unknown for local label unless branch-specific corporate handling is separately qualified; no survivor-date compaction. Current-date events are already in the 10:32 physical state.",
+    "value": "Difference in next-open post-reset branch NAV (recovery minus HOLD), divided by current actual 10:32 NAV including receivable; multiply by 10000 for bp. Label maturity next trading day 09:49 New York.",
+    "identity": "Before each branch, verify raw q*raw recovery price + spendable cash + receivable equals A_0 10:32 recorded NAV within $0.01. Do not mix adjusted quote with physical raw shares.",
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "information_gate": {
+    "predictor": "SOXX_first_hour_signed_volume_pressure",
+    "expected_sign": "positive",
+    "statistic": "Spearman correlation of fixed pressure with 0bp net local advantage on eligible mature labels, full held and two chronological halves split at 2025-01-01.",
+    "full_positive": true,
+    "both_halves_positive": true,
+    "stationary_calendar_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.0008064516129032258,
+      "family_denominator": 31,
+      "lower_positive": true
+    },
+    "no_sign_or_threshold_rescue": true
+  },
+  "budgets": {
+    "new_market_requests": 0,
+    "fee_parity_parent_Recorder_loads": 2,
+    "local_label_parent_Recorder_loads_max": 6,
+    "source_route_Recorder_loads_max": 1,
+    "Qlib_D_calendar_calls_max": 1,
+    "DatasetH_builds_max": 1,
+    "new_Qlib_recorders_max": 1,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "bootstrap_attempts_max": 1
+  },
+  "barrier": "Execute read-only fee parity first. If it fails, close without labels. If it passes, freeze exact label code and seek independent design review before reading future next-open outcomes. A diagnostic information pass only motivates separate 2018-2022 training-label construction and historical source-clock qualification, then one full original-Stage1-derived 0bp Tiered-fee native account; 2/5bp and independent forward remain separate."
+}

@@ -1,0 +1,62 @@
+{
+  "status": "original_A0_legal_projection_parity_failed_stop_before_labels",
+  "plan_sha256": "efb2951c5f4c52cc24f1ba9139cdd219de6a18dfbf02a310777508bfb50ccdd1",
+  "source_plan_sha256": "b1e71e276831c49b2a4892f9208f44ab8f310fc40267c187ec20bb9202cc54b0",
+  "rows": 944,
+  "max_abs_weight_error": 0.049101424573375574,
+  "first_failures": [
+    {
+      "row": 4,
+      "trade_date": "2023-01-10 00:00:00",
+      "max_abs_error": 0.003530170434915575
+    },
+    {
+      "row": 10,
+      "trade_date": "2023-01-19 00:00:00",
+      "max_abs_error": 0.031056908596663824
+    },
+    {
+      "row": 14,
+      "trade_date": "2023-01-25 00:00:00",
+      "max_abs_error": 0.02733942769914194
+    },
+    {
+      "row": 17,
+      "trade_date": "2023-01-30 00:00:00",
+      "max_abs_error": 0.0023981428460763676
+    },
+    {
+      "row": 22,
+      "trade_date": "2023-02-06 00:00:00",
+      "max_abs_error": 0.00495027745524812
+    },
+    {
+      "row": 60,
+      "trade_date": "2023-03-31 00:00:00",
+      "max_abs_error": 0.001934515336374787
+    },
+    {
+      "row": 61,
+      "trade_date": "2023-04-03 00:00:00",
+      "max_abs_error": 0.0031628418715130002
+    },
+    {
+      "row": 100,
+      "trade_date": "2023-05-30 00:00:00",
+      "max_abs_error": 0.048573512677411
+    },
+    {
+      "row": 102,
+      "trade_date": "2023-06-01 00:00:00",
+      "max_abs_error": 0.018748676391918295
+    },
+    {
+      "row": 108,
+      "trade_date": "2023-06-09 00:00:00",
+      "max_abs_error": 0.04646814875425681
+    }
+  ],
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "outcome_label_reads": 0
+}

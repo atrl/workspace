@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "read_only_project_legal_weights_observed_A0_parity_before_label",
+  "source_plan_sha256": "b1e71e276831c49b2a4892f9208f44ab8f310fc40267c187ec20bb9202cc54b0",
+  "fee_parity_sha256": "2a44ce58395ff778bb5f18de826a34ad6d8967592f8e7a9f8b7d58fe45d6d356",
+  "projection_module": "src/workflow/intraday_recovery_direct_allocation.py",
+  "projection_module_sha256": "48b4a62a1c8139ecaa5d224023693bd4b1589851feab4b3a114d7188428cb013",
+  "parent_Recorder_object_loads_max": 4,
+  "expected_rows": 944,
+  "max_abs_weight_error": 1e-10,
+  "model_fits": 0,
+  "accounts": 0,
+  "outcome_label_reads": 0,
+  "stop": "If current legal projection does not reproduce all original A0 saved target weights from raw source weights and saved own-state beta caps, do not compute local value labels."
+}

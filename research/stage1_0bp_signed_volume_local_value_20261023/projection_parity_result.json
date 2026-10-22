@@ -1,0 +1,13 @@
+{
+  "status": "original_A0_executed_legal_projection_parity_passed",
+  "plan_sha256": "efb2951c5f4c52cc24f1ba9139cdd219de6a18dfbf02a310777508bfb50ccdd1",
+  "source_plan_sha256": "b1e71e276831c49b2a4892f9208f44ab8f310fc40267c187ec20bb9202cc54b0",
+  "rows": 944,
+  "executed_rows": 797,
+  "HOLD_rows": 147,
+  "max_abs_weight_error": 0.0,
+  "first_failures": [],
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "outcome_label_reads": 0
+}

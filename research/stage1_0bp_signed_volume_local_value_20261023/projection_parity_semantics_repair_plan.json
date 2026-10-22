@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "status": "mechanical_saved_HOLD_target_semantics_repair",
+  "first_result_sha256": "5abe189b58e9d70531a4d073a328914c7783a893f98517bec360ecb24afca714",
+  "finding": "A0 native targets on execute=False rows reflect held pretrade weights, not the unexecuted legal projection; 25 HOLD rows caused the all-944 projection comparison to fail.",
+  "only_allowed_change": "Check legal projection equality on execute_open_target=True rows; retain all 944 rows, report HOLD count and validate saved HOLD target has legal funded simplex. No label/outcome computation.",
+  "unchanged": "Source account, tariff, action beta, source coordinate, local value label and information gate.",
+  "prior_model_fits": 0,
+  "prior_native_accounts": 0,
+  "prior_outcome_labels": 0
+}

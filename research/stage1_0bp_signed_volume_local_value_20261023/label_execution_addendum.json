@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "pre_outcome_local_label_execution_clarification",
+  "base_plan_sha256": "b1e71e276831c49b2a4892f9208f44ab8f310fc40267c187ec20bb9202cc54b0",
+  "fee_parity_result_sha256": "2a44ce58395ff778bb5f18de826a34ad6d8967592f8e7a9f8b7d58fe45d6d356",
+  "projection_first_failure_sha256": "5abe189b58e9d70531a4d073a328914c7783a893f98517bec360ecb24afca714",
+  "projection_semantics_repair_sha256": "a757aa6214e0f5568bf19bff9249ddbf26d26506ae886dc8086dc2b8274e93cd",
+  "projection_count_correction_sha256": "f16b220e8bdfa4e42a4512df0701fde16c1627ea5547883987f27ffdc4050613",
+  "executed_projection_parity_sha256": "fa3827005bfabf3b08f008cc4584916c4d2cdfef69bee064a46d08a3dce9a97d",
+  "next_day_common_reset": "For both local branches, if original A0 next-day execute_open_target is true, reset to saved native.targets next-day weight vector; if false, HOLD with desired=None. The same next-day action decision and original target are frozen reference values, never decision features.",
+  "physical_price_plane": "Use A0 10:32 physical raw q/cash and raw SOXL/SOXX recovery quotes, next-day raw open quotes; include unchanged receivable in NAV denominator and both branch ending NAVs.",
+  "baseline_branch_parity": "On every eligible label, the HOLD-now branch followed by original next-day action must exactly reproduce original A0 saved next 09:47 quantities, cash and NAV (q tolerance1e-8, cash/NAV USD tolerance0.02) when next-day schedule has no corporate event. Any failure stops before score/bootstrap.",
+  "corporate_exclusion": "Retain all 944 dates; mark local label unknown if next trade date is a key in original full corporate schedule (entitlement/pay/split), even if original actual account did not own affected shares.",
+  "minimum_mature_labels": {
+    "full": 150,
+    "first_half": 35,
+    "second_half": 35
+  },
+  "fee_parity_status_required": "A0_0bp_observed_Tiered_fee_parity_passed",
+  "projection_parity_status_required": "original_A0_executed_legal_projection_parity_passed",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "outcome_reads_before_freeze": 0
+}

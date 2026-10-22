@@ -55,7 +55,10 @@
     "Fed_semiconductor_IP_H63_duplicate_closeout": "research/stage1_semiconductor_ip_h63_information_20261023/duplicate_closeout.json",
     "Fed_semiconductor_IP_H63_duplicate_status": "closed_before_fit_same_original_Stage1_IP_coordinate_prior_H5_failed_H63_horizon_control_rescue_rejected_zero_fits_accounts",
     "Stage1_original_0bp_1032_signed_volume_route_preflight": "research/stage1_0bp_signed_volume_action_route_preflight_20261023/summary.json",
-    "Stage1_original_0bp_1032_route_observation": "Original frozen A_active_research_replay_0 own-state 0bp: 944 action dates, 199 meet frozen necessary drawdown/target-above-cap/source-alpha conditions, signed-volume source known 199/199. 2024Q3=10, 2025Q2=33, 2026Q3=53. No local value labels, fits or new accounts; necessary upper bound only, historical first receipt/finality unqualified."
+    "Stage1_original_0bp_1032_route_observation": "Original frozen A_active_research_replay_0 own-state 0bp: 944 action dates, 199 meet frozen necessary drawdown/target-above-cap/source-alpha conditions, signed-volume source known 199/199. 2024Q3=10, 2025Q2=33, 2026Q3=53. No local value labels, fits or new accounts; necessary upper bound only, historical first receipt/finality unqualified.",
+    "Stage1_original_0bp_signed_volume_held_local_value_diagnostic": "research/stage1_0bp_signed_volume_local_value_20261023/summary.json",
+    "Stage1_original_0bp_signed_volume_held_context": "research/stage1_0bp_signed_volume_local_value_20261023/concurrent_route_context.json",
+    "Stage1_original_0bp_signed_volume_held_interpretation": "Supplementary original A_0 physical-account reused-held local diagnostic: 199 necessary recovery dates, 191 exact 0bp Tiered beta0.6 recovery/HOLD labels, 7 next-corporate unknown and one terminal unknown; HOLD-next-reset q/cash/NAV parity exact. Pressure Spearman 0.0989, halves 0.2426/0.0272, corrected lower -0.0516; 2024Q3 mean local recovery -28.09bp versus 2026Q3 +7.44bp with weak pressure rank. No fit/account, no rescue of already failed 2018-2022 fixed amount-information screen."
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -303,7 +306,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T20:31:45+00:00",
+  "updated_at_utc": "2026-10-22T20:32:24.806522+00:00",
   "execution_totals": {
     "new_model_fits": 74,
     "new_native_accounts": 50,

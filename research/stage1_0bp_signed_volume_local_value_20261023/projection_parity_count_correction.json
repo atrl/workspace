@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "status": "corrects_count_only_in_frozen_mechanical_repair_note",
+  "superseded_note_sha256": "a757aa6214e0f5568bf19bff9249ddbf26d26506ae886dc8086dc2b8274e93cd",
+  "executed_rows": 797,
+  "HOLD_rows": 147,
+  "source": "projection_parity_result.json",
+  "source_sha256": "fa3827005bfabf3b08f008cc4584916c4d2cdfef69bee064a46d08a3dce9a97d",
+  "correction": "The repair plan text incorrectly stated 25 HOLD rows, copied from a different account. Original Stage1 A_0 has 147 HOLD rows and 797 executed rows; projection equality was checked on all 797 executed rows. No label, fit or new account was run."
+}
