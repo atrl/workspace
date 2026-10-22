@@ -1,0 +1,1176 @@
+{
+  "status": "report_month_identity_exceptions",
+  "months": 144,
+  "matching_titles": 143,
+  "first_page_0830_headers": 144,
+  "exceptions": [
+    {
+      "reference_month": "2022-12",
+      "source_sha256": "e18ca70c37083727204a2013c4bece279e4692b48048695172b0b8b50458b655",
+      "expected_report_title_month": "December 2022",
+      "printed_report_title_month": null,
+      "title_month_matches": false,
+      "first_page_0830_release_indicated": true
+    }
+  ],
+  "historical_first_public_bytes_qualified": false,
+  "classification_continuity_qualified": false,
+  "Qlib_factor_rows": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "detail": [
+    {
+      "reference_month": "2011-01",
+      "source_sha256": "08514b3a8875a61a3ada290e1212711af8e272a31e119f386ad3f66e6ad82484",
+      "expected_report_title_month": "January 2011",
+      "printed_report_title_month": "January 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-02",
+      "source_sha256": "8a80b5bc40621d7896ee41657b07186c435db5def4b2406bcce66b6be4c841d6",
+      "expected_report_title_month": "February 2011",
+      "printed_report_title_month": "FEBRUARY 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-03",
+      "source_sha256": "c3b8fc5a2253dd4659ae55c257e31f032a6e59327e2cf4e1e753609077827bf5",
+      "expected_report_title_month": "March 2011",
+      "printed_report_title_month": "MARCH 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-04",
+      "source_sha256": "ef74b634dd72e2bb2fa8dbc34210f5a9178bcae33639e3d0b2e4deee46762286",
+      "expected_report_title_month": "April 2011",
+      "printed_report_title_month": "APRIL 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-05",
+      "source_sha256": "df6b69327e8180b9829b9629a6e811601e902fb3f07e761cec4318df1d620362",
+      "expected_report_title_month": "May 2011",
+      "printed_report_title_month": "May 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-06",
+      "source_sha256": "66e0b9420f1a7c27f6d9d9c38ddfbfde8dbe5fc38e166a7b898aa0e0e8ec3b5c",
+      "expected_report_title_month": "June 2011",
+      "printed_report_title_month": "June 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-07",
+      "source_sha256": "cffa8f32476621bd0d379e140f81c126d6c9aa3fbecf1f38250a4b6aa6c74e91",
+      "expected_report_title_month": "July 2011",
+      "printed_report_title_month": "July 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-08",
+      "source_sha256": "88fc5caf9d2029b01378fc9d1a1211cf27949ab38734ebaac0f3a6d3dacf86fe",
+      "expected_report_title_month": "August 2011",
+      "printed_report_title_month": "August 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-09",
+      "source_sha256": "b6e671a78ded2befe5a9a273e85d3fc441d47f9551b090fe299bddf8656ae2e4",
+      "expected_report_title_month": "September 2011",
+      "printed_report_title_month": "September 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-10",
+      "source_sha256": "19c479c2df0ad51be3b8baa832ceb936e7f758e7e32ff2f23e2c31d6ce820948",
+      "expected_report_title_month": "October 2011",
+      "printed_report_title_month": "October 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-11",
+      "source_sha256": "5eba7e8bebfc0d246eae200e6036e6d21603f22e759e6dee5abcd22729ebc0ef",
+      "expected_report_title_month": "November 2011",
+      "printed_report_title_month": "November 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2011-12",
+      "source_sha256": "ca8d4508c09b28bc3b13fb879a792d7ef868efcb9d0350535bf02dfcb20408dc",
+      "expected_report_title_month": "December 2011",
+      "printed_report_title_month": "December 2011",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-01",
+      "source_sha256": "827efe67a3bb680d144ca185845c6d888260f5c85782aa22c842e44c0df7403f",
+      "expected_report_title_month": "January 2012",
+      "printed_report_title_month": "January 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-02",
+      "source_sha256": "a29c96d09feccf0be3ee399b6d4251d9c9b511fcbde73380c5017e7f74f38184",
+      "expected_report_title_month": "February 2012",
+      "printed_report_title_month": "February 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-03",
+      "source_sha256": "f7f27cd465418d3d2db4663d22079d0e1a000a636bc8cb560407276a6f404523",
+      "expected_report_title_month": "March 2012",
+      "printed_report_title_month": "March 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-04",
+      "source_sha256": "3809840e23acb1680745c370597cad6578e376f9dab5277105c8f16ff96c009b",
+      "expected_report_title_month": "April 2012",
+      "printed_report_title_month": "April 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-05",
+      "source_sha256": "f705e6fb12365378880cf2d20669e536a531c330be64459e6af3382583d0089b",
+      "expected_report_title_month": "May 2012",
+      "printed_report_title_month": "May 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-06",
+      "source_sha256": "3e9bc11a5216f569ba56858e794987b41ff10680a613c5fd726a70addb7b4868",
+      "expected_report_title_month": "June 2012",
+      "printed_report_title_month": "June 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-07",
+      "source_sha256": "cb2480cf0a4d927dc2568def81d15b94c162e874b77960fd2b5cfaa7d7ec164a",
+      "expected_report_title_month": "July 2012",
+      "printed_report_title_month": "July 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-08",
+      "source_sha256": "d7928b94e159ac100ede5deece4b5449eac8325711be055bcd8aa3cd175dccfe",
+      "expected_report_title_month": "August 2012",
+      "printed_report_title_month": "August 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-09",
+      "source_sha256": "498b985d39f9397f46653093c0fa3a2342f4b26b394d14aec9a624b9765dc0a0",
+      "expected_report_title_month": "September 2012",
+      "printed_report_title_month": "September 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-10",
+      "source_sha256": "a23d78136411424e266fb8e4f651725bbb6b6b0ab43221b5ff5a384b1fa66c85",
+      "expected_report_title_month": "October 2012",
+      "printed_report_title_month": "October 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-11",
+      "source_sha256": "2feac801cbf6c1cc28c442833f9ee19c1e964e7ccac8f74ddf9bb13dfc39a320",
+      "expected_report_title_month": "November 2012",
+      "printed_report_title_month": "November 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2012-12",
+      "source_sha256": "027f974979bc17646943b128fd55e46954bfb2e8de479647d93eff9e1b476ed7",
+      "expected_report_title_month": "December 2012",
+      "printed_report_title_month": "December 2012",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-01",
+      "source_sha256": "c955853075771a71599db696017a94ad22a589c903e758a3d5ee26521a7ceeee",
+      "expected_report_title_month": "January 2013",
+      "printed_report_title_month": "January 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-02",
+      "source_sha256": "5c4e15906930435f7eb4b3fc88b99279d644cf4e38f2b052f0004dee37009a73",
+      "expected_report_title_month": "February 2013",
+      "printed_report_title_month": "February 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-03",
+      "source_sha256": "d6ac68bc0bdad67cf18928cf47d22bfdd7a1171986018998b983433a4dbda854",
+      "expected_report_title_month": "March 2013",
+      "printed_report_title_month": "March 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-04",
+      "source_sha256": "62882ae325a6892af956387b6605daf968e06f7dfb764dde9656df2bd6a7e277",
+      "expected_report_title_month": "April 2013",
+      "printed_report_title_month": "April 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-05",
+      "source_sha256": "3c1864cb8c7f50dc8b83cadec37c23b45cea1b960300dff76c708fbb9fb43f66",
+      "expected_report_title_month": "May 2013",
+      "printed_report_title_month": "May 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-06",
+      "source_sha256": "73935e3424ce100413ca3ade9924b57f66b17db93084b079e33566fe98c85c2e",
+      "expected_report_title_month": "June 2013",
+      "printed_report_title_month": "June 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-07",
+      "source_sha256": "6ca46b44a1b26c11918ed7fe336655d3daf0d8a839305942f29b65a79579db83",
+      "expected_report_title_month": "July 2013",
+      "printed_report_title_month": "July 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-08",
+      "source_sha256": "2b71cf6c7caef065f8432cef210a826c744c1731a5fda1aa32791b34868ca56c",
+      "expected_report_title_month": "August 2013",
+      "printed_report_title_month": "August 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-09",
+      "source_sha256": "4ff6f9a57e6a460c43e85144fa104d0c2554355a704b11c53a0aedf3561fc33d",
+      "expected_report_title_month": "September 2013",
+      "printed_report_title_month": "September 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-10",
+      "source_sha256": "8d46e3586da51eca8d10681ca4b3740fb2f23bd5a72468c59ac1546af4408007",
+      "expected_report_title_month": "October 2013",
+      "printed_report_title_month": "October 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-11",
+      "source_sha256": "14d9da535ce2b328bde73279883e6dc49d73c7d79d5b67786bf261009676eec4",
+      "expected_report_title_month": "November 2013",
+      "printed_report_title_month": "November 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2013-12",
+      "source_sha256": "c30144c17932de1eb5d96188fe8aa5525a0949961879a168701b6e70695f9cae",
+      "expected_report_title_month": "December 2013",
+      "printed_report_title_month": "December 2013",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-01",
+      "source_sha256": "202d56d71927f7d9629e2956eb57bdeb8273ec9e7fdf09332280ffd0c3881a30",
+      "expected_report_title_month": "January 2014",
+      "printed_report_title_month": "January 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-02",
+      "source_sha256": "9667d9c7641e03c124885dba336154484dcc4ccf654cbedcc8f74b49c9243308",
+      "expected_report_title_month": "February 2014",
+      "printed_report_title_month": "February 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-03",
+      "source_sha256": "d4f3e1476fb5972fc80a1093d31034d46e10d1e7ac2fde4f16fa0dbc732e9bdf",
+      "expected_report_title_month": "March 2014",
+      "printed_report_title_month": "March 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-04",
+      "source_sha256": "45f15227fba2f2ed71929608ff2e14239e971e5c30bd140c57bb2c7c5ce8732f",
+      "expected_report_title_month": "April 2014",
+      "printed_report_title_month": "April 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-05",
+      "source_sha256": "b57226f1e2f0ffd56fb893398abd2e7af6b33b590b5fd5861240868014b2b43f",
+      "expected_report_title_month": "May 2014",
+      "printed_report_title_month": "May 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-06",
+      "source_sha256": "59a7e93f2f3bbea31258cda88e76c0232d4d14bff677587a7f3174ebb4f88c29",
+      "expected_report_title_month": "June 2014",
+      "printed_report_title_month": "June 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-07",
+      "source_sha256": "d1d4a44fc37791f3d350a0eb1732631003f51d47e5d7644ac40900b809e5c181",
+      "expected_report_title_month": "July 2014",
+      "printed_report_title_month": "July 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-08",
+      "source_sha256": "6e518c925fe5a608ecb1bc233750e1d5c38468285bd99666d91466c07d82f9ad",
+      "expected_report_title_month": "August 2014",
+      "printed_report_title_month": "August 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-09",
+      "source_sha256": "523c40848f6342a4262684e4d8f6ee1cdc6b4eaeb5f247310b9e8da0190024a8",
+      "expected_report_title_month": "September 2014",
+      "printed_report_title_month": "September 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-10",
+      "source_sha256": "ab2675813881942f27e944076d2646bec0ff211efc581d92c4ff41644c6fda2e",
+      "expected_report_title_month": "October 2014",
+      "printed_report_title_month": "October 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-11",
+      "source_sha256": "6094bae9938f044cf47cb231a503de544dbcb3413d29193ba36a3d9e2ff0565c",
+      "expected_report_title_month": "November 2014",
+      "printed_report_title_month": "November 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2014-12",
+      "source_sha256": "23f9df8f332ae40ccc72e204b3892afe536ef4afc948358447cf9a9ef2f92f08",
+      "expected_report_title_month": "December 2014",
+      "printed_report_title_month": "December 2014",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-01",
+      "source_sha256": "6c799fe9fbb473dd2e1b56fb34cdf5e0d9e6e7c88c05ca9c09f085f48a26a936",
+      "expected_report_title_month": "January 2015",
+      "printed_report_title_month": "January 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-02",
+      "source_sha256": "dfc3a136b2c03d6341674ffbd86588fc54b7b4733cbe69fdf327ea5cf9b80d17",
+      "expected_report_title_month": "February 2015",
+      "printed_report_title_month": "February 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-03",
+      "source_sha256": "1cc907ff70d4d9c3dfe8f988be0726c40f4bb715c13cdee3e4bcd23093e47784",
+      "expected_report_title_month": "March 2015",
+      "printed_report_title_month": "March 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-04",
+      "source_sha256": "390e39beb0e2c13510a382b33d73a063bf545b479e9329337b2b9e017f9deb91",
+      "expected_report_title_month": "April 2015",
+      "printed_report_title_month": "April 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-05",
+      "source_sha256": "0dedf60721356831d051efa071b84da734d342082bcd795ac3fe769bc0134baa",
+      "expected_report_title_month": "May 2015",
+      "printed_report_title_month": "May 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-06",
+      "source_sha256": "a8a32486afbe24926cd53a15eb8fe24dee7f7f8bc30b8310a1d6ed7c2922442a",
+      "expected_report_title_month": "June 2015",
+      "printed_report_title_month": "June 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-07",
+      "source_sha256": "767f12c242cb6f0e19955c4c59aab49f80fe3a13b61eba498cc6389aab76c283",
+      "expected_report_title_month": "July 2015",
+      "printed_report_title_month": "July 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-08",
+      "source_sha256": "d98b4efa81a59e537e08180b5c73003564e35e9f5493e8ccf823bdfe17605fcd",
+      "expected_report_title_month": "August 2015",
+      "printed_report_title_month": "August 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-09",
+      "source_sha256": "25969eef14757e6d47513a4e165c9f32d6264d04df9992e78bd6fa8e1db2d86d",
+      "expected_report_title_month": "September 2015",
+      "printed_report_title_month": "September 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-10",
+      "source_sha256": "0a16e65f9328833cb08a4684d5487bba2bf0cf7da0b5565e46111ae650d8dd14",
+      "expected_report_title_month": "October 2015",
+      "printed_report_title_month": "October 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-11",
+      "source_sha256": "3d0e7d17347c7f8246809d341f716cae54838935c49f010a5e77c43906dd91d3",
+      "expected_report_title_month": "November 2015",
+      "printed_report_title_month": "November 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2015-12",
+      "source_sha256": "a5abc3f3b2f9bfb7374a36743b3771e2cd6dffb3471427f7bf0f580b43b167ff",
+      "expected_report_title_month": "December 2015",
+      "printed_report_title_month": "December 2015",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-01",
+      "source_sha256": "53a080a0cb14d72ccc9a5f57f9558403716eab3e9704e2b9fed72dbc3e9b785d",
+      "expected_report_title_month": "January 2016",
+      "printed_report_title_month": "January 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-02",
+      "source_sha256": "707d44e1227dcdac5d7f2d2ccde6f664846d96fe5a40a03190d5200b30ac1eb0",
+      "expected_report_title_month": "February 2016",
+      "printed_report_title_month": "February 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-03",
+      "source_sha256": "1b205769a2df120aefaf21f446fb91fe9ea940a76a92a5de37634dffe637d771",
+      "expected_report_title_month": "March 2016",
+      "printed_report_title_month": "March 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-04",
+      "source_sha256": "097c42af0971dff7feccaabc3bfc8435245f0651be1f4d2cb39f7593d285b0da",
+      "expected_report_title_month": "April 2016",
+      "printed_report_title_month": "April 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-05",
+      "source_sha256": "607a64bc0fbf80795a755d66fd42b595840530a708a88c69bf0a3b7179c061b0",
+      "expected_report_title_month": "May 2016",
+      "printed_report_title_month": "May 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-06",
+      "source_sha256": "be83bfa84fece34aeca42f5d0f598c6fa0e41c1bc0a270d0661fdd06aabd4bc4",
+      "expected_report_title_month": "June 2016",
+      "printed_report_title_month": "June 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-07",
+      "source_sha256": "8e913e878b48d781e4d8c8c939dcdf5fbbc5b16ca74dffbd22037dbd949783a4",
+      "expected_report_title_month": "July 2016",
+      "printed_report_title_month": "July 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-08",
+      "source_sha256": "74f62494cc1f04948b1702f41a4780c54c032e71891a2b98ac28e8c5d966d5f9",
+      "expected_report_title_month": "August 2016",
+      "printed_report_title_month": "August 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-09",
+      "source_sha256": "af81412a71e5dbdb953c4c84e1e1724b615dc146d0e56ce6a4f6773947fcb41f",
+      "expected_report_title_month": "September 2016",
+      "printed_report_title_month": "September 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-10",
+      "source_sha256": "e6b2587b5512c1781fcf5ccc3830f1e97d2868fe41fc038b74c2eb32039f22e3",
+      "expected_report_title_month": "October 2016",
+      "printed_report_title_month": "October 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-11",
+      "source_sha256": "6403253e4b30382bb57fb88fd8944197931acd252ed8d75df4e232744f71da98",
+      "expected_report_title_month": "November 2016",
+      "printed_report_title_month": "November 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2016-12",
+      "source_sha256": "7c8946d531d11abd33f009325d2834c16865c99a85ada373e8c76e2238e9d122",
+      "expected_report_title_month": "December 2016",
+      "printed_report_title_month": "December 2016",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-01",
+      "source_sha256": "b873765a2109cfc721165c66426a7e2c0e752cf197922f2e38cbbbebee495fd9",
+      "expected_report_title_month": "January 2017",
+      "printed_report_title_month": "January 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-02",
+      "source_sha256": "2b09ef44af5f6e429ad46e6a44fe8989302f6ccd1c5278f1db7bf8ebfaa383c0",
+      "expected_report_title_month": "February 2017",
+      "printed_report_title_month": "February 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-03",
+      "source_sha256": "d9452b4b286a02c0c0abc28e021b3f5b589d6f963fdc6023e54590cd09f312ef",
+      "expected_report_title_month": "March 2017",
+      "printed_report_title_month": "March 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-04",
+      "source_sha256": "d2b20b1a54a64541c4f979b78bfdebd1aa178ac64cdc26bade99280c6275c173",
+      "expected_report_title_month": "April 2017",
+      "printed_report_title_month": "April 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-05",
+      "source_sha256": "89be84ce00077286bd5fd8fec8b6bc49a528bfcd96fe2fa0c25004992199e822",
+      "expected_report_title_month": "May 2017",
+      "printed_report_title_month": "May 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-06",
+      "source_sha256": "1c8b8a9bfddb61dfb2bab4e14bda4aae166284e0effafb0ae86af105e64ab2ba",
+      "expected_report_title_month": "June 2017",
+      "printed_report_title_month": "June 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-07",
+      "source_sha256": "5e758b93530d4be537f83da9f9cc719284b5d60013fae4bce8a190635a228bef",
+      "expected_report_title_month": "July 2017",
+      "printed_report_title_month": "July 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-08",
+      "source_sha256": "d69c1eb45d0fe97eabbbf80570603ff9fec02577da62218581714399086299eb",
+      "expected_report_title_month": "August 2017",
+      "printed_report_title_month": "August 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-09",
+      "source_sha256": "34bcac08a9d716ced61dc2ce3fc1ffce7627d6ad5320931051faff9f694add6d",
+      "expected_report_title_month": "September 2017",
+      "printed_report_title_month": "September 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-10",
+      "source_sha256": "cc23cd09af1b1c5cc654f821a6c027bb1eb96b827508b70307e669aa93be5b50",
+      "expected_report_title_month": "October 2017",
+      "printed_report_title_month": "October 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-11",
+      "source_sha256": "d4729488eb0d9beb09865fc92cc5ae67cb39339d52a5bb7de9bec3230428cf1c",
+      "expected_report_title_month": "November 2017",
+      "printed_report_title_month": "November 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2017-12",
+      "source_sha256": "348196577447694683a704caee26d3ae731a83b84cb2aebcc3c4ca4fb1e8ee30",
+      "expected_report_title_month": "December 2017",
+      "printed_report_title_month": "December 2017",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-01",
+      "source_sha256": "e54b8eb5c8ca212ea723cee07e9acb31acbfa2015d1eca7851fb1d8ec6cbdbf7",
+      "expected_report_title_month": "January 2018",
+      "printed_report_title_month": "JANUARY 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-02",
+      "source_sha256": "733651297a96bfd8bbfd542793e5d2829f4f0d26258096b294fc337c79413126",
+      "expected_report_title_month": "February 2018",
+      "printed_report_title_month": "FEBRUARY 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-03",
+      "source_sha256": "f80b5e4027857382b04fd6a04e190717b87c6385b247eca12ff03b1cb897199a",
+      "expected_report_title_month": "March 2018",
+      "printed_report_title_month": "MARCH 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-04",
+      "source_sha256": "8cdcf624b9d856f05a4735e19b7b52e0ace56bb2f625ff5269748851264d46f4",
+      "expected_report_title_month": "April 2018",
+      "printed_report_title_month": "APRIL 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-05",
+      "source_sha256": "375ababdef6c3ba1bb2b41283c68153d6abde1498a67fc93d58f31855d05084f",
+      "expected_report_title_month": "May 2018",
+      "printed_report_title_month": "MAY 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-06",
+      "source_sha256": "b876e614be157db121ec85aac26a8c54f67a5590b3d5795746deec2919b025d4",
+      "expected_report_title_month": "June 2018",
+      "printed_report_title_month": "JUNE 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-07",
+      "source_sha256": "c525b71328163564c9eb26f3d5e5ae55f12a46a09621b8e8c864a50c8b34a022",
+      "expected_report_title_month": "July 2018",
+      "printed_report_title_month": "JULY 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-08",
+      "source_sha256": "c39fc11c254856d89ba5a6c1d03d3c044f76b3f42c0fedd29c6850718a47685a",
+      "expected_report_title_month": "August 2018",
+      "printed_report_title_month": "AUGUST 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-09",
+      "source_sha256": "4d77877c1680cf7a050a09a5dda5e9ea7d498dc031da85ed7d493eb9548ef595",
+      "expected_report_title_month": "September 2018",
+      "printed_report_title_month": "SEPTEMBER 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-10",
+      "source_sha256": "5256edb52ae336df77a704abf36cee15340d4ae07c925fcfa114dab79d08ac3d",
+      "expected_report_title_month": "October 2018",
+      "printed_report_title_month": "OCTOBER 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-11",
+      "source_sha256": "4cef0476dae7f29d5ca53c9fc2f59c47d0c36f667b07f25fdf69f4497188e799",
+      "expected_report_title_month": "November 2018",
+      "printed_report_title_month": "NOVEMBER 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2018-12",
+      "source_sha256": "f6ed238e385353160d8b40b144b0961865e9a05fe8ec6c68cfe771a7bf624e19",
+      "expected_report_title_month": "December 2018",
+      "printed_report_title_month": "DECEMBER 2018",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-01",
+      "source_sha256": "6ac6ef30327aa955e00106087ad848420fd7a728a35a023b924b4c6877200e26",
+      "expected_report_title_month": "January 2019",
+      "printed_report_title_month": "JANUARY 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-02",
+      "source_sha256": "ccf18ce3d8b139bb7a1df938b979d237962f527115ce832c89d23854ce999c7c",
+      "expected_report_title_month": "February 2019",
+      "printed_report_title_month": "FEBRUARY 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-03",
+      "source_sha256": "5080e7ff02f1fe8e7920e5cefae79e9966c52da4a9d9d17b3c0aac1c291884db",
+      "expected_report_title_month": "March 2019",
+      "printed_report_title_month": "MARCH 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-04",
+      "source_sha256": "39901b29e1271253a2d8b62ff3e8cf83f921dd89583dcf4932a13086455ffd52",
+      "expected_report_title_month": "April 2019",
+      "printed_report_title_month": "APRIL 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-05",
+      "source_sha256": "9f9789e47f6f3115abceda466d7b45ff8e4ca6dddfaddc04cdbb2320ee514607",
+      "expected_report_title_month": "May 2019",
+      "printed_report_title_month": "MAY 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-06",
+      "source_sha256": "784be9a74ff4034e76bce72cc1c183b490279215770f7f501220c85e457943d3",
+      "expected_report_title_month": "June 2019",
+      "printed_report_title_month": "JUNE 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-07",
+      "source_sha256": "23018ad493e9807c43c1a83b711a042bb2a43568bb6c48377af929055e47844c",
+      "expected_report_title_month": "July 2019",
+      "printed_report_title_month": "JULY 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-08",
+      "source_sha256": "a732f37d214638b7a55f59e9bfc96ae40907a4c9a170e91469586f80680d494a",
+      "expected_report_title_month": "August 2019",
+      "printed_report_title_month": "AUGUST 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-09",
+      "source_sha256": "286e5095ad1927a0bfb6b6fe28334e0beeda9ba539f773d211c098d7c83e21f7",
+      "expected_report_title_month": "September 2019",
+      "printed_report_title_month": "SEPTEMBER 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-10",
+      "source_sha256": "a38d24dba498edef37dc847f3bb67c5035327438150f54eec5e93da8b5b75d60",
+      "expected_report_title_month": "October 2019",
+      "printed_report_title_month": "OCTOBER 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-11",
+      "source_sha256": "ee47b8b38158f6e368eb92ccc37dd57d45677d998990fa3c309d6d40e1907952",
+      "expected_report_title_month": "November 2019",
+      "printed_report_title_month": "NOVEMBER 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2019-12",
+      "source_sha256": "ab8cd998a439575b93816b159566dddcef5de4fd4422ebd7eee9a70efae916d1",
+      "expected_report_title_month": "December 2019",
+      "printed_report_title_month": "DECEMBER 2019",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-01",
+      "source_sha256": "b1cfa18560bc0bbb4c325d5b49bdba078407d6d247197ce1edc2d6ae30be61bf",
+      "expected_report_title_month": "January 2020",
+      "printed_report_title_month": "JANUARY 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-02",
+      "source_sha256": "5c32f19b5b556d479de8a7cd228bda3348e5b1ceec8dfd9d327d6a783847bb7c",
+      "expected_report_title_month": "February 2020",
+      "printed_report_title_month": "FEBRUARY 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-03",
+      "source_sha256": "e78fd48355753e763a569142743a19d9273d82bc10d229740029b7ed2a114ef7",
+      "expected_report_title_month": "March 2020",
+      "printed_report_title_month": "MARCH 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-04",
+      "source_sha256": "5638d468319dac43016c7d4857ad30055f76d64295b556b253e2a650ebe0f42a",
+      "expected_report_title_month": "April 2020",
+      "printed_report_title_month": "APRIL 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-05",
+      "source_sha256": "70ba355551b16c6ea2c9f91bf5763dad2aab49fa87a52699e3acf3a8fe3f61a2",
+      "expected_report_title_month": "May 2020",
+      "printed_report_title_month": "MAY 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-06",
+      "source_sha256": "d3b7d72ac9149e219a474688689388ea106e639c554a821248ee0b1b5dec09f4",
+      "expected_report_title_month": "June 2020",
+      "printed_report_title_month": "JUNE 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-07",
+      "source_sha256": "538cd1219cb06236048a237f9968acf81fc355e964b6aad0768efb8a9f3c6200",
+      "expected_report_title_month": "July 2020",
+      "printed_report_title_month": "JULY 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-08",
+      "source_sha256": "471949a5669bbaa78c588afe434261729a8fbe21f5cba0764c10a6429dcfe297",
+      "expected_report_title_month": "August 2020",
+      "printed_report_title_month": "AUGUST 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-09",
+      "source_sha256": "11de6b2beb62277961ea1a43bc0cb98f3252656bbc15e17d25c698626c80dd36",
+      "expected_report_title_month": "September 2020",
+      "printed_report_title_month": "SEPTEMBER 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-10",
+      "source_sha256": "c9d3d31c48c7c65e9008faf28f995d9285e67cf2e51fa1cd12d9757329b648e7",
+      "expected_report_title_month": "October 2020",
+      "printed_report_title_month": "OCTOBER 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-11",
+      "source_sha256": "6937c8494faf5a9511cd5a66bb97fce6e4daaa4820bd768e0febb7f6a463918f",
+      "expected_report_title_month": "November 2020",
+      "printed_report_title_month": "NOVEMBER 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2020-12",
+      "source_sha256": "d853faf34384fbddb2afa5a275e7a1045b93eebe504a03205a759c9ff328133d",
+      "expected_report_title_month": "December 2020",
+      "printed_report_title_month": "DECEMBER 2020",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-01",
+      "source_sha256": "652c639ba59b9533af44b034a9cfe6eb4b4468890e5aa267e186233d755610b7",
+      "expected_report_title_month": "January 2021",
+      "printed_report_title_month": "JANUARY 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-02",
+      "source_sha256": "9d0491259f0430e02d6a56b46a79beb7537270f73992613b7574957d8739a558",
+      "expected_report_title_month": "February 2021",
+      "printed_report_title_month": "FEBRUARY 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-03",
+      "source_sha256": "27645ab9f276e5e8618a2fe744d730c8f3cabfed80a098b130cabe5bba7663dc",
+      "expected_report_title_month": "March 2021",
+      "printed_report_title_month": "MARCH 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-04",
+      "source_sha256": "836bef0965e8048fca4c69da4a62d25408ac3b64496d639661a0bbc5e9d8b8e8",
+      "expected_report_title_month": "April 2021",
+      "printed_report_title_month": "APRIL 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-05",
+      "source_sha256": "4103fbc81782dda0ec65abee2a79c90ea248559842befb9379a6ef3e4f1546ca",
+      "expected_report_title_month": "May 2021",
+      "printed_report_title_month": "MAY 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-06",
+      "source_sha256": "45c16ffa0be7b9f04c6deacff6af3b64c472df6df96dec63e87fa27c33a967bd",
+      "expected_report_title_month": "June 2021",
+      "printed_report_title_month": "JUNE 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-07",
+      "source_sha256": "e2fbaee0105cdc40ac31bcf07014f5a5dcd4618150a74bc606c505bab7d30bfc",
+      "expected_report_title_month": "July 2021",
+      "printed_report_title_month": "JULY 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-08",
+      "source_sha256": "121c24571a2396f5f9a1de67ce569d0d6d8fd414173cfe730d8517eb300e48ac",
+      "expected_report_title_month": "August 2021",
+      "printed_report_title_month": "AUGUST 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-09",
+      "source_sha256": "d952f2164dc79a2fc4234219b54921b540bf0b232e19264da81e630ff971374f",
+      "expected_report_title_month": "September 2021",
+      "printed_report_title_month": "SEPTEMBER 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-10",
+      "source_sha256": "c73c2ce32cd7d6b0d95048a680982026982ee27d06fcaa0709253d3c0764d6c2",
+      "expected_report_title_month": "October 2021",
+      "printed_report_title_month": "OCTOBER 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-11",
+      "source_sha256": "b2acdeb674ce7de0a8613153c8edfc1d2d3c6deb715c4c9af5bc2d91a0745615",
+      "expected_report_title_month": "November 2021",
+      "printed_report_title_month": "NOVEMBER 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2021-12",
+      "source_sha256": "3c1b4984da564fe7ee06049b30d173710bfd2bd27134300585154a98733952a5",
+      "expected_report_title_month": "December 2021",
+      "printed_report_title_month": "DECEMBER 2021",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-01",
+      "source_sha256": "35b49992a5c9fba615423084d6fcf60bb11e45adce50676eb8e87b46c6903375",
+      "expected_report_title_month": "January 2022",
+      "printed_report_title_month": "JANUARY 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-02",
+      "source_sha256": "00b53773e3b75fec056c2d339f057fef79f1ae228501d62a0b8ddad10b211c02",
+      "expected_report_title_month": "February 2022",
+      "printed_report_title_month": "FEBRUARY 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-03",
+      "source_sha256": "ad8e23f4ad52e3a70754b1552d09f4e7479a824cc5aad2f0770949a152c93f47",
+      "expected_report_title_month": "March 2022",
+      "printed_report_title_month": "MARCH 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-04",
+      "source_sha256": "6bee93fa34e1bbeb6ef9bc6cab3c379d914405325c288f2a3cfe773e0ad319eb",
+      "expected_report_title_month": "April 2022",
+      "printed_report_title_month": "APRIL 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-05",
+      "source_sha256": "352aabcaa67ca8c76376fc6dc93d2855b45fbe60c5624028b0d404392f61dbde",
+      "expected_report_title_month": "May 2022",
+      "printed_report_title_month": "MAY 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-06",
+      "source_sha256": "ad67720560771567d6f9d0a9424c260a2203d8a634fa68b237b1bbd09e309ea3",
+      "expected_report_title_month": "June 2022",
+      "printed_report_title_month": "JUNE 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-07",
+      "source_sha256": "3fa1a72b10e33fc87abbd64550cb3b26d8bb8939a15a7648b0c75ccc2f91cc36",
+      "expected_report_title_month": "July 2022",
+      "printed_report_title_month": "JULY 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-08",
+      "source_sha256": "98f19126a3e3229c0d6c7bffec3b4d90ddc4e28b025c783647659fcf90902630",
+      "expected_report_title_month": "August 2022",
+      "printed_report_title_month": "AUGUST 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-09",
+      "source_sha256": "47b049897dc9af8d656f6b59fa8bdb2fd66f4bca8c9a31c84b2f73189f58fb21",
+      "expected_report_title_month": "September 2022",
+      "printed_report_title_month": "SEPTEMBER 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-10",
+      "source_sha256": "cfda7194a3559f7ad7817e2157b6b9dc1d5c9ffb14bae1283fe0e9b01c1e33c2",
+      "expected_report_title_month": "October 2022",
+      "printed_report_title_month": "OCTOBER 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-11",
+      "source_sha256": "7743210a11edec7ecdd9473004ad0e340092ab1857c54691b6b7de5a1b4fa610",
+      "expected_report_title_month": "November 2022",
+      "printed_report_title_month": "NOVEMBER 2022",
+      "title_month_matches": true,
+      "first_page_0830_release_indicated": true
+    },
+    {
+      "reference_month": "2022-12",
+      "source_sha256": "e18ca70c37083727204a2013c4bece279e4692b48048695172b0b8b50458b655",
+      "expected_report_title_month": "December 2022",
+      "printed_report_title_month": null,
+      "title_month_matches": false,
+      "first_page_0830_release_indicated": true
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_2022_12_year_end_title_layout_adjudication",
+  "parent_identity_result": "full_training_report_identity.json",
+  "sole_exception": "2022-12",
+  "source_pdf_sha256": "e18ca70c37083727204a2013c4bece279e4692b48048695172b0b8b50458b655",
+  "source_pdf": "data/snapshots/census_ft900_training_20261023/ft900_2212.pdf",
+  "accept_only_if": [
+    "The exact hashed first page has the formal report title U.S. International Trade in Goods and Services, December and Annual 2022.",
+    "The same first page has the printed February 7, 2023 8:30 AM Eastern release header.",
+    "The exact same PDF's Exhibit 7 current-month header identifies December 2022 and its unique Semiconductors row is already in the parent row audit.",
+    "The official index binds December 2022 to this exact ft900_2212.pdf URL."
+  ],
+  "budget": {
+    "PDF_opens": 1,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "limit": "Adjudication validates the report-month layout only. Do not infer historical first-public bytes, cross-2012 classification continuity or investment value."
+}
