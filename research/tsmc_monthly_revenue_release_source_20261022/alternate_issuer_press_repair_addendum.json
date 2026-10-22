@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "status": "one_mechanical_issuer_PDF_link_selector_repair_frozen",
+  "source_plan_sha256": "6d1b9df82d95abd6659201abc900746314c1026e045c7ddd26eb94d2ecbb168b",
+  "initial_result_sha256": "835da48753f446f5aced0239edff498cda390b582bcb42f749957c8bfbdae82b",
+  "frozen_2026_HTML_sha256": "f93debe8053322c94b6c655b7d8e7b296d25373351ddc837adac9a61fad1af06",
+  "target_month": "2026-09",
+  "selector": "Inside the already captured exact issuer article HTML, select exactly one anchor whose href begins /system/files/newspdf/ and ends in .pdf. Ignore global site navigation PDF links. Do not refetch HTML or revisit earlier months.",
+  "additional_budget": {
+    "PDF_GETs": 1,
+    "total_cumulative_HTTP_GETs_max": 6,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop_if_second_failure": true,
+  "historical_first_public_bytes_qualified": false,
+  "next_action": "Extract exact one PDF link from the saved 2026 HTML, GET it once from the same pr.tsmc.com host, preserve bytes/hash/HTTP headers, then close the sample probe with explicit first-public limits."
+}
