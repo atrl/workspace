@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_2017_basket_price_coverage_preflight_20261023",
+  "phase": "source_only_post_2016_training_start_price_inventory_gate",
+  "question": "Would starting the disclosed SOXX downside-contribution mechanism at the first 2017 original basket avoid the missing historical security-price identities that blocked the 2011 start?",
+  "source": {
+    "original_report_result": "research/stage1_soxx_2017_2018_original_concentration_source_20261023/numeric_2017_2018_result.json",
+    "original_report_result_sha256": "77088ebe705d56b1c4d9e04edfce61d5e2b922701bd3801b2501f023a458ffcb",
+    "report_date": "2017-03-31",
+    "accepted_at_utc": "2017-06-06T00:54:56.000Z",
+    "source_NAS_archive_sha256": "c345f9144baf234077b879af84df7f9c96c214570d80f702fb9539713d516e62",
+    "pit_provider_manifest": "data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json",
+    "pit_provider_manifest_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+    "pit_price_manifest": "data/qlib/soxx_pit_leveraged_training_v1/constituent_price_manifest.json",
+    "pit_price_manifest_sha256": "779372b3066a743453cf519c574747c1588b03b6f8934455c409464484417624",
+    "current_provider_manifest": "data/qlib/soxx_constituents/qlib_store_manifest.json",
+    "current_provider_manifest_sha256": "23cc2f2fa98a869428b678354ac1f82521d0f9a9a4475f4c445415ebe72d55e8"
+  },
+  "fixed_name_aliases_for_inventory_lookup_only": [
+    ["InterDigital Inc./PA", "IDCC"],
+    ["Cavium", "CAVM"],
+    ["Cree", "CREE"],
+    ["Cypress Semiconductor", "CY"],
+    ["Integrated Device Technology", "IDTI"],
+    ["Maxim Integrated Products", "MXIM"],
+    ["Microsemi", "MSCC"],
+    ["Silicon Motion Technology", "SIMO"],
+    ["Xilinx", "XLNX"]
+  ],
+  "scope": "Verify exact original 30-equity 2017-03 report, compare the nine prespecified historical aliases to both frozen Qlib D.list_instruments inventories at 2017-06-07, sum their disclosed equity weights without renormalization. An alias is a lookup aid, not a certified security mapping. Report only a lower-bound existing-provider gap; do not infer vendor-wide nonavailability.",
+  "budget": {"new_external_requests": 0, "Qlib_provider_initializations": 2, "Qlib_D_list_instruments_calls": 2, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "new_Recorders": 0},
+  "stop": "Any source hash, original report identity, 30-equity count, source NAS receipt or Qlib inventory error stops. If any required alias is absent, the post-2016 full disclosed-basket mechanism remains needs_data; no renormalization, factor value, label, fit or 0bp account."
+}

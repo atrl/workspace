@@ -1,0 +1,114 @@
+{
+  "status": "2017_first_original_basket_existing_Qlib_price_identity_gap",
+  "plan_sha256": "3a015bc421917c0c6c0ab49834b5a66d0921adbb5f67125b437accbe5805025c",
+  "report_date": "2017-03-31",
+  "accepted_at_utc": "2017-06-06T00:54:56.000Z",
+  "original_equity_rows": 30,
+  "prespecified_aliases_checked": 9,
+  "aliases_absent_from_both_inventories": 9,
+  "absent_alias_disclosed_weight_sum": 0.14274518693874025,
+  "lookup_rows": [
+    {
+      "original_security": "InterDigital Inc./PA",
+      "inventory_alias": "IDCC",
+      "reported_equity_weight": 0.008094753997322018,
+      "present_pit": false,
+      "present_current": false
+    },
+    {
+      "original_security": "Cavium\nInc. b,c",
+      "inventory_alias": "CAVM",
+      "reported_equity_weight": 0.013289980125022197,
+      "present_pit": false,
+      "present_current": false
+    },
+    {
+      "original_security": "Cree Inc. b,c",
+      "inventory_alias": "CREE",
+      "reported_equity_weight": 0.007118783566941904,
+      "present_pit": false,
+      "present_current": false
+    },
+    {
+      "original_security": "Cypress Semiconductor Corp.",
+      "inventory_alias": "CY",
+      "reported_equity_weight": 0.012336883869738347,
+      "present_pit": false,
+      "present_current": false
+    },
+    {
+      "original_security": "Integrated Device Technology\nInc. b,c",
+      "inventory_alias": "IDTI",
+      "reported_equity_weight": 0.008634567875826041,
+      "present_pit": false,
+      "present_current": false
+    },
+    {
+      "original_security": "Maxim Integrated Products Inc.",
+      "inventory_alias": "MXIM",
+      "reported_equity_weight": 0.03475035386021425,
+      "present_pit": false,
+      "present_current": false
+    },
+    {
+      "original_security": "Microsemi\nCorp. c",
+      "inventory_alias": "MSCC",
+      "reported_equity_weight": 0.016245423019964206,
+      "present_pit": false,
+      "present_current": false
+    },
+    {
+      "original_security": "Silicon Motion Technology Corp. ADR",
+      "inventory_alias": "SIMO",
+      "reported_equity_weight": 0.00450530553877254,
+      "present_pit": false,
+      "present_current": false
+    },
+    {
+      "original_security": "Xilinx Inc.",
+      "inventory_alias": "XLNX",
+      "reported_equity_weight": 0.037769135084938746,
+      "present_pit": false,
+      "present_current": false
+    }
+  ],
+  "inventories": {
+    "pit_provider_manifest": {
+      "manifest_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+      "listed_instruments": 37,
+      "alias_present": {
+        "IDCC": false,
+        "CAVM": false,
+        "CREE": false,
+        "CY": false,
+        "IDTI": false,
+        "MXIM": false,
+        "MSCC": false,
+        "SIMO": false,
+        "XLNX": false
+      }
+    },
+    "current_provider_manifest": {
+      "manifest_sha256": "23cc2f2fa98a869428b678354ac1f82521d0f9a9a4475f4c445415ebe72d55e8",
+      "listed_instruments": 27,
+      "alias_present": {
+        "IDCC": false,
+        "CAVM": false,
+        "CREE": false,
+        "CY": false,
+        "IDTI": false,
+        "MXIM": false,
+        "MSCC": false,
+        "SIMO": false,
+        "XLNX": false
+      }
+    }
+  },
+  "source_NAS_archive_sha256": "c345f9144baf234077b879af84df7f9c96c214570d80f702fb9539713d516e62",
+  "source_NAS_scoped_restore_verified": true,
+  "provider_NAS_restoration_not_asserted": true,
+  "no_security_mapping_certified": true,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

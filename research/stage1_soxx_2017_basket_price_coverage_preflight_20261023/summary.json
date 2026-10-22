@@ -1,0 +1,16 @@
+{
+  "experiment": "stage1_soxx_2017_basket_price_coverage_preflight_20261023",
+  "decision": "needs_original_security_price_identities_even_with_2017_start",
+  "objective_achieved": false,
+  "plan_sha256": "3a015bc421917c0c6c0ab49834b5a66d0921adbb5f67125b437accbe5805025c",
+  "result": "result.json",
+  "missing_weight_lower_bound": 0.14274518693874025,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
