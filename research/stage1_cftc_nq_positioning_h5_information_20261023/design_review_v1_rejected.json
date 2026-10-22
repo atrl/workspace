@@ -1,0 +1,16 @@
+{
+  "verdict": "REJECT_DESIGN",
+  "scope": "Independent pre-fit review of the fixed original Stage1 39-plus-CFTC SOXX H5 information plan",
+  "plan_sha256": "03ffc673ab1b6012a432f6826aaf17f5ce2eb7d7c10fc3211d862556e793d156",
+  "preflight_sha256": "079b4a2fd1fefb74ef6bd2d4b95779829c089e52d54a5c00e4fda3ab482c8ee4",
+  "preflight_cell_source_sha256": "17fe3c842056dd436920dde83f0c3bbfa7caaa02e417d46716f1597601f0f35a",
+  "fit_cell_source_sha256": "04e3209b4dea3bd4d50c3e07a71f63a58c1e1333d386f4256a626dd87bb598d1",
+  "source_recorder_id": "cdd3e57a851a48d8bc563bac302084f5",
+  "blocking_evidence": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/independent_timing_review_20261023.json",
+  "blocking_evidence_sha256": "68e9f2738b3cda6e51a5c6c44f8885b47e34cf4a8f8d0a302e71d374a8c921f8",
+  "reason": "The pinned source Recorder marks the current 2025-12-23 annual row known at the 2025-12-30 Stage1 signal, while the official weekly report currently says Updated December 31. The current value at that decision was not qualified; the source map has a known look-ahead risk. The preflight's 915 known held rows and DatasetH construction do not test this source-version boundary.",
+  "minimum_repair": "Preserve this failed pre-fit version. Finish and verify the separately frozen timing-only source-map repair with the affected report and delta4 dependents unknown, then freeze a new information-screen version pointing to the repaired Recorder before any fit. Do not reuse this plan or treat a changed source hash as a routine rehydration.",
+  "model_fits_reviewed": 0,
+  "native_accounts_reviewed": 0,
+  "promotion_eligible": false
+}

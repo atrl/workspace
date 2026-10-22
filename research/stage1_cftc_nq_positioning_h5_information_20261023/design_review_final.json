@@ -1,0 +1,17 @@
+{
+  "verdict": "REJECT_DESIGN",
+  "scope": "Independent pre-fit review of the timing-repaired original Stage1 39-plus-CFTC SOXX H5 information version",
+  "plan_sha256": "9a3ddd716a2135bf3968f58654887e27b3b3dd434295792a090027e7b01ea885",
+  "preflight_sha256": "b60282516fd8b3faefc9495133628ff39d7b943f29539f1cee118b8b1f921a4a",
+  "preflight_cell_source_sha256": "17fe3c842056dd436920dde83f0c3bbfa7caaa02e417d46716f1597601f0f35a",
+  "fit_cell_source_sha256": "04e3209b4dea3bd4d50c3e07a71f63a58c1e1333d386f4256a626dd87bb598d1",
+  "source_recorder_id": "f11156af93d24fdbb942c0c37c5408ad",
+  "source_timing_review": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/independent_timing_review_20261023.json",
+  "source_timing_review_status": "conditional_source_timing_repair_passed_for_development_only",
+  "blocking_issue": "The frozen plan requires full-calendar no-survivor-compaction and a paired stationary bootstrap. The fit cell filters the held DatasetH from 944 calendar rows to 940 mature rows, builds daily only from those 940, and passes that compressed array directly to full_calendar_bootstrap. The final four unknown label dates must remain NaN in the chronological 944-session bootstrap calendar; otherwise the frozen dependence sampling calendar changes.",
+  "minimum_repair": "Before first fit, revise only the fit cell to construct a full 944-date held calendar, left-merge the 940 paired squared-error differences, preserve four terminal NaNs and assert both counts. Bootstrap that full-calendar vector with the same block 63, 10000 draws, seed and corrected alpha. Keep score comparisons on the same 940 mature rows, all source/feature/label/estimator/gates unchanged. Preserve code hashes and re-review exact bytes.",
+  "historical_first_public_qualified": false,
+  "model_fits_reviewed": 0,
+  "native_accounts_reviewed": 0,
+  "promotion_eligible": false
+}

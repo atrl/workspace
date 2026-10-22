@@ -272,7 +272,10 @@
     "CFTC_NQ_14d_map_independent_timing_review": "research/stage1_cftc_nq_tff_14d_positioning_map_20261023/independent_timing_review_20261023.json",
     "CFTC_NQ_14d_map_model_admission": "needs_timing_repair_before_any_information_fit_2025_12_30_uses_current_Dec23_annual_row_while_weekly_page_updated_Dec31_first_public_version_unqualified",
     "CFTC_NQ_timing_repaired_Qlib_source_map": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/summary.json",
-    "CFTC_NQ_timing_repair_interpretation": "Independent source review found 2025-12-23 current weekly version updated 2025-12-31, after original 2025-12-30 signal assignment. New frozen map excludes that report and dependent delta4, changing 28 reused held Stage1 signal values, while retaining 3014/940 mature information rows and 2947/915 source-known calendar rows. New Qlib Recorder and NAS scoped readback passed; no fits/accounts. Full first-public certification remains pending."
+    "CFTC_NQ_timing_repair_interpretation": "Independent source review found 2025-12-23 current weekly version updated 2025-12-31, after original 2025-12-30 signal assignment. New frozen map excludes that report and dependent delta4, changing 28 reused held Stage1 signal values, while retaining 3014/940 mature information rows and 2947/915 source-known calendar rows. New Qlib Recorder and NAS scoped readback passed; no fits/accounts. Full first-public certification remains pending.",
+    "CFTC_NQ_timing_repair_independent_readback": "research/stage1_cftc_nq_tff_14d_timing_repair_20261023/independent_timing_review_20261023.json",
+    "CFTC_NQ_H5_information_pre_fit_review": "research/stage1_cftc_nq_positioning_h5_information_20261023/design_review_final.json",
+    "CFTC_NQ_H5_information_fit_admission": "rejected_before_fit_current_code_compresses_944_held_calendar_to_940_mature_rows_before_stationary_bootstrap_retain_four_unknown_days_as_NaN_no_models_or_accounts"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
