@@ -1,0 +1,13 @@
+{
+  "status": "mechanical_header_spacing_repair_bound_before_completion",
+  "parent_plan_sha256": "aa929632bf971a35cf9fd67c2956f70caa60d2d6999b39f80487d11496ca9ba6",
+  "failed_attempt_sha256": "913e58b301ce6fb7f213c8b67675fcdd6d978aceb02028b624d622d77b6c988c",
+  "diagnostic_sha256": "63f1d92e4370a35901c8f1e837524a68caad9c8649c40f4f3ea7490bb5c09202",
+  "repaired_notebook_sha256": "df5c2b8f471553451b7f03020b6c877c3f84df6ee11f7a81e11a0e634de6836f",
+  "change": "date regex comma followed by optional whitespace; same date tokens, time zone, 08:30, next-Qlib-session, source values and 2012-01 quarantine",
+  "additional_HTTP_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "repaired_code_cell_sha256": "28e798280585132b89f43938aa4e8bc883c327867c5733deedd7d1abcd52ab1d"
+}
