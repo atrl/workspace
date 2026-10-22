@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "zero_raw_read_two_money_cells_2018_Jun_numeric_repair",
+  "failed_whitespace_result_sha256": "8d5293c7e4e7727887d41fa3e1d21642d4320bd717edff241c2ba4f62370992e",
+  "source_raw_sha256": "cd4c6f503b43f04ae8cfbb20ae79ca05aa3787c34b57ba2b4d68367002278ee4",
+  "source_section_sha256": "3b641c1791772510963dbe3cda4e5153e9861516d0123503873afb47c1679a3f",
+  "report_date": "2018-06-30",
+  "two_exact_ambiguous_rows": [
+    {
+      "security_original": "Applied Materials Inc.",
+      "shares_text": "1,242,530",
+      "value_cell_text": "$ 57,392,461"
+    },
+    {
+      "security_original": "Texas Instruments Inc.",
+      "shares_text": "1,127,625",
+      "value_cell_text": "$ 124,320,656"
+    }
+  ],
+  "missing_USD_sum_from_two_cells": 181713117,
+  "printed_minus_parsed_USD": 181713117,
+  "fixed_repair": "Only the two preserved ambiguous rows are admitted if shares_text is a positive grouped integer and value_cell_text matches a dollar sign, optional space and positive grouped integer. Append to the 28 unchanged parsed rows, require 30 unique positive equities and exact printed TOTAL COMMON STOCKS closure. Recompute same top5/HHI formula. No other row, membership, source, section or time change.",
+  "budget": {
+    "new_raw_source_reads": 0,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any pattern, count, duplicate or total mismatch leaves June unqualified; do not search other rows or use later report values."
+}
