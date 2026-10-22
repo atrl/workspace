@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_exact_2011_04_30_NQ_SOXX_body_identity_check",
+  "parent_candidate_index_sha256": "8a8d790c4e97f0dcacca0436835f263e7dc30dc318c8bafc25e8001cf6fb64a6",
+  "prior_2010_SOXX_identity_sha256": "38f936212f1220891d562b83a91d0ffe89dfd996c8a9d05a99510d682484d1eb",
+  "candidate": {
+    "accessionNumber": "0001193125-11-176858",
+    "filingDate": "2011-06-29",
+    "reportDate": "2011-04-30",
+    "acceptanceDateTime": "2011-06-29T20:43:59.000Z",
+    "form": "N-Q",
+    "primaryDocument": "dnq.htm"
+  },
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511176858/dnq.htm",
+  "expected_fund_title": "PHLX SOX Semiconductor Sector Index Fund",
+  "expected_report_date": "April 30, 2011",
+  "method": "GET",
+  "user_agent": "SOXL research codex@openai.com",
+  "budget": {
+    "GETs": 1,
+    "max_response_bytes": 45000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 120,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "record": "Preserve exact HTML/headers/UTC clocks/SHA and NAS scoped restore; identify the SOXX title, report date and Security/Shares/Value header in a bounded source section only. No numerical holdings extraction in this phase.",
+  "stop": "If denied, oversized, wrong fund, wrong report date or ambiguous title, preserve receipt and stop without alternate URL.",
+  "scientific_boundary": "A second matching report does not establish every quarter, membership stability, full Stage1 training coverage or predictive information."
+}
