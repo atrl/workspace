@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "experiment": "semiconductor_ip_original_g17_bridge_20261022",
+  "frozen": true,
+  "phase": "source_only_original_G17_Table1_row_presence_and_layout_audit",
+  "hypothesis": "Archived original dated Federal Reserve G.17 supplements contain Table 1 industrial-production NAICS3344 in pre-2015 versions, distinct from the ALFRED download form menu and from the legacy Table 2 capacity-utilization NAICS334412-9 scope. This can potentially provide a complete Stage1 2011-2022 original-vintage source without a revised-series backfill.",
+  "source_card": "research/fed_semiconductor_capacity_source_20261013",
+  "source_recorder_id": "5fc5ec0a971848db94a9c0c4954b1f80",
+  "source_summary_sha256": "76776fc1b0f5f5c994701e18583abc1128570f0e9b59cef1abef18194e2cfc22",
+  "source_verification_manifest_sha256": "c56d8ad9ba387607a0fc7f25d9ac4dab7022ed6c46bbf0b71bc119b6fa022f20",
+  "raw_artifact": "sources/raw_supplements",
+  "raw_artifact_sha256": "d2b8467087dfbb45008b1fc88bbfda85f87f24eb3f0f83526a3c82222a215d55",
+  "raw_artifact_bytes": 20747879,
+  "publication_inventory_sha256": "7d31aedbe1182dd5e2f082284199b562566ca972f06b112b86d9e59ca6561f0e",
+  "expected_original_documents": 192,
+  "positive_controls": [
+    "20110114_sup.txt",
+    "20150814_sup.txt"
+  ],
+  "row_scope": "Table 1 INDUSTRIAL PRODUCTION: INDUSTRY SUBTOTALS AND INDIVIDUAL SERIES, Semiconductor and other electronic component, NAICS3344, seasonally adjusted index. Do not use Table 2 CAPACITY UTILIZATION or legacy NAICS334412-9.",
+  "checks": [
+    "Verify all original raw bytes and manifest via native Qlib Recorder before reading",
+    "Count Table 1 NAICS3344 row presence, duplicated/ambiguous matches and six-month header structure in all 192 dated releases",
+    "Preserve release date distinct from observation months, index base changes, release revisions and earliest first-receipt gap",
+    "If row coverage passes, freeze a separate exact numeric extraction and Stage1 calendar alignment plan; this task computes no factor values"
+  ],
+  "budget": {
+    "verified_source_recorder_object_loads": 1,
+    "new_http_requests": 0,
+    "market_outcome_reads": 0,
+    "numeric_feature_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_writable_Recorders": 0
+  },
+  "historical_first_receipt_qualified": false,
+  "next_action_if_pass": "Qualify original same-vintage monthly numeric values and base-year/definition changes, then test one Stage1-matched information increment. No automatic model/account execution."
+}
