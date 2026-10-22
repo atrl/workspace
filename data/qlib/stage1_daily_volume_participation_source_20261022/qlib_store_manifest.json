@@ -1,0 +1,31 @@
+{
+  "as_of": "2026-10-07",
+  "audit_snapshot_hash": "84b41f2617690317",
+  "calendar_end": "2026-10-07",
+  "calendar_start": "2010-03-11",
+  "feature_file_count": 2,
+  "fields": [
+    "$close",
+    "$volume"
+  ],
+  "freq": "day",
+  "hash": "1f7fbf43673d9b8f",
+  "instruments": [
+    "SOXX"
+  ],
+  "market": "all",
+  "max_datetime": "2026-10-07",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_daily_volume_participation_source_20261022",
+  "region": "us",
+  "row_count": 4170,
+  "source": "Parent published_futu_affine_20260925 Qlib values plus eight exact Futu NONE SOXX raw bars after no-rehab bridge; plan=4b56ac670c4459755af55384a31c66adf07540216b3617a55331db32a98cfba2",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

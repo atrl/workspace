@@ -43,6 +43,15 @@
       "manual_original_review": "research/korea_semiconductor_exports_korean_vintage_20261022/manual_original_nine_result.json",
       "numeric_semantics_reconciliation": "research/korea_semiconductor_exports_korean_vintage_20261022/korean_numeric_semantics_reconciliation.json",
       "prospective_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json"
+    },
+    {
+      "card": "research/stage1_daily_volume_participation_source_20261022",
+      "phase": "source_mechanics_passed_information_test_pending",
+      "role": "Stage1_full_training_price_volume_feature_preflight",
+      "full_economic_experiment": false,
+      "status": "3020_train_944_signal_source_coverage_passed_no_fit",
+      "result": "research/stage1_daily_volume_participation_source_20261022/tail_bridge_result.json",
+      "nas_archive": "research/stage1_daily_volume_participation_source_20261022/nas_source_archive_receipt.json"
     }
   ],
   "framework": [
@@ -184,7 +193,7 @@
     "prospective_Korean_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json",
     "parallel_TSMC_issuer_source_probe": "research/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press_review.json",
     "TSMC_prospective_capture_plan": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_press_capture_plan.json",
-    "Stage1_next_direction": "Current minute archive is missing 1958/3020 Stage1 training dates; one frozen Futu 2011 minute request returned zero rows. Seek qualified full historical source or a distinct mechanism, then freeze 0bp Stage1 receiver and full SOXX gate. No fit/account until source history passes."
+    "Stage1_next_direction": "Freeze and execute one incremental information test of the source-audited daily volume-participation residual; the 3020-train/944-funded signal source is complete. Only a passing fixed information gate permits a separate Stage1 0bp full-account design. Reused history and historical receipt gaps remain."
   },
   "closed_source_probes": [
     {

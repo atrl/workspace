@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_daily_volume_participation_source_20261022",
+  "phase": "read_only_full_training_source_and_redundancy_preflight",
+  "execution_authorized": false,
+  "parent": "Frozen original Stage1 39-feature primary allocation, 16-feature common head, b472 action/risk/recovery, 944 funded evaluation intervals and SOXX final hard gate",
+  "hypothesis": "An unusually large share of SOXX volume on rising rather than falling days can distinguish repair from persistent weakness beyond Stage1's 20-day price return, volatility and prior-day intraday-volume-share inputs.",
+  "single_candidate_formula": "At signal date t after the completed SOXX session, sum_{i=t-19..t}(sign(adjusted_close_i/adjusted_close_{i-1}-1)*split_adjusted_volume_i)/sum_{i=t-19..t}(split_adjusted_volume_i) minus mean_{i=t-19..t}(sign(adjusted_close_i/adjusted_close_{i-1}-1)). No same-day trade-date data; 20 is frozen to match the existing Stage1 ret20 horizon. A missing/zero denominator remains missing.",
+  "source_provider": "data/qlib/published_futu_affine_20260925_v1",
+  "source_provider_manifest_sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+  "source_audit": "research/canonical_price_basis_20261002/artifact_manifest.json",
+  "source_audit_sha256": "2c441344a211f1526f9156dae14dd9e6681597013f7e6e17754df36949ac0b86",
+  "source_scope": "Futu NONE/RTH plus 16 explicitly flagged Yahoo SOXL whole bars, one published affine basis with exact split-adjusted shares; SOXX candidate consumes SOXX only. Existing historical retrieved bytes are not independent forward receipts.",
+  "source_as_of": "2026-09-25",
+  "parent_training_source_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "parent_training_timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+  "parent_training_features_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+  "predecision_availability_assumption": "Use only completed prior US session at conservative 16:15 America/New_York, before its following trade-date 09:29 Stage1 decision. Historical vendor receipt timestamp is not certified.",
+  "checks": ["Qlib D.calendar/D.features source identity and exact Stage1 2011-2022 training-date coverage", "all 3020 original Stage1 training dates have finite 20-day candidate after 2010 warmup", "report Spearman redundancy against all original 39 features and unweighted sign control on training only", "report source-only evaluation-calendar tail gap through 2026-10-07 without reading evaluation outcomes"],
+  "stop": "If training coverage fails, stop. Even if training passes, do not fit or account until 2026-10-07 evaluation source tail is acquired, verified and separately frozen. Do not choose sign/window by 2023-2026 returns.",
+  "budget": {"market_requests": 0, "new_qlib_recorders": 0, "model_fits": 0, "native_accounts": 0, "bootstrap_runs": 0}
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "phase": "source_only_native_qlib_tail_bridge",
+  "frozen_before_build": true,
+  "parent_qualified_price_recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+  "parent_qualified_frame_artifact_sha256": "a51d3684d9abfefd4cca5abb332b83d923237e83c9e6a16114924189a512bc7c",
+  "parent_source_audit_sha256": "2c441344a211f1526f9156dae14dd9e6681597013f7e6e17754df36949ac0b86",
+  "parent_provider_manifest_sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+  "tail_input_sha256": {
+    "futu_tail_soxx_none_raw.csv": "d057e666abef6e4e20316c65ec63da5b27df06121f3fd2a0bdd24e7f883f646c",
+    "futu_tail_soxx_rehab_raw.csv": "9fa4e23307845910f7f8979ad8d2e26c239c9ec4953c87c19a1a2469b4d874f7",
+    "futu_tail_probe_result.json": "4daa07aa896a2c6b59a1ef19e4fe81d28eba276fe89d5eb37e88adcce6178cb3",
+    "futu_tail_rehab_result.json": "8a7773dffbcf81a70ddd9dab6006ffdd6c4275b2bb4dc8e016b594634ee22d2d"
+  },
+  "expected_new_dates": [
+    "2026-09-28",
+    "2026-09-29",
+    "2026-09-30",
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07"
+  ],
+  "no_new_SOXX_rehab_events_in_bridge": true,
+  "output_provider": "data/qlib/stage1_daily_volume_participation_source_20261022",
+  "fields": [
+    "close",
+    "volume"
+  ],
+  "as_of": "2026-10-07",
+  "budget": {
+    "market_requests": 0,
+    "new_qlib_providers": 1,
+    "new_qlib_recorders": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Require exact original source hashes, eight physical OHLCV rows, no late rehab events, parent last-date identity A1 B0 split1, exact Qlib readback and no old-row drift. Any discrepancy stops before feature/model/account."
+}

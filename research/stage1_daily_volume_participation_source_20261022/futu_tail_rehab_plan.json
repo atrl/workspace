@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "phase": "one_read_only_SOXX_corporate_event_bridge_check",
+  "frozen_before_request": true,
+  "endpoint": "Futu OpenQuoteContext.get_rehab",
+  "symbol": "US.SOXX",
+  "window_start_exclusive": "2026-09-25",
+  "window_end_inclusive": "2026-10-07",
+  "budget": {"get_rehab_calls": 1, "retries": 0, "orders": 0, "accounts": 0, "fits": 0},
+  "acceptance": "No SOXX split/join or other share-count event after prior source as_of and through the eight new signal dates. Any dividend cash event or revision is recorded separately; a split or uncertain event stops a published-affine tail bridge.",
+  "stop": "Preserve exact response, record error or events and do not silently replace the source or retry."
+}

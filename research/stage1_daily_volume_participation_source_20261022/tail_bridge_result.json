@@ -1,0 +1,21 @@
+{
+  "status": "full_944_source_calendar_and_values_passed_information_unrun",
+  "tail_probe_plan_sha256": "7d3886feab66b324fa9155be78f0463cbcdfe3d5ff0adab9a19d65b901ac86e4",
+  "tail_probe_result_sha256": "4daa07aa896a2c6b59a1ef19e4fe81d28eba276fe89d5eb37e88adcce6178cb3",
+  "tail_rehab_result_sha256": "8a7773dffbcf81a70ddd9dab6006ffdd6c4275b2bb4dc8e016b594634ee22d2d",
+  "bridge_plan_sha256": "4b56ac670c4459755af55384a31c66adf07540216b3617a55331db32a98cfba2",
+  "provider_manifest_sha256": "1c0326887e9e7706b68c4cf83cf3cdbc48865041efde46082a0b4215f22f11c6",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_daily_volume_participation_source_20261022",
+  "calendar_first": "2010-03-11",
+  "calendar_last": "2026-10-07",
+  "source_rows": 4170,
+  "new_tail_rows": 8,
+  "old_rows_exactly_unchanged": true,
+  "new_raw_rows_qlib_readback_passed": true,
+  "evaluation_signal_rows_with_finite_candidate": 944,
+  "historical_original_receipt_certified": false,
+  "market_requests_new_in_bridge": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "decision": "source_mechanics_passed_needs_frozen_information_test_and_forward_PIT"
+}

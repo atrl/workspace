@@ -1,0 +1,29 @@
+{
+  "status": "training_source_coverage_passed_evaluation_tail_missing_no_fit",
+  "source_calendar_first": "2010-03-11",
+  "source_calendar_last": "2026-09-25",
+  "training_signals": 3020,
+  "finite_candidate_training_signals": 3020,
+  "evaluation_signal_dates_through_2026_10_07": 944,
+  "evaluation_source_dates_missing": 8,
+  "evaluation_missing_first": "2026-09-28",
+  "evaluation_missing_last": "2026-10-07",
+  "signed_volume_residual_min": -0.38906409879527576,
+  "signed_volume_residual_max": 0.41226211488602255,
+  "control_unweighted_sign_spearman": -0.009640610591003193,
+  "top_five_absolute_stage1_feature_spearman": {
+    "soxx_ret20": 0.24836803489276238,
+    "soxl_ret20": 0.24102335447896295,
+    "relative_momentum20": 0.23535318711596112,
+    "tech_breadth_20": 0.22697953457437992,
+    "cross_breadth_pos_20": 0.21977154273908311
+  },
+  "max_absolute_stage1_feature_spearman": 0.24836803489276238,
+  "source_provider_manifest_sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+  "source_audit_sha256": "2c441344a211f1526f9156dae14dd9e6681597013f7e6e17754df36949ac0b86",
+  "historical_live_receipt_certified": false,
+  "evaluation_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "next_action": "Qualify only the missing evaluation-tail SOXX daily volume source and verify its split adjustment and original receipt/clock. Freeze information gate and matched control before any Stage1 fit/account; reused market history remains development-only."
+}
