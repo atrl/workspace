@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "eight_original_2013_2014_SOXX_common_stock_value_closure_source_only",
+  "transport_result_sha256": "0f139795b2bc37c9888567c493860fc5b4e5f69393011ed863ecdf9dd213f897",
+  "final_identity_result_sha256": "0fa45beae6edfe65084c2cc3704a09762d50056d6bb1bd4b595987aa16c3e974",
+  "source_NAS_archive_sha256": "14a4c71a53f27449d712a6166836157547355c64eba6790525c1814f3b2502ac",
+  "reports": [
+    {
+      "report_date": "2013-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-13-148033",
+      "accepted_at_utc": "2013-04-10T04:13:24.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2013_2014_reported_concentration_source_20261023/0001193125-13-148033_d493068dncsrs.htm",
+      "raw_sha256": "cd76879b220a2690c32521e8f9e3b0765fd683330c124f92f26ff87a06ff1fcd",
+      "raw_bytes": 28330026,
+      "bounded_section_byte_range": [
+        904491,
+        954491
+      ],
+      "bounded_section_sha256": "9d4473fec7ad4f5b4570dbc2fb113cf73bdff28e171435423f2b09c604a42dfa",
+      "identity_method": "TOC_anchor"
+    },
+    {
+      "report_date": "2013-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-13-274594",
+      "accepted_at_utc": "2013-06-27T23:18:35.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2013_2014_reported_concentration_source_20261023/0001193125-13-274594_d555685dnq.htm",
+      "raw_sha256": "6f41a9a73de71dd2448d1d5efca81d3fd664a425863a6a52fc1acd1876e10ba7",
+      "raw_bytes": 22828423,
+      "bounded_section_byte_range": [
+        20508446,
+        20558446
+      ],
+      "bounded_section_sha256": "d7fcfd79482e736f2df1e059ae0777e7894a07f743cf6957c0b96daa21f3bd36",
+      "identity_method": "inline_original_title"
+    },
+    {
+      "report_date": "2013-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-13-392676",
+      "accepted_at_utc": "2013-10-07T21:10:00.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2013_2014_reported_concentration_source_20261023/0001193125-13-392676_d588642dncsr.htm",
+      "raw_sha256": "0ea9651500d7ba7ff7e5fe5c1faf0fa2ceee94498f2a91dfd3eb341cca991f92",
+      "raw_bytes": 33229472,
+      "bounded_section_byte_range": [
+        954416,
+        1004416
+      ],
+      "bounded_section_sha256": "240178abf0659a5c78ca0d62ed02045dc6769d0bcc9e53e186cd3763cb8d7e31",
+      "identity_method": "TOC_anchor_new_title"
+    },
+    {
+      "report_date": "2013-10-31",
+      "form": "N-Q",
+      "accession": "0001193125-13-486444",
+      "accepted_at_utc": "2013-12-28T03:20:02.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2013_2014_reported_concentration_source_20261023/0001193125-13-486444_d647093dnq.htm",
+      "raw_sha256": "248f3f9297c42ff2dac141fc546feab32c1c0e1969f38cf98f03c4c5b307cf8f",
+      "raw_bytes": 23040592,
+      "bounded_section_byte_range": [
+        21478512,
+        21528512
+      ],
+      "bounded_section_sha256": "3e041f8285d332667e3f8bd0b0ff2fd4bb2abfa2114d80d42dc764e7611faede",
+      "identity_method": "inline_new_original_title"
+    },
+    {
+      "report_date": "2014-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-14-127770",
+      "accepted_at_utc": "2014-04-02T22:16:21.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2013_2014_reported_concentration_source_20261023/0001193125-14-127770_d666619dncsrs.htm",
+      "raw_sha256": "93fc676ff15125ca83a4c046e11049d90ac264b4fd48e47fdc2ce8492fa9cc7d",
+      "raw_bytes": 32081764,
+      "bounded_section_byte_range": [
+        851567,
+        901567
+      ],
+      "bounded_section_sha256": "34ba39b72f0586e0d8dcd9a049cf7ba78da7dbd7cf30e3e9450af3006cb4f220",
+      "identity_method": "TOC_anchor_new_title"
+    },
+    {
+      "report_date": "2014-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-14-251746",
+      "accepted_at_utc": "2014-06-27T04:17:50.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2013_2014_reported_concentration_source_20261023/0001193125-14-251746_d741407dnq.htm",
+      "raw_sha256": "8a5740f88627a60b8c3546431b6f371579e251786d686cf8995e4cbffa442dbe",
+      "raw_bytes": 21902881,
+      "bounded_section_byte_range": [
+        20364230,
+        20414230
+      ],
+      "bounded_section_sha256": "31f242756ba1613f2d3bfc56ca416046bc99263dfb13d9a3b4402ea071c04e05",
+      "identity_method": "inline_new_original_title"
+    },
+    {
+      "report_date": "2014-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-14-366601",
+      "accepted_at_utc": "2014-10-08T23:17:34.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2013_2014_reported_concentration_source_20261023/0001193125-14-366601_d779862dncsr.htm",
+      "raw_sha256": "324beb0d743dda4fecf75195957743576506d54982d9be3b5153b7d1d3f775cc",
+      "raw_bytes": 34362968,
+      "bounded_section_byte_range": [
+        889763,
+        939763
+      ],
+      "bounded_section_sha256": "1619f1cec914326ec4a30508c92592858697a06629e6ac9402bcbf2a5ea56649",
+      "identity_method": "TOC_anchor_new_title"
+    },
+    {
+      "report_date": "2014-10-31",
+      "form": "N-Q",
+      "accession": "0001193125-14-455465",
+      "accepted_at_utc": "2014-12-30T02:15:31.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2013_2014_reported_concentration_source_20261023/0001193125-14-455465_d840348dnq.htm",
+      "raw_sha256": "3929e60f16e7eaa5ff745c619e8dde0535b514c043aff30b91a662967b3aafb2",
+      "raw_bytes": 20704102,
+      "bounded_section_byte_range": [
+        19914940,
+        19964940
+      ],
+      "bounded_section_sha256": "8bff97754c6e8ca26daab98654c8c5c8a22261423babdfe10fd2696a5a126998",
+      "identity_method": "inline_new_original_title"
+    }
+  ],
+  "fixed_parser": "Within each frozen 50,000-byte source section, parse direct HTML table rows from COMMON STOCKS through TOTAL COMMON STOCKS. Security row requires original name and separate positive integer shares and USD fair value. Ignore sector headings and subtotal rows; printed total may be in immediately following (Cost: ...) row. Require 20-40 distinct rows, no ambiguous security-looking row and sum within one USD of printed total.",
+  "derived_values": [
+    "top5_disclosed_equity_value_share",
+    "herfindahl_sum_squared_disclosed_equity_weights"
+  ],
+  "semantics": "Original ETF disclosed equity fair values normalized to same-report equity total; lagged reported-basket proxy only.",
+  "budget": {
+    "raw_report_parses_max": 8,
+    "HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any source hash, bounded section, row, duplicate or total failure keeps the eight-report source batch unqualified; preserve all partial results without survivor-only calendar or numeric backfill.",
+  "scientific_boundary": "Even four training years 2011-2014 do not cover 2015-2022 or held period, do not imply Stage1 incremental information or SOXX economic success."
+}
