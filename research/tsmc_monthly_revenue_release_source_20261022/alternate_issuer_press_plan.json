@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "frozen_alternate_official_issuer_press_host_source_probe",
+  "previous_closed_probe_result_sha256": "4396839979291d92cbce16cf574993c0f54799bad866e345b7730df39e0b7014",
+  "distinct_source_host": "https://pr.tsmc.com",
+  "sample_releases": [
+    {
+      "month": "2019-09",
+      "url": "https://pr.tsmc.com/english/news/2011",
+      "expected_title": "TSMC September 2019 Revenue Report",
+      "issuer_date": "2019/10/09"
+    },
+    {
+      "month": "2020-05",
+      "url": "https://pr.tsmc.com/english/news/2717",
+      "expected_title": "TSMC May 2020 Revenue Report",
+      "issuer_date": "2020/06/10"
+    },
+    {
+      "month": "2026-09",
+      "url": "https://pr.tsmc.com/english/news/3343",
+      "expected_title": "TSMC September 2026 Revenue Report",
+      "issuer_date": "2026/10/08"
+    }
+  ],
+  "source_identity_rule": "Exactly one issuer press page title and issued-on date per exact URL; one Download PDF link within its article body. Preserve both HTML and linked PDF exact bytes and HTTP headers. No mutable current monthly summary replacement.",
+  "budget": {
+    "HTML_GETs": 3,
+    "PDF_GETs": 3,
+    "max_HTTP_GETs_total": 6,
+    "max_HTML_bytes": 1500000,
+    "max_PDF_bytes": 5000000,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "stop_conditions": [
+    "No retry of prior 403 issuer/SEC URL host; this is a distinct pr.tsmc.com endpoint.",
+    "HTTP error, redirect to unrelated host, missing title/date or zero/multiple article PDF links: preserve receipt and stop source qualification.",
+    "Current host page and PDF may have been migrated/revised; issuer issued-on date alone does not establish historical first-public bytes or intraday availability.",
+    "No TSM factor, Qlib model, SOXX account, real orders or purchases."
+  ],
+  "next_action": "Fetch only three exact issuer pages and their linked PDFs once, preserving raw bytes and hashes; decide whether a complete original-release/archive-timing qualification route is feasible without market outcomes."
+}
