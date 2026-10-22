@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "sample_positive_control_not_recovered_implementation_geometry_boundary",
+  "attempt": 1,
+  "full_source_plan_sha256": "470f7ad4e91a4a26ba9dec438252ab48c2c211e5afa9a6cda4fbda2df18cebe2",
+  "old_module_sha256": "c290d0dbff8e8c656c5bda97fb6a3184440af8af0dad4570064974468be1172d",
+  "sample_PDF_versions_read": 12,
+  "full_96_version_run_started": false,
+  "failed_control": "2019-02 rank marker is 0.48 PDF point outside code x0-65 lower bound",
+  "precision_issue": "2020-06 growth -0.03 was serialized as rounded -0.0 in selected pair although candidate retained -0.03",
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "next_action": "One mechanical repair only: extend rank-left coordinate tolerance from 65 to 75 PDF points and emit the exact selected table candidate amount/growth; re-run the same 12 controls before full extraction."
+}

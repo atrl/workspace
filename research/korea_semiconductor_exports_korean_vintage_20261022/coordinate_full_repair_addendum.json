@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "one_mechanical_source_parser_repair_frozen",
+  "attempt1_failure_sha256": "5341c48ded3a79a19883fda94c2f935d6c5b478936a0cd0855dd2322e3878567",
+  "full_source_plan_sha256": "470f7ad4e91a4a26ba9dec438252ab48c2c211e5afa9a6cda4fbda2df18cebe2",
+  "old_module_sha256": "c290d0dbff8e8c656c5bda97fb6a3184440af8af0dad4570064974468be1172d",
+  "new_module_sha256": "7ae586239a420004a2ad177ea3999bf46662259293d9fc5266834c7d6a25e4a9",
+  "changes": [
+    "rank-1 left marker tolerance 65 to75 PDF points, enough for measured 2019-02 marker",
+    "group growth at two decimal places and preserve exact selected candidate numeric precision; prefer exact rank row amount when an equivalent rounded column also exists"
+  ],
+  "additional_budget": {
+    "sample_PDF_version_reads": 12,
+    "full_PDF_version_reads_if_controls_pass": 96,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "accounts": 0
+  },
+  "stop_after_repair_failure": true
+}

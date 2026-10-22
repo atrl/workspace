@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "status": "coordinate_current_PDF_route_closed_84_of_93_months_numeric_incomplete",
+  "plan_sha256": "470f7ad4e91a4a26ba9dec438252ab48c2c211e5afa9a6cda4fbda2df18cebe2",
+  "repair1_failure_sha256": "5341c48ded3a79a19883fda94c2f935d6c5b478936a0cd0855dd2322e3878567",
+  "repair2_addendum_sha256": "70d2b4e783ecf86dc22cacb42a8052a3ed627f17b8b9e463789d585ee11f9aad",
+  "full_result_sha256": "e4b6f124f8d6463866cf83d9cf96999cf60c95aecb9613bc3be07977327d80b0",
+  "PDF_versions": 96,
+  "source_months": 93,
+  "current_document_consistent_months": 84,
+  "unresolved_months": [
+    "2019-01",
+    "2022-12",
+    "2023-09",
+    "2023-12",
+    "2024-10",
+    "2024-11",
+    "2024-12",
+    "2025-06",
+    "2025-12"
+  ],
+  "version_status_counts": {
+    "no_qualified_table_pair": 3,
+    "unique_current_document_table_pair": 87,
+    "conflicting_qualified_table_pairs": 6
+  },
+  "dual_version_months_with_same_table_pair": [
+    "2020-06",
+    "2020-10",
+    "2023-05"
+  ],
+  "known_within_PDF_conflict_2020_05": "p6 says 80.1 100m USD; p10 rank table says 8,068 million USD (80.68 100m); p11 rounded 80.7. The table result does not erase the conflict.",
+  "minimum_failure_attribution": [
+    "2019-01, 2024-10 and 2024-11 have no table pair under the frozen rank/column geometry.",
+    "Other unresolved months admit conflicting qualified pairs, including annual or cumulative tables, current-month signed-growth ambiguity, and a separate rank-row growth-token misassociation.",
+    "Full first attempt 75/93, second and final source-semantic repair 84/93; the remaining nine are not completed by threshold or sign adjustments."
+  ],
+  "factor_values_qualified": false,
+  "historical_first_public_vintage_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "decision": "Close this fixed coordinate selector. Preserve all per-version candidates and 9 unresolved months. Any further work requires a separately frozen original-document manual review or materially different source parser; no Korea information fit or SOXX account from this incomplete series. Continue independent Cboe/IBKR source checks at their clocks.",
+  "final_module_sha256": "8e22829f42fa57b90e0c2e07e9184762e7af7fa1fd6b3bea69593351c377f51b"
+}
