@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Do the two old-form filings before the first public SOXX NPORT-P identify the exact 2019 reported-basket transition vintages without filling any unknown days?",
+  "parent_sources": {
+    "series_NQ": "research/stage1_soxx_series_filing_search_20261023/series_index_parse.json",
+    "series_NQ_sha256": "8b30e8c369c70be8bff3d8fffe6531744e9d2d0c3be0a397510f632284938a2c",
+    "shareholder_forms": "research/stage1_soxx_series_filing_search_20261023/additional_forms_parse_result.json",
+    "shareholder_forms_sha256": "41faaec5aa12885d08de6ef6f20563fbb27d42388785c3de925ea367a661ddbf",
+    "first_public_NPORT_event": "research/stage1_soxx_2019_2022_nport_filing_metadata_20261023/metadata_result.json"
+  },
+  "exact_index_pages": [
+    {
+      "form": "N-Q",
+      "accession": "0001193125-19-059323",
+      "filed": "2019-03-01",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312519059323/0001193125-19-059323-index.htm"
+    },
+    {
+      "form": "N-CSR",
+      "accession": "0001193125-19-167652",
+      "filed": "2019-06-07",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312519167652/0001193125-19-167652-index.htm"
+    }
+  ],
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 2,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 45,
+    "max_response_bytes_each": 3000000,
+    "minimum_seconds_between_requests": 1,
+    "retries": 0
+  },
+  "checks": "Inspect form, accession, filed date, report period, SEC accepted display, SOXX series/class identity if present, and listed primary document. Preserve absence explicitly; index identity alone does not qualify original holdings.",
+  "backup": "Preserve exact page and header bytes with SHA-256 and request clocks; archive to Yanxuan NAS and verify remote hash and scoped raw-member restore.",
+  "budgets": {
+    "index_GETs": 2,
+    "body_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Stop on transport, identity, size or NAS restore failure. Do not substitute another filing, infer absent series identity, or backfill a trading day."
+}

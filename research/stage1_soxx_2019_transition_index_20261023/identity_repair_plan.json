@@ -1,0 +1,10 @@
+{
+  "frozen": true,
+  "reason": "The first index parser searched the whole multi-series table, so series, class and ticker presence were individually true without proving their adjacency.",
+  "scope": "Zero-network parse of the same two NAS-backed exact HTML index pages; require each Class/Contract C000012084 SOXX row to be directly under Series S000004354 in #seriesDiv.",
+  "new_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "stop": "Any missing, duplicate, out-of-order or conflicting series/class row stops transition source identity qualification. Preserve the first parser result."
+}

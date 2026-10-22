@@ -1,0 +1,26 @@
+{
+  "plan_sha256": "974712c8f011d27a512db9793a373532433ee2c9672159d92e6de1dd1e126fcf",
+  "files": [
+    {
+      "name": "0001193125-19-059323.headers",
+      "sha256": "fe0f58a29f14c6f7f99475c11751bedb4a0ebe94121dc882807dfab296685c6d",
+      "bytes": 1639
+    },
+    {
+      "name": "0001193125-19-059323.html",
+      "sha256": "1ab01adbc91d1b56894956039d3a03828e31605382231afe731be20b1c37f2a5",
+      "bytes": 98459
+    },
+    {
+      "name": "0001193125-19-167652.headers",
+      "sha256": "14d416895512cd5ea8ef034eba96d654dbf860d8ebec5c0cfb1adce4c23fb8cc",
+      "bytes": 1639
+    },
+    {
+      "name": "0001193125-19-167652.html",
+      "sha256": "9fa94a9cfcdba6cfcc1c936d4abf1230f9441e30007bb75c5e5dac88466a18c0",
+      "bytes": 143078
+    }
+  ],
+  "capture_receipts_sha256": "307656e86f56cb0aebaf7cec692d303d463f310cb1f155078715873eefb7de14"
+}

@@ -1,0 +1,46 @@
+{
+  "status": "two_2019_transition_index_series_class_row_identity_passed",
+  "repair_plan_sha256": "4a569ff89242c2de3595398dfc2440f9c0f3389b4bdb4af144500975658b07b5",
+  "source_archive_sha256": "715781b21688781c4187b5599fc76b4156a855cd3c1ad8dd61e94a2c80aba3c4",
+  "NAS_scoped_restore_verified": true,
+  "rows": [
+    {
+      "accession": "0001193125-19-059323",
+      "series_row": [
+        "Series S000004354",
+        "",
+        "iShares PHLX Semiconductor ETF"
+      ],
+      "class_row": [
+        "Class/Contract C000012084",
+        "",
+        "iShares PHLX Semiconductor ETF",
+        "SOXX"
+      ],
+      "adjacent_rows": true,
+      "identity_passed": true,
+      "raw_sha256": "1ab01adbc91d1b56894956039d3a03828e31605382231afe731be20b1c37f2a5"
+    },
+    {
+      "accession": "0001193125-19-167652",
+      "series_row": [
+        "Series S000004354",
+        "",
+        "iShares PHLX Semiconductor ETF"
+      ],
+      "class_row": [
+        "Class/Contract C000012084",
+        "",
+        "iShares PHLX Semiconductor ETF",
+        "SOXX"
+      ],
+      "adjacent_rows": true,
+      "identity_passed": true,
+      "raw_sha256": "9fa94a9cfcdba6cfcc1c936d4abf1230f9441e30007bb75c5e5dac88466a18c0"
+    }
+  ],
+  "original_holdings_values_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}
