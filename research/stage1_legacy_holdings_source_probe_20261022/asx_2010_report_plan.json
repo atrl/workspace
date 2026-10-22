@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "frozen_single_original_report_probe",
+  "source_url": "https://announcements.asx.com.au/asxpdf/20101021/pdf/31t852b9vj1724.pdf",
+  "source_role": "BlackRock/iShares Trust annual report dated 2010-07-31, ASX-hosted copy with URL date 2010-10-21",
+  "new_http_get_budget": 1,
+  "max_response_bytes": 60000000,
+  "raw_path": "data/snapshots/stage1_legacy_holdings_source_probe_20261022/2010_07_31_asx_original.pdf",
+  "required_checks": [
+    "HTTP status, exact URL, Content-Type, response Date/Last-Modified, exact bytes/SHA-256/size",
+    "PDF page count and visually verified SOXX predecessor fund schedule with security, shares and value columns",
+    "Report date, PDF production stamp, ASX URL date and earliest-public-time uncertainty kept distinct",
+    "NAS source-byte archive and remote-hash/scoped-restore readback"
+  ],
+  "identity_boundary": "The fund changed its index from S&P North American Technology-Semiconductors to PHLX SOX on 2010-10-15. A July 2010 reported basket is an earlier disclosed fund snapshot, not the actual 2011 SOXX index membership or daily weights.",
+  "market_outcome_reads": 0,
+  "factor_values": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "no_backfill": true
+}
