@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "six_2017_2018_first_original_SOXX_equity_value_closure_with_2018_Sep_reuse",
+  "source_transport_sha256": "ea18cc9b9cf36fe8f2d681cd54a62cdf134a979c9949eb251ec760803a54f561",
+  "source_identity_sha256": "afcfe1f3cc53b3a53eb0f44cd0d112d1649fad50525efa67d2a0a06767a1c137",
+  "source_NAS_archive_sha256": "c345f9144baf234077b879af84df7f9c96c214570d80f702fb9539713d516e62",
+  "reused_2018_Sep_result_path": "research/stage1_soxx_2018_sep_concentration_20261023/result.json",
+  "reused_2018_Sep_result_sha256": "aa6bc271cbebbf4ea62f252793970faedb628696c4145b6004ccce5e5f418b65",
+  "reports": [
+    {
+      "report_date": "2017-03-31",
+      "form": "N-CSR",
+      "accession": "0001193125-17-194722",
+      "accepted_at_utc": "2017-06-06T00:54:56.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2017_2018_original_concentration_source_20261023/0001193125-17-194722_d335700dncsr.htm",
+      "raw_sha256": "74bedf35091698029378d3a2b17dfc3efeccaec93f6449475e41bf871b2d31ec",
+      "raw_bytes": 56512330,
+      "bounded_section_byte_range": [
+        33205891,
+        33270891
+      ],
+      "bounded_section_sha256": "82449341639c9fd7c79f896e9511ec7392791ff8fa31742b90abd4f134d191b4",
+      "identity_method": "TOC_anchor_after_fund_link"
+    },
+    {
+      "report_date": "2017-06-30",
+      "form": "N-Q",
+      "accession": "0001193125-17-271743",
+      "accepted_at_utc": "2017-08-29T21:48:52.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2017_2018_original_concentration_source_20261023/0001193125-17-271743_d438168dnq.htm",
+      "raw_sha256": "4ea1f808914fc29873f44cc00e48f8a780a9e0b8d9a812f45b01f8985d2cc8df",
+      "raw_bytes": 34298377,
+      "bounded_section_byte_range": [
+        17554673,
+        17619673
+      ],
+      "bounded_section_sha256": "ed543c56304bdf07450d3fb4712c33e975bd3fc6b4fc19b2fef0141a60522577",
+      "identity_method": "inline_title"
+    },
+    {
+      "report_date": "2017-09-30",
+      "form": "N-CSRS",
+      "accession": "0001193125-17-359934",
+      "accepted_at_utc": "2017-12-04T23:04:28.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2017_2018_original_concentration_source_20261023/0001193125-17-359934_d462369dncsrs.htm",
+      "raw_sha256": "665029b775224b4c1fbe20588a7bc604673e8c32ed28e7cdfd6efa340be86ba6",
+      "raw_bytes": 57508064,
+      "bounded_section_byte_range": [
+        34311148,
+        34376148
+      ],
+      "bounded_section_sha256": "23be7000baa6db46b997937d6d96d6adf145bf3c63a740561b80be4f931ce2da",
+      "identity_method": "TOC_anchor_after_fund_link"
+    },
+    {
+      "report_date": "2017-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-18-063612",
+      "accepted_at_utc": "2018-03-01T01:02:56.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2017_2018_original_concentration_source_20261023/0001193125-18-063612_d539192dnq.htm",
+      "raw_sha256": "1c545629cee05f16b89d5e0ed2ed75a530f822981f6ecd74d47d067cfa125602",
+      "raw_bytes": 35484173,
+      "bounded_section_byte_range": [
+        17444109,
+        17509109
+      ],
+      "bounded_section_sha256": "acc8080bee58efa7ee031248fdc8a39c77c5073a555d690b94277963371edd63",
+      "identity_method": "inline_title"
+    },
+    {
+      "report_date": "2018-03-31",
+      "form": "N-CSR",
+      "accession": "0001193125-18-186572",
+      "accepted_at_utc": "2018-06-07T22:04:37.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2017_2018_original_concentration_source_20261023/0001193125-18-186572_d544791dncsr.htm",
+      "raw_sha256": "12788a1be7ec39ecd145fff0a654af6ab625368ffcd352dd855d3faa7a54be22",
+      "raw_bytes": 58878919,
+      "bounded_section_byte_range": [
+        35857513,
+        35922513
+      ],
+      "bounded_section_sha256": "fbfb6ea9f7d221043ee0a365f3b0e3ea9b767867a4f711dead3341b04a723006",
+      "identity_method": "TOC_anchor_after_fund_link"
+    },
+    {
+      "report_date": "2018-06-30",
+      "form": "N-Q",
+      "accession": "0001193125-18-261300",
+      "accepted_at_utc": "2018-08-29T17:48:42.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_2017_2018_original_concentration_source_20261023/0001193125-18-261300_d577177dnq.htm",
+      "raw_sha256": "cd4c6f503b43f04ae8cfbb20ae79ca05aa3787c34b57ba2b4d68367002278ee4",
+      "raw_bytes": 54050357,
+      "bounded_section_byte_range": [
+        25898872,
+        25963872
+      ],
+      "bounded_section_sha256": "3b641c1791772510963dbe3cda4e5153e9861516d0123503873afb47c1679a3f",
+      "identity_method": "inline_title"
+    }
+  ],
+  "parser": "Parse direct HTML Security/Shares/Value rows from COMMON STOCKS to TOTAL COMMON STOCKS within each pinned section. Security rows have original names plus positive integer shares and USD fair values. Ignore sector headings/subtotals; allow printed total in immediate next (Cost: ...) row. Require 20-40 distinct positive rows, no ambiguous security-looking row and within-one-USD closure.",
+  "derived_values": [
+    "top5_disclosed_equity_value_share",
+    "herfindahl_sum_squared_disclosed_equity_weights"
+  ],
+  "amendment_boundary": "Use only first accepted originals for this batch. Four later 2017 report amendments remain distinct source vintages and cannot overwrite earlier Stage1 decisions.",
+  "budget": {
+    "new_raw_report_parses_max": 6,
+    "duplicate_2018_Sep_raw_parses": 0,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any six-report source/numeric failure leaves 2017-2018 source sequence incomplete. Do not drop failed periods, fill from amendment or reuse later report.",
+  "scientific_boundary": "Six new first-version values plus one reused 2018 September source value do not qualify amendments, full 2019-2022/held mapping, Stage1 information or own 0bp account."
+}
