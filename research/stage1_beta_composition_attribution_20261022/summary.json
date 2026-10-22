@@ -1,0 +1,16 @@
+{
+  "experiment": "stage1_beta_composition_attribution_20261022",
+  "decision": "original_fixed_0bp_version_remains_not_promoted",
+  "objective_achieved": false,
+  "source_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+  "source_native_qlib_readback": true,
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstraps": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "source_recorder_authority": true
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "status": "descriptive_fixed_failure_attribution_no_parameter_search",
+  "source_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+  "source_plan_sha256": "1b015876de2f5d88a32348785aaddafc1e5dfbc1b0e27dcb65d74288217a9944",
+  "plan_sha256": "0e5f98f7e84a86f357cede5c1ada3ca9ca75c6247744012d3489d6c2916ef98d",
+  "native_sessions": 944,
+  "quarters": 16,
+  "rolling_windows": 819,
+  "positive_rolling_windows": 458,
+  "worst_126_window": {
+    "first_trade": "2025-04-07 00:00:00",
+    "last_exit": "2025-10-07 00:00:00",
+    "relative_return_pct": -12.842968834975604
+  },
+  "max_observed_drawdown_pct": -30.85579616014975,
+  "max_drawdown_peak_stamp": "2026-06-22 16:00:00",
+  "max_drawdown_trough_stamp": "2026-07-29 16:00:00",
+  "observed_marks_below_minus30pct": 15,
+  "first_breach_stamp": "2026-07-28 09:47:00",
+  "negative_complete_quarters": [
+    "2023Q2",
+    "2023Q3",
+    "2023Q4",
+    "2024Q2",
+    "2025Q4",
+    "2026Q1",
+    "2026Q3"
+  ],
+  "risk_and_exposure_examples": {
+    "2024Q3": {
+      "period": "2024Q3",
+      "sessions": 64,
+      "complete_period": true,
+      "SOXX_relative_wealth": 1.0658788835819686,
+      "target_soxl_mean": 0.027637049998574227,
+      "target_cash_mean": 0.39231490157004617,
+      "ending_soxl_mean": 0.027488826711676653,
+      "ending_cash_mean": 0.3926692908165098,
+      "risk_state_ge2_fraction": 0.546875,
+      "open_execute_fraction": 1.0,
+      "direct_fees_usd": 77.08617326724197
+    },
+    "2026Q2": {
+      "period": "2026Q2",
+      "sessions": 62,
+      "complete_period": true,
+      "SOXX_relative_wealth": 1.1078436923956336,
+      "target_soxl_mean": 0.14221124603389887,
+      "target_cash_mean": 0.06451612903225806,
+      "ending_soxl_mean": 0.14409225314997703,
+      "ending_cash_mean": 0.06455705306983617,
+      "risk_state_ge2_fraction": 0.0967741935483871,
+      "open_execute_fraction": 1.0,
+      "direct_fees_usd": 99.26134551982925
+    },
+    "2026Q3": {
+      "period": "2026Q3",
+      "sessions": 64,
+      "complete_period": true,
+      "SOXX_relative_wealth": 0.8919380926838862,
+      "target_soxl_mean": 0.015367028362915446,
+      "target_cash_mean": 0.6200373687072238,
+      "ending_soxl_mean": 0.014703448652718255,
+      "ending_cash_mean": 0.6197740245333385,
+      "risk_state_ge2_fraction": 0.828125,
+      "open_execute_fraction": 1.0,
+      "direct_fees_usd": 61.234691889407344
+    }
+  },
+  "total_direct_fees_usd": 1334.327201806902,
+  "transformation_calls": 919,
+  "recovery_transformation_calls": 0,
+  "causal_effect_identified": false,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_bootstraps": 0,
+  "decision": "original_fixed_0bp_version_remains_not_promoted"
+}
