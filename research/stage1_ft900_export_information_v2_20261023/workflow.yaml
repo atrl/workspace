@@ -1,0 +1,13 @@
+experiment: stage1_ft900_export_information_v2_20261023
+phase: matched_information_screen_after_canonical_transition_unknown_source_review
+plan: plan.json
+notebook: stage1_ft900_export_information_v2_20261023.ipynb
+independent_design_review_required: design_review.json
+parent: research/minute_information_pit_allocator_20261012
+source: research/stage1_ft900_export_availability_20261023
+provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+train: 2011-01-03/2022-12-30
+held_reused: 2023-01-03/2026-10-07
+model_fits_budget: 2
+bootstrap_budget: 1
+native_accounts_budget: 0

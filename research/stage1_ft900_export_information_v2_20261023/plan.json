@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_ft900_export_information_v2_20261023",
+  "frozen": true,
+  "execution_authorized": false,
+  "phase": "one_matched_information_screen_after_canonical_23_unknown_source_map_and_independent_design_review",
+  "question": "Does the latest published same-report U.S. semiconductor export month-over-month change add five-session future SOXX return information beyond the original Stage1 39 inputs, identical release-age control and a pre/post-2012 classification indicator? Positive export-growth coefficient is preregistered from an external-demand recovery interpretation.",
+  "novelty_boundary": "Same single FT-900 export-demand mechanism as the blocked pre-fit design, now using the independently reviewed canonical transition-unknown source map. This repairs a source-contract contradiction before any model fit; it is not a new historical search or a rescue of a failed prediction result.",
+  "parent": {
+    "card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+    "artifact_sha256": {
+      "inputs/features": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+      "inputs/daily_frame": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+      "inputs/timing": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+      "models/base_outer_71": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac"
+    },
+    "baseline_features": "exact 39 base_features order from frozen Stage1 seed71 model"
+  },
+  "candidate_source": {
+    "card": "research/stage1_ft900_export_availability_20261023",
+    "recorder_id": "e96807ef987d4abcb048dd350abc9428",
+    "experiment_id": "993438492998129634",
+    "summary_sha256": "4fc4a340fd01e13f40b776a23a8f54c9e36b158650f6ef138d75adb8c4d2933a",
+    "readback_sha256": "f39162af75d9873f4216043441deaf12aef8dbcccfd567b944880e29b202fb99",
+    "source_independent_review_sha256": "69b0804c28a30f1940074aed2ccf2079c1abb99b30ba45e146796f35afbe0bdf",
+    "mapped_artifact": "analysis/mapped_signals",
+    "mapped_artifact_sha256": "87ee84aa936598ec5eaa97e43a0ff0099086328f35b061a0a4226cc9c0f88b8f",
+    "expected_calendar_rows": 3964,
+    "expected_transition_unknown_rows": 23,
+    "expected_train_nonmissing_source_rows": 2997,
+    "expected_held_nonmissing_source_rows": 944,
+    "historical_first_public_bytes_qualified": false,
+    "source_caveat": "191 original monthly source events; canonical Qlib map retains all 3964 Stage1 signal rows and marks 23 classification-transition rows numeric unknown rather than carrying a pre-break value. Printed 08:30 date conservatively next real trading session; historical first-public PDF bytes unqualified."
+  },
+  "label": {
+    "primary": "Five consecutive original Stage1 SOXX funded open-to-open returns from signal s: sum_j=0..4 log1p(soxx_forward_open_return(s+j))",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval; train strictly before 2023-01-01 America/New_York, held by 2026-10-10 America/New_York",
+    "role": "information-only, no fee-net account or SOXX promotion claim"
+  },
+  "cohorts": {
+    "train_signal": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-07"
+      ]
+    ],
+    "expected_mature_train_rows": 3014,
+    "expected_mature_held_rows": 940,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false,
+    "expected_transition_unknown_train_rows": 23,
+    "expected_transition_unknown_held_rows": 0
+  },
+  "model": {
+    "baseline": "Exact original 39 Stage1 features plus common FT900 release_age_days, post-2012 definition regime and transition_unknown indicator; SimpleImputer(median) fit on training only, StandardScaler, Ridge(alpha=1.0)",
+    "candidate": "Same full-calendar rows and pipeline plus exactly mom_pct; 23 transition rows remain NaN and are imputed from training only within the candidate pipeline",
+    "new_fits": 2,
+    "candidate_standardized_coefficient_sign_required": "positive",
+    "no_hyperparameter_or_feature_search": true,
+    "no_survivor_date_compaction": true
+  },
+  "gate": {
+    "paired_metric": "baseline squared error minus candidate squared error on identical held signal dates",
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.0010869565217391304,
+      "lower_positive": true
+    }
+  },
+  "budget": {
+    "verified_source_object_loads_max": 5,
+    "DatasetH_builds": 1,
+    "new_model_fits": 2,
+    "new_bootstrap_runs": 1,
+    "new_writable_Qlib_Recorders": 1,
+    "native_accounts": 0,
+    "new_market_requests": 0
+  },
+  "stops": [
+    "Stop before fits unless independent design review approves this exact frozen plan and canonical source artifact",
+    "Stop before fits if parent/source hashes, full calendar, 23 transition unknown rows, 3014/940 mature labels or common controls differ",
+    "Fit exactly one baseline and one candidate with train-only preprocessing; seal both model bytes before held scoring",
+    "A failed information gate closes this fixed source/receiver/label version without sign, lag, mask, age, window or Ridge rescue",
+    "A pass is development feedback only: historical first-public bytes, full Stage1 0bp account, 2/5bp and independent-forward gates remain separate"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "design_blocker": "The pinned carry-forward source map has 0 missing train rows and carries a pre-2012 value through 23 post-Jan2012 sessions, conflicting with the pinned transition adjudication automatic_carry_across_break_authorized=false. Independent source review blocks fitting until rebound to the NaN map or another explicitly separately frozen regime treatment.",
+  "independent_design_review": {
+    "required_before_first_fit": true,
+    "file": "design_review.json",
+    "required_verdict": "APPROVE_FIXED_DESIGN_BEFORE_FIT",
+    "must_bind_exact_plan_sha256": true,
+    "must_bind_canonical_source_artifact_sha256": true,
+    "executor_cannot_self_certify": true
+  },
+  "blocked_prior_design": "research/stage1_ft900_export_information_20261023/design_halt.json",
+  "blocked_prior_design_sha256": "94d2b02fbcb35d52916e0c51d24048fa3bc872b9423fef98f9a3254351afd47a"
+}
