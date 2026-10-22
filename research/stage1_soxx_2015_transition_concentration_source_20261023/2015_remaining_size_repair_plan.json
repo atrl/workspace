@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "reuse_four_NAS_backed_raw_bodies_and_fetch_only_exact_2015_Dec_NQ",
+  "parent_plan_sha256": "b851bbdb4f751cb7caf4b551f3d76093d85c7d26218e5408ad0e90d1c163efd9",
+  "stopped_transport_result_sha256": "1690855f56697e09f3b665d9899ae54002480445bda3ca0d85e66a8250cb1d93",
+  "size_exception_sha256": "619c4e0e1ec0892c2fd28541a07614a42fd97ea368b066109ea9e199eb95bc32",
+  "reuse_existing": [
+    {
+      "report_date": "2015-01-31",
+      "accession": "0001193125-15-122693",
+      "raw_path": "data/snapshots/stage1_soxx_2015_transition_concentration_source_20261023/0001193125-15-122693_d875397dncsrs.htm",
+      "raw_sha256": "c481d867c2002e4cb9d19cd0e0e6454483deb2a7820f64c008f0b8cdd02668dd",
+      "raw_bytes": 29180398
+    },
+    {
+      "report_date": "2015-04-30",
+      "accession": "0001193125-15-238848",
+      "raw_path": "data/snapshots/stage1_soxx_2015_transition_concentration_source_20261023/0001193125-15-238848_d944131dnq.htm",
+      "raw_sha256": "92759d923d8b2eae1bad3439b5b6cb4bec781cf035e1a98a650d2e10e25cf8de",
+      "raw_bytes": 24737700
+    },
+    {
+      "report_date": "2015-07-31",
+      "accession": "0001193125-15-339410",
+      "raw_path": "data/snapshots/stage1_soxx_2015_transition_concentration_source_20261023/0001193125-15-339410_d98289dncsr.htm",
+      "raw_sha256": "f4066b79e07007b02fe09c5a3103f727ff59f61413b2084e775143180fd262d5",
+      "raw_bytes": 36220846
+    },
+    {
+      "report_date": "2015-09-30",
+      "accession": "0001193125-15-396474",
+      "raw_path": "data/snapshots/stage1_soxx_2015_transition_concentration_source_20261023/0001193125-15-396474_d93555dncsrs.htm",
+      "raw_sha256": "c3cc85a5554434ff5155eb59d8a9cb4fd7c3553bfa8ac3ac602208659c902e67",
+      "raw_bytes": 48557624
+    }
+  ],
+  "existing_source_NAS_archive_sha256": "468e00bdbff57c7ee5f09c4a27925742009a22ccd6ae244176098c0e61a91053",
+  "existing_source_NAS_scoped_restore_verified": true,
+  "new_exact_candidate": {
+    "report_date": "2015-12-31",
+    "form": "N-Q",
+    "accession": "0001193125-16-480933",
+    "accepted_at_utc": "2016-02-26T23:14:01.000Z",
+    "primary_document": "d146052dnq.htm",
+    "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312516480933/d146052dnq.htm"
+  },
+  "new_request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 1,
+    "max_response_bytes": 60000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 120
+  },
+  "budget": {
+    "new_GETs": 1,
+    "repeat_GETs_for_existing_four": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "preservation": "Preserve exact December raw body and headers/UTC/SHA to NAS and verify remote hash plus scoped raw-member restore. Existing four remain in their original NAS archive.",
+  "stop": "If December fails URL/HTTP/raw-size/NAS gate, stop without re-requesting any prior body. No identity or numeric claim until all five raw identities can be read under a separately bounded same-source check.",
+  "reason": "Original source phase correctly stopped when the fourth decompressed raw body exceeded 45MB despite curl exit 0. This new 60MB cap is a source-transport capacity repair only; report dates, accessions, fields and scientific gates are unchanged."
+}
