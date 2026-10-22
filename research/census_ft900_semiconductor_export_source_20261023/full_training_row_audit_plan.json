@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_144_original_FT900_Exhibit7_semiconductor_export_row_audit",
+  "parent_source_result": "full_training_source_result.json",
+  "parent_readback": "full_training_readback.json",
+  "source_receipts": "full_training_request_ledger.jsonl",
+  "method": "For every frozen 2011-01 through 2022-12 month, verify the exact local PDF byte SHA-256 and size against its request or reuse receipt. Read PDF text once. Find exactly one page explicitly headed Exhibit 7 U.S. Exports of Goods by End-Use Category and Commodity with an exact Semiconductors row. Record source page, current-month and same-release previous-month printed dollar values, printed month change, and first-page release header. Preserve missing or ambiguous rows as exceptions; never fill from neighboring releases or today's revised API.",
+  "expected_months": 144,
+  "source_row_unit": "millions of current U.S. dollars, seasonally adjusted within the original monthly release",
+  "acceptance": "144 unique month identities and 144 verified raw hashes; separately report number of unique Exhibit 7 row parses, numerical rows and release headers. Full row coverage only if all 144 parse unambiguously.",
+  "known_limit": "PDF printed header and today's archived PDF bytes do not certify historically first-public availability. The 2012 commodity classification change requires a separate cross-boundary decision. This source audit cannot authorize a Stage1 factor, fit or 0bp account.",
+  "budget": {
+    "PDF_opens_max": 144,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  }
+}
