@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_original_Philadelphia_Fed_ADS_all_vintages_ZIP_preflight",
+  "question": "Does the Philadelphia Fed ADS business conditions index provide original real-time vintage bytes spanning the 2011-2022 Stage1 training and 2023-2026 reused diagnostic periods, for a materially distinct broad-activity signal beyond Stage1's price/VIX/breadth inputs?",
+  "economic_mechanism": "A real-time broad activity nowcast combining jobless claims, payrolls, production, income, sales and GDP may distinguish systemic demand deterioration from a semiconductor-only decline. This is source qualification, not a cash switch or predictive claim.",
+  "official_page": "https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/ads",
+  "fixed_ZIP_URL": "https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/ads/ADS_All_Vintages-zip.zip?hash=4E6B77E5055CA510D1E653F4DD7395C2&la=en&sc_lang=en",
+  "fixed_read": "One HTTP/1.1 native curl GET of the exact official All vintages ZIP. Save response headers, UTC request/receive times, byte size and SHA-256 before inspecting ZIP members. Preserve exact bytes to Yanxuan NAS, verify remote archive SHA and one scoped byte restore. Inspect only member names, sizes, format and date fields; no market labels or factor values in this preflight.",
+  "source_caveats": [
+    "The official page says the ADS index is updated as underlying economic indicators arrive or revise; a current vintage must not be substituted for the past.",
+    "A vintage date alone does not certify exact intraday first availability; later source-clock qualification is required.",
+    "A broad macro activity signal is not the same as the already failed G.17 semiconductor production or FT-900 export coordinate; any Stage1 increment must be separately frozen and tested."
+  ],
+  "acceptance": "Official ZIP under 10,000,000 bytes with safe readable members, a parseable vintage-date identity range reaching training and reused held eras, and NAS remote SHA plus scoped byte readback. Source-only success cannot authorize any model or account.",
+  "budget": {
+    "official_ZIP_GETs": 1,
+    "max_ZIP_bytes": 10000000,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If GET fails, bytes are not a safe ZIP, vintage identities are absent, or NAS restore fails, preserve the concrete dependency and stop this fixed source version. No URL/format fallback, data purchase, SOXX return read or 0bp account."
+}

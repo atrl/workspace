@@ -1,0 +1,13 @@
+experiment: philadelphia_ads_vintage_source_20261023
+phase: source_only_original_Philadelphia_Fed_ADS_all_vintages_ZIP_preflight
+plan: plan.json
+notebook: philadelphia_ads_vintage_source_20261023.ipynb
+source_url: https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/ads/ADS_All_Vintages-zip.zip?hash=4E6B77E5055CA510D1E653F4DD7395C2&la=en&sc_lang=en
+raw_source: data/snapshots/philadelphia_ads_vintage_20261023/ADS_All_Vintages.zip
+outputs:
+  - capture_receipt.json
+  - source_preflight_result.json
+  - run_state.json
+market_outcome_reads: 0
+model_fits: 0
+native_accounts: 0
