@@ -1,0 +1,28 @@
+{
+  "status": "matched_original_Stage1_39_plus_shared_controls_Qlib_source_and_H5_maturity_passed",
+  "plan_sha256": "f353e6fd2561d966d3be78191aacb9d4ea27f234092e392e0ba60e32fe973396",
+  "implementation_code_sha256": "86e6ecfb107db9de31d7384fd4825a78eb36603627546adfeaca693196894ae6",
+  "original_primary_features": 39,
+  "common_controls": [
+    "source_age_days",
+    "NPORT_form_indicator",
+    "post_announced_expected_2021_index_change"
+  ],
+  "train_source_rows": 3020,
+  "held_source_rows": 944,
+  "train_mature_rows": 3014,
+  "held_mature_rows": 940,
+  "train_candidate_missing": 0,
+  "held_candidate_missing": 0,
+  "train_last_label_available_at": "2022-12-30 14:31:00+00:00",
+  "held_last_label_available_at": "2026-10-09 13:31:00+00:00",
+  "train_source_age_max_days": 171,
+  "held_source_age_max_days": 126,
+  "source_Recorder_object_loads": 6,
+  "DatasetH_builds": 1,
+  "original_Stage1_H5_label_source_artifact_loads": 1,
+  "model_fits_before_preflight": 0,
+  "native_accounts": 0,
+  "historical_market_independence": false,
+  "historical_exact_intraday_source_clock_qualified": false
+}

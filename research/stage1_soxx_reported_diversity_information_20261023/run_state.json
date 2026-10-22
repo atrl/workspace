@@ -1,0 +1,17 @@
+{
+  "plan_sha256": "f353e6fd2561d966d3be78191aacb9d4ea27f234092e392e0ba60e32fe973396",
+  "implementation_code_sha256": "86e6ecfb107db9de31d7384fd4825a78eb36603627546adfeaca693196894ae6",
+  "fit_attempts": [
+    "baseline",
+    "candidate"
+  ],
+  "fits_done": [
+    "baseline",
+    "candidate"
+  ],
+  "bootstrap_attempted": true,
+  "new_native_accounts": 0,
+  "recorder_id": "9bf200f52a964a0d8f8c307b946d54ca",
+  "experiment_id": "909397922584822167",
+  "completed": true
+}

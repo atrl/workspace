@@ -1,0 +1,35 @@
+{
+  "status": "one_required_failure_attribution_fixed_reported_diversity_H5_information",
+  "failed_scientific_gates": {
+    "coefficient_positive": false,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "baseline_held_MSE": 0.0027205412303315836,
+  "candidate_held_MSE": 0.0028140416266414082,
+  "full_held_paired_MSE_improvement": -9.35003963098238e-05,
+  "held_half_improvements": [
+    -2.9258951976118014e-06,
+    -0.00019730952772153707
+  ],
+  "coordinate_standardized_coefficient": -0.005535132355948452,
+  "corrected_bootstrap_lower": -0.0003287968722680612,
+  "quarterly_diagnostics": {
+    "2024Q3": 6.551390401999216e-05,
+    "2025Q2": -0.00014295786569414547,
+    "2025Q3": 0.00011923513046015736,
+    "2026Q2": -0.0007076966301912017,
+    "2026Q3": 0.00014952792492910698
+  },
+  "positive_quarters": 8,
+  "quarter_count": 16,
+  "mechanism_classification": "Original Stage1 prices, VIX and breadth plus shared source-age/format/index-era controls already explain the reused H5 SOXX target better than this stale quarterly disclosed-weight diversity level. This classification is specific to the fixed matched task, not a causal proof of the whole account cash policy.",
+  "motivation_interval_limit": "The motivating 2025 Q2 cash-opportunity interval gets negative information change while 2025 Q3 is positive; local positive quarters cannot be combined into a tradable switch or rescue a negative full-path gate.",
+  "source_status": "3020/3020 conservative training source days and 944/944 reused held source days, with amended SOXX equity values unchanged; exact historical intraday first-public clock and independent validation remain unqualified.",
+  "new_model_fits": 2,
+  "new_bootstraps": 1,
+  "new_native_accounts": 0,
+  "reopening_condition": "A materially distinct decision-time mechanism or genuinely independent prospective evidence; no sign flip, report-age threshold, H5 window, format dummy or held-quarter selection on reused market history.",
+  "SOXX_goal_achieved": false
+}

@@ -1,0 +1,28 @@
+{
+  "status": "targeted_native_Qlib_Recorder_negative_result_readback_passed",
+  "plan_sha256": "f353e6fd2561d966d3be78191aacb9d4ea27f234092e392e0ba60e32fe973396",
+  "implementation_code_sha256": "86e6ecfb107db9de31d7384fd4825a78eb36603627546adfeaca693196894ae6",
+  "recorder_id": "9bf200f52a964a0d8f8c307b946d54ca",
+  "experiment_id": "909397922584822167",
+  "held_mature_rows": 940,
+  "prediction_dates_and_targets_exactly_paired": true,
+  "recomputed_baseline_MSE": 0.0027205412303315836,
+  "recomputed_candidate_MSE": 0.0028140416266414082,
+  "recomputed_paired_MSE_improvement": -9.35003963098238e-05,
+  "saved_candidate_Ridge_last_coefficient_matches": true,
+  "saved_analysis_metrics_and_gates_match": true,
+  "gates": {
+    "coefficient_positive": false,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "completed_fit_attempts": [
+    "baseline",
+    "candidate"
+  ],
+  "bootstrap_attempted": true,
+  "new_native_accounts": 0,
+  "NAS_archive_sha256": "a79ebc7404798480b3d75f5af3712579ca03796a6cfe1b480243974d2bb155d6",
+  "NAS_readback_verified": true
+}
