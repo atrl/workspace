@@ -1,0 +1,26 @@
+{
+  "experiment": "census_ft900_semiconductor_export_source_20261023",
+  "decision": "three_sample_source_row_feasible_full_PIT_and_history_unqualified",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "notebook": "census_ft900_semiconductor_export_source_20261023.ipynb",
+  "result": "source_preflight_result.json",
+  "capture_receipts": "capture_receipts.json",
+  "nas_binding": "nas_binding.json",
+  "sample_original_reports": 3,
+  "sample_exhibit7_semiconductor_export_rows": 3,
+  "full_training_history_qualified": false,
+  "historical_first_public_bytes_qualified": false,
+  "classification_continuity_qualified": false,
+  "model_input_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "qualified_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "raw_source_location": "data/snapshots/census_ft900_semiconductor_20261023",
+    "raw_source_nas_archive_sha256": "0b45a088957196f7dda43827224aec38aa36c263803e93f768942952923e840b"
+  }
+}

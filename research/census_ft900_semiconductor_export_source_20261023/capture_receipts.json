@@ -1,0 +1,62 @@
+{
+  "status": "three_exact_gets_completed",
+  "receipts": [
+    {
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1112.pdf",
+      "requested_at_utc": "2026-10-22T16:04:58.365958+00:00",
+      "response_status": 200,
+      "received_at_utc": "2026-10-22T16:04:59.392000+00:00",
+      "response_headers": {
+        "Date": "Thu, 22 Oct 2026 16:04:59 GMT",
+        "Last-Modified": "Mon, 13 Sep 2021 16:51:43 GMT",
+        "ETag": null,
+        "Content-Type": "application/pdf",
+        "Content-Length": null,
+        "Cache-Control": null
+      },
+      "response_bytes": 514902,
+      "sha256": "ca8d4508c09b28bc3b13fb879a792d7ef868efcb9d0350535bf02dfcb20408dc",
+      "local_path": "data/snapshots/census_ft900_semiconductor_20261023/ft900_1112.pdf",
+      "valid_pdf_header": true
+    },
+    {
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_1705.pdf",
+      "requested_at_utc": "2026-10-22T16:05:00.821471+00:00",
+      "response_status": 200,
+      "received_at_utc": "2026-10-22T16:05:01.827746+00:00",
+      "response_headers": {
+        "Date": "Thu, 22 Oct 2026 16:05:01 GMT",
+        "Last-Modified": "Mon, 13 Sep 2021 16:16:49 GMT",
+        "ETag": null,
+        "Content-Type": "application/pdf",
+        "Content-Length": null,
+        "Cache-Control": null
+      },
+      "response_bytes": 815192,
+      "sha256": "89be84ce00077286bd5fd8fec8b6bc49a528bfcd96fe2fa0c25004992199e822",
+      "local_path": "data/snapshots/census_ft900_semiconductor_20261023/ft900_1705.pdf",
+      "valid_pdf_header": true
+    },
+    {
+      "url": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2404.pdf",
+      "requested_at_utc": "2026-10-22T16:05:06.933836+00:00",
+      "response_status": 200,
+      "received_at_utc": "2026-10-22T16:05:07.888721+00:00",
+      "response_headers": {
+        "Date": "Thu, 22 Oct 2026 16:05:07 GMT",
+        "Last-Modified": "Thu, 06 Jun 2024 12:32:40 GMT",
+        "ETag": null,
+        "Content-Type": "application/pdf",
+        "Content-Length": null,
+        "Cache-Control": null
+      },
+      "response_bytes": 1628822,
+      "sha256": "2c32ded10378cb84b3ee63387eefbf3f896fcd33341f59297f773dc8274b1fb7",
+      "local_path": "data/snapshots/census_ft900_semiconductor_20261023/ft900_2404.pdf",
+      "valid_pdf_header": true
+    }
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

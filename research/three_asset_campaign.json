@@ -109,7 +109,9 @@
     "inventory_sales_H63_information_result": "research/inventory_sales_soxx_h63_information_20261022/summary.json",
     "inventory_sales_H63_information_status": "closed_fixed_negative_coefficient_and_negative_held_MSE_improvement_zero_accounts_no_H5_receiver_rescue",
     "taiwan_export_orders_source_triage": "research/taiwan_export_orders_source_triage_20261023/summary.json",
-    "taiwan_export_orders_source_status": "needs_original_monthly_source_access_and_vintage_broad_electronics_not_semiconductor_only_no_fit"
+    "taiwan_export_orders_source_status": "needs_original_monthly_source_access_and_vintage_broad_electronics_not_semiconductor_only_no_fit",
+    "FT900_semiconductor_export_source_preflight": "research/census_ft900_semiconductor_export_source_20261023/source_preflight_result.json",
+    "FT900_semiconductor_export_source_status": "three_original_monthly_rows_present_2011_2017_2024_full_history_first_public_and_classification_pending_no_fit"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

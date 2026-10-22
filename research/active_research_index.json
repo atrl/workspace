@@ -77,6 +77,16 @@
       "layout_adjudication": "research/semiconductor_ip_g17_layout_exception_20261022/adjudication.json",
       "numeric_vintage_result": "research/semiconductor_ip_numeric_vintage_20261022/source_numeric_audit.json",
       "Stage1_availability_result": "research/semiconductor_ip_stage1_availability_20261022/availability_audit.json"
+    },
+    {
+      "card": "research/census_ft900_semiconductor_export_source_20261023",
+      "phase": "three_original_monthly_export_rows_and_release_headers_verified_full_history_and_PIT_pending",
+      "role": "distinct_US_semiconductor_export_demand_source_preflight_for_Stage1",
+      "full_economic_experiment": false,
+      "status": "source_only_three_sample_preflight_no_factor_or_account",
+      "execution_authorized": false,
+      "result": "research/census_ft900_semiconductor_export_source_20261023/source_preflight_result.json",
+      "nas_archive_sha256": "0b45a088957196f7dda43827224aec38aa36c263803e93f768942952923e840b"
     }
   ],
   "framework": [

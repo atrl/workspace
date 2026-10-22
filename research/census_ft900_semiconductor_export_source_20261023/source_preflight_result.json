@@ -1,0 +1,61 @@
+{
+  "status": "three_original_monthly_PDF_export_rows_present_source_preflight_only",
+  "plan_sha256": "6669174a94e59302f5f8e8de68d1964386c7ddc0acd4d08c0975488ed293cf83",
+  "nas_archive_sha256": "0b45a088957196f7dda43827224aec38aa36c263803e93f768942952923e840b",
+  "nas_remote_hash_verified": true,
+  "samples": [
+    {
+      "reference_month": "2011-12",
+      "file": "ft900_1112.pdf",
+      "pdf_sha256": "ca8d4508c09b28bc3b13fb879a792d7ef868efcb9d0350535bf02dfcb20408dc",
+      "pdf_bytes": 514902,
+      "printed_release_date": "FEBRUARY 10, 2012",
+      "printed_release_time": "08:30 US Eastern as printed",
+      "exhibit": 7,
+      "pdf_page": 13,
+      "row": "Semiconductors",
+      "current_month_million_usd": 3438,
+      "prior_month_in_same_release_million_usd": 3503,
+      "printed_change_million_usd": -64,
+      "change_minus_rounded_arithmetic": 1
+    },
+    {
+      "reference_month": "2017-05",
+      "file": "ft900_1705.pdf",
+      "pdf_sha256": "89be84ce00077286bd5fd8fec8b6bc49a528bfcd96fe2fa0c25004992199e822",
+      "pdf_bytes": 815192,
+      "printed_release_date": "JULY 6, 2017",
+      "printed_release_time": "08:30 US Eastern as printed",
+      "exhibit": 7,
+      "pdf_page": 11,
+      "row": "Semiconductors",
+      "current_month_million_usd": 3862,
+      "prior_month_in_same_release_million_usd": 3865,
+      "printed_change_million_usd": -3,
+      "change_minus_rounded_arithmetic": 0
+    },
+    {
+      "reference_month": "2024-04",
+      "file": "ft900_2404.pdf",
+      "pdf_sha256": "2c32ded10378cb84b3ee63387eefbf3f896fcd33341f59297f773dc8274b1fb7",
+      "pdf_bytes": 1628822,
+      "printed_release_date": "JUNE 6, 2024",
+      "printed_release_time": "08:30 US Eastern as printed",
+      "exhibit": 7,
+      "pdf_page": 29,
+      "row": "Semiconductors",
+      "current_month_million_usd": 4856,
+      "prior_month_in_same_release_million_usd": 4492,
+      "printed_change_million_usd": 364,
+      "change_minus_rounded_arithmetic": 0
+    }
+  ],
+  "historical_first_public_bytes_qualified": false,
+  "full_2011_2022_coverage_qualified": false,
+  "classification_continuity_qualified": false,
+  "model_input_qualified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "SOXX_goal_achieved": false
+}
