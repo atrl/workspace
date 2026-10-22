@@ -20,21 +20,22 @@
   },
   "current_task": {
     "card": "research/inventory_sales_source_qualification_20261021",
-    "phase": "three_issuer_FY2017_FY2024_original_currency_period_semantics_verified_identity_and_PIT_pending",
+    "phase": "three_issuer_original_semantics_verified_NVDA_pair_causes_explained_identity_PIT_and_new_source_version_pending",
     "implementation_executor": null,
     "independent_reviewer": null,
-    "next_action": "Resolve historical N-PORT security-to-CIK continuity and ASX FY2017-to-FY2018 structural break; diagnose NVDA FY2019/FY2022/FY2023 original annual-pair gaps and publication/version clocks. Only then freeze one inventory-vs-sales information screen. No model or account running.",
-    "last_scientific_observation": "Original FY2017-FY2024 20-F/EX-101.INS source checks verify 24 issuer-years of TWD reporting denomination, inventory instant and full-year revenue for TSM/UMC/ASX. ASX FY2018 share exchange/SPIL inclusion makes the FY2017-to-FY2018 pair non-comparable without same-scope reconstruction. Source semantics only; historical PIT/model input and factor efficacy false.",
+    "next_action": "Freeze a new exact original-source total-revenue alias bridge for NVDA FY2021-FY2023 with FY2018/FY2019 accounting-break exclusion; separately qualify historical N-PORT security-to-CIK continuity, ASX restructuring treatment and original value-availability/version clocks before one inventory-sales information test. No model or account running.",
+    "last_scientific_observation": "TSM/UMC/ASX FY2017-FY2024 original source semantics verified for 24 issuer-years; ASX FY2018 share exchange/SPIL inclusion prevents ordinary FY2017-to-FY2018 growth. Original NVDA FY2019 tag/accounting boundary, FY2022 identical dual-tag conflict and FY2023 downstream missing prior pair are now causally explained by exact 10-K facts and three read-only native Recorder objects. Historical PIT/model input and factor efficacy remain false.",
     "state_read_command": "PYTHONPATH=. qlib_venv/bin/python -m src.core.research_monitor --campaign research/three_asset_campaign.json --once",
     "run_state": "research/inventory_sales_source_qualification_20261021/attempt2_run_state.json",
     "job_handle": "research/inventory_sales_source_qualification_20261021/attempt2_job_handle.json",
     "execution_receipt": "research/inventory_sales_source_qualification_20261021/attempt2_process_exit.json",
     "phase_receipts": "research/inventory_sales_source_qualification_20261021/phase_receipts.json",
-    "last_operational_observation": "Source-only original filing reconstruction read 21 FY2017-FY2023 primary 20-F bodies, 12 exact FY2017-FY2020 original XBRL instances, 12 SEC accession indexes and 3 current SEC submission locator objects; no market arrays, fits or accounts. All source audit processes have exited.",
+    "last_operational_observation": "New NVDA source-only audit read seven exact original 10-K bodies, two FY2018/FY2019 original XBRL instances, two exact SEC indexes, two SEC submissions metadata objects and three hash-verified read-only objects from the completed Qlib Recorder. No market arrays, fits, accounts or live notebook process.",
     "source_gap_report": "research/inventory_sales_source_qualification_20261021/gap_triage.json",
     "original_filing_leads": "research/inventory_sales_source_qualification_20261021/original_filing_leads.json",
     "original_filing_probe": "research/inventory_sales_source_qualification_20261021/original_filing_reconstruction_20261022.json",
-    "source_reconstruction": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/summary.json"
+    "source_reconstruction": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/summary.json",
+    "nvda_gap_cause": "research/inventory_sales_source_qualification_20261021/source_reconstruction_20261022/nvda_gap_cause.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -60,7 +61,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T01:58:00+00:00",
+  "updated_at_utc": "2026-10-22T02:06:39+00:00",
   "execution_totals": {
     "new_model_fits": 39,
     "new_native_accounts": 43,

@@ -1,0 +1,54 @@
+{
+  "status": "both_original_NVDA_legacy_instances_located",
+  "plan": "nvda_legacy_instance_locator_plan.json",
+  "plan_sha256": "728e2e4ed9ddf6c5b7ee36c09fd215625f2ccf3ba502f777b1ae5b3003e066ab",
+  "records": [
+    {
+      "period_end": "2018-01-28",
+      "accession": "0001045810-18-000010",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000010/0001045810-18-000010-index.htm",
+      "index_bytes": 13355,
+      "index_sha256": "b14ddc359b7f1c9fec7907b1a2ad87f4166defd51a37408a630015ff4640b4dd",
+      "matches": [
+        {
+          "document": "nvda-20180128.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000010/nvda-20180128.xml",
+          "index_row": [
+            "16",
+            "XBRL INSTANCE DOCUMENT",
+            "nvda-20180128.xml",
+            "EX-101.INS",
+            "2719950"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    },
+    {
+      "period_end": "2019-01-27",
+      "accession": "0001045810-19-000023",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/0001045810-19-000023-index.htm",
+      "index_bytes": 13342,
+      "index_sha256": "59aeb58d574fe08d28d286e0f0d097439c702186b00c52f2b2ead22806a52e67",
+      "matches": [
+        {
+          "document": "nvda-20190127.xml",
+          "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/nvda-20190127.xml",
+          "index_row": [
+            "16",
+            "XBRL INSTANCE DOCUMENT",
+            "nvda-20190127.xml",
+            "EX-101.INS",
+            "2581255"
+          ]
+        }
+      ],
+      "status": "unique_original_instance"
+    }
+  ],
+  "counts": {
+    "indexes_read": 2,
+    "unique_instances": 2,
+    "instance_bodies_read": 0
+  }
+}

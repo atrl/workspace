@@ -27,6 +27,13 @@
     "factor_handling": "Do not treat FY2017-to-FY2018 inventory/sales growth as an ordinary same-scope observation; preserve unknown or exclude under a separately frozen source rule, without using returns to decide."
   },
   "clock_boundary": "Current SEC submissions API and EDGAR index/header acceptance displays differ in timezone representation. Neither proves first-public value time. The pre-existing date-only next-native-session rule remains conditional; do not promote these source checks to historical PIT by interpreting one clock retrospectively.",
+  "related_NVDA_gap_diagnosis": {
+    "path": "nvda_gap_cause.json",
+    "status": "three_missing_pair_causes_explained_from_original_10K_and_native_recorder",
+    "FY2019": "Revenue tag transition with modified-retrospective accounting adoption; no automatic same-basis bridge.",
+    "FY2022": "Two original same-context, same-value revenue tags are rejected by the frozen strict earliest-group rule.",
+    "FY2023": "Original annual facts exist; prior FY2022 joint row was removed by the dual-tag conflict."
+  },
   "qualification_flags": {
     "three_issuer_original_currency_period_semantics": true,
     "historical_basket_security_identity": false,
@@ -36,5 +43,5 @@
     "factor_effectiveness": false,
     "SOXX_excess": false
   },
-  "next_minimum_work": "Resolve historical N-PORT security-to-CIK continuity and ASX restructuring treatment; diagnose NVDA FY2019/FY2022/FY2023 annual-pair gaps from original 10-K contexts; qualify conservative value-availability/version clocks before one frozen inventory-sales information test."
+  "next_minimum_work": "Freeze an exact original-source NVDA total-revenue alias bridge for FY2021-FY2023 while excluding the FY2018/FY2019 accounting break; separately resolve historical N-PORT security-to-CIK continuity and ASX restructuring, and qualify value-availability/version clocks before one inventory-sales information test."
 }

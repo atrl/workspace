@@ -1,0 +1,11 @@
+{
+  "status": "frozen_source_locator",
+  "purpose": "Identify the original NVIDIA FY2018-FY2024 10-K accessions needed to explain the FY2019, FY2022 and FY2023 inventory/revenue annual-pair gaps in the existing frozen source qualification.",
+  "cik": 1045810,
+  "submissions_url": "https://data.sec.gov/submissions/CIK0001045810.json",
+  "form": "10-K",
+  "exact_report_dates": ["2018-01-28", "2019-01-27", "2020-01-26", "2021-01-31", "2022-01-30", "2023-01-29", "2024-01-28"],
+  "budget": {"main_submissions_objects": 1, "historical_submissions_objects_if_needed": 1, "original_10K_bodies": 0, "market_data_reads": 0, "fits": 0, "accounts": 0},
+  "selection_rule": "Match CIK, exact reportDate and form=10-K; retain any duplicate or missing original as ambiguity. Do not select 10-K/A, later comparatives or a current companyfacts row to fill a gap.",
+  "decision_rule": "If all seven originals are uniquely located, freeze a separate bounded source-context audit for the exact filings. Submission metadata alone is neither original financial values nor historical point-in-time qualification."
+}

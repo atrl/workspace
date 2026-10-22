@@ -1,0 +1,103 @@
+{
+  "status": "frozen_original_NVDA_context_audit",
+  "purpose": "Diagnose FY2019, FY2022 and FY2023 missing annual inventory/revenue pairs from exact original 10-K, without creating a new factor or expanding approved tags.",
+  "locator_path": "nvda_gap_locator.json",
+  "locator_sha256": "1bcf03ce4639b0f235cb86bef65315e8c6c03e0554a8e82faffbc072dc0a82e5",
+  "cik": 1045810,
+  "sources": [
+    {
+      "period_start": "2017-01-30",
+      "period_end": "2018-01-28",
+      "accession": "0001045810-18-000010",
+      "primary_document": "nvda-2018x10k.htm",
+      "filed": "2018-02-28",
+      "acceptance_datetime_api": "2018-03-01T02:31:19.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000010/0001045810-18-000010-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000010/nvda-2018x10k.htm"
+    },
+    {
+      "period_start": "2018-01-29",
+      "period_end": "2019-01-27",
+      "accession": "0001045810-19-000023",
+      "primary_document": "nvda-2019x10k.htm",
+      "filed": "2019-02-21",
+      "acceptance_datetime_api": "2019-02-22T02:37:18.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/0001045810-19-000023-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/nvda-2019x10k.htm"
+    },
+    {
+      "period_start": "2019-01-28",
+      "period_end": "2020-01-26",
+      "accession": "0001045810-20-000010",
+      "primary_document": "nvda-2020x10k.htm",
+      "filed": "2020-02-20",
+      "acceptance_datetime_api": "2020-02-21T02:38:18.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581020000010/0001045810-20-000010-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581020000010/nvda-2020x10k.htm"
+    },
+    {
+      "period_start": "2020-01-27",
+      "period_end": "2021-01-31",
+      "accession": "0001045810-21-000010",
+      "primary_document": "nvda-20210131.htm",
+      "filed": "2021-02-26",
+      "acceptance_datetime_api": "2021-02-27T03:03:14.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581021000010/0001045810-21-000010-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581021000010/nvda-20210131.htm"
+    },
+    {
+      "period_start": "2021-02-01",
+      "period_end": "2022-01-30",
+      "accession": "0001045810-22-000036",
+      "primary_document": "nvda-20220130.htm",
+      "filed": "2022-03-18",
+      "acceptance_datetime_api": "2022-03-18T04:33:34.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000036/0001045810-22-000036-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000036/nvda-20220130.htm"
+    },
+    {
+      "period_start": "2022-01-31",
+      "period_end": "2023-01-29",
+      "accession": "0001045810-23-000017",
+      "primary_document": "nvda-20230129.htm",
+      "filed": "2023-02-24",
+      "acceptance_datetime_api": "2023-02-25T03:23:43.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000017/0001045810-23-000017-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000017/nvda-20230129.htm"
+    },
+    {
+      "period_start": "2023-01-30",
+      "period_end": "2024-01-28",
+      "accession": "0001045810-24-000029",
+      "primary_document": "nvda-20240128.htm",
+      "filed": "2024-02-21",
+      "acceptance_datetime_api": "2024-02-22T02:36:57.000Z",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000029/0001045810-24-000029-index.htm",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000029/nvda-20240128.htm"
+    }
+  ],
+  "frozen_tags": {
+    "inventory": [
+      "us-gaap:InventoryNet"
+    ],
+    "revenue": [
+      "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+      "us-gaap:Revenues",
+      "us-gaap:SalesRevenueNet"
+    ]
+  },
+  "budget": {
+    "primary_10K_bodies": 7,
+    "additional_instance_documents": 0,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "checks": [
+    "Hash exact original primary 10-K bytes, detect inline XBRL versus separate original instance.",
+    "For each frozen tag, inspect own original accession facts with CIK 0001045810, USD unit and undimensioned exact fiscal period.",
+    "Record original tag-period-value conflicts and changes in reported tag family; do not choose a tag by coverage or subsequent returns.",
+    "If older 10-K lacks inline facts, leave that context unresolved and freeze any separate accession instance retrieval before reading it."
+  ],
+  "decision_rule": "A missing annual pair is diagnosed only if the exact own original filings reveal the tag, period, identity or conflict condition causing it under the already frozen pairing rule. No new alias, later comparative, stale-age relaxation or model input is authorized by this source audit."
+}

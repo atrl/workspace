@@ -1,0 +1,46 @@
+{
+  "status": "frozen_original_NVDA_legacy_instance_audit",
+  "purpose": "Resolve original FY2018 and FY2019 inventory/revenue tag and period semantics from submitted XBRL, before diagnosing FY2019 pair discontinuity.",
+  "locator_path": "nvda_legacy_instance_locator.json",
+  "locator_sha256": "e51d1635c252292da0bc787f354f5428d23babf59412b5073e0db030477d6981",
+  "cik": 1045810,
+  "sources": [
+    {
+      "period_start": "2017-01-30",
+      "period_end": "2018-01-28",
+      "accession": "0001045810-18-000010",
+      "instance_document": "nvda-20180128.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000010/nvda-20180128.xml"
+    },
+    {
+      "period_start": "2018-01-29",
+      "period_end": "2019-01-27",
+      "accession": "0001045810-19-000023",
+      "instance_document": "nvda-20190127.xml",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/nvda-20190127.xml"
+    }
+  ],
+  "frozen_tags": {
+    "inventory": [
+      "us-gaap:InventoryNet"
+    ],
+    "revenue": [
+      "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+      "us-gaap:Revenues",
+      "us-gaap:SalesRevenueNet"
+    ]
+  },
+  "budget": {
+    "original_instance_documents": 2,
+    "other_source_objects": 0,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "checks": [
+    "Hash exact original EX-101.INS bytes and preserve accession identity.",
+    "Require undimensioned CIK 0001045810 USD inventory instant and each allowed revenue tag for the exact original fiscal year duration.",
+    "Record normalized original fact values to distinguish equal-value alias from true value conflict; do not select an alias by coverage or returns."
+  ],
+  "decision_rule": "Only diagnose the frozen-source pair rule from original same-accession facts. A repair or new information test requires a separate frozen decision; these XML reads alone do not make historical PIT or factor input qualified."
+}

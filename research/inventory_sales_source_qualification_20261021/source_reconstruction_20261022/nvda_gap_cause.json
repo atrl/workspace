@@ -1,0 +1,69 @@
+{
+  "status": "original_and_native_recorder_gap_cause_verified_source_only",
+  "scope": "NVIDIA FY2018-FY2024 original 10-K facts and three read-only objects from the completed inventory source Recorder; no source version was repaired or replayed.",
+  "evidence": {
+    "original_locator": "nvda_gap_locator.json",
+    "FY2018_FY2019_original_instances": "nvda_legacy_original_instance_audit.json",
+    "FY2020_FY2024_original_inline": "nvda_original_context_audit.json",
+    "native_read_plan": "nvda_cause_recorder_read_plan.json",
+    "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+    "readback": {
+      "status": "passed_read_only_hash_checked_before_unpickling",
+      "source_api": "qlib.workflow.R.get_recorder and Recorder.load_object through src.core.recorder_sources.load_verified_recorder_objects",
+      "objects_loaded": 3,
+      "object_shapes": {
+        "analysis/conflicts": [44, 2],
+        "analysis/earliest_non_amended_candidates": [2119, 19],
+        "analysis/annual_joint_candidates": [623, 23]
+      },
+      "artifact_sha256": {
+        "analysis/conflicts": "0bfc2ab9bd175b56b8e9384b2d496d18be6eb7ff36e111bbefd9eed07657c4d7",
+        "analysis/earliest_non_amended_candidates": "18c52a5699d8c94a96b1168b8eb05123a73faa83236a5a0a6e2462d9e05d5ad3",
+        "analysis/annual_joint_candidates": "11ccf020556195af40abee76497be63fc44ba39e671a524bed5bd7d07f019e6d"
+      },
+      "writable_recorder_or_replay": false
+    },
+    "frozen_pairing_code": "src/workflow/inventory_sales_source_qualification.py:68-109"
+  },
+  "gap_causes": [
+    {
+      "fiscal_year": 2019,
+      "status": "revenue_tag_and_accounting_standard_boundary",
+      "original_facts": "FY2018 original accession 0001045810-18-000010 has undimensioned USD Revenues and InventoryNet; FY2019 original accession 0001045810-19-000023 has undimensioned USD RevenueFromContractWithCustomerExcludingAssessedTax and InventoryNet, each for its exact fiscal period.",
+      "native_recorder": "Both issuer-years are in earliest_non_amended_candidates and annual_joint_candidates, but annual_pairs groups by exact revenue tag and therefore cannot connect them.",
+      "accounting_disclosure": "FY2019 original 10-K Note 2 says the new revenue standard was adopted on 2018-01-29 using the modified retrospective method and comparative prior-period information was not adjusted. It describes the FY2019 consolidated impact as not significant; that statement does not establish an exact same-basis growth pair.",
+      "original_disclosure_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/nvda-2019x10k.htm",
+      "repair_boundary": "Do not automatically bridge FY2018 to FY2019 by renaming the tag; keep this pair unknown unless a separately frozen original same-basis rule is justified."
+    },
+    {
+      "fiscal_year": 2022,
+      "status": "equal_value_same_context_dual_alias_rejected_by_strict_earliest_group",
+      "original_accession": "0001045810-22-000036",
+      "original_context": "i2c5e111a942340e08ad1e8d2e3b0fb71_D20210201-20220130",
+      "original_revenue_usd": "26914000000",
+      "original_tags": ["us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax", "us-gaap:Revenues"],
+      "native_recorder": "The exact NVDA USD FY2022 revenue economic key appears in analysis/conflicts with earliest_value_alias_accession_or_form_conflict; FY2022 revenue is absent from earliest_non_amended_candidates and annual_joint_candidates while InventoryNet remains present.",
+      "code_cause": "The frozen extraction rejects an earliest economic key whenever tag.nunique differs from one, even when accession, period, unit and numeric value agree.",
+      "repair_boundary": "A new source version may deduplicate only exact same-accession, same-issuer, same-period, same-unit, same-normalized-value aliases under a predeclared total-revenue semantic rule; do not edit the frozen prior result."
+    },
+    {
+      "fiscal_year": 2023,
+      "status": "prior_FY2022_joint_row_missing_downstream",
+      "original_accession": "0001045810-23-000017",
+      "original_facts": "Own original 10-K has undimensioned USD Revenues and InventoryNet for FY2023. The native earliest and annual-joint ledgers contain those rows.",
+      "native_recorder": "The frozen pair iterator has no admitted FY2022 annual-joint predecessor after the exact FY2022 alias conflict, so it cannot form the FY2023 pair. FY2024 forms a Revenues-to-Revenues pair with FY2023.",
+      "repair_boundary": "Any FY2023 coverage recovery is conditional on a source-qualified FY2022 bridge and unchanged annual period/availability rules."
+    }
+  ],
+  "scientific_boundary": {
+    "source_gap_explained": true,
+    "old_frozen_source_result_rewritten": false,
+    "historical_security_identity_qualified": false,
+    "first_public_value_clock_qualified": false,
+    "historical_PIT_qualified": false,
+    "model_input_qualified": false,
+    "factor_effectiveness_tested": false,
+    "SOXX_excess_established": false
+  },
+  "next_minimum_work": "Freeze a new original-source alias and comparability rule: exact FY2022 dual-tag dedup plus an explicit FY2018/FY2019 accounting-break exclusion. Then validate original filing availability/version and historical N-PORT security identity before one information test."
+}

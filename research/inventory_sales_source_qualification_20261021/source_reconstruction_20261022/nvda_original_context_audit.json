@@ -1,0 +1,290 @@
+{
+  "status": "seven_original_NVDA_primary_bodies_audited",
+  "plan": "nvda_original_context_plan.json",
+  "plan_sha256": "cbde5d0499ace0240a12d57c7d637af9c2b90f1b51ac8aba232562e6196dd5c9",
+  "records": [
+    {
+      "fiscal_year": 2018,
+      "period_start": "2017-01-30",
+      "period_end": "2018-01-28",
+      "accession": "0001045810-18-000010",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000010/nvda-2018x10k.htm",
+      "bytes": 2440727,
+      "sha256": "a6ad66cb3474b778ba308e40a726835f29a8bb10f8fed6d163c1a60330b65e57",
+      "inline_fact_count": 0,
+      "frozen_tag_exact_current_period_facts": {
+        "us-gaap:InventoryNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:Revenues": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:SalesRevenueNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        }
+      },
+      "status": "primary_body_has_no_inline_facts"
+    },
+    {
+      "fiscal_year": 2019,
+      "period_start": "2018-01-29",
+      "period_end": "2019-01-27",
+      "accession": "0001045810-19-000023",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/nvda-2019x10k.htm",
+      "bytes": 2307905,
+      "sha256": "58c4160990b611b738752250fc8f2f03ae81548fdb30a457e57561ef0779b315",
+      "inline_fact_count": 0,
+      "frozen_tag_exact_current_period_facts": {
+        "us-gaap:InventoryNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:Revenues": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:SalesRevenueNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        }
+      },
+      "status": "primary_body_has_no_inline_facts"
+    },
+    {
+      "fiscal_year": 2020,
+      "period_start": "2019-01-28",
+      "period_end": "2020-01-26",
+      "accession": "0001045810-20-000010",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581020000010/nvda-2020x10k.htm",
+      "bytes": 2655268,
+      "sha256": "d9532d1f0f4d23167a0b27611f4e5bd98e10d8ea00fc9b5b98489e9bc3340442",
+      "inline_fact_count": 1129,
+      "frozen_tag_exact_current_period_facts": {
+        "us-gaap:InventoryNet": {
+          "matching_fact_count": 2,
+          "distinct_normalized_values": [
+            "979000000"
+          ],
+          "context_refs": [
+            "FI2020Q4"
+          ]
+        },
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax": {
+          "matching_fact_count": 4,
+          "distinct_normalized_values": [
+            "10918000000"
+          ],
+          "context_refs": [
+            "FD2020Q4YTD"
+          ]
+        },
+        "us-gaap:Revenues": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:SalesRevenueNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        }
+      },
+      "status": "exact_original_inline_contexts_read"
+    },
+    {
+      "fiscal_year": 2021,
+      "period_start": "2020-01-27",
+      "period_end": "2021-01-31",
+      "accession": "0001045810-21-000010",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581021000010/nvda-20210131.htm",
+      "bytes": 2511777,
+      "sha256": "19fa65a0ba5ed089a205a39b277471d43e9f676c07dce4aa122c97179db61078",
+      "inline_fact_count": 1156,
+      "frozen_tag_exact_current_period_facts": {
+        "us-gaap:InventoryNet": {
+          "matching_fact_count": 2,
+          "distinct_normalized_values": [
+            "1826000000"
+          ],
+          "context_refs": [
+            "iaff0398a11df4b4a82b519219f39d8a3_I20210131"
+          ]
+        },
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax": {
+          "matching_fact_count": 4,
+          "distinct_normalized_values": [
+            "16675000000"
+          ],
+          "context_refs": [
+            "i333bb1209df1462d83f7cab2751d7569_D20200127-20210131"
+          ]
+        },
+        "us-gaap:Revenues": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:SalesRevenueNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        }
+      },
+      "status": "exact_original_inline_contexts_read"
+    },
+    {
+      "fiscal_year": 2022,
+      "period_start": "2021-02-01",
+      "period_end": "2022-01-30",
+      "accession": "0001045810-22-000036",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581022000036/nvda-20220130.htm",
+      "bytes": 2548543,
+      "sha256": "8f375d216ae713543a940c826bb125886d4c45371754c4b5755e76e716252d9c",
+      "inline_fact_count": 1153,
+      "frozen_tag_exact_current_period_facts": {
+        "us-gaap:InventoryNet": {
+          "matching_fact_count": 2,
+          "distinct_normalized_values": [
+            "2605000000"
+          ],
+          "context_refs": [
+            "id96ab824bfb147c2acf941e9f0bf2169_I20220130"
+          ]
+        },
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax": {
+          "matching_fact_count": 3,
+          "distinct_normalized_values": [
+            "26914000000"
+          ],
+          "context_refs": [
+            "i2c5e111a942340e08ad1e8d2e3b0fb71_D20210201-20220130"
+          ]
+        },
+        "us-gaap:Revenues": {
+          "matching_fact_count": 1,
+          "distinct_normalized_values": [
+            "26914000000"
+          ],
+          "context_refs": [
+            "i2c5e111a942340e08ad1e8d2e3b0fb71_D20210201-20220130"
+          ]
+        },
+        "us-gaap:SalesRevenueNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        }
+      },
+      "status": "exact_original_inline_contexts_read"
+    },
+    {
+      "fiscal_year": 2023,
+      "period_start": "2022-01-31",
+      "period_end": "2023-01-29",
+      "accession": "0001045810-23-000017",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581023000017/nvda-20230129.htm",
+      "bytes": 2669354,
+      "sha256": "20da7c484b772a9566b1a9767f7516a0c16f9351b4ffdc977c5aeae7553e7c42",
+      "inline_fact_count": 1235,
+      "frozen_tag_exact_current_period_facts": {
+        "us-gaap:InventoryNet": {
+          "matching_fact_count": 2,
+          "distinct_normalized_values": [
+            "5159000000"
+          ],
+          "context_refs": [
+            "i09aa2d0339d44ae0ab29b1068c498c27_I20230129"
+          ]
+        },
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:Revenues": {
+          "matching_fact_count": 4,
+          "distinct_normalized_values": [
+            "26974000000"
+          ],
+          "context_refs": [
+            "i793edb174e3c4f8499d46ce84a602d1b_D20220131-20230129"
+          ]
+        },
+        "us-gaap:SalesRevenueNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        }
+      },
+      "status": "exact_original_inline_contexts_read"
+    },
+    {
+      "fiscal_year": 2024,
+      "period_start": "2023-01-30",
+      "period_end": "2024-01-28",
+      "accession": "0001045810-24-000029",
+      "primary_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581024000029/nvda-20240128.htm",
+      "bytes": 2085681,
+      "sha256": "a489f072539c9b6866e3d44c433e04dd997eb297ce0dbed2eb12352bf7e77e96",
+      "inline_fact_count": 1218,
+      "frozen_tag_exact_current_period_facts": {
+        "us-gaap:InventoryNet": {
+          "matching_fact_count": 2,
+          "distinct_normalized_values": [
+            "5282000000"
+          ],
+          "context_refs": [
+            "c-9"
+          ]
+        },
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:Revenues": {
+          "matching_fact_count": 4,
+          "distinct_normalized_values": [
+            "60922000000"
+          ],
+          "context_refs": [
+            "c-1"
+          ]
+        },
+        "us-gaap:SalesRevenueNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        }
+      },
+      "status": "exact_original_inline_contexts_read"
+    }
+  ],
+  "counts": {
+    "primary_bodies_read": 7,
+    "with_inline_facts": 5,
+    "without_inline_facts": 2,
+    "fits": 0,
+    "accounts": 0
+  },
+  "boundary": "This records only exact own original 10-K contexts and frozen tags. FY2018 and FY2019 bodies have no inline facts, so original XBRL instances must be checked before diagnosing FY2019 pairing. No source repair or factor is selected here."
+}

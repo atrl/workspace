@@ -1,0 +1,93 @@
+{
+  "status": "two_original_NVDA_legacy_instances_audited",
+  "plan": "nvda_legacy_original_instance_plan.json",
+  "plan_sha256": "899189f57c972a1f3ec280bc155f344c11f7a465fa29b29be77fabece761f001",
+  "records": [
+    {
+      "fiscal_year": 2018,
+      "period_start": "2017-01-30",
+      "period_end": "2018-01-28",
+      "accession": "0001045810-18-000010",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000010/nvda-20180128.xml",
+      "bytes": 2719950,
+      "sha256": "187c882aa072b25206c2b9bcf379b92647e6d39c5909c9461842628eb48e7f2d",
+      "frozen_tag_exact_current_period_facts": {
+        "us-gaap:InventoryNet": {
+          "matching_fact_count": 1,
+          "distinct_normalized_values": [
+            "796000000"
+          ],
+          "context_refs": [
+            "FI2018Q4"
+          ]
+        },
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:Revenues": {
+          "matching_fact_count": 1,
+          "distinct_normalized_values": [
+            "9714000000"
+          ],
+          "context_refs": [
+            "FD2018Q4YTD"
+          ]
+        },
+        "us-gaap:SalesRevenueNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        }
+      },
+      "status": "original_instance_contexts_read"
+    },
+    {
+      "fiscal_year": 2019,
+      "period_start": "2018-01-29",
+      "period_end": "2019-01-27",
+      "accession": "0001045810-19-000023",
+      "instance_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/nvda-20190127.xml",
+      "bytes": 2581255,
+      "sha256": "c6f9bbcaf3d8d67b3fde277900c4fb52382aae716334c767b4b565e0f1b4bebd",
+      "frozen_tag_exact_current_period_facts": {
+        "us-gaap:InventoryNet": {
+          "matching_fact_count": 1,
+          "distinct_normalized_values": [
+            "1575000000"
+          ],
+          "context_refs": [
+            "FI2019Q4"
+          ]
+        },
+        "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax": {
+          "matching_fact_count": 1,
+          "distinct_normalized_values": [
+            "11716000000"
+          ],
+          "context_refs": [
+            "FD2019Q4YTD"
+          ]
+        },
+        "us-gaap:Revenues": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        },
+        "us-gaap:SalesRevenueNet": {
+          "matching_fact_count": 0,
+          "distinct_normalized_values": [],
+          "context_refs": []
+        }
+      },
+      "status": "original_instance_contexts_read"
+    }
+  ],
+  "counts": {
+    "original_instances_read": 2,
+    "fits": 0,
+    "accounts": 0
+  },
+  "boundary": "Only own original fiscal-year facts under frozen tags. Reconciliation to the prior Companyfacts earliest-row ledger and historical PIT remain separate."
+}

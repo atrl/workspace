@@ -1,0 +1,22 @@
+{
+  "status": "frozen_read_only_native_recorder_cause_check",
+  "purpose": "Test whether the original FY2022 dual revenue tag generated the exact old Companyfacts earliest-group conflict, and whether FY2019/FY2023 gaps arise under the frozen pairing code.",
+  "source_card": "research/inventory_sales_source_qualification_20261021",
+  "recorder_id": "8bcee06471bf43d3a08d043a8a5531c2",
+  "summary_sha256": "46dc6a037308eee8ccb84401a76ddf753d0f982ef566e9c182da9461393ce3bb",
+  "verification_manifest_sha256": "577361bcb56d0db2f4f921804305c8a37b6fddd60b50afb77cd453ae468075ff",
+  "artifacts": {
+    "analysis/conflicts": "0bfc2ab9bd175b56b8e9384b2d496d18be6eb7ff36e111bbefd9eed07657c4d7",
+    "analysis/earliest_non_amended_candidates": "18c52a5699d8c94a96b1168b8eb05123a73faa83236a5a0a6e2462d9e05d5ad3",
+    "analysis/annual_joint_candidates": "11ccf020556195af40abee76497be63fc44ba39e671a524bed5bd7d07f019e6d"
+  },
+  "budget": {
+    "native_recorder_object_loads": 3,
+    "writable_recorders": 0,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "filter": "CIK 1045810, annual fiscal ends 2018-01-28 through 2024-01-28; report only conflicting-group keys and earliest/annual-joint metadata for the frozen tags.",
+  "boundary": "Read-only, verify hashes before unpickling with src.core.recorder_sources.load_verified_recorder_objects. Do not modify, re-run or requalify the old Recorder; no new alias or factor values."
+}

@@ -1,0 +1,27 @@
+{
+  "status": "frozen_NVDA_legacy_instance_locator",
+  "purpose": "Locate the original submitted XBRL instances for NVDA FY2018 and FY2019 primary 10-K HTML bodies that have no inline facts.",
+  "locator_path": "nvda_gap_locator.json",
+  "locator_sha256": "1bcf03ce4639b0f235cb86bef65315e8c6c03e0554a8e82faffbc072dc0a82e5",
+  "index_sources": [
+    {
+      "period_end": "2018-01-28",
+      "accession": "0001045810-18-000010",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581018000010/0001045810-18-000010-index.htm"
+    },
+    {
+      "period_end": "2019-01-27",
+      "accession": "0001045810-19-000023",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581019000023/0001045810-19-000023-index.htm"
+    }
+  ],
+  "budget": {
+    "exact_original_accession_indexes": 2,
+    "original_instance_documents": 0,
+    "market_data_reads": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "selection_rule": "Use only the unique EX-101.INS Data Files entry attached to each exact original accession; do not use later comparatives or current companyfacts.",
+  "decision_rule": "Preserve missing or multiple instances as ambiguity; original values require a separately frozen instance audit."
+}
