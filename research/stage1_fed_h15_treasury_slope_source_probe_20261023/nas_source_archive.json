@@ -1,0 +1,15 @@
+{
+  "status": "H15_original_and_404_response_NAS_scoped_restore_verified",
+  "sha256": "e7307909f97a0c73abd7505ce95fc45712b8a62cc72da40fe9f60f685c9187ed",
+  "size_bytes": 21281,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/e7/30/e7307909f97a0c73abd7505ce95fc45712b8a62cc72da40fe9f60f685c9187ed",
+  "members": {
+    "research/stage1_fed_h15_treasury_slope_source_probe_20261023/plan.json": "d608fa391d6b60a9a39b672706c72ec3d9b7e73ad824ed17d9a2d06b2591af1e",
+    "research/stage1_fed_h15_treasury_slope_source_probe_20261023/transport_result.json": "621d37f80bc8644cdaf5936aa976378d75c4cc1d2b341bc6168623c2ba05d537",
+    "data/snapshots/stage1_fed_h15_treasury_slope_source_probe_20261023/2011.body": "3dfbb4d8017aee2ffe66529fe4660f2fba494fc4415e81d923b138c225c1d336",
+    "data/snapshots/stage1_fed_h15_treasury_slope_source_probe_20261023/2011_headers.json": "ddebbc73600db30b061bf29c5f975be570b3ec000eb7be7ac6ff6ae1137eb5e4",
+    "data/snapshots/stage1_fed_h15_treasury_slope_source_probe_20261023/2020.body": "fcae8f5d8d4f2cf24b81a1cf6bc5b82fe0209a1c26fb11db2154a54e70e7331b",
+    "data/snapshots/stage1_fed_h15_treasury_slope_source_probe_20261023/2020_headers.json": "b63d2d1842f369c3cbbe80667a7214e3639799ffba64cb5bc3ae1b2668124fdf"
+  },
+  "verified": true
+}

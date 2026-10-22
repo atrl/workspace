@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_fed_h15_treasury_slope_source_probe_20261023",
+  "decision": "source_transport_v1_stopped_2020_dated_H15_URL_HTTP404_no_factor",
+  "objective_achieved": false,
+  "plan_sha256": "d608fa391d6b60a9a39b672706c72ec3d9b7e73ad824ed17d9a2d06b2591af1e",
+  "result": "source_result.json",
+  "GET_attempts": 2,
+  "HTTP_200_original_releases": 1,
+  "HTTP_404_original_archive_URLs": 1,
+  "NAS_source_archive_sha256": "e7307909f97a0c73abd7505ce95fc45712b8a62cc72da40fe9f60f685c9187ed",
+  "NAS_remote_scoped_restore_verified": true,
+  "historical_PIT_factor_qualified": false,
+  "source_map_QLib_Recorder_created": false,
+  "SOXX_market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "next_action": "Find and freeze the official post-2016 original daily H.15 vintage endpoint and 2011 same-day original-byte/archive semantics. The dated 2011 page was modified one week after its release; current DDP revisions are not first-public vintages.",
+  "2011_dated_page_last_modified_UTC": "2011-03-14 18:31:53 GMT",
+  "2011_contemporaneous_original_bytes_qualified": false,
+  "independent_review": "independent_source_review.json"
+}

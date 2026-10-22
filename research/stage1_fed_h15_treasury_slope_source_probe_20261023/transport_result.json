@@ -1,0 +1,30 @@
+{
+  "status": "stopped_on_first_failed_original_identity",
+  "GET_attempts": [
+    {
+      "era": "2011",
+      "url": "https://www.federalreserve.gov/releases/h15/20110307/h15.htm",
+      "status": 200,
+      "curl_exit": 0,
+      "size_bytes": 71032,
+      "sha256": "3dfbb4d8017aee2ffe66529fe4660f2fba494fc4415e81d923b138c225c1d336",
+      "basic_2y_10y_H15_identity": true,
+      "effective_url": "https://www.federalreserve.gov/releases/h15/20110307/h15.htm"
+    },
+    {
+      "era": "2020",
+      "url": "https://www.federalreserve.gov/releases/h15/20200320/",
+      "status": 404,
+      "curl_exit": 0,
+      "size_bytes": 82134,
+      "sha256": "fcae8f5d8d4f2cf24b81a1cf6bc5b82fe0209a1c26fb11db2154a54e70e7331b",
+      "basic_2y_10y_H15_identity": false,
+      "effective_url": "https://www.federalreserve.gov/releases/h15/20200320/"
+    }
+  ],
+  "attempt_count": 2,
+  "budget_max": 4,
+  "model_fits": 0,
+  "accounts": 0,
+  "SOXX_outcome_reads": 0
+}

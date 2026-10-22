@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_fed_h15_treasury_slope_source_probe_20261023",
+  "phase": "official_Federal_Reserve_H15_original_release_three_era_source_identity_probe",
+  "hypothesis": "The spread between original H.15 U.S. Treasury 10-year and 2-year constant-maturity yields reflects growth-duration/discount-rate conditions distinct from original Stage1 39 price/VIX inputs, failed HYG/LQD credit momentum and OFR funding stress. This probe tests source identity and clocks only, not sign or prediction.",
+  "urls": [
+    {
+      "era": "2011",
+      "url": "https://www.federalreserve.gov/releases/h15/20110307/h15.htm",
+      "release_date": "2011-03-07"
+    },
+    {
+      "era": "2020",
+      "url": "https://www.federalreserve.gov/releases/h15/20200320/",
+      "release_date": "2020-03-20"
+    },
+    {
+      "era": "2026",
+      "url": "https://www.federalreserve.gov/releases/h15/20261021/",
+      "release_date": "2026-10-21"
+    },
+    {
+      "era": "current_history",
+      "url": "https://www.federalreserve.gov/datadownload/Download.aspx?filetype=csv&from=&label=include&lastObs=&layout=seriescolumn&rel=H15&series=bf17364827e38702b42a58cf8eaa3f78&to=&type=package",
+      "release_date": null
+    }
+  ],
+  "request_rule": "At most one GET per URL, exact listed order, <=30s, no mirror or fallback; retain every HTTP response/status/header/body including failures. Stop original-release qualification on any non-200 or missing 2-year/10-year row. Current-history DDP is ingestion/identity only, not a historical first-public version.",
+  "source_timing": "Official H.15 current release page states daily 4:15 p.m. Eastern posting, except holidays/closure. Older 2011 original can state 2:30 p.m. Eastern; use only next actual Qlib session after the release date in any future feature. Exact historical receipt/revision must be checked separately.",
+  "acceptance": "Three original release documents must identify H.15, release date, same-release 2-year and 10-year Treasury constant maturity values, and a nonfuture use date; current DDP must identify both series and daily coverage. No factor vector, label, fits, account, SOXX outcome reads or historical PIT claim from three anchors.",
+  "budget": {
+    "HTTP_GET_attempts_max": 4,
+    "SOXX_market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "Qlib_Recorders_max": 1
+  },
+  "NAS_policy": "Archive exact source bytes and sanitized response headers, record SHA-256, remote hash and scoped restore before any local source is disposable.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

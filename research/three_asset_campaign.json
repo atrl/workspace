@@ -104,7 +104,9 @@
     "SOXX_option_vendor_public_sample_preflight": "research/soxx_option_vendor_sample_preflight_20261023/summary.json",
     "SOXX_option_vendor_public_sample_interpretation": "Two free official Cboe quote/EOD sample ZIPs prove example quote-time, bid/ask and optional IV/Delta schema, with raw bytes NAS restored. Examples are AAPL, SPX and SPY, not SOXX. Both product pages state history begins January 2012, leaving 2011 Stage1 training coverage and SOXX-specific chain/receipt timing unproven. Zero SOXX outcomes, fits, accounts or purchases; no 25-Delta feature qualification.",
     "Taiwan_electronic_export_orders_current_open_data_source": "research/taiwan_export_orders_open_data_20261023/summary.json",
-    "Taiwan_electronic_export_orders_source_limit": "Distinct broad electronics incoming-order source has government open-data current CSV via quality.data.gov.tw with 511 monthly rows 1984-01..2026-07 and full144/144 Stage1 training months in current history; dataset page created2015, source lacks original monthly vintages/decision-time clocks and released Aug2026 observation, so no PIT factor, fit or account. Four discovery GETs total (two MOEA403, two government200) transparently recorded; raw successes, 403 bodies and native Qlib source Recorder NAS-backed/restored. Do not infer semiconductor-only exposure or backfill historical availability."
+    "Taiwan_electronic_export_orders_source_limit": "Distinct broad electronics incoming-order source has government open-data current CSV via quality.data.gov.tw with 511 monthly rows 1984-01..2026-07 and full144/144 Stage1 training months in current history; dataset page created2015, source lacks original monthly vintages/decision-time clocks and released Aug2026 observation, so no PIT factor, fit or account. Four discovery GETs total (two MOEA403, two government200) transparently recorded; raw successes, 403 bodies and native Qlib source Recorder NAS-backed/restored. Do not infer semiconductor-only exposure or backfill historical availability.",
+    "Stage1_Fed_H15_Treasury_slope_source_probe": "research/stage1_fed_h15_treasury_slope_source_probe_20261023/summary.json",
+    "Stage1_Fed_H15_Treasury_slope_source_limit": "Distinct 10y-minus-2y growth-duration hypothesis has 2011 dated H15 page with 2y/10y rows and 2:30 ET release statement, but its current HTTP Last-Modified is Mar14 for nominal Mar7 release, so same-day original bytes are unqualified. The frozen 2020 dated archive URL returned HTTP404; this closes only the exact URL transport, not Treasury data availability or factor efficacy. Two GETs, raw responses NAS-restored, zero outcomes/fits/accounts. Need official post-2016 historical vintage endpoint before Qlib map/information screen."
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -384,7 +386,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T22:54:45.920489+00:00",
+  "updated_at_utc": "2026-10-22T23:00:55.229167+00:00",
   "execution_totals": {
     "new_model_fits": 85,
     "new_native_accounts": 50,

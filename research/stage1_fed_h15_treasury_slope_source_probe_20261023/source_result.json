@@ -1,0 +1,15 @@
+{
+  "decision": "source_transport_v1_stopped_2020_dated_H15_URL_HTTP404_no_factor",
+  "original_2011_release_HTTP200_H15_2y_10y_identity": true,
+  "2020_exact_planned_archive_URL_HTTP404": true,
+  "2020_404_is_transport_not_absence_of_Treasury_rates": true,
+  "GET_attempts": 2,
+  "current_DDP_attempted": false,
+  "source_NAS_sha256": "e7307909f97a0c73abd7505ce95fc45712b8a62cc72da40fe9f60f685c9187ed",
+  "source_remote_scoped_restore_verified": true,
+  "SOXX_market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "Qlib_source_map_created": false,
+  "next_action": "Find the official post-2016 daily H.15 historical release/vintage endpoint, then freeze a new exact-URL source version. Do not reuse current DDP revisions as original daily vintages."
+}
