@@ -1,14 +1,30 @@
 {
   "experiment": "stage1_soxx_2013_2014_reported_concentration_source_20261023",
-  "decision": "frozen_2013_2014_source_batch_not_executed",
+  "decision": "eight_original_2013_2014_SOXX_reported_equity_values_closed_2015_2022_pending",
   "objective_achieved": false,
   "plan": "plan.json",
-  "filing_body_GETs": 0,
+  "filing_body_GETs": 8,
   "model_fits": 0,
   "native_accounts": 0,
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
     "recorder_only_artifacts": []
-  }
+  },
+  "transport_result": "transport_result.json",
+  "initial_identity_result": "identity_result.json",
+  "name_transition_addendum": "identity_name_transition_addendum.json",
+  "identity_result": "identity_name_transition_result.json",
+  "numeric_plan": "numeric_2013_2014_plan.json",
+  "numeric_result": "numeric_2013_2014_result.json",
+  "SOXX_schedule_identities_qualified": 8,
+  "reports_with_numeric_closure": 8,
+  "source_NAS_archive_sha256": "14a4c71a53f27449d712a6166836157547355c64eba6790525c1814f3b2502ac",
+  "source_NAS_scoped_restore_verified": true,
+  "top5_share_range": [
+    0.35829267537467274,
+    0.4120837947749099
+  ],
+  "full_2015_2022_training_coverage": false,
+  "held_2023_2026_coverage": false
 }
