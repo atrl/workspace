@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "first_live_availability_observation",
+  "source_receipts_sha256": "00cab9e87a0c43615a4daa83265e549f5d10bec5290c3c1df1fc63edf3f3c74e",
+  "calendar_audit_sha256": "56f828e63e0d8e87664d5fdd7824fd0401f33f59e7a9e8c31e0e18038b71c8e5",
+  "observations": [
+    {
+      "symbol": "SOXX",
+      "retrieved_at_utc": "2026-10-22T03:50:09.915667+00:00",
+      "retrieved_at_new_york": "2026-10-21T23:50:09.915667-04:00",
+      "last_date_in_response": "2026-10-20",
+      "calendar_last_date": "2026-10-21",
+      "current_calendar_day_absent": true,
+      "response_sha256": "ad3488689ad076b9526f9850746164727c3274e111c7c95d2dbbadc80d4a453e",
+      "boundary": "A single current snapshot shows absence/presence only, not first-public timestamp or whether older data revise."
+    },
+    {
+      "symbol": "SOXL",
+      "retrieved_at_utc": "2026-10-22T03:50:13.524073+00:00",
+      "retrieved_at_new_york": "2026-10-21T23:50:13.524073-04:00",
+      "last_date_in_response": "2026-10-20",
+      "calendar_last_date": "2026-10-21",
+      "current_calendar_day_absent": true,
+      "response_sha256": "3bb691211485ffe6a45bc203aae686b046ffd9d8cd45a7211b2f202b1131e936",
+      "boundary": "A single current snapshot shows absence/presence only, not first-public timestamp or whether older data revise."
+    }
+  ],
+  "forward_protocol": {
+    "minimum_followups": "Capture exact full-file responses for each symbol at next preopen and after close on at least three regular sessions, pin receipt UTC time and per-day rows, compare preceding completed-session publication and revisions. Do not infer older historical PIT from these forward observations.",
+    "no_model_or_account_until_qualified": true
+  }
+}

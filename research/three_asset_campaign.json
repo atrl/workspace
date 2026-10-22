@@ -12,26 +12,26 @@
   "goal_controller": {
     "thread_id": "01a16141-bbb9-7660-a992-86f5741aa7b7",
     "observed_status": "active",
-    "observed_at_utc": "2026-10-22T01:41:55+00:00",
+    "observed_at_utc": "2026-10-22T03:54:27.722624+00:00",
     "objective_v2_applied": true,
     "previous_thread_id": "01a14cc9-e797-7b31-90f6-d95a821e4deb",
     "previous_thread_last_observed_status": "blocked",
     "source": "get_goal current thread; previous observation retained in campaign history"
   },
   "current_task": {
-    "card": "research/risk_projection_reachability_native_v4_20261022",
-    "phase": "development_counterfactual_complete_next_distinct_information_mechanism_design",
+    "card": "research/cboe_total_options_activity_source_20261022",
+    "phase": "new_options_activity_source_coverage_complete_publication_timing_pending",
     "implementation_executor": null,
     "independent_reviewer": null,
-    "next_action": "Freeze a distinct pretrade source-target information mechanism and qualified source/timing before any new economic run. Native 2023 account shows projection sacrifices upside but raw target still trails SOXX and worsens tail risk. Do not lower P3 recovery threshold or tune on reused path.",
-    "last_scientific_observation": "Native 2023 2bp source-target account: return 59.5541% vs projected B2 37.4116% vs SOXX 60.3186%; source/SOXX terminal wealth 0.9952315; source MaxDD -23.2592% vs B2 -20.5007%, CVaR5 -4.1943% vs -4.0215%. Recovery threshold 0.825 unreachable across 204 eligible forecasts (max 0.7615). Diagnostic only, no qualified forward days.",
-    "last_operational_observation": "One independent 2023 Qlib native account reconciled 249 sessions and 998 points; Recorder a99a9f12bf564bd4bd30d2640e7067cd verified by targeted native/analysis readback. V1/v2/v3 engineering failures retained. No model fits or promotion.",
-    "design_brief": "research/risk_projection_reachability_20261022/design_brief.json",
+    "next_action": "Collect timestamped Cboe SOXX/SOXL daily total-options-volume publication and revision observations. Freeze a new information screen only after availability timing is qualified; compare incremental next-session tail-risk information conditional on Qlib price/volume/volatility, then consider a fee-net account only if information and source gates pass.",
+    "last_scientific_observation": "2023 native source-target account still trails SOXX (relative wealth 0.9952315) and worsens tail risk. Distinct Cboe total option activity has full 2019-01-02..2026-10-20 Qlib calendar coverage (1961 days per symbol) but no put/call split and no historical first-public timing qualification; no predictive information or account tested.",
+    "last_operational_observation": "Four bounded Cboe source queries closed put/call-composition source probe (schema lacked call/put); two separate bounded total-activity queries returned HTTP200 official CSV, archived raw SHA256s. One native Qlib D.calendar aligned 1961 days per symbol; Recorder c3b812bc5fda409fac836fdd3a08fe0a targeted readback passed and archived to NAS. At 2026-10-21 23:50 New York, 2026-10-21 row absent. No model fits/accounts.",
+    "design_brief": "research/cboe_total_options_activity_source_20261022/plan.json",
     "closed_information_card": "research/inventory_sales_soxx_h63_information_20261022",
     "closed_information_result": "research/inventory_sales_soxx_h63_information_20261022/result_review.json",
     "source_failure_attribution": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
     "execution_authorized": false,
-    "result": "research/risk_projection_reachability_native_v4_20261022/summary.json"
+    "result": "research/cboe_total_options_activity_source_20261022/summary.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -57,7 +57,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T03:39:45.864267+00:00",
+  "updated_at_utc": "2026-10-22T03:54:27.722624+00:00",
   "execution_totals": {
     "new_model_fits": 41,
     "new_native_accounts": 44,

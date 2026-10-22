@@ -1,0 +1,25 @@
+{
+  "experiment": "cboe_soxx_soxl_options_volume_source_20261022",
+  "status": "not_qualified_for_call_put_composition",
+  "decision": "close_original_call_put_composition_source_probe",
+  "source_schema_audit": "source_schema_audit.json",
+  "source_snapshots": [
+    "data/snapshots/cboe_soxx_soxl_options_volume_source_20261022/soxx_2023-01-03_2023-01-31.bin",
+    "data/snapshots/cboe_soxx_soxl_options_volume_source_20261022/soxl_2023-01-03_2023-01-31.bin",
+    "data/snapshots/cboe_soxx_soxl_options_volume_source_20261022/soxx_2026-09-01_2026-09-30.bin",
+    "data/snapshots/cboe_soxx_soxl_options_volume_source_20261022/soxl_2026-09-01_2026-09-30.bin"
+  ],
+  "recorder_status": "not_started_source_schema_stop",
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "objective_achieved": false,
+  "qualified_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

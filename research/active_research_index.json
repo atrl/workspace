@@ -3,13 +3,13 @@
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
   "active": [
     {
-      "card": "research/risk_projection_reachability_native_v4_20261022",
-      "phase": "completed_development_diagnostic_next_mechanism_design",
-      "role": "risk_projection_opportunity_cost_and_recovery_reachability",
+      "card": "research/cboe_total_options_activity_source_20261022",
+      "phase": "source_coverage_complete_publication_timing_pending",
+      "role": "distinct_pretrade_options_activity_tail_risk_information",
       "full_economic_experiment": false,
-      "status": "native_2023_counterfactual_complete_no_promotion",
+      "status": "source_coverage_qualified_only_with_PIT_gap",
       "execution_authorized": false,
-      "result": "research/risk_projection_reachability_native_v4_20261022/summary.json"
+      "result": "research/cboe_total_options_activity_source_20261022/summary.json"
     }
   ],
   "framework": [
@@ -98,10 +98,19 @@
     "all provider bin files for documentation"
   ],
   "next_information_need": {
-    "status": "new_mechanism_design_required",
-    "topic": "pretrade_source_target_information_increment_with_tail_protection",
-    "evidence": "research/risk_projection_reachability_native_v4_20261022/summary.json",
-    "constraint": "No P3 threshold lowering, no tuning on reused 2023 path; freeze fresh source/timing and independent-forward gate before another economic run",
+    "status": "first_public_timing_unqualified",
+    "topic": "Cboe SOXX/SOXL total options activity as a pretrade tail-risk information source",
+    "evidence": "research/cboe_total_options_activity_source_20261022/source_coverage_audit.json",
+    "availability_observation": "research/cboe_total_options_activity_source_20261022/availability_observation.json",
+    "constraint": "Collect timestamped forward publication/revision observations before testing market outcomes; Cboe-only total volume is not put/call skew or full-market flow.",
     "execution_authorized": false
-  }
+  },
+  "closed_source_probes": [
+    {
+      "card": "research/cboe_soxx_soxl_options_volume_source_20261022",
+      "status": "not_qualified_for_call_put_composition",
+      "result": "research/cboe_soxx_soxl_options_volume_source_20261022/source_schema_audit.json",
+      "default_search": false
+    }
+  ]
 }

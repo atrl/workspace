@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "source": "Cboe official historical download",
+  "queries": [
+    {
+      "symbol": "SOXX",
+      "startDate": "2023-01-03",
+      "endDate": "2023-01-31",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXX&startDate=2023-01-03&endDate=2023-01-31&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "requested_at_utc": "2026-10-22T03:48:32.381114+00:00",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "content_disposition": "attachment; filename=\"daily_volume_SOXX_2023-01-03_2023-01-31.csv\"",
+      "relative_path": "data/snapshots/cboe_soxx_soxl_options_volume_source_20261022/soxx_2023-01-03_2023-01-31.bin",
+      "bytes": 2097,
+      "sha256": "72f15e97a5ec0ea216d3e5cd5b5e7006e65ab272beed6c3bec34554f9f8a5e5d",
+      "first_120_bytes_repr": "b'Trade Date,Underlying,Product Type,Exchange,Volume\\n2023/01/03,SOXX,S,BATS,26\\n2023/01/03,SOXX,S,C2,6\\n2023/01/03,SOXX,S,CB'"
+    },
+    {
+      "symbol": "SOXL",
+      "startDate": "2023-01-03",
+      "endDate": "2023-01-31",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXL&startDate=2023-01-03&endDate=2023-01-31&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "requested_at_utc": "2026-10-22T03:48:33.635877+00:00",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "content_disposition": "attachment; filename=\"daily_volume_SOXL_2023-01-03_2023-01-31.csv\"",
+      "relative_path": "data/snapshots/cboe_soxx_soxl_options_volume_source_20261022/soxl_2023-01-03_2023-01-31.bin",
+      "bytes": 2279,
+      "sha256": "c3df294ac8b769290b259683125ac4cee646bbf5083b02354ad0b8b56c6b6dea",
+      "first_120_bytes_repr": "b'Trade Date,Underlying,Product Type,Exchange,Volume\\n2023/01/03,SOXL,S,BATS,5045\\n2023/01/03,SOXL,S,C2,4817\\n2023/01/03,SOXL'"
+    },
+    {
+      "symbol": "SOXX",
+      "startDate": "2026-09-01",
+      "endDate": "2026-09-30",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXX&startDate=2026-09-01&endDate=2026-09-30&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "requested_at_utc": "2026-10-22T03:48:35.875668+00:00",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "content_disposition": "attachment; filename=\"daily_volume_SOXX_2026-09-01_2026-09-30.csv\"",
+      "relative_path": "data/snapshots/cboe_soxx_soxl_options_volume_source_20261022/soxx_2026-09-01_2026-09-30.bin",
+      "bytes": 2343,
+      "sha256": "275dfc67872b191a2f7d17a2e423109467341f2dba5c3eb36c65489c04dd6fbb",
+      "first_120_bytes_repr": "b'Trade Date,Underlying,Product Type,Exchange,Volume\\n2026/09/01,SOXX,S,BATS,1586\\n2026/09/01,SOXX,S,C2,1476\\n2026/09/01,SOXX'"
+    },
+    {
+      "symbol": "SOXL",
+      "startDate": "2026-09-01",
+      "endDate": "2026-09-30",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXL&startDate=2026-09-01&endDate=2026-09-30&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "requested_at_utc": "2026-10-22T03:48:38.579454+00:00",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "content_disposition": "attachment; filename=\"daily_volume_SOXL_2026-09-01_2026-09-30.csv\"",
+      "relative_path": "data/snapshots/cboe_soxx_soxl_options_volume_source_20261022/soxl_2026-09-01_2026-09-30.bin",
+      "bytes": 2412,
+      "sha256": "cd6f3211489df982e478a143b05f5c45b38bc87e86204ed429c3a1554073456d",
+      "first_120_bytes_repr": "b'Trade Date,Underlying,Product Type,Exchange,Volume\\n2026/09/01,SOXL,S,BATS,18934\\n2026/09/01,SOXL,S,C2,2854\\n2026/09/01,SOX'"
+    }
+  ]
+}

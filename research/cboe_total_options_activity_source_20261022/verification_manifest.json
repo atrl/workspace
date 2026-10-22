@@ -1,0 +1,50 @@
+{
+  "recorder_id": "c3b812bc5fda409fac836fdd3a08fe0a",
+  "entries": [
+    {
+      "path": "qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a/artifacts/analysis/coverage",
+      "sha256": "37d54a19e882bf409679fcfbcf49922a0ff3f90375e660986ecf472e0b0b1f54",
+      "bytes": 1603
+    },
+    {
+      "path": "qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a/artifacts/analysis/observed_daily",
+      "sha256": "6cdfc350b72b0a95237f42a97bab55666249b1faec844abba3884b033d3d9e55",
+      "bytes": 190757
+    },
+    {
+      "path": "qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a/artifacts/analysis/qlib_calendar",
+      "sha256": "8e2c87845bd902b62475dbe37b5886acc5be2f699d8871dbe1813691ed012523",
+      "bytes": 16131
+    },
+    {
+      "path": "qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a/artifacts/code_cached.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a/artifacts/code_diff.txt",
+      "sha256": "ab41b91a9a74ad1f9bea8ee9a3ae29251f000ec97ff64c059d9cf87bf9ff883a",
+      "bytes": 432769
+    },
+    {
+      "path": "qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a/artifacts/code_status.txt",
+      "sha256": "e164bc0a9ca2d783f95cc7ce127bddffba893c5e74372a5e2288f944d795c91d",
+      "bytes": 61191
+    },
+    {
+      "path": "qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a/artifacts/sources/analysis_plan",
+      "sha256": "56e0752fd252f42c09b7fc94e83a611d814f35022f10c5dca1e81196102e6af5",
+      "bytes": 1328
+    },
+    {
+      "path": "qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a/artifacts/sources/retrieval_receipts",
+      "sha256": "b40c026df455ab9f98f2dbee118bec52f653c59170cb76db808565a8cec2c07a",
+      "bytes": 1674
+    },
+    {
+      "path": "qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a/artifacts/sources/source_plan",
+      "sha256": "a1123bc7c31dfb63b68683751d15b7d4061adcf467efe5b67c6192239ab17f96",
+      "bytes": 2437
+    }
+  ]
+}

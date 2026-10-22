@@ -1,0 +1,128 @@
+{
+  "status": "not_qualified_for_call_put_composition",
+  "plan": "plan.json",
+  "reason": "Official responses provide total option volume by date, underlying and Cboe exchange; no call/put or opening/closing fields.",
+  "query_audits": [
+    {
+      "symbol": "SOXX",
+      "window": [
+        "2023-01-03",
+        "2023-01-31"
+      ],
+      "rows": 79,
+      "dates": 20,
+      "first_date": "2023/01/03",
+      "last_date": "2023/01/31",
+      "exchanges": [
+        "BATS",
+        "C2",
+        "CBOE",
+        "EDGX"
+      ],
+      "sum_volume": 11879,
+      "zero_rows": 0,
+      "columns": [
+        "Trade Date",
+        "Underlying",
+        "Product Type",
+        "Exchange",
+        "Volume"
+      ],
+      "call_put_split_available": false,
+      "source_sha256": "72f15e97a5ec0ea216d3e5cd5b5e7006e65ab272beed6c3bec34554f9f8a5e5d"
+    },
+    {
+      "symbol": "SOXL",
+      "window": [
+        "2023-01-03",
+        "2023-01-31"
+      ],
+      "rows": 80,
+      "dates": 20,
+      "first_date": "2023/01/03",
+      "last_date": "2023/01/31",
+      "exchanges": [
+        "BATS",
+        "C2",
+        "CBOE",
+        "EDGX"
+      ],
+      "sum_volume": 755253,
+      "zero_rows": 0,
+      "columns": [
+        "Trade Date",
+        "Underlying",
+        "Product Type",
+        "Exchange",
+        "Volume"
+      ],
+      "call_put_split_available": false,
+      "source_sha256": "c3df294ac8b769290b259683125ac4cee646bbf5083b02354ad0b8b56c6b6dea"
+    },
+    {
+      "symbol": "SOXX",
+      "window": [
+        "2026-09-01",
+        "2026-09-30"
+      ],
+      "rows": 84,
+      "dates": 21,
+      "first_date": "2026/09/01",
+      "last_date": "2026/09/30",
+      "exchanges": [
+        "BATS",
+        "C2",
+        "CBOE",
+        "EDGX"
+      ],
+      "sum_volume": 194789,
+      "zero_rows": 0,
+      "columns": [
+        "Trade Date",
+        "Underlying",
+        "Product Type",
+        "Exchange",
+        "Volume"
+      ],
+      "call_put_split_available": false,
+      "source_sha256": "275dfc67872b191a2f7d17a2e423109467341f2dba5c3eb36c65489c04dd6fbb"
+    },
+    {
+      "symbol": "SOXL",
+      "window": [
+        "2026-09-01",
+        "2026-09-30"
+      ],
+      "rows": 84,
+      "dates": 21,
+      "first_date": "2026/09/01",
+      "last_date": "2026/09/30",
+      "exchanges": [
+        "BATS",
+        "C2",
+        "CBOE",
+        "EDGX"
+      ],
+      "sum_volume": 1934416,
+      "zero_rows": 0,
+      "columns": [
+        "Trade Date",
+        "Underlying",
+        "Product Type",
+        "Exchange",
+        "Volume"
+      ],
+      "call_put_split_available": false,
+      "source_sha256": "cd6f3211489df982e478a143b05f5c45b38bc87e86204ed429c3a1554073456d"
+    }
+  ],
+  "http_gets": 4,
+  "Qlib_D_calendar_reads": 0,
+  "models": 0,
+  "accounts": 0,
+  "bootstrap": 0,
+  "market_outcome_reads": 0,
+  "alternative_source_observation": "Total Cboe option activity exists for sampled dates, but it is a separate non-directional hypothesis requiring its own frozen source/timing and volume normalization checks.",
+  "PIT_qualified": false,
+  "trading_or_promotion_permission": false
+}

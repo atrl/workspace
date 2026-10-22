@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "experiment": "cboe_soxx_soxl_options_volume_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "source_qualification_only",
+  "mechanism": "Prior completed session SOXX-versus-SOXL option put/call volume composition may encode hedging demand distinct from price trend, realized variance, existing CBOE SKEW index and constituent basket lead; no claim of predictive value.",
+  "source": "Cboe official Historical Options Data download page and its published form endpoint, Cboe exchanges only",
+  "source_page": "https://www.cboe.com/us/options/market_statistics/historical_data/",
+  "endpoint": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/",
+  "source_form_parameters": {
+    "reportType": "volume",
+    "volumeType": "sum",
+    "volumeAggType": "daily",
+    "symbolType": "underlying",
+    "exchanges": [
+      "CBOE",
+      "BATS",
+      "C2",
+      "EDGX"
+    ]
+  },
+  "bounded_queries": [
+    {
+      "symbol": "SOXX",
+      "startDate": "2023-01-03",
+      "endDate": "2023-01-31"
+    },
+    {
+      "symbol": "SOXL",
+      "startDate": "2023-01-03",
+      "endDate": "2023-01-31"
+    },
+    {
+      "symbol": "SOXX",
+      "startDate": "2026-09-01",
+      "endDate": "2026-09-30"
+    },
+    {
+      "symbol": "SOXL",
+      "startDate": "2026-09-01",
+      "endDate": "2026-09-30"
+    }
+  ],
+  "source_page_local_snapshot_sha256": "4807152363dc5846c329a37350549e3fd98d9972418fe7451173d9013a51b870",
+  "form_script_local_snapshot_sha256": "e5d5d17f0f8913423638a771388216fdf47eb2c5c0c31e16911ab05f3f3833b8",
+  "availability_boundary": "Historical download alone does not prove contemporaneous publication time. Use only after next completed session and separately qualify forward first-public timing; no PIT claim now. Cboe exchanges exclude other venues; volume direction is not opening/closing or position inventory.",
+  "budget": {
+    "http_gets": 4,
+    "Qlib_D_calendar_reads": 1,
+    "models": 0,
+    "accounts": 0,
+    "bootstrap": 0,
+    "market_outcome_reads": 0
+  },
+  "acceptance_checks": [
+    "HTTP 200 with parseable official daily rows and explicit call/put/total columns",
+    "Both symbols and both windows have regular-session coverage reconciled to native Qlib calendar; missing/zero days reported",
+    "Exchange scope and symbol mapping explicit",
+    "Raw response bytes archived with URL, retrieval time, SHA256 and content type",
+    "First-public timing unresolved is explicit; no factor or portfolio result from this probe"
+  ],
+  "stops": [
+    "Any authentication/payment requirement: record needs_entitlement, do not purchase",
+    "Unexpected schema or response: preserve bytes and stop",
+    "No threshold, sign, horizon, cost or account selection from this source check"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "queries": [
+    {
+      "symbol": "SOXX",
+      "startDate": "2019-01-02",
+      "endDate": "2026-10-21",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXX&startDate=2019-01-02&endDate=2026-10-21&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "requested_at_utc": "2026-10-22T03:50:09.915667+00:00",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "content_disposition": "attachment; filename=\"daily_volume_SOXX_2019-01-02_2026-10-21.csv\"",
+      "relative_path": "data/snapshots/cboe_total_options_activity_source_20261022/soxx_2019-01-02_2026-10-21.bin",
+      "bytes": 197806,
+      "sha256": "ad3488689ad076b9526f9850746164727c3274e111c7c95d2dbbadc80d4a453e",
+      "first_120_bytes_repr": "b'Trade Date,Underlying,Product Type,Exchange,Volume\\n2019/01/02,SOXX,S,BATS,109\\n2019/01/02,SOXX,S,CBOE,68\\n2019/01/02,SOXX,'"
+    },
+    {
+      "symbol": "SOXL",
+      "startDate": "2019-01-02",
+      "endDate": "2026-10-21",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXL&startDate=2019-01-02&endDate=2026-10-21&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "requested_at_utc": "2026-10-22T03:50:13.524073+00:00",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "content_disposition": "attachment; filename=\"daily_volume_SOXL_2019-01-02_2026-10-21.csv\"",
+      "relative_path": "data/snapshots/cboe_total_options_activity_source_20261022/soxl_2019-01-02_2026-10-21.bin",
+      "bytes": 213276,
+      "sha256": "3bb691211485ffe6a45bc203aae686b046ffd9d8cd45a7211b2f202b1131e936",
+      "first_120_bytes_repr": "b'Trade Date,Underlying,Product Type,Exchange,Volume\\n2019/01/02,SOXL,S,BATS,67\\n2019/01/02,SOXL,S,C2,2\\n2019/01/02,SOXL,S,CB'"
+    }
+  ]
+}

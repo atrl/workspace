@@ -1,0 +1,28 @@
+{
+  "experiment": "cboe_total_options_activity_source_20261022",
+  "status": "source_coverage_qualified_only_with_PIT_gap",
+  "decision": "source_available_for_separate_frozen_information_screen_after_PIT_qualification",
+  "source_coverage_audit": "source_coverage_audit.json",
+  "recorder_id": "c3b812bc5fda409fac836fdd3a08fe0a",
+  "experiment_id": "713798612893070704",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/cboe_total_options_activity_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cboe_total_options_activity_source_20261022/qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a",
+  "source_history_independent": false,
+  "qualified_forward_days": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "objective_achieved": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "27c7720f1b394a063c6185a42112fa6ef9344c655e24a92d577b43af5693444b",
+    "size_bytes": 86296,
+    "storage_uri": "sha256/27/c7/27c7720f1b394a063c6185a42112fa6ef9344c655e24a92d577b43af5693444b"
+  }
+}

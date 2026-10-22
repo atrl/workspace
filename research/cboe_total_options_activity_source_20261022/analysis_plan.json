@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "parent_source_plan_sha256": "e82bbdb3e5272b5f000a7d83d217c0d6f59b681bb543070f1767d0405f3a7fc7",
+  "retrieval_receipts_sha256": "00cab9e87a0c43615a4daa83265e549f5d10bec5290c3c1df1fc63edf3f3c74e",
+  "snapshot_sha256": {
+    "data/snapshots/cboe_total_options_activity_source_20261022/soxx_2019-01-02_2026-10-21.bin": "ad3488689ad076b9526f9850746164727c3274e111c7c95d2dbbadc80d4a453e",
+    "data/snapshots/cboe_total_options_activity_source_20261022/soxl_2019-01-02_2026-10-21.bin": "3bb691211485ffe6a45bc203aae686b046ffd9d8cd45a7211b2f202b1131e936"
+  },
+  "calendar_provider": "data/qlib/soxl",
+  "calendar_manifest_sha256": "3a18d2f4059f08a4de036e250a31fee0aec4c1e0891226dfdfec2a6f88993420",
+  "calendar_file_sha256": "eec86bc6deab1067feaf4b78d6385f83c82fbdfa57e54df068686556a539593e",
+  "calendar_read_budget": 1,
+  "new_writable_Recorder_budget": 1,
+  "analysis": "Schema, nonnegative total contracts, duplicate exchange-day rows, observed dates versus one native Qlib D.calendar call by symbol and year, Cboe-only scope, latest date available. No market outcome, options put/call inference, model or account.",
+  "stops": [
+    "If snapshot/provider hash differs, stop before Qlib read",
+    "If CSV schema/underlying/exchange differs, preserve failure and stop",
+    "Do not infer first-public timestamp from retrieval or current last date"
+  ]
+}

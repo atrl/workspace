@@ -1,0 +1,145 @@
+{
+  "status": "source_coverage_qualified_only_with_PIT_gap",
+  "source": "Cboe four-exchange historical total option volume",
+  "plan_sha256": "e82bbdb3e5272b5f000a7d83d217c0d6f59b681bb543070f1767d0405f3a7fc7",
+  "analysis_plan_sha256": "4f66bb863ea3e0be3a628d314e0eb60dcd09da1e2b71d350ca7c585b72daad02",
+  "retrieval_receipts_sha256": "00cab9e87a0c43615a4daa83265e549f5d10bec5290c3c1df1fc63edf3f3c74e",
+  "symbols": {
+    "SOXX": {
+      "rows": 7614,
+      "observed_days": 1961,
+      "first_date": "2019-01-02",
+      "last_date": "2026-10-20",
+      "Qlib_calendar_last_date": "2026-10-21",
+      "missing_Qlib_days": 0,
+      "missing_first_12": [],
+      "extra_beyond_Qlib_calendar_or_nontrading": 0,
+      "extra_first_12": [],
+      "zero_volume_days": 0,
+      "volume_sum": 3291056,
+      "four_exchange_days": 1752,
+      "product_type_values": [
+        "S"
+      ],
+      "by_year": {
+        "2019": {
+          "calendar_days": 252,
+          "observed_days": 252,
+          "missing_days": 0
+        },
+        "2020": {
+          "calendar_days": 253,
+          "observed_days": 253,
+          "missing_days": 0
+        },
+        "2021": {
+          "calendar_days": 252,
+          "observed_days": 252,
+          "missing_days": 0
+        },
+        "2022": {
+          "calendar_days": 251,
+          "observed_days": 251,
+          "missing_days": 0
+        },
+        "2023": {
+          "calendar_days": 250,
+          "observed_days": 250,
+          "missing_days": 0
+        },
+        "2024": {
+          "calendar_days": 252,
+          "observed_days": 252,
+          "missing_days": 0
+        },
+        "2025": {
+          "calendar_days": 250,
+          "observed_days": 250,
+          "missing_days": 0
+        },
+        "2026": {
+          "calendar_days": 201,
+          "observed_days": 201,
+          "missing_days": 0
+        }
+      }
+    },
+    "SOXL": {
+      "rows": 7820,
+      "observed_days": 1961,
+      "first_date": "2019-01-02",
+      "last_date": "2026-10-20",
+      "Qlib_calendar_last_date": "2026-10-21",
+      "missing_Qlib_days": 0,
+      "missing_first_12": [],
+      "extra_beyond_Qlib_calendar_or_nontrading": 0,
+      "extra_first_12": [],
+      "zero_volume_days": 0,
+      "volume_sum": 56522477,
+      "four_exchange_days": 1938,
+      "product_type_values": [
+        "S"
+      ],
+      "by_year": {
+        "2019": {
+          "calendar_days": 252,
+          "observed_days": 252,
+          "missing_days": 0
+        },
+        "2020": {
+          "calendar_days": 253,
+          "observed_days": 253,
+          "missing_days": 0
+        },
+        "2021": {
+          "calendar_days": 252,
+          "observed_days": 252,
+          "missing_days": 0
+        },
+        "2022": {
+          "calendar_days": 251,
+          "observed_days": 251,
+          "missing_days": 0
+        },
+        "2023": {
+          "calendar_days": 250,
+          "observed_days": 250,
+          "missing_days": 0
+        },
+        "2024": {
+          "calendar_days": 252,
+          "observed_days": 252,
+          "missing_days": 0
+        },
+        "2025": {
+          "calendar_days": 250,
+          "observed_days": 250,
+          "missing_days": 0
+        },
+        "2026": {
+          "calendar_days": 201,
+          "observed_days": 201,
+          "missing_days": 0
+        }
+      }
+    }
+  },
+  "calendar_rows": 1962,
+  "calendar_first_date": "2019-01-02",
+  "calendar_last_date": "2026-10-21",
+  "last_available_date_max": "2026-10-20",
+  "Cboe_exchange_only": true,
+  "call_put_split_available": false,
+  "first_public_time_qualified": false,
+  "historical_PIT_qualified": false,
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "D_calendar_calls": 1,
+  "D_features_calls": 0,
+  "promotion_eligible": false,
+  "recorder_id": "c3b812bc5fda409fac836fdd3a08fe0a",
+  "experiment_id": "713798612893070704",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/cboe_total_options_activity_source_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cboe_total_options_activity_source_20261022/qlib_recorder/713798612893070704/c3b812bc5fda409fac836fdd3a08fe0a"
+}

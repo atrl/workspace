@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "experiment": "cboe_total_options_activity_source_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "source_qualification_only",
+  "scientific_hypothesis": "Cboe-exchange total SOXX option activity, scaled by its own lagged baseline and price-volume context, may indicate next-session tail risk without a directional put/call interpretation. This is distinct from CBOE SKEW, price trend, realized variance and prior constituent leads. No factor is tested here.",
+  "parent_negative_source_probe": {
+    "card": "research/cboe_soxx_soxl_options_volume_source_20261022",
+    "summary_sha256": "7e6356428d85498e8d03d58bf8543e77beae7e0f1156946cfb4c16a096e307ea",
+    "schema_audit_sha256": "29dc5cc3dfdacce1f5079279e34f4c7ff1dc1253885ca6bbea2979b3bd15c7ac"
+  },
+  "endpoint": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/",
+  "parameters": {
+    "reportType": "volume",
+    "volumeType": "sum",
+    "volumeAggType": "daily",
+    "symbolType": "underlying",
+    "exchanges": [
+      "CBOE",
+      "BATS",
+      "C2",
+      "EDGX"
+    ]
+  },
+  "queries": [
+    {
+      "symbol": "SOXX",
+      "startDate": "2019-01-02",
+      "endDate": "2026-10-21"
+    },
+    {
+      "symbol": "SOXL",
+      "startDate": "2019-01-02",
+      "endDate": "2026-10-21"
+    }
+  ],
+  "max_bytes_per_response": 8000000,
+  "comparison_provider": "data/qlib/soxl",
+  "comparison_api": "Qlib D.calendar only; no price/return outcome reads",
+  "source_boundary": "Cboe four exchanges only; total contracts, no put/call/open-close/position, not all US options. Availability at 09:46 on next day is unproven by retrospective file; forward capture required before trading-grade PIT claim. Recent date presence is not first-public timing.",
+  "budget": {
+    "http_gets": 2,
+    "D_calendar_calls": 1,
+    "D_features_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "bootstrap": 0,
+    "market_outcome_reads": 0
+  },
+  "acceptance": [
+    "Exact query, response, content type, SHA256, retrieval time archived",
+    "Schema exact and both symbols mapped",
+    "Calendar coverage per full year plus missing/zero/duplicate days using Qlib D.calendar",
+    "Cross-exchange field consistency and explicit Cboe-only scope",
+    "Recent available date reported without claiming first-public time"
+  ],
+  "stops": [
+    "Auth/payment: record needs_entitlement, no purchase",
+    "Non-CSV or schema mismatch: preserve and stop",
+    "Response >8MB or server denial: preserve failure and stop",
+    "No downstream model, threshold or account from this plan"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "sources/*",
+      "analysis/*"
+    ]
+  }
+}
