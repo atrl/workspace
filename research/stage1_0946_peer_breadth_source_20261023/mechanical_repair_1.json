@@ -1,0 +1,11 @@
+{
+  "status": "pre_source_parent_archive_assertion_repaired",
+  "failure": "Prior 10:31 source card NAS archive is its own Recorder, not the upstream parent Recorder archive. Parent summary, readback and prior frozen plan carry the pinned parent SHA.",
+  "before_cell_sha256": "5abe97810c8c4575b6726e585cad38b2c45a45765a6d3828e72515c18a908713",
+  "after_cell_sha256": "da0a9593bfe1b6d91bf65e3ee82f98b6e89a91581251e8e6871bc14a29ebbae4",
+  "source_D_calls": 0,
+  "DatasetH_builds": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "only_change": "Verify prior plan parent NAS hash instead of prior card own archive hash."
+}

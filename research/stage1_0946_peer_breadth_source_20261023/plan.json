@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_0946_peer_breadth_source_20261023",
+  "phase": "same_day_0945_three_peer_positive_fraction_source_only_for_original_Stage1_0946_allocation",
+  "hypothesis": "Early same-session AMD/NVDA/SMH participation may distinguish semiconductor-wide strength from SOXX/SOXL ETF-only opening movement before the original Stage1 09:46 allocation decision; no sign or economic efficacy is tested in this source phase.",
+  "receiver": "Frozen complete original Stage1 09:46 allocation target and its later action/risk/recovery chain; SOXX is final benchmark. A later separately frozen information screen would test H5 SOXL-minus-SOXX selection, not 10:32 recovery value.",
+  "source": {
+    "provider_uri": "data/qlib/minute_information_pit_allocator_20261012/peer_5min",
+    "provider_manifest_sha256": "9e773cdaad954d65293e74794e4dcade3337dc878e6cff03b3c12bad6432cce6",
+    "parent_card": "research/minute_information_pit_allocator_20261012",
+    "parent_summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+    "parent_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "parent_NAS_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "parent_NAS_readback": "research/minute_information_pit_allocator_20261012/nas_readback.json",
+    "prior_1031_source_card": "research/stage1_first_hour_peer_breadth_action_source_20261023",
+    "prior_1031_plan_sha256": "f15b56d105a2399c5078e57ea67c0cb18da93339fbe2e282ba8e796ce334dc0c"
+  },
+  "feature": {
+    "name": "opening_15m_semiconductor_peer_positive_fraction_3",
+    "instruments": ["AMD", "NVDA", "SMH"],
+    "required_right_labelled_bars": ["09:35", "09:40", "09:45"],
+    "formula": "For each peer require exactly the three completed price-valid five-minute bars. Compute log(close_09:45/open_09:35)>0 and take the fraction positive among the fixed three; zero return counts nonpositive. No smoothing or ETF weighting.",
+    "assumed_available_at": "09:45 America/New_York at completion of the last right-labelled bar, under the source's bar clock convention; actual first receipt remains unverified",
+    "receiver_decision_at": "09:46 America/New_York same trade date; source first receipt and finality historically unqualified"
+  },
+  "calendar": {
+    "train_action": ["2018-10-15", "2022-12-30"],
+    "expected_train_days": 1061,
+    "reused_held_action": ["2023-01-04", "2026-10-08"],
+    "expected_held_days": 944,
+    "minimum_known_fraction_each": 0.99,
+    "all_dates_retained": true
+  },
+  "quality": "Native Qlib D.calendar/D.features and DatasetH/Recorder. Strict 3x3 complete window, source identity, NAS receipt and scoped restore. No market outcome labels. Existing Stage1 original39 includes SOXX/SOXL current marks and historical breadth, not same-session three-peer opening breadth; future novelty must still be checked in training only.",
+  "budget": {"new_market_requests": 0, "Qlib_D_calendar_calls_max": 1, "Qlib_D_features_calls_max": 1, "DatasetH_builds_max": 1, "new_Qlib_Recorders_max": 1, "future_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any source/NAS identity, timing, coverage, Qlib or NAS readback failure stops. A pass only permits a separately frozen information test and does not establish first-public PIT, a 0bp account or SOXX success."
+}
