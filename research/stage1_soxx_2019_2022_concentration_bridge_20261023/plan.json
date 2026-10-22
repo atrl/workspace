@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "How much of the full 2019-2022 Stage1 late-training Qlib calendar is covered by the two source-qualified 2019 old-form concentration events plus the 13 original NPORT events, strictly after SEC filing dates?",
+  "sources": {
+    "legacy_numeric_result": "research/stage1_soxx_2019_transition_concentration_20261023/repair_result.json",
+    "legacy_numeric_result_sha256": "e263c8d7fc3c2a9331a204dbceac553a5fba2f654fc599fffeb09b13f9d10262",
+    "NPORT_summary": "research/stage1_soxx_2019_2022_nport_equity_concentration_20261023/summary.json",
+    "NPORT_summary_sha256": "533a680456b0e7b33b36f27a75498a6aed6a5e1b3cf2ded79821e978830819e0",
+    "NPORT_recorder_id": "7f2b90c01f3c4820a6173a113018adf3",
+    "NPORT_recorder_NAS_sha256": "720ed1ed5437451dd39a2b3ce324c4f503062177339bde861561a8050feb2393"
+  },
+  "calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "calendar_span": ["2019-01-02", "2022-12-30"],
+  "mapping": "Read the 13 previously verified NPORT source events from their native Qlib Recorder and the 2 old-form numeric result rows. For each filing use the next actual Qlib daily session strictly after the filing date; never use report period, date signed or SEC accepted display as an earlier release. On every one of the 2019-2022 sessions carry the latest previously filed reported equity concentration, preserving the unknown prefix as NaN and a separate known mask. Require all 15 events unique, chronological, no event after the calendar, and no backfill of unknown.",
+  "semantics": "Old forms and NPORT both use the original fair values of reported common equities normalized by their sum; preserve form and accession per event. These are lagged disclosed-fund-basket concentration proxies, not official daily index weights or a market outcome.",
+  "artifacts": "Store event table, complete daily map and DatasetH in a native Qlib Recorder; archive Recorder to Yanxuan NAS with remote SHA-256 and scoped restore. Keep card root slim.",
+  "budgets": {
+    "new_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "new_native_source_recorders": 1
+  },
+  "stop": "Source identity/hash, calendar, Qlib DatasetH/Recorder or NAS readback failure stops map qualification. Unknown 2019 prefix remains unknown pending original 2018 report values; no fit, signal or account."
+}

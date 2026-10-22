@@ -1,0 +1,17 @@
+{
+  "status": "legacy_plus_NPORT_15_original_report_events_Qlib_mapped_source_only",
+  "source_plan_sha256": "9e5447688580c1eb1ddc0a489252cc54f55666bccc01817ea27cde974fe6c019",
+  "report_events": 15,
+  "legacy_events": 2,
+  "NPORT_events": 13,
+  "late_train_Qlib_sessions": 1008,
+  "known_signal_sessions": 967,
+  "unknown_prefix_sessions": 41,
+  "first_effective_signal": "2019-03-04",
+  "last_effective_signal": "2022-11-29",
+  "max_source_age_days": 171,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "full_Stage1_training_coverage_qualified": false
+}
