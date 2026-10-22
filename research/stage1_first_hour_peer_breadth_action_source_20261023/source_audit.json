@@ -1,0 +1,23 @@
+{
+  "status": "peer_breadth_source_gate_passed",
+  "plan_sha256": "f15b56d105a2399c5078e57ea67c0cb18da93339fbe2e282ba8e796ce334dc0c",
+  "source_calendar_days": 2006,
+  "training_calendar_days": 1061,
+  "training_known_days": 1061,
+  "held_calendar_days": 944,
+  "held_known_days": 944,
+  "training_known_fraction": 1.0,
+  "held_known_fraction": 1.0,
+  "unknown_train_dates": [],
+  "unknown_held_dates": [],
+  "feature_value_counts": {
+    "0.0": 644,
+    "1.0": 631,
+    "0.6666666666666666": 369,
+    "0.3333333333333333": 362
+  },
+  "first_receipt_finality_qualified": false,
+  "market_outcome_label_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

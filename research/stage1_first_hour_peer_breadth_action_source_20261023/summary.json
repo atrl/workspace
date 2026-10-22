@@ -1,0 +1,45 @@
+{
+  "experiment": "stage1_first_hour_peer_breadth_action_source_20261023",
+  "decision": "conditional_peer_breadth_source_gate_passed_first_receipt_unqualified_no_fit",
+  "objective_achieved": false,
+  "source_audit": "source_audit.json",
+  "source_calendar_days": 2006,
+  "training_calendar_days": 1061,
+  "training_known_days": 1061,
+  "held_calendar_days": 944,
+  "held_known_days": 944,
+  "unknown_training_dates": [],
+  "unknown_held_dates": [],
+  "first_receipt_finality_qualified": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "recorder_id": "de73b6f2f7de4fe385ac1178674efefc",
+  "experiment_id": "750483563910065241",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_first_hour_peer_breadth_action_source_20261023/qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/daily",
+      "analysis/source_first_hour"
+    ]
+  },
+  "nas_evidence": {
+    "sha256": "bbadc66d6f50c96f6db2ed136d833b0042f0a8d750601ea4fdfe9fb62873145b",
+    "size_bytes": 196692,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/bb/ad/bbadc66d6f50c96f6db2ed136d833b0042f0a8d750601ea4fdfe9fb62873145b",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 04:34:53.478167+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/bb/ad/bbadc66d6f50c96f6db2ed136d833b0042f0a8d750601ea4fdfe9fb62873145b",
+    "recorder_id": "de73b6f2f7de4fe385ac1178674efefc",
+    "experiment_id": "750483563910065241",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "sha256": "bbadc66d6f50c96f6db2ed136d833b0042f0a8d750601ea4fdfe9fb62873145b",
+    "verified": true
+  }
+}
