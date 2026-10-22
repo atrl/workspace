@@ -1,0 +1,121 @@
+{
+  "status": "four_2016_first_original_SOXX_schedule_identities_confirmed_source_only",
+  "plan_sha256": "8da14b3cb6cb261e790d1e5bc431735d6d15116fcbbdb3f72996d7190ba7c72e",
+  "checks": [
+    {
+      "report_date": "2016-03-31",
+      "form": "N-CSR",
+      "accession": "0001193125-16-613829",
+      "accepted_at_utc": "2016-06-06T22:59:07.000Z",
+      "raw_sha256": "b225d194a3667c201da0e49d247f0454e2ec239e1b4fdb1ba4eab6cde136a536",
+      "raw_bytes": 58064459,
+      "inline_hits": [],
+      "TOC_hits": [
+        {
+          "method": "TOC_anchor_equity_header",
+          "anchor": "toc180808_10",
+          "start": 32536338,
+          "end": 32585818,
+          "section_sha256": "5ea0eeb785d1de9ae573d4fa1159d49f3f4781393cbebaf36bc6a6bd1e0099f8",
+          "accepted": true
+        }
+      ],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "TOC_anchor_equity_header",
+      "selected_identity_location": {
+        "method": "TOC_anchor_equity_header",
+        "anchor": "toc180808_10",
+        "start": 32536338,
+        "end": 32585818,
+        "section_sha256": "5ea0eeb785d1de9ae573d4fa1159d49f3f4781393cbebaf36bc6a6bd1e0099f8",
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2016-06-30",
+      "form": "N-Q",
+      "accession": "0001193125-16-695276",
+      "accepted_at_utc": "2016-08-29T21:37:08.000Z",
+      "raw_sha256": "3592c63ccdbd50d3691362fba398b44cd1f939c69eaaa4b62b70a892afb8e952",
+      "raw_bytes": 36883492,
+      "inline_hits": [
+        {
+          "method": "inline_title",
+          "offset": 20262753,
+          "accepted": true
+        }
+      ],
+      "TOC_hits": [],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "inline_title",
+      "selected_identity_location": {
+        "method": "inline_title",
+        "offset": 20262753,
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2016-09-30",
+      "form": "N-CSRS",
+      "accession": "0001193125-16-788378",
+      "accepted_at_utc": "2016-12-09T00:57:38.000Z",
+      "raw_sha256": "e82162b5465a3d1baf2192ae6065918494df1231407d1c9fa22acd57b61f9f72",
+      "raw_bytes": 56485211,
+      "inline_hits": [],
+      "TOC_hits": [
+        {
+          "method": "TOC_anchor_equity_header",
+          "anchor": "toc241039_10",
+          "start": 32142001,
+          "end": 32201496,
+          "section_sha256": "3de02b7a48418e4a5cacff89aab387143d6ca2f3a1c9dc32e1c52aa1e1ce746f",
+          "accepted": true
+        }
+      ],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "TOC_anchor_equity_header",
+      "selected_identity_location": {
+        "method": "TOC_anchor_equity_header",
+        "anchor": "toc241039_10",
+        "start": 32142001,
+        "end": 32201496,
+        "section_sha256": "3de02b7a48418e4a5cacff89aab387143d6ca2f3a1c9dc32e1c52aa1e1ce746f",
+        "accepted": true
+      }
+    },
+    {
+      "report_date": "2016-12-31",
+      "form": "N-Q",
+      "accession": "0001193125-17-065125",
+      "accepted_at_utc": "2017-03-02T00:38:08.000Z",
+      "raw_sha256": "eefd3be6b9a3782623d7e1c1b38a59a83e55ba95c43ad3616d4f3303b3bdccea",
+      "raw_bytes": 36149720,
+      "inline_hits": [
+        {
+          "method": "inline_title",
+          "offset": 19651496,
+          "accepted": true
+        }
+      ],
+      "TOC_hits": [],
+      "SOXX_schedule_identity_pass": true,
+      "selected_identity_method": "inline_title",
+      "selected_identity_location": {
+        "method": "inline_title",
+        "offset": 19651496,
+        "accepted": true
+      }
+    }
+  ],
+  "identity_pass_count": 4,
+  "source_NAS_archive_sha256": "f43dc335e8e3cb90911997d9e22192f2070585db370715a56bf920855d645d05",
+  "source_NAS_scoped_restore_verified": true,
+  "later_September_amendment_accession_excluded": "0001193125-17-257378",
+  "new_HTTP_GETs": 0,
+  "security_values_extracted": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "full_2017_2022_coverage": false,
+  "interpretation": "Only exact first-filed series-specific SOXX source identities; later September amendment is not treated as contemporaneous."
+}
