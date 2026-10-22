@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_soxx_2018_sep_concentration_20261023",
+  "decision": "2018_Sep_original_SOXX_reported_equity_values_closed_late_train_prefix_map_pending",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "numeric_result": "result.json",
+  "report_events": 1,
+  "common_equity_rows": 30,
+  "new_GETs": 0,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "source_NAS_archive_sha256": "1d4261348ed2aaceeac1ac1b372c7283061bd785cf3b6ef9fa21ab31a1fc4d14",
+  "source_NAS_scoped_restore_verified": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

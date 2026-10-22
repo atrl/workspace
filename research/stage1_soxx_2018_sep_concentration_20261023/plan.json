@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "question": "Can the exact 2018-09-30 original SOXX schedule yield 30 positive common-equity values that close to its printed Total Common Stocks, before filling the 2019 Qlib prefix?",
+  "parent_body_identity": "research/stage1_soxx_2018_sep_source_20261023/identity_result.json",
+  "parent_body_identity_sha256": "0890ef710b389a308dd892892b7da6e5c89b2c58daf6898e8fabd3b0566d8a65",
+  "parent_body_transport": "research/stage1_soxx_2018_sep_source_20261023/transport_result.json",
+  "parent_body_transport_sha256": "74ad038e385284455733a91a4462657fed2554e3f7ff2347411c38cf4cd0f4bf",
+  "source_NAS_archive_sha256": "1d4261348ed2aaceeac1ac1b372c7283061bd785cf3b6ef9fa21ab31a1fc4d14",
+  "report_period": "2018-09-30",
+  "accession": "0001193125-18-344229",
+  "filed": "2018-12-07",
+  "accepted_at_utc": "2018-12-07T18:04:05.000Z",
+  "raw_path": "data/snapshots/stage1_soxx_2018_sep_source_20261023/0001193125-18-344229.html",
+  "raw_sha256": "3093345845d77b1ee714f2f3e407af066749d90276db3f962e1ac4da504fc0e0",
+  "raw_bytes": 51473821,
+  "bounded_section_byte_range": [29818984, 29858984],
+  "bounded_section_sha256": "41280714336486c6477031be20b57abc065eb172c4f2740fe66ac5ea34cf6033",
+  "formula": "Starting at the verified SOXX schedule title, parse Common Stocks Security/Shares/Value rows up to printed Total Common Stocks; require 20-40 distinct names, positive shares and original USD values, zero ambiguous numeric security rows, and sum-minus-printed difference <=1 USD. Normalize each original security value by parsed common-stock value sum; top5 is largest five normalized weights, HHI is sum squared weights. No ticker mapping or index-weight inference.",
+  "budgets": {
+    "new_GETs": 0,
+    "original_body_reads": 1,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Any hash, row ambiguity, count or printed-total closure failure stops this fixed parse; preserve failure and require a separately frozen mechanical repair before another source read."
+}
