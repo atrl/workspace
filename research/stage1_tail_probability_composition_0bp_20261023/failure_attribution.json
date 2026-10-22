@@ -1,0 +1,40 @@
+{
+  "status": "closed_fixed_tail_conditioned_composition_0bp_failure_attribution",
+  "candidate_plan_sha256": "ef7bceff30388fcd25b50760209c9c69481c3cfb394a8af47a53f994baef818f",
+  "candidate_recorder_id": "ceecebbd02484ced984aafceb916bb63",
+  "static_composition_summary_sha256": "262f9a5bfe855ae94310d802505e2dcdc71de441c6b6e1bf025a7f3b4b36dc35",
+  "static_composition_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+  "candidate_vs_SOXX_wealth": 0.5177683955206491,
+  "static_composition_vs_SOXX_wealth": 1.0774546325434138,
+  "candidate_available_drawdown_pct": 31.0986,
+  "static_composition_available_drawdown_pct": 30.8558,
+  "candidate_rolling126_positive_fraction": 0.25518925518925517,
+  "static_composition_rolling126_positive_fraction": 0.5592185592185592,
+  "candidate_complete_positive_years": 0,
+  "static_composition_complete_positive_years": 2,
+  "candidate_mean_transform_cash_before": 0.5078853213557695,
+  "candidate_mean_transform_cash_after": 0.39814724736857926,
+  "static_mean_transform_cash_before": 0.41643688200541984,
+  "static_mean_transform_cash_after": 0.21055908586665759,
+  "candidate_mean_tail_probability_on_transform": 0.16047645285555875,
+  "candidate_mean_tail_shift": 0.018890338215862855,
+  "candidate_mean_composition_delta": 0.05486903699359514,
+  "quarter_context": {
+    "2024Q3": {
+      "candidate_relative_wealth": 1.0650229939371854,
+      "static_composition_relative_wealth": 1.0658788835819686
+    },
+    "2026Q2": {
+      "candidate_relative_wealth": 1.084778943185216,
+      "static_composition_relative_wealth": 1.1078436923956336
+    },
+    "2026Q3": {
+      "candidate_relative_wealth": 0.875325214973011,
+      "static_composition_relative_wealth": 0.8919380926838862
+    }
+  },
+  "interpretation": "The one fixed smooth tail map left substantially more cash on its own path, failed SOXX wealth/year/window/lower/risk gates, and did not improve 2026Q3 relative wealth versus the closed static composition. Accounts have different holdings and endogenous risk states; differences are descriptive, not an isolated causal value of the tail transformation. No sign, threshold or fraction rescue on reused history.",
+  "new_model_fits_for_attribution": 0,
+  "new_native_accounts_for_attribution": 0,
+  "new_bootstraps_for_attribution": 0
+}
