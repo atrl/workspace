@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "four_original_2012_SOXX_common_stock_value_closure_source_only",
+  "transport_result_sha256": "ecc1c18ad0c14aad67659a722b1b9113049f01c5f8016ca410abcbfd58aa3b95",
+  "identity_result_sha256": "de572161c73196d0f22a2c1f6907675fd37b7720e09032293e34a1f40f7c3beb",
+  "source_NAS_archive_sha256": "eb45aac5e3aa4943b958037a78ec2359ffdf32877735cbf4ee90d8922ab5df27",
+  "reports": [
+    {
+      "report_date": "2012-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-12-151845",
+      "accepted_at_utc": "2012-04-05T23:31:35.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_reported_concentration_source_20261023/0001193125-12-151845_d302334dncsrs.htm",
+      "raw_sha256": "a55b775b6d8c1babfedd3b2e41cb2eeb6879bf7507e2c0d3a24aaf5128ae2bec",
+      "raw_bytes": 21015312,
+      "bounded_section_byte_range": [
+        895501,
+        955501
+      ],
+      "bounded_section_sha256": "2d30e0dca628d0a595f4eb9cecf23ac0fdc9c90a19027b93ec89397722b223ed"
+    },
+    {
+      "report_date": "2012-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-12-289215",
+      "accepted_at_utc": "2012-06-29T20:22:02.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_reported_concentration_source_20261023/0001193125-12-289215_d370583dnq.htm",
+      "raw_sha256": "bef2958489ce36162823910732ec8d435495a9ae8cfc4f46acee5757e584f470",
+      "raw_bytes": 17304780,
+      "bounded_section_byte_range": [
+        15041423,
+        15085664
+      ],
+      "bounded_section_sha256": "6579f05b1d14d65e5786d577acec56cbf7d67d0ad0ef67bac869eda4f6cd5be6"
+    },
+    {
+      "report_date": "2012-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-12-418172",
+      "accepted_at_utc": "2012-10-09T20:16:08.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_reported_concentration_source_20261023/0001193125-12-418172_d391477dncsr.htm",
+      "raw_sha256": "2278fb696e75c3deaa1b8add0c6026bd448c20416fce7522b5fd5377e80ba4b9",
+      "raw_bytes": 24487284,
+      "bounded_section_byte_range": [
+        928170,
+        982738
+      ],
+      "bounded_section_sha256": "14e4d20dc507ba725d37e4a74e8ddda793c235e11b0320298efe43ecfd4f4619"
+    },
+    {
+      "report_date": "2012-10-31",
+      "form": "N-Q",
+      "accession": "0001193125-12-517738",
+      "accepted_at_utc": "2012-12-28T23:22:34.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_reported_concentration_source_20261023/0001193125-12-517738_d450388dnq.htm",
+      "raw_sha256": "0538495c737dbb331a65fb9b514a988216811757001ee0356181a3d03ab69121",
+      "raw_bytes": 21189602,
+      "bounded_section_byte_range": [
+        18915579,
+        18975579
+      ],
+      "bounded_section_sha256": "2686d9da4af41afa5ab70b4f2a91c9e74a4833cda8a4e9d6761e40575a8d4ff8"
+    }
+  ],
+  "fixed_parser": "Within each frozen section, parse direct HTML rows from COMMON STOCKS through TOTAL COMMON STOCKS. Security row has original name, positive integer shares and positive integer USD fair value. Ignore sector headings and subtotals; total may be on immediate following (Cost: ...) row. Require 20-40 distinct stock rows, no ambiguous security-looking row, and parsed USD sum within one USD of printed total.",
+  "derived_values": [
+    "top5_disclosed_equity_value_share",
+    "herfindahl_sum_squared_disclosed_equity_weights"
+  ],
+  "semantics": "Disclosed ETF equity fair values normalized by same report total, not daily index weights or price-based downside concentration.",
+  "budget": {
+    "raw_report_parses_max": 4,
+    "HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "Fail the four-report source gate if any report hash, bounded section, parser, row count or printed total closure fails. Preserve all results; no survivor-only calendar or numeric backfill.",
+  "scientific_boundary": "2011-2012 original reported values are source progress only; 2013-2022 and held availability, amendment timing, Stage1 information and own 0bp account remain separate."
+}
