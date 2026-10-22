@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "experiment": "semiconductor_ip_fed_original_bridge_probe_20261022",
+  "phase": "three_original_G17_release_source_and_definition_probe_no_factor",
+  "execution_authorized": true,
+  "parent_source_gap": "research/semiconductor_ip_alfred_preflight_20261022/source_preflight_result.json",
+  "hypothesis": "The Fed original monthly G.17 ASCII releases may preserve 2011-2014 as-published semiconductor-related industrial production values missing from ALFRED selectable vintages. Before modeling, test whether old table code and post-2015 IPG3344S represent a coherent same-domain series.",
+  "source_authority": "Board of Governors of the Federal Reserve System, original dated G.17 statistical releases",
+  "frozen_samples": [
+    {
+      "release_date": "20110216",
+      "url": "https://www.federalreserve.gov/releases/g17/20110216/g17.txt",
+      "raw_path": "data/raw/external/semiconductor_ip_fed_original_bridge_probe_20261022/20110216_g17.txt"
+    },
+    {
+      "release_date": "20140616",
+      "url": "https://www.federalreserve.gov/releases/g17/20140616/g17.txt",
+      "raw_path": "data/raw/external/semiconductor_ip_fed_original_bridge_probe_20261022/20140616_g17.txt"
+    },
+    {
+      "release_date": "20150715",
+      "url": "https://www.federalreserve.gov/releases/g17/20150715/g17.txt",
+      "raw_path": "data/raw/external/semiconductor_ip_fed_original_bridge_probe_20261022/20150715_g17.txt"
+    }
+  ],
+  "selection": "First available 2011, late 2014, and July 2015 discontinued-series transition observations chosen before fetching body; do not select dates by SOXX outcomes.",
+  "checks": [
+    "HTTP 200 exact raw bytes/size/SHA and on-page G.17 release date/time",
+    "Find and preserve actual semiconductor/electronic component industry row, NAICS/source code and table context",
+    "Check whether 2011, 2014 and 2015 table definitions are semantically consistent with new 3344 series; no numerical splice if not",
+    "Archive original bytes to NAS with remote SHA and scoped restore"
+  ],
+  "budget": {
+    "official_release_GETs_max": 3,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "bootstrap_runs": 0
+  },
+  "stop": "A single old code/label mismatch or missing release value prevents whole-period feature calculation. Source-only result may recommend further bounded original-release reconstruction but cannot fit Stage1 or claim SOXX alpha."
+}

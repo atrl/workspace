@@ -1,0 +1,35 @@
+{
+  "plan_sha256": "6084c051483bb5f61be62fba0afec42a45ce8f81ba4da4740e73520b79a016f1",
+  "source_receipts": [
+    {
+      "release_date": "20110216",
+      "status": "downloaded",
+      "raw_sha256": "3743b0ecfb3d13d45f4e7a470e394cdf9a04f628a73f77e96a1d74b342c758de",
+      "raw_bytes": 157876,
+      "header_date_lines": [
+        "date: Thu, 22 Oct 2026 15:26:36 GMT"
+      ]
+    },
+    {
+      "release_date": "20140616",
+      "status": "downloaded",
+      "raw_sha256": "ca57de7ce26897a729511e96a3135e77d406526b17ff78b8ca9c1cf66565fab5",
+      "raw_bytes": 156188,
+      "header_date_lines": [
+        "date: Thu, 22 Oct 2026 15:26:37 GMT"
+      ]
+    },
+    {
+      "release_date": "20150715",
+      "status": "downloaded",
+      "raw_sha256": "4be9bd3fadb89f294c51d23d36770dc29f8d18ef1a335699de07fa0041c9b616",
+      "raw_bytes": 155499,
+      "header_date_lines": [
+        "date: Thu, 22 Oct 2026 15:26:39 GMT"
+      ]
+    }
+  ],
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

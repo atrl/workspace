@@ -1,0 +1,25 @@
+{
+  "experiment": "semiconductor_ip_fed_original_bridge_probe_20261022",
+  "decision": "three_original_2011_2014_2015_Fed_release_rows_verified_definition_bridge_missing",
+  "objective_achieved": false,
+  "plan_sha256": "6084c051483bb5f61be62fba0afec42a45ce8f81ba4da4740e73520b79a016f1",
+  "original_release_samples": 3,
+  "verified_old_industry_code": "334412-9",
+  "2011_original_release_exists": true,
+  "complete_2011_2014_inventory": false,
+  "old_new_definition_bridge_qualified": false,
+  "market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "nas_archive_sha256": "e095363d412220f1e18231b18c27027524e785034a58f81e82d86e622d02e67d",
+  "nas_scoped_restoration_verified": true,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "new_writable_qlib_recorder": false
+  },
+  "next_action": "Use the existing 192-document Fed G.17 source Recorder and its separately frozen original Table 1 NAICS3344 audit before any further acquisition. If pre-2015 target-scope rows are absent, do not splice legacy 334412-9 or shorten Stage1 training. No model or same-day 09:29 decision-time claim from these three main releases.",
+  "existing_192_release_source_card": "research/fed_semiconductor_capacity_source_20261013/summary.json",
+  "separate_current_Table1_row_audit_plan": "research/semiconductor_ip_original_g17_bridge_20261022/plan.json"
+}

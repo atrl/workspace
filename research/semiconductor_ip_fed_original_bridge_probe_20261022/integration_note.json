@@ -1,0 +1,15 @@
+{
+  "status": "do_not_duplicate_existing_192_release_source_inventory",
+  "this_probe": "research/semiconductor_ip_fed_original_bridge_probe_20261022/source_probe_result.json",
+  "existing_source_summary": "research/fed_semiconductor_capacity_source_20261013/summary.json",
+  "existing_source_summary_sha256": "76776fc1b0f5f5c994701e18583abc1128570f0e9b59cef1abef18194e2cfc22",
+  "existing_raw_release_documents": 192,
+  "existing_target_scope_documents": 133,
+  "existing_legacy_scope_documents_excluded": 59,
+  "existing_first_target_scope_publication": "2015-08-14",
+  "current_separate_Table1_audit_plan": "research/semiconductor_ip_original_g17_bridge_20261022/plan.json",
+  "current_separate_Table1_audit_plan_sha256": "0de77525e201775a882c307e7de218c7f4d96c35b4bb41d8d520def669d98c7e",
+  "interpretation": "These three main G17 releases contain legacy 334412-9 rows and do not establish a consistent 2011-2022 NAICS3344 feature. An existing Qlib Recorder already preserves 192 dated supplement originals; inspect its frozen Table1 audit before further downloads.",
+  "model_fits": 0,
+  "native_accounts": 0
+}

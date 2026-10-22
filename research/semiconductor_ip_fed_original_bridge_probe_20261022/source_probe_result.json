@@ -1,0 +1,51 @@
+{
+  "status": "three_original_2011_2014_2015_Fed_release_rows_verified_definition_bridge_missing",
+  "plan_sha256": "6084c051483bb5f61be62fba0afec42a45ce8f81ba4da4740e73520b79a016f1",
+  "source_releases": [
+    {
+      "release_date": "20110216",
+      "url": "https://www.federalreserve.gov/releases/g17/20110216/g17.txt",
+      "raw_sha256": "3743b0ecfb3d13d45f4e7a470e394cdf9a04f628a73f77e96a1d74b342c758de",
+      "raw_bytes": 157876,
+      "release_clock_printed": "09:15 Eastern",
+      "issuer_original_code": "334412-9",
+      "industry_row_occurrences": 3,
+      "first_industry_row": "electronic components                   |    334412-9 |     1.91    |     -8.2       6.5      15.2 |     19.8       3.3       6.8 |       .9       -.4       -.7       1.7       3.5       2.2 |      16.5",
+      "matched_historical_release": true
+    },
+    {
+      "release_date": "20140616",
+      "url": "https://www.federalreserve.gov/releases/g17/20140616/g17.txt",
+      "raw_sha256": "ca57de7ce26897a729511e96a3135e77d406526b17ff78b8ca9c1cf66565fab5",
+      "raw_bytes": 156188,
+      "release_clock_printed": "09:15 Eastern",
+      "issuer_original_code": "334412-9",
+      "industry_row_occurrences": 3,
+      "first_industry_row": "electronic components                   |    334412-9 |     2.42    |     13.7      23.9       5.0 |      5.0        .8       9.5 |      -.9       1.3       2.1        .7        .8       1.6 |       6.7",
+      "matched_historical_release": true
+    },
+    {
+      "release_date": "20150715",
+      "url": "https://www.federalreserve.gov/releases/g17/20150715/g17.txt",
+      "raw_sha256": "4be9bd3fadb89f294c51d23d36770dc29f8d18ef1a335699de07fa0041c9b616",
+      "raw_bytes": 155499,
+      "release_clock_printed": "09:15 Eastern",
+      "issuer_original_code": "334412-9",
+      "industry_row_occurrences": 3,
+      "first_industry_row": "electronic components                   |    334412-9 |     2.17    |     23.9       5.0       8.5 |      2.3      -4.0      -3.6 |      -.2       -.8       -.3       -.8       -.2       1.4 |      -1.0",
+      "matched_historical_release": true
+    }
+  ],
+  "old_release_industry_code": "334412-9",
+  "new_FRED_IPG3344S_industry_scope": "3344, semiconductor and other electronic components",
+  "original_2011_2014_release_evidence_exists": true,
+  "complete_2011_2014_monthly_original_release_inventory": false,
+  "old_new_definition_bridge_qualified": false,
+  "same_day_stage1_signal_timing_qualified": false,
+  "nas_archive_sha256": "e095363d412220f1e18231b18c27027524e785034a58f81e82d86e622d02e67d",
+  "nas_scoped_restoration_verified": true,
+  "market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "next_action": "Use the existing 192-document Fed G.17 source Recorder and its separately frozen original Table 1 NAICS3344 audit before any further acquisition. If pre-2015 target-scope rows are absent, do not splice legacy 334412-9 or shorten Stage1 training. No model or same-day 09:29 decision-time claim from these three main releases."
+}

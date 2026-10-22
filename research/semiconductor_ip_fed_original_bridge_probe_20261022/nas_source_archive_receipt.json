@@ -1,0 +1,31 @@
+{
+  "status": "three_original_G17_ASCII_releases_archived_and_scoped_restored",
+  "archive_sha256": "e095363d412220f1e18231b18c27027524e785034a58f81e82d86e622d02e67d",
+  "archive_bytes": 83404,
+  "source_objects": {
+    "data/raw/external/semiconductor_ip_fed_original_bridge_probe_20261022/20110216_g17.txt": {
+      "sha256": "3743b0ecfb3d13d45f4e7a470e394cdf9a04f628a73f77e96a1d74b342c758de",
+      "bytes": 157876
+    },
+    "data/raw/external/semiconductor_ip_fed_original_bridge_probe_20261022/20140616_g17.txt": {
+      "sha256": "ca57de7ce26897a729511e96a3135e77d406526b17ff78b8ca9c1cf66565fab5",
+      "bytes": 156188
+    },
+    "data/raw/external/semiconductor_ip_fed_original_bridge_probe_20261022/20150715_g17.txt": {
+      "sha256": "4be9bd3fadb89f294c51d23d36770dc29f8d18ef1a335699de07fa0041c9b616",
+      "bytes": 155499
+    }
+  },
+  "nas_artifact": {
+    "sha256": "e095363d412220f1e18231b18c27027524e785034a58f81e82d86e622d02e67d",
+    "size_bytes": 83404,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/e0/95/e095363d412220f1e18231b18c27027524e785034a58f81e82d86e622d02e67d",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 23:27:06.16802+08",
+    "duplicate": false
+  },
+  "remote_path": "/volume1/docker/yanxuan/registry/research-artifacts/e0/95/e095363d412220f1e18231b18c27027524e785034a58f81e82d86e622d02e67d",
+  "remote_sha256_readback": "e095363d412220f1e18231b18c27027524e785034a58f81e82d86e622d02e67d",
+  "scoped_restoration_verified": true
+}
