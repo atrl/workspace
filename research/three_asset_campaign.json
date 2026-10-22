@@ -153,9 +153,11 @@
     "stage1_cross_market_vol_gap_information_status": "closed_fixed_original_39_plus_nonlinear_vol_gap_H5_information_failed_two_fits_one_bootstrap_zero_accounts_2026Q3_worst_quarter",
     "SOXX_legacy_filing_index_result": "research/stage1_soxx_legacy_filing_index_20261023/filing_2010_12_30_numeric_repair2_result.json",
     "SOXX_legacy_filing_index_status": "one_pre_Stage1_original_SOXX_reported_basket_30_stock_value_closure_top5_39p66pct_full_history_and_timing_pending_zero_fits_accounts",
-    "SOXX_legacy_2011_2018_index_result": "research/stage1_soxx_legacy_basket_history_20261023/2011_semiannual_identity_result.json",
-    "SOXX_legacy_2011_2018_index_status": "2011_Jan_NCSRS_and_Apr_NQ_original_SOXX_schedules_verified_Jul_NCSR_layout_unqualified_Oct_pending_full_history_missing_zero_fits_accounts",
-    "SOXX_legacy_2011_2018_amendment_reconciliation": "research/stage1_soxx_2011_2018_filing_inventory_20261023/reconciliation.json"
+    "SOXX_legacy_2011_2018_index_result": "research/stage1_soxx_legacy_basket_history_20261023/2011_07_NCSR_anchor_boundary_repair_result.json",
+    "SOXX_legacy_2011_2018_index_status": "2011_Jan_Apr_Jul_original_SOXX_schedules_identity_verified_Oct_pending_full_history_missing_zero_fits_accounts",
+    "SOXX_legacy_2011_2018_amendment_reconciliation": "research/stage1_soxx_2011_2018_filing_inventory_20261023/reconciliation.json",
+    "SOXX_series_filing_search": "research/stage1_soxx_series_filing_search_20261023/series_index_parse.json",
+    "SOXX_series_filing_search_status": "SEC_S000004354_series_index_15_2011_2018_NQ_and_28_NPORTP_plus_1_amendment_NAS_restored_bodies_and_timing_pending"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

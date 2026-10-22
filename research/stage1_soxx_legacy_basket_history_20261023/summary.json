@@ -1,6 +1,6 @@
 {
   "experiment": "stage1_soxx_legacy_basket_history_20261023",
-  "decision": "three_original_2010_2011_SOXX_schedule_specimens_July_2011_NCSR_layout_unqualified",
+  "decision": "2011_Jan_Apr_Jul_original_SOXX_schedule_identities_verified_Oct_pending",
   "objective_achieved": false,
   "plan": "plan.json",
   "sidecar_GETs": 4,
@@ -17,7 +17,7 @@
   "trust_candidate_rows": 188,
   "source_NAS_archive_sha256": "8d0cba5ddb599ccba66185e0fd25b12785bee6fb0537b0c830cfa3339ecd33c5",
   "source_NAS_scoped_restore_verified": true,
-  "SOXX_original_bodies_qualified": 2,
+  "SOXX_original_bodies_qualified": 3,
   "body_identity_plan": "2011_01_31_body_identity_plan.json",
   "body_transport_result": "2011_01_31_transport_result.json",
   "body_identity_result": "2011_01_31_identity_result.json",
@@ -37,5 +37,10 @@
   "july_2011_NCSR_schedule_identity_passed": false,
   "july_2011_NCSR_body_received": true,
   "semiannual_NAS_archive_sha256": "89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
-  "semiannual_NAS_scoped_restore_verified": true
+  "semiannual_NAS_scoped_restore_verified": true,
+  "july_anchor_plan": "2011_07_NCSR_anchor_adjudication_plan.json",
+  "july_anchor_initial_result": "2011_07_NCSR_anchor_adjudication_result.json",
+  "july_boundary_repair_plan": "2011_07_NCSR_anchor_boundary_repair_plan.json",
+  "july_identity_result": "2011_07_NCSR_anchor_boundary_repair_result.json",
+  "july_2011_original_schedule_identity_passed": true
 }
