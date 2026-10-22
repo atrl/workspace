@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_0bp_regime_attribution_20261022",
+  "status": "frozen_read_only_diagnostic",
+  "objective": "Locate frozen Stage1 0bp SOXX underperformance across every year, quarter, contiguous 126-session window and the previously fixed decision-time 5/20-day SOXX sign regimes; compare weak and strong intervals without selecting a trading rule.",
+  "source_stage1": {
+    "card": "research/stage1_domain_heads_20261018",
+    "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+    "artifacts": {
+      "inputs/frame": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c",
+      "paths/A_active_research_replay_0": "3901f80a552b01addbc6dadc5ad677f71a175d65e5a17fe3ad1137e101c891ef",
+      "analysis/rolling/A_active_research_replay_0": "86f5411c6a16cc578815567421dc40252068ae8c9b37d448bdded0599580bce9",
+      "analysis/annual_metrics": "2abfd08da68813841322877cc49d3ce5e0436613b5d0b60f1c856d1625c9f08d",
+      "analysis/quarterly_metrics": "8f785456243cd79eb6dc2165834944dd22c4e8428ef2410175482efd4e2c0dc6"
+    }
+  },
+  "source_benchmark": {
+    "card": "research/frozen_policy_raw_cashbook_20261015",
+    "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "artifact": "native/raw_SOXX_0",
+    "sha256": "03cfa5fb3d20652c117c7034671364b46dacdb8b0b42f72d4094bc1a43e46550"
+  },
+  "regime_rule": "Reuse src.analysis.regime_failure.regime_features: only prior signal-day SOXX return5/return20 signs, zero boundary fixed, all four groups retained and feature_available_at < decision_at required.",
+  "window_rule": "All 944 matched funded intervals; year and quarter by trade_date to match the frozen Stage1 period sidecars, partial endpoints separately; all 819 contiguous 126-session windows from the frozen Recorder. The decision-time regime uses the prior signal-day 5/20-day signs.",
+  "analysis": "Daily paired log excess, regime and quarter sum, mean filled cash/SOXL weight, nonzero risk-state fraction, executed opening fraction, and existing complete-year/rolling gates. These are descriptive path statistics, not isolated risk-control or feature effects.",
+  "budget": {
+    "new_fits": 0,
+    "new_native_accounts": 0,
+    "new_market_reads": 0,
+    "new_bootstrap_runs": 0,
+    "source_recorder_objects": 6,
+    "new_recorder": 0
+  },
+  "stops": [
+    "Any source hash, calendar, cost, identity, decision-time or published aggregate reconciliation mismatch stops before interpretation.",
+    "Do not select a feature, sign, window, threshold or account from the weakest observed cell.",
+    "Keep the source Recorder and all closed fixed experiments unchanged."
+  ]
+}

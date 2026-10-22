@@ -1,0 +1,15 @@
+{
+  "experiment": "stage1_regime_feature_direction_20261022",
+  "decision": "needs_source_history_no_fit",
+  "objective_achieved": false,
+  "source_preflight_result": "source_preflight_result.json",
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "source_recorder_object_loads_final": 3,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "source_recorder_authority": true
+  }
+}

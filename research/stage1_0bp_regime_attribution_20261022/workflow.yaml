@@ -1,0 +1,18 @@
+experiment: stage1_0bp_regime_attribution_20261022
+mode: read_only_source_recorders
+qlib:
+  region: us
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_domain_heads_20261018
+sources:
+  stage1_recorder: 6e227278b7a64eafbcf34b965e16d2b9
+  soxx_recorder: 55b4223a73d44fee89c86608edf8f58c
+  identities: plan.json
+cost:
+  added_slippage_bps: 0
+  fees: frozen_IBKR_Pro_Tiered
+outputs:
+  - summary.json
+  - annual_summary.csv
+  - quarterly_summary.csv
+  - regime_summary.csv
+  - conclusion.md

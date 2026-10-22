@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "status": "frozen_input_coverage_preflight",
+  "objective": "Before any model fit, quantify exact Stage1 training and 0bp evaluation calendar coverage of the previously published reported-basket new-low, price-contraction and downside-concentration descriptors.",
+  "sources": {
+    "training_calendar": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "artifact": "inputs/daily_frame",
+      "sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c"
+    },
+    "stage1_evaluation": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "artifact": "inputs/frame",
+      "sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c"
+    },
+    "descriptors": {
+      "card": "research/constituent_descriptor_stability_20261014",
+      "recorder_id": "625e46daece84f01a2228d658dcd1638",
+      "artifact": "analysis/features",
+      "sha256": "62a744e3a1ea9e0ce4f7809a279315744504e57be6376fcb88cc24af12f5e1d7"
+    }
+  },
+  "calendar_contract": "Training signal dates strictly before 2023-01-01. Evaluation uses all frozen Stage1 944 signal dates. Use old descriptor snapshot through its fixed final date 2026-07-02, then the separately archived Q3 extension after that date; never overwrite overlap or fill unknowns. Count each of three known masks and their intersection.",
+  "timing_boundary": "Descriptors use prior-publication basket and completed signal-date closes for next-session 09:46 decisions, but historical first receipt and vendor revision timing are not certified. Coverage alone cannot make them PIT-qualified.",
+  "budget": {
+    "source_recorder_objects": 3,
+    "new_market_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "outcome_reads": 0
+  },
+  "decision_rule": "If full Stage1 training support or full evaluation-date coverage is missing, report needs_source_history with exact dates and counts; do not compact the training population or fabricate old descriptors. No information or economic efficacy claim from this input-only preflight."
+}

@@ -1,0 +1,29 @@
+{
+  "experiment": "stage1_0bp_regime_attribution_20261022",
+  "plan_sha256": "15830c44b01e525ac6142ade298733612e59b56c11d88d8c134004a8ce6b0379",
+  "decision": "diagnostic_only_Stage1_0bp_not_promoted",
+  "objective_achieved": false,
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "new_bootstrap_runs": 0,
+  "source_recorder_ids": {
+    "Stage1": "6e227278b7a64eafbcf34b965e16d2b9",
+    "SOXX": "55b4223a73d44fee89c86608edf8f58c"
+  },
+  "sessions": 944,
+  "rolling126_windows": 819,
+  "relative_wealth_0bp": 0.6860064369263443,
+  "rolling126_positive_fraction_0bp": 0.31135531135531136,
+  "complete_year_positive_fraction_0bp": 0.5,
+  "sampled_max_drawdown_pct_0bp": -29.48708519240445,
+  "full_minute_risk_qualified": false,
+  "regime_decline_relative_log": -0.5170774069239694,
+  "regime_decline_sessions": 204,
+  "limitations": "Regimes are noncontiguous descriptive groups; cash and risk are endogenous account states. No exact cash/SOXL accounting decomposition is claimed here because the feature frame and raw execution price planes differ. The complete historical path is reused; no independent forward evidence.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [],
+    "source_recorder_authority": true
+  }
+}

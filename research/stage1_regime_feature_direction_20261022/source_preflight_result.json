@@ -1,0 +1,77 @@
+{
+  "status": "needs_source_history",
+  "execution_authorized": false,
+  "source_plan_sha256": "2597bb93b9aa7c37f37a070f3ce7d7247832f7eef514534db2bf19982b031002",
+  "source_recorder_ids": {
+    "training_calendar": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "stage1_evaluation": "6e227278b7a64eafbcf34b965e16d2b9",
+    "descriptors": "625e46daece84f01a2228d658dcd1638"
+  },
+  "cutover_after": "2026-07-02",
+  "coverage": {
+    "train": {
+      "calendar_rows": 3020,
+      "first_date": "2011-01-03",
+      "last_date": "2022-12-30",
+      "known": {
+        "new_low_level20": 150,
+        "new_low_price_contraction5": 145,
+        "downside_top5_share": 125
+      },
+      "all_three_known": 122,
+      "new_low_missing_count": 2870,
+      "new_low_missing_first5": [
+        "2011-01-03",
+        "2011-01-04",
+        "2011-01-05",
+        "2011-01-06",
+        "2011-01-07"
+      ],
+      "new_low_missing_last5": [
+        "2022-05-20",
+        "2022-05-23",
+        "2022-05-24",
+        "2022-05-25",
+        "2022-05-26"
+      ]
+    },
+    "evaluation": {
+      "calendar_rows": 944,
+      "first_date": "2023-01-03",
+      "last_date": "2026-10-07",
+      "known": {
+        "new_low_level20": 939,
+        "new_low_price_contraction5": 934,
+        "downside_top5_share": 876
+      },
+      "all_three_known": 871,
+      "new_low_missing_count": 5,
+      "new_low_missing_first5": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07"
+      ],
+      "new_low_missing_last5": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07"
+      ],
+      "new_low_missing_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07"
+      ]
+    }
+  },
+  "historical_first_receipt_certified": false,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "outcome_reads": 0,
+  "decision": "Stage1 full training has only 122/3020 complete descriptor rows; evaluation has 871/944, with five signal dates after the latest source. Do not fit on a truncated or backfilled population."
+}

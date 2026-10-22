@@ -1,0 +1,14 @@
+experiment: stage1_regime_feature_direction_20261022
+mode: read_only_qlib_source_preflight
+source_plan: source_preflight_plan.json
+qlib:
+  region: us
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices
+source_recorders:
+  training_calendar: 68e31a0a0fad44e7ba1d1f7d856c7a0d
+  stage1_evaluation: 6e227278b7a64eafbcf34b965e16d2b9
+  descriptors: 625e46daece84f01a2228d658dcd1638
+outputs:
+  - source_preflight_result.json
+  - summary.json
+  - conclusion.md

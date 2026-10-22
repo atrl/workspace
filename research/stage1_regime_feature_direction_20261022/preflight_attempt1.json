@@ -1,0 +1,10 @@
+{
+  "status": "software_preflight_error_repaired",
+  "error": "KeyError: recorder_local_dir",
+  "location": "first notebook source identity cell; descriptor source summary does not declare recorder_local_dir",
+  "recorder_objects_loaded": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "repair": "Resolve the exact artifact path through the existing verification_manifest entry, then check the same pinned SHA before Qlib Recorder readback. Source and experiment plan unchanged.",
+  "final_notebook_execution": "passed"
+}
