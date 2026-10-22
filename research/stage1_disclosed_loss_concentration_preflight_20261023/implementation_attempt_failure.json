@@ -1,0 +1,11 @@
+{
+  "phase": "source_only_first_training_basket_price_identity_gate",
+  "status": "implementation_check_failed_before_result",
+  "error_type": "TypeError",
+  "reason": "usable_instruments is an integer count, not a membership collection",
+  "source_reads": "pinned local manifest and original report only",
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "repair": "Use keys of price_hashes to inspect the source-specific instrument inventory; no scientific scope or selection changed."
+}

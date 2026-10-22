@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "status": "needs_original_security_price_identity_and_history_no_fit",
+  "plan_sha256": "88b866b543160f93998ebb5a05e294d00ad1953f668f9ecf1a868d0a5bb36695",
+  "first_report_date": "2010-10-31",
+  "first_report_accepted_at_utc": "2010-12-30T22:51:52.000Z",
+  "first_train_signal": "2011-01-03",
+  "first_train_signal_in_native_Qlib_calendar": true,
+  "original_report_equity_rows": 30,
+  "three_required_security_names": [
+    "SanDisk Corp.(a)",
+    "Altera Corp.",
+    "Broadcom Corp. Class A"
+  ],
+  "three_required_disclosed_weights": [
+    0.037316250941654854,
+    0.04176123792482556,
+    0.0898149372693368
+  ],
+  "three_required_combined_disclosed_weight": 0.16889242613581723,
+  "distinct_original_Avago_and_Broadcom_in_same_report": true,
+  "legacy_symbol_labels_absent_from_both_provider_inventories": [
+    "SNDK",
+    "ALTR",
+    "BRCM"
+  ],
+  "provider_instrument_count": 46,
+  "current_basket_instrument_count": 30,
+  "certified_original_security_to_provider_mapping_present": false,
+  "referenced_raw_provider_sources_missing_locally": [
+    "/Users/rziiiii/dev/workspace/data/raw/soxx_constituents/pit_holdings_history.csv",
+    "/Users/rziiiii/dev/workspace/data/raw/soxx_constituents/pit_price_manifest.json",
+    "/Users/rziiiii/dev/workspace/data/raw/soxx_leveraged_training/manifest.json"
+  ],
+  "report_source_NAS_sha256": "03227399b81f5a0ae4d9b45d771e6f0e2ee5bac65deb2a1e313f93c6835e30fb",
+  "source_price_provider_manifest_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+  "source_price_coverage_manifest_sha256": "779372b3066a743453cf519c574747c1588b03b6f8934455c409464484417624",
+  "original_report_NAS_scoped_restore_verified": true,
+  "full_2011_2022_feature_source_qualified": false,
+  "market_outcome_reads": 0,
+  "new_HTTP_GETs": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "interpretation": "The first Stage1 training basket includes three separate historical issuers totaling about 16.9% of disclosed equity value; the existing Qlib inventories do not certify separate original-security price series for them. This is a source gap, not evidence that the proposed factor predicts SOXX."
+}

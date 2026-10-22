@@ -309,6 +309,7 @@
     "prospective_Korean_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json",
     "parallel_TSMC_issuer_source_probe": "research/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press_review.json",
     "TSMC_prospective_capture_plan": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_press_capture_plan.json",
+    "Stage1_disclosed_downside_concentration_source_gap": "research/stage1_disclosed_loss_concentration_preflight_20261023/source_preflight_result.json",
     "Stage1_next_direction": "SOXX issuer premium page currently supplies only 2025-2026 daily values, missing 2011-2022 Stage1 history. Exact-byte NAS backup exists; another official historical endpoint and first-public clock would be required before a new factor. Existing fixed 0bp candidates failed.",
     "missed_forward_pilot_audit": "research/diagnostic_forward_io_v2_20261016/missed_pilot_audit_20261022.json",
     "forward_IO_status": "Oct19 diagnostic pilot missed and Oct22 paired paper scheduler blocked by frozen release source hash mismatch. No new qualified forward day; old claim/release cannot be silently resumed or rehashed.",

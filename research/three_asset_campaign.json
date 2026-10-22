@@ -9,6 +9,8 @@
     "Stage1_cash_signal_information": "research/allocator_cash_information_20261014/conclusion.md",
     "Stage1_0bp_funded_component_attribution": "research/stage1_beta_composition_account_contributions_20261023/component_result.json",
     "Stage1_0bp_risk_projection_gap": "research/stage1_risk_projection_gap_20261023/summary.json",
+    "Stage1_disclosed_downside_concentration_source_preflight": "research/stage1_disclosed_loss_concentration_preflight_20261023/source_preflight_result.json",
+    "Stage1_disclosed_downside_concentration_source_limit": "The 2010-10-31 original 30-equity report is known before the first 2011 training signal. SanDisk, Altera, and original Broadcom are three separate required securities totaling 16.89% disclosed equity value; existing Qlib constituent-price inventories do not certify their separate historical security identities and price series. No factor, label, fit or account was run; do not renormalize them away. Continue independent mechanisms while this source gap is repaired.",
     "Stage1_0bp_risk_projection_interpretation": "On the same 944-session own-state 0bp path, original target beta exceeded the risk cap on 335 dates. The binding share was 92.2% in losing 2026Q3, but 48.4% in winning 2024Q3. The cap is endogenous to previous account NAV and risk state; this identifies a projection bottleneck, not a profitable cap switch or a new predictor. All quarters, endpoint years and 819 rolling windows are retained in a native Qlib Recorder.",
     "Stage1_0bp_component_interpretation": "Full matched account log excess +0.074601 decomposes descriptively into cash opportunity -0.094597, SOXL-relative selection +0.161045, direct fees -0.006696 and explicit timing/benchmark residual +0.014850. In worst 126-session window cash opportunity -0.198946 dominates selection +0.054906. Dollar NAV unit repair and Qlib closure verified; these are account contributions, not causal switches or predictive skill.",
     "objective_alignment_conclusion": "Frozen Stage1 base allocation already optimizes annual log return relative to SOXX; deleting its extra turnover penalty increased cash and failed full accounts, while saved cash/tail outputs did not reliably rank SOXX cash advantage. Do not relabel a direct-SOXX objective, zero-penalty ablation or score inversion as a new mechanism without materially different decision-time information.",
@@ -274,7 +276,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T19:37:15+00:00",
+  "updated_at_utc": "2026-10-22T19:43:45+00:00",
   "execution_totals": {
     "new_model_fits": 68,
     "new_native_accounts": 48,

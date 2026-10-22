@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_disclosed_loss_concentration_preflight_20261023",
+  "frozen": true,
+  "phase": "source_only_first_training_basket_price_identity_gate",
+  "hypothesis": "Concentration of negative price contributions within the last publicly disclosed SOXX equity basket may distinguish a few leaders falling from a broad semiconductor decline before the next Stage1 decision.",
+  "distinctness": "This uses constituent downside contribution shares, not static disclosed top-five holdings concentration, unsigned daily breadth, ETF cross-dispersion, or a price/volatility threshold. No factor or outcome is calculated in this preflight.",
+  "source": {
+    "first_original_report": "research/stage1_soxx_legacy_filing_index_20261023/filing_2010_12_30_numeric_repair2_result.json",
+    "first_original_report_sha256": "b74303a4b276ec591c37161afff0c3b360c93addba8710c290f0235eb570ab9b",
+    "first_original_report_NAS_sha256": "03227399b81f5a0ae4d9b45d771e6f0e2ee5bac65deb2a1e313f93c6835e30fb",
+    "first_original_report_transport_receipt": "research/stage1_soxx_legacy_filing_index_20261023/filing_2010_12_30_transport_result.json",
+    "first_original_report_transport_receipt_sha256": "e096a43026ce27f11cf01740faad3a47fc5c74fb4e7d2f28b2d7b12a234f8934",
+    "pit_price_provider_manifest": "data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json",
+    "pit_price_provider_manifest_sha256": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+    "pit_price_coverage_manifest": "data/qlib/soxx_pit_leveraged_training_v1/constituent_price_manifest.json",
+    "pit_price_coverage_manifest_sha256": "779372b3066a743453cf519c574747c1588b03b6f8934455c409464484417624",
+    "current_basket_provider_manifest": "data/qlib/soxx_constituents/qlib_store_manifest.json",
+    "current_basket_provider_manifest_sha256": "23cc2f2fa98a869428b678354ac1f82521d0f9a9a4475f4c445415ebe72d55e8"
+  },
+  "fixed_probe": "Check the 2010-10-31 original 30-equity report known before the first 2011 Stage1 signal and the two existing provider instrument inventories. Identify SanDisk, Altera and original Broadcom as separate required securities; report their disclosed combined weight and whether unique original-security price identities are certified. Do not substitute AVGO for original Broadcom when the original report also lists Avago as a distinct security.",
+  "budget": {"new_HTTP_GETs": 0, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "new_qlib_recorders": 0},
+  "stop": "If one required original security has no certified historical price identity in the existing provider, stop before any Stage1 feature, label, fit or 0bp account. Preserve source objects and identify the specific missing identity/price dependency."
+}

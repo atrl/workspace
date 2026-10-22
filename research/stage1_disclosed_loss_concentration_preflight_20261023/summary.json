@@ -1,0 +1,19 @@
+{
+  "status": "needs_original_security_price_identity_and_history_no_fit",
+  "plan_sha256": "88b866b543160f93998ebb5a05e294d00ad1953f668f9ecf1a868d0a5bb36695",
+  "first_train_signal": "2011-01-03",
+  "three_required_combined_disclosed_weight": 0.16889242613581723,
+  "full_2011_2022_feature_source_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "experiment": "stage1_disclosed_loss_concentration_preflight_20261023",
+  "decision": "source_gap_no_feature_or_fit",
+  "objective_achieved": false,
+  "source_result": "source_preflight_result.json",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
