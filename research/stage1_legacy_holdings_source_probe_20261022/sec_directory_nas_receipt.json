@@ -1,0 +1,29 @@
+{
+  "status": "uploaded_403_failure_receipt",
+  "archive_sha256": "8e27a6d6ca287e715ef954081ec0bb0548cfe7ca49daaf052e77a5f4ed62c1bf",
+  "archive_bytes": 930,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/8e/27/8e27a6d6ca287e715ef954081ec0bb0548cfe7ca49daaf052e77a5f4ed62c1bf",
+  "entries": [
+    {
+      "path": "research/stage1_legacy_holdings_source_probe_20261022/sec_2010_directory_plan.json",
+      "sha256": "162137bb99a476ce980ec1c80184a98a47819b85bca4b44b995a0b164c3d2b19",
+      "bytes": 831
+    },
+    {
+      "path": "data/snapshots/stage1_legacy_holdings_source_probe_20261022/sec_1100663_directory_headers.txt",
+      "sha256": "fd9e8054a426d53a7e6741d8e2d0fd682e6732da7ba47de04a0ba3d632ee6cbe",
+      "bytes": 275
+    }
+  ],
+  "nas_evidence": {
+    "sha256": "8e27a6d6ca287e715ef954081ec0bb0548cfe7ca49daaf052e77a5f4ed62c1bf",
+    "size_bytes": 930,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/8e/27/8e27a6d6ca287e715ef954081ec0bb0548cfe7ca49daaf052e77a5f4ed62c1bf",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 22:58:22.585721+08",
+    "duplicate": false
+  },
+  "remote_hash_verified": true,
+  "scoped_restore_readback_verified": true
+}

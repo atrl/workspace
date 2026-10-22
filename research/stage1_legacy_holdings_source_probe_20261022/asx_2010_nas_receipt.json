@@ -1,0 +1,34 @@
+{
+  "status": "uploaded_wrong_fund_source_probe",
+  "archive_sha256": "8bcfeadb4f0dca9a947c680f1dc560b2bca654b24ddde28d045645450fe1037d",
+  "archive_bytes": 997882,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/8b/cf/8bcfeadb4f0dca9a947c680f1dc560b2bca654b24ddde28d045645450fe1037d",
+  "entries": [
+    {
+      "path": "research/stage1_legacy_holdings_source_probe_20261022/asx_2010_report_plan.json",
+      "sha256": "19bf0c27e3cc4f389fcc1949e0617fb3117694aff0dcb301d64f0e65a6e7d7e4",
+      "bytes": 1244
+    },
+    {
+      "path": "data/snapshots/stage1_legacy_holdings_source_probe_20261022/2010_07_31_headers.txt",
+      "sha256": "4ab10109fd394ef1b80e95e0cf6a1f5729fa48904643b4b66409ac8fb190818d",
+      "bytes": 1391
+    },
+    {
+      "path": "data/snapshots/stage1_legacy_holdings_source_probe_20261022/2010_07_31_asx_original.pdf",
+      "sha256": "83c6fff66af8daa8e90a6c8b46c7f04b039fb851a82192f2dec7e0237a65232d",
+      "bytes": 1186076
+    }
+  ],
+  "nas_evidence": {
+    "sha256": "8bcfeadb4f0dca9a947c680f1dc560b2bca654b24ddde28d045645450fe1037d",
+    "size_bytes": 997882,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/8b/cf/8bcfeadb4f0dca9a947c680f1dc560b2bca654b24ddde28d045645450fe1037d",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 23:00:27.078466+08",
+    "duplicate": false
+  },
+  "remote_hash_verified": true,
+  "scoped_restore_readback_verified": true
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "wrong_fund_group_no_SOXX_schedule",
+  "plan": "asx_2010_report_plan.json",
+  "source_url": "https://announcements.asx.com.au/asxpdf/20101021/pdf/31t852b9vj1724.pdf",
+  "HTTP_status": 200,
+  "content_type": "application/pdf",
+  "response_headers_sha256": "4ab10109fd394ef1b80e95e0cf6a1f5729fa48904643b4b66409ac8fb190818d",
+  "PDF_sha256": "83c6fff66af8daa8e90a6c8b46c7f04b039fb851a82192f2dec7e0237a65232d",
+  "PDF_bytes": 1186076,
+  "PDF_pages": 189,
+  "PDF_creation_metadata": "D:20101021083820+11'00'",
+  "cover_fund_groups": [
+    "iShares FTSE/Xinhua China 25 Index Fund",
+    "iShares FTSE Series",
+    "iShares MSCI Series"
+  ],
+  "SOXX_or_predecessor_schedule_found": false,
+  "search_false_positive_reason": "Semiconductor company names appeared inside other funds' investment schedules; no PHLX SOX or S&P North American Technology-Semiconductors fund heading is present in the extracted 189-page PDF.",
+  "2011_first_signal_report_qualified": false,
+  "absence_of_2010_SOXX_report_proven": false,
+  "NAS_receipt": "asx_2010_nas_receipt.json",
+  "NAS_remote_hash_and_restore_verified": true,
+  "market_outcome_reads": 0,
+  "factor_values": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "decision": "Stop this exact 2010 PDF candidate; locate the iShares Trust report section by fund identity before requesting another original file."
+}

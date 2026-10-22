@@ -3,7 +3,14 @@
   "decision": "2011_SOXX_original_schedule_confirmed_full_Stage1_history_unqualified",
   "objective_achieved": false,
   "source_result": "source_preflight_result.json",
-  "new_source_GETs": 1,
+  "new_source_GETs": 3,
+  "source_GET_outcomes": [
+    "2011_ASX_PDF_200",
+    "2010_SEC_directory_403",
+    "2010_ASX_wrong_fund_PDF_200"
+  ],
+  "sec_2010_directory_result": "sec_2010_directory_result.json",
+  "asx_2010_report_result": "asx_2010_report_result.json",
   "model_fits": 0,
   "native_accounts": 0,
   "artifact_policy": {

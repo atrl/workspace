@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "needs_original_2010_inventory_transport",
+  "plan": "sec_2010_directory_plan.json",
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/index.json",
+  "HEAD_preflight_status": 200,
+  "frozen_GET_status": 403,
+  "frozen_GET_count": 1,
+  "directory_listing_received": false,
+  "filing_absence_inferred": false,
+  "response_headers": "data/snapshots/stage1_legacy_holdings_source_probe_20261022/sec_1100663_directory_headers.txt",
+  "response_headers_sha256": "fd9e8054a426d53a7e6741d8e2d0fd682e6732da7ba47de04a0ba3d632ee6cbe",
+  "NAS_failure_receipt": "sec_directory_nas_receipt.json",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "next_action": "Use a separately frozen authenticated or alternate original filing transport, or ASX original announcements, to identify the report public before Stage1's first 2011 signal. Do not retry the identical 403 request or backfill the 2011-10-31 basket."
+}
