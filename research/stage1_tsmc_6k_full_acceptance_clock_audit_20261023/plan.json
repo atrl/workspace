@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_tsmc_6k_full_acceptance_clock_audit_20261023",
+  "phase": "all_64_original_SEC_6K_acceptance_header_API_date_to_next_Stage1_Qlib_session",
+  "source": {
+    "quarterly_inventory_result": "research/stage1_tsmc_sec_6k_guidance_source_probe_20261023/quarterly_inventory_result.json",
+    "quarterly_inventory_result_sha256": "22d99b748a50ae4bf3720370c6c82d58c8ee412cd39b2da2468e4644ea91d2bc",
+    "expected_source_months": 64,
+    "raw_NAS_restore_required": true,
+    "Qlib_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_provider_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c"
+  },
+  "clock_rule": "For each original quarterly 6-K, retain raw SGML ACCEPTANCE-DATETIME and SEC submissions acceptanceDateTime text separately. Do not trust a trailing Z as proof that the API clock is a correct UTC instant. Choose the later of their calendar dates, then the next actual Qlib trading day at 09:46 America/New_York; require it within 7 calendar days and at least 12 hours after the latest of SGML interpreted as New York local, SGML interpreted as fixed EST, and API string interpreted literally as UTC. If not, mark unknown. If the next date is outside the frozen Qlib calendar, mark out_of_snapshot, never backfill.",
+  "official_clock_context": ["https://www.sec.gov/files/info/edgar/specifications/pds_dissemination_spec.pdf", "https://www.sec.gov/search-filings/edgar-application-programming-interfaces"],
+  "interpretation": "Date-level conservative source mapping only; acceptance and public dissemination are distinct. An ambiguous API timestamp may delay use, never advance it. The exact 2011-2026 issuer guidance semantic/currency normalization and first-accessible web receipt are not proven by this audit.",
+  "budget": {"new_external_GETs": 0, "Qlib_D_calendar_calls": 1, "DatasetH_builds": 0, "new_Recorders": 0, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "stop": "Any inventory hash/NAS/64-month source identity or Qlib provider identity failure stops. Retain every report month and all unknown/out_of_snapshot cases. Do not create a factor vector or run an economic account."
+}

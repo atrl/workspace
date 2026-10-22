@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_tsmc_6k_full_acceptance_clock_audit_20261023",
+  "decision": "conditional_full_SEC_acceptance_date_map_not_factor_ready",
+  "objective_achieved": false,
+  "plan_sha256": "5bb650f2fad6bcdf4c49e96740590964a9bcde2b69c4995333213da2a84b086a",
+  "result": "result.json",
+  "report_months": 64,
+  "status_counts": {
+    "conditional_next_session_clock_pass": 63,
+    "out_of_snapshot": 1
+  },
+  "API_calendar_date_differences": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

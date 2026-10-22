@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "frozen_before_repair_execution": true,
+  "plan_sha256": "5bb650f2fad6bcdf4c49e96740590964a9bcde2b69c4995333213da2a84b086a",
+  "attempt1_cell_sha256": "c088dedcbef0a5bf270d9afae4e768e5b9006f04a2482d720cb2e4f121059bee",
+  "failure": "Pre-calendar source assertion used inventory['NAS'] although the exact pinned quarterly_inventory_result.json exposes NAS_archive_sha256 and NAS_remote_and_scoped_restore_verified as flat fields.",
+  "consumed_before_repair": {"Qlib_D_calendar_calls": 0, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0},
+  "only_change": "Read the two flat NAS fields. Keep source identity, 64 report months, clock rule, 12-hour buffer, calendar provider and budgets unchanged.",
+  "retry_budget": {"Qlib_D_calendar_calls": 1, "new_external_GETs": 0, "model_fits": 0, "native_accounts": 0}
+}
