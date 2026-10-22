@@ -1,0 +1,10 @@
+{
+  "status": "source_plan_hash_transcription_repaired_before_any_qlib_read",
+  "attempt": 1,
+  "incorrect_declared_sha256": "a010b1f2a3d17187dafafec6f0c819bcc9cedf23da6c5648a806",
+  "correct_sha256": "a010b1f2a3d17187dafafec0bbd7210bf8da60c819bcc9cedf23da6c5648a806",
+  "source_bytes_changed": false,
+  "market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

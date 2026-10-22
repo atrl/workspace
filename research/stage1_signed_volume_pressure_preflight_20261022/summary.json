@@ -1,0 +1,20 @@
+{
+  "experiment": "stage1_signed_volume_pressure_preflight_20261022",
+  "decision": "needs_source_history_no_fit",
+  "objective_achieved": false,
+  "result": "source_preflight_result.json",
+  "source_nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "source_nas_remote_hash_verified": true,
+  "source_preflight_attempt": "preflight_attempt1.json",
+  "new_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "qualified_for_stage1_feature": false,
+  "futu_probe_result": "futu_2011_source_probe_result.json",
+  "futu_probe_status": "one_2011_native_minute_day_empty",
+  "nas_preflight_receipt": "nas_preflight_receipt.json"
+}

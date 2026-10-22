@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "phase": "read_only_source_coverage_and_novelty_preflight",
+  "experiment": "stage1_signed_volume_pressure_preflight_20261022",
+  "execution_authorized": false,
+  "parent": "Frozen original Stage1; no model, risk or account change in this preflight",
+  "candidate_mechanism": "Prior completed SOXX regular-session signed one-minute volume pressure: sum(sign(close_t/close_t-1 - 1)*volume_t)/sum(volume_t) over valid within-session bars. It would describe directional participation after a decline, different from existing Stage1 volatility, late-volume-share and simple return inputs. This definition is a source candidate, not a selected trading rule or fitted factor.",
+  "decision_clock": "Use only the previous complete native session before the trade-date 09:29 America/New_York Stage1 feature decision; no same-day first-hour bars and no after-decision revisions.",
+  "source_provider": "data/qlib/minute_information_pit_allocator_20261012/core_1min",
+  "source_provider_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+  "source_plan": "research/minute_information_pit_allocator_20261012/plan.json",
+  "source_plan_sha256": "a010b1f2a3d17187dafafec0bbd7210bf8da60c819bcc9cedf23da6c5648a806",
+  "source_timing_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+  "source_nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "training_calendar": "all original Stage1 2011-01-03 through 2022-12-30 mature training signals, with the same next-trade 09:29 clock",
+  "preflight_stop": "If the Qlib raw minute calendar does not cover all original Stage1 training sessions before 2023, stop source-only. Do not derive values, impute missing years, fit, replay, score 2023+ outcomes or tune a shorter historical window.",
+  "budget": {
+    "market_requests": 0,
+    "new_recorder": 0,
+    "fits": 0,
+    "accounts": 0,
+    "bootstrap": 0
+  }
+}

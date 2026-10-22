@@ -1,0 +1,19 @@
+{
+  "status": "needs_pre_2018_minute_source_history_no_fit",
+  "training_signal_dates": 3020,
+  "minute_source_first": "2018-10-12 09:31:00",
+  "minute_source_last_training": "2022-12-30 16:00:00",
+  "source_session_dates_in_train": 1062,
+  "missing_training_signal_dates": 1958,
+  "missing_first": "2011-01-03 00:00:00",
+  "missing_last": "2018-10-11 00:00:00",
+  "sample_native_SOXX_minute_rows": 780,
+  "source_provider_manifest_sha256": "e2d97bd4dc00cdb231f7aa926799efcbc6f0d613ca197fbe04e86db1f074bf4e",
+  "source_timing_recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+  "source_nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+  "raw_minute_candidate_values_computed": 0,
+  "market_outcome_reads": 0,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "next_action": "Do not fit on a zero-filled 2011-2018 span or select 2018+ as a rescue window. Qualify an original full-training-history minute source before revisiting this candidate."
+}

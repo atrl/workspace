@@ -1,0 +1,32 @@
+{
+  "plan_sha256": "a29dbcb4e9fdfcf275fb39ff56696be3d1490a64fa14d3bd0264e1e239474cbb",
+  "requested_at_utc": "2026-10-22T13:43:10.212444+00:00",
+  "sdk_version": "10.02.6218",
+  "market_requests": 1,
+  "order_calls": 0,
+  "account_reads": 0,
+  "model_fits": 0,
+  "economic_accounts": 0,
+  "ret_code": 0,
+  "pagination_required": false,
+  "rows": 0,
+  "columns": [
+    "code",
+    "name",
+    "time_key",
+    "open",
+    "close",
+    "high",
+    "low",
+    "pe_ratio",
+    "turnover_rate",
+    "volume",
+    "turnover",
+    "change_rate",
+    "last_close"
+  ],
+  "first_time_key": null,
+  "last_time_key": null,
+  "status": "needs_data_no_complete_2011_day",
+  "received_at_utc": "2026-10-22T13:43:10.220261+00:00"
+}

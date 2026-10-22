@@ -40,7 +40,7 @@
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "The original Stage1 NVDA guidance receiver fixed 0bp B/C accounts failed SOXX hard gates and are closed. IBKR regular-hours source fields are readable but 25Delta SOXX skew lacks quote timestamps and historical 2011-2022 coverage; no source-qualified Stage1 feature. Advance a distinct source only after full training coverage and first-public timing, then freeze a new Stage1 0bp information experiment. Reused regime attribution is descriptive; no risk-threshold or window rescue.",
+    "next_action": "Frozen Stage1 guidance receiver B/C failed 0bp SOXX hard gates. A materially different prior-session signed-volume-pressure idea stopped before feature computation: existing NAS/Qlib minute source covers only 1062 of 3020 training dates, and one frozen Futu 2011-01-03 1m request returned zero rows. IBKR near-ATM option fields are readable but 25Delta/skew history and quote clocks are unqualified. Continue source qualification for full historical coverage/first-public timing or another nonduplicate mechanism; do not shorten training, fill missing values with zero, or tune closed Stage1 accounts.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -61,7 +61,9 @@
     "non_Stage1_composition_closeout": "research/cboe_variance_conditional_composition_20261022/dependency_closeout.json",
     "non_Stage1_composition_status": "closed_without_account_information_dependency_failed",
     "stage1_nvda_receiver_result": "research/stage1_nvda_guidance_receiver_20261022/summary.json",
-    "stage1_nvda_receiver_regime_attribution": "research/stage1_nvda_guidance_receiver_20261022/regime_attribution.json"
+    "stage1_nvda_receiver_regime_attribution": "research/stage1_nvda_guidance_receiver_20261022/regime_attribution.json",
+    "stage1_signed_volume_source_preflight": "research/stage1_signed_volume_pressure_preflight_20261022/source_preflight_result.json",
+    "stage1_signed_volume_status": "needs_source_history_no_fit_1062_of_3020_training_dates"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

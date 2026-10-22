@@ -1,0 +1,21 @@
+{
+  "status": "uploaded_source_only_preflight",
+  "archive_sha256": "3c857f4166b979224ef25da286a1d3fc095ae5686aab1f4b51bc87578d062071",
+  "archive_bytes": 2546,
+  "entries": {
+    "plan.json": "81f87efca5b2e1d1365314629054a2020856d65bc381494a322265756cdeb1f8",
+    "source_preflight_result.json": "e5d40992573561522cd9321bbc2a921301e60e413cd153347f7225e9bea0b485",
+    "futu_2011_source_probe_plan.json": "a29dbcb4e9fdfcf275fb39ff56696be3d1490a64fa14d3bd0264e1e239474cbb",
+    "futu_2011_source_probe_result.json": "17133f85fa54c9fade273ae54164b8389168e7e46519f1b5d99a9b81fb5ddb6c"
+  },
+  "nas_artifact": {
+    "sha256": "3c857f4166b979224ef25da286a1d3fc095ae5686aab1f4b51bc87578d062071",
+    "size_bytes": 2546,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/3c/85/3c857f4166b979224ef25da286a1d3fc095ae5686aab1f4b51bc87578d062071",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 21:43:21.175563+08",
+    "duplicate": false
+  },
+  "remote_hash_verified": true
+}
