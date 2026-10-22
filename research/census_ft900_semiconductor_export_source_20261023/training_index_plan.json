@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "official_FT900_2011_2022_monthly_release_index_coverage_only",
+  "parent_source_preflight": "source_preflight_result.json",
+  "url": "https://www.census.gov/foreign-trade/Press-Release/ft900_index.html",
+  "target_reference_months": "2011-01 through 2022-12 inclusive, 144 calendar months",
+  "required_link": "one official original monthly FT-900 full-report PDF URL for each target month",
+  "method": "Read the one official HTML index once; extract only its hrefs. Bind an href to a month only if the official index identifies that month unambiguously and its path is within the official FT-900 release directory. Do not invent URLs from a pattern, count annual revisions as months, or infer missing links from a current API history.",
+  "budget": {
+    "index_GETs": 1,
+    "monthly_PDF_GETs": 0,
+    "market_outcome_reads": 0,
+    "factor_values": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If the index cannot be read or does not give 144 unambiguous month-to-PDF bindings, preserve exact bytes/receipt and list the concrete gaps; do not fetch monthly PDFs or fabricate coverage."
+}
