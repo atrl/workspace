@@ -1,0 +1,26 @@
+{
+  "plan_sha256": "e5daba1293d304ecc97b43b3c3b603acefe70ca96b1ae3bce59f27e03c6ed267",
+  "GETs_consumed": 1,
+  "retries": 0,
+  "attempt": {
+    "requested_at_utc": "2026-10-22T23:46:57.450476+00:00",
+    "host": "https://query1.finance.yahoo.com",
+    "path": "/v8/finance/chart/SOXX",
+    "query": {
+      "period1": 1293840000,
+      "period2": 1792627200,
+      "interval": "1d",
+      "events": "div,splits",
+      "includeAdjustedClose": "true"
+    },
+    "http_status": 200,
+    "body_bytes": 440326,
+    "body_sha256": "77614413e200534835363d09c064082f0955cc294e97b25e5e0f23557b33fa19",
+    "headers": {
+      "Date": "Thu, 22 Oct 2026 23:46:57 GMT",
+      "Content-Type": "application/json;charset=utf-8"
+    },
+    "chart_error": null,
+    "chart_results": 1
+  }
+}

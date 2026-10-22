@@ -1,0 +1,12 @@
+{
+  "status": "Yahoo_SOXX_raw_close_source_NAS_scoped_restore_verified",
+  "sha256": "9fb1e79a87937e5162c8e9a3a00980c8b253c8ce9e8ad9d3d247d9bde05985b8",
+  "size_bytes": 121553,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/9f/b1/9fb1e79a87937e5162c8e9a3a00980c8b253c8ce9e8ad9d3d247d9bde05985b8",
+  "members": {
+    "research/stage1_soxx_nav_yahoo_raw_close_source_20261023/plan.json": "e5daba1293d304ecc97b43b3c3b603acefe70ca96b1ae3bce59f27e03c6ed267",
+    "research/stage1_soxx_nav_yahoo_raw_close_source_20261023/transport_result.json": "f3318200f1714f73ade5c4cb13e1ca7f681f195fd2ec8df83c71ae8b7eab9f9e",
+    "data/snapshots/stage1_soxx_nav_yahoo_raw_close_source_20261023/chart.json": "77614413e200534835363d09c064082f0955cc294e97b25e5e0f23557b33fa19"
+  },
+  "verified": true
+}

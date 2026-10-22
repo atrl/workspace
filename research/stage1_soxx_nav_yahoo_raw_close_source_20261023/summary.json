@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_soxx_nav_yahoo_raw_close_source_20261023",
+  "decision": "read_only_Yahoo_raw_quote_close_official_NAV_source_parity_no_factor",
+  "objective_achieved": false,
+  "plan_sha256": "e5daba1293d304ecc97b43b3c3b603acefe70ca96b1ae3bce59f27e03c6ed267",
+  "source_archive": "nas_source_archive.json",
+  "recorder_id": "f2cfbeb58e004d079ac129eaeb447af6",
+  "experiment_id": "421611483785789510",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_soxx_nav_yahoo_raw_close_source_20261023/qlib_recorder",
+  "result": "result.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Yahoo quote closes are current revised bars and not independently time-stamped first receipts.",
+    "Issuer NAV publication timing and revisions remain unqualified.",
+    "Parity only checks price basis; information/0bp Stage1 account not run."
+  ],
+  "nas_evidence": {
+    "sha256": "dc2743fcccc096f31b0668c5a23e203ce7880c568ac79b9b0e06ef07d3ce307e",
+    "size_bytes": 196791,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/dc/27/dc2743fcccc096f31b0668c5a23e203ce7880c568ac79b9b0e06ef07d3ce307e",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 07:47:42.313237+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/dc/27/dc2743fcccc096f31b0668c5a23e203ce7880c568ac79b9b0e06ef07d3ce307e",
+    "recorder_id": "f2cfbeb58e004d079ac129eaeb447af6",
+    "experiment_id": "421611483785789510",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "dc2743fcccc096f31b0668c5a23e203ce7880c568ac79b9b0e06ef07d3ce307e"
+  }
+}

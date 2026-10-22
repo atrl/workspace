@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_nav_yahoo_raw_close_source_20261023",
+  "phase": "one_source_GET_and_Qlib_same_day_raw_price_NAV_parity_preflight",
+  "question": "Can a raw Yahoo SOXX daily quote-close history match the issuer SOXX NAV level without the drifting scale seen in frozen Qlib close, as a necessary source condition for future premium/discount research?",
+  "sources": {
+    "official_NAV_card": "research/stage1_soxx_official_premium_discount_source_20261023",
+    "official_NAV_raw": "data/snapshots/stage1_soxx_official_premium_discount_source_20261023/fund_download.bin",
+    "official_NAV_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+    "failed_Qlib_scale_card": "research/stage1_soxx_nav_price_alignment_20261023",
+    "failed_Qlib_scale_summary_sha256": "acb6f8f59b3dee35ddac75b09bd802d7451e0e5d3549a989b86737d50cd41e62",
+    "Qlib_calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_config_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2"
+  },
+  "exact_GET": {
+    "scheme_host": "https://query1.finance.yahoo.com",
+    "path": "/v8/finance/chart/SOXX",
+    "query": {
+      "period1": 1293840000,
+      "period2": 1792627200,
+      "interval": "1d",
+      "events": "div,splits",
+      "includeAdjustedClose": "true"
+    }
+  },
+  "fixed_calendar_overlap": "2018-01-02..2026-10-09",
+  "fixed_checks": [
+    "exact SOXX meta symbol, NY timezone, USD and positive valid OHLC quote rows",
+    "use quote.close, not adjclose; raw price and official NAV joined only on native Qlib trading dates",
+    "full overlap missing dates, annual price/NAV median p05 p95, maximum adjacent log-ratio change and count above 0.1",
+    "report Yahoo split/dividend event counts without inferring all corporate actions",
+    "current revised histories and historical first public clocks remain unqualified; no future return labels"
+  ],
+  "budget": {
+    "HTTP_GETs": 1,
+    "retries": 0,
+    "fallback_hosts": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "bootstraps": 0,
+    "new_Qlib_Recorders_max": 1
+  },
+  "stop": "If HTTP/source invalid or same-day raw close/NAV ratio has structural scale drift, stop this source version without fitting; even parity cannot certify historical PIT or trading alpha. No year-wise normalization or dividend-adjusted-price substitution.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "verdict": "CONFIRM_SCALE_SOURCE_CONDITIONAL_DEVELOPMENT_ONLY",
+  "review_scope": "read_only_frozen_Yahoo_NAV_Qlib_identity_parity_NAS",
+  "confirmed": [
+    "Frozen plan and pinned Yahoo, issuer NAV, prior Qlib audit and provider config hashes match.",
+    "Exactly one SOXX/USD/New York Yahoo GET yielded 3974 daily rows; quote.close is saved and differs from adjclose on 2186 of 2205 overlap sessions.",
+    "Native Recorder is FINISHED, with 2205 of 2205 calendar and DatasetH rows matched and no NAV or Yahoo gaps.",
+    "Recomputed quote-close/NAV median 1.0000282, p05 0.9990648 and p95 1.0009583; annual medians stay near one.",
+    "Largest adjacent absolute log-ratio change is 0.0171293 and none exceed 0.1.",
+    "Yahoo response contains 64 dividend and one split event objects; source and Recorder NAS archives pass scoped restore.",
+    "No future SOXX label, model fit, or native account ran."
+  ],
+  "limit": "Scale compatibility permits only a separately frozen conditional retrospective information screen. Historical first-public receipt, issuer NAV vintages, actual point-in-time feature qualification and economic performance remain unproved."
+}
