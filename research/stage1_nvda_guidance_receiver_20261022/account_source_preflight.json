@@ -1,0 +1,24 @@
+{
+  "status": "verified_no_new_account_source_binding",
+  "plan_sha256": "c1cef5112ce8be6044d57723a529f93f08b70de589108975c58fbdea36dce550",
+  "source_recorder_ids": {
+    "action": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "controller": "35f69540c3d94b4db81bfe32859607ae",
+    "raw": "55b4223a73d44fee89c86608edf8f58c"
+  },
+  "reference_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "funded_sessions": 944,
+  "raw_price_points": 3778,
+  "funded_date_tuple_sha256": "8a268b6e1af6d8153bf743c470916f8283efc89fb610d9ee8b6c679e3924db6a",
+  "Tiered_tariff_and_release_matched": true,
+  "action_selection_matched": true,
+  "native_reference_accounts_verified": [
+    "SOXX",
+    "strong9097",
+    "additional27baa",
+    "Stage1_A"
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "reference_account_returns_used": 0
+}

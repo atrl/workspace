@@ -1,0 +1,28 @@
+{
+  "status": "exact_944_signal_trade_exit_binding_verified",
+  "plan_sha256": "43df1af98eecb7dd128279a6d3d7eaca8e364b79a3cd1bb48b6c1cb9ea188205",
+  "funded_date_tuple_sha256": "8a268b6e1af6d8153bf743c470916f8283efc89fb610d9ee8b6c679e3924db6a",
+  "first_tuple": [
+    "2023-01-03",
+    "2023-01-04",
+    "2023-01-05"
+  ],
+  "last_tuple": [
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-09"
+  ],
+  "prediction_rows_per_seed": 946,
+  "funded_prediction_rows": 944,
+  "unfunded_prediction_tail": [
+    "2026-10-08",
+    "2026-10-09"
+  ],
+  "native_account_calendar_matches": true,
+  "conservative_0929_decision_matches_trade_date": true,
+  "saved_training_timing_matches_all_944_trade_date_0929_clocks": true,
+  "first_signal_saved_decision_at": "2023-01-04 09:29:00-05:00",
+  "model_fits": 0,
+  "new_accounts": 0,
+  "return_values_used": 0
+}

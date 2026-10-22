@@ -2,6 +2,9 @@ experiment: stage1_nvda_guidance_receiver_20261022
 phase: read_only_source_and_adapter_preflight
 source_plan: source_preflight_plan.json
 implementation_plan: implementation_preflight_plan.json
+calendar_binding_plan: calendar_binding_plan.json
+frozen_0bp_plan: plan.json
+baseline_parity_plan: baseline_parity_plan.json
 qlib:
   region: us
   provider_uri: /Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices
@@ -13,5 +16,9 @@ model_adapter: src/model/stage1_nvda_guidance.py
 outputs:
   - source_preflight_result.json
   - implementation_preflight_result.json
+  - calendar_binding_result.json
+  - training_dataset_preflight.json
+  - account_source_preflight.json
+  - baseline_parity_result.json
   - summary.json
   - conclusion.md

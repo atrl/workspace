@@ -1,0 +1,16 @@
+{
+  "status": "original_Stage1_0bp_reference_replay_parity_passed",
+  "plan_sha256": "5994a4389782e81db0bf33954f9497dddc058c4baec615bdb19234e17dd00356",
+  "source_plan_sha256": "c1cef5112ce8be6044d57723a529f93f08b70de589108975c58fbdea36dce550",
+  "funded_sessions": 944,
+  "orders": 1275,
+  "raw_price_marks": 3778,
+  "max_absolute_return_difference": 0.0,
+  "max_absolute_nav_usd_difference": 0.0,
+  "max_absolute_cash_usd_difference": 0.0,
+  "all_action_and_risk_state_rows_matched": true,
+  "scikit_learn_runtime": "1.9.1",
+  "new_model_fits": 0,
+  "new_candidate_accounts": 0,
+  "independent_market_evidence": false
+}

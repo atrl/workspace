@@ -1,0 +1,171 @@
+{
+  "status": "verified_no_fit_training_dataset",
+  "plan_sha256": "c1cef5112ce8be6044d57723a529f93f08b70de589108975c58fbdea36dce550",
+  "source_recorder_ids": {
+    "training": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "guidance": "9fb35ff59c1b43b7ba3906a46d7002c0"
+  },
+  "source_artifact_hashes_verified": true,
+  "primary_mature_rows": 3014,
+  "auxiliary_rows": 20741,
+  "comparable_primary_rows": 2859,
+  "last_mature_label_at": "2022-12-30 09:31:00-05:00",
+  "three_seed_initialization": [
+    {
+      "seed": 71,
+      "original_tensors_equal_after_projection": true,
+      "paired_initial_tensors_equal": true,
+      "all_initial_outputs_equal": true,
+      "added_weights_zero": true,
+      "eligible_numeric_scaler_rows": 2859
+    },
+    {
+      "seed": 172,
+      "original_tensors_equal_after_projection": true,
+      "paired_initial_tensors_equal": true,
+      "all_initial_outputs_equal": true,
+      "added_weights_zero": true,
+      "eligible_numeric_scaler_rows": 2859
+    },
+    {
+      "seed": 273,
+      "original_tensors_equal_after_projection": true,
+      "paired_initial_tensors_equal": true,
+      "all_initial_outputs_equal": true,
+      "added_weights_zero": true,
+      "eligible_numeric_scaler_rows": 2859
+    }
+  ],
+  "source_event_rows": 62,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "evaluation_account_objects_loaded": 0,
+  "source_audits": {
+    "training": {
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "experiment": "minute_information_pit_allocator_20261012",
+      "experiment_id": "905520356740140469",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "summary_sha256": "61c91f958323cf51b43f4b1554eeca5687011d30771e80bc7ff02d16b6d577ca",
+      "verification_manifest_sha256": "ac90270cf66164e5fb9bca62b50ab86eeab7733bd0146799c45d97937f94e82a",
+      "artifacts": {
+        "inputs/daily_frame": {
+          "artifact": "inputs/daily_frame",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/daily_frame",
+          "sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+          "bytes": 2590274,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/daily_frame",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/daily_frame"
+        },
+        "inputs/features": {
+          "artifact": "inputs/features",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/features",
+          "sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+          "bytes": 1970939,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/features",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/features"
+        },
+        "inputs/common": {
+          "artifact": "inputs/common",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/common",
+          "sha256": "a90e4be474fae56a4cb9d226aced8186a5b402ce04aa0cc97cbef3b8dfc5eb14",
+          "bytes": 414616,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/common",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/common"
+        },
+        "inputs/timing": {
+          "artifact": "inputs/timing",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/timing",
+          "sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+          "bytes": 128395,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/timing",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/timing"
+        },
+        "inputs/auxiliary": {
+          "artifact": "inputs/auxiliary",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/auxiliary",
+          "sha256": "7362829c6ac4d41346dbb74c5e2f9ad24f77c9d942cc3f851f95831c32de9663",
+          "bytes": 11323516,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/auxiliary",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/auxiliary"
+        },
+        "inputs/plan": {
+          "artifact": "inputs/plan",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:inputs/plan",
+          "sha256": "a1c4bbefa76d1f245e9b2b66741604a3697a8789727a7a3f3621010e88413f7b",
+          "bytes": 7759,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/plan",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/inputs/plan"
+        },
+        "analysis/outer_predictions": {
+          "artifact": "analysis/outer_predictions",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:analysis/outer_predictions",
+          "sha256": "20774d619976cb2963d38aef606de924db0aa78b4e6c38da499a4120a53bee80",
+          "bytes": 344092,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/analysis/outer_predictions",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/analysis/outer_predictions"
+        },
+        "models/base_outer_71": {
+          "artifact": "models/base_outer_71",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:models/base_outer_71",
+          "sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+          "bytes": 15488,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_71",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_71"
+        },
+        "models/base_outer_172": {
+          "artifact": "models/base_outer_172",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:models/base_outer_172",
+          "sha256": "108a7ace548f94c92425e8a283b0af27add7946784232e0ff881d822ac2d0253",
+          "bytes": 15488,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_172",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_172"
+        },
+        "models/base_outer_273": {
+          "artifact": "models/base_outer_273",
+          "artifact_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d:models/base_outer_273",
+          "sha256": "cd1f9e86e4d43efa199de3b5416baad0c044e942b15352db614e0f430fd1d02a",
+          "bytes": 15489,
+          "manifest_entry": "qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_273",
+          "local_path": "/Users/rziiiii/dev/workspace/research/minute_information_pit_allocator_20261012/qlib_recorder/905520356740140469/68e31a0a0fad44e7ba1d1f7d856c7a0d/artifacts/models/base_outer_273"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    },
+    "guidance": {
+      "recorder_id": "9fb35ff59c1b43b7ba3906a46d7002c0",
+      "experiment": "nvda_own_guidance_realization_source_20261015",
+      "experiment_id": "682244325663783373",
+      "recorder_uri": "/Users/rziiiii/dev/workspace/research/nvda_own_guidance_realization_source_20261015/qlib_recorder",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/nvda_own_guidance_realization_source_20261015/qlib_recorder/682244325663783373/9fb35ff59c1b43b7ba3906a46d7002c0",
+      "summary_sha256": "a00e6356b4bca1571d4497839591dd01911f04d6cfb8afbe2087eb4d68cacc57",
+      "verification_manifest_sha256": "5439a610a2d429a7dfdbcc9becbb7e751dcd2c5ed771582785e36191f6d61ba7",
+      "artifacts": {
+        "analysis/pairs": {
+          "artifact": "analysis/pairs",
+          "artifact_id": "9fb35ff59c1b43b7ba3906a46d7002c0:analysis/pairs",
+          "sha256": "53cbe204a6ae0b6dea6a27c6428d299c960e8a03e67401bdc8d13aaaf0524bc8",
+          "bytes": 100817,
+          "manifest_entry": "qlib_recorder/682244325663783373/9fb35ff59c1b43b7ba3906a46d7002c0/artifacts/analysis/pairs",
+          "local_path": "/Users/rziiiii/dev/workspace/research/nvda_own_guidance_realization_source_20261015/qlib_recorder/682244325663783373/9fb35ff59c1b43b7ba3906a46d7002c0/artifacts/analysis/pairs"
+        }
+      },
+      "read_only": true,
+      "local_filestore_only": true,
+      "hashes_checked_before_unpickling": true,
+      "metadata_and_artifact_hashes_rechecked": true,
+      "source_api": [
+        "qlib.workflow.R.get_recorder",
+        "Recorder.load_object"
+      ]
+    }
+  }
+}

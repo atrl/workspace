@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "status": "frozen_signal_trade_exit_calendar_binding",
+  "scope": "Bind the original Stage1 model prediction calendar to all 944 funded signal/trade/exit intervals without fitting or reading returns. New B/C predictions and account paths must match this digest before economic analysis.",
+  "sources": {
+    "saved_training_timing": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "artifact": "inputs/timing",
+      "sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e"
+    },
+    "training_predictions": {
+      "card": "research/minute_information_pit_allocator_20261012",
+      "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+      "artifact": "analysis/outer_predictions",
+      "sha256": "20774d619976cb2963d38aef606de924db0aa78b4e6c38da499a4120a53bee80"
+    },
+    "Stage1_frame": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "artifact": "inputs/frame",
+      "sha256": "e83a57eb764dc59ee8d9fad7b1a48eb6b295c6183d6c4cab2062b3aa6c66e07c"
+    },
+    "Stage1_account": {
+      "card": "research/stage1_domain_heads_20261018",
+      "recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+      "artifact": "paths/A_active_research_replay_0",
+      "sha256": "3901f80a552b01addbc6dadc5ad677f71a175d65e5a17fe3ad1137e101c891ef"
+    }
+  },
+  "expected": {
+    "all_model_prediction_rows": 946,
+    "seeds": [71, 172, 273],
+    "funded_intervals": 944,
+    "first_signal": "2023-01-03",
+    "first_trade": "2023-01-04",
+    "last_signal": "2026-10-07",
+    "last_trade": "2026-10-08",
+    "terminal_exit": "2026-10-09",
+    "unfunded_tail_predictions": ["2026-10-08","2026-10-09"]
+  },
+  "budget": {
+    "recorder_objects": 4,
+    "model_fits": 0,
+    "new_accounts": 0,
+    "return_values_used": 0
+  },
+  "stop": "Require exact 944 rowwise dates in the Stage1 funded frame and native account; each signal predates its trade, each exit is the next funded trade except the terminal guard, and all funded signals are in every base prediction index. Do not fabricate a Jan 3 fill or treat 946 predictions as 946 funded accounts."
+}

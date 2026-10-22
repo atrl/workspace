@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "frozen_original_Stage1_0bp_runtime_parity_check",
+  "purpose": "Under scikit-learn 1.9.1 and the pinned raw-share provider, execute one read-only copy of the frozen Stage1 A 0bp policy and compare its every funded row and order to the already verified native A source. A mismatch blocks all new B/C accounts.",
+  "source_plan": "plan.json",
+  "source_account": "research/stage1_domain_heads_20261018 native/A_active_research_replay_0",
+  "target": "action source inputs/source_targets frozen_current; exact 944 signal dates and five original output coordinates",
+  "account_contract": "Original 09:45 known, 09:46 decision, 09:47 integer raw-share fill, 10:32 recovery, last close and next-open exit; frozen Tiered tariff and 0bp extra slippage. Own state is recomputed only for parity, not for candidate selection.",
+  "comparison": "Dates, action/recovery flags, risk state/clock/cap, target weights, raw share orders, quantity, cash, receivable, fees, all 3778 native mark NAVs and 944 strategy returns; exact integer/decision equality and predeclared rtol1e-10, atol1e-7 USD cash/NAV numeric tolerance. No favorable-date exclusions.",
+  "budget": {
+    "reference_replay_attempts": 1,
+    "new_model_fits": 0,
+    "new_candidate_accounts": 0,
+    "new_market_GETs": 0,
+    "new_writable_Recorders": 0
+  },
+  "stop": "Any version, source, calendar, action, raw order or native-account reconciliation mismatch blocks B/C execution. Do not adjust 0bp gates, retune a risk threshold or use this parity copy as independent market evidence."
+}

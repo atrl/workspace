@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent_scoped_research_reviewer",
+  "verdict": "CALENDAR_AND_BOOTSTRAP_ISSUES_RESOLVED_ACCOUNT_IMPLEMENTATION_PENDING",
+  "prior_review": "design_review.json",
+  "calendar_evidence": "calendar_binding_plan.json pins source inputs/timing SHA and calendar_binding_result.json verifies all 944 saved signal-row decision_at values equal their following trade-date 09:29 New York clock; 2023-01-03 signal maps to 2023-01-04 09:29. The reviewer withdrew the earlier Jan3-vs-Jan4 mismatch finding after this native readback.",
+  "bootstrap_evidence": "plan.json makes B and C both selection-eligible and uses alpha=.025/17 for two additional SOXX comparisons with a frozen simpler-B preference.",
+  "unreviewed_at_this_point": "Exact B/C funded account implementation and execution approval; zero candidate fits or accounts have run.",
+  "promotion_or_fit_approval": false
+}

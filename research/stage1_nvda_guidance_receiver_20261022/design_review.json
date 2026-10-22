@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent_scoped_research_reviewer",
+  "verdict": "CONDITIONAL_DO_NOT_FIT",
+  "reviewed_scope": [
+    "design_brief.json",
+    "plan.json",
+    "source_preflight_result.json",
+    "implementation_preflight_result.json",
+    "src/model/stage1_nvda_guidance.py",
+    "docs/three_asset_research_contract.md"
+  ],
+  "accepted_mechanics": "No intrinsic adapter lookahead found. Mature training labels are selected before scaling; B/C receive the same source flags and only C receives numeric realization. Existing source and mechanical preflight SHA identities match their own plans.",
+  "required_before_fit": [
+    "Bind each of 944 Stage1 signal dates, beginning 2023-01-03, to its trade date, exit date and candidate prediction; source preflight first decision 2023-01-04 is the following trade day, not a replacement first signal.",
+    "Freeze the executable Dataset, exact source/raw-price/controller/code identities, 3014/20741 mature rows, feature order and B/C independent cash/holdings/state/fee account wiring.",
+    "Count both funded B and C as selection-eligible in the SOXX bootstrap family, or explicitly declare B diagnostic-only before outcomes."
+  ],
+  "qualification_limit": "Historical first-public timing, full update coverage and original HTML bytes remain unverified; eventual historical results would be conditional development evidence only.",
+  "promotion_or_execution_approval": false,
+  "next_review": "Recheck the corrected frozen plan and implemented account path before six fits or two 0bp accounts."
+}

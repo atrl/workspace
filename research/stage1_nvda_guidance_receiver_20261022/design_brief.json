@@ -36,7 +36,7 @@
     "CVaR5": "no worse than SOXX",
     "complete_year_positive_fraction": ">=70% across at least two complete years",
     "rolling_126_positive_fraction": ">=70% across every contiguous window",
-    "SOXX_paired_stationary_bootstrap": "positive lower bound; mean block63, 10000 draws, seed20261014, alpha .025/16 for one additional economic candidate",
+    "SOXX_paired_stationary_bootstrap": "positive lower bound for each selectable B/C account; mean block63, 10000 draws, seed20261014, alpha .025/17 for two additional economic candidates",
     "module_increment": "Report C versus matched B and frozen Stage1 under the same account/source identities; no comparator substitution after outcomes"
   },
   "budget": {
@@ -63,6 +63,13 @@
     "result": "research/stage1_nvda_guidance_receiver_20261022/implementation_preflight_result.json",
     "three_seed_initialization": "original weight projection, paired B/C tensors and initial outputs identical; extra columns zero-initialized",
     "model_fits_or_native_accounts": 0,
+    "formal_fitting_authorized": false
+  },
+  "native_account_preflight": {
+    "source_binding": "research/stage1_nvda_guidance_receiver_20261022/account_source_preflight.json",
+    "runtime": "saved action classifier scikit-learn 1.9.1 required; default 1.8.0 is blocked",
+    "original_Stage1_A_0bp_parity": "research/stage1_nvda_guidance_receiver_20261022/baseline_parity_result.json",
+    "candidate_B_C_accounts_executed": false,
     "formal_fitting_authorized": false
   },
   "stop_and_forward": "A fixed 0bp failure closes this receiver version without sign, window, seed, feature-scaling, loss or risk-threshold rescue. A 0bp historical pass only permits separately frozen 2/5bp accounts and source-qualified independent forward observation; the previously viewed 2023-2026 history cannot certify stable success."

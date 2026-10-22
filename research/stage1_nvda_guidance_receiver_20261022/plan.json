@@ -23,6 +23,39 @@
     "availability": "Use each source report only after its delayed actual_report_available_at and before 09:29 New York decision. Unknown or noncomparable reports reset the numeric value to NaN; no later revision or source update is backfilled.",
     "qualification_limit": "Historical first-public timestamp, all update coverage and original HTML bytes remain unverified; any historical result is development-only."
   },
+  "calendar_binding": {
+    "result": "research/stage1_nvda_guidance_receiver_20261022/calendar_binding_result.json",
+    "result_sha256": "90ae2bef20547ccb0e11f9d1d1fed8bc1bb08c4de57b3df9699f98de9579628a",
+    "funded_date_tuple_sha256": "8a268b6e1af6d8153bf743c470916f8283efc89fb610d9ee8b6c679e3924db6a",
+    "first_signal_to_fill": "2023-01-03 signal -> 2023-01-04 09:29 conservative feature decision -> 2023-01-04 09:46 Stage1 action -> 09:47 raw-share fill -> 2023-01-05 exit/open mark",
+    "last_funded_signal": "2026-10-07 signal -> 2026-10-08 trade -> 2026-10-09 exit",
+    "prediction_calendar": "Base Qlib predictions contain 946 dates; only the first 944 exact Stage1 signal dates are funded. 2026-10-08 and 2026-10-09 prediction tail is retained for identity and never treated as funded intervals. The saved inputs/timing decision_at for all 944 signal rows equals their following trade-date 09:29 New York clock, including 2023-01-03 signal -> 2023-01-04 09:29.",
+    "execution_assertion": "After model files/predictions are sealed, assert each B/C prediction index contains the exact funded 944 signal dates; before account analysis assert each independent path signal/trade/exit tuple hash equals the pinned Stage1 tuple digest."
+  },
+  "account_source_identities": {
+    "active_release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "action_recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "action_manifest_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+    "action_selection_artifact_sha256": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+    "controller_recorder_id": "35f69540c3d94b4db81bfe32859607ae",
+    "controller_manifest_sha256": "eff8f3d2022dc5b0187a5d9bd2625d04b47626017be87fbdc8aaff11a48706b7",
+    "controller_artifact_sha256": "79438d5d1b8c3b95824318540fcf1863e732c127173ed44d3774200b89ffb5b1",
+    "raw_recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+    "raw_manifest_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+    "raw_points_artifact_sha256": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+    "raw_schedule_artifact_sha256": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+    "raw_guard_artifact_sha256": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24",
+    "Stage1_A_0_verification_manifest_sha256": "e166f7718f11fa8a2280997ee757386c398f31424ffe9105a69e8ad0477988ab",
+    "Stage1_A_0_native_artifact_sha256": "ce59dcab49559c7d07b98de85a75ccb7516561b5a317c110ad1dfe474ce45678",
+    "account_preflight_rule": "Verify these hashes and parent tariff, 944 dates, 3778 raw valuation marks, conservative known/open/recovery/close decision clocks and frozen release/classifier before making any B/C orders. Each cost-0 B/C path must own independent initial 100000 cash, raw quantities, receivable, fee counters, NAV peak, risk state and clock; use the source native validator with exact same raw point provider and next-calendar guard."
+  },
+  "runtime": {
+    "saved_action_classifier_scikit_learn": "1.9.1",
+    "required_before_unpickling_and_account_execution": "scikit-learn 1.9.1 in an isolated runtime; default current 1.8.0 issued InconsistentVersionWarning and is not accepted for the executable account path",
+    "sim_runtime_requirements": "requirements/sim-runtime-20260928.txt",
+    "sim_runtime_requirements_sha256": "9ccc20042378a4cbae2f9455b041f1133f263b04e24ffabbda51912973f03871",
+    "preflight_boundary": "Version match and source hash readback do not prove model semantic parity; require frozen Stage1 A replay or equivalent source decision parity before B/C account execution."
+  },
   "novelty": "The already closed tangent-head realization route is not rerun. One new receiver architecture places its unchanged single numeric state in the original Stage1 primary allocation head, with a flag-only matched arm; action, risk, recovery, training target and economic account contract remain frozen.",
   "model": {
     "adapter": "src/model/stage1_nvda_guidance.py",
@@ -52,6 +85,7 @@
     "slippage_bps": [0],
     "fees": "Exact frozen IBKR Pro Tiered projection from parent plan; zero added slippage does not mean zero commission or fees",
     "new_accounts": ["B_flags_only_0", "C_realization_0"],
+    "selection_eligibility": "Both B and C are selectable 0bp candidates. If both pass every 0bp SOXX hard gate, retain simpler B unless C also shows positive paired funded wealth and a positive preregistered C-minus-B block lower bound; if only one passes, retain that arm, but C requires matched increment evidence to claim the numeric feature adds value. Any retained arm remains historical development-only.",
     "reference_accounts": ["A_active_research_replay_0", "SOXX_0", "strong9097_0", "additional27baa_0"],
     "policy": "Original Stage1 b472 opening execute/HOLD classifier, recovery classifier, risk clock/cap, source EMA and guard; each B/C path owns cash, raw shares, receivable, fees, peak NAV and state. No tangent composition conversion or restored recovery-threshold tuning.",
     "price_plane": "Use exact pinned parent raw points, calendar guard, corporate-action and native Qlib accounting; if any source hash/calendar differs, stop before accounts."
@@ -62,8 +96,8 @@
     "CVaR5": "no worse than same-accounting SOXX",
     "complete_annual": "at least 2 complete trade years and >=70% positive net SOXX excess",
     "contiguous_126_session": ">=70% of all windows positive net SOXX excess",
-    "SOXX_paired_block_lower_bound": "strictly positive; stationary bootstrap mean block63, 10000 draws, seed20261014, alpha=.025/16 for this additional candidate",
-    "module_increment": "Report C versus B and original Stage1 at the same dates/source/cost; neither replaces SOXX as final hard comparator",
+    "SOXX_paired_block_lower_bound": "strictly positive for each selectable B/C account; each paired stationary bootstrap uses mean block63, 10000 draws, seed20261014, alpha=.025/17 for two added selectable candidates beyond the preexisting v2 family of 15",
+    "module_increment": "Report C versus B and original Stage1 at the same dates/source/cost; C can be credited with numeric-feature value only if C/B funded wealth ratio and the C-minus-B paired block lower bound are both positive using the same 63-day/10000-draw/seed and conservative .025/17 cutoff. Neither matched control replaces SOXX as final hard comparator",
     "historical_independence": false
   },
   "budget": {
@@ -72,7 +106,7 @@
     "new_other_cost_accounts_before_0bp_pass": 0,
     "new_market_HTTP_requests": 0,
     "new_writable_Qlib_Recorders_max": 1,
-    "new_bootstrap_runs_max": 1
+    "new_bootstrap_runs_max": 3
   },
   "approval_and_stop": "Finalize executable workflow/notebook, exact code/provider/source hashes and independent design check before first fit. Record every attempt durably; resume an interrupted run only from its verified Recorder and handle. If any 0bp economic gate fails, close this fixed version without tuning the sign, source delay, feature normalization, seed, epoch, risk cap or threshold. A 0bp historical pass only allows separately frozen 2/5bp and prospective source-qualified forward work; no automatic promotion."
 }

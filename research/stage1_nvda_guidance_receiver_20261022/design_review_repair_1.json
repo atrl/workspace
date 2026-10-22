@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "owner_repairs_submitted_not_independent_approval",
+  "prior_review": "design_review.json",
+  "calendar_binding": "calendar_binding_result.json",
+  "calendar_binding_status": "944_exact_signal_trade_exit_tuples_and_three_946row_base_prediction_calendars_verified",
+  "training_dataset": "training_dataset_preflight.json",
+  "training_dataset_status": "3014_mature_primary_20741_aux_2859_comparable_primary_zero_fit",
+  "bootstrap_family_repair": "plan.json now treats B and C as two selectable 0bp candidates and preregisters SOXX alpha .025/17 with a fixed simpler-B preference rule",
+  "still_missing": "Executable native raw-price/controller source and code identities, B/C account state isolation, and independent re-review of the complete implementation before fitting.",
+  "execution_approved": false,
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}
