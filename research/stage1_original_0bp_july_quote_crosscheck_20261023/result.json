@@ -1,0 +1,72 @@
+{
+  "decision": "two_largest_Q3_Stage1_loss_intervals_corrobated_by_independent_Yahoo_daily_directions_not_exact_0947_prices",
+  "July_Yahoo_session_days": 20,
+  "Yahoo_split_or_dividend_event_counts": {
+    "SOXL": {},
+    "SOXX": {}
+  },
+  "comparison": [
+    {
+      "trade_date": "2026-07-06",
+      "exit_date": "2026-07-07",
+      "Stage1_0947_relative_forward_simple_return": -0.1203560953211904,
+      "Stage1_physical_selection_log": -0.03904331168412108,
+      "Yahoo_daily_open_to_open_relative_spread": -0.10776331836834563,
+      "Yahoo_daily_close_to_close_relative_spread": -0.09960588639564849,
+      "by_instrument": {
+        "SOXL": {
+          "Yahoo_open_to_next_open": -0.16130019641212268,
+          "Yahoo_close_to_next_close": -0.15088618565694167,
+          "Yahoo_trade_open": 197.2100067138672,
+          "Yahoo_exit_open": 165.39999389648438,
+          "Yahoo_trade_close": 194.64999389648438,
+          "Yahoo_exit_close": 165.27999877929688
+        },
+        "SOXX": {
+          "Yahoo_open_to_next_open": -0.05353687804377705,
+          "Yahoo_close_to_next_close": -0.05128029926129318,
+          "Yahoo_trade_open": 583.1500244140625,
+          "Yahoo_exit_open": 551.9299926757812,
+          "Yahoo_trade_close": 581.510009765625,
+          "Yahoo_exit_close": 551.6900024414062
+        }
+      },
+      "same_clocks": false,
+      "same_price_adjustment_vintage": false
+    },
+    {
+      "trade_date": "2026-07-27",
+      "exit_date": "2026-07-28",
+      "Stage1_0947_relative_forward_simple_return": -0.14759921384769237,
+      "Stage1_physical_selection_log": -0.04725687009335112,
+      "Yahoo_daily_open_to_open_relative_spread": -0.12812058640513935,
+      "Yahoo_daily_close_to_close_relative_spread": -0.0972379279764739,
+      "by_instrument": {
+        "SOXL": {
+          "Yahoo_open_to_next_open": -0.1955207505436859,
+          "Yahoo_close_to_next_close": -0.14522039693571587,
+          "Yahoo_trade_open": 140.64999389648438,
+          "Yahoo_exit_open": 113.1500015258789,
+          "Yahoo_trade_close": 128.14999389648438,
+          "Yahoo_exit_close": 109.54000091552734
+        },
+        "SOXX": {
+          "Yahoo_open_to_next_open": -0.06740016413854655,
+          "Yahoo_close_to_next_close": -0.047982468959241964,
+          "Yahoo_trade_open": 532.6400146484375,
+          "Yahoo_exit_open": 496.739990234375,
+          "Yahoo_trade_close": 516.22998046875,
+          "Yahoo_exit_close": 491.4599914550781
+        }
+      },
+      "same_clocks": false,
+      "same_price_adjustment_vintage": false
+    }
+  ],
+  "all_four_Yahoo_window_relative_spreads_negative": true,
+  "account_source_days_hindsight_selected_for_quality_only": true,
+  "Yahoo_current_revision_not_historical_PIT": true,
+  "no_exact_0947_independent_vendor_quote": true,
+  "model_fits": 0,
+  "native_accounts": 0
+}

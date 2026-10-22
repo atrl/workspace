@@ -1,0 +1,43 @@
+{
+  "experiment": "stage1_original_0bp_july_quote_crosscheck_20261023",
+  "decision": "two_largest_Q3_Stage1_loss_intervals_corrobated_by_independent_Yahoo_daily_directions_not_exact_0947_prices",
+  "objective_achieved": false,
+  "plan_sha256": "d12e0d0e1dd89049556235722ee379f191c4873be6cc3a772defc2e63d7d7287",
+  "source_archive_sha256": "7183340108d2a9c4fe4b9f0428c0459faf4bbd5b71825d65648b09a7367a9fa6",
+  "recorder_id": "3617574810dd4a438ec80f25d89359dc",
+  "experiment_id": "524327802807416584",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_original_0bp_july_quote_crosscheck_20261023/qlib_recorder",
+  "result": "result.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Independent Yahoo daily OHLC windows differ from frozen Stage1 09:47 marks and are current revised history.",
+    "Selected loss dates are hindsight source-quality checks, not factor or trading evidence.",
+    "Corporate-action event absence in Yahoo JSON does not prove all issuer action handling."
+  ],
+  "nas_evidence": {
+    "sha256": "eae5b6c8b0f6224e14c61b85917c5442a52f3ba55d27c2ba4a56ef0c729c872a",
+    "size_bytes": 63011,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ea/e5/eae5b6c8b0f6224e14c61b85917c5442a52f3ba55d27c2ba4a56ef0c729c872a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 07:22:59.347077+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ea/e5/eae5b6c8b0f6224e14c61b85917c5442a52f3ba55d27c2ba4a56ef0c729c872a",
+    "recorder_id": "3617574810dd4a438ec80f25d89359dc",
+    "experiment_id": "524327802807416584",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "eae5b6c8b0f6224e14c61b85917c5442a52f3ba55d27c2ba4a56ef0c729c872a"
+  }
+}

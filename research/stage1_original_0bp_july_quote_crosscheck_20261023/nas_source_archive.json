@@ -1,0 +1,15 @@
+{
+  "status": "Yahoo_SOXL_SOXX_July2026_raw_source_NAS_scoped_restore_verified",
+  "sha256": "7183340108d2a9c4fe4b9f0428c0459faf4bbd5b71825d65648b09a7367a9fa6",
+  "size_bytes": 4729,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/71/83/7183340108d2a9c4fe4b9f0428c0459faf4bbd5b71825d65648b09a7367a9fa6",
+  "members": {
+    "research/stage1_original_0bp_july_quote_crosscheck_20261023/plan.json": "d12e0d0e1dd89049556235722ee379f191c4873be6cc3a772defc2e63d7d7287",
+    "research/stage1_original_0bp_july_quote_crosscheck_20261023/transport_result.json": "3bf4195da8aa9d2374a36bb0b290ea3208c68eb48c0e9fe35f18e5382336670c",
+    "data/snapshots/stage1_original_0bp_july_quote_crosscheck_20261023/SOXL.json": "8035f1f364f1557a37585d4387c4c5de6a1393d9d26834b9ed6e1996b53d2dc0",
+    "data/snapshots/stage1_original_0bp_july_quote_crosscheck_20261023/SOXL_headers.json": "20dda4c2db03edf64ace0d57a3133799330de4cf45688a41948cb71b11334930",
+    "data/snapshots/stage1_original_0bp_july_quote_crosscheck_20261023/SOXX.json": "11471dedfc44fe2cca6321687140034d9eb0d90ba37705b7bab3101b91775f45",
+    "data/snapshots/stage1_original_0bp_july_quote_crosscheck_20261023/SOXX_headers.json": "6d15b59bf77c41e534cfd7a1456c79d214b6ee9fe8162e6db8ac8ebb8b8e7eba"
+  },
+  "verified": true
+}

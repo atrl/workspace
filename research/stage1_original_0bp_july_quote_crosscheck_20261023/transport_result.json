@@ -1,0 +1,27 @@
+{
+  "status": "two_Yahoo_chart_current_history_responses_received",
+  "attempts": [
+    {
+      "symbol": "SOXL",
+      "url": "https://query2.finance.yahoo.com/v8/finance/chart/SOXL?period1=1782864000&period2=1785369600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+      "status": 200,
+      "size_bytes": 3387,
+      "sha256": "8035f1f364f1557a37585d4387c4c5de6a1393d9d26834b9ed6e1996b53d2dc0",
+      "curl_exit": 0,
+      "effective_url": "https://query2.finance.yahoo.com/v8/finance/chart/SOXL?period1=1782864000&period2=1785369600&interval=1d&events=div%2Csplits&includeAdjustedClose=true"
+    },
+    {
+      "symbol": "SOXX",
+      "url": "https://query2.finance.yahoo.com/v8/finance/chart/SOXX?period1=1782864000&period2=1785369600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+      "status": 200,
+      "size_bytes": 3257,
+      "sha256": "11471dedfc44fe2cca6321687140034d9eb0d90ba37705b7bab3101b91775f45",
+      "curl_exit": 0,
+      "effective_url": "https://query2.finance.yahoo.com/v8/finance/chart/SOXX?period1=1782864000&period2=1785369600&interval=1d&events=div%2Csplits&includeAdjustedClose=true"
+    }
+  ],
+  "attempt_count": 2,
+  "budget_max": 2,
+  "model_fits": 0,
+  "accounts": 0
+}

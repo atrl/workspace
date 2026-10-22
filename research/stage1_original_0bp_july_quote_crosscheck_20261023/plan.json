@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_original_0bp_july_quote_crosscheck_20261023",
+  "phase": "read_only_independent_vendor_daily_quote_crosscheck_of_two_hindsight_account_loss_dates",
+  "selection_identity": {
+    "source_card": "research/stage1_original_0bp_selection_tail_audit_v2_20261023",
+    "source_summary_sha256": "50c28d3ef887b8552041ee22e9138f1b9fc935321b77fdf00a8ec4f7ba321759",
+    "source_result_sha256": "85db833ffb9326a0b4104bf95f23523542e3d85ceb4fc9fb8f2d2a92dd3eb9a3",
+    "source_recorder_id": "e03c00f4017746bf942c1306dddbdedb",
+    "source_experiment_id": "788481216699025954",
+    "two_worst_Q3_negative_trade_dates": [
+      "2026-07-06",
+      "2026-07-27"
+    ],
+    "matched_exit_dates": [
+      "2026-07-07",
+      "2026-07-28"
+    ],
+    "source_NAS_sha256": "9d0fab5f8717b65d75388a9775855c709a5e053762da69b3f8eadce31566810e"
+  },
+  "requests": [
+    {
+      "symbol": "SOXL",
+      "url": "https://query2.finance.yahoo.com/v8/finance/chart/SOXL?period1=1782864000&period2=1785369600&interval=1d&events=div%2Csplits&includeAdjustedClose=true"
+    },
+    {
+      "symbol": "SOXX",
+      "url": "https://query2.finance.yahoo.com/v8/finance/chart/SOXX?period1=1782864000&period2=1785369600&interval=1d&events=div%2Csplits&includeAdjustedClose=true"
+    }
+  ],
+  "transport": "Exactly one GET per URL, no retry/fallback/contract or order, <=30s. Keep raw response body/status/sanitized headers, hash, NAS remote scoped restore. Stop on any non-200 or invalid Yahoo chart schema.",
+  "source_role": "Independent Yahoo daily quote snapshot to test whether the two source-selected physical-account loss intervals overlap large semiconductors ETF market moves and whether split/dividend events appear. Yahoo close/next close and open/next open are not the Stage1 09:47-to-09:47 marks; adjusted history is current-vintage QA only, not PIT feature or exact net account proof.",
+  "analysis": "Require positive finite daily OHLC on Jul6/7 and Jul27/28 for both symbols, unique New York trade dates, no rows dropped. Report Yahoo raw quote open-to-next-open and close-to-next-close SOXL-minus-SOXX simple spreads and per-symbol percent returns; compare direction/magnitude descriptively with saved Stage1 raw 09:47 relative forward return and physical selection loss. Enumerate all div/split events in the July window and flag events on the four named dates. Do not assert exact equality across clocks/vendors.",
+  "budget": {
+    "HTTP_GETs_max": 2,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "SOXX_backtest_replays": 0,
+    "new_Qlib_Recorders_max": 1
+  },
+  "stop": "Source identity/receipt or date/price schema failure stops. No strategy rule, factor, account or promotion based on hindsight-selected days. If independent quote disagreement is material, separate source-quality investigation must precede feature work.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

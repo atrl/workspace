@@ -1,0 +1,20 @@
+{
+  "verdict": "CONFIRM_DIRECTIONAL_INDEPENDENT_QUOTE_CROSSCHECK",
+  "review_scope": "read_only_source_integrity_Qlib_NAS_and_saved_result_no_new_fit_or_account",
+  "reviewed": [
+    "frozen_plan_and_original_Stage1_selection_source_hashes",
+    "exactly_two_planned_Yahoo_HTTP200_raw_bodies_headers_hashes_and_sizes",
+    "source_NAS_scoped_restore",
+    "20_unique_New_York_July_sessions_per_asset_positive_valid_OHLC",
+    "native_Qlib_Recorder_FINISHED_DatasetH_40_rows_report_equals_result",
+    "Recorder_NAS_scoped_restore"
+  ],
+  "confirmed": "Both selected intervals show large negative SOXL-minus-SOXX relative daily open and close spreads, consistent in direction with saved Stage1 09:47 relative returns.",
+  "limitations": [
+    "Different price clocks and current revisions cannot certify exact 09:47 marks or fee-net physical account contributions.",
+    "Absent Yahoo event objects do not prove all corporate actions were handled.",
+    "The two dates were selected in hindsight for source quality only and do not establish predictive or tradable alpha."
+  ],
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}
