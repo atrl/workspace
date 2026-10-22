@@ -36,10 +36,13 @@ class Stage1NvdaGuidanceAllocator(MinutePitAllocator):
         for flag in FLAGS:
             if not frame[flag].isin([0., 1.]).all():
                 raise ValueError("blocked: guidance flags must be binary")
+        if (frame[FLAGS[1]].gt(frame[FLAGS[0]])
+                | frame[FLAGS[2]].gt(frame[FLAGS[0]])).any():
+            raise ValueError("blocked: guidance state flags conflict")
         if frame.loc[frame[FLAGS[1]].eq(0), FEATURE].notna().any():
             raise ValueError("blocked: unknown guidance value carried forward")
-        if frame.loc[frame[FLAGS[1]].eq(1), FEATURE].isna().any():
-            raise ValueError("blocked: comparable guidance value missing")
+        if not np.isfinite(frame.loc[frame[FLAGS[1]].eq(1), FEATURE].astype(float)).all():
+            raise ValueError("blocked: comparable guidance value is not finite")
 
     def _fit_extra_scaler(self, features: pd.DataFrame) -> None:
         self._validate(features)

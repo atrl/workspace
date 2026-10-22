@@ -45,3 +45,9 @@ def test_guidance_receiver_pair_only_exposes_numeric_to_candidate():
         observed._extra_tensor(bad)
     with pytest.raises(ValueError, match="too few"):
         observed._fit_extra_scaler(frame.iloc[:2])
+    with pytest.raises(ValueError, match="not finite"):
+        bad = frame.copy(); bad.loc[1, FEATURE] = np.inf
+        observed._extra_tensor(bad)
+    with pytest.raises(ValueError, match="flags conflict"):
+        bad = frame.copy(); bad.loc[1, FLAGS[0]] = 0.
+        observed._extra_tensor(bad)
