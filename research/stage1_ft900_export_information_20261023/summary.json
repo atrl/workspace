@@ -1,0 +1,18 @@
+{
+  "experiment": "stage1_ft900_export_information_20261023",
+  "decision": "blocked_before_fit_invalid_transition_carry_source",
+  "objective_achieved": false,
+  "frozen_plan": "plan.json",
+  "operational_attempt": "execution_attempt1.json",
+  "design_halt": "design_halt.json",
+  "independent_review": "source_conflict_design_review.json",
+  "recorder_status": "not_started",
+  "model_fits": 0,
+  "native_accounts": 0,
+  "qualified_forward_days": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

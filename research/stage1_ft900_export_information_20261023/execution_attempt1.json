@@ -1,0 +1,14 @@
+{
+  "status": "kernel_launch_failed_before_any_notebook_cell",
+  "plan_sha256": "3167c7c797049db96c64a90e26383d667d899d642be5e1448a4c2005f0e12857",
+  "error_type": "jupyter_client.kernelspec.NoSuchKernel",
+  "kernel_name": "soxx-stage1-191",
+  "source_object_loads": 0,
+  "DatasetH_builds": 0,
+  "model_fit_attempts": 0,
+  "model_fits": 0,
+  "bootstrap_runs": 0,
+  "native_accounts": 0,
+  "market_outcome_reads": 0,
+  "recorder_created": false
+}

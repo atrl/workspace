@@ -1,0 +1,14 @@
+{
+  "status": "frozen_information_plan_blocked_before_fit_source_definition_conflict",
+  "blocked_plan_sha256": "3167c7c797049db96c64a90e26383d667d899d642be5e1448a4c2005f0e12857",
+  "design_review": "source_conflict_design_review.json",
+  "design_review_sha256": "598ee9cbf48a8025671b3ce7ecea7ed053fd9998f91551a1e126cc538176420a",
+  "contradiction": "Pinned source carry map preserves pre-2012 value for 23 post-January-release Stage1 sessions despite frozen transition adjudication forbidding automatic carry.",
+  "required_source": "research/stage1_ft900_export_availability_20261023/summary.json",
+  "required_change": "New frozen matched information design must use the canonical 23-unknown-row map, common transition-unknown control, train-only imputation and full calendar; independent review before any fit.",
+  "old_plan_reopened": false,
+  "source_object_loads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_goal_achieved": false
+}
