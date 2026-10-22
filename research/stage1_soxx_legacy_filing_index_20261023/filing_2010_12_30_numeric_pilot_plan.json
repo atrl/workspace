@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_original_SOXX_common_stock_schedule_numeric_parser_pilot",
+  "source_identity_result_sha256": "38f936212f1220891d562b83a91d0ffe89dfd996c8a9d05a99510d682484d1eb",
+  "raw_path": "data/snapshots/stage1_soxx_legacy_filing_index_20261023/2010_12_30_dnq.htm",
+  "raw_sha256": "379d1cea42677a897dd8d678cda3159b0969439d818bffada553cc50b9c0efdd",
+  "bounded_common_stock_section_byte_range": [
+    10948364,
+    10985992
+  ],
+  "bounded_section_sha256": "7ba62f0fcd665b0114441bb5749f3c722091a3f6b2b4a0b35e870526056ec8a2",
+  "report_date": "2010-10-31",
+  "accepted_at_utc": "2010-12-30T22:51:52.000Z",
+  "field_semantics": "Use only original Security/Shares/Value rows within the first SOXX common-stock section. Disclosed USD fair value divided by sum of disclosed common-stock USD fair values yields a reported-basket proxy weight, not daily index or ETF weight.",
+  "fixed_parser": "Parse direct HTML table rows. A security row must have a nonempty security-name cell and separate positive integer shares and USD fair-value cells. Exclude sector headings, subtotals, total rows, footnote rows, cash funds and securities lending collateral. Retain unparsed rows and fail if ambiguous.",
+  "checks": [
+    "20 to 40 distinct equity rows",
+    "all shares and values positive finite integers",
+    "sum of parsed fair values equals the printed TOTAL COMMON STOCKS to within one USD",
+    "no duplicate security names and no current-constituent substitution"
+  ],
+  "fixed_descriptors": [
+    "top5_disclosed_equity_value_share",
+    "herfindahl_sum_squared_disclosed_equity_weights"
+  ],
+  "budget": {
+    "raw_source_passes": 1,
+    "HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If row parsing or total closure fails, preserve the exact failure; do not infer missing members, change the parse rule after seeing a target outcome, or use the single vintage as a full Stage1 feature.",
+  "scientific_boundary": "One original delayed disclosed basket proves parser feasibility only. Full predecision filing coverage and publication clocks across 2011-2022, same-series transition, and a frozen Stage1 information test remain required before any 0bp account."
+}
