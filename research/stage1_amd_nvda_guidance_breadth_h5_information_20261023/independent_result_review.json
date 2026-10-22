@@ -1,0 +1,22 @@
+{
+  "verdict": "CONFIRM_NOT_PROMOTED",
+  "scope": "fixed_original39_plus_one_AMD_NVDA_breadth_H5_information",
+  "recorder_id": "7016da6c1f6f47b594af31847bbbc3c3",
+  "native_Recorder_status": "FINISHED",
+  "native_readback": "readback_verification.json",
+  "frozen_plan_and_code_seals_match": true,
+  "model_fits": 2,
+  "bootstrap_replicates": 10000,
+  "full_calendar_rows": 944,
+  "scored_rows": 940,
+  "failed_gates": [
+    "full_held_mean_positive",
+    "both_halves_positive",
+    "each_complete_2024_2025_year_mean_positive",
+    "bootstrap_lower_positive"
+  ],
+  "nas_sha256": "3f0916910a8ed36a45c92a590156d2812c92474125431c5d270e1bab2bf4784e",
+  "account_count": 0,
+  "historical_first_public_qualified": false,
+  "conclusion": "Close fixed version. No account or promotion."
+}

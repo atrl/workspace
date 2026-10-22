@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_amd_nvda_guidance_breadth_h5_information_20261023",
+  "phase": "original_Stage1_39_plus_one_AMD_NVDA_original_forward_growth_breadth_H5_development_information",
+  "execution_authorized_by_active_Goal": true,
+  "parent": {
+    "source_card": "research/minute_information_pit_allocator_20261012",
+    "recorder_id": "68e31a0a0fad44e7ba1d1f7d856c7a0d",
+    "experiment_id": "905520356740140469",
+    "feature_artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
+    "frame_artifact_sha256": "674443e012ef98d21438891666e32e9fca8dcde6eb60fb3141f89ed6e0ca330c",
+    "timing_artifact_sha256": "66e3292d7f47ac6981f2e488ed198d1109f340f2c3a4bf2a5f538fa41465764e",
+    "base_model_artifact_sha256": "5945030ca770bb7ca63c6b03d53e6cf7265f239312cac1308debfde93afddcac",
+    "nas_readback": "research/minute_information_pit_allocator_20261012/nas_readback.json",
+    "nas_archive_sha256": "ee328cab292f178bf3582ef574fb411561c93b82545cd3bb90842ecd9a9a24f1",
+    "feature_order": "exact original Stage1 39 base_features, seed71"
+  },
+  "source": {
+    "summary": "research/stage1_amd_nvda_guidance_breadth_qlib_map_v2_20261023/summary.json",
+    "summary_sha256": "1f0dcd55aeb24f0ea9b03254e49315db68959052248caaf9fc4099e55a2d338d",
+    "recorder_id": "78a3e941161c4ec598fe29894e5af76d",
+    "experiment_id": "921265357365306257",
+    "feature_artifact": "analysis/mapped_signals",
+    "mapped_artifact_sha256": "356e77af8a452d1dc4975928f81f306385a6eb369bedfcf0c81f9a3bb55d340b",
+    "known_train_calendar_rows": 2881,
+    "known_held_calendar_rows": 944,
+    "first_public_exact_clock_qualified": false,
+    "timing": "Development-only original SEC AMD/NVDA forward revenue growth positive breadth. Source event earliest Stage1 signal is later of filing-next Qlib and independent accepted-next Qlib, four-calendar-month max age, AMD two qualitative events invalid. Exact issuer first-public/SEC public visibility remains unqualified."
+  },
+  "single_mechanism": {
+    "feature": "AMD_NVDA_forward_growth_positive_breadth",
+    "formula": "Among two issuer latest original SEC forward sequential-revenue-growth values available before Stage1 signal and not older than four calendar months, fraction strictly positive: 0,0.5,1; missing otherwise.",
+    "hypothesis": "Broadly positive original forward revenue outlook from both AMD and NVIDIA indicates semiconductor demand breadth beyond original Stage1 price/VIX/market breadth inputs and should add positive H5 SOXX-versus-cash return information. Positive standardized coordinate coefficient required.",
+    "baseline": "Original frozen Stage1 39 primary features only",
+    "candidate": "Identical complete calendar, label, median imputer, scaler and Ridge plus exactly one original two-issuer guidance breadth coordinate",
+    "regime_motivation": "Stage1 full held 0bp cash opportunity and SOXL selection differ across weak/good intervals; issuer forward demand breadth is a new predecision fundamental mechanism rather than a hindsight interval switch. No threshold, sign, horizon or issuer selection from reused outcomes."
+  },
+  "label": {
+    "primary": "Five consecutive original Stage1 SOXX funded open-to-open returns from signal s: sum j=0..4 log1p(soxx_forward_open_return(s+j)).",
+    "maturity": "Original Stage1 timing.return_available_at of fifth interval; train mature before 2023-01-01 New York; held before 2026-10-10 New York.",
+    "role": "Matched incremental information only, not fee-net strategy return."
+  },
+  "cohorts": {
+    "train_signal": [
+      "2011-01-03",
+      "2022-12-30"
+    ],
+    "held_reused_diagnostic": [
+      "2023-01-03",
+      "2026-10-07"
+    ],
+    "held_halves": [
+      [
+        "2023-01-03",
+        "2024-12-31"
+      ],
+      [
+        "2025-01-02",
+        "2026-10-07"
+      ]
+    ],
+    "expected_train_calendar_rows": 3020,
+    "expected_held_calendar_rows": 944,
+    "expected_mature_train_rows": 3014,
+    "expected_mature_held_rows": 940,
+    "full_calendar_no_survivor_compaction": true,
+    "historical_independence": false
+  },
+  "model": {
+    "baseline": "SimpleImputer(median) then StandardScaler then Ridge(alpha=1.0) on original 39 features",
+    "candidate": "Identical pipeline plus one fixed AMD/NVDA original guidance breadth coordinate",
+    "new_fits": 2,
+    "runtime": "qlib_venv Python3.12.12 scikit-learn1.9.1",
+    "no_hyperparameter_sign_window_or_output_selection": true
+  },
+  "information_gate": {
+    "paired_metric": "Identical held signal rows baseline squared error minus candidate squared error for five-open SOXX log return",
+    "added_coefficient_positive": true,
+    "full_held_mean_positive": true,
+    "both_held_halves_mean_positive": true,
+    "paired_stationary_bootstrap": {
+      "mean_block_sessions": 63,
+      "draws": 10000,
+      "seed": 20261023,
+      "one_sided_alpha": 0.0006756756756756757,
+      "family_denominator": 37,
+      "lower_positive": true
+    },
+    "no_gate_rescue": true,
+    "each_complete_2024_2025_year_mean_positive": true
+  },
+  "budget": {
+    "new_external_requests": 0,
+    "source_Recorder_object_loads_per_phase_max": 5,
+    "DatasetH_builds_per_phase_max": 1,
+    "model_fit_attempts_max": 2,
+    "bootstrap_attempts_max": 1,
+    "new_writable_Qlib_Recorders_max": 1,
+    "native_accounts": 0
+  },
+  "barrier": "Run one no-fit Qlib DatasetH/source/maturity/predecision/novelty preflight, independent exact-code review, then exactly two fixed Ridge fits and one full-944-calendar paired bootstrap. Failed coefficient/full/halves/2024-2025/lower closes this version without sign, issuer, stale-age, season, lag or H5 rescue. A conditional pass still requires exact source first-public/SEC visibility qualification before any full Stage1-derived 0bp Tiered own-state account; 2/5bp and independent forward separate.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "models/*",
+      "predictions/*",
+      "analysis/*"
+    ]
+  },
+  "training_novelty_gate": {
+    "maximum_absolute_pairwise_Pearson_to_each_original39": 0.95,
+    "training_only": true,
+    "no_held_label_or_outcome_selection": true
+  }
+}

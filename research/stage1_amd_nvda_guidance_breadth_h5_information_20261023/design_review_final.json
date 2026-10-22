@@ -1,0 +1,16 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "scope": "conditional_reused_history_H5_incremental_information_only",
+  "reviewer": "independent_stage1_nvda_design_review",
+  "plan_sha256": "17b33606d1f506eab518a4bdf9e501f77b3d43162ceadd53ef6b3b0434b215ad",
+  "preflight_sha256": "dd080659da062c22e6d469c3e71552785a699d79c33518a57512917945e9b101",
+  "preflight_cell_source_sha256": "7a4dca89ee2cd9dd86fd832acb902ea723fa797395d8684f10719646707c9a2d",
+  "fit_cell_source_sha256": "f4ac5307ab1107204ce031f692dcce004f4528384fdae1e99f5363faae1b78e7",
+  "limits": [
+    "source_exact_first_public_and_SEC_public_visibility_unqualified",
+    "no_funded_account_or_forward_promotion_from_information_gate"
+  ],
+  "approved_new_fit_max": 2,
+  "approved_bootstrap_max": 1,
+  "approved_new_accounts": 0
+}

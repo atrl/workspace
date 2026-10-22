@@ -1,0 +1,39 @@
+{
+  "status": "not_promoted_fixed_AMD_NVDA_guidance_breadth_H5_information_failed",
+  "plan_sha256": "17b33606d1f506eab518a4bdf9e501f77b3d43162ceadd53ef6b3b0434b215ad",
+  "recorder_id": "7016da6c1f6f47b594af31847bbbc3c3",
+  "metrics": {
+    "baseline_held_mse": 0.0025262669365982205,
+    "candidate_held_mse": 0.00253848390478999,
+    "held_paired_mse_improvement": -1.2216968191769588e-05,
+    "held_half_paired_improvements": [
+      7.2458256311711765e-06,
+      -3.452364056418115e-05
+    ],
+    "complete_2024_2025_paired_means": {
+      "2024": 7.35074119724125e-06,
+      "2025": -2.052319410953872e-06
+    },
+    "candidate_standardized_coordinate_coefficient": 0.001593911619638669,
+    "bootstrap_lower": -6.504925902926443e-05,
+    "bootstrap_upper": 2.5027387408072913e-05,
+    "bootstrap": {
+      "paired_mean_loss_improvement": -1.2216968191769587e-05,
+      "lower_bound": -6.504925902926443e-05,
+      "upper_bound": 2.5027387408072913e-05,
+      "valid_replicates": 10000,
+      "invalid_replicates": 0,
+      "calendar_rows": 944,
+      "scored_rows": 940
+    }
+  },
+  "gates": {
+    "coefficient_positive": true,
+    "full_held_mean_positive": false,
+    "both_halves_positive": false,
+    "each_complete_2024_2025_year_mean_positive": false,
+    "bootstrap_lower_positive": false
+  },
+  "new_model_fits": 2,
+  "new_native_accounts": 0
+}
