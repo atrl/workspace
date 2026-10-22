@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_static_composition_tail_window_bound_20261023",
+  "phase": "read_only_optimistic_fixed_path_126_window_coverage_bound_for_two_preidentified_July_loss_days",
+  "question": "Even if a source perfectly repaired only the two largest 2026Q3 original-Stage1 SOXL selection-loss trade days, how many of the closed static Stage1 beta-composition account's 819 rolling 126-session SOXX comparisons could change directly on its otherwise frozen daily return path?",
+  "sources": {
+    "static_composition_card": "research/stage1_beta_composition_0bp_20261022",
+    "static_composition_summary_sha256": "262f9a5bfe855ae94310d802505e2dcdc71de441c6b6e1bf025a7f3b4b36dc35",
+    "static_composition_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+    "selection_tail_result": "research/stage1_original_0bp_selection_tail_audit_v2_20261023/result.json",
+    "selection_tail_result_sha256": "85db833ffb9326a0b4104bf95f23523542e3d85ceb4fc9fb8f2d2a92dd3eb9a3",
+    "fixed_trade_dates": ["2026-07-06", "2026-07-27"],
+    "provider_uri": "data/qlib/stage1_domain_heads_20261018"
+  },
+  "bound": "Read native candidate account trade dates and all 819 native rolling windows once each. A window is directly affected only when its 126 trade-date indices contain either fixed shock date. Grant every affected negative window an impossible perfect flip to positive while leaving all unaffected windows unchanged; report existing positive, affected total/negative, optimistic maximum positive and 70% required count. This is only a fixed-path direct-day coverage upper bound, not a causal bound on an own-state strategy with future holdings/risk feedback.",
+  "scientific_boundary": "Do not calculate a hindsight portfolio, alter returns, refit, choose additional shock dates or infer that a paid option source could not affect earlier sessions. A real strategy could change later state and more days; this narrow count only says whether correcting these two days alone suffices on the frozen path.",
+  "budget": {
+    "source_Qlib_Recorder_object_reads": 2,
+    "new_market_requests": 0,
+    "model_fits": 0,
+    "new_native_accounts": 0,
+    "bootstrap_runs": 0,
+    "new_writable_Recorders": 0
+  },
+  "stop": "Any summary hash, 944-date account, 819-window or shock-date identity mismatch stops. No policy threshold or promotion claim."
+}

@@ -1,0 +1,29 @@
+{
+  "status": "two_July_tail_days_fixed_path_window_coverage_cannot_reach_70pct",
+  "plan_sha256": "55a01bae11ad5308d3345e4e92ff6ba80b490bf70a2581cf091f73031ef2df08",
+  "source_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+  "source_NAS_sha256": "276d3de7940772e0e8e6f25b21ea108cfbf7c5dbb15d1fc489544eeda5395af4",
+  "sessions": 944,
+  "rolling126_windows": 819,
+  "fixed_trade_dates": [
+    "2026-07-06",
+    "2026-07-27"
+  ],
+  "fixed_trade_indices": [
+    876,
+    891
+  ],
+  "existing_positive_windows": 458,
+  "required_positive_windows_for_70pct": 574,
+  "directly_affected_windows": 68,
+  "directly_affected_negative_windows": 34,
+  "optimistic_max_positive_windows": 492,
+  "optimistic_max_positive_fraction": 0.6007326007326007,
+  "optimistic_shortfall_windows": 82,
+  "full_strategy_with_state_feedback_ruled_out": false,
+  "source_option_skew_value_ruled_out": false,
+  "new_market_requests": 0,
+  "model_fits": 0,
+  "new_native_accounts": 0,
+  "bootstrap_runs": 0
+}

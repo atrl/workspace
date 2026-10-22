@@ -1,0 +1,26 @@
+{
+  "experiment": "stage1_static_composition_tail_window_bound_20261023",
+  "decision": "two_July_tail_only_fixed_path_repair_cannot_meet_70pct_rolling_gate",
+  "objective_achieved": false,
+  "plan": "plan.json",
+  "result": "result.json",
+  "source_static_composition_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+  "sessions": 944,
+  "rolling126_windows": 819,
+  "existing_positive_windows": 458,
+  "required_positive_windows_for_70pct": 574,
+  "directly_affected_windows": 68,
+  "affected_negative_windows": 34,
+  "optimistic_max_positive_windows": 492,
+  "optimistic_shortfall_windows": 82,
+  "full_strategy_with_state_feedback_ruled_out": false,
+  "new_market_requests": 0,
+  "model_fits": 0,
+  "new_native_accounts": 0,
+  "bootstrap_runs": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
