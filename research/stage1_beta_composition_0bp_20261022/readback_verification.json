@@ -1,0 +1,18 @@
+{
+  "status": "passed_targeted_native_Qlib_readback",
+  "recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+  "manifest_verified_object_loads": [
+    "native/candidate_0",
+    "analysis/rolling/all_windows",
+    "analysis/composition_audit",
+    "analysis/gates"
+  ],
+  "native_funded_sessions": 944,
+  "contiguous_126_session_windows": 819,
+  "executed_composition_calls": 919,
+  "saved_gates_equal_summary": true,
+  "NAS_archive_sha256": "276d3de7940772e0e8e6f25b21ea108cfbf7c5dbb15d1fc489544eeda5395af4",
+  "NAS_remote_archive_sha256_matched": true,
+  "new_fits_or_account_replays_for_readback": 0,
+  "limitation": "Original local Recorder was preserved; remote hash plus local native Qlib readback is not a cold restore of every artifact."
+}
