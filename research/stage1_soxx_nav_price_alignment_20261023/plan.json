@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_soxx_nav_price_alignment_20261023",
+  "phase": "read_only_official_NAV_versus_frozen_Qlib_SOXX_price_scale_audit",
+  "question": "Does issuer current-vintage SOXX NAV align with frozen native Qlib SOXX daily close on full shared exchange sessions without split-scale jumps, as a necessary source condition for a future premium/discount coordinate?",
+  "sources": {
+    "official_NAV_card": "research/stage1_soxx_official_premium_discount_source_20261023",
+    "official_NAV_raw": "data/snapshots/stage1_soxx_official_premium_discount_source_20261023/fund_download.bin",
+    "official_NAV_raw_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
+    "official_source_audit_sha256": "0c01ffc207cfea1a76433e7903ca46ef31c12dc6abd7861c3fda78c1703ea903",
+    "official_NAS_archive_sha256": "a75d8e98023daa4e3fb5d78dd1f7a9c1e9c67194b5fb6215aa5be2bc14620a2c",
+    "Qlib_daily_price_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "Qlib_provider_config_sha256": "951024d796cc625b695938e64589cd23808c5b048ac816c11f001fb0719742a2"
+  },
+  "fixed_dates": {
+    "start": "2018-01-02",
+    "end": "2026-10-09"
+  },
+  "fixed_checks": [
+    "D.calendar full official daily provider sessions and D.features SOXX $close positive finite",
+    "issuer NAV original XML Historical date rows, skip carried weekends by inner joining Qlib calendar, no interpolation",
+    "all-session price/NAV ratio median p05 p95 and each calendar-year equivalents",
+    "largest absolute adjacent log ratio change and count >0.1, retain all dates in Recorder",
+    "exact first/publication timing remains unqualified; current NAV and Qlib price may be later adjusted"
+  ],
+  "budget": {
+    "new_HTTP": 0,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "bootstraps": 0,
+    "new_Qlib_Recorders": 1
+  },
+  "stop": "No normalization by held outcomes or optimizing ratio. If raw price/NAV ratio is not stable in level across years or corporate-action dates, do not call it premium/discount or fit a model. Even stable parity is only a necessary source check, not historical PIT or alpha.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  }
+}

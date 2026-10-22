@@ -1,0 +1,13 @@
+{
+  "verdict": "CONFIRM_DIAGNOSTIC_REJECT_ACTUAL_PREMIUM_FEATURE",
+  "review_scope": "read_only_pinned_sources_native_Qlib_numeric_ratio_and_NAS",
+  "confirmed": [
+    "Frozen plan, issuer raw source, issuer source audit and Qlib provider config hashes match.",
+    "Native Recorder is FINISHED; saved plan and report match sidecars.",
+    "D.calendar, native SOXX close, NAV match and DatasetH all cover 2205 sessions with no missing NAV.",
+    "Recomputed annual median close/NAV ratio drifts from 0.92699 in 2018 to 0.99945 in 2026; overall median 0.96752.",
+    "Largest adjacent absolute log ratio change is 0.017129 on 2020-03-18; zero adjacent changes exceed 0.1.",
+    "NAS Recorder archive digest and artifacts match the remote readback; no model fit or native account ran."
+  ],
+  "decision_limit": "The gradual level drift defeats interpretation of ratio minus one as issuer premium/discount. Qlib adjustment or normalization and NAV vintage differences remain unresolved; the audit does not attribute exact cause or establish trading information."
+}

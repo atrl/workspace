@@ -1,0 +1,42 @@
+{
+  "experiment": "stage1_soxx_nav_price_alignment_20261023",
+  "decision": "read_only_NAV_Qlib_close_scale_audit_no_premium_feature",
+  "objective_achieved": false,
+  "plan_sha256": "37b56546d3c52465a3fbec7777d9738fcb9abdffa9c9a25a0b97df19144a097c",
+  "recorder_id": "344717dcca444207994a80c089aa82a5",
+  "experiment_id": "107693486411914435",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_soxx_nav_price_alignment_20261023/qlib_recorder",
+  "result": "result.json",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*"
+    ]
+  },
+  "limitations": [
+    "Source alignment does not prove first publication time or old NAV versions.",
+    "Qlib close may be adjusted or normalized differently than issuer NAV; inspect ratio and corporate actions before treating it as premium.",
+    "No future label, information fit or full Stage1 account."
+  ],
+  "nas_evidence": {
+    "sha256": "f7aa7e1c902b2763c42451731d86fcb1efe04c3c235715f7c9441149b16c1895",
+    "size_bytes": 231211,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/f7/aa/f7aa7e1c902b2763c42451731d86fcb1efe04c3c235715f7c9441149b16c1895",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 07:44:44.855309+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/f7/aa/f7aa7e1c902b2763c42451731d86fcb1efe04c3c235715f7c9441149b16c1895",
+    "recorder_id": "344717dcca444207994a80c089aa82a5",
+    "experiment_id": "107693486411914435",
+    "archive_root": "qlib_recorder"
+  },
+  "nas_readback": {
+    "verified": true,
+    "sha256": "f7aa7e1c902b2763c42451731d86fcb1efe04c3c235715f7c9441149b16c1895"
+  }
+}
