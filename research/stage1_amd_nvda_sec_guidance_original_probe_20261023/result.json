@@ -1,0 +1,46 @@
+{
+  "status": "original_SEC_AMD_NVDA_early_and_recent_guidance_identity_passed_full_history_pending",
+  "failure": null,
+  "plan_sha256": "d50c0ed051408983f0c374f588446ddebe24657bc7ab0730fe9cdc34e8f2f656",
+  "GET_attempts": 4,
+  "checks": [
+    {
+      "issuer": "NVDA",
+      "anchor": "FY2011Q4_reported_2011_02_16",
+      "raw_sha256": "b8d8c97786e3b442a8b2c1d971313b89c4838de0f60d2388c0d1f1eab26c5d43",
+      "text_chars": 17124,
+      "outlook_revenue_excerpt": "the first quarter of fiscal 2012 is as follows: \u00b7 Revenue is expected to be up 6 to 8 percent from the fourth quarter. \u00b7 GAAP gross margin is expected to be 48.5 to 49.5 percent. \u00b7 GAAP operating e",
+      "outlook_section_excerpt": "Outlook The outlook for the first quarter of fiscal 2012 is as follows: \u00b7 Revenue is expected to be up 6 to 8 percent from the fourth quarter. \u00b7 GAAP gross margin is expected to be 48.5 to 49.5 percent. \u00b7 GAAP operating expenses are expected to be approximately $327 million. \u00b7 GAAP tax rate is expected to be 16 to 18 percent. Fourth Quarter Fiscal 2011 and Recent Highlights: \u00b7 NVIDIA demonstrated its next-generation mobile processor, the world\u2019s "
+    },
+    {
+      "issuer": "NVDA",
+      "anchor": "FY2027Q2_reported_2026_08_26",
+      "raw_sha256": "e1a0f0519ee86f8ca8f5a28c289bf5c7942e62ef057c99bb33770d3b173b56c4",
+      "text_chars": 22347,
+      "outlook_revenue_excerpt": "the third quarter of fiscal 2027 is as follows: \u2022 Revenue is expected to be $108.0 billion, plus or minus 2%. NVIDIA is not assuming any Data Center compute revenue from China in its outlook. \u2022 GAA",
+      "outlook_section_excerpt": "Outlook NVIDIA\u2019s outlook for the third quarter of fiscal 2027 is as follows: \u2022 Revenue is expected to be $108.0 billion, plus or minus 2%. NVIDIA is not assuming any Data Center compute revenue from China in its outlook. \u2022 GAAP and non-GAAP gross margins are expected to be 74.0%, plus or minus 50 basis points. \u2022 GAAP and non-GAAP operating expenses are expected to be approximately $9.2 billion and $9.0 billion, respectively. For the full year fis"
+    },
+    {
+      "issuer": "AMD",
+      "anchor": "2011Q2_reported_2011_07_21",
+      "raw_sha256": "e9c3f45452dff7aa466823e10a3821da727519ab4eaa847094330ee25ddb4cb0",
+      "text_chars": 24252,
+      "outlook_revenue_excerpt": "h under \u201cCautionary Statement\u201d below. AMD expects revenue to increase 10 percent, plus or minus 2 percent, sequentially for the third quarter of 2011. For additional detail regarding AMD\u2019s results ",
+      "outlook_section_excerpt": "Current Outlook AMD\u2019s outlook statements are based on current expectations. The following statements are forward looking, and actual results could differ materially depending on market conditions and the factors set forth under \u201cCautionary Statement\u201d below. AMD expects revenue to increase 10 percent, plus or minus 2 percent, sequentially for the third quarter of 2011. For additional detail regarding AMD\u2019s results and outlook please see the CFO co"
+    },
+    {
+      "issuer": "AMD",
+      "anchor": "2026Q2_reported_2026_08_04",
+      "raw_sha256": "b2be3705e2536c795ce9e327b5d82371fdf4d36c2043e51db9d48b9bca8c8be5",
+      "text_chars": 32031,
+      "outlook_revenue_excerpt": "below. For the third quarter of 2026, AMD expects revenue to be approximately $13 billion, plus or minus $300 million. The mid-point of the revenue range represents year-over-year growth of approxi",
+      "outlook_section_excerpt": "Current Outlook AMD\u2019s outlook statements are based on current expectations. The following statements are forward-looking and actual results could differ materially depending on market conditions and the factors set forth under \u201cCautionary Statement\u201d below. For the third quarter of 2026, AMD expects revenue to be approximately $13 billion, plus or minus $300 million. The mid-point of the revenue range represents year-over-year growth of approximat"
+    }
+  ],
+  "NAS_archive_sha256": "5b30803141ac0368d71b6fa9b045360f9f04ac3c1ab7ef6d7305bd04cfe3781a",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "first_public_clock_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

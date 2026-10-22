@@ -1,0 +1,58 @@
+[
+  {
+    "issuer": "NVDA",
+    "anchor": "FY2011Q4_reported_2011_02_16",
+    "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000006/earningrelease.htm",
+    "requested_at_utc": "2026-10-22T21:54:40.362968+00:00",
+    "received_at_utc": "2026-10-22T21:54:41.524619+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000006/earningrelease.htm",
+    "stderr": "",
+    "raw_sha256": "b8d8c97786e3b442a8b2c1d971313b89c4838de0f60d2388c0d1f1eab26c5d43",
+    "raw_bytes": 308408,
+    "headers_sha256": "12e56bc92eeb1afb00163266e403cc863ef35a6f3f5950d1b8b8794a9c842854"
+  },
+  {
+    "issuer": "NVDA",
+    "anchor": "FY2027Q2_reported_2026_08_26",
+    "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm",
+    "requested_at_utc": "2026-10-22T21:54:42.610377+00:00",
+    "received_at_utc": "2026-10-22T21:54:43.949892+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm",
+    "stderr": "",
+    "raw_sha256": "e1a0f0519ee86f8ca8f5a28c289bf5c7942e62ef057c99bb33770d3b173b56c4",
+    "raw_bytes": 341228,
+    "headers_sha256": "fb11ceb6ba92d56db37651597dfa5e9cca50878a1fabddcdb7509aebf09ed416"
+  },
+  {
+    "issuer": "AMD",
+    "anchor": "2011Q2_reported_2011_07_21",
+    "url": "https://www.sec.gov/Archives/edgar/data/2488/000119312511193677/dex991.htm",
+    "requested_at_utc": "2026-10-22T21:54:45.027689+00:00",
+    "received_at_utc": "2026-10-22T21:54:46.590258+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/Archives/edgar/data/2488/000119312511193677/dex991.htm",
+    "stderr": "",
+    "raw_sha256": "e9c3f45452dff7aa466823e10a3821da727519ab4eaa847094330ee25ddb4cb0",
+    "raw_bytes": 295976,
+    "headers_sha256": "dc76d8068497f49c1fbdc7bee0c420844afdfbf4e43d6d6e41b23ade30626357"
+  },
+  {
+    "issuer": "AMD",
+    "anchor": "2026Q2_reported_2026_08_04",
+    "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000121/q22026991.htm",
+    "requested_at_utc": "2026-10-22T21:54:47.694598+00:00",
+    "received_at_utc": "2026-10-22T21:54:49.151385+00:00",
+    "curl_exit_code": 0,
+    "http_status": 200,
+    "final_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000121/q22026991.htm",
+    "stderr": "",
+    "raw_sha256": "b2be3705e2536c795ce9e327b5d82371fdf4d36c2043e51db9d48b9bca8c8be5",
+    "raw_bytes": 449006,
+    "headers_sha256": "c6396ba31f32bfa527bf0f0749e4010c163def4e9e676f6c457b3096736c909e"
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "plan_sha256": "d50c0ed051408983f0c374f588446ddebe24657bc7ab0730fe9cdc34e8f2f656",
+  "files": [
+    {
+      "name": "anchor_1.headers",
+      "sha256": "12e56bc92eeb1afb00163266e403cc863ef35a6f3f5950d1b8b8794a9c842854",
+      "bytes": 1860
+    },
+    {
+      "name": "anchor_1.html",
+      "sha256": "b8d8c97786e3b442a8b2c1d971313b89c4838de0f60d2388c0d1f1eab26c5d43",
+      "bytes": 308408
+    },
+    {
+      "name": "anchor_2.headers",
+      "sha256": "fb11ceb6ba92d56db37651597dfa5e9cca50878a1fabddcdb7509aebf09ed416",
+      "bytes": 2126
+    },
+    {
+      "name": "anchor_2.html",
+      "sha256": "e1a0f0519ee86f8ca8f5a28c289bf5c7942e62ef057c99bb33770d3b173b56c4",
+      "bytes": 341228
+    },
+    {
+      "name": "anchor_3.headers",
+      "sha256": "dc76d8068497f49c1fbdc7bee0c420844afdfbf4e43d6d6e41b23ade30626357",
+      "bytes": 1840
+    },
+    {
+      "name": "anchor_3.html",
+      "sha256": "e9c3f45452dff7aa466823e10a3821da727519ab4eaa847094330ee25ddb4cb0",
+      "bytes": 295976
+    },
+    {
+      "name": "anchor_4.headers",
+      "sha256": "c6396ba31f32bfa527bf0f0749e4010c163def4e9e676f6c457b3096736c909e",
+      "bytes": 1898
+    },
+    {
+      "name": "anchor_4.html",
+      "sha256": "b2be3705e2536c795ce9e327b5d82371fdf4d36c2043e51db9d48b9bca8c8be5",
+      "bytes": 449006
+    }
+  ],
+  "receipts_sha256": "b20dfd6e06e51a36020a8a660e9fa08ab73047f64f7a9cc5409403b1b4d2159b"
+}

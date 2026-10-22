@@ -1,0 +1,27 @@
+{
+  "experiment": "stage1_amd_nvda_sec_guidance_original_probe_20261023",
+  "decision": "four_original_SEC_AMD_NVDA_guidance_anchors_passed_full_history_semantics_pending",
+  "objective_achieved": false,
+  "plan_sha256": "d50c0ed051408983f0c374f588446ddebe24657bc7ab0730fe9cdc34e8f2f656",
+  "result": "result.json",
+  "anchors": 4,
+  "issuers": [
+    "AMD",
+    "NVDA"
+  ],
+  "early_revenue_guidance_form": "sequential_percentage_range",
+  "recent_revenue_guidance_form": "absolute_dollar_amount_plus_or_minus",
+  "NAS_archive_sha256": "5b30803141ac0368d71b6fa9b045360f9f04ac3c1ab7ef6d7305bd04cfe3781a",
+  "NAS_scoped_restore_verified": true,
+  "first_public_clock_qualified": false,
+  "numeric_harmonization_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "next_action": "Freeze issuer-specific SEC 8-K accession index and original quarterly earnings exhibit inventory, then normalize only explicitly reported next-quarter revenue guidance to a comparable sequential-growth coordinate without outcome reads. Check original filing acceptance and NAS identity before any Stage1 information screen.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

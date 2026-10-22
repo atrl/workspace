@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "experiment": "stage1_amd_nvda_sec_guidance_original_probe_20261023",
+  "phase": "original_SEC_AMD_NVDA_two_issuer_forward_revenue_guidance_four_anchor_source_only",
+  "question": "Are original SEC 8-K earnings exhibits for AMD and NVIDIA accessible with explicit next-quarter revenue outlook both early and late in the Stage1 era, so a predecision multi-issuer demand-diffusion mechanism is structurally possible?",
+  "novelty": "Multi-issuer original forward outlook breadth, different from closed single-issuer realized gross-margin and TSMC guidance growth levels; no market outcome selection, no sign/window/quarter rescue.",
+  "exact_requests": [
+    {
+      "issuer": "NVDA",
+      "CIK": "0001045810",
+      "anchor": "FY2011Q4_reported_2011_02_16",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581011000006/earningrelease.htm"
+    },
+    {
+      "issuer": "NVDA",
+      "CIK": "0001045810",
+      "anchor": "FY2027Q2_reported_2026_08_26",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm"
+    },
+    {
+      "issuer": "AMD",
+      "CIK": "0000002488",
+      "anchor": "2011Q2_reported_2011_07_21",
+      "url": "https://www.sec.gov/Archives/edgar/data/2488/000119312511193677/dex991.htm"
+    },
+    {
+      "issuer": "AMD",
+      "CIK": "0000002488",
+      "anchor": "2026Q2_reported_2026_08_04",
+      "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000121/q22026991.htm"
+    }
+  ],
+  "request": {
+    "GETs_max": 4,
+    "retries": 0,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 45,
+    "max_response_bytes_each": 2000000,
+    "seconds_between_requests": 1,
+    "user_agent": "SOXL Qlib research source audit research@atrl.me"
+  },
+  "identity_gate": "HTTP200 official SEC Archives HTML, correct issuer name/ticker, reported quarter, explicit next-quarter revenue outlook in numeric amount or sequential percentage form. Preserve exact bytes and headers; stop on first transport or identity failure.",
+  "backup": "Archive raw bytes and response headers to NAS, verify remote digest and scoped member restoration.",
+  "budget": {
+    "market_outcome_reads": 0,
+    "Qlib_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "scientific_boundary": "Four-anchor source access is not a full historical factor. Fiscal/calendar quarter alignment, numeric unit changes, acquisitions, first-public clocks, source revisions, TSMC/old39 redundancy, matched information and full 0bp account remain separate gates."
+}
