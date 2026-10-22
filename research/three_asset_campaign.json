@@ -34,7 +34,7 @@
   "goal_controller": {
     "thread_id": "01a16372-8939-7261-bd7d-87a21a166cf0",
     "observed_status": "active",
-    "observed_at_utc": "2026-10-22T12:49:40+00:00",
+    "observed_at_utc": "2026-10-22T18:03:25+00:00",
     "objective_v2_applied": true,
     "previous_thread_id": "01a16141-bbb9-7660-a992-86f5741aa7b7",
     "previous_thread_last_observed_status": "blocked",
@@ -48,7 +48,7 @@
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "Frozen complete Stage1 remains the parent; its 0bp beta-composition account had SOXX wealth ratio 1.077455 but 30.8558% available-mark drawdown, only 458/819 positive 126-session windows and a negative block lower bound. Full 944-session/16-quarter/819-window attribution locates cash opportunity cost and risk-state feedback but no causal threshold. The fixed original G.17 production information screen failed. The independently reviewed canonical FT-900 export screen retained 23 classification-transition unknown days, fitted two fixed models and failed full held MSE, second-half and corrected lower-bound gates despite a positive coordinate coefficient; zero new accounts. Close both source/receiver versions and the duplicate unfitted FT-900 designs. The frozen recovery score never reached 0.825 and its own information test failed; do not lower that threshold. Find a materially different decision-time mechanism that separates persistent weakness from recovery beyond the original 39 inputs, establish source identity/first availability/missingness, freeze one matched information gate, then screen any accepted Stage1-derived candidate in its own full 0bp Tiered-fee account against SOXX wealth, available-mark drawdown, CVaR5, all complete years, every 126-day window and the frozen uncertainty test. Separate 2/5bp and qualified independent forward evidence remain mandatory. No sign, lag, age, definition, window or risk-cap rescue on reused history.",
+    "next_action": "Frozen complete Stage1 remains the parent. Its fixed 0bp beta-composition account exceeded SOXX terminal wealth but failed available-mark drawdown, 126-session stability and block lower bound; full cash/SOXL/fees attribution is descriptive. Fixed G.17, FT-900, ADS level/H5 and original-input volatility-gap/H5 information versions failed and are closed; do not flip signs, change windows or rerun them on reused history. The Futu HYG 2011 one-day source probe returned zero rows, not a general absence claim. The reported-basket new-low diffusion/downside-concentration mechanism remains source-gated: one original pre-Stage1 SOXX schedule has been identified in SEC filings, while complete 2011-2022 disclosed schedules, first-public clocks, constituent prices and full Stage1 calendar coverage are unqualified. Continue bounded source qualification there or pursue a materially distinct decision-time mechanism with complete training coverage. Freeze source timing, matched 39-input receiver and information gate before fit; only a passing fixed screen may advance to one full Stage1-derived 0bp Tiered-fee native account against SOXX with all years, quarters, 126-session windows, available-mark drawdown, CVaR5 and block lower bound. Contract v2 still requires separate 2/5bp and qualified independent forward evidence.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -217,9 +217,9 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T17:04:55+00:00",
+  "updated_at_utc": "2026-10-22T18:03:25+00:00",
   "execution_totals": {
-    "new_model_fits": 62,
+    "new_model_fits": 66,
     "new_native_accounts": 48,
     "completed_fixed_economic_experiments": 10,
     "completed_training_bridges_added": 1,
@@ -227,8 +227,8 @@
     "unique_reused_reference_accounts": 15,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
-    "basis": "Prior 60 fits and 48 native accounts included the closed original-Stage1 0bp composition and failed G.17 information screen. The independently reviewed canonical FT-900 export information screen added two fits, one paired bootstrap, and zero accounts; its positive coefficient did not yield positive full held MSE improvement, both halves or corrected lower bound. Historical passing candidates and qualified forward days remain zero.",
-    "completed_fixed_information_experiments": 9,
+    "basis": "Prior 62 fits and 48 native accounts include the independently closed FT-900 information screen. The subsequently fixed ADS level/H5 and original-Stage1 volatility-gap/H5 information screens each added exactly two verified Ridge fits and one paired bootstrap, no economic accounts, and failed their preregistered full/half/uncertainty gates. Historical passing candidates and qualified forward days remain zero; source-only probes and reviews did not add fits or accounts.",
+    "completed_fixed_information_experiments": 11,
     "completed_source_qualifications": 2,
     "completed_source_repairs": 2,
     "completed_identity_source_checks": 1
