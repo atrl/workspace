@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "all_93_current_month_original_PDF_table_cells_located_factor_not_qualified",
+  "manual_plan_sha256": "2bd7c610792d87254a40cad03f9cbb53d49ac827d5ddef3840810d865507ca48",
+  "manual_result_sha256": "1b30e5b0293901b08eb7ae0fa4a2ed3ba8375d8ab90e265971009d5fa080ec21",
+  "coordinate_result_sha256": "e4b6f124f8d6463866cf83d9cf96999cf60c95aecb9613bc3be07977327d80b0",
+  "current_document_table_months_from_closed_coordinate_selector": 84,
+  "current_document_table_months_from_original_visual_review": 9,
+  "current_document_months_with_table_cell_evidence": 93,
+  "dual_version_months_consistent_in_tables": [
+    "2020-06",
+    "2020-10",
+    "2023-05"
+  ],
+  "open_source_conflicts": [
+    "2020-05 original PDF p6 says 80.1 100m USD while its rank table p10 says 8,068 million USD (80.68 100m) and p11 rounds to 80.7. A same-day government mirror attachment exists but its original HWP content/history has not been decoded or proven immutable."
+  ],
+  "historical_first_public_vintage_qualified": false,
+  "factor_values_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "decision": "Monthly current-document table cell coverage is complete as source text evidence only. Do not turn it into a Qlib factor or SOXX information screen until the 2020-05 conflicting original semantics and historical first-public vintage/timing are separately qualified. Continue scheduled independent Cboe/IBKR source checks."
+}

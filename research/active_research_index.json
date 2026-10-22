@@ -27,16 +27,17 @@
     },
     {
       "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
-      "phase": "coordinate_parser_closed_84_of_93_current_PDF_months_9_unresolved_PIT_gap",
+      "phase": "all_93_current_month_table_cells_located_internal_conflict_and_PIT_pending",
       "role": "distinct_monthly_semiconductor_export_demand_information_source",
       "full_economic_experiment": false,
-      "status": "needs_manual_original_document_numeric_and_first_public_qualification",
+      "status": "factor_not_qualified_2020_05_conflict_first_public_vintage_gap",
       "execution_authorized": false,
-      "result": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_full_review.json",
+      "result": "research/korea_semiconductor_exports_korean_vintage_20261022/manual_original_nine_review.json",
       "official_same_day_mirror_probe": "research/korea_semiconductor_exports_korean_vintage_20261022/official_mirror_2020_05_probe.json",
       "coordinate_probe_review": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_layout_probe_review.json",
       "coordinate_full_source_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_full_source_plan.json",
-      "coordinate_full_result": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_full_source_result.json"
+      "coordinate_full_result": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_full_source_result.json",
+      "manual_original_review": "research/korea_semiconductor_exports_korean_vintage_20261022/manual_original_nine_result.json"
     }
   ],
   "framework": [
@@ -149,8 +150,8 @@
     "evidence": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json",
     "constraint": "At/after 2026-10-22 12:45 UTC run one remaining Cboe preopen vintage; at 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. No source is a qualified factor or economic strategy.",
     "execution_authorized": false,
-    "parallel_source_gap": "Korean current PDF coordinate selector yielded 84/93 consistent month-level table pairs after its final bounded repair; nine months remain unresolved, with the 2020-05 within-PDF conflict retained. Historical first-public vintage remains unqualified. No Korea factor fit or SOXX outcome read is authorized.",
-    "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/coordinate_full_review.json",
+    "parallel_source_gap": "Original Korean current-month PDF table cells have been located for 93/93 months, including visual review of nine formerly unresolved layouts. The 2020-05 PDF internally disagrees on amount, and historical first-public PDF vintages/timing remain unqualified. No Korea factor or SOXX model/account may be run.",
+    "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/manual_original_nine_review.json",
     "closed_PPI_information_result": "research/semiconductor_ppi_leverage_information_20261022/result_review.json",
     "follow_on_Cboe_source_plan": "research/cboe_total_options_activity_source_20261022/multiday_forward_plan.json",
     "contingent_Cboe_economic_design": "research/cboe_variance_conditional_composition_20261022/design_brief.json"

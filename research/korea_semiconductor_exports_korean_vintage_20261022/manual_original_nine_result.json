@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "status": "nine_current_month_PDF_tables_visually_read_source_only",
+  "plan_sha256": "2bd7c610792d87254a40cad03f9cbb53d49ac827d5ddef3840810d865507ca48",
+  "reviewed_PDF_versions": 9,
+  "resolved_current_month_table_cells": 9,
+  "per_month": [
+    {
+      "month": "2019-01",
+      "version_index": 1,
+      "source_pdf_sha256": "8f92397c1e046d2e51121793ca64ab3b11aa670058fe8326ad9e047be163d3d3",
+      "original_PDF_registration_date": "2019-02-01",
+      "status": "current_month_table_cells_visually_confirmed",
+      "primary_page": 10,
+      "table_context": "2019 January rightmost month in semiconductor row; 2018 monthly columns to its left",
+      "original_amount_text": "7,421",
+      "original_growth_text": "△23.3",
+      "original_unit": "USD million",
+      "amount_bbox_pdf_points": [
+        372.79,
+        279.67,
+        388.28,
+        286.74
+      ],
+      "growth_bboxes_pdf_points": [
+        [
+          369.8,
+          289.26,
+          391.38,
+          296.34
+        ]
+      ],
+      "amount_100m_USD": 74.21,
+      "growth_pct": -23.3,
+      "same_PDF_corroboration_page": 5,
+      "historical_first_public_vintage_qualified": false
+    },
+    {
+      "month": "2022-12",
+      "version_index": 1,
+      "source_pdf_sha256": "490e651bd8a134427203f817c9c54d1d4cafc62ae71e4da8b81d70bdf312793e",
+      "original_PDF_registration_date": "2023-01-01",
+      "status": "current_month_table_cells_visually_confirmed",
+      "primary_page": 15,
+      "table_context": "December 2022 column; adjacent full-year 2022 column excluded",
+      "original_amount_text": "9,058",
+      "original_growth_text": "△29.1",
+      "original_unit": "USD million",
+      "amount_bbox_pdf_points": [
+        366.16,
+        180.83,
+        392.21,
+        192.29
+      ],
+      "growth_bboxes_pdf_points": [
+        [
+          411.14,
+          180.83,
+          442.11,
+          192.29
+        ]
+      ],
+      "amount_100m_USD": 90.58,
+      "growth_pct": -29.1,
+      "same_PDF_corroboration_page": 22,
+      "historical_first_public_vintage_qualified": false
+    },
+    {
+      "month": "2023-09",
+      "version_index": 1,
+      "source_pdf_sha256": "f46350d0fdbeaef6d3f21d63a0ccc23d8b455ff63d3592c86a286da28954a856",
+      "original_PDF_registration_date": "2023-10-01",
+      "status": "current_month_table_cells_visually_confirmed",
+      "primary_page": 12,
+      "table_context": "September 2023 column; separate triangle glyph is the negative sign, confirmed in same-PDF monthly column table",
+      "original_amount_text": "9,936",
+      "original_growth_text": "△|13.6",
+      "original_unit": "USD million",
+      "amount_bbox_pdf_points": [
+        450.46,
+        174.76,
+        476.93,
+        185.7
+      ],
+      "growth_bboxes_pdf_points": [
+        [
+          493.41,
+          173.34,
+          503.1,
+          185.81
+        ],
+        [
+          503.4,
+          174.76,
+          523.88,
+          185.7
+        ]
+      ],
+      "amount_100m_USD": 99.36,
+      "growth_pct": -13.6,
+      "same_PDF_corroboration_page": 5,
+      "historical_first_public_vintage_qualified": false
+    },
+    {
+      "month": "2023-12",
+      "version_index": 1,
+      "source_pdf_sha256": "b285e0a48ffcb11896f089fa5905c122fc46986bf2347acbed36c16aaa0753d5",
+      "original_PDF_registration_date": "2024-01-01",
+      "status": "current_month_table_cells_visually_confirmed",
+      "primary_page": 10,
+      "table_context": "December 2023 column; annual cumulative table excluded",
+      "original_amount_text": "11,032",
+      "original_growth_text": "21.8",
+      "original_unit": "USD million",
+      "amount_bbox_pdf_points": [
+        317.04,
+        125.67,
+        342.37,
+        134.19
+      ],
+      "growth_bboxes_pdf_points": [
+        [
+          353.4,
+          125.67,
+          369.37,
+          134.19
+        ]
+      ],
+      "amount_100m_USD": 110.32,
+      "growth_pct": 21.8,
+      "same_PDF_corroboration_page": 1,
+      "historical_first_public_vintage_qualified": false
+    },
+    {
+      "month": "2024-10",
+      "version_index": 1,
+      "source_pdf_sha256": "dba5ae35813b340138969e8be4eec6664e7f534eeae22709ff927c9c64af2caa",
+      "original_PDF_registration_date": "2024-11-01",
+      "status": "current_month_table_cells_visually_confirmed",
+      "primary_page": 12,
+      "table_context": "October 2024 column under current-month header",
+      "original_amount_text": "12,544",
+      "original_growth_text": "(40.3)",
+      "original_unit": "USD million",
+      "amount_bbox_pdf_points": [
+        451.2,
+        175.27,
+        483.27,
+        186.74
+      ],
+      "growth_bboxes_pdf_points": [
+        [
+          498.6,
+          175.27,
+          525.33,
+          186.74
+        ]
+      ],
+      "amount_100m_USD": 125.44,
+      "growth_pct": 40.3,
+      "same_PDF_corroboration_page": 13,
+      "historical_first_public_vintage_qualified": false
+    },
+    {
+      "month": "2024-11",
+      "version_index": 1,
+      "source_pdf_sha256": "2575ae851ce43632136592aa3a726df74f9e694f7d5ac1bfeb776cd804a9c080",
+      "original_PDF_registration_date": "2024-12-01",
+      "status": "current_month_table_cells_visually_confirmed",
+      "primary_page": 12,
+      "table_context": "November 2024 column under current-month header",
+      "original_amount_text": "12,453",
+      "original_growth_text": "(30.8)",
+      "original_unit": "USD million",
+      "amount_bbox_pdf_points": [
+        451.2,
+        175.27,
+        483.27,
+        186.74
+      ],
+      "growth_bboxes_pdf_points": [
+        [
+          498.6,
+          175.27,
+          525.33,
+          186.74
+        ]
+      ],
+      "amount_100m_USD": 124.53,
+      "growth_pct": 30.8,
+      "same_PDF_corroboration_page": 13,
+      "historical_first_public_vintage_qualified": false
+    },
+    {
+      "month": "2024-12",
+      "version_index": 1,
+      "source_pdf_sha256": "5d8d87d69f561ffd1d70c09d77b9563e4b27810dc1d774689be88aef42ba0006",
+      "original_PDF_registration_date": "2025-01-01",
+      "status": "current_month_table_cells_visually_confirmed",
+      "primary_page": 13,
+      "table_context": "December monthly 15-product table; annual cumulative table excluded",
+      "original_amount_text": "145.1",
+      "original_growth_text": "+31.5",
+      "original_unit": "USD 100 million",
+      "amount_bbox_pdf_points": [
+        138.0,
+        294.05,
+        164.59,
+        305.09
+      ],
+      "growth_bboxes_pdf_points": [
+        [
+          137.16,
+          318.53,
+          165.43,
+          329.57
+        ]
+      ],
+      "amount_100m_USD": 145.1,
+      "growth_pct": 31.5,
+      "same_PDF_corroboration_page": 26,
+      "historical_first_public_vintage_qualified": false
+    },
+    {
+      "month": "2025-06",
+      "version_index": 1,
+      "source_pdf_sha256": "3da2935bfaed81c697533c1817d2689c7d763df68965c9e1692dcdd27b09e656",
+      "original_PDF_registration_date": "2025-07-01",
+      "status": "current_month_table_cells_visually_confirmed",
+      "primary_page": 3,
+      "table_context": "June monthly 15-product table; first-half cumulative table excluded",
+      "original_amount_text": "149.7",
+      "original_growth_text": "+11.6",
+      "original_unit": "USD 100 million",
+      "amount_bbox_pdf_points": [
+        518.88,
+        227.64,
+        537.81,
+        235.44
+      ],
+      "growth_bboxes_pdf_points": [
+        [
+          518.28,
+          242.64,
+          538.41,
+          250.44
+        ]
+      ],
+      "amount_100m_USD": 149.7,
+      "growth_pct": 11.6,
+      "same_PDF_corroboration_page": 9,
+      "historical_first_public_vintage_qualified": false
+    },
+    {
+      "month": "2025-12",
+      "version_index": 1,
+      "source_pdf_sha256": "3a3dbd97a0d3c53600c71d745bdf60b5ddea188666fff60cff75efff21264d7e",
+      "original_PDF_registration_date": "2026-01-01",
+      "status": "current_month_table_cells_visually_confirmed",
+      "primary_page": 13,
+      "table_context": "December monthly 15-product table; annual cumulative table excluded",
+      "original_amount_text": "207.7",
+      "original_growth_text": "+43.2",
+      "original_unit": "USD 100 million",
+      "amount_bbox_pdf_points": [
+        138.0,
+        273.41,
+        164.59,
+        284.45
+      ],
+      "growth_bboxes_pdf_points": [
+        [
+          137.16,
+          300.77,
+          165.43,
+          311.81
+        ]
+      ],
+      "amount_100m_USD": 207.7,
+      "growth_pct": 43.2,
+      "same_PDF_corroboration_page": 25,
+      "historical_first_public_vintage_qualified": false
+    }
+  ],
+  "factor_values_qualified": false,
+  "historical_first_public_vintage_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "limits": [
+    "These nine table cells complete current-document table candidate coverage only when combined with the separate 84-month coordinate result.",
+    "The 2020-05 original PDF internally conflicts on amount (80.1 versus 80.68/80.7), and current PDF bytes are not certified as historical first-public versions.",
+    "No Korea Qlib factor vector or SOXX market outcome was constructed from these values."
+  ]
+}
