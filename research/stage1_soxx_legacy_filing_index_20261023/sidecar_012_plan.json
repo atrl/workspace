@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_read_only_oldest_SEC_trust_submissions_sidecar",
+  "parent_plan": "plan.json",
+  "parent_result": "parser_repair_result.json",
+  "parent_raw_sha256": "3f42f7e7884e137089f7dd15a0e8ca30ae13899e7665d2f012bae0b692162c2f",
+  "sidecar_name": "CIK0001100663-submissions-012.json",
+  "url": "https://data.sec.gov/submissions/CIK0001100663-submissions-012.json",
+  "expected_range": ["1999-12-16", "2011-02-02"],
+  "target_before": "2011-01-03",
+  "method": "GET",
+  "user_agent": "SOXL research codex@openai.com",
+  "budget": {
+    "http_GETs": 1,
+    "max_response_bytes": 3000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 60,
+    "filing_body_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "record": "Exact response and headers, UTC clocks, SHA-256, form/date/accession/report/acceptance/primary-document metadata for N-Q and N-CSR candidates up to and including 2011-02-02. Separate all trust filings from the SOXX series; no holdings inference from index rows.",
+  "stop": "If HTTP, CIK, schema, range, size or NAS preservation fails, stop without retrying or fetching filing bodies. Do not change the source phase to a factor test.",
+  "source_preservation": "NAS archive exact raw body and headers; verify remote SHA-256 and scoped raw-member restore."
+}
