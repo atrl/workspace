@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "two_exact_2011_semiannual_SEC_body_SOXX_identity_checks",
+  "source_inventory_sha256": "5b589304a02461d4e6c89d5dc6f7f21164270a1580731c66719e72fef044300a",
+  "parent_april_2011_identity_sha256": "659268c59689d7ea577d0c1bc2b42fbc4d50137f07539df80ad29e561a79d624",
+  "candidates": [
+    {
+      "accession": "0001193125-11-093502",
+      "form": "N-CSRS",
+      "report_date": "2011-01-31",
+      "accepted_at_utc": "2011-04-11T20:08:56.000Z",
+      "primary_document": "dncsrs.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511093502/dncsrs.htm"
+    },
+    {
+      "accession": "0001193125-11-266548",
+      "form": "N-CSR",
+      "report_date": "2011-07-31",
+      "accepted_at_utc": "2011-10-07T21:03:08.000Z",
+      "primary_document": "d216041dncsr.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511266548/d216041dncsr.htm"
+    }
+  ],
+  "expected_fund_title": "PHLX SOX Semiconductor Sector Index Fund",
+  "identity_gate": "For each exact body, find target title and same report date plus Security/Shares/Value table header nearby; other semiconductor stocks/sector labels do not qualify.",
+  "request": {
+    "method": "GET",
+    "user_agent": "SOXL research codex@openai.com",
+    "max_GETs": 2,
+    "max_response_bytes_each": 45000000,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 120,
+    "minimum_seconds_between_requests": 1
+  },
+  "preserve": "Exact raw body, headers, UTC clocks and SHA-256; archive both to NAS, verify remote SHA-256 and scoped raw-member restore.",
+  "budget": {
+    "filing_body_GETs": 2,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If first body transport fails, stop before second. If identity fails, retain negative result; do not substitute a different filing or extract values under this plan.",
+  "boundary": "Two more 2011 original SOXX schedules would establish a finite source template, not complete 2011-2018 version/timing coverage or predictive alpha."
+}
