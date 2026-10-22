@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "forward_publication_observation",
+  "source_plan_sha256": "e82bbdb3e5272b5f000a7d83d217c0d6f59b681bb543070f1767d0405f3a7fc7",
+  "source_coverage_sha256": "56f828e63e0d8e87664d5fdd7824fd0401f33f59e7a9e8c31e0e18038b71c8e5",
+  "baseline_availability_sha256": "aff66d64cbd18ec73d961994c90781d339b11c51f3cebd05d9ed266bdf6b4572",
+  "target_trade_date": "2026-10-21",
+  "query_start_date": "2026-10-20",
+  "query_end_date": "2026-10-21",
+  "symbols": [
+    "SOXX",
+    "SOXL"
+  ],
+  "source_endpoint": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/",
+  "form_parameters": {
+    "reportType": "volume",
+    "volumeType": "sum",
+    "volumeAggType": "daily",
+    "symbolType": "underlying",
+    "exchanges": [
+      "CBOE",
+      "BATS",
+      "C2",
+      "EDGX"
+    ]
+  },
+  "first_followup_not_before_utc": "2026-10-22T04:00:00+00:00",
+  "max_followup_observations": 3,
+  "max_response_bytes": 100000,
+  "budget": {
+    "http_gets_per_observation": 2,
+    "max_http_gets_total": 6,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "required_record": [
+    "request URL and UTC time",
+    "HTTP status and headers",
+    "exact response bytes under data/snapshots",
+    "SHA256, row schema, target-date presence by symbol",
+    "prior baseline digest identity",
+    "all earlier dates retained for revision comparison"
+  ],
+  "limits": "One observation can bound publication timing only; at least several consecutive dates and revision checks required before historical PIT qualification. No retroactive assumption or trading decision."
+}

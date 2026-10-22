@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "one_day_accessibility_window_observed_not_PIT_qualified",
+  "baseline_sha256": "aff66d64cbd18ec73d961994c90781d339b11c51f3cebd05d9ed266bdf6b4572",
+  "forward_plan_sha256": "760ec13f63a4f285840d004d715e54728c1b3baf749154f62fde61b103af7666",
+  "forward_receipt": "forward_observations/20261022T040020511695Z.json",
+  "observations": [
+    {
+      "symbol": "SOXX",
+      "target_trade_date": "2026-10-21",
+      "absent_at_utc": "2026-10-22T03:50:09.915667+00:00",
+      "present_at_utc": "2026-10-22T04:00:20.512182+00:00",
+      "absent_at_new_york": "2026-10-21T23:50:09.915667-04:00",
+      "present_at_new_york": "2026-10-22T00:00:20.512182-04:00",
+      "observation_gap_seconds": 610.596515,
+      "prior_day_exchange_rows_unchanged": true,
+      "target_day_total_Cboe_contracts": 7425,
+      "receipt_sha256": "38e8205bb9182e23dc3edc28e095f632c5a4040643eee2bb0b3a238e53b06b72"
+    },
+    {
+      "symbol": "SOXL",
+      "target_trade_date": "2026-10-21",
+      "absent_at_utc": "2026-10-22T03:50:13.524073+00:00",
+      "present_at_utc": "2026-10-22T04:00:22.044897+00:00",
+      "absent_at_new_york": "2026-10-21T23:50:13.524073-04:00",
+      "present_at_new_york": "2026-10-22T00:00:22.044897-04:00",
+      "observation_gap_seconds": 608.520824,
+      "prior_day_exchange_rows_unchanged": true,
+      "target_day_total_Cboe_contracts": 53614,
+      "receipt_sha256": "38e8205bb9182e23dc3edc28e095f632c5a4040643eee2bb0b3a238e53b06b72"
+    }
+  ],
+  "limits": [
+    "The bounds describe what two requests returned, not the exact origin publication time; responses may be cached.",
+    "One day cannot establish historical release schedule or revision stability.",
+    "No market outcomes, information screen, account or qualified forward strategy day."
+  ],
+  "next_action": "Observe additional completed sessions with response cache headers and earlier-day revision comparison before historical or prospective timing qualification."
+}

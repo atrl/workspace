@@ -4,10 +4,10 @@
   "active": [
     {
       "card": "research/cboe_total_options_activity_source_20261022",
-      "phase": "source_coverage_complete_publication_timing_pending",
+      "phase": "source_coverage_and_one_day_accessibility_observed_publication_timing_pending",
       "role": "distinct_pretrade_options_activity_tail_risk_information",
       "full_economic_experiment": false,
-      "status": "source_coverage_qualified_only_with_PIT_gap",
+      "status": "source_coverage_qualified_one_day_accessibility_observed_PIT_gap_remains",
       "execution_authorized": false,
       "result": "research/cboe_total_options_activity_source_20261022/summary.json"
     }
@@ -98,11 +98,11 @@
     "all provider bin files for documentation"
   ],
   "next_information_need": {
-    "status": "first_public_timing_unqualified",
+    "status": "repeat_publication_and_revision_observations_required",
     "topic": "Cboe SOXX/SOXL total options activity as a pretrade tail-risk information source",
-    "evidence": "research/cboe_total_options_activity_source_20261022/source_coverage_audit.json",
+    "evidence": "research/cboe_total_options_activity_source_20261022/publication_window.json",
     "availability_observation": "research/cboe_total_options_activity_source_20261022/availability_observation.json",
-    "constraint": "Collect timestamped forward publication/revision observations before testing market outcomes; Cboe-only total volume is not put/call skew or full-market flow.",
+    "constraint": "One access window does not prove origin first-public time or stable historical revisions; repeat across sessions and record response cache metadata. Use only own-symbol lagged normalization if information screen later becomes eligible.",
     "execution_authorized": false
   },
   "closed_source_probes": [

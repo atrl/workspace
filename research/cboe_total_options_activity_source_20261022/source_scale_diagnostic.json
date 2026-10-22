@@ -1,0 +1,141 @@
+{
+  "status": "source_scale_diagnostic_complete",
+  "source_recorder_id": "c3b812bc5fda409fac836fdd3a08fe0a",
+  "source_artifact_sha256": "6cdfc350b72b0a95237f42a97bab55666249b1faec844abba3884b033d3d9e55",
+  "new_object_loads": 1,
+  "new_D_calls": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "interpretation": "Annual scale drift requires predeclared within-symbol trailing normalization for any future information screen; descriptive source distribution is not a predictive result.",
+  "symbols": {
+    "SOXX": {
+      "years": {
+        "2019": {
+          "days": 252,
+          "median_contracts": 209.0,
+          "p10_contracts": 54.0,
+          "p90_contracts": 813.2,
+          "max_contracts": 6792
+        },
+        "2020": {
+          "days": 253,
+          "median_contracts": 248.0,
+          "p10_contracts": 79.2,
+          "p90_contracts": 705.0,
+          "max_contracts": 1589
+        },
+        "2021": {
+          "days": 252,
+          "median_contracts": 275.0,
+          "p10_contracts": 88.30000000000001,
+          "p90_contracts": 810.7,
+          "max_contracts": 2247
+        },
+        "2022": {
+          "days": 251,
+          "median_contracts": 271.0,
+          "p10_contracts": 91.0,
+          "p90_contracts": 789.0,
+          "max_contracts": 3883
+        },
+        "2023": {
+          "days": 250,
+          "median_contracts": 342.5,
+          "p10_contracts": 145.0,
+          "p90_contracts": 885.0999999999999,
+          "max_contracts": 3066
+        },
+        "2024": {
+          "days": 252,
+          "median_contracts": 759.0,
+          "p10_contracts": 341.20000000000005,
+          "p90_contracts": 2028.4,
+          "max_contracts": 7087
+        },
+        "2025": {
+          "days": 250,
+          "median_contracts": 1234.5,
+          "p10_contracts": 411.50000000000006,
+          "p90_contracts": 5330.499999999998,
+          "max_contracts": 66416
+        },
+        "2026": {
+          "days": 201,
+          "median_contracts": 7365.0,
+          "p10_contracts": 1002.0,
+          "p90_contracts": 16674.0,
+          "max_contracts": 44093
+        }
+      },
+      "first_available_prior_22day_median": "2019-02-04",
+      "prior_22day_median_nonmissing": 1939,
+      "overall_latest_total_contracts": 16145,
+      "max_annual_median_to_min_annual_median": 35.239234449760765
+    },
+    "SOXL": {
+      "years": {
+        "2019": {
+          "days": 252,
+          "median_contracts": 603.0,
+          "p10_contracts": 275.1,
+          "p90_contracts": 1400.0000000000002,
+          "max_contracts": 3798
+        },
+        "2020": {
+          "days": 253,
+          "median_contracts": 882.0,
+          "p10_contracts": 364.4,
+          "p90_contracts": 1715.8,
+          "max_contracts": 3583
+        },
+        "2021": {
+          "days": 252,
+          "median_contracts": 5970.0,
+          "p10_contracts": 1428.8,
+          "p90_contracts": 12562.800000000001,
+          "max_contracts": 19299
+        },
+        "2022": {
+          "days": 251,
+          "median_contracts": 26744.0,
+          "p10_contracts": 15919.0,
+          "p90_contracts": 56094.0,
+          "max_contracts": 129559
+        },
+        "2023": {
+          "days": 250,
+          "median_contracts": 29880.0,
+          "p10_contracts": 19379.8,
+          "p90_contracts": 47823.799999999996,
+          "max_contracts": 75034
+        },
+        "2024": {
+          "days": 252,
+          "median_contracts": 36561.0,
+          "p10_contracts": 23051.7,
+          "p90_contracts": 60837.0,
+          "max_contracts": 96978
+        },
+        "2025": {
+          "days": 250,
+          "median_contracts": 53078.0,
+          "p10_contracts": 33894.200000000004,
+          "p90_contracts": 97565.49999999999,
+          "max_contracts": 200786
+        },
+        "2026": {
+          "days": 201,
+          "median_contracts": 58030.0,
+          "p10_contracts": 37553.0,
+          "p90_contracts": 97687.0,
+          "max_contracts": 144626
+        }
+      },
+      "first_available_prior_22day_median": "2019-02-04",
+      "prior_22day_median_nonmissing": 1939,
+      "overall_latest_total_contracts": 55554,
+      "max_annual_median_to_min_annual_median": 96.23548922056385
+    }
+  }
+}

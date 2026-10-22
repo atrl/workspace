@@ -20,18 +20,18 @@
   },
   "current_task": {
     "card": "research/cboe_total_options_activity_source_20261022",
-    "phase": "new_options_activity_source_coverage_complete_publication_timing_pending",
+    "phase": "options_activity_one_day_publication_window_observed_PIT_gap_pending",
     "implementation_executor": null,
     "independent_reviewer": null,
-    "next_action": "Collect timestamped Cboe SOXX/SOXL daily total-options-volume publication and revision observations. Freeze a new information screen only after availability timing is qualified; compare incremental next-session tail-risk information conditional on Qlib price/volume/volatility, then consider a fee-net account only if information and source gates pass.",
-    "last_scientific_observation": "2023 native source-target account still trails SOXX (relative wealth 0.9952315) and worsens tail risk. Distinct Cboe total option activity has full 2019-01-02..2026-10-20 Qlib calendar coverage (1961 days per symbol) but no put/call split and no historical first-public timing qualification; no predictive information or account tested.",
-    "last_operational_observation": "Four bounded Cboe source queries closed put/call-composition source probe (schema lacked call/put); two separate bounded total-activity queries returned HTTP200 official CSV, archived raw SHA256s. One native Qlib D.calendar aligned 1961 days per symbol; Recorder c3b812bc5fda409fac836fdd3a08fe0a targeted readback passed and archived to NAS. At 2026-10-21 23:50 New York, 2026-10-21 row absent. No model fits/accounts.",
+    "next_action": "Repeat timestamped SOXX/SOXL Cboe publication and revision observations across completed sessions, including response cache metadata. Only after timing qualification freeze a separate tail-risk information screen with within-symbol lagged normalization and Qlib outcome baselines; no economic account yet.",
+    "last_scientific_observation": "2023 raw source-target account still trails SOXX. Cboe total options volume has complete 2019-01-02..2026-10-20 calendar coverage, but annual median volume scaled 35x SOXX and 96x SOXL from 2019 to partial 2026. One 2026-10-21 access window: absent at NY 23:50, present by 00:00:20/22; no historical PIT, predictor or fee-net excess evidence.",
+    "last_operational_observation": "Two official Cboe total-volume snapshots, one Qlib calendar read and source Recorder remain verified. New bounded publication capture returned 2026-10-21 rows for both symbols at 2026-10-22 04:00 UTC, with 2026-10-20 venue rows unchanged; exact bytes/receipt archived. One targeted Recorder source-scale read produced annual medians; no new model, market outcome or account.",
     "design_brief": "research/cboe_total_options_activity_source_20261022/plan.json",
     "closed_information_card": "research/inventory_sales_soxx_h63_information_20261022",
     "closed_information_result": "research/inventory_sales_soxx_h63_information_20261022/result_review.json",
     "source_failure_attribution": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
     "execution_authorized": false,
-    "result": "research/cboe_total_options_activity_source_20261022/summary.json"
+    "result": "research/cboe_total_options_activity_source_20261022/publication_window.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -57,7 +57,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T03:54:27.722624+00:00",
+  "updated_at_utc": "2026-10-22T04:01:28.338667+00:00",
   "execution_totals": {
     "new_model_fits": 41,
     "new_native_accounts": 44,

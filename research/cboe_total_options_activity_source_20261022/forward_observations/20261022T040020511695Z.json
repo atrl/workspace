@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "observed",
+  "observation_id": "20261022T040020511695Z",
+  "plan_sha256": "760ec13f63a4f285840d004d715e54728c1b3baf749154f62fde61b103af7666",
+  "index": 1,
+  "records": [
+    {
+      "symbol": "SOXX",
+      "requested_at_utc": "2026-10-22T04:00:20.512182+00:00",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXX&startDate=2026-10-20&endDate=2026-10-21&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "content_disposition": "attachment; filename=\"daily_volume_SOXX_2026-10-20_2026-10-21.csv\"",
+      "relative_path": "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T040020511695Z/soxx.csv",
+      "bytes": 269,
+      "sha256": "f5cdc7a57e7cd953778e038ef9d283bf2985d078b58afec2f6afa4ce606d7f7f",
+      "target_date_present": true,
+      "latest_date": "2026-10-21",
+      "earlier_date": "2026-10-20",
+      "earlier_date_unchanged": true,
+      "daily_contracts": {
+        "2026-10-20": 16145,
+        "2026-10-21": 7425
+      },
+      "baseline_sha256": "ad3488689ad076b9526f9850746164727c3274e111c7c95d2dbbadc80d4a453e"
+    },
+    {
+      "symbol": "SOXL",
+      "requested_at_utc": "2026-10-22T04:00:22.044897+00:00",
+      "url": "https://www.cboe.com/us/options/market_statistics/historical_data/download/class/?reportType=volume&volumeType=sum&volumeAggType=daily&symbolType=underlying&symbol=SOXL&startDate=2026-10-20&endDate=2026-10-21&exchanges=CBOE&exchanges=BATS&exchanges=C2&exchanges=EDGX",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "content_disposition": "attachment; filename=\"daily_volume_SOXL_2026-10-20_2026-10-21.csv\"",
+      "relative_path": "data/snapshots/cboe_total_options_activity_source_20261022/forward_observations/20261022T040020511695Z/soxl.csv",
+      "bytes": 274,
+      "sha256": "cdb002e13efdd9a0f2660f0428faf0ec878157ae521d0de1957fc9284267ff08",
+      "target_date_present": true,
+      "latest_date": "2026-10-21",
+      "earlier_date": "2026-10-20",
+      "earlier_date_unchanged": true,
+      "daily_contracts": {
+        "2026-10-20": 55554,
+        "2026-10-21": 53614
+      },
+      "baseline_sha256": "3bb691211485ffe6a45bc203aae686b046ffd9d8cd45a7211b2f202b1131e936"
+    }
+  ],
+  "models": 0,
+  "accounts": 0,
+  "market_outcome_reads": 0,
+  "PIT_qualified": false
+}

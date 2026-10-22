@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_scale_diagnostic_only",
+  "source_recorder_id": "c3b812bc5fda409fac836fdd3a08fe0a",
+  "source_manifest_sha256": "2f43544ab2b3625dff9f5eb6d6d3377a648b8d97c72828a23efc487c7413e248",
+  "source_artifact": "analysis/observed_daily",
+  "source_artifact_sha256": "6cdfc350b72b0a95237f42a97bab55666249b1faec844abba3884b033d3d9e55",
+  "budget": {
+    "hash_verified_Recorder_object_loads": 1,
+    "new_D_calls": 0,
+    "model_fits": 0,
+    "accounts": 0,
+    "market_outcome_reads": 0
+  },
+  "method": "For each symbol, compute yearly median/p10/p90/maximum positive daily total contracts and 22-observation trailing median availability. Report descriptive scale drift only. No threshold selection, return labels or candidate promotion.",
+  "stop": "Identity mismatch or nonpositive volume aborts. Reused source history cannot establish first-public timing."
+}
