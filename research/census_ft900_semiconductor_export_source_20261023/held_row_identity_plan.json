@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "source_only_44_held_FT900_Exhibit7_row_and_report_identity_audit",
+  "parent_source_result": "held_source_result.json",
+  "parent_readback": "held_readback.json",
+  "source_receipts": "held_request_ledger.jsonl",
+  "target_months": "2023-01 through 2026-08 inclusive, 44 months",
+  "method": "Open each exact hashed PDF once. Find exactly one Exhibit 7 U.S. Exports of Goods by End-Use Category and Commodity Semiconductors row, record its current/prior monthly printed values and change, and require first-page 8:30 Eastern release indication. Validate first-page formal report title against the reference month; pre-allow December and Annual YYYY for December year-end reports, based on the already adjudicated 2022 original layout. Preserve any other title or row exception without replacement values.",
+  "acceptance": "44 distinct PDF hashes and 44 unique numeric Exhibit 7 rows plus 44 matching report month identities under the fixed ordinary/year-end rule. All raw source bytes stay local and NAS backed.",
+  "scientific_limit": "Historical first-public PDF bytes, decision-time availability, same-definition vintage values and Stage1 predictive increment remain separate gates. These reused held months are not independent strategy forward days.",
+  "budget": {
+    "PDF_opens_max": 44,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "Qlib_factor_rows": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  }
+}
