@@ -32,6 +32,22 @@
     "source": "get_goal current thread; previous observation retained in campaign history"
   },
   "current_task": {
+    "card": "research/three_asset_campaign.json",
+    "phase": "Stage1_parent_0bp_first_mechanism_selection",
+    "implementation_executor": null,
+    "independent_reviewer": null,
+    "execution_authorized": false,
+    "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
+    "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
+    "next_action": "Inspect frozen Stage1 0bp prediction-to-target-to-risk-to-action-to-holdings evidence and closed Stage1 routes; freeze one genuinely distinct Stage1 model or allocation mechanism before any new fit or account. Preserve all years/windows and source identities. Only after a 0bp screen passes, execute the separately frozen 2/5bp and independent-forward gates required by contract v2.",
+    "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
+    "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
+    "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
+    "prior_closed_Stage1_version": "research/stage1_domain_heads_20261018/conclusion.md",
+    "non_Stage1_composition_follow_on": "research/cboe_variance_conditional_composition_20261022/design_brief.json",
+    "non_Stage1_composition_priority": "deprioritized_design_only_no_account_authorization"
+  },
+  "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
     "phase": "Korean_93_current_document_numeric_semantics_complete_first_public_PIT_pending",
     "implementation_executor": null,

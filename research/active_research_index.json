@@ -2,6 +2,7 @@
   "schema_version": 1,
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
   "economic_failure_diagnosis": "research/three_asset_campaign.json#economic_failure_diagnosis",
+  "primary_research_task": "research/three_asset_campaign.json#current_task",
   "active": [
     {
       "card": "research/ibkr_soxx_option_skew_forward_source_20261022",
