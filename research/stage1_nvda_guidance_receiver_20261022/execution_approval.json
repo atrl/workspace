@@ -1,0 +1,17 @@
+{
+  "approved": true,
+  "authority": "existing continuous Goal and contract v2 bounded research authorization",
+  "plan_sha256": "89030af17eaa90d283346aecce0da85a6cfc712575f189e5c2cb3d111d91bafa",
+  "review_sha256": "47028be59ce62a35ccd7641e18d04c90100d60583c517eaa0954ce075b10d5b1",
+  "code_sha256": {
+    "src/workflow/stage1_nvda_guidance_receiver.py": "062fbcfde9673e756169f65c2c3e7737703c901eaeb01f89aa10df0e26fa948b",
+    "src/model/stage1_nvda_guidance.py": "94bdc0bc87dd0d9fb7f7920199343bf19a16e24945c72b127235d81334f9f31c",
+    "src/backtest/stage1_domain_heads_raw.py": "d30607b362681ed68f181ce381ae776d2f292b916500458d0c33fdd34cccccef",
+    "src/backtest/native_raw_corporate.py": "1e15ec3b05fac80a79b8ac9f24d10beb92e7e6573611d8c27471ff42354fdd75"
+  },
+  "model_fits_max": 6,
+  "new_native_0bp_accounts_max": 2,
+  "bootstrap_runs_max": 3,
+  "runtime_scikit_learn": "1.9.1",
+  "economic_or_promotion_approval": false
+}

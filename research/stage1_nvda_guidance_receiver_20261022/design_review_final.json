@@ -1,0 +1,13 @@
+{
+  "verdict": "APPROVE_DESIGN",
+  "reviewer": "/root/stage1_nvda_design_review",
+  "review_scope": "frozen Stage1 B/C six-fit seal, smoothed targets, independent raw Qlib accounts, SOXX gates, attempt budgets, source-before-writer, NAS archive resume",
+  "plan_sha256": "89030af17eaa90d283346aecce0da85a6cfc712575f189e5c2cb3d111d91bafa",
+  "workflow_sha256": "062fbcfde9673e756169f65c2c3e7737703c901eaeb01f89aa10df0e26fa948b",
+  "reviewed_at_utc": "2026-10-22T13:22:00Z",
+  "limitations": [
+    "design approval only; no economic or promotion result",
+    "historical source first-public and update completeness unverified",
+    "reused history is development-only"
+  ]
+}

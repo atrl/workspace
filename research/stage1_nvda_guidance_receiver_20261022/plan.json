@@ -81,6 +81,7 @@
     "terminal_exit": "2026-10-09",
     "funded_sessions": 944,
     "initial_cash_usd": 100000,
+    "provider_output": "data/qlib/stage1_nvda_guidance_receiver_20261022",
     "long_only_no_financing": true,
     "slippage_bps": [0],
     "fees": "Exact frozen IBKR Pro Tiered projection from parent plan; zero added slippage does not mean zero commission or fees",
