@@ -197,7 +197,8 @@
     "TSMC_prospective_capture_plan": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_press_capture_plan.json",
     "Stage1_next_direction": "The full-history SOXX volume participation residual failed its fixed matched information gate before accounts. Do not tune that version. Select a materially distinct source-qualified mechanism against the original Stage1, then use the 0bp native SOXX gates before 2/5bp and independent forward.",
     "missed_forward_pilot_audit": "research/diagnostic_forward_io_v2_20261016/missed_pilot_audit_20261022.json",
-    "forward_IO_status": "registered Oct19 diagnostic pilot did not start; old supervisor PID and tool handle absent, last heartbeat Oct16. New exact future registration with durable scheduler required before any forward credit."
+    "forward_IO_status": "Oct19 diagnostic pilot missed and Oct22 paired paper scheduler blocked by frozen release source hash mismatch. No new qualified forward day; old claim/release cannot be silently resumed or rehashed.",
+    "paper_release_hash_block": "production/stage1_regime_paper_20261001/runtime_code_identity_block_20261022.json"
   },
   "closed_source_probes": [
     {
