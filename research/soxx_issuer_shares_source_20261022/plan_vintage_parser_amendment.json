@@ -1,0 +1,9 @@
+{
+  "old_plan_sha256": "fc67868c6fff7b904c150bd86243abb129abf7070b3eb06aaab27800d2fbd5d9",
+  "new_plan_sha256": "c6ccaf3dc6df9fded63b364da02564f2a9075b17c177a83039a8a4ee8aed9d2c",
+  "reason": "Source-only expansion after finding dated original workbook captures; parser accepts historical BOM and optional Index Level while original raw and candidate formula stay unchanged. No market outcome, fit or account has been read/run.",
+  "new_parser_sha256": "f0f0a6dced80c3875d5f15bd23f21995c986e4d3f03b93f9bda3a31e6a5cb9d7",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "evaluation_outcome_values_loaded": 0
+}

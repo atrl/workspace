@@ -1,0 +1,92 @@
+{
+  "status": "three_complete_historical_issuer_workbooks_exact_share_units_2015_no_column_2024_truncated",
+  "plan_sha256": "c6ccaf3dc6df9fded63b364da02564f2a9075b17c177a83039a8a4ee8aed9d2c",
+  "source_archive_sha256": "7e2d70698e3cf528fea18c4391e30af55edac61bdee8f1da7ce65ff59d908930",
+  "five_original_bytes_scoped_restoration_verified": true,
+  "readable_vintages": 3,
+  "all_calendar_compared_rows_total": 15661,
+  "all_calendar_share_mismatches_total": 0,
+  "2023_vintage_Stage1_train_sessions": 3020,
+  "observations": [
+    {
+      "capture_label": "2015-03-11",
+      "archive_timestamp_utc": "20150311040234",
+      "original_url": "http://www.ishares.com:80/us/239705/fund-download.dl",
+      "raw_sha256": "b3dec0c1cff1ed563bba31579c9537fb5d7b223bad869af77022f16b4ad82975",
+      "raw_bytes": 1316780,
+      "status": "historical_sheet_has_no_shares_column",
+      "historical_header": [
+        "As Of",
+        "Index Level",
+        "NAV per Share",
+        "Ex-Dividends"
+      ]
+    },
+    {
+      "capture_label": "2021-01-15",
+      "archive_timestamp_utc": "20210115082600",
+      "original_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-PHLX-Semiconductor-ETF_fund&dataType=fund",
+      "raw_sha256": "76fe70d65315075ecf1f848323134907bb35caf3db8b1bd69c388cec4b0c1e92",
+      "raw_bytes": 2318105,
+      "status": "exact_shares_after_2024_three_for_one_unit_conversion",
+      "historical_rows": 4911,
+      "historical_first": "2001-07-10",
+      "historical_last": "2021-01-14",
+      "all_calendar_share_matches": 4911,
+      "all_calendar_share_mismatches": 0,
+      "Stage1_train_sessions_in_vintage": 2526,
+      "Stage1_train_share_matches": 2526,
+      "Stage1_train_share_mismatches": 0,
+      "index_level_column_present": true
+    },
+    {
+      "capture_label": "2022-07-17",
+      "archive_timestamp_utc": "20220717005024",
+      "original_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-Semiconductor-ETF_fund&dataType=fund",
+      "raw_sha256": "f501ce0cf4ad4ef83b7017ac382928e064aa86eed45b3a9a962abd0d8e6dcb6d",
+      "raw_bytes": 2030747,
+      "status": "exact_shares_after_2024_three_for_one_unit_conversion",
+      "historical_rows": 5288,
+      "historical_first": "2001-07-10",
+      "historical_last": "2022-07-15",
+      "all_calendar_share_matches": 5288,
+      "all_calendar_share_mismatches": 0,
+      "Stage1_train_sessions_in_vintage": 2903,
+      "Stage1_train_share_matches": 2903,
+      "Stage1_train_share_mismatches": 0,
+      "index_level_column_present": false
+    },
+    {
+      "capture_label": "2023-03-26",
+      "archive_timestamp_utc": "20230326163959",
+      "original_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-Semiconductor-ETF_fund&dataType=fund",
+      "raw_sha256": "0cda8d0ce4c4421915251c09d55434855f5f1aa016f2c2f25b39b29f5e7b4613",
+      "raw_bytes": 2096477,
+      "status": "exact_shares_after_2024_three_for_one_unit_conversion",
+      "historical_rows": 5462,
+      "historical_first": "2001-07-10",
+      "historical_last": "2023-03-24",
+      "all_calendar_share_matches": 5462,
+      "all_calendar_share_mismatches": 0,
+      "Stage1_train_sessions_in_vintage": 3020,
+      "Stage1_train_share_matches": 3020,
+      "Stage1_train_share_mismatches": 0,
+      "index_level_column_present": false
+    },
+    {
+      "capture_label": "2024-11-08",
+      "archive_timestamp_utc": "20241108013700",
+      "original_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-Semiconductor-ETF_fund&dataType=fund",
+      "raw_sha256": "fb8e285aacea9f23ad224fb6226af851b0837c247123d07feb3cf112c8029dcf",
+      "raw_bytes": 1048576,
+      "status": "archive_capture_truncated_at_1MiB",
+      "parse_error": "unclosed token: line 40921, column 28"
+    }
+  ],
+  "revision_stability_for_observed_vintages": true,
+  "historical_daily_first_public_clock_qualified": false,
+  "limitation": "Archive capture times are later than issuer as-of dates and only one downloaded file per capture year is observed. Exact agreement across vintages proves no later share-count change for their overlap after known split conversion, not every original daily publication time.",
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "evaluation_outcome_values_loaded": 0
+}

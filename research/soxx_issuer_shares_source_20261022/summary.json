@@ -1,7 +1,7 @@
 {
   "experiment": "soxx_issuer_shares_source_20261022",
   "status": "source_only_full_retrospective_coverage_historical_first_public_unqualified",
-  "plan_sha256": "fc67868c6fff7b904c150bd86243abb129abf7070b3eb06aaab27800d2fbd5d9",
+  "plan_sha256": "c6ccaf3dc6df9fded63b364da02564f2a9075b17c177a83039a8a4ee8aed9d2c",
   "original_source_url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=us-ishares&locale=en_US&portfolioId=239705&component=fundDownload&userType=individual",
   "historical_rows": 8937,
   "qlib_training_sessions": 3020,
@@ -28,5 +28,15 @@
     "new_writable_qlib_recorder": false
   },
   "decision": "candidate_source_only_needs_historical_first_public_and_revision_evidence_before_Stage1_receiver",
-  "next_action": "Obtain dated issuer publication evidence or sufficiently complete historical vintages for shares outstanding. Then freeze a separate matched 39-versus-40 Stage1 information experiment; do not fit or run an account from this source-only card."
+  "next_action": "A separate matched 39-versus-40 Stage1 information screen may be frozen and executed as conditional retrospective development feedback with a two-session as-if availability lag. The current source card does not fit, and no economic account/PIT/promotion claim is permitted until historical publication timing is qualified.",
+  "archived_original_workbook_vintages_total": 5,
+  "readable_original_workbook_vintages": 3,
+  "archived_workbook_overlap_rows_compared": 15661,
+  "archived_workbook_share_mismatches": 0,
+  "archived_2023_workbook_Stage1_training_sessions": 3020,
+  "observed_vintage_revision_stability": true,
+  "nas_workbook_vintage_archive_sha256": "7e2d70698e3cf528fea18c4391e30af55edac61bdee8f1da7ce65ff59d908930",
+  "source_gate_review": "source_gate_review.json",
+  "conditional_retrospective_information_screen_permitted_under_separate_frozen_plan": true,
+  "native_account_from_this_source_permitted": false
 }

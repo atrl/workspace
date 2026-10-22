@@ -1,0 +1,51 @@
+{
+  "status": "frozen_five_historical_issuer_workbook_vintages_source_only",
+  "selection": "All five distinct archived workbook responses identified from exact SOXX issuer legacy download paths by read-only Wayback CDX (one per capture year, before reading body).",
+  "samples": [
+    {
+      "label": "2015-03-11",
+      "wayback_timestamp": "20150311040234",
+      "original_url": "http://www.ishares.com:80/us/239705/fund-download.dl",
+      "replay_url": "https://web.archive.org/web/20150311040234id_/http://www.ishares.com:80/us/239705/fund-download.dl"
+    },
+    {
+      "label": "2021-01-15",
+      "wayback_timestamp": "20210115082600",
+      "original_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-PHLX-Semiconductor-ETF_fund&dataType=fund",
+      "replay_url": "https://web.archive.org/web/20210115082600id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-PHLX-Semiconductor-ETF_fund&dataType=fund"
+    },
+    {
+      "label": "2022-07-17",
+      "wayback_timestamp": "20220717005024",
+      "original_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-Semiconductor-ETF_fund&dataType=fund",
+      "replay_url": "https://web.archive.org/web/20220717005024id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-Semiconductor-ETF_fund&dataType=fund"
+    },
+    {
+      "label": "2023-03-26",
+      "wayback_timestamp": "20230326163959",
+      "original_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-Semiconductor-ETF_fund&dataType=fund",
+      "replay_url": "https://web.archive.org/web/20230326163959id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-Semiconductor-ETF_fund&dataType=fund"
+    },
+    {
+      "label": "2024-11-08",
+      "wayback_timestamp": "20241108013700",
+      "original_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-Semiconductor-ETF_fund&dataType=fund",
+      "replay_url": "https://web.archive.org/web/20241108013700id_/https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf/1521942788811.ajax?fileType=xls&fileName=iShares-Semiconductor-ETF_fund&dataType=fund"
+    }
+  ],
+  "checks": [
+    "Original byte SHA and archive capture identity",
+    "Historical worksheet schema, first/last row and missingness",
+    "Compare all overlapping exact trading-day shares and NAV to 2026 workbook after documented 2024 3-for-1 unit conversion, recording every mismatch",
+    "Assess only dates already present in each archived vintage; no inferred unseen first-public day",
+    "Archive each original byte file to NAS with remote hash and scoped restoration"
+  ],
+  "no_fit_account_or_market_outcomes": true,
+  "budget": {
+    "archive_workbook_downloads_max": 5,
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "bootstrap_runs": 0
+  },
+  "decision_boundary": "Exact multi-vintage agreement can qualify retrospective revision stability for observed dates but still does not by itself certify daily first-public time across 2011-2022."
+}

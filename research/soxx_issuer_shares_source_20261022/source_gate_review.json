@@ -1,0 +1,25 @@
+{
+  "verdict": "ALLOW_SEPARATE_CONDITIONAL_RETROSPECTIVE_INFORMATION_SCREEN_ONLY",
+  "reviewer": "independent_scoped_stage1_nvda_design_review",
+  "source_plan_sha256": "c6ccaf3dc6df9fded63b364da02564f2a9075b17c177a83039a8a4ee8aed9d2c",
+  "workbook_vintage_audit_sha256": "e56d01476538a9360bf19525505cd6a437f9936538e9d08461cb943d37a3a52c",
+  "bounds": [
+    "Current source card does not fit under its stop rule",
+    "Separate 39-versus-40 Qlib Stage1 information plan must be frozen before fit",
+    "Two Qlib session delay remains unverified as-if availability",
+    "No native account or promotion from this source until historical PIT timing qualified"
+  ],
+  "evidence": {
+    "readable_vintages": 3,
+    "calendar_overlap_rows": 15661,
+    "share_mismatches": 0,
+    "2023_vintage_stage1_training_sessions": 3020
+  },
+  "limitations": [
+    "2015 historical workbook lacks shares",
+    "2024 archived workbook truncated",
+    "Sparse archives do not prove every historical first-public clock"
+  ],
+  "new_model_fits_in_review": 0,
+  "new_native_accounts_in_review": 0
+}

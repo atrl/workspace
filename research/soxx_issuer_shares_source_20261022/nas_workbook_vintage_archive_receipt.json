@@ -1,0 +1,39 @@
+{
+  "status": "five_issuer_historical_workbook_captures_archived_and_scoped_restored",
+  "archive_sha256": "7e2d70698e3cf528fea18c4391e30af55edac61bdee8f1da7ce65ff59d908930",
+  "archive_bytes": 315999,
+  "source_objects": {
+    "data/raw/external/soxx_issuer_shares_20261022/workbook_vintages/2015-03-11.xls": {
+      "sha256": "b3dec0c1cff1ed563bba31579c9537fb5d7b223bad869af77022f16b4ad82975",
+      "bytes": 1316780
+    },
+    "data/raw/external/soxx_issuer_shares_20261022/workbook_vintages/2021-01-15.xls": {
+      "sha256": "76fe70d65315075ecf1f848323134907bb35caf3db8b1bd69c388cec4b0c1e92",
+      "bytes": 2318105
+    },
+    "data/raw/external/soxx_issuer_shares_20261022/workbook_vintages/2022-07-17.xls": {
+      "sha256": "f501ce0cf4ad4ef83b7017ac382928e064aa86eed45b3a9a962abd0d8e6dcb6d",
+      "bytes": 2030747
+    },
+    "data/raw/external/soxx_issuer_shares_20261022/workbook_vintages/2023-03-26.xls": {
+      "sha256": "0cda8d0ce4c4421915251c09d55434855f5f1aa016f2c2f25b39b29f5e7b4613",
+      "bytes": 2096477
+    },
+    "data/raw/external/soxx_issuer_shares_20261022/workbook_vintages/2024-11-08.xls": {
+      "sha256": "fb8e285aacea9f23ad224fb6226af851b0837c247123d07feb3cf112c8029dcf",
+      "bytes": 1048576
+    }
+  },
+  "nas_artifact": {
+    "sha256": "7e2d70698e3cf528fea18c4391e30af55edac61bdee8f1da7ce65ff59d908930",
+    "size_bytes": 315999,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/7e/2d/7e2d70698e3cf528fea18c4391e30af55edac61bdee8f1da7ce65ff59d908930",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 23:06:05.914619+08",
+    "duplicate": false
+  },
+  "remote_path": "/volume1/docker/yanxuan/registry/research-artifacts/7e/2d/7e2d70698e3cf528fea18c4391e30af55edac61bdee8f1da7ce65ff59d908930",
+  "remote_sha256_readback": "7e2d70698e3cf528fea18c4391e30af55edac61bdee8f1da7ce65ff59d908930",
+  "scoped_restoration_verified": true
+}

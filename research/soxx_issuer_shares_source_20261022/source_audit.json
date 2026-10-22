@@ -1,6 +1,6 @@
 {
   "status": "complete_retrospective_issuer_history_first_public_vintage_unqualified_no_fit",
-  "plan_sha256": "fc67868c6fff7b904c150bd86243abb129abf7070b3eb06aaab27800d2fbd5d9",
+  "plan_sha256": "c6ccaf3dc6df9fded63b364da02564f2a9075b17c177a83039a8a4ee8aed9d2c",
   "raw_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
   "raw_bytes": 3347697,
   "source_response_date_header_utc": "2026-10-22 14:46:39 GMT",
@@ -12,6 +12,7 @@
       "Shares Outstanding"
     ],
     "daily_calendar_rows": 8937,
+    "index_level_column_present": false,
     "historical_missing_nav_rows": 0,
     "historical_missing_shares_rows": 2,
     "invalid_xml_ampersands_escaped_in_memory": 6,

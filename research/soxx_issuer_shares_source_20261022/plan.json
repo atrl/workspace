@@ -11,7 +11,7 @@
   "raw_path": "data/raw/external/soxx_issuer_shares_20261022/original_fund_download.xls",
   "raw_sha256": "74265a678335a4fb5aac42cb854a60ecd3afc57b8d5ffd1005ed5ccadd5e07b7",
   "parser": "src/data/soxx_issuer_fund_download.py",
-  "parser_sha256": "512a67d771445d939a563b36dc3674ecee48c1a857fae41bc2300769a4559a9f",
+  "parser_sha256": "f0f0a6dced80c3875d5f15bd23f21995c986e4d3f03b93f9bda3a31e6a5cb9d7",
   "qlib_daily_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
   "qlib_daily_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
   "source_only_candidate_question": "SOXX primary-market creation/redemption pressure might distinguish broad persistent weakness from a recoverable price decline beyond the original Stage1 price/breadth/volatility inputs and the closed secondary-market signed-volume route.",
@@ -22,7 +22,8 @@
     "Parse Historical worksheet without changing raw bytes and check schema, duplicate dates, positive NAV/shares",
     "Intersect exact native Qlib 2011-2022 training sessions and 2023-2026 funded signal sessions; preserve weekends but never treat them as trading sessions",
     "Identify restatement/split treatment and historical first-public timing; one current workbook does not certify either",
-    "Archive original bytes to Yanxuan NAS and verify remote SHA plus scoped restoration"
+    "Archive original bytes to Yanxuan NAS and verify remote SHA plus scoped restoration",
+    "Compare archived 2021, 2022 and 2023 original issuer workbook shares against the 2026 file after documented 2024 split unit adjustment, recording all overlap and unreadable captures without outcome reads."
   ],
   "stop": "Do not fit, read 2023+ outcomes, or run an account until source first-availability and revision/vintage semantics are qualified and a separate matched Stage1 information plan is frozen. Do not infer alpha from coverage.",
   "budget": {
@@ -46,5 +47,6 @@
     "artifact": "inputs/features",
     "artifact_sha256": "482d6a908ae95230143dc08014732c3247d22ccb1560f8509f6ac564a4d647ec",
     "scope": "original first 39 Stage1 features, 2011-2022 train only; no labels, predictions or evaluation outcomes"
-  }
+  },
+  "historical_workbook_vintage_extension": "historical_workbook_vintage_plan.json"
 }
