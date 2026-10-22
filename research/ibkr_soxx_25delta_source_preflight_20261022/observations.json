@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "status": "four_fixed_read_only_snapshots_observed",
+  "plan_sha256": "3ab9c2c87b8998e53f37e1783d58a830ff854212918413160c5eb75661b28d86",
+  "entries": {
+    "call_low_strike": {
+      "strike": 530,
+      "requested_at_utc": "2026-10-22 13:43:35 UTC",
+      "received_at_utc": "2026-10-22 13:43:39 UTC",
+      "tool_is_error": false,
+      "raw_response": "{\"option-midpoint-iv\":{\"dailyIv\":0.024942999170644253,\"annualIv\":0.39595783654569017,\"isValid\":true},\"top-status\":{\"status\":\"REALTIME\"},\"option-greeks\":{\"delta\":0.2693744059453678,\"gamma\":0.005831613141315955,\"theta\":-0.3379024549539178,\"vega\":0.4587180285370369,\"option_price\":8.853524311673073},\"bid-ask\":{\"bid\":6.4,\"bid_size\":6055.0,\"ask\":9.8,\"ask_size\":3219.0}}",
+      "parsed_response": {
+        "option-midpoint-iv": {
+          "dailyIv": 0.024942999170644253,
+          "annualIv": 0.39595783654569017,
+          "isValid": true
+        },
+        "top-status": {
+          "status": "REALTIME"
+        },
+        "option-greeks": {
+          "delta": 0.2693744059453678,
+          "gamma": 0.005831613141315955,
+          "theta": -0.3379024549539178,
+          "vega": 0.4587180285370369,
+          "option_price": 8.853524311673073
+        },
+        "bid-ask": {
+          "bid": 6.4,
+          "bid_size": 6055,
+          "ask": 9.8,
+          "ask_size": 3219
+        }
+      }
+    },
+    "call_high_strike": {
+      "strike": 540,
+      "requested_at_utc": "2026-10-22 13:43:35 UTC",
+      "received_at_utc": "2026-10-22 13:43:42 UTC",
+      "tool_is_error": false,
+      "raw_response": "{\"option-midpoint-iv\":{\"dailyIv\":0.024923351727109893,\"annualIv\":0.39564594304874956,\"isValid\":true},\"top-status\":{\"status\":\"REALTIME\"},\"option-greeks\":{\"delta\":0.22197570668121006,\"gamma\":0.0052565581680170635,\"theta\":-0.2913751467308101,\"vega\":0.39639879298468816,\"option_price\":6.8824797585955},\"bid-ask\":{\"bid\":4.6000000000000005,\"bid_size\":6043.0,\"ask\":7.6000000000000005,\"ask_size\":3331.0}}",
+      "parsed_response": {
+        "option-midpoint-iv": {
+          "dailyIv": 0.024923351727109893,
+          "annualIv": 0.39564594304874956,
+          "isValid": true
+        },
+        "top-status": {
+          "status": "REALTIME"
+        },
+        "option-greeks": {
+          "delta": 0.22197570668121006,
+          "gamma": 0.0052565581680170635,
+          "theta": -0.2913751467308101,
+          "vega": 0.39639879298468816,
+          "option_price": 6.8824797585955
+        },
+        "bid-ask": {
+          "bid": 4.6000000000000005,
+          "bid_size": 6043,
+          "ask": 7.6000000000000005,
+          "ask_size": 3331
+        }
+      }
+    },
+    "put_low_strike": {
+      "strike": 450,
+      "requested_at_utc": "2026-10-22 13:43:35 UTC",
+      "received_at_utc": "2026-10-22 13:43:41 UTC",
+      "tool_is_error": false,
+      "raw_response": "{\"option-midpoint-iv\":{\"dailyIv\":0.02841562779496879,\"annualIv\":0.45108410695957263,\"isValid\":true},\"top-status\":{\"status\":\"REALTIME\"},\"option-greeks\":{\"delta\":-0.23976466678528593,\"gamma\":0.004845288390205336,\"theta\":-0.3154759112946781,\"vega\":0.40990199371300307,\"option_price\":9.753538307743767},\"bid-ask\":{\"bid\":8.700000000000001,\"bid_size\":1734.0,\"ask\":9.9,\"ask_size\":619.0}}",
+      "parsed_response": {
+        "option-midpoint-iv": {
+          "dailyIv": 0.02841562779496879,
+          "annualIv": 0.45108410695957263,
+          "isValid": true
+        },
+        "top-status": {
+          "status": "REALTIME"
+        },
+        "option-greeks": {
+          "delta": -0.23976466678528593,
+          "gamma": 0.004845288390205336,
+          "theta": -0.3154759112946781,
+          "vega": 0.40990199371300307,
+          "option_price": 9.753538307743767
+        },
+        "bid-ask": {
+          "bid": 8.700000000000001,
+          "bid_size": 1734,
+          "ask": 9.9,
+          "ask_size": 619
+        }
+      }
+    },
+    "put_high_strike": {
+      "strike": 460,
+      "requested_at_utc": "2026-10-22 13:43:35 UTC",
+      "received_at_utc": "2026-10-22 13:43:40 UTC",
+      "tool_is_error": false,
+      "raw_response": "{\"top-status\":{\"status\":\"REALTIME\"},\"option-midpoint-iv\":{\"dailyIv\":0.02839181374730834,\"annualIv\":0.4507060706726562,\"isValid\":true},\"option-greeks\":{\"delta\":-0.29078079815580804,\"gamma\":0.005461626829144011,\"theta\":-0.350881991900998,\"vega\":0.4672089916862152,\"option_price\":12.364218305592322},\"bid-ask\":{\"bid\":11.700000000000001,\"bid_size\":59.0,\"ask\":12.600000000000001,\"ask_size\":2131.0}}",
+      "parsed_response": {
+        "top-status": {
+          "status": "REALTIME"
+        },
+        "option-midpoint-iv": {
+          "dailyIv": 0.02839181374730834,
+          "annualIv": 0.4507060706726562,
+          "isValid": true
+        },
+        "option-greeks": {
+          "delta": -0.29078079815580804,
+          "gamma": 0.005461626829144011,
+          "theta": -0.350881991900998,
+          "vega": 0.4672089916862152,
+          "option_price": 12.364218305592322
+        },
+        "bid-ask": {
+          "bid": 11.700000000000001,
+          "bid_size": 59,
+          "ask": 12.600000000000001,
+          "ask_size": 2131
+        }
+      }
+    }
+  },
+  "broker_order_calls": 0,
+  "alerts": 0,
+  "account_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

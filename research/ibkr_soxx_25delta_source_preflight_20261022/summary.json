@@ -1,0 +1,27 @@
+{
+  "experiment": "ibkr_soxx_25delta_source_preflight_20261022",
+  "status": "fixed_delta25_brackets_observed_source_feasibility_only",
+  "decision": "source_feasibility_only_no_Stage1_feature_or_promotion",
+  "objective_achieved": false,
+  "plan_sha256": "3ab9c2c87b8998e53f37e1783d58a830ff854212918413160c5eb75661b28d86",
+  "result_sha256": "dcbdb1e712708b461982ede19fc6b8664861042b293eda8d3cc51cecd917967a",
+  "observation_sha256": "da8fb77348cca0756dcc7e52692f27e86b4494767b8e1ecf0ba03362ade20053",
+  "source": "IBKR connected read-only market-data snapshots",
+  "expiration": "2026-11-20",
+  "fixed_25delta_skew_volatility_points": 5.517791294128038,
+  "quote_timestamp_provided": false,
+  "historical_PIT_qualified": false,
+  "qualified_forward_days": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "broker_orders": 0,
+  "recorder_status": "source_only_no_qlib_recorder",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "next_action": "A separate forward source-capture plan needs quote timestamp/provenance and exclusive claim. Historical SOXX 2011-2022 25Delta IV/Delta requires verified vendor sample/coverage before any model fit or account.",
+  "nas_source_archive_sha256": "b042206e39d3c37f007c3e0d283bd399317c82480f84ae09fbd521a9e1a29d5a",
+  "source_archive_receipt": "source_archive_receipt.json"
+}

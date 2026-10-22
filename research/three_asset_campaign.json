@@ -63,7 +63,9 @@
     "stage1_nvda_receiver_result": "research/stage1_nvda_guidance_receiver_20261022/summary.json",
     "stage1_nvda_receiver_regime_attribution": "research/stage1_nvda_guidance_receiver_20261022/regime_attribution.json",
     "stage1_signed_volume_source_preflight": "research/stage1_signed_volume_pressure_preflight_20261022/source_preflight_result.json",
-    "stage1_signed_volume_status": "needs_source_history_no_fit_1062_of_3020_training_dates"
+    "stage1_signed_volume_status": "needs_source_history_no_fit_1062_of_3020_training_dates",
+    "IBKR_fixed_delta25_source_preflight": "research/ibkr_soxx_25delta_source_preflight_20261022/summary.json",
+    "IBKR_fixed_delta25_source_status": "one_25delta_bracketed_source_sample_quote_timestamps_and_history_missing_no_factor"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -125,7 +127,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T13:40:36.289807+00:00",
+  "updated_at_utc": "2026-10-22T13:46:52.912310+00:00",
   "execution_totals": {
     "new_model_fits": 51,
     "new_native_accounts": 46,

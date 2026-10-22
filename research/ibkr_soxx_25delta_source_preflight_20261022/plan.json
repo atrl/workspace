@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "experiment": "ibkr_soxx_25delta_source_preflight_20261022",
+  "frozen_before_market_reads": true,
+  "execution_authorized": "read_only_source_feasibility_only",
+  "parent_regular_hours_result": "research/ibkr_soxx_option_skew_forward_source_20261022/regular_hours_result.json",
+  "parent_regular_hours_result_sha256": "c2e8a90e9738be7885d15d29ef64b9c253bbf411e062614fe96d541f00391f90",
+  "fixed_chain": "research/ibkr_soxx_option_skew_forward_source_20261022/market_data_sample.json",
+  "fixed_chain_sha256": "cdce65b9339c5b3c6454bfb88c5fb4b5e62ff7f36bb2a69187a44cbb45cb8a59",
+  "expiration": "2026-11-20",
+  "exchange": "SMART",
+  "strike_selection_basis": "2026-10-22 13:35 UTC SOXX near-ATM spot 489.42/489.57 and annual IV about 0.425; fixed prequote bracket estimates call25Delta near 535, put25Delta near 455",
+  "contracts": [
+    {
+      "role": "call_low_strike",
+      "strike": 530.0,
+      "contract_id": 850971707
+    },
+    {
+      "role": "call_high_strike",
+      "strike": 540.0,
+      "contract_id": 850971765
+    },
+    {
+      "role": "put_low_strike",
+      "strike": 450.0,
+      "contract_id": 849290431
+    },
+    {
+      "role": "put_high_strike",
+      "strike": 460.0,
+      "contract_id": 849290530
+    }
+  ],
+  "target_delta": {
+    "call": 0.25,
+    "put": -0.25
+  },
+  "market_data_names": [
+    "bid_ask",
+    "option_midpoint_iv",
+    "option_greeks",
+    "top_status"
+  ],
+  "not_before_utc": "2026-10-22T13:43:00+00:00",
+  "not_after_utc": "2026-10-22T19:55:00+00:00",
+  "max_request_span_seconds": 45,
+  "budget": {
+    "option_snapshots": 4,
+    "option_chain_searches": 0,
+    "underlying_snapshots": 0,
+    "orders": 0,
+    "alerts": 0,
+    "account_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "acceptance": "All four quotes must be REALTIME, have positive ordered bid/ask, positive valid annual IV, and finite correctly signed Delta. At 530/540 call Delta must straddle +0.25; at 450/460 put Delta must straddle -0.25. Interpolate annual IV linearly in Delta inside both brackets only. No extrapolation, replacement strike, retry, or same-day account use.",
+  "output_boundary": "One requested-at observed source feasibility sample; connector does not supply option quote timestamps, historical strike coverage, or publication vintages. Even a positive bracket is not a PIT factor, forward strategy day, or SOXX alpha."
+}

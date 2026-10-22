@@ -1,0 +1,13 @@
+{
+  "status": "passed_source_only",
+  "nas_archive_sha256": "b042206e39d3c37f007c3e0d283bd399317c82480f84ae09fbd521a9e1a29d5a",
+  "scoped_cold_readback": true,
+  "archived_objects": 5,
+  "object_hash_mismatches": 0,
+  "observed_fixed_delta25_skew_volatility_points": 5.517791294128038,
+  "option_quote_timestamps_provided": false,
+  "historical_PIT_qualified": false,
+  "new_model_fits": 0,
+  "native_accounts": 0,
+  "broker_order_calls": 0
+}

@@ -1,0 +1,42 @@
+{
+  "status": "exact_source_bytes_archived_remote_hash_verified",
+  "archive_sha256": "b042206e39d3c37f007c3e0d283bd399317c82480f84ae09fbd521a9e1a29d5a",
+  "archive_bytes": 3206,
+  "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/b0/42/b042206e39d3c37f007c3e0d283bd399317c82480f84ae09fbd521a9e1a29d5a",
+  "entries": [
+    {
+      "path": "research/ibkr_soxx_25delta_source_preflight_20261022/plan.json",
+      "sha256": "3ab9c2c87b8998e53f37e1783d58a830ff854212918413160c5eb75661b28d86",
+      "bytes": 2410
+    },
+    {
+      "path": "research/ibkr_soxx_25delta_source_preflight_20261022/execution_claim.json",
+      "sha256": "ef51befea5875d33867e94aa43d118c70de9b2c3ffcab6d56d9cf9194bdb6386",
+      "bytes": 310
+    },
+    {
+      "path": "research/ibkr_soxx_25delta_source_preflight_20261022/observations.json",
+      "sha256": "da8fb77348cca0756dcc7e52692f27e86b4494767b8e1ecf0ba03362ade20053",
+      "bytes": 5404
+    },
+    {
+      "path": "research/ibkr_soxx_25delta_source_preflight_20261022/result.json",
+      "sha256": "dcbdb1e712708b461982ede19fc6b8664861042b293eda8d3cc51cecd917967a",
+      "bytes": 1061
+    },
+    {
+      "path": "research/ibkr_soxx_25delta_source_preflight_20261022/completion_receipt.json",
+      "sha256": "17d973344cb7c169adb148352e5cea59d6ef24a048610f8c2f1a4e4a272e7469",
+      "bytes": 653
+    }
+  ],
+  "nas_evidence": {
+    "storage_uri": "sha256/b0/42/b042206e39d3c37f007c3e0d283bd399317c82480f84ae09fbd521a9e1a29d5a",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 21:45:35.879918+08",
+    "duplicate": false
+  },
+  "model_fits": 0,
+  "native_accounts": 0,
+  "broker_order_calls": 0
+}

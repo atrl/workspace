@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "completed_exact_four_snapshot_budget",
+  "plan_sha256": "3ab9c2c87b8998e53f37e1783d58a830ff854212918413160c5eb75661b28d86",
+  "initial_exclusive_claim_sha256": "ef51befea5875d33867e94aa43d118c70de9b2c3ffcab6d56d9cf9194bdb6386",
+  "observations_sha256": "da8fb77348cca0756dcc7e52692f27e86b4494767b8e1ecf0ba03362ade20053",
+  "result_sha256": "dcbdb1e712708b461982ede19fc6b8664861042b293eda8d3cc51cecd917967a",
+  "completed_at_utc": "2026-10-22T13:45:16.707068+00:00",
+  "option_snapshots_used": 4,
+  "further_same_phase_requests_allowed": false,
+  "broker_order_calls": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

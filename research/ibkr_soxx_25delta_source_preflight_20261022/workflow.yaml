@@ -1,0 +1,9 @@
+experiment: ibkr_soxx_25delta_source_preflight_20261022
+source: IBKR connected market-data snapshots
+plan: plan.json
+raw_observations: observations.json
+result: result.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: []

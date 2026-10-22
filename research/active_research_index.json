@@ -12,7 +12,9 @@
       "status": "REALTIME_field_entitlement_passed_not_feature_qualified",
       "execution_authorized": false,
       "result": "research/ibkr_soxx_option_skew_forward_source_20261022/regular_hours_result.json",
-      "source_archive": "research/ibkr_soxx_option_skew_forward_source_20261022/source_archive_receipt.json"
+      "source_archive": "research/ibkr_soxx_option_skew_forward_source_20261022/source_archive_receipt.json",
+      "fixed_delta25_source_preflight": "research/ibkr_soxx_25delta_source_preflight_20261022/summary.json",
+      "fixed_delta25_source_status": "single_day_bracketed_not_PIT"
     },
     {
       "card": "research/cboe_total_options_activity_source_20261022",

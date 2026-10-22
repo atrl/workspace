@@ -22,5 +22,7 @@
   "source_response": "regular_hours_response_20261022.json",
   "regular_hours_known_calls": 9,
   "forward_25delta_skew_qualified": false,
-  "historical_2011_2022_source_qualified": false
+  "historical_2011_2022_source_qualified": false,
+  "fixed_delta25_source_preflight": "research/ibkr_soxx_25delta_source_preflight_20261022/summary.json",
+  "fixed_delta25_source_status": "single_day_bracketed_source_feasibility_only_not_PIT"
 }
