@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "all_93_current_document_monthly_table_semantics_accounted_for_historical_PIT_unqualified",
+  "corrects_prior_manual_review_sha256": "9de561f1a5e79b323bd7050d95de710159d45bf6defb0b0b5dec19317633765c",
+  "authoritative_2020_05_source_attribution_sha256": "db8a196773252cff952ceb64fb9cd11af75b50d10c6222c65536ad46bc101f6d",
+  "coordinate_full_result_sha256": "e4b6f124f8d6463866cf83d9cf96999cf60c95aecb9613bc3be07977327d80b0",
+  "manual_nine_result_sha256": "1b30e5b0293901b08eb7ae0fa4a2ed3ba8375d8ab90e265971009d5fa080ec21",
+  "current_document_table_cell_months": 93,
+  "dual_version_months_consistent_in_tables": [
+    "2020-06",
+    "2020-10",
+    "2023-05"
+  ],
+  "2020_05_document_discrepancy": "p6 80.1 100m USD conflicts with p10 8,068 USD million and p11 rounded 80.7 100m USD; the previously frozen source-only attribution chooses the detailed current-month table as current-document semantics, while retaining p6 as a suspected typo/provenance conflict.",
+  "2020_05_current_document_semantics": "8,068 USD million (80.68 USD 100m), +7.1% YoY, source-only table interpretation; not historically first-public certified",
+  "prior_review_correction": "The earlier manual review incorrectly treated the visible p6 discrepancy as an unresolved current-document value-selection gate. Existing numeric_conflict_2020_05_result.json had already adjudicated current-document semantics. That old review remains unchanged as audit history and is superseded for this one interpretation.",
+  "current_document_numeric_semantics_complete": true,
+  "historical_first_public_vintage_qualified": false,
+  "factor_values_qualified": false,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "accounts": 0,
+  "next_action": "Seek immutable original-publication versions and availability clocks for all 93 months, especially three dual-version months and late-created PDFs, before any Korea Qlib factor or SOXX information screen. The current-document table vector must not be labeled PIT or promoted. Continue independent frozen Cboe/IBKR checks."
+}
