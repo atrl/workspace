@@ -1,0 +1,15 @@
+{
+  "experiment": "stage1_credit_risk_appetite_source_preflight_20261023",
+  "decision": "needs_data_Futu_2011_HYG_daily_probe_empty_no_fit",
+  "probe_result": "probe_result.json",
+  "market_requests": 1,
+  "NAS_archive_sha256": "c224862db775525a83eff848bca31f9bcf6f9547f13ff32abbe7ffc408750988",
+  "NAS_restore_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "status": "needs_data_one_day_probe_failed",
+  "market_requests": 1,
+  "symbols": [
+    {
+      "symbol": "US.HYG",
+      "ret_code": 0,
+      "rows": 0,
+      "first_time_key": null,
+      "page_req_key": null,
+      "error": null
+    }
+  ],
+  "raw_response_sha256": "cd85f1d1198f69c4bb1fbab046319b0b7f3f6d8e7443f10194c6ea8b162f3948",
+  "nas_archive_sha256": "c224862db775525a83eff848bca31f9bcf6f9547f13ff32abbe7ffc408750988",
+  "nas_archive_bytes": 1438,
+  "nas_remote_hash_verified": true,
+  "nas_scoped_restore_verified": true,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "SOXX_outcome_reads": 0
+}

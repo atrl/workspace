@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_day_Futu_HYG_LQD_daily_history_capability_probe_no_fit",
+  "question": "Does the existing read-only Futu OpenD connection deliver contemporaneous 2011 daily prices for both U.S. credit ETFs needed to test a decision-before-open relative risk-appetite mechanism across the complete Stage1 training history?",
+  "economic_mechanism": "HYG relative to LQD is a traded credit-risk appetite proxy, not a pure credit spread. Previous Stage1 inputs cover equity price/VIX/breadth but not credit ETF relative prices. This source probe does not authorize a feature, sign, threshold or account.",
+  "existing_data_check": "No HYG/LQD instrument was found in the current local Qlib data paths; this does not prove no NAS copy exists. The older soxl_macro_credit_v1 store has macro-credit fields but its documented Stage1 training coverage starts 2019 and cannot fill 2011-2018.",
+  "official_api": "https://openapi.futunn.com/futu-api-doc/en/quote/request-history-kline.html",
+  "endpoint": "OpenQuoteContext.request_history_kline",
+  "connection": {"host": "127.0.0.1", "port": 11111},
+  "symbols_in_order": ["US.HYG", "US.LQD"],
+  "start": "2011-01-03",
+  "end": "2011-01-03",
+  "ktype": "K_DAY",
+  "autype": "NONE",
+  "max_count": 10,
+  "pagination": false,
+  "stop_after_first_empty_or_error": true,
+  "budget": {"market_requests_max": 2, "retries": 0, "SOXX_outcome_reads": 0, "Qlib_factor_rows": 0, "model_fits": 0, "native_accounts": 0, "order_calls": 0},
+  "acceptance": "Both exact symbols return nonempty 2011-01-03 daily OHLCV, no page key, with read-only receipt and raw response backed to NAS and hash/restoration verified. A one-day response does not establish full 2011-2026 history, corporate-action adjustment, first-availability timing or incremental information.",
+  "stop": "On empty/error result, pagination, symbol mismatch, bad date, NAS failure or OpenD unavailability, record exact dependency and stop this fixed probe. No alternate ticker, date, host, entitlement change or repeat request."
+}
