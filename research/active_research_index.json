@@ -319,6 +319,7 @@
     "Stage1_1032_signed_volume_action_source": "research/stage1_intraday_signed_volume_action_source_20261023/summary.json",
     "Stage1_1032_signed_volume_0bp_action_label_source": "research/stage1_signed_volume_0bp_action_label_source_20261023/summary.json",
     "SOXX_listed_short_interest_training_history_gap": "research/stage1_soxx_short_interest_source_triage_20261023/source_review.json",
+    "Fed_CP_rating_spread_transport_gap": "research/fed_cp_rating_spread_source_20261023/summary.json",
     "SOXX_issuer_premium_historical_coverage": "research/soxx_issuer_premium_source_probe_20261022/source_probe_result.json"
   },
   "do_not_reload": [

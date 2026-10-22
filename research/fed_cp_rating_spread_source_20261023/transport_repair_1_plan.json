@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "one_HTTP1_1_transport_repair_of_same_Fed_CP_series",
+  "original_plan_sha256": "f791312c903ad62e2ea33e77217e2699587a0990f96b2c8fc4334aadd4f19367",
+  "original_retrieval_receipt_sha256": "939cfbbfb1ef81707f74e096c98c21ed0ad7c834bd9cd085b5c9eca3f13302cc",
+  "original_source_archive_receipt_sha256": "8e9ada19c602735bfa6d5afbe36b1308a8477b48b3a6683d64120dcec6182334",
+  "original_consumption": {"HTTP_GET_attempts": 2, "HTTP_statuses": [0, 0], "curl_exit_codes": [92, 92], "body_bytes": [0, 0], "Qlib_D_calendar_calls": 0, "model_fits": 0, "native_accounts": 0},
+  "repair": "Repeat each identical frozen URL exactly once using curl --http1.1, with no redirects/retries, same timeout/headers, into an attempt-specific repair1 directory. Preserve original empty-body/header bytes and NAS receipt. This changes transport only, not series, observation dates, source/feature formula, five-session lag, freshness or acceptance gate.",
+  "additional_budget": {"HTTP_GETs": 2, "redirects": 0, "retries": 0, "max_bytes_each": 5000000, "Qlib_D_calendar_calls_if_both_200": 1, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "new_Qlib_Recorders_if_source_passes": 1},
+  "stop": "Any non-200, empty/malformed CSV, identity mismatch, failed NAS backup/restore or Qlib calendar mismatch stops with exact receipt; no third transport, host, endpoint or date fallback. Original request counts remain consumed."
+}

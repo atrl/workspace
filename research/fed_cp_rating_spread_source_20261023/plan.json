@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "experiment": "fed_cp_rating_spread_source_20261023",
+  "frozen": true,
+  "phase": "two_original_Fed_CP_rate_series_current_history_source_and_conservative_calendar_preflight",
+  "hypothesis": "The 30-day nonfinancial A2/P2 commercial-paper rate minus the same-maturity AA nonfinancial rate measures lower-tier private funding stress distinct from the previously failed SOFR-minus-IORB funding proxy and HYG-minus-LQD ETF-return momentum; higher spread may favor cash over SOXX, but no prediction or policy claim is made in this source card.",
+  "official_semantics": "Both legs are Federal Reserve CP release rates from DTCC trade data, same nonfinancial issuer sector and 30-day maturity; FRED IDs RIFSPPNA2P2D30NB and RIFSPPNAAD30NB. The spread is percent points, not a SOXX constituent or broker funding cost. The Board says its CP release is usually posted near 1 p.m. ET on the following day but does not guarantee exact timing.",
+  "requests": [
+    {"series": "RIFSPPNA2P2D30NB", "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RIFSPPNA2P2D30NB&cosd=2010-01-01&coed=2026-10-21"},
+    {"series": "RIFSPPNAAD30NB", "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RIFSPPNAAD30NB&cosd=2010-01-01&coed=2026-10-21"}
+  ],
+  "raw_capture": "Exactly one GET per URL with no redirects or retries, 30-second timeout, response headers/date/final URL/status/UTC times, exact bytes, SHA-256 and size. Store original CSV/headers under data/snapshots/fed_cp_rating_spread_source_20261023 and back up exact source archive to Yanxuan NAS with scoped readback before calculating a feature. Non-200, non-CSV or changed URL stops mapping.",
+  "point_in_time_boundary": "Downloaded CSV is a current retrospective history, not retained 2011-2022 first-public vintages. For a conditional research source map only, Stage1 signal date may use the latest paired finite observation at least five actual Qlib sessions old and no more than ten sessions old. This conservative lag does not repair later revisions. Historical first-public/revision coverage remains unqualified until original archived releases or ALFRED vintages are bound.",
+  "provider": {
+    "calendar_uri": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+    "calendar_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+    "train_signal_dates": ["2011-01-03", "2022-12-30"],
+    "expected_train_rows": 3020,
+    "reused_held_signal_dates": ["2023-01-03", "2026-10-07"],
+    "expected_held_rows": 944,
+    "minimum_known_fraction_each": 0.95,
+    "missing_and_stale_dates_retained": true
+  },
+  "budget": {"HTTP_GETs": 2, "redirects": 0, "retries": 0, "max_bytes_each": 5000000, "Qlib_D_calendar_calls": 1, "market_outcome_reads": 0, "model_fits": 0, "native_accounts": 0, "new_Qlib_Recorders": 1},
+  "stop": "Source only. Do not infer publication at observation date, fill missing rates with zero, pick a better lag or period from SOXX outcomes, fit a factor or account. If retrospective coverage passes, separately freeze an exact original-39-input information screen under explicitly unqualified historical vintages; even an information pass cannot enter a historical account without first-public/revision qualification."
+}

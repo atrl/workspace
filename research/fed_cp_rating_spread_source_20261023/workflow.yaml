@@ -1,0 +1,6 @@
+experiment: fed_cp_rating_spread_source_20261023
+notebook: fed_cp_rating_spread_source_20261023.ipynb
+transport_repair_notebook: transport_repair_1.ipynb
+terminal_closeout_notebook: transport_repair_1_closeout.ipynb
+phase: Fed_CP_rating_spread_source_only_no_outcomes
+artifact_policy: slim_card_recorder_first

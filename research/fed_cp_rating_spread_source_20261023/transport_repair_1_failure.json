@@ -1,0 +1,22 @@
+{
+  "status": "HTTP1_1_repair_attempt_terminal_before_source_mapping",
+  "repair_plan_sha256": "bfebcd18b95a14dacc2de6539378476ba6202f73911cb4e39b97961a91d17099",
+  "original_HTTP_GET_attempts": 2,
+  "additional_HTTP_GET_attempts": 2,
+  "repair_HTTP_statuses": [0, 0],
+  "repair_curl_exit_codes": [28, 28],
+  "repair_response_body_bytes": [0, 0],
+  "repair_response_header_bytes": [0, 0],
+  "repair_stderr": "curl: (28) Operation timed out after about 30 seconds with 0 bytes received on each exact HTTP/1.1 URL",
+  "NAS_upload_attempted": true,
+  "NAS_upload_artifact_sha256": "ea7be579a590ac3815a8540e84002ef4acf8f9a00592a82522eb337816b20df7",
+  "NAS_upload_error": "needs_data: NAS API PUT exact artifact SHA failed (curl 28)",
+  "NAS_readonly_path_check": "needs_data: NAS SSH operation failed; remote artifact presence/hash not verified",
+  "NAS_repair_archive_qualified": false,
+  "source_data_bytes_received": 0,
+  "source_values_parsed": 0,
+  "Qlib_D_calendar_calls": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "next_action": "Stop this fixed URL and HTTP/1.1 transport sequence. Preserve four exact attempted receipts and empty local response files. An independently authorized official source transport or later external-state change is required before a new finite request plan; never treat current FRED table values as historical first-public vintages. Other SOXX Goal work may continue."
+}

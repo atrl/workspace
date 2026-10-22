@@ -22,6 +22,8 @@
     "Stage1_1032_signed_volume_0bp_label_limit": "One new 1061-session OOF Stage1-architecture training reference was run at 0bp added slippage with native Tiered fees, producing 439 eligible and 438 mature beta0.6 same-state recovery/HOLD labels. The 2bp saved reference was only a calendar/target source and was not relabeled. This is a local training label bridge, not the frozen 2023+ complete Stage1 candidate account or SOXX strategy success; 2021/2022 label support is uneven and historical first receipt remains unqualified.",
     "Stage1_1032_signed_volume_action_source_limit": "A same-day 09:31-10:30 SOXX volume-weighted signed minute-move coordinate is known by assumed 10:31 research clock on 1060/1061 structurally covered 2018-2022 recovery-action training dates and 944/944 reused 2023-2026 action dates; the invalid 2020-03-16 date is retained unknown. This does not reopen the failed previous-day 09:29 allocation-source proposal, does not certify real first receipts, and supplies no action-value or SOXX excess evidence until a separately frozen matched recovery-information test.",
     "SOXX_listed_short_interest_source_triage": "research/stage1_soxx_short_interest_source_triage_20261023/source_review.json",
+    "Fed_CP_rating_spread_source_transport": "research/fed_cp_rating_spread_source_20261023/summary.json",
+    "Fed_CP_rating_spread_source_limit": "The distinct 30-day nonfinancial A2/P2-minus-AA commercial-paper stress coordinate had two exact current-history FRED CSV requests fail before HTTP response (curl92) and a frozen same-URL HTTP/1.1 repair fail with zero response bytes (curl28). Four attempts consumed, no historical values, Qlib mapping, fit or account. Original empty-response archive was NAS-restored; repair empty-response NAS PUT timed out and remote hash was not verified. Preserve local repair bytes and stop this transport version; it is not a negative information result or a blocker for unrelated Goal work.",
     "SOXX_listed_short_interest_source_limit": "Outstanding listed short interest is a different measure from the closed FINRA short-sale volume mix, but the inspected Nasdaq public SOXX page supplied no rows, the Nasdaq Trader query covers a rolling 12 months, and Nasdaq Data Link's indexed product description starts at 2022-09-30. The JavaScript Data Link page did not render directly in this tool. No official 2011-2022 SOXX file with dissemination/revision vintages was established; no factor, fit, account or purchase followed.",
     "Stage1_cap_gap_cash_information_interpretation": "On the original Stage1 own-state 0bp path, the predecision positive raw-beta-minus-risk-cap gap occurs on 730/944 dates but does not rank the 940 mature H5 SOXX cash-advantage labels in the preregistered positive direction: Spearman -0.0622, descriptive stationary-block 95% interval [-0.2250,0.0771]. The 2024/2025 complete-year points are both negative. This necessary-condition diagnostic closes cap-gap-as-standalone-signal; no sign reversal or threshold rescue, no new fit/account.",
     "Stage1_dynamic_risk_bypass_failure_attribution": "research/stage1_dynamic_risk_bypass_0bp_20261023/failure_attribution.json",
@@ -312,7 +314,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T20:43:15.496579+00:00",
+  "updated_at_utc": "2026-10-22T20:50:47+00:00",
   "execution_totals": {
     "new_model_fits": 77,
     "new_native_accounts": 50,

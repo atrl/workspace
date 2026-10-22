@@ -1,0 +1,22 @@
+{
+  "experiment": "fed_cp_rating_spread_source_20261023",
+  "decision": "needs_original_Fed_CP_transport_after_two_bounded_protocols_no_fit",
+  "objective_achieved": false,
+  "original_plan_sha256": "f791312c903ad62e2ea33e77217e2699587a0990f96b2c8fc4334aadd4f19367",
+  "original_retrieval_sha256": "939cfbbfb1ef81707f74e096c98c21ed0ad7c834bd9cd085b5c9eca3f13302cc",
+  "original_source_NAS_sha256": "5e5b8f85c08946600fba0a468522a5a180e8cc0152605c409e37d135932ba588",
+  "repair_plan_sha256": "bfebcd18b95a14dacc2de6539378476ba6202f73911cb4e39b97961a91d17099",
+  "repair_retrieval_sha256": "8c98d6bf0be1dc8f5f624184b2555bc80c6691932a06505cd4b7b155976a497f",
+  "repair_failure": "transport_repair_1_failure.json",
+  "cumulative_HTTP_GET_attempts": 4,
+  "source_data_bytes_received": 0,
+  "source_first_public_vintage_qualified": false,
+  "Qlib_D_calendar_calls": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}

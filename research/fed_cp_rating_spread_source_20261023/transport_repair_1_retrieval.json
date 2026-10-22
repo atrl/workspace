@@ -1,0 +1,38 @@
+{
+  "status": "HTTP1_1_two_exact_requests_recorded",
+  "repair_plan_sha256": "bfebcd18b95a14dacc2de6539378476ba6202f73911cb4e39b97961a91d17099",
+  "original_HTTP_GET_attempts": 2,
+  "additional_HTTP_GET_attempts": 2,
+  "responses": [
+    {
+      "series": "RIFSPPNA2P2D30NB",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RIFSPPNA2P2D30NB&cosd=2010-01-01&coed=2026-10-21",
+      "request_started_utc": "2026-10-22T20:46:53.739414+00:00",
+      "response_finished_utc": "2026-10-22T20:47:23.759740+00:00",
+      "http_status": 0,
+      "curl_exit_code": 28,
+      "curl_stderr": "curl: (28) Operation timed out after 30002 milliseconds with 0 bytes received\n",
+      "final_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RIFSPPNA2P2D30NB&cosd=2010-01-01&coed=2026-10-21",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0,
+      "headers_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "headers_bytes": 0
+    },
+    {
+      "series": "RIFSPPNAAD30NB",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RIFSPPNAAD30NB&cosd=2010-01-01&coed=2026-10-21",
+      "request_started_utc": "2026-10-22T20:47:23.761406+00:00",
+      "response_finished_utc": "2026-10-22T20:47:53.802792+00:00",
+      "http_status": 0,
+      "curl_exit_code": 28,
+      "curl_stderr": "curl: (28) Operation timed out after 30007 milliseconds with 0 bytes received\n",
+      "final_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RIFSPPNAAD30NB&cosd=2010-01-01&coed=2026-10-21",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0,
+      "headers_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "headers_bytes": 0
+    }
+  ],
+  "model_fits": 0,
+  "native_accounts": 0
+}
