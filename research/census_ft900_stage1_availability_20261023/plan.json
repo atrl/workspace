@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "experiment": "census_ft900_stage1_availability_20261023",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "source_only_original_FT900_semiconductor_export_Stage1_Qlib_availability",
+  "hypothesis": "Latest published same-report U.S. semiconductor export month-over-month change may add external-demand information to the frozen complete Stage1 chain beyond its 39 original inputs. This phase builds only source and time alignment, not a prediction or account.",
+  "source_cards": {
+    "training_rows": "research/census_ft900_semiconductor_export_source_20261023/full_training_row_audit.json",
+    "training_rows_sha256": "a1f894d0cb7ea73b2f4030cdd11d45b10d7a143215b2573f83e880d96bfbb12a",
+    "held_rows": "research/census_ft900_semiconductor_export_source_20261023/held_row_identity_audit.json",
+    "held_rows_sha256": "8b15c91fede00ecf1bf7febbf5af3c92c9390ffc0da64dc52c29202bd2d19f3a",
+    "lead_in_rows": "research/census_ft900_train_leadin_20261023/result.json",
+    "lead_in_rows_sha256": "f045d33fcdff2c30ba8fde8e08fe3a04cd058475bd1885ca215b161a2b533719",
+    "transition_adjudication": "research/census_ft900_index_boundary_20261023/transition_adjudication.json",
+    "transition_adjudication_sha256": "7c54c848a70ef3dad961a2cad45ce08986552e9ced495a8ad12ffe1c33e7c186"
+  },
+  "Qlib_calendar_provider": "data/qlib/minute_information_pit_allocator_20261012/daily_prices",
+  "Qlib_calendar_manifest_sha256": "d80a08d479b73098053006909b5e6227b03a56ab705681742d7261088e0a7e6c",
+  "signal_bounds": {
+    "train": ["2011-01-03", "2022-12-30"],
+    "held_reused": ["2023-01-03", "2026-10-07"],
+    "train_expected": 3020,
+    "held_expected": 944
+  },
+  "numeric_rule": "Use only (printed current month / printed prior month from the same original PDF - 1) * 100, provided both are positive. Never use printed rounded dollar change or splice absolute export levels. Retain source month, PDF SHA-256, release header and classification regime.",
+  "definition_rule": "Quarantine the January 2012 same-report MoM due to the official semiconductor-media reclassification effective that month. Do not emit its value. Carry the last previously published eligible same-vintage MoM until the February 2012 report becomes conservatively available, preserving source age and pre-change regime; never backfill January.",
+  "availability_rule": "Parse the printed U.S. Eastern 08:30 release calendar date from the exact report. Make the source usable only at 09:31 on the following actual Qlib trading session, then map the latest eligible release to each Stage1 signal date at that session close or later. Never use report-month end or same-day release values.",
+  "native_evidence": [
+    "One Qlib D.calendar call over 2010-09 through 2026-10, with exact 3020 train and 944 reused held signal dates",
+    "One DatasetH.from_df/prepare over all mapped signal rows with source value, age and definition regime",
+    "One native Qlib Recorder holding every source event, quarantine flag, availability session, mapped signal and summary audit",
+    "NAS archive of Recorder with SHA-256 and one targeted native readback"
+  ],
+  "budget": {
+    "source_JSON_loads": 4,
+    "held_first_page_PDF_opens_max": 44,
+    "D_calendar_calls": 1,
+    "DatasetH_builds": 1,
+    "new_writable_Qlib_Recorders": 1,
+    "new_HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "limits": [
+    "Historical first-public PDF bytes and first receipt remain unqualified; this is a conservative retrospective development clock only.",
+    "The January 2012 category bridge is unresolved; quarantine is not proof of full cross-era comparability.",
+    "Source alignment cannot establish SOXX excess or authorize a funded Stage1 candidate account. A separate frozen matched information gate is required first."
+  ]
+}

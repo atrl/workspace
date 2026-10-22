@@ -1,0 +1,17 @@
+experiment: census_ft900_stage1_availability_20261023
+phase: source_only_original_FT900_semiconductor_export_Stage1_Qlib_availability
+plan: plan.json
+notebook: census_ft900_stage1_availability_20261023.ipynb
+provider: data/qlib/minute_information_pit_allocator_20261012/daily_prices
+source_cards:
+  - research/census_ft900_semiconductor_export_source_20261023
+  - research/census_ft900_train_leadin_20261023
+  - research/census_ft900_index_boundary_20261023
+outputs:
+  - availability_audit.json
+  - yearly_availability.csv
+  - summary.json
+  - qlib_recorder
+market_outcome_reads: 0
+model_fits: 0
+native_accounts: 0
