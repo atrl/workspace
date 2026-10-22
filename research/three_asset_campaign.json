@@ -4,6 +4,10 @@
   "objective_achieved": false,
   "economic_failure_diagnosis": {
     "status": "observed_failure_chain_causal_root_unproven",
+    "Stage1_objective_alignment": "research/allocator_cash_geometry_20261014/conclusion.md",
+    "Stage1_turnover_zero_ablation": "research/allocator_turnover_ablation_20261014/conclusion.md",
+    "Stage1_cash_signal_information": "research/allocator_cash_information_20261014/conclusion.md",
+    "objective_alignment_conclusion": "Frozen Stage1 base allocation already optimizes annual log return relative to SOXX; deleting its extra turnover penalty increased cash and failed full accounts, while saved cash/tail outputs did not reliably rank SOXX cash advantage. Do not relabel a direct-SOXX objective, zero-penalty ablation or score inversion as a new mechanism without materially different decision-time information.",
     "original_account": "research/anchor_decision_attribution_20261014/conclusion.md",
     "risk_layer_intervention": "research/tangent_risk_layer_20261014/conclusion.md",
     "recovery_funnel": "research/output_routing_diagnosis_20261014/conclusion.md",
@@ -189,7 +193,7 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T17:02:09.622631+00:00",
+  "updated_at_utc": "2026-10-22T17:04:55+00:00",
   "execution_totals": {
     "new_model_fits": 62,
     "new_native_accounts": 48,
