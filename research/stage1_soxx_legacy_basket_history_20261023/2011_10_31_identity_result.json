@@ -1,0 +1,46 @@
+{
+  "status": "original_2011_10_31_SOXX_NQ_schedule_identity_confirmed_source_only",
+  "plan_sha256": "0ddc8e2b36c8d912dc64594b0ed5404d121e38f83e050b9b16a0109517b4bffa",
+  "accession": "0001193125-11-355398",
+  "report_date": "2011-10-31",
+  "accepted_at_utc": "2011-12-30T00:10:28.000Z",
+  "url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511355398/d270541dnq.htm",
+  "request_started_at_utc": "2026-10-22T18:21:01.080891+00:00",
+  "response_finished_at_utc": "2026-10-22T18:21:02.710670+00:00",
+  "http_status": 200,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1100663/000119312511355398/d270541dnq.htm",
+  "curl_exit_code": 0,
+  "curl_stderr": "",
+  "raw_sha256": "6f4bdd0b9310ebe9e2e267ea13818f34d8657ca35934e21d30d5dd78553ebea2",
+  "raw_bytes": 15893457,
+  "headers_sha256": "20d76c355ed0a16accacd17b64d46cea39f8dc4846234ad342c09ce8935cb956",
+  "headers_bytes": 1932,
+  "GETs": 1,
+  "market_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "fund_title_occurrences": 2,
+  "title_checks": [
+    {
+      "title_byte_offset": 13708149,
+      "report_date_near_title": true,
+      "security_shares_value_near_title": true
+    },
+    {
+      "title_byte_offset": 13748295,
+      "report_date_near_title": true,
+      "security_shares_value_near_title": false
+    }
+  ],
+  "SOXX_identity_pass": true,
+  "nas_evidence": {
+    "sha256": "1108372c9cddd41e62492c7377e5ef04d29b954aa31cab94df5194b6d0f57e74",
+    "size_bytes": 581454,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/11/08/1108372c9cddd41e62492c7377e5ef04d29b954aa31cab94df5194b6d0f57e74",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-23 02:21:03.372745+08",
+    "duplicate": false
+  },
+  "nas_scoped_restore_verified": true
+}

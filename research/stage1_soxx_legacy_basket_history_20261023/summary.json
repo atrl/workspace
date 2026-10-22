@@ -1,6 +1,6 @@
 {
   "experiment": "stage1_soxx_legacy_basket_history_20261023",
-  "decision": "2011_Jan_Apr_Jul_original_SOXX_schedule_identities_verified_Oct_pending",
+  "decision": "all_four_2011_SOXX_quarterly_original_schedule_identities_verified_values_and_later_years_pending",
   "objective_achieved": false,
   "plan": "plan.json",
   "sidecar_GETs": 4,
@@ -17,11 +17,11 @@
   "trust_candidate_rows": 188,
   "source_NAS_archive_sha256": "8d0cba5ddb599ccba66185e0fd25b12785bee6fb0537b0c830cfa3339ecd33c5",
   "source_NAS_scoped_restore_verified": true,
-  "SOXX_original_bodies_qualified": 3,
+  "SOXX_original_bodies_qualified": 4,
   "body_identity_plan": "2011_01_31_body_identity_plan.json",
   "body_transport_result": "2011_01_31_transport_result.json",
   "body_identity_result": "2011_01_31_identity_result.json",
-  "filing_body_GETs": 5,
+  "filing_body_GETs": 6,
   "body_source_NAS_archive_sha256": "21100494b05d10b59cf1837ac323c505f1b28ae2c302a4a92bc4123a43952dfa",
   "body_source_NAS_scoped_restore_verified": true,
   "april_body_plan": "2011_04_30_body_identity_plan.json",
@@ -42,5 +42,12 @@
   "july_anchor_initial_result": "2011_07_NCSR_anchor_adjudication_result.json",
   "july_boundary_repair_plan": "2011_07_NCSR_anchor_boundary_repair_plan.json",
   "july_identity_result": "2011_07_NCSR_anchor_boundary_repair_result.json",
-  "july_2011_original_schedule_identity_passed": true
+  "july_2011_original_schedule_identity_passed": true,
+  "october_body_plan": "2011_10_31_body_identity_plan.json",
+  "october_identity_result": "2011_10_31_identity_result.json",
+  "all_four_2011_quarterly_schedule_identities_confirmed": true,
+  "october_2011_accession": "0001193125-11-355398",
+  "october_2011_NAS_archive_sha256": "1108372c9cddd41e62492c7377e5ef04d29b954aa31cab94df5194b6d0f57e74",
+  "october_2011_NAS_scoped_restore_verified": true,
+  "numeric_concentration_2011_qualified": false
 }
