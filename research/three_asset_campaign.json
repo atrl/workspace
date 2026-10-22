@@ -13,7 +13,8 @@
     "composition_path_diagnosis": "research/composition_path_diagnosis_20261015/conclusion.md",
     "observed": "Original accounts have large benchmark-relative cash opportunity cost; P3 remains below SOXX at all costs. The fixed composition account exceeds SOXX in cumulative net wealth at all costs but fails 0bp drawdown, 126-session stability and bootstrap gates. Recovery action is zero on the observed paths. Bypassing the dynamic risk layer improves cumulative wealth but breaches the drawdown constraint.",
     "causal_limit": "Cash, cap, cost-path and recovery observations do not isolate an independently profitable risk-rule change. The full funded paths feed holdings, peak NAV and later decisions back into one another. Reused history does not establish independent forward excess.",
-    "next_bounded_question": "Test a distinct precommitted information or allocation mechanism against the frozen full-account SOXX gates; inspect the already recorded 2023, nonpositive-trend and 2026 drawdown intervals before designing it. Do not tune closed versions on reused history."
+    "next_bounded_question": "Test a distinct precommitted information or allocation mechanism against the frozen full-account SOXX gates; inspect the already recorded 2023, nonpositive-trend and 2026 drawdown intervals before designing it. Do not tune closed versions on reused history.",
+    "latest_0bp_receiver": "research/stage1_nvda_guidance_receiver_20261022/regime_attribution.json"
   },
   "contract": {
     "path": "docs/three_asset_research_contract.md",
@@ -33,13 +34,13 @@
   },
   "current_task": {
     "card": "research/three_asset_campaign.json",
-    "phase": "Stage1_parent_0bp_first_mechanism_selection",
+    "phase": "Stage1_guidance_receiver_failed_0bp_new_mechanism_source_qualification",
     "implementation_executor": null,
     "independent_reviewer": null,
     "execution_authorized": false,
     "parent": "Frozen Stage1 f696f656 allocator plus b472a458 action/recovery chain under the same Qlib source, decision clocks, and full funded account contract; use its 0bp native account as the attribution baseline.",
     "first_screen": "0bp means zero added slippage with frozen IBKR Tiered fees still charged. A Stage1-derived candidate must first clear the SOXX 0bp wealth, <=30% available-mark drawdown, CVaR5, complete-year, rolling-126 and preregistered uncertainty screens on one full native account. Compare the matched frozen Stage1 account for module attribution.",
-    "next_action": "Matched Stage1 0bp intervals and regimes are read back; reported-basket descriptors fail training-history coverage, and fixed Cboe total-activity variance information failed. The original-Stage1 NVDA-guidance receiver now has source, 944-row clock/calendar, 3014/20741 mature Dataset, exact raw-price/controller identities and a saved Stage1 A 0bp reference replay with zero NAV difference under matching scikit-learn 1.9.1. Implement and independently review the B/C own-state native account path and exact fit/output sealing before starting its frozen six fits and two 0bp accounts. A historical 0bp pass remains development evidence and requires separately frozen 2/5bp and independent-forward v2 gates.",
+    "next_action": "Frozen original-Stage1 NVDA guidance receiver completed six fits and two independent 0bp native accounts. B/SOXX wealth 0.743486 and C/SOXX 0.491631; B and C fail terminal/rolling/bootstrap, C also breaches sampled 30pct drawdown. Close this fixed version. Read-only attribution locates B cash-heavy 2025Q2 and 2026Q3 and C 2026Q2 damage; these reused quarters do not authorize a threshold or window rule. Qualify a materially distinct predecision information source with full training-history and first-public timing before freezing another Stage1 input experiment; the pending IBKR regular-hours SOXX option-skew source check is source-only.",
     "baseline_evidence": "research/stage1_domain_heads_20261018/conclusion.md",
     "layer_diagnosis": "research/stage1_uniform_layer_attribution_20261010/conclusion.md",
     "cross_account_attribution": "research/three_asset_failure_attribution_20261015/conclusion.md",
@@ -49,7 +50,7 @@
     "reported_basket_feature_status": "needs_source_history_no_fit_122_of_3020_train_rows_and_871_of_944_evaluation_rows",
     "next_stage1_0bp_receiver_design": "research/stage1_nvda_guidance_receiver_20261022/design_brief.json",
     "stage1_nvda_receiver_source_preflight": "research/stage1_nvda_guidance_receiver_20261022/source_preflight_result.json",
-    "stage1_nvda_receiver_status": "source_Dataset_calendar_runtime_and_A_reference_parity_passed_BC_fits_and_accounts_pending_independent_review",
+    "stage1_nvda_receiver_status": "closed_not_promoted_0bp_B_and_C_fail_SOXX_hard_gates",
     "stage1_nvda_frozen_0bp_plan": "research/stage1_nvda_guidance_receiver_20261022/plan.json",
     "stage1_nvda_calendar_binding": "research/stage1_nvda_guidance_receiver_20261022/calendar_binding_result.json",
     "stage1_nvda_training_dataset_preflight": "research/stage1_nvda_guidance_receiver_20261022/training_dataset_preflight.json",
@@ -58,7 +59,9 @@
     "Cboe_contingent_economic_closeout": "research/cboe_variance_conditional_composition_20261022/dependency_closeout.json",
     "prior_closed_Stage1_version": "research/stage1_domain_heads_20261018/conclusion.md",
     "non_Stage1_composition_closeout": "research/cboe_variance_conditional_composition_20261022/dependency_closeout.json",
-    "non_Stage1_composition_status": "closed_without_account_information_dependency_failed"
+    "non_Stage1_composition_status": "closed_without_account_information_dependency_failed",
+    "stage1_nvda_receiver_result": "research/stage1_nvda_guidance_receiver_20261022/summary.json",
+    "stage1_nvda_receiver_regime_attribution": "research/stage1_nvda_guidance_receiver_20261022/regime_attribution.json"
   },
   "parallel_source_task": {
     "card": "research/korea_semiconductor_exports_korean_vintage_20261022",

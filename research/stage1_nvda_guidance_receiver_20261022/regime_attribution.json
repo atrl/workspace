@@ -1,0 +1,220 @@
+{
+  "status": "read_only_native_qlib_regime_attribution",
+  "source_recorder_id": "f284f6d663b647b297c84d62c7bffa85",
+  "reference_stage1_recorder_id": "6e227278b7a64eafbcf34b965e16d2b9",
+  "source_native_accounts": [
+    "B_flags_only_0",
+    "C_realization_0"
+  ],
+  "periods": [
+    "2023Q4",
+    "2025Q2",
+    "2025Q3",
+    "2026Q2",
+    "2026Q3"
+  ],
+  "rows": [
+    {
+      "quarter": "2023Q4",
+      "family": "A_Stage1",
+      "sessions": 63,
+      "relative_log_soxx": -0.10934914898054757,
+      "relative_wealth_soxx": 0.8964173796387448,
+      "mean_ending_cash_weight": 0.49573888091997514,
+      "mean_ending_soxl_weight": 0.12961047217172342,
+      "mean_ending_soxx_weight": 0.3746506469083014,
+      "execute_open_fraction": 0.6031746031746031,
+      "mean_monitored_drawdown": 0.15310959794754425
+    },
+    {
+      "quarter": "2023Q4",
+      "family": "B_flags_only",
+      "sessions": 63,
+      "relative_log_soxx": -0.07182498082536891,
+      "relative_wealth_soxx": 0.9306937708132678,
+      "mean_ending_cash_weight": 0.4822811878467773,
+      "mean_ending_soxl_weight": 0.12516957420508765,
+      "mean_ending_soxx_weight": 0.392549237948135,
+      "execute_open_fraction": 0.7619047619047619,
+      "mean_monitored_drawdown": 0.13556346105999156
+    },
+    {
+      "quarter": "2023Q4",
+      "family": "C_realization",
+      "sessions": 63,
+      "relative_log_soxx": 0.015600806095257692,
+      "relative_wealth_soxx": 1.015723133980661,
+      "mean_ending_cash_weight": 0.2796475452605721,
+      "mean_ending_soxl_weight": 0.2036418881907456,
+      "mean_ending_soxx_weight": 0.5167105665486823,
+      "execute_open_fraction": 0.9047619047619048,
+      "mean_monitored_drawdown": 0.11909431129116825
+    },
+    {
+      "quarter": "2025Q2",
+      "family": "A_Stage1",
+      "sessions": 62,
+      "relative_log_soxx": -0.06298248329039251,
+      "relative_wealth_soxx": 0.9389599210333509,
+      "mean_ending_cash_weight": 0.5642918985729402,
+      "mean_ending_soxl_weight": 0.08137222441744046,
+      "mean_ending_soxx_weight": 0.3543358770096193,
+      "execute_open_fraction": 0.8709677419354839,
+      "mean_monitored_drawdown": 0.17512098123945208
+    },
+    {
+      "quarter": "2025Q2",
+      "family": "B_flags_only",
+      "sessions": 62,
+      "relative_log_soxx": -0.1596745957542797,
+      "relative_wealth_soxx": 0.8524211252938672,
+      "mean_ending_cash_weight": 0.6670731920995508,
+      "mean_ending_soxl_weight": 0.041435208100862826,
+      "mean_ending_soxx_weight": 0.29149159979958644,
+      "execute_open_fraction": 0.7258064516129032,
+      "mean_monitored_drawdown": 0.23860327080422347
+    },
+    {
+      "quarter": "2025Q2",
+      "family": "C_realization",
+      "sessions": 62,
+      "relative_log_soxx": -0.16081999479284761,
+      "relative_wealth_soxx": 0.851445321905315,
+      "mean_ending_cash_weight": 0.6856849535358627,
+      "mean_ending_soxl_weight": 0.024276029297388327,
+      "mean_ending_soxx_weight": 0.29003901716674874,
+      "execute_open_fraction": 0.6129032258064516,
+      "mean_monitored_drawdown": 0.24772550093362208
+    },
+    {
+      "quarter": "2025Q3",
+      "family": "A_Stage1",
+      "sessions": 64,
+      "relative_log_soxx": -0.013205728900091696,
+      "relative_wealth_soxx": 0.9868810841743216,
+      "mean_ending_cash_weight": 0.30096633140206464,
+      "mean_ending_soxl_weight": 0.2536218377646562,
+      "mean_ending_soxx_weight": 0.4454118308332791,
+      "execute_open_fraction": 0.703125,
+      "mean_monitored_drawdown": 0.03192093742843978
+    },
+    {
+      "quarter": "2025Q3",
+      "family": "B_flags_only",
+      "sessions": 64,
+      "relative_log_soxx": -0.06202726827043521,
+      "relative_wealth_soxx": 0.9398572581597803,
+      "mean_ending_cash_weight": 0.38148901458431683,
+      "mean_ending_soxl_weight": 0.14732380392703107,
+      "mean_ending_soxx_weight": 0.47118718148865224,
+      "execute_open_fraction": 0.84375,
+      "mean_monitored_drawdown": 0.16767536587272133
+    },
+    {
+      "quarter": "2025Q3",
+      "family": "C_realization",
+      "sessions": 64,
+      "relative_log_soxx": -0.1539850237761824,
+      "relative_wealth_soxx": 0.8572848598052548,
+      "mean_ending_cash_weight": 0.5903044304846692,
+      "mean_ending_soxl_weight": 0.048701157707554184,
+      "mean_ending_soxx_weight": 0.3609944118077767,
+      "execute_open_fraction": 0.84375,
+      "mean_monitored_drawdown": 0.21502142898749776
+    },
+    {
+      "quarter": "2026Q2",
+      "family": "A_Stage1",
+      "sessions": 62,
+      "relative_log_soxx": 0.14884418313315176,
+      "relative_wealth_soxx": 1.1604921508696693,
+      "mean_ending_cash_weight": 0.3097545027170195,
+      "mean_ending_soxl_weight": 0.27174019976359737,
+      "mean_ending_soxx_weight": 0.4185052975193832,
+      "execute_open_fraction": 0.9032258064516129,
+      "mean_monitored_drawdown": 0.04466697511972396
+    },
+    {
+      "quarter": "2026Q2",
+      "family": "B_flags_only",
+      "sessions": 62,
+      "relative_log_soxx": 0.05292818198470214,
+      "relative_wealth_soxx": 1.05435392079419,
+      "mean_ending_cash_weight": 0.36324805644493097,
+      "mean_ending_soxl_weight": 0.22751499941126332,
+      "mean_ending_soxx_weight": 0.4092369441438055,
+      "execute_open_fraction": 0.9193548387096774,
+      "mean_monitored_drawdown": 0.04166115721676311
+    },
+    {
+      "quarter": "2026Q2",
+      "family": "C_realization",
+      "sessions": 62,
+      "relative_log_soxx": -0.2561436368732756,
+      "relative_wealth_soxx": 0.7740307814458721,
+      "mean_ending_cash_weight": 0.4607963311508644,
+      "mean_ending_soxl_weight": 0.1289861404744283,
+      "mean_ending_soxx_weight": 0.4102175283747074,
+      "execute_open_fraction": 0.9838709677419355,
+      "mean_monitored_drawdown": 0.1371693360092821
+    },
+    {
+      "quarter": "2026Q3",
+      "family": "A_Stage1",
+      "sessions": 64,
+      "relative_log_soxx": -0.1697243998790678,
+      "relative_wealth_soxx": 0.843897362765268,
+      "mean_ending_cash_weight": 0.6769486024622868,
+      "mean_ending_soxl_weight": 0.027584378723722075,
+      "mean_ending_soxx_weight": 0.2954670188139911,
+      "execute_open_fraction": 0.953125,
+      "mean_monitored_drawdown": 0.24098079014677237
+    },
+    {
+      "quarter": "2026Q3",
+      "family": "B_flags_only",
+      "sessions": 64,
+      "relative_log_soxx": -0.1093043516756253,
+      "relative_wealth_soxx": 0.8964575376209161,
+      "mean_ending_cash_weight": 0.6467927397964581,
+      "mean_ending_soxl_weight": 0.027394837395884344,
+      "mean_ending_soxx_weight": 0.3258124228076576,
+      "execute_open_fraction": 0.96875,
+      "mean_monitored_drawdown": 0.21189105059333502
+    },
+    {
+      "quarter": "2026Q3",
+      "family": "C_realization",
+      "sessions": 64,
+      "relative_log_soxx": -0.06556211249120986,
+      "relative_wealth_soxx": 0.936540874066213,
+      "mean_ending_cash_weight": 0.6637721925298751,
+      "mean_ending_soxl_weight": 0.019018454777640557,
+      "mean_ending_soxx_weight": 0.3172093526924844,
+      "execute_open_fraction": 1.0,
+      "mean_monitored_drawdown": 0.22777436292650902
+    },
+    {
+      "quarter": "worst_contiguous_126",
+      "family": "B_flags_only",
+      "sessions": 126,
+      "first_trade": "2025-04-07",
+      "last_exit": "2025-10-07",
+      "relative_log_soxx": -0.34346669353478154,
+      "relative_wealth_soxx": 0.7093071052634332
+    },
+    {
+      "quarter": "worst_contiguous_126",
+      "family": "C_realization",
+      "sessions": 126,
+      "first_trade": "2025-10-22",
+      "last_exit": "2026-04-24",
+      "relative_log_soxx": -0.49064114064678116,
+      "relative_wealth_soxx": 0.6122337403884183
+    }
+  ],
+  "new_fits": 0,
+  "new_accounts": 0,
+  "regimes_are_descriptive_not_trading_rules": true,
+  "causal_claim": false
+}

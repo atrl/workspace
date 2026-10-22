@@ -1,23 +1,80 @@
 {
   "experiment": "stage1_nvda_guidance_receiver_20261022",
-  "decision": "native_account_source_and_A_parity_checked_no_fit",
+  "plan_sha256": "89030af17eaa90d283346aecce0da85a6cfc712575f189e5c2cb3d111d91bafa",
+  "decision": "not_promoted_fixed_Stage1_guidance_receiver_0bp",
   "objective_achieved": false,
-  "source_preflight": "source_preflight_result.json",
-  "implementation_preflight_result": "implementation_preflight_result.json",
-  "calendar_binding_result": "calendar_binding_result.json",
-  "training_dataset_preflight": "training_dataset_preflight.json",
-  "account_source_preflight": "account_source_preflight.json",
-  "baseline_parity_result": "baseline_parity_result.json",
-  "design_review": "design_review.json",
-  "frozen_execution_plan": "plan.json",
-  "implementation_preflight": "design_brief.json#implementation_preflight",
-  "new_fits": 0,
-  "new_native_accounts": 0,
-  "qualified_forward_days": 0,
+  "historical_0bp_candidate": null,
+  "gates": {
+    "B_flags_only": {
+      "net_soxx_wealth": false,
+      "available_drawdown_30pct": true,
+      "cvar_no_worse_soxx": true,
+      "complete_annual_70pct": false,
+      "rolling_126_70pct": false,
+      "SOXX_bootstrap_lower_positive": false,
+      "full_minute_risk_qualified": false,
+      "independent_forward_qualified": false
+    },
+    "C_realization": {
+      "net_soxx_wealth": false,
+      "available_drawdown_30pct": false,
+      "cvar_no_worse_soxx": true,
+      "complete_annual_70pct": false,
+      "rolling_126_70pct": false,
+      "SOXX_bootstrap_lower_positive": false,
+      "full_minute_risk_qualified": false,
+      "independent_forward_qualified": false
+    }
+  },
+  "module_increment": {
+    "C_over_B_relative_wealth": 0.6612511037120142,
+    "C_minus_B_daily_lower_bound": -0.0018026987360621764,
+    "numeric_increment_supported": false
+  },
+  "new_fits": 6,
+  "new_native_accounts": 2,
+  "reused_market_history": true,
+  "independent_forward_qualified_days": 0,
+  "recorder_id": "f284f6d663b647b297c84d62c7bffa85",
+  "experiment_id": "161936134595759391",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_nvda_guidance_receiver_20261022/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_nvda_guidance_receiver_20261022/qlib_recorder/161936134595759391/f284f6d663b647b297c84d62c7bffa85",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_nvda_guidance_receiver_20261022",
+  "region": "us",
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
-    "recorder_only_artifacts": [],
-    "source_recorder_authority": true
-  }
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "sources/*",
+      "models/*",
+      "predictions/*",
+      "targets/*",
+      "paths/*",
+      "native/*",
+      "analysis/rolling/*"
+    ]
+  },
+  "limitations": [
+    "historical first-public source timestamp/update coverage unverified",
+    "2023-2026 history already used in earlier selection",
+    "available marks do not qualify every full-minute drawdown",
+    "2/5bp own-state accounts and independent forward evidence absent"
+  ],
+  "nas_evidence": {
+    "sha256": "abff43133d27f75d538bddb34a435f5469dfad784a515a99fb51ffd91f6769b2",
+    "size_bytes": 2682249,
+    "media_type": "application/gzip",
+    "storage_uri": "sha256/ab/ff/abff43133d27f75d538bddb34a435f5469dfad784a515a99fb51ffd91f6769b2",
+    "uploaded_by": "soxl-minute-research",
+    "created_at": "2026-10-22 21:22:52.901532+08",
+    "duplicate": false,
+    "nas_path": "/volume1/docker/yanxuan/registry/research-artifacts/ab/ff/abff43133d27f75d538bddb34a435f5469dfad784a515a99fb51ffd91f6769b2",
+    "recorder_id": "f284f6d663b647b297c84d62c7bffa85",
+    "experiment_id": "161936134595759391",
+    "archive_root": "qlib_recorder"
+  },
+  "regime_attribution": "regime_attribution.json",
+  "nas_remote_sha256_verified": true,
+  "nas_remote_verified_at_utc": "2026-10-22T13:25:00Z"
 }

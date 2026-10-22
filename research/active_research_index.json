@@ -53,6 +53,14 @@
   ],
   "closed_fixed_versions": [
     {
+      "card": "research/stage1_nvda_guidance_receiver_20261022",
+      "status": "not_promoted_fixed_0bp_SOXX_hard_gates_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/stage1_nvda_guidance_receiver_20261022/summary.json",
+      "regime_attribution": "research/stage1_nvda_guidance_receiver_20261022/regime_attribution.json"
+    },
+    {
       "card": "research/stage1_domain_heads_20261018",
       "status": "not_promoted",
       "default_search": false,
@@ -171,7 +179,8 @@
     "closed_Cboe_economic_dependency": "research/cboe_variance_conditional_composition_20261022/dependency_closeout.json",
     "prospective_Korean_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json",
     "parallel_TSMC_issuer_source_probe": "research/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press_review.json",
-    "TSMC_prospective_capture_plan": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_press_capture_plan.json"
+    "TSMC_prospective_capture_plan": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_press_capture_plan.json",
+    "Stage1_next_direction": "Qualify a distinct predecision source with full 2011-2022 training history and first-public timing before a new Stage1 feature; pending IBKR option-skew check is source-only and may not qualify history."
   },
   "closed_source_probes": [
     {

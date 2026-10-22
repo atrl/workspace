@@ -1,0 +1,62 @@
+{
+  "plan_sha256": "89030af17eaa90d283346aecce0da85a6cfc712575f189e5c2cb3d111d91bafa",
+  "fit_attempts": [
+    "B_flags_only_71",
+    "B_flags_only_172",
+    "B_flags_only_273",
+    "C_realization_71",
+    "C_realization_172",
+    "C_realization_273"
+  ],
+  "fits_done": [
+    "B_flags_only_71",
+    "B_flags_only_172",
+    "B_flags_only_273",
+    "C_realization_71",
+    "C_realization_172",
+    "C_realization_273"
+  ],
+  "prediction_attempts": [
+    "B_flags_only_71",
+    "B_flags_only_172",
+    "B_flags_only_273",
+    "C_realization_71",
+    "C_realization_172",
+    "C_realization_273"
+  ],
+  "predictions_done": [
+    "B_flags_only_71",
+    "B_flags_only_172",
+    "B_flags_only_273",
+    "C_realization_71",
+    "C_realization_172",
+    "C_realization_273"
+  ],
+  "path_attempts": [
+    "B_flags_only_0",
+    "C_realization_0"
+  ],
+  "paths_done": [
+    "B_flags_only_0",
+    "C_realization_0"
+  ],
+  "native_attempts": [
+    "B_flags_only_0",
+    "C_realization_0"
+  ],
+  "native_done": [
+    "B_flags_only_0",
+    "C_realization_0"
+  ],
+  "recorder_id": "f284f6d663b647b297c84d62c7bffa85",
+  "experiment_id": "161936134595759391",
+  "sources_saved": true,
+  "targets_attempted": true,
+  "targets_done": [
+    "B_flags_only",
+    "C_realization"
+  ],
+  "analysis_attempted": true,
+  "analysis_done": true,
+  "completed": true
+}

@@ -1,24 +1,13 @@
 experiment: stage1_nvda_guidance_receiver_20261022
-phase: read_only_source_and_adapter_preflight
-source_plan: source_preflight_plan.json
-implementation_plan: implementation_preflight_plan.json
-calendar_binding_plan: calendar_binding_plan.json
-frozen_0bp_plan: plan.json
-baseline_parity_plan: baseline_parity_plan.json
+entrypoint: src.workflow.stage1_nvda_guidance_receiver.run
+phase: completed_not_promoted_fixed_0bp
+frozen_plan: plan.json
+notebook: stage1_nvda_guidance_receiver_20261022.ipynb
 qlib:
   region: us
-  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/minute_information_pit_allocator_20261012/daily_prices
-source_recorders:
-  training: 68e31a0a0fad44e7ba1d1f7d856c7a0d
-  stage1_evaluation: 6e227278b7a64eafbcf34b965e16d2b9
-  nvda_guidance: 9fb35ff59c1b43b7ba3906a46d7002c0
-model_adapter: src/model/stage1_nvda_guidance.py
-outputs:
-  - source_preflight_result.json
-  - implementation_preflight_result.json
-  - calendar_binding_result.json
-  - training_dataset_preflight.json
-  - account_source_preflight.json
-  - baseline_parity_result.json
-  - summary.json
-  - conclusion.md
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_nvda_guidance_receiver_20261022
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_nvda_guidance_receiver_20261022/qlib_recorder
+recorder_id: f284f6d663b647b297c84d62c7bffa85
+artifact_policy: slim_card_recorder_first
+result: summary.json
+regime_attribution: regime_attribution.json
