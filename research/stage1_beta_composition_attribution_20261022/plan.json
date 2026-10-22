@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "experiment": "stage1_beta_composition_attribution_20261022",
+  "frozen": true,
+  "source_card": "research/stage1_beta_composition_0bp_20261022",
+  "source_recorder_id": "4cd2029dc98740349e34db8c7c6eae3e",
+  "source_summary_sha256": "262f9a5bfe855ae94310d802505e2dcdc71de441c6b6e1bf025a7f3b4b36dc35",
+  "source_verification_manifest_sha256": "f72e9737ff81fc62d18a6e1e4f91b55fb541df80b28f850a2f562e477035b9b6",
+  "source_quarter_metrics_sha256": "70fee9e51651e9e4cef4c91a62b684eb608f4534ab2099abb7e357c39eb8c387",
+  "source_readback_receipt_sha256": "5415aeabd6b97a28ce23a75b8c4f2a6ef15e061a925e0183e67efdbb2fe34620",
+  "artifacts": [
+    "native/candidate_0",
+    "paths/candidate_0",
+    "analysis/rolling/all_windows",
+    "analysis/composition_audit"
+  ],
+  "scope": "One read-only attribution of all 16 trade-date quarters, all 819 contiguous 126-session windows, the full observed peak-to-trough maximum drawdown, transformed targets, own ending holdings, risk state and direct fees. 2023/2026 partial endpoints remain labeled. No causal threshold or cost-path claim.",
+  "budget": {
+    "new_model_fits": 0,
+    "new_native_accounts": 0,
+    "new_bootstrap_runs": 0,
+    "account_replays": 0,
+    "market_outcome_source_requests": 0,
+    "new_writable_Recorders": 0
+  },
+  "decision_rule": "Locate failure path; no sign/window/transform fraction/risk cap adjustment. The Stage1 0bp fixed economic result stays closed if any frozen hard gate failed."
+}
