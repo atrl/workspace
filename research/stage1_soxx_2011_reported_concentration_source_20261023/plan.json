@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "frozen": true,
+  "phase": "four_original_2011_SOXX_disclosed_equity_value_parser_source_only",
+  "question": "Can all four 2011 original SOXX report schedules yield exact common-stock value closure and a comparable disclosed-equity top-five/HHI coordinate without daily constituent prices?",
+  "parent_source_summary_sha256": "ed67c06eaa4ed9650b3c53ad92fa5330d47868009e24e3abb9d0a8000a3999ac",
+  "reports": [
+    {
+      "report_date": "2011-01-31",
+      "form": "N-CSRS",
+      "accession": "0001193125-11-093502",
+      "accepted_at_utc": "2011-04-11T20:08:56.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/2011_semiannual_bodies/0001193125-11-093502_dncsrs.htm",
+      "raw_sha256": "09c2622698fd8ab36065a640c6c5159eea3251883705e486f0b191dfc5c0fcdf",
+      "raw_bytes": 20045887,
+      "source_identity_receipt": "research/stage1_soxx_legacy_basket_history_20261023/2011_semiannual_identity_result.json",
+      "source_identity_receipt_sha256": "2f1df59fb31c3132b053fdef82ce62475a9d73a38749c8dfc7f0017a487c9a9f",
+      "source_NAS_archive_sha256": "89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
+      "bounded_section_byte_range": [
+        969998,
+        1019998
+      ],
+      "bounded_section_sha256": "c234eaf3bced22e0e1d3d267223d0636711d0f61a5560a43e2e6e82d95bf9dd0"
+    },
+    {
+      "report_date": "2011-04-30",
+      "form": "N-Q",
+      "accession": "0001193125-11-176858",
+      "accepted_at_utc": "2011-06-29T20:43:59.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/2011_04_30_body/0001193125-11-176858_dnq.htm",
+      "raw_sha256": "c4084f68e72c9b1af89bc430389a4afd98142d403314264c4c29f5121d08a68b",
+      "raw_bytes": 14352672,
+      "source_identity_receipt": "research/stage1_soxx_legacy_basket_history_20261023/2011_04_30_identity_result.json",
+      "source_identity_receipt_sha256": "659268c59689d7ea577d0c1bc2b42fbc4d50137f07539df80ad29e561a79d624",
+      "source_NAS_archive_sha256": "6217b225f32e2469d997618cbeb05ad913fd1648f1d9f93c35881176e7376169",
+      "bounded_section_byte_range": [
+        12381410,
+        12422611
+      ],
+      "bounded_section_sha256": "f01d2d140ab5223e2b26c75caff28a835d850470ea4150cd53de1d446a7764cd"
+    },
+    {
+      "report_date": "2011-07-31",
+      "form": "N-CSR",
+      "accession": "0001193125-11-266548",
+      "accepted_at_utc": "2011-10-07T21:03:08.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/2011_semiannual_bodies/0001193125-11-266548_d216041dncsr.htm",
+      "raw_sha256": "2b5580f41067b2f7a2cf003517a9f7f7220836f22feb1fbdf8be3bea0eda54e5",
+      "raw_bytes": 22173763,
+      "source_identity_receipt": "research/stage1_soxx_legacy_basket_history_20261023/2011_07_NCSR_anchor_boundary_repair_result.json",
+      "source_identity_receipt_sha256": "5d793e6911f06e2c8485d274d0312b13a00c01fbc2d4166ccaae5d96282be193",
+      "source_NAS_archive_sha256": "89052e9471992b27fb14abf007a2a4fbed6b03631b3e125c5269c33b74f17dc2",
+      "bounded_section_byte_range": [
+        1006064,
+        1061628
+      ],
+      "bounded_section_sha256": "3993617cdd02fc2fcb9324f6ec3c7e70a3660741a0d038bd2c73498f2a8661ab"
+    },
+    {
+      "report_date": "2011-10-31",
+      "form": "N-Q",
+      "accession": "0001193125-11-355398",
+      "accepted_at_utc": "2011-12-30T00:10:28.000Z",
+      "raw_path": "data/snapshots/stage1_soxx_legacy_basket_history_20261023/2011_10_31_body/0001193125-11-355398_d270541dnq.htm",
+      "raw_sha256": "6f4bdd0b9310ebe9e2e267ea13818f34d8657ca35934e21d30d5dd78553ebea2",
+      "raw_bytes": 15893457,
+      "source_identity_receipt": "research/stage1_soxx_legacy_basket_history_20261023/2011_10_31_identity_result.json",
+      "source_identity_receipt_sha256": "6e3953e2da1119e84d1eb61cf2e058a00e3524b04c357da5d509bfe7de4fed51",
+      "source_NAS_archive_sha256": "1108372c9cddd41e62492c7377e5ef04d29b954aa31cab94df5194b6d0f57e74",
+      "bounded_section_byte_range": [
+        13708149,
+        13748295
+      ],
+      "bounded_section_sha256": "765ba0b3f6cad5505cc30d74b9c12647e8a165a145d399400fe680f0d5d27220"
+    }
+  ],
+  "field_semantics": "Within each originally filed SOXX common-stock schedule, take disclosed equity Security/Shares/Value rows. Divide each disclosed USD fair value by the sum of those equities; compute top five share and HHI. This is a lagged ETF reported-basket proxy, not official daily index concentration or SOXX return.",
+  "fixed_parser": "For each frozen bounded section, parse direct HTML table rows from COMMON STOCKS heading through TOTAL COMMON STOCKS. Security row needs nonempty name and separate positive integer shares and USD fair value. Ignore sector headings and subtotal rows. TOTAL COMMON STOCKS may have amount in immediate following (Cost: ...) row. Fail on unparsed security-looking rows, duplicate names, row count outside 20-40, nonpositive values or sum differing from printed total by more than one USD. Do not change rows after seeing outcomes.",
+  "availability": "Earliest possible decision use is a later actual Qlib session strictly after the SEC acceptance calendar date, pending historical first-public verification. No same-day tradability claim.",
+  "budget": {
+    "raw_report_parses_max": 4,
+    "HTTP_GETs": 0,
+    "market_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "No 2011 Stage1 feature is accepted unless all four exact original schedules pass raw SHA/NAS identity, row parsing and printed-value closure. Preserve partial failures, no survivor-only calendar and no numeric backfill from a later report.",
+  "scientific_boundary": "Even four 2011 source values do not cover 2012-2022 train or 2023-2026 held. Information screening and fee-net Stage1 accounts require full source timing and a separately frozen design.",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  }
+}
