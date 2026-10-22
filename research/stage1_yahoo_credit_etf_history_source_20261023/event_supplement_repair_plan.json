@@ -1,0 +1,12 @@
+{
+  "frozen": true,
+  "reason": "The two HYG query snapshots have identical 4227 session timestamps and all closes except the frontier 2026-10-22 daily close, which changed by 0.005 between requests. Stage1 evaluation ends 2026-10-07. Preserve both frontier values and never use that day for a fixed historical factor.",
+  "preserved_failure": "event_supplement_attempt1_failure.json",
+  "repair": "For each symbol require exact timestamp arrays and bitwise-equal close arrays for every row except the final current-day frontier row. Report any final-row change separately without tolerance-based acceptance. Require all rows through 2026-10-07 bitwise equal, more than 100 valid dividend events and exact symbol identity. The existing archived HYG event response is reparsed with zero network; then make only the previously frozen LQD event URL request. If any earlier row differs, stop.",
+  "remaining_exact_LQD_URL": "https://query2.finance.yahoo.com/v8/finance/chart/LQD?period1=1262304000&period2=1792713600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+  "additional_GETs_max": 1,
+  "total_event_GETs_max": 2,
+  "new_model_fits": 0,
+  "new_native_accounts": 0,
+  "stop": "No host/date/parameter change. If LQD transport, exact historical overlap, event count or NAS restore fails, stop and preserve raw bytes."
+}

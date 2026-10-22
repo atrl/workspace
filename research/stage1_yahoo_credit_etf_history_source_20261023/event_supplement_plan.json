@@ -1,0 +1,34 @@
+{
+  "frozen": true,
+  "reason": "The fixed full-span `events=history` chart responses have no dividend/split event objects even though HYG and LQD distribute cash. An exact supplementary request for those events is required before any relative total-return feature is considered.",
+  "parent_source_result_sha256": "c73d09fcc372848f3373c696f57a5b3ae0942c1c488f1fec3ee30b6286afe88b",
+  "exact_requests": [
+    {
+      "symbol": "HYG",
+      "url": "https://query2.finance.yahoo.com/v8/finance/chart/HYG?period1=1262304000&period2=1792713600&interval=1d&events=div%2Csplits&includeAdjustedClose=true"
+    },
+    {
+      "symbol": "LQD",
+      "url": "https://query2.finance.yahoo.com/v8/finance/chart/LQD?period1=1262304000&period2=1792713600&interval=1d&events=div%2Csplits&includeAdjustedClose=true"
+    }
+  ],
+  "request": {
+    "method": "GET",
+    "user_agent": "Mozilla/5.0 soxl-qlib-data-refresh",
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds_each": 60,
+    "max_response_bytes_each": 15000000,
+    "seconds_between_requests": 1,
+    "max_GETs": 2,
+    "retries": 0
+  },
+  "checks": "Require same exact symbol and 2010-2026 close date span as parent, timestamp/quote length alignment, more than 100 dated positive dividend events for HYG before LQD request, and preserve all dividend/split event fields and original raw bytes. A retrieved event list is a current retrospective record, not proof of historical first-public dividend revisions or original issuer distribution notices.",
+  "backup": "Archive exact body and header bytes plus receipts to Yanxuan NAS; verify remote SHA-256 and scoped restoration. Preserve partial bytes on failure.",
+  "budget": {
+    "new_GETs_max": 2,
+    "SOXX_outcome_reads": 0,
+    "model_fits": 0,
+    "native_accounts": 0
+  },
+  "stop": "If HYG transport, identity, historical span or dividend count fails, stop without LQD. Do not alter events parameter, source host or window to rescue this version."
+}

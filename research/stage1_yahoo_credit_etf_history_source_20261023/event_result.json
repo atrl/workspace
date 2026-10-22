@@ -1,0 +1,18 @@
+{
+  "status": "bounded_credit_ETF_event_source_partial_or_failed",
+  "failure": "event_schema_or_price_identity_failure",
+  "GET_attempts": 1,
+  "checks": [
+    {
+      "symbol": "HYG",
+      "status": "event_schema_or_price_identity_failure",
+      "error": "AssertionError:",
+      "raw_sha256": "6259b766f7b89c47af1ffebd1e6bdc1d3aabc39c81c81b8690be95e3b9a280f6"
+    }
+  ],
+  "NAS_archive_sha256": "0f62d6e462f095376abafacdd23d5a2cfac315d485f6b14cff348dad6d0d69f9",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0
+}

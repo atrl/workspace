@@ -1,0 +1,14 @@
+{
+  "symbol": "LQD",
+  "url": "https://query2.finance.yahoo.com/v8/finance/chart/LQD?period1=1262304000&period2=1792713600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+  "requested_at_utc": "2026-10-22T19:50:39.680089+00:00",
+  "received_at_utc": "2026-10-22T19:50:41.075936+00:00",
+  "curl_exit_code": 0,
+  "http_status": 200,
+  "final_url": "https://query2.finance.yahoo.com/v8/finance/chart/LQD?period1=1262304000&period2=1792713600&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+  "stderr": "",
+  "raw_sha256": "27166ce97e6b2e281eaa35d00ffd8a003c6a89bacd8cef9cb54c8c7215d8da7a",
+  "raw_bytes": 476444,
+  "headers_sha256": "54a48b66c99057c8d331b21f97d5873195d3b277bbbaced12a10415f73b8d6af",
+  "headers_bytes": 598
+}

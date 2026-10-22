@@ -1,0 +1,17 @@
+{
+  "status": "HYG_event_source_latest_daily_close_overlap_not_identical_stop_before_LQD",
+  "original_plan": "event_supplement_plan.json",
+  "HYG_response_sha256": "6259b766f7b89c47af1ffebd1e6bdc1d3aabc39c81c81b8690be95e3b9a280f6",
+  "GETs_attempted": 1,
+  "LQD_event_GET_attempted": false,
+  "timestamps_equal": true,
+  "close_rows": 4227,
+  "differing_close_rows": 1,
+  "only_differing_date": "2026-10-22",
+  "old_close": 77.07499694824219,
+  "new_close": 77.08000183105469,
+  "HYG_dividend_events_in_received_source": 200,
+  "original_response_NAS_archive_sha256": "0f62d6e462f095376abafacdd23d5a2cfac315d485f6b14cff348dad6d0d69f9",
+  "new_model_fits": 0,
+  "new_native_accounts": 0
+}

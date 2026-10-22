@@ -1,0 +1,26 @@
+{
+  "repair_plan_sha256": "e838b95d4ce30dd5c54089803683a969fb26a5a11108ad38a66e90f2753ebfde",
+  "files": [
+    {
+      "name": "HYG.headers",
+      "sha256": "ef260e99a4e84271940b673f7f7b447f07bc06445360824c26a3443e50cc7fa1",
+      "bytes": 598
+    },
+    {
+      "name": "HYG.json",
+      "sha256": "6259b766f7b89c47af1ffebd1e6bdc1d3aabc39c81c81b8690be95e3b9a280f6",
+      "bytes": 460736
+    },
+    {
+      "name": "LQD.headers",
+      "sha256": "54a48b66c99057c8d331b21f97d5873195d3b277bbbaced12a10415f73b8d6af",
+      "bytes": 598
+    },
+    {
+      "name": "LQD.json",
+      "sha256": "27166ce97e6b2e281eaa35d00ffd8a003c6a89bacd8cef9cb54c8c7215d8da7a",
+      "bytes": 476444
+    }
+  ],
+  "LQD_receipt_sha256": "455693744a68abebf2f9905754b416bd010e2c93e4f0969bd4f5cf4cf5207652"
+}

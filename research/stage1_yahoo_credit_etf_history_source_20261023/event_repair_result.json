@@ -1,0 +1,43 @@
+{
+  "status": "HYG_LQD_retrospective_dividend_event_sources_qualified_for_full_span_PIT_pending",
+  "failure": null,
+  "total_event_GETs": 2,
+  "checks": [
+    {
+      "symbol": "HYG",
+      "status": "all_pre_frontier_4226_close_rows_exact_and_dividend_events_received",
+      "raw_sha256": "6259b766f7b89c47af1ffebd1e6bdc1d3aabc39c81c81b8690be95e3b9a280f6",
+      "timestamps": 4227,
+      "historical_close_rows_exact": 4226,
+      "frontier_date": "2026-10-22",
+      "frontier_old_close": 77.07499694824219,
+      "frontier_new_close": 77.08000183105469,
+      "dividend_events": 200,
+      "first_dividend_date": "2010-02-01",
+      "last_dividend_date": "2026-10-01",
+      "split_events": 0,
+      "historical_event_vintage_qualified": false
+    },
+    {
+      "symbol": "LQD",
+      "status": "all_pre_frontier_4226_close_rows_exact_and_dividend_events_received",
+      "raw_sha256": "27166ce97e6b2e281eaa35d00ffd8a003c6a89bacd8cef9cb54c8c7215d8da7a",
+      "timestamps": 4227,
+      "historical_close_rows_exact": 4226,
+      "frontier_date": "2026-10-22",
+      "frontier_old_close": 104.30500030517578,
+      "frontier_new_close": 104.2750015258789,
+      "dividend_events": 200,
+      "first_dividend_date": "2010-02-01",
+      "last_dividend_date": "2026-10-01",
+      "split_events": 0,
+      "historical_event_vintage_qualified": false
+    }
+  ],
+  "NAS_archive_sha256": "510e0b0be5abc043163e085ab8989718507a1f64ce93de2ff1272b420ef92fbb",
+  "NAS_remote_and_scoped_restore_verified": true,
+  "SOXX_outcome_reads": 0,
+  "model_fits": 0,
+  "native_accounts": 0,
+  "historical_first_public_event_vintage_qualified": false
+}
