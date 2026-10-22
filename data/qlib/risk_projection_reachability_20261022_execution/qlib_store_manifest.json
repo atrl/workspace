@@ -1,0 +1,36 @@
+{
+  "as_of": "2024-01-02",
+  "audit_snapshot_hash": "6a722ed7df711d41",
+  "calendar_end": "2024-01-02 09:47:00",
+  "calendar_start": "2023-01-04 09:45:00",
+  "feature_file_count": 12,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$execution_price",
+    "$raw_execution_price"
+  ],
+  "freq": "1min",
+  "hash": "6d5bc183f6bfb7dc",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "market": "all",
+  "max_datetime": "2024-01-02 09:47:00",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/risk_projection_reachability_20261022_execution",
+  "region": "us",
+  "row_count": 1996,
+  "source": "P3 exact hash-verified raw Recorder points; 2023 funded dates and 2024-01-02 terminal guard only",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

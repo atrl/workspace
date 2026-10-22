@@ -1,0 +1,36 @@
+{
+  "as_of": "2024-01-02",
+  "audit_snapshot_hash": "159b1e306974a747",
+  "calendar_end": "2024-01-02 10:32:00",
+  "calendar_start": "2023-01-04 09:45:00",
+  "feature_file_count": 12,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$execution_price",
+    "$raw_execution_price"
+  ],
+  "freq": "1min",
+  "hash": "7ec73e2e61f56bc0",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "market": "all",
+  "max_datetime": "2024-01-02 10:32:00",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/risk_projection_reachability_native_v4_20261022_execution",
+  "region": "us",
+  "row_count": 1998,
+  "source": "Exact P3 raw Recorder marks; 2024-01-02 10:32 quote is Qlib calendar guard only, excluded from account and NAV",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

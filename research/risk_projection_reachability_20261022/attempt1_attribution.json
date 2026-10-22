@@ -1,0 +1,16 @@
+{
+  "status": "old_structural_guard_was_extra_assumption",
+  "plan": "attempt1_attribution_plan.json",
+  "artifact_sha256": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+  "object_loads": 1,
+  "source_rows": 249,
+  "finite": true,
+  "nonnegative": true,
+  "max_absolute_weight_sum_error": 2.220446049250313e-16,
+  "min_cash_weight": 0.2117790939880284,
+  "max_SOXL_weight": 0.3087701034716541,
+  "old_30pct_SOXL_or_15pct_cash_bound_violations": 20,
+  "first_old_bound_violation_trade_date": "2023-01-04",
+  "new_fits_accounts_or_provider_builds": 0,
+  "conclusion": "The original target is long-only and fully funded; only an added old structural bound rejected it. A recovery may use exact source weights without changing P3 or selecting on held returns."
+}

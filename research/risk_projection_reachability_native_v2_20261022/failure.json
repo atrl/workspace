@@ -1,0 +1,21 @@
+{
+  "status": "native_account_attempt_failed_at_sparse_calendar_terminal",
+  "engineering_version": "v2",
+  "attempt": 1,
+  "plan_sha256": "a656f5ccfe4afe3852dbf6c9c34a3ed63218a82830d867dbaba396fd03f9c1ef",
+  "process_exit_code": 1,
+  "failure": "Qlib TradeCalendarManager.get_step_time needs calendar[index+1] at the final 2024-01-02 09:47 point; sparse derived provider ended at that same point (IndexError: index 998 out of bounds for size 998).",
+  "operations_consumed": {
+    "hash_verified_source_recorder_object_loads": 5,
+    "source_target_path_constructions": 1,
+    "new_derived_provider_builds": 0,
+    "D_features_calls": 0,
+    "native_account_attempts": 1,
+    "completed_native_accounts": 0,
+    "model_fits": 0,
+    "bootstrap_runs": 0,
+    "writable_Recorders": 0
+  },
+  "provider_reused_unchanged": true,
+  "next_action": "Review official Qlib sparse-calendar step semantics and original P3 following-guard implementation. Any new engineering version must pin a provider-only post-terminal guard, verify it is excluded from policy/NAV, preserve all prior failures/usage, and stop if native book still fails."
+}

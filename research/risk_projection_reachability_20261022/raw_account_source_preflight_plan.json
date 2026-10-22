@@ -1,0 +1,28 @@
+{
+  "status": "frozen_read_only_raw_account_source_preflight",
+  "question": "Are exact raw SOXL/SOXX valuation and execution prices, the corporate action schedule and the terminal guard available for a 2023 independent source-target account?",
+  "source_card": "research/frozen_policy_raw_cashbook_20261015",
+  "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+  "summary_sha256": "86aadee052f678ea70ced12ccf27406281d0fd6b8f8d36a1e6aa1d7a86efc492",
+  "verification_manifest_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+  "artifacts": {
+    "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+    "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+    "inputs/repair_1_calendar_guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24"
+  },
+  "required_2023_funded_sessions": 249,
+  "required_point_times": [
+    "09:45",
+    "09:47",
+    "10:32",
+    "16:00"
+  ],
+  "budget": {
+    "read_only_recorder_object_loads": 3,
+    "D_features_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "writable_recorders": 0
+  },
+  "decision_rule": "Qualify schema/calendar/corporate event availability only. Do not infer alternate account value or replay from a baseline account. If full 2023 raw point and schedule coverage is absent, report needs_data."
+}

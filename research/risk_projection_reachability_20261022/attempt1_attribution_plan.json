@@ -1,0 +1,19 @@
+{
+  "status": "frozen_attempt1_source_target_legality_attribution",
+  "attempt1_plan_sha256": "64c5f39ce2f770fc513d54321354b8e5b084a4fa6f69d001a99f017b1e9acae0",
+  "attempt1_failure_sha256": "be534d63443ddc2d0c72b766965d9af4b4313ca2c3990818902245faf94f8b7a",
+  "source_card": "research/path_area_action_bridge_20261018/P3",
+  "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+  "summary_sha256": "75df49464f8d63ae6cf798cf420c87153811ef796cee5b1d4ca09b41e06a30b6",
+  "verification_manifest_sha256": "65a4631f3b1f583ef68fb4d1586900f3c31c4501579a41de121f1d1d07f23551",
+  "artifact": "paths/B_path_control_2",
+  "artifact_sha256": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+  "scope": "2023 funded 249 source target rows only; no return or postfill analysis",
+  "budget": {
+    "additional_read_only_source_object_loads": 1,
+    "derived_provider_builds": 0,
+    "fits": 0,
+    "accounts": 0
+  },
+  "decision_rule": "If exact stored source target weights are finite, nonnegative and sum to one, the old SOXL/cash bounds were an implementation assumption and can be removed only in a separately frozen recovery. Otherwise stop with needs_data."
+}

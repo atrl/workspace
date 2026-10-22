@@ -1,0 +1,17 @@
+{
+  "status": "counterfactual_path_construction_failed_before_provider_or_native_account",
+  "attempt": 1,
+  "failure": "source target violates frozen structural limits",
+  "cause_hypothesis": "The implementation added a SOXL<=30% and cash>=15% assumption to the source-target proposal. Campaign v2 treats these as research structures rather than user hard gates; the stored source target may legally exceed them while remaining long-only and fully funded.",
+  "operations_consumed": {
+    "hash_verified_source_Recorder_object_loads": 5,
+    "partial_alternate_path_construction_attempts": 1,
+    "derived_Qlib_provider_builds": 0,
+    "D_features_readbacks": 0,
+    "new_native_accounts": 0,
+    "model_fits": 0,
+    "bootstrap_runs": 0,
+    "writable_Recorders": 0
+  },
+  "next_action": "One bounded read-only check of 2023 stored source target legality and extremes. If every row is finite, nonnegative and sums to one, freeze a recovery that follows the exact original proposal without added old structural caps. Preserve this failed attempt and actual counts."
+}

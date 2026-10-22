@@ -1,0 +1,31 @@
+{
+  "status": "frozen_read_only_path_counterfactual_feasibility",
+  "question": "Can a 2023 development-only independently settled source-target account be reconstructed from the P3 saved Qlib Dataset, raw point price grid, corporate-action schedule, legal target stream and frozen tariff without mining later returns?",
+  "source_card": "research/path_area_action_bridge_20261018/P3",
+  "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+  "summary_sha256": "75df49464f8d63ae6cf798cf420c87153811ef796cee5b1d4ca09b41e06a30b6",
+  "verification_manifest_sha256": "65a4631f3b1f583ef68fb4d1586900f3c31c4501579a41de121f1d1d07f23551",
+  "artifacts": {
+    "evaluation/path_dataset": "9f724ada70330bfc8a7c260d2b4da86175e0dd85b12d63d23c4dd9bdd717aa76",
+    "evaluation/native_provider_manifest": "78a887a46bbf5034e8f988c8a366fa698e59a048ee7d16740656b73f30246a41",
+    "paths/B_path_control_2": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+    "native/B_path_control_2": "9cb88f5c861f5b25dd4adfc19b1712160b656875bf78428bee8d3e04505c1d60"
+  },
+  "scope": {
+    "development_dates": "2023-01-04 through 2023-12-29, terminal following raw point required",
+    "held_2024_2026": "unread for candidate selection; only schema/data-presence checks"
+  },
+  "budget": {
+    "read_only_recorder_object_loads": 4,
+    "new_D_features_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "writable_recorders": 0
+  },
+  "checks": [
+    "Saved DatasetH can yield a bounded exact 2023 raw point grid with SOXL/SOXX prices and source targets.",
+    "Corporate event schedule can be rebuilt without using baseline realized entitlements as alternate-account cash.",
+    "Derived native provider has a retained byte-identical reconstruction path; its old checkout absence must be explicit."
+  ],
+  "decision_rule": "If any price, event, fee or path state needed for independent account settlement is missing, report needs_data and do not fake a counterfactual from accounting contributions. No risk threshold, recovery probability cutoff or held window selection."
+}

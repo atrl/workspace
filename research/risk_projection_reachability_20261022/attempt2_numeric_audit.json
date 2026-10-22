@@ -1,0 +1,23 @@
+{
+  "status": "numeric_equal_dtype_only_mismatch",
+  "plan": "attempt2_numeric_audit_recovery_plan.json",
+  "prior_failure": "attempt2_numeric_audit_failure.json",
+  "source_artifact_sha256": {
+    "paths/B_path_control_2": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+    "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd"
+  },
+  "new_source_object_loads": 2,
+  "cumulative_source_object_loads": 4,
+  "new_D_features_calls": 1,
+  "cumulative_D_features_attempts": 2,
+  "derived_provider_hashes_verified": true,
+  "rows": 998,
+  "index_equal": true,
+  "source_dtype": "float64",
+  "Qlib_dtype": "float32",
+  "numeric_array_exact_equal": true,
+  "max_absolute_difference": 0.0,
+  "max_relative_difference": 0.0,
+  "first_numeric_mismatch": null,
+  "new_provider_builds_fits_accounts_or_writable_Recorders": 0
+}

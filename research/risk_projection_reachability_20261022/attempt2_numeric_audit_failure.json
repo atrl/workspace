@@ -1,0 +1,15 @@
+{
+  "status": "read_only_numeric_audit_failed_in_tool_runtime_before_result",
+  "failure": "Qlib D.features default multiprocessing launched from a stdin script; spawned workers attempted to load a non-existent <stdin> path and the process was interrupted.",
+  "operations_consumed": {
+    "hash_verified_source_recorder_object_loads": 2,
+    "D_features_attempts": 1,
+    "new_provider_builds": 0,
+    "native_accounts": 0,
+    "model_fits": 0,
+    "writable_Recorders": 0
+  },
+  "derived_provider_changed": false,
+  "numeric_equality_result_available": false,
+  "next_action": "Freeze one same-source read-only recovery from a saved script using Qlib kernels=1 and the unchanged derived provider hashes. Preserve this failed diagnostic and cumulative reads."
+}

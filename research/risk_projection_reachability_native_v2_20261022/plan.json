@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "experiment": "risk_projection_reachability_native_v2_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "same_scientific_counterfactual_engineering_v2_one_native_account",
+  "scientific_question": "Under the exact P3 B2 source targets, 2bp IBKR Tiered projection and 2023 physical share/cash/dividend path, how much 2023 return did risk projection sacrifice and how much tail risk did it avoid? Does this justify a distinct pretrade recovery information search?",
+  "scientific_policy": "Independently settle the exact P3 source_target SOXL/SOXX/CASH weights at each 09:47, without risk projection or recovery. Require only the campaign v2 hard long-only, no-financing, sum-to-one properties; do not impose old SOXL30% cap or cash15% floor. Same original marks, dividends/splits and 2bp Tiered fees.",
+  "development_window": {
+    "first_trade": "2023-01-04",
+    "last_trade": "2023-12-29",
+    "terminal_following_session": "2024-01-02",
+    "funded_sessions": 249,
+    "held_2024_2026_policy_outcome_use": false
+  },
+  "source": {
+    "P3": {
+      "card": "research/path_area_action_bridge_20261018/P3",
+      "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+      "summary_sha256": "75df49464f8d63ae6cf798cf420c87153811ef796cee5b1d4ca09b41e06a30b6",
+      "verification_manifest_sha256": "65a4631f3b1f583ef68fb4d1586900f3c31c4501579a41de121f1d1d07f23551",
+      "artifacts": {
+        "paths/B_path_control_2": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+        "native/B_path_control_2": "9cb88f5c861f5b25dd4adfc19b1712160b656875bf78428bee8d3e04505c1d60",
+        "analysis/results": "5a1cecd5142a38464c7f8f9fe0dde595cdaf66da02f54b8cebe0c786f68de2e2"
+      }
+    },
+    "raw": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "summary_sha256": "86aadee052f678ea70ced12ccf27406281d0fd6b8f8d36a1e6aa1d7a86efc492",
+      "verification_manifest_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": {
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b"
+      }
+    },
+    "P3_plan_path": "research/path_area_action_bridge_20261018/P3_plan.json",
+    "P3_plan_sha256": "a46094a1658c6006bc831a4a70d70a45f3d1a2023c6bd3288f8004cdd7e6c4c0",
+    "feasibility_path": "research/risk_projection_reachability_20261022/counterfactual_feasibility.json",
+    "feasibility_sha256": "c1418648a3b650f0c284b06800e9b8a7e094e2ae21028de852a5f41873d7271a",
+    "state_diagnostic_path": "research/risk_projection_reachability_20261022/recovery_state_diagnostic.json",
+    "state_diagnostic_sha256": "af5bcc6eef72bdec0f138cf585aa8ebcd18a320726bdc8695dbbe3a61e556a61"
+  },
+  "original_v1_card": "research/risk_projection_reachability_20261022",
+  "original_v1_identity": {
+    "plan.json": "64c5f39ce2f770fc513d54321354b8e5b084a4fa6f69d001a99f017b1e9acae0",
+    "recovery_plan.json": "a182b5cca12ece36380a40274f736d8e1f3ecfb5c8ca8d62cff0c5792b96d5bf",
+    "attempt1_failure.json": "be534d63443ddc2d0c72b766965d9af4b4313ca2c3990818902245faf94f8b7a",
+    "attempt1_attribution.json": "8a23eae0c23c7f807c176659ca2db3403f420c140c316333a38a93dfc171796d",
+    "attempt2_failure.json": "5e8b6c839a654632198cd407c939d09563571c5e50842e94f67c431cf41aa6b1",
+    "attempt2_numeric_audit_failure.json": "72005730a2917c5bdb9a8858a53cba5f2dad78a4ec580867db3197587cab8807",
+    "attempt2_numeric_audit.json": "02ab16222f30fbf2dd0689aa6a422c6a6bfa1b98dfeb898921a22fe3eba85bd2",
+    "attempt2_numeric_audit_recovery_plan.json": "0ca451b266a5c6961469c897a3166b91d20cd7884e29aa73f9552e2a4f9f008b"
+  },
+  "source_target_path_module": {
+    "path": "src/backtest/risk_projection_reachability.py",
+    "sha256": "a343fa33f5cc06b1737ff2955b379f6e30aa6a943c1e6f64bc959ab0435e9cf0"
+  },
+  "existing_derived_provider": {
+    "provider_uri": "data/qlib/risk_projection_reachability_20261022_execution",
+    "files": {
+      "qlib_store_manifest.json": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/qlib_store_manifest.json",
+        "sha256": "fe13cc2bfea052aefcfa5c5064c3f92fb264d1dd9025a30c9885d3ed284a7570",
+        "bytes": 956
+      },
+      "calendars/1min.txt": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/calendars/1min.txt",
+        "sha256": "7d1b2de30fe238973fdccc0979920d5f4b9bb098635fdf470ba0c0bc92c72190",
+        "bytes": 19960
+      },
+      "instruments/all.txt": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/instruments/all.txt",
+        "sha256": "78b27299ec9401e0e5b30992001dee7d91e0befafc6a2fed06f6945ccd1a09da",
+        "bytes": 90
+      },
+      "features/soxl/open.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxl/open.1min.bin",
+        "sha256": "fb31a532ce799a53354eb966246ce33db9229b3c30a02ae289e784a3c6e9b3f3",
+        "bytes": 3996
+      },
+      "features/soxl/high.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxl/high.1min.bin",
+        "sha256": "fb31a532ce799a53354eb966246ce33db9229b3c30a02ae289e784a3c6e9b3f3",
+        "bytes": 3996
+      },
+      "features/soxl/low.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxl/low.1min.bin",
+        "sha256": "fb31a532ce799a53354eb966246ce33db9229b3c30a02ae289e784a3c6e9b3f3",
+        "bytes": 3996
+      },
+      "features/soxl/close.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxl/close.1min.bin",
+        "sha256": "fb31a532ce799a53354eb966246ce33db9229b3c30a02ae289e784a3c6e9b3f3",
+        "bytes": 3996
+      },
+      "features/soxl/execution_price.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxl/execution_price.1min.bin",
+        "sha256": "fb31a532ce799a53354eb966246ce33db9229b3c30a02ae289e784a3c6e9b3f3",
+        "bytes": 3996
+      },
+      "features/soxl/raw_execution_price.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxl/raw_execution_price.1min.bin",
+        "sha256": "fb31a532ce799a53354eb966246ce33db9229b3c30a02ae289e784a3c6e9b3f3",
+        "bytes": 3996
+      },
+      "features/soxx/open.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxx/open.1min.bin",
+        "sha256": "a7c1cdbf1da9a39d149da70a8ebb184d08f45255810364731d377c21d6d5cbdb",
+        "bytes": 3996
+      },
+      "features/soxx/high.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxx/high.1min.bin",
+        "sha256": "a7c1cdbf1da9a39d149da70a8ebb184d08f45255810364731d377c21d6d5cbdb",
+        "bytes": 3996
+      },
+      "features/soxx/low.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxx/low.1min.bin",
+        "sha256": "a7c1cdbf1da9a39d149da70a8ebb184d08f45255810364731d377c21d6d5cbdb",
+        "bytes": 3996
+      },
+      "features/soxx/close.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxx/close.1min.bin",
+        "sha256": "a7c1cdbf1da9a39d149da70a8ebb184d08f45255810364731d377c21d6d5cbdb",
+        "bytes": 3996
+      },
+      "features/soxx/execution_price.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxx/execution_price.1min.bin",
+        "sha256": "a7c1cdbf1da9a39d149da70a8ebb184d08f45255810364731d377c21d6d5cbdb",
+        "bytes": 3996
+      },
+      "features/soxx/raw_execution_price.1min.bin": {
+        "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxx/raw_execution_price.1min.bin",
+        "sha256": "a7c1cdbf1da9a39d149da70a8ebb184d08f45255810364731d377c21d6d5cbdb",
+        "bytes": 3996
+      }
+    },
+    "numeric_audit_status_required": "numeric_equal_dtype_only_mismatch",
+    "numeric_audit_sha256": "02ab16222f30fbf2dd0689aa6a422c6a6bfa1b98dfeb898921a22fe3eba85bd2",
+    "reuse_only_no_rebuild": true
+  },
+  "costs": {
+    "initial_cash_usd": 100000,
+    "slippage_bps": 2,
+    "tariff": "exact P3_plan.json costs_and_budgets.tariff",
+    "long_only_no_financing": true,
+    "no_extra_old_SOXL_or_cash_bounds": true
+  },
+  "budget": {
+    "new_source_recorder_object_loads": 5,
+    "cumulative_prior_source_object_loads": 14,
+    "new_D_features_calls": 0,
+    "cumulative_prior_D_features_attempts": 3,
+    "new_derived_provider_builds": 0,
+    "cumulative_prior_derived_provider_builds": 1,
+    "new_native_accounts": 1,
+    "new_model_fits": 0,
+    "new_bootstraps": 0,
+    "new_writable_recorders": 1,
+    "attempts": 1
+  },
+  "stops": [
+    "Any prior failure, numeric audit, source Recorder or derived-provider file hash differs.",
+    "2023 source target, raw point, corporate schedule or tariff identity differs.",
+    "Native Qlib account fails orders/fees, corporate receipts, positions, point NAV or terminal return reconciliation.",
+    "No P3 threshold reduction, held 2024-2026 outcome selection or promotion from this development counterfactual."
+  ],
+  "outputs": [
+    "Executable notebook, one independently settled native 2023 source-target account and exact B2/SOXX diagnostic comparison in Recorder",
+    "Slim summary/conclusion and failure receipts if the one attempt fails"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "native/*",
+      "sources/*"
+    ]
+  },
+  "implementation": {
+    "module": "src/backtest/risk_projection_reachability_native_v2.py",
+    "module_sha256": "1a9bd984ef10976791e5c061fa6d5b77df76ef640c170e84d9441e150fb1ff10",
+    "notebook": "research/risk_projection_reachability_native_v2_20261022/risk_projection_reachability_native_v2_20261022.ipynb",
+    "notebook_sha256": "db068e9050f3fefcc8d914022c1d0ac3d34000867bcc57d9e583603e7b21515d"
+  }
+}

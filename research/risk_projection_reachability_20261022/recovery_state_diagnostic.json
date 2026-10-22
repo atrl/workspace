@@ -1,0 +1,114 @@
+{
+  "status": "P3_recovery_state_diagnostic_complete",
+  "plan": "recovery_state_diagnostic_plan.json",
+  "source_recorder_artifact_sha256": {
+    "paths/B_path_control_2": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+    "native/B_path_control_2": "9cb88f5c861f5b25dd4adfc19b1712160b656875bf78428bee8d3e04505c1d60",
+    "controller/source_recovery_selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116"
+  },
+  "object_loads": 3,
+  "recovery_selection": {
+    "selection_uses_outer_test": false,
+    "selected_from_segment": "development_walk_forward",
+    "logistic_c": 0.3,
+    "probability_threshold": 0.825,
+    "action_beta": 0.6,
+    "minimum_source_alpha_probability": 0.25,
+    "threshold_plateau_count": 3,
+    "production_enabled": false
+  },
+  "threshold_candidates": [
+    {
+      "path": "probability_threshold",
+      "value": 0.825
+    },
+    {
+      "path": "minimum_source_alpha_probability",
+      "value": 0.25
+    },
+    {
+      "path": "threshold_plateau_count",
+      "value": 3.0
+    }
+  ],
+  "total_sessions": 944,
+  "finite_recovery_forecasts": 204,
+  "recovery_actions": 0,
+  "max_recovery_probability": 0.7614955632827304,
+  "annual": {
+    "2023": {
+      "sessions": 249,
+      "risk_state_counts": {
+        "0.0": 106,
+        "1.0": 24,
+        "2.0": 60,
+        "3.0": 59
+      },
+      "finite_recovery_forecasts": 61,
+      "recovery_actions": 0,
+      "mean_recovery_probability_when_forecast": 0.4358745072532166,
+      "max_recovery_probability_when_forecast": 0.6171288954584744,
+      "mean_source_cash_weight": 0.34354810066473357,
+      "mean_projected_cash_weight": 0.4426892363784504,
+      "projection_added_cash_sessions": 67,
+      "longest_projection_added_cash_spell_sessions": 11,
+      "mean_projection_added_cash_weight": 0.0991411357137169
+    },
+    "2024": {
+      "sessions": 252,
+      "risk_state_counts": {
+        "0.0": 179,
+        "1.0": 12,
+        "2.0": 30,
+        "3.0": 31
+      },
+      "finite_recovery_forecasts": 28,
+      "recovery_actions": 0,
+      "mean_recovery_probability_when_forecast": 0.4391888571449704,
+      "max_recovery_probability_when_forecast": 0.5616267723791201,
+      "mean_source_cash_weight": 0.4427255860854749,
+      "mean_projected_cash_weight": 0.4896903198623966,
+      "projection_added_cash_sessions": 39,
+      "longest_projection_added_cash_spell_sessions": 11,
+      "mean_projection_added_cash_weight": 0.046964733776921654
+    },
+    "2025": {
+      "sessions": 250,
+      "risk_state_counts": {
+        "0.0": 154,
+        "1.0": 16,
+        "2.0": 40,
+        "3.0": 40
+      },
+      "finite_recovery_forecasts": 50,
+      "recovery_actions": 0,
+      "mean_recovery_probability_when_forecast": 0.39288672937913177,
+      "max_recovery_probability_when_forecast": 0.6381097264912888,
+      "mean_source_cash_weight": 0.3816994464733889,
+      "mean_projected_cash_weight": 0.4634756021885513,
+      "projection_added_cash_sessions": 69,
+      "longest_projection_added_cash_spell_sessions": 20,
+      "mean_projection_added_cash_weight": 0.08177615571516239
+    },
+    "2026": {
+      "sessions": 193,
+      "risk_state_counts": {
+        "0.0": 104,
+        "1.0": 16,
+        "2.0": 40,
+        "3.0": 33
+      },
+      "finite_recovery_forecasts": 65,
+      "recovery_actions": 0,
+      "mean_recovery_probability_when_forecast": 0.4762037890616319,
+      "max_recovery_probability_when_forecast": 0.7614955632827304,
+      "mean_source_cash_weight": 0.3574850296130687,
+      "mean_projected_cash_weight": 0.48239509252764334,
+      "projection_added_cash_sessions": 67,
+      "longest_projection_added_cash_spell_sessions": 30,
+      "mean_projection_added_cash_weight": 0.12491006291457464
+    }
+  },
+  "new_fits_accounts_bootstraps_or_market_reads": 0,
+  "boundary": "Observed policy state and cash path only; no path-correct alternate account or SOXX opportunity-cost/protection conclusion."
+}

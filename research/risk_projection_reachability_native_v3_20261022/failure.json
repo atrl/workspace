@@ -1,0 +1,17 @@
+{
+  "status": "execution_failed_before_source_load",
+  "engineering_version": "v3",
+  "attempt": 1,
+  "plan_sha256": "304c167cd0adec796f8ed5fc84093a7aaab247a35c2640edb00505998a44516c",
+  "failure": "MLflow local file store unavailable in notebook environment; load_verified_recorder_objects could not find existing source experiment. MLFLOW_ALLOW_FILE_STORE was unset.",
+  "operations_consumed": {
+    "hash_verified_source_recorder_object_loads": 0,
+    "derived_provider_builds": 0,
+    "D_features_calls": 0,
+    "native_account_attempts": 0,
+    "completed_native_accounts": 0,
+    "writable_Recorders": 0,
+    "model_fits": 0
+  },
+  "next_action": "Freeze explicit MLflow local store environment and retry as a separate engineering version; retain v3 failed state."
+}

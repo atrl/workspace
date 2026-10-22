@@ -1,0 +1,39 @@
+{
+  "status": "raw_account_source_preflight_complete",
+  "plan": "raw_account_source_preflight_plan.json",
+  "artifact_sha256": {
+    "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+    "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b",
+    "inputs/repair_1_calendar_guard": "4907327eca838c5cd92b8451076f6f42cc3d95282ea724253dce9a26f2230b24"
+  },
+  "object_loads": 3,
+  "raw_points_type": "DataFrame",
+  "raw_points_shape": [
+    3778,
+    2
+  ],
+  "raw_points_index_names": [
+    "datetime"
+  ],
+  "raw_points_columns": [
+    "SOXL",
+    "SOXX"
+  ],
+  "unique_2023_point_dates": 249,
+  "2023_timestamp_counts_by_clock": {
+    "09:45": 249,
+    "09:47": 249,
+    "10:32": 249,
+    "16:00": 247,
+    "13:00": 2
+  },
+  "schedule_type": "dict",
+  "schedule_days": 54,
+  "2023_schedule_events": 15,
+  "guard_type": "DataFrame",
+  "guard_columns": [
+    "$raw_execution_price"
+  ],
+  "new_fits_accounts_or_market_queries": 0,
+  "boundary": "Source availability only. No independent account or SOXX protection/opportunity cost has been established."
+}

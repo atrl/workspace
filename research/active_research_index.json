@@ -3,13 +3,13 @@
   "scope": "three_asset_continuous_campaign_only_not_repository_inventory",
   "active": [
     {
-      "card": "research/risk_projection_reachability_20261022",
-      "phase": "design_only_no_execution",
+      "card": "research/risk_projection_reachability_native_v4_20261022",
+      "phase": "completed_development_diagnostic_next_mechanism_design",
       "role": "risk_projection_opportunity_cost_and_recovery_reachability",
       "full_economic_experiment": false,
-      "status": "design_brief_written_source_inventory_next",
+      "status": "native_2023_counterfactual_complete_no_promotion",
       "execution_authorized": false,
-      "source_failure_attribution": "research/path_area_action_bridge_20261018/P3/failure_attribution.json"
+      "result": "research/risk_projection_reachability_native_v4_20261022/summary.json"
     }
   ],
   "framework": [
@@ -98,10 +98,10 @@
     "all provider bin files for documentation"
   ],
   "next_information_need": {
-    "status": "design_brief_written",
-    "topic": "risk_projection_protection_vs_SOXX_opportunity_cost_and_recovery_reachability",
-    "source": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
-    "execution_authorized": false,
-    "design_brief": "research/risk_projection_reachability_20261022/design_brief.json"
+    "status": "new_mechanism_design_required",
+    "topic": "pretrade_source_target_information_increment_with_tail_protection",
+    "evidence": "research/risk_projection_reachability_native_v4_20261022/summary.json",
+    "constraint": "No P3 threshold lowering, no tuning on reused 2023 path; freeze fresh source/timing and independent-forward gate before another economic run",
+    "execution_authorized": false
   }
 }

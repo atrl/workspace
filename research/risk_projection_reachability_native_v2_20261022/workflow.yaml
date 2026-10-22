@@ -1,0 +1,14 @@
+experiment: risk_projection_reachability_native_v2_20261022
+phase: same_scientific_counterfactual_engineering_v2
+notebook: risk_projection_reachability_native_v2_20261022.ipynb
+plan: plan.json
+module: src.backtest.risk_projection_reachability_native_v2
+entrypoint: run
+original_failed_card: research/risk_projection_reachability_20261022
+source_recorder: research/path_area_action_bridge_20261018/P3
+raw_source_recorder: research/frozen_policy_raw_cashbook_20261015
+reused_derived_provider: data/qlib/risk_projection_reachability_20261022_execution
+funded_year: 2023
+slippage_bps: 2
+new_native_accounts: 1
+model_fits: 0

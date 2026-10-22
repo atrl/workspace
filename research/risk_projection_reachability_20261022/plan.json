@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "experiment": "risk_projection_reachability_20261022",
+  "frozen": true,
+  "execution_authorized": true,
+  "phase": "one_training_2023_path_correct_counterfactual_diagnostic",
+  "question": "Under the exact P3 B2 source targets, 2bp IBKR Tiered projection and 2023 physical share/cash/dividend path, how much 2023 return did risk projection sacrifice and how much tail risk did it avoid? Does this justify a distinct pretrade recovery information search?",
+  "counterfactual": "independently settle source_target SOXL/SOXX/CASH at each 09:47, no risk projection and no intraday recovery, retaining source structural cash/SOXL limits, exact underlying observations, dividends/splits and fees",
+  "baseline": "frozen P3 B_path_control_2 native account under same 2023 source grid and 2bp cost",
+  "development_window": {
+    "first_trade": "2023-01-04",
+    "last_trade": "2023-12-29",
+    "terminal_following_session": "2024-01-02",
+    "funded_sessions": 249,
+    "held_2024_2026_policy_outcome_use": false
+  },
+  "source": {
+    "P3": {
+      "card": "research/path_area_action_bridge_20261018/P3",
+      "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+      "summary_sha256": "75df49464f8d63ae6cf798cf420c87153811ef796cee5b1d4ca09b41e06a30b6",
+      "verification_manifest_sha256": "65a4631f3b1f583ef68fb4d1586900f3c31c4501579a41de121f1d1d07f23551",
+      "artifacts": {
+        "paths/B_path_control_2": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+        "native/B_path_control_2": "9cb88f5c861f5b25dd4adfc19b1712160b656875bf78428bee8d3e04505c1d60",
+        "analysis/results": "5a1cecd5142a38464c7f8f9fe0dde595cdaf66da02f54b8cebe0c786f68de2e2"
+      }
+    },
+    "raw": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "summary_sha256": "86aadee052f678ea70ced12ccf27406281d0fd6b8f8d36a1e6aa1d7a86efc492",
+      "verification_manifest_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054",
+      "artifacts": {
+        "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd",
+        "inputs/schedule": "87e98fd8a24c883e45a25ea2702615883c27c011535b1763fd18821261143d2b"
+      }
+    },
+    "P3_plan_path": "research/path_area_action_bridge_20261018/P3_plan.json",
+    "P3_plan_sha256": "a46094a1658c6006bc831a4a70d70a45f3d1a2023c6bd3288f8004cdd7e6c4c0",
+    "feasibility_path": "research/risk_projection_reachability_20261022/counterfactual_feasibility.json",
+    "feasibility_sha256": "c1418648a3b650f0c284b06800e9b8a7e094e2ae21028de852a5f41873d7271a",
+    "state_diagnostic_path": "research/risk_projection_reachability_20261022/recovery_state_diagnostic.json",
+    "state_diagnostic_sha256": "af5bcc6eef72bdec0f138cf585aa8ebcd18a320726bdc8695dbbe3a61e556a61"
+  },
+  "price_and_account": {
+    "provider_output": "data/qlib/risk_projection_reachability_20261022_execution",
+    "source_point_times": [
+      "09:45",
+      "09:47",
+      "10:32",
+      "16:00"
+    ],
+    "half_day_close": "13:00 when saved original grid says so",
+    "terminal_point_times": [
+      "09:45",
+      "09:47"
+    ],
+    "initial_cash_usd": 100000,
+    "slippage_bps": 2,
+    "tariff": "exact P3_plan.json costs_and_budgets.tariff",
+    "corporate_action_schedule": "exact frozen raw Recorder inputs/schedule; apply to alternate own shares and receivables, never copy baseline cash receipts",
+    "native_validator": "src.backtest.native_raw_corporate.native_raw_validate",
+    "native_provider": "one derived sparse 1min Qlib provider from bounded raw points, explicit hash and readback before account validation"
+  },
+  "measurements": [
+    "2023 terminal net wealth and annual return versus baseline and the exact reused native SOXX 2bp annual reference from P3 analysis/results, without new benchmark replay",
+    "maximum close/available-point drawdown and CVaR5 on 2023 daily native account",
+    "mean cash weight, fees and turnover per independently settled account",
+    "risk-projection protective tail versus SOXX opportunity cost as matched policy difference, not accounting attribution"
+  ],
+  "budget": {
+    "source_recorder_object_loads": 5,
+    "derived_provider_builds": 1,
+    "D_features_readbacks": 1,
+    "new_native_accounts": 1,
+    "model_fits": 0,
+    "bootstrap_runs": 0,
+    "market_HTTP": 0,
+    "attempts": 1
+  },
+  "stops": [
+    "Any source summary/manifest/artifact, P3 plan, model code or notebook identity differs.",
+    "Raw 2023+terminal point grid, corporate action schedule, source target legality or account price basis is incomplete.",
+    "Independent raw ledger fails native Qlib reconciliation, corporate receipt conservation, fee/holdings or split accounting.",
+    "Do not interpret higher source-target return alone as an executable new recovery trigger, do not lower the frozen 0.825 recovery threshold, and do not use 2024-2026 P3 outcomes to select a candidate."
+  ],
+  "outputs": [
+    "Executable source/counterfactual notebook, one new Qlib-native account and Recorder holding full orders/positions/path",
+    "Small summary/conclusion separating protection and opportunity-cost observations, with explicit development-only and no-promotion status"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*",
+      "analysis/*",
+      "native/*",
+      "sources/*"
+    ]
+  },
+  "implementation": {
+    "module": "src/backtest/risk_projection_reachability.py",
+    "module_sha256": "bb32b77f6042b0ae64304499b1d757c80265ebfca77030c356d2b91dcbb1aac3",
+    "notebook": "research/risk_projection_reachability_20261022/risk_projection_reachability_20261022.ipynb",
+    "notebook_sha256": "a2a33f7b236022ac50f25cfbe44ea72714e00a818351bcf8ad99c71c09b3efd7"
+  }
+}

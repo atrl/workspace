@@ -1,0 +1,14 @@
+experiment: risk_projection_reachability_20261022
+phase: one_development_year_counterfactual_diagnostic
+notebook: risk_projection_reachability_20261022.ipynb
+plan: recovery_plan.json
+module: src.backtest.risk_projection_reachability
+entrypoint: run
+recovery: true
+prior_failure: attempt1_failure.json
+source_recorder: research/path_area_action_bridge_20261018/P3
+raw_source_recorder: research/frozen_policy_raw_cashbook_20261015
+funded_year: 2023
+slippage_bps: 2
+model_fits: 0
+new_native_accounts: 1

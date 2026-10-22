@@ -1,0 +1,69 @@
+{
+  "status": "frozen_read_only_numeric_audit_recovery",
+  "attempt2_failure_sha256": "5e8b6c839a654632198cd407c939d09563571c5e50842e94f67c431cf41aa6b1",
+  "source": {
+    "P3": {
+      "card": "research/path_area_action_bridge_20261018/P3",
+      "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+      "summary_sha256": "75df49464f8d63ae6cf798cf420c87153811ef796cee5b1d4ca09b41e06a30b6",
+      "verification_manifest_sha256": "65a4631f3b1f583ef68fb4d1586900f3c31c4501579a41de121f1d1d07f23551"
+    },
+    "raw": {
+      "card": "research/frozen_policy_raw_cashbook_20261015",
+      "recorder_id": "55b4223a73d44fee89c86608edf8f58c",
+      "summary_sha256": "86aadee052f678ea70ced12ccf27406281d0fd6b8f8d36a1e6aa1d7a86efc492",
+      "verification_manifest_sha256": "bd63e0f24735d4ef323e908dc35b5d9f01fef12c811bb3f31ac404b0d474f054"
+    }
+  },
+  "artifact_sha256": {
+    "paths/B_path_control_2": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+    "inputs/raw_points": "f02e47907db51273058927d151b8cc452e358cf94dd89c7b888096ae3188b9dd"
+  },
+  "derived_provider": {
+    "manifest": {
+      "path": "data/qlib/risk_projection_reachability_20261022_execution/qlib_store_manifest.json",
+      "sha256": "fe13cc2bfea052aefcfa5c5064c3f92fb264d1dd9025a30c9885d3ed284a7570",
+      "bytes": 956
+    },
+    "calendar": {
+      "path": "data/qlib/risk_projection_reachability_20261022_execution/calendars/1min.txt",
+      "sha256": "7d1b2de30fe238973fdccc0979920d5f4b9bb098635fdf470ba0c0bc92c72190",
+      "bytes": 19960
+    },
+    "instruments": {
+      "path": "data/qlib/risk_projection_reachability_20261022_execution/instruments/all.txt",
+      "sha256": "78b27299ec9401e0e5b30992001dee7d91e0befafc6a2fed06f6945ccd1a09da",
+      "bytes": 90
+    },
+    "SOXL_raw": {
+      "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxl/raw_execution_price.1min.bin",
+      "sha256": "fb31a532ce799a53354eb966246ce33db9229b3c30a02ae289e784a3c6e9b3f3",
+      "bytes": 3996
+    },
+    "SOXX_raw": {
+      "path": "data/qlib/risk_projection_reachability_20261022_execution/features/soxx/raw_execution_price.1min.bin",
+      "sha256": "a7c1cdbf1da9a39d149da70a8ebb184d08f45255810364731d377c21d6d5cbdb",
+      "bytes": 3996
+    }
+  },
+  "budget": {
+    "new_read_only_source_object_loads": 2,
+    "new_D_features_calls": 1,
+    "cumulative_source_object_load_cap": 4,
+    "cumulative_D_features_attempt_cap": 2,
+    "new_provider_builds": 0,
+    "fits": 0,
+    "native_accounts": 0,
+    "writable_recorders": 0
+  },
+  "decision_rule": "Check exact 2023 plus 2024-01-02 terminal index and SOXL/SOXX point values, before considering a new engineering version. Do not overwrite or silently rebuild the existing derived provider. A dtype mismatch alone is acceptable only if numeric values are exactly equal; otherwise preserve mismatch and stop.",
+  "recovery": {
+    "attempt": 2,
+    "maximum_attempts": 2,
+    "prior_plan_sha256": "f42329da4aa1fdb9cded137962b51e09812f1d68af81f91641db05d1eaeeadea",
+    "prior_failure_sha256": "72005730a2917c5bdb9a8858a53cba5f2dad78a4ec580867db3197587cab8807",
+    "previous_source_object_loads": 2,
+    "previous_D_features_attempts": 1
+  },
+  "execution": "Run saved standalone Python script with qlib.init(...,kernels=1), never stdin/default multiprocessing; compare exact numeric arrays and calendar without rebuilding provider."
+}

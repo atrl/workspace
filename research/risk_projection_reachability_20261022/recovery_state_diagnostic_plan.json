@@ -1,0 +1,44 @@
+{
+  "status": "frozen_read_only_recovery_reachability_diagnostic",
+  "question": "Were P3 recovery forecasts ever eligible, and if so why were there zero recorded recovery actions? Distinguish no eligibility from a frozen model/selection threshold not crossed; report projection cash path by year without causal return claims.",
+  "P3_source": {
+    "card": "research/path_area_action_bridge_20261018/P3",
+    "recorder_id": "a7f77f8020a74651abe2fce076959a85",
+    "summary_sha256": "75df49464f8d63ae6cf798cf420c87153811ef796cee5b1d4ca09b41e06a30b6",
+    "verification_manifest_sha256": "65a4631f3b1f583ef68fb4d1586900f3c31c4501579a41de121f1d1d07f23551",
+    "artifacts": {
+      "paths/B_path_control_2": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+      "native/B_path_control_2": "9cb88f5c861f5b25dd4adfc19b1712160b656875bf78428bee8d3e04505c1d60"
+    }
+  },
+  "recovery_selection_source": {
+    "card": "research/stage1_minute_information_comparison_20261012",
+    "recorder_id": "9d671fcfb1aa467bb8a9fd83971fb015",
+    "summary_sha256": "ccdb6337cdf812606e27ef0446e550e07b634c75e703ef8f010e96be8591bc4a",
+    "verification_manifest_sha256": "ace09b2e8647d72dcc78dce8b0b958fe4ec4fdfe2672efcb84a0c791bc368193",
+    "artifacts": {
+      "controller/source_recovery_selection": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116"
+    }
+  },
+  "P3_failure_attribution_sha256": "5474152f36494ab6b34de2a0efdc8870c6ff1319677c4be1b560c3abcb69181c",
+  "cost_scenario_bps": 2,
+  "scope": {
+    "2023": "development-only behavioral diagnostic",
+    "2024_2026": "descriptive previously reused path, not candidate selection or independent held evidence"
+  },
+  "budget": {
+    "read_only_recorder_object_loads": 3,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "bootstrap_runs": 0,
+    "writable_recorders": 0
+  },
+  "checks": [
+    "P3 native authority/trace date, account and recovery_action consistency before aggregation.",
+    "Count risk states, finite recovery probabilities, frozen threshold crossing, projection-added cash, cash spell lengths by year.",
+    "No benchmark-relative SOXX opportunity-cost or protection claim without a new independently settled counterfactual account."
+  ],
+  "decision_rule": "If finite model forecasts exist and no action, identify the exact frozen selection/threshold blocker; do not lower thresholds on the reused P3 history. If source selection lacks an executable threshold, report needs_data."
+}

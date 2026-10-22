@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/risk_projection_reachability_native_v4_20261022_execution
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

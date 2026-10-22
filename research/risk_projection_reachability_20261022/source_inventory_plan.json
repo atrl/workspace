@@ -1,0 +1,32 @@
+{
+  "status": "frozen_read_only_P3_source_inventory",
+  "purpose": "Determine whether completed native P3 account/path/decision-chain objects contain the inputs needed for a path-correct training-period risk-projection protection versus SOXX opportunity-cost counterfactual.",
+  "source_card": "research/path_area_action_bridge_20261018/P3",
+  "source_recorder_id": "a7f77f8020a74651abe2fce076959a85",
+  "source_summary_sha256": "75df49464f8d63ae6cf798cf420c87153811ef796cee5b1d4ca09b41e06a30b6",
+  "source_verification_manifest_sha256": "65a4631f3b1f583ef68fb4d1586900f3c31c4501579a41de121f1d1d07f23551",
+  "source_failure_attribution_sha256": "5474152f36494ab6b34de2a0efdc8870c6ff1319677c4be1b560c3abcb69181c",
+  "artifacts": {
+    "evaluation/path_inputs": "8e55c62bc801363d4df02aadfc8debf156e7e221d6ab18810e7bf15de5c083b4",
+    "paths/B_path_control_2": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+    "native/B_path_control_2": "9cb88f5c861f5b25dd4adfc19b1712160b656875bf78428bee8d3e04505c1d60",
+    "decision_chain/B_path_control_2": "48ea9461de7d05217a862814b7a7e4d72f0f3877c14913e45e4da129c41e6d0c",
+    "analysis/soxx_objective": "e35658fef6004b114184b59377c5265c9631b67637dd0ed0f77710bd73714d2b"
+  },
+  "cost_scenario_bps": 2,
+  "budget": {
+    "read_only_recorder_object_loads": 5,
+    "D_calendar_calls": 0,
+    "D_features_calls": 0,
+    "model_fits": 0,
+    "native_accounts": 0,
+    "bootstraps": 0,
+    "writable_recorders": 0
+  },
+  "checks": [
+    "Exact Recorder identity and artifact hashes before loading.",
+    "Record structural keys, row counts, time spans, fee/holdings/dividend/risk/recovery fields; no new predictions or book replay.",
+    "Determine the minimum exact extra objects or mechanics required for independently settled counterfactual; do not infer causal protection from post hoc cash/return attribution."
+  ],
+  "decision_rule": "If holdings or price/corporate-action/account state needed for a path-correct book is absent, report needs_data and do not execute a candidate. If sufficient, freeze one training-period counterfactual separately with exact 0/2/5bp costs and no threshold/window search."
+}

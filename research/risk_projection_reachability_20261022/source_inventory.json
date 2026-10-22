@@ -1,0 +1,310 @@
+{
+  "status": "P3_native_source_structure_read",
+  "plan": "source_inventory_plan.json",
+  "source_recorder_id": "a7f77f8020a74651abe2fce076959a85",
+  "artifact_sha256": {
+    "evaluation/path_inputs": "8e55c62bc801363d4df02aadfc8debf156e7e221d6ab18810e7bf15de5c083b4",
+    "paths/B_path_control_2": "a19cefd5d45aed608ccc52ec81a2fe95486f745c4236148cf9ca3e3ed2e2c822",
+    "native/B_path_control_2": "9cb88f5c861f5b25dd4adfc19b1712160b656875bf78428bee8d3e04505c1d60",
+    "decision_chain/B_path_control_2": "48ea9461de7d05217a862814b7a7e4d72f0f3877c14913e45e4da129c41e6d0c",
+    "analysis/soxx_objective": "e35658fef6004b114184b59377c5265c9631b67637dd0ed0f77710bd73714d2b"
+  },
+  "object_loads": 5,
+  "structures": {
+    "evaluation/path_inputs": {
+      "type": "DataFrame",
+      "rows": 944,
+      "columns": [
+        "trade_date",
+        "path_area_signed",
+        "path_control_X",
+        "path_control_Y",
+        "path_control_X_squared",
+        "path_control_XY",
+        "path_control_Y_squared",
+        "path_control_Qx",
+        "path_control_Qxy",
+        "path_control_Qy",
+        "prefix_mask"
+      ],
+      "trade_date_bounds": [
+        "2023-01-04 00:00:00",
+        "2026-10-08 00:00:00"
+      ]
+    },
+    "paths/B_path_control_2": {
+      "type": "dict",
+      "keys": [
+        "replay",
+        "orders",
+        "points",
+        "targets",
+        "corporate_receipts",
+        "monthly_fee_shares",
+        "endpoints",
+        "trace",
+        "action_features",
+        "action_prediction_calls",
+        "arm"
+      ],
+      "children": {
+        "orders": {
+          "type": "DataFrame",
+          "rows": 1271,
+          "columns": [
+            "symbol",
+            "sell",
+            "raw_shares",
+            "adjusted_amount",
+            "raw_price",
+            "adjusted_price",
+            "stamp",
+            "brokerage",
+            "venue",
+            "clearing",
+            "sec",
+            "taf",
+            "cat",
+            "pass_through",
+            "slippage",
+            "notional",
+            "cap_applied",
+            "total",
+            "slot",
+            "trade_date"
+          ],
+          "trade_date_bounds": [
+            "2023-01-04 00:00:00",
+            "2026-10-08 00:00:00"
+          ]
+        },
+        "trace": {
+          "type": "DataFrame",
+          "rows": 944,
+          "columns": [
+            "trade_date",
+            "slippage_bps",
+            "known_nav",
+            "risk_state",
+            "risk_clock",
+            "current_beta_cap",
+            "execute_open_target",
+            "recovery_probability",
+            "recovery_action",
+            "spendable_cash",
+            "receivable",
+            "decision_at",
+            "portfolio_drawdown",
+            "raw_effective_beta",
+            "raw_soxl_weight",
+            "raw_soxx_weight",
+            "raw_cash_weight",
+            "tail_probability",
+            "alpha_probability",
+            "portfolio_ret_1d",
+            "portfolio_ret_3d",
+            "portfolio_ret_5d",
+            "target_soxl_weight",
+            "target_soxx_weight",
+            "target_cash_weight",
+            "pretrade_soxl_weight",
+            "pretrade_soxx_weight",
+            "pretrade_cash_weight",
+            "soxl_weight_delta",
+            "soxx_weight_delta",
+            "effective_beta_delta",
+            "open_turnover",
+            "path_control_X",
+            "path_control_Y",
+            "path_control_X_squared",
+            "path_control_XY",
+            "path_control_Y_squared",
+            "path_control_Qx",
+            "path_control_Qxy",
+            "path_control_Qy",
+            "prefix_mask",
+            "path_area_signed",
+            "execute_probability",
+            "source_target_soxl_weight",
+            "source_target_soxx_weight",
+            "source_target_cash_weight",
+            "postfill_soxl_weight",
+            "postfill_soxx_weight",
+            "postfill_cash_weight",
+            "filled_order_count",
+            "total_order_fees_usd",
+            "projected_target_soxl_weight",
+            "projected_target_soxx_weight",
+            "projected_target_cash_weight"
+          ],
+          "trade_date_bounds": [
+            "2023-01-04 00:00:00",
+            "2026-10-08 00:00:00"
+          ]
+        }
+      }
+    },
+    "native/B_path_control_2": {
+      "type": "dict",
+      "keys": [
+        "authority",
+        "orders",
+        "native_orders",
+        "native_report",
+        "native_positions",
+        "native_indicators",
+        "points",
+        "independent_points",
+        "corporate_receipts",
+        "native_corporate_receipts",
+        "targets",
+        "reconciliation",
+        "audit"
+      ],
+      "children": {
+        "authority": {
+          "type": "DataFrame",
+          "rows": 944,
+          "columns": [
+            "signal_date",
+            "trade_date",
+            "exit_date",
+            "turnover",
+            "fees",
+            "broker_and_external_fees_usd",
+            "slippage_reserve_usd",
+            "portfolio_drawdown",
+            "monitored_drawdown",
+            "risk_state",
+            "risk_clock",
+            "current_beta_cap",
+            "execute_open_target",
+            "recovery_action",
+            "strategy_return",
+            "equity",
+            "native_expected_nav",
+            "ending_soxl_quantity",
+            "ending_soxx_quantity",
+            "ending_cash",
+            "ending_spendable_cash",
+            "ending_receivable",
+            "ending_soxl_weight",
+            "ending_soxx_weight",
+            "ending_cash_weight"
+          ],
+          "trade_date_bounds": [
+            "2023-01-04 00:00:00",
+            "2026-10-08 00:00:00"
+          ]
+        },
+        "orders": {
+          "type": "DataFrame",
+          "rows": 1271,
+          "columns": [
+            "symbol",
+            "sell",
+            "raw_shares",
+            "adjusted_amount",
+            "raw_price",
+            "adjusted_price",
+            "stamp",
+            "brokerage",
+            "venue",
+            "clearing",
+            "sec",
+            "taf",
+            "cat",
+            "pass_through",
+            "slippage",
+            "notional",
+            "cap_applied",
+            "total",
+            "slot",
+            "trade_date"
+          ],
+          "trade_date_bounds": [
+            "2023-01-04 00:00:00",
+            "2026-10-08 00:00:00"
+          ]
+        },
+        "audit": {
+          "type": "dict",
+          "keys": [
+            "status",
+            "sessions",
+            "points",
+            "orders",
+            "max_relative_error",
+            "native_CA_from_own_positions",
+            "receivable_in_NAV_not_spendable",
+            "currency_assumption",
+            "historical_PIT_qualified"
+          ],
+          "children": {}
+        }
+      }
+    },
+    "decision_chain/B_path_control_2": {
+      "type": "dict",
+      "keys": [
+        "summary",
+        "daily",
+        "periods",
+        "rolling_126"
+      ],
+      "children": {
+        "daily": {
+          "type": "DataFrame",
+          "rows": 944,
+          "columns": [
+            "trade_date",
+            "strategy_return",
+            "source_target_known",
+            "source_target_soxl",
+            "source_target_soxx",
+            "source_target_cash",
+            "projected_target_known",
+            "projected_target_soxl",
+            "projected_target_soxx",
+            "projected_target_cash",
+            "postfill_weights_known",
+            "postfill_weights_soxl",
+            "postfill_weights_soxx",
+            "postfill_weights_cash",
+            "source_target_to_projected_target_l1",
+            "projected_target_to_postfill_weights_l1",
+            "order_count",
+            "fees_usd",
+            "sessions_since_last_filled_order"
+          ],
+          "trade_date_bounds": [
+            "2023-01-04 00:00:00",
+            "2026-10-08 00:00:00"
+          ]
+        }
+      }
+    },
+    "analysis/soxx_objective": {
+      "type": "dict",
+      "keys": [
+        "contract_version",
+        "candidate_family",
+        "status",
+        "historical_pass",
+        "gates",
+        "policy_status",
+        "expected_statistics",
+        "legacy_analysis_gates",
+        "diagnostic_comparisons",
+        "assessment_scope",
+        "independent_forward_qualified",
+        "promotion_eligible",
+        "goal_complete",
+        "provenance"
+      ],
+      "children": {}
+    }
+  },
+  "new_fits_accounts_bootstraps_or_replays": 0,
+  "qualification_boundary": "Structure inventory only. Existing cash/recovery observations are descriptive, not a causal counterfactual or SOXX excess."
+}

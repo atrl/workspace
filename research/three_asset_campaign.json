@@ -19,18 +19,19 @@
     "source": "get_goal current thread; previous observation retained in campaign history"
   },
   "current_task": {
-    "card": "research/risk_projection_reachability_20261022",
-    "phase": "distinct_risk_projection_opportunity_cost_design_only_no_execution",
+    "card": "research/risk_projection_reachability_native_v4_20261022",
+    "phase": "development_counterfactual_complete_next_distinct_information_mechanism_design",
     "implementation_executor": null,
     "independent_reviewer": null,
-    "next_action": "Freeze a bounded training-period native counterfactual separating risk-projection tail protection from SOXX rebound opportunity cost and test whether the recorded recovery state is reachable, using exact P3 Recorder paths and independently settled fees/holdings. Do not retune the closed inventory factor or P3 thresholds; no arrays or account until exact design and source identities are frozen.",
-    "last_scientific_observation": "The fixed four-issuer original inventory-sales SOXX H63 information version is not promoted: 43 train and 24 held months, expected negative fitted signal coefficient, but held paired MSE improvement -0.00791519 (2024 and 2025 each negative), bootstrap lower -0.01994394, held raw signal/return correlation +0.614 diagnostic. No account, fee-net SOXX excess or independent forward evidence.",
-    "last_operational_observation": "Information notebook exited0 with two Qlib Dataset-backed Ridge fits, one stationary bootstrap, one SOXX D.calendar and D.features read, zero accounts. Seven hash-verified native Recorder objects were read back without refit/resample; result review accepted the negative fixed conclusion. Recorder 2033653213e1487caefe4790826f6ced archived to NAS. No live process.",
+    "next_action": "Freeze a distinct pretrade source-target information mechanism and qualified source/timing before any new economic run. Native 2023 account shows projection sacrifices upside but raw target still trails SOXX and worsens tail risk. Do not lower P3 recovery threshold or tune on reused path.",
+    "last_scientific_observation": "Native 2023 2bp source-target account: return 59.5541% vs projected B2 37.4116% vs SOXX 60.3186%; source/SOXX terminal wealth 0.9952315; source MaxDD -23.2592% vs B2 -20.5007%, CVaR5 -4.1943% vs -4.0215%. Recovery threshold 0.825 unreachable across 204 eligible forecasts (max 0.7615). Diagnostic only, no qualified forward days.",
+    "last_operational_observation": "One independent 2023 Qlib native account reconciled 249 sessions and 998 points; Recorder a99a9f12bf564bd4bd30d2640e7067cd verified by targeted native/analysis readback. V1/v2/v3 engineering failures retained. No model fits or promotion.",
     "design_brief": "research/risk_projection_reachability_20261022/design_brief.json",
     "closed_information_card": "research/inventory_sales_soxx_h63_information_20261022",
     "closed_information_result": "research/inventory_sales_soxx_h63_information_20261022/result_review.json",
     "source_failure_attribution": "research/path_area_action_bridge_20261018/P3/failure_attribution.json",
-    "execution_authorized": false
+    "execution_authorized": false,
+    "result": "research/risk_projection_reachability_native_v4_20261022/summary.json"
   },
   "parallel_engineering": {
     "runtime": "implemented_and_reviewed",
@@ -56,17 +57,17 @@
     ]
   },
   "active_index": "research/active_research_index.json",
-  "updated_at_utc": "2026-10-22T03:12:52+00:00",
+  "updated_at_utc": "2026-10-22T03:39:45.864267+00:00",
   "execution_totals": {
     "new_model_fits": 41,
-    "new_native_accounts": 43,
+    "new_native_accounts": 44,
     "completed_fixed_economic_experiments": 7,
     "completed_training_bridges_added": 1,
     "reused_native_reference_events": 96,
     "unique_reused_reference_accounts": 15,
     "historical_passing_candidates": 0,
     "qualified_forward_days": 0,
-    "basis": "Historical campaign totals now include one additional fixed two-fit, zero-account inventory-sales information screen (not promoted); 41 fits, 43 native accounts, seven closed economic and three closed information experiments, zero historical pass and zero qualified forward days. Source-only cards did not add fits/accounts.",
+    "basis": "Prior totals plus one completed 2023 source-target native diagnostic account. Historical passing candidates and qualified forward days remain zero.",
     "completed_fixed_information_experiments": 3,
     "completed_source_qualifications": 2,
     "completed_source_repairs": 2,
