@@ -14,18 +14,16 @@
       "result": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json"
     },
     {
-      "card": "research/cboe_total_activity_variance_information_20261022",
-      "phase": "source_gate_pending_notebook_preflight_verified",
-      "role": "separate_total_option_activity_variance_mechanism",
+      "card": "research/cboe_total_options_activity_source_20261022",
+      "phase": "five_distinct_trade_date_forward_source_observation",
+      "role": "source_only_option_activity_publication_and_revision_tracking",
       "full_economic_experiment": false,
-      "status": "two_frozen_vintages_only_no_model_fit_third_due_1245_UTC",
+      "status": "third_2026_10_21_vintage_stable_information_screen_closed",
       "execution_authorized": true,
-      "design_brief": "research/cboe_total_activity_variance_information_20261022/precommitted_information_plan.json",
-      "implementation_notebook": "research/cboe_total_activity_variance_information_20261022/cboe_total_activity_variance_information_20261022.ipynb",
-      "execution_binding": "research/cboe_total_activity_variance_information_20261022/execution_binding.json",
+      "third_source_receipt": "research/cboe_total_options_activity_source_20261022/forward_observations/20261022T124518986131Z.json",
+      "third_source_archive": "research/cboe_total_options_activity_source_20261022/third_source_archive_receipt.json",
       "follow_on_source_plan": "research/cboe_total_options_activity_source_20261022/multiday_forward_plan.json",
-      "transport_identity_clarification": "research/cboe_total_options_activity_source_20261022/forward_transport_identity_clarification.json",
-      "contingent_economic_design": "research/cboe_variance_conditional_composition_20261022/design_brief.json"
+      "transport_identity_clarification": "research/cboe_total_options_activity_source_20261022/forward_transport_identity_clarification.json"
     },
     {
       "card": "research/korea_semiconductor_exports_korean_vintage_20261022",
@@ -98,6 +96,14 @@
       "result": "research/path_area_action_bridge_20261018/P3_result_overview.json"
     },
     {
+      "card": "research/cboe_total_activity_variance_information_20261022",
+      "status": "not_promoted_information_gate_failed",
+      "default_search": false,
+      "evidence_preserved": true,
+      "result": "research/cboe_total_activity_variance_information_20261022/result_review.json",
+      "contingent_economic_closeout": "research/cboe_variance_conditional_composition_20261022/dependency_closeout.json"
+    },
+    {
       "card": "research/basket_etf_lead_information_20261020",
       "status": "not_promoted_information_screen",
       "default_search": false,
@@ -152,16 +158,17 @@
     "all provider bin files for documentation"
   ],
   "next_information_need": {
-    "status": "two_bounded_forward_source_checks_due_market_hours",
-    "topic": "Cboe total activity vintage stability and IBKR SOXX option IV/Delta availability",
+    "status": "Cboe_third_vintage_complete_IBKR_regular_hours_check_pending",
+    "topic": "IBKR SOXX option IV/Delta availability and Cboe multiday source-only observation",
     "evidence": "research/ibkr_soxx_option_skew_forward_source_20261022/sample_result.json",
-    "constraint": "At/after 2026-10-22 12:45 UTC run one remaining Cboe preopen vintage; at 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. No source is a qualified factor or economic strategy.",
+    "constraint": "Third Cboe Oct21 same-date vintage was stable and exact bytes are backed up on NAS; its fixed future-variance information screen failed, so its conditional-composition design is closed without accounts. At 13:35-19:55 UTC run only three frozen read-only IBKR snapshots. Distinct Cboe forward dates remain source-only. No source is a qualified economic strategy.",
     "execution_authorized": false,
     "parallel_source_gap": "All 93 Korean current-document monthly table cells are accounted for. The 2020-05 p6 discrepancy remains visible but an earlier source-only audit had already selected the detailed table as current-document semantics. Historical first-public PDF vintages and availability timing remain unqualified; no Korea factor or SOXX account may be run.",
     "parallel_source_progress": "research/korea_semiconductor_exports_korean_vintage_20261022/korean_numeric_semantics_reconciliation.json",
     "closed_PPI_information_result": "research/semiconductor_ppi_leverage_information_20261022/result_review.json",
     "follow_on_Cboe_source_plan": "research/cboe_total_options_activity_source_20261022/multiday_forward_plan.json",
-    "contingent_Cboe_economic_design": "research/cboe_variance_conditional_composition_20261022/design_brief.json",
+    "closed_Cboe_information_result": "research/cboe_total_activity_variance_information_20261022/result_review.json",
+    "closed_Cboe_economic_dependency": "research/cboe_variance_conditional_composition_20261022/dependency_closeout.json",
     "prospective_Korean_original_release_plan": "research/korea_semiconductor_exports_korean_vintage_20261022/forward_oct_2026_publication_plan.json",
     "parallel_TSMC_issuer_source_probe": "research/tsmc_monthly_revenue_release_source_20261022/alternate_issuer_press_review.json",
     "TSMC_prospective_capture_plan": "research/tsmc_monthly_revenue_release_source_20261022/future_2026_10_press_capture_plan.json"
